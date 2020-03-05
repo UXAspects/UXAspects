@@ -3,37 +3,84 @@
         <h3 class="uxd-component-section-title">{{ title }}</h3>
 
         <div class="uxd-component-section-attributes">
-
-             <!-- Show the Plunker link if required -->
-            <uxd-edit-example-link *ngIf="playground" [title]="title" [content]="playground" [version]="version">Edit in Plunker</uxd-edit-example-link>
+            <!-- Show the Plunker link if required -->
+            <uxd-edit-example-link
+                *ngIf="playground"
+                [title]="title"
+                [content]="playground"
+                [version]="version"
+                >Edit in Plunker</uxd-edit-example-link
+            >
 
             <!-- Show usage link if required -->
             <uxd-usage-link *ngIf="usage" [usage]="usage"></uxd-usage-link>
 
             <!-- Show the Angular Version -->
-            <span *ngIf="version === 'AngularJS'" class="label label-primary uxd-component-section-labels">AngularJS</span>
-            <span *ngIf="version === 'Angular'" class="label label-accent uxd-component-section-labels">Angular</span>
+            <span
+                *ngIf="version === 'AngularJS'"
+                class="label label-primary uxd-component-section-labels"
+                >AngularJS</span
+            >
+            <span
+                *ngIf="version === 'Angular'"
+                class="label label-accent uxd-component-section-labels"
+                >Angular</span
+            >
 
-            <a *ngIf="hybrid" href="javascript:void(0)" class="label label-accent uxd-component-section-labels"
-                [uxPopover]="hybridHelpContent" placement="bottom" popoverClass="uxd-component-section-help-popover">Angular Compatible</a>
+            <a
+                *ngIf="hybrid"
+                href="javascript:void(0)"
+                class="label label-accent uxd-component-section-labels"
+                [uxPopover]="hybridHelpContent"
+                placement="bottom"
+                popoverClass="uxd-component-section-help-popover"
+                >Angular Compatible</a
+            >
 
             <!-- Identify as External plugin -->
-            <a *ngIf="externalUrl" role="button" class="label label-warning uxd-component-section-labels"
+            <a
+                *ngIf="externalUrl"
+                role="button"
+                class="label label-warning uxd-component-section-labels"
                 uxTooltip="This component is from a third party library and not included in the UX Aspects component library."
-                placement="bottom" [href]="externalUrl" target="_blank" rel="noopener">External</a>
+                placement="bottom"
+                [href]="externalUrl"
+                target="_blank"
+                rel="noopener"
+                >External</a
+            >
 
             <!-- Show Deprecated label if required -->
-            <span *ngIf="deprecated && !deprecatedLink" class="label label-critical uxd-component-section-labels"
+            <span
+                *ngIf="deprecated && !deprecatedLink"
+                class="label label-critical uxd-component-section-labels"
                 uxTooltip="This component has been deprecated and will be removed in the next major version of UX Aspects."
-                placement="bottom">Deprecated</span>
+                placement="bottom"
+                >Deprecated</span
+            >
 
             <!-- Deprecated label with link to another section -->
-            <a *ngIf="deprecatedLink" class="label label-critical uxd-component-section-labels"
-                [routerLink]="deprecatedLink.link" [fragment]="deprecatedLink.fragment"
+            <a
+                *ngIf="deprecatedLink"
+                class="label label-critical uxd-component-section-labels"
+                [routerLink]="deprecatedLink.link"
+                [fragment]="deprecatedLink.fragment"
                 uxTooltip="This component has been deprecated and will be removed in the next major version of UX Aspects."
-                placement="bottom">Deprecated</a>
-        </div>
+                placement="bottom"
+                >Deprecated</a
+            >
 
+            <!-- Schematic info -->
+            <a
+                *ngIf="schematic"
+                href="javascript:void(0)"
+                class="label label-alternate1 uxd-component-section-labels"
+                [uxPopover]="schematicContent"
+                placement="bottom"
+                popoverClass="ux-popover-schematic-tag"
+                >Schematic</a
+            >
+        </div>
     </ux-ebox-header>
 
     <ux-ebox-content class="uxd-component-section-content">
@@ -43,25 +90,40 @@
 
 <ng-template #hybridHelpContent>
     <p>
-        To use this AngularJS component in an Angular application, import <code>HybridModule</code> into the module
-        where it will be used.
+        To use this AngularJS component in an Angular application, import
+        <code>HybridModule</code> into the module where it will be used.
     </p>
 
     <uxd-snippet [code]="hybridModuleTs" language="javascript"></uxd-snippet>
 
     <p>
-        The component name remains the same; however, the following should be considered when using this component
-        in an Angular template:
+        The component name remains the same; however, the following should be
+        considered when using this component in an Angular template:
     </p>
 
     <ul>
         <li>
-            Property names use camel case, so a property named <code>on-next</code> becomes <code>onNext</code>.
+            Property names use camel case, so a property named
+            <code>on-next</code> becomes <code>onNext</code>.
         </li>
         <li>
-            Angular binding syntax must be used, so a property with variable or function binding named <code>valid</code>
-            would be written as <code>[valid]</code> for one-way binding, or <code>[(valid)]</code> for two-way binding
-            (if supported).
+            Angular binding syntax must be used, so a property with variable or
+            function binding named <code>valid</code> would be written as
+            <code>[valid]</code> for one-way binding, or
+            <code>[(valid)]</code> for two-way binding (if supported).
         </li>
     </ul>
+</ng-template>
+
+<ng-template #schematicContent>
+    <p>
+        Scaffold this component using the
+        <a
+            href="https://github.houston.softwaregrp.net/caf/ux-aspects-schematics"
+            target="_blank"
+            >UX Aspects schematics</a
+        >:
+    </p>
+
+    <pre>{{ schematic }}</pre>
 </ng-template>

@@ -356,8 +356,15 @@ export interface ISection {
     title: string;
     component: string;
     version: 'AngularJS' | 'Angular';
+    hybrid?: boolean;
     deprecated?: boolean;
+    deprecatedFor?: string;
     externalUrl?: string;
+    schematic?: string;
+    usage: [{
+        title: string;
+        content: string;
+    }];
 }
 ```
 
@@ -443,7 +450,7 @@ Follow these steps to run the tests in a CI environment locally:
 1. `npm run docker:ci`
     * This starts a Linux Docker container, and spawns an interactive shell. Enter the subsequent commands at the resulting prompt in order to execute them within the container.
 2. `npm ci`
-    * Note that `npm run docker:ci` uses `.node_modules__docker` on your host environment to store node modules for the Linux platform. Therefore `npm ci` is only required when package updates have been made. 
+    * Note that `npm run docker:ci` uses `.node_modules__docker` on your host environment to store node modules for the Linux platform. Therefore `npm ci` is only required when package updates have been made.
 3. `npm run build:library`
 4. `npm run test:e2e`
 

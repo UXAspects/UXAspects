@@ -23,6 +23,7 @@ export class ComponentSectionComponent implements OnInit {
     @Input() deprecatedFor: string;
     @Input() externalUrl: string;
     @Input() usage: Usage[];
+    @Input() schematic: string;
 
     @ViewChild('container', { read: ViewContainerRef, static: true }) viewContainer: ViewContainerRef;
 
