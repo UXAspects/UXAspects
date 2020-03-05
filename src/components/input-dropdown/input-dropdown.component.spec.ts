@@ -5,8 +5,9 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RadioButtonModule } from '../radiobutton/radiobutton.module';
 import { InputDropdownComponent } from './input-dropdown.component';
 import { InputDropdownModule } from './input-dropdown.module';
+import { FormsModule } from '@angular/forms';
 
-describe('InputDropdownComponent', () => {
+fdescribe('InputDropdownComponent', () => {
     let component: InputDropdownComponent<any>;
     let fixture: ComponentFixture<InputDropdownComponent<any>>;
 
@@ -109,7 +110,7 @@ export class InputDropdownTestComponent {
     }
 }
 
-describe('InputDropdownComponent', () => {
+fdescribe('InputDropdownComponent', () => {
     let component: InputDropdownTestComponent;
     let fixture: ComponentFixture<InputDropdownTestComponent>;
     let nativeElement: HTMLElement;
@@ -122,7 +123,8 @@ describe('InputDropdownComponent', () => {
             imports: [
                 InputDropdownModule,
                 NoopAnimationsModule,
-                RadioButtonModule
+                RadioButtonModule,
+                FormsModule
             ],
             declarations: [InputDropdownTestComponent]
         }).compileComponents();
