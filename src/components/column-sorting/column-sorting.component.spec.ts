@@ -6,7 +6,7 @@ import { ChangeDetectionStrategy, DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { IconComponent } from '../icon';
 
-fdescribe('Column Sorting Component', () => {
+describe('Column Sorting Component', () => {
     let fixture: ComponentFixture<ColumnSortingComponent>;
     let component: ColumnSortingComponent;
     let harness: ColumnSortingTestHarness;
@@ -22,13 +22,15 @@ fdescribe('Column Sorting Component', () => {
         }).overrideComponent(ColumnSortingComponent, {
             set: { changeDetection: ChangeDetectionStrategy.Default }
         }).compileComponents();
+    }));
 
+    beforeEach(() => {
         fixture = TestBed.createComponent(ColumnSortingComponent);
         component = fixture.componentInstance;
         harness = new ColumnSortingTestHarness(fixture);
         component.key = 'name-column';
         fixture.detectChanges();
-    }));
+    });
 
     it('should not be sorted by default', () => {
         expect(harness.getIconVisible()).toBeFalsy();
@@ -134,7 +136,7 @@ fdescribe('Column Sorting Component', () => {
         expect(harness.getIconName()).toBe('ascend');
         expect(harness.getOrder()).toBe('1');
         expect(harness.stateChangeSpy).toHaveBeenCalledWith(ColumnSortingState.Ascending);
-        expect(harness.stateChangeSpy).toHaveBeenCalledTimes(1);
+        expect(harness.stateChangeSpy).toHaveBeenCalledTimes(2);
         expect(harness.orderChangeSpy).toHaveBeenCalledWith(1);
         expect(harness.orderChangeSpy).toHaveBeenCalledTimes(1);
     });
