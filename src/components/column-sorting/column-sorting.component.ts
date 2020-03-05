@@ -68,7 +68,7 @@ export class ColumnSortingComponent implements OnInit, OnChanges, OnDestroy {
     }
 
     /** Toggle the sorting state of a column - this is designed to be programmatically called by the consuming component */
-    changeState(): ReadonlyArray<ColumnSortingOrder> {
+    changeState(): ColumnSortingOrder[] {
 
         switch (this.state) {
 
@@ -87,8 +87,8 @@ export class ColumnSortingComponent implements OnInit, OnChanges, OnDestroy {
         // change detection should be run
         this._changeDetector.markForCheck();
 
-        // inform parent
-        return this._sorter.toggleColumn({ key: this.key, state: this.state });
+        // inform parent (internally we use a ReadonlyArray but are returning a standard array to prevent breaking changes to the public API)
+        return this._sorter.toggleColumn({ key: this.key, state: this.state }) as ColumnSortingOrder[];
     }
 
     /** Update the state based on column order */

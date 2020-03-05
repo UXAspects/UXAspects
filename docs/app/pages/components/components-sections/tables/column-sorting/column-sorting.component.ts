@@ -91,8 +91,8 @@ export class ComponentsColumnSortingComponent extends BaseDocumentationSection i
         ]
     };
 
-    sparkTrackColor = this._colorService.getColor('accent').setAlpha(0.2).toRgba();
-    sparkBarColor = this._colorService.getColor('accent').toHex();
+    sparkTrackColor = this._colorService.getColor('chart2').setAlpha(0.2).toRgba();
+    sparkBarColor = this._colorService.getColor('chart2').toHex();
 
     constructor(private _colorService: ColorService, private _announcer: LiveAnnouncer) {
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));

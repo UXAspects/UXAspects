@@ -69,10 +69,11 @@ export class AppComponent {
         active: chance.bool()
     }];
 
-    sparkTrackColor = this._colorService.getColor('accent').setAlpha(0.2).toRgba();
-    sparkBarColor = this._colorService.getColor('accent').toHex();
+    sparkTrackColor = this._colorService.getColor('chart2').setAlpha(0.2).toRgba();
+    sparkBarColor = this._colorService.getColor('chart2').toHex();
 
-    constructor(private _colorService: ColorService, private _announcer: LiveAnnouncer) { }
+    constructor(private _colorService: ColorService, private _announcer: LiveAnnouncer) {
+    }
 
     changeState(title: string, column: ColumnSortingComponent) {
         this.order = column.changeState();
@@ -112,13 +113,13 @@ export class AppComponent {
 
             case ColumnSortingState.Ascending:
                 return column.order ?
-                    `${ title }: Ascending sort with priority ${column.order}
+                    `${ title }: Ascending sort with priority ${ column.order }
                     applied, activate to apply a Descending sort` :
                     `${ title }: Ascending sort applied, activate to apply a Descending sort`;
 
             case ColumnSortingState.Descending:
                 return column.order ?
-                    `${ title }: Descending sort with priority ${column.order} applied,
+                    `${ title }: Descending sort with priority ${ column.order } applied,
                     activate to apply no sorting` :
                     `${ title }: Descending sort applied, activate to apply no sorting`;
 
