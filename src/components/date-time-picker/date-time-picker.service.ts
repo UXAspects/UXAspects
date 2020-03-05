@@ -168,7 +168,7 @@ export class DateTimePickerService implements OnDestroy {
             return false;
         }
 
-        return this.timezones$.value.findIndex(_timezone => _timezone.offset === timezone.offset) !== -1;
+        return this.timezones$.value.findIndex(_timezone => _timezone.offset === timezone.offset && _timezone.name === timezone.name) !== -1;
     }
 
     getDefaultTimezone(): DateTimePickerTimezone {
