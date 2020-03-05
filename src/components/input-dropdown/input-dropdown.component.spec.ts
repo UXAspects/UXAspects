@@ -1,5 +1,5 @@
 import { OverlayContainer } from '@angular/cdk/overlay';
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, SimpleChange } from '@angular/core';
 import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RadioButtonModule } from '../radiobutton/radiobutton.module';
@@ -9,8 +9,6 @@ import { InputDropdownModule } from './input-dropdown.module';
 describe('InputDropdownComponent', () => {
     let component: InputDropdownComponent<any>;
     let fixture: ComponentFixture<InputDropdownComponent<any>>;
-    let overlayContainer: OverlayContainer;
-    let overlayContainerElement: HTMLElement;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
@@ -48,33 +46,37 @@ describe('InputDropdownComponent', () => {
     });
 
     it('should write value', () => {
-        spyOn(component.selectedChange, 'emit');
+        const selectedSpy = spyOn(component.selectedChange, 'emit');
         const newValue = 'Bla';
-
         component.writeValue(newValue);
-
         expect(component.selected).toEqual(newValue);
+        expect(selectedSpy).not.toHaveBeenCalled();
     });
 
-    it('should register onChange', () => {
-        const callbackObject = { callback: () => true };
-        spyOn(callbackObject, 'callback');
+    it('should send the selected value to Angular Forms when a item is selected', () => {
+        const onChangeSpy = spyOn(component, 'onChange');
         const newValue = 'Blubb';
 
-        component.registerOnChange(callbackObject.callback);
-        component.onChange(newValue);
+        // ideally we should have a test suits using ngModel or reactive forms, but for now this
+        // will emulate an item being selected
+        component.ngOnChanges({
+            selected: new SimpleChange(null, newValue, false)
+        });
 
-        expect(callbackObject.callback).toHaveBeenCalledWith(newValue);
+        expect(onChangeSpy).toHaveBeenCalledWith(newValue);
+        expect(onChangeSpy).toHaveBeenCalledTimes(1);
     });
 
     it('should register onTouched', () => {
-        const callbackObject = { callback: () => true };
-        spyOn(callbackObject, 'callback');
+        const onTouchedSpy = spyOn(component, 'onTouched');
 
-        component.registerOnTouched(callbackObject.callback);
-        component.onTouched();
+        // ideally we should have a test suits using ngModel or reactive forms, but for now this
+        // will emulate an item being selected
+        component.ngOnChanges({
+            selected: new SimpleChange(null, 'One', false)
+        });
 
-        expect(callbackObject.callback).toHaveBeenCalledWith();
+        expect(onTouchedSpy).toHaveBeenCalledTimes(1);
     });
 });
 
@@ -82,18 +84,16 @@ describe('InputDropdownComponent', () => {
     selector: 'app-dropdown-test',
     template: `
         <ux-input-dropdown
-            [dropdownOpen]="dropdownOpen"
-            (dropdownOpenChange)="dropdownOpenChange($event)">
+            [(dropdownOpen)]="dropdownOpen"
+            (dropdownOpenChange)="onOpenChange($event)">
 
             <ng-template #displayContent>
-                <b>Selection:</b> {{ selected ? selected.name : '(none)' }}
+                <b>Selection:</b> {{ selected ? selected : '(none)' }}
             </ng-template>
 
-            <div class="radio-button-container"
-                 uxTabbableList>
-                <ux-radio-button
-                    uxTabbableListItem
-                    *ngFor="let option of filteredOptionList">
+            <div class="radio-button-container" uxTabbableList uxRadioButtonGroup [(ngModel)]="selected">
+                <ux-radio-button uxTabbableListItem *ngFor="let option of options">
+                    {{ option }}
                 </ux-radio-button>
             </div>
         </ux-input-dropdown>
@@ -101,14 +101,12 @@ describe('InputDropdownComponent', () => {
 })
 export class InputDropdownTestComponent {
 
-    inputFocusHandler() {
-        this.dropdownOpen = true;
-        this.dropdownOpenChange.emit(this.dropdownOpen);
-    }
+    dropdownOpen: boolean = false;
+    options: string[] = ['One', 'Two', 'Three'];
+    selected: string = null;
 
-    /** Emits when `dropdownOpen` changes. */
-    @Output() dropdownOpenChange = new EventEmitter<boolean>();
-    @Input() dropdownOpen: boolean = false;
+    onOpenChange(isOpen: boolean): void {
+    }
 }
 
 describe('InputDropdownComponent', () => {
@@ -117,6 +115,7 @@ describe('InputDropdownComponent', () => {
     let nativeElement: HTMLElement;
     let overlayContainer: OverlayContainer;
     let overlayContainerElement: HTMLElement;
+    let openChangeSpy: jasmine.Spy;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
@@ -137,6 +136,7 @@ describe('InputDropdownComponent', () => {
         fixture = TestBed.createComponent(InputDropdownTestComponent);
         component = fixture.componentInstance;
         nativeElement = fixture.nativeElement;
+        openChangeSpy = spyOn(component, 'onOpenChange');
         fixture.detectChanges();
     }));
 
@@ -145,7 +145,6 @@ describe('InputDropdownComponent', () => {
     });
 
     it('should open dropdown when dropdownOpen is programmatically set to true', async () => {
-
         component.dropdownOpen = true;
 
         fixture.detectChanges();
@@ -153,10 +152,10 @@ describe('InputDropdownComponent', () => {
 
         const dropdown = document.querySelector('.filter-container');
         expect(dropdown).toBeTruthy();
+        expect(openChangeSpy).not.toHaveBeenCalled();
     });
 
     it('should close dropdown when dropdownOpen is programmatically set to false', async () => {
-
         component.dropdownOpen = true;
 
         fixture.detectChanges();
@@ -169,32 +168,26 @@ describe('InputDropdownComponent', () => {
 
         const filter = document.querySelector('.filter-container');
         expect(filter).toBeFalsy();
+
+        expect(openChangeSpy).not.toHaveBeenCalled();
     });
 
-    it('dropdownOpenChange should not emit when dropdownOpen is programmatically set', async () => {
-
-        component.dropdownOpen = true;
-
-        fixture.detectChanges();
-        await fixture.whenStable();
-
-        spyOn(component.dropdownOpenChange, 'emit');
-        component.dropdownOpen = false;
+    it('dropdownOpenChange should emit when the dropdown is toggled non-programmatically', async () => {
+        let trigger = nativeElement.querySelector('button.form-control') as HTMLButtonElement;
+        trigger.click();
 
         fixture.detectChanges();
         await fixture.whenStable();
 
-        expect(component.dropdownOpenChange.emit).not.toHaveBeenCalled();
-    });
+        expect(openChangeSpy).toHaveBeenCalledTimes(1);
+        expect(openChangeSpy).toHaveBeenCalledWith(true);
 
-    it('dropdownOpenChange should emit when dropdownOpen is set by the component', async () => {
+        trigger.click();
 
-        spyOn(component.dropdownOpenChange, 'emit');
-
-        component.inputFocusHandler();
         fixture.detectChanges();
         await fixture.whenStable();
 
-        expect(component.dropdownOpenChange.emit).toHaveBeenCalledWith(true);
+        expect(openChangeSpy).toHaveBeenCalledTimes(2);
+        expect(openChangeSpy).toHaveBeenCalledWith(false);
     });
 });

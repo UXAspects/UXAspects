@@ -77,7 +77,7 @@ export class ComponentsInputDropdownComponent extends BaseDocumentationSection i
                 this.optionList;
     }
 
-    dropdownOpenChange(value: boolean) {
+    dropdownOpenChange(value: boolean): void {
         this.dropdownOpen = value;
     }
 }
