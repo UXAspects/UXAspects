@@ -66,12 +66,10 @@ export class InputDropdownComponent<T> implements ControlValueAccessor, AfterVie
     _maxHeight: string;
 
     /** Store the change callback provided by Angular Forms */
-    onChange: (_: T) => void = () => {
-    };
+    onChange: (_: T) => void = () => { };
 
     /** Store the touched callback provided by Angular Forms */
-    onTouched: () => void = () => {
-    };
+    onTouched: () => void = () => { };
 
     /** Unsubscribe from all observables on component destroy */
     private readonly _onDestroy$ = new Subject<void>();
