@@ -4,8 +4,11 @@
         class="filter-dropdown btn dropdown-toggle"
         [class.active]="selected !== initial"
         [uxMenuTriggerFor]="menu">
-
-        {{ selected?.title }} <ux-icon name="down"></ux-icon>
+        {{ selected?.group }} 
+            <span class="filter-title" *ngIf="selected !== initial">
+                ({{ selected?.title }})
+            </span> 
+        <ux-icon name="down"></ux-icon>
     </button>
 
     <ux-menu #menu menuClass="ux-filter-menu">
