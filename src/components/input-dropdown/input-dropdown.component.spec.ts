@@ -82,14 +82,8 @@ describe('InputDropdownComponent', () => {
     selector: 'app-dropdown-test',
     template: `
         <ux-input-dropdown
-            [(selected)]="selected"
             [dropdownOpen]="dropdownOpen"
-            (dropdownOpenChange)="dropdownOpenChange($event)"
-            (filterChange)="setFilter($event)"
-            [allowNull]="allowNull"
-            [maxHeight]="maxHeight"
-            [placeholder]="placeholder"
-            aria-label="Filter input">
+            (dropdownOpenChange)="dropdownOpenChange($event)">
 
             <ng-template #displayContent>
                 <b>Selection:</b> {{ selected ? selected.name : '(none)' }}
@@ -99,16 +93,9 @@ describe('InputDropdownComponent', () => {
                  uxTabbableList>
                 <ux-radio-button
                     uxTabbableListItem
-                    *ngFor="let option of filteredOptionList"
-                    name="group"
-                    [(value)]="selected"
-                    [option]="option"
-                    (keydown.space)="selectOption($event, option)">
-                    <!-- <span [innerHTML]="option.name | highlightSearch: filter">
-                    </span> -->
+                    *ngFor="let option of filteredOptionList">
                 </ux-radio-button>
             </div>
-
         </ux-input-dropdown>
     `
 })
@@ -139,8 +126,6 @@ describe('InputDropdownComponent', () => {
                 RadioButtonModule
             ],
             declarations: [InputDropdownTestComponent]
-        }).overrideComponent(InputDropdownTestComponent, {
-            set: { changeDetection: ChangeDetectionStrategy.Default }
         }).compileComponents();
 
         // access the overlay container
