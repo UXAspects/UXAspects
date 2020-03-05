@@ -175,8 +175,6 @@ export class DateTimePickerService implements OnDestroy {
         const offset = new Date().getTimezoneOffset();
         const matchingZone = this.timezones$.value.find(_timezone => _timezone.offset === offset);
 
-        console.log(`getDefaultTimezone: offset = ${offset}; matchingZone = ${JSON.stringify(matchingZone)}`);
-
         return matchingZone || this.timezones$.value.find(_timezone => _timezone.offset === 0) || { name: 'GMT', offset: 0 };
     }
 
