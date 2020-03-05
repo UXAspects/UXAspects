@@ -94,13 +94,24 @@
         Defines a unique identifier for the column that can be used when sorting.
     </tr>
     <tr uxd-api-property name="state" type="ColumnSortingState">
-        Defines the sorting order of a column: <code>NoSort</code>, <code>Ascending</code> or <code>Descending</code>.
+        Defines the sorting direction of a column: <code>NoSort</code>, <code>Ascending</code> or
+        <code>Descending</code>.
+    </tr>
+    <tr uxd-api-property name="order" type="number">
+        Defines the sorting order of a column.
+    </tr>
+    <tr uxd-api-property name="allowNoSort" type="boolean" defaultValue="true">
+        Defines if a column can be toggled to the <code>NoSort</code> state. If set to <code>false</code> this will
+        toggle between the <code>Ascending</code> and <code>Descending</code> states when changing the sort direction.
     </tr>
 </uxd-api-properties>
 
 <uxd-api-properties tableTitle="Outputs">
     <tr uxd-api-property name="stateChange" type="ColumnSortingState">
         Emits when state changes.
+    </tr>
+    <tr uxd-api-property name="orderChange" type="number">
+        Emits when the sort order changes.
     </tr>
 </uxd-api-properties>
 
