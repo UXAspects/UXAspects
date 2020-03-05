@@ -7,7 +7,7 @@ import { InputDropdownComponent } from './input-dropdown.component';
 import { InputDropdownModule } from './input-dropdown.module';
 import { FormsModule } from '@angular/forms';
 
-fdescribe('InputDropdownComponent', () => {
+describe('InputDropdownComponent', () => {
     let component: InputDropdownComponent<any>;
     let fixture: ComponentFixture<InputDropdownComponent<any>>;
 
@@ -110,7 +110,7 @@ export class InputDropdownTestComponent {
     }
 }
 
-fdescribe('InputDropdownComponent', () => {
+describe('InputDropdownComponent', () => {
     let component: InputDropdownTestComponent;
     let fixture: ComponentFixture<InputDropdownTestComponent>;
     let nativeElement: HTMLElement;
