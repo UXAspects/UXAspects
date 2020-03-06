@@ -11624,6 +11624,15 @@
         /**
          * @return {?}
          */
+        DashboardComponent.prototype.ngOnChanges = /**
+         * @return {?}
+         */
+            function () {
+                this.dashboardService.renderDashboard();
+            };
+        /**
+         * @return {?}
+         */
         DashboardComponent.prototype.ngOnDestroy = /**
          * @return {?}
          */
@@ -12551,7 +12560,7 @@
             this._config = _config;
             this.mode$ = new rxjs.BehaviorSubject(DatePickerMode.Day);
             this.date$ = new rxjs.BehaviorSubject(new Date());
-            this.timezone$ = new rxjs.BehaviorSubject(this.getCurrentTimezone());
+            this.timezone$ = new rxjs.BehaviorSubject(null);
             this.selected$ = new rxjs.BehaviorSubject(new Date());
             // the month and year to display in the viewport
             this.month$ = new rxjs.BehaviorSubject(new Date().getMonth());
@@ -12655,9 +12664,9 @@
             function (day, month, year, hours, minutes, seconds) {
                 /** @type {?} */
                 var date = new Date(this.selected$.value);
-                date.setDate(day);
-                date.setMonth(month);
                 date.setFullYear(year);
+                date.setMonth(month);
+                date.setDate(day);
                 if (hours !== undefined) {
                     date.setHours(hours);
                 }
@@ -12755,28 +12764,31 @@
                 this.header$.next(header);
             };
         /**
+         * @param {?} timezone
          * @return {?}
          */
-        DateTimePickerService.prototype.getCurrentTimezone = /**
+        DateTimePickerService.prototype.isTimezoneAvailable = /**
+         * @param {?} timezone
+         * @return {?}
+         */
+            function (timezone) {
+                if (!timezone || !this.timezones$.value) {
+                    return false;
+                }
+                return this.timezones$.value.findIndex(function (_timezone) { return _timezone.offset === timezone.offset && _timezone.name === timezone.name; }) !== -1;
+            };
+        /**
+         * @return {?}
+         */
+        DateTimePickerService.prototype.getDefaultTimezone = /**
          * @return {?}
          */
             function () {
                 /** @type {?} */
                 var offset = new Date().getTimezoneOffset();
                 /** @type {?} */
-                var zones = this._config ? this._config.timezones : timezones;
-                return zones.find(function (timezone) { return timezone.offset === offset; });
-            };
-        /**
-         * @param {?} timezone
-         * @return {?}
-         */
-        DateTimePickerService.prototype.setTimezone = /**
-         * @param {?} timezone
-         * @return {?}
-         */
-            function (timezone) {
-                this.timezone$.next(timezone);
+                var matchingZone = this.timezones$.value.find(function (_timezone) { return _timezone.offset === offset; });
+                return matchingZone || this.timezones$.value.find(function (_timezone) { return _timezone.offset === 0; }) || { name: 'GMT', offset: 0 };
             };
         /**
          * @param {?} date
@@ -12848,8 +12860,6 @@
             this._onDestroy = new rxjs.Subject();
             datepicker.selected$.pipe(operators.distinctUntilChanged(dateComparator), operators.takeUntil(this._onDestroy))
                 .subscribe(function (date) { return _this.dateChange.emit(date); });
-            datepicker.timezone$.pipe(operators.distinctUntilChanged(timezoneComparator), operators.takeUntil(this._onDestroy))
-                .subscribe(function (timezone) { return _this.timezoneChange.emit(timezone); });
         }
         Object.defineProperty(DateTimePickerComponent.prototype, "showDate", {
             /** Defines whether or not the date picker should be visible. */
@@ -13080,9 +13090,7 @@
              * @param {?} value
              * @return {?}
              */ function (value) {
-                if (value !== undefined) {
-                    this.datepicker.timezone$.next(value);
-                }
+                this.setTimezone(value);
             },
             enumerable: true,
             configurable: true
@@ -13171,6 +13179,15 @@
         /**
          * @return {?}
          */
+        DateTimePickerComponent.prototype.ngOnInit = /**
+         * @return {?}
+         */
+            function () {
+                this.setTimezone(this.datepicker.timezone$.value);
+            };
+        /**
+         * @return {?}
+         */
         DateTimePickerComponent.prototype.ngAfterViewInit = /**
          * @return {?}
          */
@@ -13218,10 +13235,62 @@
                     this.datepicker.setDateToNow();
                 }
             };
+        /**
+         * @param {?} timezone
+         * @return {?}
+         */
+        DateTimePickerComponent.prototype._onTimezoneChange = /**
+         * @param {?} timezone
+         * @return {?}
+         */
+            function (timezone) {
+                if (!timezoneComparator(this.datepicker.timezone$.value, timezone)) {
+                    this.timezoneChange.emit(timezone);
+                }
+            };
+        /**
+         * Update the service with the new timezone value, falling back on the default if it is undefined or
+         * not present in `timezones`.
+         */
+        /**
+         * Update the service with the new timezone value, falling back on the default if it is undefined or
+         * not present in `timezones`.
+         * @param {?} timezone
+         * @return {?}
+         */
+        DateTimePickerComponent.prototype.setTimezone = /**
+         * Update the service with the new timezone value, falling back on the default if it is undefined or
+         * not present in `timezones`.
+         * @param {?} timezone
+         * @return {?}
+         */
+            function (timezone) {
+                // if the user does not provide a timezone, set it to the current timezone and emit the change
+                if (!timezone) {
+                    this.datepicker.timezone$.next(this.datepicker.getDefaultTimezone());
+                    this.timezoneChange.emit(this.datepicker.timezone$.value);
+                    return;
+                }
+                // Check if the timezone is available in the timezones list; if not, get the default timezone
+                if (this.datepicker.isTimezoneAvailable(timezone)) {
+                    this.datepicker.timezone$.next(timezone);
+                }
+                else {
+                    // This is probably an unintended state so emit a warning
+                    console.warn("ux-date-time-picker: specified timezone " + JSON.stringify(timezone) + " is not present in the timezones array.");
+                    // Fall back on the default timezone
+                    /** @type {?} */
+                    var defaultTimezone = this.datepicker.getDefaultTimezone();
+                    if (!this.datepicker.timezone$.value || !timezoneComparator(defaultTimezone, this.datepicker.timezone$.value)) {
+                        this.datepicker.timezone$.next(defaultTimezone);
+                        this.timezoneChange.emit(defaultTimezone);
+                    }
+                }
+            };
         DateTimePickerComponent.decorators = [
             { type: i0.Component, args: [{
                         selector: 'ux-date-time-picker',
-                        template: "<div class=\"calendar-container\">\n\n  <ux-date-time-picker-header></ux-date-time-picker-header>\n\n  <ng-container *ngIf=\"datepicker.showDate$ | async\" [ngSwitch]=\"datepicker.mode$ | async\">\n\n        <!-- Display days in the current month -->\n        <ux-date-time-picker-day-view *ngSwitchCase=\"DatePickerMode.Day\"></ux-date-time-picker-day-view>\n\n        <!-- Display the months in the current year -->\n        <ux-date-time-picker-month-view *ngSwitchCase=\"DatePickerMode.Month\"></ux-date-time-picker-month-view>\n\n        <!-- Display a decade -->\n        <ux-date-time-picker-year-view *ngSwitchCase=\"DatePickerMode.Year\"></ux-date-time-picker-year-view>\n\n  </ng-container>\n\n  <!-- Display a Time Picker -->\n  <ux-date-time-picker-time-view *ngIf=\"datepicker.showTime$ | async\"></ux-date-time-picker-time-view>\n\n</div>\n\n<button type=\"button\"\n    *ngIf=\"datepicker.showNowBtn$ | async\"\n    uxFocusIndicator\n    class=\"now-button\"\n    [attr.aria-label]=\"nowBtnAriaLabel\"\n    [disabled]=\"_isTodayDisabled\"\n    (click)=\"setToNow()\">\n    {{ datepicker.nowBtnText$ | async }}\n</button>",
+                        template: "<div class=\"calendar-container\">\n\n  <ux-date-time-picker-header></ux-date-time-picker-header>\n\n  <ng-container *ngIf=\"datepicker.showDate$ | async\" [ngSwitch]=\"datepicker.mode$ | async\">\n\n        <!-- Display days in the current month -->\n        <ux-date-time-picker-day-view *ngSwitchCase=\"DatePickerMode.Day\"></ux-date-time-picker-day-view>\n\n        <!-- Display the months in the current year -->\n        <ux-date-time-picker-month-view *ngSwitchCase=\"DatePickerMode.Month\"></ux-date-time-picker-month-view>\n\n        <!-- Display a decade -->\n        <ux-date-time-picker-year-view *ngSwitchCase=\"DatePickerMode.Year\"></ux-date-time-picker-year-view>\n\n  </ng-container>\n\n  <!-- Display a Time Picker -->\n  <ux-date-time-picker-time-view (timezoneChange)=\"_onTimezoneChange($event)\"\n                                 *ngIf=\"datepicker.showTime$ | async\"></ux-date-time-picker-time-view>\n\n</div>\n\n<button type=\"button\"\n    *ngIf=\"datepicker.showNowBtn$ | async\"\n    uxFocusIndicator\n    class=\"now-button\"\n    [attr.aria-label]=\"nowBtnAriaLabel\"\n    [disabled]=\"_isTodayDisabled\"\n    (click)=\"setToNow()\">\n    {{ datepicker.nowBtnText$ | async }}\n</button>",
                         providers: [DateTimePickerService],
                         changeDetection: i0.ChangeDetectionStrategy.OnPush
                     }] }
@@ -15694,6 +15763,10 @@
              * Latest time permitted on the time picker.
              */
             this.max = null;
+            /**
+             * Emit when the timezone changes.
+             */
+            this.timezoneChange = new i0.EventEmitter();
             this._onDestroy = new rxjs.Subject();
             // when the date changes we should update the value
             datepicker.date$.pipe(operators.filter(function (date) { return date && _this.value instanceof Date; }), operators.takeUntil(this._onDestroy)).subscribe(function (date) {
@@ -15867,7 +15940,7 @@
                 /** @type {?} */
                 var timezone = timezones$$1.find(function (_timezone) { return _timezone.name === name; });
                 if (timezone) {
-                    this.datepicker.setTimezone(timezone);
+                    this.timezoneChange.emit(timezone);
                 }
             };
         /**
@@ -15884,7 +15957,7 @@
                 /** @type {?} */
                 var currentZone = timezones$$1.findIndex(function (zone) { return zone.name === timezone.name && zone.offset === timezone.offset; });
                 // try to get the previous zone
-                this.datepicker.setTimezone(timezones$$1[currentZone + 1] ? timezones$$1[currentZone + 1] : timezones$$1[currentZone]);
+                this.timezoneChange.emit(timezones$$1[currentZone + 1] ? timezones$$1[currentZone + 1] : timezones$$1[currentZone]);
             };
         /**
          * @return {?}
@@ -15900,7 +15973,7 @@
                 /** @type {?} */
                 var currentZone = timezones$$1.findIndex(function (zone) { return zone.name === timezone.name && zone.offset === timezone.offset; });
                 // try to get the previous zone
-                this.datepicker.setTimezone(timezones$$1[currentZone - 1] ? timezones$$1[currentZone - 1] : timezones$$1[currentZone]);
+                this.timezoneChange.emit(timezones$$1[currentZone - 1] ? timezones$$1[currentZone - 1] : timezones$$1[currentZone]);
             };
         /**
          * @return {?}
@@ -15927,7 +16000,7 @@
         TimeViewComponent.decorators = [
             { type: i0.Component, args: [{
                         selector: 'ux-date-time-picker-time-view',
-                        template: "<ux-time-picker *ngIf=\"datepicker.showTime$ | async\"\n    [value]=\"value\"\n    (valueChange)=\"onTimeChange($event)\"\n    [showSeconds]=\"datepicker.showSeconds$ | async\"\n    [showMeridian]=\"datepicker.showMeridian$ | async\"\n    [showSpinners]=\"datepicker.showSpinners$ | async\"\n    [meridians]=\"datepicker.meridians\"\n    [min]=\"min\"\n    [max]=\"max\">\n</ux-time-picker>\n\n<ng-container *ngIf=\"datepicker.showTimezone$ | async\">\n\n    <div class=\"time-zone-picker\" *ngIf=\"datepicker.showSpinners$ | async\">\n\n        <ux-spin-button\n            class=\"time-zone-spinner\"\n            [value]=\"(datepicker.timezone$ | async).name\"\n            [readOnly]=\"true\"\n            (increment)=\"incrementTimezone()\"\n            (decrement)=\"decrementTimezone()\"\n            inputAriaLabel=\"Time Zone\"\n            incrementAriaLabel=\"Switch to the next time zone\"\n            decrementAriaLabel=\"Switch to the previous time zone\">\n        </ux-spin-button>\n    </div>\n\n    <div class=\"time-zone-picker\" *ngIf=\"!(datepicker.showSpinners$ | async)\">\n\n        <select class=\"form-control time-zone-select\"\n                tabindex=\"0\"\n                [ngModel]=\"(datepicker.timezone$ | async).name\"\n                (ngModelChange)=\"selectTimezone($event)\"\n                aria-label=\"Timezone\"\n                [attr.aria-valuenow]=\"(datepicker.timezone$ | async).name\">\n\n            <option *ngFor=\"let zone of datepicker.timezones$ | async\"\n                    [selected]=\"zone.name === (datepicker.timezone$ | async).name\"\n                    [value]=\"zone.name\">\n                {{ zone?.name }}\n            </option>\n\n        </select>\n    </div>\n\n</ng-container>\n",
+                        template: "<ux-time-picker *ngIf=\"datepicker.showTime$ | async\"\n    [value]=\"value\"\n    (valueChange)=\"onTimeChange($event)\"\n    [showSeconds]=\"datepicker.showSeconds$ | async\"\n    [showMeridian]=\"datepicker.showMeridian$ | async\"\n    [showSpinners]=\"datepicker.showSpinners$ | async\"\n    [meridians]=\"datepicker.meridians\"\n    [min]=\"min\"\n    [max]=\"max\">\n</ux-time-picker>\n\n<ng-container *ngIf=\"datepicker.showTimezone$ | async\">\n\n    <div class=\"time-zone-picker\" *ngIf=\"datepicker.showSpinners$ | async\">\n\n        <ux-spin-button\n            class=\"time-zone-spinner\"\n            [value]=\"(datepicker.timezone$ | async)?.name\"\n            [readOnly]=\"true\"\n            (increment)=\"incrementTimezone()\"\n            (decrement)=\"decrementTimezone()\"\n            inputAriaLabel=\"Time Zone\"\n            incrementAriaLabel=\"Switch to the next time zone\"\n            decrementAriaLabel=\"Switch to the previous time zone\">\n        </ux-spin-button>\n    </div>\n\n    <div class=\"time-zone-picker\" *ngIf=\"!(datepicker.showSpinners$ | async)\">\n\n        <select class=\"form-control time-zone-select\"\n                tabindex=\"0\"\n                [ngModel]=\"(datepicker.timezone$ | async)?.name\"\n                (ngModelChange)=\"selectTimezone($event)\"\n                aria-label=\"Timezone\"\n                [attr.aria-valuenow]=\"(datepicker.timezone$ | async)?.name\">\n\n            <option *ngFor=\"let zone of datepicker.timezones$ | async\"\n                    [selected]=\"zone.name === (datepicker.timezone$ | async)?.name\"\n                    [value]=\"zone.name\">\n                {{ zone?.name }}\n            </option>\n\n        </select>\n    </div>\n\n</ng-container>\n",
                         changeDetection: i0.ChangeDetectionStrategy.OnPush
                     }] }
         ];
@@ -15941,6 +16014,7 @@
             ];
         };
         TimeViewComponent.propDecorators = {
+            timezoneChange: [{ type: i0.Output }],
             onFocusWithin: [{ type: i0.HostListener, args: ['focusin',] }],
             onFocusOut: [{ type: i0.HostListener, args: ['focusout',] }]
         };
@@ -18489,7 +18563,7 @@
                     }
                 }
                 if (this.enabled) {
-                    if (changes.filter && changes.filter.currentValue !== changes.filter.previousValue) {
+                    if (changes.filter && this.coerceFilter(changes.filter.currentValue) !== this.coerceFilter(changes.filter.previousValue)) {
                         this.reset();
                         check = false;
                     }
@@ -18504,7 +18578,7 @@
                         check: check,
                         pageNumber: this._nextPageNum,
                         pageSize: this.pageSize,
-                        filter: this.filter
+                        filter: ( /** @type {?} */(this.coerceFilter(this.filter)))
                     });
                 }
             };
@@ -18538,7 +18612,7 @@
                     check: false,
                     pageNumber: this._nextPageNum,
                     pageSize: this.pageSize,
-                    filter: this.filter
+                    filter: ( /** @type {?} */(this.coerceFilter(this.filter)))
                 });
             };
         /**
@@ -18560,7 +18634,7 @@
                     check: true,
                     pageNumber: this._nextPageNum,
                     pageSize: this.pageSize,
-                    filter: this.filter
+                    filter: ( /** @type {?} */(this.coerceFilter(this.filter)))
                 });
             };
         /**
@@ -18629,9 +18703,23 @@
                     check: false,
                     pageNumber: pageNum,
                     pageSize: this.pageSize,
-                    filter: this.filter,
+                    filter: ( /** @type {?} */(this.coerceFilter(this.filter))),
                     reload: true
                 });
+            };
+        /** A filter value of null or undefined should be considered the same as an empty string */
+        /**
+         * A filter value of null or undefined should be considered the same as an empty string
+         * @param {?} value
+         * @return {?}
+         */
+        InfiniteScrollDirective.prototype.coerceFilter = /**
+         * A filter value of null or undefined should be considered the same as an empty string
+         * @param {?} value
+         * @return {?}
+         */
+            function (value) {
+                return value === undefined || value === null ? '' : value;
             };
         /**
          * Attach scroll event handler and DOM observer.
@@ -18725,7 +18813,14 @@
                     /** @type {?} */
                     var observable = Array.isArray(loadResult) ? rxjs.of(loadResult) : rxjs.from(loadResult);
                     /** @type {?} */
-                    var subscription_1 = observable.pipe(operators.first()).subscribe(function (items) {
+                    var completed_1 = false;
+                    /** @type {?} */
+                    var subscription_1;
+                    // subscription needs to be a let here if subscription completes right away the complete function can be called
+                    // before the assignment. While browsers will ignore this currently as we transpile
+                    // all const/let statements to var, when this is no longer the case (or we are running in a test environment)
+                    // const will be used and this can throw an error if we try to access a const variable before it is assigned
+                    subscription_1 = observable.pipe(operators.first()).subscribe(function (items) {
                         // Make sure that the parameters have not changed since the load started;
                         // otherwise discard the results.
                         if (request.filter === _this.filter && request.pageSize === _this.pageSize) {
@@ -18741,9 +18836,12 @@
                     }, function () {
                         // remove this request from the list
                         _this._subscriptions = _this._subscriptions.filter(function (s) { return s !== subscription_1; });
+                        completed_1 = true;
                     });
-                    // add the subscription to the list of requests
-                    this._subscriptions.push(subscription_1);
+                    // only add the subscription to the list of requests if it isnt complete.
+                    if (!completed_1) {
+                        this._subscriptions.push(subscription_1);
+                    }
                 }
             };
         /**
@@ -21278,8 +21376,16 @@
                     this._isHovering$.next(false);
                     this._isFocused$.next(false);
                 }
+                // the change detector is actually an instance of a ViewRef (which extends ChangeDetectorRef) when used within a component
+                // and the ViewRef contains the destroyed state of the component which is more reliable
+                // than setting a flag in ngOnDestroy as the component can be destroyed before
+                // the lifecycle hook is called
+                /** @type {?} */
+                var viewRef = ( /** @type {?} */(this._changeDetector));
                 // check for changes - required to show the menu as we are using `*ngIf`
-                this._changeDetector.detectChanges();
+                if (!viewRef.destroyed) {
+                    this._changeDetector.detectChanges();
+                }
                 // emit the closing event
                 menuOpen ? this.opening.emit() : this.closing.emit();
             };
@@ -21867,6 +21973,7 @@
          * @return {?}
          */
             function () {
+                this.destroyMenu();
                 this._onDestroy$.next();
                 this._onDestroy$.complete();
             };
@@ -41642,9 +41749,29 @@
              * Emit when the filter text is changed
              */
             this.filterChange = new i0.EventEmitter();
-            this.filterText = '';
+            /**
+             * Emits when `dropdownOpen` changes.
+             */
+            this.dropdownOpenChange = new i0.EventEmitter();
+            /**
+             * The status of the dropdown.
+             */
+            this.dropdownOpen = false;
+            /**
+             * Store the current filter text
+             */
+            this._filterText = '';
+            /**
+             * Store the change callback provided by Angular Forms
+             */
             this.onChange = function () { };
+            /**
+             * Store the touched callback provided by Angular Forms
+             */
             this.onTouched = function () { };
+            /**
+             * Unsubscribe from all observables on component destroy
+             */
             this._onDestroy$ = new rxjs.Subject();
         }
         Object.defineProperty(InputDropdownComponent.prototype, "maxHeight", {
@@ -41654,7 +41781,7 @@
              * @param {?} value
              * @return {?}
              */ function (value) {
-                this._maxHeightString = coercion.coerceCssPixelValue(value);
+                this._maxHeight = coercion.coerceCssPixelValue(value);
             },
             enumerable: true,
             configurable: true
@@ -41668,13 +41795,33 @@
          * @return {?}
          */
             function (changes) {
+                // if the dropdownOpen state changes via the input we should show or hide the input accordingly
+                if (changes.dropdownOpen && !changes.dropdownOpen.firstChange && changes.dropdownOpen.currentValue !== changes.dropdownOpen.previousValue) {
+                    changes.dropdownOpen.currentValue ? this.menuTrigger.openMenu() : this.menuTrigger.closeMenu();
+                }
                 if (changes.selected) {
+                    // if an item is programmatically selected we should close the menu if it is open
                     if (this.menuTrigger && !changes.selected.firstChange) {
                         this.menuTrigger.closeMenu();
                     }
                     this.selectedChange.emit(changes.selected.currentValue);
                     this.onChange(changes.selected.currentValue);
                     this.onTouched();
+                }
+            };
+        /**
+         * @return {?}
+         */
+        InputDropdownComponent.prototype.ngAfterViewInit = /**
+         * @return {?}
+         */
+            function () {
+                var _this = this;
+                // if the user has initially set the dropdownOpen input to true we should open the menu
+                // once we have access to the ViewChild menu trigger directive
+                if (this.dropdownOpen) {
+                    // trigger menu open on the next tick to avoid expression changed issues)
+                    Promise.resolve().then(function () { return _this.menuTrigger.openMenu(); });
                 }
             };
         /**
@@ -41696,8 +41843,8 @@
          * @return {?}
          */
             function (event) {
-                this.filterText = '';
-                this.filterChange.emit(this.filterText);
+                this._filterText = '';
+                this.filterChange.emit(this._filterText);
                 this.filterInputElement.nativeElement.focus();
                 event.stopPropagation();
             };
@@ -41749,6 +41896,31 @@
         /**
          * @return {?}
          */
+        InputDropdownComponent.prototype.onMenuOpen = /**
+         * @return {?}
+         */
+            function () {
+                this._focusFilter();
+                if (this.dropdownOpen !== true) {
+                    this.dropdownOpen = true;
+                    this.dropdownOpenChange.emit(this.dropdownOpen);
+                }
+            };
+        /**
+         * @return {?}
+         */
+        InputDropdownComponent.prototype.onMenuClose = /**
+         * @return {?}
+         */
+            function () {
+                if (this.dropdownOpen !== false) {
+                    this.dropdownOpen = false;
+                    this.dropdownOpenChange.emit(this.dropdownOpen);
+                }
+            };
+        /**
+         * @return {?}
+         */
         InputDropdownComponent.prototype._focusFilter = /**
          * @return {?}
          */
@@ -41757,10 +41929,33 @@
                     this.filterInputElement.nativeElement.focus();
                 }
             };
+        /**
+         * @return {?}
+         */
+        InputDropdownComponent.prototype.inputFocusHandler = /**
+         * @return {?}
+         */
+            function () {
+                if (!this.dropdownOpen) {
+                    this.dropdownOpen = true;
+                    this.dropdownOpenChange.emit(this.dropdownOpen);
+                }
+            };
+        /**
+         * @return {?}
+         */
+        InputDropdownComponent.prototype.toggleMenu = /**
+         * @return {?}
+         */
+            function () {
+                this.dropdownOpen = !this.dropdownOpen;
+                this.dropdownOpenChange.emit(this.dropdownOpen);
+                this.menuTrigger.toggleMenu();
+            };
         InputDropdownComponent.decorators = [
             { type: i0.Component, args: [{
                         selector: 'ux-input-dropdown',
-                        template: "<div class=\"ux-select-container\">\n    <button #button type=\"button\" class=\"form-control\"\n            [uxMenuTriggerFor]=\"menu\">\n        <ng-template #defaultDisplayContent>{{selected ? (selected | json) : '-'}}</ng-template>\n        <ng-container [ngTemplateOutlet]=\"displayContentRef || defaultDisplayContent\"></ng-container>\n    </button>\n    <div class=\"ux-select-icons\">\n        <ux-icon name=\"close\"\n                 uxFocusIndicator\n                 class=\"ux-select-icon ux-select-clear-icon\"\n                 *ngIf=\"allowNull && selected\"\n                 (click)=\"resetValue($event)\"\n                 (keydown.enter)=\"resetValue($event)\"\n                 tabindex=\"0\">\n        </ux-icon>\n        <ux-icon name=\"chevron-down\"\n                 class=\"ux-select-icon ux-select-chevron-icon\"\n                 (click)=\"menuTrigger.toggleMenu(); $event.stopPropagation()\">\n        </ux-icon>\n    </div>\n</div>\n\n<ux-menu #menu menuClass=\"select-menu\"\n         (opened)=\"_focusFilter()\">\n\n    <div [style.max-height]=\"_maxHeightString\"\n         [style.width.px]=\"button.offsetWidth\">\n\n        <div *ngIf=\"!hideFilter\"\n             class=\"filter-container\">\n\n            <input #filterInput\n                    type=\"text\"\n                    [placeholder]=\"placeholder\"\n                    class=\"form-control\"\n                    [(ngModel)]=\"filterText\"\n                    (input)=\"filterChange.emit(filterText)\"\n                    (click)=\"$event.stopPropagation()\"\n                    [attr.aria-label]=\"ariaLabel || placeholder\"/>\n\n            <button type=\"button\"\n                    class=\"btn btn-flat filter-button\"\n                    (click)=\"resetFilter($event)\"\n                    [tabindex]=\"filterText.length > 0 ? 0 : -1\">\n                <ux-icon [name]=\"filterText.length === 0 ? 'search' : 'close'\"></ux-icon>\n            </button>\n        </div>\n\n        <ng-content></ng-content>\n\n    </div>\n</ux-menu>",
+                        template: "<div class=\"ux-select-container\">\n    <button #button type=\"button\" class=\"form-control\"\n            [uxMenuTriggerFor]=\"menu\">\n        <ng-template #defaultDisplayContent>{{selected ? (selected | json) : '-'}}</ng-template>\n        <ng-container [ngTemplateOutlet]=\"displayContentRef || defaultDisplayContent\"></ng-container>\n    </button>\n    <div class=\"ux-select-icons\">\n        <ux-icon name=\"close\"\n                 uxFocusIndicator\n                 class=\"ux-select-icon ux-select-clear-icon\"\n                 *ngIf=\"allowNull && selected\"\n                 (click)=\"resetValue($event)\"\n                 (keydown.enter)=\"resetValue($event)\"\n                 tabindex=\"0\">\n        </ux-icon>\n        <ux-icon name=\"chevron-down\"\n                 class=\"ux-select-icon ux-select-chevron-icon\"\n                 (click)=\"toggleMenu(); $event.stopPropagation()\">\n        </ux-icon>\n    </div>\n</div>\n\n<ux-menu #menu menuClass=\"select-menu\"\n         (opened)=\"onMenuOpen()\"\n         (closed)=\"onMenuClose()\"\n         [attr.aria-expanded]=\"dropdownOpen\">\n\n    <div [style.max-height]=\"_maxHeight\"\n         [style.width.px]=\"button.offsetWidth\">\n\n        <div *ngIf=\"!hideFilter\"\n             class=\"filter-container\">\n\n            <input #filterInput\n                    type=\"text\"\n                    [placeholder]=\"placeholder\"\n                    class=\"form-control\"\n                    [(ngModel)]=\"_filterText\"\n                    (input)=\"filterChange.emit(_filterText)\"\n                    (click)=\"$event.stopPropagation()\"\n                    [attr.aria-label]=\"ariaLabel || placeholder\"\n                    (focus)=\"inputFocusHandler()\">\n\n            <button type=\"button\"\n                    class=\"btn btn-flat filter-button\"\n                    (click)=\"resetFilter($event)\"\n                    [tabindex]=\"_filterText.length > 0 ? 0 : -1\">\n                <ux-icon [name]=\"_filterText.length === 0 ? 'search' : 'close'\"></ux-icon>\n            </button>\n        </div>\n\n        <ng-content></ng-content>\n\n    </div>\n</ux-menu>",
                         changeDetection: i0.ChangeDetectionStrategy.OnPush,
                         providers: [
                             {
@@ -41780,6 +41975,8 @@
             ariaLabel: [{ type: i0.Input, args: ['aria-label',] }],
             selectedChange: [{ type: i0.Output }],
             filterChange: [{ type: i0.Output }],
+            dropdownOpenChange: [{ type: i0.Output }],
+            dropdownOpen: [{ type: i0.Input }],
             displayContentRef: [{ type: i0.ContentChild, args: ['displayContent', { static: false },] }],
             menuTrigger: [{ type: i0.ViewChild, args: [MenuTriggerDirective, { static: false },] }],
             filterInputElement: [{ type: i0.ViewChild, args: ['filterInput', { static: false },] }]
