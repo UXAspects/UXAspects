@@ -272,11 +272,10 @@ describe('Select Component - Value Input', () => {
     });
 
     it('should have an initial value set to One', async () => {
+        spyOn(component, 'onValueChange');
         component.value = component.options[0];
         fixture.autoDetectChanges();
         await fixture.whenStable();
-
-        spyOn(component, 'onValueChange');
 
         let selectText = fixture.nativeElement.querySelector('input').value;
         expect(selectText).toEqual('One');
@@ -284,12 +283,13 @@ describe('Select Component - Value Input', () => {
         expect(component.onValueChange).not.toHaveBeenCalled();
     });
 
-    it('should have an initial value set to One when multiple is true', () => {
+    it('should have an initial value set to One when multiple is true', async() => {
+        spyOn(component, 'onValueChange');
+
         component.multiple = true;
         component.value = [component.options[0]];
         fixture.detectChanges();
-
-        spyOn(component, 'onValueChange');
+        await fixture.whenStable();
 
         let tagText = fixture.nativeElement.querySelector('.ux-tag-text').innerText;
         expect(tagText).toBe('One');
