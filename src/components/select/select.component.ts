@@ -197,7 +197,7 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
 
     /** We need to store the most recent value*/
     private _value: T | ReadonlyArray<T>;
-    private _input$ = new BehaviorSubject<string>(null);
+    private _input$ = new BehaviorSubject<string>('');
     private _dropdownOpen: boolean = false;
     private _userInput: boolean = false;
     private _onChange = (_: any) => { };
@@ -229,7 +229,7 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
         // Changes to the input field
         this._input$.pipe(
             filter(() => this.allowNull),
-            filter(value => !this.multiple && value !== this.getDisplay(this.value) && value !== null),
+            filter(value => !this.multiple && (value !== this.getDisplay(this.value) || value === '')),
             takeUntil(this._onDestroy)
         ).subscribe(() => this.value = null);
 
