@@ -3,6 +3,8 @@
 
         <ux-input-dropdown
             [(selected)]="selected"
+            [dropdownOpen]="dropdownOpen"
+            (dropdownOpenChange)="dropdownOpenChange($event)"
             (filterChange)="setFilter($event)"
             [allowNull]="allowNull"
             [maxHeight]="maxHeight"
