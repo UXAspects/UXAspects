@@ -1,5 +1,5 @@
-import { TestBed, ComponentFixture, fakeAsync, tick, inject } from '@angular/core/testing';
-import { Component, SimpleChange, ViewChild } from '@angular/core';
+import { ComponentFixture, fakeAsync, inject, TestBed, tick } from '@angular/core/testing';
+import { Component, ViewChild } from '@angular/core';
 import { TooltipModule } from './tooltip.module';
 import { TooltipDirective } from './tooltip.directive';
 import { OverlayContainer } from '@angular/cdk/overlay';
@@ -8,7 +8,7 @@ import { OverlayContainer } from '@angular/cdk/overlay';
 @Component({
     selector: 'app-tooltip-test',
     template: `
-        <button *ngIf="showTrigger" uxTooltip="Tooltip content here">
+        <button *ngIf="showTrigger" uxTooltip="Tooltip content here" [(isOpen)]="isOpen">
             Show Tooltip
         </button>
     `
@@ -16,6 +16,7 @@ import { OverlayContainer } from '@angular/cdk/overlay';
 export class TooltipDirectiveSpecComponent {
     @ViewChild(TooltipDirective, { static: false }) tooltipDirective: TooltipDirective;
 
+    isOpen: boolean = false;
     showTrigger: boolean = true;
 }
 
@@ -109,23 +110,15 @@ describe('Tooltip Directive', () => {
     }));
 
     it('should show allow open state to be controlled via the isOpen input', fakeAsync(async () => {
-        component.tooltipDirective.isOpen = true;
-
-        // ngOnChanges won't be called by Angular here (even with detect changes) but we can simulate it
-        component.tooltipDirective.ngOnChanges({
-            isOpen: new SimpleChange(undefined, true, false)
-        });
+        component.isOpen = true;
+        fixture.detectChanges();
 
         tick(0);
         expect(getTooltip()).toBeTruthy();
 
         // should also close
-        component.tooltipDirective.isOpen = false;
-
-        // ngOnChanges won't be called by Angular here (even with detect changes) but we can simulate it
-        component.tooltipDirective.ngOnChanges({
-            isOpen: new SimpleChange(true, false, false)
-        });
+        component.isOpen = false;
+        fixture.detectChanges();
 
         tick(0);
         expect(getTooltip()).toBeFalsy();
