@@ -14,7 +14,7 @@ export class InfiniteScrollFullscreenTestPageComponent {
     scrollElement = document.documentElement;
 
     filterText = new BehaviorSubject<string>('');
-    debouncedFilterText = this.filterText.pipe(debounceTime(500));
+    debouncedFilterText = this.filterText.pipe(debounceTime(50));
 
     allEmployees: any[] = [];
     loadedEmployees: any[] = [];
@@ -36,7 +36,7 @@ export class InfiniteScrollFullscreenTestPageComponent {
                     .filter((e) => this.isFilterMatch(e))
                     .slice(pageStart, pageStart + pageSize);
                 resolve(newItems);
-            }, 2000);
+            }, 250);
         });
 
         return promise;
