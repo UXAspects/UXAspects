@@ -5,6 +5,7 @@ import { fromEvent, Subject } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
 import { TooltipComponent } from './tooltip.component';
 import { TooltipService } from './tooltip.service';
+import { clearTimeout } from 'timers';
 
 @Directive({
     selector: '[uxTooltip]',
@@ -161,6 +162,9 @@ export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
             this._instance = null;
         }
 
+        // clear any pending timeouts
+        this.cancelTooltip();
+
         // emit this event to automatically unsubscribe from all subscriptions
         this._onDestroy.next();
         this._onDestroy.complete();
@@ -214,7 +218,7 @@ export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
 
         // if we are waiting to show a tooltip then cancel the pending timeout
         if (this._showTimeoutId) {
-            clearTimeout(this._showTimeoutId);
+            window.clearTimeout(this._showTimeoutId);
             this._showTimeoutId = null;
             return;
         }
@@ -472,7 +476,7 @@ export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
     /** Cancel any pending tooltip (waiting on delay ellapsing) */
     private cancelTooltip(): void {
         if (this._showTimeoutId !== null) {
-            clearTimeout(this._showTimeoutId);
+            window.clearTimeout(this._showTimeoutId);
             this._showTimeoutId = null;
         }
     }
