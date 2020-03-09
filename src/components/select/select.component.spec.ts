@@ -65,10 +65,10 @@ describe('Select Component', () => {
     });
 
     it('should not call valueChange on initialization of multiple select', () => {
+        spyOn(component, 'onValueChange');
         component.multiple = true;
         fixture.detectChanges();
 
-        spyOn(component, 'onValueChange');
         expect(component).toBeTruthy();
         expect(component.onValueChange).not.toHaveBeenCalled();
     });
