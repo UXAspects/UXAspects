@@ -146,6 +146,13 @@
     <tr uxd-api-property name="dismissAll">
         This function will dismiss any currently visible notifications.
     </tr>
+    <tr uxd-api-property name="remove" args="NotificationRef">
+        This function can be called to remove a notification from the notification history. If the notification is currently visible it will also be dismissed.
+        It should be passed the <code>notificationRef</code> to dismiss.
+    </tr>
+    <tr uxd-api-property name="removeAll">
+        This function can be called to remove all notifications from the notification history. If any notifications are currently visible they will also be dismissed.
+    </tr>
 </uxd-api-properties>
 
 <p>The content of the notification should be specified inside an <code>ng-template</code> element. The <code>ng-template</code> property
