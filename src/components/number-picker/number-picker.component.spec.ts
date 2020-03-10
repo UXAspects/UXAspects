@@ -288,6 +288,7 @@ describe('Number Picker Component - ngModel', () => {
     template: `<ux-number-picker [min]="min"
                                  [max]="max"
                                  [disabled]="disabled"
+                                 (valueChange)="onValueChange($event)"
                                  [value]="value">
                 </ux-number-picker>
 
@@ -299,6 +300,9 @@ export class NumberPickerTestValueComponent {
     disabled = false;
     min = -10;
     max = 10;
+
+    onValueChange(value: number): void {}
+
 }
 
 describe('Number Picker Component - value', () => {
@@ -430,4 +434,14 @@ describe('Number Picker Component - value', () => {
         expect(numberPicker.classList.contains('ng-invalid')).toBe(false);
     });
 
+    it('should call the event emitter once per change', async () => {
+        const controlUp = nativeElement.querySelector<HTMLElement>('.number-picker-control-up');
+
+        spyOn(component, 'onValueChange');
+
+        controlUp.click();
+
+        expect(component.onValueChange).toHaveBeenCalledWith(1);
+        expect(component.onValueChange).toHaveBeenCalledTimes(1);
+    });
 });
