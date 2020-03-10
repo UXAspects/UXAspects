@@ -165,12 +165,12 @@ export class FiltersTestPageComponent {
     applyFilter(filter: Filter): void {
 
         switch (filter.group) {
-            
-            case 'author':
+
+            case 'Author':
                 this.filteredTable = this.filteredTable.filter(item => item.author === filter.name);
                 break;
 
-            case 'status':
+            case 'Status':
                 this.filteredTable = this.filteredTable.filter(
                     item => item.active === (filter.name === 'Active')
                 );
