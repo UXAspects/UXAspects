@@ -15,17 +15,17 @@ export const NUMBER_PICKER_VALUE_ACCESSOR: any = {
     templateUrl: './number-picker.component.html',
     providers: [NUMBER_PICKER_VALUE_ACCESSOR],
     host: {
-        '[class.ux-number-picker-invalid]': '!_valid && !disabled && !_formGroup'
+        '[class.ux-number-picker-invalid]':
+            '!_valid && !disabled && !_formGroup'
     }
 })
 export class NumberPickerComponent implements ControlValueAccessor, OnDestroy, OnChanges {
-
     private _min: number = -Infinity;
     private _max: number = Infinity;
     private _step: number = 1;
     private _disabled: boolean = false;
     private _value: number = 0;
-    private _propagateChange = (_: any) => { };
+    private _propagateChange = (_: any) => {};
 
     /** Sets the id of the number picker. The child input will have this value with a -input suffix as its id. */
     @Input() id: string = `ux-number-picker-${uniqueId++}`;
@@ -50,10 +50,10 @@ export class NumberPickerComponent implements ControlValueAccessor, OnDestroy, O
 
     set value(value: number) {
         if (this._value !== value) {
-        this._value = value;
-        this.valueChange.emit(value);
-        this._propagateChange(value);
-        this._valid = this.isValid();
+            this._value = value;
+            this.valueChange.emit(value);
+            this._propagateChange(value);
+            this._valid = this.isValid();
         }
     }
 
@@ -108,12 +108,10 @@ export class NumberPickerComponent implements ControlValueAccessor, OnDestroy, O
      *  is no longer instantiated. A workaround for Angular Forms bug (https://github.com/angular/angular/issues/27803) */
     private _isDestroyed: boolean = false;
 
-
     constructor(
         private _changeDetector: ChangeDetectorRef,
         @Optional() public _formGroup: FormGroupDirective
-
-    ) { }
+    ) {}
 
     ngOnChanges(): void {
         this._valid = this.isValid();
@@ -129,7 +127,10 @@ export class NumberPickerComponent implements ControlValueAccessor, OnDestroy, O
         }
 
         if (!this.disabled) {
-            this.value = Math.max(Math.min(this.value + this.step, this.max), this.min);
+            this.value = Math.max(
+                Math.min(this.value + this.step, this.max),
+                this.min
+            );
 
             // account for javascripts terrible handling of floating point numbers
             this.value = parseFloat(this.value.toPrecision(this.precision));
@@ -142,7 +143,10 @@ export class NumberPickerComponent implements ControlValueAccessor, OnDestroy, O
         }
 
         if (!this.disabled) {
-            this.value = Math.min(Math.max(this.value - this.step, this.min), this.max);
+            this.value = Math.min(
+                Math.max(this.value - this.step, this.min),
+                this.max
+            );
 
             // account for javascripts terrible handling of floating point numbers
             this.value = parseFloat(this.value.toPrecision(this.precision));
@@ -158,7 +162,6 @@ export class NumberPickerComponent implements ControlValueAccessor, OnDestroy, O
     }
 
     onScroll(event: WheelEvent): void {
-
         // get the distance scrolled
         const scrollValue = event.deltaY || (event as any).wheelDelta;
 
@@ -182,10 +185,9 @@ export class NumberPickerComponent implements ControlValueAccessor, OnDestroy, O
         this._propagateChange = fn;
     }
 
-    registerOnTouched(fn: (_: any) => {}): void { }
+    registerOnTouched(fn: (_: any) => {}): void {}
 
     setDisabledState(isDisabled: boolean): void {
         this.disabled = isDisabled;
     }
-
 }
