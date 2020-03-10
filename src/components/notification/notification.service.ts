@@ -36,6 +36,8 @@ export class NotificationService {
         iconColor: this._colorService.getColor('accent').toHex()
     };
 
+    constructor(private readonly _colorService: ColorService) { }
+
     /**
      * This function should be called to show a notification.
      * It should be given a TemplateRef containing the content to be displayed.
@@ -99,7 +101,15 @@ export class NotificationService {
         this.notifications$.next(this.notifications);
     }
 
-    constructor(private _colorService: ColorService) { }
+    /** Remove the notification from the screen and from the notification history */
+    remove(notificationRef: NotificationRef): void {
+        this.notifications$.next(this.notifications.filter(_notificationRef => _notificationRef !== notificationRef));
+    }
+
+    /** Remove all notifications from the screen and from the notification history */
+    removeAll(): void {
+        this.notifications$.next([]);
+    }
 }
 
 export interface NotificationRef extends NotificationOptions {
