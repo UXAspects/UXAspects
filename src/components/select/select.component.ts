@@ -212,9 +212,6 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
 
     ngOnInit(): void {
 
-        this._value$.pipe(skip(1), distinctUntilChanged(), takeUntil(this._onDestroy))
-            .subscribe(value => this.valueChange.emit(value));
-
         // Emit change events
         this._value$.pipe(takeUntil(this._onDestroy), distinctUntilChanged()).subscribe(value => {
             this._value = value;
@@ -310,6 +307,7 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
                 this.dropdownOpen = false;
                 if (!this.multiple) {
                     this.input = this.getDisplay(this.value);
+                    console.log(123456789);
                 }
             }
         }, 200);
@@ -344,10 +342,11 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
     }
 
     singleOptionSelected(event: TypeaheadOptionEvent): void {
-        if (event.option) {
-            this.value = event.option;
-            this.dropdownOpen = false;
+        if (event.option !== this.value) {
+            this.valueChange.emit(event.option);
         }
+        this.dropdownOpen = false;
+        this.value = event.option;
     }
 
     /**
@@ -411,6 +410,7 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
     private selectInputText(): void {
         if (!this.readonlyInput) {
             this.singleInput.nativeElement.select();
+            console.log('124');
         }
     }
 }
