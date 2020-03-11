@@ -52,7 +52,7 @@ export class ColumnSortingDirective implements OnDestroy {
 
         // if the column has active sorting then we should add it to the array again
         if (state === ColumnSortingState.Ascending || state === ColumnSortingState.Descending) {
-            this.order = [{ key, state }, ...this.order];
+            this.order = [...this.order, { key, state }];
         }
     }
 
