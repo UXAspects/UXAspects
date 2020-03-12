@@ -126,6 +126,6 @@ describe('Column Sorting Directive', () => {
 
         directive.setColumnState('author-column', ColumnSortingState.Descending);
         expect(eventSpy).not.toHaveBeenCalled();
-        expect(directive.order).toEqual([{ key: 'author-column', state: ColumnSortingState.Descending }, { key: 'name-column', state: ColumnSortingState.Descending }]);
+        expect(directive.order).toEqual([{ key: 'name-column', state: ColumnSortingState.Descending }, { key: 'author-column', state: ColumnSortingState.Descending }]);
     });
 });

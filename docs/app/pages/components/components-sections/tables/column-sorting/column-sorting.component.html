@@ -76,8 +76,11 @@
 
 <hr>
 
-<p>The <code>uxColumnSorting</code> directive should be added to the <code>tr</code> and will accept the following
-    attributes:</p>
+<p>
+    Column sorting can be added to a table by applying the <code>uxColumnSorting</code> directive to the
+    <code>tr</code> element and adding the <code>ux-column-sorting</code> component in the <code>th</code>
+    of any columns that are sortable.
+</p>
 
 <uxd-api-properties tableTitle="Column Sorting Directive Inputs">
     <tr uxd-api-property name="singleSort" type="boolean">
@@ -96,10 +99,12 @@
     </tr>
     <tr uxd-api-property name="state" type="ColumnSortingState">
         Defines the sorting direction of a column: <code>NoSort</code>, <code>Ascending</code> or
-        <code>Descending</code>.
+        <code>Descending</code>. When manually setting this value it is the responsibility of the application to ensure
+        that the table sort state matches the column sort state.
     </tr>
     <tr uxd-api-property name="order" type="number">
-        Defines the sorting order of a column.
+        Defines the sorting order of a column. When manually setting this value it is the responsibility of the
+        application to ensure that the table sort state matches the column sort order.
     </tr>
     <tr uxd-api-property name="allowNoSort" type="boolean" defaultValue="true">
         Defines if a column can be toggled to the <code>NoSort</code> state. If set to <code>false</code> this will
