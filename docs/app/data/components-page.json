@@ -1615,6 +1615,10 @@
                             "content": "ux-column-sorting"
                         },
                         {
+                            "title": "Selector",
+                            "content": "[uxColumnSorting]"
+                        },
+                        {
                             "title": "Module",
                             "content": "ColumnSortingModule"
                         },

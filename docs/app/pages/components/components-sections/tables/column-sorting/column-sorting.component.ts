@@ -14,9 +14,9 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 @DocumentationSectionComponent('ComponentsColumnSortingComponent')
 export class ComponentsColumnSortingComponent extends BaseDocumentationSection implements IPlaygroundProvider {
 
-    order: ColumnSortingOrder[] = [];
+    order: ReadonlyArray<ColumnSortingOrder> = [];
 
-    items: ColumnSortingTableData[] = [{
+    items: ReadonlyArray<ColumnSortingTableData> = [{
         id: 1,
         name: 'Document',
         author: chance.name(),
@@ -91,8 +91,8 @@ export class ComponentsColumnSortingComponent extends BaseDocumentationSection i
         ]
     };
 
-    sparkTrackColor = this._colorService.getColor('accent').setAlpha(0.2).toRgba();
-    sparkBarColor = this._colorService.getColor('accent').toHex();
+    sparkTrackColor = this._colorService.getColor('chart2').setAlpha(0.2).toRgba();
+    sparkBarColor = this._colorService.getColor('chart2').toHex();
 
     constructor(private _colorService: ColorService, private _announcer: LiveAnnouncer) {
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
@@ -106,9 +106,9 @@ export class ComponentsColumnSortingComponent extends BaseDocumentationSection i
         this._announcer.announce(this.getColumnAriaLabel(title, column));
     }
 
-    sort(array: ColumnSortingTableData[], sorters: ColumnSortingOrder[]): ColumnSortingTableData[] {
+    sort(array: ReadonlyArray<ColumnSortingTableData>, sorters: ReadonlyArray<ColumnSortingOrder>): ReadonlyArray<ColumnSortingTableData> {
 
-        return array.sort((itemOne: ColumnSortingTableData, itemTwo: ColumnSortingTableData) => {
+        return [...array].sort((itemOne: ColumnSortingTableData, itemTwo: ColumnSortingTableData) => {
 
             // iterate through each sorter
             for (const sorter of sorters) {
