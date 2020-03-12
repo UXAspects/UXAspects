@@ -1,76 +1,76 @@
 <table class="table table-hover">
     <thead>
-    <tr uxColumnSorting>
-        <th class="clickable column-sorting"
-            uxFocusIndicator
-            tabindex="0"
-            [attr.aria-label]="getColumnAriaLabel('Name', nameColumn)"
-            [attr.aria-sort]="nameColumn.state"
-            (click)="changeState('Name', nameColumn)"
-            (keydown.enter)="changeState('Name', nameColumn)">
+        <tr uxColumnSorting>
+            <th class="clickable column-sorting"
+                uxFocusIndicator
+                tabindex="0"
+                [attr.aria-label]="getColumnAriaLabel('Name', nameColumn)"
+                [attr.aria-sort]="nameColumn.state"
+                (click)="changeState('Name', nameColumn)"
+                (keydown.enter)="changeState('Name', nameColumn)">
 
-            <div class="column-sorting-header">
-                <p class="text-black">NAME</p>
-                <ux-column-sorting #nameColumn="ux-column-sorting" key="name"></ux-column-sorting>
-            </div>
-        </th>
-        <th class="clickable column-sorting"
-            uxFocusIndicator
-            tabindex="0"
-            [attr.aria-label]="getColumnAriaLabel('Author', authorColumn)"
-            [attr.aria-sort]="authorColumn.state"
-            (click)="changeState('Author', authorColumn)"
-            (keydown.enter)="changeState('Author', authorColumn)">
+                <div class="column-sorting-header">
+                    <p class="text-black">NAME</p>
+                    <ux-column-sorting #nameColumn="ux-column-sorting" key="name"></ux-column-sorting>
+                </div>
+            </th>
+            <th class="clickable column-sorting"
+                uxFocusIndicator
+                tabindex="0"
+                [attr.aria-label]="getColumnAriaLabel('Author', authorColumn)"
+                [attr.aria-sort]="authorColumn.state"
+                (click)="changeState('Author', authorColumn)"
+                (keydown.enter)="changeState('Author', authorColumn)">
 
-            <div class="column-sorting-header">
-                <p class="text-black">AUTHOR</p>
-                <ux-column-sorting #authorColumn="ux-column-sorting" key="author"></ux-column-sorting>
-            </div>
-        </th>
-        <th class="clickable column-sorting"
-            uxFocusIndicator
-            tabindex="0"
-            [attr.aria-label]="getColumnAriaLabel('Date Modified', dateColumn)"
-            [attr.aria-sort]="dateColumn.state"
-            (click)="changeState('Date Modified', dateColumn)"
-            (keydown.enter)="changeState('Date Modified', dateColumn)">
+                <div class="column-sorting-header">
+                    <p class="text-black">AUTHOR</p>
+                    <ux-column-sorting #authorColumn="ux-column-sorting" key="author"></ux-column-sorting>
+                </div>
+            </th>
+            <th class="clickable column-sorting"
+                uxFocusIndicator
+                tabindex="0"
+                [attr.aria-label]="getColumnAriaLabel('Date Modified', dateColumn)"
+                [attr.aria-sort]="dateColumn.state"
+                (click)="changeState('Date Modified', dateColumn)"
+                (keydown.enter)="changeState('Date Modified', dateColumn)">
 
-            <div class="column-sorting-header">
-                <p class="text-black">DATE MODIFIED</p>
-                <ux-column-sorting #dateColumn="ux-column-sorting" key="date"></ux-column-sorting>
-            </div>
-        </th>
-        <th class="clickable column-sorting"
-            uxFocusIndicator
-            tabindex="0"
-            [attr.aria-label]="getColumnAriaLabel('Work Completed', completedColumn)"
-            [attr.aria-sort]="completedColumn.state"
-            (click)="changeState('Work Completed', completedColumn)"
-            (keydown.enter)="changeState('Work Completed', completedColumn)">
+                <div class="column-sorting-header">
+                    <p class="text-black">DATE MODIFIED</p>
+                    <ux-column-sorting #dateColumn="ux-column-sorting" key="date"></ux-column-sorting>
+                </div>
+            </th>
+            <th class="clickable column-sorting"
+                uxFocusIndicator
+                tabindex="0"
+                [attr.aria-label]="getColumnAriaLabel('Work Completed', completedColumn)"
+                [attr.aria-sort]="completedColumn.state"
+                (click)="changeState('Work Completed', completedColumn)"
+                (keydown.enter)="changeState('Work Completed', completedColumn)">
 
-            <div class="column-sorting-header">
-                <p class="text-black">WORK COMPLETED</p>
-                <ux-column-sorting #completedColumn="ux-column-sorting" key="completed"></ux-column-sorting>
-            </div>
-        </th>
-        <th class="text-black">STATUS</th>
-    </tr>
+                <div class="column-sorting-header">
+                    <p class="text-black">WORK COMPLETED</p>
+                    <ux-column-sorting #completedColumn="ux-column-sorting" key="completed"></ux-column-sorting>
+                </div>
+            </th>
+            <th class="text-black">STATUS</th>
+        </tr>
     </thead>
     <tbody>
-    <tr class="clickable" *ngFor="let item of items">
-        <td>{{ item.name }}</td>
-        <td>{{ item.author }}</td>
-        <td>{{ item.date }}</td>
-        <td>
-            <ux-spark [trackColor]="sparkTrackColor" [barColor]="sparkBarColor" [value]="item.completed" [barHeight]="3"
-                      [inlineLabel]="item.completed"></ux-spark>
-        </td>
-        <td class="text-center">
-            <ux-icon [name]="item.active ? 'checkmark' : null"
-                     [attr.aria-label]="item.active ? 'Approved' : 'Not approved'">
-            </ux-icon>
-        </td>
-    </tr>
+        <tr class="clickable" *ngFor="let item of items">
+            <td>{{ item.name }}</td>
+            <td>{{ item.author }}</td>
+            <td>{{ item.date }}</td>
+            <td>
+                <ux-spark [trackColor]="sparkTrackColor" [barColor]="sparkBarColor" [value]="item.completed" [barHeight]="3"
+                          [inlineLabel]="item.completed"></ux-spark>
+            </td>
+            <td class="text-center">
+                <ux-icon [name]="item.active ? 'checkmark' : null"
+                         [attr.aria-label]="item.active ? 'Approved' : 'Not approved'">
+                </ux-icon>
+            </td>
+        </tr>
     </tbody>
 </table>
 
