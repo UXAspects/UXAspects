@@ -443,5 +443,21 @@ describe('Number Picker Component - value', () => {
 
         expect(component.onValueChange).toHaveBeenCalledWith(1);
         expect(component.onValueChange).toHaveBeenCalledTimes(1);
+
     });
+
+    it('should not emit valueChange when the value input changes', async () => {
+        component.value = 1;
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        spyOn(component, 'onValueChange');
+
+        let controlUp = nativeElement.querySelector<HTMLButtonElement>('input').value;
+        expect(controlUp).toEqual('1');
+
+        expect(component.onValueChange).not.toHaveBeenCalled();
+    });
+
+
 });

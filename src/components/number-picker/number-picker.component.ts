@@ -51,8 +51,6 @@ export class NumberPickerComponent implements ControlValueAccessor, OnDestroy, O
     set value(value: number) {
         if (this._value !== value) {
             this._value = value;
-            this.valueChange.emit(value);
-            this._propagateChange(value);
             this._valid = this.isValid();
         }
     }
@@ -127,13 +125,12 @@ export class NumberPickerComponent implements ControlValueAccessor, OnDestroy, O
         }
 
         if (!this.disabled) {
-            this.value = Math.max(
-                Math.min(this.value + this.step, this.max),
-                this.min
-            );
+            this.value = Math.max(Math.min(this.value + this.step, this.max), this.min);
 
             // account for javascripts terrible handling of floating point numbers
             this.value = parseFloat(this.value.toPrecision(this.precision));
+
+            this.valueChange.emit(this.value);
         }
     }
 
@@ -143,13 +140,12 @@ export class NumberPickerComponent implements ControlValueAccessor, OnDestroy, O
         }
 
         if (!this.disabled) {
-            this.value = Math.min(
-                Math.max(this.value - this.step, this.min),
-                this.max
-            );
+            this.value = Math.min( Math.max(this.value - this.step, this.min), this.max);
 
             // account for javascripts terrible handling of floating point numbers
             this.value = parseFloat(this.value.toPrecision(this.precision));
+
+            this.valueChange.emit(this.value);
         }
     }
 
