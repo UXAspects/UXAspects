@@ -51,6 +51,7 @@ export class NumberPickerComponent implements ControlValueAccessor, OnDestroy, O
     set value(value: number) {
         if (this._value !== value) {
             this._value = value;
+            this._propagateChange(value);
             this._valid = this.isValid();
         }
     }
