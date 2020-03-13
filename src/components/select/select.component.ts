@@ -212,18 +212,10 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
 
     ngOnInit(): void {
 
-        this._value$.pipe(skip(1), distinctUntilChanged(), takeUntil(this._onDestroy))
-            .subscribe(value => this.valueChange.emit(value));
-
         // Emit change events
         this._value$.pipe(takeUntil(this._onDestroy), distinctUntilChanged()).subscribe(value => {
             this._value = value;
-            this._onChange(value);
             this._hasValue = !!value;
-        });
-
-        this._input$.pipe(takeUntil(this._onDestroy), distinctUntilChanged()).subscribe(value => {
-            this.inputChange.emit(value);
         });
 
         // Changes to the input field
@@ -310,7 +302,6 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
                 this.dropdownOpen = false;
                 if (!this.multiple) {
                     this.input = this.getDisplay(this.value);
-                    console.log(123456789);
                 }
             }
         }, 200);
@@ -344,13 +335,25 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
         }
     }
 
+    /** This gets called whenever the user types in the input */
+    onInputChange(input: string): void {
+        this.inputChange.emit(input);
+    }
+
     singleOptionSelected(event: TypeaheadOptionEvent): void {
-        if (event.option) {
+        if (event.option && event.option !== this.value) {
             this.value = event.option;
             this.dropdownOpen = false;
+            this.valueChange.emit(this.value);
+            this._onChange(this.value);
         }
-        this.dropdownOpen = false;
-        this.value = event.option;
+    }
+
+    multipleOptionSelected(selection: ReadonlyArray<T>) {
+        // update the internal selection
+        this._value$.next(selection);
+        this.valueChange.emit(this.value);
+        this._onChange(this.value);
     }
 
     /**
@@ -414,7 +417,6 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
     private selectInputText(): void {
         if (!this.readonlyInput) {
             this.singleInput.nativeElement.select();
-            console.log('124');
         }
     }
 }
