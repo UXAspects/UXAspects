@@ -1,6 +1,6 @@
-import { Component, EventEmitter, Input, OnDestroy, Output, TemplateRef } from '@angular/core';
-import { distinctUntilChanged, takeUntil } from 'rxjs/operators';
+import { Component, ContentChild, EventEmitter, Input, OnDestroy, Output, TemplateRef } from '@angular/core';
 import { Subject } from 'rxjs';
+import { distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { FilterEvent } from './events/filter-event';
 import { FilterService } from './filter.service';
 import { Filter } from './interfaces/filter.interface';
@@ -8,7 +8,7 @@ import { Filter } from './interfaces/filter.interface';
 @Component({
     selector: 'ux-filter-container',
     templateUrl: './filter-container.component.html',
-    providers: [ FilterService ]
+    providers: [FilterService]
 })
 export class FilterContainerComponent implements OnDestroy {
 
@@ -24,8 +24,9 @@ export class FilterContainerComponent implements OnDestroy {
     /** Emit when a specific event occurs */
     @Output() events = new EventEmitter<FilterEvent>();
 
-    /** Template ref for custom clear all functionality */
-    @Input() clearAll: TemplateRef<string>;
+
+    /** Allow the content of the clear all button to be customized */
+    @ContentChild('clearAllTemplate', { static: false }) clearAllTemplate: TemplateRef<any>;
 
     /** Unsubscribe from the subscriptions on destroy */
     private _onDestroy = new Subject<void>();

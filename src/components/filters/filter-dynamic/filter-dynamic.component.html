@@ -7,7 +7,7 @@
         [uxMenuTriggerFor]="menu"
         #trigger="ux-menu-trigger">
         {{ selected?.group }}
-            <span class="filter-title" *ngIf="selected !== initial">
+            <span class="filter-header" *ngIf="selected !== initial">
                 ({{ selected?.name }})
             </span>
         <ux-icon name="down"></ux-icon>

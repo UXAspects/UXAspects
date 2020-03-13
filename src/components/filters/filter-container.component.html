@@ -1,30 +1,26 @@
 <ng-content></ng-content>
 
 <!-- Add a Clear Button -->
-<ng-container *ngIf="!clearAll">
-    <button type="button"
-        class="btn btn-link btn-icon btn-secondary m-l-xs"
-        tabindex="0"
-        aria-label="Clear all filters"
-        i18n-aria-label
-        *ngIf="(filterService.filters$ | async).length > 0"
-        [uxTooltip]="clearTooltip || 'Clear All'"
-        (click)="filterService.removeAll()">
+<button type="button"
+    class="btn btn-link btn-secondary m-l-xs"
+    [class.table-filter-clear]="clearAllTemplate"
+    [class.btn-icon]="!clearAllTemplate"
+    tabindex="0"
+    aria-label="Clear all filters"
+    i18n-aria-label
+    *ngIf="(filterService.filters$ | async).length > 0"
+    [uxTooltip]="clearTooltip || 'Clear All'"
+    (click)="filterService.removeAll()">
+    <ng-container [ngTemplateOutlet]="clearAllTemplate || defaultClearAllTemplate">
+    </ng-container>
+</button>
 
-        <svg class="filter-selected-clear-graphic" width="100%" viewBox="0 0 19 12" shape-rendering="geometricPrecision">
-            <rect class="light-grey" x="0" y="2" width="7" height="2"></rect>
-            <rect class="dark-grey" x="0" y="5" width="9" height="2"></rect>
-            <rect class="light-grey" x="0" y="8" width="7" height="2"></rect>
-            <path class="dark-grey" d="M9,1 h1 l9,9 v1 h-1 l-9,-9 v-1 Z"></path>
-            <path class="dark-grey" d="M9,11 v-1 l9,-9 h1 v1 l-9,9 h-1 Z"></path>
-        </svg>
-    </button>
-</ng-container>
-
-<div class="btn-group"
-    *ngIf="clearAll && (filterService.filters$ | async).length > 0">
-    <button type="button" tabindex="0" class="btn btn-link button-primary table-filter-clear"
-        (click)="filterService.removeAll()">
-        <ng-container *ngTemplateOutlet="clearAll"></ng-container>
-    </button>
-</div>
+<ng-template #defaultClearAllTemplate>
+    <svg class="filter-selected-clear-graphic" width="100%" viewBox="0 0 19 12" shape-rendering="geometricPrecision">
+        <rect class="light-grey" x="0" y="2" width="7" height="2"></rect>
+        <rect class="dark-grey" x="0" y="5" width="9" height="2"></rect>
+        <rect class="light-grey" x="0" y="8" width="7" height="2"></rect>
+        <path class="dark-grey" d="M9,1 h1 l9,9 v1 h-1 l-9,-9 v-1 Z"></path>
+        <path class="dark-grey" d="M9,11 v-1 l9,-9 h1 v1 l-9,9 h-1 Z"></path>
+    </svg>
+</ng-template>
