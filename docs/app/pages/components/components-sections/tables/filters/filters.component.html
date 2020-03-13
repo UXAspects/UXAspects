@@ -58,9 +58,6 @@
     <tr uxd-api-property name="clearTooltip" type="string" defaultValue="Clear All">
         Defines the text to display on the clear button tooltip.
     </tr>
-    <tr uxd-api-property name="clearAllTemplate" type="TemplateRef || string">
-        Template to customize the content of the Clear All button.
-    </tr>
 </uxd-api-properties>
 
 <uxd-api-properties tableTitle="Outputs">
@@ -74,6 +71,14 @@
         This will emit the selected filters when the selection changes.
     </tr>
 </uxd-api-properties>
+
+<h3>Custom Templates</h3>
+<p>
+    Additionally the clear all button can be customized by adding an <code>ng-template</code> as a child of the <code>ux-filter-container</code> component.
+</p>
+<ul>
+    <li>To replace the icon of the clear all button add <code>#clearAllTemplate</code> to the <code>ng-template</code> element.</li>
+</ul>
 
 <h3>Filter Dropdown</h3>
 

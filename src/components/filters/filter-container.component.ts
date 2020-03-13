@@ -26,7 +26,7 @@ export class FilterContainerComponent implements OnDestroy {
 
 
     /** Allow the content of the clear all button to be customized */
-    @ContentChild('clearAllTemplate', { static: false }) clearAllTemplate: TemplateRef<any>;
+    @ContentChild('clearAllTemplate', { static: false }) clearAllTemplate: TemplateRef<void>;
 
     /** Unsubscribe from the subscriptions on destroy */
     private _onDestroy = new Subject<void>();
