@@ -3,6 +3,8 @@ import { NumberPickerModule } from './number-picker.module';
 import { Component } from '@angular/core';
 import { dispatchKeyboardEvent } from '../../common/testing/dispatch-event';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { NUMPAD_SEVEN} from '@angular/cdk/keycodes';
+import { debug } from 'util';
 
 @Component({
     selector: 'app-number-picker-form',
@@ -290,8 +292,8 @@ describe('Number Picker Component - ngModel', () => {
                                  [max]="max"
                                  [disabled]="disabled"
                                  (valueChange)="onValueChange($event)"
-                                 [(ngModel)]="value"
-                                 [value]="value">
+                                 [value]="value"
+                                 [(ngModel)]="value">
                 </ux-number-picker>
 
     `
@@ -455,25 +457,30 @@ describe('Number Picker Component - value', () => {
 
         spyOn(component, 'onValueChange');
 
-        let controlUp = nativeElement.querySelector<HTMLButtonElement>('input').value;
+        const controlUp = nativeElement.querySelector<HTMLButtonElement>('input').value;
         expect(controlUp).toEqual('1');
 
         expect(component.onValueChange).not.toHaveBeenCalled();
     });
 
-    it('should emit valueChange when entering value' , () => {
+    it('should emit valueChange event when a value is entered' , async () => {
         fixture.detectChanges();
+        await fixture.whenStable();
 
-        const inputChange = getInput();
-        inputChange.focus();
+        const inputElement = getInput();
 
-        dispatchKeyboardEvent(inputChange, 'keydown', 0, null, '0');
-        component.value = 0;
+        spyOn(component, 'onValueChange');
+        inputElement.value = '7';
+
         fixture.detectChanges();
+        await fixture.whenStable();
+
+        expect(component.onValueChange).toHaveBeenCalledWith(1);
+        expect(component.onValueChange).toHaveBeenCalledTimes(1);
 
     });
 
-    function getInput(): HTMLElement | null {
+    function getInput(): HTMLInputElement | null {
         return nativeElement.querySelector('input.form-control');
     }
 

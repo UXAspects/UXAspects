@@ -25,7 +25,7 @@ export class NumberPickerComponent implements ControlValueAccessor, OnDestroy, O
     private _disabled: boolean = false;
     private _value: number = 0;
     private _propagateChange = (_: number) => {};
-    private _touchedChange = () => {};
+    public _touchedChange = () => {};
 
     /** Sets the id of the number picker. The child input will have this value with a -input suffix as its id. */
     @Input() id: string = `ux-number-picker-${uniqueId++}`;
