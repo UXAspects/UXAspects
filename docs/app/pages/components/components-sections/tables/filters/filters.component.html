@@ -17,13 +17,18 @@
     <tbody>
         <tr class="clickable" *ngFor="let document of documents">
             <td>
-                <div class="listview-page-icon"></div>
+                <ux-icon
+                    name="document"
+                    size="24px"
+                    [flipHorizontal]="false"
+                    [flipVertical]="false">
+                </ux-icon>
             </td>
             <td>{{ document.name }}</td>
             <td>{{ document.author }}</td>
             <td>{{ document.date }}</td>
             <td>
-                <ux-spark theme="accent"
+                <ux-spark [theme]="'ok'"
                     [value]="document.completed"
                     barHeight="3"
                     [inlineLabel]="document.completed">
@@ -31,7 +36,8 @@
             </td>
             <td class="text-center vertical-center-icon">
                 <ux-icon class="text-accent"
-                    [name]="document.active ? 'checkmark' : null"
+                    [style.color]="colorThemeRGB"
+                    [name]="document.active ? 'status-approved-filled' : null"
                     [attr.aria-label]="document.active ? 'Approved' : 'Not approved'">
                 </ux-icon>
             </td>
