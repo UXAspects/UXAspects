@@ -159,11 +159,11 @@ export class AppComponent {
         this.filters.forEach(filter => {
             switch (filter.group) {
 
-                case 'author':
+                case 'Author':
                     this.documents = this.documents.filter(item => item.author === filter.name);
                     break;
 
-                case 'status':
+                case 'Status':
                     this.documents = this.documents.filter(item => item.active === (filter.name === 'Active'));
                     break;
             }
