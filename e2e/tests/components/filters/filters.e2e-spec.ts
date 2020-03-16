@@ -181,6 +181,7 @@ describe('Filters Tests', () => {
         expect(await page.confirmItemStatus(0)).toBeFalsy();
         expect(await page.getNumberOfItems()).toEqual(2);
         expect(await page.getItemText(1, 2)).toBe('Bradley Mason');
+        expect(await page.getStatusMenuBtnInnerText()).toBe(' (Inactive) ');
 
         expect(await imageCompare('filters-status-inactive')).toEqual(0);
     });
