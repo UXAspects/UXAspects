@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { NumberPickerModule } from './number-picker.module';
 import { Component } from '@angular/core';
+import { dispatchKeyboardEvent } from '../../common/testing/dispatch-event';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 @Component({
@@ -289,6 +290,7 @@ describe('Number Picker Component - ngModel', () => {
                                  [max]="max"
                                  [disabled]="disabled"
                                  (valueChange)="onValueChange($event)"
+                                 [(ngModel)]="value"
                                  [value]="value">
                 </ux-number-picker>
 
@@ -459,5 +461,20 @@ describe('Number Picker Component - value', () => {
         expect(component.onValueChange).not.toHaveBeenCalled();
     });
 
+    it('should emit valueChange when entering value' , () => {
+        fixture.detectChanges();
+
+        const inputChange = getInput();
+        inputChange.focus();
+
+        dispatchKeyboardEvent(inputChange, 'keydown', 0, null, '0');
+        component.value = 0;
+        fixture.detectChanges();
+
+    });
+
+    function getInput(): HTMLElement | null {
+        return nativeElement.querySelector('input.form-control');
+    }
 
 });
