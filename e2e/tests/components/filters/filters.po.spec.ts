@@ -93,10 +93,6 @@ export class FiltersPage {
         return this.getAuthorMenuItem(index).getText();
     }
 
-    getStatusMenuBtnInnerText() {
-        return this.getStatusMenuBtn().querySelector('.filter-title').getText();
-    }
-
     getPlaceholderText() {
         return this.getFilter().getAttribute('placeholder');
     }
