@@ -28,16 +28,16 @@
             <td>{{ document.author }}</td>
             <td>{{ document.date }}</td>
             <td>
-                <ux-spark [theme]="'ok'"
+                <ux-spark theme="chart2"
                     [value]="document.completed"
                     barHeight="3"
                     [inlineLabel]="document.completed">
                 </ux-spark>
             </td>
             <td class="text-center vertical-center-icon">
-                <ux-icon class="text-accent"
-                    [style.color]="colorThemeRGB"
-                    [name]="document.active ? 'status-approved-filled' : null"
+                <ux-icon
+                    *ngIf="document.active"
+                    [name]="'checkmark'"
                     [attr.aria-label]="document.active ? 'Approved' : 'Not approved'">
                 </ux-icon>
             </td>

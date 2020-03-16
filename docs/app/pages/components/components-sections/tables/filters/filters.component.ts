@@ -1,6 +1,6 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { Component } from '@angular/core';
-import { ColorService, Filter, FilterAddEvent, FilterEvent, FilterRemoveAllEvent, FilterRemoveEvent } from '@ux-aspects/ux-aspects';
+import { Filter, FilterAddEvent, FilterEvent, FilterRemoveAllEvent, FilterRemoveEvent } from '@ux-aspects/ux-aspects';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
@@ -13,8 +13,6 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 @DocumentationSectionComponent('ComponentsFiltersComponent')
 export class ComponentsFiltersComponent extends BaseDocumentationSection implements IPlaygroundProvider {
 
-    colorTheme: any;
-    colorThemeRGB: any;
 
     filters: Filter[] = [];
 
@@ -154,10 +152,8 @@ export class ComponentsFiltersComponent extends BaseDocumentationSection impleme
         ]
     };
 
-    constructor(private _announcer: LiveAnnouncer, colorService: ColorService) {
+    constructor(private _announcer: LiveAnnouncer) {
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
-
-        this.colorThemeRGB = colorService.getColor('ok').toRgb();
     }
 
     /** Provide accesibility feedback */
