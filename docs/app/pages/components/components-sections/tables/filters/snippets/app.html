@@ -9,7 +9,6 @@
 <table class="table table-hover">
     <thead>
         <tr>
-            <th></th>
             <th class="text-black">NAME</th>
             <th class="text-black">AUTHOR</th>
             <th class="text-black">DATE MODIFIED</th>
@@ -19,14 +18,6 @@
     </thead>
     <tbody>
         <tr class="clickable" *ngFor="let document of documents">
-            <td>
-                <ux-icon
-                    name="document"
-                    size="24px"
-                    [flipHorizontal]="false"
-                    [flipVertical]="false">
-                </ux-icon>
-            </td>
             <td>{{ document.name }}</td>
             <td>{{ document.author }}</td>
             <td>{{ document.date }}</td>
