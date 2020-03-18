@@ -76,23 +76,12 @@ export class MarqueeWizardComponent extends WizardComponent implements OnDestroy
      */
     async next(): Promise<void> {
 
+        await super.next();
+
         // get the current step
         const step = this.getCurrentStep() as MarqueeWizardStepComponent;
 
-        // Disable the button while waiting on validation
-        this.nextDisabled = true;
-
-        try {
-            // Fetch validation status
-            step.valid = await this.isStepValid();
-        } finally {
-            // Re-enable button
-            this.nextDisabled = false;
-        }
-
         if (step && step.valid) {
-            super.next();
-
             // mark this step as completed
             step.setCompleted(true);
         } else {
@@ -108,17 +97,6 @@ export class MarqueeWizardComponent extends WizardComponent implements OnDestroy
 
         // get the current step
         const step = this.getCurrentStep() as MarqueeWizardStepComponent;
-
-        // Disable the button while waiting on validation
-        this.finishDisabled = true;
-
-        try {
-            // Fetch validation status
-            step.valid = await this.isStepValid();
-        } finally {
-            // Re-enable button
-            this.finishDisabled = false;
-        }
 
         // call the original finish function
         return super.finish().then(() => {
