@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, HostBinding, Input, Renderer2 } from '@angular/core';
-import { Observable } from 'rxjs';
 
 @Component({
     selector: 'ux-wizard-step',
@@ -26,7 +25,10 @@ export class WizardStepComponent {
     /** Emits when visited changes. */
     @Input() visitedChange = new EventEmitter<boolean>();
 
-    /** Input for passing in users validation */
+    /**
+     * A custom function which returns the validation status for the step. This function will be called when 'Next' or
+     * 'Finish' is clicked. A promise may be returned if asynchronous validation is required.
+     */
     @Input() validator: () => boolean | Promise<boolean>;
 
     private _active: boolean = false;
