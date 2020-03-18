@@ -61,7 +61,7 @@ export class ComponentsWizardComponent extends BaseDocumentationSection implemen
     userValidator = function (): boolean {
 
         // users logic
-        const something: boolean = null;
+        const something: boolean = true;
 
         return something;
     };
