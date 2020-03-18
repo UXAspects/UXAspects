@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, ContentChild, ContentChildren, EventEmitter, Input, OnDestroy, Output, QueryList, TemplateRef } from '@angular/core';
-import { from, of, Subject, Subscription } from 'rxjs';
-import { first, takeUntil } from 'rxjs/operators';
+import { Subject, Subscription, Observable } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { tick } from '../../common/index';
 import { WizardStepComponent } from './wizard-step.component';
 
@@ -181,63 +181,37 @@ export class WizardComponent implements AfterViewInit, OnDestroy {
     /**
      * Navigate to the next step
      */
-    next(): void {
+    async next(): Promise<void> {
 
-        this.currentStep = this.getCurrentStep();
-
-        if (this.currentStep.validator) {
-
-            let validationResult = this.currentStep.validator();
-
-            const observable = typeof validationResult === 'boolean' || validationResult === null ? of(validationResult) : from(validationResult); // doesnt accept null
-
-            this.subscription = observable.pipe(first()).subscribe(
-                isValid => {
-
-                    this.currentStep.valid = isValid;
-                },
-                err => {
-                    console.error('ux-wizard: Validator function has thrown an error');
-                    console.error(err);
-                },
-                () => {
-                    this.wizardValidationCompleted();
-
-                }
-            );
-
-            // only add the subscription to the list of requests if it isnt complete.
-            if (!this.completed) {
-                this._subscriptions.push(this.subscription);
-            }
-
-        } else {
-            this.wizardValidationCompleted();
-        }
-    }
-
-    wizardValidationCompleted() {
-
-        // move to next step
         this.stepChanging.next(new StepChangingEvent(this.step, this.step + 1));
 
-        if (this.currentStep.valid) {
+        const step = this.getCurrentStep();
 
-            if ((this.step + 1) < this.steps.length) {
-                this.step++;
+        // Disable the button while waiting on validation
+        this.nextDisabled = true;
 
-                // emit the current step
-                this.onNext.next(this.step);
-            }
-        } else {
-            this.invalidIndicator = true;
-            this.stepError.next(this.step);
+        try {
+            // Fetch validation status
+            step.valid = await this.isStepValid();
+        } finally {
+            // Re-enable button
+            this.nextDisabled = false;
         }
 
-        // remove this request from the list
-        this._subscriptions = this._subscriptions.filter(s => s !== this.subscription);
+        // check if current step is invalid
+        if (!step.valid) {
+            this.invalidIndicator = true;
+            this.stepError.next(this.step);
+            return;
+        }
 
-        this.completed = true;
+        // check if we are currently on the last step
+        if ((this.step + 1) < this.steps.length) {
+            this.step++;
+
+            // emit the current step
+            this.onNext.next(this.step);
+        }
     }
 
     /**
@@ -277,10 +251,21 @@ export class WizardComponent implements AfterViewInit, OnDestroy {
     /**
      * Perform actions when the finish button is clicked
      */
-    finish(): Promise<void> {
+    async finish(): Promise<void> {
 
         // fires when the finish button is clicked always
         this.onFinishing.next();
+
+        // Disable the button while waiting on validation
+        this.finishDisabled = true;
+
+        try {
+            // Fetch validation status
+            this.getCurrentStep().valid = await this.isStepValid();
+        } finally {
+            // Re-enable button
+            this.finishDisabled = false;
+        }
 
         /**
          * This is required because we need to ensure change detection has run
@@ -363,6 +348,26 @@ export class WizardComponent implements AfterViewInit, OnDestroy {
      */
     getStepAtIndex(index: number): WizardStepComponent {
         return this.steps.toArray()[index];
+    }
+
+    /**
+     * Returns the valid status of the current step, including the `validation` function (if provided).
+     */
+    protected isStepValid(): Promise<boolean> {
+
+        // get the current activer step
+        this.currentStep = this.getCurrentStep();
+
+        // if there is no validator then return the valid state
+        if (!this.currentStep.validator) {
+            return this.currentStep.valid;
+        }
+
+        // get the validator result
+        const validatorResult = this.currentStep.validator();
+
+        // return as a promise
+        return Promise.resolve(validatorResult);
     }
 }
 

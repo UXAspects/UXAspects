@@ -27,7 +27,7 @@ export class WizardStepComponent {
     @Input() visitedChange = new EventEmitter<boolean>();
 
     /** Input for passing in users validation */
-    @Input() validator: () => boolean | Promise<boolean> | Observable<boolean>;
+    @Input() validator: () => boolean | Promise<boolean>;
 
     private _active: boolean = false;
     private _visited: boolean = false;
