@@ -8,16 +8,16 @@ import { Filter } from '@ux-aspects/ux-aspects';
 export class AppComponent {
 
     statusFilters: Filter[] = [{
-        group: 'custom',
+        group: 'Custom',
         title: 'Status',
         name: 'Status (All)',
         initial: true
     }, {
-        group: 'custom',
+        group: 'Custom',
         title: 'Active',
         name: 'Active'
     }, {
-        group: 'custom',
+        group: 'Custom',
         title: 'Inactive',
         name: 'Inactive'
     }];
