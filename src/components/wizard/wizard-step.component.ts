@@ -27,7 +27,8 @@ export class WizardStepComponent {
 
     /**
      * A custom function which returns the validation status for the step. This function will be called when 'Next' or
-     * 'Finish' is clicked. A promise may be returned if asynchronous validation is required.
+     * 'Finish' is clicked. A promise may be returned if asynchronous validation is required. If using this property,
+     * ensure that `disableNextWhenInvalid` is false.
      */
     @Input() validator: () => boolean | Promise<boolean>;
 
