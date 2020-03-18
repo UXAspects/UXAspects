@@ -192,15 +192,15 @@ export class NumberPickerComponent implements ControlValueAccessor, OnDestroy, O
         this.disabled = isDisabled;
     }
 
-    /** Set the value and emit the change to the output and Angular forms.
-     * This is a workaround for angular bug https://github.com/angular/angular/issues/12540 */
-    _emitValueChange(value: number): void {
-        if (value === this._lastValue) {
-          return;
-        }
-        this._lastValue = value;
-        this.valueChange.emit(value);
-        this._propagateChange(value);
-      }
-
+  /** Set the value and emit the change to the output and Angular forms.
+   * This is a workaround for angular bug https://github.com/angular/angular/issues/12540 */
+   _emitValueChange(value: number): void {
+    if (value === this._lastValue) {
+      return;
+    }
+    this._lastValue = value;
+    this.valueChange.emit(value);
+    this._propagateChange(value);
+  }
 }
+
