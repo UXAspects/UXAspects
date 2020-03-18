@@ -1,147 +1,251 @@
-import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { Component } from '@angular/core';
-import { async, ComponentFixture, TestBed, tick } from '@angular/core/testing';
-import { Observable } from 'rxjs';
+import {
+    async,
+    ComponentFixture,
+    fakeAsync,
+    TestBed,
+    tick
+} from '@angular/core/testing';
+import { StepChangingEvent } from './wizard.component';
 import { WizardModule } from './wizard.module';
 
 @Component({
-    selector: 'wizard-test-app',
+    selector: 'wizard-async-validation-test-app',
     template: `
-        <ux-wizard [orientation]="orientation" (stepChange)="onStepChange($event)">
-            <ux-wizard-step *ngFor="let step of steps" [valid]="valid" [header]="step.header" [validator]="userValidator">
-                <p>{{ step.content }}</p>
+        <ux-wizard
+            (stepChanging)="stepChanging($event)"
+            (stepChange)="stepChange($event)"
+            (onNext)="onNext($event)"
+            (onFinishing)="onFinishing()"
+            (onFinish)="onFinish()"
+        >
+            <ux-wizard-step
+                header="First Step"
+                [validator]="firstStepValidator"
+            >
+                <p>First Step</p>
             </ux-wizard-step>
-        </ux-wizard> `
+            <ux-wizard-step header="Last Step" [validator]="lastStepValidator">
+                <p>Last Step</p>
+            </ux-wizard-step>
+        </ux-wizard>
+    `
 })
 export class WizardAsyncValidationTestComponent {
-    orientation: string = 'horizontal';
-    userValidator: boolean | Promise<boolean> | Observable<boolean>;
+    firstStepValidator: () => boolean | Promise<boolean>;
+    lastStepValidator: () => boolean | Promise<boolean>;
 
-    steps = [
-        {
-            header: '1. First Step',
-            content: 'Content of step 1.'
-        },
-        {
-            header: '2. Second Step',
-            content: 'Content of step 2.'
-        },
-        {
-            header: '3. Second Step',
-            content: 'Content of step 3.'
-        },
-    ];
-    constructor(private _announcer: LiveAnnouncer) { }
-    onStepChange(index: number): void {
-        this._announcer.announce(`${this.steps[index].header} activated`);
-    }
+    stepChanging(_: StepChangingEvent) {}
+    stepChange(_: number) {}
+    onNext(_: number) {}
+    onFinishing() {}
+    onFinish() {}
 }
-fdescribe('Wizard Component', () => {
+
+describe('Wizard with validator', () => {
+    const ASYNC_DURATION = 100;
+
     let component: WizardAsyncValidationTestComponent;
     let fixture: ComponentFixture<WizardAsyncValidationTestComponent>;
     let nativeElement: HTMLElement;
+
+    let stepChanging: jasmine.Spy;
+    let stepChange: jasmine.Spy;
+    let onNext: jasmine.Spy;
+    let onFinishing: jasmine.Spy;
+    let onFinish: jasmine.Spy;
+
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             imports: [WizardModule],
             declarations: [WizardAsyncValidationTestComponent]
         }).compileComponents();
     }));
-    beforeEach(() => {
+
+    beforeEach(async () => {
         fixture = TestBed.createComponent(WizardAsyncValidationTestComponent);
         component = fixture.componentInstance;
         nativeElement = fixture.nativeElement;
-        fixture.detectChanges();
-    });
-    it('should initialise correctly', () => {
 
-        expect(component).toBeTruthy();
-    });
-
-    it('should not allow users to move to next step when a passed in async function returns false', async () => {
-
-        component.userValidator = fakeAsyncValid(false);
-
-        await clickNext();
+        stepChanging = spyOn(component, 'stepChanging');
+        stepChange = spyOn(component, 'stepChange');
+        onNext = spyOn(component, 'onNext');
+        onFinishing = spyOn(component, 'onFinishing');
+        onFinish = spyOn(component, 'onFinish');
 
         fixture.detectChanges();
         await fixture.whenStable();
-
-        const steps = getSteps();
-        expect(steps[0].classList.contains('invalid')).toBeTruthy();
-
-    });
-
-    it('should allow users to move to next step when a passed in async function returns true ', async () => {
-
-        component.userValidator = fakeAsyncValid(true);
         fixture.detectChanges();
         await fixture.whenStable();
-
-        await clickNext();
-
-        fixture.detectChanges();
-        await fixture.whenStable();
-        const steps = getSteps();
-
-        expect(steps[0].classList.contains('invalid')).toBeFalsy();
-
     });
 
-    // it('finish button should call onFinish a passed in async function returns true ', async () => {
+    it('should allow proceeding to the next step when no validator has been provided', async () => {
+        expect(getActiveStepHeader()).toBe('First Step');
 
-    //     component.userValidator = fakeAsyncValid(true);
-    //     fixture.detectChanges();
-    //     await fixture.whenStable();
+        await clickNextOrFinish();
 
-    //     await clickNext();
+        expect(getActiveStepHeader()).toBe('Last Step');
+        expect(stepChanging).toHaveBeenCalled();
+        expect(stepChange).toHaveBeenCalled();
+        expect(onNext).toHaveBeenCalled();
+    });
 
-    //     fixture.detectChanges();
-    //     await fixture.whenStable();
+    it('should allow finishing the wizard when no validator has been provided', async () => {
+        await clickNextOrFinish();
+        await clickNextOrFinish();
 
-    //     await clickNext();
-    //     fixture.detectChanges();
-    //     await fixture.whenStable();
-    //     debugger;
+        expect(getActiveStepHeader()).toBe('Last Step');
+        expect(stepChanging).toHaveBeenCalledTimes(1);
+        expect(stepChange).toHaveBeenCalledTimes(1);
+        expect(onNext).toHaveBeenCalledTimes(1);
+        expect(onFinishing).toHaveBeenCalledTimes(1);
+        expect(onFinish).toHaveBeenCalledTimes(1);
+    });
 
+    it('should allow proceeding to the next step when a validator function returns true', async () => {
+        component.firstStepValidator = () => {
+            return true;
+        };
+        fixture.detectChanges();
 
-    // });
+        await clickNextOrFinish();
 
-    async function whenStepsLoaded(): Promise<void> {
-        tick(200);
-        await fixture.whenStable();
-    }
+        expect(getActiveStepHeader()).toBe('Last Step');
+        expect(stepChanging).toHaveBeenCalledTimes(1);
+        expect(stepChange).toHaveBeenCalledTimes(1);
+        expect(onNext).toHaveBeenCalledTimes(1);
+    });
 
-    function getSteps(): NodeListOf<HTMLUListElement> {
-        return nativeElement.querySelectorAll<HTMLUListElement>(
-            '.wizard-step'
-        );
-    }
+    it('should prevent proceeding to the next step when a validator function returns false', async () => {
+        component.firstStepValidator = () => {
+            return false;
+        };
+        fixture.detectChanges();
 
-    function getContentText(): string {
-        return nativeElement.querySelector<HTMLElement>('.test-step-content')
-            .innerText;
-    }
+        await clickNextOrFinish();
 
-    async function clickNext(): Promise<void> {
-        const nextButton = nativeElement.querySelector<HTMLButtonElement>(
+        expect(getActiveStepHeader()).toBe('First Step');
+        expect(stepChanging).toHaveBeenCalledTimes(1);
+        expect(stepChange).not.toHaveBeenCalled();
+        expect(onNext).not.toHaveBeenCalled();
+    });
+
+    it('should allow finishing the wizard when a validator function returns true', async () => {
+        component.lastStepValidator = () => {
+            return true;
+        };
+        fixture.detectChanges();
+
+        await clickNextOrFinish();
+        await clickNextOrFinish();
+
+        expect(onFinishing).toHaveBeenCalled();
+        expect(onFinish).toHaveBeenCalled();
+    });
+
+    it('should prevent finishing the wizard when a validator function returns false', async () => {
+        component.lastStepValidator = () => {
+            return false;
+        };
+        fixture.detectChanges();
+
+        await clickNextOrFinish();
+        await clickNextOrFinish();
+
+        expect(onFinishing).toHaveBeenCalled();
+        expect(onFinish).not.toHaveBeenCalled();
+    });
+
+    it('should allow proceeding to the next step when a validator function returns true in a promise', fakeAsync(() => {
+        component.firstStepValidator = () => {
+            return new Promise(resolve => {
+                setTimeout(() => {
+                    resolve(true);
+                }, ASYNC_DURATION);
+            });
+        };
+        fixture.detectChanges();
+
+        clickNextOrFinish();
+        tick(ASYNC_DURATION);
+
+        expect(getActiveStepHeader()).toBe('Last Step');
+        expect(stepChanging).toHaveBeenCalled();
+        expect(stepChange).toHaveBeenCalled();
+        expect(onNext).toHaveBeenCalled();
+    }));
+
+    it('should prevent proceeding to the next step when a validator function returns false in a promise', fakeAsync(() => {
+        component.firstStepValidator = () => {
+            return new Promise(resolve => {
+                setTimeout(() => {
+                    resolve(false);
+                }, ASYNC_DURATION);
+            });
+        };
+        fixture.detectChanges();
+
+        clickNextOrFinish();
+        tick(ASYNC_DURATION);
+
+        expect(getActiveStepHeader()).toBe('First Step');
+        expect(stepChanging).toHaveBeenCalled();
+        expect(stepChange).not.toHaveBeenCalled();
+        expect(onNext).not.toHaveBeenCalled();
+    }));
+
+    it('should allow finishing the wizard when a validator function returns true in a promise', fakeAsync(() => {
+        component.lastStepValidator = () => {
+            return new Promise(resolve => {
+                setTimeout(() => {
+                    resolve(true);
+                }, ASYNC_DURATION);
+            });
+        };
+        fixture.detectChanges();
+
+        clickNextOrFinish();
+        tick(1);
+        clickNextOrFinish();
+        tick(ASYNC_DURATION);
+
+        expect(onFinishing).toHaveBeenCalled();
+        expect(onFinish).toHaveBeenCalled();
+    }));
+
+    it('should prevent finishing the wizard when a validator function returns false in a promise', fakeAsync(() => {
+        component.lastStepValidator = () => {
+            return new Promise(resolve => {
+                setTimeout(() => {
+                    resolve(false);
+                }, ASYNC_DURATION);
+            });
+        };
+        fixture.detectChanges();
+
+        clickNextOrFinish();
+        tick(1);
+        clickNextOrFinish();
+        tick(ASYNC_DURATION);
+
+        expect(onFinishing).toHaveBeenCalled();
+        expect(onFinish).not.toHaveBeenCalled();
+    }));
+
+    async function clickNextOrFinish(): Promise<void> {
+        const button = nativeElement.querySelector<HTMLButtonElement>(
             '.wizard-footer .button-primary'
         );
-        nextButton.click();
+        button.click();
+        fixture.detectChanges();
+        await fixture.whenStable();
         fixture.detectChanges();
         await fixture.whenStable();
     }
 
-    async function fakeAsyncValid(returnVal: boolean): Promise<boolean> {
-
-        setInterval(() => {
-
-
-        }, 1000);
-
-        fixture.detectChanges();
-        await fixture.whenStable();
-
-        return returnVal;
+    function getActiveStepHeader(): string {
+        return nativeElement
+            .querySelector<HTMLElement>('.wizard-step.active')
+            .innerText.trim();
     }
-
 });
