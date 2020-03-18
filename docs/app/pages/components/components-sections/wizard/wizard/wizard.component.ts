@@ -58,6 +58,14 @@ export class ComponentsWizardComponent extends BaseDocumentationSection implemen
         this._announcer.announce(`${this.steps[index].header} activated`);
     }
 
+    userValidator = function (): boolean {
+
+        // users logic
+        const something: boolean = null;
+
+        return something;
+    };
+
 }
 
 export interface WizardStep {

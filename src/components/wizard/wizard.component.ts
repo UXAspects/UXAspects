@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, ContentChild, ContentChildren, EventEmitter, Input, OnDestroy, Output, QueryList, TemplateRef } from '@angular/core';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { from, of, Subject, Subscription } from 'rxjs';
+import { first, takeUntil } from 'rxjs/operators';
 import { tick } from '../../common/index';
 import { WizardStepComponent } from './wizard-step.component';
 
@@ -115,8 +115,13 @@ export class WizardComponent implements AfterViewInit, OnDestroy {
 
     @ContentChild('footerTemplate', { static: false }) footerTemplate: TemplateRef<WizardFooterContext>;
 
+    private _subscriptions: Subscription[] = [];
+
     id: string = `ux-wizard-${uniqueId++}`;
     invalidIndicator: boolean = false;
+    currentStep: any;
+    completed: boolean = false;
+    subscription: Subscription;
 
     /**
      * The current active step. When the step changes an event will be emitted containing the index of the newly active step.
@@ -178,27 +183,66 @@ export class WizardComponent implements AfterViewInit, OnDestroy {
      */
     next(): void {
 
-        this.stepChanging.next(new StepChangingEvent(this.step, this.step + 1));
+        this.currentStep = this.getCurrentStep();
 
-        // check if current step is invalid
-        if (!this.getCurrentStep().valid) {
-            this.invalidIndicator = true;
-            this.stepError.next(this.step);
-            return;
-        }
+        if (this.currentStep.validator) {
 
-        // check if we are currently on the last step
-        if ((this.step + 1) < this.steps.length) {
-            this.step++;
+            let validationResult = this.currentStep.validator();
 
-            // emit the current step
-            this.onNext.next(this.step);
+            const observable = typeof validationResult === 'boolean' || validationResult === null ? of(validationResult) : from(validationResult); // doesnt accept null
+
+            this.subscription = observable.pipe(first()).subscribe(
+                isValid => {
+
+                    this.currentStep.valid = isValid;
+                },
+                err => {
+                    console.error('ux-wizard: Validator function has thrown an error');
+                    console.error(err);
+                },
+                () => {
+                    this.wizardValidationCompleted();
+
+                }
+            );
+
+            // only add the subscription to the list of requests if it isnt complete.
+            if (!this.completed) {
+                this._subscriptions.push(this.subscription);
+            }
+
+        } else {
+            this.wizardValidationCompleted();
         }
     }
 
-     /**
-      * Whether the Next or Finish button should be disabled.
-      */
+    wizardValidationCompleted() {
+
+        // move to next step
+        this.stepChanging.next(new StepChangingEvent(this.step, this.step + 1));
+
+        if (this.currentStep.valid) {
+
+            if ((this.step + 1) < this.steps.length) {
+                this.step++;
+
+                // emit the current step
+                this.onNext.next(this.step);
+            }
+        } else {
+            this.invalidIndicator = true;
+            this.stepError.next(this.step);
+        }
+
+        // remove this request from the list
+        this._subscriptions = this._subscriptions.filter(s => s !== this.subscription);
+
+        this.completed = true;
+    }
+
+    /**
+     * Whether the Next or Finish button should be disabled.
+     */
     isNextDisabled(): boolean {
         const step = this.getCurrentStep();
 

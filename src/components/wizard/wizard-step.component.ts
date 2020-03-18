@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, HostBinding, Input, Renderer2, ElementRef } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, HostBinding, Input, Renderer2 } from '@angular/core';
+import { Observable } from 'rxjs';
 
 @Component({
     selector: 'ux-wizard-step',
@@ -24,6 +25,9 @@ export class WizardStepComponent {
 
     /** Emits when visited changes. */
     @Input() visitedChange = new EventEmitter<boolean>();
+
+    /** Input for passing in users validation */
+    @Input() validator: () => boolean | Promise<boolean> | Observable<boolean>;
 
     private _active: boolean = false;
     private _visited: boolean = false;

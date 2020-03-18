@@ -1,6 +1,6 @@
 <ux-wizard [orientation]="orientation" (stepChange)="onStepChange($event)">
 
-    <ux-wizard-step *ngFor="let step of steps" [header]="step.header">
+    <ux-wizard-step *ngFor="let step of steps" [header]="step.header" [validator]="userValidator">
         <p>{{ step.content }}</p>
     </ux-wizard-step>
 
