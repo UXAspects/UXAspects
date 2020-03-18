@@ -249,7 +249,13 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
             filter(value => value !== null && !this.multiple),
             takeUntil(this._onDestroy)
         ).subscribe(value => {
-            this.input = this.getDisplay(value);
+            const inputValue = this.getDisplay(value);
+
+            // check if the input value has changed and if so the emit
+            if (inputValue !== this.input) {
+                this.input = inputValue;
+                this.inputChange.emit(this.input);
+            }
         });
     }
 
@@ -340,7 +346,8 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
         this.inputChange.emit(input);
     }
 
-    singleOptionSelected(event: TypeaheadOptionEvent): void {
+    /** Whenever a single select item is selected emit the values */
+    _singleOptionSelected(event: TypeaheadOptionEvent): void {
         if (event.option && event.option !== this.value) {
             this.value = event.option;
             this.dropdownOpen = false;
@@ -349,7 +356,8 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
         }
     }
 
-    multipleOptionSelected(selection: ReadonlyArray<T>) {
+    /** Whenever a multi-select item is selected emit the values */
+    _multipleOptionSelected(selection: ReadonlyArray<T>): void {
         // update the internal selection
         this._value$.next(selection);
         this.valueChange.emit(this.value);
@@ -412,6 +420,11 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
         this.value = null;
         this.input = null;
         this.selectInputText();
+
+        // emit the latest values
+        this.valueChange.emit(this.value);
+        this._onChange(this.value);
+        this.inputChange.emit(this.input);
     }
 
     private selectInputText(): void {

@@ -3,7 +3,7 @@
     #tagInput="ux-tag-input"
     [id]="id + '-input'"
     [tags]="_value$ | async"
-    (tagsChange)="multipleOptionSelected($event)"
+    (tagsChange)="_multipleOptionSelected($event)"
     [(input)]="input"
     (inputChange)="onInputChange($event)"
     [ariaLabel]="ariaLabel"
@@ -19,8 +19,8 @@
     [readonlyInput]="readonlyInput"
     [icon]="icon"
     [clearButton]="clearButton"
-    [clearButtonAriaLabel]="clearButtonAriaLabel"
->
+    [clearButtonAriaLabel]="clearButtonAriaLabel">
+
     <ux-typeahead #multipleTypeahead
         [id]="id + '-typeahead'"
         [options]="options"
@@ -39,8 +39,7 @@
         [noOptionsTemplate]="noOptionsTemplate"
         [recentOptions]="recentOptions"
         [recentOptionsMaxCount]="recentOptionsMaxCount"
-        (recentOptionsChange)="recentOptionsChange.emit($event)"
-    >
+        (recentOptionsChange)="recentOptionsChange.emit($event)">
     </ux-typeahead>
 
 </ux-tag-input>
@@ -111,10 +110,9 @@
         [noOptionsTemplate]="noOptionsTemplate"
         [recentOptions]="recentOptions"
         [recentOptionsMaxCount]="recentOptionsMaxCount"
-        (optionSelected)="singleOptionSelected($event)"
+        (optionSelected)="_singleOptionSelected($event)"
         (highlightedElementChange)="highlightedElement = $event"
-        (recentOptionsChange)="recentOptionsChange.emit($event)"
-    >
+        (recentOptionsChange)="recentOptionsChange.emit($event)">
 
     </ux-typeahead>
 
