@@ -26,6 +26,7 @@ export class NumberPickerComponent implements ControlValueAccessor, OnDestroy, O
     private _value: number = 0;
     private _propagateChange = (_: number) => {};
     _touchedChange = () => {};
+    private _lastValue: number;
 
     /** Sets the id of the number picker. The child input will have this value with a -input suffix as its id. */
     @Input() id: string = `ux-number-picker-${uniqueId++}`;
@@ -191,9 +192,15 @@ export class NumberPickerComponent implements ControlValueAccessor, OnDestroy, O
         this.disabled = isDisabled;
     }
 
-    /** Set the value and emit the change to the output and Angular forms */
+    /** Set the value and emit the change to the output and Angular forms.
+     * This is a workaround for angular bug https://github.com/angular/angular/issues/12540 */
     _emitValueChange(value: number): void {
+        if (value === this._lastValue) {
+          return;
+        }
+        this._lastValue = value;
         this.valueChange.emit(value);
         this._propagateChange(value);
-    }
+      }
+
 }

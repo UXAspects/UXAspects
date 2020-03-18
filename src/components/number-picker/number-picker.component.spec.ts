@@ -450,11 +450,10 @@ describe('Number Picker Component - value', () => {
     });
 
     it('should not emit valueChange when the value input changes', async () => {
+        spyOn(component, 'onValueChange');
         component.value = 1;
         fixture.detectChanges();
         await fixture.whenStable();
-
-        spyOn(component, 'onValueChange');
 
         const controlUp = nativeElement.querySelector<HTMLButtonElement>('input').value;
         expect(controlUp).toEqual('1');
@@ -463,9 +462,6 @@ describe('Number Picker Component - value', () => {
     });
 
     it('should emit valueChange event when a value is entered', async () => {
-        fixture.detectChanges();
-        await fixture.whenStable();
-
         const inputElement = getInput();
 
         spyOn(component, 'onValueChange');
