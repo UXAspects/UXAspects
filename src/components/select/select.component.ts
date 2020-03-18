@@ -8,6 +8,7 @@ import { debounceTime, delay, distinctUntilChanged, filter, map, skip, take, tak
 import { InfiniteScrollLoadFunction } from '../../directives/infinite-scroll/index';
 import { TagApi, TagInputComponent } from '../tag-input/index';
 import { TypeaheadComponent, TypeaheadKeyService, TypeaheadOptionEvent } from '../typeahead/index';
+import { TypeaheadOptionContext } from '../typeahead/typeahead-option-context';
 
 let uniqueId = 0;
 
@@ -138,10 +139,10 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
     @Input() autocomplete: string = 'off';
 
     /** A template which will be rendered in the dropdown while options are being loaded. */
-    @Input() loadingTemplate: TemplateRef<any>;
+    @Input() loadingTemplate: TemplateRef<void>;
 
     /** A template which will be rendered in the dropdown if no options match the current filter value. */
-    @Input() noOptionsTemplate: TemplateRef<any>;
+    @Input() noOptionsTemplate: TemplateRef<void>;
 
     /** If `true` the input field will be readonly and selection can only occur by using the dropdown. */
     @Input() readonlyInput: boolean = false;
@@ -158,7 +159,7 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
      * - option: any - the string or custom object representing the option.
      * - api: TypeaheadOptionApi - provides the functions `getKey`, `getDisplay` and `getDisplayHtml`.
      */
-    @Input() optionTemplate: TemplateRef<any>;
+    @Input() optionTemplate: TemplateRef<TypeaheadOptionContext<T>>;
 
     /**
      * An initial list of recently selected options, to be presented above the full list of options.
@@ -182,7 +183,7 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
     @Output() recentOptionsChange = new EventEmitter<ReadonlyArray<T>>();
 
     /** Allow a custom icon to be used instead of the chevron */
-    @ContentChild('icon', { static: false }) icon: TemplateRef<any>;
+    @ContentChild('icon', { static: false }) icon: TemplateRef<void>;
 
     @ViewChild('singleInput', { static: false }) singleInput: ElementRef;
     @ViewChild('tagInput', { static: false }) tagInput: TagInputComponent;
@@ -200,7 +201,7 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
     private _input$ = new BehaviorSubject<string>('');
     private _dropdownOpen: boolean = false;
     private _userInput: boolean = false;
-    private _onChange = (_: any) => { };
+    private _onChange = (_: T | ReadonlyArray<T>) => { };
     private _onTouched = () => { };
     private _onDestroy = new Subject<void>();
 
@@ -367,17 +368,21 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
     /**
      * Returns the display value of the given option.
      */
-    getDisplay(option: any): string {
+    getDisplay(option: unknown): string {
+
         if (option === null || option === undefined) {
             return '';
         }
+
         if (typeof this.display === 'function') {
-            return this.display(option);
+            return this.display(option as T);
         }
-        if (typeof this.display === 'string' && option.hasOwnProperty(this.display)) {
-            return option[<string>this.display];
+
+        if (typeof this.display === 'string' && typeof option === 'object' && option.hasOwnProperty(this.display)) {
+            return option[this.display];
         }
-        return option as any;
+
+        return option as string;
     }
 
     /** Toggle the dropdown open state */
