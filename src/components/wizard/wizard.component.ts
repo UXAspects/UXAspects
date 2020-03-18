@@ -115,13 +115,8 @@ export class WizardComponent implements AfterViewInit, OnDestroy {
 
     @ContentChild('footerTemplate', { static: false }) footerTemplate: TemplateRef<WizardFooterContext>;
 
-    private _subscriptions: Subscription[] = [];
-
     id: string = `ux-wizard-${uniqueId++}`;
     invalidIndicator: boolean = false;
-    currentStep: any;
-    completed: boolean = false;
-    subscription: Subscription;
 
     /**
      * The current active step. When the step changes an event will be emitted containing the index of the newly active step.
@@ -356,15 +351,15 @@ export class WizardComponent implements AfterViewInit, OnDestroy {
     protected isStepValid(): Promise<boolean> {
 
         // get the current activer step
-        this.currentStep = this.getCurrentStep();
+        const currentStep = this.getCurrentStep();
 
         // if there is no validator then return the valid state
-        if (!this.currentStep.validator) {
-            return this.currentStep.valid;
+        if (!currentStep.validator) {
+            return Promise.resolve(currentStep.valid);
         }
 
         // get the validator result
-        const validatorResult = this.currentStep.validator();
+        const validatorResult = currentStep.validator();
 
         // return as a promise
         return Promise.resolve(validatorResult);
