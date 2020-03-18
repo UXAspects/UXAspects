@@ -201,6 +201,6 @@ export class NumberPickerComponent implements ControlValueAccessor, OnDestroy, O
         this._lastValue = value;
         this.valueChange.emit(value);
         this._propagateChange(value);
-      }
+    }
 
 }
