@@ -76,10 +76,10 @@ export class MarqueeWizardComponent extends WizardComponent implements OnDestroy
      */
     async next(): Promise<void> {
 
-        await super.next();
-
         // get the current step
         const step = this.getCurrentStep() as MarqueeWizardStepComponent;
+
+        await super.next();
 
         if (step && step.valid) {
             // mark this step as completed
