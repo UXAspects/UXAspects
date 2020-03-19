@@ -5429,11 +5429,18 @@
      */
     var CheckboxComponent = /** @class */ (function () {
         function CheckboxComponent() {
+            /**
+             * Provide a default unique id value for the checkbox
+             */
             this._checkboxId = "ux-checkbox-" + ++uniqueCheckboxId;
             /**
              * Determines if the checkbox should be checked, unchecked or indeterminate.
              */
             this.id = this._checkboxId;
+            /**
+             * Determines if the checkbox should be checked, unchecked or indeterminate.
+             */
+            this.value = false;
             /**
              * Specifies the tabindex of the input.
              */
@@ -5466,52 +5473,27 @@
             /**
              * Emits when `value` has been changed.
              */
-            this.valueChange = new i0.EventEmitter(false);
-            this._value = false;
-            this.indeterminate = false;
-            this.focused = false;
+            this.valueChange = new i0.EventEmitter();
+            /**
+             * Determine if the underlying input component has been focused with the keyboard
+             */
+            this._focused = false;
+            /**
+             * Used to inform Angular forms that the component has been touched
+             */
             this.onTouchedCallback = function () { };
+            /**
+             * Used to inform Angular forms that the component value has changed
+             */
             this.onChangeCallback = function () { };
         }
-        Object.defineProperty(CheckboxComponent.prototype, "value", {
-            /** Determines if the checkbox should be checked, unchecked or indeterminate. */
-            get: /**
-             * Determines if the checkbox should be checked, unchecked or indeterminate.
-             * @return {?}
-             */ function () {
-                return this._value;
-            },
-            set: /**
-             * @param {?} value
-             * @return {?}
-             */ function (value) {
-                this._value = value;
-                // determine if it is in the indeterminate state
-                this.indeterminate = this._value === this.indeterminateValue;
-                // determine the checked state
-                this.ariaChecked = this.indeterminate ? 'mixed' : ( /** @type {?} */(this._value));
-                // invoke change event
-                this.valueChange.emit(this._value);
-                // call callback
-                this.onChangeCallback(this._value);
-                this.onTouchedCallback();
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(CheckboxComponent.prototype, "inputId", {
-            get: /**
-             * @return {?}
-             */ function () {
-                return (this.id || this._checkboxId) + "-input";
-            },
-            enumerable: true,
-            configurable: true
-        });
+        /** Toggle the current state of the checkbox */
         /**
+         * Toggle the current state of the checkbox
          * @return {?}
          */
         CheckboxComponent.prototype.toggle = /**
+         * Toggle the current state of the checkbox
          * @return {?}
          */
             function () {
@@ -5520,10 +5502,17 @@
                 }
                 if (this.value === this.indeterminateValue) {
                     this.value = true;
-                    return;
                 }
-                // toggle the checked state
-                this.value = !this.value;
+                else {
+                    // toggle the checked state
+                    this.value = !this.value;
+                }
+                // emit the value
+                this.valueChange.emit(this.value);
+                // update the value if used within a form control
+                this.onChangeCallback(this.value);
+                // mark the component as touched
+                this.onTouchedCallback();
             };
         // Functions required to update ngModel
         // Functions required to update ngModel
@@ -5538,37 +5527,46 @@
              * @return {?}
              */
             function (value) {
-                if (value !== this._value) {
-                    this._value = value;
+                if (value !== this.value) {
+                    this.value = value;
                 }
             };
+        /** Allow Angular forms for provide us with a callback for when the input value changes */
         /**
+         * Allow Angular forms for provide us with a callback for when the input value changes
          * @param {?} fn
          * @return {?}
          */
         CheckboxComponent.prototype.registerOnChange = /**
+         * Allow Angular forms for provide us with a callback for when the input value changes
          * @param {?} fn
          * @return {?}
          */
             function (fn) {
                 this.onChangeCallback = fn;
             };
+        /** Allow Angular forms for provide us with a callback for when the touched state changes */
         /**
+         * Allow Angular forms for provide us with a callback for when the touched state changes
          * @param {?} fn
          * @return {?}
          */
         CheckboxComponent.prototype.registerOnTouched = /**
+         * Allow Angular forms for provide us with a callback for when the touched state changes
          * @param {?} fn
          * @return {?}
          */
             function (fn) {
                 this.onTouchedCallback = fn;
             };
+        /** Allow Angular forms to disable the component */
         /**
+         * Allow Angular forms to disable the component
          * @param {?} isDisabled
          * @return {?}
          */
         CheckboxComponent.prototype.setDisabledState = /**
+         * Allow Angular forms to disable the component
          * @param {?} isDisabled
          * @return {?}
          */
@@ -5578,13 +5576,15 @@
         CheckboxComponent.decorators = [
             { type: i0.Component, args: [{
                         selector: 'ux-checkbox',
-                        template: "<label [attr.for]=\"inputId\"\n       class=\"ux-checkbox\"\n       [class.ux-checkbox-checked]=\"value === true\"\n       [class.ux-checkbox-indeterminate]=\"indeterminate\"\n       [class.ux-checkbox-simplified]=\"simplified\"\n       [class.ux-checkbox-disabled]=\"disabled\"\n       [class.ux-checkbox-focused]=\"focused\">\n\n    <div class=\"ux-checkbox-container\">\n\n        <input type=\"checkbox\"\n               uxFocusIndicator\n               class=\"ux-checkbox-input\"\n               [id]=\"inputId\"\n               [required]=\"required\"\n               [checked]=\"value\"\n               [attr.value]=\"value\"\n               [disabled]=\"disabled\"\n               [attr.name]=\"name\"\n               [tabindex]=\"tabindex\"\n               [indeterminate]=\"indeterminate\"\n               [attr.aria-label]=\"ariaLabel\"\n               [attr.aria-labelledby]=\"ariaLabelledby\"\n               [attr.aria-checked]=\"ariaChecked\"\n               (indicator)=\"focused = $event\"\n               (change)=\"$event.stopPropagation()\"\n               (click)=\"toggle()\">\n    </div>\n\n    <span class=\"ux-checkbox-label\">\n        <ng-content></ng-content>\n    </span>\n</label>\n",
-                        providers: [CHECKBOX_VALUE_ACCESSOR]
+                        template: "<label [attr.for]=\"(id || _checkboxId) + '-input'\"\n       class=\"ux-checkbox\"\n       [class.ux-checkbox-checked]=\"value === true\"\n       [class.ux-checkbox-indeterminate]=\"value === indeterminateValue\"\n       [class.ux-checkbox-simplified]=\"simplified\"\n       [class.ux-checkbox-disabled]=\"disabled\"\n       [class.ux-checkbox-focused]=\"_focused\">\n\n    <div class=\"ux-checkbox-container\">\n\n        <input type=\"checkbox\"\n               uxFocusIndicator\n               class=\"ux-checkbox-input\"\n               [id]=\"(id || _checkboxId) + '-input'\"\n               [required]=\"required\"\n               [checked]=\"value\"\n               [attr.value]=\"value\"\n               [disabled]=\"disabled\"\n               [attr.name]=\"name\"\n               [tabindex]=\"tabindex\"\n               [indeterminate]=\"value === indeterminateValue\"\n               [attr.aria-label]=\"ariaLabel\"\n               [attr.aria-labelledby]=\"ariaLabelledby\"\n               [attr.aria-checked]=\"value === indeterminateValue ? 'mixed' : value\"\n               (indicator)=\"_focused = $event\"\n               (change)=\"$event.stopPropagation()\"\n               (click)=\"toggle()\">\n    </div>\n\n    <span class=\"ux-checkbox-label\">\n        <ng-content></ng-content>\n    </span>\n</label>\n",
+                        providers: [CHECKBOX_VALUE_ACCESSOR],
+                        changeDetection: i0.ChangeDetectionStrategy.OnPush
                     }] }
         ];
         CheckboxComponent.propDecorators = {
             id: [{ type: i0.Input }],
             name: [{ type: i0.Input }],
+            value: [{ type: i0.Input }],
             required: [{ type: i0.Input }],
             tabindex: [{ type: i0.Input }],
             clickable: [{ type: i0.Input }],
@@ -5593,8 +5593,7 @@
             disabled: [{ type: i0.Input }],
             ariaLabel: [{ type: i0.Input, args: ['aria-label',] }],
             ariaLabelledby: [{ type: i0.Input, args: ['aria-labelledby',] }],
-            valueChange: [{ type: i0.Output }],
-            value: [{ type: i0.Input }]
+            valueChange: [{ type: i0.Output }]
         };
         return CheckboxComponent;
     }());
@@ -5965,6 +5964,7 @@
             this._disabled = false;
             this._value = 0;
             this._propagateChange = function (_) { };
+            this._touchedChange = function () { };
             /**
              * Sets the id of the number picker. The child input will have this value with a -input suffix as its id.
              */
@@ -6003,10 +6003,10 @@
              * @param {?} value
              * @return {?}
              */ function (value) {
-                this._value = value;
-                this.valueChange.emit(value);
-                this._propagateChange(value);
-                this._valid = this.isValid();
+                if (this._value !== value) {
+                    this._value = value;
+                    this._valid = this.isValid();
+                }
             },
             enumerable: true,
             configurable: true
@@ -6122,6 +6122,8 @@
                     this.value = Math.max(Math.min(this.value + this.step, this.max), this.min);
                     // account for javascripts terrible handling of floating point numbers
                     this.value = parseFloat(this.value.toPrecision(this.precision));
+                    // emit the value to the Output and Angular forms
+                    this._emitValueChange(this.value);
                 }
             };
         /**
@@ -6140,6 +6142,8 @@
                     this.value = Math.min(Math.max(this.value - this.step, this.min), this.max);
                     // account for javascripts terrible handling of floating point numbers
                     this.value = parseFloat(this.value.toPrecision(this.precision));
+                    // emit the value to the Output and Angular forms
+                    this._emitValueChange(this.value);
                 }
             };
         /**
@@ -6207,7 +6211,9 @@
          * @param {?} fn
          * @return {?}
          */
-            function (fn) { };
+            function (fn) {
+                this._touchedChange = fn;
+            };
         /**
          * @param {?} isDisabled
          * @return {?}
@@ -6219,10 +6225,28 @@
             function (isDisabled) {
                 this.disabled = isDisabled;
             };
+        /**
+         * @param {?} value
+         * @return {?}
+         */
+        NumberPickerComponent.prototype._emitValueChange = /**
+         * @param {?} value
+         * @return {?}
+         */
+            function (value) {
+                // Set the value and emit the change to the output and Angular forms.
+                // This is a workaround for angular bug https://github.com/angular/angular/issues/12540
+                if (value === this._lastValue) {
+                    return;
+                }
+                this._lastValue = value;
+                this.valueChange.emit(value);
+                this._propagateChange(value);
+            };
         NumberPickerComponent.decorators = [
             { type: i0.Component, args: [{
                         selector: 'ux-number-picker, ux-number-picker-inline',
-                        template: "<input type=\"number\"\n    [id]=\"inputId\"\n    role=\"spinbutton\"\n    class=\"form-control number-picker-input\"\n    [(ngModel)]=\"value\"\n    [min]=\"min\"\n    [max]=\"max\"\n    (keydown.ArrowDown)=\"decrement($event)\"\n    (keydown.ArrowUp)=\"increment($event)\"\n    (wheel)=\"onScroll($event)\"\n    step=\"any\"\n    [disabled]=\"disabled\"\n    [attr.aria-valuemin]=\"min\"\n    [attr.aria-valuenow]=\"value\"\n    [attr.aria-valuemax]=\"max\"\n    [attr.aria-labelledby]=\"labelledBy\">\n\n<div class=\"number-picker-controls\">\n\n    <div class=\"number-picker-control number-picker-control-up\"\n         (click)=\"increment($event)\"\n         [class.disabled]=\"disabled || value >= max\">\n\n        <ux-icon name=\"up\"></ux-icon>\n    </div>\n\n    <div class=\"number-picker-control number-picker-control-down\"\n         (click)=\"decrement($event)\"\n         [class.disabled]=\"disabled || value <= min\">\n\n         <ux-icon name=\"down\"></ux-icon>\n    </div>\n\n</div>",
+                        template: "<input type=\"number\"\n    [id]=\"inputId\"\n    role=\"spinbutton\"\n    class=\"form-control number-picker-input\"\n    [(ngModel)]=\"value\"\n    (ngModelChange)=\"_emitValueChange($event)\"\n    [min]=\"min\"\n    [max]=\"max\"\n    (focus)=\"_touchedChange()\"\n    (keydown.ArrowDown)=\"decrement($event)\"\n    (keydown.ArrowUp)=\"increment($event)\"\n    (wheel)=\"onScroll($event)\"\n    step=\"any\"\n    [disabled]=\"disabled\"\n    [attr.aria-valuemin]=\"min\"\n    [attr.aria-valuenow]=\"value\"\n    [attr.aria-valuemax]=\"max\"\n    [attr.aria-labelledby]=\"labelledBy\">\n\n<div class=\"number-picker-controls\">\n\n    <div class=\"number-picker-control number-picker-control-up\"\n         (click)=\"increment($event)\"\n         (focus)=\"_touchedChange()\"\n         [class.disabled]=\"disabled || value >= max\">\n\n        <ux-icon name=\"up\"></ux-icon>\n    </div>\n\n    <div class=\"number-picker-control number-picker-control-down\"\n         (click)=\"decrement($event)\"\n         (focus)=\"_touchedChange()\"\n         [class.disabled]=\"disabled || value <= min\">\n\n         <ux-icon name=\"down\"></ux-icon>\n    </div>\n\n</div>",
                         providers: [NUMBER_PICKER_VALUE_ACCESSOR],
                         host: {
                             '[class.ux-number-picker-invalid]': '!_valid && !disabled && !_formGroup'
@@ -6644,6 +6668,8 @@
                     this._overlayRef.dispose();
                     this._instance = null;
                 }
+                // clear any pending timeouts
+                this.cancelTooltip();
                 // emit this event to automatically unsubscribe from all subscriptions
                 this._onDestroy.next();
                 this._onDestroy.complete();
@@ -6700,7 +6726,7 @@
             function () {
                 // if we are waiting to show a tooltip then cancel the pending timeout
                 if (this._showTimeoutId) {
-                    clearTimeout(this._showTimeoutId);
+                    window.clearTimeout(this._showTimeoutId);
                     this._showTimeoutId = null;
                     return;
                 }
@@ -7064,7 +7090,7 @@
          */
             function () {
                 if (this._showTimeoutId !== null) {
-                    clearTimeout(this._showTimeoutId);
+                    window.clearTimeout(this._showTimeoutId);
                     this._showTimeoutId = null;
                 }
             };
@@ -7203,6 +7229,37 @@
                 this.events.next(this.order);
                 return this.order;
             };
+        /** Explicitly set the column state */
+        /**
+         * Explicitly set the column state
+         * @param {?} key
+         * @param {?} state
+         * @return {?}
+         */
+        ColumnSortingDirective.prototype.setColumnState = /**
+         * Explicitly set the column state
+         * @param {?} key
+         * @param {?} state
+         * @return {?}
+         */
+            function (key, state) {
+                // check if the sorting has actually changed
+                if (this.order.find(function (column) { return column.key === key && column.state === state; })) {
+                    return;
+                }
+                // if only one column can be sorted and the current column has a sort direction remove all others
+                if (this.singleSort && state !== ColumnSortingState.NoSort) {
+                    this.order = [];
+                }
+                else {
+                    // remove the item from the state if present
+                    this.order = this.order.filter(function (column) { return column.key !== key; });
+                }
+                // if the column has active sorting then we should add it to the array again
+                if (state === ColumnSortingState.Ascending || state === ColumnSortingState.Descending) {
+                    this.order = __spread(this.order, [{ key: key, state: state }]);
+                }
+            };
         /** Toggle the sorting state of a column when using single select */
         /**
          * Toggle the sorting state of a column when using single select
@@ -7232,8 +7289,8 @@
                 // reorder columns here
                 /** @type {?} */
                 var idx = this.order.findIndex(function (column) { return column.key === sorting.key; });
-                // if wasnt previously selected add to list
-                if (idx === -1) {
+                // if wasn't previously selected add to list and it is being sorted
+                if (idx === -1 && sorting.state !== ColumnSortingState.NoSort) {
                     return __spread(this.order, [{ key: sorting.key, state: sorting.state }]);
                 }
                 // if we are sorting it change the sorting order
@@ -7269,6 +7326,14 @@
             this._sorter = _sorter;
             this._changeDetector = _changeDetector;
             /**
+             * Defines the sorting order of a column: `NoSort`, `Ascending` or `Descending`.
+             */
+            this.state = ColumnSortingState.NoSort;
+            /**
+             * Determine if a column can have a `NoSort` state
+             */
+            this.allowNoSort = true;
+            /**
              * Changes the state of the sorting on the column between `NoSort`, `Ascending` and `Descending`.
              * This returns an array of objects for each column being sorted containing `key: string` and `state: ColumnSortingState`.
              * State can be used to find the current sorting state of the column eg. `(state === ColumnSortingState.Ascending)`.
@@ -7276,41 +7341,18 @@
              */
             this.stateChange = new i0.EventEmitter();
             /**
+             * Emit whenever the order changes
+             */
+            this.orderChange = new i0.EventEmitter();
+            /**
              * Expose the sorting state enum to the view
              */
-            this.columnSortingState = ColumnSortingState;
+            this.ColumnSortingState = ColumnSortingState;
             /**
              * Unsubscribe from all observables on component destroy
              */
-            this._onDestroy = new rxjs.Subject();
-            // listen for changes triggered by the directive
-            this._sorter.events.pipe(operators.takeUntil(this._onDestroy))
-                .subscribe(this.updateState.bind(this));
+            this._onDestroy$ = new rxjs.Subject();
         }
-        Object.defineProperty(ColumnSortingComponent.prototype, "state", {
-            get: /**
-             * @return {?}
-             */ function () {
-                return this._state;
-            },
-            /** Defines the sorting order of a column: `NoSort`, `Ascending` or `Descending`. */
-            set: /**
-             * Defines the sorting order of a column: `NoSort`, `Ascending` or `Descending`.
-             * @param {?} state
-             * @return {?}
-             */ function (state) {
-                this._state = state;
-                // update the column sorting icon
-                if (this.state === ColumnSortingState.Ascending) {
-                    this._icon = 'ascend';
-                }
-                if (this.state === ColumnSortingState.Descending) {
-                    this._icon = 'descend';
-                }
-            },
-            enumerable: true,
-            configurable: true
-        });
         Object.defineProperty(ColumnSortingComponent.prototype, "_sortIndicator", {
             /** Access the custom sort indicator if one was provided */
             get: /**
@@ -7325,20 +7367,46 @@
         /**
          * @return {?}
          */
+        ColumnSortingComponent.prototype.ngOnInit = /**
+         * @return {?}
+         */
+            function () {
+                var _this = this;
+                // listen for changes triggered by the directive
+                this._sorter.events.pipe(operators.takeUntil(this._onDestroy$))
+                    .subscribe(function (columns) { return _this.updateState(columns); });
+            };
+        /**
+         * @param {?} changes
+         * @return {?}
+         */
+        ColumnSortingComponent.prototype.ngOnChanges = /**
+         * @param {?} changes
+         * @return {?}
+         */
+            function (changes) {
+                // if the state input is changed then apply the change
+                if (changes.state && changes.state.currentValue !== changes.state.previousValue) {
+                    this._sorter.setColumnState(this.key, this.state);
+                }
+            };
+        /**
+         * @return {?}
+         */
         ColumnSortingComponent.prototype.ngOnDestroy = /**
          * @return {?}
          */
             function () {
-                this._onDestroy.next();
-                this._onDestroy.complete();
+                this._onDestroy$.next();
+                this._onDestroy$.complete();
             };
-        /** Toggle the sorting state of a column - this is designed to be programmtically called by the consuming component */
+        /** Toggle the sorting state of a column - this is designed to be programmatically called by the consuming component */
         /**
-         * Toggle the sorting state of a column - this is designed to be programmtically called by the consuming component
+         * Toggle the sorting state of a column - this is designed to be programmatically called by the consuming component
          * @return {?}
          */
         ColumnSortingComponent.prototype.changeState = /**
-         * Toggle the sorting state of a column - this is designed to be programmtically called by the consuming component
+         * Toggle the sorting state of a column - this is designed to be programmatically called by the consuming component
          * @return {?}
          */
             function () {
@@ -7347,15 +7415,15 @@
                         this.state = ColumnSortingState.Descending;
                         break;
                     case ColumnSortingState.Descending:
-                        this.state = ColumnSortingState.NoSort;
+                        this.state = this.allowNoSort ? ColumnSortingState.NoSort : ColumnSortingState.Ascending;
                         break;
                     default:
                         this.state = ColumnSortingState.Ascending;
                 }
                 // change detection should be run
                 this._changeDetector.markForCheck();
-                // inform parent
-                return this._sorter.toggleColumn({ key: this.key, state: this.state });
+                // inform parent (internally we use a ReadonlyArray but are returning a standard array to prevent breaking changes to the public API)
+                return ( /** @type {?} */(this._sorter.toggleColumn({ key: this.key, state: this.state })));
             };
         /** Update the state based on column order */
         /**
@@ -7379,6 +7447,10 @@
                 }
                 // only store the number if we have 2 or more columns being sorted
                 this.order = columns.length < 2 || columnIdx === -1 ? null : columnIdx + 1;
+                // emit the latest order value
+                if (typeof this.order === 'number') {
+                    this.orderChange.emit(this.order);
+                }
                 // change detection should be run
                 this._changeDetector.markForCheck();
                 // Emit the latest change
@@ -7387,7 +7459,7 @@
         ColumnSortingComponent.decorators = [
             { type: i0.Component, args: [{
                         selector: 'ux-column-sorting',
-                        template: "<div class=\"ux-column-sorting\">\n\n    <!-- The default sort indicator -->\n    <ng-container *ngIf=\"!_sortIndicator\">\n\n        <ux-icon\n            class=\"ux-column-sorting-icon\"\n            [class.column-sorting-icon-hidden]=\"_state === columnSortingState.NoSort\"\n            [name]=\"_icon\">\n        </ux-icon>\n\n        <p class=\"ux-column-sorting-number\" aria-hidden=\"true\">{{ order }}</p>\n    </ng-container>\n\n    <!-- Custom sort indicator -->\n    <ng-container\n        *ngIf=\"_sortIndicator\"\n        [ngTemplateOutlet]=\"_sortIndicator\"\n        [ngTemplateOutletContext]=\"{ state: _state, order: order }\">\n    </ng-container>\n\n</div>",
+                        template: "<div class=\"ux-column-sorting\">\n\n    <!-- The default sort indicator -->\n    <ng-container *ngIf=\"!_sortIndicator\">\n\n        <ux-icon\n            class=\"ux-column-sorting-icon\"\n            [class.column-sorting-icon-hidden]=\"state === ColumnSortingState.NoSort\"\n            [name]=\"state === ColumnSortingState.Ascending ? 'ascend' : 'descend'\">\n        </ux-icon>\n\n        <p class=\"ux-column-sorting-number\" aria-hidden=\"true\">{{ order }}</p>\n    </ng-container>\n\n    <!-- Custom sort indicator -->\n    <ng-container\n        *ngIf=\"_sortIndicator\"\n        [ngTemplateOutlet]=\"_sortIndicator\"\n        [ngTemplateOutletContext]=\"{ state: state, order: order }\">\n    </ng-container>\n\n</div>",
                         exportAs: 'ux-column-sorting',
                         changeDetection: i0.ChangeDetectionStrategy.OnPush
                     }] }
@@ -7402,7 +7474,10 @@
         ColumnSortingComponent.propDecorators = {
             state: [{ type: i0.Input }],
             key: [{ type: i0.Input }],
-            stateChange: [{ type: i0.Output }]
+            order: [{ type: i0.Input }],
+            allowNoSort: [{ type: i0.Input }],
+            stateChange: [{ type: i0.Output }],
+            orderChange: [{ type: i0.Output }]
         };
         return ColumnSortingComponent;
     }());
@@ -14972,7 +15047,7 @@
             this._onDestroy = new rxjs.Subject();
             if (this._rangeService) {
                 // delay required to allow all ui to update elsewhere
-                this._rangeService.onRangeChange.pipe(operators.takeUntil(this._onDestroy), operators.delay(100))
+                this._rangeService.onRangeChange.pipe(operators.delay(100), operators.takeUntil(this._onDestroy))
                     .subscribe(function () { return _changeDetector.detectChanges(); });
             }
         }
@@ -20677,7 +20752,7 @@
         FilterContainerComponent.decorators = [
             { type: i0.Component, args: [{
                         selector: 'ux-filter-container',
-                        template: "<ng-content></ng-content>\n\n<!-- Add a Clear Button -->\n<button type=\"button\"\n    class=\"btn btn-link btn-icon btn-secondary m-l-xs\"\n    tabindex=\"0\"\n    aria-label=\"Clear all filters\"\n    i18n-aria-label\n    *ngIf=\"(filterService.filters$ | async).length > 0\"\n    [uxTooltip]=\"clearTooltip || 'Clear All'\"\n    (click)=\"filterService.removeAll()\">\n\n    <svg class=\"filter-selected-clear-graphic\" width=\"100%\" viewBox=\"0 0 19 12\" shape-rendering=\"geometricPrecision\">\n        <rect class=\"light-grey\" x=\"0\" y=\"2\" width=\"7\" height=\"2\"></rect>\n        <rect class=\"dark-grey\" x=\"0\" y=\"5\" width=\"9\" height=\"2\"></rect>\n        <rect class=\"light-grey\" x=\"0\" y=\"8\" width=\"7\" height=\"2\"></rect>\n        <path class=\"dark-grey\" d=\"M9,1 h1 l9,9 v1 h-1 l-9,-9 v-1 Z\"></path>\n        <path class=\"dark-grey\" d=\"M9,11 v-1 l9,-9 h1 v1 l-9,9 h-1 Z\"></path>\n    </svg>\n\n</button>",
+                        template: "<ng-content></ng-content>\n\n<!-- Add a Clear Button -->\n<button type=\"button\"\n    class=\"btn btn-link btn-secondary m-l-xs\"\n    [class.table-filter-clear]=\"clearAllTemplate\"\n    [class.btn-icon]=\"!clearAllTemplate\"\n    tabindex=\"0\"\n    aria-label=\"Clear all filters\"\n    i18n-aria-label\n    *ngIf=\"(filterService.filters$ | async).length > 0\"\n    [uxTooltip]=\"clearTooltip || 'Clear All'\"\n    (click)=\"filterService.removeAll()\">\n    <ng-container [ngTemplateOutlet]=\"clearAllTemplate || defaultClearAllTemplate\">\n    </ng-container>\n</button>\n\n<ng-template #defaultClearAllTemplate>\n    <svg class=\"filter-selected-clear-graphic\" width=\"100%\" viewBox=\"0 0 19 12\" shape-rendering=\"geometricPrecision\">\n        <rect class=\"light-grey\" x=\"0\" y=\"2\" width=\"7\" height=\"2\"></rect>\n        <rect class=\"dark-grey\" x=\"0\" y=\"5\" width=\"9\" height=\"2\"></rect>\n        <rect class=\"light-grey\" x=\"0\" y=\"8\" width=\"7\" height=\"2\"></rect>\n        <path class=\"dark-grey\" d=\"M9,1 h1 l9,9 v1 h-1 l-9,-9 v-1 Z\"></path>\n        <path class=\"dark-grey\" d=\"M9,11 v-1 l9,-9 h1 v1 l-9,9 h-1 Z\"></path>\n    </svg>\n</ng-template>\n",
                         providers: [FilterService]
                     }] }
         ];
@@ -20691,7 +20766,8 @@
             filters: [{ type: i0.Input }],
             clearTooltip: [{ type: i0.Input }],
             filtersChange: [{ type: i0.Output }],
-            events: [{ type: i0.Output }]
+            events: [{ type: i0.Output }],
+            clearAllTemplate: [{ type: i0.ContentChild, args: ['clearAllTemplate', { static: false },] }]
         };
         return FilterContainerComponent;
     }());
@@ -20845,7 +20921,7 @@
         FilterDropdownComponent.decorators = [
             { type: i0.Component, args: [{
                         selector: 'ux-filter-dropdown',
-                        template: "<div class=\"btn-group\">\n    <button\n        type=\"button\"\n        class=\"filter-dropdown btn dropdown-toggle\"\n        [class.active]=\"selected !== initial\"\n        [uxMenuTriggerFor]=\"menu\">\n\n        {{ selected?.title }} <ux-icon name=\"down\"></ux-icon>\n    </button>\n\n    <ux-menu #menu menuClass=\"ux-filter-menu\">\n        <button\n            type=\"button\"\n            *ngFor=\"let filter of filters\"\n            uxMenuItem\n            [attr.aria-selected]=\"filter === selected\"\n            (click)=\"selectFilter(filter, $event)\"\n            (keydown.enter)=\"selectFilter(filter, $event)\">\n\n            <ux-icon\n                name=\"checkmark\"\n                [style.visibility]=\"filter === selected ? 'visible' : 'hidden'\">\n            </ux-icon>\n\n            <span class=\"filter-dropdown-title\">{{ filter.name }}</span>\n        </button>\n    </ux-menu>\n</div>"
+                        template: "<div class=\"btn-group\">\n    <button\n        type=\"button\"\n        class=\"filter-dropdown btn dropdown-toggle\"\n        [class.active]=\"selected !== initial\"\n        [uxMenuTriggerFor]=\"menu\">\n        {{ selected?.group }} \n            <span class=\"filter-header\" *ngIf=\"selected !== initial\">\n                ({{ selected?.name }})\n            </span> \n        <ux-icon name=\"down\"></ux-icon>\n    </button>\n\n    <ux-menu #menu menuClass=\"ux-filter-menu\">\n        <button\n            type=\"button\"\n            *ngFor=\"let filter of filters\"\n            uxMenuItem\n            [attr.aria-selected]=\"filter === selected\"\n            (click)=\"selectFilter(filter, $event)\"\n            (keydown.enter)=\"selectFilter(filter, $event)\">\n\n            <ux-icon\n                name=\"checkmark\"\n                [style.visibility]=\"filter === selected ? 'visible' : 'hidden'\">\n            </ux-icon>\n\n            <span class=\"filter-dropdown-title\">{{ filter.name }}</span>\n        </button>\n    </ux-menu>\n</div>"
                     }] }
         ];
         /** @nocollapse */
@@ -21078,7 +21154,7 @@
         FilterDynamicComponent.decorators = [
             { type: i0.Component, args: [{
                         selector: 'ux-filter-dynamic',
-                        template: "<div class=\"btn-group ux-dynamic-filter\">\n\n    <button\n        type=\"button\"\n        [class.active]=\"selected !== initial\"\n        class=\"filter-dropdown btn dropdown-toggle\"\n        [uxMenuTriggerFor]=\"menu\"\n        #trigger=\"ux-menu-trigger\">\n        {{ selected?.title }}\n        <ux-icon name=\"down\"></ux-icon>\n    </button>\n\n    <ux-menu #menu menuClass=\"ux-dynamic-filter-menu\" (closed)=\"onClose()\">\n        <!-- Initial Option -->\n        <button\n            uxMenuItem\n            *ngIf=\"showTypeahead\"\n            (click)=\"removeFilter()\"\n            (keydown.enter)=\"removeFilter()\">\n            <ux-icon\n                name=\"checkmark\"\n                [style.visibility]=\"initial === selected ? 'visible' : 'hidden'\">\n            </ux-icon>\n            <span class=\"filter-dropdown-title\">{{ initial.name }}</span>\n        </button>\n\n        <!-- Selected Options -->\n        <button uxMenuItem *ngIf=\"selected !== initial && showTypeahead\">\n            <ux-icon name=\"checkmark\"></ux-icon>\n            <span class=\"filter-dropdown-title\">{{ selected.name }}</span>\n        </button>\n\n        <ux-menu-divider *ngIf=\"showTypeahead\"></ux-menu-divider>\n\n        <div *ngIf=\"showTypeahead\" class=\"typeahead-box\" role=\"none\">\n\n            <input type=\"text\"\n                class=\"form-control\"\n                [placeholder]=\"options?.placeholder\"\n                [attr.aria-activedescendant]=\"highlightedElement?.id\"\n                [attr.aria-controls]=\"typeaheadId\"\n                aria-autocomplete=\"list\"\n                aria-multiline=\"false\"\n                [ngModel]=\"query$ | async\"\n                (ngModelChange)=\"query$.next($event); updateTypeahead($event)\"\n                (keydown)=\"typeaheadKeyService.handleKey($event, typeahead); $event.stopPropagation();\"\n                (keydown.enter)=\"$event.preventDefault()\"\n                (blur)=\"typeaheadOpen = false\"\n                (click)=\"$event.stopPropagation()\">\n\n            <ux-typeahead #typeahead\n                [id]=\"typeaheadId\"\n                [(open)]=\"typeaheadOpen\"\n                display=\"title\"\n                [selectOnEnter]=\"true\"\n                [options]=\"typeaheadItems\"\n                [optionTemplate]=\"filterOptionTemplate\"\n                (optionSelected)=\"select($event); trigger.closeMenu($event.origin)\"\n                (highlightedElementChange)=\"highlightedElement = $event\">\n            </ux-typeahead>\n        </div>\n\n        <ng-container *ngIf=\"!showTypeahead\">\n\n            <button\n                *ngFor=\"let filter of filters\"\n                type=\"button\"\n                uxMenuItem\n                (click)=\"selectFilter(filter); trigger.closeMenu('mouse')\"\n                (keydown.enter)=\"selectFilter(filter); trigger.closeMenu('keyboard')\">\n\n                <ux-icon\n                    name=\"checkmark\"\n                    [style.visibility]=\"filter === selected ? 'visible' : 'hidden'\">\n                </ux-icon>\n\n                <span class=\"filter-dropdown-title\">{{ filter.name }}</span>\n            </button>\n\n        </ng-container>\n\n    </ux-menu>\n</div>\n\n<ng-template #filterOptionTemplate let-option=\"option\" let-api=\"api\">\n    <span [attr.aria-label]=\"option\" [innerHTML]=\"option | filterTypeaheadHighlight: (query$ | async)\"></span>\n</ng-template>"
+                        template: "<div class=\"btn-group ux-dynamic-filter\">\n\n    <button\n        type=\"button\"\n        [class.active]=\"selected !== initial\"\n        class=\"filter-dropdown btn dropdown-toggle\"\n        [uxMenuTriggerFor]=\"menu\"\n        #trigger=\"ux-menu-trigger\">\n        {{ selected?.group }}\n            <span class=\"filter-header\" *ngIf=\"selected !== initial\">\n                ({{ selected?.name }})\n            </span>\n        <ux-icon name=\"down\"></ux-icon>\n    </button>\n\n    <ux-menu #menu menuClass=\"ux-dynamic-filter-menu\" (closed)=\"onClose()\">\n        <!-- Initial Option -->\n        <button\n            uxMenuItem\n            *ngIf=\"showTypeahead\"\n            (click)=\"removeFilter()\"\n            (keydown.enter)=\"removeFilter()\">\n            <ux-icon\n                name=\"checkmark\"\n                [style.visibility]=\"initial === selected ? 'visible' : 'hidden'\">\n            </ux-icon>\n            <span class=\"filter-dropdown-title\">\n                {{ initial.name }}\n            </span>\n        </button>\n\n        <!-- Selected Options -->\n        <button uxMenuItem *ngIf=\"selected !== initial && showTypeahead\">\n            <ux-icon name=\"checkmark\"></ux-icon>\n            <span class=\"filter-dropdown-title\">{{ selected.name }}</span>\n        </button>\n\n        <ux-menu-divider *ngIf=\"showTypeahead\"></ux-menu-divider>\n\n        <div *ngIf=\"showTypeahead\" class=\"typeahead-box\" role=\"none\">\n\n            <input type=\"text\"\n                class=\"form-control\"\n                [placeholder]=\"options?.placeholder\"\n                [attr.aria-activedescendant]=\"highlightedElement?.id\"\n                [attr.aria-controls]=\"typeaheadId\"\n                aria-autocomplete=\"list\"\n                aria-multiline=\"false\"\n                [ngModel]=\"query$ | async\"\n                (ngModelChange)=\"query$.next($event); updateTypeahead($event)\"\n                (keydown)=\"typeaheadKeyService.handleKey($event, typeahead); $event.stopPropagation();\"\n                (keydown.enter)=\"$event.preventDefault()\"\n                (blur)=\"typeaheadOpen = false\"\n                (click)=\"$event.stopPropagation()\">\n\n            <ux-typeahead #typeahead\n                [id]=\"typeaheadId\"\n                [(open)]=\"typeaheadOpen\"\n                display=\"title\"\n                [selectOnEnter]=\"true\"\n                [options]=\"typeaheadItems\"\n                [optionTemplate]=\"filterOptionTemplate\"\n                (optionSelected)=\"select($event); trigger.closeMenu($event.origin)\"\n                (highlightedElementChange)=\"highlightedElement = $event\">\n            </ux-typeahead>\n        </div>\n\n        <ng-container *ngIf=\"!showTypeahead\">\n\n            <button\n                *ngFor=\"let filter of filters\"\n                type=\"button\"\n                uxMenuItem\n                (click)=\"selectFilter(filter); trigger.closeMenu('mouse')\"\n                (keydown.enter)=\"selectFilter(filter); trigger.closeMenu('keyboard')\">\n\n                <ux-icon\n                    name=\"checkmark\"\n                    [style.visibility]=\"filter === selected ? 'visible' : 'hidden'\">\n                </ux-icon>\n\n                <span class=\"filter-dropdown-title\">{{ filter.name }}</span>\n            </button>\n\n        </ng-container>\n\n    </ux-menu>\n</div>\n\n<ng-template #filterOptionTemplate let-option=\"option\" let-api=\"api\">\n    <span [attr.aria-label]=\"option\" [innerHTML]=\"option | filterTypeaheadHighlight: (query$ | async)\"></span>\n</ng-template>"
                     }] }
         ];
         /** @nocollapse */
@@ -24854,6 +24930,7 @@
             disableNextWhenInvalid: [{ type: i0.Input }],
             valid: [{ type: i0.Input }],
             visitedChange: [{ type: i0.Input }],
+            validator: [{ type: i0.Input }],
             visited: [{ type: i0.Input }],
             active: [{ type: i0.HostBinding, args: ['attr.aria-expanded',] }]
         };
@@ -25085,19 +25162,54 @@
          * @return {?}
          */
             function () {
-                this.stepChanging.next(new StepChangingEvent(this.step, this.step + 1));
-                // check if current step is invalid
-                if (!this.getCurrentStep().valid) {
-                    this.invalidIndicator = true;
-                    this.stepError.next(this.step);
-                    return;
-                }
-                // check if we are currently on the last step
-                if ((this.step + 1) < this.steps.length) {
-                    this.step++;
-                    // emit the current step
-                    this.onNext.next(this.step);
-                }
+                return __awaiter(this, void 0, void 0, function () {
+                    var step, validationResult, _a, _b;
+                    return __generator(this, function (_c) {
+                        switch (_c.label) {
+                            case 0:
+                                this.stepChanging.next(new StepChangingEvent(this.step, this.step + 1));
+                                step = this.getCurrentStep();
+                                // Disable the button while waiting on validation
+                                this.nextDisabled = true;
+                                _c.label = 1;
+                            case 1:
+                                _c.trys.push([1, , 5, 6]);
+                                // Fetch validation status
+                                validationResult = this.isStepValid();
+                                _a = step;
+                                if (!(validationResult instanceof Promise))
+                                    return [3 /*break*/, 3];
+                                return [4 /*yield*/, validationResult];
+                            case 2:
+                                _b = _c.sent();
+                                return [3 /*break*/, 4];
+                            case 3:
+                                _b = validationResult;
+                                _c.label = 4;
+                            case 4:
+                                _a.valid = _b;
+                                return [3 /*break*/, 6];
+                            case 5:
+                                // Re-enable button
+                                this.nextDisabled = false;
+                                return [7 /*endfinally*/];
+                            case 6:
+                                // check if current step is invalid
+                                if (!step.valid) {
+                                    this.invalidIndicator = true;
+                                    this.stepError.next(this.step);
+                                    return [2 /*return*/];
+                                }
+                                // check if we are currently on the last step
+                                if ((this.step + 1) < this.steps.length) {
+                                    this.step++;
+                                    // emit the current step
+                                    this.onNext.next(this.step);
+                                }
+                                return [2 /*return*/];
+                        }
+                    });
+                });
             };
         /**
          * Whether the Next or Finish button should be disabled.
@@ -25155,25 +25267,58 @@
          * @return {?}
          */
             function () {
-                var _this = this;
-                // fires when the finish button is clicked always
-                this.onFinishing.next();
-                /**
-                 * This is required because we need to ensure change detection has run
-                 * to determine whether or not we have the latest value for the 'valid' input
-                 * on the current step. Unfortunately we can't use ChangeDetectorRef as we are looking to run
-                 * on content children, and we cant use ApplicationRef.tick() as this does not work in a hybrid app, eg. our docs
-                 */
-                return new Promise(function (resolve) {
-                    setTimeout(function () {
-                        // only fires when the finish button is clicked and the step is valid
-                        if (_this.getCurrentStep().valid) {
-                            _this.onFinish.next();
+                return __awaiter(this, void 0, void 0, function () {
+                    var validationResult, _a, _b;
+                    var _this = this;
+                    return __generator(this, function (_c) {
+                        switch (_c.label) {
+                            case 0:
+                                // fires when the finish button is clicked always
+                                this.onFinishing.next();
+                                // Disable the button while waiting on validation
+                                this.finishDisabled = true;
+                                _c.label = 1;
+                            case 1:
+                                _c.trys.push([1, , 5, 6]);
+                                // Fetch validation status
+                                validationResult = this.isStepValid();
+                                _a = this.getCurrentStep();
+                                if (!(validationResult instanceof Promise))
+                                    return [3 /*break*/, 3];
+                                return [4 /*yield*/, validationResult];
+                            case 2:
+                                _b = _c.sent();
+                                return [3 /*break*/, 4];
+                            case 3:
+                                _b = validationResult;
+                                _c.label = 4;
+                            case 4:
+                                _a.valid = _b;
+                                return [3 /*break*/, 6];
+                            case 5:
+                                // Re-enable button
+                                this.finishDisabled = false;
+                                return [7 /*endfinally*/];
+                            case 6:
+                                /**
+                                 * This is required because we need to ensure change detection has run
+                                 * to determine whether or not we have the latest value for the 'valid' input
+                                 * on the current step. Unfortunately we can't use ChangeDetectorRef as we are looking to run
+                                 * on content children, and we cant use ApplicationRef.tick() as this does not work in a hybrid app, eg. our docs
+                                 */
+                                return [2 /*return*/, new Promise(function (resolve) {
+                                        setTimeout(function () {
+                                            // only fires when the finish button is clicked and the step is valid
+                                            if (_this.getCurrentStep().valid) {
+                                                _this.onFinish.next();
+                                            }
+                                            else {
+                                                _this.stepError.next(_this.step);
+                                            }
+                                            resolve();
+                                        });
+                                    })];
                         }
-                        else {
-                            _this.stepError.next(_this.step);
-                        }
-                        resolve();
                     });
                 });
             };
@@ -25288,6 +25433,28 @@
          */
             function (index) {
                 return this.steps.toArray()[index];
+            };
+        /**
+         * Returns the valid status of the current step, including the `validation` function (if provided).
+         */
+        /**
+         * Returns the valid status of the current step, including the `validation` function (if provided).
+         * @return {?}
+         */
+        WizardComponent.prototype.isStepValid = /**
+         * Returns the valid status of the current step, including the `validation` function (if provided).
+         * @return {?}
+         */
+            function () {
+                // get the current activer step
+                /** @type {?} */
+                var currentStep = this.getCurrentStep();
+                // if there is no validator then return the valid state
+                if (!currentStep.validator) {
+                    return currentStep.valid;
+                }
+                // get the validator result
+                return currentStep.validator();
             };
         WizardComponent.decorators = [
             { type: i0.Component, args: [{
@@ -25589,17 +25756,27 @@
          * @return {?}
          */
             function () {
-                // get the current step
-                /** @type {?} */
-                var step = ( /** @type {?} */(this.getCurrentStep()));
-                if (step && step.valid) {
-                    _super.prototype.next.call(this);
-                    // mark this step as completed
-                    step.setCompleted(true);
-                }
-                else {
-                    this.stepError.next(this.step);
-                }
+                return __awaiter(this, void 0, void 0, function () {
+                    var step;
+                    return __generator(this, function (_a) {
+                        switch (_a.label) {
+                            case 0:
+                                // get the current step
+                                step = ( /** @type {?} */(this.getCurrentStep()));
+                                return [4 /*yield*/, _super.prototype.next.call(this)];
+                            case 1:
+                                _a.sent();
+                                if (step && step.valid) {
+                                    // mark this step as completed
+                                    step.setCompleted(true);
+                                }
+                                else {
+                                    this.stepError.next(this.step);
+                                }
+                                return [2 /*return*/];
+                        }
+                    });
+                });
             };
         /**
          * Emit the onFinishing event and if valid the onFinish event.
@@ -25616,19 +25793,23 @@
          * @return {?}
          */
             function () {
-                var _this = this;
-                // get the current step
-                /** @type {?} */
-                var step = ( /** @type {?} */(this.getCurrentStep()));
-                // call the original finish function
-                return _super.prototype.finish.call(this).then(function () {
-                    // if the step is valid indicate that it is now complete
-                    if (step.valid) {
-                        step.setCompleted(true);
-                    }
-                    else {
-                        _this.stepError.next(_this.step);
-                    }
+                return __awaiter(this, void 0, void 0, function () {
+                    var step;
+                    var _this = this;
+                    return __generator(this, function (_a) {
+                        // get the current step
+                        step = ( /** @type {?} */(this.getCurrentStep()));
+                        // call the original finish function
+                        return [2 /*return*/, _super.prototype.finish.call(this).then(function () {
+                                // if the step is valid indicate that it is now complete
+                                if (step.valid) {
+                                    step.setCompleted(true);
+                                }
+                                else {
+                                    _this.stepError.next(_this.step);
+                                }
+                            })];
+                    });
                 });
             };
         /**
@@ -29935,6 +30116,32 @@
             function () {
                 this.notifications.forEach(function (notificationRef) { return notificationRef.visible = false; });
                 this.notifications$.next(this.notifications);
+            };
+        /** Remove the notification from the screen and from the notification history */
+        /**
+         * Remove the notification from the screen and from the notification history
+         * @param {?} notificationRef
+         * @return {?}
+         */
+        NotificationService.prototype.remove = /**
+         * Remove the notification from the screen and from the notification history
+         * @param {?} notificationRef
+         * @return {?}
+         */
+            function (notificationRef) {
+                this.notifications$.next(this.notifications.filter(function (_notificationRef) { return _notificationRef !== notificationRef; }));
+            };
+        /** Remove all notifications from the screen and from the notification history */
+        /**
+         * Remove all notifications from the screen and from the notification history
+         * @return {?}
+         */
+        NotificationService.prototype.removeAll = /**
+         * Remove all notifications from the screen and from the notification history
+         * @return {?}
+         */
+            function () {
+                this.notifications$.next([]);
             };
         NotificationService.decorators = [
             { type: i0.Injectable, args: [{
@@ -34663,21 +34870,43 @@
         useExisting: i0.forwardRef(function () { return RadioButtonGroupDirective; }),
         multi: true
     };
+    /**
+     * @template T
+     */
     var RadioButtonGroupDirective = /** @class */ (function () {
         function RadioButtonGroupDirective() {
+            /**
+             * Emit when the currently selected value changes
+             */
             this.valueChange = new i0.EventEmitter();
-            this._onDestroy = new rxjs.Subject();
+            /**
+             * Used to inform Angular forms that the component has been touched
+             */
             this.onTouched = function () { };
+            /**
+             * Used to inform Angular forms that the component value has changed
+             */
             this.onChange = function () { };
+            /**
+             * Unsubscribe from all subscriptions on destroy
+             */
+            this._onDestroy$ = new rxjs.Subject();
+            /**
+             * Internally store the current value
+             */
             this._value = null;
         }
         Object.defineProperty(RadioButtonGroupDirective.prototype, "value", {
+            /** Return the currently selected value */
             get: /**
+             * Return the currently selected value
              * @return {?}
              */ function () {
                 return this._value;
             },
+            /** Define the current selected value within the group */
             set: /**
+             * Define the current selected value within the group
              * @param {?} value
              * @return {?}
              */ function (value) {
@@ -34697,7 +34926,7 @@
                 var _this = this;
                 this.updateSelectedRadioButton();
                 // update the selected items any time new ones are added
-                this._radioButtons.changes.pipe(operators.takeUntil(this._onDestroy))
+                this._radioButtons.changes.pipe(operators.takeUntil(this._onDestroy$))
                     .subscribe(function () { return _this.updateSelectedRadioButton(); });
             };
         /**
@@ -34707,46 +34936,59 @@
          * @return {?}
          */
             function () {
-                this._onDestroy.next();
+                this._onDestroy$.next();
+                this._onDestroy$.complete();
             };
+        /** Allow Angular forms for provide us with a callback for when the input value changes */
         /**
+         * Allow Angular forms for provide us with a callback for when the input value changes
          * @param {?} fn
          * @return {?}
          */
         RadioButtonGroupDirective.prototype.registerOnChange = /**
+         * Allow Angular forms for provide us with a callback for when the input value changes
          * @param {?} fn
          * @return {?}
          */
             function (fn) {
                 this.onChange = fn;
             };
+        /** Allow Angular forms for provide us with a callback for when the touched state changes */
         /**
+         * Allow Angular forms for provide us with a callback for when the touched state changes
          * @param {?} fn
          * @return {?}
          */
         RadioButtonGroupDirective.prototype.registerOnTouched = /**
+         * Allow Angular forms for provide us with a callback for when the touched state changes
          * @param {?} fn
          * @return {?}
          */
             function (fn) {
                 this.onTouched = fn;
             };
+        /** Allow Angular forms to give us the current value */
         /**
+         * Allow Angular forms to give us the current value
          * @param {?} value
          * @return {?}
          */
         RadioButtonGroupDirective.prototype.writeValue = /**
+         * Allow Angular forms to give us the current value
          * @param {?} value
          * @return {?}
          */
             function (value) {
                 this.value = value;
             };
+        /** Allow Angular forms to disable the component */
         /**
+         * Allow Angular forms to disable the component
          * @param {?} isDisabled
          * @return {?}
          */
         RadioButtonGroupDirective.prototype.setDisabledState = /**
+         * Allow Angular forms to disable the component
          * @param {?} isDisabled
          * @return {?}
          */
@@ -34755,11 +34997,14 @@
                     this._radioButtons.forEach(function (radio) { return radio.setDisabledState(isDisabled); });
                 }
             };
+        /** Emit the currently selected value */
         /**
+         * Emit the currently selected value
          * @param {?} value
          * @return {?}
          */
         RadioButtonGroupDirective.prototype.emitChange = /**
+         * Emit the currently selected value
          * @param {?} value
          * @return {?}
          */
@@ -34768,10 +35013,13 @@
                 this.onChange(value);
                 this.onTouched();
             };
+        /** Inform all child radio buttons of the latest value */
         /**
+         * Inform all child radio buttons of the latest value
          * @return {?}
          */
         RadioButtonGroupDirective.prototype.updateSelectedRadioButton = /**
+         * Inform all child radio buttons of the latest value
          * @return {?}
          */
             function () {
@@ -34811,10 +35059,16 @@
     };
     /** @type {?} */
     var uniqueRadioId = 0;
+    /**
+     * @template T
+     */
     var RadioButtonComponent = /** @class */ (function () {
         function RadioButtonComponent(_changeDetector, _group) {
             this._changeDetector = _changeDetector;
             this._group = _group;
+            /**
+             * Provide a default unique id value for the radiobutton
+             */
             this._radioButtonId = "ux-radio-button-" + ++uniqueRadioId;
             /**
              * Specify a unique Id for this component
@@ -34852,46 +35106,26 @@
              * Emits when the value has been changed.
              */
             this.valueChange = new i0.EventEmitter();
-            this._value = false;
-            this.focused = false;
+            /**
+             * Determine if the underlying input component has been focused with the keyboard
+             */
+            this._focused = false;
+            /**
+             * Used to inform Angular forms that the component has been touched
+             */
             this.onTouchedCallback = function () { };
+            /**
+             * Used to inform Angular forms that the component value has changed
+             */
             this.onChangeCallback = function () { };
         }
-        Object.defineProperty(RadioButtonComponent.prototype, "value", {
-            /** This should be a two way binding and will store the currently selected option. Each radio button in the same group should have the same value variable. */
-            get: /**
-             * This should be a two way binding and will store the currently selected option. Each radio button in the same group should have the same value variable.
-             * @return {?}
-             */ function () {
-                return this._value;
-            },
-            set: /**
-             * @param {?} value
-             * @return {?}
-             */ function (value) {
-                this._value = value;
-                // invoke change event
-                this.valueChange.emit(this._value);
-                // call callback
-                this.onChangeCallback(this._value);
-                this.onTouchedCallback();
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(RadioButtonComponent.prototype, "inputId", {
-            get: /**
-             * @return {?}
-             */ function () {
-                return (this.id || this._radioButtonId) + "-input";
-            },
-            enumerable: true,
-            configurable: true
-        });
+        /** Select the current option */
         /**
+         * Select the current option
          * @return {?}
          */
-        RadioButtonComponent.prototype.toggle = /**
+        RadioButtonComponent.prototype.select = /**
+         * Select the current option
          * @return {?}
          */
             function () {
@@ -34905,8 +35139,12 @@
                     this._group.value = this.option;
                     this._group.emitChange(this.option);
                 }
-                // call callback
+                // emit the value
+                this.valueChange.emit(this.value);
+                // update the value if used within a form control
                 this.onChangeCallback(this.value);
+                // mark the component as touched
+                this.onTouchedCallback();
             };
         // Functions required to update ng-model
         // Functions required to update ng-model
@@ -34921,38 +35159,47 @@
              * @return {?}
              */
             function (value) {
-                if (value !== this._value) {
-                    this._value = value;
+                if (value !== this.value) {
+                    this.value = value;
                     this._changeDetector.detectChanges();
                 }
             };
+        /** Allow Angular forms for provide us with a callback for when the input value changes */
         /**
+         * Allow Angular forms for provide us with a callback for when the input value changes
          * @param {?} fn
          * @return {?}
          */
         RadioButtonComponent.prototype.registerOnChange = /**
+         * Allow Angular forms for provide us with a callback for when the input value changes
          * @param {?} fn
          * @return {?}
          */
             function (fn) {
                 this.onChangeCallback = fn;
             };
+        /** Allow Angular forms for provide us with a callback for when the touched state changes */
         /**
+         * Allow Angular forms for provide us with a callback for when the touched state changes
          * @param {?} fn
          * @return {?}
          */
         RadioButtonComponent.prototype.registerOnTouched = /**
+         * Allow Angular forms for provide us with a callback for when the touched state changes
          * @param {?} fn
          * @return {?}
          */
             function (fn) {
                 this.onTouchedCallback = fn;
             };
+        /** Allow Angular forms to disable the component */
         /**
+         * Allow Angular forms to disable the component
          * @param {?} isDisabled
          * @return {?}
          */
         RadioButtonComponent.prototype.setDisabledState = /**
+         * Allow Angular forms to disable the component
          * @param {?} isDisabled
          * @return {?}
          */
@@ -34962,8 +35209,9 @@
         RadioButtonComponent.decorators = [
             { type: i0.Component, args: [{
                         selector: 'ux-radio-button',
-                        template: "<label [attr.for]=\"inputId\" class=\"ux-radio-button\"\n       [class.ux-radio-button-checked]=\"value === option\"\n       [class.ux-radio-button-simplified]=\"simplified\"\n       [class.ux-radio-button-disabled]=\"disabled\"\n       [class.ux-radio-button-focused]=\"focused\">\n\n    <div class=\"ux-radio-button-container\">\n\n        <input class=\"ux-radio-button-input\"\n            uxFocusIndicator\n            type=\"radio\"\n            [id]=\"inputId\"\n            [checked]=\"value === option\"\n            [disabled]=\"disabled\"\n            [tabindex]=\"tabindex || value === option ? 0 : -1\"\n            [attr.name]=\"name\"\n            [required]=\"required\"\n            [attr.aria-label]=\"ariaLabel\"\n            [attr.aria-labelledby]=\"ariaLabelledby\"\n            [attr.aria-describedby]=\"ariaDescribedby\"\n            [attr.aria-checked]=\"value === option\"\n            (indicator)=\"focused = $event\"\n            (change)=\"toggle()\"\n            (click)=\"$event.stopPropagation()\">\n    </div>\n\n    <span class=\"ux-radio-button-label\">\n        <ng-content></ng-content>\n    </span>\n\n</label>",
-                        providers: [RADIOBUTTON_VALUE_ACCESSOR]
+                        template: "<label [attr.for]=\"(id || _radioButtonId) + '-input'\"\n       class=\"ux-radio-button\"\n       [class.ux-radio-button-checked]=\"value === option\"\n       [class.ux-radio-button-simplified]=\"simplified\"\n       [class.ux-radio-button-disabled]=\"disabled\"\n       [class.ux-radio-button-focused]=\"_focused\">\n\n    <div class=\"ux-radio-button-container\">\n\n        <input class=\"ux-radio-button-input\"\n            uxFocusIndicator\n            type=\"radio\"\n            [id]=\"(id || _radioButtonId) + '-input'\"\n            [checked]=\"value === option\"\n            [disabled]=\"disabled\"\n            [tabindex]=\"tabindex || value === option ? 0 : -1\"\n            [attr.name]=\"name\"\n            [required]=\"required\"\n            [attr.aria-label]=\"ariaLabel\"\n            [attr.aria-labelledby]=\"ariaLabelledby\"\n            [attr.aria-describedby]=\"ariaDescribedby\"\n            [attr.aria-checked]=\"value === option\"\n            (indicator)=\"_focused = $event\"\n            (change)=\"select()\"\n            (click)=\"$event.stopPropagation()\">\n    </div>\n\n    <span class=\"ux-radio-button-label\">\n        <ng-content></ng-content>\n    </span>\n\n</label>",
+                        providers: [RADIOBUTTON_VALUE_ACCESSOR],
+                        changeDetection: i0.ChangeDetectionStrategy.OnPush
                     }] }
         ];
         /** @nocollapse */
@@ -34976,6 +35224,7 @@
         RadioButtonComponent.propDecorators = {
             id: [{ type: i0.Input }],
             name: [{ type: i0.Input }],
+            value: [{ type: i0.Input }],
             required: [{ type: i0.Input }],
             tabindex: [{ type: i0.Input }],
             clickable: [{ type: i0.Input }],
@@ -34985,8 +35234,7 @@
             ariaLabel: [{ type: i0.Input, args: ['aria-label',] }],
             ariaLabelledby: [{ type: i0.Input, args: ['aria-labelledby',] }],
             ariaDescribedby: [{ type: i0.Input, args: ['aria-describedby',] }],
-            valueChange: [{ type: i0.Output }],
-            value: [{ type: i0.Input }]
+            valueChange: [{ type: i0.Output }]
         };
         return RadioButtonComponent;
     }());
@@ -37567,19 +37815,17 @@
          */
             function () {
                 var _this = this;
-                this._value$.pipe(operators.skip(1), operators.distinctUntilChanged(), operators.takeUntil(this._onDestroy))
-                    .subscribe(function (value) { return _this.valueChange.emit(value); });
                 // Emit change events
                 this._value$.pipe(operators.takeUntil(this._onDestroy), operators.distinctUntilChanged()).subscribe(function (value) {
                     _this._value = value;
-                    _this._onChange(value);
                     _this._hasValue = !!value;
                 });
-                this._input$.pipe(operators.takeUntil(this._onDestroy), operators.distinctUntilChanged()).subscribe(function (value) {
-                    _this.inputChange.emit(value);
-                });
                 // Changes to the input field
-                this._input$.pipe(operators.filter(function () { return _this.allowNull; }), operators.filter(function (value) { return !_this.multiple && value !== _this.getDisplay(_this.value); }), operators.takeUntil(this._onDestroy)).subscribe(function () { return _this.value = null; });
+                this._input$.pipe(operators.skip(1), operators.filter(function () { return _this.allowNull; }), operators.filter(function (value) { return !_this.multiple && value !== _this.getDisplay(_this.value); }), operators.takeUntil(this._onDestroy)).subscribe(function () {
+                    _this.value = null;
+                    _this.valueChange.next(null),
+                        _this._onChange(null);
+                });
                 // Set up filter from input
                 this.filter$ = this._input$.pipe(operators.map(function (input) { return !_this.multiple && input === _this.getDisplay(_this.value) ? '' : input; }), operators.debounceTime(200));
                 // open the dropdown once the filter debounce has elapsed
@@ -37590,7 +37836,13 @@
                 });
                 // Update the single-select input when the model changes
                 this._value$.pipe(operators.distinctUntilChanged(), operators.delay(0), operators.filter(function (value) { return value !== null && !_this.multiple; }), operators.takeUntil(this._onDestroy)).subscribe(function (value) {
-                    _this.input = _this.getDisplay(value);
+                    /** @type {?} */
+                    var inputValue = _this.getDisplay(value);
+                    // check if the input value has changed and if so the emit
+                    if (inputValue !== _this.input) {
+                        _this.input = inputValue;
+                        _this.inputChange.emit(_this.input);
+                    }
                 });
             };
         /**
@@ -37730,19 +37982,55 @@
                     this._dropdownOpen = true;
                 }
             };
+        /** This gets called whenever the user types in the input */
         /**
+         * This gets called whenever the user types in the input
+         * @param {?} input
+         * @return {?}
+         */
+        SelectComponent.prototype.onInputChange = /**
+         * This gets called whenever the user types in the input
+         * @param {?} input
+         * @return {?}
+         */
+            function (input) {
+                this.inputChange.emit(input);
+            };
+        /** Whenever a single select item is selected emit the values */
+        /**
+         * Whenever a single select item is selected emit the values
          * @param {?} event
          * @return {?}
          */
-        SelectComponent.prototype.singleOptionSelected = /**
+        SelectComponent.prototype._singleOptionSelected = /**
+         * Whenever a single select item is selected emit the values
          * @param {?} event
          * @return {?}
          */
             function (event) {
-                if (event.option) {
+                if (event.option && event.option !== this.value) {
                     this.value = event.option;
                     this.dropdownOpen = false;
+                    this.valueChange.emit(this.value);
+                    this._onChange(this.value);
                 }
+            };
+        /** Whenever a multi-select item is selected emit the values */
+        /**
+         * Whenever a multi-select item is selected emit the values
+         * @param {?} selection
+         * @return {?}
+         */
+        SelectComponent.prototype._multipleOptionSelected = /**
+         * Whenever a multi-select item is selected emit the values
+         * @param {?} selection
+         * @return {?}
+         */
+            function (selection) {
+                // update the internal selection
+                this._value$.next(selection);
+                this.valueChange.emit(this.value);
+                this._onChange(this.value);
             };
         /**
          * Returns the display value of the given option.
@@ -37762,10 +38050,10 @@
                     return '';
                 }
                 if (typeof this.display === 'function') {
-                    return this.display(option);
+                    return this.display(( /** @type {?} */(option)));
                 }
-                if (typeof this.display === 'string' && option.hasOwnProperty(this.display)) {
-                    return option[( /** @type {?} */(this.display))];
+                if (typeof this.display === 'string' && typeof option === 'object' && option.hasOwnProperty(this.display)) {
+                    return option[this.display];
                 }
                 return ( /** @type {?} */(option));
             };
@@ -37825,6 +38113,10 @@
                 this.value = null;
                 this.input = null;
                 this.selectInputText();
+                // emit the latest values
+                this.valueChange.emit(this.value);
+                this._onChange(this.value);
+                this.inputChange.emit(this.input);
             };
         /**
          * @return {?}
@@ -37840,7 +38132,7 @@
         SelectComponent.decorators = [
             { type: i0.Component, args: [{
                         selector: 'ux-select, ux-combobox, ux-dropdown',
-                        template: "<ux-tag-input\r\n    *ngIf=\"multiple\"\r\n    #tagInput=\"ux-tag-input\"\r\n    [id]=\"id + '-input'\"\r\n    [tags]=\"_value$ | async\"\r\n    (tagsChange)=\"_value$.next($event)\"\r\n    [(input)]=\"input\"\r\n    [ariaLabel]=\"ariaLabel\"\r\n    [autocomplete]=\"autocomplete\"\r\n    [addOnPaste]=\"false\"\r\n    [disabled]=\"disabled\"\r\n    [display]=\"display\"\r\n    [freeInput]=\"false\"\r\n    [placeholder]=\"placeholder || ''\"\r\n    [tagTemplate]=\"tagTemplate\"\r\n    (inputFocus)=\"onFocus()\"\r\n    [showTypeaheadOnClick]=\"true\"\r\n    [readonlyInput]=\"readonlyInput\"\r\n    [icon]=\"icon\"\r\n    [clearButton]=\"clearButton\"\r\n    [clearButtonAriaLabel]=\"clearButtonAriaLabel\"\r\n>\r\n    <ux-typeahead #multipleTypeahead\r\n        [id]=\"id + '-typeahead'\"\r\n        [options]=\"options\"\r\n        [filter]=\"filter$ | async\"\r\n        [(open)]=\"dropdownOpen\"\r\n        [display]=\"display\"\r\n        [key]=\"key\"\r\n        [disabledOptions]=\"_value$ | async\"\r\n        [dropDirection]=\"dropDirection\"\r\n        [maxHeight]=\"maxHeight\"\r\n        [multiselectable]=\"true\"\r\n        [pageSize]=\"pageSize\"\r\n        [selectFirst]=\"true\"\r\n        [loadingTemplate]=\"loadingTemplate\"\r\n        [optionTemplate]=\"optionTemplate\"\r\n        [noOptionsTemplate]=\"noOptionsTemplate\"\r\n        [recentOptions]=\"recentOptions\"\r\n        [recentOptionsMaxCount]=\"recentOptionsMaxCount\"\r\n        (recentOptionsChange)=\"recentOptionsChange.emit($event)\"\r\n    >\r\n    </ux-typeahead>\r\n\r\n</ux-tag-input>\r\n\r\n<div *ngIf=\"!multiple\"\r\n    class=\"ux-select-container\"\r\n    [class.disabled]=\"disabled\"\r\n    role=\"combobox\"\r\n    [attr.aria-expanded]=\"dropdownOpen\"\r\n    aria-haspopup=\"listbox\">\r\n\r\n    <input #singleInput type=\"text\"\r\n        [attr.id]=\"id + '-input'\"\r\n        class=\"form-control\"\r\n        [class.ux-tag-input-clear-inset]=\"clearButton && allowNull && _hasValue\"\r\n        [attr.aria-activedescendant]=\"highlightedElement?.id\"\r\n        aria-autocomplete=\"list\"\r\n        [attr.aria-controls]=\"singleTypeahead.id\"\r\n        [attr.aria-label]=\"ariaLabel\"\r\n        aria-multiline=\"false\"\r\n        [autocomplete]=\"autocomplete\"\r\n        [(ngModel)]=\"input\"\r\n        [placeholder]=\"placeholder || ''\"\r\n        [disabled]=\"disabled\"\r\n        (click)=\"toggle()\"\r\n        (focus)=\"onFocus()\"\r\n        (blur)=\"inputBlurHandler()\"\r\n        (keydown)=\"inputKeyHandler($event)\"\r\n        [readonly]=\"readonlyInput\">\r\n\r\n    <div class=\"ux-select-icons\">\r\n        <i *ngIf=\"clearButton && allowNull && _hasValue\"\r\n           uxFocusIndicator\r\n           [attr.tabindex]=\"disabled ? -1 : 0\"\r\n           [attr.aria-label]=\"clearButtonAriaLabel\"\r\n           class=\"ux-select-icon ux-icon ux-icon-close ux-select-clear-icon\"\r\n           (click)=\"clear(); $event.stopPropagation()\"\r\n           (keydown.enter)=\"clear(); $event.stopPropagation()\">\r\n        </i>\r\n        <i *ngIf=\"!icon\"\r\n           class=\"ux-select-icon ux-icon ux-select-chevron-icon\"\r\n           [class.ux-icon-up]=\"dropDirection === 'up'\"\r\n           [class.ux-icon-down]=\"dropDirection === 'down'\"\r\n           (click)=\"toggle(); $event.stopPropagation()\">\r\n        </i>\r\n        <div *ngIf=\"icon\" class=\"ux-custom-icon\">\r\n            <ng-container [ngTemplateOutlet]=\"icon\"></ng-container>\r\n        </div>\r\n    </div>\r\n\r\n    <ux-typeahead #singleTypeahead\r\n        [id]=\"id + '-typeahead'\"\r\n        [active]=\"_value$ | async\"\r\n        [options]=\"options\"\r\n        [filter]=\"filter$ | async\"\r\n        [(open)]=\"dropdownOpen\"\r\n        [display]=\"display\"\r\n        [key]=\"key\"\r\n        [dropDirection]=\"dropDirection\"\r\n        [maxHeight]=\"maxHeight\"\r\n        [multiselectable]=\"false\"\r\n        [openOnFilterChange]=\"false\"\r\n        [pageSize]=\"pageSize\"\r\n        [selectFirst]=\"true\"\r\n        [loadingTemplate]=\"loadingTemplate\"\r\n        [optionTemplate]=\"optionTemplate\"\r\n        [noOptionsTemplate]=\"noOptionsTemplate\"\r\n        [recentOptions]=\"recentOptions\"\r\n        [recentOptionsMaxCount]=\"recentOptionsMaxCount\"\r\n        (optionSelected)=\"singleOptionSelected($event)\"\r\n        (highlightedElementChange)=\"highlightedElement = $event\"\r\n        (recentOptionsChange)=\"recentOptionsChange.emit($event)\"\r\n    >\r\n\r\n    </ux-typeahead>\r\n\r\n</div>",
+                        template: "<ux-tag-input\r\n    *ngIf=\"multiple\"\r\n    #tagInput=\"ux-tag-input\"\r\n    [id]=\"id + '-input'\"\r\n    [tags]=\"_value$ | async\"\r\n    (tagsChange)=\"_multipleOptionSelected($event)\"\r\n    [(input)]=\"input\"\r\n    (inputChange)=\"onInputChange($event)\"\r\n    [ariaLabel]=\"ariaLabel\"\r\n    [autocomplete]=\"autocomplete\"\r\n    [addOnPaste]=\"false\"\r\n    [disabled]=\"disabled\"\r\n    [display]=\"display\"\r\n    [freeInput]=\"false\"\r\n    [placeholder]=\"placeholder || ''\"\r\n    [tagTemplate]=\"tagTemplate\"\r\n    (inputFocus)=\"onFocus()\"\r\n    [showTypeaheadOnClick]=\"true\"\r\n    [readonlyInput]=\"readonlyInput\"\r\n    [icon]=\"icon\"\r\n    [clearButton]=\"clearButton\"\r\n    [clearButtonAriaLabel]=\"clearButtonAriaLabel\">\r\n\r\n    <ux-typeahead #multipleTypeahead\r\n        [id]=\"id + '-typeahead'\"\r\n        [options]=\"options\"\r\n        [filter]=\"filter$ | async\"\r\n        [(open)]=\"dropdownOpen\"\r\n        [display]=\"display\"\r\n        [key]=\"key\"\r\n        [disabledOptions]=\"_value$ | async\"\r\n        [dropDirection]=\"dropDirection\"\r\n        [maxHeight]=\"maxHeight\"\r\n        [multiselectable]=\"true\"\r\n        [pageSize]=\"pageSize\"\r\n        [selectFirst]=\"true\"\r\n        [loadingTemplate]=\"loadingTemplate\"\r\n        [optionTemplate]=\"optionTemplate\"\r\n        [noOptionsTemplate]=\"noOptionsTemplate\"\r\n        [recentOptions]=\"recentOptions\"\r\n        [recentOptionsMaxCount]=\"recentOptionsMaxCount\"\r\n        (recentOptionsChange)=\"recentOptionsChange.emit($event)\">\r\n    </ux-typeahead>\r\n\r\n</ux-tag-input>\r\n\r\n<div *ngIf=\"!multiple\"\r\n    class=\"ux-select-container\"\r\n    [class.disabled]=\"disabled\"\r\n    role=\"combobox\"\r\n    [attr.aria-expanded]=\"dropdownOpen\"\r\n    aria-haspopup=\"listbox\">\r\n\r\n    <input #singleInput type=\"text\"\r\n        [attr.id]=\"id + '-input'\"\r\n        class=\"form-control\"\r\n        [class.ux-tag-input-clear-inset]=\"clearButton && allowNull && _hasValue\"\r\n        [attr.aria-activedescendant]=\"highlightedElement?.id\"\r\n        aria-autocomplete=\"list\"\r\n        [attr.aria-controls]=\"singleTypeahead.id\"\r\n        [attr.aria-label]=\"ariaLabel\"\r\n        aria-multiline=\"false\"\r\n        [autocomplete]=\"autocomplete\"\r\n        [(ngModel)]=\"input\"\r\n        (ngModelChange)=\"onInputChange($event)\"\r\n        [placeholder]=\"placeholder || ''\"\r\n        [disabled]=\"disabled\"\r\n        (click)=\"toggle()\"\r\n        (focus)=\"onFocus()\"\r\n        (blur)=\"inputBlurHandler()\"\r\n        (keydown)=\"inputKeyHandler($event)\"\r\n        [readonly]=\"readonlyInput\">\r\n\r\n    <div class=\"ux-select-icons\">\r\n        <i *ngIf=\"clearButton && allowNull && _hasValue\"\r\n           uxFocusIndicator\r\n           [attr.tabindex]=\"disabled ? -1 : 0\"\r\n           [attr.aria-label]=\"clearButtonAriaLabel\"\r\n           class=\"ux-select-icon ux-icon ux-icon-close ux-select-clear-icon\"\r\n           (click)=\"clear(); $event.stopPropagation()\"\r\n           (keydown.enter)=\"clear(); $event.stopPropagation()\">\r\n        </i>\r\n        <i *ngIf=\"!icon\"\r\n           class=\"ux-select-icon ux-icon ux-select-chevron-icon\"\r\n           [class.ux-icon-up]=\"dropDirection === 'up'\"\r\n           [class.ux-icon-down]=\"dropDirection === 'down'\"\r\n           (click)=\"toggle(); $event.stopPropagation()\">\r\n        </i>\r\n        <div *ngIf=\"icon\" class=\"ux-custom-icon\">\r\n            <ng-container [ngTemplateOutlet]=\"icon\"></ng-container>\r\n        </div>\r\n    </div>\r\n\r\n    <ux-typeahead #singleTypeahead\r\n        [id]=\"id + '-typeahead'\"\r\n        [active]=\"_value$ | async\"\r\n        [options]=\"options\"\r\n        [filter]=\"filter$ | async\"\r\n        [(open)]=\"dropdownOpen\"\r\n        [display]=\"display\"\r\n        [key]=\"key\"\r\n        [dropDirection]=\"dropDirection\"\r\n        [maxHeight]=\"maxHeight\"\r\n        [multiselectable]=\"false\"\r\n        [openOnFilterChange]=\"false\"\r\n        [pageSize]=\"pageSize\"\r\n        [selectFirst]=\"true\"\r\n        [loadingTemplate]=\"loadingTemplate\"\r\n        [optionTemplate]=\"optionTemplate\"\r\n        [noOptionsTemplate]=\"noOptionsTemplate\"\r\n        [recentOptions]=\"recentOptions\"\r\n        [recentOptionsMaxCount]=\"recentOptionsMaxCount\"\r\n        (optionSelected)=\"_singleOptionSelected($event)\"\r\n        (highlightedElementChange)=\"highlightedElement = $event\"\r\n        (recentOptionsChange)=\"recentOptionsChange.emit($event)\">\r\n\r\n    </ux-typeahead>\r\n\r\n</div>",
                         providers: [SELECT_VALUE_ACCESSOR],
                         host: {
                             '[class.ux-select-custom-icon]': '!!icon',
@@ -44132,11 +44424,18 @@
     var uniqueToggleSwitchId = 0;
     var ToggleSwitchComponent = /** @class */ (function () {
         function ToggleSwitchComponent() {
+            /**
+             * Provide a default unique id value for the toggle switch
+             */
             this._toggleSwitchId = "ux-toggleswitch-" + ++uniqueToggleSwitchId;
             /**
              * Specify a unique id for the element.
              */
             this.id = this._toggleSwitchId;
+            /**
+             * Binding for the state of the switch; `true` for "on" and `false` for "off."
+             */
+            this.value = false;
             /**
              * Specify a tabindex.
              */
@@ -44161,42 +44460,19 @@
              * Emits when `value` has been changed.
              */
             this.valueChange = new i0.EventEmitter();
-            this._value = false;
-            this.focused = false;
+            /**
+             * Determine if the underlying input component has been focused with the keyboard
+             */
+            this._focused = false;
+            /**
+             * Used to inform Angular forms that the component has been touched
+             */
             this.onTouchedCallback = function () { };
+            /**
+             * Used to inform Angular forms that the component value has changed
+             */
             this.onChangeCallback = function () { };
         }
-        Object.defineProperty(ToggleSwitchComponent.prototype, "value", {
-            /** Binding for the state of the switch; `true` for "on" and `false` for "off." */
-            get: /**
-             * Binding for the state of the switch; `true` for "on" and `false` for "off."
-             * @return {?}
-             */ function () {
-                return this._value;
-            },
-            set: /**
-             * @param {?} value
-             * @return {?}
-             */ function (value) {
-                this._value = value;
-                // Update value output
-                this.valueChange.emit(value);
-                // Notify ngModel
-                this.onChangeCallback(value);
-                this.onTouchedCallback();
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(ToggleSwitchComponent.prototype, "inputId", {
-            get: /**
-             * @return {?}
-             */ function () {
-                return (this.id || this._toggleSwitchId) + "-input";
-            },
-            enumerable: true,
-            configurable: true
-        });
         /**
          * @return {?}
          */
@@ -44206,6 +44482,12 @@
             function () {
                 if (!this.disabled && this.clickable) {
                     this.value = !this.value;
+                    // emit the value
+                    this.valueChange.emit(this.value);
+                    // update the value if used within a form control
+                    this.onChangeCallback(this.value);
+                    // mark the component as touched
+                    this.onTouchedCallback();
                 }
             };
         /**
@@ -44255,20 +44537,21 @@
         ToggleSwitchComponent.decorators = [
             { type: i0.Component, args: [{
                         selector: 'ux-toggleswitch',
-                        template: "<label [attr.for]=\"inputId\"\n       class=\"ux-toggleswitch\"\n       [class.ux-toggleswitch-checked]=\"value\"\n       [class.ux-toggleswitch-disabled]=\"disabled\"\n       [class.ux-toggleswitch-focused]=\"focused\">\n\n    <input class=\"ux-toggleswitch-input\"\n           uxFocusIndicator\n           type=\"checkbox\"\n           role=\"switch\"\n           [id]=\"inputId\"\n           [checked]=\"value\"\n           [disabled]=\"disabled\"\n           [attr.name]=\"name\"\n           [tabindex]=\"tabindex\"\n           [attr.aria-label]=\"ariaLabel\"\n           [attr.aria-labelledby]=\"ariaLabelledby\"\n           [attr.aria-checked]=\"value\"\n           (indicator)=\"focused = $event\"\n           (change)=\"toggle()\"\n           (click)=\"$event.stopPropagation()\">\n\n    <div class=\"ux-toggleswitch-container\">\n        <div class=\"ux-toggleswitch-bg\"></div>\n        <div class=\"ux-toggleswitch-nub\"></div>\n    </div>\n\n    <span class=\"ux-toggleswitch-label\">\n        <ng-content></ng-content>\n    </span>\n</label>",
-                        providers: [TOGGLESWITCH_VALUE_ACCESSOR]
+                        template: "<label [attr.for]=\"(id || _toggleSwitchId) + '-input'\"\n       class=\"ux-toggleswitch\"\n       [class.ux-toggleswitch-checked]=\"value\"\n       [class.ux-toggleswitch-disabled]=\"disabled\"\n       [class.ux-toggleswitch-focused]=\"_focused\">\n\n    <input class=\"ux-toggleswitch-input\"\n           uxFocusIndicator\n           type=\"checkbox\"\n           role=\"switch\"\n           [id]=\"(id || _toggleSwitchId) + '-input'\"\n           [checked]=\"value\"\n           [disabled]=\"disabled\"\n           [attr.name]=\"name\"\n           [tabindex]=\"tabindex\"\n           [attr.aria-label]=\"ariaLabel\"\n           [attr.aria-labelledby]=\"ariaLabelledby\"\n           [attr.aria-checked]=\"value\"\n           (indicator)=\"_focused = $event\"\n           (change)=\"toggle()\"\n           (click)=\"$event.stopPropagation()\">\n\n    <div class=\"ux-toggleswitch-container\">\n        <div class=\"ux-toggleswitch-bg\"></div>\n        <div class=\"ux-toggleswitch-nub\"></div>\n    </div>\n\n    <span class=\"ux-toggleswitch-label\">\n        <ng-content></ng-content>\n    </span>\n</label>",
+                        providers: [TOGGLESWITCH_VALUE_ACCESSOR],
+                        changeDetection: i0.ChangeDetectionStrategy.OnPush
                     }] }
         ];
         ToggleSwitchComponent.propDecorators = {
             id: [{ type: i0.Input }],
             name: [{ type: i0.Input }],
+            value: [{ type: i0.Input }],
             tabindex: [{ type: i0.Input }],
             clickable: [{ type: i0.Input }],
             disabled: [{ type: i0.Input }],
             ariaLabel: [{ type: i0.Input, args: ['aria-label',] }],
             ariaLabelledby: [{ type: i0.Input, args: ['aria-labelledby',] }],
-            valueChange: [{ type: i0.Output }],
-            value: [{ type: i0.Input }]
+            valueChange: [{ type: i0.Output }]
         };
         return ToggleSwitchComponent;
     }());

@@ -1,5 +1,5 @@
 /* 
-* @ux-aspects/ux-aspects-docs - v1.8.15-56 
+* @ux-aspects/ux-aspects-docs - v1.8.16-65 
 * © Copyright 2020 EntIT Software LLC, a Micro Focus company
 */
 .tree-children.tree-children-no-padding {
@@ -17960,6 +17960,12 @@ ux-filter-container .filter-selected-clear-graphic .dark-grey {
 }
 ux-filter-container .filter-selected-clear-graphic .light-grey {
   fill: #999;
+}
+ux-filter-container .filter-header {
+  font-weight: 400;
+}
+ux-filter-container .table-filter-clear {
+  padding: 7px 12px;
 }
 ux-filter-dropdown .filter-dropdown {
   padding: 6px;
