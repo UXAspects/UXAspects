@@ -1,4 +1,4 @@
-UX Aspects 1.8.14 is available! Check out the documentation at [uxaspects.github.io/UXAspects](https://uxaspects.github.io/UXAspects).
+UX Aspects 1.8.15 is available! Check out the documentation at [uxaspects.github.io/UXAspects](https://uxaspects.github.io/UXAspects).
 
 #### Bug Fixes and Improvements
 * (EL-3774) [Date Range Picker](https://uxaspects.github.io/UXAspects/#/components/date-time-picker#date-range-picker) - fixed an error when loading in a timezone that isn't included in the default set of timezones.
