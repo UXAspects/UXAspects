@@ -57,7 +57,6 @@ export class ComponentsWizardComponent extends BaseDocumentationSection implemen
     onStepChange(index: number): void {
         this._announcer.announce(`${this.steps[index].header} activated`);
     }
-
 }
 
 export interface WizardStep {

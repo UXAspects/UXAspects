@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, ContentChild, ContentChildren, EventEmitter, Input, OnDestroy, Output, QueryList, TemplateRef } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Subject, Subscription, Observable } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { tick } from '../../common/index';
 import { WizardStepComponent } from './wizard-step.component';
@@ -176,12 +176,26 @@ export class WizardComponent implements AfterViewInit, OnDestroy {
     /**
      * Navigate to the next step
      */
-    next(): void {
+    async next(): Promise<void> {
 
         this.stepChanging.next(new StepChangingEvent(this.step, this.step + 1));
 
+        const step = this.getCurrentStep();
+
+        // Disable the button while waiting on validation
+        this.nextDisabled = true;
+
+        try {
+            // Fetch validation status
+            const validationResult = this.isStepValid();
+            step.valid = validationResult instanceof Promise ? await validationResult : validationResult;
+        } finally {
+            // Re-enable button
+            this.nextDisabled = false;
+        }
+
         // check if current step is invalid
-        if (!this.getCurrentStep().valid) {
+        if (!step.valid) {
             this.invalidIndicator = true;
             this.stepError.next(this.step);
             return;
@@ -196,9 +210,9 @@ export class WizardComponent implements AfterViewInit, OnDestroy {
         }
     }
 
-     /**
-      * Whether the Next or Finish button should be disabled.
-      */
+    /**
+     * Whether the Next or Finish button should be disabled.
+     */
     isNextDisabled(): boolean {
         const step = this.getCurrentStep();
 
@@ -233,10 +247,22 @@ export class WizardComponent implements AfterViewInit, OnDestroy {
     /**
      * Perform actions when the finish button is clicked
      */
-    finish(): Promise<void> {
+    async finish(): Promise<void> {
 
         // fires when the finish button is clicked always
         this.onFinishing.next();
+
+        // Disable the button while waiting on validation
+        this.finishDisabled = true;
+
+        try {
+            // Fetch validation status
+            const validationResult = this.isStepValid();
+            this.getCurrentStep().valid = validationResult instanceof Promise ? await validationResult : validationResult;
+        } finally {
+            // Re-enable button
+            this.finishDisabled = false;
+        }
 
         /**
          * This is required because we need to ensure change detection has run
@@ -319,6 +345,23 @@ export class WizardComponent implements AfterViewInit, OnDestroy {
      */
     getStepAtIndex(index: number): WizardStepComponent {
         return this.steps.toArray()[index];
+    }
+
+    /**
+     * Returns the valid status of the current step, including the `validation` function (if provided).
+     */
+    private isStepValid(): boolean | Promise<boolean> {
+
+        // get the current activer step
+        const currentStep = this.getCurrentStep();
+
+        // if there is no validator then return the valid state
+        if (!currentStep.validator) {
+            return currentStep.valid;
+        }
+
+        // get the validator result
+        return currentStep.validator();
     }
 }
 
