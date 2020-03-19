@@ -81,13 +81,13 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
     @Input() loading = false;
 
     /** Specify a custom loading template */
-    @Input() loadingTemplate: TemplateRef<{}>;
+    @Input() loadingTemplate: TemplateRef<void>;
 
     /** Specify a custom option template */
     @Input() optionTemplate: TemplateRef<TypeaheadOptionContext<T>>;
 
     /** Specify a custom template to display when there are no options */
-    @Input() noOptionsTemplate: TemplateRef<{}>;
+    @Input() noOptionsTemplate: TemplateRef<void>;
 
     /** Specify the currently active item */
     @Input() set active(item: T) {
