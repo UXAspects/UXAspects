@@ -187,7 +187,8 @@ export class WizardComponent implements AfterViewInit, OnDestroy {
 
         try {
             // Fetch validation status
-            step.valid = await this.isStepValid();
+            const validationResult = this.isStepValid();
+            step.valid = validationResult instanceof Promise ? await validationResult : validationResult;
         } finally {
             // Re-enable button
             this.nextDisabled = false;
@@ -256,7 +257,8 @@ export class WizardComponent implements AfterViewInit, OnDestroy {
 
         try {
             // Fetch validation status
-            this.getCurrentStep().valid = await this.isStepValid();
+            const validationResult = this.isStepValid();
+            this.getCurrentStep().valid = validationResult instanceof Promise ? await validationResult : validationResult;
         } finally {
             // Re-enable button
             this.finishDisabled = false;
@@ -348,21 +350,18 @@ export class WizardComponent implements AfterViewInit, OnDestroy {
     /**
      * Returns the valid status of the current step, including the `validation` function (if provided).
      */
-    protected isStepValid(): Promise<boolean> {
+    private isStepValid(): boolean | Promise<boolean> {
 
         // get the current activer step
         const currentStep = this.getCurrentStep();
 
         // if there is no validator then return the valid state
         if (!currentStep.validator) {
-            return Promise.resolve(currentStep.valid);
+            return currentStep.valid;
         }
 
         // get the validator result
-        const validatorResult = currentStep.validator();
-
-        // return as a promise
-        return Promise.resolve(validatorResult);
+        return currentStep.validator();
     }
 }
 
