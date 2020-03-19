@@ -372,7 +372,7 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
     /**
      * Returns the display value of the given option.
      */
-    getDisplay(option: unknown): string {
+    getDisplay(option: any): string {
 
         if (option === null || option === undefined) {
             return '';
