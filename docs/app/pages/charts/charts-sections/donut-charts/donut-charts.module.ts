@@ -36,12 +36,10 @@ const ROUTES = [
     ],
     exports: SECTIONS,
     declarations: SECTIONS,
-    entryComponents: SECTIONS,
-    providers: [],
 })
 export class ChartsDonutChartsModule {
 
     constructor(componentFactoryResolver: ComponentFactoryResolver, resolverService: ResolverService) {
-        resolverService.registerResolver(componentFactoryResolver);
+        resolverService.registerResolver(componentFactoryResolver, SECTIONS);
     }
 }

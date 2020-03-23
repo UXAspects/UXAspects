@@ -1,10 +1,12 @@
-import { browser, by, element, ElementFinder, Key } from 'protractor';
+import { browser, by, element, ElementFinder, Key, protractor } from 'protractor';
+
+const ANNOUNCER_WAIT_TIMEOUT = 200;
 
 export class DashboardPage {
 
     container = element(by.id('dashboardWidgetContainer'));
     dashboard = element(by.className('customizable-dashboard'));
-    announcer = element(by.className('cdk-visually-hidden'));
+    announcer = element(by.className('cdk-live-announcer-element'));
     topFocusTarget = element(by.id('top-focus'));
     bottomFocusTarget = element(by.id('bottom-focus'));
 
@@ -75,6 +77,13 @@ export class DashboardPage {
 
     async getAnnouncerText(): Promise<string> {
         return this.announcer.getText();
+    }
+
+    async checkAnnouncerText(expected: string): Promise<void> {
+        return await browser.wait(
+            protractor.ExpectedConditions.textToBePresentInElement(this.announcer, expected),
+            ANNOUNCER_WAIT_TIMEOUT
+        );
     }
 
     // Extract and return the left, top, width or height values from the element's 'style' attribute

@@ -7,6 +7,7 @@ const { cwd } = require('process');
 const ts = require('typescript');
 const { readFileSync, writeFileSync } = require('fs');
 const { transformerFactory } = require('ts-transform-readonly-array');
+const { main } = require('downlevel-dts');
 
 /**
  * Typescript 3.4 (Angular 8+) compiles `ReadonlyArray` to `readonly` which
@@ -124,6 +125,11 @@ const injectableTransformerFactory = (context) => (bundle) => {
     return ts.visitNode(bundle, visitor);
 };
 
+async function downlevelDeclarations() {
+    main(join(cwd(), 'dist', 'library'), join(cwd(), 'dist', 'library'));
+}
+
 
 transformDeclarations();
 transformImports();
+downlevelDeclarations();

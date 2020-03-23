@@ -1,5 +1,5 @@
 import { coerceNumberProperty } from '@angular/cdk/coercion';
-import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Inject, Input, OnDestroy, Output, Renderer2 } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Inject, Input, OnDestroy, Output, Renderer2 } from '@angular/core';
 import { filter, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { ColumnUnit } from './table-column-resize-standard/resizable-table.service';
@@ -14,7 +14,7 @@ import { BaseResizableTableService, ResizableTableType } from './resizable-table
         class: 'ux-resizable-table-column'
     }
 })
-export class ResizableTableColumnComponent implements OnDestroy {
+export class ResizableTableColumnComponent implements AfterViewInit, OnDestroy {
 
     /** Disabled the column resizing */
     @Input() disabled: boolean = false;
@@ -48,7 +48,11 @@ export class ResizableTableColumnComponent implements OnDestroy {
             const currentWidth = this._table.getColumnWidth(this.getCellIndex(), ColumnUnit.Pixel);
 
             // resize the column by the difference in size
-            this._table.resizeColumn(this.getCellIndex(), this._width - currentWidth, false);
+            if (isNaN(currentWidth)) {
+                this._table.resizeColumn(this.getCellIndex(), this._width, false);
+            } else {
+                this._table.resizeColumn(this.getCellIndex(), this._width - currentWidth, false);
+            }
         }
     }
 
@@ -83,27 +87,32 @@ export class ResizableTableColumnComponent implements OnDestroy {
     /** Emit when all observables should be unsubscribed */
     private _onDestroy = new Subject<void>();
 
-    constructor(private _elementRef: ElementRef, @Inject(RESIZABLE_TABLE_SERVICE_TOKEN) private _table: BaseResizableTableService, private _renderer: Renderer2) {
+    constructor(private _elementRef: ElementRef, @Inject(RESIZABLE_TABLE_SERVICE_TOKEN) private _table: BaseResizableTableService, private _renderer: Renderer2) {}
 
+    ngAfterViewInit(): void {
         // initially emit the size when we have initialised
-        _table.isInitialised$.pipe(takeUntil(this._onDestroy), filter(isInitialised => isInitialised))
+        this._table.isInitialised$.pipe(takeUntil(this._onDestroy), filter(isInitialised => isInitialised))
             .subscribe(() => {
                 // get the current min-width
                 this._minWidth = parseFloat(getComputedStyle(this._elementRef.nativeElement).minWidth);
 
-                this.widthChange.emit(_table.getColumnWidth(this.getCellIndex(), ColumnUnit.Pixel));
+                const width = this._table.getColumnWidth(this.getCellIndex(), ColumnUnit.Pixel);
+
+                if (!isNaN(width)) {
+                    this.widthChange.emit(width);
+                }
             });
 
         // ensure the correct width gets emitted on column size change
-        _table.onResize$.pipe(takeUntil(this._onDestroy)).subscribe(() => {
+        this._table.onResize$.pipe(takeUntil(this._onDestroy)).subscribe(() => {
             this.setColumnWidth();
             this.setColumnFlex();
 
             // get the current table width
-            const width = _table.getColumnWidth(this.getCellIndex(), ColumnUnit.Pixel);
+            const width = this._table.getColumnWidth(this.getCellIndex(), ColumnUnit.Pixel);
 
             // check if the width actually changed - otherwise don't emit
-            if (this._width === undefined || Math.max(width, this._width) - Math.min(width, this._width) >= 1) {
+            if (!isNaN(width) && (this._width === undefined || Math.max(width, this._width) - Math.min(width, this._width) >= 1)) {
                 this.widthChange.emit(width);
             }
         });
@@ -178,11 +187,9 @@ export class ResizableTableColumnComponent implements OnDestroy {
             return;
         }
 
-
         const width = this._table.isResizing$.value ?
             `${this._table.getColumnWidth(this.getCellIndex(), ColumnUnit.Pixel)}px` :
             `${this._table.getColumnWidth(this.getCellIndex(), ColumnUnit.Percentage)}%`;
-
 
         if (this._table.type === ResizableTableType.Expand) {
             const minWidth = Math.max(this._table.getColumnWidth(this.getCellIndex(), ColumnUnit.Pixel), this._minWidth);

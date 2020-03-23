@@ -8,12 +8,12 @@ describe('Icon Service', () => {
     }));
 
     it('should be created', () => {
-        const service: IconService = TestBed.get(IconService);
+        const service: IconService = TestBed.inject(IconService);
         expect(service).toBeTruthy();
     });
 
     it('it should initially be instantiated with the UX Iconset', () => {
-        const service: IconService = TestBed.get(IconService);
+        const service: IconService = TestBed.inject(IconService);
         const { icon, iconset, name, size } = service.getIcon('alert');
 
         expect(icon).toBe('ux-icon-alert');
@@ -23,7 +23,7 @@ describe('Icon Service', () => {
     });
 
     it('it can be changed to use an alternate icon set', () => {
-        const service: IconService = TestBed.get(IconService);
+        const service: IconService = TestBed.inject(IconService);
 
         // set an alternate iconset
         service.setIcons(hpeIconset);
@@ -37,7 +37,7 @@ describe('Icon Service', () => {
     });
 
     it('it should allow adding additional custom icons to the set', () => {
-        const service: IconService = TestBed.get(IconService);
+        const service: IconService = TestBed.inject(IconService);
 
         service.setIcon({ name: 'non-existent', icon: 'custom-non-existent-icon', iconset: 'custom-iconset' });
 
@@ -50,7 +50,7 @@ describe('Icon Service', () => {
     });
 
     it('it should allow overriding the icon definition for the default size', () => {
-        const service: IconService = TestBed.get(IconService);
+        const service: IconService = TestBed.inject(IconService);
 
         service.setIcon({ name: 'alert', icon: 'custom-alert-icon', iconset: 'custom-iconset' });
 
@@ -63,7 +63,7 @@ describe('Icon Service', () => {
     });
 
     it('it should allow overriding the icon definition for a single specific size', () => {
-        const service: IconService = TestBed.get(IconService);
+        const service: IconService = TestBed.inject(IconService);
 
         service.setIcon({ name: 'alert', icon: 'custom-alert-icon', iconset: 'custom-iconset', size: '24px' });
 
@@ -84,7 +84,7 @@ describe('Icon Service', () => {
     });
 
     it('it should allow overriding the icon definition for a multiple specific sizes', () => {
-        const service: IconService = TestBed.get(IconService);
+        const service: IconService = TestBed.inject(IconService);
 
         service.setIcon({ name: 'alert', icon: 'custom-alert-icon', iconset: 'custom-iconset', size: ['24px', '32px'] });
 
@@ -112,7 +112,7 @@ describe('Icon Service', () => {
     });
 
     it('it should fallback to default icon if exact match is not found', () => {
-        const service: IconService = TestBed.get(IconService);
+        const service: IconService = TestBed.inject(IconService);
         const { icon, iconset, name, size } = service.getIcon('alert', '24px');
 
         expect(icon).toBe('ux-icon-alert');

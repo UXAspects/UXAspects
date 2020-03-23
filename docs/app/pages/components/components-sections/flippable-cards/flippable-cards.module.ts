@@ -39,11 +39,10 @@ const ROUTES = [
     ],
     exports: SECTIONS,
     declarations: SECTIONS,
-    entryComponents: SECTIONS
 })
 export class ComponentsFlippableCardsModule {
 
     constructor(componentFactoryResolver: ComponentFactoryResolver, resolverService: ResolverService) {
-        resolverService.registerResolver(componentFactoryResolver);
+        resolverService.registerResolver(componentFactoryResolver, SECTIONS);
     }
 }

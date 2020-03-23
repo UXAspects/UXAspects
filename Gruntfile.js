@@ -9,8 +9,7 @@ module.exports = function(grunt) {
         jitGrunt: {
             staticMappings: {
                 usebanner: 'grunt-banner',
-                protractor: 'grunt-protractor-runner',
-                makeReport: 'grunt-istanbul'
+                protractor: 'grunt-protractor-runner'
             }
         }
     });
@@ -19,7 +18,7 @@ module.exports = function(grunt) {
     grunt.registerTask('webpack_import_cert', ['run:webpack_import_cert']);
     grunt.registerTask('lint', ['tslint:library', 'tslint:documentation', 'stylelint', 'tslint:e2e']);
     grunt.registerTask('library', ['clean:library', 'execute:ngpackagr', 'execute:typescriptTransform']);
-    grunt.registerTask('styles', ['clean:styles', 'execute:less']);
+    grunt.registerTask('styles', ['clean:styles', 'execute:less', 'usebanner:styles']);
     grunt.registerTask('assets', ['copy:fonts', 'copy:images', 'copy:css', 'copy:md']);
     grunt.registerTask('assets:library', ['copy:fonts', 'copy:images', 'copy:md']);
     grunt.registerTask('iconset', ['execute:iconset', 'webfont']);
@@ -40,29 +39,13 @@ module.exports = function(grunt) {
         'execute:package_artifactory_ux-aspects-docs'
     ]);
 
+    // build:documentation: build and package the documentation site.
     grunt.registerTask('build:documentation', [
         'tslint:documentation',
         'clean:documentation',
-        'execute:webpack_documentation'
+        'execute:webpack_documentation',
+        'compress:documentation'
     ]);
-
-    // compile: build the library and documentation into `dist`.
-    grunt.registerTask('compile', [
-        'clean',
-        'lint',
-        'library',
-        'iconset',
-        'styles',
-        'build:documentation',
-        'minify',
-        'assets'
-    ]);
-
-    // package: compress the dist output for all targets into the `target` directory.
-    grunt.registerTask('package', ['package:ux-aspects', 'package:ux-aspects-docs', 'compress:documentation']);
-
-    // build: build and package for all targets.
-    grunt.registerTask('build', ['compile', 'package']);
 
     // build:library: build and package the npm lib and the npm docs lib.
     grunt.registerTask('build:library', [
@@ -76,6 +59,9 @@ module.exports = function(grunt) {
         'package:ux-aspects',
         'package:ux-aspects-docs'
     ]);
+
+    // build: build and package for all targets.
+    grunt.registerTask('build', ['build:library', 'build:documentation']);
 
     // default: build and package for all targets.
     grunt.registerTask('default', ['build']);

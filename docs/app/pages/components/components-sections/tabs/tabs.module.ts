@@ -38,11 +38,10 @@ const ROUTES = [
     ],
     exports: SECTIONS,
     declarations: SECTIONS,
-    entryComponents: SECTIONS
 })
 export class ComponentsTabsModule {
 
     constructor(componentFactoryResolver: ComponentFactoryResolver, resolverService: ResolverService) {
-        resolverService.registerResolver(componentFactoryResolver);
+        resolverService.registerResolver(componentFactoryResolver, SECTIONS);
     }
 }

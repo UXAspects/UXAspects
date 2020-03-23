@@ -82,9 +82,9 @@
                         </configuration>
                     </execution>
 
-                    <!-- Compile -->
+                    <!-- Build: Library -->
                     <execution>
-                        <id>exec-npm-run-compile</id>
+                        <id>exec-npm-run-build-library</id>
                         <phase>compile</phase>
                         <goals>
                             <goal>exec</goal>
@@ -93,7 +93,23 @@
                             <executable>npm</executable>
                             <arguments>
                                 <argument>run</argument>
-                                <argument>compile</argument>
+                                <argument>build:library</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+
+                    <!-- Build: Documentation -->
+                    <execution>
+                        <id>exec-npm-run-build-documentation</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>npm</executable>
+                            <arguments>
+                                <argument>run</argument>
+                                <argument>build:documentation</argument>
                             </arguments>
                         </configuration>
                     </execution>
@@ -110,22 +126,6 @@
                             <arguments>
                                 <argument>run</argument>
                                 <argument>test</argument>
-                            </arguments>
-                        </configuration>
-                    </execution>
-
-                    <!-- Package -->
-                    <execution>
-                        <id>exec-npm-run-package</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>exec</goal>
-                        </goals>
-                        <configuration>
-                            <executable>npm</executable>
-                            <arguments>
-                                <argument>run</argument>
-                                <argument>package</argument>
                             </arguments>
                         </configuration>
                     </execution>

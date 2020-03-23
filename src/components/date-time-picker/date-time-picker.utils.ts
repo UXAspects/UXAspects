@@ -137,14 +137,22 @@ export function isDateBefore(date: Date, before: Date, isEqual: boolean = false)
  * Export an array of all the available months
  */
 export const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-export const monthsShort = months.map(month => month.substring(0, 3));
+export const monthsShort = getShortMonthNames();
+
+function getShortMonthNames(): string[] {
+    return months.map(month => month.substring(0, 3));
+}
 
 /**
  * Export an array of all the available days of the week
  */
 export const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-export const weekdaysShort = weekdays.map(weekday => weekday.substring(0, 3));
+export const weekdaysShort = getShortWeekdayNames();
 export const meridians = ['AM', 'PM'];
+
+function getShortWeekdayNames(): string[] {
+    return weekdays.map(weekday => weekday.substring(0, 3));
+}
 
 /** Export the default set of time zone */
 export const timezones: DateTimePickerTimezone[] = [

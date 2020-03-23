@@ -60,11 +60,10 @@ const ROUTES = [
         SECTIONS,
         IconPreviewComponent
     ],
-    entryComponents: SECTIONS
 })
 export class CssIconsModule {
 
     constructor(componentFactoryResolver: ComponentFactoryResolver, resolverService: ResolverService) {
-        resolverService.registerResolver(componentFactoryResolver);
+        resolverService.registerResolver(componentFactoryResolver, SECTIONS);
     }
 }

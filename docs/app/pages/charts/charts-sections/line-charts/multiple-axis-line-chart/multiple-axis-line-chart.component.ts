@@ -225,7 +225,8 @@ export class ChartsMultipleAxisLineChartComponent extends BaseDocumentationSecti
         // get the HTML for the legend after timeout - as expressions cannot be updated here
         setTimeout(() => {
             this.lineChartLegendContents = this.sanitizer.bypassSecurityTrustHtml(
-                this.baseChart.chart.generateLegend()
+                // Type information for generateLegend appears to be incorrect
+                <string>this.baseChart.chart.generateLegend()
             );
         });
     }

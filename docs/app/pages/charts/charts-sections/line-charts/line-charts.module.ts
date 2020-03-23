@@ -37,11 +37,10 @@ const ROUTES = [
     ],
     exports: SECTIONS,
     declarations: SECTIONS,
-    entryComponents: SECTIONS
 })
 export class ChartsLineChartsModule {
 
     constructor(componentFactoryResolver: ComponentFactoryResolver, resolverService: ResolverService) {
-        resolverService.registerResolver(componentFactoryResolver);
+        resolverService.registerResolver(componentFactoryResolver, SECTIONS);
     }
 }

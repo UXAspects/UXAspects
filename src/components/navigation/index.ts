@@ -1,4 +1,4 @@
-export * from './navigation-item.inferface';
+export * from './navigation-item.interface';
 export * from './navigation-item/navigation-item.component';
 export * from './navigation-link/navigation-link.directive';
 export * from './navigation-options';

@@ -1,6 +1,6 @@
 import { A11yModule } from '@angular/cdk/a11y';
 import { PlatformModule } from '@angular/cdk/platform';
-import { ModuleWithProviders, NgModule } from '@angular/core';
+import { ModuleWithProviders, NgModule, Optional, SkipSelf } from '@angular/core';
 import { ColorServiceModule } from '../../services/color/index';
 import { ColorContrastDirective } from './contrast-ratio/color-contrast.directive';
 import { ContrastService } from './contrast-ratio/contrast.service';
@@ -18,6 +18,25 @@ import { ACCESSIBILITY_OPTIONS_TOKEN } from './options/accessibility-options.tok
 import { SplitterAccessibilityDirective } from './splitter/splitter-accessibility.directive';
 import { TabbableListItemDirective } from './tabbable-list/tabbable-list-item.directive';
 import { TabbableListDirective } from './tabbable-list/tabbable-list.directive';
+import { FocusIndicatorOriginService } from './focus-indicator/focus-indicator-origin/focus-indicator-origin.service';
+
+/**
+ * Note: This is a workaround for the Angular 7 providedIn: 'root'
+ * issue.
+ *
+ * This provider allows us to have only a single instance
+ * of the service throughout out entire application
+ * regardless of how many times this module is imported.
+ */
+export function FOCUS_ORIGIN_SERVICE_PROVIDER_FACTORY(parentService: FocusIndicatorOriginService) {
+    return parentService || new FocusIndicatorOriginService();
+}
+
+export const FOCUS_ORIGIN_SERVICE_PROVIDER = {
+    provide: FocusIndicatorOriginService,
+    deps: [[new Optional(), new SkipSelf(), FocusIndicatorOriginService]],
+    useFactory: FOCUS_ORIGIN_SERVICE_PROVIDER_FACTORY
+};
 
 @NgModule({
     declarations: [
@@ -52,6 +71,7 @@ import { TabbableListDirective } from './tabbable-list/tabbable-list.directive';
         ColorContrastDirective
     ],
     providers: [
+        FOCUS_ORIGIN_SERVICE_PROVIDER,
         AccessibilityOptionsService,
         ContrastService,
         FocusIndicatorService,
@@ -60,7 +80,7 @@ import { TabbableListDirective } from './tabbable-list/tabbable-list.directive';
 })
 export class AccessibilityModule {
 
-    static forRoot(options: AccessibilityOptions): ModuleWithProviders {
+    static forRoot(options: AccessibilityOptions): ModuleWithProviders<AccessibilityModule> {
         return {
             ngModule: AccessibilityModule,
             providers: [

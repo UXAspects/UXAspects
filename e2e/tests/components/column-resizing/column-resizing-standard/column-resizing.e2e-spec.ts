@@ -89,9 +89,6 @@ describe('Column Resizing Tests', () => {
         // check the initial number of rows we should now have an additional 15
         expect(await page.getNumberOfRows(page.fixedTable)).toBe(45);
 
-        // the column width of a newly added row should be wrong until we perform a relayout
-        expect(await page.getColumnWidth(page.fixedTable, 35, 1)).not.toBe(260);
-
         // recalculate the layout
         await page.updateLayout();
 

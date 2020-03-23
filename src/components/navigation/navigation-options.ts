@@ -1,5 +1,5 @@
 import { InjectionToken } from '@angular/core';
-import { NavigationItemRouterOptions } from './navigation-item.inferface';
+import { NavigationItemRouterOptions } from './navigation-item.interface';
 
 export interface NavigationModuleOptions {
     routerOptions: NavigationItemRouterOptions;

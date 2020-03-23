@@ -7,7 +7,6 @@ import { DateTimePickerModule } from '../date-time-picker/date-time-picker.modul
 import { IconModule } from '../icon/index';
 import { PopoverModule } from '../popover/index';
 import { SelectModule } from '../select/index';
-import { SearchBuilderFocusService } from './search-builder-focus.service';
 import { SearchBuilderGroupComponent } from './search-builder-group/search-builder-group.component';
 import { SearchBuilderOutletDirective } from './search-builder-outlet/search-builder-outlet.directive';
 import { SearchBuilderComponent } from './search-builder.component';
@@ -49,8 +48,5 @@ import { SearchTextComponent } from './search-components/text/text.component';
         SearchDateRangeComponent,
         SearchSelectComponent
     ],
-    providers: [
-        SearchBuilderFocusService
-    ]
 })
 export class SearchBuilderModule { }

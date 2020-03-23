@@ -2,8 +2,6 @@ import { Component } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 
-const DEPARTMENTS = ['Finance', 'Operations', 'Investor Relations', 'Technical', 'Auditing', 'Labs'];
-
 @Component({
     selector: 'app',
     templateUrl: './infinite-scroll.testpage.component.html',

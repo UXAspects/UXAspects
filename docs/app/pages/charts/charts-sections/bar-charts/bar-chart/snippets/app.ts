@@ -16,7 +16,9 @@ export class AppComponent implements AfterViewInit {
     // configure the directive data
     barChartData: Chart.ChartDataSets[] = [{
         data: [34, 25, 19, 34, 32, 44, 50, 67],
-        borderWidth: 1
+        borderWidth: 1,
+        barPercentage: 0.5,
+        categoryPercentage: 1
     }];
 
     barChartLabels: string[] = ['.doc', '.ppt', '.pdf', '.xls', '.html', '.txt', '.csv', '.mht'];
@@ -38,8 +40,6 @@ export class AppComponent implements AfterViewInit {
             responsive: true,
             scales: {
                 xAxes: [{
-                    barPercentage: 0.5,
-                    categoryPercentage: 1,
                     gridLines: {
                         display: true,
                         zeroLineColor: borderColor,
@@ -97,10 +97,10 @@ export class AppComponent implements AfterViewInit {
             // only alter the bars that are forecast data
             if (index >= 6) {
                 bar.draw = function () {
-                    chartInstance.chart.ctx.save();
-                    chartInstance.chart.ctx.setLineDash([2, 2]);
+                    chartInstance.ctx.save();
+                    chartInstance.ctx.setLineDash([2, 2]);
                     chartJs.elements.Rectangle.prototype.draw.apply(this, arguments);
-                    chartInstance.chart.ctx.restore();
+                    chartInstance.ctx.restore();
                 };
             }
         });

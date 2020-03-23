@@ -1,5 +1,5 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
-import { Component, OnDestroy } from '@angular/core';
+import { Component } from '@angular/core';
 import { ColorService, NestedDonutChartData } from '@ux-aspects/ux-aspects';
 
 @Component({
@@ -7,7 +7,7 @@ import { ColorService, NestedDonutChartData } from '@ux-aspects/ux-aspects';
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnDestroy {
+export class AppComponent {
 
     cards: Card[] = [
         {
@@ -57,10 +57,6 @@ export class AppComponent implements OnDestroy {
     constructor(
         public colorService: ColorService,
         private _announcer: LiveAnnouncer) {
-    }
-
-    ngOnDestroy(): void {
-        this._announcer.ngOnDestroy();
     }
 
     getChartData(documents: number, reviewed: number, produced: number): NestedDonutChartData[] {

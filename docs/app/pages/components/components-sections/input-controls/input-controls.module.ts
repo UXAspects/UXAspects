@@ -68,11 +68,10 @@ const ROUTES = [
     ],
     exports: SECTIONS,
     declarations: [...SECTIONS, HighlightSearch],
-    entryComponents: SECTIONS
 })
 export class ComponentsInputControlsModule {
 
     constructor(componentFactoryResolver: ComponentFactoryResolver, resolverService: ResolverService) {
-        resolverService.registerResolver(componentFactoryResolver);
+        resolverService.registerResolver(componentFactoryResolver, SECTIONS);
     }
 }

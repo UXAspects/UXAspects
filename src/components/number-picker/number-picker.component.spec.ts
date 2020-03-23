@@ -431,7 +431,6 @@ describe('Number Picker Component - value', () => {
     });
 
     it ('should display ux-number-picker-invalid class when value above max value and valid set to true', async() => {
-        component.valid = true;
         component.value = 20;
         fixture.detectChanges();
         await fixture.whenStable();
@@ -450,7 +449,6 @@ describe('Number Picker Component - value', () => {
     });
 
     it ('should display ux-number-picker-invalid class when value is between min and max and valid set to true', async() => {
-        component.valid = true;
         component.value = 9;
         fixture.detectChanges();
         await fixture.whenStable();

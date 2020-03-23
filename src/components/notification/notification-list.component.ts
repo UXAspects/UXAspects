@@ -1,7 +1,7 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, HostBinding, Input, OnDestroy, QueryList, ViewChildren } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, HostBinding, Input, OnDestroy, QueryList, Renderer2, ViewChildren } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
-import { filter, map, takeUntil, withLatestFrom } from 'rxjs/operators';
+import { map, takeUntil, withLatestFrom } from 'rxjs/operators';
 import { tick } from '../../common/index';
 import { NotificationListDirection, NotificationRef, NotificationService } from './notification.service';
 
@@ -20,10 +20,7 @@ import { NotificationListDirection, NotificationRef, NotificationService } from 
                 animate(500, style({ transform: 'translateY(50px)', opacity: 0 }))
             ])
         ])
-    ],
-    host: {
-        '[style.bottom.px]': '_height'
-    }
+    ]
 })
 export class NotificationListComponent implements AfterViewInit, OnDestroy {
 
@@ -38,14 +35,16 @@ export class NotificationListComponent implements AfterViewInit, OnDestroy {
     }
 
     /** Sets the position of the list of notifications within the browser window. */
-    @Input() @HostBinding('class')
+    @Input()
+    @HostBinding('class')
     position: NotificationListPostion = 'bottom-right';
 
     /** The list of notifications that have not been dismissed */
     notifications$: Observable<NotificationRef[]> = this._notificationService.notifications$.pipe(map(() => this._notifications));
 
-    /** Store the total height of the notification list */
-    _height: number;
+    /** Store the bottom position of the notification list */
+    @HostBinding('style.bottom.px')
+    _bottom: number;
 
     /** Store a list of all element refs */
     @ViewChildren('notification') _elements: QueryList<ElementRef>;
@@ -58,22 +57,34 @@ export class NotificationListComponent implements AfterViewInit, OnDestroy {
     /** Unsubscribe from all subscriptions on component destroy */
     private _onDestroy = new Subject<void>();
 
-    constructor(private _notificationService: NotificationService, private _changeDetectorRef: ChangeDetectorRef) { }
+    constructor(
+        private _notificationService: NotificationService,
+        private _changeDetectorRef: ChangeDetectorRef,
+        private _renderer: Renderer2
+    ) { }
 
     ngAfterViewInit(): void {
 
-        // whenever the notifications change we want to recalculate the height
+        // whenever the notifications change we want to recalculate the positions and height
         this._elements.changes.pipe(
-            takeUntil(this._onDestroy), filter(() => this.position === 'bottom-left' || this.position === 'bottom-right'),
-            tick(), map(changes => changes.toArray()), withLatestFrom(this.notifications$)
+            takeUntil(this._onDestroy),
+            tick(),
+            map(changes => changes.toArray() as ElementRef[]),
+            withLatestFrom(this.notifications$)
         ).subscribe(([elements, notifications]) => {
 
-            // calculate the total height of all notifications including spacing
-            this._height = notifications.reduce((total, notification, index) =>
-                total + this._getNotificationHeight(elements[index], notification) + notification.spacing, 0);
+            // Set the `top` style property of each element
+            this.applyElementPositions(elements, notifications);
 
-            // we are running in OnPush mode, so we will need to manually trigger CD here
-            this._changeDetectorRef.markForCheck();
+            if (this.position === 'bottom-left' || this.position === 'bottom-right') {
+
+                // calculate the total height of all notifications including spacing
+                this._bottom = notifications.reduce((total, notification, index) =>
+                    total + elements[index].nativeElement.scrollHeight + notification.spacing, 0);
+
+                // we are running in OnPush mode, so we will need to manually trigger CD here
+                this._changeDetectorRef.markForCheck();
+            }
         });
     }
 
@@ -82,22 +93,14 @@ export class NotificationListComponent implements AfterViewInit, OnDestroy {
         this._onDestroy.complete();
     }
 
-    /**
-     * Get the height of a notification based on its content height or specified height
-     */
-    _getNotificationHeight(notification: HTMLElement, notificationRef: NotificationRef): number {
-        // if no fixed height is specified calculate the height based on content size
-        notificationRef.height = notificationRef.height || notification.scrollHeight;
-        return notificationRef.height;
-    }
-
-    /**
-     * Get the notification position based on the notifications before it and the spacing
-     */
-    _getNotificationPosition(index: number): number {
-        return this._notifications.slice(0, index).reduce((accumulator, notificationRef) =>
-            accumulator + notificationRef.height + notificationRef.spacing, 0
-        );
+    private applyElementPositions(elements: ElementRef[], notifications: NotificationRef[]): void {
+        let top = 0;
+        for (let i = 0; i < elements.length; i += 1) {
+            const element = elements[i].nativeElement;
+            const notification = notifications[i];
+            this._renderer.setStyle(element, 'top', `${top}px`);
+            top = top + element.scrollHeight + notification.spacing;
+        }
     }
 }
 

@@ -1,14 +1,13 @@
 const path = require('path');
-const fs = require('fs');
 
-const package = require(path.join(process.cwd(), 'package.json'));
+const package = require(path.join(process.cwd(), 'src', 'package.json'));
 
 module.exports = {
 
-    ng1: {
+    styles: {
         options: {
             position: 'top',
-            banner: `/* \n* ${ package.name } - v${ package.version } \n* © Copyright ${ new Date().getFullYear() } EntIT Software LLC, a Micro Focus company\n*/`,
+            banner: `/*\n * ${ package.name } - v${ package.version }\n * © Copyright ${ new Date().getFullYear() } EntIT Software LLC, a Micro Focus company\n */`,
             linebreak: true
         },
         files: {

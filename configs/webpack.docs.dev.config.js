@@ -182,7 +182,7 @@ module.exports = {
             entryModule: join(cwd(), './docs/app/app.module#AppModule'),
             tsConfigPath: join(cwd(), 'tsconfig.json'),
             sourceMap: false,
-            skipCodeGeneration: true,
+            skipCodeGeneration: false,
             nameLazyFiles: true
         }),
 

@@ -4,11 +4,12 @@ import { Subscription } from 'rxjs';
 import { SearchBuilderComponentDefinition } from './interfaces/component-definition.interface';
 import { SearchBuilderQuery } from './interfaces/query.interface';
 import { SearchBuilderService } from './search-builder.service';
+import { SearchBuilderFocusService } from './search-builder-focus.service';
 
 @Component({
   selector: 'ux-search-builder',
   templateUrl: './search-builder.component.html',
-  providers: [SearchBuilderService]
+  providers: [SearchBuilderService, SearchBuilderFocusService]
 })
 export class SearchBuilderComponent implements OnDestroy {
 

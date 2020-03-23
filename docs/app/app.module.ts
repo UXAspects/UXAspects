@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
-import { PageHeaderModule, PersistentDataService } from '@ux-aspects/ux-aspects';
+import { ColorServiceModule, colorSets, PageHeaderModule, PersistentDataService } from '@ux-aspects/ux-aspects';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ModalModule } from 'ngx-bootstrap/modal';
@@ -37,6 +37,7 @@ const appRoutes: Routes = [
         BrowserModule,
         BsDropdownModule.forRoot(),
         ButtonsModule.forRoot(),
+        ColorServiceModule.forRoot(colorSets.keppel),
         DocumentationComponentsModule,
         ModalModule.forRoot(),
         NgxMaskModule.forRoot(),

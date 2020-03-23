@@ -1,5 +1,5 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
-import { Component, OnDestroy } from '@angular/core';
+import { Component } from '@angular/core';
 import { ColorService, NestedDonutChartData } from '@ux-aspects/ux-aspects';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
@@ -10,7 +10,7 @@ import { DocumentationSectionComponent } from '../../../../../decorators/documen
     styleUrls: ['./flippable-cards.component.less']
 })
 @DocumentationSectionComponent('ComponentsFlippableCardsComponent')
-export class ComponentsFlippableCardsComponent extends BaseDocumentationSection implements OnDestroy {
+export class ComponentsFlippableCardsComponent extends BaseDocumentationSection {
 
     icon: string = require('../../../../../assets/img/IconCaseColorized36x36.png');
 
@@ -61,10 +61,6 @@ export class ComponentsFlippableCardsComponent extends BaseDocumentationSection 
 
     constructor(public colorService: ColorService, private _announcer: LiveAnnouncer) {
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
-    }
-
-    ngOnDestroy(): void {
-        this._announcer.ngOnDestroy();
     }
 
     getChartData(documents: number, reviewed: number, produced: number): NestedDonutChartData[] {

@@ -43,12 +43,12 @@ export class PageHeaderNavigationService implements OnDestroy {
         this._focusManager.change.pipe(takeUntil(this._onDestroy)).subscribe(() => this._onChange.next());
 
         // make the first item tabbable initially
-        this._focusManager.updateActiveItemIndex(0);
+        this._focusManager.updateActiveItem(0);
 
         // on changes ensure there is always an active item
         this._items.changes.subscribe(() => {
             if (this._items.length > 0 && this._items.toArray().indexOf(this._focusManager.activeItem) === -1) {
-                this._focusManager.updateActiveItemIndex(0);
+                this._focusManager.updateActiveItem(0);
             }
         });
 
