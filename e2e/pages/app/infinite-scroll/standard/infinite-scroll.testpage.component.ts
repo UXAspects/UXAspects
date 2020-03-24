@@ -10,7 +10,7 @@ import { debounceTime } from 'rxjs/operators';
 export class InfiniteScrollTestPageComponent {
 
     filterText = new BehaviorSubject<string>('');
-    debouncedFilterText = this.filterText.pipe(debounceTime(500));
+    debouncedFilterText = this.filterText.pipe(debounceTime(50));
 
     allEmployees: any[] = [];
     loadedEmployees: any[] = [];
@@ -32,7 +32,7 @@ export class InfiniteScrollTestPageComponent {
                     .filter((e) => this.isFilterMatch(e))
                     .slice(pageStart, pageStart + pageSize);
                 resolve(newItems);
-            }, 200);
+            }, 100);
         });
 
         return promise;

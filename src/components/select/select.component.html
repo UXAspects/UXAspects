@@ -3,8 +3,9 @@
     #tagInput="ux-tag-input"
     [id]="id + '-input'"
     [tags]="_value$ | async"
-    (tagsChange)="_value$.next($event)"
+    (tagsChange)="_multipleOptionSelected($event)"
     [(input)]="input"
+    (inputChange)="onInputChange($event)"
     [ariaLabel]="ariaLabel"
     [autocomplete]="autocomplete"
     [addOnPaste]="false"
@@ -18,8 +19,8 @@
     [readonlyInput]="readonlyInput"
     [icon]="icon"
     [clearButton]="clearButton"
-    [clearButtonAriaLabel]="clearButtonAriaLabel"
->
+    [clearButtonAriaLabel]="clearButtonAriaLabel">
+
     <ux-typeahead #multipleTypeahead
         [id]="id + '-typeahead'"
         [options]="options"
@@ -38,8 +39,7 @@
         [noOptionsTemplate]="noOptionsTemplate"
         [recentOptions]="recentOptions"
         [recentOptionsMaxCount]="recentOptionsMaxCount"
-        (recentOptionsChange)="recentOptionsChange.emit($event)"
-    >
+        (recentOptionsChange)="recentOptionsChange.emit($event)">
     </ux-typeahead>
 
 </ux-tag-input>
@@ -62,6 +62,7 @@
         aria-multiline="false"
         [autocomplete]="autocomplete"
         [(ngModel)]="input"
+        (ngModelChange)="onInputChange($event)"
         [placeholder]="placeholder || ''"
         [disabled]="disabled"
         (click)="toggle()"
@@ -109,10 +110,9 @@
         [noOptionsTemplate]="noOptionsTemplate"
         [recentOptions]="recentOptions"
         [recentOptionsMaxCount]="recentOptionsMaxCount"
-        (optionSelected)="singleOptionSelected($event)"
+        (optionSelected)="_singleOptionSelected($event)"
         (highlightedElementChange)="highlightedElement = $event"
-        (recentOptionsChange)="recentOptionsChange.emit($event)"
-    >
+        (recentOptionsChange)="recentOptionsChange.emit($event)">
 
     </ux-typeahead>
 

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { MediaPlayerModule } from './media-player.module';
 import { ColorServiceModule, colorSets } from '../../services/color';
+import { MediaPlayerModule } from './media-player.module';
 
 @Component({
     selector: 'ux-media-player-audio',

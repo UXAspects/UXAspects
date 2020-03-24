@@ -358,6 +358,12 @@
         Allows you to define whether or not a step is valid. The user will not be able to proceed to the next step if this property
         has a value of false.
     </tr>
+    <tr uxd-api-property name="validator" type="() => boolean | Promise<boolean>">
+        A custom function which returns the validation status for the step.
+        This function will be called when 'Next' or 'Finish' is clicked.
+        A promise may be returned if asynchronous validation is required.
+        If using this property, ensure that <code>disableNextWhenInvalid</code> is false.
+    </tr>
     <tr uxd-api-property name="visited" type="boolean">
         Defines whether or not this step has previously been visited. A visited step can be clicked on and jumped to at any time.
         By default, steps will become 'visited' when the user navigates to a step for the first time.

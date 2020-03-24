@@ -8,27 +8,36 @@ import { MenuModule } from './menu.module';
 @Component({
     selector: 'app-menu-test',
     template: `
-  <ux-menu #menu>
-    <button uxMenuItem>Item One</button>
-    <ux-menu-divider></ux-menu-divider>
-    <button uxMenuItem #subMenuTrigger="ux-menu-trigger" [uxMenuTriggerFor]="subMenu">Item Two</button>
-    <button uxMenuItem>Item Three</button>
-  </ux-menu>
+        <ux-menu #menu>
+            <button uxMenuItem>Item One</button>
+            <ux-menu-divider></ux-menu-divider>
+            <button
+                uxMenuItem
+                #subMenuTrigger="ux-menu-trigger"
+                [uxMenuTriggerFor]="subMenu">
+                Item Two
+            </button>
+            <button uxMenuItem>Item Three</button>
+        </ux-menu>
 
-  <ux-menu #subMenu>
-    <button uxMenuItem id="submenu-item-1">Sub Item One</button>
-    <button uxMenuItem>Sub Item Two</button>
-  </ux-menu>
+        <ux-menu #subMenu>
+            <button uxMenuItem id="submenu-item-1"></button>
+            <button uxMenuItem>Sub Item Two</button>
+        </ux-menu>
 
-  <div>
-    <button id="trigger" #menuTrigger="ux-menu-trigger" [uxMenuTriggerFor]="menu">Open Menu</button>
-  </div>`
+        <div>
+            <button
+                id="trigger"
+                #menuTrigger="ux-menu-trigger"
+                [uxMenuTriggerFor]="menu">
+                Open Menu
+            </button>
+        </div>
+    `
 })
 export class MenuTestComponent {
-
     @ViewChild('menuTrigger', { static: true }) trigger: MenuTriggerDirective;
     @ViewChild('subMenuTrigger', { static: true }) subMenuTrigger: MenuTriggerDirective;
-
 }
 
 describe('MenuComponent', () => {
@@ -42,9 +51,8 @@ describe('MenuComponent', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             imports: [MenuModule, NoopAnimationsModule],
-            declarations: [MenuTestComponent],
-        })
-            .compileComponents();
+            declarations: [MenuTestComponent]
+        }).compileComponents();
 
         // access the overlay container
         inject([OverlayContainer], (oc: OverlayContainer) => {
@@ -116,7 +124,9 @@ describe('MenuComponent', () => {
         expect(document.querySelectorAll('.ux-menu').length).toBe(1);
 
         // get the backdrop element
-        const backdrop = overlayContainerElement.querySelector('.cdk-overlay-backdrop') as HTMLDivElement;
+        const backdrop = overlayContainerElement.querySelector(
+            '.cdk-overlay-backdrop'
+        ) as HTMLDivElement;
         expect(backdrop).toBeTruthy();
 
         // perform a click on the overlay
@@ -195,14 +205,15 @@ describe('MenuComponent', () => {
     });
 
     it('should focus the menu trigger when the menu is closed', async () => {
-
         // open menu
         component.trigger.openMenu();
         fixture.detectChanges();
         await fixture.whenStable();
 
         // close menu by clicking on an item
-        const items = document.querySelectorAll<HTMLButtonElement>('button[uxmenuitem]');
+        const items = document.querySelectorAll<HTMLButtonElement>(
+            'button[uxmenuitem]'
+        );
         items.item(0).click();
         fixture.detectChanges();
         await fixture.whenStable();
@@ -239,7 +250,9 @@ describe('MenuComponent', () => {
         await fixture.whenStable();
 
         // get the backdrop element
-        const backdrop = overlayContainerElement.querySelector('.cdk-overlay-backdrop') as HTMLDivElement;
+        const backdrop = overlayContainerElement.querySelector(
+            '.cdk-overlay-backdrop'
+        ) as HTMLDivElement;
         expect(backdrop).toBeTruthy();
 
         // perform a click on the overlay
@@ -262,7 +275,9 @@ describe('MenuComponent', () => {
         await fixture.whenStable();
 
         // close menu by clicking on an item
-        const items = document.querySelectorAll<HTMLButtonElement>('button[uxmenuitem]');
+        const items = document.querySelectorAll<HTMLButtonElement>(
+            'button[uxmenuitem]'
+        );
         items.item(0).click();
         fixture.detectChanges();
         await fixture.whenStable();
@@ -282,7 +297,9 @@ describe('MenuComponent', () => {
         await fixture.whenStable();
 
         // close menu by clicking on an item
-        const items = document.querySelectorAll<HTMLButtonElement>('button[uxmenuitem]');
+        const items = document.querySelectorAll<HTMLButtonElement>(
+            'button[uxmenuitem]'
+        );
         items.item(0).click();
         fixture.detectChanges();
         await fixture.whenStable();
@@ -306,7 +323,9 @@ describe('MenuComponent', () => {
         await fixture.whenStable();
 
         // get the child submenu item
-        const submenuItem = document.querySelector<HTMLButtonElement>('#submenu-item-1');
+        const submenuItem = document.querySelector<HTMLButtonElement>(
+            '#submenu-item-1'
+        );
 
         expect(submenuItem).toBeTruthy();
 
@@ -320,6 +339,76 @@ describe('MenuComponent', () => {
         expect(component.trigger.menu._isFocused$.value).toBeFalsy();
         expect(component.subMenuTrigger.menu._isHovering$.value).toBeFalsy();
         expect(component.subMenuTrigger.menu._isFocused$.value).toBeFalsy();
+    });
+});
 
+@Component({
+    selector: 'app-menu-trigger-test',
+    template: `
+        <div class="btn-group" *ngIf="showTrigger">
+            <button
+                type="button"
+                class="btn button-secondary dropdown-toggle"
+                [uxMenuTriggerFor]="menu">
+                Actions
+            </button>
+        </div>
+
+        <ux-menu #menu>
+            <button type="button" uxMenuItem>
+                <span class="dropdown-menu"></span>
+                <span class="dropdown-menu-text">Export</span>
+            </button>
+
+            <button type="button" uxMenuItem>
+                <span class="dropdown-menu"></span>
+                <span class="dropdown-menu-text">Annotate</span>
+            </button>
+
+            <button type="button" uxMenuItem>
+                <span class="dropdown-menu"></span>
+                <span class="dropdown-menu-text">Save List</span>
+            </button>
+        </ux-menu>
+    `
+})
+export class MenuTriggerDestroyTestComponent {
+    @ViewChild(MenuTriggerDirective, { static: false })
+    trigger: MenuTriggerDirective;
+
+    showTrigger: boolean = true;
+}
+
+describe('MenuTriggerDestroyTestComponent', () => {
+    let component: MenuTriggerDestroyTestComponent;
+    let fixture: ComponentFixture<MenuTriggerDestroyTestComponent>;
+
+    beforeEach(async(() => {
+        TestBed.configureTestingModule({
+            imports: [MenuModule, NoopAnimationsModule],
+            declarations: [MenuTriggerDestroyTestComponent]
+        }).compileComponents();
+    }));
+
+    beforeEach(() => {
+        fixture = TestBed.createComponent(MenuTriggerDestroyTestComponent);
+        component = fixture.componentInstance;
+
+        fixture.detectChanges();
+    });
+
+    it('should hide the menu when the trigger element is destroyed.', async () => {
+        component.trigger.openMenu();
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        expect(document.querySelectorAll('.ux-menu').length).toBe(1);
+
+        component.showTrigger = false;
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        expect(component.trigger).toBeFalsy();
+        expect(document.querySelectorAll('.ux-menu').length).toBe(0);
     });
 });

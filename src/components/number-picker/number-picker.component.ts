@@ -19,13 +19,15 @@ export const NUMBER_PICKER_VALUE_ACCESSOR: any = {
     }
 })
 export class NumberPickerComponent implements ControlValueAccessor, OnDestroy, OnChanges {
-
     private _min: number = -Infinity;
     private _max: number = Infinity;
     private _step: number = 1;
     private _disabled: boolean = false;
     private _value: number = 0;
-    private _propagateChange = (_: any) => { };
+    private _lastValue: number;
+    private _propagateChange = (_: number) => {};
+    _touchedChange = () => {};
+
 
     /** Sets the id of the number picker. The child input will have this value with a -input suffix as its id. */
     @Input() id: string = `ux-number-picker-${uniqueId++}`;
@@ -34,7 +36,7 @@ export class NumberPickerComponent implements ControlValueAccessor, OnDestroy, O
     * Can be used to show a red outline around the input to indicate an invalid value. By default the error state will appear if the user enters a number below the minimum value or above the maximum value. */
     @Input() valid: boolean = true;
 
-    /** Provice an aria labelledby attribute */
+    /** Provide an aria labelledby attribute */
     @Input('aria-labelledby') labelledBy: string;
 
     /** Define the precision of floating point values */
@@ -50,10 +52,10 @@ export class NumberPickerComponent implements ControlValueAccessor, OnDestroy, O
     }
 
     set value(value: number) {
-        this._value = value;
-        this.valueChange.emit(value);
-        this._propagateChange(value);
-        this._valid = this.isValid();
+        if (this._value !== value) {
+            this._value = value;
+            this._valid = this.isValid();
+        }
     }
 
     /** Defines the minimum value the number picker can set. */
@@ -132,6 +134,9 @@ export class NumberPickerComponent implements ControlValueAccessor, OnDestroy, O
 
             // account for javascripts terrible handling of floating point numbers
             this.value = parseFloat(this.value.toPrecision(this.precision));
+
+            // emit the value to the Output and Angular forms
+            this._emitValueChange(this.value);
         }
     }
 
@@ -145,6 +150,9 @@ export class NumberPickerComponent implements ControlValueAccessor, OnDestroy, O
 
             // account for javascripts terrible handling of floating point numbers
             this.value = parseFloat(this.value.toPrecision(this.precision));
+
+            // emit the value to the Output and Angular forms
+            this._emitValueChange(this.value);
         }
     }
 
@@ -157,7 +165,6 @@ export class NumberPickerComponent implements ControlValueAccessor, OnDestroy, O
     }
 
     onScroll(event: WheelEvent): void {
-
         // get the distance scrolled
         const scrollValue = event.deltaY || (event as any).wheelDelta;
 
@@ -177,14 +184,28 @@ export class NumberPickerComponent implements ControlValueAccessor, OnDestroy, O
         }
     }
 
-    registerOnChange(fn: (_: any) => {}): void {
+    registerOnChange(fn: (_: number) => {}): void {
         this._propagateChange = fn;
     }
 
-    registerOnTouched(fn: (_: any) => {}): void { }
+    registerOnTouched(fn: () => {}): void {
+        this._touchedChange = fn;
+    }
 
     setDisabledState(isDisabled: boolean): void {
         this.disabled = isDisabled;
     }
 
+    /** Set the value and emit the change to the output and Angular forms. */
+    _emitValueChange(value: number): void {
+        // This is a workaround for angular bug https://github.com/angular/angular/issues/12540
+        if (value === this._lastValue) {
+            return;
+        }
+        this._lastValue = value;
+        this.valueChange.emit(value);
+        this._propagateChange(value);
+    }
+
 }
+

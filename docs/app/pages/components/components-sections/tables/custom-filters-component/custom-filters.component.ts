@@ -13,16 +13,16 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 export class ComponentsCustomFiltersComponent extends BaseDocumentationSection implements IPlaygroundProvider {
 
     statusFilters: Filter[] = [{
-        group: 'custom',
+        group: 'Custom',
         title: 'Status',
         name: 'Status (All)',
         initial: true
     }, {
-        group: 'custom',
+        group: 'Custom',
         title: 'Active',
         name: 'Active'
     }, {
-        group: 'custom',
+        group: 'Custom',
         title: 'Inactive',
         name: 'Inactive'
     }];

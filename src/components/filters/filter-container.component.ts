@@ -1,6 +1,6 @@
-import { Component, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
-import { distinctUntilChanged, takeUntil } from 'rxjs/operators';
+import { Component, ContentChild, EventEmitter, Input, OnDestroy, Output, TemplateRef } from '@angular/core';
 import { Subject } from 'rxjs';
+import { distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { FilterEvent } from './events/filter-event';
 import { FilterService } from './filter.service';
 import { Filter } from './interfaces/filter.interface';
@@ -26,6 +26,10 @@ export class FilterContainerComponent implements OnDestroy {
 
     /** Emit when a specific event occurs */
     @Output() events = new EventEmitter<FilterEvent>();
+
+
+    /** Allow the content of the clear all button to be customized */
+    @ContentChild('clearAllTemplate', { static: false }) clearAllTemplate: TemplateRef<void>;
 
     /** Unsubscribe from the subscriptions on destroy */
     private _onDestroy = new Subject<void>();

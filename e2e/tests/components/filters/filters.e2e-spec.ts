@@ -182,6 +182,7 @@ describe('Filters Tests', () => {
         expect(await page.getNumberOfItems()).toEqual(2);
         expect(await page.getItemText(1, 2)).toBe('Bradley Mason');
 
+        expect(await imageCompare('filters-status-inactive')).toEqual(0);
     });
 
     it('should react to pressing clear all', async () => {

@@ -41,7 +41,7 @@ exports.config = {
         formatImageName: `{tag}-{logName}-{width}x{height}`,
         screenshotPath: screenshotOutputDir,
         savePerInstance: true,
-        autoSaveBaseline: true, //TODO: undo
+        autoSaveBaseline: !isJenkinsBuild,
         ignoreAntialiasing: true
       },
     },

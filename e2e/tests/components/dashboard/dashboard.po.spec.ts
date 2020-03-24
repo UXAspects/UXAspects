@@ -9,6 +9,7 @@ export class DashboardPage {
     announcer = element(by.className('cdk-live-announcer-element'));
     topFocusTarget = element(by.id('top-focus'));
     bottomFocusTarget = element(by.id('bottom-focus'));
+    changeOptions = element(by.id('change-dashboard-options'));
 
     async getPage(): Promise<void> {
         await browser.get('#/dashboard');

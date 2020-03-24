@@ -140,6 +140,53 @@ describe('Tabset Component', () => {
 
     });
 
+    it('should change to new tab when tab is programmatically selected by tab index', () => {
+
+        const tab1 = getTabItem(0, nativeElement);
+        const tab3 = getTabItem(2, nativeElement);
+
+        // check first tab is active
+        expect(tab1.classList.contains('active')).toBeTruthy();
+
+        spyOn(component, 'onTabActivated');
+
+        // programatically change tab by index
+        component.tabset.selectTab(2);
+
+        // check second tab is now active/first tab is not active
+        expect(tab3.classList.contains('active')).toBeTruthy();
+        expect(tab1.classList.contains('active')).toBeFalsy();
+
+        // check tab contains correct content
+        expect(nativeElement.querySelector('.tab-pane[aria-hidden="false"] h4').innerHTML).toEqual('Solution');
+
+        expect(component.onTabActivated).toHaveBeenCalled();
+    });
+
+    it('should change to new tab when tab is programmatically selected by tab instance', () => {
+
+        const tab1 = getTabItem(0, nativeElement);
+        const tab3 = getTabItem(2, nativeElement);
+
+        // check first tab is active
+        expect(tab1.classList.contains('active')).toBeTruthy();
+
+        spyOn(component, 'onTabActivated');
+
+        // programatically change tab by instance
+        component.tabset.selectTab(component.tabset._tabset.tabs[2]);
+
+        // check second tab is now active/first tab is not active
+        expect(tab3.classList.contains('active')).toBeTruthy();
+        expect(tab1.classList.contains('active')).toBeFalsy();
+
+        // check tab contains correct content
+        expect(nativeElement.querySelector('.tab-pane[aria-hidden="false"] h4').innerHTML).toEqual('Solution');
+
+        expect(component.onTabActivated).toHaveBeenCalled();
+
+    });
+
 });
 
 function getTabLink(index: number, nativeElement: HTMLElement): HTMLElement {
