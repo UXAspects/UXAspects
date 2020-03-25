@@ -4,6 +4,8 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { dispatchKeyboardEvent } from '../../common/testing/dispatch-event';
 import { SelectModule } from './select.module';
+import { By } from '@angular/platform-browser';
+import { SelectComponent } from './select.component';
 
 @Component({
     selector: 'app-select-test',
@@ -65,10 +67,10 @@ describe('Select Component', () => {
     });
 
     it('should not call valueChange on initialization of multiple select', () => {
+        spyOn(component, 'onValueChange');
         component.multiple = true;
         fixture.detectChanges();
 
-        spyOn(component, 'onValueChange');
         expect(component).toBeTruthy();
         expect(component.onValueChange).not.toHaveBeenCalled();
     });
@@ -88,16 +90,16 @@ describe('Select Component', () => {
         expect(component.onInputChange).not.toHaveBeenCalled();
     });
 
-    it('should call valueChange when the value is changed in single select', () => {
+    it('should not call valueChange when the value Input is changed in single select', () => {
         spyOn(component, 'onValueChange');
 
         component.value = 'One';
         fixture.detectChanges();
 
-        expect(component.onValueChange).toHaveBeenCalled();
+        expect(component.onValueChange).not.toHaveBeenCalled();
     });
 
-    it('should call valueChange when the value is changed in multiple select', () => {
+    it('should call not valueChange when the value Input is changed in multiple select', () => {
         component.multiple = true;
         fixture.detectChanges();
 
@@ -106,20 +108,20 @@ describe('Select Component', () => {
         component.value = [component.options[0]];
         fixture.detectChanges();
 
-        expect(component.onValueChange).toHaveBeenCalled();
+        expect(component.onValueChange).not.toHaveBeenCalled();
     });
 
 
-    it('should call inputChange when the input is changed in single select', () => {
+    it('should call not inputChange when the input is changed in single select', () => {
         spyOn(component, 'onInputChange');
 
         component.input = 'One';
         fixture.detectChanges();
 
-        expect(component.onInputChange).toHaveBeenCalled();
+        expect(component.onInputChange).not.toHaveBeenCalled();
     });
 
-    it('should call inputChange when the input is changed in multiple select', () => {
+    it('should not call inputChange when the input is changed in multiple select', () => {
         component.multiple = true;
         fixture.detectChanges();
 
@@ -128,7 +130,7 @@ describe('Select Component', () => {
 
         fixture.detectChanges();
 
-        expect(component.onInputChange).toHaveBeenCalled();
+        expect(component.onInputChange).not.toHaveBeenCalled();
     });
 
     it('should not show the clear button by default in single select', () => {
@@ -242,7 +244,6 @@ describe('Select Component', () => {
         <ux-select (valueChange)="onValueChange()" [(value)]="value" [options]="options" [multiple]="multiple"></ux-select>
     `
 })
-
 export class SelectValueTestComponent {
 
     onValueChange(): void { }
@@ -251,7 +252,6 @@ export class SelectValueTestComponent {
     value: string | string[];
     multiple: boolean;
 }
-
 describe('Select Component - Value Input', () => {
     let component: SelectValueTestComponent;
     let fixture: ComponentFixture<SelectValueTestComponent>;
@@ -272,11 +272,10 @@ describe('Select Component - Value Input', () => {
     });
 
     it('should have an initial value set to One', async () => {
+        spyOn(component, 'onValueChange');
         component.value = component.options[0];
         fixture.autoDetectChanges();
         await fixture.whenStable();
-
-        spyOn(component, 'onValueChange');
 
         let selectText = fixture.nativeElement.querySelector('input').value;
         expect(selectText).toEqual('One');
@@ -284,12 +283,13 @@ describe('Select Component - Value Input', () => {
         expect(component.onValueChange).not.toHaveBeenCalled();
     });
 
-    it('should have an initial value set to One when multiple is true', () => {
+    it('should have an initial value set to One when multiple is true', async() => {
+        spyOn(component, 'onValueChange');
+
         component.multiple = true;
         component.value = [component.options[0]];
         fixture.detectChanges();
-
-        spyOn(component, 'onValueChange');
+        await fixture.whenStable();
 
         let tagText = fixture.nativeElement.querySelector('.ux-tag-text').innerText;
         expect(tagText).toBe('One');
@@ -304,14 +304,13 @@ describe('Select Component - Value Input', () => {
         <ux-select (ngModelChange)="onValueChange()" [(ngModel)]="value" [options]="options" [multiple]="multiple"></ux-select>
     `
 })
-
 export class SelectNgModelTestComponent {
-
-    onValueChange(): void { }
 
     options: string[] = ['One', 'Two', 'Three'];
     value: string | string[];
     multiple: boolean = false;
+
+    onValueChange(): void { }
 }
 
 describe('Select Component - NgModel Input', () => {
@@ -364,29 +363,55 @@ describe('Select Component - NgModel Input', () => {
     });
 
     it('should change from untouched to touched when clicking the input in single mode', async () => {
+
+        // await for forms to register handlers
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        // get the select component instance
+        const select = fixture.debugElement.query(By.directive(SelectComponent)).componentInstance;
+
+        // spy on the touched event
+        const touchedSpy = spyOn(select, '_onTouched');
+
         component.multiple = false;
         component.value = component.options[0];
         fixture.detectChanges();
         await fixture.whenStable();
-        expect(nativeElement.querySelector('ux-select').classList).toContain('ng-untouched');
 
-        getSelect(component.multiple).click();
+        expect(touchedSpy).not.toHaveBeenCalled();
+
+        getSelect(component.multiple).dispatchEvent(new Event('focus'));
         fixture.detectChanges();
-        expect(nativeElement.querySelector('ux-select').classList).toContain('ng-touched');
+        await fixture.whenStable();
 
+        expect(touchedSpy).toHaveBeenCalled();
     });
 
     it('should change from untouched to touched when clicking the input in multiple mode', async () => {
+
+        // await for forms to register handlers
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        // get the select component instance
+        const select = fixture.debugElement.query(By.directive(SelectComponent)).componentInstance;
+
+        // spy on the touched event
+        const touchedSpy = spyOn(select, '_onTouched');
+
         component.multiple = true;
         component.value = [component.options[0]];
         fixture.detectChanges();
         await fixture.whenStable();
-        expect(nativeElement.querySelector('ux-select').classList).toContain('ng-untouched');
 
-        getSelect(component.multiple).click();
+        expect(touchedSpy).not.toHaveBeenCalled();
+
+        getMultipleSelectInput().dispatchEvent(new Event('focus'));
         fixture.detectChanges();
-        expect(nativeElement.querySelector('ux-select').classList).toContain('ng-touched');
+        await fixture.whenStable();
 
+        expect(touchedSpy).toHaveBeenCalled();
     });
 
     it('should not open dropdown when tabbing past select', async () => {
@@ -441,6 +466,10 @@ describe('Select Component - NgModel Input', () => {
     function getSelect(isMultiple: boolean): HTMLElement | null {
         return nativeElement.querySelector(`ux-select ${isMultiple ? 'ux-tag-input' : 'input.form-control'}`);
     }
+
+    function getMultipleSelectInput(): HTMLInputElement {
+        return nativeElement.querySelector('input.ux-tag-input');
+    }
 });
 
 @Component({
@@ -451,10 +480,7 @@ describe('Select Component - NgModel Input', () => {
         </form>
     `
 })
-
 export class SelectReactiveFormTestComponent {
-
-    onValueChange(): void { }
 
     multiple: boolean = false;
 
@@ -463,6 +489,8 @@ export class SelectReactiveFormTestComponent {
     });
 
     options: string[] = ['One', 'Two', 'Three'];
+
+    onValueChange(): void { }
 }
 
 describe('Select Component - Reactive Form Input', () => {
@@ -526,13 +554,7 @@ describe('Select Component - Reactive Form Input', () => {
         </ux-select>
     `
 })
-
 export class SingleSelectWithCustomIconTestComponent {
-
-    onValueChange(): void { }
-    getCustomIcon(): void { }
-    onInputChange(): void { }
-
     input: string = '';
     value: string | string[];
     options: string[] = ['One', 'Two', 'Three'];
@@ -541,6 +563,9 @@ export class SingleSelectWithCustomIconTestComponent {
     clearButton: boolean = false;
     visible: boolean = true;
     placeholder: string;
+
+    onValueChange(): void { }
+    onInputChange(): void { }
 }
 
 describe('Select Component - With custom Icon', () => {
@@ -629,7 +654,7 @@ export class SelectWithRecentOptionsTestComponent {
     recentOptions: string[] = [];
     recentOptionsMaxCount = 2;
 
-    onRecentOptionsChange(): void {}
+    onRecentOptionsChange(_: string[]): void {}
 }
 
 describe('Select with recent options', () => {

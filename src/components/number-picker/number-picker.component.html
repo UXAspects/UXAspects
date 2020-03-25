@@ -3,8 +3,10 @@
     role="spinbutton"
     class="form-control number-picker-input"
     [(ngModel)]="value"
+    (ngModelChange)="_emitValueChange($event)"
     [min]="min"
     [max]="max"
+    (focus)="_touchedChange()"
     (keydown.ArrowDown)="decrement($event)"
     (keydown.ArrowUp)="increment($event)"
     (wheel)="onScroll($event)"
@@ -19,6 +21,7 @@
 
     <div class="number-picker-control number-picker-control-up"
          (click)="increment($event)"
+         (focus)="_touchedChange()"
          [class.disabled]="disabled || value >= max">
 
         <ux-icon name="up"></ux-icon>
@@ -26,6 +29,7 @@
 
     <div class="number-picker-control number-picker-control-down"
          (click)="decrement($event)"
+         (focus)="_touchedChange()"
          [class.disabled]="disabled || value <= min">
 
          <ux-icon name="down"></ux-icon>

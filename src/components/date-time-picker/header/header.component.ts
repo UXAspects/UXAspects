@@ -92,7 +92,7 @@ export class HeaderComponent implements AfterViewInit, OnDestroy {
     ) {
         if (this._rangeService) {
             // delay required to allow all ui to update elsewhere
-            this._rangeService.onRangeChange.pipe(takeUntil(this._onDestroy), delay(100))
+            this._rangeService.onRangeChange.pipe(delay(100), takeUntil(this._onDestroy))
                 .subscribe(() => _changeDetector.detectChanges());
         }
     }

@@ -1,7 +1,6 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { Component } from '@angular/core';
-import { Filter, FilterAddEvent, FilterEvent, FilterRemoveAllEvent,
-    FilterRemoveEvent } from '@ux-aspects/ux-aspects';
+import { Filter, FilterAddEvent, FilterEvent, FilterRemoveAllEvent, FilterRemoveEvent } from '@ux-aspects/ux-aspects';
 import 'chance';
 
 @Component({
@@ -12,55 +11,55 @@ export class AppComponent {
     filters: Filter[] = [];
 
     statusFilters: Filter[] = [{
-        group: 'status',
+        group: 'Status',
         title: 'Status',
         name: 'Status (All)',
         initial: true
     }, {
-        group: 'status',
+        group: 'Status',
         title: 'Active',
         name: 'Active'
     }, {
-        group: 'status',
+        group: 'Status',
         title: 'Inactive',
         name: 'Inactive'
     }];
 
     authorFilters: Filter[] = [{
-        group: 'author',
+        group: 'Author',
         title: 'Author',
         name: 'Author (All)',
         initial: true,
     }, {
-        group: 'author',
+        group: 'Author',
         title: 'Lily Clarke',
         name: 'Lily Clarke'
     }, {
-        group: 'author',
+        group: 'Author',
         title: 'Jesse Bass',
         name: 'Jesse Bass'
     }, {
-        group: 'author',
+        group: 'Author',
         title: 'Iva Rogers',
         name: 'Iva Rogers'
     }, {
-        group: 'author',
+        group: 'Author',
         title: 'Nina Copeland',
         name: 'Nina Copeland'
     }, {
-        group: 'author',
+        group: 'Author',
         title: 'Bradley Mason',
         name: 'Bradley Mason'
     }, {
-        group: 'author',
+        group: 'Author',
         title: 'Aaron Scott',
         name: 'Aaron Scott'
     }, {
-        group: 'author',
+        group: 'Author',
         title: 'Ethel Collier',
         name: 'Ethel Collier'
     }, {
-        group: 'author',
+        group: 'Author',
         title: 'Lois Saunders',
         name: 'Lois Saunders'
     }];
@@ -130,7 +129,7 @@ export class AppComponent {
 
     documents: ReadonlyArray<FilterSampleItem> = [...this.dataSource];
 
-    constructor(private _announcer: LiveAnnouncer) {}
+    constructor(private _announcer: LiveAnnouncer) { }
 
     /** Provide accesibility feedback */
     onEvent(event: FilterEvent) {
@@ -160,11 +159,11 @@ export class AppComponent {
         this.filters.forEach(filter => {
             switch (filter.group) {
 
-                case 'author':
+                case 'Author':
                     this.documents = this.documents.filter(item => item.author === filter.name);
                     break;
 
-                case 'status':
+                case 'Status':
                     this.documents = this.documents.filter(item => item.active === (filter.name === 'Active'));
                     break;
             }

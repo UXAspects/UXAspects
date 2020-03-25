@@ -8,6 +8,7 @@ import { debounceTime, delay, distinctUntilChanged, filter, map, skip, take, tak
 import { InfiniteScrollLoadFunction } from '../../directives/infinite-scroll/index';
 import { TagApi, TagInputComponent } from '../tag-input/index';
 import { TypeaheadComponent, TypeaheadKeyService, TypeaheadOptionEvent } from '../typeahead/index';
+import { TypeaheadOptionContext } from '../typeahead/typeahead-option-context';
 
 let uniqueId = 0;
 
@@ -138,10 +139,10 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
     @Input() autocomplete: string = 'off';
 
     /** A template which will be rendered in the dropdown while options are being loaded. */
-    @Input() loadingTemplate: TemplateRef<any>;
+    @Input() loadingTemplate: TemplateRef<void>;
 
     /** A template which will be rendered in the dropdown if no options match the current filter value. */
-    @Input() noOptionsTemplate: TemplateRef<any>;
+    @Input() noOptionsTemplate: TemplateRef<void>;
 
     /** If `true` the input field will be readonly and selection can only occur by using the dropdown. */
     @Input() readonlyInput: boolean = false;
@@ -158,7 +159,7 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
      * - option: any - the string or custom object representing the option.
      * - api: TypeaheadOptionApi - provides the functions `getKey`, `getDisplay` and `getDisplayHtml`.
      */
-    @Input() optionTemplate: TemplateRef<any>;
+    @Input() optionTemplate: TemplateRef<TypeaheadOptionContext<T>>;
 
     /**
      * An initial list of recently selected options, to be presented above the full list of options.
@@ -182,7 +183,7 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
     @Output() recentOptionsChange = new EventEmitter<ReadonlyArray<T>>();
 
     /** Allow a custom icon to be used instead of the chevron */
-    @ContentChild('icon', { static: false }) icon: TemplateRef<any>;
+    @ContentChild('icon', { static: false }) icon: TemplateRef<void>;
 
     @ViewChild('singleInput', { static: false }) singleInput: ElementRef;
     @ViewChild('tagInput', { static: false }) tagInput: TagInputComponent;
@@ -200,7 +201,7 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
     private _input$ = new BehaviorSubject<string>('');
     private _dropdownOpen: boolean = false;
     private _userInput: boolean = false;
-    private _onChange = (_: any) => { };
+    private _onChange = (_: T | ReadonlyArray<T>) => { };
     private _onTouched = () => { };
     private _onDestroy = new Subject<void>();
 
@@ -212,26 +213,23 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
 
     ngOnInit(): void {
 
-        this._value$.pipe(skip(1), distinctUntilChanged(), takeUntil(this._onDestroy))
-            .subscribe(value => this.valueChange.emit(value));
-
         // Emit change events
         this._value$.pipe(takeUntil(this._onDestroy), distinctUntilChanged()).subscribe(value => {
             this._value = value;
-            this._onChange(value);
             this._hasValue = !!value;
-        });
-
-        this._input$.pipe(takeUntil(this._onDestroy), distinctUntilChanged()).subscribe(value => {
-            this.inputChange.emit(value);
         });
 
         // Changes to the input field
         this._input$.pipe(
+            skip(1),
             filter(() => this.allowNull),
             filter(value => !this.multiple && value !== this.getDisplay(this.value)),
             takeUntil(this._onDestroy)
-        ).subscribe(() => this.value = null);
+        ).subscribe(() => {
+            this.value = null;
+            this.valueChange.next(null),
+            this._onChange(null);
+        });
 
         // Set up filter from input
         this.filter$ = this._input$.pipe(
@@ -256,7 +254,13 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
             filter(value => value !== null && !this.multiple),
             takeUntil(this._onDestroy)
         ).subscribe(value => {
-            this.input = this.getDisplay(value);
+            const inputValue = this.getDisplay(value);
+
+            // check if the input value has changed and if so the emit
+            if (inputValue !== this.input) {
+                this.input = inputValue;
+                this.inputChange.emit(this.input);
+            }
         });
     }
 
@@ -342,27 +346,47 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
         }
     }
 
-    singleOptionSelected(event: TypeaheadOptionEvent): void {
-        if (event.option) {
+    /** This gets called whenever the user types in the input */
+    onInputChange(input: string): void {
+        this.inputChange.emit(input);
+    }
+
+    /** Whenever a single select item is selected emit the values */
+    _singleOptionSelected(event: TypeaheadOptionEvent): void {
+        if (event.option && event.option !== this.value) {
             this.value = event.option;
             this.dropdownOpen = false;
+            this.valueChange.emit(this.value);
+            this._onChange(this.value);
         }
+    }
+
+    /** Whenever a multi-select item is selected emit the values */
+    _multipleOptionSelected(selection: ReadonlyArray<T>): void {
+        // update the internal selection
+        this._value$.next(selection);
+        this.valueChange.emit(this.value);
+        this._onChange(this.value);
     }
 
     /**
      * Returns the display value of the given option.
      */
     getDisplay(option: any): string {
+
         if (option === null || option === undefined) {
             return '';
         }
+
         if (typeof this.display === 'function') {
-            return this.display(option);
+            return this.display(option as T);
         }
-        if (typeof this.display === 'string' && option.hasOwnProperty(this.display)) {
-            return option[<string>this.display];
+
+        if (typeof this.display === 'string' && typeof option === 'object' && option.hasOwnProperty(this.display)) {
+            return option[this.display];
         }
-        return option as any;
+
+        return option as string;
     }
 
     /** Toggle the dropdown open state */
@@ -405,6 +429,11 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
         this.value = null;
         this.input = null;
         this.selectInputText();
+
+        // emit the latest values
+        this.valueChange.emit(this.value);
+        this._onChange(this.value);
+        this.inputChange.emit(this.input);
     }
 
     private selectInputText(): void {
