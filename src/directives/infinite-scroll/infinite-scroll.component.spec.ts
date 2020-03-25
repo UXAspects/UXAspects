@@ -1,8 +1,7 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, tick, ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing';
 import { InfiniteScrollModule } from './infinite-scroll.module';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-
 
 @Component({
     template: `<div [uxInfiniteScroll]="load"
@@ -102,4 +101,78 @@ describe('Directive - Infinite Scroll', () => {
         expect(loadSpy).toHaveBeenCalledWith(0, 20, { name: 'somebody' });
         expect(loadSpy).toHaveBeenCalledTimes(2);
     });
+});
+
+@Component({
+    template: `<div class="list"
+                    [uxInfiniteScroll]="loadCallback"
+                    [(collection)]="loadedEmployees"
+                    [pageSize]="20"
+                    [loadOnScroll]="true">
+
+                    <ol>
+                        <li *ngFor="let employee of loadedEmployees">
+                            <span>{{ employee }}</span>
+                        </li>
+                    </ol>
+                </div>`
+})
+export class InfiniteScrollLoadingTestComponent {
+
+    loadedEmployees: any[] = [];
+    allEmployees: any[] = [];
+    documents: string[] = [];
+    loadCallback = this.load.bind(this);
+
+    constructor() {
+        for (let i = 0; i < 100; i += 1) {
+            this.allEmployees.push(`Employee ${i}`);
+        }
+    }
+
+    load(pageNum: number, pageSize: number): Promise<string[]> {
+        return new Promise<string[]>(resolve => {
+            setTimeout(() => {
+                const pageStart = pageNum * pageSize;
+                const newItems = this.allEmployees
+                    .slice(pageStart, pageStart + pageSize);
+
+                resolve(newItems);
+            });
+        });
+    }
+}
+
+describe('Directive - Infinite Scroll Loading', () => {
+    let component: InfiniteScrollLoadingTestComponent;
+    let fixture: ComponentFixture<InfiniteScrollLoadingTestComponent>;
+    let loadSpy: jasmine.Spy;
+
+    beforeEach(async(() => {
+        TestBed.configureTestingModule({
+            imports: [InfiniteScrollModule, FormsModule],
+            declarations: [InfiniteScrollLoadingTestComponent],
+        })
+            .compileComponents();
+    }));
+
+    beforeEach(() => {
+        fixture = TestBed.createComponent(InfiniteScrollLoadingTestComponent);
+        component = fixture.componentInstance;
+        loadSpy = spyOn(component, 'load').and.callThrough();
+        fixture.detectChanges();
+    });
+
+    it('should show items initially when a promise is used to return a value', fakeAsync(async () => {
+        component.load(0, 20);
+
+        tick(2000);
+
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        expect(loadSpy).toHaveBeenCalledWith(0, 20);
+        expect(loadSpy).toHaveBeenCalledTimes(1);
+
+    }));
 });
