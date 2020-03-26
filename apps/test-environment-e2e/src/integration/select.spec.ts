@@ -1,4 +1,4 @@
-import { getDropdownItem, getDropdownItems, getSelectInput, getSelection, getPlaceholder, getTypeahead, removeTag, SelectItemMode, setItemMode, toggleAllowNull, toggleDisabled, toggleMultipleSelect, setPlaceholder, togglePaging, setPageSize } from '../support/select.po';
+import { getDropdownItem, getDropdownItems, getSelectInput, getSelection, getPlaceholder, getTypeahead, removeTag, SelectItemMode, setItemMode, toggleAllowNull, toggleDisabled, toggleMultipleSelect, setPlaceholder, togglePaging, setPageSize, getIcon, toggleCustomIcon, toggleClearButton, getCloseBtn } from '../support/select.po';
 
 describe('Select Component', () => {
     beforeEach(() => cy.visit('/select'));
@@ -543,6 +543,115 @@ describe('Select Component', () => {
 
         // we should now show the next page
         getDropdownItems().should('have.length', 50);
+    });
+
+    it('should allow a custom icon', () => {
+        // should show the correct initial icon
+        getIcon().should('have.class', 'ux-icon-down');
+
+        // show the custom icon
+        toggleCustomIcon();
+
+        // should show the correct initial icon
+        getIcon().children().get('ux-icon').should('exist');
+
+        // show the custom icon
+        toggleCustomIcon();
+        toggleMultipleSelect();
+
+        // should show the correct initial icon
+        getIcon().should('not.exist');
+
+        // show the custom icon
+        toggleCustomIcon();
+
+        // should show the correct initial icon
+        getIcon().children().get('ux-icon').should('exist');
+    });
+
+    it('should allow a clear button', () => {
+
+        // enable the clear button
+        toggleClearButton();
+
+        // open the menu
+        getSelectInput().click();
+
+        // select a menu item
+        getDropdownItem(3).click();
+
+        // check that the selection has been made
+        getSelection().should('contain.text', 'Aland Islands');
+
+        // expect the close button to be visible
+        getCloseBtn().should('exist');
+
+        // clicking the clear button
+        getCloseBtn().click();
+
+        // the input should clear after selection
+        getSelectInput().should('have.value', '');
+
+        // check that the selection has been made
+        getSelection().should('contain.text', 'null');
+
+        // switch to multiple select
+        toggleMultipleSelect();
+
+        // open the menu
+        getSelectInput().click();
+
+        // select a menu item
+        getDropdownItem(3).click();
+
+        // check that the selection has been made
+        getSelection().should('contain.text', 'Aland Islands');
+
+        // expect the close button to be visible
+        getCloseBtn().should('exist');
+
+        // clicking the clear button
+        getCloseBtn().click();
+
+        // the input should clear after selection
+        getSelectInput().should('have.value', '');
+
+        // check that the selection has been made
+        getSelection().should('contain.text', '[]');
+    });
+
+    it.only('should handle overflow', () => {
+        // open the menu
+        getSelectInput().click();
+
+        // select a menu item
+        getDropdownItems().last().scrollIntoView().click({ force: true });
+
+        // check the screenshot
+        cy.matchImageSnapshot('single-select-overflow');
+
+        // enable the clear button
+        toggleClearButton();
+
+        // check the screenshot
+        cy.matchImageSnapshot('single-select-overflow-clear-btn');
+
+        // toggle multi select
+        toggleMultipleSelect();
+
+        // open the menu
+        getSelectInput().click();
+
+        // select a menu item
+        getDropdownItems().last().scrollIntoView().click({ force: true });
+
+        // check the screenshot
+        cy.matchImageSnapshot('multi-select-overflow');
+
+        // enter text into the text area
+        getSelectInput().type('MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM');
+        // check the screenshot
+        cy.matchImageSnapshot('multi-select-overflow-clear-btn');
     });
 
 });
