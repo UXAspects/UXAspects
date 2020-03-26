@@ -108,7 +108,7 @@
     "codelyzer": "^5.0.1",
     "copy-webpack-plugin": "4.6.0",
     "css-loader": "1.0.0",
-    "cypress": "^4.1.0",
+    "cypress": "^4.2.0",
     "cypress-image-snapshot": "^3.1.1",
     "file-loader": "1.1.11",
     "graceful-fs": "4.1.11",

@@ -1,4 +1,4 @@
-import { getDropdownItem, getDropdownItems, getSelectInput, getSelection, getSelectPlaceholder, getTypeahead, removeTag, SelectItemMode, setItemMode, toggleDisabled, toggleMultipleSelect } from '../support/select.po';
+import { getDropdownItem, getDropdownItems, getSelectInput, getSelection, getPlaceholder, getTypeahead, removeTag, SelectItemMode, setItemMode, toggleAllowNull, toggleDisabled, toggleMultipleSelect, setPlaceholder, togglePaging, setPageSize } from '../support/select.po';
 
 describe('Select Component', () => {
     beforeEach(() => cy.visit('/select'));
@@ -14,7 +14,7 @@ describe('Select Component', () => {
         getSelection().should('have.text', 'null');
 
         // should show the correct placeholder
-        getSelectPlaceholder().should('equal', 'Select a country');
+        getPlaceholder().should('equal', 'Select a country');
 
         // perform a screenshot comparison
         cy.matchImageSnapshot('select-initial');
@@ -165,7 +165,7 @@ describe('Select Component', () => {
         getSelection().should('have.text', 'null');
 
         // should show the correct placeholder
-        getSelectPlaceholder().should('equal', 'Select a country');
+        getPlaceholder().should('equal', 'Select a country');
 
         // perform a screenshot comparison
         cy.matchImageSnapshot('multi-select-initial');
@@ -393,6 +393,156 @@ describe('Select Component', () => {
 
         // check that the selection has been made
         getSelection().should('contain.text', 'Aland Islands');
+    });
+
+    it('should allow null values when "allowNull" is true', () => {
+        // allow null values
+        toggleAllowNull();
+
+        // open the menu
+        getSelectInput().click();
+
+        // select a menu item
+        getDropdownItem(3).click();
+
+        // check that the selection has been made
+        getSelection().should('contain.text', 'Aland Islands');
+
+        // open the select dropdown
+        getSelectInput().click().clear().blur();
+
+        // the input should clear after selection
+        getSelectInput().should('have.value', '');
+
+        // check that the selection has been made
+        getSelection().should('contain.text', 'null');
+
+        // repeat for multiple select
+        toggleMultipleSelect();
+
+        // open the menu
+        getSelectInput().click();
+
+        // select a menu item
+        getDropdownItem(3).click();
+
+        // check that the selection has been made
+        getSelection().should('contain.text', 'Aland Islands');
+
+        // open the select dropdown
+        removeTag(0);
+
+        // the input should clear after selection
+        getSelectInput().should('have.value', '');
+
+        // check that the selection has been made
+        getSelection().should('contain.text', '[]');
+    });
+
+    it('should allow the placeholder to be changed', () => {
+        // get the default placeholder value
+        getPlaceholder().should('equal', 'Select a country');
+
+        // set the placeholder
+        setPlaceholder('New Placeholder');
+        getPlaceholder().should('equal', 'New Placeholder');
+
+        // do the same for the multi select
+        toggleMultipleSelect();
+
+        getPlaceholder().should('equal', 'New Placeholder');
+
+        // change the placeholder
+        setPlaceholder('Multi Select Placeholder');
+        getPlaceholder().should('equal', 'Multi Select Placeholder');
+    });
+
+    it('should allow pagination (single select)', () => {
+        // enable paging
+        togglePaging();
+
+        // open the menu
+        getSelectInput().click();
+
+        // we should only be showing a subset of the values
+        getDropdownItems().should('have.length', 20);
+
+        // perform scrolling
+        getTypeahead().scrollTo(0, 1000);
+
+        // we should now show the next page
+        getDropdownItems().should('have.length', 40);
+
+        // open the menu
+        getSelectInput().click();
+
+        // change the paging size
+        setPageSize(50);
+
+        // open the menu
+        getSelectInput().click();
+
+        // we should only be showing a subset of the values
+        getDropdownItems().should('have.length', 100);
+
+        // perform scrolling
+        getTypeahead().scrollTo(0, 4000);
+
+        // we should now show the next page
+        getDropdownItems().should('have.length', 150);
+
+        // should use the page size when filtering
+        getSelectInput().clear().type('b');
+
+        // we should now show the next page
+        getDropdownItems().should('have.length', 50);
+    });
+
+    it('should allow pagination (multi select)', () => {
+
+        toggleMultipleSelect();
+
+        // enable paging
+        togglePaging();
+
+        // open the menu
+        getSelectInput().click();
+
+        // we should only be showing a subset of the values
+        getDropdownItems().should('have.length', 20);
+
+        // perform scrolling
+        getTypeahead().scrollTo(0, 1000);
+
+        // we should now show the next page
+        getDropdownItems().should('have.length', 40);
+
+        // open the menu
+        getSelectInput().click();
+
+        // change the paging size
+        setPageSize(50);
+
+        // open the menu
+        getSelectInput().click();
+
+        // we should only be showing a subset of the values
+        getDropdownItems().should('have.length', 100);
+
+        // perform scrolling
+        getTypeahead().scrollTo(0, 4000);
+
+        // we should now show the next page
+        getDropdownItems().should('have.length', 150);
+
+        // perform scrolling
+        getTypeahead().scrollTo(0, 0);
+
+        // should use the page size when filtering
+        getSelectInput().clear().type('b');
+
+        // we should now show the next page
+        getDropdownItems().should('have.length', 50);
     });
 
 });
