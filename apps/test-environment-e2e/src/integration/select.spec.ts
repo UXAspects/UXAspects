@@ -48,6 +48,9 @@ describe('Select Component', () => {
         // should not select an item just because we opened the dropdown
         getSelection().should('have.text', 'null');
 
+        // remove focus from the input to prevent screenshot inconsistencies
+        getSelectInput().blur();
+
         // perform a screenshot comparison
         cy.matchImageSnapshot('select-dropdown-open');
     });
@@ -96,6 +99,9 @@ describe('Select Component', () => {
 
         // should filter the number of visible options
         getDropdownItems().should('have.length', 5);
+
+        // remove focus from the input to prevent screenshot inconsistencies
+        getSelectInput().blur();
 
         // perform a screenshot comparison
         cy.matchImageSnapshot('select-filter-hightlight');
@@ -241,18 +247,6 @@ describe('Select Component', () => {
 
         // ensure the item is disabled in the list
         getDropdownItem(3).should('have.class', 'disabled');
-    });
-
-    it('should handle overflow correctly (multiple select)', () => {
-        toggleMultipleSelect();
-        // open the menu
-        getSelectInput().click();
-
-        // select a menu item
-        getDropdownItem(250).click();
-
-        // perform a screenshot comparison
-        cy.matchImageSnapshot('multi-select-overflow');
     });
 
     it('should filter and highlight the list when typing (multiple select)', () => {
@@ -630,6 +624,9 @@ describe('Select Component', () => {
         // select a menu item
         getDropdownItems().last().scrollIntoView().click({ force: true });
 
+        // remove focus from the input to prevent screenshot inconsistencies
+        getSelectInput().blur();
+
         // check the screenshot
         cy.matchImageSnapshot('single-select-overflow');
 
@@ -677,6 +674,13 @@ describe('Select Component', () => {
         getRecentItemsList().should('exist');
         getRecentItemsItems().should('have.length', 1);
         getRecentItemsItem(0).should('have.text', 'Aland Islands');
+
+        // clear highlighted text for consistent screenshot
+        getSelectInput().then(elements => {
+            const element = elements[0];
+            const document = element.ownerDocument;
+            document.getSelection().empty();
+        });
 
         // take a screenshot
         cy.matchImageSnapshot('single-select-recent-options');
