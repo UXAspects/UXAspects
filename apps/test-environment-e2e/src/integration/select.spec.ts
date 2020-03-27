@@ -1,4 +1,4 @@
-import { getDropdownItem, getDropdownItems, getSelectInput, getSelection, getPlaceholder, getTypeahead, removeTag, SelectItemMode, setItemMode, toggleAllowNull, toggleDisabled, toggleMultipleSelect, setPlaceholder, togglePaging, setPageSize, getIcon, toggleCustomIcon, toggleClearButton, getCloseBtn } from '../support/select.po';
+import { getDropdownItem, getDropdownItems, getSelectInput, getSelection, getPlaceholder, getTypeahead, removeTag, SelectItemMode, setItemMode, toggleAllowNull, toggleDisabled, toggleMultipleSelect, setPlaceholder, togglePaging, setPageSize, getIcon, toggleCustomIcon, toggleClearButton, getCloseBtn, toggleRecentOptions, getRecentItemsList, getRecentItemsItems, getRecentItemsItem } from '../support/select.po';
 
 describe('Select Component', () => {
     beforeEach(() => cy.visit('/select'));
@@ -517,7 +517,10 @@ describe('Select Component', () => {
         // we should now show the next page
         getDropdownItems().should('have.length', 40);
 
-        // open the menu
+        // scroll back to the top
+        getTypeahead().scrollTo(0, 0);
+
+        // close the menu
         getSelectInput().click();
 
         // change the paging size
@@ -620,7 +623,7 @@ describe('Select Component', () => {
         getSelection().should('contain.text', '[]');
     });
 
-    it.only('should handle overflow', () => {
+    it('should handle overflow', () => {
         // open the menu
         getSelectInput().click();
 
@@ -652,6 +655,78 @@ describe('Select Component', () => {
         getSelectInput().type('MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM');
         // check the screenshot
         cy.matchImageSnapshot('multi-select-overflow-clear-btn');
+    });
+
+    it('should show recent options (single select)', () => {
+        // enable recent options
+        toggleRecentOptions();
+
+        // open the menu
+        getSelectInput().click();
+
+        // there should be no recent items
+        getRecentItemsList().should('not.exist');
+
+        // select a menu item
+        getDropdownItem(3).click();
+
+        // re-open the menu
+        getSelectInput().click();
+
+        // check if we now have the recent item
+        getRecentItemsList().should('exist');
+        getRecentItemsItems().should('have.length', 1);
+        getRecentItemsItem(0).should('have.text', 'Aland Islands');
+
+        // take a screenshot
+        cy.matchImageSnapshot('single-select-recent-options');
+
+        // select another menu item
+        getDropdownItem(2).click();
+
+        // re-open the menu
+        getSelectInput().click();
+
+        // check if we now have the recent item
+        getRecentItemsList().should('exist');
+        getRecentItemsItems().should('have.length', 2);
+        getRecentItemsItem(0).should('have.text', 'United Kingdom');
+        getRecentItemsItem(1).should('have.text', 'Aland Islands');
+    });
+
+    it('should show recent options (multi select)', () => {
+
+        // toggle multi select
+        toggleMultipleSelect();
+
+        // enable recent options
+        toggleRecentOptions();
+
+        // open the menu
+        getSelectInput().click();
+
+        // there should be no recent items
+        getRecentItemsList().should('not.exist');
+
+        // select a menu item
+        getDropdownItem(3).click();
+
+        // check if we now have the recent item
+        getRecentItemsList().should('exist');
+        getRecentItemsItems().should('have.length', 1);
+        getRecentItemsItem(0).should('have.text', 'Aland Islands');
+
+        // take a screenshot
+        cy.matchImageSnapshot('multi-select-recent-options');
+
+        // select another menu item
+        getDropdownItem(2).click();
+
+        // check if we now have the recent item
+        getRecentItemsList().should('exist');
+        getRecentItemsItems().should('have.length', 2);
+        getRecentItemsItem(0).should('have.text', 'United Kingdom');
+        getRecentItemsItem(1).should('have.text', 'Aland Islands');
     });
 
 });
