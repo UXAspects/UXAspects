@@ -31,6 +31,7 @@
     "**/snippets/*.ts",
     "e2e",
     "test",
-    "**/*.spec.ts"
+    "**/*.spec.ts",
+    "apps/test-environment-e2e"
   ]
 }
