@@ -17,7 +17,7 @@ describe('Infinite Scroll (Immediate) Tests', () => {
         // loadMore not visible
         expect(await page.confirmLoadMoreIsVisible()).toBeFalsy();
 
-        expect(await imageCompare('infinite-scroll-initial')).toEqual(0);
+        expect(await imageCompare('infinite-scroll-immediate-initial')).toEqual(0);
 
     });
 
