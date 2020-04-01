@@ -1,5 +1,5 @@
 ALT_DOCUMENTATION_FOLDER=target/docs
-SEPG_BUILD_ENV_IMAGE=uxaspects/buildenv:1.2.0
+SEPG_BUILD_ENV_IMAGE=uxaspects/buildenv:1.4.0-EL-3781-Cypress-SNAPSHOT
 
 GENERIC_1_TARGET_URL=${genericRepoMgr}/saas-npm-dev-local/${path}/${filename}
 GENERIC_1_ARTIFACTS=target/artifactory/**/*.tgz
