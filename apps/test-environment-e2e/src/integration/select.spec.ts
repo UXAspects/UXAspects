@@ -74,7 +74,7 @@ describe('Select Component', () => {
         getSelectInput().click();
 
         // select a menu item
-        getDropdownItem(3).click();
+        getDropdownItem(3).click( { force: true });
 
         // check that the selection has been made
         getSelectInput().should('have.value', 'Aland Islands');
@@ -223,7 +223,7 @@ describe('Select Component', () => {
         getSelectInput().click();
 
         // select a menu item
-        getDropdownItem(3).click();
+        getDropdownItem(3).click( { force: true});
 
         // the input should clear after selection
         getSelectInput().should('have.value', '');
@@ -288,7 +288,7 @@ describe('Select Component', () => {
         getSelectInput().click();
 
         // select a menu item
-        getDropdownItem(3).click();
+        getDropdownItem(3).click( { force: true});
 
         // the select input should be cleared after selection
         getSelectInput().should('have.value', '');
@@ -407,7 +407,7 @@ describe('Select Component', () => {
         getSelectInput().click();
 
         // select a menu item
-        getDropdownItem(3).click();
+        getDropdownItem(3).click( { force: true });
 
         // check that the selection has been made
         getSelection().should('contain.text', 'Aland Islands');
@@ -588,7 +588,7 @@ describe('Select Component', () => {
         getSelectInput().click();
 
         // select a menu item
-        getDropdownItem(3).click();
+        getDropdownItem(3).click( { force: true});
 
         // check that the selection has been made
         getSelection().should('contain.text', 'Aland Islands');
