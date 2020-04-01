@@ -22,5 +22,8 @@ module.exports = {
     },
     version: {
         src: [ join(cwd(), 'scripts', 'version.js') ]
-    }
+    },
+    e2e: {
+        src: [ join(cwd(), 'scripts', 'e2e.js') ]
+    },
 };
