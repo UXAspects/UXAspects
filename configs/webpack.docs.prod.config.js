@@ -219,6 +219,10 @@ module.exports = {
                 to: join(cwd(), 'dist', 'docs', 'assets')
             },
             {
+                from: join(cwd(), 'dist', 'library', 'styles'),
+                to: join(cwd(), 'dist', 'docs', 'assets', 'css')
+            },
+            {
                 from: join(cwd(), 'src', 'fonts'),
                 to: join(cwd(), 'dist', 'docs', 'assets', 'fonts')
             },
