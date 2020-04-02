@@ -10,7 +10,6 @@ const ROUTES: Routes = [
         component: ComponentsPageComponent,
         children: [
             { path: '', pathMatch: 'full', redirectTo: 'buttons' },
-            { path: 'badge', loadChildren: () => import('./components-sections/badge/badge.module').then(m => m.ComponentsBadgeModule) },
             { path: 'buttons', loadChildren: () => import('./components-sections/buttons/buttons.module').then(m => m.ComponentsButtonsModule) },
             { path: 'component-list', loadChildren: () => import('./components-sections/component-list/component-list.module').then(m => m.ComponentsListModule) },
             { path: 'color', loadChildren: () => import('./components-sections/color/color.module').then(m => m.ComponentsColorModule) },

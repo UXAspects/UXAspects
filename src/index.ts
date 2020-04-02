@@ -63,6 +63,7 @@ export * from './components/wizard/index';
 */
 export * from './directives/accessibility/index';
 export * from './directives/auto-grow/index';
+export * from './directives/badge/index';
 export * from './directives/click-outside/index';
 export * from './directives/drag/index';
 export * from './directives/fixed-header-table/index';

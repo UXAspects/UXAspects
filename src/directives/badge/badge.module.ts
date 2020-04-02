@@ -1,10 +1,10 @@
-import { NgModule } from '@angular/core';
-import { ColorServiceModule } from './../../services/color/color.module';
-import { BadgeDirective } from './badge.directive';
+import { NgModule } from "@angular/core";
+import { ColorServiceModule } from "./../../services/color/color.module";
+import { BadgeDirective } from "./badge.directive";
 
 @NgModule({
+    imports: [ColorServiceModule],
     exports: [BadgeDirective],
-    declarations: [BadgeDirective],
-    imports: [ColorServiceModule]
+    declarations: [BadgeDirective]
 })
-export class BadgeModule { }
+export class BadgeModule {}

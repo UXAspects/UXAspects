@@ -82,7 +82,7 @@ module.exports = {
                     {
                         loader: 'cache-loader',
                         options: {
-                            cacheDirectory: join(cwd(), 'node_modules\\@angular-devkit\\build-optimizer\\src\\.cache')
+                            cacheDirectory: join(cwd(), 'node_modules', '@angular-devkit', 'build-optimizer', 'src', '.cache')
                         }
                     },
                     {

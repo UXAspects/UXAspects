@@ -264,3 +264,114 @@ ux-alert {
         border: 1px solid @alert-dark-border;
     }
 }
+
+/*
+ * Badge
+ */
+
+.ux-badge-container {
+    position: relative;
+    overflow: visible;
+
+    .ux-badge {
+        display: block;
+        position: absolute;
+        text-align: center;
+        background-color: #000;
+        color: #fff;
+        line-height: 1;
+        box-sizing: border-box;
+        padding: 0;
+        margin: 0;
+        text-transform: none !important;
+    }
+
+    &.ux-badge-small .ux-badge {
+        height: 12px;
+        line-height: 12px;
+        min-width: 12px;
+        border-radius: 6px;
+        padding-left: 4px;
+        padding-right: 4px;
+        font-size: 10px;
+    }
+
+    &.ux-badge-medium .ux-badge {
+        height: 16px;
+        line-height: 16px;
+        min-width: 16px;
+        border-radius: 8px;
+        padding-left: 6px;
+        padding-right: 6px;
+        font-size: 12px;
+    }
+
+    &.ux-badge-large .ux-badge {
+        height: 20px;
+        line-height: 20px;
+        min-width: 20px;
+        border-radius: 10px;
+        padding-left: 8px;
+        padding-right: 8px;
+        font-size: 16px;
+    }
+
+    &.ux-badge-above,
+    &.ux-badge-top {
+        .ux-badge {
+            top: 0;
+        }
+
+        &.ux-badge-small .ux-badge {
+            top: -6px;
+        }
+
+        &.ux-badge-medium .ux-badge {
+            top: -8px;
+        }
+
+        &.ux-badge-large .ux-badge {
+            top: -10px;
+        }
+    }
+
+
+    &.ux-badge-below,
+    &.ux-badge-bottom {
+        .ux-badge {
+            bottom: 0;
+        }
+
+        &.ux-badge-small .ux-badge {
+            bottom: -6px;
+        }
+
+        &.ux-badge-medium .ux-badge {
+            bottom: -8px;
+        }
+
+        &.ux-badge-large .ux-badge {
+            bottom: -10px;
+        }
+    }
+
+    &.ux-badge-before,
+    &.ux-badge-left {
+        left: 0;
+    }
+
+    &.ux-badge-after,
+    &.ux-badge-right {
+        right: 0;
+    }
+
+    &.ux-badge-inline .ux-badge {
+        margin-left: 8px;
+        position: relative;
+        display: inline;
+    }
+
+    &.ux-badge-hidden .ux-badge {
+        display: none;
+    }
+}

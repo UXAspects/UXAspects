@@ -2,17 +2,6 @@
     "title": "Components",
     "categories": [
         {
-            "title": "Badge",
-            "link": "badge",
-            "sections": [
-                {
-                    "title": "Badge",
-                    "component": "ComponentsBadgeComponent",
-                    "version": "Angular"
-                }
-            ]
-        },
-        {
             "title": "Buttons",
             "link": "buttons",
             "sections": [
@@ -1026,6 +1015,11 @@
                             "content": "AlertModule"
                         }
                     ]
+                },
+                {
+                    "title": "Badge",
+                    "component": "ComponentsBadgeComponent",
+                    "version": "Angular"
                 },
                 {
                     "title": "Notifications",

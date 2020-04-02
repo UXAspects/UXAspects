@@ -1,130 +1,191 @@
-import { Directive, ElementRef, Input, Renderer, OnInit, OnChanges, SimpleChanges } from '@angular/core';
-import { ColorService } from 'src/services/color/color.service';
-import { ThemeColor } from 'src/services/color/theme-color';
-import { ContrastService } from './../accessibility/contrast-ratio/contrast.service';
+import {
+    Directive,
+    ElementRef,
+    Input,
+    OnChanges,
+    OnDestroy,
+    Renderer2,
+    SimpleChanges
+} from "@angular/core";
+import { ColorService } from "./../../services/color/color.service";
+import { ThemeColor } from "./../../services/color/theme-color";
+import { ContrastService } from "./../accessibility/contrast-ratio/contrast.service";
 
-export enum BadgeVerticalPosition {
-    Top = 'Top',
-    Bottom = 'Bottom',
-    Inline = 'Inline'
-}
+export type BadgeVerticalPosition = "above" | "below" | "top" | "bottom";
 
-export enum BadgeHorizontalPosition {
-    Right = 'Right',
-    Left = 'Left',
-    Center = 'Center'
-}
+export type BadgeHorizontalPosition = "before" | "after" | "left" | "right";
 
-export enum BadgeSize {
-    Small = 'Small',
-    Medium = 'Medium',
-    Large = 'Large'
-}
+export type BadgeSize = "small" | "medium" | "large";
 
 @Directive({
-    selector: '[uxBadge]'
+    selector: "[uxBadge]",
+    host: {
+        class: "ux-badge-container",
+        "[class.ux-badge-small]": "_size === 'small'",
+        "[class.ux-badge-medium]": "_size === 'medium'",
+        "[class.ux-badge-large]": "_size === 'large'",
+        "[class.ux-badge-inline]": "inline",
+        "[class.ux-badge-above]": "_isAbove() && !inline",
+        "[class.ux-badge-below]": "!_isAbove() && !inline",
+        "[class.ux-badge-hidden]": "hidden"
+    }
 })
-export class BadgeDirective implements OnInit, OnChanges {
+export class BadgeDirective implements OnChanges, OnDestroy {
+    private readonly _class = "ux-badge";
+    private readonly _darkColor: ThemeColor = ThemeColor.parse("#000");
+    private readonly _lightColor: ThemeColor = ThemeColor.parse("#FFF");
+    private readonly _noOverlapOffset: number = 2;
+
+    /**
+     * Directive parameter that sets the content of the badge
+     */
+    private _displayText: string;
+    private _isNumber: boolean;
+    private _truncatedText: boolean = false;
+
+    @Input("uxBadge")
+    get content(): string {
+        return this._content;
+    }
+    set content(s: string) {
+        const subject = s.toString().trim();
+        this._isNumber = /^\d+$/.test(subject);
+        this._content = subject;
+    }
+    private _content: string;
+
     /**
      * Define the badge background color
      */
-    @Input() public set badgeBackgroundColor(color: string) {
-        this._backgroundColor = ThemeColor.parse(this._colorService.resolve(color));
+    private readonly _defaultBackgroundColor: ThemeColor = this._darkColor;
+
+    @Input("badgeBackgroundColor")
+    get backgroundColor(): string {
+        return this._backgroundColor.toHex();
     }
-
-    @Input() public set badgeFontColor(color: string) {
-        this._fontColor = color ? ThemeColor.parse(this._colorService.resolve(color)) : this._determineContrastColor();
+    set backgroundColor(color: string) {
+        this._backgroundColor = ThemeColor.parse(
+            this._colorService.resolve(color)
+        );
     }
+    private _backgroundColor: ThemeColor = this._defaultBackgroundColor;
 
-    @Input() public set badgeText(s: string) {
-        const subject = s.trim();
-        this._isNumber =  /^\d+$/.test(subject);
-        this._text = subject;
+    /**
+     * Define the badge text color
+     */
+    @Input("badgeTextColor")
+    get textColor(): string {
+        return this._textColor.toHex();
     }
-
-    @Input() public set badgeAriaLabel(s: string) {
-        this._ariaLabel = s;
+    set textColor(color: string) {
+        this._textColor = color
+            ? ThemeColor.parse(this._colorService.resolve(color))
+            : this._determineContrastColor();
     }
+    private _textColor: ThemeColor = ThemeColor.parse("#fff");
 
-    @Input() public set badgeVerticalPosition(position: string) {
-        this._vPos = this._determineVPos(position);
+    /**
+     * Aria description value for accessibility devices
+     */
+    @Input("badgeAriaLabel") ariaLabel: string;
+
+    /**
+     * Set the badge vertical position in relation to the parent element
+     */
+    private _defaultVPos: BadgeVerticalPosition = "above";
+
+    @Input("badgeVerticalPosition")
+    get vPos(): string {
+        return this._vPos;
     }
-
-    @Input() public set badgeHorizontalPosition(position: string) {
-        this._hPos = this._determineHPos(position);
+    set vPos(position: string) {
+        this._vPos =
+            (position.toLowerCase() as BadgeVerticalPosition) ||
+            this._defaultVPos;
     }
+    private _vPos: BadgeVerticalPosition = this._defaultVPos;
 
-    @Input() public set badgeOverlap(overlap: boolean) {
-        this._overlap = overlap;
+    /**
+     * Set the badge horizontal position in relation to the parent element
+     */
+    private _defaultHPos: BadgeHorizontalPosition = "after";
+
+    @Input("badgeHorizontalPosition")
+    get hPos(): string {
+        return this._hPos;
     }
-
-    @Input() public set badgeMaxLength(len: number) {
-        this._maxLength = len;
+    set hPos(position: string) {
+        this._hPos =
+            (position.toLowerCase() as BadgeHorizontalPosition) ||
+            this._defaultHPos;
     }
+    private _hPos: BadgeHorizontalPosition = this._defaultHPos;
 
-    @Input() public set badgeSize(size: string) {
-        this._size = this._determineSize(size);
+    /**
+     * Set if the badge overlaps parent content or flows after parent
+     */
+    @Input("badgeOverlap") overlap: boolean = false;
+
+    /**
+     * Max value that can be displayed - if string measures no. of characters,
+     * if number checks against exact number not no. of characters
+     */
+    @Input("badgeMaxValue") maxValue: number;
+
+    /**
+     * Badge size (based on CSS styles)
+     */
+    private _defaultSize: BadgeSize = "medium";
+
+    @Input("badgeSize")
+    get size(): string {
+        return this._size;
     }
+    set size(size: string) {
+        this._size = (size.toLowerCase() as BadgeSize) || this._defaultSize;
+    }
+    private _size: BadgeSize = this._defaultSize;
 
-    // shows + for number, ellipsis for text
-    public maxCharacters: number;
+    /**
+     * Inline setting (overrides position parameters)
+     */
+    @Input("badgeInline") inline: boolean = false;
 
-    private _backgroundColor: ThemeColor;
-    private _fontColor: ThemeColor;
+    /**
+     * Hide badge from view
+     */
+    @Input("badgeHidden") hidden: boolean = false;
 
-    private _darkColor: ThemeColor;
-    private _lightColor: ThemeColor;
-    private _isNumber: boolean;
-    private _text: string;
-    private _displayText: string;
-    private _ariaLabel: string;
-    private _vPos: BadgeVerticalPosition;
-    private _hPos: BadgeHorizontalPosition;
-    private _size: BadgeSize;
-    private _overlap: boolean;
-    private _maxLength: number;
-    private suffix: string;
+    private _badgeElement: HTMLElement | undefined;
 
     constructor(
-        private readonly _elementRef: ElementRef,
-        private readonly _renderer: Renderer,
+        private readonly _element: ElementRef,
+        private readonly _renderer: Renderer2,
         private readonly _colorService: ColorService,
         private readonly _contrastService: ContrastService
-    ) {
-    }
+    ) {}
 
-    public ngOnInit(): void {
-        this._darkColor = ThemeColor.parse('#000');
-        this._lightColor = ThemeColor.parse('#fff');
-        this._vPos = BadgeVerticalPosition.Top;
-        this._hPos = BadgeHorizontalPosition.Right;
-        this._text = '';
-        this._ariaLabel = '';
-        this._maxLength = null;
-        this._overlap = true;
-        this._isNumber = false;
-    }
-
-    public ngOnChanges(changes: SimpleChanges): void {
+    ngOnChanges(changes: SimpleChanges): void {
         // get display friendly version of text based on max length and type of val;
-        if (changes.text) {
-            let finalText: string = changes.badgeText.currentValue || '';
+        if (changes.content) {
+            let finalText: string = changes.content.currentValue || null;
 
-            if (finalText.length) {
-                if (this._maxLength && finalText.length > this._maxLength) {
-                    if (this._isNumber) {
-                        finalText = '';
-
-                        for (let i = 0; i < this._maxLength; i++) {
-                            finalText += '9';
-                        }
-
-                        finalText += '+';
-                    } else {
-                        if (changes.badgeText.currentValue.length > this._maxLength) {
-                            finalText = `${ changes.text.currentValue.substr(0, this._maxLength - 1) }&hellip;`;
-                        }
-                    }
+            if (finalText && this.maxValue) {
+                if (
+                    this._isNumber &&
+                    changes.content.currentValue > this.maxValue
+                ) {
+                    finalText = `${this.maxValue}+`;
+                } else if (
+                    changes.content.currentValue.length > this.maxValue
+                ) {
+                    this._truncatedText = true;
+                    finalText = `${changes.content.currentValue.substr(
+                        0,
+                        this.maxValue - 1
+                    )}&hellip;`;
+                } else {
+                    this._truncatedText = false;
                 }
             }
 
@@ -132,39 +193,102 @@ export class BadgeDirective implements OnInit, OnChanges {
         }
 
         // if text is only set, set aria label from it
-        if (changes.badgeText && !changes.badgeAriaLabel && !this._ariaLabel) {
-            this._ariaLabel = changes.badgeText.currentValue;
+        if (changes.content && !this.ariaLabel) {
+            this.ariaLabel = changes.content.currentValue;
+        }
+
+        // force update to text color if background color changes and text color not explicitly set
+        if (changes.backgroundColor && this._textColor !== this._lightColor) {
+            this.textColor = this._textColor.toHex();
+        }
+
+        this.updateBadge();
+    }
+
+    ngOnDestroy(): void {
+        if (this._renderer.destroyNode) {
+            this._renderer.destroyNode(this._badgeElement);
+        }
+    }
+
+    private updateBadge(): HTMLElement {
+        const badgeElement: HTMLSpanElement = this._renderer.createElement(
+            "span"
+        );
+        this.clearExisting(this._class);
+
+        badgeElement.classList.add(this._class);
+        badgeElement.classList.add("hidden");
+
+        badgeElement.innerHTML = this._displayText;
+        badgeElement.style.setProperty("color", this._textColor.toHex());
+
+        if (this.ariaLabel) {
+            badgeElement.setAttribute("aria-label", this.ariaLabel);
+        }
+
+        if (this._truncatedText) {
+            badgeElement.setAttribute("title", this._content);
+        }
+
+        if (this._backgroundColor) {
+            badgeElement.style.setProperty(
+                "background",
+                this._backgroundColor.toHex()
+            );
+        }
+
+        this._badgeElement = badgeElement;
+        this._renderer.appendChild(
+            this._element.nativeElement,
+            this._badgeElement
+        );
+
+        if (!this.inline) {
+            const badgeWidth = this._badgeElement.offsetWidth;
+
+            if (badgeWidth) {
+                const xPos = this.overlap
+                    ? badgeWidth / 2
+                    : badgeWidth + this._noOverlapOffset;
+
+                this._badgeElement.style.setProperty("right", `-${xPos}px`);
+            }
+        }
+
+        badgeElement.classList.remove("hidden");
+
+        return this._badgeElement;
+    }
+
+    private clearExisting(className: string): void {
+        const parentElement: HTMLElement = this._element.nativeElement;
+        let count: number = parentElement.children.length;
+
+        while (count--) {
+            const current = parentElement.children[count];
+
+            if (current.classList.contains(className)) {
+                parentElement.removeChild(current);
+            }
         }
     }
 
     private _determineContrastColor(): ThemeColor {
-        return this._backgroundColor ?
-            ThemeColor.parse(
-                this._contrastService.getContrastColor(
-                    this._backgroundColor,
-                    this._lightColor,
-                    this._darkColor
-                ).toRgba())
+        return this._backgroundColor
+            ? ThemeColor.parse(
+                  this._contrastService
+                      .getContrastColor(
+                          this._backgroundColor,
+                          this._lightColor,
+                          this._darkColor
+                      )
+                      .toRgba()
+              )
             : this._lightColor;
     }
 
-    private _determineVPos(position: string): BadgeVerticalPosition {
-        const pos = BadgeVerticalPosition[this._makeEnumFriendly(position)];
-        return pos || BadgeVerticalPosition.Top;
-    }
-
-    private _determineHPos(position: string): BadgeHorizontalPosition {
-        const pos = BadgeHorizontalPosition[this._makeEnumFriendly(position)];
-        return pos || BadgeHorizontalPosition.Right;
-    }
-
-    private _determineSize(size: string): BadgeSize {
-        const s = BadgeSize[this._makeEnumFriendly(size)];
-        return s || BadgeSize.Medium;
-    }
-
-    private _makeEnumFriendly(s: string): string {
-        const subject = s.trim().replace(/ /g, '');
-        return `${subject.substr(0, 1).toUpperCase()}${subject.substr(1, subject.length - 1).toLowerCase()}`;
+    private _isAbove(): boolean {
+        return ["above", "top"].indexOf(this._vPos) > -1;
     }
 }
