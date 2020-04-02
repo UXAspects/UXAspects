@@ -15,7 +15,7 @@ export class AppComponent {
     showTooltips = false;
     showInput = false;
 
-    isPickerOpen = true;
+    isPickerOpen = false;
 
     @ViewChild('toggleButton') toggleButton: ElementRef;
     @ViewChild('dropdownMenu') dropdownMenu: ElementRef;
