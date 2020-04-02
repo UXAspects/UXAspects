@@ -18898,7 +18898,7 @@
                     subscription_1 = observable.pipe(operators.first()).subscribe(function (items) {
                         // Make sure that the parameters have not changed since the load started;
                         // otherwise discard the results.
-                        if (request.filter === _this.filter && request.pageSize === _this.pageSize) {
+                        if (request.filter === _this.coerceFilter(_this.filter) && request.pageSize === _this.pageSize) {
                             if (items && items.length) {
                                 _this.setPageItems(request.pageNumber, items);
                             }
