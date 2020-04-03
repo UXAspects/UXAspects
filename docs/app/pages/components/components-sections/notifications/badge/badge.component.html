@@ -1,32 +1,17 @@
 <p>
-    <button
-        class="btn btn-primary"
-        [uxBadge]="9"
-        [badgeSize]="'small'"
-        [badgeTextColor]="'ok'"
-    >
+    <button class="btn btn-primary" [uxBadge]="9" [badgeSize]="'small'" [badgeTextColor]="'ok'">
         Messages
     </button>
 </p>
 <p>
-    <button
-        class="btn btn-primary"
-        [uxBadge]="99"
-        [badgeSize]="'small'"
-        [badgeOverlap]="true"
-        [badgeBackgroundColor]="'vibrant1'"
-    >
+    <button class="btn btn-primary" [uxBadge]="99" [badgeSize]="'small'" [badgeOverlap]="true"
+        [badgeBackgroundColor]="'vibrant1'">
         Messages
     </button>
 </p>
 <p>
-    <button
-        class="btn btn-primary"
-        [uxBadge]="999"
-        [badgeSize]="'small'"
-        [badgeOverlap]="true"
-        [badgeBackgroundColor]="'warning'"
-    >
+    <button class="btn btn-primary" [uxBadge]="999" [badgeSize]="'small'" [badgeOverlap]="true"
+        [badgeBackgroundColor]="'warning'">
         Messages
     </button>
 </p>
@@ -44,13 +29,8 @@
     </button>
 </p>
 <p>
-    <button
-        class="btn btn-primary"
-        [uxBadge]="99"
-        [badgeSize]="'medium'"
-        [badgeOverlap]="true"
-        [badgeBackgroundColor]="'critical'"
-    >
+    <button class="btn btn-primary" [uxBadge]="99" [badgeSize]="'medium'" [badgeOverlap]="true"
+        [badgeBackgroundColor]="'critical'">
         Messages
     </button>
 </p>
@@ -60,14 +40,8 @@
     </button>
 </p>
 <p>
-    <button
-        class="btn btn-primary"
-        [uxBadge]="'NEW'"
-        [badgeSize]="'medium'"
-        [badgeOverlap]="true"
-        [badgeTextColor]="'critical'"
-        [badgeAriaLabel]="'This is a custom aria label'"
-    >
+    <button class="btn btn-primary" [uxBadge]="'NEW'" [badgeSize]="'medium'" [badgeOverlap]="true"
+        [badgeTextColor]="'critical'" [badgeAriaLabel]="'This is a custom aria label'">
         Messages
     </button>
 </p>
@@ -75,12 +49,7 @@
 <hr />
 
 <p>
-    <button
-        class="btn btn-primary"
-        [uxBadge]="9"
-        [badgeSize]="'LARGE'"
-        [badgeHidden]="hideButton"
-    >
+    <button class="btn btn-primary" [uxBadge]="9" [badgeSize]="'LARGE'" [badgeHidden]="hideButton">
         Messages
     </button>
     <button class="btn" (click)="hideButton = !hideButton">
@@ -93,13 +62,8 @@
     </button>
 </p>
 <p>
-    <button
-        class="btn btn-primary"
-        [uxBadge]="9999999"
-        [badgeMaxValue]="999"
-        [badgeSize]="'large'"
-        [badgeOverlap]="true"
-    >
+    <button class="btn btn-primary" [uxBadge]="9999999" [badgeMaxValue]="999" [badgeSize]="'large'"
+        [badgeOverlap]="true">
         Messages
     </button>
 </p>
@@ -110,15 +74,8 @@
 </p>
 
 <p>
-    <button
-        class="btn btn-primary"
-        [uxBadge]="'A really long badge'"
-        [badgeSize]="'large'"
-        [badgeInline]="true"
-        [badgeBackgroundColor]="'grey1'"
-        [badgeTextColor]="'grey5'"
-        [badgeMaxValue]="9"
-    >
+    <button class="btn btn-primary" [uxBadge]="'A really long badge'" [badgeSize]="'large'" [badgeInline]="true"
+        [badgeBackgroundColor]="'grey1'" [badgeTextColor]="'grey5'" [badgeMaxValue]="9">
         Messages
     </button>
 </p>
@@ -140,18 +97,15 @@
     <tr uxd-api-property name="badgeBackgroundColor" type="string">
         The color you want to use for the background color. This should be a
         string value that matches one of the colors available in the
-        <code>ColorService</code
-        >.
+        <code>ColorService</code>.
     </tr>
     <tr uxd-api-property name="badgeTextColor" type="string">
         The color you want to use for the text/number on the badge. This should
         be a string value that matches one of the colors available in the
-        <code>ColorService</code
-        >. If you do not set this value the
+        <code>ColorService</code>. If you do not set this value the
         <code>ContrastService</code>
         will automatically pick which text color is suitable based on the
-        <code>badgeBackgroundColor</code
-        >.
+        <code>badgeBackgroundColor</code>.
     </tr>
     <tr uxd-api-property name="badgeValueLimit" type="number">
         Sets a character / number limit on the content within the badge. If the
@@ -159,8 +113,7 @@
         value with an appended<strong>+</strong>, otherwise the content will be
         treated as text and use this value to truncate the number of characters
         displayed followed by an ellipsis
-        <strong>&hellip;</strong
-        >.
+        <strong>&hellip;</strong>.
     </tr>
     <tr uxd-api-property name="badgeAriaDescription" type="string">
         The text you wish to used for accessibility devices, such as screen
@@ -168,20 +121,10 @@
         <code>badgeText</code>
         value.
     </tr>
-    <tr
-        uxd-api-property
-        name="badgeVerticalPosition"
-        type="'above'|'below'|'top'|'bottom'"
-        defaultValue="'above'"
-    >
+    <tr uxd-api-property name="badgeVerticalPosition" type="'above'|'below'|'top'|'bottom'" defaultValue="'above'">
         The vertical position of the badge in relation to it's parent element.
     </tr>
-    <tr
-        uxd-api-property
-        name="badgeHorizontalPosition"
-        type="'before'|'after'|'left'|'right'"
-        defaultValue="'after'"
-    >
+    <tr uxd-api-property name="badgeHorizontalPosition" type="'before'|'after'|'left'|'right'" defaultValue="'after'">
         The horizontal position of the badge in relation to it's subject
         element.
     </tr>
@@ -199,12 +142,7 @@
         <code>true</code>
         the badge horizitonal center will be at the end of it's subject element.
     </tr>
-    <tr
-        uxd-api-property
-        name="badgeSize"
-        type="string"
-        defaultValue="'small'|'medium'|'large'"
-    >
+    <tr uxd-api-property name="badgeSize" type="string" defaultValue="'small'|'medium'|'large'">
         The size of the badge.
     </tr>
     <tr uxd-api-property name="badgeHidden" type="boolean" defaultValue="false">
@@ -232,16 +170,10 @@
 
 <ux-tabset [minimal]="false">
     <ux-tab heading="HTML">
-        <uxd-snippet
-            language="html"
-            [content]="snippets.compiled.appHtml"
-        ></uxd-snippet>
+        <uxd-snippet language="html" [content]="snippets.compiled.appHtml"></uxd-snippet>
     </ux-tab>
 
     <ux-tab heading="TypeScript">
-        <uxd-snippet
-            language="javascript"
-            [content]="snippets.compiled.appTs"
-        ></uxd-snippet>
+        <uxd-snippet language="javascript" [content]="snippets.compiled.appTs"></uxd-snippet>
     </ux-tab>
 </ux-tabset>

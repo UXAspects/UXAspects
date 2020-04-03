@@ -1,39 +1,31 @@
-import {
-    Directive,
-    ElementRef,
-    Input,
-    OnChanges,
-    OnDestroy,
-    Renderer2,
-    SimpleChanges
-} from "@angular/core";
-import { ColorService } from "./../../services/color/color.service";
-import { ThemeColor } from "./../../services/color/theme-color";
-import { ContrastService } from "./../accessibility/contrast-ratio/contrast.service";
+import { Directive, ElementRef, Input, OnChanges, OnDestroy, Renderer2, SimpleChanges } from '@angular/core';
+import { ColorService } from './../../services/color/color.service';
+import { ThemeColor } from './../../services/color/theme-color';
+import { ContrastService } from './../accessibility/contrast-ratio/contrast.service';
 
-export type BadgeVerticalPosition = "above" | "below" | "top" | "bottom";
+export type BadgeVerticalPosition = 'above' | 'below' | 'top' | 'bottom';
 
-export type BadgeHorizontalPosition = "before" | "after" | "left" | "right";
+export type BadgeHorizontalPosition = 'before' | 'after' | 'left' | 'right';
 
-export type BadgeSize = "small" | "medium" | "large";
+export type BadgeSize = 'small' | 'medium' | 'large';
 
 @Directive({
-    selector: "[uxBadge]",
+    selector: '[uxBadge]',
     host: {
-        class: "ux-badge-container",
-        "[class.ux-badge-small]": "_size === 'small'",
-        "[class.ux-badge-medium]": "_size === 'medium'",
-        "[class.ux-badge-large]": "_size === 'large'",
-        "[class.ux-badge-inline]": "inline",
-        "[class.ux-badge-above]": "_isAbove() && !inline",
-        "[class.ux-badge-below]": "!_isAbove() && !inline",
-        "[class.ux-badge-hidden]": "hidden"
+        class: 'ux-badge-container',
+        '[class.ux-badge-small]': '_size === "small"',
+        '[class.ux-badge-medium]': '_size === "medium"',
+        '[class.ux-badge-large]': '_size === "large"',
+        '[class.ux-badge-inline]': 'inline',
+        '[class.ux-badge-above]': '_isAbove() && !inline',
+        '[class.ux-badge-below]': '!_isAbove() && !inline',
+        '[class.ux-badge-hidden]': 'hidden'
     }
 })
 export class BadgeDirective implements OnChanges, OnDestroy {
-    private readonly _class = "ux-badge";
-    private readonly _darkColor: ThemeColor = ThemeColor.parse("#000");
-    private readonly _lightColor: ThemeColor = ThemeColor.parse("#FFF");
+    private readonly _class = 'ux-badge';
+    private readonly _darkColor: ThemeColor = ThemeColor.parse('#000');
+    private readonly _lightColor: ThemeColor = ThemeColor.parse('#FFF');
     private readonly _noOverlapOffset: number = 2;
 
     /**
@@ -43,7 +35,7 @@ export class BadgeDirective implements OnChanges, OnDestroy {
     private _isNumber: boolean;
     private _truncatedText: boolean = false;
 
-    @Input("uxBadge")
+    @Input('uxBadge')
     get content(): string {
         return this._content;
     }
@@ -59,7 +51,7 @@ export class BadgeDirective implements OnChanges, OnDestroy {
      */
     private readonly _defaultBackgroundColor: ThemeColor = this._darkColor;
 
-    @Input("badgeBackgroundColor")
+    @Input('badgeBackgroundColor')
     get backgroundColor(): string {
         return this._backgroundColor.toHex();
     }
@@ -73,7 +65,7 @@ export class BadgeDirective implements OnChanges, OnDestroy {
     /**
      * Define the badge text color
      */
-    @Input("badgeTextColor")
+    @Input('badgeTextColor')
     get textColor(): string {
         return this._textColor.toHex();
     }
@@ -82,19 +74,19 @@ export class BadgeDirective implements OnChanges, OnDestroy {
             ? ThemeColor.parse(this._colorService.resolve(color))
             : this._determineContrastColor();
     }
-    private _textColor: ThemeColor = ThemeColor.parse("#fff");
+    private _textColor: ThemeColor = ThemeColor.parse('#fff');
 
     /**
      * Aria description value for accessibility devices
      */
-    @Input("badgeAriaLabel") ariaLabel: string;
+    @Input('badgeAriaLabel') ariaLabel: string;
 
     /**
      * Set the badge vertical position in relation to the parent element
      */
-    private _defaultVPos: BadgeVerticalPosition = "above";
+    private _defaultVPos: BadgeVerticalPosition = 'above';
 
-    @Input("badgeVerticalPosition")
+    @Input('badgeVerticalPosition')
     get vPos(): string {
         return this._vPos;
     }
@@ -108,9 +100,9 @@ export class BadgeDirective implements OnChanges, OnDestroy {
     /**
      * Set the badge horizontal position in relation to the parent element
      */
-    private _defaultHPos: BadgeHorizontalPosition = "after";
+    private _defaultHPos: BadgeHorizontalPosition = 'after';
 
-    @Input("badgeHorizontalPosition")
+    @Input('badgeHorizontalPosition')
     get hPos(): string {
         return this._hPos;
     }
@@ -124,20 +116,20 @@ export class BadgeDirective implements OnChanges, OnDestroy {
     /**
      * Set if the badge overlaps parent content or flows after parent
      */
-    @Input("badgeOverlap") overlap: boolean = false;
+    @Input('badgeOverlap') overlap: boolean = false;
 
     /**
      * Max value that can be displayed - if string measures no. of characters,
      * if number checks against exact number not no. of characters
      */
-    @Input("badgeMaxValue") maxValue: number;
+    @Input('badgeMaxValue') maxValue: number;
 
     /**
      * Badge size (based on CSS styles)
      */
-    private _defaultSize: BadgeSize = "medium";
+    private _defaultSize: BadgeSize = 'medium';
 
-    @Input("badgeSize")
+    @Input('badgeSize')
     get size(): string {
         return this._size;
     }
@@ -149,12 +141,12 @@ export class BadgeDirective implements OnChanges, OnDestroy {
     /**
      * Inline setting (overrides position parameters)
      */
-    @Input("badgeInline") inline: boolean = false;
+    @Input('badgeInline') inline: boolean = false;
 
     /**
      * Hide badge from view
      */
-    @Input("badgeHidden") hidden: boolean = false;
+    @Input('badgeHidden') hidden: boolean = false;
 
     private _badgeElement: HTMLElement | undefined;
 
@@ -163,7 +155,7 @@ export class BadgeDirective implements OnChanges, OnDestroy {
         private readonly _renderer: Renderer2,
         private readonly _colorService: ColorService,
         private readonly _contrastService: ContrastService
-    ) {}
+    ) { }
 
     ngOnChanges(changes: SimpleChanges): void {
         // get display friendly version of text based on max length and type of val;
@@ -213,27 +205,27 @@ export class BadgeDirective implements OnChanges, OnDestroy {
 
     private updateBadge(): HTMLElement {
         const badgeElement: HTMLSpanElement = this._renderer.createElement(
-            "span"
+            'span'
         );
         this.clearExisting(this._class);
 
         badgeElement.classList.add(this._class);
-        badgeElement.classList.add("hidden");
+        badgeElement.classList.add('hidden');
 
         badgeElement.innerHTML = this._displayText;
-        badgeElement.style.setProperty("color", this._textColor.toHex());
+        badgeElement.style.setProperty('color', this._textColor.toHex());
 
         if (this.ariaLabel) {
-            badgeElement.setAttribute("aria-label", this.ariaLabel);
+            badgeElement.setAttribute('aria-label', this.ariaLabel);
         }
 
         if (this._truncatedText) {
-            badgeElement.setAttribute("title", this._content);
+            badgeElement.setAttribute('title', this._content);
         }
 
         if (this._backgroundColor) {
             badgeElement.style.setProperty(
-                "background",
+                'background',
                 this._backgroundColor.toHex()
             );
         }
@@ -252,11 +244,11 @@ export class BadgeDirective implements OnChanges, OnDestroy {
                     ? badgeWidth / 2
                     : badgeWidth + this._noOverlapOffset;
 
-                this._badgeElement.style.setProperty("right", `-${xPos}px`);
+                this._badgeElement.style.setProperty('right', `-${xPos}px`);
             }
         }
 
-        badgeElement.classList.remove("hidden");
+        badgeElement.classList.remove('hidden');
 
         return this._badgeElement;
     }
@@ -277,18 +269,18 @@ export class BadgeDirective implements OnChanges, OnDestroy {
     private _determineContrastColor(): ThemeColor {
         return this._backgroundColor
             ? ThemeColor.parse(
-                  this._contrastService
-                      .getContrastColor(
-                          this._backgroundColor,
-                          this._lightColor,
-                          this._darkColor
-                      )
-                      .toRgba()
-              )
+                this._contrastService
+                    .getContrastColor(
+                        this._backgroundColor,
+                        this._lightColor,
+                        this._darkColor
+                    )
+                    .toRgba()
+            )
             : this._lightColor;
     }
 
     private _isAbove(): boolean {
-        return ["above", "top"].indexOf(this._vPos) > -1;
+        return ['above', 'top'].indexOf(this._vPos) > -1;
     }
 }
