@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { AccordionModule, CheckboxModule, InfiniteScrollModule, NumberPickerModule, AccessibilityModule } from '@ux-aspects/ux-aspects';
 import { InfiniteScrollFullscreenTestPageComponent } from './fullscreen/infinite-scroll-fullscreen.testpage.component';
 import { InfiniteScrollTestPageComponent } from './standard/infinite-scroll.testpage.component';
+import { InfiniteScrollImmediateTestPageComponent } from './immediate/infinite-scroll-immediate.testpage.component';
 
 @NgModule({
     imports: [
@@ -23,12 +24,17 @@ import { InfiniteScrollTestPageComponent } from './standard/infinite-scroll.test
             {
                 path: 'fullscreen',
                 component: InfiniteScrollFullscreenTestPageComponent
+            },
+            {
+                path: 'immediate',
+                component: InfiniteScrollImmediateTestPageComponent
             }
         ])
     ],
     declarations: [
         InfiniteScrollTestPageComponent,
-        InfiniteScrollFullscreenTestPageComponent
+        InfiniteScrollFullscreenTestPageComponent,
+        InfiniteScrollImmediateTestPageComponent,
     ]
 })
 export class InfiniteScrollTestPageModule { }

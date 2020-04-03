@@ -331,7 +331,7 @@ export class InfiniteScrollDirective<T = any> implements OnInit, AfterContentIni
                 items => {
                     // Make sure that the parameters have not changed since the load started;
                     // otherwise discard the results.
-                    if (request.filter === this.filter && request.pageSize === this.pageSize) {
+                    if (request.filter === this.coerceFilter(this.filter) && request.pageSize === this.pageSize) {
                         if (items && items.length) {
                             this.setPageItems(request.pageNumber, items);
                         }

@@ -1,6 +1,5 @@
 import { imageCompare } from '../../common/image-compare';
 import { InfiniteScrollPage } from './infinite-scroll.po.spec';
-import { Key } from 'selenium-webdriver';
 
 describe('Infinite Scroll Tests', () => {
 
