@@ -11,7 +11,7 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 @DocumentationSectionComponent('ComponentsBadgeComponent')
 export class ComponentsBadgeComponent extends BaseDocumentationSection
     implements IPlaygroundProvider {
-    hideButton: true;
+    hideButton: boolean = true;
 
     playground: IPlayground = {
         files: {
