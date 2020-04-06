@@ -1,47 +1,22 @@
 <p>
-    <button class="btn btn-primary" [uxBadge]="9" [badgeSize]="'small'" [badgeTextColor]="'ok'">
+    <button class="btn btn-primary" [uxBadge]="9" badgeSize="small">
         Messages
     </button>
 </p>
 <p>
-    <button class="btn btn-primary" [uxBadge]="99" [badgeSize]="'small'" [badgeOverlap]="true"
-        [badgeBackgroundColor]="'vibrant1'">
+    <button class="btn btn-primary" [uxBadge]="99" badgeSize="small" badgeOverlap="true" badgeVerticalPosition="below"
+        badgeHorizontalPosition="before" badgeColor="vibrant1">
         Messages
     </button>
 </p>
 <p>
-    <button class="btn btn-primary" [uxBadge]="999" [badgeSize]="'small'" [badgeOverlap]="true"
-        [badgeBackgroundColor]="'warning'">
+    <button class="btn btn-primary" [uxBadge]="999" badgeSize="small" badgeOverlap="true" badgeVerticalPosition="bottom"
+        badgeHorizontalPosition="right" badgeColor="warning">
         Messages
     </button>
 </p>
 <p>
-    <button class="btn btn-primary" [uxBadge]="'NEW'" [badgeSize]="'small'">
-        Messages
-    </button>
-</p>
-
-<hr />
-
-<p>
-    <button class="btn btn-primary" [uxBadge]="9" [badgeSize]="'medium'">
-        Messages
-    </button>
-</p>
-<p>
-    <button class="btn btn-primary" [uxBadge]="99" [badgeSize]="'medium'" [badgeOverlap]="true"
-        [badgeBackgroundColor]="'critical'">
-        Messages
-    </button>
-</p>
-<p>
-    <button class="btn btn-primary" [uxBadge]="999" [badgeSize]="'medium'">
-        Messages
-    </button>
-</p>
-<p>
-    <button class="btn btn-primary" [uxBadge]="'NEW'" [badgeSize]="'medium'" [badgeOverlap]="true"
-        [badgeTextColor]="'critical'" [badgeAriaLabel]="'This is a custom aria label'">
+    <button class="btn btn-primary" [uxBadge]="'NEW'" badgeSize="small">
         Messages
     </button>
 </p>
@@ -49,7 +24,31 @@
 <hr />
 
 <p>
-    <button class="btn btn-primary" [uxBadge]="9" [badgeSize]="'LARGE'" [badgeHidden]="hideButton">
+    <button class="btn btn-primary" [uxBadge]="9" badgeSize="medium">
+        Messages
+    </button>
+</p>
+<p>
+    <button class="btn btn-primary" [uxBadge]="99" badgeSize="medium" badgeOverlap="true" badgeColor="critical">
+        Messages
+    </button>
+</p>
+<p>
+    <button class="btn btn-primary" [uxBadge]="999" badgeSize="medium">
+        Messages
+    </button>
+</p>
+<p>
+    <button class="btn btn-primary" [uxBadge]="'NEW'" badgeSize="medium" badgeOverlap="true"
+        badgeAriaLabel="This is a custom aria label">
+        Messages
+    </button>
+</p>
+
+<hr />
+
+<p>
+    <button class="btn btn-primary" [uxBadge]="9" badgeSize="LARGE" [badgeHidden]="hideButton">
         Messages
     </button>
     <button class="btn" (click)="hideButton = !hideButton">
@@ -57,25 +56,24 @@
     </button>
 </p>
 <p>
-    <button class="btn btn-primary" [uxBadge]="99" [badgeSize]="'LarGE'">
+    <button class="btn btn-primary" [uxBadge]="99" badgeSize="LarGE">
         Messages
     </button>
 </p>
 <p>
-    <button class="btn btn-primary" [uxBadge]="9999999" [badgeMaxValue]="999" [badgeSize]="'large'"
-        [badgeOverlap]="true">
+    <button class="btn btn-primary" [uxBadge]="9999999" badgeMaxValue="999" badgeSize="large" badgeOverlap="true">
         Messages
     </button>
 </p>
 <p>
-    <button class="btn btn-primary" [uxBadge]="'NEW'" [badgeSize]="'large'">
+    <button class="btn btn-primary" [uxBadge]="'NEW'" badgeSize="large">
         Messages
     </button>
 </p>
 
 <p>
-    <button class="btn btn-primary" [uxBadge]="'A really long badge'" [badgeSize]="'large'" [badgeInline]="true"
-        [badgeBackgroundColor]="'grey1'" [badgeTextColor]="'grey5'" [badgeMaxValue]="9">
+    <button class="btn btn-primary" [uxBadge]="'A really long badge'" badgeSize="large" badgeInline="true"
+        badgeColor="grey1" [badgeMaxValue]="9">
         Messages
     </button>
 </p>
