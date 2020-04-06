@@ -30,7 +30,7 @@ export class ColorPickerTestComponent {
     constructor(private _colorService: ColorService) {}
 }
 
-fdescribe('Color Picker Component', () => {
+describe('Color Picker Component', () => {
     let component: ColorPickerTestComponent;
     let fixture: ComponentFixture<ColorPickerTestComponent>;
     let nativeElement: HTMLElement;
