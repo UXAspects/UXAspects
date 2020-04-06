@@ -40,7 +40,7 @@ export class ComponentsColorPickerComponent extends BaseDocumentationSection imp
     showTooltips = false;
     showInput = false;
 
-    isPickerOpen = false;
+    isPickerOpen = true;
 
     @ViewChild('toggleButton', { static: true }) toggleButton: ElementRef;
     @ViewChild('dropdownMenu', { static: false }) dropdownMenu: ElementRef;
