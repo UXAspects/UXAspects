@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ColorService, ColorServiceModule, colorSets } from '../../services/color/index';
 import { ColorPickerColor } from './color-picker-color';
@@ -13,7 +13,8 @@ import { ColorPickerModule } from './color-picker.module';
             [(selected)]="selected"
             [columns]="4"
             [showInput]="true">
-         </ux-color-picker>`
+         </ux-color-picker>`,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ColorPickerTestComponent {
 
@@ -56,7 +57,7 @@ fdescribe('Color Picker Component', () => {
         expect(component).toBeTruthy();
     });
 
-    it('should not invalidate input when color InputMode changes', async () => {
+    it('should not invalidate input when color InputMode changes and ChangeDetectionStrategy.OnPush is used', async () => {
         // get the button that changes the color format
         const colorFormatButton = nativeElement.querySelector<HTMLButtonElement>('.ux-color-picker-input-toggle');
         const colorInput = nativeElement.querySelector('.ux-color-picker .ux-color-picker-input-panel .ux-color-picker-input input');
