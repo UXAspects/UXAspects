@@ -3,7 +3,6 @@ import { InfiniteScrollModule } from './infinite-scroll.module';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
-
 @Component({
     template: `<div [uxInfiniteScroll]="load"
                     [filter]="filterText"

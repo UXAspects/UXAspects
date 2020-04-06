@@ -109,11 +109,9 @@ export class NumberPickerComponent implements ControlValueAccessor, OnDestroy, O
      *  is no longer instantiated. A workaround for Angular Forms bug (https://github.com/angular/angular/issues/27803) */
     private _isDestroyed: boolean = false;
 
-
     constructor(
         private _changeDetector: ChangeDetectorRef,
         @Optional() public _formGroup: FormGroupDirective
-
     ) { }
 
     ngOnChanges(): void {
