@@ -17,11 +17,10 @@ export type BadgeSize = 'small' | 'medium' | 'large';
         '[class.ux-badge-small]': '_badgeSize === "small"',
         '[class.ux-badge-medium]': '_badgeSize === "medium"',
         '[class.ux-badge-large]': '_badgeSize === "large"',
-        '[class.ux-badge-inline]': 'badgeInline',
-        '[class.ux-badge-above]': '!badgeInline && _isAbove()',
-        '[class.ux-badge-below]': '!badgeInline && !_isAbove()',
-        '[class.ux-badge-after]': '!badgeInline && _isAfter()',
-        '[class.ux-badge-before]': '!badgeInline && !_isAfter()',
+        '[class.ux-badge-above]': 'isAbove()',
+        '[class.ux-badge-below]': '!isAbove()',
+        '[class.ux-badge-after]': 'isAfter()',
+        '[class.ux-badge-before]': '!isAfter()',
         '[class.ux-badge-hidden]': 'badgeHidden'
     }
 })
@@ -129,11 +128,6 @@ export class BadgeDirective implements OnChanges, OnDestroy, AfterContentChecked
     private _badgeSize: BadgeSize = this._defaultBadgeSize;
 
     /**
-     * Inline setting (overrides position parameters)
-     */
-    @Input() badgeInline: boolean = false;
-
-    /**
      * Hide badge from view
      */
     @Input() badgeHidden: boolean = false;
@@ -187,22 +181,20 @@ export class BadgeDirective implements OnChanges, OnDestroy, AfterContentChecked
     }
 
     ngAfterContentChecked(): void {
-        if (!this.badgeInline) {
-            this._setXPos();
-        }
+        this.setXPos();
     }
 
     private updateBadge(): HTMLElement {
         const badgeElement: HTMLSpanElement = this._renderer.createElement(
             'span'
         );
-        this._clearExisting();
+        this.clearExisting();
 
         badgeElement.classList.add(this._className);
         badgeElement.classList.add('hidden');
 
         badgeElement.innerHTML = this._displayText;
-        badgeElement.style.setProperty('color', this._determineContentTextColor().toHex());
+        badgeElement.style.setProperty('color', this.determineContentTextColor().toHex());
 
         if (this.badgeAriaLabel) {
             badgeElement.setAttribute('aria-label', this.badgeAriaLabel);
@@ -230,7 +222,7 @@ export class BadgeDirective implements OnChanges, OnDestroy, AfterContentChecked
         return this._badgeElement;
     }
 
-    private _setXPos(): void {
+    private setXPos(): void {
         const badgeWidth = this._badgeElement.getBoundingClientRect().width;
 
         let cssPosition: string;
@@ -254,13 +246,13 @@ export class BadgeDirective implements OnChanges, OnDestroy, AfterContentChecked
         this._badgeElement.style.setProperty(cssPosition, `-${xPos}px`);
     }
 
-    private _clearExisting(): void {
+    private clearExisting(): void {
         if (this._badgeElement) {
             this._element.nativeElement.removeChild(this._badgeElement);
         }
     }
 
-    private _determineContentTextColor(): ThemeColor {
+    private determineContentTextColor(): ThemeColor {
         return this._badgeColor
             ? ThemeColor.parse(
                 this._contrastService
@@ -274,11 +266,11 @@ export class BadgeDirective implements OnChanges, OnDestroy, AfterContentChecked
             : this._lightColor;
     }
 
-    private _isAbove(): boolean {
+    private isAbove(): boolean {
         return ['above', 'top'].indexOf(this._badgeVerticalPosition) > -1;
     }
 
-    private _isAfter(): boolean {
+    private isAfter(): boolean {
         return ['after', 'right'].indexOf(this._badgeHorizontalPosition) > -1;
     }
 }
