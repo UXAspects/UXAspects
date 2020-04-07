@@ -271,7 +271,6 @@ ux-alert {
 
 .ux-badge-container {
     position: relative;
-    overflow: visible;
 
     .ux-badge {
         display: block;
@@ -354,17 +353,27 @@ ux-alert {
         }
     }
 
-    &.ux-badge-before,
-    &.ux-badge-left {
+    &.ux-badge-before {
         .ux-badge {
+            left: -2px;
+            transform: translateX(-100%);
+        }
+
+        &.ux-badge-overlap .ux-badge {
             left: 0;
+            transform: translateX(-50%);
         }
     }
 
-    &.ux-badge-after,
-    &.ux-badge-right {
+    &.ux-badge-after {
         .ux-badge {
+            right: -2px;
+            transform: translateX(100%);
+        }
+
+        &.ux-badge-overlap .ux-badge {
             right: 0;
+            transform: translateX(50%);
         }
     }
 
