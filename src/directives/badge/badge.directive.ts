@@ -183,8 +183,7 @@ export class BadgeDirective implements OnChanges, OnDestroy /*, AfterContentChec
 
         this._badgeElement = badgeElement;
         this._renderer.appendChild(this._element.nativeElement, this._badgeElement);
-
-        badgeElement.style.display = null;
+        badgeElement.style.removeProperty('display');
 
         return this._badgeElement;
     }

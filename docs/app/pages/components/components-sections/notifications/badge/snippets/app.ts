@@ -12,7 +12,7 @@ export class AppComponent {
     overlap: boolean = true;
     verticalPosition: BadgeVerticalPosition = 'above';
     horizontalPosition: BadgeHorizontalPosition = 'after';
-    hidden: false;
+    badgeHidden: boolean = false;
     size: BadgeSize = 'medium';
     badgeColor: string = 'warning';
 }
