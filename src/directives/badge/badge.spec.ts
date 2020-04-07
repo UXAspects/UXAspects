@@ -37,7 +37,6 @@ describe('Badge', () => {
     let component: BadgeTestComponent;
     let fixture: ComponentFixture<BadgeTestComponent>;
     let nativeElement: HTMLElement;
-    let triggerElement: HTMLButtonElement;
 
     beforeEach(async () => {
         TestBed.configureTestingModule({
@@ -51,8 +50,6 @@ describe('Badge', () => {
         fixture = TestBed.createComponent(BadgeTestComponent);
         component = fixture.componentInstance;
         nativeElement = fixture.nativeElement;
-        triggerElement = nativeElement.querySelector('#button');
-
         fixture.detectChanges();
     });
 

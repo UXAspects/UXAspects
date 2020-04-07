@@ -14,5 +14,5 @@ export class AppComponent {
     horizontalPosition: BadgeHorizontalPosition = 'after';
     hidden: false;
     size: BadgeSize = 'medium';
-    color: 'warning';
+    badgeColor: string = 'warning';
 }
