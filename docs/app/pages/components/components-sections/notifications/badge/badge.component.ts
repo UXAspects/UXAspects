@@ -6,29 +6,29 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 
 @Component({
     selector: 'uxd-components-badge',
-    templateUrl: './badge.component.html'
+    templateUrl: './badge.component.html',
+    styleUrls: ['./badge.component.less'],
 })
 @DocumentationSectionComponent('ComponentsBadgeComponent')
-export class ComponentsBadgeComponent extends BaseDocumentationSection
-    implements IPlaygroundProvider {
+export class ComponentsBadgeComponent extends BaseDocumentationSection implements IPlaygroundProvider {
     hideButton: boolean = true;
 
     playground: IPlayground = {
         files: {
             'app.component.html': this.snippets.raw.appHtml,
-            'app.component.ts': this.snippets.raw.appTs
+            'app.component.ts': this.snippets.raw.appTs,
         },
         modules: [
             {
                 imports: ['BadgeModule'],
-                library: '@ux-aspects/ux-aspects'
+                library: '@ux-aspects/ux-aspects',
             },
             {
                 imports: ['RouterModule'],
                 library: '@angular/router',
-                providers: ['RouterModule.forRoot([])']
-            }
-        ]
+                providers: ['RouterModule.forRoot([])'],
+            },
+        ],
     };
 
     constructor() {

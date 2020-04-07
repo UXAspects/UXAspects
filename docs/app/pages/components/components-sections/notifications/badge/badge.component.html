@@ -1,83 +1,28 @@
-<p>
-    <button class="btn btn-primary" [uxBadge]="9" badgeSize="small">
+<div class="badge-separator">
+    <button class="btn btn-primary" [uxBadge]="'NEW'" badgeSize="small" badgeOverlap="true">
         Messages
     </button>
-</p>
-<p>
-    <button class="btn btn-primary" [uxBadge]="99" badgeSize="small" badgeOverlap="true" badgeVerticalPosition="below"
-        badgeHorizontalPosition="before" badgeColor="vibrant1">
-        Messages
-    </button>
-</p>
-<p>
-    <button class="btn btn-primary" [uxBadge]="999" badgeSize="small" badgeOverlap="true" badgeVerticalPosition="below"
-        badgeHorizontalPosition="after" badgeColor="warning">
-        Messages
-    </button>
-</p>
-<p>
-    <button class="btn btn-primary" [uxBadge]="'NEW'" badgeSize="small">
-        Messages
-    </button>
-</p>
-
-<hr />
-
-<p>
-    <button class="btn btn-primary" [uxBadge]="9" badgeSize="medium">
-        Messages
-    </button>
-</p>
-<p>
-    <button class="btn btn-primary" [uxBadge]="99" badgeSize="medium" badgeOverlap="true" badgeColor="critical">
-        Messages
-    </button>
-</p>
-<p>
-    <button class="btn btn-primary" [uxBadge]="999" badgeSize="medium">
-        Messages
-    </button>
-</p>
-<p>
-    <button class="btn btn-primary" [uxBadge]="'NEW'" badgeSize="medium" badgeOverlap="true"
-        badgeAriaDescription="This is a custom aria label">
-        Messages
-    </button>
-</p>
-
-<hr />
-
-<p>
-    <button class="btn btn-primary" [uxBadge]="9" badgeSize="large" [badgeHidden]="hideButton">
+</div>
+<div class="badge-separator">
+    <a href="#" [uxBadge]="1042" badgeMaxValue="999" badgeSize="large" badgeColor="vibrant1"
+        badgeAriaDescription="1042 actions have been completed">
+        Actions Completed
+    </a>
+</div>
+<div class="badge-separator">
+    <a href="#" [uxBadge]="'Action required on oustanding items'" badgeMaxValue="15" badgeColor="critical">
+        Incomplete Items
+    </a>
+</div>
+<div class="badge-separator">
+    <button class="btn btn-info" [uxBadge]="657" badgeOverlap="true" badgeVerticalPosition="below"
+        badgeHorizontalPosition="before" [badgeHidden]="hideButton" badgeColor="warning">
         Messages
     </button>
     <button class="btn" (click)="hideButton = !hideButton">
         Hide/reveal badge
     </button>
-</p>
-<p>
-    <button class="btn btn-primary" [uxBadge]="99" badgeSize="large">
-        Messages
-    </button>
-</p>
-<p>
-    <button class="btn btn-primary" [uxBadge]="9999999" badgeMaxValue="999" badgeSize="large" badgeOverlap="true">
-        Messages
-    </button>
-</p>
-<p>
-    <button class="btn btn-primary" [uxBadge]="'NEW'" badgeSize="large">
-        Messages
-    </button>
-</p>
-
-<p>
-    <button class="btn btn-primary" [uxBadge]="'A really long badge'" badgeSize="large" badgeColor="grey1"
-        [badgeMaxValue]="9">
-        Messages
-    </button>
-</p>
-
+</div>
 <hr />
 
 <p>
@@ -86,15 +31,14 @@
 </p>
 
 <p><strong>Note:</strong> the badge directive relies on the CSS overflow property being set to <code>visible</code> for
-    a subject due to how the badge element attaches to it. If you want to use <code>hidden</code>, you will need to add
-    a wrapper element within the subject so it only afters the contents.</p>
-
+    the subject element due to how the badge element attaches to it. If you want to use <code>hidden</code>, you will
+    need to add a wrapper element within the subject so it only afters the contents.</p>
 <p>
     The appearance and behavior of the directive can be configured using the following attributes:
 </p>
 
 <uxd-api-properties tableTitle="Inputs">
-    <tr uxd-api-property name="badgeBackgroundColor" type="string">
+    <tr uxd-api-property name="badgeColor" type="string">
         The color you want to use for the background color. This should be a string value that matches one of the colors
         available in the <code>ColorService</code>.
     </tr>
