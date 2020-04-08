@@ -1,6 +1,6 @@
 {
   "name": "@ux-aspects/ux-aspects-docs",
-  "version": "1.8.17",
+  "version": "1.8.18",
   "description": "Open source user interface framework for building modern, responsive, mobile big data applications",
   "main": "docs/app/app.module.ts",
   "contributors": [
@@ -9,7 +9,8 @@
     "Pearse McMurray",
     "Donna Marijne Worby",
     "Chris Brennan",
-    "Tara Todd"
+    "Tara Todd",
+    "Andi Stevenson"
   ],
   "license": "Apache-2.0",
   "scripts": {

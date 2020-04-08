@@ -51,6 +51,17 @@
                     "url": "mailto:tara.todd@microfocus.com"
                 }
             ]
+        },
+        {
+            "name": "Andi Stevenson",
+            "email": "robertandrew.stevenson@microfocus.com",
+            "avatar": "assets/img/team/andi.jpg",
+            "social": [
+                {
+                    "icon": "mail",
+                    "url": "mailto:robertandrew.stevenson@microfocus.com"
+                }
+            ]
         }
     ]
 }
