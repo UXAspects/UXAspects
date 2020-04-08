@@ -1,4 +1,4 @@
-import { getDropdownItem, getDropdownItems, getSelectInput, getSelection, getPlaceholder, getTypeahead, removeTag, SelectItemMode, setItemMode, toggleAllowNull, toggleDisabled, toggleMultipleSelect, setPlaceholder, togglePaging, setPageSize, getIcon, toggleCustomIcon, toggleClearButton, getCloseBtn, toggleRecentOptions, getRecentItemsList, getRecentItemsItems, getRecentItemsItem } from '../support/select.po';
+import { getDropdownItem, getDropdownItems, getSelectInput, getSelection, getPlaceholder, getTypeahead, removeTag, SelectItemMode, setItemMode, toggleAllowNull, toggleDisabled, toggleMultipleSelect, setPlaceholder, togglePaging, setPageSize, getIcon, toggleCustomIcon, toggleClearButton, getCloseBtn, toggleRecentOptions, getRecentItemsList, getRecentItemsItems, getRecentItemsItem,  } from '../support/select.po';
 
 describe('Select (Forms) Component', () => {
     beforeEach(() => cy.visit('/select/forms'));
@@ -60,8 +60,7 @@ describe('Select (Forms) Component', () => {
         // perform the keyboard actions
         getSelectInput()
             .focus() // focus the input element to receive keyboard input
-            .type('{downarrow}') // open the menu using the arrow key
-            .type('{downarrow}') // navigate to the second item
+            .type('{downarrow} {downarrow}') // open the menu using the arrow key and navigate to the second item
             .type('{enter}'); // perform a selection
 
         // check the selection has been made
@@ -74,7 +73,7 @@ describe('Select (Forms) Component', () => {
         getSelectInput().click();
 
         // select a menu item
-        getDropdownItem(3).click();
+        getDropdownItem(3).click({ force: true });
 
         // check that the selection has been made
         getSelectInput().should('have.value', 'Aland Islands');
@@ -206,8 +205,7 @@ describe('Select (Forms) Component', () => {
         // perform the keyboard actions
         getSelectInput()
             .focus() // focus the input element to receive keyboard input
-            .type('{downarrow}') // open the menu using the arrow key
-            .type('{downarrow}') // navigate to the second item
+            .type('{downarrow} {downarrow}' ) // open the menu using the arrow key and navigate to the second item
             .type('{enter}'); // perform a selection
 
         // the input should clear on select
@@ -223,7 +221,7 @@ describe('Select (Forms) Component', () => {
         getSelectInput().click();
 
         // select a menu item
-        getDropdownItem(3).click();
+        getDropdownItem(3).click({ force: true});
 
         // the input should clear after selection
         getSelectInput().should('have.value', '');
@@ -288,7 +286,7 @@ describe('Select (Forms) Component', () => {
         getSelectInput().click();
 
         // select a menu item
-        getDropdownItem(3).click();
+        getDropdownItem(3).click({ force: true});
 
         // the select input should be cleared after selection
         getSelectInput().should('have.value', '');
@@ -304,9 +302,9 @@ describe('Select (Forms) Component', () => {
         getSelectInput().click();
 
         // select a menu item
-        getDropdownItem(0).click();
-        getDropdownItem(1).click();
-        getDropdownItem(2).click();
+        getDropdownItem(0).click({ force: true });
+        getDropdownItem(1).click({ force: true });
+        getDropdownItem(2).click({ force: true });
 
         // close the menu
         getSelectInput().click();
@@ -386,7 +384,7 @@ describe('Select (Forms) Component', () => {
         getSelectInput().click();
 
         // select a menu item
-        getDropdownItem(3).click();
+        getDropdownItem(3).click( { force: true });
 
         // check that the selection has been made
         getSelection().should('contain.text', 'Aland Islands');
@@ -407,7 +405,7 @@ describe('Select (Forms) Component', () => {
         getSelectInput().click();
 
         // select a menu item
-        getDropdownItem(3).click();
+        getDropdownItem(3).click({ force: true });
 
         // check that the selection has been made
         getSelection().should('contain.text', 'Aland Islands');
@@ -530,5 +528,5 @@ describe('Select (Forms) Component', () => {
         // we should now show the next page
         getDropdownItems().should('have.length', 50);
     });
-    
+
 });

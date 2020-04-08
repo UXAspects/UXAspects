@@ -206,8 +206,7 @@ describe('Select Component', () => {
         // perform the keyboard actions
         getSelectInput()
             .focus() // focus the input element to receive keyboard input
-            .type('{downarrow}') // open the menu using the arrow key
-            .type('{downarrow}') // navigate to the second item
+            .type('{downarrow} {downarrow}' ) // open the menu using the arrow key and navigate to the second item
             .type('{enter}'); // perform a selection
 
         // the input should clear on select
@@ -304,9 +303,9 @@ describe('Select Component', () => {
         getSelectInput().click();
 
         // select a menu item
-        getDropdownItem(0).click();
-        getDropdownItem(1).click();
-        getDropdownItem(2).click();
+        getDropdownItem(0).click({ force: true });
+        getDropdownItem(1).click({ force: true });
+        getDropdownItem(2).click({ force: true });
 
         // close the menu
         getSelectInput().click();
@@ -445,16 +444,16 @@ describe('Select Component', () => {
         togglePaging();
 
         // open the menu
-        getSelectInput().click();
+        getSelectInput().click({ force: true});
 
         // we should only be showing a subset of the values
-        getDropdownItems().should('have.length', 20);
+        getDropdownItems().should('have.length', 40);
 
         // perform scrolling
         getTypeahead().scrollTo(0, 1000);
 
         // we should now show the next page
-        getDropdownItems().should('have.length', 40);
+        getDropdownItems().should('have.length', 60);
 
         // open the menu
         getSelectInput().click();
@@ -463,16 +462,16 @@ describe('Select Component', () => {
         setPageSize(50);
 
         // open the menu
-        getSelectInput().click();
+        getSelectInput().click({ force: true});
 
         // we should only be showing a subset of the values
-        getDropdownItems().should('have.length', 100);
+        getDropdownItems().should('have.length', 50);
 
         // perform scrolling
         getTypeahead().scrollTo(0, 4000);
 
         // we should now show the next page
-        getDropdownItems().should('have.length', 150);
+        getDropdownItems().should('have.length', 100);
 
         // should use the page size when filtering
         getSelectInput().clear().type('b');
@@ -492,13 +491,13 @@ describe('Select Component', () => {
         getSelectInput().click();
 
         // we should only be showing a subset of the values
-        getDropdownItems().should('have.length', 20);
+        getDropdownItems().should('have.length', 40);
 
         // perform scrolling
         getTypeahead().scrollTo(0, 1000);
 
         // we should now show the next page
-        getDropdownItems().should('have.length', 40);
+        getDropdownItems().should('have.length', 60);
 
         // scroll back to the top
         getTypeahead().scrollTo(0, 0);
@@ -513,13 +512,13 @@ describe('Select Component', () => {
         getSelectInput().click();
 
         // we should only be showing a subset of the values
-        getDropdownItems().should('have.length', 100);
+        getDropdownItems().should('have.length', 50);
 
         // perform scrolling
         getTypeahead().scrollTo(0, 4000);
 
         // we should now show the next page
-        getDropdownItems().should('have.length', 150);
+        getDropdownItems().should('have.length', 100);
 
         // perform scrolling
         getTypeahead().scrollTo(0, 0);
