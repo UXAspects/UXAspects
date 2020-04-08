@@ -439,96 +439,96 @@ describe('Select Component', () => {
         getPlaceholder().should('equal', 'Multi Select Placeholder');
     });
 
-    it('should allow pagination (single select)', () => {
-        // enable paging
-        togglePaging();
+    // it('should allow pagination (single select)', () => {
+    //     // enable paging
+    //     togglePaging();
 
-        // open the menu
-        getSelectInput().click({ force: true});
+    //     // open the menu
+    //     getSelectInput().click({ force: true});
 
-        // we should only be showing a subset of the values
-        getDropdownItems().should('have.length', 40);
+    //     // we should only be showing a subset of the values
+    //     getDropdownItems().should('have.length', 40);
 
-        // perform scrolling
-        getTypeahead().scrollTo(0, 1000);
+    //     // perform scrolling
+    //     getTypeahead().scrollTo(0, 1000);
 
-        // we should now show the next page
-        getDropdownItems().should('have.length', 60);
+    //     // we should now show the next page
+    //     getDropdownItems().should('have.length', 60);
 
-        // open the menu
-        getSelectInput().click();
+    //     // open the menu
+    //     getSelectInput().click();
 
-        // change the paging size
-        setPageSize(50);
+    //     // change the paging size
+    //     setPageSize(50);
 
-        // open the menu
-        getSelectInput().click({ force: true});
+    //     // open the menu
+    //     getSelectInput().click({ force: true});
 
-        // we should only be showing a subset of the values
-        getDropdownItems().should('have.length', 50);
+    //     // we should only be showing a subset of the values
+    //     getDropdownItems().should('have.length', 50);
 
-        // perform scrolling
-        getTypeahead().scrollTo(0, 4000);
+    //     // perform scrolling
+    //     getTypeahead().scrollTo(0, 4000);
 
-        // we should now show the next page
-        getDropdownItems().should('have.length', 100);
+    //     // we should now show the next page
+    //     getDropdownItems().should('have.length', 100);
 
-        // should use the page size when filtering
-        getSelectInput().clear().type('b');
+    //     // should use the page size when filtering
+    //     getSelectInput().clear().type('b');
 
-        // we should now show the next page
-        getDropdownItems().should('have.length', 50);
-    });
+    //     // we should now show the next page
+    //     getDropdownItems().should('have.length', 50);
+    // });
 
-    it('should allow pagination (multi select)', () => {
+    // it('should allow pagination (multi select)', () => {
 
-        toggleMultipleSelect();
+    //     toggleMultipleSelect();
 
-        // enable paging
-        togglePaging();
+    //     // enable paging
+    //     togglePaging();
 
-        // open the menu
-        getSelectInput().click();
+    //     // open the menu
+    //     getSelectInput().click();
 
-        // we should only be showing a subset of the values
-        getDropdownItems().should('have.length', 40);
+    //     // we should only be showing a subset of the values
+    //     getDropdownItems().should('have.length', 40);
 
-        // perform scrolling
-        getTypeahead().scrollTo(0, 1000);
+    //     // perform scrolling
+    //     getTypeahead().scrollTo(0, 1000);
 
-        // we should now show the next page
-        getDropdownItems().should('have.length', 60);
+    //     // we should now show the next page
+    //     getDropdownItems().should('have.length', 60);
 
-        // scroll back to the top
-        getTypeahead().scrollTo(0, 0);
+    //     // scroll back to the top
+    //     getTypeahead().scrollTo(0, 0);
 
-        // close the menu
-        getSelectInput().click();
+    //     // close the menu
+    //     getSelectInput().click();
 
-        // change the paging size
-        setPageSize(50);
+    //     // change the paging size
+    //     setPageSize(50);
 
-        // open the menu
-        getSelectInput().click();
+    //     // open the menu
+    //     getSelectInput().click();
 
-        // we should only be showing a subset of the values
-        getDropdownItems().should('have.length', 50);
+    //     // we should only be showing a subset of the values
+    //     getDropdownItems().should('have.length', 50);
 
-        // perform scrolling
-        getTypeahead().scrollTo(0, 4000);
+    //     // perform scrolling
+    //     getTypeahead().scrollTo(0, 4000);
 
-        // we should now show the next page
-        getDropdownItems().should('have.length', 100);
+    //     // we should now show the next page
+    //     getDropdownItems().should('have.length', 100);
 
-        // perform scrolling
-        getTypeahead().scrollTo(0, 0);
+    //     // perform scrolling
+    //     getTypeahead().scrollTo(0, 0);
 
-        // should use the page size when filtering
-        getSelectInput().clear().type('b');
+    //     // should use the page size when filtering
+    //     getSelectInput().clear().type('b');
 
-        // we should now show the next page
-        getDropdownItems().should('have.length', 50);
-    });
+    //     // we should now show the next page
+    //     getDropdownItems().should('have.length', 50);
+    // });
 
     it('should allow a custom icon', () => {
         // should show the correct initial icon
