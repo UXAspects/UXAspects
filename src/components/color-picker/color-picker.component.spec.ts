@@ -3,7 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ColorService, ColorServiceModule, colorSets } from '../../services/color/index';
 import { ColorPickerColor } from './color-picker-color';
 import { ColorPickerModule } from './color-picker.module';
-
+import { ColorPickerInputMode } from './color-picker.type';
 
 @Component({
     selector: 'app-color-picker-test',
@@ -12,7 +12,8 @@ import { ColorPickerModule } from './color-picker.module';
             [colors]="colors"
             [(selected)]="selected"
             [columns]="4"
-            [showInput]="true">
+            [showInput]="true"
+            [(inputMode)]="inputMode">
          </ux-color-picker>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -26,8 +27,10 @@ export class ColorPickerTestComponent {
 
     colors = this._colorNames.map(row => row.map(colorName => new ColorPickerColor(colorName, this._colorService.resolve(colorName))));
     selected: ColorPickerColor = this.colors[0][0];
+    inputMode: ColorPickerInputMode = 'hex';
 
-    constructor(private _colorService: ColorService) {}
+    constructor(private _colorService: ColorService) { }
+
 }
 
 describe('Color Picker Component', () => {
@@ -62,6 +65,9 @@ describe('Color Picker Component', () => {
         const colorFormatButton = nativeElement.querySelector<HTMLButtonElement>('.ux-color-picker-input-toggle');
         const colorInput = nativeElement.querySelector('.ux-color-picker .ux-color-picker-input-panel .ux-color-picker-input input');
 
+        // check input mode is the same as the default
+        expect(component.inputMode).toBe('hex');
+
         // change the color format
         colorFormatButton.click();
 
@@ -71,6 +77,9 @@ describe('Color Picker Component', () => {
 
         // check that the color input field is not invalid
         expect(colorInput.classList.contains('ng-invalid')).toBeFalsy();
+
+        // check that the input mode has now changed
+        expect(component.inputMode).toBe('rgba');
     });
 
 });
