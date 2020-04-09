@@ -1,9 +1,9 @@
 import { Component, EventEmitter, HostBinding, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import { NgModel } from '@angular/forms';
 import { BehaviorSubject, combineLatest, Subject } from 'rxjs';
 import { pairwise, takeUntil } from 'rxjs/operators';
 import { ColorPickerColor } from './color-picker-color';
 import { ColorPickerButtonSize, ColorPickerButtonStyle, ColorPickerInputColors, ColorPickerInputMode } from './color-picker.type';
-import { NgModel } from '@angular/forms';
 
 // Values corresponding to stylesheet
 const BUTTON_MARGIN = 8;
@@ -98,6 +98,10 @@ export class ColorPickerComponent implements OnInit, OnDestroy {
     @Output()
     selectedChange = new EventEmitter<ColorPickerColor>();
 
+    /** Emitted when the user changes the colour input mode */
+    @Output()
+    inputModeChange = new EventEmitter<ColorPickerInputMode>();
+
     /** Emitted when the user presses enter in the input panel text field. This can be used to commit a color change and/or close a popup. */
     @Output()
     inputSubmit = new EventEmitter<void>();
@@ -156,6 +160,9 @@ export class ColorPickerComponent implements OnInit, OnDestroy {
 
         // update the input mode
         this.inputMode = (this.inputMode === 'hex') ? 'rgba' : 'hex';
+
+        // emit the new input mode
+        this.inputModeChange.emit(this.inputMode);
 
         // get the current color value if there is one
         const color = this.selected$.value;
