@@ -1,7 +1,6 @@
 import { $, $$, browser, ElementFinder } from 'protractor';
 
 export class CardTabsPage {
-
     tabset = $('ux-card-tabset');
     tabs = $$('.card-tab');
     content = $('.card-tab-content');
@@ -39,4 +38,3 @@ export class CardTabsPage {
         return parseInt(styles.substring(styles.indexOf('translateX(') + 'translateX('.length, styles.indexOf('px')));
     }
 }
-

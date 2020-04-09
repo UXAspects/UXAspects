@@ -164,7 +164,7 @@ export class BadgeDirective implements OnChanges, OnDestroy /*, AfterContentChec
         this.clearExisting();
 
         badgeElement.classList.add(this._className);
-        badgeElement.style.display = 'none';
+        badgeElement.style.setProperty('display', 'none');
 
         badgeElement.innerHTML = this._badgeDisplayContent;
         badgeElement.style.setProperty('color', this.determineContentTextColor().toHex());

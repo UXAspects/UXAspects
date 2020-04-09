@@ -1,0 +1,35 @@
+<div class="badge-container">
+    <div *ngIf="anchor as a">
+        <a id="anchorExample" href="#/badge" [uxBadge]="a.content" [badgeMaxValue]="a.maxValue"
+            [badgeAriaDescription]="a.ariaDescription" [badgeOverlap]="a.overlap"
+            [badgeVerticalPosition]="a.verticalPosition" [badgeHorizontalPosition]="a.horizontalPosition"
+            [badgeHidden]="a.badgeHidden" [badgeSize]="a.size" [badgeColor]="a.badgeColor">
+            Messages
+        </a>
+        <div class="hidden-links">
+            <button id="setLimitOnAnchor" (click)="a.maxValue = 999; a.content = '1893'">Set anchor max value</button>
+            <button id="setContentOnAnchor" (click)="a.content = '1894'">change anchor content</button>
+            <button id="setBackgroundOnAnchor" (click)="a.badgeColor= 'grey4'"> change anchor badge color</button>
+            <button id="setSizeOnAnchor" (click)="a.size= 'large'">change anchor badge size</button>
+        </div>
+    </div>
+    <hr />
+    <div *ngIf="button as b">
+        <button id="buttonExample" class="btn btn-warning" [uxBadge]="b.content" [badgeMaxValue]="b.maxValue"
+            [badgeAriaDescription]="b.ariaDescription" [badgeOverlap]="b.overlap"
+            [badgeVerticalPosition]="b.verticalPosition" [badgeHorizontalPosition]="b.horizontalPosition"
+            [badgeHidden]="b.badgeHidden" [badgeSize]="b.size" [badgeColor]="b.badgeColor">
+            Messages
+        </button>
+        <div class="hidden-links">
+            <button id="setLimitOnButton" (click)="b.maxValue = 16; b.content = 'Some really long text in here'">set
+                button max
+                value</button>
+            <button id="setBackgroundOnButton" (click)="b.badgeColor= 'accent'">set button badge color</button>
+            <button id="toggleHideOnButton" (click)="b.badgeHidden = !b.badgeHidden">toggle hide on/off</button>
+            <button id="setPositionOnButton" (click)="b.verticalPosition = 'above'; b.horizontalPosition = 'after'">set
+                button badge position</button>
+            <button id="removeOverlapOnButton" (click)="b.overlap = false">turn off overlap</button>
+        </div>
+    </div>
+</div>
