@@ -1,5 +1,5 @@
 import { FocusKeyManager } from '@angular/cdk/a11y';
-import { AfterViewInit, Component, EventEmitter, Input, OnDestroy, Output, QueryList, ViewChildren } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnDestroy, Output, QueryList, ViewChildren, HostBinding } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { FacetDeselect, FacetDeselectAll, FacetEvent, FacetSelect } from '../facet-events';
@@ -15,7 +15,7 @@ let uniqueId = 0;
 })
 export class FacetCheckListComponent implements AfterViewInit, OnDestroy {
 
-    @Input()
+    @Input() @HostBinding()
     id: string = `ux-facet-check-list-${uniqueId++}`;
 
     /** This will allow you to define an initial set of selected facets. */

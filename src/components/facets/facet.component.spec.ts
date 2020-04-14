@@ -1,31 +1,26 @@
 import { Component } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import 'chance';
 import { FacetsModule } from './facets.module';
 import { Facet } from './models/facet';
 
 @Component({
     selector: 'app',
     template: `
-    <div class="row">
-        <div class="col-md-12">
             <ux-facet-container>
-                <ux-facet-check-list header="Authors" [facets]="facets"></ux-facet-check-list>
+                <ux-facet-check-list header="Authors" [facets]="facets" [id]="chosenID"></ux-facet-check-list>
             </ux-facet-container>
-        </div>
-    </div>
     `
 })
 export class FacetCheckListTestComponent {
 
     facets: Facet[] = [];
+    chosenID: string = 'my-facet';
 
     constructor() {
 
-        // generate some facets
-        for (let idx = 0; idx < 30; idx++) {
-            this.facets.push(new Facet(chance.name(), null, chance.integer({ min: 0, max: 100 })));
-        }
+        this.facets.push(new Facet('Allen Lucas'));
+        this.facets.push(new Facet('Austin Allison'));
+        this.facets.push(new Facet('Bertie Manning'));
 
         // sort the users alphabetically
         this.facets.sort((facetOne, facetTwo) => {
@@ -70,11 +65,19 @@ describe('Facet-Check-List Component', () => {
     });
 
     it('should propagate ids down to child components', async () => {
-        const checkListItem = nativeElement.querySelector('ux-facet-check-list-item');
-        const uxCheckbox = nativeElement.querySelector('ux-facet-check-list-item ux-checkbox input');
+        const checkListItem = nativeElement.querySelectorAll('ux-facet-check-list-item');
+        const uxCheckbox = nativeElement.querySelectorAll('ux-facet-check-list-item ux-checkbox input');
 
-        // ux-checkbox id should contain the id passed down from ux-facet-check-list-item
-        expect(uxCheckbox.id).toContain(checkListItem.id);
+        // check the ux-facet-check-list-item has added the input ID
+        expect(checkListItem[0].id).toBe(component.chosenID + '-check-list-item-0');
+        expect(checkListItem[1].id).toBe(component.chosenID + '-check-list-item-1');
+        expect(checkListItem[2].id).toBe(component.chosenID + '-check-list-item-2');
+
+        // check the input ID has been propagated down to child components
+        expect(uxCheckbox[0].id).toBe(component.chosenID + '-check-list-item-0-checkbox-input');
+        expect(uxCheckbox[1].id).toBe(component.chosenID + '-check-list-item-1-checkbox-input');
+        expect(uxCheckbox[2].id).toBe(component.chosenID + '-check-list-item-2-checkbox-input');
+
     });
 
 });
