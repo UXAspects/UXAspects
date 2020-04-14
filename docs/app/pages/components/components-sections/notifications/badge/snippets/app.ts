@@ -8,7 +8,6 @@ import { BadgeHorizontalPosition, BadgeSize, BadgeVerticalPosition } from '@ux-a
 export class AppComponent {
     content: string = '1475';
     maxValue: number = 999;
-    ariaDescription: string = '1475 messages found';
     overlap: boolean = true;
     verticalPosition: BadgeVerticalPosition = 'above';
     horizontalPosition: BadgeHorizontalPosition = 'after';
