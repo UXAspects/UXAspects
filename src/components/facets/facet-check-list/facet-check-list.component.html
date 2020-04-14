@@ -10,6 +10,7 @@
 
     <!-- Iterate through each possible facet -->
     <ux-facet-check-list-item *ngFor="let facet of facets; let index = index"
+        [id]="id + '-check-list-item-' + index"
         [facet]="facet"
         [simplified]="simplified"
         [tabbable]="activeIndex === index"

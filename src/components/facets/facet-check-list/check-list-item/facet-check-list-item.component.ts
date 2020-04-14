@@ -10,8 +10,7 @@ let uniqueId = 0;
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FacetCheckListItemComponent implements FocusableOption {
-
-    /** A unique id for the component. */
+    
     @Input() @HostBinding() id: string = `ux-facet-check-list-item-${++uniqueId}`;
 
     @Input() facet: Facet = null;

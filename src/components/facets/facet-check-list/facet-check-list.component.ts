@@ -7,11 +7,16 @@ import { FacetService } from '../facet.service';
 import { Facet } from '../models/facet';
 import { FacetCheckListItemComponent } from './check-list-item/facet-check-list-item.component';
 
+let uniqueId = 0;
+
 @Component({
     selector: 'ux-facet-check-list',
     templateUrl: './facet-check-list.component.html'
 })
 export class FacetCheckListComponent implements AfterViewInit, OnDestroy {
+
+    @Input()
+    id: string = `ux-facet-check-list-${uniqueId++}`;
 
     /** This will allow you to define an initial set of selected facets. */
     @Input() set selected(selection: Facet[]) {

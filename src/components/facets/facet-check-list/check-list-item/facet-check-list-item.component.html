@@ -14,7 +14,7 @@
     [class.disabled]="facet?.disabled">
 
     <!-- Show check icon to indicate the state -->
-    <ux-checkbox [clickable]="false" [value]="selected" [simplified]="simplified" [tabindex]="-1" [disabled]="disabled" [id]="id">
+    <ux-checkbox [clickable]="false" [value]="selected" [simplified]="simplified" [tabindex]="-1" [disabled]="disabled" [id]="id + '-checkbox'">
         <span class="facet-check-list-item-title">{{ facet?.title }}</span>
         <span *ngIf="facet?.count !== undefined" class="facet-check-list-item-count">({{ facet?.count }})</span>
     </ux-checkbox>
