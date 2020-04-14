@@ -41,7 +41,6 @@ export class BadgeDirective implements OnChanges, OnDestroy {
         return this._badgeContent;
     }
     set badgeContent(s: string) {
-        console.log('s: ', s);
         if (s && s.replace(/ /g, '').length > 0) {
             const subject = s.toString().trim();
             this._isNumber = /^\d+$/.test(subject);
@@ -53,8 +52,6 @@ export class BadgeDirective implements OnChanges, OnDestroy {
     /**
      * Define the badge background color
      */
-    private readonly _defaultBackgroundColor: ThemeColor = this._darkColor;
-
     @Input()
     get badgeColor(): string {
         return this._badgeColor.toHex();
@@ -62,7 +59,7 @@ export class BadgeDirective implements OnChanges, OnDestroy {
     set badgeColor(color: string) {
         this._badgeColor = ThemeColor.parse(this._colorService.resolve(color));
     }
-    private _badgeColor: ThemeColor = this._defaultBackgroundColor;
+    private _badgeColor: ThemeColor = this._darkColor;
 
     /**
      * Set the badge vertical position in relation to the parent element
@@ -114,7 +111,7 @@ export class BadgeDirective implements OnChanges, OnDestroy {
         if (changes.badgeContent || changes.badgeMaxValue) {
             let finalText: string =
                 (changes.badgeContent && changes.badgeContent.currentValue) || this.badgeContent || null;
-            let maxValue: number =
+            const maxValue: number =
                 (changes.badgeMaxValue && changes.badgeMaxValue.currentValue) || this.badgeMaxValue || null;
 
             if (finalText && maxValue && maxValue > 0) {
