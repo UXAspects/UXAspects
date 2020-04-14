@@ -152,13 +152,16 @@
 </uxd-api-properties>
 
 <uxd-api-properties tableTitle="Outputs">
-    <tr uxd-api-property name="selectedChange" type="ColorPickerColor">
+    <tr uxd-api-property name="selectedChange" type="ColorPickerInputMode">
         Emitted when the user changes the selected color, either by clicking a color swatch button, or entering a valid
         color value into the input panel text field.
     </tr>
     <tr uxd-api-property name="inputSubmit" type="void">
         Emitted when the user presses enter in the input panel text field.
         This can be used to commit a color change and/or close a popup.
+    </tr>
+    <tr uxd-api-property name="inputModeChange" type="ColorPickerInputMode">
+        Emitted when the user changes the colour input mode.
     </tr>
 </uxd-api-properties>
 
