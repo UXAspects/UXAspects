@@ -1,4 +1,5 @@
-import { Component, EventEmitter, HostBinding, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, HostBinding, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import { NgModel } from '@angular/forms';
 import { BehaviorSubject, combineLatest, Subject } from 'rxjs';
 import { pairwise, takeUntil } from 'rxjs/operators';
 import { ColorPickerColor } from './color-picker-color';
@@ -97,6 +98,10 @@ export class ColorPickerComponent implements OnInit, OnDestroy {
     @Output()
     selectedChange = new EventEmitter<ColorPickerColor>();
 
+    /** Emitted when the user changes the colour input mode */
+    @Output()
+    inputModeChange = new EventEmitter<ColorPickerInputMode>();
+
     /** Emitted when the user presses enter in the input panel text field. This can be used to commit a color change and/or close a popup. */
     @Output()
     inputSubmit = new EventEmitter<void>();
@@ -113,7 +118,10 @@ export class ColorPickerComponent implements OnInit, OnDestroy {
         'rgba': /^(?:rgb\(\d{1,3},\s*\d{1,3},\s*\d{1,3}\))|(?:rgba\(\d{1,3},\s*\d{1,3},\s*\d{1,3},\s*\d(\.\d+)?\))$/
     };
 
-    private _onDestroy = new Subject();
+    /** Access the ngModel instance of the input field */
+    @ViewChild('inputField', { static: false }) inputFormControl: NgModel;
+
+    private readonly _onDestroy = new Subject();
 
     ngOnInit(): void {
 
@@ -125,7 +133,7 @@ export class ColorPickerComponent implements OnInit, OnDestroy {
         });
 
         // Set the width based on column count and button size
-        combineLatest(this.columns$, this.buttonSize$)
+        combineLatest([this.columns$, this.buttonSize$])
             .pipe(takeUntil(this._onDestroy))
             .subscribe(([columns, buttonSize]) => {
                 if (columns > 0) {
@@ -149,6 +157,30 @@ export class ColorPickerComponent implements OnInit, OnDestroy {
     }
 
     toggleColorEntryType(): void {
+
+        // update the input mode
         this.inputMode = (this.inputMode === 'hex') ? 'rgba' : 'hex';
+
+        // emit the new input mode
+        this.inputModeChange.emit(this.inputMode);
+
+        // get the current color value if there is one
+        const color = this.selected$.value;
+
+        // if there is no selected color property then skip
+        if (color) {
+
+            // get the new color value
+            const newColor = this.inputMode === 'hex' ? color.hex : color.rgba;
+
+            // update the selected color value based on the input mode
+            this.updateColorValue(newColor, this.inputMode);
+
+            // forcibly update the validation status of ngModel to prevent any
+            // incorrect error states in the underlying form control
+            // (running change detection will not suffice)
+            this.inputFormControl.control.setValue(newColor);
+        }
+
     }
 }
