@@ -278,41 +278,38 @@ ux-alert {
         text-align: center;
         background-color: #000;
         color: #fff;
-        line-height: 1;
         box-sizing: border-box;
         padding: 0;
         margin: 0;
         text-transform: none !important;
+        font-family: @font-family !important;
     }
 
     &.ux-badge-small .ux-badge {
         height: 12px;
-        line-height: 12px;
         min-width: 12px;
         border-radius: 6px;
-        padding-left: 4px;
-        padding-right: 4px;
+        padding: 1px 4px;
         font-size: 10px;
+        line-height: 0.95em;
     }
 
     &.ux-badge-medium .ux-badge {
         height: 16px;
-        line-height: 16px;
         min-width: 16px;
         border-radius: 8px;
-        padding-left: 6px;
-        padding-right: 6px;
+        padding: 2px 6px;
         font-size: 12px;
+        line-height: 0.95em;
     }
 
     &.ux-badge-large .ux-badge {
         height: 20px;
-        line-height: 20px;
         min-width: 20px;
         border-radius: 10px;
-        padding-left: 8px;
-        padding-right: 8px;
+        padding: 2px 8px;
         font-size: 16px;
+        line-height: 0.9em;
     }
 
     &.ux-badge-above,
@@ -322,15 +319,19 @@ ux-alert {
         }
 
         &.ux-badge-small .ux-badge {
-            top: -6px;
+            top: -7px;
         }
 
         &.ux-badge-medium .ux-badge {
-            top: -8px;
+            top: -9px;
         }
 
         &.ux-badge-large .ux-badge {
-            top: -10px;
+            top: -12px;
+        }
+
+        &.ux-badge-no-content .ux-badge {
+            top: -5px;
         }
     }
 
@@ -341,15 +342,19 @@ ux-alert {
         }
 
         &.ux-badge-small .ux-badge {
-            bottom: -6px;
+            bottom: -7px;
         }
 
         &.ux-badge-medium .ux-badge {
-            bottom: -8px;
+            bottom: -9px;
         }
 
         &.ux-badge-large .ux-badge {
-            bottom: -10px;
+            bottom: -12px;
+        }
+
+        &.ux-badge-no-content .ux-badge {
+            bottom: -5px;
         }
     }
 
@@ -363,6 +368,11 @@ ux-alert {
             left: 0;
             transform: translateX(-50%);
         }
+
+        &.ux-badge-no-content .ux-badge {
+            transform: unset;
+            left: -5px;
+        }
     }
 
     &.ux-badge-after {
@@ -375,9 +385,32 @@ ux-alert {
             right: 0;
             transform: translateX(50%);
         }
+
+        &.ux-badge-no-content .ux-badge {
+            transform: unset;
+            right: -5px;
+        }
     }
 
     &.ux-badge-hidden .ux-badge {
         display: none;
+    }
+
+    &.ux-badge-no-content {
+        .ux-badge {
+            border-radius: 50%;
+            width: 10px;
+            height: 10px;
+            display: block;
+            min-width: unset;
+            padding: 0;
+        }
+    }
+}
+
+button.ux-badge-container:focus-within,
+button.ux-badge-container:focus {
+    .ux-badge {
+        outline: none !important;
     }
 }

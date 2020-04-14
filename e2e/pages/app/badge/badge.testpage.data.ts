@@ -1,9 +1,19 @@
 import { BadgeHorizontalPosition, BadgeSize, BadgeVerticalPosition } from '../../../../src/directives/badge';
 
+export const iconData: BadgeTestComponentData = {
+    content: '2',
+    maxValue: null,
+    overlap: true,
+    verticalPosition: 'above',
+    horizontalPosition: 'after',
+    badgeHidden: false,
+    size: 'medium',
+    badgeColor: 'ok',
+};
+
 export const anchorData: BadgeTestComponentData = {
     content: '1475',
     maxValue: null,
-    ariaDescription: null,
     overlap: true,
     verticalPosition: 'above',
     horizontalPosition: 'after',
@@ -15,7 +25,6 @@ export const anchorData: BadgeTestComponentData = {
 export const buttonData: BadgeTestComponentData = {
     content: 'Action required on these items',
     maxValue: null,
-    ariaDescription: 'Action required on these items in your task list',
     overlap: true,
     verticalPosition: 'below',
     horizontalPosition: 'before',
@@ -27,7 +36,6 @@ export const buttonData: BadgeTestComponentData = {
 export interface BadgeTestComponentData {
     content: string;
     maxValue: number;
-    ariaDescription: string;
     overlap: boolean;
     verticalPosition: BadgeVerticalPosition;
     horizontalPosition: BadgeHorizontalPosition;

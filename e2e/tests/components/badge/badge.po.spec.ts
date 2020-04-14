@@ -1,6 +1,7 @@
 import { $, browser, by, element } from 'protractor';
 
 export class BadgePage {
+    iconNoContent = $('#iconExampleNoContent');
     anchor = $('#anchorExample');
     anchorBadge = $('#anchorExample .ux-badge');
     button = $('#buttonExample');

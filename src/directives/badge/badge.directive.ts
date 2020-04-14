@@ -1,13 +1,4 @@
-import {
-    Directive,
-    ElementRef,
-    HostBinding,
-    Input,
-    OnChanges,
-    OnDestroy,
-    Renderer2,
-    SimpleChanges,
-} from '@angular/core';
+import { Directive, ElementRef, HostBinding, Input, OnChanges, OnDestroy, Renderer2, SimpleChanges } from '@angular/core';
 import { ColorService } from '../../services/color/color.service';
 import { ThemeColor } from '../../services/color/theme-color';
 import { ContrastService } from '../accessibility/contrast-ratio/contrast.service';
@@ -30,15 +21,15 @@ export type BadgeSize = 'small' | 'medium' | 'large';
         '[class.ux-badge-below]': 'badgeVerticalPosition === "below"',
         '[class.ux-badge-after]': 'badgeHorizontalPosition === "after"',
         '[class.ux-badge-before]': 'badgeHorizontalPosition === "before"',
+        '[class.ux-badge-no-content]': '!_badgeContent',
     },
 })
-export class BadgeDirective implements OnChanges, OnDestroy /*, AfterContentChecked*/ {
+export class BadgeDirective implements OnChanges, OnDestroy {
     private readonly _className = 'ux-badge';
     private readonly _darkColor: ThemeColor = ThemeColor.parse('#000');
     private readonly _lightColor: ThemeColor = ThemeColor.parse('#FFF');
     private _badgeElement: HTMLElement | undefined;
     private _isNumber: boolean;
-    private _truncatedText: boolean = false;
 
     /**
      * Directive parameter that sets the content of the badge
@@ -50,11 +41,14 @@ export class BadgeDirective implements OnChanges, OnDestroy /*, AfterContentChec
         return this._badgeContent;
     }
     set badgeContent(s: string) {
-        const subject = s.toString().trim();
-        this._isNumber = /^\d+$/.test(subject);
-        this._badgeContent = subject;
+        console.log('s: ', s);
+        if (s && s.replace(/ /g, '').length > 0) {
+            const subject = s.toString().trim();
+            this._isNumber = /^\d+$/.test(subject);
+            this._badgeContent = subject;
+        }
     }
-    private _badgeContent: string;
+    private _badgeContent: string = null;
 
     /**
      * Define the badge background color
@@ -71,25 +65,16 @@ export class BadgeDirective implements OnChanges, OnDestroy /*, AfterContentChec
     private _badgeColor: ThemeColor = this._defaultBackgroundColor;
 
     /**
-     * Aria description value for accessibility devices
-     */
-    @Input() badgeAriaDescription: string;
-
-    /**
      * Set the badge vertical position in relation to the parent element
      */
-    private _defaultVerticalPosition: BadgeVerticalPosition = 'above';
-
     @Input()
-    private badgeVerticalPosition: BadgeVerticalPosition = this._defaultVerticalPosition;
+    badgeVerticalPosition: BadgeVerticalPosition = 'above';
 
     /**
      * Set the badge horizontal position in relation to the parent element
      */
-    private _defaultHorizontalPosition: BadgeHorizontalPosition = 'after';
-
     @Input()
-    private badgeHorizontalPosition: BadgeHorizontalPosition = this._defaultHorizontalPosition;
+    badgeHorizontalPosition: BadgeHorizontalPosition = 'after';
 
     /**
      * Set if the badge overlaps parent content or flows after parent
@@ -107,10 +92,8 @@ export class BadgeDirective implements OnChanges, OnDestroy /*, AfterContentChec
     /**
      * Badge size (based on CSS styles)
      */
-    private _defaultBadgeSize: BadgeSize = 'medium';
-
     @Input()
-    private badgeSize: BadgeSize = this._defaultBadgeSize;
+    badgeSize: BadgeSize = 'medium';
 
     /**
      * Hide badge from view
@@ -124,30 +107,25 @@ export class BadgeDirective implements OnChanges, OnDestroy /*, AfterContentChec
         private readonly _renderer: Renderer2,
         private readonly _colorService: ColorService,
         private readonly _contrastService: ContrastService
-    ) {}
+    ) { }
 
     ngOnChanges(changes: SimpleChanges): void {
         // get display friendly version of text based on max length and type of val;
-        if (changes.badgeContent) {
-            let finalText: string = changes.badgeContent.currentValue || null;
+        if (changes.badgeContent || changes.badgeMaxValue) {
+            let finalText: string =
+                (changes.badgeContent && changes.badgeContent.currentValue) || this.badgeContent || null;
+            let maxValue: number =
+                (changes.badgeMaxValue && changes.badgeMaxValue.currentValue) || this.badgeMaxValue || null;
 
-            if (finalText && this.badgeMaxValue) {
-                if (this._isNumber && changes.badgeContent.currentValue > this.badgeMaxValue) {
-                    finalText = `${this.badgeMaxValue}+`;
-                } else if (changes.badgeContent.currentValue.length > this.badgeMaxValue) {
-                    this._truncatedText = true;
-                    finalText = `${changes.badgeContent.currentValue.substr(0, this.badgeMaxValue)}&hellip;`;
-                } else {
-                    this._truncatedText = false;
+            if (finalText && maxValue && maxValue > 0) {
+                if (this._isNumber && parseInt(finalText) > maxValue) {
+                    finalText = `${maxValue}+`;
+                } else if (finalText.length > maxValue) {
+                    finalText = `${finalText.substr(0, maxValue)}&hellip;`;
                 }
             }
 
             this._badgeDisplayContent = finalText;
-        }
-
-        // if text is only set, set aria label from it
-        if (changes.badgeContent && !this.badgeAriaDescription) {
-            this.badgeAriaDescription = changes.badgeContent.currentValue;
         }
 
         this.updateBadge();
@@ -165,17 +143,9 @@ export class BadgeDirective implements OnChanges, OnDestroy /*, AfterContentChec
 
         badgeElement.classList.add(this._className);
         badgeElement.style.setProperty('display', 'none');
-
         badgeElement.innerHTML = this._badgeDisplayContent;
+
         badgeElement.style.setProperty('color', this.determineContentTextColor().toHex());
-
-        if (this.badgeAriaDescription) {
-            badgeElement.setAttribute('aria-describedby', this.badgeAriaDescription);
-        }
-
-        if (this._truncatedText) {
-            badgeElement.setAttribute('title', this._badgeContent);
-        }
 
         if (this._badgeColor) {
             badgeElement.style.setProperty('background', this._badgeColor.toHex());
@@ -197,8 +167,8 @@ export class BadgeDirective implements OnChanges, OnDestroy /*, AfterContentChec
     private determineContentTextColor(): ThemeColor {
         return this._badgeColor
             ? ThemeColor.parse(
-                  this._contrastService.getContrastColor(this._badgeColor, this._lightColor, this._darkColor).toRgba()
-              )
+                this._contrastService.getContrastColor(this._badgeColor, this._lightColor, this._darkColor).toRgba()
+            )
             : this._lightColor;
     }
 }

@@ -1,13 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { BadgeModule } from '@ux-aspects/ux-aspects';
+import { BadgeModule, IconModule } from '@ux-aspects/ux-aspects';
 import { BadgeTestPageComponent } from './badge.testpage.component';
-
 @NgModule({
     imports: [
         CommonModule,
         BadgeModule,
+        IconModule,
         RouterModule.forChild([
             {
                 path: '',
@@ -17,4 +17,4 @@ import { BadgeTestPageComponent } from './badge.testpage.component';
     ],
     declarations: [BadgeTestPageComponent],
 })
-export class BadgeTestPageModule {}
+export class BadgeTestPageModule { }

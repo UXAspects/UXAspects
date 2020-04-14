@@ -27,9 +27,6 @@ describe('Badge Tests', () => {
 
         expect(anchorBadgeClasses).toContain('ux-badge');
 
-        // // check aria description is the same as the content
-        expect(await page.anchorBadge.getAttribute('aria-describedby')).toBe(anchorData.content);
-
         // // check text and background colors
         expect(await page.anchorBadge.getCssValue('color')).toBe('rgba(0, 0, 0, 1)');
         expect(await page.anchorBadge.getCssValue('background-color')).toBe('rgba(0, 167, 162, 1)');
@@ -53,9 +50,6 @@ describe('Badge Tests', () => {
 
         expect(buttonBadgeClasses).toContain('ux-badge');
 
-        // check aria description
-        expect(await page.buttonBadge.getAttribute('aria-describedby')).toBe(buttonData.ariaDescription);
-
         // check text and background colors
         expect(await page.buttonBadge.getCssValue('color')).toBe('rgba(255, 255, 255, 1)');
         expect(await page.buttonBadge.getCssValue('background-color')).toBe('rgba(2, 86, 98, 1)');
@@ -64,6 +58,11 @@ describe('Badge Tests', () => {
         expect(await page.buttonBadge.getCssValue('display')).toBe('block');
 
         expect(await imageCompare('badge-initial')).toEqual(0);
+    });
+
+    it('should be able to create an empty badge', async () => {
+        const iconClasses = await page.iconNoContent.getAttribute('class');
+        expect(iconClasses).toContain('ux-badge-no-content');
     });
 
     it('should update the anchor content based on max value being set', async () => {

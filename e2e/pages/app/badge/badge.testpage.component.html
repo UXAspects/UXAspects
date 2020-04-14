@@ -1,35 +1,52 @@
 <div class="badge-container">
-    <div *ngIf="anchor as a">
-        <a id="anchorExample" href="#/badge" [uxBadge]="a.content" [badgeMaxValue]="a.maxValue"
-            [badgeAriaDescription]="a.ariaDescription" [badgeOverlap]="a.overlap"
-            [badgeVerticalPosition]="a.verticalPosition" [badgeHorizontalPosition]="a.horizontalPosition"
-            [badgeHidden]="a.badgeHidden" [badgeSize]="a.size" [badgeColor]="a.badgeColor">
+    <div>
+        <ux-icon id="iconExampleNoContent" name="filter" uxBadge [badgeColor]="icon.badgeColor">
+        </ux-icon>
+    </div>
+    <hr />
+    <div>
+        <ux-icon id="iconExample" name="filter" [uxBadge]="icon.content" [badgeMaxValue]="icon.maxValue"
+            [badgeOverlap]="icon.overlap" [badgeVerticalPosition]="icon.verticalPosition"
+            [badgeHorizontalPosition]="icon.horizontalPosition" [badgeHidden]="icon.badgeHidden" [badgeSize]="icon.size"
+            [badgeColor]="icon.badgeColor">
+        </ux-icon>
+    </div>
+    <hr />
+    <div>
+        <a id="anchorExample" href="#/badge" [uxBadge]="anchor.content" [badgeMaxValue]="anchor.maxValue"
+            [badgeOverlap]="anchor.overlap" [badgeVerticalPosition]="anchor.verticalPosition"
+            [badgeHorizontalPosition]="anchor.horizontalPosition" [badgeHidden]="anchor.badgeHidden"
+            [badgeSize]="anchor.size" [badgeColor]="anchor.badgeColor">
             Messages
         </a>
         <div class="hidden-links">
-            <button id="setLimitOnAnchor" (click)="a.maxValue = 999; a.content = '1893'">Set anchor max value</button>
-            <button id="setContentOnAnchor" (click)="a.content = '1894'">change anchor content</button>
-            <button id="setBackgroundOnAnchor" (click)="a.badgeColor= 'grey4'"> change anchor badge color</button>
-            <button id="setSizeOnAnchor" (click)="a.size= 'large'">change anchor badge size</button>
+            <button id="setLimitOnAnchor" (click)="anchor.maxValue = 999; anchor.content = '1893'">Set anchor max
+                value</button>
+            <button id="setContentOnAnchor" (click)="anchor.content = '1894'">change anchor content</button>
+            <button id="setBackgroundOnAnchor" (click)="anchor.badgeColor= 'grey4'"> change anchor badge color</button>
+            <button id="setSizeOnAnchor" (click)="anchor.size= 'large'">change anchor badge size</button>
         </div>
     </div>
     <hr />
-    <div *ngIf="button as b">
-        <button id="buttonExample" class="btn btn-warning" [uxBadge]="b.content" [badgeMaxValue]="b.maxValue"
-            [badgeAriaDescription]="b.ariaDescription" [badgeOverlap]="b.overlap"
-            [badgeVerticalPosition]="b.verticalPosition" [badgeHorizontalPosition]="b.horizontalPosition"
-            [badgeHidden]="b.badgeHidden" [badgeSize]="b.size" [badgeColor]="b.badgeColor">
+    <div>
+        <button id="buttonExample" class="btn btn-warning" [uxBadge]="button.content" [badgeMaxValue]="button.maxValue"
+            [badgeOverlap]="button.overlap" [badgeVerticalPosition]="button.verticalPosition"
+            [badgeHorizontalPosition]="button.horizontalPosition" [badgeHidden]="button.badgeHidden"
+            [badgeSize]="button.size" [badgeColor]="button.badgeColor">
             Messages
         </button>
         <div class="hidden-links">
-            <button id="setLimitOnButton" (click)="b.maxValue = 16; b.content = 'Some really long text in here'">set
+            <button id="setLimitOnButton"
+                (click)="button.maxValue = 16; button.content = 'Some really long text in here'">set
                 button max
                 value</button>
-            <button id="setBackgroundOnButton" (click)="b.badgeColor= 'accent'">set button badge color</button>
-            <button id="toggleHideOnButton" (click)="b.badgeHidden = !b.badgeHidden">toggle hide on/off</button>
-            <button id="setPositionOnButton" (click)="b.verticalPosition = 'above'; b.horizontalPosition = 'after'">set
+            <button id="setBackgroundOnButton" (click)="button.badgeColor= 'accent'">set button badge color</button>
+            <button id="toggleHideOnButton" (click)="button.badgeHidden = !button.badgeHidden">toggle hide
+                on/off</button>
+            <button id="setPositionOnButton"
+                (click)="button.verticalPosition = 'above'; button.horizontalPosition = 'after'">set
                 button badge position</button>
-            <button id="removeOverlapOnButton" (click)="b.overlap = false">turn off overlap</button>
+            <button id="removeOverlapOnButton" (click)="button.overlap = false">turn off overlap</button>
         </div>
     </div>
 </div>

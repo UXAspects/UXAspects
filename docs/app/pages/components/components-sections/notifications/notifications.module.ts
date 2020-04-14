@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ComponentFactoryResolver, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { AccordionModule, AlertModule, BadgeModule, CheckboxModule, ColorPickerModule, IconModule, NotificationModule, NumberPickerModule, TabsetModule } from '@ux-aspects/ux-aspects';
+import { AccordionModule, AlertModule, BadgeModule, CheckboxModule, ColorPickerModule, IconModule, NotificationModule, NumberPickerModule, RadioButtonModule, TabsetModule } from '@ux-aspects/ux-aspects';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
@@ -18,7 +18,6 @@ import { ComponentsNotificationListNg1Component } from './notification-list-ng1/
 import { ComponentsNotificationsNg1Component } from './notifications-ng1/notifications-ng1.component';
 import { ComponentsNotificationsComponent } from './notifications/notifications.component';
 
-
 const SECTIONS = [
     ComponentsAlertComponent,
     ComponentsBadgeComponent,
@@ -27,7 +26,7 @@ const SECTIONS = [
     ComponentsNotificationListNg1Component,
     ComponentsNotificationDropdownNg1Component,
     ComponentsAlertStylesNg1Component,
-    ComponentsDismissableStylesNg1Component
+    ComponentsDismissableStylesNg1Component,
 ];
 
 const ROUTES = [
@@ -35,9 +34,9 @@ const ROUTES = [
         path: '**',
         component: DocumentationCategoryComponent,
         data: {
-            category: ResolverService.resolveCategoryData(DocumentationPage.Components, 'Notifications')
-        }
-    }
+            category: ResolverService.resolveCategoryData(DocumentationPage.Components, 'Notifications'),
+        },
+    },
 ];
 
 @NgModule({
@@ -58,13 +57,13 @@ const ROUTES = [
         RouterModule.forChild(ROUTES),
         TabsetModule,
         WrappersModule,
+        RadioButtonModule,
     ],
     exports: SECTIONS,
     declarations: SECTIONS,
-    entryComponents: SECTIONS
+    entryComponents: SECTIONS,
 })
 export class ComponentsNotificationsModule {
-
     constructor(componentFactoryResolver: ComponentFactoryResolver, resolverService: ResolverService) {
         resolverService.registerResolver(componentFactoryResolver);
     }

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { anchorData, BadgeTestComponentData, buttonData } from './badge.testpage.data';
+import { anchorData, BadgeTestComponentData, buttonData, iconData } from './badge.testpage.data';
 
 @Component({
     selector: 'app-badge',
@@ -7,6 +7,7 @@ import { anchorData, BadgeTestComponentData, buttonData } from './badge.testpage
     styleUrls: ['./badge.testpage.component.less'],
 })
 export class BadgeTestPageComponent {
+    icon: BadgeTestComponentData = iconData;
     anchor: BadgeTestComponentData = anchorData;
     button: BadgeTestComponentData = buttonData;
 }
