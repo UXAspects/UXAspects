@@ -18,7 +18,6 @@ const badgeSelector = '.ux-badge';
             [badgeSize]="size"
             [badgeVerticalPosition]="verticalPosition"
             [badgeHorizontalPosition]="horizontalPosition"
-            [badgeAriaDescription]="ariaDescription"
         ></button>
     `,
 })
