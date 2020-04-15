@@ -229,8 +229,16 @@ const routes: Routes = [
 ];
 
 @NgModule({
-    imports: [BrowserModule, RouterModule.forRoot(routes, { useHash: true }), NoopAnimationsModule],
-    declarations: [AppComponent],
-    bootstrap: [AppComponent],
+    imports: [
+        BrowserModule,
+        RouterModule.forRoot(routes, { useHash: true }),
+        NoopAnimationsModule
+    ],
+    declarations: [
+        AppComponent
+    ],
+    bootstrap: [
+        AppComponent
+    ]
 })
-export class AppModule {}
+export class AppModule { }

@@ -9,7 +9,8 @@
                     "title": "Toggle Buttons",
                     "component": "ComponentsToggleButtonsComponent",
                     "version": "Angular",
-                    "externalUrl": "http://valor-software.com/ngx-bootstrap/#/buttons",
+                    "externalUrl":
+                        "http://valor-software.com/ngx-bootstrap/#/buttons",
                     "usage": [
                         {
                             "title": "Selector",
@@ -33,7 +34,8 @@
                     "title": "Radio Buttons",
                     "component": "ComponentsRadioButtonsComponent",
                     "version": "Angular",
-                    "externalUrl": "http://valor-software.com/ngx-bootstrap/#/buttons",
+                    "externalUrl":
+                        "http://valor-software.com/ngx-bootstrap/#/buttons",
                     "usage": [
                         {
                             "title": "Selector",
@@ -1021,7 +1023,7 @@
                     "usage": [
                         {
                             "title": "Selector",
-                            "content": "ux-badge"
+                            "content": "[uxBadge]"
                         },
                         {
                             "title": "Module",
@@ -1212,7 +1214,8 @@
                 },
                 {
                     "title": "Item Display Panel Service",
-                    "component": "ComponentsItemDisplayPanelServiceNg1Component",
+                    "component":
+                        "ComponentsItemDisplayPanelServiceNg1Component",
                     "version": "AngularJS",
                     "deprecated": true
                 },
@@ -1240,20 +1243,18 @@
                     "title": "Popover",
                     "component": "ComponentsPopoverComponent",
                     "version": "Angular",
-                    "usage": [
-                        {
-                            "title": "Selector",
-                            "content": "[uxPopover]"
-                        },
-                        {
-                            "title": "Module",
-                            "content": "PopoverModule"
-                        },
-                        {
-                            "title": "Exported As",
-                            "content": "ux-popover"
-                        }
-                    ]
+                    "usage": [{
+                        "title": "Selector",
+                        "content": "[uxPopover]"
+                    },
+                    {
+                        "title": "Module",
+                        "content": "PopoverModule"
+                    },
+                    {
+                        "title": "Exported As",
+                        "content": "ux-popover"
+                    }]
                 },
                 {
                     "title": "Popover",
@@ -1474,8 +1475,7 @@
                         {
                             "title": "Selector",
                             "content": "ux-select-list"
-                        },
-                        {
+                        },{
                             "title": "Selector",
                             "content": "ux-select-list-item"
                         },
@@ -1520,20 +1520,18 @@
                     "component": "ComponentsSplitterComponent",
                     "version": "Angular",
                     "externalUrl": "https://bertrandg.github.io/angular-split/#/",
-                    "usage": [
-                        {
-                            "title": "Selector",
-                            "content": "split"
-                        },
-                        {
-                            "title": "Module",
-                            "content": "AngularSplitModule"
-                        },
-                        {
-                            "title": "Library",
-                            "content": "angular-split"
-                        }
-                    ]
+                    "usage": [{
+                        "title": "Selector",
+                        "content": "split"
+                    },
+                    {
+                        "title": "Module",
+                        "content": "AngularSplitModule"
+                    },
+                    {
+                        "title": "Library",
+                        "content": "angular-split"
+                    }]
                 },
                 {
                     "title": "Splitter",
@@ -1549,7 +1547,8 @@
                 },
                 {
                     "title": "Layout Switching Splitter",
-                    "component": "ComponentsLayoutSwitchingSplitterNg1Component",
+                    "component":
+                        "ComponentsLayoutSwitchingSplitterNg1Component",
                     "version": "AngularJS",
                     "deprecated": true
                 },
@@ -1564,20 +1563,18 @@
                     "component": "ComponentsSideInsetPanelSplitterComponent",
                     "version": "Angular",
                     "externalUrl": "https://bertrandg.github.io/angular-split/#/",
-                    "usage": [
-                        {
-                            "title": "Selector",
-                            "content": "split"
-                        },
-                        {
-                            "title": "Module",
-                            "content": "AngularSplitModule"
-                        },
-                        {
-                            "title": "Library",
-                            "content": "angular-split"
-                        }
-                    ]
+                    "usage": [{
+                        "title": "Selector",
+                        "content": "split"
+                    },
+                    {
+                        "title": "Module",
+                        "content": "AngularSplitModule"
+                    },
+                    {
+                        "title": "Library",
+                        "content": "angular-split"
+                    }]
                 }
             ]
         },
@@ -1740,7 +1737,8 @@
                     "usage": [
                         {
                             "title": "Selectors",
-                            "content": "[uxHoverActionContainer], [uxHoverAction]"
+                            "content":
+                                "[uxHoverActionContainer], [uxHoverAction]"
                         },
                         {
                             "title": "Module",
@@ -1755,7 +1753,8 @@
                     "usage": [
                         {
                             "title": "Selectors",
-                            "content": "[uxLayoutSwitcher], [uxLayoutSwitcherItem]"
+                            "content":
+                                "[uxLayoutSwitcher], [uxLayoutSwitcherItem]"
                         },
                         {
                             "title": "Module",
@@ -1987,24 +1986,22 @@
                     "title": "Card Tabs",
                     "component": "ComponentsCardTabsComponent",
                     "version": "Angular",
-                    "usage": [
-                        {
-                            "title": "Selector",
-                            "content": "ux-card-tabset"
-                        },
-                        {
-                            "title": "Selector",
-                            "content": "ux-card-tab"
-                        },
-                        {
-                            "title": "Selector",
-                            "content": "[uxCardTabContent]"
-                        },
-                        {
-                            "title": "Module",
-                            "content": "CardTabsModule"
-                        }
-                    ]
+                    "usage": [{
+                        "title": "Selector",
+                        "content": "ux-card-tabset"
+                    },
+                    {
+                        "title": "Selector",
+                        "content": "ux-card-tab"
+                    },
+                    {
+                        "title": "Selector",
+                        "content": "[uxCardTabContent]"
+                    },
+                    {
+                        "title": "Module",
+                        "content": "CardTabsModule"
+                    }]
                 },
                 {
                     "title": "Card Tabs",
@@ -2017,21 +2014,19 @@
         {
             "title": "Timeline",
             "link": "timeline",
-            "sections": [
-                {
+
+            "sections": [{
                     "title": "Timeline",
                     "component": "ComponentsTimelineComponent",
                     "version": "Angular",
-                    "usage": [
-                        {
-                            "title": "Selector",
-                            "content": "ux-timeline"
-                        },
-                        {
-                            "title": "Module",
-                            "content": "TimelineModule"
-                        }
-                    ]
+                    "usage": [{
+                        "title": "Selector",
+                        "content": "ux-timeline"
+                    },
+                    {
+                        "title": "Module",
+                        "content": "TimelineModule"
+                    }]
                 },
                 {
                     "title": "Timeline",
@@ -2049,20 +2044,18 @@
                     "title": "Tooltips",
                     "component": "ComponentsTooltipsComponent",
                     "version": "Angular",
-                    "usage": [
-                        {
-                            "title": "Selector",
-                            "content": "[uxTooltip]"
-                        },
-                        {
-                            "title": "Module",
-                            "content": "TooltipModule"
-                        },
-                        {
-                            "title": "Exported As",
-                            "content": "ux-tooltip"
-                        }
-                    ]
+                    "usage": [{
+                        "title": "Selector",
+                        "content": "[uxTooltip]"
+                    },
+                    {
+                        "title": "Module",
+                        "content": "TooltipModule"
+                    },
+                    {
+                        "title": "Exported As",
+                        "content": "ux-tooltip"
+                    }]
                 },
                 {
                     "title": "Tooltips",
@@ -2077,27 +2070,26 @@
                 },
                 {
                     "title": "Single Line Overflow Tooltip",
-                    "component": "ComponentsSingleLineOverflowTooltipNg1Component",
+                    "component":
+                        "ComponentsSingleLineOverflowTooltipNg1Component",
                     "version": "AngularJS"
                 },
                 {
                     "title": "Static Tooltips",
                     "component": "ComponentsStaticTooltipComponent",
                     "version": "Angular",
-                    "usage": [
-                        {
-                            "title": "Selector",
-                            "content": "[uxPopover]"
-                        },
-                        {
-                            "title": "Module",
-                            "content": "PopoverModule"
-                        },
-                        {
-                            "title": "Exported As",
-                            "content": "ux-popover"
-                        }
-                    ]
+                    "usage": [{
+                        "title": "Selector",
+                        "content": "[uxPopover]"
+                    },
+                    {
+                        "title": "Module",
+                        "content": "PopoverModule"
+                    },
+                    {
+                        "title": "Exported As",
+                        "content": "ux-popover"
+                    }]
                 },
                 {
                     "title": "Static Tooltips",
@@ -2199,7 +2191,8 @@
                 },
                 {
                     "title": "Tree Grid Asynchronous Loading",
-                    "component": "ComponentsTreeGridAsynchronousLoadingNg1Component",
+                    "component":
+                        "ComponentsTreeGridAsynchronousLoadingNg1Component",
                     "version": "AngularJS",
                     "hybrid": true,
                     "deprecated": true
