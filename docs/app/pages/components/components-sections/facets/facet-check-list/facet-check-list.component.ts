@@ -14,7 +14,6 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 export class ComponentsFacetCheckListComponent extends BaseDocumentationSection implements IPlaygroundProvider {
 
     facets: Facet[] = [];
-    id: string = 'uniqueID';
 
     playground: IPlayground = {
         files: {

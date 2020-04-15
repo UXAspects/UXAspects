@@ -21,24 +21,11 @@ export class FacetCheckListTestComponent {
         this.facets.push(new Facet('Allen Lucas'));
         this.facets.push(new Facet('Austin Allison'));
         this.facets.push(new Facet('Bertie Manning'));
-
-        // sort the users alphabetically
-        this.facets.sort((facetOne, facetTwo) => {
-            if (facetOne.title < facetTwo.title) {
-                return -1;
-            }
-
-            if (facetOne.title > facetTwo.title) {
-                return 1;
-            }
-
-            return 0;
-        });
     }
 
 }
 
-describe('Facet-Check-List Component', () => {
+describe('Facet-Check-List', () => {
     let component: FacetCheckListTestComponent;
     let fixture: ComponentFixture<FacetCheckListTestComponent>;
     let nativeElement: HTMLElement;

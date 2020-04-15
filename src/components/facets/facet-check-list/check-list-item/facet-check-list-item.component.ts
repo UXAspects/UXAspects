@@ -8,8 +8,9 @@ import { Facet } from '../../models/facet';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FacetCheckListItemComponent implements FocusableOption {
+
     @Input() @HostBinding()
-    id: string = `ux-facet-check-list-item-`;
+    id: string;
 
     @Input() facet: Facet = null;
     @Input() selected: boolean = false;
