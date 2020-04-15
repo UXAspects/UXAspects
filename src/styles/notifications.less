@@ -273,7 +273,6 @@ ux-alert {
     position: relative;
 
     .ux-badge {
-        display: block;
         position: absolute;
         text-align: center;
         background-color: #000;
@@ -281,36 +280,32 @@ ux-alert {
         box-sizing: border-box;
         padding: 0;
         margin: 0;
-        text-transform: none !important;
-        font-family: @font-family !important;
+        text-transform: none;
+        font-weight: normal;
+        font-family: @font-family;
         pointer-events: none;
+        vertical-align: middle;
     }
 
     &.ux-badge-small .ux-badge {
-        height: 12px;
-        min-width: 12px;
         border-radius: 6px;
-        padding: 1px 4px;
+        padding: 0 4px 1px;
         font-size: 10px;
-        line-height: 0.95em;
+        line-height: 11px;
     }
 
     &.ux-badge-medium .ux-badge {
-        height: 16px;
-        min-width: 16px;
         border-radius: 8px;
-        padding: 2px 6px;
+        padding: 0 6px 1px;
         font-size: 12px;
-        line-height: 0.95em;
+        line-height: 15px;
     }
 
     &.ux-badge-large .ux-badge {
-        height: 20px;
-        min-width: 20px;
         border-radius: 10px;
-        padding: 2px 8px;
+        padding: 0 8px 1px;
         font-size: 16px;
-        line-height: 0.9em;
+        line-height: 20px;
     }
 
     &.ux-badge-above,
@@ -414,4 +409,9 @@ button.ux-badge-container:focus {
     .ux-badge {
         outline: none !important;
     }
+}
+
+ux-icon.ux-badge-container .ux-badge {
+    white-space: nowrap;
+    display: block;
 }

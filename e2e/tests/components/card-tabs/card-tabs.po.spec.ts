@@ -1,6 +1,7 @@
 import { $, $$, browser, ElementFinder } from 'protractor';
 
 export class CardTabsPage {
+
     tabset = $('ux-card-tabset');
     tabs = $$('.card-tab');
     content = $('.card-tab-content');

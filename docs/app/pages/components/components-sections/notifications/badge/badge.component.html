@@ -12,8 +12,6 @@
     </ux-icon>
 </div>
 
-<hr />
-
 <div class="row uxd-customize-example">
     <div class="col-md-12">
         <ux-accordion>
@@ -22,13 +20,13 @@
                     <div class="col-md-6 col-sm-12">
                         <label for="uxBadge">uxBadge</label>
                         <div class="input-group m-b-sm">
-                            <input type="text" placeholder="Enter description" class="form-control"
-                                [(ngModel)]="badgeContent">
+                            <input type="text" class="form-control" [(ngModel)]="badgeContent">
                         </div>
                     </div>
                     <div class="col-md-6 col-sm-12">
                         <label for="badgeMaxValue">badgeMaxValue</label>
-                        <ux-number-picker [(value)]="badgeMaxValue" min="0" max="1000000"></ux-number-picker>
+                        <ux-number-picker-inline [(value)]="badgeMaxValue" min="0" max="1000000">
+                        </ux-number-picker-inline>
                     </div>
                 </div>
                 <div class="row uxd-customize-row">
@@ -97,16 +95,17 @@
     </div>
 </div>
 
-<p>
-    The <code>ux-badge</code> directive can be used to easily attached a badge to any DOM element to be used as a
-    label/tag, or to show (x) number of new items relating to it etc.
-</p>
+<hr />
 
+<p>
+    The <code>uxBadge</code> directive can be added to any element to provide additional information as a badge, such as
+    status text or unread count.
+</p>
 <p><strong>Note:</strong> the badge directive relies on the CSS overflow property being set to <code>visible</code> for
     the subject element due to how the badge element attaches to it. If you want to use <code>hidden</code>, you will
-    need to add a wrapper element within the subject so it only afters the contents.</p>
+    need to add a wrapper element around the subject so it only after the contents.</p>
 <p>
-    The appearance and behavior of the directive can be configured using the following attributes:
+    The appearance and behavior of the directive can be configured using the following properties:
 </p>
 
 <uxd-api-properties tableTitle="Inputs">
@@ -115,28 +114,28 @@
         available in the <code>ColorService</code>.
     </tr>
     <tr uxd-api-property name="badgeValueLimit" type="number">
-        Sets a character / number limit on the content within the badge. If the content is a number and larger than this
-        value it will display this value with an appended<strong>+</strong>, otherwise the content will be treated as
-        text and use this value to truncate the number of characters displayed followed by an ellipsis
+        Sets a character or number limit on the content within the badge. If the content is a number and larger than
+        this value it will display this value with an appended<strong>+</strong>, otherwise the content will be treated
+        as text and use this value to truncate the number of characters displayed followed by an ellipsis
         (<strong>&hellip;</strong>).
     </tr>
     <tr uxd-api-property name="badgeVerticalPosition" type="'above'|'below'" defaultValue="'above'">
-        The vertical position of the badge in relation to it's parent element.
+        The vertical position of the badge in relation to its subject element.
     </tr>
     <tr uxd-api-property name="badgeHorizontalPosition" type="'before'|'after'" defaultValue="'after'">
-        The horizontal position of the badge in relation to it's subject
+        The horizontal position of the badge in relation to its subject
         element.
     </tr>
     <tr uxd-api-property name="badgeOverlap" type="string" defaultValue="true">
-        This will determine whether the badge content will overlap it's subject element. If overlap is
+        This will determine whether the badge content will overlap its subject element. If overlap is
         <code>false</code> the badge will start after the end of the subject element, otherwise
-        if it is set to <code>true</code> the badge horizitonal center will be at the end of it's subject element.
+        if it is set to <code>true</code> the badge horizontal center will be at the end of its subject element.
     </tr>
     <tr uxd-api-property name="badgeSize" type="string" defaultValue="'small'|'medium'|'large'">
         The size of the badge.
     </tr>
     <tr uxd-api-property name="badgeHidden" type="boolean" defaultValue="false">
-        This visibility of the badge.
+        Whether the badge is visible.
     </tr>
 </uxd-api-properties>
 

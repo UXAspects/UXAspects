@@ -23,7 +23,6 @@ const badgeSelector = '.ux-badge';
 })
 export class BadgeTestComponent {
     badgeContentText: string = 'Some badge';
-    ariaDescription: string;
     badgeColor: string = '#000';
     maxValue: number = null;
     hidden: boolean = false;
@@ -62,25 +61,9 @@ describe('Badge', () => {
         expect(buttonWithBadge.classList.contains('ux-badge-after')).toBeTruthy();
 
         expect(badge.textContent).toBe('Some badge');
-        expect(badge.getAttribute('aria-describedby')).toBe(badge.textContent);
 
         expect(badge.style.background).toBe('rgb(0, 0, 0)');
         expect(badge.style.color).toBe('rgb(255, 255, 255)');
-    });
-
-    it('should have seperate text and aria labels', async () => {
-        const badgeText = 'The badge itself';
-        const ariaDescription = 'This is some different text';
-        component.badgeContentText = badgeText;
-        component.ariaDescription = ariaDescription;
-        fixture.detectChanges();
-        await fixture.whenStable();
-
-        let buttonWithBadge: HTMLButtonElement = document.querySelector(buttonSelector);
-        let badge: HTMLSpanElement = buttonWithBadge.querySelector(badgeSelector);
-
-        expect(badge.textContent).toBe(badgeText);
-        expect(badge.getAttribute('aria-describedby')).toBe(ariaDescription);
     });
 
     it('should set the background correctly', async () => {
