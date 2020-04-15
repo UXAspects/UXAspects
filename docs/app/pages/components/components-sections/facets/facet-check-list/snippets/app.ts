@@ -10,7 +10,6 @@ export class AppComponent {
 
     facets: Facet[] = [];
     event: string;
-    id: string = 'uniqueID';
 
     constructor() {
 
