@@ -31,7 +31,7 @@
         Defines the text displayed at the top of the Facet Check List.
     </tr>
     <tr uxd-api-property name="scrollbar" type="boolean" defaultValue="true">
-        If <code>false</code> the list will grow to display all possible facets. 
+        If <code>false</code> the list will grow to display all possible facets.
         If <code>true</code> a scrollbar will appear to prevent the list from growing too large.
     </tr>
     <tr uxd-api-property name="expanded" type="boolean" defaultValue="true">
@@ -39,6 +39,9 @@
     </tr>
     <tr uxd-api-property name="simplified" type="boolean" defaultValue="false">
         Defines whether or not the checkboxes will appear in simplified form.
+    </tr>
+    <tr uxd-api-property name="id" type="string">
+        Sets the HTML <code>id</code> of the component. For accessibility purposes, the <code>id</code> of the child component <code>ux-facet-check-list-item</code> will be this value with the <code>-check-list-item</code> suffix.
     </tr>
 </uxd-api-properties>
 
@@ -48,7 +51,7 @@
     </tr>
     <tr uxd-api-property name="events" type="FacetEvent">
         This will be triggered when a facet is selected, deselected or all facets are deselected. The event will be an
-                instance of either <code>FacetSelect</code>, <code>FacetDeselect</code> or <code>FacetDeselectAll</code> 
+                instance of either <code>FacetSelect</code>, <code>FacetDeselect</code> or <code>FacetDeselectAll</code>
                 and will contain the facet being selected or deselected in a <code>facet</code> property (deselect all will not contain affected facets).
     </tr>
 </uxd-api-properties>

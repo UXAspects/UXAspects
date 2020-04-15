@@ -1,5 +1,5 @@
 import { FocusableOption } from '@angular/cdk/a11y';
-import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, HostBinding, Input, Output, ViewChild } from '@angular/core';
 import { Facet } from '../../models/facet';
 
 @Component({
@@ -8,6 +8,9 @@ import { Facet } from '../../models/facet';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FacetCheckListItemComponent implements FocusableOption {
+
+    @Input() @HostBinding()
+    id: string;
 
     @Input() facet: Facet = null;
     @Input() selected: boolean = false;

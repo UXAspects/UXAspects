@@ -31,14 +31,14 @@ export class ComponentsFacetCheckListComponent extends BaseDocumentationSection 
 
         // generate some facets
         for (let idx = 0; idx < 30; idx++) {
-            this.facets.push(new Facet(chance.name(), null, chance.integer({ min: 0, max: 100})));
+            this.facets.push(new Facet(chance.name(), null, chance.integer({ min: 0, max: 100 })));
         }
 
         // sort the users alphabetically
         this.facets.sort((facetOne, facetTwo) => {
             if (facetOne.title < facetTwo.title) {
                 return -1;
-            } 
+            }
 
             if (facetOne.title > facetTwo.title) {
                 return 1;
