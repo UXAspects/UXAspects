@@ -5757,6 +5757,10 @@
              */
             this.selectedChange = new i0.EventEmitter();
             /**
+             * Emitted when the user changes the colour input mode
+             */
+            this.inputModeChange = new i0.EventEmitter();
+            /**
              * Emitted when the user presses enter in the input panel text field. This can be used to commit a color change and/or close a popup.
              */
             this.inputSubmit = new i0.EventEmitter();
@@ -5871,7 +5875,7 @@
                     }
                 });
                 // Set the width based on column count and button size
-                rxjs.combineLatest(this.columns$, this.buttonSize$)
+                rxjs.combineLatest([this.columns$, this.buttonSize$])
                     .pipe(operators.takeUntil(this._onDestroy))
                     .subscribe(function (_a) {
                     var _b = __read(_a, 2), columns = _b[0], buttonSize = _b[1];
@@ -5917,7 +5921,25 @@
          * @return {?}
          */
             function () {
+                // update the input mode
                 this.inputMode = (this.inputMode === 'hex') ? 'rgba' : 'hex';
+                // emit the new input mode
+                this.inputModeChange.emit(this.inputMode);
+                // get the current color value if there is one
+                /** @type {?} */
+                var color = this.selected$.value;
+                // if there is no selected color property then skip
+                if (color) {
+                    // get the new color value
+                    /** @type {?} */
+                    var newColor = this.inputMode === 'hex' ? color.hex : color.rgba;
+                    // update the selected color value based on the input mode
+                    this.updateColorValue(newColor, this.inputMode);
+                    // forcibly update the validation status of ngModel to prevent any
+                    // incorrect error states in the underlying form control
+                    // (running change detection will not suffice)
+                    this.inputFormControl.control.setValue(newColor);
+                }
             };
         ColorPickerComponent.decorators = [
             { type: i0.Component, args: [{
@@ -5937,8 +5959,10 @@
             showInput: [{ type: i0.Input }],
             inputMode: [{ type: i0.Input }],
             selectedChange: [{ type: i0.Output }],
+            inputModeChange: [{ type: i0.Output }],
             inputSubmit: [{ type: i0.Output }],
-            cssWidth: [{ type: i0.HostBinding, args: ['style.width',] }]
+            cssWidth: [{ type: i0.HostBinding, args: ['style.width',] }],
+            inputFormControl: [{ type: i0.ViewChild, args: ['inputField', { static: false },] }]
         };
         return ColorPickerComponent;
     }());
@@ -17307,11 +17331,12 @@
         FacetCheckListItemComponent.decorators = [
             { type: i0.Component, args: [{
                         selector: 'ux-facet-check-list-item',
-                        template: "<div #option\n    uxFocusIndicator\n    class=\"facet-check-list-item\"\n    [class.facet-active]=\"selected\"\n    [attr.aria-checked]=\"selected\"\n    role=\"option\"\n    [tabindex]=\"tabbable ? 0 : -1\"\n    (focus)=\"itemFocus.emit()\"\n    (blur)=\"itemBlur.emit()\"\n    (click)=\"selectedChange.emit(facet)\"\n    (keydown.enter)=\"selectedChange.emit(facet)\"\n    (keydown.space)=\"selectedChange.emit(facet); $event.preventDefault()\"\n    (keydown.spacebar)=\"selectedChange.emit(facet); $event.preventDefault()\"\n    [class.disabled]=\"facet?.disabled\">\n\n    <!-- Show check icon to indicate the state -->\n    <ux-checkbox [clickable]=\"false\" [value]=\"selected\" [simplified]=\"simplified\" [tabindex]=\"-1\" [disabled]=\"disabled\">\n        <span class=\"facet-check-list-item-title\">{{ facet?.title }}</span>\n        <span *ngIf=\"facet?.count !== undefined\" class=\"facet-check-list-item-count\">({{ facet?.count }})</span>\n    </ux-checkbox>\n</div>",
+                        template: "<div #option\n    uxFocusIndicator\n    class=\"facet-check-list-item\"\n    [class.facet-active]=\"selected\"\n    [attr.aria-checked]=\"selected\"\n    role=\"option\"\n    [tabindex]=\"tabbable ? 0 : -1\"\n    (focus)=\"itemFocus.emit()\"\n    (blur)=\"itemBlur.emit()\"\n    (click)=\"selectedChange.emit(facet)\"\n    (keydown.enter)=\"selectedChange.emit(facet)\"\n    (keydown.space)=\"selectedChange.emit(facet); $event.preventDefault()\"\n    (keydown.spacebar)=\"selectedChange.emit(facet); $event.preventDefault()\"\n    [class.disabled]=\"facet?.disabled\">\n\n    <!-- Show check icon to indicate the state -->\n    <ux-checkbox [clickable]=\"false\" [value]=\"selected\" [simplified]=\"simplified\" [tabindex]=\"-1\" [disabled]=\"disabled\" [id]=\"id + '-checkbox'\">\n        <span class=\"facet-check-list-item-title\">{{ facet?.title }}</span>\n        <span *ngIf=\"facet?.count !== undefined\" class=\"facet-check-list-item-count\">({{ facet?.count }})</span>\n    </ux-checkbox>\n</div>",
                         changeDetection: i0.ChangeDetectionStrategy.OnPush
                     }] }
         ];
         FacetCheckListItemComponent.propDecorators = {
+            id: [{ type: i0.Input }, { type: i0.HostBinding }],
             facet: [{ type: i0.Input }],
             selected: [{ type: i0.Input }],
             tabbable: [{ type: i0.Input }],
@@ -17327,10 +17352,13 @@
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
+    /** @type {?} */
+    var uniqueId$3 = 0;
     var FacetCheckListComponent = /** @class */ (function () {
         function FacetCheckListComponent(facetService) {
             var _this = this;
             this.facetService = facetService;
+            this.id = "ux-facet-check-list-" + uniqueId$3++;
             /**
              * Defines the complete list of facets that can be selected.
              */
@@ -17472,7 +17500,7 @@
         FacetCheckListComponent.decorators = [
             { type: i0.Component, args: [{
                         selector: 'ux-facet-check-list',
-                        template: "<ux-facet-header [header]=\"header\" [(expanded)]=\"expanded\"></ux-facet-header>\n\n<!-- Create a container which will show when section is expanded -->\n<div class=\"facet-check-list-container\"\n    tabindex=\"-1\"\n    role=\"listbox\"\n    [class.facet-check-list-scrollbar]=\"scrollbar\"\n    [class.facet-check-list-scrollbar-focused]=\"isFocused\"\n    *ngIf=\"expanded\">\n\n    <!-- Iterate through each possible facet -->\n    <ux-facet-check-list-item *ngFor=\"let facet of facets; let index = index\"\n        [facet]=\"facet\"\n        [simplified]=\"simplified\"\n        [tabbable]=\"activeIndex === index\"\n        [selected]=\"facetService.isSelected(facet)\"\n        (selectedChange)=\"toggleFacet(index, facet)\"\n        (keydown)=\"onKeydown($event)\"\n        (itemFocus)=\"isFocused = true; onFocus(index)\"\n        (itemBlur)=\"isFocused = false\">\n    </ux-facet-check-list-item>\n\n</div>"
+                        template: "<ux-facet-header [header]=\"header\" [(expanded)]=\"expanded\"></ux-facet-header>\n\n<!-- Create a container which will show when section is expanded -->\n<div class=\"facet-check-list-container\"\n    tabindex=\"-1\"\n    role=\"listbox\"\n    [class.facet-check-list-scrollbar]=\"scrollbar\"\n    [class.facet-check-list-scrollbar-focused]=\"isFocused\"\n    *ngIf=\"expanded\">\n\n    <!-- Iterate through each possible facet -->\n    <ux-facet-check-list-item *ngFor=\"let facet of facets; let index = index\"\n        [id]=\"id + '-check-list-item-' + index\"\n        [facet]=\"facet\"\n        [simplified]=\"simplified\"\n        [tabbable]=\"activeIndex === index\"\n        [selected]=\"facetService.isSelected(facet)\"\n        (selectedChange)=\"toggleFacet(index, facet)\"\n        (keydown)=\"onKeydown($event)\"\n        (itemFocus)=\"isFocused = true; onFocus(index)\"\n        (itemBlur)=\"isFocused = false\">\n    </ux-facet-check-list-item>\n\n</div>"
                     }] }
         ];
         /** @nocollapse */
@@ -17482,6 +17510,7 @@
             ];
         };
         FacetCheckListComponent.propDecorators = {
+            id: [{ type: i0.Input }, { type: i0.HostBinding }],
             selected: [{ type: i0.Input }],
             facets: [{ type: i0.Input }],
             header: [{ type: i0.Input }],
@@ -17677,7 +17706,7 @@
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
     /** @type {?} */
-    var uniqueId$3 = 0;
+    var uniqueId$4 = 0;
     /**
      * @template T
      */
@@ -17693,7 +17722,7 @@
             /**
              * Define a unique id for the typeahead
              */
-            this.id = "ux-typeahead-" + ++uniqueId$3;
+            this.id = "ux-typeahead-" + ++uniqueId$4;
             /**
              * Specify the drop direction
              */
@@ -19473,7 +19502,7 @@
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
     /** @type {?} */
-    var uniqueId$4 = 1;
+    var uniqueId$5 = 1;
     var FacetTypeaheadListComponent = /** @class */ (function () {
         function FacetTypeaheadListComponent(typeaheadKeyService, facetService, _announcer) {
             this.typeaheadKeyService = typeaheadKeyService;
@@ -19508,7 +19537,7 @@
             this.query$ = new rxjs.BehaviorSubject('');
             this.loading = false;
             this.activeIndex = 0;
-            this.typeaheadId = "ux-facet-typeahead-" + uniqueId$4++;
+            this.typeaheadId = "ux-facet-typeahead-" + uniqueId$5++;
             this.typeaheadOpen = false;
             this.typeaheadOptions = [];
             this._facets = [];
@@ -20941,7 +20970,7 @@
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
     /** @type {?} */
-    var uniqueId$5 = 1;
+    var uniqueId$6 = 1;
     var FilterDynamicComponent = /** @class */ (function () {
         function FilterDynamicComponent(typeaheadKeyService, _filterService) {
             var _this = this;
@@ -20954,7 +20983,7 @@
             /**
              * Generate a unique id for the typeahead
              */
-            this.typeaheadId = "ux-filter-dynamic-typeahead-" + uniqueId$5++;
+            this.typeaheadId = "ux-filter-dynamic-typeahead-" + uniqueId$6++;
             /**
              * Store the current search query
              */
@@ -24941,7 +24970,7 @@
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
     /** @type {?} */
-    var uniqueId$6 = 0;
+    var uniqueId$7 = 0;
     var WizardComponent = /** @class */ (function () {
         function WizardComponent() {
             /**
@@ -25073,7 +25102,7 @@
              */
             this.stepError = new i0.EventEmitter();
             this.steps = new i0.QueryList();
-            this.id = "ux-wizard-" + uniqueId$6++;
+            this.id = "ux-wizard-" + uniqueId$7++;
             this.invalidIndicator = false;
             this._step = 0;
             this._onDestroy = new rxjs.Subject();
@@ -27890,7 +27919,7 @@
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
     /** @type {?} */
-    var uniqueId$7 = 1;
+    var uniqueId$8 = 1;
     var MediaPlayerControlsExtensionComponent = /** @class */ (function (_super) {
         __extends(MediaPlayerControlsExtensionComponent, _super);
         function MediaPlayerControlsExtensionComponent() {
@@ -27898,7 +27927,7 @@
             _this.volumeActive = false;
             _this.volumeFocus = false;
             _this.returnFocus = true;
-            _this.subtitlesId = "ux-media-player-subtitle-popover-" + uniqueId$7++;
+            _this.subtitlesId = "ux-media-player-subtitle-popover-" + uniqueId$8++;
             _this.subtitlesOpen = false;
             _this.mouseEnterVolume = new rxjs.Subject();
             _this.mouseLeaveVolume = new rxjs.Subject();
@@ -32112,7 +32141,7 @@
         }
         PageHeaderCustomMenuDirective.decorators = [
             { type: i0.Directive, args: [{
-                        selector: '[uxPageHeaderCustomMenu]'
+                        selector: '[uxPageHeaderCustomMenu], [uxPageHeaderCustomItem]'
                     },] }
         ];
         return PageHeaderCustomMenuDirective;
@@ -37660,7 +37689,7 @@
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
     /** @type {?} */
-    var uniqueId$8 = 0;
+    var uniqueId$9 = 0;
     /** @type {?} */
     var SELECT_VALUE_ACCESSOR = {
         provide: forms.NG_VALUE_ACCESSOR,
@@ -37679,7 +37708,7 @@
             /**
              * A unique id for the component.
              */
-            this.id = "ux-select-" + ++uniqueId$8;
+            this.id = "ux-select-" + ++uniqueId$9;
             /**
              * Controls whether the value of the single select control can be cleared by deleting the selected value in the
              * input field. This does not affect the initial state of the control, so specify a value for `value` if null should
@@ -38221,7 +38250,7 @@
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
     /** @type {?} */
-    var uniqueId$9 = 0;
+    var uniqueId$a = 0;
     /** @type {?} */
     var TAGINPUT_VALUE_ACCESSOR = {
         provide: forms.NG_VALUE_ACCESSOR,
@@ -38245,7 +38274,7 @@
             /**
              * Specify a unique Id for the component
              */
-            this.id = "ux-tag-input-" + ++uniqueId$9;
+            this.id = "ux-tag-input-" + ++uniqueId$a;
             /**
              * The editable text appearing in the tag input.
              */
@@ -44343,13 +44372,13 @@
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
     /** @type {?} */
-    var uniqueId$a = 0;
+    var uniqueId$b = 0;
     var TimelineEventComponent = /** @class */ (function () {
         function TimelineEventComponent() {
             /**
              * Define the id for the event
              */
-            this.id = "ux-timeline-event-" + uniqueId$a++;
+            this.id = "ux-timeline-event-" + uniqueId$b++;
         }
         TimelineEventComponent.decorators = [
             { type: i0.Component, args: [{
