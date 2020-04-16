@@ -1,8 +1,27 @@
 <div class="badge-container">
     <!-- icon example no content -->
-    <div>
-        <ux-icon name="filter" uxBadge badgeColor="warning"></ux-icon>
-    </div>
+    <ul class="element-list">
+        <ng-container *ngFor="let vertPos of verticalPositions">
+            <ng-container *ngFor="let horzPos of horizontalPositions">
+                <li>
+                    <ux-icon name="filter" uxBadge badgeColor="warning" badgeVerticalPosition="{{ vertPos }}"
+                        badgeHorizontalPosition="{{ horzPos }}"></ux-icon>
+                </li>
+            </ng-container>
+        </ng-container>
+    </ul>
+    <hr />
+    <!-- icon example no content with overlap -->
+    <ul class="element-list">
+        <ng-container *ngFor="let vertPos of verticalPositions">
+            <ng-container *ngFor="let horzPos of horizontalPositions">
+                <li>
+                    <ux-icon name="filter" uxBadge badgeColor="partition9" badgeVerticalPosition="{{ vertPos }}"
+                        badgeHorizontalPosition="{{ horzPos }}" [badgeOverlap]="true"></ux-icon>
+                </li>
+            </ng-container>
+        </ng-container>
+    </ul>
     <hr />
     <!-- size examples - using icons -->
     <ul class="element-list">
@@ -58,8 +77,8 @@
     </ul>
     <hr />
     <!-- hidden example -->
-    <a href="#/badge" uxBadge="7483" badgeMaxValue="99" badgeVerticalPosition="above"
-        badgeHorizontalPosition="after" badgeSize="medium" badgeColor="chart4" [badgeHidden]="true">
+    <a href="#/badge" uxBadge="7483" badgeMaxValue="99" badgeVerticalPosition="above" badgeHorizontalPosition="after"
+        badgeSize="medium" badgeColor="chart4" [badgeHidden]="true">
         Hidden badge example
     </a>
 </div>
