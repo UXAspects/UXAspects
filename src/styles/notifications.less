@@ -399,7 +399,7 @@ ux-icon.ux-badge-container .ux-badge {
 }
 
 // firefox tweaks
-@supports (-moz-appearance:none) {
+@-moz-document url-prefix() {
     .ux-badge-container {
         &.ux-badge-small .ux-badge {
             padding: 0 4px 1px;
@@ -409,6 +409,26 @@ ux-icon.ux-badge-container .ux-badge {
         &.ux-badge-medium .ux-badge {
             padding: 0 6px 1px;
             line-height: 15px;
+        }
+
+        &.ux-badge-large .ux-badge {
+            padding: 0 8px 1px;
+            line-height: 19px;
+        }
+    }
+}
+
+// Edge tweaks
+@supports (-ms-ime-align:auto) {
+    .ux-badge-container {
+        &.ux-badge-small .ux-badge {
+            padding: 0 4px 0.5px;
+            line-height: 11.5px;
+        }
+
+        &.ux-badge-medium .ux-badge {
+            padding: 0 6px 0.75px;
+            line-height: 15.25px;
         }
 
         &.ux-badge-large .ux-badge {
