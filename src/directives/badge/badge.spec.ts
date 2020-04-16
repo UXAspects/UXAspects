@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ContrastService } from '../accessibility/contrast-ratio/contrast.service';
+import { ColorService } from '../../services/color/color.service';
+import { ContrastService } from '../accessibility';
 import { BadgeModule } from './badge.module';
 
 const buttonSelector = 'button[class^=ux-badge]';
@@ -18,6 +19,7 @@ const badgeSelector = '.ux-badge';
             [badgeSize]="size"
             [badgeVerticalPosition]="verticalPosition"
             [badgeHorizontalPosition]="horizontalPosition"
+            [badgeOverlap]="overlap"
         ></button>
     `,
 })
@@ -29,6 +31,7 @@ export class BadgeTestComponent {
     size: string = 'medium';
     verticalPosition: string = 'above';
     horizontalPosition: string = 'after';
+    overlap: boolean = false;
 }
 
 describe('Badge', () => {
@@ -39,7 +42,7 @@ describe('Badge', () => {
     beforeEach(async () => {
         TestBed.configureTestingModule({
             imports: [BadgeModule],
-            providers: [ContrastService],
+            providers: [ContrastService, ColorService],
             declarations: [BadgeTestComponent],
         }).compileComponents();
     });
@@ -66,6 +69,13 @@ describe('Badge', () => {
         expect(badge.style.color).toBe('rgb(255, 255, 255)');
     });
 
+    it('should be able to create an empty badge (no content)', () => {
+        component.badgeContentText = null;
+        const buttonWithBadge: HTMLButtonElement = document.querySelector(buttonSelector);
+
+        expect(buttonWithBadge.classList.contains('ux-badge-no-content'));
+    });
+
     it('should set the background correctly', async () => {
         component.badgeColor = 'critical';
         fixture.detectChanges();
@@ -88,7 +98,6 @@ describe('Badge', () => {
         const buttonWithBadge: HTMLButtonElement = document.querySelector(buttonSelector);
         const badge: HTMLSpanElement = buttonWithBadge.querySelector(badgeSelector);
         expect(badge.textContent).toBe('A really long…');
-        expect(badge.getAttribute('title')).toBe(t);
     });
 
     it('should not affect a string shorter than the limit', async () => {
@@ -149,6 +158,15 @@ describe('Badge', () => {
 
         let buttonWithBadge: HTMLButtonElement = document.querySelector(buttonSelector);
         expect(buttonWithBadge.classList.contains('ux-badge-large')).toBeTruthy();
+    });
+
+    it('should be able to set to overlap the subject element', async () => {
+        component.overlap = true;
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        let buttonWithBadge: HTMLButtonElement = document.querySelector(buttonSelector);
+        expect(buttonWithBadge.classList.contains('ux-badge-overlap')).toBeTruthy();
     });
 
     it('should change the alignment of the badge', async () => {

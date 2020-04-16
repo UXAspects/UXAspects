@@ -1,52 +1,65 @@
 <div class="badge-container">
+    <!-- icon example no content -->
     <div>
-        <ux-icon id="iconExampleNoContent" name="filter" uxBadge [badgeColor]="icon.badgeColor">
-        </ux-icon>
+        <ux-icon name="filter" uxBadge badgeColor="warning"></ux-icon>
     </div>
     <hr />
-    <div>
-        <ux-icon id="iconExample" name="filter" [uxBadge]="icon.content" [badgeMaxValue]="icon.maxValue"
-            [badgeOverlap]="icon.overlap" [badgeVerticalPosition]="icon.verticalPosition"
-            [badgeHorizontalPosition]="icon.horizontalPosition" [badgeHidden]="icon.badgeHidden" [badgeSize]="icon.size"
-            [badgeColor]="icon.badgeColor">
-        </ux-icon>
-    </div>
+    <!-- size examples - using icons -->
+    <ul class="element-list">
+        <li *ngFor="let size of sizes">
+            <ux-icon name="mail" uxBadge="NEW" badgeVerticalPosition="above" badgeHorizontalPosition="after"
+                badgeSize="{{ size }}" badgeColor="critical"></ux-icon>
+        </li>
+    </ul>
     <hr />
-    <div>
-        <a id="anchorExample" href="#/badge" [uxBadge]="anchor.content" [badgeMaxValue]="anchor.maxValue"
-            [badgeOverlap]="anchor.overlap" [badgeVerticalPosition]="anchor.verticalPosition"
-            [badgeHorizontalPosition]="anchor.horizontalPosition" [badgeHidden]="anchor.badgeHidden"
-            [badgeSize]="anchor.size" [badgeColor]="anchor.badgeColor">
-            Messages
-        </a>
-        <div class="hidden-links">
-            <button id="setLimitOnAnchor" (click)="anchor.maxValue = 999; anchor.content = '1893'">Set anchor max
-                value</button>
-            <button id="setContentOnAnchor" (click)="anchor.content = '1894'">change anchor content</button>
-            <button id="setBackgroundOnAnchor" (click)="anchor.badgeColor= 'grey4'"> change anchor badge color</button>
-            <button id="setSizeOnAnchor" (click)="anchor.size= 'large'">change anchor badge size</button>
-        </div>
-    </div>
+    <!-- positioning examples - using buttons -->
+    <ul class="element-list">
+        <ng-container *ngFor="let vertPos of verticalPositions">
+            <ng-container *ngFor="let horzPos of horizontalPositions">
+                <li>
+                    <a href="#/badge" uxBadge="2" badgeVerticalPosition="{{ vertPos }}"
+                        badgeHorizontalPosition="{{ horzPos }}" badgeSize="medium" badgeColor="ok">
+                        Tasks
+                    </a>
+                </li>
+            </ng-container>
+        </ng-container>
+    </ul>
     <hr />
-    <div>
-        <button id="buttonExample" class="btn btn-warning" [uxBadge]="button.content" [badgeMaxValue]="button.maxValue"
-            [badgeOverlap]="button.overlap" [badgeVerticalPosition]="button.verticalPosition"
-            [badgeHorizontalPosition]="button.horizontalPosition" [badgeHidden]="button.badgeHidden"
-            [badgeSize]="button.size" [badgeColor]="button.badgeColor">
-            Messages
-        </button>
-        <div class="hidden-links">
-            <button id="setLimitOnButton"
-                (click)="button.maxValue = 16; button.content = 'Some really long text in here'">set
-                button max
-                value</button>
-            <button id="setBackgroundOnButton" (click)="button.badgeColor= 'accent'">set button badge color</button>
-            <button id="toggleHideOnButton" (click)="button.badgeHidden = !button.badgeHidden">toggle hide
-                on/off</button>
-            <button id="setPositionOnButton"
-                (click)="button.verticalPosition = 'above'; button.horizontalPosition = 'after'">set
-                button badge position</button>
-            <button id="removeOverlapOnButton" (click)="button.overlap = false">turn off overlap</button>
-        </div>
-    </div>
+    <!-- overlap with positioning examples -->
+    <ul class="element-list">
+        <ng-container *ngFor="let vertPos of verticalPositions">
+            <ng-container *ngFor="let horzPos of horizontalPositions">
+                <li>
+                    <button class="btn btn-primary" uxBadge="2" badgeVerticalPosition="{{ vertPos }}"
+                        badgeHorizontalPosition="{{ horzPos }}" [badgeOverlap]="true" badgeSize="medium"
+                        badgeColor="chart2">
+                        Messages
+                    </button>
+                </li>
+            </ng-container>
+        </ng-container>
+    </ul>
+    <hr />
+    <!-- truncation examples -->
+    <ul class="element-list">
+        <li>
+            <button class="btn btn-primary" uxBadge="7483" badgeMaxValue="99" badgeVerticalPosition="above"
+                badgeHorizontalPosition="after" badgeSize="medium" badgeColor="chart4">
+                Alerts
+            </button>
+        </li>
+        <li>
+            <button class="btn btn-primary" uxBadge="Action required on items" badgeMaxValue="15"
+                badgeVerticalPosition="above" badgeHorizontalPosition="after" badgeSize="medium" badgeColor="chart4">
+                Alerts
+            </button>
+        </li>
+    </ul>
+    <hr />
+    <!-- hidden example -->
+    <a href="#/badge" uxBadge="7483" badgeMaxValue="99" badgeVerticalPosition="above"
+        badgeHorizontalPosition="after" badgeSize="medium" badgeColor="chart4" [badgeHidden]="true">
+        Hidden badge example
+    </a>
 </div>

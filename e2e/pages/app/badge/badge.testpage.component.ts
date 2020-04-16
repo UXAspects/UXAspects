@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { anchorData, BadgeTestComponentData, buttonData, iconData } from './badge.testpage.data';
+import { BadgeHorizontalPosition, BadgeSize, BadgeVerticalPosition } from '../../../../src/directives/badge/index';
 
 @Component({
     selector: 'app-badge',
@@ -7,7 +7,7 @@ import { anchorData, BadgeTestComponentData, buttonData, iconData } from './badg
     styleUrls: ['./badge.testpage.component.less'],
 })
 export class BadgeTestPageComponent {
-    icon: BadgeTestComponentData = iconData;
-    anchor: BadgeTestComponentData = anchorData;
-    button: BadgeTestComponentData = buttonData;
+    sizes: BadgeSize[] = [ 'small', 'medium', 'large' ];
+    verticalPositions: BadgeVerticalPosition[]  = [ 'above', 'below' ];
+    horizontalPositions: BadgeHorizontalPosition[] = ['after', 'before'];
 }
