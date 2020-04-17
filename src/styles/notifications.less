@@ -275,39 +275,42 @@ ux-alert {
     .ux-badge {
         position: absolute;
         text-align: center;
+        display: inline-block;
         background-color: #000;
         color: #fff;
-        box-sizing: border-box;
-        padding: 0;
-        margin: 0;
         text-transform: none;
         font-weight: normal;
         font-family: @font-family;
         pointer-events: none;
+        overflow: hidden;
+        white-space: nowrap;
     }
 
     &.ux-badge-small .ux-badge {
         border-radius: 6px;
-        padding: 0 4px;
+        padding: 0.75px 4px 0;
         font-size: 10px;
-        line-height: 12px;
         height: 12px;
+        min-width: 12px;
+        line-height: 10px;
     }
 
     &.ux-badge-medium .ux-badge {
         border-radius: 8px;
-        padding: 0 6px;
+        padding: 1.5px 6px 0;
         font-size: 12px;
-        line-height: 16px;
         height: 16px;
+        min-width: 16px;
+        line-height: 12px;
     }
 
     &.ux-badge-large .ux-badge {
         border-radius: 10px;
-        padding: 0 8px;
+        padding: 1.5px 8px 0;
         font-size: 16px;
-        line-height: 20px;
         height: 20px;
+        min-width: 20px;
+        line-height: 16px;
     }
 
     &.ux-badge-above .ux-badge {
@@ -390,59 +393,5 @@ button.ux-badge-container:focus-within,
 button.ux-badge-container:focus {
     .ux-badge {
         outline: none !important;
-    }
-}
-
-ux-icon.ux-badge-container .ux-badge {
-    white-space: nowrap;
-    display: block;
-}
-
-// firefox tweaks
-@-moz-document url-prefix() {
-    .ux-badge-container {
-        &.ux-badge-small .ux-badge {
-            padding: 0 4px 1px;
-            line-height: 11px;
-        }
-
-        &.ux-badge-medium .ux-badge {
-            padding: 0 6px 1px;
-            line-height: 15px;
-        }
-
-        &.ux-badge-large .ux-badge {
-            padding: 0 8px 1px;
-            line-height: 19px;
-        }
-    }
-}
-
-// Edge tweaks
-@supports (-ms-ime-align:auto) {
-    .ux-badge-container {
-        &.ux-badge-small .ux-badge {
-            padding: 0 4px 0.5px;
-            line-height: 11.5px;
-        }
-
-        &.ux-badge-medium .ux-badge {
-            padding: 0 6px 0.75px;
-            line-height: 15.25px;
-        }
-
-        &.ux-badge-large .ux-badge {
-            padding: 0 8px 1px;
-            line-height: 19px;
-        }
-    }
-}
-
-// IE11 tweaks
-@media screen and (-ms-high-contrast: active), screen and (-ms-high-contrast: none) {
-    .ux-badge-container.ux-badge-large .ux-badge {
-        padding: 0 8px 1px;
-        line-height: 19px;
-        height: 20px;
     }
 }
