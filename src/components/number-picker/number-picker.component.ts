@@ -122,14 +122,6 @@ export class NumberPickerComponent implements ControlValueAccessor, OnDestroy, O
         this._isDestroyed = true;
     }
 
-    ngOnChanges(): void {
-        this._valid = this.isValid();
-    }
-
-    ngOnDestroy(): void {
-        this._isDestroyed = true;
-    }
-
     increment(event?: MouseEvent | KeyboardEvent): void {
         if (event) {
             event.preventDefault();

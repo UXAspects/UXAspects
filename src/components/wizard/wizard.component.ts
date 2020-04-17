@@ -229,24 +229,6 @@ export class WizardComponent implements AfterViewInit, OnDestroy {
     }
 
     /**
-     * Whether the Next or Finish button should be disabled.
-     */
-    isNextDisabled(): boolean {
-        const step = this.getCurrentStep();
-
-        // ensure the step is not null before we try to access its properties. It may be null if an ngFor is being
-        // used and the steps haven't rendered yet
-        if (!step) {
-            return false;
-        }
-
-        // Use the `disableNextWhenInvalid` setting to determine whether to disable the Next/Finish button
-        // based on validation.
-        // If not defined on the WizardStepComponent, use the value from WizardComponent.
-        return (step.disableNextWhenInvalid === undefined ? this.disableNextWhenInvalid : step.disableNextWhenInvalid) && !step.valid;
-    }
-
-    /**
      * Navigate to the previous step
      */
     previous(): void {
