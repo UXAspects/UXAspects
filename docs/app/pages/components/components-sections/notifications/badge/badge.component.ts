@@ -13,7 +13,8 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 @DocumentationSectionComponent('ComponentsBadgeComponent')
 export class ComponentsBadgeComponent extends BaseDocumentationSection implements IPlaygroundProvider {
     hideButton: boolean = true;
-    isPickerOpen: boolean = false;
+    isColorPickerOpen: boolean = false;
+    isBorderColorPickerOpen: boolean = false;
     badgeContent: string = '234';
     badgeMaxValue: number = 99;
     badgeSize: BadgeSize = 'medium';
@@ -37,6 +38,7 @@ export class ComponentsBadgeComponent extends BaseDocumentationSection implement
     ];
 
     selectedColor: ColorPickerColor = this.colors[0][2];
+    selectedBorderColor: ColorPickerColor = this.colors[0][2];
 
     playground: IPlayground = {
         files: {

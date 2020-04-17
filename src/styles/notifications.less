@@ -284,33 +284,36 @@ ux-alert {
         pointer-events: none;
         overflow: hidden;
         white-space: nowrap;
+        border: 1.5px solid transparent;
+        box-sizing: content-box;
     }
 
     &.ux-badge-small .ux-badge {
         border-radius: 6px;
-        padding: 0.75px 4px 0;
+        padding: 0 4px;
         font-size: 10px;
-        height: 12px;
+        height: 10px;
         min-width: 12px;
-        line-height: 10px;
+        line-height: 9.5px;
+        border-width: 1px;
     }
 
     &.ux-badge-medium .ux-badge {
         border-radius: 8px;
-        padding: 1.5px 6px 0;
+        padding: 0 6px;
         font-size: 12px;
-        height: 16px;
-        min-width: 16px;
-        line-height: 12px;
+        height: 12px;
+        min-width: 12px;
+        line-height: 11px;
     }
 
     &.ux-badge-large .ux-badge {
         border-radius: 10px;
-        padding: 1.5px 8px 0;
+        padding: 0 8px;
         font-size: 16px;
-        height: 20px;
-        min-width: 20px;
-        line-height: 16px;
+        height: 16px;
+        min-width: 16px;
+        line-height: 15px;
     }
 
     &.ux-badge-above .ux-badge {
@@ -322,11 +325,11 @@ ux-alert {
     }
 
     &.ux-badge-before .ux-badge {
-        left: -2px;
+        left: -3px;
     }
 
     &.ux-badge-after .ux-badge {
-        right: -2px;
+        right: -3px;
     }
 
     &.ux-badge-above.ux-badge-before {
@@ -380,10 +383,10 @@ ux-alert {
     &.ux-badge-no-content {
         .ux-badge {
             border-radius: 50%;
-            width: 10px;
-            height: 10px;
+            width: 7px;
+            height: 7px;
             display: block;
-            min-width: unset;
+            min-width: 7px;
             padding: 0;
         }
     }
@@ -393,5 +396,15 @@ button.ux-badge-container:focus-within,
 button.ux-badge-container:focus {
     .ux-badge {
         outline: none !important;
+    }
+}
+
+ux-icon.ux-badge-container {
+    .ux-badge-after .ux-badge {
+        margin-left: 2px;
+    }
+
+    .ux-badge-after .ux-badge {
+        margin-right: 2px;
     }
 }

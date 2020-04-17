@@ -57,9 +57,21 @@ export class BadgeDirective implements OnChanges, OnDestroy {
         return this._badgeColor.toHex();
     }
     set badgeColor(color: string) {
-        this._badgeColor = ThemeColor.parse(this._colorService.resolve(color));
+        this._badgeColor = this.parseThemeColor(color);
     }
     private _badgeColor: ThemeColor = this._darkColor;
+
+    /**
+     * Define the badge border color - if unset there is no border
+     */
+    @Input()
+    get badgeBorderColor(): string {
+        return this._badgeBorderColor.toHex();
+    }
+    set badgeBorderColor(color: string) {
+        this._badgeBorderColor = this.parseThemeColor(color);
+    }
+    private _badgeBorderColor: ThemeColor;
 
     /**
      * Set the badge vertical position in relation to the parent element
@@ -148,6 +160,10 @@ export class BadgeDirective implements OnChanges, OnDestroy {
             badgeElement.style.setProperty('background', this._badgeColor.toHex());
         }
 
+        if (this._badgeBorderColor) {
+            badgeElement.style.setProperty('border-color', this._badgeBorderColor.toHex());
+        }
+
         this._badgeElement = badgeElement;
         this._renderer.appendChild(this._element.nativeElement, this._badgeElement);
         badgeElement.style.removeProperty('display');
@@ -167,5 +183,15 @@ export class BadgeDirective implements OnChanges, OnDestroy {
                 this._contrastService.getContrastColor(this._badgeColor, this._lightColor, this._darkColor).toRgba()
             )
             : this._lightColor;
+    }
+
+    private parseThemeColor(color: string): ThemeColor {
+        let themeColor: ThemeColor = null;
+
+        if (color) {
+            themeColor = ThemeColor.parse(this._colorService.resolve(color));
+        }
+
+        return themeColor;
     }
 }

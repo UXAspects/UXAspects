@@ -14,6 +14,7 @@ const badgeSelector = '.ux-badge';
             id="button"
             [uxBadge]="badgeContentText"
             [badgeColor]="badgeColor"
+            [badgeBorderColor]="borderColor"
             [badgeMaxValue]="maxValue"
             [badgeHidden]="hidden"
             [badgeSize]="size"
@@ -26,6 +27,7 @@ const badgeSelector = '.ux-badge';
 export class BadgeTestComponent {
     badgeContentText: string = 'Some badge';
     badgeColor: string = '#000';
+    borderColor: string = null;
     maxValue: number = null;
     hidden: boolean = false;
     size: string = 'medium';
@@ -76,7 +78,7 @@ describe('Badge', () => {
         expect(buttonWithBadge.classList.contains('ux-badge-no-content'));
     });
 
-    it('should set the background correctly', async () => {
+    it('should set the background color correctly', async () => {
         component.badgeColor = 'critical';
         fixture.detectChanges();
         await fixture.whenStable();
@@ -88,7 +90,18 @@ describe('Badge', () => {
         expect(badge.style.color).toBe('rgb(0, 0, 0)');
     });
 
-    it('should set the truncate text', async () => {
+    it('should set the border color correctly', async () => {
+        component.borderColor = 'critical';
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        const buttonWithBadge: HTMLButtonElement = document.querySelector(buttonSelector);
+        const badge: HTMLSpanElement = buttonWithBadge.querySelector(badgeSelector);
+
+        expect(badge.style.borderColor).toBe('rgb(255, 69, 79)');
+    });
+
+    it('should truncate the text when max value is set (string length)', async () => {
         const t = 'A really long badge title';
         component.badgeContentText = t;
         component.maxValue = 13;
@@ -100,7 +113,7 @@ describe('Badge', () => {
         expect(badge.textContent).toBe('A really long…');
     });
 
-    it('should not affect a string shorter than the limit', async () => {
+    it('should not affect a string shorter than the max value (string length)', async () => {
         const t = 'What`s new';
         component.badgeContentText = t;
         component.maxValue = 13;
@@ -113,7 +126,7 @@ describe('Badge', () => {
         expect(badge.getAttribute('title')).toBeFalsy();
     });
 
-    it('should limit a number', async () => {
+    it('should limit a number when max value is set (actual value)', async () => {
         component.badgeContentText = '1849';
         component.maxValue = 999;
         fixture.detectChanges();
@@ -124,7 +137,7 @@ describe('Badge', () => {
         expect(badge.innerHTML).toBe('999+');
     });
 
-    it('should not affect number smaller than limit', async () => {
+    it('should not affect number smaller than max value (actual value)', async () => {
         component.badgeContentText = '998';
         component.maxValue = 999;
         fixture.detectChanges();
