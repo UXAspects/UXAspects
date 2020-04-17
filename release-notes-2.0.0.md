@@ -1,9 +1,12 @@
-UX Aspects 2.0.0 release candidate 2 is now available! Check out the release candidate documentation at [uxaspects.github.io/UXAspects-2](https://uxaspects.github.io/UXAspects-2).
+UX Aspects 2.0.0 is now available! Check out the documentation at [uxaspects.github.io/UXAspects-2](https://uxaspects.github.io/UXAspects-2).
 
 #### Installation
 ````bash
-npm install @ux-aspects/ux-aspects@2.0.0-rc.2
+npm install @ux-aspects/ux-aspects@2.0.0
 ````
+
+#### New Features
+* Angular 9 is now supported.
 
 #### Breaking Changes (from UX Aspects 1.x)
 * Angular 6 is no longer supported.
@@ -55,5 +58,10 @@ npm install @ux-aspects/ux-aspects@2.0.0-rc.2
     * `split` is now `as-split`
     * `split-area` is now `as-split-area`
 * `label` no longer has a 5px bottom margin by default.
+* Any component that extends `ConduitZoneComponent` must now manually call `super.ngOnInit()` and `super.ngOnDestroy()` if the component is using those lifecycle hooks.
+
+#### Known Issues
+The 2.0.0 release of UX Aspects contains features and bug fixes in line with UX Aspects 1.8.16. UX Aspects 2.0.1 will include the remaining 1.x changes (in line with 1.8.18).
+* Infinite Scroll - does not load items if the promise returns almost immediately.
 
 Any questions or feedback? Feel free to open an issue on [GitHub](https://github.com/UXAspects/UXAspects-2/issues)!

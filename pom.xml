@@ -35,6 +35,7 @@
         <maven.install.skip>true</maven.install.skip>
         <skipNexusStagingDeployMojo>true</skipNexusStagingDeployMojo>
         <skipLicenseHeadersCheck>true</skipLicenseHeadersCheck>
+        <copyrightYear>2020</copyrightYear>
     </properties>
 
     <build>
@@ -47,7 +48,6 @@
                     <environmentVariables>
                         <RE_BUILD_TYPE>${RE_BUILD_TYPE}</RE_BUILD_TYPE>
                         <VERSION>${project.version}</VERSION>
-                        <VERSION_PRERELEASE>rc.2</VERSION_PRERELEASE>
                     </environmentVariables>
                 </configuration>
                 <executions>

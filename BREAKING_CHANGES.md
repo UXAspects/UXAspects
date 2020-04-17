@@ -1,11 +1,4 @@
-UX Aspects 2.0.0 release candidate 2 is now available! Check out the release candidate documentation at [uxaspects.github.io/UXAspects-2](https://uxaspects.github.io/UXAspects-2).
-
-#### Installation
-````bash
-npm install @ux-aspects/ux-aspects@2.0.0-rc.2
-````
-
-#### Breaking Changes (from UX Aspects 1.x)
+# 1.8.x to 2.0
 * Angular 6 is no longer supported.
 * AngularJS components and `HybridModule` have been removed, and from now on must be imported from `@ux-aspects/ux-aspects-ng1`. Refer to the [UX Aspects (AngularJS) documentation](https://uxaspects.github.io/UXAspects-ng1/#/changelog) for details.
 * The `dist` folder has now been removed from the published package. Any import paths referring to `@ux-aspects/ux-aspects/dist/...` can be replaced with `@ux-aspects/ux-aspects/...`.
@@ -55,5 +48,4 @@ npm install @ux-aspects/ux-aspects@2.0.0-rc.2
     * `split` is now `as-split`
     * `split-area` is now `as-split-area`
 * `label` no longer has a 5px bottom margin by default.
-
-Any questions or feedback? Feel free to open an issue on [GitHub](https://github.com/UXAspects/UXAspects-2/issues)!
+* Any component that extends `ConduitZoneComponent` must now manually call `super.ngOnInit()` and `super.ngOnDestroy()` if the component is using those lifecycle hooks.

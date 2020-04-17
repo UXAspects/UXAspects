@@ -16,34 +16,9 @@ export class ChangeLogPageComponent {
 
         this.logs = [
             {
-                version: '2.0.0-rc.2',
-                date: 'April 3rd 2020',
-                content: require('./logs/release-v2.0.0-rc.2.md')
-            },
-            {
-                version: '2.0.0-rc.1',
-                date: 'February 6th 2020',
-                content: require('./logs/release-v2.0.0-rc.1.md')
-            },
-            {
-                version: '2.0.0-beta.5',
-                date: 'December 9th 2019',
-                content: require('./logs/release-v2.0.0-beta.5.md')
-            },
-            {
-                version: '2.0.0-beta.4',
-                date: 'September 6th 2019',
-                content: require('./logs/release-v2.0.0-beta.4.md')
-            },
-            {
-                version: '2.0.0-beta.3',
-                date: 'July 11th 2019',
-                content: require('./logs/release-v2.0.0-beta.3.md')
-            },
-            {
-                version: '2.0.0-beta.2',
-                date: 'June 26th 2019',
-                content: require('./logs/release-v2.0.0-beta.2.md')
+                version: '2.0.0',
+                date: 'April 17th 2020',
+                content: require('./logs/release-v2.0.0.md')
             },
             {
                 version: '1.8.17',
