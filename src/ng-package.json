@@ -1,6 +1,6 @@
 {
     "$schema": "../node_modules/ng-packagr/ng-package.schema.json",
-    "dest": "../dist",
+    "dest": "../dist/library",
     "deleteDestPath": true,
     "whitelistedNonPeerDependencies": [
       "@angular/cdk",
@@ -16,10 +16,6 @@
       "resize-observer-polyfill"
     ],
     "lib": {
-      "entryFile": "./index.ts",
-      "externals": {
-        "@angular/upgrade/static": "./node_modules/@angular/upgrade/bundles/upgrade-static.umd.js",
-        "dragula": "dragula"
-      }
+      "entryFile": "./index.ts"
     }
   }

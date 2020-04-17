@@ -31,7 +31,7 @@ export class NavigationItemComponent implements AfterViewInit, AfterContentInit,
     }
 
     /** Indicate the depth of the item */
-    _level: number = this._parent ? this._parent._level + 1 : 1;
+    _level: number;
 
     /** Indicate whether the indentation should include the arrow */
     _indentWithoutArrow: boolean = true;
@@ -52,6 +52,8 @@ export class NavigationItemComponent implements AfterViewInit, AfterContentInit,
         private _router: Router,
         @Optional() @SkipSelf() private _parent: NavigationItemComponent
     ) {
+
+        this._level = this._parent ? this._parent._level + 1 : 1;
 
         // Expand this component if it or a descendant is active.
         _router.events.pipe(filter(event => event instanceof NavigationEnd), takeUntil(this._onDestroy)).subscribe(() => {

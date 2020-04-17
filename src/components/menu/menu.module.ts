@@ -34,7 +34,7 @@ import { MenuComponent } from './menu/menu.component';
     ]
 })
 export class MenuModule {
-    static forRoot(options: MenuModuleOptions): ModuleWithProviders {
+    static forRoot(options: MenuModuleOptions): ModuleWithProviders<MenuModule> {
         return {
             ngModule: MenuModule,
             providers: [
@@ -44,7 +44,7 @@ export class MenuModule {
     }
 
     /** Support options at a child module level (implementation is the same as `forRoot`) */
-    static forChild(options: MenuModuleOptions): ModuleWithProviders {
+    static forChild(options: MenuModuleOptions): ModuleWithProviders<MenuModule> {
         return MenuModule.forRoot(options);
     }
 }

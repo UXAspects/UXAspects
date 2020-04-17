@@ -32,7 +32,8 @@ export class NumberPickerComponent implements ControlValueAccessor, OnDestroy, O
     /** Sets the id of the number picker. The child input will have this value with a -input suffix as its id. */
     @Input() id: string = `ux-number-picker-${uniqueId++}`;
 
-    /** Can be used to show a red outline around the input to indicate an invalid value. By default the error state will appear if the user enters a number below the minimum value or above the maximum value. */
+    /** @deprecated - Use reactive form validation instead.
+    * Can be used to show a red outline around the input to indicate an invalid value. By default the error state will appear if the user enters a number below the minimum value or above the maximum value. */
     @Input() valid: boolean = true;
 
     /** Provide an aria labelledby attribute */
@@ -121,6 +122,14 @@ export class NumberPickerComponent implements ControlValueAccessor, OnDestroy, O
         this._isDestroyed = true;
     }
 
+    ngOnChanges(): void {
+        this._valid = this.isValid();
+    }
+
+    ngOnDestroy(): void {
+        this._isDestroyed = true;
+    }
+
     increment(event?: MouseEvent | KeyboardEvent): void {
         if (event) {
             event.preventDefault();
@@ -193,8 +202,8 @@ export class NumberPickerComponent implements ControlValueAccessor, OnDestroy, O
         this.disabled = isDisabled;
     }
 
+    /** Set the value and emit the change to the output and Angular forms. */
     _emitValueChange(value: number): void {
-        // Set the value and emit the change to the output and Angular forms.
         // This is a workaround for angular bug https://github.com/angular/angular/issues/12540
         if (value === this._lastValue) {
             return;

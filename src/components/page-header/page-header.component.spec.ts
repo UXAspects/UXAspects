@@ -3,6 +3,7 @@ import { PageHeaderModule } from './page-header.module';
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { APP_BASE_HREF } from '@angular/common';
+import { ColorServiceModule, colorSets } from '../../services/color';
 
 @Component({
     selector: 'app-page-header-test',
@@ -31,7 +32,8 @@ describe('Page Header Component', () => {
         await TestBed.configureTestingModule({
             imports: [
                 PageHeaderModule,
-                RouterModule.forRoot([])
+                RouterModule.forRoot([]),
+                ColorServiceModule.forRoot(colorSets.keppel)
             ],
             providers: [
                 { provide: APP_BASE_HREF, useValue: '/' }

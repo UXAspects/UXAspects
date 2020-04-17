@@ -18,6 +18,9 @@ export class FilterContainerComponent implements OnDestroy {
     /** Define the tooltip text */
     @Input() clearTooltip: string;
 
+    /** Defines the aria-label for the clear all button */
+    @Input() clearAriaLabel: string = 'Clear All Filters';
+
     /** Emit when the active filters chance */
     @Output() filtersChange = new EventEmitter<Filter[]>();
 

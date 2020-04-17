@@ -6,8 +6,7 @@
     [class.table-filter-clear]="clearAllTemplate"
     [class.btn-icon]="!clearAllTemplate"
     tabindex="0"
-    aria-label="Clear all filters"
-    i18n-aria-label
+    [attr.aria-label]="clearAriaLabel"
     *ngIf="(filterService.filters$ | async).length > 0"
     [uxTooltip]="clearTooltip || 'Clear All'"
     (click)="filterService.removeAll()">

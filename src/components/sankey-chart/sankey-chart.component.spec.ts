@@ -10,6 +10,7 @@ import { SankeyLink } from './interfaces/link.interface';
 import { SankeyNode } from './interfaces/node.interface';
 import { SankeyNodeDirective } from './sankey-chart-node.directive';
 import { SankeyChartComponent } from './sankey-chart.component';
+import { ColorServiceModule, colorSets } from '../../services/color';
 
 @Component({
     selector: 'app-sankey-chart',
@@ -156,7 +157,14 @@ describe('Sankey Chart Component', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            imports: [AccessibilityModule, CommonModule, TooltipModule, ResizeModule, BrowserAnimationsModule],
+            imports: [
+                AccessibilityModule,
+                CommonModule,
+                TooltipModule,
+                ResizeModule,
+                BrowserAnimationsModule,
+                ColorServiceModule.forRoot(colorSets.keppel)
+            ],
             declarations: [SankeyChartTestComponent, SankeyChartComponent, SankeyNodeDirective]
         }).compileComponents();
     }));
@@ -443,7 +451,14 @@ describe('Sankey Chart with minHeight', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            imports: [AccessibilityModule, CommonModule, TooltipModule, ResizeModule, BrowserAnimationsModule],
+            imports: [
+                AccessibilityModule,
+                CommonModule,
+                TooltipModule,
+                ResizeModule,
+                BrowserAnimationsModule,
+                ColorServiceModule.forRoot(colorSets.keppel)
+            ],
             declarations: [SankeyChartMinHeightTestComponent, SankeyChartComponent, SankeyNodeDirective]
         }).compileComponents();
     }));

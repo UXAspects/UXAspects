@@ -255,7 +255,7 @@ export class TabbableListService implements OnDestroy {
 
     /** Update the active item without causing focus */
     updateActiveItemIndex(index: number): void {
-        this.focusKeyManager.updateActiveItemIndex(index);
+        this.focusKeyManager.updateActiveItem(index);
         this.onTabIndexChange.next();
     }
 

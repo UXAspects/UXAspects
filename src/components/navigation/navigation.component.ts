@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, ContentChild, Input, TemplateRef } from '@angular/core';
 import { getIconType } from '../../common/index';
-import { NavigationItem } from './navigation-item.inferface';
+import { NavigationItem } from './navigation-item.interface';
 import { NavigationService } from './navigation.service';
 
 @Component({

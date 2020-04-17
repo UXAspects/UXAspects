@@ -6,7 +6,7 @@ import { IPlayground } from '../../../../../interfaces/IPlayground';
 import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
 
 @Component({
-    selector: 'uxd-components-number-picker-ng1',
+    selector: 'uxd-components-number-picker',
     templateUrl: './number-picker.component.html'
 })
 @DocumentationSectionComponent('ComponentsNumberPickerComponent')

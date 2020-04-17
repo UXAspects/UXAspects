@@ -1,11 +1,15 @@
-import { NotificationService } from './notification.service';
 import { fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { ColorServiceModule, colorSets } from '../../services/color';
+import { NotificationService } from './notification.service';
 
 describe('Notification Service', () => {
     let notificationService: NotificationService;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
+            imports: [
+                ColorServiceModule.forRoot(colorSets.keppel)
+            ],
             providers: [NotificationService]
         });
         notificationService = TestBed.get(NotificationService);

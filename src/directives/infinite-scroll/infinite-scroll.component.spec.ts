@@ -1,4 +1,4 @@
-import { async, tick, ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { InfiniteScrollModule } from './infinite-scroll.module';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';

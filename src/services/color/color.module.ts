@@ -1,5 +1,6 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { ColorSet, colorSets, COLOR_SET_TOKEN } from './color-sets/index';
+import { ColorService } from './color.service';
 
 @NgModule({})
 export class ColorServiceModule {
@@ -12,11 +13,12 @@ export class ColorServiceModule {
      * ```
      * @param colorSet The color set the application should use
      */
-    static forRoot(colorSet: ColorSet): ModuleWithProviders {
+    static forRoot(colorSet: ColorSet): ModuleWithProviders<ColorServiceModule> {
         return {
             ngModule: ColorServiceModule,
             providers: [
-                { provide: COLOR_SET_TOKEN, useValue: colorSet ? colorSet : colorSets.keppel }
+                { provide: COLOR_SET_TOKEN, useValue: colorSet ? colorSet : colorSets.keppel },
+                ColorService
             ]
         };
     }
