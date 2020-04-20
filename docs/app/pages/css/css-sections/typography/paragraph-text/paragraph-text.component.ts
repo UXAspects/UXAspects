@@ -7,7 +7,8 @@ import { playgroundAdapter } from '../../../../../services/playground/adapters/l
 
 @Component({
     selector: 'uxd-css-typography-paragraph-text',
-    templateUrl: './paragraph-text.component.html'
+    templateUrl: './paragraph-text.component.html',
+    styleUrls: ['./paragraph-text.component.less']
 })
 @DocumentationSectionComponent('CssParagraphTextComponent')
 export class CssParagraphTextComponent extends BaseDocumentationSection implements IPlaygroundProvider {

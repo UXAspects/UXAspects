@@ -37,13 +37,6 @@
 <uxd-snippet [content]="snippets.compiled.createConduitTs"></uxd-snippet>
 
 <p>
-    <b>Note:</b> In some versions of Angular 5.x.x there is compiler bug when using custom decorators in production mode.
-    If this occurs use a <code>forwardRef</code> when passing the properties to the conduit decorator instead:
-</p>
-
-<uxd-snippet [content]="snippets.compiled.createConduitForwardRefTs"></uxd-snippet>
-
-<p>
     The following properties can be given to the <code>Conduit</code> decorator:
 </p>
 
@@ -126,6 +119,11 @@
     To create a conduit zone a component should register the <code>ConduitZone</code> provider and where possible extend the <code>ConduitZoneComponent</code> class.
     The <code>ConduitZoneComponent</code> class extends <code>ConduitComponent</code> so you also have access to the methods listed above.
     Each zone must also have a unique id which should be set by adding a <code>zoneId</code> property to the class.
+</p>
+
+<p>
+    If a class extends <code>ConduitZoneComponent</code> and uses the <code>ngOnInit</code> or <code>ngOnDestroy</code> lifecycle hook,
+    you must call <code>super.ngOnInit()</code> and <code>super.ngOnDestroy</code> from within the respective hook.
 </p>
 
 <p>

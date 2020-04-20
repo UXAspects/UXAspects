@@ -1,4 +1,4 @@
-import { AfterViewInit, ElementRef, Inject, OnDestroy, QueryList, Renderer2 } from '@angular/core';
+import { ElementRef, Inject, OnDestroy, QueryList, Renderer2 } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ResizeService } from '../../../directives/resize';
@@ -6,7 +6,7 @@ import { BaseResizableTableService } from './resizable-table-base.service';
 import { ResizableTableColumnComponent } from './resizable-table-column.component';
 import { RESIZABLE_TABLE_SERVICE_TOKEN } from './resizable-table-service.token';
 
-export abstract class BaseResizableTableDirective implements AfterViewInit, OnDestroy {
+export abstract class BaseResizableTableDirective implements OnDestroy {
 
     columns: QueryList<ResizableTableColumnComponent>;
 
@@ -25,11 +25,6 @@ export abstract class BaseResizableTableDirective implements AfterViewInit, OnDe
             // run the initial logic if the table is fully visible
             this.onTableReady();
         });
-    }
-
-    /** Once we have the columns make them resizable and watch for changes to columns */
-    ngAfterViewInit(): void {
-        this.onTableReady();
     }
 
     /** Cleanup after the component is destroyed */

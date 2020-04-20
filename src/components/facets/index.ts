@@ -1,4 +1,3 @@
-export * from './base/facet-base/facet-base.component';
 export * from './base/facet-header/facet-header.component';
 export * from './facet-check-list/facet-check-list.component';
 export * from './facet-clear-button/facet-clear-button.directive';
@@ -8,3 +7,5 @@ export * from './facet-typeahead-list/facet-typeahead-list.component';
 export * from './facet.service';
 export * from './facets.module';
 export * from './models/facet';
+export * from './facet-check-list/check-list-item/facet-check-list-item.component';
+export * from './facet-typeahead-list/typeahead-list-item/facet-typeahead-list-item.component';

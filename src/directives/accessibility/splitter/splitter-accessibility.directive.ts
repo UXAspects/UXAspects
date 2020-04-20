@@ -7,7 +7,7 @@ import { FocusIndicator } from '../focus-indicator/focus-indicator';
 import { FocusIndicatorService } from '../focus-indicator/focus-indicator.service';
 
 @Directive({
-    selector: 'split'
+    selector: 'as-split'
 })
 export class SplitterAccessibilityDirective implements AfterViewInit, OnDestroy {
 
@@ -37,7 +37,7 @@ export class SplitterAccessibilityDirective implements AfterViewInit, OnDestroy 
         private _focusIndicatorService: FocusIndicatorService
     ) {
         // update aria values when the a gutter is dragged
-        _splitter.dragProgress
+        _splitter.dragProgress$
             .pipe(takeUntil(this._onDestroy))
             .subscribe(() => this.updateGutterAttributes());
     }
@@ -79,7 +79,7 @@ export class SplitterAccessibilityDirective implements AfterViewInit, OnDestroy 
     @HostListener('click', ['$event'])
     onClick(event: MouseEvent): void {
         if (this.isSplitterGutter(event.target as HTMLElement)) {
-            (event.target as HTMLElement).focus();
+            (event.target as HTMLInputElement).parentElement.focus();
         }
     }
 
@@ -153,7 +153,7 @@ export class SplitterAccessibilityDirective implements AfterViewInit, OnDestroy 
         const area = this._splitter.displayedAreas[index];
 
         // indicate the size
-        this._renderer.setAttribute(gutter, 'aria-valuenow', `${Math.round(area.size * 100)}`);
+        this._renderer.setAttribute(gutter, 'aria-valuenow', `${Math.round(area.size)}`);
     }
 
     /** Apply the value min aria attribute */
@@ -162,7 +162,7 @@ export class SplitterAccessibilityDirective implements AfterViewInit, OnDestroy 
         const area = this.areas.toArray()[index];
 
         // indicate the minimum size
-        this._renderer.setAttribute(gutter, 'aria-valuemin', `${Math.round(area.minSize * 100)}`);
+        this._renderer.setAttribute(gutter, 'aria-valuemin', `${Math.round(area.minSize)}`);
     }
 
     /** Apply the value max aria attribute */
@@ -173,7 +173,7 @@ export class SplitterAccessibilityDirective implements AfterViewInit, OnDestroy 
             .reduce<number>((total, area) => total + area.minSize, 0);
 
         // indicate the minimum size
-        this._renderer.setAttribute(gutter, 'aria-valuemax', `${100 - Math.round(availableSize * 100)}`);
+        this._renderer.setAttribute(gutter, 'aria-valuemax', `${100 - Math.round(availableSize)}`);
     }
 
     @HostListener('keydown', ['$event'])
@@ -188,7 +188,7 @@ export class SplitterAccessibilityDirective implements AfterViewInit, OnDestroy 
     onIncreaseKey(event: KeyboardEvent): void {
         // only perform a move if a gutter is focused
         if (this.isSplitterGutter(event.target as HTMLElement)) {
-            this.setGutterPosition(event.target as HTMLElement, -0.01);
+            this.setGutterPosition(event.target as HTMLElement, -1);
 
             // stop the browser from scrolling
             event.preventDefault();
@@ -200,7 +200,7 @@ export class SplitterAccessibilityDirective implements AfterViewInit, OnDestroy 
     onDecreaseKey(event: KeyboardEvent): void {
         // only perform a move if a gutter is focused
         if (this.isSplitterGutter(event.target as HTMLElement)) {
-            this.setGutterPosition(event.target as HTMLElement, 0.01);
+            this.setGutterPosition(event.target as HTMLElement, 1);
 
             // stop the browser from scrolling
             event.preventDefault();
@@ -214,7 +214,7 @@ export class SplitterAccessibilityDirective implements AfterViewInit, OnDestroy 
             const areas = this.getAreasFromGutter(event.target as HTMLElement);
 
             // set the previous area to it's minimum size
-            const delta = areas.previous.size - areas.previous.comp.minSize;
+            const delta = areas.previous.size - areas.previous.minSize;
 
             // update the sizes accordingly
             this.setGutterPosition(event.target as HTMLElement, delta);
@@ -231,7 +231,7 @@ export class SplitterAccessibilityDirective implements AfterViewInit, OnDestroy 
             const areas = this.getAreasFromGutter(event.target as HTMLElement);
 
             // set the next area to it's minimum size
-            const delta = areas.next.size - areas.next.comp.minSize;
+            const delta = areas.next.size - areas.next.minSize;
 
             // update the sizes accordingly
             this.setGutterPosition(event.target as HTMLElement, -delta);
@@ -243,7 +243,7 @@ export class SplitterAccessibilityDirective implements AfterViewInit, OnDestroy 
 
     /** Determine if an element is a gutter */
     private isSplitterGutter(element: HTMLElement): boolean {
-        return element.tagName === 'SPLIT-GUTTER';
+        return element.classList.contains('as-split-gutter') || element.classList.contains('as-split-gutter-icon');
     }
 
     /** Update the gutter position */
@@ -252,7 +252,7 @@ export class SplitterAccessibilityDirective implements AfterViewInit, OnDestroy 
         const areas = this.getAreasFromGutter(gutter);
 
         // ensure we can perform the resize
-        if (areas.previous.size - delta < areas.previous.comp.minSize || areas.next.size + delta < areas.next.comp.minSize) {
+        if (areas.previous.size - delta < areas.previous.minSize || areas.next.size + delta < areas.next.minSize) {
             return;
         }
 

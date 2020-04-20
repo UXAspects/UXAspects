@@ -138,12 +138,12 @@ export class ResizableExpandingTableService extends BaseResizableTableService {
     /** Resize a column by a specific pixel amount */
     resizeColumn(index: number, delta: number, isDragging: boolean = true): void {
 
-        let columns = [...this.columns] as ReadonlyArray<number>;
+        let columns: ReadonlyArray<number>;
 
         // convert the delta to a percentage value
         const percentageDelta = (delta / this.tableWidth) * 100;
 
-        columns = this.setColumnWidth(index, this.columns[index] + percentageDelta, ColumnUnit.Percentage, this.columns);
+        columns = this.setColumnWidth(index, (this.columns[index] || 0) + percentageDelta, ColumnUnit.Percentage, this.columns);
 
         this.columns = columns;
 

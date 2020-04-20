@@ -39,7 +39,7 @@ import { YearViewComponent } from './year-view/year-view.component';
     ]
 })
 export class DateTimePickerModule {
-    static forRoot(): ModuleWithProviders {
+    static forRoot(): ModuleWithProviders<DateTimePickerModule> {
         return {
             ngModule: DateTimePickerModule,
             providers: [

@@ -1,0 +1,94 @@
+<div class="chart-container" #container>
+    <ux-hierarchy-bar
+        class="hierarchy-bar"
+        [root]="hierarchy"
+        [(selected)]="hierarchyBarSelected"
+        (selectedChange)="onHierarchyBarSelect($event)">
+        <ux-icon name="user-manager" *uxHierarchyBarNodeIcon></ux-icon>
+
+        <div class="search-container" [class.search-container-expanded]="isSearchOpen" uxHierarchyBarRightAddon>
+
+            <ux-toolbar-search [(expanded)]="isSearchOpen" direction="left">
+
+                <input uxToolbarSearchField
+                    #toolbarSearchField
+                    type="text"
+                    class="form-control"
+                    placeholder="Search"
+                    aria-label="Search"
+                    [class.ux-toolbar-search-clear-offset]="query"
+                    [(ngModel)]="query"
+                    (ngModelChange)="search()"
+                    (keydown)="typeaheadKeyService.handleKey($event, typeahead)"
+                    (keydown.enter)="onTypeaheadSelect(highlighted, 'keyboard'); isSearchOpen = false">
+
+                <button *ngIf="query" type="button"
+                    class="btn btn-link btn-icon button-secondary ux-toolbar-search-clear"
+                    (click)="query = ''; toolbarSearchField.focus()">
+                    <ux-icon name="close"></ux-icon>
+                </button>
+
+                <button
+                    uxToolbarSearchButton
+                    type="button"
+                    class="btn btn-link btn-icon button-secondary"
+                    aria-label="Toggle Search"
+                    uxTooltip="Search">
+                    <ux-icon name="search"></ux-icon>
+                </button>
+            </ux-toolbar-search>
+
+            <ux-typeahead
+                #typeahead
+                class="typeahead-example"
+                [(open)]="isSearchOpen"
+                [options]="typeaheadOptions"
+                [optionTemplate]="optionTemplate"
+                key="id"
+                [display]="getTypeaheadDisplay"
+                (highlightedChange)="highlighted = $event"
+                (optionSelected)="onTypeaheadSelect($event)">
+
+                <ng-template #optionTemplate let-option="option">
+                    <div class="typeahead-option">
+                        <p class="typeahead-option-title" [innerHTML]="option.data.name | typeaheadHighlight: query"></p>
+                        <p class="typeahead-option-subtitle" [innerHTML]="option.data.role | typeaheadHighlight: query"></p>
+                    </div>
+                </ng-template>
+            </ux-typeahead>
+        </div>
+    </ux-hierarchy-bar>
+
+    <ux-organization-chart
+        [dataset]="dataset"
+        [nodeWidth]="210"
+        [nodeHeight]="90"
+        [showReveal]="showReveal"
+        (reveal)="onReveal()"
+        (transitionEnd)="onTransitionEnd.next()"
+        [selected]="organizationChartSelected"
+        (selectedChange)="onOrganizationChartSelect($event)">
+
+        <ng-template #nodeTemplate let-data="data" let-node="node" let-focused="focused">
+            <div class="organization-chart-node"
+                [class.organization-chart-node-focused]="focused"
+                [class.organization-chart-node-marker]="data.marker"
+                [class.organization-chart-node-expanded]="node.expanded && node.children?.length > 0">
+                <p class="employee-name">{{ data.name }}</p>
+                <p class="employee-job-title">{{ data.role }}</p>
+                <p class="employee-email">{{ data.email }}</p>
+
+                <div class="employee-icon"
+                    *ngIf="node.children && node.children?.length > 0">
+                    <ux-icon name="user-manager"></ux-icon>
+                    <span class="employee-icon-count">{{ node.children.length }}</span>
+                </div>
+
+                <div class="employee-icon employee-icon-expanded"
+                    *ngIf="node.children && node.children?.length > 0">
+                    <ux-icon name="tab-up"></ux-icon>
+                </div>
+            </div>
+        </ng-template>
+    </ux-organization-chart>
+</div>

@@ -18,7 +18,7 @@ import { IconService } from './icon.service';
 export class IconModule {
 
     /** Allow configuration at AppModule level */
-    static forRoot(options?: IconModuleOptions): ModuleWithProviders {
+    static forRoot(options?: IconModuleOptions): ModuleWithProviders<IconModule> {
         return {
             ngModule: IconModule,
             providers: [
@@ -28,7 +28,7 @@ export class IconModule {
     }
 
     /** Allow configuration at a child module level */
-    static forChild(options?: IconModuleOptions): ModuleWithProviders {
+    static forChild(options?: IconModuleOptions): ModuleWithProviders<IconModule> {
         // the `forChild` does the same as `forRoot` however this having
         // `forChild` follows the correct conventions as we should never
         // import `forRoot` in a child module

@@ -15,10 +15,10 @@
     "suppressImplicitAnyIndexErrors": true,
     "paths": {
       "@ux-aspects/ux-aspects/*": [
-        "../dist"
+        "../dist/library"
       ],
       "@ux-aspects/ux-aspects": [
-        "../dist"
+        "../dist/library"
       ]
     }
   },

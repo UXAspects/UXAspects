@@ -41,6 +41,9 @@ export class ItemDisplayPanelComponent extends SidePanelComponent implements OnI
         this.closeOnExternalClick = !value;
     }
 
+    /** Defines the aria-label for the close button */
+    @Input() closeAriaLabel: string = 'Close';
+
     @Input() shadow: boolean = false;
 
     @Output() visibleChange: EventEmitter<boolean> = new EventEmitter<boolean>();
@@ -48,21 +51,6 @@ export class ItemDisplayPanelComponent extends SidePanelComponent implements OnI
     @ContentChild(ItemDisplayPanelFooterDirective, { static: false }) footer: ItemDisplayPanelFooterDirective;
 
     @ViewChild('panel', { static: true }) panel: ElementRef;
-
-    /**
-     * @deprecated
-     * Title used for adding tooltips and shouldn't be used as an input
-     * instead header will be used. This is here to support backward compatibility only
-     * this property should not be used.
-     */
-    @Input()
-    set title(value: string) {
-        this.header = value;
-    }
-
-    get title() {
-        return this.header;
-    }
 
     @Input()
     set visible(visible: boolean) {

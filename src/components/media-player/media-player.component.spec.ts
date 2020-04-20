@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ColorServiceModule, colorSets } from '../../services/color';
 import { MediaPlayerModule } from './media-player.module';
 
 @Component({
@@ -23,7 +24,10 @@ describe('Media Player Component - Audio', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            imports: [MediaPlayerModule],
+            imports: [
+                MediaPlayerModule,
+                ColorServiceModule.forRoot(colorSets.keppel)
+            ],
             declarations: [MediaPlayerAudioComponent],
         })
             .compileComponents();

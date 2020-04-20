@@ -10,6 +10,19 @@ export class MediaPlayerService {
     type: MediaPlayerType = 'video';
     loaded: boolean = false;
 
+    /** Aria Labels */
+    muteAriaLabel: (volume: number) => string = this.getMuteAriaLabel;
+    playAriaLabel: (isPlaying: boolean) => string = this.getPlayAriaLabel;
+    fullscreenAriaLabel: (isFullscreen: boolean) => string = this.getFullscreenAriaLabel;
+    selectSubtitlesAriaLabel: (track: string) => string = this.getSubtitlesAriaLabel;
+    goToStartAriaLabel: string = 'Go to start';
+    goToEndAriaLabel: string = 'Go to end';
+    subtitlesTitleAriaLabel: string = 'Subtitles';
+    subtitlesOffAriaLabel: string = 'Subtitles Off';
+    noSubtitlesAriaLabel: string = 'No subtitles';
+    mediaPlayerAriaLabel: string = 'Media Player';
+    seekAriaLabel: string = 'Seek Slider';
+
     /*
         Create observables for media player events
     */
@@ -359,5 +372,21 @@ export class MediaPlayerService {
         for (let index = 0; index < this.textTracks.length; index++) {
             this.textTracks[index].mode = 'hidden';
         }
+    }
+
+    private getMuteAriaLabel(volume: number): string {
+        return volume === 0 ? 'Unmute' : 'Mute';
+    }
+
+    private getPlayAriaLabel(isPlaying: boolean): string {
+        return isPlaying ? 'Pause' : 'Play';
+    }
+
+    private getFullscreenAriaLabel(isFullscreen: boolean): string {
+        return isFullscreen ? 'Exit full screen' : 'Full screen';
+    }
+
+    private getSubtitlesAriaLabel(track: string): string {
+        return `Select subtitles, ${track} currently selected.`;
     }
 }

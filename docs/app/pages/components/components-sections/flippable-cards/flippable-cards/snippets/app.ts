@@ -1,26 +1,13 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
-import { Component, OnDestroy } from '@angular/core';
-import { ColorService } from '@ux-aspects/ux-aspects';
+import { Component } from '@angular/core';
+import { ColorService, NestedDonutChartData } from '@ux-aspects/ux-aspects';
 
 @Component({
     selector: 'app',
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnDestroy {
-
-    options = {
-        size: 70,
-        donutWidth: 3,
-        donutSpacing: 3,
-        hoverAnimation: true,
-        centerLabel: {
-            show: false
-        },
-        tooltip: {
-            show: false
-        }
-    };
+export class AppComponent {
 
     cards: Card[] = [
         {
@@ -67,24 +54,23 @@ export class AppComponent implements OnDestroy {
         }
     ];
 
-    constructor(public colorService: ColorService, private _announcer: LiveAnnouncer) {}
-
-    ngOnDestroy(): void {
-        this._announcer.ngOnDestroy();
+    constructor(
+        public colorService: ColorService,
+        private _announcer: LiveAnnouncer) {
     }
 
-    getChartData(documents: number, reviewed: number, produced: number): ChartData[] {
+    getChartData(documents: number, reviewed: number, produced: number): NestedDonutChartData[] {
         return [
             {
-                label: 'documents',
+                name: 'documents',
                 color: this.colorService.getColor('grey6').toHex(),
                 value: documents
             }, {
-                label: 'reviewed',
+                name: 'reviewed',
                 color: this.colorService.getColor('vibrant1').toHex(),
                 value: reviewed
             }, {
-                label: 'produced',
+                name: 'produced',
                 color: this.colorService.getColor('vibrant2').toHex(),
                 value: produced
             }
@@ -109,11 +95,5 @@ export interface Card {
         produced: number;
         size: number;
     };
-    chart: ChartData[];
-}
-
-export interface ChartData {
-    label: string;
-    color: string;
-    value: number;
+    chart: NestedDonutChartData[];
 }

@@ -1,12 +1,7 @@
 import { DOWN_ARROW, ENTER, LEFT_ARROW, RIGHT_ARROW, UP_ARROW } from '@angular/cdk/keycodes';
 import { DomPortalOutlet, TemplatePortal } from '@angular/cdk/portal';
 import { AfterViewInit, ApplicationRef, ChangeDetectionStrategy, Component, ComponentFactoryResolver, ContentChild, ElementRef, EventEmitter, Injector, Input, NgZone, OnChanges, OnDestroy, Output, Renderer2, SimpleChanges, TemplateRef, ViewChild, ViewContainerRef } from '@angular/core';
-import { hierarchy, HierarchyPointLink, HierarchyPointNode, tree } from 'd3-hierarchy';
-import { interpolate } from 'd3-interpolate';
-import { event, select, Selection } from 'd3-selection';
-import { linkVertical } from 'd3-shape';
-import { transition } from 'd3-transition';
-import { zoom, ZoomBehavior, ZoomTransform, zoomTransform } from 'd3-zoom';
+import { event, hierarchy, HierarchyPointLink, HierarchyPointNode, interpolate, linkVertical, select, Selection, transition, tree, zoom, ZoomBehavior, ZoomTransform, zoomTransform } from 'd3';
 import { Subject } from 'rxjs';
 import { debounceTime, takeUntil } from 'rxjs/operators';
 import { FocusIndicator, FocusIndicatorService } from '../../directives/accessibility/index';

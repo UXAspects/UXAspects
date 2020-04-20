@@ -1,8 +1,0 @@
-<div class="input-group number-picker" ng-class="{ 'invalid-entry': vm.validate.inputError }">
-	<input type="text" class="form-control" ng-model="vm.value" ng-keydown="vm.keyPressed($event)" ng-disabled="ngDisabled">
-	<div class="number-picker-icons">
-		<i class="hpe-icon hpe-up" id="upButton" aria-hidden="true" ng-class="{ disabled: vm.validate.upDisabled || ngDisabled }" ng-click="vm.upClick()"></i>
-		<i class="hpe-icon hpe-down" id="downButton" aria-hidden="true" ng-class="{ disabled: vm.validate.downDisabled || ngDisabled }" ng-click="vm.downClick()"></i>
-	</div>
-</div>
-

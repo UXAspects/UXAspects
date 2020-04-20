@@ -1,36 +1,25 @@
 {
-  "compilerOptions": {
-    "target": "es5",
-    "module": "esNext",
-    "moduleResolution": "node",
-    "sourceMap": true,
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "lib": ["es2017", "dom"],
-    "baseUrl": "./",
-    "noImplicitAny": true,
-    "declaration": false,
-    "suppressImplicitAnyIndexErrors": true,
-    "downlevelIteration": true,
-    "paths": {
-      "@ux-aspects/ux-aspects/*": [
-        "./src"
-      ],
-      "@ux-aspects/ux-aspects": [
-        "./src"
-      ]
-    }
-  },
-  "angularCompilerOptions": {
-    "skipMetadataEmit": true,
-    "preserveWhitespaces": true
-  },
-  "exclude": [
-    "node_modules",
-    "dist",
-    "**/snippets/*.ts",
-    "e2e",
-    "test",
-    "**/*.spec.ts"
-  ]
+    "compilerOptions": {
+        "target": "es5",
+        "module": "esNext",
+        "moduleResolution": "node",
+        "sourceMap": true,
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "lib": ["es2017", "dom"],
+        "baseUrl": "./",
+        "noImplicitAny": true,
+        "declaration": false,
+        "suppressImplicitAnyIndexErrors": true,
+        "downlevelIteration": true,
+        "paths": {
+            "@ux-aspects/ux-aspects/*": ["./src"],
+            "@ux-aspects/ux-aspects": ["./src"]
+        }
+    },
+    "angularCompilerOptions": {
+        "skipMetadataEmit": true,
+        "preserveWhitespaces": true
+    },
+    "files": ["./docs/main.ts", "./docs/polyfills.ts"]
 }

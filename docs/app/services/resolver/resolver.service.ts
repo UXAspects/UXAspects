@@ -1,4 +1,4 @@
-import { ComponentFactory, ComponentFactoryResolver, Injectable } from '@angular/core';
+import { ComponentFactory, ComponentFactoryResolver, Injectable, Type } from '@angular/core';
 import { IDocumentationPage } from '../../interfaces/IDocumentationPage';
 
 @Injectable({
@@ -6,20 +6,19 @@ import { IDocumentationPage } from '../../interfaces/IDocumentationPage';
 })
 export class ResolverService {
 
-    private static resolvers: ComponentFactoryResolver[] = [];
+    private static resolvers: DocumentationResolver[] = [];
 
-    registerResolver(resolver: ComponentFactoryResolver) {
-        ResolverService.resolvers.push(resolver);
+    registerResolver(resolver: ComponentFactoryResolver, components: Type<any>[]) {
+        ResolverService.resolvers.push({ resolver, components });
     }
 
-    resolveComponentFactory(component: any): ComponentFactory<any> {
+    resolveComponentFactory(component: Type<any>): ComponentFactory<any> {
 
         // try resolving component in all available modules
-        for (let resolver of ResolverService.resolvers) {
-            try {
-                let componentFactory = resolver.resolveComponentFactory(component);
-                return componentFactory;
-            } catch (err) { }
+        for (const { resolver, components } of ResolverService.resolvers) {
+            if (components.indexOf(component) !== -1) {
+                return resolver.resolveComponentFactory(component);
+            }
         }
 
         throw new Error('Component doesn not exist in any module: ' + component);
@@ -59,4 +58,9 @@ export enum DocumentationPage {
     Charts,
     Components,
     Css
+}
+
+export interface DocumentationResolver {
+    resolver: ComponentFactoryResolver;
+    components: Type<any>[];
 }

@@ -210,9 +210,9 @@ export class WizardComponent implements AfterViewInit, OnDestroy {
         }
     }
 
-    /**
-     * Whether the Next or Finish button should be disabled.
-     */
+     /**
+      * Whether the Next or Finish button should be disabled.
+      */
     isNextDisabled(): boolean {
         const step = this.getCurrentStep();
 

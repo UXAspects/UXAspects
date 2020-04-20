@@ -264,9 +264,8 @@ describe('Page Header Tests', () => {
     });
 
     it('should get the correct subheader', async () => {
+
         expect(await page.getSubheaderText(page.pageHeader1)).toBe('My Subheader');
 
-        // we have a deprecated `title` property which original set the subheader. We should check that this also still works
-        expect(await page.getSubheaderText(page.pageHeader2)).toBe('My Subheader');
     });
 });

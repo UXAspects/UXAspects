@@ -7,6 +7,7 @@ export interface ISection {
     deprecated?: boolean;
     deprecatedFor?: string;
     externalUrl?: string;
+    schematic?: string;
     usage: [{
         title: string;
         content: string;

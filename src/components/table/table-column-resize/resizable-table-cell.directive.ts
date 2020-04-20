@@ -21,6 +21,12 @@ export class ResizableTableCellDirective implements OnInit, OnDestroy {
     ngOnInit(): void {
         this._minWidth = parseFloat(getComputedStyle(this._elementRef.nativeElement).minWidth);
 
+        // if the table has already been initialised then we should set the initial size
+        if (this._table.isInitialised$.value) {
+            this.setColumnWidth();
+            this.setColumnFlex();
+        }
+
         // update the sizes when columns are resized
         combineLatest([this._table.onResize$, this._table.isResizing$]).pipe(takeUntil(this._onDestroy)).subscribe(() => {
             this.setColumnWidth();

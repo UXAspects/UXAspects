@@ -33,7 +33,9 @@ export class ChartsHorizontalBarChartComponent extends BaseDocumentationSection 
     // configure the directive data
     barChartData: Chart.ChartDataSets[] = [{
         data: [44, 32, 34, 19, 25, 34],
-        borderWidth: 1
+        borderWidth: 1,
+        barPercentage: 0.5,
+        categoryPercentage: 1
     }];
 
     barChartLabels: string[] = ['.txt', '.html', '.xls', '.pdf', '.ppt', '.doc'];
@@ -44,7 +46,6 @@ export class ChartsHorizontalBarChartComponent extends BaseDocumentationSection 
     constructor(colorService: ColorService) {
         super(require.context('./snippets/', false, /(html|css|js|ts)$/));
 
-        let borderColor = colorService.getColor('grey2').setAlpha(0.5).toRgba();
         let tooltipBackgroundColor = colorService.getColor('grey2').toHex();
         let barBackgroundColor = colorService.getColor('chart1').setAlpha(0.1).toRgba();
         let barHoverBackgroundColor = colorService.getColor('chart1').setAlpha(0.2).toRgba();
@@ -65,8 +66,6 @@ export class ChartsHorizontalBarChartComponent extends BaseDocumentationSection 
                     } as Chart.LinearTickOptions
                 }],
                 yAxes: [{
-                    barPercentage: 0.5,
-                    categoryPercentage: 1,
                     gridLines: {
                         color: 'transparent'
                     }

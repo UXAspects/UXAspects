@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Input, Output, Renderer2, TemplateRef, ViewContainerRef } from '@angular/core';
+import { Directive, Input, Output, Renderer2, TemplateRef, ViewContainerRef } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 
 @Directive({
@@ -13,11 +13,8 @@ export class InfiniteScrollLoadButtonDirective {
     set visible(value: boolean) {
         if (value !== this._visible) {
             if (value) {
-                this._viewContainer.createEmbeddedView(this._template);
-
-                // Template content follows the elementRef, which is a comment.
-                const clickTarget = this.getNextElementSibling(this._template.elementRef.nativeElement);
-                this._renderer.listen(clickTarget, 'click', this.onClick.bind(this));
+                const viewRef = this._viewContainer.createEmbeddedView(this._template);
+                this._renderer.listen(viewRef.rootNodes[0], 'click', this.onClick.bind(this));
             } else {
                 this._viewContainer.clear();
             }
@@ -32,25 +29,14 @@ export class InfiniteScrollLoadButtonDirective {
     private _load = new Subject();
 
     constructor(
-        private _element: ElementRef,
         private _template: TemplateRef<any>,
         private _viewContainer: ViewContainerRef,
-        private _renderer: Renderer2) {
-
+        private _renderer: Renderer2
+    ) {
         this.loading = this._load.asObservable() as Observable<Event>;
     }
 
     private onClick(event: MouseEvent) {
         this._load.next(event);
-    }
-
-    private getNextElementSibling(element: any): Element {
-        var next = element;
-        while (next = next.nextSibling) {
-            if (next.nodeType === 1) {
-                return next;
-            }
-        }
-        return null;
     }
 }

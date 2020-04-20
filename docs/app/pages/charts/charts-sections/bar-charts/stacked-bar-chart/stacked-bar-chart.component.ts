@@ -40,19 +40,23 @@ export class ChartsStackedBarChartComponent extends BaseDocumentationSection imp
     constructor(private colorService: ColorService) {
         super(require.context('./snippets/', false, /(html|css|js|ts)$/));
 
-        let borderColor = colorService.getColor('grey2').setAlpha(0.5).toRgba();
         let tooltipBackgroundColor = colorService.getColor('grey2').toHex();
-        let barBorderColor = colorService.getColor('chart1').toHex();
 
         this.barChartData = [
             {
-                data: this.generateRandomData()
+                data: this.generateRandomData(),
+                barPercentage: 0.6,
+                categoryPercentage: 1
             },
             {
-                data: this.generateRandomData()
+                data: this.generateRandomData(),
+                barPercentage: 0.6,
+                categoryPercentage: 1
             },
             {
-                data: this.generateRandomData()
+                data: this.generateRandomData(),
+                barPercentage: 0.6,
+                categoryPercentage: 1
             }
         ];
 
@@ -65,8 +69,6 @@ export class ChartsStackedBarChartComponent extends BaseDocumentationSection imp
             scales: {
                 xAxes: [{
                     stacked: true,
-                    barPercentage: 0.6,
-                    categoryPercentage: 1,
                     gridLines: {
                         color: 'transparent'
                     }

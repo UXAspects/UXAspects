@@ -5,7 +5,7 @@
 <div class="hierarchy-bar-node-icon" *ngIf="hierarchyBar.icon">
     <ng-container
         [ngTemplateOutlet]="hierarchyBar.icon"
-        [ngTemplateOutlet]="{ node: node, $implicit: node }">
+        [ngTemplateOutletContext]="{ node: node, $implicit: node }">
     </ng-container>
 </div>
 
