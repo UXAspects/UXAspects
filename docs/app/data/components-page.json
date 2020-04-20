@@ -1026,6 +1026,10 @@
                             "content": "[uxBadge]"
                         },
                         {
+                            "title": "Exported As",
+                            "content": "ux-badge"
+                        },
+                        {
                             "title": "Module",
                             "content": "BadgeModule"
                         }
