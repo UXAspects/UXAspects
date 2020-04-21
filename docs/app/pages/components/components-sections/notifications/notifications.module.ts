@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ComponentFactoryResolver, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { AccordionModule, AlertModule, BadgeModule, CheckboxModule, ColorPickerModule, IconModule, NotificationModule, NumberPickerModule, TabsetModule } from '@ux-aspects/ux-aspects';
+import { AccordionModule, AlertModule, BadgeModule, CheckboxModule, ColorPickerModule, IconModule, NotificationModule, NumberPickerModule, RadioButtonModule, TabsetModule } from '@ux-aspects/ux-aspects';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
@@ -43,6 +43,7 @@ const ROUTES = [
         IconModule,
         NotificationModule,
         NumberPickerModule,
+        RadioButtonModule,
         RouterModule.forChild(ROUTES),
         TabsetModule,
     ],
