@@ -71,11 +71,12 @@ describe('Badge', () => {
         expect(badge.style.color).toBe('rgb(255, 255, 255)');
     });
 
-    it('should be able to create an empty badge (no content)', () => {
+    it('should be able to create an empty badge (no content)', async () => {
         component.badgeContentText = null;
+        fixture.detectChanges();
+        await fixture.whenStable();
         const buttonWithBadge: HTMLButtonElement = document.querySelector(buttonSelector);
-
-        expect(buttonWithBadge.classList.contains('ux-badge-no-content'));
+        expect(buttonWithBadge.classList.contains('ux-badge-no-content')).toBeTruthy();
     });
 
     it('should set the background color correctly', async () => {

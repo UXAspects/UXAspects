@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BadgeHorizontalPosition, BadgeSize, BadgeVerticalPosition, ColorPickerColor, ColorService } from '@ux-aspects/ux-aspects';
+import { BadgeHorizontalPosition, BadgeSize, BadgeVerticalPosition, ColorService } from '@ux-aspects/ux-aspects';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
@@ -13,32 +13,15 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 @DocumentationSectionComponent('ComponentsBadgeComponent')
 export class ComponentsBadgeComponent extends BaseDocumentationSection implements IPlaygroundProvider {
     hideButton: boolean = true;
-    isColorPickerOpen: boolean = false;
-    isBorderColorPickerOpen: boolean = false;
-    badgeContent: string = '234';
+    badgeContent: string = 'Action required';
     badgeMaxValue: number = 99;
     badgeSize: BadgeSize = 'medium';
     badgeOverlap: boolean = false;
     badgeHidden: boolean = false;
     badgeHorizontalPosition: BadgeHorizontalPosition = 'after';
     badgeVerticalPosition: BadgeVerticalPosition = 'above';
-
-    colors: ColorPickerColor[][] = [
-        [
-            new ColorPickerColor('accent', this.colorService.getColor('accent').toHex()),
-            new ColorPickerColor('chart4', this.colorService.getColor('chart4').toHex()),
-            new ColorPickerColor('chart5', this.colorService.getColor('chart5').toHex()),
-            new ColorPickerColor('chart6', this.colorService.getColor('chart6').toHex()),
-        ],
-        [
-            new ColorPickerColor('ok', this.colorService.getColor('ok').toHex()),
-            new ColorPickerColor('warning', this.colorService.getColor('warning').toHex()),
-            new ColorPickerColor('critical', this.colorService.getColor('critical').toHex()),
-        ],
-    ];
-
-    selectedColor: ColorPickerColor = this.colors[0][2];
-    selectedBorderColor: ColorPickerColor = this.colors[0][2];
+    selectedColor: string  = 'warning';
+    selectedBorderColor: string = '';
 
     playground: IPlayground = {
         files: {

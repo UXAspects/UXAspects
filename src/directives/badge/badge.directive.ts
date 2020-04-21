@@ -45,6 +45,8 @@ export class BadgeDirective implements OnChanges, OnDestroy {
             const subject = s.toString().trim();
             this._isNumber = /^\d+$/.test(subject);
             this._badgeContent = subject;
+        } else {
+            this._badgeContent = null;
         }
     }
     private _badgeContent: string = null;
