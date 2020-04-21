@@ -21,7 +21,7 @@ export type BadgeSize = 'small' | 'medium' | 'large';
         '[class.ux-badge-below]': 'badgeVerticalPosition === "below"',
         '[class.ux-badge-after]': 'badgeHorizontalPosition === "after"',
         '[class.ux-badge-before]': 'badgeHorizontalPosition === "before"',
-        '[class.ux-badge-no-content]': '!_badgeContent',
+        '[class.ux-badge-no-content]': '!badgeContent',
     },
 })
 export class BadgeDirective implements AfterViewInit, OnChanges, OnDestroy {

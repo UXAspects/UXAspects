@@ -114,24 +114,24 @@ ux-alert {
  * Badge
  */
 
+ .ux-badge {
+    position: absolute;
+    text-align: center;
+    display: inline-block;
+    background-color: #000;
+    color: #fff;
+    text-transform: none;
+    font-weight: normal;
+    font-family: @font-family;
+    pointer-events: none;
+    white-space: nowrap;
+    box-sizing: border-box;
+    margin: 0;
+    border: 1px solid transparent;
+}
+
 .ux-badge-container {
     position: relative;
-
-    .ux-badge {
-        position: absolute;
-        text-align: center;
-        display: inline-block;
-        background-color: #000;
-        color: #fff;
-        text-transform: none;
-        font-weight: normal;
-        font-family: @font-family;
-        pointer-events: none;
-        white-space: nowrap;
-        box-sizing: border-box;
-        margin: 0;
-        border: 1px solid transparent;
-    }
 
     &.ux-badge-small .ux-badge {
         border-radius: 6px;
@@ -175,6 +175,10 @@ ux-alert {
         &.ux-badge-large .ux-badge {
             top: -10px;
         }
+
+        &.ux-badge-no-content .ux-badge {
+            top: -5px;
+        }
     }
 
     &.ux-badge-below {
@@ -192,6 +196,10 @@ ux-alert {
 
         &.ux-badge-large .ux-badge {
             bottom: -10px;
+        }
+
+        &.ux-badge-no-content .ux-badge {
+            bottom: -5px;
         }
     }
 
@@ -232,10 +240,10 @@ ux-alert {
     &.ux-badge-no-content {
         .ux-badge {
             border-radius: 50%;
-            width: 7px;
-            height: 7px;
+            width: 9px;
+            height: 9px;
             display: block;
-            min-width: 7px;
+            min-width: 9px;
             padding: 0;
         }
     }
