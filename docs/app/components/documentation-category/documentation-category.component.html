@@ -1,6 +1,5 @@
 <div *ngFor="let section of category.sections">
-    <uxd-component-section *ngIf="versionService.isSectionVersionMatch(section)"
-        [id]="section.id"
+    <uxd-component-section [id]="section.id"
         [title]="section.title"
         [componentName]="section.component"
         [version]="section.version"
@@ -8,6 +7,7 @@
         [deprecated]="section.deprecated"
         [deprecatedFor]="section.deprecatedFor"
         [externalUrl]="section.externalUrl"
-        [usage]="section.usage">
+        [usage]="section.usage"
+        [schematic]="section.schematic">
     </uxd-component-section>
 </div>

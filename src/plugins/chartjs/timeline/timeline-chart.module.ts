@@ -1,11 +1,11 @@
 import { END, HOME, LEFT_ARROW, RIGHT_ARROW } from '@angular/cdk/keycodes';
 import { NgModule } from '@angular/core';
 
-const timelineDefaultOptions: TimelineChartOptions & TimelineChartState = {
+const timelineDefaultOptions: TimelineChartOptions & TimelineChartStateOptions = {
     timeline: {
         backgroundColor: '#f1f2f3',
         selectionColor: 'rgba(198, 23, 157, 0.15)',
-        onChange: () => { },
+        onChange: function onChange() { },
         keyboard: {
             step: 2_592_000_000 // 30 days
         },
@@ -360,6 +360,11 @@ export class TimelineChartPlugin {
      */
     private onMouseDown(chart: TimelineChart): void {
 
+        // ensure we only proceed when we have a chart context
+        if (!chart.ctx) {
+            return;
+        }
+
         // get the position from the chart area
         const { top } = this.getChartArea(chart);
 
@@ -386,7 +391,7 @@ export class TimelineChartPlugin {
         const { handle, mouseX } = this.getState(chart);
 
         // if we are not dragging then do nothing
-        if (handle === null) {
+        if (!handle) {
             return;
         }
 

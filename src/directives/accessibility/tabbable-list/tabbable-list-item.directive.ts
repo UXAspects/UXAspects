@@ -49,7 +49,7 @@ export class TabbableListItemDirective implements FocusableOption, OnDestroy {
             this._changeDetector.detectChanges();
 
             // this item should no longer be tabbable
-            this._tabbableList.focusKeyManager.updateActiveItemIndex(-1);
+            this._tabbableList.focusKeyManager.updateActiveItem(-1);
 
             // store the focus origin before we blur
             const origin = this._focusOrigin;

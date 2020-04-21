@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { IconModule, NumberPickerModule, AccessibilityModule } from '@ux-aspects/ux-aspects';
 import { NumberPickerTestPageComponent } from './number-picker.testpage.component';
 
+
 @NgModule({
     imports: [
         CommonModule,

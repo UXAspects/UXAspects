@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
+import { ColorServiceModule, colorSets } from '@ux-aspects/ux-aspects';
 
 const routes: Routes = [
     {
@@ -232,6 +233,7 @@ const routes: Routes = [
     imports: [
         BrowserModule,
         RouterModule.forRoot(routes, { useHash: true }),
+        ColorServiceModule.forRoot(colorSets.keppel),
         NoopAnimationsModule
     ],
     declarations: [

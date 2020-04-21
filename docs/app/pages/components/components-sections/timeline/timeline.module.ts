@@ -5,13 +5,10 @@ import { IconModule, TabsetModule, TimelineModule } from '@ux-aspects/ux-aspects
 import { DocumentationComponentsModule } from '../../../../components/components.module';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
 import { DocumentationPage, ResolverService } from '../../../../services/resolver/resolver.service';
-import { WrappersModule } from '../../../../wrappers/wrappers.module';
-import { ComponentsTimelineNg1Component } from './timeline-ng1/timeline-ng1.component';
 import { ComponentsTimelineComponent } from './timeline/timeline.component';
 
 
 const SECTIONS = [
-    ComponentsTimelineNg1Component,
     ComponentsTimelineComponent
 ];
 
@@ -33,15 +30,13 @@ const ROUTES = [
         RouterModule.forChild(ROUTES),
         TabsetModule,
         TimelineModule,
-        WrappersModule,
     ],
     exports: SECTIONS,
     declarations: SECTIONS,
-    entryComponents: SECTIONS
 })
 export class ComponentsTimelineModule {
 
     constructor(componentFactoryResolver: ComponentFactoryResolver, resolverService: ResolverService) {
-        resolverService.registerResolver(componentFactoryResolver);
+        resolverService.registerResolver(componentFactoryResolver, SECTIONS);
     }
 }

@@ -1,1 +1,0 @@
-$scope.$broadcast("treegrid.reload");

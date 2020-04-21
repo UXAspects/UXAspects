@@ -1,6 +1,6 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { Subject } from 'rxjs';
-import { NavigationItem } from './navigation-item.inferface';
+import { NavigationItem } from './navigation-item.interface';
 
 @Injectable()
 export class NavigationService implements OnDestroy {

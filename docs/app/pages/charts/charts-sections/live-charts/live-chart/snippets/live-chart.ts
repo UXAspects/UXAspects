@@ -25,8 +25,6 @@ export class AppComponent {
         let gridColor = colorService.getColor('grey6').toHex();
         let lineBorderColor = colorService.getColor('chart1').toRgb();
         let lineFillColor = colorService.getColor('chart1').setAlpha(0.1).toRgba();
-        let lineForecastFillColor = colorService.getColor('chart1').setAlpha(0.06).toRgba();
-        let pointBorderColor = colorService.getColor('chart1').setAlpha(0.5).toRgba();
 
         // set the initial chart data
         this.updateChartData();
@@ -34,7 +32,9 @@ export class AppComponent {
         this.lineChartOptions = {
             maintainAspectRatio: false,
             responsive: true,
-            animation: false,
+            animation: {
+                duration: 0
+            },
             elements: {
                 line: {
                     tension: 0

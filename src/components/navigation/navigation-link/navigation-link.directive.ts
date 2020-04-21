@@ -4,7 +4,7 @@ import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { filter, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { tick } from '../../../common/index';
-import { NavigationItem, NavigationItemRouterOptions } from '../navigation-item.inferface';
+import { NavigationItem, NavigationItemRouterOptions } from '../navigation-item.interface';
 import { NavigationModuleOptions, NAVIGATION_MODULE_OPTIONS } from '../navigation-options';
 import { NavigationService } from '../navigation.service';
 

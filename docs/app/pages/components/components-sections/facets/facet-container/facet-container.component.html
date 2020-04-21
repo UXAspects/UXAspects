@@ -36,11 +36,17 @@
     <tr uxd-api-property name="clearTooltip" type="string" defaultValue="Clear All">
         Defines the text to display in the tooltip when hovering over the clear all button.
     </tr>
-    <tr uxd-api-property name="emptyText" trpe="string" defaultValue="No Items">
+    <tr uxd-api-property name="emptyText" type="string" defaultValue="No Items">
         Defines the text to display when there are no selected facets.
     </tr>
     <tr uxd-api-property name="facetsReorderable" type="boolean" defaultValue="false">
         Determines if the facets can be reordered.
+    </tr>
+    <tr uxd-api-property name="clearAriaLabel" type="string">
+        Determines the aria-label for the clear all button.
+    </tr>
+    <tr uxd-api-property name="deselectFacetAriaLabel" type="string">
+        Determines the aria-label for the deselect facet button.
     </tr>
 </uxd-api-properties>
 
@@ -50,8 +56,8 @@
     </tr>
     <tr uxd-api-property name="events" type="FacetEvent">
         This will be triggered when a facet is selected, deselected or all facets are deselected. The event will be an
-        instance of either <code>FacetSelect</code>, <code>FacetDeselect</code> or <code>FacetDeselectAll</code> 
-        and will contain the facet being selected or deselected in a <code>facet</code> property 
+        instance of either <code>FacetSelect</code>, <code>FacetDeselect</code> or <code>FacetDeselectAll</code>
+        and will contain the facet being selected or deselected in a <code>facet</code> property
         (deselect all will not contain affected facets).
     </tr>
 </uxd-api-properties>

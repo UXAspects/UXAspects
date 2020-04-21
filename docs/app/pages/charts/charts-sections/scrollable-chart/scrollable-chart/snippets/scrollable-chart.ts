@@ -33,7 +33,9 @@ export class AppComponent {
 
         this.barChartData = [{
             data: this.getPageData(),
-            borderWidth: 1
+            borderWidth: 1,
+            barPercentage: 0.5,
+            categoryPercentage: 1
         }];
 
         // Prepare colors used in chart
@@ -46,11 +48,11 @@ export class AppComponent {
         this.barChartOptions = {
             maintainAspectRatio: false,
             responsive: true,
-            animation: false,
+            animation: {
+                duration: 0
+            },
             scales: {
                 xAxes: [{
-                    barPercentage: 0.5,
-                    categoryPercentage: 1,
                     gridLines: {
                         color: 'transparent'
                     }

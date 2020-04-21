@@ -1,6 +1,6 @@
 import { isPlatformBrowser } from '@angular/common';
 import { AfterViewInit, ContentChildren, Directive, ElementRef, Inject, PLATFORM_ID, QueryList, Renderer2 } from '@angular/core';
-import { fromEvent } from 'rxjs';
+import { fromEvent, merge } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ResizeService } from '../../../../directives/resize/index';
 import { BaseResizableTableDirective } from '../resizable-table-base.directive';
@@ -35,7 +35,6 @@ export class ResizableExpandingTableDirective extends BaseResizableTableDirectiv
     }
 
     ngAfterViewInit(): void {
-        super.ngAfterViewInit();
 
         if (isPlatformBrowser(this._platformId)) {
 
@@ -49,10 +48,9 @@ export class ResizableExpandingTableDirective extends BaseResizableTableDirectiv
 
             /** checks if the table is resizing and allows for a class to be added for when moving from
              overflow to no overflow */
-            this._table.onResize$.pipe(takeUntil(this._onDestroy)).subscribe(() => {
+            merge(this._table.onResize$, this.columns.changes).pipe(takeUntil(this._onDestroy)).subscribe(() => {
                 this._overflowX = this._elementRef.nativeElement.tBodies[0].scrollWidth > this._elementRef.nativeElement.tBodies[0].offsetWidth;
             });
-
         }
 
     }

@@ -1,10 +1,13 @@
 import { Component } from '@angular/core';
 import { HierarchyBarNode } from '@ux-aspects/ux-aspects';
+import { Chance } from 'chance';
 import { Observable, Observer } from 'rxjs';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
 import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
+
+const chance = new Chance();
 
 @Component({
     selector: 'uxd-components-hierarchy-bar',

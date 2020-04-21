@@ -1,16 +1,14 @@
-import { OnDestroy, OnInit, Optional } from '@angular/core';
+import { Directive, OnDestroy, OnInit, Optional } from '@angular/core';
 import { Subject } from 'rxjs';
-import { invokeSuperFunction } from './conduit-utils';
 import { ConduitZone } from './conduit-zone.service';
 import { ConduitProperties } from './interfaces/conduit-properties';
 
+@Directive({
+    selector: 'ux-conduit'
+})
 export class ConduitComponent implements OnInit, OnDestroy {
 
-    constructor(@Optional() protected _zone: ConduitZone) {
-        // we want to ensure these functions get called even if a class overrides them
-        invokeSuperFunction(this, 'ngOnInit');
-        invokeSuperFunction(this, 'ngOnDestroy');
-    }
+    constructor(@Optional() protected _zone: ConduitZone) {}
 
     /** We need to register the conduits with the zone when the component is initialised */
     ngOnInit(): void {

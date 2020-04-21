@@ -1,0 +1,103 @@
+ux-partition-map {
+    position: absolute;
+    height: calc(100% - 130px);
+
+    .partition-map-custom-segment {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: 100%;
+        align-items: center;
+        justify-content: center;
+
+        .partition-map-segment-label {
+            width: calc(100% - 32px);
+            min-height: 22px;
+            text-align: center;
+            transition: opacity 250ms ease-in-out, transform 250ms ease-in-out;
+        }
+
+        .partition-map-segment-icon {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            transition: opacity 250ms ease-in-out;
+        }
+
+        &.partition-map-custom-segment-collapsed {
+            .partition-map-segment-icon {
+                opacity: 0;
+            }
+
+            .partition-map-segment-label {
+                transform: translateY(-16px);
+            }
+        }
+    }
+}
+
+.partition-segment-popover {
+    display: flex;
+
+    .partition-segment-color-indicator {
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        width: 4px;
+    }
+
+    .partition-segment-info,
+    .partition-segment-children {
+        width: 184px;
+
+        p:last-of-type {
+            margin-bottom: 0;
+        }
+
+        .group-name-header {
+            color: #656686;
+            margin-bottom: 0;
+        }
+
+        .group-name-value {
+            font-size: 18px;
+            color: #000000;
+            font-weight: 700;
+        }
+
+        .group-value {
+            color: #656686;
+
+            .group-value-count {
+                font-size: 40px;
+                font-weight: 600;
+                color: #000;
+            }
+        }
+
+        .partition-segment-child {
+            display: flex;
+            padding: 4px;
+            margin-bottom: 2px;
+
+            .partition-segment-color-block {
+                width: 14px;
+                height: 14px;
+                margin-right: 15px;
+            }
+
+            .partition-segment-child-title {
+                margin-bottom: 0;
+                flex: 1;
+                line-height: 14px;
+            }
+
+            .partition-segment-child-value {
+                margin-bottom: 0;
+                line-height: 14px;
+                color: #656686;
+            }
+        }
+
+    }
+}

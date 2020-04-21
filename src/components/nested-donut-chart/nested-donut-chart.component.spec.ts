@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { BehaviorSubject } from 'rxjs';
 import { Color } from '../../common/index';
 import { ResizeDimensions, ResizeService } from '../../directives/resize/index';
-import { ColorServiceModule } from '../../services/color/index';
+import { ColorServiceModule, colorSets } from '../../services/color/index';
 import { TooltipModule } from '../tooltip/index';
 import { NestedDonutChartComponent } from './nested-donut-chart.component';
 
@@ -26,7 +26,7 @@ describe('Nested Donut Chart Component', () => {
         TestBed.configureTestingModule({
             imports: [
                 TooltipModule,
-                ColorServiceModule
+                ColorServiceModule.forRoot(colorSets.keppel)
             ],
             providers: [
                 { provide: ResizeService, useClass: MockResizeService }

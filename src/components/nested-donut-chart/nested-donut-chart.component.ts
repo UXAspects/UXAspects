@@ -1,9 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ElementRef, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
-import { easeCubic } from 'd3-ease';
-import { interpolate } from 'd3-interpolate';
-import { BaseType, mouse, select, Selection } from 'd3-selection';
-import { arc, Arc } from 'd3-shape';
-import { transition } from 'd3-transition';
+import { arc, Arc, BaseType, easeCubic, interpolate, mouse, select, Selection, transition } from 'd3';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { Color } from '../../common/colors/index';

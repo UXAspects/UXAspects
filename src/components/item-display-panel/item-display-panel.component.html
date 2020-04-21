@@ -13,8 +13,7 @@
 
         <button *ngIf="closeVisible"
                 uxFocusIndicator
-                aria-label="Close"
-                i18n-aria-label
+                [attr.aria-label]="closeAriaLabel"
                 type="button"
                 class="btn btn-lg btn-link btn-icon button-secondary"
                 (click)="visible = false">

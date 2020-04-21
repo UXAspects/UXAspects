@@ -33,7 +33,7 @@ describe('Icon Component', () => {
         fixture = TestBed.createComponent(IconTestComponent);
         component = fixture.componentInstance;
         iconElement = fixture.elementRef.nativeElement.querySelector('ux-icon');
-        service = TestBed.get(IconService);
+        service = TestBed.inject(IconService);
 
         fixture.detectChanges();
     });

@@ -1,6 +1,6 @@
 {
   "name": "@ux-aspects/ux-aspects",
-  "version": "1.8.18",
+  "version": "2.0.1",
   "description": "Open source user interface framework for building modern, responsive, mobile big data applications",
   "main": "dist/bundles/ux-aspects.umd.js",
   "files": [
@@ -8,7 +8,6 @@
     "common/",
     "components/",
     "directives/",
-    "dist/",
     "esm2015/",
     "esm5/",
     "fesm2015/",
@@ -18,8 +17,6 @@
     "img/",
     "index.d.ts",
     "less/",
-    "Licenses",
-    "ng1/",
     "package.json",
     "pipes/",
     "plugins/",
@@ -56,8 +53,8 @@
   },
   "homepage": "https://uxaspects.github.io/UXAspects",
   "dependencies": {
-    "angular-split": "1.0.0-rc.3",
-    "chart.js": "^2.7.3",
+    "angular-split": "^3.0.2",
+    "chart.js": "~2.7.3",
     "d3": "^5.9.2",
     "dragula": "^3.7.2",
     "ng2-charts": "^1.6.0",
@@ -70,14 +67,13 @@
     "@types/dragula": "^2.1.33"
   },
   "peerDependencies": {
-    "@angular/animations": ">=6.0.0 <9.0.0",
-    "@angular/cdk": ">=6.0.0 <9.0.0",
-    "@angular/common": ">=6.0.0 <9.0.0",
-    "@angular/compiler": ">=6.0.0 <9.0.0",
-    "@angular/core": ">=6.0.0 <9.0.0",
-    "@angular/forms": ">=6.0.0 <9.0.0",
-    "@angular/upgrade": ">=6.0.0 <9.0.0",
-    "angular-tree-component": ">=5.2.0",
-    "rxjs-compat": ">=6.0.0"
+    "@angular/animations": ">=7.0.0 <10.0.0",
+    "@angular/cdk": ">=7.0.0 <10.0.0",
+    "@angular/common": ">=7.0.0 <10.0.0",
+    "@angular/compiler": ">=7.0.0 <10.0.0",
+    "@angular/core": ">=7.0.0 <10.0.0",
+    "@angular/forms": ">=7.0.0 <10.0.0",
+    "@angular/upgrade": ">=7.0.0 <10.0.0",
+    "angular-tree-component": ">=5.2.0"
   }
 }

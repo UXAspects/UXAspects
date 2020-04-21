@@ -2,12 +2,6 @@
     font-size: inherit;
 }
 
-//collapsible panel angular
-.accordion-toggle {
-    display: block;
-    width: 100%;
-}
-
 .accordion-chevron {
     .panel-heading {
         .ux-icon-previous();
@@ -26,15 +20,6 @@
     }
 }
 
-a {
-    &.accordion-toggle {
-        &:focus {
-            outline: 1px auto @accordion-outline;
-        }
-    }
-}
-
-.panel-heading.accordion-toggle,
 .panel-heading {
     &:focus,
     a:focus {
@@ -42,11 +27,6 @@ a {
     }
 }
 
-[data-toggle="collapse"] {
-    cursor: pointer;
-}
-
-.hpebox,
 .ebox {
     clear: both;
     margin-bottom: 25px;
@@ -54,7 +34,6 @@ a {
     padding: 0;
 }
 
-.hpebox,
 .ebox {
     &:before,
     &:after {
@@ -62,7 +41,6 @@ a {
     }
 }
 
-.hpebox-title,
 .ebox-title {
     -moz-border-bottom-colors: none;
     -moz-border-left-colors: none;
@@ -80,7 +58,6 @@ a {
     }
 }
 
-.hpebox-draghandle,
 .ebox-draghandle {
     position: absolute;
     top: 0;
@@ -113,7 +90,6 @@ a {
     }
 }
 
-.hpebox-content,
 .ebox-content {
     background-color: @ebox-content-bg;
     color: inherit;
@@ -132,26 +108,21 @@ a {
     }
 }
 
-.hpebox-content,
 .ebox-content {
     clear: both;
 }
 
-.hpebox-heading,
 .ebox-heading {
     background-color: @ebox-heading-bg;
     border-bottom: none;
 }
 
-.hpebox-heading h3,
 .ebox-heading h3 {
     font-weight: 200;
     font-size: 1.5rem;
 }
 
 // Content Box Tools
-.hpebox-content,
-.hpebox-title,
 .ebox-content,
 .ebox-title {
     h1,
@@ -163,262 +134,9 @@ a {
     }
 }
 
-.hpebox-content,
 .ebox-content {
     &.text-box {
         padding-bottom: 0;
         padding-top: 15px;
     }
-}
-
-//=================
-//Draggable panels
-//=================
-.ui-sortable {
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    min-height: 50px;
-
-    .drag-handle {
-        cursor: move;
-    }
-}
-
-.sortable-placeholder {
-    border: 1px dashed @draggable-panel-placeholder-border;
-    background: @draggable-panel-placeholder-bg;
-    margin: 0 0 23px;
-}
-
-//=================
-//Input Expand
-//=================
-.expand-input {
-    input::-ms-clear {
-        display: none;
-    }
-
-    .input-group-addon {
-        background-color: inherit;
-        border: 0;
-        padding-left: 10px;
-
-        a {
-            color: @grey2;
-        }
-    }
-
-    input:focus {
-        border-right: 0;
-    }
-}
-
-.navbar-form-search {
-    .expand-input {
-        .input-group-btn {
-            .btn {
-                border: 0;
-                background: transparent;
-                opacity: 0.7;
-            }
-        }
-
-        .input-group-addon {
-            a {
-                border: 0;
-                background: inherit;
-            }
-        }
-    }
-
-    .expanded {
-        input {
-            transition: none !important;
-            width: 100% !important;
-            padding-bottom: 1px !important;
-        }
-
-        .input-group-btn {
-            .btn {
-                border-radius: 0;
-            }
-        }
-    }
-}
-
-.input-group-btn-append {
-    button {
-        background: @form-control-bg;
-        border: 1px solid @form-control-focus-border;
-        border-left: 0;
-        border-radius: 0 !important;
-        box-shadow: none !important;
-
-        &:hover {
-            border: 1px solid @form-control-focus-border;
-            border-radius: 0 !important;
-            border-left: 0;
-        }
-    }
-}
-
-.side-inset {
-    background: @side-inset-panel-bg;
-}
-
-//dragable panel styles
-.draggable-panel-card-container {
-    .draggable-panel-card {
-        border: 1px solid @draggable-panel-border;
-        height: 120px;
-        width: 220px;
-        margin: 10px;
-        box-shadow: 1px 1px 3px @draggable-panel-border;
-        background-color: @draggable-panel-background;
-
-        &:hover {
-            border: 1px solid @draggable-panel-hover-border;
-
-            .gutter {
-                visibility: visible;
-            }
-        }
-
-        .gutter {
-            cursor: move;
-            float: left;
-            height: 100%;
-            width: 15px;
-            overflow: hidden;
-            visibility: hidden;
-
-            &:hover {
-                background-color: @draggable-panel-list-gutter-bg;
-            }
-
-            .drag-handle {
-                margin-left: 5px;
-                position: relative;
-                top: 50%;
-                width: 4px;
-                height: 21px;
-                background-image: url('../img/draghandle-dark.png');
-                background-size: 10px;
-                transform: translateY(-50%);
-                opacity: 0.3;
-                float: left;
-            }
-        }
-
-        .content {
-            margin-left: 10px;
-            padding-left: 10px;
-
-            h4 {
-                font-size: 1.25rem;
-            }
-
-            p {
-                color: @grey2;
-
-                &.lighten {
-                    opacity: 0.5;
-                }
-            }
-        }
-    }
-
-    .sortable-placeholder {
-        height: 120px;
-        width: 220px;
-        margin: 10px;
-    }
-}
-
-.draggable-panel-list-container {
-    border: 1px solid transparent;
-
-    .draggable-panel {
-        width: 100%;
-    }
-
-    .draggable-panel-list {
-        background: @draggable-panel-list-bg;
-        width: 100%;
-        border-bottom: 1px solid @draggable-panel-list-border;
-
-        &:hover {
-            background: @draggable-panel-list-hover-bg;
-
-            .gutter {
-                visibility: visible;
-            }
-        }
-
-        .gutter {
-            cursor: move;
-            float: left;
-            width: 15px;
-            height: 100%;
-            overflow: hidden;
-            background-color: @draggable-panel-list-gutter-bg;
-            visibility: hidden;
-
-            .drag-handle {
-                position: relative;
-                margin-left: 5px;
-                top: 50%;
-                width: 4px;
-                height: 21px;
-                background-image: url('../img/draghandle-dark.png');
-                background-size: 10px;
-                transform: translateY(-50%);
-                opacity: 0.3;
-                float: left;
-            }
-        }
-
-        .title {
-            float: left;
-            display: inline;
-            width: 30%;
-            height: 100%;
-            background: inherit;
-            padding: 10px;
-
-            p {
-                font-size: 1.125rem;
-                color: @grey2;
-                opacity: 0.5;
-            }
-        }
-
-        .content {
-            width: 60%;
-            height: 100%;
-            background: inherit;
-            padding-top: 10px;
-            padding-bottom: 10px;
-            padding-right: 10px;
-            display: inline;
-            float: left;
-        }
-    }
-
-    .sortable-placeholder {
-        margin: 0;
-        width: 100%;
-        height: 60px;
-        background: @sortable-placeholder-bg;
-    }
-}
-
-.draggable-panel-highlight {
-    border: 1px dashed @draggable-panel-highlight;
-}
-
-.panel-dragging {
-    background: @draggable-panel-dragging-bg;
 }

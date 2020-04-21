@@ -8,25 +8,14 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
 import { DocumentationPage, ResolverService } from '../../../../services/resolver/resolver.service';
-import { WrappersModule } from '../../../../wrappers/wrappers.module';
-import { ComponentsAlertStylesNg1Component } from './alert-styles-ng1/alert-styles-ng1.component';
 import { ComponentsAlertComponent } from './alert/alert.component';
 import { ComponentsBadgeComponent } from './badge/badge.component';
-import { ComponentsDismissableStylesNg1Component } from './dismissable-styles-ng1/dismissable-styles-ng1.component';
-import { ComponentsNotificationDropdownNg1Component } from './notification-dropdown-ng1/notification-dropdown-ng1.component';
-import { ComponentsNotificationListNg1Component } from './notification-list-ng1/notification-list-ng1.component';
-import { ComponentsNotificationsNg1Component } from './notifications-ng1/notifications-ng1.component';
 import { ComponentsNotificationsComponent } from './notifications/notifications.component';
 
 const SECTIONS = [
     ComponentsAlertComponent,
     ComponentsBadgeComponent,
     ComponentsNotificationsComponent,
-    ComponentsNotificationsNg1Component,
-    ComponentsNotificationListNg1Component,
-    ComponentsNotificationDropdownNg1Component,
-    ComponentsAlertStylesNg1Component,
-    ComponentsDismissableStylesNg1Component,
 ];
 
 const ROUTES = [
@@ -54,17 +43,15 @@ const ROUTES = [
         IconModule,
         NotificationModule,
         NumberPickerModule,
+        RadioButtonModule,
         RouterModule.forChild(ROUTES),
         TabsetModule,
-        WrappersModule,
-        RadioButtonModule,
     ],
     exports: SECTIONS,
     declarations: SECTIONS,
-    entryComponents: SECTIONS,
 })
 export class ComponentsNotificationsModule {
     constructor(componentFactoryResolver: ComponentFactoryResolver, resolverService: ResolverService) {
-        resolverService.registerResolver(componentFactoryResolver);
+        resolverService.registerResolver(componentFactoryResolver, SECTIONS);
     }
 }
