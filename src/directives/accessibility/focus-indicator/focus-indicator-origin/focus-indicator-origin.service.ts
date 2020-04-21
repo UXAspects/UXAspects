@@ -1,9 +1,14 @@
 import { FocusOrigin } from '@angular/cdk/a11y';
 import { Injectable } from '@angular/core';
 
-@Injectable({
-    providedIn: 'root'
-})
+/**
+ * This service can be changed to `providedIn: 'root'` whenever
+ * Angular 7 support can be dropped. There is an issue with backwards
+ * compatibility. We can eventually remove it from the module and make
+ * the `_origin` field a class member rather than a static member.
+ */
+
+@Injectable()
 export class FocusIndicatorOriginService {
 
     /** Store the most recent origin event */

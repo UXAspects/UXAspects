@@ -17,24 +17,23 @@
                 .native-focus-outline;
             }
         }
+
+        a:hover {
+            color: @breadcrumb-hover-color;
+        }
+
+        + li {
+            .ux-icon-next;
+
+            &:before {
+                font-family: "ux-icons";
+                display: inline-block;
+                padding: 0 0 0 3px;
+                font-size: 0.6rem;
+                color: @breadcrumb-separator-color;
+            }
+        }
     }
-}
-
-.breadcrumb > li a:hover {
-    color: @breadcrumb-hover-color;
-}
-
-.breadcrumb > li:before,
-.breadcrumb > li:last-child:after {
-    display: none;
-}
-
-.breadcrumb > li:after:extend(.hpe-next:before) {
-    font-family: "hpe-icons";
-    display: inline-block;
-    padding: 0 2px 0 0;
-    font-size: 0.6875rem;
-    color: @breadcrumb-separator-color;
 }
 
 .breadcrumb-inverse {

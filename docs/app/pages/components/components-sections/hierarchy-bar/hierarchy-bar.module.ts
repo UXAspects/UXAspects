@@ -5,14 +5,11 @@ import { AccessibilityModule, AccordionModule, CheckboxModule, HierarchyBarModul
 import { DocumentationComponentsModule } from '../../../../components/components.module';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
 import { DocumentationPage, ResolverService } from '../../../../services/resolver/resolver.service';
-import { WrappersModule } from '../../../../wrappers/wrappers.module';
-import { ComponentsHierarchyBarNg1Component } from './hierarchy-bar-ng1/hierarchy-bar-ng1.component';
 import { ComponentsHierarchyBarComponent } from './hierarchy-bar/hierarchy-bar.component';
 
 
 const SECTIONS = [
     ComponentsHierarchyBarComponent,
-    ComponentsHierarchyBarNg1Component
 ];
 
 const ROUTES = [
@@ -29,6 +26,7 @@ const ROUTES = [
     imports: [
         AccessibilityModule,
         AccordionModule,
+        CheckboxModule,
         DocumentationComponentsModule,
         FormsModule,
         HierarchyBarModule,
@@ -36,16 +34,13 @@ const ROUTES = [
         RadioButtonModule,
         RouterModule.forChild(ROUTES),
         TabsetModule,
-        WrappersModule,
-        CheckboxModule,
     ],
     exports: SECTIONS,
     declarations: SECTIONS,
-    entryComponents: SECTIONS
 })
 export class ComponentsHierarchyBarModule {
 
     constructor(componentFactoryResolver: ComponentFactoryResolver, resolverService: ResolverService) {
-        resolverService.registerResolver(componentFactoryResolver);
+        resolverService.registerResolver(componentFactoryResolver, SECTIONS);
     }
 }

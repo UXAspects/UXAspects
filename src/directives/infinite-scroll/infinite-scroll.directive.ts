@@ -340,7 +340,7 @@ export class InfiniteScrollDirective<T = any> implements OnInit, AfterContentIni
                         this.endLoading(request, items);
                     }
                 },
-                reason => {
+                (reason: any) => {
                     // Emit the loadError event
                     this.endLoadingWithError(request, reason);
                 },

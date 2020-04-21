@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import 'chance';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class TreeViewService {
 
     getDocuments(): Promise<TreeViewExampleNode[]> {

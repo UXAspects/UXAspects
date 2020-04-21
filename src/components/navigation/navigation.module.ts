@@ -28,7 +28,7 @@ import { NavigationComponent } from './navigation.component';
 export class NavigationModule {
 
     // allow options to be specified globally
-    static forRoot(options: NavigationModuleOptions): ModuleWithProviders {
+    static forRoot(options: NavigationModuleOptions): ModuleWithProviders<NavigationModule> {
         return {
             ngModule: NavigationModule,
             providers: [

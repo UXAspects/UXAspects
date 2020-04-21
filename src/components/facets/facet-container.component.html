@@ -41,8 +41,7 @@
             <button type="button"
                 uxFocusIndicator
                 class="facet-selected-remove-btn"
-                i18n-aria-label
-                aria-label="Deselect Facet"
+                [attr.aria-label]="deselectFacetAriaLabel"
                 (click)="deselectFacet(facet, tag)">
 
                 <ux-icon name="close"></ux-icon>
@@ -65,7 +64,7 @@
     <button type="button"
             class="btn btn-link btn-icon button-secondary"
             tabindex="0"
-            [attr.aria-label]="clearTooltip"
+            [attr.aria-label]="clearAriaLabel"
             [uxTooltip]="clearTooltip"
             placement="left"
             (click)="deselectAllFacets()">

@@ -75,6 +75,84 @@ export class MediaPlayerComponent implements AfterViewInit, OnDestroy {
         this.mediaPlayerService.quietMode = value;
     }
 
+    /**
+     * If specified the function will be called passing the current volume as an argument.
+     * It should return an appropriate aria-label for the mute/unmute button.
+     */
+    @Input()
+    set muteAriaLabel(fn: (volume: number) => string) {
+        this.mediaPlayerService.muteAriaLabel = fn;
+    }
+
+    /**
+     * If specified the function will be called passing the current playing state as an argument.
+     * It should return an appropriate aria-label for the play/pause button.
+     */
+    @Input()
+    set playAriaLabel(fn: (isPlaying: boolean) => string) {
+        this.mediaPlayerService.playAriaLabel = fn;
+    }
+
+    /**
+     * If specified the function will be called passing the current fullscreen state as an argument.
+     * It should return an appropriate aria-label for the fullscreen toggle button.
+     */
+    @Input()
+    set fullscreenAriaLabel(fn: (isFullscreen: boolean) => string) {
+        this.mediaPlayerService.fullscreenAriaLabel = fn;
+    }
+
+    /**
+     * If specified the function will be called passing the current track as an argument.
+     * It should return an appropriate aria-label for the subtitle selection button.
+     */
+    @Input()
+    set selectSubtitlesAriaLabel(fn: (track: string) => string) {
+        this.mediaPlayerService.selectSubtitlesAriaLabel = fn;
+    }
+
+    /** Defines an aria-label for the go to start button. */
+    @Input()
+    set goToStartAriaLabel(ariaLabel: string) {
+        this.mediaPlayerService.goToStartAriaLabel = ariaLabel;
+    }
+
+    /** Defines an aria-label for the go to end button. */
+    @Input()
+    set goToEndAriaLabel(ariaLabel: string) {
+        this.mediaPlayerService.goToEndAriaLabel = ariaLabel;
+    }
+
+    /** Defines an aria-label for the title displayed in the subtitle selection popover. */
+    @Input()
+    set subtitlesTitleAriaLabel(ariaLabel: string) {
+        this.mediaPlayerService.subtitlesTitleAriaLabel = ariaLabel;
+    }
+
+    /** Defines an aria-label to indicate subtitle are not currently enabled. */
+    @Input()
+    set subtitlesOffAriaLabel(ariaLabel: string) {
+        this.mediaPlayerService.subtitlesOffAriaLabel = ariaLabel;
+    }
+
+    /** Define an aria-label to indicate there are no subtitles available. */
+    @Input()
+    set noSubtitlesAriaLabel(ariaLabel: string) {
+        this.mediaPlayerService.noSubtitlesAriaLabel = ariaLabel;
+    }
+
+    /** Define an aria-label for the media player. */
+    @Input()
+    set mediaPlayerAriaLabel(ariaLabel: string) {
+        this.mediaPlayerService.mediaPlayerAriaLabel = ariaLabel;
+    }
+
+    /** Define an aria-label for the the seek element. */
+    @Input()
+    set seekAriaLabel(ariaLabel: string) {
+        this.mediaPlayerService.seekAriaLabel = ariaLabel;
+    }
+
     private _onDestroy = new Subject<void>();
 
     constructor(public mediaPlayerService: MediaPlayerService, private _audioService: AudioService, private _elementRef: ElementRef) {

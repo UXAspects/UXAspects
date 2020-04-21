@@ -36,6 +36,12 @@ export class FacetContainerComponent implements OnDestroy {
         return this.facetService.facets$.value;
     }
 
+    /** Defines the aria-label for the clear all button. */
+    @Input() clearAriaLabel: string = 'Clear All';
+
+    /** Defines the aria-label for the deselect facet button.. */
+    @Input() deselectFacetAriaLabel: string = 'Deselect Facet';
+
     /** If using two-way binding this array will update when the selected facets change. */
     @Output() facetsChange: EventEmitter<Facet[]> = new EventEmitter<Facet[]>();
 

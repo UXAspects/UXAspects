@@ -52,7 +52,9 @@ export class ChartsScrollableChartComponent extends BaseDocumentationSection imp
 
         this.barChartData = [{
             data: this.getPageData(),
-            borderWidth: 1
+            borderWidth: 1,
+            barPercentage: 0.5,
+            categoryPercentage: 1
         }];
 
         // Prepare colors used in chart
@@ -65,11 +67,11 @@ export class ChartsScrollableChartComponent extends BaseDocumentationSection imp
         this.barChartOptions = {
             maintainAspectRatio: false,
             responsive: true,
-            animation: {},
+            animation: {
+                duration: 0
+            },
             scales: {
                 xAxes: [{
-                    barPercentage: 0.5,
-                    categoryPercentage: 1,
                     gridLines: {
                         color: 'transparent'
                     }

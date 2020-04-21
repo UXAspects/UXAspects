@@ -39,12 +39,6 @@ export class PageHeaderComponent {
     /** The alignment of the secondary navigation tabs. */
     @Input() secondaryNavigationAlignment: 'left' | 'right' | 'center' = 'center';
 
-    /** @deprecated */
-    @Input() set title(subheader: string) {
-        this.subheader = subheader;
-        console.warn(`The 'title' @Input of the ux-page-header component has been deprecated. Please change to use the 'subheader' @Input instead.`);
-    }
-
     /** If set, the first child item will get selected when the parent item is selected. */
     @Input()
     set secondaryNavigationAutoselect(value: boolean) {
@@ -108,20 +102,6 @@ export class PageHeaderComponent {
         return this._logoForeground;
     }
 
-    /** @deprecated - Use logoBackground instead */
-    @Input()
-    set familyBackground(color: string) {
-        this.logoBackground = color;
-        console.warn(`The 'familyBackground' @Input of the ux-page-header component has been deprecated. Please change to use the 'logoBackground' @Input instead.`);
-    }
-
-    /** @deprecated - Use logoForeground instead */
-    @Input()
-    set familyForeground(color: string) {
-        this.logoForeground = color;
-        console.warn(`The 'familyForeground' @Input of the ux-page-header component has been deprecated. Please change to use the 'logoForeground' @Input instead.`);
-    }
-
     get _hasLogoClick(): boolean {
         return this.logoClick.observers.length > 0;
     }
@@ -131,9 +111,6 @@ export class PageHeaderComponent {
 
     /** Emit whenever the product logo in the left corner is clicked. */
     @Output() logoClick = new EventEmitter<MouseEvent>();
-
-    /** @deprecated - Access a custom template title. Use subheaderTemplate instead */
-    @ContentChild('title', { static: false }) titleTemplate: TemplateRef<any>;
 
     /** Access a custom subheader template */
     @ContentChild('subheader', { static: false }) subheaderTemplate: TemplateRef<any>;

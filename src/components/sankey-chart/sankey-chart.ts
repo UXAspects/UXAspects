@@ -1,4 +1,4 @@
-import { sum } from 'd3-array';
+import { sum } from 'd3';
 import { SankeyLink, SankeyLinkPlot } from './interfaces/link.interface';
 import { SankeyNodeLink } from './interfaces/node-link.interface';
 import { SankeyNode } from './interfaces/node.interface';

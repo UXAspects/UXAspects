@@ -119,7 +119,7 @@ describe('Number Picker Component - FormGroup', () => {
         expect(numberPicker2.classList.contains('ng-invalid')).toBe(false);
     });
 
-    it('should not display ux-number-picker-invalid when max value increased to match input value  ', async () => {
+    it('should not display ux-number-picker-invalid when max value increased to match input value', async () => {
         component.form.controls.integer.setValue(15);
         fixture.detectChanges();
         await fixture.whenStable();
@@ -137,7 +137,7 @@ describe('Number Picker Component - FormGroup', () => {
         expect(numberPicker1.classList.contains('ux-number-picker-invalid')).toBe(false);
     });
 
-    it('should not display ux-number-picker-invalid when min value decreased to match input value  ', async () => {
+    it('should not display ux-number-picker-invalid when min value decreased to match input value', async () => {
         component.form.controls.integer.setValue(-15);
         fixture.detectChanges();
         await fixture.whenStable();

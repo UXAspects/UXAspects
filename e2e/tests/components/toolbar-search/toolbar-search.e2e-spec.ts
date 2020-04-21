@@ -52,7 +52,15 @@ describe('Toolbar Search', () => {
         expect(await page.rightButton.isDisplayed()).toBeTruthy();
         expect(await page.rightClear.isPresent()).toBeFalsy();
 
-        expect(await imageCompare('toolbar-search-expanded')).toEqual(0);
+        await page.rightButton.click();
+        await browser.wait(ec.visibilityOf(page.rightInput), ANIMATION_TIMEOUT);
+
+        // Verify states (right)
+        expect(await page.rightInput.isDisplayed()).toBeTruthy();
+        expect(await page.rightButton.isDisplayed()).toBeTruthy();
+        expect(await page.rightClear.isPresent()).toBeFalsy();
+
+        expect(await imageCompare('toolbar-search-expanded-both')).toEqual(0);
 
     });
 

@@ -4,7 +4,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { IndexHtmlWebpackPlugin } = require('@angular-devkit/build-angular/src/angular-cli-files/plugins/index-html-webpack-plugin');
 const { cwd } = require('process');
 const rxAlias = require('rxjs/_esm5/path-mapping');
-const { CleanCssWebpackPlugin } = require('@angular-devkit/build-angular/src/angular-cli-files/plugins/cleancss-webpack-plugin');
+const { OptimizeCssWebpackPlugin } = require('@angular-devkit/build-angular/src/angular-cli-files/plugins/optimize-css-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
@@ -72,23 +72,6 @@ module.exports = {
             include: join(cwd(), 'e2e', 'pages', 'app'),
             use: 'raw-loader'
         },
-        // Disabled until reporting is re-enabled
-        // {
-        //     test: /\.js$|\.ts$/,
-        //     use: {
-        //         loader: 'istanbul-instrumenter-loader',
-        //         options: { esModules: true }
-        //     },
-        //     enforce: 'post',
-        //     exclude: [
-        //         /node_modules/,
-        //         /ng1/,
-        //         /e2e\\pages/,
-        //         /\.e2e-spec\.ts$/,
-        //         /\.po\.spec\.ts$/,
-        //         /(?:\.ngfactory\.js|\.ngstyle\.js|\.ts)$/
-        //     ]
-        // },
         // Ignore warnings about System.import in Angular
         {
             test: /[\/\\]@angular[\/\\].+\.js$/,
@@ -144,7 +127,7 @@ module.exports = {
             }
         },
         minimizer: [
-            new CleanCssWebpackPlugin({
+            new OptimizeCssWebpackPlugin({
                 sourceMap: false,
                 test: (file) => /\.(?:css|less)$/.test(file),
             }),

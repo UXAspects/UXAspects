@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Injectable, OnDestroy } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject, isObservable, Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { TreeGridItem } from './tree-grid-item.interface';
@@ -20,7 +20,7 @@ export class TreeGridService implements OnDestroy {
     /** Ensure we destroy all observables correctly */
     private _onDestroy = new Subject<void>();
 
-    constructor(private _changeDetector: ChangeDetectorRef) {
+    constructor() {
         this.data$.pipe(takeUntil(this._onDestroy)).subscribe(data => this.rows$.next(this.getFlattenedTree(data)));
     }
 
@@ -38,8 +38,6 @@ export class TreeGridService implements OnDestroy {
         } else {
             this.removeChildren(item);
         }
-
-        this._changeDetector.detectChanges();
     }
 
     /** A function to flatten tree data */

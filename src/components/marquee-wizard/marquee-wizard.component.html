@@ -1,14 +1,14 @@
 <ng-container *ngIf="resizable && _isInitialised">
-    <split direction="horizontal"
+    <as-split direction="horizontal"
            [gutterSize]="gutterSize"
            (dragEnd)="onDragEnd($event)">
-        <split-area [size]="sidePanelWidth">
+        <as-split-area [size]="sidePanelWidth">
             <ng-container [ngTemplateOutlet]="sidePanel"></ng-container>
-        </split-area>
-        <split-area [size]="100 - sidePanelWidth">
+        </as-split-area>
+        <as-split-area [size]="100 - sidePanelWidth">
             <ng-container [ngTemplateOutlet]="mainContentPanel"></ng-container>
-        </split-area>
-    </split>
+        </as-split-area>
+    </as-split>
 </ng-container>
 
 <ng-container *ngIf="!resizable">
@@ -124,12 +124,6 @@
 </ng-template>
 
 <ng-template #defaultStepTemplate let-step>
-
-    <!-- Show an icon based on a string (deprecated) -->
-    <ng-container *ngIf="step._icon">
-        <i *ngIf="step._iconType !== 'component'" class="marquee-wizard-step-icon" [ngClass]="[step._iconType, step._icon]"></i>
-        <ux-icon *ngIf="step._iconType === 'component'" class="marquee-wizard-step-icon" [name]="step._icon"></ux-icon>
-    </ng-container>
 
     <!-- Insert the icon -->
     <div *ngIf="step._iconTemplate" class="marquee-wizard-step-icon">

@@ -1,6 +1,6 @@
 import { browser } from 'protractor';
-import { ColumnResizingExpandingPage } from './column-resizing-expanding.po.spec';
 import { imageCompare } from '../../common/image-compare';
+import { ColumnResizingExpandingPage } from './column-resizing-expanding.po.spec';
 
 describe('Column Resizing Expanding Table Tests', () => {
 
@@ -87,18 +87,23 @@ describe('Column Resizing Expanding Table Tests', () => {
     it('can increase the width of a column and the other columns remain the same - multiple', async () => {
         await page.updateLayout();
         await page.updateColumns();
-        await page.resizeColumn(page.fixedExpandTable, 0, -370);
-        await page.resizeColumn(page.fixedExpandTable, 1, -370);
 
+        expect(await imageCompare('column-resize-expanding-multiple-initial')).toEqual(0);
+
+        await page.resizeColumn(page.fixedExpandTable, 0, -370);
         expect(await page.getColumnHeaderWidth(page.fixedExpandTable, 0)).toBeGreaterThanOrEqual(100);
         expect(await page.getColumnHeaderWidth(page.fixedExpandTable, 0)).toBeLessThanOrEqual(107);
+
+        expect(await imageCompare('column-resize-expanding-multiple-first-column')).toEqual(0);
+
+        await page.resizeColumn(page.fixedExpandTable, 1, -370);
         expect(await page.getColumnHeaderWidth(page.fixedExpandTable, 1)).toBeGreaterThanOrEqual(100);
         expect(await page.getColumnHeaderWidth(page.fixedExpandTable, 1)).toBeLessThanOrEqual(107);
         expect(await page.getColumnHeaderWidth(page.fixedExpandTable, 2)).toBe(50);
         expect(await page.getColumnHeaderWidth(page.fixedExpandTable, 3)).toBe(50);
         expect(await page.getColumnHeaderWidth(page.fixedExpandTable, 4)).toBe(50);
 
-        expect(await imageCompare('column-resize-expanding-initial-multiple')).toEqual(0);
+        expect(await imageCompare('column-resize-expanding-multiple-second-column')).toEqual(0);
 
         // check if the overflow class applies when there is a scroll bar
         expect(await page.getOverflowClass()).not.toContain('ux-resizable-expanding-table-overflow');
@@ -136,9 +141,6 @@ describe('Column Resizing Expanding Table Tests', () => {
 
         // check the initial number of rows we should now have an additional 15
         expect(await page.getNumberOfRows(page.fixedExpandTable)).toBe(45);
-
-        // the column width of a newly added row should be wrong until we perform a relayout
-        expect(await page.getColumnWidth(page.fixedExpandTable, 35, 1)).not.toBe(470);
 
         // recalculate the layout
         await page.updateLayout();

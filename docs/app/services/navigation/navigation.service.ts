@@ -1,12 +1,10 @@
 import { DOCUMENT } from '@angular/common';
 import { Inject, Injectable } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ICategory } from '../../interfaces/ICategory';
 import { IDocumentationPage } from '../../interfaces/IDocumentationPage';
 import { ILink } from '../../interfaces/ILink';
 import { ISection } from '../../interfaces/ISection';
 import { AppConfiguration } from '../app-configuration/app-configuration.service';
-import { versionFromString, VersionService } from '../version/version.service';
 
 
 const NAVIGATION_TOP_OFFSET = 50;
@@ -28,8 +26,7 @@ export class NavigationService {
     constructor(@Inject(DOCUMENT) private _document: Document,
         private _activeRoute: ActivatedRoute,
         private _router: Router,
-        private _appConfig: AppConfiguration,
-        private _versionService: VersionService) { }
+        private _appConfig: AppConfiguration) { }
 
     getScrollTop(): number {
         // support all browsers
@@ -80,23 +77,6 @@ export class NavigationService {
 
             if (!this.isScrolledToBottom()) {
                 window.scrollBy(0, -this.getTopOffset());
-            }
-        }
-    }
-
-    configureForRoute(route: ActivatedRoute) {
-        const category = <ICategory>route.snapshot.data['category'];
-        if (category && route.snapshot.fragment) {
-
-            // find the section matching the current route
-            const section = category.sections.find((s) => s.id === route.snapshot.fragment);
-
-            // if for some reason there is no section for the current route then fallback to default
-            const version = versionFromString(section ? section.version : 'Angular');
-
-            // if no matching section was found or the version has not previously been set or has changed then update it
-            if (!section || !this._versionService.isSectionVersionMatch(section) && version !== null) {
-                this._versionService.setVersion(version);
             }
         }
     }

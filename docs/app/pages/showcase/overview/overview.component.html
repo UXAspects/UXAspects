@@ -1,0 +1,40 @@
+<uxd-page-header header="Showcase"
+                 description="Sample applications made using UX Aspects">
+</uxd-page-header>
+
+<uxd-full-page-layout>
+
+    <uxd-showcase-card [link]="partitionMapUrl" [image]="partitionMapImage">
+        <h4>Partition Map Example</h4>
+        <p>A sample application illustrating the use of the partition map to show the breakdown of a document set by various criteria. This provides the following features:</p>
+        <ul>
+            <li><strong>Document breakdown:</strong> See a visual representation of the document set by custodian, language and file type.</li>
+            <li><strong>Clickable Segments:</strong> Select a segment to zoom in or out of the partition map.</li>
+            <li><strong>Editing:</strong> Edit the data types and their row order in the partition map.</li>
+        </ul>
+    </uxd-showcase-card>
+
+    <uxd-showcase-card [link]="organizationChartUrl" [image]="organizationChartImage">
+        <h4>Organization Chart Example</h4>
+        <p>A sample application illustrating the use of the organization chart and hierarchy bar to show
+            a hierarchy of different individuals within an organization. This provides the following
+            features:</p>
+        <ul>
+            <li><strong>Clickable Nodes:</strong> Select employee nodes to navigate down through the
+                hierarchical structure</li>
+            <li><strong>Searching:</strong> Search through the organization for a particular employee.</li>
+            <li><strong>Employee breakdown:</strong> See a visual representation of the employee
+                including name, job title and email address.</li>
+        </ul>
+    </uxd-showcase-card>
+
+    <uxd-showcase-card [link]="sankeyChartUrl" [image]="sankeyChartImage">
+        <h4>Sankey Chart Example</h4>
+        <p>A sample application illustrating the use of the sankey chart to show document flows within a system. This provides the following features:</p>
+        <ul>
+            <li><strong>Sections:</strong> View the sections of the system at each stage in the document flow.</li>
+            <li><strong>Flows:</strong> See a visual representation of the document flow by hovering over a segment or the flow connections between adjacent segments.</li>
+        </ul>
+    </uxd-showcase-card>
+
+</uxd-full-page-layout>

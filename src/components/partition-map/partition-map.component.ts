@@ -1,9 +1,6 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ElementRef, EventEmitter, Input, NgZone, OnDestroy, OnInit, Output, TemplateRef } from '@angular/core';
-import { hierarchy, HierarchyRectangularNode, partition } from 'd3-hierarchy';
-import { scaleLinear } from 'd3-scale';
-import { select, Selection } from 'd3-selection';
-import { transition } from 'd3-transition';
+import { hierarchy, HierarchyRectangularNode, partition, scaleLinear, select, Selection, transition } from 'd3';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ContrastService, FocusIndicatorOriginService } from '../../directives/accessibility/index';
@@ -106,6 +103,9 @@ export class PartitionMapComponent implements OnInit, OnDestroy {
     /** Store the height of the chart on resize to avoid any reflow */
     private _height: number = this._elementRef.nativeElement.offsetHeight;
 
+    /** Flag to determine when the inputs have all been bound */
+    private _initialized = false;
+
     /** Unsubscribe from any observables on destroy */
     private _onDestroy = new Subject<void>();
 
@@ -135,6 +135,11 @@ export class PartitionMapComponent implements OnInit, OnDestroy {
             // render the chart to ensure positions and sizes are correct
             this.updateSegments();
         });
+
+        this._initialized = true;
+
+        // Run again so that the colors get applied
+        this._changeDetector.detectChanges();
     }
 
     ngOnDestroy(): void {
@@ -151,6 +156,11 @@ export class PartitionMapComponent implements OnInit, OnDestroy {
 
     /** Get the background color for a given segment */
     _getBackgroundColor(segment: HierarchyRectangularNode<PartitionMapSegment>): string {
+
+        // This can be called before `colors` is initialized, in which case return the default color
+        if (!this._initialized) {
+            return '#fff';
+        }
 
         // each segment has a determinable color key based on the name and depth
         const key = `${segment.data.name} - ${segment.depth}`;

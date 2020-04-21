@@ -1,8 +1,7 @@
 <div #notification
     class="notification"
     *ngFor="let notificationRef of notifications$ | async; let index = index"
-    [style.height.px]="_getNotificationHeight(notification, notificationRef)"
-    [style.top.px]="_getNotificationPosition(index)"
+    [style.height.px]="notificationRef.height"
     [style.background-color]="notificationRef.backgroundColor"
     [@notificationState]>
 

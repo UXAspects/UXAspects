@@ -7,6 +7,7 @@ const { cwd } = require('process');
 const ts = require('typescript');
 const { readFileSync, writeFileSync } = require('fs');
 const { transformerFactory } = require('ts-transform-readonly-array');
+const { main } = require('downlevel-dts');
 
 /**
  * Typescript 3.4 (Angular 8+) compiles `ReadonlyArray` to `readonly` which
@@ -55,7 +56,7 @@ function applyTransform(path, transformer) {
     const sourceFile = ts.createSourceFile(path, content, ts.ScriptTarget.ES2015, true);
 
     // create a printer to emit the modified file as a string
-    const printer = ts.createPrinter();
+    const printer = ts.createPrinter({ newLine: ts.NewLineKind.LineFeed });
 
     // perform the transformation
     const result = ts.transform(sourceFile, [transformer]);
@@ -124,6 +125,11 @@ const injectableTransformerFactory = (context) => (bundle) => {
     return ts.visitNode(bundle, visitor);
 };
 
+async function downlevelDeclarations() {
+    main(join(cwd(), 'dist', 'library'), join(cwd(), 'dist', 'library'));
+}
+
 
 transformDeclarations();
 transformImports();
+downlevelDeclarations();

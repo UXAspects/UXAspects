@@ -7,8 +7,6 @@ import { DocumentationCategoryComponent } from '../../../../components/documenta
 import { DocumentationPage, ResolverService } from '../../../../services/resolver/resolver.service';
 import { AccessibilityModule, IconModule, TabsetModule } from '@ux-aspects/ux-aspects';
 import { ComponentsIconComponent } from './icon/icon.component';
-import { WrappersModule } from '../../../../wrappers/wrappers.module';
-
 
 const SECTIONS = [
     ComponentsIconComponent
@@ -32,16 +30,14 @@ const ROUTES = [
         FormsModule,
         IconModule,
         TabsetModule,
-        WrappersModule,
         RouterModule.forChild(ROUTES)
     ],
     exports: SECTIONS,
     declarations: SECTIONS,
-    entryComponents: SECTIONS
 })
 export class ComponentsIconModule {
 
     constructor(componentFactoryResolver: ComponentFactoryResolver, resolverService: ResolverService) {
-        resolverService.registerResolver(componentFactoryResolver);
+        resolverService.registerResolver(componentFactoryResolver, SECTIONS);
     }
 }

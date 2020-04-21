@@ -1,13 +1,8 @@
-declare const angular: ng.IAngularStatic;
-
-const app = angular.module('app');
-
-import { Injector, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
-import { downgradeComponent, downgradeInjectable, UpgradeModule } from '@angular/upgrade/static';
-import { PersistentDataService } from '@ux-aspects/ux-aspects';
+import { ColorServiceModule, colorSets, PageHeaderModule, PersistentDataService } from '@ux-aspects/ux-aspects';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ModalModule } from 'ngx-bootstrap/modal';
@@ -16,14 +11,12 @@ import { NgxMaskModule } from 'ngx-mask';
 import { AppComponent } from './app.component';
 import { DocumentationComponentsModule } from './components/components.module';
 import { DocumentationType, DOCUMENTATION_TOKEN } from './services/playground/tokens/documentation.token';
-import { WrappersModule } from './wrappers/wrappers.module';
 
 /*
   Configure Application Routes
 */
 const appRoutes: Routes = [
     { path: 'landing', loadChildren: () => import('./pages/landing/landing.module').then(m => m.LandingPageModule) },
-    { path: 'overview', loadChildren: () => import('./pages/overview/overview.module').then(m => m.OverviewPageModule) },
     { path: 'features', loadChildren: () => import('./pages/features/features.module').then(m => m.FeaturesPageModule) },
     { path: 'gettingstarted', loadChildren: () => import('./pages/getting-started/getting-started.module').then(m => m.GettingStartedPageModule) },
     { path: 'showcase', loadChildren: () => import('./pages/showcase/showcase.module').then(m => m.ShowcasePageModule) },
@@ -40,59 +33,29 @@ const appRoutes: Routes = [
 
 @NgModule({
     imports: [
-        BrowserModule,
         BrowserAnimationsModule,
-        DocumentationComponentsModule,
-        WrappersModule,
-        UpgradeModule,
+        BrowserModule,
         BsDropdownModule.forRoot(),
         ButtonsModule.forRoot(),
-        TypeaheadModule.forRoot(),
-        NgxMaskModule.forRoot(),
+        ColorServiceModule.forRoot(colorSets.keppel),
+        DocumentationComponentsModule,
         ModalModule.forRoot(),
-        RouterModule.forRoot(appRoutes, { useHash: true, initialNavigation: false })
+        NgxMaskModule.forRoot(),
+        RouterModule.forRoot(appRoutes, { useHash: true }),
+        TypeaheadModule.forRoot(),
+        PageHeaderModule,
     ],
     providers: [
         PersistentDataService,
-        { provide: DOCUMENTATION_TOKEN, useValue: DocumentationType.Keppel },
-        {
-            provide: '$rootScope',
-            useFactory: (injector: Injector) => injector.get('$rootScope'),
-            deps: ['$injector']
-        },
-        {
-            provide: '$state',
-            useFactory: (injector: Injector) => injector.get('$state'),
-            deps: ['$injector']
-        }
+        { provide: DOCUMENTATION_TOKEN, useValue: DocumentationType.Keppel }
     ],
     declarations: [
         AppComponent,
     ],
-    entryComponents: [
+    bootstrap: [
         AppComponent
     ]
 })
 export class AppModule {
 
-    constructor(private _upgrade: UpgradeModule) { }
-
-    ngDoBootstrap() {
-        this._upgrade.bootstrap(document.body, ['app'], { strictDi: true });
-    }
 }
-
-/*
-  Configure Angular 1
-*/
-app.service('$persistentDataService', downgradeInjectable(PersistentDataService));
-app.directive('uxdApp', downgradeComponent({ component: AppComponent }) as angular.IDirectiveFactory);
-
-app.config(['$anchorScrollProvider', '$locationProvider', ($anchorScrollProvider: angular.IAnchorScrollProvider, $locationProvider: angular.ILocationProvider) => {
-
-    // Disabling AngularJS autoscroll since it conflicts with the new router behaviour
-    $anchorScrollProvider.disableAutoScrolling();
-
-    // Removing new prefix
-    $locationProvider.hashPrefix('');
-}]);

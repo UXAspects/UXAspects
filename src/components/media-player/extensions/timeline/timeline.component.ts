@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { fromEvent, Subject } from 'rxjs';
 import { switchMap, takeUntil } from 'rxjs/operators';
-import { MediaPlayerBaseExtensionDirective } from '../base-extension.directive';
+import { MediaPlayerService } from '../../media-player.service';
 
 
 @Component({
@@ -12,7 +12,7 @@ import { MediaPlayerBaseExtensionDirective } from '../base-extension.directive';
         '[class.quiet]': 'mediaPlayerService.quietMode || mediaPlayerService.fullscreen'
     }
 })
-export class MediaPlayerTimelineExtensionComponent extends MediaPlayerBaseExtensionDirective implements OnInit, AfterViewInit, OnDestroy {
+export class MediaPlayerTimelineExtensionComponent implements OnInit, AfterViewInit, OnDestroy {
 
     @ViewChild('progressThumb', { static: true }) thumb: ElementRef;
     @ViewChild('timeline', { static: true }) timelineRef: ElementRef;
@@ -24,6 +24,8 @@ export class MediaPlayerTimelineExtensionComponent extends MediaPlayerBaseExtens
     scrub = { visible: false, position: 0, time: 0 };
 
     private _onDestroy = new Subject<void>();
+
+    constructor(public mediaPlayerService: MediaPlayerService) { }
 
     ngOnInit(): void {
 
