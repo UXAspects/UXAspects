@@ -1,4 +1,4 @@
-import { Directive, ElementRef, HostBinding, Input, OnChanges, OnDestroy, Renderer2, SimpleChanges } from '@angular/core';
+import { AfterViewInit, Directive, ElementRef, HostBinding, Input, OnChanges, OnDestroy, Renderer2, SimpleChanges } from '@angular/core';
 import { ColorService } from '../../services/color/color.service';
 import { ThemeColor } from '../../services/color/theme-color';
 import { ContrastService } from '../accessibility/contrast-ratio/contrast.service';
@@ -24,7 +24,7 @@ export type BadgeSize = 'small' | 'medium' | 'large';
         '[class.ux-badge-no-content]': '!_badgeContent',
     },
 })
-export class BadgeDirective implements OnChanges, OnDestroy {
+export class BadgeDirective implements AfterViewInit, OnChanges, OnDestroy {
     private readonly _className = 'ux-badge';
     private readonly _darkColor: ThemeColor = ThemeColor.parse('#000');
     private readonly _lightColor: ThemeColor = ThemeColor.parse('#FFF');
@@ -120,7 +120,28 @@ export class BadgeDirective implements OnChanges, OnDestroy {
         private readonly _contrastService: ContrastService
     ) { }
 
+    ngAfterViewInit(): void {
+        const badgeElement: HTMLSpanElement = this._renderer.createElement('span');
+        this._renderer.addClass(badgeElement, this._className);
+        this._renderer.setStyle(badgeElement, 'display', 'none');
+        this._renderer.setProperty(badgeElement, 'innerHTML', this._badgeDisplayContent);
+        this._renderer.setStyle(badgeElement, 'color', this.determineContentTextColor().toHex());
+
+        if (this._badgeColor) {
+            this._renderer.setStyle(badgeElement, 'background', this._badgeColor.toHex());
+        }
+
+        if (this._badgeBorderColor) {
+            this._renderer.setStyle(badgeElement, 'border-color', this._badgeBorderColor.toHex());
+        }
+
+        this._badgeElement = badgeElement;
+        this._renderer.appendChild(this._element.nativeElement, this._badgeElement);
+        this._renderer.removeStyle(this._badgeElement, 'display');
+    }
+
     ngOnChanges(changes: SimpleChanges): void {
+        let contentChanged: boolean = false;
         // get display friendly version of text based on max length and type of val;
         if (changes.badgeContent || changes.badgeMaxValue) {
             let finalText: string =
@@ -137,45 +158,32 @@ export class BadgeDirective implements OnChanges, OnDestroy {
             }
 
             this._badgeDisplayContent = finalText;
+            contentChanged = true;
         }
 
-        this.updateBadge();
+        // if the badge is visible set changed values
+        if (this._badgeElement) {
+            // set the badge content
+            if (contentChanged) {
+                this._renderer.setProperty(this._badgeElement, 'innerHTML', this._badgeDisplayContent);
+            }
+
+            // set the badge color
+            if (changes.badgeColor && changes.badgeColor.currentValue !== changes.badgeColor.previousValue) {
+                this._renderer.setStyle(this._badgeElement, 'background', this._badgeColor.toHex());
+                this._renderer.setStyle(this._badgeElement, 'color', this.determineContentTextColor().toHex());
+            }
+
+            // set the badge border color
+            if (changes.badgeBorderColor && changes.badgeBorderColor.currentValue !== changes.badgeBorderColor.previousValue) {
+                this._renderer.setStyle(this._badgeElement, 'border-color', this._badgeBorderColor.toHex());
+            }
+        }
     }
 
     ngOnDestroy(): void {
         if (this._renderer.destroyNode) {
             this._renderer.destroyNode(this._badgeElement);
-        }
-    }
-
-    private updateBadge(): HTMLElement {
-        const badgeElement: HTMLSpanElement = this._renderer.createElement('span');
-        this.clearExisting();
-
-        badgeElement.classList.add(this._className);
-        badgeElement.style.setProperty('display', 'none');
-        badgeElement.innerHTML = this._badgeDisplayContent;
-
-        badgeElement.style.setProperty('color', this.determineContentTextColor().toHex());
-
-        if (this._badgeColor) {
-            badgeElement.style.setProperty('background', this._badgeColor.toHex());
-        }
-
-        if (this._badgeBorderColor) {
-            badgeElement.style.setProperty('border-color', this._badgeBorderColor.toHex());
-        }
-
-        this._badgeElement = badgeElement;
-        this._renderer.appendChild(this._element.nativeElement, this._badgeElement);
-        badgeElement.style.removeProperty('display');
-
-        return this._badgeElement;
-    }
-
-    private clearExisting(): void {
-        if (this._badgeElement) {
-            this._element.nativeElement.removeChild(this._badgeElement);
         }
     }
 
