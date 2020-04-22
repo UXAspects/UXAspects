@@ -73,8 +73,8 @@
     "zone.js": "~0.10.2"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^0.900.7",
-    "@angular-devkit/build-optimizer": "^0.900.7",
+    "@angular-devkit/build-angular": "^0.901.2",
+    "@angular-devkit/build-optimizer": "^0.901.2",
     "@ngtools/webpack": "^9.1.1",
     "@types/chance": "0.7.35",
     "@types/chart.js": "^2.9.14",
