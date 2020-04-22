@@ -23,7 +23,7 @@
     }
   },
   "angularCompilerOptions": {
-    "preserveWhitespaces": true
+    "preserveWhitespaces": false
   },
   "exclude": [
     "./tests/**"
