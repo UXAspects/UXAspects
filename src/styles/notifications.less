@@ -121,42 +121,36 @@ ux-alert {
     background-color: #000;
     color: #fff;
     text-transform: none;
-    font-weight: normal;
+    font-weight: 700;
     font-family: @font-family;
+    line-height: 1;
     pointer-events: none;
     white-space: nowrap;
     box-sizing: border-box;
     margin: 0;
     border: 1px solid transparent;
+    padding: 0 2px;
 }
 
 .ux-badge-container {
     position: relative;
 
     &.ux-badge-small .ux-badge {
-        border-radius: 6px;
-        padding: 0 4px;
+        min-width: 12px;
+        border-radius: 7px;
         font-size: 10px;
-        line-height: 1.05;
-        height: 12px;
     }
 
     &.ux-badge-medium .ux-badge {
-        border-radius: 8px;
-        padding: 0 6px;
+        min-width: 14px;
+        border-radius: 9px;
         font-size: 12px;
-        line-height: 1.1;
-        height: 16px;
-        border-width: 1.5px;
     }
 
     &.ux-badge-large .ux-badge {
-        border-radius: 10px;
-        padding: 0 8px;
+        min-width: 18px;
+        border-radius: 11px;
         font-size: 16px;
-        line-height: 1.075;
-        height: 20px;
-        border-width: 1.5px;
     }
 
     &.ux-badge-above {
@@ -256,24 +250,24 @@ button.ux-badge-container:focus {
     }
 }
 
-ux-icon.ux-badge-container {
-    &.ux-badge-after .ux-badge {
-        margin-left: 2px;
-    }
+// ux-icon.ux-badge-container {
+//     &.ux-badge-after .ux-badge {
+//         padding-left: 2px;
+//     }
 
-    &.ux-badge-after .ux-badge {
-        margin-right: 2px;
-    }
+//     &.ux-badge-after .ux-badge {
+//         padding-right: 2px;
+//     }
 
-    &.ux-badge-small .ux-badge {
-        line-height: 0.975 !important;
-    }
+//     &.ux-badge-small .ux-badge {
+//         line-height: 0.975 !important;
+//     }
 
-    &.ux-badge-medium .ux-badge {
-        line-height: 1.05 !important;
-    }
+//     &.ux-badge-medium .ux-badge {
+//         line-height: 1.05 !important;
+//     }
 
-    &.ux-badge-large .ux-badge {
-        line-height: 1.025 !important;
-    }
-}
+//     &.ux-badge-large .ux-badge {
+//         line-height: 1.025 !important;
+//     }
+// }
