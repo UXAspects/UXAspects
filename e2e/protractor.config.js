@@ -11,8 +11,8 @@ const junitDir = join(outputDir, 'junit');
 const screenshotOutputDir = join(outputDir, 'screenshots');
 
 exports.config = {
-  directConnect: true,  // Set to false if using Selenium Grid
-  chromeDriver: require('chromedriver').path,
+  directConnect: false,  // Set to false if using Selenium Grid
+  seleniumAddress: 'http://127.0.0.1:4444/wd/hub',
 
   // Capabilities to be passed to the webdriver instance. Only one browser may be uncommented at a time.
   capabilities: {
@@ -31,7 +31,7 @@ exports.config = {
   framework: 'jasmine',
 
   // Spec patterns are relative to this config file
-  specs: ['./tests/**/**/*e2e-spec.ts'],
+  specs: ['./tests/**/**/*.e2e-spec.ts'],
 
   plugins: [
     {
@@ -60,8 +60,8 @@ exports.config = {
   // For angular tests
   useAllAngular2AppRoots: true,
 
-  // Base URL for application server
-  baseUrl: 'http://localhost:4000',
+  // Base URL for application server - Using the IP Address of the docker host - host.docker.internal resolves to this IP.
+  baseUrl: 'http://192.168.0.26:4000/#/',
 
   onPrepare: function () {
 
