@@ -14,6 +14,9 @@ exports.config = {
   directConnect: false,  // Set to false if using Selenium Grid
   seleniumAddress: 'http://127.0.0.1:4444/wd/hub',
 
+  // Base URL for application server - Using the IP Address of the docker host - host.docker.internal resolves to this IP.
+  baseUrl: 'http://192.168.65.2:4000/#/',
+
   // Capabilities to be passed to the webdriver instance. Only one browser may be uncommented at a time.
   capabilities: {
     browserName: 'chrome',
@@ -52,16 +55,14 @@ exports.config = {
       exclude: [
         new RegExp(/favicon.ico/, 'g'),
         'Invalid Host/Origin header',
-        '[WDS] Disconnected!'
+        '[WDS] Disconnected!',
+        /sockjs-node\/info/
       ]
     }
   ],
 
   // For angular tests
   useAllAngular2AppRoots: true,
-
-  // Base URL for application server - Using the IP Address of the docker host - host.docker.internal resolves to this IP.
-  baseUrl: 'http://192.168.0.26:4000/#/',
 
   onPrepare: function () {
 
