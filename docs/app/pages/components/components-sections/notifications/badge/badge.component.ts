@@ -13,14 +13,14 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 @DocumentationSectionComponent('ComponentsBadgeComponent')
 export class ComponentsBadgeComponent extends BaseDocumentationSection implements IPlaygroundProvider {
     hideButton: boolean = true;
-    badgeContent: string = 'Action required';
+    badgeContent: string = '999';
     badgeMaxValue: number = 99;
-    badgeSize: BadgeSize = 'medium';
+    badgeSize: BadgeSize = 'small';
     badgeOverlap: boolean = false;
     badgeHidden: boolean = false;
     badgeHorizontalPosition: BadgeHorizontalPosition = 'after';
     badgeVerticalPosition: BadgeVerticalPosition = 'above';
-    selectedColor: string  = 'warning';
+    selectedColor: string  = 'critical';
     selectedBorderColor: string = '';
 
     playground: IPlayground = {

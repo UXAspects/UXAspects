@@ -124,12 +124,13 @@ ux-alert {
     font-weight: 700;
     font-family: @font-family;
     line-height: 1;
+    height: 1.2em;
     pointer-events: none;
     white-space: nowrap;
     box-sizing: border-box;
     margin: 0;
     border: 1px solid transparent;
-    padding: 0 2px;
+    padding: 0 2px 0 3px;
 }
 
 .ux-badge-container {
@@ -138,19 +139,20 @@ ux-alert {
     &.ux-badge-small .ux-badge {
         min-width: 12px;
         border-radius: 7px;
-        font-size: 10px;
+        font-size: 11px;
+        padding: 0 1px 0 2px;
     }
 
     &.ux-badge-medium .ux-badge {
         min-width: 14px;
         border-radius: 9px;
-        font-size: 12px;
+        font-size: 13px;
     }
 
     &.ux-badge-large .ux-badge {
         min-width: 18px;
         border-radius: 11px;
-        font-size: 16px;
+        font-size: 17px;
     }
 
     &.ux-badge-above {
@@ -159,15 +161,15 @@ ux-alert {
         }
 
         &.ux-badge-small .ux-badge {
-            top: -6px;
+            top: -7px;
         }
 
         &.ux-badge-medium .ux-badge {
-            top: -8px;
+            top: -9px;
         }
 
         &.ux-badge-large .ux-badge {
-            top: -10px;
+            top: -11px;
         }
 
         &.ux-badge-no-content .ux-badge {
@@ -181,15 +183,15 @@ ux-alert {
         }
 
         &.ux-badge-small .ux-badge {
-            bottom: -6px;
+            bottom: -7px;
         }
 
         &.ux-badge-medium .ux-badge {
-            bottom: -8px;
+            bottom: -9px;
         }
 
         &.ux-badge-large .ux-badge {
-            bottom: -10px;
+            bottom: -11px;
         }
 
         &.ux-badge-no-content .ux-badge {
@@ -250,24 +252,14 @@ button.ux-badge-container:focus {
     }
 }
 
-// ux-icon.ux-badge-container {
-//     &.ux-badge-after .ux-badge {
-//         padding-left: 2px;
-//     }
+@-moz-document url-prefix() {
+    .ux-badge-container {
+        &.ux-badge-small .ux-badge {
+            height: 1.25em;
+        }
 
-//     &.ux-badge-after .ux-badge {
-//         padding-right: 2px;
-//     }
-
-//     &.ux-badge-small .ux-badge {
-//         line-height: 0.975 !important;
-//     }
-
-//     &.ux-badge-medium .ux-badge {
-//         line-height: 1.05 !important;
-//     }
-
-//     &.ux-badge-large .ux-badge {
-//         line-height: 1.025 !important;
-//     }
-// }
+        &.ux-badge-small.ux-badge-above .ux-badge {
+            top: -8px;
+        }
+    }
+}
