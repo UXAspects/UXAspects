@@ -80,8 +80,7 @@ const routes: Routes = [
     },
     {
         path: 'focus-indicator',
-        loadChildren: () =>
-            import('./focus-indicator/focus-indicator.module').then(m => m.FocusIndicatorTestPageModule)
+        loadChildren: () => import('./focus-indicator/focus-indicator.module').then(m => m.FocusIndicatorTestPageModule)
     },
     {
         path: 'hierarchy-bar',
@@ -89,13 +88,11 @@ const routes: Routes = [
     },
     {
         path: 'infinite-scroll',
-        loadChildren: () =>
-            import('./infinite-scroll/infinite-scroll.module').then(m => m.InfiniteScrollTestPageModule)
+        loadChildren: () => import('./infinite-scroll/infinite-scroll.module').then(m => m.InfiniteScrollTestPageModule)
     },
     {
         path: 'item-display-panel',
-        loadChildren: () =>
-            import('./item-display-panel/item-display-panel.module').then(m => m.ItemDisplayPanelTestPageModule)
+        loadChildren: () => import('./item-display-panel/item-display-panel.module').then(m => m.ItemDisplayPanelTestPageModule)
     },
     {
         path: 'marquee-wizard',
@@ -127,13 +124,11 @@ const routes: Routes = [
     },
     {
         path: 'reorderable-table',
-        loadChildren: () =>
-            import('./reorderable-table/reorderable-table.module').then(m => m.ReorderableTableTestPageModule)
+        loadChildren: () => import('./reorderable-table/reorderable-table.module').then(m => m.ReorderableTableTestPageModule)
     },
     {
         path: 'reorderable-group',
-        loadChildren: () =>
-            import('./reorderable-group/reorderable-group.module').then(m => m.ReorderableGroupTestPageModule)
+        loadChildren: () => import('./reorderable-group/reorderable-group.module').then(m => m.ReorderableGroupTestPageModule)
     },
     {
         path: 'sankey-chart',
@@ -189,8 +184,7 @@ const routes: Routes = [
     },
     {
         path: 'toggleswitches',
-        loadChildren: () =>
-            import('./toggleswitches/toggleswitches.module').then(m => m.ToggleSwitchesTestPageModule)
+        loadChildren: () => import('./toggleswitches/toggleswitches.module').then(m => m.ToggleSwitchesTestPageModule)
     },
     {
         path: 'toolbar-search',
@@ -215,7 +209,7 @@ const routes: Routes = [
     {
         path: 'wizard',
         loadChildren: () => import('./wizard/wizard.module').then(m => m.WizardTestPageModule)
-    },
+    }
 ];
 
 @NgModule({
