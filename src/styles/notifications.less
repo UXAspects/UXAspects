@@ -125,50 +125,48 @@ ux-alert {
     font-family: @font-family;
     line-height: 1;
     height: 1.2em;
+    min-width: 1.2em;
     pointer-events: none;
     white-space: nowrap;
     box-sizing: border-box;
     margin: 0;
     border: 1px solid transparent;
     padding: 0 2px 0 3px;
-}
 
-.ux-badge-container {
-    position: relative;
-
-    &.ux-badge-small .ux-badge {
-        min-width: 12px;
+    &.ux-badge-small {
         border-radius: 7px;
         font-size: 11px;
         padding: 0 1px 0 2px;
     }
 
-    &.ux-badge-medium .ux-badge {
-        min-width: 14px;
+    &.ux-badge-medium {
         border-radius: 9px;
         font-size: 13px;
     }
 
-    &.ux-badge-large .ux-badge {
-        min-width: 18px;
+    &.ux-badge-large {
         border-radius: 11px;
         font-size: 17px;
     }
+}
+
+.ux-badge-container {
+    position: relative;
 
     &.ux-badge-above {
         .ux-badge {
             top: 0;
         }
 
-        &.ux-badge-small .ux-badge {
+        .ux-badge-small {
             top: -7px;
         }
 
-        &.ux-badge-medium .ux-badge {
+        .ux-badge-medium {
             top: -9px;
         }
 
-        &.ux-badge-large .ux-badge {
+        .ux-badge-large {
             top: -11px;
         }
 
@@ -182,15 +180,15 @@ ux-alert {
             bottom: 0;
         }
 
-        &.ux-badge-small .ux-badge {
+        .ux-badge-small {
             bottom: -7px;
         }
 
-        &.ux-badge-medium .ux-badge {
+        .ux-badge-medium {
             bottom: -9px;
         }
 
-        &.ux-badge-large .ux-badge {
+        .ux-badge-large {
             bottom: -11px;
         }
 
@@ -254,11 +252,12 @@ button.ux-badge-container:focus {
 
 @-moz-document url-prefix() {
     .ux-badge-container {
-        &.ux-badge-small .ux-badge {
+        &.ux-badge-small {
             height: 1.25em;
+            min-width: 1.25em;
         }
 
-        &.ux-badge-small.ux-badge-above .ux-badge {
+        &.ux-badge-above .ux-badge-small {
             top: -8px;
         }
     }

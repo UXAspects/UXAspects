@@ -1,5 +1,30 @@
-<button class="btn btn-primary" [uxBadge]="content" [badgeMaxValue]="maxValue" [badgeOverlap]="overlap"
-    [badgeVerticalPosition]="verticalPosition" [badgeHorizontalPosition]="horizontalPosition"
-    [badgeHidden]="badgeHidden" [badgeSize]="size" [badgeColor]="badgeColor">
-    Messages
-</button>
+<div class="row text-center">
+    <div class="col-sm-3 col-xs-6 col-md-offset-3">
+        <button class="btn btn-primary"
+            [uxBadge]="badgeContent"
+            [badgeSize]="badgeSize"
+            [badgeMaxValue]="badgeMaxValue"
+            [badgeOverlap]="badgeOverlap"
+            [badgeColor]="selectedColor"
+            [badgeBorderColor]="selectedBorderColor"
+            [badgeHidden]="badgeHidden"
+            [badgeHorizontalPosition]="badgeHorizontalPosition"
+            [badgeVerticalPosition]="badgeVerticalPosition">
+            Tasks
+        </button>
+    </div>
+    <div class="col-sm-3 col-xs-6">
+        <ux-icon class="icon-example"
+            name="list"
+            [uxBadge]="badgeContent"
+            [badgeSize]="badgeSize"
+            [badgeMaxValue]="badgeMaxValue"
+            [badgeOverlap]="badgeOverlap"
+            [badgeColor]="selectedColor"
+            [badgeBorderColor]="selectedBorderColor"
+            [badgeHidden]="badgeHidden"
+            [badgeHorizontalPosition]="badgeHorizontalPosition"
+            [badgeVerticalPosition]="badgeVerticalPosition">
+        </ux-icon>
+    </div>
+</div>

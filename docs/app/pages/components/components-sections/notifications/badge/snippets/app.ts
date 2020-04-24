@@ -6,12 +6,14 @@ import { BadgeHorizontalPosition, BadgeSize, BadgeVerticalPosition } from '@ux-a
     templateUrl: './app.component.html',
 })
 export class AppComponent {
-    content: string = '1475';
-    maxValue: number = 999;
-    overlap: boolean = true;
-    verticalPosition: BadgeVerticalPosition = 'above';
-    horizontalPosition: BadgeHorizontalPosition = 'after';
+    hideButton: boolean = true;
+    badgeContent: string = '999';
+    badgeMaxValue: number = 99;
+    badgeSize: BadgeSize = 'small';
+    badgeOverlap: boolean = false;
     badgeHidden: boolean = false;
-    size: BadgeSize = 'medium';
-    badgeColor: string = 'warning';
+    badgeHorizontalPosition: BadgeHorizontalPosition = 'after';
+    badgeVerticalPosition: BadgeVerticalPosition = 'above';
+    selectedColor: string  = 'warning';
+    selectedBorderColor: string = 'critical';
 }

@@ -1,21 +1,32 @@
-<div class="badge-separator">
-    <ul class="example-list">
-        <li>
-            <button class="btn btn-primary" [uxBadge]="badgeContent" [badgeSize]="badgeSize"
-                [badgeMaxValue]="badgeMaxValue" [badgeOverlap]="badgeOverlap" [badgeColor]="selectedColor"
-                [badgeBorderColor]="selectedBorderColor" [badgeHidden]="badgeHidden"
-                [badgeHorizontalPosition]="badgeHorizontalPosition" [badgeVerticalPosition]="badgeVerticalPosition">
-                Tasks
-            </button>
-        </li>
-        <li>
-            <ux-icon class="icon-example" name="list" [uxBadge]="badgeContent" [badgeSize]="badgeSize"
-                [badgeMaxValue]="badgeMaxValue" [badgeOverlap]="badgeOverlap" [badgeColor]="selectedColor"
-                [badgeBorderColor]="selectedBorderColor" [badgeHidden]="badgeHidden"
-                [badgeHorizontalPosition]="badgeHorizontalPosition" [badgeVerticalPosition]="badgeVerticalPosition">
-            </ux-icon>
-        </li>
-    </ul>
+<div class="row text-center">
+    <div class="col-sm-3 col-xs-6 col-md-offset-3">
+        <button class="btn btn-primary"
+            [uxBadge]="badgeContent"
+            [badgeSize]="badgeSize"
+            [badgeMaxValue]="badgeMaxValue"
+            [badgeOverlap]="badgeOverlap"
+            [badgeColor]="selectedColor"
+            [badgeBorderColor]="selectedBorderColor"
+            [badgeHidden]="badgeHidden"
+            [badgeHorizontalPosition]="badgeHorizontalPosition"
+            [badgeVerticalPosition]="badgeVerticalPosition">
+            Tasks
+        </button>
+    </div>
+    <div class="col-sm-3 col-xs-6">
+        <ux-icon class="icon-example"
+            name="list"
+            [uxBadge]="badgeContent"
+            [badgeSize]="badgeSize"
+            [badgeMaxValue]="badgeMaxValue"
+            [badgeOverlap]="badgeOverlap"
+            [badgeColor]="selectedColor"
+            [badgeBorderColor]="selectedBorderColor"
+            [badgeHidden]="badgeHidden"
+            [badgeHorizontalPosition]="badgeHorizontalPosition"
+            [badgeVerticalPosition]="badgeVerticalPosition">
+        </ux-icon>
+    </div>
 </div>
 
 <div class="row uxd-customize-example">
@@ -106,7 +117,7 @@
     </tr>
     <tr uxd-api-property name="badgeBorderColor" type="string">
         The color you want to use for the border of the badge. This should be a string value that matches one of
-        the colors available in the <code>ColorService</code>. If this value is not set the badge will have no border.
+        the colors available in the <code>ColorService</code>. If this value is not set the badge will have a transparent border.
     </tr>
     <tr uxd-api-property name="badgeValueLimit" type="number">
         Sets a character or number limit on the content within the badge. If the content is a number and larger than
@@ -114,10 +125,10 @@
         as text and use this value to truncate the number of characters displayed followed by an ellipsis
         (<strong>&hellip;</strong>).
     </tr>
-    <tr uxd-api-property name="badgeVerticalPosition" type="'above'|'below'" defaultValue="'above'">
+    <tr uxd-api-property name="badgeVerticalPosition" type="'above' | 'below'" defaultValue="'above'">
         The vertical position of the badge in relation to its subject element.
     </tr>
-    <tr uxd-api-property name="badgeHorizontalPosition" type="'before'|'after'" defaultValue="'after'">
+    <tr uxd-api-property name="badgeHorizontalPosition" type="'before' | 'after'" defaultValue="'after'">
         The horizontal position of the badge in relation to its subject
         element.
     </tr>
@@ -126,7 +137,7 @@
         <code>false</code> the badge will start after the end of the subject element, otherwise
         if it is set to <code>true</code> the badge horizontal center will be at the end of its subject element.
     </tr>
-    <tr uxd-api-property name="badgeSize" type="string" defaultValue="'small'|'medium'|'large'">
+    <tr uxd-api-property name="badgeSize" type="string" defaultValue="'small' | 'medium' | 'large'">
         The size of the badge.
     </tr>
     <tr uxd-api-property name="badgeHidden" type="boolean" defaultValue="false">

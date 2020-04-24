@@ -14,9 +14,6 @@ export type BadgeSize = 'small' | 'medium' | 'large';
     exportAs: 'ux-badge',
     host: {
         class: 'ux-badge-container',
-        '[class.ux-badge-small]': 'badgeSize === "small"',
-        '[class.ux-badge-medium]': 'badgeSize === "medium"',
-        '[class.ux-badge-large]': 'badgeSize === "large"',
         '[class.ux-badge-above]': 'badgeVerticalPosition === "above"',
         '[class.ux-badge-below]': 'badgeVerticalPosition === "below"',
         '[class.ux-badge-after]': 'badgeHorizontalPosition === "after"',
@@ -123,6 +120,7 @@ export class BadgeDirective implements AfterViewInit, OnChanges, OnDestroy {
     ngAfterViewInit(): void {
         const badgeElement: HTMLSpanElement = this._renderer.createElement('span');
         this._renderer.addClass(badgeElement, this._className);
+        this._renderer.addClass(badgeElement, `ux-badge-${this.badgeSize}`);
         this._renderer.setStyle(badgeElement, 'display', 'none');
         this._renderer.setProperty(badgeElement, 'innerHTML', this._badgeDisplayContent);
         this._renderer.setStyle(badgeElement, 'color', this.determineContentTextColor().toHex());
@@ -170,13 +168,28 @@ export class BadgeDirective implements AfterViewInit, OnChanges, OnDestroy {
 
             // set the badge color
             if (changes.badgeColor && changes.badgeColor.currentValue !== changes.badgeColor.previousValue) {
-                this._renderer.setStyle(this._badgeElement, 'background', this._badgeColor.toHex());
+                if (this._badgeColor) {
+                    this._renderer.setStyle(this._badgeElement, 'background', this._badgeColor.toHex());
+                } else {
+                    this._renderer.removeStyle(this._badgeElement, 'background');
+                }
+
                 this._renderer.setStyle(this._badgeElement, 'color', this.determineContentTextColor().toHex());
             }
 
             // set the badge border color
             if (changes.badgeBorderColor && changes.badgeBorderColor.currentValue !== changes.badgeBorderColor.previousValue) {
-                this._renderer.setStyle(this._badgeElement, 'border-color', this._badgeBorderColor.toHex());
+                if (this._badgeBorderColor) {
+                    this._renderer.setStyle(this._badgeElement, 'border-color', this._badgeBorderColor.toHex());
+                } else {
+                    this._renderer.removeStyle(this._badgeElement, 'border-color');
+                }
+            }
+
+            // set badge size
+            if (changes.badgeSize && changes.badgeSize.currentValue !== changes.badgeSize.previousValue) {
+                this._renderer.removeClass(this._badgeElement, `ux-badge-${changes.badgeSize.previousValue}`);
+                this._renderer.addClass(this._badgeElement, `ux-badge-${this.badgeSize}`);
             }
         }
     }
@@ -196,12 +209,6 @@ export class BadgeDirective implements AfterViewInit, OnChanges, OnDestroy {
     }
 
     private parseThemeColor(color: string): ThemeColor {
-        let themeColor: ThemeColor = null;
-
-        if (color) {
-            themeColor = ThemeColor.parse(this._colorService.resolve(color));
-        }
-
-        return themeColor;
+        return color && this._colorService.colorExists(color) ? ThemeColor.parse(this._colorService.resolve(color)) : null;
     }
 }

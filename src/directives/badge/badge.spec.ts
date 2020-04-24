@@ -26,7 +26,7 @@ const badgeSelector = '.ux-badge';
 })
 export class BadgeTestComponent {
     badgeContentText: string = 'Some badge';
-    badgeColor: string = '#000';
+    badgeColor: string = null;
     borderColor: string = null;
     maxValue: number = null;
     hidden: boolean = false;
@@ -58,16 +58,14 @@ describe('Badge', () => {
 
     it('should have a badge directive attached', () => {
         const buttonWithBadge: HTMLButtonElement = document.querySelector(buttonSelector);
-        const badge: HTMLSpanElement = buttonWithBadge.querySelector('.ux-badge');
+        const badge: HTMLSpanElement = buttonWithBadge.querySelector(badgeSelector);
         expect(buttonWithBadge).toBeTruthy();
         expect(buttonWithBadge.classList.contains('ux-badge-container')).toBeTruthy();
-        expect(buttonWithBadge.classList.contains('ux-badge-medium')).toBeTruthy();
         expect(buttonWithBadge.classList.contains('ux-badge-above')).toBeTruthy();
         expect(buttonWithBadge.classList.contains('ux-badge-after')).toBeTruthy();
 
+        expect(badge.classList.contains('ux-badge-medium')).toBeTruthy();
         expect(badge.textContent).toBe('Some badge');
-
-        expect(badge.style.background).toBe('rgb(0, 0, 0)');
         expect(badge.style.color).toBe('rgb(255, 255, 255)');
     });
 
@@ -171,7 +169,8 @@ describe('Badge', () => {
         await fixture.whenStable();
 
         let buttonWithBadge: HTMLButtonElement = document.querySelector(buttonSelector);
-        expect(buttonWithBadge.classList.contains('ux-badge-large')).toBeTruthy();
+        const badge: HTMLSpanElement = buttonWithBadge.querySelector(badgeSelector);
+        expect(badge.classList.contains('ux-badge-large')).toBeTruthy();
     });
 
     it('should be able to set to overlap the subject element', async () => {

@@ -7,8 +7,7 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 
 @Component({
     selector: 'uxd-components-badge',
-    templateUrl: './badge.component.html',
-    styleUrls: ['./badge.component.less'],
+    templateUrl: './badge.component.html'
 })
 @DocumentationSectionComponent('ComponentsBadgeComponent')
 export class ComponentsBadgeComponent extends BaseDocumentationSection implements IPlaygroundProvider {
@@ -20,8 +19,8 @@ export class ComponentsBadgeComponent extends BaseDocumentationSection implement
     badgeHidden: boolean = false;
     badgeHorizontalPosition: BadgeHorizontalPosition = 'after';
     badgeVerticalPosition: BadgeVerticalPosition = 'above';
-    selectedColor: string  = 'critical';
-    selectedBorderColor: string = '';
+    selectedColor: string  = 'warning';
+    selectedBorderColor: string = 'critical';
 
     playground: IPlayground = {
         files: {

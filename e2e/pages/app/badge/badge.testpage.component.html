@@ -81,4 +81,12 @@
         badgeSize="medium" badgeColor="chart4" [badgeHidden]="true">
         Hidden badge example
     </a>
+    <hr />
+    <!-- color and border examples -->
+    <ul class="element-list">
+         <li *ngFor="let colors of colorCombinations.entries()">
+            <a href="#/badge" uxBadge="7483" badgeMaxValue="99" badgeVerticalPosition="above" badgeHorizontalPosition="after"
+        badgeSize="medium" [badgeColor]="colors[0]" [badgeBorderColor]="colors[1]">Alerts</a>
+        </li>
+    </ul>
 </div>
