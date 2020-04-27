@@ -56,6 +56,18 @@ describe('Date Range Picker', () => {
     let nativeElement: HTMLElement;
     let onStartTimezoneChangeSpy: jasmine.Spy;
     let onEndTimezoneChangeSpy: jasmine.Spy;
+    let getTimezoneOffset: () => number;
+
+    beforeAll(() => {
+        getTimezoneOffset = Date.prototype.getTimezoneOffset;
+        Date.prototype.getTimezoneOffset = () => {
+            return 0;
+        };
+    });
+
+    afterAll(() => {
+        Date.prototype.getTimezoneOffset = getTimezoneOffset;
+    });
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
