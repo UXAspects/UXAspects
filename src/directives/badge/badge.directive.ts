@@ -130,8 +130,6 @@ export class BadgeDirective implements AfterViewInit, OnChanges, OnDestroy {
     }
 
     ngOnChanges(changes: SimpleChanges): void {
-
-
         // if the badge is visible set changed values
         if (this._badgeElement) {
             // set badge content and get display friendly version of text based on max length and type of val
