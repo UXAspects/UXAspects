@@ -693,7 +693,7 @@
             "link": "notifications",
             "sections": [
                 {
-                    "title": "Alert",
+                    "title": "Alerts",
                     "component": "ComponentsAlertComponent",
                     "version": "Angular",
                     "usage": [
@@ -708,7 +708,7 @@
                     ]
                 },
                 {
-                    "title": "Badge",
+                    "title": "Badges",
                     "component": "ComponentsBadgeComponent",
                     "version": "Angular",
                     "usage": [
