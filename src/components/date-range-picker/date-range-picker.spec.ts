@@ -56,6 +56,18 @@ describe('Date Range Picker', () => {
     let nativeElement: HTMLElement;
     let onStartTimezoneChangeSpy: jasmine.Spy;
     let onEndTimezoneChangeSpy: jasmine.Spy;
+    let getTimezoneOffset: () => number;
+
+    beforeAll(() => {
+        getTimezoneOffset = Date.prototype.getTimezoneOffset;
+        Date.prototype.getTimezoneOffset = () => {
+            return 0;
+        };
+    });
+
+    afterAll(() => {
+        Date.prototype.getTimezoneOffset = getTimezoneOffset;
+    });
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
@@ -80,7 +92,7 @@ describe('Date Range Picker', () => {
 
     it('should update start date and call onStartChange when start date is changed ', async () => {
         spyOn(component, 'onStartChange');
-        component.start = new Date('Tue Jan 07 2020 00:00:00 GMT+0000 (Greenwich Mean Time)');
+        component.start = new Date(2020, 0, 7, 0, 0, 0);
 
         fixture.detectChanges();
         await fixture.whenStable();
@@ -91,7 +103,7 @@ describe('Date Range Picker', () => {
 
     it('should update end date and call onEndChange when end date is changed', async () => {
         spyOn(component, 'onEndChange');
-        component.end = new Date('Thu Jan 23 2020 23:59:59 GMT+0000 (Greenwich Mean Time)');
+        component.end = new Date(2020, 0, 23, 23, 59, 59);
 
         fixture.detectChanges();
         await fixture.whenStable();
