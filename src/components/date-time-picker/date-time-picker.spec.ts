@@ -43,6 +43,18 @@ describe('Date Time Picker', () => {
     let fixture: ComponentFixture<DateRangePickerComponent>;
     let nativeElement: HTMLElement;
     let onTimezoneChangeSpy: jasmine.Spy;
+    let getTimezoneOffset: () => number;
+
+    beforeAll(() => {
+        getTimezoneOffset = Date.prototype.getTimezoneOffset;
+        Date.prototype.getTimezoneOffset = () => {
+            return 0;
+        };
+    });
+
+    afterAll(() => {
+        Date.prototype.getTimezoneOffset = getTimezoneOffset;
+    });
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
