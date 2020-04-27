@@ -4,8 +4,8 @@
         <ng-container *ngFor="let vertPos of verticalPositions">
             <ng-container *ngFor="let horzPos of horizontalPositions">
                 <li>
-                    <ux-icon name="filter" uxBadge badgeColor="warning" badgeVerticalPosition="{{ vertPos }}"
-                        badgeHorizontalPosition="{{ horzPos }}"></ux-icon>
+                    <ux-icon name="filter" uxBadge badgeColor="warning" [badgeVerticalPosition]="vertPos"
+                        [badgeHorizontalPosition]="horzPos"></ux-icon>
                 </li>
             </ng-container>
         </ng-container>
@@ -16,8 +16,8 @@
         <ng-container *ngFor="let vertPos of verticalPositions">
             <ng-container *ngFor="let horzPos of horizontalPositions">
                 <li>
-                    <ux-icon name="filter" uxBadge badgeColor="partition9" badgeVerticalPosition="{{ vertPos }}"
-                        badgeHorizontalPosition="{{ horzPos }}" [badgeOverlap]="true"></ux-icon>
+                    <ux-icon name="filter" uxBadge badgeColor="partition9" [badgeVerticalPosition]="vertPos"
+                        [badgeHorizontalPosition]="horzPos" [badgeOverlap]="true"></ux-icon>
                 </li>
             </ng-container>
         </ng-container>
