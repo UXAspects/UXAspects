@@ -11,7 +11,7 @@
 	<li role="presentation"
         class="nav-item"
         *ngFor="let tab of _tabset.tabs; let index = index"
-        [class.active]="tab.active"
+        [class.active]="(_tabset.activeTab$ | async) === tab"
         [class.disabled]="tab.disabled"
         [ngClass]="tab.customClass">
 
@@ -23,7 +23,7 @@
             (mousedown)="_tabset.select(tab)"
             (activated)="_tabset.select(tab)"
             [attr.aria-controls]="tab.id"
-            [attr.aria-selected]="tab.active"
+            [attr.aria-selected]="(_tabset.activeTab$ | async) === tab"
             [attr.aria-disabled]="tab.disabled">
 
             <span *ngIf="!tab.headingRef">{{ tab.heading }}</span>

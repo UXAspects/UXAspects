@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 import { TabComponent } from './tab/tab.component';
 
 @Injectable()
@@ -6,6 +7,8 @@ export class TabsetService {
 
     /** Store the list of tabs */
     tabs: ReadonlyArray<TabComponent> = [];
+
+    activeTab$ = new BehaviorSubject<TabComponent>(null);
 
     /** Store the manual state */
     manual: boolean = false;
@@ -19,13 +22,13 @@ export class TabsetService {
     select(tab: TabComponent): void {
         if (!tab.disabled) {
             // update the active state of each tab accordingly
-            this.tabs.forEach(_tab => _tab === tab ? _tab.selectTab() : _tab.deselectTab());
+            this.activeTab$.next(tab);
         }
     }
 
     /** Determine if there is a selected tab */
     isTabActive(): boolean {
-        return !!this.tabs.find(tab => tab.active);
+        return this.activeTab$.getValue() !== null;
     }
 
     /** Select the first non-disabled tab */
