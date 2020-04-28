@@ -124,8 +124,6 @@ ux-alert {
     font-weight: 700;
     font-family: @font-family;
     line-height: 1;
-    height: 1.2em;
-    min-width: 1.2em;
     pointer-events: none;
     white-space: nowrap;
     box-sizing: border-box;
@@ -138,7 +136,7 @@ ux-alert {
         font-size: 11px;
         padding: 0 2px;
         min-height: 12px;
-        min-width: 12px;
+        min-width: 13px;
     }
 
     &.ux-badge-medium {
@@ -228,24 +226,26 @@ ux-alert {
     &.ux-badge-hidden .ux-badge {
         display: none;
     }
-}
 
-button.ux-badge-container:focus-within,
-button.ux-badge-container:focus {
-    .ux-badge {
-        outline: none !important;
+    &:focus-within,
+    &:focus {
+        .ux-badge {
+            outline: none !important;
+        }
     }
 }
 
+// some slight tweaks for firefox
 @-moz-document url-prefix() {
     .ux-badge-container {
-        &.ux-badge-small {
-            height: 1.25em;
-            min-width: 1.25em;
+        .ux-badge-small {
+            min-width: 14px;
+            min-height: 13px;
         }
 
-        &.ux-badge-above .ux-badge-small {
-            top: -8px;
+        .ux-badge-large {
+            min-width: 21px;
+            min-height: 21px;
         }
     }
 }

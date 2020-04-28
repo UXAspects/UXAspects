@@ -13,7 +13,7 @@
             Tasks
         </button>
     </div>
-    <div class="col-sm-3 col-xs-6">
+    <div class="col-sm-9 col-xs-6">
         <ux-icon class="icon-example"
             name="list"
             [uxBadge]="badgeContent"
@@ -105,7 +105,7 @@
 </p>
 <p><strong>Note:</strong> the badge directive relies on the CSS overflow property being set to <code>visible</code> for
     the subject element due to how the badge element attaches to it. If you want to use <code>hidden</code>, you will
-    need to add a wrapper element around the subject so it only after the contents.</p>
+    need to add a wrapper element around the subject so it only affects the contents.</p>
 <p>
     The appearance and behavior of the directive can be configured using the following properties:
 </p>
@@ -121,7 +121,7 @@
     </tr>
     <tr uxd-api-property name="badgeValueLimit" type="number">
         Sets a character or number limit on the content within the badge. If the content is a number and larger than
-        this value it will display this value with an appended<strong>+</strong>, otherwise the content will be treated
+        this value it will display this value with an appended <strong>+</strong>, otherwise the content will be treated
         as text and use this value to truncate the number of characters displayed followed by an ellipsis
         (<strong>&hellip;</strong>).
     </tr>

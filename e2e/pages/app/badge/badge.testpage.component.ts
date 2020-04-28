@@ -14,6 +14,7 @@ export class BadgeTestPageComponent {
         [ 'warning', 'critical' ],
         [ 'grey5', 'grey1' ],
         [ 'chart1', 'chart2' ],
-        [ 'chart3', 'chart4' ]
+        [ '#CCC', 'rgb(190, 4, 20)' ],
+        [ '#059', 'rgb(0, 25, 50)' ],
     ]);
 }
