@@ -2,6 +2,7 @@ import { AfterViewInit, Directive, ElementRef, HostBinding, Input, OnChanges, On
 import { ColorService } from '../../services/color/color.service';
 import { ThemeColor } from '../../services/color/theme-color';
 import { ContrastService } from '../accessibility/contrast-ratio/contrast.service';
+import { timeHours } from 'd3';
 
 export type BadgeVerticalPosition = 'above' | 'below';
 
@@ -17,8 +18,7 @@ export type BadgeSize = 'small' | 'medium' | 'large';
         '[class.ux-badge-above]': 'badgeVerticalPosition === "above"',
         '[class.ux-badge-below]': 'badgeVerticalPosition === "below"',
         '[class.ux-badge-after]': 'badgeHorizontalPosition === "after"',
-        '[class.ux-badge-before]': 'badgeHorizontalPosition === "before"',
-        '[class.ux-badge-no-content]': '!badgeContent',
+        '[class.ux-badge-before]': 'badgeHorizontalPosition === "before"'
     },
 })
 export class BadgeDirective implements AfterViewInit, OnChanges, OnDestroy {
@@ -210,6 +210,16 @@ export class BadgeDirective implements AfterViewInit, OnChanges, OnDestroy {
     }
 
     private parseThemeColor(color: string): ThemeColor {
-        return color && this._colorService.colorExists(color) ? ThemeColor.parse(this._colorService.resolve(color)) : null;
+        // check for hash color
+        if (this._colorService.isHex(color)) {
+            return ThemeColor.parse(color);
+        }
+
+        // check for theme color
+        if (color && (this._colorService.colorExists(color))) {
+            return ThemeColor.parse(this._colorService.resolve(color));
+        }
+
+        return null;
     }
 }

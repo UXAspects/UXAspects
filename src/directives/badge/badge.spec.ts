@@ -36,7 +36,7 @@ export class BadgeTestComponent {
     overlap: boolean = false;
 }
 
-describe('Badge', () => {
+fdescribe('Badge', () => {
     let component: BadgeTestComponent;
     let fixture: ComponentFixture<BadgeTestComponent>;
     let nativeElement: HTMLElement;
@@ -74,10 +74,11 @@ describe('Badge', () => {
         fixture.detectChanges();
         await fixture.whenStable();
         const buttonWithBadge: HTMLButtonElement = document.querySelector(buttonSelector);
-        expect(buttonWithBadge.classList.contains('ux-badge-no-content')).toBeTruthy();
+        const badge: HTMLSpanElement = buttonWithBadge.querySelector(badgeSelector);
+        expect(badge.textContent.replace(/ /g, '')).toBe('');
     });
 
-    it('should set the background color correctly', async () => {
+    it('should set the background color with theme color', async () => {
         component.badgeColor = 'critical';
         fixture.detectChanges();
         await fixture.whenStable();
@@ -86,6 +87,18 @@ describe('Badge', () => {
         const badge: HTMLSpanElement = buttonWithBadge.querySelector(badgeSelector);
 
         expect(badge.style.background).toBe('rgb(255, 69, 79)');
+        expect(badge.style.color).toBe('rgb(0, 0, 0)');
+    });
+
+    it('should set the background color with hex color', async () => {
+        component.badgeColor = '#FFF';
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        const buttonWithBadge: HTMLButtonElement = document.querySelector(buttonSelector);
+        const badge: HTMLSpanElement = buttonWithBadge.querySelector(badgeSelector);
+
+        expect(badge.style.background).toBe('rgb(255, 255, 255)');
         expect(badge.style.color).toBe('rgb(0, 0, 0)');
     });
 

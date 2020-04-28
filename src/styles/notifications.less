@@ -137,16 +137,22 @@ ux-alert {
         border-radius: 7px;
         font-size: 11px;
         padding: 0 2px;
+        min-height: 12px;
+        min-width: 12px;
     }
 
     &.ux-badge-medium {
         border-radius: 9px;
         font-size: 13px;
+        min-height: 16px;
+        min-width: 16px;
     }
 
     &.ux-badge-large {
         border-radius: 11px;
         font-size: 17px;
+        min-height: 20px;
+        min-width: 20px;
     }
 }
 
@@ -169,10 +175,6 @@ ux-alert {
         .ux-badge-large {
             top: -11px;
         }
-
-        &.ux-badge-no-content .ux-badge {
-            top: -5px;
-        }
     }
 
     &.ux-badge-below {
@@ -190,10 +192,6 @@ ux-alert {
 
         .ux-badge-large {
             bottom: -11px;
-        }
-
-        &.ux-badge-no-content .ux-badge {
-            bottom: -5px;
         }
     }
 
@@ -229,17 +227,6 @@ ux-alert {
 
     &.ux-badge-hidden .ux-badge {
         display: none;
-    }
-
-    &.ux-badge-no-content {
-        .ux-badge {
-            border-radius: 50%;
-            width: 9px;
-            height: 9px;
-            display: block;
-            min-width: 9px;
-            padding: 0;
-        }
     }
 }
 
