@@ -123,7 +123,7 @@ export class BadgeDirective implements AfterViewInit, OnChanges, OnDestroy {
         this._renderer.setStyle(this._badgeElement, 'display', 'none');
         this.setBadgeColor();
         this.setBadgeBorderColor();
-        this.setBadgeSize(null);
+        this.setBadgeSize();
         this.setContent(this._badgeContent, this.badgeMaxValue);
         this._renderer.appendChild(this._element.nativeElement, this._badgeElement);
         this._renderer.removeStyle(this._badgeElement, 'display');
@@ -131,28 +131,30 @@ export class BadgeDirective implements AfterViewInit, OnChanges, OnDestroy {
 
     ngOnChanges(changes: SimpleChanges): void {
         // if the badge is visible set changed values
-        if (this._badgeElement) {
-            // set badge content and get display friendly version of text based on max length and type of val
-            if (changes.badgeContent || changes.badgeMaxValue) {
-                let finalText: string = (changes.badgeContent && changes.badgeContent.currentValue) || this.badgeContent || null;
-                const maxValue: number = (changes.badgeMaxValue && changes.badgeMaxValue.currentValue) || this.badgeMaxValue || null;
-                this.setContent(finalText, maxValue);
-            }
+        if (!this._badgeElement) {
+            return;
+        }
 
-            // set the badge color
-            if (changes.badgeColor && changes.badgeColor.currentValue !== changes.badgeColor.previousValue) {
-                this.setBadgeColor();
-            }
+        // set badge content and get display friendly version of text based on max length and type of val
+        if (changes.badgeContent || changes.badgeMaxValue) {
+            const finalText: string = (changes.badgeContent && changes.badgeContent.currentValue) || this.badgeContent || null;
+            const maxValue: number = (changes.badgeMaxValue && changes.badgeMaxValue.currentValue) || this.badgeMaxValue || null;
+            this.setContent(finalText, maxValue);
+        }
 
-            // set the badge border color
-            if (changes.badgeBorderColor && changes.badgeBorderColor.currentValue !== changes.badgeBorderColor.previousValue) {
-                this.setBadgeBorderColor();
-            }
+        // set the badge color
+        if (changes.badgeColor && changes.badgeColor.currentValue !== changes.badgeColor.previousValue) {
+            this.setBadgeColor();
+        }
 
-            // set badge size
-            if (changes.badgeSize && changes.badgeSize.currentValue !== changes.badgeSize.previousValue) {
-                this.setBadgeSize(changes.badgeSize.previousValue);
-            }
+        // set the badge border color
+        if (changes.badgeBorderColor && changes.badgeBorderColor.currentValue !== changes.badgeBorderColor.previousValue) {
+            this.setBadgeBorderColor();
+        }
+
+        // set badge size
+        if (changes.badgeSize && changes.badgeSize.currentValue !== changes.badgeSize.previousValue) {
+            this.setBadgeSize(changes.badgeSize.previousValue);
         }
     }
 
@@ -193,9 +195,9 @@ export class BadgeDirective implements AfterViewInit, OnChanges, OnDestroy {
         }
     }
 
-    private setBadgeSize(previousValue: string): void {
-        if (previousValue) {
-            this._renderer.removeClass(this._badgeElement, `ux-badge-${previousValue}`);
+    private setBadgeSize(previousSize?: string): void {
+        if (previousSize) {
+            this._renderer.removeClass(this._badgeElement, `ux-badge-${previousSize}`);
         }
 
         this._renderer.addClass(this._badgeElement, `ux-badge-${this.badgeSize}`);
@@ -210,16 +212,12 @@ export class BadgeDirective implements AfterViewInit, OnChanges, OnDestroy {
     }
 
     private parseThemeColor(color: string): ThemeColor {
-        // check for hash color
-        if (this._colorService.isHex(color)) {
-            return ThemeColor.parse(color);
+        if (!color) {
+            return null;
         }
 
-        // check for theme color
-        if (color && (this._colorService.colorExists(color))) {
-            return ThemeColor.parse(this._colorService.resolve(color));
-        }
-
-        return null;
+        return this._colorService.colorExists(color) ?
+            ThemeColor.parse(this._colorService.resolve(color)) :
+            ThemeColor.parse(color);
     }
 }

@@ -2,8 +2,6 @@ import { Injectable, InjectFlags, Injector } from '@angular/core';
 import { COLOR_SET_TOKEN, ColorSet, colorSets } from './color-sets/index';
 import { ThemeColor } from './theme-color';
 
-export const HEX_REGEX = /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/;
-
 @Injectable()
 export class ColorService {
 
@@ -91,14 +89,6 @@ export class ColorService {
     /** Determine if the current colorset has a specific color */
     colorExists(name: string): boolean {
         return !!Object.keys(this._theme).find(colorName => colorName === this.resolveColorName(name));
-    }
-
-    /**
-     * Checks if a color is a hex value
-     * @param color The color to check against
-     */
-    isHex(value: string): boolean {
-        return Boolean(value && value.match(HEX_REGEX));
     }
 
     /** Create a theme from a colorset */
