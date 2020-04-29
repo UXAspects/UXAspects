@@ -27,7 +27,7 @@
     <ul class="element-list">
         <li *ngFor="let size of sizes">
             <ux-icon name="mail" uxBadge="NEW" badgeVerticalPosition="above" badgeHorizontalPosition="after"
-                badgeSize="{{ size }}" badgeColor="critical"></ux-icon>
+                [badgeSize]="size" badgeColor="critical"></ux-icon>
         </li>
     </ul>
     <hr />
@@ -36,8 +36,8 @@
         <ng-container *ngFor="let vertPos of verticalPositions">
             <ng-container *ngFor="let horzPos of horizontalPositions">
                 <li>
-                    <a href="#/badge" uxBadge="2" badgeVerticalPosition="{{ vertPos }}"
-                        badgeHorizontalPosition="{{ horzPos }}" badgeSize="medium" badgeColor="ok">
+                    <a href="#/badge" uxBadge="2" [badgeVerticalPosition]="vertPos"
+                        [badgeHorizontalPosition]="horzPos" badgeSize="medium" badgeColor="ok">
                         Tasks
                     </a>
                 </li>
@@ -50,8 +50,8 @@
         <ng-container *ngFor="let vertPos of verticalPositions">
             <ng-container *ngFor="let horzPos of horizontalPositions">
                 <li>
-                    <button class="btn btn-primary" uxBadge="2" badgeVerticalPosition="{{ vertPos }}"
-                        badgeHorizontalPosition="{{ horzPos }}" [badgeOverlap]="true" badgeSize="medium"
+                    <button class="btn btn-primary" uxBadge="2" [badgeVerticalPosition]="vertPos"
+                        [badgeHorizontalPosition]="horzPos" [badgeOverlap]="true" badgeSize="medium"
                         badgeColor="chart2">
                         Messages
                     </button>
