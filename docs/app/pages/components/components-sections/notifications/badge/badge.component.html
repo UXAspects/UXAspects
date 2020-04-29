@@ -50,13 +50,13 @@
                     <div class="col-md-6 col-sm-6">
                         <label for="badgeColor">badgeColor</label>
                         <div class="input-group m-b-sm">
-                            <input type="text" class="form-control" [(ngModel)]="selectedColor">
+                            <input type="text" class="form-control" [(ngModel)]="selectedColor" [ngModelOptions]="{ updateOn: 'blur' }" />
                         </div>
                     </div>
                     <div class="col-md-6 col-sm-6">
                         <label for="badgeBorderColor">badgeBorderColor</label>
                         <div class="input-group m-b-sm">
-                            <input type="text" class="form-control" [(ngModel)]="selectedBorderColor">
+                            <input type="text" #userBorderColor class="form-control" [(ngModel)]="selectedBorderColor" [ngModelOptions]="{ updateOn: 'blur' }" />
                         </div>
                     </div>
                 </div>
