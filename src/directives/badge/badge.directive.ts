@@ -178,9 +178,9 @@ export class BadgeDirective implements AfterViewInit, OnChanges, OnDestroy {
 
     private setBadgeColor(): void {
         if (this._badgeColor) {
-            this._renderer.setStyle(this._badgeElement, 'background', this._badgeColor.toHex());
+            this._renderer.setStyle(this._badgeElement, 'background-color', this._badgeColor.toHex());
         } else {
-            this._renderer.removeStyle(this._badgeElement, 'background');
+            this._renderer.removeStyle(this._badgeElement, 'background-color');
         }
 
         this._renderer.setStyle(this._badgeElement, 'color', this.determineContentTextColor().toHex());
@@ -192,6 +192,8 @@ export class BadgeDirective implements AfterViewInit, OnChanges, OnDestroy {
         } else {
             this._renderer.removeStyle(this._badgeElement, 'border-color');
         }
+
+        this._renderer.setStyle(this._badgeElement, 'background-clip', this._badgeBorderColor ? 'padding-box' : 'border-box');
     }
 
     private setBadgeSize(previousSize?: string): void {
