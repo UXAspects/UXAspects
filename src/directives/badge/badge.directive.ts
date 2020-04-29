@@ -2,7 +2,6 @@ import { AfterViewInit, Directive, ElementRef, HostBinding, Input, OnChanges, On
 import { ColorService } from '../../services/color/color.service';
 import { ThemeColor } from '../../services/color/theme-color';
 import { ContrastService } from '../accessibility/contrast-ratio/contrast.service';
-import { timeHours } from 'd3';
 
 export type BadgeVerticalPosition = 'above' | 'below';
 
