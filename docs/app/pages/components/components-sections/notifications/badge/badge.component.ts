@@ -13,7 +13,7 @@ import { DocumentationType, DOCUMENTATION_TOKEN } from '../../../../../services/
 })
 @DocumentationSectionComponent('ComponentsBadgeComponent')
 export class ComponentsBadgeComponent extends BaseDocumentationSection implements IPlaygroundProvider {
-    colorPalleteDocumentationRoute: string;
+    colorPaletteDocumentationRoute: string;
 
     hideButton: boolean = false;
     badgeContent: string = '18';
@@ -50,6 +50,6 @@ export class ComponentsBadgeComponent extends BaseDocumentationSection implement
     ) {
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
 
-        this.colorPalleteDocumentationRoute = documentationType === DocumentationType.MicroFocus ? '/ui-components/styling#color-palette' : '/css/color-palette';
+        this.colorPaletteDocumentationRoute = documentationType === DocumentationType.MicroFocus ? '/ui-components/styling#color-palette' : '/css/color-palette';
     }
 }
