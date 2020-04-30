@@ -52,7 +52,7 @@ export class BadgeDirective implements AfterViewInit, OnChanges, OnDestroy {
      */
     @Input()
     get badgeColor(): string {
-        return this._badgeColor.toHex();
+        return this._badgeColor.toRgba();
     }
     set badgeColor(color: string) {
         this._badgeColor = this.parseThemeColor(color);
@@ -64,7 +64,7 @@ export class BadgeDirective implements AfterViewInit, OnChanges, OnDestroy {
      */
     @Input()
     get badgeBorderColor(): string {
-        return this._badgeBorderColor.toHex();
+        return this._badgeBorderColor.toRgba();
     }
     set badgeBorderColor(color: string) {
         this._badgeBorderColor = this.parseThemeColor(color);
@@ -178,17 +178,17 @@ export class BadgeDirective implements AfterViewInit, OnChanges, OnDestroy {
 
     private setBadgeColor(): void {
         if (this._badgeColor) {
-            this._renderer.setStyle(this._badgeElement, 'background-color', this._badgeColor.toHex());
+            this._renderer.setStyle(this._badgeElement, 'background-color', this._badgeColor.toRgba());
         } else {
             this._renderer.removeStyle(this._badgeElement, 'background-color');
         }
 
-        this._renderer.setStyle(this._badgeElement, 'color', this.determineContentTextColor().toHex());
+        this._renderer.setStyle(this._badgeElement, 'color', this.determineContentTextColor().toRgba());
     }
 
     private setBadgeBorderColor(): void {
         if (this._badgeBorderColor) {
-            this._renderer.setStyle(this._badgeElement, 'border-color', this._badgeBorderColor.toHex());
+            this._renderer.setStyle(this._badgeElement, 'border-color', this._badgeBorderColor.toRgba());
         } else {
             this._renderer.removeStyle(this._badgeElement, 'border-color');
         }

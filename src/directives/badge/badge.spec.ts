@@ -36,7 +36,7 @@ export class BadgeTestComponent {
     overlap: boolean = false;
 }
 
-describe('Badge', () => {
+fdescribe('Badge', () => {
     let component: BadgeTestComponent;
     let fixture: ComponentFixture<BadgeTestComponent>;
     let nativeElement: HTMLElement;
@@ -99,6 +99,18 @@ describe('Badge', () => {
         const badge: HTMLSpanElement = buttonWithBadge.querySelector(badgeSelector);
 
         expect(badge.style.backgroundColor).toBe('rgb(255, 255, 255)');
+        expect(badge.style.color).toBe('rgb(0, 0, 0)');
+    });
+
+    it('should set the background color with rgba color', async () => {
+        component.badgeColor = 'rgba(255, 255, 255, 0.5)';
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        const buttonWithBadge: HTMLButtonElement = document.querySelector(buttonSelector);
+        const badge: HTMLSpanElement = buttonWithBadge.querySelector(badgeSelector);
+
+        expect(badge.style.backgroundColor).toBe('rgba(255, 255, 255, 0.5)');
         expect(badge.style.color).toBe('rgb(0, 0, 0)');
     });
 

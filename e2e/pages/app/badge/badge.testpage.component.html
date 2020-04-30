@@ -84,9 +84,9 @@
     <hr />
     <!-- color and border examples -->
     <ul class="element-list">
-         <li *ngFor="let colors of colorCombinations.entries()">
+         <li *ngFor="let colors of colorCombinations | keyvalue">
             <a href="#/badge" uxBadge="7483" badgeMaxValue="99" badgeVerticalPosition="above" badgeHorizontalPosition="after"
-        badgeSize="medium" [badgeColor]="colors[0]" [badgeBorderColor]="colors[1]">Alerts</a>
+        badgeSize="medium" [badgeColor]="colors.key" [badgeBorderColor]="colors.value">Alerts</a>
         </li>
     </ul>
 </div>
