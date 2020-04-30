@@ -36,7 +36,7 @@ export class BadgeTestComponent {
     overlap: boolean = false;
 }
 
-fdescribe('Badge', () => {
+describe('Badge', () => {
     let component: BadgeTestComponent;
     let fixture: ComponentFixture<BadgeTestComponent>;
     let nativeElement: HTMLElement;
