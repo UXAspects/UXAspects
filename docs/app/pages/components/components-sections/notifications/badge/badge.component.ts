@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { BadgeHorizontalPosition, BadgeSize, BadgeVerticalPosition, ColorService } from '@ux-aspects/ux-aspects';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
 import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
+import { DocumentationType, DOCUMENTATION_TOKEN } from '../../../../../services/playground/tokens/documentation.token';
 
 @Component({
     selector: 'uxd-components-badge',
@@ -12,6 +13,8 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 })
 @DocumentationSectionComponent('ComponentsBadgeComponent')
 export class ComponentsBadgeComponent extends BaseDocumentationSection implements IPlaygroundProvider {
+    colorPalleteDocumentationRoute: string;
+
     hideButton: boolean = false;
     badgeContent: string = '18';
     badgeMaxValue: number = null;
@@ -41,7 +44,12 @@ export class ComponentsBadgeComponent extends BaseDocumentationSection implement
         ],
     };
 
-    constructor(private readonly colorService: ColorService) {
+    constructor(
+        @Inject(DOCUMENTATION_TOKEN) private readonly documentationType: DocumentationType,
+        private readonly colorService: ColorService
+    ) {
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
+
+        this.colorPalleteDocumentationRoute = documentationType === DocumentationType.MicroFocus ? '/ui-components/styling#color-palette' : '/css/color-palette';
     }
 }
