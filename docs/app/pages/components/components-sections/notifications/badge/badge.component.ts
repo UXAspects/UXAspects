@@ -14,6 +14,7 @@ import { DocumentationType, DOCUMENTATION_TOKEN } from '../../../../../services/
 @DocumentationSectionComponent('ComponentsBadgeComponent')
 export class ComponentsBadgeComponent extends BaseDocumentationSection implements IPlaygroundProvider {
     colorPaletteDocumentationRoute: string;
+    colorPaletteFragment: string;
 
     hideButton: boolean = false;
     badgeContent: string = '18';
@@ -51,5 +52,9 @@ export class ComponentsBadgeComponent extends BaseDocumentationSection implement
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
 
         this.colorPaletteDocumentationRoute = documentationType === DocumentationType.MicroFocus ? '/ui-components/styling' : '/css/color-palette';
+
+        if (documentationType === DocumentationType.MicroFocus) {
+            this.colorPaletteFragment = 'color-palette';
+        }
     }
 }
