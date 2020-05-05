@@ -708,6 +708,25 @@
                     ]
                 },
                 {
+                    "title": "Badge",
+                    "component": "ComponentsBadgeComponent",
+                    "version": "Angular",
+                    "usage": [
+                        {
+                            "title": "Selector",
+                            "content": "[uxBadge]"
+                        },
+                        {
+                            "title": "Exported As",
+                            "content": "ux-badge"
+                        },
+                        {
+                            "title": "Module",
+                            "content": "BadgeModule"
+                        }
+                    ]
+                },
+                {
                     "title": "Notifications",
                     "component": "ComponentsNotificationsComponent",
                     "version": "Angular",

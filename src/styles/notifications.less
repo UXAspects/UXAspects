@@ -109,3 +109,143 @@ ux-alert {
         border: 1px solid @alert-dark-border;
     }
 }
+
+/*
+ * Badge
+ */
+
+.ux-badge {
+    position: absolute;
+    text-align: center;
+    display: inline-block;
+    background-color: #000;
+    color: #fff;
+    text-transform: none;
+    font-weight: 700;
+    font-family: @font-family;
+    line-height: 1;
+    pointer-events: none;
+    white-space: nowrap;
+    box-sizing: border-box;
+    margin: 0;
+    border: 1px solid transparent;
+    padding: 0 3px;
+
+    &.ux-badge-small {
+        border-radius: 7px;
+        font-size: 11px;
+        padding: 0 2px;
+        min-height: 12px;
+        min-width: 13px;
+    }
+
+    &.ux-badge-medium {
+        border-radius: 9px;
+        font-size: 13px;
+        min-height: 16px;
+        min-width: 16px;
+    }
+
+    &.ux-badge-large {
+        border-radius: 11px;
+        font-size: 17px;
+        min-height: 20px;
+        min-width: 20px;
+    }
+}
+
+.ux-badge-container {
+    position: relative;
+
+    &.ux-badge-above {
+        .ux-badge {
+            top: 0;
+        }
+
+        .ux-badge-small {
+            top: -7px;
+        }
+
+        .ux-badge-medium {
+            top: -9px;
+        }
+
+        .ux-badge-large {
+            top: -11px;
+        }
+    }
+
+    &.ux-badge-below {
+        .ux-badge {
+            bottom: 0;
+        }
+
+        .ux-badge-small {
+            bottom: -7px;
+        }
+
+        .ux-badge-medium {
+            bottom: -9px;
+        }
+
+        .ux-badge-large {
+            bottom: -11px;
+        }
+    }
+
+    &.ux-badge-before .ux-badge {
+        left: -3px;
+    }
+
+    &.ux-badge-after .ux-badge {
+        right: -3px;
+    }
+
+    &.ux-badge-before {
+        .ux-badge {
+            transform: translateX(-100%);
+        }
+
+        &.ux-badge-overlap .ux-badge {
+            transform: translateX(-50%);
+            left: 0;
+        }
+    }
+
+    &.ux-badge-after {
+        .ux-badge {
+            transform: translateX(100%);
+        }
+
+        &.ux-badge-overlap .ux-badge {
+            transform: translateX(50%);
+            right: 0;
+        }
+    }
+
+    &.ux-badge-hidden .ux-badge {
+        display: none;
+    }
+
+    &:focus-within,
+    &:focus {
+        .ux-badge {
+            outline: none !important;
+        }
+    }
+}
+
+// some slight tweaks for firefox
+@-moz-document url-prefix() {
+    .ux-badge-container {
+        .ux-badge-small {
+            min-width: 14px;
+            min-height: 13px;
+        }
+
+        .ux-badge-large {
+            min-width: 21px;
+            min-height: 21px;
+        }
+    }
+}
