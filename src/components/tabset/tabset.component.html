@@ -8,7 +8,7 @@
     [attr.aria-label]="ariaLabel"
     [attr.aria-orientation]="stacked === 'none' ? 'horizontal' : 'vertical'">
 
-	<li role="presentation"
+    <li role="presentation"
         class="nav-item"
         *ngFor="let tab of _tabset.tabs; let index = index"
         [class.active]="(_tabset.activeTab$ | async) === tab"
@@ -31,11 +31,11 @@
             <ng-container *ngIf="tab.headingRef" [ngTemplateOutlet]="tab.headingRef"></ng-container>
         </a>
 
-	</li>
+    </li>
 
 </ul>
 
 <!-- Tab panes -->
 <div class="tab-content">
-	<ng-content></ng-content>
+    <ng-content></ng-content>
 </div>

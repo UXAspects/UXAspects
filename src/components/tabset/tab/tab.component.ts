@@ -20,12 +20,8 @@ export class TabComponent implements OnDestroy {
     @Input()
     set active(active: boolean) {
         if (active) {
-            this._tabset.select(this);
+            this._tabset.setTabActive(this);
         }
-    }
-
-    get active(): boolean {
-        return this._active;
     }
 
     /** Define if this tab is disabled */
@@ -49,8 +45,8 @@ export class TabComponent implements OnDestroy {
     /** Store a custom header templateRef */
     @ContentChild(TabHeadingDirective, { read: TemplateRef, static: false }) headingRef: TemplateRef<void>;
 
-    /** Whether the tab is active. */
-    _active = false;
+    // Active state of the tab, for use in the template
+    _active: boolean;
 
     /** Unsubscribe from all subscriptions when component is destroyed */
     private _onDestroy = new Subject<void>();
@@ -60,10 +56,9 @@ export class TabComponent implements OnDestroy {
         private readonly _changeDetector: ChangeDetectorRef
     ) {
         _tabset.activeTab$.pipe(takeUntil(this._onDestroy), distinctUntilChanged()).subscribe(activeTab => {
-            if (activeTab === this) {
-                this.selectTab();
-            } else {
-                this.deselectTab();
+            const isActive = (activeTab === this);
+            if (this._active !== isActive) {
+                this.setActive(isActive);
             }
         });
     }
@@ -73,36 +68,18 @@ export class TabComponent implements OnDestroy {
         this._onDestroy.complete();
     }
 
-    private selectTab(): void {
-        // if this tab is currently active do nothing
-        if (this._active && !this._tabset.manual) {
-            return;
-        }
-
-        if (!this._tabset.manual) {
-            this._active = true;
-            this.activeChange.emit(true);
-        }
-
+    activate(): void {
         this.activated.emit();
-
-        this._changeDetector.detectChanges();
     }
 
-    private deselectTab(): void {
-
-        // if this tab is not currently active do nothing
-        if (!this._active && !this._tabset.manual) {
-            return;
-        }
-
-        if (!this._tabset.manual) {
-            this._active = false;
-            this.activeChange.emit(false);
-        }
-
+    deactivate(): void {
         this.deactivated.emit();
+    }
 
-        this._changeDetector.detectChanges();
+    private setActive(active: boolean): void {
+        console.log(`setActive[${this.id}]: ${active}`);
+        this._active = active;
+        this.activeChange.emit(active);
+        this._changeDetector.markForCheck();
     }
 }

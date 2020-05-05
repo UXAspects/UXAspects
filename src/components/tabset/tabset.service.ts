@@ -18,10 +18,24 @@ export class TabsetService {
         this.tabs = [...tabs];
     }
 
-    /** Programmatically select a tab */
+    /** Select a tab (from user input) */
     select(tab: TabComponent): void {
+        if (tab.disabled) {
+            return;
+        }
+
+        if (this.manual) {
+            // In manual mode, emit the activated/deactivated events.
+            // The application is responsible for updating the active state on each tab, which will then update the UI.
+            this.tabs.forEach(_tab => _tab === tab ? _tab.activate() : _tab.deactivate());
+        } else {
+            this.activeTab$.next(tab);
+        }
+    }
+
+    /** Set tab active state */
+    setTabActive(tab: TabComponent): void {
         if (!tab.disabled) {
-            // update the active state of each tab accordingly
             this.activeTab$.next(tab);
         }
     }
