@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, EventEmitter, Input, OnDestroy, Output, TemplateRef } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, EventEmitter, Input, OnDestroy, OnInit, Output, TemplateRef } from '@angular/core';
 import { Subject } from 'rxjs';
 import { distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { TabsetService } from '../tabset.service';
@@ -11,7 +11,7 @@ let uniqueTabId = 0;
     templateUrl: './tab.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TabComponent implements OnDestroy {
+export class TabComponent implements OnInit, OnDestroy {
 
     /** Define the tab unique id */
     @Input() id: string = `ux-tab-${++uniqueTabId}`;
@@ -54,8 +54,10 @@ export class TabComponent implements OnDestroy {
     constructor(
         private readonly _tabset: TabsetService,
         private readonly _changeDetector: ChangeDetectorRef
-    ) {
-        _tabset.activeTab$.pipe(takeUntil(this._onDestroy), distinctUntilChanged()).subscribe(activeTab => {
+    ) { }
+
+    ngOnInit(): void {
+        this._tabset.activeTab$.pipe(takeUntil(this._onDestroy), distinctUntilChanged()).subscribe(activeTab => {
             const isActive = (activeTab === this);
             if (this._active !== isActive) {
                 this.setActive(isActive);
@@ -77,9 +79,8 @@ export class TabComponent implements OnDestroy {
     }
 
     private setActive(active: boolean): void {
-        console.log(`setActive[${this.id}]: ${active}`);
         this._active = active;
         this.activeChange.emit(active);
-        this._changeDetector.markForCheck();
+        this._changeDetector.detectChanges();
     }
 }
