@@ -23,7 +23,7 @@
     <parent>
         <groupId>com.github.cafapi</groupId>
         <artifactId>caf-common-parent</artifactId>
-        <version>2.0.0-63</version>
+        <version>2.1.0-129</version>
     </parent>
 
     <groupId>com.github.uxaspects</groupId>
