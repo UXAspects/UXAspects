@@ -78,9 +78,21 @@ export class TabComponent implements OnInit, OnDestroy {
         this.deactivated.emit();
     }
 
+    /**
+     * Update the internal active state and emit appropriate events.
+     */
     private setActive(active: boolean): void {
         this._active = active;
         this.activeChange.emit(active);
+
+        if (!this._tabset.manual) {
+            if (active) {
+                this.activate();
+            } else {
+                this.deactivate();
+            }
+        }
+
         this._changeDetector.detectChanges();
     }
 }
