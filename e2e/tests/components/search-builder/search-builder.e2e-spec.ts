@@ -37,8 +37,7 @@ describe('Search Builder Tests', () => {
         expect(query.none.length).toBe(0);
         expect(await page.getValid()).toBeTruthy();
 
-        // Fix and restore with https://portal.digitalsafe.net/browse/EL-3917
-        // expect(await imageCompare('search-builder-text')).toEqual(0);
+        expect(await imageCompare('search-builder-text')).toEqual(0);
     });
 
     it('should be able to add a date component', async () => {
