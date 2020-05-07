@@ -79,43 +79,37 @@ describe('Tabset Component', () => {
         fixture.detectChanges();
     });
 
-    it('should emit activated output when tab is clicked', () => {
+    it('should emit activated output when tab is clicked', async () => {
 
         spyOn(component, 'onTabActivated');
 
-        const tab = getTabLink(1, nativeElement);
-
-        dispatchMouseEvent(tab, 'mousedown');
+        await clickTab(1);
 
         expect(component.onTabActivated).toHaveBeenCalled();
     });
 
-    it('should emit deactivated output when tab is deselected', () => {
+    it('should emit deactivated output when tab is deselected', async () => {
 
         spyOn(component, 'onTabDeactivated');
 
-        const tab = getTabLink(2, nativeElement);
-
-        dispatchMouseEvent(tab, 'mousedown');
+        await clickTab(2);
 
         expect(component.onTabDeactivated).toHaveBeenCalled();
     });
 
-    it('should emit activeChange output when tab is selected', () => {
+    it('should emit activeChange output when tab is selected', async () => {
 
         const activeChangeSpy = spyOn(component, 'activeChange');
 
-        const tab = getTabLink(2, nativeElement);
-
-        dispatchMouseEvent(tab, 'mousedown');
+        await clickTab(2);
 
         expect(activeChangeSpy.calls.allArgs()).toEqual([['Schedule', false], ['Solution', true]]);
     });
 
     it('should change to new tab when tab is programmatically selected by tab index', () => {
 
-        const tab1 = getTabItem(0, nativeElement);
-        const tab3 = getTabItem(2, nativeElement);
+        const tab1 = getTabItem(0);
+        const tab3 = getTabItem(2);
 
         // check first tab is active
         expect(tab1.classList.contains('active')).toBeTruthy();
@@ -137,8 +131,8 @@ describe('Tabset Component', () => {
 
     it('should change to new tab when tab is programmatically selected by tab instance', () => {
 
-        const tab1 = getTabItem(0, nativeElement);
-        const tab3 = getTabItem(2, nativeElement);
+        const tab1 = getTabItem(0);
+        const tab3 = getTabItem(2);
 
         // check first tab is active
         expect(tab1.classList.contains('active')).toBeTruthy();
@@ -160,8 +154,8 @@ describe('Tabset Component', () => {
 
     it('should change to a tab when the `active` property is set to true', async () => {
 
-        const tab1 = getTabItem(0, nativeElement);
-        const tab3 = getTabItem(2, nativeElement);
+        const tab1 = getTabItem(0);
+        const tab3 = getTabItem(2);
 
         // check first tab is active
         expect(tab1.classList.contains('active')).toBe(true);
@@ -180,9 +174,9 @@ describe('Tabset Component', () => {
 
     it('should change to the most recent tab when multiple `active` properties are set to true', async () => {
 
-        const tab1 = getTabItem(0, nativeElement);
-        const tab2 = getTabItem(1, nativeElement);
-        const tab3 = getTabItem(2, nativeElement);
+        const tab1 = getTabItem(0);
+        const tab2 = getTabItem(1);
+        const tab3 = getTabItem(2);
 
         // check first tab is active
         expect(tab1.classList.contains('active')).toBe(true);
@@ -204,15 +198,21 @@ describe('Tabset Component', () => {
         // check tab contains correct content
         expect(nativeElement.querySelector('.tab-pane[aria-hidden="false"] h4').innerHTML).toEqual('Solution');
     });
+
+    async function clickTab(index: number): Promise<void> {
+        const tab = getTabLink(index);
+        dispatchMouseEvent(tab, 'mousedown');
+        await fixture.whenStable();
+    }
+
+    function getTabLink(index: number): HTMLElement {
+        return nativeElement.querySelectorAll<HTMLAnchorElement>('ux-tabset ul .nav-link').item(index);
+    }
+
+    function getTabItem(index: number): HTMLElement {
+        return nativeElement.querySelectorAll<HTMLAnchorElement>('ux-tabset ul .nav-item').item(index);
+    }
 });
-
-function getTabLink(index: number, nativeElement: HTMLElement): HTMLElement {
-    return nativeElement.querySelectorAll<HTMLAnchorElement>('ux-tabset ul .nav-link').item(index);
-}
-
-function getTabItem(index: number, nativeElement: HTMLElement): HTMLElement {
-    return nativeElement.querySelectorAll<HTMLAnchorElement>('ux-tabset ul .nav-item').item(index);
-}
 
 export interface Tab {
     title: string;
