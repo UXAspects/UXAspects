@@ -5,7 +5,7 @@
             [(selected)]="selected"
             [dropdownOpen]="dropdownOpen"
             (dropdownOpenChange)="dropdownOpenChange($event)"
-            (filterChange)="setFilter($event)"
+            (filterChange)="filter = $event"
             [allowNull]="allowNull"
             [maxHeight]="maxHeight"
             [placeholder]="placeholder"
@@ -66,6 +66,16 @@
                     </div>
                     <div class="col-md-4 col-sm-12">
                         <input type="text" class="form-control" [(ngModel)]="placeholder">
+                    </div>
+                </div>
+                <div class="row uxd-customize-row">
+                    <div class="col-md-6 m-t-md">
+                        Filter: <code>{{filter | json}}</code>
+                    </div>
+                </div>
+                <div class="row uxd-customize-row">
+                    <div class="col-md-6 m-t-md">
+                        <button type="button" (click)="filter = ''">Clear Filter</button>
                     </div>
                 </div>
             </ux-accordion-panel>

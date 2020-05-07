@@ -21,6 +21,9 @@ export class InputDropdownComponent<T> implements ControlValueAccessor, AfterVie
     /** Define the selected item */
     @Input() selected: T;
 
+    /** Filter text */
+    @Input() filter: string = '';
+
     /** Hide the filter input */
     @Input() hideFilter: boolean;
 
@@ -58,9 +61,6 @@ export class InputDropdownComponent<T> implements ControlValueAccessor, AfterVie
 
     /** Access the filter text input element */
     @ViewChild('filterInput', { static: false }) filterInputElement: ElementRef<HTMLInputElement>;
-
-    /** Store the current filter text */
-    _filterText: string = '';
 
     /** Store the max height */
     _maxHeight: string;
@@ -110,8 +110,8 @@ export class InputDropdownComponent<T> implements ControlValueAccessor, AfterVie
     }
 
     resetFilter(event: MouseEvent): void {
-        this._filterText = '';
-        this.filterChange.emit(this._filterText);
+        this.filter = '';
+        this.filterChange.emit(this.filter);
         this.filterInputElement.nativeElement.focus();
         event.stopPropagation();
     }
