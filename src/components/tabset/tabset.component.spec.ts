@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { dispatchMouseEvent } from '../../common/testing';
 import { TabsetComponent } from './tabset.component';
 import { TabsetModule } from './tabset.module';
@@ -106,7 +106,7 @@ describe('Tabset Component', () => {
         expect(activeChangeSpy.calls.allArgs()).toEqual([['Schedule', false], ['Solution', true]]);
     });
 
-    it('should change to new tab when tab is programmatically selected by tab index', () => {
+    it('should change to new tab when tab is programmatically selected by tab index', fakeAsync(async () => {
 
         const tab1 = getTabItem(0);
         const tab3 = getTabItem(2);
@@ -118,6 +118,7 @@ describe('Tabset Component', () => {
 
         // programatically change tab by index
         component.tabset.selectTab(2);
+        tick(20);
 
         // check second tab is now active/first tab is not active
         expect(tab3.classList.contains('active')).toBeTruthy();
@@ -127,9 +128,9 @@ describe('Tabset Component', () => {
         expect(nativeElement.querySelector('.tab-pane[aria-hidden="false"] h4').innerHTML).toEqual('Solution');
 
         expect(component.onTabActivated).toHaveBeenCalled();
-    });
+    }));
 
-    it('should change to new tab when tab is programmatically selected by tab instance', () => {
+    it('should change to new tab when tab is programmatically selected by tab instance', fakeAsync(() => {
 
         const tab1 = getTabItem(0);
         const tab3 = getTabItem(2);
@@ -141,6 +142,7 @@ describe('Tabset Component', () => {
 
         // programatically change tab by instance
         component.tabset.selectTab(component.tabset._tabset.tabs[2]);
+        tick(20);
 
         // check second tab is now active/first tab is not active
         expect(tab3.classList.contains('active')).toBeTruthy();
@@ -150,7 +152,7 @@ describe('Tabset Component', () => {
         expect(nativeElement.querySelector('.tab-pane[aria-hidden="false"] h4').innerHTML).toEqual('Solution');
 
         expect(component.onTabActivated).toHaveBeenCalled();
-    });
+    }));
 
     it('should change to a tab when the `active` property is set to true', async () => {
 
