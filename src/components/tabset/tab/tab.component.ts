@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, EventEmitter, Input, OnDestroy, OnInit, Output, TemplateRef } from '@angular/core';
 import { Subject } from 'rxjs';
 import { distinctUntilChanged, takeUntil } from 'rxjs/operators';
+import { tick } from '../../../common';
 import { TabsetService } from '../tabset.service';
 import { TabHeadingDirective } from './tab-heading.directive';
 
@@ -57,7 +58,7 @@ export class TabComponent implements OnInit, OnDestroy {
     ) { }
 
     ngOnInit(): void {
-        this._tabset.activeTab$.pipe(distinctUntilChanged(), takeUntil(this._onDestroy)).subscribe(activeTab => {
+        this._tabset.activeTab$.pipe(tick(), distinctUntilChanged(), takeUntil(this._onDestroy)).subscribe(activeTab => {
             const isActive = (activeTab === this);
             if (this._active !== isActive) {
                 this.setActive(isActive);
