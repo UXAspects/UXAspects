@@ -48,7 +48,9 @@ export class TabsetComponent implements AfterViewInit, OnDestroy {
 
         // Make sure a tab is selected
         if (!this._tabset.isTabActive()) {
-            this._tabset.selectFirstTab();
+            setTimeout(() => {
+                this._tabset.selectFirstTab();
+            });
         }
 
         // run change detection once we have setup the tabs

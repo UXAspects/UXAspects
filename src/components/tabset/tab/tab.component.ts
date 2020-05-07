@@ -46,7 +46,7 @@ export class TabComponent implements OnInit, OnDestroy {
     @ContentChild(TabHeadingDirective, { read: TemplateRef, static: false }) headingRef: TemplateRef<void>;
 
     // Active state of the tab, for use in the template
-    _active: boolean;
+    _active = false;
 
     /** Unsubscribe from all subscriptions when component is destroyed */
     private _onDestroy = new Subject<void>();
@@ -57,7 +57,7 @@ export class TabComponent implements OnInit, OnDestroy {
     ) { }
 
     ngOnInit(): void {
-        this._tabset.activeTab$.pipe(takeUntil(this._onDestroy), distinctUntilChanged()).subscribe(activeTab => {
+        this._tabset.activeTab$.pipe(distinctUntilChanged(), takeUntil(this._onDestroy)).subscribe(activeTab => {
             const isActive = (activeTab === this);
             if (this._active !== isActive) {
                 this.setActive(isActive);

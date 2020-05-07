@@ -75,6 +75,8 @@ describe('Tabset Component', () => {
         component = fixture.componentInstance;
         nativeElement = fixture.nativeElement;
         fixture.detectChanges();
+        await fixture.whenStable();
+        fixture.detectChanges();
     });
 
     it('should emit activated output when tab is clicked', () => {
