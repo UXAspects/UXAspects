@@ -16,3 +16,8 @@
 .form-control {
     transition: none;
 }
+
+pre,
+code {
+    font-family: "Courier New";
+}
