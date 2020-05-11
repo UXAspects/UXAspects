@@ -12,7 +12,6 @@ const screenshotOutputDir = join(outputDir, 'screenshots');
 
 exports.config = {
   directConnect: true,
-  seleniumAddress: 'http://127.0.0.1:4444/wd/hub',
   chromeDriver: require('chromedriver').path,
   baseUrl: `http://${e2eHostAddress}:4000/#/`,
 
@@ -25,7 +24,7 @@ exports.config = {
     maxInstances: 5
   },
 
-  maxSessions: 5,
+  maxSessions: 3,
 
   framework: 'jasmine',
 
