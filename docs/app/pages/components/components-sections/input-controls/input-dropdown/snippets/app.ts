@@ -27,7 +27,18 @@ export class AppComponent {
         { name: 'One' }, { name: 'Two' }, { name: 'Three' }, { name: 'Four' }
     ];
     filteredOptionList: ReadonlyArray<RadioOption> = this.optionList;
-    filter: string = '';
+    private _filter: string = '';
+    get filter(): string {
+        return this._filter;
+    }
+
+    set filter(value: string) {
+        this._filter = value;
+        this.filteredOptionList =
+            value && (value.length > 0) ?
+                this.optionList.filter(option => (option.name.toLowerCase().indexOf(value.toLowerCase()) > -1)) :
+                this.optionList;
+    }
     allowNull: boolean = false;
     dropdownOpen: boolean = false;
     maxHeight: string = '400px';
@@ -38,7 +49,6 @@ export class AppComponent {
         interval(10000).subscribe(() => {
             if (this.resetFilter) {
                 this.filter = '';
-                this.setFilter('');
             }
         });
     }
@@ -46,13 +56,6 @@ export class AppComponent {
     selectOption(event: KeyboardEvent, option: RadioOption): void {
         this.selected = option;
         event.preventDefault();
-    }
-
-    setFilter(filter: string): void {
-        this.filteredOptionList =
-            filter && (filter.length > 0) ?
-                this.optionList.filter(option => (option.name.toLowerCase().indexOf(filter.toLowerCase()) > -1)) :
-                this.optionList;
     }
 
     dropdownOpenChange(value: boolean): void {
