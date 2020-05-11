@@ -118,9 +118,7 @@ export class ColumnPickerComponent implements OnInit, AfterViewInit, OnDestroy {
         /** Access the LiveAnnounce to provide accessibility on reordering */
         private readonly _liveAnnouncer: LiveAnnouncer,
         /** We are using OnPush change detection so we must manually trigger CD */
-        private readonly _changeDetectorRef: ChangeDetectorRef,
-        /** Use Renderer2 for DOM manipulation */
-        private readonly _renderer: Renderer2
+        private readonly _changeDetectorRef: ChangeDetectorRef
     ) { }
 
     /** Build the heirarchy of the deselect tree */
@@ -160,7 +158,7 @@ export class ColumnPickerComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     ngAfterViewInit(): void {
-        console.log('treeNodes:', this.treeNodes);
+        // console.log('treeNodes:', this.treeNodes);
         this._focusKeyManager = new FocusKeyManager(this.treeNodes).withVerticalOrientation();
 
         this._focusKeyManager.change.pipe(takeUntil(this._onDestroy)).subscribe(index => this.activeIndex = index);
