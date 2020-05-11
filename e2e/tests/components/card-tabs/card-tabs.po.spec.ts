@@ -39,4 +39,3 @@ export class CardTabsPage {
         return parseInt(styles.substring(styles.indexOf('translateX(') + 'translateX('.length, styles.indexOf('px')));
     }
 }
-
