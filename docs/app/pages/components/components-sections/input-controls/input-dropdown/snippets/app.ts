@@ -1,4 +1,5 @@
 import { Component, Pipe, PipeTransform } from '@angular/core';
+import { interval } from 'rxjs';
 
 
 @Pipe({ name: 'highlightSearch' })
@@ -28,12 +29,18 @@ export class AppComponent {
     filteredOptionList: ReadonlyArray<RadioOption> = this.optionList;
     filter: string = '';
     allowNull: boolean = false;
+    dropdownOpen: boolean = false;
     maxHeight: string = '400px';
     placeholder: string = 'Type to search...';
-    dropdownOpen: boolean = false;
+    resetFilter: boolean = false;
 
-    private index(text: string): number {
-        return text.toLowerCase().indexOf(this.filter.toLowerCase());
+    constructor() {
+        interval(10000).subscribe(() => {
+            if (this.resetFilter) {
+                this.filter = '';
+                this.setFilter('');
+            }
+        });
     }
 
     selectOption(event: KeyboardEvent, option: RadioOption): void {
@@ -42,14 +49,13 @@ export class AppComponent {
     }
 
     setFilter(filter: string): void {
-        this.filter = filter;
         this.filteredOptionList =
-            this.filter && (this.filter.length > 0) ?
-                this.optionList.filter(option => (this.index(option.name) > -1)) :
+            filter && (filter.length > 0) ?
+                this.optionList.filter(option => (option.name.toLowerCase().indexOf(filter.toLowerCase()) > -1)) :
                 this.optionList;
     }
 
-    dropdownOpenChange(value: boolean) {
+    dropdownOpenChange(value: boolean): void {
         this.dropdownOpen = value;
     }
 }

@@ -5,7 +5,8 @@
             [(selected)]="selected"
             [dropdownOpen]="dropdownOpen"
             (dropdownOpenChange)="dropdownOpenChange($event)"
-            (filterChange)="filter = $event"
+            [(filter)]="filter"
+            (filterChange)="setFilter($event)"
             [allowNull]="allowNull"
             [maxHeight]="maxHeight"
             [placeholder]="placeholder"
@@ -69,13 +70,8 @@
                     </div>
                 </div>
                 <div class="row uxd-customize-row">
-                    <div class="col-md-6 m-t-md">
-                        Filter: <code>{{filter | json}}</code>
-                    </div>
-                </div>
-                <div class="row uxd-customize-row">
-                    <div class="col-md-6 m-t-md">
-                        <button type="button" (click)="filter = ''">Clear Filter</button>
+                    <div class="col-md-4 col-sm-12">
+                        <ux-checkbox [(value)]="resetFilter">Reset filter every 10 seconds</ux-checkbox>
                     </div>
                 </div>
             </ux-accordion-panel>
@@ -96,6 +92,9 @@
 </p>
 
 <uxd-api-properties tableTitle="Inputs">
+    <tr uxd-api-property name="filter" type="string">
+        If specified, the filter string will be set to the given value.
+    </tr>
     <tr uxd-api-property name="selected" type="T[]">
         If specified, the items provided will be selected.
         To programmatically modify the selection, assign a new array object to this property.

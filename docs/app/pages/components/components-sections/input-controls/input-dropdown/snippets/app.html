@@ -5,10 +5,12 @@
             [(selected)]="selected"
             [dropdownOpen]="dropdownOpen"
             (dropdownOpenChange)="dropdownOpenChange($event)"
+            [(filter)]="filter"
             (filterChange)="setFilter($event)"
             [allowNull]="allowNull"
             [maxHeight]="maxHeight"
-            [placeholder]="placeholder">
+            [placeholder]="placeholder"
+            aria-label="Filter input">
 
             <ng-template #displayContent>
                 <b>Selection:</b> {{ selected ? selected.name : '(none)' }}

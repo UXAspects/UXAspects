@@ -1,4 +1,5 @@
 import { Component, Pipe, PipeTransform } from '@angular/core';
+import { interval } from 'rxjs';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
@@ -31,24 +32,12 @@ export class ComponentsInputDropdownComponent extends BaseDocumentationSection i
         { name: 'One' }, { name: 'Two' }, { name: 'Three' }, { name: 'Four' }
     ];
     filteredOptionList: ReadonlyArray<RadioOption> = this.optionList;
-    filterText: string = '';
-
-    get filter(): string {
-        return this.filterText;
-    }
-
-    set filter(filter: string) {
-        this.filterText = filter;
-        this.filteredOptionList =
-            this.filter && (this.filter.length > 0) ?
-                this.optionList.filter(option => (this.index(option.name) > -1)) :
-                this.optionList;
-    }
-
+    filter: string = '';
     allowNull: boolean = false;
     dropdownOpen: boolean = false;
     maxHeight: string = '400px';
     placeholder: string = 'Type to search...';
+    resetFilter: boolean = false;
 
     playground: IPlayground = {
         files: {
@@ -71,15 +60,24 @@ export class ComponentsInputDropdownComponent extends BaseDocumentationSection i
 
     constructor() {
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
-    }
-
-    private index(text: string): number {
-        return text.toLowerCase().indexOf(this.filter.toLowerCase());
+        interval(10000).subscribe(() => {
+            if (this.resetFilter) {
+                this.filter = '';
+                this.setFilter('');
+            }
+        });
     }
 
     selectOption(event: KeyboardEvent, option: RadioOption): void {
         this.selected = option;
         event.preventDefault();
+    }
+
+    setFilter(filter: string): void {
+        this.filteredOptionList =
+            filter && (filter.length > 0) ?
+                this.optionList.filter(option => (option.name.toLowerCase().indexOf(filter.toLowerCase()) > -1)) :
+                this.optionList;
     }
 
     dropdownOpenChange(value: boolean): void {
