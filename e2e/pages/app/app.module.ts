@@ -7,6 +7,10 @@ import { ColorServiceModule, colorSets } from '@ux-aspects/ux-aspects';
 
 const routes: Routes = [
     {
+        path: 'badge',
+        loadChildren: () => import('./badge/badge.module').then(m => m.BadgeTestPageModule)
+    },
+    {
         path: 'card-tabs',
         loadChildren: () => import('./card-tabs/card-tabs.module').then(m => m.CardTabsTestPageModule)
     },
