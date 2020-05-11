@@ -93,7 +93,7 @@
     "awesome-typescript-loader": "5.2.1",
     "cache-loader": "^1.2.5",
     "cheerio": "^1.0.0-rc.2",
-    "chromedriver": "2.36.0",
+    "chromedriver": "74.0.0",
     "circular-dependency-plugin": "^5.0.2",
     "codelyzer": "^5.0.1",
     "copy-webpack-plugin": "4.6.0",
