@@ -5,20 +5,17 @@ const { cwd } = require('process');
 const { JUnitXmlReporter } = require('jasmine-reporters');
 const { SpecReporter } = require('jasmine-spec-reporter');
 
-const isJenkinsBuild = !!env.RE_BUILD_TYPE;
 const e2eHostAddress = env.E2E_HOST_ADDRESS || 'localhost';
 const outputDir = join(cwd(), 'target', 'e2e');
 const junitDir = join(outputDir, 'junit');
 const screenshotOutputDir = join(outputDir, 'screenshots');
 
 exports.config = {
-  directConnect: false,  // Set to false if using Selenium Grid
+  directConnect: true,
   seleniumAddress: 'http://127.0.0.1:4444/wd/hub',
-
-  // Base URL for application server
+  chromeDriver: require('chromedriver').path,
   baseUrl: `http://${e2eHostAddress}:4000/#/`,
 
-  // Capabilities to be passed to the webdriver instance. Only one browser may be uncommented at a time.
   capabilities: {
     browserName: 'chrome',
     chromeOptions: {
@@ -28,10 +25,8 @@ exports.config = {
     maxInstances: 5
   },
 
-  // Test one browser at a time
   maxSessions: 5,
 
-  // Framework to use. Jasmine is recommended.
   framework: 'jasmine',
 
   // Spec patterns are relative to this config file
@@ -45,7 +40,7 @@ exports.config = {
         formatImageName: `{tag}-{logName}-{width}x{height}`,
         screenshotPath: screenshotOutputDir,
         savePerInstance: true,
-        autoSaveBaseline: !isJenkinsBuild,
+        autoSaveBaseline: false,
         ignoreAntialiasing: true
       },
     },
@@ -62,7 +57,6 @@ exports.config = {
     }
   ],
 
-  // For angular tests
   useAllAngular2AppRoots: true,
 
   onPrepare: function () {

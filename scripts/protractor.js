@@ -1,3 +1,4 @@
+const { env } = require('process');
 const webpack = require('webpack');
 const webpackDevServer = require('webpack-dev-server');
 const launcher = require('protractor/built/launcher');
@@ -7,16 +8,20 @@ const { exec, execSync } = require('child_process');
 
 const DOCKER_CONTAINER_NAME = 'uxa_selenium';
 
+const isJenkinsBuild = !!env.RE_BUILD_TYPE;
+
 exec('ngcc --properties es2015 browser module main --first-only --create-ivy-entry-points', { stdio: 'inherit' }, err => {
 
     if (err) {
         throw new Error(err);
     }
 
-    process.env.E2E_HOST_ADDRESS = getHostAddressFromSeleniumContainer();
+    env.E2E_HOST_ADDRESS = isJenkinsBuild ? 'localhost' : getHostAddressFromSeleniumContainer();
+
+    const protractorConfigFile = isJenkinsBuild ? './e2e/protractor.config.js' : './e2e/protractor.dev.config.js';
 
     const compiler = webpack(config);
-    compiler.hooks.done.tap('Protractor', () => launcher.init('./e2e/protractor.config.js'));
+    compiler.hooks.done.tap('Protractor', () => launcher.init(protractorConfigFile));
 
     const server = new webpackDevServer(compiler, config.devServer);
 
