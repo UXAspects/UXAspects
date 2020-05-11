@@ -3,6 +3,7 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
 import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
+import { ColumnPickerValue, ColumnPickerGroupSetting } from 'src/components/table';
 
 @Component({
     selector: 'uxd-components-column-picker',
@@ -27,12 +28,12 @@ export class ComponentsColumnPickerComponent extends BaseDocumentationSection im
     ];
 
     /** Store a list of columns that are not selected or locked */
-    deselected: ReadonlyArray<string> = [
-        'Author',
-        'Category',
-        'Date Created',
-        'Date Modified',
-        'Department',
+    deselected: ReadonlyArray<ColumnPickerValue> = [
+        { group: 'Meta data', name: 'Author' },
+        { group: 'Meta data', name: 'Category' },
+        { group: 'Meta data', name: 'Date Created' },
+        { group: 'Meta data', name: 'Date Modified' },
+        { group: 'Meta data', name: 'Department' },
         'Document ID',
         'Flag',
         'From',
@@ -41,11 +42,15 @@ export class ComponentsColumnPickerComponent extends BaseDocumentationSection im
         'Location',
         'Location ID',
         'Message',
-        'Organization',
+        { group: 'Meta data', name: 'Organization' },
         'Time',
         'Time Created',
         'Time Modified',
         'Work Completed'
+    ];
+
+    groupSettings: ColumnPickerGroupSetting[] = [
+        { group: 'Meta data', initiallyExpanded: true }
     ];
 
     playground: IPlayground = {

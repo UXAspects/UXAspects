@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ColumnPickerGroupSetting, ColumnPickerValue } from '@ux-aspects/ux-aspects';
 
 @Component({
     selector: 'app',
@@ -8,7 +9,7 @@ import { Component } from '@angular/core';
 export class AppComponent {
 
     /** Store a list of all selected columns */
-    selected: ReadonlyArray<string> = [
+selected: ReadonlyArray<string> = [
         'Type',
         'Date',
         'Requested by',
@@ -20,12 +21,12 @@ export class AppComponent {
     locked: ReadonlyArray<string> = ['ID'];
 
     /** Store a list of columns that are not selected or locked */
-    deselected: ReadonlyArray<string> = [
-        'Author',
-        'Category',
-        'Date Created',
-        'Date Modified',
-        'Department',
+    deselected: ReadonlyArray<ColumnPickerValue> = [
+        { group: 'Meta data', name: 'Author' },
+        { group: 'Meta data', name: 'Category' },
+        { group: 'Meta data', name: 'Date Created' },
+        { group: 'Meta data', name: 'Date Modified' },
+        { group: 'Meta data', name: 'Department' },
         'Document ID',
         'Flag',
         'From',
@@ -34,10 +35,15 @@ export class AppComponent {
         'Location',
         'Location ID',
         'Message',
-        'Organization',
+        { group: 'Meta data', name: 'Organization' },
         'Time',
         'Time Created',
         'Time Modified',
         'Work Completed'
     ];
+
+    groupSettings: ColumnPickerGroupSetting[] = [
+        { group: 'Meta data', initiallyExpanded: true }
+    ];
+
 }

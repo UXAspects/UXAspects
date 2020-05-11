@@ -27,13 +27,49 @@ ux-column-picker {
     }
 
     .column-picker-list-item {
-        display: flex;
-        align-items: center;
+        padding: 0 16px;
         height: 40px;
         border-bottom: 1px solid @table-border;
-        padding: 0 16px;
+    }
+
+    .column-picker-list-group {
+        flex-direction: column;
+
+        .column-picker-group-toggle-btn {
+            width: 100%;
+            background: none;
+            border: none;
+            border-bottom: 1px solid @table-border;
+            padding-left: 17px;
+            height: 40px;
+
+            ux-icon {
+                font-size: 12px;
+                margin-right: 5px;
+                margin-top: 1px;
+            }
+        }
+
+        & > div {
+            width: 100%;
+        }
+
+        .column-picker-list-item {
+            padding-left: 50px;
+        }
+    }
+
+    .column-picker-group-toggle-btn,
+    .column-picker-list-group,
+    .column-picker-list-item  {
+        display: flex;
+        align-items: center;
         background-color: @white;
         cursor: pointer;
+    }
+
+    .column-picker-list-item-hidden {
+        display: none;
     }
 
     .column-picker-list-item.ux-reorderable-moving {

@@ -12,21 +12,53 @@
         </ng-container>
     </div>
 
-    <div class="column-picker-list" [(uxSelection)]="_deselectedSelection">
+    <cdk-tree class="column-picker-list" [dataSource]="treeDataSource" [treeControl]="treeControl" [(uxSelection)]="_deselectedSelection">
+        <!-- Tree items with no children values -->
+        <cdk-nested-tree-node *cdkTreeNodeDef="let node; let index = index"
+            [uxSelectionItem]="node"
+            [style.display]="shouldRenderItem(node) ? 'flex': 'none'"
+            (keydown)="onKeydown(node, $event)"
+            (itemFocus)="isFocused = true; onFocus(index)"
+            (itemBlur)="isFocused = false"
+            class="column-picker-list-item">
 
-        <div *ngFor="let column of deselected"
-             class="column-picker-list-item"
-             [uxSelectionItem]="column">
-
-            <ng-container *ngIf="!deselectedTemplate">{{ column }}</ng-container>
+            <ng-container *ngIf="!deselectedTemplate">{{ node.name }}</ng-container>
 
             <ng-container
                 *ngIf="deselectedTemplate"
                 [ngTemplateOutlet]="deselectedTemplate"
-                [ngTemplateOutletContext]="{ $implicit: column }">
+                [ngTemplateOutletContext]="{ $implicit: node.name }">
             </ng-container>
-        </div>
-    </div>
+        </cdk-nested-tree-node>
+
+        <!-- Tree items with children values -->
+        <cdk-nested-tree-node *cdkTreeNodeDef="let node; let index = index; when: itemHasChildren"
+            (keydown)="onKeydown(node, $event)"
+            (itemFocus)="isFocused = true; onFocus(index)"
+            (itemBlur)="isFocused = false"
+            class="column-picker-list-group">
+
+            <button cdkTreeNodeToggle
+                (click)="node.isExpanded = !node.isExpanded"
+                [attr.aria-label]="'toggle ' + node.name"
+                class="column-picker-group-toggle-btn">
+                <ux-icon [name]="treeControl.isExpanded(node) ? 'chevron-down' : 'chevron-right'"></ux-icon>
+
+                <ng-container *ngIf="!deselectedTemplate">{{ node.name }}</ng-container>
+
+                <ng-container
+                    *ngIf="deselectedTemplate"
+                    [ngTemplateOutlet]="deselectedTemplate"
+                    [ngTemplateOutletContext]="{ $implicit: node.name }">
+                </ng-container>
+
+            </button>
+
+            <div *ngIf="node.isExpanded">
+                <ng-container cdkTreeNodeOutlet></ng-container>
+            </div>
+        </cdk-nested-tree-node>
+    </cdk-tree>
 </div>
 
 <div class="column-picker-actions-column">
@@ -40,7 +72,7 @@
             <ux-icon name="chevron-left"></ux-icon>
         </button>
 
-        <button class="btn button-secondary btn-block" [disabled]="deselected.length === 0" (click)="addAllColumns()">
+        <button class="btn button-secondary btn-block" [disabled]="hasDeselectedItems()" (click)="addAllColumns()">
             <ux-icon name="chevron-right-double"></ux-icon>
         </button>
 
