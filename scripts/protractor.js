@@ -1,14 +1,19 @@
 const webpack = require('webpack');
 const webpackDevServer = require('webpack-dev-server');
 const launcher = require('protractor/built/launcher');
+const isIp = require('is-ip');
 const config = require('../configs/webpack.e2e.config');
-const { exec } = require('child_process');
+const { exec, execSync } = require('child_process');
+
+const DOCKER_CONTAINER_NAME = 'uxa_selenium';
 
 exec('ngcc --properties es2015 browser module main --first-only --create-ivy-entry-points', { stdio: 'inherit' }, err => {
 
     if (err) {
         throw new Error(err);
     }
+
+    process.env.E2E_HOST_ADDRESS = getHostAddressFromSeleniumContainer();
 
     const compiler = webpack(config);
     compiler.hooks.done.tap('Protractor', () => launcher.init('./e2e/protractor.config.js'));
@@ -21,3 +26,15 @@ exec('ngcc --properties es2015 browser module main --first-only --create-ivy-ent
         }
     });
 });
+
+
+function getHostAddressFromSeleniumContainer() {
+    const cmd = `docker exec ${DOCKER_CONTAINER_NAME} getent ahosts host.docker.internal | awk 'NR==1 { print $1 }'`;
+    const address = execSync(cmd, { encoding: 'utf8' }).trim();
+
+    if (!isIp(address)) {
+        throw new Error(`Expected an IP address but got "${address}". Make sure docker container ${DOCKER_CONTAINER_NAME} is running.`);
+    }
+
+    return address;
+}

@@ -6,6 +6,7 @@ const { JUnitXmlReporter } = require('jasmine-reporters');
 const { SpecReporter } = require('jasmine-spec-reporter');
 
 const isJenkinsBuild = !!env.RE_BUILD_TYPE;
+const e2eHostAddress = env.E2E_HOST_ADDRESS || 'localhost';
 const outputDir = join(cwd(), 'target', 'e2e');
 const junitDir = join(outputDir, 'junit');
 const screenshotOutputDir = join(outputDir, 'screenshots');
@@ -14,8 +15,8 @@ exports.config = {
   directConnect: false,  // Set to false if using Selenium Grid
   seleniumAddress: 'http://127.0.0.1:4444/wd/hub',
 
-  // Base URL for application server - Using the IP Address of the docker host - host.docker.internal resolves to this IP.
-  baseUrl: 'http://192.168.65.2:4000/#/',
+  // Base URL for application server
+  baseUrl: `http://${e2eHostAddress}:4000/#/`,
 
   // Capabilities to be passed to the webdriver instance. Only one browser may be uncommented at a time.
   capabilities: {

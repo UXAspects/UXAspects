@@ -114,6 +114,7 @@
     "grunt-tslint": "5.0.1",
     "grunt-webfont": "0.4.8",
     "html-loader": "0.5.5",
+    "is-ip": "^3.1.0",
     "jasmine-reporters": "^2.3.2",
     "jasmine-spec-reporter": "^4.2.1",
     "jit-grunt": "0.10.0",
