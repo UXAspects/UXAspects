@@ -39,7 +39,7 @@ export class TabsetComponent implements AfterViewInit, OnDestroy {
     constructor(
         public readonly _tabset: TabsetService,
         private readonly _changeDetector: ChangeDetectorRef
-    ) { }
+    ) {}
 
     ngAfterViewInit(): void {
 
@@ -70,7 +70,7 @@ export class TabsetComponent implements AfterViewInit, OnDestroy {
         this._onDestroy$.complete();
     }
 
-   selectTab(tab: number | TabComponent): void {
+    selectTab(tab: number | TabComponent): void {
 
         // pass tab to select method
         this._tabset.select(tab instanceof TabComponent ? tab : this._tabs.toArray()[tab]);
