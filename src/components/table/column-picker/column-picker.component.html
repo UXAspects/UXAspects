@@ -13,14 +13,15 @@
     </div>
 
     <cdk-tree class="column-picker-list" [dataSource]="treeDataSource" [treeControl]="treeControl" [(uxSelection)]="_deselectedSelection">
-        <!-- Tree items with no children values -->
-        <cdk-nested-tree-node *cdkTreeNodeDef="let node; let index = index"
+
+        <!-- Create item for not expandable node -->
+        <cdk-tree-node *cdkTreeNodeDef="let node; let index = index"
             [uxSelectionItem]="node"
-            [style.display]="shouldRenderItem(node) ? 'flex': 'none'"
+            [style.display]="shouldRenderNode(node) ? 'flex': 'none'"
             (keydown)="onKeydown(node, $event)"
             (itemFocus)="isFocused = true; onFocus(index)"
             (itemBlur)="isFocused = false"
-            class="column-picker-list-item">
+            class="column-picker-list-item column-picker-tree-level-{{ node.level }}">
 
             <ng-container *ngIf="!deselectedTemplate">{{ node.name }}</ng-container>
 
@@ -29,10 +30,11 @@
                 [ngTemplateOutlet]="deselectedTemplate"
                 [ngTemplateOutletContext]="{ $implicit: node.name }">
             </ng-container>
-        </cdk-nested-tree-node>
 
-        <!-- Tree items with children values -->
-        <cdk-nested-tree-node *cdkTreeNodeDef="let node; let index = index; when: itemHasChildren"
+        </cdk-tree-node>
+
+        <!-- Create item for expandable node -->
+        <cdk-tree-node *cdkTreeNodeDef="let node; let index = index; when: nodeHasChildren"
             (keydown)="onKeydown(node, $event)"
             (itemFocus)="isFocused = true; onFocus(index)"
             (itemBlur)="isFocused = false"
@@ -41,7 +43,8 @@
             <button cdkTreeNodeToggle
                 (click)="node.isExpanded = !node.isExpanded"
                 [attr.aria-label]="'toggle ' + node.name"
-                class="column-picker-group-toggle-btn">
+                class="column-picker-group-toggle-btn"
+                [style.visibility]="node.expandable ? 'visible' : 'hidden'">
                 <ux-icon [name]="treeControl.isExpanded(node) ? 'chevron-down' : 'chevron-right'"></ux-icon>
 
                 <ng-container *ngIf="!deselectedTemplate">{{ node.name }}</ng-container>
@@ -51,13 +54,9 @@
                     [ngTemplateOutlet]="deselectedTemplate"
                     [ngTemplateOutletContext]="{ $implicit: node.name }">
                 </ng-container>
-
             </button>
 
-            <div *ngIf="node.isExpanded">
-                <ng-container cdkTreeNodeOutlet></ng-container>
-            </div>
-        </cdk-nested-tree-node>
+        </cdk-tree-node>
     </cdk-tree>
 </div>
 
