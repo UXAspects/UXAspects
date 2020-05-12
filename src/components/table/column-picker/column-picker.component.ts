@@ -44,10 +44,10 @@ export class ColumnPickerComponent implements OnInit, OnChanges {
     @Input() columnMovedAnnouncement: (column: string, delta: number) => string = this.getColumnMovedAnnouncement;
 
     /** group settings for customising display */
-    @Input() groupSettings: ColumnPickerGroupSetting[] = [];
+    @Input() groupSettings: ReadonlyArray<ColumnPickerGroupSetting> = [];
 
     /** Emits when the selected items change */
-    @Output() selectedChange = new EventEmitter<ReadonlyArray<string | ColumnPickerGroupItem>>();
+    @Output() selectedChange = new EventEmitter<ReadonlyArray<string>>();
 
     /** Emits when the deselected items change */
     @Output() deselectedChange = new EventEmitter<ReadonlyArray<string | ColumnPickerGroupItem>>();

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ColumnPickerGroupItem } from '../../../../src/components/table/index';
 
 @Component({
     selector: 'app-column-picker',
@@ -22,12 +23,12 @@ export class ColumnPickerTestPageComponent {
     ];
 
     /** Store a list of columns that are not selected or locked */
-    deselected: ReadonlyArray<string> = [
-        'Author',
-        'Category',
-        'Date Created',
-        'Date Modified',
-        'Department',
+    deselected: ReadonlyArray<string | ColumnPickerGroupItem> = [
+        { group: 'Meta data', name: 'Author' },
+        { group: 'Meta data', name: 'Category' },
+        { group: 'Meta data', name: 'Date Created' },
+        { group: 'Meta data', name: 'Date Modified' },
+        { group: 'Meta data', name: 'Department' },
         'Document ID',
         'Flag',
         'From',
@@ -36,7 +37,7 @@ export class ColumnPickerTestPageComponent {
         'Location',
         'Location ID',
         'Message',
-        'Organization',
+        { group: 'Meta data', name: 'Organization' },
         'Time',
         'Time Created',
         'Time Modified',

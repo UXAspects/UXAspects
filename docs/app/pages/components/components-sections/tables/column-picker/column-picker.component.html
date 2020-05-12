@@ -18,8 +18,8 @@
     <tr uxd-api-property name="locked" type="ReadonlyArray<string>">
         Define a list of columns that are always selected. The columns cannot be moved or reordered.
     </tr>
-    <tr uxd-api-property name="deselected" type="ReadonlyArray<string>">
-        Define a list of columns that are not selected or locked.
+    <tr uxd-api-property name="deselected" type="ReadonlyArray<string | ColumnPickerGroupItem>">
+        Define a list of columns that are not selected or locked. All columns must have unique names, including columns in different groups.
     </tr>
     <tr uxd-api-property name="selectedTitleTemplate" type="TemplateRef<void>">
         Define a custom selected title template.
@@ -45,13 +45,16 @@
     <tr uxd-api-property name="columnMovedAnnouncement" type="(column: string, delta: number) => string">
         Define a function that returns a column move announcement.
     </tr>
+    <tr uxd-api-property name="groupSettings" type="ReadonlyArray<ColumnPickerGroupSetting>">
+        Define a list of settings relating to the groups created for the deselected column.
+    </tr>
 </uxd-api-properties>
 
 <uxd-api-properties tableTitle="Outputs">
     <tr uxd-api-property name="selectedChange" type="ReadonlyArray<string>">
         Emits when the selected items change or the order of the selected items change.
     </tr>
-    <tr uxd-api-property name="deselectedChange" type="ReadonlyArray<string>">
+    <tr uxd-api-property name="deselectedChange" type="ReadonlyArray<string | ColumnPickerGroupItem>">
         Emits when the deselected items change.
     </tr>
 </uxd-api-properties>
@@ -63,11 +66,11 @@
     <tr uxd-api-property name="removeSelection" type="ReadonlyArray<string>">
         An array of items that are currently selected in the right column.
     </tr>
-    <tr uxd-api-property name="addColumns" type="(columns?: ReadonlyArray<string>) => void">
+    <tr uxd-api-property name="addColumns" type="(columns?: ReadonlyArray<string | ColumnPickerGroupItem>) => void">
         A function that can be called to add columns. If no columns are passed to the function, the items
         that are selected in the left column will be added.
     </tr>
-    <tr uxd-api-property name="removeColumns" type="(columns?: ReadonlyArray<string>) => void">
+    <tr uxd-api-property name="removeColumns" type="(columns?: ReadonlyArray<string | ColumnPickerGroupItem>) => void">
         A function that can be called to remove columns. If no columns are passed to the function, the items
         that are selected in the right column will be removed.
     </tr>
@@ -76,6 +79,24 @@
     </tr>
     <tr uxd-api-property name="removeAllColumns" type="() => void">
         A function that can be called to remove all columns.
+    </tr>
+</uxd-api-properties>
+
+<uxd-api-properties tableTitle="ColumnPickerGroupItem Interface">
+    <tr uxd-api-property name="group" type="string">
+        The name of the group that this column belongs to.
+    </tr>
+    <tr uxd-api-property name="name" type="string">
+        The name of the column.
+    </tr>
+</uxd-api-properties>
+
+<uxd-api-properties tableTitle="ColumnPickerGroupSetting Interface">
+    <tr uxd-api-property name="group" type="string">
+        The name of the group this setting object is related to.
+    </tr>
+    <tr uxd-api-property name="initiallyExpanded?" type="boolean">
+        Defines if this group will be expanded on load. This is an optional property.
     </tr>
 </uxd-api-properties>
 
