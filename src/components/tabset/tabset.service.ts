@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 import { TabComponent } from './tab/tab.component';
 
 @Injectable()
@@ -6,6 +7,8 @@ export class TabsetService {
 
     /** Store the list of tabs */
     tabs: ReadonlyArray<TabComponent> = [];
+
+    activeTab$ = new BehaviorSubject<TabComponent>(null);
 
     /** Store the manual state */
     manual: boolean = false;
@@ -15,17 +18,31 @@ export class TabsetService {
         this.tabs = [...tabs];
     }
 
-    /** Programmatically select a tab */
+    /** Select a tab (from user input) */
     select(tab: TabComponent): void {
+        if (tab.disabled) {
+            return;
+        }
+
+        if (this.manual) {
+            // In manual mode, emit the activated/deactivated events.
+            // The application is responsible for updating the active state on each tab, which will then update the UI.
+            this.tabs.forEach(_tab => _tab === tab ? _tab.activate() : _tab.deactivate());
+        } else {
+            this.activeTab$.next(tab);
+        }
+    }
+
+    /** Set tab active state */
+    setTabActive(tab: TabComponent): void {
         if (!tab.disabled) {
-            // update the active state of each tab accordingly
-            this.tabs.forEach(_tab => _tab === tab ? _tab.selectTab() : _tab.deselectTab());
+            this.activeTab$.next(tab);
         }
     }
 
     /** Determine if there is a selected tab */
     isTabActive(): boolean {
-        return !!this.tabs.find(tab => tab.active);
+        return this.activeTab$.getValue() !== null;
     }
 
     /** Select the first non-disabled tab */
