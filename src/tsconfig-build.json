@@ -25,7 +25,8 @@
         "skipTemplateCodegen": true,
         "strictMetadataEmit": true,
         "enableResourceInlining": true,
-        "enableIvy": false
+        "enableIvy": false,
+        "preserveWhitespaces": false
     },
     "files": [
         "./index.ts"
