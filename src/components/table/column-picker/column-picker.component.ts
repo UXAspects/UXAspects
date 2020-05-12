@@ -3,27 +3,6 @@ import { ArrayDataSource } from '@angular/cdk/collections';
 import { FlatTreeControl } from '@angular/cdk/tree';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnInit, Output, QueryList, TemplateRef, ViewChildren } from '@angular/core';
 
-/** An interface representing a grouped item */
-export interface ColumnPickerGroupItem {
-    group?: string;
-    name: string;
-}
-
-/** An interface representing settings of groups defined in ColumnPickerGroupItem objects */
-export interface ColumnPickerGroupSetting {
-    group: string;
-    initiallyExpanded?: boolean;
-}
-
-/** Interface representing a tree node item. This normalises data into one format */
-export class ColumnPickerTreeNode {
-    name: string;
-    level?: number;
-    children?: ColumnPickerTreeNode[];
-    expandable?: boolean;
-    isExpanded?: boolean;
-}
-
 @Component({
     selector: 'ux-column-picker',
     templateUrl: './column-picker.component.html',
@@ -74,19 +53,19 @@ export class ColumnPickerComponent implements OnInit {
     @Output() deselectedChange = new EventEmitter<ReadonlyArray<string | ColumnPickerGroupItem>>();
 
     /** The Nested tree control used for the deselect tree */
-    treeControl: FlatTreeControl<ColumnPickerTreeNode> = new FlatTreeControl<ColumnPickerTreeNode>(
+    _treeControl: FlatTreeControl<ColumnPickerTreeNode> = new FlatTreeControl<ColumnPickerTreeNode>(
         node => node.level,
         node => node.expandable
     );
 
     /** A tree-friendly representation of the deselected data */
-    treeData: ColumnPickerTreeNode[];
+    _treeData: ColumnPickerTreeNode[];
 
     /** Data source observable bound to the tree control */
-    treeDataSource: ArrayDataSource<ColumnPickerTreeNode>;
+    _treeDataSource: ArrayDataSource<ColumnPickerTreeNode>;
 
     /** The remaining selectable columns in the deselected list */
-    availableDeselectedColumns: number = 0;
+    _availableDeselectedColumns: number = 0;
 
     /** Store the list of deselected columns that can be moved */
     _deselectedSelection: ReadonlyArray<string | ColumnPickerGroupItem> = [];
@@ -107,15 +86,12 @@ export class ColumnPickerComponent implements OnInit {
         private readonly _changeDetectorRef: ChangeDetectorRef
     ) { }
 
-    /** Build the heirarchy of the deselect tree */
+    /** Build the hierarchy of the deselect tree */
     ngOnInit(): void {
-        let treeData: ColumnPickerTreeNode[] = [];
+        const treeData: ColumnPickerTreeNode[] = [];
 
         // set initial count for deselected values
         this._updateAvailableDeselectedColumns();
-
-        // combine select and deselect into one list
-        this.deselected = this.deselected.concat(this.selected);
 
         const groupedItems: (string | ColumnPickerGroupItem)[] = this.deselected.filter(column => this._isColumnPickerItem(column) && (column as ColumnPickerGroupItem).group !== null);
         const ungroupedItems = this.deselected.filter(column => groupedItems.indexOf(column) === -1);
@@ -174,8 +150,8 @@ export class ColumnPickerComponent implements OnInit {
             });
         });
 
-        this.treeData = treeData;
-        this.treeDataSource = new ArrayDataSource(treeData);
+        this._treeData = treeData;
+        this._treeDataSource = new ArrayDataSource(treeData);
     }
 
     /** Select the currently selected columns */
@@ -258,6 +234,9 @@ export class ColumnPickerComponent implements OnInit {
             this._liveAnnouncer.announce(`Column moved ${delta > 0 ? 'down' : 'up'}`);
         }
 
+        // update the tree data source
+        this._treeData
+
         // emit the changes
         this.selectedChange.emit(this.selected);
 
@@ -305,7 +284,7 @@ export class ColumnPickerComponent implements OnInit {
     }
 
     /** Get the column name based on type */
-    _getColumnName(item: string | ColumnPickerGroupItem) {
+    _getColumnName(item: string | ColumnPickerGroupItem): string {
         return this._isColumnPickerItem(item) ? item.name : item;
     }
 
@@ -330,12 +309,12 @@ export class ColumnPickerComponent implements OnInit {
 
     /** Work backwards from the index of the current node to find the parent node  */
     _getTreeParent(node: ColumnPickerTreeNode): ColumnPickerTreeNode {
-        const nodeIndex = this.treeData.indexOf(node);
+        const nodeIndex = this._treeData.indexOf(node);
 
         if (node.level > 0) {
             for (let i: number = nodeIndex - 1; i >= 0; i--) {
-                if (this.treeData[i].level === 0) {
-                    return this.treeData[i];
+                if (this._treeData[i].level === 0) {
+                    return this._treeData[i];
                 }
             }
         }
@@ -345,7 +324,7 @@ export class ColumnPickerComponent implements OnInit {
 
     // Store the current count of deselected items that are available for selection
     _updateAvailableDeselectedColumns(): void {
-        this.availableDeselectedColumns = this.deselected.filter(column => this.selected.indexOf(this._getColumnName(column)) === -1).length;
+        this._availableDeselectedColumns = this.deselected.filter(column => this.selected.indexOf(this._getColumnName(column)) === -1).length;
     }
 
     /** Update the order of the items when reordering has changed */
@@ -374,4 +353,25 @@ export interface ColumnPickerActionsContext {
     removeColumns(columns?: ReadonlyArray<string | ColumnPickerGroupItem>): void;
     addAllColumns(): void;
     removeAllColumns(): void;
+}
+
+/** An interface representing a grouped item */
+export interface ColumnPickerGroupItem {
+    group?: string;
+    name: string;
+}
+
+/** An interface representing settings of groups defined in ColumnPickerGroupItem objects */
+export interface ColumnPickerGroupSetting {
+    group: string;
+    initiallyExpanded?: boolean;
+}
+
+/** Interface representing a tree node item. This normalises data into one format */
+export class ColumnPickerTreeNode {
+    name: string;
+    level?: number;
+    children?: ColumnPickerTreeNode[];
+    expandable?: boolean;
+    isExpanded?: boolean;
 }
