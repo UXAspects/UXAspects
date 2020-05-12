@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
+import { ColumnPickerGroupItem, ColumnPickerGroupSetting } from '../../../../../../../src/components/table';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
 import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
-import { ColumnPickerValue, ColumnPickerGroupSetting } from 'src/components/table';
 
 @Component({
     selector: 'uxd-components-column-picker',
@@ -28,7 +28,7 @@ export class ComponentsColumnPickerComponent extends BaseDocumentationSection im
     ];
 
     /** Store a list of columns that are not selected or locked */
-    deselected: ReadonlyArray<ColumnPickerValue> = [
+    deselected: ReadonlyArray<string | ColumnPickerGroupItem> = [
         { group: 'Meta data', name: 'Author' },
         { group: 'Meta data', name: 'Category' },
         { group: 'Meta data', name: 'Date Created' },

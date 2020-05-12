@@ -1,10 +1,7 @@
-import { FocusKeyManager, LiveAnnouncer } from '@angular/cdk/a11y';
+import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { ArrayDataSource } from '@angular/cdk/collections';
-import { FlatTreeControl, CdkTreeNode } from '@angular/cdk/tree';
-import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnInit, Output, QueryList, Renderer2, TemplateRef, ViewChildren, OnDestroy } from '@angular/core';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
-import { KeyCodes } from '../../../common/utilities/key-events';
+import { FlatTreeControl } from '@angular/cdk/tree';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnInit, Output, QueryList, TemplateRef, ViewChildren } from '@angular/core';
 
 /** An interface representing a grouped item */
 export interface ColumnPickerGroupItem {
@@ -18,11 +15,8 @@ export interface ColumnPickerGroupSetting {
     initiallyExpanded?: boolean;
 }
 
-/** Unified type to handle string or group value types as component inputs */
-export type ColumnPickerValue = string | ColumnPickerGroupItem;
-
 /** Interface representing a tree node item. This normalises data into one format */
-export interface ColumnPickerTreeNode {
+export class ColumnPickerTreeNode {
     name: string;
     level?: number;
     children?: ColumnPickerTreeNode[];
@@ -35,7 +29,7 @@ export interface ColumnPickerTreeNode {
     templateUrl: './column-picker.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ColumnPickerComponent implements OnInit, AfterViewInit, OnDestroy {
+export class ColumnPickerComponent implements OnInit {
 
     /** Define a list of all selected columns */
     @Input() selected: ReadonlyArray<string> = [];
@@ -44,7 +38,7 @@ export class ColumnPickerComponent implements OnInit, AfterViewInit, OnDestroy {
     @Input() locked: ReadonlyArray<string> = [];
 
     /** Define a list of columns that are not selected or locked */
-    @Input() deselected: ReadonlyArray<ColumnPickerValue> = [];
+    @Input() deselected: ReadonlyArray<string | ColumnPickerGroupItem> = [];
 
     /** Define a custom selected title template */
     @Input() selectedTitleTemplate: TemplateRef<void>;
@@ -74,10 +68,10 @@ export class ColumnPickerComponent implements OnInit, AfterViewInit, OnDestroy {
     @Input() groupSettings: ColumnPickerGroupSetting[] = [];
 
     /** Emits when the selected items change */
-    @Output() selectedChange = new EventEmitter<ReadonlyArray<ColumnPickerValue>>();
+    @Output() selectedChange = new EventEmitter<ReadonlyArray<string | ColumnPickerGroupItem>>();
 
     /** Emits when the deselected items change */
-    @Output() deselectedChange = new EventEmitter<ReadonlyArray<ColumnPickerValue>>();
+    @Output() deselectedChange = new EventEmitter<ReadonlyArray<string | ColumnPickerGroupItem>>();
 
     /** The Nested tree control used for the deselect tree */
     treeControl: FlatTreeControl<ColumnPickerTreeNode> = new FlatTreeControl<ColumnPickerTreeNode>(
@@ -91,31 +85,20 @@ export class ColumnPickerComponent implements OnInit, AfterViewInit, OnDestroy {
     /** Data source observable bound to the tree control */
     treeDataSource: ArrayDataSource<ColumnPickerTreeNode>;
 
+    /** The remaining selectable columns in the deselected list */
+    availableDeselectedColumns: number = 0;
+
     /** Store the list of deselected columns that can be moved */
-    _deselectedSelection: ReadonlyArray<ColumnPickerValue> = [];
+    _deselectedSelection: ReadonlyArray<string | ColumnPickerGroupItem> = [];
 
     /** Store the list of selected columns that can be moved */
-    _selectedSelection: ReadonlyArray<ColumnPickerValue> = [];
-
-    /** Defines the index of the item currently in focus */
-    activeIndex: number = 0;
-
-    isFocused: boolean = false;
+    _selectedSelection: ReadonlyArray<string | ColumnPickerGroupItem> = [];
 
     /** Cache selection during reordering */
-    private _selection: ReadonlyArray<ColumnPickerValue> = [];
-
-    /** Focus manager for cycling through the tree nodes */
-    private _focusKeyManager: FocusKeyManager<CdkTreeNode<ColumnPickerTreeNode>>;
-
-    /** Trash collecting object for observables */
-    private _onDestroy = new Subject<void>();
+    private _selection: ReadonlyArray<string | ColumnPickerGroupItem> = [];
 
     /** Get the elements for the selected items */
     @ViewChildren('selectedColumn') selectedElements: QueryList<ElementRef>;
-
-    @ViewChildren(CdkTreeNode)
-    treeNodes: QueryList<CdkTreeNode<ColumnPickerTreeNode>>;
 
     constructor(
         /** Access the LiveAnnounce to provide accessibility on reordering */
@@ -128,11 +111,15 @@ export class ColumnPickerComponent implements OnInit, AfterViewInit, OnDestroy {
     ngOnInit(): void {
         let treeData: ColumnPickerTreeNode[] = [];
 
+        // set initial count for deselected values
+        this._updateAvailableDeselectedColumns();
+
         // combine select and deselect into one list
         this.deselected = this.deselected.concat(this.selected);
 
-        const groupedItems: ColumnPickerValue[] = this.deselected.filter(column => this.isColumnPickerItem(column) && (column as ColumnPickerGroupItem).group !== null);
+        const groupedItems: (string | ColumnPickerGroupItem)[] = this.deselected.filter(column => this._isColumnPickerItem(column) && (column as ColumnPickerGroupItem).group !== null);
         const ungroupedItems = this.deselected.filter(column => groupedItems.indexOf(column) === -1);
+
         groupedItems.sort((a: ColumnPickerGroupItem, b: ColumnPickerGroupItem) => {
             // sort by group first
             if (a.group > b.group) { return -1; }
@@ -143,10 +130,10 @@ export class ColumnPickerComponent implements OnInit, AfterViewInit, OnDestroy {
             if (a.name < b.name) { return -1; }
         });
 
-        ungroupedItems.sort((a: ColumnPickerValue, b: ColumnPickerValue) => {
+        ungroupedItems.sort((a: string | ColumnPickerGroupItem, b: string | ColumnPickerGroupItem) => {
             // get names and sort
-            const aName = this.getColumnName(a);
-            const bName = this.getColumnName(b);
+            const aName = this._getColumnName(a);
+            const bName = this._getColumnName(b);
             if (aName > bName) { return 1; }
             if (aName < bName) { return -1; }
         });
@@ -179,9 +166,9 @@ export class ColumnPickerComponent implements OnInit, AfterViewInit, OnDestroy {
         });
 
         // create ungrouped items
-        ungroupedItems.forEach((column: ColumnPickerValue) => {
+        ungroupedItems.forEach((column: string | ColumnPickerGroupItem) => {
             treeData.push({
-                name: this.getColumnName(column),
+                name: this._getColumnName(column),
                 level: 0,
                 expandable: false
             });
@@ -191,78 +178,35 @@ export class ColumnPickerComponent implements OnInit, AfterViewInit, OnDestroy {
         this.treeDataSource = new ArrayDataSource(treeData);
     }
 
-    ngAfterViewInit(): void {
-        this._focusKeyManager = new FocusKeyManager(this.treeNodes).withVerticalOrientation();
-        this._focusKeyManager.change.pipe(takeUntil(this._onDestroy)).subscribe(index => this.activeIndex = index);
-    }
-
-    ngOnDestroy(): void {
-        this._onDestroy.next();
-        this._onDestroy.complete();
-    }
-
-    onFocus(index: number): void {
-        if (this._focusKeyManager.activeItemIndex === -1) {
-            this._focusKeyManager.setActiveItem(index);
-        }
-    }
-
-    onKeydown(node: ColumnPickerTreeNode, event: KeyboardEvent): void {
-        this._focusKeyManager.onKeydown(event);
-
-        switch (event.code) {
-            case KeyCodes.ArrowRight:
-                // expand node when it has children
-                if (node.expandable && !node.isExpanded) {
-                    node.isExpanded = true;
-                }
-                break;
-
-            case KeyCodes.ArrowLeft:
-                if (node.isExpanded) {
-                    node.isExpanded = false;
-                }
-                break;
-
-            // Select and deselect current item
-            case KeyCodes.Enter:
-                if (!this._deselectedSelection.find((deselectedSelectionItem: ColumnPickerTreeNode) => deselectedSelectionItem === node)) {
-                    this._deselectedSelection = [...this._deselectedSelection, node];
-                } else {
-                    this._deselectedSelection = this._deselectedSelection.filter((deselectedSelectionItem: ColumnPickerTreeNode) => node !== deselectedSelectionItem);
-                }
-                // console.log('updated _deselectedSelection: ', this._deselectedSelection);
-                break;
-        }
-
-        if (event) {
-            event.preventDefault();
-        }
-    }
-
     /** Select the currently selected columns */
-    addColumns(columns: ReadonlyArray<ColumnPickerValue> = this._deselectedSelection): void {
+    addColumns(columns: ReadonlyArray<string | ColumnPickerGroupItem> = this._deselectedSelection): void {
         // add each item to the selected columns list
-        columns.forEach(column => this.selected = [...this.selected, this.getColumnName(column)]);
+        columns.forEach(column => this.selected = [...this.selected, this._getColumnName(column)]);
 
         // emit the selection changes
         this.selectedChange.emit(this.selected);
         this.deselectedChange.emit(this.deselected);
+
+        // store the available deselected items
+        this._updateAvailableDeselectedColumns();
 
         // clear the current selection
         this._deselectedSelection = [];
     }
 
     /** Deselect the currently selected columns */
-    removeColumns(columns: ReadonlyArray<ColumnPickerValue> = this._selectedSelection): void {
+    removeColumns(columns: ReadonlyArray<string | ColumnPickerGroupItem> = this._selectedSelection): void {
         // remove each item from the selected columns list
-        this.selected = this.selected.filter(column => this.isColumnPickerItem(column) ?
-            !columns.find(c => (c as ColumnPickerGroupItem).name === this.getColumnName(column))
+        this.selected = this.selected.filter(column => this._isColumnPickerItem(column) ?
+            !columns.find(c => (c as ColumnPickerGroupItem).name === this._getColumnName(column))
             : columns.indexOf(column) === -1);
 
         // emit the selection changes
         this.selectedChange.emit(this.selected);
         this.deselectedChange.emit(this.deselected);
+
+        // store the available deselected items
+        this._updateAvailableDeselectedColumns();
 
         // clear the current selection
         this._selectedSelection = [];
@@ -356,40 +300,40 @@ export class ColumnPickerComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     /** Check if column value or string */
-    isColumnPickerItem(column: ColumnPickerValue): column is ColumnPickerGroupItem {
+    _isColumnPickerItem(column: string | ColumnPickerGroupItem): column is ColumnPickerGroupItem {
         return (column as ColumnPickerGroupItem).name !== undefined;
     }
 
     /** Get the column name based on type */
-    getColumnName(item: ColumnPickerValue) {
-        return this.isColumnPickerItem(item) ? item.name : item;
+    _getColumnName(item: string | ColumnPickerGroupItem) {
+        return this._isColumnPickerItem(item) ? item.name : item;
     }
 
     /** Check if tree group has visible children */
-    nodeHasChildren(index: number, node: ColumnPickerTreeNode): boolean {
+    _nodeHasChildren(index: number, node: ColumnPickerTreeNode): boolean {
         return node.expandable;
     }
 
-    hasDeselectedItems(): boolean {
-        return this.deselected.filter(column => !this.selected.find(c => this.getColumnName(column) === c)).length === 0;
+    _hasDeselectedItems(): boolean {
+        return this.deselected.filter(column => !this.selected.find(c => this._getColumnName(column) === c)).length === 0;
     }
 
     /** Check to see if current item should display in deselect tree */
-    shouldRenderNode(item: ColumnPickerTreeNode): boolean {
-        const parent = this.getTreeParent(item);
+    _shouldRenderNode(node: ColumnPickerTreeNode): boolean {
+        const parent = this._getTreeParent(node);
 
         return Boolean(
             (!parent || parent.isExpanded) &&
-            !this.selected.find(column => this.getColumnName(column) === item.name)
+            !this.selected.find(column => this._getColumnName(column) === node.name)
         );
     }
 
     /** Work backwards from the index of the current node to find the parent node  */
-    getTreeParent(node: ColumnPickerTreeNode): ColumnPickerTreeNode {
+    _getTreeParent(node: ColumnPickerTreeNode): ColumnPickerTreeNode {
         const nodeIndex = this.treeData.indexOf(node);
 
         if (node.level > 0) {
-            for (let i = nodeIndex - 1; i >= 0; i--) {
+            for (let i: number = nodeIndex - 1; i >= 0; i--) {
                 if (this.treeData[i].level === 0) {
                     return this.treeData[i];
                 }
@@ -397,6 +341,11 @@ export class ColumnPickerComponent implements OnInit, AfterViewInit, OnDestroy {
         }
 
         return null;
+    }
+
+    // Store the current count of deselected items that are available for selection
+    _updateAvailableDeselectedColumns(): void {
+        this.availableDeselectedColumns = this.deselected.filter(column => this.selected.indexOf(this._getColumnName(column)) === -1).length;
     }
 
     /** Update the order of the items when reordering has changed */
@@ -419,10 +368,10 @@ export class ColumnPickerComponent implements OnInit, AfterViewInit, OnDestroy {
 
 /** Define a context for the column actions template */
 export interface ColumnPickerActionsContext {
-    addSelection: ReadonlyArray<ColumnPickerValue>;
-    removeSelection: ReadonlyArray<ColumnPickerValue>;
-    addColumns(columns?: ReadonlyArray<ColumnPickerValue>): void;
-    removeColumns(columns?: ReadonlyArray<ColumnPickerValue>): void;
+    addSelection: ReadonlyArray<string | ColumnPickerGroupItem>;
+    removeSelection: ReadonlyArray<string | ColumnPickerGroupItem>;
+    addColumns(columns?: ReadonlyArray<string | ColumnPickerGroupItem>): void;
+    removeColumns(columns?: ReadonlyArray<string | ColumnPickerGroupItem>): void;
     addAllColumns(): void;
     removeAllColumns(): void;
 }

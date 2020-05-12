@@ -12,16 +12,14 @@
         </ng-container>
     </div>
 
-    <cdk-tree class="column-picker-list" [dataSource]="treeDataSource" [treeControl]="treeControl" [(uxSelection)]="_deselectedSelection">
+    <cdk-tree class="column-picker-list" [dataSource]="treeDataSource" [treeControl]="treeControl" [(uxSelection)]="_deselectedSelection" uxTabbableList>
 
         <!-- Create item for not expandable node -->
         <cdk-tree-node *cdkTreeNodeDef="let node; let index = index"
+            uxTabbableListItem
             [uxSelectionItem]="node"
-            [style.display]="shouldRenderNode(node) ? 'flex': 'none'"
-            (keydown)="onKeydown(node, $event)"
-            (itemFocus)="isFocused = true; onFocus(index)"
-            (itemBlur)="isFocused = false"
-            class="column-picker-list-item column-picker-tree-level-{{ node.level }}">
+            [style.display]="_shouldRenderNode(node) ? 'flex': 'none'"
+            class="column-picker-list-item column-picker-tree-node-level-{{ node.level }}">
 
             <ng-container *ngIf="!deselectedTemplate">{{ node.name }}</ng-container>
 
@@ -34,17 +32,17 @@
         </cdk-tree-node>
 
         <!-- Create item for expandable node -->
-        <cdk-tree-node *cdkTreeNodeDef="let node; let index = index; when: nodeHasChildren"
-            (keydown)="onKeydown(node, $event)"
-            (itemFocus)="isFocused = true; onFocus(index)"
-            (itemBlur)="isFocused = false"
-            class="column-picker-list-group">
+        <cdk-tree-node *cdkTreeNodeDef="let node; let index = index; when: _nodeHasChildren"
+            uxTabbableListItem
+            class="column-picker-tree-group-node">
 
             <button cdkTreeNodeToggle
                 (click)="node.isExpanded = !node.isExpanded"
+                (keydown.arrowright)="node.isExpanded = true"
+                (keydown.arrowleft)="node.isExpanded = false"
                 [attr.aria-label]="'toggle ' + node.name"
-                class="column-picker-group-toggle-btn"
-                [style.visibility]="node.expandable ? 'visible' : 'hidden'">
+                [style.visibility]="node.expandable ? 'visible' : 'hidden'"
+                class="column-picker-group-toggle-btn">
                 <ux-icon [name]="treeControl.isExpanded(node) ? 'chevron-down' : 'chevron-right'"></ux-icon>
 
                 <ng-container *ngIf="!deselectedTemplate">{{ node.name }}</ng-container>
@@ -71,7 +69,7 @@
             <ux-icon name="chevron-left"></ux-icon>
         </button>
 
-        <button class="btn button-secondary btn-block" [disabled]="hasDeselectedItems()" (click)="addAllColumns()">
+        <button class="btn button-secondary btn-block" [disabled]="availableDeselectedColumns === 0" (click)="addAllColumns()">
             <ux-icon name="chevron-right-double"></ux-icon>
         </button>
 
