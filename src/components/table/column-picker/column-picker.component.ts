@@ -1,14 +1,14 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { ArrayDataSource } from '@angular/cdk/collections';
 import { FlatTreeControl } from '@angular/cdk/tree';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnInit, Output, QueryList, TemplateRef, ViewChildren } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnInit, Output, QueryList, TemplateRef, ViewChildren, SimpleChanges, OnChanges } from '@angular/core';
 
 @Component({
     selector: 'ux-column-picker',
     templateUrl: './column-picker.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ColumnPickerComponent implements OnInit {
+export class ColumnPickerComponent implements OnInit, OnChanges {
 
     /** Define a list of all selected columns */
     @Input() selected: ReadonlyArray<string> = [];
@@ -88,15 +88,27 @@ export class ColumnPickerComponent implements OnInit {
 
     /** Build the hierarchy of the deselect tree */
     ngOnInit(): void {
+        this.parseTreeData();
+    }
+
+    ngOnChanges(changes: SimpleChanges): void {
+        if (changes.selected || changes.deselected) {
+            this.parseTreeData();
+        }
+    }
+
+    /** Parse data into suitable format for the FlatTreeComponent to understand */
+    parseTreeData(): void {
         const treeData: ColumnPickerTreeNode[] = [];
 
         // set initial count for deselected values
         this._updateAvailableDeselectedColumns();
 
-        const groupedItems: (string | ColumnPickerGroupItem)[] = this.deselected.filter(column => this._isColumnPickerItem(column) && (column as ColumnPickerGroupItem).group !== null);
-        const ungroupedItems = this.deselected.filter(column => groupedItems.indexOf(column) === -1);
+        const groupedColumns: (string | ColumnPickerGroupItem)[] = this.deselected.filter(column => this._isColumnPickerItem(column) && (column as ColumnPickerGroupItem).group !== null);
+        const ungroupedColumns = this.deselected.filter(column => groupedColumns.indexOf(column) === -1);
 
-        groupedItems.sort((a: ColumnPickerGroupItem, b: ColumnPickerGroupItem) => {
+        // sort into alphabetical order, by group and name
+        groupedColumns.sort((a: ColumnPickerGroupItem, b: ColumnPickerGroupItem) => {
             // sort by group first
             if (a.group > b.group) { return -1; }
             if (a.group < b.group) { return 1; }
@@ -106,7 +118,8 @@ export class ColumnPickerComponent implements OnInit {
             if (a.name < b.name) { return -1; }
         });
 
-        ungroupedItems.sort((a: string | ColumnPickerGroupItem, b: string | ColumnPickerGroupItem) => {
+        // sort into alphabetical order, by name
+        ungroupedColumns.sort((a: string | ColumnPickerGroupItem, b: string | ColumnPickerGroupItem) => {
             // get names and sort
             const aName = this._getColumnName(a);
             const bName = this._getColumnName(b);
@@ -116,9 +129,9 @@ export class ColumnPickerComponent implements OnInit {
 
         let currentGroup: string = null;
 
-        // create grouped items
-        groupedItems.forEach((column: ColumnPickerGroupItem) => {
-            // if new group create top level item
+        // create grouped columns and their parent nodes
+        groupedColumns.forEach((column: ColumnPickerGroupItem) => {
+            // if new group create parent node
             if (!currentGroup || column.group !== currentGroup) {
                 currentGroup = column.group;
 
@@ -142,7 +155,7 @@ export class ColumnPickerComponent implements OnInit {
         });
 
         // create ungrouped items
-        ungroupedItems.forEach((column: string | ColumnPickerGroupItem) => {
+        ungroupedColumns.forEach((column: string | ColumnPickerGroupItem) => {
             treeData.push({
                 name: this._getColumnName(column),
                 level: 0,
@@ -233,9 +246,6 @@ export class ColumnPickerComponent implements OnInit {
         if (this.selected.indexOf(column) !== index) {
             this._liveAnnouncer.announce(`Column moved ${delta > 0 ? 'down' : 'up'}`);
         }
-
-        // update the tree data source
-        this._treeData
 
         // emit the changes
         this.selectedChange.emit(this.selected);
