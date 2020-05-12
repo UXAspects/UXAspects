@@ -1,5 +1,4 @@
 import { Component, Pipe, PipeTransform } from '@angular/core';
-import { interval } from 'rxjs';
 
 
 @Pipe({ name: 'highlightSearch' })
@@ -43,15 +42,6 @@ export class AppComponent {
     dropdownOpen: boolean = false;
     maxHeight: string = '400px';
     placeholder: string = 'Type to search...';
-    resetFilter: boolean = false;
-
-    constructor() {
-        interval(10000).subscribe(() => {
-            if (this.resetFilter) {
-                this.filter = '';
-            }
-        });
-    }
 
     selectOption(event: KeyboardEvent, option: RadioOption): void {
         this.selected = option;

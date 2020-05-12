@@ -1,5 +1,4 @@
 import { Component, Pipe, PipeTransform } from '@angular/core';
-import { interval } from 'rxjs';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
@@ -48,7 +47,6 @@ export class ComponentsInputDropdownComponent extends BaseDocumentationSection i
     dropdownOpen: boolean = false;
     maxHeight: string = '400px';
     placeholder: string = 'Type to search...';
-    resetFilter: boolean = false;
 
     playground: IPlayground = {
         files: {
@@ -71,11 +69,6 @@ export class ComponentsInputDropdownComponent extends BaseDocumentationSection i
 
     constructor() {
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
-        interval(10000).subscribe(() => {
-            if (this.resetFilter) {
-                this.filter = '';
-            }
-        });
     }
 
     selectOption(event: KeyboardEvent, option: RadioOption): void {
