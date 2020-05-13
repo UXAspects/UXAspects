@@ -3,7 +3,7 @@
     <div class="column-picker-stats">
 
         <ng-container *ngIf="!deselectedTitleTemplate">
-            {{ _deselectedSelection.length }} of {{ deselected.length }} selected
+            {{ _deselectedSelection.length }} of {{ _availableDeselectedColumns }} selected
         </ng-container>
 
         <ng-container
@@ -19,7 +19,7 @@
               uxTabbableList>
 
         <!-- Create item for not expandable node -->
-        <cdk-tree-node *cdkTreeNodeDef="let node; let index = index">
+        <cdk-tree-node *cdkTreeNodeDef="let node">
             <div uxTabbableListItem
                 [uxSelectionItem]="node"
                 *ngIf="_shouldRenderNode(node)"
@@ -37,7 +37,7 @@
         </cdk-tree-node>
 
         <!-- Create item for expandable node -->
-        <cdk-tree-node *cdkTreeNodeDef="let node; let index = index; when: _nodeHasChildren"
+        <cdk-tree-node *cdkTreeNodeDef="let node; when: _nodeHasChildren"
             class="column-picker-tree-group-node">
 
             <button cdkTreeNodeToggle

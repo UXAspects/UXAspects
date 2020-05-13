@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ColumnPickerGroupItem } from '../../../../src/components/table/index';
+import { ColumnPickerGroupItem, ColumnPickerGroupSetting } from '../../../../src/components/table/index';
 
 @Component({
     selector: 'app-column-picker',
@@ -42,6 +42,10 @@ export class ColumnPickerTestPageComponent {
         'Time Created',
         'Time Modified',
         'Work Completed'
+    ];
+
+    groupSettings: ColumnPickerGroupSetting[] = [
+        { group: 'Meta data', initiallyExpanded: true }
     ];
 
     /** Determine if we should show the custom title templates */

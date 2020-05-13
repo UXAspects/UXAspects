@@ -1,9 +1,10 @@
-import { $, $$, browser, ElementFinder } from 'protractor';
+import { $, $$, browser, ElementFinder, ExpectedConditions } from 'protractor';
 
 export class ColumnPickerPage {
 
     selected = $('#selected-list');
     deselected = $('#deselected-list');
+    groupSettings = $('#group-settings-list');
     actions = $('.column-picker-actions-column');
     selectBtn = this.actions.$$('.btn').get(0);
     deselectBtn = this.actions.$$('.btn').get(1);
@@ -14,6 +15,7 @@ export class ColumnPickerPage {
     selectedTitle = $$('.column-picker-stats').get(1);
 
     deselectedList = $$('.column-picker-list').get(0);
+    deselectedListGroups = this.deselectedList.$$('.column-picker-list-item');
     deselectedListItems = this.deselectedList.$$('.column-picker-list-item');
     selectedList = $$('.column-picker-list').get(1);
     selectedListItems = this.selectedList.$$('.column-picker-list-item');
@@ -22,6 +24,10 @@ export class ColumnPickerPage {
 
     async getPage(): Promise<void> {
         return await browser.get('#/column-picker');
+    }
+
+    async isReady(): Promise<void> {
+        return await browser.wait(ExpectedConditions.visibilityOf(this.deselectedList));
     }
 
     async getButtonDisabled(button: ElementFinder): Promise<boolean> {
@@ -34,6 +40,10 @@ export class ColumnPickerPage {
 
     async getDeselection(): Promise<string> {
         return await this.deselected.getAttribute('innerText');
+    }
+
+    async getGroupSettings(): Promise<string> {
+        return await this.groupSettings.getAttribute('innerText');
     }
 
     async getSelectedTitle(): Promise<string> {
