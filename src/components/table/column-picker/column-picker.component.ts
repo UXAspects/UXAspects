@@ -122,11 +122,18 @@ export class ColumnPickerComponent implements OnChanges {
         });
 
         let currentGroup: string = null;
+        let children: string[] = [];
 
         // create grouped columns and their parent nodes
         groupedColumns.forEach((column: ColumnPickerGroupItem) => {
             // if new group create parent node
             if (!currentGroup || column.group !== currentGroup) {
+                // set children for current group
+                if (currentGroup != null) {
+                    treeData.find(node => node.name === currentGroup).children = children;
+                    children = [];
+                }
+
                 currentGroup = column.group;
 
                 // check if settings present for the current group
@@ -137,7 +144,7 @@ export class ColumnPickerComponent implements OnChanges {
                     name: column.group,
                     level: 0,
                     expandable: true,
-                    isExpanded
+                    isExpanded,
                 });
             }
 
@@ -146,6 +153,14 @@ export class ColumnPickerComponent implements OnChanges {
                 level: 1,
                 expandable: false
             });
+
+            children.push(column.name);
+
+            // set children for current group when last column
+            if (currentGroup && groupedColumns.indexOf(column) === groupedColumns.length - 1) {
+                treeData.find(node => node.name === currentGroup).children = children;
+                children = [];
+            }
         });
 
         // create ungrouped items
@@ -157,7 +172,6 @@ export class ColumnPickerComponent implements OnChanges {
             });
         });
 
-        console.log('treeData: ', treeData);
         this._treeData = treeData;
         this._treeDataSource = new ArrayDataSource(treeData);
 
@@ -305,6 +319,10 @@ export class ColumnPickerComponent implements OnChanges {
         return node.expandable;
     }
 
+    _nodeHasAvailableChildren(node: ColumnPickerTreeNode): boolean {
+        return node.children.filter(column => this.selected.indexOf(column) === -1).length > 0;
+    }
+
     _hasDeselectedItems(): boolean {
         return this.deselected.filter(column => !this.selected.find(c => this._getColumnName(column) === c)).length === 0;
     }
@@ -334,7 +352,7 @@ export class ColumnPickerComponent implements OnChanges {
         return null;
     }
 
-    // Store the current count of nodes that are available for selection
+    // Store the current count of nodes that are available for selection from the deselected list
     _updateAvailableDeselectedColumns(): void {
         this._availableDeselectedColumns = this._treeData.filter(node => !node.expandable && this.selected.indexOf(node.name) === -1).length;
     }
@@ -383,7 +401,7 @@ export interface ColumnPickerGroupSetting {
 export class ColumnPickerTreeNode {
     name: string;
     level?: number;
-    children?: ColumnPickerTreeNode[];
+    children?: string[];
     expandable?: boolean;
     isExpanded?: boolean;
 }
