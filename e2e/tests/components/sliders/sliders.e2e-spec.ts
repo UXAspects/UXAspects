@@ -40,7 +40,8 @@ describe('SlidersPage Tests', () => {
         expect(await page.getHandleAttribute(page.slider8, 'lower', 'hidden')).toBeNull();
         expect(await page.getHandleAttribute(page.slider8, 'upper', 'hidden')).toBeNull();
 
-        expect(await imageCompareFullPageScreen('sliders-initial')).toEqual(0);
+        // Re-enable with https://portal.digitalsafe.net/browse/EL-3932
+        // expect(await imageCompareFullPageScreen('sliders-initial')).toEqual(0);
     });
 
     it('should display the expected ticks', async () => {
@@ -353,12 +354,14 @@ describe('SlidersPage Tests', () => {
 
     it('should allow track styling to be changed on range and single sliders', async () => {
 
-        expect(await imageCompareFullPageScreen('slider-range-track-colors-default')).toEqual(0);
+        // Re-enable with https://portal.digitalsafe.net/browse/EL-3932
+        // expect(await imageCompareFullPageScreen('slider-range-track-colors-default')).toEqual(0);
 
         // change the default colours
         await page.colorChangeButton.click();
 
-        expect(await imageCompareFullPageScreen('slider-range-track-colors')).toEqual(0);
+        // Re-enable with https://portal.digitalsafe.net/browse/EL-3932
+        // expect(await imageCompareFullPageScreen('slider-range-track-colors')).toEqual(0);
 
     });
 
