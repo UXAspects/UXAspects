@@ -16,13 +16,15 @@
               [dataSource]="_treeDataSource"
               [treeControl]="_treeControl"
               [(uxSelection)]="_deselectedSelection"
-              uxTabbableList>
+              uxTabbableList
+              role="tree">
 
         <!-- Create item for not expandable node -->
         <cdk-tree-node *cdkTreeNodeDef="let node">
             <div uxTabbableListItem
                  [uxSelectionItem]="node"
                  *ngIf="_shouldRenderNode(node)"
+                 role="treeitem"
                  class="column-picker-list-item column-picker-tree-node-level-{{ node.level }}">
 
                 <ng-container *ngIf="!deselectedTemplate">{{ node.name }}</ng-container>
@@ -37,17 +39,17 @@
         </cdk-tree-node>
 
         <!-- Create item for expandable node -->
-        <cdk-tree-node *cdkTreeNodeDef="let node; when: _nodeHasChildren">
+        <cdk-tree-node *cdkTreeNodeDef="let node; when: _nodeHasChildren" role="treeitem">
 
             <div *ngIf="_nodeHasAvailableChildren(node)"
-                 class="column-picker-tree-group-node">
+                class="column-picker-tree-group-node">
 
                 <button uxTabbableListItem
                         (click)="_setNodeExpanded(node, !node.isExpanded)"
                         (keydown.arrowright)="_setNodeExpanded(node, true)"
                         (keydown.arrowleft)="_setNodeExpanded(node, false)"
-                        [attr.aria-label]="'Toggle ' + node.name"
                         [style.visibility]="node.expandable ? 'visible' : 'hidden'"
+                        [attr.aria-label]="getDeselectedAriaLabel(node.name)"
                         class="column-picker-group-toggle-btn">
 
                     <ux-icon [name]="node.isExpanded ? 'chevron-down' : 'chevron-right'"></ux-icon>

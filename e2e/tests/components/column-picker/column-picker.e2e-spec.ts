@@ -36,52 +36,39 @@ describe('Column Picker Tests', () => {
     });
 
     it('should allow a group to navigate, close and expand using mouse and keyboard', async () => {
-        // close the group
+        // close the group using mouse click
         const firstGroup = await page.deselectedListGroupBtns.get(0);
         await firstGroup.click();
-        expect(await imageCompare('column-picker-close-deselected-group-1')).toEqual(0);
-        // expand the group
+        expect(await page.getColumnCount(ColumnPickerList.Deselected)).toBe(12);
+        // expand the group using mouse click
         await firstGroup.click();
-        expect(await imageCompare('column-picker-initial')).toEqual(0);
+        expect(await page.getColumnCount(ColumnPickerList.Deselected)).toBe(18);
 
         // press down arrow to focus the first group child
         await browser.actions().sendKeys(Key.ARROW_DOWN).perform();
         const deselectedColumn1 = await page.getDeselectedColumn(0);
         const deselectedColumn2 = await page.getDeselectedColumn(1);
-        expect(await imageCompare('column-picker-group-keyboard-nav-1')).toEqual(0);
         expect(await page.hasFocus(deselectedColumn1)).toBe(true);
 
         // press down arrow to focus the second group child
         await browser.actions().sendKeys(Key.ARROW_DOWN).perform();
-        expect(await imageCompare('column-picker-group-keyboard-nav-2')).toEqual(0);
         expect(await page.hasFocus(deselectedColumn2)).toBe(true);
 
         // press up arrow to jump back up to the first group child
         await browser.actions().sendKeys(Key.ARROW_UP).perform();
-        expect(await imageCompare('column-picker-group-keyboard-nav-1')).toEqual(0);
         expect(await page.hasFocus(deselectedColumn1)).toBe(true);
 
         // press up arrow to jump back up to the group itself
         await browser.actions().sendKeys(Key.ARROW_UP).perform();
-        expect(await imageCompare('column-picker-close-expanded-group-1')).toEqual(0);
+        expect(await page.hasFocus(page.deselectedListGroupBtns.get(0))).toBe(true);
 
-        // press up enter to close the group
+        // press enter key to close the group
         await browser.actions().sendKeys(Key.ENTER).perform();
-        expect(await imageCompare('column-picker-close-deselected-with-highlight-group-1')).toEqual(0);
+        expect(await page.getColumnCount(ColumnPickerList.Deselected)).toBe(12);
 
-        // press up enter to expand the group
+        // press enter key to expand the group
         await browser.actions().sendKeys(Key.ENTER).perform();
-        expect(await imageCompare('column-picker-close-expanded-group-1')).toEqual(0);
-    });
-
-    it('should allow a group to navigate close, reopen using the keyboard', async () => {
-        // close the group
-        const firstGroup = await page.deselectedListGroupBtns.get(0);
-        await firstGroup.click();
-        expect(await imageCompare('column-picker-close-deselected-group-1')).toEqual(0);
-        // reopen the group
-        await firstGroup.click();
-        expect(await imageCompare('column-picker-initial')).toEqual(0);
+        expect(await page.getColumnCount(ColumnPickerList.Deselected)).toBe(18);
     });
 
     it('should allow selection of deselected columns', async () => {
@@ -128,6 +115,8 @@ describe('Column Picker Tests', () => {
     });
 
     it('should allow moving a selected column', async () => {
+        expect(await page.getColumnCount(ColumnPickerList.Deselected)).toBe(18);
+        expect(await page.getColumnCount(ColumnPickerList.Selected)).toBe(6);
         await page.selectColumn(ColumnPickerList.Selected, 1);
         await page.deselectBtn.click();
         expect(await page.getColumnCount(ColumnPickerList.Deselected)).toBe(19);
@@ -136,6 +125,8 @@ describe('Column Picker Tests', () => {
     });
 
     it('should allow moving all deselected columns', async () => {
+        expect(await page.getColumnCount(ColumnPickerList.Deselected)).toBe(18);
+        expect(await page.getColumnCount(ColumnPickerList.Selected)).toBe(6);
         await page.selectAllBtn.click();
         expect(await page.getColumnCount(ColumnPickerList.Deselected)).toBe(0);
         expect(await page.getColumnCount(ColumnPickerList.Selected)).toBe(24);
@@ -143,6 +134,8 @@ describe('Column Picker Tests', () => {
     });
 
     it('should allow moving all selected columns', async () => {
+        expect(await page.getColumnCount(ColumnPickerList.Deselected)).toBe(18);
+        expect(await page.getColumnCount(ColumnPickerList.Selected)).toBe(6);
         await page.deselectAllBtn.click();
         expect(await page.getColumnCount(ColumnPickerList.Deselected)).toBe(23);
         expect(await page.getColumnCount(ColumnPickerList.Selected)).toBe(1);
