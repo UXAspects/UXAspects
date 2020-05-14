@@ -63,15 +63,15 @@ describe('Column Picker Tests', () => {
 
         // press up arrow to jump back up to the group itself
         await browser.actions().sendKeys(Key.ARROW_UP).perform();
-        expect(await imageCompare('column-picker-initial')).toEqual(0);
+        expect(await imageCompare('column-picker-close-expanded-group-1')).toEqual(0);
 
         // press up enter to close the group
         await browser.actions().sendKeys(Key.ENTER).perform();
-        expect(await imageCompare('column-picker-close-deselected-group-1')).toEqual(0);
+        expect(await imageCompare('column-picker-close-deselected-with-highlight-group-1')).toEqual(0);
 
         // press up enter to expand the group
         await browser.actions().sendKeys(Key.ENTER).perform();
-        expect(await imageCompare('column-picker-initial')).toEqual(0);
+        expect(await imageCompare('column-picker-close-expanded-group-1')).toEqual(0);
     });
 
     it('should allow a group to navigate close, reopen using the keyboard', async () => {
