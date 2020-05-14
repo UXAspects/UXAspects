@@ -2,14 +2,14 @@ import { $, browser, by, element, ElementFinder } from 'protractor';
 
 export class SlidersPage {
 
-    slider1 = element(by.id('slider1'));
-    slider2 = element(by.id('slider2'));
-    slider3 = element(by.id('slider3'));
-    slider4 = element(by.id('slider4'));
-    slider5 = element(by.id('slider5'));
-    slider6 = element(by.id('slider6'));
-    slider7 = element(by.id('slider7'));
-    slider8 = element(by.id('slider8'));
+    singleValueCustomLabels = element(by.id('single-value-custom-labels'));
+    singleValueCalloutOnDrag = element(by.id('single-value-callout-on-drag'));
+    singleValueNarrowSnapping = element(by.id('single-value-narrow-snapping'));
+    singleValueNarrowCalloutOnHover = element(by.id('single-value-narrow-callout-on-hover'));
+    rangeCallout = element(by.id('range-callout'));
+    rangeCalloutCustom = element(by.id('range-callout-custom'));
+    rangeCalloutOnDrag = element(by.id('range-callout-on-drag'));
+    rangeWithTextInputs = element(by.id('range-text-inputs'));
     input1 = element(by.id('input1'));
     input2 = element(by.id('input2'));
     colorChangeButton = $('#track-color-change-btn');

@@ -8,11 +8,11 @@
 
         <div class="col-md-6 p-r-md p-b-md">
             <p class="text-black p-b-md">Button Handle - Custom Labels</p>
-            <ux-slider id="slider1" [value]="slider1.value" [options]="slider1.options"></ux-slider>
+            <ux-slider id="single-value-custom-labels" [value]="slider1.value" [options]="slider1.options"></ux-slider>
         </div>
         <div class="col-md-6 p-l-md p-b-md">
             <p class="text-black p-b-md">Line Handle - Callout on Drag</p>
-            <ux-slider id="slider2" [value]="slider2.value" [options]="slider2.options"></ux-slider>
+            <ux-slider id="single-value-callout-on-drag" [value]="slider2.value" [options]="slider2.options"></ux-slider>
         </div>
     </div>
 
@@ -22,11 +22,11 @@
 
         <div class="col-md-6 p-r-md p-b-md">
             <p class="text-black p-b-md">Narrow - Track Styling - Snapping</p>
-            <ux-slider id="slider3" [value]="slider3.value" [options]="slider3.options"></ux-slider>
+            <ux-slider id="single-value-narrow-snapping" [value]="slider3.value" [options]="slider3.options"></ux-slider>
         </div>
         <div class="col-md-6 p-l-md p-b-md">
             <p class="text-black p-b-md">Narrow - Gradient Track Styling - Callout on Hover</p>
-            <ux-slider id="slider4" [value]="slider4.value" [options]="slider4.options"></ux-slider>
+            <ux-slider id="single-value-narrow-callout-on-hover" [value]="slider4.value" [options]="slider4.options"></ux-slider>
         </div>
     </div>
 
@@ -40,11 +40,11 @@
 
         <div class="col-md-6 p-r-md p-b-md">
             <p class="text-black p-b-lg">Range Track - Persistent Callout</p>
-            <ux-slider id="slider5" [value]="slider5.value" [options]="slider5.options"></ux-slider>
+            <ux-slider id="range-callout" [value]="slider5.value" [options]="slider5.options"></ux-slider>
         </div>
         <div class="col-md-6 p-l-md p-b-md">
             <p class="text-black p-b-lg">Range Track Style - Custom Callout Styles</p>
-            <ux-slider id="slider6" [value]="slider6.value" [options]="slider6.options"></ux-slider>
+            <ux-slider id="range-callout-custom" [value]="slider6.value" [options]="slider6.options"></ux-slider>
         </div>
     </div>
 
@@ -53,8 +53,8 @@
     <div class="row">
 
         <div class="col-md-6 p-r-md p-b-md">
-            <p class="text-black p-b-lg">Range Track - Persistent Callout</p>
-            <ux-slider id="slider8" [value]="slider8.value" [options]="slider8.options"></ux-slider>
+            <p class="text-black p-b-lg">Range Track - Callout on Drag</p>
+            <ux-slider id="range-callout-on-drag" [value]="slider8.value" [options]="slider8.options"></ux-slider>
         </div>
     </div>
 
@@ -67,7 +67,7 @@
         </div>
 
         <div class="col-md-12">
-            <ux-slider id="slider7" [value]="slider7.value" (valueChange)="valueHasChanged($event)"
+            <ux-slider id="range-text-inputs" [value]="slider7.value" (valueChange)="valueHasChanged($event)"
                 [options]="slider7.options"></ux-slider>
         </div>
     </div>
