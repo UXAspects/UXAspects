@@ -21,9 +21,9 @@
         <!-- Create item for not expandable node -->
         <cdk-tree-node *cdkTreeNodeDef="let node">
             <div uxTabbableListItem
-                [uxSelectionItem]="node"
-                *ngIf="_shouldRenderNode(node)"
-                class="column-picker-list-item column-picker-tree-node-level-{{ node.level }}">
+                 [uxSelectionItem]="node"
+                 *ngIf="_shouldRenderNode(node)"
+                 class="column-picker-list-item column-picker-tree-node-level-{{ node.level }}">
 
                 <ng-container *ngIf="!deselectedTemplate">{{ node.name }}</ng-container>
 
@@ -37,50 +37,59 @@
         </cdk-tree-node>
 
         <!-- Create item for expandable node -->
-            <cdk-tree-node *cdkTreeNodeDef="let node; when: _nodeHasChildren"
-                class="column-picker-tree-group-node">
-                <ng-container *ngIf="_nodeHasAvailableChildren(node)">
-                    <button cdkTreeNodeToggle
-                            uxTabbableListItem
-                            (click)="node.isExpanded = !node.isExpanded"
-                            (keydown.arrowright)="node.isExpanded = true"
-                            (keydown.arrowleft)="node.isExpanded = false"
-                            [attr.aria-label]="'toggle ' + node.name"
-                            [style.visibility]="node.expandable ? 'visible' : 'hidden'"
-                            class="column-picker-group-toggle-btn">
+        <cdk-tree-node *cdkTreeNodeDef="let node; when: _nodeHasChildren">
 
-                        <ux-icon [name]="_treeControl.isExpanded(node) ? 'chevron-down' : 'chevron-right'"></ux-icon>
+            <div *ngIf="_nodeHasAvailableChildren(node)"
+                 class="column-picker-tree-group-node">
 
-                        <ng-container *ngIf="!deselectedTemplate">{{ node.name }}</ng-container>
+                <button uxTabbableListItem
+                        (click)="_setNodeExpanded(node, !node.isExpanded)"
+                        (keydown.arrowright)="_setNodeExpanded(node, true)"
+                        (keydown.arrowleft)="_setNodeExpanded(node, false)"
+                        [attr.aria-label]="'Toggle ' + node.name"
+                        [style.visibility]="node.expandable ? 'visible' : 'hidden'"
+                        class="column-picker-group-toggle-btn">
 
-                        <ng-container
-                            *ngIf="deselectedTemplate"
-                            [ngTemplateOutlet]="deselectedTemplate"
-                            [ngTemplateOutletContext]="{ $implicit: node.name }">
-                        </ng-container>
-                    </button>
+                    <ux-icon [name]="node.isExpanded ? 'chevron-down' : 'chevron-right'"></ux-icon>
 
-                </ng-container>
-            </cdk-tree-node>
+                    <ng-container *ngIf="!deselectedTemplate">{{ node.name }}</ng-container>
+
+                    <ng-container
+                        *ngIf="deselectedTemplate"
+                        [ngTemplateOutlet]="deselectedTemplate"
+                        [ngTemplateOutletContext]="{ $implicit: node.name }">
+                    </ng-container>
+                </button>
+
+            </div>
+        </cdk-tree-node>
     </cdk-tree>
 </div>
 
 <div class="column-picker-actions-column">
     <!-- Show the default action buttons -->
     <ng-container *ngIf="!actionsTemplate">
-        <button class="btn button-primary btn-block" [disabled]="_deselectedSelection.length === 0" (click)="addColumns()">
+        <button class="btn button-primary btn-block"
+                [disabled]="_deselectedSelection.length === 0"
+                (click)="addColumns()">
             <ux-icon name="chevron-right"></ux-icon>
         </button>
 
-        <button class="btn button-primary btn-block m-b-md" [disabled]="_selectedSelection.length === 0" (click)="removeColumns()">
+        <button class="btn button-primary btn-block m-b-md"
+                [disabled]="_selectedSelection.length === 0"
+                (click)="removeColumns()">
             <ux-icon name="chevron-left"></ux-icon>
         </button>
 
-        <button class="btn button-secondary btn-block" [disabled]="_availableDeselectedColumns === 0" (click)="addAllColumns()">
+        <button class="btn button-secondary btn-block"
+                [disabled]="_availableDeselectedColumns === 0"
+                (click)="addAllColumns()">
             <ux-icon name="chevron-right-double"></ux-icon>
         </button>
 
-        <button class="btn button-secondary btn-block" [disabled]="selected.length === 0" (click)="removeAllColumns()">
+        <button class="btn button-secondary btn-block"
+                [disabled]="selected.length === 0"
+                (click)="removeAllColumns()">
             <ux-icon name="chevron-left-double"></ux-icon>
         </button>
     </ng-container>
@@ -123,8 +132,13 @@
             </ng-container>
         </div>
 
-        <div [(uxSelection)]="_selectedSelection" uxReorderable [reorderableModel]="selected" (reorderableModelChange)="onReorderChange($event)" (reorderStart)="storeSelection()"
-            (reorderEnd)="restoreSelection()" (reorderEnd)="onReorder()">
+        <div [(uxSelection)]="_selectedSelection"
+             uxReorderable
+             [reorderableModel]="selected"
+             (reorderableModelChange)="onReorderChange($event)"
+             (reorderStart)="storeSelection()"
+             (reorderEnd)="restoreSelection()"
+             (reorderEnd)="onReorder()">
 
             <div *ngFor="let column of selected; trackBy: selectedTrackBy; let index = index"
                  #selectedColumn

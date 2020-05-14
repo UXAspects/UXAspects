@@ -9,7 +9,7 @@ import { ColumnPickerGroupSetting, ColumnPickerValue } from '@ux-aspects/ux-aspe
 export class AppComponent {
 
     /** Store a list of all selected columns */
-selected: ReadonlyArray<string> = [
+    selected: ReadonlyArray<string> = [
         'Type',
         'Date',
         'Requested by',
@@ -22,11 +22,11 @@ selected: ReadonlyArray<string> = [
 
     /** Store a list of columns that are not selected or locked */
     deselected: ReadonlyArray<ColumnPickerValue> = [
-        { group: 'Meta data', name: 'Author' },
-        { group: 'Meta data', name: 'Category' },
-        { group: 'Meta data', name: 'Date Created' },
-        { group: 'Meta data', name: 'Date Modified' },
-        { group: 'Meta data', name: 'Department' },
+        { group: 'Metadata', name: 'Author' },
+        { group: 'Metadata', name: 'Category' },
+        { group: 'Metadata', name: 'Date Created' },
+        { group: 'Metadata', name: 'Date Modified' },
+        { group: 'Metadata', name: 'Department' },
         'Document ID',
         'Flag',
         'From',
@@ -35,7 +35,7 @@ selected: ReadonlyArray<string> = [
         'Location',
         'Location ID',
         'Message',
-        { group: 'Meta data', name: 'Organization' },
+        { group: 'Metadata', name: 'Organization' },
         'Time',
         'Time Created',
         'Time Modified',
@@ -43,7 +43,7 @@ selected: ReadonlyArray<string> = [
     ];
 
     groupSettings: ColumnPickerGroupSetting[] = [
-        { group: 'Meta data', initiallyExpanded: true }
+        { group: 'Metadata', initiallyExpanded: true }
     ];
 
 }
