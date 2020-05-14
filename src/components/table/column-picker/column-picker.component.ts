@@ -181,6 +181,8 @@ export class ColumnPickerComponent implements OnChanges {
 
     /** Select the currently selected columns */
     addColumns(columns: ReadonlyArray<string | ColumnPickerGroupItem> = this._deselectedSelection): void {
+        columns = columns.filter(column => this.selected.indexOf(this._getColumnName(column)) === -1);
+
         // add each item to the selected columns list
         columns.forEach(column => this.selected = [...this.selected, this._getColumnName(column)]);
 
