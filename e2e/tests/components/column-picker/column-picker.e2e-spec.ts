@@ -44,41 +44,40 @@ describe('Column Picker Tests', () => {
         await firstGroup.click();
         expect(await imageCompare('column-picker-initial')).toEqual(0);
 
-        // TODO: NEEDS FIX TO NAVIGATION ISSUE TO WORK
-        // // press down arrow to focus the first group child
-        // await browser.actions().sendKeys(Key.ARROW_DOWN).perform();
-        // const deselectedColumn1 = await page.getDeselectedColumn(1);
-        // const deselectedColumn2 = await page.getDeselectedColumn(2);
-        // expect(await imageCompare('column-picker-group-keyboard-nav-1')).toEqual(0);
-        // expect(await page.hasFocus(deselectedColumn1)).toBe(true);
+        // press down arrow to focus the first group child
+        await browser.actions().sendKeys(Key.ARROW_DOWN).perform();
+        const deselectedColumn1 = await page.getDeselectedColumn(0);
+        const deselectedColumn2 = await page.getDeselectedColumn(1);
+        expect(await imageCompare('column-picker-group-keyboard-nav-1')).toEqual(0);
+        expect(await page.hasFocus(deselectedColumn1)).toBe(true);
 
-        // // press down arrow to focus the second group child
-        // await browser.actions().sendKeys(Key.ARROW_DOWN).perform();
-        // expect(await imageCompare('column-picker-group-keyboard-nav-2')).toEqual(0);
-        // expect(await page.hasFocus(deselectedColumn2)).toBe(true);
+        // press down arrow to focus the second group child
+        await browser.actions().sendKeys(Key.ARROW_DOWN).perform();
+        expect(await imageCompare('column-picker-group-keyboard-nav-2')).toEqual(0);
+        expect(await page.hasFocus(deselectedColumn2)).toBe(true);
 
-        // // press up arrow to jump back up to the first group child
-        // await browser.actions().sendKeys(Key.ARROW_UP).perform();
-        // expect(await imageCompare('column-picker-group-keyboard-nav-1')).toEqual(0);
-        // expect(await page.hasFocus(deselectedColumn1)).toBe(true);
+        // press up arrow to jump back up to the first group child
+        await browser.actions().sendKeys(Key.ARROW_UP).perform();
+        expect(await imageCompare('column-picker-group-keyboard-nav-1')).toEqual(0);
+        expect(await page.hasFocus(deselectedColumn1)).toBe(true);
 
-        // // press up arrow to jump back up to the group itself
-        // await browser.actions().sendKeys(Key.ARROW_UP).perform();
-        // expect(await imageCompare('column-picker-initial')).toEqual(0);
+        // press up arrow to jump back up to the group itself
+        await browser.actions().sendKeys(Key.ARROW_UP).perform();
+        expect(await imageCompare('column-picker-initial')).toEqual(0);
 
-        // // press up enter to close the group
-        // await browser.actions().sendKeys(Key.ENTER).perform();
-        // expect(await imageCompare('column-picker-close-deselected-group-1')).toEqual(0);
+        // press up enter to close the group
+        await browser.actions().sendKeys(Key.ENTER).perform();
+        expect(await imageCompare('column-picker-close-deselected-group-1')).toEqual(0);
 
-        // // press up enter to expand the group
-        // await browser.actions().sendKeys(Key.ENTER).perform();
-        // expect(await imageCompare('column-picker-initial')).toEqual(0);
+        // press up enter to expand the group
+        await browser.actions().sendKeys(Key.ENTER).perform();
+        expect(await imageCompare('column-picker-initial')).toEqual(0);
     });
 
     it('should allow a group to navigate close, reopen using the keyboard', async () => {
         // close the group
         const firstGroup = await page.deselectedListGroupBtns.get(0);
-        await firstGroup.clck();
+        await firstGroup.click();
         expect(await imageCompare('column-picker-close-deselected-group-1')).toEqual(0);
         // reopen the group
         await firstGroup.click();
