@@ -41,7 +41,7 @@ export class ColumnPickerComponent implements OnChanges {
     @Input() selectedAriaLabel: (column: string, index: number) => string = this.getSelectedAriaLabel;
 
     /** Define a function to get the aria label of a group in the deselected list. */
-    @Input() deselectedAriaLabel: (group: string) => string = this.getDeselectedAriaLabel;
+    @Input() deselectedAriaLabel: (node: ColumnPickerTreeNode) => string = this.getDeselectedAriaLabel;
 
     /** Define a function that returns a column move announcement. */
     @Input() columnMovedAnnouncement: (column: string, delta: number) => string = this.getColumnMovedAnnouncement;
@@ -244,8 +244,8 @@ export class ColumnPickerComponent implements OnChanges {
     }
 
     /** Get an aria label for deselected list groups */
-    getDeselectedAriaLabel(group: string): string {
-        return `Toggle ${group}.`;
+    getDeselectedAriaLabel(node: ColumnPickerTreeNode): string {
+        return `Toggle ${node.name}. Currently ${ node.isExpanded ? 'expanded' : 'collapsed'}.`;
     }
 
     /** Get an aria label for reorderable items */
@@ -412,14 +412,14 @@ export interface ColumnPickerGroupSetting {
 
 /** Interface representing a tree node item. This normalises data into one format */
 export class ColumnPickerTreeNode {
-    // The name of the column.
+    // The name of the column or group.
     name: string;
-    // The level this node exists at (top level is 0).
+    // The level this node exists in the tree hierarchy (top level nodes are 0, grouped nodes are 1).
     level?: number;
-    // The names of the columns that are children of this group (if this node is a group).
+    // The names of the columns that are children of this node (if this node is a group).
     children?: string[];
     // A flag to identify group nodes.
     expandable?: boolean;
-    // A flag to track if a group node is closed or expanded (if this node is a group).
+    // A flag to track the current state of a group node (if this node is a group).
     isExpanded?: boolean;
 }

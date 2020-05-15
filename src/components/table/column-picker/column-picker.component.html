@@ -49,7 +49,7 @@
                         (keydown.arrowright)="_setNodeExpanded(node, true)"
                         (keydown.arrowleft)="_setNodeExpanded(node, false)"
                         [style.visibility]="node.expandable ? 'visible' : 'hidden'"
-                        [attr.aria-label]="getDeselectedAriaLabel(node.name)"
+                        [attr.aria-label]="getDeselectedAriaLabel(node)"
                         class="column-picker-group-toggle-btn">
 
                     <ux-icon [name]="node.isExpanded ? 'chevron-down' : 'chevron-right'"></ux-icon>
