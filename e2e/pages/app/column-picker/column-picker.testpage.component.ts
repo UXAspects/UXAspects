@@ -24,11 +24,11 @@ export class ColumnPickerTestPageComponent {
 
     /** Store a list of columns that are not selected or locked */
     deselected: ReadonlyArray<string | ColumnPickerGroupItem> = [
-        { group: 'Meta data', name: 'Author' },
-        { group: 'Meta data', name: 'Category' },
-        { group: 'Meta data', name: 'Date Created' },
-        { group: 'Meta data', name: 'Date Modified' },
-        { group: 'Meta data', name: 'Department' },
+        { group: 'Metadata', name: 'Author' },
+        { group: 'Metadata', name: 'Category' },
+        { group: 'Metadata', name: 'Date Created' },
+        { group: 'Metadata', name: 'Date Modified' },
+        { group: 'Metadata', name: 'Department' },
         'Document ID',
         'Flag',
         'From',
@@ -37,7 +37,7 @@ export class ColumnPickerTestPageComponent {
         'Location',
         'Location ID',
         'Message',
-        { group: 'Meta data', name: 'Organization' },
+        { group: 'Metadata', name: 'Organization' },
         'Time',
         'Time Created',
         'Time Modified',
@@ -45,7 +45,7 @@ export class ColumnPickerTestPageComponent {
     ];
 
     groupSettings: ColumnPickerGroupSetting[] = [
-        { group: 'Meta data', initiallyExpanded: true }
+        { group: 'Metadata', expanded: true }
     ];
 
     /** Determine if we should show the custom title templates */

@@ -50,7 +50,7 @@ export class ComponentsColumnPickerComponent extends BaseDocumentationSection im
     ];
 
     groupSettings: ColumnPickerGroupSetting[] = [
-        { group: 'Metadata', initiallyExpanded: true }
+        { group: 'Metadata', expanded: true }
     ];
 
     playground: IPlayground = {

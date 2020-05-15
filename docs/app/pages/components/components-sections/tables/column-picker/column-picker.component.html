@@ -46,7 +46,7 @@
     <tr uxd-api-property name="selectedAriaLabel" type="(column: string, index: number) => string">
         Define a function to get the aria label of reorderable items in the selected column.
     </tr>
-    <tr uxd-api-property name="deselectedAriaLabel" type="(node: ColumnPickerTreeNode) => string">
+    <tr uxd-api-property name="deselectedAriaLabel" type="(column: string, isExpanded: boolean) => string">
         Define a function to get the aria label of a group in the deselected list.
     </tr>
     <tr uxd-api-property name="columnMovedAnnouncement" type="(column: string, delta: number) => string">
@@ -102,26 +102,8 @@
     <tr uxd-api-property name="group" type="string">
         The name of the group this setting object is related to.
     </tr>
-    <tr uxd-api-property name="initiallyExpanded" type="boolean">
+    <tr uxd-api-property name="expanded" type="boolean">
         Defines if this group will be expanded on load. This is an optional property.
-    </tr>
-</uxd-api-properties>
-
-<uxd-api-properties tableTitle="ColumnPickerTreeNode Interface">
-    <tr uxd-api-property name="name" type="string">
-        The name of the column or group.
-    </tr>
-    <tr uxd-api-property name="level" type="number">
-        The level this node exists in the tree hierarchy (top level nodes are 0, grouped nodes are 1).
-    </tr>
-    <tr uxd-api-property name="children" type="string[]">
-        The names of the columns that are children of this node (if this node is a group).
-    </tr>
-    <tr uxd-api-property name="expandable" type="boolean">
-        A flag to identify group nodes.
-    </tr>
-    <tr uxd-api-property name="isExpanded" type="boolean">
-        A flag to track the current state of a group node (if this node is a group).
     </tr>
 </uxd-api-properties>
 

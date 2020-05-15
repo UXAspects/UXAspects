@@ -43,7 +43,7 @@ export class AppComponent {
     ];
 
     groupSettings: ColumnPickerGroupSetting[] = [
-        { group: 'Metadata', initiallyExpanded: true }
+        { group: 'Metadata', expanded: true }
     ];
 
 }

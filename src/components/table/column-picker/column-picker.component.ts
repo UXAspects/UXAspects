@@ -38,10 +38,10 @@ export class ColumnPickerComponent implements OnChanges {
     @Input() actionsTemplate: TemplateRef<ColumnPickerActionsContext>;
 
     /** Define a function to get the aria label of reorderable items in the selected column. */
-    @Input() selectedAriaLabel: (column: string, index: number) => string = this.getSelectedAriaLabel;
+    @Input() selectedAriaLabel: (column: string, index: number) => string = this.getDefaultSelectedAriaLabel;
 
     /** Define a function to get the aria label of a group in the deselected list. */
-    @Input() deselectedAriaLabel: (node: ColumnPickerTreeNode) => string = this.getDeselectedAriaLabel;
+    @Input() deselectedGroupAriaLabel: (column: string, isExpanded: boolean) => string = this.getDefaultDeselectedGroupAriaLabel;
 
     /** Define a function that returns a column move announcement. */
     @Input() columnMovedAnnouncement: (column: string, delta: number) => string = this.getColumnMovedAnnouncement;
@@ -134,7 +134,7 @@ export class ColumnPickerComponent implements OnChanges {
 
                 // check if settings present for the current group
                 const groupSettings = this.groupSettings.find(setting => setting.group === column.group);
-                const isExpanded = groupSettings && groupSettings.initiallyExpanded || false;
+                const isExpanded = groupSettings && groupSettings.expanded || false;
 
                 treeData.push({
                     name: column.group,
@@ -244,12 +244,12 @@ export class ColumnPickerComponent implements OnChanges {
     }
 
     /** Get an aria label for deselected list groups */
-    getDeselectedAriaLabel(node: ColumnPickerTreeNode): string {
-        return `Toggle ${node.name}. Currently ${ node.isExpanded ? 'expanded' : 'collapsed'}.`;
+    private getDefaultDeselectedGroupAriaLabel(column: string, isExpanded: boolean): string {
+        return `Toggle ${column}`;
     }
 
     /** Get an aria label for reorderable items */
-    getSelectedAriaLabel(column: string): string {
+    private getDefaultSelectedAriaLabel(column: string, index: number): string {
         return `${column}. Press Alt up and alt down to reorder.`;
     }
 
@@ -336,6 +336,11 @@ export class ColumnPickerComponent implements OnChanges {
         return (!parent || parent.isExpanded) && !this.selected.find(column => this.getColumnName(column) === node.name);
     }
 
+    /** Check if node is in the selected column */
+    _isSelected(node: ColumnPickerTreeNode): boolean {
+        return this.selected && this.selected.indexOf(node.name) > -1;
+    }
+
     /** Work backwards from the index of the current node to find the parent node  */
     private getTreeParent(node: ColumnPickerTreeNode): ColumnPickerTreeNode {
         const nodeIndex = this._treeData.indexOf(node);
@@ -351,7 +356,7 @@ export class ColumnPickerComponent implements OnChanges {
         return null;
     }
 
-    // Store the current count of nodes that are available for selection from the deselected list
+    /** Store the current count of nodes that are available for selection from the deselected list */
     private updateAvailableDeselectedColumns(): void {
         this._availableDeselectedColumns = this._treeData.filter(node => !node.expandable && this.selected.indexOf(node.name) === -1).length;
     }
@@ -407,10 +412,10 @@ export interface ColumnPickerGroupSetting {
     // The name of the group this setting object is related to.
     group: string;
     // Defines if this group will be expanded on load. This is an optional property.
-    initiallyExpanded?: boolean;
+    expanded?: boolean;
 }
 
-/** Interface representing a tree node item. This normalises data into one format */
+/** Class representing a tree node item. Normalises data for both groups and columns into one format */
 export class ColumnPickerTreeNode {
     // The name of the column or group.
     name: string;

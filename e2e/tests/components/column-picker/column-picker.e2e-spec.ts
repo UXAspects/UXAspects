@@ -23,8 +23,8 @@ describe('Column Picker Tests', () => {
         expect(await page.getColumnCount(ColumnPickerList.Selected)).toBe(6);
 
         expect(await page.getSelection()).toBe('[ "Type", "Date", "Requested by", "Status", "Completion" ]');
-        expect(await page.getDeselection()).toBe('[ { "group": "Meta data", "name": "Author" }, { "group": "Meta data", "name": "Category" }, { "group": "Meta data", "name": "Date Created" }, { "group": "Meta data", "name": "Date Modified" }, { "group": "Meta data", "name": "Department" }, "Document ID", "Flag", "From", "Icon", "Importance", "Location", "Location ID", "Message", { "group": "Meta data", "name": "Organization" }, "Time", "Time Created", "Time Modified", "Work Completed" ]');
-        expect(await page.getGroupSettings()).toBe('[ { "group": "Meta data", "initiallyExpanded": true } ]');
+        expect(await page.getDeselection()).toBe('[ { "group": "Metadata", "name": "Author" }, { "group": "Metadata", "name": "Category" }, { "group": "Metadata", "name": "Date Created" }, { "group": "Metadata", "name": "Date Modified" }, { "group": "Metadata", "name": "Department" }, "Document ID", "Flag", "From", "Icon", "Importance", "Location", "Location ID", "Message", { "group": "Metadata", "name": "Organization" }, "Time", "Time Created", "Time Modified", "Work Completed" ]');
+        expect(await page.getGroupSettings()).toBe('[ { "group": "Metadata", "expanded": true } ]');
 
         expect(await imageCompare('column-picker-initial')).toEqual(0);
     });
