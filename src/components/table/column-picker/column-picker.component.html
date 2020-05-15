@@ -13,7 +13,6 @@
     </div>
 
     <cdk-tree class="column-picker-list"
-        [attr.aria-labelledby]="deselectedTitleTemplate"
         [dataSource]="_treeDataSource"
         [treeControl]="_treeControl"
         [(uxSelection)]="_deselectedSelection"
@@ -22,7 +21,7 @@
 
         <!-- Create item for not expandable node -->
         <cdk-tree-node *cdkTreeNodeDef="let node"
-            [attr.aria-hidden]="_isSelected(node)">
+            [attr.aria-hidden]="selected && selected.indexOf(node.name) > -1">
             <div uxTabbableListItem
                  [uxSelectionItem]="node"
                  *ngIf="_shouldRenderNode(node)"

@@ -336,11 +336,6 @@ export class ColumnPickerComponent implements OnChanges {
         return (!parent || parent.isExpanded) && !this.selected.find(column => this.getColumnName(column) === node.name);
     }
 
-    /** Check if node is in the selected column */
-    _isSelected(node: ColumnPickerTreeNode): boolean {
-        return this.selected && this.selected.indexOf(node.name) > -1;
-    }
-
     /** Work backwards from the index of the current node to find the parent node  */
     private getTreeParent(node: ColumnPickerTreeNode): ColumnPickerTreeNode {
         const nodeIndex = this._treeData.indexOf(node);
