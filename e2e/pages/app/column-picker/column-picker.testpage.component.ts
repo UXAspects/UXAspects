@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ColumnPickerGroupItem, ColumnPickerGroupSetting } from '../../../../src/components/table/index';
+import { ColumnPickerGroupItem, ColumnPickerGroupSetting } from '@ux-aspects/ux-aspects';
 
 @Component({
     selector: 'app-column-picker',
