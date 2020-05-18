@@ -386,40 +386,46 @@ export class ColumnPickerComponent implements OnChanges {
 
 /** Define a context for the column actions template */
 export interface ColumnPickerActionsContext {
+    /** An array of items that are currently selected in the left column. */
     addSelection: ReadonlyArray<string | ColumnPickerGroupItem>;
+    /** An array of items that are currently selected in the right column. */
     removeSelection: ReadonlyArray<string | ColumnPickerGroupItem>;
+    /** A function that can be called to add columns. If no columns are passed to the function, the items that are selected in the left column will be added. */
     addColumns(columns?: ReadonlyArray<string | ColumnPickerGroupItem>): void;
+    /** A function that can be called to remove columns. If no columns are passed to the function, the items that are selected in the right column will be removed. */
     removeColumns(columns?: ReadonlyArray<string | ColumnPickerGroupItem>): void;
+    /** A function that can be called to add all columns. */
     addAllColumns(): void;
+    /** A function that can be called to remove all columns. */
     removeAllColumns(): void;
 }
 
 /** An interface representing a grouped item */
 export interface ColumnPickerGroupItem {
-    // The name of the group that this column belongs to.
+    /**  The name of the group that this column belongs to. */
     group?: string;
-    // The name of the column.
+    /**  The name of the column. */
     name: string;
 }
 
 /** An interface representing settings of groups defined in ColumnPickerGroupItem objects */
 export interface ColumnPickerGroup {
-    // The name of the group this setting object is related to.
+    /**  The name of the group this setting object is related to. */
     name: string;
-    // Defines if this group will be expanded on load. This is an optional property.
+    /**  Defines if this group will be expanded on load. This is an optional property. */
     expanded?: boolean;
 }
 
 /** Represents a tree node item. Normalises data for both groups and columns into one format */
 interface ColumnPickerTreeNode {
-    // The name of the column or group.
+    /** The name of the column or group. */
     name: string;
-    // The level this node exists in the tree hierarchy (top level nodes are 0, grouped nodes are 1).
+    /**  The level this node exists in the tree hierarchy (top level nodes are 0, grouped nodes are 1). */
     level?: number;
-    // The names of the columns that are children of this node (if this node is a group).
+    /**  The names of the columns that are children of this node (if this node is a group). */
     children?: string[];
-    // A flag to identify group nodes.
+    /**  A flag to identify group nodes. */
     expandable?: boolean;
-    // A flag to track the current state of a group node (if this node is a group).
+    /**  A flag to track the current state of a group node (if this node is a group). */
     isExpanded?: boolean;
 }
