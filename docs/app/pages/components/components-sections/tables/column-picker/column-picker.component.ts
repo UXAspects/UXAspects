@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ColumnPickerGroupItem, ColumnPickerGroup } from '@ux-aspects/ux-aspects';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
@@ -27,12 +28,12 @@ export class ComponentsColumnPickerComponent extends BaseDocumentationSection im
     ];
 
     /** Store a list of columns that are not selected or locked */
-    deselected: ReadonlyArray<string> = [
-        'Author',
-        'Category',
-        'Date Created',
-        'Date Modified',
-        'Department',
+    deselected: ReadonlyArray<string | ColumnPickerGroupItem> = [
+        { group: 'Metadata', name: 'Author' },
+        { group: 'Metadata', name: 'Category' },
+        { group: 'Metadata', name: 'Date Created' },
+        { group: 'Metadata', name: 'Date Modified' },
+        { group: 'Metadata', name: 'Department' },
         'Document ID',
         'Flag',
         'From',
@@ -41,11 +42,15 @@ export class ComponentsColumnPickerComponent extends BaseDocumentationSection im
         'Location',
         'Location ID',
         'Message',
-        'Organization',
+        { group: 'Metadata', name: 'Organization' },
         'Time',
         'Time Created',
         'Time Modified',
         'Work Completed'
+    ];
+
+    groups: ColumnPickerGroup[] = [
+        { name: 'Metadata', expanded: true }
     ];
 
     playground: IPlayground = {
