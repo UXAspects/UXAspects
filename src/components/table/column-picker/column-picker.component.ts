@@ -410,7 +410,7 @@ export interface ColumnPickerGroup {
     expanded?: boolean;
 }
 
-/** Class representing a tree node item. Normalises data for both groups and columns into one format */
+/** Represents a tree node item. Normalises data for both groups and columns into one format */
 interface ColumnPickerTreeNode {
     // The name of the column or group.
     name: string;
