@@ -56,7 +56,7 @@ export class ToggleSwitchComponent implements ControlValueAccessor {
     /** Used to inform Angular forms that the component value has changed */
     onChangeCallback: (_: any) => void = () => { };
 
-    constructor(private readonly _changeDetector: ChangeDetectorRef ) { }
+    constructor(private readonly _changeDetector: ChangeDetectorRef) { }
 
     toggle(): void {
         if (!this.disabled && this.clickable) {

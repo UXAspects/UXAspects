@@ -91,7 +91,7 @@ export class TimePickerComponent implements ControlValueAccessor {
     /** Emitted when the validity of the control changes. */
     @Output() isValid = new EventEmitter<boolean>();
 
-    constructor(private readonly _changeDetector: ChangeDetectorRef ) { }
+    constructor(private readonly _changeDetector: ChangeDetectorRef) { }
 
     onTouchedCallback: () => void = () => {};
     onChangeCallback: (_: Date) => void = () => {};

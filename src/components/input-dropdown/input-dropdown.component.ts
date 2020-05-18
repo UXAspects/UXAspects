@@ -74,7 +74,7 @@ export class InputDropdownComponent<T> implements ControlValueAccessor, AfterVie
     /** Unsubscribe from all observables on component destroy */
     private readonly _onDestroy$ = new Subject<void>();
 
-    constructor(private readonly _changeDetector: ChangeDetectorRef ) { }
+    constructor(private readonly _changeDetector: ChangeDetectorRef) { }
 
     ngOnChanges(changes: SimpleChanges): void {
 

@@ -68,7 +68,7 @@ export class CheckboxComponent<T = number> implements ControlValueAccessor {
     /** Used to inform Angular forms that the component value has changed */
     onChangeCallback: (_: boolean | T) => void = () => { };
 
-    private _changeDetector: ChangeDetectorRef;
+    constructor(private readonly _changeDetector: ChangeDetectorRef) { }
 
     /** Toggle the current state of the checkbox */
     toggle(): void {

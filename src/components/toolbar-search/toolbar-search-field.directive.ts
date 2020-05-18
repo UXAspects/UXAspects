@@ -30,7 +30,9 @@ export class ToolbarSearchFieldDirective implements ControlValueAccessor {
     /** Call this function with the latest value to update ngModel or formControl name */
     private onChangeCallback: (_: any) => void = () => { };
 
-    constructor(private _elementRef: ElementRef, private readonly _changeDetector: ChangeDetectorRef ) { }
+    constructor(
+        private _elementRef: ElementRef,
+        private readonly _changeDetector: ChangeDetectorRef) { }
 
     focus(): void {
         // mark the control as dirty

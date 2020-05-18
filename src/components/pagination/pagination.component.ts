@@ -39,7 +39,7 @@ export class PaginationComponent implements OnInit, ControlValueAccessor {
   /** Aria label for the next button */
   @Input() nextAriaLabel: string = 'Navigate to the next page';
 
-  constructor(private readonly _changeDetector: ChangeDetectorRef ) { }
+  constructor(private readonly _changeDetector: ChangeDetectorRef) { }
 
   /** Specify the index of the active page */
   @Input() set page(page: number) {
