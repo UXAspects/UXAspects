@@ -1,4 +1,4 @@
-import { $, $$, browser, ElementFinder } from 'protractor';
+import { $, $$, browser, ElementFinder, ExpectedConditions } from 'protractor';
 
 export class ColumnPickerPage {
 
@@ -14,6 +14,7 @@ export class ColumnPickerPage {
     selectedTitle = $$('.column-picker-stats').get(1);
 
     deselectedList = $$('.column-picker-list').get(0);
+    deselectedListGroupBtns = this.deselectedList.$$('.column-picker-group-toggle-btn');
     deselectedListItems = this.deselectedList.$$('.column-picker-list-item');
     selectedList = $$('.column-picker-list').get(1);
     selectedListItems = this.selectedList.$$('.column-picker-list-item');
@@ -22,6 +23,10 @@ export class ColumnPickerPage {
 
     async getPage(): Promise<void> {
         return await browser.get('#/column-picker');
+    }
+
+    async hasFocus(elem: ElementFinder): Promise<boolean> {
+        return await elem.getId() === await browser.driver.switchTo().activeElement().getId();
     }
 
     async getButtonDisabled(button: ElementFinder): Promise<boolean> {

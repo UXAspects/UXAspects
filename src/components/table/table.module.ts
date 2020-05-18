@@ -12,6 +12,7 @@ import { ResizableTableCellDirective } from './table-column-resize/resizable-tab
 import { ResizableTableColumnComponent } from './table-column-resize/resizable-table-column.component';
 import { ResizableExpandingTableDirective } from './table-column-resize/table-column-resize-expanding/resizable-expanding-table.directive';
 import { ResizableTableDirective } from './table-column-resize/table-column-resize-standard/resizable-table.directive';
+import { CdkTreeModule } from '@angular/cdk/tree';
 
 @NgModule({
     imports: [
@@ -22,7 +23,8 @@ import { ResizableTableDirective } from './table-column-resize/table-column-resi
         IconModule,
         ResizeModule,
         ReorderableModule,
-        SelectionModule
+        SelectionModule,
+        CdkTreeModule
     ],
     declarations: [
         ResizableTableDirective,

@@ -3,7 +3,7 @@
     <div class="column-picker-stats">
 
         <ng-container *ngIf="!deselectedTitleTemplate">
-            {{ _deselectedSelection.length }} of {{ deselected.length }} selected
+            {{ _deselectedSelection.length }} of {{ _availableDeselectedColumns }} selected
         </ng-container>
 
         <ng-container
@@ -12,39 +12,87 @@
         </ng-container>
     </div>
 
-    <div class="column-picker-list" [(uxSelection)]="_deselectedSelection">
+    <cdk-tree class="column-picker-list"
+        [dataSource]="_treeDataSource"
+        [treeControl]="_treeControl"
+        [(uxSelection)]="_deselectedSelection"
+        tabindex="-1"
+        uxTabbableList>
 
-        <div *ngFor="let column of deselected"
-             class="column-picker-list-item"
-             [uxSelectionItem]="column">
+        <!-- Create item for not expandable node -->
+        <cdk-tree-node *cdkTreeNodeDef="let node"
+            [attr.aria-hidden]="selected && selected.indexOf(node.name) > -1">
+            <div uxTabbableListItem
+                 [uxSelectionItem]="node"
+                 *ngIf="_shouldRenderNode(node)"
+                 class="column-picker-list-item column-picker-tree-node-level-{{ node.level }}">
 
-            <ng-container *ngIf="!deselectedTemplate">{{ column }}</ng-container>
+                <ng-container *ngIf="!deselectedTemplate">{{ node.name }}</ng-container>
 
-            <ng-container
-                *ngIf="deselectedTemplate"
-                [ngTemplateOutlet]="deselectedTemplate"
-                [ngTemplateOutletContext]="{ $implicit: column }">
-            </ng-container>
-        </div>
-    </div>
+                <ng-container
+                    *ngIf="deselectedTemplate"
+                    [ngTemplateOutlet]="deselectedTemplate"
+                    [ngTemplateOutletContext]="{ $implicit: node.name }">
+                </ng-container>
+            </div>
+
+        </cdk-tree-node>
+
+        <!-- Create item for expandable node -->
+        <cdk-tree-node *cdkTreeNodeDef="let node; when: _nodeHasChildren"
+            [attr.aria-expanded]="node.isExpanded">
+
+            <div *ngIf="_nodeHasAvailableChildren(node)"
+                class="column-picker-tree-group-node">
+
+                <button uxTabbableListItem
+                        (click)="_setNodeExpanded(node, !node.isExpanded)"
+                        (keydown.arrowright)="_setNodeExpanded(node, true)"
+                        (keydown.arrowleft)="_setNodeExpanded(node, false)"
+                        [style.visibility]="node.expandable ? 'visible' : 'hidden'"
+                        [attr.aria-label]="deselectedGroupAriaLabel(node.name, node.isExpanded)"
+                        class="column-picker-group-toggle-btn">
+
+                    <ux-icon [name]="node.isExpanded ? 'chevron-down' : 'chevron-right'"></ux-icon>
+
+                    <ng-container *ngIf="!deselectedTemplate">{{ node.name }}</ng-container>
+
+                    <ng-container
+                        *ngIf="deselectedTemplate"
+                        [ngTemplateOutlet]="deselectedTemplate"
+                        [ngTemplateOutletContext]="{ $implicit: node.name }">
+                    </ng-container>
+                </button>
+
+            </div>
+        </cdk-tree-node>
+    </cdk-tree>
 </div>
 
 <div class="column-picker-actions-column">
     <!-- Show the default action buttons -->
     <ng-container *ngIf="!actionsTemplate">
-        <button class="btn button-primary btn-block" [disabled]="_deselectedSelection.length === 0" (click)="addColumns()">
+        <button class="btn button-primary btn-block"
+                [disabled]="_deselectedSelection.length === 0"
+                (click)="addColumns()">
             <ux-icon name="chevron-right"></ux-icon>
         </button>
 
-        <button class="btn button-primary btn-block m-b-md" [disabled]="_selectedSelection.length === 0" (click)="removeColumns()">
+        <button class="btn button-primary btn-block m-b-md"
+                [disabled]="_selectedSelection.length === 0"
+                (click)="removeColumns()">
             <ux-icon name="chevron-left"></ux-icon>
         </button>
 
-        <button class="btn button-secondary btn-block" [disabled]="deselected.length === 0" (click)="addAllColumns()">
+        <button class="btn button-secondary btn-block"
+                [disabled]="_availableDeselectedColumns === 0"
+                (click)="addAllColumns()">
             <ux-icon name="chevron-right-double"></ux-icon>
         </button>
 
-        <button class="btn button-secondary btn-block" [disabled]="selected.length === 0" (click)="removeAllColumns()">
+        <button class="btn button-secondary btn-block"
+                [disabled]="selected.length === 0"
+                (click)="removeAllColumns()">
             <ux-icon name="chevron-left-double"></ux-icon>
         </button>
     </ng-container>
@@ -87,8 +135,13 @@
             </ng-container>
         </div>
 
-        <div [(uxSelection)]="_selectedSelection" uxReorderable [reorderableModel]="selected" (reorderableModelChange)="onReorderChange($event)" (reorderStart)="storeSelection()"
-            (reorderEnd)="restoreSelection()" (reorderEnd)="onReorder()">
+        <div [(uxSelection)]="_selectedSelection"
+             uxReorderable
+             [reorderableModel]="selected"
+             (reorderableModelChange)="onReorderChange($event)"
+             (reorderStart)="storeSelection()"
+             (reorderEnd)="restoreSelection()"
+             (reorderEnd)="onReorder()">
 
             <div *ngFor="let column of selected; trackBy: selectedTrackBy; let index = index"
                  #selectedColumn
@@ -97,7 +150,7 @@
                  class="column-picker-list-item column-picker-list-item-selected"
                  [uxSelectionItem]="column"
                  [uxReorderableModel]="column"
-                 [attr.aria-label]="getSelectedAriaLabel(column)"
+                 [attr.aria-label]="selectedAriaLabel(column, selected.indexOf(column))"
                  (keydown.alt.arrowup)="move(column, -1)"
                  (keydown.alt.arrowdown)="move(column, 1)">
 
