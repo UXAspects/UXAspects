@@ -47,7 +47,7 @@ export class ColumnPickerComponent implements OnChanges {
     @Input() columnMovedAnnouncement: (column: string, delta: number) => string = this.getColumnMovedAnnouncement;
 
     /** Define settings for the grouped deselected items. */
-    @Input() groupSettings: ReadonlyArray<ColumnPickerGroupSetting> = [];
+    @Input() groups: ReadonlyArray<ColumnPickerGroup> = [];
 
     /** Emits when the selected items change or the order of the selected items change. */
     @Output() selectedChange = new EventEmitter<ReadonlyArray<string>>();
@@ -133,8 +133,8 @@ export class ColumnPickerComponent implements OnChanges {
                 currentGroup = column.group;
 
                 // check if settings present for the current group
-                const groupSettings = this.groupSettings.find(setting => setting.group === column.group);
-                const isExpanded = groupSettings && groupSettings.expanded || false;
+                const groups = this.groups.find(setting => setting.name === column.group);
+                const isExpanded = groups && groups.expanded || false;
 
                 treeData.push({
                     name: column.group,
@@ -403,9 +403,9 @@ export interface ColumnPickerGroupItem {
 }
 
 /** An interface representing settings of groups defined in ColumnPickerGroupItem objects */
-export interface ColumnPickerGroupSetting {
+export interface ColumnPickerGroup {
     // The name of the group this setting object is related to.
-    group: string;
+    name: string;
     // Defines if this group will be expanded on load. This is an optional property.
     expanded?: boolean;
 }

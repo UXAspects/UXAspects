@@ -4,7 +4,7 @@ export class ColumnPickerPage {
 
     selected = $('#selected-list');
     deselected = $('#deselected-list');
-    groupSettings = $('#group-settings-list');
+    groups = $('#group-settings-list');
     actions = $('.column-picker-actions-column');
     selectBtn = this.actions.$$('.btn').get(0);
     deselectBtn = this.actions.$$('.btn').get(1);
@@ -43,7 +43,7 @@ export class ColumnPickerPage {
     }
 
     async getGroupSettings(): Promise<string> {
-        return await this.groupSettings.getAttribute('innerText');
+        return await this.groups.getAttribute('innerText');
     }
 
     async getSelectedTitle(): Promise<string> {

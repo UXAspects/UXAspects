@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ColumnPickerGroupItem, ColumnPickerGroupSetting } from '@ux-aspects/ux-aspects';
+import { ColumnPickerGroupItem, ColumnPickerGroup } from '@ux-aspects/ux-aspects';
 
 @Component({
     selector: 'app-column-picker',
@@ -44,8 +44,8 @@ export class ColumnPickerTestPageComponent {
         'Work Completed'
     ];
 
-    groupSettings: ColumnPickerGroupSetting[] = [
-        { group: 'Metadata', expanded: true }
+    groups: ColumnPickerGroup[] = [
+        { name: 'Metadata', expanded: true }
     ];
 
     /** Determine if we should show the custom title templates */

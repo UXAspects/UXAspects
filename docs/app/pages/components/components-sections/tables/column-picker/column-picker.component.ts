@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ColumnPickerGroupItem, ColumnPickerGroupSetting } from '../../../../../../../src/components/table';
+import { ColumnPickerGroupItem, ColumnPickerGroup } from '../../../../../../../src/components/table';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
@@ -49,8 +49,8 @@ export class ComponentsColumnPickerComponent extends BaseDocumentationSection im
         'Work Completed'
     ];
 
-    groupSettings: ColumnPickerGroupSetting[] = [
-        { group: 'Metadata', expanded: true }
+    groups: ColumnPickerGroup[] = [
+        { name: 'Metadata', expanded: true }
     ];
 
     playground: IPlayground = {

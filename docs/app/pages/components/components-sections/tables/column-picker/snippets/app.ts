@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ColumnPickerGroupSetting, ColumnPickerValue } from '@ux-aspects/ux-aspects';
+import { ColumnPickerGroup, ColumnPickerValue } from '@ux-aspects/ux-aspects';
 
 @Component({
     selector: 'app',
@@ -42,8 +42,8 @@ export class AppComponent {
         'Work Completed'
     ];
 
-    groupSettings: ColumnPickerGroupSetting[] = [
-        { group: 'Metadata', expanded: true }
+    groups: ColumnPickerGroup[] = [
+        { name: 'Metadata', expanded: true }
     ];
 
 }

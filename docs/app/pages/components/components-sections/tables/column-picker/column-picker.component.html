@@ -1,7 +1,7 @@
 <ux-column-picker [(selected)]="selected"
     [(deselected)]="deselected"
     [locked]="locked"
-    [groupSettings]="groupSettings">
+    [groups]="groups">
 </ux-column-picker>
 
 <hr>
@@ -52,8 +52,8 @@
     <tr uxd-api-property name="columnMovedAnnouncement" type="(column: string, delta: number) => string">
         Define a function that returns a column move announcement.
     </tr>
-    <tr uxd-api-property name="groupSettings" type="ReadonlyArray<ColumnPickerGroupSetting>">
-        See below for a listing of the available settings.
+    <tr uxd-api-property name="groups" type="ReadonlyArray<ColumnPickerGroup>">
+        See below for a listing of the available settings for groups.
     </tr>
 </uxd-api-properties>
 
@@ -98,8 +98,8 @@
     </tr>
 </uxd-api-properties>
 
-<uxd-api-properties tableTitle="ColumnPickerGroupSetting Interface">
-    <tr uxd-api-property name="group" type="string">
+<uxd-api-properties tableTitle="ColumnPickerGroup Interface">
+    <tr uxd-api-property name="name" type="string">
         The name of the group this setting object is related to.
     </tr>
     <tr uxd-api-property name="expanded" type="boolean">
