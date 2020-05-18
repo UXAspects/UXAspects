@@ -411,7 +411,7 @@ export interface ColumnPickerGroup {
 }
 
 /** Class representing a tree node item. Normalises data for both groups and columns into one format */
-export class ColumnPickerTreeNode {
+interface ColumnPickerTreeNode {
     // The name of the column or group.
     name: string;
     // The level this node exists in the tree hierarchy (top level nodes are 0, grouped nodes are 1).

@@ -46,14 +46,14 @@
     <tr uxd-api-property name="selectedAriaLabel" type="(column: string, index: number) => string">
         Define a function to get the aria label of reorderable items in the selected column.
     </tr>
-    <tr uxd-api-property name="deselectedAriaLabel" type="(column: string, isExpanded: boolean) => string">
+    <tr uxd-api-property name="deselectedGroupAriaLabel" type="(column: string, isExpanded: boolean) => string">
         Define a function to get the aria label of a group in the deselected list.
     </tr>
     <tr uxd-api-property name="columnMovedAnnouncement" type="(column: string, delta: number) => string">
         Define a function that returns a column move announcement.
     </tr>
     <tr uxd-api-property name="groups" type="ReadonlyArray<ColumnPickerGroup>">
-        See below for a listing of the available settings for groups.
+        An optional array of objects to configure column groups.
     </tr>
 </uxd-api-properties>
 
