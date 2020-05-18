@@ -1,6 +1,6 @@
 import { BACKSPACE, DELETE, ENTER, LEFT_ARROW, RIGHT_ARROW, SPACE } from '@angular/cdk/keycodes';
 import { DOCUMENT } from '@angular/common';
-import { AfterContentInit, Component, ContentChildren, ElementRef, EventEmitter, forwardRef, HostBinding, HostListener, Inject, Input, OnChanges, OnDestroy, Output, QueryList, SimpleChanges, TemplateRef, ViewChild } from '@angular/core';
+import { AfterContentInit, Component, ContentChildren, ElementRef, EventEmitter, forwardRef, HostBinding, HostListener, Inject, Input, OnChanges, OnDestroy, Output, QueryList, SimpleChanges, TemplateRef, ViewChild, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALIDATORS, NG_VALUE_ACCESSOR, ValidationErrors, Validator } from '@angular/forms';
 import { Subject, Subscription } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -27,6 +27,7 @@ const TAGINPUT_VALIDATOR = {
     exportAs: 'ux-tag-input',
     templateUrl: 'tag-input.component.html',
     providers: [TAGINPUT_VALUE_ACCESSOR, TAGINPUT_VALIDATOR],
+    changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
         '[class.disabled]': 'disabled',
         '[class.focus]': 'hasFocus()',
@@ -217,6 +218,7 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
     private _onDestroy = new Subject<void>();
 
     constructor(
+        private _changeDetector: ChangeDetectorRef,
         private _element: ElementRef,
         @Inject(DOCUMENT) private _document: any,
         private _typeaheadKeyService: TypeaheadKeyService) { }
@@ -256,6 +258,7 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
     writeValue(value: T[]): void {
         if (value) {
             this.tags = value;
+            this._changeDetector.markForCheck();
         }
     }
 
@@ -269,6 +272,7 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
 
     setDisabledState(isDisabled: boolean): void {
         this.disabled = isDisabled;
+        this._changeDetector.markForCheck();
     }
 
     /**

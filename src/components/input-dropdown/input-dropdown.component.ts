@@ -1,5 +1,5 @@
 import { coerceCssPixelValue } from '@angular/cdk/coercion';
-import { AfterViewInit, ChangeDetectionStrategy, Component, ContentChild, ElementRef, EventEmitter, forwardRef, Input, OnChanges, OnDestroy, Output, SimpleChanges, TemplateRef, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, ContentChild, ElementRef, EventEmitter, forwardRef, Input, OnChanges, OnDestroy, Output, SimpleChanges, TemplateRef, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { MenuTriggerDirective } from '../menu/menu-trigger/menu-trigger.directive';
@@ -74,6 +74,8 @@ export class InputDropdownComponent<T> implements ControlValueAccessor, AfterVie
     /** Unsubscribe from all observables on component destroy */
     private readonly _onDestroy$ = new Subject<void>();
 
+    constructor(private readonly _changeDetector: ChangeDetectorRef ) { }
+
     ngOnChanges(changes: SimpleChanges): void {
 
         // if the dropdownOpen state changes via the input we should show or hide the input accordingly
@@ -126,6 +128,7 @@ export class InputDropdownComponent<T> implements ControlValueAccessor, AfterVie
 
     writeValue(value: T): void {
         this.selected = value;
+        this._changeDetector.markForCheck();
     }
 
     resetValue(event: Event): void {

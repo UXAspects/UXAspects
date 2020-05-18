@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
     selector: 'tags-app',
-    templateUrl: './tags.testpage.component.html'
+    templateUrl: './tags.testpage.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TagsTestPageComponent {
     tags = ['Alpha', 'Beta', 'Kappa'];

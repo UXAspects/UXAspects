@@ -1,4 +1,4 @@
-import { AfterContentInit, ContentChildren, Directive, EventEmitter, ExistingProvider, forwardRef, Input, OnDestroy, Output, QueryList } from '@angular/core';
+import { AfterContentInit, ContentChildren, Directive, EventEmitter, ExistingProvider, forwardRef, Input, OnDestroy, Output, QueryList, ChangeDetectorRef } from '@angular/core';
 import { RadioButtonComponent } from '../radiobutton.component';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { takeUntil } from 'rxjs/operators';
@@ -49,6 +49,8 @@ export class RadioButtonGroupDirective<T = any> implements ControlValueAccessor,
     /** Internally store the current value */
     private _value: T = null;
 
+    constructor(private readonly _changeDetector: ChangeDetectorRef ) { }
+
     ngAfterContentInit(): void {
         this.updateSelectedRadioButton();
 
@@ -75,12 +77,14 @@ export class RadioButtonGroupDirective<T = any> implements ControlValueAccessor,
     /** Allow Angular forms to give us the current value */
     writeValue(value: any): void {
         this.value = value;
+        this._changeDetector.markForCheck();
     }
 
     /** Allow Angular forms to disable the component */
     setDisabledState(isDisabled: boolean): void {
         if (this._radioButtons) {
             this._radioButtons.forEach(radio => radio.setDisabledState(isDisabled));
+            this._changeDetector.markForCheck();
         }
     }
 

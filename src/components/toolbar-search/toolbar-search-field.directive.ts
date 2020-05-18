@@ -1,4 +1,4 @@
-import { Directive, ElementRef, EventEmitter, forwardRef, HostListener, Output } from '@angular/core';
+import { Directive, ElementRef, EventEmitter, forwardRef, HostListener, Output, ChangeDetectorRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 export const TOOLBAR_SEARCH_VALUE_ACCESSOR: any = {
@@ -30,7 +30,7 @@ export class ToolbarSearchFieldDirective implements ControlValueAccessor {
     /** Call this function with the latest value to update ngModel or formControl name */
     private onChangeCallback: (_: any) => void = () => { };
 
-    constructor(private _elementRef: ElementRef) { }
+    constructor(private _elementRef: ElementRef, private readonly _changeDetector: ChangeDetectorRef ) { }
 
     focus(): void {
         // mark the control as dirty
@@ -69,6 +69,7 @@ export class ToolbarSearchFieldDirective implements ControlValueAccessor {
     /** Update the input value based on ngModel or formControl */
     writeValue(value: string): void {
         this.setValue(value);
+        this._changeDetector.markForCheck();
     }
 
     /** Register a function to update form control */

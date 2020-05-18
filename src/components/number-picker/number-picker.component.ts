@@ -1,5 +1,5 @@
 import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
-import { ChangeDetectorRef, Component, EventEmitter, forwardRef, Input, OnDestroy, Optional, Output, OnChanges } from '@angular/core';
+import { ChangeDetectorRef, ChangeDetectionStrategy, Component, EventEmitter, forwardRef, Input, OnDestroy, Optional, Output, OnChanges } from '@angular/core';
 import { ControlValueAccessor, FormGroupDirective, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 let uniqueId = 0;
@@ -14,6 +14,7 @@ export const NUMBER_PICKER_VALUE_ACCESSOR: any = {
     selector: 'ux-number-picker, ux-number-picker-inline',
     templateUrl: './number-picker.component.html',
     providers: [NUMBER_PICKER_VALUE_ACCESSOR],
+    changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
         '[class.ux-number-picker-invalid]': '!_valid && !disabled && !_formGroup'
     }
@@ -110,7 +111,7 @@ export class NumberPickerComponent implements ControlValueAccessor, OnDestroy, O
     private _isDestroyed: boolean = false;
 
     constructor(
-        private _changeDetector: ChangeDetectorRef,
+        private readonly _changeDetector: ChangeDetectorRef,
         @Optional() public _formGroup: FormGroupDirective
     ) {}
 
@@ -192,6 +193,7 @@ export class NumberPickerComponent implements ControlValueAccessor, OnDestroy, O
 
     setDisabledState(isDisabled: boolean): void {
         this.disabled = isDisabled;
+        this._changeDetector.markForCheck();
     }
 
     /** Set the value and emit the change to the output and Angular forms. */

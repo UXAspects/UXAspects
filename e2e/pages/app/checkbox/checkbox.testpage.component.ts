@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
     selector: 'checkbox-app',
     templateUrl: './checkbox.testpage.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CheckboxTestPageComponent {
 

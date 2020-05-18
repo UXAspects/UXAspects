@@ -1,12 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'radiobuttons-my-app',
   templateUrl: './radiobuttons.testpage.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RadioButtonsTestPageComponent {
     selected = 100;
-    
+
     radioOptions = {
         option1: 100,
         option2: 'string',
