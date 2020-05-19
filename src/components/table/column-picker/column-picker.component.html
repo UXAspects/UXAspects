@@ -23,10 +23,10 @@
         <cdk-tree-node *cdkTreeNodeDef="let node"
             [attr.aria-hidden]="selected && selected.indexOf(node.name) > -1">
             <div uxTabbableListItem
-                uxFocusIndicator
                 [uxSelectionItem]="node"
                 *ngIf="_shouldRenderNode(node)"
-                class="column-picker-list-item column-picker-tree-node-level-{{ node.level }}">
+                class="column-picker-list-item"
+                [ngClass]="'column-picker-tree-node-level-' + node.level">
 
                 <ng-container *ngIf="!deselectedTemplate">{{ node.name }}</ng-container>
 
@@ -47,7 +47,6 @@
                 class="column-picker-tree-group-node">
 
                 <button uxTabbableListItem
-                    uxFocusIndicator
                     (click)="_setNodeExpanded(node, !node.isExpanded)"
                     (keydown.arrowright)="_setNodeExpanded(node, true)"
                     (keydown.arrowleft)="_setNodeExpanded(node, false)"
