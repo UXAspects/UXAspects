@@ -23,9 +23,10 @@
         <cdk-tree-node *cdkTreeNodeDef="let node"
             [attr.aria-hidden]="selected && selected.indexOf(node.name) > -1">
             <div uxTabbableListItem
-                 [uxSelectionItem]="node"
-                 *ngIf="_shouldRenderNode(node)"
-                 class="column-picker-list-item column-picker-tree-node-level-{{ node.level }}">
+                uxFocusIndicator
+                [uxSelectionItem]="node"
+                *ngIf="_shouldRenderNode(node)"
+                class="column-picker-list-item column-picker-tree-node-level-{{ node.level }}">
 
                 <ng-container *ngIf="!deselectedTemplate">{{ node.name }}</ng-container>
 
@@ -46,12 +47,13 @@
                 class="column-picker-tree-group-node">
 
                 <button uxTabbableListItem
-                        (click)="_setNodeExpanded(node, !node.isExpanded)"
-                        (keydown.arrowright)="_setNodeExpanded(node, true)"
-                        (keydown.arrowleft)="_setNodeExpanded(node, false)"
-                        [style.visibility]="node.expandable ? 'visible' : 'hidden'"
-                        [attr.aria-label]="deselectedGroupAriaLabel(node.name, node.isExpanded)"
-                        class="column-picker-group-toggle-btn">
+                    uxFocusIndicator
+                    (click)="_setNodeExpanded(node, !node.isExpanded)"
+                    (keydown.arrowright)="_setNodeExpanded(node, true)"
+                    (keydown.arrowleft)="_setNodeExpanded(node, false)"
+                    [style.visibility]="node.expandable ? 'visible' : 'hidden'"
+                    [attr.aria-label]="deselectedGroupAriaLabel(node.name, node.isExpanded)"
+                    class="column-picker-group-toggle-btn">
 
                     <ux-icon [name]="node.isExpanded ? 'chevron-down' : 'chevron-right'"></ux-icon>
 
