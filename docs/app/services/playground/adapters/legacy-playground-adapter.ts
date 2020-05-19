@@ -8,6 +8,19 @@ export function playgroundAdapter(codepen: ICodePen): IPlayground {
     // create a list of files
     const files: { [file: string]: string } = {};
 
+    // add the files
+    files['app.html'] = getHtmlContent(codepen);
+
+    files['app.css'] = getCssContent(codepen);
+
+    if (codepen.js) {
+        files['app.js'] = Array.isArray(codepen.js) ? codepen.js.join('\n\n') : codepen.js;
+    }
+
+    return { framework: 'angularjs', files };
+}
+
+function getHtmlContent(codepen: ICodePen): string {
     let html = codepen.html;
 
     // if there are htmlAttribute specified create a wrapper div
@@ -35,16 +48,13 @@ export function playgroundAdapter(codepen: ICodePen): IPlayground {
         }
     }
 
-    // add the files
-    files['app.html'] = html;
+    return html;
+}
 
-    if (codepen.js) {
-        files['app.js'] = Array.isArray(codepen.js) ? codepen.js.join('\n\n') : codepen.js;
+function getCssContent(codepen: ICodePen): string {
+    if (!codepen.css) {
+        return '\n';
     }
 
-    if (codepen.css) {
-        files['app.css'] = Array.isArray(codepen.css) ? codepen.css.join('\n\n') : codepen.css;
-    }
-
-    return { framework: 'angularjs', files };
+    return Array.isArray(codepen.css) ? codepen.css.join('\n\n') : codepen.css;
 }
