@@ -1,4 +1,5 @@
 import { A11yModule } from '@angular/cdk/a11y';
+import { CdkTreeModule } from '@angular/cdk/tree';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { AccessibilityModule } from '../../directives/accessibility/index';
@@ -12,33 +13,32 @@ import { ResizableTableCellDirective } from './table-column-resize/resizable-tab
 import { ResizableTableColumnComponent } from './table-column-resize/resizable-table-column.component';
 import { ResizableExpandingTableDirective } from './table-column-resize/table-column-resize-expanding/resizable-expanding-table.directive';
 import { ResizableTableDirective } from './table-column-resize/table-column-resize-standard/resizable-table.directive';
-import { CdkTreeModule } from '@angular/cdk/tree';
 
 @NgModule({
     imports: [
         A11yModule,
         AccessibilityModule,
+        CdkTreeModule,
         CommonModule,
         DragModule,
         IconModule,
         ResizeModule,
         ReorderableModule,
         SelectionModule,
-        CdkTreeModule
     ],
     declarations: [
+        ColumnPickerComponent,
         ResizableTableDirective,
         ResizableExpandingTableDirective,
         ResizableTableColumnComponent,
         ResizableTableCellDirective,
-        ColumnPickerComponent,
     ],
     exports: [
+        ColumnPickerComponent,
         ResizableTableDirective,
         ResizableExpandingTableDirective,
         ResizableTableColumnComponent,
         ResizableTableCellDirective,
-        ColumnPickerComponent,
     ]
 })
 export class TableModule { }
