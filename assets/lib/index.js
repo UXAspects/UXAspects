@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('rxjs'), require('@angular/core'), require('@angular/common'), require('@angular/cdk/a11y'), require('@angular/cdk/platform'), require('@angular/cdk/coercion'), require('rxjs/operators'), require('angular-split'), require('@angular/cdk/keycodes'), require('@angular/router'), require('resize-observer-polyfill'), require('@angular/forms'), require('@angular/cdk/observers'), require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('@angular/cdk/scrolling'), require('dragula/dist/dragula'), require('@angular/animations'), require('@angular/common/http'), require('d3'), require('@angular/cdk/text-field')) :
-        typeof define === 'function' && define.amd ? define('@ux-aspects/ux-aspects', ['exports', 'rxjs', '@angular/core', '@angular/common', '@angular/cdk/a11y', '@angular/cdk/platform', '@angular/cdk/coercion', 'rxjs/operators', 'angular-split', '@angular/cdk/keycodes', '@angular/router', 'resize-observer-polyfill', '@angular/forms', '@angular/cdk/observers', '@angular/cdk/overlay', '@angular/cdk/portal', '@angular/cdk/scrolling', 'dragula/dist/dragula', '@angular/animations', '@angular/common/http', 'd3', '@angular/cdk/text-field'], factory) :
-            (global = global || self, factory((global['ux-aspects'] = global['ux-aspects'] || {}, global['ux-aspects']['ux-aspects'] = {}), global.rxjs, global.ng.core, global.ng.common, global.ng.cdk.a11y, global.ng.cdk.platform, global.ng.cdk.coercion, global.rxjs.operators, global.angularSplit, global.ng.cdk.keycodes, global.ng.router, global.ResizeObserver, global.ng.forms, global.ng.cdk.observers, global.ng.cdk.overlay, global.ng.cdk.portal, global.ng.cdk.scrolling, global.dragulaNamespace, global.ng.animations, global.ng.common.http, global.d3, global.ng.cdk['text-field']));
-}(this, (function (exports, rxjs, core, common, a11y, platform, coercion, operators, angularSplit, keycodes, router, ResizeObserver, forms, observers, overlay, portal, scrolling, dragulaNamespace, animations, http, d3, textField) {
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('rxjs'), require('@angular/core'), require('@angular/common'), require('@angular/cdk/a11y'), require('@angular/cdk/platform'), require('@angular/cdk/coercion'), require('rxjs/operators'), require('angular-split'), require('@angular/cdk/keycodes'), require('@angular/router'), require('resize-observer-polyfill'), require('@angular/forms'), require('@angular/cdk/observers'), require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('@angular/cdk/scrolling'), require('dragula/dist/dragula'), require('@angular/animations'), require('@angular/common/http'), require('d3'), require('@angular/cdk/collections'), require('@angular/cdk/tree'), require('@angular/cdk/text-field')) :
+        typeof define === 'function' && define.amd ? define('@ux-aspects/ux-aspects', ['exports', 'rxjs', '@angular/core', '@angular/common', '@angular/cdk/a11y', '@angular/cdk/platform', '@angular/cdk/coercion', 'rxjs/operators', 'angular-split', '@angular/cdk/keycodes', '@angular/router', 'resize-observer-polyfill', '@angular/forms', '@angular/cdk/observers', '@angular/cdk/overlay', '@angular/cdk/portal', '@angular/cdk/scrolling', 'dragula/dist/dragula', '@angular/animations', '@angular/common/http', 'd3', '@angular/cdk/collections', '@angular/cdk/tree', '@angular/cdk/text-field'], factory) :
+            (global = global || self, factory((global['ux-aspects'] = global['ux-aspects'] || {}, global['ux-aspects']['ux-aspects'] = {}), global.rxjs, global.ng.core, global.ng.common, global.ng.cdk.a11y, global.ng.cdk.platform, global.ng.cdk.coercion, global.rxjs.operators, global.angularSplit, global.ng.cdk.keycodes, global.ng.router, global.ResizeObserver, global.ng.forms, global.ng.cdk.observers, global.ng.cdk.overlay, global.ng.cdk.portal, global.ng.cdk.scrolling, global.dragulaNamespace, global.ng.animations, global.ng.common.http, global.d3, global.ng.cdk.collections, global.ng.cdk.tree, global.ng.cdk['text-field']));
+}(this, (function (exports, rxjs, core, common, a11y, platform, coercion, operators, angularSplit, keycodes, router, ResizeObserver, forms, observers, overlay, portal, scrolling, dragulaNamespace, animations, http, d3, collections, tree, textField) {
     'use strict';
     ResizeObserver = ResizeObserver && Object.prototype.hasOwnProperty.call(ResizeObserver, 'default') ? ResizeObserver['default'] : ResizeObserver;
     /*! *****************************************************************************
@@ -21780,6 +21780,7 @@
         function TabsetService() {
             /** Store the list of tabs */
             this.tabs = [];
+            this.activeTab$ = new rxjs.BehaviorSubject(null);
             /** Store the manual state */
             this.manual = false;
         }
@@ -21787,16 +21788,29 @@
         TabsetService.prototype.update = function (tabs) {
             this.tabs = __spread(tabs);
         };
-        /** Programmatically select a tab */
+        /** Select a tab (from user input) */
         TabsetService.prototype.select = function (tab) {
+            if (tab.disabled) {
+                return;
+            }
+            if (this.manual) {
+                // In manual mode, emit the activated/deactivated events.
+                // The application is responsible for updating the active state on each tab, which will then update the UI.
+                this.tabs.forEach(function (_tab) { return _tab === tab ? _tab.activate() : _tab.deactivate(); });
+            }
+            else {
+                this.activeTab$.next(tab);
+            }
+        };
+        /** Set tab active state */
+        TabsetService.prototype.setTabActive = function (tab) {
             if (!tab.disabled) {
-                // update the active state of each tab accordingly
-                this.tabs.forEach(function (_tab) { return _tab === tab ? _tab.selectTab() : _tab.deselectTab(); });
+                this.activeTab$.next(tab);
             }
         };
         /** Determine if there is a selected tab */
         TabsetService.prototype.isTabActive = function () {
-            return !!this.tabs.find(function (tab) { return tab.active; });
+            return this.activeTab$.getValue() !== null;
         };
         /** Select the first non-disabled tab */
         TabsetService.prototype.selectFirstTab = function () {
@@ -21818,41 +21832,62 @@
             this._changeDetector = _changeDetector;
             /** Define the tab unique id */
             this.id = "ux-tab-" + ++uniqueTabId;
-            /** Define the active state of this tab */
-            this.active = false;
             /** Define if this tab is disabled */
             this.disabled = false;
+            /** Emits when the active state changes. */
+            this.activeChange = new core.EventEmitter();
             /** Emit when this tab is selected */
             this.activated = new core.EventEmitter();
             /** Emit when this tab is deselected */
             this.deactivated = new core.EventEmitter();
+            // Active state of the tab, for use in the template
+            this._active = false;
             /** Unsubscribe from all subscriptions when component is destroyed */
             this._onDestroy = new rxjs.Subject();
         }
+        Object.defineProperty(TabComponent.prototype, "active", {
+            /** Define the active state of this tab */
+            set: function (active) {
+                if (active) {
+                    this._tabset.setTabActive(this);
+                }
+            },
+            enumerable: true,
+            configurable: true
+        });
+        TabComponent.prototype.ngOnInit = function () {
+            var _this = this;
+            this._tabset.activeTab$.pipe(tick(), operators.distinctUntilChanged(), operators.takeUntil(this._onDestroy)).subscribe(function (activeTab) {
+                var isActive = (activeTab === _this);
+                if (_this._active !== isActive) {
+                    _this.setActive(isActive);
+                }
+            });
+        };
         TabComponent.prototype.ngOnDestroy = function () {
             this._onDestroy.next();
             this._onDestroy.complete();
         };
-        TabComponent.prototype.selectTab = function () {
-            // if this tab is currently active do nothing
-            if (this.active && !this._tabset.manual) {
-                return;
-            }
-            if (!this._tabset.manual) {
-                this.active = true;
-            }
+        TabComponent.prototype.activate = function () {
             this.activated.emit();
-            this._changeDetector.detectChanges();
         };
-        TabComponent.prototype.deselectTab = function () {
-            // if this tab is not currently active do nothing
-            if (!this.active && !this._tabset.manual) {
-                return;
-            }
-            if (!this._tabset.manual) {
-                this.active = false;
-            }
+        TabComponent.prototype.deactivate = function () {
             this.deactivated.emit();
+        };
+        /**
+         * Update the internal active state and emit appropriate events.
+         */
+        TabComponent.prototype.setActive = function (active) {
+            this._active = active;
+            this.activeChange.emit(active);
+            if (!this._tabset.manual) {
+                if (active) {
+                    this.activate();
+                }
+                else {
+                    this.deactivate();
+                }
+            }
             this._changeDetector.detectChanges();
         };
         __decorate([
@@ -21861,8 +21896,9 @@
         ], TabComponent.prototype, "id", void 0);
         __decorate([
             core.Input(),
-            __metadata("design:type", Boolean)
-        ], TabComponent.prototype, "active", void 0);
+            __metadata("design:type", Boolean),
+            __metadata("design:paramtypes", [Boolean])
+        ], TabComponent.prototype, "active", null);
         __decorate([
             core.Input(),
             __metadata("design:type", Boolean)
@@ -21878,6 +21914,10 @@
         __decorate([
             core.Output(),
             __metadata("design:type", Object)
+        ], TabComponent.prototype, "activeChange", void 0);
+        __decorate([
+            core.Output(),
+            __metadata("design:type", Object)
         ], TabComponent.prototype, "activated", void 0);
         __decorate([
             core.Output(),
@@ -21890,7 +21930,7 @@
         TabComponent = __decorate([
             core.Component({
                 selector: 'ux-tab',
-                template: "<div role=\"tabpanel\"\n     class=\"tab-pane\"\n     [style.display]=\"active ? 'block' : 'none'\"\n     [id]=\"id + '-panel'\"\n     [attr.aria-labelledby]=\"id\"\n     [attr.aria-hidden]=\"!active\">\n  <ng-content></ng-content>\n</div>",
+                template: "<div\n    role=\"tabpanel\"\n    class=\"tab-pane\"\n    [style.display]=\"_active ? 'block' : 'none'\"\n    [id]=\"id + '-panel'\"\n    [attr.aria-labelledby]=\"id\"\n    [attr.aria-hidden]=\"!_active\"\n>\n    <ng-content></ng-content>\n</div>\n",
                 changeDetection: core.ChangeDetectionStrategy.OnPush
             }),
             __metadata("design:paramtypes", [TabsetService,
@@ -21969,7 +22009,7 @@
         TabsetComponent = __decorate([
             core.Component({
                 selector: 'ux-tabset',
-                template: "<!-- Nav tabs -->\n<ul role=\"tablist\"\n    uxTabbableList\n    [direction]=\"stacked === 'none' ? 'horizontal' : 'vertical'\"\n    [allowBoundaryKeys]=\"true\"\n    class=\"nav nav-tabs\"\n    [class.minimal-tab]=\"minimal\"\n    [attr.aria-label]=\"ariaLabel\"\n    [attr.aria-orientation]=\"stacked === 'none' ? 'horizontal' : 'vertical'\">\n\n\t<li role=\"presentation\"\n        class=\"nav-item\"\n        *ngFor=\"let tab of _tabset.tabs; let index = index\"\n        [class.active]=\"tab.active\"\n        [class.disabled]=\"tab.disabled\"\n        [ngClass]=\"tab.customClass\">\n\n        <a class=\"nav-link\"\n            [id]=\"tab.id\"\n            role=\"tab\"\n            uxTabbableListItem\n            uxFocusIndicator\n            (mousedown)=\"_tabset.select(tab)\"\n            (activated)=\"_tabset.select(tab)\"\n            [attr.aria-controls]=\"tab.id\"\n            [attr.aria-selected]=\"tab.active\"\n            [attr.aria-disabled]=\"tab.disabled\">\n\n            <span *ngIf=\"!tab.headingRef\">{{ tab.heading }}</span>\n\n            <ng-container *ngIf=\"tab.headingRef\" [ngTemplateOutlet]=\"tab.headingRef\"></ng-container>\n        </a>\n\n\t</li>\n\n</ul>\n\n<!-- Tab panes -->\n<div class=\"tab-content\">\n\t<ng-content></ng-content>\n</div>",
+                template: "<!-- Nav tabs -->\n<ul role=\"tablist\"\n    uxTabbableList\n    [direction]=\"stacked === 'none' ? 'horizontal' : 'vertical'\"\n    [allowBoundaryKeys]=\"true\"\n    class=\"nav nav-tabs\"\n    [class.minimal-tab]=\"minimal\"\n    [attr.aria-label]=\"ariaLabel\"\n    [attr.aria-orientation]=\"stacked === 'none' ? 'horizontal' : 'vertical'\">\n\n    <li role=\"presentation\"\n        class=\"nav-item\"\n        *ngFor=\"let tab of _tabset.tabs; let index = index\"\n        [class.active]=\"(_tabset.activeTab$ | async) === tab\"\n        [class.disabled]=\"tab.disabled\"\n        [ngClass]=\"tab.customClass\">\n\n        <a class=\"nav-link\"\n            [id]=\"tab.id\"\n            role=\"tab\"\n            uxTabbableListItem\n            uxFocusIndicator\n            (mousedown)=\"_tabset.select(tab)\"\n            (activated)=\"_tabset.select(tab)\"\n            [attr.aria-controls]=\"tab.id\"\n            [attr.aria-selected]=\"(_tabset.activeTab$ | async) === tab\"\n            [attr.aria-disabled]=\"tab.disabled\">\n\n            <span *ngIf=\"!tab.headingRef\">{{ tab.heading }}</span>\n\n            <ng-container *ngIf=\"tab.headingRef\" [ngTemplateOutlet]=\"tab.headingRef\"></ng-container>\n        </a>\n\n    </li>\n\n</ul>\n\n<!-- Tab panes -->\n<div class=\"tab-content\">\n    <ng-content></ng-content>\n</div>\n",
                 changeDetection: core.ChangeDetectionStrategy.OnPush,
                 providers: [TabsetService],
                 host: {
@@ -28916,64 +28956,151 @@
         _changeDetectorRef) {
             this._liveAnnouncer = _liveAnnouncer;
             this._changeDetectorRef = _changeDetectorRef;
-            /** Define a list of all selected columns */
+            /** Define a list of all selected columns. */
             this.selected = [];
-            /** Define a list of columns that must be selected */
+            /** Define a list of columns that are always selected. The columns cannot be moved or reordered. */
             this.locked = [];
-            /** Define a list of columns that are not selected or locked */
+            /** Define a list of columns that are not selected or locked. All columns must have unique names, including columns in different groups. */
             this.deselected = [];
-            /** Define a function to get the aria label of reorderable items */
-            this.selectedAriaLabel = this.getSelectedAriaLabel;
-            /** Define a function that return a column move announcement */
+            /** Define a function to get the aria label of reorderable items in the selected column. */
+            this.selectedAriaLabel = this.getDefaultSelectedAriaLabel;
+            /** Define a function to get the aria label of a group in the deselected list. */
+            this.deselectedGroupAriaLabel = this.getDefaultDeselectedGroupAriaLabel;
+            /** Define a function that returns a column move announcement. */
             this.columnMovedAnnouncement = this.getColumnMovedAnnouncement;
-            /** Emits when the selected items change */
+            /** Define settings for the grouped deselected items. */
+            this.groups = [];
+            /** Emits when the selected items change or the order of the selected items change. */
             this.selectedChange = new core.EventEmitter();
-            /** Emits when the deselected items change */
+            /** Emits when the deselected items change. */
             this.deselectedChange = new core.EventEmitter();
-            /** Store the list of deselected columns that can be moved */
+            /** The Nested tree control used for the deselect tree */
+            this._treeControl = new tree.FlatTreeControl(function (node) { return node.level; }, function (node) { return node.expandable; });
+            /** The remaining selectable columns in the deselected list */
+            this._availableDeselectedColumns = 0;
+            /** An array of items that are currently selected in the left column. */
             this._deselectedSelection = [];
-            /** Store the list of selected columns that can be moved */
+            /** An array of items that are currently selected in the right column. */
             this._selectedSelection = [];
             /** Cache selection during reordering */
             this._selection = [];
         }
-        /** Select the currently selected columns */
+        ColumnPickerComponent.prototype.ngOnChanges = function (changes) {
+            // recreate tree when deselected changes
+            if (changes.deselected && changes.deselected.currentValue !== changes.deselected.previousValue) {
+                this.rebuildDeselectTree();
+            }
+        };
+        /** Parse data into suitable format for the FlatTreeComponent to understand and initialize deselect tree */
+        ColumnPickerComponent.prototype.rebuildDeselectTree = function () {
+            var _this = this;
+            var treeData = [];
+            var allColumns = __spread(this.deselected, this.selected);
+            var groupedColumns = allColumns.filter(function (column) { return _this.isColumnPickerItem(column) && column.group !== null; });
+            var ungroupedColumns = allColumns.filter(function (column) { return groupedColumns.indexOf(column) === -1; });
+            // sort into alphabetical order, by group and name
+            groupedColumns.sort(function (a, b) {
+                // sort by group first
+                if (a.group > b.group) {
+                    return -1;
+                }
+                if (a.group < b.group) {
+                    return 1;
+                }
+                // sort by name after
+                return a.name > b.name ? 1 : -1;
+            });
+            // sort into alphabetical order, by name
+            ungroupedColumns.sort(function (a, b) {
+                return _this.getColumnName(a) > _this.getColumnName(b) ? 1 : -1;
+            });
+            var currentGroup = null;
+            var children = [];
+            // create grouped columns and their parent nodes
+            groupedColumns.forEach(function (column) {
+                // if new group create parent node
+                if (!currentGroup || column.group !== currentGroup) {
+                    // set children for current group
+                    if (currentGroup != null) {
+                        treeData.find(function (node) { return node.name === currentGroup; }).children = children;
+                        children = [];
+                    }
+                    currentGroup = column.group;
+                    // check if settings present for the current group
+                    var groups = _this.groups.find(function (setting) { return setting.name === column.group; });
+                    var isExpanded = groups && groups.expanded || false;
+                    treeData.push({
+                        name: column.group,
+                        level: 0,
+                        expandable: true,
+                        isExpanded: isExpanded,
+                    });
+                }
+                treeData.push({
+                    name: column.name,
+                    level: 1,
+                    expandable: false
+                });
+                children.push(column.name);
+                // set children for current group when last column
+                if (currentGroup && groupedColumns.indexOf(column) === groupedColumns.length - 1) {
+                    treeData.find(function (node) { return node.name === currentGroup; }).children = children;
+                    children = [];
+                }
+            });
+            // create ungrouped items
+            ungroupedColumns.forEach(function (column) {
+                treeData.push({
+                    name: _this.getColumnName(column),
+                    level: 0,
+                    expandable: false
+                });
+            });
+            this._treeData = treeData;
+            this._treeDataSource = new collections.ArrayDataSource(treeData);
+            // set initial count for deselected values
+            this.updateAvailableDeselectedColumns();
+        };
+        /** A function that can be called to add columns. If no columns are passed to the function, the items that are selected in the left column will be added. */
         ColumnPickerComponent.prototype.addColumns = function (columns) {
             var _this = this;
             if (columns === void 0) {
                 columns = this._deselectedSelection;
             }
+            columns = columns.filter(function (column) { return _this.selected.indexOf(_this.getColumnName(column)) === -1; });
             // add each item to the selected columns list
-            columns.forEach(function (column) { return _this.selected = __spread(_this.selected, [column]); });
-            // remove each item from the deselected columns list
-            this.deselected = this.deselected.filter(function (column) { return columns.indexOf(column) === -1; });
+            columns.forEach(function (column) { return _this.selected = __spread(_this.selected, [_this.getColumnName(column)]); });
             // emit the selection changes
             this.selectedChange.emit(this.selected);
             this.deselectedChange.emit(this.deselected);
+            // store the available deselected items
+            this.updateAvailableDeselectedColumns();
             // clear the current selection
             this._deselectedSelection = [];
         };
-        /** Deselect the currently selected columns */
+        /** A function that can be called to remove columns. If no columns are passed to the function, the items that are selected in the right column will be removed. */
         ColumnPickerComponent.prototype.removeColumns = function (columns) {
             var _this = this;
             if (columns === void 0) {
                 columns = this._selectedSelection;
             }
-            // add each item to the deselected columns list
-            columns.forEach(function (column) { return _this.deselected = __spread(_this.deselected, [column]); });
             // remove each item from the selected columns list
             this.selected = this.selected.filter(function (column) { return columns.indexOf(column) === -1; });
+            // add columns to deselected if not already there
+            this.deselected = __spread(this.deselected, columns.filter(function (column) { return !_this.deselected.find(function (_column) { return _this.getColumnName(_column) === column; }) && _this.deselected.indexOf(column) === -1; }));
             // emit the selection changes
             this.selectedChange.emit(this.selected);
             this.deselectedChange.emit(this.deselected);
+            // store the available deselected items
+            this.updateAvailableDeselectedColumns();
             // clear the current selection
             this._selectedSelection = [];
         };
-        /** Select all deselected columns */
+        /** A function that can be called to add all columns. */
         ColumnPickerComponent.prototype.addAllColumns = function () {
             this.addColumns(this.deselected);
         };
-        /** Deselect all selected columns */
+        /** A function that can be called to remove all columns. */
         ColumnPickerComponent.prototype.removeAllColumns = function () {
             this.removeColumns(this.selected);
         };
@@ -28985,12 +29112,16 @@
         ColumnPickerComponent.prototype.restoreSelection = function () {
             this._selectedSelection = this._selection;
         };
-        /** Update when reordering has occured */
+        /** Update when reordering has occurred */
         ColumnPickerComponent.prototype.onReorder = function () {
             this.selectedChange.emit(this.selected);
         };
+        /** Get an aria label for deselected list groups */
+        ColumnPickerComponent.prototype.getDefaultDeselectedGroupAriaLabel = function (column, isExpanded) {
+            return "Toggle " + column;
+        };
         /** Get an aria label for reorderable items */
-        ColumnPickerComponent.prototype.getSelectedAriaLabel = function (column) {
+        ColumnPickerComponent.prototype.getDefaultSelectedAriaLabel = function (column, index) {
             return column + ". Press Alt up and alt down to reorder.";
         };
         /** Get the announcement to read when a selected column is moved */
@@ -29039,6 +29170,45 @@
             // update the original array
             this.selected = __spread(selected);
         };
+        /** Check if column value or string */
+        ColumnPickerComponent.prototype.isColumnPickerItem = function (column) {
+            return typeof column === 'object';
+        };
+        /** Get the column name based on type */
+        ColumnPickerComponent.prototype.getColumnName = function (item) {
+            return this.isColumnPickerItem(item) ? item.name : item;
+        };
+        /** Check if tree group has visible children */
+        ColumnPickerComponent.prototype._nodeHasChildren = function (_, node) {
+            return node.expandable;
+        };
+        ColumnPickerComponent.prototype._nodeHasAvailableChildren = function (node) {
+            var _this = this;
+            return node.children.filter(function (column) { return _this.selected.indexOf(column) === -1; }).length > 0;
+        };
+        /** Check to see if current item should display in deselect tree */
+        ColumnPickerComponent.prototype._shouldRenderNode = function (node) {
+            var _this = this;
+            var parent = this.getTreeParent(node);
+            return (!parent || parent.isExpanded) && !this.selected.find(function (column) { return _this.getColumnName(column) === node.name; });
+        };
+        /** Work backwards from the index of the current node to find the parent node  */
+        ColumnPickerComponent.prototype.getTreeParent = function (node) {
+            var nodeIndex = this._treeData.indexOf(node);
+            if (node.level > 0) {
+                for (var i = nodeIndex - 1; i >= 0; i--) {
+                    if (this._treeData[i].level === 0) {
+                        return this._treeData[i];
+                    }
+                }
+            }
+            return null;
+        };
+        /** Store the current count of nodes that are available for selection from the deselected list */
+        ColumnPickerComponent.prototype.updateAvailableDeselectedColumns = function () {
+            var _this = this;
+            this._availableDeselectedColumns = this._treeData.filter(function (node) { return !node.expandable && _this.selected.indexOf(node.name) === -1; }).length;
+        };
         /** Update the order of the items when reordering has changed */
         ColumnPickerComponent.prototype.onReorderChange = function (model) {
             this.selected = __spread(model);
@@ -29053,6 +29223,15 @@
                 addAllColumns: this.addAllColumns.bind(this),
                 removeAllColumns: this.removeAllColumns.bind(this)
             };
+        };
+        /** Change the expanded state of a node */
+        ColumnPickerComponent.prototype._setNodeExpanded = function (node, isExpanded) {
+            var _this = this;
+            node.isExpanded = isExpanded;
+            // the first change detection cycle will hide the elements but we need to trigger
+            // a second change detection cycle on the next tick to ensure the ContentChildren
+            // QueryList gets updated in the uxTabbableList directive
+            requestAnimationFrame(function () { return _this._changeDetectorRef.detectChanges(); });
         };
         __decorate([
             core.Input(),
@@ -29097,7 +29276,15 @@
         __decorate([
             core.Input(),
             __metadata("design:type", Function)
+        ], ColumnPickerComponent.prototype, "deselectedGroupAriaLabel", void 0);
+        __decorate([
+            core.Input(),
+            __metadata("design:type", Function)
         ], ColumnPickerComponent.prototype, "columnMovedAnnouncement", void 0);
+        __decorate([
+            core.Input(),
+            __metadata("design:type", Array)
+        ], ColumnPickerComponent.prototype, "groups", void 0);
         __decorate([
             core.Output(),
             __metadata("design:type", Object)
@@ -29113,7 +29300,7 @@
         ColumnPickerComponent = __decorate([
             core.Component({
                 selector: 'ux-column-picker',
-                template: "<div class=\"column-picker-column\">\n\n    <div class=\"column-picker-stats\">\n\n        <ng-container *ngIf=\"!deselectedTitleTemplate\">\n            {{ _deselectedSelection.length }} of {{ deselected.length }} selected\n        </ng-container>\n\n        <ng-container\n            *ngIf=\"deselectedTitleTemplate\"\n            [ngTemplateOutlet]=\"deselectedTitleTemplate\">\n        </ng-container>\n    </div>\n\n    <div class=\"column-picker-list\" [(uxSelection)]=\"_deselectedSelection\">\n\n        <div *ngFor=\"let column of deselected\"\n             class=\"column-picker-list-item\"\n             [uxSelectionItem]=\"column\">\n\n            <ng-container *ngIf=\"!deselectedTemplate\">{{ column }}</ng-container>\n\n            <ng-container\n                *ngIf=\"deselectedTemplate\"\n                [ngTemplateOutlet]=\"deselectedTemplate\"\n                [ngTemplateOutletContext]=\"{ $implicit: column }\">\n            </ng-container>\n        </div>\n    </div>\n</div>\n\n<div class=\"column-picker-actions-column\">\n    <!-- Show the default action buttons -->\n    <ng-container *ngIf=\"!actionsTemplate\">\n        <button class=\"btn button-primary btn-block\" [disabled]=\"_deselectedSelection.length === 0\" (click)=\"addColumns()\">\n            <ux-icon name=\"chevron-right\"></ux-icon>\n        </button>\n\n        <button class=\"btn button-primary btn-block m-b-md\" [disabled]=\"_selectedSelection.length === 0\" (click)=\"removeColumns()\">\n            <ux-icon name=\"chevron-left\"></ux-icon>\n        </button>\n\n        <button class=\"btn button-secondary btn-block\" [disabled]=\"deselected.length === 0\" (click)=\"addAllColumns()\">\n            <ux-icon name=\"chevron-right-double\"></ux-icon>\n        </button>\n\n        <button class=\"btn button-secondary btn-block\" [disabled]=\"selected.length === 0\" (click)=\"removeAllColumns()\">\n            <ux-icon name=\"chevron-left-double\"></ux-icon>\n        </button>\n    </ng-container>\n\n    <!-- Allow custom actions template -->\n    <ng-container\n        *ngIf=\"actionsTemplate\"\n        [ngTemplateOutlet]=\"actionsTemplate\"\n        [ngTemplateOutletContext]=\"_getActionContext()\">\n    </ng-container>\n\n</div>\n\n<div class=\"column-picker-column\">\n    <div class=\"column-picker-stats\">\n\n        <ng-container *ngIf=\"!selectedTitleTemplate\">\n            {{ selected.length + locked.length }} columns added\n        </ng-container>\n\n        <ng-container\n            *ngIf=\"selectedTitleTemplate\"\n            [ngTemplateOutlet]=\"selectedTitleTemplate\">\n        </ng-container>\n    </div>\n\n    <div class=\"column-picker-list\">\n\n        <div *ngFor=\"let column of locked\"\n             class=\"column-picker-list-item column-picker-list-item-locked\">\n\n             <ng-container *ngIf=\"!lockedTemplate\">\n                {{ column }} <ux-icon name=\"lock\"></ux-icon>\n            </ng-container>\n\n             <ng-container\n                *ngIf=\"lockedTemplate\"\n                [ngTemplateOutlet]=\"lockedTemplate\"\n                [ngTemplateOutletContext]=\"{ $implicit: column }\">\n            </ng-container>\n        </div>\n\n        <div [(uxSelection)]=\"_selectedSelection\" uxReorderable [reorderableModel]=\"selected\" (reorderableModelChange)=\"onReorderChange($event)\" (reorderStart)=\"storeSelection()\"\n            (reorderEnd)=\"restoreSelection()\" (reorderEnd)=\"onReorder()\">\n\n            <div *ngFor=\"let column of selected; trackBy: selectedTrackBy; let index = index\"\n                 #selectedColumn\n                 uxFocusIndicator\n                 [programmaticFocusIndicator]=\"true\"\n                 class=\"column-picker-list-item column-picker-list-item-selected\"\n                 [uxSelectionItem]=\"column\"\n                 [uxReorderableModel]=\"column\"\n                 [attr.aria-label]=\"getSelectedAriaLabel(column)\"\n                 (keydown.alt.arrowup)=\"move(column, -1)\"\n                 (keydown.alt.arrowdown)=\"move(column, 1)\">\n\n                 <ng-container *ngIf=\"!selectedTemplate\">\n                    <ux-icon uxReorderableHandle name=\"drag\" class=\"drag-handle-icon\"></ux-icon>\n                    {{ column }}\n                 </ng-container>\n\n                 <ng-container\n                    *ngIf=\"selectedTemplate\"\n                    [ngTemplateOutlet]=\"selectedTemplate\"\n                    [ngTemplateOutletContext]=\"{ $implicit: column }\">\n                </ng-container>\n            </div>\n        </div>\n\n    </div>\n</div>",
+                template: "<div class=\"column-picker-column\">\n\n    <div class=\"column-picker-stats\">\n\n        <ng-container *ngIf=\"!deselectedTitleTemplate\">\n            {{ _deselectedSelection.length }} of {{ _availableDeselectedColumns }} selected\n        </ng-container>\n\n        <ng-container\n            *ngIf=\"deselectedTitleTemplate\"\n            [ngTemplateOutlet]=\"deselectedTitleTemplate\">\n        </ng-container>\n    </div>\n\n    <cdk-tree class=\"column-picker-list\"\n        [dataSource]=\"_treeDataSource\"\n        [treeControl]=\"_treeControl\"\n        [(uxSelection)]=\"_deselectedSelection\"\n        tabindex=\"-1\"\n        uxTabbableList>\n\n        <!-- Create item for not expandable node -->\n        <cdk-tree-node *cdkTreeNodeDef=\"let node\"\n            [attr.aria-hidden]=\"selected && selected.indexOf(node.name) > -1\">\n            <div uxTabbableListItem\n                [uxSelectionItem]=\"node\"\n                *ngIf=\"_shouldRenderNode(node)\"\n                class=\"column-picker-list-item\"\n                [ngClass]=\"'column-picker-tree-node-level-' + node.level\">\n\n                <ng-container *ngIf=\"!deselectedTemplate\">{{ node.name }}</ng-container>\n\n                <ng-container\n                    *ngIf=\"deselectedTemplate\"\n                    [ngTemplateOutlet]=\"deselectedTemplate\"\n                    [ngTemplateOutletContext]=\"{ $implicit: node.name }\">\n                </ng-container>\n            </div>\n\n        </cdk-tree-node>\n\n        <!-- Create item for expandable node -->\n        <cdk-tree-node *cdkTreeNodeDef=\"let node; when: _nodeHasChildren\"\n            [attr.aria-expanded]=\"node.isExpanded\">\n\n            <div *ngIf=\"_nodeHasAvailableChildren(node)\"\n                class=\"column-picker-tree-group-node\">\n\n                <button uxTabbableListItem\n                    (click)=\"_setNodeExpanded(node, !node.isExpanded)\"\n                    (keydown.arrowright)=\"_setNodeExpanded(node, true)\"\n                    (keydown.arrowleft)=\"_setNodeExpanded(node, false)\"\n                    [style.visibility]=\"node.expandable ? 'visible' : 'hidden'\"\n                    [attr.aria-label]=\"deselectedGroupAriaLabel(node.name, node.isExpanded)\"\n                    class=\"column-picker-group-toggle-btn\">\n\n                    <ux-icon [name]=\"node.isExpanded ? 'chevron-down' : 'chevron-right'\"></ux-icon>\n\n                    <ng-container *ngIf=\"!deselectedTemplate\">{{ node.name }}</ng-container>\n\n                    <ng-container\n                        *ngIf=\"deselectedTemplate\"\n                        [ngTemplateOutlet]=\"deselectedTemplate\"\n                        [ngTemplateOutletContext]=\"{ $implicit: node.name }\">\n                    </ng-container>\n                </button>\n\n            </div>\n        </cdk-tree-node>\n    </cdk-tree>\n</div>\n\n<div class=\"column-picker-actions-column\">\n    <!-- Show the default action buttons -->\n    <ng-container *ngIf=\"!actionsTemplate\">\n        <button class=\"btn button-primary btn-block\"\n                [disabled]=\"_deselectedSelection.length === 0\"\n                (click)=\"addColumns()\">\n            <ux-icon name=\"chevron-right\"></ux-icon>\n        </button>\n\n        <button class=\"btn button-primary btn-block m-b-md\"\n                [disabled]=\"_selectedSelection.length === 0\"\n                (click)=\"removeColumns()\">\n            <ux-icon name=\"chevron-left\"></ux-icon>\n        </button>\n\n        <button class=\"btn button-secondary btn-block\"\n                [disabled]=\"_availableDeselectedColumns === 0\"\n                (click)=\"addAllColumns()\">\n            <ux-icon name=\"chevron-right-double\"></ux-icon>\n        </button>\n\n        <button class=\"btn button-secondary btn-block\"\n                [disabled]=\"selected.length === 0\"\n                (click)=\"removeAllColumns()\">\n            <ux-icon name=\"chevron-left-double\"></ux-icon>\n        </button>\n    </ng-container>\n\n    <!-- Allow custom actions template -->\n    <ng-container\n        *ngIf=\"actionsTemplate\"\n        [ngTemplateOutlet]=\"actionsTemplate\"\n        [ngTemplateOutletContext]=\"_getActionContext()\">\n    </ng-container>\n\n</div>\n\n<div class=\"column-picker-column\">\n    <div class=\"column-picker-stats\">\n\n        <ng-container *ngIf=\"!selectedTitleTemplate\">\n            {{ selected.length + locked.length }} columns added\n        </ng-container>\n\n        <ng-container\n            *ngIf=\"selectedTitleTemplate\"\n            [ngTemplateOutlet]=\"selectedTitleTemplate\">\n        </ng-container>\n    </div>\n\n    <div class=\"column-picker-list\">\n\n        <div *ngFor=\"let column of locked\"\n             class=\"column-picker-list-item column-picker-list-item-locked\">\n\n             <ng-container *ngIf=\"!lockedTemplate\">\n                {{ column }} <ux-icon name=\"lock\"></ux-icon>\n            </ng-container>\n\n             <ng-container\n                *ngIf=\"lockedTemplate\"\n                [ngTemplateOutlet]=\"lockedTemplate\"\n                [ngTemplateOutletContext]=\"{ $implicit: column }\">\n            </ng-container>\n        </div>\n\n        <div [(uxSelection)]=\"_selectedSelection\"\n             uxReorderable\n             [reorderableModel]=\"selected\"\n             (reorderableModelChange)=\"onReorderChange($event)\"\n             (reorderStart)=\"storeSelection()\"\n             (reorderEnd)=\"restoreSelection()\"\n             (reorderEnd)=\"onReorder()\">\n\n            <div *ngFor=\"let column of selected; trackBy: selectedTrackBy; let index = index\"\n                 #selectedColumn\n                 uxFocusIndicator\n                 [programmaticFocusIndicator]=\"true\"\n                 class=\"column-picker-list-item column-picker-list-item-selected\"\n                 [uxSelectionItem]=\"column\"\n                 [uxReorderableModel]=\"column\"\n                 [attr.aria-label]=\"selectedAriaLabel(column, selected.indexOf(column))\"\n                 (keydown.alt.arrowup)=\"move(column, -1)\"\n                 (keydown.alt.arrowdown)=\"move(column, 1)\">\n\n                 <ng-container *ngIf=\"!selectedTemplate\">\n                    <ux-icon uxReorderableHandle name=\"drag\" class=\"drag-handle-icon\"></ux-icon>\n                    {{ column }}\n                 </ng-container>\n\n                 <ng-container\n                    *ngIf=\"selectedTemplate\"\n                    [ngTemplateOutlet]=\"selectedTemplate\"\n                    [ngTemplateOutletContext]=\"{ $implicit: column }\">\n                </ng-container>\n            </div>\n        </div>\n\n    </div>\n</div>\n",
                 changeDetection: core.ChangeDetectionStrategy.OnPush
             }),
             __metadata("design:paramtypes", [a11y.LiveAnnouncer,
@@ -29962,26 +30149,27 @@
                 imports: [
                     a11y.A11yModule,
                     AccessibilityModule,
+                    tree.CdkTreeModule,
                     common.CommonModule,
                     DragModule,
                     IconModule,
                     ResizeModule,
                     ReorderableModule,
-                    SelectionModule
+                    SelectionModule,
                 ],
                 declarations: [
+                    ColumnPickerComponent,
                     ResizableTableDirective,
                     ResizableExpandingTableDirective,
                     ResizableTableColumnComponent,
                     ResizableTableCellDirective,
-                    ColumnPickerComponent,
                 ],
                 exports: [
+                    ColumnPickerComponent,
                     ResizableTableDirective,
                     ResizableExpandingTableDirective,
                     ResizableTableColumnComponent,
                     ResizableTableCellDirective,
-                    ColumnPickerComponent,
                 ]
             })
         ], TableModule);
@@ -31244,6 +31432,242 @@
             })
         ], AutoGrowModule);
         return AutoGrowModule;
+    }());
+    var BadgeDirective = /** @class */ (function () {
+        function BadgeDirective(_element, _renderer, _colorService, _contrastService) {
+            this._element = _element;
+            this._renderer = _renderer;
+            this._colorService = _colorService;
+            this._contrastService = _contrastService;
+            this._className = 'ux-badge';
+            this._darkColor = ThemeColor.parse('#000');
+            this._lightColor = ThemeColor.parse('#FFF');
+            this._badgeContent = null;
+            this._badgeColor = this._darkColor;
+            /**
+             * Set the badge vertical position in relation to the parent element
+             */
+            this.badgeVerticalPosition = 'above';
+            /**
+             * Set the badge horizontal position in relation to the parent element
+             */
+            this.badgeHorizontalPosition = 'after';
+            /**
+             * Set if the badge overlaps parent content or flows after parent
+             */
+            this.badgeOverlap = false;
+            /**
+             * Badge size (based on CSS styles)
+             */
+            this.badgeSize = 'medium';
+            /**
+             * Hide badge from view
+             */
+            this.badgeHidden = false;
+        }
+        Object.defineProperty(BadgeDirective.prototype, "badgeContent", {
+            get: function () {
+                return this._badgeContent;
+            },
+            set: function (s) {
+                if (s && s.replace(/ /g, '').length > 0) {
+                    var subject = s.toString().trim();
+                    this._isNumber = /^\d+$/.test(subject);
+                    this._badgeContent = subject;
+                }
+                else {
+                    this._badgeContent = null;
+                }
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(BadgeDirective.prototype, "badgeColor", {
+            /**
+             * Define the badge background color
+             */
+            get: function () {
+                return this._badgeColor.toRgba();
+            },
+            set: function (color) {
+                this._badgeColor = this.parseThemeColor(color);
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(BadgeDirective.prototype, "badgeBorderColor", {
+            /**
+             * Define the badge border color - if unset there is no border
+             */
+            get: function () {
+                return this._badgeBorderColor.toRgba();
+            },
+            set: function (color) {
+                this._badgeBorderColor = this.parseThemeColor(color);
+            },
+            enumerable: true,
+            configurable: true
+        });
+        BadgeDirective.prototype.ngAfterViewInit = function () {
+            this._badgeElement = this._renderer.createElement('span');
+            this._renderer.addClass(this._badgeElement, this._className);
+            this._renderer.setStyle(this._badgeElement, 'display', 'none');
+            this.setBadgeColor();
+            this.setBadgeBorderColor();
+            this.setBadgeSize();
+            this.setContent(this._badgeContent, this.badgeMaxValue);
+            this._renderer.appendChild(this._element.nativeElement, this._badgeElement);
+            this._renderer.removeStyle(this._badgeElement, 'display');
+        };
+        BadgeDirective.prototype.ngOnChanges = function (changes) {
+            // if the badge is visible set changed values
+            if (!this._badgeElement) {
+                return;
+            }
+            // set badge content and get display friendly version of text based on max length and type of val
+            if (changes.badgeContent || changes.badgeMaxValue) {
+                var finalText = (changes.badgeContent && changes.badgeContent.currentValue) || this.badgeContent || null;
+                var maxValue = (changes.badgeMaxValue && changes.badgeMaxValue.currentValue) || this.badgeMaxValue || null;
+                this.setContent(finalText, maxValue);
+            }
+            // set the badge color
+            if (changes.badgeColor && changes.badgeColor.currentValue !== changes.badgeColor.previousValue) {
+                this.setBadgeColor();
+            }
+            // set the badge border color
+            if (changes.badgeBorderColor && changes.badgeBorderColor.currentValue !== changes.badgeBorderColor.previousValue) {
+                this.setBadgeBorderColor();
+            }
+            // set badge size
+            if (changes.badgeSize && changes.badgeSize.currentValue !== changes.badgeSize.previousValue) {
+                this.setBadgeSize(changes.badgeSize.previousValue);
+            }
+        };
+        BadgeDirective.prototype.ngOnDestroy = function () {
+            if (this._renderer.destroyNode) {
+                this._renderer.destroyNode(this._badgeElement);
+            }
+        };
+        BadgeDirective.prototype.setContent = function (finalText, maxValue) {
+            if (finalText && maxValue && maxValue > 0) {
+                if (this._isNumber && parseInt(finalText) > maxValue) {
+                    finalText = maxValue + "+";
+                }
+                else if (finalText.length > maxValue) {
+                    finalText = finalText.substr(0, maxValue) + "\u2026";
+                }
+            }
+            this._badgeDisplayContent = finalText;
+            this._badgeElement.textContent = this._badgeDisplayContent;
+        };
+        BadgeDirective.prototype.setBadgeColor = function () {
+            if (this._badgeColor) {
+                this._renderer.setStyle(this._badgeElement, 'background-color', this._badgeColor.toRgba());
+            }
+            else {
+                this._renderer.removeStyle(this._badgeElement, 'background-color');
+            }
+            this._renderer.setStyle(this._badgeElement, 'color', this.determineContentTextColor().toRgba());
+        };
+        BadgeDirective.prototype.setBadgeBorderColor = function () {
+            if (this._badgeBorderColor) {
+                this._renderer.setStyle(this._badgeElement, 'border-color', this._badgeBorderColor.toRgba());
+            }
+            else {
+                this._renderer.removeStyle(this._badgeElement, 'border-color');
+            }
+            this._renderer.setStyle(this._badgeElement, 'background-clip', this._badgeBorderColor ? 'padding-box' : 'border-box');
+        };
+        BadgeDirective.prototype.setBadgeSize = function (previousSize) {
+            if (previousSize) {
+                this._renderer.removeClass(this._badgeElement, "ux-badge-" + previousSize);
+            }
+            this._renderer.addClass(this._badgeElement, "ux-badge-" + this.badgeSize);
+        };
+        BadgeDirective.prototype.determineContentTextColor = function () {
+            return this._badgeColor
+                ? ThemeColor.parse(this._contrastService.getContrastColor(this._badgeColor, this._lightColor, this._darkColor).toRgba())
+                : this._lightColor;
+        };
+        BadgeDirective.prototype.parseThemeColor = function (color) {
+            if (!color) {
+                return null;
+            }
+            return this._colorService.colorExists(color) ?
+                ThemeColor.parse(this._colorService.resolve(color)) :
+                ThemeColor.parse(color);
+        };
+        __decorate([
+            core.Input('uxBadge'),
+            __metadata("design:type", String),
+            __metadata("design:paramtypes", [String])
+        ], BadgeDirective.prototype, "badgeContent", null);
+        __decorate([
+            core.Input(),
+            __metadata("design:type", String),
+            __metadata("design:paramtypes", [String])
+        ], BadgeDirective.prototype, "badgeColor", null);
+        __decorate([
+            core.Input(),
+            __metadata("design:type", String),
+            __metadata("design:paramtypes", [String])
+        ], BadgeDirective.prototype, "badgeBorderColor", null);
+        __decorate([
+            core.Input(),
+            __metadata("design:type", String)
+        ], BadgeDirective.prototype, "badgeVerticalPosition", void 0);
+        __decorate([
+            core.Input(),
+            __metadata("design:type", String)
+        ], BadgeDirective.prototype, "badgeHorizontalPosition", void 0);
+        __decorate([
+            core.HostBinding('class.ux-badge-overlap'),
+            core.Input(),
+            __metadata("design:type", Boolean)
+        ], BadgeDirective.prototype, "badgeOverlap", void 0);
+        __decorate([
+            core.Input(),
+            __metadata("design:type", Number)
+        ], BadgeDirective.prototype, "badgeMaxValue", void 0);
+        __decorate([
+            core.Input(),
+            __metadata("design:type", String)
+        ], BadgeDirective.prototype, "badgeSize", void 0);
+        __decorate([
+            core.HostBinding('class.ux-badge-hidden'),
+            core.Input(),
+            __metadata("design:type", Boolean)
+        ], BadgeDirective.prototype, "badgeHidden", void 0);
+        BadgeDirective = __decorate([
+            core.Directive({
+                selector: '[uxBadge]',
+                exportAs: 'ux-badge',
+                host: {
+                    class: 'ux-badge-container',
+                    '[class.ux-badge-above]': 'badgeVerticalPosition === "above"',
+                    '[class.ux-badge-below]': 'badgeVerticalPosition === "below"',
+                    '[class.ux-badge-after]': 'badgeHorizontalPosition === "after"',
+                    '[class.ux-badge-before]': 'badgeHorizontalPosition === "before"'
+                },
+            }),
+            __metadata("design:paramtypes", [core.ElementRef,
+                core.Renderer2,
+                ColorService,
+                ContrastService])
+        ], BadgeDirective);
+        return BadgeDirective;
+    }());
+    var BadgeModule = /** @class */ (function () {
+        function BadgeModule() {
+        }
+        BadgeModule = __decorate([
+            core.NgModule({
+                imports: [ColorServiceModule, AccessibilityModule],
+                exports: [BadgeDirective],
+                declarations: [BadgeDirective],
+            })
+        ], BadgeModule);
+        return BadgeModule;
     }());
     var FixedHeaderTableDirective = /** @class */ (function () {
         function FixedHeaderTableDirective(_elementRef, _renderer, _resizeService) {
@@ -33518,6 +33942,8 @@
     exports.AudioServiceModule = AudioServiceModule;
     exports.AutoGrowDirective = AutoGrowDirective;
     exports.AutoGrowModule = AutoGrowModule;
+    exports.BadgeDirective = BadgeDirective;
+    exports.BadgeModule = BadgeModule;
     exports.BaseSearchComponent = BaseSearchComponent;
     exports.BreadcrumbsComponent = BreadcrumbsComponent;
     exports.BreadcrumbsModule = BreadcrumbsModule;
