@@ -1,4 +1,5 @@
 import { A11yModule } from '@angular/cdk/a11y';
+import { CdkTreeModule } from '@angular/cdk/tree';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { AccessibilityModule } from '../../directives/accessibility/index';
@@ -17,26 +18,27 @@ import { ResizableTableDirective } from './table-column-resize/table-column-resi
     imports: [
         A11yModule,
         AccessibilityModule,
+        CdkTreeModule,
         CommonModule,
         DragModule,
         IconModule,
         ResizeModule,
         ReorderableModule,
-        SelectionModule
+        SelectionModule,
     ],
     declarations: [
+        ColumnPickerComponent,
         ResizableTableDirective,
         ResizableExpandingTableDirective,
         ResizableTableColumnComponent,
         ResizableTableCellDirective,
-        ColumnPickerComponent,
     ],
     exports: [
+        ColumnPickerComponent,
         ResizableTableDirective,
         ResizableExpandingTableDirective,
         ResizableTableColumnComponent,
         ResizableTableCellDirective,
-        ColumnPickerComponent,
     ]
 })
 export class TableModule { }

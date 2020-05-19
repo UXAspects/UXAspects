@@ -19,8 +19,11 @@ describe('Column Picker Tests', () => {
         expect(await page.getDeselectedTitle()).toBe('0 of 18 selected');
         expect(await page.getSelectedTitle()).toBe('6 columns added');
 
+        expect(await page.getColumnCount(ColumnPickerList.Deselected)).toBe(18);
+        expect(await page.getColumnCount(ColumnPickerList.Selected)).toBe(6);
+
         expect(await page.getSelection()).toBe('[ "Type", "Date", "Requested by", "Status", "Completion" ]');
-        expect(await page.getDeselection()).toBe('[ "Author", "Category", "Date Created", "Date Modified", "Department", "Document ID", "Flag", "From", "Icon", "Importance", "Location", "Location ID", "Message", "Organization", "Time", "Time Created", "Time Modified", "Work Completed" ]');
+        expect(await page.getDeselection()).toBe('[ { "group": "Metadata", "name": "Author" }, { "group": "Metadata", "name": "Category" }, { "group": "Metadata", "name": "Date Created" }, { "group": "Metadata", "name": "Date Modified" }, { "group": "Metadata", "name": "Department" }, "Document ID", "Flag", "From", "Icon", "Importance", "Location", "Location ID", "Message", { "group": "Metadata", "name": "Organization" }, "Time", "Time Created", "Time Modified", "Work Completed" ]');
 
         expect(await imageCompare('column-picker-initial')).toEqual(0);
     });
@@ -29,6 +32,42 @@ describe('Column Picker Tests', () => {
         expect(await page.isColumnLocked(0)).toBe(true);
         expect(await page.isColumnLocked(1)).toBe(false);
         expect(await imageCompare('column-picker-locked')).toEqual(0);
+    });
+
+    it('should allow a group to navigate, close and expand using mouse and keyboard', async () => {
+        // close the group using mouse click
+        const firstGroup = await page.deselectedListGroupBtns.get(0);
+        await firstGroup.click();
+        expect(await page.getColumnCount(ColumnPickerList.Deselected)).toBe(12);
+        // expand the group using mouse click
+        await firstGroup.click();
+        expect(await page.getColumnCount(ColumnPickerList.Deselected)).toBe(18);
+
+        // press down arrow to focus the first group child
+        await browser.actions().sendKeys(Key.ARROW_DOWN).perform();
+        const deselectedColumn1 = await page.getDeselectedColumn(0);
+        const deselectedColumn2 = await page.getDeselectedColumn(1);
+        expect(await page.hasFocus(deselectedColumn1)).toBe(true);
+
+        // press down arrow to focus the second group child
+        await browser.actions().sendKeys(Key.ARROW_DOWN).perform();
+        expect(await page.hasFocus(deselectedColumn2)).toBe(true);
+
+        // press up arrow to jump back up to the first group child
+        await browser.actions().sendKeys(Key.ARROW_UP).perform();
+        expect(await page.hasFocus(deselectedColumn1)).toBe(true);
+
+        // press up arrow to jump back up to the group itself
+        await browser.actions().sendKeys(Key.ARROW_UP).perform();
+        expect(await page.hasFocus(page.deselectedListGroupBtns.get(0))).toBe(true);
+
+        // press enter key to close the group
+        await browser.actions().sendKeys(Key.ENTER).perform();
+        expect(await page.getColumnCount(ColumnPickerList.Deselected)).toBe(12);
+
+        // press enter key to expand the group
+        await browser.actions().sendKeys(Key.ENTER).perform();
+        expect(await page.getColumnCount(ColumnPickerList.Deselected)).toBe(18);
     });
 
     it('should allow selection of deselected columns', async () => {
@@ -67,13 +106,10 @@ describe('Column Picker Tests', () => {
     });
 
     it('should allow moving a deselected column', async () => {
-        expect(await page.getColumnCount(ColumnPickerList.Deselected)).toBe(18);
-        expect(await page.getColumnCount(ColumnPickerList.Selected)).toBe(6);
         await page.selectColumn(ColumnPickerList.Deselected, 0);
         await page.selectBtn.click();
         expect(await page.getColumnCount(ColumnPickerList.Deselected)).toBe(17);
         expect(await page.getColumnCount(ColumnPickerList.Selected)).toBe(7);
-        expect(await page.getDeselection()).toBe('[ "Category", "Date Created", "Date Modified", "Department", "Document ID", "Flag", "From", "Icon", "Importance", "Location", "Location ID", "Message", "Organization", "Time", "Time Created", "Time Modified", "Work Completed" ]');
         expect(await page.getSelection()).toBe('[ "Type", "Date", "Requested by", "Status", "Completion", "Author" ]');
     });
 
@@ -84,7 +120,6 @@ describe('Column Picker Tests', () => {
         await page.deselectBtn.click();
         expect(await page.getColumnCount(ColumnPickerList.Deselected)).toBe(19);
         expect(await page.getColumnCount(ColumnPickerList.Selected)).toBe(5);
-        expect(await page.getDeselection()).toBe('[ "Author", "Category", "Date Created", "Date Modified", "Department", "Document ID", "Flag", "From", "Icon", "Importance", "Location", "Location ID", "Message", "Organization", "Time", "Time Created", "Time Modified", "Work Completed", "Type" ]');
         expect(await page.getSelection()).toBe('[ "Date", "Requested by", "Status", "Completion" ]');
     });
 
@@ -94,7 +129,6 @@ describe('Column Picker Tests', () => {
         await page.selectAllBtn.click();
         expect(await page.getColumnCount(ColumnPickerList.Deselected)).toBe(0);
         expect(await page.getColumnCount(ColumnPickerList.Selected)).toBe(24);
-        expect(await page.getDeselection()).toBe('[]');
         expect(await page.getSelection()).toBe('[ "Type", "Date", "Requested by", "Status", "Completion", "Author", "Category", "Date Created", "Date Modified", "Department", "Document ID", "Flag", "From", "Icon", "Importance", "Location", "Location ID", "Message", "Organization", "Time", "Time Created", "Time Modified", "Work Completed" ]');
     });
 
@@ -104,7 +138,6 @@ describe('Column Picker Tests', () => {
         await page.deselectAllBtn.click();
         expect(await page.getColumnCount(ColumnPickerList.Deselected)).toBe(23);
         expect(await page.getColumnCount(ColumnPickerList.Selected)).toBe(1);
-        expect(await page.getDeselection()).toBe('[ "Author", "Category", "Date Created", "Date Modified", "Department", "Document ID", "Flag", "From", "Icon", "Importance", "Location", "Location ID", "Message", "Organization", "Time", "Time Created", "Time Modified", "Work Completed", "Type", "Date", "Requested by", "Status", "Completion" ]');
         expect(await page.getSelection()).toBe('[]');
     });
 
