@@ -2,7 +2,7 @@ import { Key } from 'protractor';
 import { imageCompareFullPageScreen } from '../common/image-compare';
 import { SlidersPage } from './sliders.po.spec';
 
-describe('SlidersPage Tests', () => {
+describe('Sliders', () => {
 
     let page: SlidersPage;
 
@@ -26,17 +26,11 @@ describe('SlidersPage Tests', () => {
         expect(await page.getHandleAttribute(page.singleValueNarrowCalloutOnHover, 'lower', 'hidden')).toBeNull();
         expect(await page.getHandleAttribute(page.singleValueNarrowCalloutOnHover, 'upper', 'hidden')).not.toBeNull();
 
-        expect(await page.getHandleAttribute(page.rangeCallout, 'lower', 'hidden')).toBeNull();
-        expect(await page.getHandleAttribute(page.rangeCallout, 'upper', 'hidden')).toBeNull();
-
         expect(await page.getHandleAttribute(page.rangeCalloutCustom, 'lower', 'hidden')).toBeNull();
         expect(await page.getHandleAttribute(page.rangeCalloutCustom, 'upper', 'hidden')).toBeNull();
 
         expect(await page.getHandleAttribute(page.rangeWithTextInputs, 'lower', 'hidden')).toBeNull();
         expect(await page.getHandleAttribute(page.rangeWithTextInputs, 'upper', 'hidden')).toBeNull();
-
-        expect(await page.getHandleAttribute(page.rangeCalloutOnDrag, 'lower', 'hidden')).toBeNull();
-        expect(await page.getHandleAttribute(page.rangeCalloutOnDrag, 'upper', 'hidden')).toBeNull();
 
         expect(await imageCompareFullPageScreen('sliders-initial')).toEqual(0);
     });
@@ -98,10 +92,6 @@ describe('SlidersPage Tests', () => {
         expect(await page.getTickAttribute(page.singleValueNarrowCalloutOnHover, 'class', 7)).toContain('minor');
         expect(await page.getTickAttribute(page.singleValueNarrowCalloutOnHover, 'class', 10)).toContain('major');
 
-        // Range Track - Persistent Callout.
-        expect(await page.confirmTicksExist(page.rangeCallout)).toBe(false);
-        expect(await page.confirmTicksExist(page.rangeCalloutOnDrag)).toBe(false);
-
         // Range Track Style - Custom Callout Styles.
         expect(await page.getTickAttribute(page.rangeCalloutCustom, 'hidden', 0)).toBeNull();
         expect(await page.getTickAttribute(page.rangeCalloutCustom, 'hidden', 5)).toBeNull();
@@ -142,25 +132,6 @@ describe('SlidersPage Tests', () => {
 
     });
 
-    it('should have persistent tooltips', async () => {
-
-        // Range Track - Persistent Callout.
-        expect(await page.confirmTooltipExists(page.rangeCallout, 'lower')).toBeTruthy();
-        expect(await page.confirmTooltipExists(page.rangeCallout, 'upper')).toBeTruthy();
-        expect(await page.getTooltipValue(page.rangeCallout, 'lower')).toEqual('1234');
-        expect(await page.getTooltipValue(page.rangeCallout, 'upper')).toEqual('9876');
-
-        // Move the handles and confirm that the tooltips are still displayed.
-        await page.dragAndDropHandle(page.rangeCallout, 'lower', { x: 100, y: 0 });
-        await page.dragAndDropHandle(page.rangeCallout, 'upper', { x: -2000, y: 0 });
-        expect(await page.confirmTooltipExists(page.rangeCallout, 'lower')).toBeTruthy();
-        expect(await page.confirmTooltipExists(page.rangeCallout, 'upper')).toBeTruthy();
-
-        expect(await page.confirmTooltipExists(page.rangeCalloutOnDrag, 'lower')).toBeTruthy();
-        expect(await page.confirmTooltipExists(page.rangeCalloutOnDrag, 'upper')).toBeTruthy();
-
-    });
-
     it('should have custom tooltips', async () => {
 
         // Range Track Style - Custom Callout Styles
@@ -168,10 +139,6 @@ describe('SlidersPage Tests', () => {
         expect(await page.getTooltipValue(page.rangeCalloutCustom, 'lower')).toEqual('22');
         await page.moveMouseToHandle(page.rangeCalloutCustom, 'upper');
         expect(await page.getTooltipValue(page.rangeCalloutCustom, 'upper')).toEqual('76');
-
-        // should have dynamic tooltips
-        expect(await page.getTooltipClass(page.rangeCalloutOnDrag, 'lower')).toContain('tooltip-dynamic');
-        expect(await page.getTooltipClass(page.rangeCalloutOnDrag, 'upper')).toContain('tooltip-dynamic');
 
         expect(await imageCompareFullPageScreen('sliders-tooltips')).toEqual(0);
     });
@@ -189,11 +156,6 @@ describe('SlidersPage Tests', () => {
         await page.moveMouseToHandle(page.singleValueNarrowCalloutOnHover, 'lower');
         expect(await page.getTooltipValue(page.singleValueNarrowCalloutOnHover, 'lower')).toEqual('60');
 
-        await page.moveMouseToHandle(page.rangeCallout, 'lower');
-        expect(await page.getTooltipValue(page.rangeCallout, 'lower')).toEqual('1234');
-        await page.moveMouseToHandle(page.rangeCallout, 'upper');
-        expect(await page.getTooltipValue(page.rangeCallout, 'upper')).toEqual('9876');
-
         await page.moveMouseToHandle(page.rangeCalloutCustom, 'lower');
         expect(await page.getTooltipValue(page.rangeCalloutCustom, 'lower')).toEqual('22');
         await page.moveMouseToHandle(page.rangeCalloutCustom, 'upper');
@@ -206,11 +168,6 @@ describe('SlidersPage Tests', () => {
 
         expect(await page.getInputValue(page.input1)).toEqual('25');
         expect(await page.getInputValue(page.input2)).toEqual('75');
-
-        await page.moveMouseToHandle(page.rangeCalloutOnDrag, 'lower');
-        expect(await page.getTooltipValue(page.rangeCalloutOnDrag, 'lower')).toEqual('1234');
-        await page.moveMouseToHandle(page.rangeCalloutOnDrag, 'upper');
-        expect(await page.getTooltipValue(page.rangeCalloutOnDrag, 'upper')).toEqual('9876');
 
     });
 
@@ -241,11 +198,6 @@ describe('SlidersPage Tests', () => {
         await page.mouseDownOnHandle(page.singleValueNarrowCalloutOnHover, 'lower');
         expect(await page.getTooltipValue(page.singleValueNarrowCalloutOnHover, 'lower')).toEqual('100');
 
-        await page.dragAndDropHandle(page.rangeCallout, 'lower', { x: -2000, y: 0 });
-        expect(await page.getTooltipValue(page.rangeCallout, 'lower')).toEqual('1000');
-        await page.dragAndDropHandle(page.rangeCallout, 'upper', { x: 2000, y: 0 });
-        expect(await page.getTooltipValue(page.rangeCallout, 'upper')).toEqual('10000');
-
         await page.dragAndDropHandle(page.rangeCalloutCustom, 'lower', { x: -2000, y: 0 });
         await page.moveMouseToHandle(page.rangeCalloutCustom, 'lower');
         expect(await page.getTooltipValue(page.rangeCalloutCustom, 'lower')).toEqual('0');
@@ -259,11 +211,6 @@ describe('SlidersPage Tests', () => {
         await page.dragAndDropHandle(page.rangeWithTextInputs, 'upper', { x: 2000, y: 0 });
         await page.moveMouseToHandle(page.rangeWithTextInputs, 'upper');
         expect(await page.getTooltipValue(page.rangeWithTextInputs, 'upper')).toEqual('100');
-
-        await page.dragAndDropHandle(page.rangeCalloutOnDrag, 'lower', { x: -2000, y: 0 });
-        expect(await page.getTooltipValue(page.rangeCalloutOnDrag, 'lower')).toEqual('1000');
-        await page.dragAndDropHandle(page.rangeCalloutOnDrag, 'upper', { x: 2000, y: 0 });
-        expect(await page.getTooltipValue(page.rangeCalloutOnDrag, 'upper')).toEqual('10000');
 
     });
 
@@ -303,11 +250,11 @@ describe('SlidersPage Tests', () => {
 
         await page.moveHandleToTick(page.singleValueNarrowCalloutOnHover, 'lower', 9);
         await page.moveMouseToHandle(page.singleValueNarrowCalloutOnHover, 'lower');
-        expect(await page.getTooltipValue(page.singleValueNarrowCalloutOnHover, 'lower')).toEqual('91');
+        expect(await page.getTooltipValue(page.singleValueNarrowCalloutOnHover, 'lower')).toEqual('90');
 
         await page.moveMouseToTick(page.singleValueNarrowCalloutOnHover, 8);
         await page.moveMouseToHandle(page.singleValueNarrowCalloutOnHover, 'lower');
-        expect(await page.getTooltipValue(page.singleValueNarrowCalloutOnHover, 'lower')).toEqual('91');
+        expect(await page.getTooltipValue(page.singleValueNarrowCalloutOnHover, 'lower')).toEqual('90');
 
     });
 
@@ -332,13 +279,6 @@ describe('SlidersPage Tests', () => {
     });
 
     it('should never allow negative ranges', async () => {
-
-        // Range Track - Persistent Callout. Try to move the upper handle to a value less than the lower handle's.
-        await page.dragAndDropHandle(page.rangeCallout, 'lower', { x: 200, y: 0 });
-        await page.dragAndDropHandle(page.rangeCallout, 'upper', { x: -2000, y: 0 });
-        expect(await page.getTooltipValue(page.rangeCallout, 'lower')).toEqual(await page.getTooltipValue(page.rangeCallout, 'upper'));
-
-        expect(await page.getSliderRangeAttribute(page.rangeCallout, 'style')).toContain('flex-grow: 0;');
 
         // Range Track Style - Custom Callout Styles. Try to move the lower handle to a value greater than the upper handle's.
         await page.dragAndDropHandle(page.rangeCalloutCustom, 'upper', { x: -100, y: 0 });
