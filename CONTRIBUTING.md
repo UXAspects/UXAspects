@@ -19,8 +19,8 @@ The [Developer Standard](https://github.com/UXAspects/UXAspects/blob/master/guid
 
 You will need the following software on your development environment:
 * [Git](https://git-scm.com/downloads) - see [Set up Git](https://help.github.com/en/github/getting-started-with-github/set-up-git) on GitHub help.
-* [Node.js](https://nodejs.org/en/) - v10 is currently recommended.
-* [Grunt](https://gruntjs.com/) - to install, run `npm install -g grunt`.
+* [Node.js](https://nodejs.org/en/) - v10 is currently required.
+* [Docker](https://www.docker.com/get-started) - used to run the e2e test suite.
 
 The following software is not required, but recommended:
 * [GitHub Desktop](https://desktop.github.com/)
@@ -95,19 +95,19 @@ After this is complete, you will find the NPM package in the `target/npm` direct
 
 ## Run tests
 
-UX Aspects uses Karma for unit tests, and Protractor for end-to-end (e2e) tests. The Protractor tests will also do screenshot comparisons when run on a Linux environment. The tests should always be run before making a pull request.
+UX Aspects uses Karma for unit tests, and Protractor for end-to-end (e2e) tests. The tests should always be run before making a pull request.
 
 ````bash
 npm run test
 ````
 
-> Note: Due to technical limitations, when running the tests on a non-Linux platform (e.g. Windows) only a subset of the tests will run. See [Screenshot Testing](https://github.com/UXAspects/UXAspects/blob/master/guides/developer-standard.md#screenshot-testing) for a workaround, or verify the test result using a Jenkins build.
+> Note: The first run of the Protractor tests may take longer than expected, in order to download and deploy the required Docker container.
 
 ## Start a Jenkins build
 
 > Note: The Jenkins server is only available on the intranet. If the following link is not accessible, this part can be skipped.
 
-See [Using Jenkins](https://github.houston.softwaregrp.net/caf/ux-aspects-micro-focus/blob/EL-3612-contributing/JENKINS.md) for information on creating a continuous integration (CI) build for your branch.
+See [Using Jenkins](https://github.houston.softwaregrp.net/caf/ux-aspects-micro-focus/blob/master/JENKINS.md) for information on creating a continuous integration (CI) build for your branch.
 
 ## Make a pull request
 
@@ -120,7 +120,7 @@ UX Aspects has a pull request template, and it's important to fill this in as cl
 * The **Checklist** helps to assert that products can use UX Aspects without legal issues. Check each one with `[x]` if it applies to your submission. If you are unable to check any of the listed items, contact one of the UX Aspects maintainers for advice.
 * The **Ticket / Issue** field describes the problem that the pull request addresses. If you have access to the UX Aspects Jira board, or are aware of the ticket number, please fill it in here. Otherwise, describe the problem that the pull request intends to solve, and where possible, include a repro case in the form of a Plunker link.
 * The **Description of Proposed Changes** field describes what you have changed and why.
-* The **Documentation CI URL** should be filled in after initiating an automated build with Jenkins. If you don't have access to create build, please note that here instead.
+* The **Documentation CI URL** field should be filled in after initiating an automated build with Jenkins. If you don't have access to create a build, please note that here instead.
 
 For example, a completed pull request might look like this:
 
@@ -178,4 +178,4 @@ This is a complete list of the build tasks available in this project. Not all of
 | `npm run test` | Runs the Jasmine, Karma, and e2e tests. Does not build the library, so `npm run build:library` will be needed beforehand. |
 | `npm run test:e2e` | Runs the e2e tests. |
 | `npm run test:karma` | Runs the Karma tests. |
-| `npm run docker:ci` | Starts a Linux docker image and enters the shell. Because of font rendering differences, the e2e tests will only compare screenshots on a Linux environment (which is what the build server uses). This image can therefore be used on non-Linux development environments to run the full set of tests. |
+| `npm run docker:ci` | Starts a Linux docker container and enters the shell. This is the same image used by the Jenkins build server. |

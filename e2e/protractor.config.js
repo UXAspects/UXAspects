@@ -4,7 +4,11 @@ const { mkdirpSync } = require('fs-extra');
 const { cwd } = require('process');
 const { JUnitXmlReporter } = require('jasmine-reporters');
 const { SpecReporter } = require('jasmine-spec-reporter');
+const webpack = require('webpack');
+const express = require('express');
+const webpackConfig = require('../configs/webpack.e2e.config');
 
+const e2eHostPort = 4000;
 const e2eHostAddress = env.E2E_HOST_ADDRESS || 'localhost';
 const outputDir = join(cwd(), 'target', 'e2e');
 const junitDir = join(outputDir, 'junit');
@@ -13,7 +17,7 @@ const screenshotOutputDir = join(outputDir, 'screenshots');
 exports.config = {
   directConnect: true,
   chromeDriver: require('chromedriver').path,
-  baseUrl: `http://${e2eHostAddress}:4000/#/`,
+  baseUrl: `http://${e2eHostAddress}:${e2eHostPort}/#/`,
 
   capabilities: {
     browserName: 'chrome',
@@ -27,6 +31,15 @@ exports.config = {
   maxSessions: 3,
 
   framework: 'jasmine',
+
+  jasmineNodeOpts: {
+    defaultTimeoutInterval: 30000,
+    showTiming: true,
+    print: function () { }
+  },
+
+  beforeLaunch: onBeforeLaunch,
+  afterLaunch: onAfterLaunch,
 
   // Spec patterns are relative to this config file
   specs: ['./tests/**/**/*.e2e-spec.ts'],
@@ -97,10 +110,34 @@ exports.config = {
       );
     });
   },
-
-  jasmineNodeOpts: {
-    defaultTimeoutInterval: 30000,
-    showTiming: true,
-    print: function () { }
-  }
 };
+
+let webServer;
+
+async function onBeforeLaunch() {
+    await startWebServer();
+}
+
+function onAfterLaunch() {
+    if (webServer) {
+        webServer.close();
+        webServer = null;
+        console.log('Stopped webserver.')
+    }
+}
+
+async function startWebServer() {
+    return new Promise((resolve, reject) => {
+        console.log('Starting webpack compilation...');
+        webpack(webpackConfig, (err, stats) => {
+            if (err || stats.hasErrors()) {
+                reject(err || 'Webpack compilation failed.');
+            }
+
+            webServer = express().use(express.static(join(__dirname, 'dist'))).listen(e2eHostPort);
+            console.log(`Webserver is listening on port ${e2eHostPort}.`);
+
+            resolve();
+        });
+    });
+}
