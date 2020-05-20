@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { SliderValue, SliderOptions, ColorService, SliderStyle, SliderCalloutTrigger, SliderSize, SliderSnap, SliderType } from '@ux-aspects/ux-aspects';
+import { SliderValue, ColorService, SliderStyle, SliderCalloutTrigger, SliderSize, SliderSnap, SliderType } from '@ux-aspects/ux-aspects';
+import { SliderExample } from './slider-example';
 
 @Component({
   selector: 'sliders-app',
@@ -7,21 +8,19 @@ import { SliderValue, SliderOptions, ColorService, SliderStyle, SliderCalloutTri
 })
 export class SlidersTestPageComponent {
 
-    slider1: SliderExample;
-    slider2: SliderExample;
-    slider3: SliderExample;
-    slider4: SliderExample;
-    slider5: SliderExample;
-    slider6: SliderExample;
-    slider7: SliderExample;
-    slider8: SliderExample;
+    singleValueCustomLabels: SliderExample;
+    singleValueCalloutOnDrag: SliderExample;
+    singleValueNarrowSnapping: SliderExample;
+    singleValueNarrowCalloutOnHover: SliderExample;
+    rangeCalloutCustom: SliderExample;
+    rangeWithTextInputs: SliderExample;
 
     lowerValue: number = 25;
     upperValue: number = 75;
 
     constructor(colorService: ColorService) {
 
-        this.slider1 = {
+        this.singleValueCustomLabels = {
             value: 50,
             options: {
                 track: {
@@ -49,7 +48,7 @@ export class SlidersTestPageComponent {
             }
         };
 
-        this.slider2 = {
+        this.singleValueCalloutOnDrag = {
             value: 3.8,
             options: {
                 handles: {
@@ -71,12 +70,13 @@ export class SlidersTestPageComponent {
                             steps: 1,
                             labels: false
                         }
-                    }
+                    },
+                    colors: {}
                 }
             }
         };
 
-        this.slider3 = {
+        this.singleValueNarrowSnapping = {
             value: 4,
             options: {
                 track: {
@@ -93,15 +93,12 @@ export class SlidersTestPageComponent {
                             steps: 1,
                             labels: true
                         }
-                    },
-                    colors: {
-                        lower: colorService.getColor('accent').toHex()
                     }
                 }
             }
         };
 
-        this.slider4 = {
+        this.singleValueNarrowCalloutOnHover = {
             value: 60,
             options: {
                 handles: {
@@ -114,6 +111,7 @@ export class SlidersTestPageComponent {
                 track: {
                     height: SliderSize.Narrow,
                     ticks: {
+                        snap: SliderSnap.All,
                         major: {
                             steps: 50
                         },
@@ -128,36 +126,7 @@ export class SlidersTestPageComponent {
             }
         };
 
-        this.slider5 = {
-            value: {
-                low: 1234,
-                high: 9876
-            },
-            options: {
-                type: SliderType.Range,
-                handles: {
-                    callout: {
-                        trigger: SliderCalloutTrigger.Persistent,
-                        formatter: value => value ? value.toFixed(0) : value
-                    }
-                },
-                track: {
-                    height: SliderSize.Narrow,
-                    min: 1000,
-                    max: 10000,
-                    ticks: {
-                        major: {
-                            show: false
-                        },
-                        minor: {
-                            show: false
-                        }
-                    }
-                }
-            }
-        };
-
-        this.slider6 = {
+        this.rangeCalloutCustom = {
             value: {
                 low: 22,
                 high: 76
@@ -181,15 +150,12 @@ export class SlidersTestPageComponent {
                         minor: {
                             steps: 5
                         }
-                    },
-                    colors: {
-                        range: colorService.getColor('alternate1').toHex()
                     }
                 }
             }
         };
 
-        this.slider7 = {
+        this.rangeWithTextInputs = {
             value: {
                 low: 25,
                 high: 75
@@ -213,41 +179,6 @@ export class SlidersTestPageComponent {
                         minor: {
                             steps: 5
                         }
-                    },
-                    colors: {
-                        range: colorService.getColor('accent').toHex()
-                    }
-                }
-            }
-        };
-
-        this.slider8 = {
-            value: {
-                low: 1234,
-                high: 9876
-            },
-            options: {
-                type: SliderType.Range,
-                handles: {
-                    callout: {
-                        trigger: SliderCalloutTrigger.Dynamic,
-                        formatter: value => value ? value.toFixed(0) : value
-                    }
-                },
-                track: {
-                    height: SliderSize.Narrow,
-                    min: 1000,
-                    max: 10000,
-                    ticks: {
-                        major: {
-                            show: false
-                        },
-                        minor: {
-                            show: false
-                        }
-                    },
-                    colors: {
-                        range: colorService.getColor('accent').toHex()
                     }
                 }
             }
@@ -255,39 +186,34 @@ export class SlidersTestPageComponent {
     }
 
     updateValues(): void {
-        this.slider7.value = this.slider7.value as SliderValue;
+        this.rangeWithTextInputs.value = this.rangeWithTextInputs.value as SliderValue;
 
         if (!isNaN(Number(this.lowerValue))) {
-            this.slider7.value.low = Number(this.lowerValue);
+            this.rangeWithTextInputs.value.low = Number(this.lowerValue);
         }
 
         if (!isNaN(Number(this.upperValue))) {
-            this.slider7.value.high = Number(this.upperValue);
+            this.rangeWithTextInputs.value.high = Number(this.upperValue);
         }
     }
 
     valueHasChanged(value: SliderValue): void {
-        this.slider7.value = value;
+        this.rangeWithTextInputs.value = value;
 
         this.lowerValue = value.low;
         this.upperValue = value.high;
     }
 
     trackColorChange(): void {
-        this.slider5.options = { ...this.slider5.options };
+        this.singleValueCalloutOnDrag.options = { ...this.singleValueCalloutOnDrag.options };
 
-        this.slider5.options.track.colors.lower = '#0f0';
-        this.slider5.options.track.colors.range = '#f00';
-        this.slider5.options.track.colors.higher = '#0f0';
+        this.singleValueCalloutOnDrag.options.track.colors.lower = '#0f0';
+        this.singleValueCalloutOnDrag.options.track.colors.higher = '#f00';
 
-        this.slider2.options = { ...this.slider2.options };
+        this.rangeCalloutCustom.options = { ...this.rangeCalloutCustom.options };
 
-        this.slider2.options.track.colors.lower = '#0f0';
-        this.slider2.options.track.colors.higher = '#f00';
+        this.rangeCalloutCustom.options.track.colors.lower = '#0f0';
+        this.rangeCalloutCustom.options.track.colors.range = '#f00';
+        this.rangeCalloutCustom.options.track.colors.higher = '#0f0';
     }
-}
-
-interface SliderExample {
-    value: number | SliderValue;
-    options: SliderOptions;
 }
