@@ -67,12 +67,11 @@ export class PlaygroundService {
 
     private createPlaygroundStrategy(playground: IPlayground): PlaygroundStrategy {
         switch (playground.framework) {
-            case 'angular':
-                return new AngularPlaygroundStrategy(this._documentationType);
             case 'css':
                 return new CssPlaygroundStrategy(this._documentationType);
+            case 'angular':
             default:
-                throw new Error(`"${playground.framework}" framework is not supported`);
+                return new AngularPlaygroundStrategy(this._documentationType);
         }
     }
 }
