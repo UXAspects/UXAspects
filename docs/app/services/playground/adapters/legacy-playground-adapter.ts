@@ -17,7 +17,7 @@ export function playgroundAdapter(codepen: ICodePen): IPlayground {
         files['app.js'] = Array.isArray(codepen.js) ? codepen.js.join('\n\n') : codepen.js;
     }
 
-    return { framework: 'angularjs', files };
+    return { framework: 'css', files };
 }
 
 function getHtmlContent(codepen: ICodePen): string {

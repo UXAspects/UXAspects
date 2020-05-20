@@ -3,7 +3,7 @@ import { Inject, Injectable } from '@angular/core';
 import { IPlayground } from '../../interfaces/IPlayground';
 import { AppConfiguration } from '../app-configuration/app-configuration.service';
 import { AngularPlaygroundStrategy } from './strategies/angular-strategy';
-import { AngularJSPlaygroundStrategy } from './strategies/angularjs-strategy';
+import { CssPlaygroundStrategy } from './strategies/css-strategy';
 import { PlaygroundStrategy } from './strategies/playground-strategy';
 import { DocumentationType, DOCUMENTATION_TOKEN } from './tokens/documentation.token';
 import { PlaygroundHelper } from './utilities/playground-helper';
@@ -34,9 +34,7 @@ export class PlaygroundService {
     private initForm(title: string, playground: IPlayground): HTMLFormElement {
 
         // determine the strategy to use
-        const strategy: PlaygroundStrategy = playground.framework === 'angularjs' ?
-            new AngularJSPlaygroundStrategy(this._documentationType) :
-            new AngularPlaygroundStrategy(this._documentationType);
+        const strategy = this.createPlaygroundStrategy(playground);
 
         // create the index page
         const files = PlaygroundHelper.create(strategy, this._appConfig.assetsUrl, playground);
@@ -65,6 +63,17 @@ export class PlaygroundService {
         }
 
         return form;
+    }
+
+    private createPlaygroundStrategy(playground: IPlayground): PlaygroundStrategy {
+        switch (playground.framework) {
+            case 'angular':
+                return new AngularPlaygroundStrategy(this._documentationType);
+            case 'css':
+                return new CssPlaygroundStrategy(this._documentationType);
+            default:
+                throw new Error(`"${playground.framework}" framework is not supported`);
+        }
     }
 }
 

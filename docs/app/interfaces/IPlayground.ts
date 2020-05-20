@@ -1,5 +1,5 @@
 export interface IPlayground {
-    framework?: 'angular' | 'angularjs';
+    framework?: 'angular' | 'css';
     files: {
         [key: string]: string;
     };
