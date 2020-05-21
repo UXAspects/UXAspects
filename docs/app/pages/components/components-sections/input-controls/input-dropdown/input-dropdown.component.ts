@@ -31,7 +31,18 @@ export class ComponentsInputDropdownComponent extends BaseDocumentationSection i
         { name: 'One' }, { name: 'Two' }, { name: 'Three' }, { name: 'Four' }
     ];
     filteredOptionList: ReadonlyArray<RadioOption> = this.optionList;
-    filter: string = '';
+    private _filter: string = '';
+    get filter(): string {
+        return this._filter;
+    }
+
+    set filter(value: string) {
+        this._filter = value;
+        this.filteredOptionList =
+            value && (value.length > 0) ?
+                this.optionList.filter(option => (option.name.toLowerCase().indexOf(value.toLowerCase()) > -1)) :
+                this.optionList;
+    }
     allowNull: boolean = false;
     dropdownOpen: boolean = false;
     maxHeight: string = '400px';
@@ -60,21 +71,9 @@ export class ComponentsInputDropdownComponent extends BaseDocumentationSection i
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
     }
 
-    private index(text: string): number {
-        return text.toLowerCase().indexOf(this.filter.toLowerCase());
-    }
-
     selectOption(event: KeyboardEvent, option: RadioOption): void {
         this.selected = option;
         event.preventDefault();
-    }
-
-    setFilter(filter: string): void {
-        this.filter = filter;
-        this.filteredOptionList =
-            this.filter && (this.filter.length > 0) ?
-                this.optionList.filter(option => (this.index(option.name) > -1)) :
-                this.optionList;
     }
 
     dropdownOpenChange(value: boolean): void {
