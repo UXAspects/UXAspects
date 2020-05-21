@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, ExistingProvider, forwardRef, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, ExistingProvider, forwardRef, Input, Output } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 export const CHECKBOX_VALUE_ACCESSOR: ExistingProvider = {
@@ -68,6 +68,8 @@ export class CheckboxComponent<T = number> implements ControlValueAccessor {
     /** Used to inform Angular forms that the component value has changed */
     onChangeCallback: (_: boolean | T) => void = () => { };
 
+    constructor(private readonly _changeDetector: ChangeDetectorRef) { }
+
     /** Toggle the current state of the checkbox */
     toggle(): void {
 
@@ -96,6 +98,7 @@ export class CheckboxComponent<T = number> implements ControlValueAccessor {
     writeValue(value: boolean | T): void {
         if (value !== this.value) {
             this.value = value;
+            this._changeDetector.markForCheck();
         }
     }
 
@@ -112,5 +115,6 @@ export class CheckboxComponent<T = number> implements ControlValueAccessor {
     /** Allow Angular forms to disable the component */
     setDisabledState(isDisabled: boolean): void {
         this.disabled = isDisabled;
+        this._changeDetector.markForCheck();
     }
 }

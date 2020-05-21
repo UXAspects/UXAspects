@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
-import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
     selector: 'number-picker-app',
     templateUrl: './number-picker.testpage.component.html',
-    styleUrls: ['./number-picker.testpage.component.css']
+    styleUrls: ['./number-picker.testpage.component.css'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NumberPickerTestPageComponent {
     form: FormGroup;

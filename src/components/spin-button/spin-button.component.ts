@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, ViewEncapsulation, forwardRef } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, forwardRef, Input, Output, ViewEncapsulation } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 export const SPIN_BUTTON_VALUE_ACCESSOR: any = {
@@ -53,6 +53,8 @@ export class SpinButtonComponent implements ControlValueAccessor {
     private _regexKeypress = RegExp(/^[0-9.,-]+$/);
     private _regexPaste = RegExp(/^\-?\d+(\.\d+)?$/);
 
+    constructor(private readonly _changeDetector: ChangeDetectorRef) { }
+
     scroll(event: WheelEvent): void {
 
         if (!this.scrolling) {
@@ -82,6 +84,7 @@ export class SpinButtonComponent implements ControlValueAccessor {
 
     writeValue(value: string | number): void {
         this.value = value;
+        this._changeDetector.markForCheck();
     }
 
     registerOnChange(fn: (_: string | number) => void): void {
@@ -94,6 +97,7 @@ export class SpinButtonComponent implements ControlValueAccessor {
 
     setDisabledState(isDisabled: boolean): void {
         this.disabled = isDisabled;
+        this._changeDetector.markForCheck();
     }
 
     onKeypress(event: KeyboardEvent): boolean {

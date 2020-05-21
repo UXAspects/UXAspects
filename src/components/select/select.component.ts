@@ -1,7 +1,7 @@
 import { ENTER } from '@angular/cdk/keycodes';
 import { Platform } from '@angular/cdk/platform';
 import { DOCUMENT } from '@angular/common';
-import { Component, ContentChild, ElementRef, EventEmitter, forwardRef, HostBinding, Inject, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, StaticProvider, TemplateRef, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ElementRef, EventEmitter, forwardRef, HostBinding, Inject, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, StaticProvider, TemplateRef, ViewChild } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { BehaviorSubject, Observable, ReplaySubject, Subject } from 'rxjs';
 import { debounceTime, delay, distinctUntilChanged, filter, map, skip, take, takeUntil } from 'rxjs/operators';
@@ -25,7 +25,8 @@ export const SELECT_VALUE_ACCESSOR: StaticProvider = {
     host: {
         '[class.ux-select-custom-icon]': '!!icon',
         '[class.ux-select-disabled]': 'disabled'
-    }
+    },
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, ControlValueAccessor {
 
@@ -209,7 +210,8 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
         private _element: ElementRef,
         private _platform: Platform,
         @Inject(DOCUMENT) private _document: any,
-        private _typeaheadKeyService: TypeaheadKeyService) { }
+        private _typeaheadKeyService: TypeaheadKeyService,
+        private readonly _changeDetector: ChangeDetectorRef) { }
 
     ngOnInit(): void {
 
@@ -278,6 +280,7 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
     writeValue(obj: T): void {
         if (obj !== undefined && obj !== this.value) {
             this.value = obj;
+            this._changeDetector.markForCheck();
         }
     }
 
@@ -291,6 +294,7 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
 
     setDisabledState(isDisabled: boolean): void {
         this.disabled = isDisabled;
+        this._changeDetector.markForCheck();
     }
 
     inputClickHandler(): void {

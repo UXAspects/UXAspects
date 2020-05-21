@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
     selector: 'toggleswitches-app',
     templateUrl: './toggleswitches.testpage.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ToggleSwitchesTestPageComponent {
     toggleSwitches = {

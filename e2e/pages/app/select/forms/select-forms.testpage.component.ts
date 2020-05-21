@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
 @Component({
     selector: 'app-select-forms',
-    templateUrl: './select-forms.testpage.component.html'
+    templateUrl: './select-forms.testpage.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SelectFormsTestPageComponent implements OnInit {
 
