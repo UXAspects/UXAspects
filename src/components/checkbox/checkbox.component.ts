@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, ExistingProvider, forwardRef, Input, Output, ChangeDetectorRef } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, ExistingProvider, forwardRef, Input, Output } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 export const CHECKBOX_VALUE_ACCESSOR: ExistingProvider = {
