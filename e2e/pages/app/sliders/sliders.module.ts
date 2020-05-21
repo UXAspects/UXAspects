@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { SliderModule, AccessibilityModule } from '@ux-aspects/ux-aspects';
-
+import { RouterModule } from '@angular/router';
+import { AccessibilityModule, SliderModule } from '@ux-aspects/ux-aspects';
+import { SlidersPersistentCalloutTestPageComponent } from './persistent-callout/sliders-persistent-callout.component';
 import { SlidersTestPageComponent } from './sliders.testpage.component';
 
 @NgModule({
@@ -14,9 +14,16 @@ import { SlidersTestPageComponent } from './sliders.testpage.component';
             {
                 path: '',
                 component: SlidersTestPageComponent
+            },
+            {
+                path: 'persistent-callout',
+                component: SlidersPersistentCalloutTestPageComponent
             }
         ])
     ],
-    declarations: [SlidersTestPageComponent]
+    declarations: [
+        SlidersTestPageComponent,
+        SlidersPersistentCalloutTestPageComponent
+    ]
 })
 export class SlidersTestPageModule { }

@@ -329,7 +329,7 @@ To add a Plunker example to a section the class should implement the `IPlaygroun
 
 ```typescript
 export interface IPlayground {
-    framework?: 'angular' | 'angularjs';
+    framework?: 'angular' | 'css';
     files: {
         [key: string]: string;
     };
