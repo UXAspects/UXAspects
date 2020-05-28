@@ -3807,7 +3807,8 @@
     };
     var uniqueCheckboxId = 0;
     var CheckboxComponent = /** @class */ (function () {
-        function CheckboxComponent() {
+        function CheckboxComponent(_changeDetector) {
+            this._changeDetector = _changeDetector;
             /** Provide a default unique id value for the checkbox */
             this._checkboxId = "ux-checkbox-" + ++uniqueCheckboxId;
             /** Determines if the checkbox should be checked, unchecked or indeterminate. */
@@ -3863,6 +3864,7 @@
         CheckboxComponent.prototype.writeValue = function (value) {
             if (value !== this.value) {
                 this.value = value;
+                this._changeDetector.markForCheck();
             }
         };
         /** Allow Angular forms for provide us with a callback for when the input value changes */
@@ -3876,6 +3878,7 @@
         /** Allow Angular forms to disable the component */
         CheckboxComponent.prototype.setDisabledState = function (isDisabled) {
             this.disabled = isDisabled;
+            this._changeDetector.markForCheck();
         };
         __decorate([
             core.Input(),
@@ -3931,7 +3934,8 @@
                 template: "<label [attr.for]=\"(id || _checkboxId) + '-input'\"\n       class=\"ux-checkbox\"\n       [class.ux-checkbox-checked]=\"value === true\"\n       [class.ux-checkbox-indeterminate]=\"value === indeterminateValue\"\n       [class.ux-checkbox-simplified]=\"simplified\"\n       [class.ux-checkbox-disabled]=\"disabled\"\n       [class.ux-checkbox-focused]=\"_focused\">\n\n    <div class=\"ux-checkbox-container\">\n\n        <input type=\"checkbox\"\n               uxFocusIndicator\n               class=\"ux-checkbox-input\"\n               [id]=\"(id || _checkboxId) + '-input'\"\n               [required]=\"required\"\n               [checked]=\"value\"\n               [attr.value]=\"value\"\n               [disabled]=\"disabled\"\n               [attr.name]=\"name\"\n               [tabindex]=\"tabindex\"\n               [indeterminate]=\"value === indeterminateValue\"\n               [attr.aria-label]=\"ariaLabel\"\n               [attr.aria-labelledby]=\"ariaLabelledby\"\n               [attr.aria-checked]=\"value === indeterminateValue ? 'mixed' : value\"\n               (indicator)=\"_focused = $event\"\n               (change)=\"$event.stopPropagation()\"\n               (click)=\"toggle()\">\n    </div>\n\n    <span class=\"ux-checkbox-label\">\n        <ng-content></ng-content>\n    </span>\n</label>\n",
                 providers: [CHECKBOX_VALUE_ACCESSOR],
                 changeDetection: core.ChangeDetectionStrategy.OnPush
-            })
+            }),
+            __metadata("design:paramtypes", [core.ChangeDetectorRef])
         ], CheckboxComponent);
         return CheckboxComponent;
     }());
@@ -4422,6 +4426,7 @@
         };
         NumberPickerComponent.prototype.setDisabledState = function (isDisabled) {
             this.disabled = isDisabled;
+            this._changeDetector.markForCheck();
         };
         /** Set the value and emit the change to the output and Angular forms. */
         NumberPickerComponent.prototype._emitValueChange = function (value) {
@@ -4483,6 +4488,7 @@
                 selector: 'ux-number-picker, ux-number-picker-inline',
                 template: "<input type=\"number\"\n    [id]=\"inputId\"\n    role=\"spinbutton\"\n    class=\"form-control number-picker-input\"\n    [(ngModel)]=\"value\"\n    (ngModelChange)=\"_emitValueChange($event)\"\n    [min]=\"min\"\n    [max]=\"max\"\n    (focus)=\"_touchedChange()\"\n    (keydown.ArrowDown)=\"decrement($event)\"\n    (keydown.ArrowUp)=\"increment($event)\"\n    (wheel)=\"onScroll($event)\"\n    step=\"any\"\n    [disabled]=\"disabled\"\n    [attr.aria-valuemin]=\"min\"\n    [attr.aria-valuenow]=\"value\"\n    [attr.aria-valuemax]=\"max\"\n    [attr.aria-labelledby]=\"labelledBy\">\n\n<div class=\"number-picker-controls\">\n\n    <div class=\"number-picker-control number-picker-control-up\"\n         (click)=\"increment($event)\"\n         (focus)=\"_touchedChange()\"\n         [class.disabled]=\"disabled || value >= max\">\n\n        <ux-icon name=\"up\"></ux-icon>\n    </div>\n\n    <div class=\"number-picker-control number-picker-control-down\"\n         (click)=\"decrement($event)\"\n         (focus)=\"_touchedChange()\"\n         [class.disabled]=\"disabled || value <= min\">\n\n         <ux-icon name=\"down\"></ux-icon>\n    </div>\n\n</div>",
                 providers: [NUMBER_PICKER_VALUE_ACCESSOR],
+                changeDetection: core.ChangeDetectionStrategy.OnPush,
                 host: {
                     '[class.ux-number-picker-invalid]': '!_valid && !disabled && !_formGroup'
                 }
@@ -9252,7 +9258,8 @@
         multi: true
     };
     var SpinButtonComponent = /** @class */ (function () {
-        function SpinButtonComponent() {
+        function SpinButtonComponent(_changeDetector) {
+            this._changeDetector = _changeDetector;
             this.type = 'text';
             this.placeholder = '';
             this.disabled = false;
@@ -9305,6 +9312,7 @@
         };
         SpinButtonComponent.prototype.writeValue = function (value) {
             this.value = value;
+            this._changeDetector.markForCheck();
         };
         SpinButtonComponent.prototype.registerOnChange = function (fn) {
             this.onChangeCallback = fn;
@@ -9314,6 +9322,7 @@
         };
         SpinButtonComponent.prototype.setDisabledState = function (isDisabled) {
             this.disabled = isDisabled;
+            this._changeDetector.markForCheck();
         };
         SpinButtonComponent.prototype.onKeypress = function (event) {
             // we only need to perform checks if the type is number
@@ -9441,7 +9450,8 @@
                 encapsulation: core.ViewEncapsulation.None,
                 changeDetection: core.ChangeDetectionStrategy.OnPush,
                 providers: [SPIN_BUTTON_VALUE_ACCESSOR]
-            })
+            }),
+            __metadata("design:paramtypes", [core.ChangeDetectorRef])
         ], SpinButtonComponent);
         return SpinButtonComponent;
     }());
@@ -9468,7 +9478,8 @@
         multi: true
     };
     var TimePickerComponent = /** @class */ (function () {
-        function TimePickerComponent() {
+        function TimePickerComponent(_changeDetector) {
+            this._changeDetector = _changeDetector;
             /** Whether the arrow keys can be used to increment or decrement the selected time component. */
             this.arrowkeys = true;
             /** Whether the mouse scroll wheel can be used to increment or decrement the selected time component. */
@@ -9534,6 +9545,7 @@
         });
         TimePickerComponent.prototype.writeValue = function (value) {
             this.value = value;
+            this._changeDetector.markForCheck();
         };
         TimePickerComponent.prototype.registerOnChange = function (fn) {
             this.onChangeCallback = fn;
@@ -9543,6 +9555,7 @@
         };
         TimePickerComponent.prototype.setDisabledState = function (isDisabled) {
             this.disabled = isDisabled;
+            this._changeDetector.markForCheck();
         };
         TimePickerComponent.prototype.getMeridianTime = function (hour) {
             return hour > 12 ? hour - 12 : hour;
@@ -9819,7 +9832,8 @@
                 host: {
                     'aria-label': 'Time Picker'
                 }
-            })
+            }),
+            __metadata("design:paramtypes", [core.ChangeDetectorRef])
         ], TimePickerComponent);
         return TimePickerComponent;
     }());
@@ -22783,7 +22797,8 @@
         multi: true
     };
     var PaginationComponent = /** @class */ (function () {
-        function PaginationComponent() {
+        function PaginationComponent(_changeDetector) {
+            this._changeDetector = _changeDetector;
             /** Specify if we should show the next and previous buttons */
             this.directionButtons = true;
             /** Limit the number of pages shown at any given time */
@@ -22883,9 +22898,11 @@
         };
         PaginationComponent.prototype.setDisabledState = function (isDisabled) {
             this.disabled = isDisabled;
+            this._changeDetector.markForCheck();
         };
         PaginationComponent.prototype.writeValue = function (page) {
             this.page = page;
+            this._changeDetector.markForCheck();
         };
         PaginationComponent.prototype.getPages = function () {
             // create a new array to store the pages
@@ -22981,8 +22998,10 @@
             core.Component({
                 selector: 'ux-pagination',
                 template: "<nav role=\"navigation\" [attr.aria-label]=\"ariaLabel\">\n  <ul #container class=\"pagination\"\n    [ngClass]=\"classes\"\n    direction=\"horizontal\"\n    (blur)=\"isKeyboardEvent = false\"\n    (keydown.ArrowLeft)=\"select(page - 1); isKeyboardEvent = true\"\n    (keydown.ArrowRight)=\"select(page + 1); isKeyboardEvent = true\"\n    (keydown.Home)=\"select(1); isKeyboardEvent = true; $event.preventDefault()\"\n    (keydown.End)=\"select(pageCount); isKeyboardEvent = true; $event.preventDefault()\">\n\n    <li class=\"pagination-prev page-item\"\n        *ngIf=\"directionButtons\"\n        uxFocusIndicator\n        [programmaticFocusIndicator]=\"true\"\n        [checkChildren]=\"true\"\n        [class.disabled]=\"page === 1 || disabled\">\n\n      <a class=\"page-link\"\n         [tabindex]=\"page === 1 || disabled ? -1 : 0\"\n         [attr.aria-label]=\"previousAriaLabel\"\n         [ngClass]=\"pageBtnClass\"\n         (click)=\"select(page - 1)\"\n         (keydown.enter)=\"select(page - 1)\">\n        <ng-container [ngTemplateOutlet]=\"previousBtnTemplate || defaultPreviousBtnTemplate\"></ng-container>\n      </a>\n    </li>\n\n    <ng-container *ngFor=\"let pg of pages; trackBy: trackByFn\">\n      <li *ngIf=\"pg.visible\"\n          uxFocusIndicator\n          [programmaticFocusIndicator]=\"true\"\n          [checkChildren]=\"true\"\n          [class.disabled]=\"disabled\"\n          [class.active]=\"page === pg.index\"\n          class=\"pagination-page page-item\">\n\n        <a class=\"page-link\"\n           tabindex=\"0\"\n           [ngClass]=\"pageBtnClass\"\n           [focusIf]=\"isKeyboardEvent && page === pg.index\"\n           [attr.aria-current]=\"page === pg.index\"\n           [attr.aria-setsize]=\"pageCount\"\n           [attr.aria-posinset]=\"pg.index\"\n           (click)=\"select(pg.index)\"\n           (keydown.enter)=\"select(pg.index)\">\n            {{ pg.index }}\n        </a>\n      </li>\n    </ng-container>\n\n    <li class=\"pagination-next page-item\"\n        *ngIf=\"directionButtons\"\n        uxFocusIndicator\n        [programmaticFocusIndicator]=\"true\"\n        [checkChildren]=\"true\"\n        [class.disabled]=\"page === pageCount || disabled\">\n\n      <a class=\"page-link\"\n         [tabindex]=\"page === pageCount || disabled ? -1 : 0\"\n         [attr.aria-label]=\"nextAriaLabel\"\n         [ngClass]=\"pageBtnClass\"\n         (click)=\"select(page + 1)\"\n         (keydown.enter)=\"select(page + 1)\">\n\n        <ng-container [ngTemplateOutlet]=\"nextBtnTemplate || defaultNextBtnTemplate\"></ng-container>\n      </a>\n    </li>\n  </ul>\n</nav>\n\n<ng-template #defaultPreviousBtnTemplate>\n    <ux-icon class=\"pagination-prev-icon-default\" name=\"previous\"></ux-icon>\n</ng-template>\n\n<ng-template #defaultNextBtnTemplate>\n    <ux-icon class=\"pagination-next-icon-default\" name=\"next\"></ux-icon>\n</ng-template>\n",
-                providers: [PAGINATION_CONTROL_VALUE_ACCESSOR]
-            })
+                providers: [PAGINATION_CONTROL_VALUE_ACCESSOR],
+                changeDetection: core.ChangeDetectionStrategy.OnPush
+            }),
+            __metadata("design:paramtypes", [core.ChangeDetectorRef])
         ], PaginationComponent);
         return PaginationComponent;
     }());
@@ -23879,7 +23898,8 @@
         multi: true
     };
     var RadioButtonGroupDirective = /** @class */ (function () {
-        function RadioButtonGroupDirective() {
+        function RadioButtonGroupDirective(_changeDetector) {
+            this._changeDetector = _changeDetector;
             /** Emit when the currently selected value changes */
             this.valueChange = new core.EventEmitter();
             /** Used to inform Angular forms that the component has been touched */
@@ -23926,11 +23946,13 @@
         /** Allow Angular forms to give us the current value */
         RadioButtonGroupDirective.prototype.writeValue = function (value) {
             this.value = value;
+            this._changeDetector.markForCheck();
         };
         /** Allow Angular forms to disable the component */
         RadioButtonGroupDirective.prototype.setDisabledState = function (isDisabled) {
             if (this._radioButtons) {
                 this._radioButtons.forEach(function (radio) { return radio.setDisabledState(isDisabled); });
+                this._changeDetector.markForCheck();
             }
         };
         /** Emit the currently selected value */
@@ -23969,7 +23991,8 @@
                 host: {
                     'role': 'radiogroup'
                 }
-            })
+            }),
+            __metadata("design:paramtypes", [core.ChangeDetectorRef])
         ], RadioButtonGroupDirective);
         return RadioButtonGroupDirective;
     }());
@@ -24047,6 +24070,7 @@
         /** Allow Angular forms to disable the component */
         RadioButtonComponent.prototype.setDisabledState = function (isDisabled) {
             this.disabled = isDisabled;
+            this._changeDetector.markForCheck();
         };
         __decorate([
             core.Input(),
@@ -25592,7 +25616,8 @@
         multi: true
     };
     var TagInputComponent = /** @class */ (function () {
-        function TagInputComponent(_element, _document, _typeaheadKeyService) {
+        function TagInputComponent(_changeDetector, _element, _document, _typeaheadKeyService) {
+            this._changeDetector = _changeDetector;
             this._element = _element;
             this._document = _document;
             this._typeaheadKeyService = _typeaheadKeyService;
@@ -25743,6 +25768,7 @@
         TagInputComponent.prototype.writeValue = function (value) {
             if (value) {
                 this.tags = value;
+                this._changeDetector.markForCheck();
             }
         };
         TagInputComponent.prototype.registerOnChange = function (fn) {
@@ -25753,6 +25779,7 @@
         };
         TagInputComponent.prototype.setDisabledState = function (isDisabled) {
             this.disabled = isDisabled;
+            this._changeDetector.markForCheck();
         };
         /**
          * Set focus on the input field.
@@ -26412,14 +26439,16 @@
                 exportAs: 'ux-tag-input',
                 template: "<ol [attr.role]=\"typeahead ? 'combobox' : 'none'\"\n    [attr.aria-haspopup]=\"typeahead ? 'listbox' : null\"\n    [class.ux-tag-input-clear-inset]=\"_showClearButton\"\n    [class.ux-tag-input-icon-inset]=\"icon\"\n    (click)=\"toggle()\">\n\n    <li *ngFor=\"let tag of tags; let i = index\" class=\"ux-tag\"\n        [class.disabled]=\"disabled\"\n        [ngClass]=\"tagClass(tag, i, isSelected(i))\"\n        [attr.tabindex]=\"disabled ? null : 0\"\n        [focusIf]=\"isSelected(i)\"\n        (click)=\"tagClickHandler($event, tag, i); $event.stopPropagation()\"\n        (focus)=\"selectTagAt(i)\">\n\n        <ng-container [ngTemplateOutlet]=\"tagTemplate || defaultTagTemplate\"\n                      [ngTemplateOutletContext]=\"{tag: tag, index: i, disabled: disabled, api: tagApi}\">\n        </ng-container>\n\n    </li>\n    <li *ngIf=\"isInputVisible()\" class=\"ux-tag-input\" role=\"none\">\n        <input #tagInput type=\"text\" [attr.id]=\"id\" class=\"ux-tag-input\"\n               [ngModel]=\"input\"\n               (ngModelChange)=\"setInputValue($event)\"\n               [autocomplete]=\"autocomplete\"\n               [class.invalid]=\"!inputValid\"\n               [attr.aria-activedescendant]=\"highlightedElement?.id\"\n               [attr.aria-autocomplete]=\"typeahead ? 'list' : 'none'\"\n               [attr.aria-controls]=\"typeahead?.id\"\n               [attr.aria-label]=\"ariaLabel\"\n               aria-multiline=\"false\"\n               [placeholder]=\"disabled ? '' : (placeholder || '')\"\n               [disabled]=\"disabled\"\n               [focusIf]=\"isSelected(tags.length)\"\n               (click)=\"toggle(); $event.stopPropagation()\"\n               (focus)=\"inputFocusHandler(); inputFocus.emit($event)\"\n               (paste)=\"inputPasteHandler($event)\"\n               [readonly]=\"readonlyInput\">\n    </li>\n</ol>\n\n<!-- Insert the custom icon if provided -->\n<div class=\"ux-tag-icons\" *ngIf=\"icon || _showClearButton\" (click)=\"toggle(); $event.stopPropagation()\">\n\n    <!-- Clear All Button -->\n    <i uxFocusIndicator\n       class=\"ux-tag-icon ux-icon ux-icon-close ux-select-clear-icon\"\n       [attr.tabindex]=\"disabled ? -1 : 0\"\n       [attr.aria-label]=\"clearButtonAriaLabel\"\n       *ngIf=\"_showClearButton\"\n       (click)=\"clear(); $event.stopPropagation()\"\n       (keydown.enter)=\"clear(); $event.stopPropagation()\">\n    </i>\n\n    <!-- Custom Icon -->\n    <div *ngIf=\"icon\" class=\"ux-custom-icon\">\n        <ng-container [ngTemplateOutlet]=\"icon\"></ng-container>\n    </div>\n</div>\n\n<ng-content #typeahead></ng-content>\n\n<ng-template #defaultTagTemplate let-tag=\"tag\" let-index=\"index\" let-disabled=\"disabled\" let-api=\"api\">\n    <span class=\"ux-tag-text\">{{ api.getTagDisplay(tag) }}</span>\n    <button *ngIf=\"api.canRemoveTagAt(index)\"\n            uxFocusIndicator\n            type=\"button\"\n            class=\"ux-tag-remove\"\n            aria-label=\"Remove Item\"\n            [disabled]=\"disabled\"\n            (click)=\"api.removeTagAt(index); $event.stopPropagation();\">\n        <ux-icon name=\"close\"></ux-icon>\n    </button>\n</ng-template>",
                 providers: [TAGINPUT_VALUE_ACCESSOR, TAGINPUT_VALIDATOR],
+                changeDetection: core.ChangeDetectionStrategy.OnPush,
                 host: {
                     '[class.disabled]': 'disabled',
                     '[class.focus]': 'hasFocus()',
                     '[class.invalid]': '!valid || !inputValid'
                 }
             }),
-            __param(1, core.Inject(common.DOCUMENT)),
-            __metadata("design:paramtypes", [core.ElementRef, Object, TypeaheadKeyService])
+            __param(2, core.Inject(common.DOCUMENT)),
+            __metadata("design:paramtypes", [core.ChangeDetectorRef,
+                core.ElementRef, Object, TypeaheadKeyService])
         ], TagInputComponent);
         return TagInputComponent;
     }());
@@ -26453,11 +26482,12 @@
         multi: true
     };
     var SelectComponent = /** @class */ (function () {
-        function SelectComponent(_element, _platform, _document, _typeaheadKeyService) {
+        function SelectComponent(_element, _platform, _document, _typeaheadKeyService, _changeDetector) {
             this._element = _element;
             this._platform = _platform;
             this._document = _document;
             this._typeaheadKeyService = _typeaheadKeyService;
+            this._changeDetector = _changeDetector;
             /** A unique id for the component. */
             this.id = "ux-select-" + ++uniqueId$a;
             /**
@@ -26590,6 +26620,7 @@
         SelectComponent.prototype.writeValue = function (obj) {
             if (obj !== undefined && obj !== this.value) {
                 this.value = obj;
+                this._changeDetector.markForCheck();
             }
         };
         SelectComponent.prototype.registerOnChange = function (fn) {
@@ -26600,6 +26631,7 @@
         };
         SelectComponent.prototype.setDisabledState = function (isDisabled) {
             this.disabled = isDisabled;
+            this._changeDetector.markForCheck();
         };
         SelectComponent.prototype.inputClickHandler = function () {
             this.selectInputText();
@@ -26872,11 +26904,13 @@
                 host: {
                     '[class.ux-select-custom-icon]': '!!icon',
                     '[class.ux-select-disabled]': 'disabled'
-                }
+                },
+                changeDetection: core.ChangeDetectionStrategy.OnPush
             }),
             __param(2, core.Inject(common.DOCUMENT)),
             __metadata("design:paramtypes", [core.ElementRef,
-                platform.Platform, Object, TypeaheadKeyService])
+                platform.Platform, Object, TypeaheadKeyService,
+                core.ChangeDetectorRef])
         ], SelectComponent);
         return SelectComponent;
     }());
@@ -28550,7 +28584,10 @@
         return SelectListModule;
     }());
     var InputDropdownComponent = /** @class */ (function () {
-        function InputDropdownComponent() {
+        function InputDropdownComponent(_changeDetector) {
+            this._changeDetector = _changeDetector;
+            /** Filter text */
+            this.filter = '';
             /** Define the placeholder for the filter input */
             this.placeholder = 'Type to filter...';
             /** Aria label of the filter field. If not specified, the placeholder will be used. */
@@ -28563,8 +28600,6 @@
             this.dropdownOpenChange = new core.EventEmitter();
             /** The status of the dropdown. */
             this.dropdownOpen = false;
-            /** Store the current filter text */
-            this._filterText = '';
             /** Store the change callback provided by Angular Forms */
             this.onChange = function () { };
             /** Store the touched callback provided by Angular Forms */
@@ -28610,8 +28645,8 @@
             this._onDestroy$.complete();
         };
         InputDropdownComponent.prototype.resetFilter = function (event) {
-            this._filterText = '';
-            this.filterChange.emit(this._filterText);
+            this.filter = '';
+            this.filterChange.emit(this.filter);
             this.filterInputElement.nativeElement.focus();
             event.stopPropagation();
         };
@@ -28623,6 +28658,7 @@
         };
         InputDropdownComponent.prototype.writeValue = function (value) {
             this.selected = value;
+            this._changeDetector.markForCheck();
         };
         InputDropdownComponent.prototype.resetValue = function (event) {
             this.writeValue(undefined);
@@ -28662,6 +28698,10 @@
             core.Input(),
             __metadata("design:type", Object)
         ], InputDropdownComponent.prototype, "selected", void 0);
+        __decorate([
+            core.Input(),
+            __metadata("design:type", String)
+        ], InputDropdownComponent.prototype, "filter", void 0);
         __decorate([
             core.Input(),
             __metadata("design:type", Boolean)
@@ -28714,7 +28754,7 @@
         InputDropdownComponent = InputDropdownComponent_1 = __decorate([
             core.Component({
                 selector: 'ux-input-dropdown',
-                template: "<div class=\"ux-select-container\">\n    <button #button type=\"button\" class=\"form-control\"\n            [uxMenuTriggerFor]=\"menu\">\n        <ng-template #defaultDisplayContent>{{selected ? (selected | json) : '-'}}</ng-template>\n        <ng-container [ngTemplateOutlet]=\"displayContentRef || defaultDisplayContent\"></ng-container>\n    </button>\n    <div class=\"ux-select-icons\">\n        <ux-icon name=\"close\"\n                 uxFocusIndicator\n                 class=\"ux-select-icon ux-select-clear-icon\"\n                 *ngIf=\"allowNull && selected\"\n                 (click)=\"resetValue($event)\"\n                 (keydown.enter)=\"resetValue($event)\"\n                 tabindex=\"0\">\n        </ux-icon>\n        <ux-icon name=\"chevron-down\"\n                 class=\"ux-select-icon ux-select-chevron-icon\"\n                 (click)=\"toggleMenu(); $event.stopPropagation()\">\n        </ux-icon>\n    </div>\n</div>\n\n<ux-menu #menu menuClass=\"select-menu\"\n         (opened)=\"onMenuOpen()\"\n         (closed)=\"onMenuClose()\"\n         [attr.aria-expanded]=\"dropdownOpen\">\n\n    <div [style.max-height]=\"_maxHeight\"\n         [style.width.px]=\"button.offsetWidth\">\n\n        <div *ngIf=\"!hideFilter\"\n             class=\"filter-container\">\n\n            <input #filterInput\n                    type=\"text\"\n                    [placeholder]=\"placeholder\"\n                    class=\"form-control\"\n                    [(ngModel)]=\"_filterText\"\n                    (input)=\"filterChange.emit(_filterText)\"\n                    (click)=\"$event.stopPropagation()\"\n                    [attr.aria-label]=\"ariaLabel || placeholder\"\n                    (focus)=\"inputFocusHandler()\">\n\n            <button type=\"button\"\n                    class=\"btn btn-flat filter-button\"\n                    (click)=\"resetFilter($event)\"\n                    [tabindex]=\"_filterText.length > 0 ? 0 : -1\">\n                <ux-icon [name]=\"_filterText.length === 0 ? 'search' : 'close'\"></ux-icon>\n            </button>\n        </div>\n\n        <ng-content></ng-content>\n\n    </div>\n</ux-menu>",
+                template: "<div class=\"ux-select-container\">\n    <button #button type=\"button\" class=\"form-control\"\n            [uxMenuTriggerFor]=\"menu\">\n        <ng-template #defaultDisplayContent>{{selected ? (selected | json) : '-'}}</ng-template>\n        <ng-container [ngTemplateOutlet]=\"displayContentRef || defaultDisplayContent\"></ng-container>\n    </button>\n    <div class=\"ux-select-icons\">\n        <ux-icon name=\"close\"\n                 uxFocusIndicator\n                 class=\"ux-select-icon ux-select-clear-icon\"\n                 *ngIf=\"allowNull && selected\"\n                 (click)=\"resetValue($event)\"\n                 (keydown.enter)=\"resetValue($event)\"\n                 tabindex=\"0\">\n        </ux-icon>\n        <ux-icon name=\"chevron-down\"\n                 class=\"ux-select-icon ux-select-chevron-icon\"\n                 (click)=\"toggleMenu(); $event.stopPropagation()\">\n        </ux-icon>\n    </div>\n</div>\n\n<ux-menu #menu menuClass=\"select-menu\"\n         (opened)=\"onMenuOpen()\"\n         (closed)=\"onMenuClose()\"\n         [attr.aria-expanded]=\"dropdownOpen\">\n\n    <div [style.max-height]=\"_maxHeight\"\n         [style.width.px]=\"button.offsetWidth\">\n\n        <div *ngIf=\"!hideFilter\"\n             class=\"filter-container\">\n\n            <input #filterInput\n                    type=\"text\"\n                    [placeholder]=\"placeholder\"\n                    class=\"form-control\"\n                    [(ngModel)]=\"filter\"\n                    (input)=\"filterChange.emit(filter)\"\n                    (click)=\"$event.stopPropagation()\"\n                    [attr.aria-label]=\"ariaLabel || placeholder\"\n                    (focus)=\"inputFocusHandler()\">\n\n            <button type=\"button\"\n                    class=\"btn btn-flat filter-button\"\n                    (click)=\"resetFilter($event)\"\n                    [tabindex]=\"filter.length > 0 ? 0 : -1\">\n                <ux-icon [name]=\"filter.length === 0 ? 'search' : 'close'\"></ux-icon>\n            </button>\n        </div>\n\n        <ng-content></ng-content>\n\n    </div>\n</ux-menu>\n",
                 changeDetection: core.ChangeDetectionStrategy.OnPush,
                 providers: [
                     {
@@ -28723,7 +28763,8 @@
                         useExisting: core.forwardRef(function () { return InputDropdownComponent_1; })
                     }
                 ]
-            })
+            }),
+            __metadata("design:paramtypes", [core.ChangeDetectorRef])
         ], InputDropdownComponent);
         return InputDropdownComponent;
     }());
@@ -30242,7 +30283,8 @@
     };
     var uniqueToggleSwitchId = 0;
     var ToggleSwitchComponent = /** @class */ (function () {
-        function ToggleSwitchComponent() {
+        function ToggleSwitchComponent(_changeDetector) {
+            this._changeDetector = _changeDetector;
             /** Provide a default unique id value for the toggle switch */
             this._toggleSwitchId = "ux-toggleswitch-" + ++uniqueToggleSwitchId;
             /** Specify a unique id for the element. */
@@ -30281,6 +30323,7 @@
         };
         ToggleSwitchComponent.prototype.writeValue = function (value) {
             this.value = !!value;
+            this._changeDetector.markForCheck();
         };
         ToggleSwitchComponent.prototype.registerOnChange = function (fn) {
             this.onChangeCallback = fn;
@@ -30290,6 +30333,7 @@
         };
         ToggleSwitchComponent.prototype.setDisabledState = function (isDisabled) {
             this.disabled = isDisabled;
+            this._changeDetector.markForCheck();
         };
         __decorate([
             core.Input(),
@@ -30333,7 +30377,8 @@
                 template: "<label [attr.for]=\"(id || _toggleSwitchId) + '-input'\"\n       class=\"ux-toggleswitch\"\n       [class.ux-toggleswitch-checked]=\"value\"\n       [class.ux-toggleswitch-disabled]=\"disabled\"\n       [class.ux-toggleswitch-focused]=\"_focused\">\n\n    <input class=\"ux-toggleswitch-input\"\n           uxFocusIndicator\n           type=\"checkbox\"\n           role=\"switch\"\n           [id]=\"(id || _toggleSwitchId) + '-input'\"\n           [checked]=\"value\"\n           [disabled]=\"disabled\"\n           [attr.name]=\"name\"\n           [tabindex]=\"tabindex\"\n           [attr.aria-label]=\"ariaLabel\"\n           [attr.aria-labelledby]=\"ariaLabelledby\"\n           [attr.aria-checked]=\"value\"\n           (indicator)=\"_focused = $event\"\n           (change)=\"toggle()\"\n           (click)=\"$event.stopPropagation()\">\n\n    <div class=\"ux-toggleswitch-container\">\n        <div class=\"ux-toggleswitch-bg\"></div>\n        <div class=\"ux-toggleswitch-nub\"></div>\n    </div>\n\n    <span class=\"ux-toggleswitch-label\">\n        <ng-content></ng-content>\n    </span>\n</label>",
                 providers: [TOGGLESWITCH_VALUE_ACCESSOR],
                 changeDetection: core.ChangeDetectionStrategy.OnPush
-            })
+            }),
+            __metadata("design:paramtypes", [core.ChangeDetectorRef])
         ], ToggleSwitchComponent);
         return ToggleSwitchComponent;
     }());
@@ -30397,8 +30442,9 @@
         multi: true
     };
     var ToolbarSearchFieldDirective = /** @class */ (function () {
-        function ToolbarSearchFieldDirective(_elementRef) {
+        function ToolbarSearchFieldDirective(_elementRef, _changeDetector) {
             this._elementRef = _elementRef;
+            this._changeDetector = _changeDetector;
             /** Emit whenever the escape key is pressed */
             this.cancel = new core.EventEmitter();
             /** Emit whenever the enter key is pressed */
@@ -30445,6 +30491,7 @@
         /** Update the input value based on ngModel or formControl */
         ToolbarSearchFieldDirective.prototype.writeValue = function (value) {
             this.setValue(value);
+            this._changeDetector.markForCheck();
         };
         /** Register a function to update form control */
         ToolbarSearchFieldDirective.prototype.registerOnChange = function (fn) {
@@ -30496,7 +30543,8 @@
                 selector: '[uxToolbarSearchField]',
                 providers: [TOOLBAR_SEARCH_VALUE_ACCESSOR]
             }),
-            __metadata("design:paramtypes", [core.ElementRef])
+            __metadata("design:paramtypes", [core.ElementRef,
+                core.ChangeDetectorRef])
         ], ToolbarSearchFieldDirective);
         return ToolbarSearchFieldDirective;
     }());
