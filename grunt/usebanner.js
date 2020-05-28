@@ -13,7 +13,8 @@ module.exports = {
         files: {
             src: [
                 path.join(process.cwd(), 'dist', 'library', 'styles', 'ux-aspects.css'),
-                path.join(process.cwd(), 'dist', 'library', 'styles', 'ux-aspects.min.css')
+                path.join(process.cwd(), 'dist', 'library', 'styles', 'ux-aspects.min.css'),
+                path.join(process.cwd(), 'dist', 'library', 'styles', 'hpe-icons.min.css')
             ]
         }
     }

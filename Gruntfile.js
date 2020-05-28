@@ -20,6 +20,7 @@ module.exports = function(grunt) {
     grunt.registerTask('library', ['clean:library', 'execute:ngpackagr', 'execute:typescriptTransform']);
     grunt.registerTask('styles', ['clean:styles', 'execute:less', 'usebanner:styles']);
     grunt.registerTask('assets', ['copy:fonts', 'copy:images', 'copy:css', 'copy:md']);
+    grunt.registerTask('assets:styles', ['copy:css_hpe']);
     grunt.registerTask('assets:library', ['copy:fonts', 'copy:images', 'copy:md']);
     grunt.registerTask('iconset', ['execute:iconset', 'webfont']);
     grunt.registerTask('minify', ['cssmin:styles']);
@@ -54,6 +55,7 @@ module.exports = function(grunt) {
         'library',
         'iconset',
         'styles',
+        'assets:styles',
         'minify',
         'assets:library',
         'package:ux-aspects',

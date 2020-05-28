@@ -10,7 +10,7 @@ module.exports = {
             engine: 'node',
             types: ['woff', 'ttf'],
             hashes: false,
-            stylesheet: 'less',
+            stylesheet: 'css',
             htmlDemo: false,
             templateOptions: {
                 baseClass: 'hpe-icon',

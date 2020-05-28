@@ -35,6 +35,10 @@ fs.writeFileSync(
     `@import url("../../styles/ux-aspects.min.css");`
 );
 
+fs.writeFileSync(
+    path.join(cssPath, 'hpe-icons.min.css'),
+    `@import url("../../styles/hpe-icons.min.css");`
+);
 
 /**
  * Shim the Less Files

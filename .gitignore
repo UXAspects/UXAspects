@@ -9,7 +9,7 @@ jshint.log
 docs/app/assets/licenses.txt
 src/fonts/*-icons.woff
 src/fonts/*-icons.ttf
-src/styles/hpe-icons.less
+src/styles/hpe-icons.css
 dist/
 .tscache/
 e2e/_test-output/

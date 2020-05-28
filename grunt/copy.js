@@ -20,6 +20,12 @@ module.exports = {
         dest: join(cwd(), 'dist', 'docs', 'assets', 'css'),
         expand: true
     },
+    'css_hpe': {
+        cwd: join(cwd(), 'src', 'styles'),
+        src: 'hpe-icons.css',
+        dest: join(cwd(), 'dist', 'library', 'styles'),
+        expand: true
+    },
     'npm_ux-aspects_tgz': {
         cwd: join(cwd(), 'dist', 'library'),
         src: 'ux-aspects-ux-aspects-*.*.*.tgz',
