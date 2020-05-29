@@ -1,5 +1,18 @@
-<p *ngIf="iconSetClass === 'hpe-icon'">To use an icon simply apply the <code>{{ iconSetClass }}</code>
-    class along with one of the following classes:</p>
+<div *ngIf="iconSetClass === 'hpe-icon'" class="row m-b-md hpe-icon-instructions">
+
+    <div class="col-lg-12 col-md-12 col-sm-12">
+
+        <p>To use an <code>{{ iconSetClass }}</code> import the HPE Icons CSS file into your project.
+            It can be found in the <code>@ux-aspects/ux-aspects</code> package:</p>
+
+        <uxd-snippet language="html" [code]="hpeIconsLinkHtml"></uxd-snippet>
+
+        <p>Once the CSS is imported simply apply the <code>{{ iconSetClass }}</code> class along with one of
+            the following classes:</p>
+
+    </div>
+
+</div>
 
 <p *ngIf="iconSetClass === 'ux-icon'">To use an icon apply the <a fragment="icon"
     [routerLink]="[uxIconComponentRoute]"><code>ux-icon</code> component</a> along with one of the

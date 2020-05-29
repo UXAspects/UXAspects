@@ -1,0 +1,1 @@
+<link rel="stylesheet" href="@ux-aspects/ux-aspects/dist/styles/hpe-icons.min.css">

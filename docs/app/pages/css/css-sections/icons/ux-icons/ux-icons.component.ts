@@ -36,12 +36,13 @@ export class CssUxIconsComponent {
 
     size: string = '24px';
 
+    hpeIconsLinkHtml = require('!!raw-loader!./hpe-icons-link.txt');
+
     get isKeppel(): boolean {
         return this._documentationType === DocumentationType.Keppel;
     }
 
     constructor(@Inject(DOCUMENTATION_TOKEN) private _documentationType: DocumentationType) {
-
         this.uxIconComponentRoute = _documentationType === DocumentationType.MicroFocus ? '/ui-components/styling' : '/components/icons';
     }
 
