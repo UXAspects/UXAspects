@@ -52,7 +52,7 @@ describe('Reorderable Table Tests', () => {
         const { height } = await page.row1.getSize();
 
         // perform drag and drop
-        await browser.driver.actions().mouseDown(page.handle2).mouseMove({ x: 0, y: -height }).mouseUp().perform();
+        await browser.driver.actions().mouseDown(page.handle2).mouseMove({ x: 0, y: -Math.round(height * 1.5) }).mouseUp().perform();
 
         // check the order of the items
         expect(await page.getDocumentOrder()).toEqual(['Document 2', 'Document 1', 'Document 3']);
