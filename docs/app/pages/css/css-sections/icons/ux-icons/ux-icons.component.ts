@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { DocumentationType, DOCUMENTATION_TOKEN } from '../../../../../services/playground/tokens/documentation.token';
 import { IIcon, IIcons } from '../../../../../interfaces/IIcons';
+import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 
 @Component({
     selector: 'uxd-css-icons-ux-icons',
@@ -10,7 +11,7 @@ import { IIcon, IIcons } from '../../../../../interfaces/IIcons';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 @DocumentationSectionComponent('CssUxIconsComponent')
-export class CssUxIconsComponent {
+export class CssUxIconsComponent extends BaseDocumentationSection {
 
     /** Store the active icons set */
     iconset: Iconset = 'ux-icons';
@@ -36,13 +37,13 @@ export class CssUxIconsComponent {
 
     size: string = '24px';
 
-    hpeIconsLinkHtml = require('!!raw-loader!./hpe-icons-link.txt');
-
     get isKeppel(): boolean {
         return this._documentationType === DocumentationType.Keppel;
     }
 
     constructor(@Inject(DOCUMENTATION_TOKEN) private _documentationType: DocumentationType) {
+        super(require.context('./snippets/', false, /(html|css|js|ts)$/));
+
         this.uxIconComponentRoute = _documentationType === DocumentationType.MicroFocus ? '/ui-components/styling' : '/components/icons';
     }
 

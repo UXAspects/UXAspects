@@ -1,18 +1,13 @@
-<div *ngIf="iconSetClass === 'hpe-icon'" class="row m-b-md hpe-icon-instructions">
+<section *ngIf="iconSetClass === 'hpe-icon'">
+    <ux-alert type="warning" [dismissible]="false"><ux-icon uxAlertIcon name="status-warning-filled"></ux-icon>This icon set and will be deprecated in the next major release. For all new projects use the <code>ux-icons</code> icon set.</ux-alert>
 
-    <div class="col-lg-12 col-md-12 col-sm-12">
+    <p>To use an <code>{{ iconSetClass }}</code> import the HPE Icons CSS file into the <code>angular.json</code> configuration file under <code>build</code> in the project settings:</p>
 
-        <p>To use an <code>{{ iconSetClass }}</code> import the HPE Icons CSS file into your project.
-            It can be found in the <code>@ux-aspects/ux-aspects</code> package:</p>
+    <uxd-snippet [content]="snippets.compiled.hpeIconsLinkJs"></uxd-snippet>
 
-        <uxd-snippet language="html" [code]="hpeIconsLinkHtml"></uxd-snippet>
-
-        <p>Once the CSS is imported simply apply the <code>{{ iconSetClass }}</code> class along with one of
-            the following classes:</p>
-
-    </div>
-
-</div>
+    <p>Once the CSS is imported simply apply the <code>{{ iconSetClass }}</code> class along with one of
+        the following classes:</p>
+</section>
 
 <p *ngIf="iconSetClass === 'ux-icon'">To use an icon apply the <a fragment="icon"
     [routerLink]="[uxIconComponentRoute]"><code>ux-icon</code> component</a> along with one of the

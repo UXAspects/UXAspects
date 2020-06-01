@@ -1,5 +1,4 @@
 "styles": [
     "./node_modules/bootstrap/dist/css/bootstrap.css",
-    "./node_modules/@ux-aspects/ux-aspects/styles/hpe-icons.css",
     "./node_modules/@ux-aspects/ux-aspects/styles/ux-aspects.css"
 ],
