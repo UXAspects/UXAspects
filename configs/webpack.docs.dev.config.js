@@ -200,7 +200,8 @@ module.exports = {
         overlay: true,
         headers: {
             'Access-Control-Allow-Origin': '*'
-        }
+        },
+        disableHostCheck: true // https://github.com/webpack/webpack-dev-server/issues/1604
     },
 
     node: false
