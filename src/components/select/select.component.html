@@ -57,7 +57,7 @@
         [class.ux-tag-input-clear-inset]="clearButton && allowNull && _hasValue"
         [attr.aria-activedescendant]="highlightedElement?.id"
         aria-autocomplete="list"
-        [attr.aria-controls]="singleTypeahead.id"
+        [attr.aria-controls]="id + '-typeahead'"
         [attr.aria-label]="ariaLabel"
         aria-multiline="false"
         [autocomplete]="autocomplete"
