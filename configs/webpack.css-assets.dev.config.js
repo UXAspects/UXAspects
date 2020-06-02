@@ -6,7 +6,7 @@ module.exports = {
 
     mode: 'production',
 
-    entry: join(cwd(), 'src', 'styles', 'index.js'),
+    entry: join(cwd(), 'docs', 'styles', 'index.js'),
 
     output: {
         path: join(cwd(), 'dist', 'docs', 'assets', 'css'),
