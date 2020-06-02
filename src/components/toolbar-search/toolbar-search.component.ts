@@ -111,6 +111,8 @@ export class ToolbarSearchComponent implements AfterContentInit, OnDestroy {
     /** Store the programmatically created placeholder element */
     private _placeholder: HTMLElement;
 
+    private _placeholderVisible: boolean = false;
+
     /** Unsubscribe from all subscriptions on component destroy */
     private _onDestroy = new Subject<void>();
 
@@ -136,7 +138,11 @@ export class ToolbarSearchComponent implements AfterContentInit, OnDestroy {
         // Create placeholder element to avoid changing layout when switching to position: absolute
         // If the platform is a server we dont want to do this as we can't access getComputedStyle
         if (!isPlatformServer(this._platformId)) {
-            this.createPlaceholder();
+
+            // Ensure that the placeholder is created when layout is complete.
+            setTimeout(() => {
+                this.createPlaceholder();
+            });
         }
     }
 
@@ -144,7 +150,7 @@ export class ToolbarSearchComponent implements AfterContentInit, OnDestroy {
         this._onDestroy.next();
         this._onDestroy.complete();
 
-        /**
+        /*
          * We programmatically created the placeholder node so Angular is not aware of its existence
          * so we must manually destroy it otherwise the reference will be retained.
          * Note, the `destroyNode` function may be null or undefined as mentioned in the
@@ -160,7 +166,8 @@ export class ToolbarSearchComponent implements AfterContentInit, OnDestroy {
     animationStart(event: AnimationEvent): void {
         if (event.toState === 'expanded') {
             this._position = 'absolute';
-            this.setPlaceholderVisible(true);
+            this._placeholderVisible = true;
+            this.updatePlaceholderDisplay();
         }
     }
 
@@ -168,7 +175,8 @@ export class ToolbarSearchComponent implements AfterContentInit, OnDestroy {
     animationDone(event: AnimationEvent): void {
         if (event.toState === 'collapsed') {
             this._position = 'relative';
-            this.setPlaceholderVisible(false);
+            this._placeholderVisible = false;
+            this.updatePlaceholderDisplay();
         }
     }
 
@@ -180,17 +188,19 @@ export class ToolbarSearchComponent implements AfterContentInit, OnDestroy {
 
         // Create invisible div with the same dimensions
         this._placeholder = this._renderer.createElement('div');
-        this._renderer.setStyle(this._placeholder, 'display', 'none');
         this._renderer.setStyle(this._placeholder, 'width', this.button.width + 'px');
         this._renderer.setStyle(this._placeholder, 'height', styles.height);
         this._renderer.setStyle(this._placeholder, 'visibility', 'hidden');
+        this.updatePlaceholderDisplay();
 
         // Add as a sibling
         this._renderer.insertBefore(this._elementRef.nativeElement.parentNode, this._placeholder, this._elementRef.nativeElement);
     }
 
     /** Update the visibility of the placeholder node */
-    private setPlaceholderVisible(isVisible: boolean): void {
-        this._renderer.setStyle(this._placeholder, 'display', isVisible ? 'inline-block' : 'none');
+    private updatePlaceholderDisplay(): void {
+        if (this._placeholder) {
+            this._renderer.setStyle(this._placeholder, 'display', this._placeholderVisible ? 'inline-block' : 'none');
+        }
     }
 }
