@@ -56,7 +56,6 @@ export class DateTimePickerService implements OnDestroy {
 
         // when the active date changes set the currently selected date
         this._subscription = this.selected$.subscribe(date => {
-
             // the month and year displayed in the viewport should reflect the newly selected items
             if (date instanceof Date) {
                 this.setViewportMonth(date.getMonth());
@@ -64,7 +63,7 @@ export class DateTimePickerService implements OnDestroy {
             }
 
             // emit the new date to the component host but only if they are different
-            if (!dateComparator(date, this.selected$.value)) {
+            if (!dateComparator(date, this.date$.value)) {
                 this.date$.next(date);
             }
         });
