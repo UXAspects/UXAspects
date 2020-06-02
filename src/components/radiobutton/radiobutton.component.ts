@@ -124,5 +124,6 @@ export class RadioButtonComponent<T = any> implements ControlValueAccessor {
     /** Allow Angular forms to disable the component */
     setDisabledState(isDisabled: boolean): void {
         this.disabled = isDisabled;
+        this._changeDetector.markForCheck();
     }
 }

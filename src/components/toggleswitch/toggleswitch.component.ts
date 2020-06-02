@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, forwardRef, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, forwardRef, Input, Output } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 const TOGGLESWITCH_VALUE_ACCESSOR = {
@@ -56,6 +56,8 @@ export class ToggleSwitchComponent implements ControlValueAccessor {
     /** Used to inform Angular forms that the component value has changed */
     onChangeCallback: (_: any) => void = () => { };
 
+    constructor(private readonly _changeDetector: ChangeDetectorRef) { }
+
     toggle(): void {
         if (!this.disabled && this.clickable) {
             this.value = !this.value;
@@ -73,6 +75,7 @@ export class ToggleSwitchComponent implements ControlValueAccessor {
 
     writeValue(value: boolean): void {
         this.value = !!value;
+        this._changeDetector.markForCheck();
     }
 
     registerOnChange(fn: any): void {
@@ -85,5 +88,6 @@ export class ToggleSwitchComponent implements ControlValueAccessor {
 
     setDisabledState(isDisabled: boolean): void {
         this.disabled = isDisabled;
+        this._changeDetector.markForCheck();
     }
 }

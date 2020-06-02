@@ -62,6 +62,17 @@
                     "url": "mailto:robertandrew.stevenson@microfocus.com"
                 }
             ]
+        },
+        {
+            "name": "Christina Mallon",
+            "email": "christina.mallon@microfocus.com",
+            "avatar": "assets/img/team/christina.jpg",
+            "social": [
+                {
+                    "icon": "mail",
+                    "url": "mailto:christina.mallon@microfocus.com"
+                }
+            ]
         }
     ]
 }

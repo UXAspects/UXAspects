@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+
 @Component({
     selector: 'app',
-    templateUrl: './pagination.testpage.component.html'
+    templateUrl: './pagination.testpage.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 // changed name from AppComponent
 export class PaginationTestPageComponent {

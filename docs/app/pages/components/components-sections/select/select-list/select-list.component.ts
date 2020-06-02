@@ -1,8 +1,11 @@
 import { Component } from '@angular/core';
+import { Chance } from 'chance';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
 import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
+
+const chance = new Chance();
 
 @Component({
     selector: 'uxd-components-select-list',

@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
 @Component({
     selector: 'app-select',
-    templateUrl: './select.testpage.component.html'
+    templateUrl: './select.testpage.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SelectTestPageComponent implements OnInit {
 

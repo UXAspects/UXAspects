@@ -1,4 +1,4 @@
-import { Component, EventEmitter, forwardRef, Input, OnInit, Output, TemplateRef } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, forwardRef, Input, OnInit, Output, TemplateRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 export const PAGINATION_CONTROL_VALUE_ACCESSOR: any = {
@@ -10,7 +10,8 @@ export const PAGINATION_CONTROL_VALUE_ACCESSOR: any = {
 @Component({
   selector: 'ux-pagination',
   templateUrl: './pagination.component.html',
-  providers: [PAGINATION_CONTROL_VALUE_ACCESSOR]
+  providers: [PAGINATION_CONTROL_VALUE_ACCESSOR],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PaginationComponent implements OnInit, ControlValueAccessor {
 
@@ -37,6 +38,8 @@ export class PaginationComponent implements OnInit, ControlValueAccessor {
 
   /** Aria label for the next button */
   @Input() nextAriaLabel: string = 'Navigate to the next page';
+
+  constructor(private readonly _changeDetector: ChangeDetectorRef) { }
 
   /** Specify the index of the active page */
   @Input() set page(page: number) {
@@ -139,10 +142,12 @@ export class PaginationComponent implements OnInit, ControlValueAccessor {
 
   setDisabledState(isDisabled: boolean): void {
     this.disabled = isDisabled;
+    this._changeDetector.markForCheck();
   }
 
   writeValue(page: number): void {
     this.page = page;
+    this._changeDetector.markForCheck();
   }
 
   private getPages(): Page[] {

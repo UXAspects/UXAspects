@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, forwardRef, Input, Output, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, forwardRef, Input, Output, ViewEncapsulation } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 export const TIME_PICKER_VALUE_ACCESSOR: any = {
@@ -91,6 +91,8 @@ export class TimePickerComponent implements ControlValueAccessor {
     /** Emitted when the validity of the control changes. */
     @Output() isValid = new EventEmitter<boolean>();
 
+    constructor(private readonly _changeDetector: ChangeDetectorRef) { }
+
     onTouchedCallback: () => void = () => {};
     onChangeCallback: (_: Date) => void = () => {};
 
@@ -99,6 +101,7 @@ export class TimePickerComponent implements ControlValueAccessor {
 
     writeValue(value: Date): void {
         this.value = value;
+        this._changeDetector.markForCheck();
     }
 
     registerOnChange(fn: (_: Date) => void): void {
@@ -111,6 +114,7 @@ export class TimePickerComponent implements ControlValueAccessor {
 
     setDisabledState(isDisabled: boolean): void {
         this.disabled = isDisabled;
+        this._changeDetector.markForCheck();
     }
 
     getMeridianTime(hour: number): number {
@@ -248,7 +252,7 @@ export class TimePickerComponent implements ControlValueAccessor {
         }
 
         const currentHour = this.value.getHours();
-        
+
         // if the value hasn't changed, do nothing
         if (hour === currentHour) {
             return;

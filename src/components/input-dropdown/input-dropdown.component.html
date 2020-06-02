@@ -35,8 +35,8 @@
                     type="text"
                     [placeholder]="placeholder"
                     class="form-control"
-                    [(ngModel)]="_filterText"
-                    (input)="filterChange.emit(_filterText)"
+                    [(ngModel)]="filter"
+                    (input)="filterChange.emit(filter)"
                     (click)="$event.stopPropagation()"
                     [attr.aria-label]="ariaLabel || placeholder"
                     (focus)="inputFocusHandler()">
@@ -44,8 +44,8 @@
             <button type="button"
                     class="btn btn-flat filter-button"
                     (click)="resetFilter($event)"
-                    [tabindex]="_filterText.length > 0 ? 0 : -1">
-                <ux-icon [name]="_filterText.length === 0 ? 'search' : 'close'"></ux-icon>
+                    [tabindex]="filter.length > 0 ? 0 : -1">
+                <ux-icon [name]="filter.length === 0 ? 'search' : 'close'"></ux-icon>
             </button>
         </div>
 

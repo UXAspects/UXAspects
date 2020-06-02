@@ -1,5 +1,5 @@
 import { coerceCssPixelValue } from '@angular/cdk/coercion';
-import { AfterViewInit, ChangeDetectionStrategy, Component, ContentChild, ElementRef, EventEmitter, forwardRef, Input, OnChanges, OnDestroy, Output, SimpleChanges, TemplateRef, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ElementRef, EventEmitter, forwardRef, Input, OnChanges, OnDestroy, Output, SimpleChanges, TemplateRef, ViewChild } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { MenuTriggerDirective } from '../menu/menu-trigger/menu-trigger.directive';
@@ -20,6 +20,9 @@ export class InputDropdownComponent<T> implements ControlValueAccessor, AfterVie
 
     /** Define the selected item */
     @Input() selected: T;
+
+    /** Filter text */
+    @Input() filter: string = '';
 
     /** Hide the filter input */
     @Input() hideFilter: boolean;
@@ -59,9 +62,6 @@ export class InputDropdownComponent<T> implements ControlValueAccessor, AfterVie
     /** Access the filter text input element */
     @ViewChild('filterInput', { static: false }) filterInputElement: ElementRef<HTMLInputElement>;
 
-    /** Store the current filter text */
-    _filterText: string = '';
-
     /** Store the max height */
     _maxHeight: string;
 
@@ -73,6 +73,8 @@ export class InputDropdownComponent<T> implements ControlValueAccessor, AfterVie
 
     /** Unsubscribe from all observables on component destroy */
     private readonly _onDestroy$ = new Subject<void>();
+
+    constructor(private readonly _changeDetector: ChangeDetectorRef) { }
 
     ngOnChanges(changes: SimpleChanges): void {
 
@@ -110,8 +112,8 @@ export class InputDropdownComponent<T> implements ControlValueAccessor, AfterVie
     }
 
     resetFilter(event: MouseEvent): void {
-        this._filterText = '';
-        this.filterChange.emit(this._filterText);
+        this.filter = '';
+        this.filterChange.emit(this.filter);
         this.filterInputElement.nativeElement.focus();
         event.stopPropagation();
     }
@@ -126,6 +128,7 @@ export class InputDropdownComponent<T> implements ControlValueAccessor, AfterVie
 
     writeValue(value: T): void {
         this.selected = value;
+        this._changeDetector.markForCheck();
     }
 
     resetValue(event: Event): void {

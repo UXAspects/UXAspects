@@ -5,7 +5,7 @@
             [(selected)]="selected"
             [dropdownOpen]="dropdownOpen"
             (dropdownOpenChange)="dropdownOpenChange($event)"
-            (filterChange)="setFilter($event)"
+            [(filter)]="filter"
             [allowNull]="allowNull"
             [maxHeight]="maxHeight"
             [placeholder]="placeholder"
@@ -86,6 +86,9 @@
 </p>
 
 <uxd-api-properties tableTitle="Inputs">
+    <tr uxd-api-property name="filter" type="string">
+        If specified, the filter string will be set to the given value.
+    </tr>
     <tr uxd-api-property name="selected" type="T[]">
         If specified, the items provided will be selected.
         To programmatically modify the selection, assign a new array object to this property.

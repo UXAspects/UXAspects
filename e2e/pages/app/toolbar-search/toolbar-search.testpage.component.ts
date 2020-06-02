@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
     selector: 'uxd-toolbar-search',
     templateUrl: './toolbar-search.testpage.component.html',
-    styleUrls: ['./toolbar-search.testpage.component.less']
+    styleUrls: ['./toolbar-search.testpage.component.less'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ToolbarSearchTestPageComponent {
 
