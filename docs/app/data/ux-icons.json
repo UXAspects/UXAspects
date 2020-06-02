@@ -1217,8 +1217,16 @@
             "classname": "ux-icon-soa"
         },
         {
+            "name": "social-cisco-jabber",
+            "classname": "ux-icon-social-cisco-jabber"
+        },
+        {
             "name": "social-email",
             "classname": "ux-icon-social-email"
+        },
+        {
+            "name": "social-facebook-workplace",
+            "classname": "ux-icon-social-facebook-workplace"
         },
         {
             "name": "social-facebook",
@@ -1241,12 +1249,32 @@
             "classname": "ux-icon-social-medium"
         },
         {
+            "name": "social-ms-teams",
+            "classname": "ux-icon-social-ms-teams"
+        },
+        {
             "name": "social-pinterest",
             "classname": "ux-icon-social-pinterest"
         },
         {
             "name": "social-reddit",
             "classname": "ux-icon-social-reddit"
+        },
+        {
+            "name": "social-salesforce-filled",
+            "classname": "ux-icon-social-salesforce-filled"
+        },
+        {
+            "name": "social-salesforce",
+            "classname": "ux-icon-social-salesforce"
+        },
+        {
+            "name": "social-sharepoint",
+            "classname": "ux-icon-social-sharepoint"
+        },
+        {
+            "name": "social-skype-for-business",
+            "classname": "ux-icon-social-skype-for-business"
         },
         {
             "name": "social-slack",
@@ -1263,6 +1291,18 @@
         {
             "name": "social-vimeo",
             "classname": "ux-icon-social-vimeo"
+        },
+        {
+            "name": "social-we-chat",
+            "classname": "ux-icon-social-we-chat"
+        },
+        {
+            "name": "social-whats-app",
+            "classname": "ux-icon-social-whats-app"
+        },
+        {
+            "name": "social-yammer",
+            "classname": "ux-icon-social-yammer"
         },
         {
             "name": "social-youtube",
