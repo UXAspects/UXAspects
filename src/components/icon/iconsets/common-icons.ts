@@ -147,6 +147,7 @@ export const commonIcons = [
     'eject-filled',
     'eject',
     'expand',
+    'export',
     'fan',
     'fast-forward-filled',
     'fast-forward',

@@ -585,6 +585,10 @@
             "classname": "ux-icon-expand"
         },
         {
+            "name": "export",
+            "classname": "ux-icon-export"
+        },
+        {
             "name": "fan",
             "classname": "ux-icon-fan"
         },
