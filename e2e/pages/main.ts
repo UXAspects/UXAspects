@@ -6,6 +6,4 @@ import { AppModule } from './app/app.module';
 // enable angular production mode to simulate real environment
 enableProdMode();
 
-platformBrowserDynamic().bootstrapModule(AppModule, {
-    preserveWhitespaces: true
-});
+platformBrowserDynamic().bootstrapModule(AppModule);
