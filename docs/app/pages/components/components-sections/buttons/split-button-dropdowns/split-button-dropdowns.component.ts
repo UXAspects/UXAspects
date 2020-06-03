@@ -11,6 +11,24 @@ import { DocumentationType, DOCUMENTATION_TOKEN } from '../../../../../services/
 })
 @DocumentationSectionComponent('ComponentsSplitButtonDropdownsComponent')
 export class ComponentsSplitButtonDropdownsComponent extends BaseDocumentationSection implements IPlaygroundProvider {
+
+    cases: string[] = [
+        'Alpha',
+        'Beta',
+        'Gamma',
+        'Delta',
+        'Epsilon',
+        'Zeta',
+        'Eta',
+        'Theta',
+        'Iota',
+        'Kappa',
+        'Alpha 2',
+        'Alpha 3',
+    ];
+
+    caseFilter: string = '';
+
     playground: IPlayground = {
         files: {
             'app.component.html':
