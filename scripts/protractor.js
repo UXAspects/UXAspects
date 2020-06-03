@@ -15,7 +15,7 @@ env.E2E_HOST_ADDRESS = isJenkinsBuild ? 'localhost' : getHostAddressFromSelenium
 
 const protractorConfigFile = isJenkinsBuild ? './e2e/protractor.config.js' : './e2e/protractor.dev.config.js';
 
-launcher.init(protractorConfigFile);
+runProtractor(protractorConfigFile);
 
 
 function startSeleniumContainer() {
@@ -31,4 +31,8 @@ function getHostAddressFromSeleniumContainer() {
     }
 
     return address;
+}
+
+function runProtractor(configFile) {
+    launcher.init(configFile);
 }

@@ -14,6 +14,7 @@ const outputDir = join(cwd(), 'target', 'e2e');
 const junitDir = join(outputDir, 'junit');
 const screenshotOutputDir = join(outputDir, 'screenshots');
 
+// Configuration for running Protractor on Jenkins
 exports.config = {
   directConnect: true,
   chromeDriver: require('chromedriver').path,
