@@ -6,14 +6,11 @@ module.exports = {
 
     mode: 'production',
 
-    entry: {
-        'ux-aspects': join(cwd(), 'docs', 'styles', 'ux-aspects.js'),
-        'hpe-icons': join(cwd(), 'docs', 'styles', 'hpe-icons.js')
-    },
+    entry: join(cwd(), 'docs', 'styles', 'index.js'),
 
     output: {
         path: join(cwd(), 'dist', 'docs', 'assets', 'css'),
-        filename: '[name].js'
+        filename: 'index.js'
     },
 
     module: {
@@ -32,7 +29,7 @@ module.exports = {
     },
     plugins: [
         new MiniCssExtractPlugin({
-            filename: '[name].css'
+            filename: 'ux-aspects.css'
         })
     ]
 

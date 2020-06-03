@@ -32,12 +32,12 @@ export class AngularPlaygroundStrategy extends PlaygroundStrategy {
 
         if (this.documentationType === DocumentationType.Keppel) {
             stylesheets.push(`${assetsUrl}/css/ux-aspects.css`);
-            stylesheets.push(`${assetsUrl}/css/hpe-icons.css`);
         } else {
             stylesheets.push(`${assetsUrl}/styles/ux-aspects.css`);
-            stylesheets.push(`${assetsUrl}/styles/hpe-icons.css`);
             stylesheets.push(`${assetsUrl}/styles/quantum-ux-aspects.css`);
         }
+
+        stylesheets.push(`${assetsUrl}/styles/hpe-icons.css`);
 
         return stylesheets;
     }
