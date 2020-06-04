@@ -1,10 +1,45 @@
-<div class="btn-group">
-    <button
-        type="button"
-        class="btn button-secondary dropdown-toggle"
-        [uxMenuTriggerFor]="menu">
-        Actions <ux-icon name="down" class="dropdown-icon-inline"></ux-icon>
-    </button>
+<div class="row">
+    <div class="col-md-6">
+        <h4>Raised</h4>
+        <div class="btn-group">
+            <button
+                type="button"
+                class="btn button-primary dropdown-toggle"
+                [uxMenuTriggerFor]="menu">
+                <span>Actions</span><ux-icon name="chevron-down" class="dropdown-icon-inline"></ux-icon>
+            </button>
+        </div>
+
+        <div class="btn-group">
+            <button
+                type="button"
+                class="btn button-secondary dropdown-toggle"
+                [uxMenuTriggerFor]="menu">
+                <span>Actions</span><ux-icon name="chevron-down" class="dropdown-icon-inline"></ux-icon>
+            </button>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <h4>Flat</h4>
+        <div class="btn-group">
+            <button
+                type="button"
+                class="btn btn-link button-primary dropdown-toggle"
+                [uxMenuTriggerFor]="menu">
+                <span>Actions</span><ux-icon name="chevron-down" class="dropdown-icon-inline"></ux-icon>
+            </button>
+        </div>
+
+        <div class="btn-group">
+            <button
+                type="button"
+                class="btn btn-link button-secondary dropdown-toggle"
+                [uxMenuTriggerFor]="menu">
+                <span>Actions</span><ux-icon name="chevron-down" class="dropdown-icon-inline"></ux-icon>
+            </button>
+        </div>
+    </div>
 </div>
 
 <ux-menu #menu menuClass="ux-menu-demo">
