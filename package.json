@@ -166,7 +166,6 @@
     "docs/styles.less",
     "e2e/pages",
     "e2e/tests",
-    "e2e/protractor.config.js",
     "scripts",
     "src",
     "LICENSE.md",
