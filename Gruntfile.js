@@ -52,7 +52,6 @@ module.exports = function(grunt) {
         'clean',
         'lint',
         'library',
-        'iconset',
         'styles',
         'minify',
         'assets:library',

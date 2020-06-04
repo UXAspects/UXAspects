@@ -11,6 +11,8 @@
 <ux-date-range-picker
     [(start)]="start"
     [(end)]="end"
+    [(startTimezone)]="startTimezone"
+    [(endTimezone)]="endTimezone"
     [min]="min"
     [max]="max"
     [showTime]="showTime"
@@ -22,8 +24,8 @@
     [showNowBtn]="showNowBtn"
     (startChange)="onRangeChange()"
     (endChange)="onRangeChange()"
-    (startTimezoneChange)="onTimezoneChange(true, $event)"
-    (endTimezoneChange)="onTimezoneChange(false, $event)">
+    (startTimezoneChange)="onTimezoneChange()"
+    (endTimezoneChange)="onTimezoneChange()">
 </ux-date-range-picker>
 
 <br>

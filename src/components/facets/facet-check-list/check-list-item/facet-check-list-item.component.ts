@@ -5,7 +5,8 @@ import { Facet } from '../../models/facet';
 @Component({
     selector: 'ux-facet-check-list-item',
     templateUrl: './facet-check-list-item.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    preserveWhitespaces: false
 })
 export class FacetCheckListItemComponent implements FocusableOption {
 

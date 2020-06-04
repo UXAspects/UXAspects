@@ -175,22 +175,34 @@ export class ToolbarSearchComponent implements AfterContentInit, OnDestroy {
     /** Programmatically create a placeholder element */
     private createPlaceholder(): void {
 
-        // Get width and height of the component
-        const styles = getComputedStyle(this._elementRef.nativeElement);
-
         // Create invisible div with the same dimensions
         this._placeholder = this._renderer.createElement('div');
         this._renderer.setStyle(this._placeholder, 'display', 'none');
         this._renderer.setStyle(this._placeholder, 'width', this.button.width + 'px');
-        this._renderer.setStyle(this._placeholder, 'height', styles.height);
         this._renderer.setStyle(this._placeholder, 'visibility', 'hidden');
+        this.setPlaceholderHeight();
 
         // Add as a sibling
         this._renderer.insertBefore(this._elementRef.nativeElement.parentNode, this._placeholder, this._elementRef.nativeElement);
     }
 
-    /** Update the visibility of the placeholder node */
+    /** Update the display state of the placeholder node */
     private setPlaceholderVisible(isVisible: boolean): void {
+        if (!this._placeholder) {
+            return;
+        }
+
+        // Recalculate the height since the layout might not be complete when initially created.
+        if (isVisible) {
+            this.setPlaceholderHeight();
+        }
+
         this._renderer.setStyle(this._placeholder, 'display', isVisible ? 'inline-block' : 'none');
+    }
+
+    /** Set the placeholder height to match the height of this component. */
+    private setPlaceholderHeight(): void {
+        const { height } = getComputedStyle(this._elementRef.nativeElement);
+        this._renderer.setStyle(this._placeholder, 'height', height);
     }
 }
