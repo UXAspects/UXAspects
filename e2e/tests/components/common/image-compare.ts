@@ -1,4 +1,3 @@
-import { platform } from 'os';
 import { browser } from 'protractor';
 
 /**
@@ -8,7 +7,7 @@ import { browser } from 'protractor';
  * is different and we will always have variations causing tests to fail.
  */
 export async function imageCompare(name: string): Promise<number> {
-    return platform() === 'linux' ? await browser.imageComparison.checkScreen(name) : 0;
+    return await browser.imageComparison.checkScreen(name);
 }
 
 /**
@@ -18,5 +17,5 @@ export async function imageCompare(name: string): Promise<number> {
  * is different and we will always have variations causing tests to fail.
  */
 export async function imageCompareFullPageScreen(name: string): Promise<number> {
-    return platform() === 'linux' ? await browser.imageComparison.checkFullPageScreen(name) : 0;
+    return await browser.imageComparison.checkFullPageScreen(name);
 }

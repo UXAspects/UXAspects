@@ -50,9 +50,13 @@ export class DateRangePickerTestPageComponent {
     /** Date localization */
     dateFormat: string;
 
-    /** Store the currently selected timezones */
-    private _startTimezone: DateTimePickerTimezone = this.getCurrentTimezone();
-    private _endTimezone: DateTimePickerTimezone = this.getCurrentTimezone();
+    startTimezone: DateTimePickerTimezone;
+    endTimezone: DateTimePickerTimezone;
+
+    constructor() {
+        this.startTimezone = timezones.find(timezone => timezone.offset === 0);
+        this.endTimezone = this.startTimezone;
+    }
 
     /** Parse a date string when the input changes */
     onDateChange(date: string): void {
@@ -86,8 +90,8 @@ export class DateRangePickerTestPageComponent {
 
     /** Update the date string when the date range changes */
     onRangeChange(): void {
-        const start = this.start ? formatDate(this.start, 'd MMMM y  h:mm a', 'en-US') + ' ' + this._startTimezone.name : '';
-        const end = this.end ? formatDate(this.end, 'd MMMM y  h:mm a', 'en-US') + ' ' + this._endTimezone.name : '';
+        const start = this.start ? formatDate(this.start, 'd MMMM y  h:mm a', 'en-US', 'UTC') + ' ' + this.startTimezone.name : '';
+        const end = this.end ? formatDate(this.end, 'd MMMM y  h:mm a', 'en-US', 'UTC') + ' ' + this.endTimezone.name : '';
 
         if (!this.start || !this.end) {
             return;
@@ -97,7 +101,7 @@ export class DateRangePickerTestPageComponent {
         this.invalid = false;
 
         // check if the dates are valid
-        if (this.getNormalizedDate(this.start, this._startTimezone).getTime() > this.getNormalizedDate(this.end, this._endTimezone).getTime()) {
+        if (this.getNormalizedDate(this.start, this.startTimezone).getTime() > this.getNormalizedDate(this.end, this.endTimezone).getTime()) {
             this.invalid = true;
         }
 
@@ -105,13 +109,7 @@ export class DateRangePickerTestPageComponent {
         this.date = start && end ? `${start} — ${end}` : start || end;
     }
 
-    onTimezoneChange(isStart: boolean, timezone: DateTimePickerTimezone): void {
-        if (isStart) {
-            this._startTimezone = timezone;
-        } else {
-            this._endTimezone = timezone;
-        }
-
+    onTimezoneChange(): void {
         this.onRangeChange();
     }
 

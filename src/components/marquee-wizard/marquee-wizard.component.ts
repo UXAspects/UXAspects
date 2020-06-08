@@ -9,7 +9,8 @@ import { Subject } from 'rxjs';
 @Component({
     selector: 'ux-marquee-wizard',
     templateUrl: './marquee-wizard.component.html',
-    providers: [MarqueeWizardService]
+    providers: [MarqueeWizardService],
+    preserveWhitespaces: false
 })
 export class MarqueeWizardComponent extends WizardComponent implements OnDestroy {
 

@@ -4,17 +4,22 @@ const { mkdirpSync } = require('fs-extra');
 const { cwd } = require('process');
 const { JUnitXmlReporter } = require('jasmine-reporters');
 const { SpecReporter } = require('jasmine-spec-reporter');
+const webpack = require('webpack');
+const express = require('express');
+const webpackConfig = require('../configs/webpack.e2e.config');
 
-const isJenkinsBuild = !!env.RE_BUILD_TYPE;
+const e2eHostPort = 4000;
+const e2eHostAddress = env.E2E_HOST_ADDRESS || 'localhost';
 const outputDir = join(cwd(), 'target', 'e2e');
 const junitDir = join(outputDir, 'junit');
 const screenshotOutputDir = join(outputDir, 'screenshots');
 
+// Configuration for running Protractor on Jenkins
 exports.config = {
-  directConnect: true,  // Set to false if using Selenium Grid
+  directConnect: true,
   chromeDriver: require('chromedriver').path,
+  baseUrl: `http://${e2eHostAddress}:${e2eHostPort}/#/`,
 
-  // Capabilities to be passed to the webdriver instance. Only one browser may be uncommented at a time.
   capabilities: {
     browserName: 'chrome',
     chromeOptions: {
@@ -24,14 +29,21 @@ exports.config = {
     maxInstances: 5
   },
 
-  // Test one browser at a time
-  maxSessions: 5,
+  maxSessions: 3,
 
-  // Framework to use. Jasmine is recommended.
   framework: 'jasmine',
 
+  jasmineNodeOpts: {
+    defaultTimeoutInterval: 30000,
+    showTiming: true,
+    print: function () { }
+  },
+
+  beforeLaunch: onBeforeLaunch,
+  afterLaunch: onAfterLaunch,
+
   // Spec patterns are relative to this config file
-  specs: ['./tests/**/**/*e2e-spec.ts'],
+  specs: ['./tests/**/**/*.e2e-spec.ts'],
 
   plugins: [
     {
@@ -41,7 +53,7 @@ exports.config = {
         formatImageName: `{tag}-{logName}-{width}x{height}`,
         screenshotPath: screenshotOutputDir,
         savePerInstance: true,
-        autoSaveBaseline: !isJenkinsBuild,
+        autoSaveBaseline: false,
         ignoreAntialiasing: true
       },
     },
@@ -52,16 +64,13 @@ exports.config = {
       exclude: [
         new RegExp(/favicon.ico/, 'g'),
         'Invalid Host/Origin header',
-        '[WDS] Disconnected!'
+        '[WDS] Disconnected!',
+        /sockjs-node\/info/
       ]
     }
   ],
 
-  // For angular tests
   useAllAngular2AppRoots: true,
-
-  // Base URL for application server
-  baseUrl: 'http://localhost:4000',
 
   onPrepare: function () {
 
@@ -102,10 +111,34 @@ exports.config = {
       );
     });
   },
-
-  jasmineNodeOpts: {
-    defaultTimeoutInterval: 30000,
-    showTiming: true,
-    print: function () { }
-  }
 };
+
+let webServer;
+
+async function onBeforeLaunch() {
+    await startWebServer();
+}
+
+function onAfterLaunch() {
+    if (webServer) {
+        webServer.close();
+        webServer = null;
+        console.log('Stopped webserver.')
+    }
+}
+
+async function startWebServer() {
+    return new Promise((resolve, reject) => {
+        console.log('Starting webpack compilation...');
+        webpack(webpackConfig, (err, stats) => {
+            if (err || stats.hasErrors()) {
+                reject(err || 'Webpack compilation failed.');
+            }
+
+            webServer = express().use(express.static(join(__dirname, 'dist'))).listen(e2eHostPort);
+            console.log(`Webserver is listening on port ${e2eHostPort}.`);
+
+            resolve();
+        });
+    });
+}
