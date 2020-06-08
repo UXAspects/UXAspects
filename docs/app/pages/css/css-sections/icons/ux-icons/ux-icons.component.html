@@ -1,4 +1,9 @@
-<p *ngIf="iconSetClass === 'hpe-icon'">To use an icon simply apply the <code>{{ iconSetClass }}</code>
+<p *ngIf="iconSetClass === 'hpe-icon'">
+    <span class="label label-critical">Deprecated</span> &mdash; The <code>{{ iconSetClass }}</code> set
+    will be removed in the next major release of UX Aspects.
+</p>
+
+<p *ngIf="iconSetClass === 'hpe-icon'">To use a legacy HPE icon apply the <code>{{ iconSetClass }}</code>
     class along with one of the following classes:</p>
 
 <p *ngIf="iconSetClass === 'ux-icon'">To use an icon apply the <a fragment="icon"

@@ -1,70 +1,109 @@
-let fs = require('fs');
-let path = require('path');
-let less = require('less');
+const fs = require('fs-extra');
+const path = require('path');
+const less = require('less');
 
 // entry paths
-let rootPath = process.cwd();
-let stylesPath = path.join(rootPath, 'src', 'styles');
-let stylesheetPath = path.join(stylesPath, 'ux-aspects.less');
+const rootPath = process.cwd();
+const stylesPath = path.join(rootPath, 'src', 'styles');
 
 // dist folder paths
-let distPath = path.join(rootPath, 'dist', 'library');
-let lessDistPath = path.join(distPath, 'less');
-let cssDistPath = path.join(distPath, 'styles');
+const distPath = path.join(rootPath, 'dist', 'library');
+const lessDistPath = path.join(distPath, 'less');
+const cssDistPath = path.join(distPath, 'styles');
 
-// output file paths
-let lessDestinationPath = path.join(lessDistPath, 'ux-aspects.less');
-let cssDestinationPath = path.join(cssDistPath, 'ux-aspects.css');
-
-// load in the original less file
-let stylesheet = fs.readFileSync(stylesheetPath, 'utf8');
+// ensure output directories exists
+fs.mkdirpSync(distPath);
+fs.mkdirpSync(lessDistPath);
+fs.mkdirpSync(cssDistPath);
 
 // set up the less options
-let options = {
+const options = {
     rootFileInfo: {
         currentDirectory: stylesPath
     }
 };
 
-// ensure output directories exists
-if (!fs.existsSync(distPath)) {
-    fs.mkdirSync(distPath);
+(async () => {
+    try {
+        await renderDefaultStylesheet();
+        await renderNoLegacyStylesheet();
+    } catch (err) {
+        console.error(err.stack || err);
+        process.exit(1);
+    }
+})();
+
+
+async function renderDefaultStylesheet() {
+    const less = await getInlinedLess('ux-aspects.less');
+    await createStylesheets(less, 'ux-aspects');
 }
 
-if (!fs.existsSync(lessDistPath)) {
-    fs.mkdirSync(lessDistPath);
+async function renderNoLegacyStylesheet() {
+    const less = await getInlinedLess('ux-aspects.less', noLegacyImport);
+    await createStylesheets(less, 'ux-aspects-no-legacy');
 }
 
-if (!fs.existsSync(cssDistPath)) {
-    fs.mkdirSync(cssDistPath);
+function noLegacyImport(rule) {
+    return !(rule.path && rule.path.value === 'hpe-icons.less');
 }
 
-// parse the less file
-less.parse(stylesheet, options, (err, ruleset, imports, options) => {
+/**
+ * Read the given less source file, extract the import statements, and convert them into (inline) import statements.
+ * @param {*} importFilter a function to filter the import statements that are returned.
+ */
+async function getInlinedLess(lessFileName, importFilter = () => true) {
+    return new Promise((resolve, reject) => {
 
-    // make all the import statements inline
-    let statements = ruleset.rules.filter(rule => rule.type === 'Import')
-        .map(rule => `@import (inline) "${ resolveTildePaths(rule.path.value) }";`)
-        .join('\n');
+        // Read the source .less file
+        const lessFilePath = path.join(stylesPath, lessFileName);
+        const stylesheet = fs.readFileSync(lessFilePath, 'utf8');
 
-    // produce the inline less file
-    less.render(statements, options, (err, output) => {
+        less.parse(stylesheet, options, (err, ruleset) => {
 
-        // output the less file
-        fs.writeFileSync(lessDestinationPath, output.css);
+            if (err) {
+                reject(new Error(err));
+            }
 
-        // convert to CSS
-        less.render(output.css, (err, output) => {
+            // make all the import statements inline
+            const statements = ruleset.rules.filter(rule => rule.type === 'Import' && importFilter(rule))
+                .map(rule => `@import (inline) "${ resolveTildePaths(rule.path.value) }";`)
+                .join('\n');
 
-            // output the css file
-            fs.writeFileSync(cssDestinationPath, output.css);
-
-            // end the script
-            process.exit();
+            resolve(statements);
         });
-
     });
-});
+}
+
+/**
+ * Create .less and .css files within `dist` for the given less content.
+ */
+async function createStylesheets(less, stylesheetName) {
+
+    const lessOutput = await lessRender(less);
+
+    const lessDestinationPath = path.join(lessDistPath, `${stylesheetName}.less`)
+    fs.writeFileSync(lessDestinationPath, lessOutput.css);
+    console.log(lessDestinationPath);
+
+    const cssOutput = await lessRender(lessOutput.css);
+
+    const cssDestinationPath = path.join(cssDistPath, `${stylesheetName}.css`);
+    fs.writeFileSync(cssDestinationPath, cssOutput.css);
+    console.log(cssDestinationPath);
+}
+
+async function lessRender(input) {
+    return new Promise((resolve, reject) => {
+        less.render(input, options, (err, output) => {
+            if (err) {
+                reject(new Error(err));
+            }
+
+            resolve(output);
+        });
+    });
+}
 
 /**
  * Webpack allows the use of tilde to reference the node_modules folder

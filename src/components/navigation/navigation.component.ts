@@ -7,7 +7,8 @@ import { NavigationService } from './navigation.service';
     selector: 'ux-navigation',
     templateUrl: './navigation.component.html',
     providers: [NavigationService],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    preserveWhitespaces: false
 })
 export class NavigationComponent {
 

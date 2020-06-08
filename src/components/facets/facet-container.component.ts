@@ -11,7 +11,8 @@ import { Facet } from './models/facet';
 @Component({
     selector: 'ux-facet-container',
     templateUrl: './facet-container.component.html',
-    providers: [FacetService]
+    providers: [FacetService],
+    preserveWhitespaces: false
 })
 export class FacetContainerComponent implements OnDestroy {
 

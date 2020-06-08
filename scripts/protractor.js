@@ -1,23 +1,38 @@
-const webpack = require('webpack');
-const webpackDevServer = require('webpack-dev-server');
+const { env } = require('process');
 const launcher = require('protractor/built/launcher');
-const config = require('../configs/webpack.e2e.config');
-const { exec } = require('child_process');
+const isIp = require('is-ip');
+const { execSync } = require('child_process');
 
-exec('ngcc --properties es2015 browser module main --first-only --create-ivy-entry-points', { stdio: 'inherit' }, err => {
+const DOCKER_CONTAINER_NAME = 'uxa-selenium';
 
-    if (err) {
-        throw new Error(err);
+const isJenkinsBuild = !!env.RE_BUILD_TYPE;
+
+if (!isJenkinsBuild) {
+    startSeleniumContainer();
+}
+
+env.E2E_HOST_ADDRESS = isJenkinsBuild ? 'localhost' : getHostAddressFromSeleniumContainer();
+
+const protractorConfigFile = isJenkinsBuild ? './e2e/protractor.config.js' : './e2e/protractor.dev.config.js';
+
+runProtractor(protractorConfigFile);
+
+
+function startSeleniumContainer() {
+    execSync('docker-compose up -d selenium', { stdio: 'inherit' });
+}
+
+function getHostAddressFromSeleniumContainer() {
+    const cmd = `docker exec ${DOCKER_CONTAINER_NAME} getent ahosts host.docker.internal | awk 'NR==1 { print $1 }'`;
+    const address = execSync(cmd, { encoding: 'utf8' }).trim();
+
+    if (!isIp(address)) {
+        throw new Error(`Expected an IP address but got "${address}". Make sure docker container ${DOCKER_CONTAINER_NAME} is running.`);
     }
 
-    const compiler = webpack(config);
-    compiler.hooks.done.tap('Protractor', () => launcher.init('./e2e/protractor.config.js'));
+    return address;
+}
 
-    const server = new webpackDevServer(compiler, config.devServer);
-
-    server.listen(config.devServer.port, err => {
-        if (err) {
-            return err;
-        }
-    });
-});
+function runProtractor(configFile) {
+    launcher.init(configFile);
+}

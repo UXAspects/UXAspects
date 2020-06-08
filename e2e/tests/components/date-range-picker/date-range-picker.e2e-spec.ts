@@ -113,51 +113,51 @@ describe('Date Range Picker Tests', () => {
 
     it('should emit the date on date start change', async () => {
         await page.selectDate(Picker.Start, 2);
-        expect(await page.getInputText()).toBe(`2 March 2019  12:00 AM ${getTimezoneOffset()} — 21 March 2019  11:59 PM ${getTimezoneOffset()}`);
+        expect(await page.getInputText()).toBe(`2 March 2019  12:00 AM GMT — 21 March 2019  11:59 PM GMT`);
     });
 
     it('should emit the date on date end change', async () => {
         await page.selectDate(Picker.End, 25);
-        expect(await page.getInputText()).toBe(`4 March 2019  12:00 AM ${getTimezoneOffset()} — 25 March 2019  11:59 PM ${getTimezoneOffset()}`);
+        expect(await page.getInputText()).toBe(`4 March 2019  12:00 AM GMT — 25 March 2019  11:59 PM GMT`);
     });
 
     it('should emit on hour change', async () => {
         await page.incrementHour(Picker.Start);
         await page.incrementHour(Picker.End);
 
-        expect(await page.getInputText()).toBe(`4 March 2019  1:00 AM ${getTimezoneOffset()} — 21 March 2019  12:59 AM ${getTimezoneOffset()}`);
+        expect(await page.getInputText()).toBe(`4 March 2019  1:00 AM GMT — 21 March 2019  12:59 AM GMT`);
 
         await page.decrementHour(Picker.Start);
         await page.decrementHour(Picker.End);
 
-        expect(await page.getInputText()).toBe(`4 March 2019  12:00 AM ${getTimezoneOffset()} — 21 March 2019  11:59 PM ${getTimezoneOffset()}`);
+        expect(await page.getInputText()).toBe(`4 March 2019  12:00 AM GMT — 21 March 2019  11:59 PM GMT`);
     });
 
     it('should emit on minute change', async () => {
         await page.incrementMinute(Picker.Start);
         await page.incrementMinute(Picker.End);
 
-        expect(await page.getInputText()).toBe(`4 March 2019  12:01 AM ${getTimezoneOffset()} — 21 March 2019  12:00 AM ${getTimezoneOffset()}`);
+        expect(await page.getInputText()).toBe(`4 March 2019  12:01 AM GMT — 21 March 2019  12:00 AM GMT`);
 
         await page.decrementMinute(Picker.Start);
         await page.decrementMinute(Picker.End);
 
-        expect(await page.getInputText()).toBe(`4 March 2019  12:00 AM ${getTimezoneOffset()} — 21 March 2019  11:59 PM ${getTimezoneOffset()}`);
+        expect(await page.getInputText()).toBe(`4 March 2019  12:00 AM GMT — 21 March 2019  11:59 PM GMT`);
     });
 
     it('should emit on timezone change', async () => {
 
         await page.incrementTimezone(Picker.Start);
-        expect(await page.getInputText()).toBe(`4 March 2019  12:00 AM ${getTimezoneOffset(1)} — 21 March 2019  11:59 PM ${getTimezoneOffset()}`);
+        expect(await page.getInputText()).toBe(`4 March 2019  12:00 AM GMT+1 — 21 March 2019  11:59 PM GMT`);
 
         await page.incrementTimezone(Picker.End);
-        expect(await page.getInputText()).toBe(`4 March 2019  12:00 AM ${getTimezoneOffset(1)} — 21 March 2019  11:59 PM ${getTimezoneOffset(1)}`);
+        expect(await page.getInputText()).toBe(`4 March 2019  12:00 AM GMT+1 — 21 March 2019  11:59 PM GMT+1`);
 
         await page.decrementTimezone(Picker.Start);
-        expect(await page.getInputText()).toBe(`4 March 2019  12:00 AM ${getTimezoneOffset()} — 21 March 2019  11:59 PM ${getTimezoneOffset(1)}`);
+        expect(await page.getInputText()).toBe(`4 March 2019  12:00 AM GMT — 21 March 2019  11:59 PM GMT+1`);
 
         await page.decrementTimezone(Picker.End);
-        expect(await page.getInputText()).toBe(`4 March 2019  12:00 AM ${getTimezoneOffset()} — 21 March 2019  11:59 PM ${getTimezoneOffset()}`);
+        expect(await page.getInputText()).toBe(`4 March 2019  12:00 AM GMT — 21 March 2019  11:59 PM GMT`);
     });
 
     it('should update the range end picker on selection when start date is after the visible end month', async () => {
@@ -325,12 +325,6 @@ describe('Date Range Picker Tests', () => {
         expect(await page.getSpinnerMinute(Picker.End)).toBe('59');
         expect(await page.getSpinnerSecond(Picker.End)).toBe('02');
     });
-
-    // take into account the current timezone
-    function getTimezoneOffset(offset: number = 0): string {
-        offset = new Date().getTimezoneOffset() + (offset * -60);
-        return timezones.find(timezone => timezone.offset === offset).name;
-    }
 });
 
 const timezones = [
