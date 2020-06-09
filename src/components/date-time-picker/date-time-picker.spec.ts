@@ -9,8 +9,6 @@ import { DateTimePickerTimezone } from './date-time-picker.utils';
 @Component({
     selector: 'ux-components-date-time-picker',
     template: `
-        <input [ngModel]="date" />
-
         <ux-date-time-picker
             [(date)]="date"
             [showTime]="showTime"
@@ -25,7 +23,7 @@ import { DateTimePickerTimezone } from './date-time-picker.utils';
         </ux-date-time-picker>
     `
 })
-export class DateTimePickerComponent {
+export class DateTimePickerTestComponent {
 
     onDateChange(): void { }
     onTimezoneChange(value: DateTimePickerTimezone): void {}
@@ -41,8 +39,8 @@ export class DateTimePickerComponent {
 }
 
 describe('Date Time Picker', () => {
-    let component: DateTimePickerComponent;
-    let fixture: ComponentFixture<DateTimePickerComponent>;
+    let component: DateTimePickerTestComponent;
+    let fixture: ComponentFixture<DateTimePickerTestComponent>;
     let nativeElement: HTMLElement;
     let onTimezoneChangeSpy: jasmine.Spy;
     let getTimezoneOffset: () => number;
@@ -61,13 +59,13 @@ describe('Date Time Picker', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             imports: [DateTimePickerModule, IconModule, PopoverModule, FormsModule],
-            declarations: [DateTimePickerComponent],
+            declarations: [DateTimePickerTestComponent],
         })
             .compileComponents();
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(DateTimePickerComponent);
+        fixture = TestBed.createComponent(DateTimePickerTestComponent);
         component = fixture.componentInstance;
         nativeElement = fixture.nativeElement;
         onTimezoneChangeSpy = spyOn(component, 'onTimezoneChange');

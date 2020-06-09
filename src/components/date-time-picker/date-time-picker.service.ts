@@ -3,6 +3,7 @@ import { Injectable, OnDestroy, Optional } from '@angular/core';
 import { BehaviorSubject, Subject, Subscription } from 'rxjs';
 import { DateTimePickerConfig } from './date-time-picker.config';
 import { dateComparator, DateTimePickerTimezone, meridians, months, monthsShort, timezones, weekdaysShort } from './date-time-picker.utils';
+import { DateRangeService, DateRangeOptions } from '../date-range-picker';
 
 @Injectable()
 export class DateTimePickerService implements OnDestroy {
@@ -52,7 +53,9 @@ export class DateTimePickerService implements OnDestroy {
 
     private _subscription: Subscription;
 
-    constructor(@Optional() private _config: DateTimePickerConfig) {
+    constructor(@Optional() private _config: DateTimePickerConfig,
+    @Optional() rangeService: DateRangeService,
+    @Optional() rangeOptions: DateRangeOptions) {
 
         // when the active date changes set the currently selected date
         this._subscription = this.selected$.subscribe(date => {
@@ -64,7 +67,15 @@ export class DateTimePickerService implements OnDestroy {
 
             // emit the new date to the component host but only if they are different
             if (!dateComparator(date, this.date$.value)) {
-                this.date$.next(date);
+                if (rangeService) {
+                    if (rangeOptions.picker === `start`) {
+                        rangeService.setStartDate(date);
+                    } else {
+                        rangeService.setEndDate(date);
+                    }
+                } else {
+                    this.date$.next(date);
+                }
             }
         });
     }
