@@ -23,7 +23,7 @@ import { DateTimePickerTimezone } from './date-time-picker.utils';
         </ux-date-time-picker>
     `
 })
-export class DateRangePickerComponent {
+export class DateTimePickerTestComponent {
 
     onDateChange(): void { }
     onTimezoneChange(value: DateTimePickerTimezone): void {}
@@ -39,8 +39,8 @@ export class DateRangePickerComponent {
 }
 
 describe('Date Time Picker', () => {
-    let component: DateRangePickerComponent;
-    let fixture: ComponentFixture<DateRangePickerComponent>;
+    let component: DateTimePickerTestComponent;
+    let fixture: ComponentFixture<DateTimePickerTestComponent>;
     let nativeElement: HTMLElement;
     let onTimezoneChangeSpy: jasmine.Spy;
     let getTimezoneOffset: () => number;
@@ -59,13 +59,13 @@ describe('Date Time Picker', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             imports: [DateTimePickerModule, IconModule, PopoverModule, FormsModule],
-            declarations: [DateRangePickerComponent],
+            declarations: [DateTimePickerTestComponent],
         })
             .compileComponents();
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(DateRangePickerComponent);
+        fixture = TestBed.createComponent(DateTimePickerTestComponent);
         component = fixture.componentInstance;
         nativeElement = fixture.nativeElement;
         onTimezoneChangeSpy = spyOn(component, 'onTimezoneChange');
@@ -168,6 +168,21 @@ describe('Date Time Picker', () => {
         expect(component.onTimezoneChange).not.toHaveBeenCalled();
     });
 
+    it('should update only the time is changed', async() => {
+        component.date = new Date(2020, 5, 2, 11);
+        component.showTime = true;
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        component.date = new Date(2020, 5, 2, 13, 45);
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        expect(getHours().value).toBe('1');
+        expect(getMinutes().value).toBe('45');
+        expect(getMeridianPM().classList).toContain('active');
+    });
+
     function getHeader(): HTMLElement | null {
         return nativeElement.querySelector('ux-date-time-picker .header-title');
     }
@@ -180,4 +195,15 @@ describe('Date Time Picker', () => {
         return nativeElement.querySelector('ux-date-time-picker-time-view .time-zone-picker ux-spin-button input');
     }
 
+    function getHours(): HTMLInputElement {
+        return nativeElement.querySelector('ux-date-time-picker-time-view .time-hours-picker ux-spin-button input');
+    }
+
+    function getMinutes(): HTMLInputElement {
+        return nativeElement.querySelector('ux-date-time-picker-time-view .time-minutes-picker ux-spin-button input');
+    }
+
+    function getMeridianPM(): HTMLInputElement {
+        return nativeElement.querySelector('.time-picker-meridian .btn-group button:last-child');
+    }
 });

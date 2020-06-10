@@ -1,6 +1,8 @@
 import { Subject } from 'rxjs';
 import { compareDays, isDateAfter, isDateBefore } from '../date-time-picker/date-time-picker.utils';
+import { Injectable } from '@angular/core';
 
+@Injectable()
 export class DateRangeService {
 
     /** Indicate whether we want to show a date range */
