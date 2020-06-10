@@ -1,7 +1,7 @@
 import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { HeaderComponent } from './header.component';
 import { DateTimePickerService } from '../date-time-picker.service';
-import { DateRangeService } from '../../date-range-picker';
+import { DateRangeService } from '../../date-range-picker/index';
 import { IconModule } from '../../icon/icon.module';
 import { ChangeDetectorRef } from '@angular/core';
 
