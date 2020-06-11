@@ -21,18 +21,11 @@ export class ComponentsSplitButtonDropdownsComponent extends BaseDocumentationSe
         },
         modules: [
             {
-                library: 'ngx-bootstrap/dropdown',
-                imports: ['BsDropdownModule'],
-                providers: ['BsDropdownModule.forRoot()']
-            },
-            {
-                imports: ['MenuNavigationModule'],
+                imports: ['MenuModule'],
                 library: '@ux-aspects/ux-aspects'
             }
         ]
     };
-
-    toggleIcon = this._documentationType === DocumentationType.MicroFocus ? 'chevron-down' : 'down';
 
     constructor(@Inject(DOCUMENTATION_TOKEN) private _documentationType: DocumentationType) {
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
