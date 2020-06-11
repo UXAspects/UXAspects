@@ -2954,6 +2954,7 @@
         'eject-filled',
         'eject',
         'expand',
+        'export',
         'fan',
         'fast-forward-filled',
         'fast-forward',
@@ -3112,18 +3113,28 @@
         'shop-basket',
         'shop-cart',
         'soa',
+        'social-cisco-jabber',
         'social-email',
+        'social-facebook-workplace',
         'social-facebook',
         'social-github',
         'social-instagram',
         'social-linkedin',
         'social-medium',
+        'social-ms-teams',
         'social-pinterest',
         'social-reddit',
+        'social-salesforce-filled',
+        'social-salesforce',
+        'social-sharepoint',
+        'social-skype-for-business',
         'social-slack',
         'social-tumblr',
         'social-twitter',
         'social-vimeo',
+        'social-we-chat',
+        'social-whats-app',
+        'social-yammer',
         'social-youtube',
         'sort',
         'stakeholder',
@@ -8230,6 +8241,9 @@
                 this.setDateMouseEnter(null);
             }
         };
+        DateRangeService = __decorate([
+            core.Injectable()
+        ], DateRangeService);
         return DateRangeService;
     }());
     (function (DateRangePicker) {
@@ -8607,7 +8621,7 @@
         return DateTimePickerConfig;
     }());
     var DateTimePickerService = /** @class */ (function () {
-        function DateTimePickerService(_config) {
+        function DateTimePickerService(_config, rangeService, rangeOptions) {
             var _this = this;
             this._config = _config;
             this.mode$ = new rxjs.BehaviorSubject(exports.DatePickerMode.Day);
@@ -8649,8 +8663,18 @@
                     _this.setViewportYear(date.getFullYear());
                 }
                 // emit the new date to the component host but only if they are different
-                if (!dateComparator(date, _this.selected$.value)) {
-                    _this.date$.next(date);
+                if (!dateComparator(date, _this.date$.value)) {
+                    if (rangeService) {
+                        if (rangeOptions.picker === "start") {
+                            rangeService.setStartDate(date);
+                        }
+                        else {
+                            rangeService.setEndDate(date);
+                        }
+                    }
+                    else {
+                        _this.date$.next(date);
+                    }
                 }
             });
         }
@@ -8744,7 +8768,11 @@
         DateTimePickerService = __decorate([
             core.Injectable(),
             __param(0, core.Optional()),
-            __metadata("design:paramtypes", [DateTimePickerConfig])
+            __param(1, core.Optional()),
+            __param(2, core.Optional()),
+            __metadata("design:paramtypes", [DateTimePickerConfig,
+                DateRangeService,
+                DateRangeOptions])
         ], DateTimePickerService);
         return DateTimePickerService;
     }());
@@ -9825,7 +9853,7 @@
         TimePickerComponent = __decorate([
             core.Component({
                 selector: 'ux-time-picker',
-                template: "<div class=\"time-picker\" aria-label=\"Time picker\">\n\n    <div class=\"time-picker-column\" [class.has-error]=\"!_valid\" *ngIf=\"showHours\">\n\n        <ux-spin-button\n            type=\"number\"\n            class=\"time-spinner\"\n            placeholder=\"HH\"\n            [maxLength]=\"2\"\n            [min]=\"0\"\n            [max]=\"showMeridian ? 12 : 23\"\n            [value]=\"value | date: showMeridian ? 'h' : 'HH'\"\n            (valueChange)=\"hourChange($event)\"\n            [spinners]=\"showSpinners\"\n            [disabled]=\"disabled\"\n            [readOnly]=\"readOnly\"\n            inputAriaLabel=\"hour\"\n            incrementAriaLabel=\"Increment the hour\"\n            decrementAriaLabel=\"Decrement the hour\"\n            (increment)=\"incrementHour()\"\n            (decrement)=\"decrementHour()\">\n        </ux-spin-button>\n\n    </div>\n\n    <div class=\"time-picker-separator\" *ngIf=\"showMinutes\">:</div>\n\n    <div class=\"time-picker-column\" [class.has-error]=\"!_valid\" *ngIf=\"showMinutes\">\n\n        <ux-spin-button\n            type=\"number\"\n            class=\"time-spinner\"\n            placeholder=\"MM\"\n            [maxLength]=\"2\"\n            [min]=\"0\"\n            [max]=\"59\"\n            [value]=\"value | date: 'mm'\"\n            (valueChange)=\"minuteChange($event)\"\n            [spinners]=\"showSpinners\"\n            [disabled]=\"disabled\"\n            [readOnly]=\"readOnly\"\n            inputAriaLabel=\"minute\"\n            incrementAriaLabel=\"Increment the minute\"\n            decrementAriaLabel=\"Decrement the minute\"\n            (increment)=\"incrementMinute()\"\n            (decrement)=\"decrementMinute()\">\n        </ux-spin-button>\n\n    </div>\n\n    <div class=\"time-picker-separator\" *ngIf=\"showSeconds\">:</div>\n\n    <div class=\"time-picker-column\" [class.has-error]=\"!_valid\" *ngIf=\"showSeconds\">\n\n        <ux-spin-button\n            type=\"number\"\n            class=\"time-spinner\"\n            placeholder=\"SS\"\n            [maxLength]=\"2\"\n            [min]=\"0\"\n            [max]=\"59\"\n            [value]=\"value | date: 'ss'\"\n            (valueChange)=\"secondChange($event)\"\n            [spinners]=\"showSpinners\"\n            [disabled]=\"disabled\"\n            [readOnly]=\"readOnly\"\n            inputAriaLabel=\"seconds\"\n            incrementAriaLabel=\"Increment the second\"\n            decrementAriaLabel=\"Decrement the second\"\n            (increment)=\"incrementSecond()\"\n            (decrement)=\"decrementSecond()\">\n        </ux-spin-button>\n\n    </div>\n</div>\n\n<div class=\"time-picker-meridian\" *ngIf=\"showMeridian\">\n\n    <div class=\"btn-group\" role=\"radiogroup\">\n\n        <button type=\"button\"\n                class=\"btn button-toggle-accent\"\n                *ngFor=\"let meridian of meridians\"\n                role=\"radio\"\n                tabindex=\"0\"\n                [disabled]=\"disabled\"\n                (click)=\"selectMeridian(meridian)\"\n                [class.active]=\"meridian === _meridian\"\n                [attr.aria-label]=\"meridian\"\n                [attr.aria-checked]=\"meridian === _meridian\"\n                [attr.aria-disabled]=\"disabled\">\n                {{ meridian }}\n        </button>\n\n    </div>\n</div>",
+                template: "<div class=\"time-picker\" aria-label=\"Time picker\">\n\n    <div class=\"time-picker-column time-hours-picker\" [class.has-error]=\"!_valid\" *ngIf=\"showHours\">\n\n        <ux-spin-button\n            type=\"number\"\n            class=\"time-spinner\"\n            placeholder=\"HH\"\n            [maxLength]=\"2\"\n            [min]=\"0\"\n            [max]=\"showMeridian ? 12 : 23\"\n            [value]=\"value | date: showMeridian ? 'h' : 'HH'\"\n            (valueChange)=\"hourChange($event)\"\n            [spinners]=\"showSpinners\"\n            [disabled]=\"disabled\"\n            [readOnly]=\"readOnly\"\n            inputAriaLabel=\"hour\"\n            incrementAriaLabel=\"Increment the hour\"\n            decrementAriaLabel=\"Decrement the hour\"\n            (increment)=\"incrementHour()\"\n            (decrement)=\"decrementHour()\">\n        </ux-spin-button>\n\n    </div>\n\n    <div class=\"time-picker-separator\" *ngIf=\"showMinutes\">:</div>\n\n    <div class=\"time-picker-column time-minutes-picker\" [class.has-error]=\"!_valid\" *ngIf=\"showMinutes\">\n\n        <ux-spin-button\n            type=\"number\"\n            class=\"time-spinner\"\n            placeholder=\"MM\"\n            [maxLength]=\"2\"\n            [min]=\"0\"\n            [max]=\"59\"\n            [value]=\"value | date: 'mm'\"\n            (valueChange)=\"minuteChange($event)\"\n            [spinners]=\"showSpinners\"\n            [disabled]=\"disabled\"\n            [readOnly]=\"readOnly\"\n            inputAriaLabel=\"minute\"\n            incrementAriaLabel=\"Increment the minute\"\n            decrementAriaLabel=\"Decrement the minute\"\n            (increment)=\"incrementMinute()\"\n            (decrement)=\"decrementMinute()\">\n        </ux-spin-button>\n\n    </div>\n\n    <div class=\"time-picker-separator\" *ngIf=\"showSeconds\">:</div>\n\n    <div class=\"time-picker-column time-seconds-picker\" [class.has-error]=\"!_valid\" *ngIf=\"showSeconds\">\n\n        <ux-spin-button\n            type=\"number\"\n            class=\"time-spinner\"\n            placeholder=\"SS\"\n            [maxLength]=\"2\"\n            [min]=\"0\"\n            [max]=\"59\"\n            [value]=\"value | date: 'ss'\"\n            (valueChange)=\"secondChange($event)\"\n            [spinners]=\"showSpinners\"\n            [disabled]=\"disabled\"\n            [readOnly]=\"readOnly\"\n            inputAriaLabel=\"seconds\"\n            incrementAriaLabel=\"Increment the second\"\n            decrementAriaLabel=\"Decrement the second\"\n            (increment)=\"incrementSecond()\"\n            (decrement)=\"decrementSecond()\">\n        </ux-spin-button>\n\n    </div>\n</div>\n\n<div class=\"time-picker-meridian\" *ngIf=\"showMeridian\">\n\n    <div class=\"btn-group\" role=\"radiogroup\">\n\n        <button type=\"button\"\n                class=\"btn button-toggle-accent\"\n                *ngFor=\"let meridian of meridians\"\n                role=\"radio\"\n                tabindex=\"0\"\n                [disabled]=\"disabled\"\n                (click)=\"selectMeridian(meridian)\"\n                [class.active]=\"meridian === _meridian\"\n                [attr.aria-label]=\"meridian\"\n                [attr.aria-checked]=\"meridian === _meridian\"\n                [attr.aria-disabled]=\"disabled\">\n                {{ meridian }}\n        </button>\n\n    </div>\n</div>\n",
                 encapsulation: core.ViewEncapsulation.None,
                 changeDetection: core.ChangeDetectionStrategy.OnPush,
                 providers: [TIME_PICKER_VALUE_ACCESSOR],
@@ -11570,7 +11598,8 @@
             core.Component({
                 selector: 'ux-facet-check-list-item',
                 template: "<div #option\n    uxFocusIndicator\n    class=\"facet-check-list-item\"\n    [class.facet-active]=\"selected\"\n    [attr.aria-checked]=\"selected\"\n    role=\"option\"\n    [tabindex]=\"tabbable ? 0 : -1\"\n    (focus)=\"itemFocus.emit()\"\n    (blur)=\"itemBlur.emit()\"\n    (click)=\"selectedChange.emit(facet)\"\n    (keydown.enter)=\"selectedChange.emit(facet)\"\n    (keydown.space)=\"selectedChange.emit(facet); $event.preventDefault()\"\n    (keydown.spacebar)=\"selectedChange.emit(facet); $event.preventDefault()\"\n    [class.disabled]=\"facet?.disabled\">\n\n    <!-- Show check icon to indicate the state -->\n    <ux-checkbox [clickable]=\"false\" [value]=\"selected\" [simplified]=\"simplified\" [tabindex]=\"-1\" [disabled]=\"disabled\" [id]=\"id + '-checkbox'\">\n        <span class=\"facet-check-list-item-title\">{{ facet?.title }}</span>\n        <span *ngIf=\"facet?.count !== undefined\" class=\"facet-check-list-item-count\">({{ facet?.count }})</span>\n    </ux-checkbox>\n</div>",
-                changeDetection: core.ChangeDetectionStrategy.OnPush
+                changeDetection: core.ChangeDetectionStrategy.OnPush,
+                preserveWhitespaces: false
             })
         ], FacetCheckListItemComponent);
         return FacetCheckListItemComponent;
@@ -11875,7 +11904,8 @@
             core.Component({
                 selector: 'ux-facet-container',
                 template: "<!-- Display Any Selected Facets -->\n<div class=\"facets-selected-container\">\n\n    <!-- Display Title an Clear Button -->\n    <div class=\"facets-selected-header-container\">\n\n        <!-- Show The Selected Text -->\n        <span class=\"facets-selected-header-label\">{{ header }}</span>\n\n        <!-- Add a Clear Button -->\n        <ng-container *ngIf=\"(facetService.facets$ | async).length > 0\" [ngTemplateOutlet]=\"clearButton || clearButtonDefault\"></ng-container>\n\n    </div>\n\n    <!-- Display Tags For Selected Items -->\n    <div class=\"facets-selected-list\"\n        uxReorderable\n        role=\"list\"\n        [reorderingDisabled]=\"!facetsReorderable\"\n        [(reorderableModel)]=\"facets\"\n        (reorderableModelChange)=\"facetsChange.emit(facets)\">\n\n        <!-- Show Selected Tags -->\n        <div #tag\n            class=\"facet-selected-tag\"\n            role=\"listitem\"\n            tabindex=\"0\"\n            uxReorderableHandle\n            *ngFor=\"let facet of (facetService.facets$ | async); trackBy: trackBy\"\n            [attr.aria-label]=\"facet.title\"\n            [uxReorderableModel]=\"facet\"\n            (mousedown)=\"tag.focus()\"\n            (touchmove)=\"$event.preventDefault()\"\n            (keydown.ArrowRight)=\"shiftRight(facet, tag)\"\n            (keydown.ArrowLeft)=\"shiftLeft(facet, tag)\">\n\n            <!-- Display Label -->\n            <span class=\"facet-selected-tag-label\">{{ facet.title }}</span>\n\n            <!-- Display Remove Icon -->\n            <button type=\"button\"\n                uxFocusIndicator\n                class=\"facet-selected-remove-btn\"\n                [attr.aria-label]=\"deselectFacetAriaLabel\"\n                (click)=\"deselectFacet(facet, tag)\">\n\n                <ux-icon name=\"close\"></ux-icon>\n            </button>\n        </div>\n\n    </div>\n\n    <!-- Show Message Here if No Facets Selected -->\n    <p class=\"facets-selected-none-label\" *ngIf=\"emptyText && (facetService.facets$ | async).length === 0\">{{ emptyText }}</p>\n\n</div>\n\n<!-- Any Facet Elements Should be Added Here By User -->\n<div class=\"facets-region\">\n    <ng-content></ng-content>\n</div>\n\n<ng-template #clearButtonDefault>\n    <button type=\"button\"\n            class=\"btn btn-link btn-icon button-secondary\"\n            tabindex=\"0\"\n            [attr.aria-label]=\"clearAriaLabel\"\n            [uxTooltip]=\"clearTooltip\"\n            placement=\"left\"\n            (click)=\"deselectAllFacets()\">\n\n            <svg class=\"facets-selected-clear-graphic\" focusable=\"false\" viewBox=\"0 0 19 12\" shape-rendering=\"geometricPrecision\">\n                <rect class=\"light-grey\" x=\"0\" y=\"2\" width=\"7\" height=\"2\"></rect>\n                <rect class=\"dark-grey\" x=\"0\" y=\"5\" width=\"9\" height=\"2\"></rect>\n                <rect class=\"light-grey\" x=\"0\" y=\"8\" width=\"7\" height=\"2\"></rect>\n                <path class=\"dark-grey\" d=\"M9,1 h1 l9,9 v1 h-1 l-9,-9 v-1 Z\"></path>\n                <path class=\"dark-grey\" d=\"M9,11 v-1 l9,-9 h1 v1 l-9,9 h-1 Z\"></path>\n            </svg>\n        </button>\n</ng-template>",
-                providers: [FacetService]
+                providers: [FacetService],
+                preserveWhitespaces: false
             }),
             __metadata("design:paramtypes", [a11y.LiveAnnouncer, FacetService])
         ], FacetContainerComponent);
@@ -13407,7 +13437,8 @@
             core.Component({
                 selector: 'ux-facet-typeahead-list-item',
                 template: "<div #option\n    uxFocusIndicator\n    role=\"option\"\n    class=\"facet-typeahead-list-selected-option\"\n    [attr.aria-checked]=\"selected\"\n    [tabindex]=\"tabbable ? 0 : -1\"\n    (focus)=\"itemFocus.emit()\"\n    (click)=\"selectedChange.emit(facet)\"\n    (keydown.enter)=\"selectedChange.emit(facet)\"\n    (keydown.space)=\"selectedChange.emit(facet); $event.preventDefault()\"\n    (keydown.spacebar)=\"selectedChange.emit(facet); $event.preventDefault()\">\n\n    <ux-checkbox [clickable]=\"false\" [value]=\"selected\" [simplified]=\"simplified\" [tabindex]=\"-1\" [disabled]=\"disabled\">\n        <span class=\"facet-typeahead-list-selected-option-title\">{{ facet?.title }}</span>\n        <span *ngIf=\"facet?.count !== undefined\" class=\"facet-typeahead-list-selected-option-count\">({{ facet?.count }})</span>\n    </ux-checkbox>\n\n</div>",
-                changeDetection: core.ChangeDetectionStrategy.OnPush
+                changeDetection: core.ChangeDetectionStrategy.OnPush,
+                preserveWhitespaces: false
             })
         ], FacetTypeaheadListItemComponent);
         return FacetTypeaheadListItemComponent;
@@ -17859,7 +17890,8 @@
             core.Component({
                 selector: 'ux-marquee-wizard',
                 template: "<ng-container *ngIf=\"resizable && _isInitialised\">\n    <as-split direction=\"horizontal\"\n           [gutterSize]=\"gutterSize\"\n           (dragEnd)=\"onDragEnd($event)\">\n        <as-split-area [size]=\"sidePanelWidth\">\n            <ng-container [ngTemplateOutlet]=\"sidePanel\"></ng-container>\n        </as-split-area>\n        <as-split-area [size]=\"100 - sidePanelWidth\">\n            <ng-container [ngTemplateOutlet]=\"mainContentPanel\"></ng-container>\n        </as-split-area>\n    </as-split>\n</ng-container>\n\n<ng-container *ngIf=\"!resizable\">\n    <ng-container [ngTemplateOutlet]=\"sidePanel\"></ng-container>\n    <ng-container [ngTemplateOutlet]=\"mainContentPanel\"></ng-container>\n</ng-container>\n\n<ng-template #sidePanel>\n    <div class=\"marquee-wizard-side-panel\" [class.marquee-wizard-side-panel-resize]=\"resizable\">\n\n        <div class=\"marquee-wizard-description-container\" *ngIf=\"description\">\n            <!-- If a template was provided display it -->\n            <ng-container *ngIf=\"isTemplate\" [ngTemplateOutlet]=\"description\"></ng-container>\n\n            <!-- Otherwise wimply display the string -->\n            <ng-container *ngIf=\"!isTemplate\">\n                <p>{{ description }}</p>\n            </ng-container>\n        </div>\n\n        <ul class=\"marquee-wizard-steps\"\n            uxTabbableList\n            direction=\"vertical\"\n            role=\"tablist\"\n            aria-orientation=\"vertical\">\n\n            <li *ngFor=\"let step of steps; let index = index\"\n                role=\"tab\"\n                uxTabbableListItem\n                [disabled]=\"!step.visited\"\n                class=\"marquee-wizard-step\"\n                [class.active]=\"step.active\"\n                [class.visited]=\"step.visited\"\n                [class.invalid]=\"!step.valid\"\n                [attr.aria-posinset]=\"index + 1\"\n                [attr.aria-setsize]=\"steps.length\"\n                [attr.aria-selected]=\"step.active\"\n                [attr.aria-controls]=\"step.id\"\n                [id]=\"step.id + '-label'\"\n                (click)=\"gotoStep(step)\"\n                (keydown.enter)=\"gotoStep(step)\">\n\n                <ng-container [ngTemplateOutlet]=\"stepTemplate || defaultStepTemplate\" [ngTemplateOutletContext]=\"{ $implicit: step }\"></ng-container>\n            </li>\n\n        </ul>\n    </div>\n</ng-template>\n\n\n<ng-template #mainContentPanel>\n    <div class=\"marquee-wizard-content-panel\" [class.marquee-wizard-content-panel-resize]=\"resizable\">\n        <div class=\"marquee-wizard-content\">\n            <ng-content></ng-content>\n        </div>\n\n        <div class=\"modal-footer\">\n\n            <ng-container *ngIf=\"footerTemplate\"\n                          [ngTemplateOutlet]=\"footerTemplate\"\n                          [ngTemplateOutletContext]=\"{ step: step }\">\n            </ng-container>\n\n            <button #tip=\"ux-tooltip\"\n                    type=\"button\"\n                    class=\"btn button-secondary\"\n                    *ngIf=\"previousVisible\"\n                    [uxTooltip]=\"previousTooltip\"\n                    [attr.aria-label]=\"previousAriaLabel\"\n                    container=\"body\"\n                    [disabled]=\"previousDisabled || step === 0\"\n                    (click)=\"previous(); tip.hide()\">\n                {{ previousText }}\n            </button>\n\n            <button #tip=\"ux-tooltip\"\n                    type=\"button\"\n                    class=\"btn button-primary\"\n                    *ngIf=\"nextVisible && !isLastStep()\"\n                    [uxTooltip]=\"nextTooltip\"\n                    [attr.aria-label]=\"nextAriaLabel\"\n                    container=\"body\"\n                    [disabled]=\"nextDisabled || isNextDisabled()\"\n                    (click)=\"next(); tip.hide()\">\n                {{ nextText }}\n            </button>\n\n            <button #tip=\"ux-tooltip\"\n                    type=\"button\"\n                    class=\"btn button-primary\"\n                    *ngIf=\"finishVisible && isLastStep() || finishAlwaysVisible\"\n                    [uxTooltip]=\"finishTooltip\"\n                    [attr.aria-label]=\"finishAriaLabel\"\n                    container=\"body\"\n                    [disabled]=\"finishDisabled || isNextDisabled()\"\n                    (click)=\"finish(); tip.hide()\">\n                {{ finishText }}\n            </button>\n\n            <button #tip=\"ux-tooltip\"\n                    type=\"button\"\n                    class=\"btn button-secondary\"\n                    *ngIf=\"cancelVisible && !isLastStep() || cancelAlwaysVisible\"\n                    [uxTooltip]=\"cancelTooltip\"\n                    [attr.aria-label]=\"cancelAriaLabel\"\n                    container=\"body\"\n                    [disabled]=\"cancelDisabled\"\n                    (click)=\"cancel(); tip.hide()\">\n                {{ cancelText }}\n            </button>\n        </div>\n    </div>\n</ng-template>\n\n<ng-template #defaultStepTemplate let-step>\n\n    <!-- Insert the icon -->\n    <div *ngIf=\"step._iconTemplate\" class=\"marquee-wizard-step-icon\">\n        <ng-container [ngTemplateOutlet]=\"step._iconTemplate\"></ng-container>\n    </div>\n\n    <span class=\"marquee-wizard-step-title\">{{ step.header }}</span>\n    <ux-icon *ngIf=\"step.completed\" class=\"marquee-wizard-step-status\" name=\"checkmark\"></ux-icon>\n</ng-template>",
-                providers: [MarqueeWizardService]
+                providers: [MarqueeWizardService],
+                preserveWhitespaces: false
             }),
             __metadata("design:paramtypes", [MarqueeWizardService,
                 ResizeService,
@@ -20280,7 +20312,8 @@
                 selector: 'ux-navigation',
                 template: "<nav class=\"ux-side-nav\" [class.tree]=\"tree\" role=\"navigation\">\n\n    <ol *ngIf=\"items\" role=\"tree\" class=\"nav\" uxTabbableList [hierarchy]=\"true\">\n\n        <ng-container *ngFor=\"let item of items; let rank = index\"\n            [ngTemplateOutlet]=\"navigationNode\"\n            [ngTemplateOutletContext]=\"{ item: item, level: 1, rank: rank, indent: _needsIndent(items) }\">\n        </ng-container>\n\n        <ng-template #navigationNode let-item=\"item\" let-parent=\"parent\" let-level=\"level\" let-rank=\"rank\" let-indent=\"indent\">\n\n            <li [attr.role]=\"(item.children && item.children.length > 0) ? 'treeitem' : 'none'\"\n                [attr.aria-expanded]=\"item.expanded\"\n                [class.selected]=\"item.expanded\"\n                [class.active]=\"navigationLink.isActive\">\n\n                <a uxNavigationLink\n                    #navigationLink=\"uxNavigationLink\"\n                    #tli=\"ux-tabbable-list-item\"\n                    [navigationItem]=\"item\"\n                    [expanded]=\"item.expanded\"\n                    [canExpand]=\"level < _depthLimit\"\n                    [indent]=\"indent\"\n                    uxTabbableListItem\n                    [parent]=\"parent\"\n                    [rank]=\"rank\"\n                    [(expanded)]=\"item.expanded\">\n\n                    <span *ngIf=\"!navigationItemTemplate && item.children && item.children.length > 0 && level < _depthLimit\"\n                          aria-hidden=\"true\"\n                          class=\"nav-expander\"\n                          (click)=\"item.expanded = !item.expanded; $event.stopPropagation(); $event.preventDefault()\">\n                    </span>\n\n                    <!-- Support HPE Icons, UX Icons and Icon Component -->\n                    <ng-container *ngIf=\"!navigationItemTemplate && item.icon && !tree\">\n\n                        <span *ngIf=\"_getIconType(item) !== 'component'\"\n                              class=\"nav-icon\"\n                              [ngClass]=\"[_getIconType(item), item.icon]\">\n                        </span>\n\n                        <ux-icon *ngIf=\"_getIconType(item) === 'component'\"\n                                 class=\"nav-icon\"\n                                 [name]=\"item.icon\">\n                        </ux-icon>\n\n                    </ng-container>\n\n                    <img *ngIf=\"!navigationItemTemplate && item.iconUrl && !tree\" class=\"nav-icon\" [src]=\"item.iconUrl\" alt=\"item.iconLabel\">\n                    <span *ngIf=\"!navigationItemTemplate\" class=\"nav-title\">{{ item.title }}</span>\n\n                    <ng-container\n                        [ngTemplateOutlet]=\"navigationItemTemplate\"\n                        [ngTemplateOutletContext]=\"{ item: item, level: level }\">\n                    </ng-container>\n\n                </a>\n\n                <ol *ngIf=\"item.children && item.expanded && level < _depthLimit\"\n                    role=\"group\"\n                    class=\"nav\"\n                    [ngClass]=\"_hierarchyClasses[level]\">\n\n                    <ng-container *ngFor=\"let child of item.children; let rank = index\"\n                        [ngTemplateOutlet]=\"navigationNode\"\n                        [ngTemplateOutletContext]=\"{ item: child, parent: tli, level: level + 1, rank: rank, indent: navigationLink.indentChildren }\">\n                    </ng-container>\n\n                </ol>\n\n            </li>\n\n        </ng-template>\n\n    </ol>\n\n    <!-- Backward compatibility with the original ux-navigation -->\n    <ol *ngIf=\"!items\" role=\"tree\" class=\"nav\">\n        <ng-content></ng-content>\n    </ol>\n\n</nav>\n",
                 providers: [NavigationService],
-                changeDetection: core.ChangeDetectionStrategy.OnPush
+                changeDetection: core.ChangeDetectionStrategy.OnPush,
+                preserveWhitespaces: false
             }),
             __metadata("design:paramtypes", [NavigationService])
         ], NavigationComponent);
@@ -26899,7 +26932,7 @@
         SelectComponent = __decorate([
             core.Component({
                 selector: 'ux-select, ux-combobox, ux-dropdown',
-                template: "<ux-tag-input\r\n    *ngIf=\"multiple\"\r\n    #tagInput=\"ux-tag-input\"\r\n    [id]=\"id + '-input'\"\r\n    [tags]=\"_value$ | async\"\r\n    (tagsChange)=\"_multipleOptionSelected($event)\"\r\n    [(input)]=\"input\"\r\n    (inputChange)=\"onInputChange($event)\"\r\n    [ariaLabel]=\"ariaLabel\"\r\n    [autocomplete]=\"autocomplete\"\r\n    [addOnPaste]=\"false\"\r\n    [disabled]=\"disabled\"\r\n    [display]=\"display\"\r\n    [freeInput]=\"false\"\r\n    [placeholder]=\"placeholder || ''\"\r\n    [tagTemplate]=\"tagTemplate\"\r\n    (inputFocus)=\"onFocus()\"\r\n    [showTypeaheadOnClick]=\"true\"\r\n    [readonlyInput]=\"readonlyInput\"\r\n    [icon]=\"icon\"\r\n    [clearButton]=\"clearButton\"\r\n    [clearButtonAriaLabel]=\"clearButtonAriaLabel\">\r\n\r\n    <ux-typeahead #multipleTypeahead\r\n        [id]=\"id + '-typeahead'\"\r\n        [options]=\"options\"\r\n        [filter]=\"filter$ | async\"\r\n        [(open)]=\"dropdownOpen\"\r\n        [display]=\"display\"\r\n        [key]=\"key\"\r\n        [disabledOptions]=\"_value$ | async\"\r\n        [dropDirection]=\"dropDirection\"\r\n        [maxHeight]=\"maxHeight\"\r\n        [multiselectable]=\"true\"\r\n        [pageSize]=\"pageSize\"\r\n        [selectFirst]=\"true\"\r\n        [loadingTemplate]=\"loadingTemplate\"\r\n        [optionTemplate]=\"optionTemplate\"\r\n        [noOptionsTemplate]=\"noOptionsTemplate\"\r\n        [recentOptions]=\"recentOptions\"\r\n        [recentOptionsMaxCount]=\"recentOptionsMaxCount\"\r\n        (recentOptionsChange)=\"recentOptionsChange.emit($event)\">\r\n    </ux-typeahead>\r\n\r\n</ux-tag-input>\r\n\r\n<div *ngIf=\"!multiple\"\r\n    class=\"ux-select-container\"\r\n    [class.disabled]=\"disabled\"\r\n    role=\"combobox\"\r\n    [attr.aria-expanded]=\"dropdownOpen\"\r\n    aria-haspopup=\"listbox\">\r\n\r\n    <input #singleInput type=\"text\"\r\n        [attr.id]=\"id + '-input'\"\r\n        class=\"form-control\"\r\n        [class.ux-tag-input-clear-inset]=\"clearButton && allowNull && _hasValue\"\r\n        [attr.aria-activedescendant]=\"highlightedElement?.id\"\r\n        aria-autocomplete=\"list\"\r\n        [attr.aria-controls]=\"singleTypeahead.id\"\r\n        [attr.aria-label]=\"ariaLabel\"\r\n        aria-multiline=\"false\"\r\n        [autocomplete]=\"autocomplete\"\r\n        [(ngModel)]=\"input\"\r\n        (ngModelChange)=\"onInputChange($event)\"\r\n        [placeholder]=\"placeholder || ''\"\r\n        [disabled]=\"disabled\"\r\n        (click)=\"toggle()\"\r\n        (focus)=\"onFocus()\"\r\n        (blur)=\"inputBlurHandler()\"\r\n        (keydown)=\"inputKeyHandler($event)\"\r\n        [readonly]=\"readonlyInput\">\r\n\r\n    <div class=\"ux-select-icons\">\r\n        <i *ngIf=\"clearButton && allowNull && _hasValue\"\r\n           uxFocusIndicator\r\n           [attr.tabindex]=\"disabled ? -1 : 0\"\r\n           [attr.aria-label]=\"clearButtonAriaLabel\"\r\n           class=\"ux-select-icon ux-icon ux-icon-close ux-select-clear-icon\"\r\n           (click)=\"clear(); $event.stopPropagation()\"\r\n           (keydown.enter)=\"clear(); $event.stopPropagation()\">\r\n        </i>\r\n        <i *ngIf=\"!icon\"\r\n           class=\"ux-select-icon ux-icon ux-select-chevron-icon\"\r\n           [class.ux-icon-up]=\"dropDirection === 'up'\"\r\n           [class.ux-icon-down]=\"dropDirection === 'down'\"\r\n           (click)=\"toggle(); $event.stopPropagation()\">\r\n        </i>\r\n        <div *ngIf=\"icon\" class=\"ux-custom-icon\">\r\n            <ng-container [ngTemplateOutlet]=\"icon\"></ng-container>\r\n        </div>\r\n    </div>\r\n\r\n    <ux-typeahead #singleTypeahead\r\n        [id]=\"id + '-typeahead'\"\r\n        [active]=\"_value$ | async\"\r\n        [options]=\"options\"\r\n        [filter]=\"filter$ | async\"\r\n        [(open)]=\"dropdownOpen\"\r\n        [display]=\"display\"\r\n        [key]=\"key\"\r\n        [dropDirection]=\"dropDirection\"\r\n        [maxHeight]=\"maxHeight\"\r\n        [multiselectable]=\"false\"\r\n        [openOnFilterChange]=\"false\"\r\n        [pageSize]=\"pageSize\"\r\n        [selectFirst]=\"true\"\r\n        [loadingTemplate]=\"loadingTemplate\"\r\n        [optionTemplate]=\"optionTemplate\"\r\n        [noOptionsTemplate]=\"noOptionsTemplate\"\r\n        [recentOptions]=\"recentOptions\"\r\n        [recentOptionsMaxCount]=\"recentOptionsMaxCount\"\r\n        (optionSelected)=\"_singleOptionSelected($event)\"\r\n        (highlightedElementChange)=\"highlightedElement = $event\"\r\n        (recentOptionsChange)=\"recentOptionsChange.emit($event)\">\r\n\r\n    </ux-typeahead>\r\n\r\n</div>\r\n",
+                template: "<ux-tag-input\r\n    *ngIf=\"multiple\"\r\n    #tagInput=\"ux-tag-input\"\r\n    [id]=\"id + '-input'\"\r\n    [tags]=\"_value$ | async\"\r\n    (tagsChange)=\"_multipleOptionSelected($event)\"\r\n    [(input)]=\"input\"\r\n    (inputChange)=\"onInputChange($event)\"\r\n    [ariaLabel]=\"ariaLabel\"\r\n    [autocomplete]=\"autocomplete\"\r\n    [addOnPaste]=\"false\"\r\n    [disabled]=\"disabled\"\r\n    [display]=\"display\"\r\n    [freeInput]=\"false\"\r\n    [placeholder]=\"placeholder || ''\"\r\n    [tagTemplate]=\"tagTemplate\"\r\n    (inputFocus)=\"onFocus()\"\r\n    [showTypeaheadOnClick]=\"true\"\r\n    [readonlyInput]=\"readonlyInput\"\r\n    [icon]=\"icon\"\r\n    [clearButton]=\"clearButton\"\r\n    [clearButtonAriaLabel]=\"clearButtonAriaLabel\">\r\n\r\n    <ux-typeahead #multipleTypeahead\r\n        [id]=\"id + '-typeahead'\"\r\n        [options]=\"options\"\r\n        [filter]=\"filter$ | async\"\r\n        [(open)]=\"dropdownOpen\"\r\n        [display]=\"display\"\r\n        [key]=\"key\"\r\n        [disabledOptions]=\"_value$ | async\"\r\n        [dropDirection]=\"dropDirection\"\r\n        [maxHeight]=\"maxHeight\"\r\n        [multiselectable]=\"true\"\r\n        [pageSize]=\"pageSize\"\r\n        [selectFirst]=\"true\"\r\n        [loadingTemplate]=\"loadingTemplate\"\r\n        [optionTemplate]=\"optionTemplate\"\r\n        [noOptionsTemplate]=\"noOptionsTemplate\"\r\n        [recentOptions]=\"recentOptions\"\r\n        [recentOptionsMaxCount]=\"recentOptionsMaxCount\"\r\n        (recentOptionsChange)=\"recentOptionsChange.emit($event)\">\r\n    </ux-typeahead>\r\n\r\n</ux-tag-input>\r\n\r\n<div *ngIf=\"!multiple\"\r\n    class=\"ux-select-container\"\r\n    [class.disabled]=\"disabled\"\r\n    role=\"combobox\"\r\n    [attr.aria-expanded]=\"dropdownOpen\"\r\n    aria-haspopup=\"listbox\">\r\n\r\n    <input #singleInput type=\"text\"\r\n        [attr.id]=\"id + '-input'\"\r\n        class=\"form-control\"\r\n        [class.ux-tag-input-clear-inset]=\"clearButton && allowNull && _hasValue\"\r\n        [attr.aria-activedescendant]=\"highlightedElement?.id\"\r\n        aria-autocomplete=\"list\"\r\n        [attr.aria-controls]=\"id + '-typeahead'\"\r\n        [attr.aria-label]=\"ariaLabel\"\r\n        aria-multiline=\"false\"\r\n        [autocomplete]=\"autocomplete\"\r\n        [(ngModel)]=\"input\"\r\n        (ngModelChange)=\"onInputChange($event)\"\r\n        [placeholder]=\"placeholder || ''\"\r\n        [disabled]=\"disabled\"\r\n        (click)=\"toggle()\"\r\n        (focus)=\"onFocus()\"\r\n        (blur)=\"inputBlurHandler()\"\r\n        (keydown)=\"inputKeyHandler($event)\"\r\n        [readonly]=\"readonlyInput\">\r\n\r\n    <div class=\"ux-select-icons\">\r\n        <i *ngIf=\"clearButton && allowNull && _hasValue\"\r\n           uxFocusIndicator\r\n           [attr.tabindex]=\"disabled ? -1 : 0\"\r\n           [attr.aria-label]=\"clearButtonAriaLabel\"\r\n           class=\"ux-select-icon ux-icon ux-icon-close ux-select-clear-icon\"\r\n           (click)=\"clear(); $event.stopPropagation()\"\r\n           (keydown.enter)=\"clear(); $event.stopPropagation()\">\r\n        </i>\r\n        <i *ngIf=\"!icon\"\r\n           class=\"ux-select-icon ux-icon ux-select-chevron-icon\"\r\n           [class.ux-icon-up]=\"dropDirection === 'up'\"\r\n           [class.ux-icon-down]=\"dropDirection === 'down'\"\r\n           (click)=\"toggle(); $event.stopPropagation()\">\r\n        </i>\r\n        <div *ngIf=\"icon\" class=\"ux-custom-icon\">\r\n            <ng-container [ngTemplateOutlet]=\"icon\"></ng-container>\r\n        </div>\r\n    </div>\r\n\r\n    <ux-typeahead #singleTypeahead\r\n        [id]=\"id + '-typeahead'\"\r\n        [active]=\"_value$ | async\"\r\n        [options]=\"options\"\r\n        [filter]=\"filter$ | async\"\r\n        [(open)]=\"dropdownOpen\"\r\n        [display]=\"display\"\r\n        [key]=\"key\"\r\n        [dropDirection]=\"dropDirection\"\r\n        [maxHeight]=\"maxHeight\"\r\n        [multiselectable]=\"false\"\r\n        [openOnFilterChange]=\"false\"\r\n        [pageSize]=\"pageSize\"\r\n        [selectFirst]=\"true\"\r\n        [loadingTemplate]=\"loadingTemplate\"\r\n        [optionTemplate]=\"optionTemplate\"\r\n        [noOptionsTemplate]=\"noOptionsTemplate\"\r\n        [recentOptions]=\"recentOptions\"\r\n        [recentOptionsMaxCount]=\"recentOptionsMaxCount\"\r\n        (optionSelected)=\"_singleOptionSelected($event)\"\r\n        (highlightedElementChange)=\"highlightedElement = $event\"\r\n        (recentOptionsChange)=\"recentOptionsChange.emit($event)\">\r\n\r\n    </ux-typeahead>\r\n\r\n</div>\r\n",
                 providers: [SELECT_VALUE_ACCESSOR],
                 host: {
                     '[class.ux-select-custom-icon]': '!!icon',
@@ -30666,20 +30699,30 @@
         };
         /** Programmatically create a placeholder element */
         ToolbarSearchComponent.prototype.createPlaceholder = function () {
-            // Get width and height of the component
-            var styles = getComputedStyle(this._elementRef.nativeElement);
             // Create invisible div with the same dimensions
             this._placeholder = this._renderer.createElement('div');
             this._renderer.setStyle(this._placeholder, 'display', 'none');
             this._renderer.setStyle(this._placeholder, 'width', this.button.width + 'px');
-            this._renderer.setStyle(this._placeholder, 'height', styles.height);
             this._renderer.setStyle(this._placeholder, 'visibility', 'hidden');
+            this.setPlaceholderHeight();
             // Add as a sibling
             this._renderer.insertBefore(this._elementRef.nativeElement.parentNode, this._placeholder, this._elementRef.nativeElement);
         };
-        /** Update the visibility of the placeholder node */
+        /** Update the display state of the placeholder node */
         ToolbarSearchComponent.prototype.setPlaceholderVisible = function (isVisible) {
+            if (!this._placeholder) {
+                return;
+            }
+            // Recalculate the height since the layout might not be complete when initially created.
+            if (isVisible) {
+                this.setPlaceholderHeight();
+            }
             this._renderer.setStyle(this._placeholder, 'display', isVisible ? 'inline-block' : 'none');
+        };
+        /** Set the placeholder height to match the height of this component. */
+        ToolbarSearchComponent.prototype.setPlaceholderHeight = function () {
+            var height = getComputedStyle(this._elementRef.nativeElement).height;
+            this._renderer.setStyle(this._placeholder, 'height', height);
         };
         __decorate([
             core.Input(),
