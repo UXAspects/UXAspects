@@ -27,6 +27,8 @@ export class ComponentsSplitButtonDropdownsComponent extends BaseDocumentationSe
         ]
     };
 
+    toggleIcon = this._documentationType === DocumentationType.MicroFocus ? 'chevron-down' : 'down';
+
     constructor(@Inject(DOCUMENTATION_TOKEN) private _documentationType: DocumentationType) {
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
 
