@@ -1,10 +1,16 @@
-import { browser, by, element, ElementFinder } from 'protractor';
+import { browser, by, element, ElementFinder, ExpectedConditions } from 'protractor';
 
 export class NumberPickerPage {
 
     root = element(by.id('root'));
     numberPicker1 = element(by.id('numberPicker1'));
     numberPicker2 = element(by.id('numberPicker2'));
+    numberPicker3 = element(by.id('numberPicker3'));
+    numberPicker4 = element(by.id('numberPicker4'));
+    errorMessage1 = element(by.id('errorMessage1'));
+    errorMessage2 = element(by.id('errorMessage2'));
+    errorMessage3 = element(by.id('errorMessage3'));
+    errorMessage4 = element(by.id('errorMessage4'));
 
     async getPage(): Promise<void> {
         await browser.get('#/number-picker');
@@ -56,12 +62,8 @@ export class NumberPickerPage {
         await numberPicker.$('div.number-picker-controls').$('div.number-picker-control-down').click();
     }
 
-    async confirmErrorMessage1IsVisible(): Promise<boolean> {
-        return await this.root.$('p#errorMessage1').isPresent();
-    }
-
-    async confirmErrorMessage2IsVisible(): Promise<boolean> {
-        return await this.root.$('p#errorMessage2').isPresent();
+    async confirmErrorMessageIsVisible(errorMessage: ElementFinder): Promise<boolean> {
+        return await errorMessage.isPresent();
     }
 }
 

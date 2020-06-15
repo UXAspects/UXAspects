@@ -20,7 +20,7 @@ describe('Number Picker Tests', () => {
         expect(await page.getNumberPickerValue(page.numberPicker1)).toEqual('0');
         expect(await page.confirmUpDownControlIsDisabled(page.numberPicker1, 'up')).toBeFalsy();
         expect(await page.confirmUpDownControlIsDisabled(page.numberPicker1, 'down')).toBeFalsy();
-        expect(await page.confirmErrorMessage1IsVisible()).toBeFalsy();
+        expect(await page.confirmErrorMessageIsVisible(page.errorMessage1)).toBeFalsy();
 
         expect(await page.numberPicker2.isPresent()).toBeTruthy();
         expect(await page.numberPicker2.$('input').isPresent()).toBeTruthy();
@@ -30,7 +30,27 @@ describe('Number Picker Tests', () => {
         expect(await page.getNumberPickerValue(page.numberPicker2)).toEqual('0');
         expect(await page.confirmUpDownControlIsDisabled(page.numberPicker2, 'up')).toBeFalsy();
         expect(await page.confirmUpDownControlIsDisabled(page.numberPicker2, 'down')).toBeTruthy();
-        expect(await page.confirmErrorMessage2IsVisible()).toBeFalsy();
+        expect(await page.confirmErrorMessageIsVisible(page.errorMessage2)).toBeFalsy();
+
+        expect(await page.numberPicker3.isPresent()).toBeTruthy();
+        expect(await page.numberPicker3.$('input').isPresent()).toBeTruthy();
+        expect(await page.getNumberPickerMinimum(page.numberPicker3)).toEqual('-10');
+        expect(await page.getNumberPickerMaximum(page.numberPicker3)).toEqual('10000000000');
+        expect(await page.getNumberPickerStep(page.numberPicker3)).toEqual('1');
+        expect(await page.getNumberPickerValue(page.numberPicker3)).toEqual('0');
+        expect(await page.confirmUpDownControlIsDisabled(page.numberPicker3, 'up')).toBeFalsy();
+        expect(await page.confirmUpDownControlIsDisabled(page.numberPicker3, 'down')).toBeFalsy();
+        expect(await page.confirmErrorMessageIsVisible(page.errorMessage3)).toBeFalsy();
+
+        expect(await page.numberPicker4.isPresent()).toBeTruthy();
+        expect(await page.numberPicker4.$('input').isPresent()).toBeTruthy();
+        expect(await page.getNumberPickerMinimum(page.numberPicker4)).toEqual('0');
+        expect(await page.getNumberPickerMaximum(page.numberPicker4)).toEqual('10000000000');
+        expect(await page.getNumberPickerStep(page.numberPicker4)).toEqual('0.3');
+        expect(await page.getNumberPickerValue(page.numberPicker4)).toEqual('0');
+        expect(await page.confirmUpDownControlIsDisabled(page.numberPicker4, 'up')).toBeFalsy();
+        expect(await page.confirmUpDownControlIsDisabled(page.numberPicker4, 'down')).toBeTruthy();
+        expect(await page.confirmErrorMessageIsVisible(page.errorMessage4)).toBeFalsy();
 
         expect(await imageCompare('number-picker-initial')).toEqual(0);
 
@@ -75,6 +95,43 @@ describe('Number Picker Tests', () => {
         await page.decrementNumberPickerValue(page.numberPicker2);
         expect(await page.getNumberPickerValue(page.numberPicker2)).toEqual('0');
 
+        // Number picker 3
+        await page.setNumberPickerValue(page.numberPicker3, '10000000');
+        await page.incrementNumberPickerValue(page.numberPicker3);
+        expect(await page.getNumberPickerValue(page.numberPicker3)).toEqual('10000001');
+        await page.incrementNumberPickerValue(page.numberPicker3);
+        expect(await page.getNumberPickerValue(page.numberPicker3)).toEqual('10000002');
+        await page.incrementNumberPickerValue(page.numberPicker3);
+        expect(await page.getNumberPickerValue(page.numberPicker3)).toEqual('10000003');
+        await page.incrementNumberPickerValue(page.numberPicker3);
+        expect(await page.getNumberPickerValue(page.numberPicker3)).toEqual('10000004');
+        await page.decrementNumberPickerValue(page.numberPicker3);
+        expect(await page.getNumberPickerValue(page.numberPicker3)).toEqual('10000003');
+        await page.decrementNumberPickerValue(page.numberPicker3);
+        expect(await page.getNumberPickerValue(page.numberPicker3)).toEqual('10000002');
+        await page.decrementNumberPickerValue(page.numberPicker3);
+        expect(await page.getNumberPickerValue(page.numberPicker3)).toEqual('10000001');
+        await page.decrementNumberPickerValue(page.numberPicker3);
+        expect(await page.getNumberPickerValue(page.numberPicker3)).toEqual('10000000');
+
+        // Number picker 4
+        await page.setNumberPickerValue(page.numberPicker4, '10000000');
+        await page.incrementNumberPickerValue(page.numberPicker4);
+        expect(await page.getNumberPickerValue(page.numberPicker4)).toEqual('10000000.3');
+        await page.incrementNumberPickerValue(page.numberPicker4);
+        expect(await page.getNumberPickerValue(page.numberPicker4)).toEqual('10000000.6');
+        await page.incrementNumberPickerValue(page.numberPicker4);
+        expect(await page.getNumberPickerValue(page.numberPicker4)).toEqual('10000000.9');
+        await page.incrementNumberPickerValue(page.numberPicker4);
+        expect(await page.getNumberPickerValue(page.numberPicker4)).toEqual('10000001.2');
+        await page.decrementNumberPickerValue(page.numberPicker4);
+        expect(await page.getNumberPickerValue(page.numberPicker4)).toEqual('10000000.9');
+        await page.decrementNumberPickerValue(page.numberPicker4);
+        expect(await page.getNumberPickerValue(page.numberPicker4)).toEqual('10000000.6');
+        await page.decrementNumberPickerValue(page.numberPicker4);
+        expect(await page.getNumberPickerValue(page.numberPicker4)).toEqual('10000000.3');
+        await page.decrementNumberPickerValue(page.numberPicker4);
+        expect(await page.getNumberPickerValue(page.numberPicker4)).toEqual('10000000');
     });
 
     it('should allow changes to the value by text entry', async () => {
@@ -103,11 +160,11 @@ describe('Number Picker Tests', () => {
 
         // Number Picker 1
         await page.setNumberPickerValue(page.numberPicker1, '-11');
-        expect(await page.confirmErrorMessage1IsVisible()).toBeTruthy();
+        expect(await page.confirmErrorMessageIsVisible(page.errorMessage1)).toBeTruthy();
 
         // Number Picker 2
         await page.setNumberPickerValue(page.numberPicker2, '-0.5');
-        expect(await page.confirmErrorMessage2IsVisible()).toBeTruthy();
+        expect(await page.confirmErrorMessageIsVisible(page.errorMessage2)).toBeTruthy();
 
         expect(await imageCompare('number-picker-invalid')).toEqual(0);
 
@@ -117,11 +174,11 @@ describe('Number Picker Tests', () => {
 
         // Number Picker 1
         await page.setNumberPickerValue(page.numberPicker1, '11');
-        expect(await page.confirmErrorMessage1IsVisible()).toBeTruthy();
+        expect(await page.confirmErrorMessageIsVisible(page.errorMessage1)).toBeTruthy();
 
         // Number Picker 2
         await page.setNumberPickerValue(page.numberPicker2, '10.5');
-        expect(await page.confirmErrorMessage2IsVisible()).toBeTruthy();
+        expect(await page.confirmErrorMessageIsVisible(page.errorMessage2)).toBeTruthy();
 
     });
 

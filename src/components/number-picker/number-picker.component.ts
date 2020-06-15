@@ -1,5 +1,5 @@
 import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, forwardRef, Input, OnChanges, OnDestroy, Optional, Output } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, forwardRef, Input, OnChanges, OnDestroy, Optional, Output, SimpleChanges } from '@angular/core';
 import { ControlValueAccessor, FormGroupDirective, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 let uniqueId = 0;
@@ -9,6 +9,9 @@ export const NUMBER_PICKER_VALUE_ACCESSOR: any = {
     useExisting: forwardRef(() => NumberPickerComponent),
     multi: true
 };
+
+export const LARGE_INT_PRECISION: number =  Number.MAX_SAFE_INTEGER.toString().length - 1;
+export const DEFAULT_PRECISION: number = 6;
 
 @Component({
     selector: 'ux-number-picker, ux-number-picker-inline',
@@ -41,7 +44,7 @@ export class NumberPickerComponent implements ControlValueAccessor, OnDestroy, O
     @Input('aria-labelledby') labelledBy: string;
 
     /** Define the precision of floating point values */
-    @Input() precision: number = 6;
+    @Input() precision: number = DEFAULT_PRECISION;
 
     /** If two way binding is used this value will be updated any time the number picker value changes. */
     @Output() valueChange = new EventEmitter<number>();
@@ -54,6 +57,7 @@ export class NumberPickerComponent implements ControlValueAccessor, OnDestroy, O
 
     set value(value: number) {
         if (this._value !== value) {
+            this.precision = this.determinePrecision(value);
             this._value = value;
             this._valid = this.isValid();
         }
@@ -205,6 +209,11 @@ export class NumberPickerComponent implements ControlValueAccessor, OnDestroy, O
         this._lastValue = value;
         this.valueChange.emit(value);
         this._propagateChange(value);
+    }
+
+    /** Determine precision based on the length of passed number (number of digits) */
+    determinePrecision(value: number): number {
+        return value && value.toString().length > DEFAULT_PRECISION ? LARGE_INT_PRECISION : DEFAULT_PRECISION;
     }
 
 }
