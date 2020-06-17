@@ -21,12 +21,7 @@ export class ComponentsSplitButtonDropdownsComponent extends BaseDocumentationSe
         },
         modules: [
             {
-                library: 'ngx-bootstrap/dropdown',
-                imports: ['BsDropdownModule'],
-                providers: ['BsDropdownModule.forRoot()']
-            },
-            {
-                imports: ['MenuNavigationModule'],
+                imports: ['MenuModule'],
                 library: '@ux-aspects/ux-aspects'
             }
         ]
