@@ -1,5 +1,4 @@
 import { browser, by, element, ElementFinder, protractor } from 'protractor';
-import { imageCompare } from '../../common/image-compare';
 
 export const numberOfCountries: number = 251;
 export const scrollingTimeout: number = 5000;
@@ -206,6 +205,11 @@ export class SelectPage {
         await browser.actions().mouseMove(this.getCountry(allowMultiple, index)).perform();
     }
 
+    async scrollOptionsToTop(): Promise<void> {
+        const typeahead = element(by.id('dropdown-typeahead'));
+        await browser.executeScript('arguments[0].scrollTop = 0', typeahead);
+    }
+
     hoverOverLastCountry(allowMultiple: boolean) {
         if (allowMultiple) {
             browser.actions().mouseMove(this.dropdown.$('ux-tag-input.focus').$('ux-typeahead.open').$('div.ux-typeahead-options').
@@ -274,7 +278,6 @@ export class SelectPage {
     async toggleCustomIcon() {
         await element(by.id('toggle-custom-icon')).click();
     }
-
 
     async fillRecentOptionsButton() {
         await element(by.id('fill-recent-options-button')).click();
