@@ -38,7 +38,7 @@ describe('InputDropdownComponent', () => {
         spyOn(component.filterChange, 'emit');
         spyOn(component.filterInputElement.nativeElement, 'focus');
 
-        component.resetFilter(new MouseEvent('click'));
+        component.resetFilter();
 
         fixture.detectChanges();
         expect(component.filter).toEqual('');

@@ -43,7 +43,7 @@
 
             <button type="button"
                     class="btn btn-flat filter-button"
-                    (click)="resetFilter($event)"
+                    (click)="resetFilter(); $event.stopPropagation();"
                     [tabindex]="filter.length > 0 ? 0 : -1">
                 <ux-icon [name]="filter.length === 0 ? 'search' : 'close'"></ux-icon>
             </button>
