@@ -10,8 +10,7 @@ export const NUMBER_PICKER_VALUE_ACCESSOR: any = {
     multi: true
 };
 
-export const LARGE_INT_PRECISION: number =  Number.MAX_SAFE_INTEGER.toString().length - 1;
-export const DEFAULT_PRECISION: number = 6;
+const DEFAULT_PRECISION: number =  Number.MAX_SAFE_INTEGER.toString().length - 1;
 
 @Component({
     selector: 'ux-number-picker, ux-number-picker-inline',
@@ -44,7 +43,18 @@ export class NumberPickerComponent implements ControlValueAccessor, OnDestroy, O
     @Input('aria-labelledby') labelledBy: string;
 
     /** Define the precision of floating point values */
-    @Input() precision: number = DEFAULT_PRECISION;
+    private _precision: number = null;
+
+    @Input()
+    get precision(): number {
+        return this._precision || DEFAULT_PRECISION;
+    }
+
+    set precision(value: number) {
+        if (this._precision != value) {
+            this._precision = value;
+        }
+    }
 
     /** If two way binding is used this value will be updated any time the number picker value changes. */
     @Output() valueChange = new EventEmitter<number>();
@@ -57,7 +67,6 @@ export class NumberPickerComponent implements ControlValueAccessor, OnDestroy, O
 
     set value(value: number) {
         if (this._value !== value) {
-            this.precision = this.determinePrecision(value);
             this._value = value;
             this._valid = this.isValid();
         }
@@ -210,11 +219,5 @@ export class NumberPickerComponent implements ControlValueAccessor, OnDestroy, O
         this.valueChange.emit(value);
         this._propagateChange(value);
     }
-
-    /** Determine precision based on the length of passed number (number of digits) */
-    determinePrecision(value: number): number {
-        return value && value.toString().length > DEFAULT_PRECISION ? LARGE_INT_PRECISION : DEFAULT_PRECISION;
-    }
-
 }
 

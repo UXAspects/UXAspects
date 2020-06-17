@@ -13,10 +13,8 @@ export class NumberPickerTestPageComponent {
     constructor(formBuilder: FormBuilder) {
 
         this.form = formBuilder.group({
-            integerSmall: [0, Validators.compose([Validators.required, Validators.min(-10), Validators.max(10)])],
-            decimalSmall: [0, Validators.compose([Validators.required, Validators.min(0), Validators.max(10)])],
-            integerLarge: [0, Validators.compose([Validators.required, Validators.min(-10), Validators.max(10000000000)])],
-            decimalLarge: [0, Validators.compose([Validators.required, Validators.min(0), Validators.max(10000000000)])]
+            integer: [0, Validators.compose([Validators.required, Validators.min(-10), Validators.max(10)])],
+            decimal: [0, Validators.compose([Validators.required, Validators.min(0), Validators.max(10)])]
         });
     }
 }

@@ -43,7 +43,7 @@ exports.config = {
   afterLaunch: onAfterLaunch,
 
   // Spec patterns are relative to this config file
-  specs: ['./tests/**/**/*.e2e-spec.ts'],
+  specs: ['./tests/**/**/number-picker.e2e-spec.ts'],
 
   plugins: [
     {

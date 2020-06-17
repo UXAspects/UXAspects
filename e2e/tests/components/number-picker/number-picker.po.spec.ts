@@ -5,12 +5,8 @@ export class NumberPickerPage {
     root = element(by.id('root'));
     numberPicker1 = element(by.id('numberPicker1'));
     numberPicker2 = element(by.id('numberPicker2'));
-    numberPicker3 = element(by.id('numberPicker3'));
-    numberPicker4 = element(by.id('numberPicker4'));
     errorMessage1 = element(by.id('errorMessage1'));
     errorMessage2 = element(by.id('errorMessage2'));
-    errorMessage3 = element(by.id('errorMessage3'));
-    errorMessage4 = element(by.id('errorMessage4'));
 
     async getPage(): Promise<void> {
         await browser.get('#/number-picker');
