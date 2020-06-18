@@ -20,7 +20,7 @@ describe('Number Picker Tests', () => {
         expect(await page.getNumberPickerValue(page.numberPicker1)).toEqual('0');
         expect(await page.confirmUpDownControlIsDisabled(page.numberPicker1, 'up')).toBeFalsy();
         expect(await page.confirmUpDownControlIsDisabled(page.numberPicker1, 'down')).toBeFalsy();
-        expect(await page.confirmErrorMessageIsVisible(page.errorMessage1)).toBeFalsy();
+        expect(await page.errorMessage1.isPresent()).toBeFalsy();
 
         expect(await page.numberPicker2.isPresent()).toBeTruthy();
         expect(await page.numberPicker2.$('input').isPresent()).toBeTruthy();
@@ -30,7 +30,7 @@ describe('Number Picker Tests', () => {
         expect(await page.getNumberPickerValue(page.numberPicker2)).toEqual('0');
         expect(await page.confirmUpDownControlIsDisabled(page.numberPicker2, 'up')).toBeFalsy();
         expect(await page.confirmUpDownControlIsDisabled(page.numberPicker2, 'down')).toBeTruthy();
-        expect(await page.confirmErrorMessageIsVisible(page.errorMessage2)).toBeFalsy();
+        expect(await page.errorMessage2.isPresent()).toBeFalsy();
 
         expect(await imageCompare('number-picker-initial')).toEqual(0);
 
@@ -103,11 +103,11 @@ describe('Number Picker Tests', () => {
 
         // Number Picker 1
         await page.setNumberPickerValue(page.numberPicker1, '-11');
-        expect(await page.confirmErrorMessageIsVisible(page.errorMessage1)).toBeTruthy();
+        expect(await page.errorMessage1.isPresent()).toBeTruthy();
 
         // Number Picker 2
         await page.setNumberPickerValue(page.numberPicker2, '-0.5');
-        expect(await page.confirmErrorMessageIsVisible(page.errorMessage2)).toBeTruthy();
+        expect(await page.errorMessage2.isPresent()).toBeTruthy();
 
         expect(await imageCompare('number-picker-invalid')).toEqual(0);
 
@@ -117,11 +117,11 @@ describe('Number Picker Tests', () => {
 
         // Number Picker 1
         await page.setNumberPickerValue(page.numberPicker1, '11');
-        expect(await page.confirmErrorMessageIsVisible(page.errorMessage1)).toBeTruthy();
+        expect(await page.errorMessage1.isPresent()).toBeTruthy();
 
         // Number Picker 2
         await page.setNumberPickerValue(page.numberPicker2, '10.5');
-        expect(await page.confirmErrorMessageIsVisible(page.errorMessage2)).toBeTruthy();
+        expect(await page.errorMessage2.isPresent()).toBeTruthy();
 
     });
 

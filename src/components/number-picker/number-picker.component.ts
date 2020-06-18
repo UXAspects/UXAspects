@@ -10,8 +10,6 @@ export const NUMBER_PICKER_VALUE_ACCESSOR: any = {
     multi: true
 };
 
-const DEFAULT_PRECISION: number =  Number.MAX_SAFE_INTEGER.toString().length - 1;
-
 @Component({
     selector: 'ux-number-picker, ux-number-picker-inline',
     templateUrl: './number-picker.component.html',
@@ -43,18 +41,7 @@ export class NumberPickerComponent implements ControlValueAccessor, OnDestroy, O
     @Input('aria-labelledby') labelledBy: string;
 
     /** Define the precision of floating point values */
-    private _precision: number = null;
-
-    @Input()
-    get precision(): number {
-        return this._precision || DEFAULT_PRECISION;
-    }
-
-    set precision(value: number) {
-        if (this._precision != value) {
-            this._precision = value;
-        }
-    }
+    @Input() precision: number = Number.MAX_SAFE_INTEGER.toString().length - 1;
 
     /** If two way binding is used this value will be updated any time the number picker value changes. */
     @Output() valueChange = new EventEmitter<number>();

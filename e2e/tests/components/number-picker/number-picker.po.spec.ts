@@ -57,9 +57,5 @@ export class NumberPickerPage {
     async decrementNumberPickerValue(numberPicker: ElementFinder): Promise<void> {
         await numberPicker.$('div.number-picker-controls').$('div.number-picker-control-down').click();
     }
-
-    async confirmErrorMessageIsVisible(errorMessage: ElementFinder): Promise<boolean> {
-        return await errorMessage.isPresent();
-    }
 }
 
