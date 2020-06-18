@@ -1,4 +1,4 @@
-import { browser, by, element, ElementFinder, ExpectedConditions } from 'protractor';
+import { browser, by, element, ElementFinder } from 'protractor';
 
 export class NumberPickerPage {
 

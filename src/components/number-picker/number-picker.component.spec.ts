@@ -3,7 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NumberPickerModule } from './number-picker.module';
 
-/** Basic number picker example */
+/** Number picker example using form group */
 @Component({
     selector: 'app-number-picker-form',
     template: `<ux-number-picker [min]="min"
@@ -47,11 +47,12 @@ describe('Number Picker Component - FormGroup', () => {
     let numberPicker2: HTMLInputElement;
     let input1: HTMLInputElement;
     let input2: HTMLInputElement;
-    let input1IncrementBtn: HTMLDivElement;
-    let input1DecrementBtn: HTMLDivElement;
-    let input2IncrementBtn: HTMLDivElement;
-    let input2DecrementBtn: HTMLDivElement;
 
+    async function clickElement(element: HTMLDivElement) {
+        await element.click();
+        fixture.detectChanges();
+        await fixture.whenStable();
+    }
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
@@ -70,10 +71,6 @@ describe('Number Picker Component - FormGroup', () => {
         numberPicker2 = numberPickers.item(1);
         input1 = numberPicker1.querySelector('input');
         input2 = numberPicker2.querySelector('input');
-        input1IncrementBtn = numberPicker1.querySelector('.number-picker-control-up');
-        input1DecrementBtn = numberPicker1.querySelector('.number-picker-control-down');
-        input2IncrementBtn = numberPicker2.querySelector('.number-picker-control-up');
-        input2DecrementBtn = numberPicker2.querySelector('.number-picker-control-down');
 
         fixture.detectChanges();
     });
@@ -168,145 +165,159 @@ describe('Number Picker Component - FormGroup', () => {
         expect(numberPicker1.classList.contains('ux-number-picker-invalid')).toBe(false);
     });
 
-    it('should increment/decrement whole numbers', async () => {
-        component.form.controls.integer.setValue(7);
-        fixture.detectChanges();
-        await fixture.whenStable();
+    describe('on increment/decrement', () => {
+        let input1IncrementBtn: HTMLDivElement;
+        let input1DecrementBtn: HTMLDivElement;
+        let input2IncrementBtn: HTMLDivElement;
+        let input2DecrementBtn: HTMLDivElement;
 
-        // 1st increment
-        await triggerNumberChangeBtn(input1IncrementBtn, fixture);
-        expect(component.form.controls.integer.value).toBe(8);
+        beforeEach(() => {
+            input1IncrementBtn = numberPicker1.querySelector('.number-picker-control-up');
+            input1DecrementBtn = numberPicker1.querySelector('.number-picker-control-down');
+            input2IncrementBtn = numberPicker2.querySelector('.number-picker-control-up');
+            input2DecrementBtn = numberPicker2.querySelector('.number-picker-control-down');
+        });
 
-        // 2nd increment
-        await triggerNumberChangeBtn(input1IncrementBtn, fixture);
-        expect(component.form.controls.integer.value).toBe(9);
+        it('should work with whole numbers', async () => {
+            component.form.controls.integer.setValue(7);
+            fixture.detectChanges();
+            await fixture.whenStable();
 
-        // 3rd increment
-        await triggerNumberChangeBtn(input1IncrementBtn, fixture);
-        expect(component.form.controls.integer.value).toBe(10);
+            // 1st increment
+            await clickElement(input1IncrementBtn);
+            expect(component.form.controls.integer.value).toBe(8);
 
-        // 4th increment (tries to go outside max bounds)
-        await triggerNumberChangeBtn(input1IncrementBtn, fixture);
-        expect(component.form.controls.integer.value).toBe(10);
+            // 2nd increment
+            await clickElement(input1IncrementBtn);
+            expect(component.form.controls.integer.value).toBe(9);
 
-        // 1st decrement
-        await triggerNumberChangeBtn(input1DecrementBtn, fixture);
-        expect(component.form.controls.integer.value).toBe(9);
+            // 3rd increment
+            await clickElement(input1IncrementBtn);
+            expect(component.form.controls.integer.value).toBe(10);
 
-        // 2nd decrement
-        await triggerNumberChangeBtn(input1DecrementBtn, fixture);
-        expect(component.form.controls.integer.value).toBe(8);
+            // 4th increment (tries to go outside max bounds)
+            await clickElement(input1IncrementBtn);
+            expect(component.form.controls.integer.value).toBe(10);
 
-        // 3rd decrement
-        await triggerNumberChangeBtn(input1DecrementBtn, fixture);
-        expect(component.form.controls.integer.value).toBe(7);
-    });
+            // 1st decrement
+            await clickElement(input1DecrementBtn);
+            expect(component.form.controls.integer.value).toBe(9);
 
-    it('should increment/decrement decimal numbers without precision issues', async () => {
-        component.step = 0.3;
-        component.form.controls.integer.setValue(4);
-        fixture.detectChanges();
-        await fixture.whenStable();
+            // 2nd decrement
+            await clickElement(input1DecrementBtn);
+            expect(component.form.controls.integer.value).toBe(8);
 
-        // 1st increment
-        await triggerNumberChangeBtn(input1IncrementBtn, fixture);
-        expect(component.form.controls.integer.value).toBe(4.3);
+            // 3rd decrement
+            await clickElement(input1DecrementBtn);
+            expect(component.form.controls.integer.value).toBe(7);
+        });
 
-        // 2nd increment
-        await triggerNumberChangeBtn(input1IncrementBtn, fixture);
-        expect(component.form.controls.integer.value).toBe(4.6);
+        it('should work with decimal numbers without precision issues', async () => {
+            component.step = 0.3;
+            component.form.controls.integer.setValue(4);
+            fixture.detectChanges();
+            await fixture.whenStable();
 
-        // 3rd increment
-        await triggerNumberChangeBtn(input1IncrementBtn, fixture);
-        expect(component.form.controls.integer.value).toBe(4.9);
+            // 1st increment
+            await clickElement(input1IncrementBtn);
+            expect(component.form.controls.integer.value).toBe(4.3);
 
-        // 4th increment
-        await triggerNumberChangeBtn(input1IncrementBtn, fixture);
-        expect(component.form.controls.integer.value).toBe(5.2);
+            // 2nd increment
+            await clickElement(input1IncrementBtn);
+            expect(component.form.controls.integer.value).toBe(4.6);
 
-        // 1st decrement
-        await triggerNumberChangeBtn(input1DecrementBtn, fixture);
-        expect(component.form.controls.integer.value).toBe(4.9);
+            // 3rd increment
+            await clickElement(input1IncrementBtn);
+            expect(component.form.controls.integer.value).toBe(4.9);
 
-        // 2nd decrement
-        await triggerNumberChangeBtn(input1DecrementBtn, fixture);
-        expect(component.form.controls.integer.value).toBe(4.6);
+            // 4th increment
+            await clickElement(input1IncrementBtn);
+            expect(component.form.controls.integer.value).toBe(5.2);
 
-        // 3rd decrement
-        await triggerNumberChangeBtn(input1DecrementBtn, fixture);
-        expect(component.form.controls.integer.value).toBe(4.3);
-    });
+            // 1st decrement
+            await clickElement(input1DecrementBtn);
+            expect(component.form.controls.integer.value).toBe(4.9);
 
-    it('should work with large whole numbers', async () => {
-        component.step = 1000000;
-        component.max = 1000000000;
-        component.form.controls.integer.setValue(997000000);
-        fixture.detectChanges();
-        await fixture.whenStable();
+            // 2nd decrement
+            await clickElement(input1DecrementBtn);
+            expect(component.form.controls.integer.value).toBe(4.6);
 
-        // 1st increment
-        await triggerNumberChangeBtn(input1IncrementBtn, fixture);
-        expect(component.form.controls.integer.value).toBe(998000000);
+            // 3rd decrement
+            await clickElement(input1DecrementBtn);
+            expect(component.form.controls.integer.value).toBe(4.3);
+        });
 
-        // 2nd increment
-        await triggerNumberChangeBtn(input1IncrementBtn, fixture);
-        expect(component.form.controls.integer.value).toBe(999000000);
+        it('should work with large whole numbers', async () => {
+            component.step = 1000000;
+            component.max = 1000000000;
+            component.form.controls.integer.setValue(997000000);
+            fixture.detectChanges();
+            await fixture.whenStable();
 
-        // 3rd increment
-        await triggerNumberChangeBtn(input1IncrementBtn, fixture);
-        expect(component.form.controls.integer.value).toBe(1000000000);
+            // 1st increment
+            await clickElement(input1IncrementBtn);
+            expect(component.form.controls.integer.value).toBe(998000000);
 
-        // 1st decrement
-        await triggerNumberChangeBtn(input1DecrementBtn, fixture);
-        expect(component.form.controls.integer.value).toBe(999000000);
+            // 2nd increment
+            await clickElement(input1IncrementBtn);
+            expect(component.form.controls.integer.value).toBe(999000000);
 
-        // 2nd decrement
-        await triggerNumberChangeBtn(input1DecrementBtn, fixture);
-        expect(component.form.controls.integer.value).toBe(998000000);
+            // 3rd increment
+            await clickElement(input1IncrementBtn);
+            expect(component.form.controls.integer.value).toBe(1000000000);
 
-        // 3rd decrement
-        await triggerNumberChangeBtn(input1DecrementBtn, fixture);
-        expect(component.form.controls.integer.value).toBe(997000000);
-    });
+            // 1st decrement
+            await clickElement(input1DecrementBtn);
+            expect(component.form.controls.integer.value).toBe(999000000);
 
-    it('should work with large decimal numbers', async () => {
-        component.step = 0.1;
-        component.max = 100000000;
-        component.form.controls.integer.setValue(99999999.1);
-        fixture.detectChanges();
-        await fixture.whenStable();
+            // 2nd decrement
+            await clickElement(input1DecrementBtn);
+            expect(component.form.controls.integer.value).toBe(998000000);
 
-        // 1st increment
-        await triggerNumberChangeBtn(input1IncrementBtn, fixture);
-        expect(component.form.controls.integer.value).toBe(99999999.2);
+            // 3rd decrement
+            await clickElement(input1DecrementBtn);
+            expect(component.form.controls.integer.value).toBe(997000000);
+        });
 
-        // 2nd increment
-        await triggerNumberChangeBtn(input1IncrementBtn, fixture);
-        expect(component.form.controls.integer.value).toBe(99999999.3);
+        it('should work with large decimal numbers', async () => {
+            component.step = 0.1;
+            component.max = 100000000;
+            component.form.controls.integer.setValue(99999999.1);
+            fixture.detectChanges();
+            await fixture.whenStable();
 
-        // 3rd increment
-        await triggerNumberChangeBtn(input1IncrementBtn, fixture);
-        expect(component.form.controls.integer.value).toBe(99999999.4);
+            // 1st increment
+            await clickElement(input1IncrementBtn);
+            expect(component.form.controls.integer.value).toBe(99999999.2);
 
-        // 1st decrement
-        await triggerNumberChangeBtn(input1DecrementBtn, fixture);
-        expect(component.form.controls.integer.value).toBe(99999999.3);
+            // 2nd increment
+            await clickElement(input1IncrementBtn);
+            expect(component.form.controls.integer.value).toBe(99999999.3);
 
-        // 2nd decrement
-        await triggerNumberChangeBtn(input1DecrementBtn, fixture);
-        expect(component.form.controls.integer.value).toBe(99999999.2);
+            // 3rd increment
+            await clickElement(input1IncrementBtn);
+            expect(component.form.controls.integer.value).toBe(99999999.4);
 
-        // 3rd decrement
-        await triggerNumberChangeBtn(input1DecrementBtn, fixture);
-        expect(component.form.controls.integer.value).toBe(99999999.1);
+            // 1st decrement
+            await clickElement(input1DecrementBtn);
+            expect(component.form.controls.integer.value).toBe(99999999.3);
 
-        // 4rd decrement
-        await triggerNumberChangeBtn(input1DecrementBtn, fixture);
-        expect(component.form.controls.integer.value).toBe(99999999);
+            // 2nd decrement
+            await clickElement(input1DecrementBtn);
+            expect(component.form.controls.integer.value).toBe(99999999.2);
 
-        // 5th decrement
-        await triggerNumberChangeBtn(input1DecrementBtn, fixture);
-        expect(component.form.controls.integer.value).toBe(99999998.9);
+            // 3rd decrement
+            await clickElement(input1DecrementBtn);
+            expect(component.form.controls.integer.value).toBe(99999999.1);
+
+            // 4rd decrement
+            await clickElement(input1DecrementBtn);
+            expect(component.form.controls.integer.value).toBe(99999999);
+
+            // 5th decrement
+            await clickElement(input1DecrementBtn);
+            expect(component.form.controls.integer.value).toBe(99999998.9);
+        });
     });
 });
 
@@ -639,9 +650,3 @@ describe('Number Picker Component - value', () => {
     }
 
 });
-
-async function triggerNumberChangeBtn(element: HTMLDivElement, fixture: ComponentFixture<any>) {
-    await element.click();
-    fixture.detectChanges();
-    await fixture.whenStable();
-}
