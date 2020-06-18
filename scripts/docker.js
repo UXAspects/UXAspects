@@ -14,7 +14,7 @@ const nodeModulesDocker = join(cwd, '.node_modules__docker');
 mkdirpSync(nodeModulesDocker);
 
 // produce the docker command string
-const dockerCommand = `docker run --rm -it --memory=4g -e "http_proxy=${http_proxy}" -e "https_proxy=${https_proxy}" -v "${cwd}:/wd" -v "${nodeModulesDocker}:/wd/node_modules" -w /wd --entrypoint /bin/bash uxaspects/buildenv:1.3.0`;
+const dockerCommand = `docker run --rm -it --memory=4g -e "http_proxy=${http_proxy}" -e "https_proxy=${https_proxy}" -v "${cwd}:/wd" -v "${nodeModulesDocker}:/wd/node_modules" -w /wd --entrypoint /bin/bash uxaspects/buildenv:1.4.0`;
 
 // run the command string with the inherited terminal
 try {

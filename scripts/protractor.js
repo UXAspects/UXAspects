@@ -19,7 +19,7 @@ runProtractor(protractorConfigFile);
 
 
 function startSeleniumContainer() {
-    execSync('docker-compose up -d selenium', { stdio: 'inherit' });
+    execSync('docker-compose -p ux-aspects up -d selenium', { stdio: 'inherit' });
 }
 
 function getHostAddressFromSeleniumContainer() {
