@@ -46,6 +46,7 @@
                 <version>1.6.0</version>
                 <configuration>
                     <environmentVariables>
+                        <CHROMEDRIVER_FILEPATH>/tmp/chromedriver_linux64.zip</CHROMEDRIVER_FILEPATH>
                         <RE_BUILD_TYPE>${RE_BUILD_TYPE}</RE_BUILD_TYPE>
                         <VERSION>${project.version}</VERSION>
                     </environmentVariables>
