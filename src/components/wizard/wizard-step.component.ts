@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, HostBinding, Input, Renderer2 } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, HostBinding, Input, OnChanges, Renderer2, SimpleChange, SimpleChanges, Output } from '@angular/core';
 
 @Component({
     selector: 'ux-wizard-step',
@@ -8,7 +8,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Even
         'role': 'tabpanel'
     }
 })
-export class WizardStepComponent {
+export class WizardStepComponent /*implements OnChanges*/ {
 
     /** The text to be displayed in the wizard step tab. */
     @Input() header: string;
@@ -20,10 +20,18 @@ export class WizardStepComponent {
     @Input() disableNextWhenInvalid: boolean | undefined;
 
     /** Allows you to define whether or not a step is valid. The user will not be able to proceed to the next step if this property has a value of false. */
-    @Input() valid: boolean = true;
+    _valid: boolean = true;
+
+    @Input() set valid(value: boolean) {
+        this.setValid(value);
+    }
+
+    get valid(): boolean {
+        return this._valid;
+    }
 
     /** Emits when visited changes. */
-    @Input() visitedChange = new EventEmitter<boolean>();
+    @Output() visitedChange = new EventEmitter<boolean>();
 
     /**
      * A custom function which returns the validation status for the step. This function will be called when 'Next' or
@@ -32,23 +40,17 @@ export class WizardStepComponent {
      */
     @Input() validator: () => boolean | Promise<boolean>;
 
-    private _active: boolean = false;
-    private _visited: boolean = false;
-
     /**
      * Defines whether or not this step has previously been visited.
      * A visited step can be clicked on and jumped to at any time.
      * By default, steps will become 'visited' when the user navigates to a step for the first time.
      */
-    @Input()
-    get visited(): boolean {
-        return this._visited;
-    }
+    @Input() visited: boolean = false;
 
-    set visited(value: boolean) {
-        this._visited = value;
-        this.visitedChange.next(value);
-    }
+    /**
+     * Defines the currently visible step.
+     */
+    _active: boolean = false;
 
     set active(value: boolean) {
 
@@ -57,7 +59,7 @@ export class WizardStepComponent {
 
         // if the value is true then the step should also be marked as visited
         if (value === true) {
-            this.visited = true;
+            this.setVisited(true);
         }
 
         // mark for change detection
@@ -77,5 +79,23 @@ export class WizardStepComponent {
     setId(id: string): void {
         this._renderer.setAttribute(this._elementRef.nativeElement, 'id', id);
         this._renderer.setAttribute(this._elementRef.nativeElement, 'aria-labelledby', `${id}-label`);
+    }
+
+    setVisited(value: boolean): void {
+        this.visited = value;
+        this.visitedChange.emit(value);
+    }
+
+    setValid(value: boolean): void {
+        if (this._valid === value) {
+            return;
+        }
+
+        const changeVisited = (value && this._valid) || !this._valid;
+        this._valid = value;
+
+        if (changeVisited) {
+            this.setVisited(value);
+        }
     }
 }

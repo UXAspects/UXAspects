@@ -86,7 +86,7 @@ export class MarqueeWizardComponent extends WizardComponent implements OnDestroy
             // mark this step as completed
             step.setCompleted(true);
         } else {
-            this.stepError.next(this.step);
+            this.stepError.emit(this.step);
         }
     }
 
@@ -105,7 +105,7 @@ export class MarqueeWizardComponent extends WizardComponent implements OnDestroy
             if (step.valid) {
                 step.setCompleted(true);
             } else {
-                this.stepError.next(this.step);
+                this.stepError.emit(this.step);
             }
         });
     }
