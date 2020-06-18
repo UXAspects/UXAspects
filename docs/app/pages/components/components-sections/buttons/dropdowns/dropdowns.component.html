@@ -34,7 +34,7 @@
         <div class="btn-group">
             <button
                 type="button"
-                class="btn btn-link button-secondary dropdown-toggle"
+                class="btn btn-link button-secondary dropdown-toggle dropdown-button"
                 [uxMenuTriggerFor]="menu">
                 <span>Actions</span><ux-icon name="chevron-down" class="dropdown-icon-inline"></ux-icon>
             </button>
@@ -218,6 +218,9 @@
     </tr>
     <tr uxd-api-property name="disabled" type="boolean">
         Define if this trigger is disabled.
+    </tr>
+    <tr uxd-api-property name="uxMenuParent" type="ElementRef">
+        Optionally define the menu's parent element. See the <a routerLink="." fragment="split-button-dropdowns">Split Button Dropdown</a> documentation for an example.
     </tr>
 </uxd-api-properties>
 

@@ -110,17 +110,16 @@ describe('Virtual Scroll Tests', () => {
 
     });
 
-    // Failing - To be fixed as part of https://autjira.microfocus.com/browse/EL-3396
-    // it('should display more employees when scrolling down', () => {
+    it('should display more employees when scrolling down', () => {
 
-    //     page.scrollToEnd();
-    //     expect<any>(page.getLastVisibleEmployeeIDNumber()).toBe('2009');
+        page.scrollToEnd();
+        expect<any>(page.getLastVisibleEmployeeIDNumber()).toBe('2009');
 
-    //     page.scrollToEnd();
-    //     expect<any>(page.getLastVisibleEmployeeIDNumber()).toBe('4009');
+        page.scrollToEnd();
+        expect<any>(page.getLastVisibleEmployeeIDNumber()).toBe('4009');
 
-    //     page.scrollToEnd();
-    //     expect<any>(page.getLastVisibleEmployeeIDNumber()).toBe('6009');
+        page.scrollToEnd();
+        expect<any>(page.getLastVisibleEmployeeIDNumber()).toBe('6009');
 
-    // });
+    });
 });

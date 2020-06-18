@@ -41,7 +41,7 @@ export class NumberPickerComponent implements ControlValueAccessor, OnDestroy, O
     @Input('aria-labelledby') labelledBy: string;
 
     /** Define the precision of floating point values */
-    @Input() precision: number = 6;
+    @Input() precision: number = Number.MAX_SAFE_INTEGER.toString().length - 1;
 
     /** If two way binding is used this value will be updated any time the number picker value changes. */
     @Output() valueChange = new EventEmitter<number>();
@@ -206,6 +206,5 @@ export class NumberPickerComponent implements ControlValueAccessor, OnDestroy, O
         this.valueChange.emit(value);
         this._propagateChange(value);
     }
-
 }
 

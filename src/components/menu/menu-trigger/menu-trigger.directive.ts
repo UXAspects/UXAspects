@@ -25,6 +25,9 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
     /** Determine if we should disable the trigger */
     @Input() disabled: boolean = false;
 
+    /** Optionally specify the menu's parent element */
+    @Input('uxMenuParent') parent: ElementRef;
+
     /** Reference to the portal based off the MenuCompont templateRef */
     private _portal: TemplatePortal;
 
@@ -281,7 +284,7 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
             backdropClass: 'cdk-overlay-transparent-backdrop',
             scrollStrategy: this._overlay.scrollStrategies.reposition({ scrollThrottle: 0 }),
             positionStrategy: this._overlay.position()
-                .flexibleConnectedTo(this._elementRef)
+                .flexibleConnectedTo(this.parent ?? this._elementRef)
                 .withLockedPosition()
                 .withPositions([
                     { originX, originY, overlayX, overlayY },
