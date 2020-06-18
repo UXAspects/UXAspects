@@ -92,26 +92,28 @@ export class TreeGridService implements OnDestroy {
             return;
         }
 
-        const row = this.rows$.getValue();
+        const rows = [...this.rows$.getValue()];
 
-        const index = row.indexOf(parent);
+        const index = rows.indexOf(parent);
 
         if (index < 0) {
             return;
         }
 
         // Skip duplicates - this could happen if an already expanded child has been inserted
-        const uniqueChildren = parent.children.filter(child => row.indexOf(child) === -1);
+        const uniqueChildren = parent.children.filter(child => rows.indexOf(child) === -1);
 
         const childRows = this.getFlattenedTree(uniqueChildren, parent);
 
-        row.splice(index + 1, 0, ...childRows);
+        rows.splice(index + 1, 0, ...childRows);
+
+        this.rows$.next(rows);
     }
 
     /** Remove all rows from the flattened tree */
     private removeChildren(parent: TreeGridItem): void {
 
-        const rows = this.rows$.getValue();
+        const rows = [...this.rows$.getValue()];
         const index = rows.indexOf(parent);
 
         if (index < 0) {
@@ -121,5 +123,7 @@ export class TreeGridService implements OnDestroy {
         while (index + 1 < rows.length && rows[index + 1].state.level > parent.state.level) {
             rows.splice(index + 1, 1);
         }
+
+        this.rows$.next(rows);
     }
 }
