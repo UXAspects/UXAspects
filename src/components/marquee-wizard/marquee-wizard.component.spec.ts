@@ -103,6 +103,13 @@ describe('Marquee Wizard', () => {
         expect(icon).toBeTruthy();
     });
 
+    it('should generate an id for each step', () => {
+        const steps = nativeElement.querySelectorAll('.marquee-wizard-step');
+        steps.forEach((step, index) => {
+            expect(step.id).toMatch(`ux-wizard-[0-9]+-step-${index}-label`);
+        });
+    });
+
     it('should display the step title in the side pane;', async(() => {
         const title = nativeElement.querySelector<HTMLHeadingElement>(
             '.marquee-title'
