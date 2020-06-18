@@ -54,7 +54,7 @@ describe('InputDropdownComponent', () => {
         expect(selectedSpy).not.toHaveBeenCalled();
     });
 
-    it('should send the selected value to Angular Forms when a item is selected', () => {
+    it('should send the selected value to Angular Forms when an item is selected', () => {
         const onChangeSpy = spyOn(component, 'onChange');
         const newValue = 'Blubb';
 
@@ -66,6 +66,20 @@ describe('InputDropdownComponent', () => {
 
         expect(onChangeSpy).toHaveBeenCalledWith(newValue);
         expect(onChangeSpy).toHaveBeenCalledTimes(1);
+    });
+
+    it('should clear the filter when an item is selected', () => {
+        const filterValue = 'habe';
+        component.filter = filterValue;
+        expect(component.filter).toEqual(filterValue);
+
+        // ideally we should have a test suits using ngModel or reactive forms, but for now this
+        // will emulate an item being selected
+        component.ngOnChanges({
+            selected: new SimpleChange(null, 'haberdasher', false)
+        });
+
+        expect(component.filter).toEqual('');
     });
 
     it('should register onTouched', () => {
