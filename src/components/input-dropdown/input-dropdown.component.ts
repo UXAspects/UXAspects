@@ -90,6 +90,7 @@ export class InputDropdownComponent<T> implements ControlValueAccessor, AfterVie
                 this.menuTrigger.closeMenu();
             }
 
+            this.resetFilter();
             this.selectedChange.emit(changes.selected.currentValue);
             this.onChange(changes.selected.currentValue);
             this.onTouched();
@@ -111,11 +112,10 @@ export class InputDropdownComponent<T> implements ControlValueAccessor, AfterVie
         this._onDestroy$.complete();
     }
 
-    resetFilter(event: MouseEvent): void {
+    resetFilter(): void {
         this.filter = '';
         this.filterChange.emit(this.filter);
         this.filterInputElement.nativeElement.focus();
-        event.stopPropagation();
     }
 
     registerOnChange(onChange: (value: T) => void): void {
