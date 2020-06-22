@@ -7,7 +7,7 @@ import {
     TestBed,
     tick
 } from '@angular/core/testing';
-import { StepChangingEvent } from '../wizard';
+import { StepChangingEvent } from '../wizard/index';
 import { MarqueeWizardModule } from './marquee-wizard.module';
 
 @Component({

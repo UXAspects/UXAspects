@@ -50,7 +50,6 @@
                 [id]="id + '-step-' + index + '-label'"
                 (click)="gotoStep(step)"
                 (keydown.enter)="gotoStep(step)">
-
                 <ng-container [ngTemplateOutlet]="stepTemplate || defaultStepTemplate" [ngTemplateOutletContext]="{ $implicit: step }"></ng-container>
             </li>
 

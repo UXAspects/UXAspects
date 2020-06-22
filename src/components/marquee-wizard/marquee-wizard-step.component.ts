@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ElementRef, EventEmitter, Input, Output, Renderer2, TemplateRef } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ElementRef, EventEmitter, Input, OnChanges, Output, Renderer2, SimpleChanges, TemplateRef } from '@angular/core';
 import { WizardStepComponent } from '../wizard/index';
 import { MarqueeWizardStepIconDirective } from './marquee-wizard-step-icon.directive';
 import { MarqueeWizardService } from './marquee-wizard.service';
@@ -8,7 +8,7 @@ import { MarqueeWizardService } from './marquee-wizard.service';
     templateUrl: './marquee-wizard-step.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MarqueeWizardStepComponent extends WizardStepComponent {
+export class MarqueeWizardStepComponent extends WizardStepComponent implements OnChanges {
 
     /** Determine the completed state of this step */
     @Input() completed: boolean = false;
@@ -18,12 +18,6 @@ export class MarqueeWizardStepComponent extends WizardStepComponent {
 
     /** Detect if an icon has been defined using the directive */
     @ContentChild(MarqueeWizardStepIconDirective, { read: TemplateRef, static: false }) _iconTemplate: TemplateRef<void>;
-
-    @Input()
-    set valid(value: boolean) {
-        this.setValid(value);
-        this._marqueeWizardService.valid$.next({ step: this, valid: value });
-    }
 
     constructor(
         changeDetector: ChangeDetectorRef,
@@ -41,5 +35,11 @@ export class MarqueeWizardStepComponent extends WizardStepComponent {
     setCompleted(completed: boolean): void {
         this.completed = completed;
         this.completedChange.emit(completed);
+    }
+
+    ngOnChanges(changes: SimpleChanges): void {
+        if (changes.valid && changes.valid.currentValue !== changes.valid.previousValue) {
+            this._marqueeWizardService.valid$.next({ step: this, valid: changes.valid.currentValue });
+        }
     }
 }
