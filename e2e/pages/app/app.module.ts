@@ -195,6 +195,10 @@ const routes: Routes = [
         loadChildren: () => import('./tooltips/tooltips.module').then(m => m.TooltipsTestPageModule)
     },
     {
+        path: 'treegrid',
+        loadChildren: () => import('./treegrid/treegrid.module').then(m => m.TreeGridTestPageModule)
+    },
+    {
         path: 'typeahead',
         loadChildren: () => import('./typeahead/typeahead.module').then(m => m.TypeaheadTestPageModule)
     },
