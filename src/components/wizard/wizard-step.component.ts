@@ -92,10 +92,10 @@ export class WizardStepComponent {
             return;
         }
 
-        this._valid = value;
-
-        if ((value && this._valid) || !this._valid) {
+        if (value && !this._valid || !this._valid) {
             this.setVisited(value);
         }
+
+        this._valid = value;
     }
 }
