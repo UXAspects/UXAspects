@@ -5,6 +5,8 @@ export class NumberPickerPage {
     root = element(by.id('root'));
     numberPicker1 = element(by.id('numberPicker1'));
     numberPicker2 = element(by.id('numberPicker2'));
+    errorMessage1 = element(by.id('errorMessage1'));
+    errorMessage2 = element(by.id('errorMessage2'));
 
     async getPage(): Promise<void> {
         await browser.get('#/number-picker');
@@ -54,14 +56,6 @@ export class NumberPickerPage {
 
     async decrementNumberPickerValue(numberPicker: ElementFinder): Promise<void> {
         await numberPicker.$('div.number-picker-controls').$('div.number-picker-control-down').click();
-    }
-
-    async confirmErrorMessage1IsVisible(): Promise<boolean> {
-        return await this.root.$('p#errorMessage1').isPresent();
-    }
-
-    async confirmErrorMessage2IsVisible(): Promise<boolean> {
-        return await this.root.$('p#errorMessage2').isPresent();
     }
 }
 
