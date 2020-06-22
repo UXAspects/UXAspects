@@ -46,8 +46,8 @@
                 [attr.aria-posinset]="index + 1"
                 [attr.aria-setsize]="steps.length"
                 [attr.aria-selected]="step._active"
-                [attr.aria-controls]="step.id"
-                [id]="step.id + '-label'"
+                [attr.aria-controls]="id + '-step-' + index"
+                [id]="id + '-step-' + index + '-label'"
                 (click)="gotoStep(step)"
                 (keydown.enter)="gotoStep(step)">
 
