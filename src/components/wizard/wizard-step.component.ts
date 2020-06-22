@@ -19,9 +19,12 @@ export class WizardStepComponent {
      */
     @Input() disableNextWhenInvalid: boolean | undefined;
 
-    /** Allows you to define whether or not a step is valid. The user will not be able to proceed to the next step if this property has a value of false. */
     _valid: boolean = true;
 
+    /**
+     * Defines whether a step is valid. The user will not be able to proceed to the next step if this property has a value of false.
+     * If the new value is false is will also set the visited value to false.
+     */
     @Input()
     set valid(value: boolean) {
         this.setValid(value);
@@ -92,7 +95,7 @@ export class WizardStepComponent {
             return;
         }
 
-        if (value && !this._valid || !this._valid) {
+        if (!this._valid) {
             this.setVisited(value);
         }
 

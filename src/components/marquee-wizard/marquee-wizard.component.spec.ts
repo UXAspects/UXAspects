@@ -10,6 +10,12 @@ import {
 import { StepChangingEvent } from '../wizard/index';
 import { MarqueeWizardModule } from './marquee-wizard.module';
 
+enum MarqueeWizardSelectors {
+    ToggleValidity = '.toggle-validity-button',
+    NextButton = '.button-primary',
+    FirstStep = '.marquee-wizard-steps > li:first-child'
+}
+
 @Component({
     selector: 'marquee-wizard-app',
     template: `
@@ -352,28 +358,28 @@ describe('Marquee wizard with visitedChange event', () => {
 
     it('should trigger a visitedChange event when valid modified on the current step, when other steps ahead are visited', async () => {
         // set step to valid and move forward
-        await clickButton('.toggle-validity-button');
-        await clickButton('.button-primary');
+        await clickButton(MarqueeWizardSelectors.ToggleValidity);
+        await clickButton(MarqueeWizardSelectors.NextButton);
 
         // set step to valid and move forward
-        await clickButton('.toggle-validity-button');
-        await clickButton('.button-primary');
+        await clickButton(MarqueeWizardSelectors.ToggleValidity);
+        await clickButton(MarqueeWizardSelectors.NextButton);
 
         // jump back to the first step
-        await clickButton('.marquee-wizard-steps > li:first-child');
+        await clickButton(MarqueeWizardSelectors.FirstStep);
 
         visitedChanged.calls.reset();
 
         // valid true and no call of visitedChange
-        await clickButton('.toggle-validity-button');
+        await clickButton(MarqueeWizardSelectors.ToggleValidity);
 
         // valid now false and should trigger visitedChange
-        await clickButton('.toggle-validity-button');
+        await clickButton(MarqueeWizardSelectors.ToggleValidity);
 
         expect(visitedChanged).toHaveBeenCalledTimes(1);
     });
 
-    async function clickButton(selector): Promise<void> {
+    async function clickButton(selector: MarqueeWizardSelectors): Promise<void> {
         const button = nativeElement.querySelector<HTMLButtonElement>(selector);
         button.click();
         fixture.detectChanges();

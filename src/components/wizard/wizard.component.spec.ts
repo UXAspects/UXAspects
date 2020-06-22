@@ -10,6 +10,13 @@ import {
 import { StepChangingEvent } from './wizard.component';
 import { WizardModule } from './wizard.module';
 
+
+enum WizardSelectors {
+    ToggleValidity = '.toggle-validity-button',
+    NextButton = '.wizard-footer .button-primary',
+    FirstStep = '.wizard-steps > div:first-child'
+}
+
 @Component({
     selector: 'wizard-async-validation-test-app',
     template: `
@@ -326,28 +333,32 @@ describe('Wizard with visitedChange event', () => {
 
     it('should trigger a visitedChange event when valid modified on the current step, when other steps ahead are visited', async () => {
         // set step to valid and move forward
-        await clickButton('.toggle-validity-button');
-        await clickButton('.wizard-footer .button-primary');
+        await clickButton(WizardSelectors.ToggleValidity);
+        await clickButton(WizardSelectors.NextButton);
 
         // set step to valid and move forward
-        await clickButton('.toggle-validity-button');
-        await clickButton('.wizard-footer .button-primary');
+        await clickButton(WizardSelectors.ToggleValidity);
+        await clickButton(WizardSelectors.NextButton);
 
         // jump back to the first step
-        await clickButton('.wizard-steps > div:first-child');
+        await clickButton(WizardSelectors.FirstStep);
 
         visitedChanged.calls.reset();
 
         // valid true and no call of visitedChange
-        await clickButton('.toggle-validity-button');
+        await clickButton(WizardSelectors.ToggleValidity);
 
         // valid now false and should trigger visitedChange
-        await clickButton('.toggle-validity-button');
+        await clickButton(WizardSelectors.ToggleValidity);
 
         expect(visitedChanged).toHaveBeenCalledTimes(1);
     });
 
-    async function clickButton(selector): Promise<void> {
+    it('should update a valid state when the value is modified programatically', async () => {
+
+    });
+
+    async function clickButton(selector: WizardSelectors): Promise<void> {
         const button = nativeElement.querySelector<HTMLButtonElement>(selector);
         button.click();
         fixture.detectChanges();
