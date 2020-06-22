@@ -1,4 +1,5 @@
-import { Component, OnDestroy, ChangeDetectorRef } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ChangeDetectorRef, Component, OnDestroy } from '@angular/core';
 import {
     async,
     ComponentFixture,
@@ -6,6 +7,7 @@ import {
     TestBed,
     tick
 } from '@angular/core/testing';
+import { StepChangingEvent } from '../wizard';
 import { MarqueeWizardModule } from './marquee-wizard.module';
 
 @Component({
@@ -269,6 +271,111 @@ describe('Marquee wizard with delayed step creation', () => {
             '.modal-footer .button-primary'
         );
         nextButton.click();
+        fixture.detectChanges();
+        await fixture.whenStable();
+    }
+});
+
+
+interface WizardStep {
+    header: string;
+    content: string;
+}
+
+@Component({
+    selector: 'wizard-visited-change-test-app',
+    template: `
+        <ux-marquee-wizard
+            (stepChanging)="stepChanging($event)"
+            (stepChange)="stepChange($event)"
+            (onNext)="onNext($event)"
+        >
+            <ux-marquee-wizard-step *ngFor="let step of steps"
+                [header]="step.header" [valid]="step.valid"
+                (visitedChange)="visitedChanged()"
+            >
+                <p>{{ step.content }}</p>
+                <button class="toggle-validity-button" (click)="step.valid = !step.valid">Toggle validity</button>
+            </ux-marquee-wizard-step>
+        </ux-marquee-wizard>
+    `
+})
+class MarqueeWizardVisitedChangeTestComponent {
+    steps: WizardStep[] = [
+        {
+            header: '1. First Step',
+            content: 'Content of step 1.',
+        },
+        {
+            header: '2. Second Step',
+            content: 'Content of step 2.',
+        },
+        {
+            header: '3. Third Step',
+            content: 'Content of step 3.',
+        },
+        {
+            header: '4. Fourth Step',
+            content: 'Content of step 4.',
+        }
+    ];
+    stepChanging(_: StepChangingEvent) {}
+    stepChange(_: number) {}
+    onNext(_: number) {}
+    visitedChanged(_: boolean) { }
+}
+
+describe('Marquee wizard with visitedChange event', () => {
+    let component: MarqueeWizardVisitedChangeTestComponent;
+    let fixture: ComponentFixture<MarqueeWizardVisitedChangeTestComponent>;
+    let nativeElement: HTMLElement;
+    let visitedChanged: jasmine.Spy;
+
+    beforeEach(async(() => {
+        TestBed.configureTestingModule({
+            imports: [MarqueeWizardModule, CommonModule],
+            declarations: [MarqueeWizardVisitedChangeTestComponent]
+        }).compileComponents();
+    }));
+
+    beforeEach(async () => {
+        fixture = TestBed.createComponent(MarqueeWizardVisitedChangeTestComponent);
+        component = fixture.componentInstance;
+        nativeElement = fixture.nativeElement;
+        visitedChanged = spyOn(component, 'visitedChanged');
+
+        fixture.detectChanges();
+        await fixture.whenStable();
+        fixture.detectChanges();
+        await fixture.whenStable();
+    });
+
+    it('should trigger a visitedChange event when valid modified on the current step, when other steps ahead are visited', async () => {
+        // set step to valid and move forward
+        await clickButton('.toggle-validity-button');
+        await clickButton('.button-primary');
+
+        // set step to valid and move forward
+        await clickButton('.toggle-validity-button');
+        await clickButton('.button-primary');
+
+        // jump back to the first step
+        await clickButton('.marquee-wizard-steps > li:first-child');
+
+        visitedChanged.calls.reset();
+
+        // valid true and no call of visitedChange
+        await clickButton('.toggle-validity-button');
+
+        // valid now false and should trigger visitedChange
+        await clickButton('.toggle-validity-button');
+
+        expect(visitedChanged).toHaveBeenCalledTimes(1);
+    });
+
+    async function clickButton(selector): Promise<void> {
+        const button = nativeElement.querySelector<HTMLButtonElement>(selector);
+        button.click();
         fixture.detectChanges();
         await fixture.whenStable();
     }

@@ -188,7 +188,7 @@ export class WizardComponent implements AfterViewInit, OnDestroy {
         try {
             // Fetch validation status
             const validationResult = this.isStepValid();
-            step._valid = validationResult instanceof Promise ? await validationResult : validationResult;
+            step.valid = validationResult instanceof Promise ? await validationResult : validationResult;
         } finally {
             // Re-enable button
             this.nextDisabled = false;

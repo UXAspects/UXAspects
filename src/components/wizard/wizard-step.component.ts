@@ -8,7 +8,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Even
         'role': 'tabpanel'
     }
 })
-export class WizardStepComponent /*implements OnChanges*/ {
+export class WizardStepComponent {
 
     /** The text to be displayed in the wizard step tab. */
     @Input() header: string;
@@ -22,7 +22,8 @@ export class WizardStepComponent /*implements OnChanges*/ {
     /** Allows you to define whether or not a step is valid. The user will not be able to proceed to the next step if this property has a value of false. */
     _valid: boolean = true;
 
-    @Input() set valid(value: boolean) {
+    @Input()
+    set valid(value: boolean) {
         this.setValid(value);
     }
 
