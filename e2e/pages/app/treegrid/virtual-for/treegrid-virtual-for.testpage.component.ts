@@ -22,7 +22,7 @@ export class TreeGridVirtualForTestPageComponent {
         for (let i = 0; i < 2000; i += 1) {
             this.items[0].children.push({
                 title: `Document ${i}`,
-                date: new Date(),
+                date: new Date(2020, 5, 22),
                 type: 'file',
             });
         }
