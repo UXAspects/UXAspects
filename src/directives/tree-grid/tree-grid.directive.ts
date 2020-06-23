@@ -1,9 +1,9 @@
 import { Directive, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { TreeGridItem } from './tree-grid-item.interface';
 import { TreeGridLoadFunction } from './tree-grid-load-function.type';
 import { TreeGridService } from './tree-grid.service';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
 
 @Directive({
     selector: '[uxTreeGrid]',

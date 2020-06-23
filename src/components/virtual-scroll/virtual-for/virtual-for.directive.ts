@@ -1,4 +1,4 @@
-import { Directive, DoCheck, EmbeddedViewRef, Input, IterableChangeRecord, IterableChanges, IterableDiffer, IterableDiffers, OnDestroy, OnInit, Optional, Renderer2, TemplateRef, TrackByFunction, ViewContainerRef } from '@angular/core';
+import { Directive, DoCheck, EmbeddedViewRef, Input, IterableChangeRecord, IterableChanges, IterableDiffer, IterableDiffers, OnDestroy, OnInit, Optional, Renderer2, TemplateRef, TrackByFunction, ViewContainerRef, ChangeDetectorRef } from '@angular/core';
 import { distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { VirtualForRange, VirtualForService } from './virtual-for.service';
@@ -70,6 +70,7 @@ export class VirtualForDirective<T> implements OnInit, DoCheck, OnDestroy {
         private _differs: IterableDiffers,
         /** Get the renderer to perform DOM manipulation */
         private _renderer: Renderer2,
+        private _changeDetector: ChangeDetectorRef,
         /** A service to share values between the container and child elements */
         @Optional() private _virtualScroll: VirtualForService<T>,
     ) {
@@ -81,9 +82,10 @@ export class VirtualForDirective<T> implements OnInit, DoCheck, OnDestroy {
 
     ngOnInit(): void {
         // update the UI whenever the range changes
-        this._virtualScroll.range.pipe(takeUntil(this._onDestroy), distinctUntilChanged(this.isRangeSame)).subscribe(range => {
+        this._virtualScroll.range.pipe(distinctUntilChanged(this.isRangeSame), takeUntil(this._onDestroy)).subscribe(range => {
             this._renderedRange = range;
             this.onRangeChange();
+            this._changeDetector.detectChanges();
         });
     }
 
