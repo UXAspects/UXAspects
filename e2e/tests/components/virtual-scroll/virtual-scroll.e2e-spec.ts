@@ -110,16 +110,16 @@ describe('Virtual Scroll Tests', () => {
 
     });
 
-    it('should display more employees when scrolling down', () => {
+    it('should display more employees when scrolling down', async () => {
 
-        page.scrollToEnd();
-        expect<any>(page.getLastVisibleEmployeeIDNumber()).toBe('2009');
+        await page.scrollToEnd();
+        expect(await page.getLastVisibleEmployeeIDNumber()).toBe('2009');
 
-        page.scrollToEnd();
-        expect<any>(page.getLastVisibleEmployeeIDNumber()).toBe('4009');
+        await page.scrollToEnd();
+        expect(await page.getLastVisibleEmployeeIDNumber()).toBe('4009');
 
-        page.scrollToEnd();
-        expect<any>(page.getLastVisibleEmployeeIDNumber()).toBe('6009');
+        await page.scrollToEnd();
+        expect(await page.getLastVisibleEmployeeIDNumber()).toBe('6009');
 
     });
 });
