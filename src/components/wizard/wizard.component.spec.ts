@@ -354,10 +354,6 @@ describe('Wizard with visitedChange event', () => {
         expect(visitedChanged).toHaveBeenCalledTimes(1);
     });
 
-    it('should update a valid state when the value is modified programatically', async () => {
-
-    });
-
     async function clickButton(selector: WizardSelectors): Promise<void> {
         const button = nativeElement.querySelector<HTMLButtonElement>(selector);
         button.click();
