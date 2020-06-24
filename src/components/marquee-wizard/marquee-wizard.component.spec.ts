@@ -299,7 +299,7 @@ interface WizardStep {
         >
             <ux-marquee-wizard-step *ngFor="let step of steps"
                 [header]="step.header" [valid]="step.valid"
-                (visitedChange)="visitedChanged()"
+                (visitedChange)="visitedChanged($event)"
             >
                 <p>{{ step.content }}</p>
                 <button class="toggle-validity-button" (click)="step.valid = !step.valid">Toggle validity</button>
@@ -383,6 +383,7 @@ describe('Marquee wizard with visitedChange event', () => {
 
         await clickButton(MarqueeWizardSelectors.NextButton);
 
+        expect(visitedChanged).toHaveBeenCalledWith(false);
         expect(visitedChanged).toHaveBeenCalledTimes(1);
 
         const stepsList = component.stepsList.toArray();
