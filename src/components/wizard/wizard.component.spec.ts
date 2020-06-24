@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, QueryList, ViewChildren } from '@angular/core';
 import {
     async,
     ComponentFixture,
@@ -6,8 +7,16 @@ import {
     TestBed,
     tick
 } from '@angular/core/testing';
+import { WizardStepComponent } from './wizard-step.component';
 import { StepChangingEvent } from './wizard.component';
 import { WizardModule } from './wizard.module';
+
+
+enum WizardSelectors {
+    ToggleValidity = '.toggle-validity-button',
+    NextButton = '.wizard-footer .button-primary',
+    SecondStep = '.wizard-steps > div:nth-child(2)'
+}
 
 @Component({
     selector: 'wizard-async-validation-test-app',
@@ -247,5 +256,137 @@ describe('Wizard with validator', () => {
         return nativeElement
             .querySelector<HTMLElement>('.wizard-step.active')
             .innerText.trim();
+    }
+});
+
+interface WizardStep {
+    header: string;
+    content: string;
+}
+
+@Component({
+    selector: 'wizard-visited-change-test-app',
+    template: `
+        <ux-wizard
+            (stepChanging)="stepChanging($event)"
+            (stepChange)="stepChange($event)"
+            (onNext)="onNext($event)"
+        >
+            <ux-wizard-step *ngFor="let step of steps; let index = index"
+                [header]="step.header" [valid]="step.valid"
+                (visitedChange)="visitedChanged(index, $event)"
+            >
+                <p>{{ step.content }}</p>
+                <button class="toggle-validity-button" (click)="step.valid = !step.valid">Toggle validity</button>
+            </ux-wizard-step>
+        </ux-wizard>
+    `
+})
+class WizardVisitedChangeTestComponent {
+    steps: WizardStep[] = [
+        {
+            header: '1. First Step',
+            content: 'Content of step 1.',
+        },
+        {
+            header: '2. Second Step',
+            content: 'Content of step 2.',
+        },
+        {
+            header: '3. Third Step',
+            content: 'Content of step 3.',
+        },
+        {
+            header: '4. Fourth Step',
+            content: 'Content of step 4.',
+        }
+    ];
+    stepChanging(_: StepChangingEvent) {}
+    stepChange(_: number) {}
+    onNext(_: number) {}
+    visitedChanged(index: number, value: boolean) { }
+
+    @ViewChildren(WizardStepComponent)
+    stepsList: QueryList<WizardStepComponent>;
+}
+
+describe('Wizard with visitedChange event', () => {
+    let component: WizardVisitedChangeTestComponent;
+    let fixture: ComponentFixture<WizardVisitedChangeTestComponent>;
+    let nativeElement: HTMLElement;
+    let visitedChanged: jasmine.Spy;
+
+    beforeEach(async(() => {
+        TestBed.configureTestingModule({
+            imports: [WizardModule, CommonModule],
+            declarations: [WizardVisitedChangeTestComponent]
+        }).compileComponents();
+    }));
+
+    beforeEach(async () => {
+        fixture = TestBed.createComponent(WizardVisitedChangeTestComponent);
+        component = fixture.componentInstance;
+        nativeElement = fixture.nativeElement;
+        visitedChanged = spyOn(component, 'visitedChanged');
+
+        fixture.detectChanges();
+        await fixture.whenStable();
+        fixture.detectChanges();
+        await fixture.whenStable();
+    });
+
+    it('should trigger a visitedChange event when valid modified on the current step, when other steps ahead are visited', async () => {
+        // set step 1 to valid and move forward
+        await clickButton(WizardSelectors.ToggleValidity);
+        await clickButton(WizardSelectors.NextButton);
+
+        // set step 2 to valid and move forward
+        await clickButton(WizardSelectors.ToggleValidity);
+        await clickButton(WizardSelectors.NextButton);
+
+        // set step 3 to valid and move forward
+        await clickButton(WizardSelectors.ToggleValidity);
+        await clickButton(WizardSelectors.NextButton);
+
+        // jump back to the first step
+        await clickButton(WizardSelectors.SecondStep);
+
+        visitedChanged.calls.reset();
+
+        // valid now false and should trigger visitedChange
+        await clickButton(WizardSelectors.ToggleValidity);
+
+        // try to move to the next step
+        await clickButton(WizardSelectors.NextButton);
+
+        // get dump of all calls made to event
+        const calls = visitedChanged.calls.all();
+
+        const stepsList = component.stepsList.toArray();
+        // step 1 should be valid and visited
+        expect(stepsList[0].valid).toBeTruthy();
+        expect(stepsList[0].visited).toBeTruthy();
+
+        // step 2 should be invalid and not visited
+        expect(stepsList[1].valid).toBeFalsy();
+        expect(stepsList[1].visited).toBeFalsy();
+        expect(calls[0].args).toEqual([1, false]);
+
+        // step 3 should be valid and not visited
+        expect(stepsList[2].valid).toBeTruthy();
+        expect(stepsList[2].visited).toBeFalsy();
+        expect(calls[1].args).toEqual([2, false]);
+
+        // step 4 should have valid undefined (not set yet) and not visited
+        expect(stepsList[3].valid).toBeUndefined();
+        expect(stepsList[3].visited).toBeFalsy();
+        expect(calls[2].args).toEqual([3, false]);
+    });
+
+    async function clickButton(selector: WizardSelectors): Promise<void> {
+        const button = nativeElement.querySelector<HTMLButtonElement>(selector);
+        button.click();
+        fixture.detectChanges();
+        await fixture.whenStable();
     }
 });

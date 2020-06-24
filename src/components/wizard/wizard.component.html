@@ -9,12 +9,12 @@
         <div *ngFor="let stp of steps; let index = index"
             role="tab"
             class="wizard-step"
-            [class.active]="stp.active"
+            [class.active]="stp._active"
             [class.visited]="stp.visited"
-            [class.invalid]="stp.active && !stp.valid && invalidIndicator"
+            [class.invalid]="stp._active && !stp._valid && invalidIndicator"
             [attr.aria-posinset]="index + 1"
             [attr.aria-setsize]="steps.length"
-            [attr.aria-selected]="stp.active"
+            [attr.aria-selected]="stp._active"
             [attr.aria-controls]="id + '-step-' + index"
             [id]="id + '-step-' + index + '-label'"
             uxFocusIndicator
@@ -24,7 +24,7 @@
             (click)="gotoStep(stp)"
             (keydown.enter)="gotoStep(stp)">
             <span class="wizard-step-text">{{ stp.header }}</span>
-            <ux-icon *ngIf="stp.visited && !stp.active" class="wizard-step-icon" name="checkmark"></ux-icon>
+            <ux-icon *ngIf="stp.visited && !stp._active" class="wizard-step-icon" name="checkmark"></ux-icon>
         </div>
 
     </div>

@@ -40,17 +40,16 @@
                 uxTabbableListItem
                 [disabled]="!step.visited"
                 class="marquee-wizard-step"
-                [class.active]="step.active"
+                [class.active]="step._active"
                 [class.visited]="step.visited"
-                [class.invalid]="!step.valid"
+                [class.invalid]="!step._valid"
                 [attr.aria-posinset]="index + 1"
                 [attr.aria-setsize]="steps.length"
-                [attr.aria-selected]="step.active"
+                [attr.aria-selected]="step._active"
                 [attr.aria-controls]="id + '-step-' + index"
                 [id]="id + '-step-' + index + '-label'"
                 (click)="gotoStep(step)"
                 (keydown.enter)="gotoStep(step)">
-
                 <ng-container [ngTemplateOutlet]="stepTemplate || defaultStepTemplate" [ngTemplateOutletContext]="{ $implicit: step }"></ng-container>
             </li>
 
