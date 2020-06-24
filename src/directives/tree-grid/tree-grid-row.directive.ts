@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Directive, EventEmitter, HostBinding, HostListener, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
-import { distinctUntilChanged, skip, takeUntil } from 'rxjs/operators';
+import { distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { tick } from '../../common/operators/tick.operator';
 import { TreeGridItem } from './tree-grid-item.interface';
 import { TreeGridService } from './tree-grid.service';
@@ -42,7 +42,7 @@ export class TreeGridRowDirective implements OnInit, OnDestroy {
     private _onDestroy = new Subject<void>();
 
     constructor(changeDetector: ChangeDetectorRef, private _treeGridService: TreeGridService) {
-        this._expanded$.pipe(skip(1), tick(), distinctUntilChanged(), takeUntil(this._onDestroy)).subscribe(expanded => {
+        this._expanded$.pipe(distinctUntilChanged(), tick(), takeUntil(this._onDestroy)).subscribe(expanded => {
             this.expandedChange.emit(expanded);
             this._treeGridService.setExpanded(this.item, expanded);
             this.isExpanded = expanded;
