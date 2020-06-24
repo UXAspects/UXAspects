@@ -272,9 +272,9 @@ interface WizardStep {
             (stepChange)="stepChange($event)"
             (onNext)="onNext($event)"
         >
-            <ux-wizard-step *ngFor="let step of steps"
+            <ux-wizard-step *ngFor="let step of steps; let index = index"
                 [header]="step.header" [valid]="step.valid"
-                (visitedChange)="visitedChanged($event)"
+                (visitedChange)="visitedChanged(index, $event)"
             >
                 <p>{{ step.content }}</p>
                 <button class="toggle-validity-button" (click)="step.valid = !step.valid">Toggle validity</button>
@@ -304,7 +304,7 @@ class WizardVisitedChangeTestComponent {
     stepChanging(_: StepChangingEvent) {}
     stepChange(_: number) {}
     onNext(_: number) {}
-    visitedChanged(_: boolean) { }
+    visitedChanged(index: number, value: boolean) { }
 
     @ViewChildren(WizardStepComponent)
     stepsList: QueryList<WizardStepComponent>;
@@ -356,27 +356,31 @@ describe('Wizard with visitedChange event', () => {
         // valid now false and should trigger visitedChange
         await clickButton(WizardSelectors.ToggleValidity);
 
+        // try to move to the next step
         await clickButton(WizardSelectors.NextButton);
 
-        expect(visitedChanged).toHaveBeenCalledWith(false);
-        expect(visitedChanged).toHaveBeenCalledTimes(1);
+        // get dump of all calls made to event
+        const calls = visitedChanged.calls.all();
 
         const stepsList = component.stepsList.toArray();
         // step 1 should be valid and visited
-        expect(stepsList[0]._valid).toBeTruthy();
+        expect(stepsList[0].valid).toBeTruthy();
         expect(stepsList[0].visited).toBeTruthy();
 
         // step 2 should be invalid and not visited
-        expect(stepsList[1]._valid).toBeFalsy();
+        expect(stepsList[1].valid).toBeFalsy();
         expect(stepsList[1].visited).toBeFalsy();
+        expect(calls[0].args).toEqual([1, false]);
 
         // step 3 should be valid and not visited
-        expect(stepsList[2]._valid).toBeTruthy();
+        expect(stepsList[2].valid).toBeTruthy();
         expect(stepsList[2].visited).toBeFalsy();
+        expect(calls[1].args).toEqual([2, false]);
 
         // step 4 should have valid undefined (not set yet) and not visited
-        expect(stepsList[3]._valid).toBeUndefined();
+        expect(stepsList[3].valid).toBeUndefined();
         expect(stepsList[3].visited).toBeFalsy();
+        expect(calls[2].args).toEqual([3, false]);
     });
 
     async function clickButton(selector: WizardSelectors): Promise<void> {
