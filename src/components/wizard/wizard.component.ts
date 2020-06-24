@@ -199,7 +199,7 @@ export class WizardComponent implements AfterViewInit, OnDestroy {
         if (!step.valid) {
             this.invalidIndicator = true;
             this.stepError.emit(this.step);
-            this._setNextStepsUnvisited(this.steps[this.step]);
+            this.setNextStepsUnvisited(this.steps[this.step]);
             return;
         }
 
@@ -353,7 +353,7 @@ export class WizardComponent implements AfterViewInit, OnDestroy {
      * If a step in the wizard becomes invalid, all steps sequentially after
      * it, should become unvisited and incomplete
      */
-    protected _setNextStepsUnvisited(currentStep: WizardStepComponent, cb?: (step: WizardStepComponent | MarqueeWizardStepComponent) => void): void {
+    protected setNextStepsUnvisited(currentStep: WizardStepComponent, cb?: (step: WizardStepComponent | MarqueeWizardStepComponent) => void): void {
         const steps = this.steps.toArray();
         const affected = steps.slice(this.step + 1);
 

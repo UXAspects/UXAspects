@@ -116,7 +116,7 @@ export class MarqueeWizardComponent extends WizardComponent implements OnDestroy
      */
     validChange(state: MarqueeWizardValidEvent): void {
         state.step.completed = false;
-        this._setNextStepsUnvisited(state.step, (stp: MarqueeWizardStepComponent) => { stp.completed = false; });
+        this.setNextStepsUnvisited(state.step, (stp: MarqueeWizardStepComponent) => { stp.completed = false; });
     }
 
     onResize(event: ResizeDimensions): void {
