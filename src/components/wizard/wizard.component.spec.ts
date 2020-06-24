@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, QueryList, ViewChildren } from '@angular/core';
 import {
     async,
     ComponentFixture,
@@ -7,6 +7,7 @@ import {
     TestBed,
     tick
 } from '@angular/core/testing';
+import { WizardStepComponent } from './wizard-step.component';
 import { StepChangingEvent } from './wizard.component';
 import { WizardModule } from './wizard.module';
 
@@ -14,7 +15,7 @@ import { WizardModule } from './wizard.module';
 enum WizardSelectors {
     ToggleValidity = '.toggle-validity-button',
     NextButton = '.wizard-footer .button-primary',
-    FirstStep = '.wizard-steps > div:first-child'
+    SecondStep = '.wizard-steps > div:nth-child(2)'
 }
 
 @Component({
@@ -304,6 +305,9 @@ class WizardVisitedChangeTestComponent {
     stepChange(_: number) {}
     onNext(_: number) {}
     visitedChanged(_: boolean) { }
+
+    @ViewChildren(WizardStepComponent)
+    stepsList: QueryList<WizardStepComponent>;
 }
 
 describe('Wizard with visitedChange event', () => {
@@ -332,26 +336,46 @@ describe('Wizard with visitedChange event', () => {
     });
 
     it('should trigger a visitedChange event when valid modified on the current step, when other steps ahead are visited', async () => {
-        // set step to valid and move forward
+        // set step 1 to valid and move forward
         await clickButton(WizardSelectors.ToggleValidity);
         await clickButton(WizardSelectors.NextButton);
 
-        // set step to valid and move forward
+        // set step 2 to valid and move forward
+        await clickButton(WizardSelectors.ToggleValidity);
+        await clickButton(WizardSelectors.NextButton);
+
+        // set step 3 to valid and move forward
         await clickButton(WizardSelectors.ToggleValidity);
         await clickButton(WizardSelectors.NextButton);
 
         // jump back to the first step
-        await clickButton(WizardSelectors.FirstStep);
+        await clickButton(WizardSelectors.SecondStep);
 
         visitedChanged.calls.reset();
-
-        // valid true and no call of visitedChange
-        await clickButton(WizardSelectors.ToggleValidity);
 
         // valid now false and should trigger visitedChange
         await clickButton(WizardSelectors.ToggleValidity);
 
+        await clickButton(WizardSelectors.NextButton);
+
         expect(visitedChanged).toHaveBeenCalledTimes(1);
+
+        const stepsList = component.stepsList.toArray();
+        // step 1 should be valid and visited
+        expect(stepsList[0]._valid).toBeTruthy();
+        expect(stepsList[0].visited).toBeTruthy();
+
+        // step 2 should be invalid and not visited
+        expect(stepsList[1]._valid).toBeFalsy();
+        expect(stepsList[1].visited).toBeFalsy();
+
+        // step 3 should be valid and not visited
+        expect(stepsList[2]._valid).toBeTruthy();
+        expect(stepsList[2].visited).toBeFalsy();
+
+        // step 4 should have valid undefined (not set yet) and not visited
+        expect(stepsList[3]._valid).toBeUndefined();
+        expect(stepsList[3].visited).toBeFalsy();
     });
 
     async function clickButton(selector: WizardSelectors): Promise<void> {

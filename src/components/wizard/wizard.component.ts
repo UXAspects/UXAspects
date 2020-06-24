@@ -2,6 +2,7 @@ import { AfterViewInit, Component, ContentChild, ContentChildren, EventEmitter, 
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { tick } from '../../common/index';
+import { MarqueeWizardStepComponent } from '../marquee-wizard/marquee-wizard-step.component';
 import { WizardStepComponent } from './wizard-step.component';
 
 let uniqueId: number = 0;
@@ -188,7 +189,7 @@ export class WizardComponent implements AfterViewInit, OnDestroy {
         try {
             // Fetch validation status
             const validationResult = this.isStepValid();
-            step.setValid(validationResult instanceof Promise ? await validationResult : validationResult);
+            step._valid = validationResult instanceof Promise ? await validationResult : validationResult;
         } finally {
             // Re-enable button
             this.nextDisabled = false;
@@ -198,6 +199,7 @@ export class WizardComponent implements AfterViewInit, OnDestroy {
         if (!step.valid) {
             this.invalidIndicator = true;
             this.stepError.emit(this.step);
+            this.setNextStepsUnvisited(this.steps[this.step]);
             return;
         }
 
@@ -258,7 +260,7 @@ export class WizardComponent implements AfterViewInit, OnDestroy {
         try {
             // Fetch validation status
             const validationResult = this.isStepValid();
-            this.getCurrentStep().setValid(validationResult instanceof Promise ? await validationResult : validationResult);
+            this.getCurrentStep()._valid = validationResult instanceof Promise ? await validationResult : validationResult;
         } finally {
             // Re-enable button
             this.finishDisabled = false;
@@ -346,6 +348,28 @@ export class WizardComponent implements AfterViewInit, OnDestroy {
     getStepAtIndex(index: number): WizardStepComponent {
         return this.steps.toArray()[index];
     }
+
+    /**
+     * If a step in the wizard becomes invalid, all steps sequentially after
+     * it, should become unvisited and incomplete
+     */
+    setNextStepsUnvisited(currentStep: WizardStepComponent, cb?: (step: WizardStepComponent | MarqueeWizardStepComponent) => void): void {
+        const steps = this.steps.toArray();
+        const affected = steps.slice(this.step + 1);
+
+        affected.forEach(step => {
+
+            // if the step is not the current step then also mark it as unvisited
+            if (step !== currentStep) {
+                step.visited = false;
+
+                if (cb) {
+                    cb(step);
+                }
+            }
+        });
+    }
+
 
     /**
      * Returns the valid status of the current step, including the `validation` function (if provided).

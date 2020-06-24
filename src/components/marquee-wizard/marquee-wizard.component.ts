@@ -115,21 +115,8 @@ export class MarqueeWizardComponent extends WizardComponent implements OnDestroy
      * it, should become unvisited and incomplete
      */
     validChange(state: MarqueeWizardValidEvent): void {
-
-        const steps = this.steps.toArray();
-        const current = steps.findIndex(step => step === state.step);
-        const affected = steps.slice(current);
-
-        affected.forEach(step => {
-
-            // the step should no longer be completed
-            step.completed = false;
-
-            // if the step is not the current step then also mark it as unvisited
-            if (step !== state.step) {
-                step.visited = false;
-            }
-        });
+        state.step.completed = false;
+        this.setNextStepsUnvisited(state.step, (stp: MarqueeWizardStepComponent) => { stp.completed = false; });
     }
 
     onResize(event: ResizeDimensions): void {

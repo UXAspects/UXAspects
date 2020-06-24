@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectorRef, Component, OnDestroy } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, QueryList, ViewChildren } from '@angular/core';
 import {
     async,
     ComponentFixture,
@@ -8,12 +8,13 @@ import {
     tick
 } from '@angular/core/testing';
 import { StepChangingEvent } from '../wizard/index';
+import { MarqueeWizardStepComponent } from './marquee-wizard-step.component';
 import { MarqueeWizardModule } from './marquee-wizard.module';
 
 enum MarqueeWizardSelectors {
     ToggleValidity = '.toggle-validity-button',
     NextButton = '.button-primary',
-    FirstStep = '.marquee-wizard-steps > li:first-child'
+    SecondStep = '.marquee-wizard-steps > li:nth-child(2)'
 }
 
 @Component({
@@ -329,6 +330,9 @@ class MarqueeWizardVisitedChangeTestComponent {
     stepChange(_: number) {}
     onNext(_: number) {}
     visitedChanged(_: boolean) { }
+
+    @ViewChildren(MarqueeWizardStepComponent)
+    stepsList: QueryList<MarqueeWizardStepComponent>;
 }
 
 describe('Marquee wizard with visitedChange event', () => {
@@ -357,26 +361,51 @@ describe('Marquee wizard with visitedChange event', () => {
     });
 
     it('should trigger a visitedChange event when valid modified on the current step, when other steps ahead are visited', async () => {
-        // set step to valid and move forward
+        // set step 1 to valid and move forward
         await clickButton(MarqueeWizardSelectors.ToggleValidity);
         await clickButton(MarqueeWizardSelectors.NextButton);
 
-        // set step to valid and move forward
+        // set step 2 to valid and move forward
+        await clickButton(MarqueeWizardSelectors.ToggleValidity);
+        await clickButton(MarqueeWizardSelectors.NextButton);
+
+        // set step 3 to valid and move forward
         await clickButton(MarqueeWizardSelectors.ToggleValidity);
         await clickButton(MarqueeWizardSelectors.NextButton);
 
         // jump back to the first step
-        await clickButton(MarqueeWizardSelectors.FirstStep);
+        await clickButton(MarqueeWizardSelectors.SecondStep);
 
         visitedChanged.calls.reset();
-
-        // valid true and no call of visitedChange
-        await clickButton(MarqueeWizardSelectors.ToggleValidity);
 
         // valid now false and should trigger visitedChange
         await clickButton(MarqueeWizardSelectors.ToggleValidity);
 
+        await clickButton(MarqueeWizardSelectors.NextButton);
+
         expect(visitedChanged).toHaveBeenCalledTimes(1);
+
+        const stepsList = component.stepsList.toArray();
+        // step 1 should be valid and visited
+        expect(stepsList[0]._valid).toBeTruthy();
+        expect(stepsList[0].visited).toBeTruthy();
+        expect(stepsList[0].completed).toBeTruthy();
+
+        // step 2 should be invalid and not visited
+        expect(stepsList[1]._valid).toBeFalsy();
+        expect(stepsList[1].visited).toBeFalsy();
+        expect(stepsList[1].completed).toBeFalsy();
+
+        // step 3 should be valid and not visited
+        expect(stepsList[2]._valid).toBeTruthy();
+        expect(stepsList[2].visited).toBeFalsy();
+        expect(stepsList[2].completed).toBeFalsy();
+
+        // step 4 should have valid undefined (not set yet) and not visited
+        expect(stepsList[3]._valid).toBeUndefined();
+        expect(stepsList[3].visited).toBeFalsy();
+        expect(stepsList[3].completed).toBeFalsy();
+
     });
 
     async function clickButton(selector: MarqueeWizardSelectors): Promise<void> {

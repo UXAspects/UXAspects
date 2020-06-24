@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, HostBinding, Input, OnChanges, Renderer2, SimpleChange, SimpleChanges, Output } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, HostBinding, Input, Output, Renderer2 } from '@angular/core';
 
 @Component({
     selector: 'ux-wizard-step',
@@ -19,12 +19,12 @@ export class WizardStepComponent {
      */
     @Input() disableNextWhenInvalid: boolean | undefined;
 
-    _valid: boolean = true;
-
     /**
      * Defines whether a step is valid. The user will not be able to proceed to the next step if this property has a value of false.
      * If the new value is false is will also set the visited value to false.
      */
+    _valid: boolean = true;
+
     @Input()
     set valid(value: boolean) {
         this.setValid(value);
@@ -95,7 +95,7 @@ export class WizardStepComponent {
             return;
         }
 
-        if (!this._valid) {
+        if (value && !this._valid || !value) {
             this.setVisited(value);
         }
 
