@@ -82,11 +82,11 @@ export class MarqueeWizardComponent extends WizardComponent implements OnDestroy
 
         await super.next();
 
-        if (step && step._valid) {
+        if (step && step.valid) {
             // mark this step as completed
             step.setCompleted(true);
         } else {
-            this.stepError.emit(this.step);
+            this.stepError.next(this.step);
         }
     }
 
@@ -105,7 +105,7 @@ export class MarqueeWizardComponent extends WizardComponent implements OnDestroy
             if (step.valid) {
                 step.setCompleted(true);
             } else {
-                this.stepError.emit(this.step);
+                this.stepError.next(this.step);
             }
         });
     }
@@ -115,8 +115,21 @@ export class MarqueeWizardComponent extends WizardComponent implements OnDestroy
      * it, should become unvisited and incomplete
      */
     validChange(state: MarqueeWizardValidEvent): void {
-        state.step.completed = false;
-        this.setNextStepsUnvisited(state.step, (stp: MarqueeWizardStepComponent) => { stp.completed = false; });
+
+        const steps = this.steps.toArray();
+        const current = steps.findIndex(step => step === state.step);
+        const affected = steps.slice(current);
+
+        affected.forEach(step => {
+
+            // the step should no longer be completed
+            step.completed = false;
+
+            // if the step is not the current step then also mark it as unvisited
+            if (step !== state.step) {
+                step.visited = false;
+            }
+        });
     }
 
     onResize(event: ResizeDimensions): void {

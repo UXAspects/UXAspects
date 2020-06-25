@@ -19,15 +19,20 @@ export class MarqueeWizardStepComponent extends WizardStepComponent {
     /** Detect if an icon has been defined using the directive */
     @ContentChild(MarqueeWizardStepIconDirective, { read: TemplateRef, static: false }) _iconTemplate: TemplateRef<void>;
 
-    @Input()
-    set valid(value: boolean) {
-        this.setValid(value);
-        this._marqueeWizardService.valid$.next({ step: this, valid: value });
-    }
-
     get valid(): boolean {
         return this._valid;
     }
+
+    set valid(valid: boolean) {
+        this._valid = valid;
+
+        if (this._marqueeWizardService) {
+            this._marqueeWizardService.valid$.next({ step: this, valid: valid });
+        }
+    }
+
+    /** Store the validity of the current step */
+    private _valid: boolean = true;
 
     constructor(
         changeDetector: ChangeDetectorRef,
