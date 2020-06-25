@@ -82,7 +82,7 @@ export class MarqueeWizardComponent extends WizardComponent implements OnDestroy
 
         await super.next();
 
-        if (step && step._valid) {
+        if (step && step.valid) {
             // mark this step as completed
             step.setCompleted(true);
         } else {

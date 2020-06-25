@@ -23,8 +23,6 @@ export class WizardStepComponent {
      * Defines whether a step is valid. The user will not be able to proceed to the next step if this property has a value of false.
      * If the new value is false is will also set the visited value to false.
      */
-    _valid: boolean = true;
-
     @Input()
     set valid(value: boolean) {
         this.setValid(value);
@@ -55,6 +53,8 @@ export class WizardStepComponent {
      * Defines the currently visible step.
      */
     _active: boolean = false;
+
+    protected _valid: boolean = true;
 
     set active(value: boolean) {
 
@@ -90,14 +90,14 @@ export class WizardStepComponent {
         this.visitedChange.emit(value);
     }
 
-    setValid(value: boolean): void {
+    protected setValid(value: boolean): void {
         if (this._valid === value) {
             return;
         }
 
-        if (value && !this._valid || !value) {
+        requestAnimationFrame(() => {
             this.setVisited(value);
-        }
+        });
 
         this._valid = value;
     }

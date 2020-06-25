@@ -44,7 +44,7 @@ exports.config = {
   afterLaunch: onAfterLaunch,
 
   // Spec patterns are relative to this config file
-  specs: ['./tests/**/**/*.e2e-spec.ts'],
+  specs: ['./tests/components/wizard/wizard.e2e-spec.ts', './tests/components/marquee-wizard/marquee-wizard.e2e-spec.ts'],
 
   plugins: [
     {

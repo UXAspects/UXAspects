@@ -189,7 +189,7 @@ export class WizardComponent implements AfterViewInit, OnDestroy {
         try {
             // Fetch validation status
             const validationResult = this.isStepValid();
-            step._valid = validationResult instanceof Promise ? await validationResult : validationResult;
+            step.valid = validationResult instanceof Promise ? await validationResult : validationResult;
         } finally {
             // Re-enable button
             this.nextDisabled = false;
@@ -227,7 +227,7 @@ export class WizardComponent implements AfterViewInit, OnDestroy {
         // Use the `disableNextWhenInvalid` setting to determine whether to disable the Next/Finish button
         // based on validation.
         // If not defined on the WizardStepComponent, use the value from WizardComponent.
-        return (step.disableNextWhenInvalid === undefined ? this.disableNextWhenInvalid : step.disableNextWhenInvalid) && !step._valid;
+        return (step.disableNextWhenInvalid === undefined ? this.disableNextWhenInvalid : step.disableNextWhenInvalid) && !step.valid;
     }
 
     /**
@@ -260,7 +260,7 @@ export class WizardComponent implements AfterViewInit, OnDestroy {
         try {
             // Fetch validation status
             const validationResult = this.isStepValid();
-            this.getCurrentStep()._valid = validationResult instanceof Promise ? await validationResult : validationResult;
+            this.getCurrentStep().valid = validationResult instanceof Promise ? await validationResult : validationResult;
         } finally {
             // Re-enable button
             this.finishDisabled = false;
@@ -276,7 +276,7 @@ export class WizardComponent implements AfterViewInit, OnDestroy {
             setTimeout(() => {
 
                 // only fires when the finish button is clicked and the step is valid
-                if (this.getCurrentStep()._valid) {
+                if (this.getCurrentStep().valid) {
                     this.onFinish.emit();
                 } else {
                     this.stepError.emit(this.step);
