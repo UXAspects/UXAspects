@@ -29,6 +29,9 @@ export class MarqueeWizardComponent extends WizardComponent implements OnDestroy
     /** If set to true the resizable splitter will be enabled and set to the default width **/
     @Input() resizable: boolean = false;
 
+    /** Whether to set `visited` to false on subsequent steps after a validation fault. */
+    @Input() resetVisitedOnValidationError: boolean = true;
+
     /** Emit the current width of the splitter*/
     @Output() sidePanelWidthChange = new EventEmitter<number>();
 
@@ -126,7 +129,7 @@ export class MarqueeWizardComponent extends WizardComponent implements OnDestroy
             step.completed = false;
 
             // if the step is not the current step then also mark it as unvisited
-            if (step !== state.step) {
+            if (this.resetVisitedOnValidationError && step !== state.step) {
                 step.visited = false;
             }
         });

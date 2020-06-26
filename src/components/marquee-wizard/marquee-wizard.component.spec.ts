@@ -64,6 +64,8 @@ export class MarqueeWizardComponent {
         }
     ];
 
+    resetVisitedOnValidationError = true;
+
     /**
      * Close the modal and reset everything
      */
@@ -272,4 +274,107 @@ describe('Marquee wizard with delayed step creation', () => {
         fixture.detectChanges();
         await fixture.whenStable();
     }
+});
+
+@Component({
+    selector: 'marquee-wizard-validation-app',
+    template: `
+        <ux-marquee-wizard
+            [(step)]="currentStep"
+            [resetVisitedOnValidationError]="resetVisitedOnValidationError"
+        >
+            <ux-marquee-wizard-step
+                [(valid)]="step1Valid"
+                [(visited)]="step1Visited"
+                [(completed)]="step1Completed"
+            ></ux-marquee-wizard-step>
+            <ux-marquee-wizard-step
+                [(visited)]="step2Visited"
+                [(completed)]="step2Completed"
+            ></ux-marquee-wizard-step>
+        </ux-marquee-wizard>
+    `
+})
+export class MarqueeWizardValidationComponent {
+    currentStep: number;
+    resetVisitedOnValidationError = true;
+    step1Valid = true;
+    step1Visited: boolean;
+    step1Completed: boolean;
+    step2Visited: boolean;
+    step2Completed: boolean;
+}
+
+describe('Marquee wizard with validation', () => {
+    let component: MarqueeWizardValidationComponent;
+    let fixture: ComponentFixture<MarqueeWizardValidationComponent>;
+    let nativeElement: HTMLElement;
+
+    beforeEach(async () => {
+        TestBed.configureTestingModule({
+            imports: [MarqueeWizardModule],
+            declarations: [MarqueeWizardValidationComponent]
+        }).compileComponents();
+    });
+
+    beforeEach(() => {
+        fixture = TestBed.createComponent(MarqueeWizardValidationComponent);
+        component = fixture.componentInstance;
+        nativeElement = fixture.nativeElement;
+        fixture.detectChanges();
+    });
+
+    it('should remove visited state from later steps when valid = false', async () => {
+        component.step1Visited = true;
+        component.step2Visited = true;
+        fixture.detectChanges();
+
+        expect(isStepValid(0)).toBe(true);
+        expect(isStepValid(1)).toBe(true);
+
+        expect(isStepVisited(0)).toBe(true);
+        expect(isStepVisited(1)).toBe(true);
+
+        component.step1Valid = false;
+        fixture.detectChanges();
+
+        expect(isStepValid(0)).toBe(false);
+        expect(isStepValid(1)).toBe(true);
+
+        expect(isStepVisited(0)).toBe(true);
+        expect(isStepVisited(1)).toBe(false);
+    });
+
+    it('should not remove visited state from later steps when valid = false and resetVisitedOnValidationError = false', async () => {
+        component.resetVisitedOnValidationError = false;
+        component.step1Visited = true;
+        component.step2Visited = true;
+        fixture.detectChanges();
+
+        expect(isStepValid(0)).toBe(true);
+        expect(isStepValid(1)).toBe(true);
+
+        expect(isStepVisited(0)).toBe(true);
+        expect(isStepVisited(1)).toBe(true);
+
+        component.step1Valid = false;
+        fixture.detectChanges();
+
+        expect(isStepValid(0)).toBe(false);
+        expect(isStepValid(1)).toBe(true);
+
+        expect(isStepVisited(0)).toBe(true);
+        expect(isStepVisited(1)).toBe(true);
+    });
+
+    function isStepVisited(index: number): boolean {
+        const stepElements = nativeElement.querySelectorAll('.marquee-wizard-step');
+        return stepElements[index].classList.contains('visited');
+    }
+
+    function isStepValid(index: number): boolean {
+        const stepElements = nativeElement.querySelectorAll('.marquee-wizard-step');
+        return !stepElements[index].classList.contains('invalid');
+    }
+
 });
