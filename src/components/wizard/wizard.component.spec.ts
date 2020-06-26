@@ -11,12 +11,7 @@ import { WizardStepComponent } from './wizard-step.component';
 import { StepChangingEvent } from './wizard.component';
 import { WizardModule } from './wizard.module';
 
-
-enum WizardSelectors {
-    ToggleValidity = '.toggle-validity-button',
-    NextButton = '.wizard-footer .button-primary',
-    SecondStep = '.wizard-steps > div:nth-child(2)'
-}
+const NEXT_BUTTON_SELECTOR = '.wizard-footer .button-primary';
 
 @Component({
     selector: 'wizard-async-validation-test-app',
@@ -262,22 +257,21 @@ describe('Wizard with validator', () => {
 interface WizardStep {
     header: string;
     content: string;
+    visited?: boolean;
+    valid?: boolean;
 }
 
 @Component({
     selector: 'wizard-visited-change-test-app',
     template: `
-        <ux-wizard
-            (stepChanging)="stepChanging($event)"
-            (stepChange)="stepChange($event)"
-            (onNext)="onNext($event)"
-        >
+        <ux-wizard>
             <ux-wizard-step *ngFor="let step of steps; let index = index"
-                [header]="step.header" [valid]="step.valid"
+                [header]="step.header"
+                [(valid)]="step.valid"
+                [(visited)]="step.visited"
                 (visitedChange)="visitedChanged(index, $event)"
             >
                 <p>{{ step.content }}</p>
-                <button class="toggle-validity-button" (click)="step.valid = !step.valid">Toggle validity</button>
             </ux-wizard-step>
         </ux-wizard>
     `
@@ -287,30 +281,31 @@ class WizardVisitedChangeTestComponent {
         {
             header: '1. First Step',
             content: 'Content of step 1.',
+            valid: true
         },
         {
             header: '2. Second Step',
             content: 'Content of step 2.',
+            valid: true
         },
         {
             header: '3. Third Step',
             content: 'Content of step 3.',
+            valid: true
         },
         {
             header: '4. Fourth Step',
             content: 'Content of step 4.',
+            valid: true
         }
     ];
-    stepChanging(_: StepChangingEvent) {}
-    stepChange(_: number) {}
-    onNext(_: number) {}
     visitedChanged(index: number, value: boolean) { }
 
     @ViewChildren(WizardStepComponent)
     stepsList: QueryList<WizardStepComponent>;
 }
 
-describe('Wizard with visitedChange event', () => {
+fdescribe('Wizard with visitedChange event', () => {
     let component: WizardVisitedChangeTestComponent;
     let fixture: ComponentFixture<WizardVisitedChangeTestComponent>;
     let nativeElement: HTMLElement;
@@ -336,57 +331,49 @@ describe('Wizard with visitedChange event', () => {
     });
 
     it('should trigger a visitedChange event when valid modified on the current step, when other steps ahead are visited', async () => {
-        // set step 1 to valid and move forward
-        await clickButton(WizardSelectors.ToggleValidity);
-        await clickButton(WizardSelectors.NextButton);
+        // emulate steps being complete
+        component.steps[0].visited = true;
+        component.steps[1].visited = true;
+        component.steps[2].visited = true;
+        component.steps[3].visited = true;
+        fixture.detectChanges();
+        await fixture.whenStable();
 
-        // set step 2 to valid and move forward
-        await clickButton(WizardSelectors.ToggleValidity);
-        await clickButton(WizardSelectors.NextButton);
-
-        // set step 3 to valid and move forward
-        await clickButton(WizardSelectors.ToggleValidity);
-        await clickButton(WizardSelectors.NextButton);
-
-        // jump back to the first step
-        await clickButton(WizardSelectors.SecondStep);
+        // click next button to make second step active
+        await fixture.nativeElement.querySelector(NEXT_BUTTON_SELECTOR).click();
+        fixture.detectChanges();
+        await fixture.whenStable();
 
         visitedChanged.calls.reset();
 
-        // valid now false and should trigger visitedChange
-        await clickButton(WizardSelectors.ToggleValidity);
-
-        // try to move to the next step
-        await clickButton(WizardSelectors.NextButton);
+        // set step 2 invalid
+        component.steps[1].valid = false;
+        fixture.detectChanges();
+        await fixture.whenStable();
 
         // get dump of all calls made to event
         const calls = visitedChanged.calls.all();
 
+        // get all steps from view child list
         const stepsList = component.stepsList.toArray();
+
         // step 1 should be valid and visited
-        expect(stepsList[0].valid).toBeTruthy();
-        expect(stepsList[0].visited).toBeTruthy();
+        expect(stepsList[0].valid).toBe(true, 'stepsList[0].valid');
+        expect(stepsList[0].visited).toBe(true, 'stepsList[0].visited');
 
         // step 2 should be invalid and not visited
-        expect(stepsList[1].valid).toBeFalsy();
-        expect(stepsList[1].visited).toBeFalsy();
+        expect(stepsList[1].valid).toBe(false, 'stepsList[1].valid');
+        expect(stepsList[1].visited).toBe(false, 'stepsList[1].visited');
         expect(calls[0].args).toEqual([1, false]);
 
         // step 3 should be valid and not visited
-        expect(stepsList[2].valid).toBeTruthy();
-        expect(stepsList[2].visited).toBeFalsy();
+        expect(stepsList[2].valid).toBe(true, 'stepsList[2].valid');
+        expect(stepsList[2].visited).toBe(false, 'stepsList[2].visited');
         expect(calls[1].args).toEqual([2, false]);
 
         // step 4 should have valid undefined (not set yet) and not visited
-        expect(stepsList[3].valid).toBeUndefined();
-        expect(stepsList[3].visited).toBeFalsy();
+        expect(stepsList[3].valid).toBe(true, 'stepsList[3].valid');
+        expect(stepsList[3].visited).toBe(false, 'stepsList[3].visited');
         expect(calls[2].args).toEqual([3, false]);
     });
-
-    async function clickButton(selector: WizardSelectors): Promise<void> {
-        const button = nativeElement.querySelector<HTMLButtonElement>(selector);
-        button.click();
-        fixture.detectChanges();
-        await fixture.whenStable();
-    }
 });

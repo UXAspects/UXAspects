@@ -1,18 +1,17 @@
-import { Component, ContentChildren, ElementRef, EventEmitter, Input, OnDestroy, Output, QueryList, TemplateRef } from '@angular/core';
+import { Component, ContentChildren, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, QueryList, TemplateRef } from '@angular/core';
 import { filter, takeUntil } from 'rxjs/operators';
-import { WizardComponent } from '../wizard/index';
-import { MarqueeWizardStepComponent } from './marquee-wizard-step.component';
-import { MarqueeWizardService, MarqueeWizardValidEvent } from './marquee-wizard.service';
 import { ResizeDimensions, ResizeService } from '../../directives/resize/index';
-import { Subject } from 'rxjs';
+import { WizardComponent } from '../wizard/index';
+import { MarqueeWizardValidEvent, WizardService } from '../wizard/wizard.service';
+import { MarqueeWizardStepComponent } from './marquee-wizard-step.component';
 
 @Component({
     selector: 'ux-marquee-wizard',
     templateUrl: './marquee-wizard.component.html',
-    providers: [MarqueeWizardService],
+    providers: [WizardService],
     preserveWhitespaces: false
 })
-export class MarqueeWizardComponent extends WizardComponent implements OnDestroy {
+export class MarqueeWizardComponent extends WizardComponent implements OnInit, OnDestroy {
 
     /** Provide a custom template for the description in the left panel */
     @Input() description: string | TemplateRef<any>;
@@ -42,32 +41,24 @@ export class MarqueeWizardComponent extends WizardComponent implements OnDestroy
      */
     _isInitialised: boolean = false;
 
-    /** Unsubscribe from all subscriptions when component is destroyed */
-    private _onDestroyed = new Subject<void>();
-
     get isTemplate(): boolean {
         return this.description && this.description instanceof TemplateRef;
     }
 
-    constructor(marqueeWizardService: MarqueeWizardService,
+    constructor(protected wizardService: WizardService,
                 private _resizeService: ResizeService,
                 private _elementRef: ElementRef<HTMLElement>
     ) {
-        super();
+        super(wizardService);
 
         // watch for changes to the size
-        _resizeService.addResizeListener(_elementRef.nativeElement)
-            .pipe(takeUntil(this._onDestroyed))
-            .subscribe(this.onResize.bind(this));
-
-        marqueeWizardService.valid$.pipe(filter((event: MarqueeWizardValidEvent) => !event.valid))
-            .subscribe(this.validChange.bind(this));
+        this._resizeService.addResizeListener(this._elementRef.nativeElement)
+            .pipe(takeUntil(this._onDestroy))
+            .subscribe(this.onResize);
     }
 
     ngOnDestroy(): void {
         super.ngOnDestroy();
-        this._onDestroyed.next();
-        this._onDestroyed.complete();
         this._resizeService.removeResizeListener(this._elementRef.nativeElement);
     }
 
@@ -85,8 +76,6 @@ export class MarqueeWizardComponent extends WizardComponent implements OnDestroy
         if (step && step.valid) {
             // mark this step as completed
             step.setCompleted(true);
-        } else {
-            this.stepError.emit(this.step);
         }
     }
 
@@ -99,24 +88,12 @@ export class MarqueeWizardComponent extends WizardComponent implements OnDestroy
         // get the current step
         const step = this.getCurrentStep() as MarqueeWizardStepComponent;
 
-        // call the original finish function
-        return super.finish().then(() => {
-            // if the step is valid indicate that it is now complete
-            if (step.valid) {
-                step.setCompleted(true);
-            } else {
-                this.stepError.emit(this.step);
-            }
-        });
-    }
+        await super.finish();
 
-    /**
-     * If a step in the wizard becomes invalid, all steps sequentially after
-     * it, should become unvisited and incomplete
-     */
-    validChange(state: MarqueeWizardValidEvent): void {
-        state.step.completed = false;
-        this.setNextStepsUnvisited(state.step, (stp: MarqueeWizardStepComponent) => { stp.completed = false; });
+        // if the step is valid indicate that it is now complete
+        if (step.valid) {
+            step.setCompleted(true);
+        }
     }
 
     onResize(event: ResizeDimensions): void {

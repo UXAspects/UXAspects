@@ -1,20 +1,22 @@
-import { AfterViewInit, Component, ContentChild, ContentChildren, EventEmitter, Input, OnDestroy, Output, QueryList, TemplateRef } from '@angular/core';
+import { Component, ContentChild, ContentChildren, EventEmitter, Input, OnDestroy, OnInit, Output, QueryList, TemplateRef } from '@angular/core';
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { filter, takeUntil } from 'rxjs/operators';
 import { tick } from '../../common/index';
 import { MarqueeWizardStepComponent } from '../marquee-wizard/marquee-wizard-step.component';
 import { WizardStepComponent } from './wizard-step.component';
+import { WizardService, WizardValidEvent } from './wizard.service';
 
 let uniqueId: number = 0;
 
 @Component({
     selector: 'ux-wizard',
     templateUrl: './wizard.component.html',
+    providers: [WizardService],
     host: {
         '[class]': 'orientation'
     }
 })
-export class WizardComponent implements AfterViewInit, OnDestroy {
+export class WizardComponent implements OnInit, OnDestroy {
 
     /** Defines whether or not the wizard should be displayed in a `horizontal` or `vertical` layout. */
     @Input() orientation: 'horizontal' | 'vertical' = 'horizontal';
@@ -147,19 +149,24 @@ export class WizardComponent implements AfterViewInit, OnDestroy {
     }
 
     private _step: number = 0;
-    private _onDestroy = new Subject<void>();
+    protected _onDestroy = new Subject<void>();
 
-    ngAfterViewInit(): void {
+    constructor(protected _wizardService: WizardService) {
+        // watch for changes to valid subject
+        this._wizardService.valid$.pipe(
+            filter((event: WizardValidEvent) => !event.valid)
+        )
+        .subscribe((event: WizardValidEvent) => {
+            this.setNextStepsUnvisited(event.step);
+        });
+    }
 
+    ngOnInit(): void {
         // initially set the correct visibility of the steps
         setTimeout(this.update.bind(this));
 
-        // initially set the ids for each step
-        this.setWizardStepIds();
-
         // if the steps change then update the ids
         this.steps.changes.pipe(tick(), takeUntil(this._onDestroy)).subscribe(() => {
-            this.setWizardStepIds();
             this.update();
         });
     }
@@ -167,11 +174,6 @@ export class WizardComponent implements AfterViewInit, OnDestroy {
     ngOnDestroy(): void {
         this._onDestroy.next();
         this._onDestroy.complete();
-    }
-
-    /** Set ids for each of the wizard steps */
-    setWizardStepIds(): void {
-        this.steps.forEach((step, idx) => step.setId(`${this.id}-step-${idx}`));
     }
 
     /**
@@ -353,21 +355,18 @@ export class WizardComponent implements AfterViewInit, OnDestroy {
      * If a step in the wizard becomes invalid, all steps sequentially after
      * it, should become unvisited and incomplete
      */
-    protected setNextStepsUnvisited(currentStep: WizardStepComponent, cb?: (step: WizardStepComponent | MarqueeWizardStepComponent) => void): void {
+    protected setNextStepsUnvisited(currentStep: WizardStepComponent | MarqueeWizardStepComponent): void {
         const steps = this.steps.toArray();
-        const affected = steps.slice(this.step + 1);
+        const affected = steps.slice(this.step);
 
         affected.forEach(step => {
+            if (step instanceof MarqueeWizardStepComponent) {
+                (step as MarqueeWizardStepComponent).completed = false;
+            }
 
             // if the step is not the current step then also mark it as unvisited
-            if (step !== currentStep) {
-                if (step.visited) {
-                    step.setVisited(false);
-                }
-
-                if (cb) {
-                    cb(step);
-                }
+            if (step.visited && step !== currentStep) {
+                step.setVisited(false);
             }
         });
     }

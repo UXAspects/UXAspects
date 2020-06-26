@@ -1,7 +1,6 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ElementRef, EventEmitter, Input, Output, Renderer2, TemplateRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ContentChild, EventEmitter, Input, Output, TemplateRef } from '@angular/core';
 import { WizardStepComponent } from '../wizard/index';
 import { MarqueeWizardStepIconDirective } from './marquee-wizard-step-icon.directive';
-import { MarqueeWizardService } from './marquee-wizard.service';
 
 @Component({
     selector: 'ux-marquee-wizard-step',
@@ -18,25 +17,6 @@ export class MarqueeWizardStepComponent extends WizardStepComponent {
 
     /** Detect if an icon has been defined using the directive */
     @ContentChild(MarqueeWizardStepIconDirective, { read: TemplateRef, static: false }) _iconTemplate: TemplateRef<void>;
-
-    @Input()
-    set valid(value: boolean) {
-        this.setValid(value);
-        this._marqueeWizardService.valid$.next({ step: this, valid: value });
-    }
-
-    get valid(): boolean {
-        return this._valid;
-    }
-
-    constructor(
-        changeDetector: ChangeDetectorRef,
-        elementRef: ElementRef,
-        renderer: Renderer2,
-        private readonly _marqueeWizardService: MarqueeWizardService
-    ) {
-        super(changeDetector, elementRef, renderer);
-    }
 
     /**
      * Update the completed state and emit the latest value

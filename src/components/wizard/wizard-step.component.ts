@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, HostBinding, Input, Output, Renderer2 } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, HostBinding, Input, Output, Renderer2, NgZone } from '@angular/core';
+import { WizardService } from './wizard.service';
 
 @Component({
     selector: 'ux-wizard-step',
@@ -23,6 +24,8 @@ export class WizardStepComponent {
      * Defines whether a step is valid. The user will not be able to proceed to the next step if this property has a value of false.
      * If the new value is false is will also set the visited value to false.
      */
+    protected _valid: boolean = true;
+
     @Input()
     set valid(value: boolean) {
         this.setValid(value);
@@ -31,9 +34,6 @@ export class WizardStepComponent {
     get valid(): boolean {
         return this._valid;
     }
-
-    /** Emits when visited changes. */
-    @Output() visitedChange = new EventEmitter<boolean>();
 
     /**
      * A custom function which returns the validation status for the step. This function will be called when 'Next' or
@@ -52,9 +52,7 @@ export class WizardStepComponent {
     /**
      * Defines the currently visible step.
      */
-    _active: boolean = false;
-
-    protected _valid: boolean = true;
+    protected _active: boolean = false;
 
     set active(value: boolean) {
 
@@ -70,20 +68,16 @@ export class WizardStepComponent {
         this._changeDetector.markForCheck();
     }
 
-    @HostBinding('attr.aria-expanded')
+    /** Emits when visited changes. */
+    @Output() visitedChange = new EventEmitter<boolean>();
+
     get active(): boolean {
         return this._active;
     }
 
     constructor(
-        private readonly _changeDetector: ChangeDetectorRef,
-        private readonly _elementRef: ElementRef,
-        private readonly _renderer: Renderer2) { }
-
-    setId(id: string): void {
-        this._renderer.setAttribute(this._elementRef.nativeElement, 'id', id);
-        this._renderer.setAttribute(this._elementRef.nativeElement, 'aria-labelledby', `${id}-label`);
-    }
+        private readonly _wizardService: WizardService,
+        private readonly _changeDetector: ChangeDetectorRef) { }
 
     setVisited(value: boolean): void {
         this.visited = value;
@@ -95,10 +89,11 @@ export class WizardStepComponent {
             return;
         }
 
+        this._valid = value;
+
         requestAnimationFrame(() => {
             this.setVisited(value);
+            this._wizardService.valid$.next({ step: this, valid: value });
         });
-
-        this._valid = value;
     }
 }
