@@ -4302,7 +4302,7 @@
             * Can be used to show a red outline around the input to indicate an invalid value. By default the error state will appear if the user enters a number below the minimum value or above the maximum value. */
             this.valid = true;
             /** Define the precision of floating point values */
-            this.precision = 6;
+            this.precision = Number.MAX_SAFE_INTEGER.toString().length - 1;
             /** If two way binding is used this value will be updated any time the number picker value changes. */
             this.valueChange = new core.EventEmitter();
             /** Store the current valid state */
@@ -15195,19 +15195,20 @@
         };
         /** Create an overlay or return an existing instance */
         MenuTriggerDirective.prototype.getOverlay = function () {
+            var _a;
             // if we have already created the overlay then reuse it
             if (this._overlayRef) {
                 return this._overlayRef;
             }
-            var _a = this.getOrigin(), originX = _a.originX, originY = _a.originY;
-            var _b = this.getOverlayPosition(), overlayX = _b.overlayX, overlayY = _b.overlayY;
+            var _b = this.getOrigin(), originX = _b.originX, originY = _b.originY;
+            var _c = this.getOverlayPosition(), overlayX = _c.overlayX, overlayY = _c.overlayY;
             // otherwise create a new one
             this._overlayRef = this._overlay.create({
                 hasBackdrop: !this._isSubmenuTrigger,
                 backdropClass: 'cdk-overlay-transparent-backdrop',
                 scrollStrategy: this._overlay.scrollStrategies.reposition({ scrollThrottle: 0 }),
                 positionStrategy: this._overlay.position()
-                    .flexibleConnectedTo(this._elementRef)
+                    .flexibleConnectedTo((_a = this.parent, (_a !== null && _a !== void 0 ? _a : this._elementRef)))
                     .withLockedPosition()
                     .withPositions([
                     { originX: originX, originY: originY, overlayX: overlayX, overlayY: overlayY },
@@ -15304,6 +15305,10 @@
             core.Input(),
             __metadata("design:type", Boolean)
         ], MenuTriggerDirective.prototype, "disabled", void 0);
+        __decorate([
+            core.Input('uxMenuParent'),
+            __metadata("design:type", core.ElementRef)
+        ], MenuTriggerDirective.prototype, "parent", void 0);
         __decorate([
             core.ContentChildren(MenuTriggerDirective_1),
             __metadata("design:type", core.QueryList)
@@ -17747,6 +17752,8 @@
             _this.gutterSize = 10;
             /** If set to true the resizable splitter will be enabled and set to the default width **/
             _this.resizable = false;
+            /** Whether to set `visited` to false on subsequent steps after a validation fault. */
+            _this.resetVisitedOnValidationError = true;
             /** Emit the current width of the splitter*/
             _this.sidePanelWidthChange = new core.EventEmitter();
             /** Access each step content component */
@@ -17834,6 +17841,7 @@
          * it, should become unvisited and incomplete
          */
         MarqueeWizardComponent.prototype.validChange = function (state) {
+            var _this = this;
             var steps = this.steps.toArray();
             var current = steps.findIndex(function (step) { return step === state.step; });
             var affected = steps.slice(current);
@@ -17841,7 +17849,7 @@
                 // the step should no longer be completed
                 step.completed = false;
                 // if the step is not the current step then also mark it as unvisited
-                if (step !== state.step) {
+                if (_this.resetVisitedOnValidationError && step !== state.step) {
                     step.visited = false;
                 }
             });
@@ -17879,6 +17887,10 @@
             __metadata("design:type", Boolean)
         ], MarqueeWizardComponent.prototype, "resizable", void 0);
         __decorate([
+            core.Input(),
+            __metadata("design:type", Boolean)
+        ], MarqueeWizardComponent.prototype, "resetVisitedOnValidationError", void 0);
+        __decorate([
             core.Output(),
             __metadata("design:type", Object)
         ], MarqueeWizardComponent.prototype, "sidePanelWidthChange", void 0);
@@ -17889,7 +17901,7 @@
         MarqueeWizardComponent = __decorate([
             core.Component({
                 selector: 'ux-marquee-wizard',
-                template: "<ng-container *ngIf=\"resizable && _isInitialised\">\n    <as-split direction=\"horizontal\"\n           [gutterSize]=\"gutterSize\"\n           (dragEnd)=\"onDragEnd($event)\">\n        <as-split-area [size]=\"sidePanelWidth\">\n            <ng-container [ngTemplateOutlet]=\"sidePanel\"></ng-container>\n        </as-split-area>\n        <as-split-area [size]=\"100 - sidePanelWidth\">\n            <ng-container [ngTemplateOutlet]=\"mainContentPanel\"></ng-container>\n        </as-split-area>\n    </as-split>\n</ng-container>\n\n<ng-container *ngIf=\"!resizable\">\n    <ng-container [ngTemplateOutlet]=\"sidePanel\"></ng-container>\n    <ng-container [ngTemplateOutlet]=\"mainContentPanel\"></ng-container>\n</ng-container>\n\n<ng-template #sidePanel>\n    <div class=\"marquee-wizard-side-panel\" [class.marquee-wizard-side-panel-resize]=\"resizable\">\n\n        <div class=\"marquee-wizard-description-container\" *ngIf=\"description\">\n            <!-- If a template was provided display it -->\n            <ng-container *ngIf=\"isTemplate\" [ngTemplateOutlet]=\"description\"></ng-container>\n\n            <!-- Otherwise wimply display the string -->\n            <ng-container *ngIf=\"!isTemplate\">\n                <p>{{ description }}</p>\n            </ng-container>\n        </div>\n\n        <ul class=\"marquee-wizard-steps\"\n            uxTabbableList\n            direction=\"vertical\"\n            role=\"tablist\"\n            aria-orientation=\"vertical\">\n\n            <li *ngFor=\"let step of steps; let index = index\"\n                role=\"tab\"\n                uxTabbableListItem\n                [disabled]=\"!step.visited\"\n                class=\"marquee-wizard-step\"\n                [class.active]=\"step.active\"\n                [class.visited]=\"step.visited\"\n                [class.invalid]=\"!step.valid\"\n                [attr.aria-posinset]=\"index + 1\"\n                [attr.aria-setsize]=\"steps.length\"\n                [attr.aria-selected]=\"step.active\"\n                [attr.aria-controls]=\"step.id\"\n                [id]=\"step.id + '-label'\"\n                (click)=\"gotoStep(step)\"\n                (keydown.enter)=\"gotoStep(step)\">\n\n                <ng-container [ngTemplateOutlet]=\"stepTemplate || defaultStepTemplate\" [ngTemplateOutletContext]=\"{ $implicit: step }\"></ng-container>\n            </li>\n\n        </ul>\n    </div>\n</ng-template>\n\n\n<ng-template #mainContentPanel>\n    <div class=\"marquee-wizard-content-panel\" [class.marquee-wizard-content-panel-resize]=\"resizable\">\n        <div class=\"marquee-wizard-content\">\n            <ng-content></ng-content>\n        </div>\n\n        <div class=\"modal-footer\">\n\n            <ng-container *ngIf=\"footerTemplate\"\n                          [ngTemplateOutlet]=\"footerTemplate\"\n                          [ngTemplateOutletContext]=\"{ step: step }\">\n            </ng-container>\n\n            <button #tip=\"ux-tooltip\"\n                    type=\"button\"\n                    class=\"btn button-secondary\"\n                    *ngIf=\"previousVisible\"\n                    [uxTooltip]=\"previousTooltip\"\n                    [attr.aria-label]=\"previousAriaLabel\"\n                    container=\"body\"\n                    [disabled]=\"previousDisabled || step === 0\"\n                    (click)=\"previous(); tip.hide()\">\n                {{ previousText }}\n            </button>\n\n            <button #tip=\"ux-tooltip\"\n                    type=\"button\"\n                    class=\"btn button-primary\"\n                    *ngIf=\"nextVisible && !isLastStep()\"\n                    [uxTooltip]=\"nextTooltip\"\n                    [attr.aria-label]=\"nextAriaLabel\"\n                    container=\"body\"\n                    [disabled]=\"nextDisabled || isNextDisabled()\"\n                    (click)=\"next(); tip.hide()\">\n                {{ nextText }}\n            </button>\n\n            <button #tip=\"ux-tooltip\"\n                    type=\"button\"\n                    class=\"btn button-primary\"\n                    *ngIf=\"finishVisible && isLastStep() || finishAlwaysVisible\"\n                    [uxTooltip]=\"finishTooltip\"\n                    [attr.aria-label]=\"finishAriaLabel\"\n                    container=\"body\"\n                    [disabled]=\"finishDisabled || isNextDisabled()\"\n                    (click)=\"finish(); tip.hide()\">\n                {{ finishText }}\n            </button>\n\n            <button #tip=\"ux-tooltip\"\n                    type=\"button\"\n                    class=\"btn button-secondary\"\n                    *ngIf=\"cancelVisible && !isLastStep() || cancelAlwaysVisible\"\n                    [uxTooltip]=\"cancelTooltip\"\n                    [attr.aria-label]=\"cancelAriaLabel\"\n                    container=\"body\"\n                    [disabled]=\"cancelDisabled\"\n                    (click)=\"cancel(); tip.hide()\">\n                {{ cancelText }}\n            </button>\n        </div>\n    </div>\n</ng-template>\n\n<ng-template #defaultStepTemplate let-step>\n\n    <!-- Insert the icon -->\n    <div *ngIf=\"step._iconTemplate\" class=\"marquee-wizard-step-icon\">\n        <ng-container [ngTemplateOutlet]=\"step._iconTemplate\"></ng-container>\n    </div>\n\n    <span class=\"marquee-wizard-step-title\">{{ step.header }}</span>\n    <ux-icon *ngIf=\"step.completed\" class=\"marquee-wizard-step-status\" name=\"checkmark\"></ux-icon>\n</ng-template>",
+                template: "<ng-container *ngIf=\"resizable && _isInitialised\">\n    <as-split direction=\"horizontal\"\n           [gutterSize]=\"gutterSize\"\n           (dragEnd)=\"onDragEnd($event)\">\n        <as-split-area [size]=\"sidePanelWidth\">\n            <ng-container [ngTemplateOutlet]=\"sidePanel\"></ng-container>\n        </as-split-area>\n        <as-split-area [size]=\"100 - sidePanelWidth\">\n            <ng-container [ngTemplateOutlet]=\"mainContentPanel\"></ng-container>\n        </as-split-area>\n    </as-split>\n</ng-container>\n\n<ng-container *ngIf=\"!resizable\">\n    <ng-container [ngTemplateOutlet]=\"sidePanel\"></ng-container>\n    <ng-container [ngTemplateOutlet]=\"mainContentPanel\"></ng-container>\n</ng-container>\n\n<ng-template #sidePanel>\n    <div class=\"marquee-wizard-side-panel\" [class.marquee-wizard-side-panel-resize]=\"resizable\">\n\n        <div class=\"marquee-wizard-description-container\" *ngIf=\"description\">\n            <!-- If a template was provided display it -->\n            <ng-container *ngIf=\"isTemplate\" [ngTemplateOutlet]=\"description\"></ng-container>\n\n            <!-- Otherwise wimply display the string -->\n            <ng-container *ngIf=\"!isTemplate\">\n                <p>{{ description }}</p>\n            </ng-container>\n        </div>\n\n        <ul class=\"marquee-wizard-steps\"\n            uxTabbableList\n            direction=\"vertical\"\n            role=\"tablist\"\n            aria-orientation=\"vertical\">\n\n            <li *ngFor=\"let step of steps; let index = index\"\n                role=\"tab\"\n                uxTabbableListItem\n                [disabled]=\"!step.visited\"\n                class=\"marquee-wizard-step\"\n                [class.active]=\"step.active\"\n                [class.visited]=\"step.visited\"\n                [class.invalid]=\"!step.valid\"\n                [attr.aria-posinset]=\"index + 1\"\n                [attr.aria-setsize]=\"steps.length\"\n                [attr.aria-selected]=\"step.active\"\n                [attr.aria-controls]=\"id + '-step-' + index\"\n                [id]=\"id + '-step-' + index + '-label'\"\n                (click)=\"gotoStep(step)\"\n                (keydown.enter)=\"gotoStep(step)\">\n\n                <ng-container [ngTemplateOutlet]=\"stepTemplate || defaultStepTemplate\" [ngTemplateOutletContext]=\"{ $implicit: step }\"></ng-container>\n            </li>\n\n        </ul>\n    </div>\n</ng-template>\n\n\n<ng-template #mainContentPanel>\n    <div class=\"marquee-wizard-content-panel\" [class.marquee-wizard-content-panel-resize]=\"resizable\">\n        <div class=\"marquee-wizard-content\">\n            <ng-content></ng-content>\n        </div>\n\n        <div class=\"modal-footer\">\n\n            <ng-container *ngIf=\"footerTemplate\"\n                          [ngTemplateOutlet]=\"footerTemplate\"\n                          [ngTemplateOutletContext]=\"{ step: step }\">\n            </ng-container>\n\n            <button #tip=\"ux-tooltip\"\n                    type=\"button\"\n                    class=\"btn button-secondary\"\n                    *ngIf=\"previousVisible\"\n                    [uxTooltip]=\"previousTooltip\"\n                    [attr.aria-label]=\"previousAriaLabel\"\n                    container=\"body\"\n                    [disabled]=\"previousDisabled || step === 0\"\n                    (click)=\"previous(); tip.hide()\">\n                {{ previousText }}\n            </button>\n\n            <button #tip=\"ux-tooltip\"\n                    type=\"button\"\n                    class=\"btn button-primary\"\n                    *ngIf=\"nextVisible && !isLastStep()\"\n                    [uxTooltip]=\"nextTooltip\"\n                    [attr.aria-label]=\"nextAriaLabel\"\n                    container=\"body\"\n                    [disabled]=\"nextDisabled || isNextDisabled()\"\n                    (click)=\"next(); tip.hide()\">\n                {{ nextText }}\n            </button>\n\n            <button #tip=\"ux-tooltip\"\n                    type=\"button\"\n                    class=\"btn button-primary\"\n                    *ngIf=\"finishVisible && isLastStep() || finishAlwaysVisible\"\n                    [uxTooltip]=\"finishTooltip\"\n                    [attr.aria-label]=\"finishAriaLabel\"\n                    container=\"body\"\n                    [disabled]=\"finishDisabled || isNextDisabled()\"\n                    (click)=\"finish(); tip.hide()\">\n                {{ finishText }}\n            </button>\n\n            <button #tip=\"ux-tooltip\"\n                    type=\"button\"\n                    class=\"btn button-secondary\"\n                    *ngIf=\"cancelVisible && !isLastStep() || cancelAlwaysVisible\"\n                    [uxTooltip]=\"cancelTooltip\"\n                    [attr.aria-label]=\"cancelAriaLabel\"\n                    container=\"body\"\n                    [disabled]=\"cancelDisabled\"\n                    (click)=\"cancel(); tip.hide()\">\n                {{ cancelText }}\n            </button>\n        </div>\n    </div>\n</ng-template>\n\n<ng-template #defaultStepTemplate let-step>\n\n    <!-- Insert the icon -->\n    <div *ngIf=\"step._iconTemplate\" class=\"marquee-wizard-step-icon\">\n        <ng-container [ngTemplateOutlet]=\"step._iconTemplate\"></ng-container>\n    </div>\n\n    <span class=\"marquee-wizard-step-title\">{{ step.header }}</span>\n    <ux-icon *ngIf=\"step.completed\" class=\"marquee-wizard-step-status\" name=\"checkmark\"></ux-icon>\n</ng-template>\n",
                 providers: [MarqueeWizardService],
                 preserveWhitespaces: false
             }),
@@ -28659,6 +28671,7 @@
                 if (this.menuTrigger && !changes.selected.firstChange) {
                     this.menuTrigger.closeMenu();
                 }
+                this.resetFilter();
                 this.selectedChange.emit(changes.selected.currentValue);
                 this.onChange(changes.selected.currentValue);
                 this.onTouched();
@@ -28677,11 +28690,10 @@
             this._onDestroy$.next();
             this._onDestroy$.complete();
         };
-        InputDropdownComponent.prototype.resetFilter = function (event) {
+        InputDropdownComponent.prototype.resetFilter = function () {
             this.filter = '';
             this.filterChange.emit(this.filter);
             this.filterInputElement.nativeElement.focus();
-            event.stopPropagation();
         };
         InputDropdownComponent.prototype.registerOnChange = function (onChange) {
             this.onChange = onChange;
@@ -28787,7 +28799,7 @@
         InputDropdownComponent = InputDropdownComponent_1 = __decorate([
             core.Component({
                 selector: 'ux-input-dropdown',
-                template: "<div class=\"ux-select-container\">\n    <button #button type=\"button\" class=\"form-control\"\n            [uxMenuTriggerFor]=\"menu\">\n        <ng-template #defaultDisplayContent>{{selected ? (selected | json) : '-'}}</ng-template>\n        <ng-container [ngTemplateOutlet]=\"displayContentRef || defaultDisplayContent\"></ng-container>\n    </button>\n    <div class=\"ux-select-icons\">\n        <ux-icon name=\"close\"\n                 uxFocusIndicator\n                 class=\"ux-select-icon ux-select-clear-icon\"\n                 *ngIf=\"allowNull && selected\"\n                 (click)=\"resetValue($event)\"\n                 (keydown.enter)=\"resetValue($event)\"\n                 tabindex=\"0\">\n        </ux-icon>\n        <ux-icon name=\"chevron-down\"\n                 class=\"ux-select-icon ux-select-chevron-icon\"\n                 (click)=\"toggleMenu(); $event.stopPropagation()\">\n        </ux-icon>\n    </div>\n</div>\n\n<ux-menu #menu menuClass=\"select-menu\"\n         (opened)=\"onMenuOpen()\"\n         (closed)=\"onMenuClose()\"\n         [attr.aria-expanded]=\"dropdownOpen\">\n\n    <div [style.max-height]=\"_maxHeight\"\n         [style.width.px]=\"button.offsetWidth\">\n\n        <div *ngIf=\"!hideFilter\"\n             class=\"filter-container\">\n\n            <input #filterInput\n                    type=\"text\"\n                    [placeholder]=\"placeholder\"\n                    class=\"form-control\"\n                    [(ngModel)]=\"filter\"\n                    (input)=\"filterChange.emit(filter)\"\n                    (click)=\"$event.stopPropagation()\"\n                    [attr.aria-label]=\"ariaLabel || placeholder\"\n                    (focus)=\"inputFocusHandler()\">\n\n            <button type=\"button\"\n                    class=\"btn btn-flat filter-button\"\n                    (click)=\"resetFilter($event)\"\n                    [tabindex]=\"filter.length > 0 ? 0 : -1\">\n                <ux-icon [name]=\"filter.length === 0 ? 'search' : 'close'\"></ux-icon>\n            </button>\n        </div>\n\n        <ng-content></ng-content>\n\n    </div>\n</ux-menu>\n",
+                template: "<div class=\"ux-select-container\">\n    <button #button type=\"button\" class=\"form-control\"\n            [uxMenuTriggerFor]=\"menu\">\n        <ng-template #defaultDisplayContent>{{selected ? (selected | json) : '-'}}</ng-template>\n        <ng-container [ngTemplateOutlet]=\"displayContentRef || defaultDisplayContent\"></ng-container>\n    </button>\n    <div class=\"ux-select-icons\">\n        <ux-icon name=\"close\"\n                 uxFocusIndicator\n                 class=\"ux-select-icon ux-select-clear-icon\"\n                 *ngIf=\"allowNull && selected\"\n                 (click)=\"resetValue($event)\"\n                 (keydown.enter)=\"resetValue($event)\"\n                 tabindex=\"0\">\n        </ux-icon>\n        <ux-icon name=\"chevron-down\"\n                 class=\"ux-select-icon ux-select-chevron-icon\"\n                 (click)=\"toggleMenu(); $event.stopPropagation()\">\n        </ux-icon>\n    </div>\n</div>\n\n<ux-menu #menu menuClass=\"select-menu\"\n         (opened)=\"onMenuOpen()\"\n         (closed)=\"onMenuClose()\"\n         [attr.aria-expanded]=\"dropdownOpen\">\n\n    <div [style.max-height]=\"_maxHeight\"\n         [style.width.px]=\"button.offsetWidth\">\n\n        <div *ngIf=\"!hideFilter\"\n             class=\"filter-container\">\n\n            <input #filterInput\n                    type=\"text\"\n                    [placeholder]=\"placeholder\"\n                    class=\"form-control\"\n                    [(ngModel)]=\"filter\"\n                    (input)=\"filterChange.emit(filter)\"\n                    (click)=\"$event.stopPropagation()\"\n                    [attr.aria-label]=\"ariaLabel || placeholder\"\n                    (focus)=\"inputFocusHandler()\">\n\n            <button type=\"button\"\n                    class=\"btn btn-flat filter-button\"\n                    (click)=\"resetFilter(); $event.stopPropagation();\"\n                    [tabindex]=\"filter.length > 0 ? 0 : -1\">\n                <ux-icon [name]=\"filter.length === 0 ? 'search' : 'close'\"></ux-icon>\n            </button>\n        </div>\n\n        <ng-content></ng-content>\n\n    </div>\n</ux-menu>\n",
                 changeDetection: core.ChangeDetectionStrategy.OnPush,
                 providers: [
                     {
@@ -30854,13 +30866,14 @@
         /** Gets the set of Angular differs for detecting changes. */
         _differs, 
         /** Get the renderer to perform DOM manipulation */
-        _renderer, 
+        _renderer, _changeDetector, 
         /** A service to share values between the container and child elements */
         _virtualScroll) {
             this._viewContainerRef = _viewContainerRef;
             this._templateRef = _templateRef;
             this._differs = _differs;
             this._renderer = _renderer;
+            this._changeDetector = _changeDetector;
             this._virtualScroll = _virtualScroll;
             /** Provide a trackBy function to optimize rendering */
             this.uxVirtualForTrackBy = this.defaultTrackBy;
@@ -30899,9 +30912,10 @@
         VirtualForDirective.prototype.ngOnInit = function () {
             var _this = this;
             // update the UI whenever the range changes
-            this._virtualScroll.range.pipe(operators.takeUntil(this._onDestroy), operators.distinctUntilChanged(this.isRangeSame)).subscribe(function (range) {
+            this._virtualScroll.range.pipe(operators.distinctUntilChanged(this.isRangeSame), operators.takeUntil(this._onDestroy)).subscribe(function (range) {
                 _this._renderedRange = range;
                 _this.onRangeChange();
+                _this._changeDetector.detectChanges();
             });
         };
         VirtualForDirective.prototype.ngDoCheck = function () {
@@ -31072,11 +31086,12 @@
             core.Directive({
                 selector: '[uxVirtualFor][uxVirtualForOf]',
             }),
-            __param(4, core.Optional()),
+            __param(5, core.Optional()),
             __metadata("design:paramtypes", [core.ViewContainerRef,
                 core.TemplateRef,
                 core.IterableDiffers,
                 core.Renderer2,
+                core.ChangeDetectorRef,
                 VirtualForService])
         ], VirtualForDirective);
         return VirtualForDirective;
@@ -32940,19 +32955,20 @@
             if (!parent.children) {
                 return;
             }
-            var row = this.rows$.getValue();
-            var index = row.indexOf(parent);
+            var rows = __spread(this.rows$.getValue());
+            var index = rows.indexOf(parent);
             if (index < 0) {
                 return;
             }
             // Skip duplicates - this could happen if an already expanded child has been inserted
-            var uniqueChildren = parent.children.filter(function (child) { return row.indexOf(child) === -1; });
+            var uniqueChildren = parent.children.filter(function (child) { return rows.indexOf(child) === -1; });
             var childRows = this.getFlattenedTree(uniqueChildren, parent);
-            row.splice.apply(row, __spread([index + 1, 0], childRows));
+            rows.splice.apply(rows, __spread([index + 1, 0], childRows));
+            this.rows$.next(rows);
         };
         /** Remove all rows from the flattened tree */
         TreeGridService.prototype.removeChildren = function (parent) {
-            var rows = this.rows$.getValue();
+            var rows = __spread(this.rows$.getValue());
             var index = rows.indexOf(parent);
             if (index < 0) {
                 return;
@@ -32960,6 +32976,7 @@
             while (index + 1 < rows.length && rows[index + 1].state.level > parent.state.level) {
                 rows.splice(index + 1, 1);
             }
+            this.rows$.next(rows);
         };
         TreeGridService = __decorate([
             core.Injectable(),
@@ -32976,7 +32993,7 @@
             this.isExpanded = false;
             this._expanded$ = new rxjs.BehaviorSubject(false);
             this._onDestroy = new rxjs.Subject();
-            this._expanded$.pipe(operators.skip(1), tick(), operators.distinctUntilChanged(), operators.takeUntil(this._onDestroy)).subscribe(function (expanded) {
+            this._expanded$.pipe(operators.distinctUntilChanged(), tick(), operators.takeUntil(this._onDestroy)).subscribe(function (expanded) {
                 _this.expandedChange.emit(expanded);
                 _this._treeGridService.setExpanded(_this.item, expanded);
                 _this.isExpanded = expanded;
