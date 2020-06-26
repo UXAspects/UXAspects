@@ -89,7 +89,7 @@ export class PageHeaderComponent {
     }
 
     get logoBackground(): string {
-        return this._logoBackground;
+        return this._logoBackground || 'transparent';
     }
 
     /** The logo text color, when a product acronym is specified via header. This can either be the name of a color from the color palette, or a CSS color value. */
