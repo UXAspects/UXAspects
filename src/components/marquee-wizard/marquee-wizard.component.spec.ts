@@ -332,7 +332,7 @@ class MarqueeWizardVisitedChangeTestComponent {
     stepsList: QueryList<MarqueeWizardStepComponent>;
 }
 
-fdescribe('Marquee wizard with visitedChange event', () => {
+describe('Marquee wizard with visitedChange event', () => {
     let component: MarqueeWizardVisitedChangeTestComponent;
     let fixture: ComponentFixture<MarqueeWizardVisitedChangeTestComponent>;
     let nativeElement: HTMLElement;
@@ -410,5 +410,23 @@ fdescribe('Marquee wizard with visitedChange event', () => {
         expect(stepsList[3].visited).toBe(false, 'stepsList[3].visited');
         expect(stepsList[3].completed).toBe(false, 'stepsList[3].completed');
         expect(calls[2].args).toEqual([3, false]);
+    });
+
+    it('should not fire off a visitedChange event when visited is updated directly', async () => {
+        // clear initial fire off of visitedChange
+        fixture.detectChanges();
+        await fixture.whenStable();
+        visitedChanged.calls.reset();
+
+        // emulate steps being complete
+        component.steps[0].visited = true;
+        component.steps[1].visited = true;
+        component.steps[2].visited = true;
+        component.steps[3].visited = true;
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        const calls = visitedChanged.calls.all();
+        expect(calls.length).toBe(0, 'calls.length');
     });
 });
