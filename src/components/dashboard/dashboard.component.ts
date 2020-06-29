@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, ContentChildren, ElementRef, EventEmitter, HostBinding, Input, OnDestroy, OnChanges, Output, QueryList, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, ContentChildren, ElementRef, EventEmitter, HostBinding, Input, OnDestroy, OnChanges, Output, QueryList, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { Subject } from 'rxjs';
 import { map, takeUntil, tap } from 'rxjs/operators';
 import { ResizeDimensions } from '../../directives/resize/resize.service';
@@ -47,10 +47,13 @@ export class DashboardComponent implements AfterViewInit, OnDestroy, OnChanges {
     /** Ensure we unsubscribe from all observables */
     private _onDestroy = new Subject<void>();
 
-    constructor(public dashboardService: DashboardService) {
+    constructor(public dashboardService: DashboardService, private readonly changeDetector: ChangeDetectorRef) {
 
         dashboardService.layout$.pipe(takeUntil(this._onDestroy), tap(() => this.ariaLabel = this.getAriaLabel()))
-            .subscribe(layout => this.layoutChange.emit(layout));
+            .subscribe(layout => {
+                this.layoutChange.emit(layout);
+                changeDetector.markForCheck();
+            });
 
         // subscribe to changes to the grab mode
         dashboardService.isGrabbing$.pipe(takeUntil(this._onDestroy), map(widget => !!widget))
