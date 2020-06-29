@@ -28,6 +28,9 @@ export class MarqueeWizardComponent extends WizardComponent implements OnInit, O
     /** If set to true the resizable splitter will be enabled and set to the default width **/
     @Input() resizable: boolean = false;
 
+    /** Whether to set `visited` to false on subsequent steps after a validation fault. */
+    @Input() resetVisitedOnValidationError: boolean = true;
+
     /** Emit the current width of the splitter*/
     @Output() sidePanelWidthChange = new EventEmitter<number>();
 

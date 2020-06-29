@@ -61,7 +61,7 @@ export class WizardStepComponent {
 
         // if the value is true then the step should also be marked as visited
         if (value === true) {
-            this.setVisited(true);
+            this.visited = true;
         }
 
         // mark for change detection

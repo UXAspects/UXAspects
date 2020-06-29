@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { ChangeDetectorRef, Component, OnDestroy, QueryList, ViewChildren } from '@angular/core';
 import {
     async,
@@ -67,6 +66,8 @@ export class MarqueeWizardComponent {
             contentStep: 'Content of second step'
         }
     ];
+
+    resetVisitedOnValidationError = true;
 
     /**
      * Close the modal and reset everything
@@ -288,7 +289,7 @@ interface WizardStep {
 }
 
 @Component({
-    selector: 'wizard-visited-change-test-app',
+    selector: 'marquee-wizard-validation-app',
     template: `
         <ux-marquee-wizard>
             <ux-marquee-wizard-step
@@ -332,29 +333,24 @@ class MarqueeWizardVisitedChangeTestComponent {
     stepsList: QueryList<MarqueeWizardStepComponent>;
 }
 
-describe('Marquee wizard with visitedChange event', () => {
+describe('Marquee wizard with validation', () => {
     let component: MarqueeWizardVisitedChangeTestComponent;
     let fixture: ComponentFixture<MarqueeWizardVisitedChangeTestComponent>;
     let nativeElement: HTMLElement;
     let visitedChanged: jasmine.Spy;
 
-    beforeEach(async(() => {
+    beforeEach(async () => {
         TestBed.configureTestingModule({
-            imports: [MarqueeWizardModule, CommonModule],
+            imports: [MarqueeWizardModule],
             declarations: [MarqueeWizardVisitedChangeTestComponent]
         }).compileComponents();
-    }));
+    });
 
-    beforeEach(async () => {
+    beforeEach(() => {
         fixture = TestBed.createComponent(MarqueeWizardVisitedChangeTestComponent);
         component = fixture.componentInstance;
         nativeElement = fixture.nativeElement;
-        visitedChanged = spyOn(component, 'visitedChanged');
-
         fixture.detectChanges();
-        await fixture.whenStable();
-        fixture.detectChanges();
-        await fixture.whenStable();
     });
 
     it('should trigger a visitedChange event when valid modified on the current step, when other steps ahead are visited', async () => {
@@ -375,18 +371,15 @@ describe('Marquee wizard with visitedChange event', () => {
         fixture.detectChanges();
         await fixture.whenStable();
 
-        visitedChanged.calls.reset();
-
         // set step 2 invalid
         component.steps[1].valid = false;
         fixture.detectChanges();
         await fixture.whenStable();
 
-        // get dump of all calls made to event
-        const calls = visitedChanged.calls.all();
-
         // get all steps from view child list
         const stepsList = component.stepsList.toArray();
+
+        const calls = visitedChanged.calls.all();
 
         // step 1 should be valid and visited
         expect(stepsList[0].valid).toBe(true, 'stepsList[0].valid');

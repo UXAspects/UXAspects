@@ -2,7 +2,7 @@ import { Component, ContentChild, ContentChildren, EventEmitter, Input, OnDestro
 import { Subject } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
 import { tick } from '../../common/index';
-import { MarqueeWizardStepComponent } from '../marquee-wizard/marquee-wizard-step.component';
+import { MarqueeWizardStepComponent } from '../marquee-wizard';
 import { WizardStepComponent } from './wizard-step.component';
 import { WizardService, WizardValidEvent } from './wizard.service';
 
@@ -141,7 +141,7 @@ export class WizardComponent implements OnInit, OnDestroy {
             this.update();
 
             // emit the change event
-            this.stepChange.emit(this.step);
+            this.stepChange.next(this.step);
 
             // reset the invalid state
             this.invalidIndicator = false;
@@ -181,7 +181,7 @@ export class WizardComponent implements OnInit, OnDestroy {
      */
     async next(): Promise<void> {
 
-        this.stepChanging.emit(new StepChangingEvent(this.step, this.step + 1));
+        this.stepChanging.next(new StepChangingEvent(this.step, this.step + 1));
 
         const step = this.getCurrentStep();
 
@@ -200,8 +200,7 @@ export class WizardComponent implements OnInit, OnDestroy {
         // check if current step is invalid
         if (!step.valid) {
             this.invalidIndicator = true;
-            this.stepError.emit(this.step);
-            this.setNextStepsUnvisited(this.steps[this.step]);
+            this.stepError.next(this.step);
             return;
         }
 
@@ -210,7 +209,7 @@ export class WizardComponent implements OnInit, OnDestroy {
             this.step++;
 
             // emit the current step
-            this.onNext.emit(this.step);
+            this.onNext.next(this.step);
         }
     }
 
@@ -237,14 +236,14 @@ export class WizardComponent implements OnInit, OnDestroy {
      */
     previous(): void {
 
-        this.stepChanging.emit(new StepChangingEvent(this.step, this.step - 1));
+        this.stepChanging.next(new StepChangingEvent(this.step, this.step - 1));
 
         // check if we are currently on the last step
         if (this.step > 0) {
             this.step--;
 
             // emit the current step
-            this.onPrevious.emit(this.step);
+            this.onPrevious.next(this.step);
         }
     }
 
@@ -254,7 +253,7 @@ export class WizardComponent implements OnInit, OnDestroy {
     async finish(): Promise<void> {
 
         // fires when the finish button is clicked always
-        this.onFinishing.emit();
+        this.onFinishing.next();
 
         // Disable the button while waiting on validation
         this.finishDisabled = true;
@@ -281,7 +280,7 @@ export class WizardComponent implements OnInit, OnDestroy {
                 if (this.getCurrentStep().valid) {
                     this.onFinish.emit();
                 } else {
-                    this.stepError.emit(this.step);
+                    this.stepError.next(this.step);
                 }
 
                 resolve();
@@ -293,7 +292,7 @@ export class WizardComponent implements OnInit, OnDestroy {
      * Perform actions when the cancel button is clicked
      */
     cancel(): void {
-        this.onCancel.emit();
+        this.onCancel.next();
     }
 
     /**
@@ -312,7 +311,7 @@ export class WizardComponent implements OnInit, OnDestroy {
 
             const stepIndex = this.steps.toArray().findIndex(stp => stp === step);
 
-            this.stepChanging.emit(new StepChangingEvent(this.step, stepIndex));
+            this.stepChanging.next(new StepChangingEvent(this.step, stepIndex));
 
             this.step = stepIndex;
         }
