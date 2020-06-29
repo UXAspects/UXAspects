@@ -1,4 +1,4 @@
-import { browser, by, element, ElementFinder } from 'protractor';
+import { browser, by, element, ElementFinder, protractor } from 'protractor';
 
 export class VirtualScrollPage {
 
@@ -71,5 +71,10 @@ export class VirtualScrollPage {
     // scrollbar
     async scrollToEnd() {
         await browser.executeScript('arguments[0].scrollTop = 2000000', this.container);
+    }
+
+    async waitForLastVisibleEmployeeId(expectedContent: string): Promise<unknown> {
+        const lastEmployeeId = this.getLastVisibleEmployee().$('div.employee-id');
+        return browser.wait(protractor.ExpectedConditions.textToBePresentInElement(lastEmployeeId, expectedContent), 1000);
     }
 }
