@@ -52,7 +52,6 @@ export class MarqueeWizardComponent extends WizardComponent implements OnDestroy
                 private _elementRef: ElementRef<HTMLElement>
     ) {
         super(wizardService);
-        console.log('initialised', this._isInitialised);
 
         // watch for changes to the size
         _resizeService.addResizeListener(this._elementRef.nativeElement)
