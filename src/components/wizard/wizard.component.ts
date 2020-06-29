@@ -2,7 +2,6 @@ import { Component, ContentChild, ContentChildren, EventEmitter, Input, OnDestro
 import { Subject } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
 import { tick } from '../../common/index';
-import { MarqueeWizardStepComponent } from '../marquee-wizard';
 import { WizardStepComponent } from './wizard-step.component';
 import { WizardService, WizardValidEvent } from './wizard.service';
 let uniqueId: number = 0;
@@ -150,12 +149,12 @@ export class WizardComponent implements OnInit, OnDestroy {
     private _step: number = 0;
     protected _onDestroy = new Subject<void>();
 
-    constructor(protected _wizardService: WizardService<WizardStepComponent | MarqueeWizardStepComponent>) {
+    constructor(protected _wizardService: WizardService<WizardStepComponent>) {
         // watch for changes to valid subject
         this._wizardService.valid$.pipe(
-            filter((event: WizardValidEvent<WizardStepComponent | MarqueeWizardStepComponent>) => !event.valid)
+            filter((event: WizardValidEvent<WizardStepComponent>) => !event.valid)
         )
-        .subscribe((event: WizardValidEvent<WizardStepComponent | MarqueeWizardStepComponent>) => {
+        .subscribe((event: WizardValidEvent<WizardStepComponent>) => {
             this.setNextStepsUnvisited();
         });
     }
@@ -305,7 +304,7 @@ export class WizardComponent implements OnInit, OnDestroy {
     /**
      * Jump to a specific step only if the step has previously been visited
      */
-    gotoStep(step: WizardStepComponent | MarqueeWizardStepComponent): void {
+    gotoStep(step: WizardStepComponent): void {
         if (step.visited) {
 
             const stepIndex = this.steps.toArray().findIndex(stp => stp === step);
