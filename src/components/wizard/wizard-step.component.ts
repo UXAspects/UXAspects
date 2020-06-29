@@ -1,5 +1,7 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, HostBinding, Input, Output, Renderer2, NgZone } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, Output } from '@angular/core';
+import { WizardStep } from './wizard-step';
 import { WizardService } from './wizard.service';
+
 
 @Component({
     selector: 'ux-wizard-step',
@@ -9,7 +11,7 @@ import { WizardService } from './wizard.service';
         'role': 'tabpanel'
     }
 })
-export class WizardStepComponent {
+export class WizardStepComponent implements WizardStep {
 
     /** The text to be displayed in the wizard step tab. */
     @Input() header: string;

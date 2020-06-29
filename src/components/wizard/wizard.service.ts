@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
-import { MarqueeWizardStepComponent } from '../marquee-wizard/marquee-wizard-step.component';
-import { WizardStepComponent } from './wizard-step.component';
+import { WizardStep } from './wizard-step';
 
 /**
  * This service is required to provide a form of communication
@@ -11,19 +10,10 @@ import { WizardStepComponent } from './wizard-step.component';
  */
 @Injectable()
 export class WizardService {
-    valid$ = new Subject<WizardValidEvent | MarqueeWizardValidEvent>();
-
-    resetValid(): void {
-        this.valid$ = new Subject<WizardValidEvent | MarqueeWizardValidEvent>();
-    }
+    valid$ = new Subject<WizardValidEvent>();
 }
 
 export interface WizardValidEvent {
-    step: WizardStepComponent;
-    valid: boolean;
-}
-
-export interface MarqueeWizardValidEvent {
-    step: MarqueeWizardStepComponent;
+    step: WizardStep;
     valid: boolean;
 }

@@ -2,10 +2,9 @@ import { Component, ContentChild, ContentChildren, EventEmitter, Input, OnDestro
 import { Subject } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
 import { tick } from '../../common/index';
-import { MarqueeWizardStepComponent } from '../marquee-wizard';
+import { WizardStep } from './wizard-step';
 import { WizardStepComponent } from './wizard-step.component';
 import { WizardService, WizardValidEvent } from './wizard.service';
-
 let uniqueId: number = 0;
 
 @Component({
@@ -354,13 +353,13 @@ export class WizardComponent implements OnInit, OnDestroy {
      * If a step in the wizard becomes invalid, all steps sequentially after
      * it, should become unvisited and incomplete
      */
-    protected setNextStepsUnvisited(currentStep: WizardStepComponent | MarqueeWizardStepComponent): void {
+    protected setNextStepsUnvisited(currentStep: WizardStep): void {
         const steps = this.steps.toArray();
-        const affected = steps.slice(this.step);
+        const affected: WizardStep[] = steps.slice(this.step);
 
         affected.forEach(step => {
-            if (step instanceof MarqueeWizardStepComponent) {
-                (step as MarqueeWizardStepComponent).completed = false;
+            if (step.completed) {
+                step.completed = false;
             }
 
             // if the step is not the current step then also mark it as unvisited

@@ -289,7 +289,7 @@ interface WizardStep {
 }
 
 @Component({
-    selector: 'marquee-wizard-validation-app',
+    selector: 'marquee-wizard-visited-changed-app',
     template: `
         <ux-marquee-wizard>
             <ux-marquee-wizard-step
@@ -333,7 +333,7 @@ class MarqueeWizardVisitedChangeTestComponent {
     stepsList: QueryList<MarqueeWizardStepComponent>;
 }
 
-describe('Marquee wizard with validation', () => {
+describe('Marquee wizard with visitedChange event', () => {
     let component: MarqueeWizardVisitedChangeTestComponent;
     let fixture: ComponentFixture<MarqueeWizardVisitedChangeTestComponent>;
     let nativeElement: HTMLElement;
@@ -350,6 +350,7 @@ describe('Marquee wizard with validation', () => {
         fixture = TestBed.createComponent(MarqueeWizardVisitedChangeTestComponent);
         component = fixture.componentInstance;
         nativeElement = fixture.nativeElement;
+        visitedChanged = spyOn(fixture.componentInstance, 'visitedChanged');
         fixture.detectChanges();
     });
 

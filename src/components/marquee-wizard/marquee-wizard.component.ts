@@ -1,8 +1,7 @@
-import { Component, ContentChildren, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, QueryList, TemplateRef } from '@angular/core';
-import { filter, takeUntil } from 'rxjs/operators';
+import { Component, ContentChildren, ElementRef, EventEmitter, Input, OnDestroy, Output, QueryList, TemplateRef } from '@angular/core';
+import { takeUntil } from 'rxjs/operators';
 import { ResizeDimensions, ResizeService } from '../../directives/resize/index';
-import { WizardComponent } from '../wizard/index';
-import { MarqueeWizardValidEvent, WizardService } from '../wizard/wizard.service';
+import { WizardComponent, WizardService } from '../wizard/index';
 import { MarqueeWizardStepComponent } from './marquee-wizard-step.component';
 
 @Component({
@@ -11,7 +10,7 @@ import { MarqueeWizardStepComponent } from './marquee-wizard-step.component';
     providers: [WizardService],
     preserveWhitespaces: false
 })
-export class MarqueeWizardComponent extends WizardComponent implements OnInit, OnDestroy {
+export class MarqueeWizardComponent extends WizardComponent implements OnDestroy {
 
     /** Provide a custom template for the description in the left panel */
     @Input() description: string | TemplateRef<any>;
@@ -53,11 +52,12 @@ export class MarqueeWizardComponent extends WizardComponent implements OnInit, O
                 private _elementRef: ElementRef<HTMLElement>
     ) {
         super(wizardService);
+        console.log('initialised', this._isInitialised);
 
         // watch for changes to the size
-        this._resizeService.addResizeListener(this._elementRef.nativeElement)
+        _resizeService.addResizeListener(this._elementRef.nativeElement)
             .pipe(takeUntil(this._onDestroy))
-            .subscribe(this.onResize);
+            .subscribe(this.onResize.bind(this));
     }
 
     ngOnDestroy(): void {
