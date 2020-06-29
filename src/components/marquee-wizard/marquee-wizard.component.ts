@@ -47,7 +47,7 @@ export class MarqueeWizardComponent extends WizardComponent implements OnDestroy
         return this.description && this.description instanceof TemplateRef;
     }
 
-    constructor(protected wizardService: WizardService,
+    constructor(wizardService: WizardService<MarqueeWizardStepComponent>,
                 private _resizeService: ResizeService,
                 private _elementRef: ElementRef<HTMLElement>
     ) {
@@ -113,6 +113,21 @@ export class MarqueeWizardComponent extends WizardComponent implements OnDestroy
         // we need to only get the size of the first panel which will be the side panel
         this.sidePanelWidth = sizes[0];
         this.sidePanelWidthChange.emit(this.sidePanelWidth);
+    }
+
+    protected setNextStepsUnvisited(): void {
+        super.setNextStepsUnvisited();
+
+        // Marquee wizard steps have an additional completed property which must also be changed.
+        // The base class implementation only changes the visited state
+        this.getFutureSteps().forEach((step: MarqueeWizardStepComponent) => {
+            step.completed = false;
+
+            // if the step is not the current step then also mark it as unvisited
+            if (this.resetVisitedOnValidationError && step !== this.getCurrentStep()) {
+                step.visited = false;
+            }
+        });
     }
 }
 

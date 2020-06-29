@@ -2,7 +2,7 @@ import { Component, ContentChild, ContentChildren, EventEmitter, Input, OnDestro
 import { Subject } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
 import { tick } from '../../common/index';
-import { WizardStep } from './wizard-step';
+import { MarqueeWizardStepComponent } from '../marquee-wizard';
 import { WizardStepComponent } from './wizard-step.component';
 import { WizardService, WizardValidEvent } from './wizard.service';
 let uniqueId: number = 0;
@@ -150,13 +150,13 @@ export class WizardComponent implements OnInit, OnDestroy {
     private _step: number = 0;
     protected _onDestroy = new Subject<void>();
 
-    constructor(protected _wizardService: WizardService) {
+    constructor(protected _wizardService: WizardService<WizardStepComponent | MarqueeWizardStepComponent>) {
         // watch for changes to valid subject
         this._wizardService.valid$.pipe(
-            filter((event: WizardValidEvent) => !event.valid)
+            filter((event: WizardValidEvent<WizardStepComponent | MarqueeWizardStepComponent>) => !event.valid)
         )
-        .subscribe((event: WizardValidEvent) => {
-            this.setNextStepsUnvisited(event.step);
+        .subscribe((event: WizardValidEvent<WizardStepComponent | MarqueeWizardStepComponent>) => {
+            this.setNextStepsUnvisited();
         });
     }
 
@@ -305,7 +305,7 @@ export class WizardComponent implements OnInit, OnDestroy {
     /**
      * Jump to a specific step only if the step has previously been visited
      */
-    gotoStep(step: WizardStepComponent): void {
+    gotoStep(step: WizardStepComponent | MarqueeWizardStepComponent): void {
         if (step.visited) {
 
             const stepIndex = this.steps.toArray().findIndex(stp => stp === step);
@@ -353,20 +353,20 @@ export class WizardComponent implements OnInit, OnDestroy {
      * If a step in the wizard becomes invalid, all steps sequentially after
      * it, should become unvisited and incomplete
      */
-    protected setNextStepsUnvisited(currentStep: WizardStep): void {
-        const steps = this.steps.toArray();
-        const affected: WizardStep[] = steps.slice(this.step);
-
-        affected.forEach(step => {
-            if (step.completed) {
-                step.completed = false;
-            }
-
+    protected setNextStepsUnvisited(): void {
+        this.getFutureSteps().forEach(step => {
             // if the step is not the current step then also mark it as unvisited
-            if (step.visited && step !== currentStep) {
+            if (step.visited && step !== this.getCurrentStep()) {
                 step.setVisited(false);
             }
         });
+    }
+
+    /**
+     * Get the steps ahead of the currently active steps
+     */
+    protected getFutureSteps(): WizardStepComponent[] {
+        return this.steps.toArray().slice(this.step);
     }
 
 

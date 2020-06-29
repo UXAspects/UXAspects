@@ -289,7 +289,7 @@ interface WizardStep {
 }
 
 @Component({
-    selector: 'marquee-wizard-visited-changed-app',
+    selector: 'marquee-wizard-validation-app',
     template: `
         <ux-marquee-wizard>
             <ux-marquee-wizard-step

@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, Output } from '@angular/core';
-import { WizardStep } from './wizard-step';
 import { WizardService } from './wizard.service';
 
 
@@ -11,7 +10,7 @@ import { WizardService } from './wizard.service';
         'role': 'tabpanel'
     }
 })
-export class WizardStepComponent implements WizardStep {
+export class WizardStepComponent {
 
     /** The text to be displayed in the wizard step tab. */
     @Input() header: string;
@@ -78,7 +77,7 @@ export class WizardStepComponent implements WizardStep {
     }
 
     constructor(
-        private readonly _wizardService: WizardService,
+        private readonly _wizardService: WizardService<WizardStepComponent>,
         private readonly _changeDetector: ChangeDetectorRef) { }
 
     setVisited(value: boolean): void {

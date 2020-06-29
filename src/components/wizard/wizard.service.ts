@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
-import { WizardStep } from './wizard-step';
 
 /**
  * This service is required to provide a form of communication
@@ -9,11 +8,11 @@ import { WizardStep } from './wizard-step';
  * rather than view children.
  */
 @Injectable()
-export class WizardService {
-    valid$ = new Subject<WizardValidEvent>();
+export class WizardService<TWizardStep> {
+    valid$ = new Subject<WizardValidEvent<TWizardStep>>();
 }
 
-export interface WizardValidEvent {
-    step: WizardStep;
+export interface WizardValidEvent<TWizardStep> {
+    step: TWizardStep;
     valid: boolean;
 }
