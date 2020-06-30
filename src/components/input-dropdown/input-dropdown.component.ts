@@ -2,7 +2,7 @@ import { coerceCssPixelValue } from '@angular/cdk/coercion';
 import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ElementRef, EventEmitter, forwardRef, Input, OnChanges, OnDestroy, Output, SimpleChanges, TemplateRef, ViewChild } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Subject } from 'rxjs';
-import { MenuTriggerDirective } from '../menu/menu-trigger/menu-trigger.directive';
+import { MenuTriggerDirective } from '../menu';
 
 @Component({
     selector: 'ux-input-dropdown',
@@ -115,7 +115,7 @@ export class InputDropdownComponent<T> implements ControlValueAccessor, AfterVie
     resetFilter(): void {
         this.filter = '';
         this.filterChange.emit(this.filter);
-        this.filterInputElement.nativeElement.focus();
+        this._focusFilter();
     }
 
     registerOnChange(onChange: (value: T) => void): void {
