@@ -152,6 +152,7 @@ export class WizardComponent implements OnInit, OnDestroy {
     constructor(protected _wizardService: WizardService<WizardStepComponent>) {
         // watch for changes to valid subject
         this._wizardService.valid$.pipe(
+            takeUntil(this._onDestroy),
             filter((event: WizardValidEvent<WizardStepComponent>) => !event.valid)
         )
         .subscribe((event: WizardValidEvent<WizardStepComponent>) => {
