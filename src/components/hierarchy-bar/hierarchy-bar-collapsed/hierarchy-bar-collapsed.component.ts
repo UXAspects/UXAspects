@@ -1,7 +1,6 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, OnDestroy, Renderer2, ViewChild, Input } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Input, OnDestroy, Renderer2, ViewChild } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { tick } from '../../../common/operators/index';
 import { ResizeService } from '../../../directives/resize/index';
 import { HierarchyBarService } from '../hierarchy-bar.service';
 import { HierarchyBarNodeChildren } from '../interfaces/hierarchy-bar-node-children.interface';
@@ -18,14 +17,10 @@ export class HierarchyBarCollapsedComponent implements AfterViewInit, OnDestroy 
     @Input() readonly: boolean;
 
     /** Get the first node to display */
-    get _first(): HierarchyBarNode {
-        return this._nodes[0];
-    }
+    _first: HierarchyBarNode;
 
     /** Get the last node to display */
-    get _last(): HierarchyBarNode {
-        return this._nodes[this._nodes.length - 1];
-    }
+    _last: HierarchyBarNode;
 
     /** Get all the sibling nodes */
     get _siblings(): Observable<HierarchyBarNodeChildren> {
@@ -55,12 +50,13 @@ export class HierarchyBarCollapsedComponent implements AfterViewInit, OnDestroy 
         /** Access the resize service to watch for changes to the host element */
         private _resizeService: ResizeService,
         /** Access the host elementRef */
-        private _elementRef: ElementRef
+        private _elementRef: ElementRef,
+        private _changeDetector: ChangeDetectorRef
     ) { }
 
     ngAfterViewInit(): void {
-        // check for overflow when the selected nodes change
-        this.hierarchyBar.nodes$.pipe(takeUntil(this._onDestroy), tick()).subscribe(() => this.updateOverflow());
+        // Update the UI when the selected nodes change
+        this.hierarchyBar.nodes$.pipe(takeUntil(this._onDestroy)).subscribe(this._update.bind(this));
 
         // watch for the host element size changing
         this._resizeService.addResizeListener(this._elementRef.nativeElement).pipe(takeUntil(this._onDestroy))
@@ -73,6 +69,14 @@ export class HierarchyBarCollapsedComponent implements AfterViewInit, OnDestroy 
 
         // remove the resize event listener
         this._resizeService.removeResizeListener(this._elementRef.nativeElement);
+    }
+
+    private _update(nodes: HierarchyBarNode[]): void {
+        this._first = nodes[0];
+        this._last = nodes.length > 1 ? nodes[nodes.length - 1] : null;
+        this.updateOverflow();
+
+        this._changeDetector.detectChanges();
     }
 
     updateOverflow(): void {

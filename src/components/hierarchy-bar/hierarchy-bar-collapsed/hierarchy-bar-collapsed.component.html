@@ -6,6 +6,7 @@
 <div #nodes class="hierarchy-bar-nodes">
 
     <ux-hierarchy-bar-node
+        *ngIf="_first"
         [readonly]="readonly"
         [popoverTemplate]="content"
         [node]="_first"
@@ -41,7 +42,7 @@
 
 
     <ux-hierarchy-bar-node
-        *ngIf="_last !== _first"
+        *ngIf="_last"
         [readonly]="readonly"
         [popoverTemplate]="content"
         [node]="_last"
