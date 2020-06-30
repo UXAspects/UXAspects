@@ -51,7 +51,7 @@
                 uxFocusIndicator
                 [programmaticFocusIndicator]="true"
                 uxTabbableListItem
-                [disabled]="index !== 0 && !step.visited"
+                [disabled]="!step.visited"
                 (click)="gotoStep(step)"
                 (keydown.enter)="gotoStep(step)">
 
