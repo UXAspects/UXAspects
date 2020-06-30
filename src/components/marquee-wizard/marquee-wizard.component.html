@@ -1,7 +1,7 @@
 <ng-container *ngIf="resizable && _isInitialised">
     <as-split direction="horizontal"
-           [gutterSize]="gutterSize"
-           (dragEnd)="onDragEnd($event)">
+              [gutterSize]="gutterSize"
+              (dragEnd)="onDragEnd($event)">
         <as-split-area [size]="sidePanelWidth">
             <ng-container [ngTemplateOutlet]="sidePanel"></ng-container>
         </as-split-area>
@@ -23,7 +23,7 @@
             <!-- If a template was provided display it -->
             <ng-container *ngIf="isTemplate" [ngTemplateOutlet]="description"></ng-container>
 
-            <!-- Otherwise wimply display the string -->
+            <!-- Otherwise simply display the string -->
             <ng-container *ngIf="!isTemplate">
                 <p>{{ description }}</p>
             </ng-container>
@@ -55,7 +55,8 @@
                 (click)="gotoStep(step)"
                 (keydown.enter)="gotoStep(step)">
 
-                <ng-container [ngTemplateOutlet]="stepTemplate || defaultStepTemplate" [ngTemplateOutletContext]="{ $implicit: step }"></ng-container>
+                <ng-container [ngTemplateOutlet]="stepTemplate || defaultStepTemplate"
+                              [ngTemplateOutletContext]="{ $implicit: step }"></ng-container>
             </li>
 
         </ul>

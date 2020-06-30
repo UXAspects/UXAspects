@@ -4,6 +4,7 @@ import { filter, takeUntil } from 'rxjs/operators';
 import { tick } from '../../common/index';
 import { WizardStepComponent } from './wizard-step.component';
 import { WizardService, WizardValidEvent } from './wizard.service';
+
 let uniqueId: number = 0;
 
 @Component({
@@ -88,6 +89,9 @@ export class WizardComponent implements OnInit, OnDestroy {
     /** If set to `true` the 'Next' or 'Finish' button will become disabled when the current step is invalid. */
     @Input() disableNextWhenInvalid: boolean = false;
 
+    /** Whether to set `visited` to false on subsequent steps after a validation fault. */
+    @Input() resetVisitedOnValidationError: boolean = true;
+
     /** Emits when the wizard has moved to the next step. It will receive the current step index as a parameter. */
     @Output() onNext = new EventEmitter<number>();
 
@@ -116,17 +120,18 @@ export class WizardComponent implements OnInit, OnDestroy {
 
     @ContentChild('footerTemplate', { static: false }) footerTemplate: TemplateRef<WizardFooterContext>;
 
-    id: string = `ux-wizard-${uniqueId++}`;
+    id: string = `ux-wizard-${ uniqueId++ }`;
     invalidIndicator: boolean = false;
 
     /**
      * The current active step. When the step changes an event will be emitted containing the index of the newly active step.
-     * If this is not specifed the wizard will start on the first step.
+     * If this is not specified the wizard will start on the first step.
      */
     @Input()
     get step() {
         return this._step;
     }
+
     set step(value: number) {
 
         // only accept numbers as valid options
@@ -147,17 +152,9 @@ export class WizardComponent implements OnInit, OnDestroy {
     }
 
     private _step: number = 0;
-    protected _onDestroy = new Subject<void>();
+    protected readonly _onDestroy = new Subject<void>();
 
-    constructor(protected _wizardService: WizardService<WizardStepComponent>) {
-        // watch for changes to valid subject
-        this._wizardService.valid$.pipe(
-            filter((event: WizardValidEvent<WizardStepComponent>) => !event.valid),
-            takeUntil(this._onDestroy)
-        )
-        .subscribe((event: WizardValidEvent<WizardStepComponent>) => {
-            this.setNextStepsUnvisited();
-        });
+    constructor(protected readonly _wizardService: WizardService<WizardStepComponent>) {
     }
 
     ngOnInit(): void {
@@ -165,10 +162,15 @@ export class WizardComponent implements OnInit, OnDestroy {
         setTimeout(this.update.bind(this));
 
         // if the steps change then update the ids
-        this.steps.changes.pipe(tick(), takeUntil(this._onDestroy)).subscribe(() => {
-            this.update();
-        });
+        this.steps.changes.pipe(tick(), takeUntil(this._onDestroy)).subscribe(() => this.update());
+
+        // watch for changes to valid subject
+        this._wizardService.valid$.pipe(
+            filter((event: WizardValidEvent<WizardStepComponent>) => !event.valid),
+            takeUntil(this._onDestroy)
+        ).subscribe(() => this.setNextStepsUnvisited());
     }
+
 
     ngOnDestroy(): void {
         this._onDestroy.next();
@@ -212,9 +214,9 @@ export class WizardComponent implements OnInit, OnDestroy {
         }
     }
 
-     /**
-      * Whether the Next or Finish button should be disabled.
-      */
+    /**
+     * Whether the Next or Finish button should be disabled.
+     */
     isNextDisabled(): boolean {
         const step = this.getCurrentStep();
 
@@ -354,6 +356,11 @@ export class WizardComponent implements OnInit, OnDestroy {
      * it, should become unvisited and incomplete
      */
     protected setNextStepsUnvisited(): void {
+
+        if (!this.resetVisitedOnValidationError) {
+            return;
+        }
+
         this.getFutureSteps().forEach(step => {
             // if the step is not the current step then also mark it as unvisited
             if (step.visited && step !== this.getCurrentStep()) {
@@ -369,13 +376,12 @@ export class WizardComponent implements OnInit, OnDestroy {
         return this.steps.toArray().slice(this.step);
     }
 
-
     /**
      * Returns the valid status of the current step, including the `validation` function (if provided).
      */
     private isStepValid(): boolean | Promise<boolean> {
 
-        // get the current activer step
+        // get the current active step
         const currentStep = this.getCurrentStep();
 
         // if there is no validator then return the valid state
@@ -389,7 +395,8 @@ export class WizardComponent implements OnInit, OnDestroy {
 }
 
 export class StepChangingEvent {
-    constructor(public from: number, public to: number) { }
+    constructor(public from: number, public to: number) {
+    }
 }
 
 export interface WizardFooterContext {

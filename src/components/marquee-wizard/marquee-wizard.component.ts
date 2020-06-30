@@ -1,4 +1,4 @@
-import { Component, ContentChildren, ElementRef, EventEmitter, Input, OnDestroy, Output, QueryList, TemplateRef, ChangeDetectorRef } from '@angular/core';
+import { ChangeDetectorRef, Component, ContentChildren, ElementRef, EventEmitter, Input, OnDestroy, Output, QueryList, TemplateRef } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
 import { ResizeDimensions, ResizeService } from '../../directives/resize/index';
 import { WizardComponent, WizardService } from '../wizard/index';
@@ -27,9 +27,6 @@ export class MarqueeWizardComponent extends WizardComponent implements OnDestroy
     /** If set to true the resizable splitter will be enabled and set to the default width **/
     @Input() resizable: boolean = false;
 
-    /** Whether to set `visited` to false on subsequent steps after a validation fault. */
-    @Input() resetVisitedOnValidationError: boolean = true;
-
     /** Emit the current width of the splitter*/
     @Output() sidePanelWidthChange = new EventEmitter<number>();
 
@@ -47,10 +44,10 @@ export class MarqueeWizardComponent extends WizardComponent implements OnDestroy
         return this.description && this.description instanceof TemplateRef;
     }
 
-    constructor(wizardService: WizardService<MarqueeWizardStepComponent>,
-                private _changeDetector: ChangeDetectorRef,
-                private _resizeService: ResizeService,
-                private _elementRef: ElementRef<HTMLElement>
+    constructor(readonly wizardService: WizardService<MarqueeWizardStepComponent>,
+                private readonly _changeDetector: ChangeDetectorRef,
+                private readonly _resizeService: ResizeService,
+                private readonly _elementRef: ElementRef<HTMLElement>
     ) {
         super(wizardService);
 
@@ -118,16 +115,10 @@ export class MarqueeWizardComponent extends WizardComponent implements OnDestroy
 
     protected setNextStepsUnvisited(): void {
         super.setNextStepsUnvisited();
+
         // Marquee wizard steps have an additional completed property which must also be changed.
         // The base class implementation only changes the visited state
-        this.getFutureSteps().forEach((step: MarqueeWizardStepComponent) => {
-            step.completed = false;
-
-            // if the step is not the current step then also mark it as unvisited
-            if (this.resetVisitedOnValidationError && step !== this.getCurrentStep()) {
-                step.setVisited(false);
-            }
-        });
+        this.getFutureSteps().forEach((step: MarqueeWizardStepComponent) => step.completed = false);
     }
 }
 

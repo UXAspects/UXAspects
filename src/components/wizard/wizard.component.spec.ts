@@ -1,12 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, QueryList, ViewChildren } from '@angular/core';
-import {
-    async,
-    ComponentFixture,
-    fakeAsync,
-    TestBed,
-    tick
-} from '@angular/core/testing';
+import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { WizardStepComponent } from './wizard-step.component';
 import { StepChangingEvent } from './wizard.component';
 import { WizardModule } from './wizard.module';
@@ -39,11 +33,20 @@ export class WizardAsyncValidationTestComponent {
     firstStepValidator: () => boolean | Promise<boolean>;
     lastStepValidator: () => boolean | Promise<boolean>;
 
-    stepChanging(_: StepChangingEvent) {}
-    stepChange(_: number) {}
-    onNext(_: number) {}
-    onFinishing() {}
-    onFinish() {}
+    stepChanging(_: StepChangingEvent) {
+    }
+
+    stepChange(_: number) {
+    }
+
+    onNext(_: number) {
+    }
+
+    onFinishing() {
+    }
+
+    onFinish() {
+    }
 }
 
 describe('Wizard with validator', () => {
@@ -266,10 +269,10 @@ interface WizardStep {
     template: `
         <ux-wizard>
             <ux-wizard-step *ngFor="let step of steps; let index = index"
-                [header]="step.header"
-                [(valid)]="step.valid"
-                [(visited)]="step.visited"
-                (visitedChange)="visitedChanged(index, $event)"
+                            [header]="step.header"
+                            [valid]="step.valid"
+                            [(visited)]="step.visited"
+                            (visitedChange)="visitedChanged(index, $event)"
             >
                 <p>{{ step.content }}</p>
             </ux-wizard-step>
@@ -299,7 +302,9 @@ class WizardVisitedChangeTestComponent {
             valid: true
         }
     ];
-    visitedChanged(index: number, value: boolean) { }
+
+    visitedChanged(index: number, value: boolean): void {
+    }
 
     @ViewChildren(WizardStepComponent)
     stepsList: QueryList<WizardStepComponent>;
@@ -363,18 +368,17 @@ describe('Wizard with visitedChange event', () => {
 
         // step 2 should be invalid and not visited
         expect(stepsList[1].valid).toBe(false, 'stepsList[1].valid');
-        expect(stepsList[1].visited).toBe(false, 'stepsList[1].visited');
-        expect(calls[0].args).toEqual([1, false]);
+        expect(stepsList[1].visited).toBe(true, 'stepsList[1].visited');
 
         // step 3 should be valid and not visited
         expect(stepsList[2].valid).toBe(true, 'stepsList[2].valid');
         expect(stepsList[2].visited).toBe(false, 'stepsList[2].visited');
-        expect(calls[1].args).toEqual([2, false]);
+        expect(calls[0].args).toEqual([2, false]);
 
         // step 4 should have valid undefined (not set yet) and not visited
         expect(stepsList[3].valid).toBe(true, 'stepsList[3].valid');
         expect(stepsList[3].visited).toBe(false, 'stepsList[3].visited');
-        expect(calls[2].args).toEqual([3, false]);
+        expect(calls[1].args).toEqual([3, false]);
     });
 
     it('should not fire off a visitedChange event when visited is updated directly', async () => {

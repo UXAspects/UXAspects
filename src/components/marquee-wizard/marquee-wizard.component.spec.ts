@@ -1,11 +1,5 @@
 import { ChangeDetectorRef, Component, OnDestroy, QueryList, ViewChildren } from '@angular/core';
-import {
-    async,
-    ComponentFixture,
-    fakeAsync,
-    TestBed,
-    tick
-} from '@angular/core/testing';
+import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { MarqueeWizardStepComponent } from './marquee-wizard-step.component';
 import { MarqueeWizardModule } from './marquee-wizard.module';
 
@@ -20,7 +14,7 @@ interface WizardStep {
 }
 
 /**
- * Test navigation and steps dipslay correctly
+ * Test navigation and steps display correctly
  **/
 @Component({
     selector: 'marquee-wizard-app',
@@ -78,8 +72,6 @@ export class MarqueeWizardComponent {
         }
     ];
 
-    resetVisitedOnValidationError = true;
-
     /**
      * Close the modal and reset everything
      */
@@ -122,7 +114,7 @@ describe('Marquee Wizard', () => {
     it('should generate an id for each step', () => {
         const steps = nativeElement.querySelectorAll('.marquee-wizard-step');
         steps.forEach((step, index) => {
-            expect(step.id).toMatch(`ux-wizard-[0-9]+-step-${index}-label`);
+            expect(step.id).toMatch(`ux-wizard-[0-9]+-step-${ index }-label`);
         });
     });
 
@@ -182,7 +174,7 @@ describe('Marquee Wizard', () => {
 })
 export class MarqueeWizardNgForComponent implements OnDestroy {
     step = 0;
-    steps = [];
+    steps: { title: string; content: string; }[] = [];
     valid: boolean = true;
     disableNextWhenInvalid: boolean;
     private _timeout: number;
@@ -298,17 +290,20 @@ describe('Marquee wizard with delayed step creation', () => {
     template: `
         <ux-marquee-wizard
             [(step)]="currentStep"
-            [resetVisitedOnValidationError]="resetVisitedOnValidationError"
-        >
+            [resetVisitedOnValidationError]="resetVisitedOnValidationError">
             <ux-marquee-wizard-step
-                [(valid)]="step1Valid"
+                header="Step One"
+                [valid]="step1Valid"
                 [(visited)]="step1Visited"
-                [(completed)]="step1Completed"
-            ></ux-marquee-wizard-step>
+                [(completed)]="step1Completed">
+                Step One Content
+            </ux-marquee-wizard-step>
             <ux-marquee-wizard-step
+                header="Step Two"
                 [(visited)]="step2Visited"
-                [(completed)]="step2Completed"
-            ></ux-marquee-wizard-step>
+                [(completed)]="step2Completed">
+                Step Two Content
+            </ux-marquee-wizard-step>
         </ux-marquee-wizard>
     `
 })
@@ -327,12 +322,12 @@ describe('Marquee wizard with validation', () => {
     let fixture: ComponentFixture<MarqueeWizardValidationComponent>;
     let nativeElement: HTMLElement;
 
-    beforeEach(async () => {
+    beforeEach(async(() => {
         TestBed.configureTestingModule({
             imports: [MarqueeWizardModule],
             declarations: [MarqueeWizardValidationComponent]
         }).compileComponents();
-    });
+    }));
 
     beforeEach(() => {
         fixture = TestBed.createComponent(MarqueeWizardValidationComponent);
@@ -408,7 +403,7 @@ describe('Marquee wizard with validation', () => {
             <ux-marquee-wizard-step
                 *ngFor="let step of steps; let index = index"
                 [header]="step.header"
-                [(valid)]="step.valid"
+                [valid]="step.valid"
                 [(visited)]="step.visited"
                 (visitedChange)="visitedChanged(index, $event)"
             >
@@ -440,7 +435,9 @@ class MarqueeWizardVisitedChangeTestComponent {
             valid: true
         },
     ];
-    visitedChanged(index: number, value: boolean) {}
+
+    visitedChanged(index: number, value: boolean): void {
+    }
 
     @ViewChildren(MarqueeWizardStepComponent)
     stepsList: QueryList<MarqueeWizardStepComponent>;
@@ -452,12 +449,12 @@ describe('Marquee wizard with visitedChange event', () => {
     let nativeElement: HTMLElement;
     let visitedChanged: jasmine.Spy;
 
-    beforeEach(async () => {
+    beforeEach(async(() => {
         TestBed.configureTestingModule({
             imports: [MarqueeWizardModule],
             declarations: [MarqueeWizardVisitedChangeTestComponent]
         }).compileComponents();
-    });
+    }));
 
     beforeEach(() => {
         fixture = TestBed.createComponent(MarqueeWizardVisitedChangeTestComponent);
@@ -502,21 +499,20 @@ describe('Marquee wizard with visitedChange event', () => {
 
         // step 2 should be invalid and not visited
         expect(stepsList[1].valid).toBe(false, 'stepsList[1].valid');
-        expect(stepsList[1].visited).toBe(false, 'stepsList[1].visited');
+        expect(stepsList[1].visited).toBe(true, 'stepsList[1].visited');
         expect(stepsList[1].completed).toBe(false, 'stepsList[1].completed');
-        expect(calls[0].args).toEqual([1, false]);
 
         // step 3 should be valid and not visited
         expect(stepsList[2].valid).toBe(true, 'stepsList[2].valid');
         expect(stepsList[2].visited).toBe(false, 'stepsList[2].visited');
         expect(stepsList[2].completed).toBe(false, 'stepsList[2].completed');
-        expect(calls[1].args).toEqual([2, false]);
+        expect(calls[0].args).toEqual([2, false]);
 
         // step 4 should have valid undefined (not set yet) and not visited
         expect(stepsList[3].valid).toBe(true, 'stepsList[3].valid');
         expect(stepsList[3].visited).toBe(false, 'stepsList[3].visited');
         expect(stepsList[3].completed).toBe(false, 'stepsList[3].completed');
-        expect(calls[2].args).toEqual([3, false]);
+        expect(calls[1].args).toEqual([3, false]);
     });
 
     it('should not fire off a visitedChange event when visited is updated directly', async () => {
