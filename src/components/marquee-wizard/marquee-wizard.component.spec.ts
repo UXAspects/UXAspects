@@ -283,7 +283,7 @@ describe('Marquee wizard with delayed step creation', () => {
 });
 
 /**
- * Test resetVisitedOnValidationError flag working as expected
+ * Test resetVisitedOnValidationError flag working as expected and visitedChange is hit when required.
  **/
 @Component({
     selector: 'marquee-wizard-validation-app',
@@ -295,14 +295,33 @@ describe('Marquee wizard with delayed step creation', () => {
                 header="Step One"
                 [valid]="step1Valid"
                 [(visited)]="step1Visited"
-                [(completed)]="step1Completed">
+                [(completed)]="step1Completed"
+                (visitedChange)="visitedChanged(0, $event)">
                 Step One Content
             </ux-marquee-wizard-step>
             <ux-marquee-wizard-step
                 header="Step Two"
+                [valid]="step2Valid"
                 [(visited)]="step2Visited"
-                [(completed)]="step2Completed">
+                [(completed)]="step2Completed"
+                (visitedChange)="visitedChanged(1, $event)">
                 Step Two Content
+            </ux-marquee-wizard-step>
+            <ux-marquee-wizard-step
+                header="Step Three"
+                [valid]="step3Valid"
+                [(visited)]="step3Visited"
+                [(completed)]="step3Completed"
+                (visitedChange)="visitedChanged(2, $event)">
+                Step Three Content
+            </ux-marquee-wizard-step>
+            <ux-marquee-wizard-step
+                header="Step Four"
+                [valid]="step4Valid"
+                [(visited)]="step4Visited"
+                [(completed)]="step4Completed"
+                (visitedChange)="visitedChanged(3, $event)">
+                Step Four Content
             </ux-marquee-wizard-step>
         </ux-marquee-wizard>
     `
@@ -310,11 +329,29 @@ describe('Marquee wizard with delayed step creation', () => {
 export class MarqueeWizardValidationComponent {
     currentStep: number;
     resetVisitedOnValidationError = true;
+
+    // step 1 values
     step1Valid = true;
     step1Visited: boolean;
     step1Completed: boolean;
+
+    // step 2 values
+    step2Valid: boolean = true;
     step2Visited: boolean;
     step2Completed: boolean;
+
+    // step 3 values
+    step3Valid: boolean = true;
+    step3Visited: boolean;
+    step3Completed: boolean;
+
+    // step 4 values
+    step4Valid: boolean = true;
+    step4Visited: boolean;
+    step4Completed: boolean;
+
+    visitedChanged(index: number, value: boolean): void {
+    }
 }
 
 describe('Marquee wizard with validation', () => {
@@ -340,7 +377,6 @@ describe('Marquee wizard with validation', () => {
         component.step1Visited = true;
         component.step2Visited = true;
         fixture.detectChanges();
-        await fixture.whenStable();
 
         expect(isStepValid(0)).toBe(true);
         expect(isStepValid(1)).toBe(true);
@@ -350,7 +386,6 @@ describe('Marquee wizard with validation', () => {
 
         component.step1Valid = false;
         fixture.detectChanges();
-        await fixture.whenStable();
 
         expect(isStepValid(0)).toBe(false);
         expect(isStepValid(1)).toBe(true);
@@ -381,6 +416,77 @@ describe('Marquee wizard with validation', () => {
         expect(isStepVisited(1)).toBe(true);
     });
 
+    describe('visitedChange event', () => {
+        let visitedChanged: jasmine.Spy;
+
+        beforeEach(() => {
+            visitedChanged = spyOn(fixture.componentInstance, 'visitedChanged');
+            fixture.detectChanges();
+        });
+
+        it('should trigger a visitedChange event when valid modified on the current step, and other steps ahead are visited', async () => {
+            // emulate steps all being visited and complete
+            component.step1Visited = true;
+            component.step1Completed = true;
+            component.step2Visited = true;
+            component.step2Completed = true;
+            component.step3Visited = true;
+            component.step3Completed = true;
+            component.step4Visited = true;
+            component.step4Completed = true;
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            // click next button to make second step active
+            await fixture.nativeElement.querySelector(NEXT_BUTTON_SELECTOR).click();
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            // set step 2 invalid
+            component.step2Valid = false;
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            const calls = visitedChanged.calls.all();
+
+            // step 1 should be valid and visited
+            expect(isStepValid(0)).toBe(true);
+            expect(isStepVisited(0)).toBe(true);
+
+            // step 2 should be invalid and visited
+            expect(isStepValid(1)).toBe(false);
+            expect(isStepVisited(1)).toBe(true);
+
+            // step 3 should be valid and not visited
+            expect(isStepValid(2)).toBe(true);
+            expect(isStepVisited(2)).toBe(false);
+            expect(calls[0].args).toEqual([2, false]);
+
+            // step 4 should be valid and not visited
+            expect(isStepValid(3)).toBe(true);
+            expect(isStepVisited(3)).toBe(false);
+            expect(calls[1].args).toEqual([3, false]);
+        });
+
+        it('should not fire off a visitedChange event when visited is updated directly', async () => {
+            // clear initial fire off of visitedChange
+            fixture.detectChanges();
+            await fixture.whenStable();
+            visitedChanged.calls.reset();
+
+            // emulate steps being complete
+            component.step1Visited = true;
+            component.step2Visited = true;
+            component.step3Visited = true;
+            component.step4Visited = true;
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            const calls = visitedChanged.calls.all();
+            expect(calls.length).toBe(0, 'calls.length');
+        });
+    });
+
     function isStepVisited(index: number): boolean {
         const stepElements = nativeElement.querySelectorAll('.marquee-wizard-step');
         return stepElements[index].classList.contains('visited');
@@ -390,146 +496,4 @@ describe('Marquee wizard with validation', () => {
         const stepElements = nativeElement.querySelectorAll('.marquee-wizard-step');
         return !stepElements[index].classList.contains('invalid');
     }
-});
-
-
-/**
- * Test visitedChange events firing correctly
- **/
-@Component({
-    selector: 'marquee-wizard-visited-change-app',
-    template: `
-        <ux-marquee-wizard>
-            <ux-marquee-wizard-step
-                *ngFor="let step of steps; let index = index"
-                [header]="step.header"
-                [valid]="step.valid"
-                [(visited)]="step.visited"
-                (visitedChange)="visitedChanged(index, $event)"
-            >
-                <p>{{ step.content }}</p>
-            </ux-marquee-wizard-step>
-        </ux-marquee-wizard>
-    `,
-})
-class MarqueeWizardVisitedChangeTestComponent {
-    steps: WizardStep[] = [
-        {
-            header: '1. First Step',
-            content: 'Content of step 1.',
-            valid: true
-        },
-        {
-            header: '2. Second Step',
-            content: 'Content of step 2.',
-            valid: true
-        },
-        {
-            header: '3. Third Step',
-            content: 'Content of step 3.',
-            valid: true
-        },
-        {
-            header: '4. Fourth Step',
-            content: 'Content of step 4.',
-            valid: true
-        },
-    ];
-
-    visitedChanged(index: number, value: boolean): void {
-    }
-
-    @ViewChildren(MarqueeWizardStepComponent)
-    stepsList: QueryList<MarqueeWizardStepComponent>;
-}
-
-describe('Marquee wizard with visitedChange event', () => {
-    let component: MarqueeWizardVisitedChangeTestComponent;
-    let fixture: ComponentFixture<MarqueeWizardVisitedChangeTestComponent>;
-    let nativeElement: HTMLElement;
-    let visitedChanged: jasmine.Spy;
-
-    beforeEach(async(() => {
-        TestBed.configureTestingModule({
-            imports: [MarqueeWizardModule],
-            declarations: [MarqueeWizardVisitedChangeTestComponent]
-        }).compileComponents();
-    }));
-
-    beforeEach(() => {
-        fixture = TestBed.createComponent(MarqueeWizardVisitedChangeTestComponent);
-        component = fixture.componentInstance;
-        nativeElement = fixture.nativeElement;
-        visitedChanged = spyOn(fixture.componentInstance, 'visitedChanged');
-        fixture.detectChanges();
-    });
-
-    it('should trigger a visitedChange event when valid modified on the current step, when other steps ahead are visited', async () => {
-        // emulate steps all being visited and complete
-        component.steps[0].visited = true;
-        component.steps[0].completed = true;
-        component.steps[1].visited = true;
-        component.steps[1].completed = true;
-        component.steps[2].visited = true;
-        component.steps[2].completed = true;
-        component.steps[3].visited = true;
-        component.steps[3].completed = true;
-        fixture.detectChanges();
-        await fixture.whenStable();
-
-        // click next button to make second step active
-        await fixture.nativeElement.querySelector(NEXT_BUTTON_SELECTOR).click();
-        fixture.detectChanges();
-        await fixture.whenStable();
-
-        // set step 2 invalid
-        component.steps[1].valid = false;
-        fixture.detectChanges();
-        await fixture.whenStable();
-
-        // get all steps from view child list
-        const stepsList = component.stepsList.toArray();
-
-        const calls = visitedChanged.calls.all();
-
-        // step 1 should be valid and visited
-        expect(stepsList[0].valid).toBe(true, 'stepsList[0].valid');
-        expect(stepsList[0].visited).toBe(true, 'stepsList[0].visited');
-        expect(stepsList[0].completed).toBe(true, 'stepsList[0].completed');
-
-        // step 2 should be invalid and not visited
-        expect(stepsList[1].valid).toBe(false, 'stepsList[1].valid');
-        expect(stepsList[1].visited).toBe(true, 'stepsList[1].visited');
-        expect(stepsList[1].completed).toBe(false, 'stepsList[1].completed');
-
-        // step 3 should be valid and not visited
-        expect(stepsList[2].valid).toBe(true, 'stepsList[2].valid');
-        expect(stepsList[2].visited).toBe(false, 'stepsList[2].visited');
-        expect(stepsList[2].completed).toBe(false, 'stepsList[2].completed');
-        expect(calls[0].args).toEqual([2, false]);
-
-        // step 4 should have valid undefined (not set yet) and not visited
-        expect(stepsList[3].valid).toBe(true, 'stepsList[3].valid');
-        expect(stepsList[3].visited).toBe(false, 'stepsList[3].visited');
-        expect(stepsList[3].completed).toBe(false, 'stepsList[3].completed');
-        expect(calls[1].args).toEqual([3, false]);
-    });
-
-    it('should not fire off a visitedChange event when visited is updated directly', async () => {
-        // clear initial fire off of visitedChange
-        fixture.detectChanges();
-        await fixture.whenStable();
-        visitedChanged.calls.reset();
-
-        // emulate steps being complete
-        component.steps[0].visited = true;
-        component.steps[1].visited = true;
-        component.steps[2].visited = true;
-        component.steps[3].visited = true;
-        fixture.detectChanges();
-        await fixture.whenStable();
-
-        const calls = visitedChanged.calls.all();
-        expect(calls.length).toBe(0, 'calls.length');
-    });
 });

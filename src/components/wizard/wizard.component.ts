@@ -90,7 +90,7 @@ export class WizardComponent implements OnInit, OnDestroy {
     @Input() disableNextWhenInvalid: boolean = false;
 
     /** Whether to set `visited` to false on subsequent steps after a validation fault. */
-    @Input() resetVisitedOnValidationError: boolean = true;
+    @Input() resetVisitedOnValidationError: boolean = false;
 
     /** Emits when the wizard has moved to the next step. It will receive the current step index as a parameter. */
     @Output() onNext = new EventEmitter<number>();
@@ -370,7 +370,7 @@ export class WizardComponent implements OnInit, OnDestroy {
     }
 
     /**
-     * Get the steps ahead of the currently active steps
+     * Get the currently active step and all steps beyond it
      */
     protected getFutureSteps(): WizardStepComponent[] {
         return this.steps.toArray().slice(this.step);

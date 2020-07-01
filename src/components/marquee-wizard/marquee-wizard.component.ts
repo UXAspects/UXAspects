@@ -51,6 +51,9 @@ export class MarqueeWizardComponent extends WizardComponent implements OnDestroy
     ) {
         super(wizardService);
 
+        // set to true as default for Marquee Wizard only
+        this.resetVisitedOnValidationError = true;
+
         // watch for changes to the size
         _resizeService.addResizeListener(this._elementRef.nativeElement)
             .pipe(takeUntil(this._onDestroy))
