@@ -129,9 +129,11 @@ ux-page-header {
                 display: flex;
 
                 .page-header-breadcrumbs {
-                    display: flex;
-                    align-items: center;
+                    position: absolute;
+                    top: 0;
+                    left: 0;
                     margin-right: 10px;
+                    margin-top: 18px;
 
                     ux-breadcrumbs {
                         height: 22px;
@@ -162,14 +164,10 @@ ux-page-header {
                     }
                 }
 
-                .page-header-navigation {
-                    display: flex;
-                    flex: 1;
-                    justify-content: center;
-                }
-
                 .page-header-icon-menus {
-                    position: static;
+                    position: absolute;
+                    top: 0;
+                    right: 0;
                 }
             }
         }
@@ -180,7 +178,8 @@ ux-page-header {
         display: flex;
         justify-content: center;
         flex: 1;
-        margin: 0 120px;
+        margin-left: 120px;
+        margin-right: 120px;
 
         &.left {
             justify-content: flex-start;
@@ -217,11 +216,11 @@ ux-page-header {
 
         .page-header-navigation-container {
             &.left {
-                margin: 0 120px 0 15px !important;
+                margin-left: 13px;
             }
 
             &.right {
-                margin: 0 15px 0 120px !important;
+                margin-right: 13px;
             }
         }
     }
