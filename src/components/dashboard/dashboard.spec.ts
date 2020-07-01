@@ -219,7 +219,7 @@ describe('Dashboard Layout Configuration', () => {
         expect(component.widgets.toArray()[2].getRowSpan()).toBe(1);
     });
 
-    it('should update the layout when a new value is passed to the input', () => {
+    it('should update the layout when a new value is passed to the input', async () => {
         component.layout = [
             { id: 'purpose-widget', col: 0, row: 0, colSpan: 2, rowSpan: 1},
             { id: 'host-widget', col: 0, row: 2, colSpan: 1, rowSpan: 1},
@@ -227,6 +227,7 @@ describe('Dashboard Layout Configuration', () => {
         ];
 
         fixture.detectChanges();
+        await fixture.whenStable();
 
         expect(layoutChangeSpy).not.toHaveBeenCalled();
 
