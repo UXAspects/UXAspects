@@ -247,5 +247,4 @@ describe('Dashboard Layout Configuration', () => {
         expect(component.widgets.toArray()[2].getRowSpan()).toBe(1);
 
     });
-
 });

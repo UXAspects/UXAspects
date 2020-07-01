@@ -50,13 +50,15 @@ export class DashboardService implements OnDestroy {
     private _onDestroy = new Subject<void>();
 
     constructor() {
-        combineLatest(this.layout$, this.widgets$, this.dimensions$).pipe(tick()).subscribe(([layout, widgets, dimensions]) => {
+        combineLatest(this.layout$, this.widgets$, this.dimensions$, this.stacked$)
+        .pipe(tick(), filter(([layout, widgets, dimensions, stacked]) => stacked === false), takeUntil(this._onDestroy))
+        .subscribe(([layout, widgets, dimensions, stacked]) => {
             if (layout && widgets.length > 0 && dimensions.width) {
                 this.setLayoutData(layout);
             }
         });
 
-        // this.layout$.pipe(takeUntil(this._onDestroy)).subscribe(this.setLayoutData.bind(this));
+        this.layout$.pipe(takeUntil(this._onDestroy)).subscribe(this.setLayoutData.bind(this));
         this.stacked$.pipe(takeUntil(this._onDestroy), filter(stacked => stacked === true)).subscribe(this.updateWhenStacked.bind(this));
         this.widgets$.pipe(takeUntil(this._onDestroy), tick()).subscribe(() => this.renderDashboard());
         this.dimensions$.pipe(takeUntil(this._onDestroy), tick()).subscribe(() => this.renderDashboard());
@@ -478,6 +480,8 @@ export class DashboardService implements OnDestroy {
         this._widgetOrigin = {};
 
         this.isDragging$.next(null);
+
+        this.layoutChange$.next(this.getLayoutData());
     }
 
     onDrag(action: DashboardAction): void {
