@@ -7,6 +7,8 @@ import { PageHeaderIconMenu } from './interfaces';
 import { PageHeaderNavigationItem } from './navigation/navigation.component';
 import { PageHeaderNavigation, PageHeaderService } from './page-header.service';
 
+export type NavigationAlignment = 'left' | 'right' | 'center';
+
 @Component({
     selector: 'ux-page-header',
     exportAs: 'ux-page-header',
@@ -25,7 +27,7 @@ export class PageHeaderComponent {
     @Input() subheader: string;
 
     /** The alignment of the primary navigation tabs. */
-    @Input() alignment: 'left' | 'right' | 'center' = 'center';
+    @Input() alignment: NavigationAlignment;
 
     /** Determines whether or not to display the page header in the regular or condensed form. */
     @Input() condensed: boolean = false;
@@ -37,7 +39,26 @@ export class PageHeaderComponent {
     @Input() backVisible: boolean = true;
 
     /** The alignment of the secondary navigation tabs. */
-    @Input() secondaryNavigationAlignment: 'left' | 'right' | 'center' = 'center';
+    _secondaryNavigationAlignment: NavigationAlignment;
+
+    @Input()
+    set secondaryNavigationAlignment(value: NavigationAlignment) {
+        this._secondaryNavigationAlignment = value;
+    }
+
+    get secondaryNavigationAlignment(): NavigationAlignment {
+        let alignment = this._secondaryNavigationAlignment;
+
+        if (
+            (alignment === 'left' && this.secondaryNavigationLeadingContentTemplate) ||
+            (alignment === 'right' && this.secondaryNavigationTrailingContentTemplate)
+         ) {
+            alignment = 'center';
+        }
+
+        return alignment;
+    };
+
 
     /** If set, the first child item will get selected when the parent item is selected. */
     @Input()
@@ -117,6 +138,12 @@ export class PageHeaderComponent {
 
     /** Define a custom logo template  */
     @ContentChild('logoTemplate', { static: false }) logoTemplate: TemplateRef<any>;
+
+    /** Define a leading content secondary navigation template */
+    @ContentChild('secondaryNavigationLeadingContent', { static: false }) secondaryNavigationLeadingContentTemplate: TemplateRef<any>;
+
+    /** Define a trailing content secondary navigation template */
+    @ContentChild('secondaryNavigationTrailingContent', { static: false }) secondaryNavigationTrailingContentTemplate: TemplateRef<any>;
 
     /** Access all the custom menu TemplateRefs */
     @ContentChildren(PageHeaderCustomMenuDirective, { read: TemplateRef }) customMenus: QueryList<TemplateRef<any>>;
