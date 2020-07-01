@@ -56,7 +56,7 @@ export class HierarchyBarCollapsedComponent implements AfterViewInit, OnDestroy 
 
     ngAfterViewInit(): void {
         // Update the UI when the selected nodes change
-        this.hierarchyBar.nodes$.pipe(takeUntil(this._onDestroy)).subscribe(this._update.bind(this));
+        this.hierarchyBar.nodes$.pipe(takeUntil(this._onDestroy)).subscribe(this.update.bind(this));
 
         // watch for the host element size changing
         this._resizeService.addResizeListener(this._elementRef.nativeElement).pipe(takeUntil(this._onDestroy))
@@ -71,7 +71,7 @@ export class HierarchyBarCollapsedComponent implements AfterViewInit, OnDestroy 
         this._resizeService.removeResizeListener(this._elementRef.nativeElement);
     }
 
-    private _update(nodes: HierarchyBarNode[]): void {
+    private update(nodes: HierarchyBarNode[]): void {
         this._first = nodes[0];
         this._last = nodes.length > 1 ? nodes[nodes.length - 1] : null;
         this.updateOverflow();
