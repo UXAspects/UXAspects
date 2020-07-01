@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, ViewChildren, QueryList } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { DashboardOptions } from './dashboard.component';
 import { DashboardModule } from './dashboard.module';
+import { DashboardLayoutData } from './dashboard.service';
+import { DashboardWidgetComponent } from './widget/dashboard-widget.component';
 
 
 @Component({
@@ -122,3 +124,127 @@ describe('Dashboard', () => {
 function getPixels(cssValue: string): number {
     return parseInt(cssValue.replace('px', ''));
 }
+
+@Component({
+    selector: 'app-ux-dashboard-layout',
+    template: `<ux-dashboard
+                    [options]="options"
+                    [(layout)]="layout"
+                    (layoutChange)="onLayoutChange()">
+
+                    <ux-dashboard-widget
+                        id="run-widget"
+                        name="Runs">
+                    </ux-dashboard-widget>
+
+                    <ux-dashboard-widget
+                        id="purpose-widget"
+                        name="Purpose">
+                    </ux-dashboard-widget>
+
+                    <ux-dashboard-widget
+                        id="host-widget"
+                        name="Host">
+                    </ux-dashboard-widget>
+
+            </ux-dashboard>
+`
+})
+export class DashboardComponentLayout {
+
+    options: DashboardOptions = {
+        columns: 3,
+        padding: 10,
+        rowHeight: 300,
+        emptyRow: false,
+        minWidth: 187
+    };
+
+    layout: ReadonlyArray<DashboardLayoutData> = [
+        { id: 'run-widget', col: 0, row: 0, colSpan: 2, rowSpan: 1},
+        { id: 'purpose-widget', col: 0, row: 2, colSpan: 1, rowSpan: 1},
+        { id: 'host-widget', col: 0, row: 3, colSpan: 3, rowSpan: 1},
+    ];
+
+    @ViewChildren(DashboardWidgetComponent) widgets: QueryList<DashboardWidgetComponent>;
+
+    onLayoutChange(): void {
+
+    }
+
+}
+
+describe('Dashboard Layout Configuration', () => {
+    let component: DashboardComponentLayout;
+    let fixture: ComponentFixture<DashboardComponentLayout>;
+    let nativeElement: HTMLElement;
+    let layoutChangeSpy: jasmine.Spy;
+
+    beforeEach(async(() => {
+        TestBed.configureTestingModule({
+            imports: [DashboardModule],
+            declarations: [DashboardComponentLayout]
+        })
+            .compileComponents();
+    }));
+
+    beforeEach(async () => {
+        fixture = TestBed.createComponent(DashboardComponentLayout);
+        component = fixture.componentInstance;
+        nativeElement = fixture.nativeElement;
+        layoutChangeSpy = spyOn(component, 'onLayoutChange');
+
+        fixture.detectChanges();
+        await fixture.whenStable();
+    });
+
+    it('should update the widgets correctly when an initial layout value is given', async () => {
+        // check that the underlying widgets receive the correct position and size values
+
+        expect(layoutChangeSpy).not.toHaveBeenCalled();
+
+        expect(component.widgets.toArray()[0].getColumn()).toBe(0);
+        expect(component.widgets.toArray()[0].getRow()).toBe(0);
+        expect(component.widgets.toArray()[0].getColumnSpan()).toBe(2);
+        expect(component.widgets.toArray()[0].getRowSpan()).toBe(1);
+
+        expect(component.widgets.toArray()[1].getColumn()).toBe(0);
+        expect(component.widgets.toArray()[1].getRow()).toBe(2);
+        expect(component.widgets.toArray()[1].getColumnSpan()).toBe(1);
+        expect(component.widgets.toArray()[1].getRowSpan()).toBe(1);
+
+        expect(component.widgets.toArray()[2].getColumn()).toBe(0);
+        expect(component.widgets.toArray()[2].getRow()).toBe(3);
+        expect(component.widgets.toArray()[2].getColumnSpan()).toBe(3);
+        expect(component.widgets.toArray()[2].getRowSpan()).toBe(1);
+    });
+
+    it('should update the layout when a new value is passed to the input', () => {
+        component.layout = [
+            { id: 'purpose-widget', col: 0, row: 0, colSpan: 2, rowSpan: 1},
+            { id: 'host-widget', col: 0, row: 2, colSpan: 1, rowSpan: 1},
+            { id: 'run-widget', col: 0, row: 3, colSpan: 3, rowSpan: 1},
+        ];
+
+        fixture.detectChanges();
+
+        expect(layoutChangeSpy).not.toHaveBeenCalled();
+
+        expect(component.widgets.toArray()[0].getColumn()).toBe(0);
+        expect(component.widgets.toArray()[0].getRow()).toBe(3);
+        expect(component.widgets.toArray()[0].getColumnSpan()).toBe(3);
+        expect(component.widgets.toArray()[0].getRowSpan()).toBe(1);
+
+        expect(component.widgets.toArray()[1].getColumn()).toBe(0);
+        expect(component.widgets.toArray()[1].getRow()).toBe(0);
+        expect(component.widgets.toArray()[1].getColumnSpan()).toBe(2);
+        expect(component.widgets.toArray()[1].getRowSpan()).toBe(1);
+
+        expect(component.widgets.toArray()[2].getColumn()).toBe(0);
+        expect(component.widgets.toArray()[2].getRow()).toBe(2);
+        expect(component.widgets.toArray()[2].getColumnSpan()).toBe(1);
+        expect(component.widgets.toArray()[2].getRowSpan()).toBe(1);
+
+    });
+
+});

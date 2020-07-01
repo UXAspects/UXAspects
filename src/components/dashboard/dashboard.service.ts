@@ -1,5 +1,5 @@
 import { Injectable, OnDestroy } from '@angular/core';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { BehaviorSubject, Observable, Subject, combineLatest } from 'rxjs';
 import { distinctUntilChanged, filter, map, takeUntil } from 'rxjs/operators';
 import { tick } from '../../common/index';
 import { DashboardOptions } from './dashboard.component';
@@ -20,10 +20,11 @@ export class DashboardService implements OnDestroy {
     dimensions$ = new BehaviorSubject<DashboardDimensions>({});
     height$: Observable<number> = this.dimensions$.pipe(tick(), map(dimensions => dimensions.height), distinctUntilChanged());
     placeholder$ = new BehaviorSubject<DashboardPlaceholder>({ visible: false, x: 0, y: 0, width: 0, height: 0 });
-    layout$ = new Subject<DashboardLayoutData[]>();
+    layout$ = new BehaviorSubject<DashboardLayoutData[]>([]);
     stacked$ = new BehaviorSubject<boolean>(false);
     isDragging$ = new BehaviorSubject<DashboardWidgetComponent>(null);
     isGrabbing$ = new BehaviorSubject<DashboardWidgetComponent>(null);
+    layoutChange$ = new Subject<DashboardLayoutData[]>();
 
     get options(): DashboardOptions {
         return this.options$.getValue();
@@ -49,7 +50,13 @@ export class DashboardService implements OnDestroy {
     private _onDestroy = new Subject<void>();
 
     constructor() {
-        this.layout$.pipe(takeUntil(this._onDestroy)).subscribe(this.setLayoutData.bind(this));
+        combineLatest(this.layout$, this.widgets$, this.dimensions$).pipe(tick()).subscribe(([layout, widgets, dimensions]) => {
+            if (layout && widgets.length > 0 && dimensions.width) {
+                this.setLayoutData(layout);
+            }
+        });
+
+        // this.layout$.pipe(takeUntil(this._onDestroy)).subscribe(this.setLayoutData.bind(this));
         this.stacked$.pipe(takeUntil(this._onDestroy), filter(stacked => stacked === true)).subscribe(this.updateWhenStacked.bind(this));
         this.widgets$.pipe(takeUntil(this._onDestroy), tick()).subscribe(() => this.renderDashboard());
         this.dimensions$.pipe(takeUntil(this._onDestroy), tick()).subscribe(() => this.renderDashboard());

@@ -50,10 +50,9 @@ export class DashboardComponent implements AfterViewInit, OnDestroy, OnChanges {
     constructor(public dashboardService: DashboardService, private readonly changeDetector: ChangeDetectorRef) {
 
         dashboardService.layout$.pipe(takeUntil(this._onDestroy), tap(() => this.ariaLabel = this.getAriaLabel()))
-            .subscribe(layout => {
-                this.layoutChange.emit(layout);
-                changeDetector.markForCheck();
-            });
+            .subscribe(() => changeDetector.markForCheck());
+
+        dashboardService.layoutChange$.pipe(takeUntil(this._onDestroy)).subscribe(data => this.layoutChange.emit(data));
 
         // subscribe to changes to the grab mode
         dashboardService.isGrabbing$.pipe(takeUntil(this._onDestroy), map(widget => !!widget))
@@ -68,7 +67,7 @@ export class DashboardComponent implements AfterViewInit, OnDestroy, OnChanges {
         this.dashboardService.setDimensions(this.dashboardElement.nativeElement.offsetWidth, this.dashboardElement.nativeElement.offsetHeight);
     }
 
-    ngOnChanges() {
+    ngOnChanges(): void {
         this.dashboardService.renderDashboard();
     }
 
