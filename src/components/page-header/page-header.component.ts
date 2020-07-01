@@ -57,8 +57,7 @@ export class PageHeaderComponent {
         }
 
         return alignment;
-    };
-
+    }
 
     /** If set, the first child item will get selected when the parent item is selected. */
     @Input()
