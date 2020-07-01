@@ -300,7 +300,7 @@ class WizardVisitedChangeTestComponent {
     stepsList: QueryList<WizardStepComponent>;
 }
 
-fdescribe('Wizard with visitedChange event', () => {
+describe('Wizard with visitedChange event', () => {
     let component: WizardVisitedChangeTestComponent;
     let fixture: ComponentFixture<WizardVisitedChangeTestComponent>;
     let nativeElement: HTMLElement;
