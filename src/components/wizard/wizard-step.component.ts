@@ -29,7 +29,7 @@ export class WizardStepComponent {
 
     @Input()
     set valid(value: boolean) {
-        this.setValidAndEmitChangeEvent(value);
+        this.setValid(value);
     }
 
     get valid(): boolean {
@@ -90,7 +90,7 @@ export class WizardStepComponent {
         this.visitedChange.emit(value);
     }
 
-    protected setValidAndEmitChangeEvent(value: boolean): void {
+    protected setValid(value: boolean): void {
         if (this._valid === value) {
             return;
         }

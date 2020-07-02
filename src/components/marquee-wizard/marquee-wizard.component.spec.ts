@@ -357,44 +357,46 @@ describe('Marquee wizard with validation', () => {
         // 3 steps and number 2 gets set invalid. 2 should be invalid and 3 should not longer be visited.
         component.step1Visited = true;
         component.step2Visited = true;
+        component.step3Visited = true;
         fixture.detectChanges();
 
         expect(isStepValid(0)).toBe(true);
         expect(isStepValid(1)).toBe(true);
-
-        expect(isStepVisited(0)).toBe(true);
-        expect(isStepVisited(1)).toBe(true);
-
-        // click next button to make second step active
-        await fixture.nativeElement.querySelector(NEXT_BUTTON_SELECTOR).click();
-        fixture.detectChanges();
-
-        component.step2Valid = false;
-        fixture.detectChanges();
-
-        expect(isStepValid(0)).toBe(true);
-        expect(isStepValid(1)).toBe(false);
         expect(isStepValid(2)).toBe(true);
 
         expect(isStepVisited(0)).toBe(true);
         expect(isStepVisited(1)).toBe(true);
+        expect(isStepVisited(2)).toBe(true);
+
+        component.step1Valid = false;
+        fixture.detectChanges();
+
+        expect(isStepValid(0)).toBe(false);
+        expect(isStepValid(1)).toBe(true);
+        expect(isStepValid(2)).toBe(true);
+
+        expect(isStepVisited(0)).toBe(true);
+        expect(isStepVisited(1)).toBe(false);
         expect(isStepVisited(2)).toBe(false);
 
-        // check visitedChange was emitted 1 time
-        expect(visitedChanged.calls.all().length).toBe(1);
+        // check visitedChange was emitted 2 times
+        expect(visitedChanged.calls.all().length).toBe(2);
     });
 
     it('should not remove visited state from later steps when valid = false and resetVisitedOnValidationError = false', async () => {
         component.resetVisitedOnValidationError = false;
         component.step1Visited = true;
         component.step2Visited = true;
+        component.step3Visited = true;
         fixture.detectChanges();
 
         expect(isStepValid(0)).toBe(true);
         expect(isStepValid(1)).toBe(true);
+        expect(isStepValid(2)).toBe(true);
 
         expect(isStepVisited(0)).toBe(true);
         expect(isStepVisited(1)).toBe(true);
+        expect(isStepVisited(2)).toBe(true);
 
         visitedChanged.calls.reset();
 
@@ -403,9 +405,11 @@ describe('Marquee wizard with validation', () => {
 
         expect(isStepValid(0)).toBe(false);
         expect(isStepValid(1)).toBe(true);
+        expect(isStepValid(2)).toBe(true);
 
         expect(isStepVisited(0)).toBe(true);
         expect(isStepVisited(1)).toBe(true);
+        expect(isStepVisited(2)).toBe(true);
 
         // check visitedChange was not emitted
         expect(visitedChanged.calls.all().length).toBe(0);
