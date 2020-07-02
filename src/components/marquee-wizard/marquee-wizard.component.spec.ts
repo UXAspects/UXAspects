@@ -354,7 +354,7 @@ describe('Marquee wizard with validation', () => {
     });
 
     it('should remove visited state from later steps when valid = false', async () => {
-        // 3 steps and number 2 gets set invalid. 2 should be invalid and 3 should not longer be visited.
+        // 3 steps and number 2 gets set invalid - 1 should stay the same, 3 should be valid but no longer be visited
         component.step1Visited = true;
         component.step2Visited = true;
         component.step3Visited = true;
@@ -368,19 +368,19 @@ describe('Marquee wizard with validation', () => {
         expect(isStepVisited(1)).toBe(true);
         expect(isStepVisited(2)).toBe(true);
 
-        component.step1Valid = false;
+        component.step2Valid = false;
         fixture.detectChanges();
 
-        expect(isStepValid(0)).toBe(false);
-        expect(isStepValid(1)).toBe(true);
+        expect(isStepValid(0)).toBe(true);
+        expect(isStepValid(1)).toBe(false);
         expect(isStepValid(2)).toBe(true);
 
         expect(isStepVisited(0)).toBe(true);
-        expect(isStepVisited(1)).toBe(false);
+        expect(isStepVisited(1)).toBe(true);
         expect(isStepVisited(2)).toBe(false);
 
-        // check visitedChange was emitted 2 times
-        expect(visitedChanged.calls.all().length).toBe(2);
+        // check visitedChange was emitted 1 time only
+        expect(visitedChanged.calls.all().length).toBe(1);
     });
 
     it('should not remove visited state from later steps when valid = false and resetVisitedOnValidationError = false', async () => {
@@ -400,11 +400,11 @@ describe('Marquee wizard with validation', () => {
 
         visitedChanged.calls.reset();
 
-        component.step1Valid = false;
+        component.step2Valid = false;
         fixture.detectChanges();
 
-        expect(isStepValid(0)).toBe(false);
-        expect(isStepValid(1)).toBe(true);
+        expect(isStepValid(0)).toBe(true);
+        expect(isStepValid(1)).toBe(false);
         expect(isStepValid(2)).toBe(true);
 
         expect(isStepVisited(0)).toBe(true);
