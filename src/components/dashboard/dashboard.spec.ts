@@ -150,7 +150,7 @@ function getPixels(cssValue: string): number {
             </ux-dashboard>
 `
 })
-export class DashboardComponentLayout {
+export class DashboardWithInitialLayoutTestComponent {
 
     options: DashboardOptions = {
         columns: 3,
@@ -174,22 +174,22 @@ export class DashboardComponentLayout {
 
 }
 
-describe('Dashboard Layout Configuration', () => {
-    let component: DashboardComponentLayout;
-    let fixture: ComponentFixture<DashboardComponentLayout>;
+describe('Dashboard with initial layout', () => {
+    let component: DashboardWithInitialLayoutTestComponent;
+    let fixture: ComponentFixture<DashboardWithInitialLayoutTestComponent>;
     let nativeElement: HTMLElement;
     let layoutChangeSpy: jasmine.Spy;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             imports: [DashboardModule],
-            declarations: [DashboardComponentLayout]
+            declarations: [DashboardWithInitialLayoutTestComponent]
         })
             .compileComponents();
     }));
 
     beforeEach(async () => {
-        fixture = TestBed.createComponent(DashboardComponentLayout);
+        fixture = TestBed.createComponent(DashboardWithInitialLayoutTestComponent);
         component = fixture.componentInstance;
         nativeElement = fixture.nativeElement;
         layoutChangeSpy = spyOn(component, 'onLayoutChange');

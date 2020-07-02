@@ -47,12 +47,12 @@ export class DashboardComponent implements AfterViewInit, OnDestroy, OnChanges {
     /** Ensure we unsubscribe from all observables */
     private _onDestroy = new Subject<void>();
 
-    constructor(public dashboardService: DashboardService, private readonly changeDetector: ChangeDetectorRef) {
+    constructor(public dashboardService: DashboardService, private readonly _changeDetector: ChangeDetectorRef) {
 
         dashboardService.layout$.pipe(takeUntil(this._onDestroy), tap(() => this.ariaLabel = this.getAriaLabel()))
-            .subscribe(() => changeDetector.markForCheck());
+            .subscribe(() => _changeDetector.markForCheck());
 
-        dashboardService.layoutChange$.pipe(takeUntil(this._onDestroy)).subscribe(data => this.layoutChange.emit(data));
+        dashboardService.userLayoutChange$.pipe(takeUntil(this._onDestroy)).subscribe(data => this.layoutChange.emit(data));
 
         // subscribe to changes to the grab mode
         dashboardService.isGrabbing$.pipe(takeUntil(this._onDestroy), map(widget => !!widget))

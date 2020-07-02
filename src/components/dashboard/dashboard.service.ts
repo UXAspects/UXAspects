@@ -24,7 +24,7 @@ export class DashboardService implements OnDestroy {
     stacked$ = new BehaviorSubject<boolean>(false);
     isDragging$ = new BehaviorSubject<DashboardWidgetComponent>(null);
     isGrabbing$ = new BehaviorSubject<DashboardWidgetComponent>(null);
-    layoutChange$ = new Subject<DashboardLayoutData[]>();
+    userLayoutChange$ = new Subject<DashboardLayoutData[]>();
 
     get options(): DashboardOptions {
         return this.options$.getValue();
@@ -51,9 +51,9 @@ export class DashboardService implements OnDestroy {
 
     constructor() {
         combineLatest(this.layout$, this.widgets$, this.dimensions$, this.stacked$)
-        .pipe(tick(), filter(([layout, widgets, dimensions, stacked]) => stacked === false), takeUntil(this._onDestroy))
-        .subscribe(([layout, widgets, dimensions, stacked]) => {
-            if (layout && widgets.length > 0 && dimensions.width) {
+            .pipe(tick(), filter(([layout, widgets, dimensions, stacked]) => stacked === false), takeUntil(this._onDestroy))
+            .subscribe(([layout, widgets, dimensions, stacked]) => {
+                if (layout && widgets.length > 0 && dimensions.width) {
                 this.setLayoutData(layout);
             }
         });
@@ -460,6 +460,8 @@ export class DashboardService implements OnDestroy {
 
         // emit information about the layout
         this.layout$.next(this.getLayoutData());
+
+        this.userLayoutChange$.next(this.getLayoutData());
     }
 
     onDragStart(action: DashboardAction): void {
@@ -481,7 +483,7 @@ export class DashboardService implements OnDestroy {
 
         this.isDragging$.next(null);
 
-        this.layoutChange$.next(this.getLayoutData());
+        this.userLayoutChange$.next(this.getLayoutData());
     }
 
     onDrag(action: DashboardAction): void {
