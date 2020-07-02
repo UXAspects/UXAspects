@@ -1,7 +1,5 @@
-import { CommonModule } from '@angular/common';
-import { Component, QueryList, ViewChildren } from '@angular/core';
+import { Component } from '@angular/core';
 import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
-import { WizardStepComponent } from './wizard-step.component';
 import { StepChangingEvent } from './wizard.component';
 import { WizardModule } from './wizard.module';
 
@@ -247,125 +245,151 @@ describe('Wizard with validator', () => {
     }
 });
 
-interface WizardStep {
-    header: string;
-    content: string;
-    visited?: boolean;
-    valid?: boolean;
-}
-
+/**
+ * Test resetVisitedOnValidationError flag working as expected and visitedChange is hit when required.
+ **/
 @Component({
-    selector: 'wizard-visited-change-test-app',
+    selector: 'marquee-wizard-validation-app',
     template: `
-        <ux-wizard>
-            <ux-wizard-step *ngFor="let step of steps; let index = index"
-                            [header]="step.header"
-                            [valid]="step.valid"
-                            [(visited)]="step.visited"
-                            (visitedChange)="visitedChanged(index, $event)"
-            >
-                <p>{{ step.content }}</p>
+        <ux-wizard
+            [(step)]="currentStep"
+            [resetVisitedOnValidationError]="resetVisitedOnValidationError">
+            <ux-wizard-step
+                header="Step One"
+                [valid]="step1Valid"
+                [(visited)]="step1Visited"
+                (visitedChange)="visitedChanged(0, $event)">
+                Step One Content
+            </ux-wizard-step>
+            <ux-wizard-step
+                header="Step Two"
+                [valid]="step2Valid"
+                [(visited)]="step2Visited"
+                (visitedChange)="visitedChanged(1, $event)">
+                Step Two Content
+            </ux-wizard-step>
+            <ux-wizard-step
+                header="Step Three"
+                [valid]="step3Valid"
+                [(visited)]="step3Visited"
+                (visitedChange)="visitedChanged(2, $event)">
+                Step Three Content
             </ux-wizard-step>
         </ux-wizard>
     `
 })
-class WizardVisitedChangeTestComponent {
-    steps: WizardStep[] = [
-        {
-            header: '1. First Step',
-            content: 'Content of step 1.',
-            valid: true
-        },
-        {
-            header: '2. Second Step',
-            content: 'Content of step 2.',
-            valid: true
-        },
-        {
-            header: '3. Third Step',
-            content: 'Content of step 3.',
-            valid: true
-        },
-        {
-            header: '4. Fourth Step',
-            content: 'Content of step 4.',
-            valid: true
-        }
-    ];
+export class WizardValidationComponent {
+    currentStep: number;
+    resetVisitedOnValidationError = true;
+
+    // step 1 values
+    step1Valid = true;
+    step1Visited: boolean;
+    step1Completed: boolean;
+
+    // step 2 values
+    step2Valid: boolean = true;
+    step2Visited: boolean;
+    step2Completed: boolean;
+
+    // step 3 values
+    step3Valid: boolean = true;
+    step3Visited: boolean;
+    step3Completed: boolean;
 
     visitedChanged(index: number, value: boolean): void {
     }
-
-    @ViewChildren(WizardStepComponent)
-    stepsList: QueryList<WizardStepComponent>;
 }
 
-describe('Wizard with visitedChange event', () => {
-    let component: WizardVisitedChangeTestComponent;
-    let fixture: ComponentFixture<WizardVisitedChangeTestComponent>;
+describe('Wizard with validation', () => {
+    let component: WizardValidationComponent;
+    let fixture: ComponentFixture<WizardValidationComponent>;
     let nativeElement: HTMLElement;
     let visitedChanged: jasmine.Spy;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            imports: [WizardModule, CommonModule],
-            declarations: [WizardVisitedChangeTestComponent]
+            imports: [WizardModule],
+            declarations: [WizardValidationComponent]
         }).compileComponents();
     }));
 
-    beforeEach(async () => {
-        fixture = TestBed.createComponent(WizardVisitedChangeTestComponent);
+    beforeEach(() => {
+        fixture = TestBed.createComponent(WizardValidationComponent);
         component = fixture.componentInstance;
         nativeElement = fixture.nativeElement;
-        visitedChanged = spyOn(component, 'visitedChanged');
-
+        visitedChanged = spyOn(fixture.componentInstance, 'visitedChanged');
         fixture.detectChanges();
-        await fixture.whenStable();
-        fixture.detectChanges();
-        await fixture.whenStable();
     });
 
-    it('should not trigger a visitedChange event when valid modified on the current step, and other steps ahead are visited', async () => {
-        // emulate steps being complete
-        component.steps[0].visited = true;
-        component.steps[1].visited = true;
-        component.steps[2].visited = true;
-        component.steps[3].visited = true;
+    it('should remove visited state from later steps when valid = false', async () => {
+        // has to be set manually as false as default
+        component.resetVisitedOnValidationError = true;
+
+        // 3 steps and number 2 gets set invalid. 2 should be invalid and 3 should not longer be visited.
+        component.step1Visited = true;
+        component.step2Visited = true;
         fixture.detectChanges();
-        await fixture.whenStable();
+
+        expect(isStepValid(0)).toBe(true);
+        expect(isStepValid(1)).toBe(true);
+
+        expect(isStepVisited(0)).toBe(true);
+        expect(isStepVisited(1)).toBe(true);
 
         // click next button to make second step active
         await fixture.nativeElement.querySelector(NEXT_BUTTON_SELECTOR).click();
         fixture.detectChanges();
-        await fixture.whenStable();
+
+        component.step2Valid = false;
+        fixture.detectChanges();
+
+        expect(isStepValid(0)).toBe(true);
+        expect(isStepValid(1)).toBe(false);
+        expect(isStepValid(2)).toBe(true);
+
+        expect(isStepVisited(0)).toBe(true);
+        expect(isStepVisited(1)).toBe(true);
+        expect(isStepVisited(2)).toBe(false);
+
+        // check visitedChange was emitted 1 time
+        expect(visitedChanged.calls.all().length).toBe(1);
+    });
+
+    it('should not remove visited state from later steps when valid = false and resetVisitedOnValidationError = false', async () => {
+        component.resetVisitedOnValidationError = false;
+        component.step1Visited = true;
+        component.step2Visited = true;
+        fixture.detectChanges();
+
+        expect(isStepValid(0)).toBe(true);
+        expect(isStepValid(1)).toBe(true);
+
+        expect(isStepVisited(0)).toBe(true);
+        expect(isStepVisited(1)).toBe(true);
 
         visitedChanged.calls.reset();
 
-        // set step 2 invalid
-        component.steps[1].valid = false;
+        component.step1Valid = false;
         fixture.detectChanges();
-        await fixture.whenStable();
 
-        // check no calls made on visitedChange
-        expect(visitedChanged.calls.all.length).toBe(0, 'visitedChanged.calls.all.length');
+        expect(isStepValid(0)).toBe(false);
+        expect(isStepValid(1)).toBe(true);
 
-        // get all steps from view child list
-        const stepsList = component.stepsList.toArray();
+        expect(isStepVisited(0)).toBe(true);
+        expect(isStepVisited(1)).toBe(true);
 
-        // step 1 should be valid and visited
-        expect(stepsList[0].valid).toBe(true, 'stepsList[0].valid');
-        expect(stepsList[0].visited).toBe(true, 'stepsList[0].visited');
-
-        // step 2 should be invalid and visited
-        expect(stepsList[1].valid).toBe(false, 'stepsList[1].valid');
-        expect(stepsList[1].visited).toBe(true, 'stepsList[1].visited');
-
-        // step 3 should be valid and visited
-        expect(stepsList[2].valid).toBe(true, 'stepsList[2].valid');
-        expect(stepsList[2].visited).toBe(true, 'stepsList[2].visited');
-
-        // step 4 should be valid and visited
-        expect(stepsList[3].valid).toBe(true, 'stepsList[3].valid');
-        expect(stepsList[3].visited).toBe(true, 'stepsList[3].visited');
+        // check visitedChange was not emitted
+        expect(visitedChanged.calls.all().length).toBe(0);
     });
+
+    function isStepVisited(index: number): boolean {
+        const stepElements = nativeElement.querySelectorAll('.wizard-step');
+        return stepElements[index].classList.contains('visited');
+    }
+
+    function isStepValid(index: number): boolean {
+        const stepElements = nativeElement.querySelectorAll('.wizard-step');
+        return !stepElements[index].classList.contains('invalid');
+    }
 });

@@ -165,10 +165,10 @@ export class WizardComponent implements OnInit, OnDestroy {
         this.steps.changes.pipe(tick(), takeUntil(this._onDestroy)).subscribe(() => this.update());
 
         // watch for changes to valid subject
-        this._wizardService.valid$.pipe(
+        this._wizardService.validChange$.pipe(
             filter((event: WizardValidEvent<WizardStepComponent>) => !event.valid),
             takeUntil(this._onDestroy)
-        ).subscribe(() => this.setNextStepsUnvisited());
+        ).subscribe((event: WizardValidEvent<WizardStepComponent>) => this.setFutureStepsUnvisited(event.step));
     }
 
 
@@ -353,27 +353,24 @@ export class WizardComponent implements OnInit, OnDestroy {
 
     /**
      * If a step in the wizard becomes invalid, all steps sequentially after
-     * it, should become unvisited and incomplete
+     * it should become unvisited
      */
-    protected setNextStepsUnvisited(): void {
-
+    protected setFutureStepsUnvisited(currentStep: WizardStepComponent): void {
         if (!this.resetVisitedOnValidationError) {
             return;
         }
 
-        this.getFutureSteps().forEach(step => {
-            // if the step is not the current step then also mark it as unvisited
-            if (step.visited && step !== this.getCurrentStep()) {
-                step.setVisited(false);
-            }
+        this.getFutureSteps(currentStep).forEach(step => {
+            step.setVisitedAndEmitChangeEvent(false);
         });
     }
 
     /**
      * Get the currently active step and all steps beyond it
      */
-    protected getFutureSteps(): WizardStepComponent[] {
-        return this.steps.toArray().slice(this.step);
+    protected getFutureSteps(currentStep: WizardStepComponent): WizardStepComponent[] {
+        const currentIndex = this.steps.toArray().indexOf(currentStep);
+        return this.steps.toArray().slice(currentIndex + 1);
     }
 
     /**

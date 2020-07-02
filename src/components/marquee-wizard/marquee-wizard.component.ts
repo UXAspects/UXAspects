@@ -116,12 +116,12 @@ export class MarqueeWizardComponent extends WizardComponent implements OnDestroy
         this.sidePanelWidthChange.emit(this.sidePanelWidth);
     }
 
-    protected setNextStepsUnvisited(): void {
-        super.setNextStepsUnvisited();
+    protected setFutureStepsUnvisited(currentStep: MarqueeWizardStepComponent): void {
+        super.setFutureStepsUnvisited(currentStep);
 
         // Marquee wizard steps have an additional completed property which must also be changed.
         // The base class implementation only changes the visited state
-        this.getFutureSteps().forEach((step: MarqueeWizardStepComponent) => step.completed = false);
+        this.getFutureSteps(currentStep).forEach((step: MarqueeWizardStepComponent) => step.completed = false);
     }
 }
 
