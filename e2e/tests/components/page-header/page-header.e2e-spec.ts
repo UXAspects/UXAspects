@@ -1,4 +1,5 @@
 import { ElementArrayFinder, ElementFinder } from 'protractor';
+import { imageCompare } from '../common/image-compare';
 import { PageHeaderPage } from './page-header.po.spec';
 
 describe('Page Header Tests', () => {
@@ -20,7 +21,6 @@ describe('Page Header Tests', () => {
         expect(await page.confirmDropdownIsOpened()).toBeFalsy();
         expect(await page.confirmNotificationIconIsPresent()).toBeTruthy();
         expect(await page.confirmActionsIconIsPresent()).toBeTruthy();
-
     });
 
     it('should display breadcrumbs when condensed', async () => {
@@ -153,6 +153,9 @@ describe('Page Header Tests', () => {
 
         // check the number of tabs are correct
         expect(tabs.length).toBe(3);
+
+        // screenshot the page
+        expect(await imageCompare('dashboard-secondary-navigation')).toEqual(0);
     });
 
     it('should align the tabset accordingly', async () => {

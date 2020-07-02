@@ -44,6 +44,27 @@
     <tr uxd-api-property name="backVisible" type="boolean" defaultValue="false">
         Determines whether or not a back button should be visible in the page header.
     </tr>
+    <tr uxd-api-property name="secondaryNavigation" type="boolean" defaultValue="false">
+        Modifies the behaviour of child elements of the <code>items</code> input. When set to <code>true</code> sub-items are displayed in a seperate navigation bar below the main page header. When set to <code>false</code> they are displayed as a sub-menu in the main page header.
+    </tr>
+    <tr uxd-api-property name="secondaryNavigationAutoselect" type="boolean" defaultValue="false">
+        Determines if the first child item in the secondary navigation is automatically selected. Only applies <code>secondaryNavigation</code> is enabled.
+    </tr>
+    <tr uxd-api-property name="secondaryNavigationAlignment" type="left, center, right" defaultValue="center">
+        Determines the horizontal alignment of secondary navigation menu. Only applies if <code>secondaryNavigation</code> is enabled.
+    </tr>
+    <tr uxd-api-property name="subheader" type="TemplateRef">
+        If specified, this will allow customization of the display of the page sub header.
+    </tr>
+    <tr uxd-api-property name="logoTemplate" type="TemplateRef">
+        If specified, this will allow customization of the display of the page header logo.
+    </tr>
+    <tr uxd-api-property name="secondaryNavigationLeadingContent" type="TemplateRef">
+        If specified, this will allow content to be added before the navigation menu in the secondary navigation bar.
+    </tr>
+    <tr uxd-api-property name="secondaryNavigationTrailingContent" type="TemplateRef">
+        If specified, this will allow content to be added after the navigation menu in the secondary navigation bar.
+    </tr>
 </uxd-api-properties>
 
 <uxd-api-properties tableTitle="Outputs">

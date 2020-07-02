@@ -73,7 +73,7 @@
 </div>
 
 <!-- Secondary Header Section -->
-<div *ngIf="secondaryNavigation" class="ux-page-header-secondary">
+<div *ngIf="secondaryNavigation && ((selectedRoot$ | async) !== (selected$ | async))" class="ux-page-header-secondary">
 
     <!-- Secondary Navigation Leading Content -->
     <div class="page-header-secondary-leading-content"
@@ -82,19 +82,16 @@
     </div>
 
     <!-- Secondary Navigation (children of top level items) -->
-    <div [ngClass]="['page-header-navigation-container', secondaryNavigationAlignment]">
-        <div class="page-header-navigation" role="navigation"
-            *ngIf="(selectedRoot$ | async) !== (selected$ | async)">
-            <ux-tabset *ngIf="(selectedRoot$ | async)?.children; let children" [manual]="true">
-                <ux-tab *ngFor="let child of children"
-                    [heading]="child.title"
-                    [active]="child === (selected$ | async)"
-                    (activated)="select(child)"
-                    [uxPageHeaderNavigationSecondaryItem]="child"
-                    [disabled]="child.disabled">
-                </ux-tab>
-            </ux-tabset>
-        </div>
+    <div [ngClass]="['page-header-navigation', secondaryNavigationAlignment]" role="navigation">
+        <ux-tabset *ngIf="(selectedRoot$ | async)?.children; let children" [manual]="true">
+            <ux-tab *ngFor="let child of children"
+                [heading]="child.title"
+                [active]="child === (selected$ | async)"
+                (activated)="select(child)"
+                [uxPageHeaderNavigationSecondaryItem]="child"
+                [disabled]="child.disabled">
+            </ux-tab>
+        </ux-tabset>
     </div>
 
     <!-- Secondary Navigation Trialing Content -->
