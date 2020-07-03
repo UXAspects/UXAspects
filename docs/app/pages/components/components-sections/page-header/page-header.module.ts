@@ -1,6 +1,6 @@
 import { ComponentFactoryResolver, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { PageHeaderModule, TabsetModule } from '@ux-aspects/ux-aspects';
+import { IconModule, MenuModule, PageHeaderModule, TabsetModule } from '@ux-aspects/ux-aspects';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
 import { DocumentationPage, ResolverService } from '../../../../services/resolver/resolver.service';
@@ -26,7 +26,9 @@ const ROUTES = [
         TabsetModule,
         PageHeaderModule,
         DocumentationComponentsModule,
-        RouterModule.forChild(ROUTES)
+        RouterModule.forChild(ROUTES),
+        MenuModule,
+        IconModule
     ],
     exports: SECTIONS,
     declarations: SECTIONS,

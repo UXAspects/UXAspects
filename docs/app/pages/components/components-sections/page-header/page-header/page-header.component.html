@@ -2,7 +2,47 @@
     [crumbs]="crumbs"
     [items]="items"
     [condensed]="condensed"
-    [iconMenus]="iconMenus">
+    [iconMenus]="iconMenus"
+    [secondaryNavigation]="secondaryNavigation"
+    [secondaryNavigationAlignment]="secondaryNavigationAlignment"
+    [secondaryNavigationAutoselect]="secondaryNavigationAutoselect">
+    <ng-template #secondaryNavigationLeadingContent>
+        <div class="btn-group">
+            <button
+                type="button"
+                class="btn button-secondary dropdown-toggle dropdown-button"
+                [uxMenuTriggerFor]="menu">
+                <span>Quick links</span><ux-icon name="chevron-down" class="dropdown-icon-inline"></ux-icon>
+            </button>
+
+            <ux-menu #menu menuClass="ux-menu-demo">
+                <button type="button" uxMenuItem>
+                    <span class="dropdown-menu-icon"><ux-icon name="document"></ux-icon></span>
+                    <span class="dropdown-menu-text">Documents</span>
+                </button>
+
+                <button type="button" uxMenuItem>
+                    <span class="dropdown-menu-icon"><ux-icon name="social-email"></ux-icon></span>
+                    <span class="dropdown-menu-text">Emails</span>
+                </button>
+
+                <button type="button" uxMenuItem>
+                    <span class="dropdown-menu-icon"><ux-icon name="chat"></ux-icon></span>
+                    <span class="dropdown-menu-text">Messages</span>
+                </button>
+
+                <button type="button" uxMenuItem>
+                    <span class="dropdown-menu-icon"><ux-icon name="video"></ux-icon></span>
+                    <span class="dropdown-menu-text">Media</span>
+                </button>
+            </ux-menu>
+        </div>
+    </ng-template>
+    <ng-template #secondaryNavigationTrailingContent>
+        <button type="button" class="btn btn-icon-with-text button-primary">
+            <ux-icon name="save"></ux-icon><span>Save</span>
+        </button>
+    </ng-template>
 </ux-page-header>
 
 <br>

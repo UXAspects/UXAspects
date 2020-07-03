@@ -25,11 +25,15 @@
         [secondaryNavigation]="true"
         [secondaryNavigationAlignment]="alignment"
         [secondaryNavigationAutoselect]="autoselect">
-        <ng-template *secondaryNavigationLeadingContent>
-            Leading content
+        <ng-template #secondaryNavigationLeadingContent>
+            <button type="button" class="btn btn-icon-with-text button-secondary">
+                <span class="ux-icon ux-icon-edit"></span><span>Edit</span>
+            </button>
         </ng-template>
-        <ng-template *secondaryNavigationTrialingContent>
-            Trailing content
+        <ng-template #secondaryNavigationTrailingContent>
+            <button type="button" class="btn btn-icon-with-text button-primary">
+                <span class="ux-icon ux-icon-save"></span><span>Save</span>
+            </button>
         </ng-template>
     </ux-page-header>
 
