@@ -39,25 +39,7 @@ export class PageHeaderComponent {
     @Input() backVisible: boolean = true;
 
     /** The alignment of the secondary navigation tabs. */
-    _secondaryNavigationAlignment: NavigationAlignment;
-
-    @Input()
-    set secondaryNavigationAlignment(value: NavigationAlignment) {
-        this._secondaryNavigationAlignment = value;
-    }
-
-    get secondaryNavigationAlignment(): NavigationAlignment {
-        let alignment = this._secondaryNavigationAlignment;
-
-        if (
-            (alignment === 'left' && this.secondaryNavigationLeadingContentTemplate) ||
-            (alignment === 'right' && this.secondaryNavigationTrailingContentTemplate)
-         ) {
-            alignment = 'center';
-        }
-
-        return alignment;
-    }
+    @Input() secondaryNavigationAlignment: NavigationAlignment = 'center';
 
     /** If set, the first child item will get selected when the parent item is selected. */
     @Input()

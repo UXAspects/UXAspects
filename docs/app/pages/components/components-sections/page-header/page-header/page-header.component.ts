@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Breadcrumb, NavigationAlignment, PageHeaderIconMenu, PageHeaderNavigationItem } from '@ux-aspects/ux-aspects';
+import { Breadcrumb, PageHeaderIconMenu, PageHeaderNavigationItem } from '@ux-aspects/ux-aspects';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
@@ -36,12 +36,6 @@ export class ComponentsPageHeaderComponent extends BaseDocumentationSection impl
     };
 
     condensed: boolean = false;
-
-    secondaryNavigation: boolean = true;
-
-    secondaryNavigationAlignment: NavigationAlignment = 'center';
-
-    secondaryNavigationAutoselect: boolean = true;
 
     crumbs: Breadcrumb[] = [
         {

@@ -158,38 +158,38 @@ describe('Page Header Tests', () => {
         expect(await imageCompare('dashboard-secondary-navigation')).toEqual(0);
     });
 
-    // it('should align the tabset accordingly', async () => {
+    it('should align the tabset accordingly', async () => {
 
-    //     // enable autoselect
-    //     await page.autoselectButton.click();
+        // enable autoselect
+        await page.autoselectButton.click();
 
-    //     // click the second menu item
-    //     await page.pageHeader2.$$('.horizontal-navigation-button').get(1).click();
+        // click the second menu item
+        await page.pageHeader2.$$('.horizontal-navigation-button').get(1).click();
 
-    //     // get the required elements
-    //     const secondaryNavigation: ElementFinder = await page.getSecondaryNavigation();
+        // get the required elements
+        const secondaryNavigation: ElementFinder = await page.getSecondaryNavigation();
 
-    //     // should contain the 'center' class initially
-    //     expect(await page.getClasses(secondaryNavigation)).toContain('center');
+        // should contain the 'center' class initially
+        expect(await page.getClasses(secondaryNavigation)).toContain('center');
 
-    //     // click the left align button
-    //     await page.alignLeftButton.click();
+        // click the left align button
+        await page.alignLeftButton.click();
 
-    //     // should now contain the 'left' class
-    //     expect(await page.getClasses(secondaryNavigation)).toContain('left');
+        // should now contain the 'left' class
+        expect(await page.getClasses(secondaryNavigation)).toContain('left');
 
-    //     // click the right align button
-    //     await page.alignRightButton.click();
+        // click the right align button
+        await page.alignRightButton.click();
 
-    //     // should now contain the 'right' class
-    //     expect(await page.getClasses(secondaryNavigation)).toContain('right');
+        // should now contain the 'right' class
+        expect(await page.getClasses(secondaryNavigation)).toContain('right');
 
-    //     // click the center align button
-    //     await page.alignCenterButton.click();
+        // click the center align button
+        await page.alignCenterButton.click();
 
-    //     // should now contain the 'center' class
-    //     expect(await page.getClasses(secondaryNavigation)).toContain('center');
-    // });
+        // should now contain the 'center' class
+        expect(await page.getClasses(secondaryNavigation)).toContain('center');
+    });
 
     it('should call the select functions when secondary items are clicked', async () => {
 
