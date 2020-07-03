@@ -2,8 +2,6 @@ import { ChangeDetectorRef, Component, OnDestroy } from '@angular/core';
 import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { MarqueeWizardModule } from './marquee-wizard.module';
 
-const NEXT_BUTTON_SELECTOR: string = '.button-primary';
-
 /**
  * Test navigation and steps display correctly
  **/
@@ -379,6 +377,10 @@ describe('Marquee wizard with validation', () => {
         expect(isStepVisited(1)).toBe(true);
         expect(isStepVisited(2)).toBe(false);
 
+        expect(component.step1Visited).toBe(true);
+        expect(component.step2Visited).toBe(true);
+        expect(component.step3Visited).toBe(false);
+
         // check visitedChange was emitted 1 time only
         expect(visitedChanged.calls.all().length).toBe(1);
     });
@@ -398,8 +400,6 @@ describe('Marquee wizard with validation', () => {
         expect(isStepVisited(1)).toBe(true);
         expect(isStepVisited(2)).toBe(true);
 
-        visitedChanged.calls.reset();
-
         component.step2Valid = false;
         fixture.detectChanges();
 
@@ -410,6 +410,10 @@ describe('Marquee wizard with validation', () => {
         expect(isStepVisited(0)).toBe(true);
         expect(isStepVisited(1)).toBe(true);
         expect(isStepVisited(2)).toBe(true);
+
+        expect(component.step1Visited).toBe(true);
+        expect(component.step2Visited).toBe(true);
+        expect(component.step3Visited).toBe(true);
 
         // check visitedChange was not emitted
         expect(visitedChanged.calls.all().length).toBe(0);

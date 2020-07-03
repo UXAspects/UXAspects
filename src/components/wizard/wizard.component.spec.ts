@@ -3,8 +3,6 @@ import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core
 import { StepChangingEvent } from './wizard.component';
 import { WizardModule } from './wizard.module';
 
-const NEXT_BUTTON_SELECTOR = '.wizard-footer .button-primary';
-
 @Component({
     selector: 'wizard-async-validation-test-app',
     template: `
@@ -351,6 +349,10 @@ describe('Wizard with validation', () => {
         expect(isStepVisited(1)).toBe(true);
         expect(isStepVisited(2)).toBe(false);
 
+        expect(component.step1Visited).toBe(true);
+        expect(component.step2Visited).toBe(true);
+        expect(component.step3Visited).toBe(false);
+
         // check visitedChange was emitted 1 time only
         expect(visitedChanged.calls.all().length).toBe(1);
     });
@@ -380,6 +382,10 @@ describe('Wizard with validation', () => {
         expect(isStepVisited(0)).toBe(true);
         expect(isStepVisited(1)).toBe(true);
         expect(isStepVisited(2)).toBe(true);
+
+        expect(component.step1Visited).toBe(true);
+        expect(component.step2Visited).toBe(true);
+        expect(component.step3Visited).toBe(true);
 
         // check visitedChange was not emitted
         expect(visitedChanged.calls.all().length).toBe(0);
