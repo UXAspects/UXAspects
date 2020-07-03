@@ -1,5 +1,5 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, HostBinding, Input, OnDestroy, QueryList, Renderer2, ViewChildren } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, HostBinding, Input, OnChanges, OnDestroy, QueryList, Renderer2, ViewChildren } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { map, takeUntil, withLatestFrom } from 'rxjs/operators';
 import { tick } from '../../common/index';
@@ -22,7 +22,7 @@ import { NotificationListDirection, NotificationRef, NotificationService } from 
         ])
     ]
 })
-export class NotificationListComponent implements AfterViewInit, OnDestroy {
+export class NotificationListComponent implements AfterViewInit, OnChanges, OnDestroy {
 
     /**
      *  Sets the order in which notifications are displayed:
@@ -76,16 +76,16 @@ export class NotificationListComponent implements AfterViewInit, OnDestroy {
             // Set the `top` style property of each element
             this.applyElementPositions(elements, notifications);
 
-            if (this.position === 'bottom-left' || this.position === 'bottom-right') {
+            this.updateListPosition(elements, notifications);
 
-                // calculate the total height of all notifications including spacing
-                this._bottom = notifications.reduce((total, notification, index) =>
-                    total + this.getNotificationHeightPixels(notification, elements[index]), 0);
-
-                // we are running in OnPush mode, so we will need to manually trigger CD here
-                this._changeDetectorRef.markForCheck();
-            }
+            this._changeDetectorRef.markForCheck();
         });
+    }
+
+    ngOnChanges(): void {
+        if (this._elements) {
+            this.updateListPosition(this._elements.toArray(), this._notifications);
+        }
     }
 
     ngOnDestroy(): void {
@@ -100,6 +100,19 @@ export class NotificationListComponent implements AfterViewInit, OnDestroy {
             const notification = notifications[i];
             this._renderer.setStyle(element, 'top', `${top}px`);
             top = top + this.getNotificationHeightPixels(notification, elements[i]);
+        }
+    }
+
+    private updateListPosition(elements: ElementRef[], notifications: NotificationRef[]): void {
+        if (this.position === 'bottom-left' || this.position === 'bottom-right') {
+
+            // calculate the total height of all notifications including spacing
+            this._bottom = notifications.reduce((total, notification, index) =>
+                total + this.getNotificationHeightPixels(notification, elements[index]), 0);
+        } else {
+
+            // In a top position, bottom should be unset.
+            this._bottom = undefined;
         }
     }
 
