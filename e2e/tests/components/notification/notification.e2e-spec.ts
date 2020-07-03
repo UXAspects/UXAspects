@@ -12,26 +12,26 @@ describe('Notification', () => {
         await page.showNotificationButton.click();
 
         expect(await page.getNotificationCount()).toBe(1, 'notification count after first click');
-        expect(await page.getNotificationTitle(0)).toBe('Message 0', 'notification 0 title after first click');
+        expect(await page.getNotificationTitle(0)).toBe('MESSAGE 0', 'notification 0 title after first click');
 
         await page.showNotificationButton.click();
 
         expect(await page.getNotificationCount()).toBe(2, 'notification count after second click');
-        expect(await page.getNotificationTitle(0)).toBe('Message 1', 'notification 0 title after second click');
-        expect(await page.getNotificationTitle(1)).toBe('Message 0', 'notification 1 title after second click');
+        expect(await page.getNotificationTitle(0)).toBe('MESSAGE 1', 'notification 0 title after second click');
+        expect(await page.getNotificationTitle(1)).toBe('MESSAGE 0', 'notification 1 title after second click');
 
         await page.showNotificationButton.click();
 
         expect(await page.getNotificationCount()).toBe(3, 'notification count after third click');
-        expect(await page.getNotificationTitle(0)).toBe('Message 2', 'notification 0 title after third click');
-        expect(await page.getNotificationTitle(1)).toBe('Message 1', 'notification 1 title after third click');
-        expect(await page.getNotificationTitle(2)).toBe('Message 0', 'notification 1 title after third click');
+        expect(await page.getNotificationTitle(0)).toBe('MESSAGE 2', 'notification 0 title after third click');
+        expect(await page.getNotificationTitle(1)).toBe('MESSAGE 1', 'notification 1 title after third click');
+        expect(await page.getNotificationTitle(2)).toBe('MESSAGE 0', 'notification 1 title after third click');
 
         await page.clickNotificationDismiss(1);
 
         expect(await page.getNotificationCount()).toBe(2, 'notification count after dismiss');
-        expect(await page.getNotificationTitle(0)).toBe('Message 2', 'notification 0 title after dismiss');
-        expect(await page.getNotificationTitle(1)).toBe('Message 0', 'notification 1 title after dismiss');
+        expect(await page.getNotificationTitle(0)).toBe('MESSAGE 2', 'notification 0 title after dismiss');
+        expect(await page.getNotificationTitle(1)).toBe('MESSAGE 0', 'notification 1 title after dismiss');
 
         expect(await imageCompare('notification-stacked')).toBe(0);
     });
@@ -43,8 +43,8 @@ describe('Notification', () => {
         await page.showNotificationButton.click();
 
         expect(await page.getNotificationCount()).toBe(2, 'notification count after second click');
-        expect(await page.getNotificationTitle(0)).toBe('Message 0', 'notification 0 title after second click');
-        expect(await page.getNotificationTitle(1)).toBe('Message 1', 'notification 1 title after second click');
+        expect(await page.getNotificationTitle(0)).toBe('MESSAGE 0', 'notification 0 title after second click');
+        expect(await page.getNotificationTitle(1)).toBe('MESSAGE 1', 'notification 1 title after second click');
 
         expect(await imageCompare('notification-direction-below')).toBe(0);
     });

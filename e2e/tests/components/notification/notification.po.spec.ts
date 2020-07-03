@@ -23,7 +23,8 @@ export class NotificationPage {
 
     async getNotificationTitle(index: number): Promise<string> {
         const notification = this.getNotification(index);
-        return notification.$('.notification-title').getText();
+        // Normalize case due to use of text-transform in the stylesheet
+        return (await notification.$('.notification-title').getText()).toUpperCase();
     }
 
     async clickNotificationDismiss(index: number): Promise<void> {
