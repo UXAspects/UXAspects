@@ -56,9 +56,9 @@ export class DashboardService implements OnDestroy {
                 if (layout && widgets.length > 0 && dimensions.width) {
                 this.setLayoutData(layout);
             }
-        });
+        );
 
-        this.layout$.pipe(takeUntil(this._onDestroy)).subscribe(this.setLayoutData.bind(this));
+        this.layout$.pipe(filter(() => !this.stacked), takeUntil(this._onDestroy)).subscribe(this.setLayoutData.bind(this));
         this.stacked$.pipe(takeUntil(this._onDestroy), filter(stacked => stacked === true)).subscribe(this.updateWhenStacked.bind(this));
         this.widgets$.pipe(takeUntil(this._onDestroy), tick()).subscribe(() => this.renderDashboard());
         this.dimensions$.pipe(takeUntil(this._onDestroy), tick()).subscribe(() => this.renderDashboard());

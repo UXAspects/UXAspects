@@ -68,6 +68,38 @@ describe('Dashboard Tests', () => {
         expect(await imageCompareFullPageScreen('dashboard-option-change')).toEqual(0);
     });
 
+    it('should emit layoutChange and update the layout whenever a widget is dragged', async() => {
+        // drag the widget right
+        await browser.actions().dragAndDrop(widget2, { x: 250, y: 0 }).perform();
+
+        expect(await page.getWidgetLocationValue(widget1, 'top')).toBe(0);
+        expect(await page.getWidgetLocationValue(widget1, 'left')).toBe(0);
+
+        expect(await page.getWidgetLocationValue(widget2, 'top')).toBe(440);
+        expect(await page.getWidgetLocationValue(widget2, 'left')).toBe(277);
+
+        expect(await page.getWidgetLocationValue(widget3, 'top')).toBe(440);
+        expect(await page.getWidgetLocationValue(widget3, 'left')).toBe(0);
+
+        expect(await page.getWidgetLocationValue(widget4, 'top')).toBe(440);
+        expect(await page.getWidgetLocationValue(widget4, 'left')).toBe(831);
+
+       await page.setLayout.click();
+
+       expect(await page.getWidgetLocationValue(widget1, 'top')).toBe(0);
+       expect(await page.getWidgetLocationValue(widget1, 'left')).toBe(0);
+
+       expect(await page.getWidgetLocationValue(widget2, 'top')).toBe(440);
+       expect(await page.getWidgetLocationValue(widget2, 'left')).toBe(0);
+
+       expect(await page.getWidgetLocationValue(widget3, 'top')).toBe(440);
+       expect(await page.getWidgetLocationValue(widget3, 'left')).toBe(554);
+
+       expect(await page.getWidgetLocationValue(widget4, 'top')).toBe(440);
+       expect(await page.getWidgetLocationValue(widget4, 'left')).toBe(831);
+
+   });
+
     it('should react correctly when a widget is moved down', async () => {
 
         // drag the top widget down
@@ -84,6 +116,9 @@ describe('Dashboard Tests', () => {
 
         expect(await page.getWidgetLocationValue(widget4, 'top')).toBe(0);
         expect(await page.getWidgetLocationValue(widget4, 'left')).toBe(831);
+
+        expect(await page.getLayoutOutput()).toBe('[ { "id": "analytics-1-widget", "col": 0, "row": 1, "colSpan": 4, "rowSpan": 2 }, { "id": "subscription-widget", "col": 0, "row": 0, "colSpan": 2, "rowSpan": 1 }, { "id": "users-widget", "col": 2, "row": 0, "colSpan": 1, "rowSpan": 1 }, { "id": "alert-widget", "col": 3, "row": 0, "colSpan": 1, "rowSpan": 1 } ]');
+
     });
 
     it('should react correctly when a widget is moved up', async () => {
@@ -105,6 +140,8 @@ describe('Dashboard Tests', () => {
 
         expect(await page.getWidgetLocationValue(widget4, 'top')).toBe(440);
         expect(await page.getWidgetLocationValue(widget4, 'left')).toBe(831);
+
+        expect(await page.getLayoutOutput()).toBe('[ { "id": "analytics-1-widget", "col": 0, "row": 0, "colSpan": 4, "rowSpan": 2 }, { "id": "subscription-widget", "col": 0, "row": 2, "colSpan": 2, "rowSpan": 1 }, { "id": "users-widget", "col": 2, "row": 2, "colSpan": 1, "rowSpan": 1 }, { "id": "alert-widget", "col": 3, "row": 2, "colSpan": 1, "rowSpan": 1 } ]');
     });
 
     it('should react correctly when a widget is moved right', async () => {
@@ -124,6 +161,8 @@ describe('Dashboard Tests', () => {
         expect(await page.getWidgetLocationValue(widget4, 'top')).toBe(440);
         expect(await page.getWidgetLocationValue(widget4, 'left')).toBe(831);
 
+        expect(await page.getLayoutOutput()).toBe('[ { "id": "analytics-1-widget", "col": 0, "row": 0, "colSpan": 4, "rowSpan": 2 }, { "id": "subscription-widget", "col": 1, "row": 2, "colSpan": 2, "rowSpan": 1 }, { "id": "users-widget", "col": 0, "row": 2, "colSpan": 1, "rowSpan": 1 }, { "id": "alert-widget", "col": 3, "row": 2, "colSpan": 1, "rowSpan": 1 } ]');
+
     });
 
     it('should react correctly when a widget is moved left', async () => {
@@ -142,6 +181,8 @@ describe('Dashboard Tests', () => {
 
         expect(await page.getWidgetLocationValue(widget4, 'top')).toBe(440);
         expect(await page.getWidgetLocationValue(widget4, 'left')).toBe(554);
+
+        expect(await page.getLayoutOutput()).toBe('[ { "id": "analytics-1-widget", "col": 0, "row": 0, "colSpan": 4, "rowSpan": 2 }, { "id": "subscription-widget", "col": 0, "row": 2, "colSpan": 2, "rowSpan": 1 }, { "id": "users-widget", "col": 3, "row": 2, "colSpan": 1, "rowSpan": 1 }, { "id": "alert-widget", "col": 2, "row": 2, "colSpan": 1, "rowSpan": 1 } ]');
 
     });
 
