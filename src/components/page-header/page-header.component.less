@@ -112,6 +112,21 @@ ux-page-header {
             }
         }
 
+        .page-header-navigation {
+            display: flex;
+            justify-content: center;
+            flex: 1;
+            margin: 0 120px;
+
+            &.left {
+                justify-content: flex-start;
+            }
+
+            &.right {
+                justify-content: flex-end;
+            }
+        }
+
         .page-header-icon-menus {
             position: absolute;
             top: 0;
@@ -129,11 +144,9 @@ ux-page-header {
                 display: flex;
 
                 .page-header-breadcrumbs {
-                    position: absolute;
-                    top: 0;
-                    left: 0;
+                    display: flex;
+                    align-items: center;
                     margin-right: 10px;
-                    margin-top: 18px;
 
                     ux-breadcrumbs {
                         height: 22px;
@@ -164,63 +177,15 @@ ux-page-header {
                     }
                 }
 
-                .page-header-icon-menus {
-                    position: absolute;
-                    top: 0;
-                    right: 0;
+                .page-header-navigation {
+                    display: flex;
+                    flex: 1;
+                    justify-content: center;
                 }
-            }
-        }
-    }
 
-    .ux-page-header .page-header-navigation,
-    .ux-page-header-secondary .page-header-navigation {
-        display: flex;
-        justify-content: center;
-        flex: 1;
-        margin-left: 120px;
-        margin-right: 120px;
-
-        &.left {
-            justify-content: flex-start;
-        }
-
-        &.right {
-            justify-content: flex-end;
-        }
-    }
-
-    .ux-page-header-secondary {
-        position: relative;
-        min-height: 40px;
-
-        .page-header-secondary-leading-content,
-        .page-header-secondary-trailing-content {
-            position: absolute;
-            top: 0;
-            min-height: 40px;
-            line-height: 40px;
-        }
-
-        .page-header-secondary-leading-content {
-            left: 0;
-            margin-right: 10px;
-            margin-left: 23px;
-        }
-
-        .page-header-secondary-trailing-content {
-            right: 0;
-            margin-left: 10px;
-            margin-right: 23px;
-        }
-
-        .page-header-navigation {
-            &.left {
-                margin-left: 13px;
-            }
-
-            &.right {
-                margin-right: 13px;
+                .page-header-icon-menus {
+                    position: static;
+                }
             }
         }
     }
