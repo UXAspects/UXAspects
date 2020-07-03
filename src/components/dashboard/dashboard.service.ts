@@ -50,11 +50,12 @@ export class DashboardService implements OnDestroy {
     private _onDestroy = new Subject<void>();
 
     constructor() {
-        combineLatest(this.layout$, this.widgets$, this.dimensions$, this.stacked$)
-            .pipe(tick(), filter(([layout, widgets, dimensions, stacked]) => stacked === false), takeUntil(this._onDestroy))
-            .subscribe(([layout, widgets, dimensions, stacked]) => {
-                if (layout && widgets.length > 0 && dimensions.width) {
-                this.setLayoutData(layout);
+        combineLatest(this.layout$, this.widgets$, this.dimensions$)
+            .pipe(tick(), takeUntil(this._onDestroy))
+            .subscribe(([layout, widgets, dimensions]) => {
+                if (layout && widgets.length > 0 && dimensions.width && this.stacked === false) {
+                    this.setLayoutData(layout);
+                }
             }
         );
 
