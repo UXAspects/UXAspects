@@ -1,0 +1,40 @@
+<ux-notification-list [direction]="direction" [position]="position"></ux-notification-list>
+
+<div class="btn-container">
+    <button type="button" id="show-notification" class="btn button-primary" (click)="showNotification()">
+        Show Notification
+    </button>
+    <button type="button" id="dismiss-all" class="btn button-secondary" (click)="dismissAll()">
+        Dismiss Notifications
+    </button>
+</div>
+
+<div uxRadioButtonGroup [(value)]="direction">
+    <ux-radio-button id="direction-above" option="above">above</ux-radio-button>
+    <ux-radio-button id="direction-below" option="below">below</ux-radio-button>
+</div>
+
+<div uxRadioButtonGroup [(value)]="position">
+    <ux-radio-button id="position-top-left" option="top-left">top-left</ux-radio-button>
+    <ux-radio-button id="position-top-right" option="top-right">top-right</ux-radio-button>
+    <ux-radio-button id="position-bottom-left" option="bottom-left">bottom-left</ux-radio-button>
+    <ux-radio-button id="position-bottom-right" option="bottom-right">bottom-right</ux-radio-button>
+</div>
+
+<ng-template #notification let-notificationRef let-data="data">
+    <div class="dismiss">
+        <ux-icon name="close" (click)="dismiss(notificationRef)"> </ux-icon>
+    </div>
+
+    <div class="notification-wrapper">
+        <div class="notification-icon">
+            <ux-icon name="chat" [style.color]="notificationRef.iconColor"> </ux-icon>
+        </div>
+
+        <div class="notification-content">
+            <h4 class="notification-title">Message {{ data.id }}</h4>
+            <p class="notification-description">{{ data.description }}</p>
+            <p class="notification-timestamp">3 July 2020, 15:31</p>
+        </div>
+    </div>
+</ng-template>
