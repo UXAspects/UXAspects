@@ -7,6 +7,7 @@ import { HierarchicalSearchBuilderQuery } from './interfaces/HierarchicalSearchB
 @Component({
     selector: 'ux-hierarchical-search-builder',
     templateUrl: './hierarchical-search-builder.component.html',
+    styleUrls: ['./hierarchical-search-builder.component.less'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HierarchicalSearchBuilderComponent {
