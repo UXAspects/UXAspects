@@ -122,7 +122,7 @@ export class NotificationListComponent implements AfterViewInit, OnChanges, OnDe
             return this.getElementOuterHeightPixels(elementRef);
         }
 
-        return elementRef.nativeElement.scrollHeight + notification.spacing;
+        return elementRef.nativeElement.offsetHeight + notification.spacing;
     }
 
     /** Get the total height of the element including margins. */
