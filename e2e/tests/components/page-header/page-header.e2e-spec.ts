@@ -20,6 +20,7 @@ describe('Page Header Tests', () => {
         expect(await page.confirmDropdownIsOpened()).toBeFalsy();
         expect(await page.confirmNotificationIconIsPresent()).toBeTruthy();
         expect(await page.confirmActionsIconIsPresent()).toBeTruthy();
+
     });
 
     it('should display breadcrumbs when condensed', async () => {
