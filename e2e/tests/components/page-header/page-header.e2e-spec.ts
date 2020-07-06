@@ -1,5 +1,4 @@
 import { ElementArrayFinder, ElementFinder } from 'protractor';
-import { imageCompare } from '../common/image-compare';
 import { PageHeaderPage } from './page-header.po.spec';
 
 describe('Page Header Tests', () => {
