@@ -5,7 +5,7 @@ interface QueryCondition {
     value: any;
 }
 
-interface QueryGroup {
+export interface QueryGroup {
     type: string;
     logicalOperator: string;
     children: (QueryCondition|QueryGroup)[];
