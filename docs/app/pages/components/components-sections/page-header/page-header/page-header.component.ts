@@ -19,7 +19,7 @@ export class ComponentsPageHeaderComponent extends BaseDocumentationSection impl
         },
         modules: [
             {
-                imports: ['PageHeaderModule', 'MenuModule', 'IconModule'],
+                imports: ['PageHeaderModule'],
                 library: '@ux-aspects/ux-aspects'
             },
             {
