@@ -72,4 +72,13 @@ describe('Notification', () => {
 
         expect(await imageCompare('notification-position-top-left')).toBe(0);
     });
+
+    it('should adjust the margin between notifications when the spacing setting is used', async () => {
+        await page.showNotificationWithSpacingButton.click();
+        await page.showNotificationWithSpacingButton.click();
+
+        const notification0Bottom = await page.getNotificationBottomPosition(0);
+        const notification1Top = await page.getNotificationTopPosition(1);
+        expect(notification1Top - notification0Bottom).toBe(42);
+    });
 });

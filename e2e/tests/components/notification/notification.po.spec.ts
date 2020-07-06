@@ -2,6 +2,7 @@ import { $$, browser, by, element, ElementFinder } from 'protractor';
 
 export class NotificationPage {
     showNotificationButton = element(by.id('show-notification'));
+    showNotificationWithSpacingButton = element(by.id('show-notification-spacing'));
     dismissAllButton = element(by.id('dismiss-all'));
     directionBelowButton = element(by.id('direction-below'));
     positionTopLeftButton = element(by.id('position-top-left'));
@@ -31,5 +32,18 @@ export class NotificationPage {
         const notification = this.getNotification(index);
         const dismissButton = notification.$('.dismiss ux-icon');
         return await dismissButton.click();
+    }
+
+    async getNotificationTopPosition(index: number): Promise<number> {
+        const notification = this.getNotification(index);
+        const location = await notification.getLocation();
+        return location.y;
+    }
+
+    async getNotificationBottomPosition(index: number): Promise<number> {
+        const notification = this.getNotification(index);
+        const location = await notification.getLocation();
+        const size = await notification.getSize();
+        return location.y + size.height;
     }
 }

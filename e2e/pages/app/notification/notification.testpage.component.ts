@@ -14,12 +14,13 @@ export class NotificationTestPageComponent {
 
     constructor(private _notificationService: NotificationService) {}
 
-    showNotification(): void {
+    showNotification(spacing?: number): void {
         this._notificationService.show(
             this.notification,
             {
                 duration: 0,
                 iconColor: 'fuchsia',
+                spacing: spacing,
             },
             {
                 id: this.notificationId,
