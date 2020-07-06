@@ -1,15 +1,13 @@
-import { Component, ContentChildren, ElementRef, EventEmitter, Input, OnDestroy, Output, QueryList, TemplateRef } from '@angular/core';
-import { filter, takeUntil } from 'rxjs/operators';
-import { WizardComponent } from '../wizard/index';
-import { MarqueeWizardStepComponent } from './marquee-wizard-step.component';
-import { MarqueeWizardService, MarqueeWizardValidEvent } from './marquee-wizard.service';
+import { ChangeDetectorRef, Component, ContentChildren, ElementRef, EventEmitter, Input, OnDestroy, Output, QueryList, TemplateRef } from '@angular/core';
+import { takeUntil } from 'rxjs/operators';
 import { ResizeDimensions, ResizeService } from '../../directives/resize/index';
-import { Subject } from 'rxjs';
+import { WizardComponent, WizardService } from '../wizard/index';
+import { MarqueeWizardStepComponent } from './marquee-wizard-step.component';
 
 @Component({
     selector: 'ux-marquee-wizard',
     templateUrl: './marquee-wizard.component.html',
-    providers: [MarqueeWizardService],
+    providers: [WizardService],
     preserveWhitespaces: false
 })
 export class MarqueeWizardComponent extends WizardComponent implements OnDestroy {
@@ -29,9 +27,6 @@ export class MarqueeWizardComponent extends WizardComponent implements OnDestroy
     /** If set to true the resizable splitter will be enabled and set to the default width **/
     @Input() resizable: boolean = false;
 
-    /** Whether to set `visited` to false on subsequent steps after a validation fault. */
-    @Input() resetVisitedOnValidationError: boolean = true;
-
     /** Emit the current width of the splitter*/
     @Output() sidePanelWidthChange = new EventEmitter<number>();
 
@@ -45,32 +40,28 @@ export class MarqueeWizardComponent extends WizardComponent implements OnDestroy
      */
     _isInitialised: boolean = false;
 
-    /** Unsubscribe from all subscriptions when component is destroyed */
-    private _onDestroyed = new Subject<void>();
-
     get isTemplate(): boolean {
         return this.description && this.description instanceof TemplateRef;
     }
 
-    constructor(marqueeWizardService: MarqueeWizardService,
-                private _resizeService: ResizeService,
-                private _elementRef: ElementRef<HTMLElement>
+    constructor(readonly wizardService: WizardService<MarqueeWizardStepComponent>,
+                private readonly _changeDetector: ChangeDetectorRef,
+                private readonly _resizeService: ResizeService,
+                private readonly _elementRef: ElementRef<HTMLElement>
     ) {
-        super();
+        super(wizardService);
+
+        // set to true as default for Marquee Wizard only
+        this.resetVisitedOnValidationError = true;
 
         // watch for changes to the size
-        _resizeService.addResizeListener(_elementRef.nativeElement)
-            .pipe(takeUntil(this._onDestroyed))
+        _resizeService.addResizeListener(this._elementRef.nativeElement)
+            .pipe(takeUntil(this._onDestroy))
             .subscribe(this.onResize.bind(this));
-
-        marqueeWizardService.valid$.pipe(filter((event: MarqueeWizardValidEvent) => !event.valid))
-            .subscribe(this.validChange.bind(this));
     }
 
     ngOnDestroy(): void {
         super.ngOnDestroy();
-        this._onDestroyed.next();
-        this._onDestroyed.complete();
         this._resizeService.removeResizeListener(this._elementRef.nativeElement);
     }
 
@@ -102,37 +93,14 @@ export class MarqueeWizardComponent extends WizardComponent implements OnDestroy
         // get the current step
         const step = this.getCurrentStep() as MarqueeWizardStepComponent;
 
-        // call the original finish function
-        return super.finish().then(() => {
-            // if the step is valid indicate that it is now complete
-            if (step.valid) {
-                step.setCompleted(true);
-            } else {
-                this.stepError.next(this.step);
-            }
-        });
-    }
+        await super.finish();
 
-    /**
-     * If a step in the wizard becomes invalid, all steps sequentially after
-     * it, should become unvisited and incomplete
-     */
-    validChange(state: MarqueeWizardValidEvent): void {
-
-        const steps = this.steps.toArray();
-        const current = steps.findIndex(step => step === state.step);
-        const affected = steps.slice(current);
-
-        affected.forEach(step => {
-
-            // the step should no longer be completed
-            step.completed = false;
-
-            // if the step is not the current step then also mark it as unvisited
-            if (this.resetVisitedOnValidationError && step !== state.step) {
-                step.visited = false;
-            }
-        });
+        // if the step is valid indicate that it is now complete
+        if (step.valid) {
+            step.setCompleted(true);
+        } else {
+            this.stepError.next(this.step);
+        }
     }
 
     onResize(event: ResizeDimensions): void {
@@ -146,6 +114,14 @@ export class MarqueeWizardComponent extends WizardComponent implements OnDestroy
         // we need to only get the size of the first panel which will be the side panel
         this.sidePanelWidth = sizes[0];
         this.sidePanelWidthChange.emit(this.sidePanelWidth);
+    }
+
+    protected setFutureStepsUnvisited(currentStep: MarqueeWizardStepComponent): void {
+        super.setFutureStepsUnvisited(currentStep);
+
+        // Marquee wizard steps have an additional completed property which must also be changed.
+        // The base class implementation only changes the visited state
+        this.getFutureSteps(currentStep).forEach((step: MarqueeWizardStepComponent) => step.completed = false);
     }
 }
 
