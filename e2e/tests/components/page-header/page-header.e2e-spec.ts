@@ -153,9 +153,6 @@ describe('Page Header Tests', () => {
 
         // check the number of tabs are correct
         expect(tabs.length).toBe(3);
-
-        // screenshot the page
-        expect(await imageCompare('dashboard-secondary-navigation')).toEqual(0);
     });
 
     it('should align the tabset accordingly', async () => {
