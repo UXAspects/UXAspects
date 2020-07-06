@@ -977,6 +977,21 @@
                     ]
                 },
                 {
+                    "title": "Hierarchical Search Builder",
+                    "component": "ComponentsHierarchicalSearchBuilderComponent",
+                    "version": "Angular",
+                    "usage": [
+                        {
+                            "title": "Selector",
+                            "content": "ux-hierarchical-search-builder"
+                        },
+                        {
+                            "title": "Module",
+                            "content": "HierarchicalSearchBuilderModule"
+                        }
+                    ]
+                },
+                {
                     "title": "Toolbar Search",
                     "component": "ComponentsToolbarSearchComponent",
                     "version": "Angular",
