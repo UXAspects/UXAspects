@@ -1,5 +1,18 @@
-<p>{{query.type}}</p>
-<p>{{logicalOperators | json}}</p>
-<p>{{operators | json}}</p>
-<p>{{fields | json}}</p>
-<p>{{query | json}}</p>
+<button
+    *ngIf="isQueryEmpty(); else queryItems"
+    type="button"
+    class="btn btn-icon-with-text button-primary">
+    <span class="ux-icon ux-icon-add" aria-hidden="true"></span><span>Add condition</span>
+</button>
+
+<ng-template #queryItems>
+    <ux-hierarchical-search-builder-group
+        *ngIf="query.type === 'group'; else conditionBlock"
+        [subquery]="query"
+        [logicalOperatorName]="query.logicalOperator">
+    </ux-hierarchical-search-builder-group>
+</ng-template>
+
+<ng-template #conditionBlock>
+    <ux-hierarchical-search-builder-condition></ux-hierarchical-search-builder-condition>
+</ng-template>

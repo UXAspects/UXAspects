@@ -1,1 +1,16 @@
-<p>Group works!</p>
+<p>{{logicalOperatorName}} group</p>
+
+<ng-container *ngFor="let child of (subquery?.children || [])">
+    <ux-hierarchical-search-builder-condition
+        *ngIf="child?.type === 'condition'"
+        [field]="child.field"
+        [operator]="child.operator"
+        [value]="child.value">
+    </ux-hierarchical-search-builder-condition>
+
+    <ux-hierarchical-search-builder-group
+        *ngIf="child?.type === 'group'"
+        [subquery]="child"
+        [logicalOperatorName]="child.logicalOperator">
+    </ux-hierarchical-search-builder-group>
+</ng-container>
