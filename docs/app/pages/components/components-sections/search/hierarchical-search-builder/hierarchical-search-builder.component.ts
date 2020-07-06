@@ -2,8 +2,10 @@ import { Component } from '@angular/core';
 import {
     ColorService,
     FieldDefinition,
+    HierarchicalSearchBuilderQuery,
     LogicalOperatorDefinition,
-    OperatorDefinitionList, TextInputComponent
+    OperatorDefinitionList,
+    TextInputComponent
 } from '@ux-aspects/ux-aspects';
 import 'chance';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
@@ -21,23 +23,37 @@ export class ComponentsHierarchicalSearchBuilderComponent extends BaseDocumentat
     playground: IPlayground;
 
     logicalOperators: LogicalOperatorDefinition[] = [
-        { name: "and", label: "and" },
-        { name: "or", label: "or" },
-        { name: "not", label: "not" },
-    ]
+        { name: 'and', label: 'and' },
+        { name: 'or', label: 'or' },
+        { name: 'not', label: 'not' },
+    ];
 
     operators: OperatorDefinitionList = {
         text: [
-            { name: "equals", label: "equals", component: TextInputComponent },
-            { name: "contains", label: "contains", component: TextInputComponent },
+            { name: 'equals', label: 'equals', component: TextInputComponent },
+            { name: 'contains', label: 'contains', component: TextInputComponent },
         ]
-    }
+    };
 
     fields: FieldDefinition[] = [
-        { name: "name", label: "Name", fieldType: "text" }
-    ]
+        { name: 'name', label: 'Name', fieldType: 'text' }
+    ];
 
-    query: object = null;
+    query: HierarchicalSearchBuilderQuery = {
+        type: 'group',
+        logicalOperator: 'and',
+        children: [
+            { type: 'condition', field: 'name', operator: 'equals', value: 'test' },
+            {
+                type: 'group',
+                logicalOperator: 'or',
+                children: [
+                    { type: 'condition', field: 'date', operator: 'before', value: 1592979598445 },
+                    { type: 'condition', field: 'category', operator: 'one_of', value: ['Performance', 'Security'] },
+                ]
+            },
+        ]
+    };
 
     constructor(public colorService: ColorService) {
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));

@@ -1,7 +1,8 @@
-import { ChangeDetectionStrategy, Component, Input } from "@angular/core";
-import { LogicalOperatorDefinition } from "./interfaces/LogicalOperatorDefinition";
-import { OperatorDefinitionList } from "./interfaces/OperatorDefinitionList";
-import { FieldDefinition } from "./interfaces/FieldDefinition";
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { LogicalOperatorDefinition } from './interfaces/LogicalOperatorDefinition';
+import { OperatorDefinitionList } from './interfaces/OperatorDefinitionList';
+import { FieldDefinition } from './interfaces/FieldDefinition';
+import { HierarchicalSearchBuilderQuery } from './interfaces/HierarchicalSearchBuilderQuery';
 
 @Component({
     selector: 'ux-hierarchical-search-builder',
@@ -12,5 +13,5 @@ export class HierarchicalSearchBuilderComponent {
     @Input() logicalOperators: LogicalOperatorDefinition[];
     @Input() operators: OperatorDefinitionList;
     @Input() fields: FieldDefinition[];
-    @Input() query: any;
+    @Input() query: HierarchicalSearchBuilderQuery;
 }
