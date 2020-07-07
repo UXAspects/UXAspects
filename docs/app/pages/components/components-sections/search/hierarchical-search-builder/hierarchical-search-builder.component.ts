@@ -32,11 +32,23 @@ export class ComponentsHierarchicalSearchBuilderComponent extends BaseDocumentat
         text: [
             { name: 'equals', label: 'equals', component: TextInputComponent },
             { name: 'contains', label: 'contains', component: TextInputComponent },
-        ]
+        ],
+        date: [
+            { name: 'before', label: 'before', component: TextInputComponent },
+        ],
+        enum: [
+            { name: 'one_of', label: 'one of', component: TextInputComponent },
+        ],
+        number: [
+            { name: 'equals', label: 'equals', component: TextInputComponent },
+            { name: 'contains', label: 'contains', component: TextInputComponent },
+        ],
     };
 
     fields: FieldDefinition[] = [
-        { name: 'name', label: 'Name', fieldType: 'text' }
+        { name: 'name', label: 'Name', fieldType: 'text' },
+        { name: 'date', label: 'Date', fieldType: 'date' },
+        { name: 'category', label: 'Category', fieldType: 'enum' },
     ];
 
     query: HierarchicalSearchBuilderQuery = {
