@@ -1,1 +1,29 @@
-<p>Condition: <strong>{{field}}</strong> <em>{{operator}}</em> {{value | json}}</p>
+<p>Condition: <strong>{{fieldName}}</strong> <em>{{operatorName}}</em> {{value | json}}</p>
+
+<div class="row">
+    <div class="col-xs-2">
+        <ux-combobox
+            [value]="_field"
+            [options]="fields"
+            [display]="'label'"
+            [key]="'name'">
+        </ux-combobox>
+    </div>
+    <div class="col-xs-2">
+        <ux-combobox
+            [value]="_operator"
+            [options]="operators"
+            [display]="'label'"
+            [key]="'name'">
+        </ux-combobox>
+    </div>
+    <div class="col-xs-4">
+        <div #inputContainer></div>
+    </div>
+
+    <!--<div class="col-xs-1">
+        <button type="button" class="btn btn-icon button-secondary" aria-label="Save" [disabled]="!(_field && _operator && _value)">
+            <span class="ux-icon ux-icon-checkmark" aria-hidden="true"></span>
+        </button>
+    </div>-->
+</div>
