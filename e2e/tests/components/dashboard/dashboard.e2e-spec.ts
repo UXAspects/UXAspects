@@ -91,21 +91,6 @@ describe('Dashboard Tests', () => {
         expect(await page.getWidgetLocationValue(widget4, 'left')).toBe(831, 'widget4 left');
 
         expect(JSON.parse(await page.getLayoutOutput())).toEqual(layoutMock);
-
-        await page.setLayout.click();
-
-        expect(await page.getWidgetLocationValue(widget1, 'top')).toBe(0);
-        expect(await page.getWidgetLocationValue(widget1, 'left')).toBe(0);
-
-        expect(await page.getWidgetLocationValue(widget2, 'top')).toBe(440);
-        expect(await page.getWidgetLocationValue(widget2, 'left')).toBe(0);
-
-        expect(await page.getWidgetLocationValue(widget3, 'top')).toBe(440);
-        expect(await page.getWidgetLocationValue(widget3, 'left')).toBe(554);
-
-        expect(await page.getWidgetLocationValue(widget4, 'top')).toBe(440);
-        expect(await page.getWidgetLocationValue(widget4, 'left')).toBe(831);
-
     });
 
     it('should react correctly when a widget is moved up', async () => {
