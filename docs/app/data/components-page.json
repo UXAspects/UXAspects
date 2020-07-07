@@ -185,6 +185,72 @@
             ]
         },
         {
+            "title": "Dashboard Extensions",
+            "link": "dashboard-extensions",
+            "sections": [
+                {
+                    "title": "Actions Widget",
+                    "component": "ComponentsDashboardActionsWidgetComponent",
+                    "version": "Angular",
+                    "usage": [
+                        {
+                            "title": "Selector",
+                            "content": "ux-dashboard-actions-widget"
+                        },
+                        {
+                            "title": "Module",
+                            "content": "DashboardExtensionsModule"
+                        }
+                    ]
+                },
+                {
+                    "title": "Text Widget",
+                    "component": "ComponentsDashboardTextWidgetComponent",
+                    "version": "Angular",
+                    "usage": [
+                        {
+                            "title": "Selector",
+                            "content": "ux-dashboard-text-widget"
+                        },
+                        {
+                            "title": "Module",
+                            "content": "DashboardExtensionsModule"
+                        }
+                    ]
+                },
+                {
+                    "title": "Data Table Widget",
+                    "component": "ComponentsDashboardDataTableWidgetComponent",
+                    "version": "Angular",
+                    "usage": [
+                        {
+                            "title": "Selector",
+                            "content": "ux-dashboard-data-table-widget"
+                        },
+                        {
+                            "title": "Module",
+                            "content": "DashboardExtensionsModule"
+                        }
+                    ]
+                },
+                {
+                    "title": "Enum Widget",
+                    "component": "ComponentsDashboardEnumWidgetComponent",
+                    "version": "Angular",
+                    "usage": [
+                        {
+                            "title": "Selector",
+                            "content": "ux-dashboard-enum-widget"
+                        },
+                        {
+                            "title": "Module",
+                            "content": "DashboardExtensionsModule"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
             "title": "Date & Time Pickers",
             "link": "date-time-picker",
             "sections": [
