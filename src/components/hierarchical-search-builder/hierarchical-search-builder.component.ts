@@ -15,6 +15,7 @@ export class HierarchicalSearchBuilderComponent implements OnInit {
     @Input() operators: OperatorDefinitionList;
     @Input() fields: FieldDefinition[];
     @Input() query: HierarchicalSearchBuilderQuery;
+    @Input() addButtonText: string = 'Add condition';
 
     constructor(private _hsbService: HierarchicalSearchBuilderService) {
     }

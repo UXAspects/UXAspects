@@ -2,7 +2,7 @@
     *ngIf="isQueryEmpty(); else queryItems"
     type="button"
     class="btn btn-icon-with-text button-primary">
-    <span class="ux-icon ux-icon-add" aria-hidden="true"></span><span>Add condition</span>
+    <span class="ux-icon ux-icon-add" aria-hidden="true"></span><span>{{addButtonText}}</span>
 </button>
 
 <ng-template #queryItems>
