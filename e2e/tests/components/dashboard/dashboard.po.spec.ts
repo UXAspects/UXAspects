@@ -10,6 +10,7 @@ export class DashboardPage {
     topFocusTarget = element(by.id('top-focus'));
     bottomFocusTarget = element(by.id('bottom-focus'));
     changeOptions = element(by.id('change-dashboard-options'));
+    layoutOutput = element(by.id('layout-output'));
 
     async getPage(): Promise<void> {
         await browser.get('#/dashboard');
@@ -25,6 +26,10 @@ export class DashboardPage {
 
     async getWidgetAttribute(widget: ElementFinder, attribute: string) {
         return await widget.getAttribute(attribute);
+    }
+
+    async getLayoutOutput(): Promise<string> {
+        return await this.layoutOutput.getAttribute('innerText');
     }
 
     async enableGrabMode(): Promise<void> {

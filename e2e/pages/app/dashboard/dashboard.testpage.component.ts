@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { DashboardOptions } from '@ux-aspects/ux-aspects';
+import { DashboardOptions, DashboardLayoutData } from '@ux-aspects/ux-aspects';
 
 @Component({
     selector: 'dashboard-app',
@@ -24,10 +24,11 @@ export class DashboardTestPageComponent {
         minWidth: 187
     };
 
+    layout: ReadonlyArray<DashboardLayoutData>;
+
     widget1Enabled = true;
 
     changeOptions(): void {
         this.options = this.adjustedOptions;
     }
-    
 }
