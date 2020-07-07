@@ -10,7 +10,6 @@ export class DashboardPage {
     topFocusTarget = element(by.id('top-focus'));
     bottomFocusTarget = element(by.id('bottom-focus'));
     changeOptions = element(by.id('change-dashboard-options'));
-    setLayout = element(by.id('set-dashboard-layout'));
     layoutOutput = element(by.id('layout-output'));
 
     async getPage(): Promise<void> {
