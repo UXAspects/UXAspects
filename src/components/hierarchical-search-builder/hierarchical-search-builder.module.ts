@@ -5,6 +5,8 @@ import { TextInputComponent } from './input-components/text-input/text-input.com
 import { HierarchicalSearchBuilderComponent } from './hierarchical-search-builder.component';
 import { HierarchicalSearchBuilderGroupComponent } from './hierarchical-search-builder-group/hierarchical-search-builder-group.component';
 import { HierarchicalSearchBuilderConditionComponent } from './hierarchical-search-builder-condition/hierarchical-search-builder-condition.component';
+import { HierarchicalSearchBuilderService } from './hierarchical-search-builder.service';
+import { SelectModule } from '../select';
 
 const DECLARATIONS = [
     TextInputComponent,
@@ -17,9 +19,11 @@ const DECLARATIONS = [
     imports: [
         A11yModule,
         CommonModule,
+        SelectModule
     ],
     exports: DECLARATIONS,
     declarations: DECLARATIONS,
+    providers: [HierarchicalSearchBuilderService]
 })
 export class HierarchicalSearchBuilderModule {
 }
