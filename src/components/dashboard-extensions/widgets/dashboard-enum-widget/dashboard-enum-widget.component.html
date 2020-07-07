@@ -1,0 +1,13 @@
+<ux-dashboard-widget class="widget-element" [id]="id" [colSpan]="colSpan" [rowSpan]="rowSpan" [name]="name" [resizable]="!fixedMode">
+    <button *ngIf="!fixedMode"
+            class="widget-grab-handle"
+            uxDashboardGrabHandle
+            uxDashboardWidgetDragHandle>
+        <ux-icon name="pan"></ux-icon>
+    </button>
+    <h3 class="widget-title">{{ heading }}</h3>
+    <div class="widget-text">
+        <p>{{ text | slice : 0 : 100 }}...</p>
+    </div>
+</ux-dashboard-widget>
+

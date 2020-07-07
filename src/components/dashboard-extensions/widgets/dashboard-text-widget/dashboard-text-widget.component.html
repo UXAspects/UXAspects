@@ -1,0 +1,29 @@
+<ux-dashboard-widget class="widget-element" [id]="id" [colSpan]="colSpan" [rowSpan]="rowSpan" [name]="name" [resizable]="!fixedMode">
+    <button *ngIf="!fixedMode"
+            class="widget-grab-handle"
+            uxDashboardGrabHandle
+            uxDashboardWidgetDragHandle>
+        <ux-icon name="pan"></ux-icon>
+    </button>
+    <h3 class="widget-title">{{ heading }}</h3>
+    <div class="widget-text">
+        <p>{{ text }}</p>
+    </div>
+    <button (click)="open(sidePanelElement, textAreaElement, inputElement)">
+        <ux-icon name="chevron-right" *ngIf="!editable"></ux-icon>
+        <ux-icon name="edit" *ngIf="editable"></ux-icon>
+    </button>
+</ux-dashboard-widget>
+<ux-side-panel #sidePanelElement [attachTo]="'container'" [width]="'calc(100% + 1px)'">
+    <div class="ux-side-panel-header">
+        <button (click)="cancel(sidePanelElement)">
+            <ux-icon name="close"></ux-icon>
+        </button>
+        <input #inputElement type="text" [value]="heading" [disabled]="!editable">
+    </div>
+    <textarea #textAreaElement class="ux-side-panel-content" [disabled]="!editable">{{ text }}</textarea>
+    <div class="ux-side-panel-footer" *ngIf="editable">
+        <button type="button" class="m-b btn button-primary" (click)="save(sidePanelElement, textAreaElement, inputElement)">Save</button>
+        <button type="button" class="m-b btn button-secondary" (click)="cancel(sidePanelElement)">Cancel</button>
+    </div>
+</ux-side-panel>
