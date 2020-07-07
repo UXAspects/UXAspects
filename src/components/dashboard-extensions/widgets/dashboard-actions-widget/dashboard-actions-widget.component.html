@@ -1,0 +1,24 @@
+<ux-dashboard-widget #widget [id]="id" [colSpan]="colSpan" [rowSpan]="rowSpan" [name]="name" [resizable]="!fixedMode">
+    <button *ngIf="!fixedMode"
+            class="widget-grab-handle"
+            uxDashboardGrabHandle
+            uxDashboardWidgetDragHandle>
+        <ux-icon name="pan"></ux-icon>
+    </button>
+    <h3 class="widget-title">{{ heading }}</h3>
+    <div class="widget-status">
+        <ux-icon name="{{ status.icon }}"></ux-icon> {{ status.state }}
+    </div>
+    <div class="widget-actions">
+        <ng-container *ngIf="buttons.length === 0 || buttons.length !== actions.length">
+            <button class="m-b btn button-secondary widget-action-button" *ngFor="let action of actions" (click)="click(action.action)">
+                <ux-icon name="{{ action.icon }}"></ux-icon> {{ action.name }}
+            </button>
+        </ng-container>
+        <ng-container *ngIf="buttons.length !== 0 && buttons.length === actions.length">
+            <ng-container *ngFor="let action of actions; let i = index">
+                <ng-container [ngTemplateOutlet]="buttons[i]" [ngTemplateOutletContext]="action"></ng-container>
+            </ng-container>
+        </ng-container>
+    </div>
+</ux-dashboard-widget>

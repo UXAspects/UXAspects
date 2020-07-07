@@ -1,0 +1,27 @@
+<ux-dashboard-widget class="widget-element" #widget [id]="id" [colSpan]="colSpan" [rowSpan]="rowSpan" [name]="name" [resizable]="!fixedMode">
+    <button *ngIf="!fixedMode"
+            class="widget-grab-handle"
+            uxDashboardGrabHandle
+            uxDashboardWidgetDragHandle>
+        <ux-icon name="pan"></ux-icon>
+    </button>
+    <h3 class="widget-title">{{ heading }}</h3>
+    <div class="widget-data">
+        <table class="table"
+               uxFixedHeaderTable
+               [dataset]="data">
+            <thead>
+            <tr>
+                <th *ngFor="let cell of header">{{ cell }}</th>
+            </tr>
+            </thead>
+
+            <tbody [style.height.px]="widget.height - 140">
+            <tr *ngFor="let item of data; let index = index">
+                <td *ngFor="let cell of item">{{ cell }}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</ux-dashboard-widget>
+
