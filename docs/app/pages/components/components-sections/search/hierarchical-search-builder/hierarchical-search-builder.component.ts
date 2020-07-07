@@ -39,7 +39,7 @@ export class ComponentsHierarchicalSearchBuilderComponent extends BaseDocumentat
         { name: 'name', label: 'Name', fieldType: 'text' }
     ];
 
-    /*query: HierarchicalSearchBuilderQuery = {
+    query: HierarchicalSearchBuilderQuery = {
         type: 'group',
         logicalOperator: 'and',
         children: [
@@ -53,9 +53,7 @@ export class ComponentsHierarchicalSearchBuilderComponent extends BaseDocumentat
                 ]
             },
         ]
-    };*/
-
-    query = {};
+    };
 
     constructor(public colorService: ColorService) {
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));

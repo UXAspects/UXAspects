@@ -22,6 +22,8 @@ export class HierarchicalSearchBuilderComponent implements OnInit {
 
     ngOnInit(): void {
         this._hsbService.setLogicalOperators(this.logicalOperators);
+        this._hsbService.setFields(this.fields);
+        this._hsbService.setOperators(this.operators);
     }
 
     isQueryEmpty(): boolean {
