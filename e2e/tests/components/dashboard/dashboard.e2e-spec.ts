@@ -68,60 +68,52 @@ describe('Dashboard Tests', () => {
         expect(await imageCompareFullPageScreen('dashboard-option-change')).toEqual(0);
     });
 
-    it('should emit layoutChange and update the layout whenever a widget is dragged', async() => {
-        // drag the widget right
-        await browser.actions().dragAndDrop(widget2, { x: 250, y: 0 }).perform();
+    it('should react correctly when a widget is moved down', async () => {
+
+        const layoutMock =  [{ id: 'analytics-1-widget', col: 0, row: 1, colSpan: 4, rowSpan: 2},
+                             { id: 'subscription-widget', col: 0, row: 0, colSpan: 2, rowSpan: 1},
+                             { id: 'users-widget', col: 2, row: 0, colSpan: 1, rowSpan: 1},
+                             { id: 'alert-widget', col: 3, row: 0, colSpan: 1, rowSpan: 1}];
+
+        // drag the top widget down
+        await browser.actions().dragAndDrop(widget1, { x: 0, y: 250 }).perform();
+
+        expect(await page.getWidgetLocationValue(widget1, 'top')).toBe(220, 'widget1 top');
+        expect(await page.getWidgetLocationValue(widget1, 'left')).toBe(0, 'widget1 left');
+
+        expect(await page.getWidgetLocationValue(widget2, 'top')).toBe(0, 'widget2 top');
+        expect(await page.getWidgetLocationValue(widget2, 'left')).toBe(0, 'widget2 left');
+
+        expect(await page.getWidgetLocationValue(widget3, 'top')).toBe(0, 'widget3 top');
+        expect(await page.getWidgetLocationValue(widget3, 'left')).toBe(554, 'widget3 left');
+
+        expect(await page.getWidgetLocationValue(widget4, 'top')).toBe(0, 'widget4 top');
+        expect(await page.getWidgetLocationValue(widget4, 'left')).toBe(831, 'widget4 left');
+
+        expect(JSON.parse(await page.getLayoutOutput())).toEqual(layoutMock);
+
+        await page.setLayout.click();
 
         expect(await page.getWidgetLocationValue(widget1, 'top')).toBe(0);
         expect(await page.getWidgetLocationValue(widget1, 'left')).toBe(0);
 
         expect(await page.getWidgetLocationValue(widget2, 'top')).toBe(440);
-        expect(await page.getWidgetLocationValue(widget2, 'left')).toBe(277);
+        expect(await page.getWidgetLocationValue(widget2, 'left')).toBe(0);
 
         expect(await page.getWidgetLocationValue(widget3, 'top')).toBe(440);
-        expect(await page.getWidgetLocationValue(widget3, 'left')).toBe(0);
+        expect(await page.getWidgetLocationValue(widget3, 'left')).toBe(554);
 
         expect(await page.getWidgetLocationValue(widget4, 'top')).toBe(440);
         expect(await page.getWidgetLocationValue(widget4, 'left')).toBe(831);
 
-       await page.setLayout.click();
-
-       expect(await page.getWidgetLocationValue(widget1, 'top')).toBe(0);
-       expect(await page.getWidgetLocationValue(widget1, 'left')).toBe(0);
-
-       expect(await page.getWidgetLocationValue(widget2, 'top')).toBe(440);
-       expect(await page.getWidgetLocationValue(widget2, 'left')).toBe(0);
-
-       expect(await page.getWidgetLocationValue(widget3, 'top')).toBe(440);
-       expect(await page.getWidgetLocationValue(widget3, 'left')).toBe(554);
-
-       expect(await page.getWidgetLocationValue(widget4, 'top')).toBe(440);
-       expect(await page.getWidgetLocationValue(widget4, 'left')).toBe(831);
-
-   });
-
-    it('should react correctly when a widget is moved down', async () => {
-
-        // drag the top widget down
-        await browser.actions().dragAndDrop(widget1, { x: 0, y: 250 }).perform();
-
-        expect(await page.getWidgetLocationValue(widget1, 'top')).toBe(220);
-        expect(await page.getWidgetLocationValue(widget1, 'left')).toBe(0);
-
-        expect(await page.getWidgetLocationValue(widget2, 'top')).toBe(0);
-        expect(await page.getWidgetLocationValue(widget2, 'left')).toBe(0);
-
-        expect(await page.getWidgetLocationValue(widget3, 'top')).toBe(0);
-        expect(await page.getWidgetLocationValue(widget3, 'left')).toBe(554);
-
-        expect(await page.getWidgetLocationValue(widget4, 'top')).toBe(0);
-        expect(await page.getWidgetLocationValue(widget4, 'left')).toBe(831);
-
-        expect(await page.getLayoutOutput()).toBe('[ { "id": "analytics-1-widget", "col": 0, "row": 1, "colSpan": 4, "rowSpan": 2 }, { "id": "subscription-widget", "col": 0, "row": 0, "colSpan": 2, "rowSpan": 1 }, { "id": "users-widget", "col": 2, "row": 0, "colSpan": 1, "rowSpan": 1 }, { "id": "alert-widget", "col": 3, "row": 0, "colSpan": 1, "rowSpan": 1 } ]');
-
     });
 
     it('should react correctly when a widget is moved up', async () => {
+
+        const layoutMock =  [{ id: 'analytics-1-widget', col: 0, row: 0, colSpan: 4, rowSpan: 2},
+                             { id: 'subscription-widget', col: 0, row: 2, colSpan: 2, rowSpan: 1},
+                             { id: 'users-widget', col: 2, row: 2, colSpan: 1, rowSpan: 1},
+                             { id: 'alert-widget', col: 3, row: 2, colSpan: 1, rowSpan: 1}];
 
         // drag the top widget down
         await browser.actions().dragAndDrop(widget1, { x: 0, y: 250 }).perform();
@@ -129,60 +121,70 @@ describe('Dashboard Tests', () => {
         // drag the top widget back up
         await browser.actions().dragAndDrop(widget1, { x: 0, y: -250 }).perform();
 
-        expect(await page.getWidgetLocationValue(widget1, 'top')).toBe(0);
-        expect(await page.getWidgetLocationValue(widget1, 'left')).toBe(0);
+        expect(await page.getWidgetLocationValue(widget1, 'top')).toBe(0, 'widget1 0 top');
+        expect(await page.getWidgetLocationValue(widget1, 'left')).toBe(0, 'widget1 0 left');
 
-        expect(await page.getWidgetLocationValue(widget2, 'top')).toBe(440);
-        expect(await page.getWidgetLocationValue(widget2, 'left')).toBe(0);
+        expect(await page.getWidgetLocationValue(widget2, 'top')).toBe(440, 'widget2 top');
+        expect(await page.getWidgetLocationValue(widget2, 'left')).toBe(0, 'widget2 left');
 
-        expect(await page.getWidgetLocationValue(widget3, 'top')).toBe(440);
-        expect(await page.getWidgetLocationValue(widget3, 'left')).toBe(554);
+        expect(await page.getWidgetLocationValue(widget3, 'top')).toBe(440, 'widget3 top');
+        expect(await page.getWidgetLocationValue(widget3, 'left')).toBe(554, 'widget3 left');
 
-        expect(await page.getWidgetLocationValue(widget4, 'top')).toBe(440);
-        expect(await page.getWidgetLocationValue(widget4, 'left')).toBe(831);
+        expect(await page.getWidgetLocationValue(widget4, 'top')).toBe(440, 'widget4 top');
+        expect(await page.getWidgetLocationValue(widget4, 'left')).toBe(831, 'widget4 left');
 
-        expect(await page.getLayoutOutput()).toBe('[ { "id": "analytics-1-widget", "col": 0, "row": 0, "colSpan": 4, "rowSpan": 2 }, { "id": "subscription-widget", "col": 0, "row": 2, "colSpan": 2, "rowSpan": 1 }, { "id": "users-widget", "col": 2, "row": 2, "colSpan": 1, "rowSpan": 1 }, { "id": "alert-widget", "col": 3, "row": 2, "colSpan": 1, "rowSpan": 1 } ]');
+        expect(JSON.parse(await page.getLayoutOutput())).toEqual(layoutMock);
     });
 
     it('should react correctly when a widget is moved right', async () => {
 
+        const layoutMock =  [{ id: 'analytics-1-widget', col: 0, row: 0, colSpan: 4, rowSpan: 2},
+                             { id: 'subscription-widget', col: 1, row: 2, colSpan: 2, rowSpan: 1},
+                             { id: 'users-widget', col: 0, row: 2, colSpan: 1, rowSpan: 1},
+                             { id: 'alert-widget', col: 3, row: 2, colSpan: 1, rowSpan: 1}];
+
         // drag the widget right
         await browser.actions().dragAndDrop(widget2, { x: 250, y: 0 }).perform();
 
-        expect(await page.getWidgetLocationValue(widget1, 'top')).toBe(0);
-        expect(await page.getWidgetLocationValue(widget1, 'left')).toBe(0);
+        expect(await page.getWidgetLocationValue(widget1, 'top')).toBe(0, 'widget1 top');
+        expect(await page.getWidgetLocationValue(widget1, 'left')).toBe(0, 'widget1 left');
 
-        expect(await page.getWidgetLocationValue(widget2, 'top')).toBe(440);
-        expect(await page.getWidgetLocationValue(widget2, 'left')).toBe(277);
+        expect(await page.getWidgetLocationValue(widget2, 'top')).toBe(440, 'widget2 top');
+        expect(await page.getWidgetLocationValue(widget2, 'left')).toBe(277, 'widget2 left');
 
-        expect(await page.getWidgetLocationValue(widget3, 'top')).toBe(440);
-        expect(await page.getWidgetLocationValue(widget3, 'left')).toBe(0);
+        expect(await page.getWidgetLocationValue(widget3, 'top')).toBe(440, 'widget3 top');
+        expect(await page.getWidgetLocationValue(widget3, 'left')).toBe(0, 'widget3 left');
 
-        expect(await page.getWidgetLocationValue(widget4, 'top')).toBe(440);
-        expect(await page.getWidgetLocationValue(widget4, 'left')).toBe(831);
+        expect(await page.getWidgetLocationValue(widget4, 'top')).toBe(440, 'widget4 top');
+        expect(await page.getWidgetLocationValue(widget4, 'left')).toBe(831, 'widget4 left');
 
-        expect(await page.getLayoutOutput()).toBe('[ { "id": "analytics-1-widget", "col": 0, "row": 0, "colSpan": 4, "rowSpan": 2 }, { "id": "subscription-widget", "col": 1, "row": 2, "colSpan": 2, "rowSpan": 1 }, { "id": "users-widget", "col": 0, "row": 2, "colSpan": 1, "rowSpan": 1 }, { "id": "alert-widget", "col": 3, "row": 2, "colSpan": 1, "rowSpan": 1 } ]');
+        expect(JSON.parse(await page.getLayoutOutput())).toEqual(layoutMock);
 
     });
 
     it('should react correctly when a widget is moved left', async () => {
 
+        const layoutMock =  [{ id: 'analytics-1-widget', col: 0, row: 0, colSpan: 4, rowSpan: 2},
+                             { id: 'subscription-widget', col: 0, row: 2, colSpan: 2, rowSpan: 1},
+                             { id: 'users-widget', col: 3, row: 2, colSpan: 1, rowSpan: 1},
+                             { id: 'alert-widget', col: 2, row: 2, colSpan: 1, rowSpan: 1}];
+
         // drag the widget left
         await browser.actions().dragAndDrop(widget4, { x: -250, y: 0 }).perform();
 
-        expect(await page.getWidgetLocationValue(widget1, 'top')).toBe(0);
-        expect(await page.getWidgetLocationValue(widget1, 'left')).toBe(0);
+        expect(await page.getWidgetLocationValue(widget1, 'top')).toBe(0, 'widget1 top');
+        expect(await page.getWidgetLocationValue(widget1, 'left')).toBe(0, 'widget1 left');
 
-        expect(await page.getWidgetLocationValue(widget2, 'top')).toBe(440);
-        expect(await page.getWidgetLocationValue(widget2, 'left')).toBe(0);
+        expect(await page.getWidgetLocationValue(widget2, 'top')).toBe(440, 'widget2 top');
+        expect(await page.getWidgetLocationValue(widget2, 'left')).toBe(0, 'widget2 left');
 
-        expect(await page.getWidgetLocationValue(widget3, 'top')).toBe(440);
-        expect(await page.getWidgetLocationValue(widget3, 'left')).toBe(831);
+        expect(await page.getWidgetLocationValue(widget3, 'top')).toBe(440, 'widget3 top');
+        expect(await page.getWidgetLocationValue(widget3, 'left')).toBe(831, 'widget3 left');
 
-        expect(await page.getWidgetLocationValue(widget4, 'top')).toBe(440);
-        expect(await page.getWidgetLocationValue(widget4, 'left')).toBe(554);
+        expect(await page.getWidgetLocationValue(widget4, 'top')).toBe(440, 'widget4 top');
+        expect(await page.getWidgetLocationValue(widget4, 'left')).toBe(554, 'widget4 left');
 
-        expect(await page.getLayoutOutput()).toBe('[ { "id": "analytics-1-widget", "col": 0, "row": 0, "colSpan": 4, "rowSpan": 2 }, { "id": "subscription-widget", "col": 0, "row": 2, "colSpan": 2, "rowSpan": 1 }, { "id": "users-widget", "col": 3, "row": 2, "colSpan": 1, "rowSpan": 1 }, { "id": "alert-widget", "col": 2, "row": 2, "colSpan": 1, "rowSpan": 1 } ]');
+        expect(JSON.parse(await page.getLayoutOutput())).toEqual(layoutMock);
 
     });
 
