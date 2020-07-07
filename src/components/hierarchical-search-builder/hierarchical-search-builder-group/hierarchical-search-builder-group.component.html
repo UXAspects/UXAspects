@@ -1,9 +1,11 @@
-<ux-combobox
+<!--<ux-combobox
     [value]="selectedLogicalOperator"
     [options]="logicalOperators"
     [display]="'label'"
     [key]="'name'">
-</ux-combobox>
+</ux-combobox>-->
+
+<p>{{selectedLogicalOperator?.label}}</p>
 
 <ng-container *ngFor="let child of subquery?.children">
     <ux-hierarchical-search-builder-condition
