@@ -31,17 +31,4 @@ export class DashboardTestPageComponent {
     changeOptions(): void {
         this.options = this.adjustedOptions;
     }
-
-    setLayout(): void {
-        this.layout = [
-            { id: 'analytics-1-widget', col: 0, row: 0, colSpan: 4, rowSpan: 2},
-            { id: 'subscription-widget', col: 0, row: 2, colSpan: 2, rowSpan: 1},
-            { id: 'users-widget', col: 2, row: 2, colSpan: 1, rowSpan: 1},
-            { id: 'alert-widget', col: 3, row: 2, colSpan: 1, rowSpan: 1}
-        ];
-    }
-
-    onLayoutChange(): void {
-
-    }
 }
