@@ -105,7 +105,7 @@ export class NotificationListComponent implements AfterViewInit, OnChanges, OnDe
 
     private updateListPosition(elements: ElementRef[], notifications: NotificationRef[]): void {
         if (this.position === 'bottom-left' || this.position === 'bottom-right') {
-            this._bottom = notifications.reduce((total, notification, index) =>
+            this._bottom = notifications.reduce((totalHeight, notification, index) =>
                 total + this.getNotificationHeightInPixels(notification, elements[index]), 0);
         } else {
 
