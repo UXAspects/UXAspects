@@ -7,7 +7,7 @@ import { PageHeaderIconMenu } from './interfaces';
 import { PageHeaderNavigationItem } from './navigation/navigation.component';
 import { PageHeaderNavigation, PageHeaderService } from './page-header.service';
 
-export type NavigationAlignment = 'left' | 'right' | 'center';
+export type PageHeaderNavigationAlignment = 'left' | 'right' | 'center';
 
 @Component({
     selector: 'ux-page-header',
@@ -27,7 +27,7 @@ export class PageHeaderComponent {
     @Input() subheader: string;
 
     /** The alignment of the primary navigation tabs. */
-    @Input() alignment: NavigationAlignment;
+    @Input() alignment: PageHeaderNavigationAlignment = 'center';
 
     /** Determines whether or not to display the page header in the regular or condensed form. */
     @Input() condensed: boolean = false;
@@ -39,7 +39,7 @@ export class PageHeaderComponent {
     @Input() backVisible: boolean = true;
 
     /** The alignment of the secondary navigation tabs. */
-    @Input() secondaryNavigationAlignment: NavigationAlignment = 'center';
+    @Input() secondaryNavigationAlignment: PageHeaderNavigationAlignment = 'center';
 
     /** If set, the first child item will get selected when the parent item is selected. */
     @Input()
