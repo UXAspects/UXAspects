@@ -99,16 +99,14 @@ export class NotificationListComponent implements AfterViewInit, OnChanges, OnDe
             const element = elements[i].nativeElement;
             const notification = notifications[i];
             this._renderer.setStyle(element, 'top', `${top}px`);
-            top = top + this.getNotificationHeightPixels(notification, elements[i]);
+            top = top + this.getNotificationHeightInPixels(notification, elements[i]);
         }
     }
 
     private updateListPosition(elements: ElementRef[], notifications: NotificationRef[]): void {
         if (this.position === 'bottom-left' || this.position === 'bottom-right') {
-
-            // calculate the total height of all notifications including spacing
             this._bottom = notifications.reduce((total, notification, index) =>
-                total + this.getNotificationHeightPixels(notification, elements[index]), 0);
+                total + this.getNotificationHeightInPixels(notification, elements[index]), 0);
         } else {
 
             // In a top position, bottom should be unset.
@@ -117,16 +115,16 @@ export class NotificationListComponent implements AfterViewInit, OnChanges, OnDe
     }
 
     /** Get the height of the notification, including spacing if configured. */
-    private getNotificationHeightPixels(notification: NotificationRef, elementRef: ElementRef): number {
+    private getNotificationHeightInPixels(notification: NotificationRef, elementRef: ElementRef): number {
         if (notification.spacing === undefined) {
-            return this.getElementOuterHeightPixels(elementRef);
+            return this.getElementOuterHeightInPixels(elementRef);
         }
 
         return elementRef.nativeElement.offsetHeight + notification.spacing;
     }
 
     /** Get the total height of the element including margins. */
-    private getElementOuterHeightPixels(elementRef: ElementRef): number {
+    private getElementOuterHeightInPixels(elementRef: ElementRef): number {
         const element = elementRef.nativeElement;
         const { marginTop, marginBottom } = getComputedStyle(element);
 
