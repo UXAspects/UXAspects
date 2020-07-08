@@ -103,6 +103,10 @@ const routes: Routes = [
         loadChildren: () => import('./navigation/navigation.module').then(m => m.NavigationTestPageModule)
     },
     {
+        path: 'notification',
+        loadChildren: () => import('./notification/notification.module').then(m => m.NotificationTestPageModule)
+    },
+    {
         path: 'number-picker',
         loadChildren: () => import('./number-picker/number-picker.module').then(m => m.NumberPickerTestPageModule)
     },
