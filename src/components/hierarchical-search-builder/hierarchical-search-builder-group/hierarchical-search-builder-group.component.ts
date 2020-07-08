@@ -22,6 +22,5 @@ export class HierarchicalSearchBuilderGroupComponent implements OnInit {
     ngOnInit(): void {
         this.logicalOperators = this._hsbService.getLogicalOperators();
         this.selectedLogicalOperator = this._hsbService.getLogicalOperatorByName(this.logicalOperatorName);
-        console.log(this.selectedLogicalOperator);
     }
 }
