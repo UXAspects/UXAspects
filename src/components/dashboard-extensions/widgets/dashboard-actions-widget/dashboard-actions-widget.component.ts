@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import {Component, Input, TemplateRef} from '@angular/core';
 
 @Component({
     selector: 'ux-dashboard-actions-widget',
@@ -13,7 +13,7 @@ export class DashboardActionsWidgetComponent {
     @Input() name: string = '';
     @Input() status: { state: string, icon: string } = { state: '-', icon: 'radial' };
     @Input() actions: { name: string, icon: string, action: Function }[] = [];
-    @Input() buttons: Array<HTMLElement> = [];
+    @Input() buttons: ReadonlyArray<TemplateRef<any>> = [];
 
     click(fn: Function) {
         fn();
