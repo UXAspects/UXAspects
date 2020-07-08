@@ -9,7 +9,7 @@
     <ux-hierarchical-search-builder-group
         *ngIf="query.type === 'group'; else conditionBlock"
         [subquery]="query"
-        [logicalOperatorName]="query.logicalOperator">
+        [logicalOperatorName]="query?.logicalOperator">
     </ux-hierarchical-search-builder-group>
 </ng-template>
 
