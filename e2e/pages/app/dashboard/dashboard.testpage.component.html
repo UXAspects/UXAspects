@@ -6,7 +6,8 @@
                   id="dashboardWidgetContainer"
                   class="customizable-dashboard"
                   [class.dashboard-grabbing]="dashboard.isGrabbing"
-                  [options]="options">
+                  [options]="options"
+                  [(layout)]="layout">
 
         <ux-dashboard-widget *ngIf="widget1Enabled"
                              id="analytics-1-widget"
@@ -100,3 +101,5 @@
             Change Options
     </button>
 </div>
+
+<p id="layout-output">{{ layout | json }}</p>
