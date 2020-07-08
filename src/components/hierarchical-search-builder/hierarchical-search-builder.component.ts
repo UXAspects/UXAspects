@@ -29,4 +29,8 @@ export class HierarchicalSearchBuilderComponent implements OnInit {
     isQueryEmpty(): boolean {
         return !this.query?.type;
     }
+
+    getLogicalOperatorName(): string {
+        return ('logicalOperator' in this.query) ? this.query.logicalOperator : null;
+    }
 }
