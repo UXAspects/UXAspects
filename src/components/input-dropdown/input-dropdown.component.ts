@@ -115,7 +115,7 @@ export class InputDropdownComponent<T> implements ControlValueAccessor, AfterVie
     resetFilter(): void {
         this.filter = '';
         this.filterChange.emit(this.filter);
-        this.filterInputElement.nativeElement.focus();
+        this._focusFilter();
     }
 
     registerOnChange(onChange: (value: T) => void): void {

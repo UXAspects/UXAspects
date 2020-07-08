@@ -1,4 +1,6 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, HostBinding, Input, Renderer2 } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, Output } from '@angular/core';
+import { WizardService } from './wizard.service';
+
 
 @Component({
     selector: 'ux-wizard-step',
@@ -19,11 +21,20 @@ export class WizardStepComponent {
      */
     @Input() disableNextWhenInvalid: boolean | undefined;
 
-    /** Allows you to define whether or not a step is valid. The user will not be able to proceed to the next step if this property has a value of false. */
-    @Input() valid: boolean = true;
+    /**
+     * Defines whether a step is valid. The user will not be able to proceed to the next step if this property has a value of false.
+     * If the new value is false is will also set the visited value to false.
+     */
+    _valid: boolean = true;
 
-    /** Emits when visited changes. */
-    @Input() visitedChange = new EventEmitter<boolean>();
+    @Input()
+    set valid(value: boolean) {
+        this.setValid(value);
+    }
+
+    get valid(): boolean {
+        return this._valid;
+    }
 
     /**
      * A custom function which returns the validation status for the step. This function will be called when 'Next' or
@@ -32,23 +43,17 @@ export class WizardStepComponent {
      */
     @Input() validator: () => boolean | Promise<boolean>;
 
-    private _active: boolean = false;
-    private _visited: boolean = false;
-
     /**
      * Defines whether or not this step has previously been visited.
      * A visited step can be clicked on and jumped to at any time.
      * By default, steps will become 'visited' when the user navigates to a step for the first time.
      */
-    @Input()
-    get visited(): boolean {
-        return this._visited;
-    }
+    @Input() visited: boolean = false;
 
-    set visited(value: boolean) {
-        this._visited = value;
-        this.visitedChange.next(value);
-    }
+    /**
+     * Defines the currently visible step.
+     */
+    _active: boolean = false;
 
     set active(value: boolean) {
 
@@ -64,18 +69,33 @@ export class WizardStepComponent {
         this._changeDetector.markForCheck();
     }
 
-    @HostBinding('attr.aria-expanded')
+    /** Emits when visited changes. */
+    @Output() visitedChange = new EventEmitter<boolean>();
+
     get active(): boolean {
         return this._active;
     }
 
     constructor(
-        private readonly _changeDetector: ChangeDetectorRef,
-        private readonly _elementRef: ElementRef,
-        private readonly _renderer: Renderer2) { }
+        private readonly _wizardService: WizardService<WizardStepComponent>,
+        private readonly _changeDetector: ChangeDetectorRef) {
+    }
 
-    setId(id: string): void {
-        this._renderer.setAttribute(this._elementRef.nativeElement, 'id', id);
-        this._renderer.setAttribute(this._elementRef.nativeElement, 'aria-labelledby', `${id}-label`);
+    setVisitedAndEmitChangeEvent(value: boolean): void {
+        if (value === this.visited) {
+            return;
+        }
+
+        this.visited = value;
+        this.visitedChange.emit(value);
+    }
+
+    protected setValid(value: boolean): void {
+        if (this._valid === value) {
+            return;
+        }
+
+        this._valid = value;
+        this._wizardService.validChange$.next({ step: this, valid: value });
     }
 }
