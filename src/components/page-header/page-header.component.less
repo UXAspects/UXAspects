@@ -2,22 +2,6 @@ ux-page-header {
     display: block;
     width: 100%;
 
-    .ux-page-header .page-header-navigation,
-    .ux-page-header-secondary .page-header-navigation {
-        display: flex;
-        justify-content: center;
-        flex: 1;
-        margin: 0;
-
-        &.left {
-            justify-content: flex-start;
-        }
-
-        &.right {
-            justify-content: flex-end;
-        }
-    }
-
     .ux-page-header {
         height: 130px;
         width: 100%;
@@ -128,6 +112,21 @@ ux-page-header {
             }
         }
 
+        .page-header-navigation {
+            display: flex;
+            justify-content: center;
+            flex: 1;
+            margin: 0 120px;
+
+            &.left {
+                justify-content: flex-start;
+            }
+
+            &.right {
+                justify-content: flex-end;
+            }
+        }
+
         .page-header-icon-menus {
             position: absolute;
             top: 0;
@@ -146,13 +145,9 @@ ux-page-header {
                 display: flex;
 
                 .page-header-breadcrumbs {
-                    position: absolute;
-                    top: 0;
-                    left: 0;
                     display: flex;
                     align-items: center;
                     margin-right: 10px;
-                    height: 57px;
 
                     ux-breadcrumbs {
                         height: 22px;
@@ -184,13 +179,13 @@ ux-page-header {
                 }
 
                 .page-header-navigation {
-                    width: 100%;
+                    display: flex;
+                    flex: 1;
+                    justify-content: center;
                 }
 
                 .page-header-icon-menus {
-                    position: absolute;
-                    top: 0;
-                    right: 0;
+                    position: static;
                 }
             }
         }

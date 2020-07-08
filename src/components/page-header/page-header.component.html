@@ -76,7 +76,7 @@
 <div *ngIf="secondaryNavigation && ((selectedRoot$ | async) !== (selected$ | async))" class="ux-page-header-secondary">
 
     <!-- Secondary Navigation Leading Content -->
-    <div class="page-header-secondary-leading-content" *ngIf="secondaryNavigationLeadingContentTemplate">
+    <div class="page-header-secondary-leading-content" *ngIf="secondaryNavigationLeadingContentTemplate || secondaryNavigationTrailingContentTemplate">
         <ng-container [ngTemplateOutlet]="secondaryNavigationLeadingContentTemplate"></ng-container>
     </div>
 
