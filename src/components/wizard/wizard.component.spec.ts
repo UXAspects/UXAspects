@@ -1,11 +1,5 @@
 import { Component } from '@angular/core';
-import {
-    async,
-    ComponentFixture,
-    fakeAsync,
-    TestBed,
-    tick
-} from '@angular/core/testing';
+import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { StepChangingEvent } from './wizard.component';
 import { WizardModule } from './wizard.module';
 
@@ -34,7 +28,6 @@ import { WizardModule } from './wizard.module';
 export class WizardAsyncValidationTestComponent {
     firstStepValidator: () => boolean | Promise<boolean>;
     lastStepValidator: () => boolean | Promise<boolean>;
-
     stepChanging(_: StepChangingEvent) {}
     stepChange(_: number) {}
     onNext(_: number) {}
@@ -247,5 +240,164 @@ describe('Wizard with validator', () => {
         return nativeElement
             .querySelector<HTMLElement>('.wizard-step.active')
             .innerText.trim();
+    }
+});
+
+/**
+ * Test resetVisitedOnValidationError flag working as expected and visitedChange is hit when required.
+ **/
+@Component({
+    selector: 'marquee-wizard-validation-app',
+    template: `
+        <ux-wizard
+            [(step)]="currentStep"
+            [resetVisitedOnValidationError]="resetVisitedOnValidationError">
+            <ux-wizard-step
+                header="Step One"
+                [valid]="step1Valid"
+                [(visited)]="step1Visited"
+                (visitedChange)="visitedChanged(0, $event)">
+                Step One Content
+            </ux-wizard-step>
+            <ux-wizard-step
+                header="Step Two"
+                [valid]="step2Valid"
+                [(visited)]="step2Visited"
+                (visitedChange)="visitedChanged(1, $event)">
+                Step Two Content
+            </ux-wizard-step>
+            <ux-wizard-step
+                header="Step Three"
+                [valid]="step3Valid"
+                [(visited)]="step3Visited"
+                (visitedChange)="visitedChanged(2, $event)">
+                Step Three Content
+            </ux-wizard-step>
+        </ux-wizard>
+    `
+})
+export class WizardValidationComponent {
+    currentStep: number;
+    resetVisitedOnValidationError = true;
+
+    // step 1 values
+    step1Valid = true;
+    step1Visited: boolean;
+    step1Completed: boolean;
+
+    // step 2 values
+    step2Valid: boolean = true;
+    step2Visited: boolean;
+    step2Completed: boolean;
+
+    // step 3 values
+    step3Valid: boolean = true;
+    step3Visited: boolean;
+    step3Completed: boolean;
+
+    visitedChanged(index: number, value: boolean): void {
+    }
+}
+
+describe('Wizard with validation', () => {
+    let component: WizardValidationComponent;
+    let fixture: ComponentFixture<WizardValidationComponent>;
+    let nativeElement: HTMLElement;
+    let visitedChanged: jasmine.Spy;
+
+    beforeEach(async(() => {
+        TestBed.configureTestingModule({
+            imports: [WizardModule],
+            declarations: [WizardValidationComponent]
+        }).compileComponents();
+    }));
+
+    beforeEach(() => {
+        fixture = TestBed.createComponent(WizardValidationComponent);
+        component = fixture.componentInstance;
+        nativeElement = fixture.nativeElement;
+        visitedChanged = spyOn(fixture.componentInstance, 'visitedChanged');
+        fixture.detectChanges();
+    });
+
+    it('should remove visited state from later steps when valid = false', async () => {
+        // has to be set manually as false as default
+        component.resetVisitedOnValidationError = true;
+
+        // 3 steps and number 2 gets set invalid - 1 should stay the same, 3 should be valid but no longer be visited
+        component.step1Visited = true;
+        component.step2Visited = true;
+        component.step3Visited = true;
+        fixture.detectChanges();
+
+        expect(isStepValid(0)).toBe(true);
+        expect(isStepValid(1)).toBe(true);
+        expect(isStepValid(2)).toBe(true);
+
+        expect(isStepVisited(0)).toBe(true);
+        expect(isStepVisited(1)).toBe(true);
+        expect(isStepVisited(2)).toBe(true);
+
+        component.step2Valid = false;
+        fixture.detectChanges();
+
+        expect(isStepValid(0)).toBe(true);
+        expect(isStepValid(1)).toBe(false);
+        expect(isStepValid(2)).toBe(true);
+
+        expect(isStepVisited(0)).toBe(true);
+        expect(isStepVisited(1)).toBe(true);
+        expect(isStepVisited(2)).toBe(false);
+
+        expect(component.step1Visited).toBe(true);
+        expect(component.step2Visited).toBe(true);
+        expect(component.step3Visited).toBe(false);
+
+        // check visitedChange was emitted 1 time only
+        expect(visitedChanged.calls.all().length).toBe(1);
+    });
+
+    it('should not remove visited state from later steps when valid = false and resetVisitedOnValidationError = false', async () => {
+        component.resetVisitedOnValidationError = false;
+        component.step1Visited = true;
+        component.step2Visited = true;
+        component.step3Visited = true;
+        fixture.detectChanges();
+
+        expect(isStepValid(0)).toBe(true);
+        expect(isStepValid(1)).toBe(true);
+        expect(isStepValid(2)).toBe(true);
+
+        expect(isStepVisited(0)).toBe(true);
+        expect(isStepVisited(1)).toBe(true);
+        expect(isStepVisited(2)).toBe(true);
+
+        component.step2Valid = false;
+        fixture.detectChanges();
+
+        expect(isStepValid(0)).toBe(true);
+        expect(isStepValid(1)).toBe(false);
+        expect(isStepValid(2)).toBe(true);
+
+        expect(isStepVisited(0)).toBe(true);
+        expect(isStepVisited(1)).toBe(true);
+        expect(isStepVisited(2)).toBe(true);
+
+        expect(component.step1Visited).toBe(true);
+        expect(component.step2Visited).toBe(true);
+        expect(component.step3Visited).toBe(true);
+
+        // check visitedChange was not emitted
+        expect(visitedChanged.calls.all().length).toBe(0);
+    });
+
+    function isStepVisited(index: number): boolean {
+        const stepElements = nativeElement.querySelectorAll('.wizard-step');
+        return stepElements[index].classList.contains('visited');
+    }
+
+    function isStepValid(index: number): boolean {
+        const stepElements = nativeElement.querySelectorAll('.wizard-step');
+        return !stepElements[index].classList.contains('invalid');
     }
 });

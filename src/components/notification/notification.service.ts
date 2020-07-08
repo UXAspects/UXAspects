@@ -29,7 +29,6 @@ export class NotificationService {
      */
     options: NotificationOptions = {
         duration: 4,
-        spacing: 10,
         backgroundColor: this._colorService.getColor('accent').toHex(),
         iconColor: this._colorService.getColor('accent').toHex()
     };
