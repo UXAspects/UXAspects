@@ -40,13 +40,29 @@ export class HierarchicalSearchBuilderConditionComponent implements OnInit, Afte
     }
 
     ngAfterViewInit(): void {
+        this.createInputComponent();
+    }
+
+    createInputComponent(): void {
         this.inputContainer.clear();
         const resolver = this._cfr.resolveComponentFactory(this._operator.component);
         this._inputComponentRef = this.inputContainer.createComponent(resolver);
         this._inputComponentRef.instance.value = this.value;
-        this._inputComponentRef.instance.data = {};
+        this._inputComponentRef.instance.data = this._field?.data ?? {};
         this._inputComponentRef.instance.valueChange.subscribe((value: any) => {
             console.log(value);
         });
+    }
+
+    handleFieldSelected(): void {
+        // get operators for new field type
+        this.operators = this._hsbService.getOperatorsByFieldType(this._field.fieldType);
+        this._operator = null;
+
+        this.inputContainer.clear();
+    }
+
+    handleOperatorSelected(): void {
+        this.createInputComponent();
     }
 }

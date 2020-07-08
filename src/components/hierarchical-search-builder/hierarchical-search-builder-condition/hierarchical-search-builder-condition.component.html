@@ -1,23 +1,27 @@
-<p>Condition: <strong>{{fieldName}}</strong> <em>{{operatorName}}</em> {{value | json}}</p>
-
 <div class="row">
-    <div class="col-xs-2">
+    <div class="col-xs-3">
         <ux-combobox
-            [value]="_field"
+            [(value)]="_field"
+            [input]="_field?.label"
+            (valueChange)="handleFieldSelected()"
+            [allowNull]="true"
             [options]="fields"
             [display]="'label'"
             [key]="'name'">
         </ux-combobox>
     </div>
-    <div class="col-xs-2">
+    <div class="col-xs-3">
         <ux-combobox
-            [value]="_operator"
+            [(value)]="_operator"
+            (valueChange)="handleOperatorSelected()"
+            [input]="_operator?.label"
+            [allowNull]="true"
             [options]="operators"
             [display]="'label'"
             [key]="'name'">
         </ux-combobox>
     </div>
-    <div class="col-xs-4">
+    <div class="col-xs-6">
         <div #inputContainer></div>
     </div>
 
