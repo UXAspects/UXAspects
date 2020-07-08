@@ -24,7 +24,7 @@ import { DocumentationCategoryComponent } from '../../../../components/documenta
 import { DocumentationPage, ResolverService } from '../../../../services/resolver/resolver.service';
 import { ComponentsSearchBuilderComponent } from './search-builder/search-builder.component';
 import { ComponentsToolbarSearchComponent } from './toolbar-search/toolbar-search.component';
-import { ComponentsHierarchicalSearchBuilderComponent } from "./hierarchical-search-builder/hierarchical-search-builder.component";
+import { ComponentsHierarchicalSearchBuilderComponent } from './hierarchical-search-builder/hierarchical-search-builder.component';
 
 const SECTIONS = [
     ComponentsToolbarSearchComponent,
