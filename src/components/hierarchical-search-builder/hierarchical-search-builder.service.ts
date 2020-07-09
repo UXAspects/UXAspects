@@ -1,17 +1,15 @@
 import { Injectable } from '@angular/core';
 import { LogicalOperatorDefinition } from './interfaces/LogicalOperatorDefinition';
-import { HierarchicalSearchBuilderModule } from './hierarchical-search-builder.module';
 import { FieldDefinition } from './interfaces/FieldDefinition';
 import { OperatorDefinitionList } from './interfaces/OperatorDefinitionList';
 import { OperatorDefinition } from './interfaces/OperatorDefinition';
+import { HierarchicalSearchBuilderModule } from './hierarchical-search-builder.module';
 
-@Injectable({
-    providedIn: HierarchicalSearchBuilderModule,
-})
+@Injectable()
 export class HierarchicalSearchBuilderService {
-    private _logicalOperators: LogicalOperatorDefinition[];
-    private _fields: FieldDefinition[];
-    private _operators: OperatorDefinitionList;
+    private _logicalOperators: LogicalOperatorDefinition[] = [];
+    private _fields: FieldDefinition[] = [];
+    private _operators: OperatorDefinitionList = {};
 
     constructor() {
     }

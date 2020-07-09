@@ -1,4 +1,3 @@
-import { A11yModule } from '@angular/cdk/a11y';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { TextInputComponent } from './input-components/text-input/text-input.component';
@@ -17,7 +16,6 @@ const DECLARATIONS = [
 
 @NgModule({
     imports: [
-        A11yModule,
         CommonModule,
         SelectModule
     ],
