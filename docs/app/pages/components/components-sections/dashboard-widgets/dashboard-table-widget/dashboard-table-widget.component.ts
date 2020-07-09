@@ -8,11 +8,11 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 
 @Component({
     selector: 'uxd-components-dashboard-data-table-widget',
-    templateUrl: './dashboard-data-table-widget.component.html',
-    styleUrls: ['./dashboard-data-table-widget.component.less']
+    templateUrl: './dashboard-table-widget.component.html',
+    styleUrls: ['./dashboard-table-widget.component.less']
 })
-@DocumentationSectionComponent('ComponentsDashboardDataTableWidgetComponent')
-export class ComponentsDashboardDataTableWidgetComponent extends BaseDocumentationSection implements IPlaygroundProvider {
+@DocumentationSectionComponent('ComponentsDashboardTableWidgetComponent')
+export class ComponentsDashboardTableWidgetComponent extends BaseDocumentationSection implements IPlaygroundProvider {
     playground: IPlayground;
 
     options: DashboardOptions = {

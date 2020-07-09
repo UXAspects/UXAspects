@@ -17,12 +17,12 @@ import {DocumentationPage, ResolverService} from '../../../../services/resolver/
 import {ComponentsDashboardActionsWidgetComponent} from './dashboard-actions-widget/dashboard-actions-widget.component';
 import {ComponentsDashboardTextWidgetComponent} from './dashboard-text-widget/dashboard-text-widget.component';
 import {ComponentsDashboardEnumWidgetComponent} from './dashboard-enum-widget/dashboard-enum-widget.component';
-import {ComponentsDashboardDataTableWidgetComponent} from './dashboard-data-table-widget/dashboard-data-table-widget.component';
+import {ComponentsDashboardTableWidgetComponent} from './dashboard-table-widget/dashboard-table-widget.component';
 
 const SECTIONS = [
     ComponentsDashboardActionsWidgetComponent,
     ComponentsDashboardTextWidgetComponent,
-    ComponentsDashboardDataTableWidgetComponent,
+    ComponentsDashboardTableWidgetComponent,
     ComponentsDashboardEnumWidgetComponent,
 ];
 
@@ -31,7 +31,7 @@ const ROUTES = [
         path: '**',
         component: DocumentationCategoryComponent,
         data: {
-            category: ResolverService.resolveCategoryData(DocumentationPage.Components, 'Dashboard Extensions')
+            category: ResolverService.resolveCategoryData(DocumentationPage.Components, 'Dashboard Widgets')
         }
     }
 ];
