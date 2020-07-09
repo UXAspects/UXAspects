@@ -72,17 +72,29 @@
 
 </div>
 
-<div *ngIf="secondaryNavigation && ((selectedRoot$ | async) !== (selected$ | async))"
-    class="page-header-secondary" [ngClass]="secondaryNavigationAlignment" role="navigation">
+<!-- Secondary Header Section -->
+<div *ngIf="secondaryNavigation && ((selectedRoot$ | async) !== (selected$ | async))" class="ux-page-header-secondary">
 
-    <ux-tabset *ngIf="(selectedRoot$ | async)?.children; let children" [manual]="true">
-        <ux-tab *ngFor="let child of children"
-            [heading]="child.title"
-            [active]="child === (selected$ | async)"
-            (activated)="select(child)"
-            [uxPageHeaderNavigationSecondaryItem]="child"
-            [disabled]="child.disabled">
-        </ux-tab>
-    </ux-tabset>
+    <!-- Secondary Navigation Leading Content -->
+    <div class="page-header-secondary-leading-content" *ngIf="secondaryNavigationLeadingContentTemplate || secondaryNavigationTrailingContentTemplate">
+        <ng-container [ngTemplateOutlet]="secondaryNavigationLeadingContentTemplate"></ng-container>
+    </div>
 
+    <!-- Secondary Navigation (children of top level items) -->
+    <div [ngClass]="['page-header-navigation', secondaryNavigationAlignment]" role="navigation">
+        <ux-tabset *ngIf="(selectedRoot$ | async)?.children; let children" [manual]="true">
+            <ux-tab *ngFor="let child of children"
+                [heading]="child.title"
+                [active]="child === (selected$ | async)"
+                (activated)="select(child)"
+                [uxPageHeaderNavigationSecondaryItem]="child"
+                [disabled]="child.disabled">
+            </ux-tab>
+        </ux-tabset>
+    </div>
+
+    <!-- Secondary Navigation Trialing Content -->
+    <div class="page-header-secondary-trailing-content" *ngIf="secondaryNavigationTrailingContentTemplate">
+        <ng-container [ngTemplateOutlet]="secondaryNavigationTrailingContentTemplate"></ng-container>
+    </div>
 </div>
