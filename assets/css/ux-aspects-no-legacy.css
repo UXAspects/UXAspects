@@ -8435,6 +8435,7 @@ ux-notification-list .notification {
   position: absolute;
   width: 300px;
   padding: 17px 0;
+  margin: 0 0 10px;
   background-color: #7b63a3;
   color: #fff;
   border-radius: 3px;

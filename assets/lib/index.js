@@ -5934,13 +5934,22 @@
             this.dimensions$ = new rxjs.BehaviorSubject({});
             this.height$ = this.dimensions$.pipe(tick(), operators.map(function (dimensions) { return dimensions.height; }), operators.distinctUntilChanged());
             this.placeholder$ = new rxjs.BehaviorSubject({ visible: false, x: 0, y: 0, width: 0, height: 0 });
-            this.layout$ = new rxjs.Subject();
+            this.layout$ = new rxjs.BehaviorSubject([]);
             this.stacked$ = new rxjs.BehaviorSubject(false);
             this.isDragging$ = new rxjs.BehaviorSubject(null);
             this.isGrabbing$ = new rxjs.BehaviorSubject(null);
+            this.userLayoutChange$ = new rxjs.Subject();
             /** Unsubscribe from all observables on destroy */
             this._onDestroy = new rxjs.Subject();
-            this.layout$.pipe(operators.takeUntil(this._onDestroy)).subscribe(this.setLayoutData.bind(this));
+            rxjs.combineLatest(this.layout$, this.widgets$, this.dimensions$)
+                .pipe(tick(), operators.takeUntil(this._onDestroy))
+                .subscribe(function (_a) {
+                var _b = __read(_a, 3), layout = _b[0], widgets = _b[1], dimensions = _b[2];
+                if (layout && widgets.length > 0 && dimensions.width && _this.stacked === false) {
+                    _this.setLayoutData(layout);
+                }
+            });
+            this.layout$.pipe(operators.filter(function () { return !_this.stacked; }), operators.takeUntil(this._onDestroy)).subscribe(this.setLayoutData.bind(this));
             this.stacked$.pipe(operators.takeUntil(this._onDestroy), operators.filter(function (stacked) { return stacked === true; })).subscribe(this.updateWhenStacked.bind(this));
             this.widgets$.pipe(operators.takeUntil(this._onDestroy), tick()).subscribe(function () { return _this.renderDashboard(); });
             this.dimensions$.pipe(operators.takeUntil(this._onDestroy), tick()).subscribe(function () { return _this.renderDashboard(); });
@@ -6309,6 +6318,7 @@
             this.setDashboardHeight();
             // emit information about the layout
             this.layout$.next(this.getLayoutData());
+            this.userLayoutChange$.next(this.getLayoutData());
         };
         DashboardService.prototype.onDragStart = function (action) {
             this.onResizeStart(action);
@@ -6322,6 +6332,7 @@
             this.onResizeEnd();
             this._widgetOrigin = {};
             this.isDragging$.next(null);
+            this.userLayoutChange$.next(this.getLayoutData());
         };
         DashboardService.prototype.onDrag = function (action) {
             // if there was no movement then do nothing
@@ -7864,9 +7875,10 @@
         return DashboardGrabHandleDirective;
     }());
     var DashboardComponent = /** @class */ (function () {
-        function DashboardComponent(dashboardService) {
+        function DashboardComponent(dashboardService, _changeDetector) {
             var _this = this;
             this.dashboardService = dashboardService;
+            this._changeDetector = _changeDetector;
             this.isGrabbing = false;
             this.customAriaLabel = this.getDefaultAriaLabel;
             /** Emits when layout has been changed. */
@@ -7874,7 +7886,8 @@
             /** Ensure we unsubscribe from all observables */
             this._onDestroy = new rxjs.Subject();
             dashboardService.layout$.pipe(operators.takeUntil(this._onDestroy), operators.tap(function () { return _this.ariaLabel = _this.getAriaLabel(); }))
-                .subscribe(function (layout) { return _this.layoutChange.emit(layout); });
+                .subscribe(function () { return _changeDetector.markForCheck(); });
+            dashboardService.userLayoutChange$.pipe(operators.takeUntil(this._onDestroy)).subscribe(function (data) { return _this.layoutChange.emit(data); });
             // subscribe to changes to the grab mode
             dashboardService.isGrabbing$.pipe(operators.takeUntil(this._onDestroy), operators.map(function (widget) { return !!widget; }))
                 .subscribe(function (isGrabbing) { return _this.isGrabbing = isGrabbing; });
@@ -7969,7 +7982,7 @@
                     DashboardGrabHandleService
                 ]
             }),
-            __metadata("design:paramtypes", [DashboardService])
+            __metadata("design:paramtypes", [DashboardService, core.ChangeDetectorRef])
         ], DashboardComponent);
         return DashboardComponent;
     }());
@@ -16382,30 +16395,15 @@
         /** Access the resize service to watch for changes to the host element */
         _resizeService, 
         /** Access the host elementRef */
-        _elementRef) {
+        _elementRef, _changeDetector) {
             this.hierarchyBar = hierarchyBar;
             this._renderer = _renderer;
             this._resizeService = _resizeService;
             this._elementRef = _elementRef;
+            this._changeDetector = _changeDetector;
             /** Unsubscribe from all observables on destroy */
             this._onDestroy = new rxjs.Subject();
         }
-        Object.defineProperty(HierarchyBarCollapsedComponent.prototype, "_first", {
-            /** Get the first node to display */
-            get: function () {
-                return this._nodes[0];
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(HierarchyBarCollapsedComponent.prototype, "_last", {
-            /** Get the last node to display */
-            get: function () {
-                return this._nodes[this._nodes.length - 1];
-            },
-            enumerable: true,
-            configurable: true
-        });
         Object.defineProperty(HierarchyBarCollapsedComponent.prototype, "_siblings", {
             /** Get all the sibling nodes */
             get: function () {
@@ -16433,8 +16431,8 @@
         });
         HierarchyBarCollapsedComponent.prototype.ngAfterViewInit = function () {
             var _this = this;
-            // check for overflow when the selected nodes change
-            this.hierarchyBar.nodes$.pipe(operators.takeUntil(this._onDestroy), tick()).subscribe(function () { return _this.updateOverflow(); });
+            // Update the UI when the selected nodes change
+            this.hierarchyBar.nodes$.pipe(operators.takeUntil(this._onDestroy)).subscribe(this.update.bind(this));
             // watch for the host element size changing
             this._resizeService.addResizeListener(this._elementRef.nativeElement).pipe(operators.takeUntil(this._onDestroy))
                 .subscribe(function () { return _this.updateOverflow(); });
@@ -16444,6 +16442,12 @@
             this._onDestroy.complete();
             // remove the resize event listener
             this._resizeService.removeResizeListener(this._elementRef.nativeElement);
+        };
+        HierarchyBarCollapsedComponent.prototype.update = function (nodes) {
+            this._first = nodes[0];
+            this._last = nodes.length > 1 ? nodes[nodes.length - 1] : null;
+            this.updateOverflow();
+            this._changeDetector.detectChanges();
         };
         HierarchyBarCollapsedComponent.prototype.updateOverflow = function () {
             // remove the class if it is present
@@ -16464,13 +16468,14 @@
         HierarchyBarCollapsedComponent = __decorate([
             core.Component({
                 selector: 'ux-hierarchy-bar-collapsed',
-                template: "<!-- Allow content to be placed on the left of the items -->\n<div class=\"hierarchy-bar-addons\">\n    <ng-content select=\"left-addons\"></ng-content>\n</div>\n\n<div #nodes class=\"hierarchy-bar-nodes\">\n\n    <ux-hierarchy-bar-node\n        [readonly]=\"readonly\"\n        [popoverTemplate]=\"content\"\n        [node]=\"_first\"\n        (selected)=\"hierarchyBar.selectNode($event)\">\n    </ux-hierarchy-bar-node>\n\n    <div class=\"hierarchy-bar-overflow\" *ngIf=\"_parents.length > 0\">\n        <div class=\"hierarchy-bar-overflow-container\">\n            <ng-container [ngTemplateOutlet]=\"hierarchyBar.overflowTemplate || defaultOverflowTemplate\"\n                          [ngTemplateOutletContext]=\"{ $implicit: _parents }\">\n            </ng-container>\n        </div>\n\n        <button [attr.aria-label]=\"hierarchyBar.showSiblingsAriaLabel\"\n            uxFocusIndicator\n            uxFocusIndicatorOrigin\n            class=\"hierarchy-bar-node-arrow\"\n            placement=\"bottom\"\n            [uxPopover]=\"siblingsTemplate\"\n            popoverClass=\"hierarchy-bar-popover\"\n            role=\"button\"\n            tabindex=\"0\"\n            [disabled]=\"readonly\"\n            #popover=\"ux-popover\"\n            [popoverContext]=\"{ popover: popover }\"\n            [showTriggers]=\"hierarchyBar.popoverShowTriggers\"\n            [hideTriggers]=\"hierarchyBar.popoverHideTriggers\"\n            type=\"button\">\n\n            <ux-icon name=\"next\" class=\"hierarchy-bar-node-arrow-icon\"></ux-icon>\n        </button>\n    </div>\n\n\n    <ux-hierarchy-bar-node\n        *ngIf=\"_last !== _first\"\n        [readonly]=\"readonly\"\n        [popoverTemplate]=\"content\"\n        [node]=\"_last\"\n        (selected)=\"hierarchyBar.selectNode($event)\">\n    </ux-hierarchy-bar-node>\n\n    <!-- Allow content to be placed after the last node -->\n    <div class=\"hierarchy-bar-addons\">\n        <ng-content select=\"trailing-addons\"></ng-content>\n    </div>\n\n</div>\n\n<!-- Allow content to be placed on the right of the items -->\n<div class=\"hierarchy-bar-addons\">\n    <ng-content select=\"right-addons\"></ng-content>\n</div>\n\n<!-- Template for the popover list -->\n<ng-template #content let-node=\"node\" let-popover=\"popover\">\n    <ux-hierarchy-bar-popover\n        [loading]=\"(hierarchyBar.getChildren(node) | async)?.loading\"\n        [nodes]=\"(hierarchyBar.getChildren(node) | async)?.children\"\n        (selected)=\"hierarchyBar.selectNode($event); popover.hide()\">\n    </ux-hierarchy-bar-popover>\n</ng-template>\n\n<!-- Template for the siblings popover list -->\n<ng-template #siblingsTemplate let-popover=\"popover\">\n    <ux-hierarchy-bar-popover\n        [nodes]=\"(_siblings | async)?.children\"\n        [loading]=\"(_siblings | async)?.loading\"\n        (selected)=\"hierarchyBar.selectNode($event); popover.hide()\">\n    </ux-hierarchy-bar-popover>\n</ng-template>\n\n<!-- Template for the parents popover list -->\n<ng-template #parentsTemplate let-popover=\"popover\">\n    <ux-hierarchy-bar-popover\n        [nodes]=\"_parents\"\n        [separator]=\"true\"\n        (selected)=\"hierarchyBar.selectNode($event); popover.hide()\">\n    </ux-hierarchy-bar-popover>\n</ng-template>\n\n<!-- Default Overflow Template -->\n<ng-template #defaultOverflowTemplate>\n    <button uxFocusIndicator\n            uxFocusIndicatorOrigin\n            [disabled]=\"readonly\"\n            class=\"overflow-button\"\n            aria-label=\"Show parents\"\n            [uxPopover]=\"parentsTemplate\"\n            popoverClass=\"hierarchy-bar-popover\"\n            role=\"button\"\n            tabindex=\"0\"\n            #popover=\"ux-popover\"\n            [popoverContext]=\"{ popover: popover }\"\n            [showTriggers]=\"hierarchyBar.popoverShowTriggers\"\n            [hideTriggers]=\"hierarchyBar.popoverHideTriggers\"\n            placement=\"bottom\"\n            type=\"button\">\n            <ux-icon name=\"more\"></ux-icon>\n    </button>\n</ng-template>",
+                template: "<!-- Allow content to be placed on the left of the items -->\n<div class=\"hierarchy-bar-addons\">\n    <ng-content select=\"left-addons\"></ng-content>\n</div>\n\n<div #nodes class=\"hierarchy-bar-nodes\">\n\n    <ux-hierarchy-bar-node\n        *ngIf=\"_first\"\n        [readonly]=\"readonly\"\n        [popoverTemplate]=\"content\"\n        [node]=\"_first\"\n        (selected)=\"hierarchyBar.selectNode($event)\">\n    </ux-hierarchy-bar-node>\n\n    <div class=\"hierarchy-bar-overflow\" *ngIf=\"_parents.length > 0\">\n        <div class=\"hierarchy-bar-overflow-container\">\n            <ng-container [ngTemplateOutlet]=\"hierarchyBar.overflowTemplate || defaultOverflowTemplate\"\n                          [ngTemplateOutletContext]=\"{ $implicit: _parents }\">\n            </ng-container>\n        </div>\n\n        <button [attr.aria-label]=\"hierarchyBar.showSiblingsAriaLabel\"\n            uxFocusIndicator\n            uxFocusIndicatorOrigin\n            class=\"hierarchy-bar-node-arrow\"\n            placement=\"bottom\"\n            [uxPopover]=\"siblingsTemplate\"\n            popoverClass=\"hierarchy-bar-popover\"\n            role=\"button\"\n            tabindex=\"0\"\n            [disabled]=\"readonly\"\n            #popover=\"ux-popover\"\n            [popoverContext]=\"{ popover: popover }\"\n            [showTriggers]=\"hierarchyBar.popoverShowTriggers\"\n            [hideTriggers]=\"hierarchyBar.popoverHideTriggers\"\n            type=\"button\">\n\n            <ux-icon name=\"next\" class=\"hierarchy-bar-node-arrow-icon\"></ux-icon>\n        </button>\n    </div>\n\n\n    <ux-hierarchy-bar-node\n        *ngIf=\"_last\"\n        [readonly]=\"readonly\"\n        [popoverTemplate]=\"content\"\n        [node]=\"_last\"\n        (selected)=\"hierarchyBar.selectNode($event)\">\n    </ux-hierarchy-bar-node>\n\n    <!-- Allow content to be placed after the last node -->\n    <div class=\"hierarchy-bar-addons\">\n        <ng-content select=\"trailing-addons\"></ng-content>\n    </div>\n\n</div>\n\n<!-- Allow content to be placed on the right of the items -->\n<div class=\"hierarchy-bar-addons\">\n    <ng-content select=\"right-addons\"></ng-content>\n</div>\n\n<!-- Template for the popover list -->\n<ng-template #content let-node=\"node\" let-popover=\"popover\">\n    <ux-hierarchy-bar-popover\n        [loading]=\"(hierarchyBar.getChildren(node) | async)?.loading\"\n        [nodes]=\"(hierarchyBar.getChildren(node) | async)?.children\"\n        (selected)=\"hierarchyBar.selectNode($event); popover.hide()\">\n    </ux-hierarchy-bar-popover>\n</ng-template>\n\n<!-- Template for the siblings popover list -->\n<ng-template #siblingsTemplate let-popover=\"popover\">\n    <ux-hierarchy-bar-popover\n        [nodes]=\"(_siblings | async)?.children\"\n        [loading]=\"(_siblings | async)?.loading\"\n        (selected)=\"hierarchyBar.selectNode($event); popover.hide()\">\n    </ux-hierarchy-bar-popover>\n</ng-template>\n\n<!-- Template for the parents popover list -->\n<ng-template #parentsTemplate let-popover=\"popover\">\n    <ux-hierarchy-bar-popover\n        [nodes]=\"_parents\"\n        [separator]=\"true\"\n        (selected)=\"hierarchyBar.selectNode($event); popover.hide()\">\n    </ux-hierarchy-bar-popover>\n</ng-template>\n\n<!-- Default Overflow Template -->\n<ng-template #defaultOverflowTemplate>\n    <button uxFocusIndicator\n            uxFocusIndicatorOrigin\n            [disabled]=\"readonly\"\n            class=\"overflow-button\"\n            aria-label=\"Show parents\"\n            [uxPopover]=\"parentsTemplate\"\n            popoverClass=\"hierarchy-bar-popover\"\n            role=\"button\"\n            tabindex=\"0\"\n            #popover=\"ux-popover\"\n            [popoverContext]=\"{ popover: popover }\"\n            [showTriggers]=\"hierarchyBar.popoverShowTriggers\"\n            [hideTriggers]=\"hierarchyBar.popoverHideTriggers\"\n            placement=\"bottom\"\n            type=\"button\">\n            <ux-icon name=\"more\"></ux-icon>\n    </button>\n</ng-template>\n",
                 changeDetection: core.ChangeDetectionStrategy.OnPush
             }),
             __metadata("design:paramtypes", [HierarchyBarService,
                 core.Renderer2,
                 ResizeService,
-                core.ElementRef])
+                core.ElementRef,
+                core.ChangeDetectorRef])
         ], HierarchyBarCollapsedComponent);
         return HierarchyBarCollapsedComponent;
     }());
@@ -17073,30 +17078,49 @@
         ], MarqueeWizardStepIconDirective);
         return MarqueeWizardStepIconDirective;
     }());
-    var WizardStepComponent = /** @class */ (function () {
-        function WizardStepComponent(_changeDetector, _elementRef, _renderer) {
-            this._changeDetector = _changeDetector;
-            this._elementRef = _elementRef;
-            this._renderer = _renderer;
-            /** Allows you to define whether or not a step is valid. The user will not be able to proceed to the next step if this property has a value of false. */
-            this.valid = true;
-            /** Emits when visited changes. */
-            this.visitedChange = new core.EventEmitter();
-            this._active = false;
-            this._visited = false;
+    /**
+     * This service is required to provide a form of communication
+     * between the marquee wizard steps and the containing marquee wizard.
+     * We cannot inject the Host due to the steps being content children
+     * rather than view children.
+     */
+    var WizardService = /** @class */ (function () {
+        function WizardService() {
+            this.validChange$ = new rxjs.Subject();
         }
-        Object.defineProperty(WizardStepComponent.prototype, "visited", {
+        WizardService = __decorate([
+            core.Injectable()
+        ], WizardService);
+        return WizardService;
+    }());
+    var WizardStepComponent = /** @class */ (function () {
+        function WizardStepComponent(_wizardService, _changeDetector) {
+            this._wizardService = _wizardService;
+            this._changeDetector = _changeDetector;
+            /**
+             * Defines whether a step is valid. The user will not be able to proceed to the next step if this property has a value of false.
+             * If the new value is false is will also set the visited value to false.
+             */
+            this._valid = true;
             /**
              * Defines whether or not this step has previously been visited.
              * A visited step can be clicked on and jumped to at any time.
              * By default, steps will become 'visited' when the user navigates to a step for the first time.
              */
+            this.visited = false;
+            /**
+             * Defines the currently visible step.
+             */
+            this._active = false;
+            /** Emits when visited changes. */
+            this.visitedChange = new core.EventEmitter();
+        }
+        Object.defineProperty(WizardStepComponent.prototype, "valid", {
             get: function () {
-                return this._visited;
+                return this._valid;
             },
             set: function (value) {
-                this._visited = value;
-                this.visitedChange.next(value);
+                this.setValid(value);
             },
             enumerable: true,
             configurable: true
@@ -17118,9 +17142,19 @@
             enumerable: true,
             configurable: true
         });
-        WizardStepComponent.prototype.setId = function (id) {
-            this._renderer.setAttribute(this._elementRef.nativeElement, 'id', id);
-            this._renderer.setAttribute(this._elementRef.nativeElement, 'aria-labelledby', id + "-label");
+        WizardStepComponent.prototype.setVisitedAndEmitChangeEvent = function (value) {
+            if (value === this.visited) {
+                return;
+            }
+            this.visited = value;
+            this.visitedChange.emit(value);
+        };
+        WizardStepComponent.prototype.setValid = function (value) {
+            if (this._valid === value) {
+                return;
+            }
+            this._valid = value;
+            this._wizardService.validChange$.next({ step: this, valid: value });
         };
         __decorate([
             core.Input(),
@@ -17132,26 +17166,21 @@
         ], WizardStepComponent.prototype, "disableNextWhenInvalid", void 0);
         __decorate([
             core.Input(),
-            __metadata("design:type", Boolean)
-        ], WizardStepComponent.prototype, "valid", void 0);
-        __decorate([
-            core.Input(),
-            __metadata("design:type", Object)
-        ], WizardStepComponent.prototype, "visitedChange", void 0);
+            __metadata("design:type", Boolean),
+            __metadata("design:paramtypes", [Boolean])
+        ], WizardStepComponent.prototype, "valid", null);
         __decorate([
             core.Input(),
             __metadata("design:type", Function)
         ], WizardStepComponent.prototype, "validator", void 0);
         __decorate([
             core.Input(),
-            __metadata("design:type", Boolean),
-            __metadata("design:paramtypes", [Boolean])
-        ], WizardStepComponent.prototype, "visited", null);
+            __metadata("design:type", Boolean)
+        ], WizardStepComponent.prototype, "visited", void 0);
         __decorate([
-            core.HostBinding('attr.aria-expanded'),
-            __metadata("design:type", Boolean),
-            __metadata("design:paramtypes", [Boolean])
-        ], WizardStepComponent.prototype, "active", null);
+            core.Output(),
+            __metadata("design:type", Object)
+        ], WizardStepComponent.prototype, "visitedChange", void 0);
         WizardStepComponent = __decorate([
             core.Component({
                 selector: 'ux-wizard-step',
@@ -17161,15 +17190,15 @@
                     'role': 'tabpanel'
                 }
             }),
-            __metadata("design:paramtypes", [core.ChangeDetectorRef,
-                core.ElementRef,
-                core.Renderer2])
+            __metadata("design:paramtypes", [WizardService,
+                core.ChangeDetectorRef])
         ], WizardStepComponent);
         return WizardStepComponent;
     }());
     var uniqueId$7 = 0;
     var WizardComponent = /** @class */ (function () {
-        function WizardComponent() {
+        function WizardComponent(_wizardService) {
+            this._wizardService = _wizardService;
             /** Defines whether or not the wizard should be displayed in a `horizontal` or `vertical` layout. */
             this.orientation = 'horizontal';
             /** Defines the text displayed in the 'Next' button. */
@@ -17218,6 +17247,8 @@
             this.finishAlwaysVisible = false;
             /** If set to `true` the 'Next' or 'Finish' button will become disabled when the current step is invalid. */
             this.disableNextWhenInvalid = false;
+            /** Whether to set `visited` to false on subsequent steps after a validation fault. */
+            this.resetVisitedOnValidationError = false;
             /** Emits when the wizard has moved to the next step. It will receive the current step index as a parameter. */
             this.onNext = new core.EventEmitter();
             /** Emits when the wizard has moved to the previous step. It will receive the current step index as a parameter. */
@@ -17243,7 +17274,7 @@
         Object.defineProperty(WizardComponent.prototype, "step", {
             /**
              * The current active step. When the step changes an event will be emitted containing the index of the newly active step.
-             * If this is not specifed the wizard will start on the first step.
+             * If this is not specified the wizard will start on the first step.
              */
             get: function () {
                 return this._step;
@@ -17264,26 +17295,18 @@
             enumerable: true,
             configurable: true
         });
-        WizardComponent.prototype.ngAfterViewInit = function () {
+        WizardComponent.prototype.ngOnInit = function () {
             var _this = this;
             // initially set the correct visibility of the steps
             setTimeout(this.update.bind(this));
-            // initially set the ids for each step
-            this.setWizardStepIds();
             // if the steps change then update the ids
-            this.steps.changes.pipe(tick(), operators.takeUntil(this._onDestroy)).subscribe(function () {
-                _this.setWizardStepIds();
-                _this.update();
-            });
+            this.steps.changes.pipe(tick(), operators.takeUntil(this._onDestroy)).subscribe(function () { return _this.update(); });
+            // watch for changes to valid subject
+            this._wizardService.validChange$.pipe(operators.filter(function (event) { return !event.valid; }), operators.takeUntil(this._onDestroy)).subscribe(function (event) { return _this.setFutureStepsUnvisited(event.step); });
         };
         WizardComponent.prototype.ngOnDestroy = function () {
             this._onDestroy.next();
             this._onDestroy.complete();
-        };
-        /** Set ids for each of the wizard steps */
-        WizardComponent.prototype.setWizardStepIds = function () {
-            var _this = this;
-            this.steps.forEach(function (step, idx) { return step.setId(_this.id + "-step-" + idx); });
         };
         /**
          * Navigate to the next step
@@ -17410,7 +17433,7 @@
                                     setTimeout(function () {
                                         // only fires when the finish button is clicked and the step is valid
                                         if (_this.getCurrentStep().valid) {
-                                            _this.onFinish.next();
+                                            _this.onFinish.emit();
                                         }
                                         else {
                                             _this.stepError.next(_this.step);
@@ -17474,10 +17497,29 @@
             return this.steps.toArray()[index];
         };
         /**
+         * If a step in the wizard becomes invalid, all steps sequentially after
+         * it should become unvisited
+         */
+        WizardComponent.prototype.setFutureStepsUnvisited = function (currentStep) {
+            if (!this.resetVisitedOnValidationError) {
+                return;
+            }
+            this.getFutureSteps(currentStep).forEach(function (step) {
+                step.setVisitedAndEmitChangeEvent(false);
+            });
+        };
+        /**
+         * Get the currently active step and all steps beyond it
+         */
+        WizardComponent.prototype.getFutureSteps = function (currentStep) {
+            var currentIndex = this.steps.toArray().indexOf(currentStep);
+            return this.steps.toArray().slice(currentIndex + 1);
+        };
+        /**
          * Returns the valid status of the current step, including the `validation` function (if provided).
          */
         WizardComponent.prototype.isStepValid = function () {
-            // get the current activer step
+            // get the current active step
             var currentStep = this.getCurrentStep();
             // if there is no validator then return the valid state
             if (!currentStep.validator) {
@@ -17583,6 +17625,10 @@
             __metadata("design:type", Boolean)
         ], WizardComponent.prototype, "disableNextWhenInvalid", void 0);
         __decorate([
+            core.Input(),
+            __metadata("design:type", Boolean)
+        ], WizardComponent.prototype, "resetVisitedOnValidationError", void 0);
+        __decorate([
             core.Output(),
             __metadata("design:type", Object)
         ], WizardComponent.prototype, "onNext", void 0);
@@ -17630,11 +17676,13 @@
         WizardComponent = __decorate([
             core.Component({
                 selector: 'ux-wizard',
-                template: "<div class=\"wizard-body\">\n\n    <div class=\"wizard-steps\"\n        uxTabbableList\n        [direction]=\"orientation\"\n        role=\"tablist\"\n        [attr.aria-orientation]=\"orientation\">\n\n        <div *ngFor=\"let stp of steps; let index = index\"\n            role=\"tab\"\n            class=\"wizard-step\"\n            [class.active]=\"stp.active\"\n            [class.visited]=\"stp.visited\"\n            [class.invalid]=\"stp.active && !stp.valid && invalidIndicator\"\n            [attr.aria-posinset]=\"index + 1\"\n            [attr.aria-setsize]=\"steps.length\"\n            [attr.aria-selected]=\"stp.active\"\n            [attr.aria-controls]=\"id + '-step-' + index\"\n            [id]=\"id + '-step-' + index + '-label'\"\n            uxFocusIndicator\n            uxTabbableListItem\n            [programmaticFocusIndicator]=\"true\"\n            [disabled]=\"index !== 0 && !stp.visited\"\n            (click)=\"gotoStep(stp)\"\n            (keydown.enter)=\"gotoStep(stp)\">\n            <span class=\"wizard-step-text\">{{ stp.header }}</span>\n            <ux-icon *ngIf=\"stp.visited && !stp.active\" class=\"wizard-step-icon\" name=\"checkmark\"></ux-icon>\n        </div>\n\n    </div>\n\n    <div class=\"wizard-content\">\n        <ng-content></ng-content>\n    </div>\n\n</div>\n\n<div class=\"wizard-footer\">\n\n    <ng-container *ngIf=\"footerTemplate\"\n                  [ngTemplateOutlet]=\"footerTemplate\"\n                  [ngTemplateOutletContext]=\"{ step: step }\">\n    </ng-container>\n\n    <button #tip=\"ux-tooltip\"\n            type=\"button\"\n            class=\"btn button-secondary\"\n            *ngIf=\"previousVisible\"\n            [uxTooltip]=\"previousTooltip\"\n            [disabled]=\"previousDisabled || step === 0\"\n            [attr.aria-label]=\"previousAriaLabel\"\n            (click)=\"previous(); tip.hide()\">\n        {{ previousText }}\n    </button>\n\n    <button #tip=\"ux-tooltip\"\n            type=\"button\"\n            class=\"btn button-primary\"\n            *ngIf=\"nextVisible && !isLastStep()\"\n            [uxTooltip]=\"nextTooltip\"\n            [disabled]=\"nextDisabled || isNextDisabled()\"\n            [attr.aria-label]=\"nextAriaLabel\"\n            (click)=\"next(); tip.hide()\">\n        {{ nextText }}\n    </button>\n\n    <button #tip=\"ux-tooltip\"\n            type=\"button\"\n            class=\"btn button-primary\"\n            *ngIf=\"finishVisible && isLastStep() || finishAlwaysVisible\"\n            [uxTooltip]=\"finishTooltip\"\n            [disabled]=\"finishDisabled || isNextDisabled()\"\n            [attr.aria-label]=\"finishAriaLabel\"\n            (click)=\"finish(); tip.hide()\">\n        {{ finishText }}\n    </button>\n\n    <button #tip=\"ux-tooltip\"\n            type=\"button\"\n            class=\"btn button-secondary\"\n            *ngIf=\"cancelVisible && !isLastStep() || cancelAlwaysVisible\"\n            [uxTooltip]=\"cancelTooltip\"\n            [disabled]=\"cancelDisabled\"\n            [attr.aria-label]=\"cancelAriaLabel\"\n            (click)=\"cancel(); tip.hide()\">\n        {{ cancelText }}\n    </button>\n\n</div>\n",
+                template: "<div class=\"wizard-body\">\n\n    <div class=\"wizard-steps\"\n        uxTabbableList\n        [direction]=\"orientation\"\n        role=\"tablist\"\n        [attr.aria-orientation]=\"orientation\">\n\n        <div *ngFor=\"let stp of steps; let index = index\"\n            role=\"tab\"\n            class=\"wizard-step\"\n            [class.active]=\"stp._active\"\n            [class.visited]=\"stp.visited\"\n            [class.invalid]=\"!stp._valid\"\n            [attr.aria-posinset]=\"index + 1\"\n            [attr.aria-setsize]=\"steps.length\"\n            [attr.aria-selected]=\"stp._active\"\n            [attr.aria-controls]=\"id + '-step-' + index\"\n            [attr.aria-labelledby]=\"id + '-step-' + index + '-label'\"\n            [attr.aria-expanded]=\"stp._active\"\n            [id]=\"id + '-step-' + index + '-label'\"\n            uxFocusIndicator\n            [programmaticFocusIndicator]=\"true\"\n            uxTabbableListItem\n            [disabled]=\"index !== 0 && !stp.visited\"\n            (click)=\"gotoStep(stp)\"\n            (keydown.enter)=\"gotoStep(stp)\">\n            <span class=\"wizard-step-text\">{{ stp.header }}</span>\n            <ux-icon *ngIf=\"stp.visited && !stp._active\" class=\"wizard-step-icon\" name=\"checkmark\"></ux-icon>\n        </div>\n\n    </div>\n\n    <div class=\"wizard-content\">\n        <ng-content></ng-content>\n    </div>\n\n</div>\n\n<div class=\"wizard-footer\">\n\n    <ng-container *ngIf=\"footerTemplate\"\n                  [ngTemplateOutlet]=\"footerTemplate\"\n                  [ngTemplateOutletContext]=\"{ step: step }\">\n    </ng-container>\n\n    <button #tip=\"ux-tooltip\"\n            type=\"button\"\n            class=\"btn button-secondary\"\n            *ngIf=\"previousVisible\"\n            [uxTooltip]=\"previousTooltip\"\n            [disabled]=\"previousDisabled || step === 0\"\n            [attr.aria-label]=\"previousAriaLabel\"\n            (click)=\"previous(); tip.hide()\">\n        {{ previousText }}\n    </button>\n\n    <button #tip=\"ux-tooltip\"\n            type=\"button\"\n            class=\"btn button-primary\"\n            *ngIf=\"nextVisible && !isLastStep()\"\n            [uxTooltip]=\"nextTooltip\"\n            [disabled]=\"nextDisabled || isNextDisabled()\"\n            [attr.aria-label]=\"nextAriaLabel\"\n            (click)=\"next(); tip.hide()\">\n        {{ nextText }}\n    </button>\n\n    <button #tip=\"ux-tooltip\"\n            type=\"button\"\n            class=\"btn button-primary\"\n            *ngIf=\"finishVisible && isLastStep() || finishAlwaysVisible\"\n            [uxTooltip]=\"finishTooltip\"\n            [disabled]=\"finishDisabled || isNextDisabled()\"\n            [attr.aria-label]=\"finishAriaLabel\"\n            (click)=\"finish(); tip.hide()\">\n        {{ finishText }}\n    </button>\n\n    <button #tip=\"ux-tooltip\"\n            type=\"button\"\n            class=\"btn button-secondary\"\n            *ngIf=\"cancelVisible && !isLastStep() || cancelAlwaysVisible\"\n            [uxTooltip]=\"cancelTooltip\"\n            [disabled]=\"cancelDisabled\"\n            [attr.aria-label]=\"cancelAriaLabel\"\n            (click)=\"cancel(); tip.hide()\">\n        {{ cancelText }}\n    </button>\n\n</div>\n",
+                providers: [WizardService],
                 host: {
                     '[class]': 'orientation'
                 }
-            })
+            }),
+            __metadata("design:paramtypes", [WizardService])
         ], WizardComponent);
         return WizardComponent;
     }());
@@ -17666,47 +17714,16 @@
         ], WizardModule);
         return WizardModule;
     }());
-    /**
-     * This service is required to provide a form of communication
-     * between the marquee wizard steps and the containing marquee wizard.
-     * We cannot inject the Host due to the steps being content children
-     * rather than view children.
-     */
-    var MarqueeWizardService = /** @class */ (function () {
-        function MarqueeWizardService() {
-            this.valid$ = new rxjs.Subject();
-        }
-        MarqueeWizardService = __decorate([
-            core.Injectable()
-        ], MarqueeWizardService);
-        return MarqueeWizardService;
-    }());
     var MarqueeWizardStepComponent = /** @class */ (function (_super) {
         __extends(MarqueeWizardStepComponent, _super);
-        function MarqueeWizardStepComponent(changeDetector, elementRef, renderer, _marqueeWizardService) {
-            var _this = _super.call(this, changeDetector, elementRef, renderer) || this;
-            _this._marqueeWizardService = _marqueeWizardService;
+        function MarqueeWizardStepComponent() {
+            var _this = _super !== null && _super.apply(this, arguments) || this;
             /** Determine the completed state of this step */
             _this.completed = false;
             /** Emit when the completed step changes */
             _this.completedChange = new core.EventEmitter();
-            /** Store the validity of the current step */
-            _this._valid = true;
             return _this;
         }
-        Object.defineProperty(MarqueeWizardStepComponent.prototype, "valid", {
-            get: function () {
-                return this._valid;
-            },
-            set: function (valid) {
-                this._valid = valid;
-                if (this._marqueeWizardService) {
-                    this._marqueeWizardService.valid$.next({ step: this, valid: valid });
-                }
-            },
-            enumerable: true,
-            configurable: true
-        });
         /**
          * Update the completed state and emit the latest value
          * @param completed whether or not the step is completed
@@ -17732,18 +17749,16 @@
                 selector: 'ux-marquee-wizard-step',
                 template: "<ng-container *ngIf=\"active\">\n    <ng-content></ng-content>\n</ng-container>",
                 changeDetection: core.ChangeDetectionStrategy.OnPush
-            }),
-            __metadata("design:paramtypes", [core.ChangeDetectorRef,
-                core.ElementRef,
-                core.Renderer2,
-                MarqueeWizardService])
+            })
         ], MarqueeWizardStepComponent);
         return MarqueeWizardStepComponent;
     }(WizardStepComponent));
     var MarqueeWizardComponent = /** @class */ (function (_super) {
         __extends(MarqueeWizardComponent, _super);
-        function MarqueeWizardComponent(marqueeWizardService, _resizeService, _elementRef) {
-            var _this = _super.call(this) || this;
+        function MarqueeWizardComponent(wizardService, _changeDetector, _resizeService, _elementRef) {
+            var _this = _super.call(this, wizardService) || this;
+            _this.wizardService = wizardService;
+            _this._changeDetector = _changeDetector;
             _this._resizeService = _resizeService;
             _this._elementRef = _elementRef;
             /** Initial set to default width to match 240px on left but can be changed with a perecentage value */
@@ -17752,8 +17767,6 @@
             _this.gutterSize = 10;
             /** If set to true the resizable splitter will be enabled and set to the default width **/
             _this.resizable = false;
-            /** Whether to set `visited` to false on subsequent steps after a validation fault. */
-            _this.resetVisitedOnValidationError = true;
             /** Emit the current width of the splitter*/
             _this.sidePanelWidthChange = new core.EventEmitter();
             /** Access each step content component */
@@ -17764,14 +17777,12 @@
              * variable to only initialise the splitter when the content has a width.
              */
             _this._isInitialised = false;
-            /** Unsubscribe from all subscriptions when component is destroyed */
-            _this._onDestroyed = new rxjs.Subject();
+            // set to true as default for Marquee Wizard only
+            _this.resetVisitedOnValidationError = true;
             // watch for changes to the size
-            _resizeService.addResizeListener(_elementRef.nativeElement)
-                .pipe(operators.takeUntil(_this._onDestroyed))
+            _resizeService.addResizeListener(_this._elementRef.nativeElement)
+                .pipe(operators.takeUntil(_this._onDestroy))
                 .subscribe(_this.onResize.bind(_this));
-            marqueeWizardService.valid$.pipe(operators.filter(function (event) { return !event.valid; }))
-                .subscribe(_this.validChange.bind(_this));
             return _this;
         }
         Object.defineProperty(MarqueeWizardComponent.prototype, "isTemplate", {
@@ -17783,8 +17794,6 @@
         });
         MarqueeWizardComponent.prototype.ngOnDestroy = function () {
             _super.prototype.ngOnDestroy.call(this);
-            this._onDestroyed.next();
-            this._onDestroyed.complete();
             this._resizeService.removeResizeListener(this._elementRef.nativeElement);
         };
         /**
@@ -17820,38 +17829,23 @@
         MarqueeWizardComponent.prototype.finish = function () {
             return __awaiter(this, void 0, void 0, function () {
                 var step;
-                var _this = this;
                 return __generator(this, function (_a) {
-                    step = this.getCurrentStep();
-                    // call the original finish function
-                    return [2 /*return*/, _super.prototype.finish.call(this).then(function () {
+                    switch (_a.label) {
+                        case 0:
+                            step = this.getCurrentStep();
+                            return [4 /*yield*/, _super.prototype.finish.call(this)];
+                        case 1:
+                            _a.sent();
                             // if the step is valid indicate that it is now complete
                             if (step.valid) {
                                 step.setCompleted(true);
                             }
                             else {
-                                _this.stepError.next(_this.step);
+                                this.stepError.next(this.step);
                             }
-                        })];
+                            return [2 /*return*/];
+                    }
                 });
-            });
-        };
-        /**
-         * If a step in the wizard becomes invalid, all steps sequentially after
-         * it, should become unvisited and incomplete
-         */
-        MarqueeWizardComponent.prototype.validChange = function (state) {
-            var _this = this;
-            var steps = this.steps.toArray();
-            var current = steps.findIndex(function (step) { return step === state.step; });
-            var affected = steps.slice(current);
-            affected.forEach(function (step) {
-                // the step should no longer be completed
-                step.completed = false;
-                // if the step is not the current step then also mark it as unvisited
-                if (_this.resetVisitedOnValidationError && step !== state.step) {
-                    step.visited = false;
-                }
             });
         };
         MarqueeWizardComponent.prototype.onResize = function (event) {
@@ -17865,6 +17859,12 @@
             // we need to only get the size of the first panel which will be the side panel
             this.sidePanelWidth = sizes[0];
             this.sidePanelWidthChange.emit(this.sidePanelWidth);
+        };
+        MarqueeWizardComponent.prototype.setFutureStepsUnvisited = function (currentStep) {
+            _super.prototype.setFutureStepsUnvisited.call(this, currentStep);
+            // Marquee wizard steps have an additional completed property which must also be changed.
+            // The base class implementation only changes the visited state
+            this.getFutureSteps(currentStep).forEach(function (step) { return step.completed = false; });
         };
         __decorate([
             core.Input(),
@@ -17887,10 +17887,6 @@
             __metadata("design:type", Boolean)
         ], MarqueeWizardComponent.prototype, "resizable", void 0);
         __decorate([
-            core.Input(),
-            __metadata("design:type", Boolean)
-        ], MarqueeWizardComponent.prototype, "resetVisitedOnValidationError", void 0);
-        __decorate([
             core.Output(),
             __metadata("design:type", Object)
         ], MarqueeWizardComponent.prototype, "sidePanelWidthChange", void 0);
@@ -17901,11 +17897,12 @@
         MarqueeWizardComponent = __decorate([
             core.Component({
                 selector: 'ux-marquee-wizard',
-                template: "<ng-container *ngIf=\"resizable && _isInitialised\">\n    <as-split direction=\"horizontal\"\n           [gutterSize]=\"gutterSize\"\n           (dragEnd)=\"onDragEnd($event)\">\n        <as-split-area [size]=\"sidePanelWidth\">\n            <ng-container [ngTemplateOutlet]=\"sidePanel\"></ng-container>\n        </as-split-area>\n        <as-split-area [size]=\"100 - sidePanelWidth\">\n            <ng-container [ngTemplateOutlet]=\"mainContentPanel\"></ng-container>\n        </as-split-area>\n    </as-split>\n</ng-container>\n\n<ng-container *ngIf=\"!resizable\">\n    <ng-container [ngTemplateOutlet]=\"sidePanel\"></ng-container>\n    <ng-container [ngTemplateOutlet]=\"mainContentPanel\"></ng-container>\n</ng-container>\n\n<ng-template #sidePanel>\n    <div class=\"marquee-wizard-side-panel\" [class.marquee-wizard-side-panel-resize]=\"resizable\">\n\n        <div class=\"marquee-wizard-description-container\" *ngIf=\"description\">\n            <!-- If a template was provided display it -->\n            <ng-container *ngIf=\"isTemplate\" [ngTemplateOutlet]=\"description\"></ng-container>\n\n            <!-- Otherwise wimply display the string -->\n            <ng-container *ngIf=\"!isTemplate\">\n                <p>{{ description }}</p>\n            </ng-container>\n        </div>\n\n        <ul class=\"marquee-wizard-steps\"\n            uxTabbableList\n            direction=\"vertical\"\n            role=\"tablist\"\n            aria-orientation=\"vertical\">\n\n            <li *ngFor=\"let step of steps; let index = index\"\n                role=\"tab\"\n                uxTabbableListItem\n                [disabled]=\"!step.visited\"\n                class=\"marquee-wizard-step\"\n                [class.active]=\"step.active\"\n                [class.visited]=\"step.visited\"\n                [class.invalid]=\"!step.valid\"\n                [attr.aria-posinset]=\"index + 1\"\n                [attr.aria-setsize]=\"steps.length\"\n                [attr.aria-selected]=\"step.active\"\n                [attr.aria-controls]=\"id + '-step-' + index\"\n                [id]=\"id + '-step-' + index + '-label'\"\n                (click)=\"gotoStep(step)\"\n                (keydown.enter)=\"gotoStep(step)\">\n\n                <ng-container [ngTemplateOutlet]=\"stepTemplate || defaultStepTemplate\" [ngTemplateOutletContext]=\"{ $implicit: step }\"></ng-container>\n            </li>\n\n        </ul>\n    </div>\n</ng-template>\n\n\n<ng-template #mainContentPanel>\n    <div class=\"marquee-wizard-content-panel\" [class.marquee-wizard-content-panel-resize]=\"resizable\">\n        <div class=\"marquee-wizard-content\">\n            <ng-content></ng-content>\n        </div>\n\n        <div class=\"modal-footer\">\n\n            <ng-container *ngIf=\"footerTemplate\"\n                          [ngTemplateOutlet]=\"footerTemplate\"\n                          [ngTemplateOutletContext]=\"{ step: step }\">\n            </ng-container>\n\n            <button #tip=\"ux-tooltip\"\n                    type=\"button\"\n                    class=\"btn button-secondary\"\n                    *ngIf=\"previousVisible\"\n                    [uxTooltip]=\"previousTooltip\"\n                    [attr.aria-label]=\"previousAriaLabel\"\n                    container=\"body\"\n                    [disabled]=\"previousDisabled || step === 0\"\n                    (click)=\"previous(); tip.hide()\">\n                {{ previousText }}\n            </button>\n\n            <button #tip=\"ux-tooltip\"\n                    type=\"button\"\n                    class=\"btn button-primary\"\n                    *ngIf=\"nextVisible && !isLastStep()\"\n                    [uxTooltip]=\"nextTooltip\"\n                    [attr.aria-label]=\"nextAriaLabel\"\n                    container=\"body\"\n                    [disabled]=\"nextDisabled || isNextDisabled()\"\n                    (click)=\"next(); tip.hide()\">\n                {{ nextText }}\n            </button>\n\n            <button #tip=\"ux-tooltip\"\n                    type=\"button\"\n                    class=\"btn button-primary\"\n                    *ngIf=\"finishVisible && isLastStep() || finishAlwaysVisible\"\n                    [uxTooltip]=\"finishTooltip\"\n                    [attr.aria-label]=\"finishAriaLabel\"\n                    container=\"body\"\n                    [disabled]=\"finishDisabled || isNextDisabled()\"\n                    (click)=\"finish(); tip.hide()\">\n                {{ finishText }}\n            </button>\n\n            <button #tip=\"ux-tooltip\"\n                    type=\"button\"\n                    class=\"btn button-secondary\"\n                    *ngIf=\"cancelVisible && !isLastStep() || cancelAlwaysVisible\"\n                    [uxTooltip]=\"cancelTooltip\"\n                    [attr.aria-label]=\"cancelAriaLabel\"\n                    container=\"body\"\n                    [disabled]=\"cancelDisabled\"\n                    (click)=\"cancel(); tip.hide()\">\n                {{ cancelText }}\n            </button>\n        </div>\n    </div>\n</ng-template>\n\n<ng-template #defaultStepTemplate let-step>\n\n    <!-- Insert the icon -->\n    <div *ngIf=\"step._iconTemplate\" class=\"marquee-wizard-step-icon\">\n        <ng-container [ngTemplateOutlet]=\"step._iconTemplate\"></ng-container>\n    </div>\n\n    <span class=\"marquee-wizard-step-title\">{{ step.header }}</span>\n    <ux-icon *ngIf=\"step.completed\" class=\"marquee-wizard-step-status\" name=\"checkmark\"></ux-icon>\n</ng-template>\n",
-                providers: [MarqueeWizardService],
+                template: "<ng-container *ngIf=\"resizable && _isInitialised\">\n    <as-split direction=\"horizontal\"\n              [gutterSize]=\"gutterSize\"\n              (dragEnd)=\"onDragEnd($event)\">\n        <as-split-area [size]=\"sidePanelWidth\">\n            <ng-container [ngTemplateOutlet]=\"sidePanel\"></ng-container>\n        </as-split-area>\n        <as-split-area [size]=\"100 - sidePanelWidth\">\n            <ng-container [ngTemplateOutlet]=\"mainContentPanel\"></ng-container>\n        </as-split-area>\n    </as-split>\n</ng-container>\n\n<ng-container *ngIf=\"!resizable\">\n    <ng-container [ngTemplateOutlet]=\"sidePanel\"></ng-container>\n    <ng-container [ngTemplateOutlet]=\"mainContentPanel\"></ng-container>\n</ng-container>\n\n<ng-template #sidePanel>\n    <div class=\"marquee-wizard-side-panel\" [class.marquee-wizard-side-panel-resize]=\"resizable\">\n\n        <div class=\"marquee-wizard-description-container\" *ngIf=\"description\">\n            <!-- If a template was provided display it -->\n            <ng-container *ngIf=\"isTemplate\" [ngTemplateOutlet]=\"description\"></ng-container>\n\n            <!-- Otherwise simply display the string -->\n            <ng-container *ngIf=\"!isTemplate\">\n                <p>{{ description }}</p>\n            </ng-container>\n        </div>\n\n        <ul class=\"marquee-wizard-steps\"\n            uxTabbableList\n            direction=\"vertical\"\n            role=\"tablist\"\n            aria-orientation=\"vertical\">\n\n            <li *ngFor=\"let step of steps; let index = index\"\n                role=\"tab\"\n                class=\"marquee-wizard-step\"\n                [class.active]=\"step.active\"\n                [class.visited]=\"step.visited\"\n                [class.invalid]=\"!step.valid\"\n                [attr.aria-posinset]=\"index + 1\"\n                [attr.aria-setsize]=\"steps.length\"\n                [attr.aria-selected]=\"step.active\"\n                [attr.aria-controls]=\"id + '-step-' + index\"\n                [attr.aria-labelledby]=\"id + '-step-' + index + '-label'\"\n                [attr.aria-expanded]=\"step._active\"\n                [id]=\"id + '-step-' + index + '-label'\"\n                uxFocusIndicator\n                [programmaticFocusIndicator]=\"true\"\n                uxTabbableListItem\n                [disabled]=\"!step.visited\"\n                (click)=\"gotoStep(step)\"\n                (keydown.enter)=\"gotoStep(step)\">\n\n                <ng-container [ngTemplateOutlet]=\"stepTemplate || defaultStepTemplate\"\n                              [ngTemplateOutletContext]=\"{ $implicit: step }\"></ng-container>\n            </li>\n\n        </ul>\n    </div>\n</ng-template>\n\n\n<ng-template #mainContentPanel>\n    <div class=\"marquee-wizard-content-panel\" [class.marquee-wizard-content-panel-resize]=\"resizable\">\n        <div class=\"marquee-wizard-content\">\n            <ng-content></ng-content>\n        </div>\n\n        <div class=\"modal-footer\">\n\n            <ng-container *ngIf=\"footerTemplate\"\n                          [ngTemplateOutlet]=\"footerTemplate\"\n                          [ngTemplateOutletContext]=\"{ step: step }\">\n            </ng-container>\n\n            <button #tip=\"ux-tooltip\"\n                    type=\"button\"\n                    class=\"btn button-secondary\"\n                    *ngIf=\"previousVisible\"\n                    [uxTooltip]=\"previousTooltip\"\n                    [attr.aria-label]=\"previousAriaLabel\"\n                    container=\"body\"\n                    [disabled]=\"previousDisabled || step === 0\"\n                    (click)=\"previous(); tip.hide()\">\n                {{ previousText }}\n            </button>\n\n            <button #tip=\"ux-tooltip\"\n                    type=\"button\"\n                    class=\"btn button-primary\"\n                    *ngIf=\"nextVisible && !isLastStep()\"\n                    [uxTooltip]=\"nextTooltip\"\n                    [attr.aria-label]=\"nextAriaLabel\"\n                    container=\"body\"\n                    [disabled]=\"nextDisabled || isNextDisabled()\"\n                    (click)=\"next(); tip.hide()\">\n                {{ nextText }}\n            </button>\n\n            <button #tip=\"ux-tooltip\"\n                    type=\"button\"\n                    class=\"btn button-primary\"\n                    *ngIf=\"finishVisible && isLastStep() || finishAlwaysVisible\"\n                    [uxTooltip]=\"finishTooltip\"\n                    [attr.aria-label]=\"finishAriaLabel\"\n                    container=\"body\"\n                    [disabled]=\"finishDisabled || isNextDisabled()\"\n                    (click)=\"finish(); tip.hide()\">\n                {{ finishText }}\n            </button>\n\n            <button #tip=\"ux-tooltip\"\n                    type=\"button\"\n                    class=\"btn button-secondary\"\n                    *ngIf=\"cancelVisible && !isLastStep() || cancelAlwaysVisible\"\n                    [uxTooltip]=\"cancelTooltip\"\n                    [attr.aria-label]=\"cancelAriaLabel\"\n                    container=\"body\"\n                    [disabled]=\"cancelDisabled\"\n                    (click)=\"cancel(); tip.hide()\">\n                {{ cancelText }}\n            </button>\n        </div>\n    </div>\n</ng-template>\n\n<ng-template #defaultStepTemplate let-step>\n\n    <!-- Insert the icon -->\n    <div *ngIf=\"step._iconTemplate\" class=\"marquee-wizard-step-icon\">\n        <ng-container [ngTemplateOutlet]=\"step._iconTemplate\"></ng-container>\n    </div>\n\n    <span class=\"marquee-wizard-step-title\">{{ step.header }}</span>\n    <ux-icon *ngIf=\"step.completed\" class=\"marquee-wizard-step-status\" name=\"checkmark\"></ux-icon>\n</ng-template>\n",
+                providers: [WizardService],
                 preserveWhitespaces: false
             }),
-            __metadata("design:paramtypes", [MarqueeWizardService,
+            __metadata("design:paramtypes", [WizardService,
+                core.ChangeDetectorRef,
                 ResizeService,
                 core.ElementRef])
         ], MarqueeWizardComponent);
@@ -20724,7 +20721,6 @@
              */
             this.options = {
                 duration: 4,
-                spacing: 10,
                 backgroundColor: this._colorService.getColor('accent').toHex(),
                 iconColor: this._colorService.getColor('accent').toHex()
             };
@@ -20853,15 +20849,14 @@
                 var _b = __read(_a, 2), elements = _b[0], notifications = _b[1];
                 // Set the `top` style property of each element
                 _this.applyElementPositions(elements, notifications);
-                if (_this.position === 'bottom-left' || _this.position === 'bottom-right') {
-                    // calculate the total height of all notifications including spacing
-                    _this._bottom = notifications.reduce(function (total, notification, index) {
-                        return total + elements[index].nativeElement.scrollHeight + notification.spacing;
-                    }, 0);
-                    // we are running in OnPush mode, so we will need to manually trigger CD here
-                    _this._changeDetectorRef.markForCheck();
-                }
+                _this.updateListPosition(elements, notifications);
+                _this._changeDetectorRef.markForCheck();
             });
+        };
+        NotificationListComponent.prototype.ngOnChanges = function () {
+            if (this._elements) {
+                this.updateListPosition(this._elements.toArray(), this._notifications);
+            }
         };
         NotificationListComponent.prototype.ngOnDestroy = function () {
             this._onDestroy.next();
@@ -20873,8 +20868,33 @@
                 var element = elements[i].nativeElement;
                 var notification = notifications[i];
                 this._renderer.setStyle(element, 'top', top + "px");
-                top = top + element.scrollHeight + notification.spacing;
+                top = top + this.getNotificationHeightInPixels(notification, elements[i]);
             }
+        };
+        NotificationListComponent.prototype.updateListPosition = function (elements, notifications) {
+            var _this = this;
+            if (this.position === 'bottom-left' || this.position === 'bottom-right') {
+                this._bottom = notifications.reduce(function (totalHeight, notification, index) {
+                    return totalHeight + _this.getNotificationHeightInPixels(notification, elements[index]);
+                }, 0);
+            }
+            else {
+                // In a top position, bottom should be unset.
+                this._bottom = undefined;
+            }
+        };
+        /** Get the height of the notification, including spacing if configured. */
+        NotificationListComponent.prototype.getNotificationHeightInPixels = function (notification, elementRef) {
+            if (notification.spacing === undefined) {
+                return this.getElementOuterHeightInPixels(elementRef);
+            }
+            return elementRef.nativeElement.offsetHeight + notification.spacing;
+        };
+        /** Get the total height of the element including margins. */
+        NotificationListComponent.prototype.getElementOuterHeightInPixels = function (elementRef) {
+            var element = elementRef.nativeElement;
+            var _a = getComputedStyle(element), marginTop = _a.marginTop, marginBottom = _a.marginBottom;
+            return element.offsetHeight + parseInt(marginTop) + parseInt(marginBottom);
         };
         __decorate([
             core.Input(),
@@ -22788,6 +22808,14 @@
             __metadata("design:type", core.TemplateRef)
         ], PageHeaderComponent.prototype, "logoTemplate", void 0);
         __decorate([
+            core.ContentChild('secondaryNavigationLeadingContent', { static: false }),
+            __metadata("design:type", core.TemplateRef)
+        ], PageHeaderComponent.prototype, "secondaryNavigationLeadingContentTemplate", void 0);
+        __decorate([
+            core.ContentChild('secondaryNavigationTrailingContent', { static: false }),
+            __metadata("design:type", core.TemplateRef)
+        ], PageHeaderComponent.prototype, "secondaryNavigationTrailingContentTemplate", void 0);
+        __decorate([
             core.ContentChildren(PageHeaderCustomMenuDirective, { read: core.TemplateRef }),
             __metadata("design:type", core.QueryList)
         ], PageHeaderComponent.prototype, "customMenus", void 0);
@@ -22795,7 +22823,7 @@
             core.Component({
                 selector: 'ux-page-header',
                 exportAs: 'ux-page-header',
-                template: "<div class=\"ux-page-header\" [class.page-header-condensed]=\"condensed\" role=\"banner\">\n\n    <div *ngIf=\"!condensed\" class=\"page-header-content\">\n\n        <!-- Logo/product acronym -->\n        <div uxFocusIndicator (keydown.enter)=\"logoClick.emit($event)\" [attr.tabindex]=\"_hasLogoClick ? 0: -1\"\n             [class.page-header-logo-template]=\"logoTemplate\" [class.clickable]=\"_hasLogoClick\"\n             class=\"page-header-logo-container\"\n             role=\"presentation\" [style.backgroundColor]=\"logoBackground\" [style.color]=\"logoForeground\" (click)=\"logoClick.emit($event)\">\n            <img *ngIf=\"logo && !logoTemplate\" [attr.src]=\"logo\" [alt]=\"header\" class=\"page-header-logo\">\n            <h1 *ngIf=\"header && !logo && !logoTemplate\" class=\"page-header-acronym\">{{header}}</h1>\n            <ng-container *ngIf=\"logoTemplate\" [ngTemplateOutlet]=\"logoTemplate\"></ng-container>\n        </div>\n\n        <!-- Sub-title -->\n        <div *ngIf=\"subheader || subheaderTemplate\" class=\"page-header-subtitle-container\">\n            <span *ngIf=\"subheader\" class=\"page-header-subtitle\">{{subheader}}</span>\n            <ng-container [ngTemplateOutlet]=\"subheaderTemplate\"></ng-container>\n        </div>\n\n        <div class=\"page-header-state-container\" role=\"navigation\">\n\n            <!-- Back button -->\n            <button *ngIf=\"backVisible === true\" uxFocusIndicator type=\"button\" class=\"page-header-back-button\" (click)=\"backClick.emit($event)\" aria-label=\"Go Back\">\n                <ux-icon name=\"previous\" class=\"text-primary\"></ux-icon>\n            </button>\n\n            <!-- Breadcrumbs and header -->\n            <div class=\"page-header-title-container\">\n\n                <ux-breadcrumbs *ngIf=\"crumbs && crumbs.length > 0\"\n                    [class.ux-breadcrumbs-small]=\"crumbsStyle === 'small'\"\n                    [crumbs]=\"crumbs\"></ux-breadcrumbs>\n\n                <h1 class=\"page-header-title\">{{header}}</h1>\n\n            </div>\n\n        </div>\n\n        <!-- Primary navigation -->\n        <div class=\"page-header-navigation\" [ngClass]=\"alignment\" role=\"navigation\" aria-label=\"Primary Navigation\">\n            <ux-page-header-horizontal-navigation></ux-page-header-horizontal-navigation>\n        </div>\n\n        <!-- Icon menus -->\n        <div class=\"page-header-icon-menus\" role=\"toolbar\">\n            <ng-container *ngFor=\"let menu of customMenus\" [ngTemplateOutlet]=\"menu\"></ng-container>\n            <ux-page-header-icon-menu *ngFor=\"let menu of iconMenus\" [menu]=\"menu\"></ux-page-header-icon-menu>\n        </div>\n    </div>\n\n    <!-- Display This Section Optimized for Condensed Mode -->\n    <div class=\"page-header-condensed-content\" *ngIf=\"condensed\">\n\n        <div class=\"page-header-breadcrumbs\" role=\"navigation\">\n            <ux-breadcrumbs [crumbs]=\"crumbs\"></ux-breadcrumbs>\n        </div>\n\n        <div class=\"page-header-navigation\" [ngClass]=\"alignment\" role=\"navigation\" aria-label=\"Primary Navigation\">\n\n            <!-- The Top Navigation Options -->\n            <ux-page-header-horizontal-navigation></ux-page-header-horizontal-navigation>\n        </div>\n\n        <div class=\"page-header-icon-menus\" role=\"toolbar\">\n            <ng-container *ngFor=\"let menu of customMenus\" [ngTemplateOutlet]=\"menu\"></ng-container>\n            <ux-page-header-icon-menu *ngFor=\"let menu of iconMenus\" [menu]=\"menu\"></ux-page-header-icon-menu>\n        </div>\n\n    </div>\n\n</div>\n\n<div *ngIf=\"secondaryNavigation && ((selectedRoot$ | async) !== (selected$ | async))\"\n    class=\"page-header-secondary\" [ngClass]=\"secondaryNavigationAlignment\" role=\"navigation\">\n\n    <ux-tabset *ngIf=\"(selectedRoot$ | async)?.children; let children\" [manual]=\"true\">\n        <ux-tab *ngFor=\"let child of children\"\n            [heading]=\"child.title\"\n            [active]=\"child === (selected$ | async)\"\n            (activated)=\"select(child)\"\n            [uxPageHeaderNavigationSecondaryItem]=\"child\"\n            [disabled]=\"child.disabled\">\n        </ux-tab>\n    </ux-tabset>\n\n</div>\n",
+                template: "<div class=\"ux-page-header\" [class.page-header-condensed]=\"condensed\" role=\"banner\">\n\n    <div *ngIf=\"!condensed\" class=\"page-header-content\">\n\n        <!-- Logo/product acronym -->\n        <div uxFocusIndicator (keydown.enter)=\"logoClick.emit($event)\" [attr.tabindex]=\"_hasLogoClick ? 0: -1\"\n             [class.page-header-logo-template]=\"logoTemplate\" [class.clickable]=\"_hasLogoClick\"\n             class=\"page-header-logo-container\"\n             role=\"presentation\" [style.backgroundColor]=\"logoBackground\" [style.color]=\"logoForeground\" (click)=\"logoClick.emit($event)\">\n            <img *ngIf=\"logo && !logoTemplate\" [attr.src]=\"logo\" [alt]=\"header\" class=\"page-header-logo\">\n            <h1 *ngIf=\"header && !logo && !logoTemplate\" class=\"page-header-acronym\">{{header}}</h1>\n            <ng-container *ngIf=\"logoTemplate\" [ngTemplateOutlet]=\"logoTemplate\"></ng-container>\n        </div>\n\n        <!-- Sub-title -->\n        <div *ngIf=\"subheader || subheaderTemplate\" class=\"page-header-subtitle-container\">\n            <span *ngIf=\"subheader\" class=\"page-header-subtitle\">{{subheader}}</span>\n            <ng-container [ngTemplateOutlet]=\"subheaderTemplate\"></ng-container>\n        </div>\n\n        <div class=\"page-header-state-container\" role=\"navigation\">\n\n            <!-- Back button -->\n            <button *ngIf=\"backVisible === true\" uxFocusIndicator type=\"button\" class=\"page-header-back-button\" (click)=\"backClick.emit($event)\" aria-label=\"Go Back\">\n                <ux-icon name=\"previous\" class=\"text-primary\"></ux-icon>\n            </button>\n\n            <!-- Breadcrumbs and header -->\n            <div class=\"page-header-title-container\">\n\n                <ux-breadcrumbs *ngIf=\"crumbs && crumbs.length > 0\"\n                    [class.ux-breadcrumbs-small]=\"crumbsStyle === 'small'\"\n                    [crumbs]=\"crumbs\"></ux-breadcrumbs>\n\n                <h1 class=\"page-header-title\">{{header}}</h1>\n\n            </div>\n\n        </div>\n\n        <!-- Primary navigation -->\n        <div class=\"page-header-navigation\" [ngClass]=\"alignment\" role=\"navigation\" aria-label=\"Primary Navigation\">\n            <ux-page-header-horizontal-navigation></ux-page-header-horizontal-navigation>\n        </div>\n\n        <!-- Icon menus -->\n        <div class=\"page-header-icon-menus\" role=\"toolbar\">\n            <ng-container *ngFor=\"let menu of customMenus\" [ngTemplateOutlet]=\"menu\"></ng-container>\n            <ux-page-header-icon-menu *ngFor=\"let menu of iconMenus\" [menu]=\"menu\"></ux-page-header-icon-menu>\n        </div>\n    </div>\n\n    <!-- Display This Section Optimized for Condensed Mode -->\n    <div class=\"page-header-condensed-content\" *ngIf=\"condensed\">\n\n        <div class=\"page-header-breadcrumbs\" role=\"navigation\">\n            <ux-breadcrumbs [crumbs]=\"crumbs\"></ux-breadcrumbs>\n        </div>\n\n        <div class=\"page-header-navigation\" [ngClass]=\"alignment\" role=\"navigation\" aria-label=\"Primary Navigation\">\n\n            <!-- The Top Navigation Options -->\n            <ux-page-header-horizontal-navigation></ux-page-header-horizontal-navigation>\n        </div>\n\n        <div class=\"page-header-icon-menus\" role=\"toolbar\">\n            <ng-container *ngFor=\"let menu of customMenus\" [ngTemplateOutlet]=\"menu\"></ng-container>\n            <ux-page-header-icon-menu *ngFor=\"let menu of iconMenus\" [menu]=\"menu\"></ux-page-header-icon-menu>\n        </div>\n\n    </div>\n\n</div>\n\n<!-- Secondary Header Section -->\n<div *ngIf=\"secondaryNavigation && ((selectedRoot$ | async) !== (selected$ | async))\" class=\"ux-page-header-secondary\">\n\n    <!-- Secondary Navigation Leading Content -->\n    <div class=\"page-header-secondary-leading-content\" *ngIf=\"secondaryNavigationLeadingContentTemplate || secondaryNavigationTrailingContentTemplate\">\n        <ng-container [ngTemplateOutlet]=\"secondaryNavigationLeadingContentTemplate\"></ng-container>\n    </div>\n\n    <!-- Secondary Navigation (children of top level items) -->\n    <div [ngClass]=\"['page-header-navigation', secondaryNavigationAlignment]\" role=\"navigation\">\n        <ux-tabset *ngIf=\"(selectedRoot$ | async)?.children; let children\" [manual]=\"true\">\n            <ux-tab *ngFor=\"let child of children\"\n                [heading]=\"child.title\"\n                [active]=\"child === (selected$ | async)\"\n                (activated)=\"select(child)\"\n                [uxPageHeaderNavigationSecondaryItem]=\"child\"\n                [disabled]=\"child.disabled\">\n            </ux-tab>\n        </ux-tabset>\n    </div>\n\n    <!-- Secondary Navigation Trialing Content -->\n    <div class=\"page-header-secondary-trailing-content\" *ngIf=\"secondaryNavigationTrailingContentTemplate\">\n        <ng-container [ngTemplateOutlet]=\"secondaryNavigationTrailingContentTemplate\"></ng-container>\n    </div>\n</div>\n",
                 providers: [PageHeaderService]
             }),
             __metadata("design:paramtypes", [ColorService, PageHeaderService])
@@ -28693,7 +28721,7 @@
         InputDropdownComponent.prototype.resetFilter = function () {
             this.filter = '';
             this.filterChange.emit(this.filter);
-            this.filterInputElement.nativeElement.focus();
+            this._focusFilter();
         };
         InputDropdownComponent.prototype.registerOnChange = function (onChange) {
             this.onChange = onChange;
@@ -34383,6 +34411,7 @@
     exports.VirtualScrollModule = VirtualScrollModule;
     exports.WizardComponent = WizardComponent;
     exports.WizardModule = WizardModule;
+    exports.WizardService = WizardService;
     exports.WizardStepComponent = WizardStepComponent;
     exports.colorSets = colorSets;
     exports.compareDays = compareDays;
@@ -34414,23 +34443,22 @@
     exports.ɵb = MICRO_FOCUS_COLOR_SET;
     exports.ɵba = exports["ɵba"];
     exports.ɵbb = sidePanelStateAnimation;
-    exports.ɵbc = MarqueeWizardService;
-    exports.ɵbd = MediaPlayerService;
-    exports.ɵbe = PageHeaderService;
-    exports.ɵbf = PageHeaderNavigationService;
-    exports.ɵbg = PageHeaderNavigationItemComponent;
-    exports.ɵbh = PageHeaderNavigationDropdownItemComponent;
-    exports.ɵbi = PageHeaderNavigationSecondaryItemDirective;
-    exports.ɵbj = SankeyFocusManager;
-    exports.ɵbk = RESIZABLE_TABLE_SERVICE_TOKEN;
-    exports.ɵbl = BaseResizableTableService;
-    exports.ɵbm = BaseResizableTableDirective;
-    exports.ɵbn = ResizeService;
-    exports.ɵbo = ResizableExpandingTableService;
-    exports.ɵbp = ResizableTableService;
-    exports.ɵbq = HoverActionService;
-    exports.ɵbr = MenuNavigationService;
-    exports.ɵbs = TreeGridService;
+    exports.ɵbc = MediaPlayerService;
+    exports.ɵbd = PageHeaderService;
+    exports.ɵbe = PageHeaderNavigationService;
+    exports.ɵbf = PageHeaderNavigationItemComponent;
+    exports.ɵbg = PageHeaderNavigationDropdownItemComponent;
+    exports.ɵbh = PageHeaderNavigationSecondaryItemDirective;
+    exports.ɵbi = SankeyFocusManager;
+    exports.ɵbj = RESIZABLE_TABLE_SERVICE_TOKEN;
+    exports.ɵbk = BaseResizableTableService;
+    exports.ɵbl = BaseResizableTableDirective;
+    exports.ɵbm = ResizeService;
+    exports.ɵbn = ResizableExpandingTableService;
+    exports.ɵbo = ResizableTableService;
+    exports.ɵbp = HoverActionService;
+    exports.ɵbq = MenuNavigationService;
+    exports.ɵbr = TreeGridService;
     exports.ɵd = DashboardGrabHandleService;
     exports.ɵe = HeaderComponent;
     exports.ɵf = DayViewComponent;

@@ -1,5 +1,5 @@
 /*
- * @ux-aspects/ux-aspects - v2.0.5-111
+ * @ux-aspects/ux-aspects - v2.0.6-116
  * © Copyright 2020 EntIT Software LLC, a Micro Focus company
  */
 .tree-children.tree-children-no-padding {
@@ -9656,6 +9656,7 @@ ux-notification-list .notification {
   position: absolute;
   width: 300px;
   padding: 17px 0;
+  margin: 0 0 10px;
   background-color: #7b63a3;
   color: #fff;
   border-radius: 3px;
