@@ -3,7 +3,6 @@ import { LogicalOperatorDefinition } from './interfaces/LogicalOperatorDefinitio
 import { FieldDefinition } from './interfaces/FieldDefinition';
 import { OperatorDefinitionList } from './interfaces/OperatorDefinitionList';
 import { OperatorDefinition } from './interfaces/OperatorDefinition';
-import { HierarchicalSearchBuilderModule } from './hierarchical-search-builder.module';
 
 @Injectable()
 export class HierarchicalSearchBuilderService {
