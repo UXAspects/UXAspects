@@ -112,7 +112,7 @@ export class PageHeaderPage {
     }
 
     async getSecondaryNavigation(): Promise<ElementFinder> {
-        return await element(by.id('pageHeader2')).$('.page-header-secondary');
+        return await element(by.id('pageHeader2')).$('.ux-page-header-secondary .page-header-navigation');
     }
 
     async getClasses(target: ElementFinder): Promise<string[]> {
