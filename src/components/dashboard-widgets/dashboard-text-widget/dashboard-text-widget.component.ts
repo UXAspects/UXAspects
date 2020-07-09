@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { SidePanelComponent } from '../../../side-panel';
+import { SidePanelComponent } from '../../side-panel';
 
 @Component({
     selector: 'ux-dashboard-text-widget',
