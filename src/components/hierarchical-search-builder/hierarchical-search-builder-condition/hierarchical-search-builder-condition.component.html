@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-xs-3">
-        <ux-combobox
+        <ux-select
             [(value)]="_field"
             [input]="_field?.label"
             (valueChange)="handleFieldSelected()"
@@ -8,10 +8,10 @@
             [options]="fields"
             [display]="'label'"
             [key]="'name'">
-        </ux-combobox>
+        </ux-select>
     </div>
     <div class="col-xs-3">
-        <ux-combobox
+        <ux-select
             [(value)]="_operator"
             (valueChange)="handleOperatorSelected()"
             [input]="_operator?.label"
@@ -19,7 +19,7 @@
             [options]="operators"
             [display]="'label'"
             [key]="'name'">
-        </ux-combobox>
+        </ux-select>
     </div>
     <div class="col-xs-6">
         <div #inputContainer></div>
