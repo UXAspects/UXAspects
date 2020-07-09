@@ -3,8 +3,11 @@ import { LogicalOperatorDefinition } from './interfaces/LogicalOperatorDefinitio
 import { FieldDefinition } from './interfaces/FieldDefinition';
 import { OperatorDefinitionList } from './interfaces/OperatorDefinitionList';
 import { OperatorDefinition } from './interfaces/OperatorDefinition';
+import { HierarchicalSearchBuilderModule } from './hierarchical-search-builder.module';
 
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+})
 export class HierarchicalSearchBuilderService {
     private _logicalOperators: LogicalOperatorDefinition[] = [];
     private _fields: FieldDefinition[] = [];

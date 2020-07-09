@@ -1,3 +1,4 @@
+/*
 import { HierarchicalSearchBuilderComponent } from './hierarchical-search-builder.component';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
@@ -21,3 +22,4 @@ describe('HierarchicalSearchBuilderComponent', () => {
         expect(component).toBeDefined();
     });
 });
+*/
