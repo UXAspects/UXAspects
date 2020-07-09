@@ -1,10 +1,10 @@
 import { Component, Input } from '@angular/core';
 
 @Component({
-    selector: 'ux-dashboard-data-table-widget',
-    templateUrl: './dashboard-data-table-widget.component.html',
+    selector: 'ux-dashboard-table-widget',
+    templateUrl: './dashboard-table-widget.component.html',
 })
-export class DashboardDataTableWidgetComponent {
+export class DashboardTableWidgetComponent {
     @Input() fixedMode: boolean = false;
     @Input() colSpan: number = 1;
     @Input() rowSpan: number = 1;

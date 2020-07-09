@@ -14,7 +14,7 @@ const ROUTES: Routes = [
             { path: 'color', loadChildren: () => import('./components-sections/color/color.module').then(m => m.ComponentsColorModule) },
             { path: 'conduits', loadChildren: () => import('./components-sections/conduits/conduits.module').then(m => m.ComponentsConduitsModule) },
             { path: 'dashboard', loadChildren: () => import('./components-sections/dashboard/dashboard.module').then(m => m.ComponentsDashboardModule) },
-            { path: 'dashboard-extensions', loadChildren: () => import('./components-sections/dashboard-extensions/dashboard-extensions.module').then(m => m.ComponentsDashboardExtensionsModule) },
+            { path: 'dashboard-widgets', loadChildren: () => import('./components-sections/dashboard-widgets/dashboard-widgets.module').then(m => m.ComponentsDashboardExtensionsModule) },
             { path: 'date-time-picker', loadChildren: () => import('./components-sections/date-time-picker/date-time-picker.module').then(m => m.ComponentsDateTimePickerModule) },
             { path: 'drag-and-drop', loadChildren: () => import('./components-sections/drag-and-drop/drag-and-drop.module').then(m => m.ComponentsDragAndDropModule) },
             { path: 'facets', loadChildren: () => import('./components-sections/facets/facets.module').then(m => m.ComponentsFacetsModule) },

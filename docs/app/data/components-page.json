@@ -181,12 +181,27 @@
                             "content": "DashboardModule"
                         }
                     ]
+                },
+                {
+                    "title": "Widgets",
+                    "component": "ComponentsDashboardWidgetsComponent",
+                    "version": "Angular",
+                    "usage": [
+                        {
+                            "title": "Selector",
+                            "content": "ux-dashboard-type-widget"
+                        },
+                        {
+                            "title": "Module",
+                            "content": "DashboardWidgetsModule"
+                        }
+                    ]
                 }
             ]
         },
         {
-            "title": "Dashboard Extensions",
-            "link": "dashboard-extensions",
+            "title": "Dashboard Widgets",
+            "link": "dashboard-widgets",
             "sections": [
                 {
                     "title": "Actions Widget",
@@ -219,13 +234,13 @@
                     ]
                 },
                 {
-                    "title": "Data Table Widget",
-                    "component": "ComponentsDashboardDataTableWidgetComponent",
+                    "title": "Table Widget",
+                    "component": "ComponentsDashboardTableWidgetComponent",
                     "version": "Angular",
                     "usage": [
                         {
                             "title": "Selector",
-                            "content": "ux-dashboard-data-table-widget"
+                            "content": "ux-dashboard-table-widget"
                         },
                         {
                             "title": "Module",
