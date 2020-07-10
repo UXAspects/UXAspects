@@ -10,11 +10,15 @@ import { NumberPickerModule } from '../number-picker';
 import { NumberInputComponent } from './input-components/number-input/number-input.component';
 import { SelectInputComponent } from './input-components/select-input/select-input.component';
 
-const DECLARATIONS = [
+const EXPORTS = [
     TextInputComponent,
     NumberInputComponent,
     SelectInputComponent,
     HierarchicalSearchBuilderComponent,
+];
+
+const DECLARATIONS = [
+    ...EXPORTS,
     HierarchicalSearchBuilderGroupComponent,
     HierarchicalSearchBuilderConditionComponent,
 ];
@@ -25,7 +29,7 @@ const DECLARATIONS = [
         SelectModule,
         NumberPickerModule
     ],
-    exports: DECLARATIONS,
+    exports: EXPORTS,
     declarations: DECLARATIONS,
     providers: [HierarchicalSearchBuilderService]
 })
