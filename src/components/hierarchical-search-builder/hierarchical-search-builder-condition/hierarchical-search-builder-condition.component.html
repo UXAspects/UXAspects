@@ -13,7 +13,7 @@
     <div class="col-xs-3">
         <ux-select
             [(value)]="_operator"
-            (valueChange)="handleOperatorSelected()"
+            (valueChange)="handleOperatorSelected($event)"
             [input]="_operator?.label"
             [allowNull]="true"
             [options]="operators"

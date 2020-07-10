@@ -3,7 +3,7 @@ import {
     ChangeDetectionStrategy,
     Component, ComponentFactoryResolver,
     ComponentRef,
-    Input,
+    Input, OnDestroy,
     OnInit,
     ViewChild,
     ViewContainerRef
@@ -11,13 +11,15 @@ import {
 import { HierarchicalSearchBuilderService } from '../hierarchical-search-builder.service';
 import { FieldDefinition } from '../interfaces/FieldDefinition';
 import { OperatorDefinition } from '../interfaces/OperatorDefinition';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
     selector: 'ux-hierarchical-search-builder-condition',
     templateUrl: './hierarchical-search-builder-condition.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HierarchicalSearchBuilderConditionComponent implements OnInit, AfterViewInit {
+export class HierarchicalSearchBuilderConditionComponent implements OnInit, AfterViewInit, OnDestroy {
     @ViewChild('inputContainer', { read: ViewContainerRef }) inputContainer: ViewContainerRef;
     private _inputComponentRef: ComponentRef<any>;
 
@@ -31,6 +33,10 @@ export class HierarchicalSearchBuilderConditionComponent implements OnInit, Afte
     _field: FieldDefinition;
     _operator: OperatorDefinition;
     _value: any;
+
+    private _condition: any;
+
+    private _destroy$ = new Subject<void>();
 
     constructor(private _hsbService: HierarchicalSearchBuilderService, private _cfr: ComponentFactoryResolver) {
     }
@@ -46,6 +52,11 @@ export class HierarchicalSearchBuilderConditionComponent implements OnInit, Afte
         this.createInputComponent();
     }
 
+    ngOnDestroy(): void {
+        this._destroy$.next();
+        this._destroy$.complete();
+    }
+
     createInputComponent(): void {
         if (this._operator?.component) {
             this.inputContainer.clear();
@@ -53,8 +64,9 @@ export class HierarchicalSearchBuilderConditionComponent implements OnInit, Afte
             this._inputComponentRef = this.inputContainer.createComponent(resolver);
             this._inputComponentRef.instance.value = this._value;
             this._inputComponentRef.instance.data = this._field?.data ?? {};
-            this._inputComponentRef.instance.valueChange.subscribe((value: any) => {
+            this._inputComponentRef.instance.valueChange.pipe(takeUntil(this._destroy$)).subscribe((value: any) => {
                 this._value = value;
+                this.buildCondition();
             });
         }
     }
@@ -65,10 +77,21 @@ export class HierarchicalSearchBuilderConditionComponent implements OnInit, Afte
         this._operator = null;
         this._value = null;
 
+        this.buildCondition();
+
         this.inputContainer.clear();
     }
 
-    handleOperatorSelected(): void {
+    handleOperatorSelected(event: OperatorDefinition): void {
         this.createInputComponent();
+
+        if (event) {
+            this.buildCondition();
+        }
+    }
+
+    buildCondition(): void {
+        this._condition = { field: this._field, operator: this._operator, value: this._value };
+        console.log(this._condition);
     }
 }
