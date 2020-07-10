@@ -1,7 +1,5 @@
-/*
 import { TestBed } from '@angular/core/testing';
 import { HierarchicalSearchBuilderService } from './hierarchical-search-builder.service';
-import { HierarchicalSearchBuilderModule } from './hierarchical-search-builder.module';
 
 describe('HierarchicalSearchBuilderService', () => {
     let service: HierarchicalSearchBuilderService;
@@ -15,14 +13,12 @@ describe('HierarchicalSearchBuilderService', () => {
     });
 
     it('should be created and have the correct initial values', () => {
-        const service = new HierarchicalSearchBuilderService();
         expect(service).toBeTruthy();
         expect(service.getLogicalOperators()).toEqual([]);
         expect(service.getFields()).toEqual([]);
     });
 
     it('should set and return logical operators', () => {
-        const service = new HierarchicalSearchBuilderService();
         service.setLogicalOperators([{name: 'and', label: 'and'}]);
         const logicalOperators = service.getLogicalOperators();
 
@@ -33,7 +29,6 @@ describe('HierarchicalSearchBuilderService', () => {
     });
 
     it('should return a logical operator by name', () => {
-        const service = new HierarchicalSearchBuilderService();
         service.setLogicalOperators([{name: 'and', label: 'and'}]);
         const logicalOperator = service.getLogicalOperatorByName('and');
 
@@ -46,4 +41,3 @@ describe('HierarchicalSearchBuilderService', () => {
         expect(service.getLogicalOperatorByName('and')).toBeUndefined();
     });
 });
-*/
