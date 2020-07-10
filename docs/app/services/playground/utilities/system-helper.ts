@@ -1,7 +1,7 @@
 import { DocumentationType } from '../tokens/documentation.token';
 
-const ANGULAR_VERSION = '9';
-const CDK_VERSION = '9';
+const ANGULAR_VERSION = '10';
+const CDK_VERSION = '10';
 const D3_VERSION = '5.9.2';
 const NGX_BOOTSTRAP_VERSION = '5.3.2';
 
