@@ -6,16 +6,16 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
     // styleUrls: ['']
 })
 export class SelectInputComponent implements OnInit {
-    @Input() value: string[];
-    @Input() data: { options: SelectOption[] };
-    @Output() valueChange = new EventEmitter<any>();
+    @Input() value: string[] = [];
+    @Input() data: { options: SelectOption[] } = { options: [] };
+    @Output() valueChange = new EventEmitter<string[]>();
 
     _value: SelectOption[];
 
     ngOnInit() {
         let temp: SelectOption[] = [];
-        this.value.forEach((value) => {
-            const option = this.data.options?.find((o) => o.name === value);
+        this.value?.forEach((value) => {
+            const option = this.data?.options?.find((o) => o.name === value);
 
             if (option) {
                 temp.push(option);

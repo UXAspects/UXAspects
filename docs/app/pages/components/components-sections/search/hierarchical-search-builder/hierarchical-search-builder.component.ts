@@ -42,8 +42,8 @@ export class ComponentsHierarchicalSearchBuilderComponent extends BaseDocumentat
         ],
         number: [
             { name: 'equals', label: 'equals', component: NumberInputComponent },
-            { name: 'less than', label: 'contains', component: NumberInputComponent },
-            { name: 'greater than', label: 'contains', component: NumberInputComponent },
+            { name: 'less than', label: 'less than', component: NumberInputComponent },
+            { name: 'greater than', label: 'greater than', component: NumberInputComponent },
         ],
     };
 
