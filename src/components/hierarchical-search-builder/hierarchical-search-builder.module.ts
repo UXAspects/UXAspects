@@ -6,9 +6,12 @@ import { HierarchicalSearchBuilderGroupComponent } from './hierarchical-search-b
 import { HierarchicalSearchBuilderConditionComponent } from './hierarchical-search-builder-condition/hierarchical-search-builder-condition.component';
 import { HierarchicalSearchBuilderService } from './hierarchical-search-builder.service';
 import { SelectModule } from '../select';
+import { NumberPickerModule } from '../number-picker';
+import { NumberInputComponent } from './input-components/number-input/number-input.component';
 
 const DECLARATIONS = [
     TextInputComponent,
+    NumberInputComponent,
     HierarchicalSearchBuilderComponent,
     HierarchicalSearchBuilderGroupComponent,
     HierarchicalSearchBuilderConditionComponent,
@@ -17,7 +20,8 @@ const DECLARATIONS = [
 @NgModule({
     imports: [
         CommonModule,
-        SelectModule
+        SelectModule,
+        NumberPickerModule
     ],
     exports: DECLARATIONS,
     declarations: DECLARATIONS,

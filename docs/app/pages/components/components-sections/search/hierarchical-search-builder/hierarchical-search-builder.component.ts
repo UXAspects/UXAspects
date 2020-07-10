@@ -3,7 +3,7 @@ import {
     ColorService,
     FieldDefinition,
     HierarchicalSearchBuilderQuery,
-    LogicalOperatorDefinition,
+    LogicalOperatorDefinition, NumberInputComponent,
     OperatorDefinitionList,
     TextInputComponent
 } from '@ux-aspects/ux-aspects';
@@ -40,14 +40,16 @@ export class ComponentsHierarchicalSearchBuilderComponent extends BaseDocumentat
             { name: 'one_of', label: 'one of', component: TextInputComponent },
         ],
         number: [
-            { name: 'equals', label: 'equals', component: TextInputComponent },
-            { name: 'contains', label: 'contains', component: TextInputComponent },
+            { name: 'equals', label: 'equals', component: NumberInputComponent },
+            { name: 'less than', label: 'contains', component: NumberInputComponent },
+            { name: 'greater than', label: 'contains', component: NumberInputComponent },
         ],
     };
 
     fields: FieldDefinition[] = [
         { name: 'name', label: 'Name', fieldType: 'text' },
         { name: 'date', label: 'Date', fieldType: 'date' },
+        { name: 'number', label: 'Number', fieldType: 'number' },
         { name: 'category', label: 'Category', fieldType: 'enum' },
     ];
 

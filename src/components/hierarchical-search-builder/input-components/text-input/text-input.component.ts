@@ -1,11 +1,9 @@
-import {
-    Component, EventEmitter, Input, Output,
-} from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
     selector: 'ux-text-input',
     templateUrl: './text-input.component.html',
-    // styleUrls: ['./dashboard-text-widget.component.less']
+    // styleUrls: ['']
 })
 export class TextInputComponent {
     @Input() value: string = '';
