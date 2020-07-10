@@ -1,7 +1,8 @@
+import { Injectable, OnDestroy, QueryList } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
-import { OnDestroy, QueryList } from '@angular/core';
 import { ResizableTableColumnComponent } from './resizable-table-column.component';
 
+@Injectable()
 export abstract class BaseResizableTableService implements OnDestroy {
 
     abstract type: ResizableTableType;

@@ -1,4 +1,4 @@
-import { ElementRef, Inject, OnDestroy, QueryList, Renderer2 } from '@angular/core';
+import { ElementRef, Inject, OnDestroy, QueryList, Renderer2, Directive } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ResizeService } from '../../../directives/resize';
@@ -6,6 +6,7 @@ import { BaseResizableTableService } from './resizable-table-base.service';
 import { ResizableTableColumnComponent } from './resizable-table-column.component';
 import { RESIZABLE_TABLE_SERVICE_TOKEN } from './resizable-table-service.token';
 
+@Directive()
 export abstract class BaseResizableTableDirective implements OnDestroy {
 
     columns: QueryList<ResizableTableColumnComponent>;

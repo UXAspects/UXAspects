@@ -103,10 +103,6 @@ export class MediaPlayerService {
         return this._mediaPlayer ? this._mediaPlayer.offsetHeight : 0;
     }
 
-    get audioTracks(): AudioTrackList | Array<any> {
-        return this._mediaPlayer ? this._mediaPlayer.audioTracks : [];
-    }
-
     get autoplay(): boolean {
         return this._mediaPlayer ? this._mediaPlayer.autoplay : false;
     }
@@ -219,10 +215,6 @@ export class MediaPlayerService {
 
     get textTracks(): Array<TextTrack> {
         return this._mediaPlayer ? Array.from(this._mediaPlayer.textTracks) : [];
-    }
-
-    get videoTracks(): Array<VideoTrack> {
-        return this._mediaPlayer ? Array.from(this._mediaPlayer.videoTracks) : [];
     }
 
     get volume(): number {
