@@ -8,10 +8,12 @@ import { HierarchicalSearchBuilderService } from './hierarchical-search-builder.
 import { SelectModule } from '../select';
 import { NumberPickerModule } from '../number-picker';
 import { NumberInputComponent } from './input-components/number-input/number-input.component';
+import { SelectInputComponent } from './input-components/select-input/select-input.component';
 
 const DECLARATIONS = [
     TextInputComponent,
     NumberInputComponent,
+    SelectInputComponent,
     HierarchicalSearchBuilderComponent,
     HierarchicalSearchBuilderGroupComponent,
     HierarchicalSearchBuilderConditionComponent,

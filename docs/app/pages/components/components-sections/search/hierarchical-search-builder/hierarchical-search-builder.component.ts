@@ -5,7 +5,8 @@ import {
     HierarchicalSearchBuilderQuery,
     LogicalOperatorDefinition, NumberInputComponent,
     OperatorDefinitionList,
-    TextInputComponent
+    TextInputComponent,
+    SelectInputComponent
 } from '@ux-aspects/ux-aspects';
 import 'chance';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
@@ -37,7 +38,7 @@ export class ComponentsHierarchicalSearchBuilderComponent extends BaseDocumentat
             { name: 'before', label: 'before', component: TextInputComponent },
         ],
         enum: [
-            { name: 'one_of', label: 'one of', component: TextInputComponent },
+            { name: 'one_of', label: 'one of', component: SelectInputComponent },
         ],
         number: [
             { name: 'equals', label: 'equals', component: NumberInputComponent },
@@ -50,7 +51,18 @@ export class ComponentsHierarchicalSearchBuilderComponent extends BaseDocumentat
         { name: 'name', label: 'Name', fieldType: 'text' },
         { name: 'date', label: 'Date', fieldType: 'date' },
         { name: 'number', label: 'Number', fieldType: 'number' },
-        { name: 'category', label: 'Category', fieldType: 'enum' },
+        {
+            name: 'category',
+            label: 'Category',
+            fieldType: 'enum',
+            data: {
+                options: [
+                    { name: 'performance', label: 'Performance' },
+                    { name: 'security', label: 'Security' },
+                    { name: 'usability', label: 'Usability' },
+                ]
+            }
+        },
     ];
 
     query: HierarchicalSearchBuilderQuery = {
@@ -63,7 +75,7 @@ export class ComponentsHierarchicalSearchBuilderComponent extends BaseDocumentat
                 logicalOperator: 'or',
                 children: [
                     { type: 'condition', field: 'date', operator: 'before', value: 1592979598445 },
-                    { type: 'condition', field: 'category', operator: 'one_of', value: ['Performance', 'Security'] },
+                    { type: 'condition', field: 'category', operator: 'one_of', value: ['performance', 'security'] },
                 ]
             },
         ]
