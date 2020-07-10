@@ -7,12 +7,17 @@
 
 <ng-template #queryItems>
     <ux-hierarchical-search-builder-group
-        *ngIf="query.type === 'group'; else conditionBlock"
+        *ngIf="query?.type === 'group'; else conditionBlock"
         [subquery]="query"
         [logicalOperatorName]="getLogicalOperatorName()">
     </ux-hierarchical-search-builder-group>
 </ng-template>
 
 <ng-template #conditionBlock>
-    <ux-hierarchical-search-builder-condition></ux-hierarchical-search-builder-condition>
+    <ux-hierarchical-search-builder-condition
+        *ngIf="query?.type === 'condition'"
+        [fieldName]="query.field"
+        [operatorName]="query.operator"
+        [value]="query.value">
+    </ux-hierarchical-search-builder-condition>
 </ng-template>
