@@ -27,7 +27,7 @@ export class HierarchicalSearchBuilderConditionComponent implements OnInit, Afte
     @Input() operatorName: string;
     @Input() value: any;
 
-    fields: FieldDefinition[] = this._hsbService.getFields();
+    fields: FieldDefinition[];
     operators: OperatorDefinition[];
 
     _field: FieldDefinition;
@@ -42,6 +42,7 @@ export class HierarchicalSearchBuilderConditionComponent implements OnInit, Afte
     }
 
     ngOnInit(): void {
+        this.fields = this._hsbService.getFields();
         this._field = this.fields.find((field) => field.name === this.fieldName);
         this.operators = this._hsbService.getOperatorsByFieldType(this._field.fieldType);
         this._operator = this.operators.find((operator) => operator.name === this.operatorName);

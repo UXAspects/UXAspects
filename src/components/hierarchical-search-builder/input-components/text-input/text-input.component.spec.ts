@@ -1,5 +1,6 @@
 import { TextInputComponent } from './text-input.component';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { SelectModule } from '../../../select';
 
 describe('TextInputComponent', () => {
     let component: TextInputComponent;
@@ -7,6 +8,7 @@ describe('TextInputComponent', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
+            imports: [SelectModule],
             declarations: [TextInputComponent]
         }).compileComponents();
     }));

@@ -16,8 +16,8 @@
 <ng-template #conditionBlock>
     <ux-hierarchical-search-builder-condition
         *ngIf="query?.type === 'condition'"
-        [fieldName]="query.field"
-        [operatorName]="query.operator"
-        [value]="query.value">
+        [fieldName]="getCondition().field"
+        [operatorName]="getCondition().operator"
+        [value]="getCondition().value">
     </ux-hierarchical-search-builder-condition>
 </ng-template>

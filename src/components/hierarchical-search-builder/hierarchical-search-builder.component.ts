@@ -14,7 +14,7 @@ export class HierarchicalSearchBuilderComponent implements OnInit {
     @Input() logicalOperators: LogicalOperatorDefinition[];
     @Input() operators: OperatorDefinitionList;
     @Input() fields: FieldDefinition[];
-    @Input() query: HierarchicalSearchBuilderQuery;
+    @Input() query: any;
     @Input() addButtonText: string = 'Add condition';
 
     constructor(private _hsbService: HierarchicalSearchBuilderService) {
@@ -32,5 +32,13 @@ export class HierarchicalSearchBuilderComponent implements OnInit {
 
     getLogicalOperatorName(): string {
         return ('logicalOperator' in this.query) ? this.query.logicalOperator : null;
+    }
+
+    getCondition(): { field: string, operator: string, value: any } {
+        const field = ('field' in this.query) ? this.query.field : null;
+        const operator = ('operator' in this.query) ? this.query.operator : null;
+        const value = ('value' in this.query) ? this.query.value : null;
+
+        return { field, operator, value };
     }
 }
