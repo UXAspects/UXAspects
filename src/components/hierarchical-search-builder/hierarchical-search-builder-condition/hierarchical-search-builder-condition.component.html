@@ -12,6 +12,7 @@
     </div>
     <div class="col-xs-3">
         <ux-select
+            *ngIf="_field?.name"
             [value]="_operator"
             (valueChange)="handleOperatorSelected($event)"
             [input]="_operator?.label || null"
@@ -21,13 +22,17 @@
             [key]="'name'">
         </ux-select>
     </div>
-    <div class="col-xs-6">
+    <div class="col-xs-5">
         <div #inputContainer></div>
     </div>
 
-    <!--<div class="col-xs-1">
-        <button type="button" class="btn btn-icon button-secondary" aria-label="Save" [disabled]="!(_field && _operator && _value)">
-            <span class="ux-icon ux-icon-checkmark" aria-hidden="true"></span>
+    <div class="col-xs-1">
+        <button
+            (click)="deleteCondition()"
+            type="button"
+            class="btn btn-link btn-icon btn-lg button-secondary"
+            aria-label="Delete condition">
+            <span class="ux-icon ux-icon-close" aria-hidden="true"></span>
         </button>
-    </div>-->
+    </div>
 </div>

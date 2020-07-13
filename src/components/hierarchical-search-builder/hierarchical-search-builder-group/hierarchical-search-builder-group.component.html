@@ -15,7 +15,9 @@
     <ux-hierarchical-search-builder-condition
         *ngIf="child.type === 'condition'"
         (conditionChange)="handleGroupChange($event, index)"
-        [condition]="child">
+        [condition]="child"
+        [id]="index"
+        (conditionDeleted)="removeConditionAtIndex($event)">
     </ux-hierarchical-search-builder-condition>
 
     <ux-hierarchical-search-builder-group

@@ -1,5 +1,6 @@
 <button
     *ngIf="isQueryEmpty(); else queryItems"
+    (click)="addCondition()"
     type="button"
     class="btn btn-icon-with-text button-primary">
     <span class="ux-icon ux-icon-add" aria-hidden="true"></span><span>{{addButtonText}}</span>
@@ -18,6 +19,7 @@
     <ux-hierarchical-search-builder-condition
         *ngIf="query?.type === 'condition'"
         (conditionChange)="handleGroupChange($event)"
-        [condition]="query">
+        [condition]="query"
+        (conditionDeleted)="deleteCondition()">
     </ux-hierarchical-search-builder-condition>
 </ng-template>

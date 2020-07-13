@@ -48,4 +48,12 @@ export class HierarchicalSearchBuilderComponent implements OnInit {
     handleGroupChange(event: any) {
         console.log('groupChange', event);
     }
+
+    deleteCondition() {
+        this.query = null;
+    }
+
+    addCondition() {
+        this.query = { type: 'condition', field: null, operator: null, value: null };
+    }
 }

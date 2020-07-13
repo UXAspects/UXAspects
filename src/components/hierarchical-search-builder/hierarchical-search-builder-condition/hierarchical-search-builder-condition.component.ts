@@ -27,6 +27,9 @@ export class HierarchicalSearchBuilderConditionComponent implements OnInit, Afte
     @Input() condition: QueryCondition;
     @Output() conditionChange = new EventEmitter<QueryCondition>();
 
+    @Input() id: number;
+    @Output() conditionDeleted = new EventEmitter<number>();
+
     fields: FieldDefinition[];
     operators: OperatorDefinition[];
 
@@ -109,5 +112,9 @@ export class HierarchicalSearchBuilderConditionComponent implements OnInit, Afte
         };
 
         this.conditionChange.emit(this._condition);
+    }
+
+    deleteCondition(): void {
+        this.conditionDeleted.emit(this.id);
     }
 }

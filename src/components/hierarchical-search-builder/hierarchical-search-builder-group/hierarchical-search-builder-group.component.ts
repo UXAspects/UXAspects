@@ -28,7 +28,7 @@ export class HierarchicalSearchBuilderGroupComponent implements OnInit {
 
     handleSelectedOperatorChange(selectedOperator: LogicalOperatorDefinition) {
         this.selectedLogicalOperator = selectedOperator;
-        this.subquery.logicalOperator = this.selectedLogicalOperator.name;
+        this.subquery = { ...this.subquery, logicalOperator: this.selectedLogicalOperator.name };
         this.groupChange.emit(this.subquery);
     }
 
@@ -38,6 +38,19 @@ export class HierarchicalSearchBuilderGroupComponent implements OnInit {
     }
 
     addCondition() {
-        this.subquery.children.push({ type: 'condition', field: null, operator: null, value: null });
+        this.subquery.children = [...this.subquery.children, {
+            type: 'condition',
+            field: null,
+            operator: null,
+            value: null
+        }];
+    }
+
+    removeConditionAtIndex(id: number) {
+        this.subquery.children = this.subquery.children.filter((child, index) => {
+            return index !== id;
+        });
+
+        this.groupChange.emit(this.subquery);
     }
 }
