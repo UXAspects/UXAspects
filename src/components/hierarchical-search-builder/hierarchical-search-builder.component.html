@@ -17,6 +17,7 @@
 <ng-template #conditionBlock>
     <ux-hierarchical-search-builder-condition
         *ngIf="query?.type === 'condition'"
+        (conditionChange)="handleGroupChange($event)"
         [condition]="query">
     </ux-hierarchical-search-builder-condition>
 </ng-template>

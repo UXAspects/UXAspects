@@ -32,20 +32,12 @@ export class HierarchicalSearchBuilderGroupComponent implements OnInit {
         this.groupChange.emit(this.subquery);
     }
 
-    handleGroupChange(event: QueryGroup) {
-        this.subquery = event;
-        this.groupChange.emit(event);
-    }
-
-    handleConditionChange(event: any, index: number): void {
-        event = { ...event, type: 'condition' };
+    handleGroupChange(event: QueryGroup | QueryCondition, index: number) {
         this.subquery.children[index] = event;
-        this.subquery = { ...this.subquery };
-
         this.groupChange.emit(this.subquery);
     }
 
     addCondition() {
-
+        this.subquery.children.push({ type: 'condition', field: null, operator: null, value: null });
     }
 }

@@ -78,8 +78,13 @@ export class ComponentsHierarchicalSearchBuilderComponent extends BaseDocumentat
                     { type: 'condition', field: 'category', operator: 'one_of', value: ['performance'] },
                 ]
             },
+            { type: 'condition', field: 'name', operator: 'equals', value: 'test' },
         ]
     };
+
+    // query: HierarchicalSearchBuilderQuery = { type: 'condition', field: 'name', operator: 'equals', value: 'test' };
+
+    // query: HierarchicalSearchBuilderQuery = null;
 
     constructor(public colorService: ColorService) {
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
