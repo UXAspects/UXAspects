@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core
 import { LogicalOperatorDefinition } from './interfaces/LogicalOperatorDefinition';
 import { OperatorDefinitionList } from './interfaces/OperatorDefinitionList';
 import { FieldDefinition } from './interfaces/FieldDefinition';
-import { HierarchicalSearchBuilderQuery } from './interfaces/HierarchicalSearchBuilderQuery';
 import { HierarchicalSearchBuilderService } from './hierarchical-search-builder.service';
 
 @Component({
@@ -24,6 +23,7 @@ export class HierarchicalSearchBuilderComponent implements OnInit {
         this._hsbService.setLogicalOperators(this.logicalOperators);
         this._hsbService.setFields(this.fields);
         this._hsbService.setOperators(this.operators);
+        this._hsbService.setQuery(this.query);
     }
 
     isQueryEmpty(): boolean {

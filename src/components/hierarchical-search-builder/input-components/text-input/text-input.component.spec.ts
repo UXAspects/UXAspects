@@ -22,4 +22,14 @@ describe('TextInputComponent', () => {
     it('should be created', () => {
         expect(component).toBeDefined();
     });
+
+    it('should render text input', () => {
+        const textInput: HTMLElement = fixture.debugElement.nativeElement.querySelector('input');
+        expect(textInput).toBeDefined();
+    });
+
+    it('should show value in text input', () => {
+        const textInput: HTMLElement = fixture.debugElement.nativeElement.querySelector('input');
+        expect(textInput).toBeDefined();
+    });
 });

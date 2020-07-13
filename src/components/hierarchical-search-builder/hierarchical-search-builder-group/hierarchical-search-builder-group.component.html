@@ -1,13 +1,16 @@
-<!--<ux-combobox
-    [value]="selectedLogicalOperator"
-    [options]="logicalOperators"
-    [display]="'label'"
-    [key]="'name'">
-</ux-combobox>-->
+<div class="row m-b-sm">
+    <div class="col-xs-2">
+        <ux-select
+            [value]="selectedLogicalOperator"
+            [readonlyInput]="true"
+            [options]="logicalOperators"
+            [display]="'label'"
+            [key]="'name'">
+        </ux-select>
+    </div>
+</div>
 
-<p>{{selectedLogicalOperator?.label}}</p>
-
-<ng-container *ngFor="let child of subquery?.children">
+<div *ngFor="let child of subquery?.children" class="m-l-lg m-b-sm">
     <ux-hierarchical-search-builder-condition
         *ngIf="child.type === 'condition'"
         [fieldName]="child.field"
@@ -20,4 +23,4 @@
         [subquery]="child"
         [logicalOperatorName]="child.logicalOperator">
     </ux-hierarchical-search-builder-group>
-</ng-container>
+</div>
