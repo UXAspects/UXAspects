@@ -2,6 +2,7 @@
     <div class="col-xs-2">
         <ux-select
             [value]="selectedLogicalOperator"
+            (valueChange)="handleSelectedOperatorChange($event)"
             [readonlyInput]="true"
             [options]="logicalOperators"
             [display]="'label'"
@@ -10,17 +11,29 @@
     </div>
 </div>
 
-<div *ngFor="let child of subquery?.children" class="m-l-lg m-b-sm">
+<div *ngFor="let child of subquery?.children; index as index" class="m-l-lg m-b-sm">
     <ux-hierarchical-search-builder-condition
         *ngIf="child.type === 'condition'"
-        [fieldName]="child.field"
-        [operatorName]="child.operator"
-        [value]="child.value">
+        (conditionChange)="handleConditionChange($event, index)"
+        [condition]="child">
     </ux-hierarchical-search-builder-condition>
 
     <ux-hierarchical-search-builder-group
         *ngIf="child.type === 'group'"
         [subquery]="child"
+        (groupChange)="handleGroupChange($event)"
         [logicalOperatorName]="child.logicalOperator">
     </ux-hierarchical-search-builder-group>
+</div>
+
+<div class="row m-l-lg m-b-sm">
+    <div class="col">
+        <button
+            (click)="addCondition()"
+            type="button"
+            class="btn btn-icon button-primary"
+            aria-label="Add">
+            <span class="ux-icon ux-icon-add" aria-hidden="true"></span>
+        </button>
+    </div>
 </div>

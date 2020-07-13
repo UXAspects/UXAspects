@@ -9,6 +9,7 @@
     <ux-hierarchical-search-builder-group
         *ngIf="query?.type === 'group'; else conditionBlock"
         [subquery]="query"
+        (groupChange)="handleGroupChange($event)"
         [logicalOperatorName]="getLogicalOperatorName()">
     </ux-hierarchical-search-builder-group>
 </ng-template>
@@ -16,8 +17,6 @@
 <ng-template #conditionBlock>
     <ux-hierarchical-search-builder-condition
         *ngIf="query?.type === 'condition'"
-        [fieldName]="getCondition().field"
-        [operatorName]="getCondition().operator"
-        [value]="getCondition().value">
+        [condition]="query">
     </ux-hierarchical-search-builder-condition>
 </ng-template>

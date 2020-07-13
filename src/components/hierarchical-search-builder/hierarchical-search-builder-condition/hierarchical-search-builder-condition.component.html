@@ -1,9 +1,9 @@
 <div class="row">
     <div class="col-xs-3">
         <ux-select
-            [(value)]="_field"
-            [input]="_field?.label"
-            (valueChange)="handleFieldSelected()"
+            [value]="_field"
+            [input]="_field?.label || null"
+            (valueChange)="handleFieldSelected($event)"
             [allowNull]="true"
             [options]="fields"
             [display]="'label'"
@@ -12,9 +12,9 @@
     </div>
     <div class="col-xs-3">
         <ux-select
-            [(value)]="_operator"
+            [value]="_operator"
             (valueChange)="handleOperatorSelected($event)"
-            [input]="_operator?.label"
+            [input]="_operator?.label || null"
             [allowNull]="true"
             [options]="operators"
             [display]="'label'"

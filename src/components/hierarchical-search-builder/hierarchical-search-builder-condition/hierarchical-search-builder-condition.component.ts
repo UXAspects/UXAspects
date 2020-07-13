@@ -2,15 +2,16 @@ import {
     AfterViewInit,
     ChangeDetectionStrategy,
     Component, ComponentFactoryResolver,
-    ComponentRef,
+    ComponentRef, EventEmitter,
     Input, OnDestroy,
-    OnInit,
+    OnInit, Output,
     ViewChild,
     ViewContainerRef
 } from '@angular/core';
 import { HierarchicalSearchBuilderService } from '../hierarchical-search-builder.service';
 import { FieldDefinition } from '../interfaces/FieldDefinition';
 import { OperatorDefinition } from '../interfaces/OperatorDefinition';
+import { QueryCondition } from '../interfaces/HierarchicalSearchBuilderQuery';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
@@ -23,19 +24,17 @@ export class HierarchicalSearchBuilderConditionComponent implements OnInit, Afte
     @ViewChild('inputContainer', { read: ViewContainerRef }) inputContainer: ViewContainerRef;
     private _inputComponentRef: ComponentRef<any>;
 
-    @Input() fieldName: string;
-    @Input() operatorName: string;
-    @Input() value: any;
+    @Input() condition: QueryCondition;
+    @Output() conditionChange = new EventEmitter<QueryCondition>();
 
     fields: FieldDefinition[];
     operators: OperatorDefinition[];
 
-    _field: FieldDefinition;
-    _operator: OperatorDefinition;
+    _field: FieldDefinition = null;
+    _operator: OperatorDefinition = null;
     _value: any;
 
-    private _condition: any;
-
+    private _condition: QueryCondition;
     private _destroy$ = new Subject<void>();
 
     constructor(private _hsbService: HierarchicalSearchBuilderService, private _cfr: ComponentFactoryResolver) {
@@ -43,10 +42,17 @@ export class HierarchicalSearchBuilderConditionComponent implements OnInit, Afte
 
     ngOnInit(): void {
         this.fields = this._hsbService.getFields();
-        this._field = this.fields.find((field) => field.name === this.fieldName);
-        this.operators = this._hsbService.getOperatorsByFieldType(this._field.fieldType);
-        this._operator = this.operators.find((operator) => operator.name === this.operatorName);
-        this._value = this.value;
+
+        if (!this._field) {
+            this._field = this.fields.find((field) => field.name === this.condition.field) ?? null;
+        }
+
+        this.operators = this._hsbService.getOperatorsByFieldType(this._field?.fieldType);
+
+        if (!this._operator) {
+            this._operator = this.operators.find((operator) => operator.name === this.condition.operator) ?? null;
+        }
+        this._value = this.condition.value;
     }
 
     ngAfterViewInit(): void {
@@ -72,8 +78,10 @@ export class HierarchicalSearchBuilderConditionComponent implements OnInit, Afte
         }
     }
 
-    handleFieldSelected(): void {
+    handleFieldSelected(selectedField: FieldDefinition): void {
         // get operators for new field type
+        console.log(selectedField);
+        this._field = selectedField;
         this.operators = this._hsbService.getOperatorsByFieldType(this._field.fieldType);
         this._operator = null;
         this._value = null;
@@ -83,16 +91,23 @@ export class HierarchicalSearchBuilderConditionComponent implements OnInit, Afte
         this.inputContainer.clear();
     }
 
-    handleOperatorSelected(event: OperatorDefinition): void {
+    handleOperatorSelected(selectedOperator: OperatorDefinition): void {
+        this._operator = selectedOperator;
         this.createInputComponent();
 
-        if (event) {
+        if (selectedOperator) {
             this.buildCondition();
         }
     }
 
     buildCondition(): void {
-        this._condition = { field: this._field, operator: this._operator, value: this._value };
-        console.log(this._condition);
+        this._condition = {
+            type: 'condition',
+            field: this._field?.name ?? null,
+            operator: this._operator?.name ?? null,
+            value: this._value ?? null
+        };
+
+        this.conditionChange.emit(this._condition);
     }
 }

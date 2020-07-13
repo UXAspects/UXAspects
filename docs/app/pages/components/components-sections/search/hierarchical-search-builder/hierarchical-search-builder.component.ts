@@ -75,7 +75,7 @@ export class ComponentsHierarchicalSearchBuilderComponent extends BaseDocumentat
                 logicalOperator: 'or',
                 children: [
                     { type: 'condition', field: 'date', operator: 'before', value: 1592979598445 },
-                    { type: 'condition', field: 'category', operator: 'one_of', value: ['performance', 'security'] },
+                    { type: 'condition', field: 'category', operator: 'one_of', value: ['performance'] },
                 ]
             },
         ]
@@ -83,5 +83,9 @@ export class ComponentsHierarchicalSearchBuilderComponent extends BaseDocumentat
 
     constructor(public colorService: ColorService) {
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
+    }
+
+    queryChanged(query: HierarchicalSearchBuilderQuery): void {
+        console.log(query);
     }
 }

@@ -1,4 +1,4 @@
-interface QueryCondition {
+export interface QueryCondition {
     type: string;
     field: string;
     operator: string;

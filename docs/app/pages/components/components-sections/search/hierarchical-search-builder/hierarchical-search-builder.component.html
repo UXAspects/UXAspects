@@ -1,5 +1,6 @@
 <ux-hierarchical-search-builder
     [query]="query"
+    (queryChange)="queryChanged($event)"
     [fields]="fields"
     [operators]="operators"
     [logicalOperators]="logicalOperators">
