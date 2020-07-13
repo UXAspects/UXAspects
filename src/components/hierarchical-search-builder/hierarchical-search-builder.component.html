@@ -16,10 +16,24 @@
 </ng-template>
 
 <ng-template #conditionBlock>
-    <ux-hierarchical-search-builder-condition
-        *ngIf="query?.type === 'condition'"
-        (conditionChange)="handleGroupChange($event)"
-        [condition]="query"
-        (conditionDeleted)="deleteCondition()">
-    </ux-hierarchical-search-builder-condition>
+    <div class="row m-b-sm">
+        <ux-hierarchical-search-builder-condition
+            *ngIf="query?.type === 'condition'"
+            (conditionChange)="handleGroupChange($event)"
+            [condition]="query"
+            (conditionDeleted)="deleteCondition()">
+        </ux-hierarchical-search-builder-condition>
+    </div>
+
+    <div class="row m-b-sm">
+        <div class="col">
+            <button
+                (click)="addGroup()"
+                type="button"
+                class="btn btn-icon button-primary"
+                aria-label="Add">
+                <span class="ux-icon ux-icon-add" aria-hidden="true"></span>
+            </button>
+        </div>
+    </div>
 </ng-template>

@@ -3,7 +3,7 @@ import { LogicalOperatorDefinition } from './interfaces/LogicalOperatorDefinitio
 import { OperatorDefinitionList } from './interfaces/OperatorDefinitionList';
 import { FieldDefinition } from './interfaces/FieldDefinition';
 import { HierarchicalSearchBuilderService } from './hierarchical-search-builder.service';
-import { HierarchicalSearchBuilderQuery, QueryGroup } from './interfaces/HierarchicalSearchBuilderQuery';
+import { HierarchicalSearchBuilderQuery } from './interfaces/HierarchicalSearchBuilderQuery';
 
 @Component({
     selector: 'ux-hierarchical-search-builder',
@@ -46,7 +46,14 @@ export class HierarchicalSearchBuilderComponent implements OnInit {
     }
 
     handleGroupChange(event: any) {
-        console.log('groupChange', event);
+        this.query = event;
+
+        if (this.query?.type === 'group'
+            && ('children' in this.query)
+            && this.query?.children?.length === 1
+            && this.query?.children[0].type === 'condition') {
+            this.query = this.query.children[0];
+        }
     }
 
     deleteCondition() {
@@ -55,5 +62,20 @@ export class HierarchicalSearchBuilderComponent implements OnInit {
 
     addCondition() {
         this.query = { type: 'condition', field: null, operator: null, value: null };
+    }
+
+    addGroup() {
+        const firstCondition = { ...this.query };
+
+        this.query = {
+            type: 'group',
+            logicalOperator: this._hsbService.getLogicalOperators()[0].name,
+            children: [
+                firstCondition,
+                { type: 'condition', field: null, operator: null, value: null },
+            ]
+        };
+
+        console.log('addGroup', this.query);
     }
 }
