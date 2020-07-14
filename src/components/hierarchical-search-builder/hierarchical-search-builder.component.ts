@@ -48,6 +48,7 @@ export class HierarchicalSearchBuilderComponent implements OnInit {
     handleGroupChange(event: any) {
         this.query = event;
 
+        // make query just a condition if it contains exactly one group with exactly one condition in it
         if (this.query?.type === 'group'
             && ('children' in this.query)
             && this.query?.children?.length === 1

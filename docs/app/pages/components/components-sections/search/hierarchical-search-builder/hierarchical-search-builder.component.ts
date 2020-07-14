@@ -65,7 +65,7 @@ export class ComponentsHierarchicalSearchBuilderComponent extends BaseDocumentat
         },
     ];
 
-    /*query: HierarchicalSearchBuilderQuery = {
+    query: HierarchicalSearchBuilderQuery = {
         type: 'group',
         logicalOperator: 'and',
         children: [
@@ -80,9 +80,9 @@ export class ComponentsHierarchicalSearchBuilderComponent extends BaseDocumentat
             },
             { type: 'condition', field: 'name', operator: 'equals', value: 'test' },
         ]
-    };*/
+    };
 
-    query: HierarchicalSearchBuilderQuery = { type: 'condition', field: 'name', operator: 'equals', value: 'test' };
+    // query: HierarchicalSearchBuilderQuery = { type: 'condition', field: 'name', operator: 'equals', value: 'test' };
 
     // query: HierarchicalSearchBuilderQuery = null;
 

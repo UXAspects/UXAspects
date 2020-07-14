@@ -9,6 +9,15 @@
             [key]="'name'">
         </ux-select>
     </div>
+    <div class="col-xs-offset-9 col-xs-1">
+        <button
+            (click)="deleteGroup()"
+            type="button"
+            class="btn btn-link btn-icon btn-lg button-secondary"
+            aria-label="Delete condition">
+            <span class="ux-icon ux-icon-close" aria-hidden="true"></span>
+        </button>
+    </div>
 </div>
 
 <div *ngFor="let child of subquery?.children; index as index" class="m-l-lg m-b-sm">

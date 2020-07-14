@@ -34,6 +34,10 @@ export class HierarchicalSearchBuilderGroupComponent implements OnInit {
 
     handleGroupChange(event: QueryGroup | QueryCondition, index: number) {
         this.subquery.children[index] = event;
+
+        // remove children that have been deleted
+        this.subquery.children = this.subquery.children.filter((child) => child);
+
         this.groupChange.emit(this.subquery);
     }
 
@@ -51,6 +55,11 @@ export class HierarchicalSearchBuilderGroupComponent implements OnInit {
             return index !== id;
         });
 
+        this.groupChange.emit(this.subquery);
+    }
+
+    deleteGroup(): void {
+        this.subquery = null;
         this.groupChange.emit(this.subquery);
     }
 }
