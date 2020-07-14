@@ -1,5 +1,5 @@
 import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, forwardRef, Input, OnChanges, OnDestroy, Optional, Output } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, forwardRef, HostListener, Input, OnChanges, OnDestroy, Optional, Output } from '@angular/core';
 import { ControlValueAccessor, FormGroupDirective, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 let uniqueId = 0;
@@ -26,9 +26,10 @@ export class NumberPickerComponent implements ControlValueAccessor, OnDestroy, O
     private _disabled: boolean = false;
     private _value: number = 0;
     private _lastValue: number;
-    private _propagateChange = (_: number) => {};
-    _touchedChange = () => {};
+    private _focused: boolean = false;
 
+    private _propagateChange = (_: number) => { };
+    _touchedChange = () => { };
 
     /** Sets the id of the number picker. The child input will have this value with a -input suffix as its id. */
     @Input() id: string = `ux-number-picker-${uniqueId++}`;
@@ -164,6 +165,9 @@ export class NumberPickerComponent implements ControlValueAccessor, OnDestroy, O
     }
 
     onScroll(event: WheelEvent): void {
+        if (!this._focused) {
+            return;
+        }
         // get the distance scrolled
         const scrollValue = event.deltaY || (event as any).wheelDelta;
 
@@ -205,6 +209,15 @@ export class NumberPickerComponent implements ControlValueAccessor, OnDestroy, O
         this._lastValue = value;
         this.valueChange.emit(value);
         this._propagateChange(value);
+    }
+
+    @HostListener('focusin')
+    onFocusIn(): void {
+        this._focused = true;
+    }
+    @HostListener('focusout')
+    onFocusOut(): void {
+        this._focused = false;
     }
 }
 
