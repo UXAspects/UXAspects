@@ -11,7 +11,7 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 })
 @DocumentationSectionComponent('ComponentsNumberPickerComponent')
 export class ComponentsNumberPickerComponent extends BaseDocumentationSection implements IPlaygroundProvider {
-
+    placeholder=''
     form: FormGroup;
 
     playground: IPlayground = {

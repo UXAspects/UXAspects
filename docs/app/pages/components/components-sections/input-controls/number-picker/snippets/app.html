@@ -1,7 +1,7 @@
 <p>Selecting an integer:</p>
 
 <ux-number-picker class="number-picker-component-demo" min="-10" max="10"
-                  [formControl]="form.controls['integer']"></ux-number-picker>
+                  [formControl]="form.controls['integer']" [placeholder]="placeholder"></ux-number-picker>
 
 <p class="text-error" *ngIf="form.controls['integer'].invalid">
     <ux-icon name="alert"></ux-icon> Enter a number between -10 and 10.
@@ -10,7 +10,7 @@
 <p class="m-t-md">Selecting a decimal:</p>
 
 <ux-number-picker class="number-picker-component-demo" step="0.5" min="0" max="10"
-                  [formControl]="form.controls['decimal']"></ux-number-picker>
+                  [formControl]="form.controls['decimal']" [placeholder]="placeholder"></ux-number-picker>
 
 <p class="text-error" *ngIf="form.controls['decimal'].invalid">
     <ux-icon name="alert"></ux-icon> Enter a number between 0 and 10.

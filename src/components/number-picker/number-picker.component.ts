@@ -43,6 +43,9 @@ export class NumberPickerComponent implements ControlValueAccessor, OnDestroy, O
     /** Define the precision of floating point values */
     @Input() precision: number = Number.MAX_SAFE_INTEGER.toString().length - 1;
 
+    /** The placeholder text which appears in the text input area when it is empty. Sasi*/
+    @Input() placeholder: string = '';
+
     /** If two way binding is used this value will be updated any time the number picker value changes. */
     @Output() valueChange = new EventEmitter<number>();
 
