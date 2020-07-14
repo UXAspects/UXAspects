@@ -4,7 +4,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 describe('TextInputComponent', () => {
     let component: TextInputComponent;
     let fixture: ComponentFixture<TextInputComponent>;
-    let textInput: HTMLElement;
+    let textInput: HTMLInputElement;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
@@ -30,6 +30,15 @@ describe('TextInputComponent', () => {
     });
 
     it('should be empty by default', () => {
-        expect(textInput.textContent).toEqual('');
+        expect(textInput.value).toEqual('');
     });
+
+    it('should display input value', async(() => {
+        const testValue = 'Test value';
+        component.value = testValue;
+        fixture.detectChanges();
+        fixture.whenStable().then(() => {
+            expect(textInput.value).toEqual(testValue);
+        });
+    }));
 });
