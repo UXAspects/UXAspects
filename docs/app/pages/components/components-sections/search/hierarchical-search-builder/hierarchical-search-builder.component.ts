@@ -6,7 +6,8 @@ import {
     LogicalOperatorDefinition, NumberInputComponent,
     OperatorDefinitionList,
     TextInputComponent,
-    SelectInputComponent
+    SelectInputComponent,
+    DateInputComponent
 } from '@ux-aspects/ux-aspects';
 import 'chance';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
@@ -35,7 +36,9 @@ export class ComponentsHierarchicalSearchBuilderComponent extends BaseDocumentat
             { name: 'contains', label: 'contains', component: TextInputComponent },
         ],
         date: [
-            { name: 'before', label: 'before', component: TextInputComponent },
+            { name: 'before', label: 'before', component: DateInputComponent },
+            { name: 'equals', label: 'equals', component: DateInputComponent },
+            { name: 'after', label: 'after', component: DateInputComponent },
         ],
         enum: [
             { name: 'one_of', label: 'one of', component: SelectInputComponent },
@@ -49,7 +52,7 @@ export class ComponentsHierarchicalSearchBuilderComponent extends BaseDocumentat
 
     fields: FieldDefinition[] = [
         { name: 'name', label: 'Name', fieldType: 'text' },
-        { name: 'date', label: 'Date', fieldType: 'date' },
+        { name: 'date', label: 'Date', fieldType: 'date', data: { showTime: true } },
         { name: 'number', label: 'Number', fieldType: 'number' },
         {
             name: 'category',

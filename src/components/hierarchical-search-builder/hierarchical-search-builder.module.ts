@@ -9,11 +9,16 @@ import { SelectModule } from '../select';
 import { NumberPickerModule } from '../number-picker';
 import { NumberInputComponent } from './input-components/number-input/number-input.component';
 import { SelectInputComponent } from './input-components/select-input/select-input.component';
+import { DateInputComponent } from './input-components/date-input/date-input.component';
+import { DateTimePickerModule } from '../date-time-picker';
+import { PopoverModule } from '../popover';
+import { AccessibilityModule } from '../../directives/accessibility';
 
 const EXPORTS = [
     TextInputComponent,
     NumberInputComponent,
     SelectInputComponent,
+    DateInputComponent,
     HierarchicalSearchBuilderComponent,
 ];
 
@@ -27,7 +32,10 @@ const DECLARATIONS = [
     imports: [
         CommonModule,
         SelectModule,
-        NumberPickerModule
+        NumberPickerModule,
+        DateTimePickerModule,
+        PopoverModule,
+        AccessibilityModule
     ],
     exports: EXPORTS,
     declarations: DECLARATIONS,

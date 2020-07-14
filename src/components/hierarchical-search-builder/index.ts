@@ -8,3 +8,4 @@ export * from './hierarchical-search-builder.component';
 export * from './input-components/text-input/text-input.component';
 export * from './input-components/number-input/number-input.component';
 export * from './input-components/select-input/select-input.component';
+export * from './input-components/date-input/date-input.component';

@@ -1,0 +1,24 @@
+<input
+    type="text"
+    #input
+    #popover="ux-popover"
+    uxFocusIndicatorOrigin
+    [value]="date | date:dateFormat"
+    [uxPopover]="popoverTemplate"
+    placement="bottom"
+    popoverClass="date-time-picker-popover"
+    class="form-control"
+    aria-label="Selected date"
+    (keydown.enter)="popover.show()">
+
+<ng-template #popoverTemplate>
+    <ux-date-time-picker
+        [(date)]="date"
+        [(timezone)]="timezone"
+        [showTime]="showTime"
+        [showMeridian]="showMeridians"
+        [showSpinners]="showSpinners"
+        [showTimezone]="showTimezones"
+        (keydown.escape)="popover.hide(); input.focus()">
+    </ux-date-time-picker>
+</ng-template>

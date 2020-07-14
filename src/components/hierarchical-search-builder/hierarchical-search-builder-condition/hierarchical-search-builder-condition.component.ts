@@ -13,7 +13,7 @@ import { FieldDefinition } from '../interfaces/FieldDefinition';
 import { OperatorDefinition } from '../interfaces/OperatorDefinition';
 import { QueryCondition } from '../interfaces/HierarchicalSearchBuilderQuery';
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { distinctUntilChanged, filter, takeUntil } from 'rxjs/operators';
 
 @Component({
     selector: 'ux-hierarchical-search-builder-condition',
@@ -74,10 +74,15 @@ export class HierarchicalSearchBuilderConditionComponent implements OnInit, Afte
             this._inputComponentRef = this.inputContainer.createComponent(resolver);
             this._inputComponentRef.instance.value = this._value;
             this._inputComponentRef.instance.data = this._field?.data ?? {};
-            this._inputComponentRef.instance.valueChange.pipe(takeUntil(this._destroy$)).subscribe((value: any) => {
-                this._value = value;
-                this.buildCondition();
-            });
+            this._inputComponentRef.instance.valueChange
+                .pipe(
+                    takeUntil(this._destroy$),
+                    filter((value) => this._value !== value)
+                )
+                .subscribe((value: any) => {
+                    this._value = value;
+                    this.buildCondition();
+                });
         }
     }
 
@@ -110,7 +115,10 @@ export class HierarchicalSearchBuilderConditionComponent implements OnInit, Afte
             operator: this._operator?.name ?? null,
             value: this._value ?? null
         };
+    }
 
+    confirmCondition(): void {
+        this.buildCondition();
         this.conditionChange.emit(this._condition);
     }
 
