@@ -10,6 +10,7 @@ export class TextInputComponent {
     @Input() data: object;
     @Output() valueChange = new EventEmitter<string>();
 
+
     handleValueChange(event: any) {
         this.valueChange.emit((event.target as HTMLInputElement).value);
     }

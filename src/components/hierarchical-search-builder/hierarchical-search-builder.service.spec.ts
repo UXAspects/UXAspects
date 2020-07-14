@@ -1,16 +1,17 @@
-import { TestBed } from '@angular/core/testing';
+import { async, TestBed } from '@angular/core/testing';
 import { HierarchicalSearchBuilderService } from './hierarchical-search-builder.service';
 
 describe('HierarchicalSearchBuilderService', () => {
     let service: HierarchicalSearchBuilderService;
 
-    beforeEach(() => {
+
+    beforeEach(async(() => {
         TestBed.configureTestingModule({
             providers: [HierarchicalSearchBuilderService]
         });
 
         service = TestBed.inject(HierarchicalSearchBuilderService);
-    });
+    }));
 
     it('should be created and have the correct initial values', () => {
         expect(service).toBeTruthy();
