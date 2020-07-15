@@ -9,7 +9,6 @@ export class NumberInputComponent {
     @Input()
     set value(value: number) {
         this._value = value ?? 0;
-        console.log(this._value);
         this.valueChange.emit(this._value);
     }
 
@@ -28,10 +27,6 @@ export class NumberInputComponent {
     step: number;
     min: number;
     max: number;
-
-    handleValueChange(value: number) {
-        this.valueChange.emit(this.value);
-    }
 }
 
 interface NumberInputOptions {

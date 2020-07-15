@@ -6,12 +6,20 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
     // styleUrls: ['']
 })
 export class TextInputComponent {
-    @Input() value: string = '';
+    @Input()
+    set value(value: string) {
+        this._value = value ?? '';
+        this.valueChange.emit(this.value);
+    }
+
+    get value() { return this._value; }
+
     @Input() data: object;
     @Output() valueChange = new EventEmitter<string>();
 
+    _value: string;
 
     handleValueChange(event: any) {
-        this.valueChange.emit((event.target as HTMLInputElement).value);
+        this.value = (event.target as HTMLInputElement).value;
     }
 }
