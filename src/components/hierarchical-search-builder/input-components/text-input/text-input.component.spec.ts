@@ -30,7 +30,12 @@ describe('TextInputComponent', () => {
     });
 
     it('should be empty by default', () => {
-        expect(textInput.value).toEqual('');
+        component.value = null;
+        fixture.detectChanges();
+        fixture.whenStable().then(() => {
+            expect(textInput.value).toEqual('');
+            component.valueChange.subscribe((value: string) => expect(value).toEqual(''));
+        });
     });
 
     it('should display input value', async(() => {
@@ -39,6 +44,7 @@ describe('TextInputComponent', () => {
         fixture.detectChanges();
         fixture.whenStable().then(() => {
             expect(textInput.value).toEqual(testValue);
+            component.valueChange.subscribe((value: string) => expect(value).toEqual(testValue));
         });
     }));
 });
