@@ -10,7 +10,7 @@ import {
 } from '@angular/core';
 import { DateTimePickerTimezone } from '../../../date-time-picker';
 import { fromEvent, Subscription } from 'rxjs';
-import { debounceTime, tap } from 'rxjs/operators';
+import { debounceTime } from 'rxjs/operators';
 
 @Component({
     selector: 'ux-date-input',
@@ -21,7 +21,6 @@ export class DateInputComponent implements AfterViewInit, OnDestroy {
     @Input()
     set value(value: number) {
         const date = new Date(value);
-
         this.date = !isNaN(date.getDate()) ? date : new Date();
     }
 
@@ -83,10 +82,6 @@ export class DateInputComponent implements AfterViewInit, OnDestroy {
         if (!isNaN(date.getDate())) {
             this.date = date;
         }
-    }
-
-    handleValueChange(date: Date) {
-        // this.valueChange.emit(this.date.getTime());
     }
 }
 
