@@ -6,11 +6,36 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
     // styleUrls: ['']
 })
 export class NumberInputComponent {
-    @Input() value: number = 0;
-    @Input() data: object;
+    @Input()
+    set value(value: number) {
+        this._value = value ?? 0;
+        console.log(this._value);
+        this.valueChange.emit(this._value);
+    }
+
+    get value() { return this._value; }
+
+    @Input()
+    set data(data: NumberInputOptions) {
+        this.step = data?.step ?? 1;
+        this.min = data?.min ?? -Infinity;
+        this.max = data?.max ?? Infinity;
+    }
     @Output() valueChange = new EventEmitter<number>();
 
+    _value: number;
+
+    step: number;
+    min: number;
+    max: number;
+
     handleValueChange(value: number) {
-        this.valueChange.emit(value);
+        this.valueChange.emit(this.value);
     }
+}
+
+interface NumberInputOptions {
+    step?: number;
+    min?: number;
+    max?: number;
 }

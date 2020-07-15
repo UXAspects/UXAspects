@@ -81,7 +81,7 @@ export class ComponentsHierarchicalSearchBuilderComponent extends BaseDocumentat
                     { type: 'condition', field: 'category', operator: 'one_of', value: ['performance'] },
                 ]
             },
-            { type: 'condition', field: 'name', operator: 'equals', value: 'test' },
+            { type: 'condition', field: 'number', operator: 'equals', value: '15' },
         ]
     };
 
