@@ -1,4 +1,4 @@
-import { Component, ContentChild, ContentChildren, EventEmitter, Input, OnDestroy, OnInit, Output, QueryList, TemplateRef } from '@angular/core';
+import { AfterContentInit, Component, ContentChild, ContentChildren, EventEmitter, Input, OnDestroy, OnInit, Output, QueryList, TemplateRef } from '@angular/core';
 import { Subject } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
 import { tick } from '../../common/index';
@@ -15,7 +15,7 @@ let uniqueId: number = 0;
         '[class]': 'orientation'
     }
 })
-export class WizardComponent implements OnInit, OnDestroy {
+export class WizardComponent implements OnInit, AfterContentInit, OnDestroy {
 
     /** Defines whether or not the wizard should be displayed in a `horizontal` or `vertical` layout. */
     @Input() orientation: 'horizontal' | 'vertical' = 'horizontal';
@@ -161,9 +161,6 @@ export class WizardComponent implements OnInit, OnDestroy {
         // initially set the correct visibility of the steps
         setTimeout(this.update.bind(this));
 
-        // if the steps change then update the ids
-        this.steps.changes.pipe(tick(), takeUntil(this._onDestroy)).subscribe(() => this.update());
-
         // watch for changes to valid subject
         this._wizardService.validChange$.pipe(
             filter((event: WizardValidEvent<WizardStepComponent>) => !event.valid),
@@ -171,6 +168,9 @@ export class WizardComponent implements OnInit, OnDestroy {
         ).subscribe((event: WizardValidEvent<WizardStepComponent>) => this.setFutureStepsUnvisited(event.step));
     }
 
+    ngAfterContentInit(): void {
+        this.steps.changes.pipe(tick(), takeUntil(this._onDestroy)).subscribe(this.update.bind(this));
+    }
 
     ngOnDestroy(): void {
         this._onDestroy.next();
