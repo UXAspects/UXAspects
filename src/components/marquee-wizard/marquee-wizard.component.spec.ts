@@ -202,7 +202,7 @@ describe('Marquee wizard with delayed step creation', () => {
         fixture.detectChanges();
     });
 
-    it('should update steps after delay', fakeAsync(async () => {
+    fit('should update steps after delay', fakeAsync(async () => {
         let steps = getSteps();
         expect(steps.length).toBe(0);
 
@@ -220,6 +220,7 @@ describe('Marquee wizard with delayed step creation', () => {
         ).toBe('Second Step');
 
         expect(component.step).toBe(0);
+        expect(getContentText()).toContain('Content of first step');
     }));
 
     it('should navigate to the second step after delay', fakeAsync(async () => {
@@ -247,7 +248,11 @@ describe('Marquee wizard with delayed step creation', () => {
 
     async function whenStepsLoaded(): Promise<void> {
         tick(200);
+        fixture.detectChanges();
         await fixture.whenStable();
+
+        // tick() operator requires a second round of change detection
+        fixture.detectChanges();
     }
 
     function getSteps(): NodeListOf<HTMLUListElement> {
