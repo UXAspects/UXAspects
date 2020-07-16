@@ -10,13 +10,15 @@ import { NumberPickerModule } from './number-picker.module';
                                  [max]="max"
                                  [step]="step"
                                  [valid]="form.controls['integer'].valid"
-                                 [formControl]="form.controls['integer']" [placeholder]="placeholder">
+                                 [formControl]="form.controls['integer']" 
+                                 [placeholder]="placeholder">
                 </ux-number-picker>
                 <ux-number-picker [min]="min"
                                   [max]="max"
                                   [step]="step"
                                   [valid]="form.controls['integer2'].valid"
-                                  [formControl]="form.controls['integer2']" [placeholder]="placeholder">
+                                  [formControl]="form.controls['integer2']"
+                                  [placeholder]="placeholder">
                 </ux-number-picker>
 
     `
