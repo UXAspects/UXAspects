@@ -319,6 +319,67 @@ describe('Number Picker Component - FormGroup', () => {
             expect(component.form.controls.integer.value).toBe(99999998.9);
         });
     });
+
+    describe('on scroll', () => {
+        it('should not change the value if the picker has not been focused', async () => {
+            component.form.controls.integer.setValue(0);
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            input1.dispatchEvent(new WheelEvent('wheel', { deltaY: 5 }));
+            fixture.detectChanges();
+            await fixture.whenStable();
+            expect(input1.value).toBe('0');
+
+            input1.dispatchEvent(new WheelEvent('wheel', { deltaY: -5 }));
+            fixture.detectChanges();
+            await fixture.whenStable();
+            expect(input1.value).toBe('0');
+        });
+        it('should change the value if the picker is focused', async () => {
+            component.form.controls.integer.setValue(0);
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            await input1.focus();
+            fixture.detectChanges();
+            await fixture.whenStable();
+            debugger;
+
+            input1.dispatchEvent(new WheelEvent('wheel', { deltaY: 5 }));
+            fixture.detectChanges();
+            await fixture.whenStable();
+            expect(input1.value).toBe('-1');
+
+            input1.dispatchEvent(new WheelEvent('wheel', { deltaY: -5 }));
+            fixture.detectChanges();
+            await fixture.whenStable();
+            expect(input1.value).toBe('0');
+        });
+        it('should stop changing the value if the picker is blured', async () => {
+            component.form.controls.integer.setValue(0);
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            input1.focus();
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            input1.dispatchEvent(new WheelEvent('wheel', { deltaY: 5 }));
+            fixture.detectChanges();
+            await fixture.whenStable();
+            expect(input1.value).toBe('-1');
+
+            input1.blur();
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            input1.dispatchEvent(new WheelEvent('wheel', { deltaY: -5 }));
+            fixture.detectChanges();
+            await fixture.whenStable();
+            expect(input1.value).toBe('-1');
+        });
+    });
 });
 
 @Component({
