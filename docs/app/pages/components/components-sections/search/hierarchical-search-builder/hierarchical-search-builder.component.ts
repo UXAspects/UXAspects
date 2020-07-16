@@ -94,6 +94,6 @@ export class ComponentsHierarchicalSearchBuilderComponent extends BaseDocumentat
     }
 
     queryChanged(query: HierarchicalSearchBuilderQuery): void {
-        console.log(query);
+        // console.log('queryChange output', query);
     }
 }

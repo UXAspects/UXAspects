@@ -3,6 +3,7 @@ export interface QueryCondition {
     field: string;
     operator: string;
     value: any;
+    editable?: boolean;
 }
 
 export interface QueryGroup {

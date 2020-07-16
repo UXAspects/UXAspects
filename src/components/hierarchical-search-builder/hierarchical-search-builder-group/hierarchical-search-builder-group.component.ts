@@ -46,7 +46,8 @@ export class HierarchicalSearchBuilderGroupComponent implements OnInit {
             type: 'condition',
             field: null,
             operator: null,
-            value: null
+            value: null,
+            editable: true,
         }];
     }
 

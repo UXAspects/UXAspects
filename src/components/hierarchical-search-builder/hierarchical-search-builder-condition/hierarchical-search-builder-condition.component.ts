@@ -13,7 +13,7 @@ import { FieldDefinition } from '../interfaces/FieldDefinition';
 import { OperatorDefinition } from '../interfaces/OperatorDefinition';
 import { QueryCondition } from '../interfaces/HierarchicalSearchBuilderQuery';
 import { Subject } from 'rxjs';
-import { distinctUntilChanged, filter, takeUntil } from 'rxjs/operators';
+import { filter, takeUntil } from 'rxjs/operators';
 
 @Component({
     selector: 'ux-hierarchical-search-builder-condition',
@@ -30,12 +30,14 @@ export class HierarchicalSearchBuilderConditionComponent implements OnInit, Afte
     @Input() id: number;
     @Output() conditionDeleted = new EventEmitter<number>();
 
-    fields: FieldDefinition[];
-    operators: OperatorDefinition[];
+    public fields: FieldDefinition[];
+    public operators: OperatorDefinition[];
 
-    _field: FieldDefinition = null;
-    _operator: OperatorDefinition = null;
-    _value: any;
+    public _field: FieldDefinition = null;
+    public _operator: OperatorDefinition = null;
+    public _value: any;
+
+    public editable: boolean = true;
 
     private _condition: QueryCondition;
     private _destroy$ = new Subject<void>();
@@ -56,10 +58,14 @@ export class HierarchicalSearchBuilderConditionComponent implements OnInit, Afte
             this._operator = this.operators.find((operator) => operator.name === this.condition.operator) ?? null;
         }
         this._value = this.condition.value;
+
+        this.editable = this.condition?.editable ?? true;
     }
 
     ngAfterViewInit(): void {
-        this.createInputComponent();
+        if (this.editable) {
+            this.createInputComponent();
+        }
     }
 
     ngOnDestroy(): void {
@@ -67,7 +73,7 @@ export class HierarchicalSearchBuilderConditionComponent implements OnInit, Afte
         this._destroy$.complete();
     }
 
-    createInputComponent(): void {
+    private createInputComponent(): void {
         if (this._operator?.component) {
             this.inputContainer.clear();
             const resolver = this._cfr.resolveComponentFactory(this._operator.component);
@@ -86,20 +92,21 @@ export class HierarchicalSearchBuilderConditionComponent implements OnInit, Afte
         }
     }
 
-    handleFieldSelected(selectedField: FieldDefinition): void {
+    public handleFieldSelected(selectedField: FieldDefinition): void {
         // get operators for new field type
-        console.log(selectedField);
-        this._field = selectedField;
-        this.operators = this._hsbService.getOperatorsByFieldType(this._field.fieldType);
-        this._operator = null;
-        this._value = null;
+        if (selectedField) {
+            this._field = selectedField;
+            this.operators = this._hsbService.getOperatorsByFieldType(this._field.fieldType);
+            this._operator = null;
+            this._value = null;
 
-        this.buildCondition();
+            this.buildCondition();
 
-        this.inputContainer.clear();
+            this.inputContainer.clear();
+        }
     }
 
-    handleOperatorSelected(selectedOperator: OperatorDefinition): void {
+    public handleOperatorSelected(selectedOperator: OperatorDefinition): void {
         this._operator = selectedOperator;
         this.createInputComponent();
 
@@ -108,7 +115,7 @@ export class HierarchicalSearchBuilderConditionComponent implements OnInit, Afte
         }
     }
 
-    buildCondition(): void {
+    private buildCondition(): void {
         this._condition = {
             type: 'condition',
             field: this._field?.name ?? null,
@@ -117,12 +124,21 @@ export class HierarchicalSearchBuilderConditionComponent implements OnInit, Afte
         };
     }
 
-    confirmCondition(): void {
+    public confirmCondition(): void {
+        this.editable = false;
         this.buildCondition();
+        this._condition = { ...this._condition, editable: false };
         this.conditionChange.emit(this._condition);
     }
 
-    deleteCondition(): void {
+    public editCondition(): void {
+        this.editable = true;
+        this.buildCondition();
+        this._condition = { ...this._condition, editable: true };
+        this.conditionChange.emit(this._condition);
+    }
+
+    public deleteCondition(): void {
         this.conditionDeleted.emit(this.id);
     }
 }
