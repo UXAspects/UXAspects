@@ -202,7 +202,7 @@ describe('Marquee wizard with delayed step creation', () => {
         fixture.detectChanges();
     });
 
-    fit('should update steps after delay', fakeAsync(async () => {
+    it('should update steps after delay', fakeAsync(async () => {
         let steps = getSteps();
         expect(steps.length).toBe(0);
 
