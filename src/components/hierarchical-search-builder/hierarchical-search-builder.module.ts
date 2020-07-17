@@ -13,6 +13,7 @@ import { DateInputComponent } from './input-components/date-input/date-input.com
 import { DateTimePickerModule } from '../date-time-picker';
 import { PopoverModule } from '../popover';
 import { AccessibilityModule } from '../../directives/accessibility';
+import { L10nPipe } from './l10n.pipe';
 
 const EXPORTS = [
     TextInputComponent,
@@ -26,6 +27,7 @@ const DECLARATIONS = [
     ...EXPORTS,
     HierarchicalSearchBuilderGroupComponent,
     HierarchicalSearchBuilderConditionComponent,
+    L10nPipe
 ];
 
 @NgModule({

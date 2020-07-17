@@ -12,6 +12,7 @@ export class HierarchicalSearchBuilderService {
     private _logicalOperators: LogicalOperatorDefinition[] = [];
     private _fields: FieldDefinition[] = [];
     private _operators: OperatorDefinitionList = {};
+    private _localizedStrings = {};
 
     constructor() {
     }
@@ -45,5 +46,14 @@ export class HierarchicalSearchBuilderService {
 
     getOperatorsByFieldType(fieldType: string): OperatorDefinition[] {
         return this._operators?.[fieldType] ?? [];
+    }
+
+    // Localized Strings
+    setLocalizedStrings(localizedStrings: any): void {
+        this._localizedStrings = localizedStrings;
+    }
+
+    getLocalizedStrings(): any {
+        return this._localizedStrings;
     }
 }

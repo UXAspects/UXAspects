@@ -3,7 +3,7 @@
     #input
     #popover="ux-popover"
     uxFocusIndicatorOrigin
-    [value]="date | date:dateFormat"
+    [value]="date | date:('dateFormat' | l10n)"
     [uxPopover]="popoverTemplate"
     placement="bottom"
     popoverClass="date-time-picker-popover"
@@ -16,9 +16,12 @@
         [(date)]="date"
         [(timezone)]="timezone"
         [showTime]="showTime"
-        [showMeridian]="showMeridians"
-        [showSpinners]="showSpinners"
-        [showTimezone]="showTimezones"
+        [nowBtnText]="'dateInputNowBtnText' | l10n"
+        [nowBtnAriaLabel]="'dateInputNowBtnAriaLabel' | l10n"
+        [weekdays]="'dateInputWeekdays' | l10n"
+        [meridians]="'dateInputMeridians' | l10n"
+        [months]="'dateInputMonths' | l10n"
+        [monthsShort]="'dateInputMonthsShort' | l10n"
         (keydown.escape)="popover.hide(); input.focus()">
     </ux-date-time-picker>
 </ng-template>

@@ -52,7 +52,7 @@ export class ComponentsHierarchicalSearchBuilderComponent extends BaseDocumentat
 
     fields: FieldDefinition[] = [
         { name: 'name', label: 'Name', fieldType: 'text' },
-        { name: 'date', label: 'Date', fieldType: 'date', data: { showTime: true } },
+        { name: 'date', label: 'Date', fieldType: 'date', data: {} },
         { name: 'number', label: 'Number', fieldType: 'number' },
         {
             name: 'category',
@@ -67,6 +67,11 @@ export class ComponentsHierarchicalSearchBuilderComponent extends BaseDocumentat
             }
         },
     ];
+
+    localizedStrings = {
+        datePickerNowBtnText: '',
+        // datePickerWeekdays: ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag'],
+    };
 
     query: HierarchicalSearchBuilderQuery = {
         type: 'group',

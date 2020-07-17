@@ -31,6 +31,11 @@ export class HierarchicalSearchBuilderComponent {
         this._query = this.addEditableFieldToConditionsInQuery(query);
     }
 
+    @Input()
+    set localizedStrings(localizedStrings: any) {
+        this._hsbService.setLocalizedStrings(localizedStrings);
+    }
+
     get query() { return this._query; }
 
     private _query: HierarchicalSearchBuilderQuery;
