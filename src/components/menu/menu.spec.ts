@@ -340,6 +340,23 @@ describe('MenuComponent', () => {
         expect(component.subMenuTrigger.menu._isHovering$.value).toBeFalsy();
         expect(component.subMenuTrigger.menu._isFocused$.value).toBeFalsy();
     });
+
+    fit('should emit a click event when using keyboard controls to open the menu', async () => {
+        const event: Event = new KeyboardEvent('keydown', {'code': 'Enter'});
+
+        window.dispatchEvent(event);
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        component.trigger.openMenu();
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        spyOn(component, 'subMenuTrigger');
+        expect(component.subMenuTrigger).toHaveBeenCalledTimes(1);
+        expect(document.querySelectorAll('.ux-menu').length).toBe(1);
+
+    });
 });
 
 @Component({
