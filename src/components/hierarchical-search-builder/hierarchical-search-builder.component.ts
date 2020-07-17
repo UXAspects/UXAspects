@@ -40,8 +40,6 @@ export class HierarchicalSearchBuilderComponent {
 
     private _query: HierarchicalSearchBuilderQuery;
 
-    @Input() addButtonText: string = 'Add condition';
-
     @Output() queryChange = new EventEmitter<HierarchicalSearchBuilderQuery>();
 
 

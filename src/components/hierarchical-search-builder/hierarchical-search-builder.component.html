@@ -2,8 +2,9 @@
     *ngIf="isQueryEmpty(); else queryItems"
     (click)="addCondition()"
     type="button"
-    class="btn btn-icon-with-text button-primary">
-    <span class="ux-icon ux-icon-add" aria-hidden="true"></span><span>{{addButtonText}}</span>
+    class="btn btn-icon-with-text button-primary"
+    [attr.aria-label]="('addConditionBtnAriaLabel' | l10n) || 'Add condition'">
+    <span class="ux-icon ux-icon-add" aria-hidden="true"></span><span>{{ ('addConditionBtnText' | l10n) || 'Add condition'}}</span>
 </button>
 
 <ng-template #queryItems>

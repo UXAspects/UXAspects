@@ -68,10 +68,7 @@ export class ComponentsHierarchicalSearchBuilderComponent extends BaseDocumentat
         },
     ];
 
-    localizedStrings = {
-        datePickerNowBtnText: '',
-        // datePickerWeekdays: ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag'],
-    };
+    localizedStrings = {};
 
     query: HierarchicalSearchBuilderQuery = {
         type: 'group',
