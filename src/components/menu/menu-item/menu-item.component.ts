@@ -1,5 +1,5 @@
 import { FocusableOption, FocusOrigin } from '@angular/cdk/a11y';
-import { ChangeDetectionStrategy, Component, ElementRef, HostListener, Input, OnDestroy, OnInit, Renderer2 } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, HostListener, Input, OnDestroy, OnInit, Renderer2, Output, EventEmitter } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { isKeyboardTrigger } from '../../../common/index';
@@ -25,6 +25,9 @@ export class MenuItemComponent implements OnInit, OnDestroy, FocusableOption {
 
     /** Define the role of the element */
     @Input() role: 'menuitem' | 'menuitemradio' | 'menuitemcheckbox' = 'menuitem';
+
+    /** Emits when the menu item is clicked or the enter key is pressed. */
+    @Output() activate = new EventEmitter<MouseEvent | KeyboardEvent>();
 
     /** Access the open state */
     get isOpen(): boolean {
@@ -116,6 +119,7 @@ export class MenuItemComponent implements OnInit, OnDestroy, FocusableOption {
     _onClick(event: MouseEvent | KeyboardEvent): void {
         if (!this.disabled) {
             this.onClick$.next(isKeyboardTrigger(event) ? 'keyboard' : 'mouse');
+            this.activate.emit(event);
         }
     }
 
