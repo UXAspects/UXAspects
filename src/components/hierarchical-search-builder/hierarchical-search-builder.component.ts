@@ -11,6 +11,7 @@ import { HierarchicalSearchBuilderQuery, QueryCondition } from './interfaces/Hie
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HierarchicalSearchBuilderComponent {
+
     @Input()
     set logicalOperators(logicalOperators: LogicalOperatorDefinition[]) {
         this._hsbService.setLogicalOperators(logicalOperators);
@@ -31,12 +32,14 @@ export class HierarchicalSearchBuilderComponent {
         this._query = this.addEditableFieldToConditionsInQuery(query);
     }
 
+    get query() {
+        return this._query;
+    }
+
     @Input()
     set localizedStrings(localizedStrings: any) {
         this._hsbService.setLocalizedStrings(localizedStrings);
     }
-
-    get query() { return this._query; }
 
     private _query: HierarchicalSearchBuilderQuery;
 
@@ -55,15 +58,19 @@ export class HierarchicalSearchBuilderComponent {
     }
 
     handleGroupChange(query: HierarchicalSearchBuilderQuery) {
-        this.query = query;
+        let temp = { ...query };
 
         // make query just a condition if it contains exactly one group with exactly one condition in it
-        if (this.query?.type === 'group'
-            && ('children' in this.query)
-            && this.query?.children?.length === 1
-            && this.query?.children[0].type === 'condition') {
-            this.query = this.query.children[0];
+        if (temp?.type === 'group'
+            && ('children' in temp)
+            && temp?.children?.length === 1
+            && temp.children[0].type === 'condition') {
+            temp = { ...temp.children[0] };
         }
+
+        this.query = temp;
+
+        console.log(this.query);
 
         this.queryChange.emit(this.cleanQuery(this.query));
     }
@@ -103,7 +110,7 @@ export class HierarchicalSearchBuilderComponent {
         }
 
         if (query.type === 'condition') {
-            return {...query, editable: (<QueryCondition>query)?.editable ?? false};
+            return { ...query, editable: (<QueryCondition>query)?.editable ?? false };
         }
 
         if (query.type === 'group' && ('children' in query)) {

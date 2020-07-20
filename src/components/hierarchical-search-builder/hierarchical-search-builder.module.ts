@@ -17,6 +17,7 @@ import { L10nPipe } from './l10n.pipe';
 import { DateRangeInputComponent } from './input-components/date-range-input/date-range-input.component';
 import { DateRangePickerModule } from '../date-range-picker';
 import { FormsModule } from '@angular/forms';
+import { HoverActionModule } from '../../directives/hover-action';
 
 const EXPORTS = [
     TextInputComponent,
@@ -35,16 +36,17 @@ const DECLARATIONS = [
 ];
 
 @NgModule({
-    imports: [
-        CommonModule,
-        SelectModule,
-        NumberPickerModule,
-        DateTimePickerModule,
-        PopoverModule,
-        AccessibilityModule,
-        DateRangePickerModule,
-        FormsModule
-    ],
+  imports: [
+    CommonModule,
+    SelectModule,
+    NumberPickerModule,
+    DateTimePickerModule,
+    PopoverModule,
+    AccessibilityModule,
+    DateRangePickerModule,
+    FormsModule,
+    HoverActionModule
+  ],
     exports: [...EXPORTS, L10nPipe],
     declarations: DECLARATIONS,
     providers: [HierarchicalSearchBuilderService, L10nPipe]

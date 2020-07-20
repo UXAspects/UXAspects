@@ -38,23 +38,23 @@
 </div>
 
 <ng-template #uneditable>
-    <div class="row">
+    <div class="row" uxHoverActionContainer>
         <div class="col-xs-10">
             {{ _field.label }} {{ _operator.label }} {{ _value | json }}
         </div>
 
-        <div class="col-xs-1">
+        <div class="col-xs-2">
             <button
+                uxHoverAction
                 (click)="editCondition()"
                 type="button"
                 class="btn btn-link btn-icon btn-lg button-primary"
                 aria-label="Edit condition">
                 <span class="ux-icon ux-icon-edit" aria-hidden="true"></span>
             </button>
-        </div>
 
-        <div class="col-xs-1">
             <button
+                uxHoverAction
                 (click)="deleteCondition()"
                 type="button"
                 class="btn btn-link btn-icon btn-lg button-secondary"

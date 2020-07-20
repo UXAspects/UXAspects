@@ -1,4 +1,4 @@
-<div class="row m-b-sm">
+<div class="row m-b-sm" uxHoverActionContainer>
     <div class="col-xs-2">
         <ux-select
             [value]="selectedLogicalOperator"
@@ -11,6 +11,7 @@
     </div>
     <div class="col-xs-offset-9 col-xs-1">
         <button
+            uxHoverAction
             (click)="deleteGroup()"
             type="button"
             class="btn btn-link btn-icon btn-lg button-secondary"

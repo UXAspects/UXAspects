@@ -3,8 +3,10 @@ import {
     ChangeDetectionStrategy,
     Component, ComponentFactoryResolver,
     ComponentRef, EventEmitter,
-    Input, OnDestroy,
-    OnInit, Output,
+    Input,
+    OnDestroy,
+    OnInit,
+    Output,
     ViewChild,
     ViewContainerRef
 } from '@angular/core';
@@ -21,6 +23,7 @@ import { filter, takeUntil } from 'rxjs/operators';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HierarchicalSearchBuilderConditionComponent implements OnInit, AfterViewInit, OnDestroy {
+
     @ViewChild('inputContainer', { read: ViewContainerRef }) inputContainer: ViewContainerRef;
     private _inputComponentRef: ComponentRef<any>;
 
