@@ -1,0 +1,35 @@
+<input
+    type="text"
+    #input
+    #popover="ux-popover"
+    placeholder="Select a date range"
+    [ngModel]="dateString"
+    uxFocusIndicatorOrigin
+    (ngModelChange)="onDateChange($event)"
+    [uxPopover]="popoverTemplate"
+    placement="bottom"
+    [popoverClass]="showNowBtn ? 'date-range-picker-now-btn-popover' :
+                    'date-range-picker-popover'"
+    class="form-control"
+    aria-label="Selected date"
+    (keydown.enter)="popover.show()">
+
+<ng-template #popoverTemplate>
+    <ux-date-range-picker
+        [(start)]="start"
+        [(end)]="end"
+        [showTime]="showTime"
+        [showTimezone]="showTimezone"
+        [showSeconds]="showSeconds"
+        [showMeridian]="showMeridian"
+        [showSpinners]="showSpinners"
+        [showNowBtn]="showNowBtn"
+        [startTimezone]="startTimezone"
+        [endTimezone]="endTimezone"
+        (startChange)="onRangeChange()"
+        (endChange)="onRangeChange()"
+        (keydown.escape)="popover.hide(); input.focus()"
+        (startTimezoneChange)="onTimezoneChange(true, $event)"
+        (endTimezoneChange)="onTimezoneChange(false, $event)">
+    </ux-date-range-picker>
+</ng-template>

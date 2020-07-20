@@ -7,7 +7,8 @@ import {
     OperatorDefinitionList,
     TextInputComponent,
     SelectInputComponent,
-    DateInputComponent
+    DateInputComponent,
+    DateRangeInputComponent
 } from '@ux-aspects/ux-aspects';
 import 'chance';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
@@ -40,6 +41,10 @@ export class ComponentsHierarchicalSearchBuilderComponent extends BaseDocumentat
             { name: 'equals', label: 'equals', component: DateInputComponent },
             { name: 'after', label: 'after', component: DateInputComponent },
         ],
+        dateRange: [
+            { name: 'between', label: 'is between', component: DateRangeInputComponent },
+            { name: 'not_between', label: 'is not between', component: DateRangeInputComponent },
+        ],
         enum: [
             { name: 'one_of', label: 'one of', component: SelectInputComponent },
         ],
@@ -53,6 +58,7 @@ export class ComponentsHierarchicalSearchBuilderComponent extends BaseDocumentat
     fields: FieldDefinition[] = [
         { name: 'name', label: 'Name', fieldType: 'text' },
         { name: 'date', label: 'Date', fieldType: 'date', data: {} },
+        { name: 'dateRange', label: 'Date Range', fieldType: 'dateRange', data: {} },
         { name: 'number', label: 'Number', fieldType: 'number' },
         {
             name: 'category',
@@ -68,13 +74,16 @@ export class ComponentsHierarchicalSearchBuilderComponent extends BaseDocumentat
         },
     ];
 
-    localizedStrings = {};
+    localizedStrings = {
+        dateFormat: 'dd MMMM yyyy',
+    };
 
     query: HierarchicalSearchBuilderQuery = {
         type: 'group',
         logicalOperator: 'and',
         children: [
             { type: 'condition', field: 'name', operator: 'equals', value: 'test' },
+            { type: 'condition', field: 'dateRange', operator: 'between', value: [1592979598445, 1592979598445] },
             {
                 type: 'group',
                 logicalOperator: 'or',

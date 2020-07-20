@@ -14,12 +14,16 @@ import { DateTimePickerModule } from '../date-time-picker';
 import { PopoverModule } from '../popover';
 import { AccessibilityModule } from '../../directives/accessibility';
 import { L10nPipe } from './l10n.pipe';
+import { DateRangeInputComponent } from './input-components/date-range-input/date-range-input.component';
+import { DateRangePickerModule } from '../date-range-picker';
+import { FormsModule } from '@angular/forms';
 
 const EXPORTS = [
     TextInputComponent,
     NumberInputComponent,
     SelectInputComponent,
     DateInputComponent,
+    DateRangeInputComponent,
     HierarchicalSearchBuilderComponent,
 ];
 
@@ -37,7 +41,9 @@ const DECLARATIONS = [
         NumberPickerModule,
         DateTimePickerModule,
         PopoverModule,
-        AccessibilityModule
+        AccessibilityModule,
+        DateRangePickerModule,
+        FormsModule
     ],
     exports: EXPORTS,
     declarations: DECLARATIONS,
