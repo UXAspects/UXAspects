@@ -203,20 +203,20 @@ describe('Dashboard with initial layout', () => {
 
         expect(layoutChangeSpy).not.toHaveBeenCalled();
 
-        expect(component.widgets.toArray()[0].getColumn()).toBe(0, 'run-widget 0 column');
-        expect(component.widgets.toArray()[0].getRow()).toBe(0, 'run-widget 0 row');
-        expect(component.widgets.toArray()[0].getColumnSpan()).toBe(2, 'run-widget 2 columnSpan');
-        expect(component.widgets.toArray()[0].getRowSpan()).toBe(1, 'run-widget 1 RowSpan');
+        expect(component.widgets.toArray()[0].getColumn()).toBe(0, 'widget 0 column');
+        expect(component.widgets.toArray()[0].getRow()).toBe(0, 'widget 0 row');
+        expect(component.widgets.toArray()[0].getColumnSpan()).toBe(2, 'widget 0 columnSpan');
+        expect(component.widgets.toArray()[0].getRowSpan()).toBe(1, 'widget 0 rowSpan');
 
-        expect(component.widgets.toArray()[1].getColumn()).toBe(0, 'purpose-widget 0 column');
-        expect(component.widgets.toArray()[1].getRow()).toBe(2, 'purpose-widget 2 row');
-        expect(component.widgets.toArray()[1].getColumnSpan()).toBe(1, 'purpose-widget 1 columnSpan');
-        expect(component.widgets.toArray()[1].getRowSpan()).toBe(1, 'purpose-widget 1 RowSpan');
+        expect(component.widgets.toArray()[1].getColumn()).toBe(0, 'widget 1 column');
+        expect(component.widgets.toArray()[1].getRow()).toBe(2, 'widget 1 row');
+        expect(component.widgets.toArray()[1].getColumnSpan()).toBe(1, 'widget 1 columnSpan');
+        expect(component.widgets.toArray()[1].getRowSpan()).toBe(1, 'widget 1 rowSpan');
 
-        expect(component.widgets.toArray()[2].getColumn()).toBe(0, 'host-widget 0 column');
-        expect(component.widgets.toArray()[2].getRow()).toBe(3, 'host-widget 3 row');
-        expect(component.widgets.toArray()[2].getColumnSpan()).toBe(3, 'host-widget 3 columnSpan');
-        expect(component.widgets.toArray()[2].getRowSpan()).toBe(1, 'host-widget 1 RowSpan');
+        expect(component.widgets.toArray()[2].getColumn()).toBe(0, 'widget 2 column');
+        expect(component.widgets.toArray()[2].getRow()).toBe(3, 'widget 2 row');
+        expect(component.widgets.toArray()[2].getColumnSpan()).toBe(3, 'widget 2 columnSpan');
+        expect(component.widgets.toArray()[2].getRowSpan()).toBe(1, 'widget 2 rowSpan');
     });
 
     it('should update the layout when a new value is passed to the input', async () => {
@@ -231,20 +231,20 @@ describe('Dashboard with initial layout', () => {
 
         expect(layoutChangeSpy).not.toHaveBeenCalled();
 
-        expect(component.widgets.toArray()[0].getColumn()).toBe(0, 'run-widget 0 column');
-        expect(component.widgets.toArray()[0].getRow()).toBe(3, 'run-widget 3 row');
-        expect(component.widgets.toArray()[0].getColumnSpan()).toBe(3, 'run-widget 3 columnspan');
-        expect(component.widgets.toArray()[0].getRowSpan()).toBe(1, 'run-widget 1 rowspan');
+        expect(component.widgets.toArray()[0].getColumn()).toBe(0, 'widget 0 column');
+        expect(component.widgets.toArray()[0].getRow()).toBe(3, 'widget 0 row');
+        expect(component.widgets.toArray()[0].getColumnSpan()).toBe(3, 'widget 0 columnSpan');
+        expect(component.widgets.toArray()[0].getRowSpan()).toBe(1, 'widget 0 rowSpan');
 
-        expect(component.widgets.toArray()[1].getColumn()).toBe(0, 'purpose-widget 0 column');
-        expect(component.widgets.toArray()[1].getRow()).toBe(0, 'purpose-widget 0 row');
-        expect(component.widgets.toArray()[1].getColumnSpan()).toBe(2, 'purpose-widget 2 columnSpan');
-        expect(component.widgets.toArray()[1].getRowSpan()).toBe(1, 'purpose-widget 1 rowspan');
+        expect(component.widgets.toArray()[1].getColumn()).toBe(0, 'widget 1 column');
+        expect(component.widgets.toArray()[1].getRow()).toBe(0, 'widget 1 row');
+        expect(component.widgets.toArray()[1].getColumnSpan()).toBe(2, 'widget 1 columnSpan');
+        expect(component.widgets.toArray()[1].getRowSpan()).toBe(1, 'widget 1 rowSpan');
 
-        expect(component.widgets.toArray()[2].getColumn()).toBe(0, 'host-widget 0 column');
-        expect(component.widgets.toArray()[2].getRow()).toBe(2, 'host-widget 2 row');
-        expect(component.widgets.toArray()[2].getColumnSpan()).toBe(1, 'host-widget 1 columnspan');
-        expect(component.widgets.toArray()[2].getRowSpan()).toBe(1, 'host-widget 1 rowspan');
+        expect(component.widgets.toArray()[2].getColumn()).toBe(0, 'widget 2 column');
+        expect(component.widgets.toArray()[2].getRow()).toBe(2, 'widget 2 row');
+        expect(component.widgets.toArray()[2].getColumnSpan()).toBe(1, 'widget 2 columnSpan');
+        expect(component.widgets.toArray()[2].getRowSpan()).toBe(1, 'widget 2 rowSpan');
 
     });
 });
