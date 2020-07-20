@@ -2,7 +2,8 @@
     type="text"
     #input
     #popover="ux-popover"
-    placeholder="Select a date range"
+    [placeholder]="('dateRangeInputPlaceholder' | l10n) || 'Select a date range'"
+    [attr.aria-label]="('dateRangeInputAriaLabel' | l10n) || 'Selected date'"
     [ngModel]="dateString"
     uxFocusIndicatorOrigin
     (ngModelChange)="onDateChange($event)"
@@ -11,7 +12,6 @@
     [popoverClass]="showNowBtn ? 'date-range-picker-now-btn-popover' :
                     'date-range-picker-popover'"
     class="form-control"
-    aria-label="Selected date"
     (keydown.enter)="popover.show()">
 
 <ng-template #popoverTemplate>
@@ -26,6 +26,12 @@
         [showNowBtn]="showNowBtn"
         [startTimezone]="startTimezone"
         [endTimezone]="endTimezone"
+        [nowBtnText]="'dateInputNowBtnText' | l10n"
+        [nowBtnAriaLabel]="'dateInputNowBtnAriaLabel' | l10n"
+        [weekdays]="'dateInputWeekdays' | l10n"
+        [meridians]="'dateInputMeridians' | l10n"
+        [months]="'dateInputMonths' | l10n"
+        [monthsShort]="'dateInputMonthsShort' | l10n"
         (startChange)="onRangeChange()"
         (endChange)="onRangeChange()"
         (keydown.escape)="popover.hide(); input.focus()"

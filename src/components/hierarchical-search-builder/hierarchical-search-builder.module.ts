@@ -45,9 +45,9 @@ const DECLARATIONS = [
         DateRangePickerModule,
         FormsModule
     ],
-    exports: EXPORTS,
+    exports: [...EXPORTS, L10nPipe],
     declarations: DECLARATIONS,
-    providers: [HierarchicalSearchBuilderService]
+    providers: [HierarchicalSearchBuilderService, L10nPipe]
 })
 export class HierarchicalSearchBuilderModule {
 }

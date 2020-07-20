@@ -6,6 +6,7 @@ import {
 } from '@angular/core';
 import { DateTimePickerTimezone, timezones } from '../../../date-time-picker';
 import { formatDate } from '@angular/common';
+import { L10nPipe } from '../../l10n.pipe';
 
 @Component({
     selector: 'ux-date-range-input',
@@ -15,16 +16,23 @@ import { formatDate } from '@angular/common';
 export class DateRangeInputComponent {
     @Input()
     set value(value: number[]) {
-        const [start, end] = value.map((v) => new Date(v));
-        this.start = !isNaN(start.getDate()) ? start : new Date();
-        this.end = !isNaN(end.getDate()) ? end : new Date();
+        if (Array.isArray(value)) {
+            const [start, end] = value.map((v) => new Date(v));
+            this.start = !isNaN(start?.getDate()) ? start : new Date();
+            this.end = !isNaN(end?.getDate()) ? end : new Date();
+        } else {
+            this.start = new Date();
+            this.end = new Date();
+        }
+
+        this.onRangeChange();
     }
 
     @Input()
     set data(data: DateInputOptions) {
         this.timezone = data?.timezone ?? { name: 'GMT', offset: 0 };
 
-        this.showTime = data?.showTime ?? false;
+        this.showTime = data?.showTime ?? true;
         this.showTimezones = data?.showTimezones ?? true;
         this.showMeridians = data?.showMeridians ?? true;
         this.showSpinners = data?.showSpinners ?? true;
@@ -54,27 +62,19 @@ export class DateRangeInputComponent {
     showMeridians: boolean;
     showSpinners: boolean;
 
-
-    /** Indicate if the timezone picker should be visible */
     showTimezone: boolean = false;
-
-    /** Indicate if the seconds on the time picker should be visible */
     showSeconds: boolean = false;
-
-    /** Indicate if the meridian on the time picker should be visible */
     showMeridian: boolean = true;
-
-    /** Indicate if the show now should be visible */
     showNowBtn: boolean = false;
-
-    /** Store the currently selected start timezone */
     startTimezone: DateTimePickerTimezone = { name: 'GMT', offset: 0 };
-
-    /** Store the currently selected end timezone */
     endTimezone: DateTimePickerTimezone = { name: 'GMT', offset: 0 };
 
-    onDateChange(date: string): void {
+    private _defaultDateFormat: string = 'd MMMM y  h:mm a';
 
+    constructor(private _l10nPipe: L10nPipe) {
+    }
+
+    onDateChange(date: string): void {
         // reset any invalid state
         this.invalid = false;
 
@@ -108,9 +108,9 @@ export class DateRangeInputComponent {
 
     onRangeChange(): void {
         const start = this.start ?
-            formatDate(this.start, 'd MMMM y  h:mm a', 'en-US') + ' ' + this.startTimezone.name : '';
+            formatDate(this.start, this._l10nPipe.transform('dateFormat') || this._defaultDateFormat, 'en-US') : '';
         const end = this.end ?
-            formatDate(this.end, 'd MMMM y  h:mm a', 'en-US') + ' ' + this.endTimezone.name : '';
+            formatDate(this.end, this._l10nPipe.transform('dateFormat') || this._defaultDateFormat, 'en-US') : '';
 
         if (!this.start || !this.end) {
             return;
@@ -126,7 +126,7 @@ export class DateRangeInputComponent {
         }
 
         // concatenate the two dates
-        this.dateString = start && end ? `${start} — ${end}` : start || end;
+        this.dateString = start && end ? `${ start } — ${ end }` : start || end;
     }
 
     onTimezoneChange(isStart: boolean, timezone: DateTimePickerTimezone): void {
