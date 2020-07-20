@@ -1,19 +1,21 @@
-import { AfterViewInit, Component, ContentChild, ContentChildren, EventEmitter, Input, OnDestroy, Output, QueryList, TemplateRef } from '@angular/core';
-import { Subject, Subscription, Observable } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { AfterContentInit, Component, ContentChild, ContentChildren, EventEmitter, Input, OnDestroy, OnInit, Output, QueryList, TemplateRef } from '@angular/core';
+import { Subject } from 'rxjs';
+import { filter, takeUntil } from 'rxjs/operators';
 import { tick } from '../../common/index';
 import { WizardStepComponent } from './wizard-step.component';
+import { WizardService, WizardValidEvent } from './wizard.service';
 
 let uniqueId: number = 0;
 
 @Component({
     selector: 'ux-wizard',
     templateUrl: './wizard.component.html',
+    providers: [WizardService],
     host: {
         '[class]': 'orientation'
     }
 })
-export class WizardComponent implements AfterViewInit, OnDestroy {
+export class WizardComponent implements OnInit, AfterContentInit, OnDestroy {
 
     /** Defines whether or not the wizard should be displayed in a `horizontal` or `vertical` layout. */
     @Input() orientation: 'horizontal' | 'vertical' = 'horizontal';
@@ -87,6 +89,9 @@ export class WizardComponent implements AfterViewInit, OnDestroy {
     /** If set to `true` the 'Next' or 'Finish' button will become disabled when the current step is invalid. */
     @Input() disableNextWhenInvalid: boolean = false;
 
+    /** Whether to set `visited` to false on subsequent steps after a validation fault. */
+    @Input() resetVisitedOnValidationError: boolean = false;
+
     /** Emits when the wizard has moved to the next step. It will receive the current step index as a parameter. */
     @Output() onNext = new EventEmitter<number>();
 
@@ -115,17 +120,18 @@ export class WizardComponent implements AfterViewInit, OnDestroy {
 
     @ContentChild('footerTemplate', { static: false }) footerTemplate: TemplateRef<WizardFooterContext>;
 
-    id: string = `ux-wizard-${uniqueId++}`;
+    id: string = `ux-wizard-${ uniqueId++ }`;
     invalidIndicator: boolean = false;
 
     /**
      * The current active step. When the step changes an event will be emitted containing the index of the newly active step.
-     * If this is not specifed the wizard will start on the first step.
+     * If this is not specified the wizard will start on the first step.
      */
     @Input()
     get step() {
         return this._step;
     }
+
     set step(value: number) {
 
         // only accept numbers as valid options
@@ -146,31 +152,29 @@ export class WizardComponent implements AfterViewInit, OnDestroy {
     }
 
     private _step: number = 0;
-    private _onDestroy = new Subject<void>();
+    protected readonly _onDestroy = new Subject<void>();
 
-    ngAfterViewInit(): void {
+    constructor(protected readonly _wizardService: WizardService<WizardStepComponent>) {
+    }
 
+    ngOnInit(): void {
         // initially set the correct visibility of the steps
         setTimeout(this.update.bind(this));
 
-        // initially set the ids for each step
-        this.setWizardStepIds();
+        // watch for changes to valid subject
+        this._wizardService.validChange$.pipe(
+            filter((event: WizardValidEvent<WizardStepComponent>) => !event.valid),
+            takeUntil(this._onDestroy)
+        ).subscribe((event: WizardValidEvent<WizardStepComponent>) => this.setFutureStepsUnvisited(event.step));
+    }
 
-        // if the steps change then update the ids
-        this.steps.changes.pipe(tick(), takeUntil(this._onDestroy)).subscribe(() => {
-            this.setWizardStepIds();
-            this.update();
-        });
+    ngAfterContentInit(): void {
+        this.steps.changes.pipe(tick(), takeUntil(this._onDestroy)).subscribe(this.update.bind(this));
     }
 
     ngOnDestroy(): void {
         this._onDestroy.next();
         this._onDestroy.complete();
-    }
-
-    /** Set ids for each of the wizard steps */
-    setWizardStepIds(): void {
-        this.steps.forEach((step, idx) => step.setId(`${this.id}-step-${idx}`));
     }
 
     /**
@@ -210,9 +214,9 @@ export class WizardComponent implements AfterViewInit, OnDestroy {
         }
     }
 
-     /**
-      * Whether the Next or Finish button should be disabled.
-      */
+    /**
+     * Whether the Next or Finish button should be disabled.
+     */
     isNextDisabled(): boolean {
         const step = this.getCurrentStep();
 
@@ -275,7 +279,7 @@ export class WizardComponent implements AfterViewInit, OnDestroy {
 
                 // only fires when the finish button is clicked and the step is valid
                 if (this.getCurrentStep().valid) {
-                    this.onFinish.next();
+                    this.onFinish.emit();
                 } else {
                     this.stepError.next(this.step);
                 }
@@ -348,11 +352,33 @@ export class WizardComponent implements AfterViewInit, OnDestroy {
     }
 
     /**
+     * If a step in the wizard becomes invalid, all steps sequentially after
+     * it should become unvisited
+     */
+    protected setFutureStepsUnvisited(currentStep: WizardStepComponent): void {
+        if (!this.resetVisitedOnValidationError) {
+            return;
+        }
+
+        this.getFutureSteps(currentStep).forEach(step => {
+            step.setVisitedAndEmitChangeEvent(false);
+        });
+    }
+
+    /**
+     * Get the currently active step and all steps beyond it
+     */
+    protected getFutureSteps(currentStep: WizardStepComponent): WizardStepComponent[] {
+        const currentIndex = this.steps.toArray().indexOf(currentStep);
+        return this.steps.toArray().slice(currentIndex + 1);
+    }
+
+    /**
      * Returns the valid status of the current step, including the `validation` function (if provided).
      */
     private isStepValid(): boolean | Promise<boolean> {
 
-        // get the current activer step
+        // get the current active step
         const currentStep = this.getCurrentStep();
 
         // if there is no validator then return the valid state
@@ -366,7 +392,8 @@ export class WizardComponent implements AfterViewInit, OnDestroy {
 }
 
 export class StepChangingEvent {
-    constructor(public from: number, public to: number) { }
+    constructor(public from: number, public to: number) {
+    }
 }
 
 export interface WizardFooterContext {

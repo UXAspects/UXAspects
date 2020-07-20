@@ -10,13 +10,15 @@ import { NumberPickerModule } from './number-picker.module';
                                  [max]="max"
                                  [step]="step"
                                  [valid]="form.controls['integer'].valid"
-                                 [formControl]="form.controls['integer']">
+                                 [formControl]="form.controls['integer']" 
+                                 [placeholder]="placeholder">
                 </ux-number-picker>
                 <ux-number-picker [min]="min"
                                   [max]="max"
                                   [step]="step"
                                   [valid]="form.controls['integer2'].valid"
-                                  [formControl]="form.controls['integer2']">
+                                  [formControl]="form.controls['integer2']"
+                                  [placeholder]="placeholder">
                 </ux-number-picker>
 
     `
@@ -28,6 +30,7 @@ export class NumberPickerTestFormGroupComponent {
     min = -10;
     max = 10;
     step = 1;
+    placeholder: string;
 
     constructor(formBuilder: FormBuilder) {
 
@@ -79,9 +82,21 @@ describe('Number Picker Component - FormGroup', () => {
     it('should initialise correctly', () => {
 
         expect(component).toBeTruthy();
-
         expect(component.form.controls.integer.value).toBe(0);
         expect(component.form.controls.integer2.value).toBe(0);
+    });
+
+    it('should display placeholder as undefined if not set', () => {
+        let placeholderTextInitial = fixture.nativeElement.querySelector('input').placeholder;
+        expect(placeholderTextInitial).toBe('undefined');
+
+        component.placeholder = 'Placeholder Text';
+        fixture.detectChanges();
+
+
+        let placeholderText = fixture.nativeElement.querySelector('input').placeholder;
+        fixture.detectChanges();
+        expect(placeholderText).toBe('Placeholder Text');
     });
 
     it('should allow a number to be entered', async () => {
@@ -317,6 +332,67 @@ describe('Number Picker Component - FormGroup', () => {
             // 5th decrement
             await clickElement(input1DecrementBtn);
             expect(component.form.controls.integer.value).toBe(99999998.9);
+        });
+    });
+
+    describe('on scroll', () => {
+        it('should not change the value if the picker has not been focused', async () => {
+            component.form.controls.integer.setValue(0);
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            input1.dispatchEvent(new WheelEvent('wheel', { deltaY: 5 }));
+            fixture.detectChanges();
+            await fixture.whenStable();
+            expect(input1.value).toBe('0');
+
+            input1.dispatchEvent(new WheelEvent('wheel', { deltaY: -5 }));
+            fixture.detectChanges();
+            await fixture.whenStable();
+            expect(input1.value).toBe('0');
+        });
+        it('should change the value if the picker is focused', async () => {
+            component.form.controls.integer.setValue(0);
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            await input1.focus();
+            fixture.detectChanges();
+            await fixture.whenStable();
+            debugger;
+
+            input1.dispatchEvent(new WheelEvent('wheel', { deltaY: 5 }));
+            fixture.detectChanges();
+            await fixture.whenStable();
+            expect(input1.value).toBe('-1');
+
+            input1.dispatchEvent(new WheelEvent('wheel', { deltaY: -5 }));
+            fixture.detectChanges();
+            await fixture.whenStable();
+            expect(input1.value).toBe('0');
+        });
+        it('should stop changing the value if the picker is blured', async () => {
+            component.form.controls.integer.setValue(0);
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            input1.focus();
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            input1.dispatchEvent(new WheelEvent('wheel', { deltaY: 5 }));
+            fixture.detectChanges();
+            await fixture.whenStable();
+            expect(input1.value).toBe('-1');
+
+            input1.blur();
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            input1.dispatchEvent(new WheelEvent('wheel', { deltaY: -5 }));
+            fixture.detectChanges();
+            await fixture.whenStable();
+            expect(input1.value).toBe('-1');
         });
     });
 });

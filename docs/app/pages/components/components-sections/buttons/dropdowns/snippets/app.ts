@@ -23,4 +23,8 @@ export class AppComponent {
     ];
 
     caseFilter: string = '';
+
+    export(): void {}
+    saveList(): void {}
+    saveQuery(): void {}
 }

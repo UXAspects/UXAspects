@@ -54,7 +54,7 @@
 
     <ux-menu-divider></ux-menu-divider>
 
-    <button type="button" uxMenuItem>
+    <button type="button" uxMenuItem (activate)="export()">
         <span class="dropdown-menu-icon"></span>
         <span class="dropdown-menu-text">Export</span>
     </button>
@@ -67,13 +67,13 @@
         </span>
     </button>
 
-    <button type="button" uxMenuItem>
+    <button type="button" uxMenuItem (activate)="saveList()">
         <span class="dropdown-menu-icon"></span>
         <span class="dropdown-menu-text">Save list</span>
         <span class="dropdown-menu-right dropdown-menu-hint">ALT+L</span>
     </button>
 
-    <button type="button" uxMenuItem>
+    <button type="button" uxMenuItem (activate)="saveQuery()">
         <span class="dropdown-menu-icon"></span>
         <span class="dropdown-menu-text">Save search query</span>
         <span class="dropdown-menu-right dropdown-menu-hint">ALT+S</span>
@@ -209,6 +209,12 @@
     </tr>
     <tr uxd-api-property name="role" type="'menuitem' | 'menuitemradio' | 'menuitemcheckbox'" defaultValue="menuitem">
         Define the role of the menu item.
+    </tr>
+</uxd-api-properties>
+
+<uxd-api-properties tableTitle="Menu Item Outputs">
+    <tr uxd-api-property name="activate" type="MouseEvent | KeyboardEvent">
+        Emits when the menu item is clicked or the enter key is pressed.
     </tr>
 </uxd-api-properties>
 

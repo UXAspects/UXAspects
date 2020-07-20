@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Breadcrumb, PageHeaderIconMenu, PageHeaderNavigationItem } from '@ux-aspects/ux-aspects';
+import { Breadcrumb, PageHeaderIconMenu, PageHeaderNavigationAlignment, PageHeaderNavigationItem } from '@ux-aspects/ux-aspects';
 
 @Component({
     selector: 'page-header-app',
@@ -9,7 +9,7 @@ export class PageHeaderTestPageComponent {
 
     condensed: boolean = false;
     autoselect: boolean = false;
-    alignment: string = 'center';
+    alignment: PageHeaderNavigationAlignment = 'center';
     selected: string;
 
     crumbs: Breadcrumb[] = [{
