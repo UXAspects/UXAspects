@@ -9,7 +9,13 @@ import { MenuModule } from './menu.module';
     selector: 'app-menu-test',
     template: `
         <ux-menu #menu>
-            <button uxMenuItem>Item One</button>
+            <button
+                type="button"
+                id="menu-item-1"
+                uxMenuItem
+                (activate)="item1Activated($event)">
+                Item One
+            </button>
             <ux-menu-divider></ux-menu-divider>
             <button
                 uxMenuItem
@@ -38,6 +44,8 @@ import { MenuModule } from './menu.module';
 export class MenuTestComponent {
     @ViewChild('menuTrigger', { static: true }) trigger: MenuTriggerDirective;
     @ViewChild('subMenuTrigger', { static: true }) subMenuTrigger: MenuTriggerDirective;
+
+    item1Activated(_: MouseEvent | KeyboardEvent): void {}
 }
 
 describe('MenuComponent', () => {
@@ -339,6 +347,34 @@ describe('MenuComponent', () => {
         expect(component.trigger.menu._isFocused$.value).toBeFalsy();
         expect(component.subMenuTrigger.menu._isHovering$.value).toBeFalsy();
         expect(component.subMenuTrigger.menu._isFocused$.value).toBeFalsy();
+    });
+
+    it('should emit an activated event when clicking on menu item', async () => {
+        component.trigger.openMenu();
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        spyOn(component, 'item1Activated');
+
+        const item1Element = overlayContainerElement.querySelector('#menu-item-1') as HTMLButtonElement;
+        expect(item1Element).toBeTruthy();
+        item1Element.click();
+
+        expect(component.item1Activated).toHaveBeenCalledTimes(1);
+    });
+
+    it('should emit an activated event when pressing enter key on a menu item', async () => {
+        component.trigger.openMenu();
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        spyOn(component, 'item1Activated');
+
+        const item1Element = overlayContainerElement.querySelector('#menu-item-1') as HTMLButtonElement;
+        expect(item1Element).toBeTruthy();
+        item1Element.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
+
+        expect(component.item1Activated).toHaveBeenCalledTimes(1);
     });
 });
 

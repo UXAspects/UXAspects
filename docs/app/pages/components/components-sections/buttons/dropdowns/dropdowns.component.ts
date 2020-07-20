@@ -47,4 +47,8 @@ export class ComponentsDropdownsComponent extends BaseDocumentationSection imple
     constructor() {
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
     }
+
+    export(): void {}
+    saveList(): void {}
+    saveQuery(): void {}
 }
