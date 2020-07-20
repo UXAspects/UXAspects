@@ -70,8 +70,6 @@ export class HierarchicalSearchBuilderComponent {
 
         this.query = temp;
 
-        console.log(this.query);
-
         this.queryChange.emit(this.cleanQuery(this.query));
     }
 
