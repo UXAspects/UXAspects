@@ -173,6 +173,34 @@ describe('Dashboard Tests', () => {
 
     });
 
+    it('should allow subsequent widgets to be moved', async () => {
+
+        const layoutMock =  [{ id: 'analytics-1-widget', col: 0, row: 2, colSpan: 4, rowSpan: 2},
+                             { id: 'subscription-widget', col: 2, row: 1, colSpan: 2, rowSpan: 1},
+                             { id: 'users-widget', col: 2, row: 0, colSpan: 1, rowSpan: 1},
+                             { id: 'alert-widget', col: 3, row: 0, colSpan: 1, rowSpan: 1}];
+
+        // drag widget1 down
+        await browser.actions().dragAndDrop(widget1, { x: 0, y: 250 }).perform();
+
+        // drag widget2 down and right
+        await browser.actions().dragAndDrop(widget2, { x: 500, y: 250 }).perform();
+
+        expect(await page.getWidgetLocationValue(widget1, 'top')).toBe(440, 'widget1 top');
+        expect(await page.getWidgetLocationValue(widget1, 'left')).toBe(0, 'widget1 left');
+
+        expect(await page.getWidgetLocationValue(widget2, 'top')).toBe(220, 'widget2 top');
+        expect(await page.getWidgetLocationValue(widget2, 'left')).toBe(554, 'widget2 left');
+
+        expect(await page.getWidgetLocationValue(widget3, 'top')).toBe(0, 'widget3 top');
+        expect(await page.getWidgetLocationValue(widget3, 'left')).toBe(554, 'widget3 left');
+
+        expect(await page.getWidgetLocationValue(widget4, 'top')).toBe(0, 'widget4 top');
+        expect(await page.getWidgetLocationValue(widget4, 'left')).toBe(831, 'widget4 left');
+
+        expect(JSON.parse(await page.getLayoutOutput())).toEqual(layoutMock);
+    });
+
     it('should manage focus of the grab handles', async () => {
 
         // Set focus to the element before the dashboard

@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, ContentChildren, ElementRef, EventEmitter, HostBinding, Input, OnDestroy, OnChanges, Output, QueryList, ViewChild, ChangeDetectorRef } from '@angular/core';
+import { AfterContentInit, AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, ElementRef, EventEmitter, HostBinding, Input, OnChanges, OnDestroy, Output, QueryList, ViewChild } from '@angular/core';
 import { Subject } from 'rxjs';
 import { map, takeUntil, tap } from 'rxjs/operators';
 import { ResizeDimensions } from '../../directives/resize/resize.service';
@@ -16,7 +16,7 @@ import { DashboardWidgetComponent } from './widget/dashboard-widget.component';
         DashboardGrabHandleService
     ]
 })
-export class DashboardComponent implements AfterViewInit, OnDestroy, OnChanges {
+export class DashboardComponent implements AfterViewInit, AfterContentInit, OnDestroy, OnChanges {
 
     isGrabbing: boolean = false;
 
@@ -65,6 +65,10 @@ export class DashboardComponent implements AfterViewInit, OnDestroy, OnChanges {
     ngAfterViewInit(): void {
         // set the initial dimensions
         this.dashboardService.setDimensions(this.dashboardElement.nativeElement.offsetWidth, this.dashboardElement.nativeElement.offsetHeight);
+    }
+
+    ngAfterContentInit(): void {
+        this.dashboardService.initialized$.next(true);
     }
 
     ngOnChanges(): void {
