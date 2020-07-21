@@ -51,6 +51,16 @@ export class HierarchicalSearchBuilderGroupComponent implements OnInit {
         }];
     }
 
+    addGroup() {
+        this.subquery.children = [...this.subquery.children, {
+            type: 'group',
+            logicalOperator: this._hsbService.getLogicalOperators()[0].name,
+            children: [
+                { type: 'condition', field: null, operator: null, value: null, editable: true },
+            ],
+        }];
+    }
+
     removeConditionAtIndex(id: number) {
         this.subquery.children = this.subquery.children.filter((child, index) => {
             return index !== id;

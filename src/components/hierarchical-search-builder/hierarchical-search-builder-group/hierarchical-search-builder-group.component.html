@@ -41,7 +41,7 @@
 <div class="row m-l-lg m-b-sm">
     <div class="col">
         <button
-            (click)="addCondition()"
+            [uxMenuTriggerFor]="addMenu"
             type="button"
             class="btn btn-icon button-primary"
             aria-label="Add">
@@ -49,3 +49,13 @@
         </button>
     </div>
 </div>
+
+<ux-menu #addMenu>
+    <button type="button" uxMenuItem (click)="addCondition()">
+        <span class="dropdown-menu-text">Add condition</span>
+    </button>
+
+    <button type="button" uxMenuItem (click)="addGroup()">
+        <span class="dropdown-menu-text">Add logical operator</span>
+    </button>
+</ux-menu>

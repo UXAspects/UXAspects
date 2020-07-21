@@ -28,6 +28,7 @@
 
     <div class="col-xs-1">
         <button
+            [disabled]="!(_field && _operator && _value)"
             (click)="confirmCondition()"
             type="button"
             class="btn btn-link btn-icon btn-lg button-secondary"
@@ -40,7 +41,7 @@
 <ng-template #uneditable>
     <div class="row" uxHoverActionContainer>
         <div class="col-xs-10">
-            {{ _field.label }} {{ _operator.label }} {{ _value | json }}
+            <p>{{ _field.label }} {{ _operator.label }} {{ _value | json }}</p>
         </div>
 
         <div class="col-xs-2">
