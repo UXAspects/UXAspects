@@ -10,7 +10,7 @@ export class NotificationTestPageComponent {
     direction = 'above';
     position = 'top-right';
 
-    @ViewChild('notification') notification: TemplateRef<any>;
+    @ViewChild('notification', { static: false }) notification: TemplateRef<any>;
 
     constructor(private _notificationService: NotificationService) {}
 

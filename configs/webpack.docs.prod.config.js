@@ -11,6 +11,7 @@ const { OptimizeCssWebpackPlugin } = require('@angular-devkit/build-angular/src/
 const TerserPlugin = require('terser-webpack-plugin');
 const { IndexHtmlWebpackPlugin } = require('@angular-devkit/build-angular/src/angular-cli-files/plugins/index-html-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const { BuildOptimizerWebpackPlugin } = require('@angular-devkit/build-optimizer');
 
 // Node has a limit to the number of files that can be open - prevent the error
 gracefulFs.gracefulify(fs);
@@ -77,20 +78,10 @@ module.exports = {
             },
             {
                 test: /\.js$/,
-                use: [
-                    {
-                        loader: 'cache-loader',
-                        options: {
-                            cacheDirectory: join(cwd(), 'node_modules', '@angular-devkit', 'build-optimizer', 'src', '.cache')
-                        }
-                    },
-                    {
-                        loader: '@angular-devkit/build-optimizer/webpack-loader',
-                        options: {
-                            sourceMap: false
-                        }
-                    }
-                ]
+                loader: '@angular-devkit/build-optimizer/webpack-loader',
+                options: {
+                    sourceMap: false
+                }
             },
             {
                 test: /\.less$/,
@@ -119,13 +110,13 @@ module.exports = {
             {
                 test: /\.(html|js|css|ts)$/,
                 use: 'code-snippet-loader',
-                include: /(snippets)/
+                include: /snippets/
             },
 
             {
                 test: /\.txt$/,
                 use: 'raw-loader',
-                include: /(templates)/
+                include: /templates/
             },
             // Ignore warnings about System.import in Angular
             {
@@ -164,24 +155,29 @@ module.exports = {
             }),
             new TerserPlugin({
                 sourceMap: false,
-                parallel: true,
+                parallel: 7,
                 cache: true,
                 terserOptions: {
-                    ecma: 5,
                     warnings: false,
                     safari10: true,
                     output: {
+                        ecma: 5,
                         ascii_only: true,
                         comments: false,
                         webkit: true,
+                        beautify: false
                     },
-                    compress: ({
+                    compress: {
+                        ecma: 5,
                         pure_getters: true,
                         passes: 3,
                         global_defs: {
                             ngDevMode: false,
+                            ngI18nClosureMode: false,
+                            ngJitMode: false
                         }
-                    }),
+                    },
+                    mangle: true
                 }
             }),
             new OptimizeCSSAssetsPlugin({})
@@ -205,32 +201,34 @@ module.exports = {
             chunkFilename: '[id].css'
         }),
 
-        new CopyWebpackPlugin([
-            {
-                from: join(cwd(), 'docs', 'favicon.ico'),
-                to: join(cwd(), 'dist', 'docs', 'favicon.ico')
-            },
-            {
-                from: join(cwd(), 'dist', 'library', 'bundles', 'ux-aspects-ux-aspects.umd.js'),
-                to: join(cwd(), 'dist', 'docs', 'assets', 'lib', 'index.js')
-            },
-            {
-                from: join(cwd(), 'docs', 'app', 'assets'),
-                to: join(cwd(), 'dist', 'docs', 'assets')
-            },
-            {
-                from: join(cwd(), 'dist', 'library', 'styles'),
-                to: join(cwd(), 'dist', 'docs', 'assets', 'css')
-            },
-            {
-                from: join(cwd(), 'src', 'fonts'),
-                to: join(cwd(), 'dist', 'docs', 'assets', 'fonts')
-            },
-            {
-                from: join(cwd(), 'src', 'img'),
-                to: join(cwd(), 'dist', 'docs', 'assets', 'img')
-            },
-        ]),
+        new CopyWebpackPlugin({
+            patterns: [
+                {
+                    from: join(cwd(), 'docs', 'favicon.ico'),
+                    to: join(cwd(), 'dist', 'docs', 'favicon.ico')
+                },
+                {
+                    from: join(cwd(), 'dist', 'library', 'bundles', 'ux-aspects-ux-aspects.umd.js'),
+                    to: join(cwd(), 'dist', 'docs', 'assets', 'lib', 'index.js')
+                },
+                {
+                    from: join(cwd(), 'docs', 'app', 'assets'),
+                    to: join(cwd(), 'dist', 'docs', 'assets')
+                },
+                {
+                    from: join(cwd(), 'dist', 'library', 'styles'),
+                    to: join(cwd(), 'dist', 'docs', 'assets', 'css')
+                },
+                {
+                    from: join(cwd(), 'src', 'fonts'),
+                    to: join(cwd(), 'dist', 'docs', 'assets', 'fonts')
+                },
+                {
+                    from: join(cwd(), 'src', 'img'),
+                    to: join(cwd(), 'dist', 'docs', 'assets', 'img')
+                },
+            ]
+        }),
 
         new AngularCompilerPlugin({
             entryModule: join(cwd(), './docs/app/app.module#AppModule'),
@@ -239,6 +237,8 @@ module.exports = {
             skipCodeGeneration: false,
             nameLazyFiles: false
         }),
+
+        new BuildOptimizerWebpackPlugin(),
 
         new DefinePlugin({
             VERSION: JSON.stringify(require('../src/package.json').version),

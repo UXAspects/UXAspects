@@ -2,10 +2,9 @@ import { FocusOrigin } from '@angular/cdk/a11y';
 import { Injectable } from '@angular/core';
 
 /**
- * This service can be changed to `providedIn: 'root'` whenever
- * Angular 7 support can be dropped. There is an issue with backwards
- * compatibility. We can eventually remove it from the module and make
- * the `_origin` field a class member rather than a static member.
+ * This cannot be providedIn: 'root' due to a backward compatibility issue.
+ * We can eventually remove it from the module and make the `_origin` field a class member rather than a
+ * static member.
  */
 
 @Injectable()

@@ -1,21 +1,15 @@
-import { Injectable, InjectFlags, Injector } from '@angular/core';
-import { COLOR_SET_TOKEN, ColorSet, colorSets } from './color-sets/index';
+import { Inject, Injectable, Optional } from '@angular/core';
+import { ColorSet, colorSets, COLOR_SET_TOKEN } from './color-sets/index';
 import { ThemeColor } from './theme-color';
 
 @Injectable()
 export class ColorService {
 
-    /** Store the current colorset */
-    private _colorSet: ColorSet;
-
     /** Set the default theme to the Keppel colorset */
     private _theme: Readonly<Theme>;
 
     /** Allow the color set to be provided in a forRoot function otherwise set it to the Keppel theme by default */
-    constructor(injector: Injector) {
-        // Workaround for Angular 7 issues (https://github.com/angular/angular-cli/issues/14888)
-        // We can't inject an optional token into the constructor directly or we get a runtime exception
-        this._colorSet = injector.get(COLOR_SET_TOKEN, null, InjectFlags.Optional) as ColorSet;
+    constructor(@Optional() @Inject(COLOR_SET_TOKEN) private _colorSet: ColorSet) {
 
         // resolve the theme based on the colorset
         this._theme = this.getTheme(this._colorSet);
