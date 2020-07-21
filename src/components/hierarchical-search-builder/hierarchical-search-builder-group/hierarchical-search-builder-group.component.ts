@@ -14,9 +14,8 @@ export class HierarchicalSearchBuilderGroupComponent implements OnInit {
 
     @Output() groupChange = new EventEmitter<QueryGroup>();
 
-    logicalOperators: LogicalOperatorDefinition[];
-
-    selectedLogicalOperator: LogicalOperatorDefinition;
+    public logicalOperators: LogicalOperatorDefinition[];
+    public selectedLogicalOperator: LogicalOperatorDefinition;
 
     constructor(private _hsbService: HierarchicalSearchBuilderService) {
     }
@@ -26,13 +25,13 @@ export class HierarchicalSearchBuilderGroupComponent implements OnInit {
         this.selectedLogicalOperator = this._hsbService.getLogicalOperatorByName(this.logicalOperatorName);
     }
 
-    handleSelectedOperatorChange(selectedOperator: LogicalOperatorDefinition) {
+    public handleSelectedOperatorChange(selectedOperator: LogicalOperatorDefinition) {
         this.selectedLogicalOperator = selectedOperator;
         this.subquery = { ...this.subquery, logicalOperator: this.selectedLogicalOperator.name };
         this.groupChange.emit(this.subquery);
     }
 
-    handleGroupChange(event: QueryGroup | QueryCondition, index: number) {
+    public handleGroupChange(event: QueryGroup | QueryCondition, index: number) {
         this.subquery.children[index] = event;
 
         // remove children that have been deleted
@@ -41,7 +40,7 @@ export class HierarchicalSearchBuilderGroupComponent implements OnInit {
         this.groupChange.emit(this.subquery);
     }
 
-    addCondition() {
+    public addCondition() {
         this.subquery.children = [...this.subquery.children, {
             type: 'condition',
             field: null,
@@ -51,7 +50,7 @@ export class HierarchicalSearchBuilderGroupComponent implements OnInit {
         }];
     }
 
-    addGroup() {
+    public addGroup() {
         this.subquery.children = [...this.subquery.children, {
             type: 'group',
             logicalOperator: this._hsbService.getLogicalOperators()[0].name,
@@ -61,7 +60,7 @@ export class HierarchicalSearchBuilderGroupComponent implements OnInit {
         }];
     }
 
-    removeConditionAtIndex(id: number) {
+    public removeConditionAtIndex(id: number) {
         this.subquery.children = this.subquery.children.filter((child, index) => {
             return index !== id;
         });
@@ -69,7 +68,7 @@ export class HierarchicalSearchBuilderGroupComponent implements OnInit {
         this.groupChange.emit(this.subquery);
     }
 
-    deleteGroup(): void {
+    public deleteGroup(): void {
         this.subquery = null;
         this.groupChange.emit(this.subquery);
     }

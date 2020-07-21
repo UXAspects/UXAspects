@@ -45,19 +45,18 @@ export class HierarchicalSearchBuilderComponent {
 
     @Output() queryChange = new EventEmitter<HierarchicalSearchBuilderQuery>();
 
-
     constructor(private _hsbService: HierarchicalSearchBuilderService) {
     }
 
-    isQueryEmpty(): boolean {
+    public isQueryEmpty(): boolean {
         return !this.query?.type;
     }
 
-    getLogicalOperatorName(): string {
+    public getLogicalOperatorName(): string {
         return ('logicalOperator' in this.query) ? this.query.logicalOperator : null;
     }
 
-    handleGroupChange(query: HierarchicalSearchBuilderQuery) {
+    public handleGroupChange(query: HierarchicalSearchBuilderQuery) {
         let temp = { ...query };
 
         // make query just a condition if it contains exactly one group with exactly one condition in it
@@ -73,17 +72,17 @@ export class HierarchicalSearchBuilderComponent {
         this.queryChange.emit(this.cleanQuery(this.query));
     }
 
-    deleteCondition() {
+    public deleteCondition() {
         this.query = null;
     }
 
-    addCondition() {
+    public addCondition() {
         // adds a condition to the query if the query is empty
         this.query = { type: 'condition', field: null, operator: null, value: null, editable: true };
         this.queryChange.emit(this.cleanQuery(this.query));
     }
 
-    addGroup() {
+    public addGroup() {
         // adds a group to the condition if there is only one condition to the query and a second one is added
         const firstCondition = { ...this.query };
 
