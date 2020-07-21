@@ -15,6 +15,7 @@ export class DashboardService implements OnDestroy {
     private _cache: DashboardCache[];
     private _event: MouseEvent;
 
+    initialized$ = new BehaviorSubject<boolean>(false);
     widgets$ = new BehaviorSubject<DashboardWidgetComponent[]>([]);
     options$ = new BehaviorSubject<DashboardOptions>(defaultOptions);
     dimensions$ = new BehaviorSubject<DashboardDimensions>({});
@@ -50,16 +51,17 @@ export class DashboardService implements OnDestroy {
     private _onDestroy = new Subject<void>();
 
     constructor() {
-        combineLatest(this.layout$, this.widgets$, this.dimensions$)
-            .pipe(tick(), takeUntil(this._onDestroy))
-            .subscribe(([layout, widgets, dimensions]) => {
-                if (layout && widgets.length > 0 && dimensions.width && this.stacked === false) {
-                    this.setLayoutData(layout);
-                }
-            }
-        );
 
-        this.layout$.pipe(filter(() => !this.stacked), takeUntil(this._onDestroy)).subscribe(this.setLayoutData.bind(this));
+        combineLatest(this.layout$, this.widgets$, this.initialized$)
+            .pipe(
+                tick(),
+                filter(([layout, widgets, initialized]) => layout && widgets.length > 0 && initialized),
+                takeUntil(this._onDestroy)
+            )
+            .subscribe(([layout]) => {
+                this.setLayoutData(layout);
+            });
+
         this.stacked$.pipe(takeUntil(this._onDestroy), filter(stacked => stacked === true)).subscribe(this.updateWhenStacked.bind(this));
         this.widgets$.pipe(takeUntil(this._onDestroy), tick()).subscribe(() => this.renderDashboard());
         this.dimensions$.pipe(takeUntil(this._onDestroy), tick()).subscribe(() => this.renderDashboard());
