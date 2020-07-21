@@ -3,6 +3,7 @@ const { cwd } = require('process');
 
 const scripts = join(cwd(), 'scripts');
 const uxaScripts = join(cwd(), 'node_modules', '@ux-aspects', 'ux-aspects-scripts', 'bin');
+const downlevelDts = join(cwd(), 'node_modules', 'downlevel-dts', 'index.js');
 const ngPackagr = join(cwd(), 'node_modules', 'ng-packagr', 'cli', 'main.js');
 const webpack = join(cwd(), 'node_modules', 'webpack', 'bin', 'webpack.js');
 
@@ -18,6 +19,12 @@ module.exports = {
     },
     protractor: {
         src: [join(cwd(), 'scripts', 'protractor.js')]
+    },
+    'downlevel-dts': {
+        src: [downlevelDts],
+        options: {
+            args: [join(cwd(), 'dist', 'library'), join(cwd(), 'dist', 'library')]
+        }
     },
     ngpackagr: {
         src: [ngPackagr],
@@ -44,7 +51,4 @@ module.exports = {
             args: ['--config', 'configs/webpack.docs.prod.config.js']
         }
     },
-    typescriptTransform: {
-        src: [ join(cwd(), 'scripts', 'typescript-transforms.js') ]
-    }
 };

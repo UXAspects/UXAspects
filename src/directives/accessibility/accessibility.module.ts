@@ -21,7 +21,7 @@ import { TabbableListDirective } from './tabbable-list/tabbable-list.directive';
 import { FocusIndicatorOriginService } from './focus-indicator/focus-indicator-origin/focus-indicator-origin.service';
 
 /**
- * Note: This is a workaround for the Angular 7 providedIn: 'root'
+ * Note: This is a workaround for the Angular 8 providedIn: 'root'
  * issue.
  *
  * This provider allows us to have only a single instance
