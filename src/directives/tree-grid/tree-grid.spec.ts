@@ -25,7 +25,7 @@ export class TreeGridTestComponent {
     rows: TreeGridTestItem[];
 }
 
-fdescribe('Tree Grid', () => {
+describe('Tree Grid', () => {
     let component: TreeGridTestComponent;
     let fixture: ComponentFixture<TreeGridTestComponent>;
     let nativeElement: HTMLElement;
