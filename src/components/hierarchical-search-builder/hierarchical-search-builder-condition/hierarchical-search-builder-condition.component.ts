@@ -11,7 +11,7 @@ import {
     ViewChild,
     ViewContainerRef
 } from '@angular/core';
-import { HierarchicalSearchBuilderService } from '../hierarchical-search-builder.service';
+import { HierarchicalSearchBuilderService } from '../services/hierarchical-search-builder.service';
 import { FieldDefinition } from '../interfaces/FieldDefinition';
 import { OperatorDefinition } from '../interfaces/OperatorDefinition';
 import { QueryCondition } from '../interfaces/HierarchicalSearchBuilderQuery';

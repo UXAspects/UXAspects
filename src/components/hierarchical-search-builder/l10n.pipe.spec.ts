@@ -1,5 +1,5 @@
 import { L10nPipe } from './l10n.pipe';
-import { HierarchicalSearchBuilderService } from './hierarchical-search-builder.service';
+import { HierarchicalSearchBuilderService } from './services/hierarchical-search-builder.service';
 
 describe('L10nPipe', () => {
     let pipe: L10nPipe;

@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { LogicalOperatorDefinition } from './interfaces/LogicalOperatorDefinition';
-import { FieldDefinition } from './interfaces/FieldDefinition';
-import { OperatorDefinitionList } from './interfaces/OperatorDefinitionList';
-import { OperatorDefinition } from './interfaces/OperatorDefinition';
-import { HierarchicalSearchBuilderModule } from './hierarchical-search-builder.module';
+import { LogicalOperatorDefinition } from '../interfaces/LogicalOperatorDefinition';
+import { FieldDefinition } from '../interfaces/FieldDefinition';
+import { OperatorDefinitionList } from '../interfaces/OperatorDefinitionList';
+import { OperatorDefinition } from '../interfaces/OperatorDefinition';
+import { HierarchicalSearchBuilderModule } from '../hierarchical-search-builder.module';
 
 @Injectable({
     providedIn: 'root',

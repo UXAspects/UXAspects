@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from 
 import { LogicalOperatorDefinition } from './interfaces/LogicalOperatorDefinition';
 import { OperatorDefinitionList } from './interfaces/OperatorDefinitionList';
 import { FieldDefinition } from './interfaces/FieldDefinition';
-import { HierarchicalSearchBuilderService } from './hierarchical-search-builder.service';
+import { HierarchicalSearchBuilderService } from './services/hierarchical-search-builder.service';
 import { HierarchicalSearchBuilderQuery, QueryCondition } from './interfaces/HierarchicalSearchBuilderQuery';
 
 @Component({

@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { HierarchicalSearchBuilderService } from './hierarchical-search-builder.service';
+import { HierarchicalSearchBuilderService } from './services/hierarchical-search-builder.service';
 
 @Pipe({name: 'l10n'})
 export class L10nPipe implements PipeTransform {

@@ -4,7 +4,7 @@ import { TextInputComponent } from './input-components/text-input/text-input.com
 import { HierarchicalSearchBuilderComponent } from './hierarchical-search-builder.component';
 import { HierarchicalSearchBuilderGroupComponent } from './hierarchical-search-builder-group/hierarchical-search-builder-group.component';
 import { HierarchicalSearchBuilderConditionComponent } from './hierarchical-search-builder-condition/hierarchical-search-builder-condition.component';
-import { HierarchicalSearchBuilderService } from './hierarchical-search-builder.service';
+import { HierarchicalSearchBuilderService } from './services/hierarchical-search-builder.service';
 import { SelectModule } from '../select';
 import { NumberPickerModule } from '../number-picker';
 import { NumberInputComponent } from './input-components/number-input/number-input.component';

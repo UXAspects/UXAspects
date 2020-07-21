@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { QueryCondition, QueryGroup } from '../interfaces/HierarchicalSearchBuilderQuery';
 import { LogicalOperatorDefinition } from '../interfaces/LogicalOperatorDefinition';
-import { HierarchicalSearchBuilderService } from '../hierarchical-search-builder.service';
+import { HierarchicalSearchBuilderService } from '../services/hierarchical-search-builder.service';
 
 @Component({
     selector: 'ux-hierarchical-search-builder-group',
