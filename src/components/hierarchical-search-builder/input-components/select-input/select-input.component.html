@@ -9,21 +9,15 @@
     [key]="'name'">
 
     <ng-template #optionTemplate let-option="option" let-api="api">
-        <ng-container *ngIf="option.iconTemplate; else withIcon">
-            <ng-container *ngTemplateOutlet="option.iconTemplate"></ng-container>
+        <ng-container *ngIf="option.icon">
+            <ux-icon [name]="option.icon" class="m-r-sm"></ux-icon>
         </ng-container>
-
-        <ng-template #withIcon>
-            <ng-container *ngIf="option.iconName">
-                <ux-icon [name]="option.iconName" class="m-r-sm"></ux-icon>
-            </ng-container>
-        </ng-template>
 
         <span [innerHTML]="api.getDisplayHtml(option)"></span>
     </ng-template>
 
     <ng-template #tagTemplate let-tag="tag" let-index="index" let-api="api">
-        <ux-icon [name]="tag.iconName" class="m-r-sm"></ux-icon>
+        <ux-icon [name]="tag.icon" class="m-r-sm"></ux-icon>
         <span class="ux-tag-text">{{ tag.label }}</span>
         <button *ngIf="api.canRemoveTagAt(index)"
                 uxFocusIndicator

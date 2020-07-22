@@ -69,9 +69,9 @@ export class ComponentsHierarchicalSearchBuilderComponent extends BaseDocumentat
             fieldType: 'enum',
             data: {
                 options: [
-                    { name: 'performance', label: 'Performance', iconTemplate: this.iconTemplate, iconName: 'actions' },
-                    { name: 'security', label: 'Security', iconTemplate: this.iconTemplate, iconName: 'secure' },
-                    { name: 'usability', label: 'Usability', iconTemplate: this.iconTemplate, iconName: 'user' },
+                    { name: 'performance', label: 'Performance', icon: 'actions' },
+                    { name: 'security', label: 'Security', icon: 'secure' },
+                    { name: 'usability', label: 'Usability', icon: 'user' },
                 ]
             }
         },
@@ -81,7 +81,7 @@ export class ComponentsHierarchicalSearchBuilderComponent extends BaseDocumentat
         dateFormat: 'dd MMMM yyyy',
     };
 
-    /*query: HierarchicalSearchBuilderQuery = {
+    query: HierarchicalSearchBuilderQuery = {
         type: 'group',
         logicalOperator: 'and',
         children: [
@@ -97,11 +97,11 @@ export class ComponentsHierarchicalSearchBuilderComponent extends BaseDocumentat
             },
             { type: 'condition', field: 'number', operator: 'equals', value: 15 },
         ]
-    };*/
+    };
 
     // query: HierarchicalSearchBuilderQuery = { type: 'condition', field: 'name', operator: 'equals', value: 'test' };
 
-    query: HierarchicalSearchBuilderQuery = null;
+    // query: HierarchicalSearchBuilderQuery = null;
 
     preview: HierarchicalSearchBuilderQuery;
 
