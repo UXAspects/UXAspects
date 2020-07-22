@@ -4,6 +4,7 @@ import { FieldDefinition } from '../interfaces/FieldDefinition';
 import { OperatorDefinitionList } from '../interfaces/OperatorDefinitionList';
 import { OperatorDefinition } from '../interfaces/OperatorDefinition';
 import { LogicalExpressionBuilderModule } from '../logical-expression-builder.module';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
     providedIn: 'root',
@@ -13,9 +14,7 @@ export class LogicalExpressionBuilderService {
     private _fields: FieldDefinition[] = [];
     private _operators: OperatorDefinitionList = {};
     private _localizedStrings = {};
-
-    constructor() {
-    }
+    private _editBlocked: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
     // Logical operators
     setLogicalOperators(logicalOperators: LogicalOperatorDefinition[]): void {
@@ -55,5 +54,14 @@ export class LogicalExpressionBuilderService {
 
     getLocalizedStrings(): any {
         return this._localizedStrings;
+    }
+
+    // editBlocked
+    getEditBlocked(): Observable<boolean> {
+        return this._editBlocked.asObservable();
+    }
+
+    setEditBlocked(editBlocked: boolean): void {
+        this._editBlocked.next(editBlocked);
     }
 }

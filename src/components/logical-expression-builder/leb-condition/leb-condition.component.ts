@@ -15,7 +15,7 @@ import { LogicalExpressionBuilderService } from '../services/logical-expression-
 import { FieldDefinition } from '../interfaces/FieldDefinition';
 import { OperatorDefinition } from '../interfaces/OperatorDefinition';
 import { ExpressionCondition } from '../interfaces/LogicalExpressionBuilderExpression';
-import { Subject } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
 
 @Component({
@@ -49,11 +49,18 @@ export class LebConditionComponent implements OnInit, OnDestroy {
     public _value: any;
 
     public editable: boolean = true;
+    private _editBlockedSubscription: Subscription;
+    _editBlocked: boolean;
 
     private _condition: ExpressionCondition;
     private _destroy$ = new Subject<void>();
 
     constructor(private _lebService: LogicalExpressionBuilderService, private _cfr: ComponentFactoryResolver) {
+        this._editBlockedSubscription = this._lebService.getEditBlocked()
+            .pipe(takeUntil(this._destroy$))
+            .subscribe((value) => {
+                this._editBlocked = value;
+            });
     }
 
     ngOnInit(): void {
@@ -130,6 +137,8 @@ export class LebConditionComponent implements OnInit, OnDestroy {
     }
 
     public confirmCondition(): void {
+        this._lebService.setEditBlocked(false);
+
         this.editable = false;
         this.buildCondition();
         this._condition = { ...this._condition, editable: false };
@@ -137,13 +146,19 @@ export class LebConditionComponent implements OnInit, OnDestroy {
     }
 
     public editCondition(): void {
-        this.editable = true;
-        this.buildCondition();
-        this._condition = { ...this._condition, editable: true };
-        this.conditionChange.emit(this._condition);
+        if (!this._editBlocked) {
+            this._lebService.setEditBlocked(true);
+
+            this.editable = true;
+            this.buildCondition();
+            this._condition = { ...this._condition, editable: true };
+            this.conditionChange.emit(this._condition);
+        }
     }
 
     public deleteCondition(): void {
-        this.conditionDeleted.emit(this.id);
+        if (!this._editBlocked) {
+            this.conditionDeleted.emit(this.id);
+        }
     }
 }

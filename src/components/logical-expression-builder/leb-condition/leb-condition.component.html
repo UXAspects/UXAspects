@@ -46,6 +46,7 @@
 
         <td>
             <button
+                [disabled]="_editBlocked"
                 uxHoverAction
                 (click)="editCondition()"
                 type="button"
@@ -55,6 +56,7 @@
             </button>
 
             <button
+                [disabled]="_editBlocked"
                 uxHoverAction
                 (click)="deleteCondition()"
                 type="button"
