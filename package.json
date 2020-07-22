@@ -75,6 +75,9 @@
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.1000.2",
     "@angular-devkit/build-optimizer": "~0.1000.2",
+    "@babel/core": "^7.10.5",
+    "@babel/plugin-transform-spread": "^7.10.4",
+    "@babel/preset-env": "^7.10.4",
     "@ngtools/webpack": "^10.0.2",
     "@types/chance": "0.7.35",
     "@types/chart.js": "^2.9.14",
@@ -90,6 +93,7 @@
     "@ux-aspects/ux-aspects-scripts": "^2.5.0",
     "angular2-template-loader": "0.6.2",
     "awesome-typescript-loader": "5.2.1",
+    "babel-loader": "^8.1.0",
     "cheerio": "^1.0.0-rc.2",
     "chromedriver": "83.0.0",
     "circular-dependency-plugin": "^5.0.2",
