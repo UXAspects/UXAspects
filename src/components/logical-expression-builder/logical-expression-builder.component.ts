@@ -96,6 +96,7 @@ export class LogicalExpressionBuilderComponent {
             ]
         };
 
+        this._lebService.setEditBlocked(true);
         this.expressionChange.emit(this.cleanExpression(this.expression));
     }
 
