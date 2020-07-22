@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, TemplateRef, ViewChild } from '@angular/core';
 import {
     ColorService,
     FieldDefinition,
     HierarchicalSearchBuilderQuery,
-    LogicalOperatorDefinition, NumberInputComponent,
+    LogicalOperatorDefinition,
+    NumberInputComponent,
     OperatorDefinitionList,
     TextInputComponent,
     SelectInputComponent,
@@ -55,6 +56,8 @@ export class ComponentsHierarchicalSearchBuilderComponent extends BaseDocumentat
         ],
     };
 
+    @ViewChild('iconTemplate', { static: true }) iconTemplate: TemplateRef<any>;
+
     fields: FieldDefinition[] = [
         { name: 'name', label: 'Name', fieldType: 'text' },
         { name: 'date', label: 'Date', fieldType: 'date', data: {} },
@@ -66,9 +69,9 @@ export class ComponentsHierarchicalSearchBuilderComponent extends BaseDocumentat
             fieldType: 'enum',
             data: {
                 options: [
-                    { name: 'performance', label: 'Performance' },
-                    { name: 'security', label: 'Security' },
-                    { name: 'usability', label: 'Usability' },
+                    { name: 'performance', label: 'Performance', iconTemplate: this.iconTemplate, iconName: 'actions' },
+                    { name: 'security', label: 'Security', iconTemplate: this.iconTemplate, iconName: 'secure' },
+                    { name: 'usability', label: 'Usability', iconTemplate: this.iconTemplate, iconName: 'user' },
                 ]
             }
         },

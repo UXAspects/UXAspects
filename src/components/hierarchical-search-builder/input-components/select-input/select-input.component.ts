@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, TemplateRef } from '@angular/core';
 
 @Component({
     selector: 'ux-select-input',
@@ -6,22 +6,35 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
     // styleUrls: ['']
 })
 export class SelectInputComponent implements OnInit {
-    @Input() value: string[] = [];
-    @Input() data: { options: SelectOption[] } = { options: [] };
+    @Input() value: string[];
+
+    _value: ReadonlyArray<SelectOption>;
+
+    @Input()
+    set data(data: SelectInputConfig) {
+        if (data?.options) {
+            this._options = data.options;
+        } else {
+            this._options = [];
+        }
+    }
+
+    _options: ReadonlyArray<SelectOption>;
+
     @Output() valueChange = new EventEmitter<string[]>();
 
-    _value: SelectOption[];
-
     ngOnInit() {
-        let temp: SelectOption[] = [];
-        this.value?.forEach((value) => {
-            const option = this.data?.options?.find((o) => o.name === value);
+        if (Array.isArray(this.value)) {
+            this._value = this.value.map((v) => {
+                const option = this._options?.find((o) => o.name === v);
 
-            if (option) {
-                temp.push(option);
-            }
-        });
-        this._value = temp;
+                if (option) {
+                    return option;
+                } else {
+                    return;
+                }
+            });
+        }
     }
 
     handleValueChange(value: SelectOption[]) {
@@ -30,4 +43,5 @@ export class SelectInputComponent implements OnInit {
     }
 }
 
-type SelectOption = { name: string, label: string };
+type SelectOption = { name: string, label: string, iconTemplate?: TemplateRef<any> };
+type SelectInputConfig = { options: SelectOption[] };
