@@ -115,6 +115,35 @@ module.exports = {
             {
                 test: /[\/\\]@angular[\/\\].+\.js$/,
                 parser: { system: true }
+            },
+
+            // Downlevel Angular Packages
+            {
+                test: /[\/\\]@angular[\/\\].+\.js$/,
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                        presets: [
+                            [
+                                '@babel/preset-env',
+                                {
+                                    targets: ['chrome 84', 'ie 11',],
+                                    modules: false,
+                                    exclude: ['transform-typeof-symbol'], // 'transform-typeof-symbol' generates slower code
+                                },
+                            ]
+                        ],
+                        plugins: [
+                            ['@babel/plugin-transform-spread', { loose: true }]
+                        ],
+                        inputSourceMap: false,
+                        babelrc: false,
+                        configFile: false,
+                        minified: false,
+                        compact: false,
+                        cacheDirectory: true
+                    }
+                }
             }
         ]
     },
@@ -147,7 +176,6 @@ module.exports = {
     },
 
     plugins: [
-
         new IndexHtmlWebpackPlugin({
             input: './docs/index.html',
             output: 'index.html',
