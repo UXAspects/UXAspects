@@ -43,7 +43,6 @@ export class TreeGridRowDirective implements OnInit, OnDestroy {
 
     constructor(changeDetector: ChangeDetectorRef, private _treeGridService: TreeGridService) {
         this._expanded$.pipe(distinctUntilChanged(), tick(), takeUntil(this._onDestroy)).subscribe(expanded => {
-            this.expandedChange.emit(expanded);
             this._treeGridService.setExpanded(this.item, expanded);
             this.isExpanded = expanded;
             changeDetector.detectChanges();
@@ -69,6 +68,7 @@ export class TreeGridRowDirective implements OnInit, OnDestroy {
     collapse(event?: Event): void {
 
         this.expanded = false;
+        this.expandedChange.emit(false);
 
         if (event) {
             event.preventDefault();
@@ -79,7 +79,12 @@ export class TreeGridRowDirective implements OnInit, OnDestroy {
     expand(event?: Event): void {
 
         // take into account whether or not the item can expanded
-        this.expanded = this.canExpand && true;
+        if (!this.canExpand) {
+            return;
+        }
+
+        this.expanded = true;
+        this.expandedChange.emit(true);
 
         if (event) {
             event.preventDefault();

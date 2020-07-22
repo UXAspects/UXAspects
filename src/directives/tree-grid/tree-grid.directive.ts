@@ -1,6 +1,7 @@
 import { Directive, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { tick } from '../../common/index';
 import { TreeGridItem } from './tree-grid-item.interface';
 import { TreeGridLoadFunction } from './tree-grid-load-function.type';
 import { TreeGridService } from './tree-grid.service';
@@ -34,7 +35,7 @@ export class TreeGridDirective implements OnInit, OnDestroy {
     constructor(private _treeGridService: TreeGridService) {}
 
     ngOnInit(): void {
-        this._treeGridService.rows$.pipe(takeUntil(this._onDestroy)).subscribe(rows => this.rowsChange.emit(rows));
+        this._treeGridService.rows$.pipe(tick(), takeUntil(this._onDestroy)).subscribe(rows => this.rowsChange.emit(rows));
     }
 
     ngOnDestroy(): void {
