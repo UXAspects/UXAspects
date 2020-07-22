@@ -21,7 +21,7 @@ export * from './components/facets/index';
 export * from './components/filters/index';
 export * from './components/flippable-card/index';
 export * from './components/floating-action-buttons/index';
-export * from './components/hierarchical-search-builder/index';
+export * from './components/logical-expression-builder/index';
 export * from './components/hierarchy-bar/index';
 export * from './components/icon/index';
 export * from './components/item-display-panel/index';

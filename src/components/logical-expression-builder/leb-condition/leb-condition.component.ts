@@ -11,19 +11,19 @@ import {
     ViewChild,
     ViewContainerRef
 } from '@angular/core';
-import { HierarchicalSearchBuilderService } from '../services/hierarchical-search-builder.service';
+import { LogicalExpressionBuilderService } from '../services/logical-expression-builder.service';
 import { FieldDefinition } from '../interfaces/FieldDefinition';
 import { OperatorDefinition } from '../interfaces/OperatorDefinition';
-import { QueryCondition } from '../interfaces/HierarchicalSearchBuilderQuery';
+import { ExpressionCondition } from '../interfaces/LogicalExpressionBuilderExpression';
 import { Subject } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
 
 @Component({
-    selector: 'ux-hierarchical-search-builder-condition',
-    templateUrl: './hierarchical-search-builder-condition.component.html',
+    selector: 'ux-leb-condition',
+    templateUrl: './leb-condition.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HierarchicalSearchBuilderConditionComponent implements OnInit, OnDestroy {
+export class LebConditionComponent implements OnInit, OnDestroy {
 
     @ViewChild('inputContainer', { read: ViewContainerRef, static: false }) set container(container: ViewContainerRef) {
         if (container) {
@@ -35,8 +35,8 @@ export class HierarchicalSearchBuilderConditionComponent implements OnInit, OnDe
     private _inputContainer: ViewContainerRef;
     private _inputComponentRef: ComponentRef<any>;
 
-    @Input() condition: QueryCondition;
-    @Output() conditionChange = new EventEmitter<QueryCondition>();
+    @Input() condition: ExpressionCondition;
+    @Output() conditionChange = new EventEmitter<ExpressionCondition>();
 
     @Input() id: number;
     @Output() conditionDeleted = new EventEmitter<number>();
@@ -50,20 +50,20 @@ export class HierarchicalSearchBuilderConditionComponent implements OnInit, OnDe
 
     public editable: boolean = true;
 
-    private _condition: QueryCondition;
+    private _condition: ExpressionCondition;
     private _destroy$ = new Subject<void>();
 
-    constructor(private _hsbService: HierarchicalSearchBuilderService, private _cfr: ComponentFactoryResolver) {
+    constructor(private _lebService: LogicalExpressionBuilderService, private _cfr: ComponentFactoryResolver) {
     }
 
     ngOnInit(): void {
-        this.fields = this._hsbService.getFields();
+        this.fields = this._lebService.getFields();
 
         if (!this._field) {
             this._field = this.fields.find((field) => field.name === this.condition.field) ?? null;
         }
 
-        this.operators = this._hsbService.getOperatorsByFieldType(this._field?.fieldType);
+        this.operators = this._lebService.getOperatorsByFieldType(this._field?.fieldType);
 
         if (!this._operator) {
             this._operator = this.operators.find((operator) => operator.name === this.condition.operator) ?? null;
@@ -101,7 +101,7 @@ export class HierarchicalSearchBuilderConditionComponent implements OnInit, OnDe
         // get operators for new field type
         if (selectedField) {
             this._field = selectedField;
-            this.operators = this._hsbService.getOperatorsByFieldType(this._field.fieldType);
+            this.operators = this._lebService.getOperatorsByFieldType(this._field.fieldType);
             this._operator = null;
             this._value = null;
 

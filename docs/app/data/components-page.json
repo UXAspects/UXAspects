@@ -977,17 +977,17 @@
                     ]
                 },
                 {
-                    "title": "Hierarchical Search Builder",
-                    "component": "ComponentsHierarchicalSearchBuilderComponent",
+                    "title": "Logical Expression Builder",
+                    "component": "ComponentsLogicalExpressionBuilderComponent",
                     "version": "Angular",
                     "usage": [
                         {
                             "title": "Selector",
-                            "content": "ux-hierarchical-search-builder"
+                            "content": "ux-logical-expression-builder"
                         },
                         {
                             "title": "Module",
-                            "content": "HierarchicalSearchBuilderModule"
+                            "content": "LogicalExpressionBuilderBuilderModule"
                         }
                     ]
                 },

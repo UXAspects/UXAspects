@@ -1,10 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { TextInputComponent } from './input-components/text-input/text-input.component';
-import { HierarchicalSearchBuilderComponent } from './hierarchical-search-builder.component';
-import { HierarchicalSearchBuilderGroupComponent } from './hierarchical-search-builder-group/hierarchical-search-builder-group.component';
-import { HierarchicalSearchBuilderConditionComponent } from './hierarchical-search-builder-condition/hierarchical-search-builder-condition.component';
-import { HierarchicalSearchBuilderService } from './services/hierarchical-search-builder.service';
+import { LogicalExpressionBuilderComponent } from './logical-expression-builder.component';
+import { LebGroupComponent } from './leb-group/leb-group.component';
+import { LebConditionComponent } from './leb-condition/leb-condition.component';
+import { LogicalExpressionBuilderService } from './services/logical-expression-builder.service';
 import { SelectModule } from '../select';
 import { NumberPickerModule } from '../number-picker';
 import { NumberInputComponent } from './input-components/number-input/number-input.component';
@@ -27,13 +27,13 @@ const EXPORTS = [
     SelectInputComponent,
     DateInputComponent,
     DateRangeInputComponent,
-    HierarchicalSearchBuilderComponent,
+    LogicalExpressionBuilderComponent,
 ];
 
 const DECLARATIONS = [
     ...EXPORTS,
-    HierarchicalSearchBuilderGroupComponent,
-    HierarchicalSearchBuilderConditionComponent,
+    LebGroupComponent,
+    LebConditionComponent,
     L10nPipe
 ];
 
@@ -53,7 +53,7 @@ const DECLARATIONS = [
   ],
     exports: [...EXPORTS, L10nPipe],
     declarations: DECLARATIONS,
-    providers: [HierarchicalSearchBuilderService, L10nPipe]
+    providers: [LogicalExpressionBuilderService, L10nPipe]
 })
-export class HierarchicalSearchBuilderModule {
+export class LogicalExpressionBuilderModule {
 }

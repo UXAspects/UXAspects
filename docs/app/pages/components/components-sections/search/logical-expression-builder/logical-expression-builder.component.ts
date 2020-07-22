@@ -2,7 +2,7 @@ import { Component, TemplateRef, ViewChild } from '@angular/core';
 import {
     ColorService,
     FieldDefinition,
-    HierarchicalSearchBuilderQuery,
+    LogicalExpressionBuilderExpression,
     LogicalOperatorDefinition,
     NumberInputComponent,
     OperatorDefinitionList,
@@ -18,12 +18,12 @@ import { IPlayground } from '../../../../../interfaces/IPlayground';
 import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
 
 @Component({
-    selector: 'uxd-components-hierarchical-search-builder',
-    templateUrl: './hierarchical-search-builder.component.html',
-    styleUrls: ['./hierarchical-search-builder.component.less']
+    selector: 'uxd-components-logical-expression-builder',
+    templateUrl: './logical-expression-builder.component.html',
+    styleUrls: ['./logical-expression-builder.component.less']
 })
-@DocumentationSectionComponent('ComponentsHierarchicalSearchBuilderComponent')
-export class ComponentsHierarchicalSearchBuilderComponent extends BaseDocumentationSection implements IPlaygroundProvider {
+@DocumentationSectionComponent('ComponentsLogicalExpressionBuilderComponent')
+export class ComponentsLogicalExpressionBuilderComponent extends BaseDocumentationSection implements IPlaygroundProvider {
     playground: IPlayground;
 
     logicalOperators: LogicalOperatorDefinition[] = [
@@ -81,7 +81,7 @@ export class ComponentsHierarchicalSearchBuilderComponent extends BaseDocumentat
         dateFormat: 'dd MMMM yyyy',
     };
 
-    query: HierarchicalSearchBuilderQuery = {
+    query: LogicalExpressionBuilderExpression = {
         type: 'group',
         logicalOperator: 'and',
         children: [
@@ -99,17 +99,17 @@ export class ComponentsHierarchicalSearchBuilderComponent extends BaseDocumentat
         ]
     };
 
-    // query: HierarchicalSearchBuilderQuery = { type: 'condition', field: 'name', operator: 'equals', value: 'test' };
+    // expression: LogicalExpressionBuilderExpression = { type: 'condition', field: 'name', operator: 'equals', value: 'test' };
 
-    // query: HierarchicalSearchBuilderQuery = null;
+    // expression: LogicalExpressionBuilderExpression = null;
 
-    preview: HierarchicalSearchBuilderQuery;
+    preview: LogicalExpressionBuilderExpression;
 
     constructor(public colorService: ColorService) {
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
     }
 
-    queryChanged(query: HierarchicalSearchBuilderQuery): void {
+    queryChanged(query: LogicalExpressionBuilderExpression): void {
         this.preview = query;
     }
 }

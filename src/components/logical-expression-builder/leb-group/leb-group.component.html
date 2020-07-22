@@ -21,21 +21,21 @@
     </div>
 </div>
 
-<div *ngFor="let child of subquery?.children; index as index" class="m-l-lg m-b-sm">
-    <ux-hierarchical-search-builder-condition
+<div *ngFor="let child of subExpression?.children; index as index" class="m-l-lg m-b-sm">
+    <ux-leb-condition
         *ngIf="child.type === 'condition'"
         (conditionChange)="handleGroupChange($event, index)"
         [condition]="child"
         [id]="index"
         (conditionDeleted)="removeConditionAtIndex($event)">
-    </ux-hierarchical-search-builder-condition>
+    </ux-leb-condition>
 
-    <ux-hierarchical-search-builder-group
+    <ux-leb-group
         *ngIf="child.type === 'group'"
-        [subquery]="child"
+        [subExpression]="child"
         (groupChange)="handleGroupChange($event, index)"
         [logicalOperatorName]="child.logicalOperator">
-    </ux-hierarchical-search-builder-group>
+    </ux-leb-group>
 </div>
 
 <div class="row m-l-lg m-b-sm">

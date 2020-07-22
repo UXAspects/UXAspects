@@ -150,7 +150,7 @@ export class DateRangeInputComponent {
 
     private getTimezone(date: string): DateTimePickerTimezone {
         // get the timezone from the datestring
-        const timezone = date.match(/GMT(\+|-)([0-9]+)/gi);
+        const timezone = date.match(/GMT([+\-])([0-9]+)/gi);
 
         // check if there is a matching timezone
         if (timezone === null) {

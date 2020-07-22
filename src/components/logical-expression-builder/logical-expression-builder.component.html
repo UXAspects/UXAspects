@@ -1,5 +1,5 @@
 <button
-    *ngIf="isQueryEmpty(); else queryItems"
+    *ngIf="isExpressionEmpty(); else queryItems"
     (click)="addCondition()"
     type="button"
     class="btn btn-icon-with-text button-primary"
@@ -8,22 +8,22 @@
 </button>
 
 <ng-template #queryItems>
-    <ux-hierarchical-search-builder-group
-        *ngIf="query?.type === 'group'; else conditionBlock"
-        [subquery]="query"
+    <ux-leb-group
+        *ngIf="expression?.type === 'group'; else conditionBlock"
+        [subExpression]="expression"
         (groupChange)="handleGroupChange($event)"
         [logicalOperatorName]="getLogicalOperatorName()">
-    </ux-hierarchical-search-builder-group>
+    </ux-leb-group>
 </ng-template>
 
 <ng-template #conditionBlock>
     <div class="row m-b-sm">
-        <ux-hierarchical-search-builder-condition
-            *ngIf="query?.type === 'condition'"
+        <ux-leb-condition
+            *ngIf="expression?.type === 'condition'"
             (conditionChange)="handleGroupChange($event)"
-            [condition]="query"
+            [condition]="expression"
             (conditionDeleted)="deleteCondition()">
-        </ux-hierarchical-search-builder-condition>
+        </ux-leb-condition>
     </div>
 
     <div class="row m-b-sm">

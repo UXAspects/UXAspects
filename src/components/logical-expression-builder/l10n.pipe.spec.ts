@@ -1,9 +1,9 @@
 import { L10nPipe } from './l10n.pipe';
-import { HierarchicalSearchBuilderService } from './services/hierarchical-search-builder.service';
+import { LogicalExpressionBuilderService } from './services/logical-expression-builder.service';
 
 describe('L10nPipe', () => {
     let pipe: L10nPipe;
-    let hsbServiceStub: HierarchicalSearchBuilderService;
+    let hsbServiceStub: LogicalExpressionBuilderService;
 
     beforeEach(() => {
         hsbServiceStub = {
