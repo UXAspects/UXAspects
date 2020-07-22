@@ -1,5 +1,5 @@
-<div class="row" *ngIf="editable; else uneditable">
-    <div class="col-xs-3">
+<tr *ngIf="editable; else uneditable" class="p-l-lg">
+    <td class="field-selection">
         <ux-select
             [value]="_field"
             [input]="_field?.label || null"
@@ -9,8 +9,8 @@
             [display]="'label'"
             [key]="'name'">
         </ux-select>
-    </div>
-    <div class="col-xs-3">
+    </td>
+    <td class="operator-selection">
         <ux-select
             *ngIf="_field?.name"
             [value]="_operator"
@@ -21,12 +21,12 @@
             [display]="'label'"
             [key]="'name'">
         </ux-select>
-    </div>
-    <div class="col-xs-5">
+    </td>
+    <td class="value-input-container">
         <div #inputContainer></div>
-    </div>
+    </td>
 
-    <div class="col-xs-1">
+    <td>
         <button
             [disabled]="!(_field && _operator && _value)"
             (click)="confirmCondition()"
@@ -35,16 +35,16 @@
             aria-label="Confirm condition">
             <span class="ux-icon ux-icon-checkmark" aria-hidden="true"></span>
         </button>
-    </div>
-</div>
+    </td>
+</tr>
 
 <ng-template #uneditable>
-    <div class="row" uxHoverActionContainer>
-        <div class="col-xs-10">
+    <tr class="p-l-lg" uxHoverActionContainer>
+        <td>
             <p>{{ _field.label }} {{ _operator.label }} {{ _value | json }}</p>
-        </div>
+        </td>
 
-        <div class="col-xs-2">
+        <td>
             <button
                 uxHoverAction
                 (click)="editCondition()"
@@ -62,6 +62,6 @@
                 aria-label="Delete condition">
                 <span class="ux-icon ux-icon-trash text-error" aria-hidden="true"></span>
             </button>
-        </div>
-    </div>
+        </td>
+    </tr>
 </ng-template>

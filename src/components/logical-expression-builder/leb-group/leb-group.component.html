@@ -1,5 +1,5 @@
-<div class="row m-b-sm" uxHoverActionContainer>
-    <div class="col-xs-2">
+<tr class="p-l-lg" uxHoverActionContainer>
+    <td>
         <ux-select
             [value]="selectedLogicalOperator"
             (valueChange)="handleSelectedOperatorChange($event)"
@@ -8,8 +8,8 @@
             [display]="'label'"
             [key]="'name'">
         </ux-select>
-    </div>
-    <div class="col-xs-offset-9 col-xs-1">
+    </td>
+    <td>
         <button
             uxHoverAction
             (click)="deleteGroup()"
@@ -18,10 +18,10 @@
             aria-label="Delete condition">
             <span class="ux-icon ux-icon-trash text-error" aria-hidden="true"></span>
         </button>
-    </div>
-</div>
+    </td>
+</tr>
 
-<div *ngFor="let child of subExpression?.children; index as index" class="m-l-lg m-b-sm">
+<ng-container *ngFor="let child of subExpression?.children; index as index">
     <ux-leb-condition
         *ngIf="child.type === 'condition'"
         (conditionChange)="handleGroupChange($event, index)"
@@ -36,10 +36,10 @@
         (groupChange)="handleGroupChange($event, index)"
         [logicalOperatorName]="child.logicalOperator">
     </ux-leb-group>
-</div>
+</ng-container>
 
-<div class="row m-l-lg m-b-sm">
-    <div class="col">
+<tr class="p-l-lg">
+    <td>
         <button
             [uxMenuTriggerFor]="addMenu"
             type="button"
@@ -47,8 +47,8 @@
             aria-label="Add">
             <span class="ux-icon ux-icon-add" aria-hidden="true"></span>
         </button>
-    </div>
-</div>
+    </td>
+</tr>
 
 <ux-menu #addMenu>
     <button type="button" uxMenuItem (click)="addCondition()">

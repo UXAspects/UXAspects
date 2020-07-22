@@ -4,37 +4,44 @@
     type="button"
     class="btn btn-icon-with-text button-primary"
     [attr.aria-label]="('addConditionBtnAriaLabel' | l10n) || 'Add condition'">
-    <span class="ux-icon ux-icon-add" aria-hidden="true"></span><span>{{ ('addConditionBtnText' | l10n) || 'Add condition'}}</span>
+    <span class="ux-icon ux-icon-add"
+          aria-hidden="true"></span><span>{{ ('addConditionBtnText' | l10n) || 'Add condition'}}</span>
 </button>
 
 <ng-template #queryItems>
-    <ux-leb-group
-        *ngIf="expression?.type === 'group'; else conditionBlock"
-        [subExpression]="expression"
-        (groupChange)="handleGroupChange($event)"
-        [logicalOperatorName]="getLogicalOperatorName()">
-    </ux-leb-group>
+    <table class="table table-hover">
+        <tbody>
+        <ux-leb-group
+            *ngIf="expression?.type === 'group'; else conditionBlock"
+            [subExpression]="expression"
+            (groupChange)="handleGroupChange($event)"
+            [logicalOperatorName]="getLogicalOperatorName()">
+        </ux-leb-group>
+        </tbody>
+    </table>
 </ng-template>
 
 <ng-template #conditionBlock>
-    <div class="row m-b-sm">
+    <table class="table table-hover">
+        <tbody>
         <ux-leb-condition
             *ngIf="expression?.type === 'condition'"
             (conditionChange)="handleGroupChange($event)"
             [condition]="expression"
             (conditionDeleted)="deleteCondition()">
         </ux-leb-condition>
-    </div>
 
-    <div class="row m-b-sm">
-        <div class="col">
-            <button
-                (click)="addGroup()"
-                type="button"
-                class="btn btn-icon button-primary"
-                aria-label="Add">
-                <span class="ux-icon ux-icon-add" aria-hidden="true"></span>
-            </button>
-        </div>
-    </div>
+        <tr>
+            <td class="col">
+                <button
+                    (click)="addGroup()"
+                    type="button"
+                    class="btn btn-icon button-primary"
+                    aria-label="Add">
+                    <span class="ux-icon ux-icon-add" aria-hidden="true"></span>
+                </button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
 </ng-template>
