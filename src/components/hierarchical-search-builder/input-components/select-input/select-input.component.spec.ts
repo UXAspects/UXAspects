@@ -1,17 +1,16 @@
 import { SelectInputComponent } from './select-input.component';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { SelectModule } from '../../../select';
-import { TextInputComponent } from '../..';
+import { IconModule } from '../../../icon';
 
 describe('SelectInputComponent', () => {
     let component: SelectInputComponent;
     let fixture: ComponentFixture<SelectInputComponent>;
     let selectInput: HTMLInputElement;
-    let optionsContainer: HTMLElement;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            imports: [SelectModule],
+            imports: [SelectModule, IconModule],
             declarations: [SelectInputComponent]
         }).compileComponents();
     }));

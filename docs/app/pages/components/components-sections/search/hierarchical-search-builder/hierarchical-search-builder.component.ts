@@ -56,7 +56,7 @@ export class ComponentsHierarchicalSearchBuilderComponent extends BaseDocumentat
         ],
     };
 
-    @ViewChild('iconTemplate', { static: true }) iconTemplate: TemplateRef<any>;
+    @ViewChild('iconTemplate') iconTemplate: TemplateRef<any>;
 
     fields: FieldDefinition[] = [
         { name: 'name', label: 'Name', fieldType: 'text' },

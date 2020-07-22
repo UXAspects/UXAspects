@@ -43,5 +43,5 @@ export class SelectInputComponent implements OnInit {
     }
 }
 
-type SelectOption = { name: string, label: string, iconTemplate?: TemplateRef<any> };
+type SelectOption = { name: string, label: string, iconTemplate?: TemplateRef<any>, iconName?: string };
 type SelectInputConfig = { options: SelectOption[] };
