@@ -81,7 +81,7 @@ export class ComponentsHierarchicalSearchBuilderComponent extends BaseDocumentat
         dateFormat: 'dd MMMM yyyy',
     };
 
-    query: HierarchicalSearchBuilderQuery = {
+    /*query: HierarchicalSearchBuilderQuery = {
         type: 'group',
         logicalOperator: 'and',
         children: [
@@ -97,17 +97,19 @@ export class ComponentsHierarchicalSearchBuilderComponent extends BaseDocumentat
             },
             { type: 'condition', field: 'number', operator: 'equals', value: 15 },
         ]
-    };
+    };*/
 
     // query: HierarchicalSearchBuilderQuery = { type: 'condition', field: 'name', operator: 'equals', value: 'test' };
 
-    // query: HierarchicalSearchBuilderQuery = null;
+    query: HierarchicalSearchBuilderQuery = null;
+
+    preview: HierarchicalSearchBuilderQuery;
 
     constructor(public colorService: ColorService) {
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
     }
 
     queryChanged(query: HierarchicalSearchBuilderQuery): void {
-        // console.log('queryChange output', query);
+        this.preview = query;
     }
 }
