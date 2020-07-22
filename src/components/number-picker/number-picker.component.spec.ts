@@ -10,7 +10,7 @@ import { NumberPickerModule } from './number-picker.module';
                                  [max]="max"
                                  [step]="step"
                                  [valid]="form.controls['integer'].valid"
-                                 [formControl]="form.controls['integer']" 
+                                 [formControl]="form.controls['integer']"
                                  [placeholder]="placeholder">
                 </ux-number-picker>
                 <ux-number-picker [min]="min"
@@ -88,7 +88,7 @@ describe('Number Picker Component - FormGroup', () => {
 
     it('should display placeholder as undefined if not set', () => {
         let placeholderTextInitial = fixture.nativeElement.querySelector('input').placeholder;
-        expect(placeholderTextInitial).toBe('undefined');
+        expect(placeholderTextInitial).toBe('');
 
         component.placeholder = 'Placeholder Text';
         fixture.detectChanges();
