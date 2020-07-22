@@ -10,7 +10,7 @@ import { NumberPickerModule } from './number-picker.module';
                                  [max]="max"
                                  [step]="step"
                                  [valid]="form.controls['integer'].valid"
-                                 [formControl]="form.controls['integer']" 
+                                 [formControl]="form.controls['integer']"
                                  [placeholder]="placeholder">
                 </ux-number-picker>
                 <ux-number-picker [min]="min"
@@ -84,19 +84,6 @@ describe('Number Picker Component - FormGroup', () => {
         expect(component).toBeTruthy();
         expect(component.form.controls.integer.value).toBe(0);
         expect(component.form.controls.integer2.value).toBe(0);
-    });
-
-    it('should display placeholder as undefined if not set', () => {
-        let placeholderTextInitial = fixture.nativeElement.querySelector('input').placeholder;
-        expect(placeholderTextInitial).toBe('undefined');
-
-        component.placeholder = 'Placeholder Text';
-        fixture.detectChanges();
-
-
-        let placeholderText = fixture.nativeElement.querySelector('input').placeholder;
-        fixture.detectChanges();
-        expect(placeholderText).toBe('Placeholder Text');
     });
 
     it('should allow a number to be entered', async () => {
@@ -178,6 +165,20 @@ describe('Number Picker Component - FormGroup', () => {
         await fixture.whenStable();
 
         expect(numberPicker1.classList.contains('ux-number-picker-invalid')).toBe(false);
+    });
+
+    it('should apply a placeholder', () => {
+        component.placeholder = 'Placeholder Text';
+        fixture.detectChanges();
+
+        const inputElement = fixture.nativeElement.querySelector('input') as HTMLInputElement;
+        expect(inputElement.placeholder).toBe('Placeholder Text');
+    });
+
+    it('should not apply a placeholder if unset', () => {
+        const inputElement = fixture.nativeElement.querySelector('input') as HTMLInputElement;
+        const attribute = inputElement.getAttribute('placeholder');
+        expect(attribute).toBeNull();
     });
 
     describe('on increment/decrement', () => {
