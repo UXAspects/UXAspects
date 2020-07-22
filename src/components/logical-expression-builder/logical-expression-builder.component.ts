@@ -30,6 +30,7 @@ export class LogicalExpressionBuilderComponent {
     @Input()
     set expression(expression: LogicalExpressionBuilderExpression) {
         this._expression = this.addEditableFieldToConditionsInExpression(expression);
+        this.expressionChange.emit(this._expression);
     }
 
     get expression() {
