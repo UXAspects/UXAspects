@@ -17,51 +17,51 @@ export class LogicalExpressionBuilderService {
     private _editBlocked: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
     // Logical operators
-    setLogicalOperators(logicalOperators: LogicalOperatorDefinition[]): void {
+    public setLogicalOperators(logicalOperators: LogicalOperatorDefinition[]): void {
         this._logicalOperators = [...logicalOperators];
     }
 
-    getLogicalOperators(): LogicalOperatorDefinition[] {
+    public getLogicalOperators(): LogicalOperatorDefinition[] {
         return this._logicalOperators;
     }
 
-    getLogicalOperatorByName(name: string): LogicalOperatorDefinition {
+    public getLogicalOperatorByName(name: string): LogicalOperatorDefinition {
         return this._logicalOperators.find((operator) => operator.name === name);
     }
 
     // Fields
-    setFields(fields: FieldDefinition[]): void {
+    public setFields(fields: FieldDefinition[]): void {
         this._fields = [...fields];
     }
 
-    getFields(): FieldDefinition[] {
+    public getFields(): FieldDefinition[] {
         return this._fields;
     }
 
     // Operators
-    setOperators(operators: OperatorDefinitionList): void {
+    public setOperators(operators: OperatorDefinitionList): void {
         this._operators = { ...operators };
     }
 
-    getOperatorsByFieldType(fieldType: string): OperatorDefinition[] {
+    public getOperatorsByFieldType(fieldType: string): OperatorDefinition[] {
         return this._operators?.[fieldType] ?? [];
     }
 
     // Localized Strings
-    setLocalizedStrings(localizedStrings: any): void {
+    public setLocalizedStrings(localizedStrings: any): void {
         this._localizedStrings = localizedStrings;
     }
 
-    getLocalizedStrings(): any {
+    public getLocalizedStrings(): any {
         return this._localizedStrings;
     }
 
     // editBlocked
-    getEditBlocked(): Observable<boolean> {
+    public getEditBlocked(): Observable<boolean> {
         return this._editBlocked.asObservable();
     }
 
-    setEditBlocked(editBlocked: boolean): void {
+    public setEditBlocked(editBlocked: boolean): void {
         this._editBlocked.next(editBlocked);
     }
 }

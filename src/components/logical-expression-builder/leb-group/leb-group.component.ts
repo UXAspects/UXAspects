@@ -61,7 +61,7 @@ export class LebGroupComponent implements OnInit {
     }
 
     public removeConditionAtIndex(id: number) {
-        this.subExpression.children = this.subExpression.children.filter((child, index) => {
+        this.subExpression.children = this.subExpression.children.filter((_, index) => {
             return index !== id;
         });
 

@@ -49,8 +49,8 @@ export class LebConditionComponent implements OnInit, OnDestroy {
     public _value: any;
 
     public editable: boolean = true;
+    public _editBlocked: boolean;
     private _editBlockedSubscription: Subscription;
-    _editBlocked: boolean;
 
     private _condition: ExpressionCondition;
     private _destroy$ = new Subject<void>();
