@@ -1,10 +1,18 @@
 /* Keep */
 
-tr {
+tr.leb-condition-row {
     width: 100%;
     display: inline-flex;
     justify-content: space-between;
     align-items: center;
+
+    td {
+        margin-right: @spacing-xs;
+
+        &:last-child {
+            margin-right: 0;
+        }
+    }
 }
 
 .field-selection {
@@ -17,4 +25,12 @@ tr {
 
 .value-input-container {
     flex: 2;
+}
+
+.delete-btn span {
+    color: @critical;
+}
+
+.delete-btn:disabled span {
+    color: @link-btn-disabled-color;
 }

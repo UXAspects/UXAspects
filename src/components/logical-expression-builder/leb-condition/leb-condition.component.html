@@ -1,4 +1,4 @@
-<tr *ngIf="editable; else uneditable" class="p-l-lg">
+<tr *ngIf="editable; else uneditable" class="leb-condition-row">
     <td class="field-selection">
         <ux-select
             [value]="_field"
@@ -10,6 +10,7 @@
             [key]="'name'">
         </ux-select>
     </td>
+
     <td class="operator-selection">
         <ux-select
             *ngIf="_field?.name"
@@ -22,6 +23,7 @@
             [key]="'name'">
         </ux-select>
     </td>
+
     <td class="value-input-container">
         <div #inputContainer></div>
     </td>
@@ -39,9 +41,9 @@
 </tr>
 
 <ng-template #uneditable>
-    <tr class="p-l-lg" uxHoverActionContainer>
+    <tr class="leb-condition-row" uxHoverActionContainer>
         <td>
-            <p>{{ _field.label }} {{ _operator.label }} {{ _value | json }}</p>
+            {{ _field.label }} {{ _operator.label }} {{ _value | json }}
         </td>
 
         <td>
@@ -60,9 +62,9 @@
                 uxHoverAction
                 (click)="deleteCondition()"
                 type="button"
-                class="btn btn-link btn-icon btn-lg button-secondary"
+                class="btn btn-link btn-icon btn-lg button-secondary delete-btn"
                 aria-label="Delete condition">
-                <span class="ux-icon ux-icon-trash text-error" aria-hidden="true"></span>
+                <span class="ux-icon ux-icon-trash" aria-hidden="true"></span>
             </button>
         </td>
     </tr>
