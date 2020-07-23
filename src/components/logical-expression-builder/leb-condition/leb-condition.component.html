@@ -1,4 +1,4 @@
-<tr *ngIf="editable; else uneditable" class="leb-condition-row">
+<tr *ngIf="editable; else uneditable" class="leb-condition-row" [style.padding-left.px]="indent">
     <td class="field-selection">
         <ux-select
             [value]="_field"
@@ -41,7 +41,7 @@
 </tr>
 
 <ng-template #uneditable>
-    <tr class="leb-condition-row" uxHoverActionContainer>
+    <tr class="leb-condition-row" uxHoverActionContainer [style.padding-left.px]="indent">
         <td>
             {{ _field.label }} {{ _operator.label }} {{ _value | json }}
         </td>

@@ -11,6 +11,7 @@ import { LogicalExpressionBuilderService } from '../services/logical-expression-
 export class LebGroupComponent implements OnInit {
     @Input() subExpression: ExpressionGroup;
     @Input() logicalOperatorName: string;
+    @Input() indent: number = 0;
 
     @Output() groupChange = new EventEmitter<ExpressionGroup>();
 

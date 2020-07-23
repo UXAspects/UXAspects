@@ -1,4 +1,4 @@
-<tr class="leb-group" uxHoverActionContainer>
+<tr class="leb-group" uxHoverActionContainer [style.padding-left.px]="indent">
     <td>
         <ux-select
             [value]="selectedLogicalOperator"
@@ -27,19 +27,21 @@
         (conditionChange)="handleGroupChange($event, index)"
         [condition]="child"
         [id]="index"
-        (conditionDeleted)="removeConditionAtIndex($event)">
+        (conditionDeleted)="removeConditionAtIndex($event)"
+    [indent]="indent + 40">
     </ux-leb-condition>
 
     <ux-leb-group
         *ngIf="child.type === 'group'"
         [subExpression]="child"
         (groupChange)="handleGroupChange($event, index)"
-        [logicalOperatorName]="child.logicalOperator">
+        [logicalOperatorName]="child.logicalOperator"
+        [indent]="indent + 40">
     </ux-leb-group>
 </ng-container>
 
 <tr class="leb-group">
-    <td>
+    <td [style.padding-left.px]="indent + 40">
         <button
             [uxMenuTriggerFor]="addMenu"
             type="button"

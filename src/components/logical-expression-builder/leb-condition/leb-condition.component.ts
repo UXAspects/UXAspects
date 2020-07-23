@@ -41,6 +41,8 @@ export class LebConditionComponent implements OnInit, OnDestroy {
     @Input() id: number;
     @Output() conditionDeleted = new EventEmitter<number>();
 
+    @Input() indent: number = 0;
+
     public fields: FieldDefinition[];
     public operators: OperatorDefinition[];
 
