@@ -1,37 +1,42 @@
-import { Component, Input } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { SidePanelComponent } from '../../side-panel';
+import { TextWidgetConfig } from '../interfaces/text-widget';
 
 @Component({
     selector: 'ux-dashboard-text-widget',
     templateUrl: './dashboard-text-widget.component.html',
 })
-export class DashboardTextWidgetComponent {
+export class DashboardTextWidgetComponent implements TextWidgetConfig {
+    @Input() id: string = '';
+    @Input() name: string = '';
+    @Input() heading: string = '';
     @Input() fixedMode: boolean = false;
     @Input() colSpan: number = 1;
     @Input() rowSpan: number = 1;
-    @Input() heading: string = '';
-    @Input() id: string = '';
-    @Input() name: string = '';
+
+    @ViewChild('sidePanel') sidePanel: SidePanelComponent;
+    @ViewChild('textArea') textArea: ElementRef<HTMLTextAreaElement>;
     @Input() text: string = '';
     @Input() editable: boolean = false;
+
+    @Output() textChange = new EventEmitter<string>();
 
     constructor() {
 
     }
 
-    open(sidePanelElement: SidePanelComponent, textAreaElement: HTMLTextAreaElement, inputElement: HTMLInputElement) {
-        textAreaElement.value = this.text;
-        inputElement.value = this.heading;
-        sidePanelElement.openPanel();
+    open() {
+        this.textArea.nativeElement.value = this.text;
+        this.sidePanel.openPanel();
     }
 
-    save(sidePanelElement: SidePanelComponent, textAreaElement: HTMLTextAreaElement, inputElement: HTMLInputElement) {
-        this.text = textAreaElement.value;
-        this.heading = inputElement.value;
-        sidePanelElement.closePanel();
+    save() {
+        this.text = this.textArea.nativeElement.value;
+        this.textChange.emit(this.text);
+        this.sidePanel.closePanel();
     }
 
-    cancel(sidePanelElement: SidePanelComponent) {
-        sidePanelElement.closePanel();
+    cancel() {
+        this.sidePanel.closePanel();
     }
 }

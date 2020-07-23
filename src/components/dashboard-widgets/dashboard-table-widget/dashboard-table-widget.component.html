@@ -1,4 +1,10 @@
-<ux-dashboard-widget class="widget-element" #widget [id]="id" [colSpan]="colSpan" [rowSpan]="rowSpan" [name]="name" [resizable]="!fixedMode">
+<ux-dashboard-widget #widget
+                     class="widget-element"
+                     [id]="id"
+                     [colSpan]="colSpan"
+                     [rowSpan]="rowSpan"
+                     [name]="name"
+                     [resizable]="!fixedMode">
     <button *ngIf="!fixedMode"
             class="widget-grab-handle"
             uxDashboardGrabHandle

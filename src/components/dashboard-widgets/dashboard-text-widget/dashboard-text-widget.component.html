@@ -1,4 +1,9 @@
-<ux-dashboard-widget class="widget-element" [id]="id" [colSpan]="colSpan" [rowSpan]="rowSpan" [name]="name" [resizable]="!fixedMode">
+<ux-dashboard-widget class="widget-element"
+                     [id]="id"
+                     [colSpan]="colSpan"
+                     [rowSpan]="rowSpan"
+                     [name]="name"
+                     [resizable]="!fixedMode">
     <button *ngIf="!fixedMode"
             class="widget-grab-handle"
             uxDashboardGrabHandle
@@ -9,21 +14,31 @@
     <div class="widget-text">
         <p>{{ text }}</p>
     </div>
-    <button (click)="open(sidePanelElement, textAreaElement, inputElement)">
+    <button class="widget-side-panel-opener" (click)="open()">
         <ux-icon name="chevron-right" *ngIf="!editable"></ux-icon>
         <ux-icon name="edit" *ngIf="editable"></ux-icon>
     </button>
 </ux-dashboard-widget>
-<ux-side-panel #sidePanelElement [attachTo]="'container'" [width]="'calc(100% + 1px)'">
+<ux-side-panel #sidePanel
+               class="widget-side-panel"
+               [attachTo]="'container'"
+               [width]="'100%'">
     <div class="ux-side-panel-header">
-        <button (click)="cancel(sidePanelElement)">
+        <h3>{{ heading }}</h3>
+        <button uxSidePanelClose
+                aria-label="Close Side Panel"
+                type="button"
+                class="btn btn-lg btn-link btn-icon button-secondary">
             <ux-icon name="close"></ux-icon>
         </button>
-        <input #inputElement type="text" [value]="heading" [disabled]="!editable">
     </div>
-    <textarea #textAreaElement class="ux-side-panel-content" [disabled]="!editable">{{ text }}</textarea>
+    <textarea #textArea
+              class="widget-side-panel-textarea ux-side-panel-content"
+              [disabled]="!editable">
+        {{ text }}
+    </textarea>
     <div class="ux-side-panel-footer" *ngIf="editable">
-        <button type="button" class="m-b btn button-primary" (click)="save(sidePanelElement, textAreaElement, inputElement)">Save</button>
-        <button type="button" class="m-b btn button-secondary" (click)="cancel(sidePanelElement)">Cancel</button>
+        <button type="button" class="m-b btn button-primary" (click)="save()">Save</button>
+        <button type="button" class="m-b btn button-secondary" (click)="cancel()">Cancel</button>
     </div>
 </ux-side-panel>

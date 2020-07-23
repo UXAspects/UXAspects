@@ -1,19 +1,20 @@
-import {Component, Input, TemplateRef} from '@angular/core';
+import { Component, Input, TemplateRef } from '@angular/core';
+import { ActionConfig, ActionsWidgetConfig } from '../interfaces/actions-widget';
 
 @Component({
     selector: 'ux-dashboard-actions-widget',
     templateUrl: './dashboard-actions-widget.component.html',
 })
-export class DashboardActionsWidgetComponent {
+export class DashboardActionsWidgetComponent implements ActionsWidgetConfig {
+    @Input() id: string = '';
+    @Input() name: string = '';
+    @Input() heading: string = '';
     @Input() fixedMode: boolean = false;
     @Input() colSpan: number = 1;
     @Input() rowSpan: number = 1;
-    @Input() heading: string = '';
-    @Input() id: string = '';
-    @Input() name: string = '';
-    @Input() status: { state: string, icon: string } = { state: '-', icon: 'radial' };
-    @Input() actions: { name: string, icon: string, action: Function }[] = [];
-    @Input() buttons: ReadonlyArray<TemplateRef<any>> = [];
+
+    @Input() status: { label: string, icon: string | TemplateRef<any> } = { label: '-', icon: 'radial' };
+    @Input() actions: ActionConfig[] = [];
 
     click(fn: Function) {
         fn();

@@ -1,10 +1,12 @@
-import { Component } from '@angular/core';
-import { ColorService, DashboardOptions } from '@ux-aspects/ux-aspects';
+import {AfterViewInit, Component, TemplateRef, ViewChild} from '@angular/core';
+import { ColorService, DashboardOptions} from '@ux-aspects/ux-aspects';
 import 'chance';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
 import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
+import { ActionConfig } from '../../../../../../../src/components/dashboard-widgets/interfaces/actions-widget';
+import { EnumConfig } from '../../../../../../../src/components/dashboard-widgets/interfaces/enum-widget';
 
 @Component({
     selector: 'uxd-components-dashboard-widgets',
@@ -12,63 +14,7 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
     styleUrls: ['./dashboard-widgets.component.less']
 })
 @DocumentationSectionComponent('ComponentsDashboardWidgetsComponent')
-export class ComponentsDashboardWidgetsComponent extends BaseDocumentationSection implements IPlaygroundProvider {
-
-    // configure the directive data
-    lineChartData: Chart.ChartDataSets[] = [{
-        data: [],
-        borderWidth: 2,
-        fill: false
-    },
-    {
-        data: [],
-        borderWidth: 2,
-        fill: false
-    }];
-
-    lineChartOptions: Chart.ChartOptions = {
-        maintainAspectRatio: false,
-        responsive: true,
-        elements: {
-            line: {
-                tension: 0
-            },
-            point: {
-                radius: 0
-            }
-        },
-        scales: {
-            xAxes: [{
-                gridLines: {
-                    color: 'transparent'
-                },
-                ticks: {
-                    min: 0,
-                    max: 49,
-                    maxRotation: 0
-                } as Chart.LinearTickOptions
-            }],
-            yAxes: [{
-                gridLines: {
-                    color: '#ddd'
-                },
-                ticks: {
-                    beginAtZero: true,
-                    stepSize: 100
-                } as Chart.LinearTickOptions,
-            }]
-        },
-    };
-
-    lineChartLabels: string[] = [];
-    lineChartLegend: boolean = false;
-    lineChartColors = [
-        {
-            borderColor: this.colorService.getColor('vibrant1').toHex(),
-        },
-        {
-            borderColor: this.colorService.getColor('vibrant2').toHex(),
-        }];
+export class ComponentsDashboardWidgetsComponent extends BaseDocumentationSection implements IPlaygroundProvider, AfterViewInit {
 
     options: DashboardOptions = {
         columns: 4,
@@ -99,37 +45,35 @@ export class ComponentsDashboardWidgetsComponent extends BaseDocumentationSectio
         }]
     };
 
+    status: { label: string, icon: string | TemplateRef<any> } = { label: 'Waiting...', icon: 'radial' };
+
+    actions: ActionConfig[] = [];
+
+    tableHeader: ReadonlyArray<string> = ['1', '2', '3'];
+
+    tableData: ReadonlyArray<any> = [
+        [1, 2, 3],
+        [1, 2, 3],
+        [1, 2, 3],
+        [1, 2, 3],
+    ];
+
+    enums: ReadonlyArray<EnumConfig> = [
+        { value: 0, label: 'Zero', icon: 'close' },
+        { value: 1, label: 'One', icon: 'open' },
+    ];
+
+    @ViewChild('iconAccept') iconAccept: TemplateRef<any>;
+    @ViewChild('iconDecline') iconDecline: TemplateRef<any>;
+
     constructor(public colorService: ColorService) {
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
-
-        // generate the chart data
-        for (let idx = 0; idx < 50; idx++) {
-
-            let label = '';
-
-            if (idx === 0) {
-                label = 'Jan 1, 2017';
-            }
-
-            if (idx === 49) {
-                label = 'Mar 30, 2017';
-            }
-
-            this.lineChartLabels.push(label);
-
-            let dataset1 = this.lineChartData[0].data as Chart.ChartPoint[];
-            let dataset2 = this.lineChartData[1].data as Chart.ChartPoint[];
-
-            dataset1.push({
-                x: idx,
-                y: chance.integer({ min: 280, max: 460 })
-            });
-
-            dataset2.push({
-                x: idx,
-                y: chance.integer({ min: 50, max: 250 })
-            });
-        }
     }
 
+    ngAfterViewInit() {
+        this.actions.push(
+            { label: 'Accept', iconTemplate: this.iconAccept, action: () => alert('accept') },
+            { label: 'Decline', iconTemplate: this.iconDecline, action: () => alert('decline') }
+        );
+    }
 }
