@@ -89,7 +89,7 @@ export class ComponentsLogicalExpressionBuilderComponent extends BaseDocumentati
                 type: 'group',
                 logicalOperator: 'or',
                 children: [
-                    { type: 'condition', field: 'date', operator: 'before', value: 1592979598445 },
+                    { type: 'condition', field: 'date', operator: 'before', value: 1595515231584 },
                     { type: 'condition', field: 'category', operator: 'one_of', value: ['performance'] },
                 ]
             },
