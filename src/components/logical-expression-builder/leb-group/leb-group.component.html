@@ -28,6 +28,7 @@
         [condition]="child"
         [id]="index"
         (conditionDeleted)="removeConditionAtIndex($event)"
+        (conditionEmbedded)="embedConditionAtIndex($event)"
     [indent]="indent + 40">
     </ux-leb-condition>
 

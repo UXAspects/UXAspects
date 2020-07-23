@@ -40,6 +40,7 @@ export class LebConditionComponent implements OnInit, OnDestroy {
 
     @Input() id: number;
     @Output() conditionDeleted = new EventEmitter<number>();
+    @Output() conditionEmbedded = new EventEmitter<number>();
 
     @Input() indent: number = 0;
 
@@ -161,6 +162,12 @@ export class LebConditionComponent implements OnInit, OnDestroy {
     public deleteCondition(): void {
         if (!this._editBlocked) {
             this.conditionDeleted.emit(this.id);
+        }
+    }
+
+    public embedConditionInGroup(): void {
+        if (!this._editBlocked) {
+            this.conditionEmbedded.emit(this.id);
         }
     }
 }

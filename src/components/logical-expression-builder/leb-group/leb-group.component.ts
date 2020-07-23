@@ -69,6 +69,21 @@ export class LebGroupComponent implements OnInit {
         this.groupChange.emit(this.subExpression);
     }
 
+    public embedConditionAtIndex(id: number) {
+        let tempExpression = this.subExpression;
+        const condition = tempExpression.children[id];
+
+        tempExpression.children[id] = <ExpressionGroup>{
+            type: 'group',
+            logicalOperator: this._lebService.getLogicalOperators()[0].name,
+            children: [condition],
+        };
+
+        this.subExpression = tempExpression;
+
+        this.groupChange.emit(this.subExpression);
+    }
+
     public deleteGroup(): void {
         this.subExpression = null;
         this.groupChange.emit(this.subExpression);

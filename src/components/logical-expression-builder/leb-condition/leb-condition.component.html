@@ -60,6 +60,16 @@
             <button
                 [disabled]="_editBlocked"
                 uxHoverAction
+                (click)="embedConditionInGroup()"
+                type="button"
+                class="btn btn-link btn-icon btn-lg button-secondary"
+                aria-label="Add group around condition">
+                <span class="ux-icon ux-icon-chart-organization" aria-hidden="true"></span>
+            </button>
+
+            <button
+                [disabled]="_editBlocked"
+                uxHoverAction
                 (click)="deleteCondition()"
                 type="button"
                 class="btn btn-link btn-icon btn-lg button-secondary delete-btn"
