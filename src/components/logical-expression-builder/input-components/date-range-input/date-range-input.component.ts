@@ -6,7 +6,7 @@ import {
 } from '@angular/core';
 import { DateTimePickerTimezone, timezones } from '../../../date-time-picker';
 import { formatDate } from '@angular/common';
-import { L10nPipe } from '../../l10n.pipe';
+import { L10nPipe } from '../../pipes/l10n.pipe';
 
 @Component({
     selector: 'ux-date-range-input',

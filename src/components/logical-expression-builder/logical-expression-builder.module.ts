@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { TextInputComponent } from './input-components/text-input/text-input.component';
 import { LogicalExpressionBuilderComponent } from './logical-expression-builder.component';
@@ -13,13 +13,14 @@ import { DateInputComponent } from './input-components/date-input/date-input.com
 import { DateTimePickerModule } from '../date-time-picker';
 import { PopoverModule } from '../popover';
 import { AccessibilityModule } from '../../directives/accessibility';
-import { L10nPipe } from './l10n.pipe';
+import { L10nPipe } from './pipes/l10n.pipe';
 import { DateRangeInputComponent } from './input-components/date-range-input/date-range-input.component';
 import { DateRangePickerModule } from '../date-range-picker';
 import { FormsModule } from '@angular/forms';
 import { HoverActionModule } from '../../directives/hover-action';
 import { MenuModule } from '../menu';
 import { IconModule } from '../icon';
+import { DisplayValuePipe } from './pipes/display-value.pipe';
 
 const EXPORTS = [
     TextInputComponent,
@@ -34,7 +35,8 @@ const DECLARATIONS = [
     ...EXPORTS,
     LebGroupComponent,
     LebConditionComponent,
-    L10nPipe
+    L10nPipe,
+    DisplayValuePipe
 ];
 
 @NgModule({
@@ -53,7 +55,7 @@ const DECLARATIONS = [
   ],
     exports: [...EXPORTS, L10nPipe],
     declarations: DECLARATIONS,
-    providers: [LogicalExpressionBuilderService, L10nPipe]
+    providers: [LogicalExpressionBuilderService, L10nPipe, DatePipe]
 })
 export class LogicalExpressionBuilderModule {
 }

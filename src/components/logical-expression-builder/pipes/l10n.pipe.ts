@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { LogicalExpressionBuilderService } from './services/logical-expression-builder.service';
+import { LogicalExpressionBuilderService } from '../services/logical-expression-builder.service';
 
 @Pipe({name: 'l10n'})
 export class L10nPipe implements PipeTransform {

@@ -43,7 +43,7 @@
 <ng-template #uneditable>
     <tr class="leb-condition-row" uxHoverActionContainer [style.padding-left.px]="indent">
         <td>
-            {{ _field.label }} {{ _operator.label }} {{ _value | json }}
+            {{ _field.label }} {{ _operator.label }} {{ _value | displayValue:_field.fieldType:_field.data }}
         </td>
 
         <td>

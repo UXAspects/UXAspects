@@ -78,7 +78,8 @@ export class ComponentsLogicalExpressionBuilderComponent extends BaseDocumentati
     ];
 
     localizedStrings = {
-        dateFormat: 'dd MMMM yyyy',
+        // dateFormat: 'dd MMMM yyyy',
+        dateFormat: 'medium',
     };
 
     query: LogicalExpressionBuilderExpression = {
@@ -102,6 +103,23 @@ export class ComponentsLogicalExpressionBuilderComponent extends BaseDocumentati
     // expression: LogicalExpressionBuilderExpression = { type: 'condition', field: 'name', operator: 'equals', value: 'test' };
 
     // expression: LogicalExpressionBuilderExpression = null;
+
+    /*displayValueFunction(value: any, fieldType: string): string {
+        switch (fieldType) {
+            case 'text':
+                return value;
+            case 'number':
+                return `${ value }`;
+            case 'date':
+                return `${ new Date(value) }`;
+            case 'dateRange':
+                return `${ new Date(value[0]) } - ${ new Date(value[1]) }`;
+            case 'enum':
+                return value.join(', ');
+            default:
+                return value;
+        }
+    }*/
 
     preview: LogicalExpressionBuilderExpression;
 

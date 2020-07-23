@@ -5,6 +5,7 @@ import { OperatorDefinitionList } from '../interfaces/OperatorDefinitionList';
 import { OperatorDefinition } from '../interfaces/OperatorDefinition';
 import { LogicalExpressionBuilderModule } from '../logical-expression-builder.module';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { DisplayValueFunction } from '../interfaces/DisplayValueFunction';
 
 @Injectable({
     providedIn: 'root',
@@ -15,6 +16,7 @@ export class LogicalExpressionBuilderService {
     private _operators: OperatorDefinitionList = {};
     private _localizedStrings = {};
     private _editBlocked: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+    private _displayValueFunction: DisplayValueFunction;
 
     // Logical operators
     public setLogicalOperators(logicalOperators: LogicalOperatorDefinition[]): void {
@@ -63,5 +65,14 @@ export class LogicalExpressionBuilderService {
 
     public setEditBlocked(editBlocked: boolean): void {
         this._editBlocked.next(editBlocked);
+    }
+
+    // displayValueFunction for displaying values
+    public getDisplayValueFunction(): DisplayValueFunction {
+        return this._displayValueFunction;
+    }
+
+    public setDisplayValueFunction(transformFunction: DisplayValueFunction): void {
+        this._displayValueFunction = transformFunction;
     }
 }

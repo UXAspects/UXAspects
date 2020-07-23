@@ -4,6 +4,7 @@ import { OperatorDefinitionList } from './interfaces/OperatorDefinitionList';
 import { FieldDefinition } from './interfaces/FieldDefinition';
 import { LogicalExpressionBuilderService } from './services/logical-expression-builder.service';
 import { LogicalExpressionBuilderExpression, ExpressionCondition } from './interfaces/LogicalExpressionBuilderExpression';
+import { DisplayValueFunction } from './interfaces/DisplayValueFunction';
 
 @Component({
     selector: 'ux-logical-expression-builder',
@@ -30,7 +31,7 @@ export class LogicalExpressionBuilderComponent {
     @Input()
     set expression(expression: LogicalExpressionBuilderExpression) {
         this._expression = this.addEditableFieldToConditionsInExpression(expression);
-        this.expressionChange.emit(this._expression);
+        this.expressionChange.emit(this.cleanExpression(this._expression));
     }
 
     get expression() {
@@ -40,6 +41,11 @@ export class LogicalExpressionBuilderComponent {
     @Input()
     set localizedStrings(localizedStrings: any) {
         this._lebService.setLocalizedStrings(localizedStrings);
+    }
+
+    @Input()
+    set displayValueFunction(displayValueFunction: DisplayValueFunction) {
+        this._lebService.setDisplayValueFunction(displayValueFunction);
     }
 
     private _expression: LogicalExpressionBuilderExpression;

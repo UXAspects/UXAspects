@@ -1,5 +1,5 @@
 import { L10nPipe } from './l10n.pipe';
-import { LogicalExpressionBuilderService } from './services/logical-expression-builder.service';
+import { LogicalExpressionBuilderService } from '../services/logical-expression-builder.service';
 
 describe('L10nPipe', () => {
     let pipe: L10nPipe;
