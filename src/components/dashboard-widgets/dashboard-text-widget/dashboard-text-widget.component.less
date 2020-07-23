@@ -16,8 +16,16 @@ ux-dashboard-text-widget {
 
         .widget-text > p {
             overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
+            white-space: pre-wrap;
         }
+    }
+
+    .ux-side-panel.open > .ux-side-panel-host {
+        border-left: none;
+    }
+
+    .ux-side-panel > .ux-side-panel-host > .widget-side-panel-textarea {
+        border: none;
+        outline: none;
     }
 }

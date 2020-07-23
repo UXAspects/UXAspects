@@ -5,16 +5,21 @@ import { DashboardModule } from '../dashboard';
 import { DashboardActionsWidgetComponent } from './dashboard-actions-widget/dashboard-actions-widget.component';
 import { DashboardTextWidgetComponent } from './dashboard-text-widget/dashboard-text-widget.component';
 import { DashboardTableWidgetComponent } from './dashboard-table-widget/dashboard-table-widget.component';
-import { DashboardEnumWidgetComponent } from './dashboard-enum-widget/dashboard-enum-widget.component';
+import {
+    DashboardEnumWidgetComponent,
+    GetEnumConfigByValuePipe
+} from './dashboard-enum-widget/dashboard-enum-widget.component';
 import { IconModule } from '../icon';
 import { SidePanelModule } from '../side-panel';
 import { FixedHeaderTableModule } from '../../directives/fixed-header-table';
+import {SelectListModule} from '../select-list';
 
 const DECLARATIONS = [
     DashboardActionsWidgetComponent,
     DashboardTextWidgetComponent,
     DashboardTableWidgetComponent,
-    DashboardEnumWidgetComponent
+    DashboardEnumWidgetComponent,
+    GetEnumConfigByValuePipe
 ];
 
 @NgModule({
@@ -24,7 +29,8 @@ const DECLARATIONS = [
         DashboardModule,
         SidePanelModule,
         IconModule,
-        FixedHeaderTableModule
+        FixedHeaderTableModule,
+        SelectListModule
     ],
     exports: DECLARATIONS,
     declarations: DECLARATIONS,

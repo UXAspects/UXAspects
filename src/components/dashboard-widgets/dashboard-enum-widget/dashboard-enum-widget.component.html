@@ -1,4 +1,9 @@
-<ux-dashboard-widget class="widget-element" [id]="id" [colSpan]="colSpan" [rowSpan]="rowSpan" [name]="name" [resizable]="!fixedMode">
+<ux-dashboard-widget class="widget-element"
+                     [id]="id"
+                     [colSpan]="colSpan"
+                     [rowSpan]="rowSpan"
+                     [name]="name"
+                     [resizable]="!fixedMode">
     <button *ngIf="!fixedMode"
             class="widget-grab-handle"
             uxDashboardGrabHandle
@@ -6,8 +11,42 @@
         <ux-icon name="pan"></ux-icon>
     </button>
     <h3 class="widget-title">{{ heading }}</h3>
-    <div class="widget-text">
-        <p>{{ text | slice : 0 : 100 }}...</p>
+    <div class="widget-status">
+        <ng-container *ngIf="value | getEnumConfigByValue : enums : 'iconTemplate' as customIcon">
+            <ng-container *ngTemplateOutlet="customIcon"></ng-container>
+        </ng-container>
+        <ux-icon *ngIf="value | getEnumConfigByValue : enums : 'icon' as icon" name="{{ icon }}"></ux-icon>
+        {{ value | getEnumConfigByValue : enums : 'label' }}
     </div>
+    <button class="widget-side-panel-opener" (click)="open()">
+        <ux-icon name="chevron-right"></ux-icon>
+    </button>
 </ux-dashboard-widget>
-
+<ux-side-panel #sidePanel
+               class="widget-side-panel"
+               [attachTo]="'container'"
+               [width]="'100%'">
+    <div class="ux-side-panel-header">
+        <h3>{{ heading }}</h3>
+        <button uxSidePanelClose
+                aria-label="Close Side Panel"
+                type="button"
+                class="btn btn-lg btn-link btn-icon button-secondary">
+            <ux-icon name="close"></ux-icon>
+        </button>
+    </div>
+    <ux-select-list #enumList
+                    class="ux-side-panel-content"
+                    [(selected)]="selected"
+                    (selectedChange)="changeSelection($event)">
+        <ux-select-list-item *ngFor="let enumItem of enums" [data]="enumItem">
+            <ng-container *ngIf="enumItem.iconTemplate"></ng-container>
+            <ux-icon *ngIf="enumItem.icon" name="{{ enumItem.icon }}"></ux-icon>
+            {{ enumItem.label }}
+        </ux-select-list-item>
+    </ux-select-list>
+    <div class="ux-side-panel-footer">
+        <button type="button" class="m-b btn button-primary" (click)="save()">Save</button>
+        <button type="button" class="m-b btn button-secondary" (click)="cancel()">Cancel</button>
+    </div>
+</ux-side-panel>
