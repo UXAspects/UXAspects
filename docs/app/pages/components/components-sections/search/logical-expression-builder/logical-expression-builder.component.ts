@@ -56,8 +56,6 @@ export class ComponentsLogicalExpressionBuilderComponent extends BaseDocumentati
         ],
     };
 
-    @ViewChild('iconTemplate') iconTemplate: TemplateRef<any>;
-
     fields: FieldDefinition[] = [
         { name: 'name', label: 'Name', fieldType: 'text' },
         { name: 'date', label: 'Date', fieldType: 'date', data: {} },
@@ -78,11 +76,10 @@ export class ComponentsLogicalExpressionBuilderComponent extends BaseDocumentati
     ];
 
     localizedStrings = {
-        // dateFormat: 'dd MMMM yyyy',
         dateFormat: 'medium',
     };
 
-    query: LogicalExpressionBuilderExpression = {
+    expression: LogicalExpressionBuilderExpression = {
         type: 'group',
         logicalOperator: 'and',
         children: [
@@ -127,7 +124,7 @@ export class ComponentsLogicalExpressionBuilderComponent extends BaseDocumentati
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
     }
 
-    queryChanged(query: LogicalExpressionBuilderExpression): void {
+    expressionChanged(query: LogicalExpressionBuilderExpression): void {
         this.preview = query;
     }
 }

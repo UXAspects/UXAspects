@@ -14,8 +14,10 @@
 <ng-template #popoverTemplate>
     <ux-date-time-picker
         [(date)]="date"
-        [(timezone)]="timezone"
         [showTime]="showTime"
+        [showTimezone]="true"
+        [showMeridian]="true"
+        [showSpinners]="true"
         [nowBtnText]="'dateInputNowBtnText' | l10n"
         [nowBtnAriaLabel]="'dateInputNowBtnAriaLabel' | l10n"
         [weekdays]="'dateInputWeekdays' | l10n"

@@ -26,12 +26,7 @@ export class DateInputComponent implements AfterViewInit, OnDestroy {
 
     @Input()
     set data(data: DateInputOptions) {
-        this.timezone = data?.timezone ?? { name: 'GMT', offset: 0 };
-
         this.showTime = data?.showTime ?? false;
-        this.showTimezones = data?.showTimezones ?? true;
-        this.showMeridians = data?.showMeridians ?? true;
-        this.showSpinners = data?.showSpinners ?? true;
     }
 
     @Output() valueChange = new EventEmitter<number>();
@@ -52,9 +47,6 @@ export class DateInputComponent implements AfterViewInit, OnDestroy {
     timezone: DateTimePickerTimezone;
 
     showTime: boolean;
-    showTimezones: boolean;
-    showMeridians: boolean;
-    showSpinners: boolean;
 
     inputSubscription: Subscription;
 
@@ -82,10 +74,5 @@ export class DateInputComponent implements AfterViewInit, OnDestroy {
 }
 
 interface DateInputOptions {
-    timezone?: DateTimePickerTimezone;
     showTime?: boolean;
-    showTimezones?: boolean;
-    showMeridians?: boolean;
-    showSpinners?: boolean;
-    dateFormat?: string;
 }

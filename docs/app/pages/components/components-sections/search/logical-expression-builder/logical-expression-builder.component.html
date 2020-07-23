@@ -1,16 +1,112 @@
 <ux-logical-expression-builder
-    [expression]="query"
-    (expressionChange)="queryChanged($event)"
+    [expression]="expression"
     [fields]="fields"
     [operators]="operators"
     [logicalOperators]="logicalOperators"
-    [localizedStrings]="localizedStrings">
+    [localizedStrings]="localizedStrings"
+    (expressionChange)="expressionChanged($event)">
 </ux-logical-expression-builder>
 
-<h4>Search Query</h4>
+<h4>Expression</h4>
 
 <pre>{{ preview | json }}</pre>
 
-<ng-template #iconTemplate>
-    <ux-icon name="add"></ux-icon>
-</ng-template>
+<hr>
+
+<p>
+    The Logical Expression Builder provides a visual way for users to build and modify logical expressions. These
+    expressions consist of one or more conditions that can be linked using logical operators. Each condition consists of
+    a data field, an operator, and a value. The available logical operators, fields, and operators can be configured.
+</p>
+
+<uxd-api-properties tableTitle="Inputs">
+    <tr uxd-api-property name="expression" type="LogicalExpressionBuilderExpression">
+        If defined, the Logical Expression Builder will be filled with this expression.
+    </tr>
+
+    <tr uxd-api-property name="fields" type="FieldDefinition[]" [required]="true">
+        Contains the data fields that can be used to build the expression.
+    </tr>
+
+    <tr uxd-api-property name="operators" type="OperatorDefinitionList" [required]="true">
+        Contains the operators that can be used to build the expression.
+    </tr>
+
+    <tr uxd-api-property name="logicalOperators" type="LogicalOperatorDefinition[]">
+        Contains the logical operators that can be used to build the expression. The default operators are
+        <code>and</code>, <code>or</code>, and <code>not</code>.
+    </tr>
+
+    <tr uxd-api-property name="localizedStrings" type="{ [key: string]: string }">
+        This object can be used to provide custom localized strings that are used for display or accessibility in the
+        Logical Expression Builder.
+    </tr>
+
+    <tr uxd-api-property name="displayValueFunction"
+        type="(value: string, fieldType?: string, fieldData?: any) => string">
+        If provided, this function is used to display the values of conditions that are not in edit mode.
+    </tr>
+</uxd-api-properties>
+
+<uxd-api-properties tableTitle="Outputs">
+    <tr uxd-api-property name="expressionChange" type="LogicalExpressionBuilderExpression">
+        This event will fire whenever the expression has been modified. It will contain the latest expression value.
+    </tr>
+</uxd-api-properties>
+
+<h4>Input Components</h4>
+
+<p>
+    The Logical Expression Builder comes with the following predefined components for entering values of common data
+    types:
+</p>
+
+<uxd-api-properties>
+    <tr uxd-api-property name="DateInputComponent">
+        <p>
+            Contains a date picker. It expects a value of type <code>number</code>, representing milliseconds since
+            January 1 1970, 12:00 AM. The <code>data</code> can contain the following property:
+        </p>
+
+        <ul>
+            <li><code>showTime: boolean</code> - If specified, the date picker will also display time input.</li>
+        </ul>
+    </tr>
+
+    <tr uxd-api-property name="DateRangeInputComponent">
+        <p>
+            Contains a date range picker. It expects a value of type <code>number[]</code> with two entries,
+            representing the start and end date in milliseconds since January 1 1970, 12:00 AM. The <code>data</code>
+            can contain the following property:
+        </p>
+
+        <ul>
+            <li><code>showTime: boolean</code> - If specified, the date range picker will also display time input.</li>
+        </ul>
+    </tr>
+</uxd-api-properties>
+
+<h4>Custom Input Components</h4>
+
+<p>
+    In addition to the predefined Input Components, it is also possible to built custom input components. These must
+    conform with the following interfaces:
+</p>
+
+<uxd-api-properties tableTitle="Outputs">
+    <tr uxd-api-property name="value" type="any">
+        Contains the value of the respective condition.
+    </tr>
+
+    <tr uxd-api-property name="data" type="any">
+        Contains the data for the specific <code>field</code> defined in the fields definition. E.g., it can be used
+        to pass options for a select input, or any additional data the input component needs that depends on the
+        specific field.
+    </tr>
+</uxd-api-properties>
+
+<uxd-api-properties tableTitle="Outputs">
+    <tr uxd-api-property name="valueChange" type="any">
+        This event will fire whenever the value has been modified. It will contain the latest value.
+    </tr>
+</uxd-api-properties>
