@@ -9,24 +9,23 @@ import {
     ViewChild
 } from '@angular/core';
 import { DateTimePickerTimezone } from '../../../date-time-picker';
-import { fromEvent, Subscription } from 'rxjs';
-import { debounceTime } from 'rxjs/operators';
+import { fromEvent, Subject } from 'rxjs';
+import { debounceTime, takeUntil } from 'rxjs/operators';
 
 @Component({
     selector: 'ux-date-input',
-    templateUrl: './date-input.component.html',
-    // styleUrls: ['']
+    templateUrl: './date-input.component.html'
 })
 export class DateInputComponent implements AfterViewInit, OnDestroy {
     @Input()
     set value(value: number) {
-        const date = new Date(value);
+        const date: Date = new Date(value);
         this.date = !isNaN(date.getDate()) ? date : new Date();
     }
 
-    @Input()
-    set data(data: DateInputOptions) {
-        this.showTime = data?.showTime ?? false;
+    @Input('data')
+    set options(options: DateInputOptions) {
+        this.showTime = options?.showTime ?? false;
     }
 
     @Output() valueChange = new EventEmitter<number>();
@@ -48,23 +47,24 @@ export class DateInputComponent implements AfterViewInit, OnDestroy {
 
     showTime: boolean;
 
-    inputSubscription: Subscription;
+    private _destroy$: Subject<void> = new Subject<void>();
 
     ngAfterViewInit(): void {
-        this.inputSubscription = fromEvent(this.dateInput.nativeElement, 'input')
-            .pipe(debounceTime(500))
+        fromEvent(this.dateInput.nativeElement, 'input')
+            .pipe(takeUntil(this._destroy$), debounceTime(500))
             .subscribe(() => {
                 this.parse(this.dateInput.nativeElement.value);
             });
     }
 
     ngOnDestroy(): void {
-        this.inputSubscription.unsubscribe();
+        this._destroy$.next();
+        this._destroy$.complete();
     }
 
     parse(value: string): void {
         // try and parse the date
-        const date = new Date(value);
+        const date: Date = new Date(value);
 
         // check if the date is valid
         if (!isNaN(date.getDate())) {

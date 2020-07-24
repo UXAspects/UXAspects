@@ -25,7 +25,7 @@ export class DisplayValuePipe implements PipeTransform {
                 case 'date':
                     return this.transformDate(value);
                 case 'dateRange':
-                    return `${ this.transformDate(value[0]) } — ${ this.transformDate(value[1]) }`;
+                    return `${ this.transformDate(value.start) } — ${ this.transformDate(value.end) }`;
                 case 'enum':
                     if (fieldData?.options) {
                         return this.transformEnum(value, fieldData);
@@ -36,20 +36,22 @@ export class DisplayValuePipe implements PipeTransform {
                     return value;
             }
         } else {
-            return value;
+            return undefined;
         }
     }
 
     private transformEnum(value: string[], fieldData: any): string {
-        let transformedValue = value.map((v) => {
-            const option = fieldData.options.find((o: any) => o.name === v);
+        let transformedValue = value
+            .map((v: string) => {
+                const option = fieldData.options.find((o: any) => o.name === v);
 
-            if (option) {
-                return option.label;
-            } else {
-                return;
-            }
-        });
+                if (option) {
+                    return option.label;
+                } else {
+                    return;
+                }
+            })
+            .filter((v: string) => v);
 
         return transformedValue.join(', ');
     }

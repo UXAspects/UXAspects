@@ -12,6 +12,7 @@ export class LebGroupComponent implements OnInit {
     @Input() subExpression: ExpressionGroup;
     @Input() logicalOperatorName: string;
     @Input() indent: number = 0;
+    additionalIndent: number = 40;
 
     @Output() groupChange = new EventEmitter<ExpressionGroup>();
 
@@ -32,11 +33,14 @@ export class LebGroupComponent implements OnInit {
         this.groupChange.emit(this.subExpression);
     }
 
-    public handleGroupChange(event: ExpressionGroup | ExpressionCondition, index: number) {
-        this.subExpression.children[index] = event;
-
-        // remove children that have been deleted
-        this.subExpression.children = this.subExpression.children.filter((child) => child);
+    public handleGroupChange(subExpression: ExpressionGroup | ExpressionCondition, index: number) {
+        if (subExpression) {
+            this.subExpression.children[index] = subExpression;
+        } else {
+            let temp = [...this.subExpression.children];
+            temp.splice(index, 1);
+            this.subExpression.children = [...temp];
+        }
 
         this.groupChange.emit(this.subExpression);
     }
@@ -47,8 +51,10 @@ export class LebGroupComponent implements OnInit {
             field: null,
             operator: null,
             value: null,
-            editable: true,
+            editMode: true,
         }];
+
+        this.groupChange.emit(this.subExpression);
     }
 
     public addGroup() {
@@ -56,7 +62,7 @@ export class LebGroupComponent implements OnInit {
             type: 'group',
             logicalOperator: this._lebService.getLogicalOperators()[0].name,
             children: [
-                { type: 'condition', field: null, operator: null, value: null, editable: true },
+                { type: 'condition', field: null, operator: null, value: null, editMode: true },
             ],
         }];
     }

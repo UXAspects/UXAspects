@@ -1,13 +1,13 @@
-<tr *ngIf="editable; else uneditable" class="leb-condition-row" [style.padding-left.px]="indent">
+<tr *ngIf="editMode; else staticMode" class="leb-condition-row" [style.padding-left.px]="indent">
     <td class="field-selection">
         <ux-select
             [value]="_field"
             [input]="_field?.label || null"
             (valueChange)="handleFieldSelected($event)"
-            [allowNull]="true"
+            [allowNull]="false"
             [options]="fields"
-            [display]="'label'"
-            [key]="'name'">
+            display="label"
+            key="name">
         </ux-select>
     </td>
 
@@ -17,10 +17,9 @@
             [value]="_operator"
             (valueChange)="handleOperatorSelected($event)"
             [input]="_operator?.label || null"
-            [allowNull]="true"
             [options]="operators"
-            [display]="'label'"
-            [key]="'name'">
+            display="label"
+            key="name">
         </ux-select>
     </td>
 
@@ -34,13 +33,13 @@
             (click)="confirmCondition()"
             type="button"
             class="btn btn-link btn-icon btn-lg button-secondary"
-            aria-label="Confirm condition">
+            [attr.aria-label]="('confirmConditionAriaLabel' | l10n) || 'Confirm condition'">
             <span class="ux-icon ux-icon-checkmark" aria-hidden="true"></span>
         </button>
     </td>
 </tr>
 
-<ng-template #uneditable>
+<ng-template #staticMode>
     <tr class="leb-condition-row" uxHoverActionContainer [style.padding-left.px]="indent">
         <td>
             <span class="leb-field-display">{{ _field.label }}</span> {{ _operator.label }} <span class="leb-value-display">{{ _value | displayValue:_field.fieldType:_field.data }}</span>
@@ -53,7 +52,7 @@
                 (click)="editCondition()"
                 type="button"
                 class="btn btn-link btn-icon btn-lg button-primary"
-                aria-label="Edit condition">
+                [attr.aria-label]="('editConditionAriaLabel' | l10n) || 'Edit condition'">
                 <span class="ux-icon ux-icon-edit" aria-hidden="true"></span>
             </button>
 
@@ -63,7 +62,7 @@
                 (click)="embedConditionInGroup()"
                 type="button"
                 class="btn btn-link btn-icon btn-lg button-secondary"
-                aria-label="Add group around condition">
+                [attr.aria-label]="('embedConditionAriaLabel' | l10n) || 'Embed condition'">
                 <span class="ux-icon ux-icon-chart-organization" aria-hidden="true"></span>
             </button>
 
@@ -73,7 +72,7 @@
                 (click)="deleteCondition()"
                 type="button"
                 class="btn btn-link btn-icon btn-lg button-secondary delete-btn"
-                aria-label="Delete condition">
+                [attr.aria-label]="('deleteConditionAriaLabel' | l10n) || 'Delete condition'">
                 <span class="ux-icon ux-icon-trash" aria-hidden="true"></span>
             </button>
         </td>

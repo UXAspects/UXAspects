@@ -1,8 +1,8 @@
-/*
 import { LogicalExpressionBuilderComponent } from './logical-expression-builder.component';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-describe('LogicalExpressionBuilderComponent', () => {
+// TODO: remove xdescribe
+xdescribe('LogicalExpressionBuilderComponent', () => {
     let component: LogicalExpressionBuilderComponent;
     let fixture: ComponentFixture<LogicalExpressionBuilderComponent>;
 
@@ -22,4 +22,3 @@ describe('LogicalExpressionBuilderComponent', () => {
         expect(component).toBeDefined();
     });
 });
-*/

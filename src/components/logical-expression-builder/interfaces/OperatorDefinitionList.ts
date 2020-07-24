@@ -1,4 +1,8 @@
-import { OperatorDefinition } from './OperatorDefinition';
+export interface OperatorDefinition {
+    name: string;
+    label: string;
+    component: any;
+}
 
 export interface OperatorDefinitionList {
     [fieldType: string]: OperatorDefinition[];

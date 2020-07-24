@@ -13,9 +13,9 @@ import {
 } from '@angular/core';
 import { LogicalExpressionBuilderService } from '../services/logical-expression-builder.service';
 import { FieldDefinition } from '../interfaces/FieldDefinition';
-import { OperatorDefinition } from '../interfaces/OperatorDefinition';
+import { OperatorDefinition } from '../interfaces/OperatorDefinitionList';
 import { ExpressionCondition } from '../interfaces/LogicalExpressionBuilderExpression';
-import { Subject, Subscription } from 'rxjs';
+import { Subject } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
 
 @Component({
@@ -28,7 +28,7 @@ export class LebConditionComponent implements OnInit, OnDestroy {
     @ViewChild('inputContainer', { read: ViewContainerRef, static: false }) set container(container: ViewContainerRef) {
         if (container) {
             this._inputContainer = container;
-            this.createInputComponent();
+            this._createInputComponent();
         }
     }
 
@@ -51,15 +51,14 @@ export class LebConditionComponent implements OnInit, OnDestroy {
     public _operator: OperatorDefinition = null;
     public _value: any;
 
-    public editable: boolean = true;
+    public editMode: boolean = true;
     public _editBlocked: boolean;
-    private _editBlockedSubscription: Subscription;
 
     private _condition: ExpressionCondition;
     private _destroy$ = new Subject<void>();
 
     constructor(private _lebService: LogicalExpressionBuilderService, private _cfr: ComponentFactoryResolver) {
-        this._editBlockedSubscription = this._lebService.getEditBlocked()
+        this._lebService.getEditBlocked()
             .pipe(takeUntil(this._destroy$))
             .subscribe((value) => {
                 this._editBlocked = value;
@@ -68,19 +67,14 @@ export class LebConditionComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         this.fields = this._lebService.getFields();
-
-        if (!this._field) {
-            this._field = this.fields.find((field) => field.name === this.condition.field) ?? null;
-        }
+        this._field = this.fields.find((field) => field.name === this.condition.field) ?? null;
 
         this.operators = this._lebService.getOperatorsByFieldType(this._field?.fieldType);
+        this._operator = this.operators.find((operator) => operator.name === this.condition.operator) ?? null;
 
-        if (!this._operator) {
-            this._operator = this.operators.find((operator) => operator.name === this.condition.operator) ?? null;
-        }
         this._value = this.condition.value;
 
-        this.editable = this.condition?.editable ?? true;
+        this.editMode = this.condition?.editMode ?? true;
     }
 
     ngOnDestroy(): void {
@@ -88,7 +82,7 @@ export class LebConditionComponent implements OnInit, OnDestroy {
         this._destroy$.complete();
     }
 
-    private createInputComponent(): void {
+    private _createInputComponent(): void {
         if (this._operator?.component) {
             this._inputContainer.clear();
             const resolver = this._cfr.resolveComponentFactory(this._operator.component);
@@ -102,7 +96,7 @@ export class LebConditionComponent implements OnInit, OnDestroy {
                 )
                 .subscribe((value: any) => {
                     this._value = value;
-                    this.buildCondition();
+                    this._buildCondition();
                 });
         }
     }
@@ -115,36 +109,30 @@ export class LebConditionComponent implements OnInit, OnDestroy {
             this._operator = null;
             this._value = null;
 
-            this.buildCondition();
-
             this._inputContainer.clear();
         }
     }
 
     public handleOperatorSelected(selectedOperator: OperatorDefinition): void {
         this._operator = selectedOperator;
-        this.createInputComponent();
-
-        if (selectedOperator) {
-            this.buildCondition();
-        }
+        this._createInputComponent();
     }
 
-    private buildCondition(): void {
+    private _buildCondition(editMode?: boolean): void {
         this._condition = {
             type: 'condition',
             field: this._field?.name ?? null,
             operator: this._operator?.name ?? null,
-            value: this._value ?? null
+            value: this._value ?? null,
+            editMode: editMode ?? false
         };
     }
 
     public confirmCondition(): void {
         this._lebService.setEditBlocked(false);
 
-        this.editable = false;
-        this.buildCondition();
-        this._condition = { ...this._condition, editable: false };
+        this.editMode = false;
+        this._buildCondition(this.editMode);
         this.conditionChange.emit(this._condition);
     }
 
@@ -152,9 +140,8 @@ export class LebConditionComponent implements OnInit, OnDestroy {
         if (!this._editBlocked) {
             this._lebService.setEditBlocked(true);
 
-            this.editable = true;
-            this.buildCondition();
-            this._condition = { ...this._condition, editable: true };
+            this.editMode = true;
+            this._buildCondition(this.editMode);
             this.conditionChange.emit(this._condition);
         }
     }

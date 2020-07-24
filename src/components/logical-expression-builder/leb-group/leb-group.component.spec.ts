@@ -1,8 +1,8 @@
-/*
 import { LebGroupComponent } from './leb-group.component';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-describe('LebGroupComponent', () => {
+// TODO: remove xdescribe
+xdescribe('LebGroupComponent', () => {
     let component: LebGroupComponent;
     let fixture: ComponentFixture<LebGroupComponent>;
 
@@ -22,4 +22,3 @@ describe('LebGroupComponent', () => {
         expect(component).toBeDefined();
     });
 });
-*/

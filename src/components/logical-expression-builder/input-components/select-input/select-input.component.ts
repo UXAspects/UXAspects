@@ -2,8 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
     selector: 'ux-select-input',
-    templateUrl: './select-input.component.html',
-    // styleUrls: ['']
+    templateUrl: './select-input.component.html'
 })
 export class SelectInputComponent implements OnInit {
     @Input() value: string[];
@@ -11,12 +10,8 @@ export class SelectInputComponent implements OnInit {
     _value: ReadonlyArray<SelectOption>;
 
     @Input()
-    set data(data: SelectInputConfig) {
-        if (data?.options) {
-            this._options = data.options;
-        } else {
-            this._options = [];
-        }
+    set data(data: { options: SelectOption[] }) {
+        this._options = data?.options ?? [];
     }
 
     _options: ReadonlyArray<SelectOption>;
@@ -25,23 +20,18 @@ export class SelectInputComponent implements OnInit {
 
     ngOnInit() {
         if (Array.isArray(this.value)) {
-            this._value = this.value.map((v) => {
-                const option = this._options?.find((o) => o.name === v);
-
-                if (option) {
-                    return option;
-                } else {
-                    return;
-                }
-            });
+            this._value = this.value
+                .map((v: string) => {
+                    return this._options?.find((o: SelectOption) => o.name === v);
+                })
+                .filter((o: SelectOption) => o);
         }
     }
 
-    handleValueChange(value: SelectOption[]) {
-        const outputOptions = value.map((v) => v.name);
+    handleValueChange(value: SelectOption[]): void {
+        const outputOptions = value.map((v: SelectOption) => v.name);
         this.valueChange.emit(outputOptions);
     }
 }
 
 type SelectOption = { name: string, label: string, icon?: string };
-type SelectInputConfig = { options: SelectOption[] };

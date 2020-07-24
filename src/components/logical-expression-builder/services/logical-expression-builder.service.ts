@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { LogicalOperatorDefinition } from '../interfaces/LogicalOperatorDefinition';
 import { FieldDefinition } from '../interfaces/FieldDefinition';
-import { OperatorDefinitionList } from '../interfaces/OperatorDefinitionList';
-import { OperatorDefinition } from '../interfaces/OperatorDefinition';
+import { OperatorDefinitionList, OperatorDefinition } from '../interfaces/OperatorDefinitionList';
 import { LogicalExpressionBuilderModule } from '../logical-expression-builder.module';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { DisplayValueFunction } from '../interfaces/DisplayValueFunction';

@@ -29,7 +29,7 @@
         [id]="index"
         (conditionDeleted)="removeConditionAtIndex($event)"
         (conditionEmbedded)="embedConditionAtIndex($event)"
-    [indent]="indent + 40">
+        [indent]="indent + additionalIndent">
     </ux-leb-condition>
 
     <ux-leb-group
@@ -37,12 +37,12 @@
         [subExpression]="child"
         (groupChange)="handleGroupChange($event, index)"
         [logicalOperatorName]="child.logicalOperator"
-        [indent]="indent + 40">
+        [indent]="indent + additionalIndent">
     </ux-leb-group>
 </ng-container>
 
 <tr class="leb-group">
-    <td [style.padding-left.px]="indent + 40">
+    <td [style.padding-left.px]="indent + additionalIndent">
         <button
             [uxMenuTriggerFor]="addMenu"
             type="button"

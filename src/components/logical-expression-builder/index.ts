@@ -1,6 +1,5 @@
 export * from './logical-expression-builder.module';
 export * from './interfaces/FieldDefinition';
-export * from './interfaces/OperatorDefinition';
 export * from './interfaces/OperatorDefinitionList';
 export * from './interfaces/LogicalOperatorDefinition';
 export * from './interfaces/LogicalExpressionBuilderExpression';

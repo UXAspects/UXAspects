@@ -7,6 +7,10 @@
     (expressionChange)="expressionChanged($event)">
 </ux-logical-expression-builder>
 
+<button type="button" class="btn button-secondary" (click)="resetExpression()">
+    Reset expression
+</button>
+
 <h4>Expression</h4>
 
 <pre class="logical-expression-builder-preview">{{ preview | json }}</pre>

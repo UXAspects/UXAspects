@@ -32,7 +32,7 @@ describe('L10nPipe', () => {
     });
 
     it('should return undefined if localized string is empty', () => {
-        expect(pipe.transform('testEmptyString')).toBeUndefined();
+        expect(pipe.transform('testEmptyString')).toEqual('');
     });
 
     it('should return array of localized strings if it exists', () => {

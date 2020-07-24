@@ -1,15 +1,17 @@
 export interface ExpressionCondition {
-    type: string;
+    type: ExpressionType;
     field: string;
     operator: string;
     value: any;
-    editable?: boolean;
+    editMode?: boolean;
 }
 
 export interface ExpressionGroup {
-    type: string;
+    type: ExpressionType;
     logicalOperator: string;
     children: (ExpressionCondition|ExpressionGroup)[];
 }
+
+type ExpressionType = 'condition' | 'group';
 
 export type LogicalExpressionBuilderExpression = ExpressionCondition | ExpressionGroup;

@@ -3,7 +3,11 @@ import { LogicalOperatorDefinition } from './interfaces/LogicalOperatorDefinitio
 import { OperatorDefinitionList } from './interfaces/OperatorDefinitionList';
 import { FieldDefinition } from './interfaces/FieldDefinition';
 import { LogicalExpressionBuilderService } from './services/logical-expression-builder.service';
-import { LogicalExpressionBuilderExpression, ExpressionCondition } from './interfaces/LogicalExpressionBuilderExpression';
+import {
+    LogicalExpressionBuilderExpression,
+    ExpressionCondition,
+    ExpressionGroup
+} from './interfaces/LogicalExpressionBuilderExpression';
 import { DisplayValueFunction } from './interfaces/DisplayValueFunction';
 
 @Component({
@@ -30,8 +34,8 @@ export class LogicalExpressionBuilderComponent {
 
     @Input()
     set expression(expression: LogicalExpressionBuilderExpression) {
-        this._expression = this.addEditableFieldToConditionsInExpression(expression);
-        this.expressionChange.emit(this.cleanExpression(this._expression));
+        this._expression = this._addEditModeFieldToConditionsInExpression(expression);
+        this.expressionChange.emit(this._cleanExpression(this._expression));
     }
 
     get expression() {
@@ -60,7 +64,7 @@ export class LogicalExpressionBuilderComponent {
     }
 
     public getLogicalOperatorName(): string {
-        return ('logicalOperator' in this.expression) ? this.expression.logicalOperator : null;
+        return (<ExpressionGroup>this.expression).logicalOperator ?? null;
     }
 
     public handleGroupChange(expression: LogicalExpressionBuilderExpression) {
@@ -68,15 +72,14 @@ export class LogicalExpressionBuilderComponent {
 
         // make expression just a condition if it contains exactly one group with exactly one condition in it
         if (temp?.type === 'group'
-            && ('children' in temp)
-            && temp?.children?.length === 1
-            && temp.children[0].type === 'condition') {
-            temp = { ...temp.children[0] };
+            && (<ExpressionGroup>temp)?.children?.length === 1
+            && (<ExpressionGroup>temp)?.children?.[0].type === 'condition') {
+            temp = { ...(<ExpressionGroup>temp).children[0] };
         }
 
-        this.expression = temp;
+        this.expression = { ...temp };
 
-        this.expressionChange.emit(this.cleanExpression(this.expression));
+        this.expressionChange.emit(this._cleanExpression(this.expression));
     }
 
     public deleteCondition() {
@@ -85,8 +88,8 @@ export class LogicalExpressionBuilderComponent {
 
     public addCondition() {
         // adds a condition to the expression if the expression is empty
-        this.expression = { type: 'condition', field: null, operator: null, value: null, editable: true };
-        this.expressionChange.emit(this.cleanExpression(this.expression));
+        this.expression = { type: 'condition', field: null, operator: null, value: null, editMode: true };
+        this.expressionChange.emit(this._cleanExpression(this.expression));
     }
 
     public addGroup() {
@@ -98,35 +101,35 @@ export class LogicalExpressionBuilderComponent {
             logicalOperator: this._lebService.getLogicalOperators()[0].name,
             children: [
                 firstCondition,
-                { type: 'condition', field: null, operator: null, value: null, editable: true },
+                { type: 'condition', field: null, operator: null, value: null, editMode: true },
             ]
         };
 
         this._lebService.setEditBlocked(true);
-        this.expressionChange.emit(this.cleanExpression(this.expression));
+        this.expressionChange.emit(this._cleanExpression(this.expression));
     }
 
     /* Helper methods for adding and removing the 'editable' property to and from conditions */
 
-    private addEditableFieldToConditionsInExpression(expression: LogicalExpressionBuilderExpression): LogicalExpressionBuilderExpression {
+    private _addEditModeFieldToConditionsInExpression(expression: LogicalExpressionBuilderExpression): LogicalExpressionBuilderExpression {
         // recursively adds the 'editable' property to all conditions in the expression
         if (!expression) {
             return expression;
         }
 
         if (expression.type === 'condition') {
-            return { ...expression, editable: (<ExpressionCondition>expression)?.editable ?? false };
+            return { ...expression, editMode: (<ExpressionCondition>expression)?.editMode ?? false };
         }
 
         if (expression.type === 'group' && ('children' in expression)) {
-            const children = expression.children.map((child) => this.addEditableFieldToConditionsInExpression(child));
+            const children = expression.children.map((child) => this._addEditModeFieldToConditionsInExpression(child));
 
             return { ...expression, children };
         }
     }
 
-    private cleanExpression(expression: LogicalExpressionBuilderExpression): LogicalExpressionBuilderExpression {
-        // recursively removes the 'editable' property from all conditions in the expression for output
+    private _cleanExpression(expression: LogicalExpressionBuilderExpression): LogicalExpressionBuilderExpression {
+        // recursively removes the 'editMode' property from all conditions in the expression for output
         if (!expression) {
             return expression;
         }
@@ -141,7 +144,7 @@ export class LogicalExpressionBuilderComponent {
         }
 
         if (expression.type === 'group' && ('children' in expression)) {
-            const children = expression.children.map((child) => this.cleanExpression(child));
+            const children = expression.children.map((child) => this._cleanExpression(child));
 
             return { ...expression, children };
         }

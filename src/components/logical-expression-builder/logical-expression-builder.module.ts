@@ -53,7 +53,7 @@ const DECLARATIONS = [
     MenuModule,
     IconModule
   ],
-    exports: [...EXPORTS, L10nPipe],
+    exports: [...EXPORTS],
     declarations: DECLARATIONS,
     providers: [LogicalExpressionBuilderService, L10nPipe, DatePipe]
 })

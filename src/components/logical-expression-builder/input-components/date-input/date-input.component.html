@@ -8,7 +8,7 @@
     placement="bottom"
     popoverClass="date-time-picker-popover"
     class="form-control"
-    aria-label="Selected date"
+    [attr.aria-label]="('dateInputAriaLabel' | l10n ) || 'Selected date'"
     (keydown.enter)="popover.show()">
 
 <ng-template #popoverTemplate>

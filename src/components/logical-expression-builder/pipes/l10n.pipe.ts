@@ -8,6 +8,6 @@ export class L10nPipe implements PipeTransform {
 
     transform(l10nKey: string): any {
         // returns non-empty string or undefined
-        return this._lebService.getLocalizedStrings()?.[l10nKey] || undefined;
+        return this._lebService.getLocalizedStrings()?.[l10nKey];
     }
 }

@@ -10,20 +10,16 @@ import { L10nPipe } from '../../pipes/l10n.pipe';
 
 @Component({
     selector: 'ux-date-range-input',
-    templateUrl: './date-range-input.component.html',
-    // styleUrls: ['']
+    templateUrl: './date-range-input.component.html'
 })
 export class DateRangeInputComponent {
     @Input()
-    set value(value: number[]) {
-        if (Array.isArray(value)) {
-            const [start, end] = value.map((v) => new Date(v));
-            this.start = !isNaN(start?.getDate()) ? start : new Date();
-            this.end = !isNaN(end?.getDate()) ? end : new Date();
-        } else {
-            this.start = new Date();
-            this.end = new Date();
-        }
+    set value(value: DateRangeInputValue) {
+        const start: Date = new Date(value?.start);
+        const end: Date = new Date(value?.end);
+
+        this.start = !isNaN(start?.getDate()) ? start : new Date();
+        this.end = !isNaN(end?.getDate()) ? end : new Date();
 
         this.onRangeChange();
     }
@@ -38,7 +34,7 @@ export class DateRangeInputComponent {
         this.showSpinners = data?.showSpinners ?? true;
     }
 
-    @Output() valueChange = new EventEmitter<number[]>();
+    @Output() valueChange: EventEmitter<DateRangeInputValue> = new EventEmitter<DateRangeInputValue>();
 
     start: Date;
     end: Date;
@@ -52,7 +48,7 @@ export class DateRangeInputComponent {
 
     set dateString(dateString: string) {
         this._dateString = dateString;
-        this.valueChange.emit([this.start.getTime(), this.end.getTime()]);
+        this.valueChange.emit({ start: this.start.getTime(), end: this.end.getTime() });
     }
 
     timezone: DateTimePickerTimezone;
@@ -176,3 +172,5 @@ interface DateInputOptions {
     showMeridians?: boolean;
     showSpinners?: boolean;
 }
+
+type DateRangeInputValue = { start: number, end: number };
