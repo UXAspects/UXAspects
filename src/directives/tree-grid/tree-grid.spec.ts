@@ -1,6 +1,6 @@
-import { Component, QueryList, ViewChildren } from '@angular/core';
-import { async, ComponentFixture, TestBed, fakeAsync, tick, flush } from '@angular/core/testing';
-import { TreeGridItem, TreeGridModule, TreeGridRowDirective } from './index';
+import { Component } from '@angular/core';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { TreeGridItem, TreeGridModule } from './index';
 
 interface TreeGridTestItem extends TreeGridItem {
     title: string;
@@ -10,7 +10,7 @@ interface TreeGridTestItem extends TreeGridItem {
 @Component({
     selector: 'tree-grid-test',
     template: `
-        <table [uxTreeGrid]="items" [(rows)]="rows">
+        <table [uxTreeGrid]="items" (rowsChange)="rows = $event">
             <tr *ngFor="let row of rows"
                 [uxTreeGridRow]="row"
                 [canExpand]="true"
