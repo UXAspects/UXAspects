@@ -5,7 +5,7 @@
             aria-multiselectable="true"
             class="table table-hover"
             [uxTreeGrid]="items"
-            [(rows)]="rows">
+            (rowsChange)="rows = $event">
             <thead>
                 <tr class="treegrid-header table-header-dark">
                     <th>
@@ -96,7 +96,7 @@
             aria-multiselectable="true"
             class="table table-hover"
             [uxTreeGrid]="asyncItems"
-            [(rows)]="asyncRows"
+            (rowsChange)="asyncRows = $event"
             [loadChildren]="loadChildrenFn">
             <thead>
                 <tr class="treegrid-header table-header-dark">
@@ -205,11 +205,9 @@
         The items to display in the tree grid.
         See below for details of the <code>TreeGridItem</code> interface.
     </tr>
-    <tr uxd-api-property name="rows" type="TreeGridItem[]" [required]="true">
-        The visible rows to render in the table.
-        This is a two-way binding property which is managed by the directive.
-        Use this array in combination with the <code>ngFor</code> directive to populate the table rows, after applying
-        any required filtering.
+    <tr uxd-api-property name="rows" type="TreeGridItem[]">
+        <strong>Deprecated:</strong> This input will be removed in the next major release.
+        Use <code>(rowsChange)="rows = $event"</code> instead.
     </tr>
     <tr uxd-api-property name="loadChildren" type="(parent: TreeGridItem) => TreeGridItem[] | Promise<TreeGridItem[]> | Observable<TreeGridItem[]>">
         <p>
@@ -226,8 +224,8 @@
 
 <uxd-api-properties tableTitle="Outputs">
     <tr uxd-api-property name="rowsChange" type="TreeGridItem[]">
-        Emitted when the <code>rows</code> array changes.
-        This happens when the <code>uxTreeGrid</code> input array is changed.
+        Provides an array of the currently visible rows, based on the expanded/collapsed states.
+        Bind this array to an <code>ngFor</code> directive to populate the table rows, after applying any required filtering.
     </tr>
 </uxd-api-properties>
 
@@ -238,8 +236,8 @@
 <uxd-api-properties tableTitle="Inputs">
     <tr uxd-api-property name="uxTreeGridRow" type="TreeGridItem" [required]="true">
         The item that the row displays.
-        This should be a member of the <code>rows</code> array emitted by the <code>uxTreeGrid</code> directive, which
-        manages the visible rows and their states.
+        This should be a member of the array emitted by the <code>rowsChange</code> output of the
+        <code>uxTreeGrid</code> directive, which manages the visible rows and their states.
     </tr>
     <tr uxd-api-property name="canExpand" type="boolean">
         Whether the row can expand or not.
