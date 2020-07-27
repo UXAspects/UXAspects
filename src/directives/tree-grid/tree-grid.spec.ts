@@ -1,7 +1,6 @@
-import { Component, ViewChildren, QueryList } from '@angular/core';
+import { Component, QueryList, ViewChildren } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { TreeGridItem, TreeGridModule } from './index';
-import { TreeGridRowDirective } from './tree-grid-row.directive';
+import { TreeGridItem, TreeGridModule, TreeGridRowDirective } from './index';
 
 interface TreeGridTestItem extends TreeGridItem {
     title: string;
