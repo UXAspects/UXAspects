@@ -59,8 +59,8 @@ export class ComponentsLogicalExpressionBuilderComponent extends BaseDocumentati
 
     fields: FieldDefinition[] = [
         { name: 'name', label: 'Name', fieldType: 'text' },
-        { name: 'date', label: 'Date', fieldType: 'date' },
-        { name: 'dateRange', label: 'Date Range', fieldType: 'dateRange' },
+        { name: 'date', label: 'Date', fieldType: 'date', data: { dateFormat: 'medium' } },
+        { name: 'dateRange', label: 'Date Range', fieldType: 'dateRange', data: { dateFormat: 'medium' } },
         { name: 'number', label: 'Number', fieldType: 'number' },
         {
             name: 'category',
@@ -76,9 +76,7 @@ export class ComponentsLogicalExpressionBuilderComponent extends BaseDocumentati
         }
     ];
 
-    localizedStrings = {
-        dateFormat: 'medium',
-    };
+    localizedStrings = {};
 
     expression: LogicalExpressionBuilderExpression = {
         type: 'group',

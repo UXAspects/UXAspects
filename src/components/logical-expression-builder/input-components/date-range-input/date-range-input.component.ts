@@ -6,7 +6,6 @@ import {
 } from '@angular/core';
 import { DateTimePickerTimezone, timezones } from '../../../date-time-picker';
 import { formatDate } from '@angular/common';
-import { L10nPipe } from '../../pipes/l10n.pipe';
 
 @Component({
     selector: 'ux-date-range-input',
@@ -32,6 +31,8 @@ export class DateRangeInputComponent {
         this.showTimezones = data?.showTimezones ?? true;
         this.showMeridians = data?.showMeridians ?? true;
         this.showSpinners = data?.showSpinners ?? true;
+
+        this.dateFormat = data?.dateFormat ?? 'medium';
     }
 
     @Output() valueChange: EventEmitter<DateRangeInputValue> = new EventEmitter<DateRangeInputValue>();
@@ -65,10 +66,7 @@ export class DateRangeInputComponent {
     startTimezone: DateTimePickerTimezone = { name: 'GMT', offset: 0 };
     endTimezone: DateTimePickerTimezone = { name: 'GMT', offset: 0 };
 
-    private _defaultDateFormat: string = 'd MMMM y  h:mm a';
-
-    constructor(private _l10nPipe: L10nPipe) {
-    }
+    dateFormat: string = 'medium';
 
     onDateChange(date: string): void {
         // reset any invalid state
@@ -104,9 +102,9 @@ export class DateRangeInputComponent {
 
     onRangeChange(): void {
         const start = this.start ?
-            formatDate(this.start, this._l10nPipe.transform('dateFormat') || this._defaultDateFormat, 'en-US') : '';
+            formatDate(this.start, this.dateFormat, 'en-US') : '';
         const end = this.end ?
-            formatDate(this.end, this._l10nPipe.transform('dateFormat') || this._defaultDateFormat, 'en-US') : '';
+            formatDate(this.end, this.dateFormat, 'en-US') : '';
 
         if (!this.start || !this.end) {
             return;
@@ -171,6 +169,7 @@ interface DateInputOptions {
     showTimezones?: boolean;
     showMeridians?: boolean;
     showSpinners?: boolean;
+    dateFormat?: string;
 }
 
 type DateRangeInputValue = { start: number, end: number };

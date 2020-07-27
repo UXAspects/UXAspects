@@ -23,9 +23,9 @@ export class DisplayValuePipe implements PipeTransform {
                 case 'number':
                     return `${ value }`;
                 case 'date':
-                    return this.transformDate(value);
+                    return this.transformDate(value, fieldData);
                 case 'dateRange':
-                    return `${ this.transformDate(value.start) } — ${ this.transformDate(value.end) }`;
+                    return `${ this.transformDate(value.start, fieldData) } — ${ this.transformDate(value.end, fieldData) }`;
                 case 'enum':
                     if (fieldData?.options) {
                         return this.transformEnum(value, fieldData);
@@ -56,8 +56,8 @@ export class DisplayValuePipe implements PipeTransform {
         return transformedValue.join(', ');
     }
 
-    private transformDate(value: number): string {
-        const format = this._lebService.getLocalizedStrings()?.['dateFormat'] || 'dd MMMM yyyy';
+    private transformDate(value: number, fieldData: any): string {
+        const format = fieldData.dateFormat || 'dd MMMM yyyy';
 
         return this._datePipe.transform(new Date(value), format);
     }
