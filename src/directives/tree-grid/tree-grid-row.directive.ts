@@ -1,5 +1,5 @@
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { ChangeDetectorRef, Directive, EventEmitter, HostBinding, HostListener, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Directive, EventEmitter, HostBinding, HostListener, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { TreeGridItem } from './tree-grid-item.interface';
@@ -21,6 +21,7 @@ export class TreeGridRowDirective implements OnInit, OnDestroy {
     canExpand: boolean;
 
     @Input()
+    @HostBinding('class.treegrid-row-expanded')
     set expanded(value: boolean) {
         const expanded = coerceBooleanProperty(value);
         if (expanded !== this._expanded) {
@@ -38,20 +39,11 @@ export class TreeGridRowDirective implements OnInit, OnDestroy {
     @HostBinding('class.treegrid-row-loading')
     loading: boolean = false;
 
-    @HostBinding('class.treegrid-row-expanded')
     private _expanded = false;
 
     private _onDestroy = new Subject<void>();
 
-    constructor(changeDetector: ChangeDetectorRef, private _treeGridService: TreeGridService) {
-        // this._expanded$.pipe(distinctUntilChanged(), tick(), takeUntil(this._onDestroy)).subscribe(expanded => {
-        //     if (expanded !== this.isExpanded) {
-        //         this._treeGridService.setExpanded(this.item, expanded);
-        //         this.isExpanded = expanded;
-        //         changeDetector.detectChanges();
-        //     }
-        // });
-    }
+    constructor(private _treeGridService: TreeGridService) { }
 
     ngOnInit(): void {
 

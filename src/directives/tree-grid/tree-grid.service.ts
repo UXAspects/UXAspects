@@ -107,8 +107,6 @@ export class TreeGridService implements OnDestroy {
 
         rows.splice(index + 1, 0, ...childRows);
 
-        console.log(`insertChildren: ${parent['title']}`);
-
         this.rows$.next(rows);
     }
 
@@ -125,8 +123,6 @@ export class TreeGridService implements OnDestroy {
         while (index + 1 < rows.length && rows[index + 1].state.level > parent.state.level) {
             rows.splice(index + 1, 1);
         }
-
-        console.log(`removeChildren: ${parent['title']}`);
 
         this.rows$.next(rows);
     }
