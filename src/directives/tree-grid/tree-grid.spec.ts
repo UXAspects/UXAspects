@@ -29,7 +29,7 @@ export class TreeGridTestComponent {
     expandedChange(row: TreeGridTestItem, expanded: boolean): void {}
 }
 
-fdescribe('Tree Grid', () => {
+describe('Tree Grid', () => {
     let component: TreeGridTestComponent;
     let fixture: ComponentFixture<TreeGridTestComponent>;
     let nativeElement: HTMLElement;
