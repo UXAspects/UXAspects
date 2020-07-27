@@ -8,7 +8,7 @@ import {
     ViewChild
 } from '@angular/core';
 import { ActionConfig, ActionsWidgetConfig } from '../interfaces/actions-widget';
-import {DashboardWidgetComponent} from '../../dashboard';
+import { DashboardWidgetComponent } from '../../dashboard';
 
 @Component({
     selector: 'ux-dashboard-actions-widget',

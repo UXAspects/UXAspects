@@ -1,12 +1,25 @@
-import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    ElementRef,
+    EventEmitter,
+    HostListener,
+    Input,
+    OnDestroy,
+    Output,
+    ViewChild
+} from '@angular/core';
 import { SidePanelComponent } from '../../side-panel';
 import { TextWidgetConfig } from '../interfaces/text-widget';
+import { DashboardWidgetComponent } from '../../dashboard';
 
 @Component({
     selector: 'ux-dashboard-text-widget',
     templateUrl: './dashboard-text-widget.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DashboardTextWidgetComponent implements TextWidgetConfig {
+export class DashboardTextWidgetComponent implements TextWidgetConfig, OnDestroy {
     @Input() id: string = '';
     @Input() name: string = '';
     @Input() heading: string = '';
@@ -14,6 +27,7 @@ export class DashboardTextWidgetComponent implements TextWidgetConfig {
     @Input() colSpan: number = 1;
     @Input() rowSpan: number = 1;
 
+    @ViewChild('widget') widget: DashboardWidgetComponent;
     @ViewChild('sidePanel') sidePanel: SidePanelComponent;
     @ViewChild('textArea') textArea: ElementRef<HTMLTextAreaElement>;
     @Input() text: string = '';
@@ -21,8 +35,20 @@ export class DashboardTextWidgetComponent implements TextWidgetConfig {
 
     @Output() textChange = new EventEmitter<string>();
 
-    constructor() {
+    private _isDragged: boolean = false;
 
+    constructor(private changeDetectorRef: ChangeDetectorRef) {}
+
+    ngOnDestroy() {
+        this._isDragged = false;
+        this.widget.dashboardService.isDragging$.unsubscribe();
+    }
+
+    @HostListener('window:mousemove', [])
+    onMouseEvent() {
+        if (this._isDragged) {
+            this.changeDetectorRef.markForCheck();
+        }
     }
 
     open() {
