@@ -16,7 +16,6 @@ export class NumberInputComponent {
 
     @Input()
     set data(data: NumberInputOptions) {
-        this.step = data?.step ?? 1;
         this.min = data?.min ?? -Infinity;
         this.max = data?.max ?? Infinity;
     }
@@ -24,13 +23,11 @@ export class NumberInputComponent {
 
     _value: number;
 
-    step: number;
-    min: number;
-    max: number;
+    min: number = -Infinity;
+    max: number = Infinity;
 }
 
 interface NumberInputOptions {
-    step?: number;
     min?: number;
     max?: number;
 }
