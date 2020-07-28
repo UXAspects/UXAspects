@@ -9,18 +9,13 @@ describe('L10nPipe', () => {
 
     beforeEach(() => {
         lebServiceStub = {
-            getLocalizedStrings: () => {
-                return {
-                    dateFormat: 'medium',
-                };
-            },
             getDisplayValueFunction: (): any => {
                 return undefined;
             },
         } as any;
 
         datePipeStub = {
-            transform(_: any, ...args: any[]): string | null {
+            transform(_: any): string | null {
                 return 'Jul 23, 2020, 4:40:31 PM';
             }
         } as any;
@@ -51,13 +46,16 @@ describe('L10nPipe', () => {
     it('should transform date values', () => {
         const date = 1595515231584;
 
-        expect(pipe.transform(date, 'date')).toEqual('Jul 23, 2020, 4:40:31 PM');
+        expect(pipe.transform(date, 'date', { dateFormat: 'medium' })).toEqual('Jul 23, 2020, 4:40:31 PM');
     });
 
     it('should transform date range values', () => {
         const start = 1595515231584;
         const end = 1595515231584;
 
-        expect(pipe.transform([start, end], 'dateRange')).toEqual('Jul 23, 2020, 4:40:31 PM — Jul 23, 2020, 4:40:31 PM');
+        expect(pipe.transform({
+            start: start,
+            end: end
+        }, 'dateRange', { dateFormat: 'medium' })).toEqual('Jul 23, 2020, 4:40:31 PM — Jul 23, 2020, 4:40:31 PM');
     });
 });
