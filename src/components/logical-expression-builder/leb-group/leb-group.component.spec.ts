@@ -1,3 +1,4 @@
+/*
 import { LebGroupComponent } from './leb-group.component';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
@@ -22,3 +23,4 @@ xdescribe('LebGroupComponent', () => {
         expect(component).toBeDefined();
     });
 });
+*/
