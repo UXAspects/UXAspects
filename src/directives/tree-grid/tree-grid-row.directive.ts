@@ -25,8 +25,8 @@ export class TreeGridRowDirective implements OnInit, OnDestroy {
     set expanded(value: boolean) {
         const expanded = coerceBooleanProperty(value);
         if (expanded !== this._expanded) {
-            this._treeGridService.setExpanded(this.item, expanded);
             this._expanded = expanded;
+            this._treeGridService.setExpanded(this.item, expanded);
         }
     }
     get expanded(): boolean {

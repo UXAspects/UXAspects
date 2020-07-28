@@ -92,6 +92,19 @@ describe('Tree Grid', () => {
             expect(titles[2]).toBe('Root 2');
             expect(component.expandedChange).toHaveBeenCalledTimes(1);
         });
+
+        it('should insert child rows when expanded programmatically', async () => {
+            component.items[0].expanded = true;
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            const titles = getRowTitles();
+            expect(titles.length).toBe(3);
+            expect(titles[0]).toBe('Root 1');
+            expect(titles[1]).toBe('Node 1');
+            expect(titles[2]).toBe('Root 2');
+            expect(component.expandedChange).toHaveBeenCalledTimes(0);
+        });
     });
 
     describe('with pre-expanded rows', () => {
@@ -135,6 +148,17 @@ describe('Tree Grid', () => {
             expect(titles.length).toBe(1);
             expect(titles[0]).toBe('Root');
             expect(component.expandedChange).toHaveBeenCalledTimes(1);
+        });
+
+        it('should remove child rows when collapsed programmatically', async () => {
+            component.items[0].expanded = false;
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            const titles = getRowTitles();
+            expect(titles.length).toBe(1);
+            expect(titles[0]).toBe('Root');
+            expect(component.expandedChange).toHaveBeenCalledTimes(0);
         });
     });
 
