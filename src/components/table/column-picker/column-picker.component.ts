@@ -49,6 +49,9 @@ export class ColumnPickerComponent implements OnChanges {
     /** Define settings for the grouped deselected items. */
     @Input() groups: ReadonlyArray<ColumnPickerGroup> = [];
 
+    /** Define a comparator function used for sorting the deselected columns. */
+    @Input() sort: (a: ColumnPickerGroupItem, b: ColumnPickerGroupItem) => number;
+
     /** Emits when the selected items change or the order of the selected items change. */
     @Output() selectedChange = new EventEmitter<ReadonlyArray<string>>();
 
@@ -63,6 +66,9 @@ export class ColumnPickerComponent implements OnChanges {
 
     /** A tree-friendly representation of the deselected data */
     _treeData: ColumnPickerTreeNode[];
+
+    /** A tree-friendly representation of the initial deselected data */
+    _initialTreeData: ColumnPickerTreeNode[];
 
     /** Data source observable bound to the tree control */
     _treeDataSource: ArrayDataSource<ColumnPickerTreeNode>;
@@ -103,19 +109,25 @@ export class ColumnPickerComponent implements OnChanges {
         const groupedColumns: (string | ColumnPickerGroupItem)[] = allColumns.filter(column => this.isColumnPickerItem(column) && column.group !== null);
         const ungroupedColumns = allColumns.filter(column => groupedColumns.indexOf(column) === -1);
 
-        // sort into alphabetical order, by group and name
-        groupedColumns.sort((a: ColumnPickerGroupItem, b: ColumnPickerGroupItem) => {
-            // sort by group first
-            if (a.group > b.group) { return -1; }
-            if (a.group < b.group) { return 1; }
+        if(this.sort) {
+            groupedColumns.sort(this.sort);
+            ungroupedColumns.sort(this.sort);
+        } else {
+            // sort into alphabetical order, by group and name
+            groupedColumns.sort((a: ColumnPickerGroupItem, b: ColumnPickerGroupItem) => {
+                // sort by group first
+                if (a.group > b.group) { return -1; }
+                if (a.group < b.group) { return 1; }
 
-            // sort by name after
-            return a.name > b.name ? 1 : -1;
-        });
+                // sort by name after
+                return a.name > b.name ? 1 : -1;
+            });
 
-        // sort into alphabetical order, by name
-        ungroupedColumns.sort((a: string | ColumnPickerGroupItem, b: string | ColumnPickerGroupItem) =>
-            this.getColumnName(a) > this.getColumnName(b) ? 1 : -1);
+            // sort into alphabetical order, by name
+            ungroupedColumns.sort((a: string | ColumnPickerGroupItem, b: string | ColumnPickerGroupItem) =>
+                this.getColumnName(a) > this.getColumnName(b) ? 1 : -1);
+        }
+
 
         let currentGroup: string = null;
         let children: string[] = [];
@@ -169,6 +181,7 @@ export class ColumnPickerComponent implements OnChanges {
         });
 
         this._treeData = treeData;
+        if (!this._initialTreeData) this._initialTreeData = treeData;
         this._treeDataSource = new ArrayDataSource(treeData);
 
         // set initial count for deselected values
@@ -181,6 +194,11 @@ export class ColumnPickerComponent implements OnChanges {
 
         // add each item to the selected columns list
         columns.forEach(column => this.selected = [...this.selected, this.getColumnName(column)]);
+
+        this.deselected = this.deselected.filter(column => {
+            const columnNames = columns.map(column => this.getColumnName(column));
+            return columnNames.indexOf(this.getColumnName(column)) === -1;
+        });
 
         // emit the selection changes
         this.selectedChange.emit(this.selected);
@@ -199,12 +217,19 @@ export class ColumnPickerComponent implements OnChanges {
         // remove each item from the selected columns list
         this.selected = this.selected.filter(column => columns.indexOf(column) === -1);
 
-        // add columns to deselected if not already there
+        const removedColumns = columns.map(column => {
+            if (this.isColumnPickerItem(column)) {
+                return column;
+            } else {
+                const nodes = this._initialTreeData.filter(node => node.name === column || (node.children && node.children.indexOf(column) != -1));
+                return nodes[0].children ? { name: column, group: nodes[0].name } : column;
+            }
+        });
+        console.log(removedColumns);
+
         this.deselected = [
             ...this.deselected,
-            ...columns.filter(column => !this.deselected.find(
-                _column => this.getColumnName(_column) === column) && this.deselected.indexOf(column) === -1
-            )
+            ...removedColumns
         ];
 
         // emit the selection changes
