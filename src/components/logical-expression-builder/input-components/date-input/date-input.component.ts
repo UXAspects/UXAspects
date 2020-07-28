@@ -19,7 +19,7 @@ import { debounceTime, takeUntil } from 'rxjs/operators';
 export class DateInputComponent implements AfterViewInit, OnDestroy {
     @Input()
     set value(value: number) {
-        const date: Date = new Date(value);
+        const date: Date = value ? new Date(value) : new Date();
         this.date = !isNaN(date.getDate()) ? date : new Date();
     }
 
