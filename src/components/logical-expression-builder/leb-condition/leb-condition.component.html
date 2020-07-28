@@ -32,9 +32,17 @@
             [disabled]="!(_field && _operator && _value)"
             (click)="confirmCondition()"
             type="button"
-            class="btn btn-link btn-icon btn-lg button-secondary"
+            class="btn btn-link btn-icon btn-lg button-primary"
             [attr.aria-label]="('confirmConditionAriaLabel' | l10n) || 'Confirm condition'">
             <span class="ux-icon ux-icon-checkmark" aria-hidden="true"></span>
+        </button>
+
+        <button
+            (click)="cancelEdit()"
+            type="button"
+            class="btn btn-link btn-icon btn-lg button-secondary"
+            [attr.aria-label]="('cancelConditionEditAriaLabel' | l10n) || 'Cancel editing'">
+            <span class="ux-icon ux-icon-close" aria-hidden="true"></span>
         </button>
     </td>
 </tr>

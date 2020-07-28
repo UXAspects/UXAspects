@@ -38,6 +38,8 @@ export class LebConditionComponent implements OnInit, OnDestroy {
     @Input() condition: ExpressionCondition;
     @Output() conditionChange = new EventEmitter<ExpressionCondition>();
 
+    private _initialCondition: ExpressionCondition;
+
     @Input() id: number;
     @Output() conditionDeleted = new EventEmitter<number>();
     @Output() conditionEmbedded = new EventEmitter<number>();
@@ -66,6 +68,8 @@ export class LebConditionComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit(): void {
+        this._initialCondition = this.condition;
+
         this.fields = this._lebService.getFields();
         this._field = this.fields.find((field) => field.name === this.condition.field) ?? null;
 
@@ -136,6 +140,19 @@ export class LebConditionComponent implements OnInit, OnDestroy {
         this.conditionChange.emit(this._condition);
     }
 
+    public cancelEdit(): void {
+        this._lebService.setEditBlocked(false);
+
+        this.editMode = false;
+
+        if (this._initialCondition.field || this._initialCondition.operator || this._initialCondition.value) {
+            this._resetCondition(this._initialCondition);
+            this.conditionChange.emit(this._condition);
+        } else {
+            this.conditionDeleted.emit(this.id);
+        }
+    }
+
     public editCondition(): void {
         if (!this._editBlocked) {
             this._lebService.setEditBlocked(true);
@@ -156,5 +173,9 @@ export class LebConditionComponent implements OnInit, OnDestroy {
         if (!this._editBlocked) {
             this.conditionEmbedded.emit(this.id);
         }
+    }
+
+    private _resetCondition(initialCondition: ExpressionCondition): void {
+        this._condition = { ...initialCondition, editMode: false };
     }
 }
