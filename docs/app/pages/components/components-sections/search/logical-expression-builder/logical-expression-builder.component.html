@@ -7,9 +7,11 @@
     (expressionChange)="expressionChanged($event)">
 </ux-logical-expression-builder>
 
-<button type="button" class="btn button-secondary" (click)="resetExpression()">
-    Reset expression
-</button>
+<div class="m-t-md">
+    <button type="button" class="btn button-secondary" (click)="resetExpression()">
+        Reset expression
+    </button>
+</div>
 
 <h4>Expression</h4>
 
@@ -47,7 +49,7 @@
     </tr>
 
     <tr uxd-api-property name="displayValueFunction"
-        type="(value: string, fieldType?: string, fieldData?: any) => string">
+        type="(value: any, fieldType?: string, fieldData?: any) => string">
         If provided, this function is used to display the values of conditions that are not in edit mode.
     </tr>
 </uxd-api-properties>
@@ -62,31 +64,92 @@
 
 <p>
     The Logical Expression Builder comes with the following predefined components for entering values of common data
-    types:
+    types. The <code>data</code> object is defined in the <code>fields</code> object of the Logical Expression Builder
+    (see example below).
 </p>
 
 <uxd-api-properties>
     <tr uxd-api-property name="DateInputComponent">
         <p>
             Contains a date picker. It expects a value of type <code>number</code>, representing milliseconds since
-            January 1 1970, 12:00 AM. The <code>data</code> can contain the following property:
+            January 1 1970, 12:00 AM. The <code>data</code> can contain the following properties:
         </p>
 
         <ul>
-            <li><code>showTime: boolean</code> - If specified, the date picker will also display time input.</li>
+            <li>
+                <code>showTime: boolean</code> - If specified, the date picker will also display time input. Defaults to
+                <code>false</code>.
+            </li>
+            <li>
+                <code>dateFormat: string</code> - The format dates will be displayed in. Defaults to
+                <code>'medium'</code>.
+            </li>
         </ul>
     </tr>
 
     <tr uxd-api-property name="DateRangeInputComponent">
         <p>
-            Contains a date range picker. It expects a value of type <code>number[]</code> with two entries,
-            representing the start and end date in milliseconds since January 1 1970, 12:00 AM. The <code>data</code>
-            can contain the following property:
+            Contains a date range picker. It expects an object of the form
+            <code>{{ '{ start: number, end: number }' }}</code>
+            as a value, where each property represents a date in milliseconds since January 1 1970, 12:00 AM. The <code>data</code>
+            can contain the following properties:
         </p>
 
         <ul>
-            <li><code>showTime: boolean</code> - If specified, the date range picker will also display time input.</li>
+            <li>
+                <code>showTime: boolean</code> - If specified, the date picker will also display time input. Defaults to
+                <code>false</code>.
+            </li>
+            <li>
+                <code>dateFormat: string</code> - The format dates will be displayed in. Defaults to
+                <code>'medium'</code>.
+            </li>
         </ul>
+    </tr>
+
+    <tr uxd-api-property name="NumberInputComponent">
+        <p>
+            Contains a number picker. It expects a value of type <code>number</code>. The <code>data</code> can contain
+            the following properties:
+        </p>
+
+        <ul>
+            <li>
+                <code>min: number</code> - The smallest number that can be entered in the date picker.
+            </li>
+            <li>
+                <code>max: number</code> - The largest number that can be entered in the date picker.
+            </li>
+        </ul>
+    </tr>
+
+    <tr uxd-api-property name="SelectInputComponent">
+        <p>
+            Contains a select input. It expects a value of type <code>string[]</code>, containing the <code>name</code>
+            of one or more options. The options for the select input can be provided in using the <code>options</code>
+            property of the <code>data</code>. Each option needs the
+            following properties:
+        </p>
+
+        <ul>
+            <li>
+                <code>name: string</code> - A unique identifier for the option.
+            </li>
+            <li>
+                <code>label: string</code> - The text that is displayed in the UI.
+            </li>
+            <li>
+                <code>icon?: string</code> - Optionally, the name of a <code>ux-icon</code> that is displayed for this
+                option.
+            </li>
+        </ul>
+    </tr>
+
+    <tr uxd-api-property name="TextInputComponent">
+        <p>
+            Contains a simple text input, expecting a value of type <code>string</code>. This Input Component does not
+            need a <code>data</code> object.
+        </p>
     </tr>
 </uxd-api-properties>
 
@@ -114,3 +177,28 @@
         This event will fire whenever the value has been modified. It will contain the latest value.
     </tr>
 </uxd-api-properties>
+
+<h4>Example custom Input Component</h4>
+
+<ux-tabset [minimal]="false">
+    <ux-tab heading="HTML">
+        <uxd-snippet [content]="snippets.compiled.textareaInputComponentHtml"></uxd-snippet>
+    </ux-tab>
+    <ux-tab heading="TypeScript">
+        <uxd-snippet [content]="snippets.compiled.textareaInputComponentTs"></uxd-snippet>
+    </ux-tab>
+    <ux-tab heading="CSS">
+        <uxd-snippet [content]="snippets.compiled.textareaInputComponentCss"></uxd-snippet>
+    </ux-tab>
+</ux-tabset>
+
+<h4>Example Code</h4>
+
+<ux-tabset [minimal]="false">
+    <ux-tab heading="HTML">
+        <uxd-snippet [content]="snippets.compiled.appHtml"></uxd-snippet>
+    </ux-tab>
+    <ux-tab heading="TypeScript">
+        <uxd-snippet [content]="snippets.compiled.appTs"></uxd-snippet>
+    </ux-tab>
+</ux-tabset>

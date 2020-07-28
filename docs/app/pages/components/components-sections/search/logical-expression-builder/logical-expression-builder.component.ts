@@ -24,7 +24,19 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 })
 @DocumentationSectionComponent('ComponentsLogicalExpressionBuilderComponent')
 export class ComponentsLogicalExpressionBuilderComponent extends BaseDocumentationSection implements IPlaygroundProvider {
-    playground: IPlayground;
+    playground: IPlayground = {
+        files: {
+            'app.component.ts': this.snippets.raw.appTs,
+            'app.component.html': this.snippets.raw.appHtml,
+            'app.component.css': this.snippets.raw.appCss
+        },
+        modules: [
+            {
+                imports: ['LogicalExpressionBuilderModule'],
+                library: '@ux-aspects/ux-aspects'
+            }
+        ]
+    };
 
     logicalOperators: LogicalOperatorDefinition[] = [
         { name: 'and', label: 'and' },
