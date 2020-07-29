@@ -1,7 +1,7 @@
-import { ChangeDetectorRef, Directive, EventEmitter, HostBinding, HostListener, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { BehaviorSubject, Subject } from 'rxjs';
-import { distinctUntilChanged, takeUntil } from 'rxjs/operators';
-import { tick } from '../../common/operators/tick.operator';
+import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import { Directive, EventEmitter, HostBinding, HostListener, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { TreeGridItem } from './tree-grid-item.interface';
 import { TreeGridService } from './tree-grid.service';
 
@@ -21,11 +21,16 @@ export class TreeGridRowDirective implements OnInit, OnDestroy {
     canExpand: boolean;
 
     @Input()
-    set expanded(expanded: boolean) {
-        this._expanded$.next(!!expanded);
+    @HostBinding('class.treegrid-row-expanded')
+    set expanded(value: boolean) {
+        const expanded = coerceBooleanProperty(value);
+        if (expanded !== this._expanded) {
+            this._expanded = expanded;
+            this._treeGridService.setExpanded(this.item, expanded);
+        }
     }
     get expanded(): boolean {
-        return this._expanded$.getValue();
+        return this._expanded;
     }
 
     @Output()
@@ -34,20 +39,11 @@ export class TreeGridRowDirective implements OnInit, OnDestroy {
     @HostBinding('class.treegrid-row-loading')
     loading: boolean = false;
 
-    @HostBinding('class.treegrid-row-expanded')
-    isExpanded: boolean = false;
-
-    private _expanded$ = new BehaviorSubject(false);
+    private _expanded = false;
 
     private _onDestroy = new Subject<void>();
 
-    constructor(changeDetector: ChangeDetectorRef, private _treeGridService: TreeGridService) {
-        this._expanded$.pipe(distinctUntilChanged(), tick(), takeUntil(this._onDestroy)).subscribe(expanded => {
-            this._treeGridService.setExpanded(this.item, expanded);
-            this.isExpanded = expanded;
-            changeDetector.detectChanges();
-        });
-    }
+    constructor(private _treeGridService: TreeGridService) { }
 
     ngOnInit(): void {
 
