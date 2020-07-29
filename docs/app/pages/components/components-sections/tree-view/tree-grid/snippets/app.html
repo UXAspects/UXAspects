@@ -5,7 +5,7 @@
             aria-multiselectable="true"
             class="table table-hover"
             [uxTreeGrid]="items"
-            [(rows)]="rows">
+            (rowsChange)="rows = $event">
             <thead>
                 <tr class="treegrid-header table-header-dark">
                     <th>
@@ -96,7 +96,7 @@
             aria-multiselectable="true"
             class="table table-hover"
             [uxTreeGrid]="asyncItems"
-            [(rows)]="asyncRows"
+            (rowsChange)="asyncRows = $event"
             [loadChildren]="loadChildrenFn">
             <thead>
                 <tr class="treegrid-header table-header-dark">
