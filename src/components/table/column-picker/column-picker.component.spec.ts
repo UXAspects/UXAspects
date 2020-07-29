@@ -161,7 +161,7 @@ export class ColumnPickerSortTestComponent {
     ];
 
     sort = (a: string | ColumnPickerGroupItem, b: string | ColumnPickerGroupItem) =>
-        (a['name'] ?? a).localeCompare(b['name'] ?? b);
+        (a['name'] ?? a).localeCompare(b['name'] ?? b)
 }
 
 describe('Column Picker Component - Sort Input', () => {

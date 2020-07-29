@@ -106,7 +106,7 @@ export class ColumnPickerComponent implements OnChanges {
         const groupedColumns: (string | ColumnPickerGroupItem)[] = allColumns.filter(column => this.isColumnPickerItem(column) && column.group !== null);
         const ungroupedColumns = allColumns.filter(column => groupedColumns.indexOf(column) === -1);
 
-        if(this.sort) {
+        if (this.sort) {
             groupedColumns.sort(this.sort);
             ungroupedColumns.sort(this.sort);
         }
@@ -173,14 +173,14 @@ export class ColumnPickerComponent implements OnChanges {
     /** A function that can be called to add columns. If no columns are passed to the function, the items that are selected in the left column will be added. */
     addColumns(columns: ReadonlyArray<string | ColumnPickerGroupItem | ColumnPickerTreeNode> = this._deselectedSelection): void {
         columns = columns.map(column => {
-            if (typeof column === 'string') return column;
+            if (typeof column === 'string') { return column; }
             if ('level' in column) {
-                if(column.level === 0) return column.name;
+                if (column.level === 0) { return column.name; }
                 const nodes = this._treeData.filter(node => node.children && node.children.indexOf(column.name) != -1);
                 const item: ColumnPickerGroupItem = { group: nodes[0].name, name: column.name};
                 return item;
             }
-            if ('group' in column) return column;
+            if ('group' in column) { return column; }
         });
 
         columns = columns.filter(column => this.selected.indexOf(column) === -1);
@@ -189,9 +189,9 @@ export class ColumnPickerComponent implements OnChanges {
         columns.forEach(column => this.selected = [...this.selected, column]);
 
         this.deselected = this.deselected.filter(deselectedColumn => {
-            if (typeof deselectedColumn === 'string') return columns.indexOf(deselectedColumn) === -1;
+            if (typeof deselectedColumn === 'string') { return columns.indexOf(deselectedColumn) === -1; }
             return columns.findIndex(column => {
-                if(typeof column === 'object') {
+                if (typeof column === 'object') {
                     return column.name === deselectedColumn.name;
                 }
             }) === -1;
