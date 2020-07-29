@@ -21,8 +21,18 @@
 
 <p>
     The Logical Expression Builder provides a visual way for users to build and modify logical expressions. These
-    expressions consist of one or more conditions that can be linked using logical operators. Each condition consists of
-    a data field, an operator, and a value. The available logical operators, fields, and operators can be configured.
+    expressions consist of one or more conditions that are linked with logical operators. The result is a tree-like
+    expression.
+</p>
+
+<p>
+    Each condition consists of a data field, an operator, and a value. Each field is associated with a field type, which
+    in turn is associated with a list of operators that can be used on this field type. Each operator defines a
+    component that is used to present an input element for the value.
+</p>
+
+<p>
+    The following properties can be used to interact with and configure the Logical Expression Builder:
 </p>
 
 <uxd-api-properties tableTitle="Inputs">
@@ -59,6 +69,69 @@
         This event will fire whenever the expression has been modified. It will contain the latest expression value.
     </tr>
 </uxd-api-properties>
+
+<h4>Configuration</h4>
+
+<p>
+    The <code>fields</code> property expects an array of <code>FieldDefinition</code> objects, each of which will be an
+    option in the select input for choosing a field for a condition. Each object has <code>name</code> property, which
+    is used in the generated expression, a <code>label</code> property, which contains the string displayed in the UI,
+    and a <code>fieldType</code>, which is used for associating the field with its operators.
+</p>
+
+<p>
+    Additionally, the object can contain a <code>data</code> property, which is used to pass data to the Input
+    Component. It can contain, e.g., options for a select input, or <code>min</code> and <code>max</code> values for a
+    number picker.
+</p>
+
+<uxd-snippet [content]="snippets.compiled.fieldsDefinitionTs"></uxd-snippet>
+
+<p>
+    The <code>operators</code> property expects an object of type <code>OperatorDefinitionList</code>. This object
+    contains the field types defined in <code>fields</code> as property names. Each of these properties is an array of
+    operator definition.
+</p>
+
+<p>
+    Each operator has a <code>name</code> that is used in the generated expression, a <code>label</code> that is used in
+    the UI, and a <code>component</code> property, which defines which Input Component will be rendered if the operator
+    is selected. It is possible to have operators with different Input Components for the same field type.
+</p>
+
+<uxd-snippet [content]="snippets.compiled.operatorsDefinitionTs"></uxd-snippet>
+
+<p>
+    The <code>logicalOperators</code> property defines which logical operators are available in the Logical Expression
+    Builder. It is an array of type <code>LogicalOperatorDefinition</code>, in which each object has a <code>name</code>
+    and <code>label</code> property, for the generated expression and the UI, respectively.
+</p>
+
+<p>
+    If no <code>logicalOperators</code> property is provided, the default operators <code>and</code>, <code>or</code>,
+    and <code>not</code> are used.
+</p>
+
+<uxd-snippet [content]="snippets.compiled.logicalOperatorsDefinitionTs"></uxd-snippet>
+
+<p>
+    The <code>displayValueFunction</code> property provides a way to customize how values are displayed in the Logical
+    Expression Builder if a condition is not being edited. It expects a function that takes a value as an argument and
+    transforms it into a string. Optionally, it can also take the arguments <code>fieldType</code> and
+    <code>fieldData</code> to further customize the display logic.
+</p>
+
+<uxd-snippet [content]="snippets.compiled.displayValueFunctionTs"></uxd-snippet>
+
+<h4>Localization</h4>
+
+<p>
+    The Logical Expression Builder can receive an object containing translation keys as properties and the respective
+    translations for all text and accessibility labels. If provided, the contained strings will replace the defaults in
+    English. The keys that can be overridden are:
+</p>
+
+<uxd-snippet [content]="snippets.compiled.localizedStringsTs"></uxd-snippet>
 
 <h4>Input Components</h4>
 
@@ -178,7 +251,12 @@
     </tr>
 </uxd-api-properties>
 
-<h4>Example custom Input Component</h4>
+<h4>Example for a custom Input Component</h4>
+
+<p>
+    Below is an example for a custom Input Component containing a <code>textarea</code> input. In this specific case,
+    the <code>data</code> object is used to pass a <code>max-height</code> for the input.
+</p>
 
 <ux-tabset [minimal]="false">
     <ux-tab heading="HTML">
@@ -186,9 +264,6 @@
     </ux-tab>
     <ux-tab heading="TypeScript">
         <uxd-snippet [content]="snippets.compiled.textareaInputComponentTs"></uxd-snippet>
-    </ux-tab>
-    <ux-tab heading="CSS">
-        <uxd-snippet [content]="snippets.compiled.textareaInputComponentCss"></uxd-snippet>
     </ux-tab>
 </ux-tabset>
 

@@ -31,6 +31,7 @@ export class DateRangeInputComponent {
         this.showTimezones = data?.showTimezones ?? true;
         this.showMeridians = data?.showMeridians ?? true;
         this.showSpinners = data?.showSpinners ?? true;
+        this.showNowBtn = data?.showNowBtn ?? false;
 
         this.dateFormat = data?.dateFormat ?? 'medium';
     }
@@ -170,6 +171,7 @@ interface DateInputOptions {
     showMeridians?: boolean;
     showSpinners?: boolean;
     dateFormat?: string;
+    showNowBtn?: boolean;
 }
 
 type DateRangeInputValue = { start: number, end: number };

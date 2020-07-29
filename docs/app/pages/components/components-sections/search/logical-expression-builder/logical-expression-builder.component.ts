@@ -70,10 +70,10 @@ export class ComponentsLogicalExpressionBuilderComponent extends BaseDocumentati
     };
 
     fields: FieldDefinition[] = [
-        { name: 'name', label: 'Name', fieldType: 'text' },
-        { name: 'date', label: 'Date', fieldType: 'date', data: { dateFormat: 'medium' } },
-        { name: 'dateRange', label: 'Date Range', fieldType: 'dateRange', data: { dateFormat: 'medium' } },
-        { name: 'number', label: 'Number', fieldType: 'number' },
+        { name: 'author', label: 'Author', fieldType: 'text' },
+        { name: 'created', label: 'Created', fieldType: 'date', data: { dateFormat: 'short', showTime: false, showNowBtn: true } },
+        { name: 'edited', label: 'Edited', fieldType: 'dateRange', data: { dateFormat: 'short', showTime: false, showNowBtn: true } },
+        { name: 'version', label: 'Version', fieldType: 'number' },
         {
             name: 'category',
             label: 'Category',
@@ -94,10 +94,10 @@ export class ComponentsLogicalExpressionBuilderComponent extends BaseDocumentati
         type: 'group',
         logicalOperator: 'and',
         children: [
-            { type: 'condition', field: 'name', operator: 'equals', value: 'test' },
+            { type: 'condition', field: 'author', operator: 'equals', value: 'test' },
             {
                 type: 'condition',
-                field: 'dateRange',
+                field: 'edited',
                 operator: 'between',
                 value: { start: 1592979598445, end: 1592979598445 }
             },
@@ -105,11 +105,11 @@ export class ComponentsLogicalExpressionBuilderComponent extends BaseDocumentati
                 type: 'group',
                 logicalOperator: 'or',
                 children: [
-                    { type: 'condition', field: 'date', operator: 'before', value: 1595515231584 },
+                    { type: 'condition', field: 'created', operator: 'before', value: 1595515231584 },
                     { type: 'condition', field: 'category', operator: 'one_of', value: ['performance', 'security'] },
                 ]
             },
-            { type: 'condition', field: 'number', operator: 'equals', value: 15 },
+            { type: 'condition', field: 'version', operator: 'equals', value: 3 },
         ]
     };
 

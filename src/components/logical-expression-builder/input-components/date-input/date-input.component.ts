@@ -26,6 +26,7 @@ export class DateInputComponent implements AfterViewInit, OnDestroy {
     @Input('data')
     set options(options: DateInputOptions) {
         this.showTime = options?.showTime ?? false;
+        this.showNowBtn = options?.showNowBtn ?? false;
         this.dateFormat = options?.dateFormat ?? 'medium';
     }
 
@@ -47,6 +48,7 @@ export class DateInputComponent implements AfterViewInit, OnDestroy {
     timezone: DateTimePickerTimezone;
 
     showTime: boolean = false;
+    showNowBtn: boolean = false;
     dateFormat: string = 'medium';
 
     private _destroy$: Subject<void> = new Subject<void>();
@@ -78,4 +80,5 @@ export class DateInputComponent implements AfterViewInit, OnDestroy {
 interface DateInputOptions {
     showTime?: boolean;
     dateFormat?: string;
+    showNowBtn?: boolean;
 }

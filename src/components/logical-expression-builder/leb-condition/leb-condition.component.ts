@@ -62,7 +62,7 @@ export class LebConditionComponent implements OnInit, OnDestroy {
     constructor(private _lebService: LogicalExpressionBuilderService, private _cfr: ComponentFactoryResolver) {
         this._lebService.getEditBlocked()
             .pipe(takeUntil(this._destroy$))
-            .subscribe((value) => {
+            .subscribe((value: boolean) => {
                 this._editBlocked = value;
             });
     }
@@ -96,7 +96,7 @@ export class LebConditionComponent implements OnInit, OnDestroy {
             this._inputComponentRef.instance.valueChange
                 .pipe(
                     takeUntil(this._destroy$),
-                    filter((value) => this._value !== value)
+                    filter((value: any) => this._value !== value)
                 )
                 .subscribe((value: any) => {
                     this._value = value;

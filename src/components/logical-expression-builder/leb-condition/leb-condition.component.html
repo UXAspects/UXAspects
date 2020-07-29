@@ -1,6 +1,7 @@
 <tr *ngIf="editMode; else staticMode" class="leb-condition-row" [style.padding-left.px]="indent">
     <td class="field-selection">
         <ux-select
+            [focusIf]="editMode"
             [value]="_field"
             [input]="_field?.label || null"
             (valueChange)="handleFieldSelected($event)"
@@ -33,7 +34,7 @@
             (click)="confirmCondition()"
             type="button"
             class="btn btn-link btn-icon btn-lg button-primary"
-            [attr.aria-label]="('confirmConditionAriaLabel' | l10n) || 'Confirm condition'">
+            [attr.aria-label]="('confirmConditionAriaLabel' | l10n) || 'Confirm edit'">
             <span class="ux-icon ux-icon-checkmark" aria-hidden="true"></span>
         </button>
 
@@ -79,7 +80,7 @@
                 uxHoverAction
                 (click)="deleteCondition()"
                 type="button"
-                class="btn btn-link btn-icon btn-lg button-secondary delete-btn"
+                class="btn btn-link btn-icon btn-lg button-warning"
                 [attr.aria-label]="('deleteConditionAriaLabel' | l10n) || 'Delete condition'">
                 <span class="ux-icon ux-icon-trash" aria-hidden="true"></span>
             </button>

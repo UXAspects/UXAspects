@@ -21,6 +21,7 @@ import { HoverActionModule } from '../../directives/hover-action';
 import { MenuModule } from '../menu';
 import { IconModule } from '../icon';
 import { DisplayValuePipe } from './pipes/display-value.pipe';
+import { FocusIfModule } from '../../directives/focus-if';
 
 const EXPORTS = [
     TextInputComponent,
@@ -51,7 +52,8 @@ const DECLARATIONS = [
     FormsModule,
     HoverActionModule,
     MenuModule,
-    IconModule
+    IconModule,
+    FocusIfModule
   ],
     exports: [...EXPORTS],
     declarations: DECLARATIONS,
