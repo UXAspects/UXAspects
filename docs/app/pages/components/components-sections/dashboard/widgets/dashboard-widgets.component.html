@@ -47,3 +47,92 @@
     </ux-dashboard-text-widget>
 
 </ux-dashboard>
+
+<hr>
+
+<p>
+    The pre-built widgets which include the <code>ux-dashboard-actions-widget</code>, <code>ux-dashboard-enum-widget</code>,
+    <code>ux-dashboard-table-widget</code> and <code>ux-dashboard-text-widget</code> are ready-to-use widgets for the <code>ux-dashboard</code>
+    component.
+</p>
+
+<p>The following attributes are required by all pre-built widgets:</p>
+
+<uxd-api-properties tableTitle="Inputs">
+    <tr uxd-api-property name="id" type="string">The id given to the widget.</tr>
+    <tr uxd-api-property name="name" type="string">The name used by aria labels and announcements.</tr>
+    <tr uxd-api-property name="heading" type="string">The heading displayed for the widget.</tr>
+    <tr uxd-api-property name="fixedMode" type="boolean">Whether the widget can be dragged and resized.</tr>
+    <tr uxd-api-property name="colSpan" type="number">The number of columns the widget spans.</tr>
+    <tr uxd-api-property name="rowSpan" type="number">The number of rows the widget spans.</tr>
+</uxd-api-properties>
+
+<p>Each widget has its own customizable attributes.</p>
+
+<h3>Actions Widget</h3>
+
+<p>
+    The <code>ux-dashboard-actions-widget</code> displays a status of a system and provides the user options to react to the status.
+</p>
+
+<p>It has the following additional attributes:</p>
+
+<uxd-api-properties tableTitle="Inputs">
+    <tr uxd-api-property name="actions" type="ActionConfig[]">The buttons that will be displayed. Includes <code>label</code> (a string),
+        <code>icon</code> (a ux-icon code), <code>iconTemplate</code> (a TemplateRef) and <code>action</code> (a function).</tr>
+    <tr uxd-api-property name="status" type="{ label: string, icon: string | TemplateRef<any> }">The status displayed by the widget.</tr>
+</uxd-api-properties>
+
+<h3>Enum Widget</h3>
+
+<p>
+    The <code>ux-dashboard-enum-widget</code> is a <code>select</code> input at its core. The label of the currently selected value is displayed along its icon.
+    Clicking the bottom right chevron button opens a side panel which fills out the whole parent dashboard component.
+    There the user can select a new value and either save the change or cancel the submission by clicking the cancel or the "X" button.
+</p>
+
+<p>The enum widget has the following additional attributes:</p>
+
+<uxd-api-properties tableTitle="Inputs">
+    <tr uxd-api-property name="value" type="string | number"></tr>
+    <tr uxd-api-property name="enums" type="EnumConfig[]"></tr>
+</uxd-api-properties>
+
+<p>Additionally the enum widget has these outputs available:</p>
+
+<uxd-api-properties tableTitle="Outputs">
+    <tr uxd-api-property name="valueChange" type="string | number">Emits when the selected value has been changed and saved.</tr>
+</uxd-api-properties>
+
+<h3>Table Widget</h3>
+
+<p>
+    The <code>ux-dashboard-table-widget</code> is a normal HTML <code>table</code> element which renders a header and a data array into a scrollable table.
+</p>
+
+<p>The table widget has the following additional attributes:</p>
+
+<uxd-api-properties tableTitle="Inputs">
+    <tr uxd-api-property name="header" type="any[]">The headers for the table columns.</tr>
+    <tr uxd-api-property name="data" type="any[][]">The data being displayed in the table. Each sub-array should be the same length as the header array.</tr>
+</uxd-api-properties>
+
+<h3>Text Widget</h3>
+
+<p>
+    The <code>ux-dashboard-text-widget</code> displays static text. The button in the bottom right opens a side panel which also fills the whole parent dashboard component and displays the full text.
+    Additionally the side panel can be set to be a text editor as well so that the user can edit the text and save it.
+</p>
+
+<p>It has the following additional attributes:</p>
+
+<uxd-api-properties tableTitle="Inputs">
+    <tr uxd-api-property name="text" type="string">The text that is being displayed.</tr>
+    <tr uxd-api-property name="editable" type="boolean">Whether the text can be edited in the side panel.</tr>
+</uxd-api-properties>
+
+<p>Additionally the enum widget has these outputs available:</p>
+
+<uxd-api-properties tableTitle="Outputs">
+    <tr uxd-api-property name="textChange" type="string">Emits when the text has been changed.</tr>
+</uxd-api-properties>
