@@ -26,7 +26,6 @@ export class DashboardTableWidgetComponent implements DataWidgetConfig, OnDestro
     @ViewChild('widget') widget: DashboardWidgetComponent;
     @Input() header: ReadonlyArray<any> = [];
     @Input() data: ReadonlyArray<ReadonlyArray<any>> = [];
-    @Input() editable: boolean = false;
 
     private _isDragged: boolean = false;
 
