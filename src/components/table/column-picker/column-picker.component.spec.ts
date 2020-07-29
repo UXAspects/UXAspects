@@ -50,7 +50,7 @@ export class ColumnPickerTestComponent {
     ];
 }
 
-fdescribe('Column Picker Component', () => {
+describe('Column Picker Component', () => {
     let component: ColumnPickerTestComponent;
     let fixture: ComponentFixture<ColumnPickerTestComponent>;
     let nativeElement: HTMLElement;
@@ -164,7 +164,7 @@ export class ColumnPickerSortTestComponent {
         (a['name'] ?? a).localeCompare(b['name'] ?? b);
 }
 
-fdescribe('Column Picker Component - Sort Input', () => {
+describe('Column Picker Component - Sort Input', () => {
     let component: ColumnPickerSortTestComponent;
     let fixture: ComponentFixture<ColumnPickerSortTestComponent>;
     let nativeElement: HTMLElement;
