@@ -16,7 +16,7 @@
 </p>
 
 <uxd-api-properties tableTitle="Inputs">
-    <tr uxd-api-property name="selected" type="ReadonlyArray<string>">
+    <tr uxd-api-property name="selected" type="ReadonlyArray<string | ColumnPickerGroupItem>">
         Define a list of all selected columns.
     </tr>
     <tr uxd-api-property name="locked" type="ReadonlyArray<string>">
@@ -55,10 +55,13 @@
     <tr uxd-api-property name="groups" type="ReadonlyArray<ColumnPickerGroup>">
         An optional array of objects to configure column groups. See below for a listing of the available settings for groups.
     </tr>
+    <tr uxd-api-property name="sort" type="(a: ColumnPickerGroupItem, b: ColumnPickerGroupItem) => number">
+        Define a comparator function used for sorting the deselected columns.
+    </tr>
 </uxd-api-properties>
 
 <uxd-api-properties tableTitle="Outputs">
-    <tr uxd-api-property name="selectedChange" type="ReadonlyArray<string>">
+    <tr uxd-api-property name="selectedChange" type="ReadonlyArray<string | ColumnPickerGroupItem>">
         Emits when the selected items change or the order of the selected items change.
     </tr>
     <tr uxd-api-property name="deselectedChange" type="ReadonlyArray<string | ColumnPickerGroupItem>">
@@ -73,7 +76,7 @@
     <tr uxd-api-property name="removeSelection" type="ReadonlyArray<string>">
         An array of items that are currently selected in the right column.
     </tr>
-    <tr uxd-api-property name="addColumns" type="(columns?: ReadonlyArray<string | ColumnPickerGroupItem>) => void">
+    <tr uxd-api-property name="addColumns" type="(columns?: ReadonlyArray<string | ColumnPickerGroupItem | ColumnPickerTreeNode>) => void">
         A function that can be called to add columns. If no columns are passed to the function, the items
         that are selected in the left column will be added.
     </tr>
@@ -122,3 +125,11 @@
         <uxd-snippet [content]="snippets.compiled.appCss"></uxd-snippet>
     </ux-tab>
 </ux-tabset>
+
+<h4>Sorting</h4>
+
+<p>The deselected columns can be sorted by providing a comparator function for the <code>sort</code> input</p>
+
+<p>The function below could be used to sort the columns alphabetically:</p>
+
+<uxd-snippet [content]="snippets.compiled.sortTs"></uxd-snippet>

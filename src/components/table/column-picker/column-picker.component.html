@@ -157,7 +157,7 @@
 
                  <ng-container *ngIf="!selectedTemplate">
                     <ux-icon uxReorderableHandle name="drag" class="drag-handle-icon"></ux-icon>
-                    {{ column }}
+                    {{ getColumnName(column) }}
                  </ng-container>
 
                  <ng-container
