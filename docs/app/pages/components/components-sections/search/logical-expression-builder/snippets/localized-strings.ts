@@ -8,6 +8,8 @@ localizedStrings = {
     embedConditionAriaLabel: 'Embed condition',
     deleteConditionAriaLabel: 'Delete condition',
     deleteLogicalOperatorAriaLabel: 'Delete logical operator',
+    logicalOperatorTooFewErrorText: 'Too few children',
+    logicalOperatorTooManyErrorText: 'Too many children',
     dateInputAriaLabel: 'Selected date',
     dateInputNowBtnText: 'Now',
     dateInputNowBtnAriaLabel: 'Now',

@@ -104,18 +104,19 @@ export class LebGroupComponent implements OnInit {
         this.groupChange.emit(this.subExpression);
     }
 
-    _valid: boolean = true;
-    _errorText: string;
+    public _valid: boolean = true;
+    public _errorType: string;
+    public _showAddBtn: boolean = true;
 
     public validate(logicalOperator: LogicalOperatorDefinition = this.selectedLogicalOperator): boolean {
         if ('minNumberOfChildren' in logicalOperator) {
             this._valid = this.subExpression.children?.length >= logicalOperator.minNumberOfChildren;
-
-            this._errorText = this._valid ? '' : `This logical operator has too few children`;
+            this._errorType = this._valid ? '' : 'logicalOperatorTooFewErrorText';
+            this._showAddBtn = true;
         } else if (logicalOperator.maxNumberOfChildren) {
             this._valid = this.subExpression.children?.length <= logicalOperator.maxNumberOfChildren;
-
-            this._errorText = this._valid ? '' : `This logical operator has too many children`;
+            this._errorType = this._valid ? '' : 'logicalOperatorTooManyErrorText';
+            this._showAddBtn = this.subExpression.children?.length < logicalOperator.maxNumberOfChildren;
         }
 
         return this._valid;

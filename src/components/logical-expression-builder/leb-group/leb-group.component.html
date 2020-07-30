@@ -10,7 +10,7 @@
         </ux-select>
     </td>
     <td *ngIf="!_valid" class="m-l-md text-error">
-        <ux-icon name="status-error-filled" class="m-r-xs"></ux-icon>{{ _errorText }}
+        <ux-icon name="status-error-filled" class="m-r-xs"></ux-icon>{{ (_errorType | l10n) || 'Wrong number of children' }}
     </td>
     <td class="logical-operator-delete">
         <button
@@ -44,7 +44,7 @@
     </ux-leb-group>
 </ng-container>
 
-<tr class="leb-group">
+<tr class="leb-group" *ngIf="_showAddBtn">
     <td [style.padding-left.px]="indent + additionalIndent">
         <button
             [uxMenuTriggerFor]="addMenu"
