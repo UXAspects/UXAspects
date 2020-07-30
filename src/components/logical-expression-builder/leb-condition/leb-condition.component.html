@@ -30,7 +30,7 @@
 
     <td>
         <button
-            [disabled]="!(_field && _operator && _value)"
+            [disabled]="!(_field && _operator && _value && _valid)"
             (click)="confirmCondition()"
             type="button"
             class="btn btn-link btn-icon btn-lg button-primary"

@@ -5,16 +5,26 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
     templateUrl: './text-input.component.html'
 })
 export class TextInputComponent {
+    @Output() valueChange: EventEmitter<string> = new EventEmitter<string>();
+    @Output() valid: EventEmitter<boolean> = new EventEmitter<boolean>();
+
     @Input()
     set value(value: string) {
         this._value = value ?? '';
         this.valueChange.emit(this.value);
+        this.valid.emit(this._validate(this.value));
     }
 
     get value() { return this._value; }
 
-    _value: string;
+    private _value: string;
 
-    @Input() data: object;
-    @Output() valueChange: EventEmitter<string> = new EventEmitter<string>();
+    @Input()
+    set data(data: TextInputData) {
+        this._validate = data?.validateFunction ?? this._validate;
+    }
+
+    private _validate: (value: string) => boolean = () => true;
 }
+
+type TextInputData = { validateFunction?: (value: string) => boolean; };

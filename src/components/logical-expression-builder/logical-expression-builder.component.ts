@@ -63,7 +63,7 @@ export class LogicalExpressionBuilderComponent implements OnDestroy {
     private _destroy$: Subject<void> = new Subject<void>();
 
     constructor(private _lebService: LogicalExpressionBuilderService, private _validationService: ValidationService) {
-        this._validationService.getValid()
+        this._validationService.getValidationStatus()
             .pipe(
                 takeUntil(this._destroy$),
                 distinctUntilChanged()

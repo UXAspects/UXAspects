@@ -15,8 +15,8 @@ import { LogicalExpressionBuilderService } from '../services/logical-expression-
 import { FieldDefinition } from '../interfaces/FieldDefinition';
 import { OperatorDefinition } from '../interfaces/OperatorDefinitionList';
 import { ExpressionCondition } from '../interfaces/LogicalExpressionBuilderExpression';
-import { Subject } from 'rxjs';
-import { filter, takeUntil } from 'rxjs/operators';
+import { Observable, Subject } from 'rxjs';
+import { distinctUntilChanged, filter, takeUntil } from 'rxjs/operators';
 import { ValidationService } from '../services/validation.service';
 
 @Component({
@@ -60,6 +60,8 @@ export class LebConditionComponent implements OnInit, OnDestroy {
     private _condition: ExpressionCondition;
     private _destroy$ = new Subject<void>();
 
+    public _valid: boolean = true;
+
     validationId: number;
 
     constructor(
@@ -93,6 +95,8 @@ export class LebConditionComponent implements OnInit, OnDestroy {
     ngOnDestroy(): void {
         this._destroy$.next();
         this._destroy$.complete();
+
+        this._validationService.removeValidationState(this.validationId);
     }
 
     private _createInputComponent(): void {
@@ -110,6 +114,16 @@ export class LebConditionComponent implements OnInit, OnDestroy {
                 .subscribe((value: any) => {
                     this._value = value;
                     this._buildCondition();
+                });
+            this._inputComponentRef.instance.valid
+                .pipe(
+                    takeUntil(this._destroy$),
+                    distinctUntilChanged()
+                )
+                .subscribe((value: boolean) => {
+                    console.log(`valid: ${value}`);
+                    this._valid = value;
+                    this._validationService.setValidationState(this.validationId, value);
                 });
         }
     }

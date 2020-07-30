@@ -17,6 +17,11 @@ import { debounceTime, takeUntil } from 'rxjs/operators';
     templateUrl: './date-input.component.html'
 })
 export class DateInputComponent implements AfterViewInit, OnDestroy {
+    @ViewChild('input') dateInput: ElementRef;
+
+    @Output() valueChange: EventEmitter<number> = new EventEmitter<number>();
+    @Output() valid: EventEmitter<boolean> = new EventEmitter<boolean>();
+
     @Input()
     set value(value: number) {
         const date: Date = value ? new Date(value) : new Date();
@@ -25,14 +30,13 @@ export class DateInputComponent implements AfterViewInit, OnDestroy {
 
     @Input('data')
     set options(options: DateInputOptions) {
-        this.showTime = options?.showTime ?? false;
-        this.showNowBtn = options?.showNowBtn ?? false;
-        this.dateFormat = options?.dateFormat ?? 'medium';
+        this.showTime = options?.showTime ?? this.showTime;
+        this.showNowBtn = options?.showNowBtn ?? this.showNowBtn;
+        this.dateFormat = options?.dateFormat ?? this.dateFormat;
+        this._validate = options?.validateFunction ?? this._validate;
     }
 
-    @Output() valueChange = new EventEmitter<number>();
-
-    @ViewChild('input') dateInput: ElementRef;
+    private _validate: (value: number) => boolean = () => true;
 
     private _date: Date;
 
@@ -43,6 +47,7 @@ export class DateInputComponent implements AfterViewInit, OnDestroy {
     set date(date: Date) {
         this._date = date;
         this.valueChange.emit(this._date.getTime());
+        this.valid.emit(this._validate(this._date.getTime()));
     }
 
     timezone: DateTimePickerTimezone;
@@ -81,4 +86,5 @@ interface DateInputOptions {
     showTime?: boolean;
     dateFormat?: string;
     showNowBtn?: boolean;
+    validateFunction?: (value: number) => boolean;
 }

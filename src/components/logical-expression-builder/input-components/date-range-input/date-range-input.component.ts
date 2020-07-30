@@ -12,6 +12,9 @@ import { formatDate } from '@angular/common';
     templateUrl: './date-range-input.component.html'
 })
 export class DateRangeInputComponent {
+    @Output() valueChange: EventEmitter<DateRangeInputValue> = new EventEmitter<DateRangeInputValue>();
+    @Output() valid: EventEmitter<boolean> = new EventEmitter<boolean>();
+
     @Input()
     set value(value: DateRangeInputValue) {
         const start: Date = new Date(value?.start);
@@ -27,20 +30,32 @@ export class DateRangeInputComponent {
     set data(data: DateInputOptions) {
         this.timezone = data?.timezone ?? { name: 'GMT', offset: 0 };
 
-        this.showTime = data?.showTime ?? true;
-        this.showTimezones = data?.showTimezones ?? true;
-        this.showMeridians = data?.showMeridians ?? true;
-        this.showSpinners = data?.showSpinners ?? true;
-        this.showNowBtn = data?.showNowBtn ?? false;
+        this.showTime = data?.showTime ?? this.showTime;
+        this.showTimezones = data?.showTimezones ?? this.showTimezones;
+        this.showMeridians = data?.showMeridians ?? this.showMeridians;
+        this.showSpinners = data?.showSpinners ?? this.showSpinners;
+        this.showNowBtn = data?.showNowBtn ?? this.showNowBtn;
 
-        this.dateFormat = data?.dateFormat ?? 'medium';
+        this.dateFormat = data?.dateFormat ?? this.dateFormat;
+
+        this._validate = data?.validateFunction ?? this._validate;
     }
 
-    @Output() valueChange: EventEmitter<DateRangeInputValue> = new EventEmitter<DateRangeInputValue>();
+    private _validate: (value: DateRangeInputValue) => boolean = () => true;
 
     start: Date;
     end: Date;
-    invalid: boolean = false;
+
+    set invalid(value: boolean) {
+        this._invalid = value;
+        this.valid.emit(this._validate({ start: this.start.getTime(), end: this.end.getTime() }));
+    }
+
+    get invalid() {
+        return this._invalid;
+    }
+
+    private _invalid: boolean = false;
 
     private _dateString: string;
 
@@ -55,10 +70,10 @@ export class DateRangeInputComponent {
 
     timezone: DateTimePickerTimezone;
 
-    showTime: boolean;
-    showTimezones: boolean;
-    showMeridians: boolean;
-    showSpinners: boolean;
+    showTime: boolean = false;
+    showTimezones: boolean = true;
+    showMeridians: boolean = true;
+    showSpinners: boolean = true;
 
     showTimezone: boolean = false;
     showSeconds: boolean = false;
@@ -172,6 +187,7 @@ interface DateInputOptions {
     showSpinners?: boolean;
     dateFormat?: string;
     showNowBtn?: boolean;
+    validateFunction?: (value: DateRangeInputValue) => boolean;
 }
 
 type DateRangeInputValue = { start: number, end: number };
