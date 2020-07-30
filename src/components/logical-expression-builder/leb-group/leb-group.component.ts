@@ -12,7 +12,7 @@ export class LebGroupComponent implements OnInit {
     @Input() subExpression: ExpressionGroup;
     @Input() logicalOperatorName: string;
     @Input() indent: number = 0;
-    additionalIndent: number = 40;
+    public additionalIndent: number = 40;
 
     @Output() groupChange = new EventEmitter<ExpressionGroup>();
 
@@ -25,11 +25,14 @@ export class LebGroupComponent implements OnInit {
     ngOnInit(): void {
         this.logicalOperators = this._lebService.getLogicalOperators();
         this.selectedLogicalOperator = this._lebService.getLogicalOperatorByName(this.logicalOperatorName);
+        this.validate();
     }
 
     public handleSelectedOperatorChange(selectedOperator: LogicalOperatorDefinition) {
         this.selectedLogicalOperator = selectedOperator;
         this.subExpression = { ...this.subExpression, logicalOperator: this.selectedLogicalOperator.name };
+
+        this.validate();
         this.groupChange.emit(this.subExpression);
     }
 
@@ -42,6 +45,7 @@ export class LebGroupComponent implements OnInit {
             this.subExpression.children = [...temp];
         }
 
+        this.validate();
         this.groupChange.emit(this.subExpression);
     }
 
@@ -54,6 +58,7 @@ export class LebGroupComponent implements OnInit {
             editMode: true,
         }];
 
+        this.validate();
         this.groupChange.emit(this.subExpression);
     }
 
@@ -65,6 +70,8 @@ export class LebGroupComponent implements OnInit {
                 { type: 'condition', field: null, operator: null, value: null, editMode: true },
             ],
         }];
+
+        this.validate();
     }
 
     public removeConditionAtIndex(id: number) {
@@ -72,6 +79,7 @@ export class LebGroupComponent implements OnInit {
             return index !== id;
         });
 
+        this.validate();
         this.groupChange.emit(this.subExpression);
     }
 
@@ -87,11 +95,29 @@ export class LebGroupComponent implements OnInit {
 
         this.subExpression = tempExpression;
 
+        this.validate();
         this.groupChange.emit(this.subExpression);
     }
 
     public deleteGroup(): void {
         this.subExpression = null;
         this.groupChange.emit(this.subExpression);
+    }
+
+    _valid: boolean = true;
+    _errorText: string;
+
+    public validate(logicalOperator: LogicalOperatorDefinition = this.selectedLogicalOperator): boolean {
+        if ('minNumberOfChildren' in logicalOperator) {
+            this._valid = this.subExpression.children?.length >= logicalOperator.minNumberOfChildren;
+
+            this._errorText = this._valid ? '' : `This logical operator has too few children`;
+        } else if (logicalOperator.maxNumberOfChildren) {
+            this._valid = this.subExpression.children?.length <= logicalOperator.maxNumberOfChildren;
+
+            this._errorText = this._valid ? '' : `This logical operator has too many children`;
+        }
+
+        return this._valid;
     }
 }

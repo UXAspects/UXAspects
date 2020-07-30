@@ -7,6 +7,7 @@ localizedStrings = {
     editConditionAriaLabel: 'Edit condition',
     embedConditionAriaLabel: 'Embed condition',
     deleteConditionAriaLabel: 'Delete condition',
+    deleteLogicalOperatorAriaLabel: 'Delete logical operator',
     dateInputAriaLabel: 'Selected date',
     dateInputNowBtnText: 'Now',
     dateInputNowBtnAriaLabel: 'Now',
