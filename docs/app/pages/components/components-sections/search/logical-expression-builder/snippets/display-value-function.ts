@@ -11,4 +11,4 @@ displayValue = (value: any, fieldType?: string, fieldData?: any): string => {
                 return value;
         }
     }
-}
+};
