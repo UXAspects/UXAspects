@@ -1,14 +1,15 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { ExpressionCondition, ExpressionGroup } from '../interfaces/LogicalExpressionBuilderExpression';
 import { LogicalOperatorDefinition } from '../interfaces/LogicalOperatorDefinition';
 import { LogicalExpressionBuilderService } from '../services/logical-expression-builder.service';
+import { ValidationService } from '../services/validation.service';
 
 @Component({
     selector: 'ux-leb-group',
     templateUrl: './leb-group.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LebGroupComponent implements OnInit {
+export class LebGroupComponent implements OnInit, OnDestroy {
     @Input() subExpression: ExpressionGroup;
     @Input() logicalOperatorName: string;
     @Input() indent: number = 0;
@@ -19,13 +20,18 @@ export class LebGroupComponent implements OnInit {
     public logicalOperators: LogicalOperatorDefinition[];
     public selectedLogicalOperator: LogicalOperatorDefinition;
 
-    constructor(private _lebService: LogicalExpressionBuilderService) {
+    constructor(private _lebService: LogicalExpressionBuilderService, private _validationService: ValidationService) {
+        this.validationId = this._validationService.getValidationId();
     }
 
     ngOnInit(): void {
         this.logicalOperators = this._lebService.getLogicalOperators();
         this.selectedLogicalOperator = this._lebService.getLogicalOperatorByName(this.logicalOperatorName);
         this.validate();
+    }
+
+    ngOnDestroy(): void {
+        this._validationService.removeValidationState(this.validationId);
     }
 
     public handleSelectedOperatorChange(selectedOperator: LogicalOperatorDefinition) {
@@ -119,6 +125,9 @@ export class LebGroupComponent implements OnInit {
             this._showAddBtn = this.subExpression.children?.length < logicalOperator.maxNumberOfChildren;
         }
 
+        this._validationService.setValidationState(this.validationId, this._valid);
         return this._valid;
     }
+
+    validationId: number;
 }

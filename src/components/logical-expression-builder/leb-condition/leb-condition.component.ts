@@ -17,6 +17,7 @@ import { OperatorDefinition } from '../interfaces/OperatorDefinitionList';
 import { ExpressionCondition } from '../interfaces/LogicalExpressionBuilderExpression';
 import { Subject } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
+import { ValidationService } from '../services/validation.service';
 
 @Component({
     selector: 'ux-leb-condition',
@@ -59,12 +60,20 @@ export class LebConditionComponent implements OnInit, OnDestroy {
     private _condition: ExpressionCondition;
     private _destroy$ = new Subject<void>();
 
-    constructor(private _lebService: LogicalExpressionBuilderService, private _cfr: ComponentFactoryResolver) {
+    validationId: number;
+
+    constructor(
+        private _lebService: LogicalExpressionBuilderService,
+        private _validationService: ValidationService,
+        private _cfr: ComponentFactoryResolver
+    ) {
         this._lebService.getEditBlocked()
             .pipe(takeUntil(this._destroy$))
             .subscribe((value: boolean) => {
                 this._editBlocked = value;
             });
+
+        this.validationId = this._validationService.getValidationId();
     }
 
     ngOnInit(): void {

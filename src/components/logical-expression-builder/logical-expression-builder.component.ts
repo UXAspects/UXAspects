@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
 import { LogicalOperatorDefinition } from './interfaces/LogicalOperatorDefinition';
 import { OperatorDefinitionList } from './interfaces/OperatorDefinitionList';
 import { FieldDefinition } from './interfaces/FieldDefinition';
@@ -9,13 +9,16 @@ import {
     ExpressionGroup
 } from './interfaces/LogicalExpressionBuilderExpression';
 import { DisplayValueFunction } from './interfaces/DisplayValueFunction';
+import { ValidationService } from './services/validation.service';
+import { distinctUntilChanged, takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 @Component({
     selector: 'ux-logical-expression-builder',
     templateUrl: './logical-expression-builder.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LogicalExpressionBuilderComponent {
+export class LogicalExpressionBuilderComponent implements OnDestroy {
 
     @Input()
     set logicalOperators(logicalOperators: LogicalOperatorDefinition[]) {
@@ -54,9 +57,23 @@ export class LogicalExpressionBuilderComponent {
 
     private _expression: LogicalExpressionBuilderExpression;
 
-    @Output() expressionChange = new EventEmitter<LogicalExpressionBuilderExpression>();
+    @Output() expressionChange: EventEmitter<LogicalExpressionBuilderExpression> = new EventEmitter<LogicalExpressionBuilderExpression>();
+    @Output() valid: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-    constructor(private _lebService: LogicalExpressionBuilderService) {
+    private _destroy$: Subject<void> = new Subject<void>();
+
+    constructor(private _lebService: LogicalExpressionBuilderService, private _validationService: ValidationService) {
+        this._validationService.getValid()
+            .pipe(
+                takeUntil(this._destroy$),
+                distinctUntilChanged()
+            )
+            .subscribe((value) => this.valid.emit(value));
+    }
+
+    ngOnDestroy(): void {
+        this._destroy$.next();
+        this._destroy$.complete();
     }
 
     public isExpressionEmpty(): boolean {

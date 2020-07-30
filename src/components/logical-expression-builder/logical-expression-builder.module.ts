@@ -22,6 +22,7 @@ import { MenuModule } from '../menu';
 import { IconModule } from '../icon';
 import { DisplayValuePipe } from './pipes/display-value.pipe';
 import { FocusIfModule } from '../../directives/focus-if';
+import { ValidationService } from './services/validation.service';
 
 const EXPORTS = [
     TextInputComponent,
@@ -57,7 +58,7 @@ const DECLARATIONS = [
   ],
     exports: [...EXPORTS],
     declarations: DECLARATIONS,
-    providers: [LogicalExpressionBuilderService, L10nPipe, DatePipe]
+    providers: [LogicalExpressionBuilderService, ValidationService, L10nPipe, DatePipe]
 })
 export class LogicalExpressionBuilderModule {
 }
