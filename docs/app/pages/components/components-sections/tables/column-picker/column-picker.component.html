@@ -56,7 +56,8 @@
         An optional array of objects to configure column groups. See below for a listing of the available settings for groups.
     </tr>
     <tr uxd-api-property name="sort" type="(a: ColumnPickerGroupItem, b: ColumnPickerGroupItem) => number">
-        Define a comparator function used for sorting the deselected columns.
+        Define a comparator function used for sorting the deselected columns. For example, to sort the columns alphabetically, the function below could be used:
+        <uxd-snippet [content]="snippets.compiled.sortTs"></uxd-snippet>
     </tr>
 </uxd-api-properties>
 
@@ -76,7 +77,7 @@
     <tr uxd-api-property name="removeSelection" type="ReadonlyArray<string>">
         An array of items that are currently selected in the right column.
     </tr>
-    <tr uxd-api-property name="addColumns" type="(columns?: ReadonlyArray<string | ColumnPickerGroupItem | ColumnPickerTreeNode>) => void">
+    <tr uxd-api-property name="addColumns" type="(columns?: ReadonlyArray<string | ColumnPickerGroupItem>) => void">
         A function that can be called to add columns. If no columns are passed to the function, the items
         that are selected in the left column will be added.
     </tr>
@@ -125,11 +126,3 @@
         <uxd-snippet [content]="snippets.compiled.appCss"></uxd-snippet>
     </ux-tab>
 </ux-tabset>
-
-<h4>Sorting</h4>
-
-<p>The deselected columns can be sorted by providing a comparator function for the <code>sort</code> input</p>
-
-<p>The function below could be used to sort the columns alphabetically:</p>
-
-<uxd-snippet [content]="snippets.compiled.sortTs"></uxd-snippet>

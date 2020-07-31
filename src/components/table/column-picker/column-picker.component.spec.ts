@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ComponentFixture, async, TestBed } from '@angular/core/testing';
 import { TableModule } from '../table.module';
+import { ColumnPickerGroupItem, ColumnPickerGroup } from './column-picker.component';
 
 @Component({
     selector: 'app-column-picker',
@@ -16,10 +17,7 @@ import { TableModule } from '../table.module';
 export class ColumnPickerTestComponent {
     selected: ReadonlyArray<string> = [
         'Type',
-        'Date',
-        'Requested by',
-        'Status',
-        'Completion'
+        'Date'
     ];
 
     locked: ReadonlyArray<string> = ['ID'];
@@ -27,22 +25,8 @@ export class ColumnPickerTestComponent {
     deselected: Array<string | ColumnPickerGroupItem> = [
         { group: 'Metadata', name: 'Department' },
         { group: 'Metadata', name: 'Author' },
-        { group: 'Metadata', name: 'Category' },
-        { group: 'Metadata', name: 'Date Created' },
-        { group: 'Metadata', name: 'Date Modified' },
         'Document ID',
-        'Flag',
-        'From',
-        'Icon',
-        'Importance',
-        'Location',
-        'Location ID',
-        'Message',
-        { group: 'Metadata', name: 'Organization' },
-        'Time',
-        'Time Created',
-        'Time Modified',
-        'Work Completed'
+        'Flag'
     ];
 
     groups: ColumnPickerGroup[] = [
@@ -70,47 +54,41 @@ describe('Column Picker Component', () => {
     });
 
     it('should display the correct number of deselected columns', async () => {
-        expect(component.deselected.length).toEqual(18);
-        let deselected = nativeElement.querySelector('.column-picker-list').querySelectorAll('.column-picker-list-item').length;
-        expect(deselected).toEqual(18);
+        expect(component.deselected.length).toEqual(4);
+        const deselected = nativeElement.querySelector('.column-picker-list').querySelectorAll('.column-picker-list-item').length;
+        expect(deselected).toEqual(4);
+    });
 
-        component.deselected = ['Document ID', 'Flag', 'From', 'Icon'];
+    it('should display the correct number of deselected columns after modification', async () => {
+        component.deselected = ['Document ID', 'Flag'];
 
         fixture.detectChanges();
         await fixture.whenStable();
 
-        expect(component.deselected.length).toEqual(4);
-        deselected = nativeElement.querySelector('.column-picker-list').querySelectorAll('.column-picker-list-item').length;
-        expect(deselected).toEqual(4);
+        expect(component.deselected.length).toEqual(2);
+        const deselected = nativeElement.querySelector('.column-picker-list').querySelectorAll('.column-picker-list-item').length;
+        expect(deselected).toEqual(2);
+
+        const numberOfDeselectedColumns = nativeElement.querySelector('.column-picker-stats');
+        expect(numberOfDeselectedColumns.textContent.trim()).toEqual('0 of 2 selected');
     });
 
     it('should not sort the deselected columns when the sort input is undefined', () => {
         expect(component.deselected[0]).toEqual({ group: 'Metadata', name: 'Department' });
     });
 
-    it('should update the number of deselected columns available to select', async () => {
-        let numberOfDeselectedColumns = nativeElement.querySelector('.column-picker-stats');
-        expect(numberOfDeselectedColumns.textContent.trim()).toEqual('0 of 18 selected');
-
-        component.deselected = ['Document ID', 'Flag', 'From', 'Icon'];
-
-        fixture.detectChanges();
-        await fixture.whenStable();
-
-        numberOfDeselectedColumns = nativeElement.querySelector('.column-picker-stats');
-        expect(numberOfDeselectedColumns.textContent.trim()).toEqual('0 of 4 selected');
+    it('should display the correct number of selected columns', async () => {
+        const numberOfSelectedColumns = nativeElement.querySelectorAll('.column-picker-stats')[1];
+        expect(numberOfSelectedColumns.textContent.trim()).toEqual('3 columns added');
     });
 
-    it('should update the number of select columns added', async () => {
-        let numberOfSelectedColumns = nativeElement.querySelectorAll('.column-picker-stats')[1];
-        expect(numberOfSelectedColumns.textContent.trim()).toEqual('6 columns added');
-
+    it('should display the correct number of selected columns after modification', async () => {
         component.selected = [];
 
         fixture.detectChanges();
         await fixture.whenStable();
 
-        numberOfSelectedColumns = nativeElement.querySelectorAll('.column-picker-stats')[1];
+        const numberOfSelectedColumns = nativeElement.querySelectorAll('.column-picker-stats')[1];
         expect(numberOfSelectedColumns.textContent.trim()).toEqual('1 columns added');
     });
 });
@@ -129,31 +107,13 @@ describe('Column Picker Component', () => {
 export class ColumnPickerSortTestComponent {
     selected: ReadonlyArray<string | ColumnPickerGroupItem> = [
         'Type',
-        'Date',
-        'Requested by',
-        'Status',
-        'Completion'
+        'Date'
     ];
 
     deselected: Array<string | ColumnPickerGroupItem> = [
-        { group: 'Metadata', name: 'Department' },
         { group: 'Metadata', name: 'Author' },
-        { group: 'Metadata', name: 'Category' },
-        { group: 'Metadata', name: 'Date Created' },
-        { group: 'Metadata', name: 'Date Modified' },
-        'Document ID',
-        'Flag',
-        'From',
-        'Icon',
-        'Importance',
         'Location',
-        'Location ID',
-        'Message',
-        { group: 'Metadata', name: 'Organization' },
-        'Time',
-        'Time Created',
-        'Time Modified',
-        'Work Completed'
+        'Flag'
     ];
 
     groups: ColumnPickerGroup[] = [
@@ -183,34 +143,22 @@ describe('Column Picker Component - Sort Input', () => {
         fixture.detectChanges();
     });
 
-    it('should sort grouped columns when the sort input is provided', () => {
-        let names = [];
-        nativeElement.querySelectorAll('.column-picker-tree-node-level-1')
-            .forEach(element => names = [...names, element.textContent]);
-        expect(names).toEqual(names.slice().sort());
-    });
-
-    it('should sort ungrouped columns when the sort input is provided', () => {
-        let names = [];
-        nativeElement.querySelectorAll('.column-picker-tree-node-level-0')
-            .forEach(element => names = [...names, element.textContent]);
-        expect(names).toEqual(names.slice().sort());
+    it('should sort deselected columns when the sort input is provided', () => {
+        const deselectedRows = getRowTextContents(0);
+        expect(deselectedRows[0]).toBe('Author', 'row 0');
+        expect(deselectedRows[1]).toBe('Flag', 'row 1');
+        expect(deselectedRows[2]).toBe('Location', 'row 2');
     });
 
     it('should not sort the selected columns', () => {
-        const selected = nativeElement.querySelectorAll('.column-picker-list')[1].querySelectorAll('.column-picker-list-item');
+        const selected = getRowTextContents(1);
         selected.forEach((column, i) => {
-            expect(column.textContent.trim()).toEqual(component.selected[i]['name'] || component.selected[i]);
+            expect(column).toEqual(component.selected[i]['name'] || component.selected[i]);
         });
     });
+
+    function getRowTextContents(listIndex: number): string[] {
+        return Array.from(nativeElement.querySelectorAll('.column-picker-list')[listIndex].querySelectorAll('.column-picker-list-item'))
+            .map(row => row.textContent.trim());
+    }
 });
-
-export interface ColumnPickerGroupItem {
-    group?: string;
-    name: string;
-}
-
-export interface ColumnPickerGroup {
-    name: string;
-    expanded?: boolean;
-}

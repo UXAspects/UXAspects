@@ -1,2 +1,2 @@
-sort = (a: string | ColumnPickerGroupItem, b: string | ColumnPickerGroupItem) =>
+(a: ColumnPickerGroupItem, b: ColumnPickerGroupItem) =>
     (a['name'] ?? a).localeCompare(b['name'] ?? b);
