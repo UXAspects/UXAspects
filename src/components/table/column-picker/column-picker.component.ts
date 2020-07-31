@@ -101,11 +101,13 @@ export class ColumnPickerComponent implements OnChanges {
 
     /** Parse data into suitable format for the FlatTreeComponent to understand and initialize deselect tree */
     private rebuildDeselectTree(): void {
-        const columns: ColumnPickerGroupItem[] = this.deselected.map(column => ({
+        let columns: ColumnPickerGroupItem[] = this.deselected.map(column => ({
             name: column['name'] ?? column,
             group: column['group']
         }));
+
         this.deselected = columns;
+
         this.selected = this.selected.map(column => ({
             name: column['name'] ?? column,
             group: column['group']
@@ -113,67 +115,69 @@ export class ColumnPickerComponent implements OnChanges {
 
         if (this.sort) {
             columns.sort(this.sort);
+        } else {
+            const grouped = columns.filter(column => this.isColumnPickerItem(column) && column.group !== undefined);
+            columns = [
+                ...grouped,
+                ...columns.filter(column => grouped.indexOf(column) === -1)
+            ];
         }
 
-        const allColumns = [...columns];
-
         const treeData: ColumnPickerTreeNode[] = [];
-        const groupedColumns: (string | ColumnPickerGroupItem)[] = allColumns.filter(column => this.isColumnPickerItem(column) && column.group !== undefined);
-        const ungroupedColumns = allColumns.filter(column => groupedColumns.indexOf(column) === -1);
+        const groupedColumns: ColumnPickerGroupItem[] = columns.filter(column => this.isColumnPickerItem(column) && column.group !== undefined);
 
 
         let currentGroup: string = null;
         let children: string[] = [];
 
-        // create grouped columns and their parent nodes
-        groupedColumns.forEach((column: ColumnPickerGroupItem) => {
-            // if new group create parent node
-            if (!currentGroup || column.group !== currentGroup) {
-                // set children for current group
-                if (currentGroup != null) {
+        columns.forEach((column: ColumnPickerGroupItem) => {
+            if (groupedColumns.indexOf(column) != -1) {
+                // create grouped columns and their parent nodes
+                if (!currentGroup || column.group !== currentGroup) {
+                    // set children for current group
+                    if (currentGroup != null) {
+                        treeData.find(node => node.name === currentGroup).children = children;
+                        children = [];
+                    }
+
+                    currentGroup = column.group;
+
+                    // check if settings present for the current group
+                    const groups = this.groups.find(setting => setting.name === column.group);
+                    const isExpanded = groups && groups.expanded || false;
+
+                    treeData.push({
+                        name: column.group,
+                        level: 0,
+                        expandable: true,
+                        isExpanded,
+                        column
+                    });
+                }
+
+                treeData.push({
+                    name: column.name,
+                    level: 1,
+                    expandable: false,
+                    column
+                });
+
+                children.push(column.name);
+
+                // set children for current group when last column
+                if (currentGroup && groupedColumns.indexOf(column) === groupedColumns.length - 1) {
                     treeData.find(node => node.name === currentGroup).children = children;
                     children = [];
                 }
-
-                currentGroup = column.group;
-
-                // check if settings present for the current group
-                const groups = this.groups.find(setting => setting.name === column.group);
-                const isExpanded = groups && groups.expanded || false;
-
+            } else {
+                // create ungrouped items
                 treeData.push({
-                    name: column.group,
+                    name: this._getColumnName(column),
                     level: 0,
-                    expandable: true,
-                    isExpanded,
+                    expandable: false,
                     column
                 });
             }
-
-            treeData.push({
-                name: column.name,
-                level: 1,
-                expandable: false,
-                column
-            });
-
-            children.push(column.name);
-
-            // set children for current group when last column
-            if (currentGroup && groupedColumns.indexOf(column) === groupedColumns.length - 1) {
-                treeData.find(node => node.name === currentGroup).children = children;
-                children = [];
-            }
-        });
-
-        // create ungrouped items
-        ungroupedColumns.forEach((column: string | ColumnPickerGroupItem) => {
-            treeData.push({
-                name: this._getColumnName(column),
-                level: 0,
-                expandable: false,
-                column
-            });
         });
 
         this._treeData = treeData;
