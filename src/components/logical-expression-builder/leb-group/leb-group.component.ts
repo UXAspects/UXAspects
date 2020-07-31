@@ -10,37 +10,41 @@ import { ValidationService } from '../services/validation.service';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LebGroupComponent implements OnInit, OnDestroy {
+    @Output() groupChange: EventEmitter<ExpressionGroup> = new EventEmitter<ExpressionGroup>();
+
     @Input() subExpression: ExpressionGroup;
     @Input() logicalOperatorName: string;
     @Input() indent: number = 0;
+
     public additionalIndent: number = 40;
-
-    @Output() groupChange = new EventEmitter<ExpressionGroup>();
-
     public logicalOperators: LogicalOperatorDefinition[];
     public selectedLogicalOperator: LogicalOperatorDefinition;
 
     public _focused: boolean = false;
+    public _valid: boolean = true;
+    public _validationId: number;
+    public _errorType: string;
+    public _showAddBtn: boolean = true;
 
     constructor(private _lebService: LogicalExpressionBuilderService, private _validationService: ValidationService) {
-        this.validationId = this._validationService.getValidationId();
+        this._validationId = this._validationService.getValidationId();
     }
 
     ngOnInit(): void {
         this.logicalOperators = this._lebService.getLogicalOperators();
         this.selectedLogicalOperator = this._lebService.getLogicalOperatorByName(this.logicalOperatorName);
-        this.validate();
+        this._validate();
     }
 
     ngOnDestroy(): void {
-        this._validationService.removeValidationState(this.validationId);
+        this._validationService.removeValidationState(this._validationId);
     }
 
     public handleSelectedOperatorChange(selectedOperator: LogicalOperatorDefinition) {
         this.selectedLogicalOperator = selectedOperator;
         this.subExpression = { ...this.subExpression, logicalOperator: this.selectedLogicalOperator.name };
 
-        this.validate();
+        this._validate();
         this.groupChange.emit(this.subExpression);
     }
 
@@ -53,11 +57,11 @@ export class LebGroupComponent implements OnInit, OnDestroy {
             this.subExpression.children = [...temp];
         }
 
-        this.validate();
+        this._validate();
         this.groupChange.emit(this.subExpression);
     }
 
-    public addCondition() {
+    public addCondition(): void {
         this.subExpression.children = [...this.subExpression.children, {
             type: 'condition',
             field: null,
@@ -66,11 +70,11 @@ export class LebGroupComponent implements OnInit, OnDestroy {
             editMode: true,
         }];
 
-        this.validate();
+        this._validate();
         this.groupChange.emit(this.subExpression);
     }
 
-    public addGroup() {
+    public addGroup(): void {
         this.subExpression.children = [...this.subExpression.children, {
             type: 'group',
             logicalOperator: this._lebService.getLogicalOperators()[0].name,
@@ -79,19 +83,19 @@ export class LebGroupComponent implements OnInit, OnDestroy {
             ],
         }];
 
-        this.validate();
+        this._validate();
     }
 
-    public removeConditionAtIndex(id: number) {
+    public removeConditionAtIndex(id: number): void {
         this.subExpression.children = this.subExpression.children.filter((_, index) => {
             return index !== id;
         });
 
-        this.validate();
+        this._validate();
         this.groupChange.emit(this.subExpression);
     }
 
-    public embedConditionAtIndex(id: number) {
+    public embedConditionAtIndex(id: number): void {
         let tempExpression = this.subExpression;
         const condition = tempExpression.children[id];
 
@@ -103,7 +107,7 @@ export class LebGroupComponent implements OnInit, OnDestroy {
 
         this.subExpression = tempExpression;
 
-        this.validate();
+        this._validate();
         this.groupChange.emit(this.subExpression);
     }
 
@@ -112,11 +116,7 @@ export class LebGroupComponent implements OnInit, OnDestroy {
         this.groupChange.emit(this.subExpression);
     }
 
-    public _valid: boolean = true;
-    public _errorType: string;
-    public _showAddBtn: boolean = true;
-
-    public validate(logicalOperator: LogicalOperatorDefinition = this.selectedLogicalOperator): boolean {
+    private _validate(logicalOperator: LogicalOperatorDefinition = this.selectedLogicalOperator): boolean {
         if ('minNumberOfChildren' in logicalOperator) {
             this._valid = this.subExpression.children?.length >= logicalOperator.minNumberOfChildren;
             this._errorType = this._valid ? '' : 'logicalOperatorTooFewErrorText';
@@ -127,9 +127,7 @@ export class LebGroupComponent implements OnInit, OnDestroy {
             this._showAddBtn = this.subExpression.children?.length < logicalOperator.maxNumberOfChildren;
         }
 
-        this._validationService.setValidationState(this.validationId, this._valid);
+        this._validationService.setValidationState(this._validationId, this._valid);
         return this._valid;
     }
-
-    validationId: number;
 }

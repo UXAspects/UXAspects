@@ -97,8 +97,6 @@ export class LebConditionComponent implements OnInit, OnDestroy {
     ngOnDestroy(): void {
         this._destroy$.next();
         this._destroy$.complete();
-
-        this._validationService.removeConditionValidationState(this.groupId, this.id);
     }
 
     private _createInputComponent(): void {

@@ -125,6 +125,8 @@ export class LogicalExpressionBuilderComponent implements OnDestroy {
 
         this._lebService.setEditBlocked(true);
         this.expressionChange.emit(this._cleanExpression(this.expression));
+
+        this._validationService.removeConditionValidationState(-1, -1);
     }
 
     /* Helper methods for adding and removing the 'editable' property to and from conditions */
