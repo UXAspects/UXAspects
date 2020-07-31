@@ -1,17 +1,24 @@
 import {
+    AfterViewInit,
     Component,
+    ElementRef,
     EventEmitter,
     Input,
     OnDestroy,
-    Output
+    Output,
+    ViewChild
 } from '@angular/core';
-import {Subject } from 'rxjs';
+import { DateTimePickerTimezone } from '../../../date-time-picker';
+import { fromEvent, Subject } from 'rxjs';
+import { debounceTime, takeUntil } from 'rxjs/operators';
 
 @Component({
     selector: 'ux-date-input',
     templateUrl: './date-input.component.html'
 })
-export class DateInputComponent implements OnDestroy {
+export class DateInputComponent implements AfterViewInit, OnDestroy {
+    @ViewChild('input') dateInput: ElementRef;
+
     @Output() valueChange: EventEmitter<number> = new EventEmitter<number>();
     @Output() valid: EventEmitter<boolean> = new EventEmitter<boolean>();
 
@@ -23,9 +30,9 @@ export class DateInputComponent implements OnDestroy {
 
     @Input('data')
     set options(options: DateInputOptions) {
-        this._showTime = options?.showTime ?? this._showTime;
-        this._showNowBtn = options?.showNowBtn ?? this._showNowBtn;
-        this._dateFormat = options?.dateFormat ?? this._dateFormat;
+        this.showTime = options?.showTime ?? this.showTime;
+        this.showNowBtn = options?.showNowBtn ?? this.showNowBtn;
+        this.dateFormat = options?.dateFormat ?? this.dateFormat;
         this._validate = options?.validateFunction ?? this._validate;
     }
 
@@ -45,15 +52,35 @@ export class DateInputComponent implements OnDestroy {
         this.valid.emit(this._valid);
     }
 
-    public _showTime: boolean = false;
-    public _showNowBtn: boolean = false;
-    public _dateFormat: string = 'medium';
+    timezone: DateTimePickerTimezone;
+
+    showTime: boolean = false;
+    showNowBtn: boolean = false;
+    dateFormat: string = 'medium';
 
     private _destroy$: Subject<void> = new Subject<void>();
+
+    ngAfterViewInit(): void {
+        fromEvent(this.dateInput.nativeElement, 'input')
+            .pipe(takeUntil(this._destroy$), debounceTime(500))
+            .subscribe(() => {
+                this.parse(this.dateInput.nativeElement.value);
+            });
+    }
 
     ngOnDestroy(): void {
         this._destroy$.next();
         this._destroy$.complete();
+    }
+
+    parse(value: string): void {
+        // try and parse the date
+        const date: Date = new Date(value);
+
+        // check if the date is valid
+        if (!isNaN(date.getDate())) {
+            this.date = date;
+        }
     }
 }
 

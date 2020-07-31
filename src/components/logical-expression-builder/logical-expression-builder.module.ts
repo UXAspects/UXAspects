@@ -23,7 +23,6 @@ import { IconModule } from '../icon';
 import { DisplayValuePipe } from './pipes/display-value.pipe';
 import { FocusIfModule } from '../../directives/focus-if';
 import { ValidationService } from './services/validation.service';
-import { InputDropdownModule } from '../input-dropdown';
 
 const EXPORTS = [
     TextInputComponent,
@@ -55,8 +54,7 @@ const DECLARATIONS = [
     HoverActionModule,
     MenuModule,
     IconModule,
-    FocusIfModule,
-    InputDropdownModule
+    FocusIfModule
   ],
     exports: [...EXPORTS],
     declarations: DECLARATIONS,
