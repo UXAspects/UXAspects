@@ -108,11 +108,6 @@ export class ColumnPickerComponent implements OnChanges {
 
         this.deselected = columns;
 
-        this.selected = this.selected.map(column => ({
-            name: column['name'] ?? column,
-            group: column['group']
-        }));
-
         if (this.sort) {
             columns.sort(this.sort);
         } else {
@@ -303,8 +298,8 @@ export class ColumnPickerComponent implements OnChanges {
     }
 
     /** Provide a trackBy function for the reorderable options */
-    selectedTrackBy(index: number, column: string): string {
-        return index + column;
+    selectedTrackBy(index: number, column: string | ColumnPickerGroupItem): string {
+        return index + (column['name'] || column);
     }
 
     /** Swap two elements in the selected columns array */
