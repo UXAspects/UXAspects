@@ -1,15 +1,17 @@
-<input
-    type="text"
-    #input
-    #popover="ux-popover"
-    uxFocusIndicatorOrigin
-    [value]="date | date:dateFormat"
-    [uxPopover]="popoverTemplate"
-    placement="bottom"
-    popoverClass="date-time-picker-popover"
-    class="form-control"
-    [attr.aria-label]="('dateInputAriaLabel' | l10n ) || 'Selected date'"
-    (keydown.enter)="popover.show()">
+<div class="form-group m-b-nil" [ngClass]="{ 'has-error': !_valid }">
+    <input
+        type="text"
+        #input
+        #popover="ux-popover"
+        uxFocusIndicatorOrigin
+        [value]="date | date:dateFormat"
+        [uxPopover]="popoverTemplate"
+        placement="bottom"
+        popoverClass="date-time-picker-popover"
+        class="form-control"
+        [attr.aria-label]="('dateInputAriaLabel' | l10n ) || 'Selected date'"
+        (keydown.enter)="popover.show()">
+</div>
 
 <ng-template #popoverTemplate>
     <ux-date-time-picker

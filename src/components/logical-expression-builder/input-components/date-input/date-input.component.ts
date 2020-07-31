@@ -37,6 +37,7 @@ export class DateInputComponent implements AfterViewInit, OnDestroy {
     }
 
     private _validate: (value: number) => boolean = () => true;
+    public _valid: boolean;
 
     private _date: Date;
 
@@ -47,7 +48,8 @@ export class DateInputComponent implements AfterViewInit, OnDestroy {
     set date(date: Date) {
         this._date = date;
         this.valueChange.emit(this._date.getTime());
-        this.valid.emit(this._validate(this._date.getTime()));
+        this._valid = this._validate(this._date.getTime());
+        this.valid.emit(this._valid);
     }
 
     timezone: DateTimePickerTimezone;

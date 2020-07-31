@@ -1,18 +1,20 @@
-<input
-    type="text"
-    #input
-    #popover="ux-popover"
-    [placeholder]="('dateRangeInputPlaceholder' | l10n) || 'Select a date range'"
-    [attr.aria-label]="('dateRangeInputAriaLabel' | l10n) || 'Selected date'"
-    [ngModel]="dateString"
-    uxFocusIndicatorOrigin
-    (ngModelChange)="onDateChange($event)"
-    [uxPopover]="popoverTemplate"
-    placement="bottom"
-    [popoverClass]="showNowBtn ? 'date-range-picker-now-btn-popover' :
+<div class="form-group m-b-nil" [ngClass]="{ 'has-error': !_valid }">
+    <input
+        type="text"
+        #input
+        #popover="ux-popover"
+        [placeholder]="('dateRangeInputPlaceholder' | l10n) || 'Select a date range'"
+        [attr.aria-label]="('dateRangeInputAriaLabel' | l10n) || 'Selected date'"
+        [ngModel]="dateString"
+        uxFocusIndicatorOrigin
+        (ngModelChange)="onDateChange($event)"
+        [uxPopover]="popoverTemplate"
+        placement="bottom"
+        [popoverClass]="showNowBtn ? 'date-range-picker-now-btn-popover' :
                     'date-range-picker-popover'"
-    class="form-control"
-    (keydown.enter)="popover.show()">
+        class="form-control"
+        (keydown.enter)="popover.show()">
+</div>
 
 <ng-template #popoverTemplate>
     <ux-date-range-picker

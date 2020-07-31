@@ -42,13 +42,15 @@ export class DateRangeInputComponent {
     }
 
     private _validate: (value: DateRangeInputValue) => boolean = () => true;
+    public _valid: boolean;
 
     start: Date;
     end: Date;
 
     set invalid(value: boolean) {
         this._invalid = value;
-        this.valid.emit(this._validate({ start: this.start.getTime(), end: this.end.getTime() }));
+        this._valid = this._validate({ start: this.start.getTime(), end: this.end.getTime() });
+        this.valid.emit(this._valid);
     }
 
     get invalid() {

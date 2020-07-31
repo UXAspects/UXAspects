@@ -1,5 +1,8 @@
-<input
-    type="text"
-    class="form-control"
-    [value]="value"
-    (keyup)="value = $any($event.target).value;"/>
+<div class="form-group m-b-nil" [ngClass]="{ 'has-error': !_valid }">
+    <input
+        type="text"
+        class="form-control"
+        [value]="value"
+        (keyup)="value = $any($event.target).value;"/>
+</div>
+

@@ -13,6 +13,8 @@ export class NumberInputComponent {
     set value(value: number) {
         this._value = value ?? 0;
         this.valueChange.emit(this._value);
+        this._valid = this._validate(this._value);
+        this.valid.emit(this._valid);
     }
 
     get value() { return this._value; }
@@ -25,15 +27,16 @@ export class NumberInputComponent {
     }
 
     private _value: number;
+    public _valid: boolean;
 
     public _min: number = -Infinity;
     public _max: number = Infinity;
 
-    private _validate: (value: number) => boolean = () => true;
+    private _validate: (value: any) => boolean = () => true;
 }
 
 interface NumberInputOptions {
     min?: number;
     max?: number;
-    validateFunction?: (value: number) => boolean;
+    validateFunction?: (value: any) => boolean;
 }

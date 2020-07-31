@@ -1,5 +1,7 @@
-<ux-number-picker-inline
-    [(value)]="value"
-    [min]="_min"
-    [max]="_max">
-</ux-number-picker-inline>
+<div class="form-group m-b-nil" [ngClass]="{ 'has-error': !_valid }">
+    <ux-number-picker-inline
+        [(value)]="value"
+        [min]="_min"
+        [max]="_max">
+    </ux-number-picker-inline>
+</div>
