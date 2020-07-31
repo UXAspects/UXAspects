@@ -1,32 +1,22 @@
 <div class="form-group m-b-nil" [ngClass]="{ 'has-error': !_valid }">
-    <input
-        type="text"
-        #input
-        #popover="ux-popover"
-        uxFocusIndicatorOrigin
-        [value]="date | date:dateFormat"
-        [uxPopover]="popoverTemplate"
-        placement="bottom"
-        popoverClass="date-time-picker-popover"
-        class="form-control"
-        [attr.aria-label]="('dateInputAriaLabel' | l10n ) || 'Selected date'"
-        (keydown.enter)="popover.show()">
-</div>
+    <ux-input-dropdown [hideFilter]="true" [style.width.%]="100">
+        <ng-template #displayContent>
+            {{ date ? (date | date:_dateFormat) : '' }}
+        </ng-template>
 
-<ng-template #popoverTemplate>
-    <ux-date-time-picker
-        [(date)]="date"
-        [showTime]="showTime"
-        [showTimezone]="true"
-        [showMeridian]="true"
-        [showSpinners]="true"
-        [showNowBtn]="showNowBtn"
-        [nowBtnText]="'dateInputNowBtnText' | l10n"
-        [nowBtnAriaLabel]="'dateInputNowBtnAriaLabel' | l10n"
-        [weekdays]="'dateInputWeekdays' | l10n"
-        [meridians]="'dateInputMeridians' | l10n"
-        [months]="'dateInputMonths' | l10n"
-        [monthsShort]="'dateInputMonthsShort' | l10n"
-        (keydown.escape)="popover.hide(); input.focus()">
-    </ux-date-time-picker>
-</ng-template>
+        <ux-date-time-picker
+            [(date)]="date"
+            [showTime]="_showTime"
+            [showTimezone]="true"
+            [showMeridian]="true"
+            [showSpinners]="true"
+            [showNowBtn]="_showNowBtn"
+            [nowBtnText]="'dateInputNowBtnText' | l10n"
+            [nowBtnAriaLabel]="'dateInputNowBtnAriaLabel' | l10n"
+            [weekdays]="'dateInputWeekdays' | l10n"
+            [meridians]="'dateInputMeridians' | l10n"
+            [months]="'dateInputMonths' | l10n"
+            [monthsShort]="'dateInputMonthsShort' | l10n">
+        </ux-date-time-picker>
+    </ux-input-dropdown>
+</div>
