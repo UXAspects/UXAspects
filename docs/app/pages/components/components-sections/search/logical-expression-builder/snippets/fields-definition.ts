@@ -10,7 +10,8 @@ fields: FieldDefinition[] = [
                 { name: 'male', label: 'Male' },
                 { name: 'female', label: 'Female' },
                 { name: 'diverse', label: 'Diverse' }
-            ]
+            ],
+            validateFunction: (value: string[]): boolean => value.length > 0
         }
     }
 ];

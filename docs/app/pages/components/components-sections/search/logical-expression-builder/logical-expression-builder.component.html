@@ -68,6 +68,11 @@
     <tr uxd-api-property name="expressionChange" type="LogicalExpressionBuilderExpression">
         This event will fire whenever the expression has been modified. It will contain the latest expression value.
     </tr>
+
+    <tr uxd-api-property name="valid" type="boolean">
+        This event will fire whenever the validity of the expression changes. A value of <code>true</code> signifies the
+        expression is valid, whereas <code>false</code> signifies it is invalid.
+    </tr>
 </uxd-api-properties>
 
 <h4>Configuration</h4>
@@ -82,7 +87,9 @@
 <p>
     Additionally, the object can contain a <code>data</code> property, which is used to pass data to the Input
     Component. It can contain, e.g., options for a select input, or <code>min</code> and <code>max</code> values for a
-    number picker.
+    number picker. A <code>validateFunction</code> with the signature <code>(value: any) => boolean</code> can also be
+    passed in the <code>data</code> object. It is used to check the validity of a value entered in an Input Component
+    associated with the field.
 </p>
 
 <uxd-snippet [content]="snippets.compiled.fieldsDefinitionTs"></uxd-snippet>
@@ -104,7 +111,9 @@
 <p>
     The <code>logicalOperators</code> property defines which logical operators are available in the Logical Expression
     Builder. It is an array of type <code>LogicalOperatorDefinition</code>, in which each object has a <code>name</code>
-    and <code>label</code> property, for the generated expression and the UI, respectively.
+    and <code>label</code> property, for the generated expression and the UI, respectively. Additionally, either <code>minNumberOfChildren</code>
+    or <code>maxNumberOfChildren</code> can be set to display an error if the respective logical operator has a wrong
+    number of children.
 </p>
 
 <p>

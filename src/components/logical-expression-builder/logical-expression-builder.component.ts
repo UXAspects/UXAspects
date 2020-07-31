@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { LogicalOperatorDefinition } from './interfaces/LogicalOperatorDefinition';
 import { OperatorDefinitionList } from './interfaces/OperatorDefinitionList';
 import { FieldDefinition } from './interfaces/FieldDefinition';
@@ -18,7 +18,7 @@ import { Subject } from 'rxjs';
     templateUrl: './logical-expression-builder.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LogicalExpressionBuilderComponent implements OnDestroy {
+export class LogicalExpressionBuilderComponent implements OnDestroy, OnInit {
 
     @Input()
     set logicalOperators(logicalOperators: LogicalOperatorDefinition[]) {
@@ -65,11 +65,23 @@ export class LogicalExpressionBuilderComponent implements OnDestroy {
     constructor(private _lebService: LogicalExpressionBuilderService, private _validationService: ValidationService) {
         this._validationService.getValidationStatus()
             .pipe(
-                takeUntil(this._destroy$)
+                takeUntil(this._destroy$),
+                distinctUntilChanged(),
             )
             .subscribe((value) => {
+                console.log(value);
                 this.valid.emit(value);
             });
+    }
+
+    ngOnInit(): void {
+        if (!this.logicalOperators) {
+            this._lebService.setLogicalOperators([
+                { name: 'and', label: 'and', minNumberOfChildren: 2 },
+                { name: 'or', label: 'or', minNumberOfChildren: 2 },
+                { name: 'not', label: 'not', maxNumberOfChildren: 1 }
+            ]);
+        }
     }
 
     ngOnDestroy(): void {
