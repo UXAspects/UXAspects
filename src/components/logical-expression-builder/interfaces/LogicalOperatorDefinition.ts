@@ -6,4 +6,4 @@
 export type LogicalOperatorDefinition = {
     name: string;
     label: string;
-} & ({ minNumberOfChildren: number; } | { maxNumberOfChildren: number; });
+} & ({ minNumberOfChildren?: number; } | { maxNumberOfChildren?: number; });

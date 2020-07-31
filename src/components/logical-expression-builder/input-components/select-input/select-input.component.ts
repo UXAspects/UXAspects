@@ -13,7 +13,7 @@ export class SelectInputComponent implements OnInit {
     _value: ReadonlyArray<SelectOption>;
 
     @Input()
-    set data(data: { options: SelectOption[], validateFunction: (value: any) => boolean }) {
+    set data(data: { options: SelectOption[], validateFunction?: (value: any) => boolean }) {
         this._options = data?.options ?? [];
         this._validate = data?.validateFunction ?? this._validate;
     }

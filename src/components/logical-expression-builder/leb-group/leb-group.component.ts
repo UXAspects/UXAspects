@@ -121,7 +121,7 @@ export class LebGroupComponent implements OnInit, OnDestroy {
             this._valid = this.subExpression.children?.length >= logicalOperator.minNumberOfChildren;
             this._errorType = this._valid ? '' : 'logicalOperatorTooFewErrorText';
             this._showAddBtn = true;
-        } else if (logicalOperator.maxNumberOfChildren) {
+        } else if ('maxNumberOfChildren' in logicalOperator) {
             this._valid = this.subExpression.children?.length <= logicalOperator.maxNumberOfChildren;
             this._errorType = this._valid ? '' : 'logicalOperatorTooManyErrorText';
             this._showAddBtn = this.subExpression.children?.length < logicalOperator.maxNumberOfChildren;
