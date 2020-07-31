@@ -20,7 +20,7 @@ export class SelectInputComponent implements OnInit {
 
     public _options: ReadonlyArray<SelectOption>;
 
-    private _validate: (value: string[]) => boolean = () => false;
+    private _validate: (value: string[]) => boolean = () => true;
     public _valid: boolean;
 
     ngOnInit() {
