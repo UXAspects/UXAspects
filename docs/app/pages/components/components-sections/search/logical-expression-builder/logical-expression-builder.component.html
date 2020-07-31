@@ -4,11 +4,8 @@
     [operators]="operators"
     [logicalOperators]="logicalOperators"
     [localizedStrings]="localizedStrings"
-    (expressionChange)="expressionChanged($event)"
-    (valid)="valid = $event">
+    (expressionChange)="expressionChanged($event)">
 </ux-logical-expression-builder>
-
-<p>Expression is {{ valid ? 'valid' : 'invalid' }}</p>
 
 <div class="m-t-md">
     <button type="button" class="btn button-secondary" (click)="resetExpression()">

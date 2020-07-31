@@ -1,4 +1,10 @@
-<tr class="leb-group" uxHoverActionContainer [style.padding-left.px]="indent">
+<tr
+    class="leb-group"
+    uxHoverActionContainer
+    [style.padding-left.px]="indent"
+    (focus)="_focused = true"
+    (blur)="_focused = false"
+    [ngClass]="{'group-focused': _focused}">
     <td>
         <ux-select
             [value]="selectedLogicalOperator"
@@ -30,6 +36,7 @@
         (conditionChange)="handleGroupChange($event, index)"
         [condition]="child"
         [id]="index"
+        [groupId]="validationId"
         (conditionDeleted)="removeConditionAtIndex($event)"
         (conditionEmbedded)="embedConditionAtIndex($event)"
         [indent]="indent + additionalIndent">

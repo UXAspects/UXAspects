@@ -1,4 +1,10 @@
-<tr *ngIf="editMode; else staticMode" class="leb-condition-row" [style.padding-left.px]="indent">
+<tr
+    *ngIf="editMode; else staticMode"
+    class="leb-condition-row"
+    [style.padding-left.px]="indent"
+    (focus)="_focused = true"
+    (blur)="_focused = false"
+    [ngClass]="{'condition-focused': _focused}">
     <td class="field-selection">
         <ux-select
             [focusIf]="editMode"
@@ -49,9 +55,16 @@
 </tr>
 
 <ng-template #staticMode>
-    <tr class="leb-condition-row" uxHoverActionContainer [style.padding-left.px]="indent">
+    <tr
+        class="leb-condition-row"
+        uxHoverActionContainer
+        [style.padding-left.px]="indent"
+        (focus)="_focused = true"
+        (blur)="_focused = false"
+        [ngClass]="{'condition-focused': _focused}">
         <td>
-            <span class="leb-field-display">{{ _field.label }}</span> {{ _operator.label }} <span class="leb-value-display">{{ _value | displayValue:_field.fieldType:_field.data }}</span>
+            <span class="leb-field-display">{{ _field.label }}</span> {{ _operator.label }} <span
+            class="leb-value-display">{{ _value | displayValue:_field.fieldType:_field.data }}</span>
         </td>
 
         <td>

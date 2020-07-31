@@ -28,6 +28,8 @@
             *ngIf="expression?.type === 'condition'"
             (conditionChange)="handleGroupChange($event)"
             [condition]="expression"
+            [groupId]="-1"
+            [id]="-1"
             (conditionDeleted)="deleteCondition()"
             (conditionEmbedded)="addGroup()">
         </ux-leb-condition>

@@ -15,7 +15,7 @@ import { LogicalExpressionBuilderService } from '../services/logical-expression-
 import { FieldDefinition } from '../interfaces/FieldDefinition';
 import { OperatorDefinition } from '../interfaces/OperatorDefinitionList';
 import { ExpressionCondition } from '../interfaces/LogicalExpressionBuilderExpression';
-import { Observable, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 import { distinctUntilChanged, filter, takeUntil } from 'rxjs/operators';
 import { ValidationService } from '../services/validation.service';
 
@@ -26,7 +26,8 @@ import { ValidationService } from '../services/validation.service';
 })
 export class LebConditionComponent implements OnInit, OnDestroy {
 
-    @ViewChild('inputContainer', { read: ViewContainerRef, static: false }) set container(container: ViewContainerRef) {
+    @ViewChild('inputContainer', { read: ViewContainerRef, static: false })
+    set container(container: ViewContainerRef) {
         if (container) {
             this._inputContainer = container;
             this._createInputComponent();
@@ -42,6 +43,7 @@ export class LebConditionComponent implements OnInit, OnDestroy {
     private _initialCondition: ExpressionCondition;
 
     @Input() id: number;
+    @Input() groupId: number;
     @Output() conditionDeleted = new EventEmitter<number>();
     @Output() conditionEmbedded = new EventEmitter<number>();
 
@@ -62,7 +64,7 @@ export class LebConditionComponent implements OnInit, OnDestroy {
 
     public _valid: boolean = true;
 
-    validationId: number;
+    public _focused: boolean = false;
 
     constructor(
         private _lebService: LogicalExpressionBuilderService,
@@ -74,8 +76,6 @@ export class LebConditionComponent implements OnInit, OnDestroy {
             .subscribe((value: boolean) => {
                 this._editBlocked = value;
             });
-
-        this.validationId = this._validationService.getValidationId();
     }
 
     ngOnInit(): void {
@@ -90,13 +90,15 @@ export class LebConditionComponent implements OnInit, OnDestroy {
         this._value = this.condition.value;
 
         this.editMode = this.condition?.editMode ?? true;
+
+        this._validationService.setConditionValidationState(this.groupId, this.id, this._valid);
     }
 
     ngOnDestroy(): void {
         this._destroy$.next();
         this._destroy$.complete();
 
-        this._validationService.removeValidationState(this.validationId);
+        this._validationService.removeConditionValidationState(this.groupId, this.id);
     }
 
     private _createInputComponent(): void {
@@ -121,9 +123,8 @@ export class LebConditionComponent implements OnInit, OnDestroy {
                     distinctUntilChanged()
                 )
                 .subscribe((value: boolean) => {
-                    console.log(`valid: ${value}`);
                     this._valid = value;
-                    this._validationService.setValidationState(this.validationId, value);
+                    this._validationService.setConditionValidationState(this.groupId, this.id, this._valid);
                 });
         }
     }
@@ -189,6 +190,7 @@ export class LebConditionComponent implements OnInit, OnDestroy {
     public deleteCondition(): void {
         if (!this._editBlocked) {
             this.conditionDeleted.emit(this.id);
+            this._validationService.removeConditionValidationState(this.groupId, this.id);
         }
     }
 

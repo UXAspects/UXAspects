@@ -65,10 +65,11 @@ export class LogicalExpressionBuilderComponent implements OnDestroy {
     constructor(private _lebService: LogicalExpressionBuilderService, private _validationService: ValidationService) {
         this._validationService.getValidationStatus()
             .pipe(
-                takeUntil(this._destroy$),
-                distinctUntilChanged()
+                takeUntil(this._destroy$)
             )
-            .subscribe((value) => this.valid.emit(value));
+            .subscribe((value) => {
+                this.valid.emit(value);
+            });
     }
 
     ngOnDestroy(): void {

@@ -20,6 +20,8 @@ export class LebGroupComponent implements OnInit, OnDestroy {
     public logicalOperators: LogicalOperatorDefinition[];
     public selectedLogicalOperator: LogicalOperatorDefinition;
 
+    public _focused: boolean = false;
+
     constructor(private _lebService: LogicalExpressionBuilderService, private _validationService: ValidationService) {
         this.validationId = this._validationService.getValidationId();
     }
