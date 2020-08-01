@@ -15,9 +15,13 @@ export class ValidationService {
         return this._validationId - 1;
     }
 
-    public setValidationState(validationId: number, valid: boolean) {
+    public setGroupValidationState(validationId: number, valid: boolean) {
         this._groupStates.set(validationId, valid);
         this._valid.next(this._checkValidity());
+    }
+
+    public getGroupValidationStates(): Map<number, boolean> {
+        return this._groupStates;
     }
 
     public setConditionValidationState(groupId: number, conditionId: number, valid: boolean) {
@@ -40,6 +44,10 @@ export class ValidationService {
         this._valid.next(this._checkValidity());
     }
 
+    public getConditionValidationStates(): Map<number, ConditionState[]> {
+        return this._conditionStates;
+    }
+
     public removeConditionValidationState(groupId: number, conditionId: number) {
         let temp = this._conditionStates.get(groupId).filter((entry: ConditionState) => entry.id !== conditionId);
         this._conditionStates.set(groupId, temp);
@@ -51,7 +59,7 @@ export class ValidationService {
         this._valid.next(this._checkValidity());
     }
 
-    public removeValidationState(validationId: number): void {
+    public removeGroupValidationState(validationId: number): void {
         this._groupStates.delete(validationId);
         this._conditionStates.delete(validationId);
 

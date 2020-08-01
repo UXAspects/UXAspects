@@ -37,7 +37,7 @@ export class LebGroupComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy(): void {
-        this._validationService.removeValidationState(this._validationId);
+        this._validationService.removeGroupValidationState(this._validationId);
     }
 
     public handleSelectedOperatorChange(selectedOperator: LogicalOperatorDefinition) {
@@ -127,7 +127,7 @@ export class LebGroupComponent implements OnInit, OnDestroy {
             this._showAddBtn = this.subExpression.children?.length < logicalOperator.maxNumberOfChildren;
         }
 
-        this._validationService.setValidationState(this._validationId, this._valid);
+        this._validationService.setGroupValidationState(this._validationId, this._valid);
         return this._valid;
     }
 }

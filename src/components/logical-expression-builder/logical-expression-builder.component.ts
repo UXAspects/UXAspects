@@ -10,7 +10,7 @@ import {
 } from './interfaces/LogicalExpressionBuilderExpression';
 import { DisplayValueFunction } from './interfaces/DisplayValueFunction';
 import { ValidationService } from './services/validation.service';
-import { distinctUntilChanged, takeUntil } from 'rxjs/operators';
+import { delay, distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 
 @Component({
@@ -67,9 +67,9 @@ export class LogicalExpressionBuilderComponent implements OnDestroy, OnInit {
             .pipe(
                 takeUntil(this._destroy$),
                 distinctUntilChanged(),
+                delay(0)
             )
             .subscribe((value) => {
-                console.log(value);
                 this.valid.emit(value);
             });
     }

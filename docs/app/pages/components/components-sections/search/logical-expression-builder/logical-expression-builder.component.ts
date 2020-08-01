@@ -113,6 +113,8 @@ export class ComponentsLogicalExpressionBuilderComponent extends BaseDocumentati
         ]
     };
 
+    public valid: boolean;
+
     initialExpression: LogicalExpressionBuilderExpression = { ...this.expression };
 
     preview: LogicalExpressionBuilderExpression;
