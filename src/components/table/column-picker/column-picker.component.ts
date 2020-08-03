@@ -106,7 +106,13 @@ export class ColumnPickerComponent implements OnChanges {
             group: column['group']
         }));
 
-        this.deselected = columns;
+        this.deselected = columns.map(column => {
+            if (typeof column === 'string' || column['group'] != undefined) {
+                return column;
+            } else {
+                return column.name;
+            }
+        });
 
         if (this.sort) {
             columns.sort(this.sort);
@@ -184,12 +190,18 @@ export class ColumnPickerComponent implements OnChanges {
 
     /** A function that can be called to add columns. If no columns are passed to the function, the items that are selected in the left column will be added. */
     addColumns(columns: ReadonlyArray<string | ColumnPickerGroupItem> = this._deselectedSelection): void {
-        const deselectedSelection = columns.filter(column => this.selected.indexOf(column) === -1);
+        const deselectedSelection = columns.map(column => {
+            if (typeof column === 'string' || column['group'] != undefined) {
+                return column;
+            } else {
+                return column.name;
+            }
+        }).filter(column => this.selected.indexOf(column) === -1);
 
         // add each item to the selected columns list
         this.selected = [...this.selected, ...deselectedSelection];
 
-        this.deselected = this.deselected.filter(column => columns.indexOf(column) === -1);
+        this.deselected = this.deselected.filter(column => deselectedSelection.indexOf(column) === -1);
 
         // emit the selection changes
         this.selectedChange.emit(this.selected);
