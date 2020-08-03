@@ -11,7 +11,7 @@ describe('Logical Expression Builder Tests', () => {
     it('should have no rows when expression is empty', async () => {
         await page.setEmptyExpression();
 
-        expect(await page.getExpressionObject()).toEqual('null');
+        expect(await page.getExpressionObject()).toEqual(null);
         expect(await page.getValid()).toBeTruthy();
     });
 });
