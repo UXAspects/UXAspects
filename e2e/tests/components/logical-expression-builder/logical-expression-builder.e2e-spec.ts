@@ -12,6 +12,15 @@ describe('Logical Expression Builder Tests', () => {
         await page.setEmptyExpression();
 
         expect(await page.getExpressionObject()).toEqual(null);
+        expect(await page.getConditionsRowsCount()).toEqual(0);
+        expect(await page.getValid()).toBeTruthy();
+    });
+
+    it('should display one roe when expression is just a condition', async () => {
+        await page.setOneCondition();
+
+        expect(await page.getExpressionObject()).toBeDefined();
+        expect(await page.getConditionsRowsCount()).toEqual(1);
         expect(await page.getValid()).toBeTruthy();
     });
 });

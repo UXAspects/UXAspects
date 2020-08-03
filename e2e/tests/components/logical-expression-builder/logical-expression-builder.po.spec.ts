@@ -8,15 +8,23 @@ export namespace LogicalExpressionBuilderPage {
         }
 
         expression = $('pre');
-        buttons = $$('.search-builder-group-add-field');
-        tableRows = $$('tr');
+        table = $('.leb-table');
 
         setEmptyExpressionBtn = $('#set-empty-expression');
+        setOneConditionBtn = $('#set-one-condition');
 
         validity = $('#valid');
 
         async getExpressionObject(): Promise<any> {
             return JSON.parse(await this.expression.getText());
+        }
+
+        async getTable(): Promise<any> {
+            return this.table;
+        }
+
+        async getConditionsRowsCount(): Promise<any> {
+            return $$('.leb-condition-row').count();
         }
 
         async getValid(): Promise<boolean> {
@@ -27,6 +35,10 @@ export namespace LogicalExpressionBuilderPage {
 
         async setEmptyExpression(): Promise<any> {
             return this.setEmptyExpressionBtn.click();
+        }
+
+        async setOneCondition(): Promise<any> {
+            return this.setOneConditionBtn.click();
         }
     }
 }

@@ -43,8 +43,18 @@ export class LogicalExpressionBuilderTestpageComponent {
 
     fields: FieldDefinition[] = [
         { name: 'author', label: 'Author', fieldType: 'text' },
-        { name: 'created', label: 'Created', fieldType: 'date', data: { dateFormat: 'short', showTime: false, showNowBtn: true } },
-        { name: 'edited', label: 'Edited', fieldType: 'dateRange', data: { dateFormat: 'short', showTime: false, showNowBtn: true } },
+        {
+            name: 'created',
+            label: 'Created',
+            fieldType: 'date',
+            data: { dateFormat: 'short', showTime: false, showNowBtn: true }
+        },
+        {
+            name: 'edited',
+            label: 'Edited',
+            fieldType: 'dateRange',
+            data: { dateFormat: 'short', showTime: false, showNowBtn: true }
+        },
         { name: 'version', label: 'Version', fieldType: 'number' },
         {
             name: 'category',
@@ -90,6 +100,13 @@ export class LogicalExpressionBuilderTestpageComponent {
     public valid: boolean;
 
     initialExpression: LogicalExpressionBuilderExpression = { ...this.expression };
+
+    oneCondition: LogicalExpressionBuilderExpression = {
+        type: 'condition',
+        field: 'author',
+        operator: 'equals',
+        value: 'test'
+    };
 
     preview: LogicalExpressionBuilderExpression;
 
