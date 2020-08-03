@@ -99,6 +99,10 @@ const routes: Routes = [
         loadChildren: () => import('./item-display-panel/item-display-panel.module').then(m => m.ItemDisplayPanelTestPageModule)
     },
     {
+        path: 'logical-expression-builder',
+        loadChildren: () => import('./logical-expression-builder/logical-expression-builder.module').then(m => m.LogicalExpressionBuilderTestPageModule)
+    },
+    {
         path: 'marquee-wizard',
         loadChildren: () => import('./marquee-wizard/marquee-wizard.module').then(m => m.MarqueeWizardTestPageModule)
     },

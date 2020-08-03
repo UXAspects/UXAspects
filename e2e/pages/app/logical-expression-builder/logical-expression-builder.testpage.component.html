@@ -1,0 +1,17 @@
+<ux-logical-expression-builder
+    [expression]="expression"
+    [fields]="fields"
+    [operators]="operators"
+    [logicalOperators]="logicalOperators"
+    [localizedStrings]="localizedStrings"
+    (expressionChange)="expressionChanged($event)"
+    (valid)="valid = $event">
+</ux-logical-expression-builder>
+
+<p>The expression is <span id="valid">{{ valid ? 'valid' : 'invalid' }}</span>.</p>
+
+<button id="set-empty-expression" (click)="expression = null">Set empty</button>
+
+<h4>Expression</h4>
+
+<pre class="logical-expression-builder-preview">{{ preview | json }}</pre>
