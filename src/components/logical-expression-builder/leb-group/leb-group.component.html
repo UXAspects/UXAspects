@@ -64,11 +64,11 @@
 </tr>
 
 <ux-menu #addMenu>
-    <button type="button" uxMenuItem (click)="addCondition()">
+    <button type="button" uxMenuItem (click)="addCondition()" (keydown.enter)="addCondition()">
         <span class="dropdown-menu-text">{{ ('addConditionBtnText' | l10n) || 'Add condition' }}</span>
     </button>
 
-    <button type="button" uxMenuItem (click)="addGroup()">
+    <button type="button" uxMenuItem (click)="addGroup()" (keydown.enter)="addGroup()">
         <span class="dropdown-menu-text">{{ ('addLogicalOperatorBtnText' | l10n) || 'Add logical operator'}} </span>
     </button>
 </ux-menu>
