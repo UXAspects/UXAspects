@@ -3,6 +3,8 @@ import { ExpressionCondition, ExpressionGroup } from '../interfaces/LogicalExpre
 import { LogicalOperatorDefinition } from '../interfaces/LogicalOperatorDefinition';
 import { LogicalExpressionBuilderService } from '../services/logical-expression-builder.service';
 import { ValidationService } from '../services/validation.service';
+import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 @Component({
     selector: 'ux-leb-group',
@@ -26,6 +28,9 @@ export class LebGroupComponent implements OnInit, OnDestroy {
     public _errorType: string;
     public _showAddBtn: boolean = true;
 
+    public _wasLastFocused: boolean = false;
+    private _destroy$: Subject<void> = new Subject<void>();
+
     constructor(private _lebService: LogicalExpressionBuilderService, private _validationService: ValidationService) {
         this._validationId = this._validationService.getValidationId();
     }
@@ -34,10 +39,19 @@ export class LebGroupComponent implements OnInit, OnDestroy {
         this.logicalOperators = this._lebService.getLogicalOperators();
         this.selectedLogicalOperator = this._lebService.getLogicalOperatorByName(this.logicalOperatorName);
         this._validate();
+
+        this._lebService.getLastFocused().pipe(takeUntil(this._destroy$))
+            .subscribe((ids: [number, number]) => {
+                this._wasLastFocused = ids[0] === this._validationId && ids[1] === null;
+            });
     }
 
     ngOnDestroy(): void {
         this._validationService.removeGroupValidationState(this._validationId);
+        this._validationService.resetValidationId();
+
+        this._destroy$.next();
+        this._destroy$.complete();
     }
 
     public handleSelectedOperatorChange(selectedOperator: LogicalOperatorDefinition) {
@@ -46,6 +60,8 @@ export class LebGroupComponent implements OnInit, OnDestroy {
 
         this._validate();
         this.groupChange.emit(this.subExpression);
+
+        this._lebService.setLastFocused([this._validationId, null]);
     }
 
     public handleGroupChange(subExpression: ExpressionGroup | ExpressionCondition, index: number) {
@@ -72,6 +88,7 @@ export class LebGroupComponent implements OnInit, OnDestroy {
 
         this._validate();
         this.groupChange.emit(this.subExpression);
+        this._lebService.setEditBlocked(true);
     }
 
     public addGroup(): void {
@@ -84,6 +101,7 @@ export class LebGroupComponent implements OnInit, OnDestroy {
         }];
 
         this._validate();
+        this._lebService.setEditBlocked(true);
     }
 
     public removeConditionAtIndex(id: number): void {

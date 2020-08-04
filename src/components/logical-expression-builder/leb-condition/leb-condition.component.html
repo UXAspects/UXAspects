@@ -2,12 +2,13 @@
     *ngIf="editMode; else staticMode"
     class="leb-condition-row"
     [style.padding-left.px]="indent"
-    (focus)="_focused = true"
-    (blur)="_focused = false"
-    [ngClass]="{'condition-focused': _focused}">
+    cdkTrapFocus
+    [cdkTrapFocusAutoCapture]="true"
+    uxFocusIndicator
+    (keydown.escape)="cancelEdit()">
+
     <td class="field-selection">
         <ux-select
-            [focusIf]="editMode"
             [value]="_field"
             [input]="_field?.label || null"
             (valueChange)="handleFieldSelected($event)"
@@ -36,6 +37,7 @@
 
     <td>
         <button
+            uxFocusIndicatorOrigin
             [disabled]="!(_field && _operator && _value && _valid)"
             (click)="confirmCondition()"
             type="button"
@@ -45,6 +47,7 @@
         </button>
 
         <button
+            uxFocusIndicatorOrigin
             (click)="cancelEdit()"
             type="button"
             class="btn btn-link btn-icon btn-lg button-secondary"
@@ -57,18 +60,20 @@
 <ng-template #staticMode>
     <tr
         class="leb-condition-row"
+        [focusIf]="_wasLastFocused"
         uxHoverActionContainer
         [style.padding-left.px]="indent"
-        (focus)="_focused = true"
-        (blur)="_focused = false"
-        [ngClass]="{'condition-focused': _focused}">
+        [programmaticFocusIndicator]="true"
+        uxFocusIndicator>
         <td>
             <span class="leb-field-display">{{ _field.label }}</span> {{ _operator.label }} <span
             class="leb-value-display">{{ _value | displayValue:_field.fieldType:_field.data }}</span>
         </td>
 
-        <td>
+        <td uxTabbableList direction="horizontal">
             <button
+                uxFocusIndicatorOrigin
+                uxTabbableListItem
                 [disabled]="_editBlocked"
                 uxHoverAction
                 (click)="editCondition()"
@@ -79,6 +84,8 @@
             </button>
 
             <button
+                uxFocusIndicatorOrigin
+                uxTabbableListItem
                 [disabled]="_editBlocked"
                 uxHoverAction
                 (click)="embedConditionInGroup()"
@@ -89,6 +96,8 @@
             </button>
 
             <button
+                uxFocusIndicatorOrigin
+                uxTabbableListItem
                 [disabled]="_editBlocked"
                 uxHoverAction
                 (click)="deleteCondition()"

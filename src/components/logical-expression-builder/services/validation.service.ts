@@ -15,6 +15,10 @@ export class ValidationService {
         return this._validationId - 1;
     }
 
+    public resetValidationId(): void {
+        this._validationId--;
+    }
+
     public setGroupValidationState(validationId: number, valid: boolean) {
         this._groupStates.set(validationId, valid);
         this._valid.next(this._checkValidity());

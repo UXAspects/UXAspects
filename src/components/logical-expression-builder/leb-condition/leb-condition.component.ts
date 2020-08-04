@@ -64,8 +64,6 @@ export class LebConditionComponent implements OnInit, OnDestroy {
 
     public _valid: boolean = true;
 
-    public _focused: boolean = false;
-
     constructor(
         private _lebService: LogicalExpressionBuilderService,
         private _validationService: ValidationService,
@@ -77,6 +75,8 @@ export class LebConditionComponent implements OnInit, OnDestroy {
                 this._editBlocked = value;
             });
     }
+
+    public _wasLastFocused: boolean = false;
 
     ngOnInit(): void {
         this._initialCondition = this.condition;
@@ -92,6 +92,12 @@ export class LebConditionComponent implements OnInit, OnDestroy {
         this.editMode = this.condition?.editMode ?? true;
 
         this._validationService.setConditionValidationState(this.groupId, this.id, this._valid);
+
+        this._lebService.getLastFocused().pipe(
+            takeUntil(this._destroy$)
+        ).subscribe((ids: [number, number]) => {
+            this._wasLastFocused = ids[0] === this.groupId && ids[1] === this.id && !this._editBlocked;
+        });
     }
 
     ngOnDestroy(): void {
@@ -156,6 +162,7 @@ export class LebConditionComponent implements OnInit, OnDestroy {
 
     public confirmCondition(): void {
         this._lebService.setEditBlocked(false);
+        this._lebService.setLastFocused([this.groupId, this.id]);
 
         this.editMode = false;
         this._buildCondition(this.editMode);
@@ -164,6 +171,7 @@ export class LebConditionComponent implements OnInit, OnDestroy {
 
     public cancelEdit(): void {
         this._lebService.setEditBlocked(false);
+        this._lebService.setLastFocused([this.groupId, this.id]);
 
         this.editMode = false;
 
@@ -178,6 +186,7 @@ export class LebConditionComponent implements OnInit, OnDestroy {
     public editCondition(): void {
         if (!this._editBlocked) {
             this._lebService.setEditBlocked(true);
+            this._lebService.setLastFocused([this.groupId, this.id]);
 
             this.editMode = true;
             this._buildCondition(this.editMode);

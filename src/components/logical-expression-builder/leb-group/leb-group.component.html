@@ -1,12 +1,14 @@
 <tr
     class="leb-group"
     uxHoverActionContainer
+    [focusIf]="_wasLastFocused"
     [style.padding-left.px]="indent"
-    (focus)="_focused = true"
-    (blur)="_focused = false"
-    [ngClass]="{'group-focused': _focused}">
+    uxFocusIndicator
+    [programmaticFocusIndicator]="true">
+
     <td>
         <ux-select
+            uxFocusIndicatorOrigin
             [value]="selectedLogicalOperator"
             (valueChange)="handleSelectedOperatorChange($event)"
             [readonlyInput]="true"
@@ -15,9 +17,12 @@
             [key]="'name'">
         </ux-select>
     </td>
+
     <td *ngIf="!_valid" class="m-l-md text-error">
-        <ux-icon name="status-error-filled" class="m-r-xs"></ux-icon>{{ (_errorType | l10n) || 'Wrong number of children' }}
+        <ux-icon name="status-error-filled" class="m-r-xs"></ux-icon>
+        {{ (_errorType | l10n) || 'Wrong number of children' }}
     </td>
+
     <td class="logical-operator-delete">
         <button
             uxHoverAction
