@@ -11,7 +11,9 @@
 <p>The expression is <span id="valid">{{ valid ? 'valid' : 'invalid' }}</span>.</p>
 
 <button id="set-empty-expression" (click)="expression = null">Set empty</button>
-<button id="set-one-condition" (click)="expression = oneCondition">Set empty</button>
+<button id="set-invalid-expression" (click)="expression = invalidExpression">Set invalid expression</button>
+<button id="set-one-condition" (click)="expression = oneCondition">Set one condition</button>
+<button id="reset-expression" (click)="expression = initialExpression">Reset expression</button>
 
 <h4>Expression</h4>
 

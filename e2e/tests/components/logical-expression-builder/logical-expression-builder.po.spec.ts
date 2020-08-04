@@ -11,6 +11,7 @@ export namespace LogicalExpressionBuilderPage {
         table = $('.leb-table');
 
         setEmptyExpressionBtn = $('#set-empty-expression');
+        setInvalidExpressionBtn = $('#set-invalid-expression');
         setOneConditionBtn = $('#set-one-condition');
 
         validity = $('#valid');
@@ -23,8 +24,12 @@ export namespace LogicalExpressionBuilderPage {
             return this.table;
         }
 
-        async getConditionsRowsCount(): Promise<any> {
-            return $$('.leb-condition-row').count();
+        async getConditionsRows(): Promise<any> {
+            return $$('tr.leb-condition-row');
+        }
+
+        async getGroupRows(): Promise<any> {
+            return $$('tr.leb-group');
         }
 
         async getValid(): Promise<boolean> {
@@ -37,8 +42,16 @@ export namespace LogicalExpressionBuilderPage {
             return this.setEmptyExpressionBtn.click();
         }
 
+        async setInvalidExpression(): Promise<any> {
+            return this.setInvalidExpressionBtn.click();
+        }
+
         async setOneCondition(): Promise<any> {
             return this.setOneConditionBtn.click();
+        }
+
+        async addSecondCondition(): Promise<any> {
+            return $$('tr').last().$('td').$('btn').click();
         }
     }
 }

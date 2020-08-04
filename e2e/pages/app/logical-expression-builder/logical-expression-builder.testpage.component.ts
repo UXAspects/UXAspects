@@ -108,6 +108,15 @@ export class LogicalExpressionBuilderTestpageComponent {
         value: 'test'
     };
 
+    invalidExpression: LogicalExpressionBuilderExpression = {
+        type: 'group',
+        logicalOperator: 'not',
+        children: [
+            { type: 'condition', field: 'created', operator: 'before', value: 1595515231584 },
+            { type: 'condition', field: 'category', operator: 'one_of', value: ['performance', 'security'] },
+        ]
+    };
+
     preview: LogicalExpressionBuilderExpression;
 
     expressionChanged(query: LogicalExpressionBuilderExpression): void {
