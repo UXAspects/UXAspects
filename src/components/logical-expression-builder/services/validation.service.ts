@@ -73,14 +73,20 @@ export class ValidationService {
     private _checkValidity(): boolean {
         let valid = true;
 
-        // forEach for IE support
+        // Expression is not valid if there is no condition
+        if (!this._conditionStates.size) {
+            return false;
+        }
+
+        // If one group is invalid, the whole expression is invalid
         this._groupStates.forEach((value, _) => {
             if (!value) {
                 valid = false;
             }
         });
 
-        this._conditionStates.forEach((conditionStates: ConditionState[], groupId: number) => {
+        // If one condition is invalid, the whole expression is invalid
+        this._conditionStates.forEach((conditionStates: ConditionState[]) => {
             conditionStates.map((value: ConditionState) => {
                 if (!value.valid) {
                     valid = false;

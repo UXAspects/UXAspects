@@ -63,15 +63,6 @@ export class LogicalExpressionBuilderComponent implements OnDestroy, OnInit {
     private _destroy$: Subject<void> = new Subject<void>();
 
     constructor(private _lebService: LogicalExpressionBuilderService, private _validationService: ValidationService) {
-        this._validationService.getValidationStatus()
-            .pipe(
-                takeUntil(this._destroy$),
-                distinctUntilChanged(),
-                delay(0)
-            )
-            .subscribe((value) => {
-                this.valid.emit(value);
-            });
     }
 
     ngOnInit(): void {
@@ -82,6 +73,16 @@ export class LogicalExpressionBuilderComponent implements OnDestroy, OnInit {
                 { name: 'not', label: 'not', maxNumberOfChildren: 1 }
             ]);
         }
+
+        this._validationService.getValidationStatus()
+            .pipe(
+                takeUntil(this._destroy$),
+                distinctUntilChanged(),
+                delay(0)
+            )
+            .subscribe((value) => {
+                this.valid.emit(value);
+            });
     }
 
     ngOnDestroy(): void {
