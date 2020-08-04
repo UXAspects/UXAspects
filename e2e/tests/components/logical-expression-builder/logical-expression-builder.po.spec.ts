@@ -24,12 +24,16 @@ export namespace LogicalExpressionBuilderPage {
             return this.table;
         }
 
-        async getConditionsRows(): Promise<any> {
-            return $$('leb-condition-row');
+        async getConditionRowCount(): Promise<any> {
+            return $$('.leb-condition-row').count();
         }
 
-        async getGroupRows(): Promise<any> {
-            return $$('leb-group');
+        async getGroupRowCount(): Promise<any> {
+            return $$('.leb-group').count();
+        }
+
+        async getGroupRowError(): Promise<any> {
+            return $$('.leb-group').first().$('.text-error');
         }
 
         async getValid(): Promise<boolean> {
