@@ -42,6 +42,7 @@ export class DashboardEnumWidgetComponent implements EnumWidgetConfig, OnInit, O
     selected: ReadonlyArray<EnumConfig>;
 
     private _isDragged: boolean = false;
+    private _getEnumByValuePipe: GetEnumByValuePipe = new GetEnumByValuePipe();
     private lastSelection: EnumConfig[];
 
     constructor(private changeDetectorRef: ChangeDetectorRef) {}
@@ -56,7 +57,6 @@ export class DashboardEnumWidgetComponent implements EnumWidgetConfig, OnInit, O
     }
 
     ngOnDestroy() {
-        this._isDragged = false;
         this.widget.dashboardService.isDragging$.unsubscribe();
     }
 
@@ -67,33 +67,37 @@ export class DashboardEnumWidgetComponent implements EnumWidgetConfig, OnInit, O
         }
     }
 
-    open(): void {
-        const selectedEnum = this.enums.find(item => item.value === this.value);
+    openSidePanel(): void {
+        const selectedEnum = this._getEnumByValuePipe.transform(this.enums, this.value);
         this.selected = [selectedEnum];
         this.sidePanel.openPanel();
     }
 
     save(): void {
-        this.value = this.selected[0].value;
-        this.valueChange.emit(this.value);
-        this.sidePanel.closePanel();
+        if (this.selected.length > 0) {
+            this.value = this.selected[0].value;
+            this.valueChange.emit(this.value);
+            this.sidePanel.closePanel();
+        }
     }
 
     cancel(): void {
         this.sidePanel.closePanel();
     }
 
-    changeSelection(e: ReadonlyArray<EnumConfig>): void {
-        if (e.length === 0) {
-            this.selected = this.lastSelection.slice(0);
+    changeSelection(changedSelection: ReadonlyArray<EnumConfig>): void {
+        if (changedSelection.length === 0) {
+            this.selected = [...this.lastSelection];
+        } else {
+            this.selected = changedSelection;
         }
-        this.lastSelection = this.selected.slice(0);
+        this.lastSelection = [...this.selected];
     }
 }
 
-@Pipe({name: 'getEnumConfigByValue'})
-export class GetEnumConfigByValuePipe implements PipeTransform {
-    transform(value: number | string, enums: ReadonlyArray<EnumConfig>, field: string) {
-        return (enums.find(item => item.value === value))[field];
+@Pipe({name: 'getEnumByValue'})
+export class GetEnumByValuePipe implements PipeTransform {
+    transform(enums: ReadonlyArray<EnumConfig>, value: number | string) {
+        return (enums?.find(item => item.value === value));
     }
 }

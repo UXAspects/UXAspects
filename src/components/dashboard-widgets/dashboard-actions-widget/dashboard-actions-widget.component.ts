@@ -9,6 +9,7 @@ import {
 } from '@angular/core';
 import { ActionConfig, ActionsWidgetConfig } from '../interfaces/actions-widget';
 import { DashboardWidgetComponent } from '../../dashboard';
+import { Subject } from 'rxjs';
 
 @Component({
     selector: 'ux-dashboard-actions-widget',
@@ -28,6 +29,7 @@ export class DashboardActionsWidgetComponent implements ActionsWidgetConfig, Aft
     @Input() actions: ReadonlyArray<ActionConfig>;
 
     private _isDragged: boolean = false;
+    private _onDestroy = new Subject<void>();
 
     constructor(private changeDetectorRef: ChangeDetectorRef) {}
 
@@ -43,9 +45,9 @@ export class DashboardActionsWidgetComponent implements ActionsWidgetConfig, Aft
         });
     }
 
-    ngOnDestroy() {
-        this._isDragged = false;
-        this.widget.dashboardService.isDragging$.unsubscribe();
+    ngOnDestroy(): void {
+        this._onDestroy.next();
+        this._onDestroy.complete();
     }
 
     @HostListener('window:mousemove', [])
@@ -53,9 +55,5 @@ export class DashboardActionsWidgetComponent implements ActionsWidgetConfig, Aft
         if (this._isDragged) {
             this.changeDetectorRef.markForCheck();
         }
-    }
-
-    click(fn: Function) {
-        fn();
     }
 }

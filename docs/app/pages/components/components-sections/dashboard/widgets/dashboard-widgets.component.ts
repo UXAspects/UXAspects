@@ -1,11 +1,10 @@
-import {AfterViewInit, Component, TemplateRef, ViewChild} from '@angular/core';
-import { ColorService, DashboardOptions} from '@ux-aspects/ux-aspects';
-import 'chance';
+import { AfterViewInit, Component, TemplateRef, ViewChild } from '@angular/core';
+import { DashboardOptions } from '@ux-aspects/ux-aspects';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
 import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
-import { ActionConfig } from '../../../../../../../src/components/dashboard-widgets/interfaces/actions-widget';
+import { ActionConfig, ActionStatus } from '../../../../../../../src/components/dashboard-widgets/interfaces/actions-widget';
 import { EnumConfig } from '../../../../../../../src/components/dashboard-widgets/interfaces/enum-widget';
 
 @Component({
@@ -45,35 +44,36 @@ export class ComponentsDashboardWidgetsComponent extends BaseDocumentationSectio
         }]
     };
 
-    status: { label: string, icon: string | TemplateRef<any> } = { label: 'Waiting...', icon: 'radial' };
+    status: ActionStatus = { label: 'Waiting...', icon: 'radial' };
 
     actions: ActionConfig[] = [];
 
     tableHeader: ReadonlyArray<string> = ['1', '2', '3'];
 
     tableData: ReadonlyArray<any> = [
-        [1, 2, 3],
-        [1, 2, 3],
-        [1, 2, 3],
-        [1, 2, 3],
+        ['a', 'b', 'c'],
+        ['d', 'e', 'f'],
+        ['g', 'h', 'i'],
+        ['j', 'k', 'l'],
     ];
 
     enums: ReadonlyArray<EnumConfig> = [
         { value: 0, label: 'Zero', icon: 'close' },
-        { value: 1, label: 'One', icon: 'open' },
+        { value: 1, label: 'One', icon: 'radial' },
     ];
 
-    @ViewChild('iconAccept') iconAccept: TemplateRef<any>;
-    @ViewChild('iconDecline') iconDecline: TemplateRef<any>;
+    loremIpsum: string = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut eget elit libero. Praesent placerat iaculis urna, ac iaculis ipsum consectetur quis. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Nunc nec faucibus magna, vel condimentum elit. Mauris auctor purus ut risus mattis, non pharetra sem ornare. Etiam interdum elementum elit, ut vulputate eros vestibulum nec. Fusce sed odio finibus justo mattis aliquam. Curabitur pulvinar, elit sit amet mollis feugiat, augue justo consectetur augue, sed elementum metus orci ac risus. Mauris elementum, tellus malesuada porttitor convallis, ligula ligula pulvinar diam, vitae ornare sapien velit at nulla.';
 
-    constructor(public colorService: ColorService) {
+    @ViewChild('iconAccept') iconAccept: TemplateRef<any>;
+
+    constructor() {
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
     }
 
     ngAfterViewInit() {
         this.actions.push(
-            { label: 'Accept', iconTemplate: this.iconAccept, action: () => alert('accept') },
-            { label: 'Decline', iconTemplate: this.iconDecline, action: () => alert('decline') }
+            { iconTemplate: this.iconAccept, action: () => alert('accept') },
+            { label: 'Decline', icon: 'close', action: () => alert('decline') }
         );
     }
 }

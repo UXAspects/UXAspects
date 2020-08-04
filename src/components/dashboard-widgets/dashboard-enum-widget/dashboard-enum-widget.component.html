@@ -12,14 +12,14 @@
         <ux-icon name="pan"></ux-icon>
     </button>
     <h3 class="widget-title">{{ heading }}</h3>
-    <div class="widget-status">
-        <ng-container *ngIf="value | getEnumConfigByValue : enums : 'iconTemplate' as customIcon">
-            <ng-container *ngTemplateOutlet="customIcon"></ng-container>
+    <div class="widget-status" *ngIf="enums | getEnumByValue : value as statusEnum">
+        <ng-container *ngIf="statusEnum.iconTemplate">
+            <ng-container *ngTemplateOutlet="statusEnum.iconTemplate"></ng-container>
         </ng-container>
-        <ux-icon *ngIf="value | getEnumConfigByValue : enums : 'icon' as icon" name="{{ icon }}"></ux-icon>
-        {{ value | getEnumConfigByValue : enums : 'label' }}
+        <ux-icon *ngIf="statusEnum.icon" name="{{ statusEnum.icon }}"></ux-icon>
+        {{ statusEnum.label }}
     </div>
-    <button class="widget-side-panel-opener" (click)="open()">
+    <button class="widget-side-panel-opener" (click)="openSidePanel()">
         <ux-icon name="chevron-right"></ux-icon>
     </button>
 </ux-dashboard-widget>
@@ -38,7 +38,7 @@
     </div>
     <ux-select-list #enumList
                     class="ux-side-panel-content"
-                    [(selected)]="selected"
+                    [selected]="selected"
                     (selectedChange)="changeSelection($event)">
         <ux-select-list-item *ngFor="let enumItem of enums" [data]="enumItem">
             <ng-container *ngIf="enumItem.iconTemplate"></ng-container>

@@ -7,8 +7,13 @@ export interface ActionsWidgetConfig extends PredefinedWidgetConfig {
 }
 
 export interface ActionConfig {
-    label: string;
+    label?: string;
     icon?: string;
     iconTemplate?: TemplateRef<any>;
     action: Function;
+}
+
+export interface ActionStatus {
+    label: string;
+    icon: string | TemplateRef<any>;
 }

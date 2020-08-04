@@ -7,7 +7,7 @@ import {
     OnDestroy,
     ViewChild
 } from '@angular/core';
-import { DataWidgetConfig } from '../interfaces/data-widget';
+import { TableWidgetConfig } from '../interfaces/table-widget';
 import { DashboardWidgetComponent } from '../../dashboard';
 
 @Component({
@@ -15,7 +15,7 @@ import { DashboardWidgetComponent } from '../../dashboard';
     templateUrl: './dashboard-table-widget.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DashboardTableWidgetComponent implements DataWidgetConfig, OnDestroy {
+export class DashboardTableWidgetComponent implements TableWidgetConfig, OnDestroy {
     @Input() id: string = '';
     @Input() name: string = '';
     @Input() heading: string = '';
@@ -24,15 +24,14 @@ export class DashboardTableWidgetComponent implements DataWidgetConfig, OnDestro
     @Input() rowSpan: number = 1;
 
     @ViewChild('widget') widget: DashboardWidgetComponent;
-    @Input() header: ReadonlyArray<any> = [];
-    @Input() data: ReadonlyArray<ReadonlyArray<any>> = [];
+    @Input() header: ReadonlyArray<string> = [];
+    @Input() data: ReadonlyArray<ReadonlyArray<string>> = [];
 
     private _isDragged: boolean = false;
 
     constructor(private changeDetectorRef: ChangeDetectorRef) {}
 
     ngOnDestroy() {
-        this._isDragged = false;
         this.widget.dashboardService.isDragging$.unsubscribe();
     }
 

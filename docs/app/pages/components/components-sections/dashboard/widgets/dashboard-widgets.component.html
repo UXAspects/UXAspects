@@ -4,22 +4,19 @@
               [options]="options">
 
     <ux-dashboard-actions-widget class="widget"
-        [id]="'widget-actions'"
+        id="widget-actions"
         [name]="'Actions Widget'"
-        [heading]="'Actions Widget Heading'"
+        [heading]="'Actions Widget'"
         [fixedMode]="false"
         [status]="status"
         [actions]="actions">
         <ng-template #iconAccept>
-            <span class="custom-icon">✅</span>
-        </ng-template>
-        <ng-template #iconDecline>
-            <span class="custom-icon">❌</span>
+            <span class="custom-icon">✅ Accept</span>
         </ng-template>
     </ux-dashboard-actions-widget>
 
     <ux-dashboard-enum-widget class="widget"
-        [id]="'widget-enum'"
+        id="widget-enum"
         [name]="'Enum Widget'"
         [heading]="'Enum Widget'"
         [fixedMode]="false"
@@ -28,9 +25,9 @@
     </ux-dashboard-enum-widget>
 
     <ux-dashboard-table-widget class="widget"
-        [id]="'widget-table'"
+        id="widget-table"
         [name]="'Table Widget'"
-        [heading]="'Table Widget Heading'"
+        [heading]="'Table Widget'"
         [fixedMode]="false"
         [header]="tableHeader"
         [data]="tableData"
@@ -38,11 +35,11 @@
     </ux-dashboard-table-widget>
 
     <ux-dashboard-text-widget class="widget"
-        [id]="'widget-text'"
+        id="widget-text"
         [name]="'Text Widget'"
-        [heading]="'Text Widget Heading'"
+        [heading]="'Text Widget'"
         [fixedMode]="false"
-        [text]="'Lorem Ipsum...'"
+        [text]="loremIpsum"
         [editable]="true">
     </ux-dashboard-text-widget>
 
@@ -80,13 +77,13 @@
 <uxd-api-properties tableTitle="Inputs">
     <tr uxd-api-property name="actions" type="ActionConfig[]">The buttons that will be displayed. Includes <code>label</code> (a string),
         <code>icon</code> (a ux-icon code), <code>iconTemplate</code> (a TemplateRef) and <code>action</code> (a function).</tr>
-    <tr uxd-api-property name="status" type="{ label: string, icon: string | TemplateRef<any> }">The status displayed by the widget.</tr>
+    <tr uxd-api-property name="status" type="ActionStatus">The status displayed by the widget.</tr>
 </uxd-api-properties>
 
 <h3>Enum Widget</h3>
 
 <p>
-    The <code>ux-dashboard-enum-widget</code> is a <code>select</code> input at its core. The label of the currently selected value is displayed along its icon.
+    The <code>ux-dashboard-enum-widget</code> is a select input at its core. The label of the currently selected value is displayed along its icon.
     Clicking the bottom right chevron button opens a side panel which fills out the whole parent dashboard component.
     There the user can select a new value and either save the change or cancel the submission by clicking the cancel or the "X" button.
 </p>
