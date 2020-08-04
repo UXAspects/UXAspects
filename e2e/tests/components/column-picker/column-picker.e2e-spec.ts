@@ -129,7 +129,7 @@ describe('Column Picker Tests', () => {
         await page.selectAllBtn.click();
         expect(await page.getColumnCount(ColumnPickerList.Deselected)).toBe(0);
         expect(await page.getColumnCount(ColumnPickerList.Selected)).toBe(24);
-        expect(await page.getSelection()).toBe('[ "Type", "Date", "Requested by", "Status", "Completion", { "name": "Author", "group": "Metadata" }, { "name": "Category", "group": "Metadata" }, { "name": "Date Created", "group": "Metadata" }, { "name": "Date Modified", "group": "Metadata" }, { "name": "Department", "group": "Metadata" }, "Document ID", "Flag", "From", "Icon", "Importance", "Location", "Location ID", "Message", { "name": "Organization", "group": "Metadata" }, "Time", "Time Created", "Time Modified", "Work Completed" ]');
+        expect(await page.getSelection()).toBe('[ "Type", "Date", "Requested by", "Status", "Completion", { "name": "Author", "group": "Metadata" }, { "name": "Category", "group": "Metadata" }, { "name": "Date Created", "group": "Metadata" }, { "name": "Date Modified", "group": "Metadata" }, { "name": "Department", "group": "Metadata" }, { "name": "Organization", "group": "Metadata" }, "Document ID", "Flag", "From", "Icon", "Importance", "Location", "Location ID", "Message", "Time", "Time Created", "Time Modified", "Work Completed" ]');
     });
 
     it('should allow moving all selected columns', async () => {
