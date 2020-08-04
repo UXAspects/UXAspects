@@ -120,8 +120,11 @@ export class ColumnPickerSortTestComponent {
         { name: 'Metadata', expanded: true }
     ];
 
-    sort = (a: string | ColumnPickerGroupItem, b: string | ColumnPickerGroupItem) =>
-        (a['name'] ?? a).localeCompare(b['name'] ?? b)
+    sort = (a: ColumnPickerGroupItem, b: ColumnPickerGroupItem) => {
+        const aCombined = a.group ? `${a.group}${a.name}` : a.name;
+        const bCombined = b.group ? `${b.group}${b.name}` : b.name;
+        return aCombined.localeCompare(bCombined);
+    }
 }
 
 describe('Column Picker Component - Sort Input', () => {
@@ -145,20 +148,25 @@ describe('Column Picker Component - Sort Input', () => {
 
     it('should sort deselected columns when the sort input is provided', () => {
         const deselectedRows = getRowTextContents(0);
-        expect(deselectedRows[0]).toBe('Author', 'row 0');
-        expect(deselectedRows[1]).toBe('Flag', 'row 1');
-        expect(deselectedRows[2]).toBe('Location', 'row 2');
+        expect(deselectedRows[0]).toBe('Flag', 'row 0');
+        expect(deselectedRows[1]).toBe('Location', 'row 1');
+        expect(deselectedRows[2]).toBe('Author', 'row 2');
     });
 
     it('should not sort the selected columns', () => {
         const selected = getRowTextContents(1);
         selected.forEach((column, i) => {
-            expect(column).toEqual(component.selected[i]['name'] || component.selected[i]);
+            const selectedColumn = component.selected[i];
+            expect(column).toEqual(getColumnPickerGroupItemName(selectedColumn));
         });
     });
 
     function getRowTextContents(listIndex: number): string[] {
         return Array.from(nativeElement.querySelectorAll('.column-picker-list')[listIndex].querySelectorAll('.column-picker-list-item'))
             .map(row => row.textContent.trim());
+    }
+
+    function getColumnPickerGroupItemName(column: string | ColumnPickerGroupItem) {
+        return typeof column === 'object' ? column.name : column;
     }
 });
