@@ -11,6 +11,7 @@ describe('Logical Expression Builder Tests', () => {
     it('should have correct initial state', async () => {
         expect(await page.getExpressionObject()).toEqual(null);
         expect(await page.getConditionRowCount()).toEqual(0);
+        expect(await page.getGroupRowCount()).toEqual(0);
         expect(await page.getValid()).toBeTruthy();
     });
 
@@ -41,8 +42,7 @@ describe('Logical Expression Builder Tests', () => {
     });
 
     it('should only show one condition if there is one group with one condition', async () => {
-        await page.setOneCondition();
-        await page.addSecondCondition();
+        await page.setTwoConditions();
         await page.deleteLastCondition();
 
         const expression = await page.getExpressionObject();

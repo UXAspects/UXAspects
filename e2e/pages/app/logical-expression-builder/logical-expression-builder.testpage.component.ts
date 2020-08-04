@@ -74,7 +74,6 @@ export class LogicalExpressionBuilderTestpageComponent {
 
     public valid: boolean;
 
-
     complexExpression: LogicalExpressionBuilderExpression = {
         type: 'group',
         logicalOperator: 'and',
@@ -106,6 +105,15 @@ export class LogicalExpressionBuilderTestpageComponent {
     };
 
     invalidExpression: LogicalExpressionBuilderExpression = {
+        type: 'group',
+        logicalOperator: 'not',
+        children: [
+            { type: 'condition', field: 'created', operator: 'before', value: 1595515231584 },
+            { type: 'condition', field: 'category', operator: 'one_of', value: ['performance', 'security'] },
+        ]
+    };
+
+    groupWithTwoConditions: LogicalExpressionBuilderExpression = {
         type: 'group',
         logicalOperator: 'not',
         children: [

@@ -10,9 +10,9 @@ export namespace LogicalExpressionBuilderPage {
         expression = $('pre');
         table = $('.leb-table');
 
-        setEmptyExpressionBtn = $('#set-empty-expression');
         setInvalidExpressionBtn = $('#set-invalid-expression');
         setOneConditionBtn = $('#set-one-condition');
+        setTwoConditionsBtn = $('#set-two-conditions');
 
         validity = $('#valid');
 
@@ -42,16 +42,16 @@ export namespace LogicalExpressionBuilderPage {
             return valid === 'valid';
         }
 
-        async setEmptyExpression(): Promise<any> {
-            return this.setEmptyExpressionBtn.click();
-        }
-
         async setInvalidExpression(): Promise<any> {
             return this.setInvalidExpressionBtn.click();
         }
 
         async setOneCondition(): Promise<any> {
             return this.setOneConditionBtn.click();
+        }
+
+        async setTwoConditions(): Promise<any> {
+            return this.setTwoConditionsBtn.click();
         }
 
         async addSecondCondition(): Promise<any> {
