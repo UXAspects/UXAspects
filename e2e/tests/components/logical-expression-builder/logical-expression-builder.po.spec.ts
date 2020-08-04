@@ -57,5 +57,9 @@ export namespace LogicalExpressionBuilderPage {
         async addSecondCondition(): Promise<any> {
             return $$('tr').last().$('td').$('button').click();
         }
+
+        async deleteLastCondition(): Promise<any> {
+            return $$('.btn-delete-condition').last().click();
+        }
     }
 }

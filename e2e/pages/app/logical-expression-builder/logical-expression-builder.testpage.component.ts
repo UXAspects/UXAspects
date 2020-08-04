@@ -70,7 +70,12 @@ export class LogicalExpressionBuilderTestpageComponent {
         }
     ];
 
-    expression: LogicalExpressionBuilderExpression = {
+    expression: LogicalExpressionBuilderExpression = null;
+
+    public valid: boolean;
+
+
+    complexExpression: LogicalExpressionBuilderExpression = {
         type: 'group',
         logicalOperator: 'and',
         children: [
@@ -92,10 +97,6 @@ export class LogicalExpressionBuilderTestpageComponent {
             { type: 'condition', field: 'version', operator: 'equals', value: 3 },
         ]
     };
-
-    public valid: boolean;
-
-    initialExpression: LogicalExpressionBuilderExpression = { ...this.expression };
 
     oneCondition: LogicalExpressionBuilderExpression = {
         type: 'condition',
@@ -120,6 +121,6 @@ export class LogicalExpressionBuilderTestpageComponent {
     }
 
     resetExpression(): void {
-        this.expression = { ...this.initialExpression };
+        this.expression = { ...this.complexExpression };
     }
 }

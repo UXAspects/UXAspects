@@ -8,9 +8,7 @@ describe('Logical Expression Builder Tests', () => {
         await page.getPage();
     });
 
-    it('should have no rows when expression is empty', async () => {
-        await page.setEmptyExpression();
-
+    it('should have correct initial state', async () => {
         expect(await page.getExpressionObject()).toEqual(null);
         expect(await page.getConditionRowCount()).toEqual(0);
         expect(await page.getValid()).toBeTruthy();
@@ -34,10 +32,25 @@ describe('Logical Expression Builder Tests', () => {
         const expression = await page.getExpressionObject();
 
         expect(expression).toBeDefined();
+        expect(expression.type).toEqual('group');
         expect(expression.children).toBeDefined();
         expect(expression.children.length).toEqual(2);
         expect(await page.getConditionRowCount()).toEqual(2);
-        expect(await page.getGroupRowCount()).toEqual(1);
+        expect(await page.getGroupRowCount()).toEqual(2);
+        expect(await page.getValid()).toBeTruthy();
+    });
+
+    it('should only show one condition if there is one group with one condition', async () => {
+        await page.setOneCondition();
+        await page.addSecondCondition();
+        await page.deleteLastCondition();
+
+        const expression = await page.getExpressionObject();
+
+        expect(expression).toBeDefined();
+        expect(expression.type).toEqual('condition');
+        expect(expression.children).toBeUndefined();
+        expect(await page.getConditionRowCount()).toEqual(1);
         expect(await page.getValid()).toBeTruthy();
     });
 
