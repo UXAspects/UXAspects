@@ -40,7 +40,6 @@ export class DashboardTextWidgetComponent implements TextWidgetConfig, OnDestroy
     constructor(private changeDetectorRef: ChangeDetectorRef) {}
 
     ngOnDestroy() {
-        this._isDragged = false;
         this.widget.dashboardService.isDragging$.unsubscribe();
     }
 

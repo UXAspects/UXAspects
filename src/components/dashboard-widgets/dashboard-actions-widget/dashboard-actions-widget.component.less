@@ -2,16 +2,26 @@ ux-dashboard-actions-widget {
     ux-dashboard-widget {
         .widget-content {
             position: relative;
+
+            .widget-title {
+                margin-top: 0;
+            }
+
+            .widget-status-wrapper {
+                display: flex;
+                flex-flow: row nowrap;
+                position: relative;
+
+                .widget-status {
+                    flex: 1 1 auto;
+                }
+            }
         }
 
         .widget-grab-handle {
             position: absolute;
             top: 0;
             right: 0;
-        }
-
-        .widget-title {
-            margin-top: 0;
         }
     }
 }

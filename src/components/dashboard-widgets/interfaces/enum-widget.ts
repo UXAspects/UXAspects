@@ -6,7 +6,7 @@ export interface EnumWidgetConfig extends PredefinedWidgetConfig {
     value: string | number;
     enums: ReadonlyArray<EnumConfig>;
     sidePanel: SidePanelComponent;
-    open: () => void;
+    openSidePanel: () => void;
     cancel: () => void;
     save: () => void;
 }
