@@ -25,11 +25,11 @@ export namespace LogicalExpressionBuilderPage {
         }
 
         async getConditionsRows(): Promise<any> {
-            return $$('tr.leb-condition-row');
+            return $$('leb-condition-row');
         }
 
         async getGroupRows(): Promise<any> {
-            return $$('tr.leb-group');
+            return $$('leb-group');
         }
 
         async getValid(): Promise<boolean> {
@@ -51,7 +51,7 @@ export namespace LogicalExpressionBuilderPage {
         }
 
         async addSecondCondition(): Promise<any> {
-            return $$('tr').last().$('td').$('btn').click();
+            return $$('tr').last().$('td').$('button').click();
         }
     }
 }

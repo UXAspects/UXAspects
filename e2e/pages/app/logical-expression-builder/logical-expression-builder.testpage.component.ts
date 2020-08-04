@@ -70,10 +70,6 @@ export class LogicalExpressionBuilderTestpageComponent {
         }
     ];
 
-    localizedStrings = {
-        addConditionBtnText: 'Add'
-    };
-
     expression: LogicalExpressionBuilderExpression = {
         type: 'group',
         logicalOperator: 'and',
