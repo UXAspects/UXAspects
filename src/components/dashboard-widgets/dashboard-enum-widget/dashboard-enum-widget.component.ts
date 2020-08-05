@@ -1,12 +1,9 @@
 import {
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
     ElementRef,
     EventEmitter,
-    HostListener,
     Input,
-    OnDestroy,
     OnInit,
     Output,
     Pipe,
@@ -16,14 +13,13 @@ import {
 import { EnumConfig, EnumWidgetConfig } from '../interfaces/enum-widget';
 import { SidePanelComponent } from '../../side-panel';
 import { SelectListComponent } from '../../select-list';
-import { DashboardWidgetComponent } from '../../dashboard';
 
 @Component({
     selector: 'ux-dashboard-enum-widget',
     templateUrl: './dashboard-enum-widget.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DashboardEnumWidgetComponent implements EnumWidgetConfig, OnInit, OnDestroy {
+export class DashboardEnumWidgetComponent implements EnumWidgetConfig, OnInit {
     @Input() id: string = '';
     @Input() name: string = '';
     @Input() heading: string = '';
@@ -31,7 +27,6 @@ export class DashboardEnumWidgetComponent implements EnumWidgetConfig, OnInit, O
     @Input() colSpan: number = 1;
     @Input() rowSpan: number = 1;
 
-    @ViewChild('widget') widget: DashboardWidgetComponent;
     @ViewChild('sidePanel') sidePanel: SidePanelComponent;
     @ViewChild('enumList') enumList: ElementRef<SelectListComponent<EnumConfig>>;
     @Input() enums: EnumConfig[];
@@ -41,30 +36,13 @@ export class DashboardEnumWidgetComponent implements EnumWidgetConfig, OnInit, O
 
     selected: ReadonlyArray<EnumConfig>;
 
-    private _isDragged: boolean = false;
     private _getEnumByValuePipe: GetEnumByValuePipe = new GetEnumByValuePipe();
     private lastSelection: EnumConfig[];
 
-    constructor(private changeDetectorRef: ChangeDetectorRef) {}
-
     ngOnInit() {
-        if (!this.enums) { throw new Error('No enums given!'); }
-        if (!this.value) { throw new Error('No value given!'); }
-
         const selectedEnum = this.enums.find(item => item.value === this.value);
 
         this.selected = [selectedEnum];
-    }
-
-    ngOnDestroy() {
-        this.widget.dashboardService.isDragging$.unsubscribe();
-    }
-
-    @HostListener('window:mousemove', [])
-    onMouseEvent() {
-        if (this._isDragged) {
-            this.changeDetectorRef.markForCheck();
-        }
     }
 
     openSidePanel(): void {

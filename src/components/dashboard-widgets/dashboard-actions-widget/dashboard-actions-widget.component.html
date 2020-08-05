@@ -1,29 +1,20 @@
-<ux-dashboard-widget #widget
-                     class="widget-element"
-                     [id]="id"
-                     [colSpan]="colSpan"
-                     [rowSpan]="rowSpan"
-                     [name]="name"
-                     [resizable]="!fixedMode">
-    <h3 class="widget-title">{{ heading }}</h3>
-    <button *ngIf="!fixedMode"
-            class="widget-grab-handle"
-            uxDashboardGrabHandle
-            uxDashboardWidgetDragHandle>
-        <ux-icon name="pan"></ux-icon>
-    </button>
-    <div class="widget-status-wrapper">
-        <div class="widget-status">
-            <ux-icon name="{{ status.icon }}"></ux-icon> {{ status.label }}
-        </div>
-        <div class="widget-actions">
-            <button class="m-b btn button-secondary widget-action-button" *ngFor="let action of actions; let i = index" (click)="action.action()">
-                <ng-container *ngIf="action.iconTemplate">
-                    <ng-container *ngTemplateOutlet="action.iconTemplate"></ng-container>
-                </ng-container>
-                <ux-icon *ngIf="action.icon" name="{{ action.icon }}"></ux-icon>
-                {{ action.label }}
-            </button>
-        </div>
+<ux-predefined-widget class="widget-element"
+                      [id]="id"
+                      [colSpan]="colSpan"
+                      [rowSpan]="rowSpan"
+                      [name]="name"
+                      [heading]="heading"
+                      [fixedMode]="fixedMode">
+    <div class="widget-status">
+        <ux-icon name="{{ status.icon }}"></ux-icon> {{ status.label }}
     </div>
-</ux-dashboard-widget>
+    <div class="widget-actions">
+        <button class="m-b btn button-secondary widget-action-button" *ngFor="let action of actions" (click)="action.action()">
+            <ng-container *ngIf="action.iconTemplate">
+                <ng-container *ngTemplateOutlet="action.iconTemplate"></ng-container>
+            </ng-container>
+            <ux-icon *ngIf="action.icon" name="{{ action.icon }}"></ux-icon>
+            {{ action.label }}
+        </button>
+    </div>
+</ux-predefined-widget>
