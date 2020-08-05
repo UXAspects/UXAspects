@@ -16,7 +16,7 @@
 </p>
 
 <uxd-api-properties tableTitle="Inputs">
-    <tr uxd-api-property name="selected" type="ReadonlyArray<string>">
+    <tr uxd-api-property name="selected" type="ReadonlyArray<string | ColumnPickerGroupItem>">
         Define a list of all selected columns.
     </tr>
     <tr uxd-api-property name="locked" type="ReadonlyArray<string>">
@@ -55,10 +55,14 @@
     <tr uxd-api-property name="groups" type="ReadonlyArray<ColumnPickerGroup>">
         An optional array of objects to configure column groups. See below for a listing of the available settings for groups.
     </tr>
+    <tr uxd-api-property name="sort" type="(a: ColumnPickerGroupItem, b: ColumnPickerGroupItem) => number">
+        Define a comparator function used for sorting the deselected columns. For example, to sort the columns alphabetically, the function below could be used:
+        <uxd-snippet [content]="snippets.compiled.sortTs"></uxd-snippet>
+    </tr>
 </uxd-api-properties>
 
 <uxd-api-properties tableTitle="Outputs">
-    <tr uxd-api-property name="selectedChange" type="ReadonlyArray<string>">
+    <tr uxd-api-property name="selectedChange" type="ReadonlyArray<string | ColumnPickerGroupItem>">
         Emits when the selected items change or the order of the selected items change.
     </tr>
     <tr uxd-api-property name="deselectedChange" type="ReadonlyArray<string | ColumnPickerGroupItem>">

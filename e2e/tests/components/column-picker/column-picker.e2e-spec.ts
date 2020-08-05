@@ -110,7 +110,7 @@ describe('Column Picker Tests', () => {
         await page.selectBtn.click();
         expect(await page.getColumnCount(ColumnPickerList.Deselected)).toBe(17);
         expect(await page.getColumnCount(ColumnPickerList.Selected)).toBe(7);
-        expect(await page.getSelection()).toBe('[ "Type", "Date", "Requested by", "Status", "Completion", "Author" ]');
+        expect(await page.getSelection()).toBe('[ "Type", "Date", "Requested by", "Status", "Completion", { "group": "Metadata", "name": "Author" } ]');
     });
 
     it('should allow moving a selected column', async () => {
@@ -129,7 +129,7 @@ describe('Column Picker Tests', () => {
         await page.selectAllBtn.click();
         expect(await page.getColumnCount(ColumnPickerList.Deselected)).toBe(0);
         expect(await page.getColumnCount(ColumnPickerList.Selected)).toBe(24);
-        expect(await page.getSelection()).toBe('[ "Type", "Date", "Requested by", "Status", "Completion", "Author", "Category", "Date Created", "Date Modified", "Department", "Document ID", "Flag", "From", "Icon", "Importance", "Location", "Location ID", "Message", "Organization", "Time", "Time Created", "Time Modified", "Work Completed" ]');
+        expect(await page.getSelection()).toBe('[ "Type", "Date", "Requested by", "Status", "Completion", { "group": "Metadata", "name": "Author" }, { "group": "Metadata", "name": "Category" }, { "group": "Metadata", "name": "Date Created" }, { "group": "Metadata", "name": "Date Modified" }, { "group": "Metadata", "name": "Department" }, "Document ID", "Flag", "From", "Icon", "Importance", "Location", "Location ID", "Message", { "group": "Metadata", "name": "Organization" }, "Time", "Time Created", "Time Modified", "Work Completed" ]');
     });
 
     it('should allow moving all selected columns', async () => {

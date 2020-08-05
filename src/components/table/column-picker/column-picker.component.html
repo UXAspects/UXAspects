@@ -23,7 +23,7 @@
         <cdk-tree-node *cdkTreeNodeDef="let node"
             [attr.aria-hidden]="selected && selected.indexOf(node.name) > -1">
             <div uxTabbableListItem
-                [uxSelectionItem]="node"
+                [uxSelectionItem]="node.column"
                 *ngIf="_shouldRenderNode(node)"
                 class="column-picker-list-item"
                 [ngClass]="'column-picker-tree-node-level-' + node.level">
@@ -157,7 +157,7 @@
 
                  <ng-container *ngIf="!selectedTemplate">
                     <ux-icon uxReorderableHandle name="drag" class="drag-handle-icon"></ux-icon>
-                    {{ column }}
+                    {{ _getColumnName(column) }}
                  </ng-container>
 
                  <ng-container
