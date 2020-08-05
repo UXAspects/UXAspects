@@ -5,3 +5,7 @@ export interface ColumnPickerGroupItem {
     /**  The name of the column. */
     name: string;
 }
+
+export function isColumnPickerGroupItem(column: string | ColumnPickerGroupItem): column is ColumnPickerGroupItem {
+    return (column as ColumnPickerGroupItem).name !== undefined;
+}

@@ -4,7 +4,7 @@ import { FlatTreeControl } from '@angular/cdk/tree';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnChanges, Output, QueryList, SimpleChanges, TemplateRef, ViewChildren } from '@angular/core';
 import { ColumnPickerService } from './column-picker.service';
 import { ColumnPickerTreeNode } from './interfaces/column-picker-tree-node.interface';
-import { ColumnPickerGroupItem } from './interfaces/column-picker-group-item.interface';
+import { ColumnPickerGroupItem, isColumnPickerGroupItem } from './interfaces/column-picker-group-item.interface';
 
 @Component({
     selector: 'ux-column-picker',
@@ -258,7 +258,7 @@ export class ColumnPickerComponent implements OnChanges {
 
     /** Get the column name based on type */
     _getColumnName(item: string | ColumnPickerGroupItem): string {
-        return this._columnPicker.isColumnPickerGroupItem(item) ? item.name : item;
+        return isColumnPickerGroupItem(item) ? item.name : item;
     }
 
     /** Check if tree group has visible children */
@@ -326,7 +326,7 @@ export class ColumnPickerComponent implements OnChanges {
 }
 
 function getColumnPickerGroupItemName(column: string | ColumnPickerGroupItem) {
-    return typeof column === 'object' ? column.name : column;
+    return isColumnPickerGroupItem(column) ? column.name : column;
 }
 
 /** Define a context for the column actions template */

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ColumnPickerGroup } from './column-picker.component';
 import { ColumnPickerTreeNode } from './interfaces/column-picker-tree-node.interface';
-import { ColumnPickerGroupItem } from './interfaces/column-picker-group-item.interface';
+import { ColumnPickerGroupItem, isColumnPickerGroupItem } from './interfaces/column-picker-group-item.interface';
 
 @Injectable()
 export class ColumnPickerService {
@@ -20,7 +20,7 @@ export class ColumnPickerService {
             normalizedColumns.sort(sort);
             columns = this.denormalizeColumns(normalizedColumns, deselected);
         } else {
-            const grouped = deselected.filter(column => this.isColumnPickerGroupItem(column) && column.group !== undefined);
+            const grouped = deselected.filter(column => isColumnPickerGroupItem(column) && column.group !== undefined);
             columns = [
                 ...grouped,
                 ...deselected.filter(column => grouped.indexOf(column) === -1)
@@ -32,15 +32,15 @@ export class ColumnPickerService {
 
     createTreeData(columns: (string | ColumnPickerGroupItem)[]): ColumnPickerTreeNode[] {
         const treeData: ColumnPickerTreeNode[] = [];
-        const groupedColumns = columns.filter(column => this.isColumnPickerGroupItem(column) && column.group !== undefined);
+        const groupedColumns = columns.filter(column => isColumnPickerGroupItem(column) && column.group !== undefined);
 
         columns.forEach((column: (string | ColumnPickerGroupItem)) => {
-            if (groupedColumns.indexOf(column) !== -1 && this.isColumnPickerGroupItem(column)) {
+            if (groupedColumns.indexOf(column) !== -1 && isColumnPickerGroupItem(column)) {
                 const groupNode = this.createOrFindGroupNode(column, treeData);
                 groupNode.children.push(column.name);
                 this.createColumnTreeNode(column, treeData, 1);
 
-            } else if (!this.isColumnPickerGroupItem(column)) {
+            } else if (!isColumnPickerGroupItem(column)) {
                 this.createColumnTreeNode(column, treeData, 0);
             }
         });
@@ -48,21 +48,17 @@ export class ColumnPickerService {
         return treeData;
     }
 
-    isColumnPickerGroupItem(column: string | ColumnPickerGroupItem): column is ColumnPickerGroupItem {
-        return typeof column === 'object';
-    }
-
     private normalizeColumns(columns: (string | ColumnPickerGroupItem)[]): ColumnPickerGroupItem[] {
         return columns.map(column => ({
-            name: this.isColumnPickerGroupItem(column) ? column.name : column,
-            group: this.isColumnPickerGroupItem(column) ? column.group : undefined
+            name: isColumnPickerGroupItem(column) ? column.name : column,
+            group: isColumnPickerGroupItem(column) ? column.group : undefined
         }));
     }
 
     private denormalizeColumns(normalizedColumns: ColumnPickerGroupItem[], originalColumns: (string | ColumnPickerGroupItem)[]): (string | ColumnPickerGroupItem)[] {
         return normalizedColumns.map(normalized => {
             const original = originalColumns.find(originalColumn => {
-                if (this.isColumnPickerGroupItem(originalColumn)) {
+                if (isColumnPickerGroupItem(originalColumn)) {
                     return originalColumn.group === normalized.group && originalColumn.name === normalized.name;
                 }
                 return false;
@@ -96,7 +92,7 @@ export class ColumnPickerService {
 
     private createColumnTreeNode(column: (string | ColumnPickerGroupItem), treeData: ColumnPickerTreeNode[], level: number): void {
         treeData.push({
-            name: this.isColumnPickerGroupItem(column) ? column.name : column,
+            name: isColumnPickerGroupItem(column) ? column.name : column,
             level,
             expandable: false,
             column
