@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { ComponentFixture, async, TestBed } from '@angular/core/testing';
 import { TableModule } from '../table.module';
-import { ColumnPickerGroupItem, ColumnPickerGroup } from './column-picker.component';
+import { ColumnPickerGroup } from './column-picker.component';
+import { ColumnPickerGroupItem } from './interfaces/column-picker-group-item.interface';
 
 @Component({
     selector: 'app-column-picker',
