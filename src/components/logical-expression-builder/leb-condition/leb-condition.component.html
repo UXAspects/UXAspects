@@ -5,6 +5,7 @@
     cdkTrapFocus
     [cdkTrapFocusAutoCapture]="true"
     uxFocusIndicator
+    [focusIf]="editMode"
     (keydown.escape)="cancelEdit()">
 
     <td class="field-selection">
@@ -12,7 +13,6 @@
             [value]="_field"
             [input]="_field?.label || null"
             (valueChange)="handleFieldSelected($event)"
-            [allowNull]="false"
             [options]="fields"
             display="label"
             key="name">
