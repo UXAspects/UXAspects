@@ -2,6 +2,7 @@ import { A11yModule } from '@angular/cdk/a11y';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { DashboardModule } from '../dashboard';
+import { DashboardPredefinedWidgetComponent } from './dashboard-predefined-widget.component';
 import { DashboardActionsWidgetComponent } from './dashboard-actions-widget/dashboard-actions-widget.component';
 import { DashboardTextWidgetComponent } from './dashboard-text-widget/dashboard-text-widget.component';
 import { DashboardTableWidgetComponent } from './dashboard-table-widget/dashboard-table-widget.component';
@@ -15,6 +16,7 @@ import { FixedHeaderTableModule } from '../../directives/fixed-header-table';
 import { SelectListModule } from '../select-list';
 
 const DECLARATIONS = [
+    DashboardPredefinedWidgetComponent,
     DashboardActionsWidgetComponent,
     DashboardTextWidgetComponent,
     DashboardTableWidgetComponent,

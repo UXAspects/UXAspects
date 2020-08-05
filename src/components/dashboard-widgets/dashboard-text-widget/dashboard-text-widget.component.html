@@ -1,16 +1,10 @@
-<ux-dashboard-widget class="widget-element"
-                     [id]="id"
-                     [colSpan]="colSpan"
-                     [rowSpan]="rowSpan"
-                     [name]="name"
-                     [resizable]="!fixedMode">
-    <button *ngIf="!fixedMode"
-            class="widget-grab-handle"
-            uxDashboardGrabHandle
-            uxDashboardWidgetDragHandle>
-        <ux-icon name="pan"></ux-icon>
-    </button>
-    <h3 class="widget-title">{{ heading }}</h3>
+<ux-predefined-widget class="widget-element"
+                      [id]="id"
+                      [colSpan]="colSpan"
+                      [rowSpan]="rowSpan"
+                      [name]="name"
+                      [heading]="heading"
+                      [fixedMode]="fixedMode">
     <div class="widget-text">
         <p>{{ text }}</p>
     </div>
@@ -18,7 +12,7 @@
         <ux-icon name="chevron-right" *ngIf="!editable"></ux-icon>
         <ux-icon name="edit" *ngIf="editable"></ux-icon>
     </button>
-</ux-dashboard-widget>
+</ux-predefined-widget>
 <ux-side-panel #sidePanel
                class="widget-side-panel"
                [attachTo]="'container'"
