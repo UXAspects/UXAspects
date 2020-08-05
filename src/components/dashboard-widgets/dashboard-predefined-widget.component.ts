@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, HostListener, Input } from '@angular/core';
 import { PredefinedWidgetConfig } from "./interfaces/predefined-widget";
 
 @Component({
@@ -15,4 +15,7 @@ export class DashboardPredefinedWidgetComponent implements PredefinedWidgetConfi
     @Input() rowSpan: number = 1;
 
     constructor() {}
+
+    @HostListener('window:mouseup')
+    onMouseup() {}
 }
