@@ -15,8 +15,8 @@ import { LogicalExpressionBuilderService } from '../services/logical-expression-
 import { FieldDefinition } from '../interfaces/FieldDefinition';
 import { OperatorDefinition } from '../interfaces/OperatorDefinitionList';
 import { ExpressionCondition } from '../interfaces/LogicalExpressionBuilderExpression';
-import { Subject } from 'rxjs';
-import { distinctUntilChanged, filter, takeUntil } from 'rxjs/operators';
+import { Observable, Subject } from 'rxjs';
+import { distinctUntilChanged, filter, map, takeUntil } from 'rxjs/operators';
 import { ValidationService } from '../services/validation.service';
 
 @Component({
@@ -62,6 +62,8 @@ export class LebConditionComponent implements OnInit, OnDestroy {
     private _condition: ExpressionCondition;
     private _destroy$ = new Subject<void>();
 
+    public _wasLastFocused$: Observable<boolean>;
+
     public _valid: boolean = true;
 
     constructor(
@@ -75,8 +77,6 @@ export class LebConditionComponent implements OnInit, OnDestroy {
                 this._editBlocked = value;
             });
     }
-
-    public _wasLastFocused: boolean = false;
 
     ngOnInit(): void {
         this._initialCondition = this.condition;
@@ -93,11 +93,10 @@ export class LebConditionComponent implements OnInit, OnDestroy {
 
         this._validationService.setConditionValidationState(this.groupId, this.id, this._valid);
 
-        this._lebService.getLastFocused().pipe(
-            takeUntil(this._destroy$)
-        ).subscribe((ids: [number, number]) => {
-            this._wasLastFocused = ids[0] === this.groupId && ids[1] === this.id && !this._editBlocked;
-        });
+        this._wasLastFocused$ = this._lebService.getLastFocused().pipe(
+            takeUntil(this._destroy$),
+            map((ids: [number, number]) => ids[0] === this.groupId && ids[1] === this.id && !this._editBlocked)
+        );
     }
 
     ngOnDestroy(): void {

@@ -98,7 +98,7 @@ export class LogicalExpressionBuilderComponent implements OnDestroy, OnInit {
         return (<ExpressionGroup>this.expression).logicalOperator ?? null;
     }
 
-    public handleGroupChange(expression: LogicalExpressionBuilderExpression) {
+    public handleGroupChange(expression: LogicalExpressionBuilderExpression): void {
         let temp = { ...expression };
 
         // make expression just a condition if it contains exactly one group with exactly one condition in it
@@ -113,17 +113,17 @@ export class LogicalExpressionBuilderComponent implements OnDestroy, OnInit {
         this.expressionChange.emit(this._cleanExpression(this.expression));
     }
 
-    public deleteCondition() {
+    public deleteCondition(): void {
         this.expression = null;
     }
 
-    public addCondition() {
+    public addCondition(): void {
         // adds a condition to the expression if the expression is empty
         this.expression = { type: 'condition', field: null, operator: null, value: null, editMode: true };
         this.expressionChange.emit(this._cleanExpression(this.expression));
     }
 
-    public addGroup() {
+    public addGroup(): void {
         // adds a group to the condition if there is only one condition to the expression and a second one is added
         const firstCondition = { ...this.expression };
 

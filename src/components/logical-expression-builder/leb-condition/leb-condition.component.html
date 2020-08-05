@@ -62,7 +62,7 @@
         class="leb-condition-row"
         uxFocusIndicator
         [programmaticFocusIndicator]="true"
-        [focusIf]="_wasLastFocused"
+        [focusIf]="_wasLastFocused$ | async"
         uxTabbableList
         direction="horizontal"
         uxHoverActionContainer

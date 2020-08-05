@@ -1,7 +1,7 @@
 <tr
     class="leb-group"
     uxHoverActionContainer
-    [focusIf]="_wasLastFocused"
+    [focusIf]="_wasLastFocused$ | async"
     [style.padding-left.px]="indent"
     uxFocusIndicator
     [programmaticFocusIndicator]="true">
