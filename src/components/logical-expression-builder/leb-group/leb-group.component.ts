@@ -88,6 +88,8 @@ export class LebGroupComponent implements OnInit, OnDestroy {
 
         this._validate();
         this.groupChange.emit(this.subExpression);
+
+        this._lebService.setLastFocused([this._validationId, this.subExpression.children.length]);
         this._lebService.setEditBlocked(true);
     }
 
@@ -127,6 +129,7 @@ export class LebGroupComponent implements OnInit, OnDestroy {
 
         this._validate();
         this.groupChange.emit(this.subExpression);
+        this._lebService.setLastFocused([this._validationId, null]);
     }
 
     public deleteGroup(): void {
@@ -135,7 +138,21 @@ export class LebGroupComponent implements OnInit, OnDestroy {
     }
 
     private _validate(logicalOperator: LogicalOperatorDefinition = this.selectedLogicalOperator): boolean {
-        if ('minNumberOfChildren' in logicalOperator) {
+        if ('minNumberOfChildren' in logicalOperator && 'maxNumberOfChildren' in logicalOperator) {
+            const numberOfChildren = this.subExpression.children?.length;
+            const tooFew = !(numberOfChildren >= logicalOperator.minNumberOfChildren);
+            const tooMany = !(numberOfChildren <= logicalOperator.maxNumberOfChildren);
+
+            this._valid = !tooFew && !tooMany;
+
+            if (!this._valid && tooFew) {
+                this._errorType = 'logicalOperatorTooFewErrorText';
+            } else if (!this._valid && tooMany) {
+                this._errorType = 'logicalOperatorTooManyErrorText';
+            }
+
+            this._showAddBtn = !tooMany;
+        } else if ('minNumberOfChildren' in logicalOperator) {
             this._valid = this.subExpression.children?.length >= logicalOperator.minNumberOfChildren;
             this._errorType = this._valid ? '' : 'logicalOperatorTooFewErrorText';
             this._showAddBtn = true;

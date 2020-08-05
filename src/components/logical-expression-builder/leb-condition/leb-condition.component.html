@@ -60,17 +60,19 @@
 <ng-template #staticMode>
     <tr
         class="leb-condition-row"
-        [focusIf]="_wasLastFocused"
-        uxHoverActionContainer
-        [style.padding-left.px]="indent"
+        uxFocusIndicator
         [programmaticFocusIndicator]="true"
-        uxFocusIndicator>
+        [focusIf]="_wasLastFocused"
+        uxTabbableList
+        direction="horizontal"
+        uxHoverActionContainer
+        [style.padding-left.px]="indent">
         <td>
             <span class="leb-field-display">{{ _field.label }}</span> {{ _operator.label }} <span
             class="leb-value-display">{{ _value | displayValue:_field.fieldType:_field.data }}</span>
         </td>
 
-        <td uxTabbableList direction="horizontal">
+        <td>
             <button
                 uxFocusIndicatorOrigin
                 uxTabbableListItem

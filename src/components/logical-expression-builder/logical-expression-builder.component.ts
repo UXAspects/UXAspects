@@ -70,7 +70,7 @@ export class LogicalExpressionBuilderComponent implements OnDestroy, OnInit {
             this._lebService.setLogicalOperators([
                 { name: 'and', label: 'and', minNumberOfChildren: 2 },
                 { name: 'or', label: 'or', minNumberOfChildren: 2 },
-                { name: 'not', label: 'not', maxNumberOfChildren: 1 }
+                { name: 'not', label: 'not', maxNumberOfChildren: 1, minNumberOfChildren: 1 }
             ]);
         }
 
