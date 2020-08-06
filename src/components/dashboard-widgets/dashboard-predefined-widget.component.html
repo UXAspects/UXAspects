@@ -1,4 +1,5 @@
-<ux-dashboard-widget class="widget-element"
+<ux-dashboard-widget #widget
+                     class="widget-element"
                      [id]="id"
                      [colSpan]="colSpan"
                      [rowSpan]="rowSpan"
@@ -8,7 +9,9 @@
     <button *ngIf="!fixedMode"
             class="widget-grab-handle"
             uxDashboardGrabHandle
-            uxDashboardWidgetDragHandle>
+            uxDashboardWidgetDragHandle
+            (onDrag)="widget.dashboardService.renderDashboard()"
+            (onDragEnd)="widget.dashboardService.renderDashboard()">
         <ux-icon name="pan"></ux-icon>
     </button>
     <div class="widget-content-wrapper">
