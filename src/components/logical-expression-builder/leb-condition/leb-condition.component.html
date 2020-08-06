@@ -5,7 +5,7 @@
     cdkTrapFocus
     [cdkTrapFocusAutoCapture]="true"
     uxFocusIndicator
-    [focusIf]="editMode"
+    [mouseFocusIndicator]="true"
     (keydown.escape)="cancelEdit()">
 
     <td class="field-selection">
@@ -61,10 +61,9 @@
     <tr
         class="leb-condition-row"
         uxFocusIndicator
+        [mouseFocusIndicator]="true"
         [programmaticFocusIndicator]="true"
         [focusIf]="_wasLastFocused$ | async"
-        uxTabbableList
-        direction="horizontal"
         uxHoverActionContainer
         [style.padding-left.px]="indent">
         <td>
@@ -74,8 +73,6 @@
 
         <td>
             <button
-                uxFocusIndicatorOrigin
-                uxTabbableListItem
                 [disabled]="_editBlocked"
                 uxHoverAction
                 (click)="editCondition()"
@@ -86,8 +83,6 @@
             </button>
 
             <button
-                uxFocusIndicatorOrigin
-                uxTabbableListItem
                 [disabled]="_editBlocked"
                 uxHoverAction
                 (click)="embedConditionInGroup()"
@@ -98,8 +93,6 @@
             </button>
 
             <button
-                uxFocusIndicatorOrigin
-                uxTabbableListItem
                 [disabled]="_editBlocked"
                 uxHoverAction
                 (click)="deleteCondition()"

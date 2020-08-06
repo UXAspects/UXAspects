@@ -26,6 +26,7 @@ import { ValidationService } from '../services/validation.service';
 })
 export class LebConditionComponent implements OnInit, OnDestroy {
 
+    // container for Input Component
     @ViewChild('inputContainer', { read: ViewContainerRef, static: false })
     set container(container: ViewContainerRef) {
         if (container) {
@@ -39,7 +40,9 @@ export class LebConditionComponent implements OnInit, OnDestroy {
 
     @Input() condition: ExpressionCondition;
     @Output() conditionChange = new EventEmitter<ExpressionCondition>();
+    private _condition: ExpressionCondition;
 
+    // If editing is cancelled, the condition is reset
     private _initialCondition: ExpressionCondition;
 
     @Input() id: number;
@@ -59,9 +62,7 @@ export class LebConditionComponent implements OnInit, OnDestroy {
     public editMode: boolean = true;
     public _editBlocked: boolean;
 
-    private _condition: ExpressionCondition;
     private _destroy$ = new Subject<void>();
-
     public _wasLastFocused$: Observable<boolean>;
 
     public _valid: boolean = true;
@@ -70,13 +71,7 @@ export class LebConditionComponent implements OnInit, OnDestroy {
         private _lebService: LogicalExpressionBuilderService,
         private _validationService: ValidationService,
         private _cfr: ComponentFactoryResolver
-    ) {
-        this._lebService.getEditBlocked()
-            .pipe(takeUntil(this._destroy$))
-            .subscribe((value: boolean) => {
-                this._editBlocked = value;
-            });
-    }
+    ) {    }
 
     ngOnInit(): void {
         this._initialCondition = this.condition;
@@ -92,6 +87,12 @@ export class LebConditionComponent implements OnInit, OnDestroy {
         this.editMode = this.condition?.editMode ?? true;
 
         this._validationService.setConditionValidationState(this.groupId, this.id, this._valid);
+
+        this._lebService.getEditBlocked()
+            .pipe(takeUntil(this._destroy$))
+            .subscribe((value: boolean) => {
+                this._editBlocked = value;
+            });
 
         this._wasLastFocused$ = this._lebService.getLastFocused().pipe(
             takeUntil(this._destroy$),

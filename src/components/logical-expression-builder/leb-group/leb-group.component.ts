@@ -104,6 +104,7 @@ export class LebGroupComponent implements OnInit, OnDestroy {
 
         this._validate();
         this._lebService.setEditBlocked(true);
+        this._lebService.setLastFocused([null, null]);
     }
 
     public removeConditionAtIndex(id: number): void {
@@ -135,6 +136,7 @@ export class LebGroupComponent implements OnInit, OnDestroy {
     public deleteGroup(): void {
         this.subExpression = null;
         this.groupChange.emit(this.subExpression);
+        this._lebService.setLastFocused([this._validationId - 1, null]);
     }
 
     private _validate(logicalOperator: LogicalOperatorDefinition = this.selectedLogicalOperator): boolean {
