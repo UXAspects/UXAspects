@@ -5,101 +5,46 @@ import { BehaviorSubject, Observable } from 'rxjs';
     providedIn: 'root'
 })
 export class ValidationService {
-    private _validationId: number = 0;
-    private _groupStates: Map<number, boolean> = new Map<number, boolean>();
-    private _conditionStates: Map<number, ConditionState[]> = new Map<number, ConditionState[]>();
     private _valid: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
-
-    public getValidationId(): number {
-        this._validationId++;
-        return this._validationId - 1;
-    }
-
-    public resetValidationId(): void {
-        this._validationId--;
-    }
-
-    public setGroupValidationState(validationId: number, valid: boolean) {
-        this._groupStates.set(validationId, valid);
-        this._valid.next(this._checkValidity());
-    }
-
-    public getGroupValidationStates(): Map<number, boolean> {
-        return this._groupStates;
-    }
-
-    public setConditionValidationState(groupId: number, conditionId: number, valid: boolean) {
-        if (this._conditionStates.has(groupId)) {
-            let temp = this._conditionStates.get(groupId);
-            let toReplace = temp.find((entry: ConditionState) => entry.id === conditionId);
-
-            if (toReplace) {
-                toReplace.valid = valid;
-                temp = [...temp.filter((entry: ConditionState) => entry.id !== conditionId), toReplace];
-            } else {
-                temp = [...temp, { id: conditionId, valid }];
-            }
-
-            this._conditionStates.set(groupId, temp);
-        } else {
-            this._conditionStates.set(groupId, [{ id: conditionId, valid }]);
-        }
-
-        this._valid.next(this._checkValidity());
-    }
-
-    public getConditionValidationStates(): Map<number, ConditionState[]> {
-        return this._conditionStates;
-    }
-
-    public removeConditionValidationState(groupId: number, conditionId: number) {
-        let temp = this._conditionStates.get(groupId).filter((entry: ConditionState) => entry.id !== conditionId);
-        this._conditionStates.set(groupId, temp);
-
-        if (this._conditionStates.get(groupId).length === 0) {
-            this._conditionStates.delete(groupId);
-        }
-
-        this._valid.next(this._checkValidity());
-    }
-
-    public removeGroupValidationState(validationId: number): void {
-        this._groupStates.delete(validationId);
-        this._conditionStates.delete(validationId);
-
-        this._valid.next(this._checkValidity());
-    }
+    private _validationStates: Map<string, boolean> = new Map<string, boolean>();
 
     public getValidationStatus(): Observable<boolean> {
         return this._valid.asObservable();
     }
 
-    private _checkValidity(): boolean {
-        let valid = true;
+    public setValidationState(path: number[], valid: boolean): void {
+        this._validationStates.set(path.join('-'), valid);
 
-        // Expression is not valid if there is no condition
-        if (!this._conditionStates.size) {
-            return false;
-        }
+        this._checkValidity();
+    }
 
-        // If one group is invalid, the whole expression is invalid
-        this._groupStates.forEach((value, _) => {
-            if (!value) {
-                valid = false;
+    public getValidationStates(): Map<string, boolean> {
+        return this._validationStates;
+    }
+
+    public removeValidationState(path: number[]): void {
+        this._validationStates.forEach((_value: boolean, key: string, map: Map<string, boolean>) => {
+            if (key.lastIndexOf(path.join('-'), 0) === 0) {
+                map.delete(key);
             }
         });
 
-        // If one condition is invalid, the whole expression is invalid
-        this._conditionStates.forEach((conditionStates: ConditionState[]) => {
-            conditionStates.map((value: ConditionState) => {
-                if (!value.valid) {
+        this._checkValidity();
+    }
+
+    private _checkValidity(): void {
+        if (this._validationStates.size < 1) {
+            this._valid.next(false);
+        } else {
+            let valid = true;
+
+            this._validationStates.forEach((value: boolean) => {
+                if (!value) {
                     valid = false;
                 }
             });
-        });
 
-        return valid;
+            this._valid.next(valid);
+        }
     }
 }
-
-type ConditionState = { id: number, valid: boolean };

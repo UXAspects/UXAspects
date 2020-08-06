@@ -45,12 +45,12 @@ export class LebConditionComponent implements OnInit, OnDestroy {
     // If editing is cancelled, the condition is reset
     private _initialCondition: ExpressionCondition;
 
-    @Input() id: number;
-    @Input() groupId: number;
+    private _id: number;
     @Output() conditionDeleted = new EventEmitter<number>();
     @Output() conditionEmbedded = new EventEmitter<number>();
 
     @Input() indent: number = 0;
+    @Input() path: number[];
 
     public fields: FieldDefinition[];
     public operators: OperatorDefinition[];
@@ -71,7 +71,8 @@ export class LebConditionComponent implements OnInit, OnDestroy {
         private _lebService: LogicalExpressionBuilderService,
         private _validationService: ValidationService,
         private _cfr: ComponentFactoryResolver
-    ) {}
+    ) {
+    }
 
     ngOnInit(): void {
         this._initialCondition = this.condition;
@@ -86,10 +87,12 @@ export class LebConditionComponent implements OnInit, OnDestroy {
 
         this.editMode = this.condition?.editMode ?? true;
         if (this.editMode) {
-            this._lebService.setLastFocused([this.groupId, this.id]);
+            this._lebService.setLastFocused(this.path);
         }
 
-        this._validationService.setConditionValidationState(this.groupId, this.id, this._valid);
+        this._validationService.setValidationState(this.path, this._valid);
+
+        this._id = this.path.slice(-1).pop();
 
         this._lebService.getEditBlocked()
             .pipe(takeUntil(this._destroy$))
@@ -99,13 +102,15 @@ export class LebConditionComponent implements OnInit, OnDestroy {
 
         this._wasLastFocused$ = this._lebService.getLastFocused().pipe(
             takeUntil(this._destroy$),
-            map((ids: [number, number]) => ids[0] === this.groupId && ids[1] === this.id && !this._editBlocked)
+            map((path: number[]) => path.length === this.path.length && path.every((value: number, index: number) => value === this.path[index]))
         );
     }
 
     ngOnDestroy(): void {
         this._destroy$.next();
         this._destroy$.complete();
+
+        this._validationService.removeValidationState(this.path);
     }
 
     private _createInputComponent(): void {
@@ -131,7 +136,7 @@ export class LebConditionComponent implements OnInit, OnDestroy {
                 )
                 .subscribe((value: boolean) => {
                     this._valid = value;
-                    this._validationService.setConditionValidationState(this.groupId, this.id, this._valid);
+                    this._validationService.setValidationState(this.path, this._valid);
                 });
         }
     }
@@ -165,7 +170,7 @@ export class LebConditionComponent implements OnInit, OnDestroy {
 
     public confirmCondition(): void {
         this._lebService.setEditBlocked(false);
-        this._lebService.setLastFocused([this.groupId, this.id]);
+        this._lebService.setLastFocused(this.path);
 
         this.editMode = false;
         this._buildCondition(this.editMode);
@@ -174,7 +179,7 @@ export class LebConditionComponent implements OnInit, OnDestroy {
 
     public cancelEdit(): void {
         this._lebService.setEditBlocked(false);
-        this._lebService.setLastFocused([this.groupId, this.id]);
+        this._lebService.setLastFocused(this.path);
 
         this.editMode = false;
 
@@ -182,14 +187,14 @@ export class LebConditionComponent implements OnInit, OnDestroy {
             this._resetCondition(this._initialCondition);
             this.conditionChange.emit(this._condition);
         } else {
-            this.conditionDeleted.emit(this.id);
+            this.conditionDeleted.emit(this._id);
         }
     }
 
     public editCondition(): void {
         if (!this._editBlocked) {
             this._lebService.setEditBlocked(true);
-            this._lebService.setLastFocused([this.groupId, this.id]);
+            this._lebService.setLastFocused(this.path);
 
             this.editMode = true;
             this._buildCondition(this.editMode);
@@ -199,14 +204,14 @@ export class LebConditionComponent implements OnInit, OnDestroy {
 
     public deleteCondition(): void {
         if (!this._editBlocked) {
-            this.conditionDeleted.emit(this.id);
-            this._validationService.removeConditionValidationState(this.groupId, this.id);
+            this.conditionDeleted.emit(this._id);
+            this._validationService.removeValidationState(this.path);
         }
     }
 
     public embedConditionInGroup(): void {
         if (!this._editBlocked) {
-            this.conditionEmbedded.emit(this.id);
+            this.conditionEmbedded.emit(this._id);
         }
     }
 

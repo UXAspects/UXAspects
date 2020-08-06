@@ -2,12 +2,11 @@
     class="leb-group"
     uxHoverActionContainer
     [focusIf]="_wasLastFocused$ | async"
-    [style.padding-left.px]="indent"
+    [style.padding-left.px]="indent || 5"
     uxFocusIndicator
-    [mouseFocusIndicator]="true"
     [programmaticFocusIndicator]="true">
 
-    <td>
+    <td [style.max-width.px]="100">
         <ux-select
             uxFocusIndicatorOrigin
             [value]="selectedLogicalOperator"
@@ -41,8 +40,7 @@
         *ngIf="child.type === 'condition'"
         (conditionChange)="handleGroupChange($event, index)"
         [condition]="child"
-        [id]="index"
-        [groupId]="_validationId"
+        [path]="setChildPath(index)"
         (conditionDeleted)="removeConditionAtIndex($event)"
         (conditionEmbedded)="embedConditionAtIndex($event)"
         [indent]="indent + additionalIndent">
@@ -51,6 +49,7 @@
     <ux-leb-group
         *ngIf="child.type === 'group'"
         [subExpression]="child"
+        [path]="setChildPath(index)"
         (groupChange)="handleGroupChange($event, index)"
         [logicalOperatorName]="child.logicalOperator"
         [indent]="indent + additionalIndent">

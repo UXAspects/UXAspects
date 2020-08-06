@@ -15,6 +15,7 @@
             *ngIf="expression?.type === 'group'; else conditionBlock"
             [subExpression]="expression"
             (groupChange)="handleGroupChange($event)"
+            [path]="[0]"
             [logicalOperatorName]="getLogicalOperatorName()">
         </ux-leb-group>
         </tbody>
@@ -28,8 +29,7 @@
             *ngIf="expression?.type === 'condition'"
             (conditionChange)="handleGroupChange($event)"
             [condition]="expression"
-            [groupId]="-1"
-            [id]="-1"
+            [path]="[0]"
             (conditionDeleted)="deleteCondition()"
             (conditionEmbedded)="addGroup()">
         </ux-leb-condition>

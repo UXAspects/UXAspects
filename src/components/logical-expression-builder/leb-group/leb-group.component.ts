@@ -17,6 +17,7 @@ export class LebGroupComponent implements OnInit, OnDestroy {
     @Input() subExpression: ExpressionGroup;
     @Input() logicalOperatorName: string;
     @Input() indent: number = 0;
+    @Input() path: number[];
 
     public additionalIndent: number = 40;
     public logicalOperators: LogicalOperatorDefinition[];
@@ -24,16 +25,13 @@ export class LebGroupComponent implements OnInit, OnDestroy {
 
     public _focused: boolean = false;
     public _valid: boolean = true;
-    public _validationId: number;
     public _errorType: string;
     public _showAddBtn: boolean = true;
 
     public _wasLastFocused$: Observable<boolean>;
     private _destroy$: Subject<void> = new Subject<void>();
 
-    constructor(private _lebService: LogicalExpressionBuilderService, private _validationService: ValidationService) {
-        this._validationId = this._validationService.getValidationId();
-    }
+    constructor(private _lebService: LogicalExpressionBuilderService, private _validationService: ValidationService) {}
 
     ngOnInit(): void {
         this.logicalOperators = this._lebService.getLogicalOperators();
@@ -42,13 +40,12 @@ export class LebGroupComponent implements OnInit, OnDestroy {
 
         this._wasLastFocused$ = this._lebService.getLastFocused().pipe(
             takeUntil(this._destroy$),
-            map((ids: [number, number]) => ids[0] === this._validationId && ids[1] === null)
+            map((path: number[]) => path.length === this.path.length && path.every((value: number, index: number) => value === this.path[index]))
         );
     }
 
     ngOnDestroy(): void {
-        this._validationService.removeGroupValidationState(this._validationId);
-        this._validationService.resetValidationId();
+        this._validationService.removeValidationState(this.path);
 
         this._destroy$.next();
         this._destroy$.complete();
@@ -61,7 +58,7 @@ export class LebGroupComponent implements OnInit, OnDestroy {
         this._validate();
         this.groupChange.emit(this.subExpression);
 
-        this._lebService.setLastFocused([this._validationId, null]);
+        this._lebService.setLastFocused(this.path);
     }
 
     public handleGroupChange(subExpression: ExpressionGroup | ExpressionCondition, index: number) {
@@ -89,7 +86,7 @@ export class LebGroupComponent implements OnInit, OnDestroy {
         this._validate();
         this.groupChange.emit(this.subExpression);
 
-        this._lebService.setLastFocused([this._validationId, this.subExpression.children.length]);
+        this._lebService.setLastFocused([...this.path, this.subExpression.children.length - 1 ]);
         this._lebService.setEditBlocked(true);
     }
 
@@ -105,7 +102,7 @@ export class LebGroupComponent implements OnInit, OnDestroy {
         this._validate();
         this.groupChange.emit(this.subExpression);
         this._lebService.setEditBlocked(true);
-        this._lebService.setLastFocused([this._validationId + 1, null]);
+        this._lebService.setLastFocused([...this.path, this.subExpression.children.length - 1, 0 ]);
     }
 
     public removeConditionAtIndex(id: number): void {
@@ -115,7 +112,16 @@ export class LebGroupComponent implements OnInit, OnDestroy {
 
         this._validate();
         this.groupChange.emit(this.subExpression);
-        this._lebService.setLastFocused([this._validationId, null]);
+
+        if (id === 0) {
+            if (this.subExpression.children.length) {
+                this._lebService.setLastFocused([...this.path, 0]);
+            } else {
+                this._lebService.setLastFocused(this.path);
+            }
+        } else {
+            this._lebService.setLastFocused([...this.path, id - 1]);
+        }
     }
 
     public embedConditionAtIndex(id: number): void {
@@ -132,13 +138,14 @@ export class LebGroupComponent implements OnInit, OnDestroy {
 
         this._validate();
         this.groupChange.emit(this.subExpression);
-        this._lebService.setLastFocused([this._validationId, null]);
+        this._lebService.setLastFocused([...this.path, id]);
     }
 
     public deleteGroup(): void {
         this.subExpression = null;
         this.groupChange.emit(this.subExpression);
-        this._lebService.setLastFocused([this._validationId - 1, null]);
+        this._validationService.removeValidationState(this.path);
+        this._lebService.setLastFocused(this.path.slice(0, -1));
     }
 
     private _validate(logicalOperator: LogicalOperatorDefinition = this.selectedLogicalOperator): boolean {
@@ -166,7 +173,11 @@ export class LebGroupComponent implements OnInit, OnDestroy {
             this._showAddBtn = this.subExpression.children?.length < logicalOperator.maxNumberOfChildren;
         }
 
-        this._validationService.setGroupValidationState(this._validationId, this._valid);
+        this._validationService.setValidationState(this.path, this._valid);
         return this._valid;
+    }
+
+    setChildPath(index: number): number[] {
+        return [...this.path, index];
     }
 }
