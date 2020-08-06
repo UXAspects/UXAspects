@@ -182,4 +182,16 @@ describe('Date Time Picker Tests', () => {
         expect(await page.getDisabled(await page.getCalendarItem('2019'))).toBe(false);
 
     });
+
+    it('should correctly set the date when the current day value does not exist in the selected month', async () => {
+        // select 31st January
+        let date = await page.getDate('31');
+        await date.click();
+
+        // select 1st February
+        date = await page.getDate('1', true);
+        await date.click();
+
+        expect(await page.getCurrentDate()).toBe('February 1, 2019, 12:00:00 PM');
+    });
 });
