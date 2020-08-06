@@ -71,7 +71,7 @@ export class LebConditionComponent implements OnInit, OnDestroy {
         private _lebService: LogicalExpressionBuilderService,
         private _validationService: ValidationService,
         private _cfr: ComponentFactoryResolver
-    ) {    }
+    ) {}
 
     ngOnInit(): void {
         this._initialCondition = this.condition;
@@ -85,6 +85,9 @@ export class LebConditionComponent implements OnInit, OnDestroy {
         this._value = this.condition.value;
 
         this.editMode = this.condition?.editMode ?? true;
+        if (this.editMode) {
+            this._lebService.setLastFocused([this.groupId, this.id]);
+        }
 
         this._validationService.setConditionValidationState(this.groupId, this.id, this._valid);
 

@@ -5,7 +5,6 @@
     cdkTrapFocus
     [cdkTrapFocusAutoCapture]="true"
     uxFocusIndicator
-    [mouseFocusIndicator]="true"
     (keydown.escape)="cancelEdit()">
 
     <td class="field-selection">
@@ -61,7 +60,6 @@
     <tr
         class="leb-condition-row"
         uxFocusIndicator
-        [mouseFocusIndicator]="true"
         [programmaticFocusIndicator]="true"
         [focusIf]="_wasLastFocused$ | async"
         uxHoverActionContainer

@@ -103,8 +103,9 @@ export class LebGroupComponent implements OnInit, OnDestroy {
         }];
 
         this._validate();
+        this.groupChange.emit(this.subExpression);
         this._lebService.setEditBlocked(true);
-        this._lebService.setLastFocused([null, null]);
+        this._lebService.setLastFocused([this._validationId + 1, null]);
     }
 
     public removeConditionAtIndex(id: number): void {
@@ -114,6 +115,7 @@ export class LebGroupComponent implements OnInit, OnDestroy {
 
         this._validate();
         this.groupChange.emit(this.subExpression);
+        this._lebService.setLastFocused([this._validationId, null]);
     }
 
     public embedConditionAtIndex(id: number): void {

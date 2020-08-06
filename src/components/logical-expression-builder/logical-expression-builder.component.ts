@@ -45,6 +45,8 @@ export class LogicalExpressionBuilderComponent implements OnDestroy, OnInit {
         return this._expression;
     }
 
+    private _expression: LogicalExpressionBuilderExpression;
+
     @Input()
     set localizedStrings(localizedStrings: any) {
         this._lebService.setLocalizedStrings(localizedStrings);
@@ -54,8 +56,6 @@ export class LogicalExpressionBuilderComponent implements OnDestroy, OnInit {
     set displayValueFunction(displayValueFunction: DisplayValueFunction) {
         this._lebService.setDisplayValueFunction(displayValueFunction);
     }
-
-    private _expression: LogicalExpressionBuilderExpression;
 
     @Output() expressionChange: EventEmitter<LogicalExpressionBuilderExpression> = new EventEmitter<LogicalExpressionBuilderExpression>();
     @Output() valid: EventEmitter<boolean> = new EventEmitter<boolean>();
