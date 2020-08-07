@@ -190,8 +190,12 @@ describe('Date Time Picker Tests', () => {
 
         // select 1st February
         date = await page.getDate('1', true);
-        await date.click();
 
-        expect(await page.getCurrentDate()).toBe('February 1, 2019, 12:00:00 PM');
+        if (await page.isClickable(date)) {
+            expect(await page.getCurrentDate()).toBe('February 1, 2019, 12:00:00 PM');
+        } else {
+            expect(await page.getCurrentDate()).toBe('January 31, 2019, 12:00:00 PM');
+        }
+
     });
 });

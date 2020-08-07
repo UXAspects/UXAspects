@@ -69,4 +69,13 @@ export class DateTimePickerPage {
             }
         }
     }
+
+    async isClickable(item: ElementFinder): Promise<boolean> {
+        try {
+            await item.click();
+            return true;
+        } catch {
+            return false;
+        }
+    }
 }
