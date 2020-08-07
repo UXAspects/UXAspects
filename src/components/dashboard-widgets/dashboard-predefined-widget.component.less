@@ -1,19 +1,26 @@
 ux-predefined-widget {
+    display: inline-block;
+
     ux-dashboard-widget {
         .widget-content {
             position: relative;
+            display: flex;
+            flex-flow: column nowrap;
 
             .widget-title {
+                margin-right: 20px;
                 margin-top: 0;
             }
 
             .widget-content-wrapper {
-                display: flex;
-                flex-flow: row nowrap;
+                flex: 1 1 auto;
+                min-height: 0;
                 position: relative;
 
-                .widget-status {
-                    flex: 1 1 auto;
+                .widget-side-panel-opener {
+                    position: absolute;
+                    right: 0;
+                    bottom: 0;
                 }
             }
         }
