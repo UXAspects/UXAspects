@@ -72,8 +72,8 @@ export class ComponentsDashboardWidgetsComponent extends BaseDocumentationSectio
 
     ngAfterViewInit() {
         this.actions.push(
-            { iconTemplate: this.iconAccept, action: () => alert('accept') },
-            { label: 'Decline', icon: 'close', action: () => alert('decline') }
+            { iconTemplate: this.iconAccept, action: () => alert('accept'), buttonClasses: 'btn' },
+            { label: 'Decline', icon: 'close', action: () => alert('decline'), buttonClasses: ['btn', 'custom-class'] }
         );
     }
 }
