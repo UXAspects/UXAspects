@@ -1,5 +1,5 @@
 @import '../../../../../assets/styles/variables.less';
-/*
+
 .customizable-dashboard {
     .widget::ng-deep {
         .widget-content {
@@ -26,6 +26,28 @@
                 }
             }
 
+            .widget-title {
+                margin-top: 0;
+                font-weight: 700;
+                color: @grey2;
+                font-size: 1.25rem;
+            }
+
+            .widget-text.is-truncated::after {
+                background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%);
+                bottom: 0;
+                content: ' ';
+                display: block;
+                height: 30px;
+                position: absolute;
+                width: 100%;
+            }
+
+            .widget-side-panel-opener {
+                border: none;
+                background-color: transparent;
+            }
+
             &.prominent {
                 &:after {
                     content: ' ';
@@ -38,129 +60,6 @@
                     border-bottom: 25px solid transparent;
                 }
             }
-
-            .dashboard-split-panel {
-                display: flex;
-                height: 100%;
-
-                .dashboard-section-small {
-                    display: flex;
-                    flex-direction: column;
-                    justify-content: center;
-                    width: 140px;
-                    height: 100%;
-                    padding: 15px;
-                }
-
-                .dashboard-section-large {
-                    flex: 1;
-                    height: 100%;
-
-                    &.dashboard-section-divider {
-                        border-right: 1px solid @grey5;
-                    }
-                }
-            }
-
-            .info-title {
-                color: @grey4;
-                margin: 0;
-                font-weight: 300;
-                font-size: 0.875rem;
-            }
-
-            .info-value {
-                color: @grey3;
-            }
-
-            .widget-title {
-                margin-top: 0;
-                font-weight: 700;
-                color: @grey2;
-                font-size: 1.25rem;
-            }
-
-            .widget-chart {
-                width: 100%;
-                height: ~'calc(100% - 30px)';
-            }
-
-            .widget-feature-list {
-                margin: 0;
-                padding-left: 20px;
-                list-style-type: none;
-
-                .widget-feature-list-item {
-                    position: relative;
-                    color: @grey3;
-                    padding: 3px 0;
-
-                    &:before {
-                        content: ' ';
-                        position: absolute;
-                        top: 9px;
-                        left: -20px;
-                        width: 12px;
-                        height: 12px;
-                        border-radius: 50%;
-                        background-color: @primary;
-                    }
-
-                    &.warning {
-                        &:before {
-                            border-radius: 0;
-                            background-color: transparent;
-                            border-left: 7px solid transparent;
-                            border-right: 7px solid transparent;
-                            border-bottom: 12px solid @warning;
-                        }
-                    }
-                }
-            }
-
-            .widget-split {
-                display: flex;
-                justify-content: space-between;
-
-                .text-count {
-                    margin: 0;
-                }
-
-                .text-label {
-                    margin-top: 10px;
-                    color: @grey4;
-                    font-weight: 300;
-                    font-size: 0.875rem;
-                }
-            }
-
-            .widget-side-panel-opener {
-                position: absolute;
-                bottom: 15px;
-                right: 10px;
-                border: none;
-                background-color: transparent;
-            }
-        }
-
-        &.dashboard-grabbing {
-            .widget-content {
-                opacity: 0.5;
-
-                &.widget-grabbing {
-                    opacity: 1;
-                    outline: 2px dotted;
-                    outline: auto -webkit-focus-ring-color;
-                    outline-color: @aspects-outline;
-                    outline-offset: 0;
-                    box-shadow: 0 4px 10px 0 #999;
-
-                    .widget-grab-handle {
-                        outline: none;
-                    }
-                }
-            }
         }
     }
 }
-*/
