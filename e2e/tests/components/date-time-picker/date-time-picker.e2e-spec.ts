@@ -191,9 +191,11 @@ describe('Date Time Picker Tests', () => {
         // select 1st February
         date = await page.getDate('1', true);
 
-        if (await page.isClickable(date)) {
+        // Dates in the previous and next months are only visible within the open source theme
+        if (await page.attemptClick(date)) {
             expect(await page.getCurrentDate()).toBe('February 1, 2019, 12:00:00 PM');
         } else {
+            // Micro Focus theme does not display dates within the next month, so the 31st should still be selected
             expect(await page.getCurrentDate()).toBe('January 31, 2019, 12:00:00 PM');
         }
 
