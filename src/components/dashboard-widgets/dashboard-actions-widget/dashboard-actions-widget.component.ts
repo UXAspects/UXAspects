@@ -1,10 +1,5 @@
-import {
-    ChangeDetectionStrategy,
-    Component,
-    Input,
-    TemplateRef
-} from '@angular/core';
-import { ActionConfig, ActionsWidgetConfig } from '../interfaces/actions-widget';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ActionConfig, ActionStatus, ActionsWidgetConfig } from '../interfaces/actions-widget';
 
 @Component({
     selector: 'ux-dashboard-actions-widget',
@@ -19,6 +14,6 @@ export class DashboardActionsWidgetComponent implements ActionsWidgetConfig {
     @Input() colSpan: number = 1;
     @Input() rowSpan: number = 1;
 
-    @Input() status: { label: string, icon: string | TemplateRef<any> } = { label: '-', icon: 'radial' };
+    @Input() status: ActionStatus = { label: '-', icon: 'radial' };
     @Input() actions: ReadonlyArray<ActionConfig>;
 }

@@ -1,38 +1,22 @@
 ux-dashboard-text-widget {
-    ux-dashboard-widget {
-        .widget-content {
-            display: flex;
-            flex-flow: column nowrap;
+    ux-predefined-widget {
+        .widget-text {
+            flex: 1 1 auto;
+            overflow: hidden;
             position: relative;
 
-            .widget-grab-handle {
+            p {
+                white-space: pre-wrap;
+            }
+
+            &::after {
+                background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%);
+                bottom: 0;
+                content: ' ';
+                display: block;
+                height: 30px;
                 position: absolute;
-                top: 0;
-                right: 0;
-            }
-
-            .widget-title {
-                margin-top: 0;
-            }
-
-            .widget-text {
-                flex: 1 1 auto;
-                overflow: hidden;
-                position: relative;
-
-                p {
-                    white-space: pre-wrap;
-                }
-
-                &::after {
-                    background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%);
-                    bottom: 0;
-                    content: ' ';
-                    display: block;
-                    height: 30px;
-                    position: absolute;
-                    width: 100%;
-                }
+                width: 100%;
             }
         }
     }

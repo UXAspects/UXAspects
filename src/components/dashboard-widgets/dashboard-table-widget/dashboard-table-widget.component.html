@@ -5,23 +5,20 @@
                       [name]="name"
                       [heading]="heading"
                       [fixedMode]="fixedMode">
-    <div class="widget-data">
-        <table class="table"
-               uxFixedHeaderTable
-               [dataset]="data">
-            <thead>
-            <tr>
-                <th *ngFor="let cell of header">{{ cell }}</th>
-            </tr>
-            </thead>
+    <table class="table"
+           uxFixedHeaderTable
+           [dataset]="data">
+        <thead>
+        <tr>
+            <th *ngFor="let cell of header">{{ cell }}</th>
+        </tr>
+        </thead>
 
-            <!--<tbody [style.height.px]="widget.height - 140">-->
-            <tbody class="table-body">
-            <tr *ngFor="let item of data">
-                <td *ngFor="let cell of item">{{ cell }}</td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
+        <tbody class="table-body">
+        <tr *ngFor="let item of data">
+            <td *ngFor="let cell of item">{{ cell }}</td>
+        </tr>
+        </tbody>
+    </table>
 </ux-predefined-widget>
 

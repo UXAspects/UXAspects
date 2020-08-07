@@ -3,7 +3,7 @@ import {PredefinedWidgetConfig} from './predefined-widget';
 
 export interface ActionsWidgetConfig extends PredefinedWidgetConfig {
     actions: ReadonlyArray<ActionConfig>;
-    status: { label: string, icon: string | TemplateRef<any> };
+    status: ActionStatus;
 }
 
 export interface ActionConfig {
@@ -15,5 +15,6 @@ export interface ActionConfig {
 
 export interface ActionStatus {
     label: string;
-    icon: string | TemplateRef<any>;
+    icon?: string;
+    iconTemplate?: TemplateRef<any>;
 }
