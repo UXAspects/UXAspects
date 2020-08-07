@@ -182,4 +182,22 @@ describe('Date Time Picker Tests', () => {
         expect(await page.getDisabled(await page.getCalendarItem('2019'))).toBe(false);
 
     });
+
+    it('should correctly set the date when the current day value does not exist in the selected month', async () => {
+        // select 31st January
+        let date = await page.getDate('31');
+        await date.click();
+
+        // select 1st February
+        date = await page.getDate('1', true);
+
+        // Dates in the previous and next months are only visible within the open source theme
+        if (await page.attemptClick(date)) {
+            expect(await page.getCurrentDate()).toBe('February 1, 2019, 12:00:00 PM');
+        } else {
+            // Micro Focus theme does not display dates within the next month, so the 31st should still be selected
+            expect(await page.getCurrentDate()).toBe('January 31, 2019, 12:00:00 PM');
+        }
+
+    });
 });
