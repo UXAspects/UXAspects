@@ -6,11 +6,13 @@
                       [heading]="heading"
                       [fixedMode]="fixedMode">
     <div class="widget-status" *ngIf="enums | getEnumByValue : value as statusEnum">
-        <ng-container *ngIf="statusEnum.iconTemplate">
-            <ng-container *ngTemplateOutlet="statusEnum.iconTemplate"></ng-container>
-        </ng-container>
-        <ux-icon *ngIf="statusEnum.icon" name="{{ statusEnum.icon }}"></ux-icon>
-        {{ statusEnum.label }}
+        <span class="widget-status-icon" *ngIf="statusEnum.icon || statusEnum.iconTemplate">
+            <ux-icon *ngIf="statusEnum.icon" name="{{ statusEnum.icon }}"></ux-icon>
+            <ng-container *ngIf="statusEnum.iconTemplate">
+                <ng-container *ngTemplateOutlet="statusEnum.iconTemplate"></ng-container>
+            </ng-container>
+        </span>
+        <span class="widget-status-label">{{ statusEnum.label }}</span>
     </div>
     <button class="widget-side-panel-opener" (click)="openSidePanel()">
         <ux-icon name="chevron-right"></ux-icon>
