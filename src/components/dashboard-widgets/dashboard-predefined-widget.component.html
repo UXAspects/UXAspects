@@ -5,15 +5,15 @@
                      [rowSpan]="rowSpan"
                      [name]="name"
                      [resizable]="!fixedMode">
-    <h3 class="widget-title" *ngIf="heading">{{ heading }}</h3>
-    <button *ngIf="!fixedMode"
-            class="widget-grab-handle"
-            uxDashboardGrabHandle
-            uxDashboardWidgetDragHandle
-            (onDrag)="widget.dashboardService.renderDashboard()"
-            (onDragEnd)="widget.dashboardService.renderDashboard()">
-        <ux-icon name="pan"></ux-icon>
-    </button>
+    <div class="widget-header">
+        <h3 class="widget-title" *ngIf="heading">{{ heading }}</h3>
+        <button *ngIf="!fixedMode"
+                class="widget-grab-handle"
+                uxDashboardGrabHandle
+                uxDashboardWidgetDragHandle>
+            <ux-icon name="pan"></ux-icon>
+        </button>
+    </div>
     <div class="widget-content-wrapper">
         <ng-content></ng-content>
     </div>
