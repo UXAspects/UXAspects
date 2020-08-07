@@ -1,11 +1,7 @@
-// export interface LogicalOperatorDefinition {
-//     name: string;
-//     label: string;
-// }
-
-export type LogicalOperatorDefinition = {
+export interface LogicalOperatorDefinition {
     name: string;
     label: string;
     minNumberOfChildren?: number;
     maxNumberOfChildren?: number;
-};
+    errorMessage?: string;
+}

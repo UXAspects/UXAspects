@@ -20,7 +20,7 @@
 
     <td *ngIf="!_valid" class="m-l-md text-error">
         <ux-icon name="status-error-filled" class="m-r-xs"></ux-icon>
-        {{ (_errorType | l10n) || 'Wrong number of children' }}
+        {{ _errorMessage }}
     </td>
 
     <td class="logical-operator-delete">
@@ -56,8 +56,8 @@
     </ux-leb-group>
 </ng-container>
 
-<tr class="leb-group" *ngIf="_showAddBtn">
-    <td [style.padding-left.px]="indent + additionalIndent">
+<tr class="leb-group" *ngIf="_showAddBtn" [style.padding-left.px]="indent + additionalIndent">
+    <td>
         <button
             [uxMenuTriggerFor]="addMenu"
             type="button"

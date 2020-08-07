@@ -25,7 +25,7 @@ export class LebGroupComponent implements OnInit, OnDestroy {
 
     public _focused: boolean = false;
     public _valid: boolean = true;
-    public _errorType: string;
+    public _errorMessage: string;
     public _showAddBtn: boolean = true;
 
     public _wasLastFocused$: Observable<boolean>;
@@ -156,20 +156,18 @@ export class LebGroupComponent implements OnInit, OnDestroy {
 
             this._valid = !tooFew && !tooMany;
 
-            if (!this._valid && tooFew) {
-                this._errorType = 'logicalOperatorTooFewErrorText';
-            } else if (!this._valid && tooMany) {
-                this._errorType = 'logicalOperatorTooManyErrorText';
+            if (tooFew || tooMany) {
+                this._errorMessage = logicalOperator.errorMessage || 'Wrong number of children';
             }
 
-            this._showAddBtn = !tooMany;
+            this._showAddBtn = this.subExpression.children?.length < logicalOperator.maxNumberOfChildren;
         } else if ('minNumberOfChildren' in logicalOperator) {
             this._valid = this.subExpression.children?.length >= logicalOperator.minNumberOfChildren;
-            this._errorType = this._valid ? '' : 'logicalOperatorTooFewErrorText';
+            this._errorMessage = this._valid ? null : logicalOperator.errorMessage || 'Wrong number of children';
             this._showAddBtn = true;
         } else if ('maxNumberOfChildren' in logicalOperator) {
             this._valid = this.subExpression.children?.length <= logicalOperator.maxNumberOfChildren;
-            this._errorType = this._valid ? '' : 'logicalOperatorTooManyErrorText';
+            this._errorMessage = this._valid ? null : logicalOperator.errorMessage || 'Wrong number of children';
             this._showAddBtn = this.subExpression.children?.length < logicalOperator.maxNumberOfChildren;
         }
 
