@@ -11,6 +11,7 @@ export interface ActionConfig {
     icon?: string;
     iconTemplate?: TemplateRef<any>;
     action: Function;
+    buttonClasses?: string | ReadonlyArray<string>;
 }
 
 export interface ActionStatus {
