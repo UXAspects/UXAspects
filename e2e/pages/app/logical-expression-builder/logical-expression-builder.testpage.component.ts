@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {
-    DateInputComponent, DateRangeInputComponent, FieldDefinition, LogicalExpressionBuilderExpression,
+    DateInputComponent, DateRangeInputComponent, FieldDefinition, Expression,
     LogicalOperatorDefinition, NumberInputComponent,
     OperatorDefinitionList, SelectInputComponent, TextInputComponent
 } from '@ux-aspects/ux-aspects';
@@ -70,11 +70,11 @@ export class LogicalExpressionBuilderTestpageComponent {
         }
     ];
 
-    expression: LogicalExpressionBuilderExpression = null;
+    expression: Expression = null;
 
     public valid: boolean;
 
-    complexExpression: LogicalExpressionBuilderExpression = {
+    complexExpression: Expression = {
         type: 'group',
         logicalOperator: 'and',
         children: [
@@ -97,14 +97,14 @@ export class LogicalExpressionBuilderTestpageComponent {
         ]
     };
 
-    oneCondition: LogicalExpressionBuilderExpression = {
+    oneCondition: Expression = {
         type: 'condition',
         field: 'author',
         operator: 'equals',
         value: 'test'
     };
 
-    invalidExpression: LogicalExpressionBuilderExpression = {
+    invalidExpression: Expression = {
         type: 'group',
         logicalOperator: 'not',
         children: [
@@ -113,7 +113,7 @@ export class LogicalExpressionBuilderTestpageComponent {
         ]
     };
 
-    groupWithTwoConditions: LogicalExpressionBuilderExpression = {
+    groupWithTwoConditions: Expression = {
         type: 'group',
         logicalOperator: 'not',
         children: [
@@ -122,9 +122,9 @@ export class LogicalExpressionBuilderTestpageComponent {
         ]
     };
 
-    preview: LogicalExpressionBuilderExpression;
+    preview: Expression;
 
-    expressionChanged(query: LogicalExpressionBuilderExpression): void {
+    expressionChanged(query: Expression): void {
         this.preview = query;
     }
 
