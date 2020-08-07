@@ -3,7 +3,6 @@ export interface ExpressionCondition {
     field: string;
     operator: string;
     value: any;
-    editMode?: boolean;
 }
 
 export interface ExpressionGroup {
@@ -14,4 +13,4 @@ export interface ExpressionGroup {
 
 type ExpressionType = 'condition' | 'group';
 
-export type LogicalExpressionBuilderExpression = ExpressionCondition | ExpressionGroup;
+export type Expression = ExpressionCondition | ExpressionGroup;

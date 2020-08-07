@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { ExpressionCondition, ExpressionGroup } from '../interfaces/LogicalExpressionBuilderExpression';
+import { ExpressionCondition, ExpressionGroup } from '../interfaces/Expression';
 import { LogicalOperatorDefinition } from '../interfaces/LogicalOperatorDefinition';
 import { LogicalExpressionBuilderService } from '../services/logical-expression-builder.service';
 import { ValidationService } from '../services/validation.service';
@@ -80,14 +80,13 @@ export class LebGroupComponent implements OnInit, OnDestroy {
             field: null,
             operator: null,
             value: null,
-            editMode: true,
         }];
 
         this._validate();
         this.groupChange.emit(this.subExpression);
 
         this._lebService.setLastFocused([...this.path, this.subExpression.children.length - 1 ]);
-        this._lebService.setEditBlocked(true);
+        this._lebService.setConditionInEditMode([...this.path, this.subExpression.children.length - 1 ]);
     }
 
     public addGroup(): void {
@@ -95,13 +94,13 @@ export class LebGroupComponent implements OnInit, OnDestroy {
             type: 'group',
             logicalOperator: this._lebService.getLogicalOperators()[0].name,
             children: [
-                { type: 'condition', field: null, operator: null, value: null, editMode: true },
+                { type: 'condition', field: null, operator: null, value: null },
             ],
         }];
 
         this._validate();
         this.groupChange.emit(this.subExpression);
-        this._lebService.setEditBlocked(true);
+        this._lebService.setConditionInEditMode([...this.path, this.subExpression.children.length - 1, 0 ]);
         this._lebService.setLastFocused([...this.path, this.subExpression.children.length - 1, 0 ]);
     }
 
@@ -146,6 +145,7 @@ export class LebGroupComponent implements OnInit, OnDestroy {
         this.groupChange.emit(this.subExpression);
         this._validationService.removeValidationState(this.path);
         this._lebService.setLastFocused(this.path.slice(0, -1));
+        this._lebService.setConditionInEditMode(null);
     }
 
     private _validate(logicalOperator: LogicalOperatorDefinition = this.selectedLogicalOperator): boolean {

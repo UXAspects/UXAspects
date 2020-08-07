@@ -14,8 +14,10 @@ export class LogicalExpressionBuilderService {
     private _fields: FieldDefinition[] = [];
     private _operators: OperatorDefinitionList = {};
     private _localizedStrings = {};
-    private _editBlocked: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
     private _displayValueFunction: DisplayValueFunction;
+
+    private _conditionInEditMode: BehaviorSubject<number[]> = new BehaviorSubject<number[]>(null);
+    private _editBlocked: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
     // Logical operators
     public setLogicalOperators(logicalOperators: LogicalOperatorDefinition[]): void {
@@ -62,10 +64,6 @@ export class LogicalExpressionBuilderService {
         return this._editBlocked.asObservable();
     }
 
-    public setEditBlocked(editBlocked: boolean): void {
-        this._editBlocked.next(editBlocked);
-    }
-
     // displayValueFunction for displaying values
     public getDisplayValueFunction(): DisplayValueFunction {
         return this._displayValueFunction;
@@ -84,5 +82,15 @@ export class LogicalExpressionBuilderService {
 
     public setLastFocused(path: number[]): void {
         this._lastFocused.next(path);
+    }
+
+    // Edit stuff
+    public getConditionInEditMode(): Observable<number[]> {
+        return this._conditionInEditMode.asObservable();
+    }
+
+    public setConditionInEditMode(path: number[]): void {
+        this._conditionInEditMode.next(path);
+        this._editBlocked.next(!!path);
     }
 }

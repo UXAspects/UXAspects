@@ -4,10 +4,9 @@ import { OperatorDefinitionList } from './interfaces/OperatorDefinitionList';
 import { FieldDefinition } from './interfaces/FieldDefinition';
 import { LogicalExpressionBuilderService } from './services/logical-expression-builder.service';
 import {
-    LogicalExpressionBuilderExpression,
-    ExpressionCondition,
+    Expression,
     ExpressionGroup
-} from './interfaces/LogicalExpressionBuilderExpression';
+} from './interfaces/Expression';
 import { DisplayValueFunction } from './interfaces/DisplayValueFunction';
 import { ValidationService } from './services/validation.service';
 import { delay, distinctUntilChanged, takeUntil } from 'rxjs/operators';
@@ -36,16 +35,16 @@ export class LogicalExpressionBuilderComponent implements OnDestroy, OnInit {
     }
 
     @Input()
-    set expression(expression: LogicalExpressionBuilderExpression) {
-        this._expression = this._addEditModeFieldToConditionsInExpression(expression);
-        this.expressionChange.emit(this._cleanExpression(this._expression));
+    set expression(expression: Expression) {
+        this._expression = expression;
+        this.expressionChange.emit(this._expression);
     }
 
     get expression() {
         return this._expression;
     }
 
-    private _expression: LogicalExpressionBuilderExpression;
+    private _expression: Expression;
 
     @Input()
     set localizedStrings(localizedStrings: any) {
@@ -57,7 +56,7 @@ export class LogicalExpressionBuilderComponent implements OnDestroy, OnInit {
         this._lebService.setDisplayValueFunction(displayValueFunction);
     }
 
-    @Output() expressionChange: EventEmitter<LogicalExpressionBuilderExpression> = new EventEmitter<LogicalExpressionBuilderExpression>();
+    @Output() expressionChange: EventEmitter<Expression> = new EventEmitter<Expression>();
     @Output() valid: EventEmitter<boolean> = new EventEmitter<boolean>();
 
     private _destroy$: Subject<void> = new Subject<void>();
@@ -98,7 +97,7 @@ export class LogicalExpressionBuilderComponent implements OnDestroy, OnInit {
         return (<ExpressionGroup>this.expression).logicalOperator ?? null;
     }
 
-    public handleGroupChange(expression: LogicalExpressionBuilderExpression): void {
+    public handleGroupChange(expression: Expression): void {
         let temp = { ...expression };
 
         // make expression just a condition if it contains exactly one group with exactly one condition in it
@@ -110,17 +109,19 @@ export class LogicalExpressionBuilderComponent implements OnDestroy, OnInit {
 
         this.expression = { ...temp };
 
-        this.expressionChange.emit(this._cleanExpression(this.expression));
+        this.expressionChange.emit(this.expression);
     }
 
     public deleteCondition(): void {
         this.expression = null;
+        this._lebService.setConditionInEditMode(null);
     }
 
     public addCondition(): void {
         // adds a condition to the expression if the expression is empty
-        this.expression = { type: 'condition', field: null, operator: null, value: null, editMode: true };
-        this.expressionChange.emit(this._cleanExpression(this.expression));
+        this.expression = { type: 'condition', field: null, operator: null, value: null };
+        this.expressionChange.emit(this.expression);
+        this._lebService.setConditionInEditMode([0]);
     }
 
     public addGroup(): void {
@@ -132,52 +133,12 @@ export class LogicalExpressionBuilderComponent implements OnDestroy, OnInit {
             logicalOperator: this._lebService.getLogicalOperators()[0].name,
             children: [
                 firstCondition,
-                { type: 'condition', field: null, operator: null, value: null, editMode: true },
+                { type: 'condition', field: null, operator: null, value: null },
             ]
         };
 
-        this._lebService.setEditBlocked(true);
-        this.expressionChange.emit(this._cleanExpression(this.expression));
-    }
+        this.expressionChange.emit(this.expression);
 
-    /* Helper methods for adding and removing the 'editable' property to and from conditions */
-
-    private _addEditModeFieldToConditionsInExpression(expression: LogicalExpressionBuilderExpression): LogicalExpressionBuilderExpression {
-        // recursively adds the 'editable' property to all conditions in the expression
-        if (!expression) {
-            return expression;
-        }
-
-        if (expression.type === 'condition') {
-            return { ...expression, editMode: (<ExpressionCondition>expression)?.editMode ?? false };
-        }
-
-        if (expression.type === 'group' && ('children' in expression)) {
-            const children = expression.children.map((child) => this._addEditModeFieldToConditionsInExpression(child));
-
-            return { ...expression, children };
-        }
-    }
-
-    private _cleanExpression(expression: LogicalExpressionBuilderExpression): LogicalExpressionBuilderExpression {
-        // recursively removes the 'editMode' property from all conditions in the expression for output
-        if (!expression) {
-            return expression;
-        }
-
-        if (expression.type === 'condition') {
-            return {
-                type: 'condition',
-                field: (<ExpressionCondition>expression).field,
-                operator: (<ExpressionCondition>expression).operator,
-                value: (<ExpressionCondition>expression).value,
-            };
-        }
-
-        if (expression.type === 'group' && ('children' in expression)) {
-            const children = expression.children.map((child) => this._cleanExpression(child));
-
-            return { ...expression, children };
-        }
+        this._lebService.setConditionInEditMode([0, 1]);
     }
 }

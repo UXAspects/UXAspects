@@ -1,7 +1,7 @@
 <tr
-    *ngIf="editMode; else staticMode"
+    *ngIf="_isInEditMode; else staticMode"
     class="leb-condition-row"
-    [style.padding-left.px]="indent || 5"
+    [style.padding-left.px]="indent || 8"
     cdkTrapFocus
     [cdkTrapFocusAutoCapture]="true"
     uxFocusIndicator
@@ -63,7 +63,7 @@
         [programmaticFocusIndicator]="true"
         [focusIf]="_wasLastFocused$ | async"
         uxHoverActionContainer
-        [style.padding-left.px]="indent || 5">
+        [style.padding-left.px]="indent || 8">
         <td>
             <span class="leb-field-display">{{ _field.label }}</span> {{ _operator.label }} <span
             class="leb-value-display">{{ _value | displayValue:_field.fieldType:_field.data }}</span>

@@ -14,7 +14,7 @@ import {
 import { LogicalExpressionBuilderService } from '../services/logical-expression-builder.service';
 import { FieldDefinition } from '../interfaces/FieldDefinition';
 import { OperatorDefinition } from '../interfaces/OperatorDefinitionList';
-import { ExpressionCondition } from '../interfaces/LogicalExpressionBuilderExpression';
+import { ExpressionCondition } from '../interfaces/Expression';
 import { Observable, Subject } from 'rxjs';
 import { distinctUntilChanged, filter, map, takeUntil } from 'rxjs/operators';
 import { ValidationService } from '../services/validation.service';
@@ -59,8 +59,9 @@ export class LebConditionComponent implements OnInit, OnDestroy {
     public _operator: OperatorDefinition = null;
     public _value: any;
 
-    public editMode: boolean = true;
     public _editBlocked: boolean;
+
+    public _isInEditMode: boolean;
 
     private _destroy$ = new Subject<void>();
     public _wasLastFocused$: Observable<boolean>;
@@ -85,12 +86,20 @@ export class LebConditionComponent implements OnInit, OnDestroy {
 
         this._value = this.condition.value;
 
-        this.editMode = this.condition?.editMode ?? true;
-        if (this.editMode) {
-            this._lebService.setLastFocused(this.path);
-        }
+        this._lebService.getConditionInEditMode()
+            .pipe(
+                takeUntil(this._destroy$),
+                map((path: number[]) => path && path.length === this.path.length && path.every((value: number, index: number) => value === this.path[index]))
+            )
+            .subscribe((value: boolean) => {
+                this._isInEditMode = value;
 
-        this._validationService.setValidationState(this.path, this._valid);
+                if (this._isInEditMode) {
+                    this._lebService.setLastFocused(this.path);
+                }
+            });
+
+        this._validationService.setValidationState(this.path, this._valid && !this._isInEditMode);
 
         this._id = this.path.slice(-1).pop();
 
@@ -136,7 +145,7 @@ export class LebConditionComponent implements OnInit, OnDestroy {
                 )
                 .subscribe((value: boolean) => {
                     this._valid = value;
-                    this._validationService.setValidationState(this.path, this._valid);
+                    this._validationService.setValidationState(this.path, this._valid && !this._isInEditMode);
                 });
         }
     }
@@ -158,30 +167,29 @@ export class LebConditionComponent implements OnInit, OnDestroy {
         this._createInputComponent();
     }
 
-    private _buildCondition(editMode?: boolean): void {
+    private _buildCondition(): void {
         this._condition = {
             type: 'condition',
             field: this._field?.name ?? null,
             operator: this._operator?.name ?? null,
-            value: this._value ?? null,
-            editMode: editMode ?? false
+            value: this._value ?? null
         };
     }
 
     public confirmCondition(): void {
-        this._lebService.setEditBlocked(false);
         this._lebService.setLastFocused(this.path);
+        this._lebService.setConditionInEditMode(null);
 
-        this.editMode = false;
-        this._buildCondition(this.editMode);
+        this._validationService.setValidationState(this.path, this._valid);
+
+        this._buildCondition();
+        this._initialCondition = { ...this._condition };
         this.conditionChange.emit(this._condition);
     }
 
     public cancelEdit(): void {
-        this._lebService.setEditBlocked(false);
         this._lebService.setLastFocused(this.path);
-
-        this.editMode = false;
+        this._lebService.setConditionInEditMode(null);
 
         if (this._initialCondition.field || this._initialCondition.operator || this._initialCondition.value) {
             this._resetCondition(this._initialCondition);
@@ -189,15 +197,18 @@ export class LebConditionComponent implements OnInit, OnDestroy {
         } else {
             this.conditionDeleted.emit(this._id);
         }
+
+        this._validationService.setValidationState(this.path, this._valid);
     }
 
     public editCondition(): void {
         if (!this._editBlocked) {
-            this._lebService.setEditBlocked(true);
             this._lebService.setLastFocused(this.path);
+            this._lebService.setConditionInEditMode(this.path);
 
-            this.editMode = true;
-            this._buildCondition(this.editMode);
+            this._validationService.setValidationState(this.path, this._valid && !this._isInEditMode);
+
+            this._buildCondition();
             this.conditionChange.emit(this._condition);
         }
     }
@@ -216,6 +227,10 @@ export class LebConditionComponent implements OnInit, OnDestroy {
     }
 
     private _resetCondition(initialCondition: ExpressionCondition): void {
-        this._condition = { ...initialCondition, editMode: false };
+        this._condition = { ...initialCondition };
+        this._value = initialCondition.value;
+
+        this._field = this.fields.find((field) => field.name === this.condition.field) ?? null;
+        this._operator = this.operators.find((operator) => operator.name === this.condition.operator) ?? null;
     }
 }

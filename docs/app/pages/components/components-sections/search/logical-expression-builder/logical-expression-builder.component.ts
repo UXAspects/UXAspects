@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import {
     ColorService,
     FieldDefinition,
-    LogicalExpressionBuilderExpression,
+    Expression,
     LogicalOperatorDefinition,
     NumberInputComponent,
     OperatorDefinitionList,
@@ -90,7 +90,7 @@ export class ComponentsLogicalExpressionBuilderComponent extends BaseDocumentati
 
     localizedStrings = {};
 
-    expression: LogicalExpressionBuilderExpression = {
+    expression: Expression = {
         type: 'group',
         logicalOperator: 'and',
         children: [
@@ -115,15 +115,15 @@ export class ComponentsLogicalExpressionBuilderComponent extends BaseDocumentati
 
     public valid: boolean;
 
-    initialExpression: LogicalExpressionBuilderExpression = { ...this.expression };
+    initialExpression: Expression = { ...this.expression };
 
-    preview: LogicalExpressionBuilderExpression;
+    preview: Expression;
 
     constructor(public colorService: ColorService) {
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
     }
 
-    expressionChanged(query: LogicalExpressionBuilderExpression): void {
+    expressionChanged(query: Expression): void {
         this.preview = query;
     }
 

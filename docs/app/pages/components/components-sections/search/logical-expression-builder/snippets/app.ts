@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {
     FieldDefinition,
-    LogicalExpressionBuilderExpression,
+    Expression,
     LogicalOperatorDefinition,
     NumberInputComponent,
     OperatorDefinitionList,
@@ -69,7 +69,7 @@ export class AppComponent {
 
     localizedStrings = {};
 
-    expression: LogicalExpressionBuilderExpression = {
+    expression: Expression = {
         type: 'group',
         logicalOperator: 'and',
         children: [
@@ -92,11 +92,11 @@ export class AppComponent {
         ]
     };
 
-    initialExpression: LogicalExpressionBuilderExpression = { ...this.expression };
+    initialExpression: Expression = { ...this.expression };
 
-    preview: LogicalExpressionBuilderExpression;
+    preview: Expression;
 
-    expressionChanged(expression: LogicalExpressionBuilderExpression): void {
+    expressionChanged(expression: Expression): void {
         this.preview = expression;
     }
 

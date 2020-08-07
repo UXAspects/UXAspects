@@ -2,7 +2,7 @@ export * from './logical-expression-builder.module';
 export * from './interfaces/FieldDefinition';
 export * from './interfaces/OperatorDefinitionList';
 export * from './interfaces/LogicalOperatorDefinition';
-export * from './interfaces/LogicalExpressionBuilderExpression';
+export * from './interfaces/Expression';
 export * from './logical-expression-builder.component';
 export * from './input-components/text-input/text-input.component';
 export * from './input-components/number-input/number-input.component';
