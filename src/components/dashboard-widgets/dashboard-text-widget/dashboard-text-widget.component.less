@@ -1,7 +1,7 @@
 ux-dashboard-text-widget {
     ux-predefined-widget {
         .widget-text {
-            flex: 1 1 auto;
+            height: 100%;
             overflow: hidden;
             position: relative;
 
@@ -9,7 +9,7 @@ ux-dashboard-text-widget {
                 white-space: pre-wrap;
             }
 
-            &::after {
+            &.is-truncated::after {
                 background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%);
                 bottom: 0;
                 content: ' ';

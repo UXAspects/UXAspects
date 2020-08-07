@@ -5,8 +5,8 @@
                       [name]="name"
                       [heading]="heading"
                       [fixedMode]="fixedMode">
-    <div class="widget-text">
-        <p>{{ text }}</p>
+    <div #textWrapper class="widget-text" [class.is-truncated]="textWrapper.clientHeight < textParagraph.clientHeight">
+        <p #textParagraph>{{ text }}</p>
     </div>
     <button class="widget-side-panel-opener" (click)="open()">
         <ux-icon name="chevron-right" *ngIf="!editable"></ux-icon>
