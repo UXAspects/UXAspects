@@ -6,10 +6,16 @@
                       [heading]="heading"
                       [fixedMode]="fixedMode">
     <div class="widget-status">
-        <ux-icon name="{{ status.icon }}"></ux-icon> {{ status.label }}
+        <span class="widget-status-icon" *ngIf="status.icon || status.iconTemplate">
+            <ux-icon *ngIf="status.icon" name="{{ status.icon }}"></ux-icon>
+            <ng-container *ngIf="status.iconTemplate">
+                <ng-container *ngTemplateOutlet="status.iconTemplate"></ng-container>
+            </ng-container>
+        </span>
+        <span class="widget-status-label">{{ status.label }}</span>
     </div>
     <div class="widget-actions">
-        <button class="m-b btn button-secondary widget-action-button" *ngFor="let action of actions" (click)="action.action()">
+        <button class="widget-action-button" *ngFor="let action of actions" (click)="action.action()">
             <ng-container *ngIf="action.iconTemplate">
                 <ng-container *ngTemplateOutlet="action.iconTemplate"></ng-container>
             </ng-container>

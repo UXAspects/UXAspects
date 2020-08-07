@@ -1,27 +1,23 @@
 ux-dashboard-actions-widget {
-    ux-dashboard-widget {
-        .widget-content {
-            position: relative;
+    .widget-status {
+        align-items: center;
+        display: flex;
+        flex-flow: row nowrap;
+        margin-bottom: 4px;
 
-            .widget-title {
-                margin-top: 0;
-            }
-
-            .widget-content-wrapper {
-                display: flex;
-                flex-flow: row nowrap;
-                position: relative;
-
-                .widget-status {
-                    flex: 1 1 auto;
-                }
-            }
+        .widget-status-icon {
+            margin-right: 4px;
         }
+    }
 
-        .widget-grab-handle {
-            position: absolute;
-            top: 0;
-            right: 0;
+    .widget-actions {
+        display: inline-flex;
+        flex-flow: row wrap;
+        margin: -2px;
+
+        .widget-action-button {
+            flex: 1 1 auto;
+            margin: 2px;
         }
     }
 }

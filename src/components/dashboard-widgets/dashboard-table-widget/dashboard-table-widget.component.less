@@ -1,31 +1,11 @@
 ux-dashboard-table-widget {
-    ux-dashboard-widget {
-        .widget-content {
-            position: relative;
-        }
+    .table {
+        height: 100%;
+        margin-bottom: 0;
 
-        .widget-grab-handle {
-            position: absolute;
-            top: 0;
-            right: 0;
-        }
-
-        .widget-title {
-            margin-top: 0;
-        }
-
-        .widget-data {
-            height: calc(100% - 55px);
-            position: relative;
-
-            .table {
-                height: 100%;
-                margin-bottom: 0;
-
-                .table-body {
-                    height: 100%;
-                }
-            }
+        .table-body {
+            height: 100%;
+            overflow-y: auto;
         }
     }
 }
