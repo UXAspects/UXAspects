@@ -38,4 +38,4 @@ const DECLARATIONS = [
     exports: DECLARATIONS,
     declarations: DECLARATIONS,
 })
-export class DashboardWidgetsModule { }
+export class DashboardPredefinedWidgetsModule { }
