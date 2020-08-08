@@ -3,7 +3,7 @@ import { RouterModule } from '@angular/router';
 import {
     ColorServiceModule,
     DashboardModule,
-    DashboardWidgetsModule,
+    DashboardPredefinedWidgetsModule,
     IconModule,
     SparkModule,
     TabsetModule
@@ -41,7 +41,7 @@ const ROUTES = [
         RouterModule.forChild(ROUTES),
         SparkModule,
         TabsetModule,
-        DashboardWidgetsModule,
+        DashboardPredefinedWidgetsModule,
     ],
     exports: SECTIONS,
     declarations: SECTIONS,
