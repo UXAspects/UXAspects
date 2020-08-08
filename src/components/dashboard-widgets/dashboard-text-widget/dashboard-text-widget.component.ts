@@ -7,15 +7,16 @@ import {
     Output,
     ViewChild
 } from '@angular/core';
-import { SidePanelComponent } from '../../side-panel';
+import { PredefinedWidgetConfig } from '../interfaces/predefined-widget';
 import { TextWidgetConfig } from '../interfaces/text-widget';
+import { SidePanelComponent } from '../../side-panel';
 
 @Component({
     selector: 'ux-dashboard-text-widget',
     templateUrl: './dashboard-text-widget.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DashboardTextWidgetComponent implements TextWidgetConfig {
+export class DashboardTextWidgetComponent implements PredefinedWidgetConfig, TextWidgetConfig {
     @Input() id: string = '';
     @Input() name: string = '';
     @Input() heading: string = '';

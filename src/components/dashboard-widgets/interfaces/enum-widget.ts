@@ -1,8 +1,7 @@
-import {SidePanelComponent} from '../../side-panel';
-import {TemplateRef} from '@angular/core';
-import {PredefinedWidgetConfig} from './predefined-widget';
+import { SidePanelComponent } from '../../side-panel';
+import { TemplateRef } from '@angular/core';
 
-export interface EnumWidgetConfig extends PredefinedWidgetConfig {
+export interface EnumWidgetConfig {
     value: string | number;
     enums: ReadonlyArray<EnumConfig>;
     sidePanel: SidePanelComponent;

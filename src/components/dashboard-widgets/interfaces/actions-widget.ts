@@ -1,7 +1,6 @@
-import {TemplateRef} from '@angular/core';
-import {PredefinedWidgetConfig} from './predefined-widget';
+import { TemplateRef } from '@angular/core';
 
-export interface ActionsWidgetConfig extends PredefinedWidgetConfig {
+export interface ActionsWidgetConfig {
     actions: ReadonlyArray<ActionConfig>;
     status: ActionStatus;
 }

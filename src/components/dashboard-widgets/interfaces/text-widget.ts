@@ -1,8 +1,7 @@
-import {SidePanelComponent} from '../../side-panel';
-import {ElementRef} from '@angular/core';
-import {PredefinedWidgetConfig} from './predefined-widget';
+import { ElementRef } from '@angular/core';
+import { SidePanelComponent } from '../../side-panel';
 
-export interface TextWidgetConfig extends PredefinedWidgetConfig {
+export interface TextWidgetConfig {
     text: string;
     editable?: boolean;
     sidePanel: SidePanelComponent;

@@ -1,6 +1,4 @@
-import { PredefinedWidgetConfig } from './predefined-widget';
-
-export interface TableWidgetConfig extends PredefinedWidgetConfig {
+export interface TableWidgetConfig {
     header: ReadonlyArray<any>;
     data: ReadonlyArray<ReadonlyArray<any>>;
 }
