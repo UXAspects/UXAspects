@@ -9,6 +9,8 @@
         <h3 class="widget-title" *ngIf="heading">{{ heading }}</h3>
         <button *ngIf="!fixedMode"
                 class="widget-grab-handle"
+                keyDownEmitter
+                (onKeyDown)="onKeydownHandler($event)"
                 uxDashboardGrabHandle
                 uxDashboardWidgetDragHandle>
             <ux-icon name="pan"></ux-icon>

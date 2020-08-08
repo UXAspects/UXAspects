@@ -1,11 +1,12 @@
 import {
     AfterViewInit,
     ChangeDetectionStrategy,
-    Component,
-    ElementRef,
-    Input, OnDestroy,
+    Component, Directive,
+    ElementRef, EventEmitter, HostListener,
+    Input, OnDestroy, Output,
     ViewChild
 } from '@angular/core';
+import { ENTER, ESCAPE, SPACE } from '@angular/cdk/keycodes';
 import { PredefinedWidgetConfig } from './interfaces/predefined-widget';
 import { DashboardWidgetComponent } from '../dashboard';
 import { fromEvent, Subject } from 'rxjs';
@@ -50,8 +51,26 @@ export class DashboardPredefinedWidgetComponent implements PredefinedWidgetConfi
         });
     }
 
+    onKeydownHandler(key: KeyboardEvent) {
+        if ([ESCAPE, ENTER, SPACE].includes(key.which)) {
+            this.widget.dashboardService.renderDashboard();
+        }
+    }
+
     ngOnDestroy(): void {
         this._onDestroy.next();
         this._onDestroy.complete();
+    }
+}
+
+@Directive({
+    selector: '[keyDownEmitter]'
+})
+export class KeyPressDirective {
+    @Output() onKeyDown: EventEmitter<KeyboardEvent> = new EventEmitter<KeyboardEvent>();
+
+    @HostListener('keydown', ['$event'])
+    public onListenerTriggered(event: any): void {
+        this.onKeyDown.emit(event);
     }
 }
