@@ -32,7 +32,7 @@
         </button>
     </div>
     <ux-select-list #enumList
-                    class="ux-side-panel-content"
+                    class="widget-side-panel-list ux-side-panel-content"
                     [selected]="selected"
                     (selectedChange)="changeSelection($event)">
         <ux-select-list-item *ngFor="let enumItem of enums" [data]="enumItem">
