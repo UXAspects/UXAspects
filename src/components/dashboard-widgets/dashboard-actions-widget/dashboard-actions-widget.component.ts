@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { PredefinedWidgetConfig } from '../interfaces/predefined-widget';
 import { ActionConfig, ActionStatus, ActionsWidgetConfig } from '../interfaces/actions-widget';
 
 @Component({
@@ -6,7 +7,7 @@ import { ActionConfig, ActionStatus, ActionsWidgetConfig } from '../interfaces/a
     templateUrl: './dashboard-actions-widget.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DashboardActionsWidgetComponent implements ActionsWidgetConfig {
+export class DashboardActionsWidgetComponent implements PredefinedWidgetConfig, ActionsWidgetConfig {
     @Input() id: string = '';
     @Input() name: string = '';
     @Input() heading: string = '';

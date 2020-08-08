@@ -3,6 +3,7 @@ import {
     Component,
     Input
 } from '@angular/core';
+import { PredefinedWidgetConfig } from '../interfaces/predefined-widget';
 import { TableWidgetConfig } from '../interfaces/table-widget';
 
 @Component({
@@ -10,7 +11,7 @@ import { TableWidgetConfig } from '../interfaces/table-widget';
     templateUrl: './dashboard-table-widget.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DashboardTableWidgetComponent implements TableWidgetConfig {
+export class DashboardTableWidgetComponent implements PredefinedWidgetConfig, TableWidgetConfig {
     @Input() id: string = '';
     @Input() name: string = '';
     @Input() heading: string = '';

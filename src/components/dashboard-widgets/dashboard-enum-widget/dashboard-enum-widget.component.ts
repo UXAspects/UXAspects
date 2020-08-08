@@ -10,6 +10,7 @@ import {
     PipeTransform,
     ViewChild
 } from '@angular/core';
+import { PredefinedWidgetConfig } from '../interfaces/predefined-widget';
 import { EnumConfig, EnumWidgetConfig } from '../interfaces/enum-widget';
 import { SidePanelComponent } from '../../side-panel';
 import { SelectListComponent } from '../../select-list';
@@ -19,7 +20,7 @@ import { SelectListComponent } from '../../select-list';
     templateUrl: './dashboard-enum-widget.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DashboardEnumWidgetComponent implements EnumWidgetConfig, OnInit {
+export class DashboardEnumWidgetComponent implements PredefinedWidgetConfig, EnumWidgetConfig, OnInit {
     @Input() id: string = '';
     @Input() name: string = '';
     @Input() heading: string = '';
