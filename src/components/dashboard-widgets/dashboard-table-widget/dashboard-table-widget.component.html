@@ -8,10 +8,10 @@
     <table class="table"
            uxFixedHeaderTable
            [dataset]="data">
-        <thead>
-        <tr>
-            <th *ngFor="let cell of header">{{ cell }}</th>
-        </tr>
+        <thead *ngIf="header.length">
+            <tr>
+                <th *ngFor="let cell of header">{{ cell }}</th>
+            </tr>
         </thead>
 
         <tbody class="table-body">
