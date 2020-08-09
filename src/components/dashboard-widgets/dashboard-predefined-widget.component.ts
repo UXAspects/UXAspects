@@ -1,9 +1,9 @@
 import {
     AfterViewInit,
     ChangeDetectionStrategy,
-    Component, Directive,
-    ElementRef, EventEmitter, HostListener,
-    Input, OnDestroy, Output,
+    Component,
+    ElementRef,
+    Input, OnDestroy,
     ViewChild
 } from '@angular/core';
 import { ENTER, ESCAPE, SPACE } from '@angular/cdk/keycodes';
@@ -26,6 +26,7 @@ export class DashboardPredefinedWidgetComponent implements PredefinedWidgetConfi
     @Input() rowSpan: number = 1;
 
     @ViewChild('widget') widget: DashboardWidgetComponent;
+    @ViewChild('handle') handle: ElementRef;
 
     private _dragging: boolean = false;
 
@@ -49,28 +50,16 @@ export class DashboardPredefinedWidgetComponent implements PredefinedWidgetConfi
             }
             this._dragging = false;
         });
-    }
-
-    onKeydownHandler(key: KeyboardEvent) {
-        if ([ESCAPE, ENTER, SPACE].includes(key.which)) {
-            this.widget.dashboardService.renderDashboard();
-        }
+        fromEvent(this.handle.nativeElement, 'keydown').pipe(takeUntil(this._onDestroy))
+            .subscribe((keyboardEvent: KeyboardEvent) => {
+                if ([ESCAPE, ENTER, SPACE].includes(keyboardEvent.which)) {
+                    this.widget.dashboardService.renderDashboard();
+                }
+            });
     }
 
     ngOnDestroy(): void {
         this._onDestroy.next();
         this._onDestroy.complete();
-    }
-}
-
-@Directive({
-    selector: '[keyDownEmitter]'
-})
-export class KeyPressDirective {
-    @Output() onKeyDown: EventEmitter<KeyboardEvent> = new EventEmitter<KeyboardEvent>();
-
-    @HostListener('keydown', ['$event'])
-    public onListenerTriggered(event: any): void {
-        this.onKeyDown.emit(event);
     }
 }
