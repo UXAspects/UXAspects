@@ -1,12 +1,12 @@
 export interface ExpressionCondition {
-    type: ExpressionType;
+    type: 'condition';
     field: string;
     operator: string;
     value: any;
 }
 
 export interface ExpressionGroup {
-    type: ExpressionType;
+    type: 'group';
     logicalOperator: string;
     children: (ExpressionCondition|ExpressionGroup)[];
 }

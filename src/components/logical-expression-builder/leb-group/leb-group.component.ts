@@ -1,5 +1,13 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { ExpressionCondition, ExpressionGroup } from '../interfaces/Expression';
+import {
+    ChangeDetectionStrategy,
+    Component,
+    EventEmitter,
+    Input,
+    OnDestroy,
+    OnInit,
+    Output
+} from '@angular/core';
+import { Expression, ExpressionCondition, ExpressionGroup } from '../interfaces/Expression';
 import { LogicalOperatorDefinition } from '../interfaces/LogicalOperatorDefinition';
 import { LogicalExpressionBuilderService } from '../services/logical-expression-builder.service';
 import { ValidationService } from '../services/validation.service';
@@ -26,12 +34,13 @@ export class LebGroupComponent implements OnInit, OnDestroy {
     public _focused: boolean = false;
     public _valid: boolean = true;
     public _errorMessage: string;
-    public _showAddBtn: boolean = true;
+    public _showAddBtn: boolean = false;
 
     public _wasLastFocused$: Observable<boolean>;
     private _destroy$: Subject<void> = new Subject<void>();
 
-    constructor(private _lebService: LogicalExpressionBuilderService, private _validationService: ValidationService) {}
+    constructor(private _lebService: LogicalExpressionBuilderService, private _validationService: ValidationService) {
+    }
 
     ngOnInit(): void {
         this.logicalOperators = this._lebService.getLogicalOperators();
@@ -75,22 +84,24 @@ export class LebGroupComponent implements OnInit, OnDestroy {
     }
 
     public addCondition(): void {
-        this.subExpression.children = [...this.subExpression.children, {
+        const children: Expression[] = [...this.subExpression.children, {
             type: 'condition',
             field: null,
             operator: null,
             value: null,
         }];
 
+        this.subExpression = { ...this.subExpression, children };
+
         this._validate();
         this.groupChange.emit(this.subExpression);
 
-        this._lebService.setLastFocused([...this.path, this.subExpression.children.length - 1 ]);
-        this._lebService.setConditionInEditMode([...this.path, this.subExpression.children.length - 1 ]);
+        this._lebService.setLastFocused([...this.path, this.subExpression.children.length - 1]);
+        this._lebService.setConditionInEditMode([...this.path, this.subExpression.children.length - 1]);
     }
 
     public addGroup(): void {
-        this.subExpression.children = [...this.subExpression.children, {
+        const children: Expression[] = [...this.subExpression.children, {
             type: 'group',
             logicalOperator: this._lebService.getLogicalOperators()[0].name,
             children: [
@@ -98,10 +109,12 @@ export class LebGroupComponent implements OnInit, OnDestroy {
             ],
         }];
 
+        this.subExpression = { ...this.subExpression, children };
+
         this._validate();
         this.groupChange.emit(this.subExpression);
-        this._lebService.setConditionInEditMode([...this.path, this.subExpression.children.length - 1, 0 ]);
-        this._lebService.setLastFocused([...this.path, this.subExpression.children.length - 1, 0 ]);
+        this._lebService.setConditionInEditMode([...this.path, this.subExpression.children.length - 1, 0]);
+        this._lebService.setLastFocused([...this.path, this.subExpression.children.length - 1, 0]);
     }
 
     public removeConditionAtIndex(id: number): void {
