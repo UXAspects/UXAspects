@@ -1,83 +1,98 @@
 <div class="demo-toolbar">
 
-    <div class="demo-toolbar-left">
-        <ux-toolbar-search id="searchLeft"
-            [alwaysExpanded]="alwaysExpanded"
-            [(expanded)]="expanded"
-            direction="right"
-            background="white"
-            (search)="onSearch($event)">
+        <div class="demo-toolbar-left">
+            <ux-toolbar-search id="searchLeft"
+                [alwaysExpanded]="alwaysExpanded"
+                [(expanded)]="expanded"
+                direction="right"
+                background="white"
+                (search)="onSearch($event)">
 
-            <input uxToolbarSearchField
-                #searchField
+            <input
+                uxToolbarSearchField
+                #mastheadSearchField
                 type="text"
                 class="form-control"
                 placeholder="Search"
                 aria-label="Search"
-                [class.ux-toolbar-search-clear-offset]="searchText"
-                [(ngModel)]="searchText">
+                [(ngModel)]="mastheadSearchText"
+                [class.ux-toolbar-search-clear-offset]="mastheadSearchText"
+                (keydown)="typeaheadKeyService.handleKey($event, searchTypeahead)"
+                (keydown.escape)="searchDropdownOpen = false"
+                (blur)="searchDropdownOpen = false"
+                (click)="searchDropdownOpen = true"/>
 
-            <button uxToolbarSearchButton
-                type="button"
-                class="btn btn-link btn-icon button-secondary"
-                aria-label="Toggle Search">
-                <ux-icon name="search"></ux-icon>
-            </button>
+            <ux-typeahead
+                #searchTypeahead
+                class="typeahead-example"
+                [(open)]="searchDropdownOpen"
+                [filter]="mastheadSearchText"
+                [options]="loadOptionsFn"
+                (optionSelected)="input = $event.option">
+            </ux-typeahead>
 
-            <button *ngIf="searchText"
-                type="button"
-                class="btn btn-link btn-icon button-secondary ux-toolbar-search-clear"
-                (click)="searchText = ''; searchField.focus()">
-                <ux-icon name="close"></ux-icon>
-            </button>
+                <button *ngIf="mastheadSearchText" type="button"
+                    class="btn btn-link btn-icon ux-toolbar-search-clear"
+                    (click)="mastheadSearchText = ''; mastheadSearchField.focus()">
+                    <ux-icon name="close"></ux-icon>
+                </button>
 
-        </ux-toolbar-search>
-
-        <button type="button" class="btn btn-link btn-icon button-secondary">
-            <ux-icon name="add"></ux-icon>
-        </button>
-
-        <button type="button" class="btn btn-link btn-icon button-secondary">
-            <ux-icon name="edit"></ux-icon>
-        </button>
-    </div>
-
-    <div class="demo-toolbar-right" [formGroup]="form">
-        <button type="button" class="btn btn-link btn-icon button-secondary">
-            <ux-icon name="grid"></ux-icon>
-        </button>
-
-        <button type="button" class="btn btn-link btn-icon button-secondary">
-            <ux-icon name="list"></ux-icon>
-        </button>
-
-        <ux-toolbar-search
-            id="searchRight"
-            [alwaysExpanded]="alwaysExpanded"
-            direction="left"
-            background="white"
-            (search)="onSearchRight()">
-
-            <input uxToolbarSearchField
-                formControlName="search"
-                type="text"
-                class="form-control"
-                placeholder="Search"
-                aria-label="Search">
-
-            <button uxToolbarSearchButton
-                    type="button"
-                    class="btn btn-link btn-icon button-secondary"
+                <button uxToolbarSearchButton type="button" class="btn btn-link btn-icon"
                     aria-label="Toggle Search">
-                <ux-icon name="search"></ux-icon>
+                    <ux-icon name="search"></ux-icon>
+                </button>
+
+            </ux-toolbar-search>
+
+            <button type="button" class="btn btn-link btn-icon button-secondary">
+                <ux-icon name="add"></ux-icon>
             </button>
-        </ux-toolbar-search>
+
+            <button type="button" class="btn btn-link btn-icon button-secondary">
+                <ux-icon name="edit"></ux-icon>
+            </button>
+        </div>
+
+        <div class="demo-toolbar-right" [formGroup]="form">
+            <button type="button" class="btn btn-link btn-icon button-secondary">
+                <ux-icon name="grid"></ux-icon>
+            </button>
+
+            <button type="button" class="btn btn-link btn-icon button-secondary">
+                <ux-icon name="list"></ux-icon>
+            </button>
+
+            <ux-toolbar-search
+                id="searchRight"
+                [alwaysExpanded]="alwaysExpanded"
+                direction="left"
+                background="white"
+                (search)="onSearchRight()">
+
+                <input uxToolbarSearchField
+                    formControlName="search"
+                    type="text"
+                    class="form-control"
+                    placeholder="Search"
+                    aria-label="Search">
+
+                <button uxToolbarSearchButton
+                        type="button"
+                        class="btn btn-link btn-icon button-secondary"
+                        aria-label="Toggle Search">
+                    <ux-icon name="search"></ux-icon>
+                </button>
+            </ux-toolbar-search>
+        </div>
+
     </div>
 
-</div>
+    <p class="m-t-md">Searched for:
+        <strong id="searchedFor">{{searchedFor}}</strong>
+    </p>
 
-<p class="m-t-md">Searched for:
-    <strong id="searchedFor">{{searchedFor}}</strong>
-</p>
+    <div id="mastheadSearchText" class="m-t-md">
+        Selected location: <code>{{mastheadSearchText}}</code>
+    </div>
 
-<button id="always-expanded-btn" class="btn button-primary" (click)="alwaysExpanded = true">Set Always Expanded</button>
+    <button id="always-expanded-btn" class="btn button-primary" (click)="alwaysExpanded = true">Set Always Expanded</button>

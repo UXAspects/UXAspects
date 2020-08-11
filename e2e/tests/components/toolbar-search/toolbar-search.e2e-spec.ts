@@ -31,6 +31,21 @@ describe('Toolbar Search', () => {
 
     });
 
+    it('should display the name of the selected country', async () => {
+
+        // selecting country with clicking
+        await page.clickOnDropdown();
+        expect(await page.confirmDropdownIsExpanded()).toBeFalsy();
+
+        expect(await imageCompare('toolbar-search-typeahead-open')).toEqual(0);
+
+        // Enter search text
+        await page.leftInput.sendKeys('United States');
+
+        expect(await page.getSelectedLocationText()).toBe('United States');
+
+    });
+
     it('should display search input when the button is clicked', async () => {
 
         await page.leftButton.click();
@@ -386,5 +401,6 @@ describe('Toolbar Search', () => {
             expect(await imageCompare('toolbar-search-not-overflow-clear')).toEqual(0);
         });
     });
+
 
 });
