@@ -1,8 +1,6 @@
 import { ChangeDetectionStrategy, Component, ViewChild, ElementRef } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { TypeaheadKeyService } from '@ux-aspects/ux-aspects';
-import { of } from 'rxjs';
-import { delay } from 'rxjs/operators';
 
 @Component({
     selector: 'uxd-toolbar-search',

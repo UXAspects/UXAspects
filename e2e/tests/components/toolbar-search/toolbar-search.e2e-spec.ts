@@ -118,7 +118,7 @@ describe('Toolbar Search', () => {
         await page.leftButton.click();
 
         // Verify that the states are unchanged
-        expect(await page.leftInput.isDisplayed()).toBeTruthy();
+        expect(await page.leftInput.isDisplayed()).toBeFalsy();
         expect(await page.leftButton.isDisplayed()).toBeTruthy();
         expect(await page.leftClear.isPresent()).toBeFalsy();
 
