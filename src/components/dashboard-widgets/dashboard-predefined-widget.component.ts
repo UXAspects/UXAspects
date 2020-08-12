@@ -22,6 +22,7 @@ export class DashboardPredefinedWidgetComponent implements PredefinedWidgetConfi
     @Input() name: string = '';
     @Input() heading: string = '';
     @Input() fixedMode: boolean = false;
+    @Input() resizable: boolean = false;
     @Input() colSpan: number = 1;
     @Input() rowSpan: number = 1;
 

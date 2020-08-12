@@ -1,10 +1,11 @@
 <ux-dashboard-widget #widget
                      class="widget-element"
+                     [ngClass]="{ resizable: resizable && fixedMode }"
                      [id]="id"
                      [colSpan]="colSpan"
                      [rowSpan]="rowSpan"
                      [name]="name"
-                     [resizable]="!fixedMode">
+                     [resizable]="!fixedMode || resizable">
     <div class="widget-header">
         <h3 class="widget-title" *ngIf="heading">{{ heading }}</h3>
         <button #handle

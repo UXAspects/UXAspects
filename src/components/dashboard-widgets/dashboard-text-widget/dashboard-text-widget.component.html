@@ -4,7 +4,8 @@
                       [rowSpan]="rowSpan"
                       [name]="name"
                       [heading]="heading"
-                      [fixedMode]="fixedMode">
+                      [fixedMode]="fixedMode"
+                      [resizable]="resizable">
     <div #textWrapper class="widget-text" [class.is-truncated]="textWrapper.clientHeight < textParagraph.clientHeight">
         <p #textParagraph>{{ text }}</p>
     </div>
