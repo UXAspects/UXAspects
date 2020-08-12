@@ -35,6 +35,9 @@ export class DashboardTextWidgetComponent implements PredefinedWidgetConfig, Tex
     open() {
         this.textArea.nativeElement.value = this.text;
         this.sidePanel.openPanel();
+        if (this.editable) {
+            setTimeout(() => { this.textArea.nativeElement.focus() }, 0);
+        }
     }
 
     save() {
