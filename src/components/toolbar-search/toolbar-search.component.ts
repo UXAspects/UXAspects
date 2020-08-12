@@ -15,7 +15,7 @@ import { ToolbarSearchFieldDirective } from './toolbar-search-field.directive';
         trigger('expanded', [
             state('collapsed',
                 style({ width: '{{initialWidth}}' }),
-                { params: { initialWidth: '30px' } }
+                { params: { initialWidth: '0' } }
             ),
             state('expanded', style({ width: '100%' })),
             transition('collapsed <=> expanded', [animate('0.3s ease-out')])
