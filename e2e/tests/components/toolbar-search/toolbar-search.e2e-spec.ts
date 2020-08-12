@@ -31,19 +31,12 @@ describe('Toolbar Search', () => {
 
     });
 
-    it('should display the name of the selected country', async () => {
+    it('should display the name of the selected number', async () => {
 
-        // selecting country with clicking
         await page.clickOnDropdown();
         expect(await page.confirmDropdownIsExpanded()).toBeFalsy();
 
         expect(await imageCompare('toolbar-search-typeahead-open')).toEqual(0);
-
-        // Enter search text
-        await page.leftInput.sendKeys('United States');
-
-        expect(await page.getSelectedLocationText()).toBe('United States');
-
     });
 
     it('should display search input when the button is clicked', async () => {
@@ -118,7 +111,7 @@ describe('Toolbar Search', () => {
         await page.leftButton.click();
 
         // Verify that the states are unchanged
-        expect(await page.leftInput.isDisplayed()).toBeFalsy();
+        expect(await page.leftInput.isDisplayed()).toBeTruthy();
         expect(await page.leftButton.isDisplayed()).toBeTruthy();
         expect(await page.leftClear.isPresent()).toBeFalsy();
 

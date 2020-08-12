@@ -17,7 +17,6 @@
                 aria-label="Search"
                 [(ngModel)]="mastheadSearchText"
                 [class.ux-toolbar-search-clear-offset]="mastheadSearchText"
-                (keydown)="typeaheadKeyService.handleKey($event, searchTypeahead)"
                 (keydown.escape)="searchDropdownOpen = false"
                 (blur)="searchDropdownOpen = false"
                 (click)="searchDropdownOpen = true"/>
@@ -27,20 +26,20 @@
                 class="typeahead-example"
                 [(open)]="searchDropdownOpen"
                 [filter]="mastheadSearchText"
-                [options]="loadOptionsFn"
+                [options]="options"
                 (optionSelected)="input = $event.option">
             </ux-typeahead>
 
-                <button *ngIf="mastheadSearchText" type="button"
-                    class="btn btn-link btn-icon ux-toolbar-search-clear"
-                    (click)="mastheadSearchText = ''; mastheadSearchField.focus()">
-                    <ux-icon name="close"></ux-icon>
-                </button>
+            <button *ngIf="mastheadSearchText" type="button"
+                class="btn btn-link btn-icon ux-toolbar-search-clear"
+                (click)="mastheadSearchText = ''; mastheadSearchField.focus()">
+                <ux-icon name="close"></ux-icon>
+            </button>
 
-                <button uxToolbarSearchButton type="button" class="btn btn-link btn-icon"
-                    aria-label="Toggle Search">
-                    <ux-icon name="search"></ux-icon>
-                </button>
+            <button uxToolbarSearchButton type="button" class="btn btn-link btn-icon"
+                aria-label="Toggle Search">
+                <ux-icon name="search"></ux-icon>
+            </button>
 
             </ux-toolbar-search>
 
@@ -90,9 +89,5 @@
     <p class="m-t-md">Searched for:
         <strong id="searchedFor">{{searchedFor}}</strong>
     </p>
-
-    <div id="mastheadSearchText" class="m-t-md">
-        Selected location: <code>{{mastheadSearchText}}</code>
-    </div>
 
     <button id="always-expanded-btn" class="btn button-primary" (click)="alwaysExpanded = true">Set Always Expanded</button>
