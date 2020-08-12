@@ -14,11 +14,15 @@ import { EnumConfig } from '../../../../../../../src/components/dashboard-widget
 })
 @DocumentationSectionComponent('ComponentsDashboardWidgetsComponent')
 export class ComponentsDashboardWidgetsComponent extends BaseDocumentationSection implements IPlaygroundProvider, AfterViewInit {
+    fixedMode: boolean = false;
+    tableWidgetResizable: boolean = true;
+    textWidgetResizable: boolean = true;
+    textWidgetEditable: boolean = true;
 
     options: DashboardOptions = {
         columns: 4,
         padding: 10,
-        rowHeight: 220,
+        rowHeight: 110,
         emptyRow: false,
         minWidth: 187
     };

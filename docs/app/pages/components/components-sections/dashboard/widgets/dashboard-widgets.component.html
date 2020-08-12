@@ -7,7 +7,7 @@
         id="widget-actions"
         [name]="'Actions Widget'"
         [heading]="'Actions Widget'"
-        [fixedMode]="false"
+        [fixedMode]="fixedMode"
         [status]="status"
         [actions]="actions">
         <ng-template #iconAccept>
@@ -19,7 +19,7 @@
         id="widget-enum"
         [name]="'Enum Widget'"
         [heading]="'Enum Widget'"
-        [fixedMode]="false"
+        [fixedMode]="fixedMode"
         [enums]="enums"
         [value]="0">
     </ux-dashboard-enum-widget>
@@ -28,7 +28,8 @@
         id="widget-table"
         [name]="'Table Widget'"
         [heading]="'Table Widget'"
-        [fixedMode]="false"
+        [fixedMode]="fixedMode"
+        [resizable]="tableWidgetResizable"
         [header]="tableHeader"
         [data]="tableData"
         [rowSpan]="2">
@@ -38,12 +39,38 @@
         id="widget-text"
         [name]="'Text Widget'"
         [heading]="'Text Widget'"
-        [fixedMode]="false"
+        [fixedMode]="fixedMode"
+        [resizable]="textWidgetResizable"
         [text]="loremIpsum"
-        [editable]="true">
+        [editable]="textWidgetEditable">
     </ux-dashboard-text-widget>
 
 </ux-dashboard>
+
+<hr>
+
+<div class="row uxd-customize-example">
+    <div class="col-md-12">
+        <ux-accordion>
+            <ux-accordion-panel class="accordion-chevron" heading="Customize Example...">
+                <div class="row">
+                    <div class="col-md-3">
+                        <ux-checkbox [(ngModel)]="fixedMode">Fixed Mode</ux-checkbox>
+                    </div>
+                    <div class="col-md-3">
+                        <ux-checkbox [(ngModel)]="tableWidgetResizable">Make Table Widget resizable</ux-checkbox>
+                    </div>
+                    <div class="col-md-3">
+                        <ux-checkbox [(ngModel)]="textWidgetResizable">Make Text Widget resizable</ux-checkbox>
+                    </div>
+                    <div class="col-md-3">
+                        <ux-checkbox [(ngModel)]="textWidgetEditable">Make Text Widget editable</ux-checkbox>
+                    </div>
+                </div>
+            </ux-accordion-panel>
+        </ux-accordion>
+    </div>
+</div>
 
 <hr>
 

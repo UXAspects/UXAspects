@@ -1,13 +1,11 @@
 ux-dashboard-text-widget {
-    ux-predefined-widget {
-        .widget-text {
-            height: 100%;
-            overflow: hidden;
-            position: relative;
+    .widget-text {
+        height: 100%;
+        overflow: hidden;
+        position: relative;
 
-            p {
-                white-space: pre-wrap;
-            }
+        p {
+            white-space: pre-wrap;
         }
     }
 
@@ -19,5 +17,11 @@ ux-dashboard-text-widget {
         background-color: transparent;
         border: none;
         outline: none;
+    }
+
+    ux-dashboard-widget.resizable {
+        .resizer-handle:not(.handle-bottom) {
+            display: none;
+        }
     }
 }

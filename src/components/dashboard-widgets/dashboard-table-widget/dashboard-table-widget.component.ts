@@ -21,4 +21,5 @@ export class DashboardTableWidgetComponent implements PredefinedWidgetConfig, Ta
 
     @Input() header: ReadonlyArray<string> = [];
     @Input() data: ReadonlyArray<ReadonlyArray<string>> = [];
+    @Input() resizable: boolean = false;
 }

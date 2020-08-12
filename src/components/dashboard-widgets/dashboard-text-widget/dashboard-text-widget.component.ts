@@ -28,6 +28,7 @@ export class DashboardTextWidgetComponent implements PredefinedWidgetConfig, Tex
     @ViewChild('textArea') textArea: ElementRef<HTMLTextAreaElement>;
     @Input() text: string = '';
     @Input() editable: boolean = false;
+    @Input() resizable: boolean = false;
 
     @Output() textChange = new EventEmitter<string>();
 

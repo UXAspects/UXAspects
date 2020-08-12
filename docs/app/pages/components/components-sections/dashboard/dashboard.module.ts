@@ -1,6 +1,7 @@
 import { ComponentFactoryResolver, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import {
+    AccordionModule, CheckboxModule,
     ColorServiceModule,
     DashboardModule,
     DashboardPredefinedWidgetsModule,
@@ -15,6 +16,7 @@ import { DocumentationCategoryComponent } from '../../../../components/documenta
 import { DocumentationPage, ResolverService } from '../../../../services/resolver/resolver.service';
 import { ComponentsDashboardComponent } from './dashboard/dashboard.component';
 import { ComponentsDashboardWidgetsComponent } from './widgets/dashboard-widgets.component';
+import { FormsModule } from '@angular/forms';
 
 const SECTIONS = [
     ComponentsDashboardComponent,
@@ -42,6 +44,9 @@ const ROUTES = [
         SparkModule,
         TabsetModule,
         DashboardPredefinedWidgetsModule,
+        AccordionModule,
+        CheckboxModule,
+        FormsModule,
     ],
     exports: SECTIONS,
     declarations: SECTIONS,
