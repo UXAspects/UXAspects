@@ -6,7 +6,7 @@ export interface ActionsWidgetConfig {
 }
 
 export interface ActionConfig {
-    label?: string;
+    label: string;
     icon?: string;
     iconTemplate?: TemplateRef<any>;
     action: Function;

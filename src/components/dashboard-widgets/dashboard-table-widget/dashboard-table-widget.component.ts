@@ -3,8 +3,8 @@ import {
     Component,
     Input
 } from '@angular/core';
-import { PredefinedWidgetConfig } from '../interfaces/predefined-widget';
-import { TableWidgetConfig } from '../interfaces/table-widget';
+import { PredefinedWidgetConfig } from '../interfaces/predefined-widget.interface';
+import { TableWidgetConfig } from '../interfaces/table-widget.interface';
 
 @Component({
     selector: 'ux-dashboard-table-widget',

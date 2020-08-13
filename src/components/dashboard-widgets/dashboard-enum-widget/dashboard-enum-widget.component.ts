@@ -10,8 +10,8 @@ import {
     PipeTransform,
     ViewChild
 } from '@angular/core';
-import { PredefinedWidgetConfig } from '../interfaces/predefined-widget';
-import { EnumConfig, EnumWidgetConfig } from '../interfaces/enum-widget';
+import { PredefinedWidgetConfig } from '../interfaces/predefined-widget.interface';
+import { EnumConfig, EnumWidgetConfig } from '../interfaces/enum-widget.interface';
 import { SidePanelComponent } from '../../side-panel';
 import { SelectListComponent } from '../../select-list';
 

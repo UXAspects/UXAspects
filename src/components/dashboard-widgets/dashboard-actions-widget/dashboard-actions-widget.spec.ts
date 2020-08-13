@@ -2,7 +2,7 @@ import { AfterViewInit, Component, TemplateRef, ViewChild } from '@angular/core'
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { DashboardModule } from '../../dashboard';
 import { DashboardPredefinedWidgetsModule } from '../dashboard-predefined-widgets.module';
-import { ActionConfig, ActionStatus } from '../interfaces/actions-widget';
+import { ActionConfig, ActionStatus } from '../interfaces/actions-widget.interface';
 
 @Component({
     selector: 'app-ux-actions-widget',
@@ -15,7 +15,7 @@ import { ActionConfig, ActionStatus } from '../interfaces/actions-widget';
                                                  [status]="{ label: 'Waiting...', icon: 'radial' }"
                                                  [actions]="actions">
                         <ng-template #iconAccept>
-                            <span class="custom-icon">✅ Accept</span>
+                            <span class="custom-icon">✅</span>
                         </ng-template>
                     </ux-dashboard-actions-widget>
                </ux-dashboard>
@@ -29,7 +29,7 @@ export class DashboardActionsWidgetTestComponent implements AfterViewInit {
 
     ngAfterViewInit() {
         this.actions.push(
-            { iconTemplate: this.iconAccept, action: () => alert('accept'), buttonClasses: 'btn' },
+            { label: 'Accept', iconTemplate: this.iconAccept, action: () => alert('accept'), buttonClasses: 'btn' },
             { label: 'Decline', icon: 'close', action: () => alert('decline'), buttonClasses: ['btn', 'custom-class'] }
         );
     }
