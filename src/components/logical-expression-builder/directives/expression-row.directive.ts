@@ -84,7 +84,7 @@ export class ExpressionRow implements FocusableOption, OnInit, OnDestroy, OnChan
         // ensure the tab index is initially set
         this._setTabIndex();
         if (this._focusHandler.isItemActive(this)) {
-            this._focusHandler.setActiveItem(this);
+            this._focusHandler.setPathToFocus(this.path);
         }
     }
 

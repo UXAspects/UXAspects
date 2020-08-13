@@ -64,36 +64,4 @@ export class LogicalExpressionBuilderService {
     public setDisplayValueFunction(transformFunction: DisplayValueFunction): void {
         this._displayValueFunction = transformFunction;
     }
-
-    // Focus stuff
-    private _rowInFocus: BehaviorSubject<number[]> = new BehaviorSubject<number[]>([]);
-    private _conditionInEditMode: BehaviorSubject<number[]> = new BehaviorSubject<number[]>(null);
-    private _editBlocked: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-
-    // editBlocked
-    public getEditBlocked(): Observable<boolean> {
-        return this._editBlocked.asObservable();
-    }
-
-    public setEditBlocked(blocked: boolean): void {
-        this._editBlocked.next(blocked);
-    }
-
-    public getRowInFocus(): Observable<number[]> {
-        return this._rowInFocus.asObservable();
-    }
-
-    public setRowInFocus(path: number[]): void {
-        this._rowInFocus.next(path);
-    }
-
-    // Edit stuff
-    public getConditionInEditMode(): Observable<number[]> {
-        return this._conditionInEditMode.asObservable();
-    }
-
-    public setConditionInEditMode(path: number[]): void {
-        this._conditionInEditMode.next(path);
-        this._editBlocked.next(!!path);
-    }
 }

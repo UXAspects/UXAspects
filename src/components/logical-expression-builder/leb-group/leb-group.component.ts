@@ -11,8 +11,7 @@ import { Expression, ExpressionCondition, ExpressionGroup } from '../interfaces/
 import { LogicalOperatorDefinition } from '../interfaces/LogicalOperatorDefinition';
 import { LogicalExpressionBuilderService } from '../services/logical-expression-builder.service';
 import { ValidationService } from '../services/validation.service';
-import { map, takeUntil } from 'rxjs/operators';
-import { Observable, Subject } from 'rxjs';
+import { FocusHandlerService } from '../services/focus-handler.service';
 
 @Component({
     selector: 'ux-leb-group',
@@ -46,28 +45,17 @@ export class LebGroupComponent implements OnInit, OnDestroy {
     public _errorMessage: string;
     public _showAddBtn: boolean = false;
 
-    public _wasLastFocused$: Observable<boolean>;
-    private _destroy$: Subject<void> = new Subject<void>();
-
-    constructor(private _lebService: LogicalExpressionBuilderService, private _validationService: ValidationService, private _cdr: ChangeDetectorRef) {
+    constructor(private _lebService: LogicalExpressionBuilderService, private _validationService: ValidationService, private _cdr: ChangeDetectorRef, private _focusHandler: FocusHandlerService) {
     }
 
     ngOnInit(): void {
         this.logicalOperators = this._lebService.getLogicalOperators();
         this.selectedLogicalOperator = this._lebService.getLogicalOperatorByName(this.logicalOperatorName);
         this._validate();
-
-        this._wasLastFocused$ = this._lebService.getRowInFocus().pipe(
-            takeUntil(this._destroy$),
-            map((path: number[]) => path.length === this.path.length && path.every((value: number, index: number) => value === this.path[index]))
-        );
     }
 
     ngOnDestroy(): void {
         this._validationService.removeValidationState(this.path);
-
-        this._destroy$.next();
-        this._destroy$.complete();
     }
 
     public handleSelectedOperatorChange(selectedOperator: LogicalOperatorDefinition) {
@@ -76,8 +64,6 @@ export class LebGroupComponent implements OnInit, OnDestroy {
 
         this._validate();
         this.groupChange.emit(this.subExpression);
-
-        this._lebService.setRowInFocus(this.path);
     }
 
     public handleGroupChange(subExpression: ExpressionGroup | ExpressionCondition, index: number) {
@@ -105,9 +91,8 @@ export class LebGroupComponent implements OnInit, OnDestroy {
 
         this._validate();
         this.groupChange.emit(this.subExpression);
-
-        this._lebService.setRowInFocus([...this.path, this.subExpression.children.length - 1]);
-        this._lebService.setConditionInEditMode([...this.path, this.subExpression.children.length - 1]);
+        this._focusHandler.setRowInEditMode([...this.path, this.subExpression.children.length - 1]);
+        this._focusHandler.setPathToFocus([...this.path, this.subExpression.children.length - 1]);
     }
 
     public addGroup(): void {
@@ -123,27 +108,30 @@ export class LebGroupComponent implements OnInit, OnDestroy {
 
         this._validate();
         this.groupChange.emit(this.subExpression);
-        this._lebService.setConditionInEditMode([...this.path, this.subExpression.children.length - 1, 0]);
-        this._lebService.setEditBlocked(true);
-        this._lebService.setRowInFocus([...this.path, this.subExpression.children.length - 1, 0]);
+        this._focusHandler.setRowInEditMode([...this.path, this.subExpression.children.length - 1, 0]);
+        this._focusHandler.setEditBlocked(true);
     }
 
     public removeConditionAtIndex(id: number): void {
-        this.subExpression.children = this.subExpression.children.filter((_, index) => {
+        const children = this.subExpression.children.filter((_, index) => {
             return index !== id;
         });
+
+        this.subExpression = {...this.subExpression, children};
 
         this._validate();
         this.groupChange.emit(this.subExpression);
 
+        this._focusHandler.setRowInEditMode(null);
+
         if (id === 0) {
             if (this.subExpression.children.length) {
-                this._lebService.setRowInFocus([...this.path, 0]);
+                this._focusHandler.setPathToFocus([...this.path, 0]);
             } else {
-                this._lebService.setRowInFocus(this.path);
+                this._focusHandler.setPathToFocus(this.path);
             }
         } else {
-            this._lebService.setRowInFocus([...this.path, id - 1]);
+            this._focusHandler.setPathToFocus([...this.path, id - 1]);
         }
     }
 
@@ -151,25 +139,26 @@ export class LebGroupComponent implements OnInit, OnDestroy {
         let tempExpression = this.subExpression;
         const condition = tempExpression.children[id];
 
-        tempExpression.children[id] = <ExpressionGroup>{
+        tempExpression.children[id] = {
             type: 'group',
             logicalOperator: this._lebService.getLogicalOperators()[0].name,
             children: [condition],
-        };
+        } as ExpressionGroup;
 
         this.subExpression = tempExpression;
 
         this._validate();
         this.groupChange.emit(this.subExpression);
-        this._lebService.setRowInFocus([...this.path, id]);
+
+        this._focusHandler.setPathToFocus([...this.path]);
     }
 
     public deleteGroup(): void {
         this.subExpression = null;
         this.groupChange.emit(this.subExpression);
         this._validationService.removeValidationState(this.path);
-        this._lebService.setRowInFocus(this.path.slice(0, -1));
-        this._lebService.setConditionInEditMode(null);
+        this._focusHandler.setRowInEditMode(null);
+        this._focusHandler.setPathToFocus(this.path.slice(0, -1));
     }
 
     private _validate(logicalOperator: LogicalOperatorDefinition = this.selectedLogicalOperator): boolean {
@@ -200,6 +189,6 @@ export class LebGroupComponent implements OnInit, OnDestroy {
     }
 
     public onDropdownOpenChange(open: boolean) {
-        this._lebService.setEditBlocked(open);
+        this._focusHandler.setEditBlocked(open);
     }
 }

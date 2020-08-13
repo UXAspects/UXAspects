@@ -1,7 +1,7 @@
 import { Injectable, OnDestroy, QueryList } from '@angular/core';
 import { FocusableOption, FocusKeyManager } from '@angular/cdk/a11y';
 import { ExpressionRow } from '../directives/expression-row.directive';
-import { Subject } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { LogicalExpressionBuilderService } from './logical-expression-builder.service';
 import { takeUntil } from 'rxjs/operators';
 
@@ -15,10 +15,6 @@ export class FocusHandlerService implements OnDestroy {
     /** Reference to focus key manager */
     private _focusKeyManager: FocusKeyManager<ExpressionRow> = new FocusKeyManager(this._queryList).withWrap().withVerticalOrientation();
 
-    /** Used to determine whether arrow keys should shift focus */
-    private _editBlocked: boolean;
-    private _conditionInEditMode: number[];
-
     private _destroy$: Subject<void> = new Subject<void>();
     public onTabindexChange$: Subject<void> = new Subject<void>();
 
@@ -30,7 +26,7 @@ export class FocusHandlerService implements OnDestroy {
 
         this._queryList.reset([...items]);
 
-        const inEditModeIndex: number = this._queryList.toArray().findIndex((_item: ExpressionRow) => _item.path.join() === this._conditionInEditMode?.join());
+        const inEditModeIndex: number = this._queryList.toArray().findIndex((_item: ExpressionRow) => _item.path.join() === this._rowInEditMode.getValue()?.join());
         const activeIndex = this._focusKeyManager.activeItemIndex;
 
         if (inEditModeIndex >= 0) {
@@ -41,8 +37,6 @@ export class FocusHandlerService implements OnDestroy {
             this._focusKeyManager.setFirstItemActive();
         }
 
-        console.log('register', this._queryList.toArray().map(_i => _i.path.join('-')).join(', '));
-
         this.onTabindexChange$.next();
     }
 
@@ -50,34 +44,11 @@ export class FocusHandlerService implements OnDestroy {
     public unregister(item: ExpressionRow): void {
         let items = this._queryList.toArray().filter((i: ExpressionRow) => i.path.join('-') !== item.path.join('-'));
         this._queryList.reset([...items]);
+
+        this.onTabindexChange$.next();
     }
 
-    constructor(private _lebService: LogicalExpressionBuilderService) {
-        this._lebService.getEditBlocked().pipe(takeUntil(this._destroy$)).subscribe((blocked: boolean) => {
-            this._editBlocked = blocked;
-        });
-
-        this._lebService.getConditionInEditMode().pipe(takeUntil(this._destroy$)).subscribe((_path: number[]) => {
-            const previousPath = this._conditionInEditMode;
-
-            let index: number;
-
-            if (!_path && previousPath?.length > 0) {
-                index = this._queryList.toArray().findIndex((_item: ExpressionRow) => _item.path.join() === previousPath.join());
-                this._focusKeyManager.setActiveItem(index);
-            } else if (_path?.length) {
-                index = this._queryList.toArray().findIndex((_item: ExpressionRow) => _item.path.join() === _path.join());
-                console.log('second branch. index:', index);
-                this._focusKeyManager.setActiveItem(index);
-            }
-
-            console.log('Condition in edit mode. Active item has path:', this._focusKeyManager.activeItem?.path?.join('-'));
-            console.log('Paths in queryList: ', this._queryList.toArray().map((_item) => _item.path.join('-')).join(', '));
-
-            this.onTabindexChange$.next();
-            this._conditionInEditMode = _path;
-        });
-    }
+    constructor() {}
 
     ngOnDestroy(): void {
         this._destroy$.next();
@@ -86,7 +57,7 @@ export class FocusHandlerService implements OnDestroy {
 
     /** Handle arrow key presses, but only if no item is currently being edited */
     public onKeydown(event: KeyboardEvent): void {
-        if (!this._editBlocked) {
+        if (!this._editBlocked.getValue()) {
             this._focusKeyManager.onKeydown(event);
             this.onTabindexChange$.next();
         }
@@ -120,13 +91,43 @@ export class FocusHandlerService implements OnDestroy {
         }
     }
 
-    setActiveItem(expressionRow: ExpressionRow) {
-        const index = this._queryList.toArray().findIndex((_row: ExpressionRow) => _row.path.join() === expressionRow.path.join());
+    setPathToFocus(path: number[]) {
+        let index: number = null;
 
-        if (index > -1) {
+        if (this._queryList) {
+            index = this._queryList.toArray().findIndex((_row: ExpressionRow) => _row.path.join() === path.join());
+        }
+
+        if (index !== null && index > -1) {
             this._focusKeyManager.setActiveItem(index);
         } else {
             this._focusKeyManager.setFirstItemActive();
         }
+
+        this.onTabindexChange$.next();
+    }
+
+    // Focus stuff
+    private _rowInEditMode: BehaviorSubject<number[]> = new BehaviorSubject<number[]>(null);
+    private _editBlocked: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
+    // editBlocked
+    public getEditBlocked(): Observable<boolean> {
+        return this._editBlocked.asObservable();
+    }
+
+    public setEditBlocked(blocked: boolean): void {
+        this._editBlocked.next(blocked);
+    }
+
+    // Edit stuff
+    public getRowInEditMode(): Observable<number[]> {
+        return this._rowInEditMode.asObservable();
+    }
+
+    public setRowInEditMode(_path: number[]): void {
+        this._rowInEditMode.next(_path);
+        this._editBlocked.next(!!_path);
+        this.onTabindexChange$.next();
     }
 }

@@ -19,6 +19,7 @@ import { DisplayValueFunction } from './interfaces/DisplayValueFunction';
 import { ValidationService } from './services/validation.service';
 import { delay, distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { FocusHandlerService } from './services/focus-handler.service';
 
 @Component({
     selector: 'ux-logical-expression-builder',
@@ -69,7 +70,7 @@ export class LogicalExpressionBuilderComponent implements OnDestroy, OnInit {
 
     private _destroy$: Subject<void> = new Subject<void>();
 
-    constructor(private _lebService: LogicalExpressionBuilderService, private _validationService: ValidationService) {
+    constructor(private _lebService: LogicalExpressionBuilderService, private _validationService: ValidationService, private _focusHandler: FocusHandlerService) {
     }
 
     ngOnInit(): void {
@@ -122,14 +123,15 @@ export class LogicalExpressionBuilderComponent implements OnDestroy, OnInit {
 
     public deleteCondition(): void {
         this.expression = null;
-        this._lebService.setConditionInEditMode(null);
+        this._focusHandler.setRowInEditMode(null);
     }
 
     public addCondition(): void {
         // adds a condition to the expression if the expression is empty
         this.expression = { type: 'condition', field: null, operator: null, value: null };
         this.expressionChange.emit(this.expression);
-        this._lebService.setConditionInEditMode([0]);
+        this._focusHandler.setRowInEditMode([0]);
+        this._focusHandler.setPathToFocus([0]);
     }
 
     public addGroup(): void {
@@ -146,7 +148,7 @@ export class LogicalExpressionBuilderComponent implements OnDestroy, OnInit {
         };
 
         this.expressionChange.emit(this.expression);
-
-        this._lebService.setConditionInEditMode([0, 1]);
+        this._focusHandler.setRowInEditMode([0, 1]);
+        this._focusHandler.setPathToFocus([0, 1]);
     }
 }

@@ -66,7 +66,6 @@ export class LebConditionComponent implements OnInit, OnDestroy, FocusableOption
     public _isInEditMode: boolean;
 
     private _destroy$ = new Subject<void>();
-    public _wasLastFocused$: Observable<boolean>;
 
     public _valid: boolean = true;
 
@@ -89,33 +88,24 @@ export class LebConditionComponent implements OnInit, OnDestroy, FocusableOption
 
         this._value = this.condition.value;
 
-        this._lebService.getConditionInEditMode()
+        this._focusHandler.getRowInEditMode()
             .pipe(
                 takeUntil(this._destroy$),
-                map((path: number[]) => path && path.length === this.path.length && path.every((value: number, index: number) => value === this.path[index]))
+                map((path: number[]) => path?.join() === this.path.join())
             )
             .subscribe((value: boolean) => {
                 this._isInEditMode = value;
-
-                if (this._isInEditMode) {
-                    this._lebService.setRowInFocus(this.path);
-                }
             });
 
         this._validationService.setValidationState(this.path, this._valid && !this._isInEditMode);
 
         this._id = this.path.slice(-1).pop();
 
-        this._lebService.getEditBlocked()
+        this._focusHandler.getEditBlocked()
             .pipe(takeUntil(this._destroy$))
             .subscribe((value: boolean) => {
                 this._editBlocked = value;
             });
-
-        this._wasLastFocused$ = this._lebService.getRowInFocus().pipe(
-            takeUntil(this._destroy$),
-            map((path: number[]) => path.length === this.path.length && path.every((value: number, index: number) => value === this.path[index]))
-        );
     }
 
     ngOnDestroy(): void {
@@ -180,8 +170,8 @@ export class LebConditionComponent implements OnInit, OnDestroy, FocusableOption
     }
 
     public confirmCondition(): void {
-        this._lebService.setRowInFocus(this.path);
-        this._lebService.setConditionInEditMode(null);
+        this._focusHandler.setRowInEditMode(null);
+        this._focusHandler.setPathToFocus(this.path);
 
         this._validationService.setValidationState(this.path, this._valid);
 
@@ -191,8 +181,8 @@ export class LebConditionComponent implements OnInit, OnDestroy, FocusableOption
     }
 
     public cancelEdit(): void {
-        this._lebService.setRowInFocus(this.path);
-        this._lebService.setConditionInEditMode(null);
+        this._focusHandler.setRowInEditMode(null);
+        this._focusHandler.setPathToFocus(this.path);
 
         if (this._initialCondition.field || this._initialCondition.operator || this._initialCondition.value) {
             this._resetCondition(this._initialCondition);
@@ -206,8 +196,8 @@ export class LebConditionComponent implements OnInit, OnDestroy, FocusableOption
 
     public editCondition(): void {
         if (!this._editBlocked) {
-            this._lebService.setRowInFocus(this.path);
-            this._lebService.setConditionInEditMode(this.path);
+            this._focusHandler.setRowInEditMode(this.path);
+            this._focusHandler.setPathToFocus(this.path);
 
             this._validationService.setValidationState(this.path, this._valid && !this._isInEditMode);
 
