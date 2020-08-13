@@ -10,16 +10,11 @@ import { FormControl, FormGroup } from '@angular/forms';
 export class ToolbarSearchTestPageComponent {
 
     expanded: boolean;
-    searchText: string;
     searchedFor: string = '';
     alwaysExpanded: boolean = false;
 
-    toolbarExpanded: boolean;
-    toolbarSearchedFor: string = '';
     mastheadSearchText: string;
     searchDropdownOpen: boolean;
-
-    input: string = '';
 
     options = ['One', 'Two', 'Three', 'Four'];
 
@@ -40,11 +35,4 @@ export class ToolbarSearchTestPageComponent {
         this.searchedFor = this.form.controls.search.value;
     }
 
-    onToolbarSearch(searchText: string): void {
-        // Execute search here
-        this.toolbarSearchedFor = searchText;
-
-        // Close the search field if needed
-        this.toolbarExpanded = false;
-    }
 }

@@ -27,12 +27,12 @@
                     [(open)]="searchDropdownOpen"
                     [filter]="mastheadSearchText"
                     [options]="options"
-                    (optionSelected)="input = $event.option">
+                    (optionSelected)="mastheadSearchText = $event.option">
                 </ux-typeahead>
 
                 <button *ngIf="mastheadSearchText"
                         type="button"
-                        class="btn btn-link btn-icon ux-toolbar-search-clear"
+                        class="btn btn-link btn-icon button-secondary ux-toolbar-search-clear"
                         (click)="mastheadSearchText = ''; mastheadSearchField.focus()">
                     <ux-icon name="close"></ux-icon>
                 </button>
