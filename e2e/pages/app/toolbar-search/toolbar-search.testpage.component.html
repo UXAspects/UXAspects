@@ -8,38 +8,41 @@
                 background="white"
                 (search)="onSearch($event)">
 
-            <input
-                uxToolbarSearchField
-                #mastheadSearchField
-                type="text"
-                class="form-control"
-                placeholder="Search"
-                aria-label="Search"
-                [(ngModel)]="mastheadSearchText"
-                [class.ux-toolbar-search-clear-offset]="mastheadSearchText"
-                (keydown.escape)="searchDropdownOpen = false"
-                (blur)="searchDropdownOpen = false"
-                (click)="searchDropdownOpen = true"/>
+                <input
+                    uxToolbarSearchField
+                    #mastheadSearchField
+                    type="text"
+                    class="form-control"
+                    placeholder="Search"
+                    aria-label="Search"
+                    [(ngModel)]="mastheadSearchText"
+                    [class.ux-toolbar-search-clear-offset]="mastheadSearchText"
+                    (keydown.escape)="searchDropdownOpen = false"
+                    (blur)="searchDropdownOpen = false"
+                    (click)="searchDropdownOpen = true"/>
 
-            <ux-typeahead
-                #searchTypeahead
-                class="typeahead-example"
-                [(open)]="searchDropdownOpen"
-                [filter]="mastheadSearchText"
-                [options]="options"
-                (optionSelected)="input = $event.option">
-            </ux-typeahead>
+                <ux-typeahead
+                    #searchTypeahead
+                    class="typeahead-example"
+                    [(open)]="searchDropdownOpen"
+                    [filter]="mastheadSearchText"
+                    [options]="options"
+                    (optionSelected)="input = $event.option">
+                </ux-typeahead>
 
-            <button *ngIf="mastheadSearchText" type="button"
-                class="btn btn-link btn-icon ux-toolbar-search-clear"
-                (click)="mastheadSearchText = ''; mastheadSearchField.focus()">
-                <ux-icon name="close"></ux-icon>
-            </button>
+                <button *ngIf="mastheadSearchText"
+                        type="button"
+                        class="btn btn-link btn-icon ux-toolbar-search-clear"
+                        (click)="mastheadSearchText = ''; mastheadSearchField.focus()">
+                    <ux-icon name="close"></ux-icon>
+                </button>
 
-            <button uxToolbarSearchButton type="button" class="btn btn-link btn-icon"
-                aria-label="Toggle Search">
-                <ux-icon name="search"></ux-icon>
-            </button>
+                <button uxToolbarSearchButton
+                        type="button"
+                        class="btn btn-link btn-icon button-secondary"
+                        aria-label="Toggle Search">
+                    <ux-icon name="search"></ux-icon>
+                </button>
 
             </ux-toolbar-search>
 

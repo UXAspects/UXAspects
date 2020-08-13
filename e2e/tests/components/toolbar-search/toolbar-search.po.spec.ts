@@ -20,7 +20,6 @@ export class ToolbarSearchPage {
 
     // Most recently submitted search query
     searchedFor = element(by.id('searchedFor'));
-    selectedLocation = element(by.id('mastheadSearchText'));
 
     // button to set always expanded state
     alwaysExpandedBtn = element(by.id('always-expanded-btn'));
@@ -32,10 +31,6 @@ export class ToolbarSearchPage {
 
     confirmDropdownIsExpanded() {
         return this.left.$('ux-typeahead-all-options').isPresent();
-    }
-
-    getSelectedLocationText() {
-        return this.selectedLocation.$('code').getText();
     }
 
 }

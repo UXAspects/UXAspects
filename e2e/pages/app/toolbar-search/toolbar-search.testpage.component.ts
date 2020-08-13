@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ViewChild, ElementRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
@@ -14,11 +14,20 @@ export class ToolbarSearchTestPageComponent {
     searchedFor: string = '';
     alwaysExpanded: boolean = false;
 
+    toolbarExpanded: boolean;
+    toolbarSearchedFor: string = '';
+    mastheadSearchText: string;
+    searchDropdownOpen: boolean;
+
+    input: string = '';
+
+    options = ['One', 'Two', 'Three', 'Four'];
+
     form = new FormGroup({
         search: new FormControl('')
     });
 
-    onSearch(searchText: string) {
+    onSearch(searchText: string): void {
         // Execute search here
         this.searchedFor = searchText;
 
@@ -26,27 +35,10 @@ export class ToolbarSearchTestPageComponent {
         this.expanded = false;
     }
 
-    onSearchRight() {
+    onSearchRight(): void {
         // Execute search here
         this.searchedFor = this.form.controls.search.value;
     }
-
-    @ViewChild('searchField')
-    searchField: ElementRef;
-
-    toolbarExpanded: boolean;
-    toolbarSearchText: string;
-    toolbarSearchedFor: string = '';
-
-    mastheadSearchExpanded: boolean;
-    mastheadSearchText: string;
-    mastheadSearchedFor: string = '';
-    values: ReadonlyArray<string> = [];
-    searchDropdownOpen: boolean;
-
-    input: string = '';
-
-    options = ['One', 'Two', 'Three', 'Four'];
 
     onToolbarSearch(searchText: string): void {
         // Execute search here
@@ -55,13 +47,4 @@ export class ToolbarSearchTestPageComponent {
         // Close the search field if needed
         this.toolbarExpanded = false;
     }
-
-    onMastheadSearch(searchText: string): void {
-        // Execute search here
-        this.mastheadSearchedFor = searchText;
-
-        // Close the search field if needed
-        this.mastheadSearchExpanded = false;
-    }
-
 }
