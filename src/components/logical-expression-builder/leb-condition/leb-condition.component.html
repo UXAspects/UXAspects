@@ -1,4 +1,6 @@
 <tr
+    expressionRow
+    [rowPath]="path"
     *ngIf="_isInEditMode; else staticMode"
     class="leb-condition-row"
     [style.padding-left.px]="indent || 8"
@@ -58,10 +60,9 @@
 
 <ng-template #staticMode>
     <tr
+        expressionRow
+        [rowPath]="path"
         class="leb-condition-row"
-        uxFocusIndicator
-        [programmaticFocusIndicator]="true"
-        [focusIf]="_wasLastFocused$ | async"
         uxHoverActionContainer
         [style.padding-left.px]="indent || 8">
         <td>

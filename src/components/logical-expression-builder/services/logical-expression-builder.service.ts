@@ -16,9 +16,6 @@ export class LogicalExpressionBuilderService {
     private _localizedStrings = {};
     private _displayValueFunction: DisplayValueFunction;
 
-    private _conditionInEditMode: BehaviorSubject<number[]> = new BehaviorSubject<number[]>(null);
-    private _editBlocked: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-
     // Logical operators
     public setLogicalOperators(logicalOperators: LogicalOperatorDefinition[]): void {
         this._logicalOperators = [...logicalOperators];
@@ -59,11 +56,6 @@ export class LogicalExpressionBuilderService {
         return this._localizedStrings;
     }
 
-    // editBlocked
-    public getEditBlocked(): Observable<boolean> {
-        return this._editBlocked.asObservable();
-    }
-
     // displayValueFunction for displaying values
     public getDisplayValueFunction(): DisplayValueFunction {
         return this._displayValueFunction;
@@ -74,14 +66,25 @@ export class LogicalExpressionBuilderService {
     }
 
     // Focus stuff
-    private _lastFocused: BehaviorSubject<number[]> = new BehaviorSubject<number[]>([]);
+    private _rowInFocus: BehaviorSubject<number[]> = new BehaviorSubject<number[]>([]);
+    private _conditionInEditMode: BehaviorSubject<number[]> = new BehaviorSubject<number[]>(null);
+    private _editBlocked: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
-    public getLastFocused(): Observable<number[]> {
-        return this._lastFocused.asObservable();
+    // editBlocked
+    public getEditBlocked(): Observable<boolean> {
+        return this._editBlocked.asObservable();
     }
 
-    public setLastFocused(path: number[]): void {
-        this._lastFocused.next(path);
+    public setEditBlocked(blocked: boolean): void {
+        this._editBlocked.next(blocked);
+    }
+
+    public getRowInFocus(): Observable<number[]> {
+        return this._rowInFocus.asObservable();
+    }
+
+    public setRowInFocus(path: number[]): void {
+        this._rowInFocus.next(path);
     }
 
     // Edit stuff

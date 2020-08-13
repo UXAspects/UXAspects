@@ -1,13 +1,13 @@
 <tr
+    expressionRow
+    [rowPath]="path"
     class="leb-group"
     uxHoverActionContainer
-    [focusIf]="_wasLastFocused$ | async"
-    [style.padding-left.px]="indent || 8"
-    uxFocusIndicator
-    [programmaticFocusIndicator]="true">
+    [style.padding-left.px]="indent || 8">
 
     <td [style.max-width.px]="100">
         <ux-select
+            (dropdownOpenChange)="onDropdownOpenChange($event)"
             uxFocusIndicatorOrigin
             [value]="selectedLogicalOperator"
             (valueChange)="handleSelectedOperatorChange($event)"
@@ -40,7 +40,7 @@
         *ngIf="child.type === 'condition'"
         (conditionChange)="handleGroupChange($event, index)"
         [condition]="child"
-        [path]="setChildPath(index)"
+        [path]="index | rowPath:path"
         (conditionDeleted)="removeConditionAtIndex($event)"
         (conditionEmbedded)="embedConditionAtIndex($event)"
         [indent]="indent + additionalIndent">
@@ -49,31 +49,39 @@
     <ux-leb-group
         *ngIf="child.type === 'group'"
         [subExpression]="child"
-        [path]="setChildPath(index)"
+        [path]="index | rowPath:path"
         (groupChange)="handleGroupChange($event, index)"
         [logicalOperatorName]="child.logicalOperator"
         [indent]="indent + additionalIndent">
     </ux-leb-group>
 </ng-container>
 
-<tr class="leb-group" *ngIf="_showAddBtn" [style.padding-left.px]="indent + additionalIndent">
-    <td>
-        <button
-            [uxMenuTriggerFor]="addMenu"
-            type="button"
-            class="btn btn-icon button-primary"
-            aria-label="Add">
-            <span class="ux-icon ux-icon-add" aria-hidden="true"></span>
+<ng-container *ngIf="_showAddBtn">
+    <tr
+        uxHoverActionContainer
+        expressionRow
+        [rowPath]="(subExpression?.children?.length || 0) | rowPath:path"
+        class="leb-group"
+        [style.padding-left.px]="indent + additionalIndent">
+        <td>
+            <button
+                [uxMenuTriggerFor]="addMenu"
+                type="button"
+                class="btn btn-icon button-primary group-add-btn"
+                aria-label="Add">
+                <span class="ux-icon ux-icon-add" aria-hidden="true"></span>
+            </button>
+        </td>
+    </tr>
+
+    <ux-menu
+        #addMenu>
+        <button type="button" uxMenuItem (click)="addCondition()" (keydown.enter)="addCondition()">
+            <span class="dropdown-menu-text">{{ ('addConditionBtnText' | l10n) || 'Add condition' }}</span>
         </button>
-    </td>
-</tr>
 
-<ux-menu #addMenu>
-    <button type="button" uxMenuItem (click)="addCondition()" (keydown.enter)="addCondition()">
-        <span class="dropdown-menu-text">{{ ('addConditionBtnText' | l10n) || 'Add condition' }}</span>
-    </button>
-
-    <button type="button" uxMenuItem (click)="addGroup()" (keydown.enter)="addGroup()">
-        <span class="dropdown-menu-text">{{ ('addLogicalOperatorBtnText' | l10n) || 'Add logical operator'}} </span>
-    </button>
-</ux-menu>
+        <button type="button" uxMenuItem (click)="addGroup()" (keydown.enter)="addGroup()">
+            <span class="dropdown-menu-text">{{ ('addLogicalOperatorBtnText' | l10n) || 'Add logical operator'}} </span>
+        </button>
+    </ux-menu>
+</ng-container>

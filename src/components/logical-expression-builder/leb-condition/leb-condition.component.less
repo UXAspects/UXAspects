@@ -6,6 +6,10 @@ tr.leb-condition-row {
     justify-content: space-between;
     align-items: center;
 
+    &.cdk-keyboard-focused {
+        background-color: @table-hover-bg;
+    }
+
     td {
         margin-right: @spacing-xs;
 
@@ -34,8 +38,4 @@ tr.leb-condition-row {
 .leb-value-display {
     color: @primary;
     font-weight: bold;
-}
-
-.condition-focused {
-    .native-focus-outline;
 }

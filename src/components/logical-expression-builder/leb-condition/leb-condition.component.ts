@@ -18,13 +18,15 @@ import { ExpressionCondition } from '../interfaces/Expression';
 import { Observable, Subject } from 'rxjs';
 import { distinctUntilChanged, filter, map, takeUntil } from 'rxjs/operators';
 import { ValidationService } from '../services/validation.service';
+import { FocusHandlerService } from '../services/focus-handler.service';
+import { FocusableOption, FocusOrigin } from '@angular/cdk/a11y';
 
 @Component({
     selector: 'ux-leb-condition',
     templateUrl: './leb-condition.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LebConditionComponent implements OnInit, OnDestroy {
+export class LebConditionComponent implements OnInit, OnDestroy, FocusableOption {
 
     // container for Input Component
     @ViewChild('inputContainer', { read: ViewContainerRef, static: false })
@@ -71,7 +73,8 @@ export class LebConditionComponent implements OnInit, OnDestroy {
     constructor(
         private _lebService: LogicalExpressionBuilderService,
         private _validationService: ValidationService,
-        private _cfr: ComponentFactoryResolver
+        private _cfr: ComponentFactoryResolver,
+        private _focusHandler: FocusHandlerService
     ) {
     }
 
@@ -95,7 +98,7 @@ export class LebConditionComponent implements OnInit, OnDestroy {
                 this._isInEditMode = value;
 
                 if (this._isInEditMode) {
-                    this._lebService.setLastFocused(this.path);
+                    this._lebService.setRowInFocus(this.path);
                 }
             });
 
@@ -109,7 +112,7 @@ export class LebConditionComponent implements OnInit, OnDestroy {
                 this._editBlocked = value;
             });
 
-        this._wasLastFocused$ = this._lebService.getLastFocused().pipe(
+        this._wasLastFocused$ = this._lebService.getRowInFocus().pipe(
             takeUntil(this._destroy$),
             map((path: number[]) => path.length === this.path.length && path.every((value: number, index: number) => value === this.path[index]))
         );
@@ -177,7 +180,7 @@ export class LebConditionComponent implements OnInit, OnDestroy {
     }
 
     public confirmCondition(): void {
-        this._lebService.setLastFocused(this.path);
+        this._lebService.setRowInFocus(this.path);
         this._lebService.setConditionInEditMode(null);
 
         this._validationService.setValidationState(this.path, this._valid);
@@ -188,7 +191,7 @@ export class LebConditionComponent implements OnInit, OnDestroy {
     }
 
     public cancelEdit(): void {
-        this._lebService.setLastFocused(this.path);
+        this._lebService.setRowInFocus(this.path);
         this._lebService.setConditionInEditMode(null);
 
         if (this._initialCondition.field || this._initialCondition.operator || this._initialCondition.value) {
@@ -203,7 +206,7 @@ export class LebConditionComponent implements OnInit, OnDestroy {
 
     public editCondition(): void {
         if (!this._editBlocked) {
-            this._lebService.setLastFocused(this.path);
+            this._lebService.setRowInFocus(this.path);
             this._lebService.setConditionInEditMode(this.path);
 
             this._validationService.setValidationState(this.path, this._valid && !this._isInEditMode);
@@ -232,5 +235,9 @@ export class LebConditionComponent implements OnInit, OnDestroy {
 
         this._field = this.fields.find((field) => field.name === this.condition.field) ?? null;
         this._operator = this.operators.find((operator) => operator.name === this.condition.operator) ?? null;
+    }
+
+    focus(origin?: FocusOrigin): void {
+        console.log('focus');
     }
 }
