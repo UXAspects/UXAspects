@@ -7,7 +7,7 @@ import {
     ViewChild
 } from '@angular/core';
 import { ENTER, ESCAPE, SPACE } from '@angular/cdk/keycodes';
-import { PredefinedWidgetConfig } from './interfaces/predefined-widget';
+import { PredefinedWidgetConfig } from './interfaces/predefined-widget.interface';
 import { DashboardWidgetComponent } from '../dashboard';
 import { fromEvent, Subject } from 'rxjs';
 import { delay, takeUntil } from 'rxjs/operators';

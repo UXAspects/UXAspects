@@ -2,7 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { DashboardModule } from '../../dashboard';
 import { DashboardPredefinedWidgetsModule } from '../dashboard-predefined-widgets.module';
-import { EnumConfig } from '../interfaces/enum-widget';
+import { EnumConfig } from '../interfaces/enum-widget.interface';
 import { DashboardEnumWidgetComponent } from './dashboard-enum-widget.component';
 
 @Component({

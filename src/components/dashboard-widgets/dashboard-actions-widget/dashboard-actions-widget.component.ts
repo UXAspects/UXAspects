@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { PredefinedWidgetConfig } from '../interfaces/predefined-widget';
-import { ActionConfig, ActionStatus, ActionsWidgetConfig } from '../interfaces/actions-widget';
+import { PredefinedWidgetConfig } from '../interfaces/predefined-widget.interface';
+import { ActionConfig, ActionStatus, ActionsWidgetConfig } from '../interfaces/actions-widget.interface';
 
 @Component({
     selector: 'ux-dashboard-actions-widget',

@@ -1,13 +1,8 @@
-import { SidePanelComponent } from '../../side-panel';
 import { TemplateRef } from '@angular/core';
 
 export interface EnumWidgetConfig {
     value: string | number;
     enums: ReadonlyArray<EnumConfig>;
-    sidePanel: SidePanelComponent;
-    openSidePanel: () => void;
-    cancel: () => void;
-    save: () => void;
 }
 
 export interface EnumConfig {

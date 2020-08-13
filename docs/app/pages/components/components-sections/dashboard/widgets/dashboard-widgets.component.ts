@@ -4,8 +4,8 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
 import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
-import { ActionConfig, ActionStatus } from '../../../../../../../src/components/dashboard-widgets/interfaces/actions-widget';
-import { EnumConfig } from '../../../../../../../src/components/dashboard-widgets/interfaces/enum-widget';
+import { ActionConfig, ActionStatus } from '../../../../../../../src/components/dashboard-widgets/interfaces/actions-widget.interface';
+import { EnumConfig } from '../../../../../../../src/components/dashboard-widgets/interfaces/enum-widget.interface';
 
 @Component({
     selector: 'uxd-components-dashboard-widgets',
@@ -76,7 +76,7 @@ export class ComponentsDashboardWidgetsComponent extends BaseDocumentationSectio
 
     ngAfterViewInit() {
         this.actions.push(
-            { iconTemplate: this.iconAccept, action: () => alert('accept'), buttonClasses: 'btn' },
+            { label: 'Accept', iconTemplate: this.iconAccept, action: () => alert('accept'), buttonClasses: 'btn' },
             { label: 'Decline', icon: 'close', action: () => alert('decline'), buttonClasses: ['btn', 'custom-class'] }
         );
     }

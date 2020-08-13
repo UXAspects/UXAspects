@@ -7,8 +7,8 @@ import {
     Output,
     ViewChild
 } from '@angular/core';
-import { PredefinedWidgetConfig } from '../interfaces/predefined-widget';
-import { TextWidgetConfig } from '../interfaces/text-widget';
+import { PredefinedWidgetConfig } from '../interfaces/predefined-widget.interface';
+import { TextWidgetConfig } from '../interfaces/text-widget.interface';
 import { SidePanelComponent } from '../../side-panel';
 
 @Component({
