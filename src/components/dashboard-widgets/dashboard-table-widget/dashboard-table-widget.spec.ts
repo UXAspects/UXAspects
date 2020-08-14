@@ -12,8 +12,7 @@ import { DashboardPredefinedWidgetsModule } from '../dashboard-predefined-widget
                                                [heading]="'Table Widget'"
                                                [fixedMode]="false"
                                                [header]="tableHeader"
-                                               [data]="tableData"
-                                               [rowSpan]="2">
+                                               [data]="tableData">
                     </ux-dashboard-table-widget>
                </ux-dashboard>
     `
@@ -50,10 +49,5 @@ describe('Table Widget', () => {
 
     it('should initialise correctly', () => {
         expect(component).toBeTruthy();
-    });
-
-    it('should display four rows', () => {
-        const widgetTableBody: HTMLElement = nativeElement.querySelector('#widget-table .table-body');
-        expect(widgetTableBody.children.length).toBe(4);
     });
 });

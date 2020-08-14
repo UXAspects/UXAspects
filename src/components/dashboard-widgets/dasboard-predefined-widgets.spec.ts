@@ -40,9 +40,4 @@ describe('Predefined Widget', () => {
     it('should initialise correctly', () => {
         expect(component).toBeTruthy();
     });
-
-    it('should display "Text" as content', () => {
-        const widgetText: HTMLElement = nativeElement.querySelector('#widget-predefined .text');
-        expect(widgetText.innerText).toBe('Text');
-    });
 });

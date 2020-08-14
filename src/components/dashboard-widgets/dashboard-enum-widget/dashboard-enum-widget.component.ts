@@ -47,6 +47,7 @@ export class DashboardEnumWidgetComponent implements PredefinedWidgetConfig, Enu
 @Pipe({name: 'getEnumByValue'})
 export class GetEnumByValuePipe implements PipeTransform {
     transform(enums: ReadonlyArray<EnumConfig>, value: string) {
-        return (enums?.find(item => item.value === value));
+        const enumItem = enums?.find(item => item.value === value);
+        return enumItem ? enumItem : null;
     }
 }

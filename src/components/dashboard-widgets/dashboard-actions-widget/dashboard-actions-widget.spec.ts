@@ -59,9 +59,4 @@ describe('Actions Widget', () => {
     it('should initialise correctly', () => {
         expect(component).toBeTruthy();
     });
-
-    it('should display two buttons', () => {
-        const widgetButtons: HTMLElement = nativeElement.querySelector('#widget-actions .widget-actions');
-        expect(widgetButtons.children.length).toBe(2);
-    });
 });
