@@ -65,8 +65,8 @@
         uxHoverActionContainer
         [style.padding-left.px]="indent || 8">
         <td>
-            <span class="leb-field-display">{{ _field.label }}</span> {{ _operator.label }} <span
-            class="leb-value-display">{{ _value | displayValue:_field.fieldType:_field.data }}</span>
+            <span class="leb-field-display">{{ _field?.label }}</span> {{ _operator?.label }} <span
+            class="leb-value-display">{{ _value | displayValue:_field?.fieldType:_field?.data }}</span>
         </td>
 
         <td>

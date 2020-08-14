@@ -35,6 +35,12 @@ const EXPORTS = [
     DateInputComponent,
     DateRangeInputComponent,
     LogicalExpressionBuilderComponent,
+    LebGroupComponent,
+    LebConditionComponent,
+    ExpressionRow,
+    L10nPipe,
+    DisplayValuePipe,
+    RowPathPipe
 ];
 
 const DECLARATIONS = [
