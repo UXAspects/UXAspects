@@ -1,42 +1,47 @@
 import { LogicalExpressionBuilderComponent } from './logical-expression-builder.component';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { Pipe, PipeTransform } from '@angular/core';
-import { LebGroupComponent } from './leb-group/leb-group.component';
-import { LebConditionComponent } from './leb-condition/leb-condition.component';
-import { ExpressionRow } from './directives/expression-row.directive';
-import { SelectModule } from '../select';
-import { IconModule } from '../icon';
-import { RowPathPipe } from './leb-group/row-path.pipe';
-import { MenuModule } from '../menu';
-import { A11yModule } from '@angular/cdk/a11y';
+import { Component } from '@angular/core';
+import { FieldDefinition } from './interfaces/FieldDefinition';
+import { OperatorDefinitionList } from './interfaces/OperatorDefinitionList';
+import { LogicalExpressionBuilderModule } from './logical-expression-builder.module';
+import { Expression } from './interfaces/Expression';
 
-@Pipe({ name: 'l10n' })
-class L10nPipeMock implements PipeTransform {
-    transform(...args: any[]) {
-        return '';
-    }
-}
-
-@Pipe({ name: 'displayValue' })
-class DisplayValuePipeMock implements PipeTransform {
-    transform(...args: any[]) {
-        return '';
-    }
+@Component({
+    selector: 'ux-leb',
+    template: `
+        <ux-logical-expression-builder
+            [expression]="expression"
+            [fields]="fields"
+            [operators]="operators">
+        </ux-logical-expression-builder>
+    `
+})
+export class LebTestComponent {
+    fields: FieldDefinition[] = [{fieldType: 'test', name: 'test', label: 'test'}];
+    operators: OperatorDefinitionList = {
+        test: [{name: 'test', label: 'test', component: null}]
+    };
+    expression: Expression = {
+        type: 'condition',
+        field: 'test',
+        operator: 'test',
+        value: 'test'
+    };
 }
 
 describe('LogicalExpressionBuilderComponent', () => {
-    let component: LogicalExpressionBuilderComponent;
-    let fixture: ComponentFixture<LogicalExpressionBuilderComponent>;
+    let component: LebTestComponent;
+    let fixture: ComponentFixture<LebTestComponent>;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            imports: [ SelectModule, IconModule, MenuModule, A11yModule ],
-            declarations: [LogicalExpressionBuilderComponent, LebGroupComponent, LebConditionComponent, ExpressionRow, L10nPipeMock, RowPathPipe, DisplayValuePipeMock]
+            imports: [ LogicalExpressionBuilderModule ],
+            declarations: [LebTestComponent]
         }).compileComponents();
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(LogicalExpressionBuilderComponent);
+        fixture = TestBed.createComponent(LebTestComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });
