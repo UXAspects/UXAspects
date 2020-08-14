@@ -3,24 +3,19 @@ import {
     Component,
     ElementRef,
     EventEmitter,
-    Input,
-    OnInit,
-    Output,
-    Pipe,
-    PipeTransform,
-    ViewChild
+    Input, Output,
+    Pipe, PipeTransform, QueryList,
+    ViewChildren
 } from '@angular/core';
 import { PredefinedWidgetConfig } from '../interfaces/predefined-widget.interface';
 import { EnumConfig, EnumWidgetConfig } from '../interfaces/enum-widget.interface';
-import { SidePanelComponent } from '../../side-panel';
-import { SelectListComponent } from '../../select-list';
 
 @Component({
     selector: 'ux-dashboard-enum-widget',
     templateUrl: './dashboard-enum-widget.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DashboardEnumWidgetComponent implements PredefinedWidgetConfig, EnumWidgetConfig, OnInit {
+export class DashboardEnumWidgetComponent implements PredefinedWidgetConfig, EnumWidgetConfig {
     @Input() id: string = '';
     @Input() name: string = '';
     @Input() heading: string = '';
@@ -28,55 +23,30 @@ export class DashboardEnumWidgetComponent implements PredefinedWidgetConfig, Enu
     @Input() colSpan: number = 1;
     @Input() rowSpan: number = 1;
 
-    @ViewChild('sidePanel') sidePanel: SidePanelComponent;
-    @ViewChild('enumList') enumList: ElementRef<SelectListComponent<EnumConfig>>;
     @Input() enums: EnumConfig[];
-    @Input() value: string | number;
+    @Input() value: string;
 
-    @Output() valueChange = new EventEmitter<string | number>();
+    @ViewChildren('enumItems') enumItems: QueryList<ElementRef>;
 
-    selected: ReadonlyArray<EnumConfig>;
+    @Output() valueChange = new EventEmitter<string>();
 
-    private _getEnumByValuePipe: GetEnumByValuePipe = new GetEnumByValuePipe();
-    private lastSelection: EnumConfig[];
-
-    ngOnInit() {
-        const selectedEnum = this.enums.find(item => item.value === this.value);
-
-        this.selected = [selectedEnum];
-    }
-
-    openSidePanel(): void {
-        const selectedEnum = this._getEnumByValuePipe.transform(this.enums, this.value);
-        this.selected = [selectedEnum];
-        this.sidePanel.openPanel();
-    }
-
-    save(): void {
-        if (this.selected.length > 0) {
-            this.value = this.selected[0].value;
-            this.valueChange.emit(this.value);
-            this.sidePanel.closePanel();
+    selectValue(value: string, key: number): void {
+        if (key === 32 || key === 13 || key === null) {
+            this.value = value;
+            this.valueChange.emit(value);
         }
     }
 
-    cancel(): void {
-        this.sidePanel.closePanel();
-    }
-
-    changeSelection(changedSelection: ReadonlyArray<EnumConfig>): void {
-        if (changedSelection.length === 0) {
-            this.selected = [...this.lastSelection];
-        } else {
-            this.selected = changedSelection;
+    dropdownOpenChange(open: boolean): void {
+        if (open) {
+            this.enumItems.toArray()[0].nativeElement.focus();
         }
-        this.lastSelection = [...this.selected];
     }
 }
 
 @Pipe({name: 'getEnumByValue'})
 export class GetEnumByValuePipe implements PipeTransform {
-    transform(enums: ReadonlyArray<EnumConfig>, value: number | string) {
+    transform(enums: ReadonlyArray<EnumConfig>, value: string) {
         return (enums?.find(item => item.value === value));
     }
 }

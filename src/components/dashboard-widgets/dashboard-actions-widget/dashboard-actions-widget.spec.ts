@@ -29,8 +29,8 @@ export class DashboardActionsWidgetTestComponent implements AfterViewInit {
 
     ngAfterViewInit() {
         this.actions.push(
-            { label: 'Accept', iconTemplate: this.iconAccept, action: () => alert('accept'), buttonClasses: 'btn' },
-            { label: 'Decline', icon: 'close', action: () => alert('decline'), buttonClasses: ['btn', 'custom-class'] }
+            { value: 'accept', label: 'Accept', iconTemplate: this.iconAccept },
+            { value: 'decline', label: 'Decline', icon: 'close' }
         );
     }
 }

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { PredefinedWidgetConfig } from '../interfaces/predefined-widget.interface';
 import { ActionConfig, ActionStatus, ActionsWidgetConfig } from '../interfaces/actions-widget.interface';
 
@@ -17,4 +17,6 @@ export class DashboardActionsWidgetComponent implements PredefinedWidgetConfig, 
 
     @Input() status: ActionStatus = { label: '-', icon: 'radial' };
     @Input() actions: ReadonlyArray<ActionConfig>;
+
+    @Output() actionSelected = new EventEmitter<string>();
 }

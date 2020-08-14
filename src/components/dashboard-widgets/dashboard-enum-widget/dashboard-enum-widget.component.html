@@ -5,45 +5,45 @@
                       [name]="name"
                       [heading]="heading"
                       [fixedMode]="fixedMode">
-    <div class="widget-status" *ngIf="enums | getEnumByValue : value as statusEnum">
-        <span class="widget-status-icon" *ngIf="statusEnum.icon || statusEnum.iconTemplate">
-            <ux-icon *ngIf="statusEnum.icon" name="{{ statusEnum.icon }}"></ux-icon>
-            <ng-container *ngIf="statusEnum.iconTemplate">
-                <ng-container *ngTemplateOutlet="statusEnum.iconTemplate"></ng-container>
+
+    <ux-input-dropdown class="enum-dropdown"
+                       [hideFilter]="true"
+                       [(selected)]="value"
+                       (dropdownOpenChange)="dropdownOpenChange($event)">
+        <ng-template #displayContent>
+            <ng-container *ngIf="enums | getEnumByValue : value as statusEnum">
+                <span class="widget-status-icon" *ngIf="statusEnum.icon || statusEnum.iconTemplate">
+                    <ux-icon *ngIf="statusEnum.icon" name="{{ statusEnum.icon }}"></ux-icon>
+                    <ng-container *ngIf="statusEnum.iconTemplate">
+                        <ng-container *ngTemplateOutlet="statusEnum.iconTemplate"></ng-container>
+                    </ng-container>
+                </span>
+                <span class="widget-status-label">{{ statusEnum.label }}</span>
             </ng-container>
-        </span>
-        <span class="widget-status-label">{{ statusEnum.label }}</span>
-    </div>
-    <button class="widget-side-panel-opener" (click)="openSidePanel()">
-        <ux-icon name="chevron-right"></ux-icon>
-    </button>
+        </ng-template>
+        <ul class="enum-widget-dropdown-list"
+            role="list"
+            cdkTrapFocus
+            uxTabbableList
+            [focusOnShow]="true"
+            [returnFocus]="true">
+            <li #enumItems
+                class="enum-item"
+                role="listitem"
+                uxTabbableListItem
+                *ngFor="let enumItem of enums"
+                [ngClass]="{ selected: enumItem.value === value }"
+                (click)="selectValue(enumItem.value, null)"
+                (keydown)="selectValue(enumItem.value, $event.which)">
+
+                <span class="enum-icon" *ngIf="enumItem.icon || enumItem.iconTemplate">
+                    <ux-icon *ngIf="enumItem.icon" name="{{ enumItem.icon }}"></ux-icon>
+                    <ng-container *ngIf="enumItem.iconTemplate">
+                        <ng-container *ngTemplateOutlet="enumItem.iconTemplate"></ng-container>
+                    </ng-container>
+                </span>
+                {{ enumItem.label }}
+            </li>
+        </ul>
+    </ux-input-dropdown>
 </ux-predefined-widget>
-<ux-side-panel #sidePanel
-               class="widget-side-panel"
-               [attachTo]="'container'"
-               [width]="'100%'"
-               [focusOnShow]="true">
-    <div class="ux-side-panel-header">
-        <h3>{{ heading }}</h3>
-        <button uxSidePanelClose
-                aria-label="Close Side Panel"
-                type="button"
-                class="btn btn-lg btn-link btn-icon button-secondary">
-            <ux-icon name="close"></ux-icon>
-        </button>
-    </div>
-    <ux-select-list #enumList
-                    class="widget-side-panel-list ux-side-panel-content"
-                    [selected]="selected"
-                    (selectedChange)="changeSelection($event)">
-        <ux-select-list-item *ngFor="let enumItem of enums" [data]="enumItem">
-            <ng-container *ngIf="enumItem.iconTemplate"></ng-container>
-            <ux-icon *ngIf="enumItem.icon" name="{{ enumItem.icon }}"></ux-icon>
-            {{ enumItem.label }}
-        </ux-select-list-item>
-    </ux-select-list>
-    <div class="ux-side-panel-footer">
-        <button type="button" class="m-b btn button-primary" (click)="save()">Save</button>
-        <button type="button" class="m-b btn button-secondary" (click)="cancel()">Cancel</button>
-    </div>
-</ux-side-panel>

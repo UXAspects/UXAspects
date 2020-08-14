@@ -7,10 +7,9 @@ export interface ActionsWidgetConfig {
 
 export interface ActionConfig {
     label: string;
+    value: string;
     icon?: string;
     iconTemplate?: TemplateRef<any>;
-    action: Function;
-    buttonClasses?: string | ReadonlyArray<string>;
 }
 
 export interface ActionStatus {
