@@ -70,7 +70,10 @@ export class LogicalExpressionBuilderComponent implements OnDestroy, OnInit {
 
     private _destroy$: Subject<void> = new Subject<void>();
 
-    constructor(private _lebService: LogicalExpressionBuilderService, private _validationService: ValidationService, private _focusHandler: FocusHandlerService) {
+    constructor(
+        private _lebService: LogicalExpressionBuilderService,
+        private _validationService: ValidationService,
+        private _focusHandler: FocusHandlerService) {
     }
 
     ngOnInit(): void {
@@ -131,7 +134,7 @@ export class LogicalExpressionBuilderComponent implements OnDestroy, OnInit {
         this.expression = { type: 'condition', field: null, operator: null, value: null };
         this.expressionChange.emit(this.expression);
         this._focusHandler.setRowInEditMode([0]);
-        this._focusHandler.setPathToFocus([0]);
+        this._focusHandler.setPathToActivate([0]);
     }
 
     public addGroup(): void {
@@ -149,6 +152,6 @@ export class LogicalExpressionBuilderComponent implements OnDestroy, OnInit {
 
         this.expressionChange.emit(this.expression);
         this._focusHandler.setRowInEditMode([0, 1]);
-        this._focusHandler.setPathToFocus([0, 1]);
+        this._focusHandler.setPathToActivate([0, 1]);
     }
 }

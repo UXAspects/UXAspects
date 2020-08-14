@@ -1,6 +1,6 @@
 import {
     Directive,
-    ElementRef,
+    ElementRef, HostBinding,
     HostListener,
     Input,
     OnChanges,
@@ -13,9 +13,11 @@ import { FocusableOption, FocusOrigin } from '@angular/cdk/a11y';
 import { FocusHandlerService } from '../services/focus-handler.service';
 import { FocusIndicatorService } from '../../../directives/accessibility/focus-indicator/focus-indicator.service';
 import { FocusIndicator } from '../../../directives/accessibility/focus-indicator/focus-indicator';
-import { takeUntil } from 'rxjs/operators';
+import { distinctUntilChanged, filter, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { ManagedFocusContainerService } from '../../../directives/accessibility/managed-focus-container/managed-focus-container.service';
+import { FocusIndicatorOriginService } from '../../../directives/accessibility/focus-indicator/focus-indicator-origin/focus-indicator-origin.service';
+import { Platform } from '@angular/cdk/platform';
 
 @Directive({
     selector: '[expressionRow]'
@@ -29,6 +31,15 @@ export class ExpressionRow implements FocusableOption, OnInit, OnDestroy, OnChan
     onKeydown(event: KeyboardEvent): void {
         this._focusHandler.onKeydown(event);
         this._setTabIndex();
+    }
+
+    @HostListener('focus')
+    @HostListener('click')
+    onFocus(): void {
+        // if this item is not currently focused in the focusKeyManager set it as the active item
+        if (!this._focusHandler.isItemActive(this)) {
+            this._focusHandler.setPathToActivate(this.path, true);
+        }
     }
 
     get tabindex(): number {
@@ -49,31 +60,37 @@ export class ExpressionRow implements FocusableOption, OnInit, OnDestroy, OnChan
         private _focusIndicatorService: FocusIndicatorService,
         private _managedFocusContainerService: ManagedFocusContainerService,
         private _renderer: Renderer2,
+        private _focusOriginService: FocusIndicatorOriginService,
+        private _platform: Platform,
     ) {
-        // create the focus indicator
-        this._focusIndicator = _focusIndicatorService.monitor(_elementRef.nativeElement, {
-            keyboardFocusIndicator: true,
-            checkChildren: true
-        });
-
-        // store the most current focus origin
-        this._focusIndicator.origin$.pipe(takeUntil(this._destroy$))
-            .subscribe((origin: FocusOrigin) => this._focusOrigin = origin);
-
         // Listen for focus changes to set tabindex to either 0 or -1
         this._focusHandler.onTabindexChange$.pipe(takeUntil(this._destroy$)).subscribe(() => {
             this._setTabIndex();
         });
     }
 
-    /** Set focus indicator if origin is keyboard */
-    // TODO: filter out only keyboard
-    focus(origin?: FocusOrigin): void {
-        this._focusIndicator.focus('keyboard', { preventScroll: false });
+    focus(): void {
+        const hasRow = this._focusHandler.hasRow();
+
+        const origin: FocusOrigin = this._focusOrigin;
+
+        const preventScroll = origin !== 'program' && origin !== 'keyboard';
+
+        this._focusIndicator.focus(origin, { preventScroll });
+
+        this._focusHandler.setPathToActivate(this.path, hasRow);
     }
 
+
     ngOnInit() {
-        console.log('OnInit. Row path: ', this.path.join('-'));
+        // create the focus indicator
+        this._focusIndicator = this._focusIndicatorService.monitor(this._elementRef.nativeElement);
+
+        // store the most current focus origin
+        this._focusIndicator.origin$.pipe(takeUntil(this._destroy$), distinctUntilChanged(), filter(Boolean))
+            .subscribe((origin: FocusOrigin) => {
+                this._focusOrigin = origin;
+            });
 
         // Register the row with the focus handler
         this._focusHandler.register(this);
@@ -84,7 +101,7 @@ export class ExpressionRow implements FocusableOption, OnInit, OnDestroy, OnChan
         // ensure the tab index is initially set
         this._setTabIndex();
         if (this._focusHandler.isItemActive(this)) {
-            this._focusHandler.setPathToFocus(this.path);
+            this._focusHandler.setPathToActivate(this.path);
         }
     }
 
@@ -105,7 +122,7 @@ export class ExpressionRow implements FocusableOption, OnInit, OnDestroy, OnChan
         if (changes.path) {
             const path = changes.path;
 
-            if (path.previousValue && path.previousValue.join('-') !== path.currentValue.join('-')) {
+            if (path.previousValue && path.previousValue.join() !== path.currentValue.join()) {
                 this._focusHandler.unregister(this);
                 this._focusHandler.register(this);
             }

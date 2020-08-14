@@ -1,9 +1,7 @@
 import { Injectable, OnDestroy, QueryList } from '@angular/core';
-import { FocusableOption, FocusKeyManager } from '@angular/cdk/a11y';
+import { FocusKeyManager } from '@angular/cdk/a11y';
 import { ExpressionRow } from '../directives/expression-row.directive';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
-import { LogicalExpressionBuilderService } from './logical-expression-builder.service';
-import { takeUntil } from 'rxjs/operators';
 
 @Injectable({
     providedIn: 'root'
@@ -33,8 +31,6 @@ export class FocusHandlerService implements OnDestroy {
             this._focusKeyManager.setActiveItem(inEditModeIndex);
         } else if (activeIndex >= 0) {
             this._focusKeyManager.setActiveItem(activeIndex);
-        } else {
-            this._focusKeyManager.setFirstItemActive();
         }
 
         this.onTabindexChange$.next();
@@ -77,6 +73,10 @@ export class FocusHandlerService implements OnDestroy {
         return this._focusKeyManager && this._focusKeyManager.activeItemIndex === index;
     }
 
+    hasRow(): boolean {
+        return this._focusKeyManager && this._focusKeyManager.activeItemIndex >= 0;
+    }
+
     /** Compare function to compare paths of two ConditionRows */
     private _comparePaths = (a: ExpressionRow, b: ExpressionRow) => {
         const pathA = a.path.join('-');
@@ -91,7 +91,7 @@ export class FocusHandlerService implements OnDestroy {
         }
     }
 
-    setPathToFocus(path: number[]) {
+    setPathToActivate(path: number[], updateIndexOnly: boolean = false) {
         let index: number = null;
 
         if (this._queryList) {
@@ -99,7 +99,11 @@ export class FocusHandlerService implements OnDestroy {
         }
 
         if (index !== null && index > -1) {
-            this._focusKeyManager.setActiveItem(index);
+            if (updateIndexOnly) {
+                this._focusKeyManager.updateActiveItem(index);
+            } else {
+                this._focusKeyManager.setActiveItem(index);
+            }
         } else {
             this._focusKeyManager.setFirstItemActive();
         }

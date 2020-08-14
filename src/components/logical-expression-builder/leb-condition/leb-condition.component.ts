@@ -171,7 +171,7 @@ export class LebConditionComponent implements OnInit, OnDestroy, FocusableOption
 
     public confirmCondition(): void {
         this._focusHandler.setRowInEditMode(null);
-        this._focusHandler.setPathToFocus(this.path);
+        this._focusHandler.setPathToActivate(this.path);
 
         this._validationService.setValidationState(this.path, this._valid);
 
@@ -182,7 +182,7 @@ export class LebConditionComponent implements OnInit, OnDestroy, FocusableOption
 
     public cancelEdit(): void {
         this._focusHandler.setRowInEditMode(null);
-        this._focusHandler.setPathToFocus(this.path);
+        this._focusHandler.setPathToActivate(this.path);
 
         if (this._initialCondition.field || this._initialCondition.operator || this._initialCondition.value) {
             this._resetCondition(this._initialCondition);
@@ -197,7 +197,7 @@ export class LebConditionComponent implements OnInit, OnDestroy, FocusableOption
     public editCondition(): void {
         if (!this._editBlocked) {
             this._focusHandler.setRowInEditMode(this.path);
-            this._focusHandler.setPathToFocus(this.path);
+            this._focusHandler.setPathToActivate(this.path);
 
             this._validationService.setValidationState(this.path, this._valid && !this._isInEditMode);
 

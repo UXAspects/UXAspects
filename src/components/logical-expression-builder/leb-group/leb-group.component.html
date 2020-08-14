@@ -7,8 +7,8 @@
 
     <td [style.max-width.px]="100">
         <ux-select
-            (dropdownOpenChange)="onDropdownOpenChange($event)"
             uxFocusIndicatorOrigin
+            (dropdownOpenChange)="onDropdownOpenChange($event)"
             [value]="selectedLogicalOperator"
             (valueChange)="handleSelectedOperatorChange($event)"
             [readonlyInput]="true"
@@ -26,6 +26,7 @@
     <td class="logical-operator-delete">
         <button
             uxHoverAction
+            uxFocusIndicatorOrigin
             (click)="deleteGroup()"
             type="button"
             class="btn btn-link btn-icon btn-lg button-secondary"
@@ -66,6 +67,7 @@
         <td>
             <button
                 [uxMenuTriggerFor]="addMenu"
+                uxFocusIndicatorOrigin
                 type="button"
                 class="btn btn-icon button-primary group-add-btn"
                 aria-label="Add">
@@ -76,11 +78,11 @@
 
     <ux-menu
         #addMenu>
-        <button type="button" uxMenuItem (click)="addCondition()" (keydown.enter)="addCondition()">
+        <button type="button" uxMenuItem uxFocusIndicatorOrigin (click)="addCondition()" (keydown.enter)="addCondition()">
             <span class="dropdown-menu-text">{{ ('addConditionBtnText' | l10n) || 'Add condition' }}</span>
         </button>
 
-        <button type="button" uxMenuItem (click)="addGroup()" (keydown.enter)="addGroup()">
+        <button type="button" uxMenuItem uxFocusIndicatorOrigin (click)="addGroup()" (keydown.enter)="addGroup()">
             <span class="dropdown-menu-text">{{ ('addLogicalOperatorBtnText' | l10n) || 'Add logical operator'}} </span>
         </button>
     </ux-menu>

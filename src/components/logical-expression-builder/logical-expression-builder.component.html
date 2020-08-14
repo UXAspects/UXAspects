@@ -1,4 +1,5 @@
 <button
+    uxFocusIndicatorOrigin
     *ngIf="isExpressionEmpty(); else queryItems"
     (click)="addCondition()"
     type="button"
@@ -9,7 +10,7 @@
 </button>
 
 <ng-template #queryItems>
-    <table class="table table-hover leb-table">
+    <table class="table table-hover leb-table" uxFocusIndicatorOrigin>
         <tbody>
         <ux-leb-group
             *ngIf="expression?.type === 'group'; else conditionBlock"
@@ -23,7 +24,7 @@
 </ng-template>
 
 <ng-template #conditionBlock>
-    <table class="table table-hover leb-table">
+    <table class="table table-hover leb-table" uxFocusIndicatorOrigin>
         <tbody>
         <ux-leb-condition
             *ngIf="expression?.type === 'condition'"
@@ -37,6 +38,8 @@
         <tr expressionRow [rowPath]="[1]">
             <td>
                 <button
+                    uxFocusIndicatorOrigin
+                    uxFocusIndicator
                     (click)="addGroup()"
                     type="button"
                     class="btn btn-icon button-primary"

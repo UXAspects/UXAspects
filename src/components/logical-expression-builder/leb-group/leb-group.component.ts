@@ -92,7 +92,7 @@ export class LebGroupComponent implements OnInit, OnDestroy {
         this._validate();
         this.groupChange.emit(this.subExpression);
         this._focusHandler.setRowInEditMode([...this.path, this.subExpression.children.length - 1]);
-        this._focusHandler.setPathToFocus([...this.path, this.subExpression.children.length - 1]);
+        this._focusHandler.setPathToActivate([...this.path, this.subExpression.children.length - 1]);
     }
 
     public addGroup(): void {
@@ -126,12 +126,12 @@ export class LebGroupComponent implements OnInit, OnDestroy {
 
         if (id === 0) {
             if (this.subExpression.children.length) {
-                this._focusHandler.setPathToFocus([...this.path, 0]);
+                this._focusHandler.setPathToActivate([...this.path, 0]);
             } else {
-                this._focusHandler.setPathToFocus(this.path);
+                this._focusHandler.setPathToActivate(this.path);
             }
         } else {
-            this._focusHandler.setPathToFocus([...this.path, id - 1]);
+            this._focusHandler.setPathToActivate([...this.path, id - 1]);
         }
     }
 
@@ -150,7 +150,7 @@ export class LebGroupComponent implements OnInit, OnDestroy {
         this._validate();
         this.groupChange.emit(this.subExpression);
 
-        this._focusHandler.setPathToFocus([...this.path]);
+        this._focusHandler.setPathToActivate([...this.path]);
     }
 
     public deleteGroup(): void {
@@ -158,7 +158,7 @@ export class LebGroupComponent implements OnInit, OnDestroy {
         this.groupChange.emit(this.subExpression);
         this._validationService.removeValidationState(this.path);
         this._focusHandler.setRowInEditMode(null);
-        this._focusHandler.setPathToFocus(this.path.slice(0, -1));
+        this._focusHandler.setPathToActivate(this.path.slice(0, -1));
     }
 
     private _validate(logicalOperator: LogicalOperatorDefinition = this.selectedLogicalOperator): boolean {

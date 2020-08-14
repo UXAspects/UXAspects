@@ -6,7 +6,6 @@
     [style.padding-left.px]="indent || 8"
     cdkTrapFocus
     [cdkTrapFocusAutoCapture]="true"
-    uxFocusIndicator
     (keydown.escape)="cancelEdit()">
 
     <td class="field-selection">
@@ -38,9 +37,9 @@
 
     <td>
         <button
-            uxFocusIndicatorOrigin
             [disabled]="!(_field && _operator && _value && _valid)"
             (click)="confirmCondition()"
+            uxFocusIndicatorOrigin
             type="button"
             class="btn btn-link btn-icon btn-lg button-primary"
             [attr.aria-label]="('confirmConditionAriaLabel' | l10n) || 'Confirm edit'">
@@ -48,8 +47,8 @@
         </button>
 
         <button
-            uxFocusIndicatorOrigin
             (click)="cancelEdit()"
+            uxFocusIndicatorOrigin
             type="button"
             class="btn btn-link btn-icon btn-lg button-secondary"
             [attr.aria-label]="('cancelConditionEditAriaLabel' | l10n) || 'Cancel editing'">
@@ -74,6 +73,7 @@
             <button
                 [disabled]="_editBlocked"
                 uxHoverAction
+                uxFocusIndicatorOrigin
                 (click)="editCondition()"
                 type="button"
                 class="btn btn-link btn-icon btn-lg button-primary"
@@ -84,6 +84,7 @@
             <button
                 [disabled]="_editBlocked"
                 uxHoverAction
+                uxFocusIndicatorOrigin
                 (click)="embedConditionInGroup()"
                 type="button"
                 class="btn btn-link btn-icon btn-lg button-secondary"
@@ -94,6 +95,7 @@
             <button
                 [disabled]="_editBlocked"
                 uxHoverAction
+                uxFocusIndicatorOrigin
                 (click)="deleteCondition()"
                 type="button"
                 class="btn btn-link btn-icon btn-lg button-warning btn-delete-condition"
