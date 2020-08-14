@@ -9,7 +9,8 @@
         [heading]="'Actions Widget'"
         [fixedMode]="fixedMode"
         [status]="status"
-        [actions]="actions">
+        [actions]="actions"
+        (actionSelected)="handleActionChange($event)">
         <ng-template #iconAccept>
             <span class="custom-icon">✅</span>
         </ng-template>
@@ -21,7 +22,7 @@
         [heading]="'Enum Widget'"
         [fixedMode]="fixedMode"
         [enums]="enums"
-        [value]="0">
+        [value]="'0'">
     </ux-dashboard-enum-widget>
 
     <ux-dashboard-table-widget class="widget"
@@ -29,7 +30,6 @@
         [name]="'Table Widget'"
         [heading]="'Table Widget'"
         [fixedMode]="fixedMode"
-        [resizable]="tableWidgetResizable"
         [header]="tableHeader"
         [data]="tableData"
         [rowSpan]="2">
@@ -40,7 +40,6 @@
         [name]="'Text Widget'"
         [heading]="'Text Widget'"
         [fixedMode]="fixedMode"
-        [resizable]="textWidgetResizable"
         [text]="loremIpsum"
         [editable]="textWidgetEditable">
     </ux-dashboard-text-widget>
@@ -56,12 +55,6 @@
                 <div class="row">
                     <div class="col-md-3">
                         <ux-checkbox [(ngModel)]="fixedMode">Fixed Mode</ux-checkbox>
-                    </div>
-                    <div class="col-md-3">
-                        <ux-checkbox [(ngModel)]="tableWidgetResizable">Make Table Widget resizable</ux-checkbox>
-                    </div>
-                    <div class="col-md-3">
-                        <ux-checkbox [(ngModel)]="textWidgetResizable">Make Text Widget resizable</ux-checkbox>
                     </div>
                     <div class="col-md-3">
                         <ux-checkbox [(ngModel)]="textWidgetEditable">Make Text Widget editable</ux-checkbox>

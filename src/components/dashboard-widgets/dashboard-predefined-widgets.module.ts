@@ -13,7 +13,8 @@ import {
 import { IconModule } from '../icon';
 import { SidePanelModule } from '../side-panel';
 import { FixedHeaderTableModule } from '../../directives/fixed-header-table';
-import { SelectListModule } from '../select-list';
+import { InputDropdownModule } from '../input-dropdown';
+import { AccessibilityModule } from '../../directives/accessibility';
 
 const DECLARATIONS = [
     DashboardPredefinedWidgetComponent,
@@ -32,7 +33,8 @@ const DECLARATIONS = [
         SidePanelModule,
         IconModule,
         FixedHeaderTableModule,
-        SelectListModule
+        InputDropdownModule,
+        AccessibilityModule
     ],
     exports: DECLARATIONS,
     declarations: DECLARATIONS,

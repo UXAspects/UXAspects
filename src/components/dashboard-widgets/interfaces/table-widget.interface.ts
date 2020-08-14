@@ -1,5 +1,4 @@
 export interface TableWidgetConfig {
-    header?: ReadonlyArray<any>;
-    data: ReadonlyArray<ReadonlyArray<any>>;
-    resizable?: boolean;
+    header?: ReadonlyArray<string>;
+    data: ReadonlyArray<ReadonlyArray<string>>;
 }

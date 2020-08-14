@@ -9,7 +9,36 @@ ux-dashboard-enum-widget {
         }
     }
 
-    .ux-side-panel.open > .ux-side-panel-host {
-        border-left: none;
+    .enum-dropdown {
+        cursor: pointer;
+        width: 100%;
+    }
+}
+
+.enum-widget-dropdown-list {
+    padding: 16px 4px;
+
+    .enum-item {
+        padding: 4px 12px;
+
+        &:hover {
+            background: #e6e6e6;
+        }
+
+        &:active {
+            background: #ccc;
+        }
+
+        &.selected {
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+        &:not(.selected) {
+            cursor: pointer;
+        }
+
+        .enum-icon {
+            margin-right: 4px;
+        }
     }
 }

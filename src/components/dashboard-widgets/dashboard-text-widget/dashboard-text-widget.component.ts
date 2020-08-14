@@ -24,11 +24,11 @@ export class DashboardTextWidgetComponent implements PredefinedWidgetConfig, Tex
     @Input() colSpan: number = 1;
     @Input() rowSpan: number = 1;
 
-    @ViewChild('sidePanel') sidePanel: SidePanelComponent;
-    @ViewChild('textArea') textArea: ElementRef<HTMLTextAreaElement>;
     @Input() text: string = '';
     @Input() editable: boolean = false;
-    @Input() resizable: boolean = false;
+
+    @ViewChild('sidePanel') sidePanel: SidePanelComponent;
+    @ViewChild('textArea') textArea: ElementRef<HTMLTextAreaElement>;
 
     @Output() textChange = new EventEmitter<string>();
 
