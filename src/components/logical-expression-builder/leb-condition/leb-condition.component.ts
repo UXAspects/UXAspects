@@ -15,18 +15,17 @@ import { LogicalExpressionBuilderService } from '../services/logical-expression-
 import { FieldDefinition } from '../interfaces/FieldDefinition';
 import { OperatorDefinition } from '../interfaces/OperatorDefinitionList';
 import { ExpressionCondition } from '../interfaces/Expression';
-import { Observable, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 import { distinctUntilChanged, filter, map, takeUntil } from 'rxjs/operators';
 import { ValidationService } from '../services/validation.service';
 import { FocusHandlerService } from '../services/focus-handler.service';
-import { FocusableOption, FocusOrigin } from '@angular/cdk/a11y';
 
 @Component({
     selector: 'ux-leb-condition',
     templateUrl: './leb-condition.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LebConditionComponent implements OnInit, OnDestroy, FocusableOption {
+export class LebConditionComponent implements OnInit, OnDestroy {
 
     // container for Input Component
     @ViewChild('inputContainer', { read: ViewContainerRef, static: false })
@@ -225,9 +224,5 @@ export class LebConditionComponent implements OnInit, OnDestroy, FocusableOption
 
         this._field = this.fields.find((field) => field.name === this.condition.field) ?? null;
         this._operator = this.operators.find((operator) => operator.name === this.condition.operator) ?? null;
-    }
-
-    focus(origin?: FocusOrigin): void {
-        console.log('focus');
     }
 }
