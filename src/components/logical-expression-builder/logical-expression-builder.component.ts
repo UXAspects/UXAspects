@@ -1,11 +1,12 @@
 import {
-    ChangeDetectionStrategy,
+    ChangeDetectionStrategy, ChangeDetectorRef,
     Component,
-    EventEmitter,
-    Input,
+    EventEmitter, forwardRef,
+    Input, OnChanges,
     OnDestroy,
     OnInit,
-    Output
+    Output,
+    SimpleChanges
 } from '@angular/core';
 import { LogicalOperatorDefinition } from './interfaces/LogicalOperatorDefinition';
 import { OperatorDefinitionList } from './interfaces/OperatorDefinitionList';
@@ -20,13 +21,21 @@ import { ValidationService } from './services/validation.service';
 import { delay, distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { FocusHandlerService } from './services/focus-handler.service';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
     selector: 'ux-logical-expression-builder',
     templateUrl: './logical-expression-builder.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
+    providers: [
+        {
+            provide: NG_VALUE_ACCESSOR,
+            multi: true,
+            useExisting: forwardRef(() => LogicalExpressionBuilderComponent)
+        }
+    ]
 })
-export class LogicalExpressionBuilderComponent implements OnDestroy, OnInit {
+export class LogicalExpressionBuilderComponent implements OnChanges, OnDestroy, OnInit, ControlValueAccessor {
 
     @Input()
     set logicalOperators(logicalOperators: LogicalOperatorDefinition[]) {
@@ -73,7 +82,8 @@ export class LogicalExpressionBuilderComponent implements OnDestroy, OnInit {
     constructor(
         private _lebService: LogicalExpressionBuilderService,
         private _validationService: ValidationService,
-        private _focusHandler: FocusHandlerService) {
+        private _focusHandler: FocusHandlerService,
+        private _cd: ChangeDetectorRef) {
     }
 
     ngOnInit(): void {
@@ -153,5 +163,32 @@ export class LogicalExpressionBuilderComponent implements OnDestroy, OnInit {
         this.expressionChange.emit(this.expression);
         this._focusHandler.setRowInEditMode([0, 1]);
         this._focusHandler.setPathToActivate([0, 1]);
+    }
+
+    /** Store the change callback provided by Angular Forms */
+    onChange: (_: Expression) => void = () => { };
+
+    /** Store the touched callback provided by Angular Forms */
+    onTouched: () => void = () => { };
+
+    registerOnChange(fn: (_: Expression) => void): void {
+        this.onChange = fn;
+    }
+
+    registerOnTouched(fn: () => void): void {
+        this.onTouched = fn;
+    }
+
+    writeValue(obj: any): void {
+        this.expression = obj;
+        this._cd.markForCheck();
+    }
+
+    ngOnChanges(changes: SimpleChanges): void {
+        if (changes.expression && !changes.expression.firstChange) {
+            this.onChange(changes.expression.currentValue);
+            this.onTouched();
+            this.expressionChange.emit(changes.expression.currentValue);
+        }
     }
 }

@@ -1,5 +1,5 @@
 import {
-    ChangeDetectionStrategy, ChangeDetectorRef,
+    ChangeDetectionStrategy,
     Component,
     EventEmitter,
     Input,
@@ -45,7 +45,10 @@ export class LebGroupComponent implements OnInit, OnDestroy {
     public _errorMessage: string;
     public _showAddBtn: boolean = false;
 
-    constructor(private _lebService: LogicalExpressionBuilderService, private _validationService: ValidationService, private _cdr: ChangeDetectorRef, private _focusHandler: FocusHandlerService) {
+    constructor(
+        private _lebService: LogicalExpressionBuilderService,
+        private _validationService: ValidationService,
+        private _focusHandler: FocusHandlerService) {
     }
 
     ngOnInit(): void {
@@ -113,9 +116,12 @@ export class LebGroupComponent implements OnInit, OnDestroy {
     }
 
     public removeConditionAtIndex(id: number): void {
+        console.log('id', id);
         const children = this.subExpression.children.filter((_, index) => {
             return index !== id;
         });
+
+        console.log('children', children);
 
         this.subExpression = {...this.subExpression, children};
 
@@ -154,8 +160,7 @@ export class LebGroupComponent implements OnInit, OnDestroy {
     }
 
     public deleteGroup(): void {
-        this.subExpression = null;
-        this.groupChange.emit(this.subExpression);
+        this.groupChange.emit(null);
         this._validationService.removeValidationState(this.path);
         this._focusHandler.setRowInEditMode(null);
         this._focusHandler.setPathToActivate(this.path.slice(0, -1));

@@ -3,10 +3,10 @@ import { LogicalExpressionBuilderService } from '../services/logical-expression-
 
 describe('L10nPipe', () => {
     let pipe: L10nPipe;
-    let hsbServiceStub: LogicalExpressionBuilderService;
+    let lebServiceStub: LogicalExpressionBuilderService;
 
     beforeEach(() => {
-        hsbServiceStub = {
+        lebServiceStub = {
             getLocalizedStrings: () => {
                 return {
                     testValue: 'Test Value',
@@ -16,7 +16,7 @@ describe('L10nPipe', () => {
             },
         } as any;
 
-        pipe = new L10nPipe(hsbServiceStub);
+        pipe = new L10nPipe(lebServiceStub);
     });
 
     it('should create an instance', () => {

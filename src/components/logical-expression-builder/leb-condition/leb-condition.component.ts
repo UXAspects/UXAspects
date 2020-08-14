@@ -4,10 +4,10 @@ import {
     ComponentFactoryResolver,
     ComponentRef,
     EventEmitter,
-    Input,
+    Input, OnChanges,
     OnDestroy,
     OnInit,
-    Output,
+    Output, SimpleChanges,
     ViewChild,
     ViewContainerRef
 } from '@angular/core';
@@ -25,7 +25,7 @@ import { FocusHandlerService } from '../services/focus-handler.service';
     templateUrl: './leb-condition.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LebConditionComponent implements OnInit, OnDestroy {
+export class LebConditionComponent implements OnChanges, OnInit, OnDestroy {
 
     // container for Input Component
     @ViewChild('inputContainer', { read: ViewContainerRef, static: false })
@@ -207,6 +207,7 @@ export class LebConditionComponent implements OnInit, OnDestroy {
 
     public deleteCondition(): void {
         if (!this._editBlocked) {
+            console.log('delete');
             this.conditionDeleted.emit(this._id);
             this._validationService.removeValidationState(this.path);
         }
@@ -224,5 +225,11 @@ export class LebConditionComponent implements OnInit, OnDestroy {
 
         this._field = this.fields.find((field) => field.name === this.condition.field) ?? null;
         this._operator = this.operators.find((operator) => operator.name === this.condition.operator) ?? null;
+    }
+
+    ngOnChanges(changes: SimpleChanges): void {
+        if (changes.path) {
+            this._id = changes.path.currentValue.slice(-1).pop();
+        }
     }
 }
