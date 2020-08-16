@@ -94,7 +94,7 @@ describe('Logical Expression Builder Tests', () => {
         expect(await page.getTextInputComponentTextForRow(1)).toEqual('test');
     });
 
-    it('should update expression after editing', async () => {
+    it('should update expression and label after editing', async () => {
         await page.setComplexCondition();
         await page.editTextInputComponentForRow(1);
         const expression = await page.getExpressionObject();
@@ -102,5 +102,16 @@ describe('Logical Expression Builder Tests', () => {
         expect(expression).toBeDefined();
         expect(expression.children.length).toEqual(5);
         expect(expression.children[0].value).toEqual('testing');
+        expect(await page.getValueLabelForRow(1)).toEqual('testing');
+    });
+
+    it('should display correct values in static mode', async () => {
+        await page.setComplexCondition();
+
+        expect(await page.getValueLabelForRow(1)).toEqual('test');
+        expect(await page.getValueLabelForRow(2)).toEqual('6/24/20, 8:19 AM — 6/24/20, 8:19 AM');
+        expect(await page.getValueLabelForRow(3)).toEqual('7/23/20, 4:40 PM');
+        expect(await page.getValueLabelForRow(4)).toEqual('Performance, Security');
+        expect(await page.getValueLabelForRow(5)).toEqual('3');
     });
 });

@@ -102,5 +102,20 @@ export namespace LogicalExpressionBuilderPage {
             await row.$$('input').last().sendKeys('testing');
             await row.$$('button').first().click();
         }
+
+        async getFieldLabelForRow(index: number): Promise<string> {
+            const row = await this.getTableRow(index);
+            return row.$('.leb-field-display').getText();
+        }
+
+        async getOperatorLabelForRow(index: number): Promise<string> {
+            const row = await this.getTableRow(index);
+            return row.$('.leb-operator-display').getText();
+        }
+
+        async getValueLabelForRow(index: number): Promise<string> {
+            const row = await this.getTableRow(index);
+            return row.$('.leb-value-display').getText();
+        }
     }
 }
