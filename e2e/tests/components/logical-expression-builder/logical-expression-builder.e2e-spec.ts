@@ -109,8 +109,8 @@ describe('Logical Expression Builder Tests', () => {
         await page.setComplexCondition();
 
         expect(await page.getValueLabelForRow(1)).toEqual('test');
-        expect(await page.getValueLabelForRow(2)).toEqual('6/24/20, 8:19 AM — 6/24/20, 8:19 AM');
-        expect(await page.getValueLabelForRow(3)).toEqual('7/23/20, 4:40 PM');
+        expect(await page.getValueLabelForRow(2)).toEqual('6/24/20, 6:19 AM — 6/24/20, 6:19 AM');
+        expect(await page.getValueLabelForRow(3)).toEqual('7/23/20, 2:40 PM');
         expect(await page.getValueLabelForRow(4)).toEqual('Performance, Security');
         expect(await page.getValueLabelForRow(5)).toEqual('3');
     });
