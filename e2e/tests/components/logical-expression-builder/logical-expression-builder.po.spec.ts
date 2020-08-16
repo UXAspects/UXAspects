@@ -1,4 +1,4 @@
-import { $, $$, browser } from 'protractor';
+import { $, $$, browser, ElementFinder } from 'protractor';
 
 export namespace LogicalExpressionBuilderPage {
 
@@ -8,11 +8,11 @@ export namespace LogicalExpressionBuilderPage {
         }
 
         expression = $('pre');
-        table = $('.leb-table');
 
         setInvalidExpressionBtn = $('#set-invalid-expression');
         setOneConditionBtn = $('#set-one-condition');
         setTwoConditionsBtn = $('#set-two-conditions');
+        setComplexConditionBtn = $('#set-complex-expression');
 
         validity = $('#valid');
 
@@ -20,8 +20,24 @@ export namespace LogicalExpressionBuilderPage {
             return JSON.parse(await this.expression.getText());
         }
 
-        async getTable(): Promise<any> {
-            return this.table;
+        async getTableRows(): Promise<ElementFinder[]> {
+            const tbody = $('tbody');
+            return await tbody.$$('tr');
+        }
+
+        async getTableRow(index: number): Promise<ElementFinder> {
+            const rows = await this.getTableRows();
+            return rows[index];
+        }
+
+        async clickOnTableRow(index: number): Promise<void> {
+            const rows = await this.getTableRows();
+            return rows[index].click();
+        }
+
+        async getTabIndex(index: number): Promise<string> {
+            const row: ElementFinder = await this.getTableRow(index);
+            return row.getAttribute('tabindex');
         }
 
         async getConditionRowCount(): Promise<any> {
@@ -54,12 +70,40 @@ export namespace LogicalExpressionBuilderPage {
             return this.setTwoConditionsBtn.click();
         }
 
+        async setComplexCondition(): Promise<any> {
+            return this.setComplexConditionBtn.click();
+        }
+
         async addSecondCondition(): Promise<any> {
             return $$('tr').last().$('td').$('button').click();
         }
 
         async deleteLastCondition(): Promise<any> {
             return $$('.btn-delete-condition').last().click();
+        }
+
+        async editRow(index: number): Promise<any> {
+            const row = await this.getTableRow(index);
+            return row.$$('button').first().click();
+        }
+
+        async getTextInputComponentTextForRow(index: number): Promise<string> {
+            let row = await this.getTableRow(index);
+            await row.$$('button').first().click();
+            row = await this.getTableRow(index);
+            return row.$('input').getText();
+        }
+
+        async editTextInputComponentForRow(index: number): Promise<any> {
+            // Edit first row
+            let row = await this.getTableRow(index);
+            await row.$$('button').first().click();
+
+            // Send keys to input and confirm
+            row = await this.getTableRow(index);
+            await row.$('input').clear();
+            await row.$('input').sendKeys('testing');
+            await row.$$('button').first().click();
         }
     }
 }

@@ -85,14 +85,8 @@ export class LogicalExpressionBuilderTestpageComponent {
                 operator: 'between',
                 value: { start: 1592979598445, end: 1592979598445 }
             },
-            {
-                type: 'group',
-                logicalOperator: 'or',
-                children: [
-                    { type: 'condition', field: 'created', operator: 'before', value: 1595515231584 },
-                    { type: 'condition', field: 'category', operator: 'one_of', value: ['performance', 'security'] },
-                ]
-            },
+            { type: 'condition', field: 'created', operator: 'before', value: 1595515231584 },
+            { type: 'condition', field: 'category', operator: 'one_of', value: ['performance', 'security'] },
             { type: 'condition', field: 'version', operator: 'equals', value: 3 },
         ]
     };

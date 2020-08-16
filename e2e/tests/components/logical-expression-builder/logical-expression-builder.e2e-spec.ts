@@ -60,4 +60,47 @@ describe('Logical Expression Builder Tests', () => {
         expect(await page.getGroupRowError()).toBeDefined();
         expect(await page.getValid()).toBeFalsy();
     });
+
+    it('should set tabindexes correctly', async () => {
+        await page.setComplexCondition();
+
+        const expression = await page.getExpressionObject();
+
+        expect(expression).toBeDefined();
+        expect(expression.type).toEqual('group');
+
+        expect(await page.getTabIndex(0)).toBe('0');
+        expect(await page.getTabIndex(1)).toBe('-1');
+        expect(await page.getTabIndex(2)).toBe('-1');
+        expect(await page.getTabIndex(3)).toBe('-1');
+        expect(await page.getTabIndex(4)).toBe('-1');
+        expect(await page.getTabIndex(5)).toBe('-1');
+        expect(await page.getTabIndex(6)).toBe('-1');
+
+        await page.clickOnTableRow(1);
+
+        expect(await page.getTabIndex(0)).toBe('0');
+        expect(await page.getTabIndex(1)).toBe('-1');
+        expect(await page.getTabIndex(2)).toBe('-1');
+        expect(await page.getTabIndex(3)).toBe('-1');
+        expect(await page.getTabIndex(4)).toBe('-1');
+        expect(await page.getTabIndex(5)).toBe('-1');
+        expect(await page.getTabIndex(6)).toBe('-1');
+    });
+
+    it('should prefill the Text Input Component', async () => {
+        await page.setComplexCondition();
+
+        expect(await page.getTextInputComponentTextForRow(1)).toEqual('test');
+    });
+
+    it('should update expression after editing', async () => {
+        await page.setComplexCondition();
+        await page.editTextInputComponentForRow(1);
+        const expression = await page.getExpressionObject();
+
+        expect(expression).toBeDefined();
+        expect(expression.children.length).toEqual(5);
+        expect(expression.children[0].value).toEqual('testing');
+    });
 });
