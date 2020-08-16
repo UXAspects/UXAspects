@@ -79,8 +79,8 @@ describe('Logical Expression Builder Tests', () => {
 
         await page.clickOnTableRow(1);
 
-        expect(await page.getTabIndex(0)).toBe('0');
-        expect(await page.getTabIndex(1)).toBe('-1');
+        expect(await page.getTabIndex(0)).toBe('-1');
+        expect(await page.getTabIndex(1)).toBe('0');
         expect(await page.getTabIndex(2)).toBe('-1');
         expect(await page.getTabIndex(3)).toBe('-1');
         expect(await page.getTabIndex(4)).toBe('-1');

@@ -88,21 +88,18 @@ export namespace LogicalExpressionBuilderPage {
         }
 
         async getTextInputComponentTextForRow(index: number): Promise<string> {
-            let row = await this.getTableRow(index);
-            await row.$$('button').first().click();
-            row = await this.getTableRow(index);
-            return row.$('input').getText();
+            await this.editRow(index);
+            const row = await this.getTableRow(index);
+            return row.$$('input').last().getAttribute('value');
         }
 
         async editTextInputComponentForRow(index: number): Promise<any> {
-            // Edit first row
-            let row = await this.getTableRow(index);
-            await row.$$('button').first().click();
+            await this.editRow(index);
 
             // Send keys to input and confirm
-            row = await this.getTableRow(index);
-            await row.$('input').clear();
-            await row.$('input').sendKeys('testing');
+            const row = await this.getTableRow(index);
+            await row.$$('input').last().clear();
+            await row.$$('input').last().sendKeys('testing');
             await row.$$('button').first().click();
         }
     }
