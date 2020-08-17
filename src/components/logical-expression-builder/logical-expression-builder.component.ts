@@ -56,6 +56,8 @@ export class LogicalExpressionBuilderComponent implements OnChanges, OnDestroy, 
     set expression(expression: Expression) {
         this._expression = expression;
         this.expressionChange.emit(this._expression);
+        this.onChange(this._expression);
+        this.onTouched();
     }
 
     get expression() {
@@ -124,6 +126,8 @@ export class LogicalExpressionBuilderComponent implements OnChanges, OnDestroy, 
         this.expression = { ...temp };
 
         this.expressionChange.emit(this.expression);
+        this.onChange(this._expression);
+        this.onTouched();
     }
 
     public deleteCondition(): void {
@@ -135,6 +139,8 @@ export class LogicalExpressionBuilderComponent implements OnChanges, OnDestroy, 
         // adds a condition to the expression if the expression is empty
         this.expression = { type: 'condition', field: null, operator: null, value: null };
         this.expressionChange.emit(this.expression);
+        this.onChange(this._expression);
+        this.onTouched();
         this._focusHandler.setRowInEditMode([0]);
         this._focusHandler.setPathToActivate([0]);
     }
@@ -153,6 +159,8 @@ export class LogicalExpressionBuilderComponent implements OnChanges, OnDestroy, 
         };
 
         this.expressionChange.emit(this.expression);
+        this.onChange(this._expression);
+        this.onTouched();
         this._focusHandler.setRowInEditMode([0, 1]);
         this._focusHandler.setPathToActivate([0, 1]);
     }
