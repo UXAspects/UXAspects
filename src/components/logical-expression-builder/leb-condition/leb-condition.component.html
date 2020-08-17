@@ -37,7 +37,7 @@
 
     <td>
         <button
-            [disabled]="!(_field && _operator && _value && _valid)"
+            [disabled]="!(_field && _operator && (_value || _value === 0) && _valid)"
             (click)="confirmCondition()"
             uxFocusIndicatorOrigin
             type="button"
