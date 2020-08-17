@@ -24,12 +24,12 @@ export class ToolbarSearchPage {
     // button to set always expanded state
     alwaysExpandedBtn = element(by.id('always-expanded-btn'));
 
-    async clickOnDropdown() {
+    async openDropdown() {
         await this.leftButton.click();
         return this.leftInput.click();
     }
 
-    confirmDropdownIsExpanded() {
+    isDropdownExpanded() {
         return this.left.$('ux-typeahead-all-options').isPresent();
     }
 

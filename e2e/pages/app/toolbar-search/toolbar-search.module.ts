@@ -2,7 +2,8 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { ColorServiceModule, IconModule, ToolbarSearchModule, AccessibilityModule,  TypeaheadModule } from '@ux-aspects/ux-aspects';
+import { AccessibilityModule, ColorServiceModule, IconModule, ToolbarSearchModule, TypeaheadModule } from '@ux-aspects/ux-aspects';
+import { ToolbarSearchTypeaheadTestPageComponent } from './toolbar-search-typeahead/toolbar-search-typeahead.testpage.component';
 import { ToolbarSearchTestPageComponent } from './toolbar-search.testpage.component';
 
 @NgModule({
@@ -18,9 +19,17 @@ import { ToolbarSearchTestPageComponent } from './toolbar-search.testpage.compon
         RouterModule.forChild([{
             path: '',
             component: ToolbarSearchTestPageComponent
-        }])
+        },
+        {
+            path: 'ToolbarSearchTypeahead',
+            component: ToolbarSearchTypeaheadTestPageComponent
+        }
+        ])
     ],
-    declarations: [ToolbarSearchTestPageComponent],
+    declarations: [
+        ToolbarSearchTestPageComponent,
+        ToolbarSearchTypeaheadTestPageComponent
+    ],
 })
 export class ToolbarSearchTestPageModule {
 

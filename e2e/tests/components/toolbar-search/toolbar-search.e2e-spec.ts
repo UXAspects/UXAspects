@@ -31,14 +31,6 @@ describe('Toolbar Search', () => {
 
     });
 
-    it('should display the name of the selected number', async () => {
-
-        await page.clickOnDropdown();
-        expect(await page.confirmDropdownIsExpanded()).toBeFalsy();
-
-        expect(await imageCompare('toolbar-search-typeahead-open')).toEqual(0);
-    });
-
     it('should display search input when the button is clicked', async () => {
 
         await page.leftButton.click();
