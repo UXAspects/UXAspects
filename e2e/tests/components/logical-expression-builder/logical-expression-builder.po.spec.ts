@@ -1,4 +1,5 @@
 import { $, $$, browser, ElementFinder } from 'protractor';
+import { Expression } from '../../../../src/components/logical-expression-builder';
 
 export namespace LogicalExpressionBuilderPage {
 
@@ -16,7 +17,7 @@ export namespace LogicalExpressionBuilderPage {
 
         validity = $('#valid');
 
-        async getExpressionObject(): Promise<any> {
+        async getExpressionObject(): Promise<Expression> {
             return JSON.parse(await this.expression.getText());
         }
 
@@ -40,15 +41,15 @@ export namespace LogicalExpressionBuilderPage {
             return row.getAttribute('tabindex');
         }
 
-        async getConditionRowCount(): Promise<any> {
+        async getConditionRowCount(): Promise<number> {
             return $$('.leb-condition-row').count();
         }
 
-        async getGroupRowCount(): Promise<any> {
+        async getGroupRowCount(): Promise<number> {
             return $$('.leb-group').count();
         }
 
-        async getGroupRowError(): Promise<any> {
+        async getGroupRowError(): Promise<ElementFinder> {
             return $$('.leb-group').first().$('.text-error');
         }
 
@@ -58,31 +59,32 @@ export namespace LogicalExpressionBuilderPage {
             return valid === 'valid';
         }
 
-        async setInvalidExpression(): Promise<any> {
+        async setInvalidExpression(): Promise<void> {
             return this.setInvalidExpressionBtn.click();
         }
 
-        async setOneCondition(): Promise<any> {
+        async setOneCondition(): Promise<void> {
             return this.setOneConditionBtn.click();
         }
 
-        async setTwoConditions(): Promise<any> {
+        async setTwoConditions(): Promise<void> {
             return this.setTwoConditionsBtn.click();
         }
 
-        async setComplexCondition(): Promise<any> {
+        async setComplexCondition(): Promise<void> {
             return this.setComplexConditionBtn.click();
         }
 
-        async addSecondCondition(): Promise<any> {
-            return $$('tr').last().$('td').$('button').click();
+        async addSecondCondition(): Promise<void> {
+            const row = await this.getTableRow(1);
+            return row.$('button').click();
         }
 
-        async deleteLastCondition(): Promise<any> {
+        async deleteLastCondition(): Promise<void> {
             return $$('.btn-delete-condition').last().click();
         }
 
-        async editRow(index: number): Promise<any> {
+        async editRow(index: number): Promise<void> {
             const row = await this.getTableRow(index);
             return row.$$('button').first().click();
         }
@@ -93,7 +95,7 @@ export namespace LogicalExpressionBuilderPage {
             return row.$$('input').last().getAttribute('value');
         }
 
-        async editTextInputComponentForRow(index: number): Promise<any> {
+        async editTextInputComponentForRow(index: number): Promise<void> {
             await this.editRow(index);
 
             // Send keys to input and confirm
@@ -116,6 +118,16 @@ export namespace LogicalExpressionBuilderPage {
         async getValueLabelForRow(index: number): Promise<string> {
             const row = await this.getTableRow(index);
             return row.$('.leb-value-display').getText();
+        }
+
+        async getEmptyExpressionButton(): Promise<ElementFinder> {
+            const expression = await this.getExpressionObject();
+
+            if (!expression) {
+                return $$('button').first();
+            } else {
+                return Promise.resolve(undefined);
+            }
         }
     }
 }

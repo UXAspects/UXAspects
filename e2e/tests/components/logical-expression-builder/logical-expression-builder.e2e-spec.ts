@@ -1,4 +1,5 @@
 import { LogicalExpressionBuilderPage } from './logical-expression-builder.po.spec';
+import { ExpressionCondition, ExpressionGroup } from '../../../../src/components/logical-expression-builder';
 
 describe('Logical Expression Builder Tests', () => {
     let page: LogicalExpressionBuilderPage.Page;
@@ -9,19 +10,23 @@ describe('Logical Expression Builder Tests', () => {
     });
 
     it('should have correct initial state', async () => {
+        const btn = await page.getEmptyExpressionButton();
+
         expect(await page.getExpressionObject()).toEqual(null);
         expect(await page.getConditionRowCount()).toEqual(0);
         expect(await page.getGroupRowCount()).toEqual(0);
         expect(await page.getValid()).toBeTruthy();
+        expect(btn).toBeDefined();
+        expect(await btn.getText()).toEqual('Add condition');
     });
 
     it('should display one row when expression is just a condition', async () => {
         await page.setOneCondition();
 
-        const expression = await page.getExpressionObject();
+        const expression = await page.getExpressionObject() as ExpressionCondition;
 
         expect(expression).toBeDefined();
-        expect(expression.children).toBeUndefined();
+        expect(expression['children']).toBeUndefined();
         expect(await page.getConditionRowCount()).toEqual(1);
         expect(await page.getValid()).toBeTruthy();
     });
@@ -30,15 +35,15 @@ describe('Logical Expression Builder Tests', () => {
         await page.setOneCondition();
         await page.addSecondCondition();
 
-        const expression = await page.getExpressionObject();
+        const expression: ExpressionGroup = await page.getExpressionObject() as ExpressionGroup;
+        const rows = await page.getTableRows();
 
-        /*expect(expression).toBeDefined();
+        expect(expression).toBeDefined();
         expect(expression.type).toEqual('group');
+        expect(expression.logicalOperator).toEqual('and');
         expect(expression.children).toBeDefined();
-        expect(expression.children.length).toEqual(2);
-        expect(await page.getConditionRowCount()).toEqual(2);
-        expect(await page.getGroupRowCount()).toEqual(2);
-        expect(await page.getValid()).toBeTruthy();*/
+        expect(rows.length).toEqual(4);
+        expect(await page.getValid()).toBeTruthy();
     });
 
     it('should only show one condition if there is one group with one condition', async () => {
@@ -49,7 +54,7 @@ describe('Logical Expression Builder Tests', () => {
 
         expect(expression).toBeDefined();
         expect(expression.type).toEqual('condition');
-        expect(expression.children).toBeUndefined();
+        expect(expression['children']).toBeUndefined();
         expect(await page.getConditionRowCount()).toEqual(1);
         expect(await page.getValid()).toBeTruthy();
     });
@@ -97,11 +102,11 @@ describe('Logical Expression Builder Tests', () => {
     it('should update expression and label after editing', async () => {
         await page.setComplexCondition();
         await page.editTextInputComponentForRow(1);
-        const expression = await page.getExpressionObject();
+        const expression = await page.getExpressionObject() as ExpressionGroup;
 
         expect(expression).toBeDefined();
         expect(expression.children.length).toEqual(5);
-        expect(expression.children[0].value).toEqual('testing');
+        expect(expression.children[0]['value']).toEqual('testing');
         expect(await page.getValueLabelForRow(1)).toEqual('testing');
     });
 
