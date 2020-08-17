@@ -97,8 +97,8 @@ describe('Logical Expression Builder Tests', () => {
     it('should set options for fields and operators correctly', async () => {
         await page.setComplexCondition();
         await page.editRow(1);
-        const fieldOptions = await page.getOptionsForDropdown(0);
-        const operatorOptions = await page.getOptionsForDropdown(1);
+        const fieldOptions = await page.getOptionsForDropdown(0, 1);
+        const operatorOptions = await page.getOptionsForDropdown(1, 1);
 
         expect(fieldOptions.length).toEqual(5);
         expect(fieldOptions).toContain('Author');
