@@ -56,7 +56,7 @@ export class DateInputComponent implements AfterViewInit, OnDestroy {
 
     showTime: boolean = false;
     showNowBtn: boolean = false;
-    dateFormat: string = 'medium';
+    dateFormat: string = 'short';
 
     private _destroy$: Subject<void> = new Subject<void>();
 

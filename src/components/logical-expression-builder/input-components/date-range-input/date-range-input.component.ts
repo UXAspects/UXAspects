@@ -84,7 +84,7 @@ export class DateRangeInputComponent {
     startTimezone: DateTimePickerTimezone = { name: 'GMT', offset: 0 };
     endTimezone: DateTimePickerTimezone = { name: 'GMT', offset: 0 };
 
-    dateFormat: string = 'medium';
+    dateFormat: string = 'short';
 
     onDateChange(date: string): void {
         // reset any invalid state
