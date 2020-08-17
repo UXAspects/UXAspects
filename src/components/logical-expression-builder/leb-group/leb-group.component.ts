@@ -19,11 +19,12 @@ import { FocusHandlerService } from '../services/focus-handler.service';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LebGroupComponent implements OnInit, OnDestroy {
-    @Output() groupChange: EventEmitter<ExpressionGroup> = new EventEmitter<ExpressionGroup>();
+    @Output() subExpressionChange: EventEmitter<ExpressionGroup> = new EventEmitter<ExpressionGroup>();
 
     @Input()
     set subExpression(_subExpression: ExpressionGroup) {
         this._subExpression = { ..._subExpression };
+        this._children = [..._subExpression?.children];
     }
 
     get subExpression(): ExpressionGroup {
@@ -31,8 +32,8 @@ export class LebGroupComponent implements OnInit, OnDestroy {
     }
 
     private _subExpression: ExpressionGroup;
+    public _children: ReadonlyArray<Expression>;
 
-    @Input() logicalOperatorName: string;
     @Input() indent: number = 0;
     @Input() path: number[];
 
@@ -53,7 +54,7 @@ export class LebGroupComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         this.logicalOperators = this._lebService.getLogicalOperators();
-        this.selectedLogicalOperator = this._lebService.getLogicalOperatorByName(this.logicalOperatorName);
+        this.selectedLogicalOperator = this._lebService.getLogicalOperatorByName(this.subExpression.logicalOperator);
         this._validate();
     }
 
@@ -66,20 +67,22 @@ export class LebGroupComponent implements OnInit, OnDestroy {
         this.subExpression = { ...this.subExpression, logicalOperator: this.selectedLogicalOperator.name };
 
         this._validate();
-        this.groupChange.emit(this.subExpression);
+        this.subExpressionChange.emit(this.subExpression);
     }
 
-    public handleGroupChange(subExpression: ExpressionGroup | ExpressionCondition, index: number) {
+    public handleSubExpressionChange(subExpression: ExpressionGroup | ExpressionCondition, index: number) {
         if (subExpression) {
-            this.subExpression.children[index] = subExpression;
+            let newChildren = [...this.subExpression.children];
+            newChildren[index] = subExpression;
+            this.subExpression = { ...this.subExpression, children: newChildren };
         } else {
-            let temp = [...this.subExpression.children];
-            temp.splice(index, 1);
-            this.subExpression.children = [...temp];
+            let newChildren = [...this.subExpression.children];
+            newChildren.splice(index, 1);
+            this.subExpression = { ...this.subExpression, children: newChildren };
         }
 
         this._validate();
-        this.groupChange.emit(this.subExpression);
+        this.subExpressionChange.emit(this.subExpression);
     }
 
     public addCondition(): void {
@@ -93,7 +96,7 @@ export class LebGroupComponent implements OnInit, OnDestroy {
         this.subExpression = { ...this.subExpression, children };
 
         this._validate();
-        this.groupChange.emit(this.subExpression);
+        this.subExpressionChange.emit(this.subExpression);
         this._focusHandler.setRowInEditMode([...this.path, this.subExpression.children.length - 1]);
         this._focusHandler.setPathToActivate([...this.path, this.subExpression.children.length - 1]);
     }
@@ -110,23 +113,20 @@ export class LebGroupComponent implements OnInit, OnDestroy {
         this.subExpression = { ...this.subExpression, children };
 
         this._validate();
-        this.groupChange.emit(this.subExpression);
+        this.subExpressionChange.emit(this.subExpression);
         this._focusHandler.setRowInEditMode([...this.path, this.subExpression.children.length - 1, 0]);
         this._focusHandler.setEditBlocked(true);
     }
 
     public removeConditionAtIndex(id: number): void {
-        console.log('id', id);
         const children = this.subExpression.children.filter((_, index) => {
             return index !== id;
         });
 
-        console.log('children', children);
-
         this.subExpression = {...this.subExpression, children};
 
         this._validate();
-        this.groupChange.emit(this.subExpression);
+        this.subExpressionChange.emit(this.subExpression);
 
         this._focusHandler.setRowInEditMode(null);
 
@@ -142,8 +142,8 @@ export class LebGroupComponent implements OnInit, OnDestroy {
     }
 
     public embedConditionAtIndex(id: number): void {
-        let tempExpression = this.subExpression;
-        const condition = tempExpression.children[id];
+        let tempExpression = { ...this.subExpression };
+        const condition = { ...tempExpression.children[id] };
 
         tempExpression.children[id] = {
             type: 'group',
@@ -154,13 +154,13 @@ export class LebGroupComponent implements OnInit, OnDestroy {
         this.subExpression = tempExpression;
 
         this._validate();
-        this.groupChange.emit(this.subExpression);
+        this.subExpressionChange.emit(this.subExpression);
 
         this._focusHandler.setPathToActivate([...this.path]);
     }
 
     public deleteGroup(): void {
-        this.groupChange.emit(null);
+        this.subExpressionChange.emit(null);
         this._validationService.removeValidationState(this.path);
         this._focusHandler.setRowInEditMode(null);
         this._focusHandler.setPathToActivate(this.path.slice(0, -1));

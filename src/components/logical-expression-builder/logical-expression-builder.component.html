@@ -1,6 +1,6 @@
 <button
     uxFocusIndicatorOrigin
-    *ngIf="isExpressionEmpty(); else queryItems"
+    *ngIf="!expression?.type; else queryItems"
     (click)="addCondition()"
     type="button"
     class="btn btn-icon-with-text button-primary"
@@ -15,9 +15,8 @@
         <ux-leb-group
             *ngIf="expression?.type === 'group'; else conditionBlock"
             [subExpression]="expression"
-            (groupChange)="handleGroupChange($event)"
-            [path]="[0]"
-            [logicalOperatorName]="getLogicalOperatorName()">
+            (subExpressionChange)="handleSubExpressionChange($event)"
+            [path]="[0]">
         </ux-leb-group>
         </tbody>
     </table>
@@ -28,7 +27,7 @@
         <tbody>
         <ux-leb-condition
             *ngIf="expression?.type === 'condition'"
-            (conditionChange)="handleGroupChange($event)"
+            (conditionChange)="handleSubExpressionChange($event)"
             [condition]="expression"
             [path]="[0]"
             (conditionDeleted)="deleteCondition()"

@@ -111,15 +111,7 @@ export class LogicalExpressionBuilderComponent implements OnChanges, OnDestroy, 
         this._destroy$.complete();
     }
 
-    public isExpressionEmpty(): boolean {
-        return !this.expression?.type;
-    }
-
-    public getLogicalOperatorName(): string {
-        return (<ExpressionGroup>this.expression).logicalOperator ?? null;
-    }
-
-    public handleGroupChange(expression: Expression): void {
+    public handleSubExpressionChange(expression: Expression): void {
         let temp = { ...expression };
 
         // make expression just a condition if it contains exactly one group with exactly one condition in it

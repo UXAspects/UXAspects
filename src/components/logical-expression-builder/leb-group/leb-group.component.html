@@ -36,10 +36,10 @@
     </td>
 </tr>
 
-<ng-container *ngFor="let child of subExpression?.children; index as index">
+<ng-container *ngFor="let child of _children; index as index">
     <ux-leb-condition
         *ngIf="child.type === 'condition'"
-        (conditionChange)="handleGroupChange($event, index)"
+        (conditionChange)="handleSubExpressionChange($event, index)"
         [condition]="child"
         [path]="index | rowPath:path"
         (conditionDeleted)="removeConditionAtIndex($event)"
@@ -51,8 +51,7 @@
         *ngIf="child.type === 'group'"
         [subExpression]="child"
         [path]="index | rowPath:path"
-        (groupChange)="handleGroupChange($event, index)"
-        [logicalOperatorName]="child.logicalOperator"
+        (subExpressionChange)="handleSubExpressionChange($event, index)"
         [indent]="indent + additionalIndent">
     </ux-leb-group>
 </ng-container>
@@ -60,7 +59,7 @@
 <ng-container *ngIf="_showAddBtn">
     <tr
         expressionRow
-        [rowPath]="(subExpression?.children?.length || 0) | rowPath:path"
+        [rowPath]="(_children?.length || 0) | rowPath:path"
         class="leb-group"
         [style.padding-left.px]="indent + additionalIndent">
         <td>

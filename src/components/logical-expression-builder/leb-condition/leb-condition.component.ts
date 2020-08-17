@@ -27,6 +27,22 @@ import { FocusHandlerService } from '../services/focus-handler.service';
 })
 export class LebConditionComponent implements OnChanges, OnInit, OnDestroy {
 
+    @Output() conditionChange = new EventEmitter<ExpressionCondition>();
+    @Output() conditionDeleted = new EventEmitter<number>();
+    @Output() conditionEmbedded = new EventEmitter<number>();
+
+    @Input()
+    set condition(condition: ExpressionCondition) {
+        this._condition = condition;
+    }
+    @Input() indent: number = 0;
+    @Input() path: number[];
+
+    private _condition: ExpressionCondition;
+
+    // If editing is cancelled, the condition is reset
+    private _initialCondition: ExpressionCondition;
+
     // container for Input Component
     @ViewChild('inputContainer', { read: ViewContainerRef, static: false })
     set container(container: ViewContainerRef) {
@@ -39,19 +55,7 @@ export class LebConditionComponent implements OnChanges, OnInit, OnDestroy {
     private _inputContainer: ViewContainerRef;
     private _inputComponentRef: ComponentRef<any>;
 
-    @Input() condition: ExpressionCondition;
-    @Output() conditionChange = new EventEmitter<ExpressionCondition>();
-    private _condition: ExpressionCondition;
-
-    // If editing is cancelled, the condition is reset
-    private _initialCondition: ExpressionCondition;
-
     private _id: number;
-    @Output() conditionDeleted = new EventEmitter<number>();
-    @Output() conditionEmbedded = new EventEmitter<number>();
-
-    @Input() indent: number = 0;
-    @Input() path: number[];
 
     public fields: FieldDefinition[];
     public operators: OperatorDefinition[];
@@ -77,15 +81,15 @@ export class LebConditionComponent implements OnChanges, OnInit, OnDestroy {
     }
 
     ngOnInit(): void {
-        this._initialCondition = this.condition;
+        this._initialCondition = this._condition;
 
         this.fields = this._lebService.getFields();
-        this._field = this.fields.find((field) => field.name === this.condition.field) ?? null;
+        this._field = this.fields.find((field) => field.name === this._condition.field) ?? null;
 
         this.operators = this._lebService.getOperatorsByFieldType(this._field?.fieldType);
-        this._operator = this.operators.find((operator) => operator.name === this.condition.operator) ?? null;
+        this._operator = this.operators.find((operator) => operator.name === this._condition.operator) ?? null;
 
-        this._value = this.condition.value;
+        this._value = this._condition.value;
 
         this._focusHandler.getRowInEditMode()
             .pipe(
@@ -207,7 +211,6 @@ export class LebConditionComponent implements OnChanges, OnInit, OnDestroy {
 
     public deleteCondition(): void {
         if (!this._editBlocked) {
-            console.log('delete');
             this.conditionDeleted.emit(this._id);
             this._validationService.removeValidationState(this.path);
         }
@@ -223,8 +226,8 @@ export class LebConditionComponent implements OnChanges, OnInit, OnDestroy {
         this._condition = { ...initialCondition };
         this._value = initialCondition.value;
 
-        this._field = this.fields.find((field) => field.name === this.condition.field) ?? null;
-        this._operator = this.operators.find((operator) => operator.name === this.condition.operator) ?? null;
+        this._field = this.fields.find((field) => field.name === this._condition.field) ?? null;
+        this._operator = this.operators.find((operator) => operator.name === this._condition.operator) ?? null;
     }
 
     ngOnChanges(changes: SimpleChanges): void {
