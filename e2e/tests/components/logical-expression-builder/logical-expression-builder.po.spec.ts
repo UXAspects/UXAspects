@@ -138,9 +138,9 @@ export namespace LogicalExpressionBuilderPage {
 
         async getOptionsForDropdown(dropdownIndex: number, rowIndex: number): Promise<string[]> {
             const row: ElementFinder = await this.getTableRow(rowIndex);
-            const dropdown: ElementFinder = await row.$$('.ux-typeahead-options')[dropdownIndex];
+            const dropdownElement: ElementFinder = await row.$$('ol')[dropdownIndex];
 
-            return dropdown.$$('li').map((_li: ElementFinder) => _li.getText());
+            return dropdownElement.$$('li').map((_li: ElementFinder) => _li.getText());
         }
     }
 }
