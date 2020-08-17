@@ -10,7 +10,6 @@ import { LogicalExpressionBuilderService } from '../services/logical-expression-
         <ux-leb-group
             [path]="path"
             [indent]="indent"
-            [logicalOperatorName]="logicalOperatorName"
             [subExpression]="subExpression">
         </ux-leb-group>
     `
@@ -18,7 +17,6 @@ import { LogicalExpressionBuilderService } from '../services/logical-expression-
 export class GroupTestComponent {
     path = [0];
     indent = 0;
-    logicalOperatorName = 'and';
     subExpression: Expression = {type: 'group', logicalOperator: 'and', children: []};
 }
 
