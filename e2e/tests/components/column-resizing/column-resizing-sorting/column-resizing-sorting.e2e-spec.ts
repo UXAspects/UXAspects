@@ -2,7 +2,7 @@ import { ColumnResizingSortingPage } from './column-resizing-sorting.po.spec';
 import { imageCompare } from '../../common/image-compare';
 
 
-describe('Column Resizing Sorting Table Tests', () => {
+describe('Table with Column Resizing and Sorting', () => {
 
     const page: ColumnResizingSortingPage = new ColumnResizingSortingPage();
 
@@ -12,11 +12,19 @@ describe('Column Resizing Sorting Table Tests', () => {
 
     it('should not sort when resizing a column', async () => {
         await page.resizeColumn(0, -100);
-        expect(await imageCompare('column-resize-no-sort')).toEqual(0);
+        expect(await page.getColumnValues(0)).toEqual(['Email', 'Email', 'Document']);
     });
 
     it('should sort as normal when not resizing', async () => {
         await page.sortByName();
+        expect(await page.getColumnValues(0)).toEqual(['Document', 'Email', 'Email']);
+    });
+
+    it('should allow sorting after resizing a column', async () => {
+        await page.resizeColumn(0, -200);
+        await page.sortByName();
+
+        expect(await page.getColumnValues(0)).toEqual(['Document', 'Email', 'Email']);
         expect(await imageCompare('column-resize-sort')).toEqual(0);
     });
 });

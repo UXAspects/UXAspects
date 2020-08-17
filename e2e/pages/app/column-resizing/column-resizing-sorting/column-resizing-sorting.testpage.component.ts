@@ -21,37 +21,10 @@ export class ColumnResizingSortingTestPageComponent {
         date: '22 Dec 2016'
     }, {
         id: 3,
-        name: 'Email',
-        author: 'Don Bowers',
-        date: '12 Dec 2016'
-    }, {
-        id: 4,
-        name: 'Email',
-        author: 'Andrew Mack',
-        date: '16 Dec 2016'
-    }, {
-        id: 5,
-        name: 'Email',
-        author: 'Mina Farmer',
-        date: '17 Dec 2016'
-    }, {
-        id: 6,
-        name: 'Document',
-        author: 'Todd West',
-        date: '21 Dec 2016'
-    }, {
-        id: 7,
-        name: 'Document',
-        author: 'Genevieve Morales',
-        date: '17 Dec 2016'
-    }, {
-        id: 8,
         name: 'Document',
         author: 'Chad Arnold',
         date: '17 Dec 2016'
     }];
-
-    constructor() { }
 
     changeState(title: string, column: ColumnSortingComponent) {
         this.order = column.changeState();
@@ -82,26 +55,6 @@ export class ColumnResizingSortingTestPageComponent {
         });
     }
 
-    getColumnAriaLabel(title: string, column: ColumnSortingComponent): string {
-
-        switch (column.state) {
-
-            case ColumnSortingState.Ascending:
-                return column.order ?
-                    `${ title }: Ascending sort with priority ${ column.order }
-                    applied, activate to apply a Descending sort` :
-                    `${ title }: Ascending sort applied, activate to apply a Descending sort`;
-
-            case ColumnSortingState.Descending:
-                return column.order ?
-                    `${ title }: Descending sort with priority ${ column.order } applied,
-                    activate to apply no sorting` :
-                    `${ title }: Descending sort applied, activate to apply no sorting`;
-
-            default:
-                return `${ title }: No sort applied, activate to apply an Ascending sort`;
-        }
-    }
 }
 
 interface ColumnSortingTableData {
