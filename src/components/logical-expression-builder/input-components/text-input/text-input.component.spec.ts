@@ -1,50 +1,59 @@
 import { TextInputComponent } from './text-input.component';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { Component } from '@angular/core';
+import { LogicalExpressionBuilderModule } from '../../logical-expression-builder.module';
+
+@Component({
+    selector: 'ux-text-input-test',
+    template: `
+        <ux-text-input
+            [data]="data"
+            (valid)="onValidChange($event)"
+            [value]="value"
+            (valueChange)="onValueChange($event)">
+        </ux-text-input>
+    `
+})
+class TextInputTestComponent {
+    value: string = 'test';
+    data: any = null;
+
+    onValueChange(_: string): void {
+    }
+
+    onValidChange(_: boolean): void {
+    }
+}
 
 describe('TextInputComponent', () => {
-    let component: TextInputComponent;
-    let fixture: ComponentFixture<TextInputComponent>;
-    let textInput: HTMLInputElement;
+    let component: TextInputTestComponent;
+    let fixture: ComponentFixture<TextInputTestComponent>;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [TextInputComponent]
+            declarations: [TextInputTestComponent],
+            imports: [LogicalExpressionBuilderModule]
         });
     }));
 
     beforeEach(async(() => {
-        fixture = TestBed.createComponent(TextInputComponent);
+        fixture = TestBed.createComponent(TextInputTestComponent);
+        component = fixture.componentInstance;
         fixture.detectChanges();
-        fixture.whenStable().then(() => {
-            component = fixture.componentInstance;
-            textInput = fixture.debugElement.nativeElement.querySelector('input');
-        });
     }));
 
     it('should be created', () => {
         expect(component).toBeDefined();
     });
 
-    it('should render text input', () => {
-        expect(textInput).toBeDefined();
-    });
+    it('should fire valid event when value received', async(() => {
+        spyOn(component, 'onValidChange');
 
-    it('should be empty by default', () => {
-        component.value = null;
+        component.value = 'testing';
+
         fixture.detectChanges();
         fixture.whenStable().then(() => {
-            expect(textInput.value).toEqual('');
-            component.valueChange.subscribe((value: string) => expect(value).toEqual(''));
-        });
-    });
-
-    it('should display input value', async(() => {
-        const testValue = 'Test value';
-        component.value = testValue;
-        fixture.detectChanges();
-        fixture.whenStable().then(() => {
-            expect(textInput.value).toEqual(testValue);
-            component.valueChange.subscribe((value: string) => expect(value).toEqual(testValue));
+            expect(component.onValidChange).toHaveBeenCalled();
         });
     }));
 });
