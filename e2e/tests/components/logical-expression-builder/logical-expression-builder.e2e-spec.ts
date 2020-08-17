@@ -17,7 +17,7 @@ describe('Logical Expression Builder Tests', () => {
         expect(await page.getGroupRowCount()).toEqual(0);
         expect(await page.getValid()).toBeTruthy();
         expect(btn).toBeDefined();
-        expect(await btn.getText()).toEqual('Add condition');
+        expect(await btn.getText()).toEqual('ADD CONDITION');
     });
 
     it('should display one row when expression is just a condition', async () => {
@@ -43,7 +43,8 @@ describe('Logical Expression Builder Tests', () => {
         expect(expression.logicalOperator).toEqual('and');
         expect(expression.children).toBeDefined();
         expect(rows.length).toEqual(4);
-        expect(await page.getValid()).toBeTruthy();
+        // second condition is in edit mode, the expression should therefore be invalid
+        expect(await page.getValid()).toBeFalsy();
     });
 
     it('should only show one condition if there is one group with one condition', async () => {
