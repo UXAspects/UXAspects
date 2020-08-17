@@ -387,5 +387,4 @@ describe('Toolbar Search', () => {
         });
     });
 
-
 });
