@@ -94,10 +94,33 @@ describe('Logical Expression Builder Tests', () => {
         expect(await page.getTabIndex(6)).toBe('-1');
     });
 
+    it('should set options for fields and operators correctly', async () => {
+        await page.setComplexCondition();
+        await page.editRow(1);
+        const fieldOptions = await page.getOptionsForDropdown(0);
+        const operatorOptions = await page.getOptionsForDropdown(1);
+
+        expect(fieldOptions.length).toEqual(5);
+        expect(fieldOptions).toContain('Author');
+        expect(fieldOptions).toContain('Created');
+        expect(fieldOptions).toContain('Edited');
+        expect(fieldOptions).toContain('Version');
+        expect(fieldOptions).toContain('Category');
+
+
+        expect(operatorOptions.length).toEqual(2);
+        expect(operatorOptions).toContain('equals');
+        expect(operatorOptions).toContain('contains');
+    });
+
     it('should prefill the Text Input Component', async () => {
         await page.setComplexCondition();
-
         expect(await page.getTextInputComponentTextForRow(1)).toEqual('test');
+    });
+
+    it('should prefill the Date Range Input Component', async () => {
+        await page.setComplexCondition();
+        expect(await page.getDateRangeInputComponentTextForRow(2)).toEqual('6/24/20, 6:19 AM — 6/24/20, 6:19 AM');
     });
 
     it('should update expression and label after editing', async () => {

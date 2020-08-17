@@ -95,6 +95,12 @@ export namespace LogicalExpressionBuilderPage {
             return row.$$('input').last().getAttribute('value');
         }
 
+        async getDateRangeInputComponentTextForRow(index: number): Promise<string> {
+            await this.editRow(index);
+            const row = await this.getTableRow(index);
+            return row.$$('input').last().getAttribute('value');
+        }
+
         async editTextInputComponentForRow(index: number): Promise<void> {
             await this.editRow(index);
 
@@ -128,6 +134,14 @@ export namespace LogicalExpressionBuilderPage {
             } else {
                 return Promise.resolve(undefined);
             }
+        }
+
+        async getOptionsForDropdown(index: number): Promise<string[]> {
+            const dropdown: ElementFinder = await $$('.ux-typeahead-options')[index];
+
+            let options: string[] = [];
+
+            return dropdown.$$('li').map((_li: ElementFinder) => _li.getText());
         }
     }
 }
