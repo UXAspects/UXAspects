@@ -89,16 +89,16 @@ export namespace LogicalExpressionBuilderPage {
             return row.$$('button').first().click();
         }
 
-        async getTextInputComponentTextForRow(index: number): Promise<string> {
+        async getInputComponentTextForRow(index: number): Promise<string> {
             await this.editRow(index);
             const row = await this.getTableRow(index);
             return row.$$('input').last().getAttribute('value');
         }
 
-        async getDateRangeInputComponentTextForRow(index: number): Promise<string> {
+        async getSelectInputComponentTextForRow(index: number): Promise<string[]> {
             await this.editRow(index);
             const row = await this.getTableRow(index);
-            return row.$$('input').last().getAttribute('value');
+            return row.$$('ol[role=combobox]').last().$$('li').map((_item: ElementFinder) => _item.getText());
         }
 
         async editTextInputComponentForRow(index: number): Promise<void> {
@@ -139,8 +139,6 @@ export namespace LogicalExpressionBuilderPage {
         async getOptionsForDropdown(dropdownIndex: number, rowIndex: number): Promise<string[]> {
             const row: ElementFinder = await this.getTableRow(rowIndex);
             const dropdown: ElementFinder = await row.$$('.ux-typeahead-options')[dropdownIndex];
-
-            let options: string[] = [];
 
             return dropdown.$$('li').map((_li: ElementFinder) => _li.getText());
         }

@@ -115,12 +115,17 @@ describe('Logical Expression Builder Tests', () => {
 
     it('should prefill the Text Input Component', async () => {
         await page.setComplexCondition();
-        expect(await page.getTextInputComponentTextForRow(1)).toEqual('test');
+        expect(await page.getInputComponentTextForRow(1)).toEqual('test');
     });
 
     it('should prefill the Date Range Input Component', async () => {
         await page.setComplexCondition();
-        expect(await page.getDateRangeInputComponentTextForRow(2)).toEqual('6/24/20, 6:19 AM — 6/24/20, 6:19 AM');
+        expect(await page.getInputComponentTextForRow(2)).toEqual('6/24/20, 6:19 AM — 6/24/20, 6:19 AM');
+    });
+
+    it('should prefill the Date Input Component', async () => {
+        await page.setComplexCondition();
+        expect(await page.getInputComponentTextForRow(3)).toEqual('7/23/20, 2:40 PM');
     });
 
     it('should update expression and label after editing', async () => {
@@ -142,5 +147,34 @@ describe('Logical Expression Builder Tests', () => {
         expect(await page.getValueLabelForRow(3)).toEqual('7/23/20, 2:40 PM');
         expect(await page.getValueLabelForRow(4)).toEqual('Performance, Security');
         expect(await page.getValueLabelForRow(5)).toEqual('3');
+    });
+
+    describe('prefills Input Component:', () => {
+        beforeEach(async () => {
+            await page.setComplexCondition();
+        });
+
+        it('Text Input Component', async () => {
+            expect(await page.getInputComponentTextForRow(1)).toEqual('test');
+        });
+
+        it('Date Range Input Component', async () => {
+            expect(await page.getInputComponentTextForRow(2)).toEqual('6/24/20, 6:19 AM — 6/24/20, 6:19 AM');
+        });
+
+        it('Date Input Component', async () => {
+            expect(await page.getInputComponentTextForRow(3)).toEqual('7/23/20, 2:40 PM');
+        });
+
+        it('Select Input Component', async () => {
+            const tagContent: string[] = await page.getSelectInputComponentTextForRow(4);
+
+            expect(tagContent).toContain('Security');
+            expect(tagContent).toContain('Performance');
+        });
+
+        it('Number Input Component', async () => {
+            expect(await page.getInputComponentTextForRow(5)).toEqual('3');
+        });
     });
 });
