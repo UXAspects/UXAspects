@@ -8,8 +8,7 @@ import { GetEnumByValuePipe } from './dashboard-enum-widget.component';
 @Component({
     selector: 'app-ux-enum-widget',
     template: `<ux-dashboard>
-                    <ux-dashboard-enum-widget #widget
-                                              class="widget"
+                    <ux-dashboard-enum-widget class="widget"
                                               id="widget-enum"
                                               [name]="'Enum Widget'"
                                               [heading]="'Enum Widget'"
