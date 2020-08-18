@@ -1,13 +1,11 @@
 import {
     Directive,
-    ElementRef, HostBinding,
+    ElementRef,
     HostListener,
     Input,
-    OnChanges,
     OnDestroy,
     OnInit,
-    Renderer2,
-    SimpleChanges
+    Renderer2
 } from '@angular/core';
 import { FocusableOption, FocusOrigin } from '@angular/cdk/a11y';
 import { FocusHandlerService } from '../services/focus-handler.service';
@@ -22,7 +20,7 @@ import { Platform } from '@angular/cdk/platform';
 @Directive({
     selector: '[expressionRow]'
 })
-export class ExpressionRow implements FocusableOption, OnInit, OnDestroy, OnChanges {
+export class ExpressionRow implements FocusableOption, OnInit, OnDestroy {
     /** Used to identify and sort rows */
     @Input('rowPath') path: number[] = [];
 
@@ -118,16 +116,4 @@ export class ExpressionRow implements FocusableOption, OnInit, OnDestroy, OnChan
         this._renderer.setAttribute(this._elementRef.nativeElement, 'tabindex', this.tabindex.toString());
     }
 
-    ngOnChanges(changes: SimpleChanges) {
-        if (changes.path) {
-            const path = changes.path;
-
-            if (path.previousValue && path.previousValue.join() !== path.currentValue.join()) {
-                this._focusHandler.unregister(this);
-                this._focusHandler.register(this);
-            }
-        }
-
-        this._setTabIndex();
-    }
 }
