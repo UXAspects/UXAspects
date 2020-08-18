@@ -23,5 +23,4 @@ export class ToolbarSearchPage {
 
     // button to set always expanded state
     alwaysExpandedBtn = element(by.id('always-expanded-btn'));
-
 }

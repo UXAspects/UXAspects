@@ -1,7 +1,7 @@
 <div class="demo-toolbar">
 
-        <div class="demo-toolbar-left">
-            <ux-toolbar-search id="searchLeft"
+        <div role="toolbar" class="ux-toolbar">
+            <ux-toolbar-search id="search"
                 [alwaysExpanded]="alwaysExpanded"
                 [(expanded)]="expanded"
                 direction="right"
@@ -57,6 +57,4 @@
 
     </div>
 
-    <p class="m-t-md">Searched for:
-        <strong id="searchedFor">{{searchedFor}}</strong>
-    </p>
+<p class="m-t-md">Searched for:<strong id="searchedFor">{{searchedFor}}</strong></p>

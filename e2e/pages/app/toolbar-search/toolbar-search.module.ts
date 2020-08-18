@@ -16,14 +16,15 @@ import { ToolbarSearchTestPageComponent } from './toolbar-search.testpage.compon
         ColorServiceModule,
         AccessibilityModule,
         IconModule,
-        RouterModule.forChild([{
-            path: '',
-            component: ToolbarSearchTestPageComponent
-        },
-        {
-            path: 'ToolbarSearchTypeahead',
-            component: ToolbarSearchTypeaheadTestPageComponent
-        }
+        RouterModule.forChild([
+            {
+                path: '',
+                component: ToolbarSearchTestPageComponent
+            },
+            {
+                path: 'toolbar-search-typeahead',
+                component: ToolbarSearchTypeaheadTestPageComponent
+            }
         ])
     ],
     declarations: [
