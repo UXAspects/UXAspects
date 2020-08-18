@@ -11,7 +11,8 @@
      (onDrag)="onDragMove($event, handle)"
      (onDragEnd)="onDragEnd()"
      (keydown.ArrowLeft)="onMoveLeft()"
-     (keydown.ArrowRight)="onMoveRight()">
+     (keydown.ArrowRight)="onMoveRight()"
+     (click)="$event.stopPropagation()">
 
      <div class="ux-resizable-table-column-handle-icon"></div>
 </div>
