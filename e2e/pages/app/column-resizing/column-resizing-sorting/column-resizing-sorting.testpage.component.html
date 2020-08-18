@@ -1,0 +1,55 @@
+<table class="table table-hover" uxResizableTable>
+    <thead>
+    <tr uxColumnSorting>
+        <th class="clickable column-sorting"
+            uxResizableTableColumn
+            uxFocusIndicator
+            tabindex="0"
+            [attr.aria-sort]="nameColumn.state"
+            (click)="changeState('Name', nameColumn)"
+            (keydown.enter)="changeState('Name', nameColumn)">
+
+            <div class="column-sorting-header">
+                <p class="text-black">NAME</p>
+                <ux-column-sorting #nameColumn="ux-column-sorting" key="name">
+                </ux-column-sorting>
+            </div>
+        </th>
+        <th class="clickable column-sorting"
+            uxResizableTableColumn
+            uxFocusIndicator
+            tabindex="0"
+            [attr.aria-sort]="authorColumn.state"
+            (click)="changeState('Author', authorColumn)"
+            (keydown.enter)="changeState('Author', authorColumn)">
+
+            <div class="column-sorting-header">
+                <p class="text-black">AUTHOR</p>
+                <ux-column-sorting #authorColumn="ux-column-sorting" key="author">
+                </ux-column-sorting>
+            </div>
+        </th>
+        <th class="clickable column-sorting"
+            uxResizableTableColumn
+            uxFocusIndicator
+            tabindex="0"
+            [attr.aria-sort]="dateColumn.state"
+            (click)="changeState('Date Modified', dateColumn)"
+            (keydown.enter)="changeState('Date Modified', dateColumn)">
+
+            <div class="column-sorting-header">
+                <p class="text-black">DATE MODIFIED</p>
+                <ux-column-sorting #dateColumn="ux-column-sorting" key="date">
+                </ux-column-sorting>
+            </div>
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="clickable" *ngFor="let item of items">
+        <td uxResizableTableCell class="name">{{ item.name }}</td>
+        <td uxResizableTableCell class="author">{{ item.author }}</td>
+        <td uxResizableTableCell class="date">{{ item.date }}</td>
+    </tr>
+    </tbody>
+</table>
