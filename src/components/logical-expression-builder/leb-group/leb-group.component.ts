@@ -123,7 +123,7 @@ export class LebGroupComponent implements OnInit, OnDestroy {
             return index !== id;
         });
 
-        this._subExpression = {...this._subExpression, children};
+        this._subExpression = { ...this._subExpression, children };
 
         this._validate();
         this.subExpressionChange.emit(this._subExpression);
@@ -156,14 +156,18 @@ export class LebGroupComponent implements OnInit, OnDestroy {
         this._validate();
         this.subExpressionChange.emit(this._subExpression);
 
-        this._focusHandler.setPathToActivate([...this.path]);
+        this._focusHandler.setPathToActivate([...this.path, id]);
     }
 
     public deleteGroup(): void {
+        const position = this.path[this.path.length - 1];
+
         this.subExpressionChange.emit(null);
         this._validationService.removeValidationState(this.path);
         this._focusHandler.setRowInEditMode(null);
-        this._focusHandler.setPathToActivate(this.path.slice(0, -1));
+
+        // set the row above active
+        this._focusHandler.setPathToActivate(position === 0 ? this.path.slice(0, -1) : [...this.path.slice(0, -1), position - 1]);
     }
 
     private _validate(logicalOperator: LogicalOperatorDefinition = this.selectedLogicalOperator): boolean {
