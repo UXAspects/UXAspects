@@ -99,19 +99,19 @@ export namespace LogicalExpressionBuilderPage {
             return row.$$('ol[role=combobox]').last().$$('li').map((_item: ElementFinder) => _item.getText());
         }
 
-        async editTextInputComponentForRow(index: number): Promise<void> {
+        async editTextInputComponentForRow(index: number, confirm: boolean = true): Promise<void> {
             await this.editRow(index);
 
             // Send keys to input and confirm
-            const row = await this.getTableRow(index);
+            const row: ElementFinder = await this.getTableRow(index);
             await row.$$('input').last().clear();
             await row.$$('input').last().sendKeys('testing');
-            await row.$$('button').first().click();
-        }
 
-        async getFieldLabelForRow(index: number): Promise<string> {
-            const row = await this.getTableRow(index);
-            return row.$('.leb-field-display').getText();
+            if (confirm) {
+                await row.$$('button').first().click();
+            } else {
+                await row.$$('button').last().click();
+            }
         }
 
         async getOperatorLabelForRow(index: number): Promise<string> {

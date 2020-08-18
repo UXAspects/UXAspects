@@ -120,21 +120,6 @@ describe('Logical Expression Builder Tests', () => {
         expect(operatorOptions).toContain('contains');
     });
 
-    it('should prefill the Text Input Component', async () => {
-        await page.setComplexCondition();
-        expect(await page.getInputComponentTextForRow(1)).toEqual('test');
-    });
-
-    it('should prefill the Date Range Input Component', async () => {
-        await page.setComplexCondition();
-        expect(await page.getInputComponentTextForRow(2)).toEqual('6/24/20, 6:19 AM — 6/24/20, 6:19 AM');
-    });
-
-    it('should prefill the Date Input Component', async () => {
-        await page.setComplexCondition();
-        expect(await page.getInputComponentTextForRow(3)).toEqual('7/23/20, 2:40 PM');
-    });
-
     it('should update expression and label after editing', async () => {
         await page.setComplexCondition();
         await page.editTextInputComponentForRow(1);
@@ -144,6 +129,17 @@ describe('Logical Expression Builder Tests', () => {
         expect(expression.children.length).toEqual(5);
         expect(expression.children[0]['value']).toEqual('testing');
         expect(await page.getValueLabelForRow(1)).toEqual('testing');
+    });
+
+    it('should reset condition if editing is cancelled', async () => {
+        await page.setOneCondition();
+        await page.editTextInputComponentForRow(0, false);
+        const expression = await page.getExpressionObject() as ExpressionCondition;
+
+        expect(expression).toBeDefined();
+        expect(expression.type).toEqual('condition');
+        expect(expression.value).toEqual('test');
+        expect(await page.getValid()).toBeTruthy();
     });
 
     it('should display correct values in static mode', async () => {
