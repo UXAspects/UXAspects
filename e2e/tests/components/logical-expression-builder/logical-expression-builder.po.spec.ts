@@ -1,4 +1,4 @@
-import { $, $$, browser, ElementFinder } from 'protractor';
+import { $, $$, browser, ElementArrayFinder, ElementFinder } from 'protractor';
 import { Expression } from '../../../../src/components/logical-expression-builder';
 
 export namespace LogicalExpressionBuilderPage {
@@ -21,19 +21,17 @@ export namespace LogicalExpressionBuilderPage {
             return JSON.parse(await this.expression.getText());
         }
 
-        async getTableRows(): Promise<ElementFinder[]> {
+        async getTableRows(): Promise<ElementArrayFinder> {
             const tbody = $('tbody');
             return await tbody.$$('tr');
         }
 
         async getTableRow(index: number): Promise<ElementFinder> {
-            const rows = await this.getTableRows();
-            return rows[index];
+            return $('tbody').$$('tr').get(index);
         }
 
         async clickOnTableRow(index: number): Promise<void> {
-            const rows = await this.getTableRows();
-            return rows[index].click();
+            return $('tbody').$$('tr').get(index).click();
         }
 
         async getTabIndex(index: number): Promise<string> {
@@ -138,7 +136,8 @@ export namespace LogicalExpressionBuilderPage {
 
         async getOptionsForDropdown(dropdownIndex: number, rowIndex: number): Promise<string[]> {
             const row: ElementFinder = await this.getTableRow(rowIndex);
-            const dropdownElement: ElementFinder = await row.$$('ol')[dropdownIndex];
+            await row.$$('input').get(dropdownIndex).click();
+            const dropdownElement: ElementFinder = await row.$$('ol').get(dropdownIndex);
 
             return dropdownElement.$$('li').map((_li: ElementFinder) => _li.getText());
         }

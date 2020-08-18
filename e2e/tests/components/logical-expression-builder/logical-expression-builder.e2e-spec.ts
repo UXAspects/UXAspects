@@ -67,6 +67,13 @@ describe('Logical Expression Builder Tests', () => {
         expect(await page.getValid()).toBeFalsy();
     });
 
+    it('should be invalid if a condition is being edited', async () => {
+        await page.setOneCondition();
+        await page.editRow(0);
+
+        expect(await page.getValid()).toBeFalsy();
+    });
+
     it('should set tabindexes correctly', async () => {
         await page.setComplexCondition();
 
