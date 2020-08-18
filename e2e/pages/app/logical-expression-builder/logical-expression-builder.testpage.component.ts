@@ -116,7 +116,7 @@ export class LogicalExpressionBuilderTestpageComponent {
         ]
     };
 
-    preview: Expression;
+    preview: Expression = null;
 
     expressionChanged(query: Expression): void {
         this.preview = query;
