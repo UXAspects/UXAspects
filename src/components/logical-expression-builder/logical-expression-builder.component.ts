@@ -36,6 +36,8 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
     ]
 })
 export class LogicalExpressionBuilderComponent implements OnChanges, OnDestroy, OnInit, ControlValueAccessor {
+    @Output() expressionChange: EventEmitter<Expression> = new EventEmitter<Expression>();
+    @Output() valid: EventEmitter<boolean> = new EventEmitter<boolean>();
 
     @Input()
     set logicalOperators(logicalOperators: LogicalOperatorDefinition[]) {
@@ -55,9 +57,6 @@ export class LogicalExpressionBuilderComponent implements OnChanges, OnDestroy, 
     @Input()
     set expression(expression: Expression) {
         this._expression = expression;
-        this.expressionChange.emit(this._expression);
-        this.onChange(this._expression);
-        this.onTouched();
     }
 
     get expression() {
@@ -75,9 +74,6 @@ export class LogicalExpressionBuilderComponent implements OnChanges, OnDestroy, 
     set displayValueFunction(displayValueFunction: DisplayValueFunction) {
         this._lebService.setDisplayValueFunction(displayValueFunction);
     }
-
-    @Output() expressionChange: EventEmitter<Expression> = new EventEmitter<Expression>();
-    @Output() valid: EventEmitter<boolean> = new EventEmitter<boolean>();
 
     private _destroy$: Subject<void> = new Subject<void>();
 
@@ -123,22 +119,25 @@ export class LogicalExpressionBuilderComponent implements OnChanges, OnDestroy, 
             temp = { ...(<ExpressionGroup>temp).children[0] };
         }
 
-        this.expression = { ...temp };
+        this._expression = { ...temp } || null;
 
-        this.expressionChange.emit(this.expression);
+        this.expressionChange.emit(this._expression);
         this.onChange(this._expression);
         this.onTouched();
     }
 
     public deleteCondition(): void {
-        this.expression = null;
+        this._expression = null;
+        this.expressionChange.emit(this._expression);
+        this.onChange(this._expression);
+        this.onTouched();
         this._focusHandler.setRowInEditMode(null);
     }
 
     public addCondition(): void {
         // adds a condition to the expression if the expression is empty
-        this.expression = { type: 'condition', field: null, operator: null, value: null };
-        this.expressionChange.emit(this.expression);
+        this._expression = { type: 'condition', field: null, operator: null, value: null };
+        this.expressionChange.emit(this._expression);
         this.onChange(this._expression);
         this.onTouched();
         this._focusHandler.setRowInEditMode([0]);
@@ -147,9 +146,9 @@ export class LogicalExpressionBuilderComponent implements OnChanges, OnDestroy, 
 
     public addGroup(): void {
         // adds a group to the condition if there is only one condition to the expression and a second one is added
-        const firstCondition = { ...this.expression };
+        const firstCondition = { ...this._expression };
 
-        this.expression = {
+        this._expression = {
             type: 'group',
             logicalOperator: this._lebService.getLogicalOperators()[0].name,
             children: [
@@ -158,7 +157,7 @@ export class LogicalExpressionBuilderComponent implements OnChanges, OnDestroy, 
             ]
         };
 
-        this.expressionChange.emit(this.expression);
+        this.expressionChange.emit(this._expression);
         this.onChange(this._expression);
         this.onTouched();
         this._focusHandler.setRowInEditMode([0, 1]);
