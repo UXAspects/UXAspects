@@ -1,4 +1,4 @@
-import { $, $$, browser, WebElement, ElementFinder } from 'protractor';
+import { $, $$, browser, ElementFinder } from 'protractor';
 
 export class ColumnResizingSortingPage {
 
@@ -11,24 +11,22 @@ export class ColumnResizingSortingPage {
     }
 
     async resizeColumn(columnIndex: number, amount: number): Promise<void> {
-        const handle = await this.getColumnResizeHandle(columnIndex);
+        const handle = this.getColumnResizeHandle(columnIndex);
 
         // perform the drag
         await browser.actions().mouseDown(handle).mouseMove({ x: amount, y: 0 }).mouseUp().perform();
     }
 
-    async getColumnResizeHandle(columnIndex: number): Promise<WebElement> {
+    getColumnResizeHandle(columnIndex: number): ElementFinder {
         const columnHeaders = this.table.$$('th');
         const column = columnHeaders.get(columnIndex);
 
-        return await column.$('.ux-resizable-table-column-handle');
+        return column.$('.ux-resizable-table-column-handle');
     }
 
-    async getColumnValues(columnIndex: number): Promise<string[]> {
-        const allCells = this.tableBody.$$('td[uxresizabletablecell]');
-        const columnCells = allCells.filter((_, i: number) => (i + columnIndex) % 3 === 0);
-
-        return await columnCells.map(async (cell: ElementFinder) => await cell.getText());
+    async getColumnValues(cellClass: string): Promise<string[]> {
+        const cells = this.tableBody.$$(`td.${cellClass}`);
+        return await cells.map(async (cell: ElementFinder) => await cell.getText());
     }
 
     async sortByName(): Promise<void> {

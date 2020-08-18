@@ -47,9 +47,9 @@
     </thead>
     <tbody>
     <tr class="clickable" *ngFor="let item of items">
-        <td uxResizableTableCell>{{ item.name }}</td>
-        <td uxResizableTableCell>{{ item.author }}</td>
-        <td uxResizableTableCell>{{ item.date }}</td>
+        <td uxResizableTableCell class="name">{{ item.name }}</td>
+        <td uxResizableTableCell class="author">{{ item.author }}</td>
+        <td uxResizableTableCell class="date">{{ item.date }}</td>
     </tr>
     </tbody>
 </table>
