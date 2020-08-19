@@ -1,9 +1,5 @@
-import { protractor } from 'protractor';
 import { imageCompare } from '../../common/image-compare';
 import { ToolbarSearchTypeheadPage } from './toolbar-search-typeahead.po.spec';
-
-
-const ec = protractor.ExpectedConditions;
 
 describe('Toolbar Search Typeahead', () => {
 

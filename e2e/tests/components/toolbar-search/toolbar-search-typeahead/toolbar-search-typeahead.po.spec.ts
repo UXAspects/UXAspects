@@ -2,10 +2,6 @@ import { browser, by, element } from 'protractor';
 
 export class ToolbarSearchTypeheadPage {
 
-    async getPage(): Promise<void> {
-        await browser.get('#/toolbar-search/toolbar-search-typeahead');
-    }
-
     // ux-toolbar-search component
     search = element(by.id('search'));
     toolbarInput = this.search.$('[uxToolbarSearchField]');
@@ -15,13 +11,17 @@ export class ToolbarSearchTypeheadPage {
     // Most recently submitted search query
     searchedFor = element(by.id('searchedFor'));
 
-    async openDropdown() {
-        await this.searchButton.click();
-        return this.toolbarInput.click();
+    async getPage(): Promise<void> {
+        await browser.get('#/toolbar-search/toolbar-search-typeahead');
     }
 
-    isDropdownExpanded() {
+    async isDropdownExpanded(): Promise<boolean> {
         return this.search.$('.ux-typeahead-all-options').isPresent();
+    }
+
+    async openDropdown(): Promise<void> {
+        await this.searchButton.click();
+        return this.toolbarInput.click();
     }
 
 }

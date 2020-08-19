@@ -12,8 +12,7 @@ export class ToolbarSearchTypeaheadTestPageComponent {
     expanded: boolean;
     searchedFor: string = '';
     alwaysExpanded: boolean = false;
-
-    mastheadSearchText: string;
+    searchText: string;
     searchDropdownOpen: boolean;
 
     options = ['One', 'Two', 'Three', 'Four'];
