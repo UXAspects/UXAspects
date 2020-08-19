@@ -1,0 +1,60 @@
+<div class="demo-toolbar">
+
+    <div role="toolbar" class="ux-toolbar">
+        <ux-toolbar-search id="search"
+            [alwaysExpanded]="alwaysExpanded"
+            [(expanded)]="expanded"
+            direction="right"
+            background="white"
+            (search)="onSearch($event)">
+
+            <input
+                uxToolbarSearchField
+                #mastheadSearchField
+                type="text"
+                class="form-control"
+                placeholder="Search"
+                aria-label="Search"
+                [(ngModel)]="searchText"
+                [class.ux-toolbar-search-clear-offset]="searchText"
+                (keydown.escape)="searchDropdownOpen = false"
+                (blur)="searchDropdownOpen = false"
+                (click)="searchDropdownOpen = true"/>
+
+            <ux-typeahead
+                #searchTypeahead
+                class="typeahead-example"
+                [(open)]="searchDropdownOpen"
+                [filter]="searchText"
+                [options]="options"
+                (optionSelected)="searchText = $event.option">
+            </ux-typeahead>
+
+            <button *ngIf="searchText"
+                    type="button"
+                    class="btn btn-link btn-icon button-secondary ux-toolbar-search-clear"
+                    (click)="searchText = ''; mastheadSearchField.focus()">
+                <ux-icon name="close"></ux-icon>
+            </button>
+
+            <button uxToolbarSearchButton
+                    type="button"
+                    class="btn btn-link btn-icon button-secondary"
+                    aria-label="Toggle Search">
+                <ux-icon name="search"></ux-icon>
+            </button>
+
+        </ux-toolbar-search>
+
+        <button type="button" class="btn btn-link btn-icon button-secondary">
+            <ux-icon name="add"></ux-icon>
+        </button>
+
+        <button type="button" class="btn btn-link btn-icon button-secondary">
+            <ux-icon name="edit"></ux-icon>
+        </button>
+    </div>
+
+</div>
+
+<p class="m-t-md">Searched for:<strong id="searchedFor">{{searchedFor}}</strong></p>
