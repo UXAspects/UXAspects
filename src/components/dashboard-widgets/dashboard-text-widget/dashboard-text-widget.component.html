@@ -8,7 +8,7 @@
     <div #textWrapper class="widget-text" [class.is-truncated]="textWrapper.clientHeight < textParagraph.clientHeight">
         <p #textParagraph>{{ text }}</p>
     </div>
-    <button class="widget-side-panel-opener" (click)="open()">
+    <button class="widget-side-panel-opener btn" (click)="open()">
         <ux-icon name="chevron-right" *ngIf="!editable"></ux-icon>
         <ux-icon name="edit" *ngIf="editable"></ux-icon>
     </button>

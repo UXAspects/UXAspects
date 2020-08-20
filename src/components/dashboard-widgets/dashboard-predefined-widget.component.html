@@ -6,7 +6,7 @@
                      [name]="name"
                      [resizable]="!fixedMode">
     <div class="widget-header">
-        <h3 class="widget-title" *ngIf="heading">{{ heading }}</h3>
+        <h3 class="widget-title" *ngIf="heading" [attr.title]="heading">{{ heading }}</h3>
         <button #handle
                 [hidden]="fixedMode"
                 class="widget-grab-handle"
