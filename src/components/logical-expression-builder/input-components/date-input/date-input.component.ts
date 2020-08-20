@@ -28,8 +28,8 @@ export class DateInputComponent implements AfterViewInit, OnDestroy {
         this.date = !isNaN(date.getDate()) ? date : new Date();
     }
 
-    @Input('data')
-    set options(options: DateInputOptions) {
+    @Input()
+    set data(options: DateInputOptions) {
         this.showTime = options?.showTime ?? this.showTime;
         this.showNowBtn = options?.showNowBtn ?? this.showNowBtn;
         this.dateFormat = options?.dateFormat ?? this.dateFormat;

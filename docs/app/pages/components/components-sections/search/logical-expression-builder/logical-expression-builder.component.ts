@@ -71,7 +71,7 @@ export class ComponentsLogicalExpressionBuilderComponent extends BaseDocumentati
 
     fields: FieldDefinition[] = [
         { name: 'author', label: 'Author', fieldType: 'text' },
-        { name: 'created', label: 'Created', fieldType: 'date', data: { dateFormat: 'short', showTime: false, showNowBtn: true } },
+        { name: 'created', label: 'Created', fieldType: 'date', data: { dateFormat: 'short', showTime: true, showNowBtn: true } },
         { name: 'edited', label: 'Edited', fieldType: 'dateRange', data: { dateFormat: 'short', showTime: false, showNowBtn: true } },
         { name: 'version', label: 'Version', fieldType: 'number' },
         {
