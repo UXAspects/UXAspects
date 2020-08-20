@@ -7,6 +7,26 @@ ux-dashboard-text-widget {
         p {
             white-space: pre-wrap;
         }
+
+        &.is-truncated:after {
+            background: linear-gradient(0deg, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 100%);
+            bottom: 0;
+            content: ' ';
+            display: block;
+            height: 30px;
+            position: absolute;
+            width: 100%;
+        }
+    }
+
+    .widget-side-panel-opener {
+        background-color: transparent;
+        border: none;
+        bottom: 3px;
+        padding: 1px 6px;
+        position: absolute;
+        right: 3px;
+        min-width: 0;
     }
 
     .ux-side-panel.open > .ux-side-panel-host {
@@ -15,6 +35,7 @@ ux-dashboard-text-widget {
 
     .ux-side-panel > .ux-side-panel-host > .widget-side-panel-textarea {
         background-color: transparent;
+        color: inherit;
         border: none;
         outline: none;
     }
