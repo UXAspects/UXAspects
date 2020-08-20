@@ -24,8 +24,6 @@ export class DashboardEnumWidgetTestComponent {
         { value: '0', label: 'Zero', icon: 'close' },
         { value: '1', label: 'One', icon: 'radial' },
     ];
-
-    @ViewChild('widget') widget: DashboardEnumWidgetComponent;
 }
 
 describe('Enum Widget', () => {
