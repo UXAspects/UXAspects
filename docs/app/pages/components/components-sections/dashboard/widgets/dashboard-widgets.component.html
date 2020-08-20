@@ -46,18 +46,20 @@
 
 </ux-dashboard>
 
-<hr>
-
 <div class="row uxd-customize-example">
     <div class="col-md-12">
         <ux-accordion>
             <ux-accordion-panel class="accordion-chevron" heading="Customize Example...">
                 <div class="row">
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <ux-checkbox [(ngModel)]="fixedMode">Fixed Mode</ux-checkbox>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <ux-checkbox [(ngModel)]="textWidgetEditable">Make Text Widget editable</ux-checkbox>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label" for="dashboard-padding-input">Padding</label>
+                        <input id="dashboard-padding-input" [(ngModel)]="dashboardPadding" min="0" type="number" placeholder="Enter padding" class="form-control m-b">
                     </div>
                 </div>
             </ux-accordion-panel>

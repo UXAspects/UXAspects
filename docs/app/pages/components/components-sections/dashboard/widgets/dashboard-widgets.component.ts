@@ -16,10 +16,27 @@ import { EnumConfig } from '../../../../../../../src/components/dashboard-widget
 export class ComponentsDashboardWidgetsComponent extends BaseDocumentationSection implements IPlaygroundProvider, AfterViewInit {
     fixedMode: boolean = false;
     textWidgetEditable: boolean = true;
+    private _dashboardPadding: number = 10;
+
+    get dashboardPadding(): number {
+        return this._dashboardPadding;
+    }
+
+    set dashboardPadding(value: number) {
+        this._dashboardPadding = value;
+
+        this.options = {
+            columns: 4,
+            padding: value,
+            rowHeight: 110,
+            emptyRow: false,
+            minWidth: 187
+        };
+    }
 
     options: DashboardOptions = {
         columns: 4,
-        padding: 10,
+        padding: this._dashboardPadding,
         rowHeight: 110,
         emptyRow: false,
         minWidth: 187
