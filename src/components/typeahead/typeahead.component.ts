@@ -145,7 +145,8 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
     optionApi: TypeaheadOptionApi<T> = {
         getKey: this.getKey.bind(this),
         getDisplay: this.getDisplay.bind(this),
-        getDisplayHtml: this.getDisplayHtml.bind(this)
+        getDisplayHtml: this.getDisplayHtml.bind(this),
+        getDisabled: this.isDisabled.bind(this)
     };
 
     constructor(
@@ -334,7 +335,7 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
                 .toLowerCase()
                 .indexOf(this.filter.toLowerCase());
             if (matchIndex >= 0) {
-                var highlight = `<span class="ux-filter-match">${displayText.substr(matchIndex, length)}</span>`;
+                const highlight = `<span class="ux-filter-match">${ displayText.substr(matchIndex, length) }</span>`;
                 displayHtml =
                     displayText.substr(0, matchIndex) +
                     highlight +
@@ -355,7 +356,7 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
      * Selects the given option, emitting the optionSelected event and closing the dropdown.
      */
     select(option: TypeaheadVisibleOption<T>, origin?: FocusOrigin): void {
-        if (!option.isDisabled) {
+        if (!this.isDisabled(option.value)) {
             this.optionSelected.emit(
                 new TypeaheadOptionEvent(option.value, origin)
             );
@@ -382,20 +383,14 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
      * Returns true if the given option is part of the disabledOptions array.
      */
     isDisabled(option: T): boolean {
-        if (this.disabledOptions && Array.isArray(this.disabledOptions)) {
-            const result = this.disabledOptions.find(selectedOption => {
-                return this.getKey(selectedOption) === this.getKey(option);
-            });
-            return result !== undefined;
-        }
-        return false;
+        return this.disabledOptions?.some(selectedOption => this.getKey(selectedOption) === this.getKey(option)) ?? false;
     }
 
     /**
      * Set the given option as the current highlighted option, available in the highlightedOption parameter.
      */
     highlight(option: TypeaheadVisibleOption<T>): void {
-        if (!option.isDisabled) {
+        if (!this.isDisabled(option.value)) {
             this.highlighted$.next(option);
             this._changeDetector.detectChanges();
         }
@@ -413,7 +408,7 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
         do {
             newIndex = newIndex + d;
             inBounds = newIndex >= 0 && newIndex < this.allVisibleOptions.length;
-            disabled = inBounds && this.allVisibleOptions[newIndex].isDisabled;
+            disabled = inBounds && this.isDisabled(this.allVisibleOptions[newIndex].value);
         } while (inBounds && disabled);
 
         if (!disabled && inBounds) {
@@ -482,7 +477,6 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
                 .map(value => ({
                     value: value,
                     key: this.getKey(value),
-                    isDisabled: this.isDisabled(value),
                     isRecentOption: isRecentOptions
                 }));
         }
