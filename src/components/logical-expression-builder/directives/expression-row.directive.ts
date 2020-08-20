@@ -12,8 +12,6 @@ import { FocusHandlerService } from '../services/focus-handler.service';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { ManagedFocusContainerService } from '../../../directives/accessibility/managed-focus-container/managed-focus-container.service';
-import { FocusIndicatorOriginService } from '../../../directives/accessibility/focus-indicator/focus-indicator-origin/focus-indicator-origin.service';
-import { Platform } from '@angular/cdk/platform';
 
 @Directive({
     selector: '[expressionRow]'
@@ -35,6 +33,10 @@ export class ExpressionRow implements FocusableOption, OnInit, OnDestroy {
         // if this item is not currently focused in the focusKeyManager set it as the active item
         if (!this._focusHandler.isItemActive(this)) {
             this._focusHandler.setPathToActivate(this.path, true);
+        }
+
+        if (this._focusOrigin === 'keyboard' || this._focusOrigin === 'program') {
+            this._renderer.addClass(this._elementRef.nativeElement, 'ux-keyboard-focus');
         }
     }
 
@@ -62,6 +64,10 @@ export class ExpressionRow implements FocusableOption, OnInit, OnDestroy {
         // Monitor the focus of this element and subscribe to the focus origin
         this._focusMonitor.monitor(this._elementRef, false).pipe(takeUntil(this._destroy$)).subscribe((origin: FocusOrigin) => {
             this._focusOrigin = origin;
+
+            if (!origin) {
+                this._renderer.removeClass(this._elementRef.nativeElement, 'ux-keyboard-focus');
+            }
         });
     }
 
@@ -100,6 +106,10 @@ export class ExpressionRow implements FocusableOption, OnInit, OnDestroy {
         this._focusMonitor.focusVia(this._elementRef, origin);
 
         this._focusHandler.setPathToActivate(this.path, hasRow);
+
+        if (origin === 'keyboard') {
+            this._renderer.addClass(this._elementRef.nativeElement, 'ux-keyboard-focus');
+        }
     }
 
     private _setTabIndex(): void {
