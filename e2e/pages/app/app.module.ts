@@ -39,6 +39,10 @@ const routes: Routes = [
         loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardTestPageModule)
     },
     {
+        path: 'dashboard-widgets',
+        loadChildren: () => import('./dashboard-widgets/dashboard-widgets.module').then(m => m.DashboardWidgetsTestPageModule)
+    },
+    {
         path: 'date-time-picker',
         loadChildren: () => import('./date-time-picker/date-time-picker.module').then(m => m.DateTimePickerTestPageModule)
     },
