@@ -115,6 +115,10 @@ export class ExpressionRow implements FocusableOption, OnInit, OnDestroy {
     private _setTabIndex(): void {
         // update the tabindex attribute
         this._renderer.setAttribute(this._elementRef.nativeElement, 'tabindex', this.tabindex.toString());
+
+        if (this.tabindex !== 0) {
+            (this._elementRef.nativeElement as HTMLElement).blur();
+        }
     }
 
 }
