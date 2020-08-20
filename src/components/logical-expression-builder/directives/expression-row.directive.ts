@@ -7,11 +7,9 @@ import {
     OnInit,
     Renderer2
 } from '@angular/core';
-import { FocusableOption, FocusOrigin } from '@angular/cdk/a11y';
+import { FocusableOption, FocusMonitor, FocusOrigin } from '@angular/cdk/a11y';
 import { FocusHandlerService } from '../services/focus-handler.service';
-import { FocusIndicatorService } from '../../../directives/accessibility/focus-indicator/focus-indicator.service';
-import { FocusIndicator } from '../../../directives/accessibility/focus-indicator/focus-indicator';
-import { distinctUntilChanged, filter, takeUntil } from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { ManagedFocusContainerService } from '../../../directives/accessibility/managed-focus-container/managed-focus-container.service';
 import { FocusIndicatorOriginService } from '../../../directives/accessibility/focus-indicator/focus-indicator-origin/focus-indicator-origin.service';
@@ -44,9 +42,6 @@ export class ExpressionRow implements FocusableOption, OnInit, OnDestroy {
         return this._focusHandler.isItemActive(this) ? 0 : -1;
     }
 
-    /** Store a reference to the focus indicator instance */
-    private _focusIndicator: FocusIndicator;
-
     /** Determine if this element has a focus indicator visible */
     private _focusOrigin: FocusOrigin = null;
 
@@ -55,60 +50,56 @@ export class ExpressionRow implements FocusableOption, OnInit, OnDestroy {
     constructor(
         private _elementRef: ElementRef,
         private _focusHandler: FocusHandlerService,
-        private _focusIndicatorService: FocusIndicatorService,
         private _managedFocusContainerService: ManagedFocusContainerService,
         private _renderer: Renderer2,
-        private _focusOriginService: FocusIndicatorOriginService,
-        private _platform: Platform,
+        private _focusMonitor: FocusMonitor
     ) {
         // Listen for focus changes to set tabindex to either 0 or -1
         this._focusHandler.onTabindexChange$.pipe(takeUntil(this._destroy$)).subscribe(() => {
             this._setTabIndex();
         });
+
+        // Monitor the focus of this element and subscribe to the focus origin
+        this._focusMonitor.monitor(this._elementRef, false).pipe(takeUntil(this._destroy$)).subscribe((origin: FocusOrigin) => {
+            this._focusOrigin = origin;
+        });
     }
-
-    focus(): void {
-        const hasRow = this._focusHandler.hasRow();
-
-        const origin: FocusOrigin = this._focusOrigin;
-
-        const preventScroll = origin !== 'program' && origin !== 'keyboard';
-
-        this._focusIndicator.focus(origin, { preventScroll });
-
-        this._focusHandler.setPathToActivate(this.path, hasRow);
-    }
-
 
     ngOnInit() {
-        // create the focus indicator
-        this._focusIndicator = this._focusIndicatorService.monitor(this._elementRef.nativeElement);
-
-        // store the most current focus origin
-        this._focusIndicator.origin$.pipe(takeUntil(this._destroy$), distinctUntilChanged(), filter(Boolean))
-            .subscribe((origin: FocusOrigin) => {
-                this._focusOrigin = origin;
-            });
+        // ensure the tab index is initially set
+        this._setTabIndex();
+        if (this._focusHandler.isItemActive(this)) {
+            this._focusHandler.setPathToActivate(this.path);
+        }
 
         // Register the row with the focus handler
         this._focusHandler.register(this);
 
         // Watch for focus within the container element and manage tabindex of descendants
         this._managedFocusContainerService.register(this._elementRef.nativeElement, this);
-
-        // ensure the tab index is initially set
-        this._setTabIndex();
-        if (this._focusHandler.isItemActive(this)) {
-            this._focusHandler.setPathToActivate(this.path);
-        }
     }
 
     ngOnDestroy(): void {
+        // unregister the row with the focus handler service
         this._focusHandler.unregister(this);
-        this._focusIndicator.destroy();
+        // stop monitoring the focus of this row
+        this._focusMonitor.stopMonitoring(this._elementRef);
+
+        this._managedFocusContainerService.unregister(this._elementRef.nativeElement, this);
 
         this._destroy$.next();
         this._destroy$.complete();
+    }
+
+    focus(): void {
+        const hasRow = this._focusHandler.hasRow();
+
+        // map programmatic focus to keyboard focus
+        const origin: FocusOrigin = (this._focusOrigin === 'program' ? 'keyboard' : this._focusOrigin) ?? 'keyboard';
+
+        this._focusMonitor.focusVia(this._elementRef, origin);
+
+        this._focusHandler.setPathToActivate(this.path, hasRow);
     }
 
     private _setTabIndex(): void {
