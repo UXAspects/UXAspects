@@ -4,34 +4,52 @@ ux-predefined-widget {
             position: relative;
             display: flex;
             flex-flow: column nowrap;
+            background-color: @white;
+            box-shadow: 0 2px 10px 0 @grey5;
+            padding: 15px;
+            overflow: hidden;
+            transition: box-shadow 250ms ease-in-out;
 
             .widget-title {
                 margin-right: 20px;
                 margin-top: 0;
+                font-weight: 700;
+                color: @grey2;
+                font-size: 1.25rem;
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
             }
 
             .widget-content-wrapper {
                 flex: 1 1 auto;
                 min-height: 0;
-                overflow: hidden;
+                overflow-x: hidden;
+                overflow-y: auto;
                 position: relative;
+            }
 
-                .widget-side-panel-opener {
+            &.prominent {
+                &:after {
+                    content: ' ';
                     position: absolute;
+                    top: 0;
                     right: 0;
-                    bottom: 0;
-
-                    &:active {
-                        outline: none;
-                    }
+                    width: 25px;
+                    height: 25px;
+                    border-right: 25px solid @vibrant2;
+                    border-bottom: 25px solid transparent;
                 }
             }
         }
 
         .widget-grab-handle {
             position: absolute;
-            top: 0;
-            right: 0;
+            top: 15px;
+            right: 10px;
+            border: none;
+            background-color: transparent;
+            cursor: move;
         }
     }
 }
