@@ -39,7 +39,7 @@ export class DashboardEnumWidgetComponent implements PredefinedWidgetConfig, Enu
 
     dropdownOpenChange(open: boolean): void {
         if (open) {
-            this.enumItems.toArray()[0].nativeElement.focus();
+            this.enumItems.toArray()?.[0]?.nativeElement?.focus();
         }
     }
 }
