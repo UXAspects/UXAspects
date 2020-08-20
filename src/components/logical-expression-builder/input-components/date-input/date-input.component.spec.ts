@@ -1,7 +1,6 @@
 import { DateInputComponent } from '../..';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { DateTimePickerModule } from '../../../date-time-picker';
-import { L10nPipe } from '../../pipes/l10n.pipe';
 import { PopoverModule } from '../../../popover';
 import { Pipe, PipeTransform } from '@angular/core';
 
@@ -40,7 +39,7 @@ describe('DateInputComponent', () => {
 
     it('should set options correctly', async(() => {
         component.value = null;
-        component.options = {
+        component.data = {
             showTime: true,
             dateFormat: 'short',
             showNowBtn: true,
