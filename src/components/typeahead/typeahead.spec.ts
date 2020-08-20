@@ -30,13 +30,13 @@ import { CommonModule } from '@angular/common';
                                   class="typeahead-example"
                                   [(open)]="dropdownOpen"
                                   [filter]="input"
-                                  [options]="loadOptionsFn"
+                                  [options]="values"
                                   [openOnFilterChange]="true"
-                                  [pageSize]="pageSize"
                                   [selectOnEnter]="selectOnEnter"
                                   [selectFirst]="selectFirst"
                                   [dropDirection]="dropDirection"
                                   (optionSelected)="input = $event.option"
+                                  [disabledOptions]="disabledOptions"
                                   [(recentOptions)]="recentOptions"
                                   [recentOptionsMaxCount]="recentOptionsMaxCount">
                     </ux-typeahead>
@@ -47,38 +47,17 @@ import { CommonModule } from '@angular/common';
 })
 export class TypeaheadTestComponent {
 
-    values: ReadonlyArray<string> = [];
-
+    values: ReadonlyArray<string> = ['One', 'Two', 'Three'];
     dropdownOpen: boolean = false;
     selectOnEnter: boolean = true;
     dropDirection: 'down' | 'up' | 'auto' = 'auto';
     selectFirst: boolean = true;
     recentOptions: ReadonlyArray<string>;
     recentOptionsMaxCount: number = 5;
-    maxHeight: string;
-    pageSize: number = 40;
-
+    disabledOptions: string[] = [];
     input: string = '';
 
-    loadOptionsFn = this.loadOptions.bind(this);
-
-    /** Load the options and filter the them */
-    loadOptions(pageNum: number, pageSize: number, filter: string): Promise<ReadonlyArray<string>> {
-
-        // get the values for the current page based on the filter text provided
-        const values = this.values.filter(tag => tag.toLowerCase().indexOf(filter.toLowerCase()) !== -1)
-            .slice(pageNum * pageSize, (pageNum + 1) * pageSize);
-
-        // return the values after a delay to simulate server response time
-        return of(values).pipe(delay(1000)).toPromise();
-    }
-
     constructor(public typeaheadKeyService: TypeaheadKeyService<string>) {
-
-        /* Adding values to typeahead list */
-        for (let index = 0; index < 200; index++) {
-            this.values = [...this.values, 'One', 'Two', 'Three'];
-        }
     }
 
 }
@@ -87,6 +66,8 @@ describe('Typeahead Component', () => {
     let component: TypeaheadTestComponent;
     let fixture: ComponentFixture<TypeaheadTestComponent>;
     let nativeElement: HTMLElement;
+    let typeaheadInput: HTMLElement;
+    let typeahead: HTMLElement;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
@@ -97,7 +78,7 @@ describe('Typeahead Component', () => {
                 FormsModule,
                 ResizeModule,
                 ScrollModule
-                ],
+            ],
             declarations: [TypeaheadTestComponent],
         })
             .compileComponents();
@@ -108,6 +89,9 @@ describe('Typeahead Component', () => {
         component = fixture.componentInstance;
         nativeElement = fixture.nativeElement;
         fixture.detectChanges();
+
+        typeaheadInput = nativeElement.querySelector('input');
+        typeahead = nativeElement.querySelector('ux-typeahead');
     });
 
     it('should create the component', () => {
@@ -115,28 +99,45 @@ describe('Typeahead Component', () => {
     });
 
     it('should allow dropDirection to be set to down', () => {
-        const typeaheadInput: HTMLElement = nativeElement.querySelector('input');
-        const typeahead: HTMLElement = nativeElement.querySelector('ux-typeahead');
-
         component.dropDirection = 'down';
         fixture.detectChanges();
-        fixture.whenStable();
-
         typeaheadInput.click();
 
         expect(typeahead.classList.contains('drop-up')).toBe(false);
     });
 
     it('should allow dropDirection to be set to up', () => {
-        const typeaheadInput: HTMLElement = nativeElement.querySelector('input');
-        const typeahead: HTMLElement = nativeElement.querySelector('ux-typeahead');
-
         component.dropDirection = 'up';
         fixture.detectChanges();
-        fixture.whenStable();
-
         typeaheadInput.click();
 
         expect(typeahead.classList.contains('drop-up')).toBe(true);
     });
+
+    it('should disable any options in the disabledOptions array', () => {
+        component.disabledOptions = [component.values[1]];
+        fixture.detectChanges();
+        typeaheadInput.click();
+        fixture.detectChanges();
+
+        expect(getTypeaheadItem(0).classList).not.toContain('disabled');
+        expect(getTypeaheadItem(1).classList).toContain('disabled');
+        expect(getTypeaheadItem(2).classList).not.toContain('disabled');
+
+        // if the item is removed from the disabledOptions list
+        component.disabledOptions = [];
+        fixture.detectChanges();
+
+        expect(getTypeaheadItem(0).classList).not.toContain('disabled');
+        expect(getTypeaheadItem(1).classList).not.toContain('disabled');
+        expect(getTypeaheadItem(2).classList).not.toContain('disabled');
+    });
+
+    function getTypeaheadItems(): NodeListOf<HTMLElement> {
+        return typeahead.querySelectorAll('li');
+    }
+
+    function getTypeaheadItem(index: number): HTMLElement {
+        return getTypeaheadItems().item(index);
+    }
 });
