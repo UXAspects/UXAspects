@@ -52,7 +52,7 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
     @Input() key: (option: T) => string | string;
 
     /** Specify which options are disabled */
-    @Input() disabledOptions: T[];
+    @Input() disabledOptions: T | T[];
 
     /** Specify the drop direction */
     @Input() dropDirection: 'auto' | 'up' | 'down' = 'down';
@@ -305,7 +305,7 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
     /**
      * Returns the display value of the given option.
      */
-    getDisplay(option: T): string {
+    getDisplay(option: T): string | undefined {
         if (typeof this.display === 'function') {
             return this.display(option);
         }
@@ -324,11 +324,18 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
      * @param option
      */
     getDisplayHtml(option: T): string {
-        const displayText = this.getDisplay(option)
+        const displayText = this.getDisplay(option);
+
+        // getDisplay may return undefined in certain cases
+        if (!displayText) {
+            return '';
+        }
+
+        let displayHtml = displayText
             .replace(/&/g, '&amp;')
             .replace(/</g, '&lt;')
             .replace(/>/g, '&gt;');
-        let displayHtml = displayText;
+
         if (this.filter) {
             const length = this.filter.length;
             const matchIndex = displayText
@@ -383,7 +390,8 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
      * Returns true if the given option is part of the disabledOptions array.
      */
     isDisabled(option: T): boolean {
-        return this.disabledOptions?.some(selectedOption => this.getKey(selectedOption) === this.getKey(option)) ?? false;
+        return Array.isArray(this.disabledOptions) ?
+            this.disabledOptions.some(selectedOption => this.getKey(selectedOption) === this.getKey(option)) : false;
     }
 
     /**
