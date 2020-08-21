@@ -9,7 +9,6 @@ export class DashboardWidgetsPage {
     announcer = element(by.className('cdk-live-announcer-element'));
     topFocusTarget = element(by.id('top-focus'));
     bottomFocusTarget = element(by.id('bottom-focus'));
-    changeOptions = element(by.id('change-dashboard-options'));
     layoutOutput = element(by.id('layout-output'));
 
     async getPage(): Promise<void> {
@@ -20,8 +19,8 @@ export class DashboardWidgetsPage {
         return await this.container.$('div.dashboard-container').$$('ux-dashboard-widget').count();
     }
 
-    async getWidget(index: number) {
-        return await this.container.$('div.dashboard-container').$$('ux-dashboard-widget').get(index);
+    async getWidget(widgetId: string) {
+        return element(by.id(`#${widgetId}`)).$('ux-dashboard-widget');
     }
 
     async getWidgetAttribute(widget: ElementFinder, attribute: string) {
@@ -77,7 +76,7 @@ export class DashboardWidgetsPage {
         }
     }
 
-    async getGrabHandle(widgetId = 'analytics-1-widget'): Promise<ElementFinder> {
+    async getGrabHandle(widgetId = 'widget-actions'): Promise<ElementFinder> {
         return await this.container.$(`#${widgetId} button.widget-grab-handle`);
     }
 
