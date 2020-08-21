@@ -5,11 +5,16 @@ import { FilterRemoveAllEvent } from '../events/filter-remove-all-event';
 import { FilterService } from '../filter.service';
 import { Filter } from '../interfaces/filter.interface';
 
+let uniqueId = 0;
+
 @Component({
     selector: 'ux-filter-dropdown',
     templateUrl: './filter-dropdown.component.html',
 })
 export class FilterDropdownComponent implements OnInit, OnDestroy {
+
+    /** Define the input for the component */
+    @Input() id: string = `ux-filter-dropdown-${uniqueId++}`;
 
     /** The list of items to display in the dropdown */
     @Input() filters: Filter[] = [];

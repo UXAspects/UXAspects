@@ -4,6 +4,7 @@
         type="button"
         [class.active]="selected !== initial"
         class="filter-dropdown btn dropdown-toggle"
+        [id]="id + '-trigger'"
         [uxMenuTriggerFor]="menu"
         #trigger="ux-menu-trigger">
         {{ selected?.group }}
@@ -18,6 +19,7 @@
         <button
             uxMenuItem
             *ngIf="showTypeahead"
+            [id]="id + '-initial-option'"
             (click)="removeFilter()"
             (keydown.enter)="removeFilter()">
             <ux-icon
@@ -30,7 +32,9 @@
         </button>
 
         <!-- Selected Options -->
-        <button uxMenuItem *ngIf="selected !== initial && showTypeahead">
+        <button uxMenuItem
+                *ngIf="selected !== initial && showTypeahead"
+                [id]="id + '-selection'">
             <ux-icon name="checkmark"></ux-icon>
             <span class="filter-dropdown-title">{{ selected.name }}</span>
         </button>
@@ -68,9 +72,10 @@
         <ng-container *ngIf="!showTypeahead">
 
             <button
-                *ngFor="let filter of filters"
+                *ngFor="let filter of filters; let index = index"
                 type="button"
                 uxMenuItem
+                [id]="filter.id || id + '-item-' + index"
                 (click)="selectFilter(filter); trigger.closeMenu('mouse')"
                 (keydown.enter)="selectFilter(filter); trigger.closeMenu('keyboard')">
 

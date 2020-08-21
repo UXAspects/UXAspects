@@ -15,6 +15,12 @@ let uniqueId = 1;
 })
 export class FilterDynamicComponent implements OnInit, OnDestroy {
 
+    /** The unique id is used multiple time - this is to ensure we only increment it once */
+    private _uniqueId: number = uniqueId++;
+
+    /** Define the input for the component */
+    @Input() id: string = `ux-filter-dynamic-${this._uniqueId}`;
+
     /** The list of possible filter options */
     @Input() filters: Filter[] = [];
 
@@ -30,7 +36,7 @@ export class FilterDynamicComponent implements OnInit, OnDestroy {
     }
 
     /** Generate a unique id for the typeahead */
-    typeaheadId: string = `ux-filter-dynamic-typeahead-${uniqueId++}`;
+    typeaheadId: string = `ux-filter-dynamic-typeahead-${this._uniqueId}`;
 
     /** Store the current search query */
     query$ = new BehaviorSubject<string>('');
