@@ -12,6 +12,7 @@ import { LogicalOperatorDefinition } from '../interfaces/LogicalOperatorDefiniti
 import { LogicalExpressionBuilderService } from '../services/logical-expression-builder.service';
 import { ValidationService } from '../services/validation.service';
 import { FocusHandlerService } from '../services/focus-handler.service';
+import { Observable } from 'rxjs';
 
 @Component({
     selector: 'ux-leb-group',
@@ -45,11 +46,13 @@ export class LebGroupComponent implements OnInit, OnDestroy {
     public _valid: boolean = true;
     public _errorMessage: string;
     public _showAddBtn: boolean = false;
+    public _editBlocked$: Observable<boolean>;
 
     constructor(
         private _lebService: LogicalExpressionBuilderService,
         private _validationService: ValidationService,
         private _focusHandler: FocusHandlerService) {
+        this._editBlocked$ = this._focusHandler.getEditBlocked();
     }
 
     ngOnInit(): void {
@@ -197,7 +200,10 @@ export class LebGroupComponent implements OnInit, OnDestroy {
         return this._valid;
     }
 
+    public _dropdownOpen: boolean = false;
+
     public onDropdownOpenChange(open: boolean) {
+        this._dropdownOpen = open;
         this._focusHandler.setEditBlocked(open);
     }
 }

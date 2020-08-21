@@ -1,7 +1,7 @@
 import { LogicalExpressionBuilderPage } from './logical-expression-builder.po.spec';
 import { ExpressionCondition, ExpressionGroup } from '../../../../src/components/logical-expression-builder';
 
-describe('Logical Expression Builder Tests', () => {
+describe('Logical Expression Builder', () => {
     let page: LogicalExpressionBuilderPage.Page;
 
     beforeEach(async () => {

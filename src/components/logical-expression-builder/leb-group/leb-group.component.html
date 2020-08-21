@@ -8,8 +8,9 @@
     <td [style.max-width.px]="100">
         <ux-select
             uxFocusIndicatorOrigin
-            (dropdownOpenChange)="onDropdownOpenChange($event)"
+            [disabled]="!_dropdownOpen && (_editBlocked$ | async)"
             [value]="selectedLogicalOperator"
+            (dropdownOpenChange)="onDropdownOpenChange($event)"
             (valueChange)="handleSelectedOperatorChange($event)"
             [readonlyInput]="true"
             [options]="logicalOperators"
@@ -29,9 +30,10 @@
             uxFocusIndicatorOrigin
             (click)="deleteGroup()"
             type="button"
-            class="btn btn-link btn-icon btn-lg button-secondary"
+            class="btn btn-link btn-icon btn-lg button-warning"
+            [disabled]="_editBlocked$ | async"
             [attr.aria-label]="('deleteLogicalOperatorAriaLabel' | l10n) || 'Delete logical operator'">
-            <span class="ux-icon ux-icon-trash text-error" aria-hidden="true"></span>
+            <span class="ux-icon ux-icon-trash" aria-hidden="true"></span>
         </button>
     </td>
 </tr>
@@ -65,9 +67,11 @@
         <td>
             <button
                 [uxMenuTriggerFor]="addMenu"
+                [disabled]="_editBlocked$ | async"
                 uxFocusIndicatorOrigin
                 type="button"
-                class="btn btn-icon button-primary group-add-btn"
+                class="btn btn-icon group-add-btn"
+                [ngClass]="(_editBlocked$ | async) ? 'button-primary-disabled' : 'button-primary'"
                 aria-label="Add">
                 <span class="ux-icon ux-icon-add" aria-hidden="true"></span>
             </button>
@@ -76,11 +80,21 @@
 
     <ux-menu
         #addMenu>
-        <button type="button" uxMenuItem uxFocusIndicatorOrigin (click)="addCondition()" (keydown.enter)="addCondition()">
+        <button
+            type="button"
+            uxMenuItem
+            uxFocusIndicatorOrigin
+            (click)="addCondition()"
+            (keydown.enter)="addCondition()">
             <span class="dropdown-menu-text">{{ ('addConditionBtnText' | l10n) || 'Add condition' }}</span>
         </button>
 
-        <button type="button" uxMenuItem uxFocusIndicatorOrigin (click)="addGroup()" (keydown.enter)="addGroup()">
+        <button
+            type="button"
+            uxMenuItem
+            uxFocusIndicatorOrigin
+            (click)="addGroup()"
+            (keydown.enter)="addGroup()">
             <span class="dropdown-menu-text">{{ ('addLogicalOperatorBtnText' | l10n) || 'Add logical operator'}} </span>
         </button>
     </ux-menu>
