@@ -961,21 +961,7 @@
             "title": "Search",
             "link": "search",
             "sections": [
-                {
-                    "title": "Search Builder",
-                    "component": "ComponentsSearchBuilderComponent",
-                    "version": "Angular",
-                    "usage": [
-                        {
-                            "title": "Selector",
-                            "content": "ux-search-builder"
-                        },
-                        {
-                            "title": "Module",
-                            "content": "SearchBuilderModule"
-                        }
-                    ]
-                },
+
                 {
                     "title": "Logical Expression Builder",
                     "component": "ComponentsLogicalExpressionBuilderComponent",
@@ -988,6 +974,21 @@
                         {
                             "title": "Module",
                             "content": "LogicalExpressionBuilderBuilderModule"
+                        }
+                    ]
+                },
+                {
+                    "title": "Search Builder",
+                    "component": "ComponentsSearchBuilderComponent",
+                    "version": "Angular",
+                    "usage": [
+                        {
+                            "title": "Selector",
+                            "content": "ux-search-builder"
+                        },
+                        {
+                            "title": "Module",
+                            "content": "SearchBuilderModule"
                         }
                     ]
                 },
