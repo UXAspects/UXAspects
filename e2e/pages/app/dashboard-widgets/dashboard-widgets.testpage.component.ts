@@ -22,25 +22,23 @@ export class DashboardWidgetsTestpageComponent implements AfterViewInit {
 
     set dashboardPadding(value: number) {
         this._dashboardPadding = value;
-
-        this.options = {
-            columns: 4,
-            padding: value,
-            rowHeight: 110,
-            emptyRow: false,
-            minWidth: 187
-        };
+        this.options.padding = value;
     }
 
     options: DashboardOptions = {
         columns: 4,
-        padding: this._dashboardPadding,
+        padding: this.dashboardPadding,
         rowHeight: 110,
         emptyRow: false,
         minWidth: 187
     };
 
-    layout: DashboardLayoutData[];
+    layout: DashboardLayoutData[] = [
+        { id: 'widget-actions', col: 0, row: 0, colSpan: 2, rowSpan: 1 },
+        { id: 'widget-table', col: 2, row: 0, colSpan: 2, rowSpan: 2 },
+        { id: 'widget-enum', col: 0, row: 1, colSpan: 2, rowSpan: 1 },
+        { id: 'widget-text', col: 0, row: 2, colSpan: 4, rowSpan: 1 }
+    ];
 
     status: ActionStatus = { label: 'Waiting...', icon: 'radial' };
 

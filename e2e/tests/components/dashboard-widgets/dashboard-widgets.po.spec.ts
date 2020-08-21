@@ -20,8 +20,8 @@ export class DashboardWidgetsPage {
         return await this.container.$('div.dashboard-container').$$('ux-dashboard-widget').count();
     }
 
-    async getWidget(index: number) {
-        return await this.container.$('div.dashboard-container').$$('ux-dashboard-widget').get(index);
+    async getWidget(id: string) {
+        return await this.container.$('div.dashboard-container').$$(`ux-dashboard-widget #${id}`).first();
     }
 
     async getWidgetAttribute(widget: ElementFinder, attribute: string) {
