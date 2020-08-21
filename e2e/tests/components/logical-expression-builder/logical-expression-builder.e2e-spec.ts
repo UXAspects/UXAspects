@@ -47,17 +47,17 @@ describe('Logical Expression Builder', () => {
         expect(await page.getValid()).toBeFalsy();
     });
 
-    it('should only show one condition if there is one group with one condition', async () => {
+    it('should allow exactly one group with exactly one condition', async () => {
         await page.setTwoConditions();
         await page.deleteLastCondition();
 
         const expression = await page.getExpressionObject();
 
         expect(expression).toBeDefined();
-        expect(expression.type).toEqual('condition');
-        expect(expression['children']).toBeUndefined();
+        expect(expression.type).toEqual('group');
+        expect(expression['children'].length).toEqual(1);
         expect(await page.getConditionRowCount()).toEqual(1);
-        expect(await page.getValid()).toBeTruthy();
+        expect(await page.getGroupRowCount()).toEqual(1);
     });
 
     it('should display error when an invalid expression is set', async () => {

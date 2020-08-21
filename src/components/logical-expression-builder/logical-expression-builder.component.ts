@@ -110,16 +110,7 @@ export class LogicalExpressionBuilderComponent implements OnChanges, OnDestroy, 
     }
 
     public handleSubExpressionChange(expression: Expression): void {
-        let temp = { ...expression };
-
-        // make expression just a condition if it contains exactly one group with exactly one condition in it
-        if (temp?.type === 'group'
-            && (<ExpressionGroup>temp)?.children?.length === 1
-            && (<ExpressionGroup>temp)?.children?.[0].type === 'condition') {
-            temp = { ...(<ExpressionGroup>temp).children[0] };
-        }
-
-        this._expression = { ...temp } || null;
+        this._expression = { ...expression } || null;
 
         this.expressionChange.emit(this._expression);
         this.onChange(this._expression);
