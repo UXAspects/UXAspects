@@ -269,9 +269,23 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
         this._popoverOrientationListener.destroy();
     }
 
-    @HostListener('mousedown')
-    mousedownHandler(): void {
+    @HostListener('mousedown', ['$event', '$event.target'])
+    mousedownHandler(event: MouseEvent, target: HTMLElement): void {
         this.clicking = true;
+
+        /**
+         * Chrome Bug Workaround: (https://bugs.chromium.org/p/chromium/issues/detail?id=6759)
+         * In Chrome, if the typeahead is within a tabbable element, e.g. it has a parent with
+         * `tabindex="0"` like our side panel has, then clicking on a scrollbar will remove
+         * focus from the input element.
+         *
+         * To avoid this we can determine if the mousedown event occurred within the scrollbar
+         * region of the typeahead and if so preventDefault which will stop the input
+         * from losing focus
+         */
+        if (event.clientX >= target.clientWidth || event.clientY >= target.clientHeight) {
+            event.preventDefault();
+        }
     }
 
     @HostListener('mouseup')
