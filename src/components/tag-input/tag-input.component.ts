@@ -63,7 +63,7 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
      * the option object as an argument, and should return the appropriate display value.
      * If the name of a property is provided as a string, that property is used as the display value.
      */
-    @Input() display: (option: T) => string | string;
+    @Input() display: TagInputDisplayFn<T> | string;
 
     /** Controls whether pasting text into the text input area automatically converts that text into one or more tags. */
     @Input() addOnPaste: boolean = true;
@@ -126,7 +126,7 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
      * - `index: number` - the zero-based index of the tag as it appears in the tag input.
      * - `api: TagApi` - provides the functions getTagDisplay, removeTagAt and canRemoveTagAt.
      */
-    @Input() tagTemplate: TemplateRef<any>;
+    @Input() tagTemplate: TemplateRef<TagTemplateContext<T>>;
 
     /**
      * A function which returns either a string, string[], or Set<string>, compatible with the NgClass directive. The function receives the following parameters:
@@ -187,7 +187,7 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
     /** Raised when a tag has been clicked. The `tag` property of the event contains the clicked tag. Call `preventDefault()` on the event to prevent the default behaviour of selecting the tag. */
     @Output() tagClick = new EventEmitter<TagInputEvent>();
 
-    // When clicking on the input during mutliple mode it will send a on touched event to the parent component
+    // When clicking on the input during multiple mode it will send a on touched event to the parent component
     @Output() inputFocus = new EventEmitter<FocusEvent>();
 
     @ContentChildren(TypeaheadComponent) typeaheadQuery: QueryList<TypeaheadComponent>;
@@ -388,7 +388,7 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
 
         // If a click on the typeahead is in progress, don't do anything.
         // This works around an issue in IE where clicking a scrollbar drops focus.
-        if (this.typeahead && this.typeahead.clicking) {
+        if (this.typeahead?.clicking) {
             return;
         }
 
@@ -829,3 +829,11 @@ export interface TagApi<T = any> {
  * The function used to return custom class information, for use in `ngClass`.
  */
 export type TagClassFunction<T = any> = (tag: T, index: number, selected: boolean) => (string | string[] | Set<string>);
+
+export type TagInputDisplayFn<T> = (option: T) => string;
+
+export interface TagTemplateContext<T = string | any> {
+    tag: T;
+    index: number;
+    api: TagApi;
+}
