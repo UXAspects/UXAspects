@@ -336,6 +336,25 @@ describe('Dashboard Tests', () => {
         await page.checkAnnouncerText('Moving and resizing cancelled. Dashboard with 4 columns, containing 4 panels. Usage Analytics panel in row 0, column 0, is 4 columns wide and 2 rows high. Service panel in row 2, column 0, is 2 columns wide and 1 rows high. Users panel in row 2, column 2, is 1 columns wide and 1 rows high. Alert panel in row 2, column 3, is 1 columns wide and 1 rows high. Press space to move and resize the Usage Analytics panel.');
     });
 
+    it('should allow widgets to be moved while in stacked mode', async () => {
+        // resize page so in stacked mode
+        await browser.driver.manage().window().setSize(400, 600);
+
+        await browser.actions().dragAndDrop(widget2, { x: 0, y: -250 }).perform();
+
+        expect(await page.getWidgetLocationValue(widget2, 'top')).toBe(0, 'widget2 top');
+        expect(await page.getWidgetLocationValue(widget2, 'left')).toBe(0, 'widget2 left');
+
+        const expectedLayout = [
+            { id: 'analytics-1-widget', col: 0, row: 1, colSpan: 4, rowSpan: 2 },
+            { id: 'subscription-widget', col: 0, row: 0, colSpan: 4, rowSpan: 1 },
+            { id: 'users-widget', col: 0, row: 4, colSpan: 4, rowSpan: 1 },
+            { id: 'alert-widget', col: 0, row: 3, colSpan: 4, rowSpan: 1 }
+        ];
+
+        expect(JSON.parse(await page.getLayoutOutput())).toEqual(expectedLayout);
+    });
+
     it('should allow the rowSpan to remain the same size in stacked mode as regular mode', async () => {
         // resize page so in stacked mode
         await browser.driver.manage().window().setSize(400, 600);
