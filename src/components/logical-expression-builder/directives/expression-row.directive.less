@@ -1,0 +1,17 @@
+[expressionRow] {
+    padding: @spacing-xs;
+    border: none;
+
+    &.cdk-keyboard-focused {
+        background-color: @table-hover-bg;
+    }
+
+    &.cdk-mouse-focused {
+        outline: none;
+    }
+
+    &.expression-row-active {
+        position: relative;
+        z-index: 100;
+    }
+}

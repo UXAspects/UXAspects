@@ -118,6 +118,7 @@ export class ExpressionRow implements FocusableOption, OnInit, OnDestroy {
 
         if (this.tabindex < 0) {
             this._renderer.removeClass(this._elementRef.nativeElement, 'hover-action-container-active');
+            this._renderer.removeClass(this._elementRef.nativeElement, 'expression-row-active');
 
             const hoverActions: NodeListOf<HTMLButtonElement> = (this._elementRef.nativeElement as HTMLElement).querySelectorAll('button.hover-action-active');
 
@@ -126,12 +127,8 @@ export class ExpressionRow implements FocusableOption, OnInit, OnDestroy {
                     this._renderer.removeClass(btn, 'hover-action-active');
                 });
             }
-
-            this._renderer.removeStyle(this._elementRef.nativeElement, 'position');
-            this._renderer.removeStyle(this._elementRef.nativeElement, 'z-index');
         } else {
-            this._renderer.setStyle(this._elementRef.nativeElement, 'position', 'relative');
-            this._renderer.setStyle(this._elementRef.nativeElement, 'z-index', 100);
+            this._renderer.addClass(this._elementRef.nativeElement, 'expression-row-active');
         }
     }
 
