@@ -20,7 +20,7 @@ export class DashboardWidgetsPage {
     }
 
     async getWidget(widgetId: string) {
-        return element(by.id(`#${widgetId}`)).$('ux-dashboard-widget');
+        return await this.container.$(`ux-dashboard-${widgetId}`).$('ux-predefined-widget').$('ux-dashboard-widget');
     }
 
     async getWidgetAttribute(widget: ElementFinder, attribute: string) {

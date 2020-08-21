@@ -17,10 +17,12 @@ describe('Dashboard Widgets Tests', () => {
         // set the browser window to a specific size to ensure consistency
         await browser.driver.manage().window().setSize(1320, 800);
 
-        widgetActions = await page.getWidget('widget-actions');
-        widgetEnum = await page.getWidget('widget-enum');
-        widgetTable = await page.getWidget('widget-table');
-        widgetText = await page.getWidget('widget-text');
+        widgetActions = await page.getWidget('actions-widget');
+        widgetEnum = await page.getWidget('enum-widget');
+        widgetTable = await page.getWidget('table-widget');
+        widgetText = await page.getWidget('text-widget');
+
+        console.log(widgetActions, widgetEnum, widgetTable, widgetText);
     });
 
     // restore the window to its original size after all these tests have run
