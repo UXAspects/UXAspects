@@ -117,7 +117,15 @@ export class ExpressionRow implements FocusableOption, OnInit, OnDestroy {
         this._renderer.setAttribute(this._elementRef.nativeElement, 'tabindex', this.tabindex.toString());
 
         if (this.tabindex !== 0) {
-            (this._elementRef.nativeElement as HTMLElement).blur();
+            this._renderer.removeClass(this._elementRef.nativeElement, 'hover-action-container-active');
+
+            const hoverActions: NodeListOf<HTMLButtonElement> = (this._elementRef.nativeElement as HTMLElement).querySelectorAll('button.hover-action-active');
+
+            if (hoverActions) {
+                hoverActions.forEach((btn: HTMLButtonElement) => {
+                    this._renderer.removeClass(btn, 'hover-action-active');
+                });
+            }
         }
     }
 
