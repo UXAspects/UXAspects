@@ -7,7 +7,8 @@
     (valid)="valid = $event">
 </ux-logical-expression-builder>
 
-<p>The expression is <span [ngClass]="valid ? 'text-success' : 'text-error'">{{ valid ? 'valid' : 'invalid' }}</span>.</p>
+<p>The expression is <span [ngClass]="valid ? 'text-success' : 'text-error'">{{ valid ? 'valid' : 'invalid' }}</span>.
+</p>
 
 <div class="m-t-md">
     <button type="button" class="btn button-secondary" (click)="resetExpression()">
@@ -259,6 +260,10 @@
 <uxd-api-properties tableTitle="Outputs">
     <tr uxd-api-property name="valueChange" type="any">
         This event will fire whenever the value has been modified. It will contain the latest value.
+    </tr>
+    <tr uxd-api-property name="valid" type="boolean">
+        This event will fire whenever the validity of the value has changed. It will contain <code>true</code> if the
+        value is valid, and <code>false</code> if it is not.
     </tr>
 </uxd-api-properties>
 
