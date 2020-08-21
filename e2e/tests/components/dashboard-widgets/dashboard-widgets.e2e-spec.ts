@@ -17,10 +17,10 @@ describe('Dashboard Widgets Tests', () => {
         // set the browser window to a specific size to ensure consistency
         await browser.driver.manage().window().setSize(1320, 800);
 
-        widgetActions = await page.getWidget(0);
-        widgetEnum = await page.getWidget(1);
-        widgetTable = await page.getWidget(2);
-        widgetText = await page.getWidget(3);
+        widgetActions = await page.getWidget('widget-actions');
+        widgetEnum = await page.getWidget('widget-enum');
+        widgetTable = await page.getWidget('widget-table');
+        widgetText = await page.getWidget('widget-text');
     });
 
     // restore the window to its original size after all these tests have run
