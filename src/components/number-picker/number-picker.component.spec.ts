@@ -678,7 +678,7 @@ describe('Number Picker Component - value', () => {
         expect(numberPicker.classList.contains('ng-invalid')).toBe(false);
     });
 
-    it('should call the event emitter once per change', async () => {
+    it('should call the event emitter once per change', () => {
         const controlUp = nativeElement.querySelector<HTMLElement>('.number-picker-control-up');
 
         spyOn(component, 'onValueChange');

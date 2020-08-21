@@ -198,7 +198,7 @@ describe('Dashboard with initial layout', () => {
         await fixture.whenStable();
     });
 
-    it('should update the widgets correctly when an initial layout value is given', async () => {
+    it('should update the widgets correctly when an initial layout value is given', () => {
         // check that the underlying widgets receive the correct position and size values
 
         expect(layoutChangeSpy).not.toHaveBeenCalled();

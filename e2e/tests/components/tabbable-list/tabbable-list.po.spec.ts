@@ -35,23 +35,23 @@ export class TabbableListTestPageComponent {
 
     async clickOnRow(index: number): Promise<void> {
         const row = await this.getTableRow(index);
-        return await row.click();
+        return row.click();
     }
 
     async moveFocusDown(): Promise<void> {
-        browser.actions().sendKeys(Key.ARROW_DOWN).perform();
+        return browser.actions().sendKeys(Key.ARROW_DOWN).perform();
     }
 
     async moveFocusUp(): Promise<void> {
-        browser.actions().sendKeys(Key.ARROW_UP).perform();
+        return browser.actions().sendKeys(Key.ARROW_UP).perform();
     }
 
     async moveFocusHome(): Promise<void> {
-        browser.actions().sendKeys(Key.HOME).perform();
+        return browser.actions().sendKeys(Key.HOME).perform();
     }
 
     async moveFocusEnd(): Promise<void> {
-        browser.actions().sendKeys(Key.END).perform();
+        return browser.actions().sendKeys(Key.END).perform();
     }
 
     async toggleWrap(): Promise<void> {

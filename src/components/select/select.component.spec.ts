@@ -248,27 +248,32 @@ describe('Select Component', () => {
         expect(component.value).toBe('One');
     });
 
-    it('should disable selected items when multiple = true', () => {
+    it('should disable selected options when multiple = true', () => {
         component.multiple = true;
         component.value = ['One'];
         fixture.detectChanges();
 
-        let typeaheadOptions = nativeElement.querySelectorAll<HTMLElement>('.ux-typeahead-options li');
+        const typeaheadOptions = nativeElement.querySelectorAll<HTMLElement>('.ux-typeahead-options li');
         expect(typeaheadOptions.item(0).classList).toContain('disabled');
         expect(typeaheadOptions.item(1).classList).not.toContain('disabled');
         expect(typeaheadOptions.item(2).classList).not.toContain('disabled');
+    });
 
+    it('should re-enabled options when they are deselected when multiple = true', () => {
+        component.multiple = true;
+        component.value = ['One'];
+        fixture.detectChanges();
         // remove the selected item and it should be re-enabled
         component.value = [];
         fixture.detectChanges();
 
-        typeaheadOptions = nativeElement.querySelectorAll<HTMLElement>('.ux-typeahead-options li');
+        const typeaheadOptions = nativeElement.querySelectorAll<HTMLElement>('.ux-typeahead-options li');
         expect(typeaheadOptions.item(0).classList).not.toContain('disabled');
         expect(typeaheadOptions.item(1).classList).not.toContain('disabled');
         expect(typeaheadOptions.item(2).classList).not.toContain('disabled');
     });
 
-    it('should not allow a disabled item to be selected when multiple = true', () => {
+    it('should not allow a disabled option to be selected when multiple = true', () => {
         component.multiple = true;
         component.value = ['One'];
         fixture.detectChanges();
@@ -276,14 +281,15 @@ describe('Select Component', () => {
         let tags = fixture.nativeElement.querySelectorAll('li.ux-tag');
         expect(tags.length).toBe(1);
 
-        const typeaheadOptions = nativeElement.querySelectorAll<HTMLElement>('.ux-typeahead-options li');
-        typeaheadOptions.item(0).click();
+        nativeElement.querySelectorAll<HTMLElement>('.ux-typeahead-options li')
+            .item(0)
+            .click();
 
         tags = fixture.nativeElement.querySelectorAll('li.ux-tag');
         expect(tags.length).toBe(1);
     });
 
-    it('should disable selected items when multiple = true and pagination is enabled', async () => {
+    it('should disable selected options when multiple = true and pagination is enabled', async () => {
         enablePagination();
         component.multiple = true;
         component.value = ['Option 1'];
@@ -291,23 +297,32 @@ describe('Select Component', () => {
         fixture.detectChanges();
         await fixture.whenStable();
 
-        let typeaheadOptions = nativeElement.querySelectorAll<HTMLElement>('.ux-typeahead-options li');
+        const typeaheadOptions = nativeElement.querySelectorAll<HTMLElement>('.ux-typeahead-options li');
 
         expect(typeaheadOptions.item(0).classList).not.toContain('disabled');
         expect(typeaheadOptions.item(1).classList).toContain('disabled');
         expect(typeaheadOptions.item(2).classList).not.toContain('disabled');
+    });
+
+    it('should re-enable options when they are deselected when multiple = true and pagination is enabled', async () => {
+        enablePagination();
+        component.multiple = true;
+        component.value = ['Option 1'];
+        component.dropdownOpen = true;
+        fixture.detectChanges();
+        await fixture.whenStable();
 
         // remove the selected item and it should be re-enabled
         component.value = [];
         fixture.detectChanges();
 
-        typeaheadOptions = nativeElement.querySelectorAll<HTMLElement>('.ux-typeahead-options li');
+        const typeaheadOptions = nativeElement.querySelectorAll<HTMLElement>('.ux-typeahead-options li');
         expect(typeaheadOptions.item(0).classList).not.toContain('disabled');
         expect(typeaheadOptions.item(1).classList).not.toContain('disabled');
         expect(typeaheadOptions.item(2).classList).not.toContain('disabled');
     });
 
-    it('should not allow a disabled item to be selected when multiple = true and pagination is enabled', async () => {
+    it('should not allow a disabled option to be selected when multiple = true and pagination is enabled', async () => {
         enablePagination();
         component.multiple = true;
         component.value = ['Option 1'];
@@ -318,8 +333,10 @@ describe('Select Component', () => {
         let tags = fixture.nativeElement.querySelectorAll('li.ux-tag');
         expect(tags.length).toBe(1);
 
-        const typeaheadOptions = nativeElement.querySelectorAll<HTMLElement>('.ux-typeahead-options li');
-        typeaheadOptions.item(1).click();
+        nativeElement.querySelectorAll<HTMLElement>('.ux-typeahead-options li')
+            .item(1)
+            .click();
+
         fixture.detectChanges();
 
         tags = fixture.nativeElement.querySelectorAll('li.ux-tag');
@@ -846,7 +863,7 @@ describe('Select with recent options', () => {
         expect(component.recentOptions[0]).toBe('One');
     });
 
-    it('should disable selected recent options when multiple = true', async () => {
+    it('should disable selected recent options when multiple = true', () => {
         component.multiple = true;
         component.value = ['One'];
         component.recentOptions = ['One', 'Two'];
@@ -857,7 +874,7 @@ describe('Select with recent options', () => {
         expect(recentOptionListItems.item(1).classList).not.toContain('disabled');
     });
 
-    it('should not be able to select a recent option that is currently selected when multiple = true', async () => {
+    it('should not be able to select a recent option that is currently selected when multiple = true', () => {
         component.multiple = true;
         component.value = ['One'];
         component.recentOptions = ['One', 'Two'];

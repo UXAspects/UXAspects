@@ -42,7 +42,7 @@ describe('Hierarchy Bar in collapsed mode', () => {
     let fixture: ComponentFixture<HierarchyBarCollapsedTestComponent>;
     let nativeElement: HTMLElement;
 
-    beforeEach(async () => {
+    beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [HierarchyBarModule],
             declarations: [HierarchyBarCollapsedTestComponent]

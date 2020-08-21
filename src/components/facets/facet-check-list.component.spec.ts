@@ -51,7 +51,7 @@ describe('Facet-Check-List', () => {
         expect(component).toBeTruthy();
     });
 
-    it('should propagate ids down to child components', async () => {
+    it('should propagate ids down to child components', () => {
         const checkListItem = nativeElement.querySelectorAll('ux-facet-check-list-item');
         const uxCheckbox = nativeElement.querySelectorAll('ux-facet-check-list-item ux-checkbox input');
 

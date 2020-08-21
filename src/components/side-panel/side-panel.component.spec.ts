@@ -75,7 +75,7 @@ describe('Side Panel Component', () => {
         fixture.detectChanges();
     });
 
-    it('should open the side panel on load when open is set to true initially', async () => {
+    it('should open the side panel on load when open is set to true initially', () => {
         // set up a spy for the onToggleChange function
         spyOn(component, 'onToggleChange');
 
@@ -102,7 +102,7 @@ describe('Side Panel Component', () => {
 
     });
 
-    it('should emit event on closing side panel', async () => {
+    it('should emit event on closing side panel',  () => {
         // find the toggle button
         const toggleButton: HTMLElement = nativeElement.querySelector('.ux-panel-toggle');
         expect(toggleButton).toBeTruthy();
@@ -140,7 +140,7 @@ describe('Side Panel Component', () => {
 
     });
 
-    it('should not close side panel when [closeOnEscape] is set to false and "esc" key is pressed', async () => {
+    it('should not close side panel when [closeOnEscape] is set to false and "esc" key is pressed',  () => {
         // check closeOnEscape is set to true (as is default)
         expect(component.closeOnEscape).toBeTruthy();
 
