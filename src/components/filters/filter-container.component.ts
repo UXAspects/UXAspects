@@ -26,8 +26,7 @@ export class FilterContainerComponent implements OnDestroy {
 
     /** Emit when a specific event occurs */
     @Output() events = new EventEmitter<FilterEvent>();
-
-
+    
     /** Allow the content of the clear all button to be customized */
     @ContentChild('clearAllTemplate', { static: false }) clearAllTemplate: TemplateRef<void>;
 
@@ -37,7 +36,7 @@ export class FilterContainerComponent implements OnDestroy {
     constructor(public filterService: FilterService) {
 
         // subscribe to changes to the active filters
-        filterService.filters$.pipe(takeUntil(this._onDestroy), distinctUntilChanged())
+        filterService.filters$.pipe(distinctUntilChanged(), takeUntil(this._onDestroy))
             .subscribe(filters => this.filtersChange.emit(filters));
 
         // relay any events to the event emitter

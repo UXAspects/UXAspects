@@ -57,11 +57,11 @@ export class FilterDynamicComponent implements OnInit, OnDestroy {
     private _options: FilterDynamicListConfig = { ...this._defaultOptions };
 
     /** Unsubscribe from all subscriptions */
-    private _onDestroy = new Subject<void>();
+    private readonly _onDestroy = new Subject<void>();
 
-    constructor(public typeaheadKeyService: TypeaheadKeyService, private _filterService: FilterService) {
+    constructor(public readonly typeaheadKeyService: TypeaheadKeyService, private readonly _filterService: FilterService) {
         // listen for remove all events in which case we should deselect event initial filters
-        _filterService.events$.pipe(takeUntil(this._onDestroy), rxFilter(event => event instanceof FilterRemoveAllEvent))
+        _filterService.events$.pipe(rxFilter(event => event instanceof FilterRemoveAllEvent), takeUntil(this._onDestroy))
             .subscribe(() => this.removeFilter());
 
         // ensure that the current selected filter is still selected when the active filters change

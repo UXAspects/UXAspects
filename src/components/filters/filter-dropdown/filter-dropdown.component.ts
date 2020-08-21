@@ -19,10 +19,10 @@ export class FilterDropdownComponent implements OnInit, OnDestroy {
 
     selected: Filter;
 
-    private _onDestroy = new Subject<void>();
+    private readonly _onDestroy = new Subject<void>();
 
-    constructor(private _filterService: FilterService) {
-        _filterService.events$.pipe(takeUntil(this._onDestroy), rxFilter(event => event instanceof FilterRemoveAllEvent))
+    constructor(private readonly _filterService: FilterService) {
+        _filterService.events$.pipe(rxFilter(event => event instanceof FilterRemoveAllEvent), takeUntil(this._onDestroy))
             .subscribe(() => this.removeFilter());
 
         // ensure that the current selected filter is still selected when the active filters change
