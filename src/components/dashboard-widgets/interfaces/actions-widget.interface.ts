@@ -1,8 +1,9 @@
-import { TemplateRef } from '@angular/core';
+import { EventEmitter, TemplateRef } from '@angular/core';
 
 export interface ActionsWidgetConfig {
     actions: ReadonlyArray<ActionConfig>;
     status: ActionStatus;
+    actionSelected?: EventEmitter<string>;
 }
 
 export interface ActionConfig {
