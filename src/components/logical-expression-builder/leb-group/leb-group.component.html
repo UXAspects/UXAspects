@@ -5,7 +5,7 @@
     uxHoverActionContainer
     [style.padding-left.px]="indent || 8">
 
-    <td [style.max-width.px]="100">
+    <!--<td [style.max-width.px]="100">
         <ux-select
             uxFocusIndicatorOrigin
             [disabled]="!_dropdownOpen && (_editBlocked$ | async)"
@@ -17,6 +17,31 @@
             [display]="'label'"
             [key]="'name'">
         </ux-select>
+    </td>-->
+
+    <td>
+        <div class="btn-group">
+            <button
+                type="button"
+                class="btn btn-link button-primary dropdown-toggle dropdown-button"
+                [disabled]="_editBlocked$ | async"
+                uxFocusIndicatorOrigin
+                (keydown.down)="$event.stopPropagation();"
+                [uxMenuTriggerFor]="logicalOperatorMenu">
+                <span>{{ selectedLogicalOperator?.label | uppercase }}</span>
+                <ux-icon name="chevron-down" class="dropdown-icon-inline"></ux-icon>
+            </button>
+        </div>
+
+        <ux-menu #logicalOperatorMenu (opening)="handleMenuOpening()" (closing)="handleMenuClosing()">
+            <button
+                *ngFor="let logicalOperator of logicalOperators; index as index"
+                (activate)="handleSelectedOperatorChange(index)"
+                type="button"
+                uxMenuItem>
+                <span class="dropdown-menu-text">{{logicalOperator.label | uppercase}}</span>
+            </button>
+        </ux-menu>
     </td>
 
     <td *ngIf="!_valid" class="m-l-md text-error">
@@ -79,13 +104,13 @@
     </tr>
 
     <ux-menu
+        (opening)="handleMenuOpening()" (closing)="handleMenuClosing()"
         #addMenu>
         <button
             type="button"
             uxMenuItem
             uxFocusIndicatorOrigin
-            (click)="addCondition()"
-            (keydown.enter)="addCondition()">
+            (activate)="addCondition()">
             <span class="dropdown-menu-text">{{ ('addConditionBtnText' | l10n) || 'Add condition' }}</span>
         </button>
 
@@ -93,8 +118,7 @@
             type="button"
             uxMenuItem
             uxFocusIndicatorOrigin
-            (click)="addGroup()"
-            (keydown.enter)="addGroup()">
+            (activate)="addGroup()">
             <span class="dropdown-menu-text">{{ ('addLogicalOperatorBtnText' | l10n) || 'Add logical operator'}} </span>
         </button>
     </ux-menu>

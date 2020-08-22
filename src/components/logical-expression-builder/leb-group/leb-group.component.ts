@@ -58,15 +58,7 @@ export class LebGroupComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         this.logicalOperators = this._lebService.getLogicalOperators();
-        this._logicalOperatorOptions = this.logicalOperators.map((logicalOperator: LogicalOperatorDefinition) => {
-            return { ...logicalOperator, label: logicalOperator.label.toUpperCase() };
-        });
-
         this.selectedLogicalOperator = this._lebService.getLogicalOperatorByName(this._subExpression.logicalOperator);
-        this.selectedLogicalOperator = {
-            ...this.selectedLogicalOperator,
-            label: this.selectedLogicalOperator.label.toUpperCase()
-        };
         this._validate();
     }
 
@@ -74,8 +66,8 @@ export class LebGroupComponent implements OnInit, OnDestroy {
         this._validationService.removeValidationState(this.path);
     }
 
-    public handleSelectedOperatorChange(selectedOperator: LogicalOperatorDefinition) {
-        this.selectedLogicalOperator = selectedOperator;
+    public handleSelectedOperatorChange(index: number) {
+        this.selectedLogicalOperator = this.logicalOperators[index];
 
         this._subExpression = { ...this._subExpression, logicalOperator: this.selectedLogicalOperator.name };
 
@@ -215,5 +207,13 @@ export class LebGroupComponent implements OnInit, OnDestroy {
     public onDropdownOpenChange(open: boolean) {
         this._dropdownOpen = open;
         this._focusHandler.setEditBlocked(open);
+    }
+
+    handleMenuOpening() {
+        this._focusHandler.setEditBlocked(true);
+    }
+
+    handleMenuClosing() {
+        this._focusHandler.setEditBlocked(false);
     }
 }
