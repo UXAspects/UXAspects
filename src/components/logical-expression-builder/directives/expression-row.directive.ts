@@ -1,4 +1,5 @@
 import {
+    AfterViewInit,
     Directive,
     ElementRef,
     HostListener,
@@ -56,6 +57,8 @@ export class ExpressionRow implements FocusableOption, OnInit, OnDestroy {
         private _renderer: Renderer2,
         private _focusMonitor: FocusMonitor
     ) {
+        this._renderer.addClass(this._elementRef.nativeElement, 'expression-row');
+
         // Listen for focus changes to set tabindex to either 0 or -1
         this._focusHandler.onTabindexChange$.pipe(takeUntil(this._destroy$)).subscribe(() => {
             this._setTabIndex();
@@ -120,10 +123,10 @@ export class ExpressionRow implements FocusableOption, OnInit, OnDestroy {
             this._renderer.removeClass(this._elementRef.nativeElement, 'hover-action-container-active');
             this._renderer.removeClass(this._elementRef.nativeElement, 'expression-row-active');
 
-            const hoverActions: NodeListOf<HTMLButtonElement> = (this._elementRef.nativeElement as HTMLElement).querySelectorAll('button.hover-action-active');
+            const buttons = (this._elementRef.nativeElement as HTMLElement).querySelectorAll('button.hover-action-active');
 
-            if (hoverActions) {
-                hoverActions.forEach((btn: HTMLButtonElement) => {
+            if (buttons) {
+                buttons.forEach((btn: HTMLButtonElement) => {
                     this._renderer.removeClass(btn, 'hover-action-active');
                 });
             }

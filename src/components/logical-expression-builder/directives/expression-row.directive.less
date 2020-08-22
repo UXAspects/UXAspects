@@ -1,32 +1,44 @@
 [expressionRow] {
-    padding: @spacing-xs;
-    border: none;
+    &.expression-row {
+        padding: @spacing-xs;
+        border: none;
 
-    &.cdk-keyboard-focused {
-        background-color: @table-hover-bg;
-    }
+        &.expression-row-active {
+            position: relative;
+            z-index: 100;
+        }
 
-    &.cdk-mouse-focused {
-        outline: none;
-    }
+        &.cdk-focused {
+            background-color: @table-hover-bg;
+        }
 
-    &.expression-row-active {
-        position: relative;
-        z-index: 100;
-    }
+        &.cdk-mouse-focused {
+            outline: none;
+        }
 
-    [uxHoverActionContainer] {
         [uxHoverAction] {
             opacity: 0;
 
+            .btn[disabled], .btn.btn-link:disabled {
+                opacity: 0;
+            }
+
             &.hover-action-active {
                 opacity: 0.5;
+
+                .btn[disabled], .btn.btn-link:disabled {
+                    opacity: 0.5;
+                }
             }
 
             &.hover-action-focused,
             &:hover,
             &:focus {
                 opacity: 1;
+
+                .btn[disabled], .btn.btn-link:disabled {
+                    opacity: 1;
+                }
             }
         }
     }
