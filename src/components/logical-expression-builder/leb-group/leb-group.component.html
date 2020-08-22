@@ -13,7 +13,7 @@
             (dropdownOpenChange)="onDropdownOpenChange($event)"
             (valueChange)="handleSelectedOperatorChange($event)"
             [readonlyInput]="true"
-            [options]="logicalOperators"
+            [options]="_logicalOperatorOptions"
             [display]="'label'"
             [key]="'name'">
         </ux-select>

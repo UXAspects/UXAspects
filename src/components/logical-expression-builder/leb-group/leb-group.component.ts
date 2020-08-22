@@ -40,6 +40,7 @@ export class LebGroupComponent implements OnInit, OnDestroy {
 
     public readonly additionalIndent: number = 40;
     public logicalOperators: LogicalOperatorDefinition[];
+    public _logicalOperatorOptions: ReadonlyArray<LogicalOperatorDefinition> = null;
     public selectedLogicalOperator: LogicalOperatorDefinition;
 
     public _focused: boolean = false;
@@ -57,7 +58,15 @@ export class LebGroupComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         this.logicalOperators = this._lebService.getLogicalOperators();
+        this._logicalOperatorOptions = this.logicalOperators.map((logicalOperator: LogicalOperatorDefinition) => {
+            return { ...logicalOperator, label: logicalOperator.label.toUpperCase() };
+        });
+
         this.selectedLogicalOperator = this._lebService.getLogicalOperatorByName(this._subExpression.logicalOperator);
+        this.selectedLogicalOperator = {
+            ...this.selectedLogicalOperator,
+            label: this.selectedLogicalOperator.label.toUpperCase()
+        };
         this._validate();
     }
 
@@ -67,6 +76,7 @@ export class LebGroupComponent implements OnInit, OnDestroy {
 
     public handleSelectedOperatorChange(selectedOperator: LogicalOperatorDefinition) {
         this.selectedLogicalOperator = selectedOperator;
+
         this._subExpression = { ...this._subExpression, logicalOperator: this.selectedLogicalOperator.name };
 
         this._validate();
