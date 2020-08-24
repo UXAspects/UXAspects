@@ -106,7 +106,7 @@ describe('Tabset Component', () => {
         expect(activeChangeSpy.calls.allArgs()).toEqual([['Schedule', false], ['Solution', true]]);
     });
 
-    it('should change to new tab when tab is programmatically selected by tab index', fakeAsync(async () => {
+    it('should change to new tab when tab is programmatically selected by tab index', fakeAsync(() => {
 
         const tab1 = getTabItem(0);
         const tab3 = getTabItem(2);

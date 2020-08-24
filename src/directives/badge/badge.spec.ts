@@ -41,7 +41,7 @@ describe('Badge', () => {
     let fixture: ComponentFixture<BadgeTestComponent>;
     let nativeElement: HTMLElement;
 
-    beforeEach(async () => {
+    beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [BadgeModule],
             providers: [ContrastService, ColorService],

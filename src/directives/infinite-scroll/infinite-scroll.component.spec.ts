@@ -41,8 +41,7 @@ describe('Directive - Infinite Scroll', () => {
         fixture.detectChanges();
     });
 
-    it ('should initially call load with filter value of "" if filter input value is undefined', async() => {
-
+    it ('should initially call load with filter value of "" if filter input value is undefined', () => {
         expect(loadSpy).toHaveBeenCalledWith(0, 20, '');
         expect(loadSpy).toHaveBeenCalledTimes(1);
     });

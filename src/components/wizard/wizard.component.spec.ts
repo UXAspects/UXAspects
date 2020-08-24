@@ -320,7 +320,7 @@ describe('Wizard with validation', () => {
         fixture.detectChanges();
     });
 
-    it('should remove visited state from later steps when valid = false', async () => {
+    it('should remove visited state from later steps when valid = false', () => {
         // has to be set manually as false as default
         component.resetVisitedOnValidationError = true;
 
@@ -357,7 +357,7 @@ describe('Wizard with validation', () => {
         expect(visitedChanged.calls.all().length).toBe(1);
     });
 
-    it('should not remove visited state from later steps when valid = false and resetVisitedOnValidationError = false', async () => {
+    it('should not remove visited state from later steps when valid = false and resetVisitedOnValidationError = false', () => {
         component.resetVisitedOnValidationError = false;
         component.step1Visited = true;
         component.step2Visited = true;
