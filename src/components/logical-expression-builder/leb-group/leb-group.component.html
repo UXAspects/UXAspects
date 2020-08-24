@@ -24,6 +24,7 @@
             <button
                 type="button"
                 class="btn btn-link button-primary dropdown-toggle dropdown-button"
+                [ngClass]="{'disabled' : (_editBlocked$ | async)}"
                 [disabled]="_editBlocked$ | async"
                 uxFocusIndicatorOrigin
                 (keydown.arrowDown)="$event.stopPropagation();"
@@ -98,8 +99,8 @@
                 (keydown.arrowUp)="$event.stopPropagation();"
                 uxFocusIndicatorOrigin
                 type="button"
-                class="btn btn-icon group-add-btn"
-                [ngClass]="(_editBlocked$ | async) ? 'button-primary-disabled' : 'button-primary'"
+                class="btn btn-icon button-primary group-add-btn"
+                [ngClass]="{'disabled' : (_editBlocked$ | async)}"
                 aria-label="Add">
                 <span class="ux-icon ux-icon-add" aria-hidden="true"></span>
             </button>

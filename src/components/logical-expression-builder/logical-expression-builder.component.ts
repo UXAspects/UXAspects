@@ -16,7 +16,7 @@ import { Expression } from './interfaces/Expression';
 import { DisplayValueFunction } from './interfaces/DisplayValueFunction';
 import { ValidationService } from './services/validation.service';
 import { delay, distinctUntilChanged, takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { FocusHandlerService } from './services/focus-handler.service';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
@@ -72,6 +72,7 @@ export class LogicalExpressionBuilderComponent implements OnChanges, OnDestroy, 
         this._lebService.setDisplayValueFunction(displayValueFunction);
     }
 
+    public _editBlocked$: Observable<boolean>;
     private _destroy$: Subject<void> = new Subject<void>();
 
     constructor(
@@ -79,6 +80,7 @@ export class LogicalExpressionBuilderComponent implements OnChanges, OnDestroy, 
         private _validationService: ValidationService,
         private _focusHandler: FocusHandlerService,
         private _cd: ChangeDetectorRef) {
+        this._editBlocked$ = this._focusHandler.getEditBlocked();
     }
 
     ngOnInit(): void {
@@ -88,7 +90,7 @@ export class LogicalExpressionBuilderComponent implements OnChanges, OnDestroy, 
                 distinctUntilChanged(),
                 delay(0)
             )
-            .subscribe((value) => {
+            .subscribe((value: boolean) => {
                 this.valid.emit(value);
             });
     }
