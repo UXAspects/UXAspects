@@ -64,12 +64,12 @@ export class DashboardService implements OnDestroy {
 
         this.stacked$
             .pipe(
-                takeUntil(this._onDestroy),
                 distinctUntilChanged(),
-                filter(stacked => stacked === true)).subscribe(this.updateWhenStacked.bind(this)
-            );
-        this.widgets$.pipe(takeUntil(this._onDestroy), tick()).subscribe(() => this.renderDashboard());
-        this.dimensions$.pipe(takeUntil(this._onDestroy), tick()).subscribe(() => this.renderDashboard());
+                filter(stacked => stacked === true),
+                takeUntil(this._onDestroy)
+            ).subscribe(this.updateWhenStacked.bind(this));
+        this.widgets$.pipe(tick(), takeUntil(this._onDestroy)).subscribe(() => this.renderDashboard());
+        this.dimensions$.pipe(tick(), takeUntil(this._onDestroy)).subscribe(() => this.renderDashboard());
     }
 
     ngOnDestroy(): void {
