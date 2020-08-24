@@ -54,7 +54,7 @@ describe('Column Picker Component', () => {
         fixture.detectChanges();
     });
 
-    it('should display the correct number of deselected columns', async () => {
+    it('should display the correct number of deselected columns',  () => {
         expect(component.deselected.length).toEqual(4);
         const deselected = nativeElement.querySelector('.column-picker-list').querySelectorAll('.column-picker-list-item').length;
         expect(deselected).toEqual(4);
@@ -78,7 +78,7 @@ describe('Column Picker Component', () => {
         expect(component.deselected[0]).toEqual({ group: 'Metadata', name: 'Department' });
     });
 
-    it('should display the correct number of selected columns', async () => {
+    it('should display the correct number of selected columns',  () => {
         const numberOfSelectedColumns = nativeElement.querySelectorAll('.column-picker-stats')[1];
         expect(numberOfSelectedColumns.textContent.trim()).toEqual('3 columns added');
     });

@@ -80,7 +80,7 @@ describe('Tooltip Directive', () => {
         expect((component.showTrigger as any)._showTimeoutId).toBeFalsy();
     }));
 
-    it('should not show tooltip when tooltip is disabled', fakeAsync(async () => {
+    it('should not show tooltip when tooltip is disabled', fakeAsync(() => {
         component.tooltipDirective.disabled = true;
         component.tooltipDirective.show();
         tick(0);
@@ -109,7 +109,7 @@ describe('Tooltip Directive', () => {
         expect(getTooltipContent()).toBe('Tooltip content here');
     }));
 
-    it('should show allow open state to be controlled via the isOpen input', fakeAsync(async () => {
+    it('should show allow open state to be controlled via the isOpen input', fakeAsync(() => {
         component.isOpen = true;
         fixture.detectChanges();
 
