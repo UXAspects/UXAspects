@@ -12,7 +12,7 @@ export class DashboardWidgetsPage {
     layoutOutput = element(by.id('layout-output'));
 
     async getPage(): Promise<void> {
-        await browser.get('#/dashboard');
+        await browser.get('#/dashboard-widgets');
     }
 
     async getNumberOfWidgets() {
@@ -20,15 +20,15 @@ export class DashboardWidgetsPage {
     }
 
     async getWidget(widgetId: string) {
-        return await this.container.$(`ux-dashboard-${widgetId}`).$('ux-predefined-widget').$('ux-dashboard-widget');
+        return await this.container.$(`ux-dashboard-${widgetId}`).$('ux-dashboard-widget');
     }
 
     async getWidgetAttribute(widget: ElementFinder, attribute: string) {
-        return await widget.getAttribute(attribute);
+        return widget.getAttribute(attribute);
     }
 
     async getLayoutOutput(): Promise<string> {
-        return await this.layoutOutput.getAttribute('innerText');
+        return this.layoutOutput.getAttribute('innerText');
     }
 
     async enableGrabMode(): Promise<void> {
