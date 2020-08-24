@@ -6,34 +6,34 @@
 
 <table class="table table-hover">
     <thead>
-    <tr>
-        <th class="text-black">NAME</th>
-        <th class="text-black">AUTHOR</th>
-        <th class="text-black">DATE MODIFIED</th>
-        <th class="text-black">WORK COMPLETED</th>
-        <th class="text-black text-center">STATUS</th>
-    </tr>
+        <tr>
+            <th class="text-black">NAME</th>
+            <th class="text-black">AUTHOR</th>
+            <th class="text-black">DATE MODIFIED</th>
+            <th class="text-black">WORK COMPLETED</th>
+            <th class="text-black text-center">STATUS</th>
+        </tr>
     </thead>
     <tbody>
-    <tr class="clickable" *ngFor="let document of documents">
-        <td>{{ document.name }}</td>
-        <td>{{ document.author }}</td>
-        <td>{{ document.date }}</td>
-        <td>
-            <ux-spark theme="chart2"
-                      [value]="document.completed"
-                      barHeight="3"
-                      [inlineLabel]="document.completed">
-            </ux-spark>
-        </td>
-        <td class="text-center vertical-center-icon">
-            <ux-icon
-                *ngIf="document.active"
-                name="checkmark"
-                [attr.aria-label]="document.active ? 'Approved' : 'Not approved'">
-            </ux-icon>
-        </td>
-    </tr>
+        <tr class="clickable" *ngFor="let document of documents">
+            <td>{{ document.name }}</td>
+            <td>{{ document.author }}</td>
+            <td>{{ document.date }}</td>
+            <td>
+                <ux-spark theme="chart2"
+                          [value]="document.completed"
+                          barHeight="3"
+                          [inlineLabel]="document.completed">
+                </ux-spark>
+            </td>
+            <td class="text-center vertical-center-icon">
+                <ux-icon
+                    *ngIf="document.active"
+                    name="checkmark"
+                    [attr.aria-label]="document.active ? 'Approved' : 'Not approved'">
+                </ux-icon>
+            </td>
+        </tr>
     </tbody>
 </table>
 

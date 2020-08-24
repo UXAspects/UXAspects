@@ -59,7 +59,7 @@ export class FilterDynamicComponent implements OnInit, OnDestroy {
     /** Store the open state of the typeahead */
     typeaheadOpen: boolean = false;
 
-    /** Gte the user provided id or fallback to a default ID */
+    /** Get the user provided id or fallback to a default ID */
     get filterId(): string {
         return this.id ?? `ux-filter-dynamic-${ this._uniqueId }`;
     }
@@ -108,8 +108,11 @@ export class FilterDynamicComponent implements OnInit, OnDestroy {
         // get the items to be displayed in the typeahead
         this.typeaheadItems = this.getItems();
 
-        // determine if we should show the typeahead control
-        if (this.options?.maxIndividualItems && this.options.maxIndividualItems + 1 >= this.filters.length) {
+        // hide the typeahead if the number of filters always visible equals or exceeds the
+        // total number of filters as there would be no additional filters to display in the typeahead
+        const isTypeaheadHidden = this.options?.maxIndividualItems + 1 >= this.filters.length;
+
+        if (isTypeaheadHidden) {
             this.showTypeahead = false;
         }
     }

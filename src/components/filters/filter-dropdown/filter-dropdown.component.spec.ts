@@ -60,7 +60,7 @@ describe('Filter Dropdown', () => {
         fixture.detectChanges();
     });
 
-    it('should have the correct IDs if a custom ID have been provided on the component', () => {
+    it('should have the correct IDs if a custom ID has been provided on the component', () => {
         expect(getMenuButton().id).toBe('custom-filter-dropdown-trigger');
         toggleMenu();
 
@@ -68,7 +68,7 @@ describe('Filter Dropdown', () => {
             expect(item.id).toBe('custom-filter-dropdown-item-' + index));
     });
 
-    it('should give each filter the provided ID if specific on the Filter object', () => {
+    it('should give each filter the provided ID if specified on the Filter object', () => {
         // add an id property to all the filters
         component.filters.forEach((filter, index) => filter.id = `filter-${ index }`);
         fixture.detectChanges();
