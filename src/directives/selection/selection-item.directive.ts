@@ -92,12 +92,11 @@ export class SelectionItemDirective<T> implements OnInit, OnDestroy {
             this._selected = selected;
 
             // emit the selected state
+            debugger;
             this.selectedChange.emit(selected);
         });
 
         this._selected = this._selectionService.isSelected(this.uxSelectionItem);
-
-        this.selectedChange.emit(this._selected);
 
         // subscribe to changes to the active state
         this._selectionService.active$.pipe(takeUntil(this._onDestroy), map(active => active === this.uxSelectionItem)).subscribe(active => {

@@ -60,7 +60,7 @@ export class SelectionDirective<T> implements AfterContentInit, OnDestroy {
     private _lastSelection: ReadonlyArray<T>;
 
     constructor(private _selectionService: SelectionService<T>, private _cdRef: ChangeDetectorRef) {
-        _selectionService.selection$.pipe(takeUntil(this._onDestroy), debounceTime(0)).subscribe(items => {
+        _selectionService.selection$.pipe(debounceTime(0), takeUntil(this._onDestroy)).subscribe(items => {
             if (this.isSelectionChanged(items)) {
                 this.uxSelectionChange.emit(items);
             }
