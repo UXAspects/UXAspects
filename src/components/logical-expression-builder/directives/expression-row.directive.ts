@@ -35,6 +35,7 @@ export class ExpressionRow implements FocusableOption, OnInit, OnDestroy {
             this._focusHandler.setPathToActivate(this.path, true);
         }
 
+        // add focus class for styling
         if (this._focusOrigin === 'keyboard' || this._focusOrigin === 'program') {
             this._renderer.addClass(this._elementRef.nativeElement, 'ux-keyboard-focus');
         }
@@ -58,6 +59,7 @@ export class ExpressionRow implements FocusableOption, OnInit, OnDestroy {
         private _renderer: Renderer2,
         private _focusMonitor: FocusMonitor
     ) {
+        // Add class for styling
         this._renderer.addClass(this._elementRef.nativeElement, 'expression-row');
 
         // Listen for focus changes to set tabindex to either 0 or -1
@@ -121,6 +123,12 @@ export class ExpressionRow implements FocusableOption, OnInit, OnDestroy {
     private _setTabIndex(): void {
         // update the tabindex attribute
         this._renderer.setAttribute(this._elementRef.nativeElement, 'tabindex', this.tabindex.toString());
+
+        // make sure the button for adding groups is tabbable if the row is active
+        const groupAddBtn: HTMLButtonElement = (this._elementRef.nativeElement as HTMLElement).querySelector('button.group-add-btn');
+        if (groupAddBtn) {
+            this._renderer.setAttribute(groupAddBtn, 'tabindex', this.tabindex.toString());
+        }
 
         this._setActiveClasses();
     }
