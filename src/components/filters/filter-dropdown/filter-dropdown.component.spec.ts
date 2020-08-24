@@ -40,7 +40,7 @@ export class FilterDropdownComponentSpec {
     ];
 }
 
-fdescribe('Filter Dropdown', () => {
+describe('Filter Dropdown', () => {
     let fixture: ComponentFixture<FilterDropdownComponentSpec>;
     let component: FilterDropdownComponentSpec;
     let nativeElement: HTMLElement;
