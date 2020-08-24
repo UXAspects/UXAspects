@@ -38,20 +38,23 @@ export class TypeaheadOptionsListComponent<T> {
     optionApi: TypeaheadOptionApi;
 
     @Input()
-    typeaheadElement: ElementRef<any>;
+    typeaheadElement: ElementRef<HTMLElement>;
 
     @Output()
-    optionMouseover = new EventEmitter<TypeaheadOptionDomEvent<T>>();
+    optionMouseover = new EventEmitter<TypeaheadOptionDomEvent<T, MouseEvent>>();
 
     @Output()
-    optionMousedown = new EventEmitter<TypeaheadOptionDomEvent<T>>();
+    optionMousedown = new EventEmitter<TypeaheadOptionDomEvent<T, MouseEvent>>();
 
     @Output()
-    optionClick = new EventEmitter<TypeaheadOptionDomEvent<T>>();
+    optionClick = new EventEmitter<TypeaheadOptionDomEvent<T, MouseEvent>>();
 
+    trackByFn(_: number, option: TypeaheadVisibleOption<T>): string {
+        return option.key;
+    }
 }
 
-export interface TypeaheadOptionDomEvent<T> {
+export interface TypeaheadOptionDomEvent<T, E extends Event> {
     option: TypeaheadVisibleOption<T>;
-    event: Event;
+    event: E;
 }

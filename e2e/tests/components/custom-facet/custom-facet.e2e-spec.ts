@@ -101,7 +101,7 @@ describe('Custom Facet Tests', () => {
         expect(await page.confirmIsChecked(2)).toBeFalsy();
     });
 
-    it('should allow deletion of all facets', async () => {
+    it('should allow deletion of all facets', () => {
 
         // Add all the facets
         page.getCheckbox(0).click();

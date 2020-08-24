@@ -19,7 +19,7 @@ describe('Marquee Wizard Tests', () => {
         expect(await imageCompare('marquee-wizard-initial')).toEqual(0);
     });
 
-    it('should have steps with the correct titles', async () => {
+    it('should have steps with the correct titles', () => {
         // check that each header contains the correct text
         page.stepHeaders.each(async (step, idx) =>
             expect(await step.getText()).toBe(`Step ${idx + 1}`));
