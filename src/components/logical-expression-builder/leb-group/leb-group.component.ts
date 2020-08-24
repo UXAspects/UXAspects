@@ -201,19 +201,4 @@ export class LebGroupComponent implements OnInit, OnDestroy {
         this._validationService.setValidationState(this.path, this._valid);
         return this._valid;
     }
-
-    public _dropdownOpen: boolean = false;
-
-    public onDropdownOpenChange(open: boolean) {
-        this._dropdownOpen = open;
-        this._focusHandler.setEditBlocked(open);
-    }
-
-    handleMenuOpening() {
-        this._focusHandler.setEditBlocked(true);
-    }
-
-    handleMenuClosing() {
-        this._focusHandler.setEditBlocked(false);
-    }
 }

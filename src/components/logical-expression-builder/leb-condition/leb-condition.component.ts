@@ -98,6 +98,10 @@ export class LebConditionComponent implements OnChanges, OnInit, OnDestroy {
             )
             .subscribe((value: boolean) => {
                 this._isInEditMode = value;
+
+                if (value) {
+                    this._focusHandler.setEditBlocked(true);
+                }
             });
 
         this._validationService.setValidationState(this.path, this._valid && !this._isInEditMode);

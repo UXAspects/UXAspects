@@ -26,14 +26,15 @@
                 class="btn btn-link button-primary dropdown-toggle dropdown-button"
                 [disabled]="_editBlocked$ | async"
                 uxFocusIndicatorOrigin
-                (keydown.down)="$event.stopPropagation();"
+                (keydown.arrowDown)="$event.stopPropagation();"
+                (keydown.arrowUp)="$event.stopPropagation();"
                 [uxMenuTriggerFor]="logicalOperatorMenu">
                 <span>{{ selectedLogicalOperator?.label | uppercase }}</span>
                 <ux-icon name="chevron-down" class="dropdown-icon-inline"></ux-icon>
             </button>
         </div>
 
-        <ux-menu #logicalOperatorMenu (opening)="handleMenuOpening()" (closing)="handleMenuClosing()">
+        <ux-menu #logicalOperatorMenu>
             <button
                 *ngFor="let logicalOperator of logicalOperators; index as index"
                 (activate)="handleSelectedOperatorChange(index)"
@@ -93,6 +94,8 @@
             <button
                 [uxMenuTriggerFor]="addMenu"
                 [disabled]="_editBlocked$ | async"
+                (keydown.arrowDown)="$event.stopPropagation();"
+                (keydown.arrowUp)="$event.stopPropagation();"
                 uxFocusIndicatorOrigin
                 type="button"
                 class="btn btn-icon group-add-btn"
@@ -103,9 +106,7 @@
         </td>
     </tr>
 
-    <ux-menu
-        (opening)="handleMenuOpening()" (closing)="handleMenuClosing()"
-        #addMenu>
+    <ux-menu #addMenu>
         <button
             type="button"
             uxMenuItem
