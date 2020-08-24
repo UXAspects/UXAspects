@@ -10,7 +10,11 @@ import { DisplayValueFunction } from '../interfaces/DisplayValueFunction';
     providedIn: 'root',
 })
 export class LogicalExpressionBuilderService {
-    private _logicalOperators: LogicalOperatorDefinition[] = [];
+    private _logicalOperators: LogicalOperatorDefinition[] = [
+        { name: 'and', label: 'and', minNumberOfChildren: 2, errorMessage: '\'and\' needs at least two children.' },
+        { name: 'or', label: 'or', minNumberOfChildren: 2, errorMessage: '\'or\' needs at least two children.' },
+        { name: 'not', label: 'not', maxNumberOfChildren: 1, minNumberOfChildren: 1, errorMessage: '\'not\' needs exactly one child.' }
+    ];
     private _fields: FieldDefinition[] = [];
     private _operators: OperatorDefinitionList = {};
     private _localizedStrings = {};
@@ -48,11 +52,11 @@ export class LogicalExpressionBuilderService {
     }
 
     // Localized Strings
-    public setLocalizedStrings(localizedStrings: any): void {
+    public setLocalizedStrings(localizedStrings: { [key: string]: string | string[] }): void {
         this._localizedStrings = localizedStrings;
     }
 
-    public getLocalizedStrings(): any {
+    public getLocalizedStrings(): { [key: string]: string | string[] } {
         return this._localizedStrings;
     }
 

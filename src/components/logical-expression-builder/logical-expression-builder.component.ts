@@ -12,10 +12,7 @@ import { LogicalOperatorDefinition } from './interfaces/LogicalOperatorDefinitio
 import { OperatorDefinitionList } from './interfaces/OperatorDefinitionList';
 import { FieldDefinition } from './interfaces/FieldDefinition';
 import { LogicalExpressionBuilderService } from './services/logical-expression-builder.service';
-import {
-    Expression,
-    ExpressionGroup
-} from './interfaces/Expression';
+import { Expression } from './interfaces/Expression';
 import { DisplayValueFunction } from './interfaces/DisplayValueFunction';
 import { ValidationService } from './services/validation.service';
 import { delay, distinctUntilChanged, takeUntil } from 'rxjs/operators';
@@ -66,7 +63,7 @@ export class LogicalExpressionBuilderComponent implements OnChanges, OnDestroy, 
     private _expression: Expression;
 
     @Input()
-    set localizedStrings(localizedStrings: any) {
+    set localizedStrings(localizedStrings: { [key: string]: string | string[] }) {
         this._lebService.setLocalizedStrings(localizedStrings);
     }
 
@@ -85,14 +82,6 @@ export class LogicalExpressionBuilderComponent implements OnChanges, OnDestroy, 
     }
 
     ngOnInit(): void {
-        if (!this.logicalOperators) {
-            this._lebService.setLogicalOperators([
-                { name: 'and', label: 'and', minNumberOfChildren: 2, errorMessage: '\'and\' needs at least two children.' },
-                { name: 'or', label: 'or', minNumberOfChildren: 2, errorMessage: '\'or\' needs at least two children.' },
-                { name: 'not', label: 'not', maxNumberOfChildren: 1, minNumberOfChildren: 1, errorMessage: '\'not\' needs exactly one child.' }
-            ]);
-        }
-
         this._validationService.getValidationStatus()
             .pipe(
                 takeUntil(this._destroy$),
@@ -156,10 +145,12 @@ export class LogicalExpressionBuilderComponent implements OnChanges, OnDestroy, 
     }
 
     /** Store the change callback provided by Angular Forms */
-    onChange: (_: Expression) => void = () => { };
+    onChange: (_: Expression) => void = () => {
+    }
 
     /** Store the touched callback provided by Angular Forms */
-    onTouched: () => void = () => { };
+    onTouched: () => void = () => {
+    }
 
     registerOnChange(fn: (_: Expression) => void): void {
         this.onChange = fn;

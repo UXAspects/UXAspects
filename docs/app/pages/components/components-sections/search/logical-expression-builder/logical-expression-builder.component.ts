@@ -39,9 +39,15 @@ export class ComponentsLogicalExpressionBuilderComponent extends BaseDocumentati
     };
 
     logicalOperators: LogicalOperatorDefinition[] = [
-        { name: 'and', label: 'and', minNumberOfChildren: 2 },
-        { name: 'or', label: 'or', minNumberOfChildren: 2 },
-        { name: 'not', label: 'not', maxNumberOfChildren: 1 }
+        { name: 'and', label: 'and', minNumberOfChildren: 2, errorMessage: '\'and\' needs at least two children.' },
+        { name: 'or', label: 'or', minNumberOfChildren: 2, errorMessage: '\'or\' needs at least two children.' },
+        {
+            name: 'not',
+            label: 'not',
+            maxNumberOfChildren: 1,
+            minNumberOfChildren: 1,
+            errorMessage: '\'not\' needs exactly one child.'
+        }
     ];
 
     operators: OperatorDefinitionList = {
@@ -59,20 +65,30 @@ export class ComponentsLogicalExpressionBuilderComponent extends BaseDocumentati
             { name: 'not_between', label: 'is not between', component: DateRangeInputComponent }
         ],
         enum: [
-            { name: 'one_of', label: 'one of', component: SelectInputComponent }
+            { name: 'one_of', label: 'is one of', component: SelectInputComponent }
         ],
         number: [
             { name: 'equals', label: 'equals', component: NumberInputComponent },
-            { name: 'less_than', label: 'less than', component: NumberInputComponent },
-            { name: 'greater_than', label: 'greater than', component: NumberInputComponent },
+            { name: 'less_than', label: 'is less than', component: NumberInputComponent },
+            { name: 'greater_than', label: 'is greater than', component: NumberInputComponent },
             { name: 'as_text', label: 'entered as text', component: TextInputComponent }
         ],
     };
 
     fields: FieldDefinition[] = [
         { name: 'author', label: 'Author', fieldType: 'text' },
-        { name: 'created', label: 'Created', fieldType: 'date', data: { dateFormat: 'short', showTime: true, showNowBtn: true } },
-        { name: 'edited', label: 'Edited', fieldType: 'dateRange', data: { dateFormat: 'short', showTime: false, showNowBtn: true } },
+        {
+            name: 'created',
+            label: 'Created',
+            fieldType: 'date',
+            data: { dateFormat: 'short', showTime: true, showNowBtn: true }
+        },
+        {
+            name: 'edited',
+            label: 'Edited',
+            fieldType: 'dateRange',
+            data: { dateFormat: 'short', showTime: false, showNowBtn: true }
+        },
         { name: 'version', label: 'Version', fieldType: 'number' },
         {
             name: 'category',

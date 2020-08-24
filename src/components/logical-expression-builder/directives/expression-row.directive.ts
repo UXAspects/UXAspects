@@ -1,5 +1,4 @@
 import {
-    AfterViewInit,
     Directive,
     ElementRef,
     HostListener,
@@ -39,6 +38,8 @@ export class ExpressionRow implements FocusableOption, OnInit, OnDestroy {
         if (this._focusOrigin === 'keyboard' || this._focusOrigin === 'program') {
             this._renderer.addClass(this._elementRef.nativeElement, 'ux-keyboard-focus');
         }
+
+        this._setActiveClasses();
     }
 
     get tabindex(): number {
@@ -110,6 +111,8 @@ export class ExpressionRow implements FocusableOption, OnInit, OnDestroy {
 
         this._focusHandler.setPathToActivate(this.path, hasRow);
 
+        this._setActiveClasses();
+
         if (origin === 'keyboard') {
             this._renderer.addClass(this._elementRef.nativeElement, 'ux-keyboard-focus');
         }
@@ -119,20 +122,31 @@ export class ExpressionRow implements FocusableOption, OnInit, OnDestroy {
         // update the tabindex attribute
         this._renderer.setAttribute(this._elementRef.nativeElement, 'tabindex', this.tabindex.toString());
 
-        if (this.tabindex < 0) {
+        this._setActiveClasses();
+    }
+
+    private _setActiveClasses(): void {
+        // get any hover action buttons in the row
+        const buttons = (this._elementRef.nativeElement as HTMLElement).querySelectorAll('button[uxhoveraction]');
+
+        if (this.tabindex === 0) {
+            this._renderer.addClass(this._elementRef.nativeElement, 'hover-action-container-active');
+            this._renderer.addClass(this._elementRef.nativeElement, 'expression-row-active');
+
+            if (buttons) {
+                buttons.forEach((btn: HTMLButtonElement) => {
+                    this._renderer.addClass(btn, 'hover-action-active');
+                });
+            }
+        } else {
             this._renderer.removeClass(this._elementRef.nativeElement, 'hover-action-container-active');
             this._renderer.removeClass(this._elementRef.nativeElement, 'expression-row-active');
-
-            const buttons = (this._elementRef.nativeElement as HTMLElement).querySelectorAll('button.hover-action-active');
 
             if (buttons) {
                 buttons.forEach((btn: HTMLButtonElement) => {
                     this._renderer.removeClass(btn, 'hover-action-active');
                 });
             }
-        } else {
-            this._renderer.addClass(this._elementRef.nativeElement, 'expression-row-active');
         }
     }
-
 }
