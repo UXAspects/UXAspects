@@ -140,11 +140,6 @@ export class DashboardService implements OnDestroy {
         // ensure the column width is not below the min widths
         this.stacked$.next(this.columnWidth < this.options.minWidth);
 
-        // ensure the row height is not below the min widths
-        if (this._rowHeight < this.options.minWidth) {
-            this._rowHeight = this.options.minWidth;
-        }
-
         this.setDashboardLayout();
 
         // iterate through each widget and set the size - except the one being resized
