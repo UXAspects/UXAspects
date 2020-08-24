@@ -94,12 +94,25 @@ export class DashboardComponent implements AfterViewInit, AfterContentInit, OnDe
         return this.ariaLabel;
     }
 
+    /** Shift widgets up where possible to fill any available space to optimize the dashboard layout */
+    refreshLayout(): void {
+        const didChangeLayout = this.dashboardService.shiftWidgetsUp();
+
+        if (didChangeLayout) {
+            // if widgets have shifted up the dashboard may no longer occupy the same
+            // height. We should remove any unneeded whitespace below widgets too.
+            this.dashboardService.setDashboardHeight();
+
+            this.layoutChange.emit(this.dashboardService.layout$.value);
+        }
+    }
+
     private getDefaultAriaLabel(widgets: DashboardWidgetComponent[], options: DashboardOptions): string {
-        return `Dashboard with ${options.columns} columns, containing ${widgets.length} panels. ${widgets.map(this.getWidgetAriaLabel).join(' ')}`;
+        return `Dashboard with ${ options.columns } columns, containing ${ widgets.length } panels. ${ widgets.map(this.getWidgetAriaLabel).join(' ') }`;
     }
 
     private getWidgetAriaLabel(widget: DashboardWidgetComponent): string {
-        return `${widget.name} panel in row ${widget.getRow()}, column ${widget.getColumn()}, is ${widget.getColumnSpan()} columns wide and ${widget.getRowSpan()} rows high.`;
+        return `${ widget.name } panel in row ${ widget.getRow() }, column ${ widget.getColumn() }, is ${ widget.getColumnSpan() } columns wide and ${ widget.getRowSpan() } rows high.`;
     }
 }
 
