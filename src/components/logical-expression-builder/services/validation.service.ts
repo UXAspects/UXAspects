@@ -34,8 +34,10 @@ export class ValidationService {
 
     private _checkValidity(): void {
         if (this._validationStates.size < 1) {
+            // if the expression is empty, it is invalid
             this._valid.next(false);
         } else {
+            // if any condition or group is invalid, the whole expression is invalid
             let valid = true;
 
             this._validationStates.forEach((value: boolean) => {

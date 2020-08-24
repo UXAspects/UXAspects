@@ -1,5 +1,6 @@
 import {
-    ChangeDetectionStrategy, ChangeDetectorRef,
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
     Component,
     EventEmitter, forwardRef,
     Input, OnChanges,
@@ -84,6 +85,7 @@ export class LogicalExpressionBuilderComponent implements OnChanges, OnDestroy, 
     }
 
     ngOnInit(): void {
+        // get the validation status of the entire expression
         this._validationService.getValidationStatus()
             .pipe(
                 takeUntil(this._destroy$),
