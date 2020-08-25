@@ -26,6 +26,7 @@ import { A11yModule } from '@angular/cdk/a11y';
 import { FocusHandlerService } from './services/focus-handler.service';
 import { ExpressionRowDirective } from './directives/expression-row.directive';
 import { RowPathPipe } from './leb-group/row-path.pipe';
+import { AlertModule } from '../alert/alert.module';
 
 const EXPORTS = [
     TextInputComponent,
@@ -33,34 +34,35 @@ const EXPORTS = [
     SelectInputComponent,
     DateInputComponent,
     DateRangeInputComponent,
-    LogicalExpressionBuilderComponent
+    LogicalExpressionBuilderComponent,
+    LebGroupComponent,
+    LebConditionComponent,
+    ExpressionRowDirective
 ];
 
 const DECLARATIONS = [
     ...EXPORTS,
-    LebGroupComponent,
-    LebConditionComponent,
-    ExpressionRowDirective,
     L10nPipe,
     DisplayValuePipe,
     RowPathPipe
 ];
 
 @NgModule({
-  imports: [
-    CommonModule,
-    SelectModule,
-    NumberPickerModule,
-    DateTimePickerModule,
-    PopoverModule,
-    AccessibilityModule,
-    DateRangePickerModule,
-    FormsModule,
-    HoverActionModule,
-    MenuModule,
-    IconModule,
-    A11yModule
-  ],
+    imports: [
+        CommonModule,
+        SelectModule,
+        NumberPickerModule,
+        DateTimePickerModule,
+        PopoverModule,
+        AccessibilityModule,
+        DateRangePickerModule,
+        FormsModule,
+        HoverActionModule,
+        MenuModule,
+        IconModule,
+        A11yModule,
+        AlertModule
+    ],
     exports: [...EXPORTS],
     declarations: DECLARATIONS,
     providers: [
