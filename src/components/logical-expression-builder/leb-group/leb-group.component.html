@@ -33,8 +33,10 @@
     </td>
 
     <td *ngIf="!_valid" class="m-l-md text-error">
-        <ux-icon name="status-error-filled" class="m-r-xs"></ux-icon>
-        {{ _errorMessage }}
+        <ux-alert [dismissible]="false" type="error">
+            <ux-icon uxAlertIcon name="status-error-filled"></ux-icon>
+            {{ _errorMessage }}
+        </ux-alert>
     </td>
 
     <td class="logical-operator-delete">
