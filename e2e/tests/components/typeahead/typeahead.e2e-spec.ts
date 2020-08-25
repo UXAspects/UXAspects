@@ -54,4 +54,21 @@ describe('TypeaheadPage Tests', () => {
         expect(await imageCompare('typeahead-drop-direction-auto-down')).toEqual(0);
     });
 
+    it('should maintain input focus whenever the typeahead is scrolled', async () => {
+        await page.typeaheadInput.click();
+        await page.dragTypeaheadScrollBar(50);
+        expect(await page.isInputFocused()).toBe(true);
+    });
+
+    /**
+     * Test Covering Chrome Bug Workaround: (https://bugs.chromium.org/p/chromium/issues/detail?id=6759)
+     */
+    it('should maintain input focus whenever the typeahead is scrolled inside a tabbable container', async () => {
+        await page.setFormTabIndex(0);
+        expect(await page.form.getAttribute('tabindex')).toBe('0');
+        await page.typeaheadInput.click();
+        await page.dragTypeaheadScrollBar(50);
+        expect(await page.isInputFocused()).toBe(true);
+    });
+
 });
