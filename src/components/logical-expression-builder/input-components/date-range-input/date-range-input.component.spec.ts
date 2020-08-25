@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { LogicalExpressionBuilderModule } from '../../logical-expression-builder.module';
+import { DisplayValueFunction, FieldDefinition, LogicalExpressionBuilderService, OperatorDefinition } from '../..';
 
 @Component({
     selector: 'ux-date-range-input-test',
@@ -28,10 +29,26 @@ describe('DateRangeInputComponent', () => {
     let component: DateRangeInputTestComponent;
     let fixture: ComponentFixture<DateRangeInputTestComponent>;
 
+    const lebService: Partial<LogicalExpressionBuilderService> = {
+        getLocalizedStrings(): any {
+            return {};
+        },
+        getDisplayValueFunction(): DisplayValueFunction {
+            return () => '';
+        },
+        getFields(): FieldDefinition[] {
+            return [{ fieldType: 'test', name: 'test', label: 'test' }];
+        },
+        getOperatorsByFieldType(_: string): OperatorDefinition[] {
+            return [{ name: 'test', label: 'test', component: null }];
+        }
+    };
+
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             declarations: [DateRangeInputTestComponent],
-            imports: [LogicalExpressionBuilderModule]
+            imports: [LogicalExpressionBuilderModule],
+            providers: [{ provide: LogicalExpressionBuilderService, useValue: lebService }]
         });
     }));
 
