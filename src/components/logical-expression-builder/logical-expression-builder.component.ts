@@ -30,7 +30,10 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
             provide: NG_VALUE_ACCESSOR,
             multi: true,
             useExisting: forwardRef(() => LogicalExpressionBuilderComponent)
-        }
+        },
+        LogicalExpressionBuilderService,
+        FocusHandlerService,
+        ValidationService
     ]
 })
 export class LogicalExpressionBuilderComponent implements OnChanges, OnDestroy, OnInit, ControlValueAccessor {

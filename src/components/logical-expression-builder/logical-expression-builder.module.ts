@@ -15,10 +15,7 @@ import { AlertModule } from '../alert/alert.module';
 import { LogicalExpressionBuilderComponent } from './logical-expression-builder.component';
 import { LebGroupComponent } from './leb-group/leb-group.component';
 import { LebConditionComponent } from './leb-condition/leb-condition.component';
-import { LogicalExpressionBuilderService } from './services/logical-expression-builder.service';
-import { FocusHandlerService } from './services/focus-handler.service';
 import { ExpressionRowDirective } from './directives/expression-row.directive';
-import { ValidationService } from './services/validation.service';
 import { TextInputComponent } from './input-components/text-input/text-input.component';
 import { NumberInputComponent } from './input-components/number-input/number-input.component';
 import { SelectInputComponent } from './input-components/select-input/select-input.component';
@@ -67,11 +64,6 @@ const DECLARATIONS = [
     ],
     exports: [...EXPORTS],
     declarations: DECLARATIONS,
-    providers: [
-        LogicalExpressionBuilderService,
-        FocusHandlerService,
-        ValidationService
-    ]
 })
 export class LogicalExpressionBuilderModule {
 }
