@@ -6,7 +6,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { BehaviorSubject, Observable, ReplaySubject, Subject } from 'rxjs';
 import { debounceTime, delay, distinctUntilChanged, filter, map, skip, take, takeUntil } from 'rxjs/operators';
 import { InfiniteScrollLoadFunction } from '../../directives/infinite-scroll/index';
-import { TagApi, TagInputComponent } from '../tag-input/index';
+import { TagInputComponent, TagTemplateContext } from '../tag-input/index';
 import { TypeaheadComponent, TypeaheadKeyService, TypeaheadOptionEvent } from '../typeahead/index';
 import { TypeaheadOptionContext } from '../typeahead/typeahead-option-context';
 
@@ -447,8 +447,3 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
     }
 }
 
-export interface TagTemplateContext<T = string | any> {
-    tag: T;
-    index: number;
-    api: TagApi;
-}
