@@ -4,6 +4,7 @@ import { SelectionModule } from './selection.module';
 import { SelectionMode } from './selection.service';
 import { AccessibilityModule } from '../accessibility/index';
 import { SelectionDirective } from './selection.directive';
+import { CheckboxModule } from '../../components/checkbox/index';
 
 @Component({
     selector: 'app-selection-test',
@@ -15,6 +16,11 @@ import { SelectionDirective } from './selection.directive';
             <li *ngFor="let option of options"
                 [uxSelectionItem]="option"
                 (selectedChange)="onSelectedItemChange($event)">
+
+                <ux-checkbox tabindex="-1"
+                             [value]="isSelected(option)"
+                             (valueChange)="setSelection(option, $event)">
+                </ux-checkbox>
                 {{ option }}
             </li>
         </ul>
@@ -42,12 +48,24 @@ export class SelectionDirectiveSpec {
     onSelectedItemChange(_: boolean): void {
     }
 
+    isSelected(option: string): boolean {
+        return this.selection.indexOf(option) !== -1;
+    }
+
     selectAll(): void {
         this.selectionDirective.selectAll();
     }
 
     deselectAll(): void {
         this.selectionDirective.deselectAll();
+    }
+
+    setSelection(option: string, isSelected: boolean): void {
+        if (isSelected) {
+            this.selection = [...this.selection, option];
+        } else {
+            this.selection = this.selection.filter(opt => opt !== option);
+        }
     }
 }
 
@@ -62,6 +80,7 @@ fdescribe('Selection Directive', () => {
         TestBed.configureTestingModule({
             imports: [
                 AccessibilityModule,
+                CheckboxModule,
                 SelectionModule
             ],
             declarations: [SelectionDirectiveSpec]
@@ -167,6 +186,25 @@ fdescribe('Selection Directive', () => {
         expect(onSelectedItemChangeSpy).toHaveBeenCalledTimes(1);
     }));
 
+    it('should allow selection via uxSelectionItem selected property', fakeAsync(() => {
+        clearSelection();
+        toggleListItemCheckbox(0);
+
+        expect(onSelectedChangeSpy).toHaveBeenCalledTimes(1);
+        expect(onSelectedChangeSpy).toHaveBeenCalledWith(['Option 1']);
+        expect(onSelectedItemChangeSpy).toHaveBeenCalledTimes(1);
+        expect(onSelectedItemChangeSpy).toHaveBeenCalledWith(true);
+    }));
+
+    fit('should allow deselection via uxSelectionItem selected property', fakeAsync(() => {
+        toggleListItemCheckbox(1);
+
+        expect(onSelectedChangeSpy).toHaveBeenCalledTimes(1);
+        expect(onSelectedChangeSpy).toHaveBeenCalledWith([]);
+        expect(onSelectedItemChangeSpy).toHaveBeenCalledTimes(1);
+        expect(onSelectedItemChangeSpy).toHaveBeenCalledWith(false);
+    }));
+
     describe('mode = "row"', () => {
         beforeEach(() => {
             component.mode = 'row';
@@ -235,5 +273,15 @@ fdescribe('Selection Directive', () => {
 
     function getListItem(index: number): HTMLElement {
         return getListItems()[index];
+    }
+
+    function getListItemCheckbox(index: number): HTMLElement {
+        return getListItem(index).querySelector('ux-checkbox');
+    }
+
+    function toggleListItemCheckbox(index: number): void {
+        getListItemCheckbox(index).click();
+        fixture.detectChanges();
+        tick();
     }
 });
