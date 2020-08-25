@@ -9,7 +9,7 @@
         <div class="btn-group">
             <button
                 type="button"
-                class="btn btn-link button-primary dropdown-toggle dropdown-button"
+                class="btn btn-link button-secondary dropdown-toggle dropdown-button"
                 [ngClass]="{'disabled' : (_editBlocked$ | async)}"
                 [disabled]="_editBlocked$ | async"
                 uxFocusIndicatorOrigin
@@ -45,7 +45,7 @@
             uxFocusIndicatorOrigin
             (click)="deleteGroup()"
             type="button"
-            class="btn btn-link btn-icon btn-lg button-warning"
+            class="btn btn-icon button-warning"
             [disabled]="_editBlocked$ | async"
             [attr.aria-label]="('deleteLogicalOperatorAriaLabel' | l10n) || 'Delete logical operator'">
             <span class="ux-icon ux-icon-trash" aria-hidden="true"></span>

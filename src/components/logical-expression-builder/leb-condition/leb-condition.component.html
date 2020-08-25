@@ -43,7 +43,7 @@
             (click)="confirmCondition()"
             uxFocusIndicatorOrigin
             type="button"
-            class="btn btn-link btn-icon btn-lg button-primary"
+            class="btn btn-icon button-primary button-success "
             [attr.aria-label]="('confirmConditionAriaLabel' | l10n) || 'Confirm edit'">
             <span class="ux-icon ux-icon-checkmark" aria-hidden="true"></span>
         </button>
@@ -52,7 +52,7 @@
             (click)="cancelEdit()"
             uxFocusIndicatorOrigin
             type="button"
-            class="btn btn-link btn-icon btn-lg button-secondary"
+            class="btn btn-icon button-warning"
             [attr.aria-label]="('cancelConditionEditAriaLabel' | l10n) || 'Cancel editing'">
             <span class="ux-icon ux-icon-close" aria-hidden="true"></span>
         </button>
@@ -79,7 +79,7 @@
                 uxFocusIndicatorOrigin
                 (click)="editCondition()"
                 type="button"
-                class="btn btn-link btn-icon btn-lg button-primary"
+                class="btn btn-icon button-primary"
                 [attr.aria-label]="('editConditionAriaLabel' | l10n) || 'Edit condition'">
                 <span class="ux-icon ux-icon-edit" aria-hidden="true"></span>
             </button>
@@ -90,7 +90,7 @@
                 uxFocusIndicatorOrigin
                 (click)="embedConditionInGroup()"
                 type="button"
-                class="btn btn-link btn-icon btn-lg button-secondary"
+                class="btn btn-icon button-secondary"
                 [attr.aria-label]="('embedConditionAriaLabel' | l10n) || 'Embed condition'">
                 <span class="ux-icon ux-icon-chart-organization" aria-hidden="true"></span>
             </button>
@@ -101,7 +101,7 @@
                 uxFocusIndicatorOrigin
                 (click)="deleteCondition()"
                 type="button"
-                class="btn btn-link btn-icon btn-lg button-warning btn-delete-condition"
+                class="btn btn-icon button-warning btn-delete-condition"
                 [attr.aria-label]="('deleteConditionAriaLabel' | l10n) || 'Delete condition'">
                 <span class="ux-icon ux-icon-trash" aria-hidden="true"></span>
             </button>
