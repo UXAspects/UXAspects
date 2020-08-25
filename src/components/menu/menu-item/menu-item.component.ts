@@ -1,5 +1,5 @@
 import { FocusableOption, FocusOrigin } from '@angular/cdk/a11y';
-import { ChangeDetectionStrategy, Component, ElementRef, HostListener, Input, OnDestroy, OnInit, Renderer2, Output, EventEmitter } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, HostBinding, HostListener, Input, OnDestroy, OnInit, Output, Renderer2 } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { isKeyboardTrigger } from '../../../common/index';
@@ -21,13 +21,22 @@ import { MenuItemType } from './menu-item-type.enum';
 export class MenuItemComponent implements OnInit, OnDestroy, FocusableOption {
 
     /** Define if this item is disabled or not */
-    @Input() disabled: boolean = false;
+    @Input() set disabled(value: boolean) {
+        this._disabled = value ? value : false;
+        this.disabledMenu = value ? value : null;
+    }
+
+    get disabled(): boolean {
+        return !this._disabled ? false : true;
+    }
 
     /** Define the role of the element */
     @Input() role: 'menuitem' | 'menuitemradio' | 'menuitemcheckbox' = 'menuitem';
 
     /** Emits when the menu item is clicked or the enter key is pressed. */
     @Output() activate = new EventEmitter<MouseEvent | KeyboardEvent>();
+
+    @HostBinding('attr.disabled') disabledMenu: boolean = null;
 
     /** Access the open state */
     get isOpen(): boolean {
@@ -54,6 +63,8 @@ export class MenuItemComponent implements OnInit, OnDestroy, FocusableOption {
 
     /** Automatically unsubscribe from observables on destroy */
     private readonly _onDestroy$ = new Subject<void>();
+
+    private _disabled: boolean = false;
 
     constructor(
         private readonly _menu: MenuComponent,
