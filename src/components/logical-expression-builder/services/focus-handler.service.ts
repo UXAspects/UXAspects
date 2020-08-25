@@ -3,9 +3,7 @@ import { FocusKeyManager } from '@angular/cdk/a11y';
 import { ExpressionRowDirective } from '../directives/expression-row.directive';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 
-@Injectable({
-    providedIn: 'root'
-})
+@Injectable()
 export class FocusHandlerService implements OnDestroy {
     /** Used to store all ExpressionRows */
     private _queryList: QueryList<ExpressionRowDirective> = new QueryList<ExpressionRowDirective>();

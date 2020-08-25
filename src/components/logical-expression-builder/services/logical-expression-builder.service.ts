@@ -6,9 +6,7 @@ import { LogicalExpressionBuilderModule } from '../logical-expression-builder.mo
 import { BehaviorSubject, Observable } from 'rxjs';
 import { DisplayValueFunction } from '../interfaces/DisplayValueFunction';
 
-@Injectable({
-    providedIn: 'root',
-})
+@Injectable()
 export class LogicalExpressionBuilderService {
     private _logicalOperators: LogicalOperatorDefinition[] = [
         { name: 'and', label: 'and', minNumberOfChildren: 2, errorMessage: '\'and\' needs at least two children.' },

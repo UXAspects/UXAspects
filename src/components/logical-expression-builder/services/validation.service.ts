@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 
-@Injectable({
-    providedIn: 'root'
-})
+@Injectable()
 export class ValidationService {
     private _valid: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
     private _validationStates: Map<string, boolean> = new Map<string, boolean>();
