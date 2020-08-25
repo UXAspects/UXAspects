@@ -1,7 +1,7 @@
 import { SPACE } from '@angular/cdk/keycodes';
 import { Directive, ElementRef, EventEmitter, HostBinding, HostListener, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { Subject } from 'rxjs';
-import { map, skip, takeUntil } from 'rxjs/operators';
+import { debounceTime, map, skip, takeUntil } from 'rxjs/operators';
 import { FocusIndicator, FocusIndicatorService, ManagedFocusContainerService } from '../accessibility/index';
 import { SelectionService } from './selection.service';
 
@@ -87,8 +87,13 @@ export class SelectionItemDirective<T> implements OnInit, OnDestroy {
 
         // subscribe to selection changes on this item (don't emit the initial value)
         this._selectionService.getSelectionState(this.uxSelectionItem)
-            .pipe(skip(1), takeUntil(this._onDestroy))
+            .pipe(skip(1), debounceTime(0), takeUntil(this._onDestroy))
             .subscribe(selected => {
+
+                if (this._selected === selected) {
+                    return;
+                }
+
                 // store the selected state
                 this._selected = selected;
 
