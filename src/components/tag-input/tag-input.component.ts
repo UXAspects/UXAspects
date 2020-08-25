@@ -63,7 +63,7 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
      * the option object as an argument, and should return the appropriate display value.
      * If the name of a property is provided as a string, that property is used as the display value.
      */
-    @Input() display: TagInputDisplayFn<T> | string;
+    @Input() display: TagInputDisplayFunction<T> | string;
 
     /** Controls whether pasting text into the text input area automatically converts that text into one or more tags. */
     @Input() addOnPaste: boolean = true;
@@ -830,7 +830,7 @@ export interface TagApi<T = any> {
  */
 export type TagClassFunction<T = any> = (tag: T, index: number, selected: boolean) => (string | string[] | Set<string>);
 
-export type TagInputDisplayFn<T> = (option: T) => string;
+export type TagInputDisplayFunction<T> = (option: T) => string;
 
 export interface TagTemplateContext<T = string | any> {
     tag: T;
