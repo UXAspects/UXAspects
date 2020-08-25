@@ -19,7 +19,7 @@ import { Subject } from 'rxjs';
 import { distinctUntilChanged, filter, map, takeUntil } from 'rxjs/operators';
 import { ValidationService } from '../services/validation.service';
 import { FocusHandlerService } from '../services/focus-handler.service';
-import { DateFormatterPipe } from '../../../pipes/date-formatter';
+import { DateFormatterPipe } from '../../../pipes/date-formatter/index';
 
 @Component({
     selector: 'ux-leb-condition',

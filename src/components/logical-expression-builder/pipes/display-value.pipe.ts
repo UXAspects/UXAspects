@@ -1,7 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { LogicalExpressionBuilderService } from '../services/logical-expression-builder.service';
 import { DisplayValueFunction } from '../interfaces/DisplayValueFunction';
-import { DateFormatterPipe } from '../../../pipes/date-formatter';
+import { DateFormatterPipe } from '../../../pipes/date-formatter/index';
 
 @Pipe({ name: 'displayValue' })
 export class DisplayValuePipe implements PipeTransform {
