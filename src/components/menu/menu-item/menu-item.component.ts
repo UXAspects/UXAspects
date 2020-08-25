@@ -1,5 +1,6 @@
 import { FocusableOption, FocusOrigin } from '@angular/cdk/a11y';
-import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, HostBinding, HostListener, Input, OnDestroy, OnInit, Output, Renderer2 } from '@angular/core';
+import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, HostListener, Input, OnDestroy, OnInit, Output, Renderer2 } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { isKeyboardTrigger } from '../../../common/index';
@@ -12,6 +13,7 @@ import { MenuItemType } from './menu-item-type.enum';
     templateUrl: './menu-item.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
+        '[attr.disabled]': 'disabled ? "disabled" : null',
         '[attr.role]': 'role',
         '[class.disabled]': 'disabled',
         '[class.ux-menu-item]': 'true',
@@ -21,13 +23,12 @@ import { MenuItemType } from './menu-item-type.enum';
 export class MenuItemComponent implements OnInit, OnDestroy, FocusableOption {
 
     /** Define if this item is disabled or not */
-    @Input() set disabled(value: boolean) {
-        this._disabled = value ? value : false;
-        this.disabledMenu = value ? value : null;
+    @Input() set disabled(disabled: boolean) {
+        this._disabled = coerceBooleanProperty(disabled);
     }
 
     get disabled(): boolean {
-        return !this._disabled ? false : true;
+        return this._disabled;
     }
 
     /** Define the role of the element */
@@ -35,8 +36,6 @@ export class MenuItemComponent implements OnInit, OnDestroy, FocusableOption {
 
     /** Emits when the menu item is clicked or the enter key is pressed. */
     @Output() activate = new EventEmitter<MouseEvent | KeyboardEvent>();
-
-    @HostBinding('attr.disabled') disabledMenu: boolean = null;
 
     /** Access the open state */
     get isOpen(): boolean {
@@ -145,4 +144,5 @@ export class MenuItemComponent implements OnInit, OnDestroy, FocusableOption {
         this._renderer.setAttribute(this._elementRef.nativeElement, 'tabindex', isTabbable ? '0' : '-1');
     }
 
+    static ngAcceptInputType_disabled: boolean | string;
 }

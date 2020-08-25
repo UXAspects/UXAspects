@@ -18,7 +18,11 @@ import { MenuModule } from './menu.module';
             </button>
             <ux-menu-divider></ux-menu-divider>
             <button
+                type="button"
+                id="menu-item-disabled"
                 uxMenuItem
+                [disabled]="disabled"
+                (click)="onButtonClick()"
                 #subMenuTrigger="ux-menu-trigger"
                 [uxMenuTriggerFor]="subMenu">
                 Item Two
@@ -42,10 +46,12 @@ import { MenuModule } from './menu.module';
     `
 })
 export class MenuTestComponent {
+    disabled: boolean = false;
     @ViewChild('menuTrigger', { static: true }) trigger: MenuTriggerDirective;
     @ViewChild('subMenuTrigger', { static: true }) subMenuTrigger: MenuTriggerDirective;
 
-    item1Activated(_: MouseEvent | KeyboardEvent): void {}
+    item1Activated(_: MouseEvent | KeyboardEvent): void { }
+    onButtonClick(): void { }
 }
 
 describe('MenuComponent', () => {
@@ -375,6 +381,32 @@ describe('MenuComponent', () => {
         item1Element.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
 
         expect(component.item1Activated).toHaveBeenCalledTimes(1);
+    });
+
+    it('should not emit a click event when disabled is true.', async () => {
+        component.disabled = true;
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        // open menu
+        component.trigger.openMenu();
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        // get the child submenu item
+        const menuItem = document.querySelector<HTMLButtonElement>(
+            '#menu-item-disabled'
+        );
+
+        expect(menuItem).toBeTruthy();
+        spyOn(component, 'onButtonClick');
+
+        // perform a click
+        menuItem.click();
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        expect(component.onButtonClick).not.toHaveBeenCalledWith();
     });
 });
 
