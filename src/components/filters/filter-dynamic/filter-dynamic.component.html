@@ -4,10 +4,11 @@
         type="button"
         [class.active]="selected !== initial"
         class="filter-dropdown btn dropdown-toggle"
+        [id]="filterId + '-trigger'"
         [uxMenuTriggerFor]="menu"
         #trigger="ux-menu-trigger">
         {{ selected?.group }}
-            <span class="filter-header" *ngIf="selected !== initial">
+        <span class="filter-header" *ngIf="selected !== initial">
                 ({{ selected?.name }})
             </span>
         <ux-icon name="down"></ux-icon>
@@ -18,6 +19,7 @@
         <button
             uxMenuItem
             *ngIf="showTypeahead"
+            [id]="initial.id || filterId + '-initial-option'"
             (click)="removeFilter()"
             (keydown.enter)="removeFilter()">
             <ux-icon
@@ -30,7 +32,9 @@
         </button>
 
         <!-- Selected Options -->
-        <button uxMenuItem *ngIf="selected !== initial && showTypeahead">
+        <button uxMenuItem
+                *ngIf="selected !== initial && showTypeahead"
+                [id]="selected.id || filterId + '-selection'">
             <ux-icon name="checkmark"></ux-icon>
             <span class="filter-dropdown-title">{{ selected.name }}</span>
         </button>
@@ -40,37 +44,38 @@
         <div *ngIf="showTypeahead" class="typeahead-box" role="none">
 
             <input type="text"
-                class="form-control"
-                [placeholder]="options?.placeholder"
-                [attr.aria-activedescendant]="highlightedElement?.id"
-                [attr.aria-controls]="typeaheadId"
-                aria-autocomplete="list"
-                aria-multiline="false"
-                [ngModel]="query$ | async"
-                (ngModelChange)="query$.next($event); updateTypeahead($event)"
-                (keydown)="typeaheadKeyService.handleKey($event, typeahead); $event.stopPropagation();"
-                (keydown.enter)="$event.preventDefault()"
-                (blur)="typeaheadOpen = false"
-                (click)="$event.stopPropagation()">
+                   class="form-control"
+                   [placeholder]="options?.placeholder"
+                   [attr.aria-activedescendant]="highlightedElement?.id"
+                   [attr.aria-controls]="typeaheadId"
+                   aria-autocomplete="list"
+                   aria-multiline="false"
+                   [ngModel]="query$ | async"
+                   (ngModelChange)="query$.next($event); updateTypeahead($event)"
+                   (keydown)="typeaheadKeyService.handleKey($event, typeahead); $event.stopPropagation();"
+                   (keydown.enter)="$event.preventDefault()"
+                   (blur)="typeaheadOpen = false"
+                   (click)="$event.stopPropagation()">
 
             <ux-typeahead #typeahead
-                [id]="typeaheadId"
-                [(open)]="typeaheadOpen"
-                display="title"
-                [selectOnEnter]="true"
-                [options]="typeaheadItems"
-                [optionTemplate]="filterOptionTemplate"
-                (optionSelected)="select($event); trigger.closeMenu($event.origin)"
-                (highlightedElementChange)="highlightedElement = $event">
+                          [id]="typeaheadId"
+                          [(open)]="typeaheadOpen"
+                          display="title"
+                          [selectOnEnter]="true"
+                          [options]="typeaheadItems"
+                          [optionTemplate]="filterOptionTemplate"
+                          (optionSelected)="select($event); trigger.closeMenu($event.origin)"
+                          (highlightedElementChange)="highlightedElement = $event">
             </ux-typeahead>
         </div>
 
         <ng-container *ngIf="!showTypeahead">
 
             <button
-                *ngFor="let filter of filters"
+                *ngFor="let filter of filters; let index = index"
                 type="button"
                 uxMenuItem
+                [id]="filter.id || filterId + '-item-' + index"
                 (click)="selectFilter(filter); trigger.closeMenu('mouse')"
                 (keydown.enter)="selectFilter(filter); trigger.closeMenu('keyboard')">
 
