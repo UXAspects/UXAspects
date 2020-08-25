@@ -16,7 +16,7 @@ import { ManagedFocusContainerService } from '../../../directives/accessibility/
 @Directive({
     selector: '[expressionRow]'
 })
-export class ExpressionRow implements FocusableOption, OnInit, OnDestroy {
+export class ExpressionRowDirective implements FocusableOption, OnInit, OnDestroy {
     /** Used to identify and sort rows */
     @Input('rowPath') path: number[] = [];
 

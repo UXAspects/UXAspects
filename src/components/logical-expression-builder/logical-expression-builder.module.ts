@@ -24,7 +24,7 @@ import { DisplayValuePipe } from './pipes/display-value.pipe';
 import { ValidationService } from './services/validation.service';
 import { A11yModule } from '@angular/cdk/a11y';
 import { FocusHandlerService } from './services/focus-handler.service';
-import { ExpressionRow } from './directives/expression-row.directive';
+import { ExpressionRowDirective } from './directives/expression-row.directive';
 import { RowPathPipe } from './leb-group/row-path.pipe';
 
 const EXPORTS = [
@@ -33,20 +33,14 @@ const EXPORTS = [
     SelectInputComponent,
     DateInputComponent,
     DateRangeInputComponent,
-    LogicalExpressionBuilderComponent,
-    LebGroupComponent,
-    LebConditionComponent,
-    ExpressionRow,
-    L10nPipe,
-    DisplayValuePipe,
-    RowPathPipe
+    LogicalExpressionBuilderComponent
 ];
 
 const DECLARATIONS = [
     ...EXPORTS,
     LebGroupComponent,
     LebConditionComponent,
-    ExpressionRow,
+    ExpressionRowDirective,
     L10nPipe,
     DisplayValuePipe,
     RowPathPipe
@@ -69,7 +63,12 @@ const DECLARATIONS = [
   ],
     exports: [...EXPORTS],
     declarations: DECLARATIONS,
-    providers: [LogicalExpressionBuilderService, ValidationService, FocusHandlerService, L10nPipe, DatePipe, RowPathPipe]
+    providers: [
+        LogicalExpressionBuilderService,
+        FocusHandlerService,
+        ValidationService,
+        DatePipe
+    ]
 })
 export class LogicalExpressionBuilderModule {
 }

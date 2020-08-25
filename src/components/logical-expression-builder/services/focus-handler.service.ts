@@ -1,6 +1,6 @@
 import { Injectable, OnDestroy, QueryList } from '@angular/core';
 import { FocusKeyManager } from '@angular/cdk/a11y';
-import { ExpressionRow } from '../directives/expression-row.directive';
+import { ExpressionRowDirective } from '../directives/expression-row.directive';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 
 @Injectable({
@@ -8,23 +8,23 @@ import { BehaviorSubject, Observable, Subject } from 'rxjs';
 })
 export class FocusHandlerService implements OnDestroy {
     /** Used to store all ExpressionRows */
-    private _queryList: QueryList<ExpressionRow> = new QueryList<ExpressionRow>();
+    private _queryList: QueryList<ExpressionRowDirective> = new QueryList<ExpressionRowDirective>();
 
     /** Reference to focus key manager */
-    private _focusKeyManager: FocusKeyManager<ExpressionRow> = new FocusKeyManager(this._queryList).withWrap().withVerticalOrientation();
+    private _focusKeyManager: FocusKeyManager<ExpressionRowDirective> = new FocusKeyManager(this._queryList).withWrap().withVerticalOrientation();
 
     private _destroy$: Subject<void> = new Subject<void>();
     public onTabindexChange$: Subject<void> = new Subject<void>();
 
     /** Add an ExpressionRow to the focus items and put it in the right position */
-    public register(item: ExpressionRow): void {
+    public register(item: ExpressionRowDirective): void {
         let items = this._queryList.toArray();
         items.push(item);
         items.sort(this._comparePaths);
 
         this._queryList.reset([...items]);
 
-        const inEditModeIndex: number = this._queryList.toArray().findIndex((_item: ExpressionRow) => _item.path.join() === this._rowInEditMode.getValue()?.join());
+        const inEditModeIndex: number = this._queryList.toArray().findIndex((_item: ExpressionRowDirective) => _item.path.join() === this._rowInEditMode.getValue()?.join());
         const activeIndex = this._focusKeyManager.activeItemIndex;
 
         if (inEditModeIndex >= 0) {
@@ -37,8 +37,8 @@ export class FocusHandlerService implements OnDestroy {
     }
 
     /** Remove ExpressionRow from focus items */
-    public unregister(item: ExpressionRow): void {
-        let items = this._queryList.toArray().filter((i: ExpressionRow) => i.path.join('-') !== item.path.join('-'));
+    public unregister(item: ExpressionRowDirective): void {
+        let items = this._queryList.toArray().filter((i: ExpressionRowDirective) => i.path.join('-') !== item.path.join('-'));
         this._queryList.reset([...items]);
 
         this.onTabindexChange$.next();
@@ -60,14 +60,14 @@ export class FocusHandlerService implements OnDestroy {
     }
 
     /** Check if passed item is currently focused */
-    public isItemActive(item: ExpressionRow) {
+    public isItemActive(item: ExpressionRowDirective) {
         // if this is called before the items have been set then do nothing
         if (!this._queryList) {
             return false;
         }
 
         // find the index of the item
-        const index = this._queryList.toArray().findIndex((_item: ExpressionRow) => _item.path.join() === item.path.join());
+        const index = this._queryList.toArray().findIndex((_item: ExpressionRowDirective) => _item.path.join() === item.path.join());
 
         // check if the item is active (we check against index as it can be updated without setting the activeItem)
         return this._focusKeyManager && this._focusKeyManager.activeItemIndex === index;
@@ -78,7 +78,7 @@ export class FocusHandlerService implements OnDestroy {
     }
 
     /** Compare function to compare paths of two ConditionRows */
-    private _comparePaths = (a: ExpressionRow, b: ExpressionRow) => {
+    private _comparePaths = (a: ExpressionRowDirective, b: ExpressionRowDirective) => {
         const pathA = a.path.join('-');
         const pathB = b.path.join('-');
 
@@ -95,7 +95,7 @@ export class FocusHandlerService implements OnDestroy {
         let index: number = null;
 
         if (this._queryList) {
-            index = this._queryList.toArray().findIndex((_row: ExpressionRow) => _row.path.join() === path.join());
+            index = this._queryList.toArray().findIndex((_row: ExpressionRowDirective) => _row.path.join() === path.join());
         }
 
         if (index !== null && index > -1) {
