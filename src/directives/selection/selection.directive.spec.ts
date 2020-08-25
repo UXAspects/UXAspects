@@ -69,7 +69,7 @@ export class SelectionDirectiveSpec {
     }
 }
 
-fdescribe('Selection Directive', () => {
+describe('Selection Directive', () => {
     let fixture: ComponentFixture<SelectionDirectiveSpec>;
     let component: SelectionDirectiveSpec;
     let nativeElement: HTMLElement;
@@ -196,7 +196,7 @@ fdescribe('Selection Directive', () => {
         expect(onSelectedItemChangeSpy).toHaveBeenCalledWith(true);
     }));
 
-    fit('should allow deselection via uxSelectionItem selected property', fakeAsync(() => {
+    it('should allow deselection via uxSelectionItem selected property', fakeAsync(() => {
         toggleListItemCheckbox(1);
 
         expect(onSelectedChangeSpy).toHaveBeenCalledTimes(1);
