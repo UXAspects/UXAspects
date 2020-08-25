@@ -14,6 +14,7 @@ export class SelectionDirective<T> implements AfterContentInit, OnDestroy {
 
     /** Defines the items that should be selected. */
     @Input() set uxSelection(items: T[]) {
+        this._lastSelection = items;
         this._selectionService.selectOnly(...items);
     }
 

@@ -69,4 +69,12 @@ describe('Selection Directive', () => {
         expect(onSelectedItemChangeSpy).not.toHaveBeenCalled();
     });
 
+    fit('should not emit any uxSelection when an input value changes, but should emit uxSelectionItem', () => {
+        component.selection = ['Option 1'];
+        fixture.detectChanges();
+
+        expect(onSelectedChangeSpy).not.toHaveBeenCalled();
+        expect(onSelectedItemChangeSpy).toHaveBeenCalledTimes(2);
+    });
+
 });

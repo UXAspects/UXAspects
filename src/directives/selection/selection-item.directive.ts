@@ -1,7 +1,7 @@
 import { SPACE } from '@angular/cdk/keycodes';
 import { Directive, ElementRef, EventEmitter, HostBinding, HostListener, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { Subject } from 'rxjs';
-import { map, takeUntil } from 'rxjs/operators';
+import { map, skip, takeUntil } from 'rxjs/operators';
 import { FocusIndicator, FocusIndicatorService, ManagedFocusContainerService } from '../accessibility/index';
 import { SelectionService } from './selection.service';
 
@@ -85,16 +85,16 @@ export class SelectionItemDirective<T> implements OnInit, OnDestroy {
             throw new Error('The uxSelectionItem directive must have data associated with it.');
         }
 
-        // subscribe to selection changes on this item
-        this._selectionService.getSelectionState(this.uxSelectionItem).pipe(takeUntil(this._onDestroy)).subscribe(selected => {
+        // subscribe to selection changes on this item (don't emit the initial value)
+        this._selectionService.getSelectionState(this.uxSelectionItem)
+            .pipe(skip(1), takeUntil(this._onDestroy))
+            .subscribe(selected => {
+                // store the selected state
+                this._selected = selected;
 
-            // store the selected state
-            this._selected = selected;
-
-            // emit the selected state
-            debugger;
-            this.selectedChange.emit(selected);
-        });
+                // emit the selected state
+                this.selectedChange.emit(selected);
+            });
 
         this._selected = this._selectionService.isSelected(this.uxSelectionItem);
 
