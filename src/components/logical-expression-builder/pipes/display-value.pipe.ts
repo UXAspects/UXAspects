@@ -1,13 +1,13 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { LogicalExpressionBuilderService } from '../services/logical-expression-builder.service';
 import { DisplayValueFunction } from '../interfaces/DisplayValueFunction';
-import { DatePipe } from '@angular/common';
+import { DateFormatterPipe } from '../../../pipes/date-formatter';
 
 @Pipe({ name: 'displayValue' })
 export class DisplayValuePipe implements PipeTransform {
     private readonly _transformFunction: DisplayValueFunction;
 
-    constructor(private _lebService: LogicalExpressionBuilderService, private _datePipe: DatePipe) {
+    constructor(private _lebService: LogicalExpressionBuilderService, private _dateFormatterPipe: DateFormatterPipe) {
         this._transformFunction = this._lebService.getDisplayValueFunction();
     }
 
@@ -57,8 +57,8 @@ export class DisplayValuePipe implements PipeTransform {
     }
 
     private transformDate(value: number, fieldData: any): string {
-        const format = fieldData.dateFormat || 'dd MMMM yyyy';
+        const format = fieldData.dateFormat || 'short';
 
-        return this._datePipe.transform(new Date(value), format);
+        return this._dateFormatterPipe.transform(new Date(value), format);
     }
 }

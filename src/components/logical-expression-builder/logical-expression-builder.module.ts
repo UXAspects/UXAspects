@@ -27,6 +27,7 @@ import { DateRangeInputComponent } from './input-components/date-range-input/dat
 import { L10nPipe } from './pipes/l10n.pipe';
 import { DisplayValuePipe } from './pipes/display-value.pipe';
 import { RowPathPipe } from './leb-group/row-path.pipe';
+import { DateFormatterPipeModule } from '../../pipes/date-formatter';
 
 const EXPORTS = [
     TextInputComponent,
@@ -61,7 +62,8 @@ const DECLARATIONS = [
         MenuModule,
         IconModule,
         A11yModule,
-        AlertModule
+        AlertModule,
+        DateFormatterPipeModule
     ],
     exports: [...EXPORTS],
     declarations: DECLARATIONS,

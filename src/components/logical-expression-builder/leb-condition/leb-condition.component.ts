@@ -19,12 +19,12 @@ import { Subject } from 'rxjs';
 import { distinctUntilChanged, filter, map, takeUntil } from 'rxjs/operators';
 import { ValidationService } from '../services/validation.service';
 import { FocusHandlerService } from '../services/focus-handler.service';
-import { DatePipe } from '@angular/common';
+import { DateFormatterPipe } from '../../../pipes/date-formatter';
 
 @Component({
     selector: 'ux-leb-condition',
     templateUrl: './leb-condition.component.html',
-    providers: [DatePipe],
+    providers: [DateFormatterPipe],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LebConditionComponent implements OnChanges, OnInit, OnDestroy {
