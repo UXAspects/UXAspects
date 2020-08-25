@@ -110,9 +110,9 @@ export class FilterDynamicComponent implements OnInit, OnDestroy {
 
         // hide the typeahead if the number of filters always visible equals or exceeds the
         // total number of filters as there would be no additional filters to display in the typeahead
-        const isTypeaheadHidden = this.options?.maxIndividualItems + 1 >= this.filters.length;
+        const shouldHideTypeahead = this.options?.maxIndividualItems + 1 >= this.filters.length;
 
-        if (isTypeaheadHidden) {
+        if (shouldHideTypeahead) {
             this.showTypeahead = false;
         }
     }
