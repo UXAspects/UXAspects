@@ -3,12 +3,13 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Component } from '@angular/core';
 import {
     ExpressionCondition,
-    FieldDefinition,
+    FieldDefinition, FocusHandlerService,
     LogicalExpressionBuilderModule,
-    OperatorDefinition
+    OperatorDefinition, ValidationService
 } from '..';
 import { LogicalExpressionBuilderService } from '../services/logical-expression-builder.service';
 import { DisplayValueFunction } from '../interfaces/DisplayValueFunction';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 
 @Component({
     selector: 'ux-condition',
@@ -38,10 +39,30 @@ describe('LebConditionComponent', () => {
             return () => '';
         },
         getFields(): FieldDefinition[] {
-            return [{fieldType: 'test', name: 'test', label: 'test'}];
+            return [{ fieldType: 'test', name: 'test', label: 'test' }];
         },
-        getOperatorsByFieldType(_fieldType: string): OperatorDefinition[] {
-            return [{name: 'test', label: 'test', component: null}];
+        getOperatorsByFieldType(_: string): OperatorDefinition[] {
+            return [{ name: 'test', label: 'test', component: null }];
+        }
+    };
+
+    const validationService: Partial<ValidationService> = {
+        setValidationState(_: number[], __: boolean) {
+        }
+    };
+
+    const focusHandlerService: Partial<FocusHandlerService> = {
+        getRowInEditMode(): Observable<number[]> {
+            return new BehaviorSubject<number[]>([0]).asObservable();
+        },
+        getEditBlocked(): Observable<boolean> {
+            return new BehaviorSubject<boolean>(false).asObservable();
+        },
+        onTabindexChange$: new Subject<void>(),
+        isItemActive(_: any): boolean {
+            return false;
+        },
+        register(_: any) {
         }
     };
 
@@ -49,7 +70,18 @@ describe('LebConditionComponent', () => {
         TestBed.configureTestingModule({
             declarations: [ConditionTestComponent],
             imports: [LogicalExpressionBuilderModule],
-            providers: [{ provide: LogicalExpressionBuilderService, useValue: lebService }]
+            providers: [
+                {
+                    provide: LogicalExpressionBuilderService,
+                    useValue: lebService
+                }, {
+                    provide: ValidationService,
+                    useValue: validationService
+                }, {
+                    provide: FocusHandlerService,
+                    useValue: focusHandlerService
+                }
+            ]
         }).compileComponents();
     }));
 
