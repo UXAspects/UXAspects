@@ -29,6 +29,9 @@ describe('Dashboard Widgets Tests', () => {
     });
 
     it('should have correct initial states', async () => {
+        const layout = await page.getLayoutOutput();
+        console.log(layout);
+
         expect(await page.getWidgetLocationValue(widgetActions, 'top')).toBe(0);
         expect(await page.getWidgetLocationValue(widgetActions, 'left')).toBe(0);
 
