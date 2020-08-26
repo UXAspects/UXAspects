@@ -1,5 +1,5 @@
 import { SPACE } from '@angular/cdk/keycodes';
-import { Directive, ElementRef, EventEmitter, HostBinding, HostListener, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { ChangeDetectorRef, Directive, ElementRef, EventEmitter, HostBinding, HostListener, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { Subject } from 'rxjs';
 import { debounceTime, map, skip, takeUntil, tap } from 'rxjs/operators';
 import { FocusIndicator, FocusIndicatorService, ManagedFocusContainerService } from '../accessibility/index';
@@ -73,10 +73,11 @@ export class SelectionItemDirective<T> implements OnInit, OnDestroy {
     private readonly _focusIndicator: FocusIndicator;
 
     constructor(
-        private _selectionService: SelectionService<T>,
-        private _elementRef: ElementRef,
-        focusIndicatorService: FocusIndicatorService,
-        private _managedFocusContainerService: ManagedFocusContainerService
+        private readonly _selectionService: SelectionService<T>,
+        private readonly _elementRef: ElementRef,
+        readonly focusIndicatorService: FocusIndicatorService,
+        private readonly _managedFocusContainerService: ManagedFocusContainerService,
+        private readonly _changeDetector: ChangeDetectorRef
     ) {
         this._focusIndicator = focusIndicatorService.monitor(_elementRef.nativeElement);
     }
@@ -103,6 +104,8 @@ export class SelectionItemDirective<T> implements OnInit, OnDestroy {
 
                 // emit the selected state
                 this.selectedChange.emit(selected);
+
+                this._changeDetector.markForCheck();
             });
 
         this._selected = this._selectionService.isSelected(this.uxSelectionItem);

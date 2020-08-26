@@ -102,6 +102,10 @@ describe('Selection Directive', () => {
         expect(onSelectedItemChangeSpy).not.toHaveBeenCalled();
     }));
 
+    fit('should apply the ux-selection-selected class whenever an item is selected', fakeAsync(() => {
+        expect(getListItem(1).classList).toContain('ux-selection-selected');
+    }));
+
     it('should not emit uxSelectionChange when an input value changes, but should emit selectedChange on uxSelectionItem', fakeAsync(() => {
         component.selection = ['Option 1'];
         fixture.detectChanges();
