@@ -13,6 +13,7 @@ import { MenuModule } from './menu.module';
                 type="button"
                 id="menu-item-1"
                 uxMenuItem
+                [disabled]="disabled"
                 (activate)="item1Activated($event)">
                 Item One
             </button>
@@ -22,7 +23,7 @@ import { MenuModule } from './menu.module';
                 id="menu-item-disabled"
                 uxMenuItem
                 [disabled]="disabled"
-                (click)="onButtonClick()"
+                (click)="item2Click()"
                 #subMenuTrigger="ux-menu-trigger"
                 [uxMenuTriggerFor]="subMenu">
                 Item Two
@@ -51,7 +52,7 @@ export class MenuTestComponent {
     @ViewChild('subMenuTrigger', { static: true }) subMenuTrigger: MenuTriggerDirective;
 
     item1Activated(_: MouseEvent | KeyboardEvent): void { }
-    onButtonClick(): void { }
+    item2Click(): void { }
 }
 
 describe('MenuComponent', () => {
@@ -397,16 +398,22 @@ describe('MenuComponent', () => {
         const menuItem = document.querySelector<HTMLButtonElement>(
             '#menu-item-disabled'
         );
-
         expect(menuItem).toBeTruthy();
-        spyOn(component, 'onButtonClick');
+
+        const item1Element = overlayContainerElement.querySelector('#menu-item-1') as HTMLButtonElement;
+        expect(item1Element).toBeTruthy();
+
+        spyOn(component, 'item2Click');
+        spyOn(component, 'item1Activated');
 
         // perform a click
+        item1Element.click();
         menuItem.click();
         fixture.detectChanges();
         await fixture.whenStable();
 
-        expect(component.onButtonClick).not.toHaveBeenCalledWith();
+        expect(component.item2Click).not.toHaveBeenCalled();
+        expect(component.item1Activated).not.toHaveBeenCalled();
     });
 });
 
