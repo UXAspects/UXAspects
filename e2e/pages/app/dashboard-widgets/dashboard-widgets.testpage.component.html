@@ -14,6 +14,7 @@
                                      [name]="'Actions Widget'"
                                      [heading]="'Actions Widget'"
                                      [fixedMode]="fixedMode"
+                                     [colSpan]="2"
                                      [status]="status"
                                      [actions]="actions"
                                      (actionSelected)="handleActionChange($event)">
@@ -22,29 +23,34 @@
             </ng-template>
         </ux-dashboard-actions-widget>
 
-        <ux-dashboard-enum-widget class="widget"
-                                  id="widget-enum"
-                                  [name]="'Enum Widget'"
-                                  [heading]="'Enum Widget'"
-                                  [fixedMode]="fixedMode"
-                                  [enums]="enums"
-                                  [value]="'0'">
-        </ux-dashboard-enum-widget>
-
         <ux-dashboard-table-widget class="widget"
                                    id="widget-table"
                                    [name]="'Table Widget'"
                                    [heading]="'Table Widget'"
                                    [fixedMode]="fixedMode"
+                                   [colSpan]="2"
+                                   [rowSpan]="2"
                                    [header]="tableHeader"
                                    [data]="tableData">
         </ux-dashboard-table-widget>
+
+        <ux-dashboard-enum-widget class="widget"
+                                  id="widget-enum"
+                                  [name]="'Enum Widget'"
+                                  [heading]="'Enum Widget'"
+                                  [fixedMode]="fixedMode"
+                                  [colSpan]="2"
+                                  [enums]="enums"
+                                  [value]="'0'">
+        </ux-dashboard-enum-widget>
 
         <ux-dashboard-text-widget class="widget"
                                   id="widget-text"
                                   [name]="'Text Widget'"
                                   [heading]="'Text Widget'"
                                   [fixedMode]="fixedMode"
+                                  [colSpan]="4"
+                                  [rowSpan]="2"
                                   [text]="loremIpsum"
                                   [editable]="textWidgetEditable">
         </ux-dashboard-text-widget>
