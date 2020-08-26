@@ -56,7 +56,7 @@ describe('Dashboard Widgets Tests', () => {
         ];
 
         // drag the top widget down
-        await browser.actions().dragAndDrop(widgetActions, { x: 0, y: 600 }).perform();
+        await browser.actions().dragAndDrop(widgetActions, { x: 0, y: 800 }).perform();
 
         expect(await page.getWidgetLocationValue(widgetActions, 'top')).toBe(561, 'widget-actions top');
         expect(await page.getWidgetLocationValue(widgetActions, 'left')).toBe(0, 'widget-actions left');
@@ -114,24 +114,6 @@ describe('Dashboard Widgets Tests', () => {
         await browser.actions().sendKeys(Key.TAB).perform();
 
         // Second grab handle should still have focus
-        expect(await page.hasFocus(grabHandle2)).toBe(true);
-    });
-
-    it('should maintain a focusable grab handle when widgets are removed', async () => {
-
-        // Remove first widget from the DOM
-        await page.toggleWidget();
-
-        expect(await page.getNumberOfWidgets()).toBe(3);
-
-        // Set focus to the element before the dashboard
-        await page.topFocusTarget.click();
-
-        // Tab into the dashboard
-        await browser.actions().sendKeys(Key.TAB).perform();
-
-        // Second grab handle should have focus
-        const grabHandle2 = await page.getGrabHandle('widget-enum');
         expect(await page.hasFocus(grabHandle2)).toBe(true);
     });
 });
