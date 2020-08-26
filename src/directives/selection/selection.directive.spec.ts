@@ -138,8 +138,8 @@ describe('Selection Directive', () => {
         fixture.detectChanges();
         tick();
 
-        expect(onSelectedChangeSpy).toHaveBeenCalledTimes(0);
-        expect(onSelectedItemChangeSpy).toHaveBeenCalledTimes(0);
+        expect(onSelectedChangeSpy).not.toHaveBeenCalled();
+        expect(onSelectedItemChangeSpy).not.toHaveBeenCalled();
     }));
 
     it('should emit whenever we deselect all and all items are selected', fakeAsync(() => {
@@ -164,8 +164,8 @@ describe('Selection Directive', () => {
         fixture.detectChanges();
         tick();
 
-        expect(onSelectedChangeSpy).toHaveBeenCalledTimes(0);
-        expect(onSelectedItemChangeSpy).toHaveBeenCalledTimes(0);
+        expect(onSelectedChangeSpy).not.toHaveBeenCalled();
+        expect(onSelectedItemChangeSpy).not.toHaveBeenCalled();
     }));
 
     it('should select and emit on item click', fakeAsync(() => {
@@ -220,8 +220,8 @@ describe('Selection Directive', () => {
             fixture.detectChanges();
             tick();
 
-            expect(onSelectedChangeSpy).toHaveBeenCalledTimes(0);
-            expect(onSelectedItemChangeSpy).toHaveBeenCalledTimes(0);
+            expect(onSelectedChangeSpy).not.toHaveBeenCalled();
+            expect(onSelectedItemChangeSpy).not.toHaveBeenCalled();
         }));
 
         it('should deselect and emit whenever a different item is selected', fakeAsync(() => {
@@ -245,8 +245,8 @@ describe('Selection Directive', () => {
             fixture.detectChanges();
             tick();
 
-            expect(onSelectedChangeSpy).toHaveBeenCalledTimes(0);
-            expect(onSelectedItemChangeSpy).toHaveBeenCalledTimes(0);
+            expect(onSelectedChangeSpy).not.toHaveBeenCalled();
+            expect(onSelectedItemChangeSpy).not.toHaveBeenCalled();
         }));
 
         it('should deselect and emit whenever a different item is selected', fakeAsync(() => {

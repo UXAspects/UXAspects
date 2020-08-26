@@ -90,23 +90,26 @@ export class SelectionItemDirective<T> implements OnInit, OnDestroy {
         }
 
         // subscribe to selection changes on this item (don't emit the initial value)
-        this._selectionService.getSelectionState(this.uxSelectionItem)
-            .pipe(skip(1), tap(() => this._hasPendingStateChange = true), debounceTime(0), takeUntil(this._onDestroy))
-            .subscribe(selected => {
-                this._hasPendingStateChange = false;
+        this._selectionService.getSelectionState(this.uxSelectionItem).pipe(
+            skip(1),
+            tap(() => this._hasPendingStateChange = true),
+            debounceTime(0),
+            takeUntil(this._onDestroy)
+        ).subscribe(selected => {
+            this._hasPendingStateChange = false;
 
-                if (this._selected === selected) {
-                    return;
-                }
+            if (this._selected === selected) {
+                return;
+            }
 
-                // store the selected state
-                this._selected = selected;
+            // store the selected state
+            this._selected = selected;
 
-                // emit the selected state
-                this.selectedChange.emit(selected);
+            // emit the selected state
+            this.selectedChange.emit(selected);
 
-                this._changeDetector.markForCheck();
-            });
+            this._changeDetector.markForCheck();
+        });
 
         this._selected = this._selectionService.isSelected(this.uxSelectionItem);
 
