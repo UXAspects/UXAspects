@@ -21,6 +21,8 @@ describe('Dashboard Widgets Tests', () => {
         widgetEnum = await page.getWidget('enum-widget');
         widgetTable = await page.getWidget('table-widget');
         widgetText = await page.getWidget('text-widget');
+
+        await browser.waitForAngular();
     });
 
     // restore the window to its original size after all these tests have run
@@ -29,9 +31,6 @@ describe('Dashboard Widgets Tests', () => {
     });
 
     it('should have correct initial states', async () => {
-        const layout = await page.getLayoutOutput();
-        console.log(layout);
-
         expect(await page.getWidgetLocationValue(widgetActions, 'top')).toBe(0);
         expect(await page.getWidgetLocationValue(widgetActions, 'left')).toBe(0);
 
