@@ -14,7 +14,7 @@ import { MenuModule } from './menu.module';
                 id="menu-item-1"
                 uxMenuItem
                 [disabled]="disabled"
-                (activate)="item1Activated($event)">
+                (activate)="onActivate($event)">
                 Item One
             </button>
             <ux-menu-divider></ux-menu-divider>
@@ -23,7 +23,7 @@ import { MenuModule } from './menu.module';
                 id="menu-item-disabled"
                 uxMenuItem
                 [disabled]="disabled"
-                (click)="item2Click()"
+                (click)="onClick()"
                 #subMenuTrigger="ux-menu-trigger"
                 [uxMenuTriggerFor]="subMenu">
                 Item Two
@@ -39,6 +39,7 @@ import { MenuModule } from './menu.module';
         <div>
             <button
                 id="trigger"
+                [disabled]="disabledMenu"
                 #menuTrigger="ux-menu-trigger"
                 [uxMenuTriggerFor]="menu">
                 Open Menu
@@ -48,11 +49,12 @@ import { MenuModule } from './menu.module';
 })
 export class MenuTestComponent {
     disabled: boolean = false;
+    disabledMenu: boolean = false;
     @ViewChild('menuTrigger', { static: true }) trigger: MenuTriggerDirective;
     @ViewChild('subMenuTrigger', { static: true }) subMenuTrigger: MenuTriggerDirective;
 
-    item1Activated(_: MouseEvent | KeyboardEvent): void { }
-    item2Click(): void { }
+    onActivate(_: MouseEvent | KeyboardEvent): void { }
+    onClick(_: MouseEvent): void { }
 }
 
 describe('MenuComponent', () => {
@@ -361,13 +363,13 @@ describe('MenuComponent', () => {
         fixture.detectChanges();
         await fixture.whenStable();
 
-        spyOn(component, 'item1Activated');
+        spyOn(component, 'onActivate');
 
         const item1Element = overlayContainerElement.querySelector('#menu-item-1') as HTMLButtonElement;
         expect(item1Element).toBeTruthy();
         item1Element.click();
 
-        expect(component.item1Activated).toHaveBeenCalledTimes(1);
+        expect(component.onActivate).toHaveBeenCalledTimes(1);
     });
 
     it('should emit an activated event when pressing enter key on a menu item', async () => {
@@ -375,16 +377,16 @@ describe('MenuComponent', () => {
         fixture.detectChanges();
         await fixture.whenStable();
 
-        spyOn(component, 'item1Activated');
+        spyOn(component, 'onActivate');
 
         const item1Element = overlayContainerElement.querySelector('#menu-item-1') as HTMLButtonElement;
         expect(item1Element).toBeTruthy();
         item1Element.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
 
-        expect(component.item1Activated).toHaveBeenCalledTimes(1);
+        expect(component.onActivate).toHaveBeenCalledTimes(1);
     });
 
-    it('should not emit a click event when disabled is true.', async () => {
+    it('should not emit a click or activated event when disabled is true.', async () => {
         component.disabled = true;
         fixture.detectChanges();
         await fixture.whenStable();
@@ -395,26 +397,48 @@ describe('MenuComponent', () => {
         await fixture.whenStable();
 
         // get the child submenu item
-        const menuItem = document.querySelector<HTMLButtonElement>(
+        const itemWithSubMenu = overlayContainerElement.querySelector('#menu-item-1') as HTMLButtonElement;
+        expect(itemWithSubMenu).toBeTruthy();
+
+        const subMenuItem = document.querySelector<HTMLButtonElement>(
             '#menu-item-disabled'
         );
-        expect(menuItem).toBeTruthy();
+        expect(subMenuItem).toBeTruthy();
 
-        const item1Element = overlayContainerElement.querySelector('#menu-item-1') as HTMLButtonElement;
-        expect(item1Element).toBeTruthy();
-
-        spyOn(component, 'item2Click');
-        spyOn(component, 'item1Activated');
+        spyOn(component, 'onActivate');
+        spyOn(component, 'onClick');
 
         // perform a click
-        item1Element.click();
-        menuItem.click();
+        itemWithSubMenu.click();
+        subMenuItem.click();
         fixture.detectChanges();
         await fixture.whenStable();
 
-        expect(component.item2Click).not.toHaveBeenCalled();
-        expect(component.item1Activated).not.toHaveBeenCalled();
+        expect(component.onActivate).not.toHaveBeenCalled();
+        expect(component.onClick).not.toHaveBeenCalled();
     });
+
+    it('should not open submenu when menu item is disabled ', async () => {
+        component.disabledMenu = true;
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        // open menu
+        component.trigger.openMenu();
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        // get the child submenu item
+        const itemWithSubMenu = overlayContainerElement.querySelector('#menu-item-1') as HTMLButtonElement;
+        expect(itemWithSubMenu).toBeFalsy();
+
+        const subMenuItem = document.querySelector<HTMLButtonElement>(
+            '#menu-item-disabled'
+        );
+
+        expect(subMenuItem).toBeFalsy();
+    });
+
 });
 
 @Component({
