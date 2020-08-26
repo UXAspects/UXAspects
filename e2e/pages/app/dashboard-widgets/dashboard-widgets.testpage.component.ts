@@ -33,12 +33,7 @@ export class DashboardWidgetsTestpageComponent implements AfterViewInit {
         minWidth: 187
     };
 
-    layout: DashboardLayoutData[] = [
-        { id: 'widget-actions', col: 0, row: 0, colSpan: 2, rowSpan: 1 },
-        { id: 'widget-enum', col: 0, row: 1, colSpan: 2, rowSpan: 1 },
-        { id: 'widget-table', col: 2, row: 0, colSpan: 2, rowSpan: 2 },
-        { id: 'widget-text', col: 0, row: 2, colSpan: 4, rowSpan: 1 }
-    ];
+    layout: DashboardLayoutData[];
 
     status: ActionStatus = { label: 'Waiting...', icon: 'radial' };
 
