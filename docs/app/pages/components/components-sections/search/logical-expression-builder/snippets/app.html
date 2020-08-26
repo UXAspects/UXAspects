@@ -1,11 +1,14 @@
 <ux-logical-expression-builder
-    [expression]="expression"
+    [(expression)]="expression"
     [fields]="fields"
     [operators]="operators"
     [logicalOperators]="logicalOperators"
     [localizedStrings]="localizedStrings"
-    (expressionChange)="expressionChanged($event)">
+    (valid)="valid = $event">
 </ux-logical-expression-builder>
+
+<p>The expression is <span [ngClass]="valid ? 'text-success' : 'text-error'">{{ valid ? 'valid' : 'invalid' }}</span>.
+</p>
 
 <div class="m-t-md">
     <button type="button" class="btn button-secondary" (click)="resetExpression()">
@@ -15,4 +18,4 @@
 
 <h4>Expression</h4>
 
-<pre class="logical-expression-builder-preview">{{ preview | json }}</pre>
+<pre class="logical-expression-builder-preview">{{ expression | json }}</pre>

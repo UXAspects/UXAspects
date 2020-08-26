@@ -18,9 +18,15 @@ import {
 })
 export class AppComponent {
     logicalOperators: LogicalOperatorDefinition[] = [
-        { name: 'and', label: 'and' },
-        { name: 'or', label: 'or' },
-        { name: 'not', label: 'not' }
+        { name: 'and', label: 'and', minNumberOfChildren: 2, errorMessage: '\'and\' needs at least two children.' },
+        { name: 'or', label: 'or', minNumberOfChildren: 2, errorMessage: '\'or\' needs at least two children.' },
+        {
+            name: 'not',
+            label: 'not',
+            maxNumberOfChildren: 1,
+            minNumberOfChildren: 1,
+            errorMessage: '\'not\' needs exactly one child.'
+        }
     ];
 
     operators: OperatorDefinitionList = {
@@ -38,21 +44,30 @@ export class AppComponent {
             { name: 'not_between', label: 'is not between', component: DateRangeInputComponent }
         ],
         enum: [
-            { name: 'one_of', label: 'one of', component: SelectInputComponent }
+            { name: 'one_of', label: 'is one of', component: SelectInputComponent }
         ],
         number: [
             { name: 'equals', label: 'equals', component: NumberInputComponent },
-            { name: 'less_than', label: 'less than', component: NumberInputComponent },
-            { name: 'greater_than', label: 'greater than', component: NumberInputComponent },
-            { name: 'as_text', label: 'entered as text', component: TextInputComponent }
+            { name: 'less_than', label: 'is less than', component: NumberInputComponent },
+            { name: 'greater_than', label: 'is greater than', component: NumberInputComponent }
         ],
     };
 
     fields: FieldDefinition[] = [
-        { name: 'name', label: 'Name', fieldType: 'text' },
-        { name: 'date', label: 'Date', fieldType: 'date', data: { dateFormat: 'medium' } },
-        { name: 'dateRange', label: 'Date Range', fieldType: 'dateRange', data: { dateFormat: 'medium' } },
-        { name: 'number', label: 'Number', fieldType: 'number' },
+        { name: 'author', label: 'Author', fieldType: 'text' },
+        {
+            name: 'created',
+            label: 'Created',
+            fieldType: 'date',
+            data: { dateFormat: 'short', showTime: true, showNowBtn: true }
+        },
+        {
+            name: 'edited',
+            label: 'Edited',
+            fieldType: 'dateRange',
+            data: { dateFormat: 'short', showTime: false, showNowBtn: true }
+        },
+        { name: 'version', label: 'Version', fieldType: 'number' },
         {
             name: 'category',
             label: 'Category',
@@ -73,10 +88,10 @@ export class AppComponent {
         type: 'group',
         logicalOperator: 'and',
         children: [
-            { type: 'condition', field: 'name', operator: 'equals', value: 'test' },
+            { type: 'condition', field: 'author', operator: 'equals', value: 'test' },
             {
                 type: 'condition',
-                field: 'dateRange',
+                field: 'edited',
                 operator: 'between',
                 value: { start: 1592979598445, end: 1592979598445 }
             },
@@ -84,21 +99,17 @@ export class AppComponent {
                 type: 'group',
                 logicalOperator: 'or',
                 children: [
-                    { type: 'condition', field: 'date', operator: 'before', value: 1595515231584 },
+                    { type: 'condition', field: 'created', operator: 'before', value: 1595515231584 },
                     { type: 'condition', field: 'category', operator: 'one_of', value: ['performance', 'security'] },
                 ]
             },
-            { type: 'condition', field: 'number', operator: 'equals', value: 15 },
+            { type: 'condition', field: 'version', operator: 'equals', value: 3 },
         ]
     };
 
+    public valid: boolean;
+
     initialExpression: Expression = { ...this.expression };
-
-    preview: Expression;
-
-    expressionChanged(expression: Expression): void {
-        this.preview = expression;
-    }
 
     resetExpression(): void {
         this.expression = { ...this.initialExpression };

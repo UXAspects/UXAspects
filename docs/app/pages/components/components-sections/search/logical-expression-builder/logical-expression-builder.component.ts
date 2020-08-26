@@ -70,8 +70,7 @@ export class ComponentsLogicalExpressionBuilderComponent extends BaseDocumentati
         number: [
             { name: 'equals', label: 'equals', component: NumberInputComponent },
             { name: 'less_than', label: 'is less than', component: NumberInputComponent },
-            { name: 'greater_than', label: 'is greater than', component: NumberInputComponent },
-            { name: 'as_text', label: 'entered as text', component: TextInputComponent }
+            { name: 'greater_than', label: 'is greater than', component: NumberInputComponent }
         ],
     };
 
@@ -133,14 +132,8 @@ export class ComponentsLogicalExpressionBuilderComponent extends BaseDocumentati
 
     initialExpression: Expression = { ...this.expression };
 
-    preview: Expression;
-
     constructor(public colorService: ColorService) {
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
-    }
-
-    expressionChanged(query: Expression): void {
-        this.preview = query;
     }
 
     resetExpression(): void {
