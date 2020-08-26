@@ -103,10 +103,6 @@ export class DashboardWidgetsPage {
     async hasFocus(elem: ElementFinder): Promise<boolean> {
         return await elem.getId() === await browser.driver.switchTo().activeElement().getId();
     }
-
-    async toggleWidget(): Promise<void> {
-        await element(by.id('widget-1-checkbox')).click();
-    }
 }
 
 export enum Direction {
