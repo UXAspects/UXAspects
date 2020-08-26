@@ -43,7 +43,7 @@
             (click)="confirmCondition()"
             uxFocusIndicatorOrigin
             type="button"
-            class="btn btn-icon btn-primary btn-success"
+            class="btn btn-icon btn-success"
             [attr.aria-label]="('confirmConditionAriaLabel' | l10n) || 'Confirm edit'">
             <span class="ux-icon ux-icon-checkmark" aria-hidden="true"></span>
         </button>
@@ -52,7 +52,7 @@
             (click)="cancelEdit()"
             uxFocusIndicatorOrigin
             type="button"
-            class="btn btn-icon button-warning"
+            class="btn btn-icon btn-warning"
             [attr.aria-label]="('cancelConditionEditAriaLabel' | l10n) || 'Cancel editing'">
             <span class="ux-icon ux-icon-close" aria-hidden="true"></span>
         </button>
@@ -68,7 +68,7 @@
         [style.padding-left.px]="indent || 8">
         <td>
             <span class="leb-field-display">{{ _field?.label }}</span>{{' '}}<span
-            class="leb-operator-display text-muted">{{ _operator?.label }}</span>{{' '}}<span
+            class="leb-operator-display">{{ _operator?.label }}</span>{{' '}}<span
             class="leb-value-display text-primary">{{ _value | displayValue:_field?.fieldType:_field?.data }}</span>
         </td>
 
