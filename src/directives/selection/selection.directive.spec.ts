@@ -102,7 +102,7 @@ describe('Selection Directive', () => {
         expect(onSelectedItemChangeSpy).not.toHaveBeenCalled();
     }));
 
-    fit('should apply the ux-selection-selected class whenever an item is selected', fakeAsync(() => {
+    it('should apply the ux-selection-selected class whenever an item is selected', fakeAsync(() => {
         expect(getListItem(1).classList).toContain('ux-selection-selected');
     }));
 
