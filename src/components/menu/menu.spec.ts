@@ -21,7 +21,6 @@ import { MenuModule } from './menu.module';
             <ux-menu-divider></ux-menu-divider>
             <button
                 type="button"
-                id="sub-menu-item"
                 uxMenuItem
                 (click)="onClick()"
                 [disabled]="disabled"
