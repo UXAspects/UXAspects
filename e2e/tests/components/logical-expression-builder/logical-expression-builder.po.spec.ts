@@ -78,10 +78,6 @@ export namespace LogicalExpressionBuilderPage {
             return row.$('button').click();
         }
 
-        async deleteLastCondition(): Promise<void> {
-            return $$('.btn-delete-condition').last().click();
-        }
-
         async editRow(index: number): Promise<void> {
             const row = await this.getTableRow(index);
             return row.$$('button').first().click();
@@ -112,16 +108,6 @@ export namespace LogicalExpressionBuilderPage {
             } else {
                 await row.$$('button').last().click();
             }
-        }
-
-        async getOperatorLabelForRow(index: number): Promise<string> {
-            const row = await this.getTableRow(index);
-            return row.$('.leb-operator-display').getText();
-        }
-
-        async getValueLabelForRow(index: number): Promise<string> {
-            const row = await this.getTableRow(index);
-            return row.$('.leb-value-display').getText();
         }
 
         async getEmptyExpressionButton(): Promise<ElementFinder> {
