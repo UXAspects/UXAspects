@@ -20,7 +20,6 @@ import { MenuModule } from './menu.module';
             </button>
             <ux-menu-divider></ux-menu-divider>
             <button
-                type="button"
                 uxMenuItem
                 [disabled]="disabled"
                 #subMenuTrigger="ux-menu-trigger"
