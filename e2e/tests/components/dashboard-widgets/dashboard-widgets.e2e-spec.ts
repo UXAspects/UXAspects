@@ -54,7 +54,7 @@ describe('Dashboard Widgets Tests', () => {
         ];
 
         // drag the top widget down
-        await browser.actions().dragAndDrop(widgetActions, { x: 0, y: 800 }).perform();
+        await browser.actions().dragAndDrop(widgetActions.$('button.widget-grab-handle'), { x: 0, y: 800 }).perform();
 
         expect(await page.getWidgetLocationValue(widgetActions, 'top')).toBe(748, 'widget-actions top');
         expect(await page.getWidgetLocationValue(widgetActions, 'left')).toBe(0, 'widget-actions left');
