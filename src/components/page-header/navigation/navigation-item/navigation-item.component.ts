@@ -80,7 +80,9 @@ export class PageHeaderNavigationItemComponent implements AfterViewInit, OnDestr
             return;
         }
 
-        // if autoselect the first child by default is enabled then we should remove any current selected state of children
+        // if autoselect is enabled the first child should be selected when we click on the parent item (this element).
+        // We should remove the selected state on all children as the service will perform the selection
+        // of the first item and handle any routing etc..
         if (this._pageHeaderService.secondaryNavigationAutoselect && Array.isArray(this.item.children)) {
             this.item.children.forEach(item => item.selected = false);
         }
