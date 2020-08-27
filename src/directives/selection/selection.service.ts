@@ -59,7 +59,7 @@ export class SelectionService<T> implements OnDestroy {
     private readonly _disabled = new Set<T>();
 
     ngOnDestroy(): void {
-        // destroy the active stategy
+        // destroy the active strategy
         if (this._strategyToDestroy) {
             this._strategyToDestroy.destroy();
         }
