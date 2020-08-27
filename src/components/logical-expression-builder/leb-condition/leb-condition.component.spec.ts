@@ -63,6 +63,8 @@ describe('LebConditionComponent', () => {
             return false;
         },
         register(_: any) {
+        },
+        unregister(_: any) {
         }
     };
 

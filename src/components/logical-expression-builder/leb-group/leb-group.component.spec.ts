@@ -60,6 +60,8 @@ describe('LebGroupComponent', () => {
             return false;
         },
         register(_: any) {
+        },
+        unregister(_: any) {
         }
     };
 
