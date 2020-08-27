@@ -22,7 +22,6 @@ import { MenuModule } from './menu.module';
             <button
                 type="button"
                 uxMenuItem
-                (click)="onClick()"
                 [disabled]="disabled"
                 #subMenuTrigger="ux-menu-trigger"
                 [uxMenuTriggerFor]="subMenu">
