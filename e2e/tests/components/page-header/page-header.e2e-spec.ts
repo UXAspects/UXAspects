@@ -228,11 +228,6 @@ describe('Page Header Tests', () => {
         // click the second menu item
         await page.pageHeader2.$$('.horizontal-navigation-button').get(1).click();
 
-        // get the required elements
-        const secondaryNavigation: ElementFinder = await page.getSecondaryNavigation();
-        const tabset = await secondaryNavigation.$('.nav-tabs');
-        const tabs: ElementArrayFinder = await tabset.$$('li');
-
         // check the selected text
         expect(await page.selected.getText()).toBe('Daily View');
     });
@@ -264,8 +259,15 @@ describe('Page Header Tests', () => {
     });
 
     it('should get the correct subheader', async () => {
-
         expect(await page.getSubheaderText(page.pageHeader1)).toBe('My Subheader');
+    });
 
+    it('should allow programmatic selection of a secondary navigation item', async () => {
+        await page.selectSecondaryBtn.click();
+
+        expect(await page.isSecondaryNavigationItemSelected(0)).toBe(false);
+        expect(await page.isSecondaryNavigationItemSelected(1)).toBe(true);
+        expect(await page.isSecondaryNavigationItemSelected(2)).toBe(false);
+        expect(await page.selected.getText()).toBe('Weekly View');
     });
 });

@@ -1,4 +1,4 @@
-import { $, browser, by, element, ElementFinder } from 'protractor';
+import { $, browser, by, element, ElementArrayFinder, ElementFinder } from 'protractor';
 
 export class PageHeaderPage {
 
@@ -15,6 +15,7 @@ export class PageHeaderPage {
     alignCenterButton = element(by.id('align-center'));
     alignRightButton = element(by.id('align-right'));
     autoselectButton = element(by.id('autoselect'));
+    selectSecondaryBtn = element(by.id('secondary-selection'));
 
     confirmClassExists(item: ElementFinder, soughtClass: string) {
         return item.getAttribute('class').then(function (classes: string) {
@@ -115,12 +116,24 @@ export class PageHeaderPage {
         return await element(by.id('pageHeader2')).$('.ux-page-header-secondary .page-header-navigation');
     }
 
+    async getSecondaryNavigationItems(): Promise<ElementArrayFinder> {
+        return (await this.getSecondaryNavigation()).$$('.nav-item');
+    }
+
+    async getSecondaryNavigationItem(index: number): Promise<ElementFinder> {
+        return (await this.getSecondaryNavigationItems())[index];
+    }
+
     async getClasses(target: ElementFinder): Promise<string[]> {
         return (await target.getAttribute('class') || '').split(' ');
     }
 
     async getSubheaderText(target: ElementFinder): Promise<string> {
         return await target.$('.page-header-subtitle').getAttribute('innerText');
+    }
+
+    async isSecondaryNavigationItemSelected(index: number): Promise<boolean> {
+        return this.confirmClassExists(await this.getSecondaryNavigationItem(index), 'active');
     }
 }
 
