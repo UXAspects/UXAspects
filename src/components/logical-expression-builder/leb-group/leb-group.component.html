@@ -39,13 +39,13 @@
         </ux-alert>
     </td>
 
-    <td class="logical-operator-delete">
+    <td class="logical-operator-delete hover-btn-cell">
         <button
             uxHoverAction
             uxFocusIndicatorOrigin
             (click)="deleteGroup()"
             type="button"
-            class="btn btn-icon button-warning"
+            class="btn btn-icon delete-btn"
             [disabled]="_editBlocked$ | async"
             [attr.aria-label]="('deleteLogicalOperatorAriaLabel' | l10n) || 'Delete logical operator'">
             <span class="ux-icon ux-icon-trash" aria-hidden="true"></span>

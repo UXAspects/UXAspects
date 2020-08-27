@@ -37,13 +37,13 @@
         <div #inputContainer></div>
     </td>
 
-    <td>
+    <td class="confirm-cancel-btn-cell">
         <button
             [disabled]="!(_field && _operator && (_value || _value === 0) && _valid)"
             (click)="confirmCondition()"
             uxFocusIndicatorOrigin
             type="button"
-            class="btn btn-icon btn-success"
+            class="btn btn-icon confirm-btn"
             [attr.aria-label]="('confirmConditionAriaLabel' | l10n) || 'Confirm edit'">
             <span class="ux-icon ux-icon-checkmark" aria-hidden="true"></span>
         </button>
@@ -52,7 +52,7 @@
             (click)="cancelEdit()"
             uxFocusIndicatorOrigin
             type="button"
-            class="btn btn-icon button-warning"
+            class="btn btn-icon cancel-btn"
             [attr.aria-label]="('cancelConditionEditAriaLabel' | l10n) || 'Cancel editing'">
             <span class="ux-icon ux-icon-close" aria-hidden="true"></span>
         </button>
@@ -72,14 +72,14 @@
             class="leb-value-display">{{ _value | displayValue:_field?.fieldType:_field?.data }}</span>
         </td>
 
-        <td>
+        <td class="hover-btn-cell">
             <button
                 [disabled]="_editBlocked"
                 uxHoverAction
                 uxFocusIndicatorOrigin
                 (click)="editCondition()"
                 type="button"
-                class="btn btn-icon button-primary"
+                class="btn btn-icon edit-btn"
                 [attr.aria-label]="('editConditionAriaLabel' | l10n) || 'Edit condition'">
                 <span class="ux-icon ux-icon-edit" aria-hidden="true"></span>
             </button>
@@ -90,7 +90,7 @@
                 uxFocusIndicatorOrigin
                 (click)="embedConditionInGroup()"
                 type="button"
-                class="btn btn-icon button-secondary"
+                class="btn btn-icon embed-btn"
                 [attr.aria-label]="('embedConditionAriaLabel' | l10n) || 'Embed condition'">
                 <span class="ux-icon ux-icon-chart-organization" aria-hidden="true"></span>
             </button>
@@ -101,7 +101,7 @@
                 uxFocusIndicatorOrigin
                 (click)="deleteCondition()"
                 type="button"
-                class="btn btn-icon button-warning btn-delete-condition"
+                class="btn btn-icon delete-btn"
                 [attr.aria-label]="('deleteConditionAriaLabel' | l10n) || 'Delete condition'">
                 <span class="ux-icon ux-icon-trash" aria-hidden="true"></span>
             </button>

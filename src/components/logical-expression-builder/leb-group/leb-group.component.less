@@ -6,4 +6,14 @@ tr.leb-group {
     td.logical-operator-delete {
         margin-left: auto;
     }
+
+    .delete-btn {
+        .button-warning;
+
+        &:disabled {
+            background-color: @btn-warning-disabled-bg;
+            color: @btn-warning-disabled-color;
+            border-color: @btn-warning-disabled-border;
+        }
+    }
 }

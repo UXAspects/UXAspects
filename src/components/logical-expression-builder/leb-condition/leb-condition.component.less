@@ -17,29 +17,58 @@ tr.leb-condition-row {
     .form-group {
         margin-bottom: 0;
     }
-}
 
-.field-selection {
-    flex: 1;
-}
+    .field-selection {
+        flex: 1;
+    }
 
-.operator-selection {
-    flex: 1;
-}
+    .operator-selection {
+        flex: 1;
+    }
 
-.value-input-container {
-    flex: 2;
-}
+    .value-input-container {
+        flex: 2;
+    }
 
-.leb-field-display {
-    font-weight: bold;
-}
+    .leb-field-display {
+        font-weight: bold;
+    }
 
-.leb-operator-display {
-    color: @grey3;
-}
+    .leb-operator-display {
+        color: @grey4;
+    }
 
-.leb-value-display {
-    font-weight: bold;
-    color: @primary;
+    .leb-value-display {
+        font-weight: bold;
+        color: @primary;
+    }
+
+    // Buttons
+    .edit-btn,
+    .confirm-btn {
+        .button-primary;
+
+        &:disabled {
+            .button-primary-disabled;
+        }
+    }
+
+    .embed-btn {
+        .button-secondary;
+
+        &:disabled {
+            .button-secondary-disabled;
+        }
+    }
+
+    .delete-btn,
+    .cancel-btn {
+        .button-warning;
+
+        &:disabled {
+            background-color: @btn-warning-disabled-bg;
+            color: @btn-warning-disabled-color;
+            border-color: @btn-warning-disabled-border;
+        }
+    }
 }
