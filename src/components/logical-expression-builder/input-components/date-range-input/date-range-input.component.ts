@@ -28,24 +28,17 @@ export class DateRangeInputComponent {
 
     @Input()
     set data(data: DateInputOptions) {
-        this.timezone = data?.timezone ?? { name: 'GMT', offset: 0 };
-
         this.showTime = data?.showTime ?? this.showTime;
-        this.showTimezones = data?.showTimezones ?? this.showTimezones;
-        this.showMeridians = data?.showMeridians ?? this.showMeridians;
-        this.showSpinners = data?.showSpinners ?? this.showSpinners;
         this.showNowBtn = data?.showNowBtn ?? this.showNowBtn;
-
         this.dateFormat = data?.dateFormat ?? this.dateFormat;
-
         this._validate = data?.validateFunction ?? this._validate;
     }
 
     private _validate: (value: DateRangeInputValue) => boolean = () => true;
     public _valid: boolean;
 
-    start: Date;
-    end: Date;
+    public start: Date;
+    public end: Date;
 
     set invalid(value: boolean) {
         this._invalid = value;
@@ -70,13 +63,9 @@ export class DateRangeInputComponent {
         this.valueChange.emit({ start: this.start.getTime(), end: this.end.getTime() });
     }
 
-    timezone: DateTimePickerTimezone;
-
     showTime: boolean = false;
-    showTimezones: boolean = true;
     showMeridians: boolean = true;
     showSpinners: boolean = true;
-
     showTimezone: boolean = false;
     showSeconds: boolean = false;
     showMeridian: boolean = true;
@@ -182,11 +171,7 @@ export class DateRangeInputComponent {
 }
 
 interface DateInputOptions {
-    timezone?: DateTimePickerTimezone;
     showTime?: boolean;
-    showTimezones?: boolean;
-    showMeridians?: boolean;
-    showSpinners?: boolean;
     dateFormat?: string;
     showNowBtn?: boolean;
     validateFunction?: (value: DateRangeInputValue) => boolean;

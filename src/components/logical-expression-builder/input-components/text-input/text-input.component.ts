@@ -29,4 +29,4 @@ export class TextInputComponent {
     private _validate: (value: string) => boolean = () => true;
 }
 
-type TextInputData = { validateFunction?: (value: any) => boolean; };
+type TextInputData = { validateFunction?: (value: string) => boolean; };

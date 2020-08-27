@@ -10,7 +10,7 @@ export class SelectInputComponent implements OnInit {
 
     @Input() value: string[];
 
-    _value: ReadonlyArray<SelectOption>;
+    public _value: ReadonlyArray<SelectOption>;
 
     @Input()
     set data(data: { options: SelectOption[], validateFunction?: (value: any) => boolean }) {

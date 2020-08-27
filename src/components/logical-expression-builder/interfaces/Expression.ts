@@ -11,6 +11,4 @@ export interface ExpressionGroup {
     children: (ExpressionCondition|ExpressionGroup)[];
 }
 
-type ExpressionType = 'condition' | 'group';
-
 export type Expression = ExpressionCondition | ExpressionGroup;

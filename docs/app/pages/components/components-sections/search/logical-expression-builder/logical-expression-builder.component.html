@@ -169,6 +169,14 @@
                 <code>dateFormat: string</code> - The format dates will be displayed in. Defaults to
                 <code>'medium'</code>.
             </li>
+            <li>
+                <code>showNowBtn: boolean</code> - If specified, the date picker will display a 'Now' button. Defaults
+                to <code>false</code>.
+            </li>
+            <li>
+                <code>validateFunction: (value: number) => boolean</code> - If specified, this function is used to
+                validate the value entered by the user.
+            </li>
         </ul>
     </tr>
 
@@ -189,6 +197,14 @@
                 <code>dateFormat: string</code> - The format dates will be displayed in. Defaults to
                 <code>'medium'</code>.
             </li>
+            <li>
+                <code>showNowBtn: boolean</code> - If specified, the date range picker will display a 'Now' button.
+                Defaults to <code>false</code>.
+            </li>
+            <li>
+                <code>validateFunction: (value: {{'{ start: number, end: number }'}}) => boolean</code> - If specified,
+                this function is used to validate the value entered by the user.
+            </li>
         </ul>
     </tr>
 
@@ -204,6 +220,10 @@
             </li>
             <li>
                 <code>max: number</code> - The largest number that can be entered in the date picker.
+            </li>
+            <li>
+                <code>validateFunction: (value: number) => boolean</code> - If specified, this
+                function is used to validate the value entered by the user.
             </li>
         </ul>
     </tr>
@@ -228,13 +248,29 @@
                 option.
             </li>
         </ul>
+
+        <p>Additionally, a function to validate the entered value can be provided.</p>
+
+        <ul>
+            <li>
+                <code>validateFunction: (value: string[]) => boolean</code> - If specified, this
+                function is used to validate the value entered by the user.
+            </li>
+        </ul>
     </tr>
 
     <tr uxd-api-property name="TextInputComponent">
         <p>
-            Contains a simple text input, expecting a value of type <code>string</code>. This Input Component does not
-            need a <code>data</code> object.
+            Contains a simple text input, expecting a value of type <code>string</code>. The <code>data</code> can contain
+            the following properties:
         </p>
+
+        <ul>
+            <li>
+                <code>validateFunction: (value: string) => boolean</code> - If specified, this
+                function is used to validate the value entered by the user.
+            </li>
+        </ul>
     </tr>
 </uxd-api-properties>
 

@@ -96,7 +96,7 @@ export class ExpressionRowDirective implements FocusableOption, OnInit, OnDestro
         this._focusHandler.unregister(this);
         // stop monitoring the focus of this row
         this._focusMonitor.stopMonitoring(this._elementRef);
-
+        // unregister from managed focus container
         this._managedFocusContainerService.unregister(this._elementRef.nativeElement, this);
 
         this._destroy$.next();
@@ -133,6 +133,7 @@ export class ExpressionRowDirective implements FocusableOption, OnInit, OnDestro
         this._setActiveClasses();
     }
 
+    /** set or remove the active classes for hover actions, if they exist inside the row */
     private _setActiveClasses(): void {
         // get any hover action buttons in the row
         const buttons = (this._elementRef.nativeElement as HTMLElement).querySelectorAll('button[uxhoveraction]');

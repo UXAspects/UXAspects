@@ -42,7 +42,7 @@ export class LebConditionComponent implements OnChanges, OnInit, OnDestroy {
 
     private _condition: ExpressionCondition;
 
-    // If editing is cancelled, the condition is reset
+    // If editing is cancelled, the condition is reset to its former state
     private _initialCondition: ExpressionCondition;
 
     // container for Input Component
@@ -54,7 +54,9 @@ export class LebConditionComponent implements OnChanges, OnInit, OnDestroy {
         }
     }
 
+    // Reference to the container of the Input component
     private _inputContainer: ViewContainerRef;
+    // Reference to the Input component
     private _inputComponentRef: ComponentRef<any>;
 
     private _id: number;
@@ -83,11 +85,14 @@ export class LebConditionComponent implements OnChanges, OnInit, OnDestroy {
     }
 
     ngOnInit(): void {
+        // safe initial state for resetting the condition
         this._initialCondition = this._condition;
 
+        // get all fields and find the currently selected one
         this.fields = this._lebService.getFields();
         this._field = this.fields.find((field) => field.name === this._condition.field) ?? null;
 
+        // get all operators and find the currently selected one
         this.operators = this._lebService.getOperatorsByFieldType(this._field?.fieldType);
         this._operator = this.operators.find((operator) => operator.name === this._condition.operator) ?? null;
 
@@ -125,12 +130,14 @@ export class LebConditionComponent implements OnChanges, OnInit, OnDestroy {
     }
 
     private _createInputComponent(): void {
+        // create input component, set input properties and listen for changes on output properties
         if (this._operator?.component) {
             this._inputContainer.clear();
             const resolver = this._cfr.resolveComponentFactory(this._operator.component);
             this._inputComponentRef = this._inputContainer.createComponent(resolver);
             this._inputComponentRef.instance.value = this._value;
             this._inputComponentRef.instance.data = this._field?.data ?? {};
+
             this._inputComponentRef.instance.valueChange
                 .pipe(
                     takeUntil(this._destroy$),
@@ -140,6 +147,7 @@ export class LebConditionComponent implements OnChanges, OnInit, OnDestroy {
                     this._value = value;
                     this._buildCondition();
                 });
+
             this._inputComponentRef.instance.valid
                 .pipe(
                     takeUntil(this._destroy$),

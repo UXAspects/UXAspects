@@ -32,11 +32,11 @@ export class NumberInputComponent {
     public _min: number = -Infinity;
     public _max: number = Infinity;
 
-    private _validate: (value: any) => boolean = () => true;
+    private _validate: (value: number) => boolean = () => true;
 }
 
 interface NumberInputOptions {
     min?: number;
     max?: number;
-    validateFunction?: (value: any) => boolean;
+    validateFunction?: (value: number) => boolean;
 }

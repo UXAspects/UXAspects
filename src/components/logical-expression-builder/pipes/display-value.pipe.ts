@@ -3,6 +3,8 @@ import { LogicalExpressionBuilderService } from '../services/logical-expression-
 import { DisplayValueFunction } from '../interfaces/DisplayValueFunction';
 import { DateFormatterPipe } from '../../../pipes/date-formatter/date-formatter.pipe';
 
+/** Used to display the value of a condition. Contains a standard transform function for the basic five Input
+ * components. It can be overridden with the displayValueFunction input property. */
 @Pipe({ name: 'displayValue' })
 export class DisplayValuePipe implements PipeTransform {
     private readonly _transformFunction: DisplayValueFunction;

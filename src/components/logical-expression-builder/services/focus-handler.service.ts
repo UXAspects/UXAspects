@@ -109,11 +109,10 @@ export class FocusHandlerService implements OnDestroy {
         this.onTabindexChange$.next();
     }
 
-    // Focus stuff
     private _rowInEditMode: BehaviorSubject<number[]> = new BehaviorSubject<number[]>(null);
     private _editBlocked: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
-    // editBlocked
+    // Whether a row is currently being edited and therefore editing should be blocked for other rows
     public getEditBlocked(): Observable<boolean> {
         return this._editBlocked.asObservable();
     }
@@ -122,7 +121,7 @@ export class FocusHandlerService implements OnDestroy {
         this._editBlocked.next(blocked);
     }
 
-    // Edit stuff
+    // Row that is currently being edited. null if none is edited.
     public getRowInEditMode(): Observable<number[]> {
         return this._rowInEditMode.asObservable();
     }

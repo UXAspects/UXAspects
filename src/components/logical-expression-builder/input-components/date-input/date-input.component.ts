@@ -52,8 +52,6 @@ export class DateInputComponent implements AfterViewInit, OnDestroy {
         this.valid.emit(this._valid);
     }
 
-    timezone: DateTimePickerTimezone;
-
     showTime: boolean = false;
     showNowBtn: boolean = false;
     dateFormat: string = 'short';
