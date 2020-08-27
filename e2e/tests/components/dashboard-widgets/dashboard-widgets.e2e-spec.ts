@@ -48,9 +48,9 @@ describe('Dashboard Widgets Tests', () => {
 
         const layoutMock =  [
             { id: 'widget-actions', 'col': 0, 'row': 4, 'colSpan': 2, 'rowSpan': 1 },
-            { id: 'widget-enum', 'col': 0, 'row': 0, 'colSpan': 2, 'rowSpan': 1 },
             { id: 'widget-table', 'col': 2, 'row': 0, 'colSpan': 2, 'rowSpan': 2 },
-            { id: 'widget-text', 'col': 0, 'row': 2, 'colSpan': 4, 'rowSpan': 1 }
+            { id: 'widget-enum', 'col': 0, 'row': 0, 'colSpan': 2, 'rowSpan': 1 },
+            { id: 'widget-text', 'col': 0, 'row': 2, 'colSpan': 4, 'rowSpan': 2 }
         ];
 
         // drag the top widget down
@@ -68,6 +68,6 @@ describe('Dashboard Widgets Tests', () => {
         expect(await page.getWidgetLocationValue(widgetText, 'top')).toBe(374, 'widget-text top');
         expect(await page.getWidgetLocationValue(widgetText, 'left')).toBe(0, 'widget-text left');
 
-        expect(JSON.parse(await page.getLayoutOutput())).toContain(layoutMock);
+        expect(JSON.parse(await page.getLayoutOutput())).toEqual(layoutMock);
     });
 });
