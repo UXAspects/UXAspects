@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { Breadcrumb, PageHeaderIconMenu, PageHeaderNavigationAlignment, PageHeaderNavigationItem } from '@ux-aspects/ux-aspects';
 
 @Component({
@@ -118,18 +118,4 @@ export class PageHeaderTestPageComponent {
         }
     ];
 
-    constructor(private readonly _changeDetector: ChangeDetectorRef) {
-    }
-
-    selectSecondaryItem(): void {
-        // select the Analytics top level option, by default this will select the first child item
-        this.autoselect = true;
-        this.items2[1].selected = true;
-        this.items2 = [...this.items2];
-        this._changeDetector.detectChanges();
-
-        // change the selected child programmatically by altering the array
-        this.items2[1].children.forEach((item, index) => item.selected = index === 1);
-        this.items2 = [...this.items2];
-    }
 }
