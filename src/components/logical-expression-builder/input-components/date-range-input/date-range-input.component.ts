@@ -4,7 +4,7 @@ import {
     Input,
     Output,
 } from '@angular/core';
-import { DateTimePickerTimezone, timezones } from '../../../date-time-picker';
+import { DateTimePickerTimezone, timezones } from '../../../date-time-picker/index';
 import { formatDate } from '@angular/common';
 
 @Component({

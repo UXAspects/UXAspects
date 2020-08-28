@@ -8,7 +8,6 @@ import {
     Output,
     ViewChild
 } from '@angular/core';
-import { DateTimePickerTimezone } from '../../../date-time-picker';
 import { fromEvent, Subject } from 'rxjs';
 import { debounceTime, takeUntil } from 'rxjs/operators';
 

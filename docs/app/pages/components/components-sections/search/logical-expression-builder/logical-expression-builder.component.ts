@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import {
-    ColorService,
     FieldDefinition,
     Expression,
     LogicalOperatorDefinition,
