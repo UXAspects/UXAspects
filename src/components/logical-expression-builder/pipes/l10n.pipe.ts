@@ -4,10 +4,10 @@ import { LogicalExpressionBuilderService } from '../services/logical-expression-
 /** Used to display translations provided in localizedStrings input property */
 @Pipe({name: 'l10n'})
 export class L10nPipe implements PipeTransform {
-    constructor(private _lebService: LogicalExpressionBuilderService) {
+    constructor(private lebService: LogicalExpressionBuilderService) {
     }
 
     transform(l10nKey: string): any {
-        return this._lebService.getLocalizedStrings()?.[l10nKey];
+        return this.lebService.getLocalizedStrings()?.[l10nKey];
     }
 }

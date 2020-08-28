@@ -15,12 +15,12 @@ export class SelectInputComponent implements OnInit {
     @Input()
     set data(data: { options: SelectOption[], validateFunction?: (value: any) => boolean }) {
         this._options = data?.options ?? [];
-        this._validate = data?.validateFunction ?? this._validate;
+        this.validate = data?.validateFunction ?? this.validate;
     }
 
     _options: ReadonlyArray<SelectOption>;
 
-    private _validate: (value: string[]) => boolean = () => true;
+    private validate: (value: string[]) => boolean = () => true;
     _valid: boolean = true;
 
     ngOnInit() {
@@ -36,7 +36,7 @@ export class SelectInputComponent implements OnInit {
     handleValueChange(value: SelectOption[]): void {
         const outputOptions = value.map((v: SelectOption) => v.name);
         this.valueChange.emit(outputOptions);
-        this._valid = this._validate(outputOptions);
+        this._valid = this.validate(outputOptions);
         this.valid.emit(this._valid);
     }
 }

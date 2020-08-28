@@ -3,48 +3,48 @@ import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable()
 export class ValidationService {
-    private _valid: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
-    private _validationStates: Map<string, boolean> = new Map<string, boolean>();
+    private valid: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
+    private validationStates: Map<string, boolean> = new Map<string, boolean>();
 
     getValidationStatus(): Observable<boolean> {
-        return this._valid.asObservable();
+        return this.valid.asObservable();
     }
 
     setValidationState(path: number[], valid: boolean): void {
-        this._validationStates.set(path.join('-'), valid);
+        this.validationStates.set(path.join('-'), valid);
 
-        this._checkValidity();
+        this.checkValidity();
     }
 
     getValidationStates(): Map<string, boolean> {
-        return this._validationStates;
+        return this.validationStates;
     }
 
     removeValidationState(path: number[]): void {
-        this._validationStates.forEach((_value: boolean, key: string, map: Map<string, boolean>) => {
+        this.validationStates.forEach((_value: boolean, key: string, map: Map<string, boolean>) => {
             if (key.lastIndexOf(path.join('-'), 0) === 0) {
                 map.delete(key);
             }
         });
 
-        this._checkValidity();
+        this.checkValidity();
     }
 
-    private _checkValidity(): void {
-        if (this._validationStates.size < 1) {
+    private checkValidity(): void {
+        if (this.validationStates.size < 1) {
             // if the expression is empty, it is invalid
-            this._valid.next(false);
+            this.valid.next(false);
         } else {
             // if any condition or group is invalid, the whole expression is invalid
             let valid = true;
 
-            this._validationStates.forEach((value: boolean) => {
+            this.validationStates.forEach((value: boolean) => {
                 if (!value) {
                     valid = false;
                 }
             });
 
-            this._valid.next(valid);
+            this.valid.next(valid);
         }
     }
 }

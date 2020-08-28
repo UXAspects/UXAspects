@@ -2,8 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
     selector: 'ux-number-input',
-    templateUrl: './number-input.component.html',
-    // styleUrls: ['']
+    templateUrl: './number-input.component.html'
 })
 export class NumberInputComponent {
     @Output() valueChange: EventEmitter<number> = new EventEmitter<number>();
@@ -13,7 +12,7 @@ export class NumberInputComponent {
     set value(value: number) {
         this._value = value ?? 0;
         this.valueChange.emit(this._value);
-        this._valid = this._validate(this._value);
+        this._valid = this.validate(this._value);
         this.valid.emit(this._valid);
     }
 
@@ -23,7 +22,7 @@ export class NumberInputComponent {
     set data(data: NumberInputOptions) {
         this._min = data?.min ?? this._min;
         this._max = data?.max ?? this._max;
-        this._validate = data?.validateFunction ?? this._validate;
+        this.validate = data?.validateFunction ?? this.validate;
     }
 
     private _value: number;
@@ -32,7 +31,7 @@ export class NumberInputComponent {
     _min: number = -Infinity;
     _max: number = Infinity;
 
-    private _validate: (value: number) => boolean = () => true;
+    private validate: (value: number) => boolean = () => true;
 }
 
 interface NumberInputOptions {

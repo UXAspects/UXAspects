@@ -12,7 +12,7 @@ export class TextInputComponent {
     set value(value: string) {
         this._value = value ?? '';
         this.valueChange.emit(this.value);
-        this._valid = this._validate(this.value);
+        this._valid = this.validate(this.value);
         this.valid.emit(this._valid);
     }
 
@@ -23,10 +23,10 @@ export class TextInputComponent {
 
     @Input()
     set data(data: TextInputData) {
-        this._validate = data?.validateFunction ?? this._validate;
+        this.validate = data?.validateFunction ?? this.validate;
     }
 
-    private _validate: (value: string) => boolean = () => true;
+    private validate: (value: string) => boolean = () => true;
 }
 
 type TextInputData = { validateFunction?: (value: string) => boolean; };

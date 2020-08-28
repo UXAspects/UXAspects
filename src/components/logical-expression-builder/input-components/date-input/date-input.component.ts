@@ -32,10 +32,10 @@ export class DateInputComponent implements AfterViewInit, OnDestroy {
         this.showTime = options?.showTime ?? this.showTime;
         this.showNowBtn = options?.showNowBtn ?? this.showNowBtn;
         this.dateFormat = options?.dateFormat ?? this.dateFormat;
-        this._validate = options?.validateFunction ?? this._validate;
+        this.validate = options?.validateFunction ?? this.validate;
     }
 
-    _validate: (value: number) => boolean = () => true;
+    private validate: (value: number) => boolean = () => true;
     _valid: boolean;
 
     private _date: Date;
@@ -47,7 +47,7 @@ export class DateInputComponent implements AfterViewInit, OnDestroy {
     set date(date: Date) {
         this._date = date;
         this.valueChange.emit(this._date.getTime());
-        this._valid = this._validate(this._date.getTime());
+        this._valid = this.validate(this._date.getTime());
         this.valid.emit(this._valid);
     }
 
@@ -55,19 +55,19 @@ export class DateInputComponent implements AfterViewInit, OnDestroy {
     showNowBtn: boolean = false;
     dateFormat: string = 'short';
 
-    private _destroy$: Subject<void> = new Subject<void>();
+    private destroy$: Subject<void> = new Subject<void>();
 
     ngAfterViewInit(): void {
         fromEvent(this.dateInput.nativeElement, 'input')
-            .pipe(takeUntil(this._destroy$), debounceTime(500))
+            .pipe(takeUntil(this.destroy$), debounceTime(500))
             .subscribe(() => {
                 this.parse(this.dateInput.nativeElement.value);
             });
     }
 
     ngOnDestroy(): void {
-        this._destroy$.next();
-        this._destroy$.complete();
+        this.destroy$.next();
+        this.destroy$.complete();
     }
 
     parse(value: string): void {

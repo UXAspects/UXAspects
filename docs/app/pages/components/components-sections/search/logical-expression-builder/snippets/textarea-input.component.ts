@@ -11,19 +11,19 @@ export class TextareaInputComponent {
     @Input()
     set data(data: { maxHeight: number, validateFunction: (value: string) => boolean }) {
         this._maxHeight = data.maxHeight;
-        this._validate = data.validateFunction;
+        this.validate = data.validateFunction;
     }
 
     @Input()
     set value(value: string) {
         this._value = value ?? '';
         this.valueChange.emit(this._value);
-        this.valid.emit(this._validate(this._value));
+        this.valid.emit(this.validate(this._value));
     }
 
     get value() { return this._value; }
 
     _value: string;
     _maxHeight: number = 75;
-    private _validate: (value: string) => boolean = () => true;
+    private validate: (value: string) => boolean = () => true;
 }

@@ -31,10 +31,10 @@ export class DateRangeInputComponent {
         this.showTime = data?.showTime ?? this.showTime;
         this.showNowBtn = data?.showNowBtn ?? this.showNowBtn;
         this.dateFormat = data?.dateFormat ?? this.dateFormat;
-        this._validate = data?.validateFunction ?? this._validate;
+        this.validate = data?.validateFunction ?? this.validate;
     }
 
-    private _validate: (value: DateRangeInputValue) => boolean = () => true;
+    private validate: (value: DateRangeInputValue) => boolean = () => true;
     _valid: boolean;
 
     start: Date;
@@ -42,7 +42,7 @@ export class DateRangeInputComponent {
 
     set invalid(value: boolean) {
         this._invalid = value;
-        this._valid = this._validate({ start: this.start.getTime(), end: this.end.getTime() });
+        this._valid = this.validate({ start: this.start.getTime(), end: this.end.getTime() });
         this.valid.emit(this._valid);
     }
 

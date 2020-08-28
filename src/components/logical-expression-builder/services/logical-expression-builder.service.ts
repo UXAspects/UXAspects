@@ -6,62 +6,62 @@ import { DisplayValueFunction } from '../interfaces/DisplayValueFunction';
 
 @Injectable()
 export class LogicalExpressionBuilderService {
-    private _logicalOperators: LogicalOperatorDefinition[] = [
+    private logicalOperators: LogicalOperatorDefinition[] = [
         { name: 'and', label: 'and', minNumberOfChildren: 2, errorMessage: '\'and\' needs at least two children.' },
         { name: 'or', label: 'or', minNumberOfChildren: 2, errorMessage: '\'or\' needs at least two children.' },
         { name: 'not', label: 'not', maxNumberOfChildren: 1, minNumberOfChildren: 1, errorMessage: '\'not\' needs exactly one child.' }
     ];
-    private _fields: FieldDefinition[] = [];
-    private _operators: OperatorDefinitionList = {};
-    private _localizedStrings = {};
-    private _displayValueFunction: DisplayValueFunction;
+    private fields: FieldDefinition[] = [];
+    private operators: OperatorDefinitionList = {};
+    private localizedStrings = {};
+    private displayValueFunction: DisplayValueFunction;
 
     // Logical operators
     setLogicalOperators(logicalOperators: LogicalOperatorDefinition[]): void {
-        this._logicalOperators = [...logicalOperators];
+        this.logicalOperators = [...logicalOperators];
     }
 
     getLogicalOperators(): LogicalOperatorDefinition[] {
-        return this._logicalOperators;
+        return this.logicalOperators;
     }
 
     getLogicalOperatorByName(name: string): LogicalOperatorDefinition {
-        return this._logicalOperators.find((operator) => operator.name === name);
+        return this.logicalOperators.find((operator) => operator.name === name);
     }
 
     // Fields
     setFields(fields: FieldDefinition[]): void {
-        this._fields = [...fields];
+        this.fields = [...fields];
     }
 
     getFields(): FieldDefinition[] {
-        return this._fields;
+        return this.fields;
     }
 
     // Operators
     setOperators(operators: OperatorDefinitionList): void {
-        this._operators = { ...operators };
+        this.operators = { ...operators };
     }
 
     getOperatorsByFieldType(fieldType: string): OperatorDefinition[] {
-        return this._operators?.[fieldType] ?? [];
+        return this.operators?.[fieldType] ?? [];
     }
 
     // Localized Strings
     setLocalizedStrings(localizedStrings: { [key: string]: string | string[] }): void {
-        this._localizedStrings = localizedStrings;
+        this.localizedStrings = localizedStrings;
     }
 
     getLocalizedStrings(): { [key: string]: string | string[] } {
-        return this._localizedStrings;
+        return this.localizedStrings;
     }
 
     // displayValueFunction for displaying values
     getDisplayValueFunction(): DisplayValueFunction {
-        return this._displayValueFunction;
+        return this.displayValueFunction;
     }
 
     setDisplayValueFunction(transformFunction: DisplayValueFunction): void {
-        this._displayValueFunction = transformFunction;
+        this.displayValueFunction = transformFunction;
     }
 }

@@ -42,17 +42,17 @@ export class LogicalExpressionBuilderComponent implements OnChanges, OnDestroy, 
 
     @Input()
     set logicalOperators(logicalOperators: LogicalOperatorDefinition[]) {
-        this._lebService.setLogicalOperators(logicalOperators);
+        this.lebService.setLogicalOperators(logicalOperators);
     }
 
     @Input()
     set operators(operators: OperatorDefinitionList) {
-        this._lebService.setOperators(operators);
+        this.lebService.setOperators(operators);
     }
 
     @Input()
     set fields(fields: FieldDefinition[]) {
-        this._lebService.setFields(fields);
+        this.lebService.setFields(fields);
     }
 
     @Input()
@@ -68,30 +68,30 @@ export class LogicalExpressionBuilderComponent implements OnChanges, OnDestroy, 
 
     @Input()
     set localizedStrings(localizedStrings: { [key: string]: string | string[] }) {
-        this._lebService.setLocalizedStrings(localizedStrings);
+        this.lebService.setLocalizedStrings(localizedStrings);
     }
 
     @Input()
     set displayValueFunction(displayValueFunction: DisplayValueFunction) {
-        this._lebService.setDisplayValueFunction(displayValueFunction);
+        this.lebService.setDisplayValueFunction(displayValueFunction);
     }
 
     _editBlocked$: Observable<boolean>;
-    private _destroy$: Subject<void> = new Subject<void>();
+    private destroy$: Subject<void> = new Subject<void>();
 
     constructor(
-        private _lebService: LogicalExpressionBuilderService,
-        private _validationService: ValidationService,
-        private _focusHandler: FocusHandlerService,
-        private _cd: ChangeDetectorRef) {
-        this._editBlocked$ = this._focusHandler.getEditBlocked();
+        private lebService: LogicalExpressionBuilderService,
+        private validationService: ValidationService,
+        private focusHandlerService: FocusHandlerService,
+        private cdr: ChangeDetectorRef) {
+        this._editBlocked$ = this.focusHandlerService.getEditBlocked();
     }
 
     ngOnInit(): void {
         // get the validation status of the entire expression
-        this._validationService.getValidationStatus()
+        this.validationService.getValidationStatus()
             .pipe(
-                takeUntil(this._destroy$),
+                takeUntil(this.destroy$),
                 distinctUntilChanged(),
                 delay(0)
             )
@@ -101,8 +101,8 @@ export class LogicalExpressionBuilderComponent implements OnChanges, OnDestroy, 
     }
 
     ngOnDestroy(): void {
-        this._destroy$.next();
-        this._destroy$.complete();
+        this.destroy$.next();
+        this.destroy$.complete();
     }
 
     handleSubExpressionChange(expression: Expression): void {
@@ -118,7 +118,7 @@ export class LogicalExpressionBuilderComponent implements OnChanges, OnDestroy, 
         this.expressionChange.emit(this._expression);
         this.onChange(this._expression);
         this.onTouched();
-        this._focusHandler.setRowInEditMode(null);
+        this.focusHandlerService.setRowInEditMode(null);
     }
 
     addCondition(): void {
@@ -127,8 +127,8 @@ export class LogicalExpressionBuilderComponent implements OnChanges, OnDestroy, 
         this.expressionChange.emit(this._expression);
         this.onChange(this._expression);
         this.onTouched();
-        this._focusHandler.setRowInEditMode([0]);
-        this._focusHandler.setPathToActivate([0]);
+        this.focusHandlerService.setRowInEditMode([0]);
+        this.focusHandlerService.setPathToActivate([0]);
     }
 
     addGroup(): void {
@@ -137,7 +137,7 @@ export class LogicalExpressionBuilderComponent implements OnChanges, OnDestroy, 
 
         this._expression = {
             type: 'group',
-            logicalOperator: this._lebService.getLogicalOperators()[0].name,
+            logicalOperator: this.lebService.getLogicalOperators()[0].name,
             children: [
                 firstCondition,
                 { type: 'condition', field: null, operator: null, value: null },
@@ -147,8 +147,8 @@ export class LogicalExpressionBuilderComponent implements OnChanges, OnDestroy, 
         this.expressionChange.emit(this._expression);
         this.onChange(this._expression);
         this.onTouched();
-        this._focusHandler.setRowInEditMode([0, 1]);
-        this._focusHandler.setPathToActivate([0, 1]);
+        this.focusHandlerService.setRowInEditMode([0, 1]);
+        this.focusHandlerService.setPathToActivate([0, 1]);
     }
 
     /** Store the change callback provided by Angular Forms */
@@ -169,7 +169,7 @@ export class LogicalExpressionBuilderComponent implements OnChanges, OnDestroy, 
 
     writeValue(obj: any): void {
         this.expression = obj;
-        this._cd.markForCheck();
+        this.cdr.markForCheck();
     }
 
     ngOnChanges(changes: SimpleChanges): void {

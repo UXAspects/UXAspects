@@ -7,15 +7,15 @@ import { DateFormatterPipe } from '../../../pipes/date-formatter/date-formatter.
  * components. It can be overridden with the displayValueFunction input property. */
 @Pipe({ name: 'displayValue' })
 export class DisplayValuePipe implements PipeTransform {
-    private readonly _transformFunction: DisplayValueFunction;
+    private readonly transformFunction: DisplayValueFunction;
 
-    constructor(private _lebService: LogicalExpressionBuilderService, private _dateFormatterPipe: DateFormatterPipe) {
-        this._transformFunction = this._lebService.getDisplayValueFunction();
+    constructor(private lebService: LogicalExpressionBuilderService, private dateFormatterPipe: DateFormatterPipe) {
+        this.transformFunction = this.lebService.getDisplayValueFunction();
     }
 
     transform(value: any, fieldType?: string, fieldData?: any): string {
-        if (this._transformFunction) {
-            return this._transformFunction(value, fieldType, fieldData);
+        if (this.transformFunction) {
+            return this.transformFunction(value, fieldType, fieldData);
         }
 
         if (fieldType) {
@@ -61,6 +61,6 @@ export class DisplayValuePipe implements PipeTransform {
     private transformDate(value: number, fieldData: any): string {
         const format = fieldData.dateFormat || 'short';
 
-        return this._dateFormatterPipe.transform(new Date(value), format);
+        return this.dateFormatterPipe.transform(new Date(value), format);
     }
 }
