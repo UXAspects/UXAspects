@@ -50,6 +50,13 @@ ux-predefined-widget {
             border: none;
             background-color: transparent;
             cursor: move;
+
+            &:focus {
+                outline: 2px dotted;
+                outline: auto -webkit-focus-ring-color;
+                outline-color: @primary;
+                outline-offset: 0;
+            }
         }
     }
 }

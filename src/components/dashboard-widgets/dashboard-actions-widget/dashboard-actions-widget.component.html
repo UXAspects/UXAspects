@@ -15,8 +15,8 @@
             </span>
             <span class="widget-status-label">{{ status.label }}</span>
         </div>
-        <div class="widget-actions">
-            <button class="widget-action-button btn" *ngFor="let action of actions" (click)="actionSelected.emit(action.value)">
+        <div class="widget-actions" uxTabbableList>
+            <button class="widget-action-button btn" uxTabbableListItem *ngFor="let action of actions" (click)="actionSelected.emit(action.value)">
                 <ng-container *ngIf="action.iconTemplate">
                     <ng-container *ngTemplateOutlet="action.iconTemplate"></ng-container>
                 </ng-container>
