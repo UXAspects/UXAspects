@@ -2,8 +2,6 @@ import { Injectable } from '@angular/core';
 import { LogicalOperatorDefinition } from '../interfaces/LogicalOperatorDefinition';
 import { FieldDefinition } from '../interfaces/FieldDefinition';
 import { OperatorDefinitionList, OperatorDefinition } from '../interfaces/OperatorDefinitionList';
-import { LogicalExpressionBuilderModule } from '../logical-expression-builder.module';
-import { BehaviorSubject, Observable } from 'rxjs';
 import { DisplayValueFunction } from '../interfaces/DisplayValueFunction';
 
 @Injectable()
@@ -19,51 +17,51 @@ export class LogicalExpressionBuilderService {
     private _displayValueFunction: DisplayValueFunction;
 
     // Logical operators
-    public setLogicalOperators(logicalOperators: LogicalOperatorDefinition[]): void {
+    setLogicalOperators(logicalOperators: LogicalOperatorDefinition[]): void {
         this._logicalOperators = [...logicalOperators];
     }
 
-    public getLogicalOperators(): LogicalOperatorDefinition[] {
+    getLogicalOperators(): LogicalOperatorDefinition[] {
         return this._logicalOperators;
     }
 
-    public getLogicalOperatorByName(name: string): LogicalOperatorDefinition {
+    getLogicalOperatorByName(name: string): LogicalOperatorDefinition {
         return this._logicalOperators.find((operator) => operator.name === name);
     }
 
     // Fields
-    public setFields(fields: FieldDefinition[]): void {
+    setFields(fields: FieldDefinition[]): void {
         this._fields = [...fields];
     }
 
-    public getFields(): FieldDefinition[] {
+    getFields(): FieldDefinition[] {
         return this._fields;
     }
 
     // Operators
-    public setOperators(operators: OperatorDefinitionList): void {
+    setOperators(operators: OperatorDefinitionList): void {
         this._operators = { ...operators };
     }
 
-    public getOperatorsByFieldType(fieldType: string): OperatorDefinition[] {
+    getOperatorsByFieldType(fieldType: string): OperatorDefinition[] {
         return this._operators?.[fieldType] ?? [];
     }
 
     // Localized Strings
-    public setLocalizedStrings(localizedStrings: { [key: string]: string | string[] }): void {
+    setLocalizedStrings(localizedStrings: { [key: string]: string | string[] }): void {
         this._localizedStrings = localizedStrings;
     }
 
-    public getLocalizedStrings(): { [key: string]: string | string[] } {
+    getLocalizedStrings(): { [key: string]: string | string[] } {
         return this._localizedStrings;
     }
 
     // displayValueFunction for displaying values
-    public getDisplayValueFunction(): DisplayValueFunction {
+    getDisplayValueFunction(): DisplayValueFunction {
         return this._displayValueFunction;
     }
 
-    public setDisplayValueFunction(transformFunction: DisplayValueFunction): void {
+    setDisplayValueFunction(transformFunction: DisplayValueFunction): void {
         this._displayValueFunction = transformFunction;
     }
 }

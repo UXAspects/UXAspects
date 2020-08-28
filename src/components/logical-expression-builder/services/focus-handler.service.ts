@@ -12,10 +12,10 @@ export class FocusHandlerService implements OnDestroy {
     private _focusKeyManager: FocusKeyManager<ExpressionRowDirective> = new FocusKeyManager(this._queryList).withWrap().withVerticalOrientation();
 
     private _destroy$: Subject<void> = new Subject<void>();
-    public onTabindexChange$: Subject<void> = new Subject<void>();
+    onTabindexChange$: Subject<void> = new Subject<void>();
 
     /** Add an ExpressionRow to the focus items and put it in the right position */
-    public register(item: ExpressionRowDirective): void {
+    register(item: ExpressionRowDirective): void {
         let items = this._queryList.toArray();
         items.push(item);
         items.sort(this._comparePaths);
@@ -35,7 +35,7 @@ export class FocusHandlerService implements OnDestroy {
     }
 
     /** Remove ExpressionRow from focus items */
-    public unregister(item: ExpressionRowDirective): void {
+    unregister(item: ExpressionRowDirective): void {
         let items = this._queryList.toArray().filter((i: ExpressionRowDirective) => i.path.join('-') !== item.path.join('-'));
         this._queryList.reset([...items]);
 
@@ -50,7 +50,7 @@ export class FocusHandlerService implements OnDestroy {
     }
 
     /** Handle arrow key presses, but only if no item is currently being edited */
-    public onKeydown(event: KeyboardEvent): void {
+    onKeydown(event: KeyboardEvent): void {
         if (!this._editBlocked.getValue()) {
             this._focusKeyManager.onKeydown(event);
             this.onTabindexChange$.next();
@@ -58,7 +58,7 @@ export class FocusHandlerService implements OnDestroy {
     }
 
     /** Check if passed item is currently focused */
-    public isItemActive(item: ExpressionRowDirective) {
+    isItemActive(item: ExpressionRowDirective) {
         // if this is called before the items have been set then do nothing
         if (!this._queryList) {
             return false;
@@ -113,20 +113,20 @@ export class FocusHandlerService implements OnDestroy {
     private _editBlocked: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
     // Whether a row is currently being edited and therefore editing should be blocked for other rows
-    public getEditBlocked(): Observable<boolean> {
+    getEditBlocked(): Observable<boolean> {
         return this._editBlocked.asObservable();
     }
 
-    public setEditBlocked(blocked: boolean): void {
+    setEditBlocked(blocked: boolean): void {
         this._editBlocked.next(blocked);
     }
 
     // Row that is currently being edited. null if none is edited.
-    public getRowInEditMode(): Observable<number[]> {
+    getRowInEditMode(): Observable<number[]> {
         return this._rowInEditMode.asObservable();
     }
 
-    public setRowInEditMode(_path: number[]): void {
+    setRowInEditMode(_path: number[]): void {
         this._rowInEditMode.next(_path);
         this._editBlocked.next(!!_path);
         this.onTabindexChange$.next();

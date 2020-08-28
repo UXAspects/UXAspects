@@ -23,7 +23,7 @@ export class TextareaInputComponent {
 
     get value() { return this._value; }
 
-    public _value: string;
-    public _maxHeight: number = 75;
+    _value: string;
+    _maxHeight: number = 75;
     private _validate: (value: string) => boolean = () => true;
 }

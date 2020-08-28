@@ -76,7 +76,7 @@ export class LogicalExpressionBuilderComponent implements OnChanges, OnDestroy, 
         this._lebService.setDisplayValueFunction(displayValueFunction);
     }
 
-    public _editBlocked$: Observable<boolean>;
+    _editBlocked$: Observable<boolean>;
     private _destroy$: Subject<void> = new Subject<void>();
 
     constructor(
@@ -105,7 +105,7 @@ export class LogicalExpressionBuilderComponent implements OnChanges, OnDestroy, 
         this._destroy$.complete();
     }
 
-    public handleSubExpressionChange(expression: Expression): void {
+    handleSubExpressionChange(expression: Expression): void {
         this._expression = { ...expression } || null;
 
         this.expressionChange.emit(this._expression);
@@ -113,7 +113,7 @@ export class LogicalExpressionBuilderComponent implements OnChanges, OnDestroy, 
         this.onTouched();
     }
 
-    public deleteCondition(): void {
+    deleteCondition(): void {
         this._expression = null;
         this.expressionChange.emit(this._expression);
         this.onChange(this._expression);
@@ -121,7 +121,7 @@ export class LogicalExpressionBuilderComponent implements OnChanges, OnDestroy, 
         this._focusHandler.setRowInEditMode(null);
     }
 
-    public addCondition(): void {
+    addCondition(): void {
         // adds a condition to the expression if the expression is empty
         this._expression = { type: 'condition', field: null, operator: null, value: null };
         this.expressionChange.emit(this._expression);
@@ -131,7 +131,7 @@ export class LogicalExpressionBuilderComponent implements OnChanges, OnDestroy, 
         this._focusHandler.setPathToActivate([0]);
     }
 
-    public addGroup(): void {
+    addGroup(): void {
         // adds a group to the condition if there is only one condition to the expression and a second one is added
         const firstCondition = { ...this._expression };
 

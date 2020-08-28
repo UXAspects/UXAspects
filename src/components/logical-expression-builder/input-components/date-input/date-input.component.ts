@@ -36,8 +36,8 @@ export class DateInputComponent implements AfterViewInit, OnDestroy {
         this._validate = options?.validateFunction ?? this._validate;
     }
 
-    public _validate: (value: number) => boolean = () => true;
-    public _valid: boolean;
+    _validate: (value: number) => boolean = () => true;
+    _valid: boolean;
 
     private _date: Date;
 

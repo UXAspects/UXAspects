@@ -72,7 +72,7 @@ export class LogicalExpressionBuilderTestpageComponent {
 
     expression: Expression = null;
 
-    public valid: boolean;
+    valid: boolean;
 
     complexExpression: Expression = {
         type: 'group',

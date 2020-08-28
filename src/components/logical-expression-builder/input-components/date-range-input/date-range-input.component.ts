@@ -35,10 +35,10 @@ export class DateRangeInputComponent {
     }
 
     private _validate: (value: DateRangeInputValue) => boolean = () => true;
-    public _valid: boolean;
+    _valid: boolean;
 
-    public start: Date;
-    public end: Date;
+    start: Date;
+    end: Date;
 
     set invalid(value: boolean) {
         this._invalid = value;

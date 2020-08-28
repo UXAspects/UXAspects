@@ -19,7 +19,7 @@ export class TextInputComponent {
     get value() { return this._value; }
 
     private _value: string;
-    public _valid: boolean;
+    _valid: boolean;
 
     @Input()
     set data(data: TextInputData) {

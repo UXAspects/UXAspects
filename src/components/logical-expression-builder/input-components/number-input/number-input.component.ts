@@ -27,10 +27,10 @@ export class NumberInputComponent {
     }
 
     private _value: number;
-    public _valid: boolean;
+    _valid: boolean;
 
-    public _min: number = -Infinity;
-    public _max: number = Infinity;
+    _min: number = -Infinity;
+    _max: number = Infinity;
 
     private _validate: (value: number) => boolean = () => true;
 }

@@ -107,7 +107,7 @@ export class AppComponent {
         ]
     };
 
-    public valid: boolean;
+    valid: boolean;
 
     initialExpression: Expression = { ...this.expression };
 

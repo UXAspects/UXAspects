@@ -10,7 +10,7 @@ export class SelectInputComponent implements OnInit {
 
     @Input() value: string[];
 
-    public _value: ReadonlyArray<SelectOption>;
+    _value: ReadonlyArray<SelectOption>;
 
     @Input()
     set data(data: { options: SelectOption[], validateFunction?: (value: any) => boolean }) {
@@ -18,10 +18,10 @@ export class SelectInputComponent implements OnInit {
         this._validate = data?.validateFunction ?? this._validate;
     }
 
-    public _options: ReadonlyArray<SelectOption>;
+    _options: ReadonlyArray<SelectOption>;
 
     private _validate: (value: string[]) => boolean = () => true;
-    public _valid: boolean = true;
+    _valid: boolean = true;
 
     ngOnInit() {
         if (Array.isArray(this.value)) {

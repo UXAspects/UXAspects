@@ -11,7 +11,6 @@ import {
     DateInputComponent,
     DateRangeInputComponent
 } from '@ux-aspects/ux-aspects';
-import 'chance';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
@@ -128,11 +127,11 @@ export class ComponentsLogicalExpressionBuilderComponent extends BaseDocumentati
         ]
     };
 
-    public valid: boolean;
+    valid: boolean;
 
     initialExpression: Expression = { ...this.expression };
 
-    constructor(public colorService: ColorService) {
+    constructor() {
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
     }
 
