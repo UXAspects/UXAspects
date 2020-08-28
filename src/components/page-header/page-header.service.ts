@@ -45,6 +45,15 @@ export class PageHeaderService implements OnDestroy {
 
         } else if (this.secondaryNavigationAutoselect && item.children && item.children.length > 0) {
 
+            // check to see if there is a child that is already marked as selected
+            const selectedChild = item.children.find(child => child.selected);
+
+            if (selectedChild) {
+                this.select(selectedChild);
+                this.selected$.next(selectedChild);
+                return;
+            }
+
             // Select the first child that isn't disabled in secondaryNavigationAutoselect mode
             const firstChild = item.children.find(_item => !_item.disabled);
 
@@ -96,7 +105,7 @@ export class PageHeaderService implements OnDestroy {
 
         this.items$.next(items);
 
-        // Set up the initally selected item
+        // Set up the initially selected item
         // If nothing is set as selected, using the initial route
         const initialSelectedItem = items.find(item => item.selected === true);
         if (initialSelectedItem) {
@@ -143,7 +152,7 @@ export class PageHeaderService implements OnDestroy {
 
     private updateItemsWithActiveRoute(): void {
         const activeItem = new PageHeaderActiveNavigationItem();
-        for (var item of this.items$.getValue()) {
+        for (const item of this.items$.getValue()) {
             this.findActiveItem(item, activeItem);
             if (activeItem.exact) {
                 break;
