@@ -1,6 +1,6 @@
-import { Directive, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, Renderer2, HostBinding } from '@angular/core';
-import { takeUntil } from 'rxjs/operators';
+import { Directive, ElementRef, EventEmitter, HostBinding, Input, OnDestroy, OnInit, Output, Renderer2 } from '@angular/core';
 import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { ResizeService } from '../resize/index';
 
 @Directive({
@@ -110,8 +110,8 @@ export class FixedHeaderTableDirective<T> implements OnInit, OnDestroy {
             this.tablePaging.emit();
         }
 
-       // update the class based on the scroll position
-        scrollTop > 0 ? this._hasScrolled = true : this._hasScrolled = false;
+        // update the class based on the scroll position
+        this._hasScrolled = (scrollTop > 0);
     }
 
 }
