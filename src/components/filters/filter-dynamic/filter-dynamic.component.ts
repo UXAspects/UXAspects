@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { filter as rxFilter, takeUntil } from 'rxjs/operators';
 import { TypeaheadKeyService, TypeaheadOptionEvent } from '../../typeahead/index';
@@ -7,13 +7,20 @@ import { FilterService } from '../filter.service';
 import { FilterDynamicListConfig } from '../interfaces/filter-dynamic-list-config.interface';
 import { Filter } from '../interfaces/filter.interface';
 
-let uniqueId = 1;
+let uniqueId = 0;
 
 @Component({
     selector: 'ux-filter-dynamic',
-    templateUrl: './filter-dynamic.component.html'
+    templateUrl: './filter-dynamic.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FilterDynamicComponent implements OnInit, OnDestroy {
+
+    /** The unique id is used multiple times - this is to ensure we only increment it once per instance */
+    private readonly _uniqueId: number = uniqueId++;
+
+    /** Define the input for the component */
+    @Input() id: string;
 
     /** The list of possible filter options */
     @Input() filters: Filter[] = [];
@@ -22,15 +29,17 @@ export class FilterDynamicComponent implements OnInit, OnDestroy {
     @Input() initial: Filter;
 
     /** Specify the typeahead options */
-    @Input() set options(options: FilterDynamicListConfig) { this._options = options; }
+    @Input() set options(options: FilterDynamicListConfig) {
+        this._options = options;
+    }
 
     /** Get the options with the defaults for any missing options */
     get options(): FilterDynamicListConfig {
-        return { ... this._defaultOptions, ...this._options };
+        return { ...this._defaultOptions, ...this._options };
     }
 
     /** Generate a unique id for the typeahead */
-    typeaheadId: string = `ux-filter-dynamic-typeahead-${uniqueId++}`;
+    typeaheadId: string = `ux-filter-dynamic-typeahead-${ this._uniqueId }`;
 
     /** Store the current search query */
     query$ = new BehaviorSubject<string>('');
@@ -50,6 +59,11 @@ export class FilterDynamicComponent implements OnInit, OnDestroy {
     /** Store the open state of the typeahead */
     typeaheadOpen: boolean = false;
 
+    /** Get the user provided id or fallback to a default ID */
+    get filterId(): string {
+        return this.id ?? `ux-filter-dynamic-${ this._uniqueId }`;
+    }
+
     /** The default options */
     private _defaultOptions: FilterDynamicListConfig = { placeholder: '', minCharacters: 3, maxResults: Infinity };
 
@@ -57,11 +71,13 @@ export class FilterDynamicComponent implements OnInit, OnDestroy {
     private _options: FilterDynamicListConfig = { ...this._defaultOptions };
 
     /** Unsubscribe from all subscriptions */
-    private _onDestroy = new Subject<void>();
+    private readonly _onDestroy = new Subject<void>();
 
-    constructor(public typeaheadKeyService: TypeaheadKeyService, private _filterService: FilterService) {
+    constructor(public readonly typeaheadKeyService: TypeaheadKeyService,
+                private readonly _filterService: FilterService,
+                private readonly _changeDetector: ChangeDetectorRef) {
         // listen for remove all events in which case we should deselect event initial filters
-        _filterService.events$.pipe(takeUntil(this._onDestroy), rxFilter(event => event instanceof FilterRemoveAllEvent))
+        _filterService.events$.pipe(rxFilter(event => event instanceof FilterRemoveAllEvent), takeUntil(this._onDestroy))
             .subscribe(() => this.removeFilter());
 
         // ensure that the current selected filter is still selected when the active filters change
@@ -85,13 +101,18 @@ export class FilterDynamicComponent implements OnInit, OnDestroy {
                     this.selected = filter;
                 }
             });
+
+            this._changeDetector.markForCheck();
         });
 
         // get the items to be displayed in the typeahead
         this.typeaheadItems = this.getItems();
 
-        // determine if we should show the typeahead control
-        if (this.options && this.options.maxIndividualItems && this.options.maxIndividualItems + 1 >= this.filters.length) {
+        // hide the typeahead if the number of filters always visible equals or exceeds the
+        // total number of filters as there would be no additional filters to display in the typeahead
+        const shouldHideTypeahead = this.options?.maxIndividualItems + 1 >= this.filters.length;
+
+        if (shouldHideTypeahead) {
             this.showTypeahead = false;
         }
     }
@@ -127,6 +148,8 @@ export class FilterDynamicComponent implements OnInit, OnDestroy {
 
         // clear the search query
         this.query$.next('');
+
+        this._changeDetector.markForCheck();
     }
 
     /** Select a specific filter */
