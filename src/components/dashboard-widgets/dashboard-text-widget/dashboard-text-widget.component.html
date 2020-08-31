@@ -8,7 +8,9 @@
     <div #textWrapper class="widget-text" [class.is-truncated]="textWrapper.clientHeight < textParagraph.clientHeight">
         <p #textParagraph>{{ text }}</p>
     </div>
-    <button class="widget-side-panel-opener btn" (click)="open()">
+    <button class="widget-side-panel-opener btn"
+            (click)="open()"
+            [attr.title]="editable ? localizedStrings.edit : localizedStrings.showFullText">
         <ux-icon name="chevron-right" *ngIf="!editable"></ux-icon>
         <ux-icon name="edit" *ngIf="editable"></ux-icon>
     </button>
@@ -32,7 +34,7 @@
         {{ text }}
     </textarea>
     <div class="ux-side-panel-footer" *ngIf="editable">
-        <button type="button" class="m-b btn button-primary" (click)="save()">Save</button>
-        <button type="button" class="m-b btn button-secondary" (click)="cancel()">Cancel</button>
+        <button type="button" class="m-b btn button-primary" (click)="save()">{{ localizedStrings.save }}</button>
+        <button type="button" class="m-b btn button-secondary" (click)="cancel()">{{ localizedStrings.cancel }}</button>
     </div>
 </ux-side-panel>
