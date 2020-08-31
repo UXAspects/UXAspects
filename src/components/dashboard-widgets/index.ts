@@ -4,3 +4,8 @@ export * from './dashboard-actions-widget/dashboard-actions-widget.component';
 export * from './dashboard-enum-widget/dashboard-enum-widget.component';
 export * from './dashboard-table-widget/dashboard-table-widget.component';
 export * from './dashboard-text-widget/dashboard-text-widget.component';
+export * from './interfaces/predefined-widget.interface';
+export * from './interfaces/actions-widget.interface';
+export * from './interfaces/enum-widget.interface';
+export * from './interfaces/table-widget.interface';
+export * from './interfaces/text-widget.interface';
