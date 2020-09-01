@@ -1,10 +1,5 @@
 import { AfterViewInit, Component, TemplateRef, ViewChild } from '@angular/core';
-import {
-    ActionConfig,
-    ActionStatus
-} from '../../../../src/components/dashboard-widgets/interfaces/actions-widget.interface';
-import { EnumConfig } from '../../../../src/components/dashboard-widgets/interfaces/enum-widget.interface';
-import { DashboardLayoutData, DashboardOptions } from '../../../../src/components/dashboard';
+import { ActionConfig, ActionStatus, DashboardLayoutData, DashboardOptions, EnumConfig } from '@ux-aspects/ux-aspects';
 
 @Component({
     selector: 'dashboard-app',
