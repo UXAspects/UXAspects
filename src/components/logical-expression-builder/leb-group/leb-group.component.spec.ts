@@ -1,13 +1,11 @@
 import { LebGroupComponent } from './leb-group.component';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Component } from '@angular/core';
-import {
-    Expression,
-    FocusHandlerService,
-    LogicalExpressionBuilderModule,
-    LogicalOperatorDefinition,
-    ValidationService
-} from '..';
+import { Expression } from '../interfaces/Expression';
+import { LogicalOperatorDefinition } from '../interfaces/LogicalOperatorDefinition';
+import { LogicalExpressionBuilderModule } from '../logical-expression-builder.module';
+import { FocusHandlerService  }from '../services/focus-handler.service';
+import { ValidationService  }from '../services/validation.service';
 import { LogicalExpressionBuilderService } from '../services/logical-expression-builder.service';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 

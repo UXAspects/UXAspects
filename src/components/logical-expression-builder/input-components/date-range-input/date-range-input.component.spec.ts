@@ -1,7 +1,10 @@
 import { Component } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { LogicalExpressionBuilderModule } from '../../logical-expression-builder.module';
-import { DisplayValueFunction, FieldDefinition, LogicalExpressionBuilderService, OperatorDefinition } from '../..';
+import { FieldDefinition } from '../../interfaces/FieldDefinition';
+import { OperatorDefinition } from '../../interfaces/OperatorDefinitionList';
+import { DisplayValueFunction } from '../../interfaces/DisplayValueFunction';
+import { LogicalExpressionBuilderService } from '../../services/logical-expression-builder.service';
 
 @Component({
     selector: 'ux-date-range-input-test',

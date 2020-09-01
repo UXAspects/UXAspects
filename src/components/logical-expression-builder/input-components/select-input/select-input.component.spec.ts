@@ -1,7 +1,7 @@
 import { SelectInputComponent } from './select-input.component';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { SelectModule } from '../../../select';
-import { IconModule } from '../../../icon';
+import { SelectModule } from '../../../select/index';
+import { IconModule } from '../../../icon/index';
 
 describe('SelectInputComponent', () => {
     let component: SelectInputComponent;

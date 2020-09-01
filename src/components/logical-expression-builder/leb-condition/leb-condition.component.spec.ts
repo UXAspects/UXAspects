@@ -1,14 +1,14 @@
 import { LebConditionComponent } from './leb-condition.component';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Component } from '@angular/core';
-import {
-    ExpressionCondition,
-    FieldDefinition, FocusHandlerService,
-    LogicalExpressionBuilderModule,
-    OperatorDefinition, ValidationService
-} from '..';
-import { LogicalExpressionBuilderService } from '../services/logical-expression-builder.service';
+import { ExpressionCondition } from '../interfaces/Expression';
+import { FieldDefinition } from '../interfaces/FieldDefinition';
+import { OperatorDefinition } from '../interfaces/OperatorDefinitionList';
 import { DisplayValueFunction } from '../interfaces/DisplayValueFunction';
+import { LogicalExpressionBuilderModule } from '../logical-expression-builder.module';
+import { FocusHandlerService  }from '../services/focus-handler.service';
+import { ValidationService  }from '../services/validation.service';
+import { LogicalExpressionBuilderService } from '../services/logical-expression-builder.service';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 
 @Component({

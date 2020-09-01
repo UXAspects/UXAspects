@@ -1,7 +1,7 @@
-import { DateInputComponent } from '../..';
+import { DateInputComponent } from './date-input.component';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { DateTimePickerModule } from '../../../date-time-picker';
-import { PopoverModule } from '../../../popover';
+import { DateTimePickerModule } from '../../../date-time-picker/index';
+import { PopoverModule } from '../../../popover/index';
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({name: 'l10n'})
@@ -51,7 +51,7 @@ describe('DateInputComponent', () => {
             expect(component.showTime).toBeTruthy();
             expect(component.dateFormat).toEqual('short');
             expect(component.showNowBtn).toBeTruthy();
-            expect(component._validate(1234)).toBeFalsy();
+            expect(component.validate(1234)).toBeFalsy();
         });
     }));
 
