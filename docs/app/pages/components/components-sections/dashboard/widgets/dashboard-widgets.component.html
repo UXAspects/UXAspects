@@ -78,8 +78,8 @@
 <p>The following attributes are required by all pre-built widgets:</p>
 
 <uxd-api-properties tableTitle="Inputs">
-    <tr uxd-api-property name="id" type="string">The id given to the widget.</tr>
-    <tr uxd-api-property name="name" type="string">The name used by aria labels and announcements.</tr>
+    <tr uxd-api-property name="id" type="string" [required]="true">The id given to the widget.</tr>
+    <tr uxd-api-property name="name" type="string" [required]="true">The name used by aria labels and announcements.</tr>
     <tr uxd-api-property name="heading" type="string">The heading displayed for the widget.</tr>
     <tr uxd-api-property name="fixedMode" type="boolean">Whether the widget can be dragged and resized.</tr>
     <tr uxd-api-property name="colSpan" type="number">The number of columns the widget spans.</tr>
@@ -97,30 +97,35 @@
 <p>It has the following additional attributes:</p>
 
 <uxd-api-properties tableTitle="Inputs">
-    <tr uxd-api-property name="actions" type="ActionConfig[]">The buttons that will be displayed. Includes <code>label</code> (a string),
+    <tr uxd-api-property name="actions" type="ActionConfig[]" [required]="true">The buttons that will be displayed. Includes <code>label</code> (a string),
         <code>icon</code> (a ux-icon code), <code>iconTemplate</code> (a TemplateRef) and <code>action</code> (a function).</tr>
-    <tr uxd-api-property name="status" type="ActionStatus">The status displayed by the widget.</tr>
+    <tr uxd-api-property name="status" type="ActionStatus" [required]="true">The status displayed by the widget.</tr>
+</uxd-api-properties>
+
+<p>Additionally the actions widget has these outputs available:</p>
+
+<uxd-api-properties tableTitle="Outputs">
+    <tr uxd-api-property name="actionSelected" type="string">Emits when the selected value has been changed and saved.</tr>
 </uxd-api-properties>
 
 <h3>Enum Widget</h3>
 
 <p>
-    The <code>ux-dashboard-enum-widget</code> is a select input at its core. The label of the currently selected value is displayed along its icon.
-    Clicking the bottom right chevron button opens a side panel which fills out the whole parent dashboard component.
-    There the user can select a new value and either save the change or cancel the submission by clicking the cancel or the "X" button.
+    The <code>ux-dashboard-enum-widget</code> is a select input at its core. The label of the currently selected value is displayed in the dropdown input.
+    The value can be changed by using the dropdown input.
 </p>
 
 <p>The enum widget has the following additional attributes:</p>
 
 <uxd-api-properties tableTitle="Inputs">
-    <tr uxd-api-property name="value" type="string | number"></tr>
-    <tr uxd-api-property name="enums" type="EnumConfig[]"></tr>
+    <tr uxd-api-property name="value" type="string" [required]="true"></tr>
+    <tr uxd-api-property name="enums" type="EnumConfig[]" [required]="true"></tr>
 </uxd-api-properties>
 
 <p>Additionally the enum widget has these outputs available:</p>
 
 <uxd-api-properties tableTitle="Outputs">
-    <tr uxd-api-property name="valueChange" type="string | number">Emits when the selected value has been changed and saved.</tr>
+    <tr uxd-api-property name="valueChange" type="string">Emits when the selected value has been changed and saved.</tr>
 </uxd-api-properties>
 
 <h3>Table Widget</h3>
@@ -133,7 +138,7 @@
 
 <uxd-api-properties tableTitle="Inputs">
     <tr uxd-api-property name="header" type="any[]">The headers for the table columns.</tr>
-    <tr uxd-api-property name="data" type="any[][]">The data being displayed in the table. Each sub-array should be the same length as the header array.</tr>
+    <tr uxd-api-property name="data" type="any[][]" [required]="true">The data being displayed in the table. Each sub-array should be the same length as the header array.</tr>
 </uxd-api-properties>
 
 <h3>Text Widget</h3>
@@ -146,8 +151,9 @@
 <p>It has the following additional attributes:</p>
 
 <uxd-api-properties tableTitle="Inputs">
-    <tr uxd-api-property name="text" type="string">The text that is being displayed.</tr>
+    <tr uxd-api-property name="text" type="string" [required]="true">The text that is being displayed.</tr>
     <tr uxd-api-property name="editable" type="boolean">Whether the text can be edited in the side panel.</tr>
+    <tr uxd-api-property name="localizedStrings" type="TextWidgetLocalizedStrings" [required]="true">An object that contains the localized labels for the component.</tr>
 </uxd-api-properties>
 
 <p>Additionally the enum widget has these outputs available:</p>
