@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { DashboardModule } from '../dashboard';
+import { DashboardModule } from '../dashboard/index';
 import { DashboardPredefinedWidgetsModule } from './dashboard-predefined-widgets.module';
 
 @Component({
