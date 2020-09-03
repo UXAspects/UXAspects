@@ -1,5 +1,6 @@
 <ux-filter-container [(filters)]="filters" (filtersChange)="apply()" (events)="onEvent($event)">
-    <ux-filter-dynamic [filters]="authorFilters" [initial]="authorFilters[0]" [options]="typeaheadOptions"></ux-filter-dynamic>
+    <ux-filter-dynamic [filters]="authorFilters" [initial]="authorFilters[0]"
+                       [options]="typeaheadOptions"></ux-filter-dynamic>
     <ux-filter-dropdown [filters]="statusFilters" [initial]="statusFilters[0]"></ux-filter-dropdown>
 </ux-filter-container>
 
@@ -20,9 +21,9 @@
             <td>{{ document.date }}</td>
             <td>
                 <ux-spark theme="chart2"
-                    [value]="document.completed"
-                    barHeight="3"
-                    [inlineLabel]="document.completed">
+                          [value]="document.completed"
+                          barHeight="3"
+                          [inlineLabel]="document.completed">
                 </ux-spark>
             </td>
             <td class="text-center vertical-center-icon">
@@ -41,10 +42,13 @@
 
 <hr>
 
-<p>Filters can be implemented to offer users a way to filter a set of data, allowing them to apply and remove conditions.
-    Filters are contained within a Filter Container component which contains a clear all button for removing all active filters at once</p>
+<p>Filters can be implemented to offer users a way to filter a set of data, allowing them to apply and remove
+    conditions.
+    Filters are contained within a Filter Container component which contains a clear all button for removing all active
+    filters at once</p>
 
-<p>To add a Filter Container component to your application you must import the <code>FilterModule</code> which allows the use of the <code>ux-filters-container</code> component.</p>
+<p>To add a Filter Container component to your application you must import the <code>FilterModule</code> which allows
+    the use of the <code>ux-filters-container</code> component.</p>
 
 <p>The following attributes can be used to customise the behaviour of the component:</p>
 
@@ -74,7 +78,8 @@
 
 <h4>Custom Templates</h4>
 <p>
-    Additionally the clear all button can be customized by adding an <code>ng-template</code> with <code>#clearAllTemplate</code> as a child of the <code>ux-filter-container</code> component.
+    Additionally the clear all button can be customized by adding an <code>ng-template</code> with <code>#clearAllTemplate</code>
+    as a child of the <code>ux-filter-container</code> component.
 </p>
 
 <h3>Filter Dropdown</h3>
@@ -89,7 +94,8 @@
         Sets the list of filters to be displayed.
     </tr>
     <tr uxd-api-property name="initial" type="Filter">
-        Sets the initial filter state. This should be set to the state where nothing has been filtered as it will revert to this when the filters have been removed.
+        Sets the initial filter state. This should be set to the state where nothing has been filtered as it will revert
+        to this when the filters have been removed.
     </tr>
 </uxd-api-properties>
 
@@ -98,6 +104,9 @@
 <p>A filter object can contain the following properties:</p>
 
 <uxd-api-properties>
+    <tr uxd-api-property name="id" type="string">
+        Define the ID the filter element will use.
+    </tr>
     <tr uxd-api-property name="group" type="string" required="true">
         Sets the filter group. All filters in the same filter dropdown should have the same group.
     </tr>

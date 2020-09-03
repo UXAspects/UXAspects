@@ -2,20 +2,22 @@
     <button
         type="button"
         class="filter-dropdown btn dropdown-toggle"
+        [id]="filterId + '-trigger'"
         [class.active]="selected !== initial"
         [uxMenuTriggerFor]="menu">
-        {{ selected?.group }} 
-            <span class="filter-header" *ngIf="selected !== initial">
-                ({{ selected?.name }})
-            </span> 
+        {{ selected?.group }}
+        <span class="filter-header" *ngIf="selected !== initial">
+            ({{ selected?.name }})
+        </span>
         <ux-icon name="down"></ux-icon>
     </button>
 
     <ux-menu #menu menuClass="ux-filter-menu">
         <button
             type="button"
-            *ngFor="let filter of filters"
+            *ngFor="let filter of filters; let index = index"
             uxMenuItem
+            [id]="filter.id || filterId + '-item-' + index"
             [attr.aria-selected]="filter === selected"
             (click)="selectFilter(filter, $event)"
             (keydown.enter)="selectFilter(filter, $event)">

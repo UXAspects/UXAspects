@@ -22,6 +22,7 @@
     "no-bitwise": true,
     "no-shadowed-variable": true,
     "no-unused-expression": true,
+    "no-async-without-await": true,
     "import-blacklist": [
       true,
       "rxjs/Rx"
@@ -53,7 +54,6 @@
     "variable-name": [
       true,
       "ban-keywords",
-      "check-format",
       "allow-leading-underscore"
     ],
     "whitespace": [

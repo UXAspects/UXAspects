@@ -360,7 +360,6 @@ describe('Number Picker Component - FormGroup', () => {
             await input1.focus();
             fixture.detectChanges();
             await fixture.whenStable();
-            debugger;
 
             input1.dispatchEvent(new WheelEvent('wheel', { deltaY: 5 }));
             fixture.detectChanges();
@@ -679,7 +678,7 @@ describe('Number Picker Component - value', () => {
         expect(numberPicker.classList.contains('ng-invalid')).toBe(false);
     });
 
-    it('should call the event emitter once per change', async () => {
+    it('should call the event emitter once per change', () => {
         const controlUp = nativeElement.querySelector<HTMLElement>('.number-picker-control-up');
 
         spyOn(component, 'onValueChange');

@@ -31,8 +31,7 @@ export class TypeaheadTestPageComponent {
         const values = this.values.filter(tag => tag.toLowerCase().indexOf(filter.toLowerCase()) !== -1)
             .slice(pageNum * pageSize, (pageNum + 1) * pageSize);
 
-        // return the values after a delay to simulate server response time
-        return of(values).pipe(delay(1000)).toPromise();
+        return new Promise(resolve => resolve(values));
     }
 
     constructor(public typeaheadKeyService: TypeaheadKeyService<string>) {

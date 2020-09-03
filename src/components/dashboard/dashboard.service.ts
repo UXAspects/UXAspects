@@ -1,5 +1,5 @@
 import { Injectable, OnDestroy } from '@angular/core';
-import { BehaviorSubject, Observable, Subject, combineLatest } from 'rxjs';
+import { BehaviorSubject, combineLatest, Observable, Subject } from 'rxjs';
 import { distinctUntilChanged, filter, map, takeUntil } from 'rxjs/operators';
 import { tick } from '../../common/index';
 import { DashboardOptions } from './dashboard.component';
@@ -62,9 +62,14 @@ export class DashboardService implements OnDestroy {
                 this.setLayoutData(layout);
             });
 
-        this.stacked$.pipe(takeUntil(this._onDestroy), filter(stacked => stacked === true)).subscribe(this.updateWhenStacked.bind(this));
-        this.widgets$.pipe(takeUntil(this._onDestroy), tick()).subscribe(() => this.renderDashboard());
-        this.dimensions$.pipe(takeUntil(this._onDestroy), tick()).subscribe(() => this.renderDashboard());
+        this.stacked$
+            .pipe(
+                distinctUntilChanged(),
+                filter(stacked => stacked === true),
+                takeUntil(this._onDestroy)
+            ).subscribe(this.updateWhenStacked.bind(this));
+        this.widgets$.pipe(tick(), takeUntil(this._onDestroy)).subscribe(() => this.renderDashboard());
+        this.dimensions$.pipe(tick(), takeUntil(this._onDestroy)).subscribe(() => this.renderDashboard());
     }
 
     ngOnDestroy(): void {
@@ -105,7 +110,13 @@ export class DashboardService implements OnDestroy {
      */
     getLayoutData(): DashboardLayoutData[] {
         return this.widgets.map(widget => {
-            return { id: widget.id, col: widget.getColumn(), row: widget.getRow(), colSpan: widget.getColumnSpan(), rowSpan: widget.getRowSpan() };
+            return {
+                id: widget.id,
+                col: widget.getColumn(),
+                row: widget.getRow(),
+                colSpan: widget.getColumnSpan(),
+                rowSpan: widget.getRowSpan()
+            };
         });
     }
 
@@ -139,11 +150,6 @@ export class DashboardService implements OnDestroy {
 
         // ensure the column width is not below the min widths
         this.stacked$.next(this.columnWidth < this.options.minWidth);
-
-        // ensure the row height is not below the min widths
-        if (this._rowHeight < this.options.minWidth) {
-            this._rowHeight = this.options.minWidth;
-        }
 
         this.setDashboardLayout();
 
@@ -1068,7 +1074,7 @@ export class DashboardService implements OnDestroy {
     /**
      * Widgets should not be allowed to have a vacant space above them - if there is one they should move upwards to fill it
      */
-    shiftWidgetsUp(): void {
+    shiftWidgetsUp(): boolean {
 
         // check whether or not changes have been made - if so we need to repeat until stable
         let stable = true;
@@ -1095,7 +1101,10 @@ export class DashboardService implements OnDestroy {
         // if changes occurred then we should repeat the process
         if (!stable) {
             this.shiftWidgetsUp();
+            return true;
         }
+
+        return false;
     }
 
     /**
@@ -1279,7 +1288,13 @@ export class DashboardService implements OnDestroy {
     }
 }
 
-export const defaultOptions: DashboardOptions = { columns: 5, padding: 5, minWidth: 100, minHeight: 100, emptyRow: true };
+export const defaultOptions: DashboardOptions = {
+    columns: 5,
+    padding: 5,
+    minWidth: 100,
+    minHeight: 100,
+    emptyRow: true
+};
 
 export interface DashboardDimensions {
     width?: number;

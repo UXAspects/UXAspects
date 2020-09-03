@@ -1,6 +1,6 @@
-import { Directive, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, Renderer2 } from '@angular/core';
-import { takeUntil } from 'rxjs/operators';
+import { Directive, ElementRef, EventEmitter, HostBinding, Input, OnDestroy, OnInit, Output, Renderer2 } from '@angular/core';
 import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { ResizeService } from '../resize/index';
 
 @Directive({
@@ -19,6 +19,10 @@ export class FixedHeaderTableDirective<T> implements OnInit, OnDestroy {
 
     /** Emit when the table tries to load more data */
     @Output() tablePaging: EventEmitter<number> = new EventEmitter<number>();
+
+
+    /** Apply a class whenever the table has scrolled */
+    @HostBinding('class.ux-fixed-header-table-scrolled') _hasScrolled: boolean = false;
 
     /** Store the table head element */
     private _tableHead: HTMLTableSectionElement;
@@ -105,6 +109,9 @@ export class FixedHeaderTableDirective<T> implements OnInit, OnDestroy {
         if (delta < 1) {
             this.tablePaging.emit();
         }
+
+        // update the class based on the scroll position
+        this._hasScrolled = (scrollTop > 0);
     }
 
 }

@@ -49,7 +49,8 @@ export class PageHeaderNavigationItemComponent implements AfterViewInit, OnDestr
     constructor(
         public elementRef: ElementRef,
         private _pageHeaderService: PageHeaderService,
-        private _navigationService: PageHeaderNavigationService) { }
+        private _navigationService: PageHeaderNavigationService) {
+    }
 
     ngAfterViewInit(): void {
         this._pageHeaderService.selected$.pipe(tick(), takeUntil(this._onDestroy)).subscribe(selectedItem => {
@@ -77,6 +78,13 @@ export class PageHeaderNavigationItemComponent implements AfterViewInit, OnDestr
         // if the item is disabled or has children then do nothing at this stage
         if (this.item.disabled || (this.item.children && this._pageHeaderService.secondary$.getValue() === false)) {
             return;
+        }
+
+        // if autoselect is enabled the first child should be selected when we click on the parent item (this element).
+        // We should remove the selected state on all children as the service will perform the selection
+        // of the first item and handle any routing etc..
+        if (this._pageHeaderService.secondaryNavigationAutoselect && Array.isArray(this.item.children)) {
+            this.item.children.forEach(item => item.selected = false);
         }
 
         // otherwise select the current item

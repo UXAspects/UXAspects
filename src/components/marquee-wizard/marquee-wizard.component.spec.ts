@@ -356,7 +356,7 @@ describe('Marquee wizard with validation', () => {
         fixture.detectChanges();
     });
 
-    it('should remove visited state from later steps when valid = false', async () => {
+    it('should remove visited state from later steps when valid = false',  () => {
         // 3 steps and number 2 gets set invalid - 1 should stay the same, 3 should be valid but no longer be visited
         component.step1Visited = true;
         component.step2Visited = true;
@@ -390,7 +390,7 @@ describe('Marquee wizard with validation', () => {
         expect(visitedChanged.calls.all().length).toBe(1);
     });
 
-    it('should not remove visited state from later steps when valid = false and resetVisitedOnValidationError = false', async () => {
+    it('should not remove visited state from later steps when valid = false and resetVisitedOnValidationError = false',  () => {
         component.resetVisitedOnValidationError = false;
         component.step1Visited = true;
         component.step2Visited = true;
