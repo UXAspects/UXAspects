@@ -3,6 +3,7 @@ export * from './interfaces/OperatorDefinitionList';
 export * from './interfaces/LogicalOperatorDefinition';
 export * from './interfaces/LogicalExpression';
 export * from './interfaces/DisplayValueFunction';
+export * from './interfaces/LocalizedStrings';
 export * from './logical-expression-builder.module';
 export * from './logical-expression-builder.component';
 export * from './services/logical-expression-builder.service';

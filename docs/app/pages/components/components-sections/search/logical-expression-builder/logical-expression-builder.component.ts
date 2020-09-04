@@ -5,6 +5,7 @@ import {
     LogicalOperatorDefinition,
     NumberInputComponent,
     OperatorDefinitionList,
+    LocalizedStrings,
     TextInputComponent,
     SelectInputComponent,
     DateInputComponent,
@@ -101,7 +102,7 @@ export class ComponentsLogicalExpressionBuilderComponent extends BaseDocumentati
         }
     ];
 
-    localizedStrings = {};
+    localizedStrings: LocalizedStrings = {};
 
     expression: LogicalExpression = {
         type: 'group',

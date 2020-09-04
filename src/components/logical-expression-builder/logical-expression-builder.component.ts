@@ -20,6 +20,7 @@ import { delay, distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { Observable, Subject } from 'rxjs';
 import { FocusHandlerService } from './services/focus-handler.service';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { LocalizedStrings } from './interfaces/LocalizedStrings';
 
 @Component({
     selector: 'ux-logical-expression-builder',
@@ -67,7 +68,7 @@ export class LogicalExpressionBuilderComponent implements OnChanges, OnDestroy, 
     private _expression: LogicalExpression;
 
     @Input()
-    set localizedStrings(localizedStrings: { [key: string]: string | string[] }) {
+    set localizedStrings(localizedStrings: LocalizedStrings) {
         this.lebService.setLocalizedStrings(localizedStrings);
     }
 

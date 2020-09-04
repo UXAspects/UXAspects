@@ -3,6 +3,7 @@ import { LogicalOperatorDefinition } from '../interfaces/LogicalOperatorDefiniti
 import { FieldDefinition } from '../interfaces/FieldDefinition';
 import { OperatorDefinitionList, OperatorDefinition } from '../interfaces/OperatorDefinitionList';
 import { DisplayValueFunction } from '../interfaces/DisplayValueFunction';
+import { LocalizedStrings } from '../interfaces/LocalizedStrings';
 
 @Injectable()
 export class LogicalExpressionBuilderService {
@@ -13,7 +14,7 @@ export class LogicalExpressionBuilderService {
     ];
     private fields: FieldDefinition[] = [];
     private operators: OperatorDefinitionList = {};
-    private localizedStrings = {};
+    private localizedStrings: LocalizedStrings = {};
     private displayValueFunction: DisplayValueFunction;
 
     // Logical operators
@@ -48,11 +49,11 @@ export class LogicalExpressionBuilderService {
     }
 
     // Localized Strings
-    setLocalizedStrings(localizedStrings: { [key: string]: string | string[] }): void {
+    setLocalizedStrings(localizedStrings: LocalizedStrings): void {
         this.localizedStrings = localizedStrings;
     }
 
-    getLocalizedStrings(): { [key: string]: string | string[] } {
+    getLocalizedStrings(): LocalizedStrings {
         return this.localizedStrings;
     }
 
