@@ -1,4 +1,4 @@
-import { NumberInputComponent } from './number-input.component';
+import { LebNumberInputComponent } from './leb-number-input.component';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Component } from '@angular/core';
 import { LogicalExpressionBuilderModule } from '../../logical-expression-builder.module';

@@ -2,9 +2,9 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
     selector: 'ux-text-input',
-    templateUrl: './text-input.component.html'
+    templateUrl: './leb-text-input.component.html'
 })
-export class TextInputComponent {
+export class LebTextInputComponent {
     @Output() valueChange: EventEmitter<string> = new EventEmitter<string>();
     @Output() valid: EventEmitter<boolean> = new EventEmitter<boolean>();
 

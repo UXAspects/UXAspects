@@ -2,9 +2,9 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
     selector: 'ux-number-input',
-    templateUrl: './number-input.component.html'
+    templateUrl: './leb-number-input.component.html'
 })
-export class NumberInputComponent {
+export class LebNumberInputComponent {
     @Output() valueChange: EventEmitter<number> = new EventEmitter<number>();
     @Output() valid: EventEmitter<boolean> = new EventEmitter<boolean>();
 

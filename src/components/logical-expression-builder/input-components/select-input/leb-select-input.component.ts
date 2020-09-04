@@ -2,9 +2,9 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
     selector: 'ux-select-input',
-    templateUrl: './select-input.component.html'
+    templateUrl: './leb-select-input.component.html'
 })
-export class SelectInputComponent implements OnInit {
+export class LebSelectInputComponent implements OnInit {
     @Output() valueChange: EventEmitter<string[]> = new EventEmitter<string[]>();
     @Output() valid: EventEmitter<boolean> = new EventEmitter<boolean>();
 

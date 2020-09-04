@@ -3,12 +3,12 @@ import {
     FieldDefinition,
     LogicalExpression,
     LogicalOperatorDefinition,
-    NumberInputComponent,
+    LebNumberInputComponent,
     OperatorDefinitionList,
-    TextInputComponent,
-    SelectInputComponent,
-    DateInputComponent,
-    DateRangeInputComponent
+    LebTextInputComponent,
+    LebSelectInputComponent,
+    LebDateInputComponent,
+    LebDateRangeInputComponent
 } from '@ux-aspects/ux-aspects';
 
 @Component({
@@ -31,25 +31,25 @@ export class AppComponent {
 
     operators: OperatorDefinitionList = {
         text: [
-            { name: 'equals', label: 'equals', component: TextInputComponent },
-            { name: 'contains', label: 'contains', component: TextInputComponent }
+            { name: 'equals', label: 'equals', component: LebTextInputComponent },
+            { name: 'contains', label: 'contains', component: LebTextInputComponent }
         ],
         date: [
-            { name: 'before', label: 'before', component: DateInputComponent },
-            { name: 'equals', label: 'equals', component: DateInputComponent },
-            { name: 'after', label: 'after', component: DateInputComponent }
+            { name: 'before', label: 'before', component: LebDateInputComponent },
+            { name: 'equals', label: 'equals', component: LebDateInputComponent },
+            { name: 'after', label: 'after', component: LebDateInputComponent }
         ],
         dateRange: [
-            { name: 'between', label: 'is between', component: DateRangeInputComponent },
-            { name: 'not_between', label: 'is not between', component: DateRangeInputComponent }
+            { name: 'between', label: 'is between', component: LebDateRangeInputComponent },
+            { name: 'not_between', label: 'is not between', component: LebDateRangeInputComponent }
         ],
         enum: [
-            { name: 'one_of', label: 'is one of', component: SelectInputComponent }
+            { name: 'one_of', label: 'is one of', component: LebSelectInputComponent }
         ],
         number: [
-            { name: 'equals', label: 'equals', component: NumberInputComponent },
-            { name: 'less_than', label: 'is less than', component: NumberInputComponent },
-            { name: 'greater_than', label: 'is greater than', component: NumberInputComponent }
+            { name: 'equals', label: 'equals', component: LebNumberInputComponent },
+            { name: 'less_than', label: 'is less than', component: LebNumberInputComponent },
+            { name: 'greater_than', label: 'is greater than', component: LebNumberInputComponent }
         ],
     };
 

@@ -13,9 +13,9 @@ import { debounceTime, takeUntil } from 'rxjs/operators';
 
 @Component({
     selector: 'ux-date-input',
-    templateUrl: './date-input.component.html'
+    templateUrl: './leb-date-input.component.html'
 })
-export class DateInputComponent implements AfterViewInit, OnDestroy {
+export class LebDateInputComponent implements AfterViewInit, OnDestroy {
     @ViewChild('input') dateInput: ElementRef;
 
     @Output() valueChange: EventEmitter<number> = new EventEmitter<number>();

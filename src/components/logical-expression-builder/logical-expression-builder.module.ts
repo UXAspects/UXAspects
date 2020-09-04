@@ -16,22 +16,22 @@ import { LogicalExpressionBuilderComponent } from './logical-expression-builder.
 import { LebGroupComponent } from './leb-group/leb-group.component';
 import { LebConditionComponent } from './leb-condition/leb-condition.component';
 import { ExpressionRowDirective } from './directives/expression-row.directive';
-import { TextInputComponent } from './input-components/text-input/text-input.component';
-import { NumberInputComponent } from './input-components/number-input/number-input.component';
-import { SelectInputComponent } from './input-components/select-input/select-input.component';
-import { DateInputComponent } from './input-components/date-input/date-input.component';
-import { DateRangeInputComponent } from './input-components/date-range-input/date-range-input.component';
+import { LebTextInputComponent } from './input-components/text-input/leb-text-input.component';
+import { LebNumberInputComponent } from './input-components/number-input/leb-number-input.component';
+import { LebSelectInputComponent } from './input-components/select-input/leb-select-input.component';
+import { LebDateInputComponent } from './input-components/date-input/leb-date-input.component';
+import { LebDateRangeInputComponent } from './input-components/date-range-input/leb-date-range-input.component';
 import { L10nPipe } from './pipes/l10n.pipe';
 import { DisplayValuePipe } from './pipes/display-value.pipe';
 import { RowPathPipe } from './leb-group/row-path.pipe';
 import { DateFormatterPipeModule } from '../../pipes/date-formatter/date-formatter.module';
 
 const EXPORTS = [
-    TextInputComponent,
-    NumberInputComponent,
-    SelectInputComponent,
-    DateInputComponent,
-    DateRangeInputComponent,
+    LebTextInputComponent,
+    LebNumberInputComponent,
+    LebSelectInputComponent,
+    LebDateInputComponent,
+    LebDateRangeInputComponent,
     LogicalExpressionBuilderComponent,
     LebGroupComponent,
     LebConditionComponent,

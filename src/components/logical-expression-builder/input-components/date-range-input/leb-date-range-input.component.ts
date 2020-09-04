@@ -9,9 +9,9 @@ import { formatDate } from '@angular/common';
 
 @Component({
     selector: 'ux-date-range-input',
-    templateUrl: './date-range-input.component.html'
+    templateUrl: './leb-date-range-input.component.html'
 })
-export class DateRangeInputComponent {
+export class LebDateRangeInputComponent {
     @Output() valueChange: EventEmitter<DateRangeInputValue> = new EventEmitter<DateRangeInputValue>();
     @Output() valid: EventEmitter<boolean> = new EventEmitter<boolean>();
 

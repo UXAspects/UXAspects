@@ -1,4 +1,4 @@
-import { TextInputComponent } from './text-input.component';
+import { LebTextInputComponent } from './leb-text-input.component';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Component } from '@angular/core';
 import { LogicalExpressionBuilderModule } from '../../logical-expression-builder.module';

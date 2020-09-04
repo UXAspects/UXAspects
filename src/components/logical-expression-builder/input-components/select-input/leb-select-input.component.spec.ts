@@ -1,22 +1,22 @@
-import { SelectInputComponent } from './select-input.component';
+import { LebSelectInputComponent } from './leb-select-input.component';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { SelectModule } from '../../../select/index';
 import { IconModule } from '../../../icon/index';
 
 describe('SelectInputComponent', () => {
-    let component: SelectInputComponent;
-    let fixture: ComponentFixture<SelectInputComponent>;
+    let component: LebSelectInputComponent;
+    let fixture: ComponentFixture<LebSelectInputComponent>;
     let selectInput: HTMLInputElement;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             imports: [SelectModule, IconModule],
-            declarations: [SelectInputComponent]
+            declarations: [LebSelectInputComponent]
         }).compileComponents();
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(SelectInputComponent);
+        fixture = TestBed.createComponent(LebSelectInputComponent);
         component = fixture.componentInstance;
         component.value = [];
         component.data = { options: [] };
@@ -24,7 +24,7 @@ describe('SelectInputComponent', () => {
     });
 
     beforeEach(async(() => {
-        fixture = TestBed.createComponent(SelectInputComponent);
+        fixture = TestBed.createComponent(LebSelectInputComponent);
         fixture.detectChanges();
         fixture.whenStable().then(() => {
             component = fixture.componentInstance;

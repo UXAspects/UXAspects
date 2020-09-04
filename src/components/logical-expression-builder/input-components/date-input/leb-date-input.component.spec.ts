@@ -1,4 +1,4 @@
-import { DateInputComponent } from './date-input.component';
+import { LebDateInputComponent } from './leb-date-input.component';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { DateTimePickerModule } from '../../../date-time-picker/index';
 import { PopoverModule } from '../../../popover/index';
@@ -12,19 +12,19 @@ class MockL10nPipe implements PipeTransform {
 }
 
 describe('DateInputComponent', () => {
-    let component: DateInputComponent;
-    let fixture: ComponentFixture<DateInputComponent>;
+    let component: LebDateInputComponent;
+    let fixture: ComponentFixture<LebDateInputComponent>;
     let dateInput: HTMLInputElement;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             imports: [DateTimePickerModule, PopoverModule],
-            declarations: [DateInputComponent, MockL10nPipe],
+            declarations: [LebDateInputComponent, MockL10nPipe],
         }).compileComponents();
     }));
 
     beforeEach(async(() => {
-        fixture = TestBed.createComponent(DateInputComponent);
+        fixture = TestBed.createComponent(LebDateInputComponent);
 
         fixture.detectChanges();
         fixture.whenStable().then(() => {
