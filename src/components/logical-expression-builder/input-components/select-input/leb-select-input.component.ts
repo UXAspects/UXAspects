@@ -6,7 +6,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 })
 export class LebSelectInputComponent implements OnInit {
     @Output() valueChange: EventEmitter<string[]> = new EventEmitter<string[]>();
-    @Output() valid: EventEmitter<boolean> = new EventEmitter<boolean>();
+    @Output() validChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
     @Input() value: string[];
 
@@ -37,7 +37,7 @@ export class LebSelectInputComponent implements OnInit {
         const outputOptions = value.map((v: SelectOption) => v.name);
         this.valueChange.emit(outputOptions);
         this._valid = this.validate(outputOptions);
-        this.valid.emit(this._valid);
+        this.validChange.emit(this._valid);
     }
 }
 

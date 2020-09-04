@@ -4,7 +4,7 @@
     [operators]="operators"
     [logicalOperators]="logicalOperators"
     [localizedStrings]="localizedStrings"
-    (valid)="valid = $event">
+    (validChange)="valid = $event">
 </ux-logical-expression-builder>
 
 <p>The expression is <span [ngClass]="valid ? 'text-success' : 'text-error'">{{ valid ? 'valid' : 'invalid' }}</span>.

@@ -19,7 +19,7 @@ export class LebDateInputComponent implements AfterViewInit, OnDestroy {
     @ViewChild('input') dateInput: ElementRef;
 
     @Output() valueChange: EventEmitter<number> = new EventEmitter<number>();
-    @Output() valid: EventEmitter<boolean> = new EventEmitter<boolean>();
+    @Output() validChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
     @Input()
     set value(value: number) {
@@ -48,7 +48,7 @@ export class LebDateInputComponent implements AfterViewInit, OnDestroy {
         this._date = date;
         this.valueChange.emit(this._date.getTime());
         this._valid = this.validate(this._date.getTime());
-        this.valid.emit(this._valid);
+        this.validChange.emit(this._valid);
     }
 
     showTime: boolean = false;

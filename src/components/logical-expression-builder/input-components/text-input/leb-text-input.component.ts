@@ -6,14 +6,14 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 })
 export class LebTextInputComponent {
     @Output() valueChange: EventEmitter<string> = new EventEmitter<string>();
-    @Output() valid: EventEmitter<boolean> = new EventEmitter<boolean>();
+    @Output() validChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
     @Input()
     set value(value: string) {
         this._value = value ?? '';
         this.valueChange.emit(this.value);
         this._valid = this.validate(this.value);
-        this.valid.emit(this._valid);
+        this.validChange.emit(this._valid);
     }
 
     get value() { return this._value; }

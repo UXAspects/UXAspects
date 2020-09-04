@@ -6,14 +6,14 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 })
 export class LebNumberInputComponent {
     @Output() valueChange: EventEmitter<number> = new EventEmitter<number>();
-    @Output() valid: EventEmitter<boolean> = new EventEmitter<boolean>();
+    @Output() validChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
     @Input()
     set value(value: number) {
         this._value = value ?? 0;
         this.valueChange.emit(this._value);
         this._valid = this.validate(this._value);
-        this.valid.emit(this._valid);
+        this.validChange.emit(this._valid);
     }
 
     get value() { return this._value; }

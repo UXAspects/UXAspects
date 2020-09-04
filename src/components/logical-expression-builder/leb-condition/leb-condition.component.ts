@@ -43,104 +43,104 @@ export class LebConditionComponent implements OnChanges, OnInit, OnDestroy {
     private _condition: ExpressionCondition;
 
     // If editing is cancelled, the condition is reset to its former state
-    private _initialCondition: ExpressionCondition;
+    private initialCondition: ExpressionCondition;
 
     // container for Input Component
     @ViewChild('inputContainer', { read: ViewContainerRef, static: false })
     set container(container: ViewContainerRef) {
         if (container) {
-            this._inputContainer = container;
+            this.inputContainer = container;
             this._createInputComponent();
         }
     }
 
     // Reference to the container of the Input component
-    private _inputContainer: ViewContainerRef;
+    private inputContainer: ViewContainerRef;
     // Reference to the Input component
-    private _inputComponentRef: ComponentRef<any>;
+    private inputComponentRef: ComponentRef<any>;
 
-    private _id: number;
+    private id: number;
 
-    public fields: FieldDefinition[];
-    public operators: OperatorDefinition[];
+    fields: FieldDefinition[];
+    operators: OperatorDefinition[];
 
-    public _field: FieldDefinition = null;
-    public _operator: OperatorDefinition = null;
-    public _value: any;
+    _field: FieldDefinition = null;
+    _operator: OperatorDefinition = null;
+    _value: any;
 
-    public _editBlocked: boolean;
+    _editBlocked: boolean;
 
-    public _isInEditMode: boolean;
+    _isInEditMode: boolean;
 
-    private _destroy$ = new Subject<void>();
+    private destroy$ = new Subject<void>();
 
-    public _valid: boolean = true;
+    _valid: boolean = true;
 
     constructor(
-        private _lebService: LogicalExpressionBuilderService,
-        private _validationService: ValidationService,
-        private _cfr: ComponentFactoryResolver,
-        private _focusHandler: FocusHandlerService
+        private lebService: LogicalExpressionBuilderService,
+        private validationService: ValidationService,
+        private cfr: ComponentFactoryResolver,
+        private focusHandlerService: FocusHandlerService
     ) {
     }
 
     ngOnInit(): void {
         // safe initial state for resetting the condition
-        this._initialCondition = this._condition;
+        this.initialCondition = this._condition;
 
         // get all fields and find the currently selected one
-        this.fields = this._lebService.getFields();
+        this.fields = this.lebService.getFields();
         this._field = this.fields.find((field) => field.name === this._condition.field) ?? null;
 
         // get all operators and find the currently selected one
-        this.operators = this._lebService.getOperatorsByFieldType(this._field?.fieldType);
+        this.operators = this.lebService.getOperatorsByFieldType(this._field?.fieldType);
         this._operator = this.operators.find((operator) => operator.name === this._condition.operator) ?? null;
 
         this._value = this._condition.value;
 
-        this._focusHandler.getRowInEditMode()
+        this.focusHandlerService.getRowInEditMode()
             .pipe(
-                takeUntil(this._destroy$),
+                takeUntil(this.destroy$),
                 map((path: number[]) => path?.join() === this.path.join())
             )
             .subscribe((value: boolean) => {
                 this._isInEditMode = value;
 
                 if (value) {
-                    this._focusHandler.setEditBlocked(true);
+                    this.focusHandlerService.setEditBlocked(true);
                 }
             });
 
-        this._validationService.setValidationState(this.path, this._valid && !this._isInEditMode);
+        this.validationService.setValidationState(this.path, this._valid && !this._isInEditMode);
 
-        this._id = this.path.slice(-1).pop();
+        this.id = this.path.slice(-1).pop();
 
-        this._focusHandler.getEditBlocked()
-            .pipe(takeUntil(this._destroy$))
+        this.focusHandlerService.getEditBlocked()
+            .pipe(takeUntil(this.destroy$))
             .subscribe((value: boolean) => {
                 this._editBlocked = value;
             });
     }
 
     ngOnDestroy(): void {
-        this._destroy$.next();
-        this._destroy$.complete();
+        this.destroy$.next();
+        this.destroy$.complete();
 
-        this._validationService.removeValidationState(this.path);
+        this.validationService.removeValidationState(this.path);
     }
 
     private _createInputComponent(): void {
         // create input component, set input properties and listen for changes on output properties
         if (this._operator?.component) {
-            this._inputContainer.clear();
-            const resolver = this._cfr.resolveComponentFactory(this._operator.component);
-            this._inputComponentRef = this._inputContainer.createComponent(resolver);
-            this._inputComponentRef.instance.value = this._value;
-            this._inputComponentRef.instance.data = this._field?.data ?? {};
+            this.inputContainer.clear();
+            const resolver = this.cfr.resolveComponentFactory(this._operator.component);
+            this.inputComponentRef = this.inputContainer.createComponent(resolver);
+            this.inputComponentRef.instance.value = this._value;
+            this.inputComponentRef.instance.data = this._field?.data ?? {};
 
-            this._inputComponentRef.instance.valueChange
+            this.inputComponentRef.instance.valueChange
                 .pipe(
-                    takeUntil(this._destroy$),
+                    takeUntil(this.destroy$),
                     filter((value: any) => this._value !== value)
                 )
                 .subscribe((value: any) => {
@@ -148,31 +148,31 @@ export class LebConditionComponent implements OnChanges, OnInit, OnDestroy {
                     this._buildCondition();
                 });
 
-            this._inputComponentRef.instance.valid
+            this.inputComponentRef.instance.validChange
                 .pipe(
-                    takeUntil(this._destroy$),
+                    takeUntil(this.destroy$),
                     distinctUntilChanged()
                 )
                 .subscribe((value: boolean) => {
                     this._valid = value;
-                    this._validationService.setValidationState(this.path, this._valid && !this._isInEditMode);
+                    this.validationService.setValidationState(this.path, this._valid && !this._isInEditMode);
                 });
         }
     }
 
-    public handleFieldSelected(selectedField: FieldDefinition): void {
+    handleFieldSelected(selectedField: FieldDefinition): void {
         // get operators for new field type
         if (selectedField) {
             this._field = selectedField;
-            this.operators = this._lebService.getOperatorsByFieldType(this._field.fieldType);
+            this.operators = this.lebService.getOperatorsByFieldType(this._field.fieldType);
             this._operator = null;
             this._value = null;
 
-            this._inputContainer.clear();
+            this.inputContainer.clear();
         }
     }
 
-    public handleOperatorSelected(selectedOperator: OperatorDefinition): void {
+    handleOperatorSelected(selectedOperator: OperatorDefinition): void {
         this._operator = selectedOperator;
         this._createInputComponent();
     }
@@ -186,53 +186,53 @@ export class LebConditionComponent implements OnChanges, OnInit, OnDestroy {
         };
     }
 
-    public confirmCondition(): void {
-        this._focusHandler.setRowInEditMode(null);
-        this._focusHandler.setPathToActivate(this.path);
+    confirmCondition(): void {
+        this.focusHandlerService.setRowInEditMode(null);
+        this.focusHandlerService.setPathToActivate(this.path);
 
-        this._validationService.setValidationState(this.path, this._valid);
+        this.validationService.setValidationState(this.path, this._valid);
 
         this._buildCondition();
-        this._initialCondition = { ...this._condition };
+        this.initialCondition = { ...this._condition };
         this.conditionChange.emit(this._condition);
     }
 
-    public cancelEdit(): void {
-        this._focusHandler.setRowInEditMode(null);
-        this._focusHandler.setPathToActivate(this.path);
+    cancelEdit(): void {
+        this.focusHandlerService.setRowInEditMode(null);
+        this.focusHandlerService.setPathToActivate(this.path);
 
-        if (this._initialCondition.field || this._initialCondition.operator || this._initialCondition.value) {
-            this._resetCondition(this._initialCondition);
+        if (this.initialCondition.field || this.initialCondition.operator || this.initialCondition.value) {
+            this._resetCondition(this.initialCondition);
             this.conditionChange.emit(this._condition);
         } else {
-            this.conditionDeleted.emit(this._id);
+            this.conditionDeleted.emit(this.id);
         }
 
-        this._validationService.setValidationState(this.path, this._valid);
+        this.validationService.setValidationState(this.path, this._valid);
     }
 
-    public editCondition(): void {
+    editCondition(): void {
         if (!this._editBlocked) {
-            this._focusHandler.setRowInEditMode(this.path);
-            this._focusHandler.setPathToActivate(this.path);
+            this.focusHandlerService.setRowInEditMode(this.path);
+            this.focusHandlerService.setPathToActivate(this.path);
 
-            this._validationService.setValidationState(this.path, this._valid && !this._isInEditMode);
+            this.validationService.setValidationState(this.path, this._valid && !this._isInEditMode);
 
             this._buildCondition();
             this.conditionChange.emit(this._condition);
         }
     }
 
-    public deleteCondition(): void {
+    deleteCondition(): void {
         if (!this._editBlocked) {
-            this.conditionDeleted.emit(this._id);
-            this._validationService.removeValidationState(this.path);
+            this.conditionDeleted.emit(this.id);
+            this.validationService.removeValidationState(this.path);
         }
     }
 
-    public embedConditionInGroup(): void {
+    embedConditionInGroup(): void {
         if (!this._editBlocked) {
-            this.conditionEmbedded.emit(this._id);
+            this.conditionEmbedded.emit(this.id);
         }
     }
 
@@ -246,7 +246,7 @@ export class LebConditionComponent implements OnChanges, OnInit, OnDestroy {
 
     ngOnChanges(changes: SimpleChanges): void {
         if (changes.path) {
-            this._id = changes.path.currentValue.slice(-1).pop();
+            this.id = changes.path.currentValue.slice(-1).pop();
         }
     }
 }

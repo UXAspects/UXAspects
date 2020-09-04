@@ -8,7 +8,7 @@ import { LogicalExpressionBuilderModule } from '../../logical-expression-builder
     template: `
         <ux-number-input
             [data]="data"
-            (valid)="onValidChange($event)"
+            (validChange)="onValidChange($event)"
             [value]="value"
             (valueChange)="onValueChange($event)">
         </ux-number-input>

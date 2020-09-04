@@ -39,7 +39,7 @@ import { LocalizedStrings } from './interfaces/LocalizedStrings';
 })
 export class LogicalExpressionBuilderComponent implements OnChanges, OnDestroy, OnInit, ControlValueAccessor {
     @Output() expressionChange: EventEmitter<LogicalExpression> = new EventEmitter<LogicalExpression>();
-    @Output() valid: EventEmitter<boolean> = new EventEmitter<boolean>();
+    @Output() validChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
     @Input()
     set logicalOperators(logicalOperators: LogicalOperatorDefinition[]) {
@@ -97,7 +97,7 @@ export class LogicalExpressionBuilderComponent implements OnChanges, OnDestroy, 
                 delay(0)
             )
             .subscribe((value: boolean) => {
-                this.valid.emit(value);
+                this.validChange.emit(value);
             });
     }
 

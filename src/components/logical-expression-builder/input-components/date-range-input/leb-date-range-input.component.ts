@@ -13,7 +13,7 @@ import { formatDate } from '@angular/common';
 })
 export class LebDateRangeInputComponent {
     @Output() valueChange: EventEmitter<DateRangeInputValue> = new EventEmitter<DateRangeInputValue>();
-    @Output() valid: EventEmitter<boolean> = new EventEmitter<boolean>();
+    @Output() validChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
     @Input()
     set value(value: DateRangeInputValue) {
@@ -43,7 +43,7 @@ export class LebDateRangeInputComponent {
     set invalid(value: boolean) {
         this._invalid = value;
         this._valid = this.validate({ start: this.start.getTime(), end: this.end.getTime() });
-        this.valid.emit(this._valid);
+        this.validChange.emit(this._valid);
     }
 
     get invalid() {

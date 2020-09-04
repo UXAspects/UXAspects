@@ -4,7 +4,7 @@
     [operators]="operators"
     [logicalOperators]="logicalOperators"
     [localizedStrings]="localizedStrings"
-    (valid)="valid = $event">
+    (validChange)="valid = $event">
 </ux-logical-expression-builder>
 
 <p>The expression is <span [ngClass]="valid ? 'text-success' : 'text-error'">{{ valid ? 'valid' : 'invalid' }}</span>.
@@ -75,7 +75,7 @@
         Emits whenever the expression has been modified. It will contain the latest expression value.
     </tr>
 
-    <tr uxd-api-property name="valid" type="boolean">
+    <tr uxd-api-property name="validChange" type="boolean">
         Emits whenever the validity of the expression changes. A value of <code>true</code> signifies the
         expression is valid, whereas <code>false</code> signifies it is invalid.
     </tr>
@@ -303,7 +303,7 @@
     <tr uxd-api-property name="valueChange" type="any">
         Emits whenever the value has been modified.
     </tr>
-    <tr uxd-api-property name="valid" type="boolean">
+    <tr uxd-api-property name="validChange" type="boolean">
         Emits whenever the validity of the value has changed. It will contain <code>true</code> if the
         value is valid, and <code>false</code> if it is not.
     </tr>

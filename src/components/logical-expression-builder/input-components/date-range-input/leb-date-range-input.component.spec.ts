@@ -11,7 +11,7 @@ import { LogicalExpressionBuilderService } from '../../services/logical-expressi
     template: `
         <ux-date-range-input
             [data]="data"
-            (valid)="onValidChange($event)"
+            (validChange)="onValidChange($event)"
             [value]="value"
             (valueChange)="onValueChange($event)">
         </ux-date-range-input>
