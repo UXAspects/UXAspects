@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {
     FieldDefinition,
-    Expression,
+    LogicalExpression,
     LogicalOperatorDefinition,
     NumberInputComponent,
     OperatorDefinitionList,
@@ -84,7 +84,7 @@ export class AppComponent {
 
     localizedStrings = {};
 
-    expression: Expression = {
+    expression: LogicalExpression = {
         type: 'group',
         logicalOperator: 'and',
         children: [
@@ -109,7 +109,7 @@ export class AppComponent {
 
     valid: boolean;
 
-    initialExpression: Expression = { ...this.expression };
+    initialExpression: LogicalExpression = { ...this.expression };
 
     resetExpression(): void {
         this.expression = { ...this.initialExpression };

@@ -1,7 +1,7 @@
 import { LebConditionComponent } from './leb-condition.component';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Component } from '@angular/core';
-import { ExpressionCondition } from '../interfaces/Expression';
+import { ExpressionCondition } from '../interfaces/LogicalExpression';
 import { FieldDefinition } from '../interfaces/FieldDefinition';
 import { OperatorDefinition } from '../interfaces/OperatorDefinitionList';
 import { DisplayValueFunction } from '../interfaces/DisplayValueFunction';

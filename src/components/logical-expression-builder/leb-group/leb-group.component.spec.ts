@@ -1,7 +1,7 @@
 import { LebGroupComponent } from './leb-group.component';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Component } from '@angular/core';
-import { Expression } from '../interfaces/Expression';
+import { LogicalExpression } from '../interfaces/LogicalExpression';
 import { LogicalOperatorDefinition } from '../interfaces/LogicalOperatorDefinition';
 import { LogicalExpressionBuilderModule } from '../logical-expression-builder.module';
 import { FocusHandlerService  }from '../services/focus-handler.service';
@@ -22,7 +22,7 @@ import { BehaviorSubject, Observable, Subject } from 'rxjs';
 export class GroupTestComponent {
     path = [0];
     indent = 0;
-    subExpression: Expression = {type: 'group', logicalOperator: 'and', children: []};
+    subExpression: LogicalExpression = {type: 'group', logicalOperator: 'and', children: []};
 }
 
 describe('LebGroupComponent', () => {

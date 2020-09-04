@@ -13,7 +13,7 @@ import { LogicalOperatorDefinition } from './interfaces/LogicalOperatorDefinitio
 import { OperatorDefinitionList } from './interfaces/OperatorDefinitionList';
 import { FieldDefinition } from './interfaces/FieldDefinition';
 import { LogicalExpressionBuilderService } from './services/logical-expression-builder.service';
-import { Expression } from './interfaces/Expression';
+import { LogicalExpression } from './interfaces/LogicalExpression';
 import { DisplayValueFunction } from './interfaces/DisplayValueFunction';
 import { ValidationService } from './services/validation.service';
 import { delay, distinctUntilChanged, takeUntil } from 'rxjs/operators';
@@ -37,7 +37,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
     ]
 })
 export class LogicalExpressionBuilderComponent implements OnChanges, OnDestroy, OnInit, ControlValueAccessor {
-    @Output() expressionChange: EventEmitter<Expression> = new EventEmitter<Expression>();
+    @Output() expressionChange: EventEmitter<LogicalExpression> = new EventEmitter<LogicalExpression>();
     @Output() valid: EventEmitter<boolean> = new EventEmitter<boolean>();
 
     @Input()
@@ -56,7 +56,7 @@ export class LogicalExpressionBuilderComponent implements OnChanges, OnDestroy, 
     }
 
     @Input()
-    set expression(expression: Expression) {
+    set expression(expression: LogicalExpression) {
         this._expression = expression;
     }
 
@@ -64,7 +64,7 @@ export class LogicalExpressionBuilderComponent implements OnChanges, OnDestroy, 
         return this._expression;
     }
 
-    private _expression: Expression;
+    private _expression: LogicalExpression;
 
     @Input()
     set localizedStrings(localizedStrings: { [key: string]: string | string[] }) {
@@ -105,7 +105,7 @@ export class LogicalExpressionBuilderComponent implements OnChanges, OnDestroy, 
         this.destroy$.complete();
     }
 
-    handleSubExpressionChange(expression: Expression): void {
+    handleSubExpressionChange(expression: LogicalExpression): void {
         this._expression = { ...expression } || null;
 
         this.expressionChange.emit(this._expression);
@@ -152,14 +152,14 @@ export class LogicalExpressionBuilderComponent implements OnChanges, OnDestroy, 
     }
 
     /** Store the change callback provided by Angular Forms */
-    onChange: (_: Expression) => void = () => {
+    onChange: (_: LogicalExpression) => void = () => {
     }
 
     /** Store the touched callback provided by Angular Forms */
     onTouched: () => void = () => {
     }
 
-    registerOnChange(fn: (_: Expression) => void): void {
+    registerOnChange(fn: (_: LogicalExpression) => void): void {
         this.onChange = fn;
     }
 

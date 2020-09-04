@@ -14,7 +14,7 @@ import {
 import { LogicalExpressionBuilderService } from '../services/logical-expression-builder.service';
 import { FieldDefinition } from '../interfaces/FieldDefinition';
 import { OperatorDefinition } from '../interfaces/OperatorDefinitionList';
-import { ExpressionCondition } from '../interfaces/Expression';
+import { ExpressionCondition } from '../interfaces/LogicalExpression';
 import { Subject } from 'rxjs';
 import { distinctUntilChanged, filter, map, takeUntil } from 'rxjs/operators';
 import { ValidationService } from '../services/validation.service';

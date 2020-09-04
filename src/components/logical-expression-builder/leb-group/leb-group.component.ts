@@ -7,7 +7,7 @@ import {
     OnInit,
     Output
 } from '@angular/core';
-import { Expression, ExpressionCondition, ExpressionGroup } from '../interfaces/Expression';
+import { LogicalExpression, ExpressionCondition, ExpressionGroup } from '../interfaces/LogicalExpression';
 import { LogicalOperatorDefinition } from '../interfaces/LogicalOperatorDefinition';
 import { LogicalExpressionBuilderService } from '../services/logical-expression-builder.service';
 import { ValidationService } from '../services/validation.service';
@@ -36,18 +36,18 @@ export class LebGroupComponent implements OnInit, OnDestroy {
     }
 
     private _subExpression: ExpressionGroup;
-    public _children: ReadonlyArray<Expression>;
+    _children: ReadonlyArray<LogicalExpression>;
 
-    public readonly additionalIndent: number = 40;
-    public logicalOperators: LogicalOperatorDefinition[];
-    public _logicalOperatorOptions: ReadonlyArray<LogicalOperatorDefinition> = null;
-    public selectedLogicalOperator: LogicalOperatorDefinition;
+    readonly additionalIndent: number = 40;
+    logicalOperators: LogicalOperatorDefinition[];
+    _logicalOperatorOptions: ReadonlyArray<LogicalOperatorDefinition> = null;
+    selectedLogicalOperator: LogicalOperatorDefinition;
 
-    public _focused: boolean = false;
-    public _valid: boolean = true;
-    public _errorMessage: string;
-    public _showAddBtn: boolean = false;
-    public _editBlocked$: Observable<boolean>;
+    _focused: boolean = false;
+    _valid: boolean = true;
+    _errorMessage: string;
+    _showAddBtn: boolean = false;
+    _editBlocked$: Observable<boolean>;
 
     constructor(
         private lebService: LogicalExpressionBuilderService,
@@ -66,7 +66,7 @@ export class LebGroupComponent implements OnInit, OnDestroy {
         this.validationService.removeValidationState(this.path);
     }
 
-    public handleSelectedOperatorChange(index: number) {
+    handleSelectedOperatorChange(index: number) {
         this.selectedLogicalOperator = this.logicalOperators[index];
 
         this._subExpression = { ...this._subExpression, logicalOperator: this.selectedLogicalOperator.name };
@@ -75,7 +75,7 @@ export class LebGroupComponent implements OnInit, OnDestroy {
         this.subExpressionChange.emit(this._subExpression);
     }
 
-    public handleSubExpressionChange(subExpression: ExpressionGroup | ExpressionCondition, index: number) {
+    handleSubExpressionChange(subExpression: ExpressionGroup | ExpressionCondition, index: number) {
         if (subExpression) {
             let newChildren = [...this._subExpression.children];
             newChildren[index] = subExpression;
@@ -90,8 +90,8 @@ export class LebGroupComponent implements OnInit, OnDestroy {
         this.subExpressionChange.emit(this._subExpression);
     }
 
-    public addCondition(): void {
-        const children: Expression[] = [...this._subExpression.children, {
+    addCondition(): void {
+        const children: LogicalExpression[] = [...this._subExpression.children, {
             type: 'condition',
             field: null,
             operator: null,
@@ -106,8 +106,8 @@ export class LebGroupComponent implements OnInit, OnDestroy {
         this.focusHandlerService.setPathToActivate([...this.path, this._subExpression.children.length - 1]);
     }
 
-    public addGroup(): void {
-        const children: Expression[] = [...this._subExpression.children, {
+    addGroup(): void {
+        const children: LogicalExpression[] = [...this._subExpression.children, {
             type: 'group',
             logicalOperator: this.lebService.getLogicalOperators()[0].name,
             children: [
@@ -123,7 +123,7 @@ export class LebGroupComponent implements OnInit, OnDestroy {
         this.focusHandlerService.setEditBlocked(true);
     }
 
-    public removeConditionAtIndex(id: number): void {
+    removeConditionAtIndex(id: number): void {
         const children = this._subExpression.children.filter((_, index) => {
             return index !== id;
         });
@@ -146,7 +146,7 @@ export class LebGroupComponent implements OnInit, OnDestroy {
         }
     }
 
-    public embedConditionAtIndex(id: number): void {
+    embedConditionAtIndex(id: number): void {
         let tempExpression = { ...this._subExpression };
         const condition = { ...tempExpression.children[id] };
 
@@ -164,7 +164,7 @@ export class LebGroupComponent implements OnInit, OnDestroy {
         this.focusHandlerService.setPathToActivate([...this.path, id]);
     }
 
-    public deleteGroup(): void {
+    deleteGroup(): void {
         const position = this.path[this.path.length - 1];
 
         this.subExpressionChange.emit(null);

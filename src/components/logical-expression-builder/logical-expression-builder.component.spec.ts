@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
 import { FieldDefinition } from './interfaces/FieldDefinition';
 import { OperatorDefinitionList } from './interfaces/OperatorDefinitionList';
 import { LogicalExpressionBuilderModule } from './logical-expression-builder.module';
-import { Expression } from './interfaces/Expression';
+import { LogicalExpression } from './interfaces/LogicalExpression';
 
 @Component({
     selector: 'ux-leb',
@@ -21,7 +21,7 @@ export class LebTestComponent {
     operators: OperatorDefinitionList = {
         test: [{name: 'test', label: 'test', component: null}]
     };
-    expression: Expression = {
+    expression: LogicalExpression = {
         type: 'condition',
         field: 'test',
         operator: 'test',

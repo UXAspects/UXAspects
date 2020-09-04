@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {
     FieldDefinition,
-    Expression,
+    LogicalExpression,
     LogicalOperatorDefinition,
     NumberInputComponent,
     OperatorDefinitionList,
@@ -103,7 +103,7 @@ export class ComponentsLogicalExpressionBuilderComponent extends BaseDocumentati
 
     localizedStrings = {};
 
-    expression: Expression = {
+    expression: LogicalExpression = {
         type: 'group',
         logicalOperator: 'and',
         children: [
@@ -128,7 +128,7 @@ export class ComponentsLogicalExpressionBuilderComponent extends BaseDocumentati
 
     valid: boolean;
 
-    initialExpression: Expression = { ...this.expression };
+    initialExpression: LogicalExpression = { ...this.expression };
 
     constructor() {
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));

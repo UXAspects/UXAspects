@@ -8,7 +8,7 @@ export interface ExpressionCondition {
 export interface ExpressionGroup {
     type: 'group';
     logicalOperator: string;
-    children: (ExpressionCondition|ExpressionGroup)[];
+    children: LogicalExpression[];
 }
 
-export type Expression = ExpressionCondition | ExpressionGroup;
+export type LogicalExpression = ExpressionCondition | ExpressionGroup;
