@@ -25,6 +25,10 @@
             "classname": "ux-icon-add"
         },
         {
+            "name": "address-book",
+            "classname": "ux-icon-address-book"
+        },
+        {
             "name": "advanced-search",
             "classname": "ux-icon-advanced-search"
         },

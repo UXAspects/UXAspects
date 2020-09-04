@@ -7,6 +7,7 @@ export const commonIcons = [
     'actions',
     'active',
     'add',
+    'address-book',
     'advanced-search',
     'aggregate',
     'alarm',
