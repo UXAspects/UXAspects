@@ -1,3 +1,4 @@
+import { PersistentDataService } from '@ux-aspects/ux-aspects';
 import { IPlayground } from '../../../interfaces/IPlayground';
 import { DocumentationType } from '../tokens/documentation.token';
 
@@ -7,7 +8,8 @@ import { DocumentationType } from '../tokens/documentation.token';
  */
 export abstract class PlaygroundStrategy {
 
-    constructor(protected documentationType: DocumentationType) { }
+    constructor(protected documentationType: DocumentationType,
+                protected persistentDataService: PersistentDataService) { }
 
     /** Get all the external scripts that should be loaded in the `head` of the HTML */
     getGlobalExternalScripts(assetsUrl: string): string[] {
