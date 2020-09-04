@@ -434,3 +434,55 @@ describe('Marquee wizard with validation', () => {
         return !stepElements[index].classList.contains('invalid');
     }
 });
+
+/**
+ * Custom step template
+ */
+@Component({
+    selector: 'marquee-wizard-custom-step',
+    template: `
+        <ux-marquee-wizard [stepTemplate]="stepTemplate">
+
+            <ng-template #stepTemplate let-step let-index="index" let-context="context">
+                {{ index }}. {{ step.header }} ({{ context.count }})
+            </ng-template>
+
+            <ux-marquee-wizard-step
+                header="Step One"
+                [context]="{ count: 123 }">
+            </ux-marquee-wizard-step>
+
+            <ux-marquee-wizard-step
+                header="Step Two"
+                [context]="{ count: 456 }">
+            </ux-marquee-wizard-step>
+        </ux-marquee-wizard>
+    `
+})
+export class MarqueeWizardCustomStepTemplateComponent {
+}
+
+describe('Marquee wizard with custom step template', () => {
+    let component: MarqueeWizardCustomStepTemplateComponent;
+    let fixture: ComponentFixture<MarqueeWizardCustomStepTemplateComponent>;
+    let nativeElement: HTMLElement;
+
+    beforeEach(async(() => {
+        TestBed.configureTestingModule({
+            imports: [MarqueeWizardModule],
+            declarations: [MarqueeWizardCustomStepTemplateComponent]
+        }).compileComponents();
+
+        fixture = TestBed.createComponent(MarqueeWizardCustomStepTemplateComponent);
+        component = fixture.componentInstance;
+        nativeElement = fixture.nativeElement;
+        fixture.detectChanges();
+    }));
+
+    it('should display the custom step template with the correct context', () => {
+        const steps = nativeElement.querySelectorAll('.marquee-wizard-step');
+        expect(steps.item(0).textContent.trim()).toBe('0. Step One (123)')
+        expect(steps.item(1).textContent.trim()).toBe('1. Step Two (456)')
+    });
+
+});
