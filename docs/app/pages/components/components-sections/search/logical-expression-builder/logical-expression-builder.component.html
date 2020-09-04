@@ -39,101 +39,108 @@
 </p>
 
 <uxd-api-properties tableTitle="Inputs">
-    <tr uxd-api-property name="expression" type="LogicalExpressionBuilderExpression">
-        If defined, the Logical Expression Builder will be filled with this expression.
+    <tr uxd-api-property name="expression" type="Expression">
+        The expression to display in the Logical Expression Builder.
     </tr>
 
     <tr uxd-api-property name="fields" type="FieldDefinition[]" [required]="true">
-        Contains the data fields that can be used to build the expression.
+        The data fields that can be used to build the expression.
     </tr>
 
     <tr uxd-api-property name="operators" type="OperatorDefinitionList" [required]="true">
-        Contains the operators that can be used to build the expression.
+        The operators that can be used to build the expression. The object should contain field types as keys and
+        arrays of operators as values.
     </tr>
 
     <tr uxd-api-property name="logicalOperators" type="LogicalOperatorDefinition[]">
-        Contains the logical operators that can be used to build the expression. The default operators are
+        The logical operators that can be used to build the expression. The default operators are
         <code>and</code>, <code>or</code>, and <code>not</code>.
     </tr>
 
     <tr uxd-api-property name="localizedStrings" type="{ [key: string]: string | string[] }">
-        This object can be used to provide custom localized strings that are used for display or accessibility in the
-        Logical Expression Builder.
+        A collection of custom localized strings that are used for display or accessibility in the Logical Expression
+        Builder.
     </tr>
 
     <tr uxd-api-property name="displayValueFunction"
         type="(value: any, fieldType?: string, fieldData?: any) => string">
-        If provided, this function is used to display the values of conditions that are not in edit mode.
+        A function used to display the values of conditions that are not in edit mode.
+
+        <uxd-snippet [content]="snippets.compiled.displayValueFunctionTs"></uxd-snippet>
     </tr>
 </uxd-api-properties>
 
 <uxd-api-properties tableTitle="Outputs">
-    <tr uxd-api-property name="expressionChange" type="LogicalExpressionBuilderExpression">
-        This event will fire whenever the expression has been modified. It will contain the latest expression value.
+    <tr uxd-api-property name="expressionChange" type="Expression">
+        Emits whenever the expression has been modified. It will contain the latest expression value.
     </tr>
 
     <tr uxd-api-property name="valid" type="boolean">
-        This event will fire whenever the validity of the expression changes. A value of <code>true</code> signifies the
+        Emits whenever the validity of the expression changes. A value of <code>true</code> signifies the
         expression is valid, whereas <code>false</code> signifies it is invalid.
     </tr>
 </uxd-api-properties>
 
-<h4>Configuration</h4>
+<uxd-api-properties tableTitle="Fields">
+    <tr uxd-api-property name="name" type="string" [required]="true">
+        The name used to identify the field.
+    </tr>
 
-<p>
-    The <code>fields</code> property expects an array of <code>FieldDefinition</code> objects, each of which will be an
-    option in the select input for choosing a field for a condition. Each object has <code>name</code> property, which
-    is used in the generated expression, a <code>label</code> property, which contains the string displayed in the UI,
-    and a <code>fieldType</code>, which is used for associating the field with its operators.
-</p>
+    <tr uxd-api-property name="label" type="string" [required]="true">
+        The text that is displayed to the user.
+    </tr>
 
-<p>
-    Additionally, the object can contain a <code>data</code> property, which is used to pass data to the Input
-    Component. It can contain, e.g., options for a select input, or <code>min</code> and <code>max</code> values for a
-    number picker. A <code>validateFunction</code> with the signature <code>(value: any) => boolean</code> can also be
-    passed in the <code>data</code> object. It is used to check the validity of a value entered in an Input Component
-    associated with the field.
-</p>
+    <tr uxd-api-property name="fieldType" type="string" [required]="true">
+        The type of the field. Used for associating fields and operators.
+    </tr>
+
+    <tr uxd-api-property name="data" type="object">
+        An object containing configuration options for the Input Components, e.g. options for the Select Input Component
+        or a function for validating user input.
+    </tr>
+</uxd-api-properties>
 
 <uxd-snippet [content]="snippets.compiled.fieldsDefinitionTs"></uxd-snippet>
 
-<p>
-    The <code>operators</code> property expects an object of type <code>OperatorDefinitionList</code>. This object
-    contains the field types defined in <code>fields</code> as property names. Each of these properties is an array of
-    operator definition.
-</p>
+<uxd-api-properties tableTitle="Operators">
+    <tr uxd-api-property name="name" type="string" [required]="true">
+        The name used to identify the operator.
+    </tr>
 
-<p>
-    Each operator has a <code>name</code> that is used in the generated expression, a <code>label</code> that is used in
-    the UI, and a <code>component</code> property, which defines which Input Component will be rendered if the operator
-    is selected. It is possible to have operators with different Input Components for the same field type.
-</p>
+    <tr uxd-api-property name="label" type="string" [required]="true">
+        The text that is displayed to the user.
+    </tr>
+
+    <tr uxd-api-property name="component" type="any" [required]="true">
+        The class of the Input Component that should be used for user input.
+    </tr>
+</uxd-api-properties>
 
 <uxd-snippet [content]="snippets.compiled.operatorsDefinitionTs"></uxd-snippet>
 
-<p>
-    The <code>logicalOperators</code> property defines which logical operators are available in the Logical Expression
-    Builder. It is an array of type <code>LogicalOperatorDefinition</code>, in which each object has a <code>name</code>
-    and <code>label</code> property, for the generated expression and the UI, respectively. Additionally, <code>minNumberOfChildren</code>
-    or <code>maxNumberOfChildren</code> can be set to display an error if the respective logical operator has a wrong
-    number of children. This error message can also be defined.
-</p>
+<uxd-api-properties tableTitle="Logical Operators">
+    <tr uxd-api-property name="name" type="string" [required]="true">
+        The name used to identify the logical operator.
+    </tr>
 
-<p>
-    If no <code>logicalOperators</code> property is provided, the default operators <code>and</code>, <code>or</code>,
-    and <code>not</code> are used.
-</p>
+    <tr uxd-api-property name="label" type="string" [required]="true">
+        The text that is displayed to the user.
+    </tr>
+
+    <tr uxd-api-property name="minNumberOfChildren" type="number">
+        The minimum number of children the logical operator should have.
+    </tr>
+
+    <tr uxd-api-property name="maxNumberOfChildren" type="number">
+        The maximum number of children the logical operator should have.
+    </tr>
+
+    <tr uxd-api-property name="errorMessage" type="string">
+        The error message that should be displayed if the number of children is not within the set boundaries.
+    </tr>
+</uxd-api-properties>
 
 <uxd-snippet [content]="snippets.compiled.logicalOperatorsDefinitionTs"></uxd-snippet>
-
-<p>
-    The <code>displayValueFunction</code> property provides a way to customize how values are displayed in the Logical
-    Expression Builder if a condition is not being edited. It expects a function that takes a value as an argument and
-    transforms it into a string. Optionally, it can also take the arguments <code>fieldType</code> and
-    <code>fieldData</code> to further customize the display logic.
-</p>
-
-<uxd-snippet [content]="snippets.compiled.displayValueFunctionTs"></uxd-snippet>
 
 <h4>Localization</h4>
 
@@ -153,160 +160,159 @@
     (see example below).
 </p>
 
+<h4>Date Input Component</h4>
+
+<p>
+    Contains a date picker. It expects a value of type <code>number</code>, representing milliseconds since
+    January 1 1970, 12:00 AM. The <code>data</code> can contain the following properties:
+</p>
+
 <uxd-api-properties>
-    <tr uxd-api-property name="DateInputComponent">
-        <p>
-            Contains a date picker. It expects a value of type <code>number</code>, representing milliseconds since
-            January 1 1970, 12:00 AM. The <code>data</code> can contain the following properties:
-        </p>
-
-        <ul>
-            <li>
-                <code>showTime: boolean</code> - If specified, the date picker will also display time input. Defaults to
-                <code>false</code>.
-            </li>
-            <li>
-                <code>dateFormat: string</code> - The format dates will be displayed in. Defaults to
-                <code>'medium'</code>.
-            </li>
-            <li>
-                <code>showNowBtn: boolean</code> - If specified, the date picker will display a 'Now' button. Defaults
-                to <code>false</code>.
-            </li>
-            <li>
-                <code>validateFunction: (value: number) => boolean</code> - If specified, this function is used to
-                validate the value entered by the user.
-            </li>
-        </ul>
+    <tr uxd-api-property name="showTime" type="boolean">
+        Whether the date picker will also display time input. Defaults to <code>false</code>.
     </tr>
 
-    <tr uxd-api-property name="DateRangeInputComponent">
-        <p>
-            Contains a date range picker. It expects an object of the form
-            <code>{{ '{ start: number, end: number }' }}</code>
-            as a value, where each property represents a date in milliseconds since January 1 1970, 12:00 AM. The <code>data</code>
-            can contain the following properties:
-        </p>
-
-        <ul>
-            <li>
-                <code>showTime: boolean</code> - If specified, the date picker will also display time input. Defaults to
-                <code>false</code>.
-            </li>
-            <li>
-                <code>dateFormat: string</code> - The format dates will be displayed in. Defaults to
-                <code>'medium'</code>.
-            </li>
-            <li>
-                <code>showNowBtn: boolean</code> - If specified, the date range picker will display a 'Now' button.
-                Defaults to <code>false</code>.
-            </li>
-            <li>
-                <code>validateFunction: (value: {{'{ start: number, end: number }'}}) => boolean</code> - If specified,
-                this function is used to validate the value entered by the user.
-            </li>
-        </ul>
+    <tr uxd-api-property name="showNowBtn" type="boolean">
+        Whether the date picker will display a 'Now' button. Defaults to <code>false</code>.
     </tr>
 
-    <tr uxd-api-property name="NumberInputComponent">
-        <p>
-            Contains a number picker. It expects a value of type <code>number</code>. The <code>data</code> can contain
-            the following properties:
-        </p>
-
-        <ul>
-            <li>
-                <code>min: number</code> - The smallest number that can be entered in the date picker.
-            </li>
-            <li>
-                <code>max: number</code> - The largest number that can be entered in the date picker.
-            </li>
-            <li>
-                <code>validateFunction: (value: number) => boolean</code> - If specified, this
-                function is used to validate the value entered by the user.
-            </li>
-        </ul>
+    <tr uxd-api-property name="dateFormat" type="string">
+        The format dates will be displayed in. The pre-defined date formats can be found at
+        <a href="https://angular.io/api/common/DatePipe#pre-defined-format-options">Date Pipe</a> format options.
+        Defaults to <code>'short'</code>.
     </tr>
 
-    <tr uxd-api-property name="SelectInputComponent">
-        <p>
-            Contains a select input. It expects a value of type <code>string[]</code>, containing the <code>name</code>
-            of one or more options. The options for the select input can be provided in using the <code>options</code>
-            property of the <code>data</code>. Each option needs the
-            following properties:
-        </p>
+    <tr uxd-api-property name="validateFunction" type="(value: number) => boolean">
+        The function that is used to validate user input.
+    </tr>
+</uxd-api-properties>
+
+<h4>Date Range Input Component</h4>
+
+<p>
+    Contains a date range picker. It expects an object of the form <code>{{ '{ start: number, end: number }' }}</code>
+    as a value, where each property represents a date in milliseconds since January 1 1970, 12:00 AM. The
+    <code>data</code> can contain the following properties:
+</p>
+
+<uxd-api-properties>
+    <tr uxd-api-property name="showTime" type="boolean">
+        Whether the date range picker will also display time input. Defaults to <code>false</code>.
+    </tr>
+
+    <tr uxd-api-property name="showNowBtn" type="boolean">
+        Whether the date range picker will display a 'Now' button. Defaults to <code>false</code>.
+    </tr>
+
+    <tr uxd-api-property name="dateFormat" type="string">
+        The format dates will be displayed in. The pre-defined date formats can be found at
+        <a href="https://angular.io/api/common/DatePipe#pre-defined-format-options">Date Pipe</a> format options.
+        Defaults to <code>'short'</code>.
+    </tr>
+
+    <tr uxd-api-property name="validateFunction" type="(value: { start: number, end: number }) => boolean">
+        The function that is used to validate user input.
+    </tr>
+</uxd-api-properties>
+
+<h4>Number Input Component</h4>
+
+<p>
+    Contains a number picker. It expects a value of type <code>number</code>. The <code>data</code> can contain
+    the following properties:
+</p>
+
+<uxd-api-properties>
+    <tr uxd-api-property name="min" type="number">
+        The smallest number that can be entered in the number picker.
+    </tr>
+
+    <tr uxd-api-property name="max" type="number">
+        The largest number that can be entered in the number picker.
+    </tr>
+
+    <tr uxd-api-property name="validateFunction" type="(value: number) => boolean">
+        The function that is used to validate user input.
+    </tr>
+</uxd-api-properties>
+
+<h4>Select Input Component</h4>
+
+<p>
+    Contains a select input. It expects a value of type <code>string[]</code>, containing the <code>name</code>
+    of one or more options. The <code>data</code> can contain the following properties:
+</p>
+
+<uxd-api-properties>
+    <tr uxd-api-property name="options" [required]="true">
+        The options for the select input.
 
         <ul>
             <li>
-                <code>name: string</code> - A unique identifier for the option.
+                <code>name: string</code> - The name used to identify the option.
             </li>
             <li>
-                <code>label: string</code> - The text that is displayed in the UI.
+                <code>label: string</code> - The text that is displayed to the user.
             </li>
             <li>
-                <code>icon?: string</code> - Optionally, the name of a <code>ux-icon</code> that is displayed for this
+                <code>icon?: string</code> - Optionally, the name of a <code>ux-icon</code> that is displayed for the
                 option.
             </li>
         </ul>
-
-        <p>Additionally, a function to validate the entered value can be provided.</p>
-
-        <ul>
-            <li>
-                <code>validateFunction: (value: string[]) => boolean</code> - If specified, this
-                function is used to validate the value entered by the user.
-            </li>
-        </ul>
     </tr>
 
-    <tr uxd-api-property name="TextInputComponent">
-        <p>
-            Contains a simple text input, expecting a value of type <code>string</code>. The <code>data</code> can contain
-            the following properties:
-        </p>
-
-        <ul>
-            <li>
-                <code>validateFunction: (value: string) => boolean</code> - If specified, this
-                function is used to validate the value entered by the user.
-            </li>
-        </ul>
+    <tr uxd-api-property name="validateFunction" type="(value: string[]) => boolean">
+        The function that is used to validate user input.
     </tr>
 </uxd-api-properties>
+
+<h4>Text Input Component</h4>
+
+<p>
+    Contains a simple text input, expecting a value of type <code>string</code>. The <code>data</code> can
+    contain the following properties:
+</p>
+
+<uxd-api-properties>
+    <tr uxd-api-property name="validateFunction" type="(value: string) => boolean">
+        The function that is used to validate user input.
+    </tr>
+</uxd-api-properties>
+
 
 <h4>Custom Input Components</h4>
 
 <p>
-    In addition to the predefined Input Components, it is also possible to built custom input components. These must
-    conform with the following interfaces:
+    In addition to the predefined Input Components, it is also possible to implement Custom Input Components. These must
+    have the following inputs and outputs:
 </p>
 
-<uxd-api-properties tableTitle="Outputs">
+<uxd-api-properties tableTitle="Inputs">
     <tr uxd-api-property name="value" type="any">
-        Contains the value of the respective condition.
+        The value of the respective condition.
     </tr>
 
     <tr uxd-api-property name="data" type="any">
-        Contains the data for the specific <code>field</code> defined in the fields definition. E.g., it can be used
-        to pass options for a select input, or any additional data the input component needs that depends on the
-        specific field.
+        The configuration options for the custom component, e.g. the available options in a select dropdown. This is
+        defined in the <code>fields</code> input of
+        <code>&lt;ux-logical-expression-builder&gt;</code>.
     </tr>
 </uxd-api-properties>
 
 <uxd-api-properties tableTitle="Outputs">
     <tr uxd-api-property name="valueChange" type="any">
-        This event will fire whenever the value has been modified. It will contain the latest value.
+        Emits whenever the value has been modified.
     </tr>
     <tr uxd-api-property name="valid" type="boolean">
-        This event will fire whenever the validity of the value has changed. It will contain <code>true</code> if the
+        Emits whenever the validity of the value has changed. It will contain <code>true</code> if the
         value is valid, and <code>false</code> if it is not.
     </tr>
 </uxd-api-properties>
 
-<h4>Example for a custom Input Component</h4>
+<h4>Example of a Custom Input Component</h4>
 
 <p>
-    Below is an example for a custom Input Component containing a <code>textarea</code> input. In this specific case,
+    Below is an example for a Custom Input Component containing a <code>textarea</code> input. In this specific case,
     the <code>data</code> object is used to pass a <code>maxHeight</code> for the input.
 </p>
 
@@ -320,6 +326,10 @@
 </ux-tabset>
 
 <h4>Example Code</h4>
+
+<p>
+    Below is an example of how the Logical Expression Builder can be used.
+</p>
 
 <ux-tabset [minimal]="false">
     <ux-tab heading="HTML">
