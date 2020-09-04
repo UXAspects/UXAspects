@@ -25,6 +25,10 @@
             "classname": "ux-icon-add"
         },
         {
+            "name": "address-book",
+            "classname": "ux-icon-address-book"
+        },
+        {
             "name": "advanced-search",
             "classname": "ux-icon-advanced-search"
         },
@@ -83,6 +87,10 @@
         {
             "name": "blog",
             "classname": "ux-icon-blog"
+        },
+        {
+            "name": "bloomberg",
+            "classname": "ux-icon-bloomberg"
         },
         {
             "name": "book",
@@ -233,6 +241,10 @@
             "classname": "ux-icon-chevron-up"
         },
         {
+            "name": "chorus",
+            "classname": "ux-icon-chorus"
+        },
+        {
             "name": "circular-view",
             "classname": "ux-icon-circular-view"
         },
@@ -303,6 +315,10 @@
         {
             "name": "configuration",
             "classname": "ux-icon-configuration"
+        },
+        {
+            "name": "confluence",
+            "classname": "ux-icon-confluence"
         },
         {
             "name": "connect",
@@ -571,6 +587,10 @@
         {
             "name": "edit",
             "classname": "ux-icon-edit"
+        },
+        {
+            "name": "efax",
+            "classname": "ux-icon-efax"
         },
         {
             "name": "eject-filled",
@@ -1097,6 +1117,10 @@
             "classname": "ux-icon-resources"
         },
         {
+            "name": "reuters",
+            "classname": "ux-icon-reuters"
+        },
+        {
             "name": "rewind-filled",
             "classname": "ux-icon-rewind-filled"
         },
@@ -1217,6 +1241,10 @@
             "classname": "ux-icon-shop-cart"
         },
         {
+            "name": "sms",
+            "classname": "ux-icon-sms"
+        },
+        {
             "name": "soa",
             "classname": "ux-icon-soa"
         },
@@ -1243,6 +1271,10 @@
         {
             "name": "social-instagram",
             "classname": "ux-icon-social-instagram"
+        },
+        {
+            "name": "social-instant-message",
+            "classname": "ux-icon-social-instant-message"
         },
         {
             "name": "social-linkedin",
@@ -1379,6 +1411,10 @@
         {
             "name": "support",
             "classname": "ux-icon-support"
+        },
+        {
+            "name": "symphony",
+            "classname": "ux-icon-symphony"
         },
         {
             "name": "sync",
@@ -1603,6 +1639,10 @@
         {
             "name": "vm-maintenance",
             "classname": "ux-icon-vm-maintenance"
+        },
+        {
+            "name": "voltage",
+            "classname": "ux-icon-voltage"
         },
         {
             "name": "volume-filled",
