@@ -481,8 +481,8 @@ describe('Marquee wizard with custom step template', () => {
 
     it('should display the custom step template with the correct context', () => {
         const steps = nativeElement.querySelectorAll('.marquee-wizard-step');
-        expect(steps.item(0).textContent.trim()).toBe('0. Step One (123)')
-        expect(steps.item(1).textContent.trim()).toBe('1. Step Two (456)')
+        expect(steps.item(0).textContent.trim()).toBe('0. Step One (123)');
+        expect(steps.item(1).textContent.trim()).toBe('1. Step Two (456)');
     });
 
 });
