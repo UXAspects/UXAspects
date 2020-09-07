@@ -50,7 +50,7 @@ export class LebConditionComponent implements OnChanges, OnInit, OnDestroy {
     set container(container: ViewContainerRef) {
         if (container) {
             this.inputContainer = container;
-            this._createInputComponent();
+            this.createInputComponent();
         }
     }
 
@@ -129,7 +129,7 @@ export class LebConditionComponent implements OnChanges, OnInit, OnDestroy {
         this.validationService.removeValidationState(this.path);
     }
 
-    private _createInputComponent(): void {
+    private createInputComponent(): void {
         // create input component, set input properties and listen for changes on output properties
         if (this._operator?.component) {
             this.inputContainer.clear();
@@ -145,7 +145,7 @@ export class LebConditionComponent implements OnChanges, OnInit, OnDestroy {
                 )
                 .subscribe((value: any) => {
                     this._value = value;
-                    this._buildCondition();
+                    this.buildCondition();
                 });
 
             this.inputComponentRef.instance.validChange
@@ -174,10 +174,10 @@ export class LebConditionComponent implements OnChanges, OnInit, OnDestroy {
 
     handleOperatorSelected(selectedOperator: OperatorDefinition): void {
         this._operator = selectedOperator;
-        this._createInputComponent();
+        this.createInputComponent();
     }
 
-    private _buildCondition(): void {
+    private buildCondition(): void {
         this._condition = {
             type: 'condition',
             field: this._field?.name ?? null,
@@ -192,7 +192,7 @@ export class LebConditionComponent implements OnChanges, OnInit, OnDestroy {
 
         this.validationService.setValidationState(this.path, this._valid);
 
-        this._buildCondition();
+        this.buildCondition();
         this.initialCondition = { ...this._condition };
         this.conditionChange.emit(this._condition);
     }
@@ -202,7 +202,7 @@ export class LebConditionComponent implements OnChanges, OnInit, OnDestroy {
         this.focusHandlerService.setPathToActivate(this.path);
 
         if (this.initialCondition.field || this.initialCondition.operator || this.initialCondition.value) {
-            this._resetCondition(this.initialCondition);
+            this.resetCondition(this.initialCondition);
             this.conditionChange.emit(this._condition);
         } else {
             this.conditionDeleted.emit(this.id);
@@ -218,7 +218,7 @@ export class LebConditionComponent implements OnChanges, OnInit, OnDestroy {
 
             this.validationService.setValidationState(this.path, this._valid && !this._isInEditMode);
 
-            this._buildCondition();
+            this.buildCondition();
             this.conditionChange.emit(this._condition);
         }
     }
@@ -236,7 +236,7 @@ export class LebConditionComponent implements OnChanges, OnInit, OnDestroy {
         }
     }
 
-    private _resetCondition(initialCondition: ExpressionCondition): void {
+    private resetCondition(initialCondition: ExpressionCondition): void {
         this._condition = { ...initialCondition };
         this._value = initialCondition.value;
 
