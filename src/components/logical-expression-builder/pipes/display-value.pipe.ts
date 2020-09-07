@@ -13,7 +13,7 @@ export class DisplayValuePipe implements PipeTransform {
         this.transformFunction = this.lebService.getDisplayValueFunction();
     }
 
-    transform(value: any, fieldType?: string, fieldData?: any): string {
+    transform(value: any, fieldType: string, fieldData: any): string {
         if (this.transformFunction) {
             return this.transformFunction(value, fieldType, fieldData);
         }
