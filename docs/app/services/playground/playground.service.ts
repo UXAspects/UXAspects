@@ -1,8 +1,8 @@
 import { DOCUMENT } from '@angular/common';
 import { Inject, Injectable } from '@angular/core';
-import { PersistentDataService } from '@ux-aspects/ux-aspects';
 import { IPlayground } from '../../interfaces/IPlayground';
 import { AppConfiguration } from '../app-configuration/app-configuration.service';
+import { SiteThemeService } from '../site-theme/site-theme.service';
 import { AngularPlaygroundStrategy } from './strategies/angular-strategy';
 import { CssPlaygroundStrategy } from './strategies/css-strategy';
 import { PlaygroundStrategy } from './strategies/playground-strategy';
@@ -21,7 +21,7 @@ export class PlaygroundService {
         @Inject(DOCUMENTATION_TOKEN) private _documentationType: DocumentationType,
         /** Get the global configuation properties */
         private _appConfig: AppConfiguration,
-        private _persistentDataService: PersistentDataService
+        private _siteThemeService: SiteThemeService
     ) { }
 
     /** Launch the code playground */
@@ -70,10 +70,10 @@ export class PlaygroundService {
     private createPlaygroundStrategy(playground: IPlayground): PlaygroundStrategy {
         switch (playground.framework) {
             case 'css':
-                return new CssPlaygroundStrategy(this._documentationType, this._persistentDataService);
+                return new CssPlaygroundStrategy(this._documentationType, this._siteThemeService);
             case 'angular':
             default:
-                return new AngularPlaygroundStrategy(this._documentationType, this._persistentDataService);
+                return new AngularPlaygroundStrategy(this._documentationType, this._siteThemeService);
         }
     }
 }

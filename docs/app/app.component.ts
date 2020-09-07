@@ -2,6 +2,7 @@ import { Component, NgZone, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { filter, map } from 'rxjs/operators';
 import { NavigationService } from './services/navigation/navigation.service';
+import { SiteThemeService } from './services/site-theme/site-theme.service';
 import { Breadcrumb, PageHeaderIconMenu, PageHeaderNavigationItem } from '@ux-aspects/ux-aspects';
 
 @Component({
@@ -89,8 +90,10 @@ export class AppComponent implements OnInit {
     constructor(private router: Router,
         private activatedRoute: ActivatedRoute,
         private navigation: NavigationService,
-        ngZone: NgZone) {
+        ngZone: NgZone,
+        siteThemeService: SiteThemeService) {
         (<any>window).ngZone = ngZone;
+        siteThemeService.load();
     }
 
     ngOnInit() {

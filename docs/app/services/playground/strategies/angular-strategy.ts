@@ -25,31 +25,6 @@ export class AngularPlaygroundStrategy extends PlaygroundStrategy {
         return [`System.import('main.ts').catch(console.error.bind(console));`];
     }
 
-    getGlobalExternalStyles(assetsUrl: string): string[] {
-        const stylesheets = [
-            SystemJSHelper.getPackageUrl({ name: 'bootstrap', path: 'bootstrap@3.3.7/dist/css/bootstrap.min.css' }),
-        ];
-
-        if (this.documentationType === DocumentationType.Keppel) {
-            stylesheets.push(`${assetsUrl}/css/ux-aspects.css`);
-        } else {
-            stylesheets.push(`${assetsUrl}/styles/ux-aspects.css`);
-
-            const theme = this.persistentDataService.getItem('uxd-site-theme');
-
-            if (theme === 'MicroFocus2020') {
-                stylesheets.push(`https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap`);
-                stylesheets.push(`${assetsUrl}/styles/quantum-ux-aspects-micro-focus-2020.css`);
-            } else if (theme === 'WhiteLabel') {
-                stylesheets.push(`${assetsUrl}/styles/quantum-ux-aspects-white-label.css`);
-            } else {
-                stylesheets.push(`${assetsUrl}/styles/quantum-ux-aspects.css`);
-            }
-        }
-
-        return stylesheets;
-    }
-
     getGlobalStyles(): string[] {
         return [`body { padding: 15px; background-color: #fff; }`];
     }
