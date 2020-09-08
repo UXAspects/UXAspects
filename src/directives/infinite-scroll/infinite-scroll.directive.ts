@@ -1,4 +1,3 @@
-
 import { AfterContentInit, ContentChildren, Directive, ElementRef, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, QueryList, SimpleChanges } from '@angular/core';
 import { BehaviorSubject, from, fromEvent, Observable, of, Subject, Subscription } from 'rxjs';
 import { auditTime, combineLatest, filter as filterOperator, first, takeUntil } from 'rxjs/operators';
@@ -382,11 +381,10 @@ export class InfiniteScrollDirective<T = any> implements OnInit, AfterContentIni
         if (this._scrollElement && this.loadOnScroll) {
 
             const element = <HTMLElement>this._scrollElement.nativeElement;
-            const remainingScroll =
-                element.scrollHeight -
-                (element.scrollTop + element.clientHeight);
+            const remainingScroll = element.scrollHeight - (element.scrollTop + element.clientHeight);
+            const isVisible = element.scrollHeight > 0;
 
-            return remainingScroll <= element.clientHeight;
+            return isVisible && remainingScroll <= element.clientHeight;
         }
 
         return false;
