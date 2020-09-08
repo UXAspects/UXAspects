@@ -8,7 +8,8 @@ import {
     LebTextInputComponent,
     LebSelectInputComponent,
     LebDateInputComponent,
-    LebDateRangeInputComponent
+    LebDateRangeInputComponent,
+    LocalizedStrings
 } from '@ux-aspects/ux-aspects';
 
 @Component({
@@ -59,20 +60,20 @@ export class AppComponent {
             name: 'created',
             label: 'Created',
             fieldType: 'date',
-            data: { dateFormat: 'short', showTime: true, showNowBtn: true }
+            configuration: { dateFormat: 'short', showTime: true, showNowBtn: true }
         },
         {
             name: 'edited',
             label: 'Edited',
             fieldType: 'dateRange',
-            data: { dateFormat: 'short', showTime: false, showNowBtn: true }
+            configuration: { dateFormat: 'short', showTime: false, showNowBtn: true }
         },
         { name: 'version', label: 'Version', fieldType: 'number' },
         {
             name: 'category',
             label: 'Category',
             fieldType: 'enum',
-            data: {
+            configuration: {
                 options: [
                     { name: 'performance', label: 'Performance', icon: 'actions' },
                     { name: 'security', label: 'Security', icon: 'secure' },
@@ -82,7 +83,7 @@ export class AppComponent {
         }
     ];
 
-    localizedStrings = {};
+    localizedStrings: LocalizedStrings = {};
 
     expression: LogicalExpression = {
         type: 'group',
@@ -93,13 +94,13 @@ export class AppComponent {
                 type: 'condition',
                 field: 'edited',
                 operator: 'between',
-                value: { start: 1592979598445, end: 1592979598445 }
+                value: { start: new Date(1599561226072), end: new Date(1599562426072) }
             },
             {
                 type: 'group',
                 logicalOperator: 'or',
                 children: [
-                    { type: 'condition', field: 'created', operator: 'before', value: 1595515231584 },
+                    { type: 'condition', field: 'created', operator: 'before', value: new Date(1599565926072) },
                     { type: 'condition', field: 'category', operator: 'one_of', value: ['performance', 'security'] },
                 ]
             },

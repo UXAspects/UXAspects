@@ -113,13 +113,13 @@ export class ComponentsLogicalExpressionBuilderComponent extends BaseDocumentati
                 type: 'condition',
                 field: 'edited',
                 operator: 'between',
-                value: { start: 1592979598445, end: 1592979598445 }
+                value: { start: new Date(1599561226072), end: new Date(1599562426072) }
             },
             {
                 type: 'group',
                 logicalOperator: 'or',
                 children: [
-                    { type: 'condition', field: 'created', operator: 'before', value: 1595515231584 },
+                    { type: 'condition', field: 'created', operator: 'before', value: new Date(1599565926072) },
                     { type: 'condition', field: 'category', operator: 'one_of', value: ['performance', 'security'] },
                 ]
             },

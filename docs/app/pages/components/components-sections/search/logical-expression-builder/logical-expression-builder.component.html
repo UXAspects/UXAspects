@@ -156,15 +156,16 @@
 
 <p>
     The Logical Expression Builder comes with the following predefined components for entering values of common data
-    types. The <code>configuration</code> object is defined in the <code>fields</code> object of the Logical Expression Builder
+    types. The <code>configuration</code> object is defined in the <code>fields</code> object of the Logical Expression
+    Builder
     (see example below).
 </p>
 
 <h4>Date Input Component</h4>
 
 <p>
-    Contains a date picker. It expects a value of type <code>number</code>, representing milliseconds since
-    January 1 1970, 12:00 AM. The <code>data</code> can contain the following properties:
+    Contains a date picker. It expects a value of type <code>Date</code>. The <code>configuration</code> can contain the
+    following properties:
 </p>
 
 <uxd-api-properties>
@@ -182,7 +183,7 @@
         Defaults to <code>'short'</code>.
     </tr>
 
-    <tr uxd-api-property name="validateFunction" type="(value: number) => boolean">
+    <tr uxd-api-property name="validateFunction" type="(value: Date) => boolean">
         The function that is used to validate user input.
     </tr>
 </uxd-api-properties>
@@ -190,9 +191,8 @@
 <h4>Date Range Input Component</h4>
 
 <p>
-    Contains a date range picker. It expects an object of the form <code>{{ '{ start: number, end: number }' }}</code>
-    as a value, where each property represents a date in milliseconds since January 1 1970, 12:00 AM. The
-    <code>configuration</code> can contain the following properties:
+    Contains a date range picker. It expects an object of the form <code>{{ '{ start: Date, end: Date }' }}</code>
+    as a value. The <code>configuration</code> can contain the following properties:
 </p>
 
 <uxd-api-properties>
@@ -210,7 +210,7 @@
         Defaults to <code>'short'</code>.
     </tr>
 
-    <tr uxd-api-property name="validateFunction" type="(value: { start: number, end: number }) => boolean">
+    <tr uxd-api-property name="validateFunction" type="(value: { start: Date, end: Date }) => boolean">
         The function that is used to validate user input.
     </tr>
 </uxd-api-properties>

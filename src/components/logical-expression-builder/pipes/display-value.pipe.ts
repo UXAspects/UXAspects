@@ -58,9 +58,9 @@ export class DisplayValuePipe implements PipeTransform {
         return transformedValue.join(', ');
     }
 
-    private transformDate(value: number, fieldData: any): string {
+    private transformDate(value: Date, fieldData: any): string {
         const format = fieldData.dateFormat || 'short';
 
-        return this.dateFormatterPipe.transform(new Date(value), format);
+        return this.dateFormatterPipe.transform(value, format);
     }
 }

@@ -18,13 +18,12 @@ import { debounceTime, takeUntil } from 'rxjs/operators';
 export class LebDateInputComponent implements AfterViewInit, OnDestroy {
     @ViewChild('input') dateInput: ElementRef;
 
-    @Output() valueChange: EventEmitter<number> = new EventEmitter<number>();
+    @Output() valueChange: EventEmitter<Date> = new EventEmitter<Date>();
     @Output() validChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
     @Input()
-    set value(value: number) {
-        const date: Date = value ? new Date(value) : new Date();
-        this.date = !isNaN(date.getDate()) ? date : new Date();
+    set value(value: Date) {
+        this.date = !isNaN(value?.getDate()) ? value : new Date();
     }
 
     @Input()
@@ -35,7 +34,7 @@ export class LebDateInputComponent implements AfterViewInit, OnDestroy {
         this.validate = config?.validateFunction ?? this.validate;
     }
 
-    private validate: (value: number) => boolean = () => true;
+    private validate: (value: Date) => boolean = () => true;
     _valid: boolean;
 
     private _date: Date;
@@ -46,8 +45,8 @@ export class LebDateInputComponent implements AfterViewInit, OnDestroy {
 
     set date(date: Date) {
         this._date = date;
-        this.valueChange.emit(this._date.getTime());
-        this._valid = this.validate(this._date.getTime());
+        this.valueChange.emit(this._date);
+        this._valid = this.validate(this._date);
         this.validChange.emit(this._valid);
     }
 
@@ -85,5 +84,5 @@ interface DateInputOptions {
     showTime?: boolean;
     dateFormat?: string;
     showNowBtn?: boolean;
-    validateFunction?: (value: number) => boolean;
+    validateFunction?: (value: Date) => boolean;
 }

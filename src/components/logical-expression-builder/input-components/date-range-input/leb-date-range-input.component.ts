@@ -17,11 +17,8 @@ export class LebDateRangeInputComponent {
 
     @Input()
     set value(value: DateRangeInputValue) {
-        const start: Date = new Date(value?.start);
-        const end: Date = new Date(value?.end);
-
-        this.start = !isNaN(start?.getDate()) ? start : new Date();
-        this.end = !isNaN(end?.getDate()) ? end : new Date();
+        this.start = !isNaN(value?.start?.getDate()) ? value.start : new Date();
+        this.end = !isNaN(value?.end?.getDate()) ? value.end : new Date();
 
         this.onRangeChange();
     }
@@ -42,7 +39,7 @@ export class LebDateRangeInputComponent {
 
     set invalid(value: boolean) {
         this._invalid = value;
-        this._valid = this.validate({ start: this.start.getTime(), end: this.end.getTime() });
+        this._valid = this.validate({ start: this.start, end: this.end });
         this.validChange.emit(this._valid);
     }
 
@@ -60,7 +57,7 @@ export class LebDateRangeInputComponent {
 
     set dateString(dateString: string) {
         this._dateString = dateString;
-        this.valueChange.emit({ start: this.start.getTime(), end: this.end.getTime() });
+        this.valueChange.emit({ start: this.start, end: this.end });
     }
 
     showTime: boolean = false;
@@ -177,4 +174,4 @@ interface DateInputOptions {
     validateFunction?: (value: DateRangeInputValue) => boolean;
 }
 
-type DateRangeInputValue = { start: number, end: number };
+type DateRangeInputValue = { start: Date, end: Date };
