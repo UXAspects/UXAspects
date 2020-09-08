@@ -9,9 +9,9 @@ export class TextareaInputComponent {
     @Output() valid: EventEmitter<boolean> = new EventEmitter<boolean>();
 
     @Input()
-    set data(data: { maxHeight: number, validateFunction: (value: string) => boolean }) {
-        this._maxHeight = data.maxHeight;
-        this.validate = data.validateFunction;
+    set configuration(config: { maxHeight: number, validateFunction: (value: string) => boolean }) {
+        this._maxHeight = config.maxHeight;
+        this.validate = config.validateFunction;
     }
 
     @Input()

@@ -136,7 +136,7 @@ export class LebConditionComponent implements OnChanges, OnInit, OnDestroy {
             const resolver = this.cfr.resolveComponentFactory(this._operator.component);
             this.inputComponentRef = this.inputContainer.createComponent(resolver);
             this.inputComponentRef.instance.value = this._value;
-            this.inputComponentRef.instance.data = this._field?.data ?? {};
+            this.inputComponentRef.instance.configuration = this._field?.configuration ?? {};
 
             this.inputComponentRef.instance.valueChange
                 .pipe(

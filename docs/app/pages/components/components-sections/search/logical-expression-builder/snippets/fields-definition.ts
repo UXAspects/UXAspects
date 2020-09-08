@@ -1,11 +1,11 @@
 fields: FieldDefinition[] = [
     { name: 'name', label: 'Name', fieldType: 'text' },
-    { name: 'date_of_birth', label: 'Date of birth', fieldType: 'date', data: { dateFormat: 'short' } },
+    { name: 'date_of_birth', label: 'Date of birth', fieldType: 'date', configuration: { dateFormat: 'short' } },
     {
         name: 'gender',
         label: 'Gender',
         fieldType: 'enum',
-        data: {
+        configuration: {
             options: [
                 { name: 'male', label: 'Male' },
                 { name: 'female', label: 'Female' },

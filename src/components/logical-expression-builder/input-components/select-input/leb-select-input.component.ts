@@ -13,9 +13,9 @@ export class LebSelectInputComponent implements OnInit {
     _value: ReadonlyArray<SelectOption>;
 
     @Input()
-    set data(data: { options: SelectOption[], validateFunction?: (value: any) => boolean }) {
-        this._options = data?.options ?? [];
-        this.validate = data?.validateFunction ?? this.validate;
+    set configuration(config: { options: SelectOption[], validateFunction?: (value: any) => boolean }) {
+        this._options = config?.options ?? [];
+        this.validate = config?.validateFunction ?? this.validate;
     }
 
     _options: ReadonlyArray<SelectOption>;

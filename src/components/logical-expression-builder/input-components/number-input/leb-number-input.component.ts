@@ -19,10 +19,10 @@ export class LebNumberInputComponent {
     get value() { return this._value; }
 
     @Input()
-    set data(data: NumberInputOptions) {
-        this._min = data?.min ?? this._min;
-        this._max = data?.max ?? this._max;
-        this.validate = data?.validateFunction ?? this.validate;
+    set configuration(config: NumberInputOptions) {
+        this._min = config?.min ?? this._min;
+        this._max = config?.max ?? this._max;
+        this.validate = config?.validateFunction ?? this.validate;
     }
 
     private _value: number;

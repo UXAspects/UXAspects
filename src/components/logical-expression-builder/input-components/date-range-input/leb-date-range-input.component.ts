@@ -27,11 +27,11 @@ export class LebDateRangeInputComponent {
     }
 
     @Input()
-    set data(data: DateInputOptions) {
-        this.showTime = data?.showTime ?? this.showTime;
-        this.showNowBtn = data?.showNowBtn ?? this.showNowBtn;
-        this.dateFormat = data?.dateFormat ?? this.dateFormat;
-        this.validate = data?.validateFunction ?? this.validate;
+    set configuration(config: DateInputOptions) {
+        this.showTime = config?.showTime ?? this.showTime;
+        this.showNowBtn = config?.showNowBtn ?? this.showNowBtn;
+        this.dateFormat = config?.dateFormat ?? this.dateFormat;
+        this.validate = config?.validateFunction ?? this.validate;
     }
 
     private validate: (value: DateRangeInputValue) => boolean = () => true;

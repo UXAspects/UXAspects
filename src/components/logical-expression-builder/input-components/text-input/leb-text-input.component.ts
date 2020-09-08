@@ -22,8 +22,8 @@ export class LebTextInputComponent {
     _valid: boolean;
 
     @Input()
-    set data(data: TextInputData) {
-        this.validate = data?.validateFunction ?? this.validate;
+    set configuration(config: TextInputData) {
+        this.validate = config?.validateFunction ?? this.validate;
     }
 
     private validate: (value: string) => boolean = () => true;

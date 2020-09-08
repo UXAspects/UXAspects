@@ -94,7 +94,7 @@
         The type of the field. Used for associating fields and operators.
     </tr>
 
-    <tr uxd-api-property name="data" type="object">
+    <tr uxd-api-property name="configuration" type="object">
         An object containing configuration options for the Input Components, e.g. options for the Select Input Component
         or a function for validating user input.
     </tr>
@@ -156,7 +156,7 @@
 
 <p>
     The Logical Expression Builder comes with the following predefined components for entering values of common data
-    types. The <code>data</code> object is defined in the <code>fields</code> object of the Logical Expression Builder
+    types. The <code>configuration</code> object is defined in the <code>fields</code> object of the Logical Expression Builder
     (see example below).
 </p>
 
@@ -192,7 +192,7 @@
 <p>
     Contains a date range picker. It expects an object of the form <code>{{ '{ start: number, end: number }' }}</code>
     as a value, where each property represents a date in milliseconds since January 1 1970, 12:00 AM. The
-    <code>data</code> can contain the following properties:
+    <code>configuration</code> can contain the following properties:
 </p>
 
 <uxd-api-properties>
@@ -218,7 +218,7 @@
 <h4>Number Input Component</h4>
 
 <p>
-    Contains a number picker. It expects a value of type <code>number</code>. The <code>data</code> can contain
+    Contains a number picker. It expects a value of type <code>number</code>. The <code>configuration</code> can contain
     the following properties:
 </p>
 
@@ -240,7 +240,7 @@
 
 <p>
     Contains a select input. It expects a value of type <code>string[]</code>, containing the <code>name</code>
-    of one or more options. The <code>data</code> can contain the following properties:
+    of one or more options. The <code>configuration</code> can contain the following properties:
 </p>
 
 <uxd-api-properties>
@@ -269,7 +269,7 @@
 <h4>Text Input Component</h4>
 
 <p>
-    Contains a simple text input, expecting a value of type <code>string</code>. The <code>data</code> can
+    Contains a simple text input, expecting a value of type <code>string</code>. The <code>configuration</code> can
     contain the following properties:
 </p>
 
@@ -292,7 +292,7 @@
         The value of the respective condition.
     </tr>
 
-    <tr uxd-api-property name="data" type="any">
+    <tr uxd-api-property name="configuration" type="any">
         The configuration options for the custom component, e.g. the available options in a select dropdown. This is
         defined in the <code>fields</code> input of
         <code>&lt;ux-logical-expression-builder&gt;</code>.
@@ -313,7 +313,7 @@
 
 <p>
     Below is an example for a Custom Input Component containing a <code>textarea</code> input. In this specific case,
-    the <code>data</code> object is used to pass a <code>maxHeight</code> for the input.
+    the <code>configuration</code> object is used to pass a <code>maxHeight</code> for the input.
 </p>
 
 <ux-tabset [minimal]="false">

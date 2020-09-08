@@ -28,11 +28,11 @@ export class LebDateInputComponent implements AfterViewInit, OnDestroy {
     }
 
     @Input()
-    set data(options: DateInputOptions) {
-        this.showTime = options?.showTime ?? this.showTime;
-        this.showNowBtn = options?.showNowBtn ?? this.showNowBtn;
-        this.dateFormat = options?.dateFormat ?? this.dateFormat;
-        this.validate = options?.validateFunction ?? this.validate;
+    set configuration(config: DateInputOptions) {
+        this.showTime = config?.showTime ?? this.showTime;
+        this.showNowBtn = config?.showNowBtn ?? this.showNowBtn;
+        this.dateFormat = config?.dateFormat ?? this.dateFormat;
+        this.validate = config?.validateFunction ?? this.validate;
     }
 
     private validate: (value: number) => boolean = () => true;

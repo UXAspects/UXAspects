@@ -79,20 +79,20 @@ export class ComponentsLogicalExpressionBuilderComponent extends BaseDocumentati
             name: 'created',
             label: 'Created',
             fieldType: 'date',
-            data: { dateFormat: 'short', showTime: true, showNowBtn: true }
+            configuration: { dateFormat: 'short', showTime: true, showNowBtn: true }
         },
         {
             name: 'edited',
             label: 'Edited',
             fieldType: 'dateRange',
-            data: { dateFormat: 'short', showTime: false, showNowBtn: true }
+            configuration: { dateFormat: 'short', showTime: false, showNowBtn: true }
         },
         { name: 'version', label: 'Version', fieldType: 'number' },
         {
             name: 'category',
             label: 'Category',
             fieldType: 'enum',
-            data: {
+            configuration: {
                 options: [
                     { name: 'performance', label: 'Performance', icon: 'actions' },
                     { name: 'security', label: 'Security', icon: 'secure' },

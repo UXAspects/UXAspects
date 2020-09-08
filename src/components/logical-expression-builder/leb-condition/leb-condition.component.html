@@ -69,7 +69,7 @@
         <td>
             <span class="leb-field-display">{{ _field?.label }}</span>{{' '}}<span
             class="leb-operator-display">{{ _operator?.label }}</span>{{' '}}<span
-            class="leb-value-display">{{ _value | displayValue:_field?.fieldType:_field?.data }}</span>
+            class="leb-value-display">{{ _value | displayValue : _field?.fieldType : _field?.configuration }}</span>
         </td>
 
         <td class="hover-btn-cell">
