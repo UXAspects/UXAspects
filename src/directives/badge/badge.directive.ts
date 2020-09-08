@@ -30,22 +30,26 @@ export class BadgeDirective implements AfterViewInit, OnChanges, OnDestroy {
     /**
      * Directive parameter that sets the content of the badge
      */
-    private _badgeDisplayContent: string;
+    private _badgeDisplayContent: string | number;
 
     @Input('uxBadge')
-    get badgeContent(): string {
+    get badgeContent(): string | number {
         return this._badgeContent;
     }
-    set badgeContent(s: string) {
-        if (s && s.replace(/ /g, '').length > 0) {
-            const subject = s.toString().trim();
+    set badgeContent(badge: string | number) {
+        if (typeof badge === 'number') {
+            this._badgeContent = badge;
+            this._isNumber = true;
+        } else if (typeof badge === 'string' && badge.replace(/ /g, '').length > 0) {
+            const subject = badge.trim();
             this._isNumber = /^\d+$/.test(subject);
             this._badgeContent = subject;
         } else {
             this._badgeContent = null;
         }
     }
-    private _badgeContent: string = null;
+
+    private _badgeContent: string | number = null;
 
     /**
      * Define the badge background color
@@ -163,17 +167,22 @@ export class BadgeDirective implements AfterViewInit, OnChanges, OnDestroy {
         }
     }
 
-    private setContent(finalText: string, maxValue: number): void {
-        if (finalText && maxValue && maxValue > 0) {
-            if (this._isNumber && parseInt(finalText) > maxValue) {
-                finalText = `${maxValue}+`;
-            } else if (finalText.length > maxValue) {
-                finalText = `${finalText.substr(0, maxValue)}…`;
+    private setContent(content: string | number | null, maxValue: number): void {
+        if (content && maxValue && maxValue > 0) {
+
+            if (this._isNumber) {
+                const numericValue = typeof content === 'number' ? content : parseInt(content);
+
+                if (numericValue > maxValue) {
+                    content = `${maxValue}+`;
+                }
+            } else if (typeof content === 'string' && content.length > maxValue) {
+                content = `${content.substr(0, maxValue)}…`;
             }
         }
 
-        this._badgeDisplayContent = finalText;
-        this._badgeElement.textContent = this._badgeDisplayContent;
+        this._badgeDisplayContent = content;
+        this._badgeElement.textContent = this._badgeDisplayContent?.toString();
     }
 
     private setBadgeColor(): void {

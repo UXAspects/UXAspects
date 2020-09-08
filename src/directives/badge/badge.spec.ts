@@ -25,7 +25,7 @@ const badgeSelector = '.ux-badge';
     `,
 })
 export class BadgeTestComponent {
-    badgeContentText: string = 'Some badge';
+    badgeContentText: string | number = 'Some badge';
     badgeColor: string = null;
     borderColor: string = null;
     maxValue: number = null;
@@ -163,6 +163,28 @@ describe('Badge', () => {
 
     it('should not affect number smaller than max value (actual value)', async () => {
         component.badgeContentText = '998';
+        component.maxValue = 999;
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        const buttonWithBadge: HTMLButtonElement = document.querySelector(buttonSelector);
+        const badge: HTMLSpanElement = buttonWithBadge.querySelector(badgeSelector);
+        expect(badge.innerHTML).toBe('998');
+    });
+
+    it('should limit a number when max value is set (numeric value)', async () => {
+        component.badgeContentText = 1849;
+        component.maxValue = 999;
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        const buttonWithBadge: HTMLButtonElement = document.querySelector(buttonSelector);
+        const badge: HTMLSpanElement = buttonWithBadge.querySelector(badgeSelector);
+        expect(badge.innerHTML).toBe('999+');
+    });
+
+    it('should not affect number smaller than max value (numeric value)', async () => {
+        component.badgeContentText = 998;
         component.maxValue = 999;
         fixture.detectChanges();
         await fixture.whenStable();
