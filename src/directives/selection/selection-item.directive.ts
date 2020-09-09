@@ -46,8 +46,13 @@ export class SelectionItemDirective<T> implements OnInit, OnDestroy {
     /** Defines whether or not this item is currently selected. */
     @Output() selectedChange = new EventEmitter<boolean>();
 
-    /** Store the current focused state of the item */
-    @HostBinding('class.ux-selection-focused') active: boolean = false;
+    /** Store whether this item is the focusable item */
+    active: boolean = false;
+
+    /** Determine if the item is focused and the active item */
+    @HostBinding('class.ux-selection-focused') get showFocused(): boolean {
+        return this._isFocused && this.active;
+    }
 
     @HostBinding('attr.tabindex')
     get attrTabIndex(): number {
@@ -65,6 +70,9 @@ export class SelectionItemDirective<T> implements OnInit, OnDestroy {
 
     /** Determine if there is a pending state change as we debounce before emitting */
     private _hasPendingStateChange: boolean = false;
+
+    /** Store the focused state of the element */
+    private _isFocused: boolean = false;
 
     /** Automatically unsubscribe when the component is destroyed */
     private readonly _onDestroy = new Subject<void>();
@@ -176,11 +184,14 @@ export class SelectionItemDirective<T> implements OnInit, OnDestroy {
         if (this._selectionService.active$.getValue() !== this.uxSelectionItem) {
             this._selectionService.activate(this.uxSelectionItem);
         }
+
+        this._isFocused = true;
+        this._changeDetector.markForCheck();
     }
 
     @HostListener('blur')
     onBlur(): void {
-        this.active = false;
+        this._isFocused = false;
         this._changeDetector.markForCheck();
     }
 

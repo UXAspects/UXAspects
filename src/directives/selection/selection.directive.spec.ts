@@ -209,18 +209,18 @@ describe('Selection Directive', () => {
         expect(onSelectedItemChangeSpy).toHaveBeenCalledWith(false);
     }));
 
-    fit('should add the correct class when an item is focused', () => {
+    it('should add the correct class when an item is focused', () => {
         expect(getListItem(1).classList).not.toContain('ux-selection-focused');
-        getListItem(1).click();
+        getListItem(1).dispatchEvent(new Event('focus'));
         fixture.detectChanges();
         expect(getListItem(1).classList).toContain('ux-selection-focused');
     });
 
-    fit('should remove the focused class when an item is blurred', () => {
-        getListItem(1).click();
+    it('should remove the focused class when an item is blurred', () => {
+        getListItem(1).dispatchEvent(new Event('focus'));
         fixture.detectChanges();
         expect(getListItem(1).classList).toContain('ux-selection-focused');
-        getListItem(1).blur();
+        getListItem(1).dispatchEvent(new Event('blur'));
         fixture.detectChanges();
         expect(getListItem(1).classList).not.toContain('ux-selection-focused');
     });
