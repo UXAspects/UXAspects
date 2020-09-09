@@ -25,21 +25,6 @@ export class AngularPlaygroundStrategy extends PlaygroundStrategy {
         return [`System.import('main.ts').catch(console.error.bind(console));`];
     }
 
-    getGlobalExternalStyles(assetsUrl: string): string[] {
-        const stylesheets = [
-            SystemJSHelper.getPackageUrl({ name: 'bootstrap', path: 'bootstrap@3.3.7/dist/css/bootstrap.min.css' }),
-        ];
-
-        if (this.documentationType === DocumentationType.Keppel) {
-            stylesheets.push(`${assetsUrl}/css/ux-aspects.css`);
-        } else {
-            stylesheets.push(`${assetsUrl}/styles/ux-aspects.css`);
-            stylesheets.push(`${assetsUrl}/styles/quantum-ux-aspects.css`);
-        }
-
-        return stylesheets;
-    }
-
     getGlobalStyles(): string[] {
         return [`body { padding: 15px; background-color: #fff; }`];
     }

@@ -17,6 +17,7 @@ export class SelectPage {
     placeholder = element(by.id('placeholder'));
     pageSize = element(by.id('pageSize'));
     customIcon = element(by.id('custom-icon'));
+    input = element(by.css('input.ux-tag-input'));
 
 
     async getPage(): Promise<void> {

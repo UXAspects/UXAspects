@@ -2,9 +2,15 @@ import { DOCUMENT } from '@angular/common';
 import { Inject, Injectable } from '@angular/core';
 import { IPlayground } from '../../interfaces/IPlayground';
 import { AppConfiguration } from '../app-configuration/app-configuration.service';
+import { SiteThemeService, SiteTheme } from '../site-theme/site-theme.service';
 import { AngularPlaygroundStrategy } from './strategies/angular-strategy';
 import { CssPlaygroundStrategy } from './strategies/css-strategy';
 import { PlaygroundStrategy } from './strategies/playground-strategy';
+import { KeppelThemeStrategy } from './strategies/themes/keppel-strategy';
+import { MicroFocus2020ThemeStrategy } from './strategies/themes/microfocus-2020-strategy';
+import { MicroFocusThemeStrategy } from './strategies/themes/microfocus-strategy';
+import { ThemeStrategy } from './strategies/themes/theme-strategy';
+import { WhiteLabelThemeStrategy } from './strategies/themes/white-label-strategy';
 import { DocumentationType, DOCUMENTATION_TOKEN } from './tokens/documentation.token';
 import { PlaygroundHelper } from './utilities/playground-helper';
 
@@ -19,7 +25,8 @@ export class PlaygroundService {
         /** Determine if we are in a Keppel or MicroFocus documentation site */
         @Inject(DOCUMENTATION_TOKEN) private _documentationType: DocumentationType,
         /** Get the global configuation properties */
-        private _appConfig: AppConfiguration
+        private _appConfig: AppConfiguration,
+        private _siteThemeService: SiteThemeService
     ) { }
 
     /** Launch the code playground */
@@ -66,12 +73,26 @@ export class PlaygroundService {
     }
 
     private createPlaygroundStrategy(playground: IPlayground): PlaygroundStrategy {
+        const theme = this._siteThemeService.theme$.value;
         switch (playground.framework) {
             case 'css':
-                return new CssPlaygroundStrategy(this._documentationType);
+                return new CssPlaygroundStrategy(this._documentationType, this.createThemeStrategy(theme));
             case 'angular':
             default:
-                return new AngularPlaygroundStrategy(this._documentationType);
+                return new AngularPlaygroundStrategy(this._documentationType, this.createThemeStrategy(theme));
+        }
+    }
+
+    private createThemeStrategy(theme: SiteTheme): ThemeStrategy {
+        switch (theme) {
+            case SiteTheme.MicroFocus2020:
+                return new MicroFocus2020ThemeStrategy();
+            case SiteTheme.WhiteLabel:
+                return new WhiteLabelThemeStrategy();
+            case SiteTheme.MicroFocus:
+                return new MicroFocusThemeStrategy();
+            case SiteTheme.Keppel:
+                return new KeppelThemeStrategy();
         }
     }
 }
