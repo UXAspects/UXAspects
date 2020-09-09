@@ -2,11 +2,10 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { AccessibilityModule, EboxModule, IconModule, PersistentDataModule, PopoverModule, ScrollModule, TooltipModule } from '@ux-aspects/ux-aspects';
+import { AccessibilityModule, EboxModule, IconModule, MenuModule, PersistentDataModule, PopoverModule, ScrollModule, TooltipModule } from '@ux-aspects/ux-aspects';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
-// Import UI Components
 import { ApiPropertiesComponent } from './api-properties/api-properties.component';
 import { ApiPropertyComponent } from './api-property/api-property.component';
 import { ComponentSectionComponent } from './component-section/component-section.component';
@@ -23,10 +22,10 @@ import { PageFooterComponent } from './page-footer/page-footer.component';
 import { PageHeaderComponent } from './page-header/page-header.component';
 import { SectionSelectComponent } from './section-select/section-select.component';
 import { ShowcaseCardComponent } from './showcase-card/showcase-card.component';
-// Import Layout Components
 import { SideNavigationComponent } from './side-navigation/side-navigation.component';
 import { SnippetComponent } from './snippet/snippet.component';
 import { TextPageLayoutComponent } from './text-page-layout/text-page-layout.component';
+import { ThemeSelectorComponent } from './theme-selector/theme-selector.component';
 import { UsageLinkComponent } from './usage-link/usage-link.component';
 
 const DOCUMENTATION_COMPONENTS = [
@@ -49,6 +48,7 @@ const DOCUMENTATION_COMPONENTS = [
     SideNavigationComponent,
     SnippetComponent,
     TextPageLayoutComponent,
+    ThemeSelectorComponent,
     UsageLinkComponent
 ];
 
@@ -61,12 +61,13 @@ const DOCUMENTATION_COMPONENTS = [
         EboxModule,
         FormsModule,
         IconModule,
+        MenuModule,
+        PersistentDataModule,
         PopoverModule,
         RouterModule,
         ScrollModule,
         TooltipModule,
         TypeaheadModule,
-        PersistentDataModule
     ],
     exports: [
         DOCUMENTATION_COMPONENTS,

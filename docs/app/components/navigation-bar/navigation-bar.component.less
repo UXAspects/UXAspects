@@ -1,4 +1,5 @@
 @import "../../assets/styles/variables.less";
+@import "../../assets/styles/mixins.less";
 
 :host {
     display: block;
@@ -37,31 +38,9 @@
         margin-left: 20px;
 
         .navigation-bar-item {
-            position: relative;
-            flex: none;
-            padding: 15px;
-            color: @nav-bar-item-color;
-            font-weight: 400;
             transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out;
-            text-decoration: none;
-            font-size: 0.9375rem;
 
-            &:hover {
-                color: @nav-bar-item-active-color;
-            }
-
-            &.active {
-                background-color: @primary;
-                color: @nav-bar-item-active-color;
-            }
-
-            .navigation-bar-item-indicator {
-                position: absolute;
-                right: 2px;
-                top: 10px;
-                font-size: 13px;
-                color: @primary;
-            }
+            .uxd-navigation-bar-item();
         }
 
         .navigation-bar-spacer {

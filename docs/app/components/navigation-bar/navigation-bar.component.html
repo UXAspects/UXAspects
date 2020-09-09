@@ -14,6 +14,8 @@
 
         <div class="navigation-bar-spacer"></div>
 
+        <uxd-theme-selector *ngIf="themes" title="Theme" [themes]="themes"></uxd-theme-selector>
+
         <a class="navigation-bar-item"
            *ngFor="let link of social"
            [routerLink]="link.link"
