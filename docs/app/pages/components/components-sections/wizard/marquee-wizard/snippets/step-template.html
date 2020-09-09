@@ -4,12 +4,12 @@
                  let-index="index"
                  let-context="context">
 
-                    <span class="marquee-wizard-step-title"
-                          [uxBadge]="context.badge"
-                          badgeColor="critical"
-                          badgeVerticalPosition="center">
-                          {{ index }}. {{ step.header }}
-                    </span>
+                <span class="marquee-wizard-step-title"
+                      [uxBadge]="context.badge"
+                      badgeColor="critical"
+                      badgeVerticalPosition="center">
+                      {{ index }}. {{ step.header }}
+                </span>
     </ng-template>
 
     <ux-marquee-wizard-step header="First step"
