@@ -178,6 +178,12 @@ export class SelectionItemDirective<T> implements OnInit, OnDestroy {
         }
     }
 
+    @HostListener('blur')
+    onBlur(): void {
+        this.active = false;
+        this._changeDetector.markForCheck();
+    }
+
     /**
      * Select this item using the current strategy
      */
