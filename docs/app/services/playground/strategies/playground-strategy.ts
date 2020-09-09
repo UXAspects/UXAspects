@@ -1,4 +1,5 @@
 import { IPlayground } from '../../../interfaces/IPlayground';
+import { ThemeStrategy } from './themes/theme-strategy';
 import { DocumentationType } from '../tokens/documentation.token';
 
 /**
@@ -7,7 +8,8 @@ import { DocumentationType } from '../tokens/documentation.token';
  */
 export abstract class PlaygroundStrategy {
 
-    constructor(protected documentationType: DocumentationType) { }
+    constructor(protected documentationType: DocumentationType,
+                private _themeStrategy: ThemeStrategy) { }
 
     /** Get all the external scripts that should be loaded in the `head` of the HTML */
     getGlobalExternalScripts(assetsUrl: string): string[] {
@@ -31,7 +33,7 @@ export abstract class PlaygroundStrategy {
 
     /** Get all the external styles that should be loaded in the `head` of the HTML */
     getGlobalExternalStyles(assetsUrl: string): string[] {
-        return [];
+        return this._themeStrategy.getStylesheets(assetsUrl);
     }
 
     /** Allow adding custom style tags to the `head` element */
