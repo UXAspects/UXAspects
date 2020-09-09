@@ -4,44 +4,17 @@
 .theme-selector-button {
     display: flex;
     align-items: center;
+    font-size: 0.9375rem;
     border: none;
+    padding: 15px;
     background-color: inherit;
-
-    .uxd-navigation-bar-item();
 
     ux-icon {
         margin-left: 8px;
-    }
-
-    &.active {
-        background-color: #000;
     }
 }
 
 ::ng-deep .uxd-theme-selector-dropdown {
     min-width: 250px;
     margin-top: -1px;
-    box-shadow: 0 3px 5px @nav-search-bg;
-    border-radius: 0;
-    background-color: @nav-search-bg;
-}
-
-.theme-selector-options-container {
-    list-style-type: none;
-    padding-left: 0;
-    margin-bottom: 0;
-}
-
-.theme-selector-option {
-    display: flex;
-    width: 100%;
-    border: none;
-    background-color: inherit;
-
-    .uxd-navigation-bar-dropdown-item();
-}
-
-.theme-selector-option-check {
-    width: 16px;
-    margin: 0 8px 0 0;
 }

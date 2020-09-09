@@ -11,9 +11,9 @@
         uxMenuItem
         (activate)="selected = theme"
     >
-        <span class="theme-selector-option-check">
+        <span class="dropdown-menu-icon">
             <ux-icon *ngIf="theme === selected" name="active"></ux-icon>
         </span>
-        <span class="theme-selector-option-title">{{ theme.title }}</span>
+        <span class="dropdown-menu-text">{{ theme.title }}</span>
     </button>
 </ux-menu>
