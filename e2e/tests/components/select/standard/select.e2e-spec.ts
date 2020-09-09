@@ -398,10 +398,10 @@ describe('Select Tests', () => {
 
         // enable paging
         await page.clickOnCheckbox(page.checkboxPaging);
-        var result;
+        let result;
 
         // use original page size
-        var pageSize = 20;
+        const pageSize = 20;
 
         // confirm number of visible countries increases by 20 each time
         await page.clickOnDropdown(false);
@@ -490,8 +490,8 @@ describe('Select Tests', () => {
 
         // enable paging
         await page.clickOnCheckbox(page.checkboxPaging);
-        var result;
-        var pageSize = 20;
+        let result;
+        const pageSize = 20;
 
         // use filter
         expect(await page.waitForLoadingAfterClickToFinish(false)).toBeTruthy();
@@ -630,5 +630,19 @@ describe('Select Tests', () => {
 
         // Recent options list with three entries
         expect(await imageCompare('select-recent-filled')).toEqual(0);
+    });
+
+    it('should allow filtering and selecting an item using the keyboard when multiple = true and paging = true', async () => {
+        await page.clickOnCheckbox(page.checkboxMulti);
+        await page.clickOnCheckbox(page.checkboxPaging);
+
+        await page.clickOnDropdown(true);
+        await page.input.sendKeys('united k');
+
+        expect(await page.confirmDropdownIsExpanded()).toBe(true);
+
+        await page.input.sendKeys(Key.ENTER);
+        expect(await page.confirmDropdownIsExpanded()).toBe(false);
+        expect(await page.getSelectedLocationText()).toBe('[ "United Kingdom" ]');
     });
 });

@@ -1,6 +1,4 @@
 import { IPlayground } from '../../../interfaces/IPlayground';
-import { DocumentationType } from '../tokens/documentation.token';
-import { SystemJSHelper } from '../utilities/system-helper';
 import { PlaygroundStrategy } from './playground-strategy';
 
 export class CssPlaygroundStrategy extends PlaygroundStrategy {
@@ -14,20 +12,7 @@ export class CssPlaygroundStrategy extends PlaygroundStrategy {
     }
 
     getGlobalExternalStyles(assetsUrl: string): string[] {
-        const stylesheets = [
-            SystemJSHelper.getPackageUrl({ name: 'bootstrap', path: 'bootstrap@3.3.7/dist/css/bootstrap.min.css' }),
-        ];
-
-        if (this.documentationType === DocumentationType.Keppel) {
-            stylesheets.push(`${assetsUrl}/css/ux-aspects.css`);
-        } else {
-            stylesheets.push(`${assetsUrl}/styles/ux-aspects.css`);
-            stylesheets.push(`${assetsUrl}/styles/quantum-ux-aspects.css`);
-        }
-
-        stylesheets.push(`app.css`);
-
-        return stylesheets;
+        return [...super.getGlobalExternalStyles(assetsUrl), 'app.css'];
     }
 
     getGlobalStyles(): string[] {
