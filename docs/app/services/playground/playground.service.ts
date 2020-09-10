@@ -1,8 +1,9 @@
 import { DOCUMENT } from '@angular/common';
 import { Inject, Injectable } from '@angular/core';
 import { IPlayground } from '../../interfaces/IPlayground';
+import { SiteThemeId } from '../../interfaces/SiteTheme';
 import { AppConfiguration } from '../app-configuration/app-configuration.service';
-import { SiteThemeService, SiteTheme } from '../site-theme/site-theme.service';
+import { SiteThemeService } from '../site-theme/site-theme.service';
 import { AngularPlaygroundStrategy } from './strategies/angular-strategy';
 import { CssPlaygroundStrategy } from './strategies/css-strategy';
 import { PlaygroundStrategy } from './strategies/playground-strategy';
@@ -83,15 +84,15 @@ export class PlaygroundService {
         }
     }
 
-    private createThemeStrategy(theme: SiteTheme): ThemeStrategy {
+    private createThemeStrategy(theme: SiteThemeId): ThemeStrategy {
         switch (theme) {
-            case SiteTheme.MicroFocus2020:
+            case SiteThemeId.MicroFocus2020:
                 return new MicroFocus2020ThemeStrategy();
-            case SiteTheme.WhiteLabel:
+            case SiteThemeId.WhiteLabel:
                 return new WhiteLabelThemeStrategy();
-            case SiteTheme.MicroFocus:
+            case SiteThemeId.MicroFocus:
                 return new MicroFocusThemeStrategy();
-            case SiteTheme.Keppel:
+            case SiteThemeId.Keppel:
                 return new KeppelThemeStrategy();
         }
     }

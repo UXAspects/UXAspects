@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, Input, OnChanges, OnDestroy } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { Theme } from '../../interfaces/Theme';
-import { SiteTheme, SiteThemeService } from '../../services/site-theme/site-theme.service';
+import { SiteTheme, SiteThemeId } from '../../interfaces/SiteTheme';
+import { SiteThemeService } from '../../services/site-theme/site-theme.service';
 
 @Component({
     selector: 'uxd-theme-selector',
@@ -15,11 +15,11 @@ export class ThemeSelectorComponent implements OnChanges, OnDestroy {
     title: string;
 
     @Input()
-    themes: ReadonlyArray<Theme> = [];
+    themes: ReadonlyArray<SiteTheme> = [];
 
     dropdownOpen: boolean;
-    selected: Theme;
-    default: Theme;
+    selected: SiteTheme;
+    default: SiteTheme;
 
     private _onDestroy = new Subject();
 
@@ -39,11 +39,11 @@ export class ThemeSelectorComponent implements OnChanges, OnDestroy {
         this._onDestroy.complete();
     }
 
-    setSelected(theme: Theme): void {
+    setSelected(theme: SiteTheme): void {
         this._siteThemeService.theme$.next(theme.id);
     }
 
-    private updateWithTheme(themeId: SiteTheme): void {
+    private updateWithTheme(themeId: SiteThemeId): void {
         this.selected = this.themes.find(theme => theme.id === themeId);
     }
 }

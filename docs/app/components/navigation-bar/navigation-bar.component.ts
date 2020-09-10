@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ILink } from '../../interfaces/ILink';
 import { AppConfiguration } from '../../services/app-configuration/app-configuration.service';
-import { Theme } from '../../interfaces/Theme';
+import { SiteTheme } from '../../interfaces/SiteTheme';
 
 @Component({
     selector: 'uxd-navigation-bar',
@@ -14,7 +14,7 @@ export class NavigationBarComponent {
     brand: ILink = this.navigation.brand;
     links: ILink[] = this.navigation.links;
     social: ILink[] = this.navigation.social;
-    themes: Theme[] = this.navigation.themes;
+    themes: SiteTheme[] = this.navigation.themes;
     expanded: boolean = false;
 
     constructor(private _appConfig: AppConfiguration) { }
