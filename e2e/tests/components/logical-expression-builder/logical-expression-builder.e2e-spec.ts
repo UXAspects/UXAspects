@@ -1,5 +1,5 @@
 import { LogicalExpressionBuilderPage } from './logical-expression-builder.po.spec';
-import { ExpressionCondition, ExpressionGroup } from '../../../../src/components/logical-expression-builder';
+import { ExpressionCondition, ExpressionGroup } from '@ux-aspects/ux-aspects';
 
 describe('Logical Expression Builder', () => {
     let page: LogicalExpressionBuilderPage.Page;
