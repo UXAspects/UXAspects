@@ -48,6 +48,8 @@ describe('LebConditionComponent', () => {
 
     const validationService: Partial<ValidationService> = {
         setValidationState(_: number[], __: boolean) {
+        },
+        removeValidationState(_: number[]) {
         }
     };
 
