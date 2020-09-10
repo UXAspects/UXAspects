@@ -39,11 +39,11 @@ describe('DateInputComponent', () => {
 
     it('should set options correctly', async(() => {
         component.value = null;
-        component.data = {
+        component.configuration = {
             showTime: true,
             dateFormat: 'short',
             showNowBtn: true,
-            validateFunction: (_: number) => false
+            validateFunction: (_: Date) => false
         };
 
         fixture.detectChanges();
@@ -51,12 +51,11 @@ describe('DateInputComponent', () => {
             expect(component.showTime).toBeTruthy();
             expect(component.dateFormat).toEqual('short');
             expect(component.showNowBtn).toBeTruthy();
-            expect(component.validate(1234)).toBeFalsy();
         });
     }));
 
     it('should set date correctly', async(() => {
-        const value = 1597052487877;
+        const value = new Date(1597052487877);
 
         component.value = value;
 

@@ -10,7 +10,7 @@ import { LogicalExpressionBuilderService } from '../../services/logical-expressi
     selector: 'ux-date-range-input-test',
     template: `
         <ux-date-range-input
-            [data]="data"
+            [configuration]="configuration"
             (validChange)="onValidChange($event)"
             [value]="value"
             (valueChange)="onValueChange($event)">
@@ -18,10 +18,10 @@ import { LogicalExpressionBuilderService } from '../../services/logical-expressi
     `
 })
 class DateRangeInputTestComponent {
-    value = { start: 1597736313762, end: 1597736314762 };
-    data: any = { dateFormat: 'short' };
+    value = { start: new Date(), end: new Date() };
+    configuration: any = { dateFormat: 'short' };
 
-    onValueChange(_: { start: number, end: number }): void {
+    onValueChange(_: { start: Date, end: Date }): void {
     }
 
     onValidChange(_: boolean): void {
@@ -68,7 +68,7 @@ describe('DateRangeInputComponent', () => {
     it('should fire valid event when value received', async(() => {
         spyOn(component, 'onValidChange');
 
-        component.value = { start: 1234, end: 5678 };
+        component.value = { start: new Date(), end: new Date() };
 
         fixture.detectChanges();
         fixture.whenStable().then(() => {

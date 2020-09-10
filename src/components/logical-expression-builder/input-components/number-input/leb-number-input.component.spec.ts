@@ -7,7 +7,7 @@ import { LogicalExpressionBuilderModule } from '../../logical-expression-builder
     selector: 'ux-number-input-test',
     template: `
         <ux-number-input
-            [data]="data"
+            [configuration]="configuration"
             (validChange)="onValidChange($event)"
             [value]="value"
             (valueChange)="onValueChange($event)">
@@ -16,7 +16,7 @@ import { LogicalExpressionBuilderModule } from '../../logical-expression-builder
 })
 class NumberInputTestComponent {
     value: number = 4;
-    data: any = {};
+    configuration: any = {};
 
     onValueChange(_: number): void {
     }

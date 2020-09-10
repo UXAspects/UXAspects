@@ -28,11 +28,11 @@ describe('L10nPipe', () => {
     });
 
     it('should transform text values', () => {
-        expect(pipe.transform('testValue', 'text')).toEqual('testValue');
+        expect(pipe.transform('testValue', 'text', null)).toEqual('testValue');
     });
 
     it('should transform number values', () => {
-        expect(pipe.transform(12, 'number')).toEqual('12');
+        expect(pipe.transform(12, 'number', null)).toEqual('12');
     });
 
     it('should transform enum values', () => {

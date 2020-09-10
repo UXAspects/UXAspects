@@ -19,7 +19,7 @@ describe('SelectInputComponent', () => {
         fixture = TestBed.createComponent(LebSelectInputComponent);
         component = fixture.componentInstance;
         component.value = [];
-        component.data = { options: [] };
+        component.configuration = { options: [] };
         fixture.detectChanges();
     });
 
@@ -29,7 +29,7 @@ describe('SelectInputComponent', () => {
         fixture.whenStable().then(() => {
             component = fixture.componentInstance;
             component.value = [];
-            component.data = { options: [] };
+            component.configuration = { options: [] };
         });
     }));
 
