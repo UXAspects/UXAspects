@@ -1,5 +1,6 @@
 <button type="button" class="theme-selector-button" [class.active]="dropdownOpen" [uxMenuTriggerFor]="menu">
     <span>{{ title }}</span>
+    <sup *ngIf="selected !== default" class="theme-selector-custom-indicator">*</sup>
     <ux-icon name="chevron-down" size="11px"></ux-icon>
 </button>
 
@@ -9,7 +10,7 @@
         type="button"
         class="theme-selector-option"
         uxMenuItem
-        (activate)="selected = theme"
+        (activate)="setSelected(theme)"
     >
         <span class="dropdown-menu-icon">
             <ux-icon *ngIf="theme === selected" name="active"></ux-icon>

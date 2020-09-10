@@ -43,6 +43,14 @@
             <a class="navigation-bar-dropdown-list-item-link" [routerLink]="link.link" routerLinkActive="active" (click)="expanded = false">{{ link.title }}</a>
         </li>
 
+        <li *ngIf="themes" class="navigation-bar-dropdown-list-item">
+            <a
+                class="navigation-bar-dropdown-list-item-link"
+                routerLink="/theme"
+                routerLinkActive="active"
+                (click)="expanded = false">Theme</a>
+        </li>
+
         <li class="navigation-bar-dropdown-list-item" *ngFor="let link of social">
             <a class="navigation-bar-dropdown-list-item-link" [routerLink]="link.link" routerLinkActive="active" (click)="expanded = false">{{ link.title }}</a>
         </li>
