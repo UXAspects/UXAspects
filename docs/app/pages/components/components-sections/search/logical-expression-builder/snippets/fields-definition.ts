@@ -9,7 +9,7 @@ fields: FieldDefinition[] = [
             options: [
                 { name: 'male', label: 'Male' },
                 { name: 'female', label: 'Female' },
-                { name: 'diverse', label: 'Non-binary' }
+                { name: 'non-binary', label: 'Non-binary' }
             ],
             validateFunction: (value: string[]): boolean => value.length > 0
         }
