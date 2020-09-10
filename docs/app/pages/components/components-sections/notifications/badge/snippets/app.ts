@@ -7,7 +7,7 @@ import { BadgeHorizontalPosition, BadgeSize, BadgeVerticalPosition } from '@ux-a
 })
 export class AppComponent {
     hideButton: boolean = false;
-    badgeContent: string = '18';
+    badgeContent: string | number = 18;
     badgeMaxValue: number = null;
     badgeSize: BadgeSize = 'medium';
     badgeOverlap: boolean = true;

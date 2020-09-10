@@ -56,7 +56,7 @@
                 (keydown.enter)="gotoStep(step)">
 
                 <ng-container [ngTemplateOutlet]="stepTemplate || defaultStepTemplate"
-                              [ngTemplateOutletContext]="{ $implicit: step }"></ng-container>
+                              [ngTemplateOutletContext]="{ $implicit: step, index: index, context: step.context }"></ng-container>
             </li>
 
         </ul>

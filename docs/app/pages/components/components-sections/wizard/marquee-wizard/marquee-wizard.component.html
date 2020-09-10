@@ -216,12 +216,12 @@
         The current active step. When the step changes an event will be emitted containing the index of the newly active step. If
         this is not specified the wizard will start on the first step.
     </tr>
-    <tr uxd-api-property name="description" type="string | TemplateRef">
+    <tr uxd-api-property name="description" type="string | TemplateRef<void>">
         Allows descriptive text or custom html content to be added to the side panel of the wizard.
     </tr>
-    <tr uxd-api-property name="stepTemplate" type="string | TemplateRef">
-        Allows customization of the wizard step items in the side panel of the wizard. To access the data
-        for each step use the implicit template context, eg: <code>&lt;ng-template #stepTemplate let-step&gt;</code>.
+    <tr uxd-api-property name="stepTemplate" type="TemplateRef<MarqueeWizardStepContext<T>>">
+        Allows customization of the wizard step items in the side panel of the wizard.
+        See "Custom Step Template" below for an example.
     </tr>
     <tr uxd-api-property name="nextText" type="string">
         Defines the text displayed in the 'Next' button.
@@ -379,6 +379,9 @@
         If set to <code>true</code> the 'Next' or 'Finish' button will become disabled when the current step is invalid. This will override the value
         set on the <code>ux-marquee-wizard</code>.
     </tr>
+    <tr uxd-api-property name="context" type="T">
+        Defines additional data that will be available to a custom <code>stepTemplate</code>.
+    </tr>
 </uxd-api-properties>
 
 <uxd-api-properties tableTitle="Outputs">
@@ -390,11 +393,42 @@
     </tr>
 </uxd-api-properties>
 
-<h4>Custom Templates</h4>
+<h4>Custom Step Icon</h4>
 
 <p>
     The <code>*uxMarqueeWizardStepIcon</code> structural directive can be used to define an icon for each step.
 </p>
+
+<uxd-snippet [content]="snippets.compiled.iconTemplateHtml"></uxd-snippet>
+
+<h4>Custom Step Template</h4>
+
+<p>
+    The element representing each step in the side panel can be customized by providing a custom <code>stepTemplate</code>.
+    The template will have access to data associated with that step via the template context which will conform to
+    the <code>MarqueeWizardStepContext</code> interface.
+</p>
+
+<p>
+    Below is an example of how to provide a custom step template, how to pass data to the template, and how to access
+    the template context.
+</p>
+
+<uxd-snippet [content]="snippets.compiled.stepTemplateHtml"></uxd-snippet>
+
+<uxd-api-properties tableTitle="MarqueeWizardStepContext Interface">
+    <tr uxd-api-property name="$implicit" type="MarqueeWizardStepComponent">
+        The wizard step component instance.
+    </tr>
+    <tr uxd-api-property name="index" type="number">
+        The index of the current step.
+    </tr>
+    <tr uxd-api-property name="context" type="T">
+        The additional context data provided using the <code>context</code> Input on the <code>ux-marquee-wizard-step</code> element.
+    </tr>
+</uxd-api-properties>
+
+<h4>Custom Footer Template</h4>
 
 <p>
     Custom content can be added to left of the standard wizard buttons in the footer. Add an <code>ng-template</code>
@@ -403,10 +437,6 @@
 </p>
 
 <uxd-snippet [content]="snippets.compiled.footerTemplateHtml"></uxd-snippet>
-
-<p>
-    The <code>*uxMarqueeWizardStepIcon</code> structural directive can be used to define an icon for each step.
-</p>
 
 <p>
     The following code can be used create the example above:
