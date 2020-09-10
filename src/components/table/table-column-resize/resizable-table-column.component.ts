@@ -1,5 +1,5 @@
 import { coerceNumberProperty } from '@angular/cdk/coercion';
-import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Inject, Input, OnDestroy, Output, Renderer2 } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, HostBinding, Inject, Input, OnDestroy, Output, Renderer2 } from '@angular/core';
 import { filter, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { ColumnUnit } from './table-column-resize-standard/resizable-table.service';
@@ -17,7 +17,9 @@ import { BaseResizableTableService, ResizableTableType } from './resizable-table
 export class ResizableTableColumnComponent implements AfterViewInit, OnDestroy {
 
     /** Disabled the column resizing */
-    @Input() disabled: boolean = false;
+    @Input()
+    @HostBinding('class.ux-resizable-table-column-disabled')
+    disabled: boolean = false;
 
     /** Define the width of a column */
     @Input() set width(width: number) {
