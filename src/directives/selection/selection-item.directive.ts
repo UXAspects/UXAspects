@@ -137,6 +137,13 @@ export class SelectionItemDirective<T> implements OnInit, OnDestroy {
 
         // Watch for focus within the container element and manage tabindex of descendants
         this._managedFocusContainerService.register(this._elementRef.nativeElement, this);
+
+        // Listen for changes to the focus state and apply the appropriate class
+       this._focusIndicator.origin$.pipe(map(origin => origin === 'keyboard'), takeUntil(this._onDestroy))
+           .subscribe(isFocused => {
+               this.isFocused = isFocused;
+               this._changeDetector.markForCheck();
+           });
     }
 
     ngOnDestroy(): void {
@@ -179,15 +186,6 @@ export class SelectionItemDirective<T> implements OnInit, OnDestroy {
         if (this._selectionService.active$.getValue() !== this.uxSelectionItem) {
             this._selectionService.activate(this.uxSelectionItem);
         }
-
-        this.isFocused = true;
-        this._changeDetector.markForCheck();
-    }
-
-    @HostListener('blur')
-    onBlur(): void {
-        this.isFocused = false;
-        this._changeDetector.markForCheck();
     }
 
     /**

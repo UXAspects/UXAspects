@@ -1,10 +1,12 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { SelectionModule } from './selection.module';
 import { SelectionMode } from './selection.service';
-import { AccessibilityModule } from '../accessibility/index';
+import { AccessibilityModule, FocusIndicator } from '../accessibility/index';
 import { SelectionDirective } from './selection.directive';
 import { CheckboxModule } from '../../components/checkbox/index';
+import { FocusOrigin } from '@angular/cdk/a11y';
+import { SelectionItemDirective } from './selection-item.directive';
 
 @Component({
     selector: 'app-selection-test',
@@ -41,6 +43,7 @@ export class SelectionDirectiveSpec {
     ];
 
     @ViewChild(SelectionDirective) selectionDirective: SelectionDirective<string>;
+    @ViewChildren(SelectionItemDirective) selectionItemDirectives: QueryList<SelectionItemDirective<string>>;
 
     onSelectedChange(_: string[]): void {
     }
@@ -66,6 +69,14 @@ export class SelectionDirectiveSpec {
         } else {
             this.selection = this.selection.filter(opt => opt !== option);
         }
+    }
+
+    focusRow(index: number, origin: FocusOrigin): void {
+        // access the private focus indicator instance for simulating focus with specific origins
+        const row = this.selectionItemDirectives.toArray()[index];
+        const focusIndicator = (row as any)._focusIndicator as FocusIndicator;
+
+        focusIndicator.focus(origin);
     }
 }
 
@@ -209,20 +220,30 @@ describe('Selection Directive', () => {
         expect(onSelectedItemChangeSpy).toHaveBeenCalledWith(false);
     }));
 
-    it('should add the "ux-selection-focused" class when an item is focused', () => {
-        expect(getListItem(1).classList).not.toContain('ux-selection-focused');
-        getListItem(1).dispatchEvent(new Event('focus'));
-        fixture.detectChanges();
-        expect(getListItem(1).classList).toContain('ux-selection-focused');
-    });
+    it('should add the "ux-selection-focused" class when an item is focused via keyboard', fakeAsync(() => {
+        expect(getListItem(0).classList).not.toContain('ux-selection-focused');
+        focusRow(0, 'keyboard');
+        expect(getListItem(0).classList).toContain('ux-selection-focused');
+    }));
+
+    it('should not add the "ux-selection-focused" class when an item is focused via mouse', fakeAsync(() => {
+        expect(getListItem(0).classList).not.toContain('ux-selection-focused');
+        focusRow(0, 'mouse');
+        expect(getListItem(0).classList).not.toContain('ux-selection-focused');
+    }));
+
+    it('should not add the "ux-selection-focused" class when an item is focused via programmatic focus', fakeAsync(() => {
+        expect(getListItem(0).classList).not.toContain('ux-selection-focused');
+        focusRow(0, 'program');
+        expect(getListItem(0).classList).not.toContain('ux-selection-focused');
+    }));
 
     it('should remove the "ux-selection-focused" class when an item is blurred', () => {
-        getListItem(1).dispatchEvent(new Event('focus'));
+        focusRow(0, 'keyboard');
+        expect(getListItem(0).classList).toContain('ux-selection-focused');
+        getListItem(0).dispatchEvent(new Event('blur'));
         fixture.detectChanges();
-        expect(getListItem(1).classList).toContain('ux-selection-focused');
-        getListItem(1).dispatchEvent(new Event('blur'));
-        fixture.detectChanges();
-        expect(getListItem(1).classList).not.toContain('ux-selection-focused');
+        expect(getListItem(0).classList).not.toContain('ux-selection-focused');
     });
 
     describe('mode = "row"', () => {
@@ -303,5 +324,12 @@ describe('Selection Directive', () => {
         getListItemCheckbox(index).click();
         fixture.detectChanges();
         tick();
+    }
+
+    function focusRow(index: number, origin: FocusOrigin): void {
+        component.focusRow(index, origin);
+        // required to trigger the focus monitor service
+        getListItem(index).dispatchEvent(new Event('focus'));
+        fixture.detectChanges();
     }
 });
