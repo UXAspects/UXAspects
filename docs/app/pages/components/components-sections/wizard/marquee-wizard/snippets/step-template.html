@@ -1,0 +1,19 @@
+<ux-marquee-wizard [stepTemplate]="stepTemplate">
+    <ng-template #stepTemplate
+                 let-step
+                 let-index="index"
+                 let-context="context">
+
+        <span class="marquee-wizard-step-title"
+              [uxBadge]="context.badge"
+              badgeColor="critical"
+              badgeVerticalPosition="center">
+            {{ index }}. {{ step.header }}
+        </span>
+    </ng-template>
+
+    <ux-marquee-wizard-step header="First step"
+                            [context]="{ badge: 12 }">
+        ...
+    </ux-marquee-wizard-step>
+</ux-marquee-wizard>
