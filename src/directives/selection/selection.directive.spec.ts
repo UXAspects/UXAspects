@@ -222,24 +222,28 @@ describe('Selection Directive', () => {
 
     it('should add the "ux-selection-focused" class when an item is focused via keyboard', fakeAsync(() => {
         expect(getListItem(0).classList).not.toContain('ux-selection-focused');
-        focusRow(0, 'keyboard');
+        component.focusRow(0, 'keyboard');
+        fixture.detectChanges();
         expect(getListItem(0).classList).toContain('ux-selection-focused');
     }));
 
     it('should not add the "ux-selection-focused" class when an item is focused via mouse', fakeAsync(() => {
         expect(getListItem(0).classList).not.toContain('ux-selection-focused');
-        focusRow(0, 'mouse');
+        component.focusRow(0, 'mouse');
+        fixture.detectChanges();
         expect(getListItem(0).classList).not.toContain('ux-selection-focused');
     }));
 
     it('should not add the "ux-selection-focused" class when an item is focused via programmatic focus', fakeAsync(() => {
         expect(getListItem(0).classList).not.toContain('ux-selection-focused');
-        focusRow(0, 'program');
+        component.focusRow(0, 'program');
+        fixture.detectChanges();
         expect(getListItem(0).classList).not.toContain('ux-selection-focused');
     }));
 
     it('should remove the "ux-selection-focused" class when an item is blurred', () => {
-        focusRow(0, 'keyboard');
+        component.focusRow(0, 'keyboard');
+        fixture.detectChanges();
         expect(getListItem(0).classList).toContain('ux-selection-focused');
         getListItem(0).dispatchEvent(new Event('blur'));
         fixture.detectChanges();
@@ -324,12 +328,5 @@ describe('Selection Directive', () => {
         getListItemCheckbox(index).click();
         fixture.detectChanges();
         tick();
-    }
-
-    function focusRow(index: number, origin: FocusOrigin): void {
-        component.focusRow(index, origin);
-        // required to trigger the focus monitor service
-        getListItem(index).dispatchEvent(new Event('focus'));
-        fixture.detectChanges();
     }
 });
