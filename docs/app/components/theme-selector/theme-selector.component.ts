@@ -12,7 +12,7 @@ import { SiteThemeService } from '../../services/site-theme/site-theme.service';
 })
 export class ThemeSelectorComponent implements OnChanges, OnDestroy {
     @Input()
-    title: string;
+    buttonTitle: string;
 
     @Input()
     themes: ReadonlyArray<SiteTheme> = [];
