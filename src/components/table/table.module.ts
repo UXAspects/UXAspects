@@ -9,7 +9,7 @@ import { ResizeModule } from '../../directives/resize/index';
 import { SelectionModule } from '../../directives/selection/index';
 import { IconModule } from '../icon/index';
 import { ColumnPickerComponent } from './column-picker/column-picker.component';
-import { ResizableTableCellDirective } from './table-column-resize/resizable-table-cell.directive';
+import { ResizableTableCellComponent } from './table-column-resize/resizable-table-cell.component';
 import { ResizableTableColumnComponent } from './table-column-resize/resizable-table-column.component';
 import { ResizableExpandingTableDirective } from './table-column-resize/table-column-resize-expanding/resizable-expanding-table.directive';
 import { ResizableTableDirective } from './table-column-resize/table-column-resize-standard/resizable-table.directive';
@@ -31,14 +31,14 @@ import { ResizableTableDirective } from './table-column-resize/table-column-resi
         ResizableTableDirective,
         ResizableExpandingTableDirective,
         ResizableTableColumnComponent,
-        ResizableTableCellDirective,
+        ResizableTableCellComponent,
     ],
     exports: [
         ColumnPickerComponent,
         ResizableTableDirective,
         ResizableExpandingTableDirective,
         ResizableTableColumnComponent,
-        ResizableTableCellDirective,
+        ResizableTableCellComponent,
     ]
 })
 export class TableModule { }

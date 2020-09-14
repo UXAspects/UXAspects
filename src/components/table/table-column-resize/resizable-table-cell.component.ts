@@ -1,14 +1,16 @@
-import { Directive, ElementRef, Inject, OnDestroy, OnInit, Renderer2 } from '@angular/core';
+import { Component, ElementRef, Inject, OnDestroy, OnInit, Renderer2, ChangeDetectionStrategy } from '@angular/core';
 import { combineLatest, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ColumnUnit } from './table-column-resize-standard/resizable-table.service';
 import { RESIZABLE_TABLE_SERVICE_TOKEN } from './resizable-table-service.token';
 import { BaseResizableTableService, ResizableTableType } from './resizable-table-base.service';
 
-@Directive({
-    selector: '[uxResizableTableCell]'
+@Component({
+    selector: '[uxResizableTableCell]',
+    templateUrl: './resizable-table-cell.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ResizableTableCellDirective implements OnInit, OnDestroy {
+export class ResizableTableCellComponent implements OnInit, OnDestroy {
 
     /** Unsubscribe from all subscriptions on destroy */
     private readonly _onDestroy = new Subject<void>();
