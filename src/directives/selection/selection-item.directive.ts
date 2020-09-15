@@ -46,8 +46,11 @@ export class SelectionItemDirective<T> implements OnInit, OnDestroy {
     /** Defines whether or not this item is currently selected. */
     @Output() selectedChange = new EventEmitter<boolean>();
 
-    /** Store the current focused state of the item */
-    @HostBinding('class.ux-selection-focused') active: boolean = false;
+    /** Store whether this item is the focusable item */
+    active: boolean = false;
+
+    /** Store the focused state of the element */
+    @HostBinding('class.ux-selection-focused') isFocused: boolean = false;
 
     @HostBinding('attr.tabindex')
     get attrTabIndex(): number {
@@ -134,6 +137,13 @@ export class SelectionItemDirective<T> implements OnInit, OnDestroy {
 
         // Watch for focus within the container element and manage tabindex of descendants
         this._managedFocusContainerService.register(this._elementRef.nativeElement, this);
+
+        // Listen for changes to the focus state and apply the appropriate class
+       this._focusIndicator.origin$.pipe(map(origin => origin === 'keyboard'), takeUntil(this._onDestroy))
+           .subscribe(isFocused => {
+               this.isFocused = isFocused;
+               this._changeDetector.markForCheck();
+           });
     }
 
     ngOnDestroy(): void {
