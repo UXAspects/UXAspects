@@ -1,4 +1,10 @@
-<ng-content></ng-content>
+<div class="ux-resizable-table-column-content">
+    <ng-content></ng-content>
+</div>
+
+<div class="ux-resizable-table-column-actions">
+    <ng-content select="ux-column-sorting"></ng-content>
+</div>
 
 <div #handle
      uxDrag

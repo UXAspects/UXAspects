@@ -1,4 +1,5 @@
-<div class="ux-column-sorting">
+<div class="ux-column-sorting"
+     [class.ux-column-sorting-hidden]="state === ColumnSortingState.NoSort">
 
     <!-- The default sort indicator -->
     <ng-container *ngIf="!_sortIndicator">

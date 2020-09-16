@@ -7,15 +7,9 @@
             <thead>
             <tr>
                 <th uxResizableTableColumn [width]="50" [disabled]="true"></th>
-                <th uxResizableTableColumn [(width)]="titleWidth">
-                    Title <small class="m-l-xs">{{ titleWidth | number }}px</small>
-                </th>
-                <th uxResizableTableColumn [(width)]="authorWidth">
-                    Author <small class="m-l-xs">{{ authorWidth | number }}px</small>
-                </th>
-                <th uxResizableTableColumn (widthChange)="dateWidth = $event">
-                    Date <small class="m-l-xs">{{ dateWidth | number }}px</small>
-                </th>
+                <th uxResizableTableColumn [(width)]="titleWidth">Title</th>
+                <th uxResizableTableColumn [(width)]="authorWidth">Author</th>
+                <th uxResizableTableColumn (widthChange)="dateWidth = $event">Date</th>
             </tr>
             </thead>
             <tbody [(uxSelection)]="selection">
@@ -40,18 +34,9 @@
             <thead>
             <tr>
                 <th uxResizableTableColumn [width]="50" [disabled]="true"></th>
-                <th uxResizableTableColumn [(width)]="titleWidth">Title
-                    <small class="m-l-xs">{{ titleWidth | number }}px
-                    </small>
-                </th>
-                <th uxResizableTableColumn [(width)]="authorWidth">Author
-                    <small class="m-l-xs">{{ authorWidth | number }}px
-                    </small>
-                </th>
-                <th uxResizableTableColumn [(width)]="dateWidthExpanding">Date
-                    <small class="m-l-xs">{{dateWidthExpanding | number}}px
-                    </small>
-                </th>
+                <th uxResizableTableColumn [(width)]="titleWidth">Title</th>
+                <th uxResizableTableColumn [(width)]="authorWidth">Author</th>
+                <th uxResizableTableColumn [(width)]="dateWidthExpanding">Date</th>
             </tr>
             </thead>
             <tbody [(uxSelection)]="selection">
@@ -85,15 +70,9 @@
             <thead>
             <tr>
                 <th uxResizableTableColumn [width]="50" [disabled]="true"></th>
-                <th uxResizableTableColumn [(width)]="titleWidth">
-                    Title <small>{{ titleWidth | number }}px</small>
-                </th>
-                <th uxResizableTableColumn [(width)]="authorWidth">
-                    Author <small>{{ authorWidth | number }}px</small>
-                </th>
-                <th uxResizableTableColumn (widthChange)="dateWidth = $event">
-                    Date <small>{{ dateWidth | number }}px</small>
-                </th>
+                <th uxResizableTableColumn [(width)]="titleWidth">Title</th>
+                <th uxResizableTableColumn [(width)]="authorWidth">Author</th>
+                <th uxResizableTableColumn (widthChange)="dateWidth = $event">Date</th>
             </tr>
             </thead>
             <tbody [(uxSelection)]="selection">
