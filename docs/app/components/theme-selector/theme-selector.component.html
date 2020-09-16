@@ -1,0 +1,20 @@
+<button type="button" class="theme-selector-button" [class.active]="dropdownOpen" [uxMenuTriggerFor]="menu">
+    <span>{{ buttonTitle }}</span>
+    <sup *ngIf="selected !== default" class="theme-selector-custom-indicator">*</sup>
+    <ux-icon class="theme-selector-button-icon" name="chevron-down" size="11px"></ux-icon>
+</button>
+
+<ux-menu #menu menuClass="uxd-theme-selector-dropdown" (opened)="dropdownOpen = true" (closed)="dropdownOpen = false">
+    <button
+        *ngFor="let theme of themes"
+        type="button"
+        class="theme-selector-option"
+        uxMenuItem
+        (activate)="setSelected(theme)"
+    >
+        <span class="dropdown-menu-icon">
+            <ux-icon *ngIf="theme === selected" name="active"></ux-icon>
+        </span>
+        <span class="dropdown-menu-text">{{ theme.title }}</span>
+    </button>
+</ux-menu>

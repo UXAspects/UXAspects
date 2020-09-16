@@ -3,13 +3,14 @@ import { Inject, Injectable } from '@angular/core';
 import { PersistentDataService } from '@ux-aspects/ux-aspects';
 import { BehaviorSubject } from 'rxjs';
 import { distinctUntilChanged } from 'rxjs/operators';
+import { SiteThemeId } from '../../interfaces/SiteTheme';
 
 @Injectable({
     providedIn: 'root'
 })
 export class SiteThemeService {
 
-    theme$ = new BehaviorSubject<SiteTheme>(SiteTheme.Keppel);
+    theme$ = new BehaviorSubject<SiteThemeId>(SiteThemeId.Keppel);
 
     constructor(
         @Inject(DOCUMENT) private _document: Document,
@@ -18,21 +19,21 @@ export class SiteThemeService {
 
     load(): void {
         // Load previously saved value
-        const persistedSiteTheme = SiteTheme[this._persistentDataService.getItem('uxd-site-theme')];
-        this.theme$.next(persistedSiteTheme || SiteTheme.MicroFocus);
+        const persistedSiteTheme = SiteThemeId[this._persistentDataService.getItem('uxd-site-theme')];
+        this.theme$.next(persistedSiteTheme || SiteThemeId.MicroFocus);
 
         // Update from changes triggered by the theme page
         this.theme$.pipe(distinctUntilChanged()).subscribe(siteTheme => {
             const link = this._document.querySelector('link#uxd-theme-link') as HTMLLinkElement;
             if (link) {
                 switch (siteTheme) {
-                    case SiteTheme.MicroFocus:
+                    case SiteThemeId.MicroFocus:
                         link.href = 'micro-focus.css';
                         break;
-                    case SiteTheme.MicroFocus2020:
+                    case SiteThemeId.MicroFocus2020:
                         link.href = 'micro-focus-2020.css';
                         break;
-                    case SiteTheme.WhiteLabel:
+                    case SiteThemeId.WhiteLabel:
                         link.href = 'white-label.css';
                         break;
                 }
@@ -43,9 +44,4 @@ export class SiteThemeService {
     }
 }
 
-export enum SiteTheme {
-    Keppel = 'Keppel',
-    MicroFocus = 'MicroFocus',
-    MicroFocus2020 = 'MicroFocus2020',
-    WhiteLabel = 'WhiteLabel'
-}
+

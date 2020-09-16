@@ -14,6 +14,8 @@
 
         <div class="navigation-bar-spacer"></div>
 
+        <uxd-theme-selector *ngIf="themes" buttonTitle="Theme" [themes]="themes"></uxd-theme-selector>
+
         <a class="navigation-bar-item"
            *ngFor="let link of social"
            [routerLink]="link.link"
@@ -39,6 +41,14 @@
 
         <li class="navigation-bar-dropdown-list-item" *ngFor="let link of links">
             <a class="navigation-bar-dropdown-list-item-link" [routerLink]="link.link" routerLinkActive="active" (click)="expanded = false">{{ link.title }}</a>
+        </li>
+
+        <li *ngIf="themes" class="navigation-bar-dropdown-list-item">
+            <a
+                class="navigation-bar-dropdown-list-item-link"
+                routerLink="/theme"
+                routerLinkActive="active"
+                (click)="expanded = false">Theme</a>
         </li>
 
         <li class="navigation-bar-dropdown-list-item" *ngFor="let link of social">
