@@ -138,19 +138,12 @@
             box-shadow: none;
         }
 
-        &:hover,
-        &:focus,
-        &.child-focus,
-        &.ux-selection-focused {
+        &:hover {
             background-color: @shift-select-selected-hover-light;
 
             & > td.item-actions .list-hover-actions {
                 box-shadow: none;
             }
-        }
-
-        &.ux-selection-focused:focus {
-            .native-focus-outline();
         }
     }
 }
