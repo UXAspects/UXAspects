@@ -401,3 +401,82 @@ describe('Wizard with validation', () => {
         return !stepElements[index].classList.contains('invalid');
     }
 });
+
+@Component({
+    selector: 'marquee-wizard-validation-appearance',
+    template: `
+        <ux-wizard>
+            <ux-wizard-step
+                header="Step One"
+                [valid]="step1Valid"
+                [(visited)]="step1Visited">
+                Step One Content
+            </ux-wizard-step>
+            <ux-wizard-step
+                header="Step Two"
+                [valid]="step2Valid"
+                [(visited)]="step2Visited">
+                Step Two Content
+            </ux-wizard-step>
+        </ux-wizard>
+    `
+})
+export class WizardValidationAppearanceComponent {
+
+    // step 1 values
+    step1Valid = true;
+    step1Visited: boolean;
+    step1Completed: boolean;
+
+    // step 2 values
+    step2Valid: boolean = true;
+    step2Visited: boolean;
+    step2Completed: boolean;
+
+}
+
+describe('Wizard with invalid appearance', () => {
+    let component: WizardValidationAppearanceComponent;
+    let fixture: ComponentFixture<WizardValidationAppearanceComponent>;
+    let nativeElement: HTMLElement;
+
+    beforeEach(async(() => {
+        TestBed.configureTestingModule({
+            imports: [WizardModule],
+            declarations: [WizardValidationAppearanceComponent]
+        }).compileComponents();
+    }));
+
+    beforeEach(() => {
+        fixture = TestBed.createComponent(WizardValidationAppearanceComponent);
+        component = fixture.componentInstance;
+        nativeElement = fixture.nativeElement;
+        fixture.detectChanges();
+    });
+
+    it('should not have an invalid appearance when valid = false and visited = false', () => {
+        component.step1Visited = true;
+        component.step2Visited = false;
+        component.step2Valid = false;
+
+        fixture.detectChanges();
+
+        expect(isValidAppearance(1)).toBe(true);
+
+    });
+
+    it('should have an invalid appearance when valid = false and visited = true', () => {
+        component.step1Visited = true;
+        component.step2Visited = true;
+        component.step2Valid = false;
+
+        fixture.detectChanges();
+
+        expect(isValidAppearance(1)).toBe(false);
+    });
+
+    function isValidAppearance(index: number): boolean {
+        const stepElements = nativeElement.querySelectorAll('.wizard-step');
+        return !stepElements[index].classList.contains('invalid');
+    }
+});
