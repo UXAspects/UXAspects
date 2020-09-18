@@ -462,7 +462,6 @@ describe('Wizard with invalid appearance', () => {
         fixture.detectChanges();
 
         expect(isValidAppearance(1)).toBe(true);
-
     });
 
     it('should have an invalid appearance when valid = false and visited = true', () => {
