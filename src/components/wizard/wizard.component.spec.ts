@@ -391,6 +391,26 @@ describe('Wizard with validation', () => {
         expect(visitedChanged.calls.all().length).toBe(0);
     });
 
+    it('should not have an invalid appearance when valid = false and visited = false', () => {
+        component.step1Visited = true;
+        component.step2Visited = false;
+        component.step2Valid = false;
+
+        fixture.detectChanges();
+
+        expect(isStepValid(1)).toBe(true);
+    });
+
+    it('should have an invalid appearance when valid = false and visited = true', () => {
+        component.step1Visited = true;
+        component.step2Visited = true;
+        component.step2Valid = false;
+
+        fixture.detectChanges();
+
+        expect(isStepValid(1)).toBe(false);
+    });
+
     function isStepVisited(index: number): boolean {
         const stepElements = nativeElement.querySelectorAll('.wizard-step');
         return stepElements[index].classList.contains('visited');
