@@ -403,7 +403,7 @@ describe('Wizard with validation', () => {
 });
 
 @Component({
-    selector: 'marquee-wizard-validation',
+    selector: 'marquee-wizard-validation-appearance',
     template: `
         <ux-wizard>
             <ux-wizard-step
