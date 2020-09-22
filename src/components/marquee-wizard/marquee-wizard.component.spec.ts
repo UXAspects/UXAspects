@@ -23,31 +23,23 @@ import { MarqueeWizardModule } from './marquee-wizard.module';
                     src="https://pages.github.houston.softwaregrp.net/caf/ux-aspects-micro-focus/docs/app/assets/img/marquee-wizard-icon.svg"
                 />
 
-                <h3 id="marquee-wizard-title" class="marquee-title">
-                    Marquee Wizard
-                </h3>
+                <h3 id="marquee-wizard-title" class="marquee-title">Marquee Wizard</h3>
                 <p class="m-b-nil">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Aenean sodales lacus vitae congue lacinia. Phasellus finibus
-                    dolor efficitur quam vestibulum feugiat.
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean sodales lacus vitae congue lacinia.
+                    Phasellus finibus dolor efficitur quam vestibulum feugiat.
                 </p>
             </ng-template>
 
-            <ux-marquee-wizard-step
-                *ngFor="let step of steps"
-                [header]="step.title"
-            >
+            <ux-marquee-wizard-step *ngFor="let step of steps" [header]="step.title">
                 <h3 class="marquee-step-title m-t-nil">{{ step.stepTitle }}</h3>
                 <div class="row">
                     <div class="col-xs-7">
-                        <p class="marquee-wizard-text">
-                            Content of second step
-                        </p>
+                        <p class="marquee-wizard-text">Content of second step</p>
                     </div>
                 </div>
             </ux-marquee-wizard-step>
         </ux-marquee-wizard>
-    `
+    `,
 })
 export class MarqueeWizardComponent {
     step: number = 0;
@@ -57,8 +49,8 @@ export class MarqueeWizardComponent {
         {
             title: 'step two',
             stepTitle: 'Marquee wizard Step',
-            contentStep: 'Content of second step'
-        }
+            contentStep: 'Content of second step',
+        },
     ];
 
     /**
@@ -77,7 +69,7 @@ describe('Marquee Wizard', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             imports: [MarqueeWizardModule],
-            declarations: [MarqueeWizardComponent]
+            declarations: [MarqueeWizardComponent],
         }).compileComponents();
     }));
 
@@ -93,9 +85,7 @@ describe('Marquee Wizard', () => {
     });
 
     it('should display an icon', () => {
-        const container = nativeElement.querySelector(
-            '.marquee-wizard-description-container'
-        );
+        const container = nativeElement.querySelector('.marquee-wizard-description-container');
         const icon = container.querySelector('img');
         expect(icon).toBeTruthy();
     });
@@ -103,14 +93,12 @@ describe('Marquee Wizard', () => {
     it('should generate an id for each step', () => {
         const steps = nativeElement.querySelectorAll('.marquee-wizard-step');
         steps.forEach((step, index) => {
-            expect(step.id).toMatch(`ux-wizard-[0-9]+-step-${ index }-label`);
+            expect(step.id).toMatch(`ux-wizard-[0-9]+-step-${index}-label`);
         });
     });
 
     it('should display the step title in the side pane;', async(() => {
-        const title = nativeElement.querySelector<HTMLHeadingElement>(
-            '.marquee-title'
-        );
+        const title = nativeElement.querySelector<HTMLHeadingElement>('.marquee-title');
         expect(title.innerText).toBe('Marquee Wizard');
     }));
 
@@ -118,9 +106,7 @@ describe('Marquee Wizard', () => {
         const closeSpy = spyOn(fixture.componentInstance, 'close');
 
         let footer = nativeElement.querySelector('.modal-footer');
-        let buttons = footer.querySelectorAll<HTMLButtonElement>(
-            '.button-primary'
-        );
+        let buttons = footer.querySelectorAll<HTMLButtonElement>('.button-primary');
 
         expect(buttons.length).toBe(1);
 
@@ -159,11 +145,11 @@ describe('Marquee Wizard', () => {
                 <p class="test-step-content">{{ step.content }}</p>
             </ux-marquee-wizard-step>
         </ux-marquee-wizard>
-    `
+    `,
 })
 export class MarqueeWizardNgForComponent implements OnDestroy {
     step = 0;
-    steps: { title: string; content: string; }[] = [];
+    steps: { title: string; content: string }[] = [];
     valid: boolean = true;
     disableNextWhenInvalid: boolean;
     private _timeout: number;
@@ -172,7 +158,7 @@ export class MarqueeWizardNgForComponent implements OnDestroy {
         this._timeout = window.setTimeout(() => {
             this.steps = [
                 { title: 'First Step', content: 'Content of first step' },
-                { title: 'Second Step', content: 'Content of second step' }
+                { title: 'Second Step', content: 'Content of second step' },
             ];
             changeDetector.detectChanges();
         }, 100);
@@ -191,7 +177,7 @@ describe('Marquee wizard with delayed step creation', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             imports: [MarqueeWizardModule],
-            declarations: [MarqueeWizardNgForComponent]
+            declarations: [MarqueeWizardNgForComponent],
         }).compileComponents();
     }));
 
@@ -210,14 +196,8 @@ describe('Marquee wizard with delayed step creation', () => {
 
         steps = getSteps();
         expect(steps.length).toBe(2);
-        expect(
-            steps[0].querySelector<HTMLElement>('.marquee-wizard-step-title')
-                .innerText
-        ).toBe('First Step');
-        expect(
-            steps[1].querySelector<HTMLElement>('.marquee-wizard-step-title')
-                .innerText
-        ).toBe('Second Step');
+        expect(steps[0].querySelector<HTMLElement>('.marquee-wizard-step-title').innerText).toBe('First Step');
+        expect(steps[1].querySelector<HTMLElement>('.marquee-wizard-step-title').innerText).toBe('Second Step');
 
         expect(component.step).toBe(0);
         expect(getContentText()).toContain('Content of first step');
@@ -239,9 +219,7 @@ describe('Marquee wizard with delayed step creation', () => {
 
         await whenStepsLoaded();
 
-        const button = nativeElement.querySelector<HTMLButtonElement>(
-            '.modal-footer .button-primary'
-        );
+        const button = nativeElement.querySelector<HTMLButtonElement>('.modal-footer .button-primary');
 
         expect(button.hasAttribute('disabled')).toBeTruthy();
     }));
@@ -256,20 +234,15 @@ describe('Marquee wizard with delayed step creation', () => {
     }
 
     function getSteps(): NodeListOf<HTMLUListElement> {
-        return nativeElement.querySelectorAll<HTMLUListElement>(
-            '.marquee-wizard-step'
-        );
+        return nativeElement.querySelectorAll<HTMLUListElement>('.marquee-wizard-step');
     }
 
     function getContentText(): string {
-        return nativeElement.querySelector<HTMLElement>('.test-step-content')
-            .innerText;
+        return nativeElement.querySelector<HTMLElement>('.test-step-content').innerText;
     }
 
     async function clickNext(): Promise<void> {
-        const nextButton = nativeElement.querySelector<HTMLButtonElement>(
-            '.modal-footer .button-primary'
-        );
+        const nextButton = nativeElement.querySelector<HTMLButtonElement>('.modal-footer .button-primary');
         nextButton.click();
         fixture.detectChanges();
         await fixture.whenStable();
@@ -282,15 +255,14 @@ describe('Marquee wizard with delayed step creation', () => {
 @Component({
     selector: 'marquee-wizard-validation-app',
     template: `
-        <ux-marquee-wizard
-            [(step)]="currentStep"
-            [resetVisitedOnValidationError]="resetVisitedOnValidationError">
+        <ux-marquee-wizard [(step)]="currentStep" [resetVisitedOnValidationError]="resetVisitedOnValidationError">
             <ux-marquee-wizard-step
                 header="Step One"
                 [valid]="step1Valid"
                 [(visited)]="step1Visited"
                 [(completed)]="step1Completed"
-                (visitedChange)="visitedChanged(0, $event)">
+                (visitedChange)="visitedChanged(0, $event)"
+            >
                 Step One Content
             </ux-marquee-wizard-step>
             <ux-marquee-wizard-step
@@ -298,7 +270,8 @@ describe('Marquee wizard with delayed step creation', () => {
                 [valid]="step2Valid"
                 [(visited)]="step2Visited"
                 [(completed)]="step2Completed"
-                (visitedChange)="visitedChanged(1, $event)">
+                (visitedChange)="visitedChanged(1, $event)"
+            >
                 Step Two Content
             </ux-marquee-wizard-step>
             <ux-marquee-wizard-step
@@ -306,11 +279,12 @@ describe('Marquee wizard with delayed step creation', () => {
                 [valid]="step3Valid"
                 [(visited)]="step3Visited"
                 [(completed)]="step3Completed"
-                (visitedChange)="visitedChanged(2, $event)">
+                (visitedChange)="visitedChanged(2, $event)"
+            >
                 Step Three Content
             </ux-marquee-wizard-step>
         </ux-marquee-wizard>
-    `
+    `,
 })
 export class MarqueeWizardValidationComponent {
     currentStep: number;
@@ -331,8 +305,7 @@ export class MarqueeWizardValidationComponent {
     step3Visited: boolean;
     step3Completed: boolean;
 
-    visitedChanged(index: number, value: boolean): void {
-    }
+    visitedChanged(index: number, value: boolean): void {}
 }
 
 describe('Marquee wizard with validation', () => {
@@ -344,7 +317,7 @@ describe('Marquee wizard with validation', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             imports: [MarqueeWizardModule],
-            declarations: [MarqueeWizardValidationComponent]
+            declarations: [MarqueeWizardValidationComponent],
         }).compileComponents();
     }));
 
@@ -356,7 +329,7 @@ describe('Marquee wizard with validation', () => {
         fixture.detectChanges();
     });
 
-    it('should remove visited state from later steps when valid = false',  () => {
+    it('should remove visited state from later steps when valid = false', () => {
         // 3 steps and number 2 gets set invalid - 1 should stay the same, 3 should be valid but no longer be visited
         component.step1Visited = true;
         component.step2Visited = true;
@@ -390,7 +363,7 @@ describe('Marquee wizard with validation', () => {
         expect(visitedChanged.calls.all().length).toBe(1);
     });
 
-    it('should not remove visited state from later steps when valid = false and resetVisitedOnValidationError = false',  () => {
+    it('should not remove visited state from later steps when valid = false and resetVisitedOnValidationError = false', () => {
         component.resetVisitedOnValidationError = false;
         component.step1Visited = true;
         component.step2Visited = true;
@@ -442,25 +415,17 @@ describe('Marquee wizard with validation', () => {
     selector: 'marquee-wizard-custom-step',
     template: `
         <ux-marquee-wizard [stepTemplate]="stepTemplate">
-
             <ng-template #stepTemplate let-step let-index="index" let-context="context">
                 {{ index }}. {{ step.header }} ({{ context.count }})
             </ng-template>
 
-            <ux-marquee-wizard-step
-                header="Step One"
-                [context]="{ count: 123 }">
-            </ux-marquee-wizard-step>
+            <ux-marquee-wizard-step header="Step One" [context]="{ count: 123 }"> </ux-marquee-wizard-step>
 
-            <ux-marquee-wizard-step
-                header="Step Two"
-                [context]="{ count: 456 }">
-            </ux-marquee-wizard-step>
+            <ux-marquee-wizard-step header="Step Two" [context]="{ count: 456 }"> </ux-marquee-wizard-step>
         </ux-marquee-wizard>
-    `
+    `,
 })
-export class MarqueeWizardCustomStepTemplateComponent {
-}
+export class MarqueeWizardCustomStepTemplateComponent {}
 
 describe('Marquee wizard with custom step template', () => {
     let component: MarqueeWizardCustomStepTemplateComponent;
@@ -470,7 +435,7 @@ describe('Marquee wizard with custom step template', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             imports: [MarqueeWizardModule],
-            declarations: [MarqueeWizardCustomStepTemplateComponent]
+            declarations: [MarqueeWizardCustomStepTemplateComponent],
         }).compileComponents();
 
         fixture = TestBed.createComponent(MarqueeWizardCustomStepTemplateComponent);
@@ -484,5 +449,4 @@ describe('Marquee wizard with custom step template', () => {
         expect(steps.item(0).textContent.trim()).toBe('0. Step One (123)');
         expect(steps.item(1).textContent.trim()).toBe('1. Step Two (456)');
     });
-
 });
