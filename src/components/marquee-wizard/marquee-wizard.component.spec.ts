@@ -9,13 +9,12 @@ import { MarqueeWizardModule } from './marquee-wizard.module';
     selector: 'marquee-wizard-app',
     template: `
         <ux-marquee-wizard
-            class="marquee-wizard"
             [(step)]="step"
             [description]="description"
-            (onFinish)="close()"
-            (onCancel)="close()"
             [previousVisible]="step !== 0"
             [cancelVisible]="false"
+            (onFinish)="close()"
+            (onCancel)="close()"
         >
             <ng-template #description>
                 <img
@@ -23,20 +22,11 @@ import { MarqueeWizardModule } from './marquee-wizard.module';
                     src="https://pages.github.houston.softwaregrp.net/caf/ux-aspects-micro-focus/docs/app/assets/img/marquee-wizard-icon.svg"
                 />
 
-                <h3 id="marquee-wizard-title" class="marquee-title">Marquee Wizard</h3>
-                <p class="m-b-nil">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean sodales lacus vitae congue lacinia.
-                    Phasellus finibus dolor efficitur quam vestibulum feugiat.
-                </p>
+                <h3 class="marquee-title">Marquee Wizard</h3>
             </ng-template>
 
             <ux-marquee-wizard-step *ngFor="let step of steps" [header]="step.title">
-                <h3 class="marquee-step-title m-t-nil">{{ step.stepTitle }}</h3>
-                <div class="row">
-                    <div class="col-xs-7">
-                        <p class="marquee-wizard-text">Content of second step</p>
-                    </div>
-                </div>
+                <p class="test-step-content">{{ step.content }}</p>
             </ux-marquee-wizard-step>
         </ux-marquee-wizard>
     `,
@@ -45,12 +35,8 @@ export class MarqueeWizardComponent {
     step: number = 0;
 
     steps = [
-        { title: 'step one', stepTitle: 'Marquee wizard' },
-        {
-            title: 'step two',
-            stepTitle: 'Marquee wizard Step',
-            contentStep: 'Content of second step',
-        },
+        { title: 'First Step', content: 'Content of first step' },
+        { title: 'Second Step', content: 'Content of second step' },
     ];
 
     /**
@@ -97,7 +83,7 @@ describe('Marquee Wizard', () => {
         });
     });
 
-    it('should display the step title in the side pane;', async(() => {
+    it('should display the step title in the side pane', async(() => {
         const title = nativeElement.querySelector<HTMLHeadingElement>('.marquee-title');
         expect(title.innerText).toBe('Marquee Wizard');
     }));
@@ -135,7 +121,7 @@ describe('Marquee Wizard', () => {
 @Component({
     selector: 'marquee-wizard-ngfor-app',
     template: `
-        <ux-marquee-wizard class="marquee-wizard" [(step)]="step">
+        <ux-marquee-wizard [(step)]="step">
             <ux-marquee-wizard-step
                 *ngFor="let step of steps"
                 [header]="step.title"
