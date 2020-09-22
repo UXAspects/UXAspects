@@ -1,6 +1,14 @@
 import { ChangeDetectorRef, Component, OnDestroy } from '@angular/core';
 import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { MarqueeWizardModule } from './marquee-wizard.module';
+import { StepChangingEvent } from '../wizard';
+
+interface StepDefinition {
+    title: string;
+    content?: string;
+    visited?: boolean;
+    completed?: boolean;
+}
 
 /**
  * Test navigation and steps display correctly
@@ -12,9 +20,14 @@ import { MarqueeWizardModule } from './marquee-wizard.module';
             [(step)]="step"
             [description]="description"
             [previousVisible]="step !== 0"
-            [cancelVisible]="false"
-            (onFinish)="close()"
-            (onCancel)="close()"
+            [cancelVisible]="cancelVisible"
+            (stepChanging)="onStepChanging($event)"
+            (stepChange)="onStepChange($event)"
+            (onNext)="onNext($event)"
+            (onPrevious)="onPrevious($event)"
+            (onFinishing)="onFinishing()"
+            (onFinish)="onFinish()"
+            (onCancel)="onCancel()"
         >
             <ng-template #description>
                 <img
@@ -25,94 +38,222 @@ import { MarqueeWizardModule } from './marquee-wizard.module';
                 <h3 class="marquee-title">Marquee Wizard</h3>
             </ng-template>
 
-            <ux-marquee-wizard-step *ngFor="let step of steps" [header]="step.title">
+            <ux-marquee-wizard-step
+                *ngFor="let step of steps"
+                [header]="step.title"
+                [(visited)]="step.visited"
+                [(completed)]="step.completed"
+            >
                 <p class="test-step-content">{{ step.content }}</p>
             </ux-marquee-wizard-step>
         </ux-marquee-wizard>
     `,
 })
-export class MarqueeWizardComponent {
+export class MarqueeWizardTestComponent {
     step: number = 0;
 
-    steps = [
+    steps: StepDefinition[] = [
         { title: 'First Step', content: 'Content of first step' },
         { title: 'Second Step', content: 'Content of second step' },
     ];
 
-    /**
-     * Close the modal and reset everything
-     */
-    close(): void {
-        this.step = 0;
-    }
+    cancelVisible = false;
+
+    onStepChanging(_: StepChangingEvent): void {}
+    onStepChange(_: number): void {}
+    onNext(_: number): void {}
+    onPrevious(_: number): void {}
+    onFinishing(): void {}
+    onFinish(): void {}
+    onCancel(): void {}
 }
 
-describe('Marquee Wizard', () => {
-    let component: MarqueeWizardComponent;
-    let fixture: ComponentFixture<MarqueeWizardComponent>;
+fdescribe('Marquee Wizard', () => {
+    let component: MarqueeWizardTestComponent;
+    let fixture: ComponentFixture<MarqueeWizardTestComponent>;
     let nativeElement: HTMLElement;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             imports: [MarqueeWizardModule],
-            declarations: [MarqueeWizardComponent],
+            declarations: [MarqueeWizardTestComponent],
         }).compileComponents();
     }));
 
-    beforeEach(() => {
-        fixture = TestBed.createComponent(MarqueeWizardComponent);
+    beforeEach(async () => {
+        fixture = TestBed.createComponent(MarqueeWizardTestComponent);
         component = fixture.componentInstance;
         nativeElement = fixture.nativeElement;
         fixture.detectChanges();
+        await fixture.whenStable();
+        fixture.detectChanges();
     });
 
-    it('should initialise correctly', () => {
-        expect(component).toBeTruthy();
-    });
-
-    it('should display an icon', () => {
+    it('should display an icon in the side pane', () => {
         const container = nativeElement.querySelector('.marquee-wizard-description-container');
         const icon = container.querySelector('img');
         expect(icon).toBeTruthy();
     });
 
+    it('should display a title in the side pane', async(() => {
+        const title = nativeElement.querySelector<HTMLHeadingElement>('.marquee-title');
+        expect(title.innerText).toBe('Marquee Wizard');
+    }));
+
     it('should generate an id for each step', () => {
-        const steps = nativeElement.querySelectorAll('.marquee-wizard-step');
+        const steps = getStepHeaders();
         steps.forEach((step, index) => {
             expect(step.id).toMatch(`ux-wizard-[0-9]+-step-${index}-label`);
         });
     });
 
-    it('should display the step title in the side pane', async(() => {
-        const title = nativeElement.querySelector<HTMLHeadingElement>('.marquee-title');
-        expect(title.innerText).toBe('Marquee Wizard');
-    }));
-
-    it('should emit when the button is clicked', async () => {
-        const closeSpy = spyOn(fixture.componentInstance, 'close');
-
-        let footer = nativeElement.querySelector('.modal-footer');
-        let buttons = footer.querySelectorAll<HTMLButtonElement>('.button-primary');
-
-        expect(buttons.length).toBe(1);
-
-        // clicking the next button
-        buttons.item(0).click();
-        fixture.detectChanges();
-        await fixture.whenStable();
-
-        buttons = footer.querySelectorAll<HTMLButtonElement>('.button-primary');
-
-        expect(buttons.length).toBe(1);
-
-        // clicking the finish button
-        buttons.item(0).click();
-        fixture.detectChanges();
-        await fixture.whenStable();
-
-        // the finish event should have emitted
-        expect(closeSpy).toHaveBeenCalled();
+    it('should display the step headers in the side pane', () => {
+        const stepHeaders = getStepHeaders();
+        expect(stepHeaders.length).toBe(2);
+        expect(stepHeaders[0].classList).toContain('active', 'stepHeaders[0]');
+        expect(stepHeaders[0].classList).toContain('visited', 'stepHeaders[0]');
+        expect(stepHeaders[0].innerText).toBe('First Step', 'stepHeaders[0]');
+        expect(stepHeaders[1].classList).not.toContain('active', 'stepHeaders[1]');
+        expect(stepHeaders[1].classList).not.toContain('visited', 'stepHeaders[1]');
+        expect(stepHeaders[1].innerText).toBe('Second Step', 'stepHeaders[1]');
     });
+
+    it('should display step content', () => {
+        expect(getContentText()).toBe('Content of first step');
+    });
+
+    it('should have a "Next" button on the first step', () => {
+        const buttons = getStepButtons();
+        expect(buttons.length).toBe(1);
+        expect(buttons[0].classList).toContain('button-primary');
+        expect(buttons[0].innerText.toUpperCase()).toBe('NEXT');
+    });
+
+    it('should change to the second step when "Next" is clicked', async () => {
+        await clickStepButton('Next');
+
+        expect(component.step).toBe(1);
+        expect(getActiveStepHeader().innerText).toBe('Second Step');
+        expect(getContentText()).toBe('Content of second step');
+    });
+
+    it('should emit stepChanging, stepChange, and onNext when "Next" is clicked', async () => {
+        spyOn(component, 'onStepChanging');
+        spyOn(component, 'onStepChange');
+        spyOn(component, 'onNext');
+
+        await clickStepButton('Next');
+
+        expect(component.onStepChanging).toHaveBeenCalledWith(new StepChangingEvent(0, 1));
+        expect(component.onStepChange).toHaveBeenCalledWith(1);
+        expect(component.onNext).toHaveBeenCalledWith(1);
+    });
+
+    describe('on the last step', () => {
+        beforeEach(() => {
+            component.step = 1;
+            fixture.detectChanges();
+        });
+
+        it('should display step content', () => {
+            expect(getContentText()).toBe('Content of second step');
+        });
+
+        it('should display the step as active in the side pane', () => {
+            expect(getActiveStepHeader().innerText).toBe('Second Step');
+        });
+
+        it('should have a "Previous" and "Finish" button', () => {
+            const buttons = getStepButtons();
+            expect(buttons.length).toBe(2);
+            expect(buttons[0].classList).toContain('button-secondary');
+            expect(buttons[0].innerText.toUpperCase()).toBe('PREVIOUS');
+            expect(buttons[1].classList).toContain('button-primary');
+            expect(buttons[1].innerText.toUpperCase()).toBe('FINISH');
+        });
+
+        it('should emit onFinishing and onFinish when "Finish" button is clicked', async () => {
+            spyOn(component, 'onFinishing');
+            spyOn(component, 'onFinish');
+
+            await clickStepButton('Finish');
+
+            expect(component.onFinishing).toHaveBeenCalledTimes(1);
+            expect(component.onFinish).toHaveBeenCalledTimes(1);
+        });
+
+        it('should change to the first step when "Previous" is clicked', async () => {
+            await clickStepButton('Previous');
+
+            expect(component.step).toBe(0);
+            expect(getActiveStepHeader().innerText).toBe('First Step');
+            expect(getContentText()).toBe('Content of first step');
+        });
+
+        it('should emit stepChanging, stepChange, and onPrevious when "Previous" is clicked', async () => {
+            spyOn(component, 'onStepChanging');
+            spyOn(component, 'onStepChange');
+            spyOn(component, 'onPrevious');
+
+            await clickStepButton('Previous');
+
+            expect(component.onStepChanging).toHaveBeenCalledWith(new StepChangingEvent(1, 0));
+            expect(component.onStepChange).toHaveBeenCalledWith(0);
+            expect(component.onPrevious).toHaveBeenCalledWith(0);
+        });
+    });
+
+    describe('with cancel button', () => {
+        beforeEach(() => {
+            component.cancelVisible = true;
+            fixture.detectChanges();
+        });
+
+        it('should have a cancel button on the first step', () => {
+            const buttons = getStepButtons();
+            expect(buttons.length).toBe(2);
+            expect(buttons[0].classList).toContain('button-primary');
+            expect(buttons[0].innerText.toUpperCase()).toBe('NEXT');
+            expect(buttons[1].classList).toContain('button-secondary');
+            expect(buttons[1].innerText.toUpperCase()).toBe('CANCEL');
+        });
+
+        it('should emit onCancel when the "Cancel" button is clicked', async () => {
+            spyOn(component, 'onCancel');
+
+            await clickStepButton('Cancel');
+
+            expect(component.onCancel).toHaveBeenCalledTimes(1);
+        });
+    });
+
+    function getStepHeaders(): HTMLElement[] {
+        return Array.from(nativeElement.querySelectorAll('.marquee-wizard-steps > .marquee-wizard-step'));
+    }
+
+    function getActiveStepHeader(): HTMLElement {
+        return nativeElement.querySelector('.marquee-wizard-step.active');
+    }
+
+    function getStepButtons(): HTMLButtonElement[] {
+        return Array.from(nativeElement.querySelectorAll('.modal-footer button'));
+    }
+
+    function getContentText(): string {
+        return nativeElement.querySelector<HTMLElement>('.test-step-content').innerText;
+    }
+
+    async function clickStepButton(buttonText: string): Promise<void> {
+        const buttons = getStepButtons();
+        const button = buttons.find((b) => b.innerText.toUpperCase() === buttonText.toUpperCase());
+        if (!button) {
+            throw new Error(`Button "${buttonText}" not found on step ${component.step}`);
+        }
+
+        button.click();
+        fixture.detectChanges();
+        return await fixture.whenStable();
+    }
 });
 
 /**
