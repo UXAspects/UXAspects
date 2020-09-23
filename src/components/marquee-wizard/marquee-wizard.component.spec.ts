@@ -10,6 +10,56 @@ interface StepDefinition {
     completed?: boolean;
 }
 
+class MarqueeWizardTestWrapper<T> {
+    nativeElement: HTMLElement;
+
+    constructor(private _fixture: ComponentFixture<T>) {
+        this.nativeElement = _fixture.nativeElement;
+    }
+
+    isStepVisited(index: number): boolean {
+        const stepElements = this.nativeElement.querySelectorAll('.marquee-wizard-step');
+        return stepElements[index].classList.contains('visited');
+    }
+
+    isStepValid(index: number): boolean {
+        const stepElements = this.nativeElement.querySelectorAll('.marquee-wizard-step');
+        return !stepElements[index].classList.contains('invalid');
+    }
+
+    getStepHeaders(): HTMLElement[] {
+        return Array.from(this.nativeElement.querySelectorAll('.marquee-wizard-steps > .marquee-wizard-step'));
+    }
+
+    getActiveStepHeader(): HTMLElement {
+        return this.nativeElement.querySelector('.marquee-wizard-step.active');
+    }
+
+    getContentText(): string {
+        return this.nativeElement.querySelector<HTMLElement>('.test-step-content').innerText;
+    }
+
+    getStepButtons(): HTMLButtonElement[] {
+        return Array.from(this.nativeElement.querySelectorAll('.modal-footer button'));
+    }
+
+    getStepButton(buttonText: string): HTMLButtonElement {
+        const buttons = this.getStepButtons();
+        return buttons.find(button => button.innerText.toUpperCase() === buttonText.toUpperCase());
+    }
+
+    async clickStepButton(buttonText: string): Promise<void> {
+        const button = this.getStepButton(buttonText);
+        if (!button) {
+            throw new Error(`Button "${buttonText}" not found`);
+        }
+
+        button.click();
+        this._fixture.detectChanges();
+        return await this._fixture.whenStable();
+    }
+}
+
 /**
  * Test navigation and steps display correctly
  **/
@@ -68,10 +118,10 @@ export class MarqueeWizardTestComponent {
     onCancel(): void {}
 }
 
-fdescribe('Marquee Wizard', () => {
+describe('Marquee Wizard', () => {
     let component: MarqueeWizardTestComponent;
     let fixture: ComponentFixture<MarqueeWizardTestComponent>;
-    let nativeElement: HTMLElement;
+    let wrapper: MarqueeWizardTestWrapper<MarqueeWizardTestComponent>;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
@@ -82,33 +132,33 @@ fdescribe('Marquee Wizard', () => {
 
     beforeEach(async () => {
         fixture = TestBed.createComponent(MarqueeWizardTestComponent);
+        wrapper = new MarqueeWizardTestWrapper(fixture);
         component = fixture.componentInstance;
-        nativeElement = fixture.nativeElement;
         fixture.detectChanges();
         await fixture.whenStable();
         fixture.detectChanges();
     });
 
     it('should display an icon in the side pane', () => {
-        const container = nativeElement.querySelector('.marquee-wizard-description-container');
+        const container = wrapper.nativeElement.querySelector('.marquee-wizard-description-container');
         const icon = container.querySelector('img');
         expect(icon).toBeTruthy();
     });
 
     it('should display a title in the side pane', async(() => {
-        const title = nativeElement.querySelector<HTMLHeadingElement>('.marquee-title');
+        const title = wrapper.nativeElement.querySelector<HTMLHeadingElement>('.marquee-title');
         expect(title.innerText).toBe('Marquee Wizard');
     }));
 
     it('should generate an id for each step', () => {
-        const steps = getStepHeaders();
+        const steps = wrapper.getStepHeaders();
         steps.forEach((step, index) => {
             expect(step.id).toMatch(`ux-wizard-[0-9]+-step-${index}-label`);
         });
     });
 
     it('should display the step headers in the side pane', () => {
-        const stepHeaders = getStepHeaders();
+        const stepHeaders = wrapper.getStepHeaders();
         expect(stepHeaders.length).toBe(2);
         expect(stepHeaders[0].classList).toContain('active', 'stepHeaders[0]');
         expect(stepHeaders[0].classList).toContain('visited', 'stepHeaders[0]');
@@ -119,22 +169,22 @@ fdescribe('Marquee Wizard', () => {
     });
 
     it('should display step content', () => {
-        expect(getContentText()).toBe('Content of first step');
+        expect(wrapper.getContentText()).toBe('Content of first step');
     });
 
     it('should have a "Next" button on the first step', () => {
-        const buttons = getStepButtons();
+        const buttons = wrapper.getStepButtons();
         expect(buttons.length).toBe(1);
         expect(buttons[0].classList).toContain('button-primary');
         expect(buttons[0].innerText.toUpperCase()).toBe('NEXT');
     });
 
     it('should change to the second step when "Next" is clicked', async () => {
-        await clickStepButton('Next');
+        await wrapper.clickStepButton('Next');
 
         expect(component.step).toBe(1);
-        expect(getActiveStepHeader().innerText).toBe('Second Step');
-        expect(getContentText()).toBe('Content of second step');
+        expect(wrapper.getActiveStepHeader().innerText).toBe('Second Step');
+        expect(wrapper.getContentText()).toBe('Content of second step');
     });
 
     it('should emit stepChanging, stepChange, and onNext when "Next" is clicked', async () => {
@@ -142,7 +192,7 @@ fdescribe('Marquee Wizard', () => {
         spyOn(component, 'onStepChange');
         spyOn(component, 'onNext');
 
-        await clickStepButton('Next');
+        await wrapper.clickStepButton('Next');
 
         expect(component.onStepChanging).toHaveBeenCalledWith(new StepChangingEvent(0, 1));
         expect(component.onStepChange).toHaveBeenCalledWith(1);
@@ -156,15 +206,15 @@ fdescribe('Marquee Wizard', () => {
         });
 
         it('should display step content', () => {
-            expect(getContentText()).toBe('Content of second step');
+            expect(wrapper.getContentText()).toBe('Content of second step');
         });
 
         it('should display the step as active in the side pane', () => {
-            expect(getActiveStepHeader().innerText).toBe('Second Step');
+            expect(wrapper.getActiveStepHeader().innerText).toBe('Second Step');
         });
 
         it('should have a "Previous" and "Finish" button', () => {
-            const buttons = getStepButtons();
+            const buttons = wrapper.getStepButtons();
             expect(buttons.length).toBe(2);
             expect(buttons[0].classList).toContain('button-secondary');
             expect(buttons[0].innerText.toUpperCase()).toBe('PREVIOUS');
@@ -176,18 +226,18 @@ fdescribe('Marquee Wizard', () => {
             spyOn(component, 'onFinishing');
             spyOn(component, 'onFinish');
 
-            await clickStepButton('Finish');
+            await wrapper.clickStepButton('Finish');
 
             expect(component.onFinishing).toHaveBeenCalledTimes(1);
             expect(component.onFinish).toHaveBeenCalledTimes(1);
         });
 
         it('should change to the first step when "Previous" is clicked', async () => {
-            await clickStepButton('Previous');
+            await wrapper.clickStepButton('Previous');
 
             expect(component.step).toBe(0);
-            expect(getActiveStepHeader().innerText).toBe('First Step');
-            expect(getContentText()).toBe('Content of first step');
+            expect(wrapper.getActiveStepHeader().innerText).toBe('First Step');
+            expect(wrapper.getContentText()).toBe('Content of first step');
         });
 
         it('should emit stepChanging, stepChange, and onPrevious when "Previous" is clicked', async () => {
@@ -195,7 +245,7 @@ fdescribe('Marquee Wizard', () => {
             spyOn(component, 'onStepChange');
             spyOn(component, 'onPrevious');
 
-            await clickStepButton('Previous');
+            await wrapper.clickStepButton('Previous');
 
             expect(component.onStepChanging).toHaveBeenCalledWith(new StepChangingEvent(1, 0));
             expect(component.onStepChange).toHaveBeenCalledWith(0);
@@ -210,7 +260,7 @@ fdescribe('Marquee Wizard', () => {
         });
 
         it('should have a cancel button on the first step', () => {
-            const buttons = getStepButtons();
+            const buttons = wrapper.getStepButtons();
             expect(buttons.length).toBe(2);
             expect(buttons[0].classList).toContain('button-primary');
             expect(buttons[0].innerText.toUpperCase()).toBe('NEXT');
@@ -221,39 +271,11 @@ fdescribe('Marquee Wizard', () => {
         it('should emit onCancel when the "Cancel" button is clicked', async () => {
             spyOn(component, 'onCancel');
 
-            await clickStepButton('Cancel');
+            await wrapper.clickStepButton('Cancel');
 
             expect(component.onCancel).toHaveBeenCalledTimes(1);
         });
     });
-
-    function getStepHeaders(): HTMLElement[] {
-        return Array.from(nativeElement.querySelectorAll('.marquee-wizard-steps > .marquee-wizard-step'));
-    }
-
-    function getActiveStepHeader(): HTMLElement {
-        return nativeElement.querySelector('.marquee-wizard-step.active');
-    }
-
-    function getStepButtons(): HTMLButtonElement[] {
-        return Array.from(nativeElement.querySelectorAll('.modal-footer button'));
-    }
-
-    function getContentText(): string {
-        return nativeElement.querySelector<HTMLElement>('.test-step-content').innerText;
-    }
-
-    async function clickStepButton(buttonText: string): Promise<void> {
-        const buttons = getStepButtons();
-        const button = buttons.find((b) => b.innerText.toUpperCase() === buttonText.toUpperCase());
-        if (!button) {
-            throw new Error(`Button "${buttonText}" not found on step ${component.step}`);
-        }
-
-        button.click();
-        fixture.detectChanges();
-        return await fixture.whenStable();
-    }
 });
 
 /**
@@ -274,7 +296,7 @@ fdescribe('Marquee Wizard', () => {
         </ux-marquee-wizard>
     `,
 })
-export class MarqueeWizardNgForComponent implements OnDestroy {
+export class MarqueeWizardAsyncTestComponent implements OnDestroy {
     step = 0;
     steps: { title: string; content: string }[] = [];
     valid: boolean = true;
@@ -297,59 +319,65 @@ export class MarqueeWizardNgForComponent implements OnDestroy {
 }
 
 describe('Marquee wizard with delayed step creation', () => {
-    let component: MarqueeWizardNgForComponent;
-    let fixture: ComponentFixture<MarqueeWizardNgForComponent>;
-    let nativeElement: HTMLElement;
+    let component: MarqueeWizardAsyncTestComponent;
+    let fixture: ComponentFixture<MarqueeWizardAsyncTestComponent>;
+    let wrapper: MarqueeWizardTestWrapper<MarqueeWizardAsyncTestComponent>;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             imports: [MarqueeWizardModule],
-            declarations: [MarqueeWizardNgForComponent],
+            declarations: [MarqueeWizardAsyncTestComponent],
         }).compileComponents();
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(MarqueeWizardNgForComponent);
+        fixture = TestBed.createComponent(MarqueeWizardAsyncTestComponent);
+        wrapper = new MarqueeWizardTestWrapper(fixture);
         component = fixture.componentInstance;
-        nativeElement = fixture.nativeElement;
         fixture.detectChanges();
     });
 
-    it('should update steps after delay', fakeAsync(async () => {
-        let steps = getSteps();
+    it('should have no steps initially', () => {
+        let steps = wrapper.getStepHeaders();
         expect(steps.length).toBe(0);
+    });
 
+    it('should display steps after asynchronous load', fakeAsync(async () => {
         await whenStepsLoaded();
 
-        steps = getSteps();
-        expect(steps.length).toBe(2);
-        expect(steps[0].querySelector<HTMLElement>('.marquee-wizard-step-title').innerText).toBe('First Step');
-        expect(steps[1].querySelector<HTMLElement>('.marquee-wizard-step-title').innerText).toBe('Second Step');
+        const stepHeaders = wrapper.getStepHeaders();
+        expect(stepHeaders.length).toBe(2);
+        expect(stepHeaders[0].innerText).toBe('First Step');
+        expect(stepHeaders[1].innerText).toBe('Second Step');
 
         expect(component.step).toBe(0);
-        expect(getContentText()).toContain('Content of first step');
+        expect(wrapper.getContentText()).toBe('Content of first step');
     }));
 
-    it('should navigate to the second step after delay', fakeAsync(async () => {
+    it('should navigate to the second step when clicking "Next"', fakeAsync(async () => {
         await whenStepsLoaded();
 
-        await clickNext();
+        await wrapper.clickStepButton('Next');
 
         expect(component.step).toBe(1);
-        expect(getContentText()).toContain('Content of second step');
+        expect(wrapper.getContentText()).toBe('Content of second step');
     }));
 
-    it('should disable the next button when the step has an error', fakeAsync(async () => {
-        component.disableNextWhenInvalid = true;
-        component.valid = false;
-        fixture.detectChanges();
+    describe('with disableNextWhenInvalid = true', () => {
+        beforeEach(() => {
+            component.disableNextWhenInvalid = true;
+            component.valid = false;
+            fixture.detectChanges();
+        });
 
-        await whenStepsLoaded();
+        it('should disable the "Next" button when the step is invalid and ', fakeAsync(async () => {
+            await whenStepsLoaded();
 
-        const button = nativeElement.querySelector<HTMLButtonElement>('.modal-footer .button-primary');
+            const button = wrapper.getStepButton('Next');
 
-        expect(button.hasAttribute('disabled')).toBeTruthy();
-    }));
+            expect(button.hasAttribute('disabled')).toBeTruthy();
+        }));
+    });
 
     async function whenStepsLoaded(): Promise<void> {
         tick(200);
@@ -358,21 +386,6 @@ describe('Marquee wizard with delayed step creation', () => {
 
         // tick() operator requires a second round of change detection
         fixture.detectChanges();
-    }
-
-    function getSteps(): NodeListOf<HTMLUListElement> {
-        return nativeElement.querySelectorAll<HTMLUListElement>('.marquee-wizard-step');
-    }
-
-    function getContentText(): string {
-        return nativeElement.querySelector<HTMLElement>('.test-step-content').innerText;
-    }
-
-    async function clickNext(): Promise<void> {
-        const nextButton = nativeElement.querySelector<HTMLButtonElement>('.modal-footer .button-primary');
-        nextButton.click();
-        fixture.detectChanges();
-        await fixture.whenStable();
     }
 });
 
@@ -413,7 +426,7 @@ describe('Marquee wizard with delayed step creation', () => {
         </ux-marquee-wizard>
     `,
 })
-export class MarqueeWizardValidationComponent {
+export class MarqueeWizardValidationTestComponent {
     currentStep: number;
     resetVisitedOnValidationError = true;
 
@@ -436,22 +449,22 @@ export class MarqueeWizardValidationComponent {
 }
 
 describe('Marquee wizard with validation', () => {
-    let component: MarqueeWizardValidationComponent;
-    let fixture: ComponentFixture<MarqueeWizardValidationComponent>;
-    let nativeElement: HTMLElement;
+    let component: MarqueeWizardValidationTestComponent;
+    let fixture: ComponentFixture<MarqueeWizardValidationTestComponent>;
+    let wrapper: MarqueeWizardTestWrapper<MarqueeWizardValidationTestComponent>;
     let visitedChanged: jasmine.Spy;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             imports: [MarqueeWizardModule],
-            declarations: [MarqueeWizardValidationComponent],
+            declarations: [MarqueeWizardValidationTestComponent],
         }).compileComponents();
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(MarqueeWizardValidationComponent);
+        fixture = TestBed.createComponent(MarqueeWizardValidationTestComponent);
+        wrapper = new MarqueeWizardTestWrapper(fixture);
         component = fixture.componentInstance;
-        nativeElement = fixture.nativeElement;
         visitedChanged = spyOn(fixture.componentInstance, 'visitedChanged');
         fixture.detectChanges();
     });
@@ -463,24 +476,24 @@ describe('Marquee wizard with validation', () => {
         component.step3Visited = true;
         fixture.detectChanges();
 
-        expect(isStepValid(0)).toBe(true);
-        expect(isStepValid(1)).toBe(true);
-        expect(isStepValid(2)).toBe(true);
+        expect(wrapper.isStepValid(0)).toBe(true);
+        expect(wrapper.isStepValid(1)).toBe(true);
+        expect(wrapper.isStepValid(2)).toBe(true);
 
-        expect(isStepVisited(0)).toBe(true);
-        expect(isStepVisited(1)).toBe(true);
-        expect(isStepVisited(2)).toBe(true);
+        expect(wrapper.isStepVisited(0)).toBe(true);
+        expect(wrapper.isStepVisited(1)).toBe(true);
+        expect(wrapper.isStepVisited(2)).toBe(true);
 
         component.step2Valid = false;
         fixture.detectChanges();
 
-        expect(isStepValid(0)).toBe(true);
-        expect(isStepValid(1)).toBe(false);
-        expect(isStepValid(2)).toBe(true);
+        expect(wrapper.isStepValid(0)).toBe(true);
+        expect(wrapper.isStepValid(1)).toBe(false);
+        expect(wrapper.isStepValid(2)).toBe(true);
 
-        expect(isStepVisited(0)).toBe(true);
-        expect(isStepVisited(1)).toBe(true);
-        expect(isStepVisited(2)).toBe(false);
+        expect(wrapper.isStepVisited(0)).toBe(true);
+        expect(wrapper.isStepVisited(1)).toBe(true);
+        expect(wrapper.isStepVisited(2)).toBe(false);
 
         expect(component.step1Visited).toBe(true);
         expect(component.step2Visited).toBe(true);
@@ -497,24 +510,24 @@ describe('Marquee wizard with validation', () => {
         component.step3Visited = true;
         fixture.detectChanges();
 
-        expect(isStepValid(0)).toBe(true);
-        expect(isStepValid(1)).toBe(true);
-        expect(isStepValid(2)).toBe(true);
+        expect(wrapper.isStepValid(0)).toBe(true);
+        expect(wrapper.isStepValid(1)).toBe(true);
+        expect(wrapper.isStepValid(2)).toBe(true);
 
-        expect(isStepVisited(0)).toBe(true);
-        expect(isStepVisited(1)).toBe(true);
-        expect(isStepVisited(2)).toBe(true);
+        expect(wrapper.isStepVisited(0)).toBe(true);
+        expect(wrapper.isStepVisited(1)).toBe(true);
+        expect(wrapper.isStepVisited(2)).toBe(true);
 
         component.step2Valid = false;
         fixture.detectChanges();
 
-        expect(isStepValid(0)).toBe(true);
-        expect(isStepValid(1)).toBe(false);
-        expect(isStepValid(2)).toBe(true);
+        expect(wrapper.isStepValid(0)).toBe(true);
+        expect(wrapper.isStepValid(1)).toBe(false);
+        expect(wrapper.isStepValid(2)).toBe(true);
 
-        expect(isStepVisited(0)).toBe(true);
-        expect(isStepVisited(1)).toBe(true);
-        expect(isStepVisited(2)).toBe(true);
+        expect(wrapper.isStepVisited(0)).toBe(true);
+        expect(wrapper.isStepVisited(1)).toBe(true);
+        expect(wrapper.isStepVisited(2)).toBe(true);
 
         expect(component.step1Visited).toBe(true);
         expect(component.step2Visited).toBe(true);
@@ -523,16 +536,6 @@ describe('Marquee wizard with validation', () => {
         // check visitedChange was not emitted
         expect(visitedChanged.calls.all().length).toBe(0);
     });
-
-    function isStepVisited(index: number): boolean {
-        const stepElements = nativeElement.querySelectorAll('.marquee-wizard-step');
-        return stepElements[index].classList.contains('visited');
-    }
-
-    function isStepValid(index: number): boolean {
-        const stepElements = nativeElement.querySelectorAll('.marquee-wizard-step');
-        return !stepElements[index].classList.contains('invalid');
-    }
 });
 
 /**
