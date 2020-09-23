@@ -43,7 +43,6 @@ export class WizardTestWrapper<T> {
         return buttons.find(button => button.innerText.toUpperCase() === buttonText.toUpperCase());
     }
 
-
     async clickStepButton(buttonText: string): Promise<void> {
         const button = this.getStepButton(buttonText);
         if (!button) {

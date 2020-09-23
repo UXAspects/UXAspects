@@ -290,7 +290,7 @@ describe('Marquee Wizard', () => {
 })
 export class MarqueeWizardAsyncTestComponent implements OnDestroy {
     step = 0;
-    steps: { title: string; content: string }[] = [];
+    steps: StepDefinition[] = [];
     valid: boolean = true;
     disableNextWhenInvalid: boolean;
     private _timeout: number;
