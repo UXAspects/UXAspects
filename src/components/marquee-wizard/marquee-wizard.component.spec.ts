@@ -1,6 +1,7 @@
 import { ChangeDetectorRef, Component, OnDestroy, ViewChild } from '@angular/core';
 import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { StepChangingEvent } from '../wizard';
+import { MarqueeWizardTestWrapper } from './marquee-wizard-test-wrapper';
 import { MarqueeWizardComponent } from './marquee-wizard.component';
 import { MarqueeWizardModule } from './marquee-wizard.module';
 
@@ -9,56 +10,6 @@ interface StepDefinition {
     content?: string;
     visited?: boolean;
     completed?: boolean;
-}
-
-class MarqueeWizardTestWrapper<T> {
-    nativeElement: HTMLElement;
-
-    constructor(private _fixture: ComponentFixture<T>) {
-        this.nativeElement = _fixture.nativeElement;
-    }
-
-    isStepVisited(index: number): boolean {
-        const stepElements = this.nativeElement.querySelectorAll('.marquee-wizard-step');
-        return stepElements[index].classList.contains('visited');
-    }
-
-    isStepValid(index: number): boolean {
-        const stepElements = this.nativeElement.querySelectorAll('.marquee-wizard-step');
-        return !stepElements[index].classList.contains('invalid');
-    }
-
-    getStepHeaders(): HTMLElement[] {
-        return Array.from(this.nativeElement.querySelectorAll('.marquee-wizard-steps > .marquee-wizard-step'));
-    }
-
-    getActiveStepHeader(): HTMLElement {
-        return this.nativeElement.querySelector('.marquee-wizard-step.active');
-    }
-
-    getContentText(): string {
-        return this.nativeElement.querySelector<HTMLElement>('.test-step-content').innerText;
-    }
-
-    getStepButtons(): HTMLButtonElement[] {
-        return Array.from(this.nativeElement.querySelectorAll('.modal-footer button'));
-    }
-
-    getStepButton(buttonText: string): HTMLButtonElement {
-        const buttons = this.getStepButtons();
-        return buttons.find(button => button.innerText.toUpperCase() === buttonText.toUpperCase());
-    }
-
-    async clickStepButton(buttonText: string): Promise<void> {
-        const button = this.getStepButton(buttonText);
-        if (!button) {
-            throw new Error(`Button "${buttonText}" not found`);
-        }
-
-        button.click();
-        this._fixture.detectChanges();
-        return await this._fixture.whenStable();
-    }
 }
 
 /**

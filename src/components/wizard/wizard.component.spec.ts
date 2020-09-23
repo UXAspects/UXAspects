@@ -1,7 +1,237 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
-import { StepChangingEvent } from './wizard.component';
+import { WizardTestWrapper } from './wizard-test-wrapper';
+import { StepChangingEvent, WizardComponent } from './wizard.component';
 import { WizardModule } from './wizard.module';
+
+interface StepDefinition {
+    title: string;
+    content?: string;
+    visited?: boolean;
+}
+
+/**
+ * Test navigation and steps display correctly
+ */
+@Component({
+    selector: 'wizard-test-app',
+    template: `
+        <ux-wizard
+            [(step)]="step"
+            [previousVisible]="step !== 0"
+            [cancelVisible]="cancelVisible"
+            (stepChanging)="onStepChanging($event)"
+            (stepChange)="onStepChange($event)"
+            (onNext)="onNext($event)"
+            (onPrevious)="onPrevious($event)"
+            (onFinishing)="onFinishing()"
+            (onFinish)="onFinish()"
+            (onCancel)="onCancel()"
+        >
+            <ux-wizard-step
+                *ngFor="let step of steps"
+                [header]="step.title"
+                [(visited)]="step.visited"
+            >
+                <p class="test-step-content">{{ step.content }}</p>
+            </ux-wizard-step>
+        </ux-wizard>
+    `,
+})
+export class WizardTestComponent {
+    @ViewChild(WizardComponent) wizard: WizardComponent;
+
+    step: number = 0;
+
+    steps: StepDefinition[] = [
+        { title: 'First Step', content: 'Content of first step' },
+        { title: 'Second Step', content: 'Content of second step' },
+    ];
+
+    cancelVisible = false;
+
+    onStepChanging(_: StepChangingEvent): void {}
+    onStepChange(_: number): void {}
+    onNext(_: number): void {}
+    onPrevious(_: number): void {}
+    onFinishing(): void {}
+    onFinish(): void {}
+    onCancel(): void {}
+}
+
+describe('Wizard', () => {
+    let component: WizardTestComponent;
+    let fixture: ComponentFixture<WizardTestComponent>;
+    let wrapper: WizardTestWrapper<WizardTestComponent>;
+
+    beforeEach(async(() => {
+        TestBed.configureTestingModule({
+            imports: [WizardModule],
+            declarations: [WizardTestComponent],
+        }).compileComponents();
+    }));
+
+    beforeEach(async () => {
+        fixture = TestBed.createComponent(WizardTestComponent);
+        wrapper = new WizardTestWrapper(fixture);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+        await fixture.whenStable();
+        fixture.detectChanges();
+    });
+
+    it('should generate an id for each step', () => {
+        const steps = wrapper.getStepHeaders();
+        steps.forEach((step, index) => {
+            expect(step.id).toMatch(`ux-wizard-[0-9]+-step-${index}-label`);
+        });
+    });
+
+    it('should display the step headers in the side pane', () => {
+        const stepHeaders = wrapper.getStepHeaders();
+        expect(stepHeaders.length).toBe(2);
+        expect(stepHeaders[0].classList).toContain('active', 'stepHeaders[0]');
+        expect(stepHeaders[0].classList).toContain('visited', 'stepHeaders[0]');
+        expect(stepHeaders[0].innerText).toBe('First Step', 'stepHeaders[0]');
+        expect(stepHeaders[1].classList).not.toContain('active', 'stepHeaders[1]');
+        expect(stepHeaders[1].classList).not.toContain('visited', 'stepHeaders[1]');
+        expect(stepHeaders[1].innerText).toBe('Second Step', 'stepHeaders[1]');
+    });
+
+    it('should display step content', () => {
+        expect(wrapper.getContentText()).toBe('Content of first step');
+    });
+
+    it('should set visited = true on the first step initially', () => {
+        expect(component.steps[0].visited).toBe(true);
+        expect(component.steps[1].visited).toBeUndefined();
+    });
+
+    it('should have a "Next" button on the first step', () => {
+        const buttons = wrapper.getStepButtons();
+        expect(buttons.length).toBe(1);
+        expect(buttons[0].classList).toContain('button-primary');
+        expect(buttons[0].innerText.toUpperCase()).toBe('NEXT');
+    });
+
+    it('should change to the second step when "Next" is clicked', async () => {
+        await wrapper.clickStepButton('Next');
+
+        expect(component.step).toBe(1);
+        expect(wrapper.getActiveStepHeader().innerText).toBe('Second Step');
+        expect(wrapper.getContentText()).toBe('Content of second step');
+    });
+
+    it('should emit stepChanging, stepChange, and onNext when "Next" is clicked', async () => {
+        spyOn(component, 'onStepChanging');
+        spyOn(component, 'onStepChange');
+        spyOn(component, 'onNext');
+
+        await wrapper.clickStepButton('Next');
+
+        expect(component.onStepChanging).toHaveBeenCalledWith(new StepChangingEvent(0, 1));
+        expect(component.onStepChange).toHaveBeenCalledWith(1);
+        expect(component.onNext).toHaveBeenCalledWith(1);
+    });
+
+    it('should set visited = true on the second step when "Next" is clicked', async () => {
+        await wrapper.clickStepButton('Next');
+
+        expect(component.steps[0].visited).toBe(true, 'steps[0]');
+        expect(component.steps[1].visited).toBe(true, 'steps[1]');
+    });
+
+    describe('on the last step', () => {
+        beforeEach(() => {
+            component.step = 1;
+            fixture.detectChanges();
+        });
+
+        it('should display step content', () => {
+            expect(wrapper.getContentText()).toBe('Content of second step');
+        });
+
+        it('should display the step as active in the side pane', () => {
+            expect(wrapper.getActiveStepHeader().innerText).toBe('Second Step');
+        });
+
+        it('should have a "Previous" and "Finish" button', () => {
+            const buttons = wrapper.getStepButtons();
+            expect(buttons.length).toBe(2);
+            expect(buttons[0].classList).toContain('button-secondary');
+            expect(buttons[0].innerText.toUpperCase()).toBe('PREVIOUS');
+            expect(buttons[1].classList).toContain('button-primary');
+            expect(buttons[1].innerText.toUpperCase()).toBe('FINISH');
+        });
+
+        it('should set visited = true on the step', () => {
+            expect(component.steps[1].visited).toBe(true);
+        });
+
+        it('should emit onFinishing and onFinish when "Finish" button is clicked', async () => {
+            spyOn(component, 'onFinishing');
+            spyOn(component, 'onFinish');
+
+            await wrapper.clickStepButton('Finish');
+
+            expect(component.onFinishing).toHaveBeenCalledTimes(1);
+            expect(component.onFinish).toHaveBeenCalledTimes(1);
+        });
+
+        it('should change to the first step when "Previous" is clicked', async () => {
+            await wrapper.clickStepButton('Previous');
+
+            expect(component.step).toBe(0);
+            expect(wrapper.getActiveStepHeader().innerText).toBe('First Step');
+            expect(wrapper.getContentText()).toBe('Content of first step');
+            expect(component.steps[0].visited).toBe(true);
+        });
+
+        it('should emit stepChanging, stepChange, and onPrevious when "Previous" is clicked', async () => {
+            spyOn(component, 'onStepChanging');
+            spyOn(component, 'onStepChange');
+            spyOn(component, 'onPrevious');
+
+            await wrapper.clickStepButton('Previous');
+
+            expect(component.onStepChanging).toHaveBeenCalledWith(new StepChangingEvent(1, 0));
+            expect(component.onStepChange).toHaveBeenCalledWith(0);
+            expect(component.onPrevious).toHaveBeenCalledWith(0);
+        });
+
+        it('should set the active step to 0 and reset visited state when reset() is called', () => {
+            component.wizard.reset();
+
+            expect(component.step).toBe(0);
+            expect(component.steps[0].visited).toBe(true, 'steps[0]');
+            expect(component.steps[1].visited).toBe(false, 'steps[1]');
+        });
+    });
+
+    describe('with cancel button', () => {
+        beforeEach(() => {
+            component.cancelVisible = true;
+            fixture.detectChanges();
+        });
+
+        it('should have a cancel button on the first step', () => {
+            const buttons = wrapper.getStepButtons();
+            expect(buttons.length).toBe(2);
+            expect(buttons[0].classList).toContain('button-primary');
+            expect(buttons[0].innerText.toUpperCase()).toBe('NEXT');
+            expect(buttons[1].classList).toContain('button-secondary');
+            expect(buttons[1].innerText.toUpperCase()).toBe('CANCEL');
+        });
+
+        it('should emit onCancel when the "Cancel" button is clicked', async () => {
+            spyOn(component, 'onCancel');
+
+            await wrapper.clickStepButton('Cancel');
+
+            expect(component.onCancel).toHaveBeenCalledTimes(1);
+        });
+    });
+});
 
 @Component({
     selector: 'wizard-async-validation-test-app',
@@ -40,7 +270,7 @@ describe('Wizard with validator', () => {
 
     let component: WizardAsyncValidationTestComponent;
     let fixture: ComponentFixture<WizardAsyncValidationTestComponent>;
-    let nativeElement: HTMLElement;
+    let wrapper: WizardTestWrapper<WizardAsyncValidationTestComponent>;
 
     let stepChanging: jasmine.Spy;
     let stepChange: jasmine.Spy;
@@ -57,8 +287,8 @@ describe('Wizard with validator', () => {
 
     beforeEach(async () => {
         fixture = TestBed.createComponent(WizardAsyncValidationTestComponent);
+        wrapper = new WizardTestWrapper(fixture);
         component = fixture.componentInstance;
-        nativeElement = fixture.nativeElement;
 
         stepChanging = spyOn(component, 'stepChanging');
         stepChange = spyOn(component, 'stepChange');
@@ -73,21 +303,21 @@ describe('Wizard with validator', () => {
     });
 
     it('should allow proceeding to the next step when no validator has been provided', async () => {
-        expect(getActiveStepHeader()).toBe('First Step');
+        expect(wrapper.getActiveStepHeader().innerText).toBe('First Step');
 
-        await clickNextOrFinish();
+        await wrapper.clickStepButton('Next');
 
-        expect(getActiveStepHeader()).toBe('Last Step');
+        expect(wrapper.getActiveStepHeader().innerText).toBe('Last Step');
         expect(stepChanging).toHaveBeenCalled();
         expect(stepChange).toHaveBeenCalled();
         expect(onNext).toHaveBeenCalled();
     });
 
     it('should allow finishing the wizard when no validator has been provided', async () => {
-        await clickNextOrFinish();
-        await clickNextOrFinish();
+        await wrapper.clickStepButton('Next');
+        await wrapper.clickStepButton('Finish');
 
-        expect(getActiveStepHeader()).toBe('Last Step');
+        expect(wrapper.getActiveStepHeader().innerText).toBe('Last Step');
         expect(stepChanging).toHaveBeenCalledTimes(1);
         expect(stepChange).toHaveBeenCalledTimes(1);
         expect(onNext).toHaveBeenCalledTimes(1);
@@ -101,9 +331,9 @@ describe('Wizard with validator', () => {
         };
         fixture.detectChanges();
 
-        await clickNextOrFinish();
+        await wrapper.clickStepButton('Next');
 
-        expect(getActiveStepHeader()).toBe('Last Step');
+        expect(wrapper.getActiveStepHeader().innerText).toBe('Last Step');
         expect(stepChanging).toHaveBeenCalledTimes(1);
         expect(stepChange).toHaveBeenCalledTimes(1);
         expect(onNext).toHaveBeenCalledTimes(1);
@@ -115,9 +345,9 @@ describe('Wizard with validator', () => {
         };
         fixture.detectChanges();
 
-        await clickNextOrFinish();
+        await wrapper.clickStepButton('Next');
 
-        expect(getActiveStepHeader()).toBe('First Step');
+        expect(wrapper.getActiveStepHeader().innerText).toBe('First Step');
         expect(stepChanging).toHaveBeenCalledTimes(1);
         expect(stepChange).not.toHaveBeenCalled();
         expect(onNext).not.toHaveBeenCalled();
@@ -129,8 +359,8 @@ describe('Wizard with validator', () => {
         };
         fixture.detectChanges();
 
-        await clickNextOrFinish();
-        await clickNextOrFinish();
+        await wrapper.clickStepButton('Next');
+        await wrapper.clickStepButton('Finish');
 
         expect(onFinishing).toHaveBeenCalled();
         expect(onFinish).toHaveBeenCalled();
@@ -142,8 +372,8 @@ describe('Wizard with validator', () => {
         };
         fixture.detectChanges();
 
-        await clickNextOrFinish();
-        await clickNextOrFinish();
+        await wrapper.clickStepButton('Next');
+        await wrapper.clickStepButton('Finish');
 
         expect(onFinishing).toHaveBeenCalled();
         expect(onFinish).not.toHaveBeenCalled();
@@ -159,10 +389,11 @@ describe('Wizard with validator', () => {
         };
         fixture.detectChanges();
 
-        clickNextOrFinish();
+        wrapper.clickStepButton('Next');
         tick(ASYNC_DURATION);
+        fixture.detectChanges();
 
-        expect(getActiveStepHeader()).toBe('Last Step');
+        expect(wrapper.getActiveStepHeader().innerText).toBe('Last Step');
         expect(stepChanging).toHaveBeenCalled();
         expect(stepChange).toHaveBeenCalled();
         expect(onNext).toHaveBeenCalled();
@@ -178,10 +409,10 @@ describe('Wizard with validator', () => {
         };
         fixture.detectChanges();
 
-        clickNextOrFinish();
+        wrapper.clickStepButton('Next');
         tick(ASYNC_DURATION);
 
-        expect(getActiveStepHeader()).toBe('First Step');
+        expect(wrapper.getActiveStepHeader().innerText).toBe('First Step');
         expect(stepChanging).toHaveBeenCalled();
         expect(stepChange).not.toHaveBeenCalled();
         expect(onNext).not.toHaveBeenCalled();
@@ -197,9 +428,9 @@ describe('Wizard with validator', () => {
         };
         fixture.detectChanges();
 
-        clickNextOrFinish();
+        wrapper.clickStepButton('Next');
         tick(1);
-        clickNextOrFinish();
+        wrapper.clickStepButton('Finish');
         tick(ASYNC_DURATION);
 
         expect(onFinishing).toHaveBeenCalled();
@@ -216,31 +447,14 @@ describe('Wizard with validator', () => {
         };
         fixture.detectChanges();
 
-        clickNextOrFinish();
+        wrapper.clickStepButton('Next');
         tick(1);
-        clickNextOrFinish();
+        wrapper.clickStepButton('Finish');
         tick(ASYNC_DURATION);
 
         expect(onFinishing).toHaveBeenCalled();
         expect(onFinish).not.toHaveBeenCalled();
     }));
-
-    async function clickNextOrFinish(): Promise<void> {
-        const button = nativeElement.querySelector<HTMLButtonElement>(
-            '.wizard-footer .button-primary'
-        );
-        button.click();
-        fixture.detectChanges();
-        await fixture.whenStable();
-        fixture.detectChanges();
-        await fixture.whenStable();
-    }
-
-    function getActiveStepHeader(): string {
-        return nativeElement
-            .querySelector<HTMLElement>('.wizard-step.active')
-            .innerText.trim();
-    }
 });
 
 /**
@@ -276,7 +490,7 @@ describe('Wizard with validator', () => {
         </ux-wizard>
     `
 })
-export class WizardValidationComponent {
+export class WizardValidationTestComponent {
     currentStep: number;
     resetVisitedOnValidationError = true;
 
@@ -300,22 +514,22 @@ export class WizardValidationComponent {
 }
 
 describe('Wizard with validation', () => {
-    let component: WizardValidationComponent;
-    let fixture: ComponentFixture<WizardValidationComponent>;
-    let nativeElement: HTMLElement;
+    let component: WizardValidationTestComponent;
+    let fixture: ComponentFixture<WizardValidationTestComponent>;
+    let wrapper: WizardTestWrapper<WizardValidationTestComponent>;
     let visitedChanged: jasmine.Spy;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             imports: [WizardModule],
-            declarations: [WizardValidationComponent]
+            declarations: [WizardValidationTestComponent]
         }).compileComponents();
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(WizardValidationComponent);
+        fixture = TestBed.createComponent(WizardValidationTestComponent);
+        wrapper = new WizardTestWrapper(fixture);
         component = fixture.componentInstance;
-        nativeElement = fixture.nativeElement;
         visitedChanged = spyOn(fixture.componentInstance, 'visitedChanged');
         fixture.detectChanges();
     });
@@ -330,24 +544,24 @@ describe('Wizard with validation', () => {
         component.step3Visited = true;
         fixture.detectChanges();
 
-        expect(isStepValid(0)).toBe(true);
-        expect(isStepValid(1)).toBe(true);
-        expect(isStepValid(2)).toBe(true);
+        expect(wrapper.isStepValid(0)).toBe(true);
+        expect(wrapper.isStepValid(1)).toBe(true);
+        expect(wrapper.isStepValid(2)).toBe(true);
 
-        expect(isStepVisited(0)).toBe(true);
-        expect(isStepVisited(1)).toBe(true);
-        expect(isStepVisited(2)).toBe(true);
+        expect(wrapper.isStepVisited(0)).toBe(true);
+        expect(wrapper.isStepVisited(1)).toBe(true);
+        expect(wrapper.isStepVisited(2)).toBe(true);
 
         component.step2Valid = false;
         fixture.detectChanges();
 
-        expect(isStepValid(0)).toBe(true);
-        expect(isStepValid(1)).toBe(false);
-        expect(isStepValid(2)).toBe(true);
+        expect(wrapper.isStepValid(0)).toBe(true);
+        expect(wrapper.isStepValid(1)).toBe(false);
+        expect(wrapper.isStepValid(2)).toBe(true);
 
-        expect(isStepVisited(0)).toBe(true);
-        expect(isStepVisited(1)).toBe(true);
-        expect(isStepVisited(2)).toBe(false);
+        expect(wrapper.isStepVisited(0)).toBe(true);
+        expect(wrapper.isStepVisited(1)).toBe(true);
+        expect(wrapper.isStepVisited(2)).toBe(false);
 
         expect(component.step1Visited).toBe(true);
         expect(component.step2Visited).toBe(true);
@@ -364,24 +578,24 @@ describe('Wizard with validation', () => {
         component.step3Visited = true;
         fixture.detectChanges();
 
-        expect(isStepValid(0)).toBe(true);
-        expect(isStepValid(1)).toBe(true);
-        expect(isStepValid(2)).toBe(true);
+        expect(wrapper.isStepValid(0)).toBe(true);
+        expect(wrapper.isStepValid(1)).toBe(true);
+        expect(wrapper.isStepValid(2)).toBe(true);
 
-        expect(isStepVisited(0)).toBe(true);
-        expect(isStepVisited(1)).toBe(true);
-        expect(isStepVisited(2)).toBe(true);
+        expect(wrapper.isStepVisited(0)).toBe(true);
+        expect(wrapper.isStepVisited(1)).toBe(true);
+        expect(wrapper.isStepVisited(2)).toBe(true);
 
         component.step2Valid = false;
         fixture.detectChanges();
 
-        expect(isStepValid(0)).toBe(true);
-        expect(isStepValid(1)).toBe(false);
-        expect(isStepValid(2)).toBe(true);
+        expect(wrapper.isStepValid(0)).toBe(true);
+        expect(wrapper.isStepValid(1)).toBe(false);
+        expect(wrapper.isStepValid(2)).toBe(true);
 
-        expect(isStepVisited(0)).toBe(true);
-        expect(isStepVisited(1)).toBe(true);
-        expect(isStepVisited(2)).toBe(true);
+        expect(wrapper.isStepVisited(0)).toBe(true);
+        expect(wrapper.isStepVisited(1)).toBe(true);
+        expect(wrapper.isStepVisited(2)).toBe(true);
 
         expect(component.step1Visited).toBe(true);
         expect(component.step2Visited).toBe(true);
@@ -398,7 +612,7 @@ describe('Wizard with validation', () => {
 
         fixture.detectChanges();
 
-        expect(isStepValid(1)).toBe(true);
+        expect(wrapper.isStepValid(1)).toBe(true);
     });
 
     it('should have an invalid appearance when valid = false and visited = true', () => {
@@ -408,16 +622,6 @@ describe('Wizard with validation', () => {
 
         fixture.detectChanges();
 
-        expect(isStepValid(1)).toBe(false);
+        expect(wrapper.isStepValid(1)).toBe(false);
     });
-
-    function isStepVisited(index: number): boolean {
-        const stepElements = nativeElement.querySelectorAll('.wizard-step');
-        return stepElements[index].classList.contains('visited');
-    }
-
-    function isStepValid(index: number): boolean {
-        const stepElements = nativeElement.querySelectorAll('.wizard-step');
-        return !stepElements[index].classList.contains('invalid');
-    }
 });
