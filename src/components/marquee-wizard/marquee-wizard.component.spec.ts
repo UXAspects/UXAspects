@@ -94,8 +94,7 @@ describe('Marquee Wizard', () => {
     });
 
     it('should display an icon in the side pane', () => {
-        const container = wrapper.nativeElement.querySelector('.marquee-wizard-description-container');
-        const icon = container.querySelector('img');
+        const icon = wrapper.nativeElement.querySelector('.marquee-wizard-description-container img');
         expect(icon).toBeTruthy();
     });
 
@@ -330,7 +329,7 @@ describe('Marquee wizard with delayed step creation', () => {
     });
 
     it('should have no steps initially', () => {
-        let steps = wrapper.getStepHeaders();
+        const steps = wrapper.getStepHeaders();
         expect(steps.length).toBe(0);
     });
 
@@ -362,12 +361,12 @@ describe('Marquee wizard with delayed step creation', () => {
             fixture.detectChanges();
         });
 
-        it('should disable the "Next" button when the step is invalid and ', fakeAsync(async () => {
+        it('should disable the "Next" button when the step is invalid', fakeAsync(async () => {
             await whenStepsLoaded();
 
             const button = wrapper.getStepButton('Next');
 
-            expect(button.hasAttribute('disabled')).toBeTruthy();
+            expect(button.hasAttribute('disabled')).toBe(true);
         }));
     });
 
