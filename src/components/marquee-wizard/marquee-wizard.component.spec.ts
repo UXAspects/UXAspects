@@ -1,7 +1,8 @@
-import { ChangeDetectorRef, Component, OnDestroy } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, ViewChild } from '@angular/core';
 import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
-import { MarqueeWizardModule } from './marquee-wizard.module';
 import { StepChangingEvent } from '../wizard';
+import { MarqueeWizardComponent } from './marquee-wizard.component';
+import { MarqueeWizardModule } from './marquee-wizard.module';
 
 interface StepDefinition {
     title: string;
@@ -100,6 +101,8 @@ class MarqueeWizardTestWrapper<T> {
     `,
 })
 export class MarqueeWizardTestComponent {
+    @ViewChild(MarqueeWizardComponent) marqueeWizard: MarqueeWizardComponent;
+
     step: number = 0;
 
     steps: StepDefinition[] = [
@@ -172,6 +175,11 @@ describe('Marquee Wizard', () => {
         expect(wrapper.getContentText()).toBe('Content of first step');
     });
 
+    it('should set visited = true on the first step initially', () => {
+        expect(component.steps[0].visited).toBe(true);
+        expect(component.steps[1].visited).toBeUndefined();
+    });
+
     it('should have a "Next" button on the first step', () => {
         const buttons = wrapper.getStepButtons();
         expect(buttons.length).toBe(1);
@@ -199,6 +207,20 @@ describe('Marquee Wizard', () => {
         expect(component.onNext).toHaveBeenCalledWith(1);
     });
 
+    it('should set visited = true on the second step when "Next" is clicked', async () => {
+        await wrapper.clickStepButton('Next');
+
+        expect(component.steps[0].visited).toBe(true, 'steps[0]');
+        expect(component.steps[1].visited).toBe(true, 'steps[1]');
+    });
+
+    it('should set completed = true on the first step when "Next" is clicked', async () => {
+        await wrapper.clickStepButton('Next');
+
+        expect(component.steps[0].completed).toBe(true);
+        expect(component.steps[1].completed).toBeUndefined();
+    });
+
     describe('on the last step', () => {
         beforeEach(() => {
             component.step = 1;
@@ -222,6 +244,10 @@ describe('Marquee Wizard', () => {
             expect(buttons[1].innerText.toUpperCase()).toBe('FINISH');
         });
 
+        it('should set visited = true on the step', () => {
+            expect(component.steps[1].visited).toBe(true);
+        });
+
         it('should emit onFinishing and onFinish when "Finish" button is clicked', async () => {
             spyOn(component, 'onFinishing');
             spyOn(component, 'onFinish');
@@ -232,12 +258,19 @@ describe('Marquee Wizard', () => {
             expect(component.onFinish).toHaveBeenCalledTimes(1);
         });
 
+        it('should set completed = true when "Finish" is clicked', async () => {
+            await wrapper.clickStepButton('Finish');
+
+            expect(component.steps[1].completed).toBe(true);
+        });
+
         it('should change to the first step when "Previous" is clicked', async () => {
             await wrapper.clickStepButton('Previous');
 
             expect(component.step).toBe(0);
             expect(wrapper.getActiveStepHeader().innerText).toBe('First Step');
             expect(wrapper.getContentText()).toBe('Content of first step');
+            expect(component.steps[0].visited).toBe(true);
         });
 
         it('should emit stepChanging, stepChange, and onPrevious when "Previous" is clicked', async () => {
@@ -250,6 +283,14 @@ describe('Marquee Wizard', () => {
             expect(component.onStepChanging).toHaveBeenCalledWith(new StepChangingEvent(1, 0));
             expect(component.onStepChange).toHaveBeenCalledWith(0);
             expect(component.onPrevious).toHaveBeenCalledWith(0);
+        });
+
+        it('should set the active step to 0 and reset visited state when reset() is called', () => {
+            component.marqueeWizard.reset();
+
+            expect(component.step).toBe(0);
+            expect(component.steps[0].visited).toBe(true, 'steps[0]');
+            expect(component.steps[1].visited).toBe(false, 'steps[1]');
         });
     });
 
