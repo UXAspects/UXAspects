@@ -19,7 +19,7 @@
             <td>{{ document.author }}</td>
             <td>{{ document.date | date: 'shortDate' }}</td>
             <td>
-                <ux-spark theme="chart2" [value]="document.complete" [inlineLabel]="document.complete"
+                <ux-spark [value]="document.complete" [inlineLabel]="document.complete"
                     barHeight="3"></ux-spark>
             </td>
             <td>
