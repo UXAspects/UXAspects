@@ -331,7 +331,7 @@ export class WizardComponent implements OnInit, AfterContentInit, OnDestroy {
     reset(): void {
 
         // mark all steps as not visited
-        this.steps.forEach(step => step.visited = false);
+        this.steps.forEach(step => step.setVisitedAndEmitChangeEvent(false));
 
         // go to the first step
         this.step = 0;

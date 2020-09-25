@@ -1,3 +1,4 @@
+import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, Output } from '@angular/core';
 import { WizardService } from './wizard.service';
 
@@ -50,31 +51,33 @@ export class WizardStepComponent {
      */
     @Input() visited: boolean = false;
 
-    /**
-     * Defines the currently visible step.
-     */
-    _active: boolean = false;
+    /** Emits when visited changes. */
+    @Output() visitedChange = new EventEmitter<boolean>();
 
     set active(value: boolean) {
 
+        const active = coerceBooleanProperty(value);
+
         // store the active state of the step
-        this._active = value;
+        this._active = active;
 
         // if the value is true then the step should also be marked as visited
-        if (value === true) {
-            this.visited = true;
+        if (active && !this.visited) {
+            this.setVisitedAndEmitChangeEvent(true);
         }
 
         // mark for change detection
         this._changeDetector.markForCheck();
     }
 
-    /** Emits when visited changes. */
-    @Output() visitedChange = new EventEmitter<boolean>();
-
     get active(): boolean {
         return this._active;
     }
+
+    /**
+     * Defines the currently visible step.
+     */
+    _active: boolean = false;
 
     constructor(
         private readonly _wizardService: WizardService<WizardStepComponent>,
