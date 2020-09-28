@@ -76,9 +76,7 @@ export class MarqueeWizardComponent<TStepContext = any> extends WizardComponent 
         // get the current step
         const step = this.getCurrentStep() as MarqueeWizardStepComponent;
 
-        if (this.sequential) {
-            await super.next();
-        }
+        await super.next();
 
         if (step && step.valid) {
             // mark this step as completed
@@ -120,10 +118,14 @@ export class MarqueeWizardComponent<TStepContext = any> extends WizardComponent 
         this.sidePanelWidthChange.emit(this.sidePanelWidth);
     }
 
-    gotoMarqueeStep(step: WizardStepComponent) {
-        // mark completed
-        this.next();
-        this.gotoStep(step);
+    gotoStep(stp: WizardStepComponent): void {
+        const step = this.getCurrentStep() as MarqueeWizardStepComponent;
+
+        if (this.sequential === false) {
+            step.setCompleted(true);
+        }
+
+        super.gotoStep(stp);
     }
 
     protected setFutureStepsUnvisited(currentStep: MarqueeWizardStepComponent): void {

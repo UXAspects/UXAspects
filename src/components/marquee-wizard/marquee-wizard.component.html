@@ -52,8 +52,8 @@
                 [programmaticFocusIndicator]="true"
                 uxTabbableListItem
                 [disabled]="!step.visited"
-                (click)="gotoMarqueeStep(step)"
-                (keydown.enter)="gotoMarqueeStep(step)">
+                (click)="gotoStep(step)"
+                (keydown.enter)="gotoStep(step)">
 
                 <ng-container [ngTemplateOutlet]="stepTemplate || defaultStepTemplate"
                               [ngTemplateOutletContext]="{ $implicit: step, index: index, context: step.context }"></ng-container>
