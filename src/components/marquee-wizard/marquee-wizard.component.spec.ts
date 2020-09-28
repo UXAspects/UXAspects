@@ -486,3 +486,152 @@ describe('Marquee wizard with custom step template', () => {
     });
 
 });
+
+@Component({
+    selector: 'marquee-wizard-step-navigation-app',
+    template: `
+        <ux-marquee-wizard
+            [(step)]="currentStep"
+            [sequential]="sequential">
+            <ux-marquee-wizard-step
+                header="Step One"
+                [(visited)]="step1Visited"
+                [valid]="step1Valid"
+                [(completed)]="step1Completed">
+                Step One Content
+            </ux-marquee-wizard-step>
+            <ux-marquee-wizard-step
+                header="Step Two"
+                [(visited)]="step2Visited"
+                [valid]="step2Valid"
+                [(completed)]="step2Completed">
+                Step Two Content
+            </ux-marquee-wizard-step>
+            <ux-marquee-wizard-step
+                header="Step Three"
+                [(visited)]="step3Visited"
+                [valid]="step3Valid"
+                [(completed)]="step3Completed">
+                Step Three Content
+            </ux-marquee-wizard-step>
+        </ux-marquee-wizard>
+    `
+})
+export class MarqueeWizardStepNavigationComponent {
+    currentStep: number;
+    sequential: boolean = true;
+
+    // step 1 values
+    step1Valid: boolean = true;
+    step1Visited: boolean = true;
+    step1Completed: boolean = false;
+
+    // step 2 values
+    step2Valid: boolean = true;
+    step2Visited: boolean = true;
+    step2Completed: boolean = false;
+
+    // step 3 values
+    step3Valid: boolean = true;
+    step3Visited: boolean = true;
+    step3Completed: boolean = false;
+
+}
+
+describe('Marquee wizard with step navigation', () => {
+    let component: MarqueeWizardStepNavigationComponent;
+    let fixture: ComponentFixture<MarqueeWizardStepNavigationComponent>;
+    let nativeElement: HTMLElement;
+
+    beforeEach(async(() => {
+        TestBed.configureTestingModule({
+            imports: [MarqueeWizardModule],
+            declarations: [MarqueeWizardStepNavigationComponent]
+        }).compileComponents();
+    }));
+
+    beforeEach(() => {
+        fixture = TestBed.createComponent(MarqueeWizardStepNavigationComponent);
+        component = fixture.componentInstance;
+        nativeElement = fixture.nativeElement;
+        fixture.detectChanges();
+    });
+
+    describe('[sequential]=false', () => {
+        it('should allow navigation to any step', async () => {
+            component.sequential = false;
+
+            component.step1Visited = true;
+            component.step2Visited = false;
+            component.step3Visited = false;
+
+            expect(isStepVisited(0)).toBe(true);
+
+            fixture.detectChanges();
+            await clickStep(2);
+
+
+            expect(component.step1Visited).toBe(true);
+            expect(component.step2Visited).toBe(false);
+            expect(isStepVisited(2)).toBe(true);
+
+            expect(component.step1Completed).toBe(true);
+            expect(component.step2Completed).toBe(false);
+            expect(component.step3Completed).toBe(false);
+        });
+
+        it('should mark a step as visited when navigating to a step', async () => {
+            component.sequential = false;
+
+            component.step1Visited = false;
+            component.step2Visited = true;
+            component.step3Visited = false;
+
+            expect(isStepVisited(1)).toBe(true);
+
+            fixture.detectChanges();
+            await clickStep(0);
+
+            expect(isStepVisited(0)).toBe(true);
+            expect(component.step2Visited).toBe(true);
+            expect(component.step3Visited).toBe(false);
+        });
+
+        it('should allow navigation away from an invalid step', async () => {
+            component.sequential = false;
+
+            component.step1Visited = true;
+            component.step3Visited = true;
+            component.step3Valid = false;
+
+            fixture.detectChanges();
+            expect(isStepValid(2)).toBe(false);
+
+            await clickStep(1);
+
+            expect(component.step2Visited).toBe(true);
+        });
+    });
+
+    function getSteps(): HTMLElement[] {
+        return Array.from(nativeElement.querySelectorAll('.marquee-wizard-step'));
+    }
+
+    async function clickStep(index: number) {
+        const steps = getSteps();
+        steps[index].click();
+        fixture.detectChanges();
+        await fixture.whenStable();
+    }
+
+    function isStepVisited(index: number): boolean {
+        const stepElements = nativeElement.querySelectorAll('.marquee-wizard-step');
+        return stepElements[index].classList.contains('visited');
+    }
+
+    function isStepValid(index: number): boolean {
+        const stepElements = nativeElement.querySelectorAll('.marquee-wizard-step');
+        return !stepElements[index].classList.contains('invalid');
+    }
+
+});

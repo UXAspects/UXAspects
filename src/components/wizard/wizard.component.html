@@ -22,7 +22,7 @@
             uxFocusIndicator
             [programmaticFocusIndicator]="true"
             uxTabbableListItem
-            [disabled]="index !== 0 && !stp.visited"
+            [disabled]="(index !== 0 && (!stp.visited || !sequential))"
             (click)="gotoStep(stp)"
             (keydown.enter)="gotoStep(stp)">
             <span class="wizard-step-text">{{ stp.header }}</span>

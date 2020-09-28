@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, ContentChildren, ElementRef, EventEmitter, Input, OnDestroy, Output, QueryList, TemplateRef } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
 import { ResizeDimensions, ResizeService } from '../../directives/resize/index';
-import { WizardComponent, WizardService } from '../wizard/index';
+import { WizardComponent, WizardService, WizardStepComponent } from '../wizard/index';
 import { MarqueeWizardStepComponent } from './marquee-wizard-step.component';
 
 @Component({
@@ -26,6 +26,9 @@ export class MarqueeWizardComponent<TStepContext = any> extends WizardComponent 
 
     /** If set to true the resizable splitter will be enabled and set to the default width **/
     @Input() resizable: boolean = false;
+
+    /** If set to false it will allow users to navigate to every step */
+    @Input() sequential: boolean = true;
 
     /** Emit the current width of the splitter*/
     @Output() sidePanelWidthChange = new EventEmitter<number>();
@@ -70,13 +73,12 @@ export class MarqueeWizardComponent<TStepContext = any> extends WizardComponent 
      * complete and go to the next step
      */
     async next(): Promise<void> {
-
         // get the current step
         const step = this.getCurrentStep() as MarqueeWizardStepComponent;
 
         await super.next();
 
-        if (step && step.valid) {
+        if ((step && step.valid) || this.sequential) {
             // mark this step as completed
             step.setCompleted(true);
         } else {
@@ -114,6 +116,12 @@ export class MarqueeWizardComponent<TStepContext = any> extends WizardComponent 
         // we need to only get the size of the first panel which will be the side panel
         this.sidePanelWidth = sizes[0] as number;
         this.sidePanelWidthChange.emit(this.sidePanelWidth);
+    }
+
+    gotoMarqueeStep(step: WizardStepComponent) {
+        // mark completed
+        this.next();
+        this.gotoStep(step);
     }
 
     protected setFutureStepsUnvisited(currentStep: MarqueeWizardStepComponent): void {
