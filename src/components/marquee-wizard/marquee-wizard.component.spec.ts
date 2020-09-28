@@ -655,7 +655,6 @@ describe('Marquee wizard with step navigation', () => {
             fixture.detectChanges();
             await clickStep(2);
 
-
             expect(component.step1Visited).toBe(true);
             expect(component.step2Visited).toBe(false);
             expect(isStepVisited(2)).toBe(true);
