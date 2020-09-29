@@ -27,9 +27,6 @@ export class MarqueeWizardComponent<TStepContext = any> extends WizardComponent 
     /** If set to true the resizable splitter will be enabled and set to the default width **/
     @Input() resizable: boolean = false;
 
-    /** If set to false it will allow users to navigate to every step */
-    @Input() sequential: boolean = true;
-
     /** Emit the current width of the splitter*/
     @Output() sidePanelWidthChange = new EventEmitter<number>();
 

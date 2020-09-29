@@ -577,18 +577,23 @@ describe('Marquee wizard with custom step template', () => {
     template: `
         <ux-marquee-wizard
             [(step)]="currentStep"
+            (stepChange)="onStepChange($event)"
             [sequential]="sequential">
             <ux-marquee-wizard-step
                 header="Step One"
                 [(visited)]="step1Visited"
                 [valid]="step1Valid"
-                [(completed)]="step1Completed">
+                [(completed)]="step1Completed"
+                (visitedChange)="visitedChanged(0, $event)"
+                (completedChange)="completedChange(0, $event)">
                 Step One Content
             </ux-marquee-wizard-step>
             <ux-marquee-wizard-step
                 header="Step Two"
                 [(visited)]="step2Visited"
                 [valid]="step2Valid"
+                (visitedChange)="visitedChanged(1, $event)"
+                (completedChange)="completedChange(1, $event)"
                 [(completed)]="step2Completed">
                 Step Two Content
             </ux-marquee-wizard-step>
@@ -596,7 +601,9 @@ describe('Marquee wizard with custom step template', () => {
                 header="Step Three"
                 [(visited)]="step3Visited"
                 [valid]="step3Valid"
-                [(completed)]="step3Completed">
+                [(completed)]="step3Completed"
+                (visitedChange)="visitedChanged(2, $event)"
+                (completedChange)="completedChange(2, $event)">
                 Step Three Content
             </ux-marquee-wizard-step>
         </ux-marquee-wizard>
@@ -605,6 +612,7 @@ describe('Marquee wizard with custom step template', () => {
 export class MarqueeWizardStepNavigationComponent {
     currentStep: number;
     sequential: boolean = true;
+    onStepChange(_: number): void {}
 
     // step 1 values
     step1Valid: boolean = true;
@@ -621,12 +629,17 @@ export class MarqueeWizardStepNavigationComponent {
     step3Visited: boolean = true;
     step3Completed: boolean = false;
 
+    visitedChanged(index: number, value: boolean): void {}
+    completedChange(index: number, value: boolean): void {}
+
 }
 
 describe('Marquee wizard with step navigation', () => {
     let component: MarqueeWizardStepNavigationComponent;
     let fixture: ComponentFixture<MarqueeWizardStepNavigationComponent>;
     let nativeElement: HTMLElement;
+    let visitedChanged: jasmine.Spy;
+    let completedChange: jasmine.Spy;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
@@ -639,11 +652,13 @@ describe('Marquee wizard with step navigation', () => {
         fixture = TestBed.createComponent(MarqueeWizardStepNavigationComponent);
         component = fixture.componentInstance;
         nativeElement = fixture.nativeElement;
+        visitedChanged = spyOn(fixture.componentInstance, 'visitedChanged');
+        completedChange = spyOn(fixture.componentInstance, 'completedChange');
         fixture.detectChanges();
     });
 
     describe('[sequential]=false', () => {
-        it('should allow navigation to any step', async () => {
+        it('should allow navigation to any step and emit stepChange on click', async () => {
             component.sequential = false;
 
             component.step1Visited = true;
@@ -651,6 +666,7 @@ describe('Marquee wizard with step navigation', () => {
             component.step3Visited = false;
 
             expect(isStepVisited(0)).toBe(true);
+            spyOn(component, 'onStepChange');
 
             fixture.detectChanges();
             await clickStep(2);
@@ -658,6 +674,7 @@ describe('Marquee wizard with step navigation', () => {
             expect(component.step1Visited).toBe(true);
             expect(component.step2Visited).toBe(false);
             expect(isStepVisited(2)).toBe(true);
+            expect(component.onStepChange).toHaveBeenCalledWith(2);
 
             expect(component.step1Completed).toBe(true);
             expect(component.step2Completed).toBe(false);
@@ -695,6 +712,36 @@ describe('Marquee wizard with step navigation', () => {
 
             expect(component.step2Visited).toBe(true);
         });
+
+        it('should emit visitedChange when navigating to a step', async () => {
+            component.sequential = false;
+
+            component.step1Valid = true;
+            component.step1Visited = true;
+            component.step1Completed = true;
+
+            component.step3Visited = false;
+
+            fixture.detectChanges();
+            await clickStep(2);
+
+            expect(visitedChanged.calls.all().length).toBe(1);
+        });
+
+        it('should emit completedChange when step is completed', async () => {
+            component.sequential = false;
+
+            component.step1Valid = true;
+            component.step1Visited = true;
+            component.step1Completed = true;
+
+            fixture.detectChanges();
+            await clickStep(1);
+
+            expect(completedChange).toHaveBeenCalled();
+            expect(completedChange.calls.all().length).toBe(1);
+        });
+
     });
 
     function getSteps(): HTMLElement[] {
