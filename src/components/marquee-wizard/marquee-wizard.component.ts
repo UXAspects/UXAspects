@@ -118,11 +118,12 @@ export class MarqueeWizardComponent<TStepContext = any> extends WizardComponent 
     gotoStep(stp: WizardStepComponent): void {
         const step = this.getCurrentStep() as MarqueeWizardStepComponent;
 
+        if (step != stp ) {
         if (this.sequential === false) {
             step.setCompleted(true);
         }
-
         super.gotoStep(stp);
+        }
     }
 
     protected setFutureStepsUnvisited(currentStep: MarqueeWizardStepComponent): void {
