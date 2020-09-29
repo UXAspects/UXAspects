@@ -693,7 +693,7 @@ describe('Marquee wizard with step navigation', () => {
             fixture.detectChanges();
             await clickStep(0);
 
-            expect(isStepVisited(0)).toBe(true);
+            expect(component.step1Visited).toBe(true);
             expect(component.step2Visited).toBe(true);
             expect(component.step3Visited).toBe(false);
         });
@@ -725,7 +725,7 @@ describe('Marquee wizard with step navigation', () => {
             fixture.detectChanges();
             await clickStep(2);
 
-            expect(visitedChanged.calls.all().length).toBe(1);
+            expect(visitedChanged).toHaveBeenCalled();
         });
 
         it('should emit completedChange when step is completed', async () => {
@@ -739,7 +739,6 @@ describe('Marquee wizard with step navigation', () => {
             await clickStep(1);
 
             expect(completedChange).toHaveBeenCalled();
-            expect(completedChange.calls.all().length).toBe(1);
         });
 
     });

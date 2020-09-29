@@ -115,14 +115,14 @@ export class MarqueeWizardComponent<TStepContext = any> extends WizardComponent 
         this.sidePanelWidthChange.emit(this.sidePanelWidth);
     }
 
-    gotoStep(stp: WizardStepComponent): void {
-        const step = this.getCurrentStep() as MarqueeWizardStepComponent;
+    gotoStep(step: WizardStepComponent): void {
+        const currentStep = this.getCurrentStep() as MarqueeWizardStepComponent;
 
-        if (step != stp ) {
-        if (this.sequential === false) {
-            step.setCompleted(true);
+        if (currentStep != step ) {
+        if (!this.sequential) {
+            currentStep.setCompleted(true);
         }
-        super.gotoStep(stp);
+        super.gotoStep(step);
         }
     }
 
