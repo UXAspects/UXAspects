@@ -119,9 +119,9 @@ export class MarqueeWizardComponent<TStepContext = any> extends WizardComponent 
         const currentStep = this.getCurrentStep() as MarqueeWizardStepComponent;
 
         if (currentStep != step ) {
-        if (!this.sequential) {
-            currentStep.setCompleted(true);
-        }
+            if (!this.sequential) {
+                currentStep.setCompleted(true);
+            }
             super.gotoStep(step);
         }
     }
