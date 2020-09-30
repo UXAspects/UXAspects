@@ -122,7 +122,7 @@ export class MarqueeWizardComponent<TStepContext = any> extends WizardComponent 
         if (!this.sequential) {
             currentStep.setCompleted(true);
         }
-        super.gotoStep(step);
+            super.gotoStep(step);
         }
     }
 
