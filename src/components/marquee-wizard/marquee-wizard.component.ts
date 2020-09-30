@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, ContentChildren, ElementRef, EventEmitter, Input, OnDestroy, Output, QueryList, TemplateRef } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
 import { ResizeDimensions, ResizeService } from '../../directives/resize/index';
-import { WizardComponent, WizardService } from '../wizard/index';
+import { WizardComponent, WizardService, WizardStepComponent } from '../wizard/index';
 import { MarqueeWizardStepComponent } from './marquee-wizard-step.component';
 
 @Component({
@@ -70,7 +70,6 @@ export class MarqueeWizardComponent<TStepContext = any> extends WizardComponent 
      * complete and go to the next step
      */
     async next(): Promise<void> {
-
         // get the current step
         const step = this.getCurrentStep() as MarqueeWizardStepComponent;
 
@@ -114,6 +113,17 @@ export class MarqueeWizardComponent<TStepContext = any> extends WizardComponent 
         // we need to only get the size of the first panel which will be the side panel
         this.sidePanelWidth = sizes[0] as number;
         this.sidePanelWidthChange.emit(this.sidePanelWidth);
+    }
+
+    gotoStep(step: WizardStepComponent): void {
+        const currentStep = this.getCurrentStep() as MarqueeWizardStepComponent;
+
+        if (currentStep !== step) {
+            if (!this.sequential) {
+                currentStep.setCompleted(true);
+            }
+            super.gotoStep(step);
+        }
     }
 
     protected setFutureStepsUnvisited(currentStep: MarqueeWizardStepComponent): void {

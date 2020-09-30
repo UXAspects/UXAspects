@@ -92,6 +92,9 @@ export class WizardComponent implements OnInit, AfterContentInit, OnDestroy {
     /** Whether to set `visited` to false on subsequent steps after a validation fault. */
     @Input() resetVisitedOnValidationError: boolean = false;
 
+    /** If set to false it will allow users to navigate to every step */
+    @Input() sequential: boolean = true;
+
     /** Emits when the wizard has moved to the next step. It will receive the current step index as a parameter. */
     @Output() onNext = new EventEmitter<number>();
 
@@ -308,7 +311,7 @@ export class WizardComponent implements OnInit, AfterContentInit, OnDestroy {
      * Jump to a specific step only if the step has previously been visited
      */
     gotoStep(step: WizardStepComponent): void {
-        if (step.visited) {
+        if (step.visited || !this.sequential) {
 
             const stepIndex = this.steps.toArray().findIndex(stp => stp === step);
 
