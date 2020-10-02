@@ -1,23 +1,24 @@
-import { browser, by, element, ElementFinder, Key, protractor } from 'protractor';
+import { $, browser, by, element, ElementFinder, Key, protractor } from 'protractor';
 
 export class TagsPage {
 
-    tagsInput = element(by.tagName('ux-tag-input'));
-    customizeExampleSection = element(by.id('accordion'));
-    rangeErrorMessage = element(by.id('rangeErrorMessage'));
-    inputPatternErrorMessage = element(by.id('inputPatternErrorMessage'));
-    addOnPaste = element(by.id('addOnPaste'));
-    disabled = element(by.id('tagInputDisabled'));
-    enforceTagLimits = element(by.id('enforceTagLimits'));
-    minTags = element(by.id('minTags'));
-    maxTags = element(by.id('maxTags'));
-    tagPattern = element(by.id('tagPattern'));
-    placeholder = element(by.id('placeholder'));
-    tagDelimiters = element(by.id('tagDelimiters'));
-    enableTypeahead = element(by.id('enableTypeahead'));
-    freeInput = element(by.id('freeInput'));
-    selectFirst = element(by.id('selectFirst'));
-    showTypeaheadOnClick = element(by.id('showTypeaheadOnClick'));
+    tagsInput = $('ux-tag-input');
+    customizeExampleSection = $('#accordion');
+    rangeErrorMessage = $('#rangeErrorMessage');
+    inputPatternErrorMessage = $('#inputPatternErrorMessage');
+    addOnPaste = $('#addOnPaste');
+    disabled = $('#tagInputDisabled');
+    enforceTagLimits = $('#enforceTagLimits');
+    minTags = $('#minTags');
+    maxTags = $('#maxTags');
+    tagPattern = $('#tagPattern');
+    placeholder = $('#placeholder');
+    tagDelimiters = $('#tagDelimiters');
+    enableTypeahead = $('#enableTypeahead');
+    freeInput = $('#freeInput');
+    selectFirst = $('#selectFirst');
+    showTypeaheadOnClick = $('#showTypeaheadOnClick');
+    typeahead = $('ux-typeahead');
 
     async getPage(): Promise<void> {
         await browser.get('#/tags');

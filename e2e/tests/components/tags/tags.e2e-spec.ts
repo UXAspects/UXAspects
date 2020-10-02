@@ -279,4 +279,16 @@ describe('TagsPage Tests', () => {
         // ensure there are there 3 tags
         await page.tagsInput.click(); // console error would have been thrown here before fix
     });
+
+    it('should close typeahead on focus out', async () => {
+        await page.enableTypeahead.click();
+        await page.showTypeaheadOnClick.click();
+
+        await page.clickOnTagsInput();
+        await page.waitForTypeaheadListToBeDisplayed();
+        // click outside the typeahead dropdown
+        await page.showTypeaheadOnClick.click();
+
+        expect(await page.typeahead.isDisplayed()).toBe(false);
+    });
 });

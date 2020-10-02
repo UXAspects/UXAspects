@@ -398,6 +398,7 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
                 this.selectedIndex = -1;
                 if (this.typeahead) {
                     this.typeahead.open = false;
+                    this._changeDetector.markForCheck();
                 }
             }
         }, 200);
