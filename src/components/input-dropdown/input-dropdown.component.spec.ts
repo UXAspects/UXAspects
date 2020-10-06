@@ -213,39 +213,36 @@ describe('InputDropdownComponent', () => {
         expect(openChangeSpy).toHaveBeenCalledWith(false);
     });
 
-    it('should clear the value when allowNull is set to true', async () => {
-        component.allowNull = true;
-        component.dropdownOpen = true;
+    describe('with allowNull = true', () => {
+        beforeEach(() => {
+            component.allowNull = true;
+            component.dropdownOpen = true;
+            component.selected = 'One';
+            fixture.detectChanges();
+        });
 
-        component.selected = 'One';
-        fixture.detectChanges();
-        await fixture.whenStable();
+        it('should set the selected display value to "(none)" when the clear button is clicked', async () => {
+            const clearButton = nativeElement.querySelector('.ux-select-icon.ux-select-clear-icon') as HTMLButtonElement;
+            clearButton.click();
 
-        const clearButton = nativeElement.querySelector('.ux-select-icon.ux-select-clear-icon') as HTMLButtonElement;
-        clearButton.click();
+            fixture.detectChanges();
+            await fixture.whenStable();
 
-        fixture.detectChanges();
-        await fixture.whenStable();
+            const title = nativeElement.querySelector<HTMLElement>('.selection');
+            expect(title.innerText).toBe('Selection: (none)');
+        });
 
-        const title = nativeElement.querySelector<HTMLHeadingElement>('.selection');
-        expect(title.innerText).toBe('Selection: (none)');
+        it('should emit selectedChange when the value has been cleared', async () => {
+            spyOn(component, 'onSelectedChange');
+
+            const clearButton = nativeElement.querySelector('.ux-select-icon.ux-select-clear-icon') as HTMLButtonElement;
+            clearButton.click();
+
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            expect(component.onSelectedChange).toHaveBeenCalledWith(undefined);
+        });
+
     });
-
-    it('should emit selectedChange when the value has been cleared', async () => {
-        component.allowNull = true;
-        component.dropdownOpen = true;
-        spyOn(component, 'onSelectedChange');
-
-        component.selected = 'One';
-        fixture.detectChanges();
-
-        let clearButton = nativeElement.querySelector('.ux-select-icon.ux-select-clear-icon') as HTMLButtonElement;
-        clearButton.click();
-
-        fixture.detectChanges();
-        await fixture.whenStable();
-
-        expect(component.onSelectedChange).toHaveBeenCalledWith(undefined);
-    });
-
 });
