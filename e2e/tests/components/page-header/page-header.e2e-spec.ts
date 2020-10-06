@@ -13,7 +13,7 @@ describe('Page Header Tests', () => {
     it('should have correct initial states', async () => {
         // Initial values.
         expect(await page.confirmPageHeaderIsCondensed()).toBeFalsy();
-        expect(await page.getABreadcrumb(0)).toEqual('Archive');
+        expect(await page.getABreadcrumb(0)).toEqual('Home');
         expect(await page.confirmApplicationLogoIsPresent()).toBeTruthy();
         expect(await page.getApplicationLogoText()).toEqual('Home');
         expect(await page.confirmDropdownIsPresent()).toBeTruthy();
@@ -26,8 +26,9 @@ describe('Page Header Tests', () => {
     it('should display breadcrumbs when condensed', async () => {
 
         await page.toggleTheHeader();
-        expect(await page.getABreadcrumb(0)).toEqual('Archive');
-        expect(await page.getABreadcrumb(1)).toEqual('My Page');
+        expect(await page.getABreadcrumb(0)).toEqual('Home');
+        expect(await page.getABreadcrumb(1)).toEqual('Archive');
+        expect(await page.getABreadcrumb(2)).toEqual('My Page');
 
     });
 
@@ -267,5 +268,13 @@ describe('Page Header Tests', () => {
 
         expect(await page.getSubheaderText(page.pageHeader1)).toBe('My Subheader');
 
+    });
+
+    it('should add a href to breadcrumbs that specify a routerLink', async () => {
+        expect(await page.getBreadcrumbHref(0)).toContain('#/page-header/home');
+    });
+
+    it('should not add a href to breadcrumbs that do not specify a routerLink', async () => {
+        expect(await page.getBreadcrumbHref(1)).toBeNull();
     });
 });
