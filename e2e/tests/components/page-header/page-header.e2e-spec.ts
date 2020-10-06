@@ -277,4 +277,16 @@ describe('Page Header Tests', () => {
     it('should not add a href to breadcrumbs that do not specify a routerLink', async () => {
         expect(await page.getBreadcrumbHref(1)).toBeNull();
     });
+
+    it('should navigate to the routerLink of the breadcrumb when clicked', async () => {
+        expect(await page.getBreadcrumbPageTextContent()).toBe('');
+        await page.clickBreadcrumb(0);
+        expect(await page.getBreadcrumbPageTextContent()).toBe('Home');
+    });
+
+    it('should not navigate when clicking a breadcrumb that does not specify a routerLink', async () => {
+        expect(await page.getBreadcrumbPageTextContent()).toBe('');
+        await page.clickBreadcrumb(1);
+        expect(await page.getBreadcrumbPageTextContent()).toBe('');
+    });
 });
