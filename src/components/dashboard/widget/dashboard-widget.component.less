@@ -104,3 +104,62 @@ ux-dashboard-widget {
         box-shadow: 0 0 0 5px rgba(0, 115, 231, 0.5);
     }
 }
+
+[dir="rtl"] {
+    ux-dashboard-widget {
+        &.grabbing {
+            transform: translateX(-10px) translateY(10px);
+        }
+
+        .resizer-handle {
+            &.handle-top {
+                cursor: n-resize;
+                right: 10px;
+                left: 10px;
+            }
+
+            &.handle-top-right {
+                cursor: nw-resize;
+                left: 0;
+                right: initial;
+            }
+
+            &.handle-right {
+                cursor: e-resize;
+                left: 0;
+                right: initial;
+            }
+
+            &.handle-bottom-right {
+                cursor: sw-resize;
+                left: 0;
+                right: initial;
+            }
+
+            &.handle-bottom {
+                cursor: s-resize;
+                right: 10px;
+                left: 10px;
+            }
+
+            &.handle-bottom-left {
+                cursor: se-resize;
+                right: 0;
+                left: initial;
+            }
+
+            &.handle-left {
+                cursor: w-resize;
+                right: 0;
+                left: initial;
+            }
+
+            &.handle-top-left {
+                cursor: ne-resize;
+                top: 0;
+                right: 0;
+                left: initial;
+            }
+        }
+    }
+}
