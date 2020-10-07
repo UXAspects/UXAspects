@@ -104,3 +104,41 @@ ux-column-picker {
         color: @grey1;
     }
 }
+
+/* Right to Left Styling */
+[dir="rtl"] {
+    ux-column-picker {
+
+        .column-picker-tree-group-node {
+
+            .column-picker-group-toggle-btn {
+                padding-right: 17px;
+                padding-left: initial;
+
+                ux-icon {
+                    margin-right: initial;
+                    margin-left: 5px
+                }
+            }
+        }
+
+        .column-picker-tree-node-level-1 {
+            padding-left: initial;
+            padding-right: 50px;
+        }
+
+        .column-picker-list-item.column-picker-list-item-selected .drag-handle-icon {
+            margin-right: initial;
+            margin-left: 6px;
+        }
+
+        .column-picker-list-item.column-picker-list-item-locked {
+            padding: 0 28px 0 8px;
+        }
+
+        .column-picker-list-item.column-picker-list-item-locked .ux-icon {
+            margin-left: initial;
+            margin-right: auto;
+        }
+    }
+}

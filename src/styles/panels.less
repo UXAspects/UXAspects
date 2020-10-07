@@ -140,3 +140,27 @@
         padding-top: 15px;
     }
 }
+
+
+/* Right to Left Styling */
+[dir="rtl"] {
+    .accordion-chevron {
+        .panel-heading {
+            .ux-icon-next();
+
+            &:before {
+                float: left;
+            }
+        }
+
+        &.panel-open {
+            .panel-heading {
+                .ux-icon-down();
+            }
+        }
+    }
+
+    .ebox-title {
+        padding: 14px 0px 7px 15px;
+    }
+}
