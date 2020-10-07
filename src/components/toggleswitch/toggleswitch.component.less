@@ -115,3 +115,43 @@ ux-toggleswitch {
         }
     }
 }
+
+[dir="rtl"] {
+    ux-toggleswitch {
+        display: inline-block;
+
+        .ux-toggleswitch {
+            .ux-toggleswitch-nub {
+                top: 0;
+                left: initial;
+                right: 0;
+            }
+
+            .ux-toggleswitch-label {
+                margin-right: 7px;
+                margin-left: initial;
+
+                &:empty {
+                    margin-right: 0;
+                }
+            }
+
+
+            &.ux-toggleswitch-checked {
+                .ux-toggleswitch-nub {
+                    right: 22px;
+                    left: initial;
+                }
+            }
+        }
+
+        &.toggleswitch-lg {
+            .ux-toggleswitch {
+                &.ux-toggleswitch-checked .ux-toggleswitch-nub {
+                    right: 30px;
+                    left: initial;
+                }
+            }
+        }
+    }
+}
