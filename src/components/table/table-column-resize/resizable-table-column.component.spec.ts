@@ -101,12 +101,10 @@ describe('Resizable table column Component', () => {
     });
 
     it('should not display column handle when hideHandle is false', () => {
-        fixture.detectChanges();
-        expect(inputElement[1].classList.contains('ux-resizable-table-hide-handle')).toBeFalsy();
+        expect(inputElement[1].classList.contains('ux-resizable-table-hide-handle')).toBe(false);
     });
 
     it('should display column handle when hideHandle is true', () => {
-        fixture.detectChanges();
-        expect(inputElement[2].classList.contains('ux-resizable-table-hide-handle')).toBeTruthy();
+        expect(inputElement[2].classList.contains('ux-resizable-table-hide-handle')).toBe(true);
     });
 });
