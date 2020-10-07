@@ -124,10 +124,6 @@ export class PageHeaderPage {
         return await target.$('.page-header-subtitle').getAttribute('innerText');
     }
 
-    async getBreadcrumbHref(index: number): Promise<string> {
-        return this.breadcrumbs.get(index).getAttribute('href');
-    }
-
     async getBreadcrumbPageTextContent(): Promise<string> {
         return $('.breadcrumb-content').getText();
     }

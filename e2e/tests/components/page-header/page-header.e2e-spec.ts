@@ -1,6 +1,8 @@
 import { ElementArrayFinder, ElementFinder } from 'protractor';
 import { PageHeaderPage } from './page-header.po.spec';
 
+// e2e tests also exist for the Micro Focus version of the page header
+// See masthead.e2e-spec.ts in the Micro Focus repository
 describe('Page Header Tests', () => {
 
     let page: PageHeaderPage;
@@ -268,14 +270,6 @@ describe('Page Header Tests', () => {
 
         expect(await page.getSubheaderText(page.pageHeader1)).toBe('My Subheader');
 
-    });
-
-    it('should add a href to breadcrumbs that specify a routerLink', async () => {
-        expect(await page.getBreadcrumbHref(0)).toContain('#/page-header/home');
-    });
-
-    it('should not add a href to breadcrumbs that do not specify a routerLink', async () => {
-        expect(await page.getBreadcrumbHref(1)).toBeNull();
     });
 
     it('should navigate to the routerLink of the breadcrumb when clicked', async () => {
