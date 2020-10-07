@@ -134,6 +134,65 @@
     }
 }
 
+/* Right to Left Styling */
+[dir="rtl"] {
+    .nav > li > a {
+        padding: 14px 25px 14px 20px;
+    }
+
+    .navbar-default {
+        .nav > li > a {
+            span.arrow {
+                left: 3px;
+            }
+        }
+    }
+
+    .nav > li > a {
+        i {
+            margin-left: 6px;
+            margin-right: initial;
+        }
+    }
+
+    .nav-second-level {
+        li {
+            a {
+                padding: 5px 10px;
+                padding-right: 52px;
+                padding-left: initial;
+            }
+        }
+    }
+
+    .nav-third-level {
+        li {
+            a {
+                padding-right: 62px;
+                padding-left: initial;
+            }
+        }
+    }
+
+    .nav-fourth-level {
+        li {
+            a {
+                padding-right: 72px;
+                padding-left: initial;
+            }
+        }
+    }
+
+    .nav-fifth-level {
+        li {
+            a {
+                padding-right: 82px;
+                padding-left: initial;
+            }
+        }
+    }
+}
+
 //============================
 //panels and tabs
 //============================
@@ -204,6 +263,17 @@ h4 {
     }
 }
 
+/* Right to Left Styling */
+[dir="rtl"] {
+    .nav-tabs > li > a {
+        i + span,
+        ux-icon + span {
+            padding-left: initial;
+            padding-right: 8px;
+        }
+    }
+}
+
 // minimal-tab style for tab with minimal effects
 .minimal-tab {
     border-style: none;
@@ -229,6 +299,18 @@ h4 {
 
         > a {
             padding: 8px 0 0;
+        }
+    }
+}
+
+/* Right to Left Styling */
+[dir="rtl"] {
+    .minimal-tab {
+        > li {
+            padding: 0 10px;
+            > a {
+                padding: 8px 0 0;
+            }
         }
     }
 }
