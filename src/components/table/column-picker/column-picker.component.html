@@ -73,25 +73,25 @@
 <div class="column-picker-actions-column">
     <!-- Show the default action buttons -->
     <ng-container *ngIf="!actionsTemplate">
-        <button class="btn button-primary btn-block"
+        <button class="btn button-primary btn-block column-picker-actions__add-columns"
                 [disabled]="_deselectedSelection.length === 0"
                 (click)="addColumns()">
             <ux-icon name="chevron-right"></ux-icon>
         </button>
 
-        <button class="btn button-primary btn-block m-b-md"
+        <button class="btn button-primary btn-block m-b-md column-picker-actions__remove-columns"
                 [disabled]="_selectedSelection.length === 0"
                 (click)="removeColumns()">
             <ux-icon name="chevron-left"></ux-icon>
         </button>
 
-        <button class="btn button-secondary btn-block"
+        <button class="btn button-secondary btn-block column-picker-actions__add-all-columns"
                 [disabled]="_availableDeselectedColumns === 0"
                 (click)="addAllColumns()">
             <ux-icon name="chevron-right-double"></ux-icon>
         </button>
 
-        <button class="btn button-secondary btn-block"
+        <button class="btn button-secondary btn-block column-picker-actions__remove-all-columns"
                 [disabled]="selected.length === 0"
                 (click)="removeAllColumns()">
             <ux-icon name="chevron-left-double"></ux-icon>
