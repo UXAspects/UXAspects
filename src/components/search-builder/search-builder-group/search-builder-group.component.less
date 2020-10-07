@@ -158,3 +158,55 @@ ux-search-builder-group {
         }
     }
 }
+
+/* Right to Left Styling */
+[dir="rtl"] {
+    ux-search-builder-group {
+        .search-group-content {
+            .search-group-operator {
+                padding-left: initial;
+                padding-right: 5px;
+                border-left-width: initial;
+                border-left-style: initial;
+                border-right-width: 4px;
+                border-right-style: solid;
+
+                &.search-group-operator-or {
+                    border-left-color: initial;
+                    border-right-color: @search-builder-operator-or-border;
+                }
+
+                &.search-group-operator-and {
+                    border-left-color: initial;
+                    border-right-color: @search-builder-operator-and-border;
+                }
+
+                &.search-group-operator-not {
+                    border-left-color: initial;
+                    border-right-color: @search-builder-operator-not-border;
+                }
+            }
+
+            .search-group-items {
+                .search-group-item-container {
+                    margin-left: 10px;
+                    margin-right: initial;
+
+                    &.placeholder-item {
+                        .search-group-item {
+                            padding-left: 33px;
+                            padding-right: initial;
+                        }
+                    }
+                }
+            }
+
+            .search-builder-group-add-field {
+                .search-builder-group-add-field-label {
+                    padding-right: 8px;
+                    padding-left: initial
+                }
+            }
+        }
+    }
+}

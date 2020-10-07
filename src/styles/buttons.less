@@ -1036,3 +1036,104 @@ fieldset[disabled] .btn-toggle.active {
         }
     }
 }
+
+
+[dir="rtl"] {
+    .btn {
+        .hpe-icon,
+        .ux-icon,
+        ux-icon {
+            & + * {
+                margin-left: initial;
+                margin-right: 4px;
+            }
+        }
+    }
+
+    .dropdown-toggle {
+        .hp-icon,
+        .hpe-icon,
+        .ux-icon,
+        ux-icon {
+            margin-left: initial;
+            margin-right: 3px;
+
+            &:first-child {
+                margin-right: 0;
+            }
+        }
+    }
+
+    .btn-container {
+        > .btn + .btn,
+        > .btn + .btn-group,
+        > .btn-group + .btn,
+        > .btn-group + .btn-group {
+            margin-left: 8px;
+            margin-right: initial;
+
+            &.btn-link {
+                margin-right: 0;
+            }
+        }
+    }
+
+    .back-button {
+        .btn-back-header {
+            float: right;
+            margin-right: initial;
+            margin-left: 2px;
+
+            span {
+                padding: 5.5px 5px 0 1px;
+
+
+            }
+        }
+    }
+
+    .btn-pair {
+        margin-left: 16px;
+        margin-right: initial;
+    }
+
+    .btn-pair {
+        button {
+            &:first-child {
+                i {
+                    margin-right: -3px;
+                    margin-left: 5px;
+                }
+            }
+
+            &:last-child {
+                margin-right: 4px;
+                margin-left: initial;
+
+                i {
+                    margin-right: 5px;
+                    margin-left: -3px;
+                }
+            }
+        }
+    }
+
+    .dropdown-icon-inline {
+        padding-right: 12px;
+        padding-left: initial;
+    }
+
+    .dropdown-toggle {
+        .hp-icon,
+        .hpe-icon,
+        .ux-icon,
+        ux-icon {
+            margin-right: 3px;
+            margin-left: initial;
+
+            &:first-child {
+                margin-right: 0;
+            }
+        }
+    }
+}
