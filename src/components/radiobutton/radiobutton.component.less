@@ -141,3 +141,18 @@ ux-radio-button {
         }
     }
 }
+
+[dir="rtl"] {
+    ux-radio-button {
+        .ux-radio-button {
+            .ux-radio-button-label {
+                margin-right: 7px;
+                margin-left: initial;
+
+                &:empty {
+                    margin-right: 0;
+                }
+            }
+        }
+    }
+}
