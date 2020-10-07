@@ -22,7 +22,7 @@ interface TableDocument {
                     <th uxResizableTableColumn [(width)]="titleWidth">
                         Title <small class="column-size-label">{{ titleWidth | number }}px</small>
                     </th>
-                    <th uxResizableTableColumn [(width)]="authorWidth" [hideHandle]="true">
+                    <th uxResizableTableColumn [(width)]="authorWidth" handleVisible="false">
                         Author <small class="column-size-label">{{ authorWidth | number }}px</small>
                     </th>
                     <th uxResizableTableColumn (widthChange)="dateWidth = $event">
@@ -53,7 +53,7 @@ export class ResizableTableColumnComponent {
     titleWidth: number = 260;
     authorWidth: number = 300;
     dateWidth: number;
-    hideHandle: boolean;
+    handleVisible: boolean;
 
     constructor() {
         // generate some dummy data
@@ -75,7 +75,7 @@ export class ResizableTableColumnComponent {
 describe('Resizable table column Component', () => {
     let fixture: ComponentFixture<ResizableTableColumnComponent>;
     let component: ResizableTableColumnComponent;
-    let inputElement: HTMLElement;
+    let tableHeaderElements: NodeListOf<HTMLElement>;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
@@ -92,7 +92,7 @@ describe('Resizable table column Component', () => {
     beforeEach(() => {
         fixture = TestBed.createComponent(ResizableTableColumnComponent);
         component = fixture.componentInstance;
-        inputElement = fixture.elementRef.nativeElement.querySelectorAll('th');
+        tableHeaderElements = fixture.elementRef.nativeElement.querySelectorAll('th');
         fixture.detectChanges();
     });
 
@@ -100,11 +100,11 @@ describe('Resizable table column Component', () => {
         expect(component).toBeTruthy();
     });
 
-    it('should not display column handle when hideHandle is false', () => {
-        expect(inputElement[1].classList.contains('ux-resizable-table-hide-handle')).toBe(false);
+    it('should display column handle when handleVisible is true', () => {
+        expect(tableHeaderElements[1].classList.contains('ux-resizable-table-hide-handle')).toBe(true);
     });
 
-    it('should display column handle when hideHandle is true', () => {
-        expect(inputElement[2].classList.contains('ux-resizable-table-hide-handle')).toBe(true);
+    it('should not display column handle when handleVisible is false', () => {
+        expect(tableHeaderElements[2].classList.contains('ux-resizable-table-hide-handle')).toBe(false);
     });
 });

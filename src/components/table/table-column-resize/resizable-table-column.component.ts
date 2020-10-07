@@ -1,4 +1,4 @@
-import { coerceNumberProperty } from '@angular/cdk/coercion';
+import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
 import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, HostBinding, Inject, Input, OnDestroy, Output, Renderer2 } from '@angular/core';
 import { Subject } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
@@ -16,15 +16,23 @@ import { ColumnUnit } from './table-column-resize-standard/resizable-table.servi
 })
 export class ResizableTableColumnComponent implements AfterViewInit, OnDestroy {
 
+    /** Show/Hide column resizable handle */
+    private _handleVisible: boolean = true;
+
     /** Disabled the column resizing */
     @Input()
     @HostBinding('class.ux-resizable-table-column-disabled')
     disabled: boolean = false;
 
-    /** Show/Hide column resizable handle */
     @Input()
     @HostBinding('class.ux-resizable-table-hide-handle')
-    hideHandle: boolean = false;
+    get handleVisible(): boolean {
+        return this._handleVisible;
+    }
+
+    set handleVisible(value) {
+        this._handleVisible = coerceBooleanProperty(value);
+    }
 
     /** Define the width of a column */
     @Input() set width(width: number) {
