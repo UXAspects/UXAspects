@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { MenuModule, PageHeaderModule, AccessibilityModule } from '@ux-aspects/ux-aspects';
 import { PageHeaderTestPageComponent } from './page-header.testpage.component';
+import { PageHeaderPageComponent } from './page.component';
 
 @NgModule({
     imports: [
@@ -11,10 +12,20 @@ import { PageHeaderTestPageComponent } from './page-header.testpage.component';
         RouterModule.forChild([
             {
                 path: '',
-                component: PageHeaderTestPageComponent
+                component: PageHeaderTestPageComponent,
+                children: [
+                    {
+                        path: 'home',
+                        component: PageHeaderPageComponent,
+                        data: { title: 'Home' }
+                    }
+                ]
             }
         ])
     ],
-    declarations: [PageHeaderTestPageComponent]
+    declarations: [
+        PageHeaderTestPageComponent,
+        PageHeaderPageComponent
+    ]
 })
 export class PageHeaderTestPageModule { }
