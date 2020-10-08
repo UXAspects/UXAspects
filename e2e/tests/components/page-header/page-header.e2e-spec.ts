@@ -1,6 +1,8 @@
 import { ElementArrayFinder, ElementFinder } from 'protractor';
 import { PageHeaderPage } from './page-header.po.spec';
 
+// e2e tests also exist for the Micro Focus version of the page header
+// See masthead.e2e-spec.ts in the Micro Focus repository
 describe('Page Header Tests', () => {
 
     let page: PageHeaderPage;
@@ -13,7 +15,7 @@ describe('Page Header Tests', () => {
     it('should have correct initial states', async () => {
         // Initial values.
         expect(await page.confirmPageHeaderIsCondensed()).toBeFalsy();
-        expect(await page.getABreadcrumb(0)).toEqual('Archive');
+        expect(await page.getABreadcrumb(0)).toEqual('Home');
         expect(await page.confirmApplicationLogoIsPresent()).toBeTruthy();
         expect(await page.getApplicationLogoText()).toEqual('Home');
         expect(await page.confirmDropdownIsPresent()).toBeTruthy();
@@ -26,8 +28,9 @@ describe('Page Header Tests', () => {
     it('should display breadcrumbs when condensed', async () => {
 
         await page.toggleTheHeader();
-        expect(await page.getABreadcrumb(0)).toEqual('Archive');
-        expect(await page.getABreadcrumb(1)).toEqual('My Page');
+        expect(await page.getABreadcrumb(0)).toEqual('Home');
+        expect(await page.getABreadcrumb(1)).toEqual('Archive');
+        expect(await page.getABreadcrumb(2)).toEqual('My Page');
 
     });
 
@@ -267,5 +270,17 @@ describe('Page Header Tests', () => {
 
         expect(await page.getSubheaderText(page.pageHeader1)).toBe('My Subheader');
 
+    });
+
+    it('should navigate to the routerLink of the breadcrumb when clicked', async () => {
+        expect(await page.getBreadcrumbPageTextContent()).toBe('');
+        await page.clickBreadcrumb(0);
+        expect(await page.getBreadcrumbPageTextContent()).toBe('Home');
+    });
+
+    it('should not navigate when clicking a breadcrumb that does not specify a routerLink', async () => {
+        expect(await page.getBreadcrumbPageTextContent()).toBe('');
+        await page.clickBreadcrumb(1);
+        expect(await page.getBreadcrumbPageTextContent()).toBe('');
     });
 });

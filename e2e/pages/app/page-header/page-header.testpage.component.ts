@@ -12,9 +12,16 @@ export class PageHeaderTestPageComponent {
     alignment: PageHeaderNavigationAlignment = 'center';
     selected: string;
 
-    crumbs: Breadcrumb[] = [{
-        title: 'Archive'
-    }];
+    crumbs: Breadcrumb[] = [
+        {
+            title: 'Home',
+            routerLink: 'home'
+        },
+        {
+            title: 'Archive',
+            onClick: () => {}
+        }
+    ];
 
     items: PageHeaderNavigationItem[] = [
         {

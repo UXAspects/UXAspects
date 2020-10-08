@@ -2,8 +2,8 @@
     <ol class="breadcrumb">
         <li *ngFor="let crumb of crumbs">
 
-            <!-- If there is a router link then use a tag -->
-            <a *ngIf="crumb.routerLink || crumb.onClick"
+            <!-- If there is a router link or an onClick function then use a tag -->
+            <a *ngIf="crumb.routerLink"
                 uxFocusIndicator
                 tabindex="0"
                 [routerLink]="crumb.routerLink"
@@ -12,8 +12,14 @@
                 (click)="clickCrumb($event, crumb)">
                 {{ crumb.title }}
             </a>
+            <a *ngIf="crumb.onClick"
+                uxFocusIndicator
+                tabindex="0"
+                (click)="clickCrumb($event, crumb)">
+                {{ crumb.title }}
+            </a>
 
-            <!-- If there is not router link then display text in a span -->
+            <!-- If there is no router link or onClick function then display text in a span -->
             <span *ngIf="!crumb.routerLink && !crumb.onClick">{{ crumb.title }}</span>
         </li>
     </ol>
