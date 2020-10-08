@@ -4,6 +4,7 @@ import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { APP_BASE_HREF } from '@angular/common';
 import { ColorServiceModule, colorSets } from '../../services/color';
+import { Breadcrumb } from '../breadcrumbs/breadcrumbs.component';
 
 @Component({
     selector: 'app-page-header-test',
@@ -11,12 +12,24 @@ import { ColorServiceModule, colorSets } from '../../services/color';
         <ux-page-header
             header="UX"
             [backVisible]="true"
+            [crumbs]="crumbs"
             (backClick)="onBackClick()"
             (logoClick)="onLogoClick()">
         </ux-page-header>
     `
 })
 export class PageHeaderTestComponent {
+
+    crumbs: Breadcrumb[] = [
+        {
+            title: 'Home',
+            routerLink: 'home'
+        },
+        {
+            title: 'Archive',
+            onClick: () => {}
+        }
+    ];
 
     onLogoClick(): void {}
 
@@ -85,6 +98,18 @@ describe('Page Header Component', () => {
         // Checks that the page header us 'UX'
         const pageHeader: HTMLElement = nativeElement.querySelector('.page-header-acronym');
         expect(pageHeader.textContent).toContain('UX');
+    });
+
+    it('should add href to breadcrumbs with a routerLink', () => {
+        const homeBreadcrumb = nativeElement.querySelector('.breadcrumb a');
+        expect(homeBreadcrumb.textContent.trim()).toBe('Home');
+        expect(homeBreadcrumb.hasAttribute('href')).toBe(true);
+    });
+
+    it('should not add href to breadcrumbs without a routerLink', () => {
+        const archiveBreadcrumb = nativeElement.querySelectorAll('.breadcrumb a')[1];
+        expect(archiveBreadcrumb.textContent.trim()).toBe('Archive');
+        expect(archiveBreadcrumb.hasAttribute('href')).toBe(false);
     });
 
 });
