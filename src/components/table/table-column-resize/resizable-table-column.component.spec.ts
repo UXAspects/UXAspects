@@ -72,7 +72,7 @@ export class ResizableTableColumnComponent {
     }
 }
 
-describe('Resizable table column Component', () => {
+fdescribe('Resizable table column Component', () => {
     let fixture: ComponentFixture<ResizableTableColumnComponent>;
     let component: ResizableTableColumnComponent;
     let tableHeaderElements: NodeListOf<HTMLElement>;
@@ -101,10 +101,10 @@ describe('Resizable table column Component', () => {
     });
 
     it('should display column handle when handleVisible is true', () => {
-        expect(tableHeaderElements[1].classList.contains('ux-resizable-table-hide-handle')).toBe(true);
+        expect(tableHeaderElements[1].classList.contains('ux-resizable-table-hide-handle')).toBe(false);
     });
 
     it('should not display column handle when handleVisible is false', () => {
-        expect(tableHeaderElements[2].classList.contains('ux-resizable-table-hide-handle')).toBe(false);
+        expect(tableHeaderElements[2].classList.contains('ux-resizable-table-hide-handle')).toBe(true);
     });
 });
