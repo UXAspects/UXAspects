@@ -11,7 +11,8 @@ import { ColumnUnit } from './table-column-resize-standard/resizable-table.servi
     templateUrl: './resizable-table-column.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
-        class: 'ux-resizable-table-column'
+        class: 'ux-resizable-table-column',
+        '[class.ux-resizable-table-hide-handle]': '!handleVisible'
     }
 })
 export class ResizableTableColumnComponent implements AfterViewInit, OnDestroy {
@@ -25,12 +26,11 @@ export class ResizableTableColumnComponent implements AfterViewInit, OnDestroy {
     disabled: boolean = false;
 
     @Input()
-    @HostBinding('class.ux-resizable-table-hide-handle')
     get handleVisible(): boolean {
         return this._handleVisible;
     }
 
-    set handleVisible(value) {
+    set handleVisible(value: boolean) {
         this._handleVisible = coerceBooleanProperty(value);
     }
 
