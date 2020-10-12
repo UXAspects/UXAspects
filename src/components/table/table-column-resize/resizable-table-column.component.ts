@@ -5,6 +5,7 @@ import { filter, takeUntil } from 'rxjs/operators';
 import { BaseResizableTableService, ResizableTableType } from './resizable-table-base.service';
 import { RESIZABLE_TABLE_SERVICE_TOKEN } from './resizable-table-service.token';
 import { ColumnUnit } from './table-column-resize-standard/resizable-table.service';
+import {Direction, Directionality} from "@angular/cdk/bidi";
 
 @Component({
     selector: '[uxResizableTableColumn]',
@@ -90,6 +91,9 @@ export class ResizableTableColumnComponent implements AfterViewInit, OnDestroy {
     /** Determine if this column is a variable width column */
     isFixedWidth: boolean = false;
 
+    /** Stores directionality */
+    private _dir: Direction;
+
     /** Store the width specifically set by the input */
     private _width: number;
 
@@ -102,7 +106,19 @@ export class ResizableTableColumnComponent implements AfterViewInit, OnDestroy {
     /** Emit when all observables should be unsubscribed */
     private _onDestroy = new Subject<void>();
 
-    constructor(private _elementRef: ElementRef, @Inject(RESIZABLE_TABLE_SERVICE_TOKEN) private _table: BaseResizableTableService, private _renderer: Renderer2) { }
+    constructor(private _directionality: Directionality,
+                private _elementRef: ElementRef,
+                @Inject(RESIZABLE_TABLE_SERVICE_TOKEN) private _table: BaseResizableTableService,
+                private _renderer: Renderer2) {
+        this._dir = _directionality.value;
+
+        // update directionality on change rtl/ltr
+        _directionality.change
+            .pipe(takeUntil(this._onDestroy))
+            .subscribe(() => {
+                this._dir = _directionality.value;
+            });
+    }
 
     ngAfterViewInit(): void {
         // initially emit the size when we have initialised
