@@ -18,7 +18,7 @@ module.exports = function(grunt) {
     grunt.registerTask('webpack_import_cert', ['run:webpack_import_cert']);
     grunt.registerTask('lint', ['tslint:library', 'tslint:documentation', 'stylelint', 'tslint:e2e']);
     grunt.registerTask('library', ['clean:library', 'execute:ngpackagr', 'execute:downlevel-dts']);
-    grunt.registerTask('styles', ['clean:styles', 'execute:less', 'usebanner:styles']);
+    grunt.registerTask('styles', ['clean:styles', 'execute:less', 'usebanner:styles', 'rtlcss:styles']);
     grunt.registerTask('assets', ['copy:fonts', 'copy:images', 'copy:css', 'copy:md']);
     grunt.registerTask('assets:library', ['copy:fonts', 'copy:images', 'copy:md']);
     grunt.registerTask('iconset', ['execute:iconset', 'webfont']);
