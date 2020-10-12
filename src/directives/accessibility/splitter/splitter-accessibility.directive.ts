@@ -5,6 +5,7 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { FocusIndicator } from '../focus-indicator/focus-indicator';
 import { FocusIndicatorService } from '../focus-indicator/focus-indicator.service';
+import {Direction, Directionality} from "@angular/cdk/bidi";
 
 @Directive({
     selector: 'as-split'
@@ -16,6 +17,9 @@ export class SplitterAccessibilityDirective implements AfterViewInit, OnDestroy 
 
     /** Find all the split areas */
     @ContentChildren(SplitAreaDirective) areas: QueryList<SplitAreaDirective>;
+
+    /** Stores directionality */
+    private _dir: Direction;
 
     /** Store all the gutter elements */
     private _gutters: HTMLElement[] = [];
@@ -30,12 +34,19 @@ export class SplitterAccessibilityDirective implements AfterViewInit, OnDestroy 
     private _focusIndicators: FocusIndicator[] = [];
 
     constructor(
+        private _directionality: Directionality,
         private _elementRef: ElementRef,
         private _renderer: Renderer2,
         @Inject(PLATFORM_ID) private _platform: string,
         private _splitter: SplitComponent,
         private _focusIndicatorService: FocusIndicatorService
     ) {
+        this._dir = _directionality.value;
+
+        _directionality.change
+            .pipe(takeUntil(this._onDestroy))
+            .subscribe(() => this._dir = _directionality.value);
+
         // update aria values when the a gutter is dragged
         _splitter.dragProgress$
             .pipe(takeUntil(this._onDestroy))
@@ -188,7 +199,8 @@ export class SplitterAccessibilityDirective implements AfterViewInit, OnDestroy 
     onIncreaseKey(event: KeyboardEvent): void {
         // only perform a move if a gutter is focused
         if (this.isSplitterGutter(event.target as HTMLElement)) {
-            this.setGutterPosition(event.target as HTMLElement, -1);
+            let delta = (this._dir === 'rtl' ? 1 : -1);
+            this.setGutterPosition(event.target as HTMLElement, delta);
 
             // stop the browser from scrolling
             event.preventDefault();
@@ -200,7 +212,8 @@ export class SplitterAccessibilityDirective implements AfterViewInit, OnDestroy 
     onDecreaseKey(event: KeyboardEvent): void {
         // only perform a move if a gutter is focused
         if (this.isSplitterGutter(event.target as HTMLElement)) {
-            this.setGutterPosition(event.target as HTMLElement, 1);
+            let delta = (this._dir === 'rtl' ? -1 : 1);
+            this.setGutterPosition(event.target as HTMLElement, delta);
 
             // stop the browser from scrolling
             event.preventDefault();
