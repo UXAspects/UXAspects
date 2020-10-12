@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, DoCheck, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, DoCheck, ElementRef, EventEmitter, HostBinding, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { ColorService } from '../../services/color/index';
 
 @Component({
@@ -17,6 +17,9 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
         this.updateOptions();
     }
 
+    /** If this value is set to `true` then the slider will be disabled. */
+    @Input() @HostBinding('class.disabled') disabled: boolean = false;
+
     get options(): SliderOptions {
         return this._options;
     }
@@ -30,7 +33,7 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
 
     // store current values for deep change detection
     private _value: SliderValue | number;
-     _options: SliderOptions;
+    _options: SliderOptions;
 
     // expose enums to Angular view
     sliderType = SliderType;
@@ -91,7 +94,7 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
     ticks: SliderTick[] = [];
     defaultOptions: SliderOptions;
 
-    constructor(colorService: ColorService, private _changeDetectorRef: ChangeDetectorRef) {
+    constructor(colorService: ColorService, private _changeDetectorRef: ChangeDetectorRef, private _changeDetector: ChangeDetectorRef) {
         // setup default options
         this.defaultOptions = {
             type: SliderType.Value,
@@ -167,6 +170,11 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
         });
     }
 
+    setDisabledState(isDisabled: boolean): void {
+        this.disabled = isDisabled;
+        this._changeDetector.markForCheck();
+    }
+
     snapToNearestTick(thumb: SliderThumb, snapTarget: SliderSnap, forwards: boolean): void {
 
         // get the value for the thumb
@@ -220,36 +228,39 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
 
     thumbEvent(thumb: SliderThumb, event: SliderThumbEvent): void {
 
-        // get the current thumb state
-        const state = this.getThumbState(thumb);
+        if (!this.disabled) {
+            // get the current thumb state
+            const state = this.getThumbState(thumb);
 
-        // update based upon event
-        switch (event) {
+            // update based upon event
+            switch (event) {
 
-            case SliderThumbEvent.DragStart:
-                state.drag = true;
-                break;
+                case SliderThumbEvent.DragStart:
+                    state.drag = true;
+                    break;
 
-            case SliderThumbEvent.DragEnd:
-                state.drag = false;
-                break;
+                case SliderThumbEvent.DragEnd:
+                    state.drag = false;
+                    break;
 
-            case SliderThumbEvent.MouseOver:
-                state.hover = true;
-                break;
+                case SliderThumbEvent.MouseOver:
+                    state.hover = true;
+                    break;
 
-            case SliderThumbEvent.MouseLeave:
-                state.hover = false;
-                break;
+                case SliderThumbEvent.MouseLeave:
+                    state.hover = false;
+                    break;
 
-            case SliderThumbEvent.None:
-                state.drag = false;
-                state.hover = false;
-                break;
+                case SliderThumbEvent.None:
+                    state.drag = false;
+                    state.hover = false;
+                    break;
+            }
+
+            // update the thumb state
+            this.setThumbState(thumb, state.hover, state.drag);
+
         }
-
-        // update the thumb state
-        this.setThumbState(thumb, state.hover, state.drag);
     }
 
     getAriaValueText(thumb: SliderThumb): string | number {
@@ -379,50 +390,53 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
 
     updateThumbPosition(event: MouseEvent | TouchEvent, thumb: SliderThumb): void {
 
-        // get event position - either mouse or touch
-        let eventPosition = event instanceof MouseEvent ? event.clientX : event.touches && event.touches.length > 0 ? event.touches[0].clientX : null;
+        if (!this.disabled) {
+            // get event position - either mouse or touch
+            let eventPosition = event instanceof MouseEvent ? event.clientX : event.touches && event.touches.length > 0 ? event.touches[0].clientX : null;
 
-        // if event position is null do nothing
-        if (eventPosition === null) {
-            return;
+            // if event position is null do nothing
+            if (eventPosition === null) {
+                return;
+            }
+
+            // get mouse position
+            let mouseX = window.pageXOffset + eventPosition;
+
+            // get track size and position
+            let trackBounds = this.track.nativeElement.getBoundingClientRect();
+
+            // restrict the value within the range size
+            let position = this.clamp(mouseX - trackBounds.left, 0, trackBounds.width);
+
+            // get fraction representation of location within the track
+            let fraction = (position / trackBounds.width);
+
+            // convert to value within the range
+            let value = ((this._options.track.max - this._options.track.min) * fraction) + this._options.track.min;
+
+            // ensure value is valid
+            value = this.validateValue(thumb, value);
+
+            // snap to a tick if required
+            value = this.snapToTick(value, thumb);
+
+            // update the value accordingly
+            this.setThumbValue(thumb, value);
+
+            this.updateOrder(thumb);
+            this.updateValues();
+
+            // update tooltip text & position
+            this.updateTooltipText(thumb);
+
+            // update the position of all visible tooltips
+            this.updateTooltipPosition(SliderThumb.Lower);
+            this.updateTooltipPosition(SliderThumb.Upper);
+
+            // mark as dirty for change detection
+            this._changeDetectorRef.markForCheck();
+
         }
-
-        // get mouse position
-        let mouseX = window.pageXOffset + eventPosition;
-
-        // get track size and position
-        let trackBounds = this.track.nativeElement.getBoundingClientRect();
-
-        // restrict the value within the range size
-        let position = this.clamp(mouseX - trackBounds.left, 0, trackBounds.width);
-
-        // get fraction representation of location within the track
-        let fraction = (position / trackBounds.width);
-
-        // convert to value within the range
-        let value = ((this._options.track.max - this._options.track.min) * fraction) + this._options.track.min;
-
-        // ensure value is valid
-        value = this.validateValue(thumb, value);
-
-        // snap to a tick if required
-        value = this.snapToTick(value, thumb);
-
-        // update the value accordingly
-        this.setThumbValue(thumb, value);
-
-        this.updateOrder(thumb);
-        this.updateValues();
-
-        // update tooltip text & position
-        this.updateTooltipText(thumb);
-
-        // update the position of all visible tooltips
-        this.updateTooltipPosition(SliderThumb.Lower);
-        this.updateTooltipPosition(SliderThumb.Upper);
-
-        // mark as dirty for change detection
-        this._changeDetectorRef.markForCheck();
     }
 
     private updateOrder(thumb: SliderThumb): void {

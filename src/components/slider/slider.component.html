@@ -1,11 +1,12 @@
 <div class="track"
      #track
+     [class.disabled]="disabled"
      [class.narrow]="_options.track.height === sliderSize.Narrow"
      [class.wide]="_options.track.height === sliderSize.Wide"
      [class.range]="_options.type === sliderType.Range">
 
     <!-- Section Beneath Lower Thumb -->
-    <div class="track-section track-lower" [style.flex-grow]="tracks.lower.size" [style.background]="tracks.lower.color"></div>
+    <div class="track-section track-lower" [style.flex-grow]="tracks.lower.size" [style.background]="this.disabled ? null : tracks.lower.color"></div>
 
     <!-- Lower Thumb Button / Line -->
     <div class="thumb lower"

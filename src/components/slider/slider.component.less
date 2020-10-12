@@ -5,6 +5,14 @@ ux-slider {
     -moz-user-select: none;
     user-select: none;
 
+    &.disabled {
+        .track.disabled {
+            .track-section.track-lower {
+                background-color: rgba(0, 0, 0, 0.2);
+            }
+        }
+    }
+
     .track {
         display: flex;
         flex-direction: row;
