@@ -1,4 +1,4 @@
-import { browser, by, element, ElementFinder, Key, protractor } from 'protractor';
+import { $, browser, by, element, ElementFinder, Key, protractor } from 'protractor';
 
 const ANNOUNCER_WAIT_TIMEOUT = 200;
 
@@ -11,6 +11,7 @@ export class DashboardPage {
     bottomFocusTarget = element(by.id('bottom-focus'));
     changeOptions = element(by.id('change-dashboard-options'));
     layoutOutput = element(by.id('layout-output'));
+    updateLayout = $('#update-layout');
 
     async getPage(): Promise<void> {
         await browser.get('#/dashboard');
@@ -22,6 +23,10 @@ export class DashboardPage {
 
     async getWidget(index: number) {
         return await this.container.$('div.dashboard-container').$$('ux-dashboard-widget').get(index);
+    }
+
+    getWidgetById(id: string) {
+        return $(id);
     }
 
     async getWidgetAttribute(widget: ElementFinder, attribute: string) {

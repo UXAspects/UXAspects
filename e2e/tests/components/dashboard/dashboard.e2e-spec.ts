@@ -215,6 +215,7 @@ describe('Dashboard Tests', () => {
 
         // Tab again
         await browser.actions().sendKeys(Key.TAB).perform();
+        await browser.actions().sendKeys(Key.TAB).perform();
 
         // Focus should have left the dashboard
         expect(await page.hasFocus(page.bottomFocusTarget)).toBe(true);
@@ -230,6 +231,7 @@ describe('Dashboard Tests', () => {
         expect(await page.hasFocus(grabHandle2)).toBe(true);
 
         // Tab again
+        await browser.actions().sendKeys(Key.TAB).perform();
         await browser.actions().sendKeys(Key.TAB).perform();
 
         // Focus should have left the dashboard
@@ -372,112 +374,21 @@ describe('Dashboard Tests', () => {
         expect(await imageCompareFullPageScreen('dashboard-stacked-mode-widget-order')).toEqual(0);
     });
 
-    it('should not change the order of widgets when moving from regular to stacked mode', async () => {
-        // drag the top widget down
-        await browser.actions().dragAndDrop(widget1, { x: 0, y: 250 }).perform();
+    it('should update the layout when a new value is emitted', async () => {
+        const usageWidget = page.getWidgetById('#usage-widget');
+        const serviceWidget = page.getWidgetById('#service-widget');
 
-        expect(await page.getWidgetLocationValue(widget1, 'top')).toBe(220);
-        expect(await page.getWidgetLocationValue(widget1, 'left')).toBe(0);
+        expect(await page.getWidgetLocationValue(usageWidget, 'top')).toBe(0);
+        expect(await page.getWidgetLocationValue(usageWidget, 'left')).toBe(0);
+        expect(await page.getWidgetLocationValue(serviceWidget, 'top')).toBe(0);
+        expect(await page.getWidgetLocationValue(serviceWidget, 'left')).toBe(277);
 
-        expect(await page.getWidgetLocationValue(widget2, 'top')).toBe(0);
-        expect(await page.getWidgetLocationValue(widget2, 'left')).toBe(0);
+        await page.updateLayout.click();
 
-        expect(await page.getWidgetLocationValue(widget3, 'top')).toBe(0);
-        expect(await page.getWidgetLocationValue(widget3, 'left')).toBe(554);
-
-        expect(await page.getWidgetLocationValue(widget4, 'top')).toBe(0);
-        expect(await page.getWidgetLocationValue(widget4, 'left')).toBe(831);
-
-        // resize page so in stacked mode
-        await browser.driver.manage().window().setSize(400, 600);
-
-        // expect the widgets not to shift order
-        expect(await page.getWidgetLocationValue(widget1, 'top')).toBe(660);
-        expect(await page.getWidgetLocationValue(widget1, 'left')).toBe(0);
-
-        expect(await page.getWidgetLocationValue(widget2, 'top')).toBe(0);
-        expect(await page.getWidgetLocationValue(widget2, 'left')).toBe(0);
-
-        expect(await page.getWidgetLocationValue(widget3, 'top')).toBe(220);
-        expect(await page.getWidgetLocationValue(widget3, 'left')).toBe(0);
-
-        expect(await page.getWidgetLocationValue(widget4, 'top')).toBe(440);
-        expect(await page.getWidgetLocationValue(widget4, 'left')).toBe(0);
-
-
-        expect(await imageCompareFullPageScreen('dashboard-stacked-mode-widget-order')).toEqual(0);
-    });
-
-    it('should not change the order of widgets when moving from regular to stacked mode', async () => {
-        // drag the top widget down
-        await browser.actions().dragAndDrop(widget1, { x: 0, y: 250 }).perform();
-
-        expect(await page.getWidgetLocationValue(widget1, 'top')).toBe(220);
-        expect(await page.getWidgetLocationValue(widget1, 'left')).toBe(0);
-
-        expect(await page.getWidgetLocationValue(widget2, 'top')).toBe(0);
-        expect(await page.getWidgetLocationValue(widget2, 'left')).toBe(0);
-
-        expect(await page.getWidgetLocationValue(widget3, 'top')).toBe(0);
-        expect(await page.getWidgetLocationValue(widget3, 'left')).toBe(554);
-
-        expect(await page.getWidgetLocationValue(widget4, 'top')).toBe(0);
-        expect(await page.getWidgetLocationValue(widget4, 'left')).toBe(831);
-
-        // resize page so in stacked mode
-        await browser.driver.manage().window().setSize(400, 600);
-
-        // expect the widgets not to shift order
-        expect(await page.getWidgetLocationValue(widget1, 'top')).toBe(660);
-        expect(await page.getWidgetLocationValue(widget1, 'left')).toBe(0);
-
-        expect(await page.getWidgetLocationValue(widget2, 'top')).toBe(0);
-        expect(await page.getWidgetLocationValue(widget2, 'left')).toBe(0);
-
-        expect(await page.getWidgetLocationValue(widget3, 'top')).toBe(220);
-        expect(await page.getWidgetLocationValue(widget3, 'left')).toBe(0);
-
-        expect(await page.getWidgetLocationValue(widget4, 'top')).toBe(440);
-        expect(await page.getWidgetLocationValue(widget4, 'left')).toBe(0);
-
-
-        expect(await imageCompareFullPageScreen('dashboard-stacked-mode-widget-order')).toEqual(0);
-    });
-
-    it('should not change the order of widgets when moving from regular to stacked mode', async () => {
-        // drag the top widget down
-        await browser.actions().dragAndDrop(widget1, { x: 0, y: 250 }).perform();
-
-        expect(await page.getWidgetLocationValue(widget1, 'top')).toBe(220);
-        expect(await page.getWidgetLocationValue(widget1, 'left')).toBe(0);
-
-        expect(await page.getWidgetLocationValue(widget2, 'top')).toBe(0);
-        expect(await page.getWidgetLocationValue(widget2, 'left')).toBe(0);
-
-        expect(await page.getWidgetLocationValue(widget3, 'top')).toBe(0);
-        expect(await page.getWidgetLocationValue(widget3, 'left')).toBe(554);
-
-        expect(await page.getWidgetLocationValue(widget4, 'top')).toBe(0);
-        expect(await page.getWidgetLocationValue(widget4, 'left')).toBe(831);
-
-        // resize page so in stacked mode
-        await browser.driver.manage().window().setSize(400, 600);
-
-        // expect the widgets not to shift order
-        expect(await page.getWidgetLocationValue(widget1, 'top')).toBe(660);
-        expect(await page.getWidgetLocationValue(widget1, 'left')).toBe(0);
-
-        expect(await page.getWidgetLocationValue(widget2, 'top')).toBe(0);
-        expect(await page.getWidgetLocationValue(widget2, 'left')).toBe(0);
-
-        expect(await page.getWidgetLocationValue(widget3, 'top')).toBe(220);
-        expect(await page.getWidgetLocationValue(widget3, 'left')).toBe(0);
-
-        expect(await page.getWidgetLocationValue(widget4, 'top')).toBe(440);
-        expect(await page.getWidgetLocationValue(widget4, 'left')).toBe(0);
-
-
-        expect(await imageCompareFullPageScreen('dashboard-stacked-mode-widget-order')).toEqual(0);
+        expect(await page.getWidgetLocationValue(usageWidget, 'top')).toBe(0);
+        expect(await page.getWidgetLocationValue(usageWidget, 'left')).toBe(831);
+        expect(await page.getWidgetLocationValue(serviceWidget, 'top')).toBe(0);
+        expect(await page.getWidgetLocationValue(serviceWidget, 'left')).toBe(0);
     });
 
     describe('Stacked Mode', () => {
