@@ -42,15 +42,20 @@ export class SplitterAccessibilityDirective implements AfterViewInit, OnDestroy 
         private _focusIndicatorService: FocusIndicatorService
     ) {
         this._dir = _directionality.value;
-
-        _directionality.change
-            .pipe(takeUntil(this._onDestroy))
-            .subscribe(() => this._dir = _directionality.value);
+        _splitter.dir = _directionality.value;
 
         // update aria values when the a gutter is dragged
         _splitter.dragProgress$
             .pipe(takeUntil(this._onDestroy))
             .subscribe(() => this.updateGutterAttributes());
+
+        // update directionality on change rtl/ltr
+        _directionality.change
+            .pipe(takeUntil(this._onDestroy))
+            .subscribe(() => {
+                this._dir = _directionality.value;
+                _splitter.dir = _directionality.value;
+            });
     }
 
     /** Once initialised make the gutters accessible */
