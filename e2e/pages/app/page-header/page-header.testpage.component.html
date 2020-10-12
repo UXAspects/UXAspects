@@ -1,25 +1,42 @@
 <div id="root">
+    <ux-page-header
+        id="pageHeader1"
+        header="My Page"
+        subheader="My Subheader"
+        [crumbs]="crumbs"
+        [items]="items"
+        [condensed]="condensed"
+        [iconMenus]="iconMenus">
+    </ux-page-header>
+    <div class="breadcrumb-content">
+        <router-outlet></router-outlet>
+    </div>
 
-<ux-page-header id="pageHeader1" header="My Page" subheader="My Subheader" [crumbs]="crumbs" [items]="items"
-                [condensed]="condensed" [iconMenus]="iconMenus"></ux-page-header>
+    <br>
 
-<br>
+    <button id="button1" class="btn button-primary" (click)="condensed = !condensed">Toggle Condensed</button>
 
-<button id="button1" class="btn button-primary" (click)="condensed = !condensed">Toggle Condensed</button>
+    <ux-page-header
+        class="m-t-xl m-b-xl"
+        id="pageHeader2"
+        header="My Page"
+        subheader="My Subheader"
+        [crumbs]="crumbs"
+        [items]="items2"
+        [condensed]="condensed"
+        [iconMenus]="iconMenus"
+        [secondaryNavigation]="true"
+        [secondaryNavigationAlignment]="alignment"
+        [secondaryNavigationAutoselect]="autoselect">
+    </ux-page-header>
 
-<ux-page-header class="m-t-xl m-b-xl" id="pageHeader2" header="My Page" subheader="My Subheader" [crumbs]="crumbs" [items]="items2"
-                [condensed]="condensed" [iconMenus]="iconMenus" [secondaryNavigation]="true"
-                [secondaryNavigationAlignment]="alignment" [secondaryNavigationAutoselect]="autoselect"></ux-page-header>
+    <br>
 
-<br>
+    <button id="align-left" class="btn button-primary" (click)="alignment = 'left'">Align Left</button>
+    <button id="align-center" class="btn button-primary" (click)="alignment = 'center'">Align Center</button>
+    <button id="align-right" class="btn button-primary" (click)="alignment = 'right'">Align Right</button>
 
-<button id="align-left" class="btn button-primary" (click)="alignment = 'left'">Align Left</button>
-<button id="align-center" class="btn button-primary" (click)="alignment = 'center'">Align Center</button>
-<button id="align-right" class="btn button-primary" (click)="alignment = 'right'">Align Right</button>
+    <button id="autoselect" class="btn button-primary" (click)="autoselect = true">Enable Autoselect</button>
 
-<button id="autoselect" class="btn button-primary" (click)="autoselect = true">Enable Autoselect</button>
-
-
-<p id="selected">{{ selected }}</p>
-
+    <p id="selected">{{ selected }}</p>
 </div>

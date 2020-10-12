@@ -6,15 +6,16 @@ export class PageHeaderPage {
         await browser.get('#/page-header');
     }
 
-    pageHeader1 = element(by.id('pageHeader1'));
-    pageHeader2 = element(by.id('pageHeader2'));
-    selected = element(by.id('selected'));
-    toggleButton = element(by.id('button1'));
+    pageHeader1 = $('#pageHeader1');
+    pageHeader2 = $('#pageHeader2');
+    selected = $('#selected');
+    toggleButton = $('#button1');
+    breadcrumbs = this.pageHeader1.$$('.breadcrumb a');
 
-    alignLeftButton = element(by.id('align-left'));
-    alignCenterButton = element(by.id('align-center'));
-    alignRightButton = element(by.id('align-right'));
-    autoselectButton = element(by.id('autoselect'));
+    alignLeftButton = $('#align-left');
+    alignCenterButton = $('#align-center');
+    alignRightButton = $('#align-right');
+    autoselectButton = $('#autoselect');
 
     confirmClassExists(item: ElementFinder, soughtClass: string) {
         return item.getAttribute('class').then(function (classes: string) {
@@ -121,6 +122,14 @@ export class PageHeaderPage {
 
     async getSubheaderText(target: ElementFinder): Promise<string> {
         return await target.$('.page-header-subtitle').getAttribute('innerText');
+    }
+
+    async getBreadcrumbPageTextContent(): Promise<string> {
+        return $('.breadcrumb-content').getText();
+    }
+
+    async clickBreadcrumb(index: number): Promise<void> {
+        return this.breadcrumbs.get(index).click();
     }
 }
 
