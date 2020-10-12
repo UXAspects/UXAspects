@@ -215,7 +215,6 @@ describe('Dashboard Tests', () => {
 
         // Tab again
         await browser.actions().sendKeys(Key.TAB).perform();
-        await browser.actions().sendKeys(Key.TAB).perform();
 
         // Focus should have left the dashboard
         expect(await page.hasFocus(page.bottomFocusTarget)).toBe(true);
@@ -231,7 +230,6 @@ describe('Dashboard Tests', () => {
         expect(await page.hasFocus(grabHandle2)).toBe(true);
 
         // Tab again
-        await browser.actions().sendKeys(Key.TAB).perform();
         await browser.actions().sendKeys(Key.TAB).perform();
 
         // Focus should have left the dashboard
@@ -372,23 +370,6 @@ describe('Dashboard Tests', () => {
 
 
         expect(await imageCompareFullPageScreen('dashboard-stacked-mode-widget-order')).toEqual(0);
-    });
-
-    it('should update the layout when a new value is emitted', async () => {
-        const usageWidget = page.getWidgetById('#usage-widget');
-        const serviceWidget = page.getWidgetById('#service-widget');
-
-        expect(await page.getWidgetLocationValue(usageWidget, 'top')).toBe(0);
-        expect(await page.getWidgetLocationValue(usageWidget, 'left')).toBe(0);
-        expect(await page.getWidgetLocationValue(serviceWidget, 'top')).toBe(0);
-        expect(await page.getWidgetLocationValue(serviceWidget, 'left')).toBe(277);
-
-        await page.updateLayout.click();
-
-        expect(await page.getWidgetLocationValue(usageWidget, 'top')).toBe(0);
-        expect(await page.getWidgetLocationValue(usageWidget, 'left')).toBe(831);
-        expect(await page.getWidgetLocationValue(serviceWidget, 'top')).toBe(0);
-        expect(await page.getWidgetLocationValue(serviceWidget, 'left')).toBe(0);
     });
 
     describe('Stacked Mode', () => {
