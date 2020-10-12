@@ -5,7 +5,7 @@
             <th uxResizableTableColumn [(width)]="titleWidth">
                 Title <small class="column-size-label">{{ titleWidth | number }}px</small>
             </th>
-            <th uxResizableTableColumn [(width)]="authorWidth">
+            <th uxResizableTableColumn [(width)]="authorWidth" handleVisible="false">
                 Author <small class="column-size-label">{{ authorWidth | number }}px</small>
             </th>
             <th uxResizableTableColumn (widthChange)="dateWidth = $event">
