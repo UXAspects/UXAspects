@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CheckboxModule, DashboardModule, IconModule, AccessibilityModule } from '@ux-aspects/ux-aspects';
 import { DashboardTestPageComponent } from './dashboard.testpage.component';
+import { DashboardLayoutTestPageComponent } from './layout/dashboard-layout.testpage.component';
 
 @NgModule({
     imports: [
@@ -15,9 +16,16 @@ import { DashboardTestPageComponent } from './dashboard.testpage.component';
             {
                 path: '',
                 component: DashboardTestPageComponent
+            },
+            {
+                path: 'layout',
+                component: DashboardLayoutTestPageComponent
             }
         ])
     ],
-    declarations: [DashboardTestPageComponent]
+    declarations: [
+        DashboardTestPageComponent,
+        DashboardLayoutTestPageComponent
+    ]
 })
 export class DashboardTestPageModule { }
