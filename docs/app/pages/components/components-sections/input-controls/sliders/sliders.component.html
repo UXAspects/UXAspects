@@ -113,6 +113,12 @@
 
 <uxd-snippet [content]="snippets.compiled.sample3Ts"></uxd-snippet>
 
+<uxd-api-properties tableTitle="Slider Inputs">
+    <tr uxd-api-property name="disabled" type="boolean" defaultValue="false">
+        If set to <code>true</code> the slider will be disabled.
+    </tr>
+</uxd-api-properties>
+
 <p>Full details on each property and the possible values for each can be found below. All properties are optional, if they are
     not specified the default value will be used.</p>
 
@@ -160,7 +166,7 @@
         </ul>
     </tr>
     <tr uxd-api-property name="background" type="string" defaultValue="grey2">
-        Specifies the background color of the callout. 
+        Specifies the background color of the callout.
     </tr>
     <tr uxd-api-property name="color" type="string" defaultValue="white">
         Specifies the text color of the callout.
@@ -178,10 +184,10 @@
         Specifies the minimum value shown on the slider.
     </tr>
     <tr uxd-api-property name="max" type="number" defaultValue="100">
-        Specifies the maximum value shown on the slider. 
+        Specifies the maximum value shown on the slider.
     </tr>
     <tr uxd-api-property name="ticks" type="SliderTicksOptions">
-        Should be an object containing properties to customize the ticks shown beneath the chart. 
+        Should be an object containing properties to customize the ticks shown beneath the chart.
         By default major ticks are shown on every 10th value with labels, minor ticks are shown every 5 values with no labels.
     </tr>
     <tr uxd-api-property name="colors" type="SliderTrackColors">

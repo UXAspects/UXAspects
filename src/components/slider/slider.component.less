@@ -6,9 +6,25 @@ ux-slider {
     user-select: none;
 
     &.disabled {
-        .track.disabled {
+        .track {
+            .thumb.button {
+                cursor: default;
+                border: 1px solid  rgba(0, 0, 0, 0.2);
+            }
+
+            .thumb.line {
+                cursor: default;
+                background-color: rgba(0, 0, 0, 0.4);
+            }
+
             .track-section.track-lower {
                 background-color: rgba(0, 0, 0, 0.2);
+            }
+
+            .track-section {
+                &.track-range {
+                    background-color: rgba(0, 0, 0, 0.2) !important;
+                }
             }
         }
     }

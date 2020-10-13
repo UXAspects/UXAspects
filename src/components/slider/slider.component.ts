@@ -1,10 +1,15 @@
-import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, DoCheck, ElementRef, EventEmitter, HostBinding, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, DoCheck, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { ColorService } from '../../services/color/index';
 
 @Component({
     selector: 'ux-slider',
     templateUrl: './slider.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    host: {
+        class: 'ux-slider',
+        '[class.disabled]': 'disabled',
+    }
 })
 export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
 
@@ -18,7 +23,14 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
     }
 
     /** If this value is set to `true` then the slider will be disabled. */
-    @Input() @HostBinding('class.disabled') disabled: boolean = false;
+    @Input() set disabled(disabled: boolean) {
+        this._disabled = coerceBooleanProperty(disabled);
+    }
+
+    get disabled(): boolean {
+        return this._disabled;
+    }
+
 
     get options(): SliderOptions {
         return this._options;
@@ -34,6 +46,8 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
     // store current values for deep change detection
     private _value: SliderValue | number;
     _options: SliderOptions;
+
+    private _disabled: boolean = false;
 
     // expose enums to Angular view
     sliderType = SliderType;
@@ -170,11 +184,6 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
         });
     }
 
-    setDisabledState(isDisabled: boolean): void {
-        this.disabled = isDisabled;
-        this._changeDetector.markForCheck();
-    }
-
     snapToNearestTick(thumb: SliderThumb, snapTarget: SliderSnap, forwards: boolean): void {
 
         // get the value for the thumb
@@ -228,39 +237,41 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
 
     thumbEvent(thumb: SliderThumb, event: SliderThumbEvent): void {
 
-        if (!this.disabled) {
-            // get the current thumb state
-            const state = this.getThumbState(thumb);
+        // get the current thumb state
+        const state = this.getThumbState(thumb);
 
-            // update based upon event
-            switch (event) {
-
-                case SliderThumbEvent.DragStart:
-                    state.drag = true;
-                    break;
-
-                case SliderThumbEvent.DragEnd:
-                    state.drag = false;
-                    break;
-
-                case SliderThumbEvent.MouseOver:
-                    state.hover = true;
-                    break;
-
-                case SliderThumbEvent.MouseLeave:
-                    state.hover = false;
-                    break;
-
-                case SliderThumbEvent.None:
-                    state.drag = false;
-                    state.hover = false;
-                    break;
-            }
-
-            // update the thumb state
-            this.setThumbState(thumb, state.hover, state.drag);
-
+        if (this.disabled) {
+            return;
         }
+
+        // update based upon event
+        switch (event) {
+
+            case SliderThumbEvent.DragStart:
+                state.drag = true;
+                break;
+
+            case SliderThumbEvent.DragEnd:
+                state.drag = false;
+                break;
+
+            case SliderThumbEvent.MouseOver:
+                state.hover = true;
+                break;
+
+            case SliderThumbEvent.MouseLeave:
+                state.hover = false;
+                break;
+
+            case SliderThumbEvent.None:
+                state.drag = false;
+                state.hover = false;
+                break;
+        }
+
+        // update the thumb state
+        this.setThumbState(thumb, state.hover, state.drag);
+
     }
 
     getAriaValueText(thumb: SliderThumb): string | number {
@@ -779,6 +790,9 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
         // return the new instance of the object
         return instance;
     }
+
+    static ngAcceptInputType_disabled: boolean | string;
+
 }
 
 export enum SliderType {
