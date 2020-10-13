@@ -12,7 +12,7 @@
                 (click)="clickCrumb($event, crumb)">
                 {{ crumb.title }}
             </a>
-            <a *ngIf="crumb.onClick"
+            <a *ngIf="crumb.onClick && !crumb.routerLink"
                 uxFocusIndicator
                 tabindex="0"
                 (click)="clickCrumb($event, crumb)">
