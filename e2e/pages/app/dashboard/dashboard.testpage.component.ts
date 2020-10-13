@@ -1,12 +1,10 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { DashboardOptions, DashboardLayoutData } from '@ux-aspects/ux-aspects';
-import { BehaviorSubject } from 'rxjs';
 
 @Component({
     selector: 'dashboard-app',
     templateUrl: './dashboard.testpage.component.html',
-    styleUrls: ['./dashboard.testpage.component.css'],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    styleUrls: ['./dashboard.testpage.component.css']
 })
 export class DashboardTestPageComponent {
 
@@ -33,5 +31,4 @@ export class DashboardTestPageComponent {
     changeOptions(): void {
         this.options = this.adjustedOptions;
     }
-
 }
