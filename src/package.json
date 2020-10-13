@@ -53,18 +53,17 @@
   },
   "homepage": "https://uxaspects.github.io/UXAspects",
   "dependencies": {
+    "@types/chart.js": "^2.9.3",
+    "@types/d3": "^5.7.2",
+    "@types/dragula": "^2.1.33",
     "angular-split": "^3.0.2",
-    "chart.js": "~2.7.3",
+    "bootstrap": "^3.3.7",
+    "chart.js": "^2.9.3",
     "d3": "^5.9.2",
     "dragula": "^3.7.2",
-    "ng2-charts": "^1.6.0",
     "ng2-file-upload": "^1.3.0",
     "ngx-mask": "^2.5.3",
-    "bootstrap": "^3.3.7",
-    "resize-observer-polyfill": "^1.5.0",
-    "@types/d3": "^5.7.2",
-    "@types/chart.js": "^2.7.45",
-    "@types/dragula": "^2.1.33"
+    "resize-observer-polyfill": "^1.5.0"
   },
   "peerDependencies": {
     "@angular/animations": ">=8.0.0 <11.0.0",
@@ -74,6 +73,7 @@
     "@angular/core": ">=8.0.0 <11.0.0",
     "@angular/forms": ">=8.0.0 <11.0.0",
     "@angular/upgrade": ">=8.0.0 <11.0.0",
-    "angular-tree-component": ">=5.2.0"
+    "angular-tree-component": ">=5.2.0",
+    "ng2-charts": ">=2.3.0"
   }
 }
