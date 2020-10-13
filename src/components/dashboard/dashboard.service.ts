@@ -60,6 +60,7 @@ export class DashboardService implements OnDestroy {
             )
             .subscribe(([layout]) => {
                 this.setLayoutData(layout);
+                this.renderDashboard();
             });
 
         this.stacked$
