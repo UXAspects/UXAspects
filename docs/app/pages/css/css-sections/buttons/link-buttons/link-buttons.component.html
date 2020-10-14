@@ -1,13 +1,26 @@
-<div class="btn-container">
-    <button type="button" class="m-b btn btn-link button-primary">Primary</button>
-    <button type="button" class="m-b btn btn-link button-secondary">Secondary</button>
-    <button type="button" class="m-b btn btn-link button-accent">Accent</button>
-    <button type="button" class="m-b btn btn-link button-warning">Warning<span class="sr-only">Warning</span></button>
-    <button type="button" disabled class="m-b btn btn-link button-secondary">Disabled</button>
-</div>
+<ng-container [ngSwitch]="theme">
+    <div *ngSwitchDefault class="btn-container">
+        <button type="button" class="btn btn-link button-primary">Primary</button>
+        <button type="button" class="btn btn-link button-secondary">Secondary</button>
+        <button type="button" class="btn btn-link button-accent">Accent</button>
+        <button type="button" class="btn btn-link button-warning">Warning</button>
+        <button type="button" class="btn btn-link button-secondary" disabled>Disabled</button>
+    </div>
+
+    <div *ngSwitchCase="SiteThemeId.MicroFocus2020" class="btn-container">
+        <button type="button" class="btn btn-link button-primary">Primary</button>
+        <button type="button" class="btn btn-link button-secondary">Secondary</button>
+        <button type="button" class="btn btn-link button-neutral">Neutral</button>
+        <button type="button" class="btn btn-link button-warning">Warning</button>
+        <button type="button" class="btn btn-link button-secondary" disabled>Disabled</button>
+    </div>
+</ng-container>
 
 <hr>
 
-<p>Link styled buttons can be created using the <code>.btn-link</code> class in combination with the color classes described above.</p>
+<p>
+    Link styled buttons can be created using the <code>.btn-link</code> class in combination with the color classes
+    described above.
+</p>
 
 <uxd-snippet [content]="snippets.compiled.sampleHtml"></uxd-snippet>
