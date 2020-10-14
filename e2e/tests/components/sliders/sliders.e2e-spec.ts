@@ -305,14 +305,14 @@ describe('Sliders', () => {
         // Move handles and confirm the associated inputs are updated with the correct values.
         page.moveMouseToHandle(page.rangeWithTextInputs, 'lower');
         expect(await page.getTooltipValue(page.rangeWithTextInputs, 'lower')).toEqual('25');
-        page.dragAndDropHandle(page.rangeWithTextInputs, 'lower', {x: -30, y: 0});
+        page.dragAndDropHandle(page.rangeWithTextInputs, 'lower', { x: -30, y: 0 });
         page.mouseDownOnHandle(page.rangeWithTextInputs, 'lower');
         expect(await page.getTooltipValue(page.rangeWithTextInputs, 'lower')).toEqual('20');
         page.mouseUpFromHandle(page.rangeWithTextInputs, 'lower');
 
         page.moveMouseToHandle(page.rangeWithTextInputs, 'upper');
         expect(await page.getTooltipValue(page.rangeWithTextInputs, 'upper')).toEqual('75');
-        page.dragAndDropHandle(page.rangeWithTextInputs, 'upper', {x: 30, y: 0});
+        page.dragAndDropHandle(page.rangeWithTextInputs, 'upper', { x: 30, y: 0 });
         page.mouseDownOnHandle(page.rangeWithTextInputs, 'upper');
         expect(await page.getTooltipValue(page.rangeWithTextInputs, 'upper')).toEqual('80');
         page.mouseUpFromHandle(page.rangeWithTextInputs, 'upper');
@@ -341,6 +341,17 @@ describe('Sliders', () => {
         page.input2.sendKeys('40' + Key.ENTER);
         page.moveMouseToHandle(page.rangeWithTextInputs, 'upper');
         expect(await page.getTooltipValue(page.rangeWithTextInputs, 'upper')).toEqual('50');
+
+    });
+
+    it('should not react to drag and drop when disabled is true', async () => {
+
+        await page.disabledBtn.click();
+
+        await page.dragAndDropHandle(page.rangeWithTextInputs, 'lower', { x: -2000, y: 0 });
+        expect(await page.getHandleAttribute(page.rangeWithTextInputs, 'lower', 'style')).toContain('left: 25%');
+
+        expect(await imageCompareFullPageScreen('slider-disable-styles')).toEqual(0);
 
     });
 });
