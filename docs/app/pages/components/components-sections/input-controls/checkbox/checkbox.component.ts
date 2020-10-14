@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import { IPlayground } from '../../../../../interfaces/IPlayground';
 import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
 
 @Component({
@@ -61,19 +60,20 @@ export class ComponentsCheckboxComponent extends BaseDocumentationSection implem
         }
     };
 
-    playground: IPlayground = {
-        files: {
-            'app.component.ts': this.snippets.raw.appTs,
-            'app.component.html': this.snippets.raw.appHtml
-        },
-        modules: [{
-            imports: ['CheckboxModule'],
-            library: '@ux-aspects/ux-aspects'
-        }]
-    };
+    playground = () => {
+        return {
+            files: {
+                'app.component.ts': this.snippets.raw.appTs,
+                'app.component.html': this.snippets.raw.appHtml
+            },
+            modules: [{
+                imports: ['CheckboxModule'],
+                library: '@ux-aspects/ux-aspects'
+            }]
+        };
+    }
 
     constructor() {
- 
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
 
         this.checkModel = {
