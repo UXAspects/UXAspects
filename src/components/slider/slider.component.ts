@@ -108,7 +108,7 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
     ticks: SliderTick[] = [];
     defaultOptions: SliderOptions;
 
-    constructor(colorService: ColorService, private _changeDetectorRef: ChangeDetectorRef, private _changeDetector: ChangeDetectorRef) {
+    constructor(colorService: ColorService, private _changeDetectorRef: ChangeDetectorRef) {
         // setup default options
         this.defaultOptions = {
             type: SliderType.Value,
