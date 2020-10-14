@@ -64,7 +64,7 @@
 
     <!-- Section of Track Between Lower and Upper Thumbs -->
     <div class="track-section track-range" *ngIf="_options.type === sliderType.Range"
-         [style.flex-grow]="tracks.middle.size" [style.background]="tracks.middle.color">
+         [style.flex-grow]="tracks.middle.size" [style.background]="this.disabled ? null : tracks.middle.color">
     </div>
 
     <!-- Upper Thumb Button / Line -->
@@ -122,7 +122,7 @@
     </div>
 
     <!-- Section of Track Abover Upper Thumb -->
-    <div class="track-section track-higher" [style.flex-grow]="tracks.upper.size" [style.background]="tracks.upper.color"></div>
+    <div class="track-section track-higher" [style.flex-grow]="tracks.upper.size" [style.background]="this.disabled ? null : tracks.upper.color"></div>
 
 </div>
 
