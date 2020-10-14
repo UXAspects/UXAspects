@@ -1,0 +1,51 @@
+<div class="container p-lg">
+    <ux-dashboard
+        [options]="options"
+        [layout]="layout$ | async"
+        id="dashboardWidgetContainer"
+        class="customizable-dashboard">
+
+        <ux-dashboard-widget id="usage-widget"
+                             name="Usage Analytics"
+                             [resizable]="true">
+
+            <div class="widget-content"
+                 [class.widget-grabbing]="usageHandle.isGrabbing"
+                 uxDashboardWidgetDragHandle>
+
+                <h3 class="widget-title">Widget 1</h3>
+
+                <button class="widget-grab-handle"
+                        uxDashboardGrabHandle
+                        #usageHandle="ux-dashboard-grab-handle">
+                    <ux-icon name="pan"></ux-icon>
+                </button>
+
+            </div>
+
+        </ux-dashboard-widget>
+
+        <ux-dashboard-widget id="service-widget" name="Service">
+            <div class="widget-content"
+                 [class.widget-grabbing]="handle2.isGrabbing"
+                 uxDashboardWidgetDragHandle>
+
+                <h3 class="widget-title">Widget 2</h3>
+
+                <button class="widget-grab-handle"
+                        uxDashboardGrabHandle
+                        #handle2="ux-dashboard-grab-handle">
+                    <ux-icon name="pan"></ux-icon>
+                </button>
+
+            </div>
+
+        </ux-dashboard-widget>
+    </ux-dashboard>
+</div>
+
+<div class="m-t-xs">
+    <button type="button" id="update-layout" class="btn button-accent" (click)="updateLayout()">
+        Update Layout
+    </button>
+</div>

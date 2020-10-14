@@ -1,25 +1,38 @@
-import { coerceNumberProperty } from '@angular/cdk/coercion';
+import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
 import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, HostBinding, Inject, Input, OnDestroy, Output, Renderer2 } from '@angular/core';
-import { filter, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
-import { ColumnUnit } from './table-column-resize-standard/resizable-table.service';
-import { RESIZABLE_TABLE_SERVICE_TOKEN } from './resizable-table-service.token';
+import { filter, takeUntil } from 'rxjs/operators';
 import { BaseResizableTableService, ResizableTableType } from './resizable-table-base.service';
+import { RESIZABLE_TABLE_SERVICE_TOKEN } from './resizable-table-service.token';
+import { ColumnUnit } from './table-column-resize-standard/resizable-table.service';
 
 @Component({
     selector: '[uxResizableTableColumn]',
     templateUrl: './resizable-table-column.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
-        class: 'ux-resizable-table-column'
+        class: 'ux-resizable-table-column',
+        '[class.ux-resizable-table-hide-handle]': '!handleVisible'
     }
 })
 export class ResizableTableColumnComponent implements AfterViewInit, OnDestroy {
+
+    /** Show/Hide column resizable handle */
+    private _handleVisible: boolean = true;
 
     /** Disabled the column resizing */
     @Input()
     @HostBinding('class.ux-resizable-table-column-disabled')
     disabled: boolean = false;
+
+    @Input()
+    get handleVisible(): boolean {
+        return this._handleVisible;
+    }
+
+    set handleVisible(value: boolean) {
+        this._handleVisible = coerceBooleanProperty(value);
+    }
 
     /** Define the width of a column */
     @Input() set width(width: number) {
@@ -89,7 +102,7 @@ export class ResizableTableColumnComponent implements AfterViewInit, OnDestroy {
     /** Emit when all observables should be unsubscribed */
     private _onDestroy = new Subject<void>();
 
-    constructor(private _elementRef: ElementRef, @Inject(RESIZABLE_TABLE_SERVICE_TOKEN) private _table: BaseResizableTableService, private _renderer: Renderer2) {}
+    constructor(private _elementRef: ElementRef, @Inject(RESIZABLE_TABLE_SERVICE_TOKEN) private _table: BaseResizableTableService, private _renderer: Renderer2) { }
 
     ngAfterViewInit(): void {
         // initially emit the size when we have initialised
