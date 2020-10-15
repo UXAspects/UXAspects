@@ -189,6 +189,10 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
         // get the value for the thumb
         const { value } = this.getThumbState(thumb);
 
+        if (this.disabled) {
+            return;
+        }
+
         // get the closest ticks - remove any tick if we are currently on it
         const closest = this.getTickDistances(value, thumb, snapTarget)
             .filter(tick => tick.value !== value)
