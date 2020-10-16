@@ -58,6 +58,10 @@ export abstract class BaseDocumentationSection {
     }
 }
 
+export function isBaseDocumentationSection(obj: any): obj is BaseDocumentationSection {
+    return 'theme' in obj;
+}
+
 export interface CodeSnippet {
     snippet?: string;
     example?: string;

@@ -9,7 +9,7 @@ import { SiteThemeId } from '../../interfaces/SiteTheme';
 import { NavigationService } from '../../services/navigation/navigation.service';
 import { ResolverService } from '../../services/resolver/resolver.service';
 import { SiteThemeService } from '../../services/site-theme/site-theme.service';
-import { BaseDocumentationSection } from '../base-documentation-section/base-documentation-section';
+import { isBaseDocumentationSection } from '../base-documentation-section/base-documentation-section';
 import { Usage } from './../../interfaces/Usage';
 
 @Component({
@@ -17,7 +17,7 @@ import { Usage } from './../../interfaces/Usage';
     templateUrl: './component-section.component.html',
     styleUrls: ['./component-section.component.less']
 })
-export class ComponentSectionComponent implements OnInit, OnDestroy {
+export class ComponentSectionComponent<T> implements OnInit, OnDestroy {
 
     @Input() id: string;
     @Input() title: string;
@@ -36,7 +36,7 @@ export class ComponentSectionComponent implements OnInit, OnDestroy {
     deprecatedLink: ILink;
     hybridModuleTs: string = require('!!raw-loader!./snippets/hybrid-module.ts');
 
-    private _documentationSection: BaseDocumentationSection;
+    private _documentationSection: T;
     private _onDestroy = new Subject<void>();
 
     constructor(
@@ -54,8 +54,8 @@ export class ComponentSectionComponent implements OnInit, OnDestroy {
         }
 
         const factory = this._resolverService.resolveComponentFactory(component);
-        const componentRef = this.viewContainer.createComponent(factory);
-        this._documentationSection = componentRef.instance as BaseDocumentationSection;
+        const componentRef = this.viewContainer.createComponent<T>(factory);
+        this._documentationSection = componentRef.instance;
 
         this.updateWithTheme(this._siteThemeService.theme$.getValue());
 
@@ -74,8 +74,11 @@ export class ComponentSectionComponent implements OnInit, OnDestroy {
     }
 
     private updateWithTheme(theme: SiteThemeId): void {
-        this._documentationSection.updateWithTheme(theme);
-        this.updatePlayground();
+        // Some sections without snippets don't extend BaseDocumentationSection, ignore those
+        if (isBaseDocumentationSection(this._documentationSection)) {
+            this._documentationSection.updateWithTheme(theme);
+            this.updatePlayground();
+        }
     }
 
     private updatePlayground(): void {
