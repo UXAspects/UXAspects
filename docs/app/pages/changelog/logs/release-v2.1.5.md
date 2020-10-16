@@ -5,8 +5,6 @@ UX Aspects 2.1.5 is now available! Check out the documentation at [uxaspects.git
 npm install @ux-aspects/ux-aspects@2.1.5
 ```
 
-If you encounter errors, ensure that NPM is configured to fetch packages from the corporate Artifactory server. See [Getting Started](https://pages.github.houston.softwaregrp.net/caf/ux-aspects-micro-focus/#/gettingstarted) for details.
-
 #### Bug Fixes and Improvements
 * (EL-4100) [Marquee Wizard](https://uxaspects.github.io/UXAspects/#/components/wizard#marquee-wizard) - new `sequential` input added to `ux-marquee-wizard` which allows steps to be navigated to in any order.
 * (EL-4109) [Marquee Wizard](https://uxaspects.github.io/UXAspects/#/components/wizard#marquee-wizard) - fixes issue where `visitedChange` may not be emitted.
