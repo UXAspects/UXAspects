@@ -1,4 +1,4 @@
-import { ISnippets } from '../../interfaces/ISnippets';
+import { ISnippets, SnippetCollection } from '../../interfaces/ISnippets';
 import { SiteThemeId } from '../../interfaces/SiteTheme';
 
 export abstract class BaseDocumentationSection {
@@ -20,8 +20,8 @@ export abstract class BaseDocumentationSection {
 
     private getSnippets(): ISnippets {
 
-        const compiled = {};
-        const raw = {};
+        const compiled: SnippetCollection = {};
+        const raw: SnippetCollection = {};
 
         const keys = this.getContextKeys();
 
