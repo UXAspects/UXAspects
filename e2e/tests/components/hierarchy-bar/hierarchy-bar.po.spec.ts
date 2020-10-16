@@ -11,6 +11,7 @@ export class HierarchyBarPage {
     showRightAddonBtn = $('#show-right-addon-btn');
     showTrailingAddonBtn = $('#show-trailing-addon-btn');
 
+    standardMode = $('#standard-mode');
     collapsedMode = $('#collapsed-mode');
     dropdownMode = $('#dropdown-mode');
     readOnlyBtn = $('#readonly-btn');
