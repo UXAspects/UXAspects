@@ -52,7 +52,7 @@ export abstract class BaseDocumentationSection {
 
     private getSnippetNameFromContext(contextKey: string): string {
         return contextKey
-            .replace(new RegExp(`.${this.theme}`, 'i'), '')
+            .replace(new RegExp(`\.${this.theme}`, 'i'), '')
             .replace('./', '')
             .replace(/\W+(\w)/g, match => match[1].toUpperCase());
     }
