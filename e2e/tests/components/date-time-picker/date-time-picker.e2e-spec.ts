@@ -200,4 +200,13 @@ describe('Date Time Picker Tests', () => {
         }
 
     });
+
+    it('should not display horizontal line when select adjacent month', async () => {
+
+        let date = await page.getDate('31');
+        await date.click();
+
+        await page.nextDate.click();
+        expect(await imageCompare('date-picker-horizontal-line-removed')).toBe(0);
+    });
 });
