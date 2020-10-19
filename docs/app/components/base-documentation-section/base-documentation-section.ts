@@ -34,10 +34,7 @@ export abstract class BaseDocumentationSection {
             raw[snippetName] = codeSnippet.example;
         });
 
-        return {
-            compiled: compiled,
-            raw: raw
-        };
+        return { compiled, raw };
     }
 
     private getContextKeys(): string[] {
