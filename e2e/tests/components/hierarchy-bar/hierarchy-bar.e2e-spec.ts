@@ -244,11 +244,11 @@ describe('Hierarchy Bar Tests - standard Mode', () => {
         await page.showRightAddonBtn.click();
         await page.selectPopoverNode(0, 1);
 
-        await page.dropdownMode.click();
-        expect(await imageCompare('hierarchy-bar-overflow-dropdown')).toEqual(0);
-
         await page.collapsedMode.click();
         expect(await imageCompare('hierarchy-bar-overflow-collapsed')).toEqual(0);
+
+        await page.dropdownMode.click();
+        expect(await imageCompare('hierarchy-bar-overflow-dropdown')).toEqual(0);
 
         await page.standardMode.click();
         expect(await imageCompare('hierarchy-bar-overflow-standard')).toEqual(0);
