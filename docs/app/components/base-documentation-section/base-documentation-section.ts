@@ -13,7 +13,7 @@ export abstract class BaseDocumentationSection {
     }
 
     /** Update the active theme and replace snippets with theme-specific versions if available. */
-    updateWithTheme(theme: SiteThemeId): void {
+    onThemeChange(theme: SiteThemeId): void {
         this.theme = theme;
         this.snippets = this.getSnippets();
     }

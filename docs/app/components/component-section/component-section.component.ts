@@ -57,11 +57,11 @@ export class ComponentSectionComponent<T> implements OnInit, OnDestroy {
         const componentRef = this.viewContainer.createComponent<T>(factory);
         this._documentationSection = componentRef.instance;
 
-        this.updateWithTheme(this._siteThemeService.theme$.getValue());
+        this.setTheme(this._siteThemeService.theme$.getValue());
 
         this._siteThemeService.theme$
             .pipe(takeUntil(this._onDestroy))
-            .subscribe(this.updateWithTheme.bind(this));
+            .subscribe(this.setTheme.bind(this));
 
         if (this.deprecatedFor) {
             this.deprecatedLink = this._navigationService.getComponentLink(this.deprecatedFor);
@@ -73,10 +73,10 @@ export class ComponentSectionComponent<T> implements OnInit, OnDestroy {
         this._onDestroy.complete();
     }
 
-    private updateWithTheme(theme: SiteThemeId): void {
+    private setTheme(theme: SiteThemeId): void {
         // Some sections without snippets don't extend BaseDocumentationSection, ignore those
         if (isBaseDocumentationSection(this._documentationSection)) {
-            this._documentationSection.updateWithTheme(theme);
+            this._documentationSection.onThemeChange(theme);
             this.updatePlayground();
         }
     }
