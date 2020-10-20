@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnChanges, ViewChild, ViewContainerRef } from '@angular/core';
 import { highlight, languages } from 'prismjs';
 
 @Component({
@@ -6,7 +6,7 @@ import { highlight, languages } from 'prismjs';
     templateUrl: './snippet.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SnippetComponent implements OnInit {
+export class SnippetComponent implements OnChanges {
 
     @Input() language: string = 'html';
     @Input() code: string;
@@ -17,7 +17,7 @@ export class SnippetComponent implements OnInit {
 
     constructor() { }
 
-    ngOnInit(): void {
+    ngOnChanges(): void {
         if (this.code) {
             this.loadCode();
         } else if (this.content) {
