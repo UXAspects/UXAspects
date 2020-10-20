@@ -26,7 +26,6 @@ export abstract class BaseDocumentationSection {
         const keys = this.getContextKeys();
 
         keys.forEach(key => {
-
             const snippetName = this.getSnippetNameFromContext(key);
             const codeSnippet: CodeSnippet = this._context(key);
 
