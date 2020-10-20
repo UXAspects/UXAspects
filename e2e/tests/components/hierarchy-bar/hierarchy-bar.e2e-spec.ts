@@ -245,13 +245,13 @@ describe('Hierarchy Bar Tests - standard Mode', () => {
         await page.selectPopoverNode(0, 1);
 
         await page.collapsedMode.click();
-        expect(await imageCompare('hierarchy-bar-overflow-collapsed')).toEqual(0);
+        expect(await imageCompare('hierarchy-bar-overflow-collapsed')).toEqual(0, 'collapsed mode - node overflow');
 
         await page.dropdownMode.click();
-        expect(await imageCompare('hierarchy-bar-overflow-dropdown')).toEqual(0);
+        expect(await imageCompare('hierarchy-bar-overflow-dropdown')).toEqual(0, 'dropdown mode - node overflow');
 
         await page.standardMode.click();
-        expect(await imageCompare('hierarchy-bar-overflow-standard')).toEqual(0);
+        expect(await imageCompare('hierarchy-bar-overflow-standard')).toEqual(0, 'standard mode - node overflow');
     });
 
 });
