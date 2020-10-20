@@ -23,6 +23,9 @@ export class ColumnSortingComponent implements OnInit, OnChanges, OnDestroy {
     /** Determine if a column can have a `NoSort` state */
     @Input() allowNoSort: boolean = true;
 
+    @Input() ascendingIcon: string = 'ascend';
+    @Input() descendingIcon: string = 'descend';
+
     /**
      * Changes the state of the sorting on the column between `NoSort`, `Ascending` and `Descending`.
      * This returns an array of objects for each column being sorted containing `key: string` and `state: ColumnSortingState`.
@@ -46,7 +49,7 @@ export class ColumnSortingComponent implements OnInit, OnChanges, OnDestroy {
     private _onDestroy$ = new Subject<void>();
 
     constructor(private readonly _sorter: ColumnSortingDirective,
-                private readonly _changeDetector: ChangeDetectorRef) {
+        private readonly _changeDetector: ChangeDetectorRef) {
     }
 
     ngOnInit(): void {
