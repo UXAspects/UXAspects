@@ -405,53 +405,54 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
 
     updateThumbPosition(event: MouseEvent | TouchEvent, thumb: SliderThumb): void {
 
-        if (!this.disabled) {
-            // get event position - either mouse or touch
-            let eventPosition = event instanceof MouseEvent ? event.clientX : event.touches && event.touches.length > 0 ? event.touches[0].clientX : null;
-
-            // if event position is null do nothing
-            if (eventPosition === null) {
-                return;
-            }
-
-            // get mouse position
-            let mouseX = window.pageXOffset + eventPosition;
-
-            // get track size and position
-            let trackBounds = this.track.nativeElement.getBoundingClientRect();
-
-            // restrict the value within the range size
-            let position = this.clamp(mouseX - trackBounds.left, 0, trackBounds.width);
-
-            // get fraction representation of location within the track
-            let fraction = (position / trackBounds.width);
-
-            // convert to value within the range
-            let value = ((this._options.track.max - this._options.track.min) * fraction) + this._options.track.min;
-
-            // ensure value is valid
-            value = this.validateValue(thumb, value);
-
-            // snap to a tick if required
-            value = this.snapToTick(value, thumb);
-
-            // update the value accordingly
-            this.setThumbValue(thumb, value);
-
-            this.updateOrder(thumb);
-            this.updateValues();
-
-            // update tooltip text & position
-            this.updateTooltipText(thumb);
-
-            // update the position of all visible tooltips
-            this.updateTooltipPosition(SliderThumb.Lower);
-            this.updateTooltipPosition(SliderThumb.Upper);
-
-            // mark as dirty for change detection
-            this._changeDetectorRef.markForCheck();
-
+        if (this.disabled) {
+            return;
         }
+        // get event position - either mouse or touch
+        let eventPosition = event instanceof MouseEvent ? event.clientX : event.touches && event.touches.length > 0 ? event.touches[0].clientX : null;
+
+        // if event position is null do nothing
+        if (eventPosition === null) {
+            return;
+        }
+
+        // get mouse position
+        let mouseX = window.pageXOffset + eventPosition;
+
+        // get track size and position
+        let trackBounds = this.track.nativeElement.getBoundingClientRect();
+
+        // restrict the value within the range size
+        let position = this.clamp(mouseX - trackBounds.left, 0, trackBounds.width);
+
+        // get fraction representation of location within the track
+        let fraction = (position / trackBounds.width);
+
+        // convert to value within the range
+        let value = ((this._options.track.max - this._options.track.min) * fraction) + this._options.track.min;
+
+        // ensure value is valid
+        value = this.validateValue(thumb, value);
+
+        // snap to a tick if required
+        value = this.snapToTick(value, thumb);
+
+        // update the value accordingly
+        this.setThumbValue(thumb, value);
+
+        this.updateOrder(thumb);
+        this.updateValues();
+
+        // update tooltip text & position
+        this.updateTooltipText(thumb);
+
+        // update the position of all visible tooltips
+        this.updateTooltipPosition(SliderThumb.Lower);
+        this.updateTooltipPosition(SliderThumb.Upper);
+
+        // mark as dirty for change detection
+        this._changeDetectorRef.markForCheck();
+
     }
 
     private updateOrder(thumb: SliderThumb): void {

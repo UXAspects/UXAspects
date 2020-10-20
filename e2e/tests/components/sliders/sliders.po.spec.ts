@@ -118,10 +118,6 @@ export abstract class SlidersPageBase {
         return input.getAttribute('value');
     }
 
-    confirmIsDisabled(slider: ElementFinder) {
-        return slider.$('.ux-slider-disabled').isPresent();
-    }
-
     async clickOnSlider(slider: ElementFinder) {
         await slider.$('div.track').click();
     }
@@ -138,5 +134,5 @@ export class SlidersPage extends SlidersPageBase {
     input1 = element(by.id('input1'));
     input2 = element(by.id('input2'));
     colorChangeButton = element(by.id('track-color-change-btn'));
-    disabledBtn = element(by.id('disabled-btn'));
+    disabledButton = element(by.id('disabled-btn'));
 }
