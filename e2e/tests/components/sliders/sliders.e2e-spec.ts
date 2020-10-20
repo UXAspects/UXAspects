@@ -351,7 +351,7 @@ describe('Sliders', () => {
         await page.dragAndDropHandle(page.rangeWithTextInputs, 'lower', { x: -2000, y: 0 });
         expect(await page.getHandleAttribute(page.rangeWithTextInputs, 'lower', 'style')).toContain('left: 25%');
 
-        expect(await imageCompareFullPageScreen('slider-disable')).toEqual(0);
+        expect(await imageCompareFullPageScreen('slider-disabled')).toEqual(0);
 
     });
 
