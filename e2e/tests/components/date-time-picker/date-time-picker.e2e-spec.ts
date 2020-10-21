@@ -206,14 +206,15 @@ describe('Date Time Picker Tests', () => {
         const date = await page.getDate('31');
         await date.click();
 
-        // check if it now has the active class
-        const classes = await date.getAttribute('class');
-        expect(classes.indexOf('active')).toBeGreaterThan(-1);
-
         // it should have the correct date selected
         expect(await page.getCurrentDate()).toBe('January 31, 2019, 12:00:00 PM');
 
         await page.nextDate.click();
+
+        // check if it now has the active class
+        const classes = await date.getAttribute('class');
+        expect(classes.indexOf('active')).toBeGreaterThan(-1);
+
         expect(await imageCompare('date-picker-adjacent-month-selection')).toBe(0);
     });
 });
