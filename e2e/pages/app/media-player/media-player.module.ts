@@ -2,12 +2,16 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { MediaPlayerTestPageComponent } from './media-player.testpage.component';
-import { RadioButtonModule, MediaPlayerModule, AccordionModule } from '@ux-aspects/ux-aspects';
+import { MediaPlayerModule, PopoverModule, AccessibilityModule, ColorServiceModule, IconModule } from '@ux-aspects/ux-aspects';
 
 @NgModule({
     imports: [
         CommonModule,
-        RadioButtonModule, MediaPlayerModule, AccordionModule,
+        MediaPlayerModule,
+        PopoverModule,
+        AccessibilityModule,
+        ColorServiceModule,
+        IconModule,
         RouterModule.forChild([
             {
                 path: '',
