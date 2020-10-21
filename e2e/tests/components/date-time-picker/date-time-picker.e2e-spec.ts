@@ -201,12 +201,19 @@ describe('Date Time Picker Tests', () => {
 
     });
 
-    it('should not display horizontal line when select adjacent month', async () => {
+    it('should correctly set the date when select an adjacent month', async () => {
 
-        let date = await page.getDate('31');
+        const date = await page.getDate('31');
         await date.click();
 
+        // check if it now has the active class
+        const classes = await date.getAttribute('class');
+        expect(classes.indexOf('active')).toBeGreaterThan(-1);
+
+        // it should have the correct date selected
+        expect(await page.getCurrentDate()).toBe('January 31, 2019, 12:00:00 PM');
+
         await page.nextDate.click();
-        expect(await imageCompare('date-picker-horizontal-line-removed')).toBe(0);
+        expect(await imageCompare('date-picker-adjacent-month-selection')).toBe(0);
     });
 });
