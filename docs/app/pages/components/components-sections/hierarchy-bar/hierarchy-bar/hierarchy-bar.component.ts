@@ -112,7 +112,7 @@ export class ComponentsHierarchyBarComponent extends BaseDocumentationSection im
         },
         modules: [
             {
-                imports: ['HierarchyBarModule', 'RadioButtonModule'],
+                imports: ['HierarchyBarModule', 'RadioButtonModule', 'CheckboxModule'],
                 library: '@ux-aspects/ux-aspects'
             }
         ]

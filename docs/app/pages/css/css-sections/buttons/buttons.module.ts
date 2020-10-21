@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { ComponentFactoryResolver, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
@@ -36,6 +37,7 @@ const ROUTES = [
 
 @NgModule({
     imports: [
+        CommonModule,
         DocumentationComponentsModule,
         RouterModule.forChild(ROUTES)
     ],

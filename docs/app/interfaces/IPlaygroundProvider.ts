@@ -1,9 +1,9 @@
 import { IPlayground } from './IPlayground';
 
 export interface IPlaygroundProvider {
-    playground: IPlayground;
+    playground: IPlayground | (() => IPlayground);
 }
 
-export function isIPlaygroundProvider(obj: any) {
+export function isIPlaygroundProvider(obj: any): obj is IPlaygroundProvider {
     return 'playground' in obj;
 }

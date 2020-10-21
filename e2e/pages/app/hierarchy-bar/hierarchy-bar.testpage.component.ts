@@ -74,7 +74,7 @@ export class HierarchyBarTestPageComponent {
                 })
             },
             {
-                title: 'Lilly Shaw',
+                title: 'Lilly Shaw Lilly Shaw Lilly Shaw Lilly Shaw Lilly Shaw Lilly Shaw Lilly Shaw Lilly Shaw Lilly Shaw Lilly Shaw',
                 icon: this.managerIcon,
                 children: [
                     {

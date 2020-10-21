@@ -43,7 +43,7 @@ describe('Hierarchy Bar Tests - standard Mode', () => {
 
     it('should display children in popover', async () => {
         const titles = await page.getNodeChildrenTitles(0);
-        expect(titles).toEqual(['Leroy Rose', 'Lilly Shaw']);
+        expect(titles).toEqual(['Leroy Rose', 'Lilly Shaw Lilly Shaw Lilly Shaw Lilly Shaw Lilly Shaw Lilly Shaw Lilly Shaw Lilly Shaw Lilly Shaw Lilly Shaw']);
 
         expect(await imageCompare('hierarchy-bar-popover')).toEqual(0);
     });
@@ -237,6 +237,21 @@ describe('Hierarchy Bar Tests - standard Mode', () => {
         expect(await page.getSelectedNodeTitle()).toBe('Christian Olson');
 
         expect(await imageCompare('hierarchy-bar-dropdown')).toEqual(0);
+    });
+
+
+    it('should correctly hide overflow of nodes', async () => {
+        await page.showRightAddonBtn.click();
+        await page.selectPopoverNode(0, 1);
+
+        await page.collapsedMode.click();
+        expect(await imageCompare('hierarchy-bar-overflow-collapsed')).toEqual(0, 'collapsed mode - node overflow');
+
+        await page.dropdownMode.click();
+        expect(await imageCompare('hierarchy-bar-overflow-dropdown')).toEqual(0, 'dropdown mode - node overflow');
+
+        await page.standardMode.click();
+        expect(await imageCompare('hierarchy-bar-overflow-standard')).toEqual(0, 'standard mode - node overflow');
     });
 
 });
