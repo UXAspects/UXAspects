@@ -10,6 +10,4 @@ export class MediaPlayerTestPageComponent {
     mode: string = 'standard';
 
     videoSource: string =  'data:video/mp4;base64,aHR0cHM6Ly91eGFzcGVjdHMuZ2l0aHViLmlvL1VYQXNwZWN0cy9hc3NldHMvbWVkaWEvY2F0Y2hpbmd3YXZlLm1wNA==';
-    subtitles: string =  'data:text/vtt;base64,aHR0cHM6Ly91eGFzcGVjdHMuZ2l0aHViLmlvL1VYQXNwZWN0cy9hc3NldHMvbWVkaWEvc3VidGl0bGVzLnZ0dA==';
-
 }
