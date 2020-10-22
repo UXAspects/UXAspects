@@ -20,7 +20,6 @@ describe('Media Player Tests', () => {
 
         // the popover should now be visible
         expect(await page.popover.isPresent()).toBe(true);
-
         expect(await imageCompare('media-player-subtitles-open')).toEqual(0);
     });
 
@@ -28,11 +27,14 @@ describe('Media Player Tests', () => {
 
         // click the button
         await page.clickSubtitles();
+
         // the popover should now be visible
         expect(await page.popover.isPresent()).toBe(true);
-         // click the button
-         await page.clickSubtitles();
-         // the popover should now be visible
+
+        // click the button
+        await page.clickSubtitles();
+
+        // the popover should now be visible
          expect(await page.popover.isPresent()).toBe(false);
     });
 });
