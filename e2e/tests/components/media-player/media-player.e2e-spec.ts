@@ -29,6 +29,12 @@ describe('Media Player Tests', () => {
         await page.clickSubtitles();
 
         // the popover should now be visible
+        expect(await page.popover.isPresent()).toBe(true);
+
+        // click the button again
+        await page.clickSubtitles();
+
+        // the popover should now be visible
          expect(await page.popover.isPresent()).toBe(false);
     });
 });
