@@ -2,6 +2,3 @@
     [source]="videoSource" [quietMode]="mode === 'quiet'" crossorigin="anonymous">
     <track label="English" lang="en" default [src]="subtitles">
 </ux-media-player>
-
- <ux-media-player *ngIf="type === 'audio'" class="media-player" type="audio"
-    [source]="audioSource"></ux-media-player>

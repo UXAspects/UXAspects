@@ -9,8 +9,7 @@ export class MediaPlayerTestPageComponent {
     type: string = 'video';
     mode: string = 'standard';
 
-    videoSource: string = `https://pages.github.houston.softwaregrp.net/caf/ux-aspects-micro-focus/assets/media/catchingwave.mp4`;
-    audioSource: string = `https://pages.github.houston.softwaregrp.net/caf/ux-aspects-micro-focus/assets/media/Ocean-Waves.mp3`;
-    subtitles: string = `https://pages.github.houston.softwaregrp.net/caf/ux-aspects-micro-focus/0084424773013fa57c52832bf145e1e4.vtt`;
+    videoSource: string =  'data:video/mp4;base64,aHR0cHM6Ly9wYWdlcy5naXRodWIuaG91c3Rvbi5zb2Z0d2FyZWdycC5uZXQvY2FmL3V4LWFzcGVjdHMtbWljcm8tZm9jdXMvYXNzZXRzL21lZGlhL2NhdGNoaW5nd2F2ZS5tcDQ=';
+    subtitles: string =  'data:video/mp4;base64,/+aHR0cHM6Ly9wYWdlcy5naXRodWIuaG91c3Rvbi5zb2Z0d2FyZWdycC5uZXQvY2FmL3V4LWFzcGVjdHMtbWljcm8tZm9jdXMvMDA4NDQyNDc3MzAxM2ZhNTdjNTI4MzJiZjE0NWUxZTQudnR0';
 
 }

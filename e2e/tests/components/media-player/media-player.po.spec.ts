@@ -1,9 +1,9 @@
 import { $, browser } from 'protractor';
 
 export class MediaPlayerPage {
-
-    actionBtn = $('.action-button');
-    popover = $('.popover');
+    mediaPlayer = $('#media-player');
+    actionBtn = this.mediaPlayer.$$('.action-button');
+    popover = this.mediaPlayer.$$('.popover');
 
     async getPage(): Promise<void> {
         await browser.get('#/media-player');
