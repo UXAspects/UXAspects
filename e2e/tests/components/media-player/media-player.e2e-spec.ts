@@ -16,7 +16,7 @@ describe('Media Player Tests', () => {
     it('should show popover on mouse click', async () => {
 
         // click the button
-        await page.actionBtn.click();
+        await page.clickSubtitles();
 
         // the popover should now be visible
         expect(await page.popover.isPresent()).toBe(true);
@@ -26,13 +26,13 @@ describe('Media Player Tests', () => {
     it('should hide popover on mouse click', async () => {
 
         // click the button
-        await page.actionBtn.click();
+        await page.clickSubtitles();
 
         // the popover should now be visible
         expect(await page.popover.isPresent()).toBe(true);
 
         // click the button again
-        await page.actionBtn.click();
+        await page.clickSubtitles();
 
         // the popover should now be visible
          expect(await page.popover.isPresent()).toBe(false);

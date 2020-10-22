@@ -9,4 +9,8 @@ export class MediaPlayerPage {
         browser.ignoreSynchronization = true;
         await browser.get('#/media-player');
     }
+
+    async clickSubtitles(): Promise<void> {
+        return this.actionBtn.click();
+    }
 }
