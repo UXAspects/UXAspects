@@ -9,7 +9,7 @@ export class MediaPlayerTestPageComponent {
     type: string = 'video';
     mode: string = 'standard';
 
-    videoSource: string =  'https://uxaspects.github.io/UXAspects/assets/media/catchingwave.mp4';
-    subtitles: string =  'https://uxaspects.github.io/UXAspects/assets/media/subtitles.vtt';
+    videoSource: string =  'data:video/mp4;base64,aHR0cHM6Ly91eGFzcGVjdHMuZ2l0aHViLmlvL1VYQXNwZWN0cy9hc3NldHMvbWVkaWEvY2F0Y2hpbmd3YXZlLm1wNA==';
+    subtitles: string =  'data:text/vtt;base64,aHR0cHM6Ly91eGFzcGVjdHMuZ2l0aHViLmlvL1VYQXNwZWN0cy9hc3NldHMvbWVkaWEvc3VidGl0bGVzLnZ0dA==';
 
 }
