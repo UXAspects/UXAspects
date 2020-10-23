@@ -12,7 +12,7 @@
         uxDrag
         uxFocusIndicator
         role="slider"
-        tabindex="0"
+        [tabindex]="disabled ? -1 : 0"
         #lowerthumb
         [attr.aria-label]="_options.type === sliderType.Range ? _options.handles.aria.lowerThumb :
         _options.handles.aria.thumb"
@@ -72,7 +72,7 @@
         uxDrag
         uxFocusIndicator
         role="slider"
-        tabindex="0"
+        [tabindex]="disabled ? -1 : 0"
         #upperthumb
         [attr.aria-label]="_options.handles.aria.upperThumb"
         [attr.aria-valuemin]="getThumbValue(sliderThumb.Lower) || _options?.track?.min"

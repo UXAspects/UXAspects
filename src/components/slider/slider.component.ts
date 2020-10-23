@@ -7,22 +7,21 @@ import { ColorService } from '../../services/color/index';
     templateUrl: './slider.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
-        class: 'ux-slider',
         '[class.disabled]': 'disabled',
     }
 })
 export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
 
-    /** This should reference either a single number or a SliderValue object, depending on the slider type specified. */
+    /** A single number or a SliderValue object, depending on the slider type specified. */
     @Input() value: SliderValue | number = 0;
 
-    /** A wide range of options can used to customize the appearance and behavior of the component. */
+    /** A set of options to customize the appearance and behavior of the slider. */
     @Input() set options(options: SliderOptions) {
         this._options = options;
         this.updateOptions();
     }
 
-    /** If this value is set to `true` then the slider will be disabled. */
+    /** Whether the slider is disabled. */
     @Input() set disabled(disabled: boolean) {
         this._disabled = coerceBooleanProperty(disabled);
     }
