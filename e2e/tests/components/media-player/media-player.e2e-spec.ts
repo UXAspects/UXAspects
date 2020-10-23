@@ -14,10 +14,10 @@ describe('Media Player Tests', () => {
         expect(await imageCompare('media-player-initial')).toEqual(0);
     });
 
-    it('should show subtitle popover on mouse click', async () => {
+    it('should show subtitles popover on mouse click', async () => {
 
         // click the button
-        await page.clickSubtitles();
+        await page.actionBtn.click();
 
         // the popover should now be visible
         expect(await page.popover.isPresent()).toBe(true);
@@ -25,16 +25,16 @@ describe('Media Player Tests', () => {
         browser.ignoreSynchronization = false;
     });
 
-    it('should hide subtitle popover on mouse click', async () => {
+    it('should hide subtitles popover on mouse click', async () => {
 
         // click the button
-        await page.clickSubtitles();
+        await page.actionBtn.click();
 
         // the popover should now be visible
         expect(await page.popover.isPresent()).toBe(true);
 
         // click the button again
-        await page.clickSubtitles();
+        await page.actionBtn.click();
 
         // the popover should now be visible
          expect(await page.popover.isPresent()).toBe(false);
