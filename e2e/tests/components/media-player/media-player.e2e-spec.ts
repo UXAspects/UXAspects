@@ -8,12 +8,6 @@ describe('Media Player Tests', () => {
     beforeEach(async () => {
         page = new MediaPlayerPage();
         await page.getPage();
-        await browser.driver.manage().window().setSize(1320, 800);
-    });
-
-    // restore the window to its original size after all these tests have run
-    afterAll(async () => {
-        await browser.driver.manage().window().setSize(800, 600);
     });
 
     it('should have the correct initial state', async () => {
