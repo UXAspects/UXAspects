@@ -30,7 +30,6 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
         return this._disabled;
     }
 
-
     get options(): SliderOptions {
         return this._options;
     }
@@ -44,9 +43,9 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
 
     // store current values for deep change detection
     private _value: SliderValue | number;
-    _options: SliderOptions;
-
     private _disabled: boolean = false;
+
+    _options: SliderOptions;
 
     // expose enums to Angular view
     sliderType = SliderType;
@@ -185,12 +184,12 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
 
     snapToNearestTick(thumb: SliderThumb, snapTarget: SliderSnap, forwards: boolean): void {
 
-        // get the value for the thumb
-        const { value } = this.getThumbState(thumb);
-
         if (this.disabled) {
             return;
         }
+
+        // get the value for the thumb
+        const { value } = this.getThumbState(thumb);
 
         // get the closest ticks - remove any tick if we are currently on it
         const closest = this.getTickDistances(value, thumb, snapTarget)
@@ -240,12 +239,12 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
 
     thumbEvent(thumb: SliderThumb, event: SliderThumbEvent): void {
 
-        // get the current thumb state
-        const state = this.getThumbState(thumb);
-
         if (this.disabled) {
             return;
         }
+
+        // get the current thumb state
+        const state = this.getThumbState(thumb);
 
         // update based upon event
         switch (event) {
