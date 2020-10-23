@@ -24,6 +24,5 @@ describe('Media Player Tests', () => {
         expect(await imageCompare('media-player-subtitles-open')).toEqual(0);
         await page.actionBtn.click();
         expect(await page.popover.isPresent()).toBe(false);
-        expect(await imageCompare('media-player-subtitles-close')).toEqual(0);
     });
 });
