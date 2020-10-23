@@ -200,4 +200,23 @@ describe('Date Time Picker Tests', () => {
         }
 
     });
+
+    it('should correctly set the date when select an adjacent month', async () => {
+
+        const date = await page.getDate('31');
+        await date.click();
+
+        await page.nextDate.click();
+
+        // check if it now has the active class
+        const activeDate = await page.getDate('31', true);
+
+        const classes = await activeDate.getAttribute('class');
+        expect(classes.indexOf('active')).toBeGreaterThan(-1);
+
+        // it should have the correct date selected
+        expect(await page.getCurrentDate()).toBe('January 31, 2019, 12:00:00 PM');
+
+        expect(await imageCompare('date-picker-adjacent-month-selection')).toBe(0);
+    });
 });
