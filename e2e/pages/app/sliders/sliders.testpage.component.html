@@ -1,4 +1,7 @@
 <div class="container-fluid">
+
+    <a id="top-focus" href="javascript:void(0)">Top focus target</a>
+
     <div class="row">
         <div class="col-md-6 p-r-md p-b-md">
             <p class="text-black p-b-md">Button Handle - Custom Labels</p>
@@ -73,6 +76,7 @@
                 type="text"
                 class="form-control m-b"
                 [(ngModel)]="lowerValue"
+                [disabled]="disabled"
                 (blur)="updateValues()"
                 (keyup.enter)="updateValues()"
             />
@@ -83,11 +87,14 @@
                 type="text"
                 class="form-control m-b"
                 [(ngModel)]="upperValue"
+                [disabled]="disabled"
                 (blur)="updateValues()"
                 (keyup.enter)="updateValues()"
             />
         </div>
     </div>
+
+    <a id="bottom-focus" href="javascript:void(0)">Bottom focus target</a>
 
     <div class="btn-container">
         <button id="track-color-change-btn" class="btn button-secondary" (click)="trackColorChange()">

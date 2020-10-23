@@ -344,47 +344,37 @@ describe('Sliders', () => {
 
     });
 
-    it('should not react to drag and drop when disabled is true', async () => {
+    describe('in disabled state', () => {
+        beforeEach(async () => {
+            await page.disabledButton.click();
+        });
 
-        await page.disabledButton.click();
+        it('should not react to drag and drop', async () => {
+            await page.dragAndDropHandle(page.rangeWithTextInputs, 'lower', { x: -2000, y: 0 });
+            expect(await page.getHandleAttribute(page.rangeWithTextInputs, 'lower', 'style')).toContain('left: 25%');
 
-        await page.dragAndDropHandle(page.rangeWithTextInputs, 'lower', { x: -2000, y: 0 });
-        expect(await page.getHandleAttribute(page.rangeWithTextInputs, 'lower', 'style')).toContain('left: 25%');
+            expect(await imageCompareFullPageScreen('slider-disabled')).toEqual(0);
+        });
 
-        expect(await imageCompareFullPageScreen('slider-disabled')).toEqual(0);
+        it('should not react to drag and drop (range)', async () => {
+            await page.dragAndDropHandle(page.rangeWithTextInputs, 'lower', { x: -2000, y: 0 });
+            expect(await page.getHandleAttribute(page.rangeWithTextInputs, 'lower', 'style')).toContain('left: 25%');
 
+            await page.dragAndDropHandle(page.rangeWithTextInputs, 'upper', { x: 2000, y: 0 });
+            expect(await page.getHandleAttribute(page.rangeWithTextInputs, 'upper', 'style')).toContain('left: 75%');
+
+            expect(await page.getInputValue(page.input1)).toEqual('25');
+            expect(await page.getInputValue(page.input2)).toEqual('75');
+        });
+
+        it('should not receive focus', async () => {
+            await page.topFocusTarget.click();
+
+            expect(await browser.driver.switchTo().activeElement().getAttribute('id')).toBe('top-focus');
+
+            await browser.actions().sendKeys(protractor.Key.TAB).perform();
+
+            expect(await browser.driver.switchTo().activeElement().getAttribute('id')).toBe('bottom-focus');
+        });
     });
-
-    it('should not be able to modify the Range slider when disabled', async () => {
-
-        await page.disabledButton.click();
-
-        await page.dragAndDropHandle(page.rangeWithTextInputs, 'lower', { x: -2000, y: 0 });
-        expect(await page.getHandleAttribute(page.rangeWithTextInputs, 'lower', 'style')).toContain('left: 25%');
-
-        await page.dragAndDropHandle(page.rangeWithTextInputs, 'upper', { x: 2000, y: 0 });
-        expect(await page.getHandleAttribute(page.rangeWithTextInputs, 'upper', 'style')).toContain('left: 75%');
-
-        expect(await page.getInputValue(page.input1)).toEqual('25');
-        expect(await page.getInputValue(page.input2)).toEqual('75');
-
-    });
-
-    it('should not allow keyboard to move slider when disabled', async () => {
-        await page.disabledButton.click();
-
-        await browser.actions().sendKeys(protractor.Key.TAB).perform();
-        await browser.actions().sendKeys(protractor.Key.RIGHT).perform();
-
-        expect(await page.getHandleAttribute(page.singleValueCustomLabels, 'lower', 'style')).toContain('left: 50%');
-    });
-
-    it('should not receive keyboard focus when disabled', async () => {
-        await page.disabledButton.click();
-
-        await browser.actions().sendKeys(protractor.Key.TAB).perform();
-
-        expect(await browser.driver.switchTo().activeElement().getAttribute('id')).toBe('');
-    });
-
 });

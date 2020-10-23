@@ -2,6 +2,8 @@ import { browser, by, element, ElementFinder } from 'protractor';
 
 export abstract class SlidersPageBase {
 
+    topFocusTarget = element(by.id('top-focus'));
+
     async getPage(): Promise<void> {
         await browser.get('#/sliders');
     }
