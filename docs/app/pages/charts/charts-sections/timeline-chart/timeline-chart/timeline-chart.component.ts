@@ -70,13 +70,13 @@ export class ChartsTimelineChartComponent extends BaseDocumentationSection imple
         scales: {
             xAxes: [
                 {
+                    ticks: {
+                        fontSize: 12,
+                        fontFamily: 'Roboto'
+                    },
                     type: 'time',
                     gridLines: {
                         display: false
-                    },
-                    ticks: {
-                        fontSize: 12,
-                        fontFamily: 'Roboto',
                     },
                     time: {
                         unit: 'month'
