@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { ComponentFactoryResolver, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ColorServiceModule, TabsetModule, TimelineChartModule } from '@ux-aspects/ux-aspects';
@@ -29,6 +30,7 @@ const ROUTES = [
         RouterModule.forChild(ROUTES),
         TabsetModule,
         TimelineChartModule,
+        CommonModule,
     ],
     exports: SECTIONS,
     declarations: SECTIONS,

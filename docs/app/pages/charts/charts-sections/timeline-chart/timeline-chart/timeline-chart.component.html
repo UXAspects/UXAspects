@@ -2,7 +2,7 @@
     <canvas baseChart
             height="250"
             [data]="lineChartData"
-            [options]="lineChartOptions"
+            [options]="theme === SiteThemeId.MicroFocus2020 ? lineChartOptions2020 : lineChartOptions"
             [colors]="lineChartColors"
             [legend]="false"
             chartType="line">
@@ -13,7 +13,7 @@
     <canvas baseChart
             height="75"
             [data]="timelineChartData"
-            [options]="timelineChartOptions"
+            [options]="theme === SiteThemeId.MicroFocus2020 ? timelineChartOptions2020 : timelineChartOptions"
             [colors]="lineChartColors"
             [legend]="false"
             chartType="line">
