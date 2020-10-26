@@ -10,6 +10,7 @@ export class DateTimePickerPage {
     selectedDate = $('.date-button.active');
     todayBtn = $('.now-button');
     currentDate = $('#current-date');
+    nextDate = $('.header-navigation-next-icon');
 
     changeWeekStartBtn = $('#change-start-of-week');
     setMinAndMaxBtn = $('#set-limits');
