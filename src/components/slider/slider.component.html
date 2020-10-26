@@ -5,14 +5,14 @@
      [class.range]="_options.type === sliderType.Range">
 
     <!-- Section Beneath Lower Thumb -->
-    <div class="track-section track-lower" [style.flex-grow]="tracks.lower.size" [style.background]="tracks.lower.color"></div>
+    <div class="track-section track-lower" [style.flex-grow]="tracks.lower.size" [style.background]="this.disabled ? null : tracks.lower.color"></div>
 
     <!-- Lower Thumb Button / Line -->
     <div class="thumb lower"
         uxDrag
         uxFocusIndicator
         role="slider"
-        tabindex="0"
+        [tabindex]="disabled ? -1 : 0"
         #lowerthumb
         [attr.aria-label]="_options.type === sliderType.Range ? _options.handles.aria.lowerThumb :
         _options.handles.aria.thumb"
@@ -64,7 +64,7 @@
 
     <!-- Section of Track Between Lower and Upper Thumbs -->
     <div class="track-section track-range" *ngIf="_options.type === sliderType.Range"
-         [style.flex-grow]="tracks.middle.size" [style.background]="tracks.middle.color">
+         [style.flex-grow]="tracks.middle.size" [style.background]="this.disabled ? null : tracks.middle.color">
     </div>
 
     <!-- Upper Thumb Button / Line -->
@@ -72,7 +72,7 @@
         uxDrag
         uxFocusIndicator
         role="slider"
-        tabindex="0"
+        [tabindex]="disabled ? -1 : 0"
         #upperthumb
         [attr.aria-label]="_options.handles.aria.upperThumb"
         [attr.aria-valuemin]="getThumbValue(sliderThumb.Lower) || _options?.track?.min"
@@ -122,7 +122,7 @@
     </div>
 
     <!-- Section of Track Abover Upper Thumb -->
-    <div class="track-section track-higher" [style.flex-grow]="tracks.upper.size" [style.background]="tracks.upper.color"></div>
+    <div class="track-section track-higher" [style.flex-grow]="tracks.upper.size" [style.background]="this.disabled ? null : tracks.upper.color"></div>
 
 </div>
 
