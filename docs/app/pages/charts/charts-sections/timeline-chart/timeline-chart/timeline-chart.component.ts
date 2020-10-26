@@ -32,7 +32,6 @@ export class ChartsTimelineChartComponent extends BaseDocumentationSection imple
             xAxes: [
                 {
                     ticks: {
-                        fontSize: 12,
                         fontFamily: 'Inherit'
                     },
                     type: 'time',
@@ -51,7 +50,6 @@ export class ChartsTimelineChartComponent extends BaseDocumentationSection imple
                         max: 1000,
                         stepSize: 250,
                         padding: 8,
-                        fontSize: 12,
                         fontFamily: 'Inherit'
                     },
                     gridLines: {
@@ -97,7 +95,6 @@ export class ChartsTimelineChartComponent extends BaseDocumentationSection imple
                         stepSize: 6
                     },
                     ticks: {
-                        fontSize: 12,
                         fontFamily: 'Inherit'
                     },
                 }
