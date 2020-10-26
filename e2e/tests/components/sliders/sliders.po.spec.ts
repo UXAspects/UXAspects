@@ -2,6 +2,8 @@ import { browser, by, element, ElementFinder } from 'protractor';
 
 export abstract class SlidersPageBase {
 
+    topFocusTarget = element(by.id('top-focus'));
+
     async getPage(): Promise<void> {
         await browser.get('#/sliders');
     }
@@ -134,4 +136,5 @@ export class SlidersPage extends SlidersPageBase {
     input1 = element(by.id('input1'));
     input2 = element(by.id('input2'));
     colorChangeButton = element(by.id('track-color-change-btn'));
+    disabledButton = element(by.id('disabled-btn'));
 }

@@ -1,4 +1,4 @@
-import { Key } from 'protractor';
+import { browser, Key, protractor } from 'protractor';
 import { imageCompareFullPageScreen } from '../common/image-compare';
 import { SlidersPage } from './sliders.po.spec';
 
@@ -305,14 +305,14 @@ describe('Sliders', () => {
         // Move handles and confirm the associated inputs are updated with the correct values.
         page.moveMouseToHandle(page.rangeWithTextInputs, 'lower');
         expect(await page.getTooltipValue(page.rangeWithTextInputs, 'lower')).toEqual('25');
-        page.dragAndDropHandle(page.rangeWithTextInputs, 'lower', {x: -30, y: 0});
+        page.dragAndDropHandle(page.rangeWithTextInputs, 'lower', { x: -30, y: 0 });
         page.mouseDownOnHandle(page.rangeWithTextInputs, 'lower');
         expect(await page.getTooltipValue(page.rangeWithTextInputs, 'lower')).toEqual('20');
         page.mouseUpFromHandle(page.rangeWithTextInputs, 'lower');
 
         page.moveMouseToHandle(page.rangeWithTextInputs, 'upper');
         expect(await page.getTooltipValue(page.rangeWithTextInputs, 'upper')).toEqual('75');
-        page.dragAndDropHandle(page.rangeWithTextInputs, 'upper', {x: 30, y: 0});
+        page.dragAndDropHandle(page.rangeWithTextInputs, 'upper', { x: 30, y: 0 });
         page.mouseDownOnHandle(page.rangeWithTextInputs, 'upper');
         expect(await page.getTooltipValue(page.rangeWithTextInputs, 'upper')).toEqual('80');
         page.mouseUpFromHandle(page.rangeWithTextInputs, 'upper');
@@ -342,5 +342,39 @@ describe('Sliders', () => {
         page.moveMouseToHandle(page.rangeWithTextInputs, 'upper');
         expect(await page.getTooltipValue(page.rangeWithTextInputs, 'upper')).toEqual('50');
 
+    });
+
+    describe('in disabled state', () => {
+        beforeEach(async () => {
+            await page.disabledButton.click();
+        });
+
+        it('should not react to drag and drop', async () => {
+            await page.dragAndDropHandle(page.rangeWithTextInputs, 'lower', { x: -2000, y: 0 });
+            expect(await page.getHandleAttribute(page.rangeWithTextInputs, 'lower', 'style')).toContain('left: 25%');
+
+            expect(await imageCompareFullPageScreen('slider-disabled')).toEqual(0);
+        });
+
+        it('should not react to drag and drop (range)', async () => {
+            await page.dragAndDropHandle(page.rangeWithTextInputs, 'lower', { x: -2000, y: 0 });
+            expect(await page.getHandleAttribute(page.rangeWithTextInputs, 'lower', 'style')).toContain('left: 25%');
+
+            await page.dragAndDropHandle(page.rangeWithTextInputs, 'upper', { x: 2000, y: 0 });
+            expect(await page.getHandleAttribute(page.rangeWithTextInputs, 'upper', 'style')).toContain('left: 75%');
+
+            expect(await page.getInputValue(page.input1)).toEqual('25');
+            expect(await page.getInputValue(page.input2)).toEqual('75');
+        });
+
+        it('should not receive focus', async () => {
+            await page.topFocusTarget.click();
+
+            expect(await browser.driver.switchTo().activeElement().getAttribute('id')).toBe('top-focus');
+
+            await browser.actions().sendKeys(protractor.Key.TAB).perform();
+
+            expect(await browser.driver.switchTo().activeElement().getAttribute('id')).toBe('bottom-focus');
+        });
     });
 });
