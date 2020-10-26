@@ -5,6 +5,35 @@ ux-slider {
     -moz-user-select: none;
     user-select: none;
 
+    &.disabled {
+        .track {
+            .thumb.ux-focus-indicator-active {
+                box-shadow: none;
+            }
+
+            .thumb.button {
+                cursor: default;
+            }
+
+            .thumb.line {
+                cursor: default;
+                background-color: rgba(0, 0, 0, 0.4);
+            }
+
+            &:not(.range) {
+                .track-section.track-lower {
+                    background-color: rgba(0, 0, 0, 0.2);
+                }
+            }
+
+            .track-section {
+                &.track-range {
+                    background-color: rgba(0, 0, 0, 0.2);
+                }
+            }
+        }
+    }
+
     .track {
         display: flex;
         flex-direction: row;
