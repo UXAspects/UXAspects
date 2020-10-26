@@ -31,48 +31,9 @@ export class ChartsTimelineChartComponent extends BaseDocumentationSection imple
         scales: {
             xAxes: [
                 {
-                    type: 'time',
-                    gridLines: {
-                        display: false
-                    },
-                    time: {
-                        unit: 'month'
-                    }
-                }
-            ],
-            yAxes: [
-                {
-                    ticks: {
-                        beginAtZero: true,
-                        max: 1000,
-                        stepSize: 250,
-                        padding: 8
-                    },
-                    gridLines: {
-                        tickMarkLength: 8
-                    }
-                }
-            ]
-        }
-    };
-
-    lineChartOptions2020: Chart.ChartOptions & Chart.ChartLineOptions = {
-        responsive: true,
-        maintainAspectRatio: false,
-        animation: {
-            duration: 0
-        },
-        elements: {
-            line: {
-                tension: 0
-            },
-        },
-        scales: {
-            xAxes: [
-                {
                     ticks: {
                         fontSize: 12,
-                        fontFamily: 'Roboto'
+                        fontFamily: 'Inherit'
                     },
                     type: 'time',
                     gridLines: {
@@ -80,7 +41,7 @@ export class ChartsTimelineChartComponent extends BaseDocumentationSection imple
                     },
                     time: {
                         unit: 'month'
-                    },
+                    }
                 }
             ],
             yAxes: [
@@ -91,7 +52,7 @@ export class ChartsTimelineChartComponent extends BaseDocumentationSection imple
                         stepSize: 250,
                         padding: 8,
                         fontSize: 12,
-                        fontFamily: 'Roboto',
+                        fontFamily: 'Inherit'
                     },
                     gridLines: {
                         tickMarkLength: 8
@@ -134,7 +95,11 @@ export class ChartsTimelineChartComponent extends BaseDocumentationSection imple
                     time: {
                         unit: 'month',
                         stepSize: 6
-                    }
+                    },
+                    ticks: {
+                        fontSize: 12,
+                        fontFamily: 'Inherit'
+                    },
                 }
             ],
             yAxes: [
@@ -160,56 +125,6 @@ export class ChartsTimelineChartComponent extends BaseDocumentationSection imple
         }
     };
 
-    timelineChartOptions2020: Chart.ChartOptions & Chart.ChartLineOptions & TimelineChartOptions = {
-        responsive: true,
-        maintainAspectRatio: false,
-        animation: {
-            duration: 0
-        },
-        elements: {
-            line: {
-                tension: 0
-            },
-        },
-        scales: {
-            xAxes: [
-                {
-                    type: 'time',
-                    gridLines: {
-                        display: false,
-                    },
-                    ticks: {
-                        fontSize: 12,
-                        fontFamily: 'Roboto'
-                    },
-                    time: {
-                        unit: 'month',
-                        stepSize: 6
-                    }
-                }
-            ],
-            yAxes: [
-                {
-                    display: false
-                }
-            ]
-        },
-        timeline: {
-            selectionColor: this._colorService.getColor('alternate3').setAlpha(0.15).toRgba(),
-            onChange: (min: Date, max: Date) => {
-                this.lineChartData = this._dataService.getDataset().filter(point => {
-                    return (point.x as Date).getTime() >= min.getTime() &&
-                        (point.x as Date).getTime() <= max.getTime();
-                });
-            },
-            range: {
-                lower: new Date(2017, 6, 15),
-                upper: this.lineChartData[this.lineChartData.length - 1].x as Date,
-                minimum: 8_640_000_000, // 100 days
-                maximum: 110_595_600_000, // 3.5 years
-            }
-        }
-    };
 
     playground: IPlayground = {
         files: {
