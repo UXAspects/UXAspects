@@ -26,6 +26,9 @@ export class AppComponent {
         scales: {
             xAxes: [
                 {
+                    ticks: {
+                        fontFamily: 'Inherit'
+                    },
                     type: 'time',
                     gridLines: {
                         display: false
@@ -41,7 +44,8 @@ export class AppComponent {
                         beginAtZero: true,
                         max: 1000,
                         stepSize: 250,
-                        padding: 8
+                        padding: 8,
+                        fontFamily: 'Inherit'
                     },
                     gridLines: {
                         tickMarkLength: 8
@@ -84,7 +88,10 @@ export class AppComponent {
                     time: {
                         unit: 'month',
                         stepSize: 6
-                    }
+                    },
+                    ticks: {
+                        fontFamily: 'Inherit'
+                    },
                 }
             ],
             yAxes: [
