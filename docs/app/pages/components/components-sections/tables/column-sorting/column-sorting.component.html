@@ -88,7 +88,7 @@
                         (click)="changeState('Name', nameColumn)"
                         (keydown.enter)="changeState('Name', nameColumn)">
                             <span>Name</span>
-                            <ux-column-sorting #nameColumn="ux-column-sorting" key="name"></ux-column-sorting>
+                            <ux-column-sorting #nameColumn="ux-column-sorting" key="name" ascendingIcon="link-up" descendingIcon="link-down"></ux-column-sorting>
                     </th>
                     <th class="clickable column-sorting"
                         uxFocusIndicator
@@ -98,7 +98,7 @@
                         (click)="changeState('Author', authorColumn)"
                         (keydown.enter)="changeState('Author', authorColumn)">
                             <span>Author</span>
-                            <ux-column-sorting #authorColumn="ux-column-sorting" key="author"></ux-column-sorting>
+                            <ux-column-sorting #authorColumn="ux-column-sorting" key="author" ascendingIcon="link-up" descendingIcon="link-down"></ux-column-sorting>
                     </th>
                     <th class="clickable column-sorting"
                         uxFocusIndicator
@@ -108,7 +108,7 @@
                         (click)="changeState('Date Modified', dateColumn)"
                         (keydown.enter)="changeState('Date Modified', dateColumn)">
                             <span>Date Modified</span>
-                            <ux-column-sorting #dateColumn="ux-column-sorting" key="date"></ux-column-sorting>
+                            <ux-column-sorting #dateColumn="ux-column-sorting" key="date" ascendingIcon="link-up" descendingIcon="link-down"></ux-column-sorting>
                     </th>
                     <th class="clickable column-sorting"
                         uxFocusIndicator
@@ -118,7 +118,7 @@
                         (click)="changeState('Work Completed', completedColumn)"
                         (keydown.enter)="changeState('Work Completed', completedColumn)">
                             <span>Work Completed</span>
-                            <ux-column-sorting #completedColumn="ux-column-sorting" key="completed"></ux-column-sorting>
+                            <ux-column-sorting #completedColumn="ux-column-sorting" key="completed" ascendingIcon="link-up" descendingIcon="link-down"></ux-column-sorting>
                     </th>
                     <th class="text-black">Status</th>
                 </tr>

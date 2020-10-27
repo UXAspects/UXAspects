@@ -91,8 +91,7 @@ export class ComponentsColumnSortingComponent extends BaseDocumentationSection i
                 library: '@angular/cdk/a11y'
             }
         ]
-
-    }
+    };
 
     sparkTrackColor = this._colorService.getColor('chart2').setAlpha(0.2).toRgba();
     sparkBarColor = this._colorService.getColor('chart2').toHex();
