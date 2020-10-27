@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { SliderValue, ColorService, SliderStyle, SliderCalloutTrigger, SliderSize, SliderSnap, SliderType } from '@ux-aspects/ux-aspects';
+import { ColorService, SliderCalloutTrigger, SliderSize, SliderSnap, SliderStyle, SliderType, SliderValue } from '@ux-aspects/ux-aspects';
 import { SliderExample } from './slider-example';
 
 @Component({
-  selector: 'sliders-app',
-  templateUrl: './sliders.testpage.component.html',
+    selector: 'sliders-app',
+    templateUrl: './sliders.testpage.component.html',
 })
 export class SlidersTestPageComponent {
 
@@ -17,6 +17,7 @@ export class SlidersTestPageComponent {
 
     lowerValue: number = 25;
     upperValue: number = 75;
+    disabled: boolean = false;
 
     constructor(colorService: ColorService) {
 
@@ -215,5 +216,9 @@ export class SlidersTestPageComponent {
         this.rangeCalloutCustom.options.track.colors.lower = '#0f0';
         this.rangeCalloutCustom.options.track.colors.range = '#f00';
         this.rangeCalloutCustom.options.track.colors.higher = '#0f0';
+    }
+
+    disableSliders(): void {
+        this.disabled = true;
     }
 }

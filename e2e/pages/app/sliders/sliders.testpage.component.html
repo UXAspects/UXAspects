@@ -1,4 +1,7 @@
 <div class="container-fluid">
+
+    <a id="top-focus" href="javascript:void(0)">Top focus target</a>
+
     <div class="row">
         <div class="col-md-6 p-r-md p-b-md">
             <p class="text-black p-b-md">Button Handle - Custom Labels</p>
@@ -6,6 +9,7 @@
                 id="single-value-custom-labels"
                 [value]="singleValueCustomLabels.value"
                 [options]="singleValueCustomLabels.options"
+                [disabled]="disabled"
             ></ux-slider>
         </div>
         <div class="col-md-6 p-l-md p-b-md">
@@ -14,6 +18,7 @@
                 id="single-value-callout-on-drag"
                 [value]="singleValueCalloutOnDrag.value"
                 [options]="singleValueCalloutOnDrag.options"
+                [disabled]="disabled"
             ></ux-slider>
         </div>
     </div>
@@ -25,6 +30,7 @@
                 id="single-value-narrow-snapping"
                 [value]="singleValueNarrowSnapping.value"
                 [options]="singleValueNarrowSnapping.options"
+                [disabled]="disabled"
             ></ux-slider>
         </div>
         <div class="col-md-6 p-l-md p-b-md">
@@ -33,6 +39,7 @@
                 id="single-value-narrow-callout-on-hover"
                 [value]="singleValueNarrowCalloutOnHover.value"
                 [options]="singleValueNarrowCalloutOnHover.options"
+                [disabled]="disabled"
             ></ux-slider>
         </div>
     </div>
@@ -44,6 +51,7 @@
                 id="range-callout-custom"
                 [value]="rangeCalloutCustom.value"
                 [options]="rangeCalloutCustom.options"
+                [disabled]="disabled"
             ></ux-slider>
         </div>
     </div>
@@ -56,6 +64,7 @@
                 [value]="rangeWithTextInputs.value"
                 (valueChange)="valueHasChanged($event)"
                 [options]="rangeWithTextInputs.options"
+                [disabled]="disabled"
             ></ux-slider>
         </div>
     </div>
@@ -67,6 +76,7 @@
                 type="text"
                 class="form-control m-b"
                 [(ngModel)]="lowerValue"
+                [disabled]="disabled"
                 (blur)="updateValues()"
                 (keyup.enter)="updateValues()"
             />
@@ -77,15 +87,21 @@
                 type="text"
                 class="form-control m-b"
                 [(ngModel)]="upperValue"
+                [disabled]="disabled"
                 (blur)="updateValues()"
                 (keyup.enter)="updateValues()"
             />
         </div>
     </div>
 
+    <a id="bottom-focus" href="javascript:void(0)">Bottom focus target</a>
+
     <div class="btn-container">
         <button id="track-color-change-btn" class="btn button-secondary" (click)="trackColorChange()">
             Track Color Change
+        </button>
+        <button id="disabled-btn" class="btn button-secondary" (click)="disableSliders()">
+            Disable Sliders
         </button>
     </div>
 </div>

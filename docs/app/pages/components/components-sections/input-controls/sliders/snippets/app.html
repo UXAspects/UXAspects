@@ -1,76 +1,88 @@
 <div class="container-fluid">
-
     <div class="row">
-
         <div class="col-md-12">
             <h4 class="text-black p-t-md p-b-md">Single Value Sliders</h4>
         </div>
 
         <div class="col-md-6 p-r-md p-b-md">
             <p class="text-black p-b-md">Button Handle - Custom Labels</p>
-            <ux-slider [value]="slider1.value" [options]="slider1.options"></ux-slider>
+            <ux-slider [value]="slider1.value" [options]="slider1.options" [disabled]="disabled"></ux-slider>
         </div>
         <div class="col-md-6 p-l-md p-b-md">
             <p class="text-black p-b-md">Line Handle - Callout on Drag</p>
-            <ux-slider [value]="slider2.value" [options]="slider2.options"></ux-slider>
+            <ux-slider [value]="slider2.value" [options]="slider2.options" [disabled]="disabled"></ux-slider>
         </div>
     </div>
 
     <hr>
 
     <div class="row">
-
         <div class="col-md-6 p-r-md p-b-md">
             <p class="text-black p-b-md">Narrow - Track Styling - Snapping</p>
-            <ux-slider [value]="slider3.value" [options]="slider3.options"></ux-slider>
+            <ux-slider [value]="slider3.value" [options]="slider3.options" [disabled]="disabled"></ux-slider>
         </div>
         <div class="col-md-6 p-l-md p-b-md">
             <p class="text-black p-b-md">Narrow - Gradient Track Styling - Callout on Hover</p>
-            <ux-slider [value]="slider4.value" [options]="slider4.options"></ux-slider>
+            <ux-slider [value]="slider4.value" [options]="slider4.options" [disabled]="disabled"></ux-slider>
         </div>
     </div>
 
     <hr>
 
     <div class="row">
-
         <div class="col-md-12">
             <h4 class="text-black p-t-md p-b-md">Range Value Sliders</h4>
         </div>
 
         <div class="col-md-6 p-r-md p-b-md">
             <p class="text-black p-b-lg">Range Track - Persistent Callout</p>
-            <ux-slider [value]="slider5.value" [options]="slider5.options"></ux-slider>
+            <ux-slider [value]="slider5.value" [options]="slider5.options" [disabled]="disabled"></ux-slider>
         </div>
         <div class="col-md-6 p-l-md p-b-md">
             <p class="text-black p-b-lg">Range Track Style - Custom Callout Styles</p>
-            <ux-slider [value]="slider6.value" [options]="slider6.options"></ux-slider>
+            <ux-slider [value]="slider6.value" [options]="slider6.options" [disabled]="disabled"></ux-slider>
         </div>
     </div>
 
     <hr>
 
     <div class="row">
-
         <div class="col-md-12">
             <h4 class="text-black p-t-md p-b-md">Range Slider with Text Inputs</h4>
         </div>
 
         <div class="col-md-12">
-            <ux-slider [value]="slider7.value" (valueChange)="valueHasChanged($event)" 
-                [options]="slider7.options"></ux-slider>
+            <ux-slider
+                [value]="slider7.value"
+                (valueChange)="valueHasChanged($event)"
+                [options]="slider7.options"
+                [disabled]="disabled"
+            ></ux-slider>
         </div>
     </div>
 
     <div class="row m-t-sm p-t-xs">
         <div class="col-sm-2">
-            <input type="text" class="form-control m-b" [(ngModel)]="lowerValue" 
-                (blur)="updateValues()" (keyup.enter)="updateValues()">
+            <input
+                type="text"
+                class="form-control m-b"
+                aria-label="Slider lower range value"
+                [(ngModel)]="lowerValue"
+                [disabled]="disabled"
+                (blur)="updateValues()"
+                (keyup.enter)="updateValues()"
+            />
         </div>
         <div class="col-sm-offset-8 col-sm-2">
-            <input type="text" class="form-control m-b" [(ngModel)]="upperValue" 
-                (blur)="updateValues()" (keyup.enter)="updateValues()">
+            <input
+                type="text"
+                class="form-control m-b"
+                aria-label="Slider upper range value"
+                [(ngModel)]="upperValue"
+                [disabled]="disabled"
+                (blur)="updateValues()"
+                (keyup.enter)="updateValues()"
+            />
         </div>
     </div>
-
 </div>
