@@ -1,78 +1,161 @@
-<table class="table table-hover">
-    <thead>
-        <tr uxColumnSorting>
-            <th class="clickable column-sorting"
-                uxFocusIndicator
-                tabindex="0"
-                [attr.aria-label]="getColumnAriaLabel('Name', nameColumn)"
-                [attr.aria-sort]="nameColumn.state"
-                (click)="changeState('Name', nameColumn)"
-                (keydown.enter)="changeState('Name', nameColumn)">
+<ng-container [ngSwitch]="theme">
+    <ng-container *ngSwitchDefault>
+        <table class="table table-hover">
+            <thead>
+                <tr uxColumnSorting>
+                    <th class="clickable column-sorting"
+                        uxFocusIndicator
+                        tabindex="0"
+                        [attr.aria-label]="getColumnAriaLabel('Name', nameColumn)"
+                        [attr.aria-sort]="nameColumn.state"
+                        (click)="changeState('Name', nameColumn)"
+                        (keydown.enter)="changeState('Name', nameColumn)">
 
-                <div class="column-sorting-header">
-                    <p class="text-black">NAME</p>
-                    <ux-column-sorting #nameColumn="ux-column-sorting" key="name"></ux-column-sorting>
-                </div>
-            </th>
-            <th class="clickable column-sorting"
-                uxFocusIndicator
-                tabindex="0"
-                [attr.aria-label]="getColumnAriaLabel('Author', authorColumn)"
-                [attr.aria-sort]="authorColumn.state"
-                (click)="changeState('Author', authorColumn)"
-                (keydown.enter)="changeState('Author', authorColumn)">
+                        <div class="column-sorting-header">
+                            <p class="text-black">NAME</p>
+                            <ux-column-sorting #nameColumn="ux-column-sorting" key="name"></ux-column-sorting>
+                        </div>
+                    </th>
+                    <th class="clickable column-sorting"
+                        uxFocusIndicator
+                        tabindex="0"
+                        [attr.aria-label]="getColumnAriaLabel('Author', authorColumn)"
+                        [attr.aria-sort]="authorColumn.state"
+                        (click)="changeState('Author', authorColumn)"
+                        (keydown.enter)="changeState('Author', authorColumn)">
 
-                <div class="column-sorting-header">
-                    <p class="text-black">AUTHOR</p>
-                    <ux-column-sorting #authorColumn="ux-column-sorting" key="author"></ux-column-sorting>
-                </div>
-            </th>
-            <th class="clickable column-sorting"
-                uxFocusIndicator
-                tabindex="0"
-                [attr.aria-label]="getColumnAriaLabel('Date Modified', dateColumn)"
-                [attr.aria-sort]="dateColumn.state"
-                (click)="changeState('Date Modified', dateColumn)"
-                (keydown.enter)="changeState('Date Modified', dateColumn)">
+                        <div class="column-sorting-header">
+                            <p class="text-black">AUTHOR</p>
+                            <ux-column-sorting #authorColumn="ux-column-sorting" key="author"></ux-column-sorting>
+                        </div>
+                    </th>
+                    <th class="clickable column-sorting"
+                        uxFocusIndicator
+                        tabindex="0"
+                        [attr.aria-label]="getColumnAriaLabel('Date Modified', dateColumn)"
+                        [attr.aria-sort]="dateColumn.state"
+                        (click)="changeState('Date Modified', dateColumn)"
+                        (keydown.enter)="changeState('Date Modified', dateColumn)">
 
-                <div class="column-sorting-header">
-                    <p class="text-black">DATE MODIFIED</p>
-                    <ux-column-sorting #dateColumn="ux-column-sorting" key="date"></ux-column-sorting>
-                </div>
-            </th>
-            <th class="clickable column-sorting"
-                uxFocusIndicator
-                tabindex="0"
-                [attr.aria-label]="getColumnAriaLabel('Work Completed', completedColumn)"
-                [attr.aria-sort]="completedColumn.state"
-                (click)="changeState('Work Completed', completedColumn)"
-                (keydown.enter)="changeState('Work Completed', completedColumn)">
+                        <div class="column-sorting-header">
+                            <p class="text-black">DATE MODIFIED</p>
+                            <ux-column-sorting #dateColumn="ux-column-sorting" key="date"></ux-column-sorting>
+                        </div>
+                    </th>
+                    <th class="clickable column-sorting"
+                        uxFocusIndicator
+                        tabindex="0"
+                        [attr.aria-label]="getColumnAriaLabel('Work Completed', completedColumn)"
+                        [attr.aria-sort]="completedColumn.state"
+                        (click)="changeState('Work Completed', completedColumn)"
+                        (keydown.enter)="changeState('Work Completed', completedColumn)">
 
-                <div class="column-sorting-header">
-                    <p class="text-black">WORK COMPLETED</p>
-                    <ux-column-sorting #completedColumn="ux-column-sorting" key="completed"></ux-column-sorting>
-                </div>
-            </th>
-            <th class="text-black">STATUS</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr class="clickable" *ngFor="let item of items">
-            <td>{{ item.name }}</td>
-            <td>{{ item.author }}</td>
-            <td>{{ item.date }}</td>
-            <td>
-                <ux-spark [trackColor]="sparkTrackColor" [barColor]="sparkBarColor" [value]="item.completed" [barHeight]="3"
-                          [inlineLabel]="item.completed"></ux-spark>
-            </td>
-            <td class="text-center">
-                <ux-icon [name]="item.active ? 'checkmark' : null"
-                         [attr.aria-label]="item.active ? 'Approved' : 'Not approved'">
-                </ux-icon>
-            </td>
-        </tr>
-    </tbody>
-</table>
+                        <div class="column-sorting-header">
+                            <p class="text-black">WORK COMPLETED</p>
+                            <ux-column-sorting #completedColumn="ux-column-sorting" key="completed"></ux-column-sorting>
+                        </div>
+                    </th>
+                    <th class="text-black">STATUS</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="clickable" *ngFor="let item of items">
+                    <td>{{ item.name }}</td>
+                    <td>{{ item.author }}</td>
+                    <td>{{ item.date }}</td>
+                    <td>
+                        <ux-spark [trackColor]="sparkTrackColor" [barColor]="sparkBarColor" [value]="item.completed" [barHeight]="3"
+                                  [inlineLabel]="item.completed"></ux-spark>
+                    </td>
+                    <td class="text-center">
+                        <ux-icon [name]="item.active ? 'checkmark' : null"
+                                 [attr.aria-label]="item.active ? 'Approved' : 'Not approved'">
+                        </ux-icon>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </ng-container>
+    <ng-container *ngSwitchCase="SiteThemeId.MicroFocus2020">
+        <table class="table table-hover">
+            <thead>
+                <tr uxColumnSorting>
+                    <th class="clickable column-sorting"
+                        uxFocusIndicator
+                        tabindex="0"
+                        [attr.aria-label]="getColumnAriaLabel('Name', nameColumn)"
+                        [attr.aria-sort]="nameColumn.state"
+                        (click)="changeState('Name', nameColumn)"
+                        (keydown.enter)="changeState('Name', nameColumn)">
+
+                        <div class="column-sorting-header">
+                            <p class="text-black">Name</p>
+                            <ux-column-sorting #nameColumn="ux-column-sorting" key="name" ascendingIcon="link-up" descendingIcon="link-down"></ux-column-sorting>
+                        </div>
+                    </th>
+                    <th class="clickable column-sorting"
+                        uxFocusIndicator
+                        tabindex="0"
+                        [attr.aria-label]="getColumnAriaLabel('Author', authorColumn)"
+                        [attr.aria-sort]="authorColumn.state"
+                        (click)="changeState('Author', authorColumn)"
+                        (keydown.enter)="changeState('Author', authorColumn)">
+
+                        <div class="column-sorting-header">
+                            <p class="text-black">Author</p>
+                            <ux-column-sorting #authorColumn="ux-column-sorting" key="author" ascendingIcon="link-up" descendingIcon="link-down"></ux-column-sorting>
+                        </div>
+                    </th>
+                    <th class="clickable column-sorting"
+                        uxFocusIndicator
+                        tabindex="0"
+                        [attr.aria-label]="getColumnAriaLabel('Date Modified', dateColumn)"
+                        [attr.aria-sort]="dateColumn.state"
+                        (click)="changeState('Date Modified', dateColumn)"
+                        (keydown.enter)="changeState('Date Modified', dateColumn)">
+
+                        <div class="column-sorting-header">
+                            <p class="text-black">Date Modified</p>
+                            <ux-column-sorting #dateColumn="ux-column-sorting" key="date" ascendingIcon="link-up" descendingIcon="link-down"></ux-column-sorting>
+                        </div>
+                    </th>
+                    <th class="clickable column-sorting"
+                        uxFocusIndicator
+                        tabindex="0"
+                        [attr.aria-label]="getColumnAriaLabel('Work Completed', completedColumn)"
+                        [attr.aria-sort]="completedColumn.state"
+                        (click)="changeState('Work Completed', completedColumn)"
+                        (keydown.enter)="changeState('Work Completed', completedColumn)">
+
+                        <div class="column-sorting-header">
+                            <p class="text-black">Work Completed</p>
+                            <ux-column-sorting #completedColumn="ux-column-sorting" key="completed" ascendingIcon="link-up" descendingIcon="link-down"></ux-column-sorting>
+                        </div>
+                    </th>
+                    <th class="text-black">Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="clickable" *ngFor="let item of items">
+                    <td>{{ item.name }}</td>
+                    <td>{{ item.author }}</td>
+                    <td>{{ item.date }}</td>
+                    <td>
+                        <ux-spark [trackColor]="sparkTrackColor" [barColor]="sparkBarColor" [value]="item.completed" [barHeight]="3"
+                                  [inlineLabel]="item.completed"></ux-spark>
+                    </td>
+                    <td class="text-center">
+                        <ux-icon [name]="item.active ? 'checkmark' : null"
+                                 [attr.aria-label]="item.active ? 'Approved' : 'Not approved'">
+                        </ux-icon>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    </ng-container>
+</ng-container>
+
 
 <hr>
 
@@ -111,10 +194,10 @@
         toggle between the <code>Ascending</code> and <code>Descending</code> states when changing the sort direction.
     </tr>
     <tr uxd-api-property name="ascendingIcon" type="string" defaultValue="ascend">
-        Specify an icon for sorting in ascending order.
+        Specify an icon name from the icon set for sorting in ascending order - <a routerLink="/css/icons" fragment="ux-icons">UX Aspects Icons</a>.
     </tr>
     <tr uxd-api-property name="descendingIcon" type="string" defaultValue="descend">
-        Specify an icon for sorting in descending order.
+        Specify an icon name from the icon set  for sorting in descending order -<a routerLink="/css/icons" fragment="ux-icons">UX Aspects Icons</a>.
     </tr>
 </uxd-api-properties>
 

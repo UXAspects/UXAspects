@@ -4,7 +4,6 @@ import { ColorService, ColumnSortingComponent, ColumnSortingOrder, ColumnSorting
 import 'chance';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import { IPlayground } from '../../../../../interfaces/IPlayground';
 import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
 
 @Component({
@@ -74,22 +73,24 @@ export class ComponentsColumnSortingComponent extends BaseDocumentationSection i
         active: chance.bool()
     }];
 
-    playground: IPlayground = {
-        files: {
-            'app.component.ts': this.snippets.raw.appTs,
-            'app.component.html': this.snippets.raw.appHtml
-        },
-        modules: [
-            {
-                imports: ['ColumnSortingModule', 'ColorServiceModule', 'SparkModule'],
-                library: '@ux-aspects/ux-aspects'
+    playground = () => {
+        return {
+            files: {
+                'app.component.ts': this.snippets.raw.appTs,
+                'app.component.html': this.snippets.raw.appHtml
             },
-            {
-                imports: ['A11yModule'],
-                library: '@angular/cdk/a11y'
-            }
-        ]
-    };
+            modules: [
+                {
+                    imports: ['ColumnSortingModule', 'ColorServiceModule', 'SparkModule'],
+                    library: '@ux-aspects/ux-aspects'
+                },
+                {
+                    imports: ['A11yModule'],
+                    library: '@angular/cdk/a11y'
+                }
+            ]
+        };
+    }
 
     sparkTrackColor = this._colorService.getColor('chart2').setAlpha(0.2).toRgba();
     sparkBarColor = this._colorService.getColor('chart2').toHex();

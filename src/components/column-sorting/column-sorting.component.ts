@@ -8,9 +8,6 @@ import { ColumnSortingDirective, ColumnSortingIndicatorContext, ColumnSortingOrd
     templateUrl: './column-sorting.component.html',
     exportAs: 'ux-column-sorting',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    host: {
-        '[class.ux-column-sorting-nosort]': `state === ColumnSortingState.NoSort`
-    }
 })
 export class ColumnSortingComponent implements OnInit, OnChanges, OnDestroy {
 
@@ -26,6 +23,7 @@ export class ColumnSortingComponent implements OnInit, OnChanges, OnDestroy {
     /** Determine if a column can have a `NoSort` state */
     @Input() allowNoSort: boolean = true;
 
+    /** Specifies name of the ascending and descending icon */
     @Input() ascendingIcon: string = 'ascend';
     @Input() descendingIcon: string = 'descend';
 
