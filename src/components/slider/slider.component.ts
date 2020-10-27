@@ -1,20 +1,33 @@
+import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, DoCheck, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { ColorService } from '../../services/color/index';
 
 @Component({
     selector: 'ux-slider',
     templateUrl: './slider.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    host: {
+        '[class.disabled]': 'disabled',
+    }
 })
 export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
 
-    /** This should reference either a single number or a SliderValue object, depending on the slider type specified. */
+    /** A single number or a SliderValue object, depending on the slider type specified. */
     @Input() value: SliderValue | number = 0;
 
-    /** A wide range of options can used to customize the appearance and behavior of the component. */
+    /** A set of options to customize the appearance and behavior of the slider. */
     @Input() set options(options: SliderOptions) {
         this._options = options;
         this.updateOptions();
+    }
+
+    /** Whether the slider is disabled. */
+    @Input() set disabled(disabled: boolean) {
+        this._disabled = coerceBooleanProperty(disabled);
+    }
+
+    get disabled(): boolean {
+        return this._disabled;
     }
 
     get options(): SliderOptions {
@@ -30,7 +43,9 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
 
     // store current values for deep change detection
     private _value: SliderValue | number;
-     _options: SliderOptions;
+    private _disabled: boolean = false;
+
+    _options: SliderOptions;
 
     // expose enums to Angular view
     sliderType = SliderType;
@@ -169,6 +184,10 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
 
     snapToNearestTick(thumb: SliderThumb, snapTarget: SliderSnap, forwards: boolean): void {
 
+        if (this.disabled) {
+            return;
+        }
+
         // get the value for the thumb
         const { value } = this.getThumbState(thumb);
 
@@ -220,6 +239,10 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
 
     thumbEvent(thumb: SliderThumb, event: SliderThumbEvent): void {
 
+        if (this.disabled) {
+            return;
+        }
+
         // get the current thumb state
         const state = this.getThumbState(thumb);
 
@@ -250,6 +273,7 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
 
         // update the thumb state
         this.setThumbState(thumb, state.hover, state.drag);
+
     }
 
     getAriaValueText(thumb: SliderThumb): string | number {
@@ -379,6 +403,9 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
 
     updateThumbPosition(event: MouseEvent | TouchEvent, thumb: SliderThumb): void {
 
+        if (this.disabled) {
+            return;
+        }
         // get event position - either mouse or touch
         let eventPosition = event instanceof MouseEvent ? event.clientX : event.touches && event.touches.length > 0 ? event.touches[0].clientX : null;
 
@@ -423,6 +450,7 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
 
         // mark as dirty for change detection
         this._changeDetectorRef.markForCheck();
+
     }
 
     private updateOrder(thumb: SliderThumb): void {
@@ -765,6 +793,9 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
         // return the new instance of the object
         return instance;
     }
+
+    static ngAcceptInputType_disabled: boolean | string;
+
 }
 
 export enum SliderType {

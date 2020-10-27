@@ -1,75 +1,104 @@
 <div class="container-fluid">
-
     <div class="row">
-
         <div class="col-md-12">
             <h4 class="text-black p-t-md p-b-md">Single Value Sliders</h4>
         </div>
 
         <div class="col-md-6 p-r-md p-b-md">
             <p class="text-black p-b-md">Button Handle - Custom Labels</p>
-            <ux-slider [value]="slider1.value" [options]="slider1.options"></ux-slider>
+            <ux-slider [value]="slider1.value" [options]="slider1.options" [disabled]="disabled"></ux-slider>
         </div>
         <div class="col-md-6 p-l-md p-b-md">
             <p class="text-black p-b-md">Line Handle - Callout on Drag</p>
-            <ux-slider [value]="slider2.value" [options]="slider2.options"></ux-slider>
+            <ux-slider [value]="slider2.value" [options]="slider2.options" [disabled]="disabled"></ux-slider>
         </div>
     </div>
 
     <hr>
 
     <div class="row">
-
         <div class="col-md-6 p-r-md p-b-md">
             <p class="text-black p-b-md">Narrow - Track Styling - Snapping</p>
-            <ux-slider [value]="slider3.value" [options]="slider3.options"></ux-slider>
+            <ux-slider [value]="slider3.value" [options]="slider3.options" [disabled]="disabled"></ux-slider>
         </div>
         <div class="col-md-6 p-l-md p-b-md">
             <p class="text-black p-b-md">Narrow - Gradient Track Styling - Callout on Hover</p>
-            <ux-slider [value]="slider4.value" [options]="slider4.options"></ux-slider>
+            <ux-slider [value]="slider4.value" [options]="slider4.options" [disabled]="disabled"></ux-slider>
         </div>
     </div>
 
     <hr>
 
     <div class="row">
-
         <div class="col-md-12">
             <h4 class="text-black p-t-md p-b-md">Range Value Sliders</h4>
         </div>
 
         <div class="col-md-6 p-r-md p-b-md">
             <p class="text-black p-b-lg">Range Track - Persistent Callout</p>
-            <ux-slider [value]="slider5.value" [options]="slider5.options"></ux-slider>
+            <ux-slider [value]="slider5.value" [options]="slider5.options" [disabled]="disabled"></ux-slider>
         </div>
         <div class="col-md-6 p-l-md p-b-md">
             <p class="text-black p-b-lg">Range Track Style - Custom Callout Styles</p>
-            <ux-slider [value]="slider6.value" [options]="slider6.options"></ux-slider>
+            <ux-slider [value]="slider6.value" [options]="slider6.options" [disabled]="disabled"></ux-slider>
         </div>
     </div>
 
     <hr>
 
     <div class="row">
-
         <div class="col-md-12">
             <h4 class="text-black p-t-md p-b-md">Range Slider with Text Inputs</h4>
         </div>
 
         <div class="col-md-12">
-            <ux-slider [value]="slider7.value" (valueChange)="valueHasChanged($event)" [options]="slider7.options"></ux-slider>
+            <ux-slider
+                [value]="slider7.value"
+                (valueChange)="valueHasChanged($event)"
+                [options]="slider7.options"
+                [disabled]="disabled"
+            ></ux-slider>
         </div>
     </div>
 
     <div class="row m-t-sm p-t-xs">
         <div class="col-sm-2">
-            <input type="text" class="form-control m-b" aria-label="Slider lower range value" [(ngModel)]="lowerValue" (blur)="updateValues()" (keyup.enter)="updateValues()">
+            <input
+                type="text"
+                class="form-control m-b"
+                aria-label="Slider lower range value"
+                [(ngModel)]="lowerValue"
+                [disabled]="disabled"
+                (blur)="updateValues()"
+                (keyup.enter)="updateValues()"
+            />
         </div>
         <div class="col-sm-offset-8 col-sm-2">
-            <input type="text" class="form-control m-b" aria-label="Slider upper range value" [(ngModel)]="upperValue" (blur)="updateValues()" (keyup.enter)="updateValues()">
+            <input
+                type="text"
+                class="form-control m-b"
+                aria-label="Slider upper range value"
+                [(ngModel)]="upperValue"
+                [disabled]="disabled"
+                (blur)="updateValues()"
+                (keyup.enter)="updateValues()"
+            />
         </div>
     </div>
+</div>
 
+<div class="row uxd-customize-example">
+    <div class="col-md-12">
+        <ux-accordion>
+            <ux-accordion-panel class="accordion-chevron" heading="Customize Example...">
+                <div class="row uxd-customize-row">
+                    <div class="col-md-4 col-sm-12">
+                        <ux-checkbox [(value)]="disabled">disabled</ux-checkbox>
+                    </div>
+                </div>
+            </ux-accordion-panel>
+        </ux-accordion>
+    </div>
 </div>
 
 <hr>
@@ -87,6 +116,23 @@
     <p>Reference Plunker for the code used in all examples above</p>
 </blockquote>
 
+<uxd-api-properties tableTitle="Inputs">
+    <tr uxd-api-property name="value" type="SliderValue | number" defaultValue="0">
+        A single number or a <code>SliderValue</code> object, depending on the slider type specified.
+    </tr>
+    <tr uxd-api-property name="options" type="SliderOptions">
+        A set of options to customize the appearance and behavior of the slider.
+    </tr>
+    <tr uxd-api-property name="disabled" type="boolean" defaultValue="false">
+        Whether the slider is disabled.
+    </tr>
+</uxd-api-properties>
+
+<uxd-api-properties tableTitle="Outputs">
+    <tr uxd-api-property name="valueChange" type="SliderValue | number">
+        Emits when the <code>value</code> changes.
+    </tr>
+</uxd-api-properties>
 
 <h4>Values</h4>
 
@@ -160,7 +206,7 @@
         </ul>
     </tr>
     <tr uxd-api-property name="background" type="string" defaultValue="grey2">
-        Specifies the background color of the callout. 
+        Specifies the background color of the callout.
     </tr>
     <tr uxd-api-property name="color" type="string" defaultValue="white">
         Specifies the text color of the callout.
@@ -178,10 +224,10 @@
         Specifies the minimum value shown on the slider.
     </tr>
     <tr uxd-api-property name="max" type="number" defaultValue="100">
-        Specifies the maximum value shown on the slider. 
+        Specifies the maximum value shown on the slider.
     </tr>
     <tr uxd-api-property name="ticks" type="SliderTicksOptions">
-        Should be an object containing properties to customize the ticks shown beneath the chart. 
+        Should be an object containing properties to customize the ticks shown beneath the chart.
         By default major ticks are shown on every 10th value with labels, minor ticks are shown every 5 values with no labels.
     </tr>
     <tr uxd-api-property name="colors" type="SliderTrackColors">
