@@ -99,6 +99,10 @@ const routes: Routes = [
         loadChildren: () => import('./marquee-wizard/marquee-wizard.module').then(m => m.MarqueeWizardTestPageModule)
     },
     {
+        path: 'media-player',
+        loadChildren: () => import('./media-player/media-player.module').then(m => m.MediaPlayerTestPageModule)
+    },
+    {
         path: 'navigation',
         loadChildren: () => import('./navigation/navigation.module').then(m => m.NavigationTestPageModule)
     },

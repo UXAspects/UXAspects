@@ -1,0 +1,4 @@
+<ux-media-player *ngIf="type === 'video'" id="media-player" class="media-player" type="video"
+    [source]="videoSource" [quietMode]="mode === 'quiet'" crossorigin="anonymous">
+    <track label="English" lang="en" default [src]="">
+</ux-media-player>
