@@ -23,8 +23,10 @@ export class ColumnSortingComponent implements OnInit, OnChanges, OnDestroy {
     /** Determine if a column can have a `NoSort` state */
     @Input() allowNoSort: boolean = true;
 
-    /** Specifies name of the ascending and descending icon */
+    /** Specifies name of the ascending icon */
     @Input() ascendingIcon: string = 'ascend';
+
+    /** Specifies name of the descending icon */
     @Input() descendingIcon: string = 'descend';
 
     /**
