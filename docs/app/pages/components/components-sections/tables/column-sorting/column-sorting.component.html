@@ -87,8 +87,10 @@
                         [attr.aria-sort]="nameColumn.state"
                         (click)="changeState('Name', nameColumn)"
                         (keydown.enter)="changeState('Name', nameColumn)">
-                            <span>Name</span>
-                            <ux-column-sorting #nameColumn="ux-column-sorting" key="name" ascendingIcon="link-up" descendingIcon="link-down"></ux-column-sorting>
+                        <span>Name</span>
+                        <ux-column-sorting #nameColumn="ux-column-sorting" key="name"
+                            ascendingIcon="link-up" descendingIcon="link-down">
+                        </ux-column-sorting>
                     </th>
                     <th class="clickable column-sorting"
                         uxFocusIndicator
@@ -97,8 +99,10 @@
                         [attr.aria-sort]="authorColumn.state"
                         (click)="changeState('Author', authorColumn)"
                         (keydown.enter)="changeState('Author', authorColumn)">
-                            <span>Author</span>
-                            <ux-column-sorting #authorColumn="ux-column-sorting" key="author" ascendingIcon="link-up" descendingIcon="link-down"></ux-column-sorting>
+                        <span>Author</span>
+                        <ux-column-sorting #authorColumn="ux-column-sorting" key="author"
+                            ascendingIcon="link-up" descendingIcon="link-down">
+                        </ux-column-sorting>
                     </th>
                     <th class="clickable column-sorting"
                         uxFocusIndicator
@@ -107,8 +111,10 @@
                         [attr.aria-sort]="dateColumn.state"
                         (click)="changeState('Date Modified', dateColumn)"
                         (keydown.enter)="changeState('Date Modified', dateColumn)">
-                            <span>Date Modified</span>
-                            <ux-column-sorting #dateColumn="ux-column-sorting" key="date" ascendingIcon="link-up" descendingIcon="link-down"></ux-column-sorting>
+                        <span>Date Modified</span>
+                        <ux-column-sorting #dateColumn="ux-column-sorting" key="date"
+                            ascendingIcon="link-up" descendingIcon="link-down">
+                        </ux-column-sorting>
                     </th>
                     <th class="clickable column-sorting"
                         uxFocusIndicator
@@ -117,8 +123,10 @@
                         [attr.aria-sort]="completedColumn.state"
                         (click)="changeState('Work Completed', completedColumn)"
                         (keydown.enter)="changeState('Work Completed', completedColumn)">
-                            <span>Work Completed</span>
-                            <ux-column-sorting #completedColumn="ux-column-sorting" key="completed" ascendingIcon="link-up" descendingIcon="link-down"></ux-column-sorting>
+                        <span>Work Completed</span>
+                        <ux-column-sorting #completedColumn="ux-column-sorting" key="completed"
+                            ascendingIcon="link-up" descendingIcon="link-down">
+                        </ux-column-sorting>
                     </th>
                     <th class="text-black">Status</th>
                 </tr>
