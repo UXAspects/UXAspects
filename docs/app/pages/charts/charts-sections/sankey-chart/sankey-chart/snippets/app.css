@@ -25,6 +25,10 @@
     color: #fff;
 }
 
+.ux-sankey-chart-column-title {
+    font-size: larger;
+}
+
 .sankey-node-space {
     -ms-grid-row: 1;
     -ms-grid-column: 1;
@@ -36,6 +40,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
     word-break: break-all;
+    font-size: inherit;
 }
 
 .sankey-node-files {
@@ -49,6 +54,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
     word-break: break-all;
+    font-size: inherit;
 }
 
 .sankey-node-name {
@@ -62,4 +68,5 @@
     overflow: hidden;
     text-overflow: ellipsis;
     word-break: break-all;
+    font-size: inherit;
 }
