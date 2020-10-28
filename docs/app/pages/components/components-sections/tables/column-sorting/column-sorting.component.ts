@@ -97,10 +97,14 @@ export class ComponentsColumnSortingComponent extends BaseDocumentationSection i
     sparkTrackColor = this._colorService.getColor('chart2').setAlpha(0.2).toRgba();
     sparkBarColor = this._colorService.getColor('chart2').toHex();
 
-    constructor(private _colorService: ColorService, private _announcer: LiveAnnouncer, @Inject(DOCUMENTATION_TOKEN) private _documentationType: DocumentationType) {
+    constructor(
+        private _colorService: ColorService,
+        private _announcer: LiveAnnouncer,
+        @Inject(DOCUMENTATION_TOKEN) private _documentationType: DocumentationType) {
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
 
-        this.iconSetDocumentationRoute = _documentationType === DocumentationType.MicroFocus ? '/ui-components/styling' : '/css/icons';
+        this.iconSetDocumentationRoute =
+            _documentationType === DocumentationType.MicroFocus ? '/ui-components/styling' : '/css/icons';
     }
 
     changeState(title: string, column: ColumnSortingComponent) {
