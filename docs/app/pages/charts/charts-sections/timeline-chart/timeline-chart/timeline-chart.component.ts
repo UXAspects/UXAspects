@@ -50,7 +50,7 @@ export class ChartsTimelineChartComponent extends BaseDocumentationSection imple
                         max: 1000,
                         stepSize: 250,
                         padding: 8,
-                        fontSize: 12
+                        fontSize: 12,
                     },
                     gridLines: {
                         tickMarkLength: 8
