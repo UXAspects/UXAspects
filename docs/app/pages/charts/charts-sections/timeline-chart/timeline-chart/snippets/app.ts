@@ -27,7 +27,7 @@ export class AppComponent {
             xAxes: [
                 {
                     ticks: {
-                        fontFamily: 'inherit'
+                        fontSize: 12,
                     },
                     type: 'time',
                     gridLines: {
@@ -45,7 +45,7 @@ export class AppComponent {
                         max: 1000,
                         stepSize: 250,
                         padding: 8,
-                        fontFamily: 'inherit'
+                        fontSize: 12,
                     },
                     gridLines: {
                         tickMarkLength: 8
@@ -90,7 +90,7 @@ export class AppComponent {
                         stepSize: 6
                     },
                     ticks: {
-                        fontFamily: 'inherit'
+                        fontSize: 12,
                     },
                 }
             ],
