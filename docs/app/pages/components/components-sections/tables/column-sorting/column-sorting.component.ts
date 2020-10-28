@@ -100,11 +100,11 @@ export class ComponentsColumnSortingComponent extends BaseDocumentationSection i
     constructor(
         private _colorService: ColorService,
         private _announcer: LiveAnnouncer,
-        @Inject(DOCUMENTATION_TOKEN) private _documentationType: DocumentationType) {
+        @Inject(DOCUMENTATION_TOKEN) documentationType: DocumentationType) {
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
 
         this.iconSetDocumentationRoute =
-            _documentationType === DocumentationType.MicroFocus ? '/ui-components/styling' : '/css/icons';
+            documentationType === DocumentationType.MicroFocus ? '/ui-components/styling' : '/css/icons';
     }
 
     changeState(title: string, column: ColumnSortingComponent) {
