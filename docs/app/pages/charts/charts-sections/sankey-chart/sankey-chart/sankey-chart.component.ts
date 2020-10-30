@@ -113,19 +113,21 @@ export class ChartsSankeyChartComponent extends BaseDocumentationSection impleme
 
     columns: string[] = ['Repositories', 'Extraction', 'Classification'];
 
-    playground: IPlayground = {
-        files: {
-            'app.component.html': this.snippets.raw.appHtml,
-            'app.component.css': this.snippets.raw.appCss,
-            'app.component.ts': this.snippets.raw.appTs,
-        },
-        modules: [
-            {
-                imports: ['SankeyChartModule', 'FileSizePipeModule'],
-                library: '@ux-aspects/ux-aspects'
-            }
-        ]
-    };
+    playground = () => {
+        return {
+            files: {
+                'app.component.html': this.snippets.raw.appHtml,
+                'app.component.css': this.snippets.raw.appCss,
+                'app.component.ts': this.snippets.raw.appTs,
+            },
+            modules: [
+                {
+                    imports: ['SankeyChartModule', 'FileSizePipeModule'],
+                    library: '@ux-aspects/ux-aspects'
+                }
+            ]
+        };
+    }
 
     constructor() {
         super(require.context('./snippets/', false, /(html|css|js|ts)$/));
