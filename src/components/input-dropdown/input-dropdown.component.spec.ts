@@ -194,6 +194,17 @@ describe('InputDropdownComponent', () => {
         expect(openChangeSpy).not.toHaveBeenCalled();
     });
 
+    it('should not focus the input field when dropdownOpen is programmatically set to true', async () => {
+        component.dropdownOpen = true;
+
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        const input = document.querySelector<HTMLInputElement>('input.form-control');
+
+        expect(document.activeElement).not.toBe(input);
+    });
+
     it('dropdownOpenChange should emit when the dropdown is toggled non-programmatically', async () => {
         let trigger = nativeElement.querySelector('button.form-control') as HTMLButtonElement;
         trigger.click();
