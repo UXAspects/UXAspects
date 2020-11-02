@@ -307,3 +307,77 @@ describe('Dashboard with initial layout', () => {
         expect(component.widgets.toArray()[2].getRowSpan()).toBe(1, 'widget 2 rowSpan');
     });
 });
+
+@Component({
+    selector: 'app-ux-dashboard-widget-layout',
+    template: `
+        <ux-dashboard [options]="options">
+
+            <ux-dashboard-widget
+                id="run-widget"
+                name="Runs"
+                [row]="1"
+                [col]="1">
+            </ux-dashboard-widget>
+
+            <ux-dashboard-widget
+                id="purpose-widget"
+                name="Purpose">
+            </ux-dashboard-widget>
+
+            <ux-dashboard-widget
+                id="host-widget"
+                name="Host"
+                [row]="0"
+                [col]="0">
+            </ux-dashboard-widget>
+
+        </ux-dashboard>
+    `
+})
+export class DashboardWidgetLayoutTestComponent {
+
+    options: DashboardOptions = {
+        columns: 3,
+        padding: 10,
+        rowHeight: 300,
+        emptyRow: false,
+        minWidth: 187
+    };
+
+    @ViewChildren(DashboardWidgetComponent) widgets: QueryList<DashboardWidgetComponent>;
+
+}
+
+describe('Dashboard Widgets layout', () => {
+    let component: DashboardWidgetLayoutTestComponent;
+    let fixture: ComponentFixture<DashboardWidgetLayoutTestComponent>;
+    let nativeElement: HTMLElement;
+
+    beforeEach(async(() => {
+        TestBed.configureTestingModule({
+            imports: [DashboardModule],
+            declarations: [DashboardWidgetLayoutTestComponent]
+        }).compileComponents();
+    }));
+
+    beforeEach(async () => {
+        fixture = TestBed.createComponent(DashboardWidgetLayoutTestComponent);
+        component = fixture.componentInstance;
+        nativeElement = fixture.nativeElement;
+
+        fixture.detectChanges();
+        await fixture.whenStable();
+    });
+
+    it('should correctly position widgets when using row and col inputs', () => {
+        const widgets = component.widgets.toArray();
+
+        expect(widgets[0].getColumn()).toBe(1, 'run-widget col');
+        expect(widgets[0].getRow()).toBe(1, 'run-widget row');
+        expect(widgets[1].getColumn()).toBe(1, 'purpose-widget col');
+        expect(widgets[1].getRow()).toBe(0, 'purpose-widget row');
+        expect(widgets[2].getColumn()).toBe(0, 'host-widget col');
+        expect(widgets[2].getRow()).toBe(0, 'host-widget row');
+    });
+});
