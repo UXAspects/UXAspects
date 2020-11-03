@@ -46,6 +46,19 @@ describe('InputDropdownComponent', () => {
         expect(component.filterInputElement.nativeElement.focus).toHaveBeenCalledWith();
     });
 
+    it('should focus the input field when dropdownOpen is opened with a click', async () => {
+        spyOn(component.filterInputElement.nativeElement, 'focus');
+
+        let trigger = document.querySelector('button.form-control') as HTMLButtonElement;
+
+        trigger.click();
+
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        expect(component.filterInputElement.nativeElement.focus).toHaveBeenCalled();
+    });
+
     it('should write value', () => {
         const selectedSpy = spyOn(component.selectedChange, 'emit');
         const newValue = 'Bla';
