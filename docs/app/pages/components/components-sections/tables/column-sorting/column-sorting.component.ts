@@ -1,11 +1,11 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { ColorService, ColumnSortingComponent, ColumnSortingOrder, ColumnSortingState } from '@ux-aspects/ux-aspects';
 import 'chance';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import { IPlayground } from '../../../../../interfaces/IPlayground';
 import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
+import { DocumentationType, DOCUMENTATION_TOKEN } from '../../../../../services/playground/tokens/documentation.token';
 
 @Component({
     selector: 'uxd-components-column-sorting',
@@ -15,6 +15,7 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 export class ComponentsColumnSortingComponent extends BaseDocumentationSection implements IPlaygroundProvider {
 
     order: ReadonlyArray<ColumnSortingOrder> = [];
+    iconSetDocumentationRoute: string;
 
     items: ReadonlyArray<ColumnSortingTableData> = [{
         id: 1,
@@ -74,28 +75,36 @@ export class ComponentsColumnSortingComponent extends BaseDocumentationSection i
         active: chance.bool()
     }];
 
-    playground: IPlayground = {
-        files: {
-            'app.component.ts': this.snippets.raw.appTs,
-            'app.component.html': this.snippets.raw.appHtml
-        },
-        modules: [
-            {
-                imports: ['ColumnSortingModule', 'ColorServiceModule', 'SparkModule'],
-                library: '@ux-aspects/ux-aspects'
+    playground = () => {
+        return {
+            files: {
+                'app.component.ts': this.snippets.raw.appTs,
+                'app.component.html': this.snippets.raw.appHtml
             },
-            {
-                imports: ['A11yModule'],
-                library: '@angular/cdk/a11y'
-            }
-        ]
-    };
+            modules: [
+                {
+                    imports: ['ColumnSortingModule', 'ColorServiceModule', 'SparkModule'],
+                    library: '@ux-aspects/ux-aspects'
+                },
+                {
+                    imports: ['A11yModule'],
+                    library: '@angular/cdk/a11y'
+                }
+            ]
+        };
+    }
 
     sparkTrackColor = this._colorService.getColor('chart2').setAlpha(0.2).toRgba();
     sparkBarColor = this._colorService.getColor('chart2').toHex();
 
-    constructor(private _colorService: ColorService, private _announcer: LiveAnnouncer) {
+    constructor(
+        private _colorService: ColorService,
+        private _announcer: LiveAnnouncer,
+        @Inject(DOCUMENTATION_TOKEN) documentationType: DocumentationType) {
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
+
+        this.iconSetDocumentationRoute =
+            documentationType === DocumentationType.MicroFocus ? '/ui-components/styling' : '/css/icons';
     }
 
     changeState(title: string, column: ColumnSortingComponent) {
