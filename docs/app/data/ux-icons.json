@@ -469,6 +469,10 @@
             "classname": "ux-icon-document-image"
         },
         {
+            "name": "document-import",
+            "classname": "ux-icon-document-import"
+        },
+        {
             "name": "document-locked",
             "classname": "ux-icon-document-locked"
         },
@@ -735,6 +739,10 @@
         {
             "name": "impact",
             "classname": "ux-icon-impact"
+        },
+        {
+            "name": "import",
+            "classname": "ux-icon-import"
         },
         {
             "name": "in-progress",

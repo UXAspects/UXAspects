@@ -76,6 +76,10 @@ export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestro
         this._columnSpan.regular = this.colSpan;
         this._rowSpan.regular = this.rowSpan;
         this._rowSpan.stacked = this.rowSpan;
+        this._row.regular = this.row;
+        this._row.stacked = this.row;
+        this._column.regular = this.col;
+        this._column.stacked = this.col;
 
         if (!this.id) {
             console.warn('Dashboard Widget is missing an ID.');
