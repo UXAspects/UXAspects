@@ -1,12 +1,11 @@
 <div *ngIf="_item.children && _item.children.length > 0 && !(secondary$ | async)">
 
-    <button #navigationBtn
-        type="button"
+    <a #navigationBtn
         [tabindex]="_tabindex | async"
         [uxMenuTriggerFor]="menu"
         [disabled]="_item.disabled"
         role="menuitem"
-        class="horizontal-navigation-button"
+        class="horizontal-navigation-link"
         [class.disabled]="_item.disabled"
         [class.selected]="_item.selected"
         [class.open]="isOpen"
@@ -29,7 +28,7 @@
         <span class="navigation-item-label">{{ _item?.title }}</span>
         <ux-icon class="navigation-item-dropdown-icon" name="down"></ux-icon>
 
-    </button>
+    </a>
 
     <ux-menu
         #menu
@@ -45,18 +44,17 @@
 
 </div>
 
-<button *ngIf="!_item.children || _item.children.length === 0 || (secondary$ | async)"
+<ng-container *ngIf="_item.routerLink">
+    <a *ngIf="!_item.children || _item.children.length === 0 || (secondary$ | async)"
     uxFocusIndicator
     #navigationBtn
-    type="button"
     [tabindex]="_tabindex | async"
     role="menuitem"
-    class="horizontal-navigation-button"
+    class="horizontal-navigation-link"
     [class.disabled]="_item.disabled"
     [class.selected]="_item.selected"
     [attr.aria-selected]="_item.selected"
-    (click)="select()"
-    [disabled]="_item.disabled">
+    [routerLink]="_item.routerLink">
 
     <!-- Support all icon types -->
     <ng-container *ngIf="_item.icon">
@@ -74,4 +72,36 @@
 
     <span class="navigation-item-label">{{ _item?.title }}</span>
 
-</button>
+</a>
+</ng-container>
+
+<ng-container *ngIf="!_item.routerLink">
+    <a *ngIf="!_item.children || _item.children.length === 0 || (secondary$ | async)"
+    uxFocusIndicator
+    #navigationBtn
+    [tabindex]="_tabindex | async"
+    role="menuitem"
+    class="horizontal-navigation-link"
+    [class.disabled]="_item.disabled"
+    [class.selected]="_item.selected"
+    [attr.aria-selected]="_item.selected"
+    (click)="select()">
+
+    <!-- Support all icon types -->
+    <ng-container *ngIf="_item.icon">
+        <i *ngIf="_iconType !== 'component'"
+            class="navigation-item-icon"
+            [ngClass]="[_iconType, _item.icon]">
+        </i>
+
+        <ux-icon *ngIf="_iconType === 'component'"
+                 class="navigation-item-icon"
+                 [name]="_item.icon">
+        </ux-icon>
+
+    </ng-container>
+
+    <span class="navigation-item-label">{{ _item?.title }}</span>
+
+</a>
+</ng-container>
