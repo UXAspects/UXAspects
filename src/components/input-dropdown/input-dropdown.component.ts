@@ -138,11 +138,10 @@ export class InputDropdownComponent<T> implements ControlValueAccessor, AfterVie
     }
 
     onMenuOpen(): void {
-        this._focusFilter();
-
         if (this.dropdownOpen !== true) {
             this.dropdownOpen = true;
             this.dropdownOpenChange.emit(this.dropdownOpen);
+            this._focusFilter();
         }
     }
 
