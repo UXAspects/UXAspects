@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, Ev
 import { Subject } from 'rxjs';
 import { distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { tick } from '../../../common';
+import { PageHeaderNavigation, PageHeaderService } from '../../page-header/page-header.service';
 import { TabsetService } from '../tabset.service';
 import { TabHeadingDirective } from './tab-heading.directive';
 
@@ -10,7 +11,8 @@ let uniqueTabId = 0;
 @Component({
     selector: 'ux-tab',
     templateUrl: './tab.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    providers: [PageHeaderService]
 })
 export class TabComponent implements OnInit, OnDestroy {
 
@@ -30,6 +32,9 @@ export class TabComponent implements OnInit, OnDestroy {
 
     /** Define the tab heading */
     @Input() heading: string;
+
+    /** Define the tab router path */
+    @Input() routerUrl: string;
 
     /** provide a custom class for the tab */
     @Input() customClass: string;
@@ -54,7 +59,8 @@ export class TabComponent implements OnInit, OnDestroy {
 
     constructor(
         private readonly _tabset: TabsetService,
-        private readonly _changeDetector: ChangeDetectorRef
+        private readonly _changeDetector: ChangeDetectorRef,
+        private _pageHeaderService: PageHeaderService,
     ) { }
 
     ngOnInit(): void {
@@ -69,6 +75,10 @@ export class TabComponent implements OnInit, OnDestroy {
     ngOnDestroy(): void {
         this._onDestroy.next();
         this._onDestroy.complete();
+    }
+
+    select(item: PageHeaderNavigation): void {
+        this._pageHeaderService.select(item);
     }
 
     activate(): void {

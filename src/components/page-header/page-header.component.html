@@ -85,6 +85,7 @@
         <ux-tabset *ngIf="(selectedRoot$ | async)?.children; let children" [manual]="true">
             <ux-tab *ngFor="let child of children"
                 [heading]="child.title"
+                [routerUrl]="child.routerLink"
                 [active]="child === (selected$ | async)"
                 (activated)="select(child)"
                 [uxPageHeaderNavigationSecondaryItem]="child"
