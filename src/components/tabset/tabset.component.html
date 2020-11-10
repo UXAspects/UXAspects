@@ -15,7 +15,7 @@
         [class.disabled]="tab.disabled"
         [ngClass]="tab.customClass">
 
-       <ng-container *ngIf="tab.routerUrl">
+       <ng-container *ngIf="tab.routerPath">
             <a class="nav-link"
             [id]="tab.id"
             role="tab"
@@ -26,7 +26,7 @@
             [attr.aria-controls]="tab.id"
             [attr.aria-selected]="(_tabset.activeTab$ | async) === tab"
             [attr.aria-disabled]="tab.disabled"
-            [href]="[tab.routerUrl]">
+            [routerLink]="tab.routerPath">
 
             <span *ngIf="!tab.headingRef">{{ tab.heading }}</span>
 
@@ -35,7 +35,7 @@
             </a>
        </ng-container>
 
-       <ng-container *ngIf="!tab.routerUrl">
+       <ng-container *ngIf="!tab.routerPath">
             <a class="nav-link"
             [id]="tab.id"
             role="tab"
@@ -45,8 +45,7 @@
             (activated)="_tabset.select(tab)"
             [attr.aria-controls]="tab.id"
             [attr.aria-selected]="(_tabset.activeTab$ | async) === tab"
-            [attr.aria-disabled]="tab.disabled"
-            (click)="tab.select(tab)">
+            [attr.aria-disabled]="tab.disabled">
 
             <span *ngIf="!tab.headingRef">{{ tab.heading }}</span>
 
