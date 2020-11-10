@@ -8,6 +8,8 @@ export abstract class BaseDocumentationSection {
 
     SiteThemeId = SiteThemeId;
 
+    private _themedSnippetRegex: RegExp;
+
     constructor(private _context: __WebpackModuleApi.RequireContext) {
         this.snippets = this.getSnippets();
     }
@@ -19,6 +21,8 @@ export abstract class BaseDocumentationSection {
     }
 
     private getSnippets(): ISnippets {
+
+        this._themedSnippetRegex = new RegExp(`\.${this.theme}`, 'i');
 
         const compiled: SnippetCollection = {};
         const raw: SnippetCollection = {};
@@ -41,14 +45,14 @@ export abstract class BaseDocumentationSection {
 
         // Get a list of the keys with the theme-specific keys after the generic keys
         return [
-            ...allKeys.filter(key => key.indexOf(this.theme.toString()) === -1),
-            ...allKeys.filter(key => key.indexOf(this.theme.toString()) >= 0)
+            ...allKeys.filter(key => !this._themedSnippetRegex.test(key)),
+            ...allKeys.filter(key => this._themedSnippetRegex.test(key))
         ];
     }
 
     private getSnippetNameFromContext(contextKey: string): string {
         return contextKey
-            .replace(new RegExp(`\.${this.theme}`, 'i'), '')
+            .replace(this._themedSnippetRegex, '')
             .replace('./', '')
             .replace(/\W+(\w)/g, match => match[1].toUpperCase());
     }
