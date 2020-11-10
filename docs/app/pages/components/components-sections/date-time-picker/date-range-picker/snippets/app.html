@@ -26,10 +26,8 @@
                     aria-label="Selected date"
                     (keydown.enter)="popover.show()">
 
-            <span class="input-group-btn">
+            <span class="input-group-btn" *ngIf="date">
                 <button class="btn button-secondary"
-                        [style.visibility]="date !== '' && date !== undefined &&
-                        date !== null ? 'visible' : 'hidden'"
                         aria-label="Clear"
                         (click)="clear()">
                     <ux-icon name="close" aria-hidden="true"></ux-icon>
