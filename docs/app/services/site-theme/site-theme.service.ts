@@ -33,6 +33,9 @@ export class SiteThemeService {
                     case SiteThemeId.MicroFocus2020:
                         link.href = 'micro-focus-2020.css';
                         break;
+                    case SiteThemeId.Roboto:
+                        link.href = 'roboto.css';
+                        break;
                     case SiteThemeId.WhiteLabel:
                         link.href = 'white-label.css';
                         break;
