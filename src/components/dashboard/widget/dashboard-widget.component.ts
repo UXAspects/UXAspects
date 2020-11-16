@@ -1,3 +1,4 @@
+import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { AfterViewInit, Component, HostBinding, Input, OnDestroy, OnInit } from '@angular/core';
 import { map, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
@@ -31,6 +32,15 @@ export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestro
     /** Defines whether or not this widget can be resized. */
     @Input() resizable: boolean = false;
 
+    /** Defines whether or not this widget will be automatically repositioned */
+    @Input() set autoPositioning(autoPositioning: boolean) {
+        this._autoPositioning = coerceBooleanProperty(autoPositioning);
+    }
+
+    get autoPositioning(): boolean {
+        return this._autoPositioning;
+    }
+
     /** Defines a function that returns an aria label for the widget */
     @Input() widgetAriaLabel: (widgets: DashboardWidgetComponent) => string | string = this.getDefaultAriaLabel;
 
@@ -51,6 +61,7 @@ export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestro
     private _row: StackableValue = { regular: undefined, stacked: undefined };
     private _columnSpan: StackableValue = { regular: 1, stacked: 1 };
     private _rowSpan: StackableValue = { regular: 1, stacked: 1 };
+    private _autoPositioning: boolean = true;
     private _onDestroy = new Subject<void>();
 
     constructor(public dashboardService: DashboardService) {
@@ -270,6 +281,8 @@ export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestro
     private getStackableValue(property: StackableValue): number {
         return this.dashboardService.stacked ? property.stacked : property.regular;
     }
+
+    static ngAcceptInputType_autoPositioning: boolean | string;
 }
 
 export interface StackableValue {
