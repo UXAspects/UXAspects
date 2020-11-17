@@ -1082,14 +1082,11 @@ export class DashboardService implements OnDestroy {
 
         // iterate each widget and
         this.widgets.forEach(widget => {
+            const widgetIsOnTopRow = widget.getRow() === 0;
+            const widgetIsBeingDragged = this._actionWidget?.widget === widget;
+            const widgetShouldBeAutoPositioned = widget.autoPositioning  || this.stacked;
 
-            // if widget is already on the top row then do nothing
-            if (widget.getRow() === 0) {
-                return;
-            }
-
-            // if we are currently dragging and this is the dragging widget then skip
-            if (this._actionWidget && this._actionWidget.widget === widget) {
+            if (widgetIsOnTopRow || widgetIsBeingDragged || !widgetShouldBeAutoPositioned) {
                 return;
             }
 
