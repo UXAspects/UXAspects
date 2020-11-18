@@ -141,7 +141,7 @@ export class PageHeaderComponent {
 
     constructor(private _colorService: ColorService, private _pageHeaderService: PageHeaderService) { }
 
-    select(item: PageHeaderNavigation): void {
-        this._pageHeaderService.select(item);
+    select(item: PageHeaderNavigation, navigate: boolean): void {
+        this._pageHeaderService.select(item, navigate);
     }
 }

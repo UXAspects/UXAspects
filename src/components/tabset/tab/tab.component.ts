@@ -32,7 +32,7 @@ export class TabComponent implements OnInit, OnDestroy {
     @Input() heading: string;
 
     /** Define the tab router path */
-    @Input() routerPath: string;
+    @Input() route: string;
 
     /** provide a custom class for the tab */
     @Input() customClass: string;

@@ -42,25 +42,25 @@ export class PageHeaderPage {
 
     async confirmApplicationLogoIsPresent() {
         return element(by.id('pageHeader1')).$('div.page-header-navigation').$('ux-page-header-horizontal-navigation').
-            $$('ux-page-header-horizontal-navigation-item').get(0).$('.horizontal-navigation-link').
+            $$('ux-page-header-horizontal-navigation-item').get(0).$('.horizontal-navigation-button').
             $('ux-icon').isPresent();
     }
 
     async getApplicationLogoText(): Promise<string> {
         return element(by.id('pageHeader1')).$('div.page-header-navigation').$('ux-page-header-horizontal-navigation').
-            $$('ux-page-header-horizontal-navigation-item').get(0).$('.horizontal-navigation-link').
+            $$('ux-page-header-horizontal-navigation-item').get(0).$('.horizontal-navigation-button').
             $('span.navigation-item-label').getText();
     }
 
     confirmDropdownIsPresent() {
         return element(by.id('pageHeader1')).$('div.page-header-navigation').$('ux-page-header-horizontal-navigation').
-            $$('ux-page-header-horizontal-navigation-item').get(1).$('.horizontal-navigation-link').
+            $$('ux-page-header-horizontal-navigation-item').get(1).$('.horizontal-navigation-button').
             $('ux-icon').isPresent();
     }
 
     openDropdown() {
         return element(by.id('pageHeader1')).$('div.page-header-navigation').$('ux-page-header-horizontal-navigation').
-            $$('ux-page-header-horizontal-navigation-item').get(1).$('.horizontal-navigation-link').click();
+            $$('ux-page-header-horizontal-navigation-item').get(1).$('.horizontal-navigation-button').click();
     }
 
     async confirmDropdownIsOpened() {

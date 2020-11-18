@@ -5,29 +5,17 @@
         [uxMenuTriggerFor]="menu"
         [disabled]="_item.disabled"
         role="menuitem"
-        class="horizontal-navigation-link"
+        class="horizontal-navigation-button"
         [class.disabled]="_item.disabled"
         [class.selected]="_item.selected"
         [class.open]="isOpen"
         [attr.aria-selected]="_item.selected">
 
-        <!-- Support all icon types -->
-        <ng-container *ngIf="_item.icon">
-            <i *ngIf="_iconType !== 'component'"
-                class="navigation-item-icon"
-                [ngClass]="[_iconType, _item.icon]">
-            </i>
-
-            <ux-icon *ngIf="_iconType === 'component'"
-                     class="navigation-item-icon"
-                     [name]="_item.icon">
-            </ux-icon>
-
+        <ng-container
+            [ngTemplateOutlet]="allIconTypes">
         </ng-container>
 
-        <span class="navigation-item-label">{{ _item?.title }}</span>
         <ux-icon class="navigation-item-dropdown-icon" name="down"></ux-icon>
-
     </a>
 
     <ux-menu
@@ -50,27 +38,15 @@
     #navigationBtn
     [tabindex]="_tabindex | async"
     role="menuitem"
-    class="horizontal-navigation-link"
+    class="horizontal-navigation-button"
     [class.disabled]="_item.disabled"
     [class.selected]="_item.selected"
     [attr.aria-selected]="_item.selected"
     [routerLink]="_item.routerLink">
 
-    <!-- Support all icon types -->
-    <ng-container *ngIf="_item.icon">
-        <i *ngIf="_iconType !== 'component'"
-            class="navigation-item-icon"
-            [ngClass]="[_iconType, _item.icon]">
-        </i>
-
-        <ux-icon *ngIf="_iconType === 'component'"
-                 class="navigation-item-icon"
-                 [name]="_item.icon">
-        </ux-icon>
-
+    <ng-container
+        [ngTemplateOutlet]="allIconTypes">
     </ng-container>
-
-    <span class="navigation-item-label">{{ _item?.title }}</span>
 
     </a>
 </ng-container>
@@ -81,13 +57,21 @@
     #navigationBtn
     [tabindex]="_tabindex | async"
     role="menuitem"
-    class="horizontal-navigation-link"
+    class="horizontal-navigation-button"
     [class.disabled]="_item.disabled"
     [class.selected]="_item.selected"
     [attr.aria-selected]="_item.selected"
     (click)="select()">
 
-    <!-- Support all icon types -->
+    <ng-container
+        [ngTemplateOutlet]="allIconTypes">
+    </ng-container>
+
+    </a>
+</ng-container>
+
+<!-- Support all icon types -->
+<ng-template #allIconTypes>
     <ng-container *ngIf="_item.icon">
         <i *ngIf="_iconType !== 'component'"
             class="navigation-item-icon"
@@ -95,13 +79,9 @@
         </i>
 
         <ux-icon *ngIf="_iconType === 'component'"
-                 class="navigation-item-icon"
-                 [name]="_item.icon">
+            class="navigation-item-icon"
+            [name]="_item.icon">
         </ux-icon>
-
     </ng-container>
-
     <span class="navigation-item-label">{{ _item?.title }}</span>
-
-    </a>
-</ng-container>
+ </ng-template>
