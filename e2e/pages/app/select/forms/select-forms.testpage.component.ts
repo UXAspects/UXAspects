@@ -33,7 +33,7 @@ export class SelectFormsTestPageComponent implements OnInit {
     dataSets: { strings?: any[], objects?: any[] } = {};
 
     form: FormGroup = this.formBuilder.group({
-        select1: ['', [Validators.maxLength(3), Validators.minLength(2)]]
+        select1: ['', [Validators.minLength(2), Validators.maxLength(3)]]
     });
 
     get select1() {
