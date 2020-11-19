@@ -20,7 +20,7 @@
             <ng-container *ngIf="tab.headingRef" [ngTemplateOutlet]="tab.headingRef"></ng-container>
         </ng-template>
 
-       <ng-container *ngIf="tab.route">
+        <ng-container *ngIf="tab.route">
             <a class="nav-link"
                 [id]="tab.id"
                 role="tab"
@@ -29,15 +29,22 @@
                 [attr.aria-controls]="tab.id"
                 [attr.aria-selected]="(_tabset.activeTab$ | async) === tab"
                 [attr.aria-disabled]="tab.disabled"
-                [routerLink]="tab.route">
+                [routerLink]="tab.route"
+                [fragment]="tab.routerLinkExtras?.fragment"
+                [queryParams]="tab.routerLinkExtras?.queryParams"
+                [queryParamsHandling]="tab.routerLinkExtras?.queryParamsHandling"
+                [preserveFragment]="tab.routerLinkExtras?.preserveFragment"
+                [skipLocationChange]="tab.routerLinkExtras?.skipLocationChange"
+                [replaceUrl]="tab.routerLinkExtras?.replaceUrl"
+                [state]="tab.routerLinkExtras?.state">
 
                 <ng-container
                     [ngTemplateOutlet]="tabDetails">
                 </ng-container>
             </a>
-       </ng-container>
+        </ng-container>
 
-       <ng-container *ngIf="!tab.route">
+        <ng-container *ngIf="!tab.route">
             <a class="nav-link"
                 [id]="tab.id"
                 role="tab"

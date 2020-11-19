@@ -44,7 +44,14 @@
         [class.disabled]="_item.disabled"
         [class.selected]="_item.selected"
         [attr.aria-selected]="_item.selected"
-        [routerLink]="_item.routerLink">
+        [routerLink]="_item.routerLink"
+        [fragment]="_item.routerExtras?.fragment"
+        [queryParams]="_item.routerExtras?.queryParams"
+        [queryParamsHandling]="_item.routerExtras?.queryParamsHandling"
+        [preserveFragment]="_item.routerExtras?.preserveFragment"
+        [skipLocationChange]="_item.routerExtras?.skipLocationChange"
+        [replaceUrl]="_item.routerExtras?.replaceUrl"
+        [state]="_item.routerExtras?.state">
 
         <ng-container
             [ngTemplateOutlet]="navigationItemContent">

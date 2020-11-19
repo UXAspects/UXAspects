@@ -86,6 +86,7 @@
             <ux-tab *ngFor="let child of children"
                 [heading]="child.title"
                 [route]="child.routerLink"
+                [routerLinkExtras]="child.routerExtras"
                 [active]="child === (selected$ | async)"
                 (activated)="select(child, false)"
                 [uxPageHeaderNavigationSecondaryItem]="child"

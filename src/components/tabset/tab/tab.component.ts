@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, EventEmitter, Input, OnDestroy, OnInit, Output, TemplateRef } from '@angular/core';
+import { NavigationExtras } from '@angular/router';
 import { Subject } from 'rxjs';
 import { distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { tick } from '../../../common';
@@ -33,6 +34,9 @@ export class TabComponent implements OnInit, OnDestroy {
 
     /** Define the tab router path */
     @Input() route: string | any[];
+
+    /** Define the tab router additional parameters */
+    @Input() routerLinkExtras: NavigationExtras;
 
     /** provide a custom class for the tab */
     @Input() customClass: string;
