@@ -87,7 +87,7 @@
                 [heading]="child.title"
                 [route]="child.routerLink"
                 [active]="child === (selected$ | async)"
-                (activated)="select(child,false)"
+                (activated)="select(child, false)"
                 [uxPageHeaderNavigationSecondaryItem]="child"
                 [disabled]="child.disabled">
             </ux-tab>

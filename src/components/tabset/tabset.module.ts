@@ -10,7 +10,7 @@ import { TabsetComponent } from './tabset.component';
     imports: [
         AccessibilityModule,
         CommonModule,
-        RouterModule.forChild([])
+        RouterModule
     ],
     exports: [
         TabsetComponent,

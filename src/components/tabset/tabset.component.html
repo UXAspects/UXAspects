@@ -22,38 +22,36 @@
 
        <ng-container *ngIf="tab.route">
             <a class="nav-link"
-            [id]="tab.id"
-            role="tab"
-            uxTabbableListItem
-            uxFocusIndicator
-            [attr.aria-controls]="tab.id"
-            [attr.aria-selected]="(_tabset.activeTab$ | async) === tab"
-            [attr.aria-disabled]="tab.disabled"
-            [routerLink]="tab.route">
+                [id]="tab.id"
+                role="tab"
+                uxTabbableListItem
+                uxFocusIndicator
+                [attr.aria-controls]="tab.id"
+                [attr.aria-selected]="(_tabset.activeTab$ | async) === tab"
+                [attr.aria-disabled]="tab.disabled"
+                [routerLink]="tab.route">
 
-            <ng-container
-                [ngTemplateOutlet]="tabDetails">
-            </ng-container>
-
+                <ng-container
+                    [ngTemplateOutlet]="tabDetails">
+                </ng-container>
             </a>
        </ng-container>
 
        <ng-container *ngIf="!tab.route">
             <a class="nav-link"
-            [id]="tab.id"
-            role="tab"
-            uxTabbableListItem
-            uxFocusIndicator
-            (mousedown)="_tabset.select(tab)"
-            (activated)="_tabset.select(tab)"
-            [attr.aria-controls]="tab.id"
-            [attr.aria-selected]="(_tabset.activeTab$ | async) === tab"
-            [attr.aria-disabled]="tab.disabled">
+                [id]="tab.id"
+                role="tab"
+                uxTabbableListItem
+                uxFocusIndicator
+                (mousedown)="_tabset.select(tab)"
+                (activated)="_tabset.select(tab)"
+                [attr.aria-controls]="tab.id"
+                [attr.aria-selected]="(_tabset.activeTab$ | async) === tab"
+                [attr.aria-disabled]="tab.disabled">
 
-            <ng-container
-                [ngTemplateOutlet]="tabDetails">
-            </ng-container>
-
+                <ng-container
+                    [ngTemplateOutlet]="tabDetails">
+                </ng-container>
             </a>
         </ng-container>
     </li>
