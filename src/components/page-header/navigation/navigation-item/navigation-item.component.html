@@ -34,8 +34,8 @@
 
 </div>
 
-<ng-container *ngIf="_item.routerLink">
-    <a *ngIf="!_item.children || _item.children.length === 0 || (secondary$ | async)"
+<ng-container *ngIf="!_item.children || _item.children.length === 0 || (secondary$ | async)">
+    <a *ngIf="_item.routerLink"
         uxFocusIndicator
         #navigationBtn
         [tabindex]="_tabindex | async"
@@ -57,24 +57,24 @@
             [ngTemplateOutlet]="navigationItemContent">
         </ng-container>
     </a>
-</ng-container>
 
-<ng-container *ngIf="!_item.routerLink">
-    <a *ngIf="!_item.children || _item.children.length === 0 || (secondary$ | async)"
+    <button *ngIf="!_item.routerLink"
         uxFocusIndicator
         #navigationBtn
+        type="button"
         [tabindex]="_tabindex | async"
         role="menuitem"
         class="horizontal-navigation-button"
         [class.disabled]="_item.disabled"
         [class.selected]="_item.selected"
         [attr.aria-selected]="_item.selected"
-        (click)="select()">
+        (click)="select()"
+        [disabled]="_item.disabled">
 
         <ng-container
             [ngTemplateOutlet]="navigationItemContent">
         </ng-container>
-    </a>
+    </button>
 </ng-container>
 
 <!-- Support all icon types -->
