@@ -87,6 +87,15 @@
     <tr uxd-api-property name="disabled" type="boolean" defaultValue="false">
         If <code>true</code> the tab can not be selected.
     </tr>
+    <tr uxd-api-property name="route" type="string | any[]">
+        The route to navigate to when the tab is clicked. This accepts that same input as the
+        <a href="https://angular.io/api/router/RouterLink#description"><code>routerLink</code></a> directive.
+    </tr>
+    <tr uxd-api-property name="routerLinkExtras" type="NavigationExtras">
+        Additional parameters to pass to the router when using <code>routerLink</code>.
+        See <a href="https://angular.io/api/router/NavigationExtras"><code>NavigationExtras</code></a> for details of
+        the available configuration properties.
+    </tr>
 </uxd-api-properties>
 
 <uxd-api-properties tableTitle="Outputs">
