@@ -15,7 +15,36 @@
         [class.disabled]="tab.disabled"
         [ngClass]="tab.customClass">
 
-        <a class="nav-link"
+        <ng-template #tabDetails>
+            <span *ngIf="!tab.headingRef">{{ tab.heading }}</span>
+            <ng-container *ngIf="tab.headingRef" [ngTemplateOutlet]="tab.headingRef"></ng-container>
+        </ng-template>
+
+        <a *ngIf="tab.route"
+            class="nav-link"
+            [id]="tab.id"
+            role="tab"
+            uxTabbableListItem
+            uxFocusIndicator
+            [attr.aria-controls]="tab.id"
+            [attr.aria-selected]="(_tabset.activeTab$ | async) === tab"
+            [attr.aria-disabled]="tab.disabled"
+            [routerLink]="tab.route"
+            [fragment]="tab.routerLinkExtras?.fragment"
+            [queryParams]="tab.routerLinkExtras?.queryParams"
+            [queryParamsHandling]="tab.routerLinkExtras?.queryParamsHandling"
+            [preserveFragment]="tab.routerLinkExtras?.preserveFragment"
+            [skipLocationChange]="tab.routerLinkExtras?.skipLocationChange"
+            [replaceUrl]="tab.routerLinkExtras?.replaceUrl"
+            [state]="tab.routerLinkExtras?.state">
+
+            <ng-container
+                [ngTemplateOutlet]="tabDetails">
+            </ng-container>
+        </a>
+
+        <a *ngIf="!tab.route"
+            class="nav-link"
             [id]="tab.id"
             role="tab"
             uxTabbableListItem
@@ -26,13 +55,11 @@
             [attr.aria-selected]="(_tabset.activeTab$ | async) === tab"
             [attr.aria-disabled]="tab.disabled">
 
-            <span *ngIf="!tab.headingRef">{{ tab.heading }}</span>
-
-            <ng-container *ngIf="tab.headingRef" [ngTemplateOutlet]="tab.headingRef"></ng-container>
+            <ng-container
+                [ngTemplateOutlet]="tabDetails">
+            </ng-container>
         </a>
-
     </li>
-
 </ul>
 
 <!-- Tab panes -->
