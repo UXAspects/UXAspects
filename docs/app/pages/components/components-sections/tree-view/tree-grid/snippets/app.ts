@@ -170,6 +170,20 @@ export class AppComponent {
         if (row.children) {
             row.children.forEach(child => this.deselect(child));
         }
+
+        this.checkChildren();
+    }
+
+    checkChildren(): void {
+        for (const row of this.selected) {
+            if (row.hasOwnProperty('children')) {
+                const isChildSelected = row.children.some(child => this.isSelected(child));
+
+                if (!isChildSelected) {
+                    this.selected = this.selected.filter(_row => _row !== row);
+                }
+            }
+        }
     }
 
     isSelected(row: FileNode): boolean {
