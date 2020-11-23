@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { AccessibilityModule, AccordionModule, CheckboxModule, IconModule, NumberPickerModule, RadioButtonModule, ResizeModule, SelectModule } from '@ux-aspects/ux-aspects';
 import { SelectFormsTestPageComponent } from './forms/select-forms.testpage.component';
@@ -18,6 +18,7 @@ import { SelectTestPageComponent } from './standard/select.testpage.component';
         FormsModule,
         IconModule,
         ResizeModule,
+        ReactiveFormsModule,
         RouterModule.forChild([
             {
                 path: '',
