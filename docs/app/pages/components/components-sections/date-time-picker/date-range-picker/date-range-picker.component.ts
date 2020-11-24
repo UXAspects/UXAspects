@@ -51,19 +51,21 @@ export class ComponentsDateRangePickerComponent extends BaseDocumentationSection
     /** Store the currently selected end timezone */
     endTimezone: DateTimePickerTimezone = { name: 'GMT', offset: 0 };
 
-    playground: IPlayground = {
-        files: {
-            'app.component.ts': this.snippets.raw.appTs,
-            'app.component.css': this.snippets.raw.appCss,
-            'app.component.html': this.snippets.raw.appHtml,
-        },
-        modules: [
-            {
-                imports: ['DateRangePickerModule', 'PopoverModule'],
-                library: '@ux-aspects/ux-aspects'
-            }
-        ]
-    };
+    playground = () => {
+        return {
+            files: {
+                'app.component.ts': this.snippets.raw.appTs,
+                'app.component.css': this.snippets.raw.appCss,
+                'app.component.html': this.snippets.raw.appHtml,
+            },
+            modules: [
+                {
+                    imports: ['DateRangePickerModule', 'PopoverModule'],
+                    library: '@ux-aspects/ux-aspects'
+                }
+            ]
+        };
+    }
 
     constructor() {
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
