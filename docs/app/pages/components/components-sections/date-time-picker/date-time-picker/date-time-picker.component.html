@@ -23,12 +23,25 @@
         <div class="row">
             <div class="col-sm-6 col-xs-12">
                 <div class="input-group date m-nil">
-                    <input type="text" #input #popover="ux-popover" uxFocusIndicatorOrigin
-                        [ngModel]="date | date:'dd MMMM yyyy HH:mm'" [uxPopover]="popoverTemplate" placement="bottom"
-                        popoverClass="date-time-picker-popover" class="form-control" aria-label="Selected date"
+                    <input
+                        type="text"
+                        #input
+                        #popover="ux-popover"
+                        uxFocusIndicatorOrigin
+                        [ngModel]="date | date:'dd MMMM yyyy HH:mm'"
+                        [uxPopover]="popoverTemplate"
+                        placement="bottom"
+                        popoverClass="date-time-picker-popover"
+                        class="form-control"
+                        [class.ux-date-picker-open]="popover.isVisible"
+                        aria-label="Selected date"
                         (keydown.enter)="popover.show()">
                     <span class="input-group-btn">
-                        <button class="btn button-secondary" aria-label="Show Date Picker" (click)="popover.show()">
+                        <button
+                            class="btn button-secondary"
+                            [class.ux-date-picker-open]="popover.isVisible"
+                            aria-label="Show Date Picker"
+                            (click)="popover.show()">
                             <ux-icon name="calendar" aria-hidden="true"></ux-icon>
                         </button>
                     </span>

@@ -14,11 +14,13 @@
                     [popoverClass]="showNowBtn ? 'date-range-picker-now-btn-popover' :
                     'date-range-picker-popover'"
                     class="form-control"
+                    [class.ux-date-picker-open]="popover.isVisible"
                     aria-label="Selected date"
                     (keydown.enter)="popover.show()">
 
             <span class="input-group-btn" *ngIf="date">
                 <button class="btn button-secondary"
+                        [class.ux-date-picker-open]="popover.isVisible"
                         aria-label="Clear"
                         (click)="clear()">
                     <ux-icon name="close" aria-hidden="true"></ux-icon>
@@ -27,6 +29,7 @@
 
             <span class="input-group-btn">
                 <button class="btn button-secondary"
+                        [class.ux-date-picker-open]="popover.isVisible"
                         aria-label="Show Date Picker"
                         uxFocusIndicatorOrigin
                         (click)="popover.show()">
