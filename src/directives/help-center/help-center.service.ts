@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+})
 export class HelpCenterService {
 
     items: BehaviorSubject<HelpCenterItem[]> = new BehaviorSubject<HelpCenterItem[]>([]);
