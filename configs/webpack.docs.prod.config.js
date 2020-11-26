@@ -7,9 +7,9 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const rxAlias = require('rxjs/_esm5/path-mapping');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const { AngularCompilerPlugin } = require('@ngtools/webpack');
-const { OptimizeCssWebpackPlugin } = require('@angular-devkit/build-angular/src/angular-cli-files/plugins/optimize-css-webpack-plugin');
+const { OptimizeCssWebpackPlugin } = require('@angular-devkit/build-angular/src/webpack/plugins/optimize-css-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
-const { IndexHtmlWebpackPlugin } = require('@angular-devkit/build-angular/src/angular-cli-files/plugins/index-html-webpack-plugin');
+const { IndexHtmlWebpackPlugin } = require('@angular-devkit/build-angular/src/webpack/plugins/index-html-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const { BuildOptimizerWebpackPlugin } = require('@angular-devkit/build-optimizer');
 
