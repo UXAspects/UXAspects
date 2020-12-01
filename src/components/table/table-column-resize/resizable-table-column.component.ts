@@ -91,7 +91,7 @@ export class ResizableTableColumnComponent implements AfterViewInit, OnDestroy {
     /** Determine if this column is a variable width column */
     isFixedWidth: boolean = false;
 
-    /** Stores directionality */
+    /** Stores directionality RTL/LTR */
     private _dir: Direction;
 
     /** Store the width specifically set by the input */
@@ -192,12 +192,20 @@ export class ResizableTableColumnComponent implements AfterViewInit, OnDestroy {
 
     /** Shrink the column when the left arrow key is pressed */
     onMoveLeft(): void {
-        this._table.resizeColumn(this.getCellIndex(), -10);
+        let delta = -10;
+        if (this._dir === 'rtl') {
+            delta = delta * -1;
+        }
+        this._table.resizeColumn(this.getCellIndex(), delta);
     }
 
     /** Grow the column when the right arrow key is pressed */
     onMoveRight(): void {
-        this._table.resizeColumn(this.getCellIndex(), 10);
+        let delta = 10;
+        if (this._dir === 'rtl') {
+            delta  = delta * -1;
+        }
+        this._table.resizeColumn(this.getCellIndex(), delta);
     }
 
     /** Get the column index this cell is part of */
