@@ -4,18 +4,22 @@
 
 .accordion-chevron {
     .panel-heading {
-        .ux-icon-previous();
+        .ux-icon-down();
 
         &:before {
             font-family: 'ux-icons';
             float: right;
             pointer-events: none;
+            transform: rotate(90deg); /* Added so RTLCSS flips it 90 = ux-icon-previous, -90 = ux-icon-next */
         }
     }
 
     &.panel-open {
         .panel-heading {
             .ux-icon-down();
+            &:before {
+                transform: none;
+            }
         }
     }
 }
