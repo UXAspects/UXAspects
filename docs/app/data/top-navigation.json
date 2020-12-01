@@ -39,5 +39,15 @@
             "title": "Blog",
             "link": "/blog"
         }
+    ],
+    "themes": [
+        {
+            "title": "Keppel (Default)",
+            "id": "Keppel"
+        },
+        {
+            "title": "Keppel RTL (Right-to-Left)",
+            "id": "KeppelRTL"
+        }
     ]
 }

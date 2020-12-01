@@ -1,6 +1,7 @@
 const { join } = require('path');
 const { cwd } = require('process');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const WebpackRTLPlugin = require('webpack-rtl-plugin');
 
 module.exports = {
 
@@ -30,6 +31,9 @@ module.exports = {
     plugins: [
         new MiniCssExtractPlugin({
             filename: 'ux-aspects.css'
+        }),
+        new WebpackRTLPlugin( {
+            filename: 'ux-aspects-rtl.css'
         })
     ]
 

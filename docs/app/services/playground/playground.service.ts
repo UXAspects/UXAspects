@@ -90,7 +90,7 @@ export class PlaygroundService {
         switch (theme) {
             case SiteThemeId.MicroFocus2020:
                 return new MicroFocus2020ThemeStrategy();
-            case SiteThemeId.MicroFocusRtl2020:
+            case SiteThemeId.MicroFocusRTL2020:
                 return new MicroFocusRtl2020ThemeStrategy();
             case SiteThemeId.WhiteLabel:
                 return new WhiteLabelThemeStrategy();
@@ -98,7 +98,7 @@ export class PlaygroundService {
                 return new MicroFocusThemeStrategy();
             case SiteThemeId.Keppel:
                 return new KeppelThemeStrategy();
-            case SiteThemeId.KeppelRtl:
+            case SiteThemeId.KeppelRTL:
                 return new KeppelRTLThemeStrategy();
         }
     }
