@@ -15,6 +15,7 @@ import { WhiteLabelThemeStrategy } from './strategies/themes/white-label-strateg
 import { DocumentationType, DOCUMENTATION_TOKEN } from './tokens/documentation.token';
 import { PlaygroundHelper } from './utilities/playground-helper';
 import {MicroFocusRtl2020ThemeStrategy} from "./strategies/themes/microfocus-rtl-2020-strategy";
+import {KeppelRTLThemeStrategy} from "./strategies/themes/keppel-rtl-strategy";
 
 @Injectable({
     providedIn: 'root'
@@ -97,6 +98,8 @@ export class PlaygroundService {
                 return new MicroFocusThemeStrategy();
             case SiteThemeId.Keppel:
                 return new KeppelThemeStrategy();
+            case SiteThemeId.KeppelRtl:
+                return new KeppelRTLThemeStrategy();
         }
     }
 }
