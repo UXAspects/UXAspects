@@ -163,7 +163,11 @@ export class ResizableTableColumnComponent implements AfterViewInit, OnDestroy {
     /** When the dragging starts */
     onDragStart(event: MouseEvent): void {
         // determine the mouse position within the handle
-        this._offset = event.clientX - (event.target as HTMLElement).getBoundingClientRect().left;
+        if (this._dir === 'rtl') {
+            this._offset = event.clientX - (event.target as HTMLElement).getBoundingClientRect().right;
+        } else {
+            this._offset = event.clientX - (event.target as HTMLElement).getBoundingClientRect().left;
+        }
     }
 
     /** When the mouse is moved */
@@ -176,7 +180,10 @@ export class ResizableTableColumnComponent implements AfterViewInit, OnDestroy {
         const { left } = handle.getBoundingClientRect();
 
         // determine how much the mouse has moved since the last update
-        const delta = mouseX - (left + this._offset);
+        let delta = mouseX - (left + this._offset);
+        if (this._dir === 'rtl') {
+            delta = delta * -1;
+        }
 
         // perform resizing
         this._table.resizeColumn(this.getCellIndex(), delta);
