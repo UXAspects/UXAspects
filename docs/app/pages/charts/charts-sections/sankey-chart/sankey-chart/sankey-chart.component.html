@@ -8,55 +8,58 @@
 
     <ng-template #sankeyNodeTemplate let-node="node" let-active="active" let-focus="focus">
         <div class="sankey-node"
-             [class.sankey-node-active]="active"
-             [class.sankey-node-focus]="focus"
-             [attr.aria-label]="getAriaLabel(node, node.data.space | fileSize)">
+            [class.sankey-node-active]="active"
+            [class.sankey-node-focus]="focus"
+            [attr.aria-label]="getAriaLabel(node, node.data.space | fileSize)">
+
             <div class="sankey-node-space">{{ node.data.space | fileSize }}</div>
             <div class="sankey-node-files">{{ getFileCount(node.data.files) }}</div>
             <div class="sankey-node-name">{{ node.data.name }}</div>
+
         </div>
     </ng-template>
+
 </ux-sankey-chart>
 
 <br>
 
 <p>
     The Sankey Chart can be used to visualize the flow of data or items to various nodes.
-    An <code>ng-template</code> with the identifier of <code>#sankeyNodeTemplate</code> should
-    be added as a child element to define the content of the nodes.
+    An <code>ng-template</code> with the identifier of <code>#sankeyNodeTemplate</code> should be added as a child
+    element to define the content of the nodes.
 </p>
 
-<p>
-    The following options can be used to configure the chart:
-</p>
+<p>The following options can be used to configure the chart:</p>
 
 <uxd-api-properties tableTitle="Inputs">
     <tr uxd-api-property name="nodes" type="ReadonlyArray<SankeyNode<T>>" [required]="true">
-      The nodes to display in the chart.
+        The nodes to display in the chart.
     </tr>
     <tr uxd-api-property name="links" type="ReadonlyArray<SankeyLink>" [required]="true">
-      The links between nodes.
+        The links between nodes.
     </tr>
     <tr uxd-api-property name="columns" type="ReadonlyArray<string>">
-      The title for each column.
+        The title for each column.
     </tr>
     <tr uxd-api-property name="minWidth" type="number" defaultValue="0">
-      The minimum width of a node in pixels.
+        The minimum width of a node in pixels.
     </tr>
     <tr uxd-api-property name="maxWidth" type="number" defaultValue="Infinity">
-      The maximum width of a node in pixels.
+        The maximum width of a node in pixels.
     </tr>
     <tr uxd-api-property name="minHeight" type="number" defaultValue="0">
-    The minimum height of a node in pixels. <strong>Note:</strong> If the total height of the nodes in a column exceeds the height of the chart, the <code>minHeight</code> will be ignored.
+        The minimum height of a node in pixels.
+        <strong>Note:</strong> If the total height of the nodes in a column exceeds the height of the chart, the
+        <code>minHeight</code> will be ignored.
     </tr>
     <tr uxd-api-property name="color" type="string | ThemeColor">
-      The active and focus color of nodes and links.
+        The active and focus color of nodes and links.
     </tr>
     <tr uxd-api-property name="linkTooltip" type="(link: SankeyLink) => string" defaultValue="X Items">
-      The content of the tooltip that appears when hovering over a link.
+        The content of the tooltip that appears when hovering over a link.
     </tr>
     <tr uxd-api-property name="falloffTooltip" type="(falloff: number) => string" defaultValue="X Items">
-      The content of the tooltip that appears when hovering over a falloff indicator.
+        The content of the tooltip that appears when hovering over a falloff indicator.
     </tr>
 </uxd-api-properties>
 
@@ -65,8 +68,8 @@
         A unique ID for this node.
     </tr>
     <tr uxd-api-property name="data" type="T" [required]="true">
-        Additional custom data for this node. This can be accessed in the template
-        and used to display additional information about a node to the user.
+        Additional custom data for this node. This can be accessed in the template and used to display additional
+        information about a node to the user.
     </tr>
 </uxd-api-properties>
 

@@ -23,6 +23,8 @@ export class ComponentsSlidersComponent extends BaseDocumentationSection impleme
     lowerValue: string;
     upperValue: string;
 
+    disabled: boolean;
+
     playground: IPlayground = {
         files: {
             'app.component.ts': this.snippets.raw.appTs,

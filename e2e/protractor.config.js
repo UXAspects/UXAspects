@@ -23,7 +23,14 @@ exports.config = {
   capabilities: {
     browserName: 'chrome',
     chromeOptions: {
-      args: ["--headless", "--disable-gpu", "--no-sandbox", "--window-size=800x600", "--log-level=1"],
+      args: [
+        "--headless",
+        "--disable-gpu",
+        "--no-sandbox",
+        "--disable-dev-shm-usage",
+        "--window-size=800x600",
+        "--log-level=1"
+      ],
       w3c: false
     },
     shardTestFiles: true,

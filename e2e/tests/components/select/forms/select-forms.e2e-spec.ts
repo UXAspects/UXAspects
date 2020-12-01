@@ -589,4 +589,21 @@ describe('Select (forms) Tests', () => {
 
     });
 
+    it('should correctly validate the tag input values', async () => {
+        await page.clickOnCheckbox(page.checkboxMulti);
+        await page.clickOnDropdown(true);
+
+        await page.clickOnCountry(true, 0);
+        expect(await page.confirmClassExists(page.dropdown, 'ng-invalid')).toBe(true, 'Form should be invalid when the number of tags is fewer than required');
+
+        await page.clickOnCountry(true, 1);
+        expect(await page.confirmClassExists(page.dropdown, 'ng-invalid')).toBe(false, 'Form should be valid when the number of tags is within the correct range');
+
+        await page.clickOnCountry(true, 2);
+        await page.clickOnCountry(true, 3);
+        expect(await page.confirmClassExists(page.dropdown, 'ng-invalid')).toBe(true, 'Form should be invalid when the number of tags is more than required');
+
+        expect(await imageCompare('select-forms-invalid')).toEqual(0);
+    });
+
 });

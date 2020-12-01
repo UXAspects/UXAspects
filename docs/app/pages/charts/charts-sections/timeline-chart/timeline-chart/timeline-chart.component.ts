@@ -31,6 +31,9 @@ export class ChartsTimelineChartComponent extends BaseDocumentationSection imple
         scales: {
             xAxes: [
                 {
+                    ticks: {
+                        fontSize: 12,
+                    },
                     type: 'time',
                     gridLines: {
                         display: false
@@ -46,7 +49,8 @@ export class ChartsTimelineChartComponent extends BaseDocumentationSection imple
                         beginAtZero: true,
                         max: 1000,
                         stepSize: 250,
-                        padding: 8
+                        padding: 8,
+                        fontSize: 12,
                     },
                     gridLines: {
                         tickMarkLength: 8
@@ -89,7 +93,10 @@ export class ChartsTimelineChartComponent extends BaseDocumentationSection imple
                     time: {
                         unit: 'month',
                         stepSize: 6
-                    }
+                    },
+                    ticks: {
+                        fontSize: 12,
+                    },
                 }
             ],
             yAxes: [
@@ -114,6 +121,7 @@ export class ChartsTimelineChartComponent extends BaseDocumentationSection imple
             }
         }
     };
+
 
     playground: IPlayground = {
         files: {

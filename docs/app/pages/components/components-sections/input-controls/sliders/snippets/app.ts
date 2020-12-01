@@ -18,6 +18,8 @@ export class AppComponent {
     lowerValue: number = 25;
     upperValue: number = 75;
 
+    disabled: boolean;
+
     constructor(colorService: ColorService) {
 
         this.slider1 = {

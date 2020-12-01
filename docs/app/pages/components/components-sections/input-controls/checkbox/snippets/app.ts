@@ -12,7 +12,6 @@ export class AppComponent {
         option4: false
     };
 
-    simplified = false;
     indeterminateValue = -1;
     disableCheck = false;
 }

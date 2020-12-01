@@ -28,6 +28,11 @@ export class PageHeaderTestComponent {
         {
             title: 'Archive',
             onClick: () => {}
+        },
+        {
+            title: 'Page',
+            routerLink: 'page',
+            onClick: () => {}
         }
     ];
 
@@ -110,6 +115,11 @@ describe('Page Header Component', () => {
         const archiveBreadcrumb = nativeElement.querySelectorAll('.breadcrumb a')[1];
         expect(archiveBreadcrumb.textContent.trim()).toBe('Archive');
         expect(archiveBreadcrumb.hasAttribute('href')).toBe(false);
+    });
+
+    it('should only add one <a> for each breadcrumb', () => {
+        const breadcrumbs = nativeElement.querySelectorAll('.breadcrumb a');
+        expect(breadcrumbs.length).toBe(3);
     });
 
 });
