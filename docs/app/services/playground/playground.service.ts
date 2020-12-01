@@ -14,6 +14,7 @@ import { ThemeStrategy } from './strategies/themes/theme-strategy';
 import { WhiteLabelThemeStrategy } from './strategies/themes/white-label-strategy';
 import { DocumentationType, DOCUMENTATION_TOKEN } from './tokens/documentation.token';
 import { PlaygroundHelper } from './utilities/playground-helper';
+import {MicroFocusRtl2020ThemeStrategy} from "./strategies/themes/microfocus-rtl-2020-strategy";
 
 @Injectable({
     providedIn: 'root'
@@ -88,6 +89,8 @@ export class PlaygroundService {
         switch (theme) {
             case SiteThemeId.MicroFocus2020:
                 return new MicroFocus2020ThemeStrategy();
+            case SiteThemeId.MicroFocusRtl2020:
+                return new MicroFocusRtl2020ThemeStrategy();
             case SiteThemeId.WhiteLabel:
                 return new WhiteLabelThemeStrategy();
             case SiteThemeId.MicroFocus:

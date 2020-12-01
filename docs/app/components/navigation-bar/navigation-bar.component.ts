@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
-import { ILink } from '../../interfaces/ILink';
-import { AppConfiguration } from '../../services/app-configuration/app-configuration.service';
-import { SiteTheme } from '../../interfaces/SiteTheme';
+import {Component} from '@angular/core';
+import {ILink} from '../../interfaces/ILink';
+import {AppConfiguration} from '../../services/app-configuration/app-configuration.service';
+import {SiteTheme} from '../../interfaces/SiteTheme';
 
 @Component({
     selector: 'uxd-navigation-bar',

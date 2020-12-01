@@ -41,6 +41,11 @@ export abstract class PlaygroundStrategy {
         return [];
     }
 
+    /** RTL or LTR direction **/
+    getHTMLDirection(): string {
+        return this._themeStrategy.getHTMLDirection();
+    }
+
     /** Get the content of the `body` tag */
     abstract getBody(playground: IPlayground): string;
 

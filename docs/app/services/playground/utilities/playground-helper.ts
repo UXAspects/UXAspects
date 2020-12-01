@@ -10,7 +10,7 @@ export class PlaygroundHelper {
     static getIndexPage(strategy: PlaygroundStrategy, assetsUrl: string, playground: IPlayground): string {
         return [
             `<!DOCTYPE html>`,
-            `<html>`,
+            `<html dir='${strategy.getHTMLDirection()}'>`,
             `\t<head>`,
             `\t<base href=".">`,
             `\t<title>UX Aspects Example</title>`,

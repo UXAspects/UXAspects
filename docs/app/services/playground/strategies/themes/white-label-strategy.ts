@@ -2,6 +2,9 @@ import { ThemeStrategy } from './theme-strategy';
 import { SystemJSHelper } from '../../utilities/system-helper';
 
 export class WhiteLabelThemeStrategy implements ThemeStrategy {
+    getHTMLDirection(): string {
+        return 'LTR';
+    }
     getStylesheets(assetsUrl: string): string[] {
         return [
             SystemJSHelper.getPackageUrl({ name: 'bootstrap', path: 'bootstrap@3.3.7/dist/css/bootstrap.min.css' }),
