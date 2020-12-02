@@ -384,7 +384,13 @@
 
             &:before {
                 border-left-color: @draggable-card-active-border;
-                filter: drop-shadow(3px 0 2px @draggable-card-active-shadow);
+                /** RTLCSS does not adjust this setting, instead we add specific pseudo selector configurations **/
+                :dir(ltr) {
+                    filter: drop-shadow(3px 0 2px @draggable-card-active-shadow);
+                }
+                :dir(rtl) {
+                    filter: drop-shadow(-3px 0 2px @draggable-card-active-shadow);
+                }
             }
 
             &:after {
