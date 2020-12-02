@@ -4,13 +4,12 @@
 
 .accordion-chevron {
     .panel-heading {
-        .ux-icon-down();
+        .ux-icon-previous();
 
         &:before {
             font-family: 'ux-icons';
             float: right;
             pointer-events: none;
-            transform: rotate(90deg); /* Added so RTLCSS flips it 90 = ux-icon-previous, -90 = ux-icon-next */
         }
     }
 
@@ -20,6 +19,15 @@
             &:before {
                 transform: none;
             }
+        }
+    }
+}
+
+/** RTLCSS cannot account for mixin changes so adding specific style to rotate the icon **/
+[dir="rtl"] {
+    .accordion-chevron {
+        .panel-heading {
+            .ux-icon-next();
         }
     }
 }
