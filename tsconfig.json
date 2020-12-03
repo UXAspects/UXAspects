@@ -19,6 +19,7 @@
     },
     "angularCompilerOptions": {
         "skipMetadataEmit": true,
+        "fullTemplateTypeCheck": true,
         "preserveWhitespaces": true
     },
     "files": ["./docs/main.ts", "./docs/polyfills.ts"]

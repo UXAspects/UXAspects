@@ -36,8 +36,8 @@
                 tabindex="-1"
                 uxMenuNavigationItem
                 [attr.aria-selected]="filter === selected"
-                (click)="selectFilter(filter, $event); toggle.focus()"
-                (keydown.enter)="selectFilter(filter, $event); toggle.focus()"
+                (click)="selectFilter(filter); toggle.focus()"
+                (keydown.enter)="selectFilter(filter); toggle.focus()"
                 (keydown.escape)="toggle.focus()">
 
                 <ux-icon [name]="filter === selected ? 'checkmark' : null"></ux-icon>
