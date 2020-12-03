@@ -64,7 +64,8 @@
 
 .treegrid-row-expanded {
     .treegrid-expander-icon {
-        transform: rotate(90deg);
+        // Both rotations face down, however for RTL, -270 is the shortest path to avoid a long animation
+        transform: rotate(90deg)/*rtl:rotate(-270)*/;
     }
 }
 
