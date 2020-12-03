@@ -22,6 +22,9 @@
       ]
     }
   },
+  "angularCompilerOptions": {
+    "fullTemplateTypeCheck": true,
+   },
   "exclude": [
     "./tests/**"
   ]
