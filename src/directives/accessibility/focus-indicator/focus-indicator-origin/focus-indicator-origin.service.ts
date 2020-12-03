@@ -7,7 +7,7 @@ import { Injectable } from '@angular/core';
 export class FocusIndicatorOriginService {
 
     /** Store the most recent origin event */
-    _origin: FocusOrigin;
+    private _origin: FocusOrigin;
 
     /** Store the event source origin */
     setOrigin(origin: FocusOrigin): void {
