@@ -8,9 +8,18 @@
                             <ux-icon name="calendar" aria-hidden="true"></ux-icon>
                         </button>
                     </span>
-                    <input type="text" #input #popover="ux-popover" uxFocusIndicatorOrigin
-                        [ngModel]="date | date:'dd MMMM yyyy HH:mm'" [uxPopover]="popoverTemplate" placement="bottom"
-                        popoverClass="date-time-picker-popover" class="form-control" aria-label="Selected date"
+                    <input
+                        type="text"
+                        #input
+                        #popover="ux-popover"
+                        uxFocusIndicatorOrigin
+                        [ngModel]="date | date:'dd MMMM yyyy HH:mm'"
+                        [uxPopover]="popoverTemplate"
+                        [popoverContext]="{ input: input, popover: popover }"
+                        placement="bottom"
+                        popoverClass="date-time-picker-popover"
+                        class="form-control"
+                        aria-label="Selected date"
                         (keydown.enter)="popover.show()">
                 </div>
 
@@ -30,6 +39,7 @@
                         uxFocusIndicatorOrigin
                         [ngModel]="date | date:'dd MMMM yyyy HH:mm'"
                         [uxPopover]="popoverTemplate"
+                        [popoverContext]="{ input: input, popover: popover }"
                         placement="bottom"
                         popoverClass="date-time-picker-popover"
                         class="form-control"
@@ -54,7 +64,7 @@
     </ng-container>
 </ng-container>
 
-<ng-template #popoverTemplate>
+<ng-template #popoverTemplate let-input="input" let-popover="popover">
     <ux-date-time-picker [(date)]="date" [(timezone)]="timezone" [showTime]="showTime" [showMeridian]="showMeridians"
         [showSpinners]="showSpinners" [showTimezone]="showTimezones" (keydown.escape)="popover.hide(); input.focus()">
     </ux-date-time-picker>
