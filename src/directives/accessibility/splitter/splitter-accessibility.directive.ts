@@ -18,9 +18,6 @@ export class SplitterAccessibilityDirective implements AfterViewInit, OnDestroy 
     /** Find all the split areas */
     @ContentChildren(SplitAreaDirective) areas: QueryList<SplitAreaDirective>;
 
-    /** Stores directionality */
-    private _dir: Direction;
-
     /** Store all the gutter elements */
     private _gutters: HTMLElement[] = [];
 
@@ -41,7 +38,6 @@ export class SplitterAccessibilityDirective implements AfterViewInit, OnDestroy 
         private _splitter: SplitComponent,
         private _focusIndicatorService: FocusIndicatorService
     ) {
-        this._dir = _directionality.value;
         _splitter.dir = _directionality.value;
 
         // update aria values when the a gutter is dragged
@@ -53,7 +49,6 @@ export class SplitterAccessibilityDirective implements AfterViewInit, OnDestroy 
         _directionality.change
             .pipe(takeUntil(this._onDestroy))
             .subscribe(() => {
-                this._dir = _directionality.value;
                 _splitter.dir = _directionality.value;
             });
     }
@@ -204,7 +199,7 @@ export class SplitterAccessibilityDirective implements AfterViewInit, OnDestroy 
     onIncreaseKey(event: KeyboardEvent): void {
         // only perform a move if a gutter is focused
         if (this.isSplitterGutter(event.target as HTMLElement)) {
-            let delta = (this._dir === 'rtl' ? 1 : -1);
+            let delta = (this._directionality.value === 'rtl' ? 1 : -1);
             this.setGutterPosition(event.target as HTMLElement, delta);
 
             // stop the browser from scrolling
@@ -217,7 +212,7 @@ export class SplitterAccessibilityDirective implements AfterViewInit, OnDestroy 
     onDecreaseKey(event: KeyboardEvent): void {
         // only perform a move if a gutter is focused
         if (this.isSplitterGutter(event.target as HTMLElement)) {
-            let delta = (this._dir === 'rtl' ? -1 : 1);
+            let delta = (this._directionality.value === 'rtl' ? -1 : 1);
             this.setGutterPosition(event.target as HTMLElement, delta);
 
             // stop the browser from scrolling

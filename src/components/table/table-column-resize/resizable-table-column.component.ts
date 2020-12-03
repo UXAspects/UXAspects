@@ -91,9 +91,6 @@ export class ResizableTableColumnComponent implements AfterViewInit, OnDestroy {
     /** Determine if this column is a variable width column */
     isFixedWidth: boolean = false;
 
-    /** Stores directionality RTL/LTR */
-    private _dir: Direction;
-
     /** Store the width specifically set by the input */
     private _width: number;
 
@@ -110,14 +107,6 @@ export class ResizableTableColumnComponent implements AfterViewInit, OnDestroy {
                 private _elementRef: ElementRef,
                 @Inject(RESIZABLE_TABLE_SERVICE_TOKEN) private _table: BaseResizableTableService,
                 private _renderer: Renderer2) {
-        this._dir = _directionality.value;
-
-        // update directionality on change rtl/ltr
-        _directionality.change
-            .pipe(takeUntil(this._onDestroy))
-            .subscribe(() => {
-                this._dir = _directionality.value;
-            });
     }
 
     ngAfterViewInit(): void {
@@ -177,9 +166,7 @@ export class ResizableTableColumnComponent implements AfterViewInit, OnDestroy {
 
         // determine how much the mouse has moved since the last update
         let delta = mouseX - (left + this._offset);
-        if (this._dir === 'rtl') {
-            delta = delta * -1;
-        }
+        delta = this.getDirectionalityDelta(delta);
 
         // perform resizing
         this._table.resizeColumn(this.getCellIndex(), delta);
@@ -195,25 +182,25 @@ export class ResizableTableColumnComponent implements AfterViewInit, OnDestroy {
 
     /** Shrink the column when the left arrow key is pressed */
     onMoveLeft(): void {
-        let delta = -10;
-        if (this._dir === 'rtl') {
-            delta = delta * -1;
-        }
-        this._table.resizeColumn(this.getCellIndex(), delta);
+        this._table.resizeColumn(this.getCellIndex(), this.getDirectionalityDelta(-10));
     }
 
     /** Grow the column when the right arrow key is pressed */
     onMoveRight(): void {
-        let delta = 10;
-        if (this._dir === 'rtl') {
-            delta  = delta * -1;
-        }
-        this._table.resizeColumn(this.getCellIndex(), delta);
+        this._table.resizeColumn(this.getCellIndex(), this.getDirectionalityDelta(10));
     }
 
     /** Get the column index this cell is part of */
     getCellIndex(): number {
         return (this._elementRef.nativeElement as HTMLTableCellElement).cellIndex;
+    }
+
+    /** Calculates the delta based on RTL or LTR direction */
+    private getDirectionalityDelta(delta: number): number {
+        if (this._directionality.value === 'rtl') {
+            delta = delta * -1;
+        }
+        return delta;
     }
 
     /** The percentage width of the column */
