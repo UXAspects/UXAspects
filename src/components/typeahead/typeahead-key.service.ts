@@ -2,7 +2,9 @@ import { DOWN_ARROW, ENTER, ESCAPE, UP_ARROW } from '@angular/cdk/keycodes';
 import { Injectable } from '@angular/core';
 import { TypeaheadComponent } from './typeahead.component';
 
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+})
 export class TypeaheadKeyService<T = any> {
 
     handleKey(event: KeyboardEvent, typeahead: TypeaheadComponent<T>): void {

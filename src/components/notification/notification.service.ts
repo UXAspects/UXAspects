@@ -2,7 +2,9 @@ import { Injectable, TemplateRef } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { ColorService } from '../../services/color/index';
 
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+})
 export class NotificationService {
 
     /**

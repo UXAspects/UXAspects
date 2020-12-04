@@ -1,3 +1,6 @@
+# 2.1.x to 3.0
+* Angular 8 is no longer supported.
+
 # 1.8.x to 2.0
 * Angular 6 is no longer supported.
 * AngularJS components and `HybridModule` have been removed, and from now on must be imported from `@ux-aspects/ux-aspects-ng1`. Refer to the [UX Aspects (AngularJS) documentation](https://uxaspects.github.io/UXAspects-ng1/#/changelog) for details.

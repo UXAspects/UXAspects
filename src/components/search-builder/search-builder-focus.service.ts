@@ -3,7 +3,9 @@ import { BehaviorSubject } from 'rxjs';
 
 const UNSET_FOCUS: SearchBuilderFocus = { groupId: null, index: -1 };
 
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+})
 export class SearchBuilderFocusService {
 
     focus$ = new BehaviorSubject<SearchBuilderFocus>(UNSET_FOCUS);

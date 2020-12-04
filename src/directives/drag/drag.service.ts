@@ -1,7 +1,9 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { Subject } from 'rxjs';
 
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+})
 export class DragService<T = any> implements OnDestroy {
 
     /** Emit when dragging begins */

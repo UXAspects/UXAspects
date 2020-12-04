@@ -1,10 +1,10 @@
 const { join } = require('path');
 const { AngularCompilerPlugin } = require('@ngtools/webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const { IndexHtmlWebpackPlugin } = require('@angular-devkit/build-angular/src/angular-cli-files/plugins/index-html-webpack-plugin');
+const { IndexHtmlWebpackPlugin } = require('@angular-devkit/build-angular/src/webpack/plugins/index-html-webpack-plugin');
 const { cwd } = require('process');
 const rxAlias = require('rxjs/_esm5/path-mapping');
-const { OptimizeCssWebpackPlugin } = require('@angular-devkit/build-angular/src/angular-cli-files/plugins/optimize-css-webpack-plugin');
+const { OptimizeCssWebpackPlugin } = require('@angular-devkit/build-angular/src/webpack/plugins/optimize-css-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 

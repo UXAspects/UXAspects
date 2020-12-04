@@ -2,7 +2,9 @@ import { Injectable, EventEmitter } from '@angular/core';
 import { Drake, DragulaOptions } from 'dragula';
 import { dragula } from './dragula';
 
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+})
 export class ReorderableService {
 
     private _groups: { [k: string]: ReorderableGroup } = {};
