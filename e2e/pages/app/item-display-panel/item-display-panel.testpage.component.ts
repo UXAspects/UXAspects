@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ColorService, ItemDisplayPanelComponent } from '@ux-aspects/ux-aspects';
+import { ColorService } from '@ux-aspects/ux-aspects';
 
 @Component({
     selector: 'item-display-panel-app',
@@ -110,7 +110,7 @@ export class ItemDisplayPanelTestPageComponent {
         this.sparkBarColor = colorService.getColor('accent').toHex();
     }
 
-    show(panel: ItemDisplayPanelComponent, $event: MouseEvent, item: Item): void {
+    show($event: MouseEvent, item: Item): void {
         $event.stopPropagation();
         this.selectedItem = item;
         this.updatePanel();
