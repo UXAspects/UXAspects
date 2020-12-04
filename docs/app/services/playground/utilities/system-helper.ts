@@ -1,9 +1,9 @@
 import { DocumentationType } from '../tokens/documentation.token';
 
-const ANGULAR_VERSION = '10';
-const CDK_VERSION = '10';
+const ANGULAR_VERSION = '11';
+const CDK_VERSION = '11';
 const D3_VERSION = '5.9.2';
-const NGX_BOOTSTRAP_VERSION = '5.3.2';
+const NGX_BOOTSTRAP_VERSION = '6.2.0';
 
 export class SystemJSHelper {
 

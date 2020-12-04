@@ -6,7 +6,6 @@ import { ClickOutsideModule } from '../../directives/click-outside/index';
 import { DurationPipeModule } from '../../pipes/duration/index';
 import { FileSizePipeModule } from '../../pipes/file-size/index';
 import { AudioServiceModule } from '../../services/audio/index';
-import { FrameExtractionModule } from '../../services/frame-extraction/frame-extraction.module';
 import { IconModule } from '../icon/index';
 import { SliderModule } from '../slider/index';
 import { TooltipModule } from '../tooltip/index';
@@ -33,7 +32,6 @@ const DECLARATIONS = [
         CommonModule,
         DurationPipeModule,
         FileSizePipeModule,
-        FrameExtractionModule,
         IconModule,
         SliderModule,
         TooltipModule,
