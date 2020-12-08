@@ -1,13 +1,26 @@
-const { DefinePlugin } = require('webpack');
+const {DefinePlugin} = require('webpack');
 const fs = require('fs');
 const gracefulFs = require('graceful-fs');
 const ProgressPlugin = require('webpack/lib/ProgressPlugin');
-const { join } = require('path');
-const { cwd } = require('process');
+const {join} = require('path');
+const {cwd} = require('process');
 const rxAlias = require('rxjs/_esm5/path-mapping');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const { AngularCompilerPlugin } = require('@ngtools/webpack');
-const { IndexHtmlWebpackPlugin } = require('@angular-devkit/build-angular/src/angular-cli-files/plugins/index-html-webpack-plugin');
+const {AngularCompilerPlugin} = require('@ngtools/webpack');
+const {IndexHtmlWebpackPlugin} = require('@angular-devkit/build-angular/src/angular-cli-files/plugins/index-html-webpack-plugin');
+const PostCssRtlPlugin = require('postcss-rtl');
+
+const PostCssLoaderWithSourceMap = {
+    loader: 'postcss-loader',
+    options: {
+        sourceMap: true,
+        plugins: function (loader) {
+            return [
+                PostCssRtlPlugin()
+            ]
+        }
+    }
+};
 
 const CssLoaderWithSourceMap = {
     loader: 'css-loader',
@@ -65,7 +78,7 @@ module.exports = {
             {
                 test: /\.css$/,
                 exclude: /snippets/,
-                use: ['style-loader', 'css-loader']
+                use: ['style-loader', 'css-loader', PostCssLoaderWithSourceMap]
             },
             {
                 test: /\.md$/,
@@ -90,7 +103,7 @@ module.exports = {
                     join(cwd(), 'src', 'components'),
                     join(cwd(), 'src', 'services')
                 ],
-                use: ['style-loader', CssLoaderWithSourceMap, LessLoaderWithSourceMap]
+                use: ['style-loader', CssLoaderWithSourceMap, PostCssLoaderWithSourceMap, LessLoaderWithSourceMap]
             },
             {
                 test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico|otf|mp4|mp3)$/,
@@ -114,7 +127,7 @@ module.exports = {
             // Ignore warnings about System.import in Angular
             {
                 test: /[\/\\]@angular[\/\\].+\.js$/,
-                parser: { system: true }
+                parser: {system: true}
             },
 
             // Downlevel Angular Packages
@@ -134,7 +147,7 @@ module.exports = {
                             ]
                         ],
                         plugins: [
-                            ['@babel/plugin-transform-spread', { loose: true }]
+                            ['@babel/plugin-transform-spread', {loose: true}]
                         ],
                         inputSourceMap: false,
                         babelrc: false,
@@ -221,7 +234,7 @@ module.exports = {
             PRODUCTION: false
         }),
 
-        new ProgressPlugin(),
+        new ProgressPlugin()
     ],
 
     devServer: {

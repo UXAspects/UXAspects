@@ -12,6 +12,7 @@ const TerserPlugin = require('terser-webpack-plugin');
 const { IndexHtmlWebpackPlugin } = require('@angular-devkit/build-angular/src/angular-cli-files/plugins/index-html-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const { BuildOptimizerWebpackPlugin } = require('@angular-devkit/build-optimizer');
+const WebpackRTLPlugin = require('webpack-rtl-plugin');
 
 // Node has a limit to the number of files that can be open - prevent the error
 gracefulFs.gracefulify(fs);
@@ -228,6 +229,10 @@ module.exports = {
         new MiniCssExtractPlugin({
             filename: '[name].css',
             chunkFilename: '[id].css'
+        }),
+
+        new WebpackRTLPlugin( {
+            filename: '[name]rtl.css'
         }),
 
         new CopyWebpackPlugin({
