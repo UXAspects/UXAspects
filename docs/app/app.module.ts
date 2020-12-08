@@ -11,6 +11,7 @@ import { NgxMaskModule } from 'ngx-mask';
 import { AppComponent } from './app.component';
 import { DocumentationComponentsModule } from './components/components.module';
 import { DocumentationType, DOCUMENTATION_TOKEN } from './services/playground/tokens/documentation.token';
+import {BidiModule} from "@angular/cdk/bidi";
 
 /*
   Configure Application Routes
@@ -34,6 +35,7 @@ const appRoutes: Routes = [
 @NgModule({
     imports: [
         BrowserAnimationsModule,
+        BidiModule,
         BrowserModule,
         BsDropdownModule.forRoot(),
         ButtonsModule.forRoot(),

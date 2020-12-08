@@ -1,11 +1,23 @@
-import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
-import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, HostBinding, Inject, Input, OnDestroy, Output, Renderer2 } from '@angular/core';
-import { Subject } from 'rxjs';
-import { filter, takeUntil } from 'rxjs/operators';
-import { BaseResizableTableService, ResizableTableType } from './resizable-table-base.service';
-import { RESIZABLE_TABLE_SERVICE_TOKEN } from './resizable-table-service.token';
-import { ColumnUnit } from './table-column-resize-standard/resizable-table.service';
-import {Direction, Directionality} from '@angular/cdk/bidi';
+import {coerceBooleanProperty, coerceNumberProperty} from '@angular/cdk/coercion';
+import {
+    AfterViewInit,
+    ChangeDetectionStrategy,
+    Component,
+    ElementRef,
+    EventEmitter,
+    HostBinding,
+    Inject,
+    Input,
+    OnDestroy,
+    Output,
+    Renderer2
+} from '@angular/core';
+import {Subject} from 'rxjs';
+import {filter, takeUntil} from 'rxjs/operators';
+import {BaseResizableTableService, ResizableTableType} from './resizable-table-base.service';
+import {RESIZABLE_TABLE_SERVICE_TOKEN} from './resizable-table-service.token';
+import {ColumnUnit} from './table-column-resize-standard/resizable-table.service';
+import {Directionality} from '@angular/cdk/bidi';
 
 @Component({
     selector: '[uxResizableTableColumn]',

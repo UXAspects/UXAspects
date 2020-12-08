@@ -5,7 +5,7 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { FocusIndicator } from '../focus-indicator/focus-indicator';
 import { FocusIndicatorService } from '../focus-indicator/focus-indicator.service';
-import {Direction, Directionality} from '@angular/cdk/bidi';
+import { Directionality} from '@angular/cdk/bidi';
 
 @Directive({
     selector: 'as-split'
