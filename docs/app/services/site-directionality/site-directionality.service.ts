@@ -18,7 +18,7 @@ export class SiteDirectionalityService {
         this.direction$.next(direction || 'ltr');
 
         // the html element direction is also updated to ensure CSS styles on body and html are reflected properly.
-        const html = this._document.querySelector('link') as HTMLElement;
+        const html = this._document.querySelector('html') as HTMLElement;
         html.setAttribute('dir', direction);
     }
 }
