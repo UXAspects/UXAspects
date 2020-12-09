@@ -153,3 +153,17 @@
         }
     }
 }
+
+// ported from angular-tree-component which used a custom class for rtl, angular-tree-component-rtl
+[dir="rtl"] {
+    .angular-tree-component {
+        direction: rtl;
+    }
+    .angular-tree-component .toggle-children-wrapper-collapsed .toggle-children {
+        transform: rotate(180deg) !important;
+    }
+    .angular-tree-component .tree-children {
+        padding-right: 20px;
+        padding-left: 0;
+    }
+}
