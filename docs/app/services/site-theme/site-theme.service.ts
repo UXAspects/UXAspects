@@ -4,6 +4,7 @@ import {PersistentDataService} from '@ux-aspects/ux-aspects';
 import {BehaviorSubject} from 'rxjs';
 import {distinctUntilChanged} from 'rxjs/operators';
 import {SiteThemeId} from '../../interfaces/SiteTheme';
+import {Dir, Directionality} from "@angular/cdk/bidi";
 
 @Injectable({
     providedIn: 'root'
@@ -58,6 +59,7 @@ export class SiteThemeService {
                     }
                     break;
                 case SiteThemeId.WhiteLabel:
+                    html.setAttribute('dir', 'ltr');
                     if (link) {
                         link.href = 'white-label.css';
                     }
