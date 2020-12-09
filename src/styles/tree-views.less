@@ -79,6 +79,7 @@
 
 // Angular Tree Component Styling - Third Party Component
 .angular-tree-component {
+    direction: ltr/*rtl:rtl*/;
     .tree-node {
         &:hover {
             background-color: transparent;
@@ -89,6 +90,11 @@
                 margin-right: 5px;
             }
         }
+    }
+
+    .tree-children {
+        padding-right: 0;
+        padding-left: 20px;
     }
 
     // Node Content Outline
@@ -124,6 +130,11 @@
                 .ux-icon-chevron-right();
             }
         }
+        .toggle-children-wrapper-collapsed {
+            .toggle-children {
+                transform: rotate(0)/*rtl:rotate(180deg) !important*/;
+            }
+        }
     }
 
     .tree-action-button {
@@ -151,19 +162,5 @@
                 color: lighten(@text-color, 50%);
             }
         }
-    }
-}
-
-// ported from angular-tree-component which used a custom class for rtl, angular-tree-component-rtl
-[dir="rtl"] {
-    .angular-tree-component {
-        direction: rtl;
-    }
-    .angular-tree-component .toggle-children-wrapper-collapsed .toggle-children {
-        transform: rotate(180deg) !important;
-    }
-    .angular-tree-component .tree-children {
-        padding-right: 20px;
-        padding-left: 0;
     }
 }
