@@ -4,18 +4,18 @@ import {PersistentDataService} from '@ux-aspects/ux-aspects';
 import {BehaviorSubject} from 'rxjs';
 import {distinctUntilChanged} from 'rxjs/operators';
 import {SiteThemeId} from '../../interfaces/SiteTheme';
-import {Direction} from "@angular/cdk/bidi";
+import {SiteDirectionalityService} from "../site-directionality/site-directionality.service";
 
 @Injectable({
     providedIn: 'root'
 })
 export class SiteThemeService {
 
-    direction: Direction = 'ltr';
     theme$ = new BehaviorSubject<SiteThemeId>(SiteThemeId.Keppel);
 
     constructor(
         @Inject(DOCUMENT) private _document: Document,
+        private _siteDirectionalityService: SiteDirectionalityService,
         private _persistentDataService: PersistentDataService
     ) {
     }
@@ -30,37 +30,37 @@ export class SiteThemeService {
             const link = this._document.querySelector('link#uxd-theme-link') as HTMLLinkElement;
             switch (siteTheme) {
                 case SiteThemeId.Keppel:
-                    this.direction = 'ltr';
+                    this._siteDirectionalityService.setDirection('ltr');
                     if (link) {
                         link.href = '';
                     }
                     break;
                 case SiteThemeId.KeppelRTL:
-                    this.direction = 'rtl';
+                    this._siteDirectionalityService.setDirection('rtl');
                     if (link) {
                         link.href = '';
                     }
                     break;
                 case SiteThemeId.MicroFocus:
-                    this.direction = 'ltr';
+                    this._siteDirectionalityService.setDirection('ltr');
                     if (link) {
                         link.href = 'micro-focus.css';
                     }
                     break;
                 case SiteThemeId.MicroFocus2020:
-                    this.direction = 'ltr';
+                    this._siteDirectionalityService.setDirection('ltr');
                     if (link) {
                         link.href = 'micro-focus-2020.css';
                     }
                     break;
                 case SiteThemeId.MicroFocusRTL2020:
-                    this.direction = 'rtl';
+                    this._siteDirectionalityService.setDirection('rtl');
                     if (link) {
                         link.href = 'micro-focus-2020-rtl.css';
                     }
                     break;
                 case SiteThemeId.WhiteLabel:
-                    this.direction = 'ltr';
+                    this._siteDirectionalityService.setDirection('ltr');
                     if (link) {
                         link.href = 'white-label.css';
                     }
