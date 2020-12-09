@@ -1,6 +1,6 @@
 import { Component, NgZone, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { filter, map } from 'rxjs/operators';
+import {filter, map, takeUntil} from 'rxjs/operators';
 import { NavigationService } from './services/navigation/navigation.service';
 import { Breadcrumb, PageHeaderIconMenu, PageHeaderNavigationItem } from '@ux-aspects/ux-aspects';
 import {SiteThemeService} from "./services/site-theme/site-theme.service";
@@ -13,7 +13,7 @@ import {Direction} from "@angular/cdk/bidi";
 })
 export class AppComponent implements OnInit {
 
-    public direction: Direction = 'ltr';
+    direction: Direction = 'ltr';
     header: string;
     isNavigationVisible: boolean = true;
     backVisible: boolean = false;
@@ -97,6 +97,10 @@ export class AppComponent implements OnInit {
         (<any>window).ngZone = ngZone;
 
         siteThemeService.load();
+        siteThemeService.theme$
+            .subscribe(() => {
+                this.direction = siteThemeService.direction;
+            });
     }
 
     ngOnInit() {

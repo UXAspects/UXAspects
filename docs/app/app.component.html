@@ -1,5 +1,6 @@
-<!-- Documentation header -->
-<uxd-navigation-bar *ngIf="isNavigationVisible"></uxd-navigation-bar>
+<div [dir]="direction">
+    <!-- Documentation header -->
+    <uxd-navigation-bar *ngIf="isNavigationVisible"></uxd-navigation-bar>
 
     <!-- Showcase header -->
     <ux-page-header
@@ -18,5 +19,6 @@
         <uxd-loading-spinner></uxd-loading-spinner>
     </div>
 
-<!-- Documentation Footer -->
-<uxd-page-footer *ngIf="isNavigationVisible"></uxd-page-footer>
+    <!-- Documentation Footer -->
+    <uxd-page-footer *ngIf="isNavigationVisible"></uxd-page-footer>
+</div>
