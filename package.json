@@ -140,7 +140,7 @@
     "raw-loader": "0.5.1",
     "script-loader": "0.7.2",
     "style-loader": "^1.2.1",
-    "stylelint": "7.13.0",
+    "stylelint": "13.8.0",
     "terser-webpack-plugin": "^3.0.1",
     "time-grunt": "1.4.0",
     "to-string-loader": "1.1.5",
