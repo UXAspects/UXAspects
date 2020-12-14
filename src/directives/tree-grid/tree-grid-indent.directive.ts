@@ -1,6 +1,6 @@
 import {Directive, HostBinding, Input} from '@angular/core';
 import {TreeGridRowDirective} from './tree-grid-row.directive';
-import {Directionality} from "@angular/cdk/bidi";
+import {Directionality} from '@angular/cdk/bidi';
 
 @Directive({
     selector: '[uxTreeGridIndent]',
