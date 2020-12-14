@@ -56,7 +56,7 @@ export class SiteThemeService {
                 case SiteThemeId.MicroFocusRTL2020:
                     this._siteDirectionalityService.setDirection('rtl');
                     if (link) {
-                        link.href = 'micro-focus-2020-rtl.css';
+                        link.href = 'micro-focus-2020.css';
                     }
                     break;
                 case SiteThemeId.WhiteLabel:
