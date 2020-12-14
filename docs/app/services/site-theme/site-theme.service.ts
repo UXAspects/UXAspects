@@ -4,7 +4,7 @@ import {PersistentDataService} from '@ux-aspects/ux-aspects';
 import {BehaviorSubject} from 'rxjs';
 import {distinctUntilChanged} from 'rxjs/operators';
 import {SiteThemeId} from '../../interfaces/SiteTheme';
-import {SiteDirectionalityService} from "../site-directionality/site-directionality.service";
+import {SiteDirectionalityService} from '../site-directionality/site-directionality.service';
 
 @Injectable({
     providedIn: 'root'

@@ -1,11 +1,11 @@
 import {Component, NgZone, OnInit} from '@angular/core';
 import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
-import {filter, map, takeUntil} from 'rxjs/operators';
+import {filter, map} from 'rxjs/operators';
 import {NavigationService} from './services/navigation/navigation.service';
 import {Breadcrumb, PageHeaderIconMenu, PageHeaderNavigationItem} from '@ux-aspects/ux-aspects';
-import {SiteThemeService} from "./services/site-theme/site-theme.service";
-import {Direction} from "@angular/cdk/bidi";
-import {SiteDirectionalityService} from "./services/site-directionality/site-directionality.service";
+import {SiteThemeService} from './services/site-theme/site-theme.service';
+import {Direction} from '@angular/cdk/bidi';
+import {SiteDirectionalityService} from './services/site-directionality/site-directionality.service';
 
 @Component({
     selector: 'uxd-app',

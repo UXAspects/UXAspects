@@ -1,7 +1,7 @@
 import {Inject, Injectable} from '@angular/core';
 import {BehaviorSubject} from 'rxjs';
-import {Direction} from "@angular/cdk/bidi";
-import {DOCUMENT} from "@angular/common";
+import {Direction} from '@angular/cdk/bidi';
+import {DOCUMENT} from '@angular/common';
 
 @Injectable({
     providedIn: 'root'

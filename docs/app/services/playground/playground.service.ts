@@ -14,8 +14,8 @@ import { ThemeStrategy } from './strategies/themes/theme-strategy';
 import { WhiteLabelThemeStrategy } from './strategies/themes/white-label-strategy';
 import { DocumentationType, DOCUMENTATION_TOKEN } from './tokens/documentation.token';
 import { PlaygroundHelper } from './utilities/playground-helper';
-import {MicroFocusRtl2020ThemeStrategy} from "./strategies/themes/microfocus-rtl-2020-strategy";
-import {KeppelRTLThemeStrategy} from "./strategies/themes/keppel-rtl-strategy";
+import {MicroFocusRtl2020ThemeStrategy} from './strategies/themes/microfocus-rtl-2020-strategy';
+import {KeppelRTLThemeStrategy} from './strategies/themes/keppel-rtl-strategy';
 
 @Injectable({
     providedIn: 'root'
