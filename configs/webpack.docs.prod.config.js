@@ -232,7 +232,7 @@ module.exports = {
         }),
 
         new WebpackRTLPlugin( {
-            filename: '[name]rtl.css'
+            filename: '[name]-rtl.css'
         }),
 
         new CopyWebpackPlugin({
