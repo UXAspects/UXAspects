@@ -66,6 +66,7 @@
 .treegrid-row-expanded {
     .treegrid-expander-icon {
         // Both rotations face down, however for RTL, -270 is the shortest path to avoid a long animation
+        /* stylelint-disable-next-line function-whitespace-after */
         transform: rotate(90deg)/*rtl:rotate(-270deg)*/;
     }
 }
@@ -80,6 +81,7 @@
 // Angular Tree Component Styling - Third Party Component
 .angular-tree-component {
     direction: ltr/*rtl:rtl*/;
+
     .tree-node {
         &:hover {
             background-color: transparent;
@@ -130,8 +132,10 @@
                 .ux-icon-chevron-right();
             }
         }
+
         .toggle-children-wrapper-collapsed {
             .toggle-children {
+                /* stylelint-disable-next-line function-whitespace-after */
                 transform: rotate(0)/*rtl:rotate(180deg) !important*/;
             }
         }
