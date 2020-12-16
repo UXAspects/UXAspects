@@ -3,7 +3,6 @@ import { Component, ViewEncapsulation } from '@angular/core';
 import { DateTimePickerTimezone, timezones } from '@ux-aspects/ux-aspects';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import { IPlayground } from '../../../../../interfaces/IPlayground';
 import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
 
 @Component({
@@ -51,19 +50,21 @@ export class ComponentsDateRangePickerComponent extends BaseDocumentationSection
     /** Store the currently selected end timezone */
     endTimezone: DateTimePickerTimezone = { name: 'GMT', offset: 0 };
 
-    playground: IPlayground = {
-        files: {
-            'app.component.ts': this.snippets.raw.appTs,
-            'app.component.css': this.snippets.raw.appCss,
-            'app.component.html': this.snippets.raw.appHtml,
-        },
-        modules: [
-            {
-                imports: ['DateRangePickerModule', 'PopoverModule'],
-                library: '@ux-aspects/ux-aspects'
-            }
-        ]
-    };
+    playground = () => {
+        return {
+            files: {
+                'app.component.ts': this.snippets.raw.appTs,
+                'app.component.css': this.snippets.raw.appCss,
+                'app.component.html': this.snippets.raw.appHtml,
+            },
+            modules: [
+                {
+                    imports: ['DateRangePickerModule', 'PopoverModule'],
+                    library: '@ux-aspects/ux-aspects'
+                }
+            ]
+        };
+    }
 
     constructor() {
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));

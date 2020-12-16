@@ -1,0 +1,61 @@
+<div class="row">
+    <div class="col-md-9 col-sm-12">
+
+        <div class="input-group" [class.has-error]="invalid">
+            <input type="text"
+                    #input
+                    #popover="ux-popover"
+                    placeholder="Select a date range"
+                    [ngModel]="date"
+                    uxFocusIndicatorOrigin
+                    (ngModelChange)="onDateChange($event)"
+                    [uxPopover]="popoverTemplate"
+                    placement="bottom"
+                    [popoverClass]="showNowBtn ? 'date-range-picker-now-btn-popover' :
+                    'date-range-picker-popover'"
+                    class="form-control"
+                    [class.ux-date-picker-open]="popover.isVisible"
+                    aria-label="Selected date"
+                    (keydown.enter)="popover.show()">
+
+            <span class="input-group-btn" *ngIf="date">
+                <button class="btn button-secondary"
+                        [class.ux-date-picker-open]="popover.isVisible"
+                        aria-label="Clear"
+                        (click)="clear()">
+                    <ux-icon name="close" aria-hidden="true"></ux-icon>
+                </button>
+            </span>
+
+            <span class="input-group-btn">
+                <button class="btn button-secondary"
+                        [class.ux-date-picker-open]="popover.isVisible"
+                        aria-label="Show Date Picker"
+                        uxFocusIndicatorOrigin
+                        (click)="popover.show()">
+                    <ux-icon name="calendar" aria-hidden="true"></ux-icon>
+                </button>
+            </span>
+        </div>
+    </div>
+</div>
+
+<ng-template #popoverTemplate>
+    <ux-date-range-picker
+        [(start)]="start"
+        [(end)]="end"
+        [showTime]="showTime"
+        [showTimezone]="showTimezone"
+        [showSeconds]="showSeconds"
+        [showMeridian]="showMeridian"
+        [showSpinners]="showSpinners"
+        [showNowBtn]="showNowBtn"
+        [startTimezone]="startTimezone"
+        [endTimezone]="endTimezone"
+        (startChange)="onRangeChange()"
+        (endChange)="onRangeChange()"
+        (keydown.escape)="popover.hide(); input.focus()"
+        (startTimezoneChange)="onTimezoneChange(true, $event)"
+        (endTimezoneChange)="onTimezoneChange(false, $event)">
+    </ux-date-range-picker>
+</ng-template>
