@@ -75,7 +75,7 @@
   "manualInstallDependencies": [
     {
       "title": "ng2-file-upload",
-      "externalUrl": "https://www.npmjs.com/package/ng2-file-upload"
+      "externalUrl": "https://valor-software.com/ng2-file-upload/"
     },
     {
       "title": "ngx-mask",
