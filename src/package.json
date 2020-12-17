@@ -74,7 +74,13 @@
     "ng2-charts": ">=2.3.0"
   },
   "manualInstallDependencies": [
-    "ng2-file-upload",
-    "ngx-mask"
+    {
+      "title": "ng2-file-upload",
+      "externalUrl": "https://www.npmjs.com/package/ng2-file-upload"
+    },
+    {
+      "title": "ngx-mask",
+      "externalUrl": "https://www.npmjs.com/package/ngx-mask"
+    }
   ]
 }
