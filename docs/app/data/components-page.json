@@ -1427,11 +1427,11 @@
                         },
                         {
                             "title": "Import As",
-                            "content": "TreeModule.forRoot()"
+                            "content": "TreeModule"
                         },
                         {
                             "title": "Library",
-                            "content": "angular-tree-component"
+                            "content": "@circlon/angular-tree-component"
                         }
                     ]
                 },
@@ -1451,11 +1451,11 @@
                         },
                         {
                             "title": "Import As",
-                            "content": "TreeModule.forRoot()"
+                            "content": "TreeModule"
                         },
                         {
                             "title": "Library",
-                            "content": "angular-tree-component"
+                            "content": "@circlon/angular-tree-component"
                         }
                     ]
                 },
