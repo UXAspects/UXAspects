@@ -71,15 +71,5 @@
     "@angular/forms": ">=9.0.0 <12.0.0",
     "angular-tree-component": ">=5.2.0",
     "ng2-charts": ">=2.3.0"
-  },
-  "manualInstallDependencies": [
-    {
-      "title": "ng2-file-upload",
-      "externalUrl": "https://valor-software.com/ng2-file-upload/"
-    },
-    {
-      "title": "ngx-mask",
-      "externalUrl": "https://www.npmjs.com/package/ngx-mask"
-    }
-  ]
+  }
 }
