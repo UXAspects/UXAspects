@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { TreeNode } from 'angular-tree-component';
+import { TreeNode } from '@circlon/angular-tree-component';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { TreeViewService } from './tree-view-custom-node.service';
