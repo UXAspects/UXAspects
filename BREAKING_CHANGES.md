@@ -1,5 +1,7 @@
 # 2.1.x to 3.0
 * Angular 8 is no longer supported.
+* If you are using ng2-file-upload and ngx-mask packages in your application, you will need to install manually.
+
 
 # 1.8.x to 2.0
 * Angular 6 is no longer supported.
