@@ -1,5 +1,9 @@
 # 2.1.x to 3.0
 * Angular 8 is no longer supported.
+* The package for `angular-tree-component` has been renamed.
+    1. Run `npm remove angular-tree-component` and run `npm install @circlon/angular-tree-component`.
+    1. Replace all imports of the deprecated package with `@circlon/angular-tree-component`.
+    1. Add the angular tree component stylesheet to the `angular.json` file. See [Getting Started](https://github.com/CirclonGroup/angular-tree-component#getting-started) for details.
 
 # 1.8.x to 2.0
 * Angular 6 is no longer supported.
