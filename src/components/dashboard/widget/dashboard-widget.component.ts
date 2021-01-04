@@ -18,10 +18,24 @@ export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestro
     @Input() name: string;
 
     /** Defines the column the widget is placed in */
-    @Input() col: number;
+    @Input() set col(col: number) {
+        this.setColumn(col);
+        this.dashboardService.renderDashboard();
+    }
+
+    get col(): number {
+        return this.getColumn();
+    }
 
     /** Defines the row the widget is placed in */
-    @Input() row: number;
+    @Input() set row(row: number) {
+        this.setRow(row);
+        this.dashboardService.renderDashboard();
+    }
+
+    get row(): number {
+        return this.getRow();
+    }
 
     /** Defines the number of columns this widget should occupy. */
     @Input() colSpan: number = 1;
