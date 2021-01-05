@@ -1,4 +1,4 @@
-import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
 import { AfterViewInit, Component, HostBinding, Input, OnDestroy, OnInit } from '@angular/core';
 import { map, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
@@ -18,10 +18,24 @@ export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestro
     @Input() name: string;
 
     /** Defines the column the widget is placed in */
-    @Input() col: number;
+    @Input() set col(col: number) {
+        this.setColumn(coerceNumberProperty(col));
+        this.dashboardService.renderDashboard();
+    }
+
+    get col(): number {
+        return this.getColumn();
+    }
 
     /** Defines the row the widget is placed in */
-    @Input() row: number;
+    @Input() set row(row: number) {
+        this.setRow(coerceNumberProperty(row));
+        this.dashboardService.renderDashboard();
+    }
+
+    get row(): number {
+        return this.getRow();
+    }
 
     /** Defines the number of columns this widget should occupy. */
     @Input() colSpan: number = 1;
@@ -283,6 +297,8 @@ export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestro
     }
 
     static ngAcceptInputType_autoPositioning: boolean | string;
+    static ngAcceptInputType_col: number | string;
+    static ngAcceptInputType_row: number | string;
 }
 
 export interface StackableValue {
