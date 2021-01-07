@@ -35,7 +35,7 @@
         <maven.install.skip>true</maven.install.skip>
         <skipNexusStagingDeployMojo>true</skipNexusStagingDeployMojo>
         <skipLicenseHeadersCheck>true</skipLicenseHeadersCheck>
-        <copyrightYear>2020</copyrightYear>
+        <copyrightYear>2021</copyrightYear>
     </properties>
 
     <build>
