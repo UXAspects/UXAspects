@@ -1,0 +1,69 @@
+<div class="row">
+    <div class="col-sm-6 col-xs-12">
+        <div class="input-group date m-nil">
+            <input type="text"
+                #input
+                #popover="ux-popover"
+                uxFocusIndicatorOrigin
+                [ngModel]="date | date:'dd MMMM yyyy HH:mm'"
+                [uxPopover]="popoverTemplate"
+                placement="bottom"
+                popoverClass="date-time-picker-popover"
+                class="form-control"
+                [class.ux-date-picker-open]="popover.isVisible"
+                aria-label="Selected date"
+                (keydown.enter)="popover.show()">
+
+            <span class="input-group-btn">
+                <button
+                    class="btn button-secondary"
+                    [class.ux-date-picker-open]="popover.isVisible"
+                    aria-label="Show Date Picker"
+                    (click)="popover.show()">
+                    <ux-icon name="calendar" aria-hidden="true"></ux-icon>
+                </button>
+            </span>
+        </div>
+
+        <p class="m-t">Selected date is:
+            <em>{{ date | date:'dd MMMM yyyy HH:mm' }} {{ timezone?.name }}</em>
+        </p>
+    </div>
+</div>
+
+<ng-template #popoverTemplate>
+    <ux-date-time-picker
+        [(date)]="date"
+        [(timezone)]="timezone"
+        [showTime]="showTime"
+        [showMeridian]="showMeridians"
+        [showSpinners]="showSpinners"
+        [showTimezone]="showTimezones"
+        (keydown.escape)="popover.hide(); input.focus()">
+    </ux-date-time-picker>
+</ng-template>
+
+<hr>
+
+<div class="row uxd-customize-example">
+    <div class="col-md-12">
+        <ux-accordion>
+            <ux-accordion-panel class="accordion-chevron" heading="Customize Example...">
+                <div class="row">
+                    <div class="col-md-3">
+                        <ux-checkbox [(ngModel)]="showTime">Show Time</ux-checkbox>
+                    </div>
+                    <div class="col-md-3">
+                        <ux-checkbox [(ngModel)]="showTimezones">Show Timezones</ux-checkbox>
+                    </div>
+                    <div class="col-md-3">
+                        <ux-checkbox [(ngModel)]="showMeridians">Show Meridians</ux-checkbox>
+                    </div>
+                    <div class="col-md-3">
+                        <ux-checkbox [(ngModel)]="showSpinners">Show Spinners</ux-checkbox>
+                    </div>
+                </div>
+            </ux-accordion-panel>
+        </ux-accordion>
+    </div>
+</div>

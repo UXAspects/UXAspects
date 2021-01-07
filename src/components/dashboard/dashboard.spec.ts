@@ -352,7 +352,6 @@ export class DashboardWidgetLayoutTestComponent {
 describe('Dashboard Widgets layout', () => {
     let component: DashboardWidgetLayoutTestComponent;
     let fixture: ComponentFixture<DashboardWidgetLayoutTestComponent>;
-    let nativeElement: HTMLElement;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
@@ -364,7 +363,6 @@ describe('Dashboard Widgets layout', () => {
     beforeEach(async () => {
         fixture = TestBed.createComponent(DashboardWidgetLayoutTestComponent);
         component = fixture.componentInstance;
-        nativeElement = fixture.nativeElement;
 
         fixture.detectChanges();
         await fixture.whenStable();
@@ -379,6 +377,17 @@ describe('Dashboard Widgets layout', () => {
         expect(widgets[1].getRow()).toBe(0, 'purpose-widget row');
         expect(widgets[2].getColumn()).toBe(0, 'host-widget col');
         expect(widgets[2].getRow()).toBe(0, 'host-widget row');
+    });
+
+    it('should update position when changes programmatically', () => {
+        const widgets = component.widgets.toArray();
+        expect(widgets[0].getColumn()).toBe(1, 'run-widget col');
+        expect(widgets[0].x).not.toBe(0);
+
+        widgets[0].col = 0;
+
+        expect(widgets[0].getColumn()).toBe(0, 'run-widget col');
+        expect(widgets[0].x).toBe(0);
     });
 });
 

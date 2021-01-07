@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { concat, fromEvent, Observable, Observer } from 'rxjs';
 
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+})
 export class FrameExtractionService {
 
     private createVideoPlayer(source: string): HTMLVideoElement {
