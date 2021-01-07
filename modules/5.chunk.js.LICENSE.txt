@@ -30,7 +30,7 @@ and limitations under the License.
  */
 
 /**
- * @license Angular v10.0.3
+ * @license Angular v11.0.0
  * (c) 2010-2020 Google LLC. https://angular.io/
  * License: MIT
  */
