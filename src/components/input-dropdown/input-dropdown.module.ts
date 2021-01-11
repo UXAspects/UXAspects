@@ -7,7 +7,7 @@ import { MenuModule } from '../menu/menu.module';
 import { InputDropdownComponent } from './input-dropdown.component';
 
 @NgModule({
-  imports: [CommonModule, FormsModule, IconModule, MenuModule, AccessibilityModule, ],
+  imports: [CommonModule, FormsModule, IconModule, MenuModule, AccessibilityModule],
   declarations: [
     InputDropdownComponent
   ],
