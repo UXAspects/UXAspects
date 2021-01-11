@@ -13,6 +13,7 @@ import { MenuComponent } from '../menu/menu.component';
     selector: '[uxMenuTriggerFor]',
     exportAs: 'ux-menu-trigger',
     host: {
+        '[attr.disabled]': 'disabled ? true : null',
         '[attr.aria-haspopup]': '!!menu',
         '[attr.aria-expanded]': 'menu?.isMenuOpen'
     }

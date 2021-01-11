@@ -101,6 +101,7 @@ describe('InputDropdownComponent', () => {
         <ux-input-dropdown
             [allowNull]="allowNull"
             [(dropdownOpen)]="dropdownOpen"
+            [disabled]="disabled"
             (selectedChange)="onSelectedChange($event)"
             [(selected)]="selected"
             (dropdownOpenChange)="onOpenChange($event)">
@@ -119,6 +120,7 @@ describe('InputDropdownComponent', () => {
 })
 export class InputDropdownTestComponent {
 
+    disabled: boolean = false;
     dropdownOpen: boolean = false;
     allowNull: boolean = false;
     options: string[] = ['One', 'Two', 'Three'];
@@ -236,6 +238,35 @@ describe('InputDropdownComponent', () => {
         expect(openChangeSpy).toHaveBeenCalledTimes(2);
         expect(openChangeSpy).toHaveBeenCalledWith(false);
     });
+
+    it('should not open the dropdown when disabled is true', async () => {
+        component.disabled = true;
+
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        const dropdown = document.querySelector('.filter-container');
+        expect(dropdown).toBeNull();
+    });
+
+    it('should not focus the input field when disabled is true.', async () => {
+        let trigger = nativeElement.querySelector('button.form-control') as HTMLButtonElement;
+        component.disabled = true;
+
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        // open menu
+        trigger.click();
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        const input = document.querySelector<HTMLInputElement>('input.form-control');
+
+        expect(document.activeElement).not.toBe(input);
+    });
+
+
 
     describe('with allowNull = true', () => {
         beforeEach(() => {
