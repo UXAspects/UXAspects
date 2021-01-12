@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -6,15 +6,13 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
     templateUrl: './input-dropdown.testpage.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class InputDropdownTestPageComponent implements OnInit {
-
-    ngOnInit() {}
+export class InputDropdownTestPageComponent {
 
     optionList: ReadonlyArray<RadioOption> = [
         { name: 'One' }, { name: 'Two' }, { name: 'Three' }, { name: 'Four' }
     ];
+
     filteredOptionList: ReadonlyArray<RadioOption> = this.optionList;
-    private _filter: string = '';
     get filter(): string {
         return this._filter;
     }
@@ -35,22 +33,17 @@ export class InputDropdownTestPageComponent implements OnInit {
         return this.form.get('inputForm');
     }
 
+    private _filter: string = '';
+
     constructor(private formBuilder: FormBuilder) {}
 
-    allowNull: boolean = false;
-    dropdownOpen: boolean = false;
     disabled: boolean = false;
-    maxHeight: string = '400px';
     placeholder: string = 'Type to search...';
     selected: RadioOption;
 
     selectOption(event: KeyboardEvent, option: RadioOption): void {
         this.selected = option;
         event.preventDefault();
-    }
-
-    dropdownOpenChange(value: boolean): void {
-        this.dropdownOpen = value;
     }
 
 }

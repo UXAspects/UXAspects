@@ -177,6 +177,9 @@ export class InputDropdownComponent<T> implements ControlValueAccessor, AfterVie
     }
 
     toggleMenu(): void {
+        if (this.disabled) {
+            return;
+        }
         this.dropdownOpen = !this.dropdownOpen;
         this.dropdownOpenChange.emit(this.dropdownOpen);
         this.menuTrigger.toggleMenu();

@@ -240,16 +240,19 @@ describe('InputDropdownComponent', () => {
     });
 
     it('should not open the dropdown when disabled is true', async () => {
+        let trigger = nativeElement.querySelector('button.form-control') as HTMLButtonElement;
         component.disabled = true;
 
+        // open menu
+        trigger.click();
         fixture.detectChanges();
         await fixture.whenStable();
 
-        const dropdown = document.querySelector('.filter-container');
+        const dropdown = nativeElement.querySelector('.filter-container');
         expect(dropdown).toBeNull();
     });
 
-    it('should not focus the input field when disabled is true.', async () => {
+    it('should not retain focus on the button when disabled is true.', async () => {
         let trigger = nativeElement.querySelector('button.form-control') as HTMLButtonElement;
         component.disabled = true;
 
@@ -261,9 +264,9 @@ describe('InputDropdownComponent', () => {
         fixture.detectChanges();
         await fixture.whenStable();
 
-        const input = document.querySelector<HTMLInputElement>('input.form-control');
+        const button = document.querySelector<HTMLInputElement>('button.form-control');
 
-        expect(document.activeElement).not.toBe(input);
+        expect(document.activeElement).not.toBe(button);
     });
 
 

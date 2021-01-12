@@ -91,12 +91,12 @@ const routes: Routes = [
         loadChildren: () => import('./infinite-scroll/infinite-scroll.module').then(m => m.InfiniteScrollTestPageModule)
     },
     {
-        path: 'item-display-panel',
-        loadChildren: () => import('./item-display-panel/item-display-panel.module').then(m => m.ItemDisplayPanelTestPageModule)
-    },
-    {
         path: 'input-dropdown',
         loadChildren: () => import('./input-dropdown/input-dropdown.module').then(m => m.InputDropdownTestPageModule)
+    },
+    {
+        path: 'item-display-panel',
+        loadChildren: () => import('./item-display-panel/item-display-panel.module').then(m => m.ItemDisplayPanelTestPageModule)
     },
     {
         path: 'marquee-wizard',

@@ -1,4 +1,4 @@
-import { imageCompare } from '../common/image-compare';
+import { imageCompare } from '../../common/image-compare';
 import { InputDropdownPage } from './input-dropdown.po.spec';
 
 describe('Input Dropdown Tests', () => {
@@ -13,9 +13,9 @@ describe('Input Dropdown Tests', () => {
     it('should have correct initial states', async () => {
 
         // dropdown list not expanded
-        expect(await page.confirmDropdownIsExpanded()).toBeFalsy();
+        expect(await page.isDropdownExpanded()).toBeFalsy();
 
-        expect(await page.getText()).toEqual('Selection: (none)');
+        expect(await page.getButtonText()).toEqual('Selection: (none)');
 
         expect(await imageCompare('input-dropdown-initial')).toEqual(0);
 
