@@ -269,7 +269,7 @@ describe('InputDropdownComponent', () => {
     });
 
     it('dropdownOpenChange should not emit when the button has been disabled', async () => {
-        const trigger = nativeElement.querySelector('.ux-select-icon.ux-select-chevron-icon') as HTMLButtonElement;
+        const trigger = nativeElement.querySelector('.ux-select-icon') as HTMLButtonElement;
         component.disabled = true;
 
         fixture.detectChanges();
