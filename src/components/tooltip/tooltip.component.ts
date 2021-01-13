@@ -41,7 +41,7 @@ export class TooltipComponent<T = any> implements OnDestroy {
     }
 
     /** The name of the css class to use for the tooltip direction */
-    _positionClass: string;
+    _positionClass: string = '';
 
     get positionClass(): string {
         return this._positionClass;
