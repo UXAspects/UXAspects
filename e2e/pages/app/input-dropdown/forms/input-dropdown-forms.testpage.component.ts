@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
     selector: 'app-input-dropdown-forms',
@@ -8,11 +8,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class InputDropdownFormsTestPageComponent {
 
-    optionList: ReadonlyArray<RadioOption> = [
-        { name: 'One' }, { name: 'Two' }, { name: 'Three' }, { name: 'Four' }
+    optionList: ReadonlyArray<string> = [
+        'One', 'Two', 'Three', 'Four'
     ];
 
-    filteredOptionList: ReadonlyArray<RadioOption> = this.optionList;
+    filteredOptionList: ReadonlyArray<string> = this.optionList;
     get filter(): string {
         return this._filter;
     }
@@ -21,16 +21,8 @@ export class InputDropdownFormsTestPageComponent {
         this._filter = value;
         this.filteredOptionList =
             value && (value.length > 0) ?
-                this.optionList.filter(option => (option.name.toLowerCase().indexOf(value.toLowerCase()) > -1)) :
+                this.optionList.filter(option => (option.toLowerCase().indexOf(value.toLowerCase()) > -1)) :
                 this.optionList;
-    }
-
-    form: FormGroup = this.formBuilder.group({
-        inputForm: [{value: '', disabled: true}, [Validators.minLength(3), Validators.maxLength(6)]]
-    });
-
-    get inputForm() {
-        return this.form.get('inputForm');
     }
 
     private _filter: string = '';
@@ -38,15 +30,20 @@ export class InputDropdownFormsTestPageComponent {
     constructor(private formBuilder: FormBuilder) {}
 
     placeholder: string = 'Type to search...';
-    selected: RadioOption;
+    selected: string;
+    disabled: boolean = false;
 
-    selectOption(event: KeyboardEvent, option: RadioOption): void {
+    form: FormGroup = this.formBuilder.group({
+        inputDropdown: [{value: '', disabled: this.disabled}]
+    });
+
+    get inputDropdown() {
+        return this.form.get('inputDropdown');
+    }
+
+    selectOption(event: KeyboardEvent, option: string): void {
         this.selected = option;
         event.preventDefault();
     }
 
-}
-
-export interface RadioOption {
-    name: string;
 }

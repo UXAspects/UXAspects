@@ -18,7 +18,7 @@ export class InputDropdownPage {
     }
 
     async getButtonText(): Promise<string> {
-        return (await this.getButton()).getAttribute('innerText');
+        return this.getButton().getText();
     }
 
 }

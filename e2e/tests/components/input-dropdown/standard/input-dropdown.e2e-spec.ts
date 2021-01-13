@@ -1,7 +1,7 @@
 import { imageCompare } from '../../common/image-compare';
 import { InputDropdownPage } from './input-dropdown.po.spec';
 
-describe('Input Dropdown Tests', () => {
+describe('Input Dropdown (standalone)', () => {
 
     let page: InputDropdownPage;
 

@@ -1,4 +1,4 @@
-import { browser } from 'protractor';
+import { browser, by, element } from 'protractor';
 
 export class InputDropdownFormPage {
 
@@ -6,6 +6,7 @@ export class InputDropdownFormPage {
         await browser.get('#/input-dropdown/forms');
     }
 
+    checkboxDisabled = element(by.id('disabledBtn'));
 
 }
 

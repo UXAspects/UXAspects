@@ -221,7 +221,7 @@ describe('InputDropdownComponent', () => {
     });
 
     it('dropdownOpenChange should emit when the dropdown is toggled non-programmatically', async () => {
-        let trigger = nativeElement.querySelector('button.form-control') as HTMLButtonElement;
+        const trigger = nativeElement.querySelector('button.form-control') as HTMLButtonElement;
         trigger.click();
 
         fixture.detectChanges();
@@ -240,20 +240,19 @@ describe('InputDropdownComponent', () => {
     });
 
     it('should not open the dropdown when disabled is true', async () => {
-        let trigger = nativeElement.querySelector('button.form-control') as HTMLButtonElement;
+        const trigger = nativeElement.querySelector('button.form-control') as HTMLButtonElement;
         component.disabled = true;
 
-        // open menu
         trigger.click();
         fixture.detectChanges();
         await fixture.whenStable();
 
-        const dropdown = nativeElement.querySelector('.filter-container');
-        expect(dropdown).toBeNull();
+        const filterContainer = nativeElement.querySelector('.filter-container');
+        expect(filterContainer).toBeNull();
     });
 
     it('should not retain focus on the button when disabled is true.', async () => {
-        let trigger = nativeElement.querySelector('button.form-control') as HTMLButtonElement;
+        const trigger = nativeElement.querySelector('button.form-control') as HTMLButtonElement;
         component.disabled = true;
 
         fixture.detectChanges();
@@ -269,7 +268,18 @@ describe('InputDropdownComponent', () => {
         expect(document.activeElement).not.toBe(button);
     });
 
+    it('dropdownOpenChange should not emit when the button has been disabled', async () => {
+        const trigger = nativeElement.querySelector('.ux-select-icon.ux-select-chevron-icon') as HTMLButtonElement;
+        component.disabled = true;
 
+        fixture.detectChanges();
+
+        trigger.click();
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        expect(openChangeSpy).not.toHaveBeenCalled();
+    });
 
     describe('with allowNull = true', () => {
         beforeEach(() => {

@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
     selector: 'app-input-dropdown',
@@ -8,11 +7,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class InputDropdownTestPageComponent {
 
-    optionList: ReadonlyArray<RadioOption> = [
-        { name: 'One' }, { name: 'Two' }, { name: 'Three' }, { name: 'Four' }
+    optionList: ReadonlyArray<string> = [
+        'One', 'Two', 'Three', 'Four'
     ];
 
-    filteredOptionList: ReadonlyArray<RadioOption> = this.optionList;
+    filteredOptionList: ReadonlyArray<string> = this.optionList;
     get filter(): string {
         return this._filter;
     }
@@ -21,33 +20,20 @@ export class InputDropdownTestPageComponent {
         this._filter = value;
         this.filteredOptionList =
             value && (value.length > 0) ?
-                this.optionList.filter(option => (option.name.toLowerCase().indexOf(value.toLowerCase()) > -1)) :
+                this.optionList.filter(option => (option.toLowerCase().indexOf(value.toLowerCase()) > -1)) :
                 this.optionList;
-    }
-
-    form: FormGroup = this.formBuilder.group({
-        inputForm: ['', [Validators.minLength(3), Validators.maxLength(6)]]
-    });
-
-    get inputForm() {
-        return this.form.get('inputForm');
     }
 
     private _filter: string = '';
 
-    constructor(private formBuilder: FormBuilder) {}
-
     disabled: boolean = false;
     placeholder: string = 'Type to search...';
-    selected: RadioOption;
+    selected: string;
 
-    selectOption(event: KeyboardEvent, option: RadioOption): void {
+    selectOption(event: KeyboardEvent, option: string): void {
         this.selected = option;
         event.preventDefault();
     }
 
 }
 
-export interface RadioOption {
-    name: string;
-}

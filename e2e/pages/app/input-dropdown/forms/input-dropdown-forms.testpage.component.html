@@ -6,27 +6,33 @@
                 <ux-input-dropdown
                     id="dropdown"
                     [placeholder]="placeholder"
-                    formControlName="inputForm">
+                    [disabled]="disabled"
+                    formControlName="inputDropdown">
 
-                <ng-template #displayContent>
-                    <b>Selection:</b> {{ selected ? selected.name : '(none)' }}
-                </ng-template>
+                    <ng-template #displayContent>
+                        <b>Selection:</b> {{ selected ? selected : '(none)' }}
+                    </ng-template>
 
-                <div class="radio-button-container"
-                    uxTabbableList>
-                    <ux-radio-button
-                        uxTabbableListItem
-                        *ngFor="let option of filteredOptionList"
-                        name="group"
-                        [(value)]="selected"
-                        [option]="option"
-                        (keydown.space)="selectOption($event, option)">
-                        <span [innerHTML]="option.name"></span>
-                    </ux-radio-button>
-                </div>
+                    <div class="radio-button-container"
+                        uxTabbableList>
+                        <ux-radio-button
+                            uxTabbableListItem
+                            *ngFor="let option of filteredOptionList"
+                            name="group"
+                            [(value)]="selected"
+                            [option]="option"
+                            (keydown.space)="selectOption($event, option)">
+                            <span [innerHTML]="option"></span>
+                        </ux-radio-button>
+                    </div>
 
                 </ux-input-dropdown>
             </div>
         </form>
     </div>
+</div>
+<div>
+    <ux-checkbox id="disabledBtn" [(value)]="disabled">
+        disabled
+    </ux-checkbox>
 </div>
