@@ -52,6 +52,31 @@ describe('Tooltips', () => {
         await page.reset();
     });
 
+    it('should use fallback position when tooltip would be off the page', async () => {
+        await page.placementLeftBtn.click();
+
+        await browser.actions().mouseMove(page.fallbackTooltipBtn).perform();
+
+        expect(await page.cdkOverlayContainer.isPresent()).toBe(true);
+        expect(await page.tooltip.isPresent()).toBe(true);
+        expect(await imageCompare('tooltip-fallback')).toEqual(0, 'left placement should fallback to right');
+
+        await page.reset();
+    });
+
+    it('should use custom fallback position when specified', async () => {
+        await page.fallbackTopBtn.click();
+        await page.placementLeftBtn.click();
+
+        await browser.actions().mouseMove(page.fallbackTooltipBtn).perform();
+
+        expect(await page.cdkOverlayContainer.isPresent()).toBe(true);
+        expect(await page.tooltip.isPresent()).toBe(true);
+        expect(await imageCompare('tooltip-fallback-custom')).toEqual(0, 'should use custom fallback placement (top)');
+
+        await page.reset();
+    });
+
     it('should be able to programmatically show the tooltip', async () => {
         await page.showTooltip();
         expect(await page.tooltip.isPresent()).toBe(true);
@@ -170,8 +195,8 @@ describe('Tooltips', () => {
         // the tooltip should be visible
         expect(await page.tooltip.isPresent()).toBe(true);
 
-        // tab away from the button
-        await browser.actions().sendKeys(Key.TAB).perform();
+        // tab away from the buttons
+        await browser.actions().sendKeys(Key.TAB, Key.TAB).perform();
 
         // the tooltip should be hidden again
         expect(await page.tooltip.isPresent()).toBe(false);

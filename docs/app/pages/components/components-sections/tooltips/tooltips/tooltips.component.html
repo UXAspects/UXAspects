@@ -58,16 +58,21 @@
         If set to <code>true</code> this will programmatically show the tooltip.
     </tr>
     <tr uxd-api-property name="placement" type="string" defaultValue="top">
-        Defines which direction the tooltip should appear. The possible values are 
+        Defines which direction the tooltip should appear. The possible values are
         <code>top</code>, <code>right</code>, <code>bottom</code> and <code>left</code>.
     </tr>
+    <tr uxd-api-property name="fallbackPlacement" type="string">
+        Defines which direction the tooltip should appear if the value of the <code>placement</code> input cannot be used.
+        The possible values are <code>top</code>, <code>right</code>, <code>bottom</code> and <code>left</code>.
+        The fallback placement will be in the opposite direction of the <code>placement</code> input by default.
+    </tr>
     <tr uxd-api-property name="showTriggers" type="string[]" defaultValue="['mouseenter', 'focus']">
-        Specifies which events will cause the tooltip to appear. 
+        Specifies which events will cause the tooltip to appear.
         To manually control when the tooltip appears set this to an empty array.
         Possible events are <code>click</code>, <code>mouseenter</code> and <code>focus</code>.
     </tr>
     <tr uxd-api-property name="hideTriggers" type="string[]" defaultValue="['mouseleave', 'blur']">
-        Specifies which events will cause the tooltip to hide. 
+        Specifies which events will cause the tooltip to hide.
         To manually control when the tooltip hides set this to an empty array.
         Possible events are <code>click</code>, <code>mouseleave</code> and <code>blur</code>.
     </tr>

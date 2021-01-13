@@ -3,10 +3,12 @@ import { $, browser } from 'protractor';
 export class PopoverPage {
 
     showPopoverBtn = $('#show-popover-btn');
+    fallbackPopoverBtn = $('#fallback-popover-btn');
     placementTopBtn = $('#placement-top-btn');
     placementRightBtn = $('#placement-right-btn');
     placementBottomBtn = $('#placement-bottom-btn');
     placementLeftBtn = $('#placement-left-btn');
+    fallbackTopBtn = $('#fallback-top-btn');
     customClasssBtn = $('#custom-classs-btn');
     templateRefBtn = $('#template-ref-btn');
     setTitleBtn = $('#set-title-btn');

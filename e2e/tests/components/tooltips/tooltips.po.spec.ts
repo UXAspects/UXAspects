@@ -3,10 +3,12 @@ import { $, browser } from 'protractor';
 export class TooltipsPage {
 
     showTooltipBtn = $('#show-tooltip-btn');
+    fallbackTooltipBtn = $('#fallback-tooltip-btn');
     placementTopBtn = $('#placement-top-btn');
     placementRightBtn = $('#placement-right-btn');
     placementBottomBtn = $('#placement-bottom-btn');
     placementLeftBtn = $('#placement-left-btn');
+    fallbackTopBtn = $('#fallback-top-btn');
     customClasssBtn = $('#custom-classs-btn');
     templateRefBtn = $('#template-ref-btn');
     programmaticallyShowBtn = $('#programmatically-show-btn');

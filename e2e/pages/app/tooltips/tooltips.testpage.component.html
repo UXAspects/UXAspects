@@ -1,4 +1,4 @@
-<div class="m-lg">
+<div class="tooltip-container">
     <button id="show-tooltip-btn"
             class="btn button-primary"
             #tooltip="ux-tooltip"
@@ -9,12 +9,25 @@
     </button>
 </div>
 
+<div class="fallback-tooltip-container">
+    <button id="fallback-tooltip-btn"
+            class="btn button-primary"
+            #tooltip="ux-tooltip"
+            [uxTooltip]="content"
+            [placement]="placement"
+            [fallbackPlacement]="fallbackPlacement"
+            [tooltipClass]="customClass">
+        Fallback Tooltip
+    </button>
+</div>
+
 <hr>
 
 <button id="placement-top-btn" class="btn button-secondary" (click)="placement = 'top'">Placement Top</button>
 <button id="placement-right-btn" class="btn button-secondary" (click)="placement = 'right'">Placement Right</button>
 <button id="placement-bottom-btn" class="btn button-secondary" (click)="placement = 'bottom'">Placement Bottom</button>
 <button id="placement-left-btn" class="btn button-secondary" (click)="placement = 'left'">Placement Left</button>
+<button id="fallback-top-btn" class="btn button-secondary" (click)="fallbackPlacement = 'top'">Fallback Placement Top</button>
 
 <br>
 <br>
