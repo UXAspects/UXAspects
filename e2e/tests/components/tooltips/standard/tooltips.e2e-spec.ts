@@ -1,5 +1,5 @@
 import { browser, Key } from 'protractor';
-import { imageCompare } from '../common/image-compare';
+import { imageCompare } from '../../common/image-compare';
 import { TooltipsPage } from './tooltips.po.spec';
 
 describe('Tooltips', () => {
@@ -48,31 +48,6 @@ describe('Tooltips', () => {
         // the tooltip should now be hidden but the overlay container should remain
         expect(await page.cdkOverlayContainer.isPresent()).toBe(true);
         expect(await page.tooltip.isPresent()).toBe(false);
-
-        await page.reset();
-    });
-
-    it('should use fallback position when tooltip would be off the page', async () => {
-        await page.placementLeftBtn.click();
-
-        await browser.actions().mouseMove(page.fallbackTooltipBtn).perform();
-
-        expect(await page.cdkOverlayContainer.isPresent()).toBe(true);
-        expect(await page.tooltip.isPresent()).toBe(true);
-        expect(await imageCompare('tooltip-fallback')).toEqual(0, 'left placement should fallback to right');
-
-        await page.reset();
-    });
-
-    it('should use custom fallback position when specified', async () => {
-        await page.fallbackTopBtn.click();
-        await page.placementLeftBtn.click();
-
-        await browser.actions().mouseMove(page.fallbackTooltipBtn).perform();
-
-        expect(await page.cdkOverlayContainer.isPresent()).toBe(true);
-        expect(await page.tooltip.isPresent()).toBe(true);
-        expect(await imageCompare('tooltip-fallback-custom')).toEqual(0, 'should use custom fallback placement (top)');
 
         await page.reset();
     });

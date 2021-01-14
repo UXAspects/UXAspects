@@ -57,13 +57,11 @@
     <tr uxd-api-property name="isOpen" type="boolean" defaultValue="false">
         If set to <code>true</code> this will programmatically show the tooltip.
     </tr>
-    <tr uxd-api-property name="placement" type="string" defaultValue="top">
-        Defines which direction the tooltip should appear. The possible values are
-        <code>top</code>, <code>right</code>, <code>bottom</code> and <code>left</code>.
+    <tr uxd-api-property name="placement" type="'top' | 'right' | 'bottom' | 'left'" defaultValue="top">
+        Defines which direction the tooltip should appear.
     </tr>
-    <tr uxd-api-property name="fallbackPlacement" type="string">
+    <tr uxd-api-property name="fallbackPlacement" type="'top' | 'right' | 'bottom' | 'left'">
         Defines which direction the tooltip should appear if the value of the <code>placement</code> input cannot be used.
-        The possible values are <code>top</code>, <code>right</code>, <code>bottom</code> and <code>left</code>.
         The fallback placement will be in the opposite direction of the <code>placement</code> input by default.
     </tr>
     <tr uxd-api-property name="showTriggers" type="string[]" defaultValue="['mouseenter', 'focus']">
