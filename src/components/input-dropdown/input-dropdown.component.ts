@@ -138,6 +138,9 @@ export class InputDropdownComponent<T> implements ControlValueAccessor, AfterVie
     }
 
     resetValue(event: Event): void {
+        if (this.disabled) {
+            return;
+        }
         this.writeValue(undefined);
         this.selectedChange.emit(undefined);
         event.stopPropagation();

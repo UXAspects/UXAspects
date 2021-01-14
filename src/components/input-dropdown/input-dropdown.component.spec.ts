@@ -312,5 +312,19 @@ describe('InputDropdownComponent', () => {
             expect(component.onSelectedChange).toHaveBeenCalledWith(undefined);
         });
 
+        it('should not clear the value when disabled is true', async () => {
+            component.disabled = true;
+            fixture.detectChanges();
+
+            const clearButton = nativeElement.querySelector('.ux-select-icon.ux-select-clear-icon') as HTMLButtonElement;
+            clearButton.click();
+
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            const title = nativeElement.querySelector<HTMLElement>('.selection');
+            expect(title.innerText).toBe('Selection: One');
+        });
+
     });
 });
