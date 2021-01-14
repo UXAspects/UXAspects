@@ -14,7 +14,10 @@ import { MenuTriggerDirective } from '../menu/menu-trigger/menu-trigger.directiv
             multi: true,
             useExisting: forwardRef(() => InputDropdownComponent)
         }
-    ]
+    ],
+    host: {
+        '[class.ux-select-disabled]': 'disabled'
+    }
 })
 export class InputDropdownComponent<T> implements ControlValueAccessor, AfterViewInit, OnChanges, OnDestroy {
 
@@ -31,6 +34,9 @@ export class InputDropdownComponent<T> implements ControlValueAccessor, AfterVie
     @Input() set maxHeight(value: string | any) {
         this._maxHeight = coerceCssPixelValue(value);
     }
+
+    /** Controls the disabled state of the input-dropdown. */
+    @Input() disabled: boolean = false;
 
     /** Define if null values are allowed */
     @Input() allowNull: boolean;
@@ -132,9 +138,17 @@ export class InputDropdownComponent<T> implements ControlValueAccessor, AfterVie
     }
 
     resetValue(event: Event): void {
+        if (this.disabled) {
+            return;
+        }
         this.writeValue(undefined);
         this.selectedChange.emit(undefined);
         event.stopPropagation();
+    }
+
+    setDisabledState(isDisabled: boolean): void {
+        this.disabled = isDisabled;
+        this._changeDetector.markForCheck();
     }
 
     onMenuOpen(): void {
@@ -166,6 +180,9 @@ export class InputDropdownComponent<T> implements ControlValueAccessor, AfterVie
     }
 
     toggleMenu(): void {
+        if (this.disabled) {
+            return;
+        }
         this.dropdownOpen = !this.dropdownOpen;
         this.dropdownOpenChange.emit(this.dropdownOpen);
         this.menuTrigger.toggleMenu();

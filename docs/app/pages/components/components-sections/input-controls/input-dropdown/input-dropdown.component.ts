@@ -45,6 +45,7 @@ export class ComponentsInputDropdownComponent extends BaseDocumentationSection i
     }
     allowNull: boolean = false;
     dropdownOpen: boolean = false;
+    disabled: boolean = false;
     maxHeight: string = '400px';
     placeholder: string = 'Type to search...';
 

@@ -1,23 +1,17 @@
 <div class="row">
     <div class="col-md-5">
-
         <ux-input-dropdown
-            [(selected)]="selected"
-            [dropdownOpen]="dropdownOpen"
+            id="dropdown"
             [disabled]="disabled"
-            (dropdownOpenChange)="dropdownOpenChange($event)"
-            [(filter)]="filter"
-            [allowNull]="allowNull"
-            [maxHeight]="maxHeight"
             [placeholder]="placeholder"
-            aria-label="Filter input">
+            [selected]="selected">
 
             <ng-template #displayContent>
-                <b>Selection:</b> {{ selected ? selected.name : '(none)' }}
+                <b>Selection:</b> {{ selected ? selected : '(none)' }}
             </ng-template>
 
             <div class="radio-button-container"
-                 uxTabbableList>
+                uxTabbableList>
                 <ux-radio-button
                     uxTabbableListItem
                     *ngFor="let option of filteredOptionList"
@@ -25,11 +19,15 @@
                     [(value)]="selected"
                     [option]="option"
                     (keydown.space)="selectOption($event, option)">
-                    <span [innerHTML]="option.name | highlightSearch: filter">
-                    </span>
+                    <span [innerHTML]="option"></span>
                 </ux-radio-button>
             </div>
 
         </ux-input-dropdown>
     </div>
+</div>
+<div>
+    <ux-checkbox id="disabledBtn" [(value)]="disabled">
+        disabled
+    </ux-checkbox>
 </div>
