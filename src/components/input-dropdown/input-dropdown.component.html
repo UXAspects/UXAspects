@@ -1,6 +1,7 @@
 <div class="ux-select-container">
     <button #button type="button" class="form-control"
-            [uxMenuTriggerFor]="menu">
+            [uxMenuTriggerFor]="menu"
+            [disabled]="disabled">
         <ng-template #defaultDisplayContent>{{selected ? (selected | json) : '-'}}</ng-template>
         <ng-container [ngTemplateOutlet]="displayContentRef || defaultDisplayContent"></ng-container>
     </button>

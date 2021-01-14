@@ -2,8 +2,8 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
-import { AppComponent } from './app.component';
 import { ColorServiceModule, colorSets } from '@ux-aspects/ux-aspects';
+import { AppComponent } from './app.component';
 
 const routes: Routes = [
     {
@@ -89,6 +89,10 @@ const routes: Routes = [
     {
         path: 'infinite-scroll',
         loadChildren: () => import('./infinite-scroll/infinite-scroll.module').then(m => m.InfiniteScrollTestPageModule)
+    },
+    {
+        path: 'input-dropdown',
+        loadChildren: () => import('./input-dropdown/input-dropdown.module').then(m => m.InputDropdownTestPageModule)
     },
     {
         path: 'item-display-panel',

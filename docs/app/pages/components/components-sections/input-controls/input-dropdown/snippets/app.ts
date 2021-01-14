@@ -39,6 +39,7 @@ export class AppComponent {
                 this.optionList;
     }
     allowNull: boolean = false;
+    disabled: boolean = false;
     dropdownOpen: boolean = false;
     maxHeight: string = '400px';
     placeholder: string = 'Type to search...';

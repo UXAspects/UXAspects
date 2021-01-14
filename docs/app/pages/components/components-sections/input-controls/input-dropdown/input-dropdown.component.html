@@ -5,6 +5,7 @@
             [(selected)]="selected"
             [dropdownOpen]="dropdownOpen"
             (dropdownOpenChange)="dropdownOpenChange($event)"
+            [disabled]="disabled"
             [(filter)]="filter"
             [allowNull]="allowNull"
             [maxHeight]="maxHeight"
@@ -53,6 +54,11 @@
                 <div class="row uxd-customize-row">
                     <div class="col-md-4 col-sm-12">
                         <ux-checkbox [(value)]="allowNull">allowNull</ux-checkbox>
+                    </div>
+                </div>
+                <div class="row uxd-customize-row">
+                    <div class="col-md-3 col-sm-12">
+                        <ux-checkbox [(value)]="disabled">disabled</ux-checkbox>
                     </div>
                 </div>
                 <div class="row uxd-customize-row">
@@ -108,6 +114,9 @@
     </tr>
     <tr uxd-api-property name="dropdownOpen" type="boolean">
         If set to <code>true</code> this will programmatically show the typeahead dropdown.
+    </tr>
+    <tr uxd-api-property name="disabled" type="boolean" defaultValue="false">
+        Controls the disabled state of the input-dropdown.
     </tr>
 </uxd-api-properties>
 
