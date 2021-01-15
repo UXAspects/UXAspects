@@ -170,8 +170,8 @@ describe('Tooltips', () => {
         // the tooltip should be visible
         expect(await page.tooltip.isPresent()).toBe(true);
 
-        // tab away from the buttons
-        await browser.actions().sendKeys(Key.TAB, Key.TAB).perform();
+        // tab away from the button
+        await browser.actions().sendKeys(Key.TAB).perform();
 
         // the tooltip should be hidden again
         expect(await page.tooltip.isPresent()).toBe(false);
