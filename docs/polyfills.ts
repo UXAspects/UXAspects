@@ -8,3 +8,6 @@ if (!environment.production) {
     Error['stackTraceLimit'] = Infinity;
     require('zone.js/dist/long-stack-trace-zone');
 }
+
+(window as any).global = window;
+
