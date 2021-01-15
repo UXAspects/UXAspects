@@ -1,5 +1,5 @@
 import { browser, Key } from 'protractor';
-import { imageCompare } from '../common/image-compare';
+import { imageCompare } from '../../common/image-compare';
 import { TooltipsPage } from './tooltips.po.spec';
 
 describe('Tooltips', () => {

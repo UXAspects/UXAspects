@@ -40,6 +40,18 @@ export class TooltipComponent<T = any> implements OnDestroy {
         return this.content instanceof TemplateRef;
     }
 
+    /** The name of the css class to use for the tooltip direction */
+    _positionClass: string = '';
+
+    get positionClass(): string {
+        return this._positionClass;
+    }
+
+    set positionClass(positionClass: string) {
+        this._positionClass = positionClass;
+        this._changeDetectorRef.detectChanges();
+    }
+
     constructor(protected _changeDetectorRef: ChangeDetectorRef) { }
 
     /** Cleanup after the component is destroyed */
