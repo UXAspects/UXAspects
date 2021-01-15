@@ -1,4 +1,4 @@
-<div class="tooltip in" [id]="id" [attr.role]="role" [ngClass]="[placement, customClass]">
+<div class="tooltip in" [id]="id" [attr.role]="role" [ngClass]="[positionClass, customClass]">
     <div class="tooltip-arrow"></div>
     <div class="tooltip-inner" (cdkObserveContent)="reposition()">
         <ng-container *ngIf="!isTemplateRef">{{ content }}</ng-container>

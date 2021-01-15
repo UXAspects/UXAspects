@@ -1,4 +1,4 @@
-<div class="popover show" [ngClass]="[placement, 'popover-align-' + alignment, customClass]" [id]="id" [attr.role]="role" (uxClickOutside)="clickOutside$.next($event)">
+<div class="popover show" [ngClass]="[positionClass, 'popover-align-' + alignment, customClass]" [id]="id" [attr.role]="role" (uxClickOutside)="clickOutside$.next($event)">
     <div class="arrow"></div>
     <h3 class="popover-title" *ngIf="title">{{ title }}</h3>
     <div class="popover-content" (cdkObserveContent)="reposition()">
