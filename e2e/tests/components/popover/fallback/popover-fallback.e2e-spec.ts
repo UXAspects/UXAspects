@@ -10,10 +10,6 @@ describe('Popover (Fallback) Tests', () => {
         await page.getPage();
     });
 
-    it('should have the correct initial fallback appearance', async () => {
-        expect(await imageCompare('popover-fallback-initial')).toBe(0);
-    });
-
     it('should fallback to right when left is unavailable', async () => {
         expect(await page.cdkOverlayContainer.isPresent()).toBe(true);
         expect(await page.popoverHasClass(page.leftPopoverContent, 'right')).toBe(true);
