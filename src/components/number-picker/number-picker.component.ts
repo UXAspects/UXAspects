@@ -27,7 +27,6 @@ export class NumberPickerComponent implements ControlValueAccessor, OnDestroy, O
     private _value: number = 0;
     private _lastValue: number;
     private _focused: boolean = false;
-    private _direction: StepDirection;
     private _propagateChange = (_: number) => { };
     _touchedChange = () => { };
 
@@ -85,11 +84,7 @@ export class NumberPickerComponent implements ControlValueAccessor, OnDestroy, O
 
     /** Defines the amount the number picker should increase or decrease when the buttons or arrow keys are used. */
     @Input()
-    get step(): number {
-        return typeof this._step === 'number' ? this._step : this._step(this.value, this._direction);
-    }
-
-    set step(value) {
+    set step(value: number | ((value: number, direction: StepDirection) => number)) {
         if (typeof value === 'function') {
             this._step = value;
         } else {
@@ -131,14 +126,17 @@ export class NumberPickerComponent implements ControlValueAccessor, OnDestroy, O
         this._isDestroyed = true;
     }
 
+    getStep(direction: StepDirection): number {
+        return typeof this._step === 'number' ? this._step : this._step(this.value, direction);
+    }
+
     increment(event?: MouseEvent | KeyboardEvent): void {
         if (event) {
             event.preventDefault();
         }
 
         if (!this.disabled) {
-            this._direction = StepDirection.Increment;
-            this.value = Math.max(Math.min(this.value + this.step, this.max), this.min);
+            this.value = Math.max(Math.min(this.value + this.getStep(StepDirection.Increment), this.max), this.min);
 
             // account for javascripts terrible handling of floating point numbers
             this.value = parseFloat(this.value.toPrecision(this.precision));
@@ -154,8 +152,7 @@ export class NumberPickerComponent implements ControlValueAccessor, OnDestroy, O
         }
 
         if (!this.disabled) {
-            this._direction = StepDirection.Decrement;
-            this.value = Math.min(Math.max(this.value - this.step, this.min), this.max);
+            this.value = Math.min(Math.max(this.value - this.getStep(StepDirection.Decrement), this.min), this.max);
 
             // account for javascripts terrible handling of floating point numbers
             this.value = parseFloat(this.value.toPrecision(this.precision));
