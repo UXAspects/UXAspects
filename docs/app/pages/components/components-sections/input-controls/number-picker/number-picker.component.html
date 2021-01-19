@@ -31,7 +31,7 @@
     <tr uxd-api-property name="value" type="number">
         Sets the value displayed in the number picker component.
     </tr>
-    <tr uxd-api-property name="step" type="number" defaultValue="1">
+    <tr uxd-api-property name="step" type="number | (value: number, direction: StepDirection) => number" defaultValue="1">
         Defines the amount the number picker should increase or decrease when the buttons or arrow keys are used.
     </tr>
     <tr uxd-api-property name="min" type="number" defaultValue="-Infinity">
