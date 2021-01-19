@@ -22,11 +22,12 @@ export const NUMBER_PICKER_VALUE_ACCESSOR: any = {
 export class NumberPickerComponent implements ControlValueAccessor, OnDestroy, OnChanges {
     private _min: number = -Infinity;
     private _max: number = Infinity;
-    private _step: number = 1;
+    private _step: number | ((value: number, direction: StepDirection) => number) = 1;
     private _disabled: boolean = false;
     private _value: number = 0;
     private _lastValue: number;
     private _focused: boolean = false;
+    private _direction: StepDirection;
     private _propagateChange = (_: number) => { };
     _touchedChange = () => { };
 
@@ -85,11 +86,15 @@ export class NumberPickerComponent implements ControlValueAccessor, OnDestroy, O
     /** Defines the amount the number picker should increase or decrease when the buttons or arrow keys are used. */
     @Input()
     get step(): number {
-        return this._step;
+        return typeof this._step === 'number' ? this._step : this._step(this.value, this._direction);
     }
 
     set step(value) {
-        this._step = coerceNumberProperty(value);
+        if (typeof value === 'function') {
+            this._step = value;
+        } else {
+            this._step = coerceNumberProperty(value);
+        }
     }
 
     /** Indicate if the number picker is disabled or not. */
@@ -132,6 +137,7 @@ export class NumberPickerComponent implements ControlValueAccessor, OnDestroy, O
         }
 
         if (!this.disabled) {
+            this._direction = StepDirection.Increment;
             this.value = Math.max(Math.min(this.value + this.step, this.max), this.min);
 
             // account for javascripts terrible handling of floating point numbers
@@ -148,6 +154,7 @@ export class NumberPickerComponent implements ControlValueAccessor, OnDestroy, O
         }
 
         if (!this.disabled) {
+            this._direction = StepDirection.Decrement;
             this.value = Math.min(Math.max(this.value - this.step, this.min), this.max);
 
             // account for javascripts terrible handling of floating point numbers
@@ -223,3 +230,7 @@ export class NumberPickerComponent implements ControlValueAccessor, OnDestroy, O
     }
 }
 
+export enum StepDirection {
+    Increment,
+    Decrement
+}
