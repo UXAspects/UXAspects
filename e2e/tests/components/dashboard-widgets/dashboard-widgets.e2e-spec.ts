@@ -1,5 +1,5 @@
-import { browser, ElementFinder, Key } from 'protractor';
-import { imageCompareFullPageScreen } from '../common/image-compare';
+import { browser, ElementFinder } from 'protractor';
+// import { imageCompareFullPageScreen } from '../common/image-compare';
 import { DashboardWidgetsPage } from './dashboard-widgets.po.spec';
 
 describe('Dashboard Widgets Tests', () => {
@@ -32,13 +32,13 @@ describe('Dashboard Widgets Tests', () => {
         expect(await page.getWidgetLocationValue(widgetActions, 'top')).toBe(0);
         expect(await page.getWidgetLocationValue(widgetActions, 'left')).toBe(0);
 
-        expect(await page.getWidgetLocationValue(widgetEnum, 'top')).toBe(187);
+        expect(await page.getWidgetLocationValue(widgetEnum, 'top')).toBe(110);
         expect(await page.getWidgetLocationValue(widgetEnum, 'left')).toBe(0);
 
         expect(await page.getWidgetLocationValue(widgetTable, 'top')).toBe(0);
         expect(await page.getWidgetLocationValue(widgetTable, 'left')).toBe(554);
 
-        expect(await page.getWidgetLocationValue(widgetText, 'top')).toBe(374);
+        expect(await page.getWidgetLocationValue(widgetText, 'top')).toBe(220);
         expect(await page.getWidgetLocationValue(widgetText, 'left')).toBe(0);
 
         // expect(await imageCompareFullPageScreen('dashboard-widgets-initial')).toEqual(0);
@@ -56,7 +56,7 @@ describe('Dashboard Widgets Tests', () => {
         // drag the top widget down
         await browser.actions().dragAndDrop(widgetActions.$('button.widget-grab-handle'), { x: 0, y: 800 }).perform();
 
-        expect(await page.getWidgetLocationValue(widgetActions, 'top')).toBe(748, 'widget-actions top');
+        expect(await page.getWidgetLocationValue(widgetActions, 'top')).toBe(440, 'widget-actions top');
         expect(await page.getWidgetLocationValue(widgetActions, 'left')).toBe(0, 'widget-actions left');
 
         expect(await page.getWidgetLocationValue(widgetEnum, 'top')).toBe(0, 'widget-enum top');
@@ -65,7 +65,7 @@ describe('Dashboard Widgets Tests', () => {
         expect(await page.getWidgetLocationValue(widgetTable, 'top')).toBe(0, 'widget-table top');
         expect(await page.getWidgetLocationValue(widgetTable, 'left')).toBe(554, 'widget-table left');
 
-        expect(await page.getWidgetLocationValue(widgetText, 'top')).toBe(374, 'widget-text top');
+        expect(await page.getWidgetLocationValue(widgetText, 'top')).toBe(220, 'widget-text top');
         expect(await page.getWidgetLocationValue(widgetText, 'left')).toBe(0, 'widget-text left');
 
         expect(JSON.parse(await page.getLayoutOutput())).toEqual(layoutMock);
