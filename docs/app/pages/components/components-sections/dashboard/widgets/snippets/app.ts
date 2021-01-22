@@ -9,7 +9,7 @@ import {ActionConfig, ActionStatus, DashboardOptions, EnumConfig} from '@ux-aspe
 export class AppComponent implements AfterViewInit {
     fixedMode: boolean = false;
     textWidgetEditable: boolean = true;
-    private _dashboardPadding: number = 10;
+    private _dashboardPadding: number = 5;
 
     get dashboardPadding(): number {
         return this._dashboardPadding;

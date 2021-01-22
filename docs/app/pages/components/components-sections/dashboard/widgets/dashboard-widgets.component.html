@@ -3,20 +3,47 @@
               [class.dashboard-grabbing]="dashboard.isGrabbing"
               [options]="options">
 
-    <ux-dashboard-actions-widget class="widget"
+    <ux-dashboard-text-widget
+        class="widget"
+        id="widget-text"
+        [name]="'Text Widget'"
+        [heading]="'Text Widget'"
+        [fixedMode]="fixedMode"
+        [text]="loremIpsum"
+        [editable]="textWidgetEditable"
+        [colSpan]="2"
+        [rowSpan]="2">
+    </ux-dashboard-text-widget>
+
+    <ux-dashboard-table-widget
+        class="widget"
+        id="widget-table"
+        [name]="'Table Widget'"
+        [heading]="'Table Widget'"
+        [fixedMode]="fixedMode"
+        [header]="tableHeader"
+        [data]="tableData"
+        [colSpan]="2"
+        [rowSpan]="2">
+    </ux-dashboard-table-widget>
+
+    <ux-dashboard-actions-widget
+        class="widget"
         id="widget-actions"
         [name]="'Actions Widget'"
         [heading]="'Actions Widget'"
         [fixedMode]="fixedMode"
         [status]="status"
         [actions]="actions"
+        [colSpan]="2"
         (actionSelected)="handleActionChange($event)">
         <ng-template #iconAccept>
             <span class="custom-icon">✅</span>
         </ng-template>
     </ux-dashboard-actions-widget>
 
-    <ux-dashboard-enum-widget class="widget"
+    <ux-dashboard-enum-widget
+        class="widget"
         id="widget-enum"
         [name]="'Enum Widget'"
         [heading]="'Enum Widget'"
@@ -24,25 +51,6 @@
         [enums]="enums"
         [value]="'0'">
     </ux-dashboard-enum-widget>
-
-    <ux-dashboard-table-widget class="widget"
-        id="widget-table"
-        [name]="'Table Widget'"
-        [heading]="'Table Widget'"
-        [fixedMode]="fixedMode"
-        [header]="tableHeader"
-        [data]="tableData"
-        [rowSpan]="2">
-    </ux-dashboard-table-widget>
-
-    <ux-dashboard-text-widget class="widget"
-        id="widget-text"
-        [name]="'Text Widget'"
-        [heading]="'Text Widget'"
-        [fixedMode]="fixedMode"
-        [text]="loremIpsum"
-        [editable]="textWidgetEditable">
-    </ux-dashboard-text-widget>
 
 </ux-dashboard>
 
