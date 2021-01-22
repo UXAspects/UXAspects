@@ -12,6 +12,18 @@ import {IPlaygroundProvider} from '../../../../../interfaces/IPlaygroundProvider
 })
 @DocumentationSectionComponent('ComponentsDashboardWidgetsComponent')
 export class ComponentsDashboardWidgetsComponent extends BaseDocumentationSection implements IPlaygroundProvider, AfterViewInit {
+    playground: IPlayground = {
+        files: {
+            'app.component.ts': this.snippets.raw.appTs,
+            'app.component.html': this.snippets.raw.appHtml,
+            'app.component.css': this.snippets.raw.appCss
+        },
+        modules: [{
+            imports: ['DashboardModule', 'ColorServiceModule', 'SparkModule'],
+            library: '@ux-aspects/ux-aspects'
+        }]
+    };
+
     fixedMode: boolean = false;
     textWidgetEditable: boolean = true;
     private _dashboardPadding: number = 5;
@@ -38,27 +50,6 @@ export class ComponentsDashboardWidgetsComponent extends BaseDocumentationSectio
         rowHeight: 110,
         emptyRow: false,
         minWidth: 187
-    };
-
-    playground: IPlayground = {
-        files: {
-            'app.component.html': this.snippets.raw.appHtml,
-            'app.component.ts': this.snippets.raw.appTs,
-            'app.component.css': this.snippets.raw.appCss
-        },
-        modules: [{
-            imports: ['DashboardModule', 'ColorServiceModule', 'SparkModule'],
-            library: '@ux-aspects/ux-aspects'
-        }, {
-            library: 'chance'
-        },
-            {
-                library: 'chart.js'
-            },
-            {
-                imports: ['ChartsModule'],
-                library: 'ng2-charts'
-            }]
     };
 
     status: ActionStatus = {label: 'Waiting...', icon: 'radial'};
