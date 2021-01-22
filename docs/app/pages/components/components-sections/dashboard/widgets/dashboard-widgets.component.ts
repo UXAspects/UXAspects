@@ -15,8 +15,7 @@ export class ComponentsDashboardWidgetsComponent extends BaseDocumentationSectio
     playground: IPlayground = {
         files: {
             'app.component.ts': this.snippets.raw.appTs,
-            'app.component.html': this.snippets.raw.appHtml,
-            'app.component.css': this.snippets.raw.appCss
+            'app.component.html': this.snippets.raw.appHtml
         },
         modules: [{
             imports: ['DashboardModule'],
