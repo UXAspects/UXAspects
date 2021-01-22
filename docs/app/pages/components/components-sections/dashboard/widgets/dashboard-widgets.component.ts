@@ -19,7 +19,7 @@ export class ComponentsDashboardWidgetsComponent extends BaseDocumentationSectio
             'app.component.css': this.snippets.raw.appCss
         },
         modules: [{
-            imports: ['DashboardModule', 'ColorServiceModule', 'SparkModule'],
+            imports: ['DashboardModule'],
             library: '@ux-aspects/ux-aspects'
         }]
     };
