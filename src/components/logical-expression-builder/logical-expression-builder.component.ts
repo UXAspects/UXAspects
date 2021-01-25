@@ -106,6 +106,10 @@ export class LogicalExpressionBuilderComponent implements OnChanges, OnDestroy, 
         this.destroy$.complete();
     }
 
+    unblockEdit() {
+        this.focusHandlerService.setEditBlocked(null);
+    }
+
     handleSubExpressionChange(expression: LogicalExpression): void {
         this._expression = { ...expression } || null;
 
