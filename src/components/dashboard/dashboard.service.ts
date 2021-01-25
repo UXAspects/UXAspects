@@ -116,7 +116,9 @@ export class DashboardService implements OnDestroy {
                 col: widget.getColumn(),
                 row: widget.getRow(),
                 colSpan: widget.getColumnSpan(),
-                rowSpan: widget.getRowSpan()
+                rowSpan: widget.getRowSpan(),
+                minColSpan: widget.minColSpan,
+                minRowSpan: widget.minRowSpan
             };
         });
     }
@@ -137,6 +139,8 @@ export class DashboardService implements OnDestroy {
                 target.setRow(widget.row);
                 target.setColumnSpan(widget.colSpan);
                 target.setRowSpan(widget.rowSpan);
+                target.minColSpan = widget.minColSpan ?? 1;
+                target.minRowSpan = widget.minRowSpan ?? 1;
             }
         });
     }
@@ -434,6 +438,22 @@ export class DashboardService implements OnDestroy {
         if (dimensions.height < this.options.minHeight) {
             dimensions.y = action.widget.y;
             dimensions.height = this.options.minHeight;
+        }
+
+        const minWidth = this.getColumnWidth() * action.widget.minColSpan - this.getColumnWidth() / 2 + 1;
+        const widthSmallerThanAllowed = dimensions.width < minWidth;
+
+        if (widthSmallerThanAllowed) {
+            dimensions.x = action.widget.x;
+            dimensions.width = minWidth;
+        }
+
+        const minHeight = this.options.rowHeight * action.widget.minRowSpan - this.options.rowHeight / 2 + 1;
+        const heightSmallerThanAllowed = dimensions.height < minHeight;
+
+        if (heightSmallerThanAllowed) {
+            dimensions.y = action.widget.y;
+            dimensions.height = minHeight;
         }
 
         // update the widget actual values
@@ -1255,6 +1275,22 @@ export class DashboardService implements OnDestroy {
             dimensions.height = this.getRowHeight();
         }
 
+        const minWidth = this.getColumnWidth() * widget.minColSpan + 1;
+        const widthSmallerThanAllowed = dimensions.width < minWidth;
+
+        if (widthSmallerThanAllowed) {
+            dimensions.x = widget.x;
+            dimensions.width = minWidth;
+        }
+
+        const minHeight = this.options.rowHeight * widget.minRowSpan + 1;
+        const heightSmallerThanAllowed = dimensions.height < minHeight;
+
+        if (heightSmallerThanAllowed) {
+            dimensions.y = widget.y;
+            dimensions.height = minHeight;
+        }
+
         // move the widget to the placeholder position
         widget.setBounds(dimensions.x, dimensions.y, dimensions.width, dimensions.height);
 
@@ -1345,6 +1381,8 @@ export interface DashboardLayoutData {
     row: number;
     colSpan: number;
     rowSpan: number;
+    minColSpan?: number;
+    minRowSpan?: number;
 }
 
 export enum ActionDirection {

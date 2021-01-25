@@ -14,7 +14,9 @@
                              name="Usage Analytics"
                              [colSpan]="4"
                              [rowSpan]="2"
-                             [resizable]="true">
+                             [resizable]="true"
+                             minColSpan="2"
+                             minRowSpan="2">
 
             <div class="widget-content"
                  [class.widget-grabbing]="usageHandle.isGrabbing"
@@ -32,7 +34,12 @@
 
         </ux-dashboard-widget>
 
-        <ux-dashboard-widget id="subscription-widget" name="Service" [colSpan]="2">
+        <ux-dashboard-widget
+            id="subscription-widget"
+            name="Service"
+            [colSpan]="2"
+            [resizable]="true"
+            minColSpan="2">
             <div class="widget-content"
                  [class.widget-grabbing]="handle2.isGrabbing"
                  uxDashboardWidgetDragHandle>

@@ -43,6 +43,24 @@ export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestro
     /** Defines the number of rows this widget should occupy. */
     @Input() rowSpan: number = 1;
 
+    /** Defines the minimum number of columns this widget should occupy. */
+    @Input() get minColSpan(): number {
+        return this._minColSpan;
+    }
+
+    set minColSpan(minColumns: number) {
+        this._minColSpan = coerceNumberProperty(minColumns);
+    }
+
+    /** Defines the minimum number of rows this widget should occupy. */
+    @Input() get minRowSpan(): number {
+        return this._minRowSpan;
+    }
+
+    set minRowSpan(minRows: number) {
+        this._minRowSpan = coerceNumberProperty(minRows);
+    }
+
     /** Defines whether or not this widget can be resized. */
     @Input() resizable: boolean = false;
 
@@ -75,6 +93,8 @@ export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestro
     private _row: StackableValue = { regular: undefined, stacked: undefined };
     private _columnSpan: StackableValue = { regular: 1, stacked: 1 };
     private _rowSpan: StackableValue = { regular: 1, stacked: 1 };
+    private _minColSpan: number = 1;
+    private _minRowSpan: number = 1;
     private _autoPositioning: boolean = true;
     private _onDestroy = new Subject<void>();
 
@@ -299,6 +319,8 @@ export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestro
     static ngAcceptInputType_autoPositioning: boolean | string;
     static ngAcceptInputType_col: number | string;
     static ngAcceptInputType_row: number | string;
+    static ngAcceptInputType_minColSpan: number | string;
+    static ngAcceptInputType_minRowSpan: number | string;
 }
 
 export interface StackableValue {
