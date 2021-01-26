@@ -24,7 +24,7 @@
 }
 
 /* Card styles */
-.dnd-cards-container > .card {
+.card {
     display: block;
     width: 100%;
     height: 105px;
@@ -32,6 +32,7 @@
     box-shadow: 1px 1px 3px #ccc;
     border: 1px solid #ccc;
     padding: 10px 30px;
+    background-color: #fff;
 
     &:focus {
         outline: 2px dotted;
@@ -41,16 +42,16 @@
     }
 }
 
-.dnd-cards-container > .card.gu-mirror {
+.card.gu-mirror {
     border: 1px solid #00a7a2;
 }
 
-.dnd-cards-container > .card .name {
+.card .name {
     font-size: 1.25rem;
     font-weight: 600;
 }
 
-.dnd-cards-container > .card .type {
+.card .type {
     color: #aaa;
 }
 
@@ -109,4 +110,3 @@
 .demo-list-item.ux-reorderable-moving {
     visibility: hidden;
 }
-

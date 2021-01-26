@@ -2,6 +2,28 @@
     background-color: #fff;
 }
 
+.cdk-drag-placeholder.reorderable-row {
+    background-color: #00a7a2;
+    opacity: 0.2;
+    box-sizing: border-box;
+    border: 1px dashed #00a7a2;
+}
+
+.cdk-drag-placeholder.reorderable-row > * {
+    opacity: 0;
+}
+
+tr.cdk-drag.reorderable-row {
+    display: table-row;
+}
+
+.cdk-drag-preview.reorderable-row {
+    box-sizing: border-box;
+    border-radius: 4px;
+    background-color: #fff;
+    display: table-row;
+}
+
 .table tr:hover .drag-handle-column {
     color: #dcdedf;
 }
