@@ -1,21 +1,22 @@
-import { CdkDragDrop, CdkDropList, CDK_DROP_LIST, CDK_DROP_LIST_GROUP, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
-import { Directive, EventEmitter, Input, Output } from '@angular/core';
+import {
+    CdkDragDrop,
+    CdkDropList,
+    CDK_DROP_LIST,
+    CDK_DROP_LIST_GROUP,
+    moveItemInArray,
+    transferArrayItem,
+} from '@angular/cdk/drag-drop';
+import { Directive, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-
-
-class ReorderableGroups {
-    static groups = new BehaviorSubject<Record<string, string[]>>({});
-}
 
 @Directive({
     selector: '[uxReorderable]',
     providers: [
-        { provide: CDK_DROP_LIST_GROUP, useValue: undefined},
+        { provide: CDK_DROP_LIST_GROUP, useValue: undefined },
         { provide: CDK_DROP_LIST, useExisting: ReorderableDirective },
     ],
 })
-export class ReorderableDirective<T> extends CdkDropList<T> {
-
+export class ReorderableDirective<T> extends CdkDropList<T> implements OnInit {
     /**
      * This property can be used to provide the `uxReorderable` directive with a dataset that represents the items that can be reordered.
      * This can used as a two way binding which will ensure the dataset always reflects the current order of items in the list.
@@ -31,15 +32,12 @@ export class ReorderableDirective<T> extends CdkDropList<T> {
      * the same group can have items dragged between them. Only required if multiple drop containers are being created.
      */
     @Input() set reorderableGroup(group: string) {
-        const groups = ReorderableGroups.groups.value;
+        const groups = ReorderableDirective._groups$.value;
         this._reorderableGroup = group;
 
-        ReorderableGroups.groups.next({
+        ReorderableDirective._groups$.next({
             ...groups,
-            [group]: [
-                ...(groups[group] ?? []),
-                this.id
-            ]
+            [group]: [...(groups[group] ?? []), this.id],
         });
     }
 
@@ -70,24 +68,31 @@ export class ReorderableDirective<T> extends CdkDropList<T> {
     /** This event is triggered when a user has relocated an item. The event will contain the element that was moved. */
     @Output() reorderEnd = new EventEmitter<ReorderEvent<T>>();
 
+    /** Store all the group ids so we can identify which lists can interact */
+    private static _groups$ = new BehaviorSubject<Record<string, string[]>>({});
+
     ngOnInit(): void {
         this.dropped.subscribe((event: CdkDragDrop<T>) => {
-
             if (event.previousContainer === event.container) {
                 moveItemInArray(this.reorderableModel, event.previousIndex, event.currentIndex);
             } else {
                 const previousContainer: any = event.previousContainer;
                 const currentContainer: any = event.container;
-                transferArrayItem(previousContainer.reorderableModel, currentContainer.reorderableModel, event.previousIndex, event.currentIndex);
+                transferArrayItem(
+                    previousContainer.reorderableModel,
+                    currentContainer.reorderableModel,
+                    event.previousIndex,
+                    event.currentIndex
+                );
             }
 
             this.reorderableModelChange.emit(this.reorderableModel);
         });
 
-        ReorderableGroups.groups.subscribe(groups => {
-            this.connectedTo = (groups[this.reorderableGroup] ?? []).filter(group => group !== this.id);
+        // if the available groups are updated we need to update the lists we can drag to
+        ReorderableDirective._groups$.subscribe((groups) => {
+            this.connectedTo = (groups[this.reorderableGroup] ?? []).filter((group) => group !== this.id);
         });
-
     }
 }
 
