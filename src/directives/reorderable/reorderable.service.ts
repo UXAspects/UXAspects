@@ -1,6 +1,4 @@
-import { Injectable, EventEmitter } from '@angular/core';
-import { Drake, DragulaOptions } from 'dragula';
-import { dragula } from './dragula';
+import { EventEmitter, Injectable } from '@angular/core';
 
 @Injectable({
     providedIn: 'root'
@@ -118,12 +116,9 @@ export class ReorderableGroup {
     cancel = new EventEmitter<ReorderableCancelEvent>();
     cloned = new EventEmitter<ReorderableClonedEvent>();
 
-    private _instance: Drake;
     private _containers: ReorderableContainer[] = [];
-
-    private _config: DragulaOptions = {
-        moves: this.canMove.bind(this)
-    };
+    private _instance: any;
+    private _config: any;
 
     /**
      * Returns true if there are no containers registered with the group.
@@ -183,8 +178,6 @@ export class ReorderableGroup {
             return;
         }
 
-        this._instance = dragula(this._containers.map((c) => c.element), this._config);
-
         this._instance.on('drag', (element: Element, source: Element) => {
             this.drag.emit({
                 model: this.getModelForElement(element),
@@ -222,9 +215,6 @@ export class ReorderableGroup {
         });
     }
 
-    /**
-     * Destroys the dragula instance.
-     */
     destroy(): void {
         if (this._instance) {
             this._instance.destroy();
@@ -232,14 +222,4 @@ export class ReorderableGroup {
         }
     }
 
-    /**
-     * Finds the container for the containerElement and returns the results of canMove.
-     */
-    private canMove(element: Element, containerElement: Element, handle: Element): boolean {
-        for (let container of this._containers) {
-            if (container.element.isSameNode(containerElement)) {
-                return container.canMove(element, containerElement, handle);
-            }
-        }
-    }
 }

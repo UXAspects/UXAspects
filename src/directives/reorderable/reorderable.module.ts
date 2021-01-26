@@ -1,3 +1,4 @@
+import { DragDropModule } from '@angular/cdk/drag-drop';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReorderableHandleDirective } from './reorderable-handle.directive';
@@ -7,7 +8,8 @@ import { ReorderableDirective } from './reorderable.directive';
 
 @NgModule({
     imports: [
-        CommonModule
+        CommonModule,
+        DragDropModule
     ],
     declarations: [
         ReorderableDirective,

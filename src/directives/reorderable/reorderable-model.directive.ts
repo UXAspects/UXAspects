@@ -1,3 +1,4 @@
+import { DragDrop } from '@angular/cdk/drag-drop';
 import { Directive, ElementRef, Input } from '@angular/core';
 
 @Directive({
@@ -9,5 +10,7 @@ export class ReorderableModelDirective<T> {
     @Input() uxReorderableModel: T;
 
     // this can be used to identify which instance of the directive relates to which element
-    constructor(public elementRef: ElementRef) { }
+    constructor(public elementRef: ElementRef, private _dragDrop: DragDrop,) {
+        _dragDrop.createDrag(elementRef.nativeElement);
+    }
 }

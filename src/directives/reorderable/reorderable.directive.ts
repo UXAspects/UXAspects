@@ -1,4 +1,6 @@
-import { AfterViewInit, ContentChildren, Directive, ElementRef, EventEmitter, HostBinding, Input, OnDestroy, OnInit, Output, QueryList, Renderer2 } from '@angular/core';
+import { CdkDrag, CdkDragDrop, CdkDropList, DragDrop, DragDropRegistry, DragRef, DropListRef, moveItemInArray } from '@angular/cdk/drag-drop';
+import { ViewportRuler } from '@angular/cdk/scrolling';
+import { AfterViewInit, ContentChildren, Directive, ElementRef, EventEmitter, HostBinding, Input, NgZone, OnDestroy, OnInit, Output, QueryList, Renderer2 } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ReorderableHandleDirective } from './reorderable-handle.directive';
 import { ReorderableModelDirective } from './reorderable-model.directive';
@@ -52,17 +54,27 @@ export class ReorderableDirective<T> implements OnInit, AfterViewInit, OnDestroy
     @HostBinding('class.ux-reorderable-container-moving') dragging = false;
 
     private _subscriptions = new Subscription();
+    enterPredicate: any;
 
     constructor(
         private _elementRef: ElementRef,
         private _renderer: Renderer2,
-        private _service: ReorderableService
+        private _service: ReorderableService,
+        private _dragDrop: DragDrop,
+        private _ngZone: NgZone,
+        private viewportRuler: ViewportRuler,
+        private _dragDropRegistry: DragDropRegistry<DragRef, DropListRef>
     ) { }
 
     /**
-     * Initialise dragula and bind to all the required events
+     * Initialise and bind to all the required events
      */
     ngOnInit(): void {
+
+        const ref = this._dragDrop.createDropList(this._elementRef.nativeElement);
+        ref.enterPredicate = (drag: DragRef<CdkDrag>, drop: DropListRef<CdkDropList>) => {
+            return this.enterPredicate(drag.data, drop.data);
+        };
 
         // If no group name then generate a unique one for this instance only
         if (!this.reorderableGroup) {
@@ -84,12 +96,21 @@ export class ReorderableDirective<T> implements OnInit, AfterViewInit, OnDestroy
         this._subscriptions.add(group.cloned.subscribe(this.onClone.bind(this)));
     }
 
+    createDropList<T = any>(element: ElementRef<HTMLElement> | HTMLElement): DropListRef<T> {
+        return new DropListRef<T>(element, this._dragDropRegistry, this._elementRef, this._ngZone,
+            this.viewportRuler);
+    }
+
     ngAfterViewInit(): void {
         this._service.initialize(this.reorderableGroup);
     }
 
+    drop(event: CdkDragDrop<string[]>) {
+        moveItemInArray(this.reorderableModel, event.previousIndex, event.currentIndex);
+    }
+
     /**
-     * We need to destroy the dragula instance on component destroy
+     * We need to destroy the instance on component destroy
      */
     ngOnDestroy(): void {
         this._service.unregister(this.reorderableGroup, this._container);
