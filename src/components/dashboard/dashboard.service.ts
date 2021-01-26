@@ -440,18 +440,18 @@ export class DashboardService implements OnDestroy {
             dimensions.height = this.options.minHeight;
         }
 
-        const minWidth = this.getColumnWidth() * action.widget.minColSpan - this.getColumnWidth() / 2 + 1;
-        const widthSmallerThanAllowed = dimensions.width < minWidth;
+        const minWidth = ((this.getColumnWidth() * action.widget.minColSpan) - this.getColumnWidth() / 2) + 1;
+        const isBelowMinWidth = dimensions.width < minWidth;
 
-        if (widthSmallerThanAllowed) {
+        if (isBelowMinWidth) {
             dimensions.x = action.widget.x;
             dimensions.width = minWidth;
         }
 
-        const minHeight = this.options.rowHeight * action.widget.minRowSpan - this.options.rowHeight / 2 + 1;
-        const heightSmallerThanAllowed = dimensions.height < minHeight;
+        const minHeight = ((this.options.rowHeight * action.widget.minRowSpan) - this.options.rowHeight / 2) + 1;
+        const isBelowMinHeight = dimensions.height < minHeight;
 
-        if (heightSmallerThanAllowed) {
+        if (isBelowMinHeight) {
             dimensions.y = action.widget.y;
             dimensions.height = minHeight;
         }
@@ -1276,17 +1276,17 @@ export class DashboardService implements OnDestroy {
         }
 
         const minWidth = this.getColumnWidth() * widget.minColSpan + 1;
-        const widthSmallerThanAllowed = dimensions.width < minWidth;
+        const isBelowMinWidth = dimensions.width < minWidth;
 
-        if (widthSmallerThanAllowed) {
+        if (isBelowMinWidth) {
             dimensions.x = widget.x;
             dimensions.width = minWidth;
         }
 
         const minHeight = this.options.rowHeight * widget.minRowSpan + 1;
-        const heightSmallerThanAllowed = dimensions.height < minHeight;
+        const isBelowMinHeight = dimensions.height < minHeight;
 
-        if (heightSmallerThanAllowed) {
+        if (isBelowMinHeight) {
             dimensions.y = widget.y;
             dimensions.height = minHeight;
         }

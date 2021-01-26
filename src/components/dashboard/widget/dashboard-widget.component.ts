@@ -1,4 +1,4 @@
-import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
+import { BooleanInput, coerceBooleanProperty, coerceNumberProperty, NumberInput } from '@angular/cdk/coercion';
 import { AfterViewInit, Component, HostBinding, Input, OnDestroy, OnInit } from '@angular/core';
 import { map, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
@@ -316,11 +316,11 @@ export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestro
         return this.dashboardService.stacked ? property.stacked : property.regular;
     }
 
-    static ngAcceptInputType_autoPositioning: boolean | string;
-    static ngAcceptInputType_col: number | string;
-    static ngAcceptInputType_row: number | string;
-    static ngAcceptInputType_minColSpan: number | string;
-    static ngAcceptInputType_minRowSpan: number | string;
+    static ngAcceptInputType_autoPositioning: BooleanInput;
+    static ngAcceptInputType_col: NumberInput;
+    static ngAcceptInputType_row: NumberInput;
+    static ngAcceptInputType_minColSpan: NumberInput;
+    static ngAcceptInputType_minRowSpan: NumberInput;
 }
 
 export interface StackableValue {
