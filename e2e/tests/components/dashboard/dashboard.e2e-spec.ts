@@ -70,10 +70,10 @@ describe('Dashboard Tests', () => {
 
     it('should react correctly when a widget is moved down', async () => {
 
-        const layoutMock =  [{ id: 'analytics-1-widget', col: 0, row: 1, colSpan: 4, rowSpan: 2},
-                             { id: 'subscription-widget', col: 0, row: 0, colSpan: 2, rowSpan: 1},
-                             { id: 'users-widget', col: 2, row: 0, colSpan: 1, rowSpan: 1},
-                             { id: 'alert-widget', col: 3, row: 0, colSpan: 1, rowSpan: 1}];
+        const layoutMock =  [{ id: 'analytics-1-widget', col: 0, row: 1, colSpan: 4, rowSpan: 2, minColSpan: 2, minRowSpan: 2},
+                             { id: 'subscription-widget', col: 0, row: 0, colSpan: 2, rowSpan: 1, minColSpan: 2, minRowSpan: 1},
+                             { id: 'users-widget', col: 2, row: 0, colSpan: 1, rowSpan: 1, minColSpan: 1, minRowSpan: 1},
+                             { id: 'alert-widget', col: 3, row: 0, colSpan: 1, rowSpan: 1, minColSpan: 1, minRowSpan: 1}];
 
         // drag the top widget down
         await browser.actions().dragAndDrop(widget1, { x: 0, y: 250 }).perform();
@@ -95,10 +95,10 @@ describe('Dashboard Tests', () => {
 
     it('should react correctly when a widget is moved up', async () => {
 
-        const layoutMock =  [{ id: 'analytics-1-widget', col: 0, row: 0, colSpan: 4, rowSpan: 2},
-                             { id: 'subscription-widget', col: 0, row: 2, colSpan: 2, rowSpan: 1},
-                             { id: 'users-widget', col: 2, row: 2, colSpan: 1, rowSpan: 1},
-                             { id: 'alert-widget', col: 3, row: 2, colSpan: 1, rowSpan: 1}];
+        const layoutMock =  [{ id: 'analytics-1-widget', col: 0, row: 0, colSpan: 4, rowSpan: 2, minColSpan: 2, minRowSpan: 2},
+                             { id: 'subscription-widget', col: 0, row: 2, colSpan: 2, rowSpan: 1, minColSpan: 2, minRowSpan: 1},
+                             { id: 'users-widget', col: 2, row: 2, colSpan: 1, rowSpan: 1, minColSpan: 1, minRowSpan: 1},
+                             { id: 'alert-widget', col: 3, row: 2, colSpan: 1, rowSpan: 1, minColSpan: 1, minRowSpan: 1}];
 
         // drag the top widget down
         await browser.actions().dragAndDrop(widget1, { x: 0, y: 250 }).perform();
@@ -123,10 +123,10 @@ describe('Dashboard Tests', () => {
 
     it('should react correctly when a widget is moved right', async () => {
 
-        const layoutMock =  [{ id: 'analytics-1-widget', col: 0, row: 0, colSpan: 4, rowSpan: 2},
-                             { id: 'subscription-widget', col: 1, row: 2, colSpan: 2, rowSpan: 1},
-                             { id: 'users-widget', col: 0, row: 2, colSpan: 1, rowSpan: 1},
-                             { id: 'alert-widget', col: 3, row: 2, colSpan: 1, rowSpan: 1}];
+        const layoutMock =  [{ id: 'analytics-1-widget', col: 0, row: 0, colSpan: 4, rowSpan: 2, minColSpan: 2, minRowSpan: 2 },
+                             { id: 'subscription-widget', col: 1, row: 2, colSpan: 2, rowSpan: 1, minColSpan: 2, minRowSpan: 1 },
+                             { id: 'users-widget', col: 0, row: 2, colSpan: 1, rowSpan: 1, minColSpan: 1, minRowSpan: 1 },
+                             { id: 'alert-widget', col: 3, row: 2, colSpan: 1, rowSpan: 1, minColSpan: 1, minRowSpan: 1 }];
 
         // drag the widget right
         await browser.actions().dragAndDrop(widget2, { x: 250, y: 0 }).perform();
@@ -149,10 +149,10 @@ describe('Dashboard Tests', () => {
 
     it('should react correctly when a widget is moved left', async () => {
 
-        const layoutMock =  [{ id: 'analytics-1-widget', col: 0, row: 0, colSpan: 4, rowSpan: 2},
-                             { id: 'subscription-widget', col: 0, row: 2, colSpan: 2, rowSpan: 1},
-                             { id: 'users-widget', col: 3, row: 2, colSpan: 1, rowSpan: 1},
-                             { id: 'alert-widget', col: 2, row: 2, colSpan: 1, rowSpan: 1}];
+        const layoutMock =  [{ id: 'analytics-1-widget', col: 0, row: 0, colSpan: 4, rowSpan: 2, minColSpan: 2, minRowSpan: 2 },
+                             { id: 'subscription-widget', col: 0, row: 2, colSpan: 2, rowSpan: 1, minColSpan: 2, minRowSpan: 1 },
+                             { id: 'users-widget', col: 3, row: 2, colSpan: 1, rowSpan: 1, minColSpan: 1, minRowSpan: 1 },
+                             { id: 'alert-widget', col: 2, row: 2, colSpan: 1, rowSpan: 1, minColSpan: 1, minRowSpan: 1 }];
 
         // drag the widget left
         await browser.actions().dragAndDrop(widget4, { x: -250, y: 0 }).perform();
@@ -175,10 +175,10 @@ describe('Dashboard Tests', () => {
 
     it('should allow subsequent widgets to be moved', async () => {
 
-        const layoutMock =  [{ id: 'analytics-1-widget', col: 0, row: 2, colSpan: 4, rowSpan: 2},
-                             { id: 'subscription-widget', col: 2, row: 1, colSpan: 2, rowSpan: 1},
-                             { id: 'users-widget', col: 2, row: 0, colSpan: 1, rowSpan: 1},
-                             { id: 'alert-widget', col: 3, row: 0, colSpan: 1, rowSpan: 1}];
+        const layoutMock =  [{ id: 'analytics-1-widget', col: 0, row: 2, colSpan: 4, rowSpan: 2, minColSpan: 2, minRowSpan: 2 },
+                             { id: 'subscription-widget', col: 2, row: 1, colSpan: 2, rowSpan: 1, minColSpan: 2, minRowSpan: 1 },
+                             { id: 'users-widget', col: 2, row: 0, colSpan: 1, rowSpan: 1, minColSpan: 1, minRowSpan: 1 },
+                             { id: 'alert-widget', col: 3, row: 0, colSpan: 1, rowSpan: 1, minColSpan: 1, minRowSpan: 1 }];
 
         // drag widget1 down
         await browser.actions().dragAndDrop(widget1, { x: 0, y: 250 }).perform();
@@ -209,10 +209,10 @@ describe('Dashboard Tests', () => {
         await browser.actions().dragAndDrop(widget3, { x: 250, y: 0 }).perform();
 
         const expectedLayout = [
-            { id: 'analytics-1-widget', col: 0, row: 0, colSpan: 4, rowSpan: 2 },
-            { id: 'subscription-widget', col: 0, row: 2, colSpan: 2, rowSpan: 1 },
-            { id: 'users-widget', col: 3, row: 2, colSpan: 1, rowSpan: 1 },
-            { id: 'alert-widget', col: 2, row: 3, colSpan: 1, rowSpan: 1 }
+            { id: 'analytics-1-widget', col: 0, row: 0, colSpan: 4, rowSpan: 2, minColSpan: 2, minRowSpan: 2 },
+            { id: 'subscription-widget', col: 0, row: 2, colSpan: 2, rowSpan: 1, minColSpan: 2, minRowSpan: 1 },
+            { id: 'users-widget', col: 3, row: 2, colSpan: 1, rowSpan: 1, minColSpan: 1, minRowSpan: 1 },
+            { id: 'alert-widget', col: 2, row: 3, colSpan: 1, rowSpan: 1, minColSpan: 1, minRowSpan: 1 }
         ];
 
         expect(JSON.parse(await page.getLayoutOutput())).toEqual(expectedLayout);
@@ -389,11 +389,39 @@ describe('Dashboard Tests', () => {
         expect(await imageCompareFullPageScreen('dashboard-stacked-mode-widget-order')).toEqual(0);
     });
 
+    it('should allow widgets to be resized horizontally with keyboard', async () => {
+        expect(await page.getWidgetLocationValue(widget1, 'width')).toBe(1108);
+        await page.resizeWidget(0, Key.ARROW_LEFT);
+        expect(await page.getWidgetLocationValue(widget1, 'width')).toBe(831, 'should be 3 columns wide');
+    });
+
+    it('should not allow widgets to be resized below their minColSpan value using keyboard', async () => {
+        expect(await page.getWidgetLocationValue(widget2, 'width')).toBe(554);
+        await page.resizeWidget(1, Key.ARROW_LEFT);
+        expect(await page.getWidgetLocationValue(widget2, 'width')).toBe(554, 'should remain 2 columns wide');
+    });
+
+    it('should allow widgets to be resized vertically with keyboard', async () => {
+        expect(await page.getWidgetLocationValue(widget1, 'height')).toBe(440);
+        await page.resizeWidget(0, Key.ARROW_DOWN);
+        expect(await page.getWidgetLocationValue(widget1, 'height')).toBe(660, 'should be 3 rows high');
+    });
+
+    it('should not allow widgets to be resized below their minRowSpan value using keyboard', async () => {
+        expect(await page.getWidgetLocationValue(widget1, 'height')).toBe(440);
+        await page.resizeWidget(0, Key.UP);
+        expect(await page.getWidgetLocationValue(widget1, 'height')).toBe(440, 'should remain 2 rows high');
+    });
+
     describe('Stacked Mode', () => {
 
         beforeEach(async () => {
             // resize page so in stacked mode
             await browser.driver.manage().window().setSize(400, 600);
+        });
+
+        it('should have the correct initial state', async () => {
+            expect(await page.getWidgetLocationValue(widget1, 'width')).toBe(324, 'should use 1 column in stacked mode even when minColSize > 1');
         });
 
         it('should allow widgets to be moved while in stacked mode', async () => {
@@ -403,10 +431,10 @@ describe('Dashboard Tests', () => {
             expect(await page.getWidgetLocationValue(widget2, 'left')).toBe(0, 'widget2 left');
 
             const expectedLayout = [
-                { id: 'analytics-1-widget', col: 0, row: 1, colSpan: 4, rowSpan: 2 },
-                { id: 'subscription-widget', col: 0, row: 0, colSpan: 4, rowSpan: 1 },
-                { id: 'users-widget', col: 0, row: 4, colSpan: 4, rowSpan: 1 },
-                { id: 'alert-widget', col: 0, row: 3, colSpan: 4, rowSpan: 1 }
+                { id: 'analytics-1-widget', col: 0, row: 1, colSpan: 4, rowSpan: 2, minColSpan: 2, minRowSpan: 2 },
+                { id: 'subscription-widget', col: 0, row: 0, colSpan: 4, rowSpan: 1, minColSpan: 2, minRowSpan: 1 },
+                { id: 'users-widget', col: 0, row: 4, colSpan: 4, rowSpan: 1, minColSpan: 1, minRowSpan: 1 },
+                { id: 'alert-widget', col: 0, row: 3, colSpan: 4, rowSpan: 1, minColSpan: 1, minRowSpan: 1 }
             ];
 
             expect(JSON.parse(await page.getLayoutOutput())).toEqual(expectedLayout);
@@ -441,13 +469,19 @@ describe('Dashboard Tests', () => {
             await browser.actions().dragAndDrop(widget1, { x: 0, y: 750 }).perform();
 
             const expectedLayout = [
-                { id: 'analytics-1-widget', col: 0, row: 1, colSpan: 4, rowSpan: 2 },
-                { id: 'subscription-widget', col: 0, row: 4, colSpan: 4, rowSpan: 1 },
-                { id: 'users-widget', col: 0, row: 3, colSpan: 4, rowSpan: 1 },
-                { id: 'alert-widget', col: 0, row: 0, colSpan: 4, rowSpan: 1 }
+                { id: 'analytics-1-widget', col: 0, row: 1, colSpan: 4, rowSpan: 2, minColSpan: 2, minRowSpan: 2 },
+                { id: 'subscription-widget', col: 0, row: 4, colSpan: 4, rowSpan: 1, minColSpan: 2, minRowSpan: 1 },
+                { id: 'users-widget', col: 0, row: 3, colSpan: 4, rowSpan: 1, minColSpan: 1, minRowSpan: 1 },
+                { id: 'alert-widget', col: 0, row: 0, colSpan: 4, rowSpan: 1, minColSpan: 1, minRowSpan: 1 }
             ];
 
             expect(JSON.parse(await page.getLayoutOutput())).toEqual(expectedLayout, 'widget 4 should have moved up');
+        });
+
+        it('should not resize below minRowSize while in stacked mode', async () => {
+            expect(await page.getWidgetLocationValue(widget1, 'height')).toBe(440);
+            await page.resizeWidget(0, Key.UP);
+            expect(await page.getWidgetLocationValue(widget1, 'height')).toBe(440, 'should remain 2 rows high');
         });
 
     });
