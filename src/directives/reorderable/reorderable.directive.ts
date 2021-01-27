@@ -1,11 +1,4 @@
-import {
-    CdkDragDrop,
-    CdkDropList,
-    CDK_DROP_LIST,
-    CDK_DROP_LIST_GROUP,
-    moveItemInArray,
-    transferArrayItem,
-} from '@angular/cdk/drag-drop';
+import { CdkDragDrop, CdkDropList, CDK_DROP_LIST, CDK_DROP_LIST_GROUP, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Directive, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
