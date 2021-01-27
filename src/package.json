@@ -54,12 +54,10 @@
   "dependencies": {
     "@types/chart.js": "^2.9.3",
     "@types/d3": "^5.7.2",
-    "@types/dragula": "^2.1.33",
     "angular-split": "^4.0.0",
     "bootstrap": "^3.3.7",
     "chart.js": "^2.9.3",
     "d3": "^5.9.2",
-    "dragula": "^3.7.2",
     "resize-observer-polyfill": "^1.5.0"
   },
   "peerDependencies": {

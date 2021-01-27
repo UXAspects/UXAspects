@@ -48,8 +48,6 @@ export class SystemJSHelper {
         { name: 'lodash', path: 'lodash/lodash.js' },
         { name: 'ng2-file-upload', path: 'ng2-file-upload/bundles/ng2-file-upload.umd.js' },
         { name: 'angular-split', path: 'angular-split@3.0.2/bundles/angular-split.umd.js' },
-        { name: 'dragula', path: 'dragula/dist/dragula.js' },
-        { name: 'dragula/dist/dragula', path: 'dragula/dist/dragula.js' },
         { name: 'ngx-mask', path: 'ngx-mask/bundles/ngx-mask.umd.js' },
         { name: 'resize-observer-polyfill', path: 'resize-observer-polyfill@1.5.0/dist/ResizeObserver.js' },
         // d3
