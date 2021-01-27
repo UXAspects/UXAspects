@@ -1,5 +1,4 @@
 import { LogicalExpressionBuilderPage } from './logical-expression-builder.po.spec';
-import { ExpressionCondition, ExpressionGroup } from '@ux-aspects/ux-aspects';
 
 describe('Logical Expression Builder', () => {
     let page: LogicalExpressionBuilderPage.Page;
@@ -23,7 +22,7 @@ describe('Logical Expression Builder', () => {
     it('should display one row when expression is just a condition', async () => {
         await page.setOneCondition();
 
-        const expression = await page.getExpressionObject() as ExpressionCondition;
+        const expression = await page.getExpressionObject();
 
         expect(expression).toBeDefined();
         expect(expression['children']).toBeUndefined();
@@ -35,7 +34,7 @@ describe('Logical Expression Builder', () => {
         await page.setOneCondition();
         await page.addSecondCondition();
 
-        const expression: ExpressionGroup = await page.getExpressionObject() as ExpressionGroup;
+        const expression = await page.getExpressionObject();
         const rows = await page.getTableRows();
 
         expect(expression).toBeDefined();
@@ -123,7 +122,7 @@ describe('Logical Expression Builder', () => {
     it('should update expression and label after editing', async () => {
         await page.setComplexCondition();
         await page.editTextInputComponentForRow(1);
-        const expression = await page.getExpressionObject() as ExpressionGroup;
+        const expression = await page.getExpressionObject();
 
         expect(expression).toBeDefined();
         expect(expression.children.length).toEqual(5);
@@ -134,7 +133,7 @@ describe('Logical Expression Builder', () => {
     it('should reset condition if editing is cancelled', async () => {
         await page.setOneCondition();
         await page.editTextInputComponentForRow(0, false);
-        const expression = await page.getExpressionObject() as ExpressionCondition;
+        const expression = await page.getExpressionObject();
 
         expect(expression).toBeDefined();
         expect(expression.type).toEqual('condition');

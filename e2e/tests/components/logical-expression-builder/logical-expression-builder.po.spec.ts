@@ -1,5 +1,4 @@
 import { $, $$, browser, ElementArrayFinder, ElementFinder } from 'protractor';
-import { LogicalExpression } from '@ux-aspects/ux-aspects';
 
 export namespace LogicalExpressionBuilderPage {
 
@@ -17,7 +16,7 @@ export namespace LogicalExpressionBuilderPage {
 
         validity = $('#valid');
 
-        async getExpressionObject(): Promise<LogicalExpression> {
+        async getExpressionObject(): Promise<any> {
             return JSON.parse(await this.expression.getText());
         }
 
