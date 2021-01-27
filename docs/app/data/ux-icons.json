@@ -681,6 +681,10 @@
             "classname": "ux-icon-grid"
         },
         {
+            "name": "group-add",
+            "classname": "ux-icon-group-add"
+        },
+        {
             "name": "group",
             "classname": "ux-icon-group"
         },
