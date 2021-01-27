@@ -16,19 +16,24 @@ export class ReorderableModelDirective<T> extends CdkDrag implements OnInit, OnD
         this.data = model;
     }
 
+    /** Preserve the column widths */
+    private readonly _widths = new Map<number, string>();
+
     /** Unsubscribe on destroy */
-    private readonly _onDestroy$ = new Subject<void>();
+    private readonly _destroy$ = new Subject<void>();
 
     ngOnInit(): void {
         // cast the drop container as we have replaced it with our directive
         const dropContainer = this.dropContainer as ReorderableDirective<T>;
 
-        this.started.pipe(takeUntil(this._onDestroy$)).subscribe((event: CdkDragStart) => {
+        this._dragRef.beforeStarted.pipe(takeUntil(this._destroy$)).subscribe(() => this.captureTableCellStyles());
+
+        this.started.pipe(takeUntil(this._destroy$)).subscribe((event: CdkDragStart) => {
             dropContainer.reorderStart.emit({ element: this.element.nativeElement, model: this.data });
-            this.setTableCellWidths(event.source.getPlaceholderElement(), event.source.element.nativeElement);
+            this.setTableCellWidths();
         });
 
-        this.dropped.pipe(takeUntil(this._onDestroy$)).subscribe((event: CdkDragDrop<T>) => {
+        this.dropped.pipe(takeUntil(this._destroy$)).subscribe((event: CdkDragDrop<T>) => {
             if (event.container === event.previousContainer && event.currentIndex === event.previousIndex) {
                 dropContainer.reorderCancel.emit({ element: this.element.nativeElement, model: this.data });
             } else {
@@ -38,23 +43,41 @@ export class ReorderableModelDirective<T> extends CdkDrag implements OnInit, OnD
     }
 
     ngOnDestroy(): void {
-        this._onDestroy$.next();
-        this._onDestroy$.complete();
+        this._destroy$.next();
+        this._destroy$.complete();
     }
 
-    private setTableCellWidths(source: Element, target: Element): void {
-
+    /**
+     * When table elements are being dragged they are hoisted to the document level
+     * when dragged they lose the sizing and spacing provided when they are used inside a table.
+     *
+     * This function will capture the styles so we can inline them to preseve the styling.
+     */
+    private captureTableCellStyles(): void {
         // if it is not a table row then skip this
-        if (source.tagName !== 'TR') {
+        if (this.element.nativeElement.tagName !== 'TR') {
             return;
         }
 
-        // find any immediate td children and fix their width
-        const sourceCells = Array.from(source.children) as HTMLTableCellElement[];
-        const targetCells = Array.from(target.children) as HTMLTableCellElement[];
+        // iterate each cell and store the styles and enforce the width by using a minWidth
+        Array.from(this.element.nativeElement.children).forEach((cell, index) => {
+            this._widths.set(index, getComputedStyle(cell).getPropertyValue('width'));
+        });
+    }
 
-        // fix the width of these cells
-        sourceCells.forEach((cell, idx) => targetCells[idx].style.minWidth = getComputedStyle(cell).getPropertyValue('width'));
+    private setTableCellWidths(): void {
+        // if it is not a table row then skip this
+        if (this.element.nativeElement.tagName !== 'TR') {
+            return;
+        }
 
+        // access the preview element, this is private but there is no public way to access
+        // it and the UI is incorrect when draggingtable rows without this.
+        const previewElement = (this._dragRef as any)._preview as HTMLElement;
+
+        // re-apply all the stored styles
+        Array.from(previewElement.children).forEach(
+            (cell: HTMLElement, index) => (cell.style.minWidth = this._widths.get(index))
+        );
     }
 }
