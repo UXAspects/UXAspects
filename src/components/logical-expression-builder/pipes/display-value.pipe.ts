@@ -1,7 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { LogicalExpressionBuilderService } from '../services/logical-expression-builder.service';
 import { DisplayValueFunction } from '../interfaces/DisplayValueFunction';
-import { DateFormatterPipe } from '../../../pipes/date-formatter/date-formatter.pipe';
+import {DatePipe} from '@angular/common';
 
 /** Used to display the value of a condition. Contains a standard transform function for the basic five Input
  * components. It can be overridden with the displayValueFunction input property. */
@@ -9,7 +9,7 @@ import { DateFormatterPipe } from '../../../pipes/date-formatter/date-formatter.
 export class DisplayValuePipe implements PipeTransform {
     private readonly transformFunction: DisplayValueFunction;
 
-    constructor(private lebService: LogicalExpressionBuilderService, private dateFormatterPipe: DateFormatterPipe) {
+    constructor(private lebService: LogicalExpressionBuilderService, private datePipe: DatePipe) {
         this.transformFunction = this.lebService.getDisplayValueFunction();
     }
 
@@ -60,7 +60,6 @@ export class DisplayValuePipe implements PipeTransform {
 
     private transformDate(value: Date, fieldData: any): string {
         const format = fieldData.dateFormat || 'short';
-
-        return this.dateFormatterPipe.transform(value, format);
+        return this.datePipe.transform(value, format);
     }
 }
