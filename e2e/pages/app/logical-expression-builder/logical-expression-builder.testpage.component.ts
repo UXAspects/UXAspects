@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {
-    DateInputComponent, DateRangeInputComponent, FieldDefinition, Expression,
-    LogicalOperatorDefinition, NumberInputComponent,
-    OperatorDefinitionList, SelectInputComponent, TextInputComponent
+    FieldDefinition, LebDateInputComponent, LebDateRangeInputComponent, LebNumberInputComponent,
+    LebSelectInputComponent, LebTextInputComponent, LogicalExpression, LogicalOperatorDefinition,
+    OperatorDefinitionList
 } from '@ux-aspects/ux-aspects';
 
 @Component({
@@ -18,26 +18,26 @@ export class LogicalExpressionBuilderTestpageComponent {
 
     operators: OperatorDefinitionList = {
         text: [
-            { name: 'equals', label: 'equals', component: TextInputComponent },
-            { name: 'contains', label: 'contains', component: TextInputComponent }
+            { name: 'equals', label: 'equals', component: LebTextInputComponent },
+            { name: 'contains', label: 'contains', component: LebTextInputComponent }
         ],
         date: [
-            { name: 'before', label: 'before', component: DateInputComponent },
-            { name: 'equals', label: 'equals', component: DateInputComponent },
-            { name: 'after', label: 'after', component: DateInputComponent }
+            { name: 'before', label: 'before', component: LebDateInputComponent },
+            { name: 'equals', label: 'equals', component: LebDateInputComponent },
+            { name: 'after', label: 'after', component: LebDateInputComponent }
         ],
         dateRange: [
-            { name: 'between', label: 'is between', component: DateRangeInputComponent },
-            { name: 'not_between', label: 'is not between', component: DateRangeInputComponent }
+            { name: 'between', label: 'is between', component: LebDateRangeInputComponent },
+            { name: 'not_between', label: 'is not between', component: LebDateRangeInputComponent }
         ],
         enum: [
-            { name: 'one_of', label: 'one of', component: SelectInputComponent }
+            { name: 'one_of', label: 'one of', component: LebSelectInputComponent }
         ],
         number: [
-            { name: 'equals', label: 'equals', component: NumberInputComponent },
-            { name: 'less_than', label: 'less than', component: NumberInputComponent },
-            { name: 'greater_than', label: 'greater than', component: NumberInputComponent },
-            { name: 'as_text', label: 'entered as text', component: TextInputComponent }
+            { name: 'equals', label: 'equals', component: LebNumberInputComponent },
+            { name: 'less_than', label: 'less than', component: LebNumberInputComponent },
+            { name: 'greater_than', label: 'greater than', component: LebNumberInputComponent },
+            { name: 'as_text', label: 'entered as text', component: LebTextInputComponent }
         ],
     };
 
@@ -47,20 +47,20 @@ export class LogicalExpressionBuilderTestpageComponent {
             name: 'created',
             label: 'Created',
             fieldType: 'date',
-            data: { dateFormat: 'short', showTime: false, showNowBtn: true }
+            configuration: { dateFormat: 'short', showTime: false, showNowBtn: true }
         },
         {
             name: 'edited',
             label: 'Edited',
             fieldType: 'dateRange',
-            data: { dateFormat: 'short', showTime: false, showNowBtn: true }
+            configuration: { dateFormat: 'short', showTime: false, showNowBtn: true }
         },
         { name: 'version', label: 'Version', fieldType: 'number' },
         {
             name: 'category',
             label: 'Category',
             fieldType: 'enum',
-            data: {
+            configuration: {
                 options: [
                     { name: 'performance', label: 'Performance', icon: 'actions' },
                     { name: 'security', label: 'Security', icon: 'secure' },
@@ -70,11 +70,11 @@ export class LogicalExpressionBuilderTestpageComponent {
         }
     ];
 
-    expression: Expression = null;
+    expression: LogicalExpression = null;
 
     valid: boolean;
 
-    complexExpression: Expression = {
+    complexExpression: LogicalExpression = {
         type: 'group',
         logicalOperator: 'and',
         children: [
@@ -91,14 +91,14 @@ export class LogicalExpressionBuilderTestpageComponent {
         ]
     };
 
-    oneCondition: Expression = {
+    oneCondition: LogicalExpression = {
         type: 'condition',
         field: 'author',
         operator: 'equals',
         value: 'test'
     };
 
-    invalidExpression: Expression = {
+    invalidExpression: LogicalExpression = {
         type: 'group',
         logicalOperator: 'not',
         children: [
@@ -107,7 +107,7 @@ export class LogicalExpressionBuilderTestpageComponent {
         ]
     };
 
-    groupWithTwoConditions: Expression = {
+    groupWithTwoConditions: LogicalExpression = {
         type: 'group',
         logicalOperator: 'not',
         children: [
@@ -116,9 +116,9 @@ export class LogicalExpressionBuilderTestpageComponent {
         ]
     };
 
-    preview: Expression = null;
+    preview: LogicalExpression = null;
 
-    expressionChanged(query: Expression): void {
+    expressionChanged(query: LogicalExpression): void {
         this.preview = query;
     }
 
