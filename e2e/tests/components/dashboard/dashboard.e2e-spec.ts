@@ -413,6 +413,14 @@ describe('Dashboard Tests', () => {
         expect(await page.getWidgetLocationValue(widget1, 'height')).toBe(440, 'should remain 2 rows high');
     });
 
+    it('should allow widgets to be resized back to their initial size', async () => {
+        expect(await page.getWidgetLocationValue(widget1, 'width')).toBe(1108);
+        // Select widget 1, resize to 2 columns wide, then resize back to 4 columns wide
+        await browser.actions().sendKeys(Key.TAB, Key.TAB, Key.SPACE).perform();
+        await browser.actions().keyDown(Key.CONTROL).sendKeys(Key.ARROW_LEFT, Key.ARROW_LEFT, Key.ARROW_RIGHT, Key.ARROW_RIGHT).perform();
+        expect(await page.getWidgetLocationValue(widget1, 'width')).toBe(1108, 'should be the same as the initial width');
+    });
+
     describe('Stacked Mode', () => {
 
         beforeEach(async () => {
