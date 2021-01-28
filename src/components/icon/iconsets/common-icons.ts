@@ -171,6 +171,7 @@ export const commonIcons = [
     'gallery',
     'globe',
     'grid',
+    'group-add',
     'group',
     'grow',
     'halt',
