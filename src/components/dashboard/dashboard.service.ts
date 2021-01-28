@@ -1275,7 +1275,7 @@ export class DashboardService implements OnDestroy {
             dimensions.height = this.getRowHeight();
         }
 
-        const minWidth = this.getColumnWidth() * widget.minColSpan + 1;
+        const minWidth = this.getColumnWidth() * widget.minColSpan;
         const isBelowMinWidth = dimensions.width < minWidth;
 
         if (isBelowMinWidth) {
@@ -1283,7 +1283,7 @@ export class DashboardService implements OnDestroy {
             dimensions.width = minWidth;
         }
 
-        const minHeight = this.options.rowHeight * widget.minRowSpan + 1;
+        const minHeight = this.options.rowHeight * widget.minRowSpan;
         const isBelowMinHeight = dimensions.height < minHeight;
 
         if (isBelowMinHeight) {
