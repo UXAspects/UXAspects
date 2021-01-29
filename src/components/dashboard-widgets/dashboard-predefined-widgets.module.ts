@@ -15,6 +15,9 @@ import { SidePanelModule } from '../side-panel/index';
 import { FixedHeaderTableModule } from '../../directives/fixed-header-table/index';
 import { InputDropdownModule } from '../input-dropdown/index';
 import { AccessibilityModule } from '../../directives/accessibility/index';
+import { TooltipModule } from '../tooltip/index';
+import {FocusIfModule} from '../../directives/focus-if';
+import {FormsModule} from '@angular/forms';
 
 const DECLARATIONS = [
     DashboardPredefinedWidgetComponent,
@@ -34,7 +37,10 @@ const DECLARATIONS = [
         IconModule,
         FixedHeaderTableModule,
         InputDropdownModule,
-        AccessibilityModule
+        AccessibilityModule,
+        TooltipModule,
+        FocusIfModule,
+        FormsModule
     ],
     exports: DECLARATIONS,
     declarations: DECLARATIONS,

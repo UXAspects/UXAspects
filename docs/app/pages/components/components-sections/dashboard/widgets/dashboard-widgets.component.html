@@ -38,8 +38,8 @@
         [actions]="actions"
         [colSpan]="2"
         (actionSelected)="handleActionChange($event)">
-        <ng-template #iconAccept>
-            <span class="custom-icon">✅</span>
+        <ng-template #iconDecline>
+            <span class="custom-icon"><b>X</b></span>
         </ng-template>
     </ux-dashboard-actions-widget>
 
@@ -49,11 +49,15 @@
         name="Enum Widget"
         heading="Enum Widget"
         [fixedMode]="fixedMode"
-        [enums]="enums"
+        [options]="enumOptions"
         value="0">
     </ux-dashboard-enum-widget>
 
 </ux-dashboard>
+
+<p>
+<p>Last action clicked: {{lastAction}}</p>
+<p>
 
 <div class="row uxd-customize-example">
     <div class="col-md-12">
@@ -61,15 +65,16 @@
             <ux-accordion-panel class="accordion-chevron" heading="Customize Example...">
                 <div class="row">
                     <div class="col-md-4">
-                        <ux-checkbox [(ngModel)]="fixedMode">Fixed Mode</ux-checkbox>
+                        <ux-checkbox [(ngModel)]="fixedMode">fixedMode</ux-checkbox>
                     </div>
                     <div class="col-md-4">
                         <ux-checkbox [(ngModel)]="textWidgetEditable">Make Text Widget editable</ux-checkbox>
                     </div>
                     <div class="col-md-4">
-                        <label class="form-label" for="dashboard-padding-input">Padding</label>
-                        <input id="dashboard-padding-input" [(ngModel)]="dashboardPadding" min="0" type="number"
-                               placeholder="Enter padding" class="form-control m-b">
+                        <label class="form-label" for="dashboard-padding">Padding</label>
+                        <ux-number-picker-inline id="dashboard-padding" [(value)]="dashboardPadding"
+                                                 min="0" placeholder="Enter padding">
+                        </ux-number-picker-inline>
                     </div>
                 </div>
             </ux-accordion-panel>
@@ -111,12 +116,23 @@
 <p>It has the following additional attributes:</p>
 
 <uxd-api-properties tableTitle="Inputs">
-    <tr uxd-api-property name="actions" type="ActionConfig[]" [required]="true">The buttons that will be displayed.
-        Includes <code>label</code> (a string),
-        <code>icon</code> (a ux-icon code), <code>iconTemplate</code> (a TemplateRef) and <code>action</code> (a
-        function).
+    <tr uxd-api-property name="actions" type="ActionConfig[]" [required]="true">
+        List of buttons to be displayed
+        <uxd-api-properties tableTitle="Properties of ActionConfig">
+            <tr uxd-api-property name="label" type="string">Button label</tr>
+            <tr uxd-api-property name="icon" type="string">Icon code</tr>
+            <tr uxd-api-property name="iconTemplate" type="TemplateRef">Icon template (in place of <code>icon</code>)</tr>
+            <tr uxd-api-property name="action" type="function">Click function of the button</tr>
+        </uxd-api-properties>
     </tr>
-    <tr uxd-api-property name="status" type="ActionStatus" [required]="true">The status displayed by the widget.</tr>
+    <tr uxd-api-property name="status" type="ActionStatus" [required]="true">
+        Status displayed by the widget
+        <uxd-api-properties tableTitle="Properties of ActionStatus">
+            <tr uxd-api-property name="label" type="string">Button label</tr>
+            <tr uxd-api-property name="icon" type="string">Icon code</tr>
+            <tr uxd-api-property name="iconTemplate" type="TemplateRef">Icon template (in place of <code>icon</code>)</tr>
+        </uxd-api-properties>
+    </tr>
 </uxd-api-properties>
 
 <p>Additionally the actions widget has these outputs available:</p>
@@ -137,8 +153,16 @@
 <p>The enum widget has the following additional attributes:</p>
 
 <uxd-api-properties tableTitle="Inputs">
-    <tr uxd-api-property name="value" type="string" [required]="true"></tr>
-    <tr uxd-api-property name="enums" type="EnumConfig[]" [required]="true"></tr>
+    <tr uxd-api-property name="value" type="string" [required]="true">Current value</tr>
+    <tr uxd-api-property name="options" type="EnumConfig[]" [required]="true">
+        Values to choose from
+        <uxd-api-properties tableTitle="Properties of EnumConfig">
+            <tr uxd-api-property name="label" type="string">Display value</tr>
+            <tr uxd-api-property name="value" type="string">Enum value</tr>
+            <tr uxd-api-property name="icon" type="string">Icon code</tr>
+            <tr uxd-api-property name="iconTemplate" type="TemplateRef">Icon template (in place of <code>icon</code>)</tr>
+        </uxd-api-properties>
+    </tr>
 </uxd-api-properties>
 
 <p>Additionally the enum widget has these outputs available:</p>
@@ -176,9 +200,10 @@
 <uxd-api-properties tableTitle="Inputs">
     <tr uxd-api-property name="text" type="string" [required]="true">The text that is being displayed.</tr>
     <tr uxd-api-property name="editable" type="boolean">Whether the text can be edited in the side panel.</tr>
-    <tr uxd-api-property name="localizedStrings" type="TextWidgetLocalizedStrings" [required]="true">An object that
-        contains the localized labels for the component.
-    </tr>
+    <tr uxd-api-property name="editLabel" type="string" [required]="true">Localized label for the edit button</tr>
+    <tr uxd-api-property name="showFullTextLabel" type="string" [required]="true">Localized label for the show full text button</tr>
+    <tr uxd-api-property name="saveLabel" type="string" [required]="true">Localized label for the save button</tr>
+    <tr uxd-api-property name="cancelLabel" type="string" [required]="true">Localized label for the cancel button</tr>
 </uxd-api-properties>
 
 <p>Additionally the enum widget has these outputs available:</p>

@@ -5,17 +5,17 @@ import { DashboardPredefinedWidgetsModule } from '../dashboard-predefined-widget
 import { ActionConfig, ActionStatus } from '../interfaces/actions-widget.interface';
 
 @Component({
-    selector: 'app-ux-actions-widget',
+    selector: 'ux-actions-widget-test-component',
     template: `<ux-dashboard>
                     <ux-dashboard-actions-widget class="widget"
                                                  id="widget-actions"
                                                  name="Actions Widget"
                                                  heading="Actions Widget"
                                                  [fixedMode]="false"
-                                                 [status]="{ label: 'Waiting...', icon: 'radial' }"
+                                                 [status]="status"
                                                  [actions]="actions">
-                        <ng-template #iconAccept>
-                            <span class="custom-icon">✅</span>
+                        <ng-template #iconDecline>
+                            <span class="custom-icon"><b>X</b></span>
                         </ng-template>
                     </ux-dashboard-actions-widget>
                </ux-dashboard>
@@ -25,12 +25,12 @@ export class DashboardActionsWidgetTestComponent implements AfterViewInit {
     status: ActionStatus = { label: 'Waiting...', icon: 'radial' };
     actions: ActionConfig[] = [];
 
-    @ViewChild('iconAccept') iconAccept: TemplateRef<any>;
+    @ViewChild('iconDecline') iconDecline: TemplateRef<any>;
 
     ngAfterViewInit() {
         this.actions.push(
-            { value: 'accept', label: 'Accept', iconTemplate: this.iconAccept },
-            { value: 'decline', label: 'Decline', icon: 'close' }
+            { value: 'accept', label: 'Accept', icon: 'active' },
+            { value: 'decline', label: 'Decline', iconTemplate: this.iconDecline }
         );
     }
 }

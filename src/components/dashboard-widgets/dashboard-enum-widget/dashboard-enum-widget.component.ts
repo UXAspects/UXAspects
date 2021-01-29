@@ -50,7 +50,7 @@ export class DashboardEnumWidgetComponent implements PredefinedWidgetConfig, Enu
     @Input() name: string = '';
     @Input() heading: string = '';
 
-    @Input() enums: EnumConfig[];
+    @Input() options: EnumConfig[];
     @Input() value: string;
 
     @ViewChildren('enumItems') enumItems: QueryList<ElementRef>;
@@ -73,8 +73,8 @@ export class DashboardEnumWidgetComponent implements PredefinedWidgetConfig, Enu
 
 @Pipe({name: 'getEnumByValue'})
 export class GetEnumByValuePipe implements PipeTransform {
-    transform(enums: ReadonlyArray<EnumConfig>, value: string) {
-        const enumItem = enums?.find(item => item.value === value);
+    transform(options: ReadonlyArray<EnumConfig>, value: string) {
+        const enumItem = options?.find(item => item.value === value);
         return enumItem ? enumItem : null;
     }
 }

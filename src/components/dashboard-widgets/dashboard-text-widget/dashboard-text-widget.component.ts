@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Input, Output, ViewChild} from '@angular/core';
 import {PredefinedWidgetConfig} from '../interfaces/predefined-widget.interface';
-import {TextWidgetConfig, TextWidgetLocalizedStrings} from '../interfaces/text-widget.interface';
+import {TextWidgetConfig} from '../interfaces/text-widget.interface';
 import {SidePanelComponent} from '../../side-panel';
 import {coerceBooleanProperty, coerceNumberProperty} from '@angular/cdk/coercion';
 
@@ -21,6 +21,7 @@ export class DashboardTextWidgetComponent implements PredefinedWidgetConfig, Tex
     @Input() get fixedMode(): boolean {
         return this._fixedMode;
     }
+
     set fixedMode(fixedMode: boolean) {
         this._fixedMode = coerceBooleanProperty(fixedMode);
     }
@@ -28,6 +29,7 @@ export class DashboardTextWidgetComponent implements PredefinedWidgetConfig, Tex
     @Input() get colSpan(): number {
         return this._colSpan;
     }
+
     set colSpan(colSpan: number) {
         this._colSpan = coerceNumberProperty(colSpan);
     }
@@ -35,6 +37,7 @@ export class DashboardTextWidgetComponent implements PredefinedWidgetConfig, Tex
     @Input() get rowSpan(): number {
         return this._rowSpan;
     }
+
     set rowSpan(rowSpan: number) {
         this._rowSpan = coerceNumberProperty(rowSpan);
     }
@@ -42,33 +45,25 @@ export class DashboardTextWidgetComponent implements PredefinedWidgetConfig, Tex
     @Input() id: string = '';
     @Input() name: string = '';
     @Input() heading: string = '';
-    @Input() localizedStrings: TextWidgetLocalizedStrings = {
-        save: 'Save',
-        cancel: 'Cancel',
-        edit: 'Edit',
-        showFullText: 'Show full text'
-    };
+    @Input() editLabel: string = 'Edit';
+    @Input() showFullTextLabel: string = 'Show full text';
+    @Input() saveLabel: string = 'Save';
+    @Input() cancelLabel: string = 'Cancel';
 
     @Input() text: string = '';
     @Input() editable: boolean = false;
 
     @ViewChild('sidePanel') sidePanel: SidePanelComponent;
-    @ViewChild('textArea') textArea: ElementRef<HTMLTextAreaElement>;
+    textAreaFocused = false;
 
     @Output() textChange = new EventEmitter<string>();
 
     open() {
-        this.textArea.nativeElement.value = this.text;
         this.sidePanel.openPanel();
-        if (this.editable) {
-            setTimeout(() => {
-                this.textArea.nativeElement.focus();
-            }, 0);
-        }
+        this.textAreaFocused = this.editable;
     }
 
     save() {
-        this.text = this.textArea.nativeElement.value;
         this.textChange.emit(this.text);
         this.sidePanel.closePanel();
     }

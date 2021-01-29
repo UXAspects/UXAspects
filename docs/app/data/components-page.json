@@ -183,7 +183,7 @@
                     ]
                 },
                 {
-                    "title": "Pre-defined dashboard widgets",
+                    "title": "Dashboard widgets",
                     "component": "ComponentsDashboardWidgetsComponent",
                     "version": "Angular",
                     "usage": [

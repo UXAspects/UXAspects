@@ -3,13 +3,9 @@ import { EventEmitter } from '@angular/core';
 export interface TextWidgetConfig {
     text: string;
     editable?: boolean;
-    localizedStrings: TextWidgetLocalizedStrings;
+    editLabel: string;
+    showFullTextLabel: string;
+    saveLabel: string;
+    cancelLabel: string;
     textChange?: EventEmitter<string>;
-}
-
-export interface TextWidgetLocalizedStrings {
-    edit: string;
-    showFullText: string;
-    save: string;
-    cancel: string;
 }

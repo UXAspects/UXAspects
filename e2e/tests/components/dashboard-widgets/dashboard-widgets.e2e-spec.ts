@@ -1,7 +1,7 @@
 import { browser, ElementFinder } from 'protractor';
 import { DashboardWidgetsPage } from './dashboard-widgets.po.spec';
 
-describe('Dashboard Widgets Tests', () => {
+describe('Dashboard Widgets', () => {
 
     let page: DashboardWidgetsPage;
     let widgetActions: ElementFinder;

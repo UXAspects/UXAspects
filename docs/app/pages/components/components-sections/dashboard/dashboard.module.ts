@@ -6,6 +6,7 @@ import {
     DashboardModule,
     DashboardPredefinedWidgetsModule,
     IconModule,
+    NumberPickerModule,
     SparkModule,
     TabsetModule
 } from '@ux-aspects/ux-aspects';
@@ -47,6 +48,7 @@ const ROUTES = [
         AccordionModule,
         CheckboxModule,
         FormsModule,
+        NumberPickerModule,
     ],
     exports: SECTIONS,
     declarations: SECTIONS,

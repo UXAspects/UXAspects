@@ -7,20 +7,21 @@ import { GetEnumByValuePipe } from './dashboard-enum-widget.component';
 
 @Component({
     selector: 'app-ux-enum-widget',
-    template: `<ux-dashboard>
-                    <ux-dashboard-enum-widget class="widget"
-                                              id="widget-enum"
-                                              name="Enum Widget"
-                                              heading="Enum Widget"
-                                              [fixedMode]="false"
-                                              [enums]="enums"
-                                              value="0">
-                    </ux-dashboard-enum-widget>
-               </ux-dashboard>
+    template: `
+        <ux-dashboard>
+            <ux-dashboard-enum-widget class="widget"
+                                      id="widget-enum"
+                                      name="Enum Widget"
+                                      heading="Enum Widget"
+                                      [fixedMode]="false"
+                                      [options]="options"
+                                      value="0">
+            </ux-dashboard-enum-widget>
+        </ux-dashboard>
     `
 })
 export class DashboardEnumWidgetTestComponent {
-    enums: ReadonlyArray<EnumConfig> = [
+    options: ReadonlyArray<EnumConfig> = [
         { value: '0', label: 'Zero', icon: 'close' },
         { value: '1', label: 'One', icon: 'radial' },
     ];
@@ -53,10 +54,10 @@ describe('Enum Widget', () => {
 
 describe('GetEnumByValuePipe', () => {
     let pipe: GetEnumByValuePipe;
-    let enums: ReadonlyArray<EnumConfig>;
+    let options: ReadonlyArray<EnumConfig>;
 
     beforeEach(() => {
-        enums = [
+        options = [
             { value: '0', label: 'Zero', icon: 'close' },
             { value: '1', label: 'One', icon: 'radial' },
         ];
@@ -64,10 +65,10 @@ describe('GetEnumByValuePipe', () => {
     });
 
     it('should find the the enum by value', () => {
-        expect(pipe.transform(enums, '0')).toEqual(enums[0]);
+        expect(pipe.transform(options, '0')).toEqual(options[0]);
     });
 
     it('should return null', () => {
-        expect(pipe.transform(enums, 'value')).toBeNull();
+        expect(pipe.transform(options, 'value')).toBeNull();
     });
 });

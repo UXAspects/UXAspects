@@ -48,7 +48,7 @@ export class AppComponent implements AfterViewInit {
         ['j', 'k', 'l'],
     ];
 
-    enums: ReadonlyArray<EnumConfig> = [
+    enumOptions: ReadonlyArray<EnumConfig> = [
         {value: '0', label: 'Zero', icon: 'close'},
         {value: '1', label: 'One', icon: 'radial'},
     ];

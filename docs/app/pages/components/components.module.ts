@@ -13,7 +13,7 @@ const ROUTES: Routes = [
             { path: 'component-list', loadChildren: () => import('./components-sections/component-list/component-list.module').then(m => m.ComponentsListModule) },
             { path: 'color', loadChildren: () => import('./components-sections/color/color.module').then(m => m.ComponentsColorModule) },
             { path: 'conduits', loadChildren: () => import('./components-sections/conduits/conduits.module').then(m => m.ComponentsConduitsModule) },
-            { path: 'dashboard', loadChildren: () => import('./components-sections/dashboard/dashboard-widgets.module').then(m => m.ComponentsDashboardModule) },
+            { path: 'dashboard', loadChildren: () => import('./components-sections/dashboard/dashboard.module').then(m => m.ComponentsDashboardModule) },
             { path: 'date-time-picker', loadChildren: () => import('./components-sections/date-time-picker/date-time-picker.module').then(m => m.ComponentsDateTimePickerModule) },
             { path: 'drag-and-drop', loadChildren: () => import('./components-sections/drag-and-drop/drag-and-drop.module').then(m => m.ComponentsDragAndDropModule) },
             { path: 'facets', loadChildren: () => import('./components-sections/facets/facets.module').then(m => m.ComponentsFacetsModule) },

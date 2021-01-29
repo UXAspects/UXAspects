@@ -10,7 +10,8 @@
     </div>
     <button class="widget-side-panel-opener btn"
             (click)="open()"
-            [attr.title]="editable ? localizedStrings.edit : localizedStrings.showFullText">
+            [uxTooltip]="editable ? editLabel : showFullTextLabel"
+            [attr.aria-label]="editable ? editLabel : showFullTextLabel">
         <ux-icon name="chevron-right" *ngIf="!editable"></ux-icon>
         <ux-icon name="edit" *ngIf="editable"></ux-icon>
     </button>
@@ -28,13 +29,13 @@
             <ux-icon name="close"></ux-icon>
         </button>
     </div>
-    <textarea #textArea
-              class="widget-side-panel-textarea ux-side-panel-content"
-              [disabled]="!editable">
-        {{ text }}
+    <textarea class="widget-side-panel-textarea ux-side-panel-content"
+              [disabled]="!editable"
+              [(ngModel)]="text"
+              [focusIf]="textAreaFocused">
     </textarea>
     <div class="ux-side-panel-footer" *ngIf="editable">
-        <button type="button" class="m-b btn button-primary" (click)="save()">{{ localizedStrings.save }}</button>
-        <button type="button" class="m-b btn button-secondary" (click)="cancel()">{{ localizedStrings.cancel }}</button>
+        <button type="button" class="m-b btn button-primary" (click)="save()">{{ saveLabel }}</button>
+        <button type="button" class="m-b btn button-secondary" (click)="cancel()">{{ cancelLabel }}</button>
     </div>
 </ux-side-panel>

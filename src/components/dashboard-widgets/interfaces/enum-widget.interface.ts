@@ -2,7 +2,7 @@ import { EventEmitter, TemplateRef } from '@angular/core';
 
 export interface EnumWidgetConfig {
     value: string;
-    enums: ReadonlyArray<EnumConfig>;
+    options: ReadonlyArray<EnumConfig>;
     valueChange?: EventEmitter<string>;
 }
 

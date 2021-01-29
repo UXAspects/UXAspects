@@ -11,7 +11,7 @@
                        [(selected)]="value"
                        (dropdownOpenChange)="dropdownOpenChange($event)">
         <ng-template #displayContent>
-            <ng-container *ngIf="enums | getEnumByValue : value as statusEnum">
+            <ng-container *ngIf="options | getEnumByValue : value as statusEnum">
                 <span class="widget-status-icon" *ngIf="statusEnum.icon || statusEnum.iconTemplate">
                     <ux-icon *ngIf="statusEnum.icon" [name]="statusEnum.icon"></ux-icon>
                     <ng-container *ngIf="statusEnum.iconTemplate">
@@ -31,7 +31,7 @@
                 class="enum-item"
                 role="listitem"
                 uxTabbableListItem
-                *ngFor="let enumItem of enums"
+                *ngFor="let enumItem of options"
                 [ngClass]="{ selected: enumItem.value === value }"
                 (click)="selectValue(enumItem.value, null)"
                 (keydown)="selectValue(enumItem.value, $event.which)">
