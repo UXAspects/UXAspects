@@ -2,6 +2,7 @@ import {ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Input, Out
 import {PredefinedWidgetConfig} from '../interfaces/predefined-widget.interface';
 import {TextWidgetConfig, TextWidgetLocalizedStrings} from '../interfaces/text-widget.interface';
 import {SidePanelComponent} from '../../side-panel';
+import {coerceBooleanProperty, coerceNumberProperty} from '@angular/cdk/coercion';
 
 @Component({
     selector: 'ux-dashboard-text-widget',
@@ -9,12 +10,38 @@ import {SidePanelComponent} from '../../side-panel';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DashboardTextWidgetComponent implements PredefinedWidgetConfig, TextWidgetConfig {
+    static ngAcceptInputType_fixedMode: boolean | string;
+    static ngAcceptInputType_colSpan: number | string;
+    static ngAcceptInputType_rowSpan: number | string;
+
+    private _fixedMode: boolean = false;
+    private _colSpan: number = 1;
+    private _rowSpan: number = 1;
+
+    @Input() get fixedMode(): boolean {
+        return this._fixedMode;
+    }
+    set fixedMode(fixedMode: boolean) {
+        this._fixedMode = coerceBooleanProperty(fixedMode);
+    }
+
+    @Input() get colSpan(): number {
+        return this._colSpan;
+    }
+    set colSpan(colSpan: number) {
+        this._colSpan = coerceNumberProperty(colSpan);
+    }
+
+    @Input() get rowSpan(): number {
+        return this._rowSpan;
+    }
+    set rowSpan(rowSpan: number) {
+        this._rowSpan = coerceNumberProperty(rowSpan);
+    }
+
     @Input() id: string = '';
     @Input() name: string = '';
     @Input() heading: string = '';
-    @Input() fixedMode: boolean = false;
-    @Input() colSpan: number = 1;
-    @Input() rowSpan: number = 1;
     @Input() localizedStrings: TextWidgetLocalizedStrings = {
         save: 'Save',
         cancel: 'Cancel',

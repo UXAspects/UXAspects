@@ -8,8 +8,8 @@ import { DashboardPredefinedWidgetsModule } from '../dashboard-predefined-widget
     template: `<ux-dashboard>
                     <ux-dashboard-table-widget class="widget"
                                                id="widget-table"
-                                               [name]="'Table Widget'"
-                                               [heading]="'Table Widget'"
+                                               name="Table Widget"
+                                               heading="Table Widget"
                                                [fixedMode]="false"
                                                [header]="tableHeader"
                                                [data]="tableData">

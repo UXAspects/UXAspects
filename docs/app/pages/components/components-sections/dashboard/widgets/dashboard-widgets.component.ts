@@ -55,13 +55,9 @@ export class ComponentsDashboardWidgetsComponent extends BaseDocumentationSectio
 
     actions: ActionConfig[] = [];
 
-    handleActionChange(e: string) {
-        alert(`action clicked: ${e}`);
-    }
-
     tableHeader: ReadonlyArray<string> = ['1', '2', '3'];
 
-    tableData: ReadonlyArray<any> = [
+    tableData: ReadonlyArray<string[]> = [
         ['a', 'b', 'c'],
         ['d', 'e', 'f'],
         ['g', 'h', 'i'],
@@ -75,7 +71,7 @@ export class ComponentsDashboardWidgetsComponent extends BaseDocumentationSectio
 
     loremIpsum: string = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut eget elit libero. Praesent placerat iaculis urna, ac iaculis ipsum consectetur quis. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Nunc nec faucibus magna, vel condimentum elit. Mauris auctor purus ut risus mattis, non pharetra sem ornare. Etiam interdum elementum elit, ut vulputate eros vestibulum nec. Fusce sed odio finibus justo mattis aliquam. Curabitur pulvinar, elit sit amet mollis feugiat, augue justo consectetur augue, sed elementum metus orci ac risus. Mauris elementum, tellus malesuada porttitor convallis, ligula ligula pulvinar diam, vitae ornare sapien velit at nulla.';
 
-    @ViewChild('iconAccept') iconAccept: TemplateRef<any>;
+    @ViewChild('iconAccept') iconAccept: TemplateRef<void>;
 
     constructor() {
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
@@ -86,5 +82,9 @@ export class ComponentsDashboardWidgetsComponent extends BaseDocumentationSectio
             {value: 'accept', label: 'Accept', iconTemplate: this.iconAccept},
             {value: 'decline', label: 'Decline', icon: 'close'}
         );
+    }
+
+    handleActionChange(e: string): void {
+        alert(`action clicked: ${e}`);
     }
 }

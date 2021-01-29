@@ -7,8 +7,8 @@ import { DashboardPredefinedWidgetsModule } from './dashboard-predefined-widgets
     selector: 'app-ux-predefined-widget',
     template: `<ux-dashboard>
                     <ux-predefined-widget id="widget-predefined"
-                                          [name]="'Predefined Widget'"
-                                          [heading]="'Predefined Widget'"
+                                          name="Predefined Widget"
+                                          heading="Predefined Widget"
                                           [fixedMode]="false">
                         <p class="text">Text</p>
                     </ux-predefined-widget>

@@ -1,5 +1,4 @@
 import { browser, ElementFinder } from 'protractor';
-// import { imageCompareFullPageScreen } from '../common/image-compare';
 import { DashboardWidgetsPage } from './dashboard-widgets.po.spec';
 
 describe('Dashboard Widgets Tests', () => {

@@ -1,13 +1,14 @@
-<ux-dashboard #dashboard
-              class="customizable-dashboard"
-              [class.dashboard-grabbing]="dashboard.isGrabbing"
-              [options]="options">
+<ux-dashboard
+    #dashboard
+    class="customizable-dashboard"
+    [class.dashboard-grabbing]="dashboard.isGrabbing"
+    [options]="options">
 
     <ux-dashboard-text-widget
         class="widget"
         id="widget-text"
-        [name]="'Text Widget'"
-        [heading]="'Text Widget'"
+        name="Text Widget"
+        heading="Text Widget"
         [fixedMode]="fixedMode"
         [text]="loremIpsum"
         [editable]="textWidgetEditable"
@@ -18,8 +19,8 @@
     <ux-dashboard-table-widget
         class="widget"
         id="widget-table"
-        [name]="'Table Widget'"
-        [heading]="'Table Widget'"
+        name="Table Widget"
+        heading="Table Widget"
         [fixedMode]="fixedMode"
         [header]="tableHeader"
         [data]="tableData"
@@ -30,8 +31,8 @@
     <ux-dashboard-actions-widget
         class="widget"
         id="widget-actions"
-        [name]="'Actions Widget'"
-        [heading]="'Actions Widget'"
+        name="Actions Widget"
+        heading="Actions Widget"
         [fixedMode]="fixedMode"
         [status]="status"
         [actions]="actions"
@@ -45,11 +46,11 @@
     <ux-dashboard-enum-widget
         class="widget"
         id="widget-enum"
-        [name]="'Enum Widget'"
-        [heading]="'Enum Widget'"
+        name="Enum Widget"
+        heading="Enum Widget"
         [fixedMode]="fixedMode"
         [enums]="enums"
-        [value]="'0'">
+        value="0">
     </ux-dashboard-enum-widget>
 
 </ux-dashboard>
@@ -67,7 +68,8 @@
                     </div>
                     <div class="col-md-4">
                         <label class="form-label" for="dashboard-padding-input">Padding</label>
-                        <input id="dashboard-padding-input" [(ngModel)]="dashboardPadding" min="0" type="number" placeholder="Enter padding" class="form-control m-b">
+                        <input id="dashboard-padding-input" [(ngModel)]="dashboardPadding" min="0" type="number"
+                               placeholder="Enter padding" class="form-control m-b">
                     </div>
                 </div>
             </ux-accordion-panel>
@@ -78,8 +80,10 @@
 <hr>
 
 <p>
-    The pre-built widgets which include the <code>ux-dashboard-actions-widget</code>, <code>ux-dashboard-enum-widget</code>,
-    <code>ux-dashboard-table-widget</code> and <code>ux-dashboard-text-widget</code> are ready-to-use widgets for the <code>ux-dashboard</code>
+    The pre-built widgets which include the <code>ux-dashboard-actions-widget</code>,
+    <code>ux-dashboard-enum-widget</code>,
+    <code>ux-dashboard-table-widget</code> and <code>ux-dashboard-text-widget</code> are ready-to-use widgets for the
+    <code>ux-dashboard</code>
     component.
 </p>
 
@@ -87,7 +91,8 @@
 
 <uxd-api-properties tableTitle="Inputs">
     <tr uxd-api-property name="id" type="string" [required]="true">The id given to the widget.</tr>
-    <tr uxd-api-property name="name" type="string" [required]="true">The name used by aria labels and announcements.</tr>
+    <tr uxd-api-property name="name" type="string" [required]="true">The name used by aria labels and announcements.
+    </tr>
     <tr uxd-api-property name="heading" type="string">The heading displayed for the widget.</tr>
     <tr uxd-api-property name="fixedMode" type="boolean">Whether the widget can be dragged and resized.</tr>
     <tr uxd-api-property name="colSpan" type="number">The number of columns the widget spans.</tr>
@@ -99,27 +104,33 @@
 <h3>Actions Widget</h3>
 
 <p>
-    The <code>ux-dashboard-actions-widget</code> displays a status of a system and provides the user options to react to the status.
+    The <code>ux-dashboard-actions-widget</code> displays a status of a system and provides the user options to react to
+    the status.
 </p>
 
 <p>It has the following additional attributes:</p>
 
 <uxd-api-properties tableTitle="Inputs">
-    <tr uxd-api-property name="actions" type="ActionConfig[]" [required]="true">The buttons that will be displayed. Includes <code>label</code> (a string),
-        <code>icon</code> (a ux-icon code), <code>iconTemplate</code> (a TemplateRef) and <code>action</code> (a function).</tr>
+    <tr uxd-api-property name="actions" type="ActionConfig[]" [required]="true">The buttons that will be displayed.
+        Includes <code>label</code> (a string),
+        <code>icon</code> (a ux-icon code), <code>iconTemplate</code> (a TemplateRef) and <code>action</code> (a
+        function).
+    </tr>
     <tr uxd-api-property name="status" type="ActionStatus" [required]="true">The status displayed by the widget.</tr>
 </uxd-api-properties>
 
 <p>Additionally the actions widget has these outputs available:</p>
 
 <uxd-api-properties tableTitle="Outputs">
-    <tr uxd-api-property name="actionSelected" type="string">Emits when the selected value has been changed and saved.</tr>
+    <tr uxd-api-property name="actionSelected" type="string">Emits when the selected value has been changed and saved.
+    </tr>
 </uxd-api-properties>
 
 <h3>Enum Widget</h3>
 
 <p>
-    The <code>ux-dashboard-enum-widget</code> is a select input at its core. The label of the currently selected value is displayed in the dropdown input.
+    The <code>ux-dashboard-enum-widget</code> is a select input at its core. The label of the currently selected value
+    is displayed in the dropdown input.
     The value can be changed by using the dropdown input.
 </p>
 
@@ -139,20 +150,24 @@
 <h3>Table Widget</h3>
 
 <p>
-    The <code>ux-dashboard-table-widget</code> is a normal HTML <code>table</code> element which renders a header and a data array into a scrollable table.
+    The <code>ux-dashboard-table-widget</code> is a normal HTML <code>table</code> element which renders a header and a
+    data array into a scrollable table.
 </p>
 
 <p>The table widget has the following additional attributes:</p>
 
 <uxd-api-properties tableTitle="Inputs">
     <tr uxd-api-property name="header" type="any[]">The headers for the table columns.</tr>
-    <tr uxd-api-property name="data" type="any[][]" [required]="true">The data being displayed in the table. Each sub-array should be the same length as the header array.</tr>
+    <tr uxd-api-property name="data" type="any[][]" [required]="true">The data being displayed in the table. Each
+        sub-array should be the same length as the header array.
+    </tr>
 </uxd-api-properties>
 
 <h3>Text Widget</h3>
 
 <p>
-    The <code>ux-dashboard-text-widget</code> displays static text. The button in the bottom right opens a side panel which also fills the whole parent dashboard component and displays the full text.
+    The <code>ux-dashboard-text-widget</code> displays static text. The button in the bottom right opens a side panel
+    which also fills the whole parent dashboard component and displays the full text.
     Additionally the side panel can be set to be a text editor as well so that the user can edit the text and save it.
 </p>
 
@@ -161,7 +176,9 @@
 <uxd-api-properties tableTitle="Inputs">
     <tr uxd-api-property name="text" type="string" [required]="true">The text that is being displayed.</tr>
     <tr uxd-api-property name="editable" type="boolean">Whether the text can be edited in the side panel.</tr>
-    <tr uxd-api-property name="localizedStrings" type="TextWidgetLocalizedStrings" [required]="true">An object that contains the localized labels for the component.</tr>
+    <tr uxd-api-property name="localizedStrings" type="TextWidgetLocalizedStrings" [required]="true">An object that
+        contains the localized labels for the component.
+    </tr>
 </uxd-api-properties>
 
 <p>Additionally the enum widget has these outputs available:</p>

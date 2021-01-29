@@ -10,11 +10,11 @@ import { GetEnumByValuePipe } from './dashboard-enum-widget.component';
     template: `<ux-dashboard>
                     <ux-dashboard-enum-widget class="widget"
                                               id="widget-enum"
-                                              [name]="'Enum Widget'"
-                                              [heading]="'Enum Widget'"
+                                              name="Enum Widget"
+                                              heading="Enum Widget"
                                               [fixedMode]="false"
                                               [enums]="enums"
-                                              [value]="'0'">
+                                              value="0">
                     </ux-dashboard-enum-widget>
                </ux-dashboard>
     `

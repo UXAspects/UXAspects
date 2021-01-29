@@ -13,7 +13,7 @@
         <ng-template #displayContent>
             <ng-container *ngIf="enums | getEnumByValue : value as statusEnum">
                 <span class="widget-status-icon" *ngIf="statusEnum.icon || statusEnum.iconTemplate">
-                    <ux-icon *ngIf="statusEnum.icon" name="{{ statusEnum.icon }}"></ux-icon>
+                    <ux-icon *ngIf="statusEnum.icon" [name]="statusEnum.icon"></ux-icon>
                     <ng-container *ngIf="statusEnum.iconTemplate">
                         <ng-container *ngTemplateOutlet="statusEnum.iconTemplate"></ng-container>
                     </ng-container>
@@ -37,7 +37,7 @@
                 (keydown)="selectValue(enumItem.value, $event.which)">
 
                 <span class="enum-icon" *ngIf="enumItem.icon || enumItem.iconTemplate">
-                    <ux-icon *ngIf="enumItem.icon" name="{{ enumItem.icon }}"></ux-icon>
+                    <ux-icon *ngIf="enumItem.icon" [name]="enumItem.icon"></ux-icon>
                     <ng-container *ngIf="enumItem.iconTemplate">
                         <ng-container *ngTemplateOutlet="enumItem.iconTemplate"></ng-container>
                     </ng-container>

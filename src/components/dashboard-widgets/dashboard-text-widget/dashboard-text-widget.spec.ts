@@ -8,8 +8,8 @@ import { DashboardPredefinedWidgetsModule } from '../dashboard-predefined-widget
     template: `<ux-dashboard>
                     <ux-dashboard-text-widget class="widget"
                                               id="widget-text"
-                                              [name]="'Text Widget'"
-                                              [heading]="'Text Widget'"
+                                              name="Text Widget"
+                                              heading="Text Widget"
                                               [fixedMode]="false"
                                               [text]="loremIpsum"
                                               [editable]="true">

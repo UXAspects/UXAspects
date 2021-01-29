@@ -9,8 +9,8 @@ import { ActionConfig, ActionStatus } from '../interfaces/actions-widget.interfa
     template: `<ux-dashboard>
                     <ux-dashboard-actions-widget class="widget"
                                                  id="widget-actions"
-                                                 [name]="'Actions Widget'"
-                                                 [heading]="'Actions Widget'"
+                                                 name="Actions Widget"
+                                                 heading="Actions Widget"
                                                  [fixedMode]="false"
                                                  [status]="{ label: 'Waiting...', icon: 'radial' }"
                                                  [actions]="actions">
