@@ -1,11 +1,11 @@
 import { DisplayValuePipe } from './display-value.pipe';
 import { LogicalExpressionBuilderService } from '../services/logical-expression-builder.service';
-import { DateFormatterPipe } from '../../../pipes/date-formatter/date-formatter.pipe';
+import { DatePipe } from '@angular/common';
 
 describe('L10nPipe', () => {
     let pipe: DisplayValuePipe;
     let lebServiceStub: LogicalExpressionBuilderService;
-    let datePipeStub: DateFormatterPipe;
+    let datePipeStub: DatePipe;
 
     beforeEach(() => {
         lebServiceStub = {

@@ -10,6 +10,7 @@ import { FocusHandlerService  }from '../services/focus-handler.service';
 import { ValidationService  }from '../services/validation.service';
 import { LogicalExpressionBuilderService } from '../services/logical-expression-builder.service';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { DatePipe } from '@angular/common';
 
 @Component({
     selector: 'ux-condition',
@@ -84,6 +85,8 @@ describe('LebConditionComponent', () => {
                 }, {
                     provide: FocusHandlerService,
                     useValue: focusHandlerService
+                }, {
+                    provide: DatePipe
                 }
             ]
         }).compileComponents();
