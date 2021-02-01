@@ -12,7 +12,8 @@
     background-color: #f2f2f2;
 }
 
-.dnd-cards-demo > .ux-reorderable-container-moving {
+.dnd-cards-demo > .cdk-drop-list-dragging,
+.dnd-cards-demo > .cdk-drop-list-receiving {
     border: 1px dashed #00a7a2;
 }
 
@@ -42,7 +43,11 @@
     }
 }
 
-.card.gu-mirror {
+.card.cdk-drag-preview {
+    border: 1px solid #00a7a2;
+}
+
+.card.cdk-drag-containers {
     border: 1px solid #00a7a2;
 }
 
