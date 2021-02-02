@@ -22,7 +22,7 @@
 }
 
 /* Card styles */
-.dnd-cards-container > .card {
+.card {
     display: block;
     width: 100%;
     height: 105px;
@@ -30,6 +30,7 @@
     box-shadow: 1px 1px 3px #ccc;
     border: 1px solid #ccc;
     padding: 10px 30px;
+    background-color: #fff;
 }
 
 .dnd-cards-container > .card:focus {
