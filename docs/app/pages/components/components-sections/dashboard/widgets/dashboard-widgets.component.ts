@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, TemplateRef, ViewChild} from '@angular/core';
-import {ActionConfig, ActionStatus, DashboardOptions, EnumConfig} from '@ux-aspects/ux-aspects';
+import {ActionConfig, ActionStatus, DashboardOptions, SelectConfig} from '@ux-aspects/ux-aspects';
 import {BaseDocumentationSection} from '../../../../../components/base-documentation-section/base-documentation-section';
 import {DocumentationSectionComponent} from '../../../../../decorators/documentation-section-component';
 import {IPlayground} from '../../../../../interfaces/IPlayground';
@@ -58,7 +58,7 @@ export class ComponentsDashboardWidgetsComponent extends BaseDocumentationSectio
         ['j', 'k', 'l'],
     ];
 
-    enumOptions: ReadonlyArray<EnumConfig> = [
+    selectOptions: ReadonlyArray<SelectConfig> = [
         {value: '0', label: 'Zero', icon: 'close'},
         {value: '1', label: 'One', icon: 'radial'},
     ];

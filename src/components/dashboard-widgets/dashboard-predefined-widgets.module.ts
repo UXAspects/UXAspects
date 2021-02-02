@@ -7,9 +7,9 @@ import { DashboardActionsWidgetComponent } from './dashboard-actions-widget/dash
 import { DashboardTextWidgetComponent } from './dashboard-text-widget/dashboard-text-widget.component';
 import { DashboardTableWidgetComponent } from './dashboard-table-widget/dashboard-table-widget.component';
 import {
-    DashboardEnumWidgetComponent,
-    GetEnumByValuePipe
-} from './dashboard-enum-widget/dashboard-enum-widget.component';
+    DashboardSelectWidgetComponent,
+    GetOptionByValuePipe
+} from './dashboard-select-widget/dashboard-select-widget.component';
 import { IconModule } from '../icon/index';
 import { SidePanelModule } from '../side-panel/index';
 import { FixedHeaderTableModule } from '../../directives/fixed-header-table/index';
@@ -24,8 +24,8 @@ const DECLARATIONS = [
     DashboardActionsWidgetComponent,
     DashboardTextWidgetComponent,
     DashboardTableWidgetComponent,
-    DashboardEnumWidgetComponent,
-    GetEnumByValuePipe
+    DashboardSelectWidgetComponent,
+    GetOptionByValuePipe
 ];
 
 @NgModule({

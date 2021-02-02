@@ -1,0 +1,49 @@
+<ux-predefined-widget class="widget-element"
+                      [id]="id"
+                      [colSpan]="colSpan"
+                      [rowSpan]="rowSpan"
+                      [name]="name"
+                      [heading]="heading"
+                      [fixedMode]="fixedMode">
+
+    <ux-input-dropdown class="select-dropdown"
+                       [hideFilter]="true"
+                       [(selected)]="value"
+                       (dropdownOpenChange)="dropdownOpenChange($event)">
+        <ng-template #displayContent>
+            <ng-container *ngIf="options | getOptionByValue : value as statusOption">
+                <span class="widget-status-icon" *ngIf="statusOption.icon || statusOption.iconTemplate">
+                    <ux-icon *ngIf="statusOption.icon" [name]="statusOption.icon"></ux-icon>
+                    <ng-container *ngIf="statusOption.iconTemplate">
+                        <ng-container *ngTemplateOutlet="statusOption.iconTemplate"></ng-container>
+                    </ng-container>
+                </span>
+                <span class="widget-status-label">{{ statusOption.label }}</span>
+            </ng-container>
+        </ng-template>
+        <ul class="select-widget-dropdown-list"
+            role="list"
+            cdkTrapFocus
+            uxTabbableList
+            [focusOnShow]="true"
+            [returnFocus]="true">
+            <li #selectItems
+                class="select-item"
+                role="listitem"
+                uxTabbableListItem
+                *ngFor="let option of options"
+                [ngClass]="{ selected: option.value === value }"
+                (click)="selectValue(option.value, null)"
+                (keydown)="selectValue(option.value, $event.which)">
+
+                <span class="select-icon" *ngIf="option.icon || option.iconTemplate">
+                    <ux-icon *ngIf="option.icon" [name]="option.icon"></ux-icon>
+                    <ng-container *ngIf="option.iconTemplate">
+                        <ng-container *ngTemplateOutlet="option.iconTemplate"></ng-container>
+                    </ng-container>
+                </span>
+                {{ option.label }}
+            </li>
+        </ul>
+    </ux-input-dropdown>
+</ux-predefined-widget>

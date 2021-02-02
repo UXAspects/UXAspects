@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, TemplateRef, ViewChild } from '@angular/core';
-import { ActionConfig, ActionStatus, DashboardLayoutData, DashboardOptions, EnumConfig } from '@ux-aspects/ux-aspects';
+import { ActionConfig, ActionStatus, DashboardLayoutData, DashboardOptions, SelectConfig } from '@ux-aspects/ux-aspects';
 
 @Component({
     selector: 'dashboard-app',
@@ -47,7 +47,7 @@ export class DashboardWidgetsTestpageComponent implements AfterViewInit {
         ['j', 'k', 'l'],
     ];
 
-    enumOptions: ReadonlyArray<EnumConfig> = [
+    selectOptions: ReadonlyArray<SelectConfig> = [
         { value: '0', label: 'Zero', icon: 'close' },
         { value: '1', label: 'One', icon: 'radial' },
     ];

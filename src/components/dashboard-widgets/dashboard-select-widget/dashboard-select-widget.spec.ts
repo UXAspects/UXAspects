@@ -2,46 +2,46 @@ import { Component } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { DashboardModule } from '../../dashboard';
 import { DashboardPredefinedWidgetsModule } from '../dashboard-predefined-widgets.module';
-import { EnumConfig } from '../interfaces/enum-widget.interface';
-import { GetEnumByValuePipe } from './dashboard-enum-widget.component';
+import { SelectConfig } from '../interfaces/select-widget.interface';
+import { GetOptionByValuePipe } from './dashboard-select-widget.component';
 
 @Component({
-    selector: 'app-ux-enum-widget',
+    selector: 'app-ux-select-widget',
     template: `
         <ux-dashboard>
-            <ux-dashboard-enum-widget class="widget"
-                                      id="widget-enum"
-                                      name="Enum Widget"
-                                      heading="Enum Widget"
-                                      [fixedMode]="false"
-                                      [options]="options"
-                                      value="0">
-            </ux-dashboard-enum-widget>
+            <ux-dashboard-select-widget class="widget"
+                                        id="widget-select"
+                                        name="Select Widget"
+                                        heading="Select Widget"
+                                        [fixedMode]="false"
+                                        [options]="options"
+                                        value="0">
+            </ux-dashboard-select-widget>
         </ux-dashboard>
     `
 })
-export class DashboardEnumWidgetTestComponent {
-    options: ReadonlyArray<EnumConfig> = [
+export class DashboardSelectWidgetTestComponent {
+    options: ReadonlyArray<SelectConfig> = [
         { value: '0', label: 'Zero', icon: 'close' },
         { value: '1', label: 'One', icon: 'radial' },
     ];
 }
 
-describe('Enum Widget', () => {
-    let component: DashboardEnumWidgetTestComponent;
-    let fixture: ComponentFixture<DashboardEnumWidgetTestComponent>;
+describe('Select Widget', () => {
+    let component: DashboardSelectWidgetTestComponent;
+    let fixture: ComponentFixture<DashboardSelectWidgetTestComponent>;
     let nativeElement: HTMLElement;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             imports: [DashboardModule, DashboardPredefinedWidgetsModule],
-            declarations: [DashboardEnumWidgetTestComponent]
+            declarations: [DashboardSelectWidgetTestComponent]
         })
             .compileComponents();
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(DashboardEnumWidgetTestComponent);
+        fixture = TestBed.createComponent(DashboardSelectWidgetTestComponent);
         component = fixture.componentInstance;
         nativeElement = fixture.nativeElement;
         fixture.detectChanges();
@@ -52,19 +52,19 @@ describe('Enum Widget', () => {
     });
 });
 
-describe('GetEnumByValuePipe', () => {
-    let pipe: GetEnumByValuePipe;
-    let options: ReadonlyArray<EnumConfig>;
+describe('GetOptionByValuePipe', () => {
+    let pipe: GetOptionByValuePipe;
+    let options: ReadonlyArray<SelectConfig>;
 
     beforeEach(() => {
         options = [
             { value: '0', label: 'Zero', icon: 'close' },
             { value: '1', label: 'One', icon: 'radial' },
         ];
-        pipe = new GetEnumByValuePipe();
+        pipe = new GetOptionByValuePipe();
     });
 
-    it('should find the the enum by value', () => {
+    it('should find the the option by value', () => {
         expect(pipe.transform(options, '0')).toEqual(options[0]);
     });
 

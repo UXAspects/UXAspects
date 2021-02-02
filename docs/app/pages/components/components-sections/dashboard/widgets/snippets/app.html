@@ -38,19 +38,19 @@
         [actions]="actions"
         [colSpan]="2"
         (actionSelected)="handleActionChange($event)">
-        <ng-template #iconAccept>
-            <span class="custom-icon">✅</span>
+        <ng-template #iconDecline>
+            <span class="custom-icon"><b>X</b></span>
         </ng-template>
     </ux-dashboard-actions-widget>
 
-    <ux-dashboard-enum-widget
+    <ux-dashboard-select-widget
         class="widget"
-        id="widget-enum"
-        name="Enum Widget"
-        heading="Enum Widget"
+        id="widget-select"
+        name="Select Widget"
+        heading="Select Widget"
         [fixedMode]="fixedMode"
-        [options]="enumOptions"
-        [value]="'0'">
-    </ux-dashboard-enum-widget>
+        [options]="selectOptions"
+        value="0">
+    </ux-dashboard-select-widget>
 
 </ux-dashboard>

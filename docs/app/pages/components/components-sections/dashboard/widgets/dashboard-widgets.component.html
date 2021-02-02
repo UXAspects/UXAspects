@@ -43,15 +43,15 @@
         </ng-template>
     </ux-dashboard-actions-widget>
 
-    <ux-dashboard-enum-widget
+    <ux-dashboard-select-widget
         class="widget"
-        id="widget-enum"
-        name="Enum Widget"
-        heading="Enum Widget"
+        id="widget-select"
+        name="Select Widget"
+        heading="Select Widget"
         [fixedMode]="fixedMode"
-        [options]="enumOptions"
+        [options]="selectOptions"
         value="0">
-    </ux-dashboard-enum-widget>
+    </ux-dashboard-select-widget>
 
 </ux-dashboard>
 
@@ -86,7 +86,7 @@
 
 <p>
     The pre-built widgets which include the <code>ux-dashboard-actions-widget</code>,
-    <code>ux-dashboard-enum-widget</code>,
+    <code>ux-dashboard-select-widget</code>,
     <code>ux-dashboard-table-widget</code> and <code>ux-dashboard-text-widget</code> are ready-to-use widgets for the
     <code>ux-dashboard</code>
     component.
@@ -142,30 +142,30 @@
     </tr>
 </uxd-api-properties>
 
-<h3>Enum Widget</h3>
+<h3>Select Widget</h3>
 
 <p>
-    The <code>ux-dashboard-enum-widget</code> is a select input at its core. The label of the currently selected value
+    The <code>ux-dashboard-select-widget</code> is a select input at its core. The label of the currently selected value
     is displayed in the dropdown input.
     The value can be changed by using the dropdown input.
 </p>
 
-<p>The enum widget has the following additional attributes:</p>
+<p>The select widget has the following additional attributes:</p>
 
 <uxd-api-properties tableTitle="Inputs">
     <tr uxd-api-property name="value" type="string" [required]="true">Current value</tr>
-    <tr uxd-api-property name="options" type="EnumConfig[]" [required]="true">
+    <tr uxd-api-property name="options" type="SelectConfig[]" [required]="true">
         Values to choose from
-        <uxd-api-properties tableTitle="Properties of EnumConfig">
+        <uxd-api-properties tableTitle="Properties of SelectConfig">
             <tr uxd-api-property name="label" type="string">Display value</tr>
-            <tr uxd-api-property name="value" type="string">Enum value</tr>
+            <tr uxd-api-property name="value" type="string">Select value</tr>
             <tr uxd-api-property name="icon" type="string">Icon code</tr>
             <tr uxd-api-property name="iconTemplate" type="TemplateRef">Icon template (in place of <code>icon</code>)</tr>
         </uxd-api-properties>
     </tr>
 </uxd-api-properties>
 
-<p>Additionally the enum widget has these outputs available:</p>
+<p>Additionally the select widget has these outputs available:</p>
 
 <uxd-api-properties tableTitle="Outputs">
     <tr uxd-api-property name="valueChange" type="string">Emits when the selected value has been changed and saved.</tr>
@@ -206,7 +206,7 @@
     <tr uxd-api-property name="cancelLabel" type="string" [required]="true">Localized label for the cancel button</tr>
 </uxd-api-properties>
 
-<p>Additionally the enum widget has these outputs available:</p>
+<p>Additionally the select widget has these outputs available:</p>
 
 <uxd-api-properties tableTitle="Outputs">
     <tr uxd-api-property name="textChange" type="string">Emits when the text has been changed.</tr>

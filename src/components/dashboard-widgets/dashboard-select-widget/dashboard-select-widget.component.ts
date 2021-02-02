@@ -8,15 +8,15 @@ import {
     ViewChildren
 } from '@angular/core';
 import { PredefinedWidgetConfig } from '../interfaces/predefined-widget.interface';
-import { EnumConfig, EnumWidgetConfig } from '../interfaces/enum-widget.interface';
+import { SelectConfig, SelectWidgetConfig } from '../interfaces/select-widget.interface';
 import {coerceBooleanProperty, coerceNumberProperty} from '@angular/cdk/coercion';
 
 @Component({
-    selector: 'ux-dashboard-enum-widget',
-    templateUrl: './dashboard-enum-widget.component.html',
+    selector: 'ux-dashboard-select-widget',
+    templateUrl: './dashboard-select-widget.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DashboardEnumWidgetComponent implements PredefinedWidgetConfig, EnumWidgetConfig {
+export class DashboardSelectWidgetComponent implements PredefinedWidgetConfig, SelectWidgetConfig {
     static ngAcceptInputType_fixedMode: boolean | string;
     static ngAcceptInputType_colSpan: number | string;
     static ngAcceptInputType_rowSpan: number | string;
@@ -50,10 +50,10 @@ export class DashboardEnumWidgetComponent implements PredefinedWidgetConfig, Enu
     @Input() name: string = '';
     @Input() heading: string = '';
 
-    @Input() options: EnumConfig[];
+    @Input() options: SelectConfig[];
     @Input() value: string;
 
-    @ViewChildren('enumItems') enumItems: QueryList<ElementRef>;
+    @ViewChildren('selectItems') selectItems: QueryList<ElementRef>;
 
     @Output() valueChange = new EventEmitter<string>();
 
@@ -66,15 +66,15 @@ export class DashboardEnumWidgetComponent implements PredefinedWidgetConfig, Enu
 
     dropdownOpenChange(open: boolean): void {
         if (open) {
-            this.enumItems.toArray()?.[0]?.nativeElement?.focus();
+            this.selectItems.toArray()?.[0]?.nativeElement?.focus();
         }
     }
 }
 
-@Pipe({name: 'getEnumByValue'})
-export class GetEnumByValuePipe implements PipeTransform {
-    transform(options: ReadonlyArray<EnumConfig>, value: string) {
-        const enumItem = options?.find(item => item.value === value);
-        return enumItem ? enumItem : null;
+@Pipe({name: 'getOptionByValue'})
+export class GetOptionByValuePipe implements PipeTransform {
+    transform(options: ReadonlyArray<SelectConfig>, value: string) {
+        const option = options?.find(item => item.value === value);
+        return option ? option : null;
     }
 }

@@ -189,7 +189,7 @@
                     "usage": [
                         {
                             "title": "Selector",
-                            "content": "ux-dashboard-actions-widget, ux-dashboard-enum-widget, ux-dashboard-table-widget, ux-dashboard-text-widget"
+                            "content": "ux-dashboard-actions-widget, ux-dashboard-select-widget, ux-dashboard-table-widget, ux-dashboard-text-widget"
                         },
                         {
                             "title": "Module",

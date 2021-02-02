@@ -1,12 +1,12 @@
 import { EventEmitter, TemplateRef } from '@angular/core';
 
-export interface EnumWidgetConfig {
+export interface SelectWidgetConfig {
     value: string;
-    options: ReadonlyArray<EnumConfig>;
+    options: ReadonlyArray<SelectConfig>;
     valueChange?: EventEmitter<string>;
 }
 
-export interface EnumConfig {
+export interface SelectConfig {
     label: string;
     value: string;
     icon?: string;
