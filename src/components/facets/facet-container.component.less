@@ -92,3 +92,26 @@ ux-facet-container {
         }
     }
 }
+
+.facet-selected-tag.cdk-drag-preview {
+    margin-right: 5px;
+    margin-bottom: 5px;
+    cursor: pointer;
+    outline: none;
+    max-width: 100%;
+    color: @tag-input-tag-color;
+    background-color: @tag-input-tag-bg;
+    border: 1px solid @tag-input-tag-border;
+    border-radius: 1px;
+    padding: 0 5px;
+    white-space: nowrap;
+
+    .facet-selected-remove-btn {
+        border: none;
+        background: none;
+
+        &:focus {
+            .native-focus-outline();
+        }
+    }
+}

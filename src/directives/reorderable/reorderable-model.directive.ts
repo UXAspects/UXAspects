@@ -1,4 +1,4 @@
-import { CdkDrag, CdkDragDrop, CdkDragStart } from '@angular/cdk/drag-drop';
+import { CdkDrag, CdkDragDrop } from '@angular/cdk/drag-drop';
 import { Directive, Input, OnDestroy, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -28,13 +28,13 @@ export class ReorderableModelDirective<T> extends CdkDrag implements OnInit, OnD
 
         this._dragRef.beforeStarted.pipe(takeUntil(this._destroy$)).subscribe(() => this.captureTableCellStyles());
 
-        this.started.pipe(takeUntil(this._destroy$)).subscribe((event: CdkDragStart) => {
+        this.started.pipe(takeUntil(this._destroy$)).subscribe(() => {
             dropContainer.reorderStart.emit({ element: this.element.nativeElement, model: this.data });
             this.setTableCellWidths();
         });
 
-        this.dropped.pipe(takeUntil(this._destroy$)).subscribe((event: CdkDragDrop<T>) => {
-            if (event.container === event.previousContainer && event.currentIndex === event.previousIndex) {
+        this.dropped.pipe(takeUntil(this._destroy$)).subscribe((dragEvent: CdkDragDrop<T>) => {
+            if (dragEvent.container === dragEvent.previousContainer && dragEvent.currentIndex === dragEvent.previousIndex) {
                 dropContainer.reorderCancel.emit({ element: this.element.nativeElement, model: this.data });
             } else {
                 dropContainer.reorderEnd.emit({ element: this.element.nativeElement, model: this.data });

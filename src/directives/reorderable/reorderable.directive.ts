@@ -65,22 +65,21 @@ export class ReorderableDirective<T> extends CdkDropList<T> implements OnInit, O
     /** Store all the group ids so we can identify which lists can interact */
     private static _groups$ = new BehaviorSubject<Record<string, string[]>>({});
 
-    /** Unsibscribe on destroy */
     private readonly _destroy$ = new Subject<void>();
 
     ngOnInit(): void {
-        this.dropped.subscribe((event: CdkDragDrop<T>) => {
-            if (event.previousContainer === event.container) {
-                moveItemInArray(this.reorderableModel, event.previousIndex, event.currentIndex);
+        this.dropped.subscribe((dropEvent: CdkDragDrop<T>) => {
+            if (dropEvent.previousContainer === dropEvent.container) {
+                moveItemInArray(this.reorderableModel, dropEvent.previousIndex, dropEvent.currentIndex);
             } else {
-                const previousContainer = event.previousContainer as ReorderableDirective<T>;
-                const currentContainer = event.container as ReorderableDirective<T>;
+                const previousContainer = dropEvent.previousContainer as ReorderableDirective<T>;
+                const currentContainer = dropEvent.container as ReorderableDirective<T>;
 
                 transferArrayItem(
                     previousContainer.reorderableModel,
                     currentContainer.reorderableModel,
-                    event.previousIndex,
-                    event.currentIndex
+                    dropEvent.previousIndex,
+                    dropEvent.currentIndex
                 );
             }
 
