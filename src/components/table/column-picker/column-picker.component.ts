@@ -3,8 +3,8 @@ import { ArrayDataSource } from '@angular/cdk/collections';
 import { FlatTreeControl } from '@angular/cdk/tree';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnChanges, Output, QueryList, SimpleChanges, TemplateRef, ViewChildren } from '@angular/core';
 import { ColumnPickerService } from './column-picker.service';
-import { ColumnPickerTreeNode } from './interfaces/column-picker-tree-node.interface';
 import { ColumnPickerGroupItem, isColumnPickerGroupItem } from './interfaces/column-picker-group-item.interface';
+import { ColumnPickerTreeNode } from './interfaces/column-picker-tree-node.interface';
 
 @Component({
     selector: 'ux-column-picker',

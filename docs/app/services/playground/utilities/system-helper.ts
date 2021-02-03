@@ -27,6 +27,7 @@ export class SystemJSHelper {
         { name: '@angular/cdk/bidi', path: `@angular/cdk@${CDK_VERSION}/bundles/cdk-bidi.umd.js` },
         { name: '@angular/cdk/coercion', path: `@angular/cdk@${CDK_VERSION}/bundles/cdk-coercion.umd.js` },
         { name: '@angular/cdk/collections', path: `@angular/cdk@${CDK_VERSION}/bundles/cdk-collections.umd.js` },
+        { name: '@angular/cdk/drag-drop', path: `@angular/cdk@${CDK_VERSION}/bundles/cdk-drag-drop.umd.js`},
         { name: '@angular/cdk/keycodes', path: `@angular/cdk@${CDK_VERSION}/bundles/cdk-keycodes.umd.js` },
         { name: '@angular/cdk/layout', path: `@angular/cdk@${CDK_VERSION}/bundles/cdk-layout.umd.js` },
         { name: '@angular/cdk/observers', path: `@angular/cdk@${CDK_VERSION}/bundles/cdk-observers.umd.js` },
@@ -48,8 +49,6 @@ export class SystemJSHelper {
         { name: 'lodash', path: 'lodash/lodash.js' },
         { name: 'ng2-file-upload', path: 'ng2-file-upload/bundles/ng2-file-upload.umd.js' },
         { name: 'angular-split', path: 'angular-split@3.0.2/bundles/angular-split.umd.js' },
-        { name: 'dragula', path: 'dragula/dist/dragula.js' },
-        { name: 'dragula/dist/dragula', path: 'dragula/dist/dragula.js' },
         { name: 'ngx-mask', path: 'ngx-mask/bundles/ngx-mask.umd.js' },
         { name: 'resize-observer-polyfill', path: 'resize-observer-polyfill@1.5.0/dist/ResizeObserver.js' },
         // d3

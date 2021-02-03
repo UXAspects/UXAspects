@@ -12,7 +12,8 @@
     background-color: #f2f2f2;
 }
 
-.dnd-cards-demo > .ux-reorderable-container-moving {
+.dnd-cards-demo > .cdk-drop-list-dragging,
+.dnd-cards-demo > .cdk-drop-list-receiving {
     border: 1px dashed #00a7a2;
 }
 
@@ -24,7 +25,7 @@
 }
 
 /* Card styles */
-.dnd-cards-container > .card {
+.card {
     display: block;
     width: 100%;
     height: 105px;
@@ -32,6 +33,7 @@
     box-shadow: 1px 1px 3px #ccc;
     border: 1px solid #ccc;
     padding: 10px 30px;
+    background-color: #fff;
 
     &:focus {
         outline: 2px dotted;
@@ -41,16 +43,20 @@
     }
 }
 
-.dnd-cards-container > .card.gu-mirror {
+.card.cdk-drag-preview {
     border: 1px solid #00a7a2;
 }
 
-.dnd-cards-container > .card .name {
+.card.cdk-drag-containers {
+    border: 1px solid #00a7a2;
+}
+
+.card .name {
     font-size: 1.25rem;
     font-weight: 600;
 }
 
-.dnd-cards-container > .card .type {
+.card .type {
     color: #aaa;
 }
 
@@ -106,7 +112,7 @@
 
 /* Item which is being dragged */
 .card.ux-reorderable-moving,
-.demo-list-item.ux-reorderable-moving {
+.demo-list-item.ux-reorderable-moving,
+.cdk-drag-placeholder {
     visibility: hidden;
 }
-

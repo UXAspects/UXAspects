@@ -1,5 +1,24 @@
+@import "../../../../../../../src/styles/variables.less";
+
 .reorderable-row {
     background-color: #fff;
+}
+
+.cdk-drag.cdk-drag-placeholder.reorderable-row {
+    background-color: rgba(@primary, 0.2);
+    box-sizing: border-box;
+    outline: 2px dashed #00a7a2;
+}
+
+.cdk-drag-placeholder.reorderable-row > * {
+    opacity: 0;
+}
+
+.cdk-drag-preview.reorderable-row {
+    box-sizing: border-box;
+    border-radius: 4px;
+    padding-top: 8px;
+    background-color: #e8edee;
 }
 
 .table tr:hover .drag-handle-column {
