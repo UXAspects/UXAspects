@@ -1,4 +1,5 @@
 import { LogicalExpressionBuilderPage } from './logical-expression-builder.po.spec';
+import {imageCompare} from '../common/image-compare';
 
 describe('Logical Expression Builder', () => {
     let page: LogicalExpressionBuilderPage.Page;
@@ -26,6 +27,7 @@ describe('Logical Expression Builder', () => {
 
         expect(expression).toBeDefined();
         expect(expression['children']).toBeUndefined();
+        expect(await imageCompare('input-dropdown-initial')).toEqual(0);
         expect(await page.getConditionRowCount()).toEqual(1);
         expect(await page.getValid()).toBeTruthy();
     });
