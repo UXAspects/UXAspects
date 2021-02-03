@@ -1,5 +1,6 @@
 import { browser, ElementFinder } from 'protractor';
 import { DashboardWidgetsPage } from './dashboard-widgets.po.spec';
+import { imageCompare } from '../common/image-compare';
 
 describe('Dashboard Widgets', () => {
 
@@ -40,7 +41,7 @@ describe('Dashboard Widgets', () => {
         expect(await page.getWidgetLocationValue(widgetText, 'top')).toBe(220);
         expect(await page.getWidgetLocationValue(widgetText, 'left')).toBe(0);
 
-        // expect(await imageCompareFullPageScreen('dashboard-widgets-initial')).toEqual(0);
+        expect(await imageCompare('input-dropdown-initial')).toEqual(0);
     });
 
     it('should react correctly when a widget is moved and resized', async () => {
@@ -68,5 +69,7 @@ describe('Dashboard Widgets', () => {
         expect(await page.getWidgetLocationValue(widgetText, 'left')).toBe(0, 'widget-text left');
 
         expect(JSON.parse(await page.getLayoutOutput())).toEqual(layoutMock);
+
+        expect(await imageCompare('input-dropdown-initial')).toEqual(0);
     });
 });
