@@ -29,6 +29,8 @@ describe('Dashboard Widgets', () => {
     });
 
     it('should have correct initial states', async () => {
+        expect(await imageCompare('dashboard-widget-initial')).toEqual(0);
+
         expect(await page.getWidgetLocationValue(widgetActions, 'top')).toBe(0);
         expect(await page.getWidgetLocationValue(widgetActions, 'left')).toBe(0);
 
@@ -40,12 +42,9 @@ describe('Dashboard Widgets', () => {
 
         expect(await page.getWidgetLocationValue(widgetText, 'top')).toBe(220);
         expect(await page.getWidgetLocationValue(widgetText, 'left')).toBe(0);
-
-        expect(await imageCompare('input-dropdown-initial')).toEqual(0);
     });
 
     it('should react correctly when a widget is moved and resized', async () => {
-
         const layoutMock =  [
             { id: 'widget-actions', 'col': 0, 'row': 4, 'colSpan': 2, 'rowSpan': 1 },
             { id: 'widget-table', 'col': 2, 'row': 0, 'colSpan': 2, 'rowSpan': 2 },
@@ -55,6 +54,8 @@ describe('Dashboard Widgets', () => {
 
         // drag the top widget down
         await browser.actions().dragAndDrop(widgetActions.$('button.widget-grab-handle'), { x: 0, y: 800 }).perform();
+
+        expect(await imageCompare('dashboard-widget-moved')).toEqual(0);
 
         expect(await page.getWidgetLocationValue(widgetActions, 'top')).toBe(440, 'widget-actions top');
         expect(await page.getWidgetLocationValue(widgetActions, 'left')).toBe(0, 'widget-actions left');
@@ -69,7 +70,5 @@ describe('Dashboard Widgets', () => {
         expect(await page.getWidgetLocationValue(widgetText, 'left')).toBe(0, 'widget-text left');
 
         expect(JSON.parse(await page.getLayoutOutput())).toEqual(layoutMock);
-
-        expect(await imageCompare('input-dropdown-initial')).toEqual(0);
     });
 });
