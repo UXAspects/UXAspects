@@ -16,6 +16,9 @@ export class ReorderableModelDirective<T> extends CdkDrag implements OnInit, OnD
         this.data = model;
     }
 
+    /** Apply the dragula preview class to avoid backwards compatibility issues */
+    previewClass = 'gu-mirror';
+
     /** Preserve the column widths */
     private readonly _widths = new Map<number, string>();
 
@@ -23,7 +26,6 @@ export class ReorderableModelDirective<T> extends CdkDrag implements OnInit, OnD
     private readonly _destroy$ = new Subject<void>();
 
     ngOnInit(): void {
-        this.previewClass = 'gu-mirror';
         // cast the drop container as we have replaced it with our directive
         const dropContainer = this.dropContainer as ReorderableDirective<T>;
 
@@ -35,7 +37,10 @@ export class ReorderableModelDirective<T> extends CdkDrag implements OnInit, OnD
         });
 
         this.dropped.pipe(takeUntil(this._destroy$)).subscribe((dragEvent: CdkDragDrop<T>) => {
-            if (dragEvent.container === dragEvent.previousContainer && dragEvent.currentIndex === dragEvent.previousIndex) {
+            if (
+                dragEvent.container === dragEvent.previousContainer &&
+                dragEvent.currentIndex === dragEvent.previousIndex
+            ) {
                 dropContainer.reorderCancel.emit({ element: this.element.nativeElement, model: this.data });
             } else {
                 dropContainer.reorderEnd.emit({ element: this.element.nativeElement, model: this.data });
@@ -44,6 +49,7 @@ export class ReorderableModelDirective<T> extends CdkDrag implements OnInit, OnD
     }
 
     ngOnDestroy(): void {
+        super.ngOnDestroy();
         this._destroy$.next();
         this._destroy$.complete();
     }
