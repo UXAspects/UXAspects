@@ -23,6 +23,7 @@ export class ReorderableModelDirective<T> extends CdkDrag implements OnInit, OnD
     private readonly _destroy$ = new Subject<void>();
 
     ngOnInit(): void {
+        this.previewClass = 'gu-mirror';
         // cast the drop container as we have replaced it with our directive
         const dropContainer = this.dropContainer as ReorderableDirective<T>;
 

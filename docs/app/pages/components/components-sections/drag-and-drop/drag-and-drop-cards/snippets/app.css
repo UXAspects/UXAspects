@@ -40,7 +40,8 @@
     outline-offset: 0;
 }
 
-.card.cdk-drag-preview {
+.card.cdk-drag-preview,
+.card.gu-mirror {
     border: 1px solid #00a7a2;
 }
 
