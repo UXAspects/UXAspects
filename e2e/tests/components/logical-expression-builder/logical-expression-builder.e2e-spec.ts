@@ -1,5 +1,5 @@
 import { LogicalExpressionBuilderPage } from './logical-expression-builder.po.spec';
-import {imageCompare} from '../common/image-compare';
+import { imageCompare } from '../common/image-compare';
 
 describe('Logical Expression Builder', () => {
     let page: LogicalExpressionBuilderPage.Page;
@@ -12,6 +12,8 @@ describe('Logical Expression Builder', () => {
     it('should have correct initial state', async () => {
         const btn = await page.getEmptyExpressionButton();
 
+        expect(await imageCompare('logical-expression-builder-initial')).toEqual(0);
+
         expect(await page.getExpressionObject()).toEqual(null);
         expect(await page.getConditionRowCount()).toEqual(0);
         expect(await page.getGroupRowCount()).toEqual(0);
@@ -23,11 +25,12 @@ describe('Logical Expression Builder', () => {
     it('should display one row when expression is just a condition', async () => {
         await page.setOneCondition();
 
+        expect(await imageCompare('logical-expression-builder-one-row')).toEqual(0);
+
         const expression = await page.getExpressionObject();
 
         expect(expression).toBeDefined();
         expect(expression['children']).toBeUndefined();
-        expect(await imageCompare('input-dropdown-initial')).toEqual(0);
         expect(await page.getConditionRowCount()).toEqual(1);
         expect(await page.getValid()).toBeTruthy();
     });
@@ -35,6 +38,8 @@ describe('Logical Expression Builder', () => {
     it('should embed condition in group when a second one is added', async () => {
         await page.setOneCondition();
         await page.addSecondCondition();
+
+        expect(await imageCompare('logical-expression-builder-two-rows')).toEqual(0);
 
         const expression = await page.getExpressionObject();
         const rows = await page.getTableRows();
@@ -52,6 +57,8 @@ describe('Logical Expression Builder', () => {
         await page.setTwoConditions();
         await page.deleteLastCondition();
 
+        expect(await imageCompare('logical-expression-builder-one-row-group')).toEqual(0);
+
         const expression = await page.getExpressionObject();
 
         expect(expression).toBeDefined();
@@ -64,6 +71,8 @@ describe('Logical Expression Builder', () => {
     it('should display error when an invalid expression is set', async () => {
         await page.setInvalidExpression();
 
+        expect(await imageCompare('logical-expression-builder-error')).toEqual(0);
+
         expect(await page.getGroupRowError()).toBeDefined();
         expect(await page.getValid()).toBeFalsy();
     });
@@ -72,11 +81,15 @@ describe('Logical Expression Builder', () => {
         await page.setOneCondition();
         await page.editRow(0);
 
+        expect(await imageCompare('logical-expression-builder-edit-mode')).toEqual(0);
+
         expect(await page.getValid()).toBeFalsy();
     });
 
     it('should set tabindexes correctly', async () => {
         await page.setComplexCondition();
+
+        expect(await imageCompare('logical-expression-builder-complex')).toEqual(0);
 
         const expression = await page.getExpressionObject();
 
