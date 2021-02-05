@@ -150,8 +150,6 @@ export class ToggleswitchRequiredTestComponent {
     toggleSwitches = {
         option1: true,
     };
-
-
 }
 
 describe('Toggleswitch Test Component', () => {
