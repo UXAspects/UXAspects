@@ -1,7 +1,7 @@
-import { CheckboxModule } from './checkbox.module';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { CheckboxComponent } from './checkbox.component';
-import { ChangeDetectionStrategy } from '@angular/core';
+import { CheckboxModule } from './checkbox.module';
 
 describe('Checkbox Component', () => {
     let fixture: ComponentFixture<CheckboxComponent>;
@@ -11,7 +11,7 @@ describe('Checkbox Component', () => {
     let changeCallbackSpy: jasmine.Spy;
     let touchedCallbackSpy: jasmine.Spy;
 
-    beforeEach(async(() => {
+    beforeEach((() => {
         TestBed.configureTestingModule({
             imports: [CheckboxModule]
         })
@@ -142,4 +142,55 @@ describe('Checkbox Component', () => {
         await fixture.whenStable();
     }
 
+});
+
+@Component({
+    selector: 'checkbox-required-test',
+    template: `
+        <ux-checkbox
+            [required]="required"
+            [(value)]="checkModel.option1">
+        </ux-checkbox>
+    `
+})
+export class CheckboxRequiredTestComponent {
+
+    required: boolean = false;
+    checkModel = {
+        option1: true,
+    };
+
+}
+
+describe('Checkbox Test Component', () => {
+
+    let component: CheckboxRequiredTestComponent;
+    let fixture: ComponentFixture<CheckboxRequiredTestComponent>;
+    let nativeElement: HTMLElement;
+
+    beforeEach((() => {
+        TestBed.configureTestingModule({
+            imports: [CheckboxModule],
+            declarations: [CheckboxRequiredTestComponent],
+        }).compileComponents();
+    }));
+
+    beforeEach(() => {
+        fixture = TestBed.createComponent(CheckboxRequiredTestComponent);
+        component = fixture.componentInstance;
+        nativeElement = fixture.nativeElement;
+        fixture.detectChanges();
+    });
+
+    it('should add a required attribute to the input when required is true', async () => {
+        component.required = true;
+
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        const inputElementEmpty = document.querySelectorAll<HTMLInputElement>('input.ux-checkbox-input');
+        const attributeRequired = inputElementEmpty[0].hasAttribute('aria-required');
+
+        expect(attributeRequired).toBe(true);
+    });
 });

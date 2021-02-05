@@ -12,7 +12,7 @@
                uxFocusIndicator
                class="ux-checkbox-input"
                [id]="(id || _checkboxId) + '-input'"
-               [required]="required"
+               [attr.aria-required]="required"
                [checked]="value"
                [attr.value]="value"
                [disabled]="disabled"

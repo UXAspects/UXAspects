@@ -46,6 +46,9 @@ export class NumberPickerComponent implements ControlValueAccessor, OnDestroy, O
     /** The placeholder text which appears in the text input area when it is empty.*/
     @Input() placeholder: string;
 
+    /** Specified if this is a required input. */
+    @Input() required: boolean;
+
     /** If two way binding is used this value will be updated any time the number picker value changes. */
     @Output() valueChange = new EventEmitter<number>();
 

@@ -171,6 +171,9 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
     /** Maximum number of displayed recently selected options. */
     @Input() recentOptionsMaxCount: number;
 
+    /** Specified if this is a required input. */
+    @Input() required: boolean;
+
     /** Emits when `value` changes. */
     @Output() valueChange = new EventEmitter<T | ReadonlyArray<T>>();
 

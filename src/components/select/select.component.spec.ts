@@ -2,11 +2,11 @@ import { O, SHIFT, TAB } from '@angular/cdk/keycodes';
 import { Component } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { dispatchKeyboardEvent } from '../../common/testing/dispatch-event';
-import { SelectModule } from './select.module';
 import { By } from '@angular/platform-browser';
-import { SelectComponent } from './select.component';
+import { dispatchKeyboardEvent } from '../../common/testing/dispatch-event';
 import { InfiniteScrollLoadFunction } from '../../directives/infinite-scroll/index';
+import { SelectComponent } from './select.component';
+import { SelectModule } from './select.module';
 
 @Component({
     selector: 'app-select-test',
@@ -767,6 +767,7 @@ describe('Select Component - With custom Icon', () => {
         <ux-select [(value)]="value"
             [options]="options"
             [multiple]="multiple"
+            [required]="required"
             [allowNull]="allowNull"
             [(dropdownOpen)]="dropdownOpen"
             [(recentOptions)]="recentOptions"
@@ -779,6 +780,7 @@ export class SelectWithRecentOptionsTestComponent {
     value: string | string[];
     options: string[] = ['One', 'Two', 'Three'];
     multiple: boolean = false;
+    required: boolean = false;
     allowNull: boolean = false;
     dropdownOpen: boolean = true;
     recentOptions: string[] = [];
@@ -889,6 +891,19 @@ describe('Select with recent options', () => {
 
         tags = fixture.nativeElement.querySelectorAll('li.ux-tag');
         expect(tags.length).toBe(1);
+    });
+
+    it('should add a required attribute to the input when required is true', async () => {
+        component.required = true;
+        component.dropdownOpen = true;
+
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        const inputElementEmpty = document.querySelectorAll<HTMLInputElement>('input.form-control');
+        const attributeRequired = inputElementEmpty[0].hasAttribute('aria-required');
+
+        expect(attributeRequired).toBe(true);
     });
 
 });

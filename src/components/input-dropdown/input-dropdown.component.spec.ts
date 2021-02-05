@@ -101,6 +101,7 @@ describe('InputDropdownComponent', () => {
         <ux-input-dropdown
             [allowNull]="allowNull"
             [(dropdownOpen)]="dropdownOpen"
+            [required]="required"
             [disabled]="disabled"
             (selectedChange)="onSelectedChange($event)"
             [(selected)]="selected"
@@ -121,6 +122,7 @@ describe('InputDropdownComponent', () => {
 export class InputDropdownTestComponent {
 
     disabled: boolean = false;
+    required: boolean = false;
     dropdownOpen: boolean = false;
     allowNull: boolean = false;
     options: string[] = ['One', 'Two', 'Three'];
@@ -279,6 +281,19 @@ describe('InputDropdownComponent', () => {
         await fixture.whenStable();
 
         expect(openChangeSpy).not.toHaveBeenCalled();
+    });
+
+    it('should add a required attribute to the input when required is true', async () => {
+        component.required = true;
+        component.dropdownOpen = true;
+
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        const inputElementEmpty = document.querySelectorAll<HTMLInputElement>('input.form-control');
+        const attributeRequired = inputElementEmpty[0].hasAttribute('aria-required');
+
+        expect(attributeRequired).toBe(true);
     });
 
     describe('with allowNull = true', () => {

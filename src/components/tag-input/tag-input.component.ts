@@ -74,6 +74,9 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
     /** Controls the disabled state of the tag input. */
     @Input() disabled: boolean = false;
 
+    /** Specified if this is a required input. */
+    @Input() required: boolean;
+
     /**
      * If set to `true`, the tag input will prevent addition and removal of tags to enforce the minTags and maxTags settings.
      * Otherwise, a validation error will be raised.

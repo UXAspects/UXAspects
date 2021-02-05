@@ -1,7 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Component } from '@angular/core';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { bufferCount } from 'rxjs/operators';
+import { TagInputModule } from '.';
 import { AccessibilityModule } from '../../directives/accessibility/index';
 import { FocusIfModule } from '../../directives/focus-if/index';
 import { IconModule } from '../icon/index';
@@ -98,4 +100,56 @@ describe('Tag Input Component', () => {
          subscription.unsubscribe();
     });
 
+});
+
+@Component({
+    selector: 'tag-input-required-test',
+    template: `
+        <ux-tag-input
+            [required]="required"
+            [minTags]="minTags"
+            [maxTags]="maxTags"
+            [placeholder]="placeholder">
+        </ux-tag-input>
+    `
+})
+export class TagInputRequiredTestComponent {
+
+    required: boolean = false;
+    minTags: number = 1;
+    maxTags: number = 10;
+    placeholder: string = 'Add a tag';
+}
+
+describe('Tag Input Test Component', () => {
+
+    let component: TagInputRequiredTestComponent;
+    let fixture: ComponentFixture<TagInputRequiredTestComponent>;
+    let nativeElement: HTMLElement;
+
+    beforeEach(async(() => {
+        TestBed.configureTestingModule({
+            imports: [TagInputModule],
+            declarations: [TagInputRequiredTestComponent],
+        }).compileComponents();
+    }));
+
+    beforeEach(() => {
+        fixture = TestBed.createComponent(TagInputRequiredTestComponent);
+        component = fixture.componentInstance;
+        nativeElement = fixture.nativeElement;
+        fixture.detectChanges();
+    });
+
+    it('should add a required attribute to the input when required is true', async () => {
+        component.required = true;
+
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        const inputElementEmpty = document.querySelectorAll<HTMLInputElement>('input.ux-tag-input');
+        const attributeRequired = inputElementEmpty[0].hasAttribute('aria-required');
+
+        expect(attributeRequired).toBe(true);
+    });
 });
