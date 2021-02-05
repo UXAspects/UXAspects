@@ -1,21 +1,23 @@
-import { Component } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { DashboardModule } from '../dashboard/index';
-import { DashboardPredefinedWidgetsModule } from './dashboard-predefined-widgets.module';
+import {Component} from '@angular/core';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {DashboardModule} from '../dashboard/index';
+import {DashboardPredefinedWidgetsModule} from './dashboard-predefined-widgets.module';
 
 @Component({
     selector: 'app-ux-predefined-widget',
-    template: `<ux-dashboard>
-                    <ux-predefined-widget id="widget-predefined"
-                                          name="Predefined Widget"
-                                          heading="Predefined Widget"
-                                          [fixedMode]="false">
-                        <p class="text">Text</p>
-                    </ux-predefined-widget>
-               </ux-dashboard>
+    template: `
+        <ux-dashboard>
+            <ux-predefined-widget id="widget-predefined"
+                                  name="Predefined Widget"
+                                  heading="Predefined Widget"
+                                  [fixedMode]="false">
+                <p class="text">Text</p>
+            </ux-predefined-widget>
+        </ux-dashboard>
     `
 })
-export class DashboardPredefinedWidgetComponent {}
+export class DashboardPredefinedWidgetComponent {
+}
 
 describe('Predefined Widget', () => {
     let component: DashboardPredefinedWidgetComponent;

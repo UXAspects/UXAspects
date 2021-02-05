@@ -1,4 +1,4 @@
-import { EventEmitter, TemplateRef } from '@angular/core';
+import {EventEmitter, TemplateRef} from '@angular/core';
 
 export interface ActionsWidgetConfig {
     actions: ReadonlyArray<ActionConfig>;

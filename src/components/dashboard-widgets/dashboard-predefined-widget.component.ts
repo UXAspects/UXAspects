@@ -6,11 +6,11 @@ import {
     Input, OnDestroy,
     ViewChild
 } from '@angular/core';
-import { ENTER, ESCAPE, SPACE } from '@angular/cdk/keycodes';
-import { PredefinedWidgetConfig } from './interfaces/predefined-widget.interface';
-import { DashboardWidgetComponent } from '../dashboard/index';
-import { fromEvent, Subject } from 'rxjs';
-import { delay, takeUntil } from 'rxjs/operators';
+import {ENTER, ESCAPE, SPACE} from '@angular/cdk/keycodes';
+import {PredefinedWidgetConfig} from './interfaces/predefined-widget.interface';
+import {DashboardWidgetComponent} from '../dashboard/index';
+import {fromEvent, Subject} from 'rxjs';
+import {delay, takeUntil} from 'rxjs/operators';
 
 @Component({
     selector: 'ux-predefined-widget',
@@ -34,7 +34,8 @@ export class DashboardPredefinedWidgetComponent implements PredefinedWidgetConfi
     /** Ensure we unsubscribe from all observables */
     private _onDestroy = new Subject<void>();
 
-    constructor(private elementRef: ElementRef) {}
+    constructor(private elementRef: ElementRef) {
+    }
 
     ngAfterViewInit(): void {
         fromEvent(this.elementRef.nativeElement, 'mousedown').pipe(takeUntil(this._onDestroy)).subscribe(() => {
@@ -45,7 +46,7 @@ export class DashboardPredefinedWidgetComponent implements PredefinedWidgetConfi
                 this.widget.dashboardService.renderDashboard();
             }
         });
-        fromEvent(document, 'mouseup').pipe(takeUntil(this._onDestroy), delay(0)).subscribe(() => {
+        fromEvent(document, 'mouseup').pipe(delay(0), takeUntil(this._onDestroy)).subscribe(() => {
             if (this._dragging) {
                 this.widget.dashboardService.renderDashboard();
             }

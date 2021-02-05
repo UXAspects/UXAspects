@@ -1,7 +1,7 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
-import { PredefinedWidgetConfig } from '../interfaces/predefined-widget.interface';
-import { ActionConfig, ActionStatus, ActionsWidgetConfig } from '../interfaces/actions-widget.interface';
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output} from '@angular/core';
+import {coerceBooleanProperty, coerceNumberProperty} from '@angular/cdk/coercion';
+import {PredefinedWidgetConfig} from '../interfaces/predefined-widget.interface';
+import {ActionConfig, ActionStatus, ActionsWidgetConfig} from '../interfaces/actions-widget.interface';
 
 @Component({
     selector: 'ux-dashboard-actions-widget',
@@ -20,6 +20,7 @@ export class DashboardActionsWidgetComponent implements PredefinedWidgetConfig, 
     @Input() get fixedMode(): boolean {
         return this._fixedMode;
     }
+
     set fixedMode(fixedMode: boolean) {
         this._fixedMode = coerceBooleanProperty(fixedMode);
     }
@@ -27,6 +28,7 @@ export class DashboardActionsWidgetComponent implements PredefinedWidgetConfig, 
     @Input() get colSpan(): number {
         return this._colSpan;
     }
+
     set colSpan(colSpan: number) {
         this._colSpan = coerceNumberProperty(colSpan);
     }
@@ -34,6 +36,7 @@ export class DashboardActionsWidgetComponent implements PredefinedWidgetConfig, 
     @Input() get rowSpan(): number {
         return this._rowSpan;
     }
+
     set rowSpan(rowSpan: number) {
         this._rowSpan = coerceNumberProperty(rowSpan);
     }
@@ -42,7 +45,7 @@ export class DashboardActionsWidgetComponent implements PredefinedWidgetConfig, 
     @Input() name: string = '';
     @Input() heading: string = '';
 
-    @Input() status: ActionStatus = { label: '-', icon: 'radial' };
+    @Input() status: Readonly<ActionStatus> = {label: '-', icon: 'radial'};
     @Input() actions: ReadonlyArray<ActionConfig>;
 
     @Output() actionSelected = new EventEmitter<string>();

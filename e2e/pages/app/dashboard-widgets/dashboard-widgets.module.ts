@@ -1,8 +1,14 @@
-import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { CheckboxModule, DashboardModule, DashboardPredefinedWidgetsModule, IconModule, AccessibilityModule } from '@ux-aspects/ux-aspects';
-import { DashboardWidgetsTestpageComponent } from './dashboard-widgets.testpage.component';
+import {CommonModule} from '@angular/common';
+import {NgModule} from '@angular/core';
+import {RouterModule} from '@angular/router';
+import {
+    CheckboxModule,
+    DashboardModule,
+    DashboardPredefinedWidgetsModule,
+    IconModule,
+    AccessibilityModule
+} from '@ux-aspects/ux-aspects';
+import {DashboardWidgetsTestpageComponent} from './dashboard-widgets.testpage.component';
 
 @NgModule({
     imports: [
@@ -21,4 +27,5 @@ import { DashboardWidgetsTestpageComponent } from './dashboard-widgets.testpage.
     ],
     declarations: [DashboardWidgetsTestpageComponent]
 })
-export class DashboardWidgetsTestPageModule { }
+export class DashboardWidgetsTestPageModule {
+}

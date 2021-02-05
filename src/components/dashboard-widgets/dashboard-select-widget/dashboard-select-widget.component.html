@@ -38,8 +38,7 @@
 
                 <span class="select-icon" *ngIf="option.icon || option.iconTemplate">
                     <ux-icon *ngIf="option.icon" [name]="option.icon"></ux-icon>
-                    <ng-container *ngIf="option.iconTemplate">
-                        <ng-container *ngTemplateOutlet="option.iconTemplate"></ng-container>
+                    <ng-container *ngIf="option.iconTemplate" [ngTemplateOutlet]="option.iconTemplate">
                     </ng-container>
                 </span>
                 {{ option.label }}

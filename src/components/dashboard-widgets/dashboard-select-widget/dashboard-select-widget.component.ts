@@ -3,12 +3,16 @@ import {
     Component,
     ElementRef,
     EventEmitter,
-    Input, Output,
-    Pipe, PipeTransform, QueryList,
+    Input,
+    Output,
+    Pipe,
+    PipeTransform,
+    QueryList,
     ViewChildren
 } from '@angular/core';
-import { PredefinedWidgetConfig } from '../interfaces/predefined-widget.interface';
-import { SelectConfig, SelectWidgetConfig } from '../interfaces/select-widget.interface';
+import {ENTER, SPACE} from '@angular/cdk/keycodes';
+import {PredefinedWidgetConfig} from '../interfaces/predefined-widget.interface';
+import {SelectConfig, SelectWidgetConfig} from '../interfaces/select-widget.interface';
 import {coerceBooleanProperty, coerceNumberProperty} from '@angular/cdk/coercion';
 
 @Component({
@@ -50,7 +54,7 @@ export class DashboardSelectWidgetComponent implements PredefinedWidgetConfig, S
     @Input() name: string = '';
     @Input() heading: string = '';
 
-    @Input() options: SelectConfig[];
+    @Input() options: ReadonlyArray<SelectConfig>;
     @Input() value: string;
 
     @ViewChildren('selectItems') selectItems: QueryList<ElementRef>;
@@ -58,7 +62,7 @@ export class DashboardSelectWidgetComponent implements PredefinedWidgetConfig, S
     @Output() valueChange = new EventEmitter<string>();
 
     selectValue(value: string, key: number): void {
-        if (key === 32 || key === 13 || key === null) {
+        if (key === SPACE || key === ENTER || key === null) {
             this.value = value;
             this.valueChange.emit(value);
         }
@@ -74,7 +78,6 @@ export class DashboardSelectWidgetComponent implements PredefinedWidgetConfig, S
 @Pipe({name: 'getOptionByValue'})
 export class GetOptionByValuePipe implements PipeTransform {
     transform(options: ReadonlyArray<SelectConfig>, value: string) {
-        const option = options?.find(item => item.value === value);
-        return option ? option : null;
+        return options?.find(item => item.value === value) ?? null;
     }
 }

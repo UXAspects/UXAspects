@@ -1,4 +1,4 @@
-import { browser, by, element, ElementFinder, Key, protractor } from 'protractor';
+import {browser, by, element, ElementFinder, Key, protractor} from 'protractor';
 
 const ANNOUNCER_WAIT_TIMEOUT = 200;
 

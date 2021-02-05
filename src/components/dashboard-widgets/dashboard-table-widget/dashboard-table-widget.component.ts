@@ -3,8 +3,8 @@ import {
     Component,
     Input
 } from '@angular/core';
-import { PredefinedWidgetConfig } from '../interfaces/predefined-widget.interface';
-import { TableWidgetConfig } from '../interfaces/table-widget.interface';
+import {PredefinedWidgetConfig} from '../interfaces/predefined-widget.interface';
+import {TableWidgetConfig} from '../interfaces/table-widget.interface';
 import {coerceBooleanProperty, coerceNumberProperty} from '@angular/cdk/coercion';
 
 @Component({
@@ -24,6 +24,7 @@ export class DashboardTableWidgetComponent implements PredefinedWidgetConfig, Ta
     @Input() get fixedMode(): boolean {
         return this._fixedMode;
     }
+
     set fixedMode(fixedMode: boolean) {
         this._fixedMode = coerceBooleanProperty(fixedMode);
     }
@@ -31,6 +32,7 @@ export class DashboardTableWidgetComponent implements PredefinedWidgetConfig, Ta
     @Input() get colSpan(): number {
         return this._colSpan;
     }
+
     set colSpan(colSpan: number) {
         this._colSpan = coerceNumberProperty(colSpan);
     }
@@ -38,6 +40,7 @@ export class DashboardTableWidgetComponent implements PredefinedWidgetConfig, Ta
     @Input() get rowSpan(): number {
         return this._rowSpan;
     }
+
     set rowSpan(rowSpan: number) {
         this._rowSpan = coerceNumberProperty(rowSpan);
     }

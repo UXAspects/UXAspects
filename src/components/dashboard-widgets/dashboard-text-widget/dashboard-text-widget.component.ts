@@ -67,17 +67,17 @@ export class DashboardTextWidgetComponent implements PredefinedWidgetConfig, Tex
 
     @Output() textChange = new EventEmitter<string>();
 
-    open() {
+    open(): void {
         this.sidePanel.openPanel();
         this.textAreaFocused = this.editable;
     }
 
-    save() {
+    save(): void {
         this.textChange.emit(this.text);
         this.sidePanel.closePanel();
     }
 
-    cancel() {
+    cancel(): void {
         this.sidePanel.closePanel();
     }
 }

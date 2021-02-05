@@ -1,6 +1,6 @@
-import { browser, ElementFinder } from 'protractor';
-import { DashboardWidgetsPage } from './dashboard-widgets.po.spec';
-import { imageCompare } from '../common/image-compare';
+import {browser, ElementFinder} from 'protractor';
+import {DashboardWidgetsPage} from './dashboard-widgets.po.spec';
+import {imageCompare} from '../common/image-compare';
 
 describe('Dashboard Widgets', () => {
 
@@ -45,15 +45,15 @@ describe('Dashboard Widgets', () => {
     });
 
     it('should react correctly when a widget is moved and resized', async () => {
-        const layoutMock =  [
-            { id: 'widget-actions', 'col': 0, 'row': 4, 'colSpan': 2, 'rowSpan': 1 },
-            { id: 'widget-table', 'col': 2, 'row': 0, 'colSpan': 2, 'rowSpan': 2 },
-            { id: 'widget-select', 'col': 0, 'row': 0, 'colSpan': 2, 'rowSpan': 1 },
-            { id: 'widget-text', 'col': 0, 'row': 2, 'colSpan': 4, 'rowSpan': 2 }
+        const layoutMock = [
+            {id: 'widget-actions', 'col': 0, 'row': 4, 'colSpan': 2, 'rowSpan': 1},
+            {id: 'widget-table', 'col': 2, 'row': 0, 'colSpan': 2, 'rowSpan': 2},
+            {id: 'widget-select', 'col': 0, 'row': 0, 'colSpan': 2, 'rowSpan': 1},
+            {id: 'widget-text', 'col': 0, 'row': 2, 'colSpan': 4, 'rowSpan': 2}
         ];
 
         // drag the top widget down
-        await browser.actions().dragAndDrop(widgetActions.$('button.widget-grab-handle'), { x: 0, y: 800 }).perform();
+        await browser.actions().dragAndDrop(widgetActions.$('button.widget-grab-handle'), {x: 0, y: 800}).perform();
 
         expect(await imageCompare('dashboard-widgets-moved')).toEqual(0);
 
