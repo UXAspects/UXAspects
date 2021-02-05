@@ -1,30 +1,29 @@
-import { Component } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { DashboardModule } from '../../dashboard';
-import { DashboardPredefinedWidgetsModule } from '../dashboard-predefined-widgets.module';
-import { SelectConfig } from '../interfaces/select-widget.interface';
-import { GetOptionByValuePipe } from './dashboard-select-widget.component';
+import {Component, ViewChild} from '@angular/core';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {DashboardModule} from '../../dashboard';
+import {DashboardPredefinedWidgetsModule} from '../dashboard-predefined-widgets.module';
+import {SelectConfig} from '../interfaces/select-widget.interface';
+import {DashboardSelectWidgetComponent, GetOptionByValuePipe} from './dashboard-select-widget.component';
+
+const defaultOptions: ReadonlyArray<SelectConfig> = [
+    {value: 'nothing', label: 'Zero', icon: 'close'},
+    {value: 'something', label: 'One', icon: 'radial'},
+];
 
 @Component({
-    selector: 'app-ux-select-widget',
+    selector: 'ux-select-widget-test-component',
     template: `
         <ux-dashboard>
-            <ux-dashboard-select-widget class="widget"
-                                        id="widget-select"
-                                        name="Select Widget"
-                                        heading="Select Widget"
-                                        [fixedMode]="false"
-                                        [options]="options"
-                                        value="0">
+            <ux-dashboard-select-widget id="widget-select" name="Select Widget" heading="Select Widget"
+                                        fixedMode="false" colSpan="3" rowSpan="4"
+                                        [options]="options" value="nothing">
             </ux-dashboard-select-widget>
         </ux-dashboard>
     `
 })
 export class DashboardSelectWidgetTestComponent {
-    options: ReadonlyArray<SelectConfig> = [
-        { value: '0', label: 'Zero', icon: 'close' },
-        { value: '1', label: 'One', icon: 'radial' },
-    ];
+    options: ReadonlyArray<SelectConfig> = defaultOptions;
+    @ViewChild(DashboardSelectWidgetComponent) widget: DashboardSelectWidgetComponent;
 }
 
 describe('Select Widget', () => {
@@ -49,26 +48,30 @@ describe('Select Widget', () => {
 
     it('should initialise correctly', () => {
         expect(component).toBeTruthy();
+        expect(component.widget).toBeTruthy();
+    });
+
+    it('should set inputs correctly', () => {
+        expect(component.widget.fixedMode).toEqual(false);
+        expect(component.widget.colSpan).toEqual(3);
+        expect(component.widget.rowSpan).toEqual(4);
+        expect(component.widget.id).toEqual('widget-select');
+        expect(component.widget.name).toEqual('Select Widget');
+        expect(component.widget.heading).toEqual('Select Widget');
+
+        expect(component.widget.options).toEqual(defaultOptions);
+        expect(component.widget.value).toEqual('nothing');
     });
 });
 
 describe('GetOptionByValuePipe', () => {
-    let pipe: GetOptionByValuePipe;
-    let options: ReadonlyArray<SelectConfig>;
-
-    beforeEach(() => {
-        options = [
-            { value: '0', label: 'Zero', icon: 'close' },
-            { value: '1', label: 'One', icon: 'radial' },
-        ];
-        pipe = new GetOptionByValuePipe();
-    });
+    let pipe: GetOptionByValuePipe = new GetOptionByValuePipe();
 
     it('should find the the option by value', () => {
-        expect(pipe.transform(options, '0')).toEqual(options[0]);
+        expect(pipe.transform(defaultOptions, 'nothing')).toEqual(defaultOptions[0]);
     });
 
     it('should return null', () => {
-        expect(pipe.transform(options, 'value')).toBeNull();
+        expect(pipe.transform(defaultOptions, 'everything')).toBeNull();
     });
 });

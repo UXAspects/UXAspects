@@ -13,10 +13,12 @@ export class DashboardTextWidgetComponent implements PredefinedWidgetConfig, Tex
     static ngAcceptInputType_fixedMode: boolean | string;
     static ngAcceptInputType_colSpan: number | string;
     static ngAcceptInputType_rowSpan: number | string;
+    static ngAcceptInputType_editable: boolean | string;
 
     private _fixedMode: boolean = false;
     private _colSpan: number = 1;
     private _rowSpan: number = 1;
+    private _editable: boolean = false;
 
     @Input() get fixedMode(): boolean {
         return this._fixedMode;
@@ -51,7 +53,14 @@ export class DashboardTextWidgetComponent implements PredefinedWidgetConfig, Tex
     @Input() cancelLabel: string = 'Cancel';
 
     @Input() text: string = '';
-    @Input() editable: boolean = false;
+
+    @Input() get editable(): boolean {
+        return this._editable;
+    }
+
+    set editable(editable: boolean) {
+        this._editable = coerceBooleanProperty(editable);
+    }
 
     @ViewChild('sidePanel') sidePanel: SidePanelComponent;
     textAreaFocused = false;
