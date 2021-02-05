@@ -18,7 +18,7 @@
                         <ng-container *ngTemplateOutlet="statusOption.iconTemplate"></ng-container>
                     </ng-container>
                 </span>
-                <span class="widget-status-label">{{ statusOption.label }}</span>
+                <span id="dashboard-select-widget-label" class="widget-status-label">{{ statusOption.label }}</span>
             </ng-container>
         </ng-template>
         <ul class="select-widget-dropdown-list"
@@ -28,6 +28,7 @@
             [focusOnShow]="true"
             [returnFocus]="true">
             <li #selectItems
+                [id]="'dashboard-select-widget-item-' + option.value"
                 class="select-item"
                 role="listitem"
                 uxTabbableListItem

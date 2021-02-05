@@ -30,12 +30,12 @@ export class DashboardWidgetsTestpageComponent implements AfterViewInit {
 
     layout: DashboardLayoutData[];
 
-    status: ActionStatus = {label: 'Waiting...', icon: 'radial'};
+    status: Readonly<ActionStatus> = {label: 'Waiting...', icon: 'radial'};
 
     actions: ActionConfig[] = [];
 
-    handleActionChange(e: string) {
-        alert(`action clicked: ${e}`);
+    handleActionChange(value: string) {
+        this.status = {label: value, icon: 'close'};
     }
 
     tableHeader: ReadonlyArray<string> = ['1', '2', '3'];
