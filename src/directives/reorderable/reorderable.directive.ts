@@ -1,12 +1,11 @@
-import { CdkDragDrop, CdkDropList, CdkDropListGroup, CDK_DROP_LIST, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
-import { Directive, EventEmitter, InjectionToken, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { CdkDragDrop, CdkDropList, CDK_DROP_LIST, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import { Directive, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 @Directive({
     selector: '[uxReorderable]',
     providers: [
-        { provide: new InjectionToken<CdkDropListGroup<unknown>>('CdkDropListGroup') , useValue: undefined },
         { provide: CDK_DROP_LIST, useExisting: ReorderableDirective },
     ],
 })
