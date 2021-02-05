@@ -148,8 +148,11 @@ describe('Tag Input Test Component', () => {
         await fixture.whenStable();
 
         const inputElementEmpty = document.querySelectorAll<HTMLInputElement>('input.ux-tag-input');
-        const attributeRequired = inputElementEmpty[0].hasAttribute('aria-required');
 
+        const attributeRequired = inputElementEmpty[0].hasAttribute('required');
+        const attributeAriaRequired = inputElementEmpty[0].hasAttribute('aria-required');
+
+        expect(attributeAriaRequired).toBe(true);
         expect(attributeRequired).toBe(true);
     });
 });

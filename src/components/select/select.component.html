@@ -56,6 +56,7 @@
         [attr.id]="id + '-input'"
         class="form-control"
         [attr.aria-required]="required"
+        [required]="required"
         [class.ux-tag-input-clear-inset]="clearButton && allowNull && _hasValue"
         [attr.aria-activedescendant]="highlightedElement?.id"
         aria-autocomplete="list"

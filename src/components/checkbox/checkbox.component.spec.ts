@@ -189,8 +189,10 @@ describe('Checkbox Test Component', () => {
         await fixture.whenStable();
 
         const inputElementEmpty = document.querySelectorAll<HTMLInputElement>('input.ux-checkbox-input');
-        const attributeRequired = inputElementEmpty[0].hasAttribute('aria-required');
+        const attributeAriaRequired = inputElementEmpty[0].hasAttribute('aria-required');
+        const attributeRequired = inputElementEmpty[0].hasAttribute('required');
 
+        expect(attributeAriaRequired).toBe(true);
         expect(attributeRequired).toBe(true);
     });
 });

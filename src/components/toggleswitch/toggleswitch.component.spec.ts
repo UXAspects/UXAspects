@@ -179,8 +179,10 @@ describe('Toggleswitch Test Component', () => {
         await fixture.whenStable();
 
         const inputElementEmpty = document.querySelectorAll<HTMLInputElement>('input.ux-toggleswitch-input');
-        const attributeRequired = inputElementEmpty[0].hasAttribute('aria-required');
+        const attributeRequired = inputElementEmpty[0].hasAttribute('required');
+        const attributeAriaRequired = inputElementEmpty[0].hasAttribute('aria-required');
 
         expect(attributeRequired).toBe(true);
+        expect(attributeAriaRequired).toBe(true);
     });
 });
