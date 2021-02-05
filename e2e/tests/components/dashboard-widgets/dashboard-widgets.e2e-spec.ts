@@ -29,7 +29,7 @@ describe('Dashboard Widgets', () => {
     });
 
     it('should have correct initial states', async () => {
-        expect(await imageCompare('dashboard-widget-initial')).toEqual(0);
+        expect(await imageCompare('dashboard-widgets-initial')).toEqual(0);
 
         expect(await page.getWidgetLocationValue(widgetActions, 'top')).toBe(0);
         expect(await page.getWidgetLocationValue(widgetActions, 'left')).toBe(0);
@@ -55,7 +55,7 @@ describe('Dashboard Widgets', () => {
         // drag the top widget down
         await browser.actions().dragAndDrop(widgetActions.$('button.widget-grab-handle'), { x: 0, y: 800 }).perform();
 
-        expect(await imageCompare('dashboard-widget-moved')).toEqual(0);
+        expect(await imageCompare('dashboard-widgets-moved')).toEqual(0);
 
         expect(await page.getWidgetLocationValue(widgetActions, 'top')).toBe(440, 'widget-actions top');
         expect(await page.getWidgetLocationValue(widgetActions, 'left')).toBe(0, 'widget-actions left');
