@@ -75,27 +75,25 @@ describe('Dashboard Widgets', () => {
 
     it('should react correctly on action click', async () => {
         // Click on button of action 'accept'
-        const acceptButton: WebElement = await widgetActions.findElement({id: 'dashboard-action-widget-button-accept'});
+        const acceptButton: WebElement = await page.getElement('#dashboard-action-widget-button-accept');
         acceptButton.click();
 
         // Expect the status label to have changed to 'Accept'
-        const label: WebElement = await widgetActions.findElement({id: 'dashboard-action-widget-label'});
+        const label: WebElement = await page.getElement('#dashboard-action-widget-label');
         expect(await label.getText()).toEqual('Accept');
     });
 
     it('should react correctly on selection', async () => {
         // Click on the drop-down to open it
-        const dropDownButton: WebElement =
-            await widgetSelect.findElement({className: 'ux-select-container'}).findElement({tagName: 'button'});
+        const dropDownButton: WebElement = await page.getElement('.ux-select-container button');
         dropDownButton.click();
 
         // Click on option 1 to change the value
-        const option1: WebElement =
-            await widgetSelect.findElement({id: 'dashboard-select-widget-item-1'});
+        const option1: WebElement = await page.getElement('#dashboard-select-widget-item-1');
         option1.click();
 
         // Expect the drop-down label to have changed to 'One'
-        const label: WebElement = await widgetActions.findElement({id: 'dashboard-select-widget-label'});
+        const label: WebElement = await page.getElement('#dashboard-select-widget-label');
         expect(await label.getText()).toEqual('One');
     });
 });

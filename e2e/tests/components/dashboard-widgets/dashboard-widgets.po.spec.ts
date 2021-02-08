@@ -31,6 +31,10 @@ export class DashboardWidgetsPage {
         return this.layoutOutput.getAttribute('innerText');
     }
 
+    async getElement(selector: string) {
+        return await this.container.$(selector);
+    }
+
     async enableGrabMode(): Promise<void> {
         // focus the grab handle
         const handle: ElementFinder = await this.getGrabHandle();
