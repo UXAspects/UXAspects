@@ -41,9 +41,6 @@ export class InputDropdownComponent<T> implements ControlValueAccessor, AfterVie
     /** Define if null values are allowed */
     @Input() allowNull: boolean;
 
-    /** Specified if this is a required input. */
-    @Input() required: boolean;
-
     /** Define the placeholder for the filter input */
     @Input() placeholder: string = 'Type to filter...';
 
