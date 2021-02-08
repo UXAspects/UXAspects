@@ -817,10 +817,8 @@ describe('Radio Button Component - Reactive Form', () => {
 
         const inputElementEmpty = document.querySelectorAll<HTMLInputElement>('input.ux-radio-button-input');
         const attributeRequired = inputElementEmpty[1].hasAttribute('required');
-        const attributeAriaRequired = inputElementEmpty[1].hasAttribute('aria-required');
 
         expect(attributeRequired).toBe(true);
-        expect(attributeAriaRequired).toBe(true);
     });
 });
 

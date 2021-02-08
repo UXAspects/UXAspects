@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ToggleSwitchComponent } from './toggleswitch.component';
 import { ToggleSwitchModule } from './toggleswitch.module';
@@ -123,6 +123,18 @@ describe('Toggle Switch Component', () => {
         expect(touchedCallbackSpy).not.toHaveBeenCalled();
     });
 
+    it('should add a required attribute to the input when required is true', async () => {
+        component.required = true;
+
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        const inputElementEmpty = document.querySelectorAll<HTMLInputElement>('input.ux-toggleswitch-input');
+        const attributeRequired = inputElementEmpty[0].hasAttribute('required');
+
+        expect(attributeRequired).toBe(true);
+    });
+
     function getInput(): HTMLInputElement {
         return nativeElement.querySelector('input');
     }
@@ -133,56 +145,4 @@ describe('Toggle Switch Component', () => {
         await fixture.whenStable();
     }
 
-});
-
-@Component({
-    selector: 'toggleswitch-required-test',
-    template: `
-        <ux-toggleswitch
-            [(value)]="toggleSwitches.option1"
-            [required]="required">Toggle 1
-        </ux-toggleswitch>
-    `
-})
-export class ToggleswitchRequiredTestComponent {
-
-    required: boolean = false;
-    toggleSwitches = {
-        option1: true,
-    };
-}
-
-describe('Toggleswitch Test Component', () => {
-
-    let component: ToggleswitchRequiredTestComponent;
-    let fixture: ComponentFixture<ToggleswitchRequiredTestComponent>;
-    let nativeElement: HTMLElement;
-
-    beforeEach(async(() => {
-        TestBed.configureTestingModule({
-            imports: [ToggleSwitchModule],
-            declarations: [ToggleswitchRequiredTestComponent],
-        }).compileComponents();
-    }));
-
-    beforeEach(() => {
-        fixture = TestBed.createComponent(ToggleswitchRequiredTestComponent);
-        component = fixture.componentInstance;
-        nativeElement = fixture.nativeElement;
-        fixture.detectChanges();
-    });
-
-    it('should add a required attribute to the input when required is true', async () => {
-        component.required = true;
-
-        fixture.detectChanges();
-        await fixture.whenStable();
-
-        const inputElementEmpty = document.querySelectorAll<HTMLInputElement>('input.ux-toggleswitch-input');
-        const attributeRequired = inputElementEmpty[0].hasAttribute('required');
-        const attributeAriaRequired = inputElementEmpty[0].hasAttribute('aria-required');
-
-        expect(attributeRequired).toBe(true);
-        expect(attributeAriaRequired).toBe(true);
-    });
 });

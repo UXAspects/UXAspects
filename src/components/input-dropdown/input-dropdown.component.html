@@ -39,7 +39,6 @@
                     [(ngModel)]="filter"
                     (input)="filterChange.emit(filter)"
                     (click)="$event.stopPropagation()"
-                    [attr.aria-required]="required"
                     [attr.aria-label]="ariaLabel || placeholder"
                     (focus)="inputFocusHandler()">
 
