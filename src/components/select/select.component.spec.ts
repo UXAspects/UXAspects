@@ -903,10 +903,8 @@ describe('Select with recent options', () => {
         const inputElementEmpty = document.querySelectorAll<HTMLInputElement>('input.form-control');
 
         const attributeRequired = inputElementEmpty[0].hasAttribute('required');
-        const attributeAriaRequired = inputElementEmpty[0].hasAttribute('aria-required');
 
         expect(attributeRequired).toBe(true);
-        expect(attributeAriaRequired).toBe(true);
     });
 
 });
