@@ -101,7 +101,6 @@ describe('InputDropdownComponent', () => {
         <ux-input-dropdown
             [allowNull]="allowNull"
             [(dropdownOpen)]="dropdownOpen"
-            [required]="required"
             [disabled]="disabled"
             (selectedChange)="onSelectedChange($event)"
             [(selected)]="selected"
@@ -122,7 +121,6 @@ describe('InputDropdownComponent', () => {
 export class InputDropdownTestComponent {
 
     disabled: boolean = false;
-    required: boolean = false;
     dropdownOpen: boolean = false;
     allowNull: boolean = false;
     options: string[] = ['One', 'Two', 'Three'];
