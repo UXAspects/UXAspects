@@ -345,7 +345,7 @@ describe('Select Component', () => {
         expect(tags.length).toBe(1);
     });
 
-    it('should add a required attribute to the multiple select when required is true', async () => {
+    it('should add a required attribute to the multiple select when required is true', () => {
         component.required = true;
         component.multiple = true;
         component.dropdownOpen = true;
@@ -358,7 +358,7 @@ describe('Select Component', () => {
         expect(attributeRequired).toBe(true);
     });
 
-    it('should add a required attribute to the single select when required is true', async () => {
+    it('should add a required attribute to the single select when required is true', () => {
         component.required = true;
         component.dropdownOpen = true;
 

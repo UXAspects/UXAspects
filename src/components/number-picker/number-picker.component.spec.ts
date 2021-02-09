@@ -743,7 +743,7 @@ describe('Number Picker Component - value', () => {
 
     });
 
-    it('should add a required attribute to the input when required is true', async () => {
+    it('should add a required attribute to the input when required is true', () => {
         component.required = true;
 
         fixture.detectChanges();
