@@ -813,7 +813,6 @@ describe('Radio Button Component - Reactive Form', () => {
         component.required = true;
 
         fixture.detectChanges();
-        await fixture.whenStable();
 
         const inputElementEmpty = document.querySelectorAll<HTMLInputElement>('input.ux-radio-button-input');
         const attributeRequired = inputElementEmpty[1].hasAttribute('required');

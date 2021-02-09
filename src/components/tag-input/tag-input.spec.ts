@@ -102,7 +102,6 @@ describe('Tag Input Component', () => {
         component.required = true;
 
         fixture.detectChanges();
-        await fixture.whenStable();
 
         const inputElementEmpty = document.querySelectorAll<HTMLInputElement>('input.ux-tag-input');
         const attributeRequired = inputElementEmpty[0].hasAttribute('required');

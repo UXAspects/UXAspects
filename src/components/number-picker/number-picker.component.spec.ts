@@ -747,7 +747,6 @@ describe('Number Picker Component - value', () => {
         component.required = true;
 
         fixture.detectChanges();
-        await fixture.whenStable();
 
         const inputElementEmpty = document.querySelectorAll<HTMLInputElement>('input.form-control');
 

@@ -17,6 +17,7 @@ import { SelectModule } from './select.module';
                    [(input)]="input"
                    [(value)]="value"
                    [options]="options"
+                   [required]="required"
                    [multiple]="multiple"
                    [allowNull]="allowNull"
                    [clearButton]="clearButton"
@@ -32,6 +33,7 @@ export class SelectTestComponent {
     value: string | string[];
     options: string[] | InfiniteScrollLoadFunction = ['One', 'Two', 'Three'];
     multiple: boolean = false;
+    required: boolean = false;
     allowNull: boolean = false;
     clearButton: boolean = false;
     visible: boolean = true;
@@ -341,6 +343,33 @@ describe('Select Component', () => {
 
         tags = fixture.nativeElement.querySelectorAll('li.ux-tag');
         expect(tags.length).toBe(1);
+    });
+
+    it('should add a required attribute to the multiple select when required is true', async () => {
+        component.required = true;
+        component.multiple = true;
+        component.dropdownOpen = true;
+
+        fixture.detectChanges();
+
+        const inputElementEmpty = document.querySelectorAll<HTMLInputElement>('input.ux-tag-input');
+
+        const attributeRequired = inputElementEmpty[0].hasAttribute('required');
+
+        expect(attributeRequired).toBe(true);
+    });
+
+    it('should add a required attribute to the single select when required is true', async () => {
+        component.required = true;
+        component.dropdownOpen = true;
+
+        fixture.detectChanges();
+
+        const inputElementEmpty = document.querySelectorAll<HTMLInputElement>('input.form-control');
+
+        const attributeRequired = inputElementEmpty[0].hasAttribute('required');
+
+        expect(attributeRequired).toBe(true);
     });
 
     function enablePagination(): void {
@@ -767,7 +796,6 @@ describe('Select Component - With custom Icon', () => {
         <ux-select [(value)]="value"
             [options]="options"
             [multiple]="multiple"
-            [required]="required"
             [allowNull]="allowNull"
             [(dropdownOpen)]="dropdownOpen"
             [(recentOptions)]="recentOptions"
@@ -780,7 +808,6 @@ export class SelectWithRecentOptionsTestComponent {
     value: string | string[];
     options: string[] = ['One', 'Two', 'Three'];
     multiple: boolean = false;
-    required: boolean = false;
     allowNull: boolean = false;
     dropdownOpen: boolean = true;
     recentOptions: string[] = [];
@@ -891,20 +918,6 @@ describe('Select with recent options', () => {
 
         tags = fixture.nativeElement.querySelectorAll('li.ux-tag');
         expect(tags.length).toBe(1);
-    });
-
-    it('should add a required attribute to the input when required is true', async () => {
-        component.required = true;
-        component.dropdownOpen = true;
-
-        fixture.detectChanges();
-        await fixture.whenStable();
-
-        const inputElementEmpty = document.querySelectorAll<HTMLInputElement>('input.form-control');
-
-        const attributeRequired = inputElementEmpty[0].hasAttribute('required');
-
-        expect(attributeRequired).toBe(true);
     });
 
 });
