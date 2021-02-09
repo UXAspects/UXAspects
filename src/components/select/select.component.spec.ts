@@ -353,7 +353,6 @@ describe('Select Component', () => {
         fixture.detectChanges();
 
         const inputElementEmpty = document.querySelectorAll<HTMLInputElement>('input.ux-tag-input');
-
         const attributeRequired = inputElementEmpty[0].hasAttribute('required');
 
         expect(attributeRequired).toBe(true);
@@ -366,7 +365,6 @@ describe('Select Component', () => {
         fixture.detectChanges();
 
         const inputElementEmpty = document.querySelectorAll<HTMLInputElement>('input.form-control');
-
         const attributeRequired = inputElementEmpty[0].hasAttribute('required');
 
         expect(attributeRequired).toBe(true);
