@@ -17,7 +17,7 @@
         </div>
         <div class="widget-actions" uxTabbableList>
             <button *ngFor="let action of actions"
-                    [id]="'dashboard-action-widget-button-' + action"
+                    [id]="'dashboard-action-widget-button-' + action.value"
                     class="widget-action-button btn"
                     uxTabbableListItem
                     (click)="actionSelected.emit(action.value)">
