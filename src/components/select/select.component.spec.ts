@@ -2,11 +2,11 @@ import { O, SHIFT, TAB } from '@angular/cdk/keycodes';
 import { Component } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { dispatchKeyboardEvent } from '../../common/testing/dispatch-event';
-import { SelectModule } from './select.module';
 import { By } from '@angular/platform-browser';
-import { SelectComponent } from './select.component';
+import { dispatchKeyboardEvent } from '../../common/testing/dispatch-event';
 import { InfiniteScrollLoadFunction } from '../../directives/infinite-scroll/index';
+import { SelectComponent } from './select.component';
+import { SelectModule } from './select.module';
 
 @Component({
     selector: 'app-select-test',
@@ -17,6 +17,7 @@ import { InfiniteScrollLoadFunction } from '../../directives/infinite-scroll/ind
                    [(input)]="input"
                    [(value)]="value"
                    [options]="options"
+                   [required]="required"
                    [multiple]="multiple"
                    [allowNull]="allowNull"
                    [clearButton]="clearButton"
@@ -32,6 +33,7 @@ export class SelectTestComponent {
     value: string | string[];
     options: string[] | InfiniteScrollLoadFunction = ['One', 'Two', 'Three'];
     multiple: boolean = false;
+    required: boolean = false;
     allowNull: boolean = false;
     clearButton: boolean = false;
     visible: boolean = true;
@@ -341,6 +343,31 @@ describe('Select Component', () => {
 
         tags = fixture.nativeElement.querySelectorAll('li.ux-tag');
         expect(tags.length).toBe(1);
+    });
+
+    it('should add a required attribute to the multiple select when required is true', () => {
+        component.required = true;
+        component.multiple = true;
+        component.dropdownOpen = true;
+
+        fixture.detectChanges();
+
+        const inputElementEmpty = nativeElement.querySelector<HTMLInputElement>('input.ux-tag-input');
+        const attributeRequired = inputElementEmpty.hasAttribute('required');
+
+        expect(attributeRequired).toBe(true);
+    });
+
+    it('should add a required attribute to the single select when required is true', () => {
+        component.required = true;
+        component.dropdownOpen = true;
+
+        fixture.detectChanges();
+
+        const inputElementEmpty = nativeElement.querySelector<HTMLInputElement>('input.form-control');
+        const attributeRequired = inputElementEmpty.hasAttribute('required');
+
+        expect(attributeRequired).toBe(true);
     });
 
     function enablePagination(): void {

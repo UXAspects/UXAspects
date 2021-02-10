@@ -23,6 +23,7 @@
                (ngModelChange)="setInputValue($event)"
                [autocomplete]="autocomplete"
                [class.invalid]="!inputValid"
+               [required]="required"
                [attr.aria-activedescendant]="highlightedElement?.id"
                [attr.aria-autocomplete]="typeahead ? 'list' : 'none'"
                [attr.aria-controls]="typeahead?.id"

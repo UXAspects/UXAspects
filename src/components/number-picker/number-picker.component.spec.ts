@@ -548,6 +548,7 @@ describe('Number Picker Component - ngModel', () => {
     selector: 'app-number-picker-value',
     template: `<ux-number-picker [min]="min"
                                  [max]="max"
+                                 [required]="required"
                                  [disabled]="disabled"
                                  (valueChange)="onValueChange($event)"
                                  [value]="value"
@@ -559,6 +560,7 @@ describe('Number Picker Component - ngModel', () => {
 })
 export class NumberPickerTestValueComponent {
 
+    required: boolean = false;
     value = 0;
     disabled = false;
     min = -10;
@@ -739,6 +741,17 @@ describe('Number Picker Component - value', () => {
         expect(component.onNgModelChange).toHaveBeenCalledWith(7);
         expect(component.onNgModelChange).toHaveBeenCalledTimes(1);
 
+    });
+
+    it('should add a required attribute to the input when required is true', () => {
+        component.required = true;
+
+        fixture.detectChanges();
+
+        const inputElementEmpty = nativeElement.querySelector<HTMLInputElement>('input.form-control');
+        const attributeRequired = inputElementEmpty.hasAttribute('required');
+
+        expect(attributeRequired).toBe(true);
     });
 
     function getInput(): HTMLInputElement | null {

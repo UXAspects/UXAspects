@@ -6,6 +6,7 @@
     (ngModelChange)="_emitValueChange($event)"
     [min]="min"
     [max]="max"
+    [required]="required"
     [attr.placeholder]="placeholder"
     (focus)="_touchedChange()"
     (keydown.ArrowDown)="decrement($event)"
