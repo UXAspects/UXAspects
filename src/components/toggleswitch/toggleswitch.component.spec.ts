@@ -128,8 +128,8 @@ describe('Toggle Switch Component', () => {
 
         fixture.detectChanges();
 
-        const inputElementEmpty = document.querySelectorAll<HTMLInputElement>('input.ux-toggleswitch-input');
-        const attributeRequired = inputElementEmpty[0].hasAttribute('required');
+        const inputElementEmpty = nativeElement.querySelector<HTMLInputElement>('input.ux-toggleswitch-input');
+        const attributeRequired = inputElementEmpty.hasAttribute('required');
 
         expect(attributeRequired).toBe(true);
     });

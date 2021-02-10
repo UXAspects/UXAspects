@@ -137,8 +137,8 @@ describe('Checkbox Component', () => {
 
         fixture.detectChanges();
 
-        const inputElementEmpty = document.querySelectorAll<HTMLInputElement>('input.ux-checkbox-input');
-        const attributeRequired = inputElementEmpty[0].hasAttribute('required');
+        const inputElementEmpty = nativeElement.querySelector<HTMLInputElement>('input.ux-checkbox-input');
+        const attributeRequired = inputElementEmpty.hasAttribute('required');
 
         expect(attributeRequired).toBe(true);
     });

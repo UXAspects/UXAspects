@@ -748,8 +748,8 @@ describe('Number Picker Component - value', () => {
 
         fixture.detectChanges();
 
-        const inputElementEmpty = document.querySelectorAll<HTMLInputElement>('input.form-control');
-        const attributeRequired = inputElementEmpty[0].hasAttribute('required');
+        const inputElementEmpty = nativeElement.querySelector<HTMLInputElement>('input.form-control');
+        const attributeRequired = inputElementEmpty.hasAttribute('required');
 
         expect(attributeRequired).toBe(true);
     });

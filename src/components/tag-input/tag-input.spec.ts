@@ -11,6 +11,7 @@ import { TagInputComponent } from './tag-input.component';
 describe('Tag Input Component', () => {
 
     let component: TagInputComponent<string>;
+    let nativeElement: HTMLElement;
     let fixture: ComponentFixture<TagInputComponent>;
 
     beforeEach(() => {
@@ -28,6 +29,7 @@ describe('Tag Input Component', () => {
 
         fixture = TestBed.createComponent(TagInputComponent);
         component = fixture.componentInstance;
+        nativeElement = fixture.nativeElement;
     });
 
     afterEach(() => fixture.nativeElement.remove());
@@ -103,8 +105,8 @@ describe('Tag Input Component', () => {
 
         fixture.detectChanges();
 
-        const inputElementEmpty = document.querySelectorAll<HTMLInputElement>('input.ux-tag-input');
-        const attributeRequired = inputElementEmpty[0].hasAttribute('required');
+        const inputElementEmpty = nativeElement.querySelector<HTMLInputElement>('input.ux-tag-input');
+        const attributeRequired = inputElementEmpty.hasAttribute('required');
 
         expect(attributeRequired).toBe(true);
     });
