@@ -80,16 +80,17 @@ describe('Dashboard Widgets', () => {
 
         // Expect the status label to have changed to 'Accept'
         const label: WebElement = await page.getElement('#dashboard-action-widget-label');
-        expect(await label.getText()).toEqual('Accept');
+        expect(await label.getText()).toEqual('accept');
     });
 
     it('should react correctly on selection', async () => {
         // Click on the drop-down to open it
         const dropDownButton: WebElement = await page.getElement('.ux-select-container button');
         dropDownButton.click();
+        expect(await imageCompare('dashboard-widgets-dropdown-open')).toEqual(0);
 
         // Click on option 1 to change the value
-        const option1: WebElement = await page.getElement('#dashboard-select-widget-item-1');
+        const option1: WebElement = await page.getElement('#dashboard-select-widget-item-everything');
         option1.click();
 
         // Expect the drop-down label to have changed to 'One'
