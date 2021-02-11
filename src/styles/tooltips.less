@@ -111,8 +111,7 @@
     pointer-events: none !important;
 }
 
-.ux-tooltip-host,
-.ux-popover-host {
+.ux-tooltip-host {
     // requires a higher z-index than .cdk-overlay-container to prevent a mouseenter/mouseleave loop
     // when hovering on the edge that the div and tooltip/popover share
     z-index: @tooltip-host-z-index;

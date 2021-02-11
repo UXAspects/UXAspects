@@ -11,8 +11,7 @@ import { PopoverComponent } from './popover.component';
     selector: '[uxPopover]',
     exportAs: 'ux-popover',
     host: {
-        '[class.ux-popover-host]': 'true',
-        '[class.ux-tooltip-host]': 'false'
+        '[class.ux-tooltip-host]': 'true'
     }
 })
 export class PopoverDirective extends TooltipDirective implements OnInit, OnChanges {
