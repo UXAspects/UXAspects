@@ -49,7 +49,7 @@ export class DashboardWidgetsTestpageComponent implements AfterViewInit {
 
     selectOptions: ReadonlyArray<SelectConfig> = [
         {value: 'nothing', label: 'Zero', icon: 'close'},
-        {value: 'everything', label: 'One', icon: 'radial'},
+        {value: 'something', label: 'One', icon: 'radial'},
     ];
 
     loremIpsum: string = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut eget elit libero. Praesent placerat iaculis urna, ac iaculis ipsum consectetur quis. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Nunc nec faucibus magna, vel condimentum elit. Mauris auctor purus ut risus mattis, non pharetra sem ornare. Etiam interdum elementum elit, ut vulputate eros vestibulum nec. Fusce sed odio finibus justo mattis aliquam. Curabitur pulvinar, elit sit amet mollis feugiat, augue justo consectetur augue, sed elementum metus orci ac risus. Mauris elementum, tellus malesuada porttitor convallis, ligula ligula pulvinar diam, vitae ornare sapien velit at nulla.';

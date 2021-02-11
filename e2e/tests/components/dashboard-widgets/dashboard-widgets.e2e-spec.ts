@@ -90,7 +90,7 @@ describe('Dashboard Widgets', () => {
         expect(await imageCompare('dashboard-widgets-dropdown-open')).toEqual(0);
 
         // Click on option 1 to change the value
-        const option1: WebElement = await page.getElement('#dashboard-select-widget-item-everything');
+        const option1: WebElement = await page.getElement('#dashboard-select-widget-item-something');
         option1.click();
 
         // Expect the drop-down label to have changed to 'One'
