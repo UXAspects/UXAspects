@@ -31,8 +31,12 @@ export class DashboardWidgetsPage {
         return this.layoutOutput.getAttribute('innerText');
     }
 
-    async getElement(selector: string) {
-        return await this.container.$(selector);
+    async getElement(selectorList: string[]) {
+        let finder: ElementFinder = this.container;
+        selectorList.forEach((selector: string) => {
+            finder = finder.$(selector);
+        });
+        return finder;
     }
 
     async enableGrabMode(): Promise<void> {
