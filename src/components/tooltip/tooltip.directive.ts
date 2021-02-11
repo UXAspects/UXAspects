@@ -9,7 +9,12 @@ import { clearTimeout } from 'timers';
 
 @Directive({
     selector: '[uxTooltip]',
-    exportAs: 'ux-tooltip'
+    exportAs: 'ux-tooltip',
+    host: {
+        // requires a higher z-index than .cdk-overlay-container to prevent a mouseenter/mouseleave loop
+        // when hovering on the edge that the div and tooltip share
+        '[style.z-index]': '10102'
+    }
 })
 export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
 

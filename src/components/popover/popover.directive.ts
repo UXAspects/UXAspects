@@ -9,7 +9,12 @@ import { PopoverComponent } from './popover.component';
 
 @Directive({
     selector: '[uxPopover]',
-    exportAs: 'ux-popover'
+    exportAs: 'ux-popover',
+    host: {
+        // requires a higher z-index than .cdk-overlay-container to prevent a mouseenter/mouseleave loop
+        // when hovering on the edge that the div and popover share
+        '[style.z-index]': '10102'
+    }
 })
 export class PopoverDirective extends TooltipDirective implements OnInit, OnChanges {
 
