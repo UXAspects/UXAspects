@@ -4,9 +4,9 @@ const ANNOUNCER_WAIT_TIMEOUT = 200;
 
 export class DashboardWidgetsPage {
 
-    container = element(by.id('dashboardWidgetContainer'));
-    dashboard = element(by.className('customizable-dashboard'));
-    announcer = element(by.className('cdk-live-announcer-element'));
+    container: ElementFinder = element(by.id('dashboardWidgetContainer'));
+    dashboard: ElementFinder = element(by.className('customizable-dashboard'));
+    announcer: ElementFinder = element(by.className('cdk-live-announcer-element'));
     topFocusTarget = element(by.id('top-focus'));
     bottomFocusTarget = element(by.id('bottom-focus'));
     layoutOutput = element(by.id('layout-output'));
@@ -15,28 +15,20 @@ export class DashboardWidgetsPage {
         await browser.get('#/dashboard-widgets');
     }
 
-    async getNumberOfWidgets() {
-        return await this.container.$('div.dashboard-container').$$('ux-dashboard-widget').count();
+    async getNumberOfWidgets(): Promise<number> {
+        return this.container.$('div.dashboard-container').$$('ux-dashboard-widget').count();
     }
 
-    async getWidget(widgetId: string) {
-        return await this.container.$(`ux-dashboard-${widgetId}`).$('ux-dashboard-widget');
+    getWidget(widgetId: string): ElementFinder {
+        return this.container.$(`ux-dashboard-${widgetId}`).$('ux-dashboard-widget');
     }
 
-    async getWidgetAttribute(widget: ElementFinder, attribute: string) {
+    async getWidgetAttribute(widget: ElementFinder, attribute: string): Promise<string> {
         return widget.getAttribute(attribute);
     }
 
     async getLayoutOutput(): Promise<string> {
         return this.layoutOutput.getAttribute('innerText');
-    }
-
-    async getElement(selectorList: string[]) {
-        let finder: ElementFinder = this.container;
-        selectorList.forEach((selector: string) => {
-            finder = finder.$(selector);
-        });
-        return finder;
     }
 
     async enableGrabMode(): Promise<void> {
