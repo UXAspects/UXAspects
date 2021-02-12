@@ -1,4 +1,4 @@
-import {browser, ElementFinder} from 'protractor';
+import {$, browser, ElementFinder} from 'protractor';
 import {WebElement} from 'selenium-webdriver';
 import {DashboardWidgetsPage} from './dashboard-widgets.po.spec';
 import {imageCompare} from '../common/image-compare';
@@ -94,7 +94,7 @@ describe('Dashboard Widgets', () => {
         expect(await imageCompare('dashboard-widgets-dropdown-open')).toEqual(0);
 
         // Click on option 1 to change the value
-        const option1: WebElement = widget.$('#dashboard-select-widget-item-something');
+        const option1: WebElement = $('#dashboard-select-widget-item-something');
         await option1.click();
 
         // Expect the drop-down label to have changed to 'One'
