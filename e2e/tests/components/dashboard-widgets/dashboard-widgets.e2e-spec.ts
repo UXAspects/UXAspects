@@ -58,7 +58,7 @@ describe('Dashboard Widgets', () => {
 
         expect(await imageCompare('dashboard-widgets-moved')).toEqual(0);
 
-        expect(await page.getWidgetLocationValue(widgetActions, 'top')).toBe(440, 'widget-actions top');
+        expect(await page.getWidgetLocationValue(widgetActions, 'top')).toBe(660, 'widget-actions top');
         expect(await page.getWidgetLocationValue(widgetActions, 'left')).toBe(0, 'widget-actions left');
 
         expect(await page.getWidgetLocationValue(widgetSelect, 'top')).toBe(0, 'widget-select top');
