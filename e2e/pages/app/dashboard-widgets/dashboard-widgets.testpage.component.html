@@ -52,7 +52,18 @@
                                   [colSpan]="4"
                                   [rowSpan]="2"
                                   [text]="loremIpsum"
-                                  [editable]="textWidgetEditable">
+                                  [editable]="true">
+        </ux-dashboard-text-widget>
+
+        <ux-dashboard-text-widget class="widget"
+                                  id="widget-text-readonly"
+                                  name="Read-only Text Widget"
+                                  heading="Read-only Text Widget"
+                                  [fixedMode]="fixedMode"
+                                  [colSpan]="4"
+                                  [rowSpan]="2"
+                                  [text]="loremIpsum"
+                                  [editable]="false">
         </ux-dashboard-text-widget>
 
     </ux-dashboard>

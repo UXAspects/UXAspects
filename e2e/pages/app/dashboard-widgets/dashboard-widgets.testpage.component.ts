@@ -8,7 +8,6 @@ import {ActionConfig, ActionStatus, DashboardLayoutData, DashboardOptions, Selec
 })
 export class DashboardWidgetsTestpageComponent implements AfterViewInit {
     fixedMode: boolean = false;
-    textWidgetEditable: boolean = true;
     private _dashboardPadding: number = 10;
 
     get dashboardPadding(): number {
