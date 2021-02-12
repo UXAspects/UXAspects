@@ -9,7 +9,10 @@ import { clearTimeout } from 'timers';
 
 @Directive({
     selector: '[uxTooltip]',
-    exportAs: 'ux-tooltip'
+    exportAs: 'ux-tooltip',
+    host: {
+        '[class.ux-tooltip-host]': 'true'
+    }
 })
 export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
 

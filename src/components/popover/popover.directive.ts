@@ -9,7 +9,10 @@ import { PopoverComponent } from './popover.component';
 
 @Directive({
     selector: '[uxPopover]',
-    exportAs: 'ux-popover'
+    exportAs: 'ux-popover',
+    host: {
+        '[class.ux-tooltip-host]': 'true'
+    }
 })
 export class PopoverDirective extends TooltipDirective implements OnInit, OnChanges {
 
