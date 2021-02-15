@@ -76,8 +76,8 @@ export class DashboardWidgetsPage {
         return await elem.getId() === await browser.driver.switchTo().activeElement().getId();
     }
 
-    async clickDetailsButton() {
-        const widget: ElementFinder = this.getWidget('text-widget');
+    async clickDetailsButton(readOnlyWidget: boolean) {
+        const widget: ElementFinder = this.container.$(readOnlyWidget ? '#widget-text-readonly' : '#widget-text');
         const editButton: WebElement = widget.$('#show-details-button');
         await editButton.click();
     }
