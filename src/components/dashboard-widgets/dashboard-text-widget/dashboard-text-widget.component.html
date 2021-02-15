@@ -8,7 +8,8 @@
     <div #textWrapper class="widget-text" [class.is-truncated]="textWrapper.clientHeight < textParagraph.clientHeight">
         <p #textParagraph>{{ text }}</p>
     </div>
-    <button class="widget-side-panel-opener btn"
+    <button id="show-details-button"
+            class="widget-side-panel-opener btn"
             (click)="open()"
             [uxTooltip]="editable ? editLabel : showFullTextLabel"
             [attr.aria-label]="editable ? editLabel : showFullTextLabel">
@@ -16,7 +17,9 @@
         <ux-icon name="edit" *ngIf="editable"></ux-icon>
     </button>
 </ux-predefined-widget>
+
 <ux-side-panel #sidePanel
+               id="side-panel"
                class="widget-side-panel"
                attachTo="container"
                width="100%">
@@ -25,6 +28,7 @@
         <button uxSidePanelClose
                 aria-label="Close Side Panel"
                 type="button"
+                id="close-button"
                 class="btn btn-lg btn-link btn-icon button-secondary">
             <ux-icon name="close"></ux-icon>
         </button>
@@ -35,7 +39,7 @@
               [focusIf]="textAreaFocused">
     </textarea>
     <div class="ux-side-panel-footer" *ngIf="editable">
-        <button type="button" class="m-b btn button-primary" (click)="save()">{{ saveLabel }}</button>
-        <button type="button" class="m-b btn button-secondary" (click)="cancel()">{{ cancelLabel }}</button>
+        <button type="button" id="save-button" class="m-b btn button-primary" (click)="save()">{{ saveLabel }}</button>
+        <button type="button" id="cancel-button" class="m-b btn button-secondary" (click)="cancel()">{{ cancelLabel }}</button>
     </div>
 </ux-side-panel>

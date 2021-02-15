@@ -102,4 +102,32 @@ describe('Dashboard Widgets', () => {
         const label: WebElement = widget.$('#dashboard-select-widget-label');
         expect(await label.getText()).toEqual('One');
     });
+
+    it('should allow to edit text', async () => {
+        await page.clickDetailsButton();
+        expect(await imageCompare('dashboard-widgets-edit-open')).toEqual(0);
+
+        await page.writeText('edited');
+        expect(await imageCompare('dashboard-widgets-edit-edited')).toEqual(0);
+
+        await page.clickSidePanelButton('cancel');
+        expect(await imageCompare('dashboard-widgets-initial')).toEqual(0);
+
+        await page.clickDetailsButton();
+        expect(await imageCompare('dashboard-widgets-edit-open')).toEqual(0);
+
+        await page.writeText('edited');
+        expect(await imageCompare('dashboard-widgets-edit-edited')).toEqual(0);
+
+        await page.clickSidePanelButton('save');
+        expect(await imageCompare('dashboard-widgets-edited')).toEqual(0);
+    });
+
+    it('should display read-only text', async () => {
+        await page.clickDetailsButton();
+        expect(await imageCompare('dashboard-widgets-view-open')).toEqual(0);
+
+        await page.clickSidePanelButton('close');
+        expect(await imageCompare('dashboard-widgets-initial')).toEqual(0);
+    });
 });

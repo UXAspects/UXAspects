@@ -1,4 +1,5 @@
-import {browser, by, element, ElementFinder, Key, protractor} from 'protractor';
+import {$, browser, by, element, ElementFinder, Key, protractor} from 'protractor';
+import {WebElement} from 'selenium-webdriver';
 
 const ANNOUNCER_WAIT_TIMEOUT = 200;
 
@@ -7,16 +8,10 @@ export class DashboardWidgetsPage {
     container: ElementFinder = element(by.id('dashboardWidgetContainer'));
     dashboard: ElementFinder = element(by.className('customizable-dashboard'));
     announcer: ElementFinder = element(by.className('cdk-live-announcer-element'));
-    topFocusTarget = element(by.id('top-focus'));
-    bottomFocusTarget = element(by.id('bottom-focus'));
     layoutOutput = element(by.id('layout-output'));
 
     async getPage(): Promise<void> {
         await browser.get('#/dashboard-widgets');
-    }
-
-    async getNumberOfWidgets(): Promise<number> {
-        return this.container.$('div.dashboard-container').$$('ux-dashboard-widget').count();
     }
 
     getWidget(widgetId: string): ElementFinder {
@@ -31,17 +26,6 @@ export class DashboardWidgetsPage {
         return this.layoutOutput.getAttribute('innerText');
     }
 
-    async enableGrabMode(): Promise<void> {
-        // focus the grab handle
-        const handle: ElementFinder = await this.getGrabHandle();
-
-        // focus the element
-        await handle.click();
-
-        // enable drag mode
-        await handle.sendKeys(Key.SPACE);
-    }
-
     async disableGrabMode(): Promise<void> {
         // focus the grab handle
         const handle: ElementFinder = await this.getGrabHandle();
@@ -50,29 +34,21 @@ export class DashboardWidgetsPage {
         await handle.sendKeys(Key.SPACE);
     }
 
-    async cancelGrabMode(): Promise<void> {
-        // focus the grab handle
-        const handle: ElementFinder = await this.getGrabHandle();
-
-        // disable drag mode
-        await handle.sendKeys(Key.ESCAPE);
-    }
-
     async moveWidget(direction: Direction): Promise<void> {
 
         switch (direction) {
 
             case Direction.Down:
-                return await browser.actions().sendKeys(Key.ARROW_DOWN).perform();
+                return browser.actions().sendKeys(Key.ARROW_DOWN).perform();
 
             case Direction.Right:
-                return await browser.actions().sendKeys(Key.ARROW_RIGHT).perform();
+                return browser.actions().sendKeys(Key.ARROW_RIGHT).perform();
 
             case Direction.Up:
-                return await browser.actions().sendKeys(Key.ARROW_UP).perform();
+                return browser.actions().sendKeys(Key.ARROW_UP).perform();
 
             case Direction.Left:
-                return await browser.actions().sendKeys(Key.ARROW_LEFT).perform();
+                return browser.actions().sendKeys(Key.ARROW_LEFT).perform();
         }
     }
 
@@ -80,12 +56,8 @@ export class DashboardWidgetsPage {
         return await this.container.$(`#${widgetId} button.widget-grab-handle`);
     }
 
-    async getAnnouncerText(): Promise<string> {
-        return this.announcer.getText();
-    }
-
     async checkAnnouncerText(expected: string): Promise<void> {
-        return await browser.wait(
+        return browser.wait(
             protractor.ExpectedConditions.textToBePresentInElement(this.announcer, expected),
             ANNOUNCER_WAIT_TIMEOUT
         );
@@ -102,6 +74,23 @@ export class DashboardWidgetsPage {
 
     async hasFocus(elem: ElementFinder): Promise<boolean> {
         return await elem.getId() === await browser.driver.switchTo().activeElement().getId();
+    }
+
+    async clickDetailsButton() {
+        const widget: ElementFinder = this.getWidget('text-widget');
+        const editButton: WebElement = widget.$('#show-details-button');
+        await editButton.click();
+    }
+
+    async writeText(text: string) {
+        const sidePanel: ElementFinder = $('#side-panel');
+        const textArea: WebElement = sidePanel.$('textarea');
+        await textArea.sendKeys(Key.CONTROL, 'a', Key.NULL, Key.DELETE, text);
+    }
+
+    async clickSidePanelButton(button: string) {
+        const sidePanel: ElementFinder = $('#side-panel');
+        await sidePanel.$('#' + button + '-button').click();
     }
 }
 
