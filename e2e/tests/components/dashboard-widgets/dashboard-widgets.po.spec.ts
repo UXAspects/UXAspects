@@ -76,22 +76,27 @@ export class DashboardWidgetsPage {
         return await elem.getId() === await browser.driver.switchTo().activeElement().getId();
     }
 
-    async clickDetailsButton(readOnlyWidget: boolean) {
+    async clickDetailsButton(readOnlyWidget: boolean): Promise<void> {
         const widget: ElementFinder = this.container.$(readOnlyWidget ? '#widget-text-readonly' : '#widget-text');
         const editButton: WebElement = widget.$('#show-details-button');
         await editButton.click();
     }
 
-    async writeText(text: string) {
+    async writeText(text: string): Promise<void> {
         const sidePanel: ElementFinder = $('#side-panel');
         const textArea: WebElement = sidePanel.$('textarea');
         await textArea.sendKeys(Key.CONTROL, 'a', Key.NULL, Key.DELETE, text);
     }
 
-    async clickSidePanelButton(button: string) {
+    async clickSidePanelButton(button: string): Promise<void> {
         const sidePanel: ElementFinder = $('#side-panel');
         const buttonElement: WebElement = sidePanel.$('#' + button + '-button');
         await buttonElement.click();
+    }
+
+    async closeSidePanel(): Promise<void> {
+        const sidePanel: ElementFinder = $('#side-panel');
+        await sidePanel.sendKeys(Key.ESCAPE);
     }
 }
 
