@@ -96,7 +96,8 @@ export class DashboardWidgetsPage {
 
     async closeSidePanel(): Promise<void> {
         const sidePanel: ElementFinder = $('#side-panel');
-        await sidePanel.sendKeys(Key.ESCAPE);
+        const textArea: WebElement = sidePanel.$('textarea');
+        await textArea.sendKeys(Key.ESCAPE);
     }
 }
 
