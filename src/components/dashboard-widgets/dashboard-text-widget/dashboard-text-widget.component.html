@@ -4,7 +4,8 @@
                       [rowSpan]="rowSpan"
                       [name]="name"
                       [heading]="heading"
-                      [fixedMode]="fixedMode">
+                      [fixedMode]="fixedMode"
+                      [grabHandleText]="grabHandleText">
     <div #textWrapper class="widget-text" [class.is-truncated]="textWrapper.clientHeight < textParagraph.clientHeight">
         <p #textParagraph>{{ text }}</p>
     </div>
@@ -26,7 +27,8 @@
     <div class="ux-side-panel-header">
         <h3>{{ heading }}</h3>
         <button uxSidePanelClose
-                aria-label="Close Side Panel"
+                [attr.title]="closeLabel"
+                [attr.aria-label]="closeLabel"
                 type="button"
                 id="close-button"
                 class="btn btn-lg btn-link btn-icon button-secondary">

@@ -48,6 +48,7 @@ export class DashboardTableWidgetComponent implements PredefinedWidgetConfig, Ta
     @Input() id: string = '';
     @Input() name: string = '';
     @Input() heading: string = '';
+    @Input() grabHandleText: string = 'Move widget';
 
     @Input() header: ReadonlyArray<string> = [];
     @Input() data: ReadonlyArray<ReadonlyArray<string>> = [];

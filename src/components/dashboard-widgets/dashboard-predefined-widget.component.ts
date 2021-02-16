@@ -25,6 +25,7 @@ export class DashboardPredefinedWidgetComponent implements PredefinedWidgetConfi
     @Input() resizable: boolean = false;
     @Input() colSpan: number = 1;
     @Input() rowSpan: number = 1;
+    @Input() grabHandleText: string = 'Move widget';
 
     @ViewChild('widget') widget: DashboardWidgetComponent;
     @ViewChild('handle') handle: ElementRef;

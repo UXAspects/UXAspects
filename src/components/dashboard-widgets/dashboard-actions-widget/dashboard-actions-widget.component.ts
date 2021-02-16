@@ -44,6 +44,7 @@ export class DashboardActionsWidgetComponent implements PredefinedWidgetConfig, 
     @Input() id: string = '';
     @Input() name: string = '';
     @Input() heading: string = '';
+    @Input() grabHandleText: string = 'Move widget';
 
     @Input() status: Readonly<ActionStatus> = {label: '-', icon: 'radial'};
     @Input() actions: ReadonlyArray<ActionConfig>;

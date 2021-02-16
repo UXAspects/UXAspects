@@ -7,5 +7,6 @@ export interface TextWidgetConfig {
     showFullTextLabel: string;
     saveLabel: string;
     cancelLabel: string;
+    closeLabel: string;
     textChange?: EventEmitter<string>;
 }

@@ -5,4 +5,5 @@ export interface PredefinedWidgetConfig {
     fixedMode?: boolean;
     colSpan?: number;
     rowSpan?: number;
+    grabHandleText?: string;
 }

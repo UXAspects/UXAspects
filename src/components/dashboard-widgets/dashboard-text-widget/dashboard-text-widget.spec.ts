@@ -1,4 +1,4 @@
-import {Component, Input, ViewChild} from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {DashboardModule} from '../../dashboard';
 import {DashboardPredefinedWidgetsModule} from '../dashboard-predefined-widgets.module';
@@ -61,5 +61,6 @@ describe('Text Widget', () => {
         expect(component.widget.showFullTextLabel).toEqual('Show full text');
         expect(component.widget.saveLabel).toEqual('Save');
         expect(component.widget.cancelLabel).toEqual('Cancel');
+        expect(component.widget.closeLabel).toEqual('Close Side Panel');
     });
 });

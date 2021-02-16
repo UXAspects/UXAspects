@@ -47,10 +47,13 @@ export class DashboardTextWidgetComponent implements PredefinedWidgetConfig, Tex
     @Input() id: string = '';
     @Input() name: string = '';
     @Input() heading: string = '';
+    @Input() grabHandleText: string = 'Move widget';
+
     @Input() editLabel: string = 'Edit';
     @Input() showFullTextLabel: string = 'Show full text';
     @Input() saveLabel: string = 'Save';
     @Input() cancelLabel: string = 'Cancel';
+    @Input() closeLabel: string = 'Close Side Panel';
 
     @Input() text: string = '';
 

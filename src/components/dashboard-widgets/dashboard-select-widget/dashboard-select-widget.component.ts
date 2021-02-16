@@ -53,6 +53,7 @@ export class DashboardSelectWidgetComponent implements PredefinedWidgetConfig, S
     @Input() id: string = '';
     @Input() name: string = '';
     @Input() heading: string = '';
+    @Input() grabHandleText: string = 'Move widget';
 
     @Input() options: ReadonlyArray<SelectConfig>;
     @Input() value: string;
