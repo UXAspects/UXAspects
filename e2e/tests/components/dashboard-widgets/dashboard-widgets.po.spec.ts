@@ -90,7 +90,8 @@ export class DashboardWidgetsPage {
 
     async clickSidePanelButton(button: string) {
         const sidePanel: ElementFinder = $('#side-panel');
-        await sidePanel.$('#' + button + '-button').click();
+        const buttonElement: WebElement = sidePanel.$('#' + button + '-button');
+        await buttonElement.click();
     }
 }
 
