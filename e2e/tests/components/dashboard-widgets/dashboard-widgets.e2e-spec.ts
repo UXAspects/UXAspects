@@ -122,8 +122,5 @@ describe('Dashboard Widgets', () => {
     it('should display read-only text', async () => {
         await page.clickDetailsButton(true);
         expect(await imageCompare('dashboard-widgets-view-open')).toEqual(0);
-
-        await page.closeSidePanel();
-        expect(await imageCompare('dashboard-widgets-initial')).toEqual(0);
     });
 });

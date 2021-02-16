@@ -93,12 +93,6 @@ export class DashboardWidgetsPage {
         const buttonElement: WebElement = sidePanel.$('#' + button + '-button');
         await buttonElement.click();
     }
-
-    async closeSidePanel(): Promise<void> {
-        const sidePanel: ElementFinder = $('#side-panel');
-        const textArea: WebElement = sidePanel.$('textarea');
-        await textArea.sendKeys(Key.ESCAPE);
-    }
 }
 
 export enum Direction {
