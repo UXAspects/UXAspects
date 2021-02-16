@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Input, Output, ViewChild} from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
 import {PredefinedWidgetConfig} from '../interfaces/predefined-widget.interface';
 import {TextWidgetConfig} from '../interfaces/text-widget.interface';
 import {SidePanelComponent} from '../../side-panel';
@@ -62,17 +62,20 @@ export class DashboardTextWidgetComponent implements PredefinedWidgetConfig, Tex
         this._editable = coerceBooleanProperty(editable);
     }
 
-    @ViewChild('sidePanel') sidePanel: SidePanelComponent;
-    textAreaFocused = false;
-
     @Output() textChange = new EventEmitter<string>();
 
+    @ViewChild('sidePanel') sidePanel: SidePanelComponent;
+    textAreaFocused: boolean = false;
+    editText: string;
+
     open(): void {
+        this.editText = this.text;
         this.sidePanel.openPanel();
         this.textAreaFocused = this.editable;
     }
 
     save(): void {
+        this.text = this.editText;
         this.textChange.emit(this.text);
         this.sidePanel.closePanel();
     }

@@ -183,7 +183,7 @@
                     ]
                 },
                 {
-                    "title": "Dashboard widgets",
+                    "title": "Dashboard Widgets",
                     "component": "ComponentsDashboardWidgetsComponent",
                     "version": "Angular",
                     "usage": [
