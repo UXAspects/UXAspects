@@ -20,6 +20,7 @@ ux-dashboard-text-widget {
     }
 
     .widget-side-panel-opener {
+        display: none;
         background-color: white;
         border: none;
         bottom: 3px;
@@ -29,14 +30,24 @@ ux-dashboard-text-widget {
         min-width: 0;
     }
 
-    .ux-side-panel.open > .ux-side-panel-host {
-        border-left: none;
+    &:hover .widget-side-panel-opener {
+        display: initial;
     }
 
-    .ux-side-panel > .ux-side-panel-host > .widget-side-panel-textarea {
-        background-color: transparent;
-        color: inherit;
-        border: none;
-        outline: none;
+    .ux-side-panel {
+        &.open > .ux-side-panel-host {
+            border-left: none;
+        }
+
+        > .ux-side-panel-host > .widget-side-panel-textarea {
+            background-color: transparent;
+            color: inherit;
+            border: none;
+            outline: none;
+        }
+
+        > .ux-side-panel-host button {
+            float: right;
+        }
     }
 }

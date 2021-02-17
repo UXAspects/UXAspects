@@ -10,9 +10,9 @@
         <p #textParagraph>{{ text }}</p>
     </div>
     <button id="show-details-button"
-            class="widget-side-panel-opener btn"
+            class="widget-side-panel-opener btn btn-link btn-icon button-primary"
             (click)="open()"
-            [uxTooltip]="editable ? editLabel : showFullTextLabel"
+            [attr.title]="editable ? editLabel : showFullTextLabel"
             [attr.aria-label]="editable ? editLabel : showFullTextLabel">
         <ux-icon name="chevron-right" *ngIf="!editable"></ux-icon>
         <ux-icon name="edit" *ngIf="editable"></ux-icon>
@@ -23,6 +23,7 @@
                id="side-panel"
                class="widget-side-panel"
                attachTo="container"
+               animate="true"
                width="100%">
     <div class="ux-side-panel-header">
         <h3>{{ heading }}</h3>
@@ -41,7 +42,7 @@
               [focusIf]="textAreaFocused">
     </textarea>
     <div class="ux-side-panel-footer" *ngIf="editable">
-        <button type="button" id="save-button" class="m-b btn button-primary" (click)="save()">{{ saveLabel }}</button>
-        <button type="button" id="cancel-button" class="m-b btn button-secondary" (click)="cancel()">{{ cancelLabel }}</button>
+        <button type="button" id="cancel-button" class="m-b btn btn-link button-secondary" (click)="cancel()">{{ cancelLabel }}</button>
+        <button type="button" id="save-button" class="m-b btn btn-link button-primary" (click)="save()">{{ saveLabel }}</button>
     </div>
 </ux-side-panel>

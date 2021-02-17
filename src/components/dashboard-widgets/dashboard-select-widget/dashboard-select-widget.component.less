@@ -15,17 +15,10 @@ ux-dashboard-select-widget {
 
     .select-item {
         padding: 8px 12px;
+        background-color: @dropdown-bg;
 
-        &:hover {
-            background: #e6e6e6;
-        }
-
-        &:active {
-            background: #ccc;
-        }
-
-        &.selected {
-            background: rgba(0, 0, 0, 0.1);
+        &:hover, &:active, &:focus {
+            background: @dropdown-highlight-bg;
         }
 
         &:not(.selected) {
