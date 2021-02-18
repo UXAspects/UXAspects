@@ -15,7 +15,7 @@ export class DashboardWidgetsPage {
     }
 
     getWidget(widgetId: string): ElementFinder {
-        return this.container.$(`ux-dashboard-${widgetId}`).$('ux-dashboard-widget');
+        return this.container.$(`#widget-${widgetId}`);
     }
 
     async getWidgetAttribute(widget: ElementFinder, attribute: string): Promise<string> {
@@ -76,8 +76,7 @@ export class DashboardWidgetsPage {
         return await elem.getId() === await browser.driver.switchTo().activeElement().getId();
     }
 
-    async clickDetailsButton(readOnlyWidget: boolean): Promise<void> {
-        const widget: ElementFinder = this.container.$(readOnlyWidget ? '#widget-text-readonly' : '#widget-text');
+    async clickDetailsButton(widget: ElementFinder): Promise<void> {
         const editButton: WebElement = widget.$('#show-details-button');
         await editButton.click();
     }

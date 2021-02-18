@@ -10,6 +10,7 @@ describe('Dashboard Widgets', () => {
     let widgetSelect: ElementFinder;
     let widgetTable: ElementFinder;
     let widgetText: ElementFinder;
+    let widgetTextReadOnly: ElementFinder;
 
     beforeEach(async () => {
         page = new DashboardWidgetsPage();
@@ -18,10 +19,11 @@ describe('Dashboard Widgets', () => {
         // set the browser window to a specific size to ensure consistency
         await browser.driver.manage().window().setSize(1320, 800);
 
-        widgetActions = await page.getWidget('actions-widget');
-        widgetSelect = await page.getWidget('select-widget');
-        widgetTable = await page.getWidget('table-widget');
-        widgetText = await page.getWidget('text-widget');
+        widgetActions = await page.getWidget('actions');
+        widgetSelect = await page.getWidget('select');
+        widgetTable = await page.getWidget('table');
+        widgetText = await page.getWidget('text');
+        widgetTextReadOnly = await page.getWidget('text-readonly');
     });
 
     // restore the window to its original size after all these tests have run
@@ -43,6 +45,9 @@ describe('Dashboard Widgets', () => {
 
         expect(await page.getWidgetLocationValue(widgetText, 'top')).toBe(220);
         expect(await page.getWidgetLocationValue(widgetText, 'left')).toBe(0);
+
+        expect(await page.getWidgetLocationValue(widgetTextReadOnly, 'top')).toBe(440);
+        expect(await page.getWidgetLocationValue(widgetTextReadOnly, 'left')).toBe(0);
     });
 
     it('should react correctly when a widget is moved and resized', async () => {
@@ -71,26 +76,25 @@ describe('Dashboard Widgets', () => {
         expect(await page.getWidgetLocationValue(widgetText, 'top')).toBe(220, 'widget-text top');
         expect(await page.getWidgetLocationValue(widgetText, 'left')).toBe(0, 'widget-text left');
 
+        expect(await page.getWidgetLocationValue(widgetTextReadOnly, 'top')).toBe(440, 'widget-text top');
+        expect(await page.getWidgetLocationValue(widgetTextReadOnly, 'left')).toBe(0, 'widget-text left');
+
         expect(JSON.parse(await page.getLayoutOutput())).toEqual(layoutMock);
     });
 
     it('should react correctly on action click', async () => {
-        const widget: ElementFinder = page.getWidget('actions-widget');
-
         // Click on button of action 'accept'
-        const acceptButton: WebElement = widget.$('#dashboard-action-widget-button-accept');
+        const acceptButton: WebElement = widgetActions.$('#dashboard-action-widget-button-accept');
         await acceptButton.click();
 
         // Expect the status label to have changed to 'Accept'
-        const label: WebElement = widget.$('#dashboard-action-widget-label');
+        const label: WebElement = widgetActions.$('#dashboard-action-widget-label');
         expect(await label.getText()).toEqual('accept');
     });
 
     it('should react correctly on selection', async () => {
-        const widget: ElementFinder = page.getWidget('select-widget');
-
         // Click on the drop-down to open it
-        const dropDownButton: WebElement = widget.$('.select-dropdown').$('.ux-select-container').$('button');
+        const dropDownButton: WebElement = widgetSelect.$('.select-dropdown').$('.ux-select-container').$('button');
         await dropDownButton.click();
         expect(await imageCompare('dashboard-widgets-dropdown-open')).toEqual(0);
 
@@ -99,12 +103,12 @@ describe('Dashboard Widgets', () => {
         await option1.click();
 
         // Expect the drop-down label to have changed to 'One'
-        const label: WebElement = widget.$('#dashboard-select-widget-label');
+        const label: WebElement = widgetSelect.$('#dashboard-select-widget-label');
         expect(await label.getText()).toEqual('One');
     });
 
     it('should allow to edit text', async () => {
-        await page.clickDetailsButton(false);
+        await page.clickDetailsButton(widgetText);
         expect(await imageCompare('dashboard-widgets-edit-open')).toEqual(0);
         await page.writeText('edited');
         expect(await imageCompare('dashboard-widgets-edit-edited')).toEqual(0);
@@ -112,7 +116,7 @@ describe('Dashboard Widgets', () => {
         await page.clickSidePanelButton('cancel');
         expect(await imageCompare('dashboard-widgets-initial')).toEqual(0);
 
-        await page.clickDetailsButton(false);
+        await page.clickDetailsButton(widgetText);
         await page.writeText('edited again');
 
         await page.clickSidePanelButton('save');
@@ -120,7 +124,7 @@ describe('Dashboard Widgets', () => {
     });
 
     it('should display read-only text', async () => {
-        await page.clickDetailsButton(true);
+        await page.clickDetailsButton(widgetTextReadOnly);
         expect(await imageCompare('dashboard-widgets-view-open')).toEqual(0);
     });
 });
