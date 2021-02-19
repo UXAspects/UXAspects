@@ -31,8 +31,7 @@
                 [attr.title]="closeLabel"
                 [attr.aria-label]="closeLabel"
                 type="button"
-                id="close-button"
-                class="btn btn-lg btn-link btn-icon button-secondary">
+                class="btn btn-lg btn-link btn-icon button-secondary close-button">
             <ux-icon name="close"></ux-icon>
         </button>
     </div>
@@ -42,7 +41,7 @@
               [focusIf]="textAreaFocused">
     </textarea>
     <div class="ux-side-panel-footer" *ngIf="editable">
-        <button type="button" id="cancel-button" class="m-b btn btn-link button-secondary" (click)="cancel()">{{ cancelLabel }}</button>
-        <button type="button" id="save-button" class="m-b btn btn-link button-primary" (click)="save()">{{ saveLabel }}</button>
+        <button type="button" class="m-b btn btn-link button-secondary cancel-button" (click)="cancel()">{{ cancelLabel }}</button>
+        <button type="button" class="m-b btn btn-link button-primary save-button" (click)="save()">{{ saveLabel }}</button>
     </div>
 </ux-side-panel>

@@ -15,7 +15,7 @@ export class DashboardWidgetsPage {
     }
 
     getWidget(widgetId: string): ElementFinder {
-        return this.container.$(`#widget-${widgetId}`).$('ux-dashboard-widget');
+        return this.container.$(`#widget-${widgetId}`);
     }
 
     async getWidgetAttribute(widget: ElementFinder, attribute: string): Promise<string> {
@@ -65,7 +65,7 @@ export class DashboardWidgetsPage {
 
     // Extract and return the left, top, width or height values from the element's 'style' attribute
     async getWidgetLocationValue(widget: ElementFinder, soughtValue: string): Promise<number> {
-        const styleValue = await this.getWidgetAttribute(widget, 'style');
+        const styleValue = await this.getWidgetAttribute(widget.$('ux-dashboard-widget'), 'style');
         const pattern = '.*' + soughtValue + ':\\s*(\\d+)px;';
         const regexp = new RegExp(pattern, 'i');
         const match = regexp.exec(styleValue);
@@ -77,19 +77,17 @@ export class DashboardWidgetsPage {
     }
 
     async clickDetailsButton(widget: ElementFinder): Promise<void> {
-        const editButton: WebElement = widget.$('#show-details-button');
+        const editButton: WebElement = widget.$('.widget-side-panel-opener');
         await editButton.click();
     }
 
     async writeText(text: string): Promise<void> {
-        const sidePanel: ElementFinder = $('#side-panel');
-        const textArea: WebElement = sidePanel.$('textarea');
+        const textArea: WebElement = $('textarea');
         await textArea.sendKeys(Key.CONTROL, 'a', Key.NULL, Key.DELETE, text);
     }
 
     async clickSidePanelButton(button: string): Promise<void> {
-        const sidePanel: ElementFinder = $('#side-panel');
-        const buttonElement: WebElement = sidePanel.$('#' + button + '-button');
+        const buttonElement: WebElement = element(by.className(button + '-button'));
         await buttonElement.click();
     }
 }
