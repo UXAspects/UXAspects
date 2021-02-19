@@ -15,7 +15,7 @@ export class DashboardWidgetsPage {
     }
 
     getWidget(widgetId: string): ElementFinder {
-        return this.container.$(`#widget-${widgetId}`);
+        return this.container.$(`#widget-${widgetId}`).$('ux-dashboard-widget');
     }
 
     async getWidgetAttribute(widget: ElementFinder, attribute: string): Promise<string> {
