@@ -38,6 +38,9 @@ export class OrganizationChartComponent<T> implements AfterViewInit, OnChanges, 
     /** Define the aria label for the reveal button */
     @Input() revealAriaLabel: string = 'Reveal More';
 
+    /** Defines whether a node can be toggled or not */
+    @Input() allowToggling: boolean = true;
+
     /** Programmatically select an item */
     @Input() set selected(selected: OrganizationChartNode<T>) {
         if (this.selected === selected || !selected) {
@@ -384,6 +387,10 @@ export class OrganizationChartComponent<T> implements AfterViewInit, OnChanges, 
     /** Toggle the collapsed state of a node */
     toggle(node: OrganizationChartNode<T> | HierarchyPointNode<OrganizationChartNode<T>>): void {
 
+        if (!this.allowToggling) {
+            return;
+        }
+
         // do nothing if a transition is currently in progress
         if (this._isTransitioning) {
             return;
@@ -401,6 +408,10 @@ export class OrganizationChartComponent<T> implements AfterViewInit, OnChanges, 
 
     /** Expand a node */
     expand(node: OrganizationChartNode<T> | HierarchyPointNode<OrganizationChartNode<T>>): void {
+
+        if (!this.allowToggling) {
+            return;
+        }
 
         // do nothing if a transition is currently in progress
         if (this._isTransitioning) {
@@ -750,6 +761,10 @@ export class OrganizationChartComponent<T> implements AfterViewInit, OnChanges, 
 
     /** Handle keyboard events */
     private onKeydown(node: HierarchyPointNode<OrganizationChartNode<T>>): void {
+        if (!this.allowToggling) {
+            return;
+        }
+
         switch (event.keyCode) {
             case DOWN_ARROW:
                 event.preventDefault();

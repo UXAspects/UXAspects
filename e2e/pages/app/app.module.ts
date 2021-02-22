@@ -119,6 +119,10 @@ const routes: Routes = [
         loadChildren: () => import('./number-picker/number-picker.module').then(m => m.NumberPickerTestPageModule)
     },
     {
+        path: 'organization-chart',
+        loadChildren: () => import('./organization-chart/organization-chart.module').then(m => m.OrganizationChartTestPageModule)
+    },
+    {
         path: 'page-header',
         loadChildren: () => import('./page-header/page-header.module').then(m => m.PageHeaderTestPageModule)
     },
