@@ -19,7 +19,6 @@ export class OrganizationChartTestPageComponent {
         data: {
             name: 'Matt',
             position: 'National Manager',
-            phone: '4545',
             email: 'nat_manager@company.com'
         },
         children: [
@@ -28,7 +27,6 @@ export class OrganizationChartTestPageComponent {
                 data: {
                     name: 'Shannon',
                     position: 'Regional Manager',
-                    phone: '077',
                     email: 'reg_manager@company.com'
                 },
                 children: [
@@ -37,7 +35,6 @@ export class OrganizationChartTestPageComponent {
                         data: {
                             name: 'Jim',
                             position: 'Assistant',
-                            phone: '1234',
                             email: 'assistant@company.com'
                         },
                         children: [
@@ -46,7 +43,6 @@ export class OrganizationChartTestPageComponent {
                                 data: {
                                     name: 'Karen',
                                     position: 'Human Resources',
-                                    phone: '567',
                                     email: 'hr@company.com'
                                 },
                             },
@@ -55,7 +51,6 @@ export class OrganizationChartTestPageComponent {
                                 data: {
                                     name: 'Bob',
                                     position: 'Engineer',
-                                    phone: '234',
                                     email: 'tech@company.com'
                                 },
                             },
@@ -78,7 +73,6 @@ export class OrganizationChartTestPageComponent {
             data: {
                 name: 'Stephen',
                 position: 'CEO',
-                phone: '123',
                 email: 'ceo@company.com',
             },
             children: [this.dataset]
@@ -131,7 +125,6 @@ export interface HasChildren<T> {
 export interface OrganizationChartContext {
     name: string;
     position: string;
-    phone: string;
     email: string;
     marker?: boolean;
 }
