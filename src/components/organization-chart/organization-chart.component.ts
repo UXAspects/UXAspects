@@ -1,3 +1,4 @@
+import { BooleanInput, coerceBooleanProperty } from '@angular/cdk/coercion';
 import { DOWN_ARROW, ENTER, LEFT_ARROW, RIGHT_ARROW, UP_ARROW } from '@angular/cdk/keycodes';
 import { DomPortalOutlet, TemplatePortal } from '@angular/cdk/portal';
 import { AfterViewInit, ApplicationRef, ChangeDetectionStrategy, Component, ComponentFactoryResolver, ContentChild, ElementRef, EventEmitter, Injector, Input, NgZone, OnChanges, OnDestroy, Output, Renderer2, SimpleChanges, TemplateRef, ViewChild, ViewContainerRef } from '@angular/core';
@@ -38,8 +39,14 @@ export class OrganizationChartComponent<T> implements AfterViewInit, OnChanges, 
     /** Define the aria label for the reveal button */
     @Input() revealAriaLabel: string = 'Reveal More';
 
-    /** Defines whether a node can be toggled or not */
-    @Input() allowToggling: boolean = true;
+    /** Defines whether nodes can be toggled or not */
+    @Input() set allowToggling(allowToggling: boolean) {
+        this._allowToggling = coerceBooleanProperty(allowToggling);
+    }
+
+    get allowToggling(): boolean {
+        return this._allowToggling;
+    }
 
     /** Programmatically select an item */
     @Input() set selected(selected: OrganizationChartNode<T>) {
@@ -78,6 +85,8 @@ export class OrganizationChartComponent<T> implements AfterViewInit, OnChanges, 
 
     /** Access the container element for the nodes */
     @ViewChild('nodes', { static: true }) nodesContainer: ElementRef;
+
+    private _allowToggling: boolean = true;
 
     /** Store the internal selected node */
     private _selected: OrganizationChartNode<T>;
@@ -387,12 +396,7 @@ export class OrganizationChartComponent<T> implements AfterViewInit, OnChanges, 
     /** Toggle the collapsed state of a node */
     toggle(node: OrganizationChartNode<T> | HierarchyPointNode<OrganizationChartNode<T>>): void {
 
-        if (!this.allowToggling) {
-            return;
-        }
-
-        // do nothing if a transition is currently in progress
-        if (this._isTransitioning) {
+        if (this._isTransitioning || !this.allowToggling) {
             return;
         }
 
@@ -409,12 +413,7 @@ export class OrganizationChartComponent<T> implements AfterViewInit, OnChanges, 
     /** Expand a node */
     expand(node: OrganizationChartNode<T> | HierarchyPointNode<OrganizationChartNode<T>>): void {
 
-        if (!this.allowToggling) {
-            return;
-        }
-
-        // do nothing if a transition is currently in progress
-        if (this._isTransitioning) {
+        if (this._isTransitioning || !this.allowToggling) {
             return;
         }
 
@@ -980,6 +979,8 @@ export class OrganizationChartComponent<T> implements AfterViewInit, OnChanges, 
         // check for any children on the children
         return [...children, ...children.reduce((accumulation, child) => [...accumulation, ...this.getAllChildren(child)], [])].map(child => this.coerceDataNode(child));
     }
+
+    static ngAcceptInputType_allowToggling: BooleanInput;
 
 }
 
