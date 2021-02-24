@@ -19,12 +19,15 @@ describe('Organization Chart Tests', () => {
     });
 
     it('should not toggle node when allowtoggling = false when clicking', async () => {
+        await page.toggleNodes.click();
+
         await page.nodes.get(1).click();
 
         expect(await imageCompare('organization-chart-disallow-toggle')).toEqual(0);
     });
 
     it('should not toggle node when allowtoggling = false when using keyboard', async () => {
+        await page.toggleNodes.click();
         await page.nodes.sendKeys(Key.ENTER);
 
         await browser.actions().sendKeys(Key.ARROW_DOWN).perform();

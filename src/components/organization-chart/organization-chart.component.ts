@@ -40,12 +40,12 @@ export class OrganizationChartComponent<T> implements AfterViewInit, OnChanges, 
     @Input() revealAriaLabel: string = 'Reveal More';
 
     /** Defines whether nodes can be toggled or not */
-    @Input() set allowToggling(allowToggling: boolean) {
-        this._allowToggling = coerceBooleanProperty(allowToggling);
+    @Input() set toggleNodesOnClick (toggleNodesOnClick: boolean) {
+        this._toggleNodesOnClick = coerceBooleanProperty(toggleNodesOnClick );
     }
 
-    get allowToggling(): boolean {
-        return this._allowToggling;
+    get toggleNodesOnClick (): boolean {
+        return this._toggleNodesOnClick ;
     }
 
     /** Programmatically select an item */
@@ -86,7 +86,7 @@ export class OrganizationChartComponent<T> implements AfterViewInit, OnChanges, 
     /** Access the container element for the nodes */
     @ViewChild('nodes', { static: true }) nodesContainer: ElementRef;
 
-    private _allowToggling: boolean = true;
+    private _toggleNodesOnClick: boolean = true;
 
     /** Store the internal selected node */
     private _selected: OrganizationChartNode<T>;
@@ -296,7 +296,7 @@ export class OrganizationChartComponent<T> implements AfterViewInit, OnChanges, 
             .on('keydown', this.onKeydown.bind(this))
             .on('focus', this.onFocus.bind(this))
             .on('mousedown', () => event.stopPropagation())
-            .on('click', this.toggle.bind(this))
+            .on('click', node => this.toggle(node, false))
             .each(this.renderNodeTemplate.bind(this))
             .each((node, index, group) => this.monitorFocus(group[index], node))
             .transition(defaultTransition)
@@ -394,9 +394,9 @@ export class OrganizationChartComponent<T> implements AfterViewInit, OnChanges, 
     }
 
     /** Toggle the collapsed state of a node */
-    toggle(node: OrganizationChartNode<T> | HierarchyPointNode<OrganizationChartNode<T>>): void {
+    toggle(node: OrganizationChartNode<T> | HierarchyPointNode<OrganizationChartNode<T>>, programmatically: boolean = true): void {
 
-        if (this._isTransitioning || !this.allowToggling) {
+        if (this._isTransitioning || (!this.toggleNodesOnClick && !programmatically)) {
             return;
         }
 
@@ -413,7 +413,7 @@ export class OrganizationChartComponent<T> implements AfterViewInit, OnChanges, 
     /** Expand a node */
     expand(node: OrganizationChartNode<T> | HierarchyPointNode<OrganizationChartNode<T>>): void {
 
-        if (this._isTransitioning || !this.allowToggling) {
+        if (this._isTransitioning || !this.toggleNodesOnClick ) {
             return;
         }
 
@@ -760,7 +760,7 @@ export class OrganizationChartComponent<T> implements AfterViewInit, OnChanges, 
 
     /** Handle keyboard events */
     private onKeydown(node: HierarchyPointNode<OrganizationChartNode<T>>): void {
-        if (!this.allowToggling) {
+        if (!this.toggleNodesOnClick ) {
             return;
         }
 
@@ -980,7 +980,7 @@ export class OrganizationChartComponent<T> implements AfterViewInit, OnChanges, 
         return [...children, ...children.reduce((accumulation, child) => [...accumulation, ...this.getAllChildren(child)], [])].map(child => this.coerceDataNode(child));
     }
 
-    static ngAcceptInputType_allowToggling: BooleanInput;
+    static ngAcceptInputType_toggleNodesOnClick: BooleanInput;
 
 }
 
