@@ -1,7 +1,7 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject, combineLatest, Observable, Subject } from 'rxjs';
 import { distinctUntilChanged, filter, map, takeUntil } from 'rxjs/operators';
-import { tick } from '../../common/index';
+import { Coordinates, tick } from '../../common/index';
 import { DashboardOptions } from './dashboard.component';
 import { DashboardWidgetComponent } from './widget/dashboard-widget.component';
 import { DashboardStackMode } from './widget/dashboard-stack-mode.enum';
@@ -13,7 +13,7 @@ export class DashboardService implements OnDestroy {
     private _actionWidget: DashboardAction;
     private _rowHeight: number = 0;
     private _cache: DashboardCache[];
-    private _event: MouseEvent;
+    private _eventPosition: Coordinates;
 
     initialized$ = new BehaviorSubject<boolean>(false);
     widgets$ = new BehaviorSubject<DashboardWidgetComponent[]>([]);
@@ -282,7 +282,7 @@ export class DashboardService implements OnDestroy {
     onResizeStart(action: DashboardAction): void {
 
         // store the mouse event
-        this._event = action.event;
+        this._eventPosition = action.eventPosition;
         this._actionWidget = action;
 
         // bring the widget to the font
@@ -291,16 +291,16 @@ export class DashboardService implements OnDestroy {
 
     onResizeDrag(action: DashboardAction): void {
 
-        const mousePosX = this._event.pageX - pageXOffset;
-        const mousePosY = this._event.pageY - pageYOffset;
+        const mousePosX = this._eventPosition.x - pageXOffset;
+        const mousePosY = this._eventPosition.y - pageYOffset;
 
         // if there was no movement then do nothing
-        if (action.event.x === mousePosX && action.event.y === mousePosY) {
+        if (action.eventPosition.x === mousePosX && action.eventPosition.y === mousePosY) {
             return;
         }
 
         // update the stored mouse event
-        this._event = action.event;
+        this._eventPosition = action.eventPosition;
 
         // get handle for direction
         const { handle } = action;
@@ -480,7 +480,7 @@ export class DashboardService implements OnDestroy {
         this.placeholder$.next(placeholder);
 
         this._actionWidget = null;
-        this._event = null;
+        this._eventPosition = null;
 
         // ensure any vacant upper spaces are filled where required
         this.shiftWidgetsUp();
@@ -519,16 +519,16 @@ export class DashboardService implements OnDestroy {
     onDrag(action: DashboardAction): void {
 
         // if there was no movement then do nothing
-        if (action.event.pageX === this._event.pageX && action.event.pageY === this._event.pageY) {
+        if (action.eventPosition.x === this._eventPosition.x && action.eventPosition.x === this._eventPosition.y) {
             return;
         }
 
         // get the current mouse position
-        const mouseX = action.event.pageX - this._event.pageX;
-        const mouseY = action.event.pageY - this._event.pageY;
+        const mouseX = action.eventPosition.x - this._eventPosition.x;
+        const mouseY = action.eventPosition.y - this._eventPosition.y;
 
         // store the latest event
-        this._event = action.event;
+        this._eventPosition = { x: action.eventPosition.x, y: action.eventPosition.y };
 
         const dimensions: DashboardWidgetDimensions = {
             x: action.widget.x + mouseX,
@@ -1345,7 +1345,7 @@ export interface DashboardWidgetDimensions {
 export interface DashboardAction {
     widget: DashboardWidgetComponent;
     direction: ActionDirection;
-    event?: MouseEvent;
+    eventPosition?: Coordinates;
     handle?: HTMLElement;
 }
 

@@ -1,11 +1,12 @@
 import { Directive, ElementRef, EventEmitter, Input, NgZone, OnDestroy, Output, Renderer2 } from '@angular/core';
 import { fromEvent, Subject } from 'rxjs';
 import { filter, first, takeUntil } from 'rxjs/operators';
+import { Coordinates } from '../../common/index';
 import { DragService, UxDragEvent } from './drag.service';
 
-interface DragOffset {
-    x: number;
-    y: number;
+export interface DragScrollEvent {
+    pageX: number;
+    pageY: number;
 }
 
 @Directive({
@@ -30,6 +31,9 @@ export class DragDirective<T = any> implements OnDestroy {
 
     /** Emit an event when the mouse moves while dragging */
     @Output() onDrag = new EventEmitter<MouseEvent>();
+
+    /** Emit an event when the document scrolls while dragging */
+    @Output() onDragScroll = new EventEmitter<DragScrollEvent>();
 
     /** Emit an event when the dragging finishes */
     @Output() onDragEnd = new EventEmitter<void>();
@@ -61,8 +65,11 @@ export class DragDirective<T = any> implements OnDestroy {
     /** Create an observable from the mouse up event */
     private _mouseup$ = fromEvent<MouseEvent>(document, 'mouseup');
 
+    /** The current position of the cursor while dragging */
+    private _dragPosition: Coordinates;
+
     /** The offset in pixels currently being scrolled while dragging */
-    private _scrollOffset: DragOffset = { x: 0, y: 0 };
+    private _scrollOffset: Coordinates = { x: 0, y: 0 };
 
     /** The current `setInterval` handle for periodic scrolling */
     private _scrollIntervalHandle: number;
@@ -100,6 +107,8 @@ export class DragDirective<T = any> implements OnDestroy {
     dragStart(event: MouseEvent): void {
         event.preventDefault();
 
+        this._dragPosition = { x: event.pageX, y: event.pageY };
+
         if (this.clone) {
             // clone the node
             this.cloneNode(event);
@@ -125,6 +134,8 @@ export class DragDirective<T = any> implements OnDestroy {
     dragMove(event: MouseEvent): void {
         event.preventDefault();
 
+        this._dragPosition = { x: event.pageX, y: event.pageY };
+
         // scroll the viewport if needed
         this.updateScrolling(event);
 
@@ -138,6 +149,8 @@ export class DragDirective<T = any> implements OnDestroy {
 
     /** Emit event and destroy clone when dragging ends */
     dragEnd(): void {
+
+        this._dragPosition = null;
 
         // if the drag ended outside of the viewport, stop the scrolling interval
         this.stopScrolling();
@@ -236,34 +249,40 @@ export class DragDirective<T = any> implements OnDestroy {
         }
     }
 
-    private getScrollOffsets(scrollElement: HTMLElement, event: MouseEvent): DragOffset {
+    private getScrollOffsets(scrollElement: HTMLElement, event: MouseEvent): Coordinates {
         let scrollX = 0;
         let scrollY = 0;
 
         // additional amount to scroll since we want to scroll if the cursor is exactly at the edge of the viewport
-        const scrollBuffer = 1;
+        const minScroll = 5;
 
         if (event.clientX <= 0 && scrollElement.scrollLeft > 0) {
-            scrollX = event.clientX - scrollBuffer;
+            scrollX = Math.min(event.clientX, -minScroll);
         } else if (event.clientX >= scrollElement.clientWidth && (scrollElement.scrollLeft + scrollElement.clientWidth) < scrollElement.scrollWidth) {
-            scrollX = (event.clientX - scrollElement.clientWidth) + scrollBuffer;
+            scrollX = Math.max(event.clientX - scrollElement.clientWidth, minScroll);
         }
 
         if (event.clientY <= 0 && scrollElement.scrollTop > 0) {
-            scrollY = event.clientY - scrollBuffer;
+            scrollY = Math.min(event.clientY, -minScroll);
         } else if (event.clientY >= scrollElement.clientHeight && (scrollElement.scrollTop + scrollElement.clientHeight) < scrollElement.scrollHeight) {
-            scrollY = (event.clientY - scrollElement.clientHeight) + scrollBuffer;
+            scrollY = Math.max(event.clientY - scrollElement.clientHeight, minScroll);
         }
 
         return { x: scrollX, y: scrollY };
     }
 
+    private updateDragPosition(): void {
+        if (this._dragPosition) {
+            this._dragPosition = {
+                x: this._dragPosition.x + this._scrollOffset.x,
+                y: this._dragPosition.y + this._scrollOffset.y
+            };
+        }
+    }
+
     private startScrolling(scrollElement: HTMLElement): void {
         if (!this._scrollIntervalHandle) {
-            this._scrollIntervalHandle = window.setInterval(() => {
-                scrollElement.scrollLeft += this._scrollOffset.x;
-                scrollElement.scrollTop += this._scrollOffset.y;
-            }, 100);
+            this._scrollIntervalHandle = window.setInterval(() => this.performScroll(scrollElement), 100);
         }
     }
 
@@ -272,5 +291,14 @@ export class DragDirective<T = any> implements OnDestroy {
             clearInterval(this._scrollIntervalHandle);
             this._scrollIntervalHandle = 0;
         }
+    }
+
+    private performScroll(scrollElement: HTMLElement): void {
+        scrollElement.scrollLeft += this._scrollOffset.x;
+        scrollElement.scrollTop += this._scrollOffset.y;
+
+        this.updateDragPosition();
+
+        this.onDragScroll.emit({ pageX: this._dragPosition.x, pageY: this._dragPosition.y});
     }
 }

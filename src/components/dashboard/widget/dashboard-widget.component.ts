@@ -257,11 +257,27 @@ export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestro
     dragstart(handle: HTMLElement, event: MouseEvent, direction: ActionDirection): void {
         this.isResizing = true;
         this.dashboardService.isGrabbing$.next(null);
-        this.dashboardService.onResizeStart({ widget: this, direction, event, handle });
+        this.dashboardService.onResizeStart({
+            widget: this,
+            direction,
+            eventPosition: {
+                x: event.pageX,
+                y: event.pageY
+            },
+            handle
+        });
     }
 
     drag(handle: HTMLElement, event: MouseEvent, direction: ActionDirection): void {
-        this.dashboardService.onResizeDrag({ widget: this, direction, event, handle });
+        this.dashboardService.onResizeDrag({
+            widget: this,
+            direction,
+            eventPosition: {
+                x: event.pageX,
+                y: event.pageY
+            },
+            handle
+        });
     }
 
     dragend(): void {
