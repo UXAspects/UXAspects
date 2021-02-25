@@ -294,11 +294,16 @@ export class DragDirective<T = any> implements OnDestroy {
     }
 
     private performScroll(scrollElement: HTMLElement): void {
+        const previousLeft = scrollElement.scrollLeft;
+        const previousTop = scrollElement.scrollTop;
+
         scrollElement.scrollLeft += this._scrollOffset.x;
         scrollElement.scrollTop += this._scrollOffset.y;
 
-        this.updateDragPosition();
-
-        this.onDragScroll.emit({ pageX: this._dragPosition.x, pageY: this._dragPosition.y});
+        // only emit event if scroll actually happened
+        if (scrollElement.scrollLeft !== previousLeft || scrollElement.scrollTop !== previousTop) {
+            this.updateDragPosition();
+            this.onDragScroll.emit({ pageX: this._dragPosition.x, pageY: this._dragPosition.y});
+        }
     }
 }
