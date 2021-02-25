@@ -92,16 +92,16 @@ describe('Column Resizing Expanding Table Tests', () => {
 
         await page.resizeColumn(page.fixedExpandTable, 0, -370);
         expect(await page.getColumnHeaderWidth(page.fixedExpandTable, 0)).toBeGreaterThanOrEqual(100);
-        expect(await page.getColumnHeaderWidth(page.fixedExpandTable, 0)).toBeLessThanOrEqual(107);
+        expect(await page.getColumnHeaderWidth(page.fixedExpandTable, 0)).toBeLessThanOrEqual(113);
 
         expect(await imageCompare('column-resize-expanding-multiple-first-column')).toEqual(0);
 
         await page.resizeColumn(page.fixedExpandTable, 1, -370);
         expect(await page.getColumnHeaderWidth(page.fixedExpandTable, 1)).toBeGreaterThanOrEqual(100);
-        expect(await page.getColumnHeaderWidth(page.fixedExpandTable, 1)).toBeLessThanOrEqual(107);
-        expect(await page.getColumnHeaderWidth(page.fixedExpandTable, 2)).toBe(50);
-        expect(await page.getColumnHeaderWidth(page.fixedExpandTable, 3)).toBe(50);
-        expect(await page.getColumnHeaderWidth(page.fixedExpandTable, 4)).toBe(50);
+        expect(await page.getColumnHeaderWidth(page.fixedExpandTable, 1)).toBeLessThanOrEqual(112);
+        expect(await page.getColumnHeaderWidth(page.fixedExpandTable, 2)).toBe(51);
+        expect(await page.getColumnHeaderWidth(page.fixedExpandTable, 3)).toBe(51);
+        expect(await page.getColumnHeaderWidth(page.fixedExpandTable, 4)).toBe(51);
 
         expect(await imageCompare('column-resize-expanding-multiple-second-column')).toEqual(0);
 
@@ -111,11 +111,11 @@ describe('Column Resizing Expanding Table Tests', () => {
         await page.resizeColumn(page.fixedExpandTable, 2, 800);
 
         expect(await page.getColumnHeaderWidth(page.fixedExpandTable, 0)).toBeGreaterThanOrEqual(100);
-        expect(await page.getColumnHeaderWidth(page.fixedExpandTable, 0)).toBeLessThanOrEqual(107);
+        expect(await page.getColumnHeaderWidth(page.fixedExpandTable, 0)).toBeLessThanOrEqual(113);
         expect(await page.getColumnHeaderWidth(page.fixedExpandTable, 1)).toBeGreaterThanOrEqual(100);
-        expect(await page.getColumnHeaderWidth(page.fixedExpandTable, 1)).toBeLessThanOrEqual(107);
+        expect(await page.getColumnHeaderWidth(page.fixedExpandTable, 1)).toBeLessThanOrEqual(112);
         expect(await page.getColumnHeaderWidth(page.fixedExpandTable, 2)).toBeGreaterThanOrEqual(848);
-        expect(await page.getColumnHeaderWidth(page.fixedExpandTable, 2)).toBeLessThanOrEqual(856);
+        expect(await page.getColumnHeaderWidth(page.fixedExpandTable, 2)).toBeLessThanOrEqual(857);
         expect(await page.getColumnHeaderWidth(page.fixedExpandTable, 3)).toBeGreaterThanOrEqual(50);
         expect(await page.getColumnHeaderWidth(page.fixedExpandTable, 3)).toBeLessThanOrEqual(56);
         expect(await page.getColumnHeaderWidth(page.fixedExpandTable, 4)).toBeGreaterThanOrEqual(50);
