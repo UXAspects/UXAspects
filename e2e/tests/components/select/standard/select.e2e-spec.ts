@@ -646,4 +646,18 @@ describe('Select Tests', () => {
         expect(await page.confirmDropdownIsExpanded()).toBe(false);
         expect(await page.getSelectedLocationText()).toBe('[ "United Kingdom" ]');
     });
+
+    it('should allow quick filtering when using a lower filterDebounceTime value', async () => {
+        await page.toggleClearButton();
+        await page.clickOnIncrementFilterDebounce();
+        await page.getDropdown(false).sendKeys('al', Key.ENTER);
+        expect(await page.getSelectedLocationText()).toBe('"United States"', 'should select incorrect value when debounceTime is 1200');
+
+        await page.clickOnDecrementFilterDebounce();
+        await page.clickOnDecrementFilterDebounce();
+        await page.getClearButton().click();
+        await page.getDropdown(false).sendKeys('al');
+        await page.getDropdown(false).sendKeys(Key.ENTER);
+        expect(await page.getSelectedLocationText()).toBe('"Aland Islands"', 'should select correct value when debounceTime is 0');
+    });
 });
