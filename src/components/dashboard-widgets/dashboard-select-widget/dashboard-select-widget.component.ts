@@ -11,9 +11,11 @@ import {
     ViewChildren
 } from '@angular/core';
 import {ENTER, SPACE} from '@angular/cdk/keycodes';
+import {coerceBooleanProperty, coerceNumberProperty} from '@angular/cdk/coercion';
+
 import {PredefinedWidgetConfig} from '../interfaces/predefined-widget.interface';
 import {SelectConfig, SelectWidgetConfig} from '../interfaces/select-widget.interface';
-import {coerceBooleanProperty, coerceNumberProperty} from '@angular/cdk/coercion';
+
 
 @Component({
     selector: 'ux-dashboard-select-widget',

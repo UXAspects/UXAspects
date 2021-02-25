@@ -1,8 +1,11 @@
 import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
+import {coerceBooleanProperty, coerceNumberProperty} from '@angular/cdk/coercion';
+
+import {SidePanelComponent} from '../../side-panel/index';
+
 import {PredefinedWidgetConfig} from '../interfaces/predefined-widget.interface';
 import {TextWidgetConfig} from '../interfaces/text-widget.interface';
-import {SidePanelComponent} from '../../side-panel';
-import {coerceBooleanProperty, coerceNumberProperty} from '@angular/cdk/coercion';
+
 
 @Component({
     selector: 'ux-dashboard-text-widget',

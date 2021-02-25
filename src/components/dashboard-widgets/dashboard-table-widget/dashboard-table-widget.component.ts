@@ -3,9 +3,11 @@ import {
     Component,
     Input
 } from '@angular/core';
+import {coerceBooleanProperty, coerceNumberProperty} from '@angular/cdk/coercion';
+
 import {PredefinedWidgetConfig} from '../interfaces/predefined-widget.interface';
 import {TableWidgetConfig} from '../interfaces/table-widget.interface';
-import {coerceBooleanProperty, coerceNumberProperty} from '@angular/cdk/coercion';
+
 
 @Component({
     selector: 'ux-dashboard-table-widget',
