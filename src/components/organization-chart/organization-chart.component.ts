@@ -296,7 +296,7 @@ export class OrganizationChartComponent<T> implements AfterViewInit, OnChanges, 
             .on('keydown', this.onKeydown.bind(this))
             .on('focus', this.onFocus.bind(this))
             .on('mousedown', () => event.stopPropagation())
-            .on('click', node => this.toggle(node, false))
+            .on('click', this.onClick.bind(this))
             .each(this.renderNodeTemplate.bind(this))
             .each((node, index, group) => this.monitorFocus(group[index], node))
             .transition(defaultTransition)
@@ -394,9 +394,9 @@ export class OrganizationChartComponent<T> implements AfterViewInit, OnChanges, 
     }
 
     /** Toggle the collapsed state of a node */
-    toggle(node: OrganizationChartNode<T> | HierarchyPointNode<OrganizationChartNode<T>>, programmatically: boolean = true): void {
+    toggle(node: OrganizationChartNode<T> | HierarchyPointNode<OrganizationChartNode<T>>): void {
 
-        if (this._isTransitioning || (!this.toggleNodesOnClick && !programmatically)) {
+        if (this._isTransitioning) {
             return;
         }
 
@@ -758,9 +758,18 @@ export class OrganizationChartComponent<T> implements AfterViewInit, OnChanges, 
         return this._nodes.data()[index];
     }
 
+    /** Handle click events */
+    private onClick(node: HierarchyPointNode<OrganizationChartNode<T>>): void {
+        if (!this.toggleNodesOnClick) {
+            return;
+        }
+
+        this.toggle(node);
+    }
+
     /** Handle keyboard events */
     private onKeydown(node: HierarchyPointNode<OrganizationChartNode<T>>): void {
-        if (!this.toggleNodesOnClick ) {
+        if (!this.toggleNodesOnClick) {
             return;
         }
 

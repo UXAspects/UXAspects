@@ -1,22 +1,14 @@
-<div class="organization-chart">
+<ux-organization-chart
+    [dataset]="dataset"
+    [duration]="0"
+    [nodeWidth]="210"
+    [nodeHeight]="90"
+    [toggleNodesOnClick]="toggleNodesOnClick">
 
-    <ux-organization-chart
-        [dataset]="dataset"
-        [connector]="connector"
-        [nodeWidth]="210"
-        [nodeHeight]="90"
-        [toggleNodesOnClick]="toggleNodesOnClick">
+    <ng-template #nodeTemplate let-data="data" let-node="node" let-focused="focused">
+        <div class="organization-chart-node">{{data.name}}</div>
+    </ng-template>
 
-        <ng-template #nodeTemplate let-data="data" let-node="node" let-focused="focused">
-            <div class="organization-chart-node">
-                <p class="employee-name">{{ data.name }}</p>
-                <p class="employee-job-title">{{ data.position }}</p>
-            </div>
-        </ng-template>
+</ux-organization-chart>
 
-    </ux-organization-chart>
-</div>
-
-<button type="button" class="btn button-toggle-primary" id="toggleNodesBtn" (click)="toggleNodesOnClick = !toggleNodesOnClick">
-    Toggle Node
-</button>
+<ux-checkbox id="toggleNodesBtn" [(value)]="toggleNodesOnClick">toggleNodesOnClick</ux-checkbox>
