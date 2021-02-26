@@ -1,0 +1,14 @@
+<ux-organization-chart
+    [dataset]="dataset"
+    [duration]="0"
+    [nodeWidth]="210"
+    [nodeHeight]="90"
+    [toggleNodesOnClick]="toggleNodesOnClick">
+
+    <ng-template #nodeTemplate let-data="data" let-node="node" let-focused="focused">
+        <div class="organization-chart-node">{{data.name}}</div>
+    </ng-template>
+
+</ux-organization-chart>
+
+<ux-checkbox id="toggleNodesBtn" [(value)]="toggleNodesOnClick">toggleNodesOnClick</ux-checkbox>
