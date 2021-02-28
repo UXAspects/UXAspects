@@ -99,9 +99,9 @@ describe('Column Resizing Expanding Table Tests', () => {
         await page.resizeColumn(page.fixedExpandTable, 1, -370);
         expect(await page.getColumnHeaderWidth(page.fixedExpandTable, 1)).toBeGreaterThanOrEqual(100);
         expect(await page.getColumnHeaderWidth(page.fixedExpandTable, 1)).toBeLessThanOrEqual(112);
-        expect(await page.getColumnHeaderWidth(page.fixedExpandTable, 2)).toBe(50);
-        expect(await page.getColumnHeaderWidth(page.fixedExpandTable, 3)).toBe(50);
-        expect(await page.getColumnHeaderWidth(page.fixedExpandTable, 4)).toBe(50);
+        expect(await page.getColumnHeaderWidth(page.fixedExpandTable, 2)).toBe(51);
+        expect(await page.getColumnHeaderWidth(page.fixedExpandTable, 3)).toBe(51);
+        expect(await page.getColumnHeaderWidth(page.fixedExpandTable, 4)).toBe(51);
 
         expect(await imageCompare('column-resize-expanding-multiple-second-column')).toEqual(0);
 
