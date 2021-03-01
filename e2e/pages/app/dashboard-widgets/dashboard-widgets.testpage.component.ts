@@ -22,7 +22,7 @@ export class DashboardWidgetsTestpageComponent implements AfterViewInit {
     options: DashboardOptions = {
         columns: 4,
         padding: this.dashboardPadding,
-        rowHeight: 110,
+        rowHeight: 112,
         emptyRow: false,
         minWidth: 187
     };
