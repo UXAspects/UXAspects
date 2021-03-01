@@ -1,3 +1,4 @@
+import { ScrollDispatcher } from '@angular/cdk/scrolling';
 import { Directive, ElementRef, NgZone, Renderer2 } from '@angular/core';
 import { takeUntil, tap } from 'rxjs/operators';
 import { DragDirective, DragScrollEvent } from '../../../directives/drag/drag.directive';
@@ -10,10 +11,17 @@ import { DashboardWidgetComponent } from '../widget/dashboard-widget.component';
 })
 export class DashboardDragHandleDirective extends DragDirective {
 
-    constructor(widget: DashboardWidgetComponent, dashboardService: DashboardService, elementRef: ElementRef,
-        ngZone: NgZone, renderer: Renderer2, drag: DragService) {
+    constructor(
+        widget: DashboardWidgetComponent,
+        dashboardService: DashboardService,
+        elementRef: ElementRef<Element>,
+        ngZone: NgZone,
+        renderer: Renderer2,
+        scrollDispatcher: ScrollDispatcher,
+        drag: DragService
+    ) {
 
-        super(elementRef, ngZone, renderer, drag);
+        super(elementRef, ngZone, renderer, scrollDispatcher, drag);
 
         // inform the widget that it can be dragged
         widget.isDraggable = true;

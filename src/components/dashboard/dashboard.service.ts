@@ -2,7 +2,7 @@ import { Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject, combineLatest, Observable, Subject } from 'rxjs';
 import { distinctUntilChanged, filter, map, takeUntil } from 'rxjs/operators';
 import { tick } from '../../common/index';
-import { DragScrollEvent } from '../../directives/drag';
+import { DragScrollEvent } from '../../directives/drag/index';
 import { DashboardOptions } from './dashboard.component';
 import { DashboardStackMode } from './widget/dashboard-stack-mode.enum';
 import { DashboardWidgetComponent } from './widget/dashboard-widget.component';
