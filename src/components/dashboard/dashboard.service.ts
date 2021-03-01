@@ -296,7 +296,7 @@ export class DashboardService implements OnDestroy {
         const mousePosY = this._event.pageY - pageYOffset;
 
         // if there was no movement then do nothing
-        if (action.event.pageX === mousePosX && action.event.pageY === mousePosY) {
+        if (action.event.x === mousePosX && action.event.y === mousePosY) {
             return;
         }
 
