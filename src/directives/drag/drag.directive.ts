@@ -249,7 +249,7 @@ export class DragDirective<T = any> implements OnDestroy {
     }
 
     private getScrollParent(element: Element): Element {
-        if (!element) {
+        if (!element || element === document.body) {
             return document.documentElement;
         }
 
