@@ -22,6 +22,7 @@ export class SelectTestPageComponent implements OnInit {
     placeholder = 'Select a country';
     clearButton = false;
     customIcon = false;
+    filterDebounceTime = 200;
 
     pageSize = 20;
 
