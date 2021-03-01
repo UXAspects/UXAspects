@@ -1317,8 +1317,6 @@ export class DashboardService implements OnDestroy {
             height: widget.height
         };
 
-        console.log(`moveWidget: (${dimensions.x}, ${dimensions.y})`);
-
         this.restoreWidgets(true);
 
         // update widget position
