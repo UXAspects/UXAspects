@@ -37,16 +37,16 @@ describe('Dashboard Widgets', () => {
         expect(await page.getWidgetLocationValue(widgetActions, 'top')).toBe(0);
         expect(await page.getWidgetLocationValue(widgetActions, 'left')).toBe(0);
 
-        expect(await page.getWidgetLocationValue(widgetSelect, 'top')).toBe(110);
+        expect(await page.getWidgetLocationValue(widgetSelect, 'top')).toBe(112);
         expect(await page.getWidgetLocationValue(widgetSelect, 'left')).toBe(0);
 
         expect(await page.getWidgetLocationValue(widgetTable, 'top')).toBe(0);
         expect(await page.getWidgetLocationValue(widgetTable, 'left')).toBe(554);
 
-        expect(await page.getWidgetLocationValue(widgetText, 'top')).toBe(220);
+        expect(await page.getWidgetLocationValue(widgetText, 'top')).toBe(224);
         expect(await page.getWidgetLocationValue(widgetText, 'left')).toBe(0);
 
-        expect(await page.getWidgetLocationValue(widgetTextReadOnly, 'top')).toBe(440);
+        expect(await page.getWidgetLocationValue(widgetTextReadOnly, 'top')).toBe(448);
         expect(await page.getWidgetLocationValue(widgetTextReadOnly, 'left')).toBe(0);
     });
 
@@ -64,7 +64,7 @@ describe('Dashboard Widgets', () => {
 
         expect(await imageCompare('dashboard-widgets-moved')).toEqual(0);
 
-        expect(await page.getWidgetLocationValue(widgetActions, 'top')).toBe(660, 'widget-actions top');
+        expect(await page.getWidgetLocationValue(widgetActions, 'top')).toBe(672, 'widget-actions top');
         expect(await page.getWidgetLocationValue(widgetActions, 'left')).toBe(0, 'widget-actions left');
 
         expect(await page.getWidgetLocationValue(widgetSelect, 'top')).toBe(0, 'widget-select top');
@@ -73,10 +73,10 @@ describe('Dashboard Widgets', () => {
         expect(await page.getWidgetLocationValue(widgetTable, 'top')).toBe(0, 'widget-table top');
         expect(await page.getWidgetLocationValue(widgetTable, 'left')).toBe(554, 'widget-table left');
 
-        expect(await page.getWidgetLocationValue(widgetText, 'top')).toBe(220, 'widget-text top');
+        expect(await page.getWidgetLocationValue(widgetText, 'top')).toBe(224, 'widget-text top');
         expect(await page.getWidgetLocationValue(widgetText, 'left')).toBe(0, 'widget-text left');
 
-        expect(await page.getWidgetLocationValue(widgetTextReadOnly, 'top')).toBe(440, 'widget-text top');
+        expect(await page.getWidgetLocationValue(widgetTextReadOnly, 'top')).toBe(448, 'widget-text top');
         expect(await page.getWidgetLocationValue(widgetTextReadOnly, 'left')).toBe(0, 'widget-text left');
 
         expect(JSON.parse(await page.getLayoutOutput())).toEqual(layoutMock);
