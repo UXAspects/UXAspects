@@ -1,4 +1,4 @@
-import { browser, by, element, ElementFinder, protractor } from 'protractor';
+import { $, browser, by, element, ElementFinder, protractor } from 'protractor';
 
 export const numberOfCountries: number = 251;
 export const scrollingTimeout: number = 5000;
@@ -191,6 +191,14 @@ export class SelectPage {
 
     async clickOnDecrementPageSize() {
         await this.pageSize.$('div.number-picker-controls').$('div.number-picker-control-down').click();
+    }
+
+    async clickOnIncrementFilterDebounce() {
+        await $('#filterDebounceTimeInput div.number-picker-controls').$('div.number-picker-control-up').click();
+    }
+
+    async clickOnDecrementFilterDebounce() {
+        await $('#filterDebounceTimeInput div.number-picker-controls').$('div.number-picker-control-down').click();
     }
 
     async clickOnTag(index: number) {

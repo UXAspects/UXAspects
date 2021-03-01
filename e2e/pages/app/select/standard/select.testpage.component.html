@@ -16,7 +16,8 @@
                 [placeholder]="placeholder"
                 [clearButton]="clearButton"
                 [(recentOptions)]="recentOptions"
-                [recentOptionsMaxCount]="recentOptionsMaxCount">
+                [recentOptionsMaxCount]="recentOptionsMaxCount"
+                [filterDebounceTime]="filterDebounceTime">
                 <ng-template *ngIf="customIcon" #icon>
                     <div id="custom-icon" class="ux-select-icon">
                         <ux-icon name="add"></ux-icon>
@@ -112,6 +113,17 @@
                 id="pageSize"
                 [(value)]="pageSize"
                 [disabled]="!(pagingEnabled | async)"
+            >
+            </ux-number-picker-inline>
+        </div>
+
+        <div>
+            <label for="filterDebounceTimeInput">filterDebounceTime</label>
+            <ux-number-picker-inline
+                id="filterDebounceTimeInput"
+                [(value)]="filterDebounceTime"
+                [step]="1000"
+                [min]="0"
             >
             </ux-number-picker-inline>
         </div>
