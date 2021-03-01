@@ -1,12 +1,11 @@
 import { Directive, ElementRef, EventEmitter, Input, NgZone, OnDestroy, Output, Renderer2 } from '@angular/core';
 import { fromEvent, Subject } from 'rxjs';
 import { filter, first, takeUntil } from 'rxjs/operators';
-import { Coordinates } from '../../common/index';
 import { DragService, UxDragEvent } from './drag.service';
 
 export interface DragScrollEvent {
-    pageX: number;
-    pageY: number;
+    offsetX: number;
+    offsetY: number;
 }
 
 @Directive({
@@ -65,11 +64,8 @@ export class DragDirective<T = any> implements OnDestroy {
     /** Create an observable from the mouse up event */
     private _mouseup$ = fromEvent<MouseEvent>(document, 'mouseup');
 
-    /** The current position of the cursor while dragging */
-    private _dragPosition: Coordinates;
-
     /** The offset in pixels currently being scrolled while dragging */
-    private _scrollOffset: Coordinates = { x: 0, y: 0 };
+    private _scrollOffset: { x: number, y: number } = { x: 0, y: 0 };
 
     /** The current `setInterval` handle for periodic scrolling */
     private _scrollIntervalHandle: number;
@@ -77,7 +73,12 @@ export class DragDirective<T = any> implements OnDestroy {
     /** Use an observable to unsubscribe from all subscriptions */
     protected _onDestroy = new Subject<void>();
 
-    constructor(private _elementRef: ElementRef, private _ngZone: NgZone, private _renderer: Renderer2, private _drag: DragService<T>) {
+    constructor(
+        private _elementRef: ElementRef<Element>,
+        private _ngZone: NgZone,
+        private _renderer: Renderer2,
+        private _drag: DragService<T>
+    ) {
 
         // ensure all mouse down events on the object are captured
         this._mousedown$.pipe(filter(() => this.draggable), takeUntil(this._onDestroy))
@@ -107,8 +108,6 @@ export class DragDirective<T = any> implements OnDestroy {
     dragStart(event: MouseEvent): void {
         event.preventDefault();
 
-        this._dragPosition = { x: event.pageX, y: event.pageY };
-
         if (this.clone) {
             // clone the node
             this.cloneNode(event);
@@ -134,8 +133,6 @@ export class DragDirective<T = any> implements OnDestroy {
     dragMove(event: MouseEvent): void {
         event.preventDefault();
 
-        this._dragPosition = { x: event.pageX, y: event.pageY };
-
         // scroll the viewport if needed
         this.updateScrolling(event);
 
@@ -149,8 +146,6 @@ export class DragDirective<T = any> implements OnDestroy {
 
     /** Emit event and destroy clone when dragging ends */
     dragEnd(): void {
-
-        this._dragPosition = null;
 
         // if the drag ended outside of the viewport, stop the scrolling interval
         this.stopScrolling();
@@ -175,7 +170,7 @@ export class DragDirective<T = any> implements OnDestroy {
     cloneNode(event: MouseEvent): void {
 
         // duplicate the node
-        this._clone = this._elementRef.nativeElement.cloneNode(true);
+        this._clone = this._elementRef.nativeElement.cloneNode(true) as Element;
 
         // store the position within the draggable element
         const { top, left, width } = this._elementRef.nativeElement.getBoundingClientRect();
@@ -239,7 +234,11 @@ export class DragDirective<T = any> implements OnDestroy {
     }
 
     private updateScrolling(event: MouseEvent): void {
-        const scrollElement = document.documentElement;
+        const scrollElement = this.getScrollParent(this._elementRef.nativeElement.parentElement);
+        if (!scrollElement) {
+            return;
+        }
+
         this._scrollOffset = this.getScrollOffsets(scrollElement, event);
 
         if (this._scrollOffset.x === 0 && this._scrollOffset.y === 0) {
@@ -249,38 +248,50 @@ export class DragDirective<T = any> implements OnDestroy {
         }
     }
 
-    private getScrollOffsets(scrollElement: HTMLElement, event: MouseEvent): Coordinates {
+    private getScrollParent(element: Element): Element {
+        if (!element) {
+            return document.documentElement;
+        }
+
+        return this.isScrollable(element) ? element : this.getScrollParent(element.parentElement);
+    }
+
+    private isScrollable(element: Element): boolean {
+        const overflowRegex = /(auto|scroll)/;
+        const { overflow, overflowX, overflowY } = getComputedStyle(element);
+
+        return overflowRegex.test(overflow + overflowX + overflowY);
+    }
+
+    private getScrollOffsets(scrollElement: Element, event: MouseEvent): { x: number, y: number } {
         let scrollX = 0;
         let scrollY = 0;
 
-        // additional amount to scroll since we want to scroll if the cursor is exactly at the edge of the viewport
+        // scroll by at least this much so that it still scrolls if the pointer is exactly at the edge of the scroll element
         const minScroll = 5;
 
-        if (event.clientX <= 0 && scrollElement.scrollLeft > 0) {
-            scrollX = Math.min(event.clientX, -minScroll);
-        } else if (event.clientX >= scrollElement.clientWidth && (scrollElement.scrollLeft + scrollElement.clientWidth) < scrollElement.scrollWidth) {
-            scrollX = Math.max(event.clientX - scrollElement.clientWidth, minScroll);
+        const isRoot = (scrollElement === document.documentElement);
+
+        const bounds = scrollElement.getBoundingClientRect();
+        const pointerOffsetX = isRoot ? event.clientX : event.clientX - bounds.x;
+        const pointerOffsetY = isRoot ? event.clientY : event.clientY - bounds.y;
+
+        if (pointerOffsetX <= 0 && scrollElement.scrollLeft > 0) {
+            scrollX = Math.min(pointerOffsetX, -minScroll);
+        } else if (pointerOffsetX >= scrollElement.clientWidth && (scrollElement.scrollLeft + scrollElement.clientWidth) < scrollElement.scrollWidth) {
+            scrollX = Math.max(pointerOffsetX - scrollElement.clientWidth, minScroll);
         }
 
-        if (event.clientY <= 0 && scrollElement.scrollTop > 0) {
-            scrollY = Math.min(event.clientY, -minScroll);
-        } else if (event.clientY >= scrollElement.clientHeight && (scrollElement.scrollTop + scrollElement.clientHeight) < scrollElement.scrollHeight) {
-            scrollY = Math.max(event.clientY - scrollElement.clientHeight, minScroll);
+        if (pointerOffsetY <= 0 && scrollElement.scrollTop > 0) {
+            scrollY = Math.min(pointerOffsetY, -minScroll);
+        } else if (pointerOffsetY >= scrollElement.clientHeight && (scrollElement.scrollTop + scrollElement.clientHeight) < scrollElement.scrollHeight) {
+            scrollY = Math.max(pointerOffsetY - scrollElement.clientHeight, minScroll);
         }
 
         return { x: scrollX, y: scrollY };
     }
 
-    private updateDragPosition(): void {
-        if (this._dragPosition) {
-            this._dragPosition = {
-                x: this._dragPosition.x + this._scrollOffset.x,
-                y: this._dragPosition.y + this._scrollOffset.y
-            };
-        }
-    }
-
-    private startScrolling(scrollElement: HTMLElement): void {
+    private startScrolling(scrollElement: Element): void {
         if (!this._scrollIntervalHandle) {
             this._scrollIntervalHandle = window.setInterval(() => this.performScroll(scrollElement), 100);
         }
@@ -293,7 +304,7 @@ export class DragDirective<T = any> implements OnDestroy {
         }
     }
 
-    private performScroll(scrollElement: HTMLElement): void {
+    private performScroll(scrollElement: Element): void {
         const previousLeft = scrollElement.scrollLeft;
         const previousTop = scrollElement.scrollTop;
 
@@ -302,8 +313,7 @@ export class DragDirective<T = any> implements OnDestroy {
 
         // only emit event if scroll actually happened
         if (scrollElement.scrollLeft !== previousLeft || scrollElement.scrollTop !== previousTop) {
-            this.updateDragPosition();
-            this.onDragScroll.emit({ pageX: this._dragPosition.x, pageY: this._dragPosition.y});
+            this.onDragScroll.emit({ offsetX: this._scrollOffset.x, offsetY: this._scrollOffset.y});
         }
     }
 }

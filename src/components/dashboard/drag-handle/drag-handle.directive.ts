@@ -2,7 +2,7 @@ import { Directive, ElementRef, NgZone, Renderer2 } from '@angular/core';
 import { takeUntil, tap } from 'rxjs/operators';
 import { DragDirective, DragScrollEvent } from '../../../directives/drag/drag.directive';
 import { DragService } from '../../../directives/drag/index';
-import { ActionDirection, DashboardAction, DashboardService } from '../dashboard.service';
+import { ActionDirection, DashboardService } from '../dashboard.service';
 import { DashboardWidgetComponent } from '../widget/dashboard-widget.component';
 
 @Directive({
@@ -19,26 +19,15 @@ export class DashboardDragHandleDirective extends DragDirective {
         widget.isDraggable = true;
 
         this.onDragStart.pipe(takeUntil(this._onDestroy), tap(() => dashboardService.isGrabbing$.next(null)))
-            .subscribe((event: MouseEvent) => dashboardService.onDragStart(this.createDashboardAction(widget, event)));
+            .subscribe((event: MouseEvent) => dashboardService.onDragStart({ widget: widget, direction: ActionDirection.Move, event: event }));
 
         this.onDrag.pipe(takeUntil(this._onDestroy))
-            .subscribe((event: MouseEvent) => dashboardService.onDrag(this.createDashboardAction(widget, event)));
+            .subscribe((event: MouseEvent) => dashboardService.onDrag({ widget: widget, direction: ActionDirection.Move, event: event }));
 
         this.onDragScroll.pipe(takeUntil(this._onDestroy))
-            .subscribe((event: DragScrollEvent) => dashboardService.onDrag(this.createDashboardAction(widget, event)));
+            .subscribe((event: DragScrollEvent) => dashboardService.onDragScroll(widget, event));
 
         this.onDragEnd.pipe(takeUntil(this._onDestroy))
             .subscribe(() => dashboardService.onDragEnd());
-    }
-
-    private createDashboardAction(widget: DashboardWidgetComponent, event: MouseEvent | DragScrollEvent): DashboardAction {
-        return {
-            widget,
-            direction: ActionDirection.Move,
-            eventPosition: {
-                x: event.pageX,
-                y: event.pageY
-            }
-        };
     }
 }
