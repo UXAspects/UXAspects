@@ -1,7 +1,13 @@
+import { ScrollDispatcher } from '@angular/cdk/scrolling';
 import { Directive, ElementRef, EventEmitter, Input, NgZone, OnDestroy, Output, Renderer2 } from '@angular/core';
 import { fromEvent, Subject } from 'rxjs';
 import { filter, first, takeUntil } from 'rxjs/operators';
 import { DragService, UxDragEvent } from './drag.service';
+
+export interface DragScrollEvent {
+    offsetX: number;
+    offsetY: number;
+}
 
 @Directive({
     selector: '[uxDrag]'
@@ -26,6 +32,9 @@ export class DragDirective<T = any> implements OnDestroy {
     /** Emit an event when the mouse moves while dragging */
     @Output() onDrag = new EventEmitter<MouseEvent>();
 
+    /** Emit an event when the document scrolls while dragging */
+    @Output() onDragScroll = new EventEmitter<DragScrollEvent>();
+
     /** Emit an event when the dragging finishes */
     @Output() onDragEnd = new EventEmitter<void>();
 
@@ -47,6 +56,21 @@ export class DragDirective<T = any> implements OnDestroy {
     /** Store the mouse offset for the cloned element position */
     private _offset: { x: number, y: number };
 
+    /** The nearest scrolling ancestor, populated while dragging */
+    private _scrollParent: Element;
+
+    /** The current scroll position of _scrollParent */
+    private _scrollPosition: { top: number, left: number };
+
+    /** The scroll event listener handle */
+    private _scrollListener: () => void;
+
+    /** The offset in pixels currently being scrolled while dragging */
+    private _scrollOffset: { x: number, y: number } = { x: 0, y: 0 };
+
+    /** The current `setInterval` handle for periodic scrolling */
+    private _scrollIntervalHandle: number;
+
     /** Create an observable from the mouse down event */
     private _mousedown$ = fromEvent<MouseEvent>(this._elementRef.nativeElement, 'mousedown');
 
@@ -59,7 +83,13 @@ export class DragDirective<T = any> implements OnDestroy {
     /** Use an observable to unsubscribe from all subscriptions */
     protected _onDestroy = new Subject<void>();
 
-    constructor(private _elementRef: ElementRef, private _ngZone: NgZone, private _renderer: Renderer2, private _drag: DragService<T>) {
+    constructor(
+        private _elementRef: ElementRef<Element>,
+        private _ngZone: NgZone,
+        private _renderer: Renderer2,
+        private _scrollDispatcher: ScrollDispatcher,
+        private _drag: DragService<T>
+    ) {
 
         // ensure all mouse down events on the object are captured
         this._mousedown$.pipe(filter(() => this.draggable), takeUntil(this._onDestroy))
@@ -89,6 +119,9 @@ export class DragDirective<T = any> implements OnDestroy {
     dragStart(event: MouseEvent): void {
         event.preventDefault();
 
+        // start listening for scroll events on the nearest scrollable ancestor element
+        this.createScrollEventListener();
+
         if (this.clone) {
             // clone the node
             this.cloneNode(event);
@@ -114,6 +147,9 @@ export class DragDirective<T = any> implements OnDestroy {
     dragMove(event: MouseEvent): void {
         event.preventDefault();
 
+        // scroll the viewport if needed
+        this.updateScrolling(event);
+
         if (this._clone) {
             this.updateNodePosition(event);
         }
@@ -124,6 +160,12 @@ export class DragDirective<T = any> implements OnDestroy {
 
     /** Emit event and destroy clone when dragging ends */
     dragEnd(): void {
+
+        // if the drag ended outside of the viewport, stop the scrolling interval
+        this.stopScrolling();
+
+        this.removeScrollEventListener();
+
         // if there was a clone, remove it
         if (this._clone) {
             this._renderer.removeChild(document.body, this._clone);
@@ -140,11 +182,21 @@ export class DragDirective<T = any> implements OnDestroy {
         this._isDragging = false;
     }
 
+    /** Emit the onDragScroll event */
+    scroll(): void {
+        const offsetX = this._scrollParent.scrollLeft - this._scrollPosition.left;
+        const offsetY = this._scrollParent.scrollTop - this._scrollPosition.top;
+
+        this.onDragScroll.emit({ offsetX, offsetY });
+
+        this._scrollPosition = { top: this._scrollParent.scrollTop, left: this._scrollParent.scrollLeft };
+    }
+
     /** Create an exact clone of an element */
     cloneNode(event: MouseEvent): void {
 
         // duplicate the node
-        this._clone = this._elementRef.nativeElement.cloneNode(true);
+        this._clone = this._elementRef.nativeElement.cloneNode(true) as Element;
 
         // store the position within the draggable element
         const { top, left, width } = this._elementRef.nativeElement.getBoundingClientRect();
@@ -202,7 +254,95 @@ export class DragDirective<T = any> implements OnDestroy {
 
     /** Unsubscribe from all subscriptions */
     ngOnDestroy(): void {
+        this.stopScrolling();
+        this.removeScrollEventListener();
         this._onDestroy.next();
         this._onDestroy.complete();
+    }
+
+    private updateScrolling(event: MouseEvent): void {
+        this._scrollOffset = this.getScrollOffsets(this._scrollParent, event);
+
+        if (this._scrollOffset.x === 0 && this._scrollOffset.y === 0) {
+            this.stopScrolling();
+        } else {
+            this.startScrolling(this._scrollParent);
+        }
+    }
+
+    private getScrollParent(): Element {
+        // Get the nearest ancestor element with the cdkScrollable directive applied
+        const containers = this._scrollDispatcher.getAncestorScrollContainers(this._elementRef);
+        if (containers.length > 0) {
+            return containers[containers.length - 1].getElementRef().nativeElement;
+        }
+
+        return document.documentElement;
+    }
+
+    private createScrollEventListener(): void {
+        // get the nearest scrollable ancestor
+        this._scrollParent = this.getScrollParent();
+
+        // save the current scroll position to allow calculation of the scroll delta
+        this._scrollPosition = { top: this._scrollParent.scrollTop, left: this._scrollParent.scrollLeft };
+
+        // start listening for scroll events
+        const target = this._scrollParent === document.documentElement ? 'document' : this._scrollParent;
+        this._scrollListener = this._renderer.listen(target, 'scroll', this.scroll.bind(this));
+    }
+
+    private removeScrollEventListener(): void {
+        // remove the scroll event listener
+        if (this._scrollListener) {
+            this._scrollListener();
+            this._scrollListener = null;
+        }
+    }
+
+    private getScrollOffsets(scrollElement: Element, event: MouseEvent): { x: number, y: number } {
+        let scrollX = 0;
+        let scrollY = 0;
+
+        // scroll by at least this much so that it still scrolls if the pointer is exactly at the edge of the scroll element
+        const minScroll = 5;
+
+        const isRoot = (scrollElement === document.documentElement);
+
+        const bounds = scrollElement.getBoundingClientRect();
+        const pointerOffsetX = isRoot ? event.clientX : event.clientX - bounds.x;
+        const pointerOffsetY = isRoot ? event.clientY : event.clientY - bounds.y;
+
+        if (pointerOffsetX <= 0 && scrollElement.scrollLeft > 0) {
+            scrollX = Math.min(pointerOffsetX, -minScroll);
+        } else if (pointerOffsetX >= scrollElement.clientWidth && (scrollElement.scrollLeft + scrollElement.clientWidth) < scrollElement.scrollWidth) {
+            scrollX = Math.max(pointerOffsetX - scrollElement.clientWidth, minScroll);
+        }
+
+        if (pointerOffsetY <= 0 && scrollElement.scrollTop > 0) {
+            scrollY = Math.min(pointerOffsetY, -minScroll);
+        } else if (pointerOffsetY >= scrollElement.clientHeight && (scrollElement.scrollTop + scrollElement.clientHeight) < scrollElement.scrollHeight) {
+            scrollY = Math.max(pointerOffsetY - scrollElement.clientHeight, minScroll);
+        }
+
+        return { x: scrollX, y: scrollY };
+    }
+
+    private startScrolling(scrollElement: Element): void {
+        if (!this._scrollIntervalHandle) {
+            this._scrollIntervalHandle = window.setInterval(() => this.performScroll(scrollElement), 100);
+        }
+    }
+
+    private stopScrolling(): void {
+        if (this._scrollIntervalHandle) {
+            clearInterval(this._scrollIntervalHandle);
+            this._scrollIntervalHandle = 0;
+        }
+    }
+
+    private performScroll(scrollElement: Element): void {
+        scrollElement.scrollLeft += this._scrollOffset.x;
+        scrollElement.scrollTop += this._scrollOffset.y;
     }
 }

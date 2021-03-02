@@ -2,9 +2,10 @@ import { Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject, combineLatest, Observable, Subject } from 'rxjs';
 import { distinctUntilChanged, filter, map, takeUntil } from 'rxjs/operators';
 import { tick } from '../../common/index';
+import { DragScrollEvent } from '../../directives/drag/index';
 import { DashboardOptions } from './dashboard.component';
-import { DashboardWidgetComponent } from './widget/dashboard-widget.component';
 import { DashboardStackMode } from './widget/dashboard-stack-mode.enum';
+import { DashboardWidgetComponent } from './widget/dashboard-widget.component';
 
 @Injectable()
 export class DashboardService implements OnDestroy {
@@ -519,36 +520,22 @@ export class DashboardService implements OnDestroy {
     onDrag(action: DashboardAction): void {
 
         // if there was no movement then do nothing
-        if (action.event.pageX === this._event.pageX && action.event.pageY === this._event.pageY) {
+        if (action.event.clientX === this._event.clientX && action.event.clientY === this._event.clientY) {
             return;
         }
 
         // get the current mouse position
-        const mouseX = action.event.pageX - this._event.pageX;
-        const mouseY = action.event.pageY - this._event.pageY;
+        const mouseX = action.event.clientX - this._event.clientX;
+        const mouseY = action.event.clientY - this._event.clientY;
 
         // store the latest event
         this._event = action.event;
 
-        const dimensions: DashboardWidgetDimensions = {
-            x: action.widget.x + mouseX,
-            y: action.widget.y + mouseY,
-            width: action.widget.width,
-            height: action.widget.height
-        };
+        this.moveWidget(action.widget, mouseX, mouseY);
+    }
 
-        this.restoreWidgets(true);
-
-        // update widget position
-        action.widget.setBounds(dimensions.x, dimensions.y, dimensions.width, dimensions.height);
-
-        // update placeholder position and value
-        this.setPlaceholderBounds(true, dimensions.x, dimensions.y, dimensions.width, dimensions.height);
-
-        // show the widget positions if the current positions and sizes were to persist
-        this.shiftWidgets();
-
-        this.setDashboardHeight();
+    onDragScroll(widget: DashboardWidgetComponent, event: DragScrollEvent): void {
+        this.moveWidget(widget, event.offsetX, event.offsetY);
     }
 
     getRowHeight(): number {
@@ -1319,6 +1306,29 @@ export class DashboardService implements OnDestroy {
         }
 
         return widgets;
+    }
+
+    private moveWidget(widget: DashboardWidgetComponent, offsetX: number, offsetY: number): void {
+
+        const dimensions: DashboardWidgetDimensions = {
+            x: widget.x + offsetX,
+            y: widget.y + offsetY,
+            width: widget.width,
+            height: widget.height
+        };
+
+        this.restoreWidgets(true);
+
+        // update widget position
+        widget.setBounds(dimensions.x, dimensions.y, dimensions.width, dimensions.height);
+
+        // update placeholder position and value
+        this.setPlaceholderBounds(true, dimensions.x, dimensions.y, dimensions.width, dimensions.height);
+
+        // show the widget positions if the current positions and sizes were to persist
+        this.shiftWidgets();
+
+        this.setDashboardHeight();
     }
 }
 
