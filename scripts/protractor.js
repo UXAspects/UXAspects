@@ -23,14 +23,24 @@ function startSeleniumContainer() {
 }
 
 function getHostAddressFromSeleniumContainer() {
-    const cmd = `docker exec ${DOCKER_CONTAINER_NAME} getent ahosts host.docker.internal | awk 'NR==1 { print $1 }'`;
-    const address = execSync(cmd, { encoding: 'utf8' }).trim();
+    const cmd = `docker exec ${DOCKER_CONTAINER_NAME} getent ahosts host.docker.internal`;
+    const output = execSync(cmd, { encoding: 'utf8' });
+    const address = getHostAddressFromAHosts(output);
 
     if (!isIp(address)) {
         throw new Error(`Expected an IP address but got "${address}". Make sure docker container ${DOCKER_CONTAINER_NAME} is running.`);
     }
 
     return address;
+}
+
+function getHostAddressFromAHosts(hosts) {
+    const match = hosts.match(/^(?:\d+\.){3}\d+/m);
+    if (!match) {
+        return null;
+    }
+
+    return match[0];
 }
 
 function runProtractor(configFile) {
