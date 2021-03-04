@@ -1,19 +1,24 @@
-tr.leb-group {
-    width: 100%;
-    display: inline-flex;
-    align-items: center;
+ux-leb-group {
+    .leb-group {
+        ux-alert.ux-alert-error {
+            padding: 5px 15px;
+            display: inline-flex;
+            vertical-align: middle;
+        }
 
-    td.logical-operator-delete {
-        margin-left: auto;
-    }
+        td.logical-operator-delete {
+            margin-left: auto;
+        }
 
-    .delete-btn {
-        .button-warning;
+        .delete-btn {
+            .button-warning;
 
-        &:disabled {
-            background-color: @btn-warning-disabled-bg;
-            color: @btn-warning-disabled-color;
-            border-color: @btn-warning-disabled-border;
+            &:disabled {
+                background-color: @btn-warning-disabled-bg;
+                color: @btn-warning-disabled-color;
+                border-color: @btn-warning-disabled-border;
+            }
         }
     }
 }
+

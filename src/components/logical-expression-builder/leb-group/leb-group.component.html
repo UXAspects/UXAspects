@@ -1,11 +1,15 @@
-<tr
+<div
     expressionRow
     [rowPath]="path"
-    class="leb-group"
-    uxHoverActionContainer
-    [style.padding-left.px]="indent || 8">
+    class="leb-group {{ selectedLogicalOperator?.label }}"
+    uxHoverActionContainer>
+    <span class="leb-cell">
+        <span
+            class="firstTreeElement"
+            *ngFor="let _levels of [].constructor(indent / 40 );let _last = last"
+            [ngClass]="{'firstOperatorTreeElement':_last}"
+        ></span>
 
-    <td>
         <div class="btn-group">
             <button
                 type="button"
@@ -30,16 +34,16 @@
                 <span class="dropdown-menu-text">{{logicalOperator.label | uppercase}}</span>
             </button>
         </ux-menu>
-    </td>
+    </span>
 
-    <td *ngIf="!_valid" class="m-l-md text-error">
+    <span *ngIf="!_valid" class="leb-cell m-l-md text-error">
         <ux-alert [dismissible]="false" type="error">
             <ux-icon uxAlertIcon name="alert"></ux-icon>
             {{ _errorMessage }}
         </ux-alert>
-    </td>
+    </span>
 
-    <td class="logical-operator-delete hover-btn-cell">
+    <span class="leb-cell logical-operator-delete hover-btn-cell">
         <button
             uxHoverAction
             uxFocusIndicatorOrigin
@@ -50,8 +54,8 @@
             [attr.aria-label]="('deleteLogicalOperatorAriaLabel' | l10n) || 'Delete logical operator'">
             <span class="ux-icon ux-icon-trash" aria-hidden="true"></span>
         </button>
-    </td>
-</tr>
+    </span>
+</div>
 
 <ng-container *ngFor="let child of _children; index as index">
     <ux-leb-condition
@@ -74,12 +78,17 @@
 </ng-container>
 
 <ng-container *ngIf="_showAddBtn">
-    <tr
+    <div
         expressionRow
         [rowPath]="(_children?.length || 0) | rowPath:path"
-        class="leb-group"
-        [style.padding-left.px]="indent + additionalIndent">
-        <td>
+        class="leb-group">
+        <span class="leb-cell">
+        <span
+            class="firstTreeElement"
+            *ngFor="let _levels of [].constructor(indent / 40 )"
+        ></span><span
+            class="L-TreeElement"
+        ></span>
             <button
                 [uxMenuTriggerFor]="addMenu"
                 [disabled]="_editBlocked$ | async"
@@ -92,8 +101,8 @@
                 aria-label="Add">
                 <span class="ux-icon ux-icon-add" aria-hidden="true"></span>
             </button>
-        </td>
-    </tr>
+        </span>
+    </div>
 
     <ux-menu #addMenu>
         <button

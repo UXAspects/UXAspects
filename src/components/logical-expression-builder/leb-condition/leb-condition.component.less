@@ -1,74 +1,168 @@
-tr.leb-condition-row {
+ux-leb-condition, ux-leb-group {
     width: 100%;
-    display: inline-flex;
-    justify-content: space-between;
-    align-items: center;
+    display: block;
 
-    td {
-        margin-right: @spacing-xs;
+    .expression-row.not.leb-group + ux-leb-condition div span span.lastTreeElement {
+        width: 8px;
 
-        &:last-child {
-            margin-right: 0;
+        &:before {
+            content: '';
+            position: absolute;
+            border-left: 1px solid @grey5;
+            border-bottom: 1px solid @grey5;
+            height: 50%;
+            width: 8px;
+            bottom: 50%;
         }
     }
 
-    .form-group {
-        margin-bottom: 0;
-    }
+    .leb-condition-row, .leb-group {
+        width: 100%;
+        display: block;
+        position: relative;
 
-    // Edit mode containers
-    .field-selection {
-        flex: 1;
-    }
+        .leb-cell {
+            display: inline-block;
 
-    .operator-selection {
-        flex: 1;
-    }
+            &:before {
+                content: '';
+                vertical-align: middle;
+                height: 40px;
+                display: inline-block;
+            }
 
-    .value-input-container {
-        flex: 2;
-    }
+            .firstTreeElement, .lastTreeElement, .L-TreeElement, .firstOperatorTreeElement {
+                display: inline-block;
+                width: 32px;
+                height: 23.8px;
 
-    // Condition Text
-    .leb-field-display {
-        font-weight: bold;
-    }
+                &:first-child {
+                    margin-left: 24px;
+                }
 
-    .leb-operator-display {
-        color: @grey4;
-    }
+                &:before {
+                    content: '';
+                    position: absolute;
+                    border-left: 1px solid @grey5;
+                    height: 100%;
+                }
+            }
 
-    .leb-value-display {
-        font-weight: bold;
-        color: @primary;
-    }
+            .L-TreeElement {
+                width: 8px;
 
-    // Buttons
-    .edit-btn,
-    .confirm-btn {
-        .button-primary;
+                &:before {
+                    content: '';
+                    position: absolute;
+                    border-left: 1px solid @grey5;
+                    border-bottom: 1px solid @grey5;
+                    height: 50%;
+                    width: 8px;
+                    bottom: 50%;
+                }
+            }
 
-        &:disabled {
-            .button-primary-disabled;
+            .firstOperatorTreeElement, .lastTreeElement {
+                width: 8px;
+
+                &:after {
+                    content: '';
+                    position: absolute;
+                    height: 50%;
+                    width: 8px;
+                    bottom: 50%;
+                    border-bottom: 1px solid @grey5;
+                }
+            }
         }
-    }
 
-    .embed-btn {
-        .button-secondary;
-
-        &:disabled {
-            .button-secondary-disabled;
-        }
-    }
-
-    .delete-btn,
-    .cancel-btn {
-        .button-warning;
-
-        &:disabled {
-            background-color: @btn-warning-disabled-bg;
-            color: @btn-warning-disabled-color;
-            border-color: @btn-warning-disabled-border;
+        span.leb-cell.hover-btn-cell {
+            position: absolute;
+            display: inline-block;
+            right: @spacing-xs;
         }
     }
 }
+
+ux-leb-condition {
+    .leb-condition-row {
+        .form-group {
+            margin-bottom: 0;
+        }
+
+        // Edit mode containers
+        .edit-mode {
+            display: flex;
+            align-items: center;
+            min-height: 40px;
+
+            .field-selection {
+                flex: 1;
+                margin-right: @spacing-xs;
+            }
+
+            .operator-selection {
+                flex: 1;
+                margin-right: @spacing-xs;
+            }
+
+            .value-input-container {
+                flex: 2;
+                margin-right: @spacing-xs;
+            }
+
+            .confirm-cancel-btn-cell {
+                margin-right: @spacing-xs;
+            }
+        }
+        // Condition Text
+
+        .leb-field-display, .leb-operator-display, .leb-value-display {
+            font-weight: bold;
+            display: inline-block;
+        }
+
+        .leb-field-display {
+            font-weight: bold;
+        }
+
+        .leb-operator-display {
+            color: @grey4;
+        }
+
+        .leb-value-display {
+            font-weight: bold;
+            color: @primary;
+        }
+
+        // Buttons
+        .edit-btn,
+        .confirm-btn {
+            .button-primary;
+
+            &:disabled {
+                .button-primary-disabled;
+            }
+        }
+
+        .embed-btn {
+            .button-secondary;
+
+            &:disabled {
+                .button-secondary-disabled;
+            }
+        }
+
+        .delete-btn,
+        .cancel-btn {
+            .button-warning;
+
+            &:disabled {
+                background-color: @btn-warning-disabled-bg;
+                color: @btn-warning-disabled-color;
+                border-color: @btn-warning-disabled-border;
+            }
+        }
+    }
+}
+

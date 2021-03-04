@@ -1,4 +1,4 @@
-<tr
+<div
     expressionRow
     [rowPath]="path"
     *ngIf="_isInEditMode; else staticMode"
@@ -8,71 +8,78 @@
     [cdkTrapFocusAutoCapture]="true"
     (keydown.escape)="cancelEdit()">
 
-    <td class="field-selection">
-        <ux-select
-            [value]="_field"
-            [input]="_field?.label || null"
-            (valueChange)="handleFieldSelected($event)"
-            [options]="fields"
-            (keydown.arrowDown)="$event.stopPropagation();"
-            (keydown.arrowUp)="$event.stopPropagation();"
-            display="label"
-            key="name">
-        </ux-select>
-    </td>
+    <span class="edit-mode">
+        <span class="field-selection">
+            <ux-select
+                [value]="_field"
+                [input]="_field?.label || null"
+                (valueChange)="handleFieldSelected($event)"
+                [options]="fields"
+                (keydown.arrowDown)="$event.stopPropagation();"
+                (keydown.arrowUp)="$event.stopPropagation();"
+                display="label"
+                key="name">
+            </ux-select>
+        </span>
 
-    <td class="operator-selection">
-        <ux-select
-            *ngIf="_field?.name"
-            [value]="_operator"
-            (valueChange)="handleOperatorSelected($event)"
-            [input]="_operator?.label || null"
-            [options]="operators"
-            display="label"
-            key="name">
-        </ux-select>
-    </td>
+        <span class="operator-selection">
+            <ux-select
+                *ngIf="_field?.name"
+                [value]="_operator"
+                (valueChange)="handleOperatorSelected($event)"
+                [input]="_operator?.label || null"
+                [options]="operators"
+                display="label"
+                key="name">
+            </ux-select>
+        </span>
 
-    <td class="value-input-container">
-        <div #inputContainer></div>
-    </td>
+        <span class="value-input-container">
+            <div #inputContainer></div>
+        </span>
 
-    <td class="confirm-cancel-btn-cell">
-        <button
-            [disabled]="!(_field && _operator && (_value || _value === 0) && _valid)"
-            (click)="confirmCondition()"
-            uxFocusIndicatorOrigin
-            type="button"
-            class="btn btn-icon confirm-btn"
-            [attr.aria-label]="('confirmConditionAriaLabel' | l10n) || 'Confirm edit'">
-            <span class="ux-icon ux-icon-checkmark" aria-hidden="true"></span>
-        </button>
+        <span class="confirm-cancel-btn-cell">
+            <button
+                [disabled]="!(_field && _operator && (_value || _value === 0) && _valid)"
+                (click)="confirmCondition()"
+                uxFocusIndicatorOrigin
+                type="button"
+                class="btn btn-icon confirm-btn"
+                [attr.aria-label]="('confirmConditionAriaLabel' | l10n) || 'Confirm edit'">
+                <span class="ux-icon ux-icon-checkmark" aria-hidden="true"></span>
+            </button>
 
-        <button
-            (click)="cancelEdit()"
-            uxFocusIndicatorOrigin
-            type="button"
-            class="btn btn-icon cancel-btn"
-            [attr.aria-label]="('cancelConditionEditAriaLabel' | l10n) || 'Cancel editing'">
-            <span class="ux-icon ux-icon-close" aria-hidden="true"></span>
-        </button>
-    </td>
-</tr>
+            <button
+                (click)="cancelEdit()"
+                uxFocusIndicatorOrigin
+                type="button"
+                class="btn btn-icon cancel-btn"
+                [attr.aria-label]="('cancelConditionEditAriaLabel' | l10n) || 'Cancel editing'">
+                <span class="ux-icon ux-icon-close" aria-hidden="true"></span>
+            </button>
+        </span>
+    </span>
+</div>
 
 <ng-template #staticMode>
-    <tr
+    <div
         expressionRow
         [rowPath]="path"
         class="leb-condition-row"
-        uxHoverActionContainer
-        [style.padding-left.px]="indent || 8">
-        <td>
+        uxHoverActionContainer>
+        <span class="leb-cell">
+            <span
+                class="firstTreeElement"
+                *ngFor="let _levels of [].constructor(indent / 40 -1)"
+            ></span><span
+                class="lastTreeElement"
+            ></span>
             <span class="leb-field-display">{{ _field?.label }}</span>{{' '}}<span
             class="leb-operator-display">{{ _operator?.label }}</span>{{' '}}<span
             class="leb-value-display">{{ _value | displayValue : _field?.fieldType : _field?.configuration }}</span>
-        </td>
+        </span>
 
-        <td class="hover-btn-cell">
+        <span class="leb-cell hover-btn-cell">
             <button
                 [disabled]="_editBlocked"
                 uxHoverAction
@@ -105,6 +112,6 @@
                 [attr.aria-label]="('deleteConditionAriaLabel' | l10n) || 'Delete condition'">
                 <span class="ux-icon ux-icon-trash" aria-hidden="true"></span>
             </button>
-        </td>
-    </tr>
+        </span>
+    </div>
 </ng-template>

@@ -10,16 +10,14 @@
 </button>
 
 <ng-template #queryItems>
-    <table class="table table-hover leb-table" uxFocusIndicatorOrigin>
-        <tbody>
+    <div class="table table-hover leb-table" uxFocusIndicatorOrigin>
         <ux-leb-group
             *ngIf="expression?.type === 'group'; else conditionBlock"
             [subExpression]="expression"
             (subExpressionChange)="handleSubExpressionChange($event)"
             [path]="[0]">
         </ux-leb-group>
-        </tbody>
-    </table>
+    </div>
 </ng-template>
 
 <ng-template #conditionBlock>
@@ -32,8 +30,8 @@
         (conditionEmbedded)="addGroup()">
     </ux-leb-condition>
 
-    <tr expressionRow [rowPath]="[1]">
-        <td>
+    <div class="leb-expression-row" expressionRow [rowPath]="[1]">
+        <span class="leb-cell">
             <button
                 uxFocusIndicatorOrigin
                 uxFocusIndicator
@@ -44,6 +42,6 @@
                 [attr.aria-label]="('addConditionBtnAriaLabel' | l10n) || 'Add condition'">
                 <span class="ux-icon ux-icon-add" aria-hidden="true"></span>
             </button>
-        </td>
-    </tr>
+        </span>
+    </div>
 </ng-template>
