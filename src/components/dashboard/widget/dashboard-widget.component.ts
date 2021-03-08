@@ -19,7 +19,7 @@ export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestro
 
     /** Defines the column the widget is placed in */
     @Input() set col(col: number) {
-        this.setColumn(coerceNumberProperty(col));
+        col ? this.setColumn(coerceNumberProperty(col)) : this.invalidInput();
         this.dashboardService.renderDashboard();
     }
 
@@ -29,7 +29,7 @@ export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestro
 
     /** Defines the row the widget is placed in */
     @Input() set row(row: number) {
-        this.setRow(coerceNumberProperty(row));
+        row ? this.setRow(coerceNumberProperty(row)) : this.invalidInput();
         this.dashboardService.renderDashboard();
     }
 
@@ -149,6 +149,11 @@ export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestro
         this._onDestroy.next();
         this._onDestroy.complete();
         this.dashboardService.removeWidget(this);
+    }
+
+     /** A filter value of null or undefined should be considered as an undefined input */
+     private invalidInput(): undefined {
+        return;
     }
 
     /**
