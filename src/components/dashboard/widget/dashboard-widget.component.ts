@@ -7,10 +7,9 @@ import { DashboardStackMode } from './dashboard-stack-mode.enum';
 
 @Component({
     selector: 'ux-dashboard-widget',
-    templateUrl: './dashboard-widget.component.html'
+    templateUrl: './dashboard-widget.component.html',
 })
 export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestroy {
-
     /** Sets the ID of the widget. Each widget should be given a unique ID. */
     @Input() id: string;
 
@@ -19,7 +18,7 @@ export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestro
 
     /** Defines the column the widget is placed in */
     @Input() set col(col: number) {
-        this.setColumn(coerceNumberProperty(col));
+        col ? this.setColumn(coerceNumberProperty(col)) : this.invalidInput();
         this.dashboardService.renderDashboard();
     }
 
@@ -29,7 +28,7 @@ export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestro
 
     /** Defines the row the widget is placed in */
     @Input() set row(row: number) {
-        this.setRow(coerceNumberProperty(row));
+        row ? this.setRow(coerceNumberProperty(row)) : this.invalidInput();
         this.dashboardService.renderDashboard();
     }
 
@@ -100,24 +99,31 @@ export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestro
 
     constructor(public dashboardService: DashboardService) {
         // subscribe to option changes
-        dashboardService.options$.pipe(takeUntil(this._onDestroy))
-            .subscribe(() => this.update());
+        dashboardService.options$.pipe(takeUntil(this._onDestroy)).subscribe(() => this.update());
 
         // every time the layout changes we want to update the aria label
-        dashboardService.layout$.pipe(takeUntil(this._onDestroy))
-            .subscribe(() => this.ariaLabel = this.getAriaLabel());
+        dashboardService.layout$
+            .pipe(takeUntil(this._onDestroy))
+            .subscribe(() => (this.ariaLabel = this.getAriaLabel()));
 
         // allow widget movements to be animated
-        dashboardService.isDragging$.pipe(takeUntil(this._onDestroy), map(widget => widget === this))
-            .subscribe(isDragging => this.isDragging = isDragging);
+        dashboardService.isDragging$
+            .pipe(
+                takeUntil(this._onDestroy),
+                map((widget) => widget === this)
+            )
+            .subscribe((isDragging) => (this.isDragging = isDragging));
 
         // allow widget movements to be animated
-        dashboardService.isGrabbing$.pipe(takeUntil(this._onDestroy), map(widget => widget === this))
-            .subscribe(isGrabbing => this.isGrabbing = isGrabbing);
+        dashboardService.isGrabbing$
+            .pipe(
+                takeUntil(this._onDestroy),
+                map((widget) => widget === this)
+            )
+            .subscribe((isGrabbing) => (this.isGrabbing = isGrabbing));
     }
 
     ngOnInit(): void {
-
         this._columnSpan.regular = this.colSpan;
         this._rowSpan.regular = this.rowSpan;
         this._rowSpan.stacked = this.rowSpan;
@@ -155,7 +161,6 @@ export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestro
      * Apply the current dashboard options
      */
     update(): void {
-
         // get the current options at the time
         const { padding, columns } = this.dashboardService.options;
 
@@ -280,7 +285,6 @@ export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestro
     }
 
     private getDefaultAriaLabel(widget: DashboardWidgetComponent): string {
-
         let options: string = '';
 
         if (widget.resizable && widget.isDraggable) {
@@ -291,7 +295,9 @@ export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestro
             options = 'It can be moved.';
         }
 
-        return `${widget.name} panel in row ${widget.getRow()}, column ${widget.getColumn()}, is ${widget.getColumnSpan()} columns wide and ${widget.getRowSpan()} rows high. ${options}`;
+        return `${
+            widget.name
+        } panel in row ${widget.getRow()}, column ${widget.getColumn()}, is ${widget.getColumnSpan()} columns wide and ${widget.getRowSpan()} rows high. ${options}`;
     }
 
     /**
@@ -300,12 +306,16 @@ export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestro
      * @param value The value to set in the appropriate field
      */
     private setStackableValue(property: StackableValue, value: number): void {
-
         if (this.dashboardService.stacked) {
             property.stacked = value;
         } else {
             property.regular = value;
         }
+    }
+
+    /** A filter value of null or undefined should be considered the same as an undefined */
+    private invalidInput(): undefined {
+        return;
     }
 
     /**
