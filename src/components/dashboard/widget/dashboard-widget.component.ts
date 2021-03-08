@@ -313,7 +313,7 @@ export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestro
         }
     }
 
-    /** A filter value of null or undefined should be considered the same as an undefined */
+    /** A filter value of null or undefined should be considered as an undefined input */
     private invalidInput(): undefined {
         return;
     }
