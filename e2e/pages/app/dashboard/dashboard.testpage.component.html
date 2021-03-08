@@ -1,97 +1,62 @@
 <a id="top-focus" href="javascript:void(0)">Top focus target</a>
 
 <div class="container p-lg">
-
-    <ux-dashboard #dashboard
-                  id="dashboardWidgetContainer"
-                  class="customizable-dashboard"
-                  [class.dashboard-grabbing]="dashboard.isGrabbing"
-                  [options]="options"
-                  [(layout)]="layout">
-
-        <ux-dashboard-widget *ngIf="widget1Enabled"
-                             id="analytics-1-widget"
-                             name="Usage Analytics"
-                             [colSpan]="4"
-                             [rowSpan]="2"
-                             [resizable]="true"
-                             minColSpan="2"
-                             minRowSpan="2">
-
-            <div class="widget-content"
-                 [class.widget-grabbing]="usageHandle.isGrabbing"
-                 uxDashboardWidgetDragHandle>
-
+    <ux-dashboard
+        #dashboard
+        id="dashboardWidgetContainer"
+        class="customizable-dashboard"
+        [class.dashboard-grabbing]="dashboard.isGrabbing"
+        [options]="options"
+        [(layout)]="layout"
+    >
+        <ux-dashboard-widget
+            *ngIf="widget1Enabled"
+            id="analytics-1-widget"
+            name="Usage Analytics"
+            [colSpan]="4"
+            [rowSpan]="2"
+            [resizable]="true"
+            minColSpan="2"
+            minRowSpan="2"
+        >
+            <div class="widget-content" [class.widget-grabbing]="usageHandle.isGrabbing" uxDashboardWidgetDragHandle>
                 <h3 class="widget-title">Widget 1</h3>
 
-                <button class="widget-grab-handle"
-                        uxDashboardGrabHandle
-                        #usageHandle="ux-dashboard-grab-handle">
+                <button class="widget-grab-handle" uxDashboardGrabHandle #usageHandle="ux-dashboard-grab-handle">
                     <ux-icon name="pan"></ux-icon>
                 </button>
-
             </div>
-
         </ux-dashboard-widget>
 
-        <ux-dashboard-widget
-            id="subscription-widget"
-            name="Service"
-            [colSpan]="2"
-            [resizable]="true"
-            minColSpan="2">
-            <div class="widget-content"
-                 [class.widget-grabbing]="handle2.isGrabbing"
-                 uxDashboardWidgetDragHandle>
-
+        <ux-dashboard-widget id="subscription-widget" name="Service" [colSpan]="2" [resizable]="true" minColSpan="2">
+            <div class="widget-content" [class.widget-grabbing]="handle2.isGrabbing" uxDashboardWidgetDragHandle>
                 <h3 class="widget-title">Widget 2</h3>
 
-                <button class="widget-grab-handle"
-                        uxDashboardGrabHandle
-                        #handle2="ux-dashboard-grab-handle">
+                <button class="widget-grab-handle" uxDashboardGrabHandle #handle2="ux-dashboard-grab-handle">
                     <ux-icon name="pan"></ux-icon>
                 </button>
-
             </div>
-
         </ux-dashboard-widget>
 
         <ux-dashboard-widget id="users-widget" name="Users">
-
-            <div class="widget-content"
-                 [class.widget-grabbing]="handle3.isGrabbing"
-                 uxDashboardWidgetDragHandle>
-
+            <div class="widget-content" [class.widget-grabbing]="handle3.isGrabbing" uxDashboardWidgetDragHandle>
                 <h3 class="widget-title">Widget 3</h3>
 
-                <button class="widget-grab-handle"
-                        uxDashboardGrabHandle
-                        #handle3="ux-dashboard-grab-handle">
+                <button class="widget-grab-handle" uxDashboardGrabHandle #handle3="ux-dashboard-grab-handle">
                     <ux-icon name="pan"></ux-icon>
                 </button>
-
             </div>
-
         </ux-dashboard-widget>
 
-        <ux-dashboard-widget id="alert-widget" name="Alert" autoPositioning="false">
-
-            <div class="widget-content"
-                 [class.widget-grabbing]="handle4.isGrabbing"
-                 uxDashboardWidgetDragHandle>
-
+        <ux-dashboard-widget id="alert-widget" name="Alert" autoPositioning="false" [col]="undefined" [row]="undefined">
+            <div class="widget-content" [class.widget-grabbing]="handle4.isGrabbing" uxDashboardWidgetDragHandle>
                 <h3 class="widget-title">Widget 4</h3>
 
-                <button class="widget-grab-handle"
-                        uxDashboardGrabHandle
-                        #handle4="ux-dashboard-grab-handle">
+                <button class="widget-grab-handle" uxDashboardGrabHandle #handle4="ux-dashboard-grab-handle">
                     <ux-icon name="pan"></ux-icon>
                 </button>
-
             </div>
-
         </ux-dashboard-widget>
-
     </ux-dashboard>
 </div>
 
