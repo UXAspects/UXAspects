@@ -1095,7 +1095,7 @@ export class DashboardService implements OnDestroy {
             const widgetShouldBeAutoPositioned = widget.autoPositioning  || this.stacked;
             const widgetIsBeingMoved = !widgetShouldBeAutoPositioned && this.isDragging$.value?.id === widget.id;
 
-            if (widgetIsOnTopRow || widgetIsBeingResized || widgetIsBeingMoved) {
+            if (widgetIsOnTopRow || widgetIsBeingResized || widgetIsBeingMoved || (!widgetShouldBeAutoPositioned && !this._cache)) {
                 return;
             }
 
