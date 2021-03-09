@@ -44,6 +44,11 @@ describe('Dashboard Tests', () => {
         expect(await imageCompareFullPageScreen('dashboard-initial')).toEqual(0);
     });
 
+    it('should have correct position whenever the input is undefined while initial states', async () => {
+        expect(await page.getWidgetLocationValue(widget4, 'top')).toBe(440);
+        expect(await page.getWidgetLocationValue(widget4, 'left')).toBe(831);
+    });
+
     it('should react correctly when dashboard options are changed', async () => {
 
         // click 'change options' button

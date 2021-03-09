@@ -19,8 +19,10 @@ export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestro
 
     /** Defines the column the widget is placed in */
     @Input() set col(col: number) {
-        this.setColumn(coerceNumberProperty(col));
-        this.dashboardService.renderDashboard();
+        if (col !== null && col !== undefined) {
+            this.setColumn(coerceNumberProperty(col));
+            this.dashboardService.renderDashboard();
+        }
     }
 
     get col(): number {
@@ -29,8 +31,10 @@ export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestro
 
     /** Defines the row the widget is placed in */
     @Input() set row(row: number) {
-        this.setRow(coerceNumberProperty(row));
-        this.dashboardService.renderDashboard();
+        if (row !== undefined || row !== null) {
+            this.setRow(coerceNumberProperty(row));
+            this.dashboardService.renderDashboard();
+        }
     }
 
     get row(): number {
