@@ -1,4 +1,4 @@
-import { Key } from 'protractor';
+import { browser, Key, $, } from 'protractor';
 import { imageCompare } from '../../common/image-compare';
 import { numberOfCountries, SelectPage } from './select.po.spec';
 
@@ -661,7 +661,23 @@ describe('Select Tests', () => {
         expect(await page.getSelectedLocationText()).toBe('"Aland Islands"', 'should select correct value when debounceTime is 0');
     });
 
-    it('should close select dropdown when clicked outside', () => {
-       // Sasi
+    it('should close the select dropdown when clicked outside while autoCloseDropdown = true', async() => {
+        expect(await page.confirmDropdownIsExpanded()).toBeFalsy();
+        await page.clickOnCheckbox(page.checkboxMulti);
+        await page.clickOnCheckbox(page.checkboxAutoClose);
+        await page.clickOnDropdown(true);
+
+        await browser.actions().click($('body')).perform();
+        expect(await page.confirmDropdownIsExpanded()).toBeTruthy();
+
+    });
+
+    it('should not close the select dropdown when clicked outside while autoCloseDropdown = false', async() => {
+        expect(await page.confirmDropdownIsExpanded()).toBeFalsy();
+        await page.clickOnCheckbox(page.checkboxMulti);
+        await page.clickOnDropdown(true);
+
+        await browser.actions().click($('body')).perform();
+        expect(await page.confirmDropdownIsExpanded()).toBeFalsy();
     });
 });
