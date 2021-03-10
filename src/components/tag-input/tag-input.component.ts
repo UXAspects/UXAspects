@@ -166,6 +166,8 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
     /** Determine an aria label for the clear button */
     @Input() clearButtonAriaLabel: string = 'Reset selection';
 
+    @Input() autoCloseDropdown: boolean = false;
+
     /** Emits when tags is changed. */
     @Output() tagsChange = new EventEmitter<ReadonlyArray<T>>();
 

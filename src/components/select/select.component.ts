@@ -155,6 +155,8 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
     /** Determine an aria label for the clear button */
     @Input() clearButtonAriaLabel: string = 'Reset selection';
 
+    @Input() autoCloseDropdown: boolean = false;
+
     /**
      * A template which will be rendered in the dropdown for each option.
      * The following context properties are available in the template:
