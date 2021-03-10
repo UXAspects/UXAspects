@@ -1,4 +1,4 @@
-import { coerceNumberProperty, NumberInput } from '@angular/cdk/coercion';
+import { BooleanInput, coerceBooleanProperty, coerceNumberProperty, NumberInput } from '@angular/cdk/coercion';
 import { ENTER } from '@angular/cdk/keycodes';
 import { Platform } from '@angular/cdk/platform';
 import { DOCUMENT } from '@angular/common';
@@ -155,7 +155,13 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
     /** Determine an aria label for the clear button */
     @Input() clearButtonAriaLabel: string = 'Reset selection';
 
-    @Input() autoCloseDropdown: boolean = false;
+    @Input() set autoCloseDropdown(value: boolean) {
+        this._autoCloseDropdown = coerceBooleanProperty(value);
+    }
+
+    get autoCloseDropdown(): boolean {
+        return this._autoCloseDropdown;
+    }
 
     /**
      * A template which will be rendered in the dropdown for each option.
@@ -218,6 +224,7 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
     private _dropdownOpen: boolean = false;
     private _userInput: boolean = false;
     private _filterDebounceTime: number = 200;
+    private _autoCloseDropdown: boolean = false;
     private _onChange = (_: T | ReadonlyArray<T>) => { };
     private _onTouched = () => { };
     private _onDestroy = new Subject<void>();
@@ -330,7 +337,7 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
 
         // Close dropdown and reset text input if focus is lost
         setTimeout(() => {
-            if (!this._element.nativeElement.contains(this._document.activeElement)) {
+            if (!this._element.nativeElement.contains(this._document.activeElement) && !this.autoCloseDropdown && this.dropdownOpen) {
                 this.dropdownOpen = false;
                 if (!this.multiple) {
                     this.input = this.getDisplay(this.value);
@@ -464,5 +471,6 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
     }
 
     static ngAcceptInputType_filterDebounceTime: NumberInput;
+    static ngAcceptInputType_autoCloseDropdown: BooleanInput;
 }
 

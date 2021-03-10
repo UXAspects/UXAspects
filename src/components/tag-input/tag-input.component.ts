@@ -399,7 +399,7 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
 
         // Close the dropdown on blur
         setTimeout(() => {
-            if (!this._element.nativeElement.contains(this._document.activeElement)) {
+            if (!this._element.nativeElement.contains(this._document.activeElement) && !this.autoCloseDropdown) {
                 this.selectedIndex = -1;
                 if (this.typeahead) {
                     this.typeahead.open = false;
