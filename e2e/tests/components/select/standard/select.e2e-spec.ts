@@ -660,4 +660,8 @@ describe('Select Tests', () => {
         await page.getDropdown(false).sendKeys(Key.ENTER);
         expect(await page.getSelectedLocationText()).toBe('"Aland Islands"', 'should select correct value when debounceTime is 0');
     });
+
+    it('should close select dropdown when clicked outside', () => {
+       // Sasi
+    });
 });
