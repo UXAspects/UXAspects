@@ -29,7 +29,8 @@ export class ComponentsSelectComponent extends BaseDocumentationSection implemen
     clearButton: boolean = false;
     recentOptions: ReadonlyArray<any>;
     recentOptionsMaxCount: number = 5;
-
+    autoCloseDropdown: boolean = false;
+    
     private _pageSize = 20;
     private _onDestroy = new Subject<void>();
 

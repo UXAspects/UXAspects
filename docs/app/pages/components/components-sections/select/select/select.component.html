@@ -15,6 +15,7 @@
                 [readonlyInput]="readonlyInput"
                 [clearButton]="clearButton"
                 [(recentOptions)]="recentOptions"
+                [autoCloseDropdown]="autoCloseDropdown"
                 [recentOptionsMaxCount]="recentOptionsMaxCount">
 
                 <ng-template #icon *ngIf="multiple | async">
@@ -67,6 +68,9 @@
                 <div class="row uxd-customize-row">
                     <div class="col-md-3 col-sm-12">
                         <ux-checkbox [(value)]="clearButton" [disabled]="!(multiple | async) && !allowNull">clearButton</ux-checkbox>
+                    </div>
+                    <div class="col-md-3 col-sm-12">
+                        <ux-checkbox [(value)]="autoCloseDropdown" >autoCloseDropdown</ux-checkbox>
                     </div>
                 </div>
                 <div class="row uxd-customize-row">
@@ -254,6 +258,11 @@
     </tr>
     <tr uxd-api-property name="clearButtonAriaLabel" type="string">
         Defines the aria label for the clear button.
+    </tr>
+    <tr uxd-api-property name="autoCloseDropdown" type="boolean" defaultValue="false">
+        Defines if a clear button should be shown whenever one or more values are selected.
+        The button will remove selected values. When using a single select <code>allowNull</code> must also be set to <code>true</code>
+        for the clear button to be visible.
     </tr>
     <tr uxd-api-property name="recentOptions" type="ReadonlyArray&lt;T&gt;">
         An initial list of recently selected options, to be presented above the full list of options. Bind an empty
