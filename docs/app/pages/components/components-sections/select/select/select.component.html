@@ -259,11 +259,6 @@
     <tr uxd-api-property name="clearButtonAriaLabel" type="string">
         Defines the aria label for the clear button.
     </tr>
-    <tr uxd-api-property name="autoCloseDropdown" type="boolean" defaultValue="false">
-        Defines if a clear button should be shown whenever one or more values are selected.
-        The button will remove selected values. When using a single select <code>allowNull</code> must also be set to <code>true</code>
-        for the clear button to be visible.
-    </tr>
     <tr uxd-api-property name="recentOptions" type="ReadonlyArray&lt;T&gt;">
         An initial list of recently selected options, to be presented above the full list of options. Bind an empty
         array to <code>recentOptions</code> to enable this feature without providing an initial set.
@@ -276,6 +271,9 @@
     </tr>
     <tr uxd-api-property name="filterDebounceTime" type="number" defaultValue="200">
         Allows customization of the <code>debounceTime</code> used on the select's input filter.
+    </tr>
+    <tr uxd-api-property name="autoCloseDropdown" type="boolean" defaultValue="false">
+        Determine if the dropdown panel should appear on external click.
     </tr>
 </uxd-api-properties>
 

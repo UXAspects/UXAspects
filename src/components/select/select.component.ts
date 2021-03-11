@@ -155,6 +155,7 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
     /** Determine an aria label for the clear button */
     @Input() clearButtonAriaLabel: string = 'Reset selection';
 
+    /** Determine if the dropdown panel should appear on external click.*/
     @Input() set autoCloseDropdown(value: boolean) {
         this._autoCloseDropdown = coerceBooleanProperty(value);
     }

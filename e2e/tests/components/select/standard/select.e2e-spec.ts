@@ -664,7 +664,7 @@ describe('Select Tests', () => {
     it('should not close on external click when autoCloseDropdown = true', async() => {
         expect(await page.confirmDropdownIsExpanded()).toBeFalsy();
         await page.clickOnCheckbox(page.checkboxMulti);
-        await page.clickOnCheckbox(page.checkboxAutoClose);
+        await page.clickOnCheckbox(page.checkboxAutoDropdownClose);
         await page.clickOnDropdown(true);
 
         await browser.actions().click($('body')).perform();
