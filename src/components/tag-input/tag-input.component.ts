@@ -167,7 +167,7 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
     @Input() clearButtonAriaLabel: string = 'Reset selection';
 
     /** Determine if the dropdown panel should appear on external click.*/
-    @Input() autoCloseDropdown: boolean = false;
+    @Input() autoCloseDropdownPanel: boolean = false;
 
     /** Emits when tags is changed. */
     @Output() tagsChange = new EventEmitter<ReadonlyArray<T>>();
@@ -400,7 +400,7 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
 
         // Close the dropdown on blur
         setTimeout(() => {
-            if (!this._element.nativeElement.contains(this._document.activeElement) && !this.autoCloseDropdown) {
+            if (!this._element.nativeElement.contains(this._document.activeElement) && !this.autoCloseDropdownPanel) {
                 this.selectedIndex = -1;
                 if (this.typeahead) {
                     this.typeahead.open = false;

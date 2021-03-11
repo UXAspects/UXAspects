@@ -156,12 +156,12 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
     @Input() clearButtonAriaLabel: string = 'Reset selection';
 
     /** Determine if the dropdown panel should appear on external click.*/
-    @Input() set autoCloseDropdown(value: boolean) {
-        this._autoCloseDropdown = coerceBooleanProperty(value);
+    @Input() set autoCloseDropdownPanel(value: boolean) {
+        this._autoCloseDropdownPanel = coerceBooleanProperty(value);
     }
 
-    get autoCloseDropdown(): boolean {
-        return this._autoCloseDropdown;
+    get autoCloseDropdownPanel(): boolean {
+        return this._autoCloseDropdownPanel;
     }
 
     /**
@@ -225,7 +225,7 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
     private _dropdownOpen: boolean = false;
     private _userInput: boolean = false;
     private _filterDebounceTime: number = 200;
-    private _autoCloseDropdown: boolean = false;
+    private _autoCloseDropdownPanel: boolean = false;
     private _onChange = (_: T | ReadonlyArray<T>) => { };
     private _onTouched = () => { };
     private _onDestroy = new Subject<void>();
@@ -338,7 +338,7 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
 
         // Close dropdown and reset text input if focus is lost
         setTimeout(() => {
-            if (!this._element.nativeElement.contains(this._document.activeElement) && !this.autoCloseDropdown) {
+            if (!this._element.nativeElement.contains(this._document.activeElement) && !this._autoCloseDropdownPanel) {
                 this.dropdownOpen = false;
                 if (!this.multiple) {
                     this.input = this.getDisplay(this.value);
@@ -472,6 +472,6 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
     }
 
     static ngAcceptInputType_filterDebounceTime: NumberInput;
-    static ngAcceptInputType_autoCloseDropdown: BooleanInput;
+    static ngAcceptInputType_autoCloseDropdownPanel: BooleanInput;
 }
 

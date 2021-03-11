@@ -661,18 +661,18 @@ describe('Select Tests', () => {
         expect(await page.getSelectedLocationText()).toBe('"Aland Islands"', 'should select correct value when debounceTime is 0');
     });
 
-    it('should not close on external click when autoCloseDropdown = true', async() => {
+    it('should not close dropdown panel on external click when autoCloseDropdownPanel = true', async() => {
         expect(await page.confirmDropdownIsExpanded()).toBeFalsy();
         await page.clickOnCheckbox(page.checkboxMulti);
         await page.clickOnCheckbox(page.checkboxAutoDropdownClose);
         await page.clickOnDropdown(true);
-
+        
         await browser.actions().click($('body')).perform();
         expect(await page.confirmDropdownIsExpanded()).toBeTruthy();
 
     });
 
-    it('should close on external click when autoCloseDropdown = false', async() => {
+    it('should close dropdown panel on external click when autoCloseDropdownPanel = false', async() => {
         expect(await page.confirmDropdownIsExpanded()).toBeFalsy();
         await page.clickOnCheckbox(page.checkboxMulti);
         await page.clickOnDropdown(true);
