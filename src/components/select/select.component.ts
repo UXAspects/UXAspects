@@ -337,7 +337,7 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
 
         // Close dropdown and reset text input if focus is lost
         setTimeout(() => {
-            if (!this._element.nativeElement.contains(this._document.activeElement) && !this.autoCloseDropdown && this.dropdownOpen) {
+            if (!this._element.nativeElement.contains(this._document.activeElement) && !this.autoCloseDropdown) {
                 this.dropdownOpen = false;
                 if (!this.multiple) {
                     this.input = this.getDisplay(this.value);
