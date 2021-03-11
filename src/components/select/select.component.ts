@@ -104,7 +104,7 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
     @Input() disabled: boolean = false;
 
     /** The positioning of the typeahead dropdown in relation to its parent. */
-    @Input() dropDirection: 'up' | 'down' = 'down';
+    @Input() dropDirection: 'auto' | 'up' | 'down' = 'down';
 
     /** The maximum height of the typeahead dropdown, as a CSS value. */
     @Input() maxHeight: string = '250px';

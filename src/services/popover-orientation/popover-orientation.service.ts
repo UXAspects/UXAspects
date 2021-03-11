@@ -13,13 +13,16 @@ export class PopoverOrientationService {
         public _viewportRuler: ViewportRuler) {
     }
 
-    public createPopoverOrientationListener(element: ElementRef | HTMLElement, parentElement?: ElementRef | HTMLElement): PopoverOrientationListener {
+    public createPopoverOrientationListener(
+        element: ElementRef | HTMLElement,
+        maxHeight: number,
+        parentElement?: ElementRef | HTMLElement): PopoverOrientationListener {
 
         const nativeElement = element instanceof ElementRef ? element.nativeElement : element;
 
         const nativeElementParent = parentElement instanceof ElementRef ? parentElement.nativeElement : element;
 
-        return new PopoverOrientationListener(nativeElement, nativeElementParent, this._resizeService, this._viewportRuler);
+        return new PopoverOrientationListener(nativeElement, nativeElementParent, this._resizeService, this._viewportRuler, maxHeight);
     }
 
 }
@@ -37,7 +40,8 @@ export class PopoverOrientationListener {
     constructor(private _element: HTMLElement,
                 private _elementParent: HTMLElement,
                 private _resizeService: ResizeService,
-                private _viewportRuler: ViewportRuler) {
+                private _viewportRuler: ViewportRuler,
+                private _maxHeight: number) {
 
         // watch for changes to the typeahead size
         this._resizeService.addResizeListener(this._element).pipe(takeUntil(this._onDestroy))
@@ -45,8 +49,10 @@ export class PopoverOrientationListener {
                 this.onScrollOrResize();
             });
 
-        // watch for changes to the typeahead position when scrolling
+        // watch for changes to the typeahead position when scrolling or resizing
         fromEvent(window, 'scroll', { passive: true }).pipe(takeUntil(this._onDestroy))
+            .subscribe(() => this.onScrollOrResize());
+        fromEvent(window, 'resize', { passive: true }).pipe(takeUntil(this._onDestroy))
             .subscribe(() => this.onScrollOrResize());
 
     }
@@ -60,7 +66,7 @@ export class PopoverOrientationListener {
 
     private onScrollOrResize() {
         this._rect = this._elementParent ? this._elementParent.parentElement.getBoundingClientRect() : this._element.parentElement.getBoundingClientRect();
-        const itemHeight = this._element.offsetHeight;
+        const itemHeight = this._element.offsetHeight || this._maxHeight;
         const viewportSize = this._viewportRuler.getViewportSize();
         const bottomSpaceAvailable = viewportSize.height - this._rect.bottom - itemHeight;
 

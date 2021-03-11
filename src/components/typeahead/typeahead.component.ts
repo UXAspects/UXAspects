@@ -186,7 +186,8 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
                 }
             });
 
-        this._popoverOrientationListener = popoverOrientation.createPopoverOrientationListener(this.typeaheadElement.nativeElement, this.typeaheadElement.nativeElement.parentElement);
+        const maxHeight = this.maxHeight.endsWith('px') ? Number(this.maxHeight.slice(0, -2)) : 0;
+        this._popoverOrientationListener = popoverOrientation.createPopoverOrientationListener(this.typeaheadElement.nativeElement, maxHeight, this.typeaheadElement.nativeElement.parentElement);
 
         this._popoverOrientationListener.orientation$.pipe(takeUntil(this._onDestroy))
             .subscribe(direction => {

@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-xs-6">
-        <div class="form-group m-nil">
+        <div class="form-group m-nil" [style.margin-top]="dropDirection === 'auto' ? '350px' : null">
             <ux-select
                 id="dropdown"
                 [(value)]="selected"
@@ -17,7 +17,8 @@
                 [clearButton]="clearButton"
                 [(recentOptions)]="recentOptions"
                 [recentOptionsMaxCount]="recentOptionsMaxCount"
-                [filterDebounceTime]="filterDebounceTime">
+                [filterDebounceTime]="filterDebounceTime"
+                [maxHeight]="maxHeight">
                 <ng-template *ngIf="customIcon" #icon>
                     <div id="custom-icon" class="ux-select-icon">
                         <ux-icon name="add"></ux-icon>
@@ -83,6 +84,9 @@
             </ux-radio-button>
             <ux-radio-button [(value)]="dropDirection" option="up">
                 up
+            </ux-radio-button>
+            <ux-radio-button [(value)]="dropDirection" option="auto">
+                auto
             </ux-radio-button>
         </div>
 
@@ -164,6 +168,20 @@
                 (click)="fillRecentOptions()"
             >
                 Fill Recent Options
+            </button>
+            <button
+                id="increase-max-height-button"
+                class="btn button-secondary"
+                (click)="setMaxHeight('250px')"
+            >
+                Set max height to 250px
+            </button>
+            <button
+                id="decrease-max-height-button"
+                class="btn button-secondary"
+                (click)="setMaxHeight('100px')"
+            >
+                Set max height to 100px
             </button>
         </div>
     </div>
