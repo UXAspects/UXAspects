@@ -18,7 +18,7 @@
                 [(recentOptions)]="recentOptions"
                 [recentOptionsMaxCount]="recentOptionsMaxCount"
                 [filterDebounceTime]="filterDebounceTime"
-                [autoCloseDropdown]="autoCloseDropdown">
+                [autoCloseDropdownPanel]="autoCloseDropdownPanel">
 
                 <ng-template *ngIf="customIcon" #icon>
                     <div id="custom-icon" class="ux-select-icon">
@@ -81,9 +81,9 @@
         <div>
             <ux-checkbox
                 id="checkbox6"
-                [(value)]="autoCloseDropdown"
+                [(value)]="autoCloseDropdownPanel"
             >
-            autoCloseDropdown
+            autoCloseDropdownPanel
             </ux-checkbox>
         </div>
 
