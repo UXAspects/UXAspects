@@ -13,7 +13,9 @@ export class PopoverOrientationService {
         public _viewportRuler: ViewportRuler) {
     }
 
-    public createPopoverOrientationListener(element: ElementRef | HTMLElement, parentElement?: ElementRef | HTMLElement): PopoverOrientationListener {
+    public createPopoverOrientationListener(
+        element: ElementRef | HTMLElement,
+        parentElement?: ElementRef | HTMLElement): PopoverOrientationListener {
 
         const nativeElement = element instanceof ElementRef ? element.nativeElement : element;
 
@@ -28,6 +30,9 @@ export class PopoverOrientationListener {
 
     /** Allow subscribing to state changes */
     orientation$ = new BehaviorSubject<PopoverOrientation>(1);
+
+    /** Max value the height of the dropdown can be */
+    maxHeight: number = 250;
 
     /** Store the last known position and size */
     private _rect: ClientRect;
@@ -45,8 +50,10 @@ export class PopoverOrientationListener {
                 this.onScrollOrResize();
             });
 
-        // watch for changes to the typeahead position when scrolling
+        // watch for changes to the typeahead position when scrolling or resizing
         fromEvent(window, 'scroll', { passive: true }).pipe(takeUntil(this._onDestroy))
+            .subscribe(() => this.onScrollOrResize());
+        fromEvent(window, 'resize', { passive: true }).pipe(takeUntil(this._onDestroy))
             .subscribe(() => this.onScrollOrResize());
 
     }
@@ -60,7 +67,8 @@ export class PopoverOrientationListener {
 
     private onScrollOrResize() {
         this._rect = this._elementParent ? this._elementParent.parentElement.getBoundingClientRect() : this._element.parentElement.getBoundingClientRect();
-        const itemHeight = this._element.offsetHeight;
+        // use the maxHeight input value if the element does not exist yet to prevent the direction from immediately changing when opened
+        const itemHeight = this._element.offsetHeight || this.maxHeight;
         const viewportSize = this._viewportRuler.getViewportSize();
         const bottomSpaceAvailable = viewportSize.height - this._rect.bottom - itemHeight;
 

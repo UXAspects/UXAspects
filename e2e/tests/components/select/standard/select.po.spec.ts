@@ -18,6 +18,8 @@ export class SelectPage {
     pageSize = element(by.id('pageSize'));
     customIcon = element(by.id('custom-icon'));
     input = element(by.css('input.ux-tag-input'));
+    increaseMaxHeight = $('#increase-max-height-button');
+    decreaseMaxHeight = $('#decrease-max-height-button');
 
 
     async getPage(): Promise<void> {
@@ -175,6 +177,10 @@ export class SelectPage {
 
     async clickOnDropDirectionUp() {
         await this.radioDirection.$('ux-radio-button[option="up"]').$('.ux-radio-button').click();
+    }
+
+    async clickOnDropDirectionAuto() {
+        await this.radioDirection.$('ux-radio-button[option="auto"]').$('.ux-radio-button').click();
     }
 
     async clickOnPlaceholder() {
