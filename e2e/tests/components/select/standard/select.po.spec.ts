@@ -12,9 +12,9 @@ export class SelectPage {
     checkboxMulti = element(by.id('checkbox1'));
     checkboxDisabled = element(by.id('checkbox2'));
     checkboxAllowNull = element(by.id('checkbox3'));
-    checkboxAutoDropdownClose = element(by.id('checkbox6'));
     checkboxPaging = element(by.id('checkbox4'));
     checkboxRecentOptions = element(by.id('checkbox5'));
+    checkboxAutoDropdownClose = element(by.id('checkbox6'));
     placeholder = element(by.id('placeholder'));
     pageSize = element(by.id('pageSize'));
     customIcon = element(by.id('custom-icon'));
