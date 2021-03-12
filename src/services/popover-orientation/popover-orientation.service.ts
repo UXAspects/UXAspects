@@ -15,14 +15,13 @@ export class PopoverOrientationService {
 
     public createPopoverOrientationListener(
         element: ElementRef | HTMLElement,
-        maxHeight: number,
         parentElement?: ElementRef | HTMLElement): PopoverOrientationListener {
 
         const nativeElement = element instanceof ElementRef ? element.nativeElement : element;
 
         const nativeElementParent = parentElement instanceof ElementRef ? parentElement.nativeElement : element;
 
-        return new PopoverOrientationListener(nativeElement, nativeElementParent, this._resizeService, this._viewportRuler, maxHeight);
+        return new PopoverOrientationListener(nativeElement, nativeElementParent, this._resizeService, this._viewportRuler);
     }
 
 }
@@ -32,6 +31,9 @@ export class PopoverOrientationListener {
     /** Allow subscribing to state changes */
     orientation$ = new BehaviorSubject<PopoverOrientation>(1);
 
+    /** Max value the height of the dropdown can be */
+    maxHeight: number = 250;
+
     /** Store the last known position and size */
     private _rect: ClientRect;
 
@@ -40,8 +42,7 @@ export class PopoverOrientationListener {
     constructor(private _element: HTMLElement,
                 private _elementParent: HTMLElement,
                 private _resizeService: ResizeService,
-                private _viewportRuler: ViewportRuler,
-                private _maxHeight: number) {
+                private _viewportRuler: ViewportRuler) {
 
         // watch for changes to the typeahead size
         this._resizeService.addResizeListener(this._element).pipe(takeUntil(this._onDestroy))
@@ -66,7 +67,8 @@ export class PopoverOrientationListener {
 
     private onScrollOrResize() {
         this._rect = this._elementParent ? this._elementParent.parentElement.getBoundingClientRect() : this._element.parentElement.getBoundingClientRect();
-        const itemHeight = this._element.offsetHeight || this._maxHeight;
+        // use the maxHeight input value if the element does not exist yet to prevent the direction from immediately changing when opened
+        const itemHeight = this._element.offsetHeight || this.maxHeight;
         const viewportSize = this._viewportRuler.getViewportSize();
         const bottomSpaceAvailable = viewportSize.height - this._rect.bottom - itemHeight;
 
