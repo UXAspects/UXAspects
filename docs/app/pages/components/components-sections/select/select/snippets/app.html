@@ -15,7 +15,7 @@
                 [readonlyInput]="readonlyInput"
                 [clearButton]="clearButton"
                 [(recentOptions)]="recentOptions"
-                [autoCloseDropdownPanel]="autoCloseDropdownPanel"
+                [autoCloseDropdown]="autoCloseDropdown"
                 [recentOptionsMaxCount]="recentOptionsMaxCount">
 
                 <ng-template #icon *ngIf="multiple | async">
@@ -72,7 +72,7 @@
                             [disabled]="!(multiple | async) && !allowNull">clearButton</ux-checkbox>
                     </div>
                     <div class="col-md-3 col-sm-12">
-                        <ux-checkbox [(value)]="autoCloseDropdownPanel" [disabled]="!(multiple | async)">autoCloseDropdownPanel</ux-checkbox>
+                        <ux-checkbox [(value)]="autoCloseDropdown">autoCloseDropdown</ux-checkbox>
                     </div>
                 </div>
                 <div class="row uxd-customize-row">

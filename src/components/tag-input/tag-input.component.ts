@@ -1,3 +1,4 @@
+import { BooleanInput, coerceBooleanProperty } from '@angular/cdk/coercion';
 import { BACKSPACE, DELETE, ENTER, LEFT_ARROW, RIGHT_ARROW, SPACE } from '@angular/cdk/keycodes';
 import { DOCUMENT } from '@angular/common';
 import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, ElementRef, EventEmitter, forwardRef, HostBinding, HostListener, Inject, Input, OnChanges, OnDestroy, Output, QueryList, SimpleChanges, TemplateRef, ViewChild } from '@angular/core';
@@ -166,8 +167,14 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
     /** Determine an aria label for the clear button */
     @Input() clearButtonAriaLabel: string = 'Reset selection';
 
-    /** Determine if the dropdown panel should appear on external click.*/
-    @Input() autoCloseDropdownPanel: boolean = false;
+    /** Determine if the dropdown panel should close on external click.*/
+    @Input() set autoCloseDropdown(value: boolean) {
+        this._autoCloseDropdown = coerceBooleanProperty(value);
+    }
+
+    get autoCloseDropdown(): boolean {
+        return this._autoCloseDropdown;
+    }
 
     /** Emits when tags is changed. */
     @Output() tagsChange = new EventEmitter<ReadonlyArray<T>>();
@@ -222,6 +229,9 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
     private _onTouchedHandler: () => void = () => { };
     private _subscription: Subscription;
     private _onDestroy = new Subject<void>();
+    private _autoCloseDropdown: boolean = true;
+
+    static ngAcceptInputType_autoCloseDropdown: BooleanInput;
 
     constructor(
         private _changeDetector: ChangeDetectorRef,
@@ -400,7 +410,7 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
 
         // Close the dropdown on blur
         setTimeout(() => {
-            if (!this._element.nativeElement.contains(this._document.activeElement) && !this.autoCloseDropdownPanel) {
+            if (!this._element.nativeElement.contains(this._document.activeElement) && !this.autoCloseDropdown) {
                 this.selectedIndex = -1;
                 if (this.typeahead) {
                     this.typeahead.open = false;

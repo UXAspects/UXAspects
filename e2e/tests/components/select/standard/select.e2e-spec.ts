@@ -661,23 +661,22 @@ describe('Select Tests', () => {
         expect(await page.getSelectedLocationText()).toBe('"Aland Islands"', 'should select correct value when debounceTime is 0');
     });
 
-    it('should not close dropdown panel on external click when autoCloseDropdownPanel = true', async() => {
-        expect(await page.confirmDropdownIsExpanded()).toBeFalsy();
+    it('should close dropdown on external click when autoCloseDropdown = true', async() => {
+        expect(await page.confirmDropdownIsExpanded()).toBe(false, 'before external click');
         await page.clickOnCheckbox(page.checkboxMulti);
         await page.clickOnCheckbox(page.checkboxAutoDropdownClose);
         await page.clickOnDropdown(true);
-        
-        await browser.actions().click($('body')).perform();
-        expect(await page.confirmDropdownIsExpanded()).toBeTruthy();
 
+        await browser.actions().click($('body')).perform();
+        expect(await page.confirmDropdownIsExpanded()).toBe(true, 'after external click');
     });
 
-    it('should close dropdown panel on external click when autoCloseDropdownPanel = false', async() => {
-        expect(await page.confirmDropdownIsExpanded()).toBeFalsy();
+    it('should not close dropdown on external click when autoCloseDropdown = false', async() => {
+        expect(await page.confirmDropdownIsExpanded()).toBe(false, 'before external click');
         await page.clickOnCheckbox(page.checkboxMulti);
         await page.clickOnDropdown(true);
 
         await browser.actions().click($('body')).perform();
-        expect(await page.confirmDropdownIsExpanded()).toBeFalsy();
+        expect(await page.confirmDropdownIsExpanded()).toBe(false, 'after external click');
     });
 });
