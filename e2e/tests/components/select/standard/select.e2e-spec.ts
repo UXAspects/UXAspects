@@ -679,4 +679,17 @@ describe('Select Tests', () => {
         await browser.actions().click($('body')).perform();
         expect(await page.confirmDropdownIsExpanded()).toBe(false, 'after external click');
     });
+    
+    it('should automatically change the drop direction depending on the available space when using dropDirection=auto', async () => {
+        await page.clickOnDropDirectionAuto();
+        await page.decreaseMaxHeight.click();
+        await page.clickOnDropdown(false);
+        expect(await page.confirmDropdownIsExpanded()).toBe(true);
+        expect(await imageCompare('select-drop-direction-auto-down')).toBe(0, 'should use direction down when space is available');
+
+        await page.increaseMaxHeight.click();
+        await page.clickOnDropdown(false);
+        expect(await page.confirmDropdownIsExpanded()).toBe(true);
+        expect(await imageCompare('select-drop-direction-auto-up')).toBe(0, 'should use direction up when space is not available');
+    });
 });

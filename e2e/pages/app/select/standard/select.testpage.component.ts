@@ -111,6 +111,10 @@ export class SelectTestPageComponent implements OnInit {
         this.customIcon = !this.customIcon;
     }
 
+    setMaxHeight(maxHeight: string) {
+        this.maxHeight = maxHeight;
+    }
+
     public fillRecentOptions() {
         this.recentOptions = ['Afghanistan', 'United States', 'Algeria'];
     }
