@@ -661,7 +661,7 @@ describe('Select Tests', () => {
         expect(await page.getSelectedLocationText()).toBe('"Aland Islands"', 'should select correct value when debounceTime is 0');
     });
 
-    it('should close dropdown on external click when autoCloseDropdown = true', async() => {
+    it('should close the dropdown on external click when autoCloseDropdown = true', async() => {
         expect(await page.confirmDropdownIsExpanded()).toBe(false, 'before external click');
         await page.clickOnCheckbox(page.checkboxMulti);
         await page.clickOnDropdown(true);
@@ -670,7 +670,7 @@ describe('Select Tests', () => {
         expect(await page.confirmDropdownIsExpanded()).toBe(false, 'after external click');
     });
 
-    it('should not close dropdown on external click when autoCloseDropdown = false', async() => {
+    it('should not close the dropdown on external click when autoCloseDropdown = false', async() => {
         expect(await page.confirmDropdownIsExpanded()).toBe(false, 'before external click');
         await page.clickOnCheckbox(page.checkboxMulti);
         await page.clickOnCheckbox(page.checkboxAutoDropdownClose);
