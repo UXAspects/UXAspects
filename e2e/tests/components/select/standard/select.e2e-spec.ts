@@ -664,15 +664,6 @@ describe('Select Tests', () => {
     it('should close the dropdown on external click when autoCloseDropdown = true', async() => {
         expect(await page.confirmDropdownIsExpanded()).toBe(false, 'before external click');
         await page.clickOnCheckbox(page.checkboxMulti);
-        await page.clickOnDropdown(true);
-
-        await browser.actions().click($('body')).perform();
-        expect(await page.confirmDropdownIsExpanded()).toBe(false, 'after external click');
-    });
-
-    it('should not close the dropdown on external click when autoCloseDropdown = false', async() => {
-        expect(await page.confirmDropdownIsExpanded()).toBe(false, 'before external click');
-        await page.clickOnCheckbox(page.checkboxMulti);
         await page.clickOnCheckbox(page.checkboxAutoDropdownClose);
         await page.clickOnDropdown(true);
 
@@ -680,6 +671,15 @@ describe('Select Tests', () => {
         expect(await page.confirmDropdownIsExpanded()).toBe(true, 'after external click');
     });
 
+    it('should not close the dropdown on external click when autoCloseDropdown = false', async() => {
+        expect(await page.confirmDropdownIsExpanded()).toBe(false, 'before external click');
+        await page.clickOnCheckbox(page.checkboxMulti);
+        await page.clickOnDropdown(true);
+
+        await browser.actions().click($('body')).perform();
+        expect(await page.confirmDropdownIsExpanded()).toBe(false, 'after external click');
+    });
+    
     it('should automatically change the drop direction depending on the available space when using dropDirection=auto', async () => {
         await page.clickOnDropDirectionAuto();
         await page.decreaseMaxHeight.click();
