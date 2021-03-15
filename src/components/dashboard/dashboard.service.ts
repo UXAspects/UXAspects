@@ -281,6 +281,7 @@ export class DashboardService implements OnDestroy {
      * @param action The the widget to resize
      */
     onResizeStart(action: DashboardAction): void {
+        this.cacheWidgets();
 
         // store the mouse event
         this._event = action.event;
@@ -1090,10 +1091,22 @@ export class DashboardService implements OnDestroy {
         // iterate each widget and
         this.widgets.forEach(widget => {
             const widgetIsOnTopRow = widget.getRow() === 0;
-            const widgetIsBeingDragged = this._actionWidget?.widget === widget;
+            const widgetIsBeingResized = this._actionWidget?.widget === widget;
             const widgetShouldBeAutoPositioned = widget.autoPositioning  || this.stacked;
+            const widgetIsBeingMoved = !widgetShouldBeAutoPositioned && this.isDragging$.value?.id === widget.id;
 
-            if (widgetIsOnTopRow || widgetIsBeingDragged || !widgetShouldBeAutoPositioned) {
+            if (widgetIsOnTopRow || widgetIsBeingResized || widgetIsBeingMoved || (!widgetShouldBeAutoPositioned && !this._cache)) {
+                return;
+            }
+
+            if (!widgetShouldBeAutoPositioned) {
+                const cachedVersionOfWidget = this._cache.find(cachedWidget => cachedWidget.id === widget.id);
+                const isPreviousPositionAvailable = this.getPositionAvailable(cachedVersionOfWidget.column, cachedVersionOfWidget.row, cachedVersionOfWidget.columnSpan, cachedVersionOfWidget.rowSpan);
+                if (isPreviousPositionAvailable) {
+                    widget.setRow(cachedVersionOfWidget.row);
+                    stable = false;
+                }
+
                 return;
             }
 

@@ -58,7 +58,17 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
     @Input() dropDirection: 'auto' | 'up' | 'down' = 'down';
 
     /** Specify the max height of the dropdown */
-    @Input() maxHeight: string = '250px';
+    @Input()
+    get maxHeight(): string {
+        return this._maxHeight;
+    }
+
+    set maxHeight(maxHeight: string) {
+        this._maxHeight = maxHeight;
+        if (this.maxHeight.endsWith('px')) {
+            this._popoverOrientationListener.maxHeight = Number(this.maxHeight.slice(0, -2));
+        }
+    }
 
     /** Specify the aria multi selectable attribute value */
     @Input()
@@ -138,6 +148,8 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
     private _onDestroy = new Subject<void>();
 
     private _popoverOrientationListener: PopoverOrientationListener;
+
+    private _maxHeight = '250px';
 
     @HostBinding('class.drop-up')
     dropUp: boolean;
