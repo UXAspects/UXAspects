@@ -1405,6 +1405,10 @@
             "classname": "ux-icon-status-information-filled"
         },
         {
+            "name": "status-information",
+            "classname": "ux-icon-status-information"
+        },
+        {
             "name": "status-warning-filled",
             "classname": "ux-icon-status-warning-filled"
         },
