@@ -1,4 +1,4 @@
-import { browser, Key, $, } from 'protractor';
+import { $, browser, Key } from 'protractor';
 import { imageCompare } from '../../common/image-compare';
 import { numberOfCountries, SelectPage } from './select.po.spec';
 
@@ -661,7 +661,7 @@ describe('Select Tests', () => {
         expect(await page.getSelectedLocationText()).toBe('"Aland Islands"', 'should select correct value when debounceTime is 0');
     });
 
-    it('should close the dropdown on external click when autoCloseDropdown = true', async() => {
+    it('should close the dropdown on external click when autoCloseDropdown = true and multiple = true', async() => {
         expect(await page.confirmDropdownIsExpanded()).toBe(false, 'before external click');
         await page.clickOnCheckbox(page.checkboxMulti);
         await page.clickOnDropdown(true);
@@ -670,10 +670,28 @@ describe('Select Tests', () => {
         expect(await page.confirmDropdownIsExpanded()).toBe(false, 'after external click');
     });
 
-    it('should not close the dropdown on external click when autoCloseDropdown = false', async() => {
+    it('should not close the dropdown on external click when autoCloseDropdown = false and multiple = false', async() => {
         expect(await page.confirmDropdownIsExpanded()).toBe(false, 'before external click');
         await page.clickOnCheckbox(page.checkboxAutoCloseDropdown);
         await page.clickOnDropdown(false);
+
+        await browser.actions().click($('body')).perform();
+        expect(await page.confirmDropdownIsExpanded()).toBe(true, 'after external click');
+    });
+
+    it('should close the dropdown on external click when autoCloseDropdown = true and multiple = false', async() => {
+        expect(await page.confirmDropdownIsExpanded()).toBe(false, 'before external click');
+        await page.clickOnDropdown(false);
+        
+        await browser.actions().click($('body')).perform();
+        expect(await page.confirmDropdownIsExpanded()).toBe(false, 'after external click');
+    });
+
+    it('should not close the dropdown on external click when autoCloseDropdown = false and multiple = true', async() => {
+        expect(await page.confirmDropdownIsExpanded()).toBe(false, 'before external click');
+        await page.clickOnCheckbox(page.checkboxMulti);
+        await page.clickOnCheckbox(page.checkboxAutoCloseDropdown);
+        await page.clickOnDropdown(true);
 
         await browser.actions().click($('body')).perform();
         expect(await page.confirmDropdownIsExpanded()).toBe(true, 'after external click');
