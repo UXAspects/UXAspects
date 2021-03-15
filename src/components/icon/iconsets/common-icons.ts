@@ -352,6 +352,7 @@ export const commonIcons = [
     'status-approved-filled',
     'status-error-filled',
     'status-information-filled',
+    'status-information',
     'status-warning-filled',
     'steps-filled',
     'steps',
