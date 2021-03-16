@@ -25,6 +25,7 @@ export class AppComponent implements OnInit, OnDestroy {
     clearButton: boolean = false;
     recentOptions: ReadonlyArray<string>;
     recentOptionsMaxCount: number = 5;
+    autoCloseDropdown: boolean = true;
 
     private _pageSize = 20;
     private _onDestroy = new Subject<void>();

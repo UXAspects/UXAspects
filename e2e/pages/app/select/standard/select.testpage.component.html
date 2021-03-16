@@ -18,6 +18,8 @@
                 [(recentOptions)]="recentOptions"
                 [recentOptionsMaxCount]="recentOptionsMaxCount"
                 [filterDebounceTime]="filterDebounceTime"
+                [autoCloseDropdown]="autoCloseDropdown">
+
                 [maxHeight]="maxHeight">
                 <ng-template *ngIf="customIcon" #icon>
                     <div id="custom-icon" class="ux-select-icon">
@@ -74,6 +76,15 @@
                 [disabled]="multiple | async"
             >
                 allowNull
+            </ux-checkbox>
+        </div>
+
+        <div>
+            <ux-checkbox
+                id="checkbox6"
+                [(value)]="autoCloseDropdown"
+            >
+            autoCloseDropdown
             </ux-checkbox>
         </div>
 
