@@ -5,14 +5,10 @@ import { fromEvent, Subject } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
 import { TooltipComponent } from './tooltip.component';
 import { TooltipService } from './tooltip.service';
-import { clearTimeout } from 'timers';
 
 @Directive({
     selector: '[uxTooltip]',
-    exportAs: 'ux-tooltip',
-    host: {
-        '[class.ux-tooltip-host]': 'true'
-    }
+    exportAs: 'ux-tooltip'
 })
 export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
 
