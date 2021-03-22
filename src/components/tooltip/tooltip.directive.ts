@@ -300,11 +300,11 @@ export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
             );
 
             if (this.placement === 'top' || this.placement === 'bottom') {
-                strategy.withOffsetY(this.placement === 'top' ? -4 : 4)
+                strategy.withOffsetY(this.placement === 'top' ? -4 : 4);
             }
 
             if (this.placement === 'left' || this.placement === 'right') {
-                strategy.withOffsetX(this.placement === 'left' ? -4 : 4)
+                strategy.withOffsetX(this.placement === 'left' ? -4 : 4);
             }
 
         strategy.onPositionChange.subscribe(positionChange => {
