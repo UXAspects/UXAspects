@@ -52,11 +52,11 @@ describe('Dashboard Widgets', () => {
 
     it('should react correctly when a widget is moved and resized', async () => {
         const layoutMock = [
-            {id: 'widget-actions', 'col': 0, 'row': 6, 'colSpan': 2, 'rowSpan': 1},
-            {id: 'widget-table', 'col': 2, 'row': 0, 'colSpan': 2, 'rowSpan': 2},
-            {id: 'widget-select', 'col': 0, 'row': 0, 'colSpan': 2, 'rowSpan': 1},
-            {id: 'widget-text', 'col': 0, 'row': 2, 'colSpan': 4, 'rowSpan': 2},
-            {id: 'widget-text-readonly', 'col': 0, 'row': 4, 'colSpan': 4, 'rowSpan': 2}
+            {id: 'widget-actions', col: 0, row: 6, colSpan: 2, rowSpan: 1, minColSpan: 1, minRowSpan: 1},
+            {id: 'widget-table', col: 2, row: 0, colSpan: 2, rowSpan: 2, minColSpan: 1, minRowSpan: 1},
+            {id: 'widget-select', col: 0, row: 0, colSpan: 2, rowSpan: 1, minColSpan: 1, minRowSpan: 1},
+            {id: 'widget-text', col: 0, row: 2, colSpan: 4, rowSpan: 2, minColSpan: 1, minRowSpan: 1},
+            {id: 'widget-text-readonly', col: 0, row: 4, colSpan: 4, rowSpan: 2, minColSpan: 1, minRowSpan: 1}
         ];
 
         // drag the top widget down
