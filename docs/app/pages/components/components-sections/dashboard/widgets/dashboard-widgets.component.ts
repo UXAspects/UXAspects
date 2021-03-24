@@ -40,7 +40,7 @@ export class ComponentsDashboardWidgetsComponent extends BaseDocumentationSectio
     options: DashboardOptions = {
         columns: 4,
         padding: this._dashboardPadding,
-        rowHeight: 112,
+        rowHeight: 120,
         emptyRow: false,
         minWidth: 187
     };
