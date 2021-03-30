@@ -426,6 +426,15 @@ describe('Dashboard Tests', () => {
         expect(await page.getWidgetLocationValue(widget1, 'width')).toBe(1108, 'should be the same as the initial width');
     });
 
+    it('should have auto z-index applied to the widget in their initial state', async () => {
+        expect(await widget1.getCssValue('z-index')).toBe('auto');
+    });
+
+    it('should have auto z-index applied to the widget after movement', async () => {
+        await browser.actions().dragAndDrop(widget1, { x: 0, y: 250 }).perform();
+        expect(await widget1.getCssValue('z-index')).toBe('auto');
+    });
+
     describe('Stacked Mode', () => {
 
         beforeEach(async () => {
