@@ -85,7 +85,7 @@ export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestro
     @HostBinding('style.width.px') width: number = 100;
     @HostBinding('style.height.px') height: number = 100;
     @HostBinding('style.padding.px') padding: number = 0;
-    @HostBinding('style.z-index') zIndex: number = 0;
+    @HostBinding('style.z-index') zIndex: number = null;
     @HostBinding('attr.aria-label') ariaLabel: string;
     @HostBinding('class.dragging') isDragging: boolean = false;
     @HostBinding('class.grabbing') isGrabbing: boolean = false;
@@ -248,7 +248,7 @@ export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestro
     }
 
     sendToBack(): void {
-        this.zIndex = 0;
+        this.zIndex = null;
     }
 
     setBounds(x: number, y: number, width: number, height: number): void {
