@@ -513,6 +513,8 @@ export class DashboardService implements OnDestroy {
 
         this._widgetOrigin = {};
 
+        this.isDragging$.getValue().sendToBack();
+
         this.isDragging$.next(null);
 
         this.userLayoutChange$.next(this.getLayoutData());
