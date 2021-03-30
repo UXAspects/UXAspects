@@ -1,4 +1,5 @@
 <div class="container">
+    <ux-checkbox id="has-arrow-checkbox" [(value)]="hasArrow">hasArrow</ux-checkbox>
     <button
         type="button"
         id="left-popover"
@@ -6,7 +7,9 @@
         uxPopover="Popover on the left"
         placement="left"
         [isOpen]="isOpen"
-        popoverClass="left-popover"
+        [showTriggers]="[]"
+        [hideTriggers]="[]"
+        popoverClass="left-popover {{hasArrow ? 'popover-arrow' : ''}}"
     >
         Popover on left
     </button>
@@ -18,7 +21,9 @@
         uxPopover="Popover on the top"
         placement="top"
         [isOpen]="isOpen"
-        popoverClass="top-popover"
+        [showTriggers]="[]"
+        [hideTriggers]="[]"
+        popoverClass="top-popover {{hasArrow ? 'popover-arrow' : ''}}"
     >
         Popover on top
     </button>
@@ -30,7 +35,9 @@
         uxPopover="Popover on the bottom"
         placement="bottom"
         [isOpen]="isOpen"
-        popoverClass="bottom-popover"
+        [showTriggers]="[]"
+        [hideTriggers]="[]"
+        popoverClass="bottom-popover {{hasArrow ? 'popover-arrow' : ''}}"
     >
         Popover on bottom
     </button>
@@ -42,7 +49,9 @@
         uxPopover="Popover on the right"
         placement="right"
         [isOpen]="isOpen"
-        popoverClass="right-popover"
+        [showTriggers]="[]"
+        [hideTriggers]="[]"
+        popoverClass="right-popover {{hasArrow ? 'popover-arrow' : ''}}"
     >
         Popover on right
     </button>
@@ -55,9 +64,10 @@
         placement="right"
         fallbackPlacement="top"
         [isOpen]="isOpen"
-        popoverClass="fallback-popover"
+        [showTriggers]="[]"
+        [hideTriggers]="[]"
+        popoverClass="custom-popover {{hasArrow ? 'popover-arrow' : ''}}"
     >
         Custom Fallback
     </button>
-
 </div>

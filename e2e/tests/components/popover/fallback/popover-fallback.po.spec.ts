@@ -1,22 +1,16 @@
-import { $, browser, ElementFinder } from 'protractor';
+import { $, browser } from 'protractor';
 
 export class PopoverFallbackPage {
-
-    leftPopoverContent = $('.left-popover');
-    topPopoverContent = $('.top-popover');
-    bottomPopoverContent = $('.bottom-popover');
-    rightPopoverContent = $('.right-popover');
-    customFallbackContent = $('.custom-popover');
-
+    
     cdkOverlayContainer = $('.cdk-overlay-container');
+    hasArrowCheckbox = $('#has-arrow-checkbox');
 
     async getPage() {
         return await browser.get('#/popover/fallback');
     }
 
-    async popoverHasClass(popover: ElementFinder, className: string): Promise<boolean> {
-        const classes = (await popover.getAttribute('class')).split(' ');
-        return classes.indexOf(className) !== -1;
+    async getClassList(dir: string): Promise<string[]> {
+        const popover = $(`.${dir}-popover`);
+        return (await popover.getAttribute('class')).split(' ');
     }
-
 }
