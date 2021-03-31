@@ -1,4 +1,13 @@
-import { ChangeDetectionStrategy, Component, ElementRef, Input, OnDestroy, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    Component,
+    ElementRef,
+    Input,
+    OnDestroy,
+    QueryList,
+    ViewChild,
+    ViewChildren,
+} from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { HierarchyBarNodeComponent } from '../hierarchy-bar-node/hierarchy-bar-node.component';
@@ -8,10 +17,9 @@ import { HierarchyBarNode } from '../interfaces/hierarchy-bar-node.interface';
 @Component({
     selector: 'ux-hierarchy-bar-standard',
     templateUrl: './hierarchy-bar-standard.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HierarchyBarStandardComponent implements OnDestroy {
-
     /** Determine the mode of the hierarchy bar */
     @Input() mode: string;
 
@@ -19,10 +27,13 @@ export class HierarchyBarStandardComponent implements OnDestroy {
     @Input() readonly: boolean;
 
     /** Get the elementRef of the node list */
-    @ViewChild('nodelist', { static: true }) nodelist: ElementRef;
+    @ViewChild('nodelist', { static: true }) nodelist: ElementRef<HTMLDivElement>;
 
     /** Get elementRefs for all the nodes */
     @ViewChildren(HierarchyBarNodeComponent, { read: ElementRef }) nodes: QueryList<ElementRef>;
+
+    /** Get instances for all the nodes */
+    @ViewChildren(HierarchyBarNodeComponent) nodeInstances: QueryList<HierarchyBarNodeComponent>;
 
     /** Identify which nodes are overflowing */
     overflow$ = new BehaviorSubject<HierarchyBarNode[]>([]);
@@ -33,12 +44,10 @@ export class HierarchyBarStandardComponent implements OnDestroy {
     /** Unsubscribe from all subscriptions when component is destroyed */
     private _onDestroy = new Subject<void>();
 
-    areAnyHiddenNodes = false;
-
     constructor(public readonly hierarchyBar: HierarchyBarService) {
-
         // subscribe to changes in the selected node - update the UI after the render
-        hierarchyBar.nodes$.pipe(takeUntil(this._onDestroy))
+        hierarchyBar.nodes$
+            .pipe(takeUntil(this._onDestroy))
             .subscribe(() => requestAnimationFrame(this.scrollIntoView.bind(this)));
     }
 
@@ -54,66 +63,56 @@ export class HierarchyBarStandardComponent implements OnDestroy {
      * overflow indicator
      */
     scrollIntoView(): void {
-
         if (!this.nodelist) {
             return;
         }
 
-        // get the native element
+        // // get the native element
         const { nativeElement } = this.nodelist;
         const isOverflowing = nativeElement.scrollWidth > nativeElement.offsetWidth;
-
-        const addons = document.querySelector('.hierarchy-bar-addons').getBoundingClientRect();
-        const nodes = document.querySelectorAll('ux-hierarchy-bar-node');
-
-        let anyOverlap = false;
-
-        const hiddenNodes: Element[] = [];
-        let numberHidden = 0;
-
-        nodes.forEach(node => {
-            const overlap = !(addons.right < node.getBoundingClientRect().left ||
-            addons.left > node.getBoundingClientRect().right ||
-            addons.bottom < node.getBoundingClientRect().top ||
-            addons.top > node.getBoundingClientRect().bottom);
-
-            if(overlap && addons.width !== 0) {
-                anyOverlap = true;
-                hiddenNodes.push(node);
-                numberHidden++;
-            }
-        });
 
         // emit whether we are overflowing or not
         this.isOverflowing$.next(isOverflowing);
 
-        // if the hierarchy bar contents do not overflow then do nothing
-        if (isOverflowing) {
-
-            // determine the amount of overflow
-            const amount = nativeElement.scrollWidth - nativeElement.offsetWidth;
-
-            // determine which nodes are not fully visible
-            const x = this.nodes.filter(node => node.nativeElement.offsetLeft < amount)
-                                .map((_node, index) => this.hierarchyBar.nodes$.value[index]);
-
-            this.overflow$.next(
-                x
-            );
-
-            // move the scroll position to always show the last item
-            this.nodelist.nativeElement.scrollLeft = amount;
-        }
-    }
-
-    isNodeOverflowing(index: number) {
-        const numberOfNodesOverflowing = this.overflow$.value.length;
-        if (numberOfNodesOverflowing === 0) {
-            this.areAnyHiddenNodes = false;
-        } else {
-            this.areAnyHiddenNodes = true;
+        // we don't need to do anything else if there is no overflow
+        if (!isOverflowing) {
+            this.nodeInstances.forEach((node) => (node.visible = true));
+            return;
         }
 
-        return index < numberOfNodesOverflowing;
+        let isFull: boolean = false;
+
+        // find the nodes that should be visible (we start at the rightmost node)
+        const nodes = this.nodeInstances.toArray().reduceRight<HierarchyBarNodeComponent[]>((visibleNodes, node) => {
+            // there must always be one visible node
+            if (visibleNodes.length === 0) {
+                return [node];
+            }
+
+            // if the hierarchy bar is already occupying the available space then we can skip calculations
+            if (isFull) {
+                // hide the node
+                node.visible = false;
+                return visibleNodes;
+            }
+
+            // get the cumulative width of all the visible nodes
+            const consumedWidth = visibleNodes.reduce((totalWidth, visibleNode) => totalWidth + visibleNode.width, 0);
+
+            // get the width that would be consumed if this node was included
+            const width = node.width + consumedWidth;
+            isFull = width > nativeElement.offsetWidth;
+            node.visible = !isFull;
+
+            return isFull ? visibleNodes : [...visibleNodes, node];
+        }, []);
+
+        // determine the scroll position based on the visible nodes
+        // TODO: this is not correct, this is just a placeholder
+        nativeElement.scrollLeft = nodes.reduce((width, node) => node.width + width, 0);
+
+        // determine which nodes should be hidden
+        // TODO: Emit the list of hidden nodes
+        // this.overflow$.next();
     }
 }

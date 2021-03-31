@@ -1,14 +1,24 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, TemplateRef } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    Component,
+    ElementRef,
+    EventEmitter,
+    Input,
+    Output,
+    TemplateRef,
+} from '@angular/core';
 import { HierarchyBarService } from '../hierarchy-bar.service';
 import { HierarchyBarNode } from '../interfaces/hierarchy-bar-node.interface';
 
 @Component({
     selector: 'ux-hierarchy-bar-node',
     templateUrl: './hierarchy-bar-node.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    host: {
+        '[style.visibility]': 'visible ? "visible" : "hidden"',
+    },
 })
 export class HierarchyBarNodeComponent {
-
     /** Specify the node data */
     @Input() node: HierarchyBarNode;
 
@@ -24,6 +34,16 @@ export class HierarchyBarNodeComponent {
     /** Emit when the node is selected */
     @Output() selected = new EventEmitter<HierarchyBarNode>();
 
-    constructor(public readonly hierarchyBar: HierarchyBarService) { }
+    /** Determine if this node should be hidden due to overflow */
+    visible: boolean = true;
 
+    /** Get the width of the element */
+    get width(): number {
+        return this._elementRef.nativeElement.offsetWidth;
+    }
+
+    constructor(
+        public readonly hierarchyBar: HierarchyBarService,
+        private readonly _elementRef: ElementRef<HTMLElement>
+    ) {}
 }
