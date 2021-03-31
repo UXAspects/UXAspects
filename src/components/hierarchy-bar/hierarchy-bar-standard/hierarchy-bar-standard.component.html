@@ -37,14 +37,17 @@
 
 <div #nodelist class="hierarchy-bar-nodes" (uxResize)="scrollIntoView()">
 
+<ng-container *ngFor="let node of hierarchyBar.nodes$ | async; let i = index;">
     <ux-hierarchy-bar-node
+        *ngIf="!isNodeOverflowing(i)"
         [mode]="mode"
         [readonly]="readonly"
-        *ngFor="let node of hierarchyBar.nodes$ | async"
         [node]="node"
         [popoverTemplate]="content"
         (selected)="hierarchyBar.selectNode(node)">
     </ux-hierarchy-bar-node>
+</ng-container>
+
 
     <!-- Allow content to be placed after the last node -->
     <div class="hierarchy-bar-addons">
