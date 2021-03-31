@@ -6,6 +6,6 @@ import { Component } from '@angular/core';
     styleUrls: ['./popover-fallback.testpage.component.less']
 })
 export class PopoverFallbackTestPageComponent {
-    placement: string = 'top';
     isOpen: boolean = true;
+    hasArrow: boolean = false;
 }

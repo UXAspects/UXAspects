@@ -3,7 +3,7 @@ ux-popover {
         position: static;
 
         > .arrow {
-            border-width: 11px;
+            border-width: 8px;
 
             &:after {
                 content: " ";
@@ -11,14 +11,14 @@ ux-popover {
         }
 
         &.bottom {
-            margin-top: 10px;
-            transform: translateY(0);
+            margin-top: 8px;
+            position: relative;
 
             > .arrow {
                 left: 50%;
                 border-top-width: 0;
                 border-bottom-color: rgba(0, 0, 0, 0.25);
-                top: -11px;
+                top: -8px;
                 margin-left: 0;
                 transform: translateX(-50%);
 
@@ -33,14 +33,14 @@ ux-popover {
         }
 
         &.top {
-            margin-top: -10px;
-            transform: translateY(-11px);
+            margin-top: -8px;
+            transform: translateY(-8px);
 
             > .arrow {
                 left: 50%;
                 border-bottom-width: 0;
                 border-top-color: rgba(0, 0, 0, 0.25);
-                bottom: -11px;
+                bottom: -8px;
                 margin-left: 0;
                 transform: translateX(-50%);
 
@@ -67,11 +67,20 @@ ux-popover {
         }
 
         &.left {
-            transform: translateX(-11px);
+            transform: translateX(-8px);
+
+            > .arrow {
+                right: -8px;
+            }
         }
 
         &.right {
+            margin-left: 8px;
             transform: translateX(0);
+
+            > .arrow {
+                left: -8px;
+            }
         }
 
         &.left,
