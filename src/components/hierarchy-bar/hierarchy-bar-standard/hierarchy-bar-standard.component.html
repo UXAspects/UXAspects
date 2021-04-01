@@ -9,12 +9,10 @@
         [hideTriggers]="hierarchyBar.popoverHideTriggers"
         [popoverContext]="{ popover: popover }"
         placement="bottom"
-        popoverClass="hierarchy-bar-popover"
-    >
+        popoverClass="hierarchy-bar-popover">
         <ng-container
             [ngTemplateOutlet]="hierarchyBar.overflowTemplate || defaultOverflowTemplate"
-            [ngTemplateOutletContext]="{ $implicit: overflow$ | async }"
-        >
+            [ngTemplateOutletContext]="{ $implicit: overflow$ | async }">
         </ng-container>
 
         <button
@@ -32,8 +30,7 @@
             [popoverContext]="{ popover: popover }"
             [showTriggers]="hierarchyBar.popoverShowTriggers"
             [hideTriggers]="hierarchyBar.popoverHideTriggers"
-            type="button"
-        >
+            type="button">
             <ux-icon name="next" class="hierarchy-bar-node-arrow-icon"></ux-icon>
         </button>
     </div>
@@ -47,8 +44,7 @@
             [readonly]="readonly"
             [node]="node"
             [popoverTemplate]="content"
-            (selected)="hierarchyBar.selectNode(node)"
-        >
+            (selected)="hierarchyBar.selectNode(node)">
         </ux-hierarchy-bar-node>
     </ng-container>
 
@@ -68,8 +64,7 @@
     <ux-hierarchy-bar-popover
         [loading]="(hierarchyBar.getChildren(node) | async)?.loading"
         [nodes]="(hierarchyBar.getChildren(node) | async)?.children"
-        (selected)="hierarchyBar.selectNode($event); popover.hide()"
-    >
+        (selected)="hierarchyBar.selectNode($event); popover.hide()">
     </ux-hierarchy-bar-popover>
 </ng-template>
 
@@ -88,8 +83,7 @@
             [node]="child"
             [focusIf]="first"
             uxTabbableListItem
-            (selected)="hierarchyBar.selectNode(child); popover.hide()"
-        >
+            (selected)="hierarchyBar.selectNode(child); popover.hide()">
         </ux-hierarchy-bar-popover-item>
     </div>
 </ng-template>
@@ -103,8 +97,7 @@
         class="overflow-button"
         aria-label="Show parents"
         role="button"
-        type="button"
-    >
+        type="button">
         <ux-icon name="more"></ux-icon>
     </button>
 </ng-template>

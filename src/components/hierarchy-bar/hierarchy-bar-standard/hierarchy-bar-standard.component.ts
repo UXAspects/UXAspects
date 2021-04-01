@@ -1,13 +1,4 @@
-import {
-    ChangeDetectionStrategy,
-    Component,
-    ElementRef,
-    Input,
-    OnDestroy,
-    QueryList,
-    ViewChild,
-    ViewChildren,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, Input, OnDestroy, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { HierarchyBarNodeComponent } from '../hierarchy-bar-node/hierarchy-bar-node.component';
@@ -112,7 +103,9 @@ export class HierarchyBarStandardComponent implements OnDestroy {
         nativeElement.scrollLeft = nodes.reduce((width, node) => node.width + width, 0);
 
         // determine which nodes should be hidden
-        // TODO: Emit the list of hidden nodes
-        // this.overflow$.next();
+        const nodesHidden = this.nodeInstances.filter(node => {
+            return !node.visible
+        });
+        this.overflow$.next(nodesHidden.map(node => node.node));
     }
 }
