@@ -37,7 +37,7 @@
     <ng-content select="left-addons"></ng-content>
 </div>
 
-<div #nodelist class="hierarchy-bar-nodes" (uxResize)="scrollIntoView()">
+<div #nodelist class="hierarchy-bar-nodes" (uxResize)="scrollIntoView()"  [ngStyle]="{'transform': 'translateX(' + -overflowTranslateOffset + 'px)'}">
     <ng-container *ngFor="let node of hierarchyBar.nodes$ | async; let i = index">
         <ux-hierarchy-bar-node
             [mode]="mode"

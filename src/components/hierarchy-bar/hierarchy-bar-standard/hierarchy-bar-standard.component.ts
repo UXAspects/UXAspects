@@ -26,6 +26,9 @@ export class HierarchyBarStandardComponent implements OnDestroy {
     /** Get instances for all the nodes */
     @ViewChildren(HierarchyBarNodeComponent) nodeInstances: QueryList<HierarchyBarNodeComponent>;
 
+    /** Value in pixels to translate the visible nodes by to fill the empty space occupied by hidden nodes */
+    overflowTranslateOffset = 0;
+
     /** Identify which nodes are overflowing */
     overflow$ = new BehaviorSubject<HierarchyBarNode[]>([]);
 
@@ -58,7 +61,7 @@ export class HierarchyBarStandardComponent implements OnDestroy {
             return;
         }
 
-        // // get the native element
+        // get the native element
         const { nativeElement } = this.nodelist;
         const isOverflowing = nativeElement.scrollWidth > nativeElement.offsetWidth;
 
@@ -68,6 +71,7 @@ export class HierarchyBarStandardComponent implements OnDestroy {
         // we don't need to do anything else if there is no overflow
         if (!isOverflowing) {
             this.nodeInstances.forEach((node) => (node.visible = true));
+            this.overflowTranslateOffset = 0;
             return;
         }
 
@@ -89,6 +93,7 @@ export class HierarchyBarStandardComponent implements OnDestroy {
 
             // get the cumulative width of all the visible nodes
             const consumedWidth = visibleNodes.reduce((totalWidth, visibleNode) => totalWidth + visibleNode.width, 0);
+            this.overflowTranslateOffset = this.nodelist.nativeElement.clientWidth - consumedWidth;
 
             // get the width that would be consumed if this node was included
             const width = node.width + consumedWidth;
@@ -98,13 +103,14 @@ export class HierarchyBarStandardComponent implements OnDestroy {
             return isFull ? visibleNodes : [...visibleNodes, node];
         }, []);
 
-        // determine the scroll position based on the visible nodes
-        // TODO: this is not correct, this is just a placeholder
-        nativeElement.scrollLeft = nodes.reduce((width, node) => node.width + width, 0);
+        const amount = nativeElement.scrollWidth - nativeElement.offsetWidth;
+
+        // move the scroll position to always show the last item
+        this.nodelist.nativeElement.scrollLeft = amount;
 
         // determine which nodes should be hidden
         const nodesHidden = this.nodeInstances.filter(node => {
-            return !node.visible
+            return !node.visible;
         });
         this.overflow$.next(nodesHidden.map(node => node.node));
     }
