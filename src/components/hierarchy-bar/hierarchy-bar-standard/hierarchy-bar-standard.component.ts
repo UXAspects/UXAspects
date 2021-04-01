@@ -103,6 +103,10 @@ export class HierarchyBarStandardComponent implements OnDestroy {
             return isFull ? visibleNodes : [...visibleNodes, node];
         }, []);
 
+        if (nodes.length === 1 && this.nodelist.nativeElement.offsetWidth < nodes[0].width) {
+            this.overflowTranslateOffset = 0;
+        }
+
         const amount = nativeElement.scrollWidth - nativeElement.offsetWidth;
 
         // move the scroll position to always show the last item
