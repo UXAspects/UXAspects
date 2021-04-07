@@ -8,6 +8,20 @@ ux-hierarchy-bar-standard {
         flex: none;
     }
 
+    ux-hierarchy-bar-node:last-of-type {
+        flex: 1;
+        overflow: hidden;
+
+        .hierarchy-bar-node-content {
+            width: calc(100%);
+        }
+
+        .hierarchy-bar-node-title {
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    }
+
     .hierarchy-bar-nodes {
         position: relative;
         display: flex;

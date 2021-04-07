@@ -70,7 +70,9 @@
 
 <!-- Template for the popover list -->
 <ng-template #nodeList let-node="node" let-popover="popover">
-    <ux-hierarchy-bar-popover [nodes]="node" (selected)="hierarchyBar.selectNode($event); popover.hide()">
+    <ux-hierarchy-bar-popover
+        [nodes]="node"
+        (selected)="hierarchyBar.selectNode($event); popover.hide()">
     </ux-hierarchy-bar-popover>
 </ng-template>
 
