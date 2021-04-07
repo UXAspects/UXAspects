@@ -385,6 +385,11 @@ export class PartitionMapComponent implements OnInit, OnDestroy {
         return context;
     }
 
+    trackByFn(_index: number, item: any): number {
+        console.log('🚀 ~ file: partition-map.component.ts ~ line 389 ~ PartitionMapComponent ~ trackByFn ~ _index', _index);
+        return item._index;
+    }
+
     /** Convert the public facing data structure into the layout format we require */
     private setDataset(dataset: Readonly<PartitionMapSegment>): void {
 
