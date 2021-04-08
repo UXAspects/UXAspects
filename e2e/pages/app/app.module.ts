@@ -135,6 +135,10 @@ const routes: Routes = [
         loadChildren: () => import('./popover/popover.module').then(m => m.PopoverTestPageModule)
     },
     {
+        path: 'partition-map',
+        loadChildren: () => import('./partition-map/partition-map.module').then(m => m.PartitionMapTestPageModule)
+    },
+    {
         path: 'radiobuttons',
         loadChildren: () => import('./radiobuttons/radiobuttons.module').then(m => m.RadioButtonsTestPageModule)
     },
