@@ -203,7 +203,7 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
     // When clicking on the input during multiple mode it will send a on touched event to the parent component
     @Output() inputFocus = new EventEmitter<FocusEvent>();
 
-    //Emits when the component loses focus
+    // Emits when the component loses focus
     @Output() inputBlur = new EventEmitter<FocusEvent>();
 
     @ContentChildren(TypeaheadComponent) typeaheadQuery: QueryList<TypeaheadComponent>;
