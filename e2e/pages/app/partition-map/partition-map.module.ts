@@ -1,7 +1,8 @@
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { AccessibilityModule, ColorServiceModule, PartitionMapModule } from '@ux-aspects/ux-aspects';
+import { AccessibilityModule, ColorServiceModule, IconModule, PartitionMapModule, PopoverModule } from '@ux-aspects/ux-aspects';
 import { PartitionMapTestPageComponent } from './partition-map.testpage.component';
 
 @NgModule({
@@ -9,6 +10,9 @@ import { PartitionMapTestPageComponent } from './partition-map.testpage.componen
         FormsModule,
         PartitionMapModule,
         ColorServiceModule,
+        CommonModule,
+        IconModule,
+        PopoverModule,
         AccessibilityModule,
         RouterModule.forChild([
             {

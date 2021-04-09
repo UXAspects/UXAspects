@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { PartitionMapSegment, PopoverDirective } from '@ux-aspects/ux-aspects';
+import { PopoverDirective } from '@ux-aspects/ux-aspects';
 
 @Component({
     selector: 'app-partition-map',
@@ -7,7 +7,7 @@ import { PartitionMapSegment, PopoverDirective } from '@ux-aspects/ux-aspects';
 })
 export class PartitionMapTestPageComponent {
 
-    dataset: Readonly<PartitionMapSegment> = {
+    dataset: any = {
         name: 'My Workspace',
         children: [
             {
@@ -28,26 +28,6 @@ export class PartitionMapTestPageComponent {
                     { name: 'To be retained', value: 60 },
                     { name: 'Redundant', value: 10 },
                     { name: 'Obsolete', value: 10 },
-                ]
-            },
-            {
-                name: 'Contact Data',
-                children: [
-                    { name: 'Sensitive', value: 30 },
-                    { name: 'Partially Sensitive', value: 30 },
-                    { name: 'To be retained', value: 30 },
-                    { name: 'Redundant', value: 5 },
-                    { name: 'Obsolete', value: 5 },
-                ]
-            },
-            {
-                name: 'Account Data',
-                children: [
-                    { name: 'Sensitive', value: 15 },
-                    { name: 'Partially Sensitive', value: 15 },
-                    { name: 'To be retained', value: 15 },
-                    { name: 'Redundant', value: 2 },
-                    { name: 'Obsolete', value: 0 },
                 ]
             }
         ]
@@ -85,44 +65,20 @@ export class PartitionMapTestPageComponent {
         }, 200);
     }
 
-    change() {​​​​​​​​​
+    changeDataset() {​​​​​​​​​
         this.dataset = {​​​​​​​​​
-            name: 'My Workspace',
+            name: 'Another Workspace',
             children: [
-                {​​​​​​​​​
-                    name: 'Financial Data',
-                    value: 10
-                }​​​​​​​​​,
-                {​​​​​​​​​
-                    name: 'Identification Data',
+                {
+                    name: 'Financial',
                     children: [
-                        {​​​​​​​​​ name: 'Sensitive', value: 60 }​​​​​​​​​,
-                        {​​​​​​​​​ name: 'Partially Sensitive', value: 60 }​​​​​​​​​,
-                        {​​​​​​​​​ name: 'To be retained', value: 60 }​​​​​​​​​,
-                        {​​​​​​​​​ name: 'Redundant', value: 10 }​​​​​​​​​,
-                        {​​​​​​​​​ name: 'Obsolete', value: 10 }​​​​​​​​​,
+                        { name: 'Sensitive', value: 160 },
+                        { name: 'Partially Sensitive', value: 260 },
+                        { name: 'To be retained', value: 20 },
+                        { name: 'Redundant', value: 50 },
+                        { name: 'Obsolete', value: 70 },
                     ]
-                }​​​​​​​​​,
-                {​​​​​​​​​
-                    name: 'Contact Data',
-                    children: [
-                        {​​​​​​​​​ name: 'Sensitive', value: 30 }​​​​​​​​​,
-                        {​​​​​​​​​ name: 'Partially Sensitive', value: 30 }​​​​​​​​​,
-                        {​​​​​​​​​ name: 'To be retained', value: 30 }​​​​​​​​​,
-                        {​​​​​​​​​ name: 'Redundant', value: 5 }​​​​​​​​​,
-                        {​​​​​​​​​ name: 'Obsolete', value: 5 }​​​​​​​​​,
-                    ]
-                }​​​​​​​​​,
-                {​​​​​​​​​
-                    name: 'Account Data',
-                    children: [
-                        {​​​​​​​​​ name: 'Sensitive', value: 15 }​​​​​​​​​,
-                        {​​​​​​​​​ name: 'Partially Sensitive', value: 15 }​​​​​​​​​,
-                        {​​​​​​​​​ name: 'To be retained', value: 15 }​​​​​​​​​,
-                        {​​​​​​​​​ name: 'Redundant', value: 2 }​​​​​​​​​,
-                        {​​​​​​​​​ name: 'Obsolete', value: 0 }​​​​​​​​​,
-                    ]
-                }​​​​​​​​​
+                }​​​​​​​​​​​​​​​​​​
             ]
         }​​​​​​​​​;
     }​​​​​​​​​
