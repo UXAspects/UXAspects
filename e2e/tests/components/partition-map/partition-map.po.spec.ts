@@ -14,6 +14,8 @@ export class PartitionMapPage {
     }
 
     async getSegmentText(index: number) {
-        return await this.container.$('ux-partition-map.partition-map').$$('div.partition-map-segment').get(index).$('span.partition-map-segment-label').getAttribute('innerHTML');
+        return await this.container.$('ux-partition-map.partition-map')
+        .$$('div.partition-map-segment').get(index)
+        .$('span.partition-map-segment-label').getAttribute('innerHTML');
     }
 }

@@ -1,7 +1,7 @@
 import { imageCompare } from '../common/image-compare';
 import { PartitionMapPage } from './partition-map.po.spec';
 
-describe('Partition Map Tests', () => {
+describe('Partition Map', () => {
 
     let page: PartitionMapPage = new PartitionMapPage();
 
