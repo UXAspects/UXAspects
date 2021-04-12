@@ -110,4 +110,20 @@ describe('Tag Input Component', () => {
 
         expect(attributeRequired).toBe(true);
     });
+
+    it('should emit inputBlur when the input field loses focus', () => {
+        fixture.detectChanges();
+
+        const onInputBlur = jasmine.createSpy('inputBlur');
+        const subscription = component.inputBlur.subscribe(onInputBlur);
+        const inputElement = nativeElement.querySelector<HTMLInputElement>('input.ux-tag-input');
+
+        inputElement.dispatchEvent(new Event('blur'));
+
+        fixture.detectChanges();
+
+        expect(onInputBlur).toHaveBeenCalled();
+        subscription.unsubscribe();
+    });
+
 });
