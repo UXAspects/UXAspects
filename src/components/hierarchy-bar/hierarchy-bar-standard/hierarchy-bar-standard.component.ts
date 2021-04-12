@@ -26,6 +26,8 @@ export class HierarchyBarStandardComponent implements OnDestroy {
     /** Get instances for all the nodes */
     @ViewChildren(HierarchyBarNodeComponent) nodeInstances: QueryList<HierarchyBarNodeComponent>;
 
+    @ViewChildren('barNodes', { read: ElementRef }) barNodes: QueryList<ElementRef>;
+
     /** Value in pixels to translate the visible nodes by to fill the empty space occupied by hidden nodes */
     overflowTranslateOffset = 0;
 
@@ -53,7 +55,7 @@ export class HierarchyBarStandardComponent implements OnDestroy {
     /**
      * When there is overflow ensure that the rightmost
      * node remains in view at all times. The nodes no longer
-     * visible be be displayed in a popover available on the
+     * visible should be displayed in a popover available on the
      * overflow indicator
      */
     scrollIntoView(): void {
@@ -61,9 +63,12 @@ export class HierarchyBarStandardComponent implements OnDestroy {
             return;
         }
 
+        const lastItem = this.barNodes.last;
+        const nativeElementLast = lastItem.nativeElement;
+
         // get the native element
         const { nativeElement } = this.nodelist;
-        const isOverflowing = nativeElement.scrollWidth > nativeElement.offsetWidth;
+        const isOverflowing = nativeElement.scrollWidth > nativeElement.offsetWidth || nativeElementLast.scrollWidth > nativeElementLast.offsetWidth;
 
         // emit whether we are overflowing or not
         this.isOverflowing$.next(isOverflowing);
@@ -93,11 +98,13 @@ export class HierarchyBarStandardComponent implements OnDestroy {
 
             // get the cumulative width of all the visible nodes
             const consumedWidth = visibleNodes.reduce((totalWidth, visibleNode) => totalWidth + visibleNode.width, 0);
+
+            const [lastVisibleItem] = visibleNodes.slice(-1);
             this.overflowTranslateOffset = this.nodelist.nativeElement.clientWidth - consumedWidth;
 
             // get the width that would be consumed if this node was included
             const width = node.width + consumedWidth;
-            isFull = width > nativeElement.offsetWidth;
+            isFull = width > nativeElement.offsetWidth - lastVisibleItem.width + nativeElementLast.scrollWidth - nativeElementLast.offsetWidth;
             node.visible = !isFull;
 
             return isFull ? visibleNodes : [...visibleNodes, node];
