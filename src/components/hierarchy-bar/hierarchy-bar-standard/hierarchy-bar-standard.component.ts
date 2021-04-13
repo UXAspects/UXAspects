@@ -100,12 +100,15 @@ export class HierarchyBarStandardComponent implements OnDestroy {
             const consumedWidth = visibleNodes.reduce((totalWidth, visibleNode) => totalWidth + visibleNode.width, 0);
 
             const [lastVisibleItem] = visibleNodes.slice(-1);
-            this.overflowTranslateOffset = this.nodelist.nativeElement.clientWidth - consumedWidth;
 
             // get the width that would be consumed if this node was included
             const width = node.width + consumedWidth;
             isFull = width > nativeElement.offsetWidth - lastVisibleItem.width + nativeElementLast.scrollWidth - nativeElementLast.offsetWidth;
             node.visible = !isFull;
+
+            if (isFull) {
+                this.overflowTranslateOffset = this.nodelist.nativeElement.clientWidth - consumedWidth;
+            }
 
             return isFull ? visibleNodes : [...visibleNodes, node];
         }, []);
@@ -114,10 +117,8 @@ export class HierarchyBarStandardComponent implements OnDestroy {
             this.overflowTranslateOffset = 0;
         }
 
-        const amount = nativeElement.scrollWidth - nativeElement.offsetWidth;
-
         // move the scroll position to always show the last item
-        this.nodelist.nativeElement.scrollLeft = amount;
+        this.nodelist.nativeElement.scrollLeft = nativeElement.scrollWidth - nativeElement.offsetWidth;
 
         // determine which nodes should be hidden
         const nodesHidden = this.nodeInstances.filter(node => {

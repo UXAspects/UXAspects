@@ -1,4 +1,12 @@
-import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Input, Output, TemplateRef } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    Component,
+    ElementRef,
+    EventEmitter,
+    Input,
+    Output,
+    TemplateRef,
+} from '@angular/core';
 import { HierarchyBarService } from '../hierarchy-bar.service';
 import { HierarchyBarNode } from '../interfaces/hierarchy-bar-node.interface';
 
@@ -22,6 +30,9 @@ export class HierarchyBarNodeComponent {
 
     /** Determine read only state */
     @Input() readonly: boolean;
+
+    /** Optionally define the horizontal offset */
+    @Input() offset: number = 0;
 
     /** Emit when the node is selected */
     @Output() selected = new EventEmitter<HierarchyBarNode>();
