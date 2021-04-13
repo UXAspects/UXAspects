@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { PopoverDirective } from '@ux-aspects/ux-aspects';
 
 @Component({
     selector: 'app-partition-map',
-    templateUrl: './partition-map.testpage.component.html'
+    templateUrl: './partition-map.testpage.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PartitionMapTestPageComponent {
 

@@ -385,8 +385,8 @@ export class PartitionMapComponent implements OnInit, OnDestroy {
         return context;
     }
 
-    trackByFn(_index: number, item: any): number {
-        return item.index;
+    trackByIndex(index: number): number {
+        return index;
     }
 
     /** Convert the public facing data structure into the layout format we require */
