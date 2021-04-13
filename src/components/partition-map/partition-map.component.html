@@ -1,5 +1,5 @@
 <div class="partition-map-segment"
-     *ngFor="let segment of _segments"
+     *ngFor="let segment of _segments; trackBy: trackByIndex"
      uxFocusIndicator
      [ngClass]="_getContrastColor(segment)"
      [style.background-color]="_getBackgroundColor(segment)"
