@@ -385,6 +385,10 @@ export class PartitionMapComponent implements OnInit, OnDestroy {
         return context;
     }
 
+    trackByIndex(index: number): number {
+        return index;
+    }
+
     /** Convert the public facing data structure into the layout format we require */
     private setDataset(dataset: Readonly<PartitionMapSegment>): void {
 
