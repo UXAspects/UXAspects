@@ -68,7 +68,7 @@ export class ComponentsColorPickerComponent extends BaseDocumentationSection imp
     }
 
     @HostListener('document:click', ['$event.target'])
-    private clickHandler(target: Node): void {
+    clickHandler(target: Node): void {
         // Close on outside click
         if (
             !this.toggleButton.nativeElement.contains(target) &&

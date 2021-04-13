@@ -5,6 +5,7 @@
     [tags]="_value$ | async"
     (tagsChange)="_multipleOptionSelected($event)"
     [(input)]="input"
+    [required]="required"
     (inputChange)="onInputChange($event)"
     [ariaLabel]="ariaLabel"
     [autocomplete]="autocomplete"
@@ -19,6 +20,7 @@
     [readonlyInput]="readonlyInput"
     [icon]="icon"
     [clearButton]="clearButton"
+    [autoCloseDropdown]="autoCloseDropdown"
     [clearButtonAriaLabel]="clearButtonAriaLabel">
 
     <ux-typeahead #multipleTypeahead
@@ -54,6 +56,7 @@
     <input #singleInput type="text"
         [attr.id]="id + '-input'"
         class="form-control"
+        [required]="required"
         [class.ux-tag-input-clear-inset]="clearButton && allowNull && _hasValue"
         [attr.aria-activedescendant]="highlightedElement?.id"
         aria-autocomplete="list"

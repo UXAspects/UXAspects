@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { NgModule, Optional, SkipSelf } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AccessibilityModule } from '../../directives/accessibility/index';
 import { FocusIfModule } from '../../directives/focus-if/index';
@@ -15,25 +15,6 @@ import { SearchDateRangeComponent } from './search-components/date-range/date-ra
 import { SearchDateComponent } from './search-components/date/date.component';
 import { SearchSelectComponent } from './search-components/select/select.component';
 import { SearchTextComponent } from './search-components/text/text.component';
-import { SearchBuilderFocusService } from './search-builder-focus.service';
-
-/**
- * Note: This is a workaround for the Angular 8 providedIn: 'root'
- * issue.
- *
- * This provider allows us to have only a single instance
- * of the service throughout out entire application
- * regardless of how many times this module is imported.
- */
-export function SEARCH_BUILDER_FOCUS_SERVICE_PROVIDER_FACTORY(parentService: SearchBuilderFocusService) {
-    return parentService || new SearchBuilderFocusService();
-}
-
-export const SEARCH_BUILDER_FOCUS_SERVICE_PROVIDER = {
-    provide: SearchBuilderFocusService,
-    deps: [[new Optional(), new SkipSelf(), SearchBuilderFocusService]],
-    useFactory: SEARCH_BUILDER_FOCUS_SERVICE_PROVIDER_FACTORY
-};
 
 @NgModule({
     imports: [
@@ -66,9 +47,6 @@ export const SEARCH_BUILDER_FOCUS_SERVICE_PROVIDER = {
         SearchDateComponent,
         SearchDateRangeComponent,
         SearchSelectComponent
-    ],
-    providers: [
-        SEARCH_BUILDER_FOCUS_SERVICE_PROVIDER
     ]
 })
 export class SearchBuilderModule { }

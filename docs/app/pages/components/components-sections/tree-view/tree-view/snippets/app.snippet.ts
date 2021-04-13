@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { TreeNode } from 'angular-tree-component';
+import { TreeNode } from '@circlon/angular-tree-component';
 
 @Component({
     selector: 'app',

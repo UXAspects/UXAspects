@@ -1,3 +1,4 @@
+import { BooleanInput, coerceBooleanProperty } from '@angular/cdk/coercion';
 import { DOWN_ARROW, ENTER, LEFT_ARROW, RIGHT_ARROW, UP_ARROW } from '@angular/cdk/keycodes';
 import { DomPortalOutlet, TemplatePortal } from '@angular/cdk/portal';
 import { AfterViewInit, ApplicationRef, ChangeDetectionStrategy, Component, ComponentFactoryResolver, ContentChild, ElementRef, EventEmitter, Injector, Input, NgZone, OnChanges, OnDestroy, Output, Renderer2, SimpleChanges, TemplateRef, ViewChild, ViewContainerRef } from '@angular/core';
@@ -38,6 +39,15 @@ export class OrganizationChartComponent<T> implements AfterViewInit, OnChanges, 
     /** Define the aria label for the reveal button */
     @Input() revealAriaLabel: string = 'Reveal More';
 
+    /** Defines whether nodes can be toggled or not */
+    @Input() set toggleNodesOnClick (toggleNodesOnClick: boolean) {
+        this._toggleNodesOnClick = coerceBooleanProperty(toggleNodesOnClick );
+    }
+
+    get toggleNodesOnClick (): boolean {
+        return this._toggleNodesOnClick ;
+    }
+
     /** Programmatically select an item */
     @Input() set selected(selected: OrganizationChartNode<T>) {
         if (this.selected === selected || !selected) {
@@ -75,6 +85,8 @@ export class OrganizationChartComponent<T> implements AfterViewInit, OnChanges, 
 
     /** Access the container element for the nodes */
     @ViewChild('nodes', { static: true }) nodesContainer: ElementRef;
+
+    private _toggleNodesOnClick: boolean = true;
 
     /** Store the internal selected node */
     private _selected: OrganizationChartNode<T>;
@@ -284,7 +296,7 @@ export class OrganizationChartComponent<T> implements AfterViewInit, OnChanges, 
             .on('keydown', this.onKeydown.bind(this))
             .on('focus', this.onFocus.bind(this))
             .on('mousedown', () => event.stopPropagation())
-            .on('click', this.toggle.bind(this))
+            .on('click', this.onClick.bind(this))
             .each(this.renderNodeTemplate.bind(this))
             .each((node, index, group) => this.monitorFocus(group[index], node))
             .transition(defaultTransition)
@@ -384,7 +396,6 @@ export class OrganizationChartComponent<T> implements AfterViewInit, OnChanges, 
     /** Toggle the collapsed state of a node */
     toggle(node: OrganizationChartNode<T> | HierarchyPointNode<OrganizationChartNode<T>>): void {
 
-        // do nothing if a transition is currently in progress
         if (this._isTransitioning) {
             return;
         }
@@ -402,8 +413,7 @@ export class OrganizationChartComponent<T> implements AfterViewInit, OnChanges, 
     /** Expand a node */
     expand(node: OrganizationChartNode<T> | HierarchyPointNode<OrganizationChartNode<T>>): void {
 
-        // do nothing if a transition is currently in progress
-        if (this._isTransitioning) {
+        if (this._isTransitioning || !this.toggleNodesOnClick ) {
             return;
         }
 
@@ -748,8 +758,21 @@ export class OrganizationChartComponent<T> implements AfterViewInit, OnChanges, 
         return this._nodes.data()[index];
     }
 
+    /** Handle click events */
+    private onClick(node: HierarchyPointNode<OrganizationChartNode<T>>): void {
+        if (!this.toggleNodesOnClick) {
+            return;
+        }
+
+        this.toggle(node);
+    }
+
     /** Handle keyboard events */
     private onKeydown(node: HierarchyPointNode<OrganizationChartNode<T>>): void {
+        if (!this.toggleNodesOnClick) {
+            return;
+        }
+
         switch (event.keyCode) {
             case DOWN_ARROW:
                 event.preventDefault();
@@ -965,6 +988,8 @@ export class OrganizationChartComponent<T> implements AfterViewInit, OnChanges, 
         // check for any children on the children
         return [...children, ...children.reduce((accumulation, child) => [...accumulation, ...this.getAllChildren(child)], [])].map(child => this.coerceDataNode(child));
     }
+
+    static ngAcceptInputType_toggleNodesOnClick: BooleanInput;
 
 }
 

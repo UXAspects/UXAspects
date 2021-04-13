@@ -6,7 +6,7 @@ export interface SiteTheme {
 export enum SiteThemeId {
     Keppel = 'Keppel',
     MicroFocus = 'MicroFocus',
-    MicroFocus2020 = 'MicroFocus2020',
+    MicroFocusNext = 'MicroFocusNext',
     Roboto = 'Roboto',
     WhiteLabel = 'WhiteLabel'
 }

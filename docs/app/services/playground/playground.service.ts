@@ -8,7 +8,7 @@ import { AngularPlaygroundStrategy } from './strategies/angular-strategy';
 import { CssPlaygroundStrategy } from './strategies/css-strategy';
 import { PlaygroundStrategy } from './strategies/playground-strategy';
 import { KeppelThemeStrategy } from './strategies/themes/keppel-strategy';
-import { MicroFocus2020ThemeStrategy } from './strategies/themes/microfocus-2020-strategy';
+import { MicroFocusNextThemeStrategy } from './strategies/themes/microfocus-next-strategy';
 import { MicroFocusThemeStrategy } from './strategies/themes/microfocus-strategy';
 import { ThemeStrategy } from './strategies/themes/theme-strategy';
 import { WhiteLabelThemeStrategy } from './strategies/themes/white-label-strategy';
@@ -86,8 +86,8 @@ export class PlaygroundService {
 
     private createThemeStrategy(theme: SiteThemeId): ThemeStrategy {
         switch (theme) {
-            case SiteThemeId.MicroFocus2020:
-                return new MicroFocus2020ThemeStrategy();
+            case SiteThemeId.MicroFocusNext:
+                return new MicroFocusNextThemeStrategy();
             case SiteThemeId.WhiteLabel:
                 return new WhiteLabelThemeStrategy();
             case SiteThemeId.MicroFocus:

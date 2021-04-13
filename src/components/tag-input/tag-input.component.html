@@ -23,6 +23,7 @@
                (ngModelChange)="setInputValue($event)"
                [autocomplete]="autocomplete"
                [class.invalid]="!inputValid"
+               [required]="required"
                [attr.aria-activedescendant]="highlightedElement?.id"
                [attr.aria-autocomplete]="typeahead ? 'list' : 'none'"
                [attr.aria-controls]="typeahead?.id"
@@ -33,6 +34,7 @@
                [focusIf]="isSelected(tags.length)"
                (click)="toggle(); $event.stopPropagation()"
                (focus)="inputFocusHandler(); inputFocus.emit($event)"
+               (blur)="inputBlur.emit($event)"
                (paste)="inputPasteHandler($event)"
                [readonly]="readonlyInput">
     </li>

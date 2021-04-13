@@ -2,8 +2,8 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
-import { AppComponent } from './app.component';
 import { ColorServiceModule, colorSets } from '@ux-aspects/ux-aspects';
+import { AppComponent } from './app.component';
 
 const routes: Routes = [
     {
@@ -91,6 +91,10 @@ const routes: Routes = [
         loadChildren: () => import('./infinite-scroll/infinite-scroll.module').then(m => m.InfiniteScrollTestPageModule)
     },
     {
+        path: 'input-dropdown',
+        loadChildren: () => import('./input-dropdown/input-dropdown.module').then(m => m.InputDropdownTestPageModule)
+    },
+    {
         path: 'item-display-panel',
         loadChildren: () => import('./item-display-panel/item-display-panel.module').then(m => m.ItemDisplayPanelTestPageModule)
     },
@@ -113,6 +117,10 @@ const routes: Routes = [
     {
         path: 'number-picker',
         loadChildren: () => import('./number-picker/number-picker.module').then(m => m.NumberPickerTestPageModule)
+    },
+    {
+        path: 'organization-chart',
+        loadChildren: () => import('./organization-chart/organization-chart.module').then(m => m.OrganizationChartTestPageModule)
     },
     {
         path: 'page-header',

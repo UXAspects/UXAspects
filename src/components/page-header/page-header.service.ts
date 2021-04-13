@@ -31,13 +31,13 @@ export class PageHeaderService implements OnDestroy {
         this._onDestroy.complete();
     }
 
-    select(item: PageHeaderNavigationItem): void {
+    select(item: PageHeaderNavigationItem, navigate: boolean = true): void {
 
         if (!item) {
             return;
         }
 
-        if (item.routerLink) {
+        if (item.routerLink && navigate) {
 
             // Trigger router navigation
             const routerLink = Array.isArray(item.routerLink) ? item.routerLink : [item.routerLink];

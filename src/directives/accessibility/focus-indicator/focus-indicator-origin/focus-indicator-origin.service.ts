@@ -1,13 +1,9 @@
 import { FocusOrigin } from '@angular/cdk/a11y';
 import { Injectable } from '@angular/core';
 
-/**
- * This cannot be providedIn: 'root' due to a backward compatibility issue.
- * We can eventually remove it from the module and make the `_origin` field a class member rather than a
- * static member.
- */
-
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+})
 export class FocusIndicatorOriginService {
 
     /** Store the most recent origin event */

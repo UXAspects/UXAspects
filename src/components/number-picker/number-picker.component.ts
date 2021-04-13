@@ -22,7 +22,7 @@ export const NUMBER_PICKER_VALUE_ACCESSOR: any = {
 export class NumberPickerComponent implements ControlValueAccessor, OnDestroy, OnChanges {
     private _min: number = -Infinity;
     private _max: number = Infinity;
-    private _step: number = 1;
+    private _step: number | ((value: number, direction: StepDirection) => number) = 1;
     private _disabled: boolean = false;
     private _value: number = 0;
     private _lastValue: number;
@@ -45,6 +45,9 @@ export class NumberPickerComponent implements ControlValueAccessor, OnDestroy, O
 
     /** The placeholder text which appears in the text input area when it is empty.*/
     @Input() placeholder: string;
+
+    /** Specified if this is a required input. */
+    @Input() required: boolean;
 
     /** If two way binding is used this value will be updated any time the number picker value changes. */
     @Output() valueChange = new EventEmitter<number>();
@@ -84,12 +87,12 @@ export class NumberPickerComponent implements ControlValueAccessor, OnDestroy, O
 
     /** Defines the amount the number picker should increase or decrease when the buttons or arrow keys are used. */
     @Input()
-    get step(): number {
-        return this._step;
-    }
-
-    set step(value) {
-        this._step = coerceNumberProperty(value);
+    set step(value: number | ((value: number, direction: StepDirection) => number)) {
+        if (typeof value === 'function') {
+            this._step = value;
+        } else {
+            this._step = coerceNumberProperty(value);
+        }
     }
 
     /** Indicate if the number picker is disabled or not. */
@@ -126,13 +129,17 @@ export class NumberPickerComponent implements ControlValueAccessor, OnDestroy, O
         this._isDestroyed = true;
     }
 
+    getStep(direction: StepDirection): number {
+        return typeof this._step === 'number' ? this._step : this._step(this.value, direction);
+    }
+
     increment(event?: MouseEvent | KeyboardEvent): void {
         if (event) {
             event.preventDefault();
         }
 
         if (!this.disabled) {
-            this.value = Math.max(Math.min(this.value + this.step, this.max), this.min);
+            this.value = Math.max(Math.min(this.value + this.getStep(StepDirection.Increment), this.max), this.min);
 
             // account for javascripts terrible handling of floating point numbers
             this.value = parseFloat(this.value.toPrecision(this.precision));
@@ -148,7 +155,7 @@ export class NumberPickerComponent implements ControlValueAccessor, OnDestroy, O
         }
 
         if (!this.disabled) {
-            this.value = Math.min(Math.max(this.value - this.step, this.min), this.max);
+            this.value = Math.min(Math.max(this.value - this.getStep(StepDirection.Decrement), this.min), this.max);
 
             // account for javascripts terrible handling of floating point numbers
             this.value = parseFloat(this.value.toPrecision(this.precision));
@@ -223,3 +230,7 @@ export class NumberPickerComponent implements ControlValueAccessor, OnDestroy, O
     }
 }
 
+export enum StepDirection {
+    Increment,
+    Decrement
+}

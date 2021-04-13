@@ -148,6 +148,9 @@
     <tr uxd-api-property name="disabled" type="boolean" defaultValue="false">
         Controls the disabled state of the tag input.
     </tr>
+    <tr uxd-api-property name="required" type="boolean" defaultValue="false">
+        If set to <code>true</code> the tag input will be marked as required.
+    </tr>
     <tr uxd-api-property name="display" type="(option: any) => string | string">
         Determines the display value of the <code>options</code>, if they are custom objects.
         This may be a function or a string. If a function is provided, it receives the option object as
@@ -241,6 +244,9 @@
     <tr uxd-api-property name="autocomplete" type="string" defaultValue="off">
         Defines the autocomplete property on the input field which can be used to prevent the browser from displaying autocomplete suggestions.
     </tr>
+    <tr uxd-api-property name="autoCloseDropdown" type="boolean" defaultValue="true">
+        Determine if the dropdown panel should close on external click.
+    </tr>
 </uxd-api-properties>
 
 <uxd-api-properties tableTitle="Outputs">
@@ -252,6 +258,9 @@
     </tr>
     <tr uxd-api-property name="inputFocus" type="EventEmitter&lt;FocusEvent&gt;">
         Emits when the component is focused.
+    </tr>
+    <tr uxd-api-property name="inputBlur" type="EventEmitter&lt;FocusEvent&gt;">
+        Emits when the component loses focus.
     </tr>
     <tr uxd-api-property name="tagAdding" type="EventEmitter&lt;TagInputEvent&gt;">
         Raised when a tag is about to be added. The <code>tag</code> property of the event contains the

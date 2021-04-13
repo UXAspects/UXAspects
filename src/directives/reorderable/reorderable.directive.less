@@ -15,18 +15,14 @@
     user-select: none !important;
 }
 
-.table tr.gu-transit,
-.table tr.gu-transit:hover {
+.table tr.cdk-drag-placeholder,
+.table tr.cdk-drag-placeholder:hover {
     background-color: @table-grid-bg;
 }
 
 .table tr.ux-reorderable-moving td {
     position: relative;
     color: transparent;
-}
-
-.table tr.ux-reorderable-moving td > * {
-    visibility: hidden;
 }
 
 .table tr.ux-reorderable-moving td:after {
@@ -47,4 +43,26 @@
 
 .table tr.ux-reorderable-moving td:last-of-type:after {
     border-right: 1px dashed @primary;
+}
+
+.card.cdk-drag-placeholder {
+    visibility: hidden;
+}
+
+.cdk-drop-list-dragging .cdk-drag {
+    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.cdk-drag-animating {
+    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.cdk-drag-preview {
+    box-sizing: border-box;
+    border-radius: 4px;
+    background-color: #fff;
+}
+
+.cdk-drag-placeholder {
+    opacity: 0.5;
 }

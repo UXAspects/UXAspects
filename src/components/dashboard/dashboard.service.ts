@@ -2,9 +2,10 @@ import { Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject, combineLatest, Observable, Subject } from 'rxjs';
 import { distinctUntilChanged, filter, map, takeUntil } from 'rxjs/operators';
 import { tick } from '../../common/index';
+import { DragScrollEvent } from '../../directives/drag/index';
 import { DashboardOptions } from './dashboard.component';
-import { DashboardWidgetComponent } from './widget/dashboard-widget.component';
 import { DashboardStackMode } from './widget/dashboard-stack-mode.enum';
+import { DashboardWidgetComponent } from './widget/dashboard-widget.component';
 
 @Injectable()
 export class DashboardService implements OnDestroy {
@@ -116,7 +117,9 @@ export class DashboardService implements OnDestroy {
                 col: widget.getColumn(),
                 row: widget.getRow(),
                 colSpan: widget.getColumnSpan(),
-                rowSpan: widget.getRowSpan()
+                rowSpan: widget.getRowSpan(),
+                minColSpan: widget.minColSpan,
+                minRowSpan: widget.minRowSpan
             };
         });
     }
@@ -137,6 +140,8 @@ export class DashboardService implements OnDestroy {
                 target.setRow(widget.row);
                 target.setColumnSpan(widget.colSpan);
                 target.setRowSpan(widget.rowSpan);
+                target.minColSpan = widget.minColSpan ?? 1;
+                target.minRowSpan = widget.minRowSpan ?? 1;
             }
         });
     }
@@ -276,6 +281,7 @@ export class DashboardService implements OnDestroy {
      * @param action The the widget to resize
      */
     onResizeStart(action: DashboardAction): void {
+        this.cacheWidgets();
 
         // store the mouse event
         this._event = action.event;
@@ -436,6 +442,22 @@ export class DashboardService implements OnDestroy {
             dimensions.height = this.options.minHeight;
         }
 
+        const minWidth = ((this.getColumnWidth() * action.widget.minColSpan) - this.getColumnWidth() / 2) + 1;
+        const isBelowMinWidth = dimensions.width < minWidth;
+
+        if (isBelowMinWidth) {
+            dimensions.x = action.widget.x;
+            dimensions.width = minWidth;
+        }
+
+        const minHeight = ((this.options.rowHeight * action.widget.minRowSpan) - this.options.rowHeight / 2) + 1;
+        const isBelowMinHeight = dimensions.height < minHeight;
+
+        if (isBelowMinHeight) {
+            dimensions.y = action.widget.y;
+            dimensions.height = minHeight;
+        }
+
         // update the widget actual values
         action.widget.setBounds(dimensions.x, dimensions.y, dimensions.width, dimensions.height);
 
@@ -491,6 +513,8 @@ export class DashboardService implements OnDestroy {
 
         this._widgetOrigin = {};
 
+        this.isDragging$.getValue().sendToBack();
+
         this.isDragging$.next(null);
 
         this.userLayoutChange$.next(this.getLayoutData());
@@ -499,36 +523,22 @@ export class DashboardService implements OnDestroy {
     onDrag(action: DashboardAction): void {
 
         // if there was no movement then do nothing
-        if (action.event.pageX === this._event.pageX && action.event.pageY === this._event.pageY) {
+        if (action.event.clientX === this._event.clientX && action.event.clientY === this._event.clientY) {
             return;
         }
 
         // get the current mouse position
-        const mouseX = action.event.pageX - this._event.pageX;
-        const mouseY = action.event.pageY - this._event.pageY;
+        const mouseX = action.event.clientX - this._event.clientX;
+        const mouseY = action.event.clientY - this._event.clientY;
 
         // store the latest event
         this._event = action.event;
 
-        const dimensions: DashboardWidgetDimensions = {
-            x: action.widget.x + mouseX,
-            y: action.widget.y + mouseY,
-            width: action.widget.width,
-            height: action.widget.height
-        };
+        this.moveWidget(action.widget, mouseX, mouseY);
+    }
 
-        this.restoreWidgets(true);
-
-        // update widget position
-        action.widget.setBounds(dimensions.x, dimensions.y, dimensions.width, dimensions.height);
-
-        // update placeholder position and value
-        this.setPlaceholderBounds(true, dimensions.x, dimensions.y, dimensions.width, dimensions.height);
-
-        // show the widget positions if the current positions and sizes were to persist
-        this.shiftWidgets();
-
-        this.setDashboardHeight();
+    onDragScroll(widget: DashboardWidgetComponent, event: DragScrollEvent): void {
+        this.moveWidget(widget, event.offsetX, event.offsetY);
     }
 
     getRowHeight(): number {
@@ -1082,14 +1092,23 @@ export class DashboardService implements OnDestroy {
 
         // iterate each widget and
         this.widgets.forEach(widget => {
+            const widgetIsOnTopRow = widget.getRow() === 0;
+            const widgetIsBeingResized = this._actionWidget?.widget === widget;
+            const widgetShouldBeAutoPositioned = widget.autoPositioning  || this.stacked;
+            const widgetIsBeingMoved = !widgetShouldBeAutoPositioned && this.isDragging$.value?.id === widget.id;
 
-            // if widget is already on the top row then do nothing
-            if (widget.getRow() === 0) {
+            if (widgetIsOnTopRow || widgetIsBeingResized || widgetIsBeingMoved || (!widgetShouldBeAutoPositioned && !this._cache)) {
                 return;
             }
 
-            // if we are currently dragging and this is the dragging widget then skip
-            if (this._actionWidget && this._actionWidget.widget === widget) {
+            if (!widgetShouldBeAutoPositioned) {
+                const cachedVersionOfWidget = this._cache.find(cachedWidget => cachedWidget.id === widget.id);
+                const isPreviousPositionAvailable = this.getPositionAvailable(cachedVersionOfWidget.column, cachedVersionOfWidget.row, cachedVersionOfWidget.columnSpan, cachedVersionOfWidget.rowSpan);
+                if (isPreviousPositionAvailable) {
+                    widget.setRow(cachedVersionOfWidget.row);
+                    stable = false;
+                }
+
                 return;
             }
 
@@ -1258,6 +1277,22 @@ export class DashboardService implements OnDestroy {
             dimensions.height = this.getRowHeight();
         }
 
+        const minWidth = this.getColumnWidth() * widget.minColSpan;
+        const isBelowMinWidth = dimensions.width < minWidth;
+
+        if (isBelowMinWidth) {
+            dimensions.x = widget.x;
+            dimensions.width = minWidth;
+        }
+
+        const minHeight = this.options.rowHeight * widget.minRowSpan;
+        const isBelowMinHeight = dimensions.height < minHeight;
+
+        if (isBelowMinHeight) {
+            dimensions.y = widget.y;
+            dimensions.height = minHeight;
+        }
+
         // move the widget to the placeholder position
         widget.setBounds(dimensions.x, dimensions.y, dimensions.width, dimensions.height);
 
@@ -1286,6 +1321,29 @@ export class DashboardService implements OnDestroy {
         }
 
         return widgets;
+    }
+
+    private moveWidget(widget: DashboardWidgetComponent, offsetX: number, offsetY: number): void {
+
+        const dimensions: DashboardWidgetDimensions = {
+            x: widget.x + offsetX,
+            y: widget.y + offsetY,
+            width: widget.width,
+            height: widget.height
+        };
+
+        this.restoreWidgets(true);
+
+        // update widget position
+        widget.setBounds(dimensions.x, dimensions.y, dimensions.width, dimensions.height);
+
+        // update placeholder position and value
+        this.setPlaceholderBounds(true, dimensions.x, dimensions.y, dimensions.width, dimensions.height);
+
+        // show the widget positions if the current positions and sizes were to persist
+        this.shiftWidgets();
+
+        this.setDashboardHeight();
     }
 }
 
@@ -1348,6 +1406,8 @@ export interface DashboardLayoutData {
     row: number;
     colSpan: number;
     rowSpan: number;
+    minColSpan?: number;
+    minRowSpan?: number;
 }
 
 export enum ActionDirection {

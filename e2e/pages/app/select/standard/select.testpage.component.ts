@@ -22,6 +22,8 @@ export class SelectTestPageComponent implements OnInit {
     placeholder = 'Select a country';
     clearButton = false;
     customIcon = false;
+    filterDebounceTime = 200;
+    autoCloseDropdown = true;
 
     pageSize = 20;
 
@@ -107,6 +109,10 @@ export class SelectTestPageComponent implements OnInit {
 
     toggleCustomIcon(): void {
         this.customIcon = !this.customIcon;
+    }
+
+    setMaxHeight(maxHeight: string) {
+        this.maxHeight = maxHeight;
     }
 
     public fillRecentOptions() {

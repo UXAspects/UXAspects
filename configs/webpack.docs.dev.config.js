@@ -7,7 +7,7 @@ const { cwd } = require('process');
 const rxAlias = require('rxjs/_esm5/path-mapping');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const { AngularCompilerPlugin } = require('@ngtools/webpack');
-const { IndexHtmlWebpackPlugin } = require('@angular-devkit/build-angular/src/angular-cli-files/plugins/index-html-webpack-plugin');
+const { IndexHtmlWebpackPlugin } = require('@angular-devkit/build-angular/src/webpack/plugins/index-html-webpack-plugin');
 
 const CssLoaderWithSourceMap = {
     loader: 'css-loader',

@@ -352,7 +352,6 @@ export class DashboardWidgetLayoutTestComponent {
 describe('Dashboard Widgets layout', () => {
     let component: DashboardWidgetLayoutTestComponent;
     let fixture: ComponentFixture<DashboardWidgetLayoutTestComponent>;
-    let nativeElement: HTMLElement;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
@@ -364,7 +363,6 @@ describe('Dashboard Widgets layout', () => {
     beforeEach(async () => {
         fixture = TestBed.createComponent(DashboardWidgetLayoutTestComponent);
         component = fixture.componentInstance;
-        nativeElement = fixture.nativeElement;
 
         fixture.detectChanges();
         await fixture.whenStable();
@@ -379,5 +377,89 @@ describe('Dashboard Widgets layout', () => {
         expect(widgets[1].getRow()).toBe(0, 'purpose-widget row');
         expect(widgets[2].getColumn()).toBe(0, 'host-widget col');
         expect(widgets[2].getRow()).toBe(0, 'host-widget row');
+    });
+
+    it('should update position when changes programmatically', () => {
+        const widgets = component.widgets.toArray();
+        expect(widgets[0].getColumn()).toBe(1, 'run-widget col');
+        expect(widgets[0].x).not.toBe(0);
+
+        widgets[0].col = 0;
+
+        expect(widgets[0].getColumn()).toBe(0, 'run-widget col');
+        expect(widgets[0].x).toBe(0);
+    });
+});
+
+@Component({
+    selector: 'app-ux-dashboard-autopositioning',
+    template: `
+        <ux-dashboard [options]="options" #dashboard>
+            <ux-dashboard-widget *ngFor="let user of users" id="users-widget" name="Users" autoPositioning="false">
+                <div class="widget-content">
+                    <h3 class="widget-title">{{user}}</h3>
+                </div>
+            </ux-dashboard-widget>
+        </ux-dashboard>
+    `
+})
+export class DashboardAutoPositioningTestComponent {
+
+    options: DashboardOptions = {
+        columns: 2,
+        padding: 10,
+        rowHeight: 220,
+        emptyRow: false,
+        minWidth: 187,
+    };
+
+    users: string[] = ['User 1', 'User 2', 'User 3'];
+
+    @ViewChild('dashboard') dashboard: DashboardComponent;
+    @ViewChildren(DashboardWidgetComponent) widgets: QueryList<DashboardWidgetComponent>;
+
+}
+
+describe('Dashboard Auto Positioning', () => {
+    let component: DashboardAutoPositioningTestComponent;
+    let fixture: ComponentFixture<DashboardAutoPositioningTestComponent>;
+    let nativeElement: HTMLElement;
+
+    beforeEach(async(() => {
+        TestBed.configureTestingModule({
+            imports: [DashboardModule],
+            declarations: [DashboardAutoPositioningTestComponent]
+        }).compileComponents();
+    }));
+
+    beforeEach(async () => {
+        fixture = TestBed.createComponent(DashboardAutoPositioningTestComponent);
+        component = fixture.componentInstance;
+        nativeElement = fixture.nativeElement;
+
+        fixture.detectChanges();
+        await fixture.whenStable();
+    });
+
+    it('should not reposition widget when autoPositioning=false', () => {
+        let widgets = component.widgets.toArray();
+
+        expect(widgets[0].getColumn()).toBe(0, 'User 1 - initial col');
+        expect(widgets[0].getRow()).toBe(0, 'User 1 - initial row');
+        expect(widgets[1].getColumn()).toBe(1, 'User 2 - initial col');
+        expect(widgets[1].getRow()).toBe(0, 'User 2 - initial row');
+        expect(widgets[2].getColumn()).toBe(0, 'User 3 - initial col');
+        expect(widgets[2].getRow()).toBe(1, 'User 3 - initial row');
+
+        // remove first widget
+        component.users.splice(0, 1);
+        fixture.detectChanges();
+        component.dashboard.refreshLayout();
+        widgets = component.widgets.toArray();
+
+        expect(widgets[0].getColumn()).toBe(1, 'User 2 col - not affected');
+        expect(widgets[0].getRow()).toBe(0, 'User 2 row - not affected');
+        expect(widgets[1].getColumn()).toBe(0, 'User 3  col - should not be repositioned');
+        expect(widgets[1].getRow()).toBe(1, 'User 3 row - should not be repositioned');
     });
 });

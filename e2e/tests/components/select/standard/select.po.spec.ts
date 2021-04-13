@@ -1,4 +1,4 @@
-import { browser, by, element, ElementFinder, protractor } from 'protractor';
+import { $, browser, by, element, ElementFinder, protractor } from 'protractor';
 
 export const numberOfCountries: number = 251;
 export const scrollingTimeout: number = 5000;
@@ -14,10 +14,13 @@ export class SelectPage {
     checkboxAllowNull = element(by.id('checkbox3'));
     checkboxPaging = element(by.id('checkbox4'));
     checkboxRecentOptions = element(by.id('checkbox5'));
+    checkboxAutoCloseDropdown = element(by.id('checkbox6'));
     placeholder = element(by.id('placeholder'));
     pageSize = element(by.id('pageSize'));
     customIcon = element(by.id('custom-icon'));
     input = element(by.css('input.ux-tag-input'));
+    increaseMaxHeight = $('#increase-max-height-button');
+    decreaseMaxHeight = $('#decrease-max-height-button');
 
 
     async getPage(): Promise<void> {
@@ -177,6 +180,10 @@ export class SelectPage {
         await this.radioDirection.$('ux-radio-button[option="up"]').$('.ux-radio-button').click();
     }
 
+    async clickOnDropDirectionAuto() {
+        await this.radioDirection.$('ux-radio-button[option="auto"]').$('.ux-radio-button').click();
+    }
+
     async clickOnPlaceholder() {
         await this.getPlaceholder().click();
     }
@@ -191,6 +198,14 @@ export class SelectPage {
 
     async clickOnDecrementPageSize() {
         await this.pageSize.$('div.number-picker-controls').$('div.number-picker-control-down').click();
+    }
+
+    async clickOnIncrementFilterDebounce() {
+        await $('#filterDebounceTimeInput div.number-picker-controls').$('div.number-picker-control-up').click();
+    }
+
+    async clickOnDecrementFilterDebounce() {
+        await $('#filterDebounceTimeInput div.number-picker-controls').$('div.number-picker-control-down').click();
     }
 
     async clickOnTag(index: number) {

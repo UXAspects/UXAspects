@@ -1,22 +1,24 @@
 <div class="row">
     <div class="col-xs-6">
-        <div class="form-group m-nil">
-            <ux-select
-                id="dropdown"
-                [(ngModel)]="selected"
-                [options]="options"
-                [multiple]="multiple | async"
-                [display]="display"
-                [key]="key"
-                [allowNull]="allowNull"
-                [disabled]="disabled"
-                [dropDirection]="dropDirection"
-                [(dropdownOpen)]="dropdownOpen"
-                [pageSize]="pageSize"
-                [placeholder]="placeholder"
-            >
-            </ux-select>
-        </div>
+        <form [formGroup]="form" novalidate>
+            <div class="form-group m-nil">
+                <ux-select
+                    id="dropdown"
+                    [(ngModel)]="selected"
+                    [options]="options"
+                    [multiple]="multiple | async"
+                    [display]="display"
+                    [key]="key"
+                    [allowNull]="allowNull"
+                    [disabled]="disabled"
+                    [dropDirection]="dropDirection"
+                    [(dropdownOpen)]="dropdownOpen"
+                    [pageSize]="pageSize"
+                    [placeholder]="placeholder"
+                    formControlName="select1">
+                </ux-select>
+            </div>
+        </form>
 
         <div id="selectedLocation" class="col-md-12 m-t-md">
             Selected location(s): <code>{{ selected | json }}</code>
@@ -29,8 +31,7 @@
             <ux-radio-button
                 [value]="dataSet | async"
                 (valueChange)="dataSet.next($event)"
-                option="strings"
-            >
+                option="strings">
                 strings
             </ux-radio-button>
             <ux-radio-button

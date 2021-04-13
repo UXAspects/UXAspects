@@ -31,7 +31,7 @@
     <tr uxd-api-property name="value" type="number">
         Sets the value displayed in the number picker component.
     </tr>
-    <tr uxd-api-property name="step" type="number" defaultValue="1">
+    <tr uxd-api-property name="step" type="number | (value: number, direction: StepDirection) => number" defaultValue="1">
         Defines the amount the number picker should increase or decrease when the buttons or arrow keys are used.
     </tr>
     <tr uxd-api-property name="min" type="number" defaultValue="-Infinity">
@@ -53,6 +53,9 @@
     </tr>
     <tr uxd-api-property name="placeholder" type="string">
         The placeholder text which appears in the text input area when it is empty.
+    </tr>
+    <tr uxd-api-property name="required" type="boolean" defaultValue="false">
+        If set to <code>true</code> the number picker will be marked as required.
     </tr>
 </uxd-api-properties>
 

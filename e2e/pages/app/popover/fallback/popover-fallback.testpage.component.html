@@ -1,0 +1,73 @@
+<div class="container">
+    <ux-checkbox id="has-arrow-checkbox" [(value)]="hasArrow">hasArrow</ux-checkbox>
+    <button
+        type="button"
+        id="left-popover"
+        class="btn button-secondary"
+        uxPopover="Popover on the left"
+        placement="left"
+        [isOpen]="isOpen"
+        [showTriggers]="[]"
+        [hideTriggers]="[]"
+        popoverClass="left-popover {{hasArrow ? 'popover-arrow' : ''}}"
+    >
+        Popover on left
+    </button>
+
+    <button
+        type="button"
+        id="top-popover"
+        class="btn button-secondary"
+        uxPopover="Popover on the top"
+        placement="top"
+        [isOpen]="isOpen"
+        [showTriggers]="[]"
+        [hideTriggers]="[]"
+        popoverClass="top-popover {{hasArrow ? 'popover-arrow' : ''}}"
+    >
+        Popover on top
+    </button>
+
+    <button
+        type="button"
+        id="bottom-popover"
+        class="btn button-secondary"
+        uxPopover="Popover on the bottom"
+        placement="bottom"
+        [isOpen]="isOpen"
+        [showTriggers]="[]"
+        [hideTriggers]="[]"
+        popoverClass="bottom-popover {{hasArrow ? 'popover-arrow' : ''}}"
+    >
+        Popover on bottom
+    </button>
+
+    <button
+        type="button"
+        id="right-popover"
+        class="btn button-secondary"
+        uxPopover="Popover on the right"
+        placement="right"
+        [isOpen]="isOpen"
+        [showTriggers]="[]"
+        [hideTriggers]="[]"
+        popoverClass="right-popover {{hasArrow ? 'popover-arrow' : ''}}"
+    >
+        Popover on right
+    </button>
+
+    <button
+        type="button"
+        id="custom-fallback"
+        class="btn button-secondary"
+        uxPopover="Custom fallback"
+        placement="right"
+        fallbackPlacement="top"
+        [isOpen]="isOpen"
+        [showTriggers]="[]"
+        [hideTriggers]="[]"
+        popoverClass="custom-popover {{hasArrow ? 'popover-arrow' : ''}}"
+    >
+        Custom Fallback
+    </button>
+</div>

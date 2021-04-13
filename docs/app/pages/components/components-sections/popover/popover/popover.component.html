@@ -44,9 +44,12 @@
     <tr uxd-api-property name="isOpen" type="boolean" defaultValue="false">
         If set to <code>true</code> this will programmatically show the popover.
     </tr>
-    <tr uxd-api-property name="placement" type="string" defaultValue="top">
-        Defines which direction the popover should appear relative to the trigger element. The possible values are
-        <code>top</code>, <code>right</code>, <code>bottom</code> and <code>left</code>.
+    <tr uxd-api-property name="placement" type="'top' | 'right' | 'bottom' | 'left'" defaultValue="top">
+        Defines which direction the popover should appear relative to the trigger element.
+    </tr>
+    <tr uxd-api-property name="fallbackPlacement" type="'top' | 'right' | 'bottom' | 'left'">
+        Defines which direction the popover should appear relative to the trigger element if the value of the <code>placement</code> input cannot be used.
+        The fallback placement will be in the opposite direction of the <code>placement</code> input by default.
     </tr>
     <tr uxd-api-property name="alignment" type="string" defaultValue="center">
         Defines the position of the arrow relative to the popover. The possible values are

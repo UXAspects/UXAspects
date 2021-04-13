@@ -1,8 +1,8 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { RadioButtonModule } from './radiobutton.module';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RadioButtonComponent } from './radiobutton.component';
+import { RadioButtonModule } from './radiobutton.module';
 
 describe('Radio Button Component', () => {
     let fixture: ComponentFixture<RadioButtonComponent>;
@@ -12,7 +12,7 @@ describe('Radio Button Component', () => {
     let changeCallbackSpy: jasmine.Spy;
     let touchedCallbackSpy: jasmine.Spy;
 
-    beforeEach(async(() => {
+    beforeEach((() => {
         TestBed.configureTestingModule({
             imports: [RadioButtonModule]
         })
@@ -706,7 +706,7 @@ describe('Radio Button Component - NgModel', () => {
         <form [formGroup]="form">
             <div (valueChange)="onButtonClick()" uxRadioButtonGroup formControlName="option">
                 <ux-radio-button [clickable]="clickable" [disabled]="disabled" [simplified]="simplified" [option]="1">Option 1</ux-radio-button>
-                <ux-radio-button [simplified]="simplified"[option]="2">Option 2</ux-radio-button>
+                <ux-radio-button [simplified]="simplified"[option]="2" [required]="required">Option 2</ux-radio-button>
             </div>
         </form>
     `
@@ -717,6 +717,7 @@ export class RadioButtonTestReactiveFormComponent {
         option: new FormControl(2),
     });
 
+    required: boolean = false;
     disabled: boolean = false;
     simplified: boolean = false;
     clickable: boolean = true;
@@ -806,6 +807,17 @@ describe('Radio Button Component - Reactive Form', () => {
 
         expect(component.onButtonClick).toHaveBeenCalled();
 
+    });
+
+    it('should add a required attribute to the input when required is true', () => {
+        component.required = true;
+
+        fixture.detectChanges();
+
+        const inputElementEmpty = nativeElement.querySelectorAll<HTMLInputElement>('input.ux-radio-button-input');
+        const attributeRequired = inputElementEmpty[1].hasAttribute('required');
+
+        expect(attributeRequired).toBe(true);
     });
 });
 

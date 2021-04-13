@@ -21,6 +21,7 @@ You will need the following software on your development environment:
 * [Git](https://git-scm.com/downloads) - see [Set up Git](https://help.github.com/en/github/getting-started-with-github/set-up-git) on GitHub help.
 * [Node.js](https://nodejs.org/en/) - v10 is currently required.
 * [Docker](https://www.docker.com/get-started) - used to run the e2e test suite.
+    * If you encounter an error when pulling the selenium docker image, make sure that you have an account at https://hub.docker.com/ and you are signed in to the docker service on your environment.
 
 The following software is not required, but recommended:
 * [GitHub Desktop](https://desktop.github.com/)

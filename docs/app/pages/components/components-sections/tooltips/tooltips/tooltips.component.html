@@ -29,7 +29,8 @@
 
 <p>
     To add a tooltip to an element add the <code>uxTooltip</code> attribute with the required text.
-    The tooltip is placed at the <code>top</code> by default.
+    The tooltip is placed at the <code>top</code> by default. Tooltips do not display on disabled elements,
+    the workaround is to wrap the element with a <code>div</code> or a <code>span</code> and add the tooltip to it.
 </p>
 
 <p>The following attributes can be used to configure the <code>uxTooltip</code> directive:</p>
@@ -57,17 +58,20 @@
     <tr uxd-api-property name="isOpen" type="boolean" defaultValue="false">
         If set to <code>true</code> this will programmatically show the tooltip.
     </tr>
-    <tr uxd-api-property name="placement" type="string" defaultValue="top">
-        Defines which direction the tooltip should appear. The possible values are 
-        <code>top</code>, <code>right</code>, <code>bottom</code> and <code>left</code>.
+    <tr uxd-api-property name="placement" type="'top' | 'right' | 'bottom' | 'left'" defaultValue="top">
+        Defines which direction the tooltip should appear.
+    </tr>
+    <tr uxd-api-property name="fallbackPlacement" type="'top' | 'right' | 'bottom' | 'left'">
+        Defines which direction the tooltip should appear if the value of the <code>placement</code> input cannot be used.
+        The fallback placement will be in the opposite direction of the <code>placement</code> input by default.
     </tr>
     <tr uxd-api-property name="showTriggers" type="string[]" defaultValue="['mouseenter', 'focus']">
-        Specifies which events will cause the tooltip to appear. 
+        Specifies which events will cause the tooltip to appear.
         To manually control when the tooltip appears set this to an empty array.
         Possible events are <code>click</code>, <code>mouseenter</code> and <code>focus</code>.
     </tr>
     <tr uxd-api-property name="hideTriggers" type="string[]" defaultValue="['mouseleave', 'blur']">
-        Specifies which events will cause the tooltip to hide. 
+        Specifies which events will cause the tooltip to hide.
         To manually control when the tooltip hides set this to an empty array.
         Possible events are <code>click</code>, <code>mouseleave</code> and <code>blur</code>.
     </tr>

@@ -15,6 +15,7 @@
                 [readonlyInput]="readonlyInput"
                 [clearButton]="clearButton"
                 [(recentOptions)]="recentOptions"
+                [autoCloseDropdown]="autoCloseDropdown"
                 [recentOptionsMaxCount]="recentOptionsMaxCount">
 
                 <ng-template #icon *ngIf="multiple | async">
@@ -67,6 +68,9 @@
                 <div class="row uxd-customize-row">
                     <div class="col-md-3 col-sm-12">
                         <ux-checkbox [(value)]="clearButton" [disabled]="!(multiple | async) && !allowNull">clearButton</ux-checkbox>
+                    </div>
+                    <div class="col-md-3 col-sm-12">
+                        <ux-checkbox [(value)]="autoCloseDropdown">autoCloseDropdown</ux-checkbox>
                     </div>
                 </div>
                 <div class="row uxd-customize-row">
@@ -261,6 +265,15 @@
     </tr>
     <tr uxd-api-property name="recentOptionsMaxCount" type="number" defaultValue="5">
         Maximum number of displayed recently selected options.
+    </tr>
+    <tr uxd-api-property name="required" type="boolean" defaultValue="false">
+        If set to <code>true</code> the select will be marked as required.
+    </tr>
+    <tr uxd-api-property name="filterDebounceTime" type="number" defaultValue="200">
+        Allows customization of the <code>debounceTime</code> used on the select's input filter.
+    </tr>
+    <tr uxd-api-property name="autoCloseDropdown" type="boolean" defaultValue="true">
+        Determine if the dropdown panel should close on external click.
     </tr>
 </uxd-api-properties>
 

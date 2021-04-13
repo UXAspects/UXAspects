@@ -1,37 +1,72 @@
-<div class="row">
-    <div class="col-sm-6 col-xs-12">
-        <div class="input-group date m-nil">
-            <span class="input-group-btn">
-                <button class="btn button-secondary" aria-label="Show Date Picker" (click)="popover.show()">
-                    <ux-icon name="calendar" aria-hidden="true"></ux-icon>
-                </button>
-            </span>
-            <input type="text"
-                   #input
-                   #popover="ux-popover"
-                   uxFocusIndicatorOrigin
-                   [ngModel]="date | date:'dd MMMM yyyy HH:mm'"
-                   [uxPopover]="popoverTemplate"
-                   placement="bottom"
-                   popoverClass="date-time-picker-popover"
-                   class="form-control"
-                   aria-label="Selected date"
-                   (keydown.enter)="popover.show()">
+<ng-container [ngSwitch]="theme">
+    <ng-container *ngSwitchDefault>
+        <div class="row">
+            <div class="col-sm-6 col-xs-12">
+                <div class="input-group date m-nil">
+                    <span class="input-group-btn">
+                        <button class="btn button-secondary" aria-label="Show Date Picker" (click)="popover.show()">
+                            <ux-icon name="calendar" aria-hidden="true"></ux-icon>
+                        </button>
+                    </span>
+                    <input
+                        type="text"
+                        #input
+                        #popover="ux-popover"
+                        uxFocusIndicatorOrigin
+                        [ngModel]="date | date:'dd MMMM yyyy HH:mm'"
+                        [uxPopover]="popoverTemplate"
+                        [popoverContext]="{ input: input, popover: popover }"
+                        placement="bottom"
+                        popoverClass="date-time-picker-popover"
+                        class="form-control"
+                        aria-label="Selected date"
+                        (keydown.enter)="popover.show()">
+                </div>
+
+                <p class="m-t">Selected date is: <em>{{ date | date:'dd MMMM yyyy HH:mm' }} {{ timezone?.name }}</em>
+                </p>
+            </div>
         </div>
+    </ng-container>
+    <ng-container *ngSwitchCase="SiteThemeId.MicroFocusNext">
+        <div class="row">
+            <div class="col-sm-6 col-xs-12">
+                <div class="input-group date m-nil">
+                    <input
+                        type="text"
+                        #input
+                        #popover="ux-popover"
+                        uxFocusIndicatorOrigin
+                        [ngModel]="date | date:'dd MMMM yyyy HH:mm'"
+                        [uxPopover]="popoverTemplate"
+                        [popoverContext]="{ input: input, popover: popover }"
+                        placement="bottom"
+                        popoverClass="date-time-picker-popover"
+                        class="form-control"
+                        [class.ux-date-picker-open]="popover.isVisible"
+                        aria-label="Selected date"
+                        (keydown.enter)="popover.show()">
+                    <span class="input-group-btn">
+                        <button
+                            class="btn button-secondary"
+                            [class.ux-date-picker-open]="popover.isVisible"
+                            aria-label="Show Date Picker"
+                            (click)="popover.show()">
+                            <ux-icon name="calendar" aria-hidden="true"></ux-icon>
+                        </button>
+                    </span>
+                </div>
 
-        <p class="m-t">Selected date is:  <em>{{ date | date:'dd MMMM yyyy HH:mm' }} {{ timezone?.name }}</em></p>
-    </div>
-</div>
+                <p class="m-t">Selected date is: <em>{{ date | date:'dd MMMM yyyy HH:mm' }} {{ timezone?.name }}</em>
+                </p>
+            </div>
+        </div>
+    </ng-container>
+</ng-container>
 
-<ng-template #popoverTemplate>
-    <ux-date-time-picker
-        [(date)]="date"
-        [(timezone)]="timezone"
-        [showTime]="showTime"
-        [showMeridian]="showMeridians"
-        [showSpinners]="showSpinners"
-        [showTimezone]="showTimezones"
-        (keydown.escape)="popover.hide(); input.focus()">
+<ng-template #popoverTemplate let-input="input" let-popover="popover">
+    <ux-date-time-picker [(date)]="date" [(timezone)]="timezone" [showTime]="showTime" [showMeridian]="showMeridians"
+        [showSpinners]="showSpinners" [showTimezone]="showTimezones" (keydown.escape)="popover.hide(); input.focus()">
     </ux-date-time-picker>
 </ng-template>
 
@@ -63,7 +98,8 @@
 <hr>
 
 <p>
-    The <code>ux-date-time-picker</code> component can be used to select a date/time or timezone. It can be displayed as a standalone component or within
+    The <code>ux-date-time-picker</code> component can be used to select a date/time or timezone. It can be displayed as
+    a standalone component or within
     a popover.
 </p>
 
@@ -80,7 +116,8 @@
     </tr>
     <tr uxd-api-property name="timezones" type="DateTimePickerTimezone[]">
         Defines the list of available timezones. The <b>DateTimePickerTimezone</b> interface specifies that
-        each timezone should be an object with a <b>name</b> property that represents the timezone, eg. <code>GMT+2</code>,
+        each timezone should be an object with a <b>name</b> property that represents the timezone, eg.
+        <code>GMT+2</code>,
         and an <b>offset</b> property that represents the number of minutes relative to GMT the timezone is.
     </tr>
     <tr uxd-api-property name="showDate" type="boolean">
@@ -96,7 +133,8 @@
         Defines whether or not the time picker should allow the user to specify seconds.
     </tr>
     <tr uxd-api-property name="showMeridian" type="boolean">
-        Defines whether or not the time picker should show an AM/PM button, or time should be represented in 24hr format instead.
+        Defines whether or not the time picker should show an AM/PM button, or time should be represented in 24hr format
+        instead.
     </tr>
     <tr uxd-api-property name="showSpinners" type="boolean">
         Defines whether or not the time picker should allow the user to select the time using spinners.
@@ -117,7 +155,8 @@
         Defines the text to be displayed in the button used to set the selected time to the current time.
     </tr>
     <tr uxd-api-property name="startOfWeek" type="WeekDay" defaultValue="WeekDay.Sunday">
-        Defines the day of the week that should appear in the first column. <code>WeekDay</code> is an enumeration available in <code>@angular/common</code>.
+        Defines the day of the week that should appear in the first column. <code>WeekDay</code> is an enumeration
+        available in <code>@angular/common</code>.
     </tr>
     <tr uxd-api-property name="min" type="Date">
         Defines the earliest date that can be selected.
@@ -137,8 +176,10 @@
 </uxd-api-properties>
 
 <p>
-    To provide default settings for all date pickers within you application, import <code>DateTimePickerModule.forRoot()</code> in your <code>app.module.ts</code>.
-    You can then inject the <code>DateTimePickerConfig</code> and configure the default presentation and localization settings for every date picker
+    To provide default settings for all date pickers within you application, import
+    <code>DateTimePickerModule.forRoot()</code> in your <code>app.module.ts</code>.
+    You can then inject the <code>DateTimePickerConfig</code> and configure the default presentation and localization
+    settings for every date picker
     within your application.
 </p>
 
@@ -156,7 +197,8 @@
         Defines whether or not the time picker should allow the user to specify seconds.
     </tr>
     <tr uxd-api-property name="showMeridian" type="boolean">
-        Defines whether or not the time picker should show an AM/PM button, or time should be represented in 24hr format instead.
+        Defines whether or not the time picker should show an AM/PM button, or time should be represented in 24hr format
+        instead.
     </tr>
     <tr uxd-api-property name="showSpinners" type="boolean">
         Defines whether or not the time picker should allow the user to select the time using spinners.

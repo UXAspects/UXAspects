@@ -1,11 +1,10 @@
-import { HorizontalConnectionPos, OriginConnectionPosition, Overlay, OverlayConnectionPosition, OverlayRef, ScrollDispatcher, VerticalConnectionPos } from '@angular/cdk/overlay';
+import { ConnectedPosition, HorizontalConnectionPos, OriginConnectionPosition, Overlay, OverlayConnectionPosition, OverlayRef, ScrollDispatcher, VerticalConnectionPos } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { ChangeDetectorRef, Directive, ElementRef, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, Renderer2, SimpleChanges, TemplateRef, ViewContainerRef } from '@angular/core';
 import { fromEvent, Subject } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
 import { TooltipComponent } from './tooltip.component';
 import { TooltipService } from './tooltip.service';
-import { clearTimeout } from 'timers';
 
 @Directive({
     selector: '[uxTooltip]',
@@ -37,6 +36,9 @@ export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
     /** Customize how the tooltip should be positioned relative to the element */
     @Input() placement: AnchorPlacement = 'top';
 
+    /** Specify the fallback placement if the specified placement cannot be used */
+    @Input() fallbackPlacement: AnchorPlacement;
+
     /** Customize the position of the callout */
     @Input() alignment: AnchorAlignment = 'center';
 
@@ -57,6 +59,9 @@ export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
 
     /** Keep track of the tooltip visibility */
     isVisible: boolean = false;
+
+    /** The name of the css class to use for the tooltip direction */
+    positionClass = this.placement;
 
     /** Define the overlay class */
     protected _overlayClass: string = 'ux-tooltip-pane';
@@ -284,9 +289,30 @@ export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
             return this._overlayRef;
         }
 
+        const fallbackPosition = this.getFallbackPosition();
+
         // configure the tooltip
         const strategy = this._overlay.position()
-            .connectedTo(this._elementRef, this.getOrigin(), this.getOverlayPosition());
+            .connectedTo(this._elementRef, this.getOrigin(), this.getOverlayPosition())
+            .withFallbackPosition(
+                { originX: fallbackPosition.originX, originY: fallbackPosition.originY },
+                { overlayX: fallbackPosition.overlayX, overlayY: fallbackPosition.overlayY }
+            );
+
+        strategy.onPositionChange.subscribe(positionChange => {
+            const currentPosition = positionChange.connectionPair;
+            const usingFallbackPosition = currentPosition.originX === fallbackPosition.originX
+                && currentPosition.originY === fallbackPosition.originY
+                && currentPosition.overlayX === fallbackPosition.overlayX
+                && currentPosition.overlayY === fallbackPosition.overlayY;
+
+            if (usingFallbackPosition) {
+                this._instance.positionClass = this.getFallbackPlacement();
+                this._changeDetectorRef.detectChanges();
+            } else {
+                this._instance.positionClass = this.placement;
+            }
+        });
 
         // correctly handle scrolling
         const scrollableAncestors = this._scrollDispatcher
@@ -302,6 +328,59 @@ export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
         });
 
         return this._overlayRef;
+    }
+
+    private getFallbackPosition(): ConnectedPosition {
+        if (this.fallbackPlacement) {
+            return this.getConnectedPosition(this.fallbackPlacement);
+        }
+
+        switch (this.placement) {
+            case 'left':
+                // use right as the fallback position
+                return this.getConnectedPosition('right');
+            case 'right':
+                // use left as the fallback position
+                return this.getConnectedPosition('left');
+            case 'top':
+                // use bottom as the fallback position
+                return this.getConnectedPosition('bottom');
+            case 'bottom':
+            default:
+                // use top as the fallback position
+                return this.getConnectedPosition('top');
+        }
+
+    }
+
+    private getFallbackPlacement(): AnchorPlacement {
+        if (this.fallbackPlacement) {
+            return this.fallbackPlacement;
+        }
+
+        switch (this.placement) {
+            case 'left':
+                return 'right';
+            case 'right':
+                return 'left';
+            case 'top':
+                return 'bottom';
+            case 'bottom':
+                return 'top';
+        }
+    }
+
+    private getConnectedPosition(placement: AnchorPlacement): ConnectedPosition {
+        switch (placement) {
+            case 'left':
+                return { originX: 'start', originY: 'center', overlayX: 'end', overlayY: 'center' };
+            case 'right':
+                return { originX: 'end', originY: 'center', overlayX: 'start', overlayY: 'center' };
+            case 'top':
+                return { originX: 'center', originY: 'top', overlayX: 'center', overlayY: 'bottom' };
+            case 'bottom':
+                return { originX: 'center', originY: 'bottom', overlayX: 'center', overlayY: 'top' };
+        }
     }
 
     /** Recreate the overlay ref using the updated origin and overlay positions */

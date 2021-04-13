@@ -16,6 +16,51 @@ export class ChangeLogPageComponent {
 
         this.logs = [
             {
+                version: '3.6.0',
+                date: 'April 1st 2021',
+                content: require('./logs/release-v3.6.0.md')
+            },
+            {
+                version: '3.5.0',
+                date: 'March 18th 2021',
+                content: require('./logs/release-v3.5.0.md')
+            },
+            {
+                version: '3.4.0',
+                date: 'March 4th 2021',
+                content: require('./logs/release-v3.4.0.md')
+            },
+            {
+                version: '3.3.0',
+                date: 'February 19th 2021',
+                content: require('./logs/release-v3.3.0.md')
+            },
+            {
+                version: '3.2.1',
+                date: 'February 8th 2021',
+                content: require('./logs/release-v3.2.1.md')
+            },
+            {
+                version: '3.2.0',
+                date: 'February 4th 2021',
+                content: require('./logs/release-v3.2.0.md')
+            },
+            {
+                version: '3.1.0',
+                date: 'January 21st 2021',
+                content: require('./logs/release-v3.1.0.md')
+            },
+            {
+                version: '3.0.0',
+                date: 'January 7th 2021',
+                content: require('./logs/release-v3.0.0.md')
+            },
+            {
+                version: '2.1.9',
+                date: 'November 26th 2020',
+                content: require('./logs/release-v2.1.9.md')
+            },
+            {
                 version: '2.1.8',
                 date: 'November 12th 2020',
                 content: require('./logs/release-v2.1.8.md')

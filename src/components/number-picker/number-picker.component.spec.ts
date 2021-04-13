@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { StepDirection } from './number-picker.component';
 import { NumberPickerModule } from './number-picker.module';
 
 /** Number picker example using form group */
@@ -29,7 +30,7 @@ export class NumberPickerTestFormGroupComponent {
     disabled = false;
     min = -10;
     max = 10;
-    step = 1;
+    step: number | ((value: number, direction: StepDirection) => number) = 1;
     placeholder: string;
 
     constructor(formBuilder: FormBuilder) {
@@ -334,6 +335,25 @@ describe('Number Picker Component - FormGroup', () => {
             await clickElement(input1DecrementBtn);
             expect(component.form.controls.integer.value).toBe(99999998.9);
         });
+
+        it('should work when using a function as the step input', async () => {
+            component.form.controls.integer.setValue(5);
+            component.step = (value: number, direction: StepDirection) => {
+                if (value === 5 && direction === StepDirection.Increment) {
+                    return 2;
+                } else {
+                    return 1;
+                }
+            };
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            await clickElement(input1IncrementBtn);
+            expect(component.form.controls.integer.value).toBe(7, 'step function should increment by 2');
+
+            await clickElement(input1DecrementBtn);
+            expect(component.form.controls.integer.value).toBe(6, 'step function should decrement by 1');
+        });
     });
 
     describe('on scroll', () => {
@@ -528,6 +548,7 @@ describe('Number Picker Component - ngModel', () => {
     selector: 'app-number-picker-value',
     template: `<ux-number-picker [min]="min"
                                  [max]="max"
+                                 [required]="required"
                                  [disabled]="disabled"
                                  (valueChange)="onValueChange($event)"
                                  [value]="value"
@@ -539,6 +560,7 @@ describe('Number Picker Component - ngModel', () => {
 })
 export class NumberPickerTestValueComponent {
 
+    required: boolean = false;
     value = 0;
     disabled = false;
     min = -10;
@@ -719,6 +741,17 @@ describe('Number Picker Component - value', () => {
         expect(component.onNgModelChange).toHaveBeenCalledWith(7);
         expect(component.onNgModelChange).toHaveBeenCalledTimes(1);
 
+    });
+
+    it('should add a required attribute to the input when required is true', () => {
+        component.required = true;
+
+        fixture.detectChanges();
+
+        const inputElementEmpty = nativeElement.querySelector<HTMLInputElement>('input.form-control');
+        const attributeRequired = inputElementEmpty.hasAttribute('required');
+
+        expect(attributeRequired).toBe(true);
     });
 
     function getInput(): HTMLInputElement | null {

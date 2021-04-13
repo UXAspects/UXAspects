@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, EventEmitter, Input, OnDestroy, OnInit, Output, TemplateRef } from '@angular/core';
+import { NavigationExtras } from '@angular/router';
 import { Subject } from 'rxjs';
 import { distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { tick } from '../../../common';
@@ -10,7 +11,7 @@ let uniqueTabId = 0;
 @Component({
     selector: 'ux-tab',
     templateUrl: './tab.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TabComponent implements OnInit, OnDestroy {
 
@@ -30,6 +31,12 @@ export class TabComponent implements OnInit, OnDestroy {
 
     /** Define the tab heading */
     @Input() heading: string;
+
+    /** Define the tab router path */
+    @Input() route: string | any[];
+
+    /** Define the tab router additional parameters */
+    @Input() routerLinkExtras: NavigationExtras;
 
     /** provide a custom class for the tab */
     @Input() customClass: string;
