@@ -1090,6 +1090,9 @@ export class DashboardService implements OnDestroy {
         // check whether or not changes have been made - if so we need to repeat until stable
         let stable = true;
 
+        // update information about the layout
+        this.layout$.next(this.getLayoutData());
+
         // iterate each widget and
         this.widgets.forEach(widget => {
             const widgetIsOnTopRow = widget.getRow() === 0;
@@ -1113,6 +1116,7 @@ export class DashboardService implements OnDestroy {
             }
 
             if (this.getPositionAvailable(widget.getColumn(), widget.getRow() - 1, widget.getColumnSpan(), 1)) {
+                console.log('move widget')
                 widget.setRow(widget.getRow() - 1);
                 stable = false;
             }
