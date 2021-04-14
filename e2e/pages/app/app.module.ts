@@ -131,6 +131,10 @@ const routes: Routes = [
         loadChildren: () => import('./pagination/pagination.module').then(m => m.PaginationTestPageModule)
     },
     {
+        path: 'partition-map',
+        loadChildren: () => import('./partition-map/partition-map.module').then(m => m.PartitionMapTestPageModule)
+    },
+    {
         path: 'popover',
         loadChildren: () => import('./popover/popover.module').then(m => m.PopoverTestPageModule)
     },
