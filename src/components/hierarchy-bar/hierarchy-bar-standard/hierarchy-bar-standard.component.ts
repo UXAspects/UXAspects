@@ -63,12 +63,9 @@ export class HierarchyBarStandardComponent implements OnDestroy {
             return;
         }
 
-        const lastItem = this.barNodes.last;
-        const nativeElementLast = lastItem.nativeElement;
-
         // get the native element
         const { nativeElement } = this.nodelist;
-        const isOverflowing = nativeElement.scrollWidth > nativeElement.offsetWidth || nativeElementLast.scrollWidth > nativeElementLast.offsetWidth;
+        const isOverflowing = nativeElement.scrollWidth > nativeElement.offsetWidth;
 
         // emit whether we are overflowing or not
         this.isOverflowing$.next(isOverflowing);
@@ -99,11 +96,9 @@ export class HierarchyBarStandardComponent implements OnDestroy {
             // get the cumulative width of all the visible nodes
             const consumedWidth = visibleNodes.reduce((totalWidth, visibleNode) => totalWidth + visibleNode.width, 0);
 
-            const [lastVisibleItem] = visibleNodes.slice(-1);
-
             // get the width that would be consumed if this node was included
             const width = node.width + consumedWidth;
-            isFull = width > nativeElement.offsetWidth - lastVisibleItem.width + nativeElementLast.scrollWidth - nativeElementLast.offsetWidth;
+            isFull = width > nativeElement.offsetWidth;
             node.visible = !isFull;
 
             if (isFull) {
