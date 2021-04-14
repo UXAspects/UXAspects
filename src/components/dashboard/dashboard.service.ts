@@ -1116,7 +1116,6 @@ export class DashboardService implements OnDestroy {
             }
 
             if (this.getPositionAvailable(widget.getColumn(), widget.getRow() - 1, widget.getColumnSpan(), 1)) {
-                console.log('move widget')
                 widget.setRow(widget.getRow() - 1);
                 stable = false;
             }
