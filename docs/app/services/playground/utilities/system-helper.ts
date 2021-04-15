@@ -44,7 +44,7 @@ export class SystemJSHelper {
         { name: 'rxjs', path: 'rxjs@6.5.2' },
         { name: 'ngx-bootstrap', path: `ngx-bootstrap@${NGX_BOOTSTRAP_VERSION}/bundles/ngx-bootstrap.umd.min.js` },
         { name: 'chance', path: 'chance' },
-        { name: 'chart.js', path: 'chart.js/dist/Chart.bundle.min.js' },
+        { name: 'chart.js', path: 'chart.js@2.9.3/dist/Chart.bundle.min.js' },
         { name: 'ng2-charts', path: 'ng2-charts@2.3.0/bundles/ng2-charts.umd.js' },
         { name: 'lodash', path: 'lodash/lodash.js' },
         { name: 'ng2-file-upload', path: 'ng2-file-upload/bundles/ng2-file-upload.umd.js' },
