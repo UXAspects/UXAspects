@@ -1,6 +1,7 @@
 <div class="hierarchy-bar-node"
      [class.hierarchy-bar-node-readonly]="readonly"
-     [class.hierarchy-bar-node-child-indicator]="node.children">
+     [class.hierarchy-bar-node-child-indicator]="node.children"
+     [style.transform]="offset ? 'translateX(' + offset + 'px)' : null">
 
     <ng-container
         *ngIf="mode === 'dropdown'; then dropdownMode; else standardClickMode">
