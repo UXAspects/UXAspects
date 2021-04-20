@@ -93,6 +93,9 @@ export class DashboardService implements OnDestroy {
      */
     removeWidget(widget: DashboardWidgetComponent): void {
         this.widgets$.next(this.widgets$.getValue().filter(_widget => _widget !== widget));
+
+        // ensure any vacant upper spaces are filled where required
+        this.shiftWidgetsUp();
     }
 
     /**
@@ -1089,9 +1092,6 @@ export class DashboardService implements OnDestroy {
 
         // check whether or not changes have been made - if so we need to repeat until stable
         let stable = true;
-
-        // update information about the layout
-        this.layout$.next(this.getLayoutData());
 
         // iterate each widget and
         this.widgets.forEach(widget => {
