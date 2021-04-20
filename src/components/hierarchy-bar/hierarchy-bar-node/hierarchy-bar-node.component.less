@@ -22,6 +22,7 @@ ux-hierarchy-bar-node {
         border: none;
         background: transparent;
         padding: 0;
+        width: 100%;
 
         &:hover > .hierarchy-bar-node-arrow-icon-dropdown:not(.readonly-arrow) {
             color: @primary;
@@ -55,6 +56,10 @@ ux-hierarchy-bar-node {
         .hierarchy-bar-node-title {
             color: @organization-chart-hierarchy-bar-active-color;
             font-weight: 600;
+            white-space: nowrap;
+            word-break: break-all;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
     }
 
