@@ -438,7 +438,7 @@ describe('Dashboard Tests', () => {
     it('should update the layout when widget1 is removed and refreshLayout is called', async () => {
 
         // move widget
-        await browser.actions().dragAndDrop(widget2, { x: 0, y: 250 }).perform();
+        await browser.actions().dragAndDrop(widget2, { x: 300, y: 0 }).perform();
 
         // Remove first widget from the DOM
         await page.toggleWidget();
@@ -456,7 +456,6 @@ describe('Dashboard Tests', () => {
         expect(await page.getWidgetLocationValue(updatedWidget3, 'top')).toBe(440);
 
         expect(await imageCompareFullPageScreen('dashboard-refresh-layout')).toEqual(0);
-
     });
 
     describe('Stacked Mode', () => {
