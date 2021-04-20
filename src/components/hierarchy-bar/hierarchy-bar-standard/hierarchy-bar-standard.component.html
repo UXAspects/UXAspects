@@ -1,39 +1,60 @@
 <!-- Allow content to be placed on the left of the items -->
 <div class="hierarchy-bar-addons">
+    <div
+        *ngIf="isOverflowing$ | async"
+        #popover="ux-popover"
+        class="hierarchy-bar-overflow-indicator"
+        [uxPopover]="overflow"
+        [showTriggers]="hierarchyBar.popoverShowTriggers"
+        [hideTriggers]="hierarchyBar.popoverHideTriggers"
+        [popoverContext]="{ popover: popover }"
+        placement="bottom"
+        popoverClass="hierarchy-bar-popover">
+        <ng-container
+            [ngTemplateOutlet]="hierarchyBar.overflowTemplate || defaultOverflowTemplate"
+            [ngTemplateOutletContext]="{ $implicit: overflow$ | async }">
+        </ng-container>
+
+        <button
+            [attr.aria-label]="hierarchyBar.showSiblingsAriaLabel"
+            uxFocusIndicator
+            uxFocusIndicatorOrigin
+            class="hierarchy-bar-node-arrow"
+            placement="bottom"
+            [uxPopover]="nodeList"
+            popoverClass="hierarchy-bar-popover"
+            role="button"
+            tabindex="0"
+            [disabled]="readonly"
+            #popover="ux-popover"
+            [popoverContext]="{ popover: popover }"
+            [showTriggers]="hierarchyBar.popoverShowTriggers"
+            [hideTriggers]="hierarchyBar.popoverHideTriggers"
+            type="button">
+            <ux-icon name="next" class="hierarchy-bar-node-arrow-icon"></ux-icon>
+        </button>
+    </div>
     <ng-content select="left-addons"></ng-content>
 </div>
 
 <div #nodelist class="hierarchy-bar-nodes" (uxResize)="scrollIntoView()">
-
-    <div *ngIf="isOverflowing$ | async"
-         #popover="ux-popover"
-         class="hierarchy-bar-overflow-indicator"
-         [style.left.px]="nodelist.scrollLeft"
-         [uxPopover]="overflow"
-         [showTriggers]="hierarchyBar.popoverShowTriggers"
-         [hideTriggers]="hierarchyBar.popoverHideTriggers"
-         [popoverContext]="{ popover: popover }"
-         placement="bottom"
-         popoverClass="hierarchy-bar-popover">
-        <ng-container [ngTemplateOutlet]="hierarchyBar.overflowTemplate || defaultOverflowTemplate"
-                      [ngTemplateOutletContext]="{ $implicit: overflow$ | async }">
-        </ng-container>
-    </div>
-
-    <ux-hierarchy-bar-node
-        [mode]="mode"
-        [readonly]="readonly"
-        *ngFor="let node of hierarchyBar.nodes$ | async"
-        [node]="node"
-        [popoverTemplate]="content"
-        (selected)="hierarchyBar.selectNode(node)">
-    </ux-hierarchy-bar-node>
+    <ng-container *ngFor="let node of hierarchyBar.nodes$ | async; let i = index; let last = last">
+        <ux-hierarchy-bar-node
+            #barNodes
+            [mode]="mode"
+            [readonly]="readonly"
+            [node]="node"
+            [popoverTemplate]="content"
+            (selected)="hierarchyBar.selectNode(node)"
+            [offset]="-overflowTranslateOffset"
+            [style.max-width.px]="(isOverflowing$ | async) && last ? nodelist.offsetWidth : null">
+        </ux-hierarchy-bar-node>
+    </ng-container>
 
     <!-- Allow content to be placed after the last node -->
     <div class="hierarchy-bar-addons">
         <ng-content select="trailing-addons"></ng-content>
     </div>
-
 </div>
 
 <!-- Allow content to be placed on the right of the items -->
@@ -50,11 +71,17 @@
     </ux-hierarchy-bar-popover>
 </ng-template>
 
+<!-- Template for the popover list -->
+<ng-template #nodeList let-node="node" let-popover="popover">
+    <ux-hierarchy-bar-popover
+        [nodes]="node"
+        (selected)="hierarchyBar.selectNode($event); popover.hide()">
+    </ux-hierarchy-bar-popover>
+</ng-template>
+
 <!-- Template for the overflow popover list -->
 <ng-template #overflow let-popover="popover">
-
     <div uxTabbableList [returnFocus]="true">
-
         <ux-hierarchy-bar-popover-item
             *ngFor="let child of overflow$ | async; let first = first"
             uxFocusIndicator
@@ -68,5 +95,14 @@
 
 <!-- Default Overflow Template -->
 <ng-template #defaultOverflowTemplate>
-    . . .
+    <button
+        uxFocusIndicator
+        uxFocusIndicatorOrigin
+        [disabled]="readonly"
+        class="overflow-button"
+        aria-label="Show parents"
+        role="button"
+        type="button">
+        <ux-icon name="more"></ux-icon>
+    </button>
 </ng-template>
