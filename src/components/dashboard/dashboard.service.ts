@@ -1124,6 +1124,9 @@ export class DashboardService implements OnDestroy {
             return true;
         }
 
+        // emit information about the layout
+        this.layout$.next(this.getLayoutData());
+
         return false;
     }
 
