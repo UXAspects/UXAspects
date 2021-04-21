@@ -444,7 +444,7 @@ describe('Dashboard Tests', () => {
         await page.toggleWidget();
 
         // updated list of widgets
-        const updatedWidget1  = await page.getWidget(0);
+        const updatedWidget1 = await page.getWidget(0);
         const updatedWidget2 = await page.getWidget(1);
         const updatedWidget3 = await page.getWidget(2);
 

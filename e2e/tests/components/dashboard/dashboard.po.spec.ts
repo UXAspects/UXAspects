@@ -116,7 +116,7 @@ export class DashboardPage {
     }
 
     async refreshLayout(): Promise<void> {
-        await element(by.id('refresh-layout-btn')).click();
+        return await element(by.id('refresh-layout-btn')).click();
     }
 }
 
