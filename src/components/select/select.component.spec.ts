@@ -23,6 +23,7 @@ import { SelectModule } from './select.module';
                    [clearButton]="clearButton"
                    [placeholder]="placeholder"
                    [pageSize]="pageSize"
+                   [readonlyInput]="readonlyInput"
                    [(dropdownOpen)]="dropdownOpen">
         </ux-select>
     `
@@ -40,6 +41,7 @@ export class SelectTestComponent {
     placeholder: string;
     pageSize: number = 20;
     dropdownOpen: boolean = false;
+    readonlyInput: boolean = false;
 
     onValueChange(): void { }
 
@@ -369,6 +371,19 @@ describe('Select Component', () => {
 
         expect(attributeRequired).toBe(true);
     });
+
+    it('should focus on input when icon is clicked', () => {
+        component.readonlyInput = true;
+
+        fixture.detectChanges();
+
+        const inputElement = nativeElement.querySelector<HTMLElement>('input.form-control');
+        const inputIcon = nativeElement.querySelector<HTMLElement>('i.ux-select-icon');
+
+        inputIcon.click();
+
+        expect(document.activeElement).toBe(inputElement);
+    })
 
     function enablePagination(): void {
         component.options = function (pageNum: number, pageSize: number): Promise<string[]> {
