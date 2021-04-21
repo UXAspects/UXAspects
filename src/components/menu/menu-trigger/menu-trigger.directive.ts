@@ -3,7 +3,7 @@ import { DOWN_ARROW, LEFT_ARROW, RIGHT_ARROW, UP_ARROW } from '@angular/cdk/keyc
 import { HorizontalConnectionPos, OriginConnectionPosition, Overlay, OverlayConnectionPosition, OverlayRef, VerticalConnectionPos } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { ContentChildren, Directive, ElementRef, HostListener, Input, OnDestroy, OnInit, Optional, QueryList, Self, ViewContainerRef } from '@angular/core';
-import { combineLatest, merge, Observable, of, Subject } from 'rxjs';
+import { combineLatest, merge, Observable, of, Subject, timer } from 'rxjs';
 import { debounceTime, filter, take, takeUntil } from 'rxjs/operators';
 import { FocusIndicator, FocusIndicatorOriginService, FocusIndicatorService } from '../../../directives/accessibility/index';
 import { MenuItemComponent } from '../menu-item/menu-item.component';
@@ -51,10 +51,12 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
         return !this._isSubmenuTrigger;
     }
 
+    private readonly _debounceTime: number = 50;
+
     @ContentChildren(MenuTriggerDirective) menuTriggers: QueryList<MenuTriggerDirective>;
 
     /** If this is a submenu we want to know when the mouse leaves the items or parent item */
-    private get _menuShouldClose(): Observable<any> {
+    private get _menuShouldClose(): Observable<boolean[]> {
         if (!this._isSubmenuTrigger) {
             return of();
         }
@@ -70,9 +72,9 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
         //
         // We also debounce this because there is often a delay between a blur and a focus event or moving the mouse
         // from a menu item to a sub menu item, so we add this buffer time to prevent the menu from closing unexpectedly
-        return combineLatest(this.menu._isHovering$, this.menu._isFocused$, this._menuItem.isHovered$, this.menu._isExpanded, this._menuItem.isFocused$)
-            .pipe(debounceTime(1000), filter(([isHovered, isFocused, isItemHovered, isExpanded, isItemFocused]) =>
-                !isHovered && !isFocused && !isItemHovered && !isExpanded && !isItemFocused));
+        return combineLatest([ this.menu._isHovering$, this.menu._isFocused$, this._menuItem.isHovered$, this.menu._isExpanded, this._menuItem.isFocused$,])
+            .pipe(debounceTime(this._debounceTime), filter(([isHovered, isFocused, isItemHovered, isExpanded, isItemFocused]) => {
+               return !isHovered && !isFocused && !isItemHovered && !isExpanded && !isItemFocused;}));
     }
 
     constructor(
@@ -141,7 +143,10 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
         this.menu._setMenuOpen(true);
 
         if (this._menuItem) {
-            this._menuItem.isExpanded$.next(true);
+            // timer is needed because isExpanded$ will get set to false
+            // prematurely due to the debounceTime on the menuShouldClose.
+            timer(this._debounceTime).pipe(takeUntil(this._onDestroy$))
+                .subscribe(() => this._menuItem.isExpanded$.next(true));
         }
 
         // listen for a menu item to be selected
