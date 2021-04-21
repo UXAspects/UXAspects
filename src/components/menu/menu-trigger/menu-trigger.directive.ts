@@ -72,9 +72,9 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
         //
         // We also debounce this because there is often a delay between a blur and a focus event or moving the mouse
         // from a menu item to a sub menu item, so we add this buffer time to prevent the menu from closing unexpectedly
-        return combineLatest([ this.menu._isHovering$, this.menu._isFocused$, this._menuItem.isHovered$, this.menu._isExpanded, this._menuItem.isFocused$,])
-            .pipe(debounceTime(this._debounceTime), filter(([isHovered, isFocused, isItemHovered, isExpanded, isItemFocused]) => {
-               return !isHovered && !isFocused && !isItemHovered && !isExpanded && !isItemFocused;}));
+        return combineLatest([ this.menu._isHovering$, this.menu._isFocused$, this._menuItem.isHovered$, this.menu._isExpanded, this._menuItem.isFocused$ ])
+            .pipe(debounceTime(50), filter(([isHovered, isFocused, isItemHovered, isExpanded, isItemFocused]) =>
+                !isHovered && !isFocused && !isItemHovered && !isExpanded && !isItemFocused));
     }
 
     constructor(
