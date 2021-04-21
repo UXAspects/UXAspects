@@ -8,7 +8,7 @@ import { DashboardComponent, DashboardLayoutData, DashboardOptions } from '@ux-a
 })
 export class DashboardTestPageComponent {
 
-    @ViewChild('dashboard', { static: true }) uxDashboard: DashboardComponent;
+    @ViewChild('dashboard') uxDashboard: DashboardComponent;
 
     options: DashboardOptions = {
         columns: 4,
