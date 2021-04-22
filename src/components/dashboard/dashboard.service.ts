@@ -264,6 +264,27 @@ export class DashboardService implements OnDestroy {
         return true;
     }
 
+    /**
+     * Check if a position in the dashboard is vacant or not
+     */
+     getFirstPositionAvailable(column: number, row: number, columnSpan: number, rowSpan: number, ignoreWidget?: DashboardWidgetComponent): boolean {
+
+        // get a list of grid spaces that are populated
+        const spaces = this.getOccupiedSpaces();
+
+        // check if the block would still be in bounds
+        if (column + columnSpan > this.options.columns) {
+            return false;
+        }
+
+        // check each required position
+        if (spaces.find(block => block.column === column && block.row === row && block.widget !== ignoreWidget)) {
+            return false;
+        }
+
+        return true;
+    }
+
     getOccupiedSpaces(): DashboardSpace[] {
 
         // find all spaces that are currently occupied
@@ -1094,7 +1115,7 @@ export class DashboardService implements OnDestroy {
         this.widgets.forEach(widget => {
             const widgetIsOnTopRow = widget.getRow() === 0;
             const widgetIsBeingResized = this._actionWidget?.widget === widget;
-            const widgetShouldBeAutoPositioned = widget.autoPositioning  || this.stacked;
+            const widgetShouldBeAutoPositioned = widget.autoPositioning || this.stacked;
             const widgetIsBeingMoved = !widgetShouldBeAutoPositioned && this.isDragging$.value?.id === widget.id;
 
             if (widgetIsOnTopRow || widgetIsBeingResized || widgetIsBeingMoved || (!widgetShouldBeAutoPositioned && !this._cache)) {
@@ -1103,12 +1124,12 @@ export class DashboardService implements OnDestroy {
 
             if (!widgetShouldBeAutoPositioned) {
                 const cachedVersionOfWidget = this._cache.find(cachedWidget => cachedWidget.id === widget.id);
-                const isPreviousPositionAvailable = this.getPositionAvailable(cachedVersionOfWidget.column, cachedVersionOfWidget.row, cachedVersionOfWidget.columnSpan, cachedVersionOfWidget.rowSpan);
+                const isPreviousPositionAvailable = this.getFirstPositionAvailable(cachedVersionOfWidget.column, cachedVersionOfWidget.row, cachedVersionOfWidget.columnSpan, cachedVersionOfWidget.rowSpan);
+
                 if (isPreviousPositionAvailable) {
                     widget.setRow(cachedVersionOfWidget.row);
                     stable = false;
                 }
-
                 return;
             }
 
