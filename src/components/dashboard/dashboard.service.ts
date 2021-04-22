@@ -264,27 +264,6 @@ export class DashboardService implements OnDestroy {
         return true;
     }
 
-    /**
-     * Check if a position in the dashboard is vacant or not
-     */
-     getFirstPositionAvailable(column: number, row: number, columnSpan: number, rowSpan: number, ignoreWidget?: DashboardWidgetComponent): boolean {
-
-        // get a list of grid spaces that are populated
-        const spaces = this.getOccupiedSpaces();
-
-        // check if the block would still be in bounds
-        if (column + columnSpan > this.options.columns) {
-            return false;
-        }
-
-        // check each required position
-        if (spaces.find(block => block.column === column && block.row === row && block.widget !== ignoreWidget)) {
-            return false;
-        }
-
-        return true;
-    }
-
     getOccupiedSpaces(): DashboardSpace[] {
 
         // find all spaces that are currently occupied
@@ -1124,12 +1103,19 @@ export class DashboardService implements OnDestroy {
 
             if (!widgetShouldBeAutoPositioned) {
                 const cachedVersionOfWidget = this._cache.find(cachedWidget => cachedWidget.id === widget.id);
-                const isPreviousPositionAvailable = this.getFirstPositionAvailable(cachedVersionOfWidget.column, cachedVersionOfWidget.row, cachedVersionOfWidget.columnSpan, cachedVersionOfWidget.rowSpan);
+                const isPreviousPositionAvailable = this.getPositionAvailable(
+                    cachedVersionOfWidget.column,
+                    cachedVersionOfWidget.row,
+                    cachedVersionOfWidget.columnSpan,
+                    cachedVersionOfWidget.rowSpan,
+                    widget
+                );
 
-                if (isPreviousPositionAvailable) {
+                if (isPreviousPositionAvailable && widget.row !== cachedVersionOfWidget.row) {
                     widget.setRow(cachedVersionOfWidget.row);
                     stable = false;
                 }
+
                 return;
             }
 
