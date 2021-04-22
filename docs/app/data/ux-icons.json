@@ -1533,6 +1533,10 @@
             "classname": "ux-icon-transaction"
         },
         {
+            "name": "translate",
+            "classname": "ux-icon-translate"
+        },
+        {
             "name": "trash-filled",
             "classname": "ux-icon-trash-filled"
         },
