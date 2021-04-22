@@ -384,6 +384,7 @@ export const commonIcons = [
     'tooltip',
     'transaction-filled',
     'transaction',
+    'translate',
     'trash-filled',
     'trash',
     'tree',
