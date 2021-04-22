@@ -383,7 +383,7 @@ describe('Select Component', () => {
         inputIcon.click();
 
         expect(document.activeElement).toBe(inputElement);
-    })
+    });
 
     function enablePagination(): void {
         component.options = function (pageNum: number, pageSize: number): Promise<string[]> {
