@@ -682,7 +682,7 @@ describe('Select Tests', () => {
     it('should close the dropdown on external click when autoCloseDropdown = true and multiple = false', async() => {
         expect(await page.confirmDropdownIsExpanded()).toBe(false, 'before external click');
         await page.clickOnDropdown(false);
-        
+
         await browser.actions().click($('body')).perform();
         expect(await page.confirmDropdownIsExpanded()).toBe(false, 'after external click');
     });
@@ -708,5 +708,15 @@ describe('Select Tests', () => {
         await page.clickOnDropdown(false);
         expect(await page.confirmDropdownIsExpanded()).toBe(true);
         expect(await imageCompare('select-drop-direction-auto-up')).toBe(0, 'should use direction up when space is not available');
+    });
+
+    it('should close the dropdown menu when opened by the icon after losing focus with readonlyInput activated', async () => {
+        await page.clickOnCheckbox(page.checkboxReadonlyInput);
+
+        await page.clickOnSelectIcon();
+        expect(await page.confirmDropdownIsExpanded()).toBe(true);
+
+        await browser.actions().click($('body')).perform();
+        expect(await page.confirmDropdownIsExpanded()).toBe(false);
     });
 });
