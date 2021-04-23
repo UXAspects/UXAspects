@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { DashboardOptions, DashboardLayoutData } from '@ux-aspects/ux-aspects';
+import { Component, ViewChild } from '@angular/core';
+import { DashboardComponent, DashboardLayoutData, DashboardOptions } from '@ux-aspects/ux-aspects';
 
 @Component({
     selector: 'dashboard-app',
@@ -7,6 +7,8 @@ import { DashboardOptions, DashboardLayoutData } from '@ux-aspects/ux-aspects';
     styleUrls: ['./dashboard.testpage.component.css']
 })
 export class DashboardTestPageComponent {
+
+    @ViewChild('dashboard') uxDashboard: DashboardComponent;
 
     options: DashboardOptions = {
         columns: 4,
@@ -30,5 +32,9 @@ export class DashboardTestPageComponent {
 
     changeOptions(): void {
         this.options = this.adjustedOptions;
+    }
+
+    refreshLayout() {
+        this.uxDashboard.refreshLayout();
     }
 }
