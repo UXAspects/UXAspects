@@ -93,6 +93,9 @@ export class DashboardService implements OnDestroy {
      */
     removeWidget(widget: DashboardWidgetComponent): void {
         this.widgets$.next(this.widgets$.getValue().filter(_widget => _widget !== widget));
+
+        // emit information about the layout
+        this.layout$.next(this.getLayoutData());
     }
 
     /**
@@ -1130,6 +1133,9 @@ export class DashboardService implements OnDestroy {
             this.shiftWidgetsUp();
             return true;
         }
+
+        // emit information about the layout
+        this.layout$.next(this.getLayoutData());
 
         return false;
     }
