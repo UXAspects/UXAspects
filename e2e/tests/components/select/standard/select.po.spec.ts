@@ -15,6 +15,7 @@ export class SelectPage {
     checkboxPaging = element(by.id('checkbox4'));
     checkboxRecentOptions = element(by.id('checkbox5'));
     checkboxAutoCloseDropdown = element(by.id('checkbox6'));
+    checkboxReadonlyInput = element(by.id('checkbox7'));
     placeholder = element(by.id('placeholder'));
     pageSize = element(by.id('pageSize'));
     customIcon = element(by.id('custom-icon'));
@@ -210,6 +211,10 @@ export class SelectPage {
 
     async clickOnTag(index: number) {
         await this.getTag(index).click();
+    }
+
+    async clickOnSelectIcon() {
+        await $('i.ux-select-icon').click();
     }
 
     async removeCountry(index: number) {
