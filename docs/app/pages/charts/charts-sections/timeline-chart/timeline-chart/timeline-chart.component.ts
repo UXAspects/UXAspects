@@ -111,11 +111,12 @@ export class ChartsTimelineChartComponent extends BaseDocumentationSection imple
         tooltips: {
             // Disable the on-canvas tooltip
             enabled: false,
-            mode: 'index',
+            // mode: 'index',
             intersect: false,
 
             custom: function(tooltipModel) {
                 console.log(tooltipModel);
+                console.log(this._chart);
                 // Tooltip Element
                 var tooltipEl = document.getElementById('chartjs-tooltip');
 
@@ -142,30 +143,31 @@ export class ChartsTimelineChartComponent extends BaseDocumentationSection imple
                 }
 
                 function getBody(bodyItem: any) {
-                    console.log("🚀 ~ file: timeline-chart.component.ts ~ line 157 ~ ChartsTimelineChartComponent ~ getBody ~ bodyItem", bodyItem)
                     return bodyItem.lines;
                 }
 
                 // Set Text
                 if (tooltipModel.body) {
-                    var titleLines = tooltipModel.title || [];
-                    var bodyLines = tooltipModel.body.map(getBody);
+                    // var titleLines = tooltipModel.title || [];
+                    // var bodyLines = tooltipModel.body.map(getBody);
+                    let range = this._chart.options.timeline.range;
 
                     var innerHtml = '<thead>';
 
-                    titleLines.forEach(function(title) {
-                        innerHtml += '<tr><th>' + title + '</th></tr>';
-                    });
+
                     innerHtml += '</thead><tbody>';
 
-                    bodyLines.forEach(function(body, i) {
-                        var colors = tooltipModel.labelColors[i];
-                        var style = 'background:' + colors.backgroundColor;
-                        style += '; border-color:' + colors.borderColor;
-                        style += '; border-width: 2px';
-                        var span = '<span style="' + style + '"></span>';
-                        innerHtml += '<tr><td>' + span + body + '</td></tr>';
-                    });
+                    // bodyLines.forEach(function(body, i) {
+                    //     var colors = tooltipModel.labelColors[i];
+                    //     var style = 'background:' + colors.backgroundColor;
+                    //     style += '; border-color:' + colors.borderColor;
+                    //     style += '; border-width: 2px';
+                    //     var span = '<span style="' + style + '"></span>';
+                    //     innerHtml += '<tr><td>' + span + body + '</td></tr>';
+                    // });
+                    innerHtml += range.lower;
+                    innerHtml += ' and '
+                    innerHtml += range.upper;
                     innerHtml += '</tbody>';
 
                     var tableRoot = tooltipEl.querySelector('table');
