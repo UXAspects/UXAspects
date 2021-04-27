@@ -148,23 +148,23 @@ export class ChartsTimelineChartComponent extends BaseDocumentationSection imple
 
                 // Set Text
                 if (tooltipModel.body) {
-                    // var titleLines = tooltipModel.title || [];
+                    var titleLines = tooltipModel.title || [];
                     var bodyLines = tooltipModel.body.map(getBody);
 
                     var innerHtml = '<thead>';
 
-                    // titleLines.forEach(function(title: any) {
-                    //     innerHtml += '<tr><th>' + title + '</th></tr>';
-                    // });
+                    titleLines.forEach(function(title) {
+                        innerHtml += '<tr><th>' + title + '</th></tr>';
+                    });
                     innerHtml += '</thead><tbody>';
 
                     bodyLines.forEach(function(body, i) {
-                        // var colors = tooltipModel.labelColors[i];
-                        // var style = 'background:' + colors.backgroundColor;
-                        // style += '; border-color:' + colors.borderColor;
-                        // style += '; border-width: 2px';
-                        // var span = '<span style="' + style + '"></span>';
-                        // innerHtml += '<tr><td>' + span + body + '</td></tr>';
+                        var colors = tooltipModel.labelColors[i];
+                        var style = 'background:' + colors.backgroundColor;
+                        style += '; border-color:' + colors.borderColor;
+                        style += '; border-width: 2px';
+                        var span = '<span style="' + style + '"></span>';
+                        innerHtml += '<tr><td>' + span + body + '</td></tr>';
                     });
                     innerHtml += '</tbody>';
 
@@ -185,7 +185,6 @@ export class ChartsTimelineChartComponent extends BaseDocumentationSection imple
                 tooltipEl.style.fontStyle = tooltipModel._bodyFontStyle;
                 tooltipEl.style.padding = tooltipModel.yPadding + 'px ' + tooltipModel.xPadding + 'px';
                 tooltipEl.style.pointerEvents = 'none';
-                tooltipEl.style.transition = '0.23s';
             }
         },
         animation: {
