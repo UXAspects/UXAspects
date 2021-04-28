@@ -80,17 +80,13 @@ export class ChartsTimelineChartComponent extends BaseDocumentationSection imple
             mode: 'x-axis',
             intersect: false,
             position: 'custom',
-
+            displayColors: false,
 
             callbacks: {
-                title: function(item, data) {
-                    return '';
+                title: function(item: Chart.ChartTooltipItem[]) {
+                    return;
                 },
-                    
                 label: function(item: Chart.ChartTooltipItem, data: Chart.ChartData) {
-                    // console.log("🚀 ~ file: timeline-chart.component.ts ~ line 87 ~ ChartsTimelineChartComponent ~ data", data)
-                    // console.log("🚀 ~ file: timeline-chart.component.ts ~ line 87 ~ ChartsTimelineChartComponent ~ item", item)
-
                     let range = this._chart.options.timeline.range;
                     let rangeLower = moment(range.lower, 'ddd MMM DD YYYY HH:mm:ss zzZZ').format('D MMMM YYYY');
                     let rangeUpper = moment(range.upper, 'ddd MMM DD YYYY HH:mm:ss zzZZ').format('D MMMM YYYY');
@@ -99,72 +95,7 @@ export class ChartsTimelineChartComponent extends BaseDocumentationSection imple
                     return label;
                 }
             }
-
-            // custom: function(tooltipModel) {
-            //     // Tooltip Element
-            //     var tooltipEl = document.getElementById('chartjs-tooltip');
-
-            //     // Create element on first render
-            //     if (!tooltipEl) {
-            //         tooltipEl = document.createElement('div');
-            //         tooltipEl.id = 'chartjs-tooltip';
-            //         tooltipEl.innerHTML = '<table class="bink-calc__tooltip"></table>';
-            //         document.body.appendChild(tooltipEl);
-            //     }
-
-            //     // Hide if no tooltip
-            //     if (tooltipModel.opacity === 0) {
-            //         tooltipEl.style.opacity = '0';
-            //         return;
-            //     }
-
-            //     // Set caret Position
-            //     tooltipEl.classList.remove('above', 'below', 'no-transform');
-            //     if (tooltipModel.yAlign) {
-            //         tooltipEl.classList.add(tooltipModel.yAlign);
-            //     } else {
-            //         tooltipEl.classList.add('no-transform');
-            //     }
-
-            //     function getBody(bodyItem: any) {
-            //         return bodyItem.lines;
-            //     }
-
-            //     // Set Text
-            //     if (tooltipModel.body) {
-            //         let range = this._chart.options.timeline.range;
-
-            //         var innerHtml = '<thead>';
-
-
-            //         innerHtml += '</thead><tbody>';
-
-            //         innerHtml += moment(range.lower, 'ddd MMM DD YYYY HH:mm:ss zzZZ').format('D MMMM YYYY');
-            //         innerHtml += ' - '
-            //         innerHtml += moment(range.upper, 'ddd MMM DD YYYY HH:mm:ss zzZZ').format('D MMMM YYYY');
-            //         innerHtml += '</tbody>';
-
-            //         var tableRoot = tooltipEl.querySelector('table');
-            //         tableRoot.innerHTML = innerHtml;
-            //     }
-
-            //     // `this` will be the overall tooltip
-            //     var position = this._chart.canvas.getBoundingClientRect();
-
-            //     console.log(this._chart);
-
-            //     // Display, position, and set styles for font
-            //     tooltipEl.style.opacity = '1';
-            //     tooltipEl.style.position = 'absolute';
-            //     tooltipEl.style.left = position.left + window.pageXOffset + tooltipModel.caretX + 'px';
-            //     tooltipEl.style.top = position.top + window.pageYOffset + 'px';
-            //     tooltipEl.style.fontFamily = tooltipModel._bodyFontFamily;
-            //     tooltipEl.style.fontSize = tooltipModel.bodyFontSize + 'px';
-            //     tooltipEl.style.fontStyle = tooltipModel._bodyFontStyle;
-            //     tooltipEl.style.padding = tooltipModel.yPadding + 'px ' + tooltipModel.xPadding + 'px';
-            //     tooltipEl.style.pointerEvents = 'none';
-            // }
-        },
+        } as any,
         animation: {
             duration: 0
         },
