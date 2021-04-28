@@ -76,7 +76,6 @@ export class ChartsTimelineChartComponent extends BaseDocumentationSection imple
     timelineChartOptions: Chart.ChartOptions & Chart.ChartLineOptions & TimelineChartOptions = {
         responsive: true,
         maintainAspectRatio: false,
-        events: ['mousein'],
         tooltips: {
             mode: 'x-axis',
             intersect: false,
