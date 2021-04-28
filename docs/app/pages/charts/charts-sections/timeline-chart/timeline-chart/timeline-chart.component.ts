@@ -109,6 +109,7 @@ export class ChartsTimelineChartComponent extends BaseDocumentationSection imple
                 {
                     type: 'time',
                     gridLines: {
+                        display: false
                     },
                     time: {
                         unit: 'month',
@@ -141,6 +142,7 @@ export class ChartsTimelineChartComponent extends BaseDocumentationSection imple
             }
         }
     };
+
 
     playground: IPlayground = {
         files: {
