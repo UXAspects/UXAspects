@@ -137,10 +137,12 @@ export class MenuItemComponent implements OnInit, OnDestroy, FocusableOption {
 
     @HostListener('click', ['$event'])
     @HostListener('keydown.enter', ['$event'])
-    _onClick(event: MouseEvent | KeyboardEvent): void {
-        if (!this.disabled && this.closeOnSelect) {
-            this.onClick$.next(isKeyboardTrigger(event) ? 'keyboard' : 'mouse');
+    _onClick(event: MouseEvent | KeyboardEvent, origin: FocusOrigin): void {
+        if (!this.disabled) {
             this.activate.emit(event);
+            if (this.closeOnSelect) {
+                this.onClick$.next(isKeyboardTrigger(event) ? 'keyboard' : 'mouse');
+            }
         }
     }
 
