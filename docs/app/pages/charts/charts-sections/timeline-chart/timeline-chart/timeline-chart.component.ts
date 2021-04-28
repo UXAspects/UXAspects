@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ColorService, TimelineChartOptions } from '@ux-aspects/ux-aspects';
+import * as moment from 'moment';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
@@ -75,119 +76,95 @@ export class ChartsTimelineChartComponent extends BaseDocumentationSection imple
     timelineChartOptions: Chart.ChartOptions & Chart.ChartLineOptions & TimelineChartOptions = {
         responsive: true,
         maintainAspectRatio: false,
-        // tooltips: {
-        //     enabled: true,
-        //     mode: 'x',
-        //     intersect: true,
-        //     callbacks: {
-        //         label: function(item, everything) {
-        //             console.log(item);
-        //             console.log(everything);
-        //             return 'something';
-        //         }
-        //     }
-        //     // custom: function(context) {
-        //     //     console.log(context);
-
-        //     //     // Tooltip Element
-        //     //     var tooltipEl = document.getElementById('chartjs-tooltip');
-
-        //     //     // Create element on first render
-        //     //     if (!tooltipEl) {
-        //     //         tooltipEl = document.createElement('div');
-        //     //         tooltipEl.id = 'chartjs-tooltip';
-        //     //         tooltipEl.innerHTML = '<table></table>';
-        //     //         document.body.appendChild(tooltipEl);
-        //     //     }
-
-        //     //      // Hide if no tooltip
-        //     //     //  var tooltipModel = context.tooltip;
-        //     //     //  if (tooltipModel.opacity === 0) {
-        //     //     //      tooltipEl.style.opacity = 0;
-        //     //     //      return;
-        //     //     //  }
-        //     // }
-        // },
+        events: ['mousein'],
         tooltips: {
-            // Disable the on-canvas tooltip
-            enabled: false,
-            // mode: 'index',
+            mode: 'x-axis',
             intersect: false,
+            position: 'custom',
 
-            custom: function(tooltipModel) {
-                console.log(tooltipModel);
-                console.log(this._chart);
-                // Tooltip Element
-                var tooltipEl = document.getElementById('chartjs-tooltip');
 
-                // Create element on first render
-                if (!tooltipEl) {
-                    tooltipEl = document.createElement('div');
-                    tooltipEl.id = 'chartjs-tooltip';
-                    tooltipEl.innerHTML = '<table class="bink-calc__tooltip"></table>';
-                    document.body.appendChild(tooltipEl);
-                }
+            callbacks: {
+                title: function(item, data) {
+                    return '';
+                },
+                    
+                label: function(item: Chart.ChartTooltipItem, data: Chart.ChartData) {
+                    // console.log("🚀 ~ file: timeline-chart.component.ts ~ line 87 ~ ChartsTimelineChartComponent ~ data", data)
+                    // console.log("🚀 ~ file: timeline-chart.component.ts ~ line 87 ~ ChartsTimelineChartComponent ~ item", item)
 
-                // Hide if no tooltip
-                if (tooltipModel.opacity === 0) {
-                    tooltipEl.style.opacity = '0';
-                    return;
-                }
-
-                // Set caret Position
-                tooltipEl.classList.remove('above', 'below', 'no-transform');
-                if (tooltipModel.yAlign) {
-                    tooltipEl.classList.add(tooltipModel.yAlign);
-                } else {
-                    tooltipEl.classList.add('no-transform');
-                }
-
-                function getBody(bodyItem: any) {
-                    return bodyItem.lines;
-                }
-
-                // Set Text
-                if (tooltipModel.body) {
-                    // var titleLines = tooltipModel.title || [];
-                    // var bodyLines = tooltipModel.body.map(getBody);
                     let range = this._chart.options.timeline.range;
+                    let rangeLower = moment(range.lower, 'ddd MMM DD YYYY HH:mm:ss zzZZ').format('D MMMM YYYY');
+                    let rangeUpper = moment(range.upper, 'ddd MMM DD YYYY HH:mm:ss zzZZ').format('D MMMM YYYY');
+                    let label = `${rangeLower} - ${rangeUpper}`;
 
-                    var innerHtml = '<thead>';
-
-
-                    innerHtml += '</thead><tbody>';
-
-                    // bodyLines.forEach(function(body, i) {
-                    //     var colors = tooltipModel.labelColors[i];
-                    //     var style = 'background:' + colors.backgroundColor;
-                    //     style += '; border-color:' + colors.borderColor;
-                    //     style += '; border-width: 2px';
-                    //     var span = '<span style="' + style + '"></span>';
-                    //     innerHtml += '<tr><td>' + span + body + '</td></tr>';
-                    // });
-                    innerHtml += range.lower;
-                    innerHtml += ' and '
-                    innerHtml += range.upper;
-                    innerHtml += '</tbody>';
-
-                    var tableRoot = tooltipEl.querySelector('table');
-                    tableRoot.innerHTML = innerHtml;
+                    return label;
                 }
-
-                // `this` will be the overall tooltip
-                var position = this._chart.canvas.getBoundingClientRect();
-
-                // Display, position, and set styles for font
-                tooltipEl.style.opacity = '1';
-                tooltipEl.style.position = 'absolute';
-                tooltipEl.style.left = position.left + window.pageXOffset + tooltipModel.caretX + 'px';
-                tooltipEl.style.top = position.top + window.pageYOffset + tooltipModel.caretY + 'px';
-                tooltipEl.style.fontFamily = tooltipModel._bodyFontFamily;
-                tooltipEl.style.fontSize = tooltipModel.bodyFontSize + 'px';
-                tooltipEl.style.fontStyle = tooltipModel._bodyFontStyle;
-                tooltipEl.style.padding = tooltipModel.yPadding + 'px ' + tooltipModel.xPadding + 'px';
-                tooltipEl.style.pointerEvents = 'none';
             }
+
+            // custom: function(tooltipModel) {
+            //     // Tooltip Element
+            //     var tooltipEl = document.getElementById('chartjs-tooltip');
+
+            //     // Create element on first render
+            //     if (!tooltipEl) {
+            //         tooltipEl = document.createElement('div');
+            //         tooltipEl.id = 'chartjs-tooltip';
+            //         tooltipEl.innerHTML = '<table class="bink-calc__tooltip"></table>';
+            //         document.body.appendChild(tooltipEl);
+            //     }
+
+            //     // Hide if no tooltip
+            //     if (tooltipModel.opacity === 0) {
+            //         tooltipEl.style.opacity = '0';
+            //         return;
+            //     }
+
+            //     // Set caret Position
+            //     tooltipEl.classList.remove('above', 'below', 'no-transform');
+            //     if (tooltipModel.yAlign) {
+            //         tooltipEl.classList.add(tooltipModel.yAlign);
+            //     } else {
+            //         tooltipEl.classList.add('no-transform');
+            //     }
+
+            //     function getBody(bodyItem: any) {
+            //         return bodyItem.lines;
+            //     }
+
+            //     // Set Text
+            //     if (tooltipModel.body) {
+            //         let range = this._chart.options.timeline.range;
+
+            //         var innerHtml = '<thead>';
+
+
+            //         innerHtml += '</thead><tbody>';
+
+            //         innerHtml += moment(range.lower, 'ddd MMM DD YYYY HH:mm:ss zzZZ').format('D MMMM YYYY');
+            //         innerHtml += ' - '
+            //         innerHtml += moment(range.upper, 'ddd MMM DD YYYY HH:mm:ss zzZZ').format('D MMMM YYYY');
+            //         innerHtml += '</tbody>';
+
+            //         var tableRoot = tooltipEl.querySelector('table');
+            //         tableRoot.innerHTML = innerHtml;
+            //     }
+
+            //     // `this` will be the overall tooltip
+            //     var position = this._chart.canvas.getBoundingClientRect();
+
+            //     console.log(this._chart);
+
+            //     // Display, position, and set styles for font
+            //     tooltipEl.style.opacity = '1';
+            //     tooltipEl.style.position = 'absolute';
+            //     tooltipEl.style.left = position.left + window.pageXOffset + tooltipModel.caretX + 'px';
+            //     tooltipEl.style.top = position.top + window.pageYOffset + 'px';
+            //     tooltipEl.style.fontFamily = tooltipModel._bodyFontFamily;
+            //     tooltipEl.style.fontSize = tooltipModel.bodyFontSize + 'px';
+            //     tooltipEl.style.fontStyle = tooltipModel._bodyFontStyle;
+            //     tooltipEl.style.padding = tooltipModel.yPadding + 'px ' + tooltipModel.xPadding + 'px';
+            //     tooltipEl.style.pointerEvents = 'none';
+            // }
         },
         animation: {
             duration: 0
@@ -235,7 +212,6 @@ export class ChartsTimelineChartComponent extends BaseDocumentationSection imple
         }
     };
 
-
     playground: IPlayground = {
         files: {
             'app.component.ts': this.snippets.raw.appTs,
@@ -257,6 +233,5 @@ export class ChartsTimelineChartComponent extends BaseDocumentationSection imple
 
     constructor(private _dataService: TimelineChartService, private _colorService: ColorService) {
         super(require.context('./snippets/', false, /(html|css|js|ts)$/));
-        console.log(this.timelineChartData);
     }
 }

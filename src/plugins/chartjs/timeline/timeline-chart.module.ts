@@ -1,5 +1,6 @@
 import { END, HOME, LEFT_ARROW, RIGHT_ARROW } from '@angular/cdk/keycodes';
 import { NgModule } from '@angular/core';
+import * as Chart from 'chart.js';
 
 const timelineDefaultOptions: TimelineChartOptions & TimelineChartStateOptions = {
     timeline: {
@@ -157,6 +158,9 @@ export class TimelineChartPlugin {
                 this.resetCursor(chart);
                 break;
         }
+
+        // add custom positioner
+        this.customPositioner(chart);
     }
 
     /**
@@ -166,6 +170,30 @@ export class TimelineChartPlugin {
         if (this.getEnabled(chart)) {
             document.removeEventListener('mouseup', chart.config.options.timeline.state.onMouseUp, true);
         }
+    }
+
+    private customPositioner(chart: TimelineChart): void {
+
+        let lower = this.getHandleArea(chart, TimelineHandle.Lower).left;
+        let upper = this.getHandleArea(chart, TimelineHandle.Upper).left;
+
+        /**
+         * Custom positioner
+         * @function Chart.Tooltip.positioners.custom
+         * @param elements {Chart.Element[]} the tooltip elements
+         * @param eventPosition {Point} the position of the event in canvas coordinates
+         * @returns {Point} the tooltip position
+         */
+        Chart.Tooltip.positioners.custom = function(elements: any, eventPosition: any, ): any {
+            /** @type {Chart.Tooltip} */
+            // var tooltip = this;
+            let middle = (lower + upper)/2
+
+            return {
+                x: middle,
+                y: 0
+            };
+        };
     }
 
     /** Get the timeline options from the chart instance */
