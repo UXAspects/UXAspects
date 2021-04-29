@@ -93,9 +93,6 @@ export class DashboardService implements OnDestroy {
      */
     removeWidget(widget: DashboardWidgetComponent): void {
         this.widgets$.next(this.widgets$.getValue().filter(_widget => _widget !== widget));
-
-        // ensure any vacant upper spaces are filled where required
-        this.shiftWidgetsUp();
     }
 
     /**

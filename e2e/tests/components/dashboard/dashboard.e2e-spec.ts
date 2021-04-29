@@ -447,9 +447,9 @@ describe('Dashboard Tests', () => {
         await page.refreshLayout();
 
         // updated list of widgets
-        const updatedWidget1 = await page.getWidget(0);
-        const updatedWidget2 = await page.getWidget(1);
-        const updatedWidget3 = await page.getWidget(2);
+        let updatedWidget1 = await page.getWidget(0);
+        let updatedWidget2 = await page.getWidget(1);
+        let updatedWidget3 = await page.getWidget(2);
 
         expect(await page.getWidgetLocationValue(updatedWidget1, 'top')).toBe(0);
         expect(await page.getWidgetLocationValue(updatedWidget2, 'top')).toBe(0);

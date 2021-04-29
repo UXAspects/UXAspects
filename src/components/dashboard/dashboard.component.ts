@@ -97,10 +97,10 @@ export class DashboardComponent implements AfterViewInit, AfterContentInit, OnDe
     /** Shift widgets up where possible to fill any available space to optimize the dashboard layout */
     refreshLayout(): void {
 
+        const didChangeLayout = this.dashboardService.shiftWidgetsUp();
+
         // emit information about the layout
         this.dashboardService.layout$.next(this.dashboardService.getLayoutData());
-
-        const didChangeLayout = this.dashboardService.shiftWidgetsUp();
 
         if (didChangeLayout) {
             // if widgets have shifted up the dashboard may no longer occupy the same
