@@ -114,10 +114,6 @@ export class DashboardPage {
     async toggleWidget(): Promise<void> {
         await element(by.id('widget-1-checkbox')).click();
     }
-
-    async refreshLayout(): Promise<void> {
-        return await element(by.id('refresh-layout-btn')).click();
-    }
 }
 
 export enum Direction {
