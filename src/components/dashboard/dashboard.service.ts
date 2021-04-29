@@ -1097,7 +1097,7 @@ export class DashboardService implements OnDestroy {
         this.widgets.forEach(widget => {
             const widgetIsOnTopRow = widget.getRow() === 0;
             const widgetIsBeingResized = this._actionWidget?.widget === widget;
-            const widgetShouldBeAutoPositioned = widget.autoPositioning  || this.stacked;
+            const widgetShouldBeAutoPositioned = widget.autoPositioning || this.stacked;
             const widgetIsBeingMoved = !widgetShouldBeAutoPositioned && this.isDragging$.value?.id === widget.id;
 
             if (widgetIsOnTopRow || widgetIsBeingResized || widgetIsBeingMoved || (!widgetShouldBeAutoPositioned && !this._cache)) {
@@ -1106,8 +1106,15 @@ export class DashboardService implements OnDestroy {
 
             if (!widgetShouldBeAutoPositioned) {
                 const cachedVersionOfWidget = this._cache.find(cachedWidget => cachedWidget.id === widget.id);
-                const isPreviousPositionAvailable = this.getPositionAvailable(cachedVersionOfWidget.column, cachedVersionOfWidget.row, cachedVersionOfWidget.columnSpan, cachedVersionOfWidget.rowSpan);
-                if (isPreviousPositionAvailable) {
+                const isPreviousPositionAvailable = this.getPositionAvailable(
+                    cachedVersionOfWidget.column,
+                    cachedVersionOfWidget.row,
+                    cachedVersionOfWidget.columnSpan,
+                    cachedVersionOfWidget.rowSpan,
+                    widget
+                );
+
+                if (isPreviousPositionAvailable && widget.row !== cachedVersionOfWidget.row) {
                     widget.setRow(cachedVersionOfWidget.row);
                     stable = false;
                 }

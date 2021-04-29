@@ -87,7 +87,7 @@
            class="ux-select-icon ux-icon ux-select-chevron-icon"
            [class.ux-icon-up]="dropDirection === 'up'"
            [class.ux-icon-down]="dropDirection === 'down'"
-           (click)="toggle(); $event.stopPropagation()">
+           (click)="toggle(); $event.stopPropagation(); singleInput.focus();">
         </i>
         <div *ngIf="icon" class="ux-custom-icon">
             <ng-container [ngTemplateOutlet]="icon"></ng-container>
