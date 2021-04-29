@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { ColorService, TimelineChartOptions } from '@ux-aspects/ux-aspects';
-import * as moment from 'moment';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
@@ -76,26 +75,26 @@ export class ChartsTimelineChartComponent extends BaseDocumentationSection imple
     timelineChartOptions: Chart.ChartOptions & Chart.ChartLineOptions & TimelineChartOptions = {
         responsive: true,
         maintainAspectRatio: false,
-        tooltips: {
-            mode: 'x-axis',
-            intersect: false,
-            position: 'custom',
-            displayColors: false,
+        // tooltips: {
+        //     mode: 'x-axis',
+        //     intersect: false,
+        //     position: 'custom',
+        //     displayColors: false,
 
-            callbacks: {
-                title: function(item: Chart.ChartTooltipItem[]) {
-                    return;
-                },
-                label: function(item: Chart.ChartTooltipItem, data: Chart.ChartData) {
-                    let range = this._chart.options.timeline.range;
-                    let rangeLower = moment(range.lower, 'ddd MMM DD YYYY HH:mm:ss zzZZ').format('D MMMM YYYY');
-                    let rangeUpper = moment(range.upper, 'ddd MMM DD YYYY HH:mm:ss zzZZ').format('D MMMM YYYY');
-                    let label = `${rangeLower} - ${rangeUpper}`;
+        //     callbacks: {
+        //         title: function(item: Chart.ChartTooltipItem[]) {
+        //             return;
+        //         },
+        //         label: function(item: Chart.ChartTooltipItem, data: Chart.ChartData) {
+        //             let range = this._chart.options.timeline.range;
+        //             let rangeLower = moment(range.lower, 'ddd MMM DD YYYY HH:mm:ss zzZZ').format('D MMMM YYYY');
+        //             let rangeUpper = moment(range.upper, 'ddd MMM DD YYYY HH:mm:ss zzZZ').format('D MMMM YYYY');
+        //             let label = `${rangeLower} - ${rangeUpper}`;
 
-                    return label;
-                }
-            }
-        } as any,
+        //             return label;
+        //         }
+        //     }
+        // } as any,
         animation: {
             duration: 0
         },
@@ -127,6 +126,13 @@ export class ChartsTimelineChartComponent extends BaseDocumentationSection imple
             ]
         },
         timeline: {
+            handles: {
+                // tooltip: {
+                //     label: () => {
+                //         return '...';
+                //     }
+                // } as any
+            },
             selectionColor: this._colorService.getColor('alternate3').setAlpha(0.15).toRgba(),
             onChange: (min: Date, max: Date) => {
                 this.lineChartData = this._dataService.getDataset().filter(point => {
@@ -139,6 +145,15 @@ export class ChartsTimelineChartComponent extends BaseDocumentationSection imple
                 upper: this.lineChartData[this.lineChartData.length - 1].x as Date,
                 minimum: 8_640_000_000, // 100 days
                 maximum: 110_595_600_000, // 3.5 years
+                // tooltip: {
+                //     label: () => {
+                //         // let rangeLower = moment(range.lower, 'ddd MMM DD YYYY HH:mm:ss zzZZ').format('D MMMM YYYY');
+                //         // let rangeUpper = moment(range.upper, 'ddd MMM DD YYYY HH:mm:ss zzZZ').format('D MMMM YYYY');
+                //         // let label = `${rangeLower} - ${rangeUpper}`;
+
+                //         // return label;
+                //     }
+                // } as any
             }
         }
     };

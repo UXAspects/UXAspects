@@ -87,10 +87,12 @@ export class TimelineChartPlugin {
             // setup the function
             chart.config.options.timeline.state.onMouseDown = () => this.onMouseDown(chart);
             chart.config.options.timeline.state.onMouseUp = () => this.onMouseUp(chart);
+            chart.config.options.timeline.state.onMouseEnter = () => this.onMouseEnter(chart);
 
             // add mouse down and mouseup event listeners
             chart.canvas.addEventListener('mousedown', chart.config.options.timeline.state.onMouseDown);
             document.addEventListener('mouseup', chart.config.options.timeline.state.onMouseUp);
+            chart.canvas.addEventListener('mouseenter', chart.config.options.timeline.state.onMouseEnter);
         }
     }
 
@@ -149,6 +151,7 @@ export class TimelineChartPlugin {
             case 'mousemove':
                 this.setCursor(chart, event as MouseEvent);
                 this.setRangeOnDrag(chart, event as MouseEvent);
+                this.handleMouseMove(chart, event as MouseEvent);
 
                 // store the latest mouse position
                 this.setState(chart, { mouseX: event.x });
@@ -158,9 +161,6 @@ export class TimelineChartPlugin {
                 this.resetCursor(chart);
                 break;
         }
-
-        // add custom positioner
-        this.customPositioner(chart);
     }
 
     /**
@@ -172,29 +172,29 @@ export class TimelineChartPlugin {
         }
     }
 
-    private customPositioner(chart: TimelineChart): void {
+    // private customPositioner(chart: TimelineChart): void {
 
-        let lower = this.getHandleArea(chart, TimelineHandle.Lower).left;
-        let upper = this.getHandleArea(chart, TimelineHandle.Upper).left;
+    //     let lower = this.getHandleArea(chart, TimelineHandle.Lower).left;
+    //     let upper = this.getHandleArea(chart, TimelineHandle.Upper).left;
 
-        /**
-         * Custom positioner
-         * @function Chart.Tooltip.positioners.custom
-         * @param elements {Chart.Element[]} the tooltip elements
-         * @param eventPosition {Point} the position of the event in canvas coordinates
-         * @returns {Point} the tooltip position
-         */
-        Chart.Tooltip.positioners.custom = function(elements: any, eventPosition: any, ): any {
-            /** @type {Chart.Tooltip} */
-            // var tooltip = this;
-            let middle = (lower + upper)/2
+    //     /**
+    //      * Custom positioner
+    //      * @function Chart.Tooltip.positioners.custom
+    //      * @param elements {Chart.Element[]} the tooltip elements
+    //      * @param eventPosition {Point} the position of the event in canvas coordinates
+    //      * @returns {Point} the tooltip position
+    //      */
+    //     Chart.Tooltip.positioners.custom = function(elements: any, eventPosition: any, ): any {
+    //         /** @type {Chart.Tooltip} */
+    //         // var tooltip = this;
+    //         let middle = (lower + upper)/2
 
-            return {
-                x: middle,
-                y: 0
-            };
-        };
-    }
+    //         return {
+    //             x: middle,
+    //             y: 0
+    //         };
+    //     };
+    // }
 
     /** Get the timeline options from the chart instance */
     private getOptions(chart: TimelineChart) {
@@ -412,6 +412,68 @@ export class TimelineChartPlugin {
             this.setState(chart, { handle: null });
         }
     }
+
+    private onMouseEnter(chart: TimelineChart): void {
+    }
+
+    private handleMouseMove(chart: TimelineChart, event: Partial<MouseEvent>): void {
+        // console.log('handle mouse enter has been called', event);
+
+        let mouseX = event.x;
+        let mouseY = event.y;
+
+        // get the lower and upper handle render regions
+        const lower = this.getHandleArea(chart, TimelineHandle.Lower);
+        const upper = this.getHandleArea(chart, TimelineHandle.Upper);
+
+        // console.log("🚀 ~ file: timeline-chart.module.ts ~ line 427 ~ TimelineChartPlugin ~ handleMouseMove ~ lower", lower);
+        // console.log("🚀 ~ file: timeline-chart.module.ts ~ line 427 ~ TimelineChartPlugin ~ handleMouseMove ~ upper", upper);
+
+        const mousePosition = this.isWithinHandle(chart, event);
+
+        if (mousePosition === TimelineHandle.Range) {
+            console.log('mouse is in range');
+        } else if (mousePosition === TimelineHandle.Lower) {
+            console.log('mouse is in the lower');
+        } else if (mousePosition === TimelineHandle.Upper) {
+            console.log('mouse is in upper');
+        }
+
+    }
+
+    private createTooltip(chart: TimelineChart): void {
+        // Tooltip Element
+        chart.ctx.
+
+        
+    }
+
+    /**
+     * Private helper to create a tooltip item model
+     * @param element - the chart element (point, arc, bar) to create the tooltip item for
+     * @return new tooltip item
+    */
+    private createTooltipItem(chart: TimelineChart) {
+        var xScale = chart._xScale;
+        var yScale = chart._yScale || chart._scale; // handle radar || polarArea charts
+        var index = chart._index;
+        var datasetIndex = chart._datasetIndex;
+        var controller = chart._chart.getDatasetMeta(datasetIndex).controller;
+        var indexScale = controller._getIndexScale();
+        var valueScale = controller._getValueScale();
+
+        return {
+            xLabel: xScale ? xScale.getLabelForIndex(index, datasetIndex) : '',
+            yLabel: yScale ? yScale.getLabelForIndex(index, datasetIndex) : '',
+            label: indexScale ? '' + indexScale.getLabelForIndex(index, datasetIndex) : '',
+            value: valueScale ? '' + valueScale.getLabelForIndex(index, datasetIndex) : '',
+            index: index,
+            datasetIndex: datasetIndex,
+            x: chart._model.x,
+            y: chart._model.y
+        };
+    }
+
 
     /** Update the range when dragged */
     private setRangeOnDrag(chart: TimelineChart, event: Partial<MouseEvent>): void {
@@ -796,12 +858,14 @@ export interface TimelineChartOptions {
             backgroundColor?: Chart.ChartColor;
             foregroundColor?: Chart.ChartColor;
             focusIndicatorColor?: Chart.ChartColor;
+            tooltip?: Chart.ChartTooltipOptions;
         }
         range: {
             lower: Date,
             upper: Date,
             minimum?: number,
-            maximum?: number
+            maximum?: number,
+            tooltip?: Chart.ChartTooltipOptions
         }
     };
 }
@@ -821,6 +885,7 @@ export interface TimelineChartState {
     mouseX?: number;
     onMouseDown?: (event: MouseEvent) => void;
     onMouseUp?: (event: MouseEvent) => void;
+    onMouseEnter?: (event: MouseEvent) => void;
     onKeydown?: (event: KeyboardEvent) => void;
     lowerHandleFocus?: boolean;
     upperHandleFocus?: boolean;
