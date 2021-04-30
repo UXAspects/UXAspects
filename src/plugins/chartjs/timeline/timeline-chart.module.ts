@@ -417,7 +417,6 @@ export class TimelineChartPlugin {
     }
 
     private handleMouseMove(chart: TimelineChart, event: Partial<MouseEvent>): void {
-        // console.log('handle mouse enter has been called', event);
 
         let mouseX = event.x;
         let mouseY = event.y;
@@ -426,53 +425,97 @@ export class TimelineChartPlugin {
         const lower = this.getHandleArea(chart, TimelineHandle.Lower);
         const upper = this.getHandleArea(chart, TimelineHandle.Upper);
 
-        // console.log("🚀 ~ file: timeline-chart.module.ts ~ line 427 ~ TimelineChartPlugin ~ handleMouseMove ~ lower", lower);
-        // console.log("🚀 ~ file: timeline-chart.module.ts ~ line 427 ~ TimelineChartPlugin ~ handleMouseMove ~ upper", upper);
 
         const mousePosition = this.isWithinHandle(chart, event);
 
         if (mousePosition === TimelineHandle.Range) {
-            console.log('mouse is in range');
+            // this.ToolTip(chart.canvas, chart.chartArea, "hello", 150, 300);
+            this.externalTooltipHandler(chart)
         } else if (mousePosition === TimelineHandle.Lower) {
-            console.log('mouse is in the lower');
         } else if (mousePosition === TimelineHandle.Upper) {
-            console.log('mouse is in upper');
         }
 
     }
 
-    private createTooltip(chart: TimelineChart): void {
+
+    private getOrCreateTooltip(chart: TimelineChart) {
+        let tooltipEl = chart.canvas.parentNode.querySelector('.tooltip');
+
+        if (!tooltipEl) {
+            tooltipEl = document.createElement('div');
+            tooltipEl.classList.add('tooltip')
+            tooltipEl.setAttribute("style", "height: 20px; width: 20px; background: rgba(0, 0, 0, 0.7); border-radius: 3px; color: white; opacity: 1; pointer-events: none; position: absolute; transform: translate(-50%, 0); transition: all .1s ease")
+
+            // tooltipEl.style.background = 'rgba(0, 0, 0, 0.7)';
+            // tooltipEl.style.borderRadius = '3px';
+            // tooltipEl.style.color = 'white';
+            // tooltipEl.style.opacity = 1;
+            // tooltipEl.style.pointerEvents = 'none';
+            // tooltipEl.style.position = 'absolute';
+            // tooltipEl.style.transform = 'translate(-50%, 0)';
+            // tooltipEl.style.transition = 'all .1s ease';
+
+            const table = document.createElement('table');
+            table.style.margin = '0px';
+
+            tooltipEl.appendChild(table);
+            chart.canvas.parentNode.appendChild(tooltipEl);
+        }
+
+        return tooltipEl;
+    };
+
+    private externalTooltipHandler(context: any) {
+
         // Tooltip Element
-        // chart.ctx.
+        const {chart, tooltip} = context;
+        const tooltipEl = this.getOrCreateTooltip(chart);
+        const
 
-        
-    }
+        // get label text
+        // console.log(context.options.timeline.range.tooltip.label());
 
-    /**
-     * Private helper to create a tooltip item model
-     * @param element - the chart element (point, arc, bar) to create the tooltip item for
-     * @return new tooltip item
-    */
-    private createTooltipItem(chart: TimelineChart) {
-        // var xScale = chart._xScale;
-        // var yScale = chart._yScale || chart._scale; // handle radar || polarArea charts
-        // var index = chart._index;
-        // var datasetIndex = chart._datasetIndex;
-        // var controller = chart._chart.getDatasetMeta(datasetIndex).controller;
-        // var indexScale = controller._getIndexScale();
-        // var valueScale = controller._getValueScale();
+        // Check context.options.timeline
 
-        // return {
-        //     xLabel: xScale ? xScale.getLabelForIndex(index, datasetIndex) : '',
-        //     yLabel: yScale ? yScale.getLabelForIndex(index, datasetIndex) : '',
-        //     label: indexScale ? '' + indexScale.getLabelForIndex(index, datasetIndex) : '',
-        //     value: valueScale ? '' + valueScale.getLabelForIndex(index, datasetIndex) : '',
-        //     index: index,
-        //     datasetIndex: datasetIndex,
-        //     x: chart._model.x,
-        //     y: chart._model.y
-        // };
-    }
+        // Hide if no tooltip
+        if (tooltip.opacity === 0) {
+            tooltipEl.setAttribute("style", "opacity = 0");
+            return;
+        }
+
+        const tableHead = document.createElement('thead');
+        const tableBody = document.createElement('tbody');
+        const span = document.createElement('span');
+        const colors = tooltip.labelColors;
+        span.style.background = "#000";
+        span.style.borderColor = "#000";
+        span.style.borderWidth = '2px';
+        span.style.marginRight = '10px';
+        span.style.height = '10px';
+        span.style.width = '10px';
+        span.style.display = 'inline-block';
+
+        const tr = document.createElement('tr');
+        tr.style.backgroundColor = 'inherit';
+        tr.style.borderWidth = "0";
+
+        const td = document.createElement('td');
+        td.style.borderWidth = "0";
+
+        const text = document.createTextNode('hello world');
+
+        td.appendChild(span);
+        td.appendChild(text);
+        tr.appendChild(td);
+        tableBody.appendChild(tr);
+
+        const {offsetLeft: positionX, offsetTop: positionY} = chart.canvas;
+
+        // tooltipEl.style.opacity = 1;
+        // tooltipEl.style.left = positionX + tooltip.caretX + 'px';
+        // tooltipEl.style.top = positionY + tooltip.caretY + 'px';
+
+      };
 
 
     /** Update the range when dragged */

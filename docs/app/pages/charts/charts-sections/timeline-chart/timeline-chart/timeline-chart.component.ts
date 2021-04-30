@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ColorService, TimelineChartOptions } from '@ux-aspects/ux-aspects';
+import * as moment from 'moment';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
@@ -145,15 +146,15 @@ export class ChartsTimelineChartComponent extends BaseDocumentationSection imple
                 upper: this.lineChartData[this.lineChartData.length - 1].x as Date,
                 minimum: 8_640_000_000, // 100 days
                 maximum: 110_595_600_000, // 3.5 years
-                // tooltip: {
-                //     label: () => {
-                //         // let rangeLower = moment(range.lower, 'ddd MMM DD YYYY HH:mm:ss zzZZ').format('D MMMM YYYY');
-                //         // let rangeUpper = moment(range.upper, 'ddd MMM DD YYYY HH:mm:ss zzZZ').format('D MMMM YYYY');
-                //         // let label = `${rangeLower} - ${rangeUpper}`;
+                tooltip: {
+                    label: () => {
+                        let rangeLower = moment(this.timelineChartOptions.timeline.range.lower, 'ddd MMM DD YYYY HH:mm:ss zzZZ').format('D MMMM YYYY');
+                        let rangeUpper = moment(this.timelineChartOptions.timeline.range.upper, 'ddd MMM DD YYYY HH:mm:ss zzZZ').format('D MMMM YYYY');
+                        let label = `${rangeLower} - ${rangeUpper}`;
 
-                //         // return label;
-                //     }
-                // } as any
+                        return label;
+                    }
+                } as any
             }
         }
     };
