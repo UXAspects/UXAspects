@@ -443,7 +443,7 @@ export class TimelineChartPlugin {
 
     private createTooltip(chart: TimelineChart): void {
         // Tooltip Element
-        chart.ctx.
+        // chart.ctx.
 
         
     }
@@ -454,24 +454,24 @@ export class TimelineChartPlugin {
      * @return new tooltip item
     */
     private createTooltipItem(chart: TimelineChart) {
-        var xScale = chart._xScale;
-        var yScale = chart._yScale || chart._scale; // handle radar || polarArea charts
-        var index = chart._index;
-        var datasetIndex = chart._datasetIndex;
-        var controller = chart._chart.getDatasetMeta(datasetIndex).controller;
-        var indexScale = controller._getIndexScale();
-        var valueScale = controller._getValueScale();
+        // var xScale = chart._xScale;
+        // var yScale = chart._yScale || chart._scale; // handle radar || polarArea charts
+        // var index = chart._index;
+        // var datasetIndex = chart._datasetIndex;
+        // var controller = chart._chart.getDatasetMeta(datasetIndex).controller;
+        // var indexScale = controller._getIndexScale();
+        // var valueScale = controller._getValueScale();
 
-        return {
-            xLabel: xScale ? xScale.getLabelForIndex(index, datasetIndex) : '',
-            yLabel: yScale ? yScale.getLabelForIndex(index, datasetIndex) : '',
-            label: indexScale ? '' + indexScale.getLabelForIndex(index, datasetIndex) : '',
-            value: valueScale ? '' + valueScale.getLabelForIndex(index, datasetIndex) : '',
-            index: index,
-            datasetIndex: datasetIndex,
-            x: chart._model.x,
-            y: chart._model.y
-        };
+        // return {
+        //     xLabel: xScale ? xScale.getLabelForIndex(index, datasetIndex) : '',
+        //     yLabel: yScale ? yScale.getLabelForIndex(index, datasetIndex) : '',
+        //     label: indexScale ? '' + indexScale.getLabelForIndex(index, datasetIndex) : '',
+        //     value: valueScale ? '' + valueScale.getLabelForIndex(index, datasetIndex) : '',
+        //     index: index,
+        //     datasetIndex: datasetIndex,
+        //     x: chart._model.x,
+        //     y: chart._model.y
+        // };
     }
 
 
