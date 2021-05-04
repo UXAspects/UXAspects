@@ -4,20 +4,10 @@ export class SelectCustomHeadingPage {
 
     dropdown = element(by.id('dropdown'));
     selectedLocation = element(by.id('selectedLocation'));
-    checkboxRecentOptions = element(by.id('checkbox5'));
-    placeholder = element(by.id('placeholder'));
+    checkboxRecentOptions = element(by.id('checkbox1'));
 
     async getPage(): Promise<void> {
         await browser.get('#/select/custom-heading');
-    }
-
-    confirmDropdownIsExpanded() {
-        return this.dropdown.$('ux-typeahead.open').isPresent();
-    }
-
-
-    confirmIsChecked(checkbox: ElementFinder) {
-        return checkbox.$$('.ux-checkbox-checked').isPresent();
     }
 
     // get item
@@ -37,10 +27,6 @@ export class SelectCustomHeadingPage {
         return this.dropdown.$$('.ux-typeahead-recent-options li').get(index);
     }
 
-    getPlaceholder() {
-        return this.placeholder;
-    }
-
     // get text
     getDropdownPlaceholderText(allowMultiple: boolean) {
         return this.getDropdown(allowMultiple).getAttribute('placeholder');
@@ -52,10 +38,6 @@ export class SelectCustomHeadingPage {
 
     getRecentCountryText(allowMultiple: boolean, index: number) {
         return this.getRecentCountry(allowMultiple, index).$('span.ux-typeahead-option').getText();
-    }
-
-    getSelectedLocationText() {
-        return this.selectedLocation.$('code').getText();
     }
 
     // click

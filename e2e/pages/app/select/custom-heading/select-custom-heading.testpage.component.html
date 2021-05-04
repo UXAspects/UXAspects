@@ -17,17 +17,7 @@
 
     <div class="col-xs-6">
         <div>
-            <label for="placeholder">placeholder</label>
-            <input
-                id="placeholder"
-                type="text"
-                name="placeholder"
-                class="form-control"
-                [(ngModel)]="placeholder"/>
-        </div>
-
-        <div>
-            <ux-checkbox id="checkbox5" (valueChange)="recentOptions = $event ? [] : undefined">
+            <ux-checkbox id="checkbox1" (valueChange)="recentOptions = $event ? [] : undefined">
                 recentOptions
             </ux-checkbox>
         </div>
