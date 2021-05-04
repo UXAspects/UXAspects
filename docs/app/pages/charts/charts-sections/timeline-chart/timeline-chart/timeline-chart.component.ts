@@ -128,11 +128,15 @@ export class ChartsTimelineChartComponent extends BaseDocumentationSection imple
         },
         timeline: {
             handles: {
-                // tooltip: {
-                //     label: () => {
-                //         return '...';
-                //     }
-                // } as any
+                tooltip: {
+                    label: () => {
+                        let data = this.lineChartData;
+                        let rangeLower = moment(data[0].x, 'ddd MMM DD YYYY HH:mm:ss zzZZ').format('D MMMM YYYY');
+                        let rangeUpper = moment(data[data.length - 1].x, 'ddd MMM DD YYYY HH:mm:ss zzZZ').format('D MMMM YYYY');
+
+                        return {rangeLower, rangeUpper};
+                    }
+                } as any
             },
             selectionColor: this._colorService.getColor('alternate3').setAlpha(0.15).toRgba(),
             onChange: (min: Date, max: Date) => {
@@ -148,8 +152,9 @@ export class ChartsTimelineChartComponent extends BaseDocumentationSection imple
                 maximum: 110_595_600_000, // 3.5 years
                 tooltip: {
                     label: () => {
-                        let rangeLower = moment(this.timelineChartOptions.timeline.range.lower, 'ddd MMM DD YYYY HH:mm:ss zzZZ').format('D MMMM YYYY');
-                        let rangeUpper = moment(this.timelineChartOptions.timeline.range.upper, 'ddd MMM DD YYYY HH:mm:ss zzZZ').format('D MMMM YYYY');
+                        let data = this.lineChartData;
+                        let rangeLower = moment(data[0].x, 'ddd MMM DD YYYY HH:mm:ss zzZZ').format('D MMMM YYYY');
+                        let rangeUpper = moment(data[data.length - 1].x, 'ddd MMM DD YYYY HH:mm:ss zzZZ').format('D MMMM YYYY');
                         let label = `${rangeLower} - ${rangeUpper}`;
 
                         return label;

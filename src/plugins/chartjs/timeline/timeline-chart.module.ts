@@ -417,105 +417,146 @@ export class TimelineChartPlugin {
     }
 
     private handleMouseMove(chart: TimelineChart, event: Partial<MouseEvent>): void {
+    // console.log("🚀 ~ file: timeline-chart.module.ts ~ line 420 ~ TimelineChartPlugin ~ handleMouseMove ~ chart", chart)
 
-        let mouseX = event.x;
-        let mouseY = event.y;
+        // let mouseX = event.x;
+        // let mouseY = event.y;
 
         // get the lower and upper handle render regions
-        const lower = this.getHandleArea(chart, TimelineHandle.Lower);
-        const upper = this.getHandleArea(chart, TimelineHandle.Upper);
+        // const lower = this.getHandleArea(chart, TimelineHandle.Lower);
+        // const upper = this.getHandleArea(chart, TimelineHandle.Upper);
 
 
         const mousePosition = this.isWithinHandle(chart, event);
 
+        let timelineOptions = chart.options as TimelineChartOptions
+        let timelineTooltipText = timelineOptions.timeline.range.tooltip.label();
+        let handleTooltipText = timelineOptions.timeline.handles.tooltip.label();
+
         if (mousePosition === TimelineHandle.Range) {
             // this.ToolTip(chart.canvas, chart.chartArea, "hello", 150, 300);
-            this.externalTooltipHandler(chart)
+
+            this.externalTooltipHandler(chart, TimelineHandle.Range, timelineTooltipText);
         } else if (mousePosition === TimelineHandle.Lower) {
+            this.externalTooltipHandler(chart, TimelineHandle.Lower, handleTooltipText.rangeLower);
         } else if (mousePosition === TimelineHandle.Upper) {
+            this.externalTooltipHandler(chart, TimelineHandle.Upper, handleTooltipText.rangeUpper);
+        } else {
+            let tooltipEl = this.getOrCreateTooltip(chart);
+            tooltipEl.style.opacity = "0"
         }
 
     }
 
 
     private getOrCreateTooltip(chart: TimelineChart) {
-        let tooltipEl = chart.canvas.parentNode.querySelector('.tooltip');
+        let tooltipEl = chart.canvas.parentNode.querySelector('.timeline-tooltip') as HTMLElement;
+
 
         if (!tooltipEl) {
             tooltipEl = document.createElement('div');
-            tooltipEl.classList.add('tooltip')
-            tooltipEl.setAttribute("style", "height: 20px; width: 20px; background: rgba(0, 0, 0, 0.7); border-radius: 3px; color: white; opacity: 1; pointer-events: none; position: absolute; transform: translate(-50%, 0); transition: all .1s ease")
+            tooltipEl.classList.add('timeline-tooltip');
+            tooltipEl.classList.add('tooltip');
 
-            // tooltipEl.style.background = 'rgba(0, 0, 0, 0.7)';
-            // tooltipEl.style.borderRadius = '3px';
-            // tooltipEl.style.color = 'white';
-            // tooltipEl.style.opacity = 1;
-            // tooltipEl.style.pointerEvents = 'none';
-            // tooltipEl.style.position = 'absolute';
-            // tooltipEl.style.transform = 'translate(-50%, 0)';
-            // tooltipEl.style.transition = 'all .1s ease';
+            tooltipEl.style.zIndex = "1";
+            tooltipEl.style.width = "fit-content";
+            tooltipEl.style.background = "rgba(0, 0, 0, 1)";
+            tooltipEl.style.color = "white";
+            tooltipEl.style.pointerEvents = "none";
+            tooltipEl.style.position = "absolute";
+            tooltipEl.style.transform = "translate(-50%, 0)";
+            tooltipEl.style.transition = "all .2s ease";
+            tooltipEl.style.padding = "0 5px";
 
-            const table = document.createElement('table');
-            table.style.margin = '0px';
+            const caret = document.createElement('div');
+            caret.classList.add('tooltip-caret');
+            caret.style.position = 'absolute';
+            caret.style.width = '0';
+            caret.style.height = '0';
+            caret.style.borderColor = 'rgba(0, 0, 0, 0)';
+            caret.style.borderTopColor = 'rgba(0, 0, 0, 1)';
+            caret.style.left = '50%';
+            caret.style.marginLeft = '-5px';
+            caret.style.borderWidth = '5px 5px 0';
+            caret.style.borderStyle = 'solid';
+            
 
-            tooltipEl.appendChild(table);
+            const span = document.createElement('span');
+            span.style.borderWidth = '2px';
+            span.style.display = 'inline-block';
+
+            tooltipEl.appendChild(span);
+            tooltipEl.appendChild(caret);
             chart.canvas.parentNode.appendChild(tooltipEl);
         }
 
         return tooltipEl;
     };
 
-    private externalTooltipHandler(context: any) {
+    private externalTooltipHandler(context: any, position: TimelineHandle, tooltipText: string) {
 
         // Tooltip Element
         const {chart, tooltip} = context;
         const tooltipEl = this.getOrCreateTooltip(chart);
-        const
-
-        // get label text
-        // console.log(context.options.timeline.range.tooltip.label());
-
-        // Check context.options.timeline
+        console.log("🚀 ~ file: timeline-chart.module.ts ~ line 488 ~ TimelineChartPlugin ~ externalTooltipHandler ~ tooltipEl", tooltipEl)
+        const span = tooltipEl.querySelector('span');
+        span.innerText = tooltipText;
 
         // Hide if no tooltip
-        if (tooltip.opacity === 0) {
+        if (tooltip._options.opacity === 0) {
             tooltipEl.setAttribute("style", "opacity = 0");
             return;
         }
 
-        const tableHead = document.createElement('thead');
-        const tableBody = document.createElement('tbody');
-        const span = document.createElement('span');
-        const colors = tooltip.labelColors;
-        span.style.background = "#000";
-        span.style.borderColor = "#000";
-        span.style.borderWidth = '2px';
-        span.style.marginRight = '10px';
-        span.style.height = '10px';
-        span.style.width = '10px';
-        span.style.display = 'inline-block';
+        const {x, y} = this.tooltipPositioner(chart, position);
 
-        const tr = document.createElement('tr');
-        tr.style.backgroundColor = 'inherit';
-        tr.style.borderWidth = "0";
+        tooltipEl.style.left = x + "px";
+        tooltipEl.style.top = y + "px";
+        tooltipEl.style.opacity = "1";
 
-        const td = document.createElement('td');
-        td.style.borderWidth = "0";
+    };
 
-        const text = document.createTextNode('hello world');
+    private tooltipPositioner(chart: TimelineChart, position: TimelineHandle) {
+        let lower = this.getHandleArea(chart, TimelineHandle.Lower).left;
+        let upper = this.getHandleArea(chart, TimelineHandle.Upper).left;
+        const tooltipEl = this.getOrCreateTooltip(chart);
+        const width = tooltipEl.getBoundingClientRect().width;
+        const caret = tooltipEl.querySelector('.tooltip-caret') as HTMLElement;
+        
+        if (position === TimelineHandle.Range) {
+            caret.style.top = null;
+            caret.style.right = null;
+            caret.style.left = "50%";
+            caret.style.transform = null;
+            let middle = (lower + upper)/2
 
-        td.appendChild(span);
-        td.appendChild(text);
-        tr.appendChild(td);
-        tableBody.appendChild(tr);
+            return {
+                x: middle + 2,
+                y: -14
+            };
 
-        const {offsetLeft: positionX, offsetTop: positionY} = chart.canvas;
+        } else if (position === TimelineHandle.Lower) {
+            caret.style.top = "40%";
+            caret.style.right = null;
+            caret.style.left = "-2px";
+            caret.style.transform = "rotate(90deg)";
 
-        // tooltipEl.style.opacity = 1;
-        // tooltipEl.style.left = positionX + tooltip.caretX + 'px';
-        // tooltipEl.style.top = positionY + tooltip.caretY + 'px';
+            return {
+                x: lower + (width / 2 + 20),
+                y: 10
+            };
+        } else if (position === TimelineHandle.Upper) {
+            caret.style.top = "40%";
+            caret.style.right = "-7px";
+            caret.style.left = null;
+            caret.style.transform = "rotate(-90deg)";
 
-      };
+            return {
+                x: upper - (width / 2 + 20),
+                y: 10
+            };
+        }
+    }
 
 
     /** Update the range when dragged */
@@ -901,14 +942,18 @@ export interface TimelineChartOptions {
             backgroundColor?: Chart.ChartColor;
             foregroundColor?: Chart.ChartColor;
             focusIndicatorColor?: Chart.ChartColor;
-            tooltip?: Chart.ChartTooltipOptions;
+            tooltip?: {
+                label: any;
+            }
         }
         range: {
             lower: Date,
             upper: Date,
             minimum?: number,
             maximum?: number,
-            tooltip?: Chart.ChartTooltipOptions
+            tooltip?: {
+                label: any;
+            }
         }
     };
 }
