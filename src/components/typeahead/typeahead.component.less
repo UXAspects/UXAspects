@@ -26,12 +26,6 @@ ux-typeahead {
         display: block;
         width: 100%;
         overflow-x: hidden;
-
-        + ux-typeahead-options-list {
-            padding-top: 8px;
-            border-top: solid 1px @dropdown-divider;
-            margin-top: 8px;
-        }
     }
 
     .ux-typeahead-options {
@@ -66,6 +60,12 @@ ux-typeahead {
                 }
             }
         }
+
+        .ux-typeahead-recent-divider {
+            border-top: solid 1px @dropdown-divider;
+            margin-top: 8px;
+            padding-top: 8px;
+        }
     }
 
     .ux-typeahead-loading {
@@ -84,5 +84,12 @@ ux-typeahead {
         padding: 0 10px;
         line-height: 24px;
         font-style: italic;
+    }
+
+    .ux-typeahead-recent-options-heading {
+        padding: 0 10px;
+        line-height: 24px;
+        font-size: 16px;
+        font-weight: bold;
     }
 }

@@ -1,16 +1,16 @@
 import { FocusOrigin } from '@angular/cdk/a11y';
+import { ViewportRuler } from '@angular/cdk/scrolling';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, HostBinding, HostListener, Input, OnChanges, OnDestroy, Output, Renderer2, SimpleChanges, TemplateRef } from '@angular/core';
 import { BehaviorSubject, combineLatest, Subject } from 'rxjs';
 import { distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { InfiniteScrollLoadedEvent, InfiniteScrollLoadFunction } from '../../directives/infinite-scroll/index';
+import { ResizeService } from '../../directives/resize/index';
+import { PopoverOrientation, PopoverOrientationListener, PopoverOrientationService } from '../../services/popover-orientation/popover-orientation.service';
 import { TypeaheadOptionEvent } from './typeahead-event';
 import { TypeaheadOptionApi } from './typeahead-option-api';
 import { TypeaheadOptionContext } from './typeahead-option-context';
 import { TypeaheadVisibleOption } from './typeahead-visible-option';
 import { TypeaheadService } from './typeahead.service';
-import { ViewportRuler } from '@angular/cdk/scrolling';
-import { ResizeService } from '../../directives/resize/index';
-import { PopoverOrientationService, PopoverOrientation, PopoverOrientationListener } from '../../services/popover-orientation/popover-orientation.service';
 
 let uniqueId = 0;
 
@@ -112,6 +112,10 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
 
     /** Maximum number of displayed recently selected options. */
     @Input() recentOptionsMaxCount: number = 5;
+
+    @Input() recentOptionsHeadingTemplate: TemplateRef<any>;
+
+    @Input() headingTemplate: TemplateRef<any>;
 
     /** Emit when the open state changes */
     @Output() openChange = new EventEmitter<boolean>();

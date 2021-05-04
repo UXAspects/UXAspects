@@ -134,6 +134,10 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
      */
     @Input() tagTemplate: TemplateRef<TagTemplateContext>;
 
+    @Input() headingTemplate: TemplateRef<any>;
+
+    @Input() recentOptionsHeadingTemplate: TemplateRef<any>;
+
     /**
      * Defines the `autocomplete` property on the `input` element which can be used to prevent the browser from
      * displaying autocomplete suggestions.
@@ -474,4 +478,3 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
     static ngAcceptInputType_filterDebounceTime: NumberInput;
     static ngAcceptInputType_autoCloseDropdown: BooleanInput;
 }
-

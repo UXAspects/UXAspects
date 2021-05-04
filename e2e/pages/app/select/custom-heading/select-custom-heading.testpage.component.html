@@ -1,0 +1,43 @@
+<div class="row">
+    <div class="col-xs-6">
+            <ux-select
+                id="dropdown"
+                [(value)]="selected"
+                [options]="options"
+                [placeholder]="placeholder"
+                [(recentOptions)]="recentOptions"
+                [headingTemplate]="demoHeader"
+                [recentOptionsHeadingTemplate]="demoRecentHeaderOptions">
+            </ux-select>
+
+        <div id="selectedLocation" class="col-md-12 m-t-md">
+            Selected location(s): <code>{{ selected | json }}</code>
+        </div>
+    </div>
+
+    <div class="col-xs-6">
+        <div>
+            <label for="placeholder">placeholder</label>
+            <input
+                id="placeholder"
+                type="text"
+                name="placeholder"
+                class="form-control"
+                [(ngModel)]="placeholder"/>
+        </div>
+
+        <div>
+            <ux-checkbox id="checkbox5" (valueChange)="recentOptions = $event ? [] : undefined">
+                recentOptions
+            </ux-checkbox>
+        </div>
+    </div>
+</div>
+
+<ng-template #demoHeader>
+    Nodes
+</ng-template>
+
+<ng-template #demoRecentHeaderOptions>
+    Recent Nodes
+</ng-template>
