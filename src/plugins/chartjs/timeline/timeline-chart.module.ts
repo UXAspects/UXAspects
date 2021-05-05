@@ -901,7 +901,7 @@ export interface TimelineChartOptions {
             foregroundColor?: Chart.ChartColor;
             focusIndicatorColor?: Chart.ChartColor;
             tooltip?: {
-                label: any;
+                label: Function;
             }
         }
         range: {
@@ -910,7 +910,7 @@ export interface TimelineChartOptions {
             minimum?: number,
             maximum?: number,
             tooltip?: {
-                label: any;
+                label: Function;
             }
         }
     };

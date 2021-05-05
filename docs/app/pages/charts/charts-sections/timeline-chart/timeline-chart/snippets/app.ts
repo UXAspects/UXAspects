@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ColorService, TimelineChartOptions } from '@ux-aspects/ux-aspects';
+import { moment } from 'moment';
 import { TimelineChartService } from './timeline-chart.service';
 
 @Component({
@@ -101,6 +102,17 @@ export class AppComponent {
             ]
         },
         timeline: {
+            handles: {
+                tooltip: {
+                    label: () => {
+                        let data = this.lineChartData;
+                        let rangeLower = moment(data[0].x, 'ddd MMM DD YYYY HH:mm:ss zzZZ').format('D MMMM YYYY');
+                        let rangeUpper = moment(data[data.length - 1].x, 'ddd MMM DD YYYY HH:mm:ss zzZZ').format('D MMMM YYYY');
+
+                        return {rangeLower, rangeUpper};
+                    }
+                } as any
+            },
             selectionColor: this._colorService.getColor('alternate3').setAlpha(0.15).toRgba(),
             onChange: (min: Date, max: Date) => {
                 this.lineChartData = this._dataService.getDataset().filter(point => {
@@ -113,6 +125,16 @@ export class AppComponent {
                 upper: this.lineChartData[this.lineChartData.length - 1].x as Date,
                 minimum: 8_640_000_000, // 100 days
                 maximum: 110_595_600_000, // 3.5 years
+                tooltip: {
+                    label: () => {
+                        let data = this.lineChartData;
+                        let rangeLower = moment(data[0].x, 'ddd MMM DD YYYY HH:mm:ss zzZZ').format('D MMMM YYYY');
+                        let rangeUpper = moment(data[data.length - 1].x, 'ddd MMM DD YYYY HH:mm:ss zzZZ').format('D MMMM YYYY');
+                        let label = `${rangeLower} - ${rangeUpper}`;
+
+                        return label;
+                    }
+                } as any
             }
         }
     };

@@ -76,26 +76,6 @@ export class ChartsTimelineChartComponent extends BaseDocumentationSection imple
     timelineChartOptions: Chart.ChartOptions & Chart.ChartLineOptions & TimelineChartOptions = {
         responsive: true,
         maintainAspectRatio: false,
-        // tooltips: {
-        //     mode: 'x-axis',
-        //     intersect: false,
-        //     position: 'custom',
-        //     displayColors: false,
-
-        //     callbacks: {
-        //         title: function(item: Chart.ChartTooltipItem[]) {
-        //             return;
-        //         },
-        //         label: function(item: Chart.ChartTooltipItem, data: Chart.ChartData) {
-        //             let range = this._chart.options.timeline.range;
-        //             let rangeLower = moment(range.lower, 'ddd MMM DD YYYY HH:mm:ss zzZZ').format('D MMMM YYYY');
-        //             let rangeUpper = moment(range.upper, 'ddd MMM DD YYYY HH:mm:ss zzZZ').format('D MMMM YYYY');
-        //             let label = `${rangeLower} - ${rangeUpper}`;
-
-        //             return label;
-        //         }
-        //     }
-        // } as any,
         animation: {
             duration: 0
         },
@@ -109,7 +89,7 @@ export class ChartsTimelineChartComponent extends BaseDocumentationSection imple
                 {
                     type: 'time',
                     gridLines: {
-                        display: false
+                        display: false,
                     },
                     time: {
                         unit: 'month',
