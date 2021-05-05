@@ -1305,6 +1305,10 @@
             "classname": "ux-icon-social-instant-message"
         },
         {
+            "name": "social-jira",
+            "classname": "ux-icon-social-jira"
+        },
+        {
             "name": "social-linkedin",
             "classname": "ux-icon-social-linkedin"
         },
@@ -1371,6 +1375,10 @@
         {
             "name": "social-youtube",
             "classname": "ux-icon-social-youtube"
+        },
+        {
+            "name": "social-zoom",
+            "classname": "ux-icon-social-zoom"
         },
         {
             "name": "sort",
