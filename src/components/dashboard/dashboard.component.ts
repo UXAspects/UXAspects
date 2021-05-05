@@ -98,14 +98,13 @@ export class DashboardComponent implements AfterViewInit, AfterContentInit, OnDe
     refreshLayout(): void {
         const didChangeLayout = this.dashboardService.shiftWidgetsUp();
 
-        // emit information about the layout
-        this.dashboardService.layout$.next(this.dashboardService.getLayoutData());
-
         if (didChangeLayout) {
             // if widgets have shifted up the dashboard may no longer occupy the same
             // height. We should remove any unneeded whitespace below widgets too.
             this.dashboardService.setDashboardHeight();
 
+            // emit information about the layout
+            this.dashboardService.layout$.next(this.dashboardService.getLayoutData());
             this.layoutChange.emit(this.dashboardService.layout$.value);
         }
     }
