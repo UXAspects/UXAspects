@@ -390,11 +390,11 @@ export class TimelineChartPlugin {
     private handleMouseMove(chart: TimelineChart, event: Partial<MouseEvent>): void {
         const mousePosition = this.isWithinHandle(chart, event);
 
-        let timelineOptions = chart.options as TimelineChartOptions
+        let timelineOptions = chart.options as TimelineChartOptions;
         let hasTooltipOnRange: boolean = timelineOptions.timeline.range.hasOwnProperty('tooltip');
         let hasTooltipOnHandles: boolean = timelineOptions.timeline.handles.hasOwnProperty('tooltip');
         let timelineTooltipText: string;
-        let handleTooltipText: { rangeLower: string, rangeUpper: string }
+        let handleTooltipText: { rangeLower: string, rangeUpper: string };
 
         if (hasTooltipOnRange) {
             timelineTooltipText = timelineOptions.timeline.range.tooltip.label();
@@ -412,7 +412,7 @@ export class TimelineChartPlugin {
             this.externalTooltipHandler(chart, TimelineHandle.Upper, handleTooltipText.rangeUpper);
         } else {
             let tooltipEl = this.getOrCreateTooltip(chart);
-            tooltipEl.style.opacity = "0"
+            tooltipEl.style.opacity = '0';
         }
 
     }
@@ -426,15 +426,15 @@ export class TimelineChartPlugin {
             tooltipEl.classList.add('timeline-tooltip');
             tooltipEl.classList.add('tooltip');
 
-            tooltipEl.style.zIndex = "1";
-            tooltipEl.style.width = "fit-content";
-            tooltipEl.style.background = "rgba(0, 0, 0, 1)";
-            tooltipEl.style.color = "white";
-            tooltipEl.style.pointerEvents = "none";
-            tooltipEl.style.position = "absolute";
-            tooltipEl.style.transform = "translate(-50%, 0)";
-            tooltipEl.style.transition = "all .2s ease";
-            tooltipEl.style.padding = "0 5px";
+            tooltipEl.style.zIndex = '1';
+            tooltipEl.style.width = 'fit-content';
+            tooltipEl.style.background = 'rgba(0, 0, 0, 1)';
+            tooltipEl.style.color = 'white';
+            tooltipEl.style.pointerEvents = 'none';
+            tooltipEl.style.position = 'absolute';
+            tooltipEl.style.transform = 'translate(-50%, 0)';
+            tooltipEl.style.transition = 'all .2s ease';
+            tooltipEl.style.padding = '0 5px';
 
             const caret = document.createElement('div');
             caret.classList.add('tooltip-caret');
@@ -458,7 +458,7 @@ export class TimelineChartPlugin {
         }
 
         return tooltipEl;
-    };
+    }
 
     private externalTooltipHandler(chart: TimelineChart , position: TimelineHandle, tooltipText: string) {
 
@@ -469,10 +469,10 @@ export class TimelineChartPlugin {
 
         const {x, y} = this.tooltipPositioner(chart, position);
 
-        tooltipEl.style.left = x + "px";
-        tooltipEl.style.top = y + "px";
-        tooltipEl.style.opacity = "1";
-    };
+        tooltipEl.style.left = x + 'px';
+        tooltipEl.style.top = y + 'px';
+        tooltipEl.style.opacity = '1';
+    }
 
     private tooltipPositioner(chart: TimelineChart, position: TimelineHandle) {
         let lower = this.getHandleArea(chart, TimelineHandle.Lower).left;
@@ -484,9 +484,9 @@ export class TimelineChartPlugin {
         if (position === TimelineHandle.Range) {
             caret.style.top = null;
             caret.style.right = null;
-            caret.style.left = "50%";
+            caret.style.left = '50%';
             caret.style.transform = null;
-            let middle = (lower + upper)/2
+            let middle = (lower + upper) / 2;
 
             return {
                 x: middle + 2,
@@ -494,20 +494,20 @@ export class TimelineChartPlugin {
             };
 
         } else if (position === TimelineHandle.Lower) {
-            caret.style.top = "40%";
+            caret.style.top = '40%';
             caret.style.right = null;
-            caret.style.left = "-2px";
-            caret.style.transform = "rotate(90deg)";
+            caret.style.left = '-2px';
+            caret.style.transform = 'rotate(90deg)';
 
             return {
                 x: lower + (width / 2 + 20),
                 y: 10
             };
         } else if (position === TimelineHandle.Upper) {
-            caret.style.top = "40%";
-            caret.style.right = "-7px";
+            caret.style.top = '40%';
+            caret.style.right = '-7px';
             caret.style.left = null;
-            caret.style.transform = "rotate(-90deg)";
+            caret.style.transform = 'rotate(-90deg)';
 
             return {
                 x: upper - (width / 2 + 20),
