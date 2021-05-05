@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ColorService, TimelineChartOptions } from '@ux-aspects/ux-aspects';
-import { moment } from 'moment';
+import moment from 'moment';
 import { TimelineChartService } from './timeline-chart.service';
 
 @Component({
