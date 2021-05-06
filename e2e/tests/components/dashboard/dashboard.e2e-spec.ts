@@ -435,6 +435,29 @@ describe('Dashboard Tests', () => {
         expect(await widget1.getCssValue('z-index')).toBe('auto');
     });
 
+    it('should update the layout when widget1 is removed and refreshLayout is called', async () => {
+
+        // move widget
+        await browser.actions().dragAndDrop(widget2, { x: 300, y: 0 }).perform();
+
+        // Remove first widget from the DOM
+        await page.toggleWidget();
+
+        // Call refresh layout
+        await page.refreshLayout();
+
+        // updated list of widgets
+        let updatedWidget1 = await page.getWidget(0);
+        let updatedWidget2 = await page.getWidget(1);
+        let updatedWidget3 = await page.getWidget(2);
+
+        expect(await page.getWidgetLocationValue(updatedWidget1, 'top')).toBe(0);
+        expect(await page.getWidgetLocationValue(updatedWidget2, 'top')).toBe(0);
+        expect(await page.getWidgetLocationValue(updatedWidget3, 'top')).toBe(440);
+
+        expect(await imageCompareFullPageScreen('dashboard-refresh-layout')).toEqual(0);
+    });
+
     describe('Stacked Mode', () => {
 
         beforeEach(async () => {
