@@ -139,7 +139,7 @@ export class MenuItemComponent implements OnInit, OnDestroy, FocusableOption {
     @HostListener('keydown.enter', ['$event'])
     _onClick(event: MouseEvent | KeyboardEvent): void {
         if (event instanceof MouseEvent) {
-            if(event.screenX === 0 && event.screenY === 0) {
+            if (event.screenX === 0 && event.screenY === 0) {
                 return;
             }
         }
