@@ -103,6 +103,8 @@ export class DashboardComponent implements AfterViewInit, AfterContentInit, OnDe
             // height. We should remove any unneeded whitespace below widgets too.
             this.dashboardService.setDashboardHeight();
 
+            // emit information about the layout
+            this.dashboardService.layout$.next(this.dashboardService.getLayoutData());
             this.layoutChange.emit(this.dashboardService.layout$.value);
         }
     }
