@@ -134,9 +134,9 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
      */
     @Input() tagTemplate: TemplateRef<TagTemplateContext>;
 
-    @Input() headingTemplate: TemplateRef<any>;
+    @Input() optionsHeadingTemplate: TemplateRef<void>;
 
-    @Input() recentOptionsHeadingTemplate: TemplateRef<any>;
+    @Input() recentOptionsHeadingTemplate: TemplateRef<void>;
 
     /**
      * Defines the `autocomplete` property on the `input` element which can be used to prevent the browser from

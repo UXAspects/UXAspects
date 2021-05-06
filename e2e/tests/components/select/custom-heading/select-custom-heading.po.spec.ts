@@ -3,11 +3,28 @@ import { browser, by, element, ElementFinder } from 'protractor';
 export class SelectCustomHeadingPage {
 
     dropdown = element(by.id('dropdown'));
-    selectedLocation = element(by.id('selectedLocation'));
+    nodes = element(by.id('Nodes'));
+    recentNodes = element(by.id('recentNodes'));
     checkboxRecentOptions = element(by.id('checkbox1'));
 
     async getPage(): Promise<void> {
         await browser.get('#/select/custom-heading');
+    }
+
+    getCustomHeadingText() {
+        return this.nodes.getText();
+    }
+
+    getRecentOptionHeadingText() {
+        return this.recentNodes.getText();
+    }
+
+    getCountry(_allowMultiple: boolean, index: number) {
+        return this.dropdown.$$('.ux-typeahead-all-options li').get(index);
+    }
+
+    getRecentCountry(_allowMultiple: boolean, index: number) {
+        return this.dropdown.$$('.ux-typeahead-recent-options li').get(index);
     }
 
     // get item
@@ -19,25 +36,12 @@ export class SelectCustomHeadingPage {
         }
     }
 
-    getCountry(_allowMultiple: boolean, index: number) {
-        return this.dropdown.$$('.ux-typeahead-all-options li').get(index);
-    }
-
-    getRecentCountry(_allowMultiple: boolean, index: number) {
-        return this.dropdown.$$('.ux-typeahead-recent-options li').get(index);
-    }
-
-    // get text
-    getDropdownPlaceholderText(allowMultiple: boolean) {
-        return this.getDropdown(allowMultiple).getAttribute('placeholder');
-    }
-
-    getCountryText(allowMultiple: boolean, index: number) {
-        return this.getCountry(allowMultiple, index).$('span.ux-typeahead-option').getText();
-    }
-
     getRecentCountryText(allowMultiple: boolean, index: number) {
         return this.getRecentCountry(allowMultiple, index).$('span.ux-typeahead-option').getText();
+    }
+
+    getNumberOfRecentCountries(_allowMultiple: boolean) {
+        return this.dropdown.$$('.ux-typeahead-recent-options li').count();
     }
 
     // click
@@ -45,16 +49,16 @@ export class SelectCustomHeadingPage {
         return this.getDropdown(allowMultiple).click();
     }
 
-    clickOnCountry(allowMultiple: boolean, index: number) {
-        return this.getCountry(allowMultiple, index).click();
-    }
-
     async clickOnCheckbox(checkbox: ElementFinder) {
         await checkbox.$('.ux-checkbox').click();
     }
 
-    getNumberOfRecentCountries(_allowMultiple: boolean) {
-        return this.dropdown.$$('.ux-typeahead-recent-options li').count();
+    clickOnRecentCountry(allowMultiple: boolean, index: number) {
+        return this.getRecentCountry(allowMultiple, index).click();
+    }
+
+    clickOnCountry(allowMultiple: boolean, index: number) {
+        return this.getCountry(allowMultiple, index).click();
     }
 
     async checkRecentOptions(multi: boolean, expectedOptions: string[]) {
@@ -66,4 +70,5 @@ export class SelectCustomHeadingPage {
             expect(await this.getRecentCountryText(multi, index)).toBe(expectedOptions[index]);
         }
     }
+
 }

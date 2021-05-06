@@ -17,6 +17,17 @@ describe('Select Custom Heading Tests', () => {
         await page.clickOnCountry(false, 1);
         await page.checkRecentOptions(false, ['United Kingdom']);
 
+        expect(await page.recentNodes.getText()).toBe('Recent Nodes');
+        expect(await page.nodes.getText()).toBe('Nodes');
+
         expect(await imageCompare('select-custom-heading')).toEqual(0);
+    });
+
+    it('should display custom heading when there are no recent options selected', async () => {
+        await page.clickOnDropdown(false);
+
+        expect(await page.nodes.getText()).toBe('Nodes');
+
+        expect(await imageCompare('select-no-recent-options-heading')).toEqual(0);
     });
 });

@@ -11,8 +11,7 @@
      (loaded)="loading = false; onLoadedHighlight($event)">
 
     <div *ngIf="(visibleRecentOptions$ | async).length > 0">
-        <ng-container [ngTemplateOutlet]="recentOptionsHeadingTemplate || defaultRecentOptionsHeadingTemplate">
-        </ng-container>
+        <ng-container [ngTemplateOutlet]="recentOptionsHeadingTemplate"></ng-container>
     </div>
 
      <!-- Recent options -->
@@ -33,10 +32,7 @@
         (optionClick)="optionClickHandler($event.event, $event.option)">
     </ux-typeahead-options-list>
 
-    <div *ngIf="(visibleRecentOptions$ | async).length > 0" class="ux-typeahead-recent-divider">
-        <ng-container [ngTemplateOutlet]="headingTemplate || defaultHeadingTemplate">
-        </ng-container>
-    </div>
+    <ng-container [ngTemplateOutlet]="optionsHeadingTemplate"></ng-container>
 
     <!-- All options -->
     <ux-typeahead-options-list
@@ -85,7 +81,3 @@
 <ng-template #defaultNoOptionsTemplate>
     <span class="ux-typeahead-no-options">No results</span>
 </ng-template>
-
-<ng-template #defaultRecentOptionsHeadingTemplate></ng-template>
-
-<ng-template #defaultHeadingTemplate></ng-template>

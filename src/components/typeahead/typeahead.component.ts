@@ -113,9 +113,9 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
     /** Maximum number of displayed recently selected options. */
     @Input() recentOptionsMaxCount: number = 5;
 
-    @Input() recentOptionsHeadingTemplate: TemplateRef<any>;
+    @Input() recentOptionsHeadingTemplate: TemplateRef<void>;
 
-    @Input() headingTemplate: TemplateRef<any>;
+    @Input() optionsHeadingTemplate: TemplateRef<void>;
 
     /** Emit when the open state changes */
     @Output() openChange = new EventEmitter<boolean>();

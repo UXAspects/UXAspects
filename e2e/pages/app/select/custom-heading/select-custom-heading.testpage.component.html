@@ -1,21 +1,14 @@
 <div class="row">
     <div class="col-xs-6">
-            <ux-select
-                id="dropdown"
-                [(value)]="selected"
-                [options]="options"
-                [placeholder]="placeholder"
-                [(recentOptions)]="recentOptions"
-                [headingTemplate]="demoHeader"
-                [recentOptionsHeadingTemplate]="demoRecentHeaderOptions">
-            </ux-select>
+        <ux-select
+            id="dropdown"
+            [options]="options"
+            [(recentOptions)]="recentOptions"
+            [placeholder]="placeholder"
+            [optionsHeadingTemplate]="demoHeader"
+            [recentOptionsHeadingTemplate]="demoRecentHeaderOptions">
+        </ux-select>
 
-        <div id="selectedLocation" class="col-md-12 m-t-md">
-            Selected location(s): <code>{{ selected | json }}</code>
-        </div>
-    </div>
-
-    <div class="col-xs-6">
         <div>
             <ux-checkbox id="checkbox1" (valueChange)="recentOptions = $event ? [] : undefined">
                 recentOptions
@@ -24,10 +17,11 @@
     </div>
 </div>
 
+
 <ng-template #demoHeader>
-    Nodes
+    <div id="Nodes">Nodes</div>
 </ng-template>
 
 <ng-template #demoRecentHeaderOptions>
-    Recent Nodes
+    <div id="recentNodes">Recent Nodes</div>
 </ng-template>
