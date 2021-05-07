@@ -53,10 +53,6 @@ export class SelectCustomHeadingPage {
         await checkbox.$('.ux-checkbox').click();
     }
 
-    clickOnRecentCountry(allowMultiple: boolean, index: number) {
-        return this.getRecentCountry(allowMultiple, index).click();
-    }
-
     clickOnCountry(allowMultiple: boolean, index: number) {
         return this.getCountry(allowMultiple, index).click();
     }

@@ -8,7 +8,8 @@
             [optionsHeadingTemplate]="demoHeader"
             [recentOptionsHeadingTemplate]="demoRecentHeaderOptions">
         </ux-select>
-
+    </div>
+    <div class="col-xs-6">
         <div>
             <ux-checkbox id="checkbox1" (valueChange)="recentOptions = $event ? [] : undefined">
                 recentOptions
@@ -16,7 +17,6 @@
         </div>
     </div>
 </div>
-
 
 <ng-template #demoHeader>
     <div id="Nodes">Nodes</div>
