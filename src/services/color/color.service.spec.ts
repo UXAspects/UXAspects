@@ -13,7 +13,6 @@ describe('Color Service - Micro Focus Color Set', () => {
 
   it('should return the correct rgb values for aliases', () => {
     const service: ColorService = TestBed.inject(ColorService);
-    service.getColorSet();
 
     expect(service.getColor('critical').toRgb()).toBe('rgb(229, 0, 76)');
     expect(service.getColor('danger').toRgb()).toBe('rgb(244, 139, 52)');
