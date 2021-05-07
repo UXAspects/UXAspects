@@ -1,11 +1,16 @@
 import { Component } from '@angular/core';
 import { ColorService, TimelineChartOptions } from '@ux-aspects/ux-aspects';
-import * as moment from 'moment';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
 import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
 import { TimelineChartService } from './timeline-chart.service';
+
+const DATE_LOCALE_OPTIONS = {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+};
 
 @Component({
     selector: 'uxd-charts-timeline-chart',
@@ -110,10 +115,9 @@ export class ChartsTimelineChartComponent extends BaseDocumentationSection imple
             handles: {
                 tooltip: {
                     label: () => {
-                        let data = this.lineChartData;
-                        let rangeLower = moment(data[0].x, 'ddd MMM DD YYYY HH:mm:ss zzZZ').format('D MMMM YYYY');
-                        let rangeUpper = moment(data[data.length - 1].x, 'ddd MMM DD YYYY HH:mm:ss zzZZ').format('D MMMM YYYY');
-
+                        const data = this.lineChartData;
+                        const rangeLower = (<any>data[0].x).toLocaleDateString([], DATE_LOCALE_OPTIONS);
+                        const rangeUpper = (<any>data[data.length - 1].x).toLocaleDateString([], DATE_LOCALE_OPTIONS);
                         return {rangeLower, rangeUpper};
                     }
                 } as any
@@ -132,11 +136,10 @@ export class ChartsTimelineChartComponent extends BaseDocumentationSection imple
                 maximum: 110_595_600_000, // 3.5 years
                 tooltip: {
                     label: () => {
-                        let data = this.lineChartData;
-                        let rangeLower = moment(data[0].x, 'ddd MMM DD YYYY HH:mm:ss zzZZ').format('D MMMM YYYY');
-                        let rangeUpper = moment(data[data.length - 1].x, 'ddd MMM DD YYYY HH:mm:ss zzZZ').format('D MMMM YYYY');
-                        let label = `${rangeLower} - ${rangeUpper}`;
-
+                        const data = this.lineChartData;
+                        const rangeLower = (<any>data[0].x).toLocaleDateString([], DATE_LOCALE_OPTIONS);
+                        const rangeUpper = (<any>data[data.length - 1].x).toLocaleDateString([], DATE_LOCALE_OPTIONS);
+                        const label = `${rangeLower} - ${rangeUpper}`;
                         return label;
                     }
                 } as any
@@ -154,9 +157,6 @@ export class ChartsTimelineChartComponent extends BaseDocumentationSection imple
         },
         modules: [{
             library: 'chart.js'
-        },
-        {
-            library: 'moment'
         },
         {
             imports: ['ChartsModule'],
