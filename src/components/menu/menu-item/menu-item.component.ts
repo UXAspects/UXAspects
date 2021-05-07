@@ -144,7 +144,7 @@ export class MenuItemComponent implements OnInit, OnDestroy, FocusableOption {
             }
             this.activate.emit(event);
         }
-          event.preventDefault();
+        event.preventDefault();
     }
 
     /** Forward any keyboard events to the MenuComponent for accessibility */
