@@ -4,7 +4,7 @@ import { ColorServiceModule } from '.';
 import { colorSets } from './color-sets';
 import { ColorService } from './color.service';
 
-fdescribe('Color Service - Micro Focus Color Set', () => {
+describe('Color Service - Micro Focus Color Set', () => {
 
   beforeEach(() => TestBed.configureTestingModule({
     imports: [ColorServiceModule.forRoot(colorSets.microFocus)],
