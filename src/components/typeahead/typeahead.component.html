@@ -32,7 +32,9 @@
         (optionClick)="optionClickHandler($event.event, $event.option)">
     </ux-typeahead-options-list>
 
-    <ng-container [ngTemplateOutlet]="optionsHeadingTemplate"></ng-container>
+    <div class="ux-typeahead-recent-divider">
+        <ng-container [ngTemplateOutlet]="optionsHeadingTemplate"></ng-container>
+    </div>
 
     <!-- All options -->
     <ux-typeahead-options-list
