@@ -3,8 +3,8 @@ import { browser, by, element, ElementFinder } from 'protractor';
 export class SelectCustomHeadingPage {
 
     dropdown = element(by.id('dropdown'));
-    nodes = element(by.id('Nodes'));
-    recentNodes = element(by.id('recentNodes'));
+    optionsHeading = element(by.id('Nodes'));
+    recentHeadingOptions = element(by.id('recentNodes'));
     checkboxRecentOptions = element(by.id('checkbox1'));
 
     async getPage(): Promise<void> {
@@ -12,11 +12,11 @@ export class SelectCustomHeadingPage {
     }
 
     getCustomHeadingText() {
-        return this.nodes.getText();
+        return this.optionsHeading.getText();
     }
 
     getRecentOptionHeadingText() {
-        return this.recentNodes.getText();
+        return this.recentHeadingOptions.getText();
     }
 
     getCountry(_allowMultiple: boolean, index: number) {
