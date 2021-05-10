@@ -10,7 +10,7 @@ const DATE_LOCALE_OPTIONS = {
     year: 'numeric',
     month: 'long',
     day: 'numeric'
-};
+} as const;
 
 @Component({
     selector: 'uxd-charts-timeline-chart',
@@ -116,8 +116,8 @@ export class ChartsTimelineChartComponent extends BaseDocumentationSection imple
                 tooltip: {
                     label: () => {
                         const data = this.lineChartData;
-                        const rangeLower = (<any>data[0].x).toLocaleDateString([], DATE_LOCALE_OPTIONS);
-                        const rangeUpper = (<any>data[data.length - 1].x).toLocaleDateString([], DATE_LOCALE_OPTIONS);
+                        const rangeLower = (<Date>data[0].x).toLocaleDateString([], DATE_LOCALE_OPTIONS);
+                        const rangeUpper = (<Date>data[data.length - 1].x).toLocaleDateString([], DATE_LOCALE_OPTIONS);
                         return {rangeLower, rangeUpper};
                     }
                 } as any
@@ -137,8 +137,8 @@ export class ChartsTimelineChartComponent extends BaseDocumentationSection imple
                 tooltip: {
                     label: () => {
                         const data = this.lineChartData;
-                        const rangeLower = (<any>data[0].x).toLocaleDateString([], DATE_LOCALE_OPTIONS);
-                        const rangeUpper = (<any>data[data.length - 1].x).toLocaleDateString([], DATE_LOCALE_OPTIONS);
+                        const rangeLower = (<Date>data[0].x).toLocaleDateString([], DATE_LOCALE_OPTIONS);
+                        const rangeUpper = (<Date>data[data.length - 1].x).toLocaleDateString([], DATE_LOCALE_OPTIONS);
                         const label = `${rangeLower} - ${rangeUpper}`;
                         return label;
                     }
