@@ -32,3 +32,7 @@
 .customizable-dashboard.dashboard-grabbing .widget-content.widget-grabbing .widget-grab-handle {
     outline: none;
 }
+
+.stacked-mode {
+    width: 450px;
+}

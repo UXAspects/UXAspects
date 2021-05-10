@@ -1,4 +1,4 @@
-<div class="container p-lg">
+<div class="container p-lg" [class.stacked-mode]="stackedMode">
     <ux-dashboard
         [options]="options"
         [layout]="layout$ | async"
@@ -47,5 +47,11 @@
 <div class="m-t-xs">
     <button type="button" id="update-layout" class="btn button-accent" (click)="updateLayout()">
         Update Layout
+    </button>
+</div>
+
+<div class="m-t-xs">
+    <button type="button" id="update-layout" class="btn button-accent" (click)="stackedMode = !stackedMode;">
+        Stacked Mode
     </button>
 </div>

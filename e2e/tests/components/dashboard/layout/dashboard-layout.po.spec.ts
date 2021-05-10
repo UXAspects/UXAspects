@@ -1,4 +1,4 @@
-import { $, browser } from 'protractor';
+import { $, browser, Key } from 'protractor';
 import { DashboardPage } from '../dashboard.po.spec';
 
 export class DashboardLayoutPage extends DashboardPage {
@@ -7,6 +7,12 @@ export class DashboardLayoutPage extends DashboardPage {
 
     async getPage(): Promise<void> {
         await browser.get('#/dashboard/layout');
+    }
+
+    async resizeWidget(widgetIndex: number, directionKey: string): Promise<void> {
+        await browser.actions().sendKeys(Key.TAB, ...Array(widgetIndex + 1).fill(Key.TAB), Key.SPACE).perform();
+        await browser.actions().keyDown(Key.CONTROL).sendKeys(directionKey).perform();
+        await browser.actions().sendKeys(Key.SPACE).perform();
     }
 
 }
