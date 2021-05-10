@@ -529,6 +529,21 @@ describe('Dashboard Tests', () => {
             expect(await page.getWidgetLocationValue(widget1, 'height')).toBe(440, 'should remain 2 rows high');
         });
 
+        // Test resizing
+        // Test for top and bottom
+        // Test left and right
+        it('should not resize along the x axis while in stacked mode', async () => {
+            expect(await page.getWidgetLocationValue(widget2, 'width')).toBe(324);
+            await page.resizeWidget(1, Key.LEFT);
+            expect(await page.getWidgetLocationValue(widget2, 'width')).toBe(324);
+        });
+
+        it('should resize along the y axis while in stacked mode with resize set to true', async () => {
+            expect(await page.getWidgetLocationValue(widget2, 'height')).toBe(220);
+            await page.resizeWidget(1, Key.DOWN);
+            expect(await page.getWidgetLocationValue(widget2, 'height')).toBe(880);
+        });
+
     });
 
 });

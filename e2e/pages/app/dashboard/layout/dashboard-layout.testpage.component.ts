@@ -10,8 +10,6 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class DashboardLayoutTestPageComponent {
 
-    stackedMode = false;
-
     options: DashboardOptions = {
         columns: 3,
         padding: 10,
