@@ -427,7 +427,9 @@ export class TimelineChartPlugin {
             tooltipEl.classList.add('tooltip');
 
             tooltipEl.style.zIndex = '1';
+            tooltipEl.style.width = '-moz-fit-content';
             tooltipEl.style.width = 'fit-content';
+            tooltipEl.style.display = 'table';
             tooltipEl.style.background = 'rgba(0, 0, 0, 1)';
             tooltipEl.style.color = 'white';
             tooltipEl.style.pointerEvents = 'none';
@@ -485,7 +487,7 @@ export class TimelineChartPlugin {
             caret.style.top = null;
             caret.style.right = null;
             caret.style.left = '50%';
-            caret.style.transform = null;
+            caret.style.transform = 'rotate(0deg)';
             let middle = (lower + upper) / 2;
 
             return {
