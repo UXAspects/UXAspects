@@ -426,33 +426,10 @@ export class TimelineChartPlugin {
             tooltipEl.classList.add('timeline-tooltip');
             tooltipEl.classList.add('tooltip');
 
-            tooltipEl.style.zIndex = '1';
-            tooltipEl.style.width = '-moz-fit-content';
-            tooltipEl.style.width = 'fit-content';
-            tooltipEl.style.display = 'table';
-            tooltipEl.style.background = 'rgba(0, 0, 0, 1)';
-            tooltipEl.style.color = 'white';
-            tooltipEl.style.pointerEvents = 'none';
-            tooltipEl.style.position = 'absolute';
-            tooltipEl.style.transform = 'translate(-50%, 0)';
-            tooltipEl.style.transition = 'all .2s ease';
-            tooltipEl.style.padding = '0 5px';
-
             const caret = document.createElement('div');
             caret.classList.add('tooltip-caret');
-            caret.style.position = 'absolute';
-            caret.style.width = '0';
-            caret.style.height = '0';
-            caret.style.borderColor = 'rgba(0, 0, 0, 0)';
-            caret.style.borderTopColor = 'rgba(0, 0, 0, 1)';
-            caret.style.left = '50%';
-            caret.style.marginLeft = '-5px';
-            caret.style.borderWidth = '5px 5px 0';
-            caret.style.borderStyle = 'solid';
 
             const span = document.createElement('span');
-            span.style.borderWidth = '2px';
-            span.style.display = 'inline-block';
 
             tooltipEl.appendChild(span);
             tooltipEl.appendChild(caret);
@@ -497,7 +474,7 @@ export class TimelineChartPlugin {
 
         } else if (position === TimelineHandle.Lower) {
             caret.style.top = '40%';
-            caret.style.right = null;
+            caret.style.right = 'auto';
             caret.style.left = '-2px';
             caret.style.transform = 'rotate(90deg)';
 
@@ -508,7 +485,7 @@ export class TimelineChartPlugin {
         } else if (position === TimelineHandle.Upper) {
             caret.style.top = '40%';
             caret.style.right = '-7px';
-            caret.style.left = null;
+            caret.style.left = 'auto';
             caret.style.transform = 'rotate(-90deg)';
 
             return {

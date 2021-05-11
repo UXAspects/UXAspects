@@ -7,4 +7,34 @@
 .timeline-chart {
     position: relative;
     max-height: 75px;
+
+    ::ng-deep div.tooltip.timeline-tooltip {
+        z-index: 1;
+        white-space: nowrap;
+        background: rgba(0, 0, 0, 1);
+        color: white;
+        pointer-events: none;
+        position: absolute;
+        transform: translate(-50%, 0);
+        transition: all 0.2s ease;
+        padding: 0 5px;
+
+        span {
+            display: inline-block;
+            border-width: 2px;
+            width: 100%;
+        }
+
+        div.tooltip-caret {
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-color: rgba(0, 0, 0, 0);
+            border-top-color: rgba(0, 0, 0, 1);
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px 5px 0;
+            border-style: solid;
+        }
+    }
 }
