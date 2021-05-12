@@ -12,5 +12,4 @@ export class SelectCustomHeadingTestPageComponent {
     dropdownOpen: boolean;
     placeholder = 'Select a country';
     recentOptions: ReadonlyArray<string> = null;
-
 }

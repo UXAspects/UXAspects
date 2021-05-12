@@ -5,23 +5,23 @@
             [options]="options"
             [(recentOptions)]="recentOptions"
             [placeholder]="placeholder"
-            [optionsHeadingTemplate]="demoHeader"
-            [recentOptionsHeadingTemplate]="demoRecentHeaderOptions">
+            [optionsHeadingTemplate]="optionsHeadingTemplate"
+            [recentOptionsHeadingTemplate]="recentOptionsHeadingTemplate">
         </ux-select>
     </div>
     <div class="col-xs-6">
         <div>
-            <ux-checkbox id="checkbox1" (valueChange)="recentOptions = $event ? [] : undefined">
+            <ux-checkbox id="recent-options-checkbox" (valueChange)="recentOptions = $event ? [] : undefined">
                 recentOptions
             </ux-checkbox>
         </div>
     </div>
 </div>
 
-<ng-template #demoHeader>
-    <div id="options-header">Nodes</div>
+<ng-template #optionsHeadingTemplate>
+    <div id="options-heading">Nodes</div>
 </ng-template>
 
-<ng-template #demoRecentHeaderOptions>
-    <div id="recent-options-header">Recent Nodes</div>
+<ng-template #recentOptionsHeadingTemplate>
+    <div id="recent-options-heading">Recent Nodes</div>
 </ng-template>

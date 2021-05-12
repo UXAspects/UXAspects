@@ -1,7 +1,7 @@
 import { imageCompare } from '../../common/image-compare';
 import { SelectCustomHeadingPage } from './select-custom-heading.po.spec';
 
-describe('Select Custom Heading Tests', () => {
+describe('Select (custom heading)', () => {
 
     let page: SelectCustomHeadingPage;
 
@@ -12,21 +12,21 @@ describe('Select Custom Heading Tests', () => {
 
     it('should display custom headings for recent and normal options', async () => {
         await page.clickOnCheckbox(page.checkboxRecentOptions);
-        await page.clickOnDropdown(false);
+        await page.clickOnDropdown();
 
-        await page.clickOnCountry(false, 1);
-        await page.checkRecentOptions(false, ['United Kingdom']);
+        await page.clickOnCountry(1);
+        await page.clickOnDropdown();
 
-        expect(await page.recentHeadingOptions.getText()).toBe('Recent Nodes');
-        expect(await page.optionsHeader.getText()).toBe('Nodes');
+        expect(await page.recentOptionsHeading.getText()).toBe('Recent Nodes');
+        expect(await page.optionsHeading.getText()).toBe('Nodes');
 
         expect(await imageCompare('select-custom-heading')).toEqual(0);
     });
 
     it('should display custom heading when there are no recent options selected', async () => {
-        await page.clickOnDropdown(false);
+        await page.clickOnDropdown();
 
-        expect(await page.optionsHeader.getText()).toBe('Nodes');
+        expect(await page.optionsHeading.getText()).toBe('Nodes');
 
         expect(await imageCompare('select-no-recent-options-heading')).toEqual(0);
     });
