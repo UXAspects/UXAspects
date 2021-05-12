@@ -1,4 +1,4 @@
-import { browser, ElementFinder, Key } from 'protractor';
+import { browser, by, ElementFinder, Key } from 'protractor';
 import { imageCompareFullPageScreen } from '../common/image-compare';
 import { DashboardPage, Direction } from './dashboard.po.spec';
 
@@ -426,6 +426,18 @@ describe('Dashboard Tests', () => {
         expect(await page.getWidgetLocationValue(widget1, 'width')).toBe(1108, 'should be the same as the initial width');
     });
 
+    it('should allow widget to be resized when resizable is explicitly set to true', async () => {
+        expect(await page.getWidgetLocationValue(widget2, 'width')).toBe(554);
+        await page.resizeWidget(2, Key.ARROW_RIGHT);
+        expect(await page.getWidgetLocationValue(widget2, 'width')).toBe(831);
+    });
+
+    it('should not allow widget to be resized when resizable is explicitly set to false', async () => {
+        expect(await page.getWidgetLocationValue(widget3, 'width')).toBe(277);
+        await page.resizeWidget(2, Key.ARROW_RIGHT);
+        expect(await page.getWidgetLocationValue(widget3, 'width')).toBe(277);
+    });
+
     it('should have auto z-index applied to the widget in their initial state', async () => {
         expect(await widget1.getCssValue('z-index')).toBe('auto');
     });
@@ -540,8 +552,10 @@ describe('Dashboard Tests', () => {
 
         it('should resize along the y axis while in stacked mode with resize set to true', async () => {
             expect(await page.getWidgetLocationValue(widget2, 'height')).toBe(220);
-            await page.resizeWidget(1, Key.DOWN);
-            expect(await page.getWidgetLocationValue(widget2, 'height')).toBe(880);
+            const bottomHandle = widget2.element(by.css('.resizer-handle.handle-bottom'));
+            console.log('🚀 ~ file: dashboard.e2e-spec.ts ~ line 544 ~ it ~ bottomHandle', bottomHandle);
+            await browser.actions().dragAndDrop(bottomHandle, { x: -440, y: 0 }).perform();
+            expect(await page.getWidgetLocationValue(widget2, 'height')).toBe(440);
         });
 
     });
