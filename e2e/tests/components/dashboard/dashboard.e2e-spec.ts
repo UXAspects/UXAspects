@@ -535,21 +535,23 @@ describe('Dashboard Tests', () => {
             expect(await page.getWidgetLocationValue(widget1, 'height')).toBe(440, 'should remain 2 rows high');
         });
 
-        // Test resizing
-        // Test for top and bottom
-        // Test left and right
-        // it('should not resize along the x axis while in stacked mode', async () => {
-        //     expect(await page.getWidgetLocationValue(widget2, 'width')).toBe(324);
-        //     await page.resizeWidget(1, Key.LEFT);
-        //     expect(await page.getWidgetLocationValue(widget2, 'width')).toBe(324);
-        // });
+        it('should not resize along the x axis while in stacked mode', async () => {
+            expect(await page.getWidgetLocationValue(widget1, 'width')).toBe(324);
+            await page.resizeWidget(1, Key.ARROW_RIGHT);
+            expect(await page.getWidgetLocationValue(widget1, 'width')).toBe(324);
+        });
 
-        // it('should resize along the y axis while in stacked mode with resize set to true', async () => {
-        //     expect(await page.getWidgetLocationValue(widget2, 'height')).toBe(220);
-        //     const bottomHandle = widget2.element(by.css('.resizer-handle.handle-bottom'));
-        //     await browser.actions().dragAndDrop(bottomHandle, { x: -440, y: 0 }).perform();
-        //     expect(await page.getWidgetLocationValue(widget2, 'height')).toBe(440);
-        // });
+        it('should resize along the y axis while in stacked mode with resize is explicitly set to true', async () => {
+            expect(await page.getWidgetLocationValue(widget1, 'height')).toBe(440);
+            await page.resizeWidget(0, Key.ARROW_DOWN);
+            expect(await page.getWidgetLocationValue(widget1, 'height')).toBe(660);
+        });
+
+        it('should not resize along the y axis while in stacked mode with resize is explicitly set to false', async () => {
+            expect(await page.getWidgetLocationValue(widget3, 'height')).toBe(220);
+            await page.resizeWidget(2, Key.ARROW_DOWN);
+            expect(await page.getWidgetLocationValue(widget3, 'height')).toBe(220);
+        });
 
     });
 
