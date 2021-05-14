@@ -21,7 +21,7 @@ export class ComponentsAlertComponent extends BaseDocumentationSection implement
         {
             type: 'error',
             icon: 'status-error-filled',
-            description: 'This is an example of an error alert message',
+            description: '  Cannot verify address. Did you mean <a class="alert-link">78 Glennwood Road</a>?',
         },
         {
             type: 'success',

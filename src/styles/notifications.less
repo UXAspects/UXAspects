@@ -52,6 +52,16 @@ ux-alert {
     border: 1px solid transparent;
     border-radius: 4px;
 
+    a, ux-alert a.alert-link {
+        color: inherit;
+        text-decoration: underline;
+        font-weight: normal;
+    }
+
+    & a:hover {
+        color: inherit;
+    }
+
     .alert-icon {
         display: inline-flex;
         justify-content: center;
