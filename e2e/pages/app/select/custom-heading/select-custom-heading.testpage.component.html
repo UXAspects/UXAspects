@@ -1,0 +1,27 @@
+<div class="row">
+    <div class="col-xs-6">
+        <ux-select
+            id="dropdown"
+            [options]="options"
+            [(recentOptions)]="recentOptions"
+            [placeholder]="placeholder"
+            [optionsHeadingTemplate]="optionsHeadingTemplate"
+            [recentOptionsHeadingTemplate]="recentOptionsHeadingTemplate">
+        </ux-select>
+    </div>
+    <div class="col-xs-6">
+        <div>
+            <ux-checkbox id="recent-options-checkbox" (valueChange)="recentOptions = $event ? [] : undefined">
+                recentOptions
+            </ux-checkbox>
+        </div>
+    </div>
+</div>
+
+<ng-template #optionsHeadingTemplate>
+    <div id="options-heading">Nodes</div>
+</ng-template>
+
+<ng-template #recentOptionsHeadingTemplate>
+    <div id="recent-options-heading">Recent Nodes</div>
+</ng-template>
