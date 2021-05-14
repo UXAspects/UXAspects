@@ -1,5 +1,6 @@
 import { END, HOME, LEFT_ARROW, RIGHT_ARROW } from '@angular/cdk/keycodes';
 import { NgModule } from '@angular/core';
+import * as Chart from 'chart.js';
 
 const timelineDefaultOptions: TimelineChartOptions & TimelineChartStateOptions = {
     timeline: {
@@ -148,6 +149,7 @@ export class TimelineChartPlugin {
             case 'mousemove':
                 this.setCursor(chart, event as MouseEvent);
                 this.setRangeOnDrag(chart, event as MouseEvent);
+                this.handleMouseMove(chart, event as MouseEvent);
 
                 // store the latest mouse position
                 this.setState(chart, { mouseX: event.x });
@@ -384,6 +386,115 @@ export class TimelineChartPlugin {
             this.setState(chart, { handle: null });
         }
     }
+
+    private handleMouseMove(chart: TimelineChart, event: Partial<MouseEvent>): void {
+        const mousePosition = this.isWithinHandle(chart, event);
+
+        let timelineOptions = chart.options as TimelineChartOptions;
+        let hasTooltipOnRange: boolean = timelineOptions.timeline.range.hasOwnProperty('tooltip');
+        let hasTooltipOnHandles: boolean = timelineOptions.timeline.handles.hasOwnProperty('tooltip');
+        let timelineTooltipText: string;
+        let handleTooltipText: { rangeLower: string, rangeUpper: string };
+
+        if (hasTooltipOnRange) {
+            timelineTooltipText = timelineOptions.timeline.range.tooltip.label();
+        }
+
+        if (hasTooltipOnHandles) {
+            handleTooltipText = timelineOptions.timeline.handles.tooltip.label();
+        }
+
+        if (mousePosition === TimelineHandle.Range && hasTooltipOnRange) {
+            this.externalTooltipHandler(chart, TimelineHandle.Range, timelineTooltipText);
+        } else if (mousePosition === TimelineHandle.Lower && hasTooltipOnHandles) {
+            this.externalTooltipHandler(chart, TimelineHandle.Lower, handleTooltipText.rangeLower);
+        } else if (mousePosition === TimelineHandle.Upper && hasTooltipOnHandles) {
+            this.externalTooltipHandler(chart, TimelineHandle.Upper, handleTooltipText.rangeUpper);
+        } else {
+            let tooltipEl = this.getOrCreateTooltip(chart);
+            tooltipEl.style.opacity = '0';
+        }
+
+    }
+
+
+    private getOrCreateTooltip(chart: TimelineChart) {
+        let tooltipEl = chart.canvas.parentNode.querySelector('.timeline-tooltip') as HTMLElement;
+
+        if (!tooltipEl) {
+            tooltipEl = document.createElement('div');
+            tooltipEl.classList.add('timeline-tooltip');
+            tooltipEl.classList.add('tooltip');
+
+            const caret = document.createElement('div');
+            caret.classList.add('tooltip-caret');
+
+            const span = document.createElement('span');
+
+            tooltipEl.appendChild(span);
+            tooltipEl.appendChild(caret);
+            chart.canvas.parentNode.appendChild(tooltipEl);
+        }
+
+        return tooltipEl;
+    }
+
+    private externalTooltipHandler(chart: TimelineChart , position: TimelineHandle, tooltipText: string) {
+
+        // Tooltip Element
+        const tooltipEl = this.getOrCreateTooltip(chart);
+        const span = tooltipEl.querySelector('span');
+        span.innerText = tooltipText;
+
+        const {x, y} = this.tooltipPositioner(chart, position);
+
+        tooltipEl.style.left = x + 'px';
+        tooltipEl.style.top = y + 'px';
+        tooltipEl.style.opacity = '1';
+    }
+
+    private tooltipPositioner(chart: TimelineChart, position: TimelineHandle) {
+        let lower = this.getHandleArea(chart, TimelineHandle.Lower).left;
+        let upper = this.getHandleArea(chart, TimelineHandle.Upper).left;
+        const tooltipEl = this.getOrCreateTooltip(chart);
+        const width = tooltipEl.getBoundingClientRect().width;
+        const caret = tooltipEl.querySelector('.tooltip-caret') as HTMLElement;
+
+        if (position === TimelineHandle.Range) {
+            caret.style.top = null;
+            caret.style.right = null;
+            caret.style.left = '50%';
+            caret.style.transform = 'rotate(0deg)';
+            let middle = (lower + upper) / 2;
+
+            return {
+                x: middle + 2,
+                y: -14
+            };
+
+        } else if (position === TimelineHandle.Lower) {
+            caret.style.top = '40%';
+            caret.style.right = 'auto';
+            caret.style.left = '-2px';
+            caret.style.transform = 'rotate(90deg)';
+
+            return {
+                x: lower + (width / 2 + 20),
+                y: 10
+            };
+        } else if (position === TimelineHandle.Upper) {
+            caret.style.top = '40%';
+            caret.style.right = '-7px';
+            caret.style.left = 'auto';
+            caret.style.transform = 'rotate(-90deg)';
+
+            return {
+                x: upper - (width / 2 + 20),
+                y: 10
+            };
+        }
+    }
+
 
     /** Update the range when dragged */
     private setRangeOnDrag(chart: TimelineChart, event: Partial<MouseEvent>): void {
@@ -768,12 +879,18 @@ export interface TimelineChartOptions {
             backgroundColor?: Chart.ChartColor;
             foregroundColor?: Chart.ChartColor;
             focusIndicatorColor?: Chart.ChartColor;
+            tooltip?: {
+                label: Function;
+            }
         }
         range: {
             lower: Date,
             upper: Date,
             minimum?: number,
-            maximum?: number
+            maximum?: number,
+            tooltip?: {
+                label: Function;
+            }
         }
     };
 }
@@ -793,6 +910,7 @@ export interface TimelineChartState {
     mouseX?: number;
     onMouseDown?: (event: MouseEvent) => void;
     onMouseUp?: (event: MouseEvent) => void;
+    onMouseEnter?: (event: MouseEvent) => void;
     onKeydown?: (event: KeyboardEvent) => void;
     lowerHandleFocus?: boolean;
     upperHandleFocus?: boolean;
