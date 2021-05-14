@@ -10,6 +10,10 @@
      (loading)="loading = true"
      (loaded)="loading = false; onLoadedHighlight($event)">
 
+    <div *ngIf="(visibleRecentOptions$ | async).length > 0">
+        <ng-container [ngTemplateOutlet]="recentOptionsHeadingTemplate"></ng-container>
+    </div>
+
      <!-- Recent options -->
     <ux-typeahead-options-list
         *ngIf="(visibleRecentOptions$ | async).length > 0"
@@ -25,8 +29,10 @@
         [typeaheadElement]="typeaheadElement"
         (optionMouseover)="highlight($event.option)"
         (optionMousedown)="optionMousedownHandler($event.event)"
-        (optionClick)="optionClickHandler($event.event, $event.option)"
-    ></ux-typeahead-options-list>
+        (optionClick)="optionClickHandler($event.event, $event.option)">
+    </ux-typeahead-options-list>
+
+    <ng-container [ngTemplateOutlet]="optionsHeadingTemplate"></ng-container>
 
     <!-- All options -->
     <ux-typeahead-options-list
@@ -44,8 +50,8 @@
         [typeaheadElement]="typeaheadElement"
         (optionMouseover)="highlight($event.option)"
         (optionMousedown)="optionMousedownHandler($event.event)"
-        (optionClick)="optionClickHandler($event.event, $event.option)"
-    ></ux-typeahead-options-list>
+        (optionClick)="optionClickHandler($event.event, $event.option)">
+    </ux-typeahead-options-list>
 
     <div *uxInfiniteScrollLoading>
         <ng-container [ngTemplateOutlet]="loadingTemplate || defaultLoadingTemplate"></ng-container>
