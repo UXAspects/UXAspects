@@ -41,7 +41,9 @@
         [noOptionsTemplate]="noOptionsTemplate"
         [recentOptions]="recentOptions"
         [recentOptionsMaxCount]="recentOptionsMaxCount"
-        (recentOptionsChange)="recentOptionsChange.emit($event)">
+        (recentOptionsChange)="recentOptionsChange.emit($event)"
+        [optionsHeadingTemplate]="optionsHeadingTemplate"
+        [recentOptionsHeadingTemplate]="recentOptionsHeadingTemplate">
     </ux-typeahead>
 
 </ux-tag-input>
@@ -113,6 +115,8 @@
         [noOptionsTemplate]="noOptionsTemplate"
         [recentOptions]="recentOptions"
         [recentOptionsMaxCount]="recentOptionsMaxCount"
+        [optionsHeadingTemplate]="optionsHeadingTemplate"
+        [recentOptionsHeadingTemplate]="recentOptionsHeadingTemplate"
         (optionSelected)="_singleOptionSelected($event)"
         (highlightedElementChange)="highlightedElement = $event"
         (recentOptionsChange)="recentOptionsChange.emit($event)">
