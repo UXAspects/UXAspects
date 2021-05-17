@@ -4,22 +4,10 @@
     border: 1px solid @alert-info-border;
 }
 
-.alert-info {
-    .alert-link {
-        color: @alert-info-color;
-    }
-}
-
 .alert-error {
     color: @alert-error-color;
     background-color: @alert-error-bg;
     border: 1px solid @alert-error-border;
-}
-
-.alert-error {
-    .alert-link {
-        color: @alert-error-color;
-    }
 }
 
 .alert {
@@ -34,8 +22,15 @@
     }
 }
 
-.alert-link {
-    .font-semibold;
+.alert-link,
+ux-alert a {
+    color: inherit;
+    text-decoration: underline;
+    font-weight: normal;
+
+    &:hover {
+        color: inherit;
+    }
 
     &:focus {
         .native-focus-outline;
@@ -51,16 +46,6 @@ ux-alert {
     padding: 15px;
     border: 1px solid transparent;
     border-radius: 4px;
-
-    a, ux-alert a.alert-link {
-        color: inherit;
-        text-decoration: underline;
-        font-weight: normal;
-    }
-
-    & a:hover {
-        color: inherit;
-    }
 
     .alert-icon {
         display: inline-flex;
