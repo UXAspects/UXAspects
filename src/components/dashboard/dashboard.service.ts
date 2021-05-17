@@ -622,13 +622,11 @@ export class DashboardService implements OnDestroy {
 
                     // determine if the block can fit in this space
                     const requiredSpaces = this.getRequiredSpacesFromPoint(widget, column, row);
-                    console.log("🚀 ~ file: dashboard.service.ts ~ line 626 ~ DashboardService ~ shiftWidgets ~ requiredSpaces", requiredSpaces)
 
                     // check if widget would fit in space
                     const available = requiredSpaces.every(space => {
                         return !grid.find(gridSpace => gridSpace.column === space.column && gridSpace.row === space.row) && space.column < this.getColumnCount();
                     });
-                    console.log("🚀 ~ file: dashboard.service.ts ~ line 631 ~ DashboardService ~ shiftWidgets ~ available", available)
 
                     if (available) {
                         widget.setColumn(column);
@@ -735,7 +733,6 @@ export class DashboardService implements OnDestroy {
      * Determine if a widget can be moved right - or if it can move the widgets to the right to make space for the widget
      */
     canWidgetMoveRight(widget: DashboardWidgetComponent, performMove: boolean = false): boolean {
-        console.log("🚀 ~ file: dashboard.service.ts ~ line 738 ~ DashboardService ~ canWidgetMoveRight ~ widget", widget)
 
         // check if the widget is the dragging widget or the widget occupies the final column
         if (widget === this._actionWidget.widget || widget.getColumn() + widget.getColumnSpan() === this.options.columns) {
@@ -789,7 +786,10 @@ export class DashboardService implements OnDestroy {
 
         for (let y = row; y < row + widget.getRowSpan(); y++) {
             for (let x = column; x < column + widget.getColumnSpan(); x++) {
-                spaces.push({ column: x, row: y, widget: widget });
+
+                // if (widget.canMove) {
+                    spaces.push({ column: x, row: y, widget: widget });
+                // }
             }
         }
 
@@ -843,6 +843,7 @@ export class DashboardService implements OnDestroy {
     setPlaceholderBounds(visible: boolean, x: number, y: number, width: number, height: number): void {
 
         const placeholder = this.placeholder$.getValue();
+        console.log("🚀 ~ file: dashboard.service.ts ~ line 847 ~ DashboardService ~ setPlaceholderBounds ~ placeholder", placeholder)
 
         placeholder.visible = visible;
 
@@ -1149,7 +1150,9 @@ export class DashboardService implements OnDestroy {
     forEachBlock(widget: DashboardWidgetComponent, callback: (column: number, row: number) => void): void {
         for (let row = widget.getRow(); row < widget.getRow() + widget.getRowSpan(); row++) {
             for (let column = widget.getColumn(); column < widget.getColumn() + widget.getColumnSpan(); column++) {
-                callback.call(widget, column, row);
+                // if (widget.canMove) {
+                    callback.call(widget, column, row);
+                // }
             }
         }
     }
