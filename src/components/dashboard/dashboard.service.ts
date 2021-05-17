@@ -609,6 +609,10 @@ export class DashboardService implements OnDestroy {
         // attempt to move any widgets to the previous widget position
         widgetsToMove.forEach(widget => {
 
+            if (!widget.canMove) {
+                return;
+            }
+
             // get a grid off all occupied spaces - taking into account the placeholder and ignoring widgets that need moved
             const grid = this.getOccupiedSpaces().filter(space => !unmovedWidgets.find(wgt => wgt === space.widget));
 
@@ -618,11 +622,13 @@ export class DashboardService implements OnDestroy {
 
                     // determine if the block can fit in this space
                     const requiredSpaces = this.getRequiredSpacesFromPoint(widget, column, row);
+                    console.log("🚀 ~ file: dashboard.service.ts ~ line 626 ~ DashboardService ~ shiftWidgets ~ requiredSpaces", requiredSpaces)
 
                     // check if widget would fit in space
                     const available = requiredSpaces.every(space => {
                         return !grid.find(gridSpace => gridSpace.column === space.column && gridSpace.row === space.row) && space.column < this.getColumnCount();
                     });
+                    console.log("🚀 ~ file: dashboard.service.ts ~ line 631 ~ DashboardService ~ shiftWidgets ~ available", available)
 
                     if (available) {
                         widget.setColumn(column);
@@ -729,6 +735,7 @@ export class DashboardService implements OnDestroy {
      * Determine if a widget can be moved right - or if it can move the widgets to the right to make space for the widget
      */
     canWidgetMoveRight(widget: DashboardWidgetComponent, performMove: boolean = false): boolean {
+        console.log("🚀 ~ file: dashboard.service.ts ~ line 738 ~ DashboardService ~ canWidgetMoveRight ~ widget", widget)
 
         // check if the widget is the dragging widget or the widget occupies the final column
         if (widget === this._actionWidget.widget || widget.getColumn() + widget.getColumnSpan() === this.options.columns) {
@@ -1331,6 +1338,10 @@ export class DashboardService implements OnDestroy {
     }
 
     private moveWidget(widget: DashboardWidgetComponent, offsetX: number, offsetY: number): void {
+
+        if (!widget.canMove) {
+            return
+        }
 
         const dimensions: DashboardWidgetDimensions = {
             x: widget.x + offsetX,
