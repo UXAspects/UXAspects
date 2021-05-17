@@ -7,6 +7,10 @@ import { AppComponent } from './app.component';
 
 const routes: Routes = [
     {
+        path: 'alert',
+        loadChildren: () => import('./alert/alert.module').then(m => m.AlertTestPageModule)
+    },
+    {
         path: 'badge',
         loadChildren: () => import('./badge/badge.module').then(m => m.BadgeTestPageModule)
     },
