@@ -19,7 +19,7 @@ The [Developer Standard](https://github.com/UXAspects/UXAspects/blob/master/guid
 
 You will need the following software on your development environment:
 * [Git](https://git-scm.com/downloads) - see [Set up Git](https://help.github.com/en/github/getting-started-with-github/set-up-git) on GitHub help.
-* [Node.js](https://nodejs.org/en/) - v10 is currently required.
+* [Node.js](https://nodejs.org/en/) - v12 is currently required.
 * [Docker](https://www.docker.com/get-started) - used to run the e2e test suite.
     * If you encounter an error when pulling the selenium docker image, make sure that you have an account at https://hub.docker.com/ and you are signed in to the docker service on your environment.
 
@@ -166,17 +166,18 @@ This is a complete list of the build tasks available in this project. Not all of
 
 | Task | Description |
 |-|-|
-| `npm start` | Builds and serves the library and documentation using the webpack development server. |
-| `npm run start:https` | Builds and serves the library and documentation over HTTPS using the webpack development server. |
-| `npm run start:e2e` | Builds and serves the e2e test application. This does not run the tests. |
-| `npm run start:karma` | Builds and runs the Karma tests. Rebuilds and re-runs after changes are made to the tests. |
-| `npm run setversion` | Updates the version number in several places based on the `VERSION` environment variable. Mainly for use by the build server. |
-| `npm run compile` | Builds the library without packaging it. Mainly for use by the build server. |
-| `npm run build` | Builds and packages both the library and the documentation. |
 | `npm run build:library` | Builds and packages the library only. |
+| `npm run build` | Builds and packages both the library and the documentation. |
+| `npm run compile` | Builds the library without packaging it. Mainly for use by the build server. |
+| `npm run docker:ci` | Starts a Linux docker container and enters the shell. This is the same image used by the Jenkins build server. |
+| `npm run generate:iconset` | Regenerate the icon set from the source SVG files. |
 | `npm run lint` | Runs the lint task, which checks code for potential errors. |
 | `npm run package` | Creates the NPM package and a .tgz archive of the documentation in the `target` directory. Mainly for use by the build server. |
-| `npm run test` | Runs the Jasmine, Karma, and e2e tests. Does not build the library, so `npm run build:library` will be needed beforehand. |
+| `npm run setversion` | Updates the version number in several places based on the `VERSION` environment variable. Mainly for use by the build server. |
+| `npm run start:e2e` | Builds and serves the e2e test application. This does not run the tests. |
+| `npm run start:https` | Builds and serves the library and documentation over HTTPS using the webpack development server. |
+| `npm run start:karma` | Builds and runs the Karma tests. Rebuilds and re-runs after changes are made to the tests. |
 | `npm run test:e2e` | Runs the e2e tests. |
 | `npm run test:karma` | Runs the Karma tests. |
-| `npm run docker:ci` | Starts a Linux docker container and enters the shell. This is the same image used by the Jenkins build server. |
+| `npm run test` | Runs the Jasmine, Karma, and e2e tests. Does not build the library, so `npm run build:library` will be needed beforehand. |
+| `npm start` | Builds and serves the library and documentation using the webpack development server. |
