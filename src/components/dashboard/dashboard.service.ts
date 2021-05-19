@@ -669,8 +669,11 @@ export class DashboardService implements OnDestroy {
 
         const placeholder = this.placeholder$.getValue();
 
+        const placeholderOverWidget = this.getWidgetsAtPosition(placeholder.column, placeholder.row, true)
+        console.log("🚀 ~ file: dashboard.service.ts ~ line 673 ~ DashboardService ~ validatePlaceholderPosition ~ placeholderOverWidget", placeholderOverWidget)
+
         // check if the placeholder is over a widget
-        if (this.getWidgetsAtPosition(placeholder.column, placeholder.row, true).length > 0) {
+        if (placeholderOverWidget.length > 0 && placeholderOverWidget[0].canMove) {
 
             // move the placeholder the opposite direction
             switch (shiftDirection) {
@@ -843,7 +846,8 @@ export class DashboardService implements OnDestroy {
     setPlaceholderBounds(visible: boolean, x: number, y: number, width: number, height: number): void {
 
         const placeholder = this.placeholder$.getValue();
-        console.log("🚀 ~ file: dashboard.service.ts ~ line 847 ~ DashboardService ~ setPlaceholderBounds ~ placeholder", placeholder)
+
+        const widgetAtPlaceholder = this.getWidgetsAtPosition(placeholder.column, placeholder.row);
 
         placeholder.visible = visible;
 
@@ -851,6 +855,19 @@ export class DashboardService implements OnDestroy {
         placeholder.row = this.getPlaceholderRow(y, height);
         placeholder.columnSpan = this.getPlaceholderColumnSpan(width);
         placeholder.rowSpan = this.getPlaceholderRowSpan(height);
+
+        if (widgetAtPlaceholder.length > 0 && !widgetAtPlaceholder[0].canMove) {
+            // placeholder.column = 0;
+            // placeholder.row = 0;
+            // placeholder.columnSpan = 0;
+            // placeholder.rowSpan = 0;
+            placeholder.visible = false;
+            return;
+        }
+        
+        console.log('coming through');
+        // check position of placegolder, getWidgetsAtPosition if widget has canMove return out
+
 
         // calculate the maximum number of rows
         const rowCount = this.widgets.filter(widget => widget !== this._actionWidget.widget)
