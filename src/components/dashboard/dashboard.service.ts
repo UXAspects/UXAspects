@@ -1250,11 +1250,6 @@ export class DashboardService implements OnDestroy {
     /** Programmatically resize a widget in a given direction */
     onResize(widget: DashboardWidgetComponent, direction: ActionDirection): void {
 
-        // do not perform resizing if we are in stacked mode
-        if (this.stacked) {
-            return;
-        }
-
         // perform the resizing
         let deltaX = 0, deltaY = 0;
 

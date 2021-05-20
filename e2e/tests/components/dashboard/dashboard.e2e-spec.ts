@@ -394,7 +394,7 @@ describe('Dashboard Tests', () => {
         expect(await imageCompareFullPageScreen('dashboard-stacked-mode-widget-order')).toEqual(0);
     });
 
-    it('should allow widgets to be resized horizontally with keyboard', async () => {
+    it('should allow widgets to be resized horizontally with keyboard with resizable explicitly set to true', async () => {
         expect(await page.getWidgetLocationValue(widget1, 'width')).toBe(1108);
         await page.resizeWidget(0, Key.ARROW_LEFT);
         expect(await page.getWidgetLocationValue(widget1, 'width')).toBe(831, 'should be 3 columns wide');
@@ -424,6 +424,12 @@ describe('Dashboard Tests', () => {
         await browser.actions().sendKeys(Key.TAB, Key.TAB, Key.SPACE).perform();
         await browser.actions().keyDown(Key.CONTROL).sendKeys(Key.ARROW_LEFT, Key.ARROW_LEFT, Key.ARROW_RIGHT, Key.ARROW_RIGHT).perform();
         expect(await page.getWidgetLocationValue(widget1, 'width')).toBe(1108, 'should be the same as the initial width');
+    });
+
+    it('should not allow widget to be resized when resizable is explicitly set to false', async () => {
+        expect(await page.getWidgetLocationValue(widget3, 'width')).toBe(277);
+        await page.resizeWidget(2, Key.ARROW_RIGHT);
+        expect(await page.getWidgetLocationValue(widget3, 'width')).toBe(277);
     });
 
     it('should have auto z-index applied to the widget in their initial state', async () => {
@@ -527,6 +533,24 @@ describe('Dashboard Tests', () => {
             expect(await page.getWidgetLocationValue(widget1, 'height')).toBe(440);
             await page.resizeWidget(0, Key.UP);
             expect(await page.getWidgetLocationValue(widget1, 'height')).toBe(440, 'should remain 2 rows high');
+        });
+
+        it('should not resize along the x axis while in stacked mode', async () => {
+            expect(await page.getWidgetLocationValue(widget1, 'width')).toBe(324);
+            await page.resizeWidget(1, Key.ARROW_RIGHT);
+            expect(await page.getWidgetLocationValue(widget1, 'width')).toBe(324);
+        });
+
+        it('should resize along the y axis while in stacked mode with resize is explicitly set to true', async () => {
+            expect(await page.getWidgetLocationValue(widget1, 'height')).toBe(440);
+            await page.resizeWidget(0, Key.ARROW_DOWN);
+            expect(await page.getWidgetLocationValue(widget1, 'height')).toBe(660);
+        });
+
+        it('should not resize along the y axis while in stacked mode with resize is explicitly set to false', async () => {
+            expect(await page.getWidgetLocationValue(widget3, 'height')).toBe(220);
+            await page.resizeWidget(2, Key.ARROW_DOWN);
+            expect(await page.getWidgetLocationValue(widget3, 'height')).toBe(220);
         });
 
     });

@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { DashboardOptions, DashboardLayoutData } from '@ux-aspects/ux-aspects';
+import { DashboardLayoutData, DashboardOptions } from '@ux-aspects/ux-aspects';
 import { BehaviorSubject } from 'rxjs';
 
 @Component({
