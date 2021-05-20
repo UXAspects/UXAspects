@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 @Component({
     selector: 'app',
     templateUrl: './app.component.html',
-    styleUrls: ['./app.component.css']
+    styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
 
@@ -11,28 +11,28 @@ export class AppComponent {
         {
             type: 'info',
             icon: 'status-information-filled',
-            description: 'This is an example of an info alert message',
+            description: 'This is an example of an info alert message <a class="alert-link">with a link</a>.',
         },
         {
             type: 'error',
             icon: 'status-error-filled',
-            description: 'This is an example of an error alert message',
+            description: 'This is an example of an error alert message <a class="alert-link">with a link</a>.',
         },
         {
             type: 'success',
             icon: 'status-approved-filled',
-            description: 'This is an example of a success alert message',
+            description: 'This is an example of a success alert message <a class="alert-link">with a link</a>.',
         },
         {
             type: 'warning',
             icon: 'status-warning-filled',
-            description: 'This is an example of a warning alert message',
+            description: 'This is an example of a warning alert message <a class="alert-link">with a link</a>.',
         },
         {
             type: 'dark',
             icon: 'status-information-filled',
-            description: 'This is an example of a dark alert message',
-        }
+            description: 'This is an example of a dark alert message <a class="alert-link">with a link</a>.',
+        },
     ];
 
     alerts: AlertExample[] = [...this._alerts];

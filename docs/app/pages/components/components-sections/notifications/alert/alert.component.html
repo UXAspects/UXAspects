@@ -1,6 +1,6 @@
 <ux-alert *ngFor="let alert of alerts" [type]="alert.type" [dismissible]="true" (dismiss)="remove(alert)">
     <ux-icon uxAlertIcon [name]="alert.icon"></ux-icon>
-    {{ alert.description }}
+    <span [innerHTML]="alert.description"></span>
 </ux-alert>
 
 <button class="btn button-primary" (click)="reset()">Reset</button>
