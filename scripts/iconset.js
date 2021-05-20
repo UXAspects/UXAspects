@@ -75,7 +75,7 @@ async function generateIconComponentList() {
             createVariableDeclaration(
                 createIdentifier('commonIcons'),
                 undefined,
-                createArrayLiteral(icons, true), true
+                createArrayLiteral(icons, true)
             )],
         NodeFlags.Const
     ));

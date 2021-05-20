@@ -20,7 +20,7 @@
      (onDragEnd)="dragend()"
      [style.top.px]="padding"
      [style.right.px]="padding"
-     [hidden]="!resizable && !(dashboardService.stacked$ | async)">
+     [hidden]="!resizable || (dashboardService.stacked$ | async)">
 </div>
 
 <div uxDrag
@@ -41,7 +41,7 @@
      (onDragEnd)="dragend()"
      [style.bottom.px]="padding"
      [style.right.px]="padding"
-     [hidden]="!resizable && !(dashboardService.stacked$ | async)">
+     [hidden]="!resizable || (dashboardService.stacked$ | async)">
 </div>
 
 <div uxDrag
@@ -62,7 +62,7 @@
      (onDragEnd)="dragend()"
      [style.bottom.px]="padding"
      [style.left.px]="padding"
-     [hidden]="!resizable && !(dashboardService.stacked$ | async)">
+     [hidden]="!resizable || (dashboardService.stacked$ | async)">
 </div>
 
 <div uxDrag
@@ -83,5 +83,5 @@
      (onDragEnd)="dragend()"
      [style.top.px]="padding"
      [style.left.px]="padding"
-     [hidden]="!resizable && !(dashboardService.stacked$ | async)">
+     [hidden]="!resizable || (dashboardService.stacked$ | async)">
 </div>
