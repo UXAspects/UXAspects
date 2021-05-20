@@ -847,8 +847,6 @@ export class DashboardService implements OnDestroy {
 
         const placeholder = this.placeholder$.getValue();
 
-        const widgetAtPlaceholder = this.getWidgetsAtPosition(placeholder.column, placeholder.row);
-
         placeholder.visible = visible;
 
         placeholder.column = this.getPlaceholderColumn(x, width);
@@ -856,8 +854,9 @@ export class DashboardService implements OnDestroy {
         placeholder.columnSpan = this.getPlaceholderColumnSpan(width);
         placeholder.rowSpan = this.getPlaceholderRowSpan(height);
 
+        const widgetAtPlaceholder = this.getWidgetsAtPosition(placeholder.column, placeholder.row);
+
         if (widgetAtPlaceholder.length > 0 && !widgetAtPlaceholder[0].canMove) {
-  
             placeholder.visible = false;
             return;
         }
