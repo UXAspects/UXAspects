@@ -856,7 +856,8 @@ export class DashboardService implements OnDestroy {
         const widgetAtPlaceholder = this.getWidgetsAtPosition(placeholder.column, placeholder.row);
 
         if (widgetAtPlaceholder.length > 0 && !widgetAtPlaceholder[0].canMove) {
-            placeholder.visible = false;
+            // placeholder.visible = false;
+            // this.restoreWidgets(true);
             return;
         }
 
@@ -1368,6 +1369,14 @@ export class DashboardService implements OnDestroy {
 
         // update widget position
         widget.setBounds(dimensions.x, dimensions.y, dimensions.width, dimensions.height);
+
+        this.getRowFromPx
+
+        const widgetOverAnother = this.getWidgetsAtPosition(this.getColumnFromPx(dimensions.x), this.getRowFromPx(dimensions.y));
+
+        if (widgetOverAnother.length > 0 && !widgetOverAnother[0].canMove) {
+            return;
+        }
 
         // update placeholder position and value
         this.setPlaceholderBounds(true, dimensions.x, dimensions.y, dimensions.width, dimensions.height);
