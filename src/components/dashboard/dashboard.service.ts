@@ -670,7 +670,6 @@ export class DashboardService implements OnDestroy {
         const placeholder = this.placeholder$.getValue();
 
         const placeholderOverWidget = this.getWidgetsAtPosition(placeholder.column, placeholder.row, true)
-        console.log("🚀 ~ file: dashboard.service.ts ~ line 673 ~ DashboardService ~ validatePlaceholderPosition ~ placeholderOverWidget", placeholderOverWidget)
 
         // check if the placeholder is over a widget
         if (placeholderOverWidget.length > 0 && placeholderOverWidget[0].canMove) {
