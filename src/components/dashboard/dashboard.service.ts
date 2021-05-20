@@ -1372,11 +1372,14 @@ export class DashboardService implements OnDestroy {
 
         this.getRowFromPx
 
-        const widgetOverAnother = this.getWidgetsAtPosition(this.getColumnFromPx(dimensions.x), this.getRowFromPx(dimensions.y));
+        const widgetOverAnother = this.getWidgetsAtPosition(this.getPlaceholderColumn(dimensions.x, dimensions.width), this.getPlaceholderRow(dimensions.y, dimensions.height));
+        console.log("🚀 ~ file: dashboard.service.ts ~ line 1376 ~ DashboardService ~ moveWidget ~ widgetOverAnother", widgetOverAnother)
 
         if (widgetOverAnother.length > 0 && !widgetOverAnother[0].canMove) {
+            console.log('return')
             return;
         }
+        console.log('through')
 
         // update placeholder position and value
         this.setPlaceholderBounds(true, dimensions.x, dimensions.y, dimensions.width, dimensions.height);
