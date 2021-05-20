@@ -293,6 +293,8 @@ export class DashboardService implements OnDestroy {
 
     onResizeDrag(action: DashboardAction): void {
 
+        console.log('resize drag')
+
         const mousePosX = this._event.pageX - pageXOffset;
         const mousePosY = this._event.pageY - pageYOffset;
 
@@ -460,6 +462,16 @@ export class DashboardService implements OnDestroy {
 
         // update the widget actual values
         action.widget.setBounds(dimensions.x, dimensions.y, dimensions.width, dimensions.height);
+
+        const widgetOverAnother = this.getWidgetsAtPosition(this.getColumnFromPx(dimensions.x), this.getRowFromPx(dimensions.y));
+
+        console.log("🚀 ~ file: dashboard.service.ts ~ line 1376 ~ DashboardService ~ moveWidget ~ widgetOverAnother", widgetOverAnother)
+
+        if (widgetOverAnother.length > 0 && !widgetOverAnother[0].canMove) {
+            console.log('return')
+            return;
+        }
+        console.log('through')
 
         // update placeholder position and value
         this.setPlaceholderBounds(true, dimensions.x, dimensions.y, dimensions.width, dimensions.height);
@@ -853,17 +865,6 @@ export class DashboardService implements OnDestroy {
         placeholder.columnSpan = this.getPlaceholderColumnSpan(width);
         placeholder.rowSpan = this.getPlaceholderRowSpan(height);
 
-        const widgetAtPlaceholder = this.getWidgetsAtPosition(placeholder.column, placeholder.row);
-
-        if (widgetAtPlaceholder.length > 0 && !widgetAtPlaceholder[0].canMove) {
-            // placeholder.visible = false;
-            // this.restoreWidgets(true);
-            return;
-        }
-
-        // check position of placegolder, getWidgetsAtPosition if widget has canMove return out
-
-
         // calculate the maximum number of rows
         const rowCount = this.widgets.filter(widget => widget !== this._actionWidget.widget)
             .reduce((previous, widget) => Math.max(widget.getRow() + widget.getRowSpan(), previous), 0);
@@ -1245,10 +1246,6 @@ export class DashboardService implements OnDestroy {
     /** Programmatically resize a widget in a given direction */
     onResize(widget: DashboardWidgetComponent, direction: ActionDirection): void {
 
-        // do not perform resizing if we are in stacked mode
-        if (this.stacked) {
-            return;
-        }
 
         // perform the resizing
         let deltaX = 0, deltaY = 0;
@@ -1325,6 +1322,14 @@ export class DashboardService implements OnDestroy {
         // move the widget to the placeholder position
         widget.setBounds(dimensions.x, dimensions.y, dimensions.width, dimensions.height);
 
+        const widgetOverAnother = this.getWidgetsAtPosition(this.getColumnFromPx(dimensions.x), this.getRowFromPx(dimensions.y));
+        console.log("🚀 ~ file: dashboard.service.ts ~ line 1313 ~ DashboardService ~ onResize ~ widgetOverAnother", widgetOverAnother)
+
+        if (widgetOverAnother.length > 0 && !widgetOverAnother[0].canMove) {
+            console.log('something')
+            return;
+        }
+
         // update placeholder position and value
         this.setPlaceholderBounds(false, dimensions.x, dimensions.y, dimensions.width, dimensions.height);
 
@@ -1370,16 +1375,11 @@ export class DashboardService implements OnDestroy {
         // update widget position
         widget.setBounds(dimensions.x, dimensions.y, dimensions.width, dimensions.height);
 
-        this.getRowFromPx
-
         const widgetOverAnother = this.getWidgetsAtPosition(this.getPlaceholderColumn(dimensions.x, dimensions.width), this.getPlaceholderRow(dimensions.y, dimensions.height));
-        console.log("🚀 ~ file: dashboard.service.ts ~ line 1376 ~ DashboardService ~ moveWidget ~ widgetOverAnother", widgetOverAnother)
 
         if (widgetOverAnother.length > 0 && !widgetOverAnother[0].canMove) {
-            console.log('return')
             return;
         }
-        console.log('through')
 
         // update placeholder position and value
         this.setPlaceholderBounds(true, dimensions.x, dimensions.y, dimensions.width, dimensions.height);
