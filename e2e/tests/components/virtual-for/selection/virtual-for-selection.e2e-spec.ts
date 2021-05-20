@@ -12,12 +12,12 @@ describe('Virtual For with Selection', () => {
 
     describe('with mode = simple', () => {
         it('should allow persistent selection across virtual pages', async () => {
-            await page.getRow(0).click();
-            expect(await page.getSelectionText()).toBe('0', 'first selection');
+            await page.getRow(9).click();
+            expect(await page.getSelectionText()).toBe('9', 'first selection');
 
             await page.scrollToPosition(200000);
             await page.getRow(999).click();
-            expect(await page.getSelectionText()).toBe('0, 999', 'second selection');
+            expect(await page.getSelectionText()).toBe('9, 999', 'second selection');
             expect(await page.getSelectedRows().count()).toBe(1, 'second selection');
             expect(await imageCompare('virtual-for-selection-simple-1')).toBe(0);
 
@@ -33,12 +33,12 @@ describe('Virtual For with Selection', () => {
         });
 
         it('should allow persistent selection across virtual pages', async () => {
-            await page.getRow(0).click();
-            expect(await page.getSelectionText()).toBe('0', 'first selection');
+            await page.getRow(9).click();
+            expect(await page.getSelectionText()).toBe('9', 'first selection');
 
             await page.scrollToPosition(200000);
             await page.ctrlClick(page.getRow(999));
-            expect(await page.getSelectionText()).toBe('0, 999', 'second selection');
+            expect(await page.getSelectionText()).toBe('9, 999', 'second selection');
             expect(await page.getSelectedRows().count()).toBe(1, 'second selection');
             expect(await imageCompare('virtual-for-selection-row-1')).toBe(0);
 
