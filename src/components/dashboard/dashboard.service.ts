@@ -857,15 +857,11 @@ export class DashboardService implements OnDestroy {
         placeholder.rowSpan = this.getPlaceholderRowSpan(height);
 
         if (widgetAtPlaceholder.length > 0 && !widgetAtPlaceholder[0].canMove) {
-            // placeholder.column = 0;
-            // placeholder.row = 0;
-            // placeholder.columnSpan = 0;
-            // placeholder.rowSpan = 0;
+  
             placeholder.visible = false;
             return;
         }
-        
-        console.log('coming through');
+
         // check position of placegolder, getWidgetsAtPosition if widget has canMove return out
 
 
@@ -1249,6 +1245,11 @@ export class DashboardService implements OnDestroy {
 
     /** Programmatically resize a widget in a given direction */
     onResize(widget: DashboardWidgetComponent, direction: ActionDirection): void {
+
+        // do not perform resizing if we are in stacked mode
+        if (this.stacked) {
+            return;
+        }
 
         // perform the resizing
         let deltaX = 0, deltaY = 0;
