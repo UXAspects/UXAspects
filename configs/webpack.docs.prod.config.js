@@ -1,4 +1,4 @@
-const { DefinePlugin, HashedModuleIdsPlugin } = require('webpack');
+const { DefinePlugin } = require('webpack');
 const fs = require('fs');
 const gracefulFs = require('graceful-fs');
 const { join } = require('path');
@@ -6,12 +6,18 @@ const { cwd } = require('process');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const rxAlias = require('rxjs/_esm5/path-mapping');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const { AngularCompilerPlugin } = require('@ngtools/webpack');
-const { OptimizeCssWebpackPlugin } = require('@angular-devkit/build-angular/src/webpack/plugins/optimize-css-webpack-plugin');
+const { AngularWebpackPlugin  } = require('@ngtools/webpack');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const { IndexHtmlWebpackPlugin } = require('@angular-devkit/build-angular/src/webpack/plugins/index-html-webpack-plugin');
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const { BuildOptimizerWebpackPlugin } = require('@angular-devkit/build-optimizer');
+
+const CssLoader = {
+    loader: 'css-loader',
+    options: {
+        esModule: false
+    }
+};
 
 // Node has a limit to the number of files that can be open - prevent the error
 gracefulFs.gracefulify(fs);
@@ -88,7 +94,7 @@ module.exports = {
                 include: [
                     join(cwd(), 'docs', 'app')
                 ],
-                use: ['to-string-loader', 'css-loader', 'less-loader']
+                use: ['to-string-loader', CssLoader, 'less-loader']
             },
             {
                 test: /\.less$/,
@@ -97,11 +103,18 @@ module.exports = {
                     join(cwd(), 'src', 'components'),
                     join(cwd(), 'src', 'services')
                 ],
-                use: [MiniCssExtractPlugin.loader, 'css-loader', 'less-loader']
+                use: [MiniCssExtractPlugin.loader, CssLoader, 'less-loader']
             },
             {
                 test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico|otf|mp4|mp3)$/,
-                use: 'file-loader?name=assets/[name].[ext]'
+                use: [
+                    {
+                        loader: 'file-loader',
+                        options: {
+                            esModule: false
+                        }
+                    }
+                ]
             },
 
             /*
@@ -156,8 +169,8 @@ module.exports = {
     },
 
     optimization: {
-        noEmitOnErrors: true,
         runtimeChunk: 'single',
+        moduleIds: 'deterministic',
         splitChunks: {
             cacheGroups: {
                 default: {
@@ -172,15 +185,22 @@ module.exports = {
                     enforce: true,
                     priority: 5
                 },
-                vendors: false,
+                defaultVendors: false,
                 vendor: false
             }
         },
         minimizer: [
-            new HashedModuleIdsPlugin(),
-            new OptimizeCssWebpackPlugin({
-                sourceMap: false,
-                test: (file) => /\.(?:css|less)$/.test(file),
+            new CssMinimizerPlugin({
+                minimizerOptions: {
+                  preset: [
+                    'default',
+                    {
+                      svgo: false,
+                      calc: false,
+                      cssDeclarationSorter: false
+                    }
+                  ]
+                }
             }),
             new TerserPlugin({
                 sourceMap: false,
@@ -208,20 +228,21 @@ module.exports = {
                     },
                     mangle: true
                 }
-            }),
-            new OptimizeCSSAssetsPlugin({})
+            })
         ]
     },
 
     plugins: [
         new IndexHtmlWebpackPlugin({
-            input: './docs/index.html',
-            output: 'index.html',
+            indexPath: './docs/index.html',
+            outputPath: 'index.html',
             entrypoints: [
                 'polyfills',
                 'styles',
                 'main'
             ],
+            noModuleEntrypoints: [],
+            moduleEntrypoints: [],
             sri: false
         }),
 
@@ -259,12 +280,8 @@ module.exports = {
             ]
         }),
 
-        new AngularCompilerPlugin({
-            entryModule: join(cwd(), './docs/app/app.module#AppModule'),
-            tsConfigPath: join(cwd(), 'tsconfig-prod.json'),
-            sourceMap: false,
-            skipCodeGeneration: false,
-            nameLazyFiles: false
+        new AngularWebpackPlugin({
+            tsconfig: join(cwd(), 'tsconfig-prod.json')
         }),
 
         new BuildOptimizerWebpackPlugin(),

@@ -55,7 +55,7 @@ const ROUTES = [
         FormsModule,
         IconModule,
         InputDropdownModule,
-        NgxMaskModule,
+        NgxMaskModule.forRoot(),
         NumberPickerModule,
         RadioButtonModule,
         ReactiveFormsModule,

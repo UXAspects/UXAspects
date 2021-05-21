@@ -6,13 +6,14 @@ const { join } = require('path');
 const { cwd } = require('process');
 const rxAlias = require('rxjs/_esm5/path-mapping');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const { AngularCompilerPlugin } = require('@ngtools/webpack');
+const { AngularWebpackPlugin  } = require('@ngtools/webpack');
 const { IndexHtmlWebpackPlugin } = require('@angular-devkit/build-angular/src/webpack/plugins/index-html-webpack-plugin');
 
 const CssLoaderWithSourceMap = {
     loader: 'css-loader',
     options: {
         sourceMap: true,
+        esModule: false
     }
 };
 
@@ -51,6 +52,7 @@ module.exports = {
 
     output: {
         path: join(cwd(), 'dist', 'docs'),
+        publicPath: '/',
         filename: '[name].js',
         chunkFilename: 'modules/[id].chunk.js'
     },
@@ -94,7 +96,14 @@ module.exports = {
             },
             {
                 test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico|otf|mp4|mp3)$/,
-                use: 'file-loader?name=assets/[name].[ext]'
+                use: [
+                    {
+                        loader: 'file-loader',
+                        options: {
+                            esModule: false
+                        }
+                    }
+                ]
             },
 
             /*
@@ -149,7 +158,6 @@ module.exports = {
     },
 
     optimization: {
-        noEmitOnErrors: true,
         runtimeChunk: 'single',
         splitChunks: {
             cacheGroups: {
@@ -165,7 +173,7 @@ module.exports = {
                     enforce: true,
                     priority: 5
                 },
-                vendors: false,
+                defaultVendors: false,
                 vendor: {
                     name: 'vendor',
                     chunks: 'initial',
@@ -177,13 +185,15 @@ module.exports = {
 
     plugins: [
         new IndexHtmlWebpackPlugin({
-            input: './docs/index.html',
-            output: 'index.html',
+            indexPath: './docs/index.html',
+            outputPath: 'index.html',
             entrypoints: [
                 'polyfills',
                 'styles',
                 'main'
             ],
+            noModuleEntrypoints: [],
+            moduleEntrypoints: [],
             sri: false
         }),
 
@@ -208,12 +218,8 @@ module.exports = {
             ]
         }),
 
-        new AngularCompilerPlugin({
-            entryModule: join(cwd(), './docs/app/app.module#AppModule'),
-            tsConfigPath: join(cwd(), 'tsconfig.json'),
-            sourceMap: false,
-            skipCodeGeneration: false,
-            nameLazyFiles: true
+        new AngularWebpackPlugin({
+            tsconfig: join(cwd(), 'tsconfig-prod.json')
         }),
 
         new DefinePlugin({

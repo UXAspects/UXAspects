@@ -12,7 +12,7 @@
       "ngx-mask",
       "angular-tree-component",
       "bootstrap",
-      "resize-observer-polyfill"
+      "@juggle/resize-observer"
     ],
     "lib": {
       "entryFile": "./index.ts"

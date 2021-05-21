@@ -52,21 +52,21 @@
   },
   "homepage": "https://uxaspects.github.io/UXAspects",
   "dependencies": {
+    "@juggle/resize-observer": "^3.3.1",
     "@types/chart.js": "^2.9.3",
     "@types/d3": "^5.7.2",
     "angular-split": "^4.0.0",
     "bootstrap": "^3.3.7",
     "chart.js": "^2.9.3",
-    "d3": "^5.9.2",
-    "resize-observer-polyfill": "^1.5.0"
+    "d3": "^5.9.2"
   },
   "peerDependencies": {
-    "@angular/animations": ">=9.0.0 <12.0.0",
-    "@angular/cdk": ">=9.0.0 <12.0.0",
-    "@angular/common": ">=9.0.0 <12.0.0",
-    "@angular/compiler": ">=9.0.0 <12.0.0",
-    "@angular/core": ">=9.0.0 <12.0.0",
-    "@angular/forms": ">=9.0.0 <12.0.0",
+    "@angular/animations": ">=10.0.0 <13.0.0",
+    "@angular/cdk": ">=10.0.0 <13.0.0",
+    "@angular/common": ">=10.0.0 <13.0.0",
+    "@angular/compiler": ">=10.0.0 <13.0.0",
+    "@angular/core": ">=10.0.0 <13.0.0",
+    "@angular/forms": ">=10.0.0 <13.0.0",
     "@circlon/angular-tree-component": ">=10.0.0",
     "ng2-charts": ">=2.3.0"
   }
