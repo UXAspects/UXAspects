@@ -4,22 +4,10 @@
     border: 1px solid @alert-info-border;
 }
 
-.alert-info {
-    .alert-link {
-        color: @alert-info-color;
-    }
-}
-
 .alert-error {
     color: @alert-error-color;
     background-color: @alert-error-bg;
     border: 1px solid @alert-error-border;
-}
-
-.alert-error {
-    .alert-link {
-        color: @alert-error-color;
-    }
 }
 
 .alert {
@@ -34,8 +22,16 @@
     }
 }
 
-.alert-link {
-    .font-semibold;
+.alert-link,
+ux-alert a {
+    color: inherit;
+    text-decoration: underline;
+    font-weight: normal;
+
+    &:hover {
+        color: inherit;
+        text-decoration: underline;
+    }
 
     &:focus {
         .native-focus-outline;

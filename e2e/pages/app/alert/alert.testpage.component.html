@@ -1,0 +1,4 @@
+<ux-alert *ngFor="let alert of alerts" [attr.id]="alert.id" [type]="alert.type" [dismissible]="alert.dismissible" (dismiss)="remove(alert)">
+    <ux-icon *ngIf="alert.icon" uxAlertIcon [name]="alert.icon"></ux-icon>
+    <span [innerHTML]="alert.description"></span>
+</ux-alert>
