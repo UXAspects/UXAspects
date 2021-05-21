@@ -1,0 +1,31 @@
+<table class="table ux-table-md" uxFixedHeaderTable>
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+        </tr>
+    </thead>
+
+    <tbody uxVirtualForContainer [(uxSelection)]="selection" [selectionItems]="items" [mode]="selectionMode">
+        <tr
+            *uxVirtualFor="let item of items; let index = index"
+            [uxSelectionItem]="item"
+            class="table-row"
+            [attr.id]="'row-' + item.id"
+            [attr.aria-posinset]="index"
+            [attr.aria-setsize]="items.length"
+        >
+            <td>{{ item.id }}</td>
+            <td>{{ item.name }}</td>
+        </tr>
+    </tbody>
+</table>
+
+<div uxRadioButtonGroup [(value)]="selectionMode" class="radio-button-container">
+    <ux-radio-button name="mode-radio-button" id="mode-simple" option="simple">simple</ux-radio-button>
+    <ux-radio-button name="mode-radio-button" id="mode-row" option="row">row</ux-radio-button>
+</div>
+
+<p>
+    selection: <span id="selection-text">{{ selection | formatTestItem }}</span>
+</p>
