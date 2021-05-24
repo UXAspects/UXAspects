@@ -52,7 +52,7 @@ module.exports = {
 
     output: {
         path: join(cwd(), 'dist', 'docs'),
-        publicPath: '/',
+        publicPath: './',
         filename: '[name].js',
         chunkFilename: 'modules/[id].chunk.js'
     },
