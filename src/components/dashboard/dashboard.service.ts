@@ -293,8 +293,6 @@ export class DashboardService implements OnDestroy {
 
     onResizeDrag(action: DashboardAction): void {
 
-        console.log('resize drag')
-
         const mousePosX = this._event.pageX - pageXOffset;
         const mousePosY = this._event.pageY - pageYOffset;
 
@@ -328,14 +326,24 @@ export class DashboardService implements OnDestroy {
             height: action.widget.height
         };
 
+        const widgetsOverAnotherRow = this.getSurroundingWidgets(action.widget, action.direction).filter(widget => widget.canMove === false);
+        const initialWidgetHeight = action.widget.rowSpan * action.widget.dashboardService._rowHeight;
+        const initialWidgetWidget = action.widget.colSpan * action.widget.dashboardService.columnWidth;
+
         // update widget based on the handle being dragged
         switch (action.direction) {
 
             case ActionDirection.Right:
+                if (widgetsOverAnotherRow.length > 0 && centerX < mousePosX && dimensions.width > initialWidgetWidget) {
+                    break;
+                }
                 dimensions.width += mouseX;
                 break;
 
             case ActionDirection.Left:
+                if (widgetsOverAnotherRow.length > 0 && centerX > mousePosX && dimensions.width > initialWidgetWidget) {
+                    break;
+                }
                 dimensions.x += mouseX;
                 dimensions.width -= mouseX;
 
@@ -348,10 +356,18 @@ export class DashboardService implements OnDestroy {
                 break;
 
             case ActionDirection.Bottom:
+                if (widgetsOverAnotherRow.length > 0 && centerY < mousePosY && dimensions.height > initialWidgetHeight) {
+                    break;
+                }
+
                 dimensions.height += mouseY;
                 break;
 
             case ActionDirection.Top:
+                if (widgetsOverAnotherRow.length > 0 && centerY > mousePosY && dimensions.height > initialWidgetHeight) {
+                    break;
+                }
+
                 dimensions.y += mouseY;
                 dimensions.height -= mouseY;
 
@@ -364,6 +380,12 @@ export class DashboardService implements OnDestroy {
 
             // Support resizing on multiple axis simultaneously
             case ActionDirection.TopLeft:
+                if (widgetsOverAnotherRow.length > 0 && centerY > mousePosY && dimensions.height > initialWidgetHeight) {
+                    break;
+                }
+                if (widgetsOverAnotherRow.length > 0 && centerX > mousePosX && dimensions.width > initialWidgetWidget) {
+                    break;
+                }
 
                 dimensions.x += mouseX;
                 dimensions.width -= mouseX;
@@ -385,6 +407,13 @@ export class DashboardService implements OnDestroy {
                 break;
 
             case ActionDirection.TopRight:
+                if (widgetsOverAnotherRow.length > 0 && centerY > mousePosY && dimensions.height > initialWidgetHeight) {
+                    break;
+                }
+                if (widgetsOverAnotherRow.length > 0 && centerX < mousePosX && dimensions.width > initialWidgetWidget) {
+                    break;
+                }
+
                 dimensions.width += mouseX;
                 dimensions.y += mouseY;
                 dimensions.height -= mouseY;
@@ -397,6 +426,13 @@ export class DashboardService implements OnDestroy {
                 break;
 
             case ActionDirection.BottomLeft:
+                if (widgetsOverAnotherRow.length > 0 && centerY < mousePosY && dimensions.height > initialWidgetHeight) {
+                    break;
+                }
+                if (widgetsOverAnotherRow.length > 0 && centerX > mousePosX && dimensions.width > initialWidgetWidget) {
+                    break;
+                }
+
                 dimensions.height += mouseY;
                 dimensions.x += mouseX;
                 dimensions.width -= mouseX;
@@ -409,6 +445,13 @@ export class DashboardService implements OnDestroy {
                 break;
 
             case ActionDirection.BottomRight:
+                if (widgetsOverAnotherRow.length > 0 && centerY < mousePosY && dimensions.height > initialWidgetHeight) {
+                    break;
+                }
+                if (widgetsOverAnotherRow.length > 0 && centerX < mousePosX && dimensions.width > initialWidgetWidget) {
+                    break;
+                }
+
                 dimensions.height += mouseY;
                 dimensions.width += mouseX;
                 break;
@@ -462,16 +505,6 @@ export class DashboardService implements OnDestroy {
 
         // update the widget actual values
         action.widget.setBounds(dimensions.x, dimensions.y, dimensions.width, dimensions.height);
-
-        const widgetOverAnother = this.getWidgetsAtPosition(this.getColumnFromPx(dimensions.x), this.getRowFromPx(dimensions.y));
-
-        console.log("🚀 ~ file: dashboard.service.ts ~ line 1376 ~ DashboardService ~ moveWidget ~ widgetOverAnother", widgetOverAnother)
-
-        if (widgetOverAnother.length > 0 && !widgetOverAnother[0].canMove) {
-            console.log('return')
-            return;
-        }
-        console.log('through')
 
         // update placeholder position and value
         this.setPlaceholderBounds(true, dimensions.x, dimensions.y, dimensions.width, dimensions.height);
@@ -852,6 +885,16 @@ export class DashboardService implements OnDestroy {
     }
 
     /**
+     * Determine if a widget is occupying a specific row
+     * @param row The row to check if occupied
+     * @param ignoreResizing Whether or not to ignore the widget currently being resized
+     */
+    getWidgetsOnRow(row: number) {
+        return this.getOccupiedSpaces()
+            .filter(space => space.row === row);
+    }
+
+    /**
      * Update the placeholder visibility, position and size
      */
     setPlaceholderBounds(visible: boolean, x: number, y: number, width: number, height: number): void {
@@ -1113,12 +1156,13 @@ export class DashboardService implements OnDestroy {
 
         // iterate each widget and
         this.widgets.forEach(widget => {
+
             const widgetIsOnTopRow = widget.getRow() === 0;
             const widgetIsBeingResized = this._actionWidget?.widget === widget;
             const widgetShouldBeAutoPositioned = widget.autoPositioning || this.stacked;
             const widgetIsBeingMoved = !widgetShouldBeAutoPositioned && this.isDragging$.value?.id === widget.id;
 
-            if (widgetIsOnTopRow || widgetIsBeingResized || widgetIsBeingMoved || (!widgetShouldBeAutoPositioned && !this._cache)) {
+            if (widgetIsOnTopRow || widgetIsBeingResized || widgetIsBeingMoved || !widget.canMove || (!widgetShouldBeAutoPositioned && !this._cache)) {
                 return;
             }
 
@@ -1246,7 +1290,6 @@ export class DashboardService implements OnDestroy {
     /** Programmatically resize a widget in a given direction */
     onResize(widget: DashboardWidgetComponent, direction: ActionDirection): void {
 
-
         // perform the resizing
         let deltaX = 0, deltaY = 0;
 
@@ -1322,14 +1365,6 @@ export class DashboardService implements OnDestroy {
         // move the widget to the placeholder position
         widget.setBounds(dimensions.x, dimensions.y, dimensions.width, dimensions.height);
 
-        const widgetOverAnother = this.getWidgetsAtPosition(this.getColumnFromPx(dimensions.x), this.getRowFromPx(dimensions.y));
-        console.log("🚀 ~ file: dashboard.service.ts ~ line 1313 ~ DashboardService ~ onResize ~ widgetOverAnother", widgetOverAnother)
-
-        if (widgetOverAnother.length > 0 && !widgetOverAnother[0].canMove) {
-            console.log('something')
-            return;
-        }
-
         // update placeholder position and value
         this.setPlaceholderBounds(false, dimensions.x, dimensions.y, dimensions.width, dimensions.height);
 
@@ -1344,6 +1379,14 @@ export class DashboardService implements OnDestroy {
 
             switch (direction) {
 
+                case ActionDirection.Left:
+                    widgets = [...widgets, ...this.getWidgetsAtPosition(column - 1, widget.getRow())];
+                    break;
+
+                case ActionDirection.Right:
+                    widgets = [...widgets, ...this.getWidgetsAtPosition(column + widget.getColumnSpan(), widget.getRow())];
+                    break;
+
                 case ActionDirection.Top:
                     widgets = [...widgets, ...this.getWidgetsAtPosition(column, widget.getRow() - 1)];
                     break;
@@ -1351,6 +1394,19 @@ export class DashboardService implements OnDestroy {
                 case ActionDirection.Bottom:
                     widgets = [...widgets, ...this.getWidgetsAtPosition(column, widget.getRow() + widget.getRowSpan())];
                     break;
+
+                case ActionDirection.TopRight:
+                    widgets = [...widgets, ...this.getWidgetsAtPosition(column, widget.getRow() - 1), ...this.getWidgetsAtPosition(column + widget.getColumnSpan(), widget.getRow())];
+
+                case ActionDirection.TopLeft:
+                    widgets = [...widgets, ...this.getWidgetsAtPosition(column, widget.getRow() - 1), ...this.getWidgetsAtPosition(column - 1, widget.getRow())];
+
+                case ActionDirection.BottomRight:
+                    widgets = [...widgets, ...this.getWidgetsAtPosition(column, widget.getRow() + widget.getRowSpan()), ...this.getWidgetsAtPosition(column + widget.getColumnSpan(), widget.getRow())];
+
+                case ActionDirection.BottomLeft:
+                    widgets = [...widgets, ...this.getWidgetsAtPosition(column, widget.getRow() + widget.getRowSpan()), ...this.getWidgetsAtPosition(column - 1, widget.getRow())];
+
             }
         }
 
