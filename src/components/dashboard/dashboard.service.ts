@@ -380,10 +380,7 @@ export class DashboardService implements OnDestroy {
 
             // Support resizing on multiple axis simultaneously
             case ActionDirection.TopLeft:
-                if (widgetsOverAnotherRow.length > 0 && centerY > mousePosY && dimensions.height > initialWidgetHeight) {
-                    break;
-                }
-                if (widgetsOverAnotherRow.length > 0 && centerX > mousePosX && dimensions.width > initialWidgetWidget) {
+                if (widgetsOverAnotherRow.length > 0 && ((centerY > mousePosY && dimensions.height > initialWidgetHeight) || (centerX > mousePosX && dimensions.width > initialWidgetWidget))) {
                     break;
                 }
 
@@ -445,10 +442,7 @@ export class DashboardService implements OnDestroy {
                 break;
 
             case ActionDirection.BottomRight:
-                if (widgetsOverAnotherRow.length > 0 && centerY < mousePosY && dimensions.height > initialWidgetHeight) {
-                    break;
-                }
-                if (widgetsOverAnotherRow.length > 0 && centerX < mousePosX && dimensions.width > initialWidgetWidget) {
+                if (widgetsOverAnotherRow.length > 0 && ((centerY < mousePosY && dimensions.height > initialWidgetHeight) || (centerX < mousePosX && dimensions.width > initialWidgetWidget))) {
                     break;
                 }
 
@@ -714,7 +708,7 @@ export class DashboardService implements OnDestroy {
 
         const placeholder = this.placeholder$.getValue();
 
-        const placeholderOverWidget = this.getWidgetsAtPosition(placeholder.column, placeholder.row, true)
+        const placeholderOverWidget = this.getWidgetsAtPosition(placeholder.column, placeholder.row, true);
 
         // check if the placeholder is over a widget
         if (placeholderOverWidget.length > 0 && placeholderOverWidget[0].canMove) {
@@ -1416,7 +1410,7 @@ export class DashboardService implements OnDestroy {
     private moveWidget(widget: DashboardWidgetComponent, offsetX: number, offsetY: number): void {
 
         if (!widget.canMove) {
-            return
+            return;
         }
 
         const dimensions: DashboardWidgetDimensions = {
