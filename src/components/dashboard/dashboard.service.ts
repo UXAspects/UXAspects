@@ -326,26 +326,27 @@ export class DashboardService implements OnDestroy {
             height: action.widget.height
         };
 
-        const widgetsOverAnotherRow = this.getSurroundingWidgets(action.widget, action.direction).filter(widget => widget.canMove === false);
-        const initialWidgetHeight = action.widget.rowSpan * action.widget.dashboardService._rowHeight;
-        const initialWidgetWidget = action.widget.colSpan * action.widget.dashboardService.columnWidth;
+        const surroundingWidgetCannotMove: DashboardWidgetComponent[]  = this.getSurroundingWidgets(action.widget, action.direction).filter(widget => widget.canMove === false);
+        const initialWidgetHeight: number = action.widget.rowSpan * action.widget.dashboardService._rowHeight;
+        const initialWidgetWidth: number = action.widget.colSpan * action.widget.dashboardService.columnWidth;
+        const cannotMoveWidgetBelow: boolean = surroundingWidgetCannotMove.filter(wgt => action.widget.row + action.widget.getRowSpan() === wgt.row).length === 0;
+        const cannotMoveWidgetAbove: boolean = surroundingWidgetCannotMove.filter(wgt => action.widget.row - 1 === wgt.row).length === 0;
+        const movementBuffer: number = 20;
 
         // update widget based on the handle being dragged
         switch (action.direction) {
 
             case ActionDirection.Right:
-                if (widgetsOverAnotherRow.length > 0 && centerX < mousePosX && dimensions.width > initialWidgetWidget) {
-                    break;
+                if (surroundingWidgetCannotMove.filter(wgt => wgt.row === action.widget.row).length === 0 || dimensions.width <= initialWidgetWidth + movementBuffer || centerX > mousePosX) {
+                    dimensions.width += mouseX;
                 }
-                dimensions.width += mouseX;
                 break;
 
             case ActionDirection.Left:
-                if (widgetsOverAnotherRow.length > 0 && centerX > mousePosX && dimensions.width > initialWidgetWidget) {
-                    break;
+                if (surroundingWidgetCannotMove.filter(wgt => wgt.row === action.widget.row).length === 0 || dimensions.width <= initialWidgetWidth + movementBuffer || centerX < mousePosX) {
+                    dimensions.x += mouseX;
+                    dimensions.width -= mouseX;
                 }
-                dimensions.x += mouseX;
-                dimensions.width -= mouseX;
 
                 if (dimensions.width < this.options.minWidth) {
                     const difference = this.options.minWidth - dimensions.width;
@@ -356,20 +357,16 @@ export class DashboardService implements OnDestroy {
                 break;
 
             case ActionDirection.Bottom:
-                if (widgetsOverAnotherRow.length > 0 && centerY < mousePosY && dimensions.height > initialWidgetHeight) {
-                    break;
+                if (cannotMoveWidgetBelow || dimensions.height <= initialWidgetHeight + movementBuffer || centerY > mousePosY) {
+                    dimensions.height += mouseY;
                 }
-
-                dimensions.height += mouseY;
                 break;
 
             case ActionDirection.Top:
-                if (widgetsOverAnotherRow.length > 0 && centerY > mousePosY && dimensions.height > initialWidgetHeight) {
-                    break;
+                if (cannotMoveWidgetAbove || dimensions.height <= initialWidgetHeight + movementBuffer || centerY < mousePosY) {
+                    dimensions.y += mouseY;
+                    dimensions.height -= mouseY;
                 }
-
-                dimensions.y += mouseY;
-                dimensions.height -= mouseY;
 
                 if (dimensions.height < this.options.minHeight) {
                     const difference = this.options.minHeight - dimensions.height;
@@ -380,12 +377,10 @@ export class DashboardService implements OnDestroy {
 
             // Support resizing on multiple axis simultaneously
             case ActionDirection.TopLeft:
-                if (widgetsOverAnotherRow.length > 0 && ((centerY > mousePosY && dimensions.height > initialWidgetHeight) || (centerX > mousePosX && dimensions.width > initialWidgetWidget))) {
-                    break;
+                if (surroundingWidgetCannotMove.filter(wgt => wgt.row === action.widget.row).length === 0 || dimensions.width <= initialWidgetWidth + movementBuffer || centerX < mousePosX) {
+                    dimensions.x += mouseX;
+                    dimensions.width -= mouseX;
                 }
-
-                dimensions.x += mouseX;
-                dimensions.width -= mouseX;
 
                 if (dimensions.width < this.options.minWidth) {
                     const difference = this.options.minWidth - dimensions.width;
@@ -393,8 +388,10 @@ export class DashboardService implements OnDestroy {
                     dimensions.width += difference;
                 }
 
-                dimensions.y += mouseY;
-                dimensions.height -= mouseY;
+                if (cannotMoveWidgetAbove || dimensions.height <= initialWidgetHeight + movementBuffer || centerY < mousePosY) {
+                    dimensions.y += mouseY;
+                    dimensions.height -= mouseY;
+                }
 
                 if (dimensions.height < this.options.minHeight) {
                     const difference = this.options.minHeight - dimensions.height;
@@ -404,16 +401,14 @@ export class DashboardService implements OnDestroy {
                 break;
 
             case ActionDirection.TopRight:
-                if (widgetsOverAnotherRow.length > 0 && centerY > mousePosY && dimensions.height > initialWidgetHeight) {
-                    break;
-                }
-                if (widgetsOverAnotherRow.length > 0 && centerX < mousePosX && dimensions.width > initialWidgetWidget) {
-                    break;
+                if (surroundingWidgetCannotMove.filter(wgt => wgt.row === action.widget.row).length === 0 || dimensions.width <= initialWidgetWidth + movementBuffer || centerX > mousePosX) {
+                    dimensions.width += mouseX;
                 }
 
-                dimensions.width += mouseX;
-                dimensions.y += mouseY;
-                dimensions.height -= mouseY;
+                if (cannotMoveWidgetAbove || dimensions.height <= initialWidgetHeight + movementBuffer || centerY < mousePosY) {
+                    dimensions.y += mouseY;
+                    dimensions.height -= mouseY;
+                }
 
                 if (dimensions.height < this.options.minHeight) {
                     const difference = this.options.minHeight - dimensions.height;
@@ -423,16 +418,13 @@ export class DashboardService implements OnDestroy {
                 break;
 
             case ActionDirection.BottomLeft:
-                if (widgetsOverAnotherRow.length > 0 && centerY < mousePosY && dimensions.height > initialWidgetHeight) {
-                    break;
+                if (surroundingWidgetCannotMove.filter(wgt => wgt.row === action.widget.row).length === 0 || dimensions.width <= initialWidgetWidth + movementBuffer || centerX < mousePosX) {
+                    dimensions.x += mouseX;
+                    dimensions.width -= mouseX;
                 }
-                if (widgetsOverAnotherRow.length > 0 && centerX > mousePosX && dimensions.width > initialWidgetWidget) {
-                    break;
+                if (cannotMoveWidgetBelow || dimensions.height <= initialWidgetHeight + movementBuffer || centerY > mousePosY) {
+                    dimensions.height += mouseY;
                 }
-
-                dimensions.height += mouseY;
-                dimensions.x += mouseX;
-                dimensions.width -= mouseX;
 
                 if (dimensions.width < this.options.minWidth) {
                     const difference = this.options.minWidth - dimensions.width;
@@ -442,12 +434,13 @@ export class DashboardService implements OnDestroy {
                 break;
 
             case ActionDirection.BottomRight:
-                if (widgetsOverAnotherRow.length > 0 && ((centerY < mousePosY && dimensions.height > initialWidgetHeight) || (centerX < mousePosX && dimensions.width > initialWidgetWidget))) {
-                    break;
+                if (surroundingWidgetCannotMove.filter(wgt => wgt.row === action.widget.row).length === 0 || dimensions.width <= initialWidgetWidth + movementBuffer || centerX > mousePosX) {
+                    dimensions.width += mouseX;
                 }
 
-                dimensions.height += mouseY;
-                dimensions.width += mouseX;
+                if (cannotMoveWidgetBelow || dimensions.height <= initialWidgetHeight + 20 || centerY > mousePosY) {
+                    dimensions.height += mouseY;
+                }
                 break;
         }
 
