@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { CheckboxModule, DashboardModule, IconModule, AccessibilityModule } from '@ux-aspects/ux-aspects';
+import { AccessibilityModule, CheckboxModule, DashboardModule, IconModule } from '@ux-aspects/ux-aspects';
+import { CanMoveLayoutTestPageComponent } from './can-move-layout/can-move-layout.testpage.component';
 import { DashboardTestPageComponent } from './dashboard.testpage.component';
 import { DashboardLayoutTestPageComponent } from './layout/dashboard-layout.testpage.component';
 
@@ -20,12 +21,17 @@ import { DashboardLayoutTestPageComponent } from './layout/dashboard-layout.test
             {
                 path: 'layout',
                 component: DashboardLayoutTestPageComponent
+            },
+            {
+                path: 'canmove',
+                component: CanMoveLayoutTestPageComponent
             }
         ])
     ],
     declarations: [
         DashboardTestPageComponent,
-        DashboardLayoutTestPageComponent
+        DashboardLayoutTestPageComponent,
+        CanMoveLayoutTestPageComponent
     ]
 })
 export class DashboardTestPageModule { }
