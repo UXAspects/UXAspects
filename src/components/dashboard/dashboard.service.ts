@@ -1221,7 +1221,7 @@ export class DashboardService implements OnDestroy {
     /** Programmatically move a widget in a given direction */
     onShift(widget: DashboardWidgetComponent, direction: ActionDirection): void {
 
-        const surroundingWidgetCannotMove: DashboardWidgetComponent[]  = this.getSurroundingWidgets(widget, direction).filter(widget => widget.canMove === false);
+        const surroundingWidgetCannotMove: DashboardWidgetComponent[]  = this.getSurroundingWidgets(widget, direction).filter(wgt => wgt.canMove === false);
         const cannotMoveWidgetBelow: boolean = surroundingWidgetCannotMove.filter(wgt => widget.row + widget.getRowSpan() === wgt.row).length === 0;
         const cannotMoveWidgetAbove: boolean = surroundingWidgetCannotMove.filter(wgt => widget.row - 1 === wgt.row).length === 0;
         const cannotMoveWidgetBeside: boolean = surroundingWidgetCannotMove.filter(wgt => wgt.row === widget.row).length === 0;
@@ -1290,7 +1290,7 @@ export class DashboardService implements OnDestroy {
     /** Programmatically resize a widget in a given direction */
     onResize(widget: DashboardWidgetComponent, direction: ActionDirection): void {
 
-        const surroundingWidgetCannotMove: DashboardWidgetComponent[]  = this.getSurroundingWidgets(widget, direction).filter(widget => widget.canMove === false);
+        const surroundingWidgetCannotMove: DashboardWidgetComponent[]  = this.getSurroundingWidgets(widget, direction).filter(wgt => wgt.canMove === false);
         const cannotMoveWidgetBelow: boolean = surroundingWidgetCannotMove.filter(wgt => widget.row + widget.getRowSpan() === wgt.row).length === 0;
         const cannotMoveWidgetAbove: boolean = surroundingWidgetCannotMove.filter(wgt => widget.row - 1 === wgt.row).length === 0;
         const cannotMoveWidgetBeside: boolean = surroundingWidgetCannotMove.filter(wgt => wgt.row === widget.row).length === 0;
