@@ -26,6 +26,11 @@ describe('Dashboard Can Move Layout', () => {
         widget5 = await page.getWidget(4);
     });
 
+    // restore the window to its original size after all these tests have run
+    afterAll(async () => {
+        await browser.driver.manage().window().setSize(800, 600);
+    });
+
     it('should not allow widget 3 to move if it has canMove set to false', async () => {
         expect(await page.getWidgetLocationValue(widget3, 'top')).toBe(440);
 
