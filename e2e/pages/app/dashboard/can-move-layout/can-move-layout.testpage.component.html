@@ -11,9 +11,7 @@
                              name="Usage Analytics"
                              [colSpan]="4"
                              [rowSpan]="2"
-                             [resizable]="true"
-                             minColSpan="2"
-                             minRowSpan="2">
+                             [resizable]="true">
 
             <div class="widget-content"
                  [class.widget-grabbing]="usageHandle.isGrabbing"
@@ -35,8 +33,7 @@
             id="subscription-widget"
             name="Service"
             [colSpan]="2"
-            [resizable]="true"
-            minColSpan="2">
+            [resizable]="true">
             <div class="widget-content"
                  [class.widget-grabbing]="handle2.isGrabbing"
                  uxDashboardWidgetDragHandle>
@@ -59,14 +56,22 @@
             [resizable]="true"
             [canMove]="false">
 
-            <div class="widget-content">
+            <div class="widget-content"
+                 [class.widget-grabbing]="handle3.isGrabbing">
 
                 <h3 class="widget-title">Widget 3</h3>
+
+                <button class="widget-grab-handle"
+                        uxDashboardGrabHandle
+                        #handle3="ux-dashboard-grab-handle">
+                    <ux-icon name="pan"></ux-icon>
+                </button>
             </div>
+
 
         </ux-dashboard-widget>
 
-        <ux-dashboard-widget id="alert-widget" name="Alert" autoPositioning="false" [col]="undefined" [row]="undefined">
+        <ux-dashboard-widget id="alert-widget" name="Alert" [col]="undefined" [row]="undefined">
 
             <div class="widget-content"
                  [class.widget-grabbing]="handle4.isGrabbing"
