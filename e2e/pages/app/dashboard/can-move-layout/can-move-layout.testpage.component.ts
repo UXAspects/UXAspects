@@ -19,14 +19,5 @@ export class CanMoveLayoutTestPageComponent {
         minWidth: 187
     };
 
-    adjustedOptions: DashboardOptions = {
-        columns: 5,
-        padding: 20,
-        rowHeight: 250,
-        emptyRow: false,
-        minWidth: 187
-    };
-
     layout: ReadonlyArray<DashboardLayoutData>;
-
 }

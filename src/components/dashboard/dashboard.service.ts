@@ -820,10 +820,7 @@ export class DashboardService implements OnDestroy {
 
         for (let y = row; y < row + widget.getRowSpan(); y++) {
             for (let x = column; x < column + widget.getColumnSpan(); x++) {
-
-                // if (widget.canMove) {
-                    spaces.push({ column: x, row: y, widget: widget });
-                // }
+                spaces.push({ column: x, row: y, widget: widget });
             }
         }
 
@@ -1143,7 +1140,6 @@ export class DashboardService implements OnDestroy {
 
         // iterate each widget and
         this.widgets.forEach(widget => {
-
             const widgetIsOnTopRow = widget.getRow() === 0;
             const widgetIsBeingResized = this._actionWidget?.widget === widget;
             const widgetShouldBeAutoPositioned = widget.autoPositioning || this.stacked;
@@ -1194,9 +1190,7 @@ export class DashboardService implements OnDestroy {
     forEachBlock(widget: DashboardWidgetComponent, callback: (column: number, row: number) => void): void {
         for (let row = widget.getRow(); row < widget.getRow() + widget.getRowSpan(); row++) {
             for (let column = widget.getColumn(); column < widget.getColumn() + widget.getColumnSpan(); column++) {
-                // if (widget.canMove) {
-                    callback.call(widget, column, row);
-                // }
+                callback.call(widget, column, row);
             }
         }
     }
@@ -1316,7 +1310,7 @@ export class DashboardService implements OnDestroy {
                 }
                 break;
             case ActionDirection.Left:
-                    deltaX = -this.getColumnWidth();
+                deltaX = -this.getColumnWidth();
                 break;
         }
 
