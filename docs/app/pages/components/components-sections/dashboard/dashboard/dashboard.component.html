@@ -34,7 +34,7 @@
         </div>
     </ux-dashboard-widget>
 
-    <ux-dashboard-widget id="services-widget" name="Services" [canMove]="false" [colSpan]="2">
+    <ux-dashboard-widget id="services-widget" name="Services" [colSpan]="2">
         <div class="widget-content"
             [class.widget-grabbing]="servicesHandle.isGrabbing">
 
@@ -215,6 +215,7 @@
     <tr uxd-api-property name="minRowSpan" type="number" defaultValue="1">Defines the minimum number of rows this widget should occupy.</tr>
     <tr uxd-api-property name="resizable" type="boolean">Defines whether or not this widget can be resized.</tr>
     <tr uxd-api-property name="autoPositioning" type="boolean" defaultValue="true">Defines whether or not this widget will be automatically repositioned to fill any vacant space above it.</tr>
+    <tr uxd-api-property name="canMove" type="boolean" defaultValue="true">Defines whether or not this widget can be moved from its location. When set to <code>false</code> this widget will be unaffected by movement and resizing of other widgets.</tr>
 </uxd-api-properties>
 
 <uxd-api-properties tableTitle="Methods">
