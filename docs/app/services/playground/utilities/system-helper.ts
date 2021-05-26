@@ -50,7 +50,7 @@ export class SystemJSHelper {
         { name: 'ng2-file-upload', path: 'ng2-file-upload/bundles/ng2-file-upload.umd.js' },
         { name: 'angular-split', path: 'angular-split@3.0.2/bundles/angular-split.umd.js' },
         { name: 'ngx-mask', path: 'ngx-mask/bundles/ngx-mask.umd.js' },
-        { name: 'resize-observer-polyfill', path: 'resize-observer-polyfill@1.5.0/dist/ResizeObserver.js' },
+        { name: '@juggle/resize-observer', path: '@juggle/resize-observer@3.3.1/lib/exports/resize-observer.umd.js' },
         // d3
         { name: 'd3', path: `d3@${D3_VERSION}` },
         { name: 'd3-array', path: `d3@${D3_VERSION}` },

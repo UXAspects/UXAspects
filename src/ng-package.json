@@ -2,7 +2,7 @@
     "$schema": "../node_modules/ng-packagr/ng-package.schema.json",
     "dest": "../dist/library",
     "deleteDestPath": true,
-    "whitelistedNonPeerDependencies": [
+    "allowedNonPeerDependencies": [
       "@angular/cdk",
       "angular-split",
       "chart.js",

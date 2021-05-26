@@ -204,6 +204,10 @@ module.exports = {
                     to: join(cwd(), 'dist', 'docs', 'favicon.ico')
                 },
                 {
+                    from: join(cwd(), 'dist', 'library', 'fesm2015', 'ux-aspects-ux-aspects.js'),
+                    to: join(cwd(), 'dist', 'docs', 'assets', 'lib', 'index.js'),
+                },
+                {
                     from: join(cwd(), 'docs', 'app', 'assets'),
                     to: join(cwd(), 'dist', 'docs', 'assets')
                 },
@@ -219,7 +223,7 @@ module.exports = {
         }),
 
         new AngularWebpackPlugin({
-            tsconfig: join(cwd(), 'tsconfig-prod.json')
+            tsconfig: join(cwd(), 'tsconfig.json')
         }),
 
         new DefinePlugin({
