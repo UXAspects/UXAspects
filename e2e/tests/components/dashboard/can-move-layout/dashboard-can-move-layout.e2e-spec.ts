@@ -1,5 +1,4 @@
 import { browser, ElementFinder, Key } from 'protractor';
-import { imageCompareFullPageScreen } from '../../common/image-compare';
 import { Direction } from '../dashboard.po.spec';
 import { DashboardCanMoveLayoutPage } from './dashboard-can-move-layout.po.spec';
 
@@ -124,7 +123,5 @@ describe('Dashboard Can Move Layout', () => {
         expect(await page.getWidgetLocationValue(widget2, 'left')).toBe(0);
         expect(await page.getWidgetLocationValue(widget4, 'top')).toBe(220);
         expect(await page.getWidgetLocationValue(widget4, 'left')).toBe(831);
-
-        expect(await imageCompareFullPageScreen('dashboard-can-move-widget-resized')).toEqual(0);
     });
 });
