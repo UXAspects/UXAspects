@@ -1,50 +1,30 @@
-<button #button
-        uxFocusIndicator
-        uxFocusIndicatorOrigin
-        tabindex="0"
-        class="icon-demo btn btn-link button-secondary uxd-icon-button"
-        [uxPopover]="iconCodeSnippet"
-        popoverClass="icon-code-snippet-popover"
-        placement="bottom"
-        alignment="start"
-        [hideTriggers]="['click', 'clickoutside']">
+<button
+    #button
+    uxFocusIndicator
+    uxFocusIndicatorOrigin
+    tabindex="0"
+    class="icon-demo btn btn-link button-secondary uxd-icon-button"
+    [uxPopover]="iconCodeSnippet"
+    popoverClass="icon-code-snippet-popover"
+    placement="bottom"
+    alignment="start"
+    [hideTriggers]="['click', 'clickoutside']"
+>
+    <ux-icon class="p-r-xs" [size]="size" [name]="name"> </ux-icon>
 
-    <ux-icon
-        *ngIf="iconset === 'ux-icons'"
-        class="p-r-xs"
-        [size]="size"
-        [name]="name">
-    </ux-icon>
-
-    <i
-        *ngIf="iconset === 'hpe-icons'"
-        class="hpe-icon p-r-xs"
-        [ngClass]="classname">
-    </i>
-
-    <span>{{ iconset === 'ux-icons' ? name : classname }}</span>
+    <span>{{ name }}</span>
 </button>
 
 <ng-template #iconCodeSnippet>
+    <p>
+        To use <code>ux-icon</code>, ensure that <code>IconModule</code> has been imported, and bind the icon name to
+        <code>name</code>:
+    </p>
 
-    <ng-container *ngIf="iconSetClass  === 'ux-icon'">
+    <uxd-icon-snippet [focusOnShow]="true" [code]="uxComponentSnippet" (copied)="closePopover()"> </uxd-icon-snippet>
 
-        <p>To use <code>ux-icon</code>, ensure that <code>IconModule</code> has been imported, and bind the
-            icon name to <code>name</code>:</p>
+    <p>If Angular is not available, the classes can be used directly:</p>
 
-        <uxd-icon-snippet [focusOnShow]="true"
-                          [code]="uxComponentSnippet"
-                          (copied)="closePopover()">
-        </uxd-icon-snippet>
-
-        <p>If Angular is not available, the classes can be used directly:</p>
-    </ng-container>
-
-    <uxd-icon-snippet [code]="iconSnippet"
-                      [focusOnShow]="iconSetClass === 'hpe-icon'"
-                      (copied)="closePopover()">
+    <uxd-icon-snippet [code]="iconSnippet" (copied)="closePopover()">
     </uxd-icon-snippet>
-
-
-
 </ng-template>

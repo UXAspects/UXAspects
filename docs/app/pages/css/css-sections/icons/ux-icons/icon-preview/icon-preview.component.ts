@@ -10,8 +10,6 @@ import { PopoverDirective } from '@ux-aspects/ux-aspects';
 export class IconPreviewComponent implements OnInit {
     @Input() name: string;
     @Input() classname: string;
-    @Input() iconset: string;
-    @Input() iconSetClass: string;
     @Input() size: string;
 
     uxComponentSnippet: string;
@@ -24,7 +22,7 @@ export class IconPreviewComponent implements OnInit {
     ngOnInit(): void {
         this.uxComponentSnippet = `<ux-icon name="${this.name}"></ux-icon>`;
 
-        this.iconSnippet = `<i class="${this.iconSetClass} ${this.classname}"></i>`;
+        this.iconSnippet = `<i class="ux-icon ${this.classname}"></i>`;
     }
 
     @HostListener('document:keydown.escape')

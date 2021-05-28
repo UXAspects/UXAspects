@@ -32,7 +32,7 @@
                           (click)="item.expanded = !item.expanded; $event.stopPropagation(); $event.preventDefault()">
                     </span>
 
-                    <!-- Support HPE Icons, UX Icons and Icon Component -->
+                    <!-- Support UX Icons and Icon Component -->
                     <ng-container *ngIf="!navigationItemTemplate && item.icon && !tree">
 
                         <span *ngIf="_getIconType(item) !== 'component'"

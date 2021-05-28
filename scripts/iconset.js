@@ -9,7 +9,6 @@ const glob = require('glob');
 const { SyntaxKind, createVariableStatement, createModifier, createPrinter, updateSourceFileNode, createSourceFile, createVariableDeclarationList, createVariableDeclaration, createIdentifier, createArrayLiteral, createStringLiteral, NewLineKind, NodeFlags, ScriptTarget } = require('typescript');
 
 const iconsets = [
-    { name: 'hpe', prefix: 'hpe' },
     { name: 'ux', prefix: 'ux-icon' },
 ];
 
