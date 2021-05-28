@@ -247,6 +247,10 @@ export class DashboardService implements OnDestroy {
      * Check if a position in the dashboard is vacant or not
      */
     getPositionAvailable(column: number, row: number, columnSpan: number, rowSpan: number, ignoreWidget?: DashboardWidgetComponent): boolean {
+    console.log("🚀 ~ file: dashboard.service.ts ~ line 250 ~ DashboardService ~ getPositionAvailable ~ rowSpan", rowSpan)
+    console.log("🚀 ~ file: dashboard.service.ts ~ line 250 ~ DashboardService ~ getPositionAvailable ~ columnSpan", columnSpan)
+    console.log("🚀 ~ file: dashboard.service.ts ~ line 250 ~ DashboardService ~ getPositionAvailable ~ row", row)
+    console.log("🚀 ~ file: dashboard.service.ts ~ line 250 ~ DashboardService ~ getPositionAvailable ~ column", column)
 
         // get a list of grid spaces that are populated
         const spaces = this.getOccupiedSpaces();
@@ -858,9 +862,9 @@ export class DashboardService implements OnDestroy {
      * @param row The row to check if occupied
      * @param ignoreResizing Whether or not to ignore the widget currently being resized
      */
-    getWidgetsAtPosition(column: number, row: number, ignoreResizing: boolean = false): DashboardWidgetComponent[] {
+    getWidgetsAtPosition(column: number, row: number, ignoreResizing: boolean = false, colSpan: number = 0, rowSpan: number = 0): DashboardWidgetComponent[] {
         return this.getOccupiedSpaces()
-            .filter(space => space.column === column && space.row === row)
+            .filter(space => space.column + colSpan - 1 === column && space.row + rowSpan - 1 === row)
             .filter(space => this._actionWidget && space.widget !== this._actionWidget.widget || !ignoreResizing)
             .map(space => space.widget);
     }
@@ -1277,8 +1281,6 @@ export class DashboardService implements OnDestroy {
     onResize(widget: DashboardWidgetComponent, direction: ActionDirection): void {
 
         const surroundingWidgetPinned: DashboardWidgetComponent[]  = this.getSurroundingWidgets(widget, direction).filter(wgt => wgt.pinned === true);
-        // const cannotMoveWidgetBelow: boolean = surroundingWidgetCannotMove.filter(wgt => widget.row + widget.getRowSpan() === wgt.row).length === 0;
-        const pinnedWidgetAbove: boolean = surroundingWidgetPinned.filter(wgt => widget.row - 1 === wgt.row).length === 0;
         const pinnedWidgetBeside: boolean = surroundingWidgetPinned.filter(wgt => wgt.row === widget.row).length === 0;
 
 
@@ -1288,9 +1290,7 @@ export class DashboardService implements OnDestroy {
         // move based on the direction
         switch (direction) {
             case ActionDirection.Top:
-                // if (pinnedWidgetAbove) {
-                    deltaY = -this.getRowHeight();
-                // }
+                deltaY = -this.getRowHeight();
                 break;
             case ActionDirection.Right:
                 if (pinnedWidgetBeside) {
@@ -1298,9 +1298,7 @@ export class DashboardService implements OnDestroy {
                 }
                 break;
             case ActionDirection.Bottom:
-                // if (cannotMoveWidgetBelow) {
-                    deltaY = this.getRowHeight();
-                // }
+                deltaY = this.getRowHeight();
                 break;
             case ActionDirection.Left:
                 deltaX = -this.getColumnWidth();
