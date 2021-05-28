@@ -333,7 +333,6 @@ export class DashboardService implements OnDestroy {
         const surroundingWidgetPinned: DashboardWidgetComponent[]  = this.getSurroundingWidgets(action.widget, action.direction).filter(wgt => wgt.pinned === true);
         const initialWidgetHeight: number = action.widget.rowSpan * action.widget.dashboardService._rowHeight;
         const initialWidgetWidth: number = action.widget.colSpan * action.widget.dashboardService.columnWidth;
-        // const cannotMoveWidgetBelow: boolean = surroundingWidgetPinned.filter(wgt => action.widget.row + action.widget.getRowSpan() === wgt.row).length === 0;
         const pinnedWidgetAbove: boolean = surroundingWidgetPinned.filter(wgt => action.widget.row - 1 === wgt.row).length === 0;
         const movementBuffer: number = 20;
 
@@ -361,9 +360,7 @@ export class DashboardService implements OnDestroy {
                 break;
 
             case ActionDirection.Bottom:
-                // if (cannotMoveWidgetBelow || dimensions.height <= initialWidgetHeight + movementBuffer || centerY > mousePosY) {
                     dimensions.height += mouseY;
-                // }
                 break;
 
             case ActionDirection.Top:
@@ -426,9 +423,7 @@ export class DashboardService implements OnDestroy {
                     dimensions.x += mouseX;
                     dimensions.width -= mouseX;
                 }
-                // if (cannotMoveWidgetBelow || dimensions.height <= initialWidgetHeight + movementBuffer || centerY > mousePosY) {
                     dimensions.height += mouseY;
-                // }
 
                 if (dimensions.width < this.options.minWidth) {
                     const difference = this.options.minWidth - dimensions.width;
@@ -442,9 +437,7 @@ export class DashboardService implements OnDestroy {
                     dimensions.width += mouseX;
                 }
 
-                // if (cannotMoveWidgetBelow || dimensions.height <= initialWidgetHeight + 20 || centerY > mousePosY) {
-                    dimensions.height += mouseY;
-                // }
+                dimensions.height += mouseY;
                 break;
         }
 
@@ -633,7 +626,6 @@ export class DashboardService implements OnDestroy {
 
         // remove any duplicates
         widgetsToMove = widgetsToMove.filter((widget, idx, array) => array.indexOf(widget) === idx);
-        console.log("🚀 ~ file: dashboard.service.ts ~ line 637 ~ DashboardService ~ shiftWidgets ~ widgetsToMove", widgetsToMove)
 
         // if no widgets need moved then we can stop here
         if (widgetsToMove.length === 0) {
@@ -1451,6 +1443,7 @@ export class DashboardService implements OnDestroy {
         const widgetOverAnother = this.getWidgetsAtPosition(this.getPlaceholderColumn(dimensions.x, dimensions.width), this.getPlaceholderRow(dimensions.y, dimensions.height));
 
         if (widgetOverAnother.length > 0 && widgetOverAnother[0].pinned && widgetOverAnother[0].row === 0) {
+            this.shiftWidgets();
             return;
         }
 
