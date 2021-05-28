@@ -86,7 +86,7 @@ export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestro
     }
 
     get pinned(): boolean {
-        return this._pinned
+        return this._pinned;
     }
 
     @HostBinding('style.left.px') x: number = 0;

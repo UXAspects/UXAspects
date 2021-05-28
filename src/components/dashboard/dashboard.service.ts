@@ -1207,9 +1207,8 @@ export class DashboardService implements OnDestroy {
     /** Programmatically move a widget in a given direction */
     onShift(widget: DashboardWidgetComponent, direction: ActionDirection): void {
 
-        const widgetPinned: boolean = widget.pinned
+        const widgetPinned: boolean = widget.pinned;
         const surroundingWidgetPinned: DashboardWidgetComponent[]  = this.getSurroundingWidgets(widget, direction).filter(wgt => wgt.pinned === true);
-        // const cannotMoveWidgetBelow: boolean = surroundingWidgetCannotMove.filter(wgt => widget.row + widget.getRowSpan() === wgt.row).length === 0;
         const pinnedWidgetAbove: boolean = surroundingWidgetPinned.filter(wgt => widget.row - 1 === wgt.row).length === 0;
         const pinnedWidgetBeside: boolean = surroundingWidgetPinned.filter(wgt => wgt.row === widget.row).length === 0;
 
