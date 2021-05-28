@@ -128,7 +128,6 @@ export class DashboardService implements OnDestroy {
      * Position widgets programatically
      */
     setLayoutData(widgets: DashboardLayoutData[]): void {
-
         // iterate through each widget data and find a match
         widgets.forEach(widget => {
 
@@ -168,8 +167,13 @@ export class DashboardService implements OnDestroy {
      * Determine where widgets should be positioned based on their positions, width and the size of the container
      */
     setDashboardLayout(): void {
+
+        // find any widgets that have pinned set to true, if so position these first
+        this.widgets.filter(widget => (widget.getColumn() === undefined || widget.getRow() === undefined) && widget.pinned)
+            .forEach(widget => this.setWidgetPosition(widget));
+
         // find any widgets that do not currently have a position set
-        this.widgets.filter(widget => widget.getColumn() === undefined || widget.getRow() === undefined)
+        this.widgets.filter(widget => (widget.getColumn() === undefined || widget.getRow() === undefined) && !widget.pinned)
             .forEach(widget => this.setWidgetPosition(widget));
 
         this.setDashboardHeight();
@@ -233,6 +237,10 @@ export class DashboardService implements OnDestroy {
 
             if (column === 0 && widget.colSpan > this.options.columns) {
                 throw new Error('Dashboard widgets have a colSpan greater than the max number of dashboard columns!');
+            }
+
+            if (widget.pinned && widget.row > 0) {
+                throw new Error('Dashboard widgets have pinned set to true but there is no space on the top row!');
             }
 
             position++;
@@ -326,24 +334,24 @@ export class DashboardService implements OnDestroy {
             height: action.widget.height
         };
 
-        const surroundingWidgetCannotMove: DashboardWidgetComponent[]  = this.getSurroundingWidgets(action.widget, action.direction).filter(widget => widget.canMove === false);
+        const surroundingWidgetPinned: DashboardWidgetComponent[]  = this.getSurroundingWidgets(action.widget, action.direction).filter(wgt => wgt.pinned === true);
         const initialWidgetHeight: number = action.widget.rowSpan * action.widget.dashboardService._rowHeight;
         const initialWidgetWidth: number = action.widget.colSpan * action.widget.dashboardService.columnWidth;
-        const cannotMoveWidgetBelow: boolean = surroundingWidgetCannotMove.filter(wgt => action.widget.row + action.widget.getRowSpan() === wgt.row).length === 0;
-        const cannotMoveWidgetAbove: boolean = surroundingWidgetCannotMove.filter(wgt => action.widget.row - 1 === wgt.row).length === 0;
+        // const cannotMoveWidgetBelow: boolean = surroundingWidgetPinned.filter(wgt => action.widget.row + action.widget.getRowSpan() === wgt.row).length === 0;
+        const pinnedWidgetAbove: boolean = surroundingWidgetPinned.filter(wgt => action.widget.row - 1 === wgt.row).length === 0;
         const movementBuffer: number = 20;
 
         // update widget based on the handle being dragged
         switch (action.direction) {
 
             case ActionDirection.Right:
-                if (surroundingWidgetCannotMove.filter(wgt => wgt.row === action.widget.row).length === 0 || dimensions.width <= initialWidgetWidth + movementBuffer || centerX > mousePosX) {
+                if (surroundingWidgetPinned.filter(wgt => wgt.row === action.widget.row).length === 0 || dimensions.width <= initialWidgetWidth + movementBuffer || centerX > mousePosX) {
                     dimensions.width += mouseX;
                 }
                 break;
 
             case ActionDirection.Left:
-                if (surroundingWidgetCannotMove.filter(wgt => wgt.row === action.widget.row).length === 0 || dimensions.width <= initialWidgetWidth + movementBuffer || centerX < mousePosX) {
+                if (surroundingWidgetPinned.filter(wgt => wgt.row === action.widget.row).length === 0 || dimensions.width <= initialWidgetWidth + movementBuffer || centerX < mousePosX) {
                     dimensions.x += mouseX;
                     dimensions.width -= mouseX;
                 }
@@ -357,13 +365,13 @@ export class DashboardService implements OnDestroy {
                 break;
 
             case ActionDirection.Bottom:
-                if (cannotMoveWidgetBelow || dimensions.height <= initialWidgetHeight + movementBuffer || centerY > mousePosY) {
+                // if (cannotMoveWidgetBelow || dimensions.height <= initialWidgetHeight + movementBuffer || centerY > mousePosY) {
                     dimensions.height += mouseY;
-                }
+                // }
                 break;
 
             case ActionDirection.Top:
-                if (cannotMoveWidgetAbove || dimensions.height <= initialWidgetHeight + movementBuffer || centerY < mousePosY) {
+                if (pinnedWidgetAbove || dimensions.height <= initialWidgetHeight + movementBuffer || centerY < mousePosY) {
                     dimensions.y += mouseY;
                     dimensions.height -= mouseY;
                 }
@@ -377,7 +385,7 @@ export class DashboardService implements OnDestroy {
 
             // Support resizing on multiple axis simultaneously
             case ActionDirection.TopLeft:
-                if (surroundingWidgetCannotMove.filter(wgt => wgt.row === action.widget.row).length === 0 || dimensions.width <= initialWidgetWidth + movementBuffer || centerX < mousePosX) {
+                if (surroundingWidgetPinned.filter(wgt => wgt.row === action.widget.row).length === 0 || dimensions.width <= initialWidgetWidth + movementBuffer || centerX < mousePosX) {
                     dimensions.x += mouseX;
                     dimensions.width -= mouseX;
                 }
@@ -388,7 +396,7 @@ export class DashboardService implements OnDestroy {
                     dimensions.width += difference;
                 }
 
-                if (cannotMoveWidgetAbove || dimensions.height <= initialWidgetHeight + movementBuffer || centerY < mousePosY) {
+                if (pinnedWidgetAbove || dimensions.height <= initialWidgetHeight + movementBuffer || centerY < mousePosY) {
                     dimensions.y += mouseY;
                     dimensions.height -= mouseY;
                 }
@@ -401,11 +409,11 @@ export class DashboardService implements OnDestroy {
                 break;
 
             case ActionDirection.TopRight:
-                if (surroundingWidgetCannotMove.filter(wgt => wgt.row === action.widget.row).length === 0 || dimensions.width <= initialWidgetWidth + movementBuffer || centerX > mousePosX) {
+                if (surroundingWidgetPinned.filter(wgt => wgt.row === action.widget.row).length === 0 || dimensions.width <= initialWidgetWidth + movementBuffer || centerX > mousePosX) {
                     dimensions.width += mouseX;
                 }
 
-                if (cannotMoveWidgetAbove || dimensions.height <= initialWidgetHeight + movementBuffer || centerY < mousePosY) {
+                if (pinnedWidgetAbove || dimensions.height <= initialWidgetHeight + movementBuffer || centerY < mousePosY) {
                     dimensions.y += mouseY;
                     dimensions.height -= mouseY;
                 }
@@ -418,13 +426,13 @@ export class DashboardService implements OnDestroy {
                 break;
 
             case ActionDirection.BottomLeft:
-                if (surroundingWidgetCannotMove.filter(wgt => wgt.row === action.widget.row).length === 0 || dimensions.width <= initialWidgetWidth + movementBuffer || centerX < mousePosX) {
+                if (surroundingWidgetPinned.filter(wgt => wgt.row === action.widget.row).length === 0 || dimensions.width <= initialWidgetWidth + movementBuffer || centerX < mousePosX) {
                     dimensions.x += mouseX;
                     dimensions.width -= mouseX;
                 }
-                if (cannotMoveWidgetBelow || dimensions.height <= initialWidgetHeight + movementBuffer || centerY > mousePosY) {
+                // if (cannotMoveWidgetBelow || dimensions.height <= initialWidgetHeight + movementBuffer || centerY > mousePosY) {
                     dimensions.height += mouseY;
-                }
+                // }
 
                 if (dimensions.width < this.options.minWidth) {
                     const difference = this.options.minWidth - dimensions.width;
@@ -434,13 +442,13 @@ export class DashboardService implements OnDestroy {
                 break;
 
             case ActionDirection.BottomRight:
-                if (surroundingWidgetCannotMove.filter(wgt => wgt.row === action.widget.row).length === 0 || dimensions.width <= initialWidgetWidth + movementBuffer || centerX > mousePosX) {
+                if (surroundingWidgetPinned.filter(wgt => wgt.row === action.widget.row).length === 0 || dimensions.width <= initialWidgetWidth + movementBuffer || centerX > mousePosX) {
                     dimensions.width += mouseX;
                 }
 
-                if (cannotMoveWidgetBelow || dimensions.height <= initialWidgetHeight + 20 || centerY > mousePosY) {
+                // if (cannotMoveWidgetBelow || dimensions.height <= initialWidgetHeight + 20 || centerY > mousePosY) {
                     dimensions.height += mouseY;
-                }
+                // }
                 break;
         }
 
@@ -629,6 +637,7 @@ export class DashboardService implements OnDestroy {
 
         // remove any duplicates
         widgetsToMove = widgetsToMove.filter((widget, idx, array) => array.indexOf(widget) === idx);
+        console.log("🚀 ~ file: dashboard.service.ts ~ line 637 ~ DashboardService ~ shiftWidgets ~ widgetsToMove", widgetsToMove)
 
         // if no widgets need moved then we can stop here
         if (widgetsToMove.length === 0) {
@@ -641,7 +650,7 @@ export class DashboardService implements OnDestroy {
         // attempt to move any widgets to the previous widget position
         widgetsToMove.forEach(widget => {
 
-            if (!widget.canMove) {
+            if (widget.pinned && widget.row === 0) {
                 return;
             }
 
@@ -704,7 +713,7 @@ export class DashboardService implements OnDestroy {
         const placeholderOverWidget = this.getWidgetsAtPosition(placeholder.column, placeholder.row, true);
 
         // check if the placeholder is over a widget
-        if (placeholderOverWidget.length > 0 && placeholderOverWidget[0].canMove) {
+        if (placeholderOverWidget.length > 0 && placeholderOverWidget[0].pinned && placeholderOverWidget[0].row === 0) {
 
             // move the placeholder the opposite direction
             switch (shiftDirection) {
@@ -1120,6 +1129,11 @@ export class DashboardService implements OnDestroy {
      * @param widget The widget to move downwards
      */
     moveWidgetDown(widget: DashboardWidgetComponent, distance: number = 1): void {
+
+        if (widget.pinned && widget.row === 0) {
+            return;
+        }
+
         // move the widget down one position
         widget.setRow((widget.getRow(DashboardStackMode.Auto)) + distance);
 
@@ -1145,7 +1159,7 @@ export class DashboardService implements OnDestroy {
             const widgetShouldBeAutoPositioned = widget.autoPositioning || this.stacked;
             const widgetIsBeingMoved = !widgetShouldBeAutoPositioned && this.isDragging$.value?.id === widget.id;
 
-            if (widgetIsOnTopRow || widgetIsBeingResized || widgetIsBeingMoved || !widget.canMove || (!widgetShouldBeAutoPositioned && !this._cache)) {
+            if (widgetIsOnTopRow || widgetIsBeingResized || widgetIsBeingMoved || (widget.pinned && widget.row === 0) || (!widgetShouldBeAutoPositioned && !this._cache)) {
                 return;
             }
 
@@ -1215,10 +1229,11 @@ export class DashboardService implements OnDestroy {
     /** Programmatically move a widget in a given direction */
     onShift(widget: DashboardWidgetComponent, direction: ActionDirection): void {
 
-        const surroundingWidgetCannotMove: DashboardWidgetComponent[]  = this.getSurroundingWidgets(widget, direction).filter(wgt => wgt.canMove === false);
-        const cannotMoveWidgetBelow: boolean = surroundingWidgetCannotMove.filter(wgt => widget.row + widget.getRowSpan() === wgt.row).length === 0;
-        const cannotMoveWidgetAbove: boolean = surroundingWidgetCannotMove.filter(wgt => widget.row - 1 === wgt.row).length === 0;
-        const cannotMoveWidgetBeside: boolean = surroundingWidgetCannotMove.filter(wgt => wgt.row === widget.row).length === 0;
+        const widgetPinned: boolean = widget.pinned
+        const surroundingWidgetPinned: DashboardWidgetComponent[]  = this.getSurroundingWidgets(widget, direction).filter(wgt => wgt.pinned === true);
+        // const cannotMoveWidgetBelow: boolean = surroundingWidgetCannotMove.filter(wgt => widget.row + widget.getRowSpan() === wgt.row).length === 0;
+        const pinnedWidgetAbove: boolean = surroundingWidgetPinned.filter(wgt => widget.row - 1 === wgt.row).length === 0;
+        const pinnedWidgetBeside: boolean = surroundingWidgetPinned.filter(wgt => wgt.row === widget.row).length === 0;
 
         // get the current mouse position
         let deltaX = 0, deltaY = 0;
@@ -1226,23 +1241,23 @@ export class DashboardService implements OnDestroy {
         // move based on the direction
         switch (direction) {
             case ActionDirection.Top:
-                if (cannotMoveWidgetAbove) {
+                if (pinnedWidgetAbove && !widgetPinned) {
                     deltaY = -this.getRowHeight();
                 }
                 break;
             case ActionDirection.Right:
-                if (cannotMoveWidgetBeside) {
+                if (pinnedWidgetBeside && !widgetPinned) {
                     deltaX = this.getColumnWidth();
                 }
                 break;
             case ActionDirection.Bottom: {
-                if (cannotMoveWidgetBelow) {
+                if (!widgetPinned) {
                     deltaY = this.getRowHeight();
                 }
                 break;
             }
             case ActionDirection.Left:
-                if (cannotMoveWidgetBeside) {
+                if (pinnedWidgetBeside && !widgetPinned) {
                     deltaX = -this.getColumnWidth();
                 }
                 break;
@@ -1284,10 +1299,11 @@ export class DashboardService implements OnDestroy {
     /** Programmatically resize a widget in a given direction */
     onResize(widget: DashboardWidgetComponent, direction: ActionDirection): void {
 
-        const surroundingWidgetCannotMove: DashboardWidgetComponent[]  = this.getSurroundingWidgets(widget, direction).filter(wgt => wgt.canMove === false);
-        const cannotMoveWidgetBelow: boolean = surroundingWidgetCannotMove.filter(wgt => widget.row + widget.getRowSpan() === wgt.row).length === 0;
-        const cannotMoveWidgetAbove: boolean = surroundingWidgetCannotMove.filter(wgt => widget.row - 1 === wgt.row).length === 0;
-        const cannotMoveWidgetBeside: boolean = surroundingWidgetCannotMove.filter(wgt => wgt.row === widget.row).length === 0;
+        const surroundingWidgetPinned: DashboardWidgetComponent[]  = this.getSurroundingWidgets(widget, direction).filter(wgt => wgt.pinned === true);
+        // const cannotMoveWidgetBelow: boolean = surroundingWidgetCannotMove.filter(wgt => widget.row + widget.getRowSpan() === wgt.row).length === 0;
+        const pinnedWidgetAbove: boolean = surroundingWidgetPinned.filter(wgt => widget.row - 1 === wgt.row).length === 0;
+        const pinnedWidgetBeside: boolean = surroundingWidgetPinned.filter(wgt => wgt.row === widget.row).length === 0;
+
 
         // perform the resizing
         let deltaX = 0, deltaY = 0;
@@ -1295,19 +1311,19 @@ export class DashboardService implements OnDestroy {
         // move based on the direction
         switch (direction) {
             case ActionDirection.Top:
-                if (cannotMoveWidgetAbove) {
+                // if (pinnedWidgetAbove) {
                     deltaY = -this.getRowHeight();
-                }
+                // }
                 break;
             case ActionDirection.Right:
-                if (cannotMoveWidgetBeside) {
+                if (pinnedWidgetBeside) {
                     deltaX = this.getColumnWidth();
                 }
                 break;
             case ActionDirection.Bottom:
-                if (cannotMoveWidgetBelow) {
+                // if (cannotMoveWidgetBelow) {
                     deltaY = this.getRowHeight();
-                }
+                // }
                 break;
             case ActionDirection.Left:
                 deltaX = -this.getColumnWidth();
@@ -1420,7 +1436,7 @@ export class DashboardService implements OnDestroy {
 
     private moveWidget(widget: DashboardWidgetComponent, offsetX: number, offsetY: number): void {
 
-        if (!widget.canMove) {
+        if (widget.pinned) {
             return;
         }
 
@@ -1438,7 +1454,7 @@ export class DashboardService implements OnDestroy {
 
         const widgetOverAnother = this.getWidgetsAtPosition(this.getPlaceholderColumn(dimensions.x, dimensions.width), this.getPlaceholderRow(dimensions.y, dimensions.height));
 
-        if (widgetOverAnother.length > 0 && !widgetOverAnother[0].canMove) {
+        if (widgetOverAnother.length > 0 && widgetOverAnother[0].pinned && widgetOverAnother[0].row === 0) {
             return;
         }
 

@@ -81,7 +81,7 @@ export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestro
     @Input() widgetAriaLabel: (widgets: DashboardWidgetComponent) => string | string = this.getDefaultAriaLabel;
 
     /** Defines whether or not this widget can be moved. */
-    @Input() canMove: boolean = true;
+    @Input() pinned: boolean = false;
 
     @HostBinding('style.left.px') x: number = 0;
     @HostBinding('style.top.px') y: number = 0;
