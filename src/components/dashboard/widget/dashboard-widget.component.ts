@@ -80,8 +80,14 @@ export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestro
     /** Defines a function that returns an aria label for the widget */
     @Input() widgetAriaLabel: (widgets: DashboardWidgetComponent) => string | string = this.getDefaultAriaLabel;
 
-    /** Defines whether or not this widget can be moved. */
-    @Input() pinned: boolean = false;
+    /** Defines whether or not this widget can be moved from the top row. */
+    @Input() set pinned(pinned: boolean) {
+        this._pinned = coerceBooleanProperty(pinned);
+    }
+
+    get pinned(): boolean {
+        return this._pinned
+    }
 
     @HostBinding('style.left.px') x: number = 0;
     @HostBinding('style.top.px') y: number = 0;
@@ -104,6 +110,7 @@ export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestro
     private _minRowSpan: number = 1;
     private _autoPositioning: boolean = true;
     private _onDestroy = new Subject<void>();
+    private _pinned: boolean = false;
 
     constructor(public dashboardService: DashboardService) {
         // subscribe to option changes

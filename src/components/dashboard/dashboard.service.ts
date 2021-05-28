@@ -228,7 +228,7 @@ export class DashboardService implements OnDestroy {
                 success = true;
                 widget.setColumn(column);
                 widget.setRow(row);
-                break;
+                return;
             }
 
             if (column === 0 && widget.colSpan > this.options.columns) {
@@ -863,16 +863,6 @@ export class DashboardService implements OnDestroy {
             .filter(space => space.column === column && space.row === row)
             .filter(space => this._actionWidget && space.widget !== this._actionWidget.widget || !ignoreResizing)
             .map(space => space.widget);
-    }
-
-    /**
-     * Determine if a widget is occupying a specific row
-     * @param row The row to check if occupied
-     * @param ignoreResizing Whether or not to ignore the widget currently being resized
-     */
-    getWidgetsOnRow(row: number) {
-        return this.getOccupiedSpaces()
-            .filter(space => space.row === row);
     }
 
     /**
