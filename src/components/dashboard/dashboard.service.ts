@@ -168,12 +168,8 @@ export class DashboardService implements OnDestroy {
      */
     setDashboardLayout(): void {
 
-        // find any widgets that have pinned set to true, if so position these first
-        this.widgets.filter(widget => (widget.getColumn() === undefined || widget.getRow() === undefined) && widget.pinned)
-            .forEach(widget => this.setWidgetPosition(widget));
-
         // find any widgets that do not currently have a position set
-        this.widgets.filter(widget => (widget.getColumn() === undefined || widget.getRow() === undefined) && !widget.pinned)
+        this.widgets.filter(widget => (widget.getColumn() === undefined || widget.getRow() === undefined))
             .forEach(widget => this.setWidgetPosition(widget));
 
         this.setDashboardHeight();
@@ -232,7 +228,7 @@ export class DashboardService implements OnDestroy {
                 success = true;
                 widget.setColumn(column);
                 widget.setRow(row);
-                return;
+                break;
             }
 
             if (column === 0 && widget.colSpan > this.options.columns) {
