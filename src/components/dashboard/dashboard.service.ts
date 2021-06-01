@@ -669,6 +669,7 @@ export class DashboardService implements OnDestroy {
 
             // if we get to here then we can't simply swap the positions - next try moving right
             if (this.canWidgetMoveRight(widget, true)) {
+                console.log('are we doing')
 
                 // after the shift check if placeholder position is still valid
                 this.validatePlaceholderPosition(ActionDirection.Right);
@@ -698,7 +699,7 @@ export class DashboardService implements OnDestroy {
     validatePlaceholderPosition(shiftDirection: ActionDirection) {
 
         const placeholder = this.placeholder$.getValue();
-        const widgetOverPinnedWidget = this.getPositionAvailable123(placeholder.column, placeholder.row, placeholder.columnSpan, placeholder.rowSpan);
+        const widgetOverPinnedWidget = this.getMovedWidgetAvailablePosition(placeholder.column, placeholder.row, placeholder.columnSpan, placeholder.rowSpan);
 
         // check if the placeholder is over a widget
         if (!widgetOverPinnedWidget) {
@@ -724,6 +725,13 @@ export class DashboardService implements OnDestroy {
      * Determine if a widget can be moved left - or if it can move the widgets to the right to make space for the widget
      */
     canWidgetMoveLeft(widget: DashboardWidgetComponent, performMove: boolean = false): boolean {
+
+        const surroundingWidgetPinned = this.getSurroundingWidgets(widget, ActionDirection.Left).filter(wgt => wgt.pinned);
+
+        // check if the widget is going to attempt to move a pinned widget
+        if (surroundingWidgetPinned) {
+            return false;
+        }
 
         // check if the widget is the action widget or occupies the first column
         if (widget === this._actionWidget.widget || widget.getColumn() === 0) {
@@ -764,6 +772,13 @@ export class DashboardService implements OnDestroy {
      * Determine if a widget can be moved right - or if it can move the widgets to the right to make space for the widget
      */
     canWidgetMoveRight(widget: DashboardWidgetComponent, performMove: boolean = false): boolean {
+
+        const surroundingWidgetPinned = this.getSurroundingWidgets(widget, ActionDirection.Right).filter(wgt => wgt.pinned);
+
+        // check if the widget is going to attempt to move a pinned widget
+        if (surroundingWidgetPinned) {
+            return false;
+        }
 
         // check if the widget is the dragging widget or the widget occupies the final column
         if (widget === this._actionWidget.widget || widget.getColumn() + widget.getColumnSpan() === this.options.columns) {
