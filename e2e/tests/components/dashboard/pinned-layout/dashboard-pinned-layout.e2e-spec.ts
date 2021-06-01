@@ -1,16 +1,16 @@
 import { browser, ElementFinder, Key } from 'protractor';
-import { DashboardCanMoveLayoutPage } from './dashboard-pinned-layout.po.spec';
+import { DashboardPinnedLayoutPage } from './dashboard-pinned-layout.po.spec';
 
 describe('Dashboard Pinned Layout', () => {
 
-    let page: DashboardCanMoveLayoutPage;
+    let page: DashboardPinnedLayoutPage;
     let widget1: ElementFinder;
     let widget2: ElementFinder;
     let widget3: ElementFinder;
     let widget4: ElementFinder;
 
     beforeEach(async () => {
-        page = new DashboardCanMoveLayoutPage();
+        page = new DashboardPinnedLayoutPage();
         await page.getPage();
 
         // set the browser window to a specific size to ensure consistency
