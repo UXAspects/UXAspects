@@ -247,10 +247,7 @@ export class DashboardService implements OnDestroy {
      * Check if a position in the dashboard is vacant or not
      */
     getPositionAvailable(column: number, row: number, columnSpan: number, rowSpan: number, ignoreWidget?: DashboardWidgetComponent): boolean {
-    console.log("🚀 ~ file: dashboard.service.ts ~ line 250 ~ DashboardService ~ getPositionAvailable ~ rowSpan", rowSpan)
-    console.log("🚀 ~ file: dashboard.service.ts ~ line 250 ~ DashboardService ~ getPositionAvailable ~ columnSpan", columnSpan)
-    console.log("🚀 ~ file: dashboard.service.ts ~ line 250 ~ DashboardService ~ getPositionAvailable ~ row", row)
-    console.log("🚀 ~ file: dashboard.service.ts ~ line 250 ~ DashboardService ~ getPositionAvailable ~ column", column)
+
 
         // get a list of grid spaces that are populated
         const spaces = this.getOccupiedSpaces();
@@ -701,11 +698,10 @@ export class DashboardService implements OnDestroy {
     validatePlaceholderPosition(shiftDirection: ActionDirection) {
 
         const placeholder = this.placeholder$.getValue();
-
-        const placeholderOverWidget = this.getWidgetsAtPosition(placeholder.column, placeholder.row, true);
+        const widgetOverPinnedWidget = this.getPositionAvailable123(placeholder.column, placeholder.row, placeholder.columnSpan, placeholder.rowSpan);
 
         // check if the placeholder is over a widget
-        if (placeholderOverWidget.length > 0 && placeholderOverWidget[0].pinned && placeholderOverWidget[0].row === 0) {
+        if (!widgetOverPinnedWidget) {
 
             // move the placeholder the opposite direction
             switch (shiftDirection) {
@@ -862,12 +858,40 @@ export class DashboardService implements OnDestroy {
      * @param row The row to check if occupied
      * @param ignoreResizing Whether or not to ignore the widget currently being resized
      */
-    getWidgetsAtPosition(column: number, row: number, ignoreResizing: boolean = false, colSpan: number = 0, rowSpan: number = 0): DashboardWidgetComponent[] {
+    getWidgetsAtPosition(column: number, row: number, ignoreResizing: boolean = false): DashboardWidgetComponent[] {
         return this.getOccupiedSpaces()
-            .filter(space => space.column + colSpan - 1 === column && space.row + rowSpan - 1 === row)
+            .filter(space => space.column === column && space.row === row)
             .filter(space => this._actionWidget && space.widget !== this._actionWidget.widget || !ignoreResizing)
             .map(space => space.widget);
     }
+
+    /**
+     * Check if a position in the dashboard is vacant or not
+     */
+    getMovedWidgetAvailablePosition(column: number, row: number, columnSpan: number, rowSpan: number, ignoreWidget?: DashboardWidgetComponent): boolean {
+
+
+        // get a list of grid spaces that are populated
+        const spaces = this.getOccupiedSpaces();
+
+        // check if the block would still be in bounds
+        if (column + columnSpan > this.options.columns) {
+            return false;
+        }
+
+        // check each required position
+        for (let x = column; x < column + columnSpan; x++) {
+            for (let y = row; y < row + rowSpan; y++) {
+                if (spaces.find(block => block.column === x && block.row === y && block.widget !== ignoreWidget && block.widget.pinned === true)) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
+
 
     /**
      * Update the placeholder visibility, position and size
@@ -1427,9 +1451,13 @@ export class DashboardService implements OnDestroy {
         // update widget position
         widget.setBounds(dimensions.x, dimensions.y, dimensions.width, dimensions.height);
 
-        const widgetOverAnother = this.getWidgetsAtPosition(this.getPlaceholderColumn(dimensions.x, dimensions.width), this.getPlaceholderRow(dimensions.y, dimensions.height));
+        const widgetOverPinnedWidget = this.getMovedWidgetAvailablePosition(
+            this.getPlaceholderColumn(dimensions.x, dimensions.width),
+            this.getPlaceholderRow(dimensions.y, dimensions.height),
+            this.getPlaceholderColumnSpan(dimensions.width),
+            this.getPlaceholderRowSpan(dimensions.height));
 
-        if (widgetOverAnother.length > 0 && widgetOverAnother[0].pinned && widgetOverAnother[0].row === 0) {
+        if (!widgetOverPinnedWidget) {
             this.shiftWidgets();
             return;
         }
