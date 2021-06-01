@@ -128,6 +128,7 @@ export class DashboardService implements OnDestroy {
      * Position widgets programatically
      */
     setLayoutData(widgets: DashboardLayoutData[]): void {
+
         // iterate through each widget data and find a match
         widgets.forEach(widget => {
 
@@ -167,9 +168,8 @@ export class DashboardService implements OnDestroy {
      * Determine where widgets should be positioned based on their positions, width and the size of the container
      */
     setDashboardLayout(): void {
-
         // find any widgets that do not currently have a position set
-        this.widgets.filter(widget => (widget.getColumn() === undefined || widget.getRow() === undefined))
+        this.widgets.filter(widget => widget.getColumn() === undefined || widget.getRow() === undefined)
             .forEach(widget => this.setWidgetPosition(widget));
 
         this.setDashboardHeight();
@@ -247,7 +247,6 @@ export class DashboardService implements OnDestroy {
      * Check if a position in the dashboard is vacant or not
      */
     getPositionAvailable(column: number, row: number, columnSpan: number, rowSpan: number, ignoreWidget?: DashboardWidgetComponent): boolean {
-
 
         // get a list of grid spaces that are populated
         const spaces = this.getOccupiedSpaces();
@@ -361,7 +360,7 @@ export class DashboardService implements OnDestroy {
                 break;
 
             case ActionDirection.Bottom:
-                    dimensions.height += mouseY;
+                dimensions.height += mouseY;
                 break;
 
             case ActionDirection.Top:
@@ -1320,7 +1319,6 @@ export class DashboardService implements OnDestroy {
 
         const surroundingWidgetPinned: DashboardWidgetComponent[]  = this.getSurroundingWidgets(widget, direction).filter(wgt => wgt.pinned === true);
         const pinnedWidgetBeside: boolean = surroundingWidgetPinned.filter(wgt => wgt.row === widget.row).length === 0;
-
 
         // perform the resizing
         let deltaX = 0, deltaY = 0;
