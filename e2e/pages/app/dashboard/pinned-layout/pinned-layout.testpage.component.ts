@@ -3,11 +3,11 @@ import { DashboardComponent, DashboardLayoutData, DashboardOptions } from '@ux-a
 
 @Component({
     selector: 'dashboard-layout-app',
-    templateUrl: './can-move-layout.testpage.component.html',
-    styleUrls: ['./can-move-layout.testpage.component.css'],
+    templateUrl: './pinned-layout.testpage.component.html',
+    styleUrls: ['./pinned-layout.testpage.component.css'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CanMoveLayoutTestPageComponent {
+export class PinnedLayoutTestPageComponent {
 
     @ViewChild('dashboard') uxDashboard: DashboardComponent;
 

@@ -2,9 +2,9 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { AccessibilityModule, CheckboxModule, DashboardModule, IconModule } from '@ux-aspects/ux-aspects';
-import { CanMoveLayoutTestPageComponent } from './can-move-layout/can-move-layout.testpage.component';
 import { DashboardTestPageComponent } from './dashboard.testpage.component';
 import { DashboardLayoutTestPageComponent } from './layout/dashboard-layout.testpage.component';
+import { PinnedLayoutTestPageComponent } from './pinned-layout/pinned-layout.testpage.component';
 
 @NgModule({
     imports: [
@@ -23,15 +23,15 @@ import { DashboardLayoutTestPageComponent } from './layout/dashboard-layout.test
                 component: DashboardLayoutTestPageComponent
             },
             {
-                path: 'canmove',
-                component: CanMoveLayoutTestPageComponent
+                path: 'pinned',
+                component: PinnedLayoutTestPageComponent
             }
         ])
     ],
     declarations: [
         DashboardTestPageComponent,
         DashboardLayoutTestPageComponent,
-        CanMoveLayoutTestPageComponent
+        PinnedLayoutTestPageComponent
     ]
 })
 export class DashboardTestPageModule { }

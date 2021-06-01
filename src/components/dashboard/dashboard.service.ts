@@ -669,7 +669,6 @@ export class DashboardService implements OnDestroy {
 
             // if we get to here then we can't simply swap the positions - next try moving right
             if (this.canWidgetMoveRight(widget, true)) {
-                console.log('are we doing')
 
                 // after the shift check if placeholder position is still valid
                 this.validatePlaceholderPosition(ActionDirection.Right);
