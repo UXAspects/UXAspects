@@ -64,10 +64,6 @@
                     "component": "CssIconSizeComponent"
                 },
                 {
-                    "title": "Fixed Width",
-                    "component": "CssFixedWidthComponent"
-                },
-                {
                     "title": "Rotate & Flip Icons",
                     "component": "CssRotateFlipIconsComponent"
                 },
