@@ -60,4 +60,11 @@ export class NavigationTestPageComponent {
             }
         });
     }
+
+    disableAccounts(): void {
+        this.items.filter(item => item.title === 'Accounts')
+            .forEach((item: NavigationItem) => {
+                item.disabled = true;
+            });
+    }
 }

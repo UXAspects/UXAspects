@@ -12,6 +12,7 @@
             <li [attr.role]="(item.children && item.children.length > 0) ? 'treeitem' : 'none'"
                 [attr.aria-expanded]="item.expanded"
                 [class.selected]="item.expanded"
+                [class.disabled]="item.disabled"
                 [class.active]="navigationLink.isActive">
 
                 <a uxNavigationLink

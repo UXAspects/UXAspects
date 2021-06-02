@@ -213,6 +213,15 @@ describe('Navigation Tests', () => {
         expect(await page.getPageContent()).toBe('Accounts Add');
     });
 
+    it('should disable the accounts node when disabled is true', async () => {
+        const items = await page.getTopLevelItems();
+        await page.disableAccounts.click();
+
+        expect(await page.isItemDisabled(items[2])).toBeTruthy();
+
+        expect(await imageCompare('navigation-accounts-disabled')).toEqual(0);
+    });
+
     it('should update the UI when tree mode is enabled', async () => {
         expect(await page.isTreeModeActive()).toBeFalsy();
         await page.enableTreeBtn.click();

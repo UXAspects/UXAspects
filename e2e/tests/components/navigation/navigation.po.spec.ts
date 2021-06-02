@@ -7,6 +7,7 @@ export class NavigationPage {
     enableTreeBtn = $('#enable-tree-btn');
     enableAutoCollapse = $('#enable-auto-collapse-btn');
     disableExact = $('#disable-exact');
+    disableAccounts = $('#disable-accounts');
 
     async getPage(): Promise<void> {
         await browser.get('#/navigation');
@@ -20,6 +21,12 @@ export class NavigationPage {
         const classes = await item.getAttribute('class');
 
         return classes.split(' ').indexOf('active') !== -1;
+    }
+
+    async isItemDisabled(item: ElementFinder): Promise<boolean> {
+        const classes = await item.getAttribute('class');
+
+        return classes.split(' ').indexOf('disabled') !== -1;
     }
 
     async getItemChildren(item: ElementFinder): Promise<ElementFinder[]> {
