@@ -1,18 +1,18 @@
-const { DefinePlugin } = require('webpack');
-const fs = require('fs');
-const gracefulFs = require('graceful-fs');
-const { join } = require('path');
-const { cwd } = require('process');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const rxAlias = require('rxjs/_esm5/path-mapping');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
-const { AngularWebpackPlugin } = require('@ngtools/webpack');
-const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
-const TerserPlugin = require('terser-webpack-plugin');
 const {
     IndexHtmlWebpackPlugin,
 } = require('@angular-devkit/build-angular/src/webpack/plugins/index-html-webpack-plugin');
 const { BuildOptimizerWebpackPlugin } = require('@angular-devkit/build-optimizer');
+const { AngularWebpackPlugin } = require('@ngtools/webpack');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+const fs = require('fs');
+const gracefulFs = require('graceful-fs');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const { join } = require('path');
+const { cwd } = require('process');
+const rxAlias = require('rxjs/_esm5/path-mapping');
+const TerserPlugin = require('terser-webpack-plugin');
+const { DefinePlugin } = require('webpack');
 
 const CssLoader = {
     loader: 'css-loader',
@@ -57,20 +57,6 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.html$/,
-                use: 'html-loader',
-                exclude: /(directives|templates|snippets)/,
-            },
-            {
-                test: /\.css$/,
-                exclude: /snippets/,
-                use: [MiniCssExtractPlugin.loader, 'css-loader'],
-            },
-            {
-                test: /\.md$/,
-                use: ['html-loader', 'markdown-highlighter-loader'],
-            },
-            {
                 test: /\.ts$/,
                 exclude: /snippets/,
                 use: [
@@ -89,6 +75,16 @@ module.exports = {
                 options: {
                     sourceMap: false,
                 },
+            },
+            {
+                test: /\.html$/,
+                exclude: /(directives|templates|snippets)/,
+                use: 'html-loader',
+            },
+            {
+                test: /\.css$/,
+                exclude: /snippets/,
+                use: [MiniCssExtractPlugin.loader, 'css-loader'],
             },
             {
                 test: /\.less$/,
@@ -112,20 +108,23 @@ module.exports = {
                     },
                 ],
             },
+            {
+                test: /\.md$/,
+                use: ['html-loader', 'markdown-highlighter-loader'],
+            },
 
             /*
                 Support Code Snippets
             */
             {
                 test: /\.(html|js|css|ts)$/,
-                use: 'code-snippet-loader',
                 include: /snippets/,
+                use: 'code-snippet-loader',
             },
-
             {
                 test: /\.txt$/,
-                use: 'raw-loader',
                 include: /templates/,
+                use: 'raw-loader',
             },
             // Ignore warnings about System.import in Angular
             {
@@ -198,20 +197,18 @@ module.exports = {
             }),
             new TerserPlugin({
                 sourceMap: false,
-                parallel: 7,
+                parallel: true,
                 cache: true,
                 terserOptions: {
+                    ecma: 5,
                     warnings: false,
                     safari10: true,
                     output: {
-                        ecma: 5,
                         ascii_only: true,
                         comments: false,
                         webkit: true,
-                        beautify: false,
                     },
                     compress: {
-                        ecma: 5,
                         pure_getters: true,
                         passes: 3,
                         global_defs: {
@@ -220,7 +217,6 @@ module.exports = {
                             ngJitMode: false,
                         },
                     },
-                    mangle: true,
                 },
             }),
         ],
