@@ -46,6 +46,23 @@ describe('Dashboard Pinned Layout', () => {
         expect(await page.getWidgetLocationValue(widget2, 'left')).toBe(554);
     });
 
+    it('should not allow widget 4 to move into the space occupied by widget 4 which has pinned set to true', async () => {
+        expect(await page.getWidgetLocationValue(widget4, 'top')).toBe(220);
+        expect(await page.getWidgetLocationValue(widget2, 'top')).toBe(0);
+        expect(await page.getWidgetLocationValue(widget2, 'left')).toBe(554);
+
+        // try to move widget 4 up
+        await browser.actions().sendKeys(Key.TAB);
+        await browser.actions().sendKeys(Key.ARROW_DOWN);
+        await browser.actions().sendKeys(Key.SPACE);
+        await browser.actions().sendKeys(Key.ARROW_UP);
+        await browser.actions().sendKeys(Key.SPACE);
+
+        expect(await page.getWidgetLocationValue(widget4, 'top')).toBe(220);
+        expect(await page.getWidgetLocationValue(widget2, 'top')).toBe(0);
+        expect(await page.getWidgetLocationValue(widget2, 'left')).toBe(554);
+    });
+
     it('should not allow widget 1 to move into the space occupied by widget 2 which has pinned set to true', async () => {
         expect(await page.getWidgetLocationValue(widget1, 'top')).toBe(0);
         expect(await page.getWidgetLocationValue(widget2, 'top')).toBe(0);

@@ -423,7 +423,7 @@ export class DashboardService implements OnDestroy {
                     dimensions.x += mouseX;
                     dimensions.width -= mouseX;
                 }
-                    dimensions.height += mouseY;
+                dimensions.height += mouseY;
 
                 if (dimensions.width < this.options.minWidth) {
                     const difference = this.options.minWidth - dimensions.width;
@@ -882,8 +882,6 @@ export class DashboardService implements OnDestroy {
      * Check if a position in the dashboard is vacant or not
      */
     getMovedWidgetAvailablePosition(column: number, row: number, columnSpan: number, rowSpan: number, ignoreWidget?: DashboardWidgetComponent): boolean {
-
-
         // get a list of grid spaces that are populated
         const spaces = this.getOccupiedSpaces();
 
@@ -903,8 +901,6 @@ export class DashboardService implements OnDestroy {
 
         return true;
     }
-
-
 
     /**
      * Update the placeholder visibility, position and size
@@ -1250,7 +1246,7 @@ export class DashboardService implements OnDestroy {
 
         const widgetPinned: boolean = widget.pinned;
         const surroundingWidgetPinned: DashboardWidgetComponent[]  = this.getSurroundingWidgets(widget, direction).filter(wgt => wgt.pinned === true);
-        const pinnedWidgetAbove: boolean = surroundingWidgetPinned.filter(wgt => widget.row - 1 === wgt.row).length === 0;
+        const pinnedWidgetAbove: boolean = surroundingWidgetPinned.filter(wgt => widget.row === wgt.row + wgt.rowSpan).length === 0;
         const pinnedWidgetBeside: boolean = surroundingWidgetPinned.filter(wgt => wgt.row === widget.row).length === 0;
 
         // get the current mouse position

@@ -335,6 +335,7 @@ export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestro
     static ngAcceptInputType_row: NumberInput;
     static ngAcceptInputType_minColSpan: NumberInput;
     static ngAcceptInputType_minRowSpan: NumberInput;
+    static ngAcceptInputType_pinned: BooleanInput;
 }
 
 export interface StackableValue {
