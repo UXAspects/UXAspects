@@ -248,7 +248,7 @@ describe('Navigation Tests', () => {
         const items = await page.getTopLevelItems();
         await page.disableOptions.click();
 
-        await page.selectItem(items[3]);
+        browser.actions().mouseMove(items[3]).click();
 
         expect(await imageCompare('navigation-options-disabled-router-link')).toEqual(0);
     });
@@ -264,7 +264,8 @@ describe('Navigation Tests', () => {
         const items = await page.getTopLevelItems();
         await page.disableOptions.click();
 
-        await page.selectItem(items[3]);
+        browser.actions().mouseMove(items[3]).click();
+
         expect(await imageCompare('navigation-options-disabled-clicked')).toEqual(0);
     });
 
