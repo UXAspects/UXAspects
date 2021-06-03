@@ -18,7 +18,7 @@ const cors = require('cors');
  *     however we still rely on Webpack to build the library for our documentation site as it is much quicker)
  */
 
-const wdsPort = argv[2] || 8080;
+const wdsPort = parseInt(argv[2]) || 8080;
 const plunkerPort = wdsPort + 10;
 const webpackConfig = require(join(cwd(), 'configs', 'webpack.dev.config'));
 
