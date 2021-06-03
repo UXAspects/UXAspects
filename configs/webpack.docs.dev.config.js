@@ -219,15 +219,5 @@ module.exports = {
         new ProgressPlugin(),
     ],
 
-    devServer: {
-        historyApiFallback: true,
-        stats: 'minimal',
-        overlay: true,
-        headers: {
-            'Access-Control-Allow-Origin': '*',
-        },
-        disableHostCheck: true, // https://github.com/webpack/webpack-dev-server/issues/1604
-    },
-
     node: false,
 };
