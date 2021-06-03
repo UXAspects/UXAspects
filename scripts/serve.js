@@ -1,7 +1,6 @@
 const webpack = require("webpack");
 const WebpackDevServer = require("webpack-dev-server");
 const { ngPackagr } = require("ng-packagr");
-const webpackConfig = require("../configs/webpack.dev.config");
 const { join } = require("path");
 const { cwd } = require("process");
 const express = require("express");
@@ -18,6 +17,9 @@ const cors = require("cors");
  *    (this means we don't rely on webpack to build our plunker Angular bundle we can use the proper tool ng-packagr,
  *     however we still rely on Webpack to build the library for our documentation site as it is much quicker)
  */
+
+const webpackConfig = require(join(cwd(), 'configs', 'webpack.dev.config'));
+
 serveDocumentation();
 buildAndWatchAngularLibrary();
 servePlunkerAssets();
