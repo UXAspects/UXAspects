@@ -227,7 +227,7 @@ describe('Navigation Tests', () => {
         expect(await page.getPageContent()).toBe('Accounts Add');
     });
 
-    it('should disable children nodes when disabled is set to true', async () => {
+    it('should disable node when disabled is to true', async () => {
         const items = await page.getTopLevelItems();
         await page.selectItem(items[3]);
         const children = await page.getItemChildren(items[3]);
