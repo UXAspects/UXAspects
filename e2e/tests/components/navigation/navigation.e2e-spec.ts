@@ -15,17 +15,19 @@ describe('Navigation Tests', () => {
 
         // there should be 3 top level items
         const items = await page.getTopLevelItems();
-        expect(items.length).toBe(3);
+        expect(items.length).toBe(4);
 
         // none of these items should be selected
         expect(await page.isItemActive(items[0])).toBeFalsy();
         expect(await page.isItemActive(items[1])).toBeFalsy();
         expect(await page.isItemActive(items[2])).toBeFalsy();
+        expect(await page.isItemActive(items[3])).toBeFalsy();
 
         // all items should be collapsed
         expect((await page.getItemChildren(items[0])).length).toBe(0);
         expect((await page.getItemChildren(items[1])).length).toBe(0);
         expect((await page.getItemChildren(items[2])).length).toBe(0);
+        expect((await page.getItemChildren(items[3])).length).toBe(0);
 
         expect(await imageCompare('navigation-initial')).toEqual(0);
     });
@@ -38,6 +40,7 @@ describe('Navigation Tests', () => {
         expect(await page.isItemActive(items[0])).toBeTruthy();
         expect(await page.isItemActive(items[1])).toBeFalsy();
         expect(await page.isItemActive(items[2])).toBeFalsy();
+        expect(await page.isItemActive(items[3])).toBeFalsy();
     });
 
     it('should expand but not change route when item has children but no routerLink', async () => {
@@ -48,11 +51,13 @@ describe('Navigation Tests', () => {
         expect(await page.isItemActive(items[0])).toBeFalsy();
         expect(await page.isItemActive(items[1])).toBeFalsy();
         expect(await page.isItemActive(items[2])).toBeFalsy();
+        expect(await page.isItemActive(items[3])).toBeFalsy();
 
         // get the visible children
         expect((await page.getItemChildren(items[0])).length).toBe(0);
         expect((await page.getItemChildren(items[1])).length).toBe(2);
         expect((await page.getItemChildren(items[2])).length).toBe(0);
+        expect((await page.getItemChildren(items[3])).length).toBe(0);
 
         expect(await imageCompare('navigation-expanded')).toEqual(0);
     });
@@ -65,11 +70,13 @@ describe('Navigation Tests', () => {
         expect(await page.isItemActive(items[0])).toBeFalsy();
         expect(await page.isItemActive(items[1])).toBeFalsy();
         expect(await page.isItemActive(items[2])).toBeTruthy();
+        expect(await page.isItemActive(items[3])).toBeFalsy();
 
         // get the visible children
         expect((await page.getItemChildren(items[0])).length).toBe(0);
         expect((await page.getItemChildren(items[1])).length).toBe(0);
         expect((await page.getItemChildren(items[2])).length).toBe(2);
+        expect((await page.getItemChildren(items[3])).length).toBe(0);
 
         // expect the page content to be correct
         expect(await page.getPageContent()).toBe('Accounts');
@@ -148,6 +155,7 @@ describe('Navigation Tests', () => {
         expect((await page.getItemChildren(items[0])).length).toBe(0);
         expect((await page.getItemChildren(items[1])).length).toBe(2);
         expect((await page.getItemChildren(items[2])).length).toBe(0);
+        expect((await page.getItemChildren(items[3])).length).toBe(0);
 
         await page.selectItem(items[1]);
 
@@ -155,6 +163,7 @@ describe('Navigation Tests', () => {
         expect((await page.getItemChildren(items[0])).length).toBe(0);
         expect((await page.getItemChildren(items[1])).length).toBe(0);
         expect((await page.getItemChildren(items[2])).length).toBe(0);
+        expect((await page.getItemChildren(items[3])).length).toBe(0);
     });
 
     it('should not collapse other items when autoCollapse is false', async () => {
@@ -165,6 +174,7 @@ describe('Navigation Tests', () => {
         expect((await page.getItemChildren(items[0])).length).toBe(0);
         expect((await page.getItemChildren(items[1])).length).toBe(2);
         expect((await page.getItemChildren(items[2])).length).toBe(0);
+        expect((await page.getItemChildren(items[3])).length).toBe(0);
 
         await page.selectItem(items[2]);
 
@@ -172,6 +182,7 @@ describe('Navigation Tests', () => {
         expect((await page.getItemChildren(items[0])).length).toBe(0);
         expect((await page.getItemChildren(items[1])).length).toBe(2);
         expect((await page.getItemChildren(items[2])).length).toBe(2);
+        expect((await page.getItemChildren(items[3])).length).toBe(0);
     });
 
     it('should collapse other items when autoCollapse is true', async () => {
@@ -182,6 +193,7 @@ describe('Navigation Tests', () => {
         expect((await page.getItemChildren(items[0])).length).toBe(0);
         expect((await page.getItemChildren(items[1])).length).toBe(2);
         expect((await page.getItemChildren(items[2])).length).toBe(0);
+        expect((await page.getItemChildren(items[3])).length).toBe(0);
 
         // enable auto collapse
         await page.enableAutoCollapse.click();
@@ -192,6 +204,7 @@ describe('Navigation Tests', () => {
         expect((await page.getItemChildren(items[0])).length).toBe(0);
         expect((await page.getItemChildren(items[1])).length).toBe(0);
         expect((await page.getItemChildren(items[2])).length).toBe(2);
+        expect((await page.getItemChildren(items[3])).length).toBe(0);
     });
 
     it('should select parent and child when exact is false', async () => {
@@ -205,6 +218,7 @@ describe('Navigation Tests', () => {
         expect(await page.isItemActive(items[0])).toBeFalsy();
         expect(await page.isItemActive(items[1])).toBeFalsy();
         expect(await page.isItemActive(items[2])).toBeTruthy();
+        expect(await page.isItemActive(items[3])).toBeFalsy();
 
         expect(await page.isItemActive(children[0])).toBeTruthy();
         expect(await page.isItemActive(children[1])).toBeFalsy();
@@ -213,13 +227,45 @@ describe('Navigation Tests', () => {
         expect(await page.getPageContent()).toBe('Accounts Add');
     });
 
-    it('should disable the accounts node when disabled is true', async () => {
+    it('should disable children nodes when disabled is set to true', async () => {
         const items = await page.getTopLevelItems();
-        await page.disableAccounts.click();
+        await page.selectItem(items[3]);
+        const children = await page.getItemChildren(items[3]);
 
-        expect(await page.isItemDisabled(items[2])).toBeTruthy();
+        expect(await page.isItemDisabled(children[0])).toBeTruthy();
+    });
 
-        expect(await imageCompare('navigation-accounts-disabled')).toEqual(0);
+    it('should disable the options node when disabled is set to true', async () => {
+        const items = await page.getTopLevelItems();
+        await page.disableOptions.click();
+
+        expect(await page.isItemDisabled(items[3])).toBeTruthy();
+
+        expect(await imageCompare('navigation-options-disabled')).toEqual(0);
+    });
+
+    it('should prevent routerLinks from activating when disabled is true', async () => {
+        const items = await page.getTopLevelItems();
+        await page.disableOptions.click();
+
+        await page.selectItem(items[3]);
+
+        expect(await imageCompare('navigation-options-disabled-router-link')).toEqual(0);
+    });
+
+    it('should fire click events when disabled is false or not set', async () => {
+        const items = await page.getTopLevelItems();
+        await page.selectItem(items[3]);
+
+        expect(await page.getOptionsClicked()).toBe('Options click event');
+    });
+
+    it('should prevent click events from activating when disabled is true', async () => {
+        const items = await page.getTopLevelItems();
+        await page.disableOptions.click();
+
+        await page.selectItem(items[3]);
+        expect(await imageCompare('navigation-options-disabled-clicked')).toEqual(0);
     });
 
     it('should update the UI when tree mode is enabled', async () => {
@@ -239,11 +285,13 @@ describe('Navigation Tests', () => {
         expect(await page.isItemActive(items[0])).toBeFalsy();
         expect(await page.isItemActive(items[1])).toBeFalsy();
         expect(await page.isItemActive(items[2])).toBeFalsy();
+        expect(await page.isItemActive(items[3])).toBeFalsy();
 
         // all items should be collapsed
         expect((await page.getItemChildren(items[0])).length).toBe(0);
         expect((await page.getItemChildren(items[1])).length).toBe(0);
         expect((await page.getItemChildren(items[2])).length).toBe(0);
+        expect((await page.getItemChildren(items[3])).length).toBe(0);
     });
 
     // Disabled due to Ivy issue: https://github.com/angular/angular/issues/35826

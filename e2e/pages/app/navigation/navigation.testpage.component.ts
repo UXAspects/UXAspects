@@ -46,10 +46,28 @@ export class NavigationTestPageComponent {
                 }
             ]
         },
+        {
+            title: 'Options',
+            icon: 'configuration',
+            routerLink: '/navigation/options',
+            click: () => { this.optionsClicked = !this.optionsClicked; },
+            children: [
+                {
+                    title: 'View options',
+                    routerLink: '/navigation/options/view',
+                    disabled: true
+                },
+                {
+                    title: 'Delete Options',
+                    routerLink: '/navigation/options/remove'
+                }
+            ]
+        }
     ];
 
     tree: boolean = false;
     autoCollapse: boolean = false;
+    optionsClicked: boolean = false;
 
     disableExact(): void {
         this.items.forEach((item: NavigationItem) => {
@@ -61,10 +79,16 @@ export class NavigationTestPageComponent {
         });
     }
 
-    disableAccounts(): void {
-        this.items.filter(item => item.title === 'Accounts')
-            .forEach((item: NavigationItem) => {
+    disableOptions(): void {
+        const updatedItems: NavigationItem[] = [];
+
+        this.items.forEach(item => {
+            if (item.title === 'Options') {
                 item.disabled = true;
-            });
+            }
+            updatedItems.push(item);
+        });
+
+        this.items = updatedItems;
     }
 }

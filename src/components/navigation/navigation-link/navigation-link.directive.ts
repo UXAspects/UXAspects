@@ -92,7 +92,7 @@ export class NavigationLinkDirective implements OnInit, OnChanges, OnDestroy {
     activated(event: Event): boolean {
 
         if (this.navigationItem.disabled) {
-            return;
+            return false;
         }
 
         if (this.navigationItem.routerLink) {

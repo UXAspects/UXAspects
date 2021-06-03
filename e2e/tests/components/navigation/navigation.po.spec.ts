@@ -7,7 +7,8 @@ export class NavigationPage {
     enableTreeBtn = $('#enable-tree-btn');
     enableAutoCollapse = $('#enable-auto-collapse-btn');
     disableExact = $('#disable-exact');
-    disableAccounts = $('#disable-accounts');
+    disableOptions = $('#disable-options');
+    optionsClicked = $('#options-clicked');
 
     async getPage(): Promise<void> {
         await browser.get('#/navigation');
@@ -35,6 +36,10 @@ export class NavigationPage {
 
     async getPageContent(): Promise<string> {
         return await this.pageContent.getText();
+    }
+
+    async getOptionsClicked(): Promise<string> {
+        return await this.optionsClicked.getText();
     }
 
     async selectItem(item: ElementFinder): Promise<void> {
