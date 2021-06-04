@@ -23,6 +23,7 @@
                     [canExpand]="level < _depthLimit"
                     [indent]="indent"
                     uxTabbableListItem
+                    [disabled]="item.disabled"
                     [parent]="parent"
                     [rank]="rank"
                     [(expanded)]="item.expanded">
