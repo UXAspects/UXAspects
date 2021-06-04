@@ -232,14 +232,14 @@ describe('Navigation Tests', () => {
         await page.selectItem(items[3]);
         const children = await page.getItemChildren(items[3]);
 
-        expect(await page.isItemDisabled(children[0])).toBeTruthy();
+        expect(await page.isItemDisabled(children[0])).toBe(true);
     });
 
     it('should disable the options node when disabled is set to true', async () => {
         const items = await page.getTopLevelItems();
         await page.disableOptions.click();
 
-        expect(await page.isItemDisabled(items[3])).toBeTruthy();
+        expect(await page.isItemDisabled(items[3])).toBe(true);
 
         expect(await imageCompare('navigation-options-disabled')).toEqual(0);
     });
@@ -248,7 +248,7 @@ describe('Navigation Tests', () => {
         const items = await page.getTopLevelItems();
         await page.disableOptions.click();
 
-        browser.actions().mouseMove(items[3]).click();
+        await browser.actions().mouseMove(items[3]).click();
 
         expect(await imageCompare('navigation-options-disabled-router-link')).toEqual(0);
     });
@@ -264,15 +264,15 @@ describe('Navigation Tests', () => {
         const items = await page.getTopLevelItems();
         await page.disableOptions.click();
 
-        browser.actions().mouseMove(items[3]).click();
+        await browser.actions().mouseMove(items[3]).click();
 
         expect(await imageCompare('navigation-options-disabled-clicked')).toEqual(0);
     });
 
     it('should update the UI when tree mode is enabled', async () => {
-        expect(await page.isTreeModeActive()).toBeFalsy();
+        expect(await page.isTreeModeActive()).toBe(false);
         await page.enableTreeBtn.click();
-        expect(await page.isTreeModeActive()).toBeTruthy();
+        expect(await page.isTreeModeActive()).toBe(true);
 
         expect(await imageCompare('navigation-tree-initial')).toEqual(0);
     });
