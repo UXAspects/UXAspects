@@ -5,7 +5,7 @@ const { join } = require('path');
 const { argv, cwd } = require('process');
 const express = require('express');
 const https = require('https');
-const { readFileSync } = require('fs');
+const { existsSync, readFileSync } = require('fs');
 const cors = require('cors');
 
 /**
@@ -54,13 +54,20 @@ function buildAndWatchAngularLibrary() {
         .subscribe();
 }
 
-function servePlunkerAssets() {
+function servePlunkerAssets() {    
     // start a very basic express server to access the plunker library
     const plunkerServer = express();
     plunkerServer.use(cors());
 
-    plunkerServer.get('/assets/lib/index.js', (req, res) =>
-        res.sendFile(join(cwd(), 'dist', 'library', 'fesm2015', 'ux-aspects-ux-aspects.js'))
+    const uxAspectsLibrary = join(cwd(), 'dist', 'library', 'fesm2015', 'ux-aspects-ux-aspects.js');
+    if (existsSync(uxAspectsLibrary)) {
+        plunkerServer.get('/assets/lib/index.js', (_, res) =>
+            res.sendFile(uxAspectsLibrary)
+        );
+    }
+
+    plunkerServer.get('/assets/lib/ux-aspects-micro-focus.js', (_, res) =>
+        res.sendFile(join(cwd(), 'dist', 'library', 'fesm2015', 'ux-aspects-micro-focus.js'))
     );
 
     // serve the contents of the docs assets folder
