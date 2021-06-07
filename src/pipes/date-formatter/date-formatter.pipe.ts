@@ -7,7 +7,7 @@ import { DateFormatter } from './date-formatter.type';
 })
 export class DateFormatterPipe implements PipeTransform {
 
-    constructor(@Inject(LOCALE_ID) private locale: string) { }
+    constructor(@Inject(LOCALE_ID) private _locale: string) { }
 
     transform(value: Date, formatter: string | DateFormatter): string {
 
@@ -16,7 +16,7 @@ export class DateFormatterPipe implements PipeTransform {
             return '';
         }
 
-        return typeof formatter === 'function' ? formatter(value) : formatDate(value, formatter, this.locale);
+        return typeof formatter === 'function' ? formatter(value) : formatDate(value, formatter, this._locale);
     }
 
 }
