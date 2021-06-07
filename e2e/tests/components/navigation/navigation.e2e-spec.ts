@@ -1,4 +1,4 @@
-import { browser } from 'protractor';
+import { browser, Key } from 'protractor';
 import { imageCompare } from '../common/image-compare';
 import { NavigationPage } from './navigation.po.spec';
 
@@ -250,7 +250,7 @@ describe('Navigation Tests', () => {
 
         await browser.actions().mouseMove(items[3]).click();
 
-        expect(await imageCompare('navigation-options-disabled-router-link')).toEqual(0);
+        expect(await imageCompare('navigation-options-disabled')).toEqual(0);
     });
 
     it('should fire click events when disabled is false or not set', async () => {
@@ -266,8 +266,84 @@ describe('Navigation Tests', () => {
 
         await browser.actions().mouseMove(items[3]).click();
 
-        expect(await imageCompare('navigation-options-disabled-clicked')).toEqual(0);
+        expect(await imageCompare('navigation-options-disabled')).toEqual(0);
     });
+
+    it('should not collapse disabled nodes when disabled is true', async () => {
+        const items = await page.getTopLevelItems();
+
+        // Expand options node
+        await items[3].click();
+        expect(await page.isItemSelected(items[3])).toBe(true);
+        expect(await page.getOptionsClicked()).toBe('Options click event');
+
+        // disable options node
+        await page.disableOptions.click();
+
+        // try to click disabled options node
+        await browser.actions().mouseMove(items[3]).click();
+
+        // should remain expanded
+        expect(await page.isItemSelected(items[3])).toBe(true);
+
+        expect(await imageCompare('navigation-options-expanded-disabled'));
+    });
+
+    it('should prevent clicking of child nodes when they are disabled', async () => {
+        const items = await page.getTopLevelItems();
+
+        // Expand options node
+        await items[3].click();
+        expect(await page.isItemSelected(items[3])).toBe(true);
+        expect(await page.getPageContent()).toBe('Options');
+        expect(await page.getOptionsClicked()).toBe('Options click event');
+
+        // try to click disabled options child node
+        const childNodes = await page.getItemChildren(items[3]);
+        await browser.actions().mouseMove(childNodes[0]).click();
+
+        // expect page content to not have changed
+        expect(await page.getPageContent()).toBe('Options');
+    });
+
+    it('should prevent disabled items from receiving focus', async () => {
+        const items = await page.getTopLevelItems();
+        await page.disableOptions.click();
+
+        await page.topFocus.click();
+
+        // expect Accounts node to be focused
+        await browser.actions().sendKeys(Key.TAB).perform();
+        await browser.actions().sendKeys(Key.ARROW_DOWN).perform();
+        await browser.actions().sendKeys(Key.ARROW_DOWN).perform();
+        expect(await page.isItemFocused(items[2])).toBe(true);
+
+        // try to move down to Options node
+        await browser.actions().sendKeys(Key.ARROW_DOWN).perform();
+
+        // Options node should not be focused and Dashboard node should be focused
+        expect(await page.isItemFocused(items[3])).toBe(false);
+        expect(await page.isItemFocused(items[0])).toBe(true);
+
+        expect(await imageCompare('navigation-disabled-focus')).toEqual(0);
+    });
+
+    it('should disabled items in tree mode preventing navigation and click events', async () => {
+        const items = await page.getTopLevelItems();
+        await page.enableTreeBtn.click();
+        await page.disableOptions.click();
+
+        // expect tree mode to be active
+        expect(await page.isTreeModeActive()).toBe(true);
+
+        // try to click options node
+        await browser.actions().mouseMove(items[3]).click();
+
+        expect(await page.isItemSelected(items[3])).toBe(false);
+        expect(await imageCompare('navigation-tree-mode-options-disabled'));
+    });
+
+    // disabel items on tree mode
 
     it('should update the UI when tree mode is enabled', async () => {
         expect(await page.isTreeModeActive()).toBe(false);

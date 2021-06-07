@@ -2,6 +2,7 @@ import { $, browser, ElementFinder } from 'protractor';
 
 export class NavigationPage {
 
+    topFocus = $('#top-focus');
     navigation = $('ux-navigation');
     pageContent = $('#page-content');
     enableTreeBtn = $('#enable-tree-btn');
@@ -28,6 +29,18 @@ export class NavigationPage {
         const classes = await item.getAttribute('class');
 
         return classes.split(' ').indexOf('disabled') !== -1;
+    }
+
+    async isItemSelected(item: ElementFinder): Promise<boolean> {
+        const classes = await item.getAttribute('class');
+
+        return classes.split(' ').indexOf('selected') !== -1;
+    }
+
+    async isItemFocused(item: ElementFinder): Promise<boolean> {
+        const classes = await item.$('a').getAttribute('class');
+
+        return classes.split(' ').indexOf('ux-focus-indicator-active') !== -1;
     }
 
     async getItemChildren(item: ElementFinder): Promise<ElementFinder[]> {
