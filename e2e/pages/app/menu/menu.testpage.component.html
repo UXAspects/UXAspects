@@ -1,3 +1,45 @@
 <div class="container">
-    <h1>hello world</h1>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="btn-group">
+                <button
+                    type="button"
+                    class="btn button-primary dropdown-toggle dropdown-button"
+                    [uxMenuTriggerFor]="menu">
+                    <span>Menu</span><ux-icon name="chevron-down" class="dropdown-icon-inline"></ux-icon>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <ux-menu id="menu" #menu menuClass="ux-menu-demo" [placement]="(placement$ | async)">
+
+        <button type="button" uxMenuItem>
+            <span class="dropdown-menu-icon"></span>
+            <span class="dropdown-menu-text">Menu Item</span>
+        </button>
+
+        <ux-menu-divider></ux-menu-divider>
+
+        <button type="button" uxMenuItem>
+            <span class="dropdown-menu-icon"></span>
+            <span class="dropdown-menu-text">Export</span>
+        </button>
+
+        <button type="button" uxMenuItem>
+            <span class="dropdown-menu-icon"></span>
+            <span class="dropdown-menu-text">Save list</span>
+        </button>
+
+        <button type="button" uxMenuItem>
+            <span class="dropdown-menu-icon"></span>
+            <span class="dropdown-menu-text">Save search query</span>
+        </button>
+
+    </ux-menu>
+
+    <div class="btn-container">
+        <button type="button" class="btn button-secondary" (click)="changePlacement()">Toggle Placement Left/Right</button>
+    </div>
+
 </div>
