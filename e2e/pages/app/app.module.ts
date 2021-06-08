@@ -111,6 +111,10 @@ const routes: Routes = [
         loadChildren: () => import('./media-player/media-player.module').then(m => m.MediaPlayerTestPageModule)
     },
     {
+        path: 'menu',
+        loadChildren: () => import('./menu/menu.module').then(m => m.MenuTestPageModule)
+    },
+    {
         path: 'navigation',
         loadChildren: () => import('./navigation/navigation.module').then(m => m.NavigationTestPageModule)
     },
