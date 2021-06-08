@@ -112,6 +112,14 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
         // handle keyboard events in the menu
         this.menu._onKeydown$.pipe(takeUntil(this._onDestroy$))
             .subscribe(event => this.onMenuKeydown(event));
+
+        this.menu._placement$.pipe(takeUntil(this._onDestroy$))
+            .subscribe((placement) => {
+                if (!this._isSubmenuTrigger) {
+                    this.menu.placement = placement;
+                    this.repositionOverlayPlacement();
+                }
+            });
     }
 
     ngOnDestroy(): void {
@@ -368,6 +376,31 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
             default:
                 return this.menu.alignment;
         }
+    }
+
+    /** Reposition the placement of the overlay */
+    private repositionOverlayPlacement(): void {
+
+        // only proceed if we can reuse an overlay
+        if (!this._overlayRef) {
+            return;
+        }
+
+        const { originX, originY } = this.getOrigin();
+        const { overlayX, overlayY } = this.getOverlayPosition();
+
+        // update current overlay with new placement position
+        this._overlayRef.updatePositionStrategy(
+            this._overlay.position()
+                .flexibleConnectedTo(this.parent ?? this._elementRef)
+                .withLockedPosition()
+                .withPositions([
+                    { originX, originY, overlayX, overlayY },
+                    { originX: this.menu.alignment === 'start' ? 'end' : 'start', originY, overlayX, overlayY }, // Add a fallback position if off screen on horizontal axis
+                    { originX, originY: this.menu.placement === 'bottom' ? 'top' : 'bottom', overlayX, overlayY }, // Add a fallback position if off screen on vertical axis
+                    { originX: this.menu.alignment === 'start' ? 'end' : 'start', originY: this.menu.placement === 'bottom' ? 'top' : 'bottom', overlayX, overlayY }, // Add a fallback position if off screen onboth axis
+                ])
+        );
     }
 
     /** Get an observable that emits on any of the triggers that close a menu */
