@@ -1,3 +1,5 @@
+import { browser } from 'protractor';
+import { imageCompare } from '../common/image-compare';
 import { MenuPage } from './menu.po.spec';
 
 describe('Menu', () => {
@@ -10,6 +12,17 @@ describe('Menu', () => {
     });
 
     it('should change menu placement after initialization', async () => {
-        await console.log('start', page.getMenuPlacement());
+
+        // open menu and expect placement to be to the left
+        await browser.actions().mouseMove(page.openMenuBtn).click().perform();
+        expect(await imageCompare('menu-placement-left')).toEqual(0);
+
+        // close menu and click change placement button
+        await browser.actions().mouseMove(page.openMenuBtn).click().perform();
+        await browser.actions().mouseMove(page.togglePlacementBtn).click().perform();
+
+        // open menu and expect placement to be to the right
+        await browser.actions().mouseMove(page.openMenuBtn).click().perform();
+        expect(await imageCompare('menu-placement-right')).toEqual(0);
     });
 });

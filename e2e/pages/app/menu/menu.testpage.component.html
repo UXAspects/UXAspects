@@ -1,9 +1,10 @@
 <div class="container">
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-6 d-flex justify-content-center">
             <div class="btn-group">
                 <button
                     type="button"
+                    id="open-menu"
                     class="btn button-primary dropdown-toggle dropdown-button"
                     [uxMenuTriggerFor]="menu">
                     <span>Menu</span><ux-icon name="chevron-down" class="dropdown-icon-inline"></ux-icon>
@@ -39,7 +40,7 @@
     </ux-menu>
 
     <div class="btn-container">
-        <button type="button" class="btn button-secondary" (click)="changePlacement()">Toggle Placement Left/Right</button>
+        <button id="placement-change" type="button" class="btn button-secondary" (click)="changePlacement()">Toggle Placement Left/Right</button>
     </div>
 
 </div>

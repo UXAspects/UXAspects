@@ -1,3 +1,8 @@
 .btn-container {
     margin-top: 30px;
 }
+
+.d-flex.justify-content-center {
+    display: flex;
+    justify-content: center;
+}
