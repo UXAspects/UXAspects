@@ -2,8 +2,10 @@ import { $, browser } from 'protractor';
 
 export class MenuPage {
 
-    menu = $('menu');
-    togglePlacementBtn = $('#placement-change');
+    placementLeftBtn = $('#placement-left');
+    placementRightBtn = $('#placement-right');
+    placementTopBtn = $('#placement-top');
+    placementBottomBtn = $('#placement-bottom');
     openMenuBtn = $('#open-menu > span');
 
     async getPage(): Promise<void> {

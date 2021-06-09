@@ -15,14 +15,32 @@ describe('Menu', () => {
 
         // open menu and expect placement to be to the left
         await browser.actions().mouseMove(page.openMenuBtn).click().perform();
-        expect(await imageCompare('menu-placement-left')).toEqual(0);
+        expect(await imageCompare('menu-dynamic-placement-left')).toEqual(0);
 
-        // close menu and click change placement button
+        // close menu and click change placement to right
         await browser.actions().mouseMove(page.openMenuBtn).click().perform();
-        await browser.actions().mouseMove(page.togglePlacementBtn).click().perform();
+        await browser.actions().mouseMove(page.placementRightBtn).click().perform();
 
         // open menu and expect placement to be to the right
         await browser.actions().mouseMove(page.openMenuBtn).click().perform();
-        expect(await imageCompare('menu-placement-right')).toEqual(0);
+        expect(await imageCompare('menu-dynamic-placement-right')).toEqual(0);
+
+        // close menu and click change placement to bottom
+        await browser.actions().mouseMove(page.openMenuBtn).click().perform();
+        await browser.actions().mouseMove(page.placementBottomBtn).click().perform();
+
+        // open menu and expect placement to be to the bottom
+        await browser.actions().mouseMove(page.openMenuBtn).click().perform();
+        expect(await imageCompare('menu-dynamic-placement-bottom')).toEqual(0);
+
+        // close menu and click change placement to top
+        await browser.actions().mouseMove(page.openMenuBtn).click().perform();
+        await browser.actions().mouseMove(page.placementTopBtn).click().perform();
+
+        // open menu and expect placement to be to the top
+        await browser.actions().mouseMove(page.openMenuBtn).click().perform();
+        expect(await imageCompare('menu-dynamic-placement-top')).toEqual(0);
     });
+
+
 });

@@ -11,9 +11,7 @@ export class MenuTestPageComponent {
 
     placement$: BehaviorSubject<string> = new BehaviorSubject<string>('left');
 
-    changePlacement() {
-        console.log(this.val);
-        this.placement$.next(this.val ? 'right' : 'left');
-        this.val = !this.val;
+    changePlacement(placement: string) {
+        this.placement$.next(placement);
     }
 }

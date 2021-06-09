@@ -40,7 +40,9 @@
     </ux-menu>
 
     <div class="btn-container">
-        <button id="placement-change" type="button" class="btn button-secondary" (click)="changePlacement()">Toggle Placement Left/Right</button>
+        <button id="placement-left" type="button" class="btn button-secondary" (click)="changePlacement('left')">Placement Left</button>
+        <button id="placement-right" type="button" class="btn button-secondary" (click)="changePlacement('right')">Placement Right</button>
+        <button id="placement-top" type="button" class="btn button-secondary" (click)="changePlacement('top')">Placement Top</button>
+        <button id="placement-bottom" type="button" class="btn button-secondary" (click)="changePlacement('bottom')">Placement Bottom</button>
     </div>
-
 </div>
