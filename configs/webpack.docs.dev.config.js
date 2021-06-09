@@ -98,7 +98,13 @@ module.exports = {
             },
             {
                 test: /\.md$/,
-                use: ['html-loader', 'markdown-highlighter-loader'],
+                use: [
+                    {
+                        loader: 'html-loader',
+                        options: { esModule: false },
+                    },
+                    'markdown-highlighter-loader',
+                ],
             },
 
             /*
