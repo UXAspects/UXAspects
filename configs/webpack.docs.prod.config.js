@@ -28,6 +28,7 @@ module.exports = {
     mode: 'production',
     devtool: false,
     stats: 'minimal',
+    target: ['web', 'es5'],
 
     resolve: {
         extensions: ['.ts', '.js'],
