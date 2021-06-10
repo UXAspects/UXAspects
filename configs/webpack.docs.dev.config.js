@@ -32,6 +32,7 @@ gracefulFs.gracefulify(fs);
 module.exports = {
     mode: 'development',
     devtool: false,
+    target: ['web', 'es5'],
 
     resolve: {
         extensions: ['.ts', '.js'],
