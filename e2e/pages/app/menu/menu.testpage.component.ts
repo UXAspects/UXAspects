@@ -7,7 +7,6 @@ import { BehaviorSubject } from 'rxjs';
     styleUrls: ['./menu.testpage.component.css']
 })
 export class MenuTestPageComponent {
-    val: boolean = true;
 
     placement$: BehaviorSubject<string> = new BehaviorSubject<string>('left');
 

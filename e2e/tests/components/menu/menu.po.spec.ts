@@ -6,7 +6,7 @@ export class MenuPage {
     placementRightBtn = $('#placement-right');
     placementTopBtn = $('#placement-top');
     placementBottomBtn = $('#placement-bottom');
-    openMenuBtn = $('#open-menu > span');
+    openMenuBtn = $('#open-menu');
 
     async getPage(): Promise<void> {
         await browser.get('#/menu');

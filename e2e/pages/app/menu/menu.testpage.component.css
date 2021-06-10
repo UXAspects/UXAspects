@@ -2,7 +2,7 @@
     margin-top: 30px;
 }
 
-.d-flex.justify-content-center {
+.justify-content-center {
     display: flex;
     justify-content: center;
     margin-top: 50px;
