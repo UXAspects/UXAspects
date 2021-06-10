@@ -697,7 +697,7 @@ export class DashboardService implements OnDestroy {
 
         // find the positions required
         const targetSpaces = this.getOccupiedSpaces().filter(space => space.widget === widget).map(space => {
-            return { column: space.column - widget.getColumnSpan(), row: space.row, widget: space.widget };
+            return { column: space.column - this._actionWidget.widget.getColumnSpan(), row: space.row, widget: space.widget };
         });
 
         // check if any of the target spaces are out of bounds
