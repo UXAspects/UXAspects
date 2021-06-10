@@ -15,7 +15,7 @@ export class DashboardEightColumnLayoutTestPageComponent {
         padding: 10,
         rowHeight: 220,
         minWidth: 90
-    }
+    };
 
     initialLayout: DashboardLayoutData[] = [
         { id: 'widget-1', col: 0, row: 0, colSpan: 2, rowSpan: 1 },
