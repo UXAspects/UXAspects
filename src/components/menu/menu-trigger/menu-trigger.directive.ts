@@ -114,10 +114,9 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
             .subscribe(event => this.onMenuKeydown(event));
 
         this.menu._placement$.pipe(takeUntil(this._onDestroy$))
-            .subscribe((placement) => {
+            .subscribe(() => {
                 if (!this._isSubmenuTrigger) {
-                    this.menu.placement = placement;
-                    this.repositionOverlayPlacement();
+                    this.getOverlay(true);
                 }
             });
     }
@@ -282,10 +281,10 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
     }
 
     /** Create an overlay or return an existing instance */
-    private getOverlay(): OverlayRef {
+    private getOverlay(recreateOverlay: boolean = false): OverlayRef {
 
         // if we have already created the overlay then reuse it
-        if (this._overlayRef) {
+        if (this._overlayRef && !recreateOverlay) {
             return this._overlayRef;
         }
 
@@ -376,31 +375,6 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
             default:
                 return this.menu.alignment;
         }
-    }
-
-    /** Reposition the placement of the overlay */
-    private repositionOverlayPlacement(): void {
-
-        // only proceed if we can reuse an overlay
-        if (!this._overlayRef) {
-            return;
-        }
-
-        const { originX, originY } = this.getOrigin();
-        const { overlayX, overlayY } = this.getOverlayPosition();
-
-        // update current overlay with new placement position
-        this._overlayRef.updatePositionStrategy(
-            this._overlay.position()
-                .flexibleConnectedTo(this.parent ?? this._elementRef)
-                .withLockedPosition()
-                .withPositions([
-                    { originX, originY, overlayX, overlayY },
-                    { originX: this.menu.alignment === 'start' ? 'end' : 'start', originY, overlayX, overlayY }, // Add a fallback position if off screen on horizontal axis
-                    { originX, originY: this.menu.placement === 'bottom' ? 'top' : 'bottom', overlayX, overlayY }, // Add a fallback position if off screen on vertical axis
-                    { originX: this.menu.alignment === 'start' ? 'end' : 'start', originY: this.menu.placement === 'bottom' ? 'top' : 'bottom', overlayX, overlayY }, // Add a fallback position if off screen onboth axis
-                ])
-        );
     }
 
     /** Get an observable that emits on any of the triggers that close a menu */
