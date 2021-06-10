@@ -267,15 +267,13 @@ export class DashboardService implements OnDestroy {
     getOccupiedSpaces(): DashboardSpace[] {
 
         // find all spaces that are currently occupied
-        const occupiedSpaces = this.widgets.filter(widget => widget.getColumn() !== undefined && widget.getRow() !== undefined)
+        return this.widgets.filter(widget => widget.getColumn() !== undefined && widget.getRow() !== undefined)
             .reduce((value, widget) => {
 
                 this.forEachBlock(widget, (column, row) => value.push({ widget: widget, column: column, row: row }));
 
                 return value;
             }, []);
-        console.log(occupiedSpaces);
-        return occupiedSpaces
     }
 
     /**
@@ -739,10 +737,8 @@ export class DashboardService implements OnDestroy {
 
         // find the positions required
         const targetSpaces = this.getOccupiedSpaces().filter(space => space.widget === widget).map(space => {
-            return { column: space.column + widget.getColumnSpan(), row: space.row, widget: space.widget };
+            return { column: space.column + this._actionWidget.widget.getColumnSpan(), row: space.row, widget: space.widget };
         });
-
-        console.log('targetSpace', targetSpaces)
 
         // check if any of the target spaces are out of bounds
         if (targetSpaces.find(space => space.column >= this.getColumnCount())) {
@@ -760,7 +756,7 @@ export class DashboardService implements OnDestroy {
             targetSpaces.forEach(space => this.getWidgetsAtPosition(space.column, space.row).filter(wgt => wgt !== space.widget).forEach(wgt => this.canWidgetMoveRight(wgt, true)));
 
             // move current widget to the right
-            widget.setColumn(widget.getColumn() + 1);
+            widget.setColumn(widget.getColumn() + this._actionWidget.widget.getColumnSpan());
         }
 
         return moveable;
