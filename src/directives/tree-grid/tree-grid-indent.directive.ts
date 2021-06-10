@@ -1,4 +1,4 @@
-import { coerceNumberProperty } from '@angular/cdk/coercion';
+import { coerceNumberProperty, NumberInput } from '@angular/cdk/coercion';
 import { Directive, HostBinding, Input } from '@angular/core';
 import { TreeGridRowDirective } from './tree-grid-row.directive';
 
@@ -9,11 +9,11 @@ export class TreeGridIndentDirective {
 
     /** The amount each level should be indented by */
     @Input() 
-    set uxTreeGridIndent(value: number | string | undefined) {
+    set uxTreeGridIndent(value: number | undefined) {
         this._indent = coerceNumberProperty(value, 25);
     }
 
-    get uxTreeGridIndent(): number | string | undefined {
+    get uxTreeGridIndent(): number | undefined {
         return this._indent;
     }
 
@@ -24,6 +24,8 @@ export class TreeGridIndentDirective {
     }
 
     private _indent: number;
+
+    static ngAcceptInputType_uxTreeGridIndent: NumberInput | undefined;
 
     constructor(private _row: TreeGridRowDirective) {}
 }
