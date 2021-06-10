@@ -33,7 +33,7 @@ describe('Dashboard Eight Column Layout', () => {
         expect(await page.getWidgetLocationValue(widget4, 'left')).toBe(552);
     });
 
-    it('should respond correctly when widget 1 is moved down over a widget 3 is positioned to the left', async () => {
+    it('should respond correctly when widget 1 is moved down over a widget 3, when widget 1 is positioned to the left', async () => {
         // Tab into the dashboard and move to the next grab handle
         await page.topFocus.click();
         await browser.actions()
@@ -58,7 +58,7 @@ describe('Dashboard Eight Column Layout', () => {
         expect(await page.getWidgetLocationValue(widget4, 'left')).toBe(828);
     });
 
-    it('should respond correctly when widget 1 is moved down over a widget 3 when widget 1 is positioned to the right', async () => {
+    it('should respond correctly when widget 1 is moved down over a widget 3, when widget 1 positioned to the right', async () => {
         // Change layout so widget 1 is to the right, this allows testing of widgets sifting to the left
         await page.updateLayout.click();
 
