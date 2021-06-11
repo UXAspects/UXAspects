@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { NavigationModule, AccessibilityModule } from '@ux-aspects/ux-aspects';
+import { AccessibilityModule, NavigationModule } from '@ux-aspects/ux-aspects';
 import { NavigationTestPageComponent } from './navigation.testpage.component';
 import { NavigationPageComponent } from './page.component';
 
@@ -44,6 +44,21 @@ import { NavigationPageComponent } from './page.component';
                         path: 'accounts/remove',
                         component: NavigationPageComponent,
                         data: { title: 'Accounts Remove' }
+                    },
+                    {
+                        path: 'options',
+                        component: NavigationPageComponent,
+                        data: { title: 'Options' }
+                    },
+                    {
+                        path: 'options/view',
+                        component: NavigationPageComponent,
+                        data: { title: 'Options View' }
+                    },
+                    {
+                        path: 'options/remove',
+                        component: NavigationPageComponent,
+                        data: { title: 'Options Remove' }
                     }
                 ]
             }
