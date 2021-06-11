@@ -1,8 +1,8 @@
 import { LocationStrategy } from '@angular/common';
 import { ChangeDetectorRef, Directive, HostBinding, HostListener, Inject, Input, OnChanges, OnDestroy, OnInit, Optional } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { filter, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { filter, takeUntil } from 'rxjs/operators';
 import { tick } from '../../../common/index';
 import { NavigationItem, NavigationItemRouterOptions } from '../navigation-item.interface';
 import { NavigationModuleOptions, NAVIGATION_MODULE_OPTIONS } from '../navigation-options';
@@ -91,6 +91,10 @@ export class NavigationLinkDirective implements OnInit, OnChanges, OnDestroy {
     @HostListener('keydown.enter', ['$event'])
     activated(event: Event): boolean {
 
+        if (this.navigationItem.disabled) {
+            return false;
+        }
+
         if (this.navigationItem.routerLink) {
             const commands = Array.isArray(this.navigationItem.routerLink) ? this.navigationItem.routerLink : [this.navigationItem.routerLink];
             this._router.navigate(commands, this.navigationItem.routerExtras);
@@ -129,6 +133,10 @@ export class NavigationLinkDirective implements OnInit, OnChanges, OnDestroy {
     }
 
     private getHref(): string {
+
+        if (this.navigationItem.disabled) {
+            return null;
+        }
 
         if (this.navigationItem.routerLink) {
             const commands = Array.isArray(this.navigationItem.routerLink) ? this.navigationItem.routerLink : [this.navigationItem.routerLink];
