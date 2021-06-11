@@ -98,7 +98,7 @@ module.exports = {
                 use: [MiniCssExtractPlugin.loader, CssLoader, 'less-loader'],
             },
             {
-                test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico|otf|mp4|mp3)$/,
+                test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico|otf|mp4|mp3|vtt)$/,
                 use: [
                     {
                         loader: 'file-loader',
