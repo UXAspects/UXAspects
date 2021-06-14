@@ -1,0 +1,48 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 justify-content-center">
+            <div class="btn-group">
+                <button
+                    type="button"
+                    id="open-menu"
+                    class="btn button-primary dropdown-toggle dropdown-button"
+                    [uxMenuTriggerFor]="menu">
+                    <span>Menu</span><ux-icon name="chevron-down" class="dropdown-icon-inline"></ux-icon>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <ux-menu id="menu" #menu menuClass="ux-menu-demo" [placement]="(placement$ | async)">
+
+        <button type="button" uxMenuItem>
+            <span class="dropdown-menu-icon"></span>
+            <span class="dropdown-menu-text">Menu Item</span>
+        </button>
+
+        <ux-menu-divider></ux-menu-divider>
+
+        <button type="button" uxMenuItem>
+            <span class="dropdown-menu-icon"></span>
+            <span class="dropdown-menu-text">Export</span>
+        </button>
+
+        <button type="button" uxMenuItem>
+            <span class="dropdown-menu-icon"></span>
+            <span class="dropdown-menu-text">Save list</span>
+        </button>
+
+        <button type="button" uxMenuItem>
+            <span class="dropdown-menu-icon"></span>
+            <span class="dropdown-menu-text">Save search query</span>
+        </button>
+
+    </ux-menu>
+
+    <div class="btn-container">
+        <button id="placement-left" type="button" class="btn button-secondary" (click)="changePlacement('left')">Placement Left</button>
+        <button id="placement-right" type="button" class="btn button-secondary" (click)="changePlacement('right')">Placement Right</button>
+        <button id="placement-top" type="button" class="btn button-secondary" (click)="changePlacement('top')">Placement Top</button>
+        <button id="placement-bottom" type="button" class="btn button-secondary" (click)="changePlacement('bottom')">Placement Bottom</button>
+    </div>
+</div>
