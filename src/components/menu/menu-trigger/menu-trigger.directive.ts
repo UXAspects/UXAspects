@@ -112,6 +112,13 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
         // handle keyboard events in the menu
         this.menu._onKeydown$.pipe(takeUntil(this._onDestroy$))
             .subscribe(event => this.onMenuKeydown(event));
+
+        this.menu._placement$.pipe(takeUntil(this._onDestroy$))
+            .subscribe(() => {
+                if (!this._isSubmenuTrigger) {
+                    this.getOverlay(true);
+                }
+            });
     }
 
     ngOnDestroy(): void {
@@ -274,10 +281,10 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
     }
 
     /** Create an overlay or return an existing instance */
-    private getOverlay(): OverlayRef {
+    private getOverlay(recreateOverlay: boolean = false): OverlayRef {
 
         // if we have already created the overlay then reuse it
-        if (this._overlayRef) {
+        if (this._overlayRef && !recreateOverlay) {
             return this._overlayRef;
         }
 

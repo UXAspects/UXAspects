@@ -1,16 +1,21 @@
-const { join } = require('path');
-const { AngularWebpackPlugin } = require('@ngtools/webpack');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const {
     IndexHtmlWebpackPlugin,
 } = require('@angular-devkit/build-angular/src/webpack/plugins/index-html-webpack-plugin');
+const { AngularWebpackPlugin } = require('@ngtools/webpack');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const { join } = require('path');
 const { cwd } = require('process');
 const rxAlias = require('rxjs/_esm5/path-mapping');
-const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 
 module.exports = {
     mode: 'production',
+
+    resolve: {
+        extensions: ['.ts', '.js'],
+        alias: rxAlias(),
+    },
 
     entry: {
         main: join(cwd(), 'e2e', 'pages', 'main.ts'),
@@ -21,11 +26,6 @@ module.exports = {
     output: {
         path: join(cwd(), 'e2e', 'dist'),
         filename: '[name].js',
-    },
-
-    resolve: {
-        extensions: ['.ts', '.js'],
-        alias: rxAlias(),
     },
 
     performance: {
@@ -81,6 +81,7 @@ module.exports = {
                 include: join(cwd(), 'e2e', 'pages', 'app'),
                 use: 'raw-loader',
             },
+
             // Ignore warnings about System.import in Angular
             {
                 test: /[\/\\]@angular[\/\\].+\.js$/,
@@ -115,25 +116,6 @@ module.exports = {
             },
         ],
     },
-
-    plugins: [
-        new AngularWebpackPlugin({
-            tsconfig: join(cwd(), 'e2e', 'tsconfig.app.json'),
-        }),
-
-        new IndexHtmlWebpackPlugin({
-            indexPath: join(cwd(), 'e2e', 'pages', 'index.html'),
-            outputPath: 'index.html',
-            entrypoints: ['polyfills', 'styles', 'main'],
-            noModuleEntrypoints: [],
-            moduleEntrypoints: [],
-            sri: false,
-        }),
-
-        new MiniCssExtractPlugin({
-            filename: 'styles.css',
-        }),
-    ],
 
     optimization: {
         runtimeChunk: 'single',
@@ -193,10 +175,32 @@ module.exports = {
         ],
     },
 
+    plugins: [
+        new AngularWebpackPlugin({
+            tsconfig: join(cwd(), 'e2e', 'tsconfig.app.json'),
+        }),
+
+        new IndexHtmlWebpackPlugin({
+            indexPath: join(cwd(), 'e2e', 'pages', 'index.html'),
+            outputPath: 'index.html',
+            entrypoints: ['polyfills', 'styles', 'main'],
+            noModuleEntrypoints: [],
+            moduleEntrypoints: [],
+            sri: false,
+        }),
+
+        new MiniCssExtractPlugin({
+            filename: 'styles.css',
+        }),
+    ],
+
     devServer: {
         port: 4000,
         historyApiFallback: true,
         stats: 'minimal',
+        headers: {
+            'Access-Control-Allow-Origin': '*',
+        },
     },
 
     node: false,

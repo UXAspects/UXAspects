@@ -16,6 +16,8 @@ export class CssActivityIndicatorAlternativeComponent extends BaseDocumentationS
         html: this.snippets.raw.sampleHtml
     });
 
+    progressGif = require('../../../../../../../src/img/progress.gif');
+
     constructor() {
         super(require.context('./snippets/', false, /(html|css|js|ts)$/));
     }
