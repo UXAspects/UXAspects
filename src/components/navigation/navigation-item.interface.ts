@@ -11,6 +11,7 @@ export interface NavigationItem {
     click?: (event: Event, navigationItem: NavigationItem) => void;
     expanded?: boolean;
     children?: NavigationItem[];
+    disabled?: boolean;
 }
 
 export interface NavigationItemRouterOptions {
