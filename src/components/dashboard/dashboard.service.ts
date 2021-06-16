@@ -752,14 +752,41 @@ export class DashboardService implements OnDestroy {
         );
 
         if (performMove && moveable) {
-            // move all widgets to the right
-            targetSpaces.forEach(space => this.getWidgetsAtPosition(space.column, space.row).filter(wgt => wgt !== space.widget).forEach(wgt => this.canWidgetMoveRight(wgt, true)));
 
             // move current widget to the right
-            widget.setColumn(widget.getColumn() + this._actionWidget.widget.getColumnSpan());
+            this.moveWidgetRight(widget);
+
+            // move all widgets to the right
+            targetSpaces.forEach(space => this.getWidgetsAtPosition(space.column, space.row).filter(wgt => wgt !== space.widget).forEach(wgt => this.canWidgetMoveRight(wgt, true)));
         }
 
         return moveable;
+    }
+
+    moveWidgetRight(widget: DashboardWidgetComponent): boolean {
+
+        let stable: boolean = true;
+
+        // move current widget to the right
+        widget.setColumn(widget.getColumn() + 1);
+
+        const actionWgt = this._actionWidget.widget;
+
+        // check widget isn't over another
+        const actionWidgetOverCurrentWidget = this.getPositionAvailable(actionWgt.col, actionWgt.row, actionWgt.colSpan, actionWgt.rowSpan, actionWgt);
+        const widgetsOverCurrentWidget = this.getPositionAvailable(widget.col, widget.row, widget.colSpan, widget.rowSpan, widget);
+
+        if (!actionWidgetOverCurrentWidget && !widgetsOverCurrentWidget) {
+            stable = false;
+        }
+
+        // if changes occurred then we should repeat the process
+        if (!stable) {
+            this.moveWidgetRight(widget);
+            return true;
+        }
+
+        return false;
     }
 
     /**
