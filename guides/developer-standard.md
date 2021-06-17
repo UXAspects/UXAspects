@@ -301,21 +301,6 @@ export class ComponentsSortingComponent {
 }
 ```
 
-Any components that are detailing an Angular 1 component should be suffixed with `Ng1` in the class name and `ng1` in the selector and file names, e.g.:
-
-```typescript
-import { Component } from '@angular/core';
-import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-
-@Component({
-    selector: 'uxd-components-sorting-ng1',
-    templateUrl: './sorting-ng1.component.html'
-})
-@DocumentationSectionComponent('ComponentsSortingNg1Component')
-export class ComponentsSortingNg1Component {
-}
-```
-
 ### Code Snippets
 
 Any code snippets should be placed in a snippets folder in the appropriate section directory. These can be imported by the section and displayed in a `uxd-snippet` component using the content attribute. All snippets are available in a `snippets` object on the class.
@@ -440,21 +425,10 @@ If this test is run and there is no baseline image to compare against one will b
 will then test against the previous baseline image.
 
 If a component has been updated and has visually changed, the baseline image needs to be updated otherwise tests will fail.
-Our CI build runs in a Linux environment, which has different font rendering than a Windows environment, therefore to prevent differences in the font variation baseline images should be generated in a Linux environment.
 
-We provide an `npm` script that allows you to use Docker to run a CI environment on your local machine. Your current developer environment will be
-mounted allowing you to run the `e2e` tests and produce baseline images.
+Follow these steps to run the tests locally:
 
-Follow these steps to run the tests in a CI environment locally:
-
-1. `npm run docker:ci`
-    * This starts a Linux Docker container, and spawns an interactive shell. Enter the subsequent commands at the resulting prompt in order to execute them within the container.
-2. `npm ci`
-    * Note that `npm run docker:ci` uses `.node_modules__docker` on your host environment to store node modules for the Linux platform. Therefore `npm ci` is only required when package updates have been made.
-3. `npm run build:library`
-4. `npm run test:e2e`
-
-The Docker container can continue to be used for additional test runs. If you wish to exit the container simply type `exit` in the Linux bash shell.
-Periodic use of `docker ps` from your host terminal, will show you any running Docker images. These can be terminated using `docker kill CONTAINER ID`.
+1. `npm run build:library`
+2. `npm run test:e2e`
 
 If there are any differences, the generated screenshots will be found under `target/e2e/screenshots`.

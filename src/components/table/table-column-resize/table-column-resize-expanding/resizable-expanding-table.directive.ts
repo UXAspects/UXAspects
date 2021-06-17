@@ -1,5 +1,5 @@
 import { isPlatformBrowser } from '@angular/common';
-import { AfterViewInit, ContentChildren, Directive, ElementRef, Inject, OnDestroy, PLATFORM_ID, QueryList, Renderer2 } from '@angular/core';
+import { AfterViewInit, ContentChildren, Directive, ElementRef, Inject, PLATFORM_ID, QueryList, Renderer2 } from '@angular/core';
 import { fromEvent, merge } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ResizeService } from '../../../../directives/resize/index';
@@ -22,7 +22,7 @@ import { ResizableExpandingTableService } from './resizable-expanding-table.serv
         '[class.ux-resizable-expanding-table-overflow]': '_overflowX'
     }
 })
-export class ResizableExpandingTableDirective extends BaseResizableTableDirective implements AfterViewInit, OnDestroy {
+export class ResizableExpandingTableDirective extends BaseResizableTableDirective implements AfterViewInit {
 
     /** Get all the column headers */
     @ContentChildren(ResizableTableColumnComponent, { descendants: true }) columns: QueryList<ResizableTableColumnComponent>;
@@ -52,10 +52,6 @@ export class ResizableExpandingTableDirective extends BaseResizableTableDirectiv
                 this._overflowX = this._elementRef.nativeElement.tBodies[0].scrollWidth > this._elementRef.nativeElement.tBodies[0].offsetWidth;
             });
         }
-    }
-
-    ngOnDestroy(): void {
-        this.onDestroy();
     }
 
     /**

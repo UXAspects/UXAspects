@@ -152,42 +152,37 @@ describe('Organization Chart Component', () => {
         expect(component.selected).toEqual(component.dataset);
     });
 
-    it('should expand nodes on click if they have children', async (done) => {
+    it('should expand nodes on click if they have children', async () => {
         await clickOnNode(getRootNode());
         expect(getNodes().length).toBe(4);
-        done();
     });
 
-    it('should expand nodes on enter if they have children', async (done) => {
+    it('should expand nodes on enter if they have children', async () => {
         getRootNode().focus();
         await keydownOnNode(getRootNode(), ENTER);
         expect(getNodes().length).toBe(4);
-        done();
     });
 
-    it('should collapse expanded nodes on click', async (done) => {
+    it('should collapse expanded nodes on click', async () => {
         await clickOnNode(getRootNode());
         expect(getNodes().length).toBe(4);
         await clickOnNode(getRootNode());
         expect(getNodes().length).toBe(1);
-        done();
     });
 
-    it('should collapse expanded nodes on enter key', async (done) => {
+    it('should collapse expanded nodes on enter key', async () => {
         getRootNode().focus();
         await keydownOnNode(getRootNode(), ENTER);
         expect(getNodes().length).toBe(4);
         await keydownOnNode(getRootNode(), ENTER);
         expect(getNodes().length).toBe(1);
-        done();
     });
 
-    it('should focus a child node on click', async (done) => {
+    it('should focus a child node on click', async () => {
         await clickOnNode(getRootNode());
         await clickOnNode(getNodes().item(1));
         expect(getNodes().item(1).classList.contains('ux-organization-chart-node-selected')).toBeTruthy();
         expect(component.selected).toEqual(component.dataset.children[0]);
-        done();
     });
 
     function getNodes(): NodeListOf<HTMLElement> {
