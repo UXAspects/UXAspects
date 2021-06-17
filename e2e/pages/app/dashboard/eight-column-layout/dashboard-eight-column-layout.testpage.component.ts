@@ -24,16 +24,38 @@ export class DashboardEightColumnLayoutTestPageComponent {
         { id: 'widget-4', col: 4, row: 1, colSpan: 1, rowSpan: 1 },
     ];
 
-    updatedLayout: DashboardLayoutData[] = [
+    initialLayoutAlt: DashboardLayoutData[] = [
+        { id: 'widget-1', col: 0, row: 0, colSpan: 2, rowSpan: 1 },
+        { id: 'widget-2', col: 2, row: 0, colSpan: 6, rowSpan: 1 },
+        { id: 'widget-3', col: 1, row: 1, colSpan: 4, rowSpan: 1 },
+        { id: 'widget-4', col: 5, row: 1, colSpan: 1, rowSpan: 1 },
+    ];
+
+    flippedLayout: DashboardLayoutData[] = [
         { id: 'widget-1', col: 6, row: 0, colSpan: 2, rowSpan: 1 },
         { id: 'widget-2', col: 0, row: 0, colSpan: 6, rowSpan: 1 },
         { id: 'widget-3', col: 4, row: 1, colSpan: 4, rowSpan: 1 },
         { id: 'widget-4', col: 3, row: 1, colSpan: 1, rowSpan: 1 },
     ];
 
+    flippedLayoutAlt: DashboardLayoutData[] = [
+        { id: 'widget-1', col: 6, row: 0, colSpan: 2, rowSpan: 1 },
+        { id: 'widget-2', col: 0, row: 0, colSpan: 6, rowSpan: 1 },
+        { id: 'widget-3', col: 3, row: 1, colSpan: 4, rowSpan: 1 },
+        { id: 'widget-4', col: 2, row: 1, colSpan: 1, rowSpan: 1 },
+    ];
+
     layout$: BehaviorSubject<DashboardLayoutData[]> = new BehaviorSubject<DashboardLayoutData[]>(this.initialLayout);
 
-    updateLayout(): void {
-        this.layout$.next(this.updatedLayout);
+    initLayoutAlt(): void {
+        this.layout$.next(this.initialLayoutAlt);
+    }
+
+    flipLayout(): void {
+        this.layout$.next(this.flippedLayout);
+    }
+
+    flipLayoutAlt(): void {
+        this.layout$.next(this.flippedLayoutAlt);
     }
 }

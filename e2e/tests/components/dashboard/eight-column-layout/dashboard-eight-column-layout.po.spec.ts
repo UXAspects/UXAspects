@@ -3,7 +3,9 @@ import { DashboardPage } from '../dashboard.po.spec';
 
 export class DashboardEightColumnLayoutPage extends DashboardPage {
 
-    updateLayout = $('#update-layout');
+    initLayoutAlt = $('#init-layout-alt');
+    flipLayout = $('#flip-layout');
+    flipLayoutAlt = $('#flip-layout-alt');
     topFocus = $('#top-focus');
 
     async getPage(): Promise<void> {
