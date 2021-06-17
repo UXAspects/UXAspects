@@ -575,6 +575,54 @@ export class DashboardService implements OnDestroy {
         });
     }
 
+    shiftOverlappingWidgets(widget: DashboardWidgetComponent): DashboardWidgetComponent[] {
+        let widgetsToMove: DashboardWidgetComponent[] = [];
+
+        // check if there are any widgets overlapping widgets
+        for (let row = widget.row; row < widget.row + widget.rowSpan; row++) {
+            for (let column = widget.col; column < widget.col + widget.colSpan; column++) {
+
+                // store reference to any widgets that need moved
+                this.getOccupiedSpaces()
+                    .filter(space => space.column === column && space.row === row && space.widget !== widget)
+                    .forEach(space => widgetsToMove.push(space.widget));
+            }
+        }
+
+        // remove any duplicates
+        widgetsToMove = widgetsToMove.filter((wgt, idx, array) => array.indexOf(wgt) === idx);
+
+        // if there are no overlapping widgets then return
+        if (widgetsToMove.length === 0) {
+            return;
+        }
+
+        // make widget action widget, direction is irrelevant to this function so set to 0
+        this._actionWidget = { widget: widget, direction: 0 };
+
+        widgetsToMove.forEach(wgt => {
+            // try moving widget right
+            if (this.canWidgetMoveRight(wgt, true)) {
+                return;
+            }
+
+            // next try moving left
+            if (this.canWidgetMoveLeft(wgt, true)) {
+                return;
+            }
+
+            // determine the distance that the widget needs to be moved down
+            const distance = (widget.getRow() - wgt.getRow()) + widget.getRowSpan();
+
+            // as a last resort move the widget downwards
+            this.moveWidgetDown(wgt, distance);
+        });
+
+
+        // clear the action widget once we are done
+        this._actionWidget = undefined;
+    }
+
     /**
      * When dragging any widgets that need to be moved should be moved to an appropriate position
      */

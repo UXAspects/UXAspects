@@ -42,10 +42,30 @@ export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestro
     }
 
     /** Defines the number of columns this widget should occupy. */
-    @Input() colSpan: number = 1;
+    @Input() get colSpan() {
+        return this.getColumnSpan();
+    }
+
+    set colSpan(colSpan: number) {
+        if (colSpan !== null && colSpan !== undefined) {
+            this.setColumnSpan(coerceNumberProperty(colSpan));
+            this.dashboardService.shiftOverlappingWidgets(this);
+            this.dashboardService.shiftWidgetsUp();
+        }
+    }
 
     /** Defines the number of rows this widget should occupy. */
-    @Input() rowSpan: number = 1;
+    @Input() get rowSpan() {
+        return this.getRowSpan();
+    }
+
+    set rowSpan(rowSpan: number) {
+        if (rowSpan !== null && rowSpan !== undefined) {
+            this.setRowSpan(coerceNumberProperty(rowSpan));
+            this.dashboardService.shiftOverlappingWidgets(this);
+            this.dashboardService.shiftWidgetsUp();
+        }
+    }
 
     /** Defines the minimum number of columns this widget should occupy. */
     @Input() get minColSpan(): number {
