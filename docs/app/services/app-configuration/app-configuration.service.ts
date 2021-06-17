@@ -12,30 +12,33 @@ export class AppConfiguration {
     public documentationPages = ['components-page', 'css-page', 'charts-page'];
 
     get version(): string {
-        return this._config['version'];
+        return this.config['version'];
     }
 
     get baseUrl(): string {
-        if (!this._config['baseUrl']) {
-            this._config['baseUrl'] = this.getBaseUrl();
+        if (!this.config['baseUrl']) {
+            this.config['baseUrl'] = this.getBaseUrl();
         }
-        return this._config['baseUrl'];
+        return this.config['baseUrl'];
     }
 
     get assetsUrl(): string {
-        if (!this._config['assetsUrl']) {
+        if (!this.config['assetsUrl']) {
             // If not configured, derive from the application's base URL.
-            this._config['assetsUrl'] = Location.joinWithSlash(this.baseUrl, 'assets');
+            this.config['assetsUrl'] = Location.joinWithSlash(this.baseUrl, 'assets');
         }
-        return this._config['assetsUrl'];
+        return this.config['assetsUrl'];
     }
 
     get plunker(): string {
-        return this._config['plunker'];
+        return this.config['plunker'];
+    }
+
+    get config(): { [key: string]: any } {
+        return environment.production ? this._data['config'] : this._data['config.dev'];
     }
 
     private _data = {};
-    private _config: { [key: string]: any };
 
     private _templateVars: { [key: string]: any };
 
@@ -55,12 +58,10 @@ export class AppConfiguration {
         this.setConfigurationData('components-page', require('../../data/components-page.json'));
         this.setConfigurationData('css-page', require('../../data/css-page.json'));
         this.setConfigurationData('charts-page', require('../../data/charts-page.json'));
-
-        this._config = environment.production ? this._data['config'] : this._data['config.dev'];
     }
 
     get(key: string): any {
-        return this._config[key];
+        return this.config[key];
     }
 
     getConfigurationData(key: string): any {

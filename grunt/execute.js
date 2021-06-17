@@ -23,7 +23,7 @@ module.exports = {
     'downlevel-dts': {
         src: [downlevelDts],
         options: {
-            args: [join(cwd(), 'dist', 'library'), join(cwd(), 'dist', 'library'), '--to', '3.7']
+            args: [join(cwd(), 'dist', 'library'), join(cwd(), 'dist', 'library'), '--to', '3.9']
         }
     },
     ngpackagr: {

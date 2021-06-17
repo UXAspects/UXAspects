@@ -82,8 +82,6 @@ npm start
 
 The documentation site is hosted at http://localhost:8080. This will automatically reload when changes are made.
 
-If you want to use Plunker with the development build, run `npm run start:https` instead of `npm start`. The documentation will then be hosted at https://localhost:8080. Within the plunker, replace all instances of https://uxaspects.github.io/UXAspects with https://localhost:8080 in `index.html` and `system.config.js`. After making code changes, you will have to manually reload the Plunker to pick them up.
-
 ### Build the library
 
 To test your modified version of `@ux-aspects/ux-aspects` in another project, you will need to make a production build.
@@ -175,7 +173,6 @@ This is a complete list of the build tasks available in this project. Not all of
 | `npm run package` | Creates the NPM package and a .tgz archive of the documentation in the `target` directory. Mainly for use by the build server. |
 | `npm run setversion` | Updates the version number in several places based on the `VERSION` environment variable. Mainly for use by the build server. |
 | `npm run start:e2e` | Builds and serves the e2e test application. This does not run the tests. |
-| `npm run start:https` | Builds and serves the library and documentation over HTTPS using the webpack development server. |
 | `npm run start:karma` | Builds and runs the Karma tests. Rebuilds and re-runs after changes are made to the tests. |
 | `npm run test:e2e` | Runs the e2e tests. |
 | `npm run test:karma` | Runs the Karma tests. |

@@ -49,7 +49,7 @@ export class TabsetTestComponent {
         }
     ];
 
-    activeChange(_tab: Tab, _active: boolean) { }
+    activeChange(_title: string, _active: boolean) { }
 
     onTabActivated(): void { }
 

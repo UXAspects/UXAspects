@@ -1,4 +1,5 @@
 {
     "version": "{{VERSION}}",
-    "plunker": "https://plnkr.co/edit/?p=preview"
+    "plunker": "https://plnkr.co/edit/?p=preview",
+    "assetsUrl": "https://localhost:8090/assets"
 }
