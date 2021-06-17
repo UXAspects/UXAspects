@@ -710,13 +710,13 @@ export class DashboardService implements OnDestroy {
 
         if (performMove && moveable) {
 
-            // move all widgets to the left
+            // // move all widgets to the left
             targetSpaces.forEach(space => this.getWidgetsAtPosition(space.column, space.row).filter(wgt => wgt !== space.widget).forEach(wgt => this.canWidgetMoveLeft(wgt, true)));
 
-            // find the target column
+            // // find the target column
             const column = targetSpaces.reduce((target, space) => Math.min(target, space.column), Infinity);
 
-            // move current widget to the left
+            // // move current widget to the left
             if (column !== Infinity) {
                 widget.setColumn(column);
             }
@@ -728,16 +728,43 @@ export class DashboardService implements OnDestroy {
     /**
      * Determine if a widget can be moved right - or if it can move the widgets to the right to make space for the widget
      */
-    canWidgetMoveRight(widget: DashboardWidgetComponent, performMove: boolean = false): boolean {
+    canWidgetMoveRight(widget: DashboardWidgetComponent, performMove: boolean = false, shift: number = 0): boolean {
+
+        const actionWgt = this._widgetOrigin;
+        let colShift = shift;
 
         // check if the widget is the dragging widget or the widget occupies the final column
         if (widget === this._actionWidget.widget || widget.getColumn() + widget.getColumnSpan() === this.options.columns) {
             return false;
         }
 
+        // if value has been provided skip this step
+        if (colShift === 0) {
+
+            // work out how far the widget is planning to move right
+            if (actionWgt.row !== widget.getRow()) {
+
+                // if the widgets aren't on the same row work out the difference
+                if (actionWgt.column === widget.getColumn()) {
+
+                    // if the widgets occupy the same column then shift the widget of the action widget
+                    colShift = actionWgt.columnSpan;
+                } else {
+
+                    // else work out the exact number of spaces it will move right
+                    let widgetDifference = widget.getColumn() - actionWgt.column;
+                    colShift = actionWgt.columnSpan - widgetDifference;
+                }
+            } else {
+
+                // if they are on the same row then move one row
+                colShift = 1;
+            }
+        }
+
         // find the positions required
         const targetSpaces = this.getOccupiedSpaces().filter(space => space.widget === widget).map(space => {
-            return { column: space.column + this._actionWidget.widget.getColumnSpan(), row: space.row, widget: space.widget };
+            return { column: space.column + colShift, row: space.row, widget: space.widget };
         });
 
         // check if any of the target spaces are out of bounds
@@ -748,45 +775,19 @@ export class DashboardService implements OnDestroy {
         // check if there are widget in the required positions and if so, can they move right?
         const moveable = targetSpaces.every(space => this.getWidgetsAtPosition(space.column, space.row)
             .filter(wgt => wgt !== space.widget)
-            .every(wgt => this.canWidgetMoveRight(wgt))
+            .every(wgt => this.canWidgetMoveRight(wgt, false, colShift))
         );
 
         if (performMove && moveable) {
 
-            // move current widget to the right
-            this.moveWidgetRight(widget);
-
             // move all widgets to the right
-            targetSpaces.forEach(space => this.getWidgetsAtPosition(space.column, space.row).filter(wgt => wgt !== space.widget).forEach(wgt => this.canWidgetMoveRight(wgt, true)));
+            targetSpaces.forEach(space => this.getWidgetsAtPosition(space.column, space.row).filter(wgt => wgt !== space.widget).forEach(wgt => this.canWidgetMoveRight(wgt, true, colShift)));
+
+            // move current widget to the right
+            widget.setColumn(widget.getColumn() + colShift);
         }
 
         return moveable;
-    }
-
-    moveWidgetRight(widget: DashboardWidgetComponent): boolean {
-
-        let stable: boolean = true;
-
-        // move current widget to the right
-        widget.setColumn(widget.getColumn() + 1);
-
-        const actionWgt = this._actionWidget.widget;
-
-        // check widget isn't over another
-        const actionWidgetOverCurrentWidget = this.getPositionAvailable(actionWgt.col, actionWgt.row, actionWgt.colSpan, actionWgt.rowSpan, actionWgt);
-        const widgetsOverCurrentWidget = this.getPositionAvailable(widget.col, widget.row, widget.colSpan, widget.rowSpan, widget);
-
-        if (!actionWidgetOverCurrentWidget && !widgetsOverCurrentWidget) {
-            stable = false;
-        }
-
-        // if changes occurred then we should repeat the process
-        if (!stable) {
-            this.moveWidgetRight(widget);
-            return true;
-        }
-
-        return false;
     }
 
     /**
@@ -1437,6 +1438,11 @@ export interface DashboardLayoutData {
     rowSpan: number;
     minColSpan?: number;
     minRowSpan?: number;
+}
+
+export enum HorizontalMovement {
+    Left = -1,
+    Right = 1
 }
 
 export enum ActionDirection {
