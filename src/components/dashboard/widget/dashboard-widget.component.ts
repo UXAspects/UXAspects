@@ -47,7 +47,7 @@ export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestro
     }
 
     set colSpan(colSpan: number) {
-        if (colSpan !== null && colSpan !== undefined) {
+        if (colSpan !== null && colSpan !== undefined && colSpan >= this.minColSpan) {
             this.setColumnSpan(coerceNumberProperty(colSpan));
             this.dashboardService.shiftOverlappingWidgets(this);
             this.dashboardService.shiftWidgetsUp();
@@ -60,7 +60,7 @@ export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestro
     }
 
     set rowSpan(rowSpan: number) {
-        if (rowSpan !== null && rowSpan !== undefined) {
+        if (rowSpan !== null && rowSpan !== undefined && rowSpan >= this.minRowSpan) {
             this.setRowSpan(coerceNumberProperty(rowSpan));
             this.dashboardService.shiftOverlappingWidgets(this);
             this.dashboardService.shiftWidgetsUp();
