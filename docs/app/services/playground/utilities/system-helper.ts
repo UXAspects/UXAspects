@@ -1,7 +1,7 @@
 import { DocumentationType } from '../tokens/documentation.token';
 
-const ANGULAR_VERSION = '11';
-const CDK_VERSION = '11';
+const ANGULAR_VERSION = '12';
+const CDK_VERSION = '12';
 const D3_VERSION = '5.9.2';
 const NGX_BOOTSTRAP_VERSION = '6.2.0';
 
@@ -41,7 +41,7 @@ export class SystemJSHelper {
         { name: '@angular/cdk/tree', path: `@angular/cdk@${CDK_VERSION}/bundles/cdk-tree.umd.js` },
         // Dependencies
         { name: 'tslib', path: 'tslib@1.11.0' },
-        { name: 'rxjs', path: 'rxjs@6.5.2' },
+        { name: 'rxjs', path: 'rxjs@6.6.0' },
         { name: 'ngx-bootstrap', path: `ngx-bootstrap@${NGX_BOOTSTRAP_VERSION}/bundles/ngx-bootstrap.umd.min.js` },
         { name: 'chance', path: 'chance' },
         { name: 'chart.js', path: 'chart.js@2.9.3/dist/Chart.bundle.min.js' },
@@ -50,7 +50,7 @@ export class SystemJSHelper {
         { name: 'ng2-file-upload', path: 'ng2-file-upload/bundles/ng2-file-upload.umd.js' },
         { name: 'angular-split', path: 'angular-split@3.0.2/bundles/angular-split.umd.js' },
         { name: 'ngx-mask', path: 'ngx-mask/bundles/ngx-mask.umd.js' },
-        { name: 'resize-observer-polyfill', path: 'resize-observer-polyfill@1.5.0/dist/ResizeObserver.js' },
+        { name: '@juggle/resize-observer', path: '@juggle/resize-observer@3.3.1/lib/exports/resize-observer.umd.js' },
         // d3
         { name: 'd3', path: `d3@${D3_VERSION}` },
         { name: 'd3-array', path: `d3@${D3_VERSION}` },

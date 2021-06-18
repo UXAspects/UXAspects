@@ -1,4 +1,4 @@
-import { ElementRef, Inject, QueryList, Renderer2 } from '@angular/core';
+import { Directive, ElementRef, Inject, OnDestroy, QueryList, Renderer2 } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ResizeService } from '../../../directives/resize';
@@ -6,10 +6,8 @@ import { BaseResizableTableService } from './resizable-table-base.service';
 import { ResizableTableColumnComponent } from './resizable-table-column.component';
 import { RESIZABLE_TABLE_SERVICE_TOKEN } from './resizable-table-service.token';
 
-// This can be converted to a selectorless @Directive and onDestroy can become ngOnDestroy when support for Angular 8 is
-// dropped.
-// https://angular.io/guide/migration-undecorated-classes#im-a-library-author-should-i-add-the-directive-decorator-to-base-classes
-export abstract class BaseResizableTableDirective {
+@Directive()
+export abstract class BaseResizableTableDirective implements OnDestroy {
 
     columns: QueryList<ResizableTableColumnComponent>;
 
@@ -31,7 +29,7 @@ export abstract class BaseResizableTableDirective {
     }
 
     /** Cleanup after the component is destroyed */
-    onDestroy(): void {
+    ngOnDestroy(): void {
         this._onDestroy.next();
         this._onDestroy.complete();
     }

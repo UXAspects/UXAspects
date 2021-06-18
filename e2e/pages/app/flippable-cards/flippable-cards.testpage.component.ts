@@ -4,10 +4,10 @@ import { ColorService } from '@ux-aspects/ux-aspects';
 @Component({
     selector: 'flippable-cards-app',
     templateUrl: './flippable-cards.testpage.component.html',
-    styleUrls: ['./flippable-cards.testpage.component.css']
+    styleUrls: ['./flippable-cards.testpage.component.css'],
 })
 export class FlippableCardsTestPageComponent {
+    cardLogo = require('./icon.png');
 
-    constructor(public colorService: ColorService) { }
-
+    constructor(public colorService: ColorService) {}
 }
