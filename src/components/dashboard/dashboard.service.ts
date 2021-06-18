@@ -737,13 +737,13 @@ export class DashboardService implements OnDestroy {
 
         if (performMove && moveable) {
 
-            // // move all widgets to the left
+            // move all widgets to the left
             targetSpaces.forEach(space => this.getWidgetsAtPosition(space.column, space.row).filter(wgt => wgt !== space.widget).forEach(wgt => this.canWidgetMoveLeft(wgt, true, colShift)));
 
-            // // find the target column
+            // find the target column
             const column = targetSpaces.reduce((target, space) => Math.min(target, space.column), Infinity);
 
-            // // move current widget to the left
+            // move current widget to the left
             if (column !== Infinity) {
                 widget.setColumn(column);
             }
@@ -1465,11 +1465,6 @@ export interface DashboardLayoutData {
     rowSpan: number;
     minColSpan?: number;
     minRowSpan?: number;
-}
-
-export enum HorizontalMovement {
-    Left = -1,
-    Right = 1
 }
 
 export enum ActionDirection {
