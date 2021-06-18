@@ -1,0 +1,96 @@
+<a id="top-focus" href="javascript:void(0)">Top focus target</a>
+
+<div class="container p-lg">
+    <ux-dashboard
+        [options]="options"
+        [layout]="layout$ | async"
+        id="dashboardWidgetContainer"
+        class="customizable-dashboard">
+
+        <ux-dashboard-widget id="widget-1"
+                             name="widget-1"
+                             [resizable]="true"
+                             [colSpan]="2"
+                             [autoPositioning]="false">
+
+            <div class="widget-content"
+                 [class.widget-grabbing]="usageHandle.isGrabbing"
+                 uxDashboardWidgetDragHandle>
+
+                <h3 class="widget-title">Widget 1</h3>
+
+                <button class="widget-grab-handle"
+                        uxDashboardGrabHandle
+                        #usageHandle="ux-dashboard-grab-handle">
+                    <ux-icon name="pan"></ux-icon>
+                </button>
+
+            </div>
+
+        </ux-dashboard-widget>
+
+        <ux-dashboard-widget id="widget-2" name="widget-2" [colSpan]="6">
+            <div class="widget-content"
+                 [class.widget-grabbing]="handle2.isGrabbing"
+                 uxDashboardWidgetDragHandle>
+
+                <h3 class="widget-title">Widget 2</h3>
+
+                <button class="widget-grab-handle"
+                        uxDashboardGrabHandle
+                        #handle2="ux-dashboard-grab-handle">
+                    <ux-icon name="pan"></ux-icon>
+                </button>
+
+            </div>
+
+        </ux-dashboard-widget>
+
+        <ux-dashboard-widget id="widget-3" name="widget-3" [colSpan]="4">
+            <div class="widget-content"
+                 [class.widget-grabbing]="handle3.isGrabbing"
+                 uxDashboardWidgetDragHandle>
+
+                <h3 class="widget-title">Widget 3</h3>
+
+                <button class="widget-grab-handle"
+                        uxDashboardGrabHandle
+                        #handle3="ux-dashboard-grab-handle">
+                    <ux-icon name="pan"></ux-icon>
+                </button>
+
+            </div>
+
+        </ux-dashboard-widget>
+
+        <ux-dashboard-widget id="widget-4" name="widget-4" [colSpan]="1">
+            <div class="widget-content"
+                 [class.widget-grabbing]="handle4.isGrabbing"
+                 uxDashboardWidgetDragHandle>
+
+                <h3 class="widget-title">Widget 4</h3>
+
+                <button class="widget-grab-handle"
+                        uxDashboardGrabHandle
+                        #handle4="ux-dashboard-grab-handle">
+                    <ux-icon name="pan"></ux-icon>
+                </button>
+
+            </div>
+
+        </ux-dashboard-widget>
+    </ux-dashboard>
+</div>
+
+<div class="m-t-xs btn-container">
+    <button type="button" id="init-layout-alt" class="btn button-accent" (click)="initLayoutAlt()">
+        Initial Layout Alt
+    </button>
+    <button type="button" id="flip-layout" class="btn button-accent" (click)="flipLayout()">
+        Flip Layout
+    </button>
+    <button type="button" id="flip-layout-alt" class="btn button-accent" (click)="flipLayoutAlt()">
+        Flip Layout Alt
+    </button>
+</div>
+
