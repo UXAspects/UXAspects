@@ -688,16 +688,43 @@ export class DashboardService implements OnDestroy {
     /**
      * Determine if a widget can be moved left - or if it can move the widgets to the right to make space for the widget
      */
-    canWidgetMoveLeft(widget: DashboardWidgetComponent, performMove: boolean = false): boolean {
+    canWidgetMoveLeft(widget: DashboardWidgetComponent, performMove: boolean = false, shift: number = 0): boolean {
+
+        const actionWgt = this._widgetOrigin;
+        let colShift = shift;
 
         // check if the widget is the action widget or occupies the first column
         if (widget === this._actionWidget.widget || widget.getColumn() === 0) {
             return false;
         }
 
+        // if value has been provided skip this step
+        if (colShift === 0) {
+
+            // work out how far the widget is planning to move left
+            if (actionWgt.row !== widget.getRow()) {
+
+                // if the widgets aren't on the same row work out the difference
+                if (actionWgt.column === widget.getColumn()) {
+
+                    // if the widgets occupy the same column then shift the widget of the action widget
+                    colShift = actionWgt.columnSpan;
+                } else {
+
+                    // else work out the exact number of spaces it will move left
+                    let widgetDifference =  actionWgt.column - widget.getColumn();
+                    colShift = widget.getColumnSpan() - widgetDifference;
+                }
+            } else {
+
+                // if they are on the same row then move one row
+                colShift = 1;
+            }
+        }
+
         // find the positions required
         const targetSpaces = this.getOccupiedSpaces().filter(space => space.widget === widget).map(space => {
-            return { column: space.column - widget.getColumnSpan(), row: space.row, widget: space.widget };
+            return { column: space.column - colShift, row: space.row, widget: space.widget };
         });
 
         // check if any of the target spaces are out of bounds
@@ -706,12 +733,12 @@ export class DashboardService implements OnDestroy {
         }
 
         // check if there are widget in the required positions and if so, can they move right?
-        const moveable = targetSpaces.every(space => this.getWidgetsAtPosition(space.column, space.row).filter(wgt => wgt !== space.widget).every(wgt => this.canWidgetMoveLeft(wgt)));
+        const moveable = targetSpaces.every(space => this.getWidgetsAtPosition(space.column, space.row).filter(wgt => wgt !== space.widget).every(wgt => this.canWidgetMoveLeft(wgt, false, colShift)));
 
         if (performMove && moveable) {
 
             // move all widgets to the left
-            targetSpaces.forEach(space => this.getWidgetsAtPosition(space.column, space.row).filter(wgt => wgt !== space.widget).forEach(wgt => this.canWidgetMoveLeft(wgt, true)));
+            targetSpaces.forEach(space => this.getWidgetsAtPosition(space.column, space.row).filter(wgt => wgt !== space.widget).forEach(wgt => this.canWidgetMoveLeft(wgt, true, colShift)));
 
             // find the target column
             const column = targetSpaces.reduce((target, space) => Math.min(target, space.column), Infinity);
@@ -728,16 +755,43 @@ export class DashboardService implements OnDestroy {
     /**
      * Determine if a widget can be moved right - or if it can move the widgets to the right to make space for the widget
      */
-    canWidgetMoveRight(widget: DashboardWidgetComponent, performMove: boolean = false): boolean {
+    canWidgetMoveRight(widget: DashboardWidgetComponent, performMove: boolean = false, shift: number = 0): boolean {
+
+        const actionWgt = this._widgetOrigin;
+        let colShift = shift;
 
         // check if the widget is the dragging widget or the widget occupies the final column
         if (widget === this._actionWidget.widget || widget.getColumn() + widget.getColumnSpan() === this.options.columns) {
             return false;
         }
 
+        // if value has been provided skip this step
+        if (colShift === 0) {
+
+            // work out how far the widget is planning to move right
+            if (actionWgt.row !== widget.getRow()) {
+
+                // if the widgets aren't on the same row work out the difference
+                if (actionWgt.column === widget.getColumn()) {
+
+                    // if the widgets occupy the same column then shift the widget of the action widget
+                    colShift = actionWgt.columnSpan;
+                } else {
+
+                    // else work out the exact number of spaces it will move right
+                    let widgetDifference = widget.getColumn() - actionWgt.column;
+                    colShift = actionWgt.columnSpan - widgetDifference;
+                }
+            } else {
+
+                // if they are on the same row then move one row
+                colShift = 1;
+            }
+        }
+
         // find the positions required
         const targetSpaces = this.getOccupiedSpaces().filter(space => space.widget === widget).map(space => {
-            return { column: space.column + widget.getColumnSpan(), row: space.row, widget: space.widget };
+            return { column: space.column + colShift, row: space.row, widget: space.widget };
         });
 
         // check if any of the target spaces are out of bounds
@@ -748,15 +802,16 @@ export class DashboardService implements OnDestroy {
         // check if there are widget in the required positions and if so, can they move right?
         const moveable = targetSpaces.every(space => this.getWidgetsAtPosition(space.column, space.row)
             .filter(wgt => wgt !== space.widget)
-            .every(wgt => this.canWidgetMoveRight(wgt))
+            .every(wgt => this.canWidgetMoveRight(wgt, false, colShift))
         );
 
         if (performMove && moveable) {
+
             // move all widgets to the right
-            targetSpaces.forEach(space => this.getWidgetsAtPosition(space.column, space.row).filter(wgt => wgt !== space.widget).forEach(wgt => this.canWidgetMoveRight(wgt, true)));
+            targetSpaces.forEach(space => this.getWidgetsAtPosition(space.column, space.row).filter(wgt => wgt !== space.widget).forEach(wgt => this.canWidgetMoveRight(wgt, true, colShift)));
 
             // move current widget to the right
-            widget.setColumn(widget.getColumn() + 1);
+            widget.setColumn(widget.getColumn() + colShift);
         }
 
         return moveable;
