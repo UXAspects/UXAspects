@@ -2,7 +2,6 @@ import { Component, Input } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IconModule } from './icon.module';
 import { IconService } from './icon.service';
-import { hpeIconset } from './iconsets/hpe-iconset';
 
 @Component({
     selector: 'ux-icon-test',
@@ -193,22 +192,5 @@ describe('Icon Component', () => {
         expect(iconElement.classList.contains('ux-icon-alert')).toBeFalsy();
         expect(iconElement.classList.contains('qtm-icon-error')).toBeTruthy();
         expect(iconElement.classList.contains('qtm-font-icon')).toBeTruthy();
-    });
-
-    /**
-     * Use Case 5
-     * Allow batch config
-     */
-    it('should assign the correct classes based on the specified icon name', () => {
-        component.name = 'alert';
-
-        // perform an override using the service
-        service.setIcons(hpeIconset);
-
-        fixture.detectChanges();
-        expect(iconElement.classList.contains('ux-icon')).toBeFalsy();
-        expect(iconElement.classList.contains('ux-icon-alert')).toBeFalsy();
-        expect(iconElement.classList.contains('hpe-icon')).toBeTruthy();
-        expect(iconElement.classList.contains('hpe-alert')).toBeTruthy();
     });
 });
