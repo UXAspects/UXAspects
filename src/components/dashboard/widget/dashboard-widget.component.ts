@@ -1,5 +1,5 @@
 import { BooleanInput, coerceBooleanProperty, coerceNumberProperty, NumberInput } from '@angular/cdk/coercion';
-import { AfterViewInit, Component, HostBinding, Input, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Component, HostBinding, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { Subject } from 'rxjs';
 import { map, takeUntil } from 'rxjs/operators';
 import { ActionDirection, DashboardService } from '../dashboard.service';
@@ -9,7 +9,7 @@ import { DashboardStackMode } from './dashboard-stack-mode.enum';
     selector: 'ux-dashboard-widget',
     templateUrl: './dashboard-widget.component.html'
 })
-export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestroy {
+export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestroy, OnChanges {
 
     /** Sets the ID of the widget. Each widget should be given a unique ID. */
     @Input() id: string;
@@ -47,11 +47,9 @@ export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestro
     }
 
     set colSpan(colSpan: number) {
-        if (colSpan !== null && colSpan !== undefined && colSpan >= this.minColSpan) {
-            this.setColumnSpan(coerceNumberProperty(colSpan));
-            this.dashboardService.shiftOverlappingWidgets(this);
-            this.dashboardService.shiftWidgetsUp();
-            this.dashboardService.renderDashboard();
+        const coerceColSpan = coerceNumberProperty(colSpan);
+        if (coerceColSpan !== null && coerceColSpan !== undefined && coerceColSpan >= this.minColSpan) {
+            this.setColumnSpan(coerceColSpan);
         }
     }
 
@@ -61,11 +59,9 @@ export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestro
     }
 
     set rowSpan(rowSpan: number) {
-        if (rowSpan !== null && rowSpan !== undefined && rowSpan >= this.minRowSpan) {
-            this.setRowSpan(coerceNumberProperty(rowSpan));
-            this.dashboardService.shiftOverlappingWidgets(this);
-            this.dashboardService.shiftWidgetsUp();
-            this.dashboardService.renderDashboard();
+        const coerceRowSpan = coerceNumberProperty(rowSpan);
+        if (coerceRowSpan !== null && coerceRowSpan !== undefined && coerceRowSpan >= this.minRowSpan) {
+            this.setRowSpan(coerceRowSpan);
         }
     }
 
@@ -166,6 +162,17 @@ export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestro
 
         // apply the current options
         this.update();
+    }
+
+    ngOnChanges(changes: SimpleChanges): void {
+        console.log('file: dashboard-widget.component.ts ~ line 166 ~ DashboardWidgetComponent ~ ngOnChanges ~ changes', changes);
+        if ((changes.colSpan && changes.colSpan.currentValue !== changes.colSpan.previousValue) ||
+            (changes.rowSpan && changes.rowSpan.currentValue !== changes.rowSpan.previousValue)) {
+            this.dashboardService.shiftOverlappingWidgets(this);
+            this.dashboardService.shiftWidgetsUp();
+            this.dashboardService.renderDashboard();
+        }
+
     }
 
     /**
@@ -345,6 +352,8 @@ export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestro
     static ngAcceptInputType_autoPositioning: BooleanInput;
     static ngAcceptInputType_col: NumberInput;
     static ngAcceptInputType_row: NumberInput;
+    static ngAcceptInputType_colSpan: NumberInput;
+    static ngAcceptInputType_rowSpan: NumberInput;
     static ngAcceptInputType_minColSpan: NumberInput;
     static ngAcceptInputType_minRowSpan: NumberInput;
 }
