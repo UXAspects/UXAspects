@@ -8,7 +8,6 @@ import { DocumentationComponentsModule } from '../../../../components/components
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
 import { DocumentationPage, ResolverService } from '../../../../services/resolver/resolver.service';
 import { CssBasicUsageComponent } from './basic-usage/basic-usage.component';
-import { CssFixedWidthComponent } from './fixed-width/fixed-width.component';
 import { CssIconButtonsComponent } from './icon-buttons/icon-buttons.component';
 import { CssIconColorsComponent } from './icon-colors/icon-colors.component';
 import { CssIconSizeComponent } from './icon-size/icon-size.component';
@@ -22,7 +21,6 @@ const SECTIONS = [
     CssUxIconsComponent,
     CssBasicUsageComponent,
     CssIconSizeComponent,
-    CssFixedWidthComponent,
     CssRotateFlipIconsComponent,
     CssIconButtonsComponent,
     CssIconColorsComponent,

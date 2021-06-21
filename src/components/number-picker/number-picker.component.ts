@@ -33,10 +33,6 @@ export class NumberPickerComponent implements ControlValueAccessor, OnDestroy, O
     /** Sets the id of the number picker. The child input will have this value with a -input suffix as its id. */
     @Input() id: string = `ux-number-picker-${uniqueId++}`;
 
-    /** @deprecated - Use reactive form validation instead.
-    * Can be used to show a red outline around the input to indicate an invalid value. By default the error state will appear if the user enters a number below the minimum value or above the maximum value. */
-    @Input() valid: boolean = true;
-
     /** Provide an aria labelledby attribute */
     @Input('aria-labelledby') labelledBy: string;
 
@@ -166,11 +162,7 @@ export class NumberPickerComponent implements ControlValueAccessor, OnDestroy, O
     }
 
     isValid(): boolean {
-        if (this.value < this.min || this.value > this.max) {
-            return false;
-        }
-
-        return this.valid;
+        return (this.value >= this.min && this.value <= this.max);
     }
 
     onScroll(event: WheelEvent): void {
