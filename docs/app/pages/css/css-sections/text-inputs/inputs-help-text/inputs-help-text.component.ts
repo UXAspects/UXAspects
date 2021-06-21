@@ -14,7 +14,7 @@ import { playgroundAdapter } from '../../../../../services/playground/adapters/l
 export class CssInputsHelpTextComponent extends BaseDocumentationSection implements IPlaygroundProvider {
 
     playground: IPlayground = playgroundAdapter({
-        html: this.snippets.raw.codepenExampleHtml
+        html: this.snippets.raw.sampleHtml
     });
 
     constructor() {

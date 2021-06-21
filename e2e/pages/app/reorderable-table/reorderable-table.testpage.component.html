@@ -16,7 +16,7 @@
             [uxReorderableModel]="item">
 
             <td class="drag-handle-column">
-                <span uxReorderableHandle id="handle-{{ idx }}" class="hpe-icon hpe-more hpe-rotate-90"></span>
+                <ux-icon id="handle-{{ idx }}" name="more" rotate="90" uxReorderableHandle></ux-icon>
             </td>
             <td class="document-name">{{ item.document }}</td>
             <td>{{ item.author }}</td>
@@ -25,7 +25,7 @@
                 <ux-spark theme="chart2" [value]="item.completed" barHeight="3" [inlineLabel]="item.completed + '%'"></ux-spark>
             </td>
             <td class="text-center">
-                <div class="hpe-icon" [class.hpe-checkmark]="item.active"></div>
+                <ux-icon *ngIf="item.active" name="checkmark"></ux-icon>
             </td>
         </tr>
     </tbody>
