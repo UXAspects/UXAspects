@@ -51,6 +51,7 @@ export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestro
             this.setColumnSpan(coerceNumberProperty(colSpan));
             this.dashboardService.shiftOverlappingWidgets(this);
             this.dashboardService.shiftWidgetsUp();
+            this.dashboardService.renderDashboard();
         }
     }
 
@@ -64,6 +65,7 @@ export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestro
             this.setRowSpan(coerceNumberProperty(rowSpan));
             this.dashboardService.shiftOverlappingWidgets(this);
             this.dashboardService.shiftWidgetsUp();
+            this.dashboardService.renderDashboard();
         }
     }
 

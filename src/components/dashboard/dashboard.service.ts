@@ -597,8 +597,9 @@ export class DashboardService implements OnDestroy {
             return;
         }
 
-        // make widget action widget, direction is irrelevant to this function so set to 0
+        // make widget action and origin widget, direction is irrelevant to this function so set to 0
         this._actionWidget = { widget: widget, direction: 0 };
+        this._widgetOrigin = widget;
 
         widgetsToMove.forEach(wgt => {
             // try moving widget right
@@ -619,8 +620,9 @@ export class DashboardService implements OnDestroy {
         });
 
 
-        // clear the action widget once we are done
+        // clear the action and origin widget once we are done
         this._actionWidget = undefined;
+        this._widgetOrigin = undefined;
     }
 
     /**
@@ -770,6 +772,10 @@ export class DashboardService implements OnDestroy {
             }
         }
 
+        if (isNaN(colShift) || colShift === 0) {
+            return;
+        }
+
         // find the positions required
         const targetSpaces = this.getOccupiedSpaces().filter(space => space.widget === widget).map(space => {
             return { column: space.column - colShift, row: space.row, widget: space.widget };
@@ -835,6 +841,10 @@ export class DashboardService implements OnDestroy {
                 // if they are on the same row then move one row
                 colShift = 1;
             }
+        }
+
+        if (isNaN(colShift) || colShift === 0) {
+            return;
         }
 
         // find the positions required
