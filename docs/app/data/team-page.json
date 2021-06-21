@@ -40,39 +40,6 @@
                     "url": "mailto:roland.penny@microfocus.com"
                 }
             ]
-        },
-        {
-            "name": "Tara Todd",
-            "email": "tara.todd@microfocus.com",
-            "avatar": "assets/img/team/user.png",
-            "social": [
-                {
-                    "icon": "mail",
-                    "url": "mailto:tara.todd@microfocus.com"
-                }
-            ]
-        },
-        {
-            "name": "Andi Stevenson",
-            "email": "robertandrew.stevenson@microfocus.com",
-            "avatar": "assets/img/team/andi.jpg",
-            "social": [
-                {
-                    "icon": "mail",
-                    "url": "mailto:robertandrew.stevenson@microfocus.com"
-                }
-            ]
-        },
-        {
-            "name": "Christina Mallon",
-            "email": "christina.mallon@microfocus.com",
-            "avatar": "assets/img/team/christina.jpg",
-            "social": [
-                {
-                    "icon": "mail",
-                    "url": "mailto:christina.mallon@microfocus.com"
-                }
-            ]
         }
     ]
 }
