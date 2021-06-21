@@ -1,6 +1,5 @@
 import { TestBed } from '@angular/core/testing';
 import { IconService } from './icon.service';
-import { hpeIconset } from './iconsets/hpe-iconset';
 
 describe('Icon Service', () => {
     beforeEach(() => TestBed.configureTestingModule({
@@ -18,20 +17,6 @@ describe('Icon Service', () => {
 
         expect(icon).toBe('ux-icon-alert');
         expect(iconset).toBe('ux-icon');
-        expect(name).toBe('alert');
-        expect(size).toBeUndefined();
-    });
-
-    it('it can be changed to use an alternate icon set', () => {
-        const service: IconService = TestBed.inject(IconService);
-
-        // set an alternate iconset
-        service.setIcons(hpeIconset);
-
-        const { icon, iconset, name, size } = service.getIcon('alert');
-
-        expect(icon).toBe('hpe-alert');
-        expect(iconset).toBe('hpe-icon');
         expect(name).toBe('alert');
         expect(size).toBeUndefined();
     });

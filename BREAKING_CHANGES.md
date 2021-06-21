@@ -1,5 +1,7 @@
 # 3.x to 4.0
 * Angular 9 is no longer supported.
+* The `hpe-*` icon set has been removed. Use the `ux-icon` component instead.
+* The `valid` input has been removed from `ux-number-picker`. Use Angular form validation instead.
 
 # 2.1.x to 3.0
 * Angular 8 is no longer supported.

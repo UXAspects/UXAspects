@@ -26,7 +26,6 @@ const options = {
 (async () => {
     try {
         await renderDefaultStylesheet();
-        await renderNoLegacyStylesheet();
     } catch (err) {
         console.error(err.stack || err);
         process.exit(1);
@@ -37,15 +36,6 @@ const options = {
 async function renderDefaultStylesheet() {
     const less = await getInlinedLess('ux-aspects.less');
     await createStylesheets(less, 'ux-aspects');
-}
-
-async function renderNoLegacyStylesheet() {
-    const less = await getInlinedLess('ux-aspects.less', noLegacyImport);
-    await createStylesheets(less, 'ux-aspects-no-legacy');
-}
-
-function noLegacyImport(rule) {
-    return !(rule.path && rule.path.value === 'hpe-icons.less');
 }
 
 /**

@@ -3,17 +3,12 @@
  *
  * We support the following iconset:
  *
- * - `hpe-icons` - HPE Icon Set
  * - `ux-icon` - UX Icon Set
  * - `component` - Component icon not tied to a specific set
  *
  * @param identifier - The name of the icon
  */
 export function getIconType(identifier: string | null): IconType {
-    if (identifier && identifier.trim().indexOf('hpe-') === 0) {
-        return IconType.HpeIcon;
-    }
-
     if (identifier && identifier.trim().indexOf('ux-') === 0) {
         return IconType.UxIcon;
     }
@@ -22,7 +17,6 @@ export function getIconType(identifier: string | null): IconType {
 }
 
 export enum IconType {
-    HpeIcon = 'hpe-icon',
     UxIcon = 'ux-icon',
     Component = 'component'
 }
