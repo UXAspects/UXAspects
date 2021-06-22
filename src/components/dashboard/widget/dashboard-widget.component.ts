@@ -165,7 +165,6 @@ export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestro
     }
 
     ngOnChanges(changes: SimpleChanges): void {
-        console.log('file: dashboard-widget.component.ts ~ line 166 ~ DashboardWidgetComponent ~ ngOnChanges ~ changes', changes);
         if ((changes.colSpan && changes.colSpan.currentValue !== changes.colSpan.previousValue) ||
             (changes.rowSpan && changes.rowSpan.currentValue !== changes.rowSpan.previousValue)) {
             this.dashboardService.shiftOverlappingWidgets(this);

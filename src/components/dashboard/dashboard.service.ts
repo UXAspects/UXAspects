@@ -575,7 +575,7 @@ export class DashboardService implements OnDestroy {
         });
     }
 
-    shiftOverlappingWidgets(widget: DashboardWidgetComponent): DashboardWidgetComponent[] {
+    overlappingWidgets(widget: DashboardWidgetComponent): DashboardWidgetComponent[] {
         let widgetsToMove: DashboardWidgetComponent[] = [];
 
         // check if there are any widgets overlapping widgets
@@ -590,7 +590,11 @@ export class DashboardService implements OnDestroy {
         }
 
         // remove any duplicates
-        widgetsToMove = widgetsToMove.filter((wgt, idx, array) => array.indexOf(wgt) === idx);
+        return widgetsToMove.filter((wgt, idx, array) => array.indexOf(wgt) === idx);
+    }
+
+    shiftOverlappingWidgets(widget: DashboardWidgetComponent): void {
+        let widgetsToMove = this.overlappingWidgets(widget);
 
         // if there are no overlapping widgets then return
         if (widgetsToMove.length === 0) {
@@ -623,6 +627,11 @@ export class DashboardService implements OnDestroy {
         // clear the action and origin widget once we are done
         this._actionWidget = undefined;
         this._widgetOrigin = undefined;
+
+        // check there is no overlapping widgets again
+        if (this.overlappingWidgets(widget).length > 0) {
+            this.shiftOverlappingWidgets(widget);
+        }
     }
 
     /**
@@ -836,6 +845,10 @@ export class DashboardService implements OnDestroy {
                 // if they are on the same row then move one row
                 colShift = 1;
             }
+        }
+
+        if (colShift === 0 || isNaN(colShift)) {
+            return;
         }
 
         // find the positions required
