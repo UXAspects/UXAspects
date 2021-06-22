@@ -40,6 +40,28 @@
                     "url": "mailto:roland.penny@microfocus.com"
                 }
             ]
+        },
+        {
+            "name": "Jonathan Todd",
+            "email": "jonathan.todd@microfocus.com",
+            "avatar": "assets/img/team/jonathan.jpg",
+            "social": [
+                {
+                    "icon": "mail",
+                    "url": "mailto:jonathan.todd@microfocus.com"
+                }
+            ]
+        },
+        {
+            "name": "Sasikumar",
+            "email": "sasikumar.c@microfocus.com",
+            "avatar": "assets/img/team/Sasi7.jpg",
+            "social": [
+                {
+                    "icon": "mail",
+                    "url": "mailto:sasikumar.c@microfocus.com"
+                }
+            ]
         }
     ]
 }
