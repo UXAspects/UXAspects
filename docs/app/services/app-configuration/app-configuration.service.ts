@@ -34,10 +34,6 @@ export class AppConfiguration {
         return this.config['plunker'];
     }
 
-    get enableThemedExamples(): boolean {
-        return this.config['enableThemedExamples'] === true;
-    }
-
     get config(): { [key: string]: any } {
         return environment.production ? this._data['config'] : this._data['config.dev'];
     }

@@ -6,7 +6,6 @@ import { ILink } from '../../interfaces/ILink';
 import { IPlayground } from '../../interfaces/IPlayground';
 import { isIPlaygroundProvider } from '../../interfaces/IPlaygroundProvider';
 import { SiteThemeId } from '../../interfaces/SiteTheme';
-import { AppConfiguration } from '../../services/app-configuration/app-configuration.service';
 import { NavigationService } from '../../services/navigation/navigation.service';
 import { ResolverService } from '../../services/resolver/resolver.service';
 import { SiteThemeService } from '../../services/site-theme/site-theme.service';
@@ -43,8 +42,7 @@ export class ComponentSectionComponent<T> implements OnInit, OnDestroy {
     constructor(
         private _resolverService: ResolverService,
         private _navigationService: NavigationService,
-        private _siteThemeService: SiteThemeService,
-        private _appConfig: AppConfiguration
+        private _siteThemeService: SiteThemeService
     ) { }
 
     ngOnInit(): void {
@@ -76,10 +74,9 @@ export class ComponentSectionComponent<T> implements OnInit, OnDestroy {
     }
 
     private setTheme(theme: SiteThemeId): void {
-        if (!this._appConfig.enableThemedExamples) {
+        if (theme === SiteThemeId.MicroFocusNext) {
             return;
         }
-        
         // Some sections without snippets don't extend BaseDocumentationSection, ignore those
         if (isBaseDocumentationSection(this._documentationSection)) {
             this._documentationSection.onThemeChange(theme);
