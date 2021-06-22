@@ -11,10 +11,6 @@ export class DashboardPage {
     bottomFocusTarget = element(by.id('bottom-focus'));
     changeOptions = element(by.id('change-dashboard-options'));
     layoutOutput = element(by.id('layout-output'));
-    wgt1RowSpan1 = element(by.id('wgt-1-row-span-1'));
-    wgt1RowSpan3 = element(by.id('wgt-1-row-span-3'));
-    wgt2ColSpan1 = element(by.id('wgt-2-col-span-1'));
-    wgt2ColSpan3 = element(by.id('wgt-2-col-span-3'));
 
     async getPage(): Promise<void> {
         await browser.get('#/dashboard');
