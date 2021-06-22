@@ -74,9 +74,6 @@ export class ComponentSectionComponent<T> implements OnInit, OnDestroy {
     }
 
     private setTheme(theme: SiteThemeId): void {
-        if (theme === SiteThemeId.MicroFocusNext) {
-            return;
-        }
         // Some sections without snippets don't extend BaseDocumentationSection, ignore those
         if (isBaseDocumentationSection(this._documentationSection)) {
             this._documentationSection.onThemeChange(theme);
