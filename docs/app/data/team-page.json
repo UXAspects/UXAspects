@@ -40,17 +40,6 @@
                     "url": "mailto:roland.penny@microfocus.com"
                 }
             ]
-        },
-        {
-            "name": "Sasikumar",
-            "email": "sasikumar.c@microfocus.com",
-            "avatar": "assets/img/team/Sasi7.jpg",
-            "social": [
-                {
-                    "icon": "mail",
-                    "url": "mailto:sasikumar.c@microfocus.com"
-                }
-            ]
         }
     ]
 }
