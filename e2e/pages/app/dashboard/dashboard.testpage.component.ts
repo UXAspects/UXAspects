@@ -10,9 +10,6 @@ export class DashboardTestPageComponent {
 
     @ViewChild('dashboard') uxDashboard: DashboardComponent;
 
-    wgt1RowSpan = 2;
-    wgt2ColSpan = 2;
-
     options: DashboardOptions = {
         columns: 4,
         padding: 10,
@@ -39,13 +36,5 @@ export class DashboardTestPageComponent {
 
     refreshLayout() {
         this.uxDashboard.refreshLayout();
-    }
-
-    wgt1SetRowSpan(rowSpan: number): void {
-        this.wgt1RowSpan = rowSpan;
-    }
-
-    wgt2SetColSpan(colSpan: number): void {
-        this.wgt2ColSpan = colSpan;
     }
 }
