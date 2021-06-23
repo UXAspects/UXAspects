@@ -790,6 +790,11 @@ export class DashboardService implements OnDestroy {
             return { column: space.column - colShift, row: space.row, widget: space.widget };
         });
 
+        // check if any of the target spaces are out of bounds
+        if (targetSpaces.find(space => space.column < 0)) {
+            return false;
+        }
+
         // check if there are widget in the required positions and if so, can they move right?
         const moveable = targetSpaces.every(space => this.getWidgetsAtPosition(space.column, space.row).filter(wgt => wgt !== space.widget).every(wgt => this.canWidgetMoveLeft(wgt, false, colShift)));
 
