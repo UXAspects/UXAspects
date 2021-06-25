@@ -578,7 +578,7 @@ export class DashboardService implements OnDestroy {
     /**
      * Return the set of widgets which overlap the given dashboard region.
      */
-    getOverlappingWidgets(region: DashboardRegion, widget: DashboardWidgetComponent): DashboardWidgetComponent[] {
+    getOverlappingWidgets(region: DashboardRegion, actionWidget: DashboardWidgetComponent): DashboardWidgetComponent[] {
         let widgetsToMove: DashboardWidgetComponent[] = [];
 
         // check if there are any widgets overlapping widgets
@@ -587,7 +587,7 @@ export class DashboardService implements OnDestroy {
 
                 // store reference to any widgets that need moved
                 this.getOccupiedSpaces()
-                    .filter(space => space.column === column && space.row === row && space.widget !== widget)
+                    .filter(space => space.column === column && space.row === row && space.widget !== actionWidget)
                     .forEach(space => widgetsToMove.push(space.widget));
             }
         }
@@ -617,7 +617,7 @@ export class DashboardService implements OnDestroy {
             do {
                 // Check for overlapping widgets and move them. This may need several iterations.
                 this.shiftWidgetsFromRegion(widgetRegion, widget);
-                
+
             } while (this.getOverlappingWidgets(widgetRegion, widget).length > 0);
 
             this.shiftWidgetsUp();
@@ -633,9 +633,9 @@ export class DashboardService implements OnDestroy {
     /**
      * Move any widgets which intersect with the given dashboard region.
      */
-    shiftWidgetsFromRegion(region: DashboardRegion, widget: DashboardWidgetComponent, validatePosition?: (shiftDirection: ActionDirection) => void): void {
+    shiftWidgetsFromRegion(region: DashboardRegion, actionWidget: DashboardWidgetComponent, validatePosition?: (shiftDirection: ActionDirection) => void): void {
 
-        const widgetsToMove = this.getOverlappingWidgets(region, widget);
+        const widgetsToMove = this.getOverlappingWidgets(region, actionWidget);
 
         // if no widgets need moved then we can stop here
         if (widgetsToMove.length === 0) {
