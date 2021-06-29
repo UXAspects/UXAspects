@@ -11,6 +11,8 @@ import { ValidationService  }from '../services/validation.service';
 import { LogicalExpressionBuilderService } from '../services/logical-expression-builder.service';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { DatePipe } from '@angular/common';
+import {LocalizedStrings} from '../interfaces/LocalizedStrings';
+import {ExpressionRowDirective} from '../directives/expression-row.directive';
 
 @Component({
     selector: 'ux-condition',
@@ -33,7 +35,7 @@ describe('LebConditionComponent', () => {
     let fixture: ComponentFixture<ConditionTestComponent>;
 
     const lebService: Partial<LogicalExpressionBuilderService> = {
-        getLocalizedStrings(): any {
+        getLocalizedStrings(): LocalizedStrings {
             return {};
         },
         getDisplayValueFunction(): DisplayValueFunction {
@@ -62,12 +64,12 @@ describe('LebConditionComponent', () => {
             return new BehaviorSubject<boolean>(false).asObservable();
         },
         onTabindexChange$: new Subject<void>(),
-        isItemActive(_: any): boolean {
+        isItemActive(_: ExpressionRowDirective): boolean {
             return false;
         },
-        register(_: any) {
+        register(_: ExpressionRowDirective) {
         },
-        unregister(_: any) {
+        unregister(_: ExpressionRowDirective) {
         }
     };
 

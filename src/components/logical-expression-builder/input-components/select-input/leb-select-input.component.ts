@@ -13,7 +13,7 @@ export class LebSelectInputComponent implements OnInit {
     _value: ReadonlyArray<SelectOption>;
 
     @Input()
-    set configuration(config: { options: SelectOption[], validateFunction?: (value: any) => boolean }) {
+    set configuration(config: { options: SelectOption[], validateFunction?: (value: unknown) => boolean }) {
         this._options = config?.options ?? [];
         this.validate = config?.validateFunction ?? this.validate;
     }

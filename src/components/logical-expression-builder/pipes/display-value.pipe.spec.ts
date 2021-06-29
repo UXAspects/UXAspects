@@ -1,6 +1,7 @@
 import { DisplayValuePipe } from './display-value.pipe';
 import { LogicalExpressionBuilderService } from '../services/logical-expression-builder.service';
 import { DatePipe } from '@angular/common';
+import {DisplayValueFunction} from '../interfaces/DisplayValueFunction';
 
 describe('L10nPipe', () => {
     let pipe: DisplayValuePipe;
@@ -9,13 +10,13 @@ describe('L10nPipe', () => {
 
     beforeEach(() => {
         lebServiceStub = {
-            getDisplayValueFunction: (): any => {
+            getDisplayValueFunction: (): DisplayValueFunction => {
                 return undefined;
             },
         } as any;
 
         datePipeStub = {
-            transform(_: any): string | null {
+            transform(_: unknown): string | null {
                 return 'Jul 23, 2020, 4:40:31 PM';
             }
         } as any;

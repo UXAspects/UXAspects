@@ -16,7 +16,7 @@ import { LogicalExpressionBuilderModule } from '../../logical-expression-builder
 })
 class TextInputTestComponent {
     value: string = 'test';
-    configuration: any = null;
+    configuration: unknown = null;
 
     onValueChange(_: string): void {
     }

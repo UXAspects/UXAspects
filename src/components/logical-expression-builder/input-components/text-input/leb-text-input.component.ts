@@ -10,10 +10,11 @@ export class LebTextInputComponent {
 
     @Input()
     set value(value: string) {
-        this._value = value ?? '';
-        this.valueChange.emit(this.value);
-        this._valid = this.validate(this.value);
-        this.validChange.emit(this._valid);
+        if (this._value !== value) {
+            this._value = value ?? '';
+            this._valid = this.validate(this.value);
+            this.validChange.emit(this._valid);
+        }
     }
 
     get value() { return this._value; }

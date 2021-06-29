@@ -10,10 +10,11 @@ export class LebNumberInputComponent {
 
     @Input()
     set value(value: number) {
-        this._value = value ?? 0;
-        this.valueChange.emit(this._value);
-        this._valid = this.validate(this._value);
-        this.validChange.emit(this._valid);
+        if (this._value !== value) {
+            this._value = value ?? 0;
+            this._valid = this.validate(this._value);
+            this.validChange.emit(this._valid);
+        }
     }
 
     get value() { return this._value; }

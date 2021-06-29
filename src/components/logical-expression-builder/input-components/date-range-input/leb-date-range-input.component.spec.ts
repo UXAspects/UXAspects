@@ -5,6 +5,7 @@ import { FieldDefinition } from '../../interfaces/FieldDefinition';
 import { OperatorDefinition } from '../../interfaces/OperatorDefinitionList';
 import { DisplayValueFunction } from '../../interfaces/DisplayValueFunction';
 import { LogicalExpressionBuilderService } from '../../services/logical-expression-builder.service';
+import {LocalizedStrings} from '../../interfaces/LocalizedStrings';
 
 @Component({
     selector: 'ux-date-range-input-test',
@@ -19,7 +20,7 @@ import { LogicalExpressionBuilderService } from '../../services/logical-expressi
 })
 class DateRangeInputTestComponent {
     value = { start: new Date(), end: new Date() };
-    configuration: any = { dateFormat: 'short' };
+    configuration = { dateFormat: 'short' };
 
     onValueChange(_: { start: Date, end: Date }): void {
     }
@@ -33,7 +34,7 @@ describe('DateRangeInputComponent', () => {
     let fixture: ComponentFixture<DateRangeInputTestComponent>;
 
     const lebService: Partial<LogicalExpressionBuilderService> = {
-        getLocalizedStrings(): any {
+        getLocalizedStrings(): LocalizedStrings {
             return {};
         },
         getDisplayValueFunction(): DisplayValueFunction {

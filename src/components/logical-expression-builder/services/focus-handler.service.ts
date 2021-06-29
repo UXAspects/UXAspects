@@ -42,8 +42,6 @@ export class FocusHandlerService implements OnDestroy {
         this.onTabindexChange$.next();
     }
 
-    constructor() {}
-
     ngOnDestroy(): void {
         this.destroy$.next();
         this.destroy$.complete();

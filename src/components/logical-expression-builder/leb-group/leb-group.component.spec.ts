@@ -8,6 +8,8 @@ import { FocusHandlerService  }from '../services/focus-handler.service';
 import { ValidationService  }from '../services/validation.service';
 import { LogicalExpressionBuilderService } from '../services/logical-expression-builder.service';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import {LocalizedStrings} from '../interfaces/LocalizedStrings';
+import {ExpressionRowDirective} from '../directives/expression-row.directive';
 
 @Component({
     selector: 'ux-group',
@@ -36,7 +38,7 @@ describe('LebGroupComponent', () => {
         getLogicalOperators(): LogicalOperatorDefinition[] {
             return [{ name: 'and', label: 'and' }];
         },
-        getLocalizedStrings(): any {
+        getLocalizedStrings(): LocalizedStrings {
             return {};
         }
     };
@@ -56,12 +58,12 @@ describe('LebGroupComponent', () => {
             return new BehaviorSubject<boolean>(false).asObservable();
         },
         onTabindexChange$: new Subject<void>(),
-        isItemActive(_: any): boolean {
+        isItemActive(_: ExpressionRowDirective): boolean {
             return false;
         },
-        register(_: any) {
+        register(_: ExpressionRowDirective) {
         },
-        unregister(_: any) {
+        unregister(_: ExpressionRowDirective) {
         }
     };
 

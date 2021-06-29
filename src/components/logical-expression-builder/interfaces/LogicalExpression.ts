@@ -2,7 +2,7 @@ export interface ExpressionCondition {
     type: 'condition';
     field: string;
     operator: string;
-    value: any;
+    value: unknown;
 }
 
 export interface ExpressionGroup {

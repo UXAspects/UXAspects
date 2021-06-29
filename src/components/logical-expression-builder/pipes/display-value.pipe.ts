@@ -3,6 +3,9 @@ import { LogicalExpressionBuilderService } from '../services/logical-expression-
 import { DisplayValueFunction } from '../interfaces/DisplayValueFunction';
 import {DatePipe} from '@angular/common';
 
+
+type EnumOptions = { name: string, label: string };
+
 /** Used to display the value of a condition. Contains a standard transform function for the basic five Input
  * components. It can be overridden with the displayValueFunction input property. */
 @Pipe({ name: 'displayValue' })
@@ -13,53 +16,37 @@ export class DisplayValuePipe implements PipeTransform {
         this.transformFunction = this.lebService.getDisplayValueFunction();
     }
 
-    transform(value: any, fieldType: string, fieldData: any): string {
+    transform(value: unknown, fieldType: string, fieldData: unknown): string {
         if (this.transformFunction) {
             return this.transformFunction(value, fieldType, fieldData);
         }
 
-        if (fieldType) {
-            switch (fieldType) {
-                case 'text':
-                    return value;
-                case 'number':
-                    return `${ value }`;
-                case 'date':
-                    return this.transformDate(value, fieldData);
-                case 'dateRange':
-                    return `${ this.transformDate(value.start, fieldData) } — ${ this.transformDate(value.end, fieldData) }`;
-                case 'enum':
-                    if (fieldData?.options) {
-                        return this.transformEnum(value, fieldData);
-                    } else {
-                        return value.join(', ');
-                    }
-                default:
-                    return value;
-            }
-        } else {
-            return undefined;
-        }
-    }
-
-    private transformEnum(value: string[], fieldData: any): string {
-        let transformedValue = value
-            .map((v: string) => {
-                const option = fieldData.options.find((o: any) => o.name === v);
-
-                if (option) {
-                    return option.label;
+        switch (fieldType) {
+            case 'text':
+                return value as string;
+            case 'number':
+                return `${ value }`;
+            case 'date':
+                const dateConfiguration = fieldData as {dateFormat: string};
+                return this.datePipe.transform(value as Date, dateConfiguration.dateFormat || 'short');
+            case 'dateRange':
+                const range = value as {start: Date, end: Date};
+                const rangeConfiguration = fieldData as {dateFormat: string};
+                return this.datePipe.transform(range.start, rangeConfiguration.dateFormat || 'short') + ' — ' +
+                    this.datePipe.transform(range.end, rangeConfiguration.dateFormat || 'short');
+            case 'enum':
+                const fieldValues = value as string[];
+                const fieldOptions = fieldData as {options: EnumOptions[]};
+                if (fieldOptions?.options) {
+                    return fieldValues
+                        .map((v: string) => fieldOptions.options.find((o: EnumOptions) => (o.name === v))?.label)
+                        .filter((v: string) => v)
+                        .join(', ');
                 } else {
-                    return;
+                    return fieldValues.join(', ');
                 }
-            })
-            .filter((v: string) => v);
-
-        return transformedValue.join(', ');
-    }
-
-    private transformDate(value: Date, fieldData: any): string {
-        const format = fieldData.dateFormat || 'short';
-        return this.datePipe.transform(value, format);
+            default:
+                return value?.toString() ?? '';
+        }
     }
 }

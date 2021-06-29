@@ -7,7 +7,7 @@ import {
     Input, OnChanges,
     OnDestroy,
     OnInit,
-    Output, SimpleChanges,
+    Output, SimpleChanges, Type,
     ViewChild,
     ViewContainerRef
 } from '@angular/core';
@@ -66,7 +66,7 @@ export class LebConditionComponent implements OnChanges, OnInit, OnDestroy {
 
     _field: FieldDefinition = null;
     _operator: OperatorDefinition = null;
-    _value: any;
+    _value: unknown;
 
     _editBlocked: boolean;
 
@@ -133,15 +133,15 @@ export class LebConditionComponent implements OnChanges, OnInit, OnDestroy {
         // create input component, set input properties and listen for changes on output properties
         if (this._operator?.component) {
             this.inputContainer.clear();
-            const resolver = this.cfr.resolveComponentFactory(this._operator.component);
+            const resolver = this.cfr.resolveComponentFactory(this._operator.component as Type<unknown>);
             this.inputComponentRef = this.inputContainer.createComponent(resolver);
 
             this.inputComponentRef.instance.valueChange
                 .pipe(
                     takeUntil(this.destroy$),
-                    filter((value: any) => this._value !== value)
+                    filter((value: unknown) => this._value !== value)
                 )
-                .subscribe((value: any) => {
+                .subscribe((value: unknown) => {
                     this._value = value;
                     this.buildCondition();
                 });

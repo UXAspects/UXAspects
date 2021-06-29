@@ -172,8 +172,8 @@ export class LogicalExpressionBuilderComponent implements OnChanges, OnDestroy, 
         this.onTouched = fn;
     }
 
-    writeValue(obj: any): void {
-        this.expression = obj;
+    writeValue(obj: unknown): void {
+        this.expression = obj as LogicalExpression;
         this.cdr.markForCheck();
     }
 

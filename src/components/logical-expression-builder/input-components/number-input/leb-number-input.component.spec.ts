@@ -16,7 +16,7 @@ import { LogicalExpressionBuilderModule } from '../../logical-expression-builder
 })
 class NumberInputTestComponent {
     value: number = 4;
-    configuration: any = {};
+    configuration = {};
 
     onValueChange(_: number): void {
     }
