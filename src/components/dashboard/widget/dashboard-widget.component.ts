@@ -31,7 +31,7 @@ export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestro
 
     /** Defines the row the widget is placed in */
     @Input() set row(row: number) {
-        if (row !== undefined || row !== null) {
+        if (row !== null && row !== undefined) {
             this.setRow(coerceNumberProperty(row));
             this.dashboardService.renderDashboard();
         }
@@ -47,9 +47,8 @@ export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestro
     }
 
     set colSpan(colSpan: number) {
-        const coerceColSpan = coerceNumberProperty(colSpan);
-        if (coerceColSpan !== null && coerceColSpan !== undefined && coerceColSpan >= this.minColSpan) {
-            this.setColumnSpan(coerceColSpan);
+        if (colSpan !== null && colSpan !== undefined) {
+            this.setColumnSpan(coerceNumberProperty(colSpan));
         }
     }
 
@@ -59,9 +58,8 @@ export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestro
     }
 
     set rowSpan(rowSpan: number) {
-        const coerceRowSpan = coerceNumberProperty(rowSpan);
-        if (coerceRowSpan !== null && coerceRowSpan !== undefined && coerceRowSpan >= this.minRowSpan) {
-            this.setRowSpan(coerceRowSpan);
+        if (rowSpan !== null && rowSpan !== undefined) {
+            this.setRowSpan(coerceNumberProperty(rowSpan));
         }
     }
 
@@ -165,13 +163,10 @@ export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestro
     }
 
     ngOnChanges(changes: SimpleChanges): void {
-        if ((changes.colSpan && changes.colSpan.currentValue !== changes.colSpan.previousValue) ||
-            (changes.rowSpan && changes.rowSpan.currentValue !== changes.rowSpan.previousValue)) {
-            this.dashboardService.shiftOverlappingWidgets(this);
-            this.dashboardService.shiftWidgetsUp();
+        if (changes.colSpan || changes.rowSpan) {
+            this.dashboardService.resizeWidget(this);
             this.dashboardService.renderDashboard();
         }
-
     }
 
     /**
@@ -256,18 +251,22 @@ export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestro
     }
 
     setColumnSpan(columnSpan: number, render: boolean = true): void {
-        this.setStackableValue(this._columnSpan, columnSpan);
+        if (columnSpan >= this.minColSpan) {
+            this.setStackableValue(this._columnSpan, columnSpan);
 
-        if (render) {
-            this.render();
+            if (render) {
+                this.render();
+            }
         }
     }
 
     setRowSpan(rowSpan: number, render: boolean = true): void {
-        this.setStackableValue(this._rowSpan, rowSpan);
+        if (rowSpan >= this.minRowSpan) {
+            this.setStackableValue(this._rowSpan, rowSpan);
 
-        if (render) {
-            this.render();
+            if (render) {
+                this.render();
+            }
         }
     }
 
