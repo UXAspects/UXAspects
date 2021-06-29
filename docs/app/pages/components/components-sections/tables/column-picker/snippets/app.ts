@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ColumnPickerGroup } from '@ux-aspects/ux-aspects';
-import { ColumnPickerGroupItem } from '../../../../../../../../src/components/table/column-picker/interfaces/column-picker-group-item.interface';
+import { ColumnPickerGroupItem } from '@ux-aspects/ux-aspects/components/table/column-picker/interfaces/column-picker-group-item.interface';
 
 @Component({
     selector: 'app',
