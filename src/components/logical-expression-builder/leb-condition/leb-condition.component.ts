@@ -90,7 +90,7 @@ export class LebConditionComponent implements OnChanges, OnInit, OnDestroy {
 
         // get all fields and find the currently selected one
         this.fields = this.lebService.getFields();
-        this._field = this.fields.find((field) => field.name === this._condition.field) ?? null;
+        this._field = this.fields.find((field: FieldDefinition) => (field.name === this._condition.field)) ?? null;
 
         // get all operators and find the currently selected one
         this.operators = this.lebService.getOperatorsByFieldType(this._field?.fieldType);

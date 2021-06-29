@@ -95,7 +95,6 @@ describe('LebConditionComponent', () => {
     beforeEach(() => {
         fixture = TestBed.createComponent(ConditionTestComponent);
         component = fixture.componentInstance;
-        fixture.detectChanges();
     });
 
     it('should be created', () => {

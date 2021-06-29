@@ -1,9 +1,9 @@
-import { LogicalExpressionBuilderComponent } from './logical-expression-builder.component';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {LogicalExpressionBuilderComponent} from './logical-expression-builder.component';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import { Component } from '@angular/core';
 import { FieldDefinition } from './interfaces/FieldDefinition';
 import { OperatorDefinitionList } from './interfaces/OperatorDefinitionList';
-import { LogicalExpressionBuilderModule } from './logical-expression-builder.module';
+import {LogicalExpressionBuilderModule} from './logical-expression-builder.module';
 import { LogicalExpression } from './interfaces/LogicalExpression';
 import {DatePipe} from '@angular/common';
 
@@ -11,7 +11,6 @@ import {DatePipe} from '@angular/common';
     selector: 'ux-leb',
     template: `
         <ux-logical-expression-builder
-            [expression]="expression"
             [fields]="fields"
             [operators]="operators">
         </ux-logical-expression-builder>
@@ -36,7 +35,7 @@ describe('LogicalExpressionBuilderComponent', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            imports: [ LogicalExpressionBuilderModule ],
+            imports: [LogicalExpressionBuilderModule],
             declarations: [LebTestComponent],
             providers: [
                 {
