@@ -20,11 +20,12 @@ import { distinctUntilChanged, filter, map, takeUntil } from 'rxjs/operators';
 import { ValidationService } from '../services/validation.service';
 import { FocusHandlerService } from '../services/focus-handler.service';
 import { DateFormatterPipe } from '../../../pipes/date-formatter/date-formatter.pipe';
+import {L10nPipe} from '../pipes/l10n.pipe';
 
 @Component({
     selector: 'ux-leb-condition',
     templateUrl: './leb-condition.component.html',
-    providers: [DateFormatterPipe],
+    providers: [DateFormatterPipe, L10nPipe],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LebConditionComponent implements OnChanges, OnInit, OnDestroy {
@@ -80,7 +81,8 @@ export class LebConditionComponent implements OnChanges, OnInit, OnDestroy {
         private lebService: LogicalExpressionBuilderService,
         private validationService: ValidationService,
         private cfr: ComponentFactoryResolver,
-        private focusHandlerService: FocusHandlerService
+        private focusHandlerService: FocusHandlerService,
+        private l10nPipe: L10nPipe
     ) {
     }
 
@@ -249,5 +251,9 @@ export class LebConditionComponent implements OnChanges, OnInit, OnDestroy {
         if (changes.path) {
             this.id = changes.path.currentValue.slice(-1).pop();
         }
+    }
+
+    _getLabel(tag: string, defaultString: string): string {
+        return this.l10nPipe.transform(tag) as string || defaultString;
     }
 }

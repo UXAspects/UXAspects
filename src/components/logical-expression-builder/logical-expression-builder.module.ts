@@ -25,6 +25,7 @@ import { L10nPipe } from './pipes/l10n.pipe';
 import { DisplayValuePipe } from './pipes/display-value.pipe';
 import { RowPathPipe } from './leb-group/row-path.pipe';
 import { DateFormatterPipeModule } from '../../pipes/date-formatter/date-formatter.module';
+import { TooltipModule } from '../tooltip';
 
 const EXPORTS = [
     LebTextInputComponent,
@@ -60,7 +61,8 @@ const DECLARATIONS = [
         IconModule,
         A11yModule,
         AlertModule,
-        DateFormatterPipeModule
+        DateFormatterPipeModule,
+        TooltipModule
     ],
     exports: [...EXPORTS],
     declarations: DECLARATIONS,

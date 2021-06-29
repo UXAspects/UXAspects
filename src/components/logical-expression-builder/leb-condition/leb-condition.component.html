@@ -87,7 +87,8 @@
                 (click)="editCondition()"
                 type="button"
                 class="btn btn-icon edit-btn"
-                [attr.aria-label]="('editConditionAriaLabel' | l10n) || 'Edit condition'">
+                [uxTooltip]="_getLabel('editConditionAriaLabel', 'Edit condition')"
+                [attr.aria-label]="_getLabel('editConditionAriaLabel', 'Edit condition')">
                 <span class="ux-icon ux-icon-edit" aria-hidden="true"></span>
             </button>
 
@@ -98,7 +99,8 @@
                 (click)="embedConditionInGroup()"
                 type="button"
                 class="btn btn-icon embed-btn"
-                [attr.aria-label]="('embedConditionAriaLabel' | l10n) || 'Embed condition'">
+                [uxTooltip]="_getLabel('embedConditionAriaLabel', 'Embed condition')"
+                [attr.aria-label]="_getLabel('embedConditionAriaLabel', 'Embed condition')">
                 <span class="ux-icon ux-icon-chart-organization" aria-hidden="true"></span>
             </button>
 
@@ -109,7 +111,8 @@
                 (click)="deleteCondition()"
                 type="button"
                 class="btn btn-icon delete-btn"
-                [attr.aria-label]="('deleteConditionAriaLabel' | l10n) || 'Delete condition'">
+                [uxTooltip]="_getLabel('deleteConditionAriaLabel', 'Delete condition')"
+                [attr.aria-label]="_getLabel('deleteConditionAriaLabel', 'Delete condition')">
                 <span class="ux-icon ux-icon-trash" aria-hidden="true"></span>
             </button>
         </span>
