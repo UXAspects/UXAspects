@@ -46,7 +46,7 @@ describe('NumberInputComponent', () => {
         expect(component).toBeDefined();
     });
 
-    it('should fire valid event when value received', async(() => {
+    it('should fire valid event when value received', (done: DoneFn) => {
         spyOn(component, 'onValidChange');
 
         component.value = 5;
@@ -54,7 +54,8 @@ describe('NumberInputComponent', () => {
         fixture.detectChanges();
         fixture.whenStable().then(() => {
             expect(component.onValidChange).toHaveBeenCalled();
+            done();
         });
-    }));
+    });
 });
 

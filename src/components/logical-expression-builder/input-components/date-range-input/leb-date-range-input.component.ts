@@ -7,6 +7,9 @@ import {
 import { DateTimePickerTimezone, timezones } from '../../../date-time-picker/index';
 import { formatDate } from '@angular/common';
 
+
+const DefaultTimeZone: DateTimePickerTimezone = { name: 'GMT', offset: 0 };
+
 @Component({
     selector: 'ux-date-range-input',
     templateUrl: './leb-date-range-input.component.html'
@@ -67,24 +70,25 @@ export class LebDateRangeInputComponent {
     showSeconds: boolean = false;
     showMeridian: boolean = true;
     showNowBtn: boolean = false;
-    startTimezone: DateTimePickerTimezone = { name: 'GMT', offset: 0 };
-    endTimezone: DateTimePickerTimezone = { name: 'GMT', offset: 0 };
+    startTimezone: DateTimePickerTimezone = DefaultTimeZone;
+    endTimezone: DateTimePickerTimezone = DefaultTimeZone;
 
     dateFormat: string = 'short';
 
+    /** Parse a date string when the input changes */
     onDateChange(date: string): void {
         // reset any invalid state
         this.invalid = false;
 
         // check if the date contains a hyphen
-        const parts = (date.indexOf('—') ? date.split('—') : date.split('-'));
+        const parts = (date.indexOf('—') >= 0) ? date.split('—') : date.split('-');
         const startDate = Date.parse(parts[0].trim());
         const endDate = Date.parse(parts[1].trim());
 
         if (!isNaN(startDate)) {
             this.start = new Date(startDate);
             this.startTimezone = this.getTimezone(parts[0]);
-        } else if (parts.length >= 1 && isNaN(startDate)) {
+        } else if (parts.length >= 1) {
             this.invalid = true;
             this.start = null;
         }
@@ -92,7 +96,7 @@ export class LebDateRangeInputComponent {
         if (!isNaN(endDate)) {
             this.end = new Date(endDate);
             this.endTimezone = this.getTimezone(parts[1]);
-        } else if (parts.length === 2 && isNaN(endDate)) {
+        } else if (parts.length === 2) {
             this.invalid = true;
             this.end = null;
         }
@@ -104,45 +108,26 @@ export class LebDateRangeInputComponent {
         }
     }
 
+    /** Update the date string when the date range changes */
     onRangeChange(): void {
-        const start = this.start ?
-            formatDate(this.start, this.dateFormat, 'en-US') : '';
-        const end = this.end ?
-            formatDate(this.end, this.dateFormat, 'en-US') : '';
+        if (this.start && this.end) {
+            // check if the dates are valid
+            this.invalid = (this.getNormalizedDate(this.start, this.startTimezone).getTime() >
+                this.getNormalizedDate(this.end, this.endTimezone).getTime());
 
-        if (!this.start || !this.end) {
-            return;
+            // concatenate the two dates
+            this.dateString =
+                formatDate(this.start, this.dateFormat, 'en-US') + ' — ' +
+                formatDate(this.end, this.dateFormat, 'en-US');
         }
-
-        // reset the invalid state
-        this.invalid = false;
-
-        // check if the dates are valid
-        if (this.getNormalizedDate(this.start, this.startTimezone).getTime() >
-            this.getNormalizedDate(this.end, this.endTimezone).getTime()) {
-            this.invalid = true;
-        }
-
-        // concatenate the two dates
-        this.dateString = start && end ? `${ start } — ${ end }` : start || end;
-    }
-
-    onTimezoneChange(isStart: boolean, timezone: DateTimePickerTimezone): void {
-        if (isStart) {
-            this.startTimezone = timezone;
-        } else {
-            this.endTimezone = timezone;
-        }
-
-        this.onRangeChange();
     }
 
     clear(): void {
         this.start = null;
         this.end = null;
         this.dateString = null;
-        this.startTimezone = { name: 'GMT', offset: 0 };
-        this.endTimezone = { name: 'GMT', offset: 0 };
+        this.startTimezone = DefaultTimeZone;
+        this.endTimezone = DefaultTimeZone;
         this.onRangeChange();
     }
 
@@ -152,18 +137,15 @@ export class LebDateRangeInputComponent {
 
         // check if there is a matching timezone
         if (timezone === null) {
-            return { name: 'GMT', offset: 0 };
+            return DefaultTimeZone;
         } else {
-            const match = timezones.find(_timezone =>
-                _timezone.name.toLowerCase() === timezone[0].trim().toLowerCase());
-            return match ? match : { name: 'GMT', offset: 0 };
+            const match = timezones.find(zone => zone.name.toLowerCase() === timezone[0].trim().toLowerCase());
+            return match ?? DefaultTimeZone;
         }
     }
 
     private getNormalizedDate(date: Date, timezone: DateTimePickerTimezone): Date {
-        const normalizedDate = new Date(date);
-        normalizedDate.setMinutes(normalizedDate.getMinutes() + timezone.offset);
-        return normalizedDate;
+        return new Date(date.getTime() - timezone.offset * 60 * 1000);
     }
 }
 
