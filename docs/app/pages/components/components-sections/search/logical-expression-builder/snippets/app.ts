@@ -18,7 +18,7 @@ import {
     styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-    logicalOperators: LogicalOperatorDefinition[] = [
+    logicalOperators: ReadonlyArray<LogicalOperatorDefinition> = [
         { name: 'and', label: 'and', minNumberOfChildren: 2, errorMessage: '\'and\' needs at least two children.' },
         { name: 'or', label: 'or', minNumberOfChildren: 2, errorMessage: '\'or\' needs at least two children.' },
         {
@@ -54,7 +54,7 @@ export class AppComponent {
         ],
     };
 
-    fields: FieldDefinition[] = [
+    fields: ReadonlyArray<FieldDefinition> = [
         { name: 'author', label: 'Author', fieldType: 'text' },
         {
             name: 'created',

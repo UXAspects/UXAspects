@@ -1,4 +1,5 @@
 <ux-logical-expression-builder
+    #logicalExpressionBuilder
     [(expression)]="expression"
     [fields]="fields"
     [operators]="operators"
@@ -11,7 +12,8 @@
 </p>
 
 <div class="m-t-md">
-    <button type="button" class="btn button-secondary" (click)="resetExpression()">
+    <button type="button" class="btn button-secondary"
+            (click)="logicalExpressionBuilder.unblockEdit(); resetExpression()">
         Reset expression
     </button>
 </div>

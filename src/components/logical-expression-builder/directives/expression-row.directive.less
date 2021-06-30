@@ -5,12 +5,14 @@
         &.expression-row-active {
             position: relative;
             z-index: 100;
-        }
-
-        &:hover {
             background-color: @table-hover-bg;
+
+            [uxHoverAction] {
+                opacity: 1;
+            }
         }
 
+        &:hover,
         &.cdk-focused {
             background-color: @table-hover-bg;
         }
@@ -22,18 +24,7 @@
         [uxHoverAction] {
             opacity: 0;
 
-            .btn[disabled], .btn.btn-link:disabled {
-                opacity: 0;
-            }
-
-            &.hover-action-active {
-                opacity: 1;
-
-                .btn[disabled], .btn.btn-link:disabled {
-                    opacity: 1;
-                }
-            }
-
+            &.hover-action-active,
             &.hover-action-focused,
             &:hover,
             &:focus {

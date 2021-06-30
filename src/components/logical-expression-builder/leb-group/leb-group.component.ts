@@ -29,6 +29,7 @@ export class LebGroupComponent implements OnInit, OnDestroy {
     set subExpression(_subExpression: ExpressionGroup) {
         this._subExpression = { ..._subExpression };
         this._children = [..._subExpression?.children];
+        this.selectedLogicalOperator = this.lebService?.getLogicalOperatorByName(this._subExpression?.logicalOperator);
     }
 
     get subExpression(): ExpressionGroup {

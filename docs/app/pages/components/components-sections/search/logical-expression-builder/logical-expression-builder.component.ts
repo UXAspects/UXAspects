@@ -5,11 +5,11 @@ import {
     LogicalOperatorDefinition,
     LebNumberInputComponent,
     OperatorDefinitionList,
-    LocalizedStrings,
     LebTextInputComponent,
     LebSelectInputComponent,
     LebDateInputComponent,
-    LebDateRangeInputComponent
+    LebDateRangeInputComponent,
+    LocalizedStrings
 } from '@ux-aspects/ux-aspects';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
@@ -26,18 +26,17 @@ export class ComponentsLogicalExpressionBuilderComponent extends BaseDocumentati
     playground: IPlayground = {
         files: {
             'app.component.ts': this.snippets.raw.appTs,
-            'app.component.html': this.snippets.raw.appHtml,
-            'app.component.css': this.snippets.raw.appCss
+            'app.component.html': this.snippets.raw.appHtml
         },
-        modules: [
-            {
-                imports: ['LogicalExpressionBuilderModule'],
-                library: '@ux-aspects/ux-aspects'
-            }
-        ]
+        modules: [{
+            imports: [
+                'LogicalExpressionBuilderModule'
+            ],
+            library: '@ux-aspects/ux-aspects'
+        }]
     };
 
-    logicalOperators: LogicalOperatorDefinition[] = [
+    logicalOperators: ReadonlyArray<LogicalOperatorDefinition> = [
         { name: 'and', label: 'and', minNumberOfChildren: 2, errorMessage: '\'and\' needs at least two children.' },
         { name: 'or', label: 'or', minNumberOfChildren: 2, errorMessage: '\'or\' needs at least two children.' },
         {
@@ -73,7 +72,7 @@ export class ComponentsLogicalExpressionBuilderComponent extends BaseDocumentati
         ],
     };
 
-    fields: FieldDefinition[] = [
+    fields: ReadonlyArray<FieldDefinition> = [
         { name: 'author', label: 'Author', fieldType: 'text' },
         {
             name: 'created',
