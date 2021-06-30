@@ -576,8 +576,8 @@ export class DashboardService implements OnDestroy {
     }
 
     /**
-        * Return the set of widgets which overlap the given dashboard region.
-    */
+     * Return the set of widgets which overlap the given dashboard region.
+     */
     getOverlappingWidgets(region: DashboardRegion, actionWidget: DashboardWidgetComponent): DashboardWidgetComponent[] {
         let widgetsToMove: DashboardWidgetComponent[] = [];
 
@@ -598,8 +598,8 @@ export class DashboardService implements OnDestroy {
 
 
     /**
-        * Resolve any overlapping widgets after a widget changes rowSpan/colSpan.
-    */
+     * Resolve any overlapping widgets after a widget changes rowSpan/colSpan.
+     */
     resizeWidget(widget: DashboardWidgetComponent): void {
 
         try {
@@ -615,11 +615,20 @@ export class DashboardService implements OnDestroy {
                 columnSpan: widget.colSpan
             };
 
+            let i = 0;
+            let limit = 100;
+
             do {
+
                 // Check for overlapping widgets and move them. This may need several iterations.
                 this.shiftWidgetsFromRegion(widgetRegion, widget);
+                i++
 
-            } while (this.getOverlappingWidgets(widgetRegion, widget).length > 0);
+                if (i === limit) {
+                    throw new Error('Unable to resolve overlapping widgets!');
+                }
+
+            } while (this.getOverlappingWidgets(widgetRegion, widget).length > 0 && i <= limit);
 
             this.shiftWidgetsUp();
 
@@ -632,9 +641,9 @@ export class DashboardService implements OnDestroy {
     }
 
     /**
-        * Move any widgets which intersect with the given dashboard region.
-    */
-     shiftWidgetsFromRegion(region: DashboardRegion, actionWidget: DashboardWidgetComponent, validatePosition?: (shiftDirection: ActionDirection) => void): void {
+     * Move any widgets which intersect with the given dashboard region.
+     */
+    shiftWidgetsFromRegion(region: DashboardRegion, actionWidget: DashboardWidgetComponent, validatePosition?: (shiftDirection: ActionDirection) => void): void {
 
         const widgetsToMove = this.getOverlappingWidgets(region, actionWidget);
 
@@ -699,8 +708,8 @@ export class DashboardService implements OnDestroy {
     }
 
     /**
-        * When dragging any widgets that need to be moved should be moved to an appropriate position
-    */
+     * When dragging any widgets that need to be moved should be moved to an appropriate position
+     */
     shiftWidgets(): void {
 
         const placeholder = this.placeholder$.getValue();
