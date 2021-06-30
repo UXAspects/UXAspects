@@ -67,13 +67,15 @@
         [rowPath]="path"
         class="leb-condition-row"
         uxHoverActionContainer>
-        <span class="leb-cell">
-            <span
-                class="firstTreeElement"
-                *ngFor="let _levels of [].constructor(indent / 40 -1)"
-            ></span><span
-                class="lastTreeElement"
-            ></span>
+        <span class="leb-cell" [ngClass]="{'leb-cell-unindented' : (indent === 0)}">
+            <span *ngIf="indent > 0">
+                <span
+                    class="firstTreeElement"
+                    *ngFor="let _levels of [].constructor(indent / 40 -1)"
+                ></span><span
+                    class="lastTreeElement"
+                ></span>
+            </span>
             <span class="leb-field-display">{{ _field?.label }}</span>{{' '}}<span
             class="leb-operator-display">{{ _operator?.label }}</span>{{' '}}<span
             class="leb-value-display">{{ _value | displayValue : _field?.fieldType : _field?.configuration }}</span>
