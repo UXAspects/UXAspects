@@ -622,7 +622,7 @@ export class DashboardService implements OnDestroy {
 
                 // Check for overlapping widgets and move them. This may need several iterations.
                 this.shiftWidgetsFromRegion(widgetRegion, widget);
-                i++
+                i++;
 
                 if (i === limit) {
                     throw new Error('Unable to resolve overlapping widgets!');
