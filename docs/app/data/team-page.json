@@ -42,35 +42,24 @@
             ]
         },
         {
-            "name": "Tara Todd",
-            "email": "tara.todd@microfocus.com",
-            "avatar": "assets/img/team/user.png",
+            "name": "Jonathan Todd",
+            "email": "jonathan.todd@microfocus.com",
+            "avatar": "assets/img/team/jonathan.jpg",
             "social": [
                 {
                     "icon": "mail",
-                    "url": "mailto:tara.todd@microfocus.com"
+                    "url": "mailto:jonathan.todd@microfocus.com"
                 }
             ]
         },
         {
-            "name": "Andi Stevenson",
-            "email": "robertandrew.stevenson@microfocus.com",
-            "avatar": "assets/img/team/andi.jpg",
+            "name": "Sasikumar",
+            "email": "sasikumar.c@microfocus.com",
+            "avatar": "assets/img/team/Sasi.jpg",
             "social": [
                 {
                     "icon": "mail",
-                    "url": "mailto:robertandrew.stevenson@microfocus.com"
-                }
-            ]
-        },
-        {
-            "name": "Christina Mallon",
-            "email": "christina.mallon@microfocus.com",
-            "avatar": "assets/img/team/christina.jpg",
-            "social": [
-                {
-                    "icon": "mail",
-                    "url": "mailto:christina.mallon@microfocus.com"
+                    "url": "mailto:sasikumar.c@microfocus.com"
                 }
             ]
         }
