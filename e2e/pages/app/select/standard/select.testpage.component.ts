@@ -25,6 +25,7 @@ export class SelectTestPageComponent implements OnInit {
     filterDebounceTime = 200;
     autoCloseDropdown = true;
     readonlyInput = false;
+    hasError = false;
 
     pageSize = 20;
 
