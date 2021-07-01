@@ -7,6 +7,8 @@ import { DashboardOptions } from './dashboard.component';
 import { DashboardStackMode } from './widget/dashboard-stack-mode.enum';
 import { DashboardWidgetComponent } from './widget/dashboard-widget.component';
 
+const ITERATION_LIMIT = 100;
+
 @Injectable()
 export class DashboardService implements OnDestroy {
 
@@ -616,19 +618,20 @@ export class DashboardService implements OnDestroy {
             };
 
             let i = 0;
-            let limit = 100;
+            let done = false;
 
             do {
 
                 // Check for overlapping widgets and move them. This may need several iterations.
                 this.shiftWidgetsFromRegion(widgetRegion, widget);
-                i++;
+                done = this.getOverlappingWidgets(widgetRegion, widget).length === 0;
+                i += 1;
 
-                if (i === limit) {
-                    throw new Error('Unable to resolve overlapping widgets!');
-                }
+            } while (!done && i < ITERATION_LIMIT);
 
-            } while (this.getOverlappingWidgets(widgetRegion, widget).length > 0 && i <= limit);
+            if (!done) {
+                throw new Error('Unable to resolve overlapping widgets!');
+            }
 
             this.shiftWidgetsUp();
 
