@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ColumnPickerGroup, ColumnPickerValue } from '@ux-aspects/ux-aspects';
+import { ColumnPickerGroup, ColumnPickerGroupItem } from '@ux-aspects/ux-aspects';
 
 @Component({
     selector: 'app',
@@ -21,7 +21,7 @@ export class AppComponent {
     locked: ReadonlyArray<string> = ['ID'];
 
     /** Store a list of columns that are not selected or locked */
-    deselected: ReadonlyArray<ColumnPickerValue> = [
+    deselected: ReadonlyArray<string | ColumnPickerGroupItem> = [
         { group: 'Metadata', name: 'Author' },
         { group: 'Metadata', name: 'Category' },
         { group: 'Metadata', name: 'Date Created' },
