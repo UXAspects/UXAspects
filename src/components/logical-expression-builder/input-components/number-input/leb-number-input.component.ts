@@ -33,6 +33,11 @@ export class LebNumberInputComponent {
     _max: number = Infinity;
 
     private validate: (value: number) => boolean = () => true;
+
+    handleValueChange(newValue: number) {
+        this.value = newValue;
+        this.valueChange.emit(newValue);
+    }
 }
 
 interface NumberInputOptions {

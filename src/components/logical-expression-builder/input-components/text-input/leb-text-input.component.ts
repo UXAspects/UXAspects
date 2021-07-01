@@ -28,6 +28,11 @@ export class LebTextInputComponent {
     }
 
     private validate: (value: string) => boolean = () => true;
+
+    handleValueChange(newValue: string) {
+        this.value = newValue;
+        this.valueChange.emit(newValue);
+    }
 }
 
 type TextInputData = { validateFunction?: (value: string) => boolean; };
