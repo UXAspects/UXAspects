@@ -1,15 +1,15 @@
 import { Component } from '@angular/core';
 import {
     FieldDefinition,
-    LogicalExpression,
-    LogicalOperatorDefinition,
-    LebNumberInputComponent,
-    OperatorDefinitionList,
-    LebTextInputComponent,
-    LebSelectInputComponent,
     LebDateInputComponent,
     LebDateRangeInputComponent,
-    LocalizedStrings
+    LebNumberInputComponent,
+    LebSelectInputComponent,
+    LebTextInputComponent,
+    LocalizedStrings,
+    LogicalExpression,
+    LogicalOperatorDefinition,
+    OperatorDefinitionList
 } from '@ux-aspects/ux-aspects';
 
 @Component({
@@ -98,10 +98,21 @@ export class AppComponent {
             },
             {
                 type: 'group',
-                logicalOperator: 'or',
+                logicalOperator: 'not',
                 children: [
-                    { type: 'condition', field: 'created', operator: 'before', value: new Date(1599565926072) },
-                    { type: 'condition', field: 'category', operator: 'one_of', value: ['performance', 'security'] },
+                    {
+                        type: 'group',
+                        logicalOperator: 'or',
+                        children: [
+                            { type: 'condition', field: 'created', operator: 'before', value: new Date(1599565926072) },
+                            {
+                                type: 'condition',
+                                field: 'category',
+                                operator: 'one_of',
+                                value: ['performance', 'security']
+                            }
+                        ]
+                    }
                 ]
             },
             { type: 'condition', field: 'version', operator: 'equals', value: 3 },

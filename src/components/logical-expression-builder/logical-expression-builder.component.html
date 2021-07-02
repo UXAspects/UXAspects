@@ -15,7 +15,8 @@
             *ngIf="expression?.type === 'group'; else conditionBlock"
             [subExpression]="expression"
             (subExpressionChange)="handleSubExpressionChange($event)"
-            [path]="[0]">
+            [path]="[0]"
+            [maxChildren]="[99]">
         </ux-leb-group>
     </div>
 </ng-template>
@@ -26,6 +27,7 @@
         (conditionChange)="handleSubExpressionChange($event)"
         [condition]="expression"
         [path]="[0]"
+        [maxChildren]="[99]"
         (conditionDeleted)="deleteCondition()"
         (conditionEmbedded)="addGroup()">
     </ux-leb-condition>

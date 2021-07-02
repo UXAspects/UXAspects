@@ -24,6 +24,7 @@ export class LebGroupComponent implements OnInit, OnDestroy {
 
     @Input() indent: number = 0;
     @Input() path: number[];
+    @Input() maxChildren: number[] = [];
 
     @Input()
     set subExpression(_subExpression: ExpressionGroup) {
@@ -51,7 +52,7 @@ export class LebGroupComponent implements OnInit, OnDestroy {
     _editBlocked$: Observable<boolean>;
 
     constructor(
-        private lebService: LogicalExpressionBuilderService,
+        public lebService: LogicalExpressionBuilderService,
         private validationService: ValidationService,
         private focusHandlerService: FocusHandlerService) {
         this._editBlocked$ = this.focusHandlerService.getEditBlocked();

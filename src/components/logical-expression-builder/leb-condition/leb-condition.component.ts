@@ -4,10 +4,13 @@ import {
     ComponentFactoryResolver,
     ComponentRef,
     EventEmitter,
-    Input, OnChanges,
+    Input,
+    OnChanges,
     OnDestroy,
     OnInit,
-    Output, SimpleChanges, Type,
+    Output,
+    SimpleChanges,
+    Type,
     ViewChild,
     ViewContainerRef
 } from '@angular/core';
@@ -20,7 +23,7 @@ import { distinctUntilChanged, filter, map, takeUntil } from 'rxjs/operators';
 import { ValidationService } from '../services/validation.service';
 import { FocusHandlerService } from '../services/focus-handler.service';
 import { DateFormatterPipe } from '../../../pipes/date-formatter/date-formatter.pipe';
-import {L10nPipe} from '../pipes/l10n.pipe';
+import { L10nPipe } from '../pipes/l10n.pipe';
 
 @Component({
     selector: 'ux-leb-condition',
@@ -40,6 +43,7 @@ export class LebConditionComponent implements OnChanges, OnInit, OnDestroy {
     }
     @Input() indent: number = 0;
     @Input() path: number[];
+    @Input() maxChildren: number[] = [];
 
     private _condition: ExpressionCondition;
 
@@ -255,5 +259,9 @@ export class LebConditionComponent implements OnChanges, OnInit, OnDestroy {
 
     _getLabel(tag: string, defaultString: string): string {
         return this.l10nPipe.transform(tag) as string || defaultString;
+    }
+
+    isInvisible(index: number): boolean {
+        return this.maxChildren && (this.maxChildren.length > index) && (this.maxChildren[index] - this.path[index] < 2);
     }
 }

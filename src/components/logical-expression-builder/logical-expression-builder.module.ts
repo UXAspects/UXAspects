@@ -26,6 +26,7 @@ import { DisplayValuePipe } from './pipes/display-value.pipe';
 import { RowPathPipe } from './leb-group/row-path.pipe';
 import { DateFormatterPipeModule } from '../../pipes/date-formatter/date-formatter.module';
 import { TooltipModule } from '../tooltip';
+import { MaxChildrenPipe } from './leb-group/max-children.pipe';
 
 const EXPORTS = [
     LebTextInputComponent,
@@ -43,7 +44,8 @@ const DECLARATIONS = [
     ...EXPORTS,
     L10nPipe,
     DisplayValuePipe,
-    RowPathPipe
+    RowPathPipe,
+    MaxChildrenPipe
 ];
 
 @NgModule({

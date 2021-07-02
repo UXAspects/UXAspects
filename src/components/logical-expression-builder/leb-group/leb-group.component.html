@@ -6,8 +6,11 @@
     <span class="leb-cell">
         <span
             class="firstTreeElement"
-            *ngFor="let _levels of [].constructor(indent / 40 );let _last = last"
-            [ngClass]="{'firstOperatorTreeElement':_last}"
+            [ngClass]="{
+                'firstOperatorTreeElement': index === indent / 40 - 1,
+                'L-TreeElement': (maxChildren?.length > index) && (maxChildren[index] - path[index] < 2)
+            }"
+            *ngFor="let levels of [].constructor(indent / 40); let index = index"
         ></span>
 
         <div class="btn-group">
@@ -63,6 +66,7 @@
         (conditionChange)="handleSubExpressionChange($event, index)"
         [condition]="child"
         [path]="index | rowPath:path"
+        [maxChildren]="maxChildren"
         (conditionDeleted)="removeConditionAtIndex($event)"
         (conditionEmbedded)="embedConditionAtIndex($event)"
         [indent]="indent + additionalIndent">
@@ -72,6 +76,7 @@
         *ngIf="child.type === 'group'"
         [subExpression]="child"
         [path]="index | rowPath:path"
+        [maxChildren]="child.logicalOperator | maxChildren : maxChildren : lebService"
         (subExpressionChange)="handleSubExpressionChange($event, index)"
         [indent]="indent + additionalIndent">
     </ux-leb-group>
@@ -85,7 +90,8 @@
         <span class="leb-cell">
         <span
             class="firstTreeElement"
-            *ngFor="let _levels of [].constructor(indent / 40 )"
+            [ngClass]="{invisible: (maxChildren?.length > index) && (maxChildren[index] - path[index] < 2)}"
+            *ngFor="let levels of [].constructor(indent / 40); let index = index;"
         ></span><span
             class="L-TreeElement"
         ></span>

@@ -71,7 +71,8 @@
             <span *ngIf="indent > 0">
                 <span
                     class="firstTreeElement"
-                    *ngFor="let _levels of [].constructor(indent / 40 -1)"
+                    [ngClass]="{invisible: (maxChildren?.length > index) && (maxChildren[index] - path[index] < 2)}"
+                    *ngFor="let levels of [].constructor(indent / 40 - 1); let index = index"
                 ></span><span
                     class="lastTreeElement"
                 ></span>

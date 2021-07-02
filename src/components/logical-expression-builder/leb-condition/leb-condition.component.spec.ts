@@ -19,6 +19,7 @@ import {ExpressionRowDirective} from '../directives/expression-row.directive';
     template: `
         <ux-leb-condition
             [path]="path"
+            [maxChildren]="maxChildren"
             [indent]="indent"
             [condition]="condition">
         </ux-leb-condition>
@@ -27,6 +28,7 @@ import {ExpressionRowDirective} from '../directives/expression-row.directive';
 export class ConditionTestComponent {
     condition: ExpressionCondition = { type: 'condition', field: 'test', operator: 'test', value: 'test' };
     path: number[] = [0, 0];
+    maxChildren: number[] = [99];
     indent: 40;
 }
 
