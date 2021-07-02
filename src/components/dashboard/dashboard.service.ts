@@ -1202,6 +1202,12 @@ export class DashboardService implements OnDestroy {
      * @param widget The widget to move downwards
      */
     moveWidgetDown(widget: DashboardWidgetComponent, distance: number = 1): void {
+
+        // stop if a negative number is passed through
+        if (distance < 0) {
+            return;
+        }
+
         // move the widget down one position
         widget.setRow((widget.getRow(DashboardStackMode.Auto)) + distance);
 
