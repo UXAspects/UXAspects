@@ -68,13 +68,13 @@ describe('Dashboard Dynamic Layout', () => {
     });
 
     it('should not resize widget 4 to 3 columns when the colSpan is changed to 3 as the minColSpan is set to 4', async () => {
-        // expect widget 4 to have a rowSpan of 2
+        // expect widget 4 to have a ColSpan of 4
         expect(await page.getWidgetLocationValue(widget4, 'width')).toBe(1108);
 
-        // change rowSpan to 1
-        await page.widget4RowDecrement.click();
+        // change colSpan to 2
+        await page.widget4ColDecrement.click();
 
-        // expect widget 4 to not change as it has a minRowSpan of 2
+        // expect widget 4 to not change as it has a minColSpan of 3
         expect(await page.getWidgetLocationValue(widget4, 'width')).toBe(1108);
     });
 
@@ -99,7 +99,7 @@ describe('Dashboard Dynamic Layout', () => {
         expect(await page.getWidgetLocationValue(widget1, 'height')).toBe(660);
         expect(await page.getWidgetLocationValue(widget1, 'width')).toBe(1108);
 
-        // widgets 2-4 should have the correct initial positions
+        // widgets 2-4 should have the correct positions
         expect(await page.getWidgetLocationValue(widget2, 'top')).toBe(660);
         expect(await page.getWidgetLocationValue(widget2, 'left')).toBe(554);
         expect(await page.getWidgetLocationValue(widget3, 'top')).toBe(660);
@@ -108,5 +108,23 @@ describe('Dashboard Dynamic Layout', () => {
         expect(await page.getWidgetLocationValue(widget4, 'left')).toBe(0);
     });
 
+    it('should resize widget 1 and widgets 2-4 should react correctly', async () => {
+        // change layout
+        await page.changeLayout.click();
 
+        // increase both colSpan and rowSpan
+        await page.widget1BothIncrement.click();
+
+        // widget 1 should have the correct new size
+        expect(await page.getWidgetLocationValue(widget1, 'height')).toBe(660);
+        expect(await page.getWidgetLocationValue(widget1, 'width')).toBe(1108);
+
+        // widgets 2-4 should have the correct positions
+        expect(await page.getWidgetLocationValue(widget2, 'top')).toBe(880);
+        expect(await page.getWidgetLocationValue(widget2, 'left')).toBe(831);
+        expect(await page.getWidgetLocationValue(widget3, 'top')).toBe(660);
+        expect(await page.getWidgetLocationValue(widget3, 'left')).toBe(831);
+        expect(await page.getWidgetLocationValue(widget4, 'top')).toBe(1100);
+        expect(await page.getWidgetLocationValue(widget4, 'left')).toBe(0);
+    });
 });

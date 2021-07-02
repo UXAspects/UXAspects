@@ -17,6 +17,8 @@ export class DashboardDynamicLayoutPage extends DashboardPage {
     widget4BothIncrement = $('#widget-4-btns .both-btns .increment');
     widget4BothDecrement = $('#widget-4-btns .both-btns .decrement');
 
+    changeLayout = $('#change-layout');
+
     async getPage(): Promise<void> {
         await browser.get('#/dashboard/dynamic-layout');
     }
