@@ -3,6 +3,7 @@
 <div class="container p-lg">
     <ux-dashboard
         [options]="options"
+        [layout]="layout$ | async"
         id="dashboardWidgetContainer"
         class="customizable-dashboard">
 
@@ -66,9 +67,7 @@
         <ux-dashboard-widget id="widget-4"
                              name="widget-4"
                              [colSpan]="widget4ColSpan"
-                             [rowSpan]="widget4RowSpan"
-                             [minColSpan]="4"
-                             [minRowSpan]="2">
+                             [rowSpan]="widget4RowSpan">
             <div class="widget-content"
                  [class.widget-grabbing]="handle4.isGrabbing"
                  uxDashboardWidgetDragHandle>
@@ -87,6 +86,11 @@
     </ux-dashboard>
 </div>
 
+<div class="btn-container">
+    <button id="change-layout" type="button" class="btn button-accent decrement" (click)="changeLayout()">
+        Change Layout
+    </button>
+</div>
 <div class="options-container">
     <div id="widget-1-btns">
         <h4>Widget 1</h4>
