@@ -7,8 +7,6 @@ import { DashboardOptions } from './dashboard.component';
 import { DashboardStackMode } from './widget/dashboard-stack-mode.enum';
 import { DashboardWidgetComponent } from './widget/dashboard-widget.component';
 
-const ITERATION_LIMIT = 100;
-
 @Injectable()
 export class DashboardService implements OnDestroy {
 
@@ -604,43 +602,40 @@ export class DashboardService implements OnDestroy {
      */
     resizeWidget(widget: DashboardWidgetComponent): void {
 
-        try {
+        // make widget action and origin widget, direction is irrelevant to this function so set to 0
+        this._actionWidget = { widget: widget, direction: 0 };
+        this._widgetOrigin = widget;
 
-            // make widget action and origin widget, direction is irrelevant to this function so set to 0
-            this._actionWidget = { widget: widget, direction: 0 };
-            this._widgetOrigin = widget;
+        const widgetRegion = {
+            row: widget.row,
+            column: widget.col,
+            rowSpan: widget.rowSpan,
+            columnSpan: widget.colSpan
+        };
 
-            const widgetRegion = {
-                row: widget.row,
-                column: widget.col,
-                rowSpan: widget.rowSpan,
-                columnSpan: widget.colSpan
-            };
+        let done = false;
+        const ITERATION_LIMIT = 100;
 
-            let i = 0;
-            let done = false;
+        for (let i = 0; i <= ITERATION_LIMIT; i++) {
 
-            do {
+            // Check for overlapping widgets and move them. This may need several iterations.
+            this.shiftWidgetsFromRegion(widgetRegion, widget);
+            done = this.getOverlappingWidgets(widgetRegion, widget).length === 0;
 
-                // Check for overlapping widgets and move them. This may need several iterations.
-                this.shiftWidgetsFromRegion(widgetRegion, widget);
-                done = this.getOverlappingWidgets(widgetRegion, widget).length === 0;
-                i += 1;
-
-            } while (!done && i < ITERATION_LIMIT);
-
-            if (!done) {
-                throw new Error('Unable to resolve overlapping widgets!');
+            if (done) {
+                break;
             }
-
-            this.shiftWidgetsUp();
-
-        } finally {
-
-            // clear the action and origin widget once we are done
-            this._actionWidget = undefined;
-            this._widgetOrigin = undefined;
         }
+
+        if (!done) {
+            throw new Error('Unable to resolve overlapping widgets!');
+        }
+
+        this.shiftWidgetsUp();
+
+        // clear the action and origin widget once we are done
+        this._actionWidget = undefined;
+        this._widgetOrigin = undefined;
     }
 
     /**
