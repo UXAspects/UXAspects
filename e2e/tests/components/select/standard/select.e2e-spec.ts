@@ -719,4 +719,18 @@ describe('Select Tests', () => {
         await browser.actions().click($('body')).perform();
         expect(await page.confirmDropdownIsExpanded()).toBe(false);
     });
+
+    it('should show the correct invalid state', async () => {
+        await page.clickOnCheckbox(page.checkboxHasError);
+
+        expect(await imageCompare('select-invalid-state')).toEqual(0);
+    });
+
+    it('should show the correct invalid state in multiple mode', async () => {
+        await page.clickOnCheckbox(page.checkboxMulti);
+        await page.clickOnCheckbox(page.checkboxHasError);
+
+        expect(await imageCompare('select-invalid-state-multi')).toEqual(0);
+    });
+
 });
