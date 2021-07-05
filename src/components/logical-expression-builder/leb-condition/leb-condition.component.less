@@ -23,13 +23,7 @@ ux-leb-condition, ux-leb-group {
 
         .leb-cell {
             display: inline-block;
-
-            &:before {
-                content: '';
-                vertical-align: middle;
-                height: 40px;
-                display: inline-block;
-            }
+            min-height: 40px;
 
             .firstTreeElement, .lastTreeElement, .L-TreeElement, .firstOperatorTreeElement {
                 display: inline-block;
@@ -47,8 +41,13 @@ ux-leb-condition, ux-leb-group {
                     height: 100%;
                 }
 
-                &.invisible:before {
-                    border-left-color: transparent;
+                &.invisible:before, &.invisible:after {
+                    border-color: transparent;
+                }
+
+                &.emphasis:before, &.emphasis:after {
+                    border-color: @primary;
+                    border-width: 2px;
                 }
             }
 

@@ -2,7 +2,7 @@ import {Pipe, PipeTransform} from '@angular/core';
 import {LogicalExpressionBuilderService} from '../services/logical-expression-builder.service';
 
 
-/** Simple pipe that generates a path based on the parent's path and the child's id */
+/** Add the maximum number of children of the logical operator to the end of the path */
 @Pipe({
     name: 'maxChildren'
 })

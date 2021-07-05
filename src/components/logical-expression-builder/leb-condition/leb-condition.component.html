@@ -66,15 +66,23 @@
         expressionRow
         [rowPath]="path"
         class="leb-condition-row"
+        (mouseenter)="hoverPathChanged.emit(path)"
+        (mouseleave)="hoverPathChanged.emit([])"
         uxHoverActionContainer>
         <span class="leb-cell" [ngClass]="{'leb-cell-unindented' : (indent === 0)}">
             <span *ngIf="indent > 0">
                 <span
                     class="firstTreeElement"
-                    [ngClass]="{invisible: (maxChildren?.length > index) && (maxChildren[index] - path[index] < 2)}"
+                    [ngClass]="{
+                        invisible: (maxChildren?.length > index) && (maxChildren[index] - path[index] < 2),
+                        emphasis: (hoverPath | isEmphasized : path : index)
+                    }"
                     *ngFor="let levels of [].constructor(indent / 40 - 1); let index = index"
                 ></span><span
                     class="lastTreeElement"
+                    [ngClass]="{
+                        emphasis: (hoverPath | isEmphasized : path : (indent / 40 - 1))
+                    }"
                 ></span>
             </span>
             <span class="leb-field-display">{{ _field?.label }}</span>{{' '}}<span

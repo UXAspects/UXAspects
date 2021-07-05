@@ -77,6 +77,7 @@ export class LogicalExpressionBuilderComponent implements OnChanges, OnDestroy, 
         this.lebService.setDisplayValueFunction(displayValueFunction);
     }
 
+    hoverPath: number[] = [];
     _editBlocked$: Observable<boolean>;
     private destroy$: Subject<void> = new Subject<void>();
 

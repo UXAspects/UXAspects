@@ -27,6 +27,7 @@ import { RowPathPipe } from './leb-group/row-path.pipe';
 import { DateFormatterPipeModule } from '../../pipes/date-formatter/date-formatter.module';
 import { TooltipModule } from '../tooltip';
 import { MaxChildrenPipe } from './leb-group/max-children.pipe';
+import { IsEmphasizedPipe } from './pipes/is-emphasized.pipe';
 
 const EXPORTS = [
     LebTextInputComponent,
@@ -44,6 +45,7 @@ const DECLARATIONS = [
     ...EXPORTS,
     L10nPipe,
     DisplayValuePipe,
+    IsEmphasizedPipe,
     RowPathPipe,
     MaxChildrenPipe
 ];

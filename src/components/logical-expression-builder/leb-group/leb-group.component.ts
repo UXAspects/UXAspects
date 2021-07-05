@@ -25,6 +25,8 @@ export class LebGroupComponent implements OnInit, OnDestroy {
     @Input() indent: number = 0;
     @Input() path: number[];
     @Input() maxChildren: number[] = [];
+    @Input() hoverPath: number[] = [];
+    @Output() hoverPathChanged: EventEmitter<number[]> = new EventEmitter<number[]>();
 
     @Input()
     set subExpression(_subExpression: ExpressionGroup) {

@@ -2,12 +2,15 @@
     expressionRow
     [rowPath]="path"
     class="leb-group {{ selectedLogicalOperator?.label }}"
+    (mouseenter)="hoverPathChanged.emit(path)"
+    (mouseleave)="hoverPathChanged.emit([])"
     uxHoverActionContainer>
     <span class="leb-cell">
         <span
             class="firstTreeElement"
             [ngClass]="{
-                'firstOperatorTreeElement': index === indent / 40 - 1,
+                firstOperatorTreeElement: index === indent / 40 - 1,
+                emphasis: (hoverPath | isEmphasized : path : index),
                 'L-TreeElement': (maxChildren?.length > index) && (maxChildren[index] - path[index] < 2)
             }"
             *ngFor="let levels of [].constructor(indent / 40); let index = index"
@@ -67,6 +70,8 @@
         [condition]="child"
         [path]="index | rowPath:path"
         [maxChildren]="maxChildren"
+        [hoverPath]="hoverPath"
+        (hoverPathChanged)="hoverPathChanged.emit($event)"
         (conditionDeleted)="removeConditionAtIndex($event)"
         (conditionEmbedded)="embedConditionAtIndex($event)"
         [indent]="indent + additionalIndent">
@@ -77,6 +82,8 @@
         [subExpression]="child"
         [path]="index | rowPath:path"
         [maxChildren]="child.logicalOperator | maxChildren : maxChildren : lebService"
+        [hoverPath]="hoverPath"
+        (hoverPathChanged)="hoverPathChanged.emit($event)"
         (subExpressionChange)="handleSubExpressionChange($event, index)"
         [indent]="indent + additionalIndent">
     </ux-leb-group>
@@ -86,14 +93,22 @@
     <div
         expressionRow
         [rowPath]="(_children?.length || 0) | rowPath:path"
+        (mouseenter)="hoverPathChanged.emit(path.concat([_children?.length || 0]))"
+        (mouseleave)="hoverPathChanged.emit([])"
         class="leb-group">
         <span class="leb-cell">
         <span
             class="firstTreeElement"
-            [ngClass]="{invisible: (maxChildren?.length > index) && (maxChildren[index] - path[index] < 2)}"
+            [ngClass]="{
+                invisible: (maxChildren?.length > index) && (maxChildren[index] - path[index] < 2),
+                emphasis: (hoverPath | isEmphasized : path : index)
+            }"
             *ngFor="let levels of [].constructor(indent / 40); let index = index;"
         ></span><span
             class="L-TreeElement"
+            [ngClass]="{
+                emphasis: (hoverPath | isEmphasized : path.concat([_children?.length || 0]) : (indent / 40))
+            }"
         ></span>
             <button
                 [uxMenuTriggerFor]="addMenu"

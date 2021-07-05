@@ -44,6 +44,8 @@ export class LebConditionComponent implements OnChanges, OnInit, OnDestroy {
     @Input() indent: number = 0;
     @Input() path: number[];
     @Input() maxChildren: number[] = [];
+    @Input() hoverPath: number[] = [];
+    @Output() hoverPathChanged: EventEmitter<number[]> = new EventEmitter<number[]>();
 
     private _condition: ExpressionCondition;
 
