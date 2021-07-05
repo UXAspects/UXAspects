@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-xs-6">
-        <div class="form-group m-nil" [class.has-error]="hasError" [style.margin-top]="dropDirection === 'auto' ? '350px' : null">
+        <div class="form-group m-nil" [style.margin-top]="dropDirection === 'auto' ? '350px' : null">
             <ux-select
                 id="dropdown"
                 [(value)]="selected"
@@ -95,14 +95,6 @@
                 [(value)]="readonlyInput"
             >
             readonlyInput
-            </ux-checkbox>
-        </div>
-        <div>
-            <ux-checkbox
-                id="checkbox8"
-                [(value)]="hasError"
-            >
-            hasError
             </ux-checkbox>
         </div>
 
