@@ -28,10 +28,6 @@ export class ColumnResizingTestPageComponent {
             });
         }
     }
-
-    triggerResize(): void {
-        window.dispatchEvent(new Event('resize'));
-    }
 }
 
 interface TableDocument {
