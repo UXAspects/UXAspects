@@ -1,6 +1,6 @@
 import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
 import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, HostBinding, Inject, Input, OnDestroy, Output, Renderer2 } from '@angular/core';
-import { fromEvent, Observable, Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
 import { BaseResizableTableService, ResizableTableType } from './resizable-table-base.service';
 import { RESIZABLE_TABLE_SERVICE_TOKEN } from './resizable-table-service.token';
@@ -107,20 +107,6 @@ export class ResizableTableColumnComponent implements AfterViewInit, OnDestroy {
     constructor(private _elementRef: ElementRef, @Inject(RESIZABLE_TABLE_SERVICE_TOKEN) private _table: BaseResizableTableService, private _renderer: Renderer2) { }
 
     ngAfterViewInit(): void {
-        this.resizeObservable$ = fromEvent(window, 'resize');
-
-        // ensure the correct width gets emitted when the window size changes
-        this.resizeObservable$.pipe(takeUntil(this._onDestroy))
-            .subscribe(() => {
-                this.setColumnWidth();
-                this.setColumnFlex();
-
-                const width = this._table.getColumnWidth(this.getCellIndex(), ColumnUnit.Pixel);
-
-                if (!isNaN(width)) {
-                    this.widthChange.emit(width);
-                }
-            });
 
         // initially emit the size when we have initialised
         this._table.isInitialised$.pipe(takeUntil(this._onDestroy), filter(isInitialised => isInitialised))
@@ -204,6 +190,10 @@ export class ResizableTableColumnComponent implements AfterViewInit, OnDestroy {
     /** Get the column index this cell is part of */
     getCellIndex(): number {
         return (this._elementRef.nativeElement as HTMLTableCellElement).cellIndex;
+    }
+
+    onResize(): void {
+        this._table.onResize$.next();
     }
 
     /** The percentage width of the column */
