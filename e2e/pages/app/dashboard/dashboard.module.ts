@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { AccessibilityModule, CheckboxModule, DashboardModule, IconModule } from '@ux-aspects/ux-aspects';
 import { DashboardTestPageComponent } from './dashboard.testpage.component';
+import { DynamicLayoutTestPageComponent } from './dynamic-layout/dynamic-layout.testpage.component';
 import { DashboardEightColumnLayoutTestPageComponent } from './eight-column-layout/dashboard-eight-column-layout.testpage.component';
 import { DashboardLayoutTestPageComponent } from './layout/dashboard-layout.testpage.component';
 
@@ -25,13 +26,18 @@ import { DashboardLayoutTestPageComponent } from './layout/dashboard-layout.test
             {
                 path: 'eight-column-layout',
                 component: DashboardEightColumnLayoutTestPageComponent
+            },
+            {
+                path: 'dynamic-layout',
+                component: DynamicLayoutTestPageComponent
             }
         ])
     ],
     declarations: [
         DashboardTestPageComponent,
         DashboardLayoutTestPageComponent,
-        DashboardEightColumnLayoutTestPageComponent
+        DashboardEightColumnLayoutTestPageComponent,
+        DynamicLayoutTestPageComponent
     ]
 })
 export class DashboardTestPageModule { }

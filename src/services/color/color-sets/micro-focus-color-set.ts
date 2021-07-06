@@ -1,4 +1,5 @@
 export const MICRO_FOCUS_COLOR_SET = {
+    'brand-blue': '#0073e7',
     'cerulean': '#1668c1',
     'aqua': '#29ceff',
     'aquamarine': '#2fd6c3',

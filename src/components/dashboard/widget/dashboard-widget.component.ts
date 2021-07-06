@@ -1,5 +1,5 @@
 import { BooleanInput, coerceBooleanProperty, coerceNumberProperty, NumberInput } from '@angular/cdk/coercion';
-import { AfterViewInit, Component, HostBinding, Input, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Component, HostBinding, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { Subject } from 'rxjs';
 import { map, takeUntil } from 'rxjs/operators';
 import { ActionDirection, DashboardService } from '../dashboard.service';
@@ -9,7 +9,7 @@ import { DashboardStackMode } from './dashboard-stack-mode.enum';
     selector: 'ux-dashboard-widget',
     templateUrl: './dashboard-widget.component.html'
 })
-export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestroy {
+export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestroy, OnChanges {
 
     /** Sets the ID of the widget. Each widget should be given a unique ID. */
     @Input() id: string;
@@ -31,7 +31,7 @@ export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestro
 
     /** Defines the row the widget is placed in */
     @Input() set row(row: number) {
-        if (row !== undefined || row !== null) {
+        if (row !== null && row !== undefined) {
             this.setRow(coerceNumberProperty(row));
             this.dashboardService.renderDashboard();
         }
@@ -42,10 +42,26 @@ export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestro
     }
 
     /** Defines the number of columns this widget should occupy. */
-    @Input() colSpan: number = 1;
+    @Input() get colSpan() {
+        return this.getColumnSpan();
+    }
+
+    set colSpan(colSpan: number) {
+        if (colSpan !== null && colSpan !== undefined) {
+            this.setColumnSpan(coerceNumberProperty(colSpan));
+        }
+    }
 
     /** Defines the number of rows this widget should occupy. */
-    @Input() rowSpan: number = 1;
+    @Input() get rowSpan() {
+        return this.getRowSpan();
+    }
+
+    set rowSpan(rowSpan: number) {
+        if (rowSpan !== null && rowSpan !== undefined) {
+            this.setRowSpan(coerceNumberProperty(rowSpan));
+        }
+    }
 
     /** Defines the minimum number of columns this widget should occupy. */
     @Input() get minColSpan(): number {
@@ -146,6 +162,13 @@ export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestro
         this.update();
     }
 
+    ngOnChanges(changes: SimpleChanges): void {
+        if (changes.colSpan || changes.rowSpan) {
+            this.dashboardService.resizeWidget(this);
+            this.dashboardService.renderDashboard();
+        }
+    }
+
     /**
      * If component is removed, then unregister it from the service
      */
@@ -228,18 +251,22 @@ export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestro
     }
 
     setColumnSpan(columnSpan: number, render: boolean = true): void {
-        this.setStackableValue(this._columnSpan, columnSpan);
+        if (columnSpan >= this.minColSpan) {
+            this.setStackableValue(this._columnSpan, columnSpan);
 
-        if (render) {
-            this.render();
+            if (render) {
+                this.render();
+            }
         }
     }
 
     setRowSpan(rowSpan: number, render: boolean = true): void {
-        this.setStackableValue(this._rowSpan, rowSpan);
+        if (rowSpan >= this.minRowSpan) {
+            this.setStackableValue(this._rowSpan, rowSpan);
 
-        if (render) {
-            this.render();
+            if (render) {
+                this.render();
+            }
         }
     }
 
@@ -323,6 +350,8 @@ export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestro
     static ngAcceptInputType_autoPositioning: BooleanInput;
     static ngAcceptInputType_col: NumberInput;
     static ngAcceptInputType_row: NumberInput;
+    static ngAcceptInputType_colSpan: NumberInput;
+    static ngAcceptInputType_rowSpan: NumberInput;
     static ngAcceptInputType_minColSpan: NumberInput;
     static ngAcceptInputType_minRowSpan: NumberInput;
 }
