@@ -576,27 +576,74 @@ export class DashboardService implements OnDestroy {
     }
 
     /**
-     * When dragging any widgets that need to be moved should be moved to an appropriate position
+     * Return the set of widgets which overlap the given dashboard region.
      */
-    shiftWidgets(): void {
-
+    getOverlappingWidgets(region: DashboardRegion, actionWidget: DashboardWidgetComponent): DashboardWidgetComponent[] {
         let widgetsToMove: DashboardWidgetComponent[] = [];
 
-        const placeholder = this.placeholder$.getValue();
-
-        // check if there are any widgets under the placeholder
-        for (let row = placeholder.row; row < placeholder.row + placeholder.rowSpan; row++) {
-            for (let column = placeholder.column; column < placeholder.column + placeholder.columnSpan; column++) {
+        // check if there are any widgets overlapping widgets
+        for (let row = region.row; row < region.row + region.rowSpan; row++) {
+            for (let column = region.column; column < region.column + region.columnSpan; column++) {
 
                 // store reference to any widgets that need moved
                 this.getOccupiedSpaces()
-                    .filter(space => space.column === column && space.row === row && space.widget !== this._actionWidget.widget)
+                    .filter(space => space.column === column && space.row === row && space.widget !== actionWidget)
                     .forEach(space => widgetsToMove.push(space.widget));
             }
         }
 
         // remove any duplicates
-        widgetsToMove = widgetsToMove.filter((widget, idx, array) => array.indexOf(widget) === idx);
+        return widgetsToMove.filter((wgt, idx, array) => array.indexOf(wgt) === idx);
+    }
+
+
+    /**
+     * Resolve any overlapping widgets after a widget changes rowSpan/colSpan.
+     */
+    resizeWidget(widget: DashboardWidgetComponent): void {
+
+        // make widget action and origin widget, direction is irrelevant to this function so set to 0
+        this._actionWidget = { widget: widget, direction: 0 };
+        this._widgetOrigin = widget;
+
+        const widgetRegion = {
+            row: widget.row,
+            column: widget.col,
+            rowSpan: widget.rowSpan,
+            columnSpan: widget.colSpan
+        };
+
+        let done = false;
+        const ITERATION_LIMIT = 100;
+
+        for (let i = 0; i <= ITERATION_LIMIT; i++) {
+
+            // Check for overlapping widgets and move them. This may need several iterations.
+            this.shiftWidgetsFromRegion(widgetRegion, widget);
+            done = this.getOverlappingWidgets(widgetRegion, widget).length === 0;
+
+            if (done) {
+                break;
+            }
+        }
+
+        if (!done) {
+            throw new Error('Unable to resolve overlapping widgets!');
+        }
+
+        this.shiftWidgetsUp();
+
+        // clear the action and origin widget once we are done
+        this._actionWidget = undefined;
+        this._widgetOrigin = undefined;
+    }
+
+    /**
+     * Move any widgets which intersect with the given dashboard region.
+     */
+    shiftWidgetsFromRegion(region: DashboardRegion, actionWidget: DashboardWidgetComponent, validatePosition?: (shiftDirection: ActionDirection) => void): void {
+
+        const widgetsToMove = this.getOverlappingWidgets(region, actionWidget);
 
         // if no widgets need moved then we can stop here
         if (widgetsToMove.length === 0) {
@@ -637,7 +684,7 @@ export class DashboardService implements OnDestroy {
             if (this.canWidgetMoveRight(widget, true)) {
 
                 // after the shift check if placeholder position is still valid
-                this.validatePlaceholderPosition(ActionDirection.Right);
+                validatePosition?.(ActionDirection.Right);
                 return;
             }
 
@@ -645,7 +692,7 @@ export class DashboardService implements OnDestroy {
             if (this.canWidgetMoveLeft(widget, true)) {
 
                 // after the shift check if placeholder position is still valid
-                this.validatePlaceholderPosition(ActionDirection.Left);
+                validatePosition?.(ActionDirection.Left);
                 return;
             }
 
@@ -655,6 +702,21 @@ export class DashboardService implements OnDestroy {
             // as a last resort move the widget downwards
             this.moveWidgetDown(widget, distance);
         });
+
+    }
+
+    /**
+     * When dragging any widgets that need to be moved should be moved to an appropriate position
+     */
+    shiftWidgets(): void {
+
+        const placeholder = this.placeholder$.getValue();
+
+        this.shiftWidgetsFromRegion(
+            placeholder,
+            this._actionWidget.widget,
+            this.validatePlaceholderPosition.bind(this)
+        );
     }
 
     /**
@@ -722,6 +784,10 @@ export class DashboardService implements OnDestroy {
             }
         }
 
+        if (isNaN(colShift) || colShift === 0) {
+            return;
+        }
+
         // find the positions required
         const targetSpaces = this.getOccupiedSpaces().filter(space => space.widget === widget).map(space => {
             return { column: space.column - colShift, row: space.row, widget: space.widget };
@@ -787,6 +853,10 @@ export class DashboardService implements OnDestroy {
                 // if they are on the same row then move one row
                 colShift = 1;
             }
+        }
+
+        if (isNaN(colShift) || colShift === 0) {
+            return;
         }
 
         // find the positions required
@@ -1127,6 +1197,12 @@ export class DashboardService implements OnDestroy {
      * @param widget The widget to move downwards
      */
     moveWidgetDown(widget: DashboardWidgetComponent, distance: number = 1): void {
+
+        // stop if a negative number is passed through
+        if (distance < 0) {
+            return;
+        }
+
         // move the widget down one position
         widget.setRow((widget.getRow(DashboardStackMode.Auto)) + distance);
 
@@ -1437,16 +1513,19 @@ export interface DashboardSpace {
     row: number;
 }
 
-export interface DashboardPlaceholder {
+export interface DashboardRegion {
+    column?: number;
+    row?: number;
+    columnSpan?: number;
+    rowSpan?: number;
+}
+
+export interface DashboardPlaceholder extends DashboardRegion {
     visible: boolean;
     x: number;
     y: number;
     width: number;
     height: number;
-    column?: number;
-    row?: number;
-    columnSpan?: number;
-    rowSpan?: number;
 }
 
 export interface DashboardCache {
