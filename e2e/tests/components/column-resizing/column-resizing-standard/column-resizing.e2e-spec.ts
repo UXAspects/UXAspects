@@ -74,6 +74,17 @@ describe('Column Resizing Tests', () => {
         expect(await imageCompare('column-resize-decrease-fixed')).toEqual(0);
     });
 
+    it('should update the column sizes on windows size change', async () => {
+        await browser.driver.manage().window().setSize(500, 800);
+
+        // triggers resize event as protractor setSize does not
+        await page.triggerResizeBtn.click();
+
+        expect(await page.getColumnHeaderWidthText(page.standardTable, 0)).toBe('106.414px');
+        expect(await page.getColumnHeaderWidthText(page.standardTable, 1)).toBe('123px');
+        expect(await page.getColumnHeaderWidthText(page.standardTable, 2)).toBe('250.167px');
+    });
+
     it('can force update layout after pagination (fixed table)', async () => {
         await page.updateLayout();
 
