@@ -22,7 +22,7 @@ export class ColumnResizingPage {
     }
 
     async getColumnHeaderWidthText(table: ElementFinder, index: number): Promise<string> {
-        return table.$$('.column-size-label').get(index).getText();
+        return (await table.$$('.column-size-label').get(index).getText()).toLowerCase();
     }
 
     async scrollTableToBottom(table: ElementFinder): Promise<void> {
