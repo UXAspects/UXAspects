@@ -429,10 +429,10 @@ describe('MenuComponent', () => {
 
     it('should contain the role menu in the overlay dropdown', async () => {
         // perform a click on the trigger element
-        triggerElement.click();
+        await triggerElement.click();
 
         // run change detection
-        fixture.detectChanges();
+        await fixture.detectChanges();
 
         // only the root level menu item should be open
         expect(document.querySelectorAll('.ux-menu').length).toBe(1);
@@ -566,6 +566,6 @@ describe('MenuTriggerDestroyTestComponent', () => {
         expect(document.querySelector('.btn').getAttribute('aria-controls')).toBeTruthy();
 
 
-    })
+    });
 
 });
