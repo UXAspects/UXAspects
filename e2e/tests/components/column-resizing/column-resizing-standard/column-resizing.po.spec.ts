@@ -21,8 +21,9 @@ export class ColumnResizingPage {
         return (await columns[index].getSize()).width;
     }
 
-    async getColumnHeaderWidthText(table: ElementFinder, index: number): Promise<string> {
-        return (await table.$$('.column-size-label').get(index).getText()).toLowerCase();
+    async getColumnHeaderWidthText(table: ElementFinder, index: number): Promise<number> {
+        let pixelValue = (await table.$$('.column-size-label').get(index).getText()).toLowerCase();
+        return parseInt(pixelValue, 10);
     }
 
     async scrollTableToBottom(table: ElementFinder): Promise<void> {

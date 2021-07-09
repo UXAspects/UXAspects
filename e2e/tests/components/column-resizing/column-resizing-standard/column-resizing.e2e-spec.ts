@@ -77,9 +77,15 @@ describe('Column Resizing Tests', () => {
     it('should update the column sizes on windows size change', async () => {
         await browser.driver.manage().window().setSize(500, 800);
 
-        expect(await page.getColumnHeaderWidthText(page.standardTable, 0)).toBe('106.414px');
-        expect(await page.getColumnHeaderWidthText(page.standardTable, 1)).toBe('123px');
-        expect(await page.getColumnHeaderWidthText(page.standardTable, 2)).toBe('250.167px');
+        // ux-aspects output is slightly different due to styling, this is why we check greater and less than.
+        expect(await page.getColumnHeaderWidthText(page.standardTable, 0)).toBeGreaterThan(105);
+        expect(await page.getColumnHeaderWidthText(page.standardTable, 0)).toBeLessThan(107);
+
+        expect(await page.getColumnHeaderWidthText(page.standardTable, 1)).toBeGreaterThan(122);
+        expect(await page.getColumnHeaderWidthText(page.standardTable, 1)).toBeLessThan(128);
+
+        expect(await page.getColumnHeaderWidthText(page.standardTable, 2)).toBeGreaterThan(245);
+        expect(await page.getColumnHeaderWidthText(page.standardTable, 2)).toBeLessThan(251);
     });
 
     it('can force update layout after pagination (fixed table)', async () => {
