@@ -105,7 +105,6 @@ export class ResizableTableColumnComponent implements AfterViewInit, OnDestroy {
     constructor(private _elementRef: ElementRef, @Inject(RESIZABLE_TABLE_SERVICE_TOKEN) private _table: BaseResizableTableService, private _renderer: Renderer2) { }
 
     ngAfterViewInit(): void {
-
         // initially emit the size when we have initialised
         this._table.isInitialised$.pipe(takeUntil(this._onDestroy), filter(isInitialised => isInitialised))
             .subscribe(() => {
