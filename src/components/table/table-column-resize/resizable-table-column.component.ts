@@ -1,6 +1,6 @@
 import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
 import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, HostBinding, Inject, Input, OnDestroy, Output, Renderer2 } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
 import { BaseResizableTableService, ResizableTableType } from './resizable-table-base.service';
 import { RESIZABLE_TABLE_SERVICE_TOKEN } from './resizable-table-service.token';
@@ -102,8 +102,6 @@ export class ResizableTableColumnComponent implements AfterViewInit, OnDestroy {
     /** Emit when all observables should be unsubscribed */
     private _onDestroy = new Subject<void>();
 
-    resizeObservable$: Observable<Event>;
-
     constructor(private _elementRef: ElementRef, @Inject(RESIZABLE_TABLE_SERVICE_TOKEN) private _table: BaseResizableTableService, private _renderer: Renderer2) { }
 
     ngAfterViewInit(): void {
@@ -190,10 +188,6 @@ export class ResizableTableColumnComponent implements AfterViewInit, OnDestroy {
     /** Get the column index this cell is part of */
     getCellIndex(): number {
         return (this._elementRef.nativeElement as HTMLTableCellElement).cellIndex;
-    }
-
-    onResize(): void {
-        this._table.onResize$.next();
     }
 
     /** The percentage width of the column */
