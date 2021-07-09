@@ -4,6 +4,7 @@
         class="ux-menu"
         [class.ux-sub-menu]="_isSubMenu"
         [class.ux-menu-placement-top]="placement === 'top'"
+        [attr.role]="'menu'"
         [ngClass]="menuClass"
         @menuAnimation
         [@.disabled]="!animate"

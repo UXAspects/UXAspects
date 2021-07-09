@@ -427,6 +427,20 @@ describe('MenuComponent', () => {
         expect(subItemMenu).toBeFalsy();
     });
 
+    it('should contain the role menu in the overlay dropdown', async () => {
+        // perform a click on the trigger element
+        triggerElement.click();
+
+        // run change detection
+        fixture.detectChanges();
+
+        // only the root level menu item should be open
+        expect(document.querySelectorAll('.ux-menu').length).toBe(1);
+
+        // expect the ux-menu to contain the role
+        expect(document.querySelector('.ux-menu').getAttribute('role')).toBe('menu');
+    });
+
 });
 
 @Component({
@@ -535,5 +549,23 @@ describe('MenuTriggerDestroyTestComponent', () => {
         await fixture.whenStable();
         expect(document.querySelectorAll('.ux-menu').length).toBe(1);
     });
+
+    it('should contain the aria-controls attribute when the menu is opened', async () => {
+        expect(document.querySelector('.btn').getAttribute('aria-controls')).toBeFalsy();
+
+        // open menu
+        component.trigger.openMenu();
+
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        // expect menu to be open
+        expect(document.querySelectorAll('.ux-menu').length).toBe(1);
+
+        // get the aria-controls overlay
+        expect(document.querySelector('.btn').getAttribute('aria-controls')).toBeTruthy();
+
+
+    })
 
 });
