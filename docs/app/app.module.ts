@@ -11,6 +11,7 @@ import { NgxMaskModule } from 'ngx-mask';
 import { AppComponent } from './app.component';
 import { DocumentationComponentsModule } from './components/components.module';
 import { DocumentationType, DOCUMENTATION_TOKEN } from './services/playground/tokens/documentation.token';
+import {DatePipe} from '@angular/common';
 
 /*
   Configure Application Routes
@@ -47,7 +48,8 @@ const appRoutes: Routes = [
     ],
     providers: [
         PersistentDataService,
-        { provide: DOCUMENTATION_TOKEN, useValue: DocumentationType.Keppel }
+        { provide: DOCUMENTATION_TOKEN, useValue: DocumentationType.Keppel },
+        DatePipe
     ],
     declarations: [
         AppComponent,

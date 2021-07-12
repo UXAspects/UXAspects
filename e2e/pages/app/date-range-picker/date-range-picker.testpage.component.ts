@@ -90,23 +90,16 @@ export class DateRangePickerTestPageComponent {
 
     /** Update the date string when the date range changes */
     onRangeChange(): void {
-        const start = this.start ? formatDate(this.start, 'd MMMM y  h:mm a', 'en-US', 'UTC') + ' ' + this.startTimezone.name : '';
-        const end = this.end ? formatDate(this.end, 'd MMMM y  h:mm a', 'en-US', 'UTC') + ' ' + this.endTimezone.name : '';
+        if (this.start && this.end) {
+            // check if the dates are valid
+            this.invalid = (this.getNormalizedDate(this.start, this.startTimezone).getTime() >
+                this.getNormalizedDate(this.end, this.endTimezone).getTime());
 
-        if (!this.start || !this.end) {
-            return;
+            // concatenate the two dates
+            this.date =
+                formatDate(this.start, 'd MMMM y  h:mm a', 'en-US', 'UTC') + ' ' + this.startTimezone.name + ' — ' +
+                formatDate(this.end, 'd MMMM y  h:mm a', 'en-US', 'UTC') + ' ' + this.endTimezone.name;
         }
-
-        // reset the invalid state
-        this.invalid = false;
-
-        // check if the dates are valid
-        if (this.getNormalizedDate(this.start, this.startTimezone).getTime() > this.getNormalizedDate(this.end, this.endTimezone).getTime()) {
-            this.invalid = true;
-        }
-
-        // concatenate the two dates
-        this.date = start && end ? `${start} — ${end}` : start || end;
     }
 
     onTimezoneChange(): void {
@@ -146,9 +139,7 @@ export class DateRangePickerTestPageComponent {
 
     /** Account for the timezone offset */
     private getNormalizedDate(date: Date, timezone: DateTimePickerTimezone): Date {
-        const normalizedDate = new Date(date);
-        normalizedDate.setMinutes(normalizedDate.getMinutes() + timezone.offset);
-        return normalizedDate;
+        return new Date(date.getTime() - timezone.offset * 60 * 1000);
     }
 
     private getCurrentTimezone(): DateTimePickerTimezone {

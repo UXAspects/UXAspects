@@ -1,0 +1,18 @@
+// TODO: Error styling
+.select-input-component .has-error {
+    ux-select {
+        .ux-select-container {
+            > input:not(:disabled) {
+                background-color: @form-control-bg;
+                color: @form-control-color;
+                border-color: @form-control-invalid-border;
+                .placeholder(@form-control-placeholder-color);
+
+                &:focus {
+                    border-color: @form-control-invalid-border;
+                    .placeholder(@form-control-placeholder-color);
+                }
+            }
+        }
+    }
+}

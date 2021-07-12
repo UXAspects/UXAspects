@@ -147,6 +147,9 @@ describe('Hierarchy Bar Tests - standard Mode', () => {
 
         // To be restored as part of EL-4021:
         // expect(await imageCompare('hierarchy-bar-collapsed')).toEqual(0);
+
+        // TODO: enable before PR
+        // expect(await imageCompare('hierarchy-bar-collapsed')).toEqual(0);
     });
 
     it('should allow nodes to be selected when clicking on ellipsis - collapsed mode', async () => {

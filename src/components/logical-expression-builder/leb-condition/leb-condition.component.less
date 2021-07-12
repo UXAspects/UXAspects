@@ -1,0 +1,175 @@
+ux-leb-condition, ux-leb-group {
+    width: 100%;
+    display: block;
+
+    .expression-row.not.leb-group + ux-leb-condition div span span.lastTreeElement {
+        width: 8px;
+
+        &:before {
+            content: '';
+            position: absolute;
+            border-left: 1px solid @grey5;
+            border-bottom: 1px solid @grey5;
+            height: 50%;
+            width: 8px;
+            bottom: 50%;
+        }
+    }
+
+    .leb-condition-row, .leb-group {
+        width: 100%;
+        display: block;
+        position: relative;
+
+        .leb-cell {
+            display: inline-block;
+            min-height: 40px;
+
+            .firstTreeElement, .lastTreeElement, .L-TreeElement, .firstOperatorTreeElement {
+                display: inline-block;
+                width: 32px;
+                height: 23.8px;
+
+                &:first-child {
+                    margin-left: 24px;
+                }
+
+                &:before {
+                    content: '';
+                    position: absolute;
+                    border-left: 1px solid @grey5;
+                    height: 100%;
+                }
+
+                &.invisible:before, &.invisible:after {
+                    border-color: transparent;
+                }
+
+                &.emphasis:before, &.emphasis:after {
+                    border-color: @primary;
+                    border-width: 2px;
+                }
+            }
+
+            .L-TreeElement {
+                width: 8px;
+
+                &:before {
+                    content: '';
+                    position: absolute;
+                    border-left: 1px solid @grey5;
+                    border-bottom: 1px solid @grey5;
+                    height: 50%;
+                    width: 8px;
+                    bottom: 50%;
+                }
+            }
+
+            .firstOperatorTreeElement, .lastTreeElement {
+                width: 8px;
+
+                &:after {
+                    content: '';
+                    position: absolute;
+                    height: 50%;
+                    width: 8px;
+                    bottom: 50%;
+                    border-bottom: 1px solid @grey5;
+                }
+            }
+
+            &.leb-cell-unindented {
+                margin-left: 16px;
+            }
+        }
+
+        span.leb-cell.hover-btn-cell {
+            position: absolute;
+            display: inline-block;
+            right: @spacing-xs;
+        }
+    }
+}
+
+ux-leb-condition {
+    .leb-condition-row {
+        .form-group {
+            margin-bottom: 0;
+        }
+
+        // Edit mode containers
+        .edit-mode {
+            display: flex;
+            align-items: center;
+            min-height: 40px;
+
+            .field-selection {
+                flex: 1;
+                margin-right: @spacing-xs;
+            }
+
+            .operator-selection {
+                flex: 1;
+                margin-right: @spacing-xs;
+            }
+
+            .value-input-container {
+                flex: 2;
+                margin-right: @spacing-xs;
+            }
+
+            .confirm-cancel-btn-cell {
+                margin-right: @spacing-xs;
+            }
+        }
+        // Condition Text
+
+        .leb-field-display, .leb-operator-display, .leb-value-display {
+            font-weight: bold;
+            display: inline-block;
+        }
+
+        .leb-field-display {
+            font-weight: bold;
+        }
+
+        .leb-operator-display {
+            color: @grey4;
+        }
+
+        .leb-value-display {
+            font-weight: bold;
+            color: @primary;
+        }
+
+        // Buttons
+        .edit-btn,
+        .confirm-btn {
+            .button-primary;
+
+            &:disabled {
+                .button-primary-disabled;
+            }
+        }
+
+        .embed-btn {
+            .button-secondary;
+
+            &:disabled {
+                .button-secondary-disabled;
+            }
+        }
+
+        .delete-btn,
+        .cancel-btn {
+            .button-warning;
+
+            &:disabled {
+                background-color: @btn-warning-disabled-bg;
+                color: @btn-warning-disabled-color;
+                border-color: @btn-warning-disabled-border;
+            }
+        }
+    }
+}
+

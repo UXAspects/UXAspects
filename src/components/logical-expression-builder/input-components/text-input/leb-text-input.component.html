@@ -1,0 +1,8 @@
+<div class="form-group m-b-nil" [ngClass]="{ 'has-error': !_valid }">
+    <input
+        type="text"
+        class="form-control"
+        [ngModel]="value"
+        (ngModelChange)="handleValueChange($event)"/>
+</div>
+

@@ -82,7 +82,8 @@
         [showSeconds]="showSeconds" [showMeridian]="showMeridian" [showSpinners]="showSpinners"
         [showNowBtn]="showNowBtn" [startTimezone]="startTimezone" [endTimezone]="endTimezone"
         (startChange)="onRangeChange()" (endChange)="onRangeChange()" (keydown.escape)="popover.hide(); input.focus()"
-        (startTimezoneChange)="onTimezoneChange(true, $event)" (endTimezoneChange)="onTimezoneChange(false, $event)">
+        (startTimezoneChange)="startTimezone = $event; onRangeChange();"
+        (endTimezoneChange)="endTimezone = $event; onRangeChange();">
     </ux-date-range-picker>
 </ng-template>
 

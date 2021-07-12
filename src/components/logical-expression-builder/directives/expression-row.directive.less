@@ -1,0 +1,39 @@
+[expressionRow] {
+    &.expression-row {
+        border: none;
+
+        &.expression-row-active {
+            position: relative;
+            z-index: 100;
+            background-color: @table-hover-bg;
+
+            [uxHoverAction] {
+                opacity: 1;
+            }
+        }
+
+        &:hover,
+        &.cdk-focused {
+            background-color: @table-hover-bg;
+        }
+
+        &.cdk-mouse-focused {
+            outline: none;
+        }
+
+        [uxHoverAction] {
+            opacity: 0;
+
+            &.hover-action-active,
+            &.hover-action-focused,
+            &:hover,
+            &:focus {
+                opacity: 1;
+
+                .btn[disabled], .btn.btn-link:disabled {
+                    opacity: 1;
+                }
+            }
+        }
+    }
+}
