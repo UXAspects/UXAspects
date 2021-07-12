@@ -1,0 +1,32 @@
+ux-dashboard-select-widget {
+    .select-dropdown {
+        cursor: pointer;
+        width: 100%;
+
+        .widget-status-icon {
+            margin-right: 4px;
+        }
+    }
+}
+
+.select-widget-dropdown-list {
+    padding: 0;
+    margin: 0;
+
+    .select-item {
+        padding: 8px 12px;
+        background-color: @dropdown-bg;
+
+        &:hover, &:active, &:focus {
+            background: @dropdown-highlight-bg;
+        }
+
+        &:not(.selected) {
+            cursor: pointer;
+        }
+
+        .select-icon {
+            margin-right: 4px;
+        }
+    }
+}

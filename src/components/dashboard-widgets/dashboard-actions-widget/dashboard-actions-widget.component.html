@@ -1,0 +1,33 @@
+<ux-predefined-widget class="widget-element"
+                      [id]="id"
+                      [colSpan]="colSpan"
+                      [rowSpan]="rowSpan"
+                      [name]="name"
+                      [heading]="heading"
+                      [fixedMode]="fixedMode"
+                      [grabHandleText]="grabHandleText">
+    <div class="widget-actions-wrapper">
+        <div class="widget-status">
+            <span class="widget-status-icon" *ngIf="status.icon || status.iconTemplate">
+                <ux-icon *ngIf="status.icon" [name]="status.icon"></ux-icon>
+                <ng-container *ngIf="status.iconTemplate">
+                    <ng-container *ngTemplateOutlet="status.iconTemplate"></ng-container>
+                </ng-container>
+            </span>
+            <span id="dashboard-action-widget-label" class="widget-status-label">{{ status.label }}</span>
+        </div>
+        <div class="widget-actions" uxTabbableList>
+            <button *ngFor="let action of actions"
+                    [id]="'dashboard-action-widget-button-' + action.value"
+                    class="widget-action-button btn"
+                    uxTabbableListItem
+                    (click)="actionSelected.emit(action.value)">
+                <ng-container *ngIf="action.iconTemplate">
+                    <ng-container *ngTemplateOutlet="action.iconTemplate"></ng-container>
+                </ng-container>
+                <ux-icon *ngIf="action.icon" [name]="action.icon"></ux-icon>
+                {{ action.label }}
+            </button>
+        </div>
+    </div>
+</ux-predefined-widget>

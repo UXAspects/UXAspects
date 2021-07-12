@@ -181,6 +181,21 @@
                             "content": "DashboardModule"
                         }
                     ]
+                },
+                {
+                    "title": "Dashboard Widgets",
+                    "component": "ComponentsDashboardWidgetsComponent",
+                    "version": "Angular",
+                    "usage": [
+                        {
+                            "title": "Selector",
+                            "content": "ux-dashboard-actions-widget, ux-dashboard-select-widget, ux-dashboard-table-widget, ux-dashboard-text-widget"
+                        },
+                        {
+                            "title": "Module",
+                            "content": "DashboardWidgetsModule"
+                        }
+                    ]
                 }
             ]
         },
