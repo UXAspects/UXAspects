@@ -559,13 +559,8 @@ describe('MenuTriggerDestroyTestComponent', () => {
         fixture.detectChanges();
         await fixture.whenStable();
 
-        // expect menu to be open
-        expect(document.querySelectorAll('.ux-menu').length).toBe(1);
-
         // get the aria-controls overlay
         expect(document.querySelector('.btn').getAttribute('aria-controls')).toBeTruthy();
-
-
     });
 
 });

@@ -3,6 +3,7 @@
         *ngIf="isMenuOpen"
         class="ux-menu"
         role="menu"
+        [id]="id + '-input'"
         [class.ux-sub-menu]="_isSubMenu"
         [class.ux-menu-placement-top]="placement === 'top'"
         [ngClass]="menuClass"
