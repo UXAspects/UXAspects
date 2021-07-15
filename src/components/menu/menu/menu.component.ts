@@ -1,7 +1,6 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { FocusKeyManager, FocusOrigin } from '@angular/cdk/a11y';
-import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, forwardRef, HostBinding, Inject, Input, OnChanges, OnDestroy, Optional, Output, QueryList, SimpleChanges, StaticProvider, TemplateRef, ViewChild, ViewRef } from '@angular/core';
-import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, HostBinding, Inject, Input, OnChanges, OnDestroy, Optional, Output, QueryList, SimpleChanges, TemplateRef, ViewChild, ViewRef } from '@angular/core';
 import { BehaviorSubject, merge, Observable, Subject } from 'rxjs';
 import { map, switchMap, takeUntil } from 'rxjs/operators';
 import { AnchorAlignment, AnchorPlacement } from '../../tooltip/index';
@@ -13,16 +12,9 @@ import { MenuTabbableItemDirective } from '../menu-tabbable-item/menu-tabbable-i
 
 let uniqueId = 0;
 
-export const MENU_VALUE_ACCESSOR: StaticProvider = {
-    provide: NG_VALUE_ACCESSOR,
-    useExisting: forwardRef(() => MenuComponent),
-    multi: true
-};
-
 @Component({
     selector: 'ux-menu',
     templateUrl: './menu.component.html',
-    providers: [MENU_VALUE_ACCESSOR],
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
         'role': 'menu'
@@ -42,7 +34,7 @@ export const MENU_VALUE_ACCESSOR: StaticProvider = {
 export class MenuComponent implements AfterContentInit, OnDestroy, OnChanges {
 
     /** A unique id for the component. */
-    @Input() @HostBinding('attr.id') id: string = `ux-select-${++uniqueId}`;
+    @Input() @HostBinding('attr.id') id: string = `ux-menu-${++uniqueId}`;
 
     /** Define the position of the menu */
     @Input() placement: AnchorPlacement = 'bottom';
