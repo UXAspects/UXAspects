@@ -455,7 +455,7 @@ describe('MenuComponent', () => {
             </button>
         </div>
 
-        <ux-menu #menu>
+        <ux-menu id="ux-menu-1" #menu>
             <button type="button" uxMenuItem>
                 <span class="dropdown-menu"></span>
                 <span class="dropdown-menu-text">Export</span>
