@@ -23,6 +23,9 @@ export abstract class BaseResizableTableDirective implements OnDestroy {
             // store the latest table size
             _table.tableWidth = this.getScrollWidth();
 
+            // emit that the table is being resized
+            _table.onResize$.next();
+
             // run the initial logic if the table is fully visible
             this.onTableReady();
         });

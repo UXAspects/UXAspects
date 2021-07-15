@@ -74,6 +74,21 @@ describe('Column Resizing Tests', () => {
         expect(await imageCompare('column-resize-decrease-fixed')).toEqual(0);
     });
 
+    it('should update the column sizes on windows size change', async () => {
+        await browser.driver.manage().window().setSize(600, 800);
+
+        // ux-aspects output is slightly different due to styling, this is why we check greater and less than.
+        expect(await page.getColumnHeaderWidthText(page.standardTable, 0)).toBe(128);
+
+        expect(await page.getColumnHeaderWidthText(page.standardTable, 1)).toBeGreaterThan(147);
+        expect(await page.getColumnHeaderWidthText(page.standardTable, 1)).toBeLessThan(153);
+
+        expect(await page.getColumnHeaderWidthText(page.standardTable, 2)).toBeGreaterThan(283);
+        expect(await page.getColumnHeaderWidthText(page.standardTable, 2)).toBeLessThan(296);
+
+        expect(await imageCompare('column-resize-window-resize')).toEqual(0);
+    });
+
     it('can force update layout after pagination (fixed table)', async () => {
         await page.updateLayout();
 

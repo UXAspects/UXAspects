@@ -5,6 +5,7 @@ export class ColumnResizingPage {
     standardTable = $('#standard-table');
     fixedTable = $('#fixed-table');
     updateLayoutBtn = $('#update-layout-btn');
+    triggerResizeBtn = $('#trigger-resize-btn');
 
     async getPage(): Promise<void> {
         await browser.driver.manage().window().setSize(1200, 900);
@@ -18,6 +19,11 @@ export class ColumnResizingPage {
     async getColumnHeaderWidth(table: ElementFinder, index: number): Promise<number> {
         const columns = await this.getColumnHeaders(table);
         return (await columns[index].getSize()).width;
+    }
+
+    async getColumnHeaderWidthText(table: ElementFinder, index: number): Promise<number> {
+        let pixelValue = (await table.$$('.column-size-label').get(index).getText()).toLowerCase();
+        return parseInt(pixelValue, 10);
     }
 
     async scrollTableToBottom(table: ElementFinder): Promise<void> {
