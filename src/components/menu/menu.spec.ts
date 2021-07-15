@@ -551,7 +551,7 @@ describe('MenuTriggerDestroyTestComponent', () => {
     });
 
     it('should contain the aria-controls attribute when the menu is opened', async () => {
-        expect(document.querySelector('.btn').getAttribute('aria-controls')).toBeFalsy();
+        expect(document.querySelector('.btn').getAttribute('aria-controls')).toBe(null);
 
         // open menu
         component.trigger.openMenu();
@@ -560,7 +560,7 @@ describe('MenuTriggerDestroyTestComponent', () => {
         await fixture.whenStable();
 
         // get the aria-controls overlay
-        expect(document.querySelector('.btn').getAttribute('aria-controls')).toBeTruthy();
+        expect(document.querySelector('.btn').getAttribute('aria-controls')).toBe('ux-menu-1');
     });
 
 });
