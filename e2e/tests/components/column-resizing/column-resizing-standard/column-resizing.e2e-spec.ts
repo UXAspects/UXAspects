@@ -75,17 +75,16 @@ describe('Column Resizing Tests', () => {
     });
 
     it('should update the column sizes on windows size change', async () => {
-        await browser.driver.manage().window().setSize(500, 800);
+        await browser.driver.manage().window().setSize(600, 800);
 
         // ux-aspects output is slightly different due to styling, this is why we check greater and less than.
-        expect(await page.getColumnHeaderWidthText(page.standardTable, 0)).toBeGreaterThan(105);
-        expect(await page.getColumnHeaderWidthText(page.standardTable, 0)).toBeLessThan(107);
+        expect(await page.getColumnHeaderWidthText(page.standardTable, 0)).toBe(128);
 
-        expect(await page.getColumnHeaderWidthText(page.standardTable, 1)).toBeGreaterThan(122);
-        expect(await page.getColumnHeaderWidthText(page.standardTable, 1)).toBeLessThan(128);
+        expect(await page.getColumnHeaderWidthText(page.standardTable, 1)).toBeGreaterThan(147);
+        expect(await page.getColumnHeaderWidthText(page.standardTable, 1)).toBeLessThan(153);
 
-        expect(await page.getColumnHeaderWidthText(page.standardTable, 2)).toBeGreaterThan(245);
-        expect(await page.getColumnHeaderWidthText(page.standardTable, 2)).toBeLessThan(251);
+        expect(await page.getColumnHeaderWidthText(page.standardTable, 2)).toBeGreaterThan(283);
+        expect(await page.getColumnHeaderWidthText(page.standardTable, 2)).toBeLessThan(296);
 
         expect(await imageCompare('column-resize-window-resize')).toEqual(0);
     });
