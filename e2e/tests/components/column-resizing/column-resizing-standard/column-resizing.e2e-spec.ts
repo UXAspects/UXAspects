@@ -86,6 +86,8 @@ describe('Column Resizing Tests', () => {
 
         expect(await page.getColumnHeaderWidthText(page.standardTable, 2)).toBeGreaterThan(245);
         expect(await page.getColumnHeaderWidthText(page.standardTable, 2)).toBeLessThan(251);
+
+        expect(await imageCompare('column-resize-window-resize')).toEqual(0);
     });
 
     it('can force update layout after pagination (fixed table)', async () => {
