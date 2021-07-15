@@ -157,6 +157,14 @@ describe('Marquee Wizard', () => {
         expect(component.onNext).toHaveBeenCalledWith(1);
     });
 
+    it('should only emit stepChange once when "Next" is clicked', async () => {
+        spyOn(component, 'onStepChange');
+
+        await wrapper.clickStepButton('Next');
+
+        expect(component.onStepChange).toHaveBeenCalledTimes(1);
+    });
+
     it('should set visited = true on the second step when "Next" is clicked', async () => {
         await wrapper.clickStepButton('Next');
 
