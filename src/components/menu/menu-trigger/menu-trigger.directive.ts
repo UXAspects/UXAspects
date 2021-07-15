@@ -16,7 +16,7 @@ import { MenuComponent } from '../menu/menu.component';
         '[attr.disabled]': 'disabled ? true : null',
         '[attr.aria-haspopup]': '!!menu',
         '[attr.aria-expanded]': 'menu?.isMenuOpen',
-        '[attr.aria-controls]': 'menu?.isMenuOpen ? this._overlayRef.overlayElement.id : null'
+        '[attr.aria-controls]': 'ariaControls'
     }
 })
 export class MenuTriggerDirective implements OnInit, OnDestroy {
@@ -34,7 +34,12 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
     private _portal: TemplatePortal;
 
     /** Store the reference to the overlay */
-    _overlayRef: OverlayRef;
+    private _overlayRef: OverlayRef;
+
+    /** Get the aria controls for accessibility */
+    get ariaControls(): string | null {
+        return this.menu?.isMenuOpen ? this._overlayRef?. overlayElement.id : null;
+    }
 
     /** Store the instance of the focus indicator */
     private _focusIndicator: FocusIndicator;
