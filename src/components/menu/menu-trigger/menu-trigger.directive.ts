@@ -34,11 +34,11 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
     private _portal: TemplatePortal;
 
     /** Store the reference to the overlay */
-    private _overlayRef: OverlayRef;
+    private _overlayRef?: OverlayRef;
 
     /** Get the aria controls for accessibility */
     get ariaControls(): string | null {
-        return this.menu?.isMenuOpen ? this._overlayRef?. overlayElement.id : null;
+        return this.menu?.isMenuOpen ? this._overlayRef?.overlayElement.id : null;
     }
 
     /** Store the instance of the focus indicator */
