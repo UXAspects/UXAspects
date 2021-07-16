@@ -43,14 +43,16 @@ export class WizardTestWrapper<T> {
         return buttons.find(button => button.innerText.toUpperCase() === buttonText.toUpperCase());
     }
 
-    async clickStepButton(buttonText: string): Promise<void> {
+    async clickStepButton(buttonText: string, detectChanges: boolean = true): Promise<void> {
         const button = this.getStepButton(buttonText);
         if (!button) {
             throw new Error(`Button "${buttonText}" not found`);
         }
 
         button.click();
-        this._fixture.detectChanges();
+        if (detectChanges) {
+            this._fixture.detectChanges();
+        }
         return await this._fixture.whenStable();
     }
 }
