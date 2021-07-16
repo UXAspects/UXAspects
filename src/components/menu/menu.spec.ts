@@ -550,7 +550,7 @@ describe('MenuTriggerDestroyTestComponent', () => {
         expect(document.querySelectorAll('.ux-menu').length).toBe(1);
     });
 
-    fit('should contain the aria-controls attribute when the menu is opened', async () => {
+    it('should contain the aria-controls attribute when the menu is opened', async () => {
         expect(document.querySelector('.btn').getAttribute('aria-controls')).toBe(null);
 
         // open menu
@@ -564,7 +564,7 @@ describe('MenuTriggerDestroyTestComponent', () => {
 
     });
 
-    fit('should contain the correct id for the ux-menu and the overlay', async () => {
+    it('should contain the correct id for the ux-menu and the overlay', async () => {
         // open menu
         component.trigger.openMenu();
 
@@ -573,6 +573,6 @@ describe('MenuTriggerDestroyTestComponent', () => {
 
         expect(document.querySelector('.ux-menu').getAttribute('id')).toBe('ux-menu-1-menu');
         expect(document.querySelector('ux-menu').getAttribute('id')).toBe('ux-menu-1');
-    })
+    });
 
 });
