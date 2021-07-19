@@ -560,7 +560,7 @@ describe('MenuTriggerDestroyTestComponent', () => {
         await fixture.whenStable();
 
         // get the aria-controls overlay
-        expect(document.querySelector('.btn').getAttribute('aria-controls')).toBe('ux-menu-1');
+        expect(document.querySelector('.btn').getAttribute('aria-controls')).toBe('ux-menu-1-menu');
 
     });
 
