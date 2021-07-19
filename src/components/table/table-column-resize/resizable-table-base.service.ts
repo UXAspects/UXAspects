@@ -30,6 +30,8 @@ export abstract class BaseResizableTableService implements OnDestroy {
 
     abstract getColumnDisabled(index: number): boolean;
 
+    abstract getSetWidthSize(index: number): number;
+
     /** Cleanup when service is disposed */
     ngOnDestroy(): void {
         this.onResize$.complete();

@@ -48,6 +48,13 @@ export class ResizableTableCellComponent implements OnInit, OnDestroy {
 
     /** Set the width of the column */
     private setColumnWidth(): void {
+
+        if (this._table.getColumnDisabled(this.getCellIndex()) && this._table.getSetWidthSize !== null) {
+            this._renderer.setStyle(this._elementRef.nativeElement, 'width', `${this._table.getSetWidthSize}px`);
+            this._renderer.setStyle(this._elementRef.nativeElement, 'max-width', `${this._table.getSetWidthSize}px`);
+            return;
+        }
+
         const width = this._table.isResizing$.value || this._table.getColumnDisabled(this.getCellIndex()) ?
             `${this._table.getColumnWidth(this.getCellIndex(), ColumnUnit.Pixel)}px` :
             `${this._table.getColumnWidth(this.getCellIndex(), ColumnUnit.Percentage)}%`;

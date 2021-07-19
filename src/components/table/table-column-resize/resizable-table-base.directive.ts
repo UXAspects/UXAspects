@@ -29,10 +29,6 @@ export abstract class BaseResizableTableDirective implements OnDestroy {
             // run the initial logic if the table is fully visible
             this.onTableReady();
 
-            if (_table.isInitialised$.getValue()) {
-                this.setUniformWidths();
-
-            }
         });
 
     }

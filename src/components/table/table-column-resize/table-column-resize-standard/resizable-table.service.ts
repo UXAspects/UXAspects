@@ -1,6 +1,6 @@
 import { Injectable, QueryList } from '@angular/core';
-import { ResizableTableColumnComponent } from '../resizable-table-column.component';
 import { BaseResizableTableService, ResizableTableType } from '../resizable-table-base.service';
+import { ResizableTableColumnComponent } from '../resizable-table-column.component';
 
 @Injectable()
 export class ResizableTableService extends BaseResizableTableService {
@@ -199,6 +199,10 @@ export class ResizableTableService extends BaseResizableTableService {
 
     getColumnDisabled(index: number): boolean {
         return this.getColumn(index) ? this.getColumn(index).disabled : false;
+    }
+
+    getSetWidthSize(index: number): number {
+        return this.getColumn(index) ? this.getColumn(index).width : null;
     }
 
     /** Determine whether a column is above or below its minimum width */

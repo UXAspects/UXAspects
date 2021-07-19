@@ -159,6 +159,10 @@ export class ResizableExpandingTableService extends BaseResizableTableService {
         return this.getColumn(index) ? this.getColumn(index).disabled : false;
     }
 
+    getSetWidthSize(index: number): number {
+        return this.getColumn(index) ? this.getColumn(index).width : null;
+    }
+
 }
 
 export enum ColumnUnit {
