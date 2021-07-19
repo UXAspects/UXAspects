@@ -78,13 +78,10 @@ describe('Column Resizing Tests', () => {
         await browser.driver.manage().window().setSize(600, 800);
 
         // ux-aspects output is slightly different due to styling, this is why we check greater and less than.
-        expect(await page.getColumnHeaderWidthText(page.standardTable, 0)).toBe(128);
+        expect(await page.getColumnHeaderWidthText(page.standardTable, 0)).toBe(178);
+        expect(await page.getColumnHeaderWidthText(page.standardTable, 1)).toBe(188);
+        expect(await page.getColumnHeaderWidthText(page.standardTable, 2)).toBe(184);
 
-        expect(await page.getColumnHeaderWidthText(page.standardTable, 1)).toBeGreaterThan(147);
-        expect(await page.getColumnHeaderWidthText(page.standardTable, 1)).toBeLessThan(153);
-
-        expect(await page.getColumnHeaderWidthText(page.standardTable, 2)).toBeGreaterThan(283);
-        expect(await page.getColumnHeaderWidthText(page.standardTable, 2)).toBeLessThan(296);
 
         expect(await imageCompare('column-resize-window-resize')).toEqual(0);
     });

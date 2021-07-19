@@ -25,13 +25,16 @@ export abstract class BaseResizableTableDirective implements OnDestroy {
 
             // emit that the table is being resized
             _table.onResize$.next();
-            _table.isResizing$.next(true);
 
             // run the initial logic if the table is fully visible
             this.onTableReady();
 
-            // _table.setUniformWidths();
+            if (_table.isInitialised$.getValue()) {
+                this.setUniformWidths();
+
+            }
         });
+
     }
 
     /** Cleanup after the component is destroyed */
