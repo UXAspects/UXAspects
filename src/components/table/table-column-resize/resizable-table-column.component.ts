@@ -206,7 +206,7 @@ export class ResizableTableColumnComponent implements AfterViewInit, OnDestroy {
             `${this._table.getColumnWidth(this.getCellIndex(), ColumnUnit.Pixel)}px` :
             `${this._table.getColumnWidth(this.getCellIndex(), ColumnUnit.Percentage)}%`;
 
-        if (this._table.type === ResizableTableType.Expand) {
+        if (this._table.type === ResizableTableType.Expand && !this._table.isResizing$.value) {
             const minWidth = Math.max(this._table.getColumnWidth(this.getCellIndex(), ColumnUnit.Pixel), this._minWidth);
             this._renderer.setStyle(this._elementRef.nativeElement, 'min-width', `${minWidth}px`);
         }
