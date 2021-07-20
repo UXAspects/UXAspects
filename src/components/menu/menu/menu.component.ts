@@ -99,6 +99,11 @@ export class MenuComponent implements AfterContentInit, OnDestroy, OnChanges {
     /** Automatically unsubscribe when the component is destroyed */
     private readonly _onDestroy$ = new Subject<void>();
 
+    /** Get the aria controls label */
+    get _ariaControls(): string {
+       return `${this.id}-menu`;
+    }
+
     get _isExpanded(): Observable<boolean> {
         return this._menuItems.pipe(switchMap(items => merge(...items.map(item => item.isExpanded$))), takeUntil(this._onDestroy$));
     }
@@ -250,6 +255,10 @@ export class MenuComponent implements AfterContentInit, OnDestroy, OnChanges {
 
     _onBlur(): void {
         this._isFocused$.next(false);
+    }
+
+    _getAriaControls(): void {
+        
     }
 
 }
