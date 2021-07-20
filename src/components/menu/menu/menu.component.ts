@@ -16,9 +16,6 @@ let uniqueId = 0;
     selector: 'ux-menu',
     templateUrl: './menu.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    host: {
-        'role': 'menu'
-    },
     animations: [
         trigger('menuAnimation', [
             transition(':enter', [
