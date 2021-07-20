@@ -38,7 +38,7 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
 
     /** Get the aria controls for accessibility */
     get ariaControls(): string | null {
-        return this.menu?.isMenuOpen ? this.menu?._ariaControls : null;
+        return this.menu?.isMenuOpen ? this.menu?.innerId : null;
     }
 
     /** Store the instance of the focus indicator */

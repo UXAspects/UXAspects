@@ -99,8 +99,8 @@ export class MenuComponent implements AfterContentInit, OnDestroy, OnChanges {
     /** Automatically unsubscribe when the component is destroyed */
     private readonly _onDestroy$ = new Subject<void>();
 
-    /** Get the aria controls label */
-    get _ariaControls(): string {
+    /** Get innerId for use for accessibility  */
+    get innerId(): string {
        return `${this.id}-menu`;
     }
 
@@ -255,10 +255,6 @@ export class MenuComponent implements AfterContentInit, OnDestroy, OnChanges {
 
     _onBlur(): void {
         this._isFocused$.next(false);
-    }
-
-    _getAriaControls(): void {
-        
     }
 
 }
