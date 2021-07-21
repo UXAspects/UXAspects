@@ -165,7 +165,7 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
             .subscribe(() => this.closeMenu());
 
         // listen for the menu to animate closed then destroy it
-        this.menu.closed.pipe(take(1), takeUntil(this._onDestroy$))
+        this.menu.closing.pipe(take(1), takeUntil(this._onDestroy$))
             .subscribe(() => this.destroyMenu());
     }
 
@@ -227,6 +227,14 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
     _onMouseEnter(): void {
         if (this._isSubmenuTrigger && !this._parentMenu._isAnimating) {
             this.openMenu();
+        }
+    }
+
+    @HostListener('mousemove')
+    _onMouseMove(): void {
+        if (this._isSubmenuTrigger && !this._parentMenu._isAnimating) {
+            timer(this._debounceTime).pipe(takeUntil(this._onDestroy$))
+                .subscribe(() => this.openMenu());
         }
     }
 
