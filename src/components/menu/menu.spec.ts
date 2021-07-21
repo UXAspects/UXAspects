@@ -427,6 +427,20 @@ describe('MenuComponent', () => {
         expect(subItemMenu).toBeFalsy();
     });
 
+    it('should contain the role menu in the overlay dropdown', async () => {
+        // perform a click on the trigger element
+        await triggerElement.click();
+
+        // run change detection
+        await fixture.detectChanges();
+
+        // only the root level menu item should be open
+        expect(document.querySelectorAll('.ux-menu').length).toBe(1);
+
+        // expect the ux-menu to contain the role
+        expect(document.querySelector('.ux-menu').getAttribute('role')).toBe('menu');
+    });
+
 });
 
 @Component({
@@ -441,7 +455,7 @@ describe('MenuComponent', () => {
             </button>
         </div>
 
-        <ux-menu #menu>
+        <ux-menu id="ux-menu-1" #menu>
             <button type="button" uxMenuItem>
                 <span class="dropdown-menu"></span>
                 <span class="dropdown-menu-text">Export</span>
@@ -534,6 +548,31 @@ describe('MenuTriggerDestroyTestComponent', () => {
         fixture.detectChanges();
         await fixture.whenStable();
         expect(document.querySelectorAll('.ux-menu').length).toBe(1);
+    });
+
+    it('should contain the aria-controls attribute when the menu is opened', async () => {
+        expect(document.querySelector('.btn').getAttribute('aria-controls')).toBe(null);
+
+        // open menu
+        component.trigger.openMenu();
+
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        // get the aria-controls overlay
+        expect(document.querySelector('.btn').getAttribute('aria-controls')).toBe('ux-menu-1-menu');
+
+    });
+
+    it('should contain the correct id for the ux-menu and the overlay', async () => {
+        // open menu
+        component.trigger.openMenu();
+
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        expect(document.querySelector('.ux-menu').getAttribute('id')).toBe('ux-menu-1-menu');
+        expect(document.querySelector('ux-menu').getAttribute('id')).toBe('ux-menu-1');
     });
 
 });
