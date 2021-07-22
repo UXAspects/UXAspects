@@ -1,6 +1,6 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { FocusKeyManager, FocusOrigin } from '@angular/cdk/a11y';
-import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Inject, Input, OnChanges, OnDestroy, Optional, Output, QueryList, SimpleChanges, TemplateRef, ViewChild, ViewRef } from '@angular/core';
+import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, HostBinding, Inject, Input, OnChanges, OnDestroy, Optional, Output, QueryList, SimpleChanges, TemplateRef, ViewChild, ViewRef } from '@angular/core';
 import { BehaviorSubject, merge, Observable, Subject } from 'rxjs';
 import { map, switchMap, takeUntil } from 'rxjs/operators';
 import { AnchorAlignment, AnchorPlacement } from '../../tooltip/index';
@@ -10,13 +10,12 @@ import { MenuModuleOptions } from '../menu-options.interface';
 import { MENU_OPTIONS_TOKEN } from '../menu-options.token';
 import { MenuTabbableItemDirective } from '../menu-tabbable-item/menu-tabbable-item.directive';
 
+let uniqueId = 0;
+
 @Component({
     selector: 'ux-menu',
     templateUrl: './menu.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    host: {
-        'role': 'menu'
-    },
     animations: [
         trigger('menuAnimation', [
             transition(':enter', [
@@ -30,6 +29,9 @@ import { MenuTabbableItemDirective } from '../menu-tabbable-item/menu-tabbable-i
     ]
 })
 export class MenuComponent implements AfterContentInit, OnDestroy, OnChanges {
+
+    /** A unique id for the component. */
+    @Input() @HostBinding('attr.id') id: string = `ux-menu-${++uniqueId}`;
 
     /** Define the position of the menu */
     @Input() placement: AnchorPlacement = 'bottom';
@@ -93,6 +95,11 @@ export class MenuComponent implements AfterContentInit, OnDestroy, OnChanges {
 
     /** Automatically unsubscribe when the component is destroyed */
     private readonly _onDestroy$ = new Subject<void>();
+
+    /** Get innerId for use for accessibility  */
+    get innerId(): string {
+       return `${this.id}-menu`;
+    }
 
     get _isExpanded(): Observable<boolean> {
         return this._menuItems.pipe(switchMap(items => merge(...items.map(item => item.isExpanded$))), takeUntil(this._onDestroy$));
