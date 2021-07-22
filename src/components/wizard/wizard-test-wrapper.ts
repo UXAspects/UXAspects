@@ -51,5 +51,6 @@ export class WizardTestWrapper<T> {
 
         button.click();
         this._fixture.detectChanges();
+        return await this._fixture.whenStable();
     }
 }
