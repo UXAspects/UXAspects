@@ -1,4 +1,4 @@
-import { AfterContentInit, Component, ContentChild, ContentChildren, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, QueryList, SimpleChanges, TemplateRef } from '@angular/core';
+import { AfterContentInit, Component, ContentChild, ContentChildren, EventEmitter, Input, OnDestroy, OnInit, Output, QueryList, TemplateRef } from '@angular/core';
 import { Subject } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
 import { tick } from '../../common/index';
@@ -15,7 +15,7 @@ let uniqueId: number = 0;
         '[class]': 'orientation'
     }
 })
-export class WizardComponent implements OnInit, AfterContentInit, OnDestroy, OnChanges {
+export class WizardComponent implements OnInit, AfterContentInit, OnDestroy {
 
     /** Defines whether or not the wizard should be displayed in a `horizontal` or `vertical` layout. */
     @Input() orientation: 'horizontal' | 'vertical' = 'horizontal';
@@ -172,12 +172,6 @@ export class WizardComponent implements OnInit, AfterContentInit, OnDestroy, OnC
         this.steps.changes.pipe(tick(), takeUntil(this._onDestroy)).subscribe(this.update.bind(this));
     }
 
-    ngOnChanges(changes: SimpleChanges): void {
-        if (changes.step) {
-            this.stepChange.next(this.step);
-        }
-    }
-
     ngOnDestroy(): void {
         this._onDestroy.next();
         this._onDestroy.complete();
@@ -213,7 +207,8 @@ export class WizardComponent implements OnInit, AfterContentInit, OnDestroy, OnC
 
         // check if we are currently on the last step
         if ((this.step + 1) < this.steps.length) {
-            this.step++;
+            this.step++
+            this.stepChange.emit(this.step);
 
             // emit the current step
             this.onNext.next(this.step);
