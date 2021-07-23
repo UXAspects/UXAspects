@@ -15,26 +15,91 @@
 
     <ux-menu id="menu" #menu menuClass="ux-menu-demo" [placement]="(placement$ | async)">
 
-        <button type="button" uxMenuItem>
+        <button id="menu-item-1" type="button" uxMenuItem [uxMenuTriggerFor]="MenuItemMenu">
             <span class="dropdown-menu-icon"></span>
             <span class="dropdown-menu-text">Menu Item</span>
+            <span class="dropdown-menu-right dropdown-menu-hint">
+                <ux-icon name="next"></ux-icon>
+            </span>
         </button>
 
         <ux-menu-divider></ux-menu-divider>
 
-        <button type="button" uxMenuItem>
+        <button id="menu-item-2" type="button" uxMenuItem [uxMenuTriggerFor]="MenuItemMenu">
             <span class="dropdown-menu-icon"></span>
             <span class="dropdown-menu-text">Export</span>
+            <span class="dropdown-menu-right dropdown-menu-hint">
+                <ux-icon name="next"></ux-icon>
+            </span>
         </button>
 
-        <button type="button" uxMenuItem>
+        <button id="menu-item-3" type="button" uxMenuItem  [uxMenuTriggerFor]="SaveListMenu">
             <span class="dropdown-menu-icon"></span>
             <span class="dropdown-menu-text">Save list</span>
+            <span class="dropdown-menu-right dropdown-menu-hint">
+                <ux-icon name="next"></ux-icon>
+            </span>
+        </button>
+
+        <button id="menu-item-4" type="button" uxMenuItem>
+            <span class="dropdown-menu-icon"></span>
+            <span class="dropdown-menu-text">Save search query</span>
+        </button>
+
+    </ux-menu>
+
+    <ux-menu #MenuItemMenu menuClass="mark-as-menu">
+
+        <button type="button" uxMenuItem>
+            <span class="dropdown-menu-icon">
+                <ux-icon name="more"></ux-icon>
+            </span>
+            <span class="dropdown-menu-text">Pending</span>
+            <span class="dropdown-menu-right dropdown-menu-hint">ALT+P</span>
         </button>
 
         <button type="button" uxMenuItem>
-            <span class="dropdown-menu-icon"></span>
-            <span class="dropdown-menu-text">Save search query</span>
+            <span class="dropdown-menu-icon">
+                <ux-icon name="link-up"></ux-icon>
+            </span>
+            <span class="dropdown-menu-text">Escalated</span>
+            <span class="dropdown-menu-right dropdown-menu-hint">ALT+E</span>
+        </button>
+
+        <button type="button" uxMenuItem>
+            <span class="dropdown-menu-icon">
+                <ux-icon name="checkmark"></ux-icon>
+            </span>
+            <span class="dropdown-menu-text">Closed</span>
+            <span class="dropdown-menu-right dropdown-menu-hint">ALT+C</span>
+        </button>
+
+    </ux-menu>
+
+    <ux-menu #SaveListMenu menuClass="mark-as-menu">
+
+        <button type="button" uxMenuItem>
+            <span class="dropdown-menu-icon">
+                <ux-icon name="more"></ux-icon>
+            </span>
+            <span class="dropdown-menu-text">Pending</span>
+            <span class="dropdown-menu-right dropdown-menu-hint">ALT+P</span>
+        </button>
+
+        <button type="button" uxMenuItem>
+            <span class="dropdown-menu-icon">
+                <ux-icon name="link-up"></ux-icon>
+            </span>
+            <span class="dropdown-menu-text">Escalated</span>
+            <span class="dropdown-menu-right dropdown-menu-hint">ALT+E</span>
+        </button>
+
+        <button type="button" uxMenuItem>
+            <span class="dropdown-menu-icon">
+                <ux-icon name="checkmark"></ux-icon>
+            </span>
+            <span class="dropdown-menu-text">Closed</span>
+            <span class="dropdown-menu-right dropdown-menu-hint">ALT+C</span>
         </button>
 
     </ux-menu>
