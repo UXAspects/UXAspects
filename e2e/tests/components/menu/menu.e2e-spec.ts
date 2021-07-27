@@ -1,3 +1,4 @@
+import { browser, by, element, Key } from 'protractor';
 import { imageCompare } from '../common/image-compare';
 import { MenuPage } from './menu.po.spec';
 
@@ -40,6 +41,21 @@ describe('Menu', () => {
         await page.placementLeftBtn.click();
         await page.openMenuBtn.click();
         expect(await imageCompare('menu-dynamic-placement-left')).toEqual(0);
+    });
+
+    it('should close the menu when the tabbed away from the menu', async () => {
+        // tab to menu and open it with the keyboard
+        await page.topFocusBtn.click();
+        await browser.actions().sendKeys(Key.TAB).perform();
+        await browser.actions().sendKeys(Key.SPACE).perform();
+
+        // check menu open
+        expect(await element(by.className('ux-menu')).isPresent()).toBe(true);
+
+        await browser.actions().sendKeys(Key.TAB).perform();
+
+        // check menu closed
+        expect(await element(by.className('ux-menu')).isPresent()).toBe(false);
     });
 
 });
