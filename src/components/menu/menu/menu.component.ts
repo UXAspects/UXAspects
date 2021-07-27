@@ -86,6 +86,9 @@ export class MenuComponent implements AfterContentInit, OnDestroy, OnChanges {
 
     /** Emit focus events */
     readonly _isFocused$ = new BehaviorSubject<boolean>(false);
+    
+    /** Emit when the animation completes */
+    readonly _animationDone$ = new Subject<void>();
 
     /** Emit placement change */
     readonly _placement$ = new BehaviorSubject<AnchorPlacement>('bottom');
@@ -217,6 +220,7 @@ export class MenuComponent implements AfterContentInit, OnDestroy, OnChanges {
 
     /** Track animation state and emit event when opening or closing */
     _onAnimationDone(): void {
+        this._animationDone$.next();
         this._isAnimating = false;
 
         if (this.isMenuOpen) {

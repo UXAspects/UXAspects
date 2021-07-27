@@ -3,8 +3,8 @@ import { DOWN_ARROW, LEFT_ARROW, RIGHT_ARROW, UP_ARROW } from '@angular/cdk/keyc
 import { HorizontalConnectionPos, OriginConnectionPosition, Overlay, OverlayConnectionPosition, OverlayRef, VerticalConnectionPos } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { ContentChildren, Directive, ElementRef, HostListener, Input, OnDestroy, OnInit, Optional, QueryList, Self, ViewContainerRef } from '@angular/core';
-import { combineLatest, merge, Observable, of, Subject, timer } from 'rxjs';
-import { debounceTime, filter, take, takeUntil } from 'rxjs/operators';
+import { asapScheduler, combineLatest, merge, Observable, of, Subject, timer } from 'rxjs';
+import { debounceTime, delay, filter, take, takeUntil } from 'rxjs/operators';
 import { FocusIndicator, FocusIndicatorOriginService, FocusIndicatorService } from '../../../directives/accessibility/index';
 import { MenuItemComponent } from '../menu-item/menu-item.component';
 import { MenuComponent } from '../menu/menu.component';
@@ -171,7 +171,7 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
             .subscribe(() => this.closeMenu());
 
         // listen for the menu to animate closed then destroy it
-        this.menu.closing.pipe(take(1), takeUntil(this._onDestroy$))
+        this.menu.closed.pipe(take(1), takeUntil(this._onDestroy$))
             .subscribe(() => this.destroyMenu());
     }
 
@@ -234,15 +234,14 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
         if (this._isSubmenuTrigger && !this._parentMenu._isAnimating) {
             this.openMenu();
         }
+
+        this.menu._animationDone$
+            .pipe(take(1), delay(0, asapScheduler), takeUntil(this._onDestroy$))
+            .subscribe(() => {
+                this.openMenu();
+            });
     }
 
-    @HostListener('mousemove')
-    _onMouseMove(): void {
-        if (this._isSubmenuTrigger && !this._parentMenu._isAnimating) {
-            timer(this._debounceTime).pipe(takeUntil(this._onDestroy$))
-                .subscribe(() => this.openMenu());
-        }
-    }
 
     /** Pressing the escape key should close all menus */
     @HostListener('document:keydown.escape')
