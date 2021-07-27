@@ -239,14 +239,13 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
     /** Pressing the escape key should close all menus */
     @HostListener('document:keydown.escape')
     _onEscape(): void {
-        if (this.menu.isMenuOpen) {
-            this.closeMenu();
+        this.closeMenuKeyboard();
+    }
 
-            // refocus the root trigger and show the focus ring
-            if (this._isRootTrigger) {
-                this._focusIndicator.focus('keyboard');
-            }
-        }
+    /** Pressing the tab key loses focus on the menu, therefore closing all menus */
+    @HostListener('document:keydown.tab')
+    _onTab() {
+        this.closeMenuKeyboard();
     }
 
     /** Handle keyboard events for opening submenus */
@@ -272,6 +271,17 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
 
             // prevent the browser from scrolling
             event.preventDefault();
+        }
+    }
+
+    private closeMenuKeyboard() {
+        if (this.menu.isMenuOpen) {
+            this.closeMenu();
+
+            // refocus the root trigger and show the focus ring
+            if (this._isRootTrigger) {
+                this._focusIndicator.focus('keyboard');
+            }
         }
     }
 
