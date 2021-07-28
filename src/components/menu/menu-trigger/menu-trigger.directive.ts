@@ -242,7 +242,6 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
             });
     }
 
-
     /** Pressing the escape key should close all menus */
     @HostListener('document:keydown.escape')
     _onEscape(): void {
