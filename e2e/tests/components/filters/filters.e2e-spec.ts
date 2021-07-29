@@ -235,12 +235,14 @@ describe('Filters Tests', () => {
 
         // upper case
         await page.getFilter().clear();
+        await page.clickOnAuthorMenu();
         await page.getFilter().sendKeys('H');
         expect(await page.getNumberOfFilterItems()).toEqual(1);
         expect(await page.getFilterItemText(0)).toBe('Ethel Collier');
 
         // exact characters
         await page.getFilter().clear();
+        await page.clickOnAuthorMenu();
         await page.getFilter().sendKeys('as');
         expect(await page.getNumberOfFilterItems()).toEqual(2);
         expect(await page.getFilterItemText(0)).toBe('Jesse Bass');
@@ -248,6 +250,7 @@ describe('Filters Tests', () => {
 
         // confirm style of filtered characters
         await page.getFilter().clear();
+        await page.clickOnAuthorMenu();
         await page.getFilter().sendKeys('ro');
         expect(await page.getFilterText(0)).toBe('Ro');
         expect(await page.getFilterText(1)).toBe('ro');
