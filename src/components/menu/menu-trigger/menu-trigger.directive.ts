@@ -431,7 +431,7 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
 
     /** Check whether the overlay or button has focus */
     private checkFocus(): boolean {
-        return this._overlayRef.hostElement.querySelectorAll('.cdk-focused').length > 0 ||
+        return this._overlayRef.hostElement.contains(document.activeElement) ||
             this._elementRef.nativeElement.contains(document.activeElement);
     }
 
