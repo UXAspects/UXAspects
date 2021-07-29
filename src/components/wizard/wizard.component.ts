@@ -146,9 +146,6 @@ export class WizardComponent implements OnInit, AfterContentInit, OnDestroy {
             // update which steps should be active
             this.update();
 
-            // emit the change event
-            this.stepChange.next(this.step);
-
             // reset the invalid state
             this.invalidIndicator = false;
         }
@@ -211,6 +208,7 @@ export class WizardComponent implements OnInit, AfterContentInit, OnDestroy {
         // check if we are currently on the last step
         if ((this.step + 1) < this.steps.length) {
             this.step++;
+            this.stepChange.emit(this.step);
 
             // emit the current step
             this.onNext.next(this.step);
@@ -245,6 +243,7 @@ export class WizardComponent implements OnInit, AfterContentInit, OnDestroy {
         // check if we are currently on the last step
         if (this.step > 0) {
             this.step--;
+            this.stepChange.emit(this.step);
 
             // emit the current step
             this.onPrevious.next(this.step);
@@ -318,6 +317,7 @@ export class WizardComponent implements OnInit, AfterContentInit, OnDestroy {
             this.stepChanging.next(new StepChangingEvent(this.step, stepIndex));
 
             this.step = stepIndex;
+            this.stepChange.emit(this.step);
         }
     }
 
@@ -338,6 +338,7 @@ export class WizardComponent implements OnInit, AfterContentInit, OnDestroy {
 
         // go to the first step
         this.step = 0;
+        this.stepChange.emit(this.step);
     }
 
     /**
