@@ -3,7 +3,7 @@ import { DOWN_ARROW, LEFT_ARROW, RIGHT_ARROW, UP_ARROW } from '@angular/cdk/keyc
 import { HorizontalConnectionPos, OriginConnectionPosition, Overlay, OverlayConnectionPosition, OverlayRef, VerticalConnectionPos } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { ContentChildren, Directive, ElementRef, HostListener, Input, OnDestroy, OnInit, Optional, QueryList, Self, ViewContainerRef } from '@angular/core';
-import { combineLatest, merge, Observable, of, Subject, timer } from 'rxjs';
+import { combineLatest, fromEvent, merge, Observable, of, Subject, timer } from 'rxjs';
 import { debounceTime, filter, take, takeUntil } from 'rxjs/operators';
 import { FocusIndicator, FocusIndicatorOriginService, FocusIndicatorService } from '../../../directives/accessibility/index';
 import { MenuItemComponent } from '../menu-item/menu-item.component';
@@ -173,8 +173,10 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
         // listen for the menu to animate closed then destroy it
         this.menu.closed.pipe(take(1), takeUntil(this._onDestroy$))
             .subscribe(() => this.destroyMenu());
-    }
 
+        // listen the overlay to lose focus then close the menu
+        fromEvent(this._overlayRef.hostElement, 'focusout').pipe(takeUntil(this._onDestroy$)).subscribe(() => this.closeOnBlur());
+    }
 
     /** Close a menu or submenu */
     closeMenu(origin?: FocusOrigin, closeParents: boolean = false): Observable<void> {
@@ -239,13 +241,14 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
     /** Pressing the escape key should close all menus */
     @HostListener('document:keydown.escape')
     _onEscape(): void {
-        this.closeMenuKeyboard();
-    }
+        if (this.menu.isMenuOpen) {
+            this.closeMenu();
 
-    /** Pressing the tab key loses focus on the menu, therefore closing all menus */
-    @HostListener('document:keydown.tab')
-    _onTab() {
-        this.closeMenuKeyboard();
+            // refocus the root trigger and show the focus ring
+            if (this._isRootTrigger) {
+                this._focusIndicator.focus('keyboard');
+            }
+        }
     }
 
     /** Handle keyboard events for opening submenus */
@@ -274,15 +277,10 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
         }
     }
 
-    private closeMenuKeyboard() {
-        if (this.menu.isMenuOpen) {
-            this.closeMenu();
-
-            // refocus the root trigger and show the focus ring
-            if (this._isRootTrigger) {
-                this._focusIndicator.focus('keyboard');
-            }
-        }
+    /** Blurring the trigger should check if the menu has focus and close it if not */
+    @HostListener('blur')
+    _onBlur(): void {
+        this.closeOnBlur();
     }
 
     /** Remove the menu from the DOM */
@@ -431,4 +429,22 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
         }
     }
 
+    /** Check whether the overlay or button has focus */
+    private checkFocus(): boolean {
+        return this._overlayRef.hostElement.querySelectorAll('.cdk-focused').length > 0 ||
+            this._elementRef.nativeElement.contains(document.activeElement);
+    }
+
+    /** Close the menu if there is no element focused */
+    private closeOnBlur(): void {
+        if (this.menu.isMenuOpen) {
+            timer(this._debounceTime)
+                .pipe(take(1), takeUntil(this._onDestroy$))
+                .subscribe(() => {
+                    if (!this.checkFocus()) {
+                        this.closeMenu();
+                    }
+                });
+        }
+    }
 }
