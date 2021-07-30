@@ -430,21 +430,27 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
     }
 
     /** Check whether the overlay or button has focus */
-    private checkFocus(): boolean {
-        return this._overlayRef.hostElement.contains(document.activeElement) ||
-            this._elementRef.nativeElement.contains(document.activeElement);
+    private hasFocus(): boolean {
+        let check = false;
+
+        document.querySelectorAll('.cdk-overlay-container .ux-menu').forEach(el => {
+            if (el.contains(document.activeElement)) {
+                check = true;
+            }
+        });
+
+        return check;
     }
 
     /** Close the menu if there is no element focused */
     private closeOnBlur(): void {
         if (this.menu.isMenuOpen) {
-            timer(this._debounceTime)
-                .pipe(take(1), takeUntil(this._onDestroy$))
-                .subscribe(() => {
-                    if (!this.checkFocus()) {
-                        this.closeMenu();
-                    }
-                });
+            setTimeout(() => {
+                console.log(this.hasFocus());
+                if (!this.hasFocus()) {
+                    this.closeMenu(undefined, true);
+                }
+            }, this._debounceTime);
         }
     }
 }
