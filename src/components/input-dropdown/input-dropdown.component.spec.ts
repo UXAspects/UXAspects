@@ -104,7 +104,7 @@ describe('InputDropdownComponent', () => {
             [disabled]="disabled"
             (selectedChange)="onSelectedChange($event)"
             [(selected)]="selected"
-            (dropdownOpenChange)="onOpenChange($event)">
+            (dropdownOpenChange)="dropdownOpenChange($event)">
 
             <ng-template #displayContent>
                 <span class="selection"><b>Selection:</b> {{ selected ? selected : '(none)' }}</span>
@@ -128,7 +128,8 @@ export class InputDropdownTestComponent {
 
     onSelectedChange(event: any): void { }
 
-    onOpenChange(isOpen: boolean): void {
+    dropdownOpenChange(isOpen: boolean): void {
+        console.log('this',isOpen)
     }
 }
 
@@ -160,7 +161,7 @@ describe('InputDropdownComponent', () => {
         fixture = TestBed.createComponent(InputDropdownTestComponent);
         component = fixture.componentInstance;
         nativeElement = fixture.nativeElement;
-        openChangeSpy = spyOn(component, 'onOpenChange');
+        openChangeSpy = spyOn(component, 'dropdownOpenChange');
         fixture.detectChanges();
     }));
 
@@ -222,7 +223,7 @@ describe('InputDropdownComponent', () => {
 
     it('dropdownOpenChange should emit when the dropdown is toggled non-programmatically', async () => {
         const trigger = nativeElement.querySelector('button.form-control') as HTMLButtonElement;
-        trigger.click();
+        await trigger.click();
 
         fixture.detectChanges();
         await fixture.whenStable();
@@ -230,7 +231,7 @@ describe('InputDropdownComponent', () => {
         expect(openChangeSpy).toHaveBeenCalledTimes(1);
         expect(openChangeSpy).toHaveBeenCalledWith(true);
 
-        trigger.click();
+        await trigger.click();
 
         fixture.detectChanges();
         await fixture.whenStable();
