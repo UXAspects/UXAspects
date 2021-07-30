@@ -104,7 +104,7 @@ describe('InputDropdownComponent', () => {
             [disabled]="disabled"
             (selectedChange)="onSelectedChange($event)"
             [(selected)]="selected"
-            (dropdownOpenChange)="dropdownOpenChange($event)">
+            (dropdownOpenChange)="onOpenChange($event)">
 
             <ng-template #displayContent>
                 <span class="selection"><b>Selection:</b> {{ selected ? selected : '(none)' }}</span>
@@ -128,9 +128,7 @@ export class InputDropdownTestComponent {
 
     onSelectedChange(event: any): void { }
 
-    dropdownOpenChange(isOpen: boolean): void {
-        console.log('this',isOpen)
-    }
+    onOpenChange(isOpen: boolean): void { }
 }
 
 describe('InputDropdownComponent', () => {
@@ -161,7 +159,7 @@ describe('InputDropdownComponent', () => {
         fixture = TestBed.createComponent(InputDropdownTestComponent);
         component = fixture.componentInstance;
         nativeElement = fixture.nativeElement;
-        openChangeSpy = spyOn(component, 'dropdownOpenChange');
+        openChangeSpy = spyOn(component, 'onOpenChange');
         fixture.detectChanges();
     }));
 
