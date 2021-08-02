@@ -11,15 +11,15 @@ describe('Menu', () => {
         await page.getPage();
     });
 
-    it('should initialize with placement to the right', async () => {
-        await page.openMenuBtn.click();
-        expect(await imageCompare('menu-dynamic-placement-right')).toEqual(0);
-    });
-
-    it('should change menu placement to left after initialization', async () => {
-        await page.placementLeftBtn.click();
+    it('should initialize with placement to the left', async () => {
         await page.openMenuBtn.click();
         expect(await imageCompare('menu-dynamic-placement-left')).toEqual(0);
+    });
+
+    it('should change menu placement to right after initialization', async () => {
+        await page.placementRightBtn.click();
+        await page.openMenuBtn.click();
+        expect(await imageCompare('menu-dynamic-placement-right')).toEqual(0);
     });
 
     it('should change menu placement to bottom after initialization', async () => {
@@ -31,21 +31,19 @@ describe('Menu', () => {
     it('should change menu placement to top after initialization', async () => {
         await page.placementTopBtn.click();
         await page.openMenuBtn.click();
-
-        await browser.sleep(500);
         expect(await imageCompare('menu-dynamic-placement-top')).toEqual(0);
     });
 
-    it('should change menu placement to right after initialization', async () => {
+    it('should change menu placement to left after initialization', async () => {
         // first change placement to right
-        await page.placementLeftBtn.click();
-
         await page.placementRightBtn.click();
+
+        await page.placementLeftBtn.click();
         await page.openMenuBtn.click();
-        expect(await imageCompare('menu-dynamic-placement-right')).toEqual(0);
+        expect(await imageCompare('menu-dynamic-placement-left')).toEqual(0);
     });
 
-    describe('Menu - sub menu', () => {
+    describe('- sub menu', () => {
 
         it('should open the submenu when the menu is open', async () => {
             await page.openMenuBtn.click();

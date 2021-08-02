@@ -8,7 +8,7 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class MenuTestPageComponent {
 
-    placement$: BehaviorSubject<string> = new BehaviorSubject<string>('right');
+    placement$: BehaviorSubject<string> = new BehaviorSubject<string>('left');
 
     changePlacement(placement: string) {
         this.placement$.next(placement);
