@@ -174,8 +174,10 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
         this.menu.closed.pipe(take(1), takeUntil(this._onDestroy$))
             .subscribe(() => this.destroyMenu());
 
-        // listen the overlay to lose focus then close the menu
-        fromEvent(this._overlayRef.hostElement, 'focusout').pipe(takeUntil(this._onDestroy$)).subscribe(() => this.closeOnBlur());
+        if (this.menu.closeOnBlur) {
+            // listen the overlay to lose focus then close the menu
+            fromEvent(this._overlayRef.hostElement, 'focusout').pipe(takeUntil(this._onDestroy$)).subscribe(() => this.closeOnBlur());
+        }
     }
 
     /** Close a menu or submenu */
@@ -280,7 +282,9 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
     /** Blurring the trigger should check if the menu has focus and close it if not */
     @HostListener('blur')
     _onBlur(): void {
-        this.closeOnBlur();
+        if (this.menu.closeOnBlur) {
+            this.closeOnBlur();
+        }
     }
 
     /** Remove the menu from the DOM */
@@ -429,7 +433,7 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
         }
     }
 
-    /** Check whether the overlay or button has focus */
+    /** Check whether the overlay has focus */
     private hasFocus(): boolean {
         let check = false;
 
@@ -446,7 +450,6 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
     private closeOnBlur(): void {
         if (this.menu.isMenuOpen) {
             setTimeout(() => {
-                console.log(this.hasFocus());
                 if (!this.hasFocus()) {
                     this.closeMenu(undefined, true);
                 }
