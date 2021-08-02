@@ -15,7 +15,9 @@
         </div>
     </div>
 
-    <ux-menu id="menu" #menu menuClass="ux-menu-demo" [placement]="(placement$ | async)">
+    <ux-menu id="menu" #menu menuClass="ux-menu-demo"
+        [closeOnBlur]="(closeOnBlur$ | async)"
+        [placement]="(placement$ | async)">
 
         <button id="menu-item-1" type="button" uxMenuItem [uxMenuTriggerFor]="markAsMenu">
             <span class="dropdown-menu-icon"></span>
@@ -111,5 +113,13 @@
         <button id="placement-right" type="button" class="btn button-secondary" (click)="changePlacement('right')">Placement Right</button>
         <button id="placement-top" type="button" class="btn button-secondary" (click)="changePlacement('top')">Placement Top</button>
         <button id="placement-bottom" type="button" class="btn button-secondary" (click)="changePlacement('bottom')">Placement Bottom</button>
+    </div>
+
+    <div class="btn-container">
+        <ux-checkbox id="closeOnBlur"
+            [value]="closeOnBlur$ | async"
+            (valueChange)="closeOnBlur$.next($event)">
+            closeOnBlur
+        </ux-checkbox>
     </div>
 </div>

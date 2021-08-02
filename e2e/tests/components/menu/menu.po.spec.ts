@@ -1,4 +1,4 @@
-import { $, browser } from 'protractor';
+import { $, $$, browser } from 'protractor';
 
 export class MenuPage {
 
@@ -8,6 +8,7 @@ export class MenuPage {
     placementBottomBtn = $('#placement-bottom');
     openMenuBtn = $('#open-menu');
     topFocusBtn = $('#top-focus');
+    closeOnBlurBtn = $('#closeOnBlur');
 
     menuItem1 = $('#menu-item-1');
     menuItem2 = $('#menu-item-2');
@@ -16,5 +17,9 @@ export class MenuPage {
 
     async getPage(): Promise<void> {
         await browser.get('#/menu');
+    }
+
+    async getMenus(): Promise<number> {
+        return $$('.ux-menu').length;
     }
 }
