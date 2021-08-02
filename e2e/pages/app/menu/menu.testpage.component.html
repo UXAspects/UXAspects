@@ -17,7 +17,7 @@
 
     <ux-menu id="menu" #menu menuClass="ux-menu-demo" [placement]="(placement$ | async)">
 
-        <button id="menu-item-1" type="button" uxMenuItem [uxMenuTriggerFor]="MenuItemMenu">
+        <button id="menu-item-1" type="button" uxMenuItem [uxMenuTriggerFor]="markAsMenu">
             <span class="dropdown-menu-icon"></span>
             <span class="dropdown-menu-text">Menu Item</span>
             <span class="dropdown-menu-right dropdown-menu-hint">
@@ -27,7 +27,7 @@
 
         <ux-menu-divider></ux-menu-divider>
 
-        <button id="menu-item-2" type="button" uxMenuItem [uxMenuTriggerFor]="MenuItemMenu">
+        <button id="menu-item-2" type="button" uxMenuItem [uxMenuTriggerFor]="markAsMenu">
             <span class="dropdown-menu-icon"></span>
             <span class="dropdown-menu-text">Export</span>
             <span class="dropdown-menu-right dropdown-menu-hint">
@@ -35,7 +35,7 @@
             </span>
         </button>
 
-        <button id="menu-item-3" type="button" uxMenuItem  [uxMenuTriggerFor]="SaveListMenu">
+        <button id="menu-item-3" type="button" uxMenuItem [uxMenuTriggerFor]="saveListMenu">
             <span class="dropdown-menu-icon"></span>
             <span class="dropdown-menu-text">Save list</span>
             <span class="dropdown-menu-right dropdown-menu-hint">
@@ -50,7 +50,7 @@
 
     </ux-menu>
 
-    <ux-menu #MenuItemMenu menuClass="mark-as-menu">
+    <ux-menu #markAsMenu menuClass="mark-as-menu">
 
         <button type="button" uxMenuItem>
             <span class="dropdown-menu-icon">
@@ -78,7 +78,7 @@
 
     </ux-menu>
 
-    <ux-menu #SaveListMenu menuClass="mark-as-menu">
+    <ux-menu #saveListMenu menuClass="save-list-menu">
 
         <button type="button" uxMenuItem>
             <span class="dropdown-menu-icon">
