@@ -1,4 +1,4 @@
-import { $, $$, browser } from 'protractor';
+import { $, browser } from 'protractor';
 
 export class MenuPage {
 
@@ -17,9 +17,5 @@ export class MenuPage {
 
     async getPage(): Promise<void> {
         await browser.get('#/menu');
-    }
-
-    async getMenus(): Promise<number> {
-        return $$('.ux-menu').length;
     }
 }
