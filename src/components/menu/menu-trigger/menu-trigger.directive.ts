@@ -241,7 +241,7 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
         if (this._isSubmenuTrigger && !this._parentMenu._isAnimating) {
             setTimeout(() => {
                 this.openMenu();
-            }, this._debounceTime)
+            }, this._debounceTime);
         }
     }
 
