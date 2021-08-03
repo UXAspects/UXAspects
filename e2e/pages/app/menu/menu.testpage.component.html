@@ -8,7 +8,8 @@
                     type="button"
                     id="open-menu"
                     class="btn button-primary dropdown-toggle dropdown-button"
-                    [uxMenuTriggerFor]="menu">
+                    [uxMenuTriggerFor]="menu"
+                    [closeOnBlur]="(closeOnBlur$ | async)">
                     <span>Menu</span><ux-icon name="chevron-down" class="dropdown-icon-inline"></ux-icon>
                 </button>
             </div>
@@ -16,10 +17,11 @@
     </div>
 
     <ux-menu id="menu" #menu menuClass="ux-menu-demo"
-        [closeOnBlur]="(closeOnBlur$ | async)"
         [placement]="(placement$ | async)">
 
-        <button id="menu-item-1" type="button" uxMenuItem [uxMenuTriggerFor]="markAsMenu">
+        <button id="menu-item-1" type="button" uxMenuItem
+            [uxMenuTriggerFor]="markAsMenu"
+            [closeOnBlur]="(closeOnBlur$ | async)">
             <span class="dropdown-menu-icon"></span>
             <span class="dropdown-menu-text">Menu Item</span>
             <span class="dropdown-menu-right dropdown-menu-hint">

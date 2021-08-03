@@ -45,9 +45,6 @@ export class MenuComponent implements AfterContentInit, OnDestroy, OnChanges {
     /** Forward any classes to the actual menu element */
     @Input() menuClass: string;
 
-    /** Determine if the menu should close when it loses focus */
-    @Input() closeOnBlur: boolean = false;
-
     /** Emit when the opening has begun (the opened EventEmitter waits until the animation has finished) */
     @Output() readonly opening = new EventEmitter<void>();
 
