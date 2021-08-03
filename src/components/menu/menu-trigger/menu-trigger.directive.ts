@@ -239,8 +239,9 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
     @HostListener('mousemove')
     _onMouseMove(): void {
         if (this._isSubmenuTrigger && !this._parentMenu._isAnimating) {
-            timer(this._debounceTime).pipe(takeUntil(this._onDestroy$))
-                .subscribe(() => this.openMenu());
+            setTimeout(() => {
+                this.openMenu();
+            }, this._debounceTime)
         }
     }
 
