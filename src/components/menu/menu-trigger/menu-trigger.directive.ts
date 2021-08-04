@@ -1,6 +1,6 @@
 import { FocusOrigin } from '@angular/cdk/a11y';
 import { DOWN_ARROW, LEFT_ARROW, RIGHT_ARROW, UP_ARROW } from '@angular/cdk/keycodes';
-import { HorizontalConnectionPos, OriginConnectionPosition, Overlay, OverlayConnectionPosition, OverlayRef, VerticalConnectionPos } from '@angular/cdk/overlay';
+import { ConnectedPosition, FlexibleConnectedPositionStrategy, HorizontalConnectionPos, OriginConnectionPosition, Overlay, OverlayConnectionPosition, OverlayRef, VerticalConnectionPos } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { ContentChildren, Directive, ElementRef, HostListener, Input, OnDestroy, OnInit, Optional, QueryList, Self, ViewContainerRef } from '@angular/core';
 import { combineLatest, merge, Observable, of, Subject, timer } from 'rxjs';
@@ -297,21 +297,30 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
         const { originX, originY } = this.getOrigin();
         const { overlayX, overlayY } = this.getOverlayPosition();
 
+        const strategy = this._overlay.position()
+            .flexibleConnectedTo(this._elementRef)
+            .withFlexibleDimensions(false)
+            .withPush(false)
+            .withViewportMargin(8)
+            .withPositions([
+                { originX, originY, overlayX, overlayY },
+                { originX: this.menu.alignment === 'start' ? 'end' : 'start', originY, overlayX, overlayY }, // Add a fallback position if off screen on horizontal axis
+                { originX, originY: this.menu.placement === 'bottom' ? 'top' : 'bottom', overlayX, overlayY }, // Add a fallback position if off screen on vertical axis
+                { originX: this.menu.alignment === 'start' ? 'end' : 'start', originY: this.menu.placement === 'bottom' ? 'top' : 'bottom', overlayX, overlayY }, // Add a fallback position if off screen onboth axis
+            ]);
+
+        strategy.positionChanges.pipe(takeUntil(this._onDestroy$)).subscribe(change => {
+            this._updateCurrentPositionClass(change.connectionPair);
+        });
+
         // otherwise create a new one
         this._overlayRef = this._overlay.create({
             hasBackdrop: !this._isSubmenuTrigger,
             backdropClass: 'cdk-overlay-transparent-backdrop',
-            scrollStrategy: this._overlay.scrollStrategies.reposition({ scrollThrottle: 0 }),
-            positionStrategy: this._overlay.position()
-                .flexibleConnectedTo(this.parent ?? this._elementRef)
-                .withLockedPosition()
-                .withPositions([
-                    { originX, originY, overlayX, overlayY },
-                    { originX: this.menu.alignment === 'start' ? 'end' : 'start', originY, overlayX, overlayY }, // Add a fallback position if off screen on horizontal axis
-                    { originX, originY: this.menu.placement === 'bottom' ? 'top' : 'bottom', overlayX, overlayY }, // Add a fallback position if off screen on vertical axis
-                    { originX: this.menu.alignment === 'start' ? 'end' : 'start', originY: this.menu.placement === 'bottom' ? 'top' : 'bottom', overlayX, overlayY }, // Add a fallback position if off screen onboth axis
-                ])
+            positionStrategy: strategy
         });
+
+        this._updatePosition(this._overlayRef);
 
         return this._overlayRef;
     }
@@ -381,6 +390,23 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
             default:
                 return this.menu.alignment;
         }
+    }
+
+    /** Updates the position of the current tooltip. */
+    private _updatePosition(overlayRef: OverlayRef) {
+        const position = overlayRef.getConfig().positionStrategy as FlexibleConnectedPositionStrategy;
+        const origin = this.getOrigin();
+        const overlay = this.getOverlayPosition();
+
+        position.withPositions([
+        this._addOffset({...origin.main, ...overlay.main}),
+        this._addOffset({...origin.fallback, ...overlay.fallback})
+        ]);
+    }
+
+    /** Adds the configured offset to a position. Used as a hook for child classes. */
+    protected _addOffset(position: ConnectedPosition): ConnectedPosition {
+        return position;
     }
 
     /** Get an observable that emits on any of the triggers that close a menu */
