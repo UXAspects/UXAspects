@@ -7,6 +7,8 @@ export class MenuPage {
     placementTopBtn = $('#placement-top');
     placementBottomBtn = $('#placement-bottom');
     openMenuBtn = $('#open-menu');
+    topFocusBtn = $('#top-focus');
+    closeOnBlurBtn = $('#closeOnBlur');
 
     menuItem1 = $('#menu-item-1');
     menuItem2 = $('#menu-item-2');
