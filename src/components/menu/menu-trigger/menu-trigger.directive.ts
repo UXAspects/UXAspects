@@ -1,9 +1,10 @@
 import { FocusOrigin } from '@angular/cdk/a11y';
+import { BooleanInput, coerceBooleanProperty } from '@angular/cdk/coercion';
 import { DOWN_ARROW, LEFT_ARROW, RIGHT_ARROW, UP_ARROW } from '@angular/cdk/keycodes';
 import { HorizontalConnectionPos, OriginConnectionPosition, Overlay, OverlayConnectionPosition, OverlayRef, VerticalConnectionPos } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { ContentChildren, Directive, ElementRef, HostListener, Input, OnDestroy, OnInit, Optional, QueryList, Self, ViewContainerRef } from '@angular/core';
-import { combineLatest, merge, Observable, of, Subject, timer } from 'rxjs';
+import { combineLatest, fromEvent, merge, Observable, of, Subject, timer } from 'rxjs';
 import { debounceTime, filter, take, takeUntil } from 'rxjs/operators';
 import { FocusIndicator, FocusIndicatorOriginService, FocusIndicatorService } from '../../../directives/accessibility/index';
 import { MenuItemComponent } from '../menu-item/menu-item.component';
@@ -30,6 +31,15 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
     /** Optionally specify the menu's parent element */
     @Input('uxMenuParent') parent: ElementRef;
 
+    /** Determine if the menu should close when it loses focus */
+    @Input() set closeOnBlur(value: boolean) {
+        this._closeOnBlur = coerceBooleanProperty(value);
+    }
+
+    get closeOnBlur(): boolean {
+        return this._closeOnBlur;
+    }
+
     /** Reference to the portal based off the MenuCompont templateRef */
     private _portal: TemplatePortal;
 
@@ -46,6 +56,9 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
 
     /** Automatically unsubscribe on directive destroy */
     private readonly _onDestroy$ = new Subject<void>();
+
+    /** Reference to the menu should close when it loses focus */
+    private _closeOnBlur: boolean = false;
 
     /** Determine if this triggers a submenu */
     private get _isSubmenuTrigger(): boolean {
@@ -173,8 +186,12 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
         // listen for the menu to animate closed then destroy it
         this.menu.closed.pipe(take(1), takeUntil(this._onDestroy$))
             .subscribe(() => this.destroyMenu());
-    }
 
+        if (this.closeOnBlur) {
+            // listen the overlay to lose focus then close the menu
+            fromEvent(this._overlayRef.hostElement, 'focusout').pipe(takeUntil(this._onDestroy$)).subscribe(() => this.closeOnFocusout());
+        }
+    }
 
     /** Close a menu or submenu */
     closeMenu(origin?: FocusOrigin, closeParents: boolean = false): Observable<void> {
@@ -272,6 +289,14 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
 
             // prevent the browser from scrolling
             event.preventDefault();
+        }
+    }
+
+    /** Blurring the trigger should check if the menu has focus and close it if not */
+    @HostListener('blur')
+    _onBlur(): void {
+        if (this.closeOnBlur) {
+            this.closeOnFocusout();
         }
     }
 
@@ -421,4 +446,29 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
         }
     }
 
+    /** Check whether the overlay has focus */
+    private hasFocus(): boolean {
+        let check = false;
+
+        document.querySelectorAll('.cdk-overlay-container .ux-menu').forEach(el => {
+            if (el.contains(document.activeElement)) {
+                check = true;
+            }
+        });
+
+        return check;
+    }
+
+    /** Close the menu if there is no element focused */
+    private closeOnFocusout(): void {
+        if (this.menu.isMenuOpen) {
+            setTimeout(() => {
+                if (!this.hasFocus()) {
+                    this.closeMenu(undefined, true);
+                }
+            }, this._debounceTime);
+        }
+    }
+
+    static ngAcceptInputType_closeOnBlur: BooleanInput;
 }
