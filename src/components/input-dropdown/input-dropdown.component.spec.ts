@@ -128,8 +128,7 @@ export class InputDropdownTestComponent {
 
     onSelectedChange(event: any): void { }
 
-    onOpenChange(isOpen: boolean): void {
-    }
+    onOpenChange(isOpen: boolean): void { }
 }
 
 describe('InputDropdownComponent', () => {
@@ -222,7 +221,7 @@ describe('InputDropdownComponent', () => {
 
     it('dropdownOpenChange should emit when the dropdown is toggled non-programmatically', async () => {
         const trigger = nativeElement.querySelector('button.form-control') as HTMLButtonElement;
-        trigger.click();
+        await trigger.click();
 
         fixture.detectChanges();
         await fixture.whenStable();
@@ -230,7 +229,7 @@ describe('InputDropdownComponent', () => {
         expect(openChangeSpy).toHaveBeenCalledTimes(1);
         expect(openChangeSpy).toHaveBeenCalledWith(true);
 
-        trigger.click();
+        await trigger.click();
 
         fixture.detectChanges();
         await fixture.whenStable();
