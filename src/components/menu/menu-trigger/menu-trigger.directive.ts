@@ -297,7 +297,7 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
         const strategy = this._overlay.position()
             .flexibleConnectedTo(this._elementRef)
             .withFlexibleDimensions(false)
-            .withPush(false)
+            .withPush(false);
 
         // otherwise create a new one
         this._overlayRef = this._overlay.create({
