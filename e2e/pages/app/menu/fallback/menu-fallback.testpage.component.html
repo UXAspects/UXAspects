@@ -1,4 +1,4 @@
-<!-- <div class="container"> -->
+<div class="container">
     <button
         type="button"
         id="left-menu"
@@ -30,29 +30,12 @@
         [uxMenuTriggerFor]="menuRight">
         Menu on right
     </button>
-<!-- </div> -->
+</div>
 
 <ux-menu id="menuTop" #menuTop menuClass="ux-menu-demo" [placement]="'top'">
     <button type="button" uxMenuItem>
         <span class="dropdown-menu-icon"></span>
         <span class="dropdown-menu-text">Menu Item</span>
-    </button>
-
-    <ux-menu-divider></ux-menu-divider>
-
-    <button type="button" uxMenuItem>
-        <span class="dropdown-menu-icon"></span>
-        <span class="dropdown-menu-text">Export</span>
-    </button>
-
-    <button type="button" uxMenuItem>
-        <span class="dropdown-menu-icon"></span>
-        <span class="dropdown-menu-text">Save list</span>
-    </button>
-
-    <button type="button" uxMenuItem>
-        <span class="dropdown-menu-icon"></span>
-        <span class="dropdown-menu-text">Save search query</span>
     </button>
 </ux-menu>
 
