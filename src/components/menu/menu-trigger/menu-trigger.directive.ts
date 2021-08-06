@@ -307,7 +307,7 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
             positionStrategy: strategy
         });
 
-        this._updatePosition(this._overlayRef);
+        this.updatePosition(this._overlayRef);
 
         return this._overlayRef;
     }
@@ -342,31 +342,12 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
             originPosition = { originX: 'end', originY: this.getVerticalAlignment() };
         }
 
-        const {x, y} = this._invertPosition(originPosition!.originX, originPosition!.originY);
+        const {x, y} = this.invertPosition(originPosition!.originX, originPosition!.originY);
 
         return {
             main: originPosition,
             fallback: {originX: x, originY: y}
         };
-    }
-
-    /** Inverts an overlay position. */
-    private _invertPosition(x: HorizontalConnectionPos, y: VerticalConnectionPos) {
-        if (this.menu.placement === 'top' || this.menu.placement === 'bottom') {
-            if (y === 'top') {
-                y = 'bottom';
-            } else if (y === 'bottom') {
-                y = 'top';
-            }
-        } else {
-            if (x === 'end') {
-                    x = 'start';
-            } else if (x === 'start') {
-                x = 'end';
-            }
-        }
-
-        return {x, y};
     }
 
     /** Calculate the overlay position based on the specified tooltip placement */
@@ -392,12 +373,31 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
             overlayPosition = { overlayX: 'start', overlayY: this.getVerticalAlignment() };
         }
 
-        const {x, y} = this._invertPosition(overlayPosition!.overlayX, overlayPosition!.overlayY);
+        const {x, y} = this.invertPosition(overlayPosition!.overlayX, overlayPosition!.overlayY);
 
         return {
             main: overlayPosition!,
             fallback: {overlayX: x, overlayY: y}
         };
+    }
+
+    /** Inverts an overlay position. */
+    private invertPosition(x: HorizontalConnectionPos, y: VerticalConnectionPos) {
+        if (this.menu.placement === 'top' || this.menu.placement === 'bottom') {
+            if (y === 'top') {
+                y = 'bottom';
+            } else if (y === 'bottom') {
+                y = 'top';
+            }
+        } else {
+            if (x === 'end') {
+                    x = 'start';
+            } else if (x === 'start') {
+                x = 'end';
+            }
+        }
+
+        return {x, y};
     }
 
     /** Convert the alignment property to a valid CDK alignment value */
@@ -415,20 +415,29 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
     }
 
     /** Updates the position of the current tooltip. */
-    private _updatePosition(overlayRef: OverlayRef) {
+    private updatePosition(overlayRef: OverlayRef) {
         const position = overlayRef.getConfig().positionStrategy as FlexibleConnectedPositionStrategy;
         const origin = this.getOrigin();
         const overlay = this.getOverlayPosition();
 
         position.withPositions([
-        this._addOffset({...origin.main, ...overlay.main}),
-        this._addOffset({...origin.fallback, ...overlay.fallback})
+        this.addOffset({...origin.main, ...overlay.main, panelClass: this.menuAnimation(origin.main.originY)}),
+        this.addOffset({...origin.fallback, ...overlay.fallback, panelClass: this.menuAnimation(origin.fallback.originY)})
         ]);
     }
 
     /** Adds the configured offset to a position. Used as a hook for child classes. */
-    protected _addOffset(position: ConnectedPosition): ConnectedPosition {
+    private addOffset(position: ConnectedPosition): ConnectedPosition {
         return position;
+    }
+
+    /** Determine the direction of the animation. */
+    private menuAnimation(originY: string): string | null {
+        if ((this.menu.placement === 'top' || this.menu.placement === 'bottom') && originY === 'top' && !this._isSubmenuTrigger) {
+            return 'ux-menu-placement-top';
+        }
+
+        return null;
     }
 
     /** Get an observable that emits on any of the triggers that close a menu */
