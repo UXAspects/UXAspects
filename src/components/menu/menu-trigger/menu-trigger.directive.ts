@@ -448,7 +448,7 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
         }
     }
 
-    /** Updates the position of the current tooltip. */
+    /** Updates the position of the current menu. */
     private updatePosition(overlayRef: OverlayRef) {
         const position = overlayRef.getConfig().positionStrategy as FlexibleConnectedPositionStrategy;
         const origin = this.getOrigin();
