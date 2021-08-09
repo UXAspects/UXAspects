@@ -24,6 +24,7 @@
 
     <div class="number-picker-control number-picker-control-up"
          (click)="increment($event)"
+         (click)="_touchedChange()"
          (focus)="_touchedChange()"
          [class.disabled]="disabled || value >= max">
 
@@ -32,6 +33,7 @@
 
     <div class="number-picker-control number-picker-control-down"
          (click)="decrement($event)"
+         (click)="_touchedChange()"
          (focus)="_touchedChange()"
          [class.disabled]="disabled || value <= min">
 
