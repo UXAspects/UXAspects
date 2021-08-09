@@ -9,6 +9,7 @@
     [required]="required"
     [attr.placeholder]="placeholder"
     (focus)="_touchedChange()"
+    (focusout)="_touchedChange()"
     (keydown.ArrowDown)="decrement($event)"
     (keydown.ArrowUp)="increment($event)"
     (wheel)="onScroll($event)"
