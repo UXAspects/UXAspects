@@ -8,8 +8,7 @@
     [max]="max"
     [required]="required"
     [attr.placeholder]="placeholder"
-    (focus)="_touchedChange()"
-    (focusout)="_touchedChange()"
+    (blur)="_touchedChange()"
     (keydown.ArrowDown)="decrement($event)"
     (keydown.ArrowUp)="increment($event)"
     (wheel)="onScroll($event)"
@@ -23,18 +22,14 @@
 <div class="number-picker-controls">
 
     <div class="number-picker-control number-picker-control-up"
-         (click)="increment($event)"
-         (click)="_touchedChange()"
-         (focus)="_touchedChange()"
+         (click)="increment($event); _touchedChange()"
          [class.disabled]="disabled || value >= max">
 
         <ux-icon name="up"></ux-icon>
     </div>
 
     <div class="number-picker-control number-picker-control-down"
-         (click)="decrement($event)"
-         (click)="_touchedChange()"
-         (focus)="_touchedChange()"
+         (click)="decrement($event); _touchedChange()"
          [class.disabled]="disabled || value <= min">
 
          <ux-icon name="down"></ux-icon>
