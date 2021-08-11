@@ -183,9 +183,14 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
         this.didMenuClose().pipe(take(1), takeUntil(this._onDestroy$))
             .subscribe(() => this.closeMenu());
 
-        // listen for the menu to animate closed then destroy it
-        this.menu.closing.pipe(take(1), takeUntil(this._onDestroy$))
-            .subscribe(() => this.destroyMenu());
+        // listen for the menu to animate closed then destroy it, if submenu wait for it to start closing to destroy.
+        if (this._isSubmenuTrigger) {
+            this.menu.closing.pipe(take(1), takeUntil(this._onDestroy$))
+                .subscribe(() => this.destroyMenu());
+        } else {
+            this.menu.closed.pipe(take(1), takeUntil(this._onDestroy$))
+                .subscribe(() => this.destroyMenu());
+        }
 
         if (this.closeOnBlur) {
             // listen the overlay to lose focus then close the menu
