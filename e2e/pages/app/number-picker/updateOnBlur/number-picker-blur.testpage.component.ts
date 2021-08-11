@@ -31,7 +31,8 @@ export class NumberPickerUpdateOnBlurTestPageComponent {
                         Validators.required,
                         Validators.min(-10),
                         Validators.max(10)
-                    ])
+                    ]),
+                    updateOn: 'change'
                 }
             ]
         });
