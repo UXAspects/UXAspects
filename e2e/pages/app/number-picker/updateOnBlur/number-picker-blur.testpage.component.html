@@ -1,0 +1,15 @@
+<a id="top-focus" href="javascript:void(0)">Top focus target</a>
+
+<div id="root">
+
+    <p>updateOnBlur (true):</p>
+    <ux-number-picker id="numberPicker1" class="number-picker-component-demo" min="-10" max="10" [formControl]="form.controls['updateOnBlur']"></ux-number-picker>
+
+    <p class="m-t-md">updateOnBlur (false):</p>
+    <ux-number-picker id="numberPicker2" class="number-picker-component-demo" step="0.1" min="0" max="10" [formControl]="form.controls['updateOnChange']"></ux-number-picker>
+
+    <br>
+
+    <span id="value">{{ form.value | json }}</span>
+
+</div>
