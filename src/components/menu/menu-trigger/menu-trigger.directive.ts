@@ -425,7 +425,7 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
             }
         } else {
             if (x === 'end') {
-                    x = 'start';
+                x = 'start';
             } else if (x === 'start') {
                 x = 'end';
             }
