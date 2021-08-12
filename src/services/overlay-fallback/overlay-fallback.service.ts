@@ -1,29 +1,39 @@
 import { ConnectedPosition, FlexibleConnectedPositionStrategy, HorizontalConnectionPos, OriginConnectionPosition, OverlayConnectionPosition, OverlayRef, VerticalConnectionPos } from '@angular/cdk/overlay';
 import { Injectable } from '@angular/core';
+import { AnchorPlacement } from '../../components/tooltip';
 
 @Injectable()
 export class OverlayFallbackService {
 
     placement: string;
     alignment: string;
+    fallbackPlacement: AnchorPlacement;
 
     constructor() { }
 
     /** Updates the position of the current menu. */
-    updatePosition(overlayRef: OverlayRef, placement: string, alignment: string) {
+    updatePosition(overlayRef: OverlayRef, placement: string, alignment: string, fallbackPlacement?: AnchorPlacement) {
         this.placement = placement;
         this.alignment = alignment;
+        this.fallbackPlacement = fallbackPlacement;
 
 
         const position = overlayRef.getConfig().positionStrategy as FlexibleConnectedPositionStrategy;
         const origin = this.getOrigin();
         const overlay = this.getOverlayPosition();
 
+        if (!this.fallbackPlacement) {
+            position.withPositions([
+                this.addOffset({ ...origin.main, ...overlay.main }),
+                this.addOffset({ ...origin.fallback, ...overlay.fallback })
+            ]);
+        } else {
+            position.withPositions([
+                this.addOffset({ ...origin.main, ...overlay.main }),
+                this.addOffset(this.getFallbackPosition(this.fallbackPlacement)),
+            ])
+        }
 
-        position.withPositions([
-            this.addOffset({ ...origin.main, ...overlay.main }),
-            this.addOffset({ ...origin.fallback, ...overlay.fallback })
-        ]);
     }
 
     /** Get the origin position based on the specified tooltip placement */
@@ -104,7 +114,10 @@ export class OverlayFallbackService {
     }
 
     /** Inverts an overlay position. */
+
+    // thisd is where we should change to fallback if given
     private invertPosition(x: HorizontalConnectionPos, y: VerticalConnectionPos) {
+
         if (this.placement === 'top' || this.placement === 'bottom') {
             if (y === 'top') {
                 y = 'bottom';
@@ -120,6 +133,19 @@ export class OverlayFallbackService {
         }
 
         return { x, y };
+    }
+
+    getFallbackPosition(fallbackPlacement: string): ConnectedPosition {
+        switch (fallbackPlacement) {
+            case 'left':
+                return { originX: 'start', originY: 'center', overlayX: 'end', overlayY: 'center' };
+            case 'right':
+                return { originX: 'end', originY: 'center', overlayX: 'start', overlayY: 'center' };
+            case 'top':
+                return { originX: 'center', originY: 'top', overlayX: 'center', overlayY: 'bottom' };
+            case 'bottom':
+                return { originX: 'center', originY: 'bottom', overlayX: 'center', overlayY: 'top' };
+        }
     }
 
 }

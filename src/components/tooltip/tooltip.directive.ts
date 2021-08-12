@@ -1,8 +1,9 @@
-import { ConnectedPosition, HorizontalConnectionPos, OriginConnectionPosition, Overlay, OverlayConnectionPosition, OverlayRef, ScrollDispatcher, VerticalConnectionPos } from '@angular/cdk/overlay';
+import { ConnectedPosition, Overlay, OverlayRef, ScrollDispatcher } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { ChangeDetectorRef, Directive, ElementRef, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, Renderer2, SimpleChanges, TemplateRef, ViewContainerRef } from '@angular/core';
 import { fromEvent, Subject } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
+import { OverlayFallbackService } from '../../services/overlay-fallback';
 import { TooltipComponent } from './tooltip.component';
 import { TooltipService } from './tooltip.service';
 
@@ -91,7 +92,8 @@ export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
         protected _scrollDispatcher: ScrollDispatcher,
         private _changeDetectorRef: ChangeDetectorRef,
         private _renderer: Renderer2,
-        private _tooltipService: TooltipService
+        private _tooltipService: TooltipService,
+        private overlayFallback: OverlayFallbackService,
     ) { }
 
     /** Set up the triggers and bind to the show/hide events to keep visibility in sync */
@@ -289,17 +291,24 @@ export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
             return this._overlayRef;
         }
 
+        const strategy = this._overlay.position()
+            .flexibleConnectedTo(this._elementRef)
+            .withFlexibleDimensions(false)
+            .withPush(false);
+
+
+        this._overlayRef = this._overlay.create({
+            positionStrategy: strategy,
+            panelClass: this._overlayClass,
+            scrollStrategy: this._overlay.scrollStrategies.reposition({ scrollThrottle: 0 }),
+            hasBackdrop: false
+        });
+
+        this.overlayFallback.updatePosition(this._overlayRef, this.placement, this.alignment, this.fallbackPlacement);
+
         const fallbackPosition = this.getFallbackPosition();
 
-        // configure the tooltip
-        const strategy = this._overlay.position()
-            .connectedTo(this._elementRef, this.getOrigin(), this.getOverlayPosition())
-            .withFallbackPosition(
-                { originX: fallbackPosition.originX, originY: fallbackPosition.originY },
-                { overlayX: fallbackPosition.overlayX, overlayY: fallbackPosition.overlayY }
-            );
-
-        strategy.onPositionChange.subscribe(positionChange => {
+        strategy.positionChanges.subscribe(positionChange => {
             const currentPosition = positionChange.connectionPair;
             const usingFallbackPosition = currentPosition.originX === fallbackPosition.originX
                 && currentPosition.originY === fallbackPosition.originY
@@ -312,20 +321,7 @@ export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
             } else {
                 this._instance.positionClass = this.placement;
             }
-        });
-
-        // correctly handle scrolling
-        const scrollableAncestors = this._scrollDispatcher
-            .getAncestorScrollContainers(this._elementRef);
-
-        strategy.withScrollableContainers(scrollableAncestors);
-
-        this._overlayRef = this._overlay.create({
-            positionStrategy: strategy,
-            panelClass: this._overlayClass,
-            scrollStrategy: this._overlay.scrollStrategies.reposition({ scrollThrottle: 0 }),
-            hasBackdrop: false
-        });
+        })
 
         return this._overlayRef;
     }
@@ -400,61 +396,61 @@ export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
     }
 
     /** Get the origin position based on the specified tooltip placement */
-    private getOrigin(): OriginConnectionPosition {
+    // private getOrigin(): OriginConnectionPosition {
 
-        // ensure placement is defined
-        this.placement = this.placement || 'top';
+    //     // ensure placement is defined
+    //     this.placement = this.placement || 'top';
 
-        if (this.placement === 'top' || this.placement === 'bottom') {
-            return { originX: this.alignment as HorizontalConnectionPos, originY: this.placement };
-        }
+    //     if (this.placement === 'top' || this.placement === 'bottom') {
+    //         return { originX: this.alignment as HorizontalConnectionPos, originY: this.placement };
+    //     }
 
-        if (this.placement === 'left') {
-            return { originX: 'start', originY: this.getVerticalAlignment() };
-        }
+    //     if (this.placement === 'left') {
+    //         return { originX: 'start', originY: this.getVerticalAlignment() };
+    //     }
 
-        if (this.placement === 'right') {
-            return { originX: 'end', originY: this.getVerticalAlignment() };
-        }
-    }
+    //     if (this.placement === 'right') {
+    //         return { originX: 'end', originY: this.getVerticalAlignment() };
+    //     }
+    // }
 
     /** Calculate the overlay position based on the specified tooltip placement */
-    private getOverlayPosition(): OverlayConnectionPosition {
+    // private getOverlayPosition(): OverlayConnectionPosition {
 
-        // ensure placement is defined
-        this.placement = this.placement || 'top';
+    //     // ensure placement is defined
+    //     this.placement = this.placement || 'top';
 
-        if (this.placement === 'top') {
-            return { overlayX: this.alignment as HorizontalConnectionPos, overlayY: 'bottom' };
-        }
+    //     if (this.placement === 'top') {
+    //         return { overlayX: this.alignment as HorizontalConnectionPos, overlayY: 'bottom' };
+    //     }
 
-        if (this.placement === 'bottom') {
-            return { overlayX: this.alignment as HorizontalConnectionPos, overlayY: 'top' };
-        }
+    //     if (this.placement === 'bottom') {
+    //         return { overlayX: this.alignment as HorizontalConnectionPos, overlayY: 'top' };
+    //     }
 
-        if (this.placement === 'left') {
-            return { overlayX: 'end', overlayY: this.getVerticalAlignment() };
-        }
+    //     if (this.placement === 'left') {
+    //         return { overlayX: 'end', overlayY: this.getVerticalAlignment() };
+    //     }
 
-        if (this.placement === 'right') {
-            return { overlayX: 'start', overlayY: this.getVerticalAlignment() };
-        }
-    }
+    //     if (this.placement === 'right') {
+    //         return { overlayX: 'start', overlayY: this.getVerticalAlignment() };
+    //     }
+    // }
 
     /** Convert the alignment property to a valid CDK alignment value */
-    private getVerticalAlignment(): VerticalConnectionPos {
+    // private getVerticalAlignment(): VerticalConnectionPos {
 
-        switch (this.alignment) {
-            case 'start':
-                return 'top';
+    //     switch (this.alignment) {
+    //         case 'start':
+    //             return 'top';
 
-            case 'end':
-                return 'bottom';
+    //         case 'end':
+    //             return 'bottom';
 
-            default:
-                return this.alignment;
-        }
-    }
+    //         default:
+    //             return this.alignment;
+    //     }
+    // }
 
     /**
      * Simple utility method - because IE doesn't support array.includes
