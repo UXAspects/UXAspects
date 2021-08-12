@@ -4,7 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { AccessibilityModule, IconModule, NumberPickerModule } from '@ux-aspects/ux-aspects';
 import { NumberPickerTestPageComponent } from './number-picker.testpage.component';
-import { NumberPickerUpdateOnBlurTestPageComponent } from './updateOnBlur/number-picker-blur.testpage.component';
+import { NumberPickerUpdateOnTestPageComponent } from './updateOn/number-picker-update-on.testpage.component';
 
 const ROUTES = [
     {
@@ -12,8 +12,8 @@ const ROUTES = [
         component: NumberPickerTestPageComponent,
     },
     {
-        path: 'updateOnBlur',
-        component: NumberPickerUpdateOnBlurTestPageComponent,
+        path: 'updateOn',
+        component: NumberPickerUpdateOnTestPageComponent,
     }
 ];
 
@@ -28,7 +28,7 @@ const ROUTES = [
     ],
     declarations: [
         NumberPickerTestPageComponent,
-        NumberPickerUpdateOnBlurTestPageComponent
+        NumberPickerUpdateOnTestPageComponent
     ]
 })
 export class NumberPickerTestPageModule { }

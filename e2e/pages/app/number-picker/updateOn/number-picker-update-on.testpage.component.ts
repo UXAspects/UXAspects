@@ -3,11 +3,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
     selector: 'number-picker-app',
-    templateUrl: './number-picker-blur.testpage.component.html',
-    styleUrls: ['./number-picker-blur.testpage.component.css'],
+    templateUrl: './number-picker-update-on.testpage.component.html',
+    styleUrls: ['./number-picker-update-on.testpage.component.css'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class NumberPickerUpdateOnBlurTestPageComponent {
+export class NumberPickerUpdateOnTestPageComponent {
     form: FormGroup;
 
     constructor(formBuilder: FormBuilder) {
@@ -18,7 +18,7 @@ export class NumberPickerUpdateOnBlurTestPageComponent {
                 {
                     validators: Validators.compose([
                         Validators.required,
-                        Validators.min(-10),
+                        Validators.min(0),
                         Validators.max(10)
                     ]),
                     updateOn: 'blur'
@@ -29,7 +29,7 @@ export class NumberPickerUpdateOnBlurTestPageComponent {
                 {
                     validators: Validators.compose([
                         Validators.required,
-                        Validators.min(-10),
+                        Validators.min(0),
                         Validators.max(10)
                     ]),
                     updateOn: 'change'
