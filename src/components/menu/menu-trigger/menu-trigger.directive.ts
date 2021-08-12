@@ -1,12 +1,13 @@
 import { FocusOrigin } from '@angular/cdk/a11y';
 import { BooleanInput, coerceBooleanProperty } from '@angular/cdk/coercion';
 import { DOWN_ARROW, LEFT_ARROW, RIGHT_ARROW, UP_ARROW } from '@angular/cdk/keycodes';
-import { ConnectedPosition, FlexibleConnectedPositionStrategy, HorizontalConnectionPos, OriginConnectionPosition, Overlay, OverlayConnectionPosition, OverlayRef, VerticalConnectionPos } from '@angular/cdk/overlay';
+import { FlexibleConnectedPositionStrategy, Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { ContentChildren, Directive, ElementRef, HostListener, Input, OnDestroy, OnInit, Optional, QueryList, Self, ViewContainerRef } from '@angular/core';
 import { combineLatest, fromEvent, merge, Observable, of, Subject, timer } from 'rxjs';
 import { debounceTime, filter, take, takeUntil } from 'rxjs/operators';
 import { FocusIndicator, FocusIndicatorOriginService, FocusIndicatorService } from '../../../directives/accessibility/index';
+import { OverlayFallbackService } from '../../../services/overlay-fallback';
 import { MenuItemComponent } from '../menu-item/menu-item.component';
 import { MenuComponent } from '../menu/menu.component';
 
@@ -102,6 +103,7 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
         private readonly _viewContainerRef: ViewContainerRef,
         private readonly _focusOrigin: FocusIndicatorOriginService,
         private readonly _focusIndicatorService: FocusIndicatorService,
+        private overlayFallback: OverlayFallbackService,
         @Optional() private readonly _parentMenu: MenuComponent,
         @Optional() @Self() private readonly _menuItem: MenuItemComponent
     ) { }
@@ -346,7 +348,15 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
             positionStrategy: strategy
         });
 
-        this.updatePosition(this._overlayRef);
+        this.overlayFallback.updatePosition(this._overlayRef, this.menu.placement, this.menu.alignment);
+
+        const position = this._overlayRef.getConfig().positionStrategy as FlexibleConnectedPositionStrategy;
+
+        // add panelClass to positions
+        position.withPositions([
+            { ...position.positions[0], panelClass: this.menuAnimation(position.positions[0].originY)},
+            { ...position.positions[1], panelClass: this.menuAnimation(position.positions[1].originY)}
+        ])
 
         return this._overlayRef;
     }
@@ -360,114 +370,6 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
         }
 
         return this._portal;
-    }
-
-    /** Get the origin position based on the specified tooltip placement */
-    private getOrigin(): {main: OriginConnectionPosition, fallback: OriginConnectionPosition} {
-
-        // ensure placement is defined
-        this.menu.placement = this.menu.placement || 'bottom';
-        let originPosition: OriginConnectionPosition;
-
-        if (this.menu.placement === 'top' || this.menu.placement === 'bottom') {
-            originPosition = { originX: this.menu.alignment as HorizontalConnectionPos, originY: this.menu.placement };
-        }
-
-        if (this.menu.placement === 'left') {
-            originPosition = { originX: 'start', originY: this.getVerticalAlignment() };
-        }
-
-        if (this.menu.placement === 'right') {
-            originPosition = { originX: 'end', originY: this.getVerticalAlignment() };
-        }
-
-        const {x, y} = this.invertPosition(originPosition!.originX, originPosition!.originY);
-
-        return {
-            main: originPosition,
-            fallback: {originX: x, originY: y}
-        };
-    }
-
-    /** Calculate the overlay position based on the specified tooltip placement */
-    private getOverlayPosition(): {main: OverlayConnectionPosition, fallback: OverlayConnectionPosition} {
-
-        // ensure placement is defined
-        this.menu.placement = this.menu.placement || 'top';
-        let overlayPosition: OverlayConnectionPosition;
-
-        if (this.menu.placement === 'top') {
-            overlayPosition = { overlayX: this.menu.alignment as HorizontalConnectionPos, overlayY: 'bottom' };
-        }
-
-        if (this.menu.placement === 'bottom') {
-            overlayPosition = { overlayX: this.menu.alignment as HorizontalConnectionPos, overlayY: 'top' };
-        }
-
-        if (this.menu.placement === 'left') {
-            overlayPosition = { overlayX: 'end', overlayY: this.getVerticalAlignment() };
-        }
-
-        if (this.menu.placement === 'right') {
-            overlayPosition = { overlayX: 'start', overlayY: this.getVerticalAlignment() };
-        }
-
-        const {x, y} = this.invertPosition(overlayPosition!.overlayX, overlayPosition!.overlayY);
-
-        return {
-            main: overlayPosition!,
-            fallback: {overlayX: x, overlayY: y}
-        };
-    }
-
-    /** Inverts an overlay position. */
-    private invertPosition(x: HorizontalConnectionPos, y: VerticalConnectionPos) {
-        if (this.menu.placement === 'top' || this.menu.placement === 'bottom') {
-            if (y === 'top') {
-                y = 'bottom';
-            } else if (y === 'bottom') {
-                y = 'top';
-            }
-        } else {
-            if (x === 'end') {
-                x = 'start';
-            } else if (x === 'start') {
-                x = 'end';
-            }
-        }
-
-        return {x, y};
-    }
-
-    /** Convert the alignment property to a valid CDK alignment value */
-    private getVerticalAlignment(): VerticalConnectionPos {
-        switch (this.menu.alignment) {
-            case 'start':
-                return 'top';
-
-            case 'end':
-                return 'bottom';
-
-            default:
-                return this.menu.alignment;
-        }
-    }
-
-    /** Updates the position of the current menu. */
-    private updatePosition(overlayRef: OverlayRef) {
-        const position = overlayRef.getConfig().positionStrategy as FlexibleConnectedPositionStrategy;
-        const origin = this.getOrigin();
-        const overlay = this.getOverlayPosition();
-
-        position.withPositions([
-        this.addOffset({...origin.main, ...overlay.main, panelClass: this.menuAnimation(origin.main.originY)}),
-        this.addOffset({...origin.fallback, ...overlay.fallback, panelClass: this.menuAnimation(origin.fallback.originY)})
-        ]);
-    }
-
-    /** Adds the configured offset to a position. Used as a hook for child classes. */
-    private addOffset(position: ConnectedPosition): ConnectedPosition {
-        return position;
     }
 
     /** Determine the direction of the animation. */
