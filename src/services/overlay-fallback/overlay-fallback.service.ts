@@ -31,7 +31,7 @@ export class OverlayFallbackService {
             position.withPositions([
                 this.addOffset({ ...origin.main, ...overlay.main }),
                 this.addOffset(this.getFallbackPosition(this.fallbackPlacement)),
-            ])
+            ]);
         }
 
     }

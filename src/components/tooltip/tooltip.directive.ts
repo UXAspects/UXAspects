@@ -321,7 +321,7 @@ export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
             } else {
                 this._instance.positionClass = this.placement;
             }
-        })
+        });
 
         return this._overlayRef;
     }
