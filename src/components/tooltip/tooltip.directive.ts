@@ -337,7 +337,7 @@ export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
         if (currentPosition.originX === 'center') {
             positionClass = currentPosition.originY === 'top' ? 'top' : 'bottom';
         } else if (currentPosition.originY === 'center') {
-            positionClass = currentPosition.originX === 'start' ? 'left' : 'right'
+            positionClass = currentPosition.originX === 'start' ? 'left' : 'right';
         }
 
         this._instance.positionClass = positionClass;
