@@ -1,4 +1,4 @@
-import { ConnectedPosition, Overlay, OverlayRef, ScrollDispatcher } from '@angular/cdk/overlay';
+import { ConnectionPositionPair, Overlay, OverlayRef, ScrollDispatcher } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { ChangeDetectorRef, Directive, ElementRef, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, Renderer2, SimpleChanges, TemplateRef, ViewContainerRef } from '@angular/core';
 import { fromEvent, Subject } from 'rxjs';
@@ -306,77 +306,12 @@ export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
 
         this.overlayFallback.updatePosition(this._overlayRef, this.placement, this.alignment, this.fallbackPlacement);
 
-        const fallbackPosition = this.getFallbackPosition();
-
         strategy.positionChanges.subscribe(positionChange => {
             const currentPosition = positionChange.connectionPair;
-            const usingFallbackPosition = currentPosition.originX === fallbackPosition.originX
-                && currentPosition.originY === fallbackPosition.originY
-                && currentPosition.overlayX === fallbackPosition.overlayX
-                && currentPosition.overlayY === fallbackPosition.overlayY;
-
-            if (usingFallbackPosition) {
-                this._instance.positionClass = this.getFallbackPlacement();
-                this._changeDetectorRef.detectChanges();
-            } else {
-                this._instance.positionClass = this.placement;
-            }
+            this.getPositionClass(currentPosition);
         });
 
         return this._overlayRef;
-    }
-
-    private getFallbackPosition(): ConnectedPosition {
-        if (this.fallbackPlacement) {
-            return this.getConnectedPosition(this.fallbackPlacement);
-        }
-
-        switch (this.placement) {
-            case 'left':
-                // use right as the fallback position
-                return this.getConnectedPosition('right');
-            case 'right':
-                // use left as the fallback position
-                return this.getConnectedPosition('left');
-            case 'top':
-                // use bottom as the fallback position
-                return this.getConnectedPosition('bottom');
-            case 'bottom':
-            default:
-                // use top as the fallback position
-                return this.getConnectedPosition('top');
-        }
-
-    }
-
-    private getFallbackPlacement(): AnchorPlacement {
-        if (this.fallbackPlacement) {
-            return this.fallbackPlacement;
-        }
-
-        switch (this.placement) {
-            case 'left':
-                return 'right';
-            case 'right':
-                return 'left';
-            case 'top':
-                return 'bottom';
-            case 'bottom':
-                return 'top';
-        }
-    }
-
-    private getConnectedPosition(placement: AnchorPlacement): ConnectedPosition {
-        switch (placement) {
-            case 'left':
-                return { originX: 'start', originY: 'center', overlayX: 'end', overlayY: 'center' };
-            case 'right':
-                return { originX: 'end', originY: 'center', overlayX: 'start', overlayY: 'center' };
-            case 'top':
-                return { originX: 'center', originY: 'top', overlayX: 'center', overlayY: 'bottom' };
-            case 'bottom':
-                return { originX: 'center', originY: 'bottom', overlayX: 'center', overlayY: 'top' };
-        }
     }
 
     /** Recreate the overlay ref using the updated origin and overlay positions */
@@ -395,62 +330,19 @@ export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
         this.isVisible = false;
     }
 
-    /** Get the origin position based on the specified tooltip placement */
-    // private getOrigin(): OriginConnectionPosition {
+    private getPositionClass(currentPosition: ConnectionPositionPair): void {
 
-    //     // ensure placement is defined
-    //     this.placement = this.placement || 'top';
+        let positionClass: AnchorPlacement = this.placement;
 
-    //     if (this.placement === 'top' || this.placement === 'bottom') {
-    //         return { originX: this.alignment as HorizontalConnectionPos, originY: this.placement };
-    //     }
+        if (currentPosition.originX === 'center') {
+            positionClass = currentPosition.originY === 'top' ? 'top' : 'bottom';
+        } else if (currentPosition.originY === 'center') {
+            positionClass = currentPosition.originX === 'start' ? 'left' : 'right'
+        }
 
-    //     if (this.placement === 'left') {
-    //         return { originX: 'start', originY: this.getVerticalAlignment() };
-    //     }
-
-    //     if (this.placement === 'right') {
-    //         return { originX: 'end', originY: this.getVerticalAlignment() };
-    //     }
-    // }
-
-    /** Calculate the overlay position based on the specified tooltip placement */
-    // private getOverlayPosition(): OverlayConnectionPosition {
-
-    //     // ensure placement is defined
-    //     this.placement = this.placement || 'top';
-
-    //     if (this.placement === 'top') {
-    //         return { overlayX: this.alignment as HorizontalConnectionPos, overlayY: 'bottom' };
-    //     }
-
-    //     if (this.placement === 'bottom') {
-    //         return { overlayX: this.alignment as HorizontalConnectionPos, overlayY: 'top' };
-    //     }
-
-    //     if (this.placement === 'left') {
-    //         return { overlayX: 'end', overlayY: this.getVerticalAlignment() };
-    //     }
-
-    //     if (this.placement === 'right') {
-    //         return { overlayX: 'start', overlayY: this.getVerticalAlignment() };
-    //     }
-    // }
-
-    /** Convert the alignment property to a valid CDK alignment value */
-    // private getVerticalAlignment(): VerticalConnectionPos {
-
-    //     switch (this.alignment) {
-    //         case 'start':
-    //             return 'top';
-
-    //         case 'end':
-    //             return 'bottom';
-
-    //         default:
-    //             return this.alignment;
-    //     }
-    // }
+        this._instance.positionClass = positionClass;
+        this._changeDetectorRef.detectChanges();
+    }
 
     /**
      * Simple utility method - because IE doesn't support array.includes

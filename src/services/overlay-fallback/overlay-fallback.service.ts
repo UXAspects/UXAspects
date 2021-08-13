@@ -114,8 +114,6 @@ export class OverlayFallbackService {
     }
 
     /** Inverts an overlay position. */
-
-    // thisd is where we should change to fallback if given
     private invertPosition(x: HorizontalConnectionPos, y: VerticalConnectionPos) {
 
         if (this.placement === 'top' || this.placement === 'bottom') {
