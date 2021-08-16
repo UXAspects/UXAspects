@@ -3,7 +3,7 @@ import { ComponentPortal } from '@angular/cdk/portal';
 import { ChangeDetectorRef, Directive, ElementRef, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, Renderer2, SimpleChanges, TemplateRef, ViewContainerRef } from '@angular/core';
 import { fromEvent, Subject } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
-import { OverlayFallbackService } from '../../services/overlay-fallback';
+import { AnchorPlacement, OverlayFallbackService } from '../../services/overlay-fallback';
 import { TooltipComponent } from './tooltip.component';
 import { TooltipService } from './tooltip.service';
 
@@ -450,6 +450,5 @@ export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
 
 }
 
-export type AnchorPlacement = 'top' | 'right' | 'bottom' | 'left';
 export type AnchorAlignment = 'start' | 'center' | 'end';
 export type OverlayTrigger = 'click' | 'clickoutside' | 'escape' | 'mouseenter' | 'focus' | 'mouseleave' | 'blur';

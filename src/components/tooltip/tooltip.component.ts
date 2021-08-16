@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnDestroy, TemplateRef } from '@angular/core';
 import { Subject } from 'rxjs';
-import { AnchorAlignment, AnchorPlacement } from './tooltip.directive';
+import { AnchorPlacement } from '../../services/overlay-fallback';
+import { AnchorAlignment } from './tooltip.directive';
 
 let uniqueTooltipId = 0;
 

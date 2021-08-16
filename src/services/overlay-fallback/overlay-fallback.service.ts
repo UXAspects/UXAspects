@@ -1,6 +1,6 @@
 import { ConnectedPosition, FlexibleConnectedPositionStrategy, HorizontalConnectionPos, OriginConnectionPosition, OverlayConnectionPosition, OverlayRef, VerticalConnectionPos } from '@angular/cdk/overlay';
 import { Injectable } from '@angular/core';
-import { AnchorPlacement } from '../../components/tooltip';
+import { AnchorPlacement } from './overlay-fallback.type';
 
 @Injectable()
 export class OverlayFallbackService {
