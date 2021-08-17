@@ -3,7 +3,6 @@ import { OverlayModule } from '@angular/cdk/overlay';
 import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { AccessibilityModule } from '../../directives/accessibility/index';
-import { OverlayFallbackServiceModule } from '../../services/overlay-fallback';
 import { MenuDividerComponent } from './menu-divider/menu-divider.component';
 import { MenuItemComponent } from './menu-item/menu-item.component';
 import { MenuModuleOptions } from './menu-options.interface';
@@ -24,8 +23,7 @@ import { MenuComponent } from './menu/menu.component';
         A11yModule,
         AccessibilityModule,
         CommonModule,
-        OverlayModule,
-        OverlayFallbackServiceModule
+        OverlayModule
     ],
     exports: [
         MenuComponent,

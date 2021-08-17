@@ -3,7 +3,8 @@ import { ComponentPortal } from '@angular/cdk/portal';
 import { ChangeDetectorRef, Directive, ElementRef, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, Renderer2, SimpleChanges, TemplateRef, ViewContainerRef } from '@angular/core';
 import { fromEvent, Subject } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
-import { AnchorPlacement, OverlayFallbackService } from '../../services/overlay-fallback';
+import { AnchorAlignment, AnchorPlacement } from '../../common/overlay/index';
+import { OverlayPlacementService } from '../../services/overlay-placement/index';
 import { TooltipComponent } from './tooltip.component';
 import { TooltipService } from './tooltip.service';
 
@@ -93,7 +94,7 @@ export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
         private _changeDetectorRef: ChangeDetectorRef,
         private _renderer: Renderer2,
         private _tooltipService: TooltipService,
-        private overlayFallback: OverlayFallbackService,
+        private overlayFallback: OverlayPlacementService,
     ) { }
 
     /** Set up the triggers and bind to the show/hide events to keep visibility in sync */
@@ -450,5 +451,4 @@ export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
 
 }
 
-export type AnchorAlignment = 'start' | 'center' | 'end';
 export type OverlayTrigger = 'click' | 'clickoutside' | 'escape' | 'mouseenter' | 'focus' | 'mouseleave' | 'blur';

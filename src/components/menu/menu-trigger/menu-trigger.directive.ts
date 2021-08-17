@@ -7,7 +7,7 @@ import { ContentChildren, Directive, ElementRef, HostListener, Input, OnDestroy,
 import { combineLatest, fromEvent, merge, Observable, of, Subject, timer } from 'rxjs';
 import { debounceTime, filter, take, takeUntil } from 'rxjs/operators';
 import { FocusIndicator, FocusIndicatorOriginService, FocusIndicatorService } from '../../../directives/accessibility/index';
-import { OverlayFallbackService } from '../../../services/overlay-fallback';
+import { OverlayPlacementService } from '../../../services/overlay-placement/index';
 import { MenuItemComponent } from '../menu-item/menu-item.component';
 import { MenuComponent } from '../menu/menu.component';
 
@@ -103,7 +103,7 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
         private readonly _viewContainerRef: ViewContainerRef,
         private readonly _focusOrigin: FocusIndicatorOriginService,
         private readonly _focusIndicatorService: FocusIndicatorService,
-        private overlayFallback: OverlayFallbackService,
+        private overlayFallback: OverlayPlacementService,
         @Optional() private readonly _parentMenu: MenuComponent,
         @Optional() @Self() private readonly _menuItem: MenuItemComponent
     ) { }

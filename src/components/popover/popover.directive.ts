@@ -4,7 +4,7 @@ import { ComponentPortal } from '@angular/cdk/portal';
 import { ChangeDetectorRef, Directive, ElementRef, HostBinding, Input, OnChanges, OnInit, Renderer2, SimpleChanges, TemplateRef, ViewContainerRef } from '@angular/core';
 import { fromEvent } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { OverlayFallbackService } from '../../services/overlay-fallback';
+import { OverlayPlacementService } from '../../services/overlay-placement/index';
 import { OverlayTrigger, TooltipDirective, TooltipService } from '../tooltip/index';
 import { PopoverComponent } from './popover.component';
 
@@ -67,7 +67,7 @@ export class PopoverDirective extends TooltipDirective implements OnInit, OnChan
         changeDetectorRef: ChangeDetectorRef,
         renderer: Renderer2,
         tooltipService: TooltipService,
-        overlayFallback: OverlayFallbackService
+        overlayFallback: OverlayPlacementService
     ) {
         super(elementRef, viewContainerRef, overlay, scrollDispatcher, changeDetectorRef, renderer, tooltipService, overlayFallback);
     }

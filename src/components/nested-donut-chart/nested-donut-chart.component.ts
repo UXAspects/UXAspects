@@ -3,9 +3,9 @@ import { arc, Arc, BaseType, easeCubic, interpolate, mouse, select, Selection, t
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { Color } from '../../common/colors/index';
+import { AnchorPlacement } from '../../common/overlay/index';
 import { ResizeService } from '../../directives/resize/index';
 import { ColorService, ThemeColor } from '../../services/color/index';
-import { AnchorPlacement } from '../../services/overlay-fallback';
 
 @Component({
     selector: 'ux-nested-donut-chart',
