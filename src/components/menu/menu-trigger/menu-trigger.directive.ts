@@ -103,7 +103,7 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
         private readonly _viewContainerRef: ViewContainerRef,
         private readonly _focusOrigin: FocusIndicatorOriginService,
         private readonly _focusIndicatorService: FocusIndicatorService,
-        private overlayFallback: OverlayPlacementService,
+        private readonly _overlayFallback: OverlayPlacementService,
         @Optional() private readonly _parentMenu: MenuComponent,
         @Optional() @Self() private readonly _menuItem: MenuItemComponent
     ) { }
@@ -348,7 +348,7 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
             positionStrategy: strategy
         });
 
-        this.overlayFallback.updatePosition(this._overlayRef, this.menu.placement, this.menu.alignment);
+        this._overlayFallback.updatePosition(this._overlayRef, this.menu.placement, this.menu.alignment);
 
         const position = this._overlayRef.getConfig().positionStrategy as FlexibleConnectedPositionStrategy;
 

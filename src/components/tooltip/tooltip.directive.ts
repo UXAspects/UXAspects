@@ -94,7 +94,7 @@ export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
         private _changeDetectorRef: ChangeDetectorRef,
         private _renderer: Renderer2,
         private _tooltipService: TooltipService,
-        private overlayFallback: OverlayPlacementService,
+        private _overlayFallback: OverlayPlacementService,
     ) { }
 
     /** Set up the triggers and bind to the show/hide events to keep visibility in sync */
@@ -305,7 +305,7 @@ export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
             hasBackdrop: false
         });
 
-        this.overlayFallback.updatePosition(this._overlayRef, this.placement, this.alignment, this.fallbackPlacement);
+        this._overlayFallback.updatePosition(this._overlayRef, this.placement, this.alignment, this.fallbackPlacement);
 
         strategy.positionChanges.subscribe(positionChange => {
             const currentPosition = positionChange.connectionPair;
