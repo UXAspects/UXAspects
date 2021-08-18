@@ -98,5 +98,5 @@ export * from './services/audio/index';
 export * from './services/color/index';
 export * from './services/frame-extraction/index';
 export * from './services/persistent-data/index';
-
+export * from './services/overlay-placement/index';
 
