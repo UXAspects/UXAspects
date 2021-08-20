@@ -79,7 +79,7 @@
 
             <button #tip="ux-tooltip"
                     type="button"
-                    class="btn button-secondary"
+                    class="btn button-secondary marquee-wizard-previous-button"
                     *ngIf="previousVisible"
                     [uxTooltip]="previousTooltip"
                     [attr.aria-label]="previousAriaLabel"
@@ -91,7 +91,7 @@
 
             <button #tip="ux-tooltip"
                     type="button"
-                    class="btn button-primary"
+                    class="btn button-primary marquee-wizard-next-button"
                     *ngIf="nextVisible && !isLastStep()"
                     [uxTooltip]="nextTooltip"
                     [attr.aria-label]="nextAriaLabel"
@@ -103,7 +103,7 @@
 
             <button #tip="ux-tooltip"
                     type="button"
-                    class="btn button-primary"
+                    class="btn button-primary marquee-wizard-finish-button"
                     *ngIf="finishVisible && isLastStep() || finishAlwaysVisible"
                     [uxTooltip]="finishTooltip"
                     [attr.aria-label]="finishAriaLabel"
@@ -115,7 +115,7 @@
 
             <button #tip="ux-tooltip"
                     type="button"
-                    class="btn button-secondary"
+                    class="btn button-secondary marquee-wizard-cancel-button"
                     *ngIf="cancelVisible && !isLastStep() || cancelAlwaysVisible"
                     [uxTooltip]="cancelTooltip"
                     [attr.aria-label]="cancelAriaLabel"

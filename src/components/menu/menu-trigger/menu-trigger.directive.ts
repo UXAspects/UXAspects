@@ -1,12 +1,13 @@
 import { FocusOrigin } from '@angular/cdk/a11y';
 import { BooleanInput, coerceBooleanProperty } from '@angular/cdk/coercion';
 import { DOWN_ARROW, LEFT_ARROW, RIGHT_ARROW, UP_ARROW } from '@angular/cdk/keycodes';
-import { HorizontalConnectionPos, OriginConnectionPosition, Overlay, OverlayConnectionPosition, OverlayRef, VerticalConnectionPos } from '@angular/cdk/overlay';
+import { FlexibleConnectedPositionStrategy, Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { ContentChildren, Directive, ElementRef, HostListener, Input, OnDestroy, OnInit, Optional, QueryList, Self, ViewContainerRef } from '@angular/core';
 import { combineLatest, fromEvent, merge, Observable, of, Subject, timer } from 'rxjs';
 import { debounceTime, filter, take, takeUntil } from 'rxjs/operators';
 import { FocusIndicator, FocusIndicatorOriginService, FocusIndicatorService } from '../../../directives/accessibility/index';
+import { OverlayPlacementService } from '../../../services/overlay-placement/index';
 import { MenuItemComponent } from '../menu-item/menu-item.component';
 import { MenuComponent } from '../menu/menu.component';
 
@@ -102,6 +103,7 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
         private readonly _viewContainerRef: ViewContainerRef,
         private readonly _focusOrigin: FocusIndicatorOriginService,
         private readonly _focusIndicatorService: FocusIndicatorService,
+        private readonly _overlayFallback: OverlayPlacementService,
         @Optional() private readonly _parentMenu: MenuComponent,
         @Optional() @Self() private readonly _menuItem: MenuItemComponent
     ) { }
@@ -183,9 +185,14 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
         this.didMenuClose().pipe(take(1), takeUntil(this._onDestroy$))
             .subscribe(() => this.closeMenu());
 
-        // listen for the menu to animate closed then destroy it
-        this.menu.closing.pipe(take(1), takeUntil(this._onDestroy$))
-            .subscribe(() => this.destroyMenu());
+        // listen for the menu to animate closed then destroy it, if submenu wait for it to start closing to destroy.
+        if (this._isSubmenuTrigger) {
+            this.menu.closing.pipe(take(1), takeUntil(this._onDestroy$))
+                .subscribe(() => this.destroyMenu());
+        } else {
+            this.menu.closed.pipe(take(1), takeUntil(this._onDestroy$))
+                .subscribe(() => this.destroyMenu());
+        }
 
         if (this.closeOnBlur) {
             // listen the overlay to lose focus then close the menu
@@ -328,24 +335,28 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
             return this._overlayRef;
         }
 
-        const { originX, originY } = this.getOrigin();
-        const { overlayX, overlayY } = this.getOverlayPosition();
+        const strategy = this._overlay.position()
+            .flexibleConnectedTo(this._elementRef)
+            .withFlexibleDimensions(false)
+            .withPush(false);
 
         // otherwise create a new one
         this._overlayRef = this._overlay.create({
             hasBackdrop: !this._isSubmenuTrigger,
             backdropClass: 'cdk-overlay-transparent-backdrop',
             scrollStrategy: this._overlay.scrollStrategies.reposition({ scrollThrottle: 0 }),
-            positionStrategy: this._overlay.position()
-                .flexibleConnectedTo(this.parent ?? this._elementRef)
-                .withLockedPosition()
-                .withPositions([
-                    { originX, originY, overlayX, overlayY },
-                    { originX: this.menu.alignment === 'start' ? 'end' : 'start', originY, overlayX, overlayY }, // Add a fallback position if off screen on horizontal axis
-                    { originX, originY: this.menu.placement === 'bottom' ? 'top' : 'bottom', overlayX, overlayY }, // Add a fallback position if off screen on vertical axis
-                    { originX: this.menu.alignment === 'start' ? 'end' : 'start', originY: this.menu.placement === 'bottom' ? 'top' : 'bottom', overlayX, overlayY }, // Add a fallback position if off screen onboth axis
-                ])
+            positionStrategy: strategy
         });
+
+        this._overlayFallback.updatePosition(this._overlayRef, this.menu.placement, this.menu.alignment);
+
+        const position = this._overlayRef.getConfig().positionStrategy as FlexibleConnectedPositionStrategy;
+
+        // add panelClass to positions
+        position.withPositions([
+            { ...position.positions[0], panelClass: this.menuAnimation(position.positions[0].originY)},
+            { ...position.positions[1], panelClass: this.menuAnimation(position.positions[1].originY)}
+        ]);
 
         return this._overlayRef;
     }
@@ -361,60 +372,13 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
         return this._portal;
     }
 
-    /** Get the origin position based on the specified tooltip placement */
-    private getOrigin(): OriginConnectionPosition {
-
-        // ensure placement is defined
-        this.menu.placement = this.menu.placement || 'bottom';
-
-        if (this.menu.placement === 'top' || this.menu.placement === 'bottom') {
-            return { originX: this.menu.alignment as HorizontalConnectionPos, originY: this.menu.placement };
+    /** Determine the direction of the animation. */
+    private menuAnimation(originY: string): string | null {
+        if ((this.menu.placement === 'top' || this.menu.placement === 'bottom') && originY === 'top' && !this._isSubmenuTrigger) {
+            return 'ux-menu-placement-top';
         }
 
-        if (this.menu.placement === 'left') {
-            return { originX: 'start', originY: this.getVerticalAlignment() };
-        }
-
-        if (this.menu.placement === 'right') {
-            return { originX: 'end', originY: this.getVerticalAlignment() };
-        }
-    }
-
-    /** Calculate the overlay position based on the specified tooltip placement */
-    private getOverlayPosition(): OverlayConnectionPosition {
-
-        // ensure placement is defined
-        this.menu.placement = this.menu.placement || 'top';
-
-        if (this.menu.placement === 'top') {
-            return { overlayX: this.menu.alignment as HorizontalConnectionPos, overlayY: 'bottom' };
-        }
-
-        if (this.menu.placement === 'bottom') {
-            return { overlayX: this.menu.alignment as HorizontalConnectionPos, overlayY: 'top' };
-        }
-
-        if (this.menu.placement === 'left') {
-            return { overlayX: 'end', overlayY: this.getVerticalAlignment() };
-        }
-
-        if (this.menu.placement === 'right') {
-            return { overlayX: 'start', overlayY: this.getVerticalAlignment() };
-        }
-    }
-
-    /** Convert the alignment property to a valid CDK alignment value */
-    private getVerticalAlignment(): VerticalConnectionPos {
-        switch (this.menu.alignment) {
-            case 'start':
-                return 'top';
-
-            case 'end':
-                return 'bottom';
-
-            default:
-                return this.menu.alignment;
-        }
+        return null;
     }
 
     /** Get an observable that emits on any of the triggers that close a menu */
