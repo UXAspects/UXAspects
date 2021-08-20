@@ -6,6 +6,7 @@ export class ColumnResizingExpandingPage {
     fixedExpandTable = $('#fixed-table-expand');
     updateLayoutBtn = $('#update-layout-btn');
     updateColumnsBtn = $('#update-columns-btn');
+    titleWidthSpan = $('#title-width');
 
     async getPage(): Promise<void> {
         await browser.driver.manage().window().setSize(1200, 900);
@@ -50,13 +51,17 @@ export class ColumnResizingExpandingPage {
         await this.updateColumnsBtn.click();
     }
 
-    async resizeColumn(table: ElementFinder, columnIndex: number, amount: number): Promise<void> {
+    async resizeColumn(table: ElementFinder, columnIndex: number, amount: number, reverse: boolean = false): Promise<void> {
         const columns = await this.getColumnHeaders(table);
         const column = columns[columnIndex];
         const handle = await column.$('.ux-resizable-table-column-handle');
 
         // perform the drag
-        await browser.actions().mouseDown(handle).mouseMove({ x: amount, y: 0 }).mouseUp().perform();
+        if (!reverse) {
+            await browser.actions().mouseDown(handle).mouseMove({ x: amount, y: 0 }).mouseUp().perform();
+        } else {
+            await browser.actions().mouseDown(handle).mouseMove({ x: amount, y: 0 }).mouseMove({ x: 100, y: 0 }).mouseUp().perform();
+        }
     }
 
     async getOverflowClass(): Promise<string> {

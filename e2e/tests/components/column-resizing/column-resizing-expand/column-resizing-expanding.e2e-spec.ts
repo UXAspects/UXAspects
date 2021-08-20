@@ -151,10 +151,30 @@ describe('Column Resizing Expanding Table Tests', () => {
     });
 
     it('cannot be scrolled below the min-width set on the column', async () => {
-        await page.resizeColumn(page.fixedExpandTable, 0, -420);
+        await page.resizeColumn(page.fixedExpandTable, 0, -415);
 
-        expect(await page.getColumnHeaderWidth(page.fixedExpandTable, 0)).toBeGreaterThanOrEqual(50);
-        expect(await page.getColumnHeaderWidth(page.fixedExpandTable, 0)).toBeLessThanOrEqual(56);
+        await page.resizeColumn(page.fixedExpandTable, 0, -50);
+
+        expect(await page.getColumnHeaderWidth(page.fixedExpandTable, 0)).toBe(61);
+        expect(await page.getColumnHeaderWidth(page.fixedExpandTable, 1)).toBe(470);
+    });
+
+    it('should not emit widthChange when resizing below the defined min-width', async () => {
+        // set initial width
+        await page.resizeColumn(page.fixedExpandTable, 0, -415);
+
+        await page.resizeColumn(page.fixedExpandTable, 0, -50);
+
+        expect(await page.titleWidthSpan.getText()).toBe('titleWidth = 61');
+    });
+
+    it('should not require additional dragging to resize ', async () => {
+        // set initial width
+        await page.resizeColumn(page.fixedExpandTable, 0, -415);
+
+        await page.resizeColumn(page.fixedExpandTable, 0, -400, true);
+
+        expect(await page.getColumnHeaderWidth(page.fixedExpandTable, 0)).toBe(61);
         expect(await page.getColumnHeaderWidth(page.fixedExpandTable, 1)).toBe(470);
     });
 
