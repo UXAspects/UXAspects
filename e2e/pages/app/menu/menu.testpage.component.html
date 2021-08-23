@@ -54,7 +54,7 @@
 
     </ux-menu>
 
-    <ux-menu #markAsMenu menuClass="mark-as-menu">
+    <ux-menu #markAsMenu [placement]="(subMenuPlacement$ | async)" menuClass="mark-as-menu">
 
         <button type="button" uxMenuItem>
             <span class="dropdown-menu-icon">
@@ -110,11 +110,20 @@
 
     </ux-menu>
 
+    <span>menu placement</span>
     <div class="btn-container">
         <button id="placement-left" type="button" class="btn button-secondary" (click)="changePlacement('left')">Placement Left</button>
         <button id="placement-right" type="button" class="btn button-secondary" (click)="changePlacement('right')">Placement Right</button>
         <button id="placement-top" type="button" class="btn button-secondary" (click)="changePlacement('top')">Placement Top</button>
         <button id="placement-bottom" type="button" class="btn button-secondary" (click)="changePlacement('bottom')">Placement Bottom</button>
+    </div>
+
+    <span>submenu placement</span>
+    <div class="btn-container">
+        <button id="submenu-placement-left" type="button" class="btn button-secondary" (click)="changeSubmenuPlacement('left')">Placement Left</button>
+        <button id="submenu-placement-right" type="button" class="btn button-secondary" (click)="changeSubmenuPlacement('right')">Placement Right</button>
+        <button id="submenu-placement-top" type="button" class="btn button-secondary" (click)="changeSubmenuPlacement('top')">Placement Top</button>
+        <button id="submenu-placement-bottom" type="button" class="btn button-secondary" (click)="changeSubmenuPlacement('bottom')">Placement Bottom</button>
     </div>
 
     <div class="btn-container">
