@@ -138,8 +138,6 @@ export class ResizableExpandingTableService extends BaseResizableTableService {
     /** Resize a column by a specific pixel amount */
     resizeColumn(index: number, delta: number, isDragging: boolean = true): void {
 
-        // delta = 0;
-
         // get the sibling column that will also be resized
         const sibling = this.getSiblingColumn(index);
 
