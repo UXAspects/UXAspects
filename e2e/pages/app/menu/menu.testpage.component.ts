@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { AnchorPlacement } from '../../../../dist/library';
+import { AnchorPlacement } from '../../../../dist/library/common/overlay/anchor-placement';
 
 @Component({
     selector: 'app-navigation',
