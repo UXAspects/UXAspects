@@ -119,6 +119,15 @@ describe('Menu', () => {
             await browser.sleep(500);
             expect(await imageCompare('menu-sub-menu-item3-open')).toEqual(0);
         });
+
+        it('should open the submenu on the left when the placement is set to the left', async () => {
+            await page.submenuPlacementLeftBtn.click();
+
+            await page.openMenuBtn.click();
+            await browser.actions().mouseMove(page.menuItem1).perform();
+
+            expect(await imageCompare('menu-sub-menu-item1-open-left')).toEqual(0);
+        });
     });
 
 });

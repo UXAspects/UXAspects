@@ -6,6 +6,12 @@ export class MenuPage {
     placementRightBtn = $('#placement-right');
     placementTopBtn = $('#placement-top');
     placementBottomBtn = $('#placement-bottom');
+
+    submenuPlacementLeftBtn = $('#submenu-placement-left');
+    submenuPlacementRightBtn = $('#submenu-placement-right');
+    submenuPlacementTopBtn = $('#submenu-placement-top');
+    submenuPlacementBottomBtn = $('#submenu-placement-bottom');
+
     openMenuBtn = $('#open-menu');
     topFocusBtn = $('#top-focus');
     closeOnBlurBtn = $('#closeOnBlur');
