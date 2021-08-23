@@ -6,6 +6,7 @@ import { TemplatePortal } from '@angular/cdk/portal';
 import { ContentChildren, Directive, ElementRef, HostListener, Input, OnDestroy, OnInit, Optional, QueryList, Self, ViewContainerRef } from '@angular/core';
 import { combineLatest, fromEvent, merge, Observable, of, Subject, timer } from 'rxjs';
 import { debounceTime, filter, take, takeUntil } from 'rxjs/operators';
+import { AnchorPlacement } from '../../../common/overlay/anchor-placement';
 import { FocusIndicator, FocusIndicatorOriginService, FocusIndicatorService } from '../../../directives/accessibility/index';
 import { OverlayPlacementService } from '../../../services/overlay-placement/index';
 import { MenuItemComponent } from '../menu-item/menu-item.component';
@@ -119,7 +120,7 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
         // position then it will still take precendence
         if (this._isSubmenuTrigger) {
             this.menu._isSubMenu = true;
-            this.menu.placement = 'right';
+            this.menu.placement = this.subMenuPlacement(this.menu.placement);
         }
 
         // listen for the menu to open (after animation so we can focus the first item)
@@ -136,9 +137,11 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
 
         this.menu._placement$.pipe(takeUntil(this._onDestroy$))
             .subscribe(() => {
-                if (!this._isSubmenuTrigger) {
-                    this.getOverlay(true);
+                if (this._isSubmenuTrigger) {
+                    this.menu._isSubMenu = true;
+                    this.menu.placement = this.subMenuPlacement(this.menu.placement);
                 }
+                this.getOverlay(true);
             });
     }
 
@@ -440,6 +443,15 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
                     this.closeMenu(undefined, true);
                 }
             }, this._debounceTime);
+        }
+    }
+
+    private subMenuPlacement(placement: AnchorPlacement): AnchorPlacement {
+
+        if (placement === 'right' || placement === 'top' || placement === 'bottom') {
+            return 'right';
+        } else if (placement === 'left') {
+            return 'left';
         }
     }
 
