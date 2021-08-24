@@ -2,6 +2,11 @@
     margin-top: 150px;
 }
 
+.container-inner {
+    margin: 0 auto;
+    width: fit-content;
+}
+
 button.button-primary {
     margin-bottom: 30px;
 }

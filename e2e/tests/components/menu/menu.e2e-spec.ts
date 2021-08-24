@@ -9,6 +9,14 @@ describe('Menu', () => {
     beforeEach(async () => {
         page = new MenuPage();
         await page.getPage();
+
+        // set the browser window to a specific size to ensure consistency
+        await browser.driver.manage().window().setSize(1320, 800);
+    });
+
+    // restore the window to its original size after all these tests have run
+    afterAll(async () => {
+        await browser.driver.manage().window().setSize(800, 600);
     });
 
     it('should initialize with placement to the left', async () => {
