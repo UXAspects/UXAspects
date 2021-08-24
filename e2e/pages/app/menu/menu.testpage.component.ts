@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { AnchorPlacement } from '../../../../dist/library/common/overlay/anchor-placement';
 
 @Component({
     selector: 'app-navigation',
@@ -10,8 +9,8 @@ import { AnchorPlacement } from '../../../../dist/library/common/overlay/anchor-
 export class MenuTestPageComponent {
 
     closeOnBlur$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-    placement$: BehaviorSubject<string> = new BehaviorSubject<AnchorPlacement>('left');
-    subMenuPlacement$: BehaviorSubject<string> = new BehaviorSubject<AnchorPlacement>('right');
+    placement$: BehaviorSubject<string> = new BehaviorSubject<string>('left');
+    subMenuPlacement$: BehaviorSubject<string> = new BehaviorSubject<string>('right');
 
     changePlacement(placement: string) {
         this.placement$.next(placement);
