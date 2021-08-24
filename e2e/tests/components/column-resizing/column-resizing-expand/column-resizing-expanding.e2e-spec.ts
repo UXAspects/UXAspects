@@ -1,4 +1,4 @@
-import { browser } from 'protractor';
+import { $$, browser } from 'protractor';
 import { imageCompare } from '../../common/image-compare';
 import { ColumnResizingExpandingPage } from './column-resizing-expanding.po.spec';
 
@@ -172,7 +172,9 @@ describe('Column Resizing Expanding Table Tests', () => {
         // set initial width
         await page.resizeColumn(page.fixedExpandTable, 0, -415);
 
-        await page.resizeColumn(page.fixedExpandTable, 0, -400, true);
+        const handle = await $$('.ux-resizable-table-column-handle')[0];
+
+        await browser.actions().mouseDown(handle).mouseMove({ x: -400, y: 0 }).mouseMove({ x: 100, y: 0 }).mouseUp().perform();
 
         expect(await page.getColumnHeaderWidth(page.fixedExpandTable, 0)).toBe(61);
         expect(await page.getColumnHeaderWidth(page.fixedExpandTable, 1)).toBe(470);
