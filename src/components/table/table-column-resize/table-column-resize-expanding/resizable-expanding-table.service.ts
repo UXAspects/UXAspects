@@ -176,7 +176,7 @@ export class ResizableExpandingTableService extends BaseResizableTableService {
         return null;
     }
 
-    /** Determine whether a column is above or below its minimum width */
+    /** Return true if this column is above the minimum width */
     private isWidthValid(index: number, width: number): boolean {
 
         // get the column at a given position
