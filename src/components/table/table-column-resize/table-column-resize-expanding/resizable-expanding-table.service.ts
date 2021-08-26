@@ -138,17 +138,52 @@ export class ResizableExpandingTableService extends BaseResizableTableService {
     /** Resize a column by a specific pixel amount */
     resizeColumn(index: number, delta: number, isDragging: boolean = true): void {
 
-        let columns: ReadonlyArray<number>;
+        // get the sibling column that will also be resized
+        const sibling = this.getSiblingColumn(index);
 
-        // convert the delta to a percentage value
-        const percentageDelta = (delta / this.tableWidth) * 100;
+        // create a new array for the sizes
+        let columns = [...this.columns] as number[];
 
-        columns = this.setColumnWidth(index, (this.columns[index] || 0) + percentageDelta, ColumnUnit.Percentage, this.columns);
+        // resize the column to the desired size
+        columns = this.setColumnWidth(index, Math.round(this.getColumnWidth(index, ColumnUnit.Pixel) + delta), ColumnUnit.Pixel) as number[];
+        columns = this.setColumnWidth(sibling, Math.round(this.getColumnWidth(sibling, ColumnUnit.Pixel)), ColumnUnit.Pixel, columns) as number[];
 
+        // if the move is not possible then stop here
+        if (!this.isWidthValid(index, this.getColumnWidth(index, ColumnUnit.Pixel, columns))) {
+            return;
+        }
+
+        // store the new sizes
         this.columns = columns;
 
         // emit the resize event for each column
         this.onResize$.next();
+    }
+
+    /** Get the next column in the sequence of columns */
+    private getSiblingColumn(index: number): number | null {
+
+        // find the first sibling that is not disabled
+        for (let idx = index + 1; idx < this.columns.length; idx++) {
+
+            const sibling = this.getColumn(idx);
+
+            if (!sibling || !sibling.disabled) {
+                return idx;
+            }
+        }
+
+        return null;
+    }
+
+    /** Return true if this column is above the minimum width */
+    private isWidthValid(index: number, width: number): boolean {
+
+        // get the column at a given position
+        const column = this.getColumn(index);
+
+        // determine if the specified width is greater than the min width
+        return column && width >= column.minWidth;
     }
 
     getColumn(index: number): ResizableTableColumnComponent | null {
