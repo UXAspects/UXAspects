@@ -1,4 +1,4 @@
-import { browser } from 'protractor';
+import { $$, browser } from 'protractor';
 import { imageCompare } from '../../common/image-compare';
 import { ColumnResizingExpandingPage } from './column-resizing-expanding.po.spec';
 
@@ -33,7 +33,7 @@ describe('Column Resizing Expanding Table Tests', () => {
         await page.resizeColumn(page.fixedExpandTable, 0, -347);
 
         expect(await page.getColumnHeaderWidth(page.fixedExpandTable, 0)).toBeGreaterThanOrEqual(470);
-        expect(await page.getColumnHeaderWidth(page.fixedExpandTable, 0)).toBeLessThanOrEqual(481);
+        expect(await page.getColumnHeaderWidth(page.fixedExpandTable, 0)).toBeLessThanOrEqual(482);
         expect(await page.getColumnHeaderWidth(page.fixedExpandTable, 1)).toBe(470);
 
         // check if the overflow class applies when there is a scroll bar
@@ -44,7 +44,7 @@ describe('Column Resizing Expanding Table Tests', () => {
         await page.resizeColumn(page.fixedExpandTable, 1, 347);
 
         expect(await page.getColumnHeaderWidth(page.fixedExpandTable, 0)).toBeGreaterThanOrEqual(470);
-        expect(await page.getColumnHeaderWidth(page.fixedExpandTable, 0)).toBeLessThanOrEqual(481);
+        expect(await page.getColumnHeaderWidth(page.fixedExpandTable, 0)).toBeLessThanOrEqual(482);
         expect(await page.getColumnHeaderWidth(page.fixedExpandTable, 1)).toBeGreaterThanOrEqual(817);
         expect(await page.getColumnHeaderWidth(page.fixedExpandTable, 1)).toBeLessThanOrEqual(823);
 
@@ -54,9 +54,9 @@ describe('Column Resizing Expanding Table Tests', () => {
         await page.resizeColumn(page.fixedExpandTable, 1, -347);
 
         expect(await page.getColumnHeaderWidth(page.fixedExpandTable, 0)).toBeGreaterThanOrEqual(470);
-        expect(await page.getColumnHeaderWidth(page.fixedExpandTable, 0)).toBeLessThanOrEqual(481);
+        expect(await page.getColumnHeaderWidth(page.fixedExpandTable, 0)).toBeLessThanOrEqual(482);
         expect(await page.getColumnHeaderWidth(page.fixedExpandTable, 1)).toBeGreaterThanOrEqual(470);
-        expect(await page.getColumnHeaderWidth(page.fixedExpandTable, 1)).toBeLessThanOrEqual(481);
+        expect(await page.getColumnHeaderWidth(page.fixedExpandTable, 1)).toBeLessThanOrEqual(482);
 
         // check if the overflow class applies when there is a scroll bar
         expect(await page.getOverflowClass()).not.toContain('ux-resizable-expanding-table-overflow');
@@ -64,9 +64,9 @@ describe('Column Resizing Expanding Table Tests', () => {
         await page.resizeColumn(page.fixedExpandTable, 0, -353);
 
         expect(await page.getColumnHeaderWidth(page.fixedExpandTable, 0)).toBeGreaterThanOrEqual(117);
-        expect(await page.getColumnHeaderWidth(page.fixedExpandTable, 0)).toBeLessThanOrEqual(134);
+        expect(await page.getColumnHeaderWidth(page.fixedExpandTable, 0)).toBeLessThanOrEqual(135);
         expect(await page.getColumnHeaderWidth(page.fixedExpandTable, 1)).toBeGreaterThanOrEqual(470);
-        expect(await page.getColumnHeaderWidth(page.fixedExpandTable, 1)).toBeLessThanOrEqual(481);
+        expect(await page.getColumnHeaderWidth(page.fixedExpandTable, 1)).toBeLessThanOrEqual(482);
 
         // check if the overflow class applies when there is a scroll bar
         expect(await page.getOverflowClass()).not.toContain('ux-resizable-expanding-table-overflow');
@@ -74,9 +74,9 @@ describe('Column Resizing Expanding Table Tests', () => {
         await page.resizeColumn(page.fixedExpandTable, 1, -353);
 
         expect(await page.getColumnHeaderWidth(page.fixedExpandTable, 0)).toBeGreaterThanOrEqual(117);
-        expect(await page.getColumnHeaderWidth(page.fixedExpandTable, 0)).toBeLessThanOrEqual(134);
+        expect(await page.getColumnHeaderWidth(page.fixedExpandTable, 0)).toBeLessThanOrEqual(135);
         expect(await page.getColumnHeaderWidth(page.fixedExpandTable, 0)).toBeGreaterThanOrEqual(117);
-        expect(await page.getColumnHeaderWidth(page.fixedExpandTable, 0)).toBeLessThanOrEqual(134);
+        expect(await page.getColumnHeaderWidth(page.fixedExpandTable, 0)).toBeLessThanOrEqual(135);
 
         // check if the overflow class applies when there is a scroll bar
         expect(await page.getOverflowClass()).not.toContain('ux-resizable-expanding-table-overflow');
@@ -151,10 +151,32 @@ describe('Column Resizing Expanding Table Tests', () => {
     });
 
     it('cannot be scrolled below the min-width set on the column', async () => {
-        await page.resizeColumn(page.fixedExpandTable, 0, -450);
+        await page.resizeColumn(page.fixedExpandTable, 0, -415);
 
-        expect(await page.getColumnHeaderWidth(page.fixedExpandTable, 0)).toBeGreaterThanOrEqual(50);
-        expect(await page.getColumnHeaderWidth(page.fixedExpandTable, 0)).toBeLessThanOrEqual(56);
+        await page.resizeColumn(page.fixedExpandTable, 0, -50);
+
+        expect(await page.getColumnHeaderWidth(page.fixedExpandTable, 0)).toBe(61);
+        expect(await page.getColumnHeaderWidth(page.fixedExpandTable, 1)).toBe(470);
+    });
+
+    it('should not emit widthChange when resizing below the defined min-width', async () => {
+        // set initial width
+        await page.resizeColumn(page.fixedExpandTable, 0, -415);
+
+        await page.resizeColumn(page.fixedExpandTable, 0, -50);
+
+        expect(await page.titleWidthSpan.getText()).toBe('titleWidth = 61');
+    });
+
+    it('should not require additional dragging to resize ', async () => {
+        // set initial width
+        await page.resizeColumn(page.fixedExpandTable, 0, -415);
+
+        const handle = await $$('.ux-resizable-table-column-handle')[0];
+
+        await browser.actions().mouseDown(handle).mouseMove({ x: -400, y: 0 }).mouseMove({ x: 100, y: 0 }).mouseUp().perform();
+
+        expect(await page.getColumnHeaderWidth(page.fixedExpandTable, 0)).toBe(61);
         expect(await page.getColumnHeaderWidth(page.fixedExpandTable, 1)).toBe(470);
     });
 
