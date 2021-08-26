@@ -9,14 +9,6 @@ describe('Menu', () => {
     beforeEach(async () => {
         page = new MenuPage();
         await page.getPage();
-
-        // set the browser window to a specific size to ensure consistency
-        await browser.driver.manage().window().setSize(1320, 800);
-    });
-
-    // restore the window to its original size after all these tests have run
-    afterAll(async () => {
-        await browser.driver.manage().window().setSize(800, 600);
     });
 
     it('should initialize with placement to the left', async () => {
@@ -129,12 +121,33 @@ describe('Menu', () => {
         });
 
         it('should open the submenu on the left when the placement is set to the left', async () => {
+            // Change menu placement to the right to allow for room to open the submenu
+            await page.placementRightBtn.click();
+
             await page.submenuPlacementLeftBtn.click();
 
             await page.openMenuBtn.click();
             await browser.actions().mouseMove(page.menuItem1).perform();
 
             expect(await imageCompare('menu-sub-menu-item1-open-left')).toEqual(0);
+        });
+
+        it('should open the submenu on the right when the placement is set to the top', async () => {
+            await page.submenuPlacementTopBtn.click();
+
+            await page.openMenuBtn.click();
+            await browser.actions().mouseMove(page.menuItem1).perform();
+
+            expect(await imageCompare('menu-sub-menu-item1-open-right')).toEqual(0);
+        });
+
+        it('should open the submenu on the right when the placement is set to the bottom', async () => {
+            await page.submenuPlacementBottomBtn.click();
+
+            await page.openMenuBtn.click();
+            await browser.actions().mouseMove(page.menuItem1).perform();
+
+            expect(await imageCompare('menu-sub-menu-item1-open-right')).toEqual(0);
         });
     });
 
