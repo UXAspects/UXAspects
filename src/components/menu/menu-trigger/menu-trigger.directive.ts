@@ -120,7 +120,7 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
         // position then it will still take precendence
         if (this._isSubmenuTrigger) {
             this.menu._isSubMenu = true;
-            this.menu.placement = this.subMenuPlacement(this.menu.placement);
+            this.menu.placement = this.getSubMenuPlacement(this.menu.placement);
         }
 
         // listen for the menu to open (after animation so we can focus the first item)
@@ -138,8 +138,7 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
         this.menu._placement$.pipe(takeUntil(this._onDestroy$))
             .subscribe(() => {
                 if (this._isSubmenuTrigger) {
-                    this.menu._isSubMenu = true;
-                    this.menu.placement = this.subMenuPlacement(this.menu.placement);
+                    this.menu.placement = this.getSubMenuPlacement(this.menu.placement);
                 }
                 this.getOverlay(true);
             });
@@ -446,13 +445,8 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
         }
     }
 
-    private subMenuPlacement(placement: AnchorPlacement): AnchorPlacement {
-
-        if (placement === 'right' || placement === 'top' || placement === 'bottom') {
-            return 'right';
-        } else if (placement === 'left') {
-            return 'left';
-        }
+    private getSubMenuPlacement(placement: AnchorPlacement): AnchorPlacement {
+        return placement === 'left' ? 'left' : 'right';
     }
 
     static ngAcceptInputType_closeOnBlur: BooleanInput;
