@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ComponentFixture, async, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { TableModule } from '../table.module';
 import { ColumnPickerGroup } from './column-picker.component';
 import { ColumnPickerGroupItem } from './interfaces/column-picker-group-item.interface';
@@ -171,3 +171,74 @@ describe('Column Picker Component - Sort Input', () => {
         return typeof column === 'object' ? column.name : column;
     }
 });
+
+@Component({
+    selector: 'app-column-picker-sort',
+    template: `
+        <ux-column-picker
+            [(selected)]="selected"
+            [(deselected)]="deselected"
+            [groups]="groups"
+            (selectedChange)="selectedChange(change)">
+        </ux-column-picker>
+    `
+})
+export class ColumnPickerSelectedChangeTestComponent {
+    selected: ReadonlyArray<string | ColumnPickerGroupItem> = [
+        'Type',
+        'Date'
+    ];
+
+    deselected: Array<string | ColumnPickerGroupItem> = [
+        { group: 'Metadata', name: 'Author' },
+        'Location',
+        'Flag'
+    ];
+
+    groups: ColumnPickerGroup[] = [
+        { name: 'Metadata', expanded: true }
+    ];
+
+    selectedChange(change) {
+        return change;
+    }
+}
+
+fdescribe('Column Picker Component - Selected Change', () => {
+    let component: ColumnPickerSortTestComponent;
+    let fixture: ComponentFixture<ColumnPickerSortTestComponent>;
+    let nativeElement: HTMLElement;
+
+    beforeEach(async(() => {
+        TestBed.configureTestingModule({
+            imports: [TableModule],
+            declarations: [ColumnPickerSortTestComponent]
+        }).compileComponents();
+    }));
+
+    beforeEach(() => {
+        fixture = TestBed.createComponent(ColumnPickerSortTestComponent);
+        component = fixture.componentInstance;
+        nativeElement = fixture.nativeElement;
+        fixture.detectChanges();
+    });
+
+    it('should out the correct order when the ', () => {
+        const deselectedRows = getRowTextContents(0);
+        expect(deselectedRows[0]).toBe('Flag', 'row 0');
+        expect(deselectedRows[1]).toBe('Location', 'row 1');
+        expect(deselectedRows[2]).toBe('Author', 'row 2');
+    });
+
+    
+
+    function getRowTextContents(listIndex: number): string[] {
+        return Array.from(nativeElement.querySelectorAll('.column-picker-list')[listIndex].querySelectorAll('.column-picker-list-item'))
+            .map(row => row.textContent.trim());
+    }
+
+    function getColumnPickerGroupItemName(column: string | ColumnPickerGroupItem) {
+        return typeof column === 'object' ? column.name : column;
+    }
+});
+
