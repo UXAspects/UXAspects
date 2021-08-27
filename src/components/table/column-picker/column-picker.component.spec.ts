@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { TableModule } from '../table.module';
-import { ColumnPickerGroup } from './column-picker.component';
+import { ColumnPickerComponent, ColumnPickerGroup } from './column-picker.component';
 import { ColumnPickerGroupItem } from './interfaces/column-picker-group-item.interface';
 
 @Component({
@@ -179,11 +179,11 @@ describe('Column Picker Component - Sort Input', () => {
             [(selected)]="selected"
             [(deselected)]="deselected"
             [groups]="groups"
-            (selectedChange)="selectedChange(change)">
+            (selectedChange)="_selectedChange(change)">
         </ux-column-picker>
     `
 })
-export class ColumnPickerSelectedChangeTestComponent {
+export class ColumnPickerSelectedChangeTestComponent extends ColumnPickerComponent {
     selected: ReadonlyArray<string | ColumnPickerGroupItem> = [
         'Type',
         'Date'
@@ -195,39 +195,40 @@ export class ColumnPickerSelectedChangeTestComponent {
         'Flag'
     ];
 
-    groups: ColumnPickerGroup[] = [
-        { name: 'Metadata', expanded: true }
-    ];
+    // groups: ColumnPickerGroup[] = [
+    //     { name: 'Metadata', expanded: true }
+    // ];
 
-    selectedChange(change) {
+    _selectedChange(change) {
         return change;
     }
 }
 
 fdescribe('Column Picker Component - Selected Change', () => {
-    let component: ColumnPickerSortTestComponent;
-    let fixture: ComponentFixture<ColumnPickerSortTestComponent>;
+    let component: ColumnPickerSelectedChangeTestComponent;
+    let fixture: ComponentFixture<ColumnPickerSelectedChangeTestComponent>;
     let nativeElement: HTMLElement;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            imports: [TableModule],
-            declarations: [ColumnPickerSortTestComponent]
+            imports: [
+                TableModule
+            ],
+            declarations: [
+                ColumnPickerSelectedChangeTestComponent
+            ]
         }).compileComponents();
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(ColumnPickerSortTestComponent);
+        fixture = TestBed.createComponent(ColumnPickerSelectedChangeTestComponent);
         component = fixture.componentInstance;
         nativeElement = fixture.nativeElement;
         fixture.detectChanges();
     });
 
     it('should out the correct order when the ', () => {
-        const deselectedRows = getRowTextContents(0);
-        expect(deselectedRows[0]).toBe('Flag', 'row 0');
-        expect(deselectedRows[1]).toBe('Location', 'row 1');
-        expect(deselectedRows[2]).toBe('Author', 'row 2');
+        // component.move()
     });
 
     
