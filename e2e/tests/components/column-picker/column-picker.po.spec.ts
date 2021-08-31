@@ -1,9 +1,10 @@
-import { $, $$, browser, ElementFinder, ExpectedConditions } from 'protractor';
+import { $, $$, browser, ElementFinder } from 'protractor';
 
 export class ColumnPickerPage {
 
     selected = $('#selected-list');
     deselected = $('#deselected-list');
+    selectedChange = $('#selected-change-list');
     actions = $('.column-picker-actions-column');
     selectBtn = this.actions.$$('.btn').get(0);
     deselectBtn = this.actions.$$('.btn').get(1);
@@ -39,6 +40,10 @@ export class ColumnPickerPage {
 
     async getDeselection(): Promise<string> {
         return await this.deselected.getAttribute('innerText');
+    }
+
+    async getSelectedChange(): Promise<string> {
+        return await this.selectedChange.getAttribute('innerText');
     }
 
     async getSelectedTitle(): Promise<string> {

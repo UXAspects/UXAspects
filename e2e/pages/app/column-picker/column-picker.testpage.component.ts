@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ColumnPickerGroupItem, ColumnPickerGroup } from '@ux-aspects/ux-aspects';
+import { ColumnPickerGroup, ColumnPickerGroupItem } from '@ux-aspects/ux-aspects';
 
 @Component({
     selector: 'app-column-picker',
@@ -44,9 +44,15 @@ export class ColumnPickerTestPageComponent {
         'Work Completed'
     ];
 
+    selectedChange: ReadonlyArray<string>;
+
     groups: ColumnPickerGroup[] = [
         { name: 'Metadata', expanded: true }
     ];
+
+    _selectedChange(change: any) {
+        this.selectedChange = change;
+    }
 
     /** Determine if we should show the custom title templates */
     showCustomTitles: boolean = false;
