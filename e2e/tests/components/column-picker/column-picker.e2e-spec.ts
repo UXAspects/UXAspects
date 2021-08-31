@@ -156,8 +156,8 @@ describe('Column Picker Tests', () => {
     it('should output the correct order when reordering', async () => {
         const column = await page.getSelectedColumn(2);
         await browser.actions().click(column).keyDown(Key.ALT).sendKeys(Key.ARROW_DOWN).perform();
-        await browser.sleep(500);
 
         expect(await page.getSelectedChange()).toBe('[ "Type", "Requested by", "Date", "Status", "Completion" ]');
+        expect(await imageCompare('TEST-DELETE')).toEqual(0);
     });
 });
