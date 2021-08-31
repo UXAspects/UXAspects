@@ -6,6 +6,7 @@ export class ColumnResizingExpandingPage {
     fixedExpandTable = $('#fixed-table-expand');
     updateLayoutBtn = $('#update-layout-btn');
     updateColumnsBtn = $('#update-columns-btn');
+    titleWidthSpan = $('#title-width');
 
     async getPage(): Promise<void> {
         await browser.driver.manage().window().setSize(1200, 900);
@@ -55,7 +56,6 @@ export class ColumnResizingExpandingPage {
         const column = columns[columnIndex];
         const handle = await column.$('.ux-resizable-table-column-handle');
 
-        // perform the drag
         await browser.actions().mouseDown(handle).mouseMove({ x: amount, y: 0 }).mouseUp().perform();
     }
 

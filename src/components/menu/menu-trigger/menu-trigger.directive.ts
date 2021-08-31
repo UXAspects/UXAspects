@@ -6,6 +6,7 @@ import { TemplatePortal } from '@angular/cdk/portal';
 import { ContentChildren, Directive, ElementRef, HostListener, Input, OnDestroy, OnInit, Optional, QueryList, Self, ViewContainerRef } from '@angular/core';
 import { combineLatest, fromEvent, merge, Observable, of, Subject, timer } from 'rxjs';
 import { debounceTime, filter, take, takeUntil } from 'rxjs/operators';
+import { AnchorPlacement } from '../../../common/overlay/anchor-placement';
 import { FocusIndicator, FocusIndicatorOriginService, FocusIndicatorService } from '../../../directives/accessibility/index';
 import { OverlayPlacementService } from '../../../services/overlay-placement/index';
 import { MenuItemComponent } from '../menu-item/menu-item.component';
@@ -119,7 +120,7 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
         // position then it will still take precendence
         if (this._isSubmenuTrigger) {
             this.menu._isSubMenu = true;
-            this.menu.placement = 'right';
+            this.menu.placement = this.getSubMenuPlacement(this.menu.placement);
         }
 
         // listen for the menu to open (after animation so we can focus the first item)
@@ -136,9 +137,10 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
 
         this.menu._placement$.pipe(takeUntil(this._onDestroy$))
             .subscribe(() => {
-                if (!this._isSubmenuTrigger) {
-                    this.getOverlay(true);
+                if (this._isSubmenuTrigger) {
+                    this.menu.placement = this.getSubMenuPlacement(this.menu.placement);
                 }
+                this.getOverlay(true);
             });
     }
 
@@ -441,6 +443,10 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
                 }
             }, this._debounceTime);
         }
+    }
+
+    private getSubMenuPlacement(placement: AnchorPlacement): AnchorPlacement {
+        return placement === 'left' ? 'left' : 'right';
     }
 
     static ngAcceptInputType_closeOnBlur: BooleanInput;
