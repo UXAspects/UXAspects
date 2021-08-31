@@ -141,23 +141,17 @@ describe('Column Picker Tests', () => {
         expect(await page.getSelection()).toBe('[]');
     });
 
-    it('should allow reordering', async () => {
-        const column = await page.getSelectedColumn(2);
-        await browser.actions().click(column).sendKeys(Key.ALT, Key.ARROW_UP).perform();
-        expect(await page.getSelection()).toBe('[ "Date", "Type", "Requested by", "Status", "Completion" ]');
+    it('should allow reordering and output the order in selectedChange', async () => {
+        const column = await page.getSelectedColumn(3);
+        await browser.actions().click(column).keyDown(Key.ALT).sendKeys(Key.ARROW_DOWN).perform();
+
+        expect(await page.getSelection()).toBe('[ "Type", "Date", "Status", "Requested by", "Completion" ]');
+        expect(await page.getSelectedChange()).toBe('[ "Type", "Date", "Status", "Requested by", "Completion" ]');
     });
 
     it('should allow custom title templates', async () => {
         await page.toggleCustomTitles.click();
         expect(await page.getDeselectedTitle()).toBe('Custom Title');
         expect(await page.getSelectedTitle()).toBe('Custom Title');
-    });
-
-    it('should output the correct order when reordering', async () => {
-        const column = await page.getSelectedColumn(2);
-        await browser.actions().click(column).keyDown(Key.ALT).sendKeys(Key.ARROW_DOWN).perform();
-
-        expect(await page.getSelectedChange()).toBe('[ "Type", "Requested by", "Date", "Status", "Completion" ]');
-        expect(await imageCompare('TEST-DELETE')).toEqual(0);
     });
 });
