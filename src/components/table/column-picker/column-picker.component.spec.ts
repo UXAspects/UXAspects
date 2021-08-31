@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { TableModule } from '../table.module';
-import { ColumnPickerComponent, ColumnPickerGroup } from './column-picker.component';
+import { ColumnPickerGroup } from './column-picker.component';
 import { ColumnPickerGroupItem } from './interfaces/column-picker-group-item.interface';
 
 @Component({
@@ -171,75 +171,3 @@ describe('Column Picker Component - Sort Input', () => {
         return typeof column === 'object' ? column.name : column;
     }
 });
-
-@Component({
-    selector: 'app-column-picker-sort',
-    template: `
-        <ux-column-picker
-            [(selected)]="selected"
-            [(deselected)]="deselected"
-            [groups]="groups"
-            (selectedChange)="_selectedChange(change)">
-        </ux-column-picker>
-    `
-})
-export class ColumnPickerSelectedChangeTestComponent extends ColumnPickerComponent {
-    selected: ReadonlyArray<string | ColumnPickerGroupItem> = [
-        'Type',
-        'Date'
-    ];
-
-    deselected: Array<string | ColumnPickerGroupItem> = [
-        { group: 'Metadata', name: 'Author' },
-        'Location',
-        'Flag'
-    ];
-
-    // groups: ColumnPickerGroup[] = [
-    //     { name: 'Metadata', expanded: true }
-    // ];
-
-    _selectedChange(change) {
-        return change;
-    }
-}
-
-fdescribe('Column Picker Component - Selected Change', () => {
-    let component: ColumnPickerSelectedChangeTestComponent;
-    let fixture: ComponentFixture<ColumnPickerSelectedChangeTestComponent>;
-    let nativeElement: HTMLElement;
-
-    beforeEach(async(() => {
-        TestBed.configureTestingModule({
-            imports: [
-                TableModule
-            ],
-            declarations: [
-                ColumnPickerSelectedChangeTestComponent
-            ]
-        }).compileComponents();
-    }));
-
-    beforeEach(() => {
-        fixture = TestBed.createComponent(ColumnPickerSelectedChangeTestComponent);
-        component = fixture.componentInstance;
-        nativeElement = fixture.nativeElement;
-        fixture.detectChanges();
-    });
-
-    it('should out the correct order when the ', () => {
-        // component.move()
-    });
-
-    
-
-    function getRowTextContents(listIndex: number): string[] {
-        return Array.from(nativeElement.querySelectorAll('.column-picker-list')[listIndex].querySelectorAll('.column-picker-list-item'))
-            .map(row => row.textContent.trim());
-    }
-
-    function getColumnPickerGroupItemName(column: string | ColumnPickerGroupItem) {
-        return typeof column === 'object' ? column.name : column;
-    }
-});
-
