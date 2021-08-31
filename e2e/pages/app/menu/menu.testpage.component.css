@@ -2,8 +2,12 @@
     margin-top: 150px;
 }
 
+button.button-primary {
+    margin-bottom: 30px;
+}
+
 .btn-container {
-    margin-top: 30px;
+    margin-bottom: 30px;
 }
 
 .justify-content-center {
