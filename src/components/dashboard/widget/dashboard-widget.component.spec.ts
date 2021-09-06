@@ -1,5 +1,5 @@
 import { SimpleChange } from '@angular/core';
-import { TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { DashboardService } from '../dashboard.service';
 import { DashboardWidgetComponent } from './dashboard-widget.component';
 
@@ -9,6 +9,7 @@ class MockDashboardService extends DashboardService {
 }
 
 describe('Dashboard Widget', () => {
+    let fixture: ComponentFixture<DashboardWidgetComponent>;
     let component: DashboardWidgetComponent;
 
     beforeEach(async () => {
@@ -16,6 +17,9 @@ describe('Dashboard Widget', () => {
             providers: [{ provide: DashboardService, useClass: MockDashboardService }],
             declarations: [DashboardWidgetComponent],
         }).compileComponents();
+
+        fixture = TestBed.createComponent(DashboardWidgetComponent);
+        component = fixture.componentInstance;
     });
 
     it('should not attempt to resize a widget before the layout has been set', () => {
