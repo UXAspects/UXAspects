@@ -1,5 +1,5 @@
 import { SimpleChange } from '@angular/core';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import { DashboardService } from '../dashboard.service';
 import { DashboardWidgetComponent } from './dashboard-widget.component';
 
@@ -10,7 +10,6 @@ class MockDashboardService extends DashboardService {
 
 describe('Dashboard Widget', () => {
     let component: DashboardWidgetComponent;
-    let fixture: ComponentFixture<DashboardWidgetComponent>;
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
