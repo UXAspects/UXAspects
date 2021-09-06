@@ -163,7 +163,7 @@ export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestro
     }
 
     ngOnChanges(changes: SimpleChanges): void {
-        if (changes.colSpan || changes.rowSpan) {
+        if (this.hasPosition() && (changes.colSpan || changes.rowSpan)) {
             this.dashboardService.resizeWidget(this);
             this.dashboardService.renderDashboard();
         }
@@ -345,6 +345,11 @@ export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestro
      */
     private getStackableValue(property: StackableValue): number {
         return this.dashboardService.stacked ? property.stacked : property.regular;
+    }
+
+    /** Determine if the layout has been performed yet */
+    private hasPosition(): boolean {
+        return this.getColumn() !== undefined && this.getRow() !== undefined;
     }
 
     static ngAcceptInputType_autoPositioning: BooleanInput;
