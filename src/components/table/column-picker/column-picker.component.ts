@@ -186,9 +186,7 @@ export class ColumnPickerComponent implements OnChanges {
 
     /** Update when reordering has occurred */
     onReorder(): void {
-        setTimeout(() => {
-            this.selectedChange.emit(this.selected);
-        });
+        this.selectedChange.emit(this.selected);
     }
 
     /** Get an aria label for deselected list groups */
@@ -302,6 +300,7 @@ export class ColumnPickerComponent implements OnChanges {
     /** Update the order of the items when reordering has changed */
     onReorderChange(model: string[]): void {
         this.selected = [...model];
+        this.onReorder();
     }
 
     /** Get the action context, ensuring that functions have a pre-bound context */

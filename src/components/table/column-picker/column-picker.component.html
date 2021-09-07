@@ -141,8 +141,7 @@
              [reorderableModel]="selected"
              (reorderableModelChange)="onReorderChange($event)"
              (reorderStart)="storeSelection()"
-             (reorderEnd)="restoreSelection()"
-             (reorderEnd)="onReorder()">
+             (reorderEnd)="restoreSelection()">
 
             <div *ngFor="let column of selected; trackBy: selectedTrackBy; let index = index"
                  #selectedColumn
