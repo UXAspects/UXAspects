@@ -141,12 +141,10 @@ describe('Column Picker Tests', () => {
         expect(await page.getSelection()).toBe('[]');
     });
 
-    it('should allow reordering and output the order in selectedChange', async () => {
-        const column = await page.getSelectedColumn(3);
-        await browser.actions().click(column).keyDown(Key.ALT).sendKeys(Key.ARROW_DOWN).perform();
-
-        expect(await page.getSelection()).toBe('[ "Type", "Date", "Status", "Requested by", "Completion" ]');
-        expect(await page.getSelectedChange()).toBe('[ "Type", "Date", "Status", "Requested by", "Completion" ]');
+    it('should allow reordering', async () => {
+        const column = await page.getSelectedColumn(2);
+        await browser.actions().click(column).sendKeys(Key.ALT, Key.ARROW_UP).perform();
+        expect(await page.getSelection()).toBe('[ "Date", "Type", "Requested by", "Status", "Completion" ]');
     });
 
     it('should allow custom title templates', async () => {
