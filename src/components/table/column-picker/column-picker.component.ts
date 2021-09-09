@@ -181,7 +181,7 @@ export class ColumnPickerComponent implements OnChanges {
 
     /** Restore the selection once dragging ends */
     restoreSelection(): void {
-        this._selectedSelection = this._selection;
+        this._selectedSelection = [...this._selection];
     }
 
     /** Update when reordering has occurred */
