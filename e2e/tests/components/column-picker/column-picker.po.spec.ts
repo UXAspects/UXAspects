@@ -1,4 +1,4 @@
-import { $, $$, browser, ElementFinder } from 'protractor';
+import { $, $$, browser, ElementFinder, ExpectedConditions } from 'protractor';
 
 export class ColumnPickerPage {
 

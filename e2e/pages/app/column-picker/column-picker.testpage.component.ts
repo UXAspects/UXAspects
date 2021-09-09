@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ColumnPickerGroup, ColumnPickerGroupItem } from '@ux-aspects/ux-aspects';
+import { ColumnPickerGroupItem, ColumnPickerGroup  } from '@ux-aspects/ux-aspects';
 
 @Component({
     selector: 'app-column-picker',
@@ -9,7 +9,7 @@ import { ColumnPickerGroup, ColumnPickerGroupItem } from '@ux-aspects/ux-aspects
 export class ColumnPickerTestPageComponent {
 
     /** Store a list of all selected columns */
-    selected: ReadonlyArray<string> = [
+    selected: Array<string> = [
         'Type',
         'Date',
         'Requested by',
