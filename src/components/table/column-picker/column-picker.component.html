@@ -138,7 +138,7 @@
 
         <div [(uxSelection)]="_selectedSelection"
              uxReorderable
-             [reorderableModel]="selected"
+             [reorderableModel]="_storedSelection"
              (reorderableModelChange)="onReorderChange($event)"
              (reorderStart)="storeSelection()"
              (reorderEnd)="restoreSelection()">
