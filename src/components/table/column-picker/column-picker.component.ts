@@ -92,6 +92,9 @@ export class ColumnPickerComponent implements OnChanges {
     /** Cache selection during reordering */
     private _selection: ReadonlyArray<string | ColumnPickerGroupItem> = [];
 
+    /** Shallow copy of selection for reordering directive */
+    _storedSelection: Array<string | ColumnPickerGroupItem> = [];
+
     /** Get the elements for the selected items */
     @ViewChildren('selectedColumn') selectedElements: QueryList<ElementRef>;
 
@@ -177,11 +180,12 @@ export class ColumnPickerComponent implements OnChanges {
     /** Ensure we don't select while dragging */
     storeSelection(): void {
         this._selection = [...this._selectedSelection];
+        this._storedSelection = [...this.selected];
     }
 
     /** Restore the selection once dragging ends */
     restoreSelection(): void {
-        this._selectedSelection = this._selection;
+        this._selectedSelection = [...this._selection];
     }
 
     /** Update when reordering has occurred */
@@ -300,6 +304,7 @@ export class ColumnPickerComponent implements OnChanges {
     /** Update the order of the items when reordering has changed */
     onReorderChange(model: string[]): void {
         this.selected = [...model];
+        this.onReorder();
     }
 
     /** Get the action context, ensuring that functions have a pre-bound context */
