@@ -291,4 +291,12 @@ describe('TagsPage Tests', () => {
 
         expect(await page.typeahead.isDisplayed()).toBe(false);
     });
+
+    it('should not re-open the typeahead when pressing enter when no results is shown', async () => {
+        await page.enableTypeahead.click();
+        await page.sendCharactersToTagsInput('zz');
+        await page.sendCharactersToTagsInput(Key.ENTER);
+
+        expect(await imageCompare('tags-typeahead-reopen')).toEqual(0);
+    });
 });
