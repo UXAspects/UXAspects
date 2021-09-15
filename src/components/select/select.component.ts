@@ -255,9 +255,11 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
             filter(() => this.allowNull),
             filter(value => !this.multiple && value !== this.getDisplay(this.value)),
             takeUntil(this._onDestroy)
-        ).subscribe(() => {
+        ).subscribe((value) => {
+            if (value === '') {
+                this.valueChange.next(null);
+            }
             this.value = null;
-            this.valueChange.next(null),
             this._onChange(null);
         });
 
