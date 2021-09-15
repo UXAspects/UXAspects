@@ -512,6 +512,7 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
     commitInput(): void {
         if (this.commit(this.input)) {
             this.selectInput();
+            this.toggle();
             this.setInputValue('');
         }
     }
