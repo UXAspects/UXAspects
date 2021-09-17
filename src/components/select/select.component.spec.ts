@@ -387,12 +387,12 @@ describe('Select Component', () => {
 
     it('should not emit valueChange when programmatically changing value input', () => {
         spyOn(component, 'onValueChange');
-        component.value = "Three";
+        component.value = 'Three';
 
         fixture.detectChanges();
 
         expect(component.onValueChange).not.toHaveBeenCalled();
-    })
+    });
 
     function enablePagination(): void {
         component.options = function (pageNum: number, pageSize: number): Promise<string[]> {
