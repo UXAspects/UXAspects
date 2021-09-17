@@ -255,10 +255,7 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
             filter(() => this.allowNull),
             filter(value => !this.multiple && value !== this.getDisplay(this.value)),
             takeUntil(this._onDestroy)
-        ).subscribe((value) => {
-            if (value === '') {
-                this.valueChange.next(null);
-            }
+        ).subscribe(() => {
             this.value = null;
             this._onChange(null);
         });
@@ -382,7 +379,6 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
 
         setTimeout(() => {
             let target = event.target as HTMLInputElement;
-            
             if (event.keyCode === DELETE && target.value === '' && this.allowNull) {
                 this.valueChange.next(null);
             }
