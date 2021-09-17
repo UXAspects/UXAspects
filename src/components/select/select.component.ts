@@ -1,5 +1,5 @@
 import { BooleanInput, coerceBooleanProperty, coerceNumberProperty, NumberInput } from '@angular/cdk/coercion';
-import { ENTER } from '@angular/cdk/keycodes';
+import { DELETE, ENTER } from '@angular/cdk/keycodes';
 import { Platform } from '@angular/cdk/platform';
 import { DOCUMENT } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ElementRef, EventEmitter, forwardRef, HostBinding, Inject, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, StaticProvider, TemplateRef, ViewChild } from '@angular/core';
@@ -379,6 +379,16 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
             this._userInput = true;
             this._dropdownOpen = true;
         }
+
+        setTimeout(() => {
+            let target = event.target as HTMLInputElement;
+            
+            if (event.keyCode === DELETE && target.value === '' && this.allowNull) {
+                this.valueChange.next(null);
+            }
+        }, 10);
+
+
     }
 
     /** This gets called whenever the user types in the input */
