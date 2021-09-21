@@ -1,0 +1,12 @@
+<a id="top-focus" href="javascript:void(0)">Top focus target</a>
+
+<div id="root">
+
+    <form [formGroup]="form">
+        <p>readonly:</p>
+        <ux-number-picker id="read-only-number-picker" class="number-picker-component-demo" min="0" max="10" [readonly]="true" formControlName="readonly"></ux-number-picker>
+        <br>
+
+        <span id="emitted-value">{{ form.value | json }}</span>
+    </form>
+</div>
