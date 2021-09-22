@@ -9,6 +9,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class NumberPickerReadOnlyTestPageComponent {
     form: FormGroup;
+    readonly = true;
 
     constructor(formBuilder: FormBuilder) {
 
