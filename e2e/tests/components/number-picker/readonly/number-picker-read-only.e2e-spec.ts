@@ -1,11 +1,11 @@
 import { browser } from 'protractor';
 import { Key } from 'selenium-webdriver';
 import { imageCompare } from '../../common/image-compare';
-import { NumberPickerUpdateOnPage } from './number-picker-read-only.po.spec';
+import { NumberPickerReadonlyPage } from './number-picker-read-only.po.spec';
 
 describe('Number Picker Tests readonly:', () => {
 
-    const page: NumberPickerUpdateOnPage = new NumberPickerUpdateOnPage();
+    const page: NumberPickerReadonlyPage = new NumberPickerReadonlyPage();
 
     beforeAll(async () => {
         await page.getPage();

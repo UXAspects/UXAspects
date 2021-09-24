@@ -1,7 +1,7 @@
 import { $, browser, by, element, ElementFinder } from 'protractor';
 import { NumberPickerPage } from '../number-picker.po.spec';
 
-export class NumberPickerUpdateOnPage extends NumberPickerPage {
+export class NumberPickerReadonlyPage extends NumberPickerPage {
 
     numberPickerReadOnly = $('#read-only-number-picker');
     emittedValue = element(by.id('emitted-value'));
