@@ -776,7 +776,7 @@ export class NumberPickerTestReadonlyComponent {
     }
 }
 
-fdescribe('Number Picker Component - Readonly', () => {
+describe('Number Picker Component - Readonly', () => {
     let component: NumberPickerTestReadonlyComponent;
     let fixture: ComponentFixture<NumberPickerTestReadonlyComponent>;
     let nativeElement: HTMLElement;
