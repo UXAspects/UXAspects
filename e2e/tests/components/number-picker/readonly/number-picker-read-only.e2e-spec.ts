@@ -47,47 +47,4 @@ describe('Number Picker Tests readonly:', () => {
             expect(await page.emittedValue.getText()).toBe('{ "readonly": 5 }');
         });
     });
-
-    describe('false', () => {
-
-        beforeAll(async () => {
-            await page.clickOnCheckbox(page.readonlyCheckbox);
-        });
-
-        beforeEach(async () => {
-            await page.setNumberPickerValue(page.numberPickerReadOnly, '5');
-        });
-
-        it('should allow changes to the value via the input', async () => {
-            await page.setNumberPickerValue(page.numberPickerReadOnly, '7');
-
-            expect(await page.emittedValue.getText()).toBe('{ "readonly": 7 }');
-        });
-
-        it('should allow changes to the value by hitting the increment arrow', async () => {
-            await browser.actions().mouseMove(page.incrementArrow).click().perform();
-
-            expect(await page.emittedValue.getText()).toBe('{ "readonly": 6 }');
-        });
-
-        it('should allow changes to the value by hitting the decrement arrow', async () => {
-            await browser.actions().mouseMove(page.decrementArrow).click().perform();
-
-            expect(await page.emittedValue.getText()).toBe('{ "readonly": 4 }');
-        });
-
-        it('should allow changes to the value by hitting the up arrow on the keyboard', async () => {
-            await browser.actions().mouseMove(page.numberPickerReadOnly).click().perform();
-            await browser.actions().sendKeys(Key.ARROW_UP).perform();
-
-            expect(await page.emittedValue.getText()).toBe('{ "readonly": 6 }');
-        });
-
-        it('should allow changes to the value by hitting the down arrow on the keyboard', async () => {
-            await browser.actions().mouseMove(page.numberPickerReadOnly).click().perform();
-            await browser.actions().sendKeys(Key.ARROW_DOWN).perform();
-
-            expect(await page.emittedValue.getText()).toBe('{ "readonly": 4 }');
-        });
-    });
 });
