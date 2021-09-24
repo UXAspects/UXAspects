@@ -14,11 +14,6 @@ export class NumberPickerReadonlyPage extends NumberPickerPage {
         await browser.get('#/number-picker/readonly');
     }
 
-    async attemptToSetNumberPickerValue(value: string): Promise<void> {
-        await this.numberPickerReadOnly.$('input').click();
-        await browser.actions().sendKeys(value).perform();
-    }
-
     async clickOnCheckbox(checkbox: ElementFinder) {
         await checkbox.$('.ux-checkbox').click();
     }
