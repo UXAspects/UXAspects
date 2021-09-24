@@ -4,7 +4,9 @@
 
     <form [formGroup]="form">
         <p>readonly:</p>
-        <ux-number-picker id="read-only-number-picker" class="number-picker-component-demo" min="0" max="10" [readonly]="readonly" formControlName="readonly"></ux-number-picker>
+        <ux-number-picker id="read-only-number-picker" class="number-picker-component-demo" [readonly]="readonly" formControlName="readonly"></ux-number-picker>
+        <br>
+        <ux-number-picker-inline id="read-only-number-picker-inline" class="number-picker-component-demo" [readonly]="readonly" formControlName="readonlyInline"></ux-number-picker-inline>
         <br>
 
         <span id="emitted-value">{{ form.value | json }}</span>

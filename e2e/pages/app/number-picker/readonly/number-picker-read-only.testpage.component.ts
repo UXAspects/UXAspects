@@ -14,7 +14,8 @@ export class NumberPickerReadOnlyTestPageComponent {
     constructor(formBuilder: FormBuilder) {
 
         this.form = formBuilder.group({
-            readonly: [5, Validators.compose([Validators.required, Validators.min(-10), Validators.max(10)])]
+            readonly: [5, Validators.required],
+            readonlyInline: [6, Validators.required]
         });
     }
 }
