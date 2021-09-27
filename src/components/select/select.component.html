@@ -4,7 +4,7 @@
     [id]="id + '-input'"
     [tags]="_value$ | async"
     (tagsChange)="_multipleOptionSelected($event)"
-    [(input)]="input"
+    [(input)]="input.value"
     [required]="required"
     (inputChange)="onInputChange($event)"
     [ariaLabel]="ariaLabel"
@@ -47,8 +47,6 @@
     </ux-typeahead>
 
 </ux-tag-input>
-
-<span>{{ input | json }}</span>
 
 <div *ngIf="!multiple"
     class="ux-select-container"

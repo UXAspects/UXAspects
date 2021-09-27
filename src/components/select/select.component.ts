@@ -5,7 +5,7 @@ import { DOCUMENT } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ElementRef, EventEmitter, forwardRef, HostBinding, Inject, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, StaticProvider, TemplateRef, ViewChild } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { BehaviorSubject, Observable, ReplaySubject, Subject } from 'rxjs';
-import { debounceTime, delay, distinctUntilChanged, filter, map, take, takeUntil } from 'rxjs/operators';
+import { debounceTime, delay, distinctUntilChanged, filter, map, skip, take, takeUntil } from 'rxjs/operators';
 import { InfiniteScrollLoadFunction } from '../../directives/infinite-scroll/index';
 import { TagInputComponent, TagTemplateContext } from '../tag-input/index';
 import { TypeaheadComponent, TypeaheadKeyService, TypeaheadOptionEvent } from '../typeahead/index';
@@ -47,7 +47,7 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
     /** The text in the input area. This is used to filter the options dropdown. */
     @Input()
     set input(value: InputValue) {
-        this._input$.next({...this.input, value: value.value});
+        this._input$.next({ userInteraction: value.userInteraction, value: value.value });
     }
     get input() {
         return this._input$.value;
@@ -230,9 +230,7 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
     private _userInput: boolean = false;
     private _filterDebounceTime: number = 200;
     private _autoCloseDropdown: boolean = true;
-    private _onChange = (_: T | ReadonlyArray<T>) => { 
-        console.log('on change')
-     };
+    private _onChange = (_: T | ReadonlyArray<T>) => {};
     private _onTouched = () => { };
     private _onDestroy = new Subject<void>();
 
@@ -253,15 +251,16 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
 
         // Changes to the input field
         this._input$.pipe(
-            takeUntil(this._onDestroy))
-            .subscribe((value) => {
-                console.log('file: select.component.ts ~ line 262 ~ SelectComponent<T> ~ .subscribe ~ value', value);
+            skip(1),
+            filter(() => this.allowNull),
+            filter(value => !this.multiple && value.value !== this.getDisplay(this.value)),
+            takeUntil(this._onDestroy)
+            ).subscribe((input) => {
                 this.value = null;
                 this._onChange(null);
-                if (value.userInteraction) {
+                if (input.userInteraction && input.value === '') {
                     this.valueChange.next(null);
                 }
-    
             });
 
 
@@ -385,12 +384,12 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
     /** This gets called whenever the user types in the input */
     onInputChange(input: string): void {
 
-        this.input.userInteraction = true;
-
-        this.inputChange.emit({
+        this.input = {
             value: input,
             userInteraction: true
-        });
+        };
+
+        this.inputChange.next(this.input);
     }
 
     /** Whenever a single select item is selected emit the values */
@@ -469,7 +468,11 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
 
         // clear the value and input text
         this.value = null;
-        this.input.value = null;
+        this.input = {
+            userInteraction: true,
+            value: null
+        };
+
         this.selectInputText();
 
         // emit the latest values

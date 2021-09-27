@@ -206,7 +206,7 @@ describe('Select Component', () => {
         fixture.detectChanges();
 
         expect(component.value).toBe(null);
-        expect(component.input).toBe(null);
+        expect(component.input).toEqual(Object({ userInteraction: true, value: null }));
     });
 
     it('should clear the value when clear button is click in multiple select', () => {
@@ -221,7 +221,7 @@ describe('Select Component', () => {
         fixture.detectChanges();
 
         expect(component.value).toEqual([]);
-        expect(component.input).toBe('');
+        expect(component.input).toEqual(Object({ userInteraction: true, value: '' }));
 
     });
 
