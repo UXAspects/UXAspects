@@ -757,3 +757,76 @@ describe('Number Picker Component - value', () => {
     }
 
 });
+
+@Component({
+    selector: 'app-number-picker-form',
+    template: `<ux-number-picker readonly
+                                 [formControl]="form.controls['readonly']">
+                </ux-number-picker>`
+})
+export class NumberPickerTestReadonlyComponent {
+
+    form: FormGroup;
+
+    constructor(formBuilder: FormBuilder) {
+
+        this.form = formBuilder.group({
+            readonly: [5, Validators.required]
+        });
+    }
+}
+
+describe('Number Picker Component - Readonly', () => {
+    let component: NumberPickerTestReadonlyComponent;
+    let fixture: ComponentFixture<NumberPickerTestReadonlyComponent>;
+    let nativeElement: HTMLElement;
+    let numberPickers: NodeListOf<HTMLInputElement>;
+    let numberPicker1: HTMLInputElement;
+    let input1: HTMLInputElement;
+
+    beforeEach(async(() => {
+        TestBed.configureTestingModule({
+            imports: [NumberPickerModule, ReactiveFormsModule],
+            declarations: [NumberPickerTestReadonlyComponent],
+        })
+            .compileComponents();
+    }));
+
+    beforeEach(() => {
+        fixture = TestBed.createComponent(NumberPickerTestReadonlyComponent);
+        component = fixture.componentInstance;
+        nativeElement = fixture.nativeElement;
+        numberPickers = nativeElement.querySelectorAll<HTMLInputElement>('ux-number-picker');
+        numberPicker1 = numberPickers.item(0);
+        input1 = numberPicker1.querySelector('input');
+
+        fixture.detectChanges();
+    });
+
+
+    it('should initialise correctly', () => {
+
+        expect(component).toBeTruthy();
+        expect(component.form.controls.readonly.value).toBe(5);
+    });
+
+    describe('on scroll', () => {
+
+        it('should not change the value when scrolling in reaodnly mode', async () => {
+            await input1.focus();
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            input1.dispatchEvent(new WheelEvent('wheel', { deltaY: 5 }));
+            fixture.detectChanges();
+            await fixture.whenStable();
+            expect(input1.value).toBe('5');
+
+            input1.dispatchEvent(new WheelEvent('wheel', { deltaY: -5 }));
+            fixture.detectChanges();
+            await fixture.whenStable();
+            expect(input1.value).toBe('5');
+        });
+
+    });
+});
