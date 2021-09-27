@@ -225,7 +225,7 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
 
     /** We need to store the most recent value*/
     private _value: T | ReadonlyArray<T>;
-    private _input$ = new BehaviorSubject<InputValue>({ value: '', userInteraction: false});
+    private _input$ = new BehaviorSubject<InputValue>({ userInteraction: false, value: '' });
     private _dropdownOpen: boolean = false;
     private _userInput: boolean = false;
     private _filterDebounceTime: number = 200;
@@ -292,8 +292,13 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
     }
 
     ngOnChanges(changes: SimpleChanges): void {
+        console.log('file: select.component.ts ~ line 295 ~ SelectComponent<T> ~ ngOnChanges ~ changes', changes);
         if (changes.multiple && !changes.multiple.firstChange && changes.multiple.currentValue !== changes.multiple.previousValue) {
             this.input.value = '';
+        }
+
+        if (changes.value && !changes.value.firstChange) {
+            this.input = { ...this.input, userInteraction: false };
         }
 
         // Set up filter from input
