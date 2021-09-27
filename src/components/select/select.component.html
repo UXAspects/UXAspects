@@ -48,6 +48,8 @@
 
 </ux-tag-input>
 
+<span>{{ input | json }}</span>
+
 <div *ngIf="!multiple"
     class="ux-select-container"
     [class.disabled]="disabled"
@@ -66,7 +68,7 @@
         [attr.aria-label]="ariaLabel"
         aria-multiline="false"
         [autocomplete]="autocomplete"
-        [(ngModel)]="input"
+        [(ngModel)]="input.value"
         (ngModelChange)="onInputChange($event)"
         [placeholder]="placeholder || ''"
         [disabled]="disabled"

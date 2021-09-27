@@ -1,11 +1,11 @@
 import { BooleanInput, coerceBooleanProperty, coerceNumberProperty, NumberInput } from '@angular/cdk/coercion';
-import { DELETE, ENTER } from '@angular/cdk/keycodes';
+import { ENTER } from '@angular/cdk/keycodes';
 import { Platform } from '@angular/cdk/platform';
 import { DOCUMENT } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ElementRef, EventEmitter, forwardRef, HostBinding, Inject, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, StaticProvider, TemplateRef, ViewChild } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { BehaviorSubject, Observable, ReplaySubject, Subject } from 'rxjs';
-import { debounceTime, delay, distinctUntilChanged, filter, map, skip, take, takeUntil } from 'rxjs/operators';
+import { debounceTime, delay, distinctUntilChanged, filter, map, take, takeUntil } from 'rxjs/operators';
 import { InfiniteScrollLoadFunction } from '../../directives/infinite-scroll/index';
 import { TagInputComponent, TagTemplateContext } from '../tag-input/index';
 import { TypeaheadComponent, TypeaheadKeyService, TypeaheadOptionEvent } from '../typeahead/index';
@@ -46,8 +46,8 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
 
     /** The text in the input area. This is used to filter the options dropdown. */
     @Input()
-    set input(value: string) {
-        this._input$.next(value);
+    set input(value: InputValue) {
+        this._input$.next({...this.input, value: value.value});
     }
     get input() {
         return this._input$.value;
@@ -201,7 +201,7 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
     @Output() valueChange = new EventEmitter<T | ReadonlyArray<T>>();
 
     /** Emits when `input` changes. */
-    @Output() inputChange = new EventEmitter<string>();
+    @Output() inputChange = new EventEmitter<InputValue>();
 
     /** Emits when `dropdownOpen` changes. */
     @Output() dropdownOpenChange = new EventEmitter<boolean>();
@@ -225,12 +225,14 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
 
     /** We need to store the most recent value*/
     private _value: T | ReadonlyArray<T>;
-    private _input$ = new BehaviorSubject<string>('');
+    private _input$ = new BehaviorSubject<InputValue>({ value: '', userInteraction: false});
     private _dropdownOpen: boolean = false;
     private _userInput: boolean = false;
     private _filterDebounceTime: number = 200;
     private _autoCloseDropdown: boolean = true;
-    private _onChange = (_: T | ReadonlyArray<T>) => { };
+    private _onChange = (_: T | ReadonlyArray<T>) => { 
+        console.log('on change')
+     };
     private _onTouched = () => { };
     private _onDestroy = new Subject<void>();
 
@@ -251,14 +253,16 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
 
         // Changes to the input field
         this._input$.pipe(
-            skip(1),
-            filter(() => this.allowNull),
-            filter(value => !this.multiple && value !== this.getDisplay(this.value)),
-            takeUntil(this._onDestroy)
-        ).subscribe(() => {
-            this.value = null;
-            this._onChange(null);
-        });
+            takeUntil(this._onDestroy))
+            .subscribe((value) => {
+                console.log('file: select.component.ts ~ line 262 ~ SelectComponent<T> ~ .subscribe ~ value', value);
+                this.value = null;
+                this._onChange(null);
+                if (value.userInteraction) {
+                    this.valueChange.next(null);
+                }
+    
+            });
 
 
         // open the dropdown once the filter debounce has elapsed
@@ -281,8 +285,8 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
             const inputValue = this.getDisplay(value);
 
             // check if the input value has changed and if so the emit
-            if (inputValue !== this.input) {
-                this.input = inputValue;
+            if (inputValue !== this.input.value) {
+                this.input.value = inputValue;
                 this.inputChange.emit(this.input);
             }
         });
@@ -290,12 +294,12 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
 
     ngOnChanges(changes: SimpleChanges): void {
         if (changes.multiple && !changes.multiple.firstChange && changes.multiple.currentValue !== changes.multiple.previousValue) {
-            this.input = '';
+            this.input.value = '';
         }
 
         // Set up filter from input
         this.filter$ = this._input$.pipe(
-            map(input => !this.multiple && input === this.getDisplay(this.value) ? '' : input),
+            map(input => !this.multiple && input.value === this.getDisplay(this.value) ? '' : input.value),
             debounceTime(this.filterDebounceTime)
         );
     }
@@ -344,7 +348,7 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
             if (!this._element.nativeElement.contains(this._document.activeElement) && this._autoCloseDropdown) {
                 this.dropdownOpen = false;
                 if (!this.multiple) {
-                    this.input = this.getDisplay(this.value);
+                    this.input.value = this.getDisplay(this.value);
                 }
             }
         }, 200);
@@ -367,7 +371,7 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
             }
 
             // Update the input field. If dropdown isn't open then reset it to the previous value.
-            this.input = this.getDisplay(this.value);
+            this.input.value = this.getDisplay(this.value);
             event.preventDefault();
         }
 
@@ -376,20 +380,17 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
             this._userInput = true;
             this._dropdownOpen = true;
         }
-
-        setTimeout(() => {
-            let target = event.target as HTMLInputElement;
-            if (event.keyCode === DELETE && target.value === '' && this.allowNull) {
-                this.valueChange.next(null);
-            }
-        }, 10);
-
-
     }
 
     /** This gets called whenever the user types in the input */
     onInputChange(input: string): void {
-        this.inputChange.emit(input);
+
+        this.input.userInteraction = true;
+
+        this.inputChange.emit({
+            value: input,
+            userInteraction: true
+        });
     }
 
     /** Whenever a single select item is selected emit the values */
@@ -468,7 +469,7 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
 
         // clear the value and input text
         this.value = null;
-        this.input = null;
+        this.input.value = null;
         this.selectInputText();
 
         // emit the latest values
@@ -485,4 +486,9 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
 
     static ngAcceptInputType_filterDebounceTime: NumberInput;
     static ngAcceptInputType_autoCloseDropdown: BooleanInput;
+}
+
+interface InputValue {
+    value: string;
+    userInteraction: boolean;
 }
