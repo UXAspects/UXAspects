@@ -47,6 +47,7 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
     /** The text in the input area. This is used to filter the options dropdown. */
     @Input()
     set input(value: InputValue) {
+        console.log('file: select.component.ts ~ line 50 ~ SelectComponent<T> ~ setinput ~ value', value);
         this._input$.next({ userInteraction: value.userInteraction, value: value.value });
     }
     get input() {
@@ -292,13 +293,8 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
     }
 
     ngOnChanges(changes: SimpleChanges): void {
-        console.log('file: select.component.ts ~ line 295 ~ SelectComponent<T> ~ ngOnChanges ~ changes', changes);
         if (changes.multiple && !changes.multiple.firstChange && changes.multiple.currentValue !== changes.multiple.previousValue) {
             this.input.value = '';
-        }
-
-        if (changes.value && !changes.value.firstChange) {
-            this.input = { ...this.input, userInteraction: false };
         }
 
         // Set up filter from input
