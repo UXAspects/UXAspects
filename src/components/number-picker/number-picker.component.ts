@@ -1,4 +1,4 @@
-import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
+import { BooleanInput, coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, forwardRef, HostListener, Input, OnChanges, OnDestroy, Optional, Output } from '@angular/core';
 import { ControlValueAccessor, FormGroupDirective, NG_VALUE_ACCESSOR } from '@angular/forms';
 
@@ -44,6 +44,15 @@ export class NumberPickerComponent implements ControlValueAccessor, OnDestroy, O
 
     /** Specified if this is a required input. */
     @Input() required: boolean;
+
+    /** Specified if this is a readonly input. */
+    @Input() set readonly(value: boolean) {
+        this._readonly = coerceBooleanProperty(value);
+    }
+
+    get readonly(): boolean {
+        return this._readonly;
+    }
 
     /** If two way binding is used this value will be updated any time the number picker value changes. */
     @Output() valueChange = new EventEmitter<number>();
@@ -111,6 +120,7 @@ export class NumberPickerComponent implements ControlValueAccessor, OnDestroy, O
     /** This is a flag to indicate when the component has been destroyed to avoid change detection being made after the component
      *  is no longer instantiated. A workaround for Angular Forms bug (https://github.com/angular/angular/issues/27803) */
     private _isDestroyed: boolean = false;
+    private _readonly: boolean = false;
 
     constructor(
         private readonly _changeDetector: ChangeDetectorRef,
@@ -134,7 +144,7 @@ export class NumberPickerComponent implements ControlValueAccessor, OnDestroy, O
             event.preventDefault();
         }
 
-        if (!this.disabled) {
+        if (!this.disabled && !this.readonly) {
             this.value = Math.max(Math.min(this.value + this.getStep(StepDirection.Increment), this.max), this.min);
 
             // account for javascripts terrible handling of floating point numbers
@@ -150,7 +160,7 @@ export class NumberPickerComponent implements ControlValueAccessor, OnDestroy, O
             event.preventDefault();
         }
 
-        if (!this.disabled) {
+        if (!this.disabled && !this.readonly) {
             this.value = Math.min(Math.max(this.value - this.getStep(StepDirection.Decrement), this.min), this.max);
 
             // account for javascripts terrible handling of floating point numbers
@@ -220,6 +230,8 @@ export class NumberPickerComponent implements ControlValueAccessor, OnDestroy, O
     onFocusOut(): void {
         this._focused = false;
     }
+
+    static ngAcceptInputType_readonly: BooleanInput;
 }
 
 export enum StepDirection {

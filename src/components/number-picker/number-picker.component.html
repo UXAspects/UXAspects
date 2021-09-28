@@ -8,6 +8,7 @@
     [max]="max"
     [required]="required"
     [attr.placeholder]="placeholder"
+    [readonly]="readonly"
     (blur)="_touchedChange()"
     (keydown.ArrowDown)="decrement($event)"
     (keydown.ArrowUp)="increment($event)"
@@ -23,14 +24,14 @@
 
     <div class="number-picker-control number-picker-control-up"
          (click)="increment($event); _touchedChange()"
-         [class.disabled]="disabled || value >= max">
+         [class.disabled]="disabled || value >= max || readonly">
 
         <ux-icon name="up"></ux-icon>
     </div>
 
     <div class="number-picker-control number-picker-control-down"
          (click)="decrement($event); _touchedChange()"
-         [class.disabled]="disabled || value <= min">
+         [class.disabled]="disabled || value <= min || readonly">
 
          <ux-icon name="down"></ux-icon>
     </div>
