@@ -47,7 +47,6 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
     /** The text in the input area. This is used to filter the options dropdown. */
     @Input()
     set input(value: InputValue) {
-        console.log('file: select.component.ts ~ line 50 ~ SelectComponent<T> ~ setinput ~ value', value);
         this._input$.next({ userInteraction: value.userInteraction, value: value.value });
     }
     get input() {
