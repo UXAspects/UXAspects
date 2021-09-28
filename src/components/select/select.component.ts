@@ -46,11 +46,11 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
 
     /** The text in the input area. This is used to filter the options dropdown. */
     @Input()
-    set input(value: InputValue) {
-        this._input$.next({ userInteraction: value.userInteraction, value: value.value });
+    set input(value: string) {
+        this._input$.next({ ...this._input$.value, value: value });
     }
     get input() {
-        return this._input$.value;
+        return this._input$.value.value;
     }
 
     /** The status of the typeahead dropdown. */
@@ -201,7 +201,7 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
     @Output() valueChange = new EventEmitter<T | ReadonlyArray<T>>();
 
     /** Emits when `input` changes. */
-    @Output() inputChange = new EventEmitter<InputValue>();
+    @Output() inputChange = new EventEmitter<string>();
 
     /** Emits when `dropdownOpen` changes. */
     @Output() dropdownOpenChange = new EventEmitter<boolean>();
@@ -284,8 +284,8 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
             const inputValue = this.getDisplay(value);
 
             // check if the input value has changed and if so the emit
-            if (inputValue !== this.input.value) {
-                this.input.value = inputValue;
+            if (inputValue !== this.input) {
+                this.input = inputValue;
                 this.inputChange.emit(this.input);
             }
         });
@@ -293,7 +293,7 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
 
     ngOnChanges(changes: SimpleChanges): void {
         if (changes.multiple && !changes.multiple.firstChange && changes.multiple.currentValue !== changes.multiple.previousValue) {
-            this.input.value = '';
+            this.input = '';
         }
 
         // Set up filter from input
@@ -347,7 +347,7 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
             if (!this._element.nativeElement.contains(this._document.activeElement) && this._autoCloseDropdown) {
                 this.dropdownOpen = false;
                 if (!this.multiple) {
-                    this.input.value = this.getDisplay(this.value);
+                    this.input = this.getDisplay(this.value);
                 }
             }
         }, 200);
@@ -370,7 +370,7 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
             }
 
             // Update the input field. If dropdown isn't open then reset it to the previous value.
-            this.input.value = this.getDisplay(this.value);
+            this.input = this.getDisplay(this.value);
             event.preventDefault();
         }
 
@@ -384,10 +384,12 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
     /** This gets called whenever the user types in the input */
     onInputChange(input: string): void {
 
-        this.input = {
-            value: input,
+        this.input = input;
+
+        this._input$.next({
+            value: this.input,
             userInteraction: true
-        };
+        });
 
         this.inputChange.next(this.input);
     }
@@ -468,10 +470,7 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
 
         // clear the value and input text
         this.value = null;
-        this.input = {
-            userInteraction: true,
-            value: null
-        };
+        this.input = null;
 
         this.selectInputText();
 
