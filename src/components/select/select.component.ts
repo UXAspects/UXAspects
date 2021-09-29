@@ -384,10 +384,8 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
     /** This gets called whenever the user types in the input */
     onInputChange(input: string): void {
 
-        this.input = input;
-
         this._input$.next({
-            value: this.input,
+            value: input,
             userInteraction: true
         });
 
