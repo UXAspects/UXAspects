@@ -389,7 +389,7 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
             userInteraction: true
         });
 
-        this.inputChange.next(this.input);
+        this.inputChange.emit(this.input);
     }
 
     /** Whenever a single select item is selected emit the values */
