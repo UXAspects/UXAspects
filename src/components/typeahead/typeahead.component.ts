@@ -1,10 +1,8 @@
 import { FocusOrigin } from '@angular/cdk/a11y';
-import { ViewportRuler } from '@angular/cdk/scrolling';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, HostBinding, HostListener, Input, OnChanges, OnDestroy, Output, Renderer2, SimpleChanges, TemplateRef } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, HostBinding, HostListener, Input, OnChanges, OnDestroy, Output, SimpleChanges, TemplateRef, ViewChild } from '@angular/core';
 import { BehaviorSubject, combineLatest, Subject } from 'rxjs';
 import { distinctUntilChanged, takeUntil } from 'rxjs/operators';
-import { InfiniteScrollLoadedEvent, InfiniteScrollLoadFunction } from '../../directives/infinite-scroll/index';
-import { ResizeService } from '../../directives/resize/index';
+import { InfiniteScrollDirective, InfiniteScrollLoadedEvent, InfiniteScrollLoadFunction } from '../../directives/infinite-scroll/index';
 import { PopoverOrientation, PopoverOrientationListener, PopoverOrientationService } from '../../services/popover-orientation/popover-orientation.service';
 import { TypeaheadOptionEvent } from './typeahead-event';
 import { TypeaheadOptionApi } from './typeahead-option-api';
@@ -26,6 +24,8 @@ let uniqueId = 0;
     }
 })
 export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
+
+    @ViewChild(InfiniteScrollDirective) infiniteScroll:InfiniteScrollDirective;
 
     /** Define a unique id for the typeahead */
     @Input() @HostBinding('attr.id') id: string = `ux-typeahead-${++uniqueId}`;
@@ -169,10 +169,7 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
         public typeaheadElement: ElementRef,
         private _changeDetector: ChangeDetectorRef,
         popoverOrientation: PopoverOrientationService,
-        private _service: TypeaheadService,
-        private _viewportRuler: ViewportRuler,
-        private _renderer: Renderer2,
-        private _resizeService: ResizeService,
+        private _service: TypeaheadService
     ) {
         this.loadOptionsCallback = (pageNum: number, pageSize: number, filter: any) => {
             if (typeof this.options === 'function') {
@@ -274,6 +271,10 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
             } else {
                 this.dropUp = changes.dropDirection.currentValue === 'up';
             }
+        }
+
+        if (changes.options && changes.options.firstChange === false) {
+            this.infiniteScroll.reload();
         }
 
         // Re-filter visibleOptions
