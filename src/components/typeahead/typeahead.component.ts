@@ -25,7 +25,7 @@ let uniqueId = 0;
 })
 export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
 
-    @ViewChild(InfiniteScrollDirective) infiniteScroll:InfiniteScrollDirective;
+    @ViewChild(InfiniteScrollDirective) infiniteScroll: InfiniteScrollDirective;
 
     /** Define a unique id for the typeahead */
     @Input() @HostBinding('attr.id') id: string = `ux-typeahead-${++uniqueId}`;
