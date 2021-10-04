@@ -124,7 +124,6 @@ export class InfiniteScrollDirective<T = any> implements OnInit, AfterContentIni
     }
 
     ngOnChanges(changes: SimpleChanges): void {
-        console.log('file: infinite-scroll.directive.ts ~ line 127 ~ InfiniteScrollDirective<T ~ ngOnChanges ~ changes', changes);
         let check = true;
 
         if (changes.enabled && changes.enabled.currentValue !== changes.enabled.previousValue) {
@@ -200,6 +199,19 @@ export class InfiniteScrollDirective<T = any> implements OnInit, AfterContentIni
             pageSize: this.pageSize,
             filter: this.coerceFilter(this.filter) as T
         });
+    }
+
+    collectionReset(): void {
+
+        // Reset the page counter.
+        this._nextPageNum = 0;
+
+        // // Clear the collection (without changing the reference).
+        if (this.collection) {
+            this.collection.length = 0;
+        }
+
+        this.reload();
     }
 
     /**

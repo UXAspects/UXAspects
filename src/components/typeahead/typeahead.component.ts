@@ -274,7 +274,7 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
         }
 
         if (changes.options && changes.options.firstChange === false) {
-            this.infiniteScroll.reload();
+            this.infiniteScroll.collectionReset();
         }
 
         // Re-filter visibleOptions
