@@ -124,6 +124,7 @@ export class InfiniteScrollDirective<T = any> implements OnInit, AfterContentIni
     }
 
     ngOnChanges(changes: SimpleChanges): void {
+        console.log('file: infinite-scroll.directive.ts ~ line 127 ~ InfiniteScrollDirective<T ~ ngOnChanges ~ changes', changes);
         let check = true;
 
         if (changes.enabled && changes.enabled.currentValue !== changes.enabled.previousValue) {
@@ -232,7 +233,9 @@ export class InfiniteScrollDirective<T = any> implements OnInit, AfterContentIni
      * Reload the data without clearing the view.
      */
     reload(): void {
-        this._pages.forEach((page, i) => this.reloadPage(i));
+        if (this._pages) {
+            this._pages.forEach((page, i) => this.reloadPage(i));
+        }
     }
 
     /**
