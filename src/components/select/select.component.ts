@@ -256,9 +256,9 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
             filter(value => !this.multiple && value.value !== this.getDisplay(this.value)),
             takeUntil(this._onDestroy)
             ).subscribe((input) => {
-                this.value = null;
-                this._onChange(null);
                 if (input.userInteraction && input.value === '') {
+                    this.value = null;
+                    this._onChange(null);
                     this.valueChange.next(null);
                 }
             });
