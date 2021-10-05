@@ -45,7 +45,7 @@ import { TypeaheadModule } from './typeahead.module';
 })
 export class TypeaheadTestComponent {
 
-    values: any = ['One', 'Two', 'Three'];
+    values:  ReadonlyArray<string> | Promise<ReadonlyArray<string>> = ['One', 'Two', 'Three'];
     dropdownOpen: boolean = false;
     selectOnEnter: boolean = true;
     dropDirection: 'down' | 'up' | 'auto' = 'auto';
