@@ -245,7 +245,7 @@ export class InfiniteScrollDirective<T = any> implements OnInit, AfterContentIni
      * Reload the data without clearing the view.
      */
     reload(): void {
-        this._pages.forEach((page, i) => this.reloadPage(i));
+        this._pages?.forEach((page, i) => this.reloadPage(i));
     }
 
     /**
