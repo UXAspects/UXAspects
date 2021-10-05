@@ -201,6 +201,9 @@ export class InfiniteScrollDirective<T = any> implements OnInit, AfterContentIni
         });
     }
 
+    /**
+     * Used to reset and clear when a new promise collection is provided
+     */
     collectionReset(): void {
 
         // Reset the page counter.
