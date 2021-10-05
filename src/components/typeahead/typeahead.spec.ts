@@ -56,7 +56,7 @@ export class TypeaheadTestComponent {
     input: string = '';
 
     loadOptions(): Promise<ReadonlyArray<string>> {
-        return Promise.resolve(["Four", "Five"]);
+        return Promise.resolve(['Four', 'Five']);
     }
 
     changeOptions(): void {
@@ -139,7 +139,7 @@ describe('Typeahead Component', () => {
         expect(getTypeaheadItem(2).classList).not.toContain('disabled');
     });
 
-    it('should allow options to be changed to a promise', async () => {
+    it('should allow options to be changed to a promise', () => {
         component.changeOptions();
         fixture.detectChanges();
         typeaheadInput.click();
@@ -148,7 +148,7 @@ describe('Typeahead Component', () => {
         fixture.whenStable().then(() => {
             expect(getTypeaheadItem(0).innerText).toBe('Four');
             expect(getTypeaheadItem(1).innerText).toBe('Five');
-        })
+        });
     });
 
     function getTypeaheadItems(): NodeListOf<HTMLElement> {
