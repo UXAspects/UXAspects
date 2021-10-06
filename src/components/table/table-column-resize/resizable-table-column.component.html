@@ -10,8 +10,10 @@
     uxDrag
     uxFocusIndicator
     tabindex="0"
+    role="separator"
     aria-label="Column resize handle. Use arrow keys to change the column width."
     class="ux-resizable-table-column-handle"
+    [attr.aria-valuenow]="width"
     (onDragStart)="onDragStart($event)"
     (onDrag)="onDragMove($event, handle)"
     (onDragEnd)="onDragEnd()"
