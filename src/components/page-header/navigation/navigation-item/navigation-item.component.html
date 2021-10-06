@@ -9,8 +9,7 @@
         class="horizontal-navigation-button"
         [class.disabled]="_item.disabled"
         [class.selected]="_item.selected"
-        [class.open]="isOpen"
-        [attr.aria-selected]="_item.selected">
+        [class.open]="isOpen">
 
         <ng-container
             [ngTemplateOutlet]="navigationItemContent">
@@ -43,7 +42,6 @@
         class="horizontal-navigation-button"
         [class.disabled]="_item.disabled"
         [class.selected]="_item.selected"
-        [attr.aria-selected]="_item.selected"
         [routerLink]="_item.routerLink"
         [fragment]="_item.routerExtras?.fragment"
         [queryParams]="_item.routerExtras?.queryParams"
@@ -67,7 +65,6 @@
         class="horizontal-navigation-button"
         [class.disabled]="_item.disabled"
         [class.selected]="_item.selected"
-        [attr.aria-selected]="_item.selected"
         (click)="select()"
         [disabled]="_item.disabled">
 
