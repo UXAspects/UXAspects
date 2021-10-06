@@ -222,6 +222,10 @@ export class NumberPickerComponent implements ControlValueAccessor, OnDestroy, O
         this._propagateChange(value);
     }
 
+    _isFinite(number: number): boolean {
+        return Number.isFinite(number);
+    }
+
     @HostListener('focusin')
     onFocusIn(): void {
         this._focused = true;
