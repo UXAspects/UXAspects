@@ -335,6 +335,10 @@ export class InfiniteScrollDirective<T = any> implements OnInit, AfterContentIni
             // Invoke the callback load function, which returns a promose or plain data.
             const loadResult = this.load(request.pageNumber, request.pageSize, request.filter);
 
+            if (loadResult === null) {
+                return;
+            }
+
             const observable = Array.isArray(loadResult) ? of(loadResult) : from(loadResult);
 
             let completed: boolean = false;
