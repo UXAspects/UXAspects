@@ -8,7 +8,7 @@ let uniqueId: number = 1;
     templateUrl: './accordion-panel.component.html',
     host: {
         'class': 'panel panel-default',
-        'role': 'tab'
+        '[attr.aria-disabled]': 'disabled'
     }
 })
 export class AccordionPanelComponent {
