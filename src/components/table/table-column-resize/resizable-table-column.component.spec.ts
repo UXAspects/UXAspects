@@ -72,7 +72,7 @@ export class ResizableTableColumnComponent {
     }
 }
 
-fdescribe('Resizable table column Component', () => {
+describe('Resizable table column Component', () => {
     let fixture: ComponentFixture<ResizableTableColumnComponent>;
     let component: ResizableTableColumnComponent;
     let tableHeaderElements: NodeListOf<HTMLElement>;
