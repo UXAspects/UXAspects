@@ -202,27 +202,9 @@ export class InfiniteScrollDirective<T = any> implements OnInit, AfterContentIni
     }
 
     /**
-     * Used to reset and clear when a new promise collection is provided
-     */
-    collectionReset(): void {
-
-        // Reset the page counter.
-        this._nextPageNum = 0;
-
-        // // Clear the collection (without changing the reference).
-        if (this.collection) {
-            this.collection.length = 0;
-        }
-
-        if (this._pages) {
-            this.reload();
-        }
-    }
-
-    /**
      * Clear the collection. Future requests will load from page 0.
      */
-    reset(): void {
+    reset(clearSubscriptions: boolean = true): void {
         if (!this.enabled) {
             return;
         }
@@ -230,18 +212,18 @@ export class InfiniteScrollDirective<T = any> implements OnInit, AfterContentIni
         // Reset the page counter.
         this._nextPageNum = 0;
 
-        this._pages = [];
-
         // Clear the collection (without changing the reference).
         if (this.collection) {
             this.collection.length = 0;
         }
 
-        // Reset the exhausted flag, allowing the Load More button to appear.
-        this._isExhausted.next(false);
+        if (this._subscriptions && clearSubscriptions) {
+            this._pages = [];
 
-        // Cancel any pending requests
-        if (this._subscriptions) {
+            // Reset the exhausted flag, allowing the Load More button to appear.
+            this._isExhausted.next(false);
+
+            // Cancel any pending requests
             this._subscriptions.forEach(request => request.unsubscribe());
         }
     }
@@ -250,7 +232,7 @@ export class InfiniteScrollDirective<T = any> implements OnInit, AfterContentIni
      * Reload the data without clearing the view.
      */
     reload(): void {
-        this._pages.forEach((page, i) => this.reloadPage(i));
+        this._pages?.forEach((page, i) => this.reloadPage(i));
     }
 
     /**
