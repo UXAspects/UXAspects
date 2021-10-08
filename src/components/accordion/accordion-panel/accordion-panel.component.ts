@@ -7,8 +7,7 @@ let uniqueId: number = 1;
     selector: 'ux-accordion-panel',
     templateUrl: './accordion-panel.component.html',
     host: {
-        'class': 'panel panel-default',
-        '[attr.aria-disabled]': 'disabled'
+        'class': 'panel panel-default'
     }
 })
 export class AccordionPanelComponent {
