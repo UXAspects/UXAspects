@@ -41,7 +41,7 @@ export class AccordionComponent {
     ];
 }
 
-fdescribe('Accordion', () => {
+describe('Accordion', () => {
     let component: AccordionComponent;
     let fixture: ComponentFixture<AccordionComponent>;
     let nativeElement: HTMLElement;
@@ -78,7 +78,7 @@ fdescribe('Accordion', () => {
     it('should have the correct aria-disabled label', () => {
         accordionPanels = nativeElement.querySelectorAll('.panel');
         expect(accordionPanels[2].querySelector('.panel-heading').getAttribute('aria-disabled')).toBe('true');
-    })
+    });
 
 });
 
@@ -86,5 +86,5 @@ interface AccordionGroup {
     heading: string;
     content: string;
     open: boolean;
-    disabled?: boolean
+    disabled?: boolean;
 }

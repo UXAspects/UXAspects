@@ -110,9 +110,9 @@ describe('Resizable table column Component', () => {
 
     it('should have the current width as the aria-valenow label on the drag handles', () => {
         expect(tableHeaderElements[1].querySelector('.ux-resizable-table-column-handle').getAttribute('aria-valuenow')).toBe('260');
-    })
+    });
 
     it('should have the correct role of separator as the drag handle role', () => {
         expect(tableHeaderElements[1].querySelector('.ux-resizable-table-column-handle').getAttribute('role')).toBe('separator');
-    })
+    });
 });
