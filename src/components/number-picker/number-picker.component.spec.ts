@@ -540,6 +540,11 @@ describe('Number Picker Component - ngModel', () => {
 
         expect(numberPicker.classList.contains('ux-number-picker-invalid')).toBe(false);
     });
+
+    it('should have aira-valuemin and aria-valuemax as the min and max values', () => {
+        expect(input.getAttribute('aria-valuemin')).toBe('-10');
+        expect(input.getAttribute('aria-valuemax')).toBe('10');
+    });
 });
 
 @Component({
@@ -829,4 +834,9 @@ describe('Number Picker Component - Readonly', () => {
         });
 
     });
+
+    it('should not have aira-valuemin and aria-valuemax if the min and max values are null', async () => {
+        expect(input1.hasAttribute('aria-valuemin')).toBe(false);
+        expect(input1.hasAttribute('aria-valuemax')).toBe(false);
+    })
 });
