@@ -204,7 +204,7 @@ export class InfiniteScrollDirective<T = any> implements OnInit, AfterContentIni
     /**
      * Clear the collection. Future requests will load from page 0.
      */
-    reset(): void {
+    reset(clearSubscriptions: boolean = true): void {
         if (!this.enabled) {
             return;
         }
@@ -212,18 +212,18 @@ export class InfiniteScrollDirective<T = any> implements OnInit, AfterContentIni
         // Reset the page counter.
         this._nextPageNum = 0;
 
-        this._pages = [];
-
         // Clear the collection (without changing the reference).
         if (this.collection) {
             this.collection.length = 0;
         }
 
-        // Reset the exhausted flag, allowing the Load More button to appear.
-        this._isExhausted.next(false);
+        if (this._subscriptions && clearSubscriptions) {
+            this._pages = [];
 
-        // Cancel any pending requests
-        if (this._subscriptions) {
+            // Reset the exhausted flag, allowing the Load More button to appear.
+            this._isExhausted.next(false);
+
+            // Cancel any pending requests
             this._subscriptions.forEach(request => request.unsubscribe());
         }
     }
@@ -232,7 +232,7 @@ export class InfiniteScrollDirective<T = any> implements OnInit, AfterContentIni
      * Reload the data without clearing the view.
      */
     reload(): void {
-        this._pages.forEach((page, i) => this.reloadPage(i));
+        this._pages?.forEach((page, i) => this.reloadPage(i));
     }
 
     /**
@@ -316,6 +316,10 @@ export class InfiniteScrollDirective<T = any> implements OnInit, AfterContentIni
 
             // Invoke the callback load function, which returns a promose or plain data.
             const loadResult = this.load(request.pageNumber, request.pageSize, request.filter);
+
+            if (loadResult === null) {
+                return;
+            }
 
             const observable = Array.isArray(loadResult) ? of(loadResult) : from(loadResult);
 
