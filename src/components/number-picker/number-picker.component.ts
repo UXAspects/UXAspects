@@ -114,6 +114,14 @@ export class NumberPickerComponent implements ControlValueAccessor, OnDestroy, O
         return this.id + '-input';
     }
 
+    get _ariaValueMin(): number {
+        return this._ariaValue(this.min);
+    }
+
+    get _ariaValueMax(): number {
+        return this._ariaValue(this.max);
+    }
+
     /** Store the current valid state */
     _valid: boolean = true;
 
@@ -222,8 +230,8 @@ export class NumberPickerComponent implements ControlValueAccessor, OnDestroy, O
         this._propagateChange(value);
     }
 
-    _isFinite(value: number): boolean {
-        return Number.isFinite(value);
+    _ariaValue(value: number): number {
+        return Number.isFinite(value) ? value : null;
     }
 
     @HostListener('focusin')

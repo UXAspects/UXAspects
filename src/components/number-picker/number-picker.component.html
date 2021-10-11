@@ -15,9 +15,9 @@
     (wheel)="onScroll($event)"
     step="any"
     [disabled]="disabled"
-    [attr.aria-valuemin]="_isFinite(min) ? min : null"
+    [attr.aria-valuemin]="_ariaValueMin"
     [attr.aria-valuenow]="value"
-    [attr.aria-valuemax]="_isFinite(max) ? max : null"
+    [attr.aria-valuemax]="_ariaValueMax"
     [attr.aria-labelledby]="labelledBy">
 
 <div class="number-picker-controls">

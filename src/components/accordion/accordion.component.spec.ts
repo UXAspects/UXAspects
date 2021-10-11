@@ -63,11 +63,6 @@ describe('Accordion', () => {
         fixture.detectChanges();
     });
 
-
-    it('should initialise correctly', () => {
-        expect(component).toBeTruthy();
-    });
-
     it('should have the correct aria-expanded label', () => {
         accordionPanels = nativeElement.querySelectorAll('.panel');
         expect(accordionPanels[0].querySelector('.panel-heading').getAttribute('aria-expanded')).toBe('true');
