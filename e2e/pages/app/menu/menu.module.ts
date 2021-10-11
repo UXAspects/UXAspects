@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { AccessibilityModule, CheckboxModule, IconModule, MenuModule, StringFilterModule } from '@ux-aspects/ux-aspects';
+import { MenuAlignmentTestPageComponent } from './alignment/menu-alignment.testpage.component';
 import { MenuFallbackTestPageComponent } from './fallback/menu-fallback.testpage.component';
 import { MenuTestPageComponent } from './menu.testpage.component';
 
@@ -14,6 +15,10 @@ const ROUTES = [
     {
         path: 'fallback',
         component: MenuFallbackTestPageComponent
+    },
+    {
+        path: 'alignment',
+        component: MenuAlignmentTestPageComponent
     }
 ];
 
@@ -31,7 +36,8 @@ const ROUTES = [
     ],
     declarations: [
         MenuTestPageComponent,
-        MenuFallbackTestPageComponent
+        MenuFallbackTestPageComponent,
+        MenuAlignmentTestPageComponent
     ]
 })
 
