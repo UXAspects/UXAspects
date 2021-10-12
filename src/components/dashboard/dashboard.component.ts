@@ -38,7 +38,7 @@ export class DashboardComponent implements AfterViewInit, AfterContentInit, OnDe
     @Output() layoutChange = new EventEmitter<DashboardLayoutData[]>();
 
     @HostBinding('attr.aria-label') ariaLabel: string;
-    @HostBinding('attr.role') ariaRole: string = 'grid';
+    @HostBinding('attr.role') @Input() ariaRole: string = '';
 
     @ViewChild('dashboard', { static: true }) dashboardElement: ElementRef;
 

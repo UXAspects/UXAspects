@@ -103,7 +103,6 @@ export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestro
     @HostBinding('style.padding.px') padding: number = 0;
     @HostBinding('style.z-index') zIndex: number = null;
     @HostBinding('attr.aria-label') ariaLabel: string;
-    @HostBinding('attr.role') ariaRole: string = 'widget';
     @HostBinding('class.dragging') isDragging: boolean = false;
     @HostBinding('class.grabbing') isGrabbing: boolean = false;
     @HostBinding('class.resizing') isResizing: boolean = false;
