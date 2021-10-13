@@ -442,7 +442,7 @@ describe('MenuComponent', () => {
         expect(document.querySelector('.ux-menu').getAttribute('role')).toBe('menu');
     });
 
-    fit('should change the value of _alignment$ when the alignment input is changed', async () => {
+    it('should change the value of _alignment$ when the alignment input is changed', async () => {
         // expect alignment to be the default
         expect(component.trigger.menu._alignment$.getValue()).toBe('start');
 
