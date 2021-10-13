@@ -24,7 +24,8 @@ export class ChartsSparkChartsComponent extends BaseDocumentationSection impleme
             theme: 'chart3',
             value: 30,
             barHeight: 5,
-            inlineLabel: '30%'
+            inlineLabel: '30%',
+            ariaLabel: 'Spark Line indicator'
         },
         {
             theme: 'chart2',
@@ -39,13 +40,15 @@ export class ChartsSparkChartsComponent extends BaseDocumentationSection impleme
             value: 30,
             barHeight: 5,
             inlineLabel: '<div class="spark-label hidden-spark"><span class="x-large">30%</span></div>',
-            topLeftLabel: '<span class="spark-label hidden-xxs"><span class="small">STORAGE ON HOLD</span></span>'
+            topLeftLabel: '<span class="spark-label hidden-xxs"><span class="small">STORAGE ON HOLD</span></span>',
+            ariaLabel: 'Spark Line indicator - 30%'
         },
         {
             theme: 'chart4',
             value: 55,
             barHeight: 8,
-            topLeftLabel: '<span class="spark-label hidden-xxs"><span class="large">8.6</span><span class="medium light">&nbsp;GB&nbsp;Disk Space&nbsp;&nbsp;(55%)</span></span>'
+            topLeftLabel: '<span class="spark-label hidden-xxs"><span class="large">8.6</span><span class="medium light">&nbsp;GB&nbsp;Disk Space&nbsp;&nbsp;(55%)</span></span>',
+            ariaLabel: '8.6 Disk Space - 55%'
         },
         {
             theme: 'chart5',
@@ -54,7 +57,8 @@ export class ChartsSparkChartsComponent extends BaseDocumentationSection impleme
             topLeftLabel: '<span class="spark-label">21.7 MB</span>',
             topRightLabel: '<span class="spark-label">75.0 MB</span>',
             bottomLeftLabel: '<span class="spark-label">ITEMS ON HOLD</span>',
-            bottomRightLabel: '<span class="spark-label">TOTAL</span>'
+            bottomRightLabel: '<span class="spark-label">TOTAL</span>',
+            ariaLabel: 'Spark Line indicator - ITEMS ON HOLD'
         },
         {
             value: [70, 20, 10],
@@ -70,7 +74,8 @@ export class ChartsSparkChartsComponent extends BaseDocumentationSection impleme
             topLeftLabel: '30%',
             bottomLeftLabel: '<span class="spark-label hidden-xxxs"><span class="medium light">ITEMS ON HOLD</span></span>',
             topRightLabel: '<span class="spark-label hidden-spark"><span class="medium light">75.0 MB</span></span>',
-            bottomRightLabel: '<span class="spark-label hidden-xxs"><span class="medium light">TOTAL</span></span>'
+            bottomRightLabel: '<span class="spark-label hidden-xxs"><span class="medium light">TOTAL</span></span>',
+            ariaLabel: 'Spark Line indicator'
         }
     ];
 
