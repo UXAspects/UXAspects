@@ -1,14 +1,12 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { TypeaheadModule } from './typeahead.module';
 import { FormsModule } from '@angular/forms';
 import { InfiniteScrollModule } from '../../directives/infinite-scroll/index';
+import { ResizeModule } from '../../directives/resize/index';
 import { ScrollModule } from '../../directives/scroll/index';
 import { TypeaheadKeyService } from './typeahead-key.service';
-import { ResizeModule } from '../../directives/resize/index';
-import { of } from 'rxjs';
-import { delay } from 'rxjs/operators';
-import { CommonModule } from '@angular/common';
+import { TypeaheadModule } from './typeahead.module';
 
 @Component({
     selector: 'app-typeahead-test',
@@ -47,7 +45,7 @@ import { CommonModule } from '@angular/common';
 })
 export class TypeaheadTestComponent {
 
-    values: ReadonlyArray<string> = ['One', 'Two', 'Three'];
+    values:  ReadonlyArray<string> | Promise<ReadonlyArray<string>> = ['One', 'Two', 'Three'];
     dropdownOpen: boolean = false;
     selectOnEnter: boolean = true;
     dropDirection: 'down' | 'up' | 'auto' = 'auto';
@@ -56,6 +54,14 @@ export class TypeaheadTestComponent {
     recentOptionsMaxCount: number = 5;
     disabledOptions: string[] = [];
     input: string = '';
+
+    loadOptions(): Promise<ReadonlyArray<string>> {
+        return Promise.resolve(['Four', 'Five']);
+    }
+
+    changeOptions(): void {
+        this.values = this.loadOptions.bind(this);
+    }
 
     constructor(public typeaheadKeyService: TypeaheadKeyService<string>) {
     }
@@ -131,6 +137,18 @@ describe('Typeahead Component', () => {
         expect(getTypeaheadItem(0).classList).not.toContain('disabled');
         expect(getTypeaheadItem(1).classList).not.toContain('disabled');
         expect(getTypeaheadItem(2).classList).not.toContain('disabled');
+    });
+
+    it('should allow options to be changed to a promise', () => {
+        component.changeOptions();
+        fixture.detectChanges();
+        typeaheadInput.click();
+        fixture.detectChanges();
+
+        fixture.whenStable().then(() => {
+            expect(getTypeaheadItem(0).innerText).toBe('Four');
+            expect(getTypeaheadItem(1).innerText).toBe('Five');
+        });
     });
 
     function getTypeaheadItems(): NodeListOf<HTMLElement> {
