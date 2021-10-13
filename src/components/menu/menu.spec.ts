@@ -8,7 +8,7 @@ import { MenuModule } from './menu.module';
 @Component({
     selector: 'app-menu-test',
     template: `
-        <ux-menu #menu>
+        <ux-menu #menu [alignment]="_alignment">
             <button
                 type="button"
                 id="menu-item-1"
@@ -45,6 +45,7 @@ import { MenuModule } from './menu.module';
     `
 })
 export class MenuTestComponent {
+    _alignment = 'start';
     disabled: boolean = false;
     @ViewChild('menuTrigger', { static: true }) trigger: MenuTriggerDirective;
     @ViewChild('subMenuTrigger', { static: true }) subMenuTrigger: MenuTriggerDirective;
@@ -440,6 +441,20 @@ describe('MenuComponent', () => {
         // expect the ux-menu to contain the role
         expect(document.querySelector('.ux-menu').getAttribute('role')).toBe('menu');
     });
+
+    fit('should change the value of _alignment$ when the alignment input is changed', async () => {
+        // expect alignment to be the default
+        expect(component.trigger.menu._alignment$.getValue()).toBe('start');
+
+        // change the input
+        component._alignment = 'end';
+
+        // run change detection
+        await fixture.detectChanges();
+
+        // expect alignment to have changed
+        expect(component.trigger.menu._alignment$.getValue()).toBe('end');
+    })
 
 });
 
