@@ -51,8 +51,8 @@ export class MenuTestComponent {
     @ViewChild('menuTrigger', { static: true }) trigger: MenuTriggerDirective;
     @ViewChild('subMenuTrigger', { static: true }) subMenuTrigger: MenuTriggerDirective;
 
-    onActivate(_: MouseEvent | KeyboardEvent): void { };
-    onClick(_: MouseEvent): void { };
+    onActivate(_: MouseEvent | KeyboardEvent): void { }
+    onClick(_: MouseEvent): void { }
 }
 
 describe('MenuComponent', () => {
@@ -455,7 +455,7 @@ describe('MenuComponent', () => {
         await fixture.whenStable();
 
         // expect alignment to be the default
-        expect(await overlayPlacement.updatePosition).toHaveBeenCalledWith(jasmine.any(OverlayRef), 'bottom', 'end')
+        expect(await overlayPlacement.updatePosition).toHaveBeenCalledWith(jasmine.any(OverlayRef), 'bottom', 'end');
     });
 
 });
