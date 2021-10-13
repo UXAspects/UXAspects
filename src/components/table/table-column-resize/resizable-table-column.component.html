@@ -13,6 +13,7 @@
     role="separator"
     aria-label="Column resize handle. Use arrow keys to change the column width."
     class="ux-resizable-table-column-handle"
+    [attr.aria-valuemin]="minWidth"
     [attr.aria-valuenow]="width"
     (onDragStart)="onDragStart($event)"
     (onDrag)="onDragMove($event, handle)"
