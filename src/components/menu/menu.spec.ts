@@ -454,7 +454,7 @@ describe('MenuComponent', () => {
 
         // expect alignment to have changed
         expect(component.trigger.menu._alignment$.getValue()).toBe('end');
-    })
+    });
 
 });
 
