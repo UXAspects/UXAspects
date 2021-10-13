@@ -20,8 +20,8 @@ export const NUMBER_PICKER_VALUE_ACCESSOR: any = {
     }
 })
 export class NumberPickerComponent implements ControlValueAccessor, OnDestroy, OnChanges {
-    private _min: number = -Infinity;
-    private _max: number = Infinity;
+    private _min: number = undefined;
+    private _max: number = undefined;
     private _step: number | ((value: number, direction: StepDirection) => number) = 1;
     private _disabled: boolean = false;
     private _value: number = 0;
@@ -114,14 +114,6 @@ export class NumberPickerComponent implements ControlValueAccessor, OnDestroy, O
         return this.id + '-input';
     }
 
-    get _ariaValueMin(): number {
-        return this._ariaValue(this.min);
-    }
-
-    get _ariaValueMax(): number {
-        return this._ariaValue(this.max);
-    }
-
     /** Store the current valid state */
     _valid: boolean = true;
 
@@ -153,7 +145,7 @@ export class NumberPickerComponent implements ControlValueAccessor, OnDestroy, O
         }
 
         if (!this.disabled && !this.readonly) {
-            this.value = Math.max(Math.min(this.value + this.getStep(StepDirection.Increment), this.max), this.min);
+            this.value = Math.max(Math.min(this.value + this.getStep(StepDirection.Increment), this._isInfiniteValue(this.max)), this._isInfiniteValue(this.min, true));
 
             // account for javascripts terrible handling of floating point numbers
             this.value = parseFloat(this.value.toPrecision(this.precision));
@@ -169,7 +161,7 @@ export class NumberPickerComponent implements ControlValueAccessor, OnDestroy, O
         }
 
         if (!this.disabled && !this.readonly) {
-            this.value = Math.min(Math.max(this.value - this.getStep(StepDirection.Decrement), this.min), this.max);
+            this.value = Math.min(Math.max(this.value - this.getStep(StepDirection.Decrement), this._isInfiniteValue(this.min, true)), this._isInfiniteValue(this.max));
 
             // account for javascripts terrible handling of floating point numbers
             this.value = parseFloat(this.value.toPrecision(this.precision));
@@ -180,7 +172,7 @@ export class NumberPickerComponent implements ControlValueAccessor, OnDestroy, O
     }
 
     isValid(): boolean {
-        return (this.value >= this.min && this.value <= this.max);
+        return (this.value >= this._isInfiniteValue(this.min, true) && this.value <= this._isInfiniteValue(this.max));
     }
 
     onScroll(event: WheelEvent): void {
@@ -230,8 +222,8 @@ export class NumberPickerComponent implements ControlValueAccessor, OnDestroy, O
         this._propagateChange(value);
     }
 
-    _ariaValue(value: number): number {
-        return Number.isFinite(value) ? value : null;
+    _isInfiniteValue(value: number, min?: boolean): number {
+        return value ? value : min ? -Infinity : Infinity;
     }
 
     @HostListener('focusin')
