@@ -838,11 +838,11 @@ describe('Number Picker Component - Readonly', () => {
 
     });
 
-    it('should not have aria-valuemin as the min value is null', () => {
+    it('should not have aria-valuemin as the min value is undefined', () => {
         expect(input1.hasAttribute('aria-valuemin')).toBe(false);
     });
 
-    it('should not have aria-valuemax as the max value is null', () => {
+    it('should not have aria-valuemax as the max value is undefined', () => {
         expect(input1.hasAttribute('aria-valuemax')).toBe(false);
     });
 });
