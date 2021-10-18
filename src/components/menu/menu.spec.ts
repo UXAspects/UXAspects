@@ -576,3 +576,78 @@ describe('MenuTriggerDestroyTestComponent', () => {
     });
 
 });
+
+@Component({
+    selector: 'app-menu-anchor-test',
+    template: `
+        <div class="btn-group">
+            <button
+                type="button"
+                id="trigger"
+                class="btn button-secondary dropdown-toggle"
+                [uxMenuTriggerFor]="menu">
+                Actions
+            </button>
+        </div>
+
+        <ux-menu id="ux-menu-1" #menu>
+            <a type="button" href="javascript:alert('JavaScript Link!');" id="menu-item-1" uxMenuItem>
+                Anchor Link
+            </a>
+        </ux-menu>
+    `
+})
+export class MenuAnchorTestComponent { }
+
+describe('MenuAnchorTestComponent', () => {
+    let component: MenuAnchorTestComponent;
+    let fixture: ComponentFixture<MenuAnchorTestComponent>;
+    let nativeElement: HTMLElement;
+    let triggerElement: HTMLButtonElement;
+    let menuItem1: HTMLAnchorElement;
+    let overlayContainer: OverlayContainer;
+    let overlayContainerElement: HTMLElement;
+
+    beforeEach(async(() => {
+        TestBed.configureTestingModule({
+            imports: [MenuModule, NoopAnimationsModule],
+            declarations: [MenuAnchorTestComponent]
+        }).compileComponents();
+
+        // access the overlay container
+        inject([OverlayContainer], (oc: OverlayContainer) => {
+            overlayContainer = oc;
+            overlayContainerElement = oc.getContainerElement();
+        })();
+    }));
+
+    beforeEach(() => {
+        fixture = TestBed.createComponent(MenuAnchorTestComponent);
+        component = fixture.componentInstance;
+        nativeElement = fixture.nativeElement;
+        triggerElement = nativeElement.querySelector('#trigger');
+        menuItem1 = document.querySelector('#menu-item-1');
+
+        fixture.detectChanges();
+    });
+
+    fit('should invoke the href attribute on the anchor', async () => {
+        spyOn(window, 'alert');
+
+        // perform a click on the trigger element
+        triggerElement.click();
+
+        // run change detection
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        menuItem1 = overlayContainerElement.querySelector('#menu-item-1');
+
+        menuItem1.click();
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        expect(window.alert).toHaveBeenCalledWith(1);
+    });
+
+});
