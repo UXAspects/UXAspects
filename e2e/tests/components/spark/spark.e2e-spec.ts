@@ -60,7 +60,7 @@ describe('Spark Chart Tests', () => {
     });
 
     it('should have the correct segment aria label (multi value)', async () => {
-        expect(await page.getAriaLabel(page.multiValueChart)).toEqual('Segment One,Segment Two,Segment Three');
+        expect(await page.getAriaLabel(page.multiValueChart)).toEqual('Segment One, Segment Two, Segment Three');
     });
 
     it('should have the correct top left label (single value)', async () => {
