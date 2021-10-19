@@ -16,7 +16,7 @@ export class SparkComponent {
     @Input() bottomLeftLabel: string;
     @Input() bottomRightLabel: string;
     @Input() tooltip: string;
-    @Input('aria-label') ariaLabel: string | string[] = 'Spark Chart';
+    @Input('aria-label') ariaLabel: string | string[];
     @Input('aria-description') ariaDescription: string;
 
     private _trackColor: string;
@@ -79,7 +79,7 @@ export class SparkComponent {
         if (!Array.isArray(this.ariaLabel)) {
             return this.ariaLabel || this.tooltip;
         } else {
-            return this.ariaLabel.toString();
+            return this.ariaLabel.join(', ');
         }
     }
 }
