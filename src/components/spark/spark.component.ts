@@ -16,7 +16,7 @@ export class SparkComponent {
     @Input() bottomLeftLabel: string;
     @Input() bottomRightLabel: string;
     @Input() tooltip: string;
-    @Input('aria-label') ariaLabel: string | string[];
+    @Input('aria-label') ariaLabel: string | string[] = 'Spark Chart';
     @Input('aria-description') ariaDescription: string;
 
     private _trackColor: string;
