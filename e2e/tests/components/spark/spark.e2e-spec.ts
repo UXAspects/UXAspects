@@ -55,16 +55,12 @@ describe('Spark Chart Tests', () => {
         expect(await page.getAriaLabel(page.singleValueChart)).toBe('Spark Chart Aria');
     });
 
-    it('should have the correct aria label (multi value)', async () => {
-        expect(await page.getAriaLabel(page.multiValueChart)).toBe(null);
-    });
-
     it('should have the correct segment aria label (single value)', async () => {
         expect(await page.getSegmentAriaLabels(page.singleValueChart)).toEqual([]);
     });
 
     it('should have the correct segment aria label (multi value)', async () => {
-        expect(await page.getSegmentAriaLabels(page.multiValueChart)).toEqual(['Segment One', 'Segment Two', 'Segment Three']);
+        expect(await page.getAriaLabel(page.multiValueChart)).toEqual('Segment One,Segment Two,Segment Three');
     });
 
     it('should have the correct top left label (single value)', async () => {
