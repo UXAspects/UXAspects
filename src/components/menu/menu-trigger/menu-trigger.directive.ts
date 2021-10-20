@@ -355,11 +355,13 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
 
         const position = this._overlayRef.getConfig().positionStrategy as FlexibleConnectedPositionStrategy;
 
-        // add panelClass to positions
-        position.withPositions([
-            { ...position.positions[0], panelClass: this.menuAnimation(position.positions[0].originY)},
-            { ...position.positions[1], panelClass: this.menuAnimation(position.positions[1].originY)}
-        ]);
+        // add panelClass to position
+        if (position.positions.length === 2) {
+            position.withPositions([
+                { ...position.positions[0], panelClass: this.menuAnimation(position.positions[0].originY)},
+                { ...position.positions[1], panelClass: this.menuAnimation(position.positions[1].originY)}
+            ]);
+        }
 
         return this._overlayRef;
     }
