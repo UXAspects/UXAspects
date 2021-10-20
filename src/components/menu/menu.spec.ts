@@ -591,7 +591,7 @@ describe('MenuTriggerDestroyTestComponent', () => {
         </div>
 
         <ux-menu id="ux-menu-1" #menu>
-            <a type="button" href="javascript:alert('JavaScript Link!');" id="menu-item-1" uxMenuItem>
+            <a type="button" href="javascript:mockHref()" id="menu-item-1" uxMenuItem>
                 Anchor Link
             </a>
         </ux-menu>
@@ -630,24 +630,4 @@ describe('MenuAnchorTestComponent', () => {
 
         fixture.detectChanges();
     });
-
-    fit('should invoke the href attribute on the anchor', async () => {
-        spyOn(window, 'alert');
-
-        // perform a click on the trigger element
-        triggerElement.click();
-
-        // run change detection
-        fixture.detectChanges();
-        await fixture.whenStable();
-
-        menuItem1 = overlayContainerElement.querySelector('#menu-item-1');
-
-        menuItem1.click();
-        fixture.detectChanges();
-        await fixture.whenStable();
-
-        expect(window.alert).toHaveBeenCalledWith(1);
-    });
-
 });
