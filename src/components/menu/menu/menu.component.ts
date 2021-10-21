@@ -89,7 +89,6 @@ export class MenuComponent implements AfterContentInit, OnDestroy, OnChanges {
 
     /** Emit placement change */
     readonly _placement$ = new BehaviorSubject<AnchorPlacement>('bottom');
-    readonly _alignment$ = new BehaviorSubject<AnchorAlignment>('start');
 
     /** Access all child menu items for accessibility purposes */
     private readonly _items$ = new BehaviorSubject<(MenuItemComponent | MenuTabbableItemDirective)[]>([]);
@@ -151,10 +150,6 @@ export class MenuComponent implements AfterContentInit, OnDestroy, OnChanges {
 
         if (changes.placement && changes.placement.currentValue !== changes.placement.previousValue) {
             this._placement$.next(changes.placement.currentValue);
-        }
-
-        if (changes.alignment && changes.alignment.currentValue !== changes.alignment.previousValue) {
-            this._alignment$.next(changes.alignment.currentValue);
         }
     }
 

@@ -104,7 +104,7 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
         private readonly _viewContainerRef: ViewContainerRef,
         private readonly _focusOrigin: FocusIndicatorOriginService,
         private readonly _focusIndicatorService: FocusIndicatorService,
-        private readonly _overlayPlacement: OverlayPlacementService,
+        private readonly _overlayFallback: OverlayPlacementService,
         @Optional() private readonly _parentMenu: MenuComponent,
         @Optional() @Self() private readonly _menuItem: MenuItemComponent
     ) { }
@@ -135,8 +135,7 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
         this.menu._onKeydown$.pipe(takeUntil(this._onDestroy$))
             .subscribe(event => this.onMenuKeydown(event));
 
-        combineLatest([this.menu._placement$, this.menu._alignment$])
-            .pipe(takeUntil(this._onDestroy$))
+        this.menu._placement$.pipe(takeUntil(this._onDestroy$))
             .subscribe(() => {
                 if (this._isSubmenuTrigger) {
                     this.menu.placement = this.getSubMenuPlacement(this.menu.placement);
@@ -351,7 +350,7 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
             positionStrategy: strategy
         });
 
-        this._overlayPlacement.updatePosition(this._overlayRef, this.menu.placement, this.menu.alignment);
+        this._overlayFallback.updatePosition(this._overlayRef, this.menu.placement, this.menu.alignment);
 
         const position = this._overlayRef.getConfig().positionStrategy as FlexibleConnectedPositionStrategy;
 
