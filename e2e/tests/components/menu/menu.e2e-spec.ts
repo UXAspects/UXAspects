@@ -1,4 +1,4 @@
-import { $$, browser, by, element, Key, protractor } from 'protractor';
+import { $$, browser, by, element, Key } from 'protractor';
 import { imageCompare } from '../common/image-compare';
 import { MenuPage } from './menu.po.spec';
 
@@ -58,13 +58,11 @@ describe('Menu', () => {
     });
 
     it('should invoke href links when anchor tags are used as the menuItem', async () => {
-        protractor.ExpectedConditions.alertIsPresent();
-
         await page.openMenuBtn.click();
 
         await page.menuItem4.click();
 
-        let alert = await browser.switchTo().alert();
+        const alert = await browser.switchTo().alert();
 
         expect(await alert.getText()).toBe('href works!');
 
