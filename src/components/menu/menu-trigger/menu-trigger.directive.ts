@@ -104,7 +104,7 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
         private readonly _viewContainerRef: ViewContainerRef,
         private readonly _focusOrigin: FocusIndicatorOriginService,
         private readonly _focusIndicatorService: FocusIndicatorService,
-        private readonly _overlayFallback: OverlayPlacementService,
+        private readonly _overlayPlacement: OverlayPlacementService,
         @Optional() private readonly _parentMenu: MenuComponent,
         @Optional() @Self() private readonly _menuItem: MenuItemComponent
     ) { }
@@ -135,7 +135,8 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
         this.menu._onKeydown$.pipe(takeUntil(this._onDestroy$))
             .subscribe(event => this.onMenuKeydown(event));
 
-        this.menu._placement$.pipe(takeUntil(this._onDestroy$))
+        combineLatest([this.menu._placement$, this.menu._alignment$])
+            .pipe(takeUntil(this._onDestroy$))
             .subscribe(() => {
                 if (this._isSubmenuTrigger) {
                     this.menu.placement = this.getSubMenuPlacement(this.menu.placement);
@@ -350,15 +351,16 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
             positionStrategy: strategy
         });
 
-        this._overlayFallback.updatePosition(this._overlayRef, this.menu.placement, this.menu.alignment);
+        this._overlayPlacement.updatePosition(this._overlayRef, this.menu.placement, this.menu.alignment);
 
         const position = this._overlayRef.getConfig().positionStrategy as FlexibleConnectedPositionStrategy;
 
         // add panelClass to positions
-        position.withPositions([
-            { ...position.positions[0], panelClass: this.menuAnimation(position.positions[0].originY)},
-            { ...position.positions[1], panelClass: this.menuAnimation(position.positions[1].originY)}
-        ]);
+        position.withPositions(
+            position.positions.map((pos) => {
+                return { ...pos, panelClass: this.menuAnimation(pos.originY) };
+            })
+        );
 
         return this._overlayRef;
     }
