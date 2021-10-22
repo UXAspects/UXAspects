@@ -358,7 +358,7 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
         // add panelClass to positions
         position.withPositions(
             position.positions.map((pos) => {
-                return { ...pos, panelClass: this.menuAnimation(pos.originY) }
+                return { ...pos, panelClass: this.menuAnimation(pos.originY) };
             })
         );
 
