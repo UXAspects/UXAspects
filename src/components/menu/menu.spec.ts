@@ -1,14 +1,15 @@
-import { OverlayContainer } from '@angular/cdk/overlay';
+import { OverlayContainer, OverlayRef } from '@angular/cdk/overlay';
 import { Component, ViewChild } from '@angular/core';
 import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { OverlayPlacementService } from '../../services/overlay-placement';
 import { MenuTriggerDirective } from './menu-trigger/menu-trigger.directive';
 import { MenuModule } from './menu.module';
 
 @Component({
     selector: 'app-menu-test',
     template: `
-        <ux-menu #menu>
+        <ux-menu #menu [alignment]="alignment">
             <button
                 type="button"
                 id="menu-item-1"
@@ -45,6 +46,7 @@ import { MenuModule } from './menu.module';
     `
 })
 export class MenuTestComponent {
+    alignment = 'start';
     disabled: boolean = false;
     @ViewChild('menuTrigger', { static: true }) trigger: MenuTriggerDirective;
     @ViewChild('subMenuTrigger', { static: true }) subMenuTrigger: MenuTriggerDirective;
@@ -60,6 +62,7 @@ describe('MenuComponent', () => {
     let triggerElement: HTMLButtonElement;
     let overlayContainer: OverlayContainer;
     let overlayContainerElement: HTMLElement;
+    let overlayPlacement: OverlayPlacementService;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
@@ -83,11 +86,12 @@ describe('MenuComponent', () => {
         component = fixture.componentInstance;
         nativeElement = fixture.nativeElement;
         triggerElement = nativeElement.querySelector('#trigger');
+        overlayPlacement = TestBed.inject(OverlayPlacementService);
 
         fixture.detectChanges();
     });
 
-    it('should create not intially show the menus', () => {
+    it('should create not initially show the menus', () => {
         // attempt to find the .ux-menu elements
         expect(document.querySelectorAll('.ux-menu').length).toBe(0);
     });
@@ -439,6 +443,19 @@ describe('MenuComponent', () => {
 
         // expect the ux-menu to contain the role
         expect(document.querySelector('.ux-menu').getAttribute('role')).toBe('menu');
+    });
+
+    it('should change update the alignment when the alignment input is changed', async () => {
+        spyOn(overlayPlacement, 'updatePosition');
+
+        // change the input
+        component.alignment = 'end';
+
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        // expect alignment to be the default
+        expect(await overlayPlacement.updatePosition).toHaveBeenCalledWith(jasmine.any(OverlayRef), 'bottom', 'end');
     });
 
 });
