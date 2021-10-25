@@ -5,7 +5,7 @@ import {
     OriginConnectionPosition,
     OverlayConnectionPosition,
     OverlayRef,
-    VerticalConnectionPos
+    VerticalConnectionPos,
 } from '@angular/cdk/overlay';
 import { Injectable } from '@angular/core';
 import { AnchorPlacement } from '../../common/overlay/index';
@@ -15,7 +15,7 @@ import { AnchorPlacement } from '../../common/overlay/index';
 })
 export class OverlayPlacementService {
     /** Updates the position of the current menu. */
-    updatePosition(overlayRef: OverlayRef, placement: string, alignment: string, fallbackPlacement?: AnchorPlacement): void {
+    updatePosition(overlayRef: OverlayRef, placement: string, alignment: string, fallbackPlacement?: AnchorPlacement) {
         const position = overlayRef.getConfig().positionStrategy as FlexibleConnectedPositionStrategy;
         const origin = this.getOrigin(placement, alignment);
         const overlay = this.getOverlayPosition(placement, alignment);
