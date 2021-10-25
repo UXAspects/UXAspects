@@ -446,7 +446,7 @@ describe('MenuComponent', () => {
     });
 
     it('should change update the alignment when the alignment input is changed', async () => {
-        spyOn(overlayPlacement, 'updatePosition');
+        spyOn(overlayPlacement, 'updatePosition').and.callThrough();
 
         // change the input
         component.alignment = 'end';
