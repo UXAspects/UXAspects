@@ -1020,7 +1020,7 @@ export class DashboardService implements OnDestroy {
      */
     getPlaceholderColumnSpan(width: number): number {
 
-        const columnSpan = this.getColumnFromPx(width);
+        const columnSpan = this.getColumnFromPx(width, Rounding.RoundUpOverHalf);
 
         // if we arent dragging right or left then just return the column span
         if (this._actionWidget.direction !== ActionDirection.Right &&
