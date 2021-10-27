@@ -78,16 +78,8 @@ export class SparkComponent {
     getAriaLabel(): string | undefined {
         if (!Array.isArray(this.ariaLabel)) {
             return this.ariaLabel || this.tooltip;
-        }
-    }
-
-    /**
-     * If this is a multi-value chart and we have multiple aria
-     * labels then provide the appropriate label
-     */
-    getSegmentAriaLabel(segment: number): string | undefined {
-        if (Array.isArray(this.ariaLabel)) {
-            return this.ariaLabel[segment];
+        } else {
+            return this.ariaLabel.join(', ');
         }
     }
 }
