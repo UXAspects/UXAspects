@@ -971,8 +971,6 @@ export class SelectNullValueTestComponent {
     });
 
     options: string[] = ['One', 'Two', 'Three'];
-
-    onValueChange(): void { }
 }
 
 describe('Select Component - Null value', () => {
