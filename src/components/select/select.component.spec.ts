@@ -1,7 +1,7 @@
 import { O, SHIFT, TAB } from '@angular/cdk/keycodes';
 import { Component } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { dispatchKeyboardEvent } from '../../common/testing/dispatch-event';
 import { InfiniteScrollLoadFunction } from '../../directives/infinite-scroll/index';
@@ -942,4 +942,84 @@ describe('Select with recent options', () => {
         expect(tags.length).toBe(1);
     });
 
+});
+
+@Component({
+    selector: 'app-select-null-value-test',
+    template: `
+        <form [formGroup]="form">
+            <ux-select
+                formControlName="select"
+                [disabled]="disabled"
+                [required]="true"
+                [options]="options">
+            </ux-select>
+        </form>
+
+        <span class="info">
+            <span>select value: <span id="select-value">{{ form.get('select')?.value }}</span></span><br>
+            <span>select errors: <span id="select-errors">{{ (form.get('select')?.errors | json) }}</span></span>
+        </span>
+    `
+})
+export class SelectNullValueTestComponent {
+
+    disabled: boolean = true;
+
+    form = new FormGroup({
+        select: new FormControl(undefined, [Validators.required])
+    });
+
+    options: string[] = ['One', 'Two', 'Three'];
+
+    onValueChange(): void { }
+}
+
+describe('Select Component - Null value', () => {
+    let component: SelectNullValueTestComponent;
+    let fixture: ComponentFixture<SelectNullValueTestComponent>;
+    let nativeElement: HTMLElement;
+    let selectValue: HTMLSpanElement;
+    let selectErrors: HTMLSpanElement;
+
+    beforeEach(async(() => {
+        TestBed.configureTestingModule({
+            imports: [
+                SelectModule,
+                ReactiveFormsModule
+            ],
+            declarations: [SelectNullValueTestComponent],
+        })
+            .compileComponents();
+    }));
+
+    beforeEach(() => {
+        fixture = TestBed.createComponent(SelectNullValueTestComponent);
+        component = fixture.componentInstance;
+        nativeElement = fixture.nativeElement;
+        selectValue = nativeElement.querySelector('#select-value');
+        selectErrors = nativeElement.querySelector('#select-errors');
+    });
+
+    it('should remove required error once option has been selected', async () => {
+        component.disabled = false;
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        expect(selectValue.innerText).toBe('');
+        expect(selectErrors.innerText).toBe('{ "required": true }');
+
+        const input = nativeElement.querySelector<HTMLInputElement>('input');
+        console.log('file: select.component.spec.ts ~ line 1013 ~ fit ~ input', input);
+        input.click();
+        fixture.detectChanges();
+
+        const optionListItems = nativeElement.querySelectorAll<HTMLElement>('.ux-typeahead-all-options li');
+        optionListItems.item(0).click();
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        expect(selectValue.innerText).toBe('One');
+        expect(selectErrors.innerText).toBe('null');
+    });
 });
