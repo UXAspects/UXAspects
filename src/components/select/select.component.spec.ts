@@ -945,7 +945,7 @@ describe('Select with recent options', () => {
 });
 
 @Component({
-    selector: 'app-select-null-value-test',
+    selector: 'app-select-required-validator-test',
     template: `
         <form [formGroup]="form">
             <ux-select
@@ -955,14 +955,9 @@ describe('Select with recent options', () => {
                 [options]="options">
             </ux-select>
         </form>
-
-        <span class="info">
-            <span>select value: <span id="select-value">{{ form.get('select')?.value }}</span></span><br>
-            <span>select errors: <span id="select-errors">{{ (form.get('select')?.errors | json) }}</span></span>
-        </span>
     `
 })
-export class SelectNullValueTestComponent {
+export class SelectRequiredValidatorTestComponent {
 
     disabled: boolean = true;
 
@@ -973,12 +968,10 @@ export class SelectNullValueTestComponent {
     options: string[] = ['One', 'Two', 'Three'];
 }
 
-describe('Select Component - Null value', () => {
-    let component: SelectNullValueTestComponent;
-    let fixture: ComponentFixture<SelectNullValueTestComponent>;
+fdescribe('Select Component - Required Validator', () => {
+    let component: SelectRequiredValidatorTestComponent;
+    let fixture: ComponentFixture<SelectRequiredValidatorTestComponent>;
     let nativeElement: HTMLElement;
-    let selectValue: HTMLSpanElement;
-    let selectErrors: HTMLSpanElement;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
@@ -986,17 +979,15 @@ describe('Select Component - Null value', () => {
                 SelectModule,
                 ReactiveFormsModule
             ],
-            declarations: [SelectNullValueTestComponent],
+            declarations: [SelectRequiredValidatorTestComponent],
         })
             .compileComponents();
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(SelectNullValueTestComponent);
+        fixture = TestBed.createComponent(SelectRequiredValidatorTestComponent);
         component = fixture.componentInstance;
         nativeElement = fixture.nativeElement;
-        selectValue = nativeElement.querySelector('#select-value');
-        selectErrors = nativeElement.querySelector('#select-errors');
     });
 
     it('should remove required error once option has been selected', async () => {
@@ -1004,11 +995,11 @@ describe('Select Component - Null value', () => {
         fixture.detectChanges();
         await fixture.whenStable();
 
-        expect(selectValue.innerText).toBe('');
-        expect(selectErrors.innerText).toBe('{ "required": true }');
+        console.log(component.form);
+        expect(component.form.controls.select.value).toEqual(null);
+        expect(component.form.controls.select.errors).toEqual({ "required": true });
 
         const input = nativeElement.querySelector<HTMLInputElement>('input');
-        console.log('file: select.component.spec.ts ~ line 1013 ~ fit ~ input', input);
         input.click();
         fixture.detectChanges();
 
@@ -1017,7 +1008,7 @@ describe('Select Component - Null value', () => {
         fixture.detectChanges();
         await fixture.whenStable();
 
-        expect(selectValue.innerText).toBe('One');
-        expect(selectErrors.innerText).toBe('null');
+        expect(component.form.controls.select.value).toEqual('One');
+        expect(component.form.controls.select.errors).toEqual(null);
     });
 });
