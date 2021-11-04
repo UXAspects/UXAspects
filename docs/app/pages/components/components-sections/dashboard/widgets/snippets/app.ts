@@ -8,8 +8,7 @@ import {ActionConfig, ActionStatus, DashboardOptions, SelectConfig} from '@ux-as
 })
 export class AppComponent implements AfterViewInit {
     fixedMode: boolean = false;
-    textWidgetEditable: boolean = true;
-    private _dashboardPadding: number = 5;
+    private _dashboardPadding: number = 8;
 
     get dashboardPadding(): number {
         return this._dashboardPadding;
@@ -24,22 +23,22 @@ export class AppComponent implements AfterViewInit {
     options: DashboardOptions = {
         columns: 4,
         padding: this._dashboardPadding,
-        rowHeight: 110,
+        rowHeight: 120,
         emptyRow: false,
         minWidth: 187
     };
 
-    status: ActionStatus = {label: 'Waiting...', icon: 'radial'};
+    status: ActionStatus = {label: 'Pending', icon: 'radial'};
 
     actions: ActionConfig[] = [];
 
-    tableHeader: ReadonlyArray<string> = ['1', '2', '3'];
+    tableHeader: ReadonlyArray<string> = ['Event', 'Time'];
 
     tableData: ReadonlyArray<string[]> = [
-        ['a', 'b', 'c'],
-        ['d', 'e', 'f'],
-        ['g', 'h', 'i'],
-        ['j', 'k', 'l'],
+        ['Created', 'Jan 3, 9:23 AM'],
+        ['Updated Title', 'Jan 3, 10:16 AM'],
+        ['Assigned', 'Jan 3, 10:45 AM'],
+        ['Resolved', 'Jan 5, 6:23 PM']
     ];
 
     selectOptions: ReadonlyArray<SelectConfig> = [
@@ -48,9 +47,9 @@ export class AppComponent implements AfterViewInit {
     ];
 
     loremIpsum: string = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut eget elit libero. Praesent placerat iaculis urna, ac iaculis ipsum consectetur quis. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Nunc nec faucibus magna, vel condimentum elit. Mauris auctor purus ut risus mattis, non pharetra sem ornare. Etiam interdum elementum elit, ut vulputate eros vestibulum nec. Fusce sed odio finibus justo mattis aliquam. Curabitur pulvinar, elit sit amet mollis feugiat, augue justo consectetur augue, sed elementum metus orci ac risus. Mauris elementum, tellus malesuada porttitor convallis, ligula ligula pulvinar diam, vitae ornare sapien velit at nulla.';
+    loremIpsum2: string = this.loremIpsum + ' ' + this.loremIpsum;
 
     @ViewChild('iconDecline') iconDecline: TemplateRef<void>;
-    lastAction: string = '-';
 
     ngAfterViewInit() {
         this.actions.push(
@@ -60,6 +59,8 @@ export class AppComponent implements AfterViewInit {
     }
 
     handleActionChange(action: string): void {
-        this.lastAction = action;
+        this.status = (action === 'accept')
+            ? {label: 'Accepted', icon: 'active'}
+            : {label: 'Declined', iconTemplate: this.iconDecline};
     }
 }

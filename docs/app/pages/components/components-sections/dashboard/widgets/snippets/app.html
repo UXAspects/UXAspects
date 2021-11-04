@@ -1,32 +1,9 @@
 <ux-dashboard
     #dashboard
+    id="dashboardWidgetContainer"
     class="customizable-dashboard"
     [class.dashboard-grabbing]="dashboard.isGrabbing"
     [options]="options">
-
-    <ux-dashboard-text-widget
-        class="widget"
-        id="widget-text"
-        name="Text Widget"
-        heading="Text Widget"
-        [fixedMode]="fixedMode"
-        [text]="loremIpsum"
-        [editable]="textWidgetEditable"
-        [colSpan]="2"
-        [rowSpan]="2">
-    </ux-dashboard-text-widget>
-
-    <ux-dashboard-table-widget
-        class="widget"
-        id="widget-table"
-        name="Table Widget"
-        heading="Table Widget"
-        [fixedMode]="fixedMode"
-        [header]="tableHeader"
-        [data]="tableData"
-        [colSpan]="2"
-        [rowSpan]="2">
-    </ux-dashboard-table-widget>
 
     <ux-dashboard-actions-widget
         class="widget"
@@ -34,14 +11,26 @@
         name="Actions Widget"
         heading="Actions Widget"
         [fixedMode]="fixedMode"
+        [colSpan]="2"
         [status]="status"
         [actions]="actions"
-        [colSpan]="2"
         (actionSelected)="handleActionChange($event)">
         <ng-template #iconDecline>
             <span class="custom-icon"><b>X</b></span>
         </ng-template>
     </ux-dashboard-actions-widget>
+
+    <ux-dashboard-table-widget
+        class="widget"
+        id="widget-table"
+        name="Table Widget"
+        heading="Table Widget"
+        [fixedMode]="fixedMode"
+        [colSpan]="2"
+        [rowSpan]="2"
+        [header]="tableHeader"
+        [data]="tableData">
+    </ux-dashboard-table-widget>
 
     <ux-dashboard-select-widget
         class="widget"
@@ -49,8 +38,33 @@
         name="Select Widget"
         heading="Select Widget"
         [fixedMode]="fixedMode"
+        [colSpan]="2"
         [options]="selectOptions"
         value="0">
     </ux-dashboard-select-widget>
+
+    <ux-dashboard-text-widget
+        class="widget"
+        id="widget-text"
+        name="Text Widget"
+        heading="Text Widget"
+        [fixedMode]="fixedMode"
+        [colSpan]="4"
+        [rowSpan]="2"
+        [text]="loremIpsum2"
+        [editable]="true">
+    </ux-dashboard-text-widget>
+
+    <ux-dashboard-text-widget
+        class="widget"
+        id="widget-text-readonly"
+        name="Read-only Text Widget"
+        heading="Read-only Text Widget"
+        [fixedMode]="fixedMode"
+        [colSpan]="4"
+        [rowSpan]="2"
+        [text]="loremIpsum2"
+        [editable]="false">
+    </ux-dashboard-text-widget>
 
 </ux-dashboard>

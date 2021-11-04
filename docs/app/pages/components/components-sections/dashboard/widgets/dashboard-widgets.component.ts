@@ -24,7 +24,6 @@ export class ComponentsDashboardWidgetsComponent extends BaseDocumentationSectio
     };
 
     fixedMode: boolean = false;
-    textWidgetEditable: boolean = true;
     private _dashboardPadding: number = 8;
 
     get dashboardPadding(): number {
