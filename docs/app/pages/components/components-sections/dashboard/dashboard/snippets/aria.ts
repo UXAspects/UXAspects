@@ -1,9 +1,10 @@
-...
-grabStartAnnouncement(widget: DashboardWidgetComponent): string {
-  return `${ widget.id } has been grabbed`;
-}
+export class DashboardComponent {
 
-grabConfirmAnnouncement(widget: DashboardWidgetComponent): string {
-  return `${ widget.id } has been resized to ${ widget.height }`;
+  grabStartAnnouncement(widget): string {
+    return `${ widget.id } has been grabbed`;
+  }
+
+  grabConfirmAnnouncement(widget): string {
+    return `${ widget.id } has been resized to ${ widget.height }`;
+  }
 }
-...
