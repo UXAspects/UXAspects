@@ -107,4 +107,12 @@ describe('Resizable table column Component', () => {
     it('should not display column handle when handleVisible is false', () => {
         expect(tableHeaderElements[2].classList.contains('ux-resizable-table-hide-handle')).toBe(true);
     });
+
+    it('should have the current width as the aria-valenow label on the drag handles', () => {
+        expect(tableHeaderElements[1].querySelector('.ux-resizable-table-column-handle').getAttribute('aria-valuenow')).toBe('260');
+    });
+
+    it('should have the correct role of separator as the drag handle role', () => {
+        expect(tableHeaderElements[1].querySelector('.ux-resizable-table-column-handle').getAttribute('role')).toBe('separator');
+    });
 });
