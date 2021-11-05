@@ -4,6 +4,7 @@
     [options]="options">
 
     <ux-dashboard-widget id="analytics-1-widget"
+        #widget1
         name="Usage Analytics"
         [colSpan]="4"
         [rowSpan]="2"
@@ -251,26 +252,47 @@
         Specify the announcement that is made whenever an item cannot be moved.
     </tr>
     <tr uxd-api-property name="uxGrabResizeFailAnnouncement" type="(widget: DashboardWidgetComponent, direction: ActionDirection) => string | string">
-        Specify the announcement thqt is made whenever an item cannot be resized.
+        Specify the announcement that is made whenever an item cannot be resized.
     </tr>
     <tr uxd-api-property name="uxGrabConfirmAnnouncement" type="(widget: DashboardWidgetComponent) => string | string">
-        Specify the announcement made whenever the moving/resizing is commited.
+        Specify the announcement made whenever the moving/resizing is committed.
     </tr>
     <tr uxd-api-property name="uxGrabCancelAnnouncement" type="(widget: DashboardWidgetComponent) => string | string">
         Specify the announcement made whenever the moving/resizing is cancelled.
     </tr>
 </uxd-api-properties>
 
-<hr>
+<h4>Accessibility</h4>
 
-<h4 class="mt-0">Accessibility</h4>
-
-<p>By default, the <code>ux-dashboard</code> component comes with keyboard accessibility and controls. The <code>ux-dashboard-widget</code> elements inside the <code>ux-dashboard</code> can be moved and resized using the keyboard.</p>
-<p>To move a widget it must have the <code>uxDashboardWidgetDragHandle</code> attribute to an element as detailed above. With the drag handle focused pressing space will "grab" the <code>ux-dashboard-widget</code>. Use the arrow keys to move the widget up, down, left and right provided there is sufficient space for the widget. Once the widget is in the desired position, press the space key to "place" the widget. The other widgets will automatically arrange depending on the movement.</p>
-<p>To resize a widget with the keyboard "grab" the widget the same way as detailed above. Hold the control key and use the arrow keys to resize the widget provided there is enough space to do so. Once the widget is the desired size, press the space key to "place" the widget. Widgets also cannot be resized under their minimum colspan and rowspan.</p>
+<p>
+    By default, the <code>ux-dashboard</code> component comes with keyboard accessibility and controls. The <code>ux-dashboard-widget</code>
+    elements inside the <code>ux-dashboard</code> can be moved and resized using the keyboard.
+</p>
+<p>
+    To move a widget it must have the <code>uxDashboardWidgetDragHandle</code> attribute to an element as detailed above.
+    With the drag handle focused pressing space will "grab" the <code>ux-dashboard-widget</code>.
+    Use the arrow keys to move the widget up, down, left and right provided there is sufficient space for the widget.
+    Once the widget is in the desired position, press the space key to "place" the widget. The other widgets will
+    automatically arrange depending on the movement.
+</p>
+<p>
+    To resize a widget with the keyboard "grab" the widget the same way as detailed above. Hold the control key and use
+    the arrow keys to resize the widget provided there is enough space to do so. Once the widget is the desired size,
+    press the space key to "place" the widget. Widgets also cannot be resized under their minimum colspan and rowspan.
+</p>
 <p>Below is an example of how to customise aria strings:</p>
 
-<uxd-snippet language="html" [content]="snippets.compiled.ariaHtml"></uxd-snippet>
+
+
+<ux-tabset [minimal]="false">
+    <ux-tab heading="HTML">
+        <uxd-snippet language="html" [content]="snippets.compiled.ariaHtml"></uxd-snippet>
+    </ux-tab>
+
+    <ux-tab heading="TypeScript">
+        <uxd-snippet language="javascript" [content]="snippets.compiled.ariaTs"></uxd-snippet>
+    </ux-tab>
+</ux-tabset>
 
 <hr>
 
