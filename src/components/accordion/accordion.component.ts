@@ -7,7 +7,6 @@ import { AccordionService } from './accordion.service';
     providers: [ AccordionService ],
     host: {
         'class': 'panel-group',
-        'role': 'tablist',
         'aria-multiselectable': 'true'
     }
 })
