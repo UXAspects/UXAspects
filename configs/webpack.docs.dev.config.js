@@ -138,7 +138,7 @@ module.exports = {
                             [
                                 '@babel/preset-env',
                                 {
-                                    targets: ['chrome 94', 'ie 11'],
+                                    targets: ['chrome 84', 'ie 11'],
                                     modules: false,
                                     exclude: ['transform-typeof-symbol'], // 'transform-typeof-symbol' generates slower code
                                 },
