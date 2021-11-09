@@ -1,7 +1,7 @@
 version: "3"
 services:
     selenium:
-        image: selenium/standalone-chrome:95.0.4638.54-chromedriver-95.0.4638.17
+        image: selenium/standalone-chrome:4.0.0-20211102
         container_name: uxa-selenium
         ports:
             - "4444:4444"
