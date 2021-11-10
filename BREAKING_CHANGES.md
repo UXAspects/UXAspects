@@ -1,3 +1,6 @@
+# 4.x to 5.0
+* Angular 10 is no longer supported
+
 # 3.x to 4.0
 * Angular 9 is no longer supported.
 * The `hpe-*` icon set has been removed. Use the `ux-icon` component instead.
