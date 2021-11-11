@@ -1,19 +1,7 @@
-<ux-dashboard-widget
-    #widget1
-    id="analytics-1-widget"
-    name="Usage Analytics">
-
-    ...
-
-    <button class="widget-grab-handle"
-        uxDashboardGrabHandle
-        uxDashboardWidgetDragHandle
-        uxGrabAriaLabel="Drag Handle"
-        [uxGrabStartAnnouncement]="grabStartAnnouncement(widget1)"
-        [uxGrabConfirmAnnouncement]="grabConfirmAnnouncement(widget1)">
-        <ux-icon name="pan"></ux-icon>
-    </button>
-
-    ...
-
-</ux-dashboard-widget>
+<button
+    uxDashboardGrabHandle
+    [uxGrabChangeSuccessAnnouncement]="getChangeSuccessAnnouncement"
+    uxDashboardWidgetDragHandle
+>
+    <ux-icon name="pan"></ux-icon>
+</button>

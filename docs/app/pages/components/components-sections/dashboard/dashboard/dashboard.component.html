@@ -265,22 +265,30 @@
 <h4>Accessibility</h4>
 
 <p>
-    By default, the <code>ux-dashboard</code> component comes with keyboard accessibility and controls. The <code>ux-dashboard-widget</code>
-    elements inside the <code>ux-dashboard</code> can be moved and resized using the keyboard.
+    The <code>ux-dashboard-widget</code> elements inside the <code>ux-dashboard</code> can be moved and resized using
+    the keyboard.
 </p>
 <p>
-    To move a widget it must have the <code>uxDashboardWidgetDragHandle</code> directive to an element as detailed above.
-    With the drag handle focused pressing space will "grab" the <code>ux-dashboard-widget</code>.
-    Use the arrow keys to move the widget up, down, left and right provided there is sufficient space for the widget.
-    Once the widget is in the desired position, press the space key to "place" the widget. The other widgets will
-    automatically arrange depending on the movement.
+    To move a widget it must have the <code>uxDashboardWidgetDragHandle</code> directive to an element as detailed
+    above.
+    With the drag handle focused pressing <strong>space</strong> will "grab" the <code>ux-dashboard-widget</code>.
+    Use the <strong>arrow keys</strong> to move the widget up, down, left and right provided there is sufficient space
+    for the widget.
+    Once the widget is in the desired position, press the <strong>space</strong> key to "place" the widget.
+    The other widgets will automatically arrange depending on the movement.
 </p>
 <p>
-    To resize a widget with the keyboard "grab" the widget the same way as detailed above. Hold the control key and use
-    the arrow keys to resize the widget provided there is enough space to do so. Once the widget is the desired size,
-    press the space key to "place" the widget. Widgets cannot be resized under their <code>minColSpan</code> and <code>minRowSpan</code>.
+    To resize a widget with the keyboard "grab" the widget the same way as detailed above.
+    Hold the <strong>control</strong> key and use the <strong>arrow keys</strong> to resize the widget provided there is
+    enough space to do so.
+    Once the widget is the desired size, press the <strong>space</strong> key to "place" the widget.
+    Widgets cannot be resized under their <code>minColSpan</code> and <code>minRowSpan</code>.
 </p>
-<p>Below is an example of how to customise ARIA strings:</p>
+<p>
+    A number of dynamic strings are used to support users of screen readers and other assistive technologies.
+    The inputs to <code>uxDashboardGrabHandle</code> can be used to customize and localize those strings.
+    In most cases, it will be necessary to bind a function in order to generate the required output.
+</p>
 
 <ux-tabset [minimal]="false">
     <ux-tab heading="HTML">
@@ -291,6 +299,11 @@
         <uxd-snippet language="javascript" [content]="snippets.compiled.ariaTs"></uxd-snippet>
     </ux-tab>
 </ux-tabset>
+
+<p>
+    Check <a href="https://github.com/UXAspects/UXAspects/blob/master/src/components/dashboard/grab-handle/grab-handle.service.ts">grab-handle.service.ts</a>
+    to see how the default strings are generated.
+</p>
 
 <h4>Source code</h4>
 
