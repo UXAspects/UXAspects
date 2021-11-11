@@ -20,7 +20,9 @@
     "angularCompilerOptions": {
         "skipMetadataEmit": true,
         "fullTemplateTypeCheck": true,
-        "preserveWhitespaces": true
+        "preserveWhitespaces": true,
+        "enableIvy": true,
+        "compilationMode": "partial"
     },
     "files": ["./docs/main.ts", "./docs/polyfills.ts"]
 }
