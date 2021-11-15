@@ -4,20 +4,13 @@ import { Subject } from 'rxjs';
 import { debounceTime, takeUntil } from 'rxjs/operators';
 import { DateFormatter } from '../../pipes/date-formatter/date-formatter.type';
 import { DateTimePickerTimezone, differenceBetweenDates, timezones as defaultTimezones } from '../date-time-picker/date-time-picker.utils';
-import { DATE_RANGE_PICKER_TOKEN } from './date-range-picker.token';
 import { DateRangeService } from './date-range.service';
 
 @Component({
     selector: 'ux-date-range-picker',
     templateUrl: './date-range-picker.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    providers: [
-        DateRangeService,
-        {
-            provide: DATE_RANGE_PICKER_TOKEN,
-            useExisting: DateRangePickerComponent
-        }
-    ]
+    providers: [DateRangeService]
 })
 export class DateRangePickerComponent implements OnDestroy {
 

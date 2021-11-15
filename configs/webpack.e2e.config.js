@@ -13,8 +13,7 @@ module.exports = {
     mode: 'production',
 
     resolve: {
-        extensions: ['.ts', '.js'],
-        alias: rxAlias(),
+        extensions: ['.ts', '.js', '.mjs'],
     },
 
     entry: {
@@ -113,6 +112,12 @@ module.exports = {
                         cacheDirectory: true,
                     },
                 },
+            },
+            {
+                test: /\.m?js/,
+                resolve: {
+                    fullySpecified: false
+                }
             },
         ],
     },

@@ -35,8 +35,7 @@ module.exports = {
     target: ['web', 'es5'],
 
     resolve: {
-        extensions: ['.ts', '.js'],
-        alias: rxAlias(),
+        extensions: ['.ts', '.js', '.mjs'],
     },
 
     resolveLoader: {
@@ -153,6 +152,12 @@ module.exports = {
                         cacheDirectory: true,
                     },
                 },
+            },
+            {
+                test: /\.m?js/,
+                resolve: {
+                    fullySpecified: false
+                }
             },
         ],
     },
