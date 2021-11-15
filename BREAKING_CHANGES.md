@@ -1,5 +1,5 @@
 # 4.x to 5.0
-* Angular 10 is no longer supported
+* Angular 10 and 11 is no longer supported
 
 # 3.x to 4.0
 * Angular 9 is no longer supported.
