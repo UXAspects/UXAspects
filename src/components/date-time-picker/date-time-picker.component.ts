@@ -1,8 +1,10 @@
 import { WeekDay } from '@angular/common';
-import { AfterViewInit, ChangeDetectionStrategy, Component, EventEmitter, Input, OnDestroy, Optional, Output, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, EventEmitter, Inject, Input, OnDestroy, OnInit, Optional, Output } from '@angular/core';
 import { Subject } from 'rxjs';
 import { distinctUntilChanged, takeUntil } from 'rxjs/operators';
+import { DateRangePickerComponent } from '../date-range-picker';
 import { DateRangeOptions } from '../date-range-picker/date-range-picker.directive';
+import { DATE_RANGE_PICKER_TOKEN } from '../date-range-picker/date-range-picker.token';
 import { DateRangePicker, DateRangeService } from '../date-range-picker/date-range.service';
 import { DatePickerMode, DateTimePickerService } from './date-time-picker.service';
 import { dateComparator, DateTimePickerTimezone, isDateAfter, isDateBefore, timezoneComparator } from './date-time-picker.utils';
@@ -200,7 +202,8 @@ export class DateTimePickerComponent implements OnInit, AfterViewInit, OnDestroy
     constructor(
         public datepicker: DateTimePickerService,
         @Optional() private _rangeService: DateRangeService,
-        @Optional() private _rangeOptions: DateRangeOptions) {
+        @Optional() private _rangeOptions: DateRangeOptions,
+        @Inject(DATE_RANGE_PICKER_TOKEN) private dateRangePicker: DateRangePickerComponent) {
 
         datepicker.selected$.pipe(distinctUntilChanged(dateComparator), takeUntil(this._onDestroy))
             .subscribe(date => this.dateChange.emit(date));
