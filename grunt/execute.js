@@ -5,7 +5,6 @@ const scripts = join(cwd(), 'scripts');
 const uxaScripts = join(cwd(), 'node_modules', '@ux-aspects', 'ux-aspects-scripts', 'bin');
 const downlevelDts = join(cwd(), 'node_modules', 'downlevel-dts', 'index.js');
 const ngPackagr = join(cwd(), 'node_modules', 'ng-packagr', 'cli', 'main.js');
-const webpack = join(cwd(), 'node_modules', 'webpack', 'bin', 'webpack.js');
 
 module.exports = {
     iconset: {
@@ -45,10 +44,9 @@ module.exports = {
         }
     },
     webpack_documentation: {
-        src: [webpack],
+        src: [join(scripts, 'build.mjs')],
         options: {
-            nodeargs: ['--max-old-space-size=4096'],
-            args: ['--config', 'configs/webpack.docs.prod.config.mjs']
+            nodeargs: ['--max-old-space-size=4096']
         }
     },
 };
