@@ -45,13 +45,13 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
      * See the `displayProperty` property for details of using a custom object.
      */
     @Input()
-    get tags() {
+    get tags(): ReadonlyArray<T> {
         if (!this._tags) {
             this._tags = [];
         }
         return this._tags;
     }
-    set tags(value: ReadonlyArray<T>) {
+    set tags(value: T | ReadonlyArray<T>) {
         this._tags = Array.isArray(value) ? value : [];
     }
 

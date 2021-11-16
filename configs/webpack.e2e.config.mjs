@@ -1,15 +1,13 @@
-const {
-    IndexHtmlWebpackPlugin,
-} = require('@angular-devkit/build-angular/src/webpack/plugins/index-html-webpack-plugin');
-const { AngularWebpackPlugin } = require('@ngtools/webpack');
-const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const { join } = require('path');
-const { cwd } = require('process');
-const rxAlias = require('rxjs/_esm5/path-mapping');
-const TerserPlugin = require('terser-webpack-plugin');
+import IndexHtmlWebpackPlugin from '@angular-devkit/build-angular/src/webpack/plugins/index-html-webpack-plugin';
+import { AngularWebpackPlugin } from '@ngtools/webpack';
+import CssMinimizerPlugin from 'css-minimizer-webpack-plugin';
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+import { join } from 'path';
+import { cwd } from 'process';
+import TerserPlugin from 'terser-webpack-plugin';
+import linkerPlugin from '@angular/compiler-cli/linker/babel';
 
-module.exports = {
+export default {
     mode: 'production',
 
     resolve: {
@@ -44,6 +42,17 @@ module.exports = {
                     },
                     '@ngtools/webpack',
                 ],
+            },
+            {
+                test: /\.[cm]?js$/,
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                        cacheDirectory: true,
+                        compact: false,
+                        plugins: [linkerPlugin],
+                    },
+                },
             },
             {
                 test: /\.html$/,

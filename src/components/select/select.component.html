@@ -119,7 +119,7 @@
         [recentOptionsHeadingTemplate]="recentOptionsHeadingTemplate"
         (optionSelected)="_singleOptionSelected($event)"
         (highlightedElementChange)="highlightedElement = $event"
-        (recentOptionsChange)="recentOptionsChange.emit($event)">
+        (recentOptionsChange)="recentOptionsChange.emit($any($event))">
 
     </ux-typeahead>
 

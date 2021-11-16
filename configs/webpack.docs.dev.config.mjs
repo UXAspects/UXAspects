@@ -1,15 +1,16 @@
-const {
-    IndexHtmlWebpackPlugin,
-} = require('@angular-devkit/build-angular/src/webpack/plugins/index-html-webpack-plugin');
-const { AngularWebpackPlugin } = require('@ngtools/webpack');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
-const fs = require('fs');
-const gracefulFs = require('graceful-fs');
-const { join } = require('path');
-const { cwd } = require('process');
-const rxAlias = require('rxjs/_esm5/path-mapping');
-const { DefinePlugin } = require('webpack');
-const ProgressPlugin = require('webpack/lib/ProgressPlugin');
+import { IndexHtmlWebpackPlugin } from '@angular-devkit/build-angular/src/webpack/plugins/index-html-webpack-plugin.js';
+import { AngularWebpackPlugin } from '@ngtools/webpack';
+import CopyWebpackPlugin from 'copy-webpack-plugin';
+import fs from 'fs';
+import gracefulFs from 'graceful-fs';
+import { join } from 'path';
+import { cwd } from 'process';
+import webpack from 'webpack';
+import ProgressPlugin from 'webpack/lib/ProgressPlugin.js';
+import linkerPlugin from '@angular/compiler-cli/linker/babel';
+import { createRequire } from 'module';
+
+const require = createRequire(import.meta.url);
 
 const CssLoaderWithSourceMap = {
     loader: 'css-loader',
@@ -29,7 +30,7 @@ const LessLoaderWithSourceMap = {
 // Node has a limit to the number of files that can be open - prevent the error
 gracefulFs.gracefulify(fs);
 
-module.exports = {
+export default {
     mode: 'development',
     devtool: false,
     target: ['web', 'es5'],
@@ -64,6 +65,17 @@ module.exports = {
                 test: /\.ts$/,
                 exclude: /snippets/,
                 use: '@ngtools/webpack',
+            },
+            {
+                test: /\.[cm]?js$/,
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                        cacheDirectory: true,
+                        compact: false,
+                        plugins: [linkerPlugin],
+                    },
+                },
             },
             {
                 test: /\.html$/,
@@ -129,8 +141,8 @@ module.exports = {
             {
                 test: /\.m?js/,
                 resolve: {
-                    fullySpecified: false
-                }
+                    fullySpecified: false,
+                },
             },
         ],
     },
@@ -165,7 +177,14 @@ module.exports = {
         new IndexHtmlWebpackPlugin({
             indexPath: './docs/index.html',
             outputPath: 'index.html',
-            entrypoints: ['polyfills', 'styles', 'main'],
+            entrypoints: [
+                ['polyfills', true],
+                ['styles', true],
+                ['main', true],
+                ['common', true],
+                ['vendor', true],
+                ['runtime', true],
+            ],
             noModuleEntrypoints: [],
             moduleEntrypoints: [],
             sri: false,
@@ -196,7 +215,7 @@ module.exports = {
             tsconfig: join(cwd(), 'tsconfig.json'),
         }),
 
-        new DefinePlugin({
+        new webpack.DefinePlugin({
             VERSION: JSON.stringify(require('../src/package.json').version),
             PRODUCTION: false,
         }),

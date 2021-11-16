@@ -1,8 +1,8 @@
-const { join } = require('path');
-const { cwd } = require('process');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+import { join } from 'path';
+import { cwd } from 'process';
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 
-module.exports = {
+export default {
 
     mode: 'production',
 
@@ -32,5 +32,4 @@ module.exports = {
             filename: 'ux-aspects.css'
         })
     ]
-
 };

@@ -1,18 +1,19 @@
-const {
-    IndexHtmlWebpackPlugin,
-} = require('@angular-devkit/build-angular/src/webpack/plugins/index-html-webpack-plugin');
-const { BuildOptimizerWebpackPlugin } = require('@angular-devkit/build-optimizer');
-const { AngularWebpackPlugin } = require('@ngtools/webpack');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
-const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
-const fs = require('fs');
-const gracefulFs = require('graceful-fs');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const { join } = require('path');
-const { cwd } = require('process');
-const rxAlias = require('rxjs/_esm5/path-mapping');
-const TerserPlugin = require('terser-webpack-plugin');
-const { DefinePlugin } = require('webpack');
+import { IndexHtmlWebpackPlugin } from '@angular-devkit/build-angular/src/webpack/plugins/index-html-webpack-plugin.js';
+import { BuildOptimizerWebpackPlugin } from '@angular-devkit/build-optimizer';
+import { AngularWebpackPlugin } from '@ngtools/webpack';
+import CopyWebpackPlugin from 'copy-webpack-plugin';
+import CssMinimizerPlugin from 'css-minimizer-webpack-plugin';
+import fs from 'fs';
+import gracefulFs from 'graceful-fs';
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+import { join } from 'path';
+import { cwd } from 'process';
+import TerserPlugin from 'terser-webpack-plugin';
+import webpack from 'webpack';
+import linkerPlugin from '@angular/compiler-cli/linker/babel';
+import { createRequire } from 'module';
+
+const require = createRequire(import.meta.url);
 
 const CssLoader = {
     loader: 'css-loader',
@@ -24,7 +25,7 @@ const CssLoader = {
 // Node has a limit to the number of files that can be open - prevent the error
 gracefulFs.gracefulify(fs);
 
-module.exports = {
+export default {
     mode: 'production',
     devtool: false,
     stats: 'minimal',
@@ -68,6 +69,17 @@ module.exports = {
                     },
                     '@ngtools/webpack',
                 ],
+            },
+            {
+                test: /\.[cm]?js$/,
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                        cacheDirectory: true,
+                        compact: false,
+                        plugins: [linkerPlugin],
+                    },
+                },
             },
             {
                 test: /\.js$/,
@@ -140,11 +152,10 @@ module.exports = {
             {
                 test: /\.m?js/,
                 resolve: {
-                    fullySpecified: false
-                }
+                    fullySpecified: false,
+                },
             },
         ],
-        
     },
 
     optimization: {
@@ -212,7 +223,14 @@ module.exports = {
         new IndexHtmlWebpackPlugin({
             indexPath: './docs/index.html',
             outputPath: 'index.html',
-            entrypoints: ['polyfills', 'styles', 'main'],
+            entrypoints: [
+                ['polyfills', true],
+                ['styles', true],
+                ['main', true],
+                ['common', true],
+                ['vendor', true],
+                ['runtime', true],
+            ],
             noModuleEntrypoints: [],
             moduleEntrypoints: [],
             sri: false,
@@ -258,7 +276,7 @@ module.exports = {
 
         new BuildOptimizerWebpackPlugin(),
 
-        new DefinePlugin({
+        new webpack.DefinePlugin({
             VERSION: JSON.stringify(require('../src/package.json').version),
             PRODUCTION: true,
         }),

@@ -230,15 +230,15 @@ export class TimePickerComponent implements ControlValueAccessor {
         return valid;
     }
 
-    hourChange(value: string): void {
+    hourChange(value: string | number): void {
 
         // if the value is empty then emit nothing
-        if (value && value.trim() === '') {
+        if (value && typeof value === 'string' && value.trim() === '') {
             return;
         }
 
         // convert the string to a number
-        let hour = parseInt(value);
+        let hour = typeof value === 'number' ? value : parseInt(value);
 
         // ensure the hours is valid
         if (!isNaN(hour)) {
@@ -280,10 +280,10 @@ export class TimePickerComponent implements ControlValueAccessor {
         this.setHour(hour);
     }
 
-    minuteChange(value: string): void {
+    minuteChange(value: string | number): void {
 
         // convert the string to a number
-        let minute = parseInt(value);
+        let minute = typeof value === 'number' ? value : parseInt(value);
         const currentMinute = this.value.getMinutes();
 
         // if the value hasn't changed, do nothing
@@ -306,10 +306,10 @@ export class TimePickerComponent implements ControlValueAccessor {
         this.setMinute(isNaN(minute) ? currentMinute : minute);
     }
 
-    secondChange(value: string): void {
+    secondChange(value: string | number): void {
 
         // convert the string to a number
-        let second = parseInt(value);
+        let second = typeof value === 'number' ? value : parseInt(value);
         const currentSecond = this.value.getSeconds();
 
         // if the value hasn't changed, do nothing

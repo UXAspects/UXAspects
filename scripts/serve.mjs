@@ -1,12 +1,14 @@
-const webpack = require('webpack');
-const WebpackDevServer = require('webpack-dev-server');
-const { ngPackagr } = require('ng-packagr');
-const { join } = require('path');
-const { argv, cwd } = require('process');
-const express = require('express');
-const https = require('https');
-const { existsSync, readFileSync } = require('fs');
-const cors = require('cors');
+import webpack from 'webpack';
+import WebpackDevServer from 'webpack-dev-server';
+import { ngPackagr } from 'ng-packagr';
+import { join } from 'path';
+import { argv, cwd } from 'process';
+import express from 'express';
+import https from 'https';
+import { existsSync, readFileSync } from 'fs';
+import cors from 'cors';
+import webpackConfig from '../configs/webpack.dev.config.mjs';
+
 
 /**
  * This script will:
@@ -20,7 +22,6 @@ const cors = require('cors');
 
 const wdsPort = parseInt(argv[2]) || 8080;
 const plunkerPort = wdsPort + 10;
-const webpackConfig = require(join(cwd(), 'configs', 'webpack.dev.config'));
 
 serveDocumentation();
 buildAndWatchAngularLibrary();
@@ -54,7 +55,7 @@ function buildAndWatchAngularLibrary() {
         .subscribe();
 }
 
-function servePlunkerAssets() {    
+function servePlunkerAssets() {
     // start a very basic express server to access the plunker library
     const plunkerServer = express();
     plunkerServer.use(cors());

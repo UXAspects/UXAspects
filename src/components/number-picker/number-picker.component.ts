@@ -139,7 +139,7 @@ export class NumberPickerComponent implements ControlValueAccessor, OnDestroy, O
         return typeof this._step === 'number' ? this._step : this._step(this.value, direction);
     }
 
-    increment(event?: MouseEvent | KeyboardEvent): void {
+    increment(event?: Event): void {
         if (event) {
             event.preventDefault();
         }
@@ -155,7 +155,7 @@ export class NumberPickerComponent implements ControlValueAccessor, OnDestroy, O
         }
     }
 
-    decrement(event?: MouseEvent | KeyboardEvent): void {
+    decrement(event?: Event): void {
         if (event) {
             event.preventDefault();
         }

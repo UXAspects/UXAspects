@@ -48,7 +48,7 @@ module.exports = {
         src: [webpack],
         options: {
             nodeargs: ['--max-old-space-size=4096'],
-            args: ['--config', 'configs/webpack.docs.prod.config.js']
+            args: ['--config', 'configs/webpack.docs.prod.config.mjs']
         }
     },
 };

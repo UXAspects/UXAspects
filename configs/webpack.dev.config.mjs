@@ -1,10 +1,10 @@
 // Master config for running docs + assets in webpack-dev-server
 
-const docsConfig = require('./webpack.docs.dev.config.js');
-const cssAssetsConfig = require('./webpack.css-assets.dev.config.js');
+import docsConfig from './webpack.docs.dev.config.mjs';
+import cssAssetsConfig from './webpack.css-assets.dev.config.mjs';
 
 // ensure we run them in development mode
 docsConfig.mode = 'development';
 cssAssetsConfig.mode = 'development';
 
-module.exports = [docsConfig, cssAssetsConfig];
+export default [docsConfig, cssAssetsConfig];
