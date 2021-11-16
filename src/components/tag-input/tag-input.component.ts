@@ -484,9 +484,6 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
             let input: string = null;
             if (event.clipboardData) {
                 input = event.clipboardData.getData('text/plain');
-            } else if ((<any>window).clipboardData) {
-                // Internet Explorer only
-                input = (<any>window).clipboardData.getData('Text');
             }
 
             // Commit the clipboard text directly
