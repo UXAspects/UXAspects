@@ -6,7 +6,7 @@ const { JUnitXmlReporter } = require('jasmine-reporters');
 const { SpecReporter } = require('jasmine-spec-reporter');
 const webpack = require('webpack');
 const express = require('express');
-const webpackConfig = require('../configs/webpack.e2e.config');
+const webpackConfig = require('../configs/webpack.e2e.config.mjs');
 
 const e2eHostPort = 4000;
 const e2eHostAddress = env.E2E_HOST_ADDRESS || 'localhost';
@@ -16,109 +16,110 @@ const screenshotOutputDir = join(outputDir, 'screenshots');
 
 // Configuration for running Protractor on Jenkins
 exports.config = {
-  directConnect: true,
-  chromeDriver: require('chromedriver').path,
-  baseUrl: `http://${e2eHostAddress}:${e2eHostPort}/#/`,
+    directConnect: true,
+    chromeDriver: require('chromedriver').path,
+    baseUrl: `http://${ e2eHostAddress }:${ e2eHostPort }/#/`,
 
-  capabilities: {
-    browserName: 'chrome',
-    chromeOptions: {
-      args: [
-        "--headless",
-        "--disable-gpu",
-        "--no-sandbox",
-        "--disable-dev-shm-usage",
-        "--window-size=800x600",
-        "--log-level=1"
-      ],
-      w3c: false
+    capabilities: {
+        browserName: 'chrome',
+        chromeOptions: {
+            args: [
+                '--headless',
+                '--disable-gpu',
+                '--no-sandbox',
+                '--disable-dev-shm-usage',
+                '--window-size=800x600',
+                '--log-level=1'
+            ],
+            w3c: false
+        },
+        shardTestFiles: true,
+        maxInstances: 5
     },
-    shardTestFiles: true,
-    maxInstances: 5
-  },
 
-  maxSessions: 3,
+    maxSessions: 3,
 
-  framework: 'jasmine',
+    framework: 'jasmine',
 
-  jasmineNodeOpts: {
-    defaultTimeoutInterval: 30000,
-    showTiming: true,
-    print: function () { }
-  },
-
-  beforeLaunch: onBeforeLaunch,
-  afterLaunch: onAfterLaunch,
-
-  // Spec patterns are relative to this config file
-  specs: ['./tests/**/**/*.e2e-spec.ts'],
-
-  plugins: [
-    {
-      package: 'protractor-image-comparison',
-      options: {
-        baselineFolder: join(cwd(), './e2e/screenshots'),
-        formatImageName: `{tag}-{logName}-{width}x{height}`,
-        screenshotPath: screenshotOutputDir,
-        savePerInstance: true,
-        autoSaveBaseline: false,
-        ignoreAntialiasing: true
-      },
+    jasmineNodeOpts: {
+        defaultTimeoutInterval: 30000,
+        showTiming: true,
+        print: function () {
+        }
     },
-    {
-      package: 'protractor-console-plugin',
-      failOnError: true,
-      logWarnings: false,
-      exclude: [
-        new RegExp(/favicon.ico/, 'g'),
-        'Invalid Host/Origin header',
-        '[WDS] Disconnected!',
-        /sockjs-node\/info/
-      ]
-    }
-  ],
 
-  useAllAngular2AppRoots: true,
+    beforeLaunch: onBeforeLaunch,
+    afterLaunch: onAfterLaunch,
 
-  onPrepare: function () {
+    // Spec patterns are relative to this config file
+    specs: ['./tests/**/**/*.e2e-spec.ts'],
 
-    require('ts-node').register({
-      project: 'e2e/tsconfig.e2e.json'
-    });
+    plugins: [
+        {
+            package: 'protractor-image-comparison',
+            options: {
+                baselineFolder: join(cwd(), './e2e/screenshots'),
+                formatImageName: `{tag}-{logName}-{width}x{height}`,
+                screenshotPath: screenshotOutputDir,
+                savePerInstance: true,
+                autoSaveBaseline: false,
+                ignoreAntialiasing: true
+            },
+        },
+        {
+            package: 'protractor-console-plugin',
+            failOnError: true,
+            logWarnings: false,
+            exclude: [
+                new RegExp(/favicon.ico/, 'g'),
+                'Invalid Host/Origin header',
+                '[WDS] Disconnected!',
+                /sockjs-node\/info/
+            ]
+        }
+    ],
 
-    mkdirpSync(junitDir);
+    useAllAngular2AppRoots: true,
 
-    // returning the promise makes protractor wait for the reporter config before executing tests
-    return browser.getProcessedConfig().then(function (config) {
-      browser.driver.getCapabilities().then(function (caps) {
-        browser.browserName = caps.get('browserName');
-      });
+    onPrepare: function () {
 
-      const browserName = config.capabilities.browserName;
+        require('ts-node').register({
+            project: 'e2e/tsconfig.e2e.json'
+        });
 
-      // Add reporter which will output results in XML format
-      jasmine.getEnv().addReporter(
-        new JUnitXmlReporter({
-          consolidateAll: false,
-          savePath: junitDir,
-          filePrefix: `${browserName}.`
-        })
-      );
+        mkdirpSync(junitDir);
 
-      jasmine.getEnv().addReporter(
-        new SpecReporter({
-          spec: {
-            displayStacktrace: true
-          },
-          summary: {
-            displayErrorMessages: true,
-            displayFailed: true,
-            displayDuration: false
-          }
-        })
-      );
-    });
-  },
+        // returning the promise makes protractor wait for the reporter config before executing tests
+        return browser.getProcessedConfig().then(function (config) {
+            browser.driver.getCapabilities().then(function (caps) {
+                browser.browserName = caps.get('browserName');
+            });
+
+            const browserName = config.capabilities.browserName;
+
+            // Add reporter which will output results in XML format
+            jasmine.getEnv().addReporter(
+                new JUnitXmlReporter({
+                    consolidateAll: false,
+                    savePath: junitDir,
+                    filePrefix: `${ browserName }.`
+                })
+            );
+
+            jasmine.getEnv().addReporter(
+                new SpecReporter({
+                    spec: {
+                        displayStacktrace: true
+                    },
+                    summary: {
+                        displayErrorMessages: true,
+                        displayFailed: true,
+                        displayDuration: false
+                    }
+                })
+            );
+        });
+    },
 };
 
 let webServer;
@@ -144,7 +145,7 @@ async function startWebServer() {
             }
 
             webServer = express().use(express.static(join(__dirname, 'dist'))).listen(e2eHostPort);
-            console.log(`Webserver is listening on port ${e2eHostPort}.`);
+            console.log(`Webserver is listening on port ${ e2eHostPort }.`);
 
             resolve();
         });

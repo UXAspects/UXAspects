@@ -31,19 +31,16 @@ function serveDocumentation() {
     const compiler = webpack(webpackConfig);
 
     // Start Webpack after the library has initially compiled
-    const server = new WebpackDevServer(compiler, {
-        writeToDisk: true,
-        historyApiFallback: true,
-        stats: 'minimal',
-        overlay: true,
-        headers: {
-            'Access-Control-Allow-Origin': '*',
-        },
-        disableHostCheck: true, // https://github.com/webpack/webpack-dev-server/issues/1604
-    });
+    const server = new WebpackDevServer({
+        ...webpackConfig.devServer,
+        port: wdsPort,
+        host: '127.0.0.1',
+    }, compiler);
 
     // begin dev server
-    server.listen(wdsPort, '127.0.0.1');
+    server.startCallback(() => {
+        console.log(`Documentation site is now available at http://localhost:${ wdsPort }`);
+    });
 }
 
 function buildAndWatchAngularLibrary() {
@@ -81,5 +78,5 @@ function servePlunkerAssets() {
             },
             plunkerServer
         )
-        .listen(plunkerPort, () => console.info(`Serving plunker assets at https://localhost:${plunkerPort}`));
+        .listen(plunkerPort, () => console.info(`Serving plunker assets at https://localhost:${ plunkerPort }`));
 }

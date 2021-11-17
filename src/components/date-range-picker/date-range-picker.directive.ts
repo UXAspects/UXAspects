@@ -26,6 +26,7 @@ export class DateRangePickerDirective {
         this._options.picker = picker;
     }
 
-    constructor(@Self() private _options: DateRangeOptions) { }
+    constructor(@Self() private _options: DateRangeOptions) {
+    }
 
 }
