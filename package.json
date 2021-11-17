@@ -129,6 +129,8 @@
     "marked": "^0.8.0",
     "mini-css-extract-plugin": "^1.5.1",
     "ng-packagr": "^13.0.3",
+    "postcss-import": "^14.0.2",
+    "postcss-preset-env": "^7.0.0",
     "protractor": "^7.0.0",
     "protractor-console-plugin": "^0.1.1",
     "protractor-image-comparison": "^3.3.0",
