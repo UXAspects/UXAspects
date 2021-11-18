@@ -1,7 +1,7 @@
-import { IndexHtmlWebpackPlugin } from '@angular-devkit/build-angular/src/webpack/plugins/index-html-webpack-plugin.js';
-import { generateEntryPoints } from '@angular-devkit/build-angular/src/utils/package-chunk-sort.js';
+const { IndexHtmlWebpackPlugin } = require('@angular-devkit/build-angular/src/webpack/plugins/index-html-webpack-plugin.js');
+const { generateEntryPoints } = require('@angular-devkit/build-angular/src/utils/package-chunk-sort.js');
 
-export async function getIndexConfig(wco) {
+async function getIndexConfig(wco) {
     return {
         module: {
             rules: [
@@ -24,3 +24,7 @@ export async function getIndexConfig(wco) {
         ]
     }
 }
+
+module.exports = {
+    getIndexConfig
+};

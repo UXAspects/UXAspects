@@ -1,12 +1,11 @@
-const { env } = require('process');
+const { cwd, env } = require('process');
 const { join } = require('path');
 const { mkdirpSync } = require('fs-extra');
-const { cwd } = require('process');
 const { JUnitXmlReporter } = require('jasmine-reporters');
 const { SpecReporter } = require('jasmine-spec-reporter');
 const webpack = require('webpack');
 const express = require('express');
-const webpackConfig = require('../configs/webpack.e2e.config.mjs');
+const webpackConfig = require('../configs/webpack.e2e.config.js');
 
 const e2eHostPort = 4000;
 const e2eHostAddress = env.E2E_HOST_ADDRESS || 'localhost';
@@ -137,9 +136,10 @@ function onAfterLaunch() {
 }
 
 async function startWebServer() {
-    return new Promise((resolve, reject) => {
+    return new Promise(async (resolve, reject) => {
         console.log('Starting webpack compilation...');
-        webpack(webpackConfig, (err, stats) => {
+        const config = await webpackConfig();
+        webpack(config, (err, stats) => {
             if (err || stats.hasErrors()) {
                 reject(err || 'Webpack compilation failed.');
             }

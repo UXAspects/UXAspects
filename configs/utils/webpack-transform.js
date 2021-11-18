@@ -1,4 +1,4 @@
-export function applyWebpackTransforms(config) {
+function applyWebpackTransforms(config) {
     // apply some transformations to modify the angular cli configuration
     const snippetExts = ['.ts', '.js', '.html', '.css', '.scss', '.less'];
 
@@ -10,4 +10,8 @@ export function applyWebpackTransforms(config) {
     }
 
     return config;
+}
+
+module.exports = {
+    applyWebpackTransforms
 }

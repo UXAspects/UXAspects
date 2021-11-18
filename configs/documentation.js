@@ -1,11 +1,11 @@
-import { join } from 'path';
-import { cwd } from 'process';
+const { join } = require('path');
+const { cwd } = require('process');
 
 /**
  * The development documentation configuration.
  * @type import('@angular-devkit/build-angular/src/utils/normalize-builder-schema').NormalizedBrowserBuilderSchema
  */
-export const developmentConfiguration = {
+const developmentConfiguration = {
     outputPath: 'dist/docs',
     index: 'docs/index.html',
     main: 'docs/main.ts',
@@ -55,7 +55,7 @@ export const developmentConfiguration = {
  * The production documentation configuration.
  * @type import('@angular-devkit/build-angular/src/utils/normalize-builder-schema').NormalizedBrowserBuilderSchema
  */
-export const productionConfiguration = {
+const productionConfiguration = {
     ...developmentConfiguration,
     buildOptimizer: true,
     vendorChunk: false,
@@ -82,4 +82,9 @@ export const productionConfiguration = {
         }
     ],
     outputHashing: 'all'
+}
+
+module.exports = {
+    developmentConfiguration,
+    productionConfiguration
 }

@@ -37,7 +37,7 @@ module.exports = {
         }
     },
     webpack_documentation: {
-        src: [join(scripts, 'build.mjs')],
+        src: [join(scripts, 'build.js')],
         options: {
             nodeargs: ['--max-old-space-size=4096']
         }

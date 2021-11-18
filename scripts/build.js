@@ -1,5 +1,5 @@
-import webpack from 'webpack';
-import webpackConfig from '../configs/webpack.docs.prod.config.mjs';
+const webpack = require('webpack');
+const webpackConfig = require('../configs/webpack.docs.prod.config.js');
 
 // run webpack to compile
 webpack(webpackConfig, (err, stats) => {

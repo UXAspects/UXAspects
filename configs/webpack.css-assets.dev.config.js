@@ -1,8 +1,8 @@
-import { join } from 'path';
-import { cwd } from 'process';
-import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+const { join } = require('path');
+const { cwd } = require('process');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
-export default {
+module.exports = {
 
     mode: 'production',
 

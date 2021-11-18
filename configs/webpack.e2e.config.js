@@ -1,6 +1,6 @@
-import { generateAngularWebpackConfig } from './utils/generate-angular-webpack-config.mjs';
-import { join } from 'path';
-import { cwd } from 'process';
+const { generateAngularWebpackConfig } = require('./utils/generate-angular-webpack-config.js');
+const { join } = require('path');
+const { cwd } = require('process');
 
 /**
  * The e2e configuration.
@@ -28,4 +28,14 @@ const e2eConfiguration = {
     index: './e2e/pages/index.html',
 };
 
-export default await generateAngularWebpackConfig('ux-aspects-e2e', join(cwd(), 'e2e'), join(cwd(), 'e2e', 'pages', 'app'), e2eConfiguration);
+module.exports = async () => {
+    const config = await generateAngularWebpackConfig('ux-aspects-e2e', join(cwd(), 'e2e'), join(cwd(), 'e2e', 'pages', 'app'), e2eConfiguration);
+    return ({
+        ...config,
+        devServer: {
+            ...config.devServer,
+            port: 4000,
+            host: '127.0.0.1',
+        }
+    });
+};

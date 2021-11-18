@@ -1,9 +1,6 @@
-import webpack from 'webpack';
-import { createRequire } from 'module';
+const webpack = require('webpack');
 
-const require = createRequire(import.meta.url);
-
-export async function getDocumentationConfig() {
+async function getDocumentationConfig() {
     return {
         resolveLoader: {
             alias: {
@@ -47,3 +44,7 @@ export async function getDocumentationConfig() {
         ]
     };
 }
+
+module.exports = {
+    getDocumentationConfig,
+};

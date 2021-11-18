@@ -28,10 +28,10 @@
         "postpack": "mv src_package.json src/package.json",
         "prepack": "mv src/package.json src_package.json",
         "setversion": "ux-setversion package.json package-lock.json src/package.json",
-        "start:e2e": "node --max-old-space-size=8192 ./scripts/serve-e2e.mjs",
+        "start:e2e": "webpack serve --config=configs/webpack.e2e.config.js",
         "start:karma": "karma start",
-        "start": "node --max-old-space-size=8192 ./scripts/serve.mjs",
-        "test:e2e": "grunt e2e",
+        "start": "node --max-old-space-size=8192 ./scripts/serve.js",
+        "test:e2e": "node --max-old-space-size=8192 ./scripts/protractor.js",
         "test:karma": "karma start --single-run",
         "test": "karma start --single-run && grunt e2e"
     },
