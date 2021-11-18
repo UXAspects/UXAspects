@@ -4,7 +4,7 @@ const { mkdirpSync } = require('fs-extra');
 const { JUnitXmlReporter } = require('jasmine-reporters');
 const { SpecReporter } = require('jasmine-spec-reporter');
 const webpack = require('webpack');
-const express = require('express');
+const WebpackDevServer = require('webpack-dev-server');
 const webpackConfig = require('../configs/webpack.e2e.config.js');
 
 const e2eHostPort = 4000;
@@ -139,15 +139,16 @@ async function startWebServer() {
     return new Promise(async (resolve, reject) => {
         console.log('Starting webpack compilation...');
         const config = await webpackConfig();
-        webpack(config, (err, stats) => {
+
+        // start webpack server
+        webServer = new WebpackDevServer(config.devServer, webpack(config, (err, stats) => {
             if (err || stats.hasErrors()) {
-                reject(err || 'Webpack compilation failed.');
+                reject('Webpack compilation failed: ' + stats.toString());
             }
 
-            webServer = express().use(express.static(join(__dirname, 'dist'))).listen(e2eHostPort);
             console.log(`Webserver is listening on port ${ e2eHostPort }.`);
 
             resolve();
-        });
+        }));
     });
 }

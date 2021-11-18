@@ -20,6 +20,7 @@ const e2eConfiguration = {
     budgets: [],
     aot: true,
     outputHashing: 'all',
+    deleteOutputPath: false,
     cache: {
         enabled: true,
         path: join(cwd(), '.angular')

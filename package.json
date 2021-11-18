@@ -31,7 +31,7 @@
         "start:e2e": "webpack serve --config=configs/webpack.e2e.config.js",
         "start:karma": "karma start",
         "start": "node --max-old-space-size=8192 ./scripts/serve.js",
-        "test:e2e": "node --max-old-space-size=8192 ./scripts/protractor.js",
+        "test:e2e": "grunt e2e",
         "test:karma": "karma start --single-run",
         "test": "karma start --single-run && grunt e2e"
     },
