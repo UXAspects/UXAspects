@@ -338,7 +338,7 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
             return this.key(option);
         }
         if (typeof this.key === 'string' && option && option.hasOwnProperty(this.key)) {
-            return option[<string>this.key];
+            return option[this.key];
         }
         return this.getDisplay(option);
     }
@@ -352,7 +352,7 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
         }
 
         if (typeof this.display === 'string' && option && option.hasOwnProperty(this.display)) {
-            return option[<string>this.display];
+            return option[this.display];
         }
 
         if (typeof option === 'string') {
@@ -524,7 +524,7 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
             return options
                 .filter(option => this.getDisplay(option).toLowerCase().indexOf(filter) >= 0)
                 .map(value => ({
-                    value: value,
+                    value,
                     key: this.getKey(value),
                     isRecentOption: isRecentOptions
                 }));

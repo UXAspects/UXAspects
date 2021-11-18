@@ -40,11 +40,11 @@ export class OrganizationChartComponent<T> implements AfterViewInit, OnChanges, 
     @Input() revealAriaLabel: string = 'Reveal More';
 
     /** Defines whether nodes can be toggled or not */
-    @Input() set toggleNodesOnClick (toggleNodesOnClick: boolean) {
+    @Input() set toggleNodesOnClick(toggleNodesOnClick: boolean) {
         this._toggleNodesOnClick = coerceBooleanProperty(toggleNodesOnClick );
     }
 
-    get toggleNodesOnClick (): boolean {
+    get toggleNodesOnClick(): boolean {
         return this._toggleNodesOnClick ;
     }
 
@@ -660,7 +660,7 @@ export class OrganizationChartComponent<T> implements AfterViewInit, OnChanges, 
 
         // if the data does not exist in the hierarchy throw an exception
         if (!match) {
-            throw new Error(`The node does not exist in the hierarchy`);
+            throw new Error('The node does not exist in the hierarchy');
         }
 
         return match;

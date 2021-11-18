@@ -215,7 +215,7 @@ describe('Badge', () => {
         fixture.detectChanges();
         await fixture.whenStable();
 
-        let buttonWithBadge: HTMLButtonElement = document.querySelector(buttonSelector);
+        const buttonWithBadge: HTMLButtonElement = document.querySelector(buttonSelector);
         const badge: HTMLSpanElement = buttonWithBadge.querySelector(badgeSelector);
         expect(badge.classList.contains('ux-badge-large')).toBeTruthy();
     });
@@ -225,7 +225,7 @@ describe('Badge', () => {
         fixture.detectChanges();
         await fixture.whenStable();
 
-        let buttonWithBadge: HTMLButtonElement = document.querySelector(buttonSelector);
+        const buttonWithBadge: HTMLButtonElement = document.querySelector(buttonSelector);
         expect(buttonWithBadge.classList.contains('ux-badge-overlap')).toBeTruthy();
     });
 

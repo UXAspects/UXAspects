@@ -9,7 +9,7 @@ import { ToolbarSearchFieldDirective } from './toolbar-search-field.directive';
 
 @Component({
     selector: 'ux-toolbar-search',
-    template: `<ng-content></ng-content>`,
+    template: '<ng-content></ng-content>',
     changeDetection: ChangeDetectionStrategy.OnPush,
     animations: [
         trigger('expanded', [
@@ -150,7 +150,7 @@ export class ToolbarSearchComponent implements AfterContentInit, OnDestroy {
          * Note, the `destroyNode` function may be null or undefined as mentioned in the
          * Angular API docs (https://angular.io/api/core/Renderer2#destroyNode) so
          * we must check that the function is available before attempting to call it
-        */
+         */
         if (this._placeholder && this._renderer && this._renderer.destroyNode) {
             this._renderer.destroyNode(this._placeholder);
         }

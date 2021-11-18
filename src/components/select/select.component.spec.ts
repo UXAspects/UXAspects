@@ -69,13 +69,13 @@ describe('Select Component', () => {
     });
 
     it('should display placeholder as empty string if not set', () => {
-        let placeholderTextInitial = fixture.nativeElement.querySelector('input').placeholder;
+        const placeholderTextInitial = fixture.nativeElement.querySelector('input').placeholder;
         expect(placeholderTextInitial).toBe('');
 
         component.placeholder = 'Placeholder Text';
         fixture.detectChanges();
 
-        let placeholderText = fixture.nativeElement.querySelector('input').placeholder;
+        const placeholderText = fixture.nativeElement.querySelector('input').placeholder;
         expect(placeholderText).toBe('Placeholder Text');
     });
 
@@ -395,7 +395,7 @@ describe('Select Component', () => {
     });
 
     function enablePagination(): void {
-        component.options = function (pageNum: number, pageSize: number): Promise<string[]> {
+        component.options = function(pageNum: number, pageSize: number): Promise<string[]> {
             return new Promise<string[]>(resolve => {
                 const items: string[] = [];
 
@@ -458,13 +458,13 @@ describe('Select Component - Value Input', () => {
         fixture.autoDetectChanges();
         await fixture.whenStable();
 
-        let selectText = fixture.nativeElement.querySelector('input').value;
+        const selectText = fixture.nativeElement.querySelector('input').value;
         expect(selectText).toEqual('One');
 
         expect(component.onValueChange).not.toHaveBeenCalled();
     });
 
-    it('should have an initial value set to One when multiple is true', async() => {
+    it('should have an initial value set to One when multiple is true', async () => {
         spyOn(component, 'onValueChange');
 
         component.multiple = true;
@@ -472,7 +472,7 @@ describe('Select Component - Value Input', () => {
         fixture.detectChanges();
         await fixture.whenStable();
 
-        let tagText = fixture.nativeElement.querySelector('.ux-tag-text').innerText;
+        const tagText = fixture.nativeElement.querySelector('.ux-tag-text').innerText;
         expect(tagText).toBe('One');
 
         expect(component.onValueChange).not.toHaveBeenCalled();
@@ -523,7 +523,7 @@ describe('Select Component - NgModel Input', () => {
 
         spyOn(component, 'onValueChange');
 
-        let selectText = fixture.nativeElement.querySelector('input').value;
+        const selectText = fixture.nativeElement.querySelector('input').value;
         expect(selectText).toEqual('One');
 
         expect(component.onValueChange).not.toHaveBeenCalled();
@@ -701,7 +701,7 @@ describe('Select Component - Reactive Form Input', () => {
         await fixture.whenStable();
         spyOn(component, 'onValueChange');
 
-        let selectText = fixture.nativeElement.querySelector('input').value;
+        const selectText = fixture.nativeElement.querySelector('input').value;
         expect(selectText).toEqual('One');
 
         expect(component.onValueChange).not.toHaveBeenCalled();
@@ -716,7 +716,7 @@ describe('Select Component - Reactive Form Input', () => {
 
         spyOn(component, 'onValueChange');
 
-        let tagText = fixture.nativeElement.querySelector('.ux-tag-text').innerText;
+        const tagText = fixture.nativeElement.querySelector('.ux-tag-text').innerText;
         expect(tagText).toBe('One');
 
         expect(component.onValueChange).not.toHaveBeenCalled();

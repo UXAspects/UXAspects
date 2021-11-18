@@ -30,7 +30,7 @@ export class NavigationService implements OnDestroy {
     private collapseSiblings(source: NavigationItem): void {
         let siblings = this.items;
 
-        for (let item of this.items) {
+        for (const item of this.items) {
             const parent = this.getParent(source, item);
             if (parent) {
                 siblings = parent.children;

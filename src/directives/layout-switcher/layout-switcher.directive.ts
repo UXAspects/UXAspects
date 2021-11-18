@@ -43,8 +43,8 @@ export class LayoutSwitcherDirective implements AfterContentInit, OnChanges {
         // otherwise find layouts that match the active group and that meet the constraints
         return this._layouts.filter(layout => this.group === layout.getConfig().group).find(layout => {
 
-            let minWidth = layout.getConfig().minWidth || 0;
-            let maxWidth = layout.getConfig().maxWidth || Infinity;
+            const minWidth = layout.getConfig().minWidth || 0;
+            const maxWidth = layout.getConfig().maxWidth || Infinity;
 
             return this._width >= minWidth && this._width < maxWidth;
         });
@@ -53,7 +53,7 @@ export class LayoutSwitcherDirective implements AfterContentInit, OnChanges {
     updateActiveLayout(): void {
 
         // get the layout that should be shown
-        let layout = this.getActiveLayout();
+        const layout = this.getActiveLayout();
 
         // check if we are currently showing the layout
         if (this._activeLayout === layout) {

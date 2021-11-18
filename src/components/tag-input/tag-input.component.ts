@@ -318,7 +318,7 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
             };
             this.valid = false;
         }
-        this.validationErrors['tagRangeError'] = tagRangeError;
+        this.validationErrors.tagRangeError = tagRangeError;
 
         // forward any error to the form control
         return tagRangeError;
@@ -535,7 +535,7 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
 
             // Check tag validation for all of the individual values
             let allValid = true;
-            for (let newTag of newTags) {
+            for (const newTag of newTags) {
                 const valid = this.validateTag(newTag);
                 if (!valid) {
                     allValid = false;
@@ -544,7 +544,7 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
 
             // Add the tags if all are valid
             if (allValid) {
-                for (let newTag of newTags) {
+                for (const newTag of newTags) {
                     this.addTag(this.createTag(newTag));
                 }
 
@@ -599,7 +599,7 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
             return this.display(tag);
         }
         if (typeof this.display === 'string') {
-            return tag[<string>this.display];
+            return tag[this.display];
         }
         return tag;
     }
@@ -741,7 +741,7 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
             };
             this.inputValid = false;
         }
-        this.validationErrors['inputPattern'] = inputPattern;
+        this.validationErrors.inputPattern = inputPattern;
         return this.inputValid;
     }
 
@@ -754,7 +754,7 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
             tag = this.createTagHandler(tagValue);
         } else if (typeof this.display === 'string') {
             tag = {};
-            tag[<string>this.display] = tagValue;
+            tag[this.display] = tagValue;
         } else {
             tag = tagValue;
         }

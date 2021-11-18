@@ -51,7 +51,7 @@ export class NotificationService {
 
         // create the notificationRef based on the options and context specified
         const notificationRef: NotificationRef = {
-            templateRef: templateRef,
+            templateRef,
             duration: options.duration,
             date: new Date(),
             visible: true,

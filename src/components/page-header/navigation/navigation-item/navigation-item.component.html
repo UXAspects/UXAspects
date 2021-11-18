@@ -1,4 +1,4 @@
-<div *ngIf="_item.children && _item.children.length > 0 && !(secondary$ | async)">
+<div *ngIf="_item.children && _item.children.length > 0 && (secondary$ | async) === false">
 
     <button #navigationBtn
         type="button"

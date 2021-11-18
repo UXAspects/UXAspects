@@ -12,11 +12,11 @@ export class FileSizePipe implements PipeTransform {
             return value;
         }
         
-        let units = ['B', 'KB', 'MB', 'GB', 'TB'];
+        const units = ['B', 'KB', 'MB', 'GB', 'TB'];
 
         // calculate the which unit bracket the values should be a part of
-        let idx = Math.floor(Math.log(value) / Math.log(1024));
-        let formattedValue = value / Math.pow(1024, idx);
+        const idx = Math.floor(Math.log(value) / Math.log(1024));
+        const formattedValue = value / Math.pow(1024, idx);
         
         return `${formattedValue.toFixed(2)} ${units[idx]}`;
     }

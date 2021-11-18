@@ -69,7 +69,7 @@ export class DateTimePickerService implements OnDestroy {
             // emit the new date to the component host but only if they are different
             if (!dateComparator(date, this.date$.value)) {
                 if (rangeService) {
-                    if (rangeOptions.picker === `start`) {
+                    if (rangeOptions.picker === 'start') {
                         rangeService.setStartDate(date);
                     } else {
                         rangeService.setEndDate(date);

@@ -1,5 +1,5 @@
 import { Inject, Injectable, Optional, SkipSelf } from '@angular/core';
-// tslint:disable-next-line: import-blacklist
+// eslint-disable-next-line no-restricted-imports
 import { Subject } from 'rxjs';
 import { IconModuleOptions } from './icon-options.interface';
 import { ICON_OPTIONS_TOKEN } from './icon-options.token';

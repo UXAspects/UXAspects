@@ -189,7 +189,7 @@ export class PageHeaderService implements OnDestroy {
         }
 
         if (item.children) {
-            for (let childItem of item.children) {
+            for (const childItem of item.children) {
                 this.findActiveItem(childItem, activeItem);
                 if (activeItem.exact) {
                     return;

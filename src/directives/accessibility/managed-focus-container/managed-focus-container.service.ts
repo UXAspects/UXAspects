@@ -142,7 +142,7 @@ class ManagedFocusContainer {
             const originalTabIndex = element.getAttribute('tabindex');
             this._renderer.setAttribute(element, 'tabindex', '-1');
             this._modifiedElements.push({
-                element: element,
+                element,
                 tabindex: originalTabIndex
             });
         });
