@@ -31,7 +31,17 @@
             "inlineStyleLanguage": "less",
             "assets": [
               "docs/favicon.ico",
-              "docs/assets"
+              "docs/assets",
+              {
+                "glob": "**/*",
+                "input": "src/fonts/",
+                "output": "/assets/fonts/"
+              },
+              {
+                "glob": "**/*",
+                "input": "src/img/",
+                "output": "/assets/img/"
+              }
             ],
             "styles": [
               "docs/styles.less"

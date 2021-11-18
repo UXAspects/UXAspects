@@ -16,7 +16,6 @@ module.exports = function(grunt) {
 
     // Register Tasks
     grunt.registerTask('webpack_import_cert', ['run:webpack_import_cert']);
-    grunt.registerTask('lint', ['tslint:library', 'tslint:documentation', 'stylelint', 'tslint:e2e']);
     grunt.registerTask('library', ['clean:library', 'execute:ngpackagr']);
     grunt.registerTask('styles', ['clean:styles', 'execute:less', 'usebanner:styles']);
     grunt.registerTask('assets', ['copy:fonts', 'copy:images', 'copy:css', 'copy:md']);
@@ -25,7 +24,7 @@ module.exports = function(grunt) {
     grunt.registerTask('minify', ['cssmin:styles']);
 
     // e2e: run the protractor tests
-    grunt.registerTask('e2e', ['tslint:e2e', 'clean:e2e', 'execute:protractor']);
+    grunt.registerTask('e2e', ['clean:e2e', 'execute:protractor']);
 
     grunt.registerTask('package:ux-aspects', [
         'run:npm_pack_ux-aspects',
@@ -41,7 +40,6 @@ module.exports = function(grunt) {
 
     // build:documentation: build and package the documentation site.
     grunt.registerTask('build:documentation', [
-        'tslint:documentation',
         'clean:documentation',
         'execute:webpack_documentation',
         'compress:documentation'
@@ -50,7 +48,6 @@ module.exports = function(grunt) {
     // build:library: build and package the npm lib and the npm docs lib.
     grunt.registerTask('build:library', [
         'clean',
-        'lint',
         'library',
         'styles',
         'minify',
