@@ -15,8 +15,8 @@ export class HierarchyBarTestPageComponent {
     mode: string = 'standard';
     readonly: boolean = false;
 
-    managerIcon = require('../../assets/IconManagerColorized.png');
-    userIcon = require('../../assets/IconUser.png');
+    managerIcon = '/pages/assets/IconManagerColorized.png';
+    userIcon = '/pages/assets/IconUser.png';
 
     node: HierarchyBarNode = {
         title: 'Theresa Chandler',

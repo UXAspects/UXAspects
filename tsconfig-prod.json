@@ -1,9 +1,0 @@
-{
-    "extends": "./tsconfig.json",
-    "compilerOptions": {
-        "paths": {
-            "@ux-aspects/ux-aspects/*": ["./dist/library"],
-            "@ux-aspects/ux-aspects": ["./dist/library"]
-        }
-    }
-}

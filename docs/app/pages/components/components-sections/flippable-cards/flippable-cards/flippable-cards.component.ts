@@ -12,7 +12,7 @@ import { DocumentationSectionComponent } from '../../../../../decorators/documen
 @DocumentationSectionComponent('ComponentsFlippableCardsComponent')
 export class ComponentsFlippableCardsComponent extends BaseDocumentationSection {
 
-    icon: string = require('../../../../../assets/img/IconCaseColorized36x36.png');
+    icon: string = '/assets/img/IconCaseColorized36x36.png';
 
     cards: Card[] = [
         {

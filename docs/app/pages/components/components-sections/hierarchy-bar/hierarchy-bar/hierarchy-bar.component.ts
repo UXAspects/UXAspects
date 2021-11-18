@@ -18,10 +18,10 @@ const chance = new Chance();
 export class ComponentsHierarchyBarComponent extends BaseDocumentationSection implements IPlaygroundProvider {
 
     /** Get the url for the managericon  asset */
-    managerIcon = require('../../../../../assets/img/IconManagerColorized.png');
+    managerIcon = '/assets/img/IconManagerColorized.png';
 
     /** Get the url for the user icon asset */
-    userIcon = require('../../../../../assets/img/IconUser.png');
+    userIcon = '/assets/img/IconUser.png';
 
     /** Define the hierarchy bar mode - either standard or collapsed or dropdown*/
     mode: string = 'standard';

@@ -1,5 +1,8 @@
 import { ComponentFactory, ComponentFactoryResolver, Injectable, Type } from '@angular/core';
 import { IDocumentationPage } from '../../interfaces/IDocumentationPage';
+import * as chartsPage from '../../data/charts-page.json';
+import * as componentsPage from '../../data/components-page.json';
+import * as cssPage from '../../data/css-page.json';
 
 @Injectable({
     providedIn: 'root'
@@ -21,7 +24,7 @@ export class ResolverService {
             }
         }
 
-        throw new Error('Component doesn not exist in any module: ' + component);
+        throw new Error('Component doesn\'t not exist in any module: ' + component);
     }
 
     static resolveCategoryData(page: DocumentationPage, categoryTitle: string) {
@@ -31,15 +34,15 @@ export class ResolverService {
         switch (page) {
 
             case DocumentationPage.Charts:
-                data = require('../../data/charts-page.json');
+                data = chartsPage as IDocumentationPage;
                 break;
 
             case DocumentationPage.Components:
-                data = require('../../data/components-page.json');
+                data = componentsPage as IDocumentationPage;
                 break;
 
             case DocumentationPage.Css:
-                data = require('../../data/css-page.json');
+                data = cssPage as IDocumentationPage;
                 break;
         }
 

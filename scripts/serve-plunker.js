@@ -1,14 +1,11 @@
 const webpack = require('webpack');
-const WebpackDevServer = require('webpack-dev-server');
-const { ngPackagr } = require('ng-packagr');
 const { join } = require('path');
 const { argv, cwd } = require('process');
 const express = require('express');
 const https = require('https');
-const { existsSync, readFileSync } = require('fs');
+const { readFileSync } = require('fs');
 const cors = require('cors');
-const webpackConfig = require('../configs/webpack.dev.config.js');
-
+const webpackConfig = require('../configs/webpack.css-assets.dev.config');
 
 /**
  * This script will:
@@ -23,34 +20,26 @@ const webpackConfig = require('../configs/webpack.dev.config.js');
 const wdsPort = parseInt(argv[2]) || 8080;
 const plunkerPort = wdsPort + 10;
 
-serveDocumentation();
-buildAndWatchAngularLibrary();
+serveCssAssets();
 servePlunkerAssets();
 
-async function serveDocumentation() {
-    const config = await webpackConfig();
-    const compiler = webpack(config);
+function serveCssAssets() {
+    const compiler = webpack(webpackConfig);
 
-    // Start Webpack after the library has initially compiled
-    const server = new WebpackDevServer({
-        ...config.devServer,
-        port: wdsPort,
-        host: '127.0.0.1',
-    }, compiler);
+    compiler.watch({}, (err, stats) => {
+        if (err) {
+            console.error(err);
+            return;
+        }
 
-    // begin dev server
-    server.startCallback(() => {
-        console.log(`Documentation site is now available at http://localhost:${ wdsPort }`);
+        console.log(stats.toString({
+            colors: true,
+            modules: false,
+            children: false,
+            chunks: false,
+            chunkModules: false
+        }));
     });
-}
-
-function buildAndWatchAngularLibrary() {
-    // build and watch the Angular library for Plunker
-    ngPackagr()
-        .forProject('src/ng-package.json')
-        .withTsConfig('src/tsconfig-build.json')
-        .watch()
-        .subscribe();
 }
 
 function servePlunkerAssets() {

@@ -6,7 +6,7 @@ node_modules/
 _SpecRunner.html
 jshint.log
 .awcache/
-docs/app/assets/licenses.txt
+docs/assets/licenses.txt
 dist/
 .tscache/
 e2e/_test-output/
