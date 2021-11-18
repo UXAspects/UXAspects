@@ -58,15 +58,14 @@ function servePlunkerAssets() {
     const plunkerServer = express();
     plunkerServer.use(cors());
 
-    const uxAspectsLibrary = join(cwd(), 'dist', 'library', 'fesm2015', 'ux-aspects-ux-aspects.js');
-    if (existsSync(uxAspectsLibrary)) {
-        plunkerServer.get('/assets/lib/index.js', (_, res) =>
-            res.sendFile(uxAspectsLibrary)
-        );
-    }
+    const uxAspectsLibrary = join(cwd(), 'dist', 'library', 'fesm2015', 'ux-aspects-ux-aspects.mjs');
+
+    plunkerServer.get('/assets/lib/index.js', (_, res) =>
+        res.sendFile(uxAspectsLibrary)
+    );
 
     plunkerServer.get('/assets/lib/ux-aspects-micro-focus.js', (_, res) =>
-        res.sendFile(join(cwd(), 'dist', 'library', 'fesm2015', 'micro-focus-ux-aspects.js'))
+        res.sendFile(join(cwd(), 'dist', 'library', 'fesm2015', 'micro-focus-ux-aspects.mjs'))
     );
 
     // serve the contents of the docs assets folder

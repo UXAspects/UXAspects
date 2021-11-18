@@ -30,7 +30,8 @@
         "setversion": "ux-setversion package.json package-lock.json src/package.json",
         "start:e2e": "webpack serve --config=configs/webpack.e2e.config.js",
         "start:karma": "karma start",
-        "start": "node --max-old-space-size=8192 ./scripts/serve.js",
+        "serve": "node --max-old-space-size=8192 ./scripts/serve.js",
+        "start": "concurrently \"node --max-old-space-size=8192 ./scripts/serve.js\" \"webpack --config=./configs/webpack.css-assets.dev.config.js --watch\"",
         "test:e2e": "grunt e2e",
         "test:karma": "karma start --single-run",
         "test": "karma start --single-run && grunt e2e"
@@ -95,6 +96,7 @@
         "chromedriver": "83.0.0",
         "circular-dependency-plugin": "5.2.2",
         "codelyzer": "^6.0.2",
+        "concurrently": "^6.4.0",
         "copy-webpack-plugin": "9.0.1",
         "css-loader": "6.5.0",
         "css-minimizer-webpack-plugin": "^3.0.0",
