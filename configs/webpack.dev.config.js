@@ -7,4 +7,4 @@ const cssAssetsConfig = require('./webpack.css-assets.dev.config.js');
 // docsConfig.mode = 'development';
 // cssAssetsConfig.mode = 'development';
 
-module.exports = Promise.all([docsConfig]);
+module.exports = docsConfig;

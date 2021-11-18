@@ -27,12 +27,13 @@ serveDocumentation();
 buildAndWatchAngularLibrary();
 servePlunkerAssets();
 
-function serveDocumentation() {
-    const compiler = webpack(webpackConfig);
+async function serveDocumentation() {
+    const config = await webpackConfig();
+    const compiler = webpack(config);
 
     // Start Webpack after the library has initially compiled
     const server = new WebpackDevServer({
-        ...webpackConfig.devServer,
+        ...config.devServer,
         port: wdsPort,
         host: '127.0.0.1',
     }, compiler);
