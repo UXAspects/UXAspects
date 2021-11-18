@@ -14,18 +14,21 @@ module.exports = {
     },
 
     module: {
-        rules: [{
-            test: /\.css$/,
-            include: [join(cwd(), 'src')],
-            use: [MiniCssExtractPlugin.loader, 'css-loader']
-        }, {
-            test: /\.less$/,
-            include: [join(cwd(), 'src')],
-            use: [MiniCssExtractPlugin.loader, 'css-loader', 'less-loader']
-        }, {
-            test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico|otf)$/,
-            use: 'file-loader?name=[name].[ext]'
-        }]
+        rules: [
+            {
+                test: /\.css$/,
+                include: [join(cwd(), 'src')],
+                use: [MiniCssExtractPlugin.loader, 'css-loader']
+            }, {
+                test: /\.less$/,
+                include: [join(cwd(), 'src')],
+                use: [MiniCssExtractPlugin.loader, 'css-loader', 'less-loader']
+            },
+            {
+                test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico|otf|mp4|mp3|vtt)$/,
+                type: 'asset/resource',
+            }
+        ]
     },
     plugins: [
         new MiniCssExtractPlugin({

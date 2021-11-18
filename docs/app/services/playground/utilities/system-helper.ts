@@ -1,7 +1,7 @@
 import { DocumentationType } from '../tokens/documentation.token';
 
-const ANGULAR_VERSION = '13';
-const CDK_VERSION = '13';
+const ANGULAR_VERSION = '12';
+const CDK_VERSION = '12';
 const D3_VERSION = '5.9.2';
 const NGX_BOOTSTRAP_VERSION = '6.2.0';
 
@@ -9,48 +9,52 @@ export class SystemJSHelper {
 
     private static _mappings: SystemJSMapping[] = [
         // Angular
-        { name: '@angular/core', path: `@angular/core@${ ANGULAR_VERSION }/fesm2015/core.mjs` },
-        { name: '@angular/common', path: `@angular/common@${ ANGULAR_VERSION }/fesm2015/common.mjs` },
-        { name: '@angular/compiler', path: `@angular/compiler@${ ANGULAR_VERSION }/fesm2015/compiler.mjs` },
-        { name: '@angular/forms', path: `@angular/forms@${ ANGULAR_VERSION }/fesm2015/forms.mjs` },
-        { name: '@angular/router', path: `@angular/router@${ ANGULAR_VERSION }/fesm2015/router.mjs` },
-        { name: '@angular/common/http', path: `@angular/common@${ ANGULAR_VERSION }/fesm2015/http.mjs` },
+        // Angular
+        { name: '@angular/core', path: `@angular/core@${ ANGULAR_VERSION }/bundles/core.umd.js` },
+        { name: '@angular/common', path: `@angular/common@${ ANGULAR_VERSION }/bundles/common.umd.js` },
+        { name: '@angular/compiler', path: `@angular/compiler@${ ANGULAR_VERSION }/bundles/compiler.umd.js` },
+        { name: '@angular/forms', path: `@angular/forms@${ ANGULAR_VERSION }/bundles/forms.umd.js` },
+        { name: '@angular/router', path: `@angular/router@${ ANGULAR_VERSION }/bundles/router.umd.js` },
+        { name: '@angular/common/http', path: `@angular/common@${ ANGULAR_VERSION }/bundles/common-http.umd.js` },
         {
             name: '@angular/platform-browser',
-            path: `@angular/platform-browser@${ ANGULAR_VERSION }/fesm2015/platform-browser.mjs`
+            path: `@angular/platform-browser@${ ANGULAR_VERSION }/bundles/platform-browser.umd.js`
         },
         {
             name: '@angular/platform-browser/animations',
-            path: `@angular/platform-browser@${ ANGULAR_VERSION }/fesm2015/animations.mjs`
+            path: `@angular/platform-browser@${ ANGULAR_VERSION }/bundles/platform-browser-animations.umd.js`
         },
         {
             name: '@angular/platform-browser-dynamic',
-            path: `@angular/platform-browser-dynamic@${ ANGULAR_VERSION }/fesm2015/platform-browser-dynamic.mjs`
+            path: `@angular/platform-browser-dynamic@${ ANGULAR_VERSION }/bundles/platform-browser-dynamic.umd.js`
         },
-        { name: '@angular/upgrade/static', path: `@angular/upgrade@${ ANGULAR_VERSION }/fesm2015/upgrade-static.mjs` },
-        { name: '@angular/animations', path: `@angular/animations@${ ANGULAR_VERSION }/fesm2015/animations.mjs` },
+        {
+            name: '@angular/upgrade/static',
+            path: `@angular/upgrade@${ ANGULAR_VERSION }/bundles/upgrade-static.umd.js`
+        },
+        { name: '@angular/animations', path: `@angular/animations@${ ANGULAR_VERSION }/bundles/animations.umd.js` },
         {
             name: '@angular/animations/browser',
-            path: `@angular/animations@${ ANGULAR_VERSION }/fesm2015/browser.mjs`
+            path: `@angular/animations@${ ANGULAR_VERSION }/bundles/animations-browser.umd.js`
         },
         // Angular CDK
-        { name: '@angular/cdk/a11y', path: `@angular/cdk@${ CDK_VERSION }/fesm2015/a11y.mjs` },
-        { name: '@angular/cdk/accordion', path: `@angular/cdk@${ CDK_VERSION }/fesm2015/accordion.mjs` },
-        { name: '@angular/cdk/bidi', path: `@angular/cdk@${ CDK_VERSION }/fesm2015/bidi.mjs` },
-        { name: '@angular/cdk/coercion', path: `@angular/cdk@${ CDK_VERSION }/fesm2015/coercion.mjs` },
-        { name: '@angular/cdk/collections', path: `@angular/cdk@${ CDK_VERSION }/fesm2015/collections.mjs` },
-        { name: '@angular/cdk/drag-drop', path: `@angular/cdk@${ CDK_VERSION }/fesm2015/drag-drop.mjs` },
-        { name: '@angular/cdk/keycodes', path: `@angular/cdk@${ CDK_VERSION }/fesm2015/keycodes.mjs` },
-        { name: '@angular/cdk/layout', path: `@angular/cdk@${ CDK_VERSION }/fesm2015/layout.mjs` },
-        { name: '@angular/cdk/observers', path: `@angular/cdk@${ CDK_VERSION }/fesm2015/observers.mjs` },
-        { name: '@angular/cdk/overlay', path: `@angular/cdk@${ CDK_VERSION }/fesm2015/overlay.mjs` },
-        { name: '@angular/cdk/platform', path: `@angular/cdk@${ CDK_VERSION }/fesm2015/platform.mjs` },
-        { name: '@angular/cdk/portal', path: `@angular/cdk@${ CDK_VERSION }/fesm2015/portal.mjs` },
-        { name: '@angular/cdk/scrolling', path: `@angular/cdk@${ CDK_VERSION }/fesm2015/scrolling.mjs` },
-        { name: '@angular/cdk/stepper', path: `@angular/cdk@${ CDK_VERSION }/fesm2015/stepper.mjs` },
-        { name: '@angular/cdk/table', path: `@angular/cdk@${ CDK_VERSION }/fesm2015/table.mjs` },
-        { name: '@angular/cdk/text-field', path: `@angular/cdk@${ CDK_VERSION }/fesm2015/text-field.mjs` },
-        { name: '@angular/cdk/tree', path: `@angular/cdk@${ CDK_VERSION }/fesm2015/tree.mjs` },
+        { name: '@angular/cdk/a11y', path: `@angular/cdk@${ CDK_VERSION }/bundles/cdk-a11y.umd.js` },
+        { name: '@angular/cdk/accordion', path: `@angular/cdk@${ CDK_VERSION }/bundles/cdk-accordion.umd.js` },
+        { name: '@angular/cdk/bidi', path: `@angular/cdk@${ CDK_VERSION }/bundles/cdk-bidi.umd.js` },
+        { name: '@angular/cdk/coercion', path: `@angular/cdk@${ CDK_VERSION }/bundles/cdk-coercion.umd.js` },
+        { name: '@angular/cdk/collections', path: `@angular/cdk@${ CDK_VERSION }/bundles/cdk-collections.umd.js` },
+        { name: '@angular/cdk/drag-drop', path: `@angular/cdk@${ CDK_VERSION }/bundles/cdk-drag-drop.umd.js` },
+        { name: '@angular/cdk/keycodes', path: `@angular/cdk@${ CDK_VERSION }/bundles/cdk-keycodes.umd.js` },
+        { name: '@angular/cdk/layout', path: `@angular/cdk@${ CDK_VERSION }/bundles/cdk-layout.umd.js` },
+        { name: '@angular/cdk/observers', path: `@angular/cdk@${ CDK_VERSION }/bundles/cdk-observers.umd.js` },
+        { name: '@angular/cdk/overlay', path: `@angular/cdk@${ CDK_VERSION }/bundles/cdk-overlay.umd.js` },
+        { name: '@angular/cdk/platform', path: `@angular/cdk@${ CDK_VERSION }/bundles/cdk-platform.umd.js` },
+        { name: '@angular/cdk/portal', path: `@angular/cdk@${ CDK_VERSION }/bundles/cdk-portal.umd.js` },
+        { name: '@angular/cdk/scrolling', path: `@angular/cdk@${ CDK_VERSION }/bundles/cdk-scrolling.umd.js` },
+        { name: '@angular/cdk/stepper', path: `@angular/cdk@${ CDK_VERSION }/bundles/cdk-stepper.umd.js` },
+        { name: '@angular/cdk/table', path: `@angular/cdk@${ CDK_VERSION }/bundles/cdk-table.umd.js` },
+        { name: '@angular/cdk/text-field', path: `@angular/cdk@${ CDK_VERSION }/bundles/cdk-text-field.umd.js` },
+        { name: '@angular/cdk/tree', path: `@angular/cdk@${ CDK_VERSION }/bundles/cdk-tree.umd.js` },
         // Dependencies
         { name: 'tslib', path: 'tslib@1.11.0' },
         { name: 'rxjs', path: 'rxjs@6.6.0' },

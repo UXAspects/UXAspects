@@ -30,7 +30,6 @@
         "setversion": "ux-setversion package.json package-lock.json src/package.json",
         "start:e2e": "webpack serve --config=configs/webpack.e2e.config.js",
         "start:karma": "karma start",
-        "serve": "node --max-old-space-size=8192 ./scripts/serve.js",
         "start": "concurrently \"node --max-old-space-size=8192 ./scripts/serve.js\" \"webpack --config=./configs/webpack.css-assets.dev.config.js --watch\"",
         "test:e2e": "grunt e2e",
         "test:karma": "node --max-old-space-size=8192 ./scripts/karma.js",
