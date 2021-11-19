@@ -1,7 +1,7 @@
 import { WeekDay } from '@angular/common';
 import { Injectable, OnDestroy, Optional } from '@angular/core';
 import { BehaviorSubject, Subject, Subscription } from 'rxjs';
-import type { DateRangeOptions } from '../date-range-picker/date-range-picker.directive';
+import { DateRangeOptions } from '../date-range-picker/date-range-picker.directive';
 import { DateRangeService } from '../date-range-picker/date-range.service';
 import { DateTimePickerConfig } from './date-time-picker.config';
 import { dateComparator, DateTimePickerTimezone, meridians, months, monthsShort, timezones, weekdaysShort } from './date-time-picker.utils';
