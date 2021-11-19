@@ -2,21 +2,26 @@
 // https://github.com/angular/protractor/blob/master/lib/config.ts
 
 const { SpecReporter } = require('jasmine-spec-reporter');
-const { env, cwd } = require("process");
-const { join } = require("path");
-const { JUnitXmlReporter } = require("jasmine-reporters");
+const { env, cwd } = require('process');
+const { join } = require('path');
+const { JUnitXmlReporter } = require('jasmine-reporters');
 const { mkdirpSync } = require('fs-extra');
-const { execSync } = require("child_process");
-const isIp = require("is-ip");
+const { execSync } = require('child_process');
+const isIp = require('is-ip');
 
 const e2eHostPort = 4000;
-const e2eHostAddress = env.E2E_HOST_ADDRESS || 'localhost';
 const outputDir = join(cwd(), 'target', 'e2e');
 const junitDir = join(outputDir, 'junit');
 const screenshotOutputDir = join(outputDir, 'screenshots');
 const DOCKER_CONTAINER_NAME = 'uxa-selenium';
 const isJenkinsBuild = !!env.RE_BUILD_TYPE;
+
+if (!isJenkinsBuild) {
+    startSeleniumContainer();
+}
+
 env.E2E_HOST_ADDRESS = isJenkinsBuild ? 'localhost' : getHostAddressFromSeleniumContainer();
+const e2eHostAddress = env.E2E_HOST_ADDRESS || 'localhost';
 
 const config = {
     chromeDriver: require('chromedriver').path,
@@ -44,12 +49,12 @@ const config = {
 
     maxSessions: 3,
     directConnect: true,
-    baseUrl: 'http://localhost:4200/',
     framework: 'jasmine',
     jasmineNodeOpts: {
         showColors: true,
         defaultTimeoutInterval: 30000,
-        print: function() {}
+        print: function () {
+        }
     },
     onPrepare() {
         require('ts-node').register({
@@ -71,19 +76,6 @@ const config = {
                     consolidateAll: false,
                     savePath: junitDir,
                     filePrefix: `${ browserName }.`
-                })
-            );
-
-            jasmine.getEnv().addReporter(
-                new SpecReporter({
-                    spec: {
-                        displayStacktrace: true
-                    },
-                    summary: {
-                        displayErrorMessages: true,
-                        displayFailed: true,
-                        displayDuration: false
-                    }
                 })
             );
         });
@@ -114,19 +106,14 @@ const config = {
     ]
 };
 
-if (isJenkinsBuild) {
+if (!isJenkinsBuild) {
     config.directConnect = false;
     config.seleniumAddress = 'http://127.0.0.1:4444/wd/hub';
     config.chromeDriver = null;
     config.plugins.find(plugin => plugin.package === 'protractor-image-comparison').options.autoSaveBaseline = true;
 }
 
-if (!isJenkinsBuild) {
-    startSeleniumContainer();
-}
-
 module.exports.config = config;
-
 
 
 function startSeleniumContainer() {
@@ -134,12 +121,12 @@ function startSeleniumContainer() {
 }
 
 function getHostAddressFromSeleniumContainer() {
-    const cmd = `docker exec ${DOCKER_CONTAINER_NAME} getent ahosts host.docker.internal`;
+    const cmd = `docker exec ${ DOCKER_CONTAINER_NAME } getent ahosts host.docker.internal`;
     const output = execSync(cmd, { encoding: 'utf8' });
     const address = getHostAddressFromAHosts(output);
 
     if (!isIp(address)) {
-        throw new Error(`Expected an IP address but got "${address}". Make sure docker container ${DOCKER_CONTAINER_NAME} is running.`);
+        throw new Error(`Expected an IP address but got "${ address }". Make sure docker container ${ DOCKER_CONTAINER_NAME } is running.`);
     }
 
     return address;
