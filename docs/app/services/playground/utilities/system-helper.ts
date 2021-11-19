@@ -9,7 +9,6 @@ export class SystemJSHelper {
 
     private static _mappings: SystemJSMapping[] = [
         // Angular
-        // Angular
         { name: '@angular/core', path: `@angular/core@${ ANGULAR_VERSION }/bundles/core.umd.js` },
         { name: '@angular/common', path: `@angular/common@${ ANGULAR_VERSION }/bundles/common.umd.js` },
         { name: '@angular/compiler', path: `@angular/compiler@${ ANGULAR_VERSION }/bundles/compiler.umd.js` },
@@ -220,7 +219,7 @@ export class SystemJSHelper {
         const mappings: { [library: string]: string } = {};
 
         // add in the UX Aspects packages
-        mappings['@ux-aspects/ux-aspects'] = `${ assetsUrl }/lib/index.js`;
+        mappings['@ux-aspects/ux-aspects'] = `${ assetsUrl }/lib/ux-aspects-ux-aspects.mjs`;
 
         if (documentationType === DocumentationType.MicroFocus) {
             mappings['@micro-focus/ux-aspects'] = `${ assetsUrl }/lib/ux-aspects-micro-focus.js`;

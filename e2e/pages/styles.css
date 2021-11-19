@@ -1,7 +1,3 @@
-@import "~source-sans-pro/source-sans-pro.css";
-@import "~bootstrap/dist/css/bootstrap.min.css";
-@import "../../dist/library/styles/ux-aspects.min.css";
-
 * {
     caret-color: transparent;
 }

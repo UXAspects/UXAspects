@@ -3,7 +3,7 @@ const { cwd } = require('process');
 
 const scripts = join(cwd(), 'scripts');
 const uxaScripts = join(cwd(), 'node_modules', '@ux-aspects', 'ux-aspects-scripts', 'bin');
-const ngPackagr = join(cwd(), 'node_modules', 'ng-packagr', 'cli', 'main.js');
+const ngCli = join(cwd(), 'node_modules', '@angular', 'cli', 'bin', 'ng.js');
 
 module.exports = {
     iconset: {
@@ -15,13 +15,10 @@ module.exports = {
     less: {
         src: [join(scripts, 'inline-less.js')]
     },
-    protractor: {
-        src: [join(cwd(), 'scripts', 'protractor.js')]
-    },
-    ngpackagr: {
-        src: [ngPackagr],
+    'build-library': {
+        src: [ngCli],
         options: {
-            args: ['-p', 'src/ng-package.json']
+            args: ['build', 'ux-aspects', '--configuration=production']
         }
     },
     'package_artifactory_ux-aspects': {
@@ -36,10 +33,29 @@ module.exports = {
             args: ['ux-aspects-docs', 'ux-aspects']
         }
     },
-    webpack_documentation: {
-        src: [join(scripts, 'build.js')],
+    'build-documentation': {
+        src: [ngCli],
         options: {
-            nodeargs: ['--max-old-space-size=4096']
+            args: ['build', 'documentation', '--configuration=production'],
+            nodeargs: ['--max-old-space-size=8192']
+        }
+    },
+    'lint-documentation': {
+        src: [ngCli],
+        options: {
+            args: ['lint', 'documentation']
+        }
+    },
+    'lint-library': {
+        src: [ngCli],
+        options: {
+            args: ['lint', 'ux-aspects']
+        }
+    },
+    'lint-e2e': {
+        src: [ngCli],
+        options: {
+            args: ['lint', 'ux-aspects-e2e']
         }
     },
 };

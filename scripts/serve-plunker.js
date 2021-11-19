@@ -49,7 +49,7 @@ function servePlunkerAssets() {
 
     const uxAspectsLibrary = join(cwd(), 'dist', 'library', 'fesm2015', 'ux-aspects-ux-aspects.mjs');
 
-    plunkerServer.get('/assets/lib/index.js', (_, res) =>
+    plunkerServer.get('/assets/lib/ux-aspects-ux-aspects.mjs', (_, res) =>
         res.sendFile(uxAspectsLibrary)
     );
 
