@@ -3,6 +3,7 @@ const { env } = require('process');
 const isJenkinsBuild = !!env.RE_BUILD_TYPE;
 const express = require('express');
 const { join } = require('path');
+const cors = require('cors');
 
 if (!isJenkinsBuild) {
     startSeleniumContainer();
@@ -20,6 +21,7 @@ function buildE2eApp() {
 
 function serveE2eApp() {
     const server = express();
+    server.use(cors());
     server.use('/', express.static(join('dist', 'e2e')));
     server.listen(4000, () => console.log('E2E application is now available at http://localhost:4000'));
 }

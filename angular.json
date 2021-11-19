@@ -119,7 +119,11 @@
                         "tsConfig": "e2e/tsconfig.app.json",
                         "inlineStyleLanguage": "css",
                         "assets": [
-                            "e2e/pages/assets"
+                            {
+                                "glob": "**/*",
+                                "input": "e2e/pages/assets",
+                                "output": "/assets"
+                            }
                         ],
                         "styles": [
                             "node_modules/source-sans-pro/source-sans-pro.css",
