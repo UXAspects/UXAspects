@@ -9,7 +9,7 @@
         "noImplicitOverride": false,
         "noPropertyAccessFromIndexSignature": false,
         "noImplicitReturns": false,
-        "noFallthroughCasesInSwitch": true,
+        "noFallthroughCasesInSwitch": false,
         "sourceMap": true,
         "declaration": false,
         "downlevelIteration": true,
@@ -24,8 +24,12 @@
             "dom"
         ],
         "paths": {
-            "@ux-aspects/ux-aspects/*": ["./src"],
-            "@ux-aspects/ux-aspects": ["./src"]
+            "@ux-aspects/ux-aspects/*": [
+                "./src"
+            ],
+            "@ux-aspects/ux-aspects": [
+                "./src"
+            ]
         }
     },
     "angularCompilerOptions": {

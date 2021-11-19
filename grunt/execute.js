@@ -15,9 +15,6 @@ module.exports = {
     less: {
         src: [join(scripts, 'inline-less.js')]
     },
-    protractor: {
-        src: [join(scripts, 'protractor.js')]
-    },
     'build-library': {
         src: [ngCli],
         options: {

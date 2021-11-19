@@ -7,12 +7,19 @@ const { JUnitXmlReporter } = require('jasmine-reporters');
 const { mkdirpSync } = require('fs-extra');
 const { execSync } = require('child_process');
 const isIp = require('is-ip');
+const express = require('express');
+const cors = require('cors');
 
 const outputDir = join(cwd(), 'target', 'e2e');
 const junitDir = join(outputDir, 'junit');
 const screenshotOutputDir = join(outputDir, 'screenshots');
 const isJenkinsBuild = !!env.RE_BUILD_TYPE;
 const DOCKER_CONTAINER_NAME = 'uxa-selenium';
+
+if (!isJenkinsBuild) {
+    startSeleniumContainer();
+}
+
 const e2eHostAddress = isJenkinsBuild ? 'localhost' : getHostAddressFromSeleniumContainer();
 
 const config = {
@@ -38,7 +45,7 @@ const config = {
         shardTestFiles: true,
         maxInstances: 5
     },
-
+    useAllAngular2AppRoots: true,
     maxSessions: 3,
     directConnect: true,
     framework: 'jasmine',
@@ -71,6 +78,15 @@ const config = {
                 })
             );
         });
+    },
+    beforeLaunch() {
+        console.log('Building e2e application...');
+        execSync('ng build ux-aspects-e2e', { stdio: 'inherit' });
+
+        const server = express();
+        server.use(cors());
+        server.use('/', express.static(join('dist', 'e2e')));
+        server.listen(4000, () => console.log('E2E application is now available at http://localhost:4000'));
     },
     plugins: [
         {
@@ -126,4 +142,8 @@ function getHostAddressFromAHosts(hosts) {
     }
 
     return match[0];
+}
+
+function startSeleniumContainer() {
+    execSync('docker-compose -p ux-aspects up -d selenium', { stdio: 'inherit' });
 }
