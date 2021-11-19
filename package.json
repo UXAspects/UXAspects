@@ -34,7 +34,7 @@
         "start:library": "npm run ng build ux-aspects -- --watch",
         "start:karma": "npm run ng test ux-aspects -- --watch",
         "start": "concurrently \"npm run serve:documentation\" \"npm run start:library\" \"node ./scripts/serve-plunker.js\"",
-        "test:e2e": "npm run ng e2e ux-aspects-e2e",
+        "test:e2e": "grunt execute:protractor",
         "test:karma": "npm run ng test ux-aspects",
         "test": "npm run test:karma && npm run test:e2e"
     },

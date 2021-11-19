@@ -131,18 +131,7 @@
                     },
                     "configurations": {
                         "production": {
-                            "budgets": [
-                                {
-                                    "type": "initial",
-                                    "maximumWarning": "500kb",
-                                    "maximumError": "1mb"
-                                },
-                                {
-                                    "type": "anyComponentStyle",
-                                    "maximumWarning": "2kb",
-                                    "maximumError": "4kb"
-                                }
-                            ],
+                            "budgets": [],
                             "fileReplacements": [],
                             "outputHashing": "all"
                         },
@@ -175,7 +164,6 @@
                     "builder": "@angular-devkit/build-angular:protractor",
                     "options": {
                         "protractorConfig": "./protractor.conf.js",
-                        "devServerTarget": "ux-aspects-e2e:serve",
                         "webdriverUpdate": false
                     }
                 },

@@ -1,7 +1,6 @@
 // Protractor configuration file, see link for more information
 // https://github.com/angular/protractor/blob/master/lib/config.ts
 
-const { SpecReporter } = require('jasmine-spec-reporter');
 const { env, cwd } = require('process');
 const { join } = require('path');
 const { JUnitXmlReporter } = require('jasmine-reporters');
@@ -9,23 +8,16 @@ const { mkdirpSync } = require('fs-extra');
 const { execSync } = require('child_process');
 const isIp = require('is-ip');
 
-const e2eHostPort = 4000;
 const outputDir = join(cwd(), 'target', 'e2e');
 const junitDir = join(outputDir, 'junit');
 const screenshotOutputDir = join(outputDir, 'screenshots');
-const DOCKER_CONTAINER_NAME = 'uxa-selenium';
 const isJenkinsBuild = !!env.RE_BUILD_TYPE;
-
-if (!isJenkinsBuild) {
-    startSeleniumContainer();
-}
-
-env.E2E_HOST_ADDRESS = isJenkinsBuild ? 'localhost' : getHostAddressFromSeleniumContainer();
-const e2eHostAddress = env.E2E_HOST_ADDRESS || 'localhost';
+const DOCKER_CONTAINER_NAME = 'uxa-selenium';
+const e2eHostAddress = isJenkinsBuild ? 'localhost' : getHostAddressFromSeleniumContainer();
 
 const config = {
     chromeDriver: require('chromedriver').path,
-    baseUrl: `http://${ e2eHostAddress }:${ e2eHostPort }/#/`,
+    baseUrl: `http://${ e2eHostAddress }:4000/#/`,
     allScriptsTimeout: 11000,
     specs: [
         './e2e/**/*.e2e-spec.ts'
@@ -114,11 +106,6 @@ if (!isJenkinsBuild) {
 }
 
 module.exports.config = config;
-
-
-function startSeleniumContainer() {
-    execSync('docker-compose -p ux-aspects up -d selenium', { stdio: 'inherit' });
-}
 
 function getHostAddressFromSeleniumContainer() {
     const cmd = `docker exec ${ DOCKER_CONTAINER_NAME } getent ahosts host.docker.internal`;
