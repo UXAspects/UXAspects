@@ -9,6 +9,7 @@ const { execSync } = require('child_process');
 const isIp = require('is-ip');
 const express = require('express');
 const cors = require('cors');
+const { SpecReporter } = require('jasmine-spec-reporter');
 
 const outputDir = join(cwd(), 'target', 'e2e');
 const junitDir = join(outputDir, 'junit');
@@ -75,6 +76,19 @@ const config = {
                     consolidateAll: false,
                     savePath: junitDir,
                     filePrefix: `${ browserName }.`
+                })
+            );
+
+            jasmine.getEnv().addReporter(
+                new SpecReporter({
+                    spec: {
+                        displayStacktrace: 'pretty'
+                    },
+                    summary: {
+                        displayErrorMessages: true,
+                        displayFailed: true,
+                        displayDuration: false
+                    }
                 })
             );
         });
