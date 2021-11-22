@@ -30,11 +30,11 @@
         "setversion": "ux-setversion package.json package-lock.json src/package.json",
         "start:e2e": "ng serve ux-aspects-e2e",
         "start:library": "npm run ng build ux-aspects -- --watch",
-        "start:karma": "npm run ng test ux-aspects -- --watch",
+        "start:karma": "npm run ng test ux-aspects -- --watch --browsers=Chrome",
         "start:documentation": "npm run ng serve documentation",
         "start": "concurrently \"npm run start:documentation\" \"npm run start:library\" \"node ./scripts/serve-plunker.js\"",
         "test:e2e": "ng e2e ux-aspects-e2e",
-        "test:karma": "npm run ng test ux-aspects -- watch=false",
+        "test:karma": "npm run ng test ux-aspects -- --watch=false",
         "test": "npm run test:karma && npm run test:e2e"
     },
     "dependencies": {
