@@ -225,7 +225,7 @@
 
 <p>
     The <code>uxDashboardGrabHandle</code> directive can be used to provide keyboard accessibility and screen reader feedback for your dashboard widgets.
-    Simply add the directive to any element within the widget. Focusing on this element and pressing the space key which enable "grab" mode
+    Simply add the directive to any element within the widget. Focusing on this element and pressing the space key will enable "grab" mode
     which will allow the user to position or resize the widget. Pressing the space key again would confirm the changes, pressing escape would revert the changes.
 </p>
 
@@ -251,15 +251,60 @@
         Specify the announcement that is made whenever an item cannot be moved.
     </tr>
     <tr uxd-api-property name="uxGrabResizeFailAnnouncement" type="(widget: DashboardWidgetComponent, direction: ActionDirection) => string | string">
-        Specify the announcement thqt is made whenever an item cannot be resized.
+        Specify the announcement that is made whenever an item cannot be resized.
     </tr>
     <tr uxd-api-property name="uxGrabConfirmAnnouncement" type="(widget: DashboardWidgetComponent) => string | string">
-        Specify the announcement made whenever the moving/resizing is commited.
+        Specify the announcement made whenever the moving/resizing is committed.
     </tr>
     <tr uxd-api-property name="uxGrabCancelAnnouncement" type="(widget: DashboardWidgetComponent) => string | string">
         Specify the announcement made whenever the moving/resizing is cancelled.
     </tr>
 </uxd-api-properties>
+
+<h4>Accessibility</h4>
+
+<p>
+    The <code>ux-dashboard-widget</code> elements inside the <code>ux-dashboard</code> can be moved and resized using
+    the keyboard.
+</p>
+<p>
+    To move a widget it must have the <code>uxDashboardWidgetDragHandle</code> directive added to an element as detailed
+    above.
+    With the drag handle focused pressing <strong>space</strong> will "grab" the <code>ux-dashboard-widget</code>.
+    Use the <strong>arrow keys</strong> to move the widget up, down, left and right provided there is sufficient space
+    for the widget.
+    Once the widget is in the desired position, press the <strong>space</strong> key to "place" the widget.
+    The other widgets will automatically arrange depending on the movement.
+</p>
+<p>
+    To resize a widget with the keyboard "grab" the widget in the same way as detailed above.
+    Hold the <strong>control</strong> key and use the <strong>arrow keys</strong> to resize the widget provided there is
+    enough space to do so.
+    Once the widget is the desired size, press the <strong>space</strong> key to "place" the widget.
+    Widgets cannot be resized under their <code>minColSpan</code> and <code>minRowSpan</code>.
+</p>
+<p>
+    A number of dynamic strings are used to support users of screen readers and other assistive technologies.
+    The inputs to <code>uxDashboardGrabHandle</code> can be used to customize and localize those strings.
+    In most cases, it will be necessary to bind a function in order to generate the required output.
+</p>
+
+<ux-tabset [minimal]="false">
+    <ux-tab heading="HTML">
+        <uxd-snippet language="html" [content]="snippets.compiled.ariaHtml"></uxd-snippet>
+    </ux-tab>
+
+    <ux-tab heading="TypeScript">
+        <uxd-snippet language="javascript" [content]="snippets.compiled.ariaTs"></uxd-snippet>
+    </ux-tab>
+</ux-tabset>
+
+<p>
+    Check <a href="https://github.com/UXAspects/UXAspects/blob/master/src/components/dashboard/grab-handle/grab-handle.service.ts">grab-handle.service.ts</a>
+    to see how the default strings are generated.
+</p>
+
+<h4>Source code</h4>
 
 <p>The following code can be used to create the example above.</p>
 
