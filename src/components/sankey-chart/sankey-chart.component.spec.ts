@@ -361,9 +361,7 @@ describe('Sankey Chart Component', () => {
 
     it('should resize nodes when container is resized', done => {
         const chart = element.querySelector('ux-sankey-chart') as HTMLElement;
-        console.log('file: sankey-chart.component.spec.ts ~ line 364 ~ fdescribe ~ chart', chart);
         const node = element.querySelectorAll('.ux-sankey-chart-node').item(0) as HTMLElement;
-        console.log('file: sankey-chart.component.spec.ts ~ line 366 ~ fdescribe ~ node', node);
 
         expect(node.offsetWidth).toBe(150);
         chart.style.width = '900px';
