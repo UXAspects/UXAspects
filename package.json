@@ -30,7 +30,7 @@
         "postpack": "mv src_package.json src/package.json",
         "prepack": "mv src/package.json src_package.json",
         "setversion": "ux-setversion package.json package-lock.json src/package.json",
-        "start:e2e": "webpack serve --config=configs/webpack.e2e.config.js",
+        "start:e2e": "ng serve ux-aspects-e2e",
         "start:library": "npm run ng build ux-aspects -- --watch",
         "start:karma": "npm run ng test ux-aspects -- --watch",
         "start": "concurrently \"npm run serve:documentation\" \"npm run start:library\" \"node ./scripts/serve-plunker.js\"",
