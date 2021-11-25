@@ -131,5 +131,4 @@ export class ComponentsDashboardComponent extends BaseDocumentationSection imple
             });
         }
     }
-
 }
