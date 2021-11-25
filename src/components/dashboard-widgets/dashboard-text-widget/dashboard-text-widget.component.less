@@ -34,15 +34,19 @@ ux-dashboard-text-widget {
             border-left: none;
         }
 
-        > .ux-side-panel-host > .widget-side-panel-textarea {
-            background-color: transparent;
-            color: inherit;
-            border: none;
-            outline: none;
-        }
+        > .ux-side-panel-host {
+            z-index: 1;
 
-        > .ux-side-panel-host button {
-            float: right;
+            > .widget-side-panel-textarea {
+                background-color: transparent;
+                color: inherit;
+                border: none;
+                outline: none;
+            }
+
+            button {
+                float: right;
+            }
         }
     }
 }

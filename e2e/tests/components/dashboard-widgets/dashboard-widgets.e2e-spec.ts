@@ -109,7 +109,6 @@ describe('Dashboard Widgets', () => {
 
     it('should allow to edit text', async () => {
         await page.clickDetailsButton(widgetText);
-        await new Promise(resolve => setTimeout(resolve, 2000));
         expect(await imageCompare('dashboard-widgets-edit-open')).toEqual(0);
         await page.writeText('edited');
         expect(await imageCompare('dashboard-widgets-edit-edited')).toEqual(0);
