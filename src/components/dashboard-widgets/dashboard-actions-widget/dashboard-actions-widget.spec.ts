@@ -62,19 +62,4 @@ describe('Actions Widget', () => {
         expect(component).toBeTruthy();
         expect(component.widget).toBeTruthy();
     });
-
-    it('should set inputs correctly', () => {
-        expect(component.widget.fixedMode).toEqual(false);
-        expect(component.widget.colSpan).toEqual(3);
-        expect(component.widget.rowSpan).toEqual(4);
-        expect(component.widget.id).toEqual('widget-actions');
-        expect(component.widget.name).toEqual('Actions Widget');
-        expect(component.widget.heading).toEqual('Actions Widget');
-
-        expect(component.widget.status).toEqual(status);
-        expect(component.widget.actions[0]).toEqual({value: 'accept', label: 'Accept', icon: 'active'});
-        expect(component.widget.actions[1].value).toEqual('decline');
-        expect(component.widget.actions[1].label).toEqual('Decline');
-        expect(component.widget.actions[1].icon).toBeUndefined();
-    });
 });

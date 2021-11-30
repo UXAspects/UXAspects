@@ -46,21 +46,4 @@ describe('Text Widget', () => {
         expect(component).toBeTruthy();
         expect(component.widget).toBeTruthy();
     });
-
-    it('should set inputs correctly', () => {
-        expect(component.widget.fixedMode).toEqual(false);
-        expect(component.widget.colSpan).toEqual(3);
-        expect(component.widget.rowSpan).toEqual(4);
-        expect(component.widget.id).toEqual('widget-text');
-        expect(component.widget.name).toEqual('Text Widget');
-        expect(component.widget.heading).toEqual('Text Widget');
-
-        expect(component.widget.text).toEqual(loremIpsum);
-        expect(component.widget.editable).toEqual(true);
-        expect(component.widget.editLabel).toEqual('Edit');
-        expect(component.widget.showFullTextLabel).toEqual('Show full text');
-        expect(component.widget.saveLabel).toEqual('Save');
-        expect(component.widget.cancelLabel).toEqual('Cancel');
-        expect(component.widget.closeLabel).toEqual('Close Side Panel');
-    });
 });

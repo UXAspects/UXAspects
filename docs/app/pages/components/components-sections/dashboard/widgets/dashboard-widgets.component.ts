@@ -7,8 +7,7 @@ import {IPlaygroundProvider} from '../../../../../interfaces/IPlaygroundProvider
 
 @Component({
     selector: 'uxd-components-dashboard-widgets',
-    templateUrl: './dashboard-widgets.component.html',
-    styleUrls: ['./dashboard-widgets.component.less']
+    templateUrl: './dashboard-widgets.component.html'
 })
 @DocumentationSectionComponent('ComponentsDashboardWidgetsComponent')
 export class ComponentsDashboardWidgetsComponent extends BaseDocumentationSection implements IPlaygroundProvider, AfterViewInit {
@@ -17,10 +16,16 @@ export class ComponentsDashboardWidgetsComponent extends BaseDocumentationSectio
             'app.component.ts': this.snippets.raw.appTs,
             'app.component.html': this.snippets.raw.appHtml
         },
-        modules: [{
-            imports: ['DashboardModule'],
-            library: '@ux-aspects/ux-aspects'
-        }]
+        modules: [
+            {
+                imports: ['DashboardModule'],
+                library: '@ux-aspects/ux-aspects'
+            },
+            {
+                imports: ['DashboardPredefinedWidgetsModule'],
+                library: '@ux-aspects/ux-aspects'
+            }
+        ]
     };
 
     fixedMode: boolean = false;

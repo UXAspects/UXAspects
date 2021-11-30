@@ -50,18 +50,6 @@ describe('Select Widget', () => {
         expect(component).toBeTruthy();
         expect(component.widget).toBeTruthy();
     });
-
-    it('should set inputs correctly', () => {
-        expect(component.widget.fixedMode).toEqual(false);
-        expect(component.widget.colSpan).toEqual(3);
-        expect(component.widget.rowSpan).toEqual(4);
-        expect(component.widget.id).toEqual('widget-select');
-        expect(component.widget.name).toEqual('Select Widget');
-        expect(component.widget.heading).toEqual('Select Widget');
-
-        expect(component.widget.options).toEqual(defaultOptions);
-        expect(component.widget.value).toEqual('nothing');
-    });
 });
 
 describe('GetOptionByValuePipe', () => {

@@ -54,16 +54,4 @@ describe('Table Widget', () => {
         expect(component).toBeTruthy();
         expect(component.widget).toBeTruthy();
     });
-
-    it('should set inputs correctly', () => {
-        expect(component.widget.fixedMode).toEqual(false);
-        expect(component.widget.colSpan).toEqual(3);
-        expect(component.widget.rowSpan).toEqual(4);
-        expect(component.widget.id).toEqual('widget-table');
-        expect(component.widget.name).toEqual('Table Widget');
-        expect(component.widget.heading).toEqual('Table Widget');
-
-        expect(component.widget.header).toEqual(header);
-        expect(component.widget.data).toEqual(data);
-    });
 });

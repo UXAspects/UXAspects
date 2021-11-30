@@ -3,8 +3,7 @@ import {ActionConfig, ActionStatus, DashboardOptions, SelectConfig} from '@ux-as
 
 @Component({
     selector: 'app',
-    templateUrl: './app.component.html',
-    styleUrls: ['./app.component.css']
+    templateUrl: './app.component.html'
 })
 export class AppComponent implements AfterViewInit {
     fixedMode: boolean = false;

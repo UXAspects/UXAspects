@@ -104,14 +104,13 @@
 <p>The following attributes are required by all pre-built widgets:</p>
 
 <uxd-api-properties tableTitle="Inputs">
-    <tr uxd-api-property name="id" type="string" [required]="true">The id given to the widget.</tr>
-    <tr uxd-api-property name="name" type="string" [required]="true">The name used by aria labels and announcements.
-    </tr>
-    <tr uxd-api-property name="heading" type="string">The heading displayed for the widget.</tr>
-    <tr uxd-api-property name="fixedMode" type="boolean">Whether the widget can be dragged and resized.</tr>
-    <tr uxd-api-property name="colSpan" type="number">The number of columns the widget spans.</tr>
-    <tr uxd-api-property name="rowSpan" type="number">The number of rows the widget spans.</tr>
-    <tr uxd-api-property name="grabHandleText" type="string">Tooltip text for the grab handle.</tr>
+    <tr uxd-api-property name="id" type="string" [required]="true">Sets the ID of the widget. Each widget should be given a unique ID.</tr>
+    <tr uxd-api-property name="name" type="string" [required]="true">Sets the name used by aria labels and announcements.</tr>
+    <tr uxd-api-property name="heading" type="string">Sets the heading of the widget.</tr>
+    <tr uxd-api-property name="fixedMode" type="boolean">Defines whether the widget can be dragged and resized.</tr>
+    <tr uxd-api-property name="colSpan" type="number">Defines the number of columns this widget should occupy.</tr>
+    <tr uxd-api-property name="rowSpan" type="number">Defines the number of rows this widget should occupy.</tr>
+    <tr uxd-api-property name="grabHandleText" type="string">Sets the tooltip text for the grab handle.</tr>
 </uxd-api-properties>
 
 <p>Each widget has its own customizable attributes.</p>

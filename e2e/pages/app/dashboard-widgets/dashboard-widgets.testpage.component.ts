@@ -3,8 +3,7 @@ import {ActionConfig, ActionStatus, DashboardLayoutData, DashboardOptions, Selec
 
 @Component({
     selector: 'dashboard-app',
-    templateUrl: './dashboard-widgets.testpage.component.html',
-    styleUrls: ['./dashboard-widgets.testpage.component.css']
+    templateUrl: './dashboard-widgets.testpage.component.html'
 })
 export class DashboardWidgetsTestpageComponent implements AfterViewInit {
     fixedMode: boolean = false;
