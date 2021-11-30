@@ -114,7 +114,6 @@
         "grunt-contrib-copy": "1.0.0",
         "grunt-contrib-cssmin": "2.2.1",
         "grunt-execute": "0.2.2",
-        "grunt-protractor-runner": "5.0.0",
         "grunt-run": "^0.8.1",
         "grunt-stylelint": "0.8.0",
         "grunt-webfont": "0.4.8",
