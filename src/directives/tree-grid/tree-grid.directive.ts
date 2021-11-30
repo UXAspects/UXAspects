@@ -23,9 +23,6 @@ export class TreeGridDirective implements OnInit, OnDestroy {
         this._treeGridService.loadChildren = loadChildren;
     }
 
-    @Input()
-    rows: TreeGridItem[];
-
     @Output()
     rowsChange = new EventEmitter<TreeGridItem[]>();
 
@@ -34,7 +31,8 @@ export class TreeGridDirective implements OnInit, OnDestroy {
     constructor(
         private _changeDetector: ChangeDetectorRef,
         private _treeGridService: TreeGridService
-    ) {}
+    ) {
+    }
 
     ngOnInit(): void {
         this._treeGridService.rows$

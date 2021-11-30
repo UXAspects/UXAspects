@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { StepDirection } from './number-picker.component';
 import { NumberPickerModule } from './number-picker.module';
@@ -7,18 +7,19 @@ import { NumberPickerModule } from './number-picker.module';
 /** Number picker example using form group */
 @Component({
     selector: 'app-number-picker-form',
-    template: `<ux-number-picker [min]="min"
-                                 [max]="max"
-                                 [step]="step"
-                                 [formControl]="form.controls['integer']"
-                                 [placeholder]="placeholder">
-                </ux-number-picker>
-                <ux-number-picker [min]="min"
-                                  [max]="max"
-                                  [step]="step"
-                                  [formControl]="form.controls['integer2']"
-                                  [placeholder]="placeholder">
-                </ux-number-picker>
+    template: `
+        <ux-number-picker [min]="min"
+                          [max]="max"
+                          [step]="step"
+                          [formControl]="form.controls['integer']"
+                          [placeholder]="placeholder">
+        </ux-number-picker>
+        <ux-number-picker [min]="min"
+                          [max]="max"
+                          [step]="step"
+                          [formControl]="form.controls['integer2']"
+                          [placeholder]="placeholder">
+        </ux-number-picker>
 
     `
 })
@@ -34,8 +35,14 @@ export class NumberPickerTestFormGroupComponent {
     constructor(formBuilder: FormBuilder) {
 
         this.form = formBuilder.group({
-            integer: [{ value: 0, disabled: false }, Validators.compose([Validators.required, Validators.min(-10), Validators.max(10)])],
-            integer2: [{ value: 0, disabled: true }, Validators.compose([Validators.required, Validators.min(-10), Validators.max(10)])]
+            integer: [{
+                value: 0,
+                disabled: false
+            }, Validators.compose([Validators.required, Validators.min(-10), Validators.max(10)])],
+            integer2: [{
+                value: 0,
+                disabled: true
+            }, Validators.compose([Validators.required, Validators.min(-10), Validators.max(10)])]
         });
     }
 }
@@ -56,7 +63,7 @@ describe('Number Picker Component - FormGroup', () => {
         await fixture.whenStable();
     }
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             imports: [NumberPickerModule, ReactiveFormsModule],
             declarations: [NumberPickerTestFormGroupComponent],
@@ -417,11 +424,12 @@ describe('Number Picker Component - FormGroup', () => {
 
 @Component({
     selector: 'app-number-picker-ngmodel',
-    template: `<ux-number-picker [min]="min"
-                                 [max]="max"
-                                 [disabled]="disabled"
-                                 [(ngModel)]="value">
-                </ux-number-picker>
+    template: `
+        <ux-number-picker [min]="min"
+                          [max]="max"
+                          [disabled]="disabled"
+                          [(ngModel)]="value">
+        </ux-number-picker>
 
     `
 })
@@ -441,7 +449,7 @@ describe('Number Picker Component - ngModel', () => {
     let numberPicker: HTMLElement;
     let input: HTMLInputElement;
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             imports: [
                 NumberPickerModule,
@@ -552,15 +560,16 @@ describe('Number Picker Component - ngModel', () => {
 
 @Component({
     selector: 'app-number-picker-value',
-    template: `<ux-number-picker [min]="min"
-                                 [max]="max"
-                                 [required]="required"
-                                 [disabled]="disabled"
-                                 (valueChange)="onValueChange($event)"
-                                 [value]="value"
-                                 [(ngModel)]="value"
-                                 (ngModelChange)="onNgModelChange($event)">
-                </ux-number-picker>
+    template: `
+        <ux-number-picker [min]="min"
+                          [max]="max"
+                          [required]="required"
+                          [disabled]="disabled"
+                          (valueChange)="onValueChange($event)"
+                          [value]="value"
+                          [(ngModel)]="value"
+                          (ngModelChange)="onNgModelChange($event)">
+        </ux-number-picker>
 
     `
 })
@@ -572,8 +581,11 @@ export class NumberPickerTestValueComponent {
     min = -10;
     max = 10;
 
-    onValueChange(value: number): void { }
-    onNgModelChange(value: number): void { }
+    onValueChange(value: number): void {
+    }
+
+    onNgModelChange(value: number): void {
+    }
 
 }
 
@@ -584,7 +596,7 @@ describe('Number Picker Component - value', () => {
     let numberPicker: HTMLElement;
     let input: HTMLInputElement;
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             imports: [
                 NumberPickerModule,
@@ -768,9 +780,10 @@ describe('Number Picker Component - value', () => {
 
 @Component({
     selector: 'app-number-picker-form',
-    template: `<ux-number-picker readonly
-                                 [formControl]="form.controls['readonly']">
-                </ux-number-picker>`
+    template: `
+        <ux-number-picker readonly
+                          [formControl]="form.controls['readonly']">
+        </ux-number-picker>`
 })
 export class NumberPickerTestReadonlyComponent {
 
@@ -792,7 +805,7 @@ describe('Number Picker Component - Readonly', () => {
     let numberPicker1: HTMLInputElement;
     let input1: HTMLInputElement;
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             imports: [NumberPickerModule, ReactiveFormsModule],
             declarations: [NumberPickerTestReadonlyComponent],

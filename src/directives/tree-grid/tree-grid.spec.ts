@@ -1,5 +1,5 @@
 import { Component, QueryList, ViewChildren } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { TreeGridItem, TreeGridModule, TreeGridRowDirective } from './index';
 
 interface TreeGridTestItem extends TreeGridItem {
@@ -25,7 +25,9 @@ export class TreeGridTestComponent {
     items: TreeGridTestItem[] = [];
     rows: TreeGridTestItem[];
     @ViewChildren(TreeGridRowDirective) rowDirectives: QueryList<TreeGridRowDirective>;
-    expandedChange(row: TreeGridTestItem, expanded: boolean): void {}
+
+    expandedChange(row: TreeGridTestItem, expanded: boolean): void {
+    }
 }
 
 describe('Tree Grid', () => {
@@ -33,7 +35,7 @@ describe('Tree Grid', () => {
     let fixture: ComponentFixture<TreeGridTestComponent>;
     let nativeElement: HTMLElement;
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             imports: [TreeGridModule],
             declarations: [TreeGridTestComponent]

@@ -1,5 +1,5 @@
 import { BooleanInput, coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, forwardRef, HostListener, Input, OnChanges, Optional, Output } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, forwardRef, HostListener, Input, OnChanges, OnDestroy, Optional, Output } from '@angular/core';
 import { ControlValueAccessor, FormGroupDirective, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 let uniqueId = 0;
@@ -19,7 +19,7 @@ export const NUMBER_PICKER_VALUE_ACCESSOR: any = {
         '[class.ux-number-picker-invalid]': '!_valid && !disabled && !_formGroup'
     }
 })
-export class NumberPickerComponent implements ControlValueAccessor, OnChanges {
+export class NumberPickerComponent implements ControlValueAccessor, OnDestroy, OnChanges {
     private _min: number;
     private _max: number;
     private _step: number | ((value: number, direction: StepDirection) => number) = 1;
@@ -119,6 +119,9 @@ export class NumberPickerComponent implements ControlValueAccessor, OnChanges {
     /** Store the current valid state */
     _valid: boolean = true;
 
+    /** This is a flag to indicate when the component has been destroyed to avoid change detection being made after the component
+     *  is no longer instantiated. A workaround for Angular Forms bug (https://github.com/angular/angular/issues/27803) */
+    private _isDestroyed: boolean = false;
     private _readonly: boolean = false;
 
     constructor(
@@ -131,11 +134,15 @@ export class NumberPickerComponent implements ControlValueAccessor, OnChanges {
         this._valid = this.isValid();
     }
 
+    ngOnDestroy(): void {
+        this._isDestroyed = true;
+    }
+
     getStep(direction: StepDirection): number {
         return typeof this._step === 'number' ? this._step : this._step(this.value, direction);
     }
 
-    increment(event?: Event): void {
+    increment(event?: MouseEvent | KeyboardEvent): void {
         if (event) {
             event.preventDefault();
         }
@@ -151,7 +158,7 @@ export class NumberPickerComponent implements ControlValueAccessor, OnChanges {
         }
     }
 
-    decrement(event?: Event): void {
+    decrement(event?: MouseEvent | KeyboardEvent): void {
         if (event) {
             event.preventDefault();
         }
@@ -186,6 +193,11 @@ export class NumberPickerComponent implements ControlValueAccessor, OnChanges {
         if (value !== undefined) {
             this._value = value;
             this._valid = this.isValid();
+            // if the component is not destroyed then run change detection
+            // workaround for Angular bug (https://portal.digitalsafe.net/browse/EL-3694)
+            if (!this._isDestroyed) {
+                this._changeDetector.detectChanges();
+            }
         }
     }
 
@@ -204,6 +216,10 @@ export class NumberPickerComponent implements ControlValueAccessor, OnChanges {
 
     /** Set the value and emit the change to the output and Angular forms. */
     _emitValueChange(value: number): void {
+        // This is a workaround for angular bug https://github.com/angular/angular/issues/12540
+        if (value === this._lastValue) {
+            return;
+        }
         this._lastValue = value;
         this.valueChange.emit(value);
         this._propagateChange(value);
