@@ -20,7 +20,7 @@
     "scripts": {
         "ng": "node --max_old_space_size=8192 ./node_modules/@angular/cli/bin/ng.js",
         "build:documentation": "grunt build:documentation",
-        "build:library": "grunt library",
+        "build:library": "grunt build:library",
         "build": "grunt build",
         "docker:ci": "node ./scripts/docker.js",
         "generate:iconset": "node ./scripts/docker.js uxaspects/buildenv:1 \"npm install && npx grunt iconset\"",
