@@ -36,7 +36,7 @@
         "test:e2e": "ng e2e ux-aspects-e2e",
         "test:karma": "npm run ng test ux-aspects -- --watch=false",
         "test": "npm run test:karma && npm run test:e2e",
-        "format": "prettier --write"
+        "format": "prettier --write \"**/*.{ts,js,json,css,less,html}\""
     },
     "dependencies": {
         "@angular/animations": "^13.0.0",
@@ -82,7 +82,7 @@
         "@angular-eslint/eslint-plugin-template": "13.0.0",
         "@angular-eslint/schematics": "13.0.0",
         "@angular-eslint/template-parser": "13.0.0",
-        "@trivago/prettier-plugin-sort-imports": "^3.1.1",
+        "@trivago/prettier-plugin-sort-imports": "^2.0.4",
         "@types/chance": "0.7.35",
         "@types/chart.js": "^2.9.14",
         "@types/d3": "^5.7.2",
