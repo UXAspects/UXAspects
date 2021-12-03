@@ -82,16 +82,13 @@
 
         <div class="btn-container">
             <button type="button" class="btn button-secondary" (click)="setExpanded(asyncItems, true)">
-                <ux-icon name="chevron-down"></ux-icon>
-                Expand All
+                <ux-icon name="chevron-down"></ux-icon> Expand All
             </button>
             <button type="button" class="btn button-secondary" (click)="setExpanded(asyncItems, false)">
-                <ux-icon name="chevron-right"></ux-icon>
-                Contract All
+                <ux-icon name="chevron-right"></ux-icon> Contract All
             </button>
             <button type="button" class="btn button-secondary" (click)="clearChildren()">
-                <ux-icon name="close"></ux-icon>
-                Clear Cached Data
+                <ux-icon name="close"></ux-icon> Clear Cached Data
             </button>
         </div>
 
@@ -208,12 +205,14 @@
         The items to display in the tree grid.
         See below for details of the <code>TreeGridItem</code> interface.
     </tr>
-    <tr uxd-api-property name="loadChildren"
-        type="(parent: TreeGridItem) => TreeGridItem[] | Promise<TreeGridItem[]> | Observable<TreeGridItem[]>">
+    <tr uxd-api-property name="rows" type="TreeGridItem[]">
+        <strong>Deprecated:</strong> This input will be removed in the next major release.
+        Use <code>(rowsChange)="rows = $event"</code> instead.
+    </tr>
+    <tr uxd-api-property name="loadChildren" type="(parent: TreeGridItem) => TreeGridItem[] | Promise<TreeGridItem[]> | Observable<TreeGridItem[]>">
         <p>
             A function which provides the array of child items of a particular row.
-            This can be used for lazy loading of tree content, and supports observables and promises to allow loading
-            data
+            This can be used for lazy loading of tree content, and supports observables and promises to allow loading data
             asynchronously.
         </p>
         <p>
@@ -226,8 +225,7 @@
 <uxd-api-properties tableTitle="Outputs">
     <tr uxd-api-property name="rowsChange" type="TreeGridItem[]">
         Provides an array of the currently visible rows, based on the expanded/collapsed states.
-        Bind this array to an <code>ngFor</code> directive to populate the table rows, after applying any required
-        filtering.
+        Bind this array to an <code>ngFor</code> directive to populate the table rows, after applying any required filtering.
     </tr>
 </uxd-api-properties>
 
@@ -271,10 +269,8 @@
 <h4>uxTreeGridIndent</h4>
 
 <p>
-    Apply the <code>uxTreeGridIndent</code> attribute directive to the first <code>td</code> of every row to apply the
-    correct level of indentation.
-    By default the indentation is <code>25px</code> however you can provide the attribute with a value indicating how
-    many pixels it should indent.
+    Apply the <code>uxTreeGridIndent</code> attribute directive to the first <code>td</code> of every row to apply the correct level of indentation.
+    By default the indentation is <code>25px</code> however you can provide the attribute with a value indicating how many pixels it should indent.
 </p>
 
 <h4>TreeGridItem</h4>

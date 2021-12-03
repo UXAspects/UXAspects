@@ -30,16 +30,16 @@ export class SiteThemeService {
             if (link) {
                 switch (siteTheme) {
                     case SiteThemeId.MicroFocus:
-                        link.href = '/assets/themes/ux-aspects/css/main.css';
+                        link.href = 'assets/themes/ux-aspects/css/main.css';
                         break;
                     case SiteThemeId.MicroFocusNext:
-                        link.href = '/assets/themes/next/css/main.css';
+                        link.href = 'assets/themes/next/css/main.css';
                         break;
                     case SiteThemeId.Roboto:
-                        link.href = '/assets/themes/roboto/css/main.css';
+                        link.href = 'assets/themes/roboto/css/main.css';
                         break;
                     case SiteThemeId.WhiteLabel:
-                        link.href = '/assets/themes/white-label/css/main.css';
+                        link.href = 'assets/themes/white-label/css/main.css';
                         break;
                 }
             }

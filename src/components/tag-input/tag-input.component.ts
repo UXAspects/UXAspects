@@ -38,7 +38,7 @@ const TAGINPUT_VALIDATOR = {
 export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, ControlValueAccessor, Validator, OnDestroy {
 
     /** Specify a unique Id for the component */
-    @Input() @HostBinding('attr.id') id: string = `ux-tag-input-${++uniqueId}`;
+    @Input() @HostBinding('attr.id') id: string = `ux-tag-input-${ ++uniqueId }`;
 
     /**
      * The list of tags appearing in the tag input. This can be an array of strings or custom objects.
@@ -51,6 +51,7 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
         }
         return this._tags;
     }
+
     set tags(value: T | ReadonlyArray<T>) {
         this._tags = Array.isArray(value) ? value : [];
     }
@@ -228,8 +229,10 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
     }
 
     private _tags: ReadonlyArray<T> = [];
-    private _onChangeHandler: (_: any) => void = () => { };
-    private _onTouchedHandler: () => void = () => { };
+    private _onChangeHandler: (_: any) => void = () => {
+    };
+    private _onTouchedHandler: () => void = () => {
+    };
     private _subscription: Subscription;
     private _onDestroy = new Subject<void>();
     private _autoCloseDropdown: boolean = true;
@@ -240,7 +243,8 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
         private _changeDetector: ChangeDetectorRef,
         private _element: ElementRef,
         @Inject(DOCUMENT) private _document: any,
-        private _typeaheadKeyService: TypeaheadKeyService) { }
+        private _typeaheadKeyService: TypeaheadKeyService) {
+    }
 
     ngAfterContentInit(): void {
         // Watch for optional child typeahead control
@@ -327,7 +331,9 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
     @HostListener('keydown', ['$event'])
     keyHandler(event: KeyboardEvent): void {
 
-        if (this.disabled) { return; }
+        if (this.disabled) {
+            return;
+        }
 
         // Get the input field cursor location
         const inputCursorPos = this.tagInput.nativeElement.selectionStart;
@@ -427,7 +433,9 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
     onClick(): void {
 
         // Prevent error if you click input when at max tag limit
-        if (this.tagInput === undefined) { return; }
+        if (this.tagInput === undefined) {
+            return;
+        }
 
         // focus the input element
         this.tagInput.nativeElement.focus();
@@ -438,7 +446,9 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
 
     tagClickHandler(event: MouseEvent, tag: T, index: number): void {
 
-        if (this.disabled) { return; }
+        if (this.disabled) {
+            return;
+        }
 
         // Send tagClick event
         const tagClickEvent = new TagInputEvent(tag);
@@ -456,7 +466,9 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
 
     inputClickHandler(): void {
 
-        if (this.disabled) { return; }
+        if (this.disabled) {
+            return;
+        }
 
         if (this.typeahead && this.showTypeaheadOnClick) {
             this.typeahead.open = true;
@@ -477,13 +489,18 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
 
     inputPasteHandler(event: ClipboardEvent): void {
 
-        if (this.disabled) { return; }
+        if (this.disabled) {
+            return;
+        }
 
         if (this.addOnPaste) {
             // Get text from the clipboard
             let input: string = null;
             if (event.clipboardData) {
                 input = event.clipboardData.getData('text/plain');
+            } else if ((<any>window).clipboardData) {
+                // Internet Explorer only
+                input = (<any>window).clipboardData.getData('Text');
             }
 
             // Commit the clipboard text directly
@@ -497,7 +514,9 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
 
     typeaheadOptionSelectedHandler(event: TypeaheadOptionEvent): void {
 
-        if (this.disabled) { return; }
+        if (this.disabled) {
+            return;
+        }
 
         // When the typeahead sends the optionSelected event, commit the object directly
         this.commitTypeahead(event.option);
@@ -577,7 +596,9 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
      */
     moveSelection(delta: number): void {
 
-        if (this.disabled) { return; }
+        if (this.disabled) {
+            return;
+        }
 
         if (this.isValidSelectIndex(this.selectedIndex)) {
             this.selectedIndex += delta;
@@ -616,7 +637,9 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
      */
     selectTagAt(tagIndex: number): void {
 
-        if (this.disabled) { return; }
+        if (this.disabled) {
+            return;
+        }
 
         if (this.isValidTagIndex(tagIndex)) {
             this.selectedIndex = tagIndex;
@@ -640,7 +663,9 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
      */
     removeTagAt(tagIndex: number): void {
 
-        if (this.disabled || !this.canRemoveTagAt(tagIndex)) { return; }
+        if (this.disabled || !this.canRemoveTagAt(tagIndex)) {
+            return;
+        }
 
         // Check that the tagIndex is in range
         if (this.isValidTagIndex(tagIndex)) {
@@ -816,7 +841,7 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
         let tagValues = [input];
         if (this.tagDelimiters && typeof this.tagDelimiters === 'string') {
             const escapedDelimiters = this.tagDelimiters.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
-            const delimiterRegex = new RegExp(`[${escapedDelimiters}]`, 'g');
+            const delimiterRegex = new RegExp(`[${ escapedDelimiters }]`, 'g');
             tagValues = input.split(delimiterRegex).filter((s) => s.length > 0);
         }
         return tagValues;
@@ -838,7 +863,7 @@ export interface TagApi<T = any> {
     removeTagAt: (index: number) => void;
 
     /**
-     * 	Returns true if the tag at the given index can be removed.
+     *    Returns true if the tag at the given index can be removed.
      */
     canRemoveTagAt: (index: number) => boolean;
 }

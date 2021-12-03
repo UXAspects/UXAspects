@@ -24,7 +24,7 @@ export class ResolverService {
             }
         }
 
-        throw new Error('Component doesn\'t not exist in any module: ' + component);
+        throw new Error('Component does not exist in any module: ' + component);
     }
 
     static resolveCategoryData(page: DocumentationPage, categoryTitle: string) {
@@ -50,7 +50,7 @@ export class ResolverService {
         let match = data.categories.find(category => category.title === categoryTitle);
 
         if (!match) {
-            throw new Error(`The section "${categoryTitle}" does not exist!`);
+            throw new Error(`The section "${ categoryTitle }" does not exist!`);
         }
 
         return match;
