@@ -200,7 +200,8 @@
         The aria-label to apply to the child <code>input</code> element.
     </tr>
     <tr uxd-api-property name="disabled" type="boolean" defaultValue="false">
-        Controls the disabled state of the tag input.
+        Controls the disabled state of the tag input. If using a formControl do not use this input, instead disable from
+        formControl.
     </tr>
     <tr uxd-api-property name="dropDirection" type="'up' | 'down' | 'auto'" defaultValue="'down'">
         The positioning of the typeahead dropdown in relation to its parent. If 'auto' is used the
@@ -267,7 +268,8 @@
         Maximum number of displayed recently selected options.
     </tr>
     <tr uxd-api-property name="required" type="boolean" defaultValue="false">
-        If set to <code>true</code> the select will be marked as required.
+        If set to <code>true</code> the select will be marked as required. If using a formControl do not use this input
+        instead add required validation through the formControl. See example below under Validation heading.
     </tr>
     <tr uxd-api-property name="filterDebounceTime" type="number" defaultValue="200">
         Allows customization of the <code>debounceTime</code> used on the select's input filter.
@@ -310,6 +312,27 @@
         canRemoveTagAt</code>.
     </tr>
 </uxd-api-properties>
+
+<h4>Validation</h4>
+<p>
+    The <code>ux-select</code> component can have validation applied to it like any
+    other angular form element.
+</p>
+<p>Using template binding validation should not be used in conjunction with the reactive forms API.</p>
+<p>Below is a code example on how to implement validation with the <strong>Select</strong> component.</p>
+
+<ux-tabset [minimal]="false">
+    <ux-tab heading="HTML">
+        <uxd-snippet [content]="snippets.compiled.validationHtml"></uxd-snippet>
+    </ux-tab>
+    <ux-tab heading="TypeScript">
+        <uxd-snippet [content]="snippets.compiled.validationTs"></uxd-snippet>
+    </ux-tab>
+</ux-tabset>
+
+<h4>Source code</h4>
+<p>The following code can be used to create the example above.</p>
+
 
 <ux-tabset [minimal]="false">
     <ux-tab heading="HTML">
