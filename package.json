@@ -35,7 +35,8 @@
         "start": "concurrently \"npm run start:documentation\" \"npm run start:library\" \"node ./scripts/serve-plunker.js\"",
         "test:e2e": "ng e2e ux-aspects-e2e",
         "test:karma": "npm run ng test ux-aspects -- --watch=false",
-        "test": "npm run test:karma && npm run test:e2e"
+        "test": "npm run test:karma && npm run test:e2e",
+        "format": "prettier --write"
     },
     "dependencies": {
         "@angular/animations": "^13.0.0",
@@ -81,6 +82,7 @@
         "@angular-eslint/eslint-plugin-template": "13.0.0",
         "@angular-eslint/schematics": "13.0.0",
         "@angular-eslint/template-parser": "13.0.0",
+        "@trivago/prettier-plugin-sort-imports": "^3.1.1",
         "@types/chance": "0.7.35",
         "@types/chart.js": "^2.9.14",
         "@types/d3": "^5.7.2",
@@ -132,6 +134,7 @@
         "load-grunt-config": "0.19.2",
         "marked": "^0.8.0",
         "ng-packagr": "^13.0.3",
+        "prettier": "^2.5.0",
         "protractor": "^7.0.0",
         "protractor-console-plugin": "^0.1.1",
         "protractor-image-comparison": "^3.3.0",
