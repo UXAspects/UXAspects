@@ -32,7 +32,6 @@ export class AppComponent {
             } else {
                 this.select.disable();
             }
-            this.checkbox.updateValueAndValidity();
         });
     }
 }
