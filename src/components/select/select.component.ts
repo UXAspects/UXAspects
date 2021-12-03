@@ -399,7 +399,6 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
             this.dropdownOpen = false;
             this.valueChange.emit(this.value);
             this._onChange(this.value);
-            this.input = this.getDisplay(this.value);
         }
     }
 

@@ -1,7 +1,7 @@
 import { O, SHIFT, TAB } from '@angular/cdk/keycodes';
 import { Component } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { dispatchKeyboardEvent } from '../../common/testing/dispatch-event';
 import { InfiniteScrollLoadFunction } from '../../directives/infinite-scroll/index';
@@ -942,73 +942,4 @@ describe('Select with recent options', () => {
         expect(tags.length).toBe(1);
     });
 
-});
-
-@Component({
-    selector: 'app-select-required-validator-test',
-    template: `
-        <form [formGroup]="form">
-            <ux-select
-                formControlName="select"
-                [disabled]="disabled"
-                [required]="true"
-                [options]="options">
-            </ux-select>
-        </form>
-    `
-})
-export class SelectRequiredValidatorTestComponent {
-
-    disabled: boolean = true;
-
-    form = new FormGroup({
-        select: new FormControl(undefined, [Validators.required])
-    });
-
-    options: string[] = ['One', 'Two', 'Three'];
-}
-
-fdescribe('Select Component - Required Validator', () => {
-    let component: SelectRequiredValidatorTestComponent;
-    let fixture: ComponentFixture<SelectRequiredValidatorTestComponent>;
-    let nativeElement: HTMLElement;
-
-    beforeEach(async(() => {
-        TestBed.configureTestingModule({
-            imports: [
-                SelectModule,
-                ReactiveFormsModule
-            ],
-            declarations: [SelectRequiredValidatorTestComponent],
-        })
-            .compileComponents();
-    }));
-
-    beforeEach(() => {
-        fixture = TestBed.createComponent(SelectRequiredValidatorTestComponent);
-        component = fixture.componentInstance;
-        nativeElement = fixture.nativeElement;
-    });
-
-    it('should remove required error once option has been selected', async () => {
-        component.disabled = false;
-        fixture.detectChanges();
-        await fixture.whenStable();
-
-        console.log(component.form);
-        expect(component.form.controls.select.value).toEqual(null);
-        expect(component.form.controls.select.errors).toEqual({ "required": true });
-
-        const input = nativeElement.querySelector<HTMLInputElement>('input');
-        input.click();
-        fixture.detectChanges();
-
-        const optionListItems = nativeElement.querySelectorAll<HTMLElement>('.ux-typeahead-all-options li');
-        optionListItems.item(0).click();
-        fixture.detectChanges();
-        await fixture.whenStable();
-
-        expect(component.form.controls.select.value).toEqual('One');
-        expect(component.form.controls.select.errors).toEqual(null);
-    });
 });
