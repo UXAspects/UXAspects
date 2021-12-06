@@ -222,7 +222,7 @@ export class SystemJSHelper {
         mappings['@ux-aspects/ux-aspects'] = `${ assetsUrl }/lib/ux-aspects-ux-aspects.mjs`;
 
         if (documentationType === DocumentationType.MicroFocus) {
-            mappings['@micro-focus/ux-aspects'] = `${ assetsUrl }/lib/ux-aspects-micro-focus.js`;
+            mappings['@micro-focus/ux-aspects'] = `${ assetsUrl }/lib/micro-focus-ux-aspects.mjs`;
         }
 
         // add all external libraries
