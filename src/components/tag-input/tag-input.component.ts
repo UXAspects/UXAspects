@@ -45,7 +45,7 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
      * See the `displayProperty` property for details of using a custom object.
      */
     @Input()
-    get tags(): ReadonlyArray<T> {
+    get tags(): T | ReadonlyArray<T> {
         if (!this._tags) {
             this._tags = [];
         }
@@ -225,10 +225,10 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
     highlightedElement: HTMLElement;
 
     get _showClearButton(): boolean {
-        return this.clearButton && this.tags && this.tags.length > 0;
+        return this.clearButton && this._tags && this._tags.length > 0;
     }
 
-    private _tags: ReadonlyArray<T> = [];
+    _tags: ReadonlyArray<T> = [];
     private _onChangeHandler: (_: any) => void = () => {
     };
     private _onTouchedHandler: () => void = () => {
@@ -314,9 +314,9 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
         this.valid = true;
 
         let tagRangeError = null;
-        if (this.tags && (this.tags.length < this.minTags || this.tags.length > this.maxTags)) {
+        if (this._tags && (this._tags.length < this.minTags || this._tags.length > this.maxTags)) {
             tagRangeError = {
-                given: this.tags.length,
+                given: this._tags.length,
                 min: this.minTags,
                 max: this.maxTags
             };
@@ -584,7 +584,7 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
         }
 
         if (!this.isValidTagIndex(this.selectedIndex)) {
-            this.selectTagAt(this.tags.length - 1);
+            this.selectTagAt(this._tags.length - 1);
         } else {
             this.removeTagAt(this.selectedIndex);
         }
@@ -605,8 +605,8 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
 
             // Do wrapping of selection when out of bounds
             if (this.selectedIndex < 0) {
-                this.selectedIndex = this.tags.length;
-            } else if (this.selectedIndex > this.tags.length) {
+                this.selectedIndex = this._tags.length;
+            } else if (this.selectedIndex > this._tags.length) {
                 this.selectedIndex = 0;
             }
         }
@@ -655,7 +655,7 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
             return;
         }
 
-        this.selectedIndex = this.tags.length;
+        this.selectedIndex = this._tags.length;
     }
 
     /**
@@ -669,7 +669,7 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
 
         // Check that the tagIndex is in range
         if (this.isValidTagIndex(tagIndex)) {
-            const tag = this.tags[tagIndex];
+            const tag = this._tags[tagIndex];
             const tagRemovingEvent = new TagInputEvent(tag);
             this.tagRemoving.emit(tagRemovingEvent);
             if (!tagRemovingEvent.defaultPrevented()) {
@@ -677,7 +677,7 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
                 this.selectInput();
 
                 // Remove the tag
-                this.tags = this.tags.filter((_tag, index) => index !== tagIndex);
+                this.tags = this._tags.filter((_tag, index) => index !== tagIndex);
                 this.setTagsValue(this._tags);
                 // Set focus again since indices have changed
                 this.selectInput();
@@ -691,14 +691,14 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
      * Returns true if the tag at the given index can be removed.
      */
     canRemoveTagAt(tagIndex: number): boolean {
-        return this.tags.length > this.minTags || !this.enforceTagLimits;
+        return this._tags.length > this.minTags || !this.enforceTagLimits;
     }
 
     /**
      * Returns true if the input field should be available.
      */
     isInputVisible(): boolean {
-        return this.tags.length < this.maxTags || !this.enforceTagLimits;
+        return this._tags.length < this.maxTags || !this.enforceTagLimits;
     }
 
     /**
@@ -797,7 +797,7 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
                 const tagAddingEvent = new TagInputEvent(tag);
                 this.tagAdding.emit(tagAddingEvent);
                 if (!tagAddingEvent.defaultPrevented()) {
-                    this.tags = [...this.tags, tag];
+                    this.tags = [...this._tags, tag];
                     this.setTagsValue(this._tags);
                     this.tagAdded.emit(new TagInputEvent(tag));
                     this.validate();
@@ -813,14 +813,14 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
      * Returns true if the given tagIndex is a valid tag index.
      */
     private isValidTagIndex(tagIndex: number): boolean {
-        return tagIndex >= 0 && tagIndex < this.tags.length;
+        return tagIndex >= 0 && tagIndex < this._tags.length;
     }
 
     /**
      * Returns true if the given index is a valid selection index (tags or input field).
      */
     private isValidSelectIndex(index: number): boolean {
-        return index >= 0 && index <= this.tags.length;
+        return index >= 0 && index <= this._tags.length;
     }
 
     /**

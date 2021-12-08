@@ -57,11 +57,11 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
         this._disabledOptions = coerceArray(options);
     }
 
-    get disabledOptions(): T[] {
+    get disabledOptions(): T | T[] {
         return this._disabledOptions;
     }
 
-    private _disabledOptions: T[] = [];
+    _disabledOptions: T[] = [];
 
     /** Specify the drop direction */
     @Input() dropDirection: 'auto' | 'up' | 'down' = 'down';

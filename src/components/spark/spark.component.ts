@@ -66,7 +66,7 @@ export class SparkComponent {
         this.values = values.map(val => (val / total) * 100);
     }
 
-    get value(): number[] {
+    get value(): number | number[] {
         return this.values;
     }
 

@@ -60,7 +60,7 @@
         [uxTooltip]="tooltip">
 
         <div class="ux-spark-bar"
-            *ngFor="let line of value; let idx = index"
+            *ngFor="let line of values; let idx = index"
             [style.width.%]="line"
             [style.backgroundColor]="barColor[idx]">
         </div>
