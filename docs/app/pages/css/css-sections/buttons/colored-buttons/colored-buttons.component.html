@@ -1,3 +1,10 @@
+<ux-alert *ngIf="theme === SiteThemeId.MicroFocusNext" class="m-b" type="warning">
+    <ux-icon uxAlertIcon name="status-warning-filled"></ux-icon>
+    <span>
+        <strong>Deprecated:</strong> The Neutral button will be removed in the next major release.
+    </span>
+</ux-alert>
+
 <ng-container [ngSwitch]="theme">
     <div *ngSwitchDefault class="btn-container">
         <button type="button" class="btn button-primary">Primary</button>
@@ -17,10 +24,6 @@
 </ng-container>
 
 <hr>
-
-<p *ngIf="theme === SiteThemeId.MicroFocusNext">
-    <strong>Deprecated:</strong> The Neutral button will be removed in the next major release.
-</p>
 
 <p>
     The Primary Button is a button with the primary brand color, and should be used with the default action in a page.
