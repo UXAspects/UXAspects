@@ -11,8 +11,8 @@ export function createMouseEvent(type: string, x = 0, y = 0, button = 0): MouseE
 }
 
 export function createKeyboardEvent(type: string, keyCode: number, target?: Element, key?: string): KeyboardEvent {
-    let event = document.createEvent('KeyboardEvent') as any;
-    let originalPreventDefault = event.preventDefault;
+    const event = document.createEvent('KeyboardEvent') as any;
+    const originalPreventDefault = event.preventDefault;
 
     if (event.initKeyEvent) {
         event.initKeyEvent(type, true, true, window, 0, 0, 0, 0, 0, keyCode);
@@ -26,7 +26,7 @@ export function createKeyboardEvent(type: string, keyCode: number, target?: Elem
         target: { get: () => target }
     });
 
-    event.preventDefault = function () {
+    event.preventDefault = function() {
         Object.defineProperty(event, 'defaultPrevented', { get: () => true });
         return originalPreventDefault.apply(this, arguments);
     };

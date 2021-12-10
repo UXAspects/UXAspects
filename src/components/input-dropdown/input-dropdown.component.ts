@@ -111,6 +111,8 @@ export class InputDropdownComponent<T> implements ControlValueAccessor, AfterVie
             // trigger menu open on the next tick to avoid expression changed issues)
             Promise.resolve().then(() => this.menuTrigger.openMenu());
         }
+
+        this._changeDetector.detectChanges();
     }
 
     ngOnDestroy(): void {

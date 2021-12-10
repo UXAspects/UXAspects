@@ -328,8 +328,8 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
     private updateTooltipText(thumb: SliderThumb) {
 
         // get the thumb value
-        let state = this.getThumbState(thumb);
-        let tooltip = this.getTooltip(thumb);
+        const state = this.getThumbState(thumb);
+        const tooltip = this.getTooltip(thumb);
 
         // store the formatted label
         tooltip.label = this.getFormattedValue(thumb).toString();
@@ -352,7 +352,7 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
             return;
         }
 
-        let tooltipElement = this.getTooltipElement(thumb);
+        const tooltipElement = this.getTooltipElement(thumb);
 
         // get the element widths
         let thumbWidth: number;
@@ -363,10 +363,10 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
             thumbWidth = 2;
         }
 
-        let tooltipWidth = tooltipElement.nativeElement.offsetWidth;
+        const tooltipWidth = tooltipElement.nativeElement.offsetWidth;
 
         // calculate the tooltips new position
-        let tooltipPosition = Math.ceil((tooltipWidth - thumbWidth) / 2);
+        const tooltipPosition = Math.ceil((tooltipWidth - thumbWidth) / 2);
 
         // update tooltip position
         tooltip.position = -tooltipPosition;
@@ -407,7 +407,7 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
             return;
         }
         // get event position - either mouse or touch
-        let eventPosition = event instanceof MouseEvent ? event.clientX : event.touches && event.touches.length > 0 ? event.touches[0].clientX : null;
+        const eventPosition = event instanceof MouseEvent ? event.clientX : event.touches && event.touches.length > 0 ? event.touches[0].clientX : null;
 
         // if event position is null do nothing
         if (eventPosition === null) {
@@ -415,16 +415,16 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
         }
 
         // get mouse position
-        let mouseX = window.pageXOffset + eventPosition;
+        const mouseX = window.pageXOffset + eventPosition;
 
         // get track size and position
-        let trackBounds = this.track.nativeElement.getBoundingClientRect();
+        const trackBounds = this.track.nativeElement.getBoundingClientRect();
 
         // restrict the value within the range size
-        let position = this.clamp(mouseX - trackBounds.left, 0, trackBounds.width);
+        const position = this.clamp(mouseX - trackBounds.left, 0, trackBounds.width);
 
         // get fraction representation of location within the track
-        let fraction = (position / trackBounds.width);
+        const fraction = (position / trackBounds.width);
 
         // convert to value within the range
         let value = ((this._options.track.max - this._options.track.min) * fraction) + this._options.track.min;
@@ -455,8 +455,8 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
 
     private updateOrder(thumb: SliderThumb): void {
 
-        let lower = thumb === SliderThumb.Lower ? 101 : 100;
-        let upper = thumb === SliderThumb.Lower ? 100 : 101;
+        const lower = thumb === SliderThumb.Lower ? 101 : 100;
+        const upper = thumb === SliderThumb.Lower ? 100 : 101;
 
         // The most recently used thumb should be above
         this.thumbs.lower.order = lower;
@@ -589,8 +589,8 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
         upperValue = this.validateValue(SliderThumb.Upper, Number(upperValue.toFixed(4)));
 
         // calculate the positions as percentages
-        let lowerPosition = (((lowerValue - this._options.track.min) / (this._options.track.max - this._options.track.min)) * 100);
-        let upperPosition = (((upperValue - this._options.track.min) / (this._options.track.max - this._options.track.min)) * 100);
+        const lowerPosition = (((lowerValue - this._options.track.min) / (this._options.track.max - this._options.track.min)) * 100);
+        const upperPosition = (((upperValue - this._options.track.min) / (this._options.track.max - this._options.track.min)) * 100);
 
         // update thumb positions
         this.thumbs.lower.position = lowerPosition;
@@ -610,9 +610,9 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
         this.thumbs.lower.value = low;
         this.thumbs.upper.value = high;
 
-        let previousValue = this.clone(this._value);
+        const previousValue = this.clone(this._value);
 
-        this.value = this._options.type === SliderType.Value ? low : { low: low, high: high };
+        this.value = this._options.type === SliderType.Value ? low : { low, high };
 
         // call the event emitter if changes occured
         if (this.detectValueChange(this.value, previousValue)) {
@@ -676,7 +676,7 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
             return steps;
         }
 
-        let output: number[] = [];
+        const output: number[] = [];
 
         // otherwise calculate the steps
         for (let idx = this._options.track.min; idx <= this._options.track.max; idx += steps) {
@@ -689,18 +689,18 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
     private getTicks(options: SliderTickOptions, type: SliderTickType): SliderTick[] {
 
         // create an array to store the ticks and step points
-        let steps = this.getSteps(options.steps);
+        const steps = this.getSteps(options.steps);
 
         // get some chart options
-        let min = this._options.track.min;
-        let max = this._options.track.max;
+        const min = this._options.track.min;
+        const max = this._options.track.max;
 
         // convert each step to a slider tick and remove invalid ticks
         return steps.map(step => {
             return {
                 showTicks: options.show,
                 showLabels: options.labels,
-                type: type,
+                type,
                 position: ((step - min) / (max - min)) * 100,
                 value: step,
                 label: options.formatter(step)
@@ -719,7 +719,7 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
     private deepMerge<T>(destination: T, source: T): T {
 
         // loop though all of the properties in the source object
-        for (let prop in source) {
+        for (const prop in source) {
 
             // check if the destination object has the property
             if (!destination.hasOwnProperty(prop)) {

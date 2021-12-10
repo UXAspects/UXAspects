@@ -33,7 +33,7 @@
 <div class="content">
     <ux-date-time-picker
         uxDateRangePicker
-        picker="start"
+        [picker]="DateRangePicker.Start"
         class="start-date-picker"
         [date]="rangeService.start"
         (dateChange)="startChange$.next($event)"
@@ -59,7 +59,7 @@
 
     <ux-date-time-picker
         uxDateRangePicker
-        picker="end"
+        [picker]="DateRangePicker.End"
         class="end-date-picker"
         [date]="rangeService.end"
         (dateChange)="endChange$.next($event)"

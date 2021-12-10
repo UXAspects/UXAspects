@@ -13,7 +13,7 @@ import { SelectionStrategy } from './strategies/selection.strategy';
 export class SelectionDirective<T> implements AfterContentInit, OnDestroy {
 
     /** Defines the items that should be selected. */
-    @Input() set uxSelection(items: T[]) {
+    @Input() set uxSelection(items: Array<T> | ReadonlyArray<T>) {
         this._lastSelection = items;
         this._selectionService.selectOnly(...items);
     }
@@ -45,7 +45,7 @@ export class SelectionDirective<T> implements AfterContentInit, OnDestroy {
         this._selectionService.isKeyboardEnabled = isKeyboardEnabled;
     }
 
-    /** 
+    /**
      * The full set of selection items.
      * Only needed if the full set of `uxSelectionItem`s is not available, e.g. within a virtual scroll container.
      */
@@ -57,7 +57,7 @@ export class SelectionDirective<T> implements AfterContentInit, OnDestroy {
     }
 
     /** The tabstop of the selection outer element */
-    @Input() @HostBinding('attr.tabindex') tabindex: number = null;
+    @Input() @HostBinding('attr.tabindex') tabindex: string | number = null;
 
     /** This event will be triggered when there is a change to the selected items. It will contain an array of the currently selected items. */
     @Output() uxSelectionChange = new EventEmitter<T[]>();
@@ -107,7 +107,7 @@ export class SelectionDirective<T> implements AfterContentInit, OnDestroy {
         if (!this._hasExplicitDataset) {
             this._selectionService.dataset = this.items.map(item => item.uxSelectionItem);
         }
-        
+
         // Make sure that a tab target has been defined so that the component can be tabbed to.
         if (this._selectionService.focus$.getValue() === null && this._selectionService.dataset.length > 0) {
             this._selectionService.focus$.next(this._selectionService.dataset[0]);

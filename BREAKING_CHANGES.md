@@ -1,3 +1,7 @@
+# 4.x to 5.0
+* Angular 10 and 11 is no longer supported
+* Tree Grid no longer supports the `rows` input. Use `(rowChange)="rows = $event"` instead.
+
 # 3.x to 4.0
 * Angular 9 is no longer supported.
 * The `hpe-*` icon set has been removed. Use the `ux-icon` component instead.

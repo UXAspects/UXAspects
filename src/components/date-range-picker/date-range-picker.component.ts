@@ -4,7 +4,7 @@ import { Subject } from 'rxjs';
 import { debounceTime, takeUntil } from 'rxjs/operators';
 import { DateFormatter } from '../../pipes/date-formatter/date-formatter.type';
 import { DateTimePickerTimezone, differenceBetweenDates, timezones as defaultTimezones } from '../date-time-picker/date-time-picker.utils';
-import { DateRangeService } from './date-range.service';
+import { DateRangePicker, DateRangeService } from './date-range.service';
 
 @Component({
     selector: 'ux-date-range-picker',
@@ -13,6 +13,9 @@ import { DateRangeService } from './date-range.service';
     providers: [DateRangeService]
 })
 export class DateRangePickerComponent implements OnDestroy {
+
+    /** Expose enum to the view */
+    DateRangePicker = DateRangePicker;
 
     /** The selected start date to be displayed in the component. */
     @Input() set start(start: Date) {

@@ -5,7 +5,7 @@ If you have started working with Angular and TypeScript one of the first things 
 The Angular Language Service is an extension being developed by the Angular team and provides some incredibly useful features. The extension is aware of when you are working in a component template file and will provide you with auto complete suggestions, error checking and the ability to Ctrl+Click on a component, variable or function and jump to the implementation or declaration. It is also aware what component selectors are available and all of the inputs and outputs available on each element.
 
 <br>
-<img src="../../../assets/img/blog/angular-language-service.gif" />
+<img src="../../../../assets/img/blog/angular-language-service.gif" />
 <br>
 <br>
 
@@ -14,7 +14,7 @@ The Angular Language Service is an extension being developed by the Angular team
 When creating an Angular application you will notice that there are certain bits of code that you end up typing over and over again, in particular things like NgModule, Component and Directive decorators. To speed up this process the Angular v4 TypeScript Snippets extension allows you to easily create this boilerplate code for you.
 
 <br>
-<img src="../../../assets/img/blog/angular-snippets.gif" />
+<img src="../../../../assets/img/blog/angular-snippets.gif" />
 <br>
 <br>
 
@@ -25,7 +25,7 @@ One thing that becomes very common when creating Angular components is having to
 With the Path Intellisense plugin, the editor will display the list of files and folders in the directory and will update to show the appropriate results as you change the file path.
 
 <br>
-<img src="../../../assets/img/blog/path-intellisense.gif" />
+<img src="../../../../assets/img/blog/path-intellisense.gif" />
 <br>
 <br>
 
@@ -36,6 +36,6 @@ TSLint is both an extension for your editor and a node module. It allows you to 
 In addition to this, you can add further rules describing how Angular components should be written by adding Codealyzer to your project.
 
 <br>
-<img src="../../../assets/img/blog/tslint.gif" />
+<img src="../../../../assets/img/blog/tslint.gif" />
 <br>
 <br>

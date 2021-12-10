@@ -123,7 +123,7 @@ describe('Date Range Picker', () => {
         expect(getDate(1)).toBeNull();
     });
 
-    it('should allow a half time zone to be set if it is present in the timezone array and not call startTimezoneChange or endTimzoneChange', async() => {
+    it('should allow a half time zone to be set if it is present in the timezone array and not call startTimezoneChange or endTimzoneChange', async () => {
         // Ignore the initial call from timezone being set to default
         onStartTimezoneChangeSpy.calls.reset();
         onEndTimezoneChangeSpy.calls.reset();
@@ -144,7 +144,7 @@ describe('Date Range Picker', () => {
         expect(component.onEndTimezoneChange).not.toHaveBeenCalled();
     });
 
-    it('should not allow a timezone to be set that is not in the provided timezone list and default to GMT', async() => {
+    it('should not allow a timezone to be set that is not in the provided timezone list and default to GMT', async () => {
         // Verify the initial `timezone` change from undefined to GMT and reset the spies
         expect(component.onStartTimezoneChange).toHaveBeenCalledWith({ name: 'GMT', offset: 0 });
         expect(component.onStartTimezoneChange).toHaveBeenCalledTimes(1);
@@ -171,7 +171,7 @@ describe('Date Range Picker', () => {
         expect(component.onEndTimezoneChange).not.toHaveBeenCalled();
     });
 
-    it('should not allow a timezone to be set that is not in the default timezone list and default to GMT', async() => {
+    it('should not allow a timezone to be set that is not in the default timezone list and default to GMT', async () => {
         // Verify the initial `timezone` change from undefined to GMT and reset the spies
         expect(component.onStartTimezoneChange).toHaveBeenCalledWith({ name: 'GMT', offset: 0 });
         expect(component.onStartTimezoneChange).toHaveBeenCalledTimes(1);

@@ -113,7 +113,7 @@ describe('Date Time Picker', () => {
         expect(getSelected().innerHTML).toBe(' 31 ');
     });
 
-    it('should allow a half time zone to be set if it is present in the timezone array and not call timezoneChange', async() => {
+    it('should allow a half time zone to be set if it is present in the timezone array and not call timezoneChange', async () => {
         // Ignore the initial call from timezone being set to default
         onTimezoneChangeSpy.calls.reset();
 
@@ -129,7 +129,7 @@ describe('Date Time Picker', () => {
         expect(component.onTimezoneChange).not.toHaveBeenCalled();
     });
 
-    it('should not allow a timezone to be set that is not in the provided timezone list and default to GMT', async() => {
+    it('should not allow a timezone to be set that is not in the provided timezone list and default to GMT', async () => {
         // Verify the initial `timezone` change from undefined to GMT and reset the spy
         expect(component.onTimezoneChange).toHaveBeenCalledWith({ name: 'GMT', offset: 0 });
         expect(component.onTimezoneChange).toHaveBeenCalledTimes(1);
@@ -149,7 +149,7 @@ describe('Date Time Picker', () => {
         expect(component.onTimezoneChange).not.toHaveBeenCalled();
     });
 
-    it('should not allow a timezone to be set that is not in the default timezone list and default to GMT', async() => {
+    it('should not allow a timezone to be set that is not in the default timezone list and default to GMT', async () => {
         // Verify the initial `timezone` change from undefined to GMT and reset the spy
         expect(component.onTimezoneChange).toHaveBeenCalledWith({ name: 'GMT', offset: 0 });
         expect(component.onTimezoneChange).toHaveBeenCalledTimes(1);
@@ -168,7 +168,7 @@ describe('Date Time Picker', () => {
         expect(component.onTimezoneChange).not.toHaveBeenCalled();
     });
 
-    it('should update only the time is changed', async() => {
+    it('should update only the time is changed', async () => {
         component.date = new Date(2020, 5, 2, 11);
         component.showTime = true;
         fixture.detectChanges();

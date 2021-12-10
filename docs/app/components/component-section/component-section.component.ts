@@ -11,6 +11,7 @@ import { ResolverService } from '../../services/resolver/resolver.service';
 import { SiteThemeService } from '../../services/site-theme/site-theme.service';
 import { isBaseDocumentationSection } from '../base-documentation-section/base-documentation-section';
 import { Usage } from './../../interfaces/Usage';
+import hybridModuleTs from './snippets/hybrid-module.txt';
 
 @Component({
     selector: 'uxd-component-section',
@@ -34,7 +35,7 @@ export class ComponentSectionComponent<T> implements OnInit, OnDestroy {
 
     playground: IPlayground;
     deprecatedLink: ILink;
-    hybridModuleTs: string = require('!!raw-loader!./snippets/hybrid-module.ts');
+    hybridModuleTs: string = hybridModuleTs;
 
     private _documentationSection: T;
     private _onDestroy = new Subject<void>();

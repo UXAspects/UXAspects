@@ -220,7 +220,7 @@ export interface FacetTypeaheadListConfig {
 })
 export class FacetTypeaheadHighlight implements PipeTransform {
     transform(value: string, searchQuery: string): string {
-        let regex = new RegExp(searchQuery, 'i');
+        const regex = new RegExp(searchQuery, 'i');
         return value.replace(regex, `<b class="facet-typeahead-highlighted">${value.match(regex)}</b>`);
     }
 }
