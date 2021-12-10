@@ -9,6 +9,7 @@ import { TypeaheadOptionApi } from './typeahead-option-api';
 import { TypeaheadOptionContext } from './typeahead-option-context';
 import { TypeaheadVisibleOption } from './typeahead-visible-option';
 import { TypeaheadService } from './typeahead.service';
+import { coerceArray } from '@angular/cdk/coercion';
 
 let uniqueId = 0;
 
@@ -46,13 +47,21 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
     }
 
     /** Extract the test to display from an option */
-    @Input() display: (option: T) => string | string;
+    @Input() display: ((option: T) => string) | string;
 
     /** Extract the key from an option */
-    @Input() key: (option: T) => string | string;
+    @Input() key: ((option: T) => string) | string;
 
     /** Specify which options are disabled */
-    @Input() disabledOptions: T | T[];
+    @Input() set disabledOptions(options: T | T[]) {
+        this._disabledOptions = coerceArray(options);
+    }
+
+    get disabledOptions(): T | T[] {
+        return this._disabledOptions;
+    }
+
+    _disabledOptions: T[] = [];
 
     /** Specify the drop direction */
     @Input() dropDirection: 'auto' | 'up' | 'down' = 'down';
@@ -329,7 +338,7 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
             return this.key(option);
         }
         if (typeof this.key === 'string' && option && option.hasOwnProperty(this.key)) {
-            return option[<string>this.key];
+            return option[this.key];
         }
         return this.getDisplay(option);
     }
@@ -343,7 +352,7 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
         }
 
         if (typeof this.display === 'string' && option && option.hasOwnProperty(this.display)) {
-            return option[<string>this.display];
+            return option[this.display];
         }
 
         if (typeof option === 'string') {
@@ -515,7 +524,7 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
             return options
                 .filter(option => this.getDisplay(option).toLowerCase().indexOf(filter) >= 0)
                 .map(value => ({
-                    value: value,
+                    value,
                     key: this.getKey(value),
                     isRecentOption: isRecentOptions
                 }));

@@ -5,5 +5,5 @@ module.exports = {
     'ux-aspects-docs_tgz': 'ux-aspects-ux-aspects-docs-*.*.*.tgz',
     documentation: 'dist/docs',
     e2e: ['e2e/dist', 'target/e2e'],
-    target: ['target/bower', 'target/npm', 'target/artifactory', 'target/release-staging', 'target/docs']
+    target: ['target/npm', 'target/artifactory', 'target/release-staging', 'target/docs']
 };

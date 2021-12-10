@@ -54,7 +54,7 @@ describe('Directive - Infinite Scroll', () => {
         expect(loadSpy).toHaveBeenCalledTimes(1);
     });
 
-    it ('should call load with filter value of "" if filter input value changes to null', async() => {
+    it ('should call load with filter value of "" if filter input value changes to null', async () => {
 
         component.filterText = null;
 
@@ -65,7 +65,7 @@ describe('Directive - Infinite Scroll', () => {
         expect(loadSpy).toHaveBeenCalledTimes(1);
     });
 
-    it ('should call load with filter value of "some string" if filter input value changes to string', async() => {
+    it ('should call load with filter value of "some string" if filter input value changes to string', async () => {
 
         component.filterText = 'some string';
 
@@ -76,7 +76,7 @@ describe('Directive - Infinite Scroll', () => {
         expect(loadSpy).toHaveBeenCalledTimes(2);
     });
 
-    it ('should call load with filter value of 10 if filter input value changes to number', async() => {
+    it ('should call load with filter value of 10 if filter input value changes to number', async () => {
 
         component.filterText = 10;
 
@@ -87,7 +87,7 @@ describe('Directive - Infinite Scroll', () => {
         expect(loadSpy).toHaveBeenCalledTimes(2);
     });
 
-    it ('should call load with filter value of true if filter input value changes to boolean', async() => {
+    it ('should call load with filter value of true if filter input value changes to boolean', async () => {
 
         component.filterText = true;
 
@@ -98,7 +98,7 @@ describe('Directive - Infinite Scroll', () => {
         expect(loadSpy).toHaveBeenCalledTimes(2);
     });
 
-    it ('should call load with filter value of { name: "somebody" } if filter input value changes to object', async() => {
+    it ('should call load with filter value of { name: "somebody" } if filter input value changes to object', async () => {
 
         component.filterText = { name: 'somebody' };
 

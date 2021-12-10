@@ -1,0 +1,11 @@
+{
+    "singleQuote": true,
+    "printWidth": 100,
+    "semi": true,
+    "arrowParens": "avoid",
+    "trailingComma": "es5",
+    "importOrder": [
+        "^[./]"
+    ],
+    "importOrderSeparation": false
+}

@@ -2,7 +2,7 @@ import { Injectable, OnDestroy } from '@angular/core';
 import { NavigationCancel, NavigationEnd, NavigationError, Router } from '@angular/router';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { filter, map, takeUntil } from 'rxjs/operators';
-import { PageHeaderNavigationDropdownItem, PageHeaderNavigationItem } from './navigation/navigation.component';
+import type { PageHeaderNavigationDropdownItem, PageHeaderNavigationItem } from './navigation/navigation.component';
 
 @Injectable()
 export class PageHeaderService implements OnDestroy {
@@ -189,7 +189,7 @@ export class PageHeaderService implements OnDestroy {
         }
 
         if (item.children) {
-            for (let childItem of item.children) {
+            for (const childItem of item.children) {
                 this.findActiveItem(childItem, activeItem);
                 if (activeItem.exact) {
                     return;

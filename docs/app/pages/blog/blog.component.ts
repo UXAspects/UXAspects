@@ -1,6 +1,5 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-
 import { IBlogPost } from '../../interfaces/IBlogPost';
 
 @Component({
@@ -9,9 +8,9 @@ import { IBlogPost } from '../../interfaces/IBlogPost';
     styleUrls: ['./blog.component.less'],
     encapsulation: ViewEncapsulation.None
 })
-export class BlogPageComponent { 
+export class BlogPageComponent {
 
-    /* 
+    /*
         We must specify blog posts here
         We cannot in json due to the inability
         to perform dynamic requires. This also
@@ -21,7 +20,6 @@ export class BlogPageComponent {
     posts: IBlogPost[];
 
     constructor(private domSanitizer: DomSanitizer) {
-
         this.posts = [{
             title: 'Data Visualization with UX Aspects',
             author: 'Alastair McKee',
@@ -79,9 +77,9 @@ export class BlogPageComponent {
             content: require('./posts/2016-10-09-Power-of-UX-Aspects-Blog.md')
         }];
 
-        // santize blog posts
+        // sanitize blog posts
         this.posts.forEach(post => {
-            post.content = domSanitizer.bypassSecurityTrustHtml(post.content) as string;
+            post.content = this.domSanitizer.bypassSecurityTrustHtml(post.content) as string;
         });
     }
 

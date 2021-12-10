@@ -1,5 +1,6 @@
 <button type="button" class="btn button-primary" (click)="modalOpen = true">
-    <ux-icon name="deployment" aria-hidden="true"></ux-icon> Launch Marquee Wizard
+    <ux-icon name="deployment" aria-hidden="true"></ux-icon>
+    Launch Marquee Wizard
 </button>
 
 <div class="uxd-customize-example">
@@ -44,15 +45,16 @@
      aria-labelledby="marquee-wizard-title">
 
     <div class="modal-dialog modal-lg"
-        role="document"
-        [cdkTrapFocus]="modal.isShown"
-        [cdkTrapFocusAutoCapture]="true">
+         role="document"
+         [cdkTrapFocus]="modal.isShown"
+         [cdkTrapFocusAutoCapture]="true">
 
         <div class="modal-content">
 
             <!-- Add Dismiss Button to Modal -->
             <div class="dismiss">
-                <button class="modal-close" uxFocusIndicator (click)="close()" type="button" aria-label="Close Modal" tabindex="0">
+                <button class="modal-close" uxFocusIndicator (click)="close()" type="button" aria-label="Close Modal"
+                        tabindex="0">
                     <ux-icon name="close"></ux-icon>
                 </button>
             </div>
@@ -71,7 +73,7 @@
                                (onCancel)="close()">
 
                 <ng-template #icon>
-                    <img src="../../../../../assets/img/IconUser.png" alt="User icon">
+                    <img src="assets/img/IconUser.png" alt="User icon">
                 </ng-template>
 
                 <ux-marquee-wizard-step header="First step">
@@ -83,12 +85,14 @@
                         <div class="col-xs-7">
                             <div class="form-group">
                                 <label class="form-label" for="step-one-name">Name</label>
-                                <input id="step-one-name" type="text" placeholder="Enter name" class="form-control" [focusIf]="modal.isShown">
+                                <input id="step-one-name" type="text" placeholder="Enter name" class="form-control"
+                                       [focusIf]="modal.isShown">
                             </div>
 
                             <div class="form-group">
                                 <label for="step-one-description" class="form-label">Description</label>
-                                <textarea id="step-one-description" placeholder="Enter Description" class="form-control"></textarea>
+                                <textarea id="step-one-description" placeholder="Enter Description"
+                                          class="form-control"></textarea>
                             </div>
                         </div>
                     </div>
@@ -154,7 +158,8 @@
                                 <label for="requiredText" class="control-label">
                                     Required Text <span class="form-control-validation">*</span>
                                 </label>
-                                <input type="text" id="requiredText" placeholder="Text" class="form-control" [formControl]="requiredText">
+                                <input type="text" id="requiredText" placeholder="Text" class="form-control"
+                                       [formControl]="requiredText">
                                 <ux-icon name="alert" class="form-control-feedback"></ux-icon>
                             </div>
 
@@ -175,11 +180,15 @@
 <hr>
 
 <p>
-    The Marquee Wizard is designed for cases where a more complex wizard is needed, such as for infrequent configuration of detailed
-    system settings which may take some time and focus by the user. It provides a modal wizard which allows for greater screen
+    The Marquee Wizard is designed for cases where a more complex wizard is needed, such as for infrequent configuration
+    of detailed
+    system settings which may take some time and focus by the user. It provides a modal wizard which allows for greater
+    screen
     space for the form content in each step, and a larger number of steps. Steps in the marquee wizard can be displayed,
-    hidden, or disabled conditionally dependent on settings on previous steps. The left hand panel can include an optional
-    text string for user help (such as an introduction or description of pre-requisites). Icons can also be displayed next
+    hidden, or disabled conditionally dependent on settings on previous steps. The left hand panel can include an
+    optional
+    text string for user help (such as an introduction or description of pre-requisites). Icons can also be displayed
+    next
     to each step title if required, and a wizard title and icon can also be added.
 </p>
 
@@ -187,25 +196,30 @@
 
 <ul>
     <li>
-        Steps should be ordered logically to aid understanding, especially for less experienced users, with higher level or general
+        Steps should be ordered logically to aid understanding, especially for less experienced users, with higher level
+        or general
         settings appearing earlier in the sequence.
     </li>
     <li>
         Steps should be as self-sufficient as possible, containing related and connected items.
     </li>
     <li>
-        The step title (which can be more descriptive) and label (typically 1-3 words) can be used to help summarize the purpose
+        The step title (which can be more descriptive) and label (typically 1-3 words) can be used to help summarize the
+        purpose
         of each step, to help the user understand their progress.
     </li>
     <li>
-        Where possible, allow the user to exit a wizard part way through and retain their settings, to resume or edit existing
+        Where possible, allow the user to exit a wizard part way through and retain their settings, to resume or edit
+        existing
         progress at a later date.
     </li>
 </ul>
 
 <p>
-    The example on this page shows how to launch the Marquee Wizard inside a modal. The following code shows a component which
-    launches a Marquee Wizard modal; note that the <code>marquee-modal-window</code> class is applied to the modal to ensure appropriate styling.
+    The example on this page shows how to launch the Marquee Wizard inside a modal. The following code shows a component
+    which
+    launches a Marquee Wizard modal; note that the <code>marquee-modal-window</code> class is applied to the modal to
+    ensure appropriate styling.
 </p>
 
 <p>The following attributes can be used to customize the <code>ux-marquee-wizard</code> component:</p>
@@ -213,7 +227,8 @@
 <uxd-api-properties tableTitle="Inputs">
 
     <tr uxd-api-property name="step" type="number">
-        The current active step. When the step changes an event will be emitted containing the index of the newly active step. If
+        The current active step. When the step changes an event will be emitted containing the index of the newly active
+        step. If
         this is not specified the wizard will start on the first step.
     </tr>
     <tr uxd-api-property name="description" type="string | TemplateRef<void>">
@@ -292,12 +307,14 @@
     </tr>
     <tr uxd-api-property name="cancelAlwaysVisible" type="boolean">
         If set to
-        <code>true</code> the 'Cancel' button will be visible even on the last step. By default it will be hidden on the final
+        <code>true</code> the 'Cancel' button will be visible even on the last step. By default it will be hidden on the
+        final
         step.
     </tr>
     <tr uxd-api-property name="finishAlwaysVisible" type="boolean">
         If set to
-        <code>true</code> the 'Finish' button will be visible on all steps of the wizard. By default this button will only be visible
+        <code>true</code> the 'Finish' button will be visible on all steps of the wizard. By default this button will
+        only be visible
         on the final step of the wizard.
     </tr>
     <tr uxd-api-property name="disableNextWhenInvalid" type="boolean">
@@ -343,7 +360,8 @@
         Emits when the 'Cancel' button has been pressed.
     </tr>
     <tr uxd-api-property name="onFinishing" type="void">
-        Emits when the 'Finish' button is clicked, but before the finish event fires. This fires regardless of the validity of the final step.
+        Emits when the 'Finish' button is clicked, but before the finish event fires. This fires regardless of the
+        validity of the final step.
     </tr>
     <tr uxd-api-property name="onFinish" type="void">
         Emits when the 'Finish' button has been pressed and the final step is valid.
@@ -361,7 +379,8 @@
         The text to be displayed in the wizard step tab.
     </tr>
     <tr uxd-api-property name="valid" type="boolean">
-        Allows you to define whether or not a step is valid. The user will not be able to proceed to the next step if this property
+        Allows you to define whether or not a step is valid. The user will not be able to proceed to the next step if
+        this property
         has a value of false.
     </tr>
     <tr uxd-api-property name="validator" type="() => boolean | Promise<boolean>">
@@ -371,15 +390,18 @@
         If using this property, ensure that <code>disableNextWhenInvalid</code> is false.
     </tr>
     <tr uxd-api-property name="visited" type="boolean">
-        Defines whether or not this step has previously been visited. A visited step can be clicked on and jumped to at any time.
+        Defines whether or not this step has previously been visited. A visited step can be clicked on and jumped to at
+        any time.
         By default, steps will become 'visited' when the user navigates to a step for the first time.
     </tr>
     <tr uxd-api-property name="completed" type="boolean">
-        Defines whether or not this step has previously been completed. A completed step can be clicked on and jumped to at any time.
+        Defines whether or not this step has previously been completed. A completed step can be clicked on and jumped to
+        at any time.
         By default, steps will become 'completed' when the user navigates to the next step.
     </tr>
     <tr uxd-api-property name="disableNextWhenInvalid" type="boolean">
-        If set to <code>true</code> the 'Next' or 'Finish' button will become disabled when the current step is invalid. This will override the value
+        If set to <code>true</code> the 'Next' or 'Finish' button will become disabled when the current step is invalid.
+        This will override the value
         set on the <code>ux-marquee-wizard</code>.
     </tr>
     <tr uxd-api-property name="context" type="T">
@@ -407,7 +429,8 @@
 <h4>Custom Step Template</h4>
 
 <p>
-    The element representing each step in the side panel can be customized by providing a custom <code>stepTemplate</code>.
+    The element representing each step in the side panel can be customized by providing a custom
+    <code>stepTemplate</code>.
     The template will have access to data associated with that step via the template context which will conform to
     the <code>MarqueeWizardStepContext</code> interface.
 </p>
@@ -427,7 +450,8 @@
         The index of the current step.
     </tr>
     <tr uxd-api-property name="context" type="T">
-        The additional context data provided using the <code>context</code> Input on the <code>ux-marquee-wizard-step</code> element.
+        The additional context data provided using the <code>context</code> Input on the
+        <code>ux-marquee-wizard-step</code> element.
     </tr>
 </uxd-api-properties>
 

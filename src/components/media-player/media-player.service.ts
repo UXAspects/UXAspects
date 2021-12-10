@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, from, Observable, Observer, ReplaySubject, Subject } from 'rxjs';
 import { ExtractedFrame, FrameExtractionService } from '../../services/frame-extraction/index';
-import { MediaPlayerType } from './media-player.component';
+import type { MediaPlayerType } from './media-player.component';
 
 @Injectable()
 export class MediaPlayerService {

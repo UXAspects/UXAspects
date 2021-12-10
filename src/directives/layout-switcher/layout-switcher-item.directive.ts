@@ -24,7 +24,7 @@ export class LayoutSwitcherItemDirective {
     }
 
     deactivate(): void {
-        let index = this._viewContainerRef.indexOf(this._embeddedView);
+        const index = this._viewContainerRef.indexOf(this._embeddedView);
         this._viewContainerRef.remove(index);
         this._embeddedView = null;
     }

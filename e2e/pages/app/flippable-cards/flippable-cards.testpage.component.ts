@@ -7,7 +7,5 @@ import { ColorService } from '@ux-aspects/ux-aspects';
     styleUrls: ['./flippable-cards.testpage.component.css'],
 })
 export class FlippableCardsTestPageComponent {
-    cardLogo = require('./icon.png');
-
     constructor(public colorService: ColorService) {}
 }

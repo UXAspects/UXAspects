@@ -65,7 +65,7 @@ export class NavigationItemComponent implements AfterViewInit, AfterContentInit,
         // Add classes to parent for styling
         const parentListElement = this._elementRef.nativeElement.parentElement;
         if (parentListElement) {
-            let levelClass: string = this.getLevelClass();
+            const levelClass: string = this.getLevelClass();
             if (levelClass.length > 0) {
                 this._renderer.addClass(parentListElement, 'nav');
                 this._renderer.addClass(parentListElement, levelClass);
