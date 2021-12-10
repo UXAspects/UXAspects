@@ -4,6 +4,7 @@ import { DocumentationSectionComponent } from '../../../../../decorators/documen
 import { IPlayground } from '../../../../../interfaces/IPlayground';
 import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
 import { playgroundAdapter } from '../../../../../services/playground/adapters/legacy-playground-adapter';
+import progressGif from '../../../../../../../src/img/progress.gif';
 
 @Component({
     selector: 'uxd-css-progress-activity-indicator-alternative',
@@ -16,7 +17,7 @@ export class CssActivityIndicatorAlternativeComponent extends BaseDocumentationS
         html: this.snippets.raw.sampleHtml
     });
 
-    progressGif = require('../../../../../../../src/img/progress.gif');
+    progressGif = progressGif;
 
     constructor() {
         super(require.context('./snippets/', false, /(html|css|js|ts)$/));

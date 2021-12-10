@@ -6,7 +6,7 @@ import { takeUntil } from 'rxjs/operators';
 import { getIconType, IconType } from '../../../../common/index';
 import { tick } from '../../../../common/operators/index';
 import { PageHeaderService } from '../../page-header.service';
-import { PageHeaderNavigationItem } from '../navigation.component';
+import type { PageHeaderNavigationItem } from '../navigation.component';
 import { PageHeaderNavigationService } from '../navigation.service';
 
 @Component({

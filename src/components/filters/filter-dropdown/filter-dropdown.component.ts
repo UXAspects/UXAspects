@@ -68,7 +68,7 @@ export class FilterDropdownComponent implements OnInit, OnDestroy {
         this._onDestroy.complete();
     }
 
-    selectFilter(filter: Filter, event: MouseEvent) {
+    selectFilter(filter: Filter, event: Event) {
         this.removeFilter();
         this.selected = filter;
         this._filterService.add(this.selected);

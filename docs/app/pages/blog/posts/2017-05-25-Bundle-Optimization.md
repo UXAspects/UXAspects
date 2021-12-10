@@ -17,7 +17,7 @@ Next we can go to [https://chrisbateman.github.io/webpack-visualizer/](https://c
 
 <br>
 
-<img src="../../../assets/img/blog/webpack-visualizer.jpg" />
+<img src="../../../../assets/img/blog/webpack-visualizer.jpg" />
 
 <br>
 
@@ -25,7 +25,7 @@ In the example image above you can see we have imported the entire RxJS library,
 
 <br>
 
-<img src="../../../assets/img/blog/webpack-visualizer-2.jpg" />
+<img src="../../../../assets/img/blog/webpack-visualizer-2.jpg" />
 
 <br>
 
@@ -33,4 +33,4 @@ Additionally Webpack offers its own online tool for analyzing bundles in more de
 
 <br>
 
-<img src="../../../assets/img/blog/bundle-analysis.jpg" />
+<img src="../../../../assets/img/blog/bundle-analysis.jpg" />

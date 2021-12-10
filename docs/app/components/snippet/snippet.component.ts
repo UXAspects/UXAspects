@@ -1,5 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input, OnChanges, ViewChild, ViewContainerRef } from '@angular/core';
 import { highlight, languages } from 'prismjs';
+// @ts-ignore
+import prism from '!!raw-loader!prismjs';
 
 @Component({
     selector: 'uxd-snippet',
@@ -37,7 +39,7 @@ export class SnippetComponent implements OnChanges {
         }
 
         // create a blob containing prismjs
-        const blob = new Blob([require('raw-loader!prismjs')], { type: 'application/javascript' });
+        const blob = new Blob([prism], { type: 'application/javascript' });
 
         // create a worker for code highlightinh
         const worker = new Worker(URL.createObjectURL(blob));

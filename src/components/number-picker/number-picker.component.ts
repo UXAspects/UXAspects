@@ -27,11 +27,13 @@ export class NumberPickerComponent implements ControlValueAccessor, OnDestroy, O
     private _value: number = 0;
     private _lastValue: number;
     private _focused: boolean = false;
-    private _propagateChange = (_: number) => { };
-    _touchedChange = () => { };
+    private _propagateChange = (_: number) => {
+    };
+    _touchedChange = () => {
+    };
 
     /** Sets the id of the number picker. The child input will have this value with a -input suffix as its id. */
-    @Input() id: string = `ux-number-picker-${uniqueId++}`;
+    @Input() id: string = `ux-number-picker-${ uniqueId++ }`;
 
     /** Provide an aria labelledby attribute */
     @Input('aria-labelledby') labelledBy: string;
@@ -125,7 +127,8 @@ export class NumberPickerComponent implements ControlValueAccessor, OnDestroy, O
     constructor(
         private readonly _changeDetector: ChangeDetectorRef,
         @Optional() public _formGroup: FormGroupDirective
-    ) { }
+    ) {
+    }
 
     ngOnChanges(): void {
         this._valid = this.isValid();
@@ -234,6 +237,7 @@ export class NumberPickerComponent implements ControlValueAccessor, OnDestroy, O
     onFocusIn(): void {
         this._focused = true;
     }
+
     @HostListener('focusout')
     onFocusOut(): void {
         this._focused = false;

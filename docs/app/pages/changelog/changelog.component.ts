@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { IChangeLog } from '../../interfaces/IChangeLog';
 import { AppConfiguration } from '../../services/app-configuration/app-configuration.service';
@@ -8,12 +8,14 @@ import { AppConfiguration } from '../../services/app-configuration/app-configura
     templateUrl: './changelog.component.html',
     styleUrls: ['./changelog.component.less']
 })
-export class ChangeLogPageComponent {
+export class ChangeLogPageComponent implements OnInit {
 
     logs: IChangeLog[];
 
-    constructor(domSanitizer: DomSanitizer, appConfig: AppConfiguration) {
+    constructor(private domSanitizer: DomSanitizer, private appConfig: AppConfiguration) {
+    }
 
+    async ngOnInit(): Promise<void> {
         this.logs = [
             {
                 version: '4.9.0',
@@ -598,8 +600,8 @@ export class ChangeLogPageComponent {
         ];
 
         this.logs.forEach(log => {
-            const markdown = log.content.replace(/{{baseUrl}}/g, appConfig.baseUrl);
-            log.content = domSanitizer.bypassSecurityTrustHtml(markdown) as string;
+            const markdown = log.content.replace(/{{baseUrl}}/g, this.appConfig.baseUrl);
+            log.content = this.domSanitizer.bypassSecurityTrustHtml(markdown) as string;
         });
 
     }

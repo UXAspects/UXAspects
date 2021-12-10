@@ -390,9 +390,9 @@ export class TimelineChartPlugin {
     private handleMouseMove(chart: TimelineChart, event: Partial<MouseEvent>): void {
         const mousePosition = this.isWithinHandle(chart, event);
 
-        let timelineOptions = chart.options as TimelineChartOptions;
-        let hasTooltipOnRange: boolean = timelineOptions.timeline.range.hasOwnProperty('tooltip');
-        let hasTooltipOnHandles: boolean = timelineOptions.timeline.handles.hasOwnProperty('tooltip');
+        const timelineOptions = chart.options as TimelineChartOptions;
+        const hasTooltipOnRange: boolean = timelineOptions.timeline.range.hasOwnProperty('tooltip');
+        const hasTooltipOnHandles: boolean = timelineOptions.timeline.handles.hasOwnProperty('tooltip');
         let timelineTooltipText: string;
         let handleTooltipText: { rangeLower: string, rangeUpper: string };
 
@@ -411,7 +411,7 @@ export class TimelineChartPlugin {
         } else if (mousePosition === TimelineHandle.Upper && hasTooltipOnHandles) {
             this.externalTooltipHandler(chart, TimelineHandle.Upper, handleTooltipText.rangeUpper);
         } else {
-            let tooltipEl = this.getOrCreateTooltip(chart);
+            const tooltipEl = this.getOrCreateTooltip(chart);
             tooltipEl.style.opacity = '0';
         }
 
@@ -454,8 +454,8 @@ export class TimelineChartPlugin {
     }
 
     private tooltipPositioner(chart: TimelineChart, position: TimelineHandle) {
-        let lower = this.getHandleArea(chart, TimelineHandle.Lower).left;
-        let upper = this.getHandleArea(chart, TimelineHandle.Upper).left;
+        const lower = this.getHandleArea(chart, TimelineHandle.Lower).left;
+        const upper = this.getHandleArea(chart, TimelineHandle.Upper).left;
         const tooltipEl = this.getOrCreateTooltip(chart);
         const width = tooltipEl.getBoundingClientRect().width;
         const caret = tooltipEl.querySelector('.tooltip-caret') as HTMLElement;
@@ -465,7 +465,7 @@ export class TimelineChartPlugin {
             caret.style.right = null;
             caret.style.left = '50%';
             caret.style.transform = 'rotate(0deg)';
-            let middle = (lower + upper) / 2;
+            const middle = (lower + upper) / 2;
 
             return {
                 x: middle + 2,
@@ -739,14 +739,14 @@ export class TimelineChartPlugin {
             const percentage = ((lower.getTime() - minimum) / (maximum - minimum) * 100);
             const position = left + ((width / 100) * percentage);
 
-            return { top: top, left: position - 5, right: position, bottom: bottom };
+            return { top, left: position - 5, right: position, bottom };
         }
 
         if (handle === TimelineHandle.Upper) {
             const percentage = ((upper.getTime() - minimum) / (maximum - minimum) * 100);
             const position = left + ((width / 100) * percentage);
 
-            return { top: top, left: position, right: position + 5, bottom: bottom };
+            return { top, left: position, right: position + 5, bottom };
         }
     }
 
@@ -835,7 +835,7 @@ export class TimelineChartPlugin {
 
     private getOptionsWithDefaults<T>(options: T): T {
         const merge = (target: T, source: T) => {
-            for (let key of Object.keys(source)) {
+            for (const key of Object.keys(source)) {
                 if (source[key] instanceof Object && !(source[key] instanceof Date) && typeof source[key] !== 'function') {
                     Object.assign(source[key], merge(target[key], source[key]));
                 }

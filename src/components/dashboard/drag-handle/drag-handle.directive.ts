@@ -27,10 +27,10 @@ export class DashboardDragHandleDirective extends DragDirective {
         widget.isDraggable = true;
 
         this.onDragStart.pipe(takeUntil(this._onDestroy), tap(() => dashboardService.isGrabbing$.next(null)))
-            .subscribe((event: MouseEvent) => dashboardService.onDragStart({ widget: widget, direction: ActionDirection.Move, event: event }));
+            .subscribe((event: MouseEvent) => dashboardService.onDragStart({ widget, direction: ActionDirection.Move, event }));
 
         this.onDrag.pipe(takeUntil(this._onDestroy))
-            .subscribe((event: MouseEvent) => dashboardService.onDrag({ widget: widget, direction: ActionDirection.Move, event: event }));
+            .subscribe((event: MouseEvent) => dashboardService.onDrag({ widget, direction: ActionDirection.Move, event }));
 
         this.onDragScroll.pipe(takeUntil(this._onDestroy))
             .subscribe((event: DragScrollEvent) => dashboardService.onDragScroll(widget, event));

@@ -5,7 +5,7 @@ import { MediaPlayerModule } from './media-player.module';
 
 @Component({
     selector: 'ux-media-player-audio',
-    template: `<ux-media-player class="media-player" type="audio" [filename]="filename" [source]="audioSource"></ux-media-player>`
+    template: '<ux-media-player class="media-player" type="audio" [filename]="filename" [source]="audioSource"></ux-media-player>'
 })
 
 export class MediaPlayerAudioComponent {

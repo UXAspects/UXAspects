@@ -25,7 +25,7 @@
         </ux-spin-button>
     </div>
 
-    <div class="time-zone-picker" *ngIf="!(datepicker.showSpinners$ | async)">
+    <div class="time-zone-picker" *ngIf="(datepicker.showSpinners$ | async) === false">
 
         <select class="form-control time-zone-select"
                 tabindex="0"

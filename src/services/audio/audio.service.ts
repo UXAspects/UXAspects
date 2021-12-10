@@ -52,9 +52,9 @@ export class AudioService {
                 }
 
                 observer.next({
-                    filename: filename,
-                    extension: extension,
-                    description: description,
+                    filename,
+                    extension,
+                    description,
                     size: response.size
                 });
             });
@@ -64,7 +64,7 @@ export class AudioService {
     getWaveformFromUrl(url: string): Observable<Float32Array[]> {
 
         // if audio context is not support return a stream of empty data
-        if (!(<any>window).AudioContext) {
+        if (!window.AudioContext) {
             return of<Float32Array[]>([new Float32Array(0)]);
         }
 

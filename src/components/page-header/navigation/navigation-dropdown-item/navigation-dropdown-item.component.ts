@@ -1,7 +1,7 @@
 import { ENTER, SPACE } from '@angular/cdk/keycodes';
 import { Component, Input } from '@angular/core';
 import { PageHeaderService } from '../../page-header.service';
-import { PageHeaderNavigationDropdownItem } from '../navigation.component';
+import type { PageHeaderNavigationDropdownItem } from '../navigation.component';
 
 @Component({
     selector: 'ux-page-header-horizontal-navigation-dropdown-item',
@@ -28,7 +28,7 @@ export class PageHeaderNavigationDropdownItemComponent {
 
     keydownHandler(event: KeyboardEvent, item: PageHeaderNavigationDropdownItem): void {
 
-        switch (event.which) {
+        switch (event.keyCode) {
             case ENTER:
             case SPACE:
                 this.select(item);

@@ -1,31 +1,10 @@
 {
-  "compilerOptions": {
-    "target": "es5",
-    "module": "esnext",
-    "moduleResolution": "node",
-    "baseUrl": "./",
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "lib": [
-      "es2017",
-      "dom"
+    "extends": "../tsconfig.app.json",
+    "files": [
+        "./pages/main.ts",
+        "./pages/polyfills.ts"
     ],
-    "noImplicitAny": true,
-    "declaration": false,
-    "suppressImplicitAnyIndexErrors": true,
-    "paths": {
-      "@ux-aspects/ux-aspects/*": [
-        "../dist/library"
-      ],
-      "@ux-aspects/ux-aspects": [
-        "../dist/library"
-      ]
-    }
-  },
-  "angularCompilerOptions": {
-    "fullTemplateTypeCheck": true,
-   },
-  "exclude": [
-    "./tests/**"
-  ]
+    "include": [
+        "e2e/**/*.d.ts"
+    ]
 }
