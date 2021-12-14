@@ -1,20 +1,13 @@
 {
-  "compilerOptions": {
-    "target": "es5",
-    "module": "commonjs",
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "lib": [
-      "es2017",
-      "dom"
-    ],
-    "outDir": "dist",
-    "baseUrl": "./",
-    "typeRoots": [
-      "../node_modules/@types"
-    ]
-  },
-  "angularCompilerOptions": {
-    "fullTemplateTypeCheck": true,
-   },
+    "extends": "../tsconfig.json",
+    "compilerOptions": {
+        "outDir": "../out-tsc/e2e",
+        "baseUrl": "./",
+        "module": "commonjs",
+        "target": "es5",
+        "types": [
+            "jasmine",
+            "node"
+        ]
+    }
 }

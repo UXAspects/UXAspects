@@ -1,26 +1,41 @@
+/* To learn more about this file see: https://angular.io/config/tsconfig. */
 {
+    "compileOnSave": false,
     "compilerOptions": {
-        "target": "es5",
-        "module": "esNext",
-        "moduleResolution": "node",
-        "sourceMap": true,
-        "emitDecoratorMetadata": true,
-        "experimentalDecorators": true,
-        "lib": ["es2017", "dom"],
         "baseUrl": "./",
-        "noImplicitAny": true,
+        "outDir": "./dist/out-tsc",
+        "forceConsistentCasingInFileNames": true,
+        "strict": false,
+        "noImplicitOverride": false,
+        "noPropertyAccessFromIndexSignature": false,
+        "noImplicitReturns": false,
+        "noFallthroughCasesInSwitch": false,
+        "sourceMap": true,
         "declaration": false,
-        "suppressImplicitAnyIndexErrors": true,
         "downlevelIteration": true,
+        "experimentalDecorators": true,
+        "moduleResolution": "node",
+        "importHelpers": true,
+        "resolveJsonModule": true,
+        "target": "es2017",
+        "module": "es2020",
+        "lib": [
+            "es2020",
+            "dom"
+        ],
         "paths": {
-            "@ux-aspects/ux-aspects/*": ["./src"],
-            "@ux-aspects/ux-aspects": ["./src"]
+            "@ux-aspects/ux-aspects/*": [
+                "./src"
+            ],
+            "@ux-aspects/ux-aspects": [
+                "./src"
+            ]
         }
     },
     "angularCompilerOptions": {
-        "skipMetadataEmit": true,
-        "fullTemplateTypeCheck": true,
-        "preserveWhitespaces": true
-    },
-    "files": ["./docs/main.ts", "./docs/polyfills.ts"]
+        "enableI18nLegacyMessageIdFormat": false,
+        "strictInjectionParameters": false,
+        "strictInputAccessModifiers": false,
+        "strictTemplates": false
+    }
 }

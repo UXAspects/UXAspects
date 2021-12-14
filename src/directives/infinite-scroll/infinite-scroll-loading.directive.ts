@@ -1,4 +1,5 @@
 import { Directive, Input, TemplateRef, ViewContainerRef } from '@angular/core';
+import { coerceBooleanProperty } from '@angular/cdk/coercion';
 
 @Directive({
     selector: '[uxInfiniteScrollLoading]'
@@ -9,7 +10,9 @@ export class InfiniteScrollLoadingDirective {
     get visible() {
         return this._visible;
     }
-    set visible(value: boolean) {
+    set visible(value: boolean | string) {
+        value = coerceBooleanProperty(value);
+
         if (value !== this._visible) {
             if (value) {
                 this._viewContainer.createEmbeddedView(this._templateRef);
@@ -17,7 +20,7 @@ export class InfiniteScrollLoadingDirective {
                 this._viewContainer.clear();
             }
         }
-        
+
         this._visible = value;
     }
 

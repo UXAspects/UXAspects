@@ -3,6 +3,6 @@
     <h3 class="popover-title" *ngIf="title">{{ title }}</h3>
     <div class="popover-content" (cdkObserveContent)="reposition()">
         <ng-container *ngIf="!isTemplateRef">{{ content }}</ng-container>
-        <ng-container *ngIf="isTemplateRef" [ngTemplateOutlet]="content" [ngTemplateOutletContext]="context"></ng-container>
+        <ng-container *ngIf="isTemplateRef" [ngTemplateOutlet]="$any(content)" [ngTemplateOutletContext]="context"></ng-container>
     </div>
 </div>

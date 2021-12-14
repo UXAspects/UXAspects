@@ -16,7 +16,7 @@ export class SearchBuilderFocusService {
      * @param index The (zero-based) index of the component.
      */
     setFocus(groupId: string, index: number): void {
-        this.focus$.next({ groupId: groupId, index: index });
+        this.focus$.next({ groupId, index });
     }
 
     /**

@@ -21,7 +21,7 @@
 
         <div class="marquee-wizard-description-container" *ngIf="description">
             <!-- If a template was provided display it -->
-            <ng-container *ngIf="isTemplate" [ngTemplateOutlet]="description"></ng-container>
+            <ng-container *ngIf="isTemplate" [ngTemplateOutlet]="$any(description)"></ng-container>
 
             <!-- Otherwise simply display the string -->
             <ng-container *ngIf="!isTemplate">

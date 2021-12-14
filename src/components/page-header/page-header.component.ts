@@ -112,7 +112,7 @@ export class PageHeaderComponent {
     @Output() backClick = new EventEmitter<MouseEvent>();
 
     /** Emit whenever the product logo in the left corner is clicked. */
-    @Output() logoClick = new EventEmitter<MouseEvent>();
+    @Output() logoClick = new EventEmitter<Event>();
 
     /** Access a custom subheader template */
     @ContentChild('subheader', { static: false }) subheaderTemplate: TemplateRef<any>;

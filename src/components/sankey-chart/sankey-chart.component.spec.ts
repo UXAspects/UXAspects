@@ -1,16 +1,16 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { dispatchMouseEvent } from '../../common/testing/index';
 import { TooltipModule } from '../../components/tooltip/index';
 import { AccessibilityModule } from '../../directives/accessibility/index';
 import { ResizeModule } from '../../directives/resize/index';
+import { ColorServiceModule, colorSets } from '../../services/color';
 import { SankeyLink } from './interfaces/link.interface';
 import { SankeyNode } from './interfaces/node.interface';
 import { SankeyNodeDirective } from './sankey-chart-node.directive';
 import { SankeyChartComponent } from './sankey-chart.component';
-import { ColorServiceModule, colorSets } from '../../services/color';
 
 @Component({
     selector: 'app-sankey-chart',
@@ -155,7 +155,7 @@ describe('Sankey Chart Component', () => {
     let fixture: ComponentFixture<SankeyChartTestComponent>;
     let element: HTMLElement;
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             imports: [
                 AccessibilityModule,
@@ -376,15 +376,21 @@ describe('Sankey Chart Component', () => {
 @Component({
     selector: 'app-sankey-chart-min-height',
     template: `
-        <ux-sankey-chart [nodes]="nodes" [links]="links" [columns]="columns" [minHeight]="minHeight">
+        <ux-sankey-chart class="chart" [nodes]="nodes" [links]="links" [columns]="columns" [minHeight]="minHeight">
             <ng-template #sankeyNodeTemplate let-node="node" let-active="active">
-                <span [attr.id]="'node' + node.id" class="node-state">{{ node.data.name }}</span> - <span class="active-state">{{ active }}</span>
+                <span [attr.id]="'node' + node.id" class="node-state">{{ node.data.name }}</span> - <span
+                class="active-state">{{ active }}</span>
             </ng-template>
         </ux-sankey-chart>
     `,
     styles: [
         `
             ux-sankey-chart {
+                width: 800px;
+                height: 800px;
+            }
+
+            .chart {
                 width: 800px;
                 height: 800px;
             }
@@ -438,7 +444,7 @@ export class SankeyChartMinHeightTestComponent {
     minHeight = 0;
 
     getNodeHeight(parentElement: HTMLElement, id: string): number {
-        const element = parentElement.querySelector(`#${id}`).closest('.ux-sankey-chart-node');
+        const element = parentElement.querySelector(`#${ id }`).closest('.ux-sankey-chart-node');
 
         return element.clientHeight;
     }
@@ -449,7 +455,7 @@ describe('Sankey Chart with minHeight', () => {
     let fixture: ComponentFixture<SankeyChartMinHeightTestComponent>;
     let element: HTMLElement;
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             imports: [
                 AccessibilityModule,

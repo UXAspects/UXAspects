@@ -47,7 +47,7 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
     /** The text in the input area. This is used to filter the options dropdown. */
     @Input()
     set input(value: string) {
-        this._input$.next({ ...this._input$.value, value: value });
+        this._input$.next({ ...this._input$.value, value });
     }
     get input() {
         return this._input$.value.value;

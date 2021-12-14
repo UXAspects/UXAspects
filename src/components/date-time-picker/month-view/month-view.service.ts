@@ -20,7 +20,7 @@ export class MonthViewService implements OnDestroy {
     }
 
     setFocus(month: number, year: number): void {
-        this.focused$.next({ month: month, year: year });
+        this.focused$.next({ month, year });
 
         // update the viewport to ensure focused month is visible
         this._datepicker.setViewportYear(year);
@@ -43,8 +43,8 @@ export class MonthViewService implements OnDestroy {
         const months: MonthViewItem[] = range(0, 11).map(month => {
             return {
                 name: this._datepicker.monthsShort[month],
-                month: month,
-                year: year,
+                month,
+                year,
                 isCurrentMonth: year === currentYear && month === currentMonth,
                 isActiveMonth: year === activeYear && month === activeMonth
             };
