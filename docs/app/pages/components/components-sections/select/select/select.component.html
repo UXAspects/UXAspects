@@ -200,8 +200,8 @@
         The aria-label to apply to the child <code>input</code> element.
     </tr>
     <tr uxd-api-property name="disabled" type="boolean" defaultValue="false">
-        Controls the disabled state of the tag input. If using a formControl do not use this input, instead disable from
-        formControl.
+        Controls the disabled state of the tag input. If using a <code>FormControl</code> do not use this input, instead
+        disable the <code>FormControl</code>.
     </tr>
     <tr uxd-api-property name="dropDirection" type="'up' | 'down' | 'auto'" defaultValue="'down'">
         The positioning of the typeahead dropdown in relation to its parent. If 'auto' is used the
@@ -268,8 +268,9 @@
         Maximum number of displayed recently selected options.
     </tr>
     <tr uxd-api-property name="required" type="boolean" defaultValue="false">
-        If set to <code>true</code> the select will be marked as required. If using a formControl do not use this input
-        instead add required validation through the formControl. See example below under Validation heading.
+        If set to <code>true</code> the select will be marked as required. If using a <code>FormControl</code> do not
+        use this input, instead add the required validator to the <code>FormControl</code>. See an example below under
+        Validation heading.
     </tr>
     <tr uxd-api-property name="filterDebounceTime" type="number" defaultValue="200">
         Allows customization of the <code>debounceTime</code> used on the select's input filter.
@@ -318,7 +319,10 @@
     The <code>ux-select</code> component can have validation applied to it like any
     other angular form element.
 </p>
-<p>Using template binding validation should not be used in conjunction with the reactive forms API.</p>
+<p>
+    Do not use the <code>disabled</code> or <code>required</code> inputs when using Reactive Forms. Use the Reactive
+    Forms API to achieve this instead.
+</p>
 <p>Below is a code example on how to implement validation with the <strong>Select</strong> component.</p>
 
 <ux-tabset [minimal]="false">
