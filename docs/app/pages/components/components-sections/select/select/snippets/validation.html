@@ -1,0 +1,23 @@
+<form [formGroup]="formGroup">
+    <div class="form-group">
+        <ux-checkbox formControlName="checkbox">Activate select </ux-checkbox>
+    </div>
+
+    <div class="form-group" [class.has-error]="select.invalid && (select.dirty || select.touched)">
+        <ux-select
+            formControlName="select"
+            [clearButton]="true"
+            [allowNull]="false"
+            [options]="options"
+            placeholder="Choose any option"
+        >
+        </ux-select>
+
+        <span
+            *ngIf="select.invalid && (select.dirty || select.touched)"
+            class="help-block form-control-validation"
+        >
+            A value is required.
+        </span>
+    </div>
+</form>
