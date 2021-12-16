@@ -16,7 +16,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
 	options: string[] = ['Option1', 'Option2'];
 
-	private _onDestroy = new Subject<void>();
+	private _onDestroy$ = new Subject<void>();
 
 	get select(): AbstractControl {
 		return this.formGroup.get('select');
@@ -26,17 +26,17 @@ export class AppComponent implements OnInit, OnDestroy {
 		return this.formGroup.get('checkbox');
 	}
 
-	ngOnInit() {
+	ngOnInit(): void {
 
 		this.checkbox.valueChanges
-			.pipe(takeUntil(this._onDestroy))
+			.pipe(takeUntil(this._onDestroy$))
 			.subscribe((value: boolean) => {
 				value ? this.select.enable() : this.select.disable();
 			});
 	}
 
 	ngOnDestroy(): void {
-        this._onDestroy.next();
-        this._onDestroy.complete();
+        this._onDestroy$.next();
+        this._onDestroy$.complete();
     }
 }
