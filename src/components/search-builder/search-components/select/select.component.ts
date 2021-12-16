@@ -29,7 +29,7 @@ export class SearchSelectComponent extends BaseSearchComponent {
     return this.config.placeholder || 'Select item';
   }
 
-  get dropDirection(): string {
+  get dropDirection(): 'auto' | 'up' | 'down' {
     return this.config.dropDirection || 'down';
   }
 

@@ -109,7 +109,7 @@ export class FacetContainerComponent implements OnDestroy {
         this.facetService.deselectAll();
 
         // announce the facet removal
-        this._announcer.announce(`All options deselected.`, 'assertive');
+        this._announcer.announce('All options deselected.', 'assertive');
     }
 
     trackBy(_index: number, facet: Facet): string | number {

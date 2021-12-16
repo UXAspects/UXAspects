@@ -42,13 +42,13 @@ export class ColumnPickerComponent implements OnChanges {
     @Input() actionsTemplate: TemplateRef<ColumnPickerActionsContext>;
 
     /** Define a function to get the aria label of reorderable items in the selected column. */
-    @Input() selectedAriaLabel: (column: string, index: number) => string = this.getDefaultSelectedAriaLabel;
+    @Input() selectedAriaLabel: (column: string | ColumnPickerGroupItem, index: number) => string = this.getDefaultSelectedAriaLabel;
 
     /** Define a function to get the aria label of a group in the deselected list. */
-    @Input() deselectedGroupAriaLabel: (column: string, isExpanded: boolean) => string = this.getDefaultDeselectedGroupAriaLabel;
+    @Input() deselectedGroupAriaLabel: (column: string | ColumnPickerGroupItem, isExpanded: boolean) => string = this.getDefaultDeselectedGroupAriaLabel;
 
     /** Define a function that returns a column move announcement. */
-    @Input() columnMovedAnnouncement: (column: string, delta: number) => string = this.getColumnMovedAnnouncement;
+    @Input() columnMovedAnnouncement: (column: string | ColumnPickerGroupItem, delta: number) => string = this.getColumnMovedAnnouncement;
 
     /** Define settings for the grouped deselected items. */
     @Input() set groups(groups: ColumnPickerGroup[]) {
@@ -209,7 +209,7 @@ export class ColumnPickerComponent implements OnChanges {
     }
 
     /** Perform a reorder with the keyboard */
-    move(column: string, delta: number): void {
+    move(column: string | ColumnPickerGroupItem, delta: number): void {
         // perform the move
         const index = this.selected.indexOf(column);
         this.swap(index, index + delta);

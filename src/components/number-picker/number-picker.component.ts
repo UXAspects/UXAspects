@@ -20,18 +20,20 @@ export const NUMBER_PICKER_VALUE_ACCESSOR: any = {
     }
 })
 export class NumberPickerComponent implements ControlValueAccessor, OnDestroy, OnChanges {
-    private _min: number = -Infinity;
-    private _max: number = Infinity;
+    private _min: number;
+    private _max: number;
     private _step: number | ((value: number, direction: StepDirection) => number) = 1;
     private _disabled: boolean = false;
     private _value: number = 0;
     private _lastValue: number;
     private _focused: boolean = false;
-    private _propagateChange = (_: number) => { };
-    _touchedChange = () => { };
+    private _propagateChange = (_: number) => {
+    };
+    _touchedChange = () => {
+    };
 
     /** Sets the id of the number picker. The child input will have this value with a -input suffix as its id. */
-    @Input() id: string = `ux-number-picker-${uniqueId++}`;
+    @Input() id: string = `ux-number-picker-${ uniqueId++ }`;
 
     /** Provide an aria labelledby attribute */
     @Input('aria-labelledby') labelledBy: string;
@@ -125,7 +127,8 @@ export class NumberPickerComponent implements ControlValueAccessor, OnDestroy, O
     constructor(
         private readonly _changeDetector: ChangeDetectorRef,
         @Optional() public _formGroup: FormGroupDirective
-    ) { }
+    ) {
+    }
 
     ngOnChanges(): void {
         this._valid = this.isValid();
@@ -145,7 +148,7 @@ export class NumberPickerComponent implements ControlValueAccessor, OnDestroy, O
         }
 
         if (!this.disabled && !this.readonly) {
-            this.value = Math.max(Math.min(this.value + this.getStep(StepDirection.Increment), this.max), this.min);
+            this.value = Math.max(Math.min(this.value + this.getStep(StepDirection.Increment), this.getMaxValueForComparison()), this.getMinValueForComparison());
 
             // account for javascripts terrible handling of floating point numbers
             this.value = parseFloat(this.value.toPrecision(this.precision));
@@ -161,7 +164,7 @@ export class NumberPickerComponent implements ControlValueAccessor, OnDestroy, O
         }
 
         if (!this.disabled && !this.readonly) {
-            this.value = Math.min(Math.max(this.value - this.getStep(StepDirection.Decrement), this.min), this.max);
+            this.value = Math.min(Math.max(this.value - this.getStep(StepDirection.Decrement), this.getMinValueForComparison()), this.getMaxValueForComparison());
 
             // account for javascripts terrible handling of floating point numbers
             this.value = parseFloat(this.value.toPrecision(this.precision));
@@ -172,7 +175,7 @@ export class NumberPickerComponent implements ControlValueAccessor, OnDestroy, O
     }
 
     isValid(): boolean {
-        return (this.value >= this.min && this.value <= this.max);
+        return (this.value >= this.getMinValueForComparison() && this.value <= this.getMaxValueForComparison());
     }
 
     onScroll(event: WheelEvent): void {
@@ -222,10 +225,19 @@ export class NumberPickerComponent implements ControlValueAccessor, OnDestroy, O
         this._propagateChange(value);
     }
 
+    getMaxValueForComparison(): number {
+        return (this.max === undefined || this.max === null) ? Infinity : this.max;
+    }
+
+    getMinValueForComparison(): number {
+        return (this.min === undefined || this.min === null) ? -Infinity : this.min;
+    }
+
     @HostListener('focusin')
     onFocusIn(): void {
         this._focused = true;
     }
+
     @HostListener('focusout')
     onFocusOut(): void {
         this._focused = false;

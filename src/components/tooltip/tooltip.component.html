@@ -2,6 +2,6 @@
     <div class="tooltip-arrow"></div>
     <div class="tooltip-inner" (cdkObserveContent)="reposition()">
         <ng-container *ngIf="!isTemplateRef">{{ content }}</ng-container>
-        <ng-container *ngIf="isTemplateRef" [ngTemplateOutlet]="content" [ngTemplateOutletContext]="context"></ng-container>
+        <ng-container *ngIf="isTemplateRef" [ngTemplateOutlet]="$any(content)" [ngTemplateOutletContext]="context"></ng-container>
     </div>
 </div>

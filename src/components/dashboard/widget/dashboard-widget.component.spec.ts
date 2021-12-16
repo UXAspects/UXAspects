@@ -1,8 +1,9 @@
-import { SimpleChange } from '@angular/core';
+import { Injectable, SimpleChange } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { DashboardService } from '../dashboard.service';
 import { DashboardWidgetComponent } from './dashboard-widget.component';
 
+@Injectable()
 class MockDashboardService extends DashboardService {
     resizeWidget = jasmine.createSpy();
     renderDashboard = jasmine.createSpy();

@@ -11,7 +11,7 @@ export class HelpCenterService {
     registerItem(item: HelpCenterItem): void {
 
         // get the current items
-        let items = this.items.getValue();
+        const items = this.items.getValue();
 
         // add the new item to the list
         items.push(item);

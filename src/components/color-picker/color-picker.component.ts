@@ -41,9 +41,9 @@ export class ColorPickerComponent implements OnInit, OnDestroy {
 
         // If it's a 1d array, convert it to 2d
         if (colors.length === 0 || !Array.isArray(colors[0])) {
-            normalizedColors = [<ColorPickerInputColors[]>colors];
+            normalizedColors = [colors as ColorPickerInputColors[]];
         } else {
-            normalizedColors = <ColorPickerInputColors[][]>colors;
+            normalizedColors = colors as ColorPickerInputColors[][];
         }
 
         // Convert any string colors to ColorPickerColor

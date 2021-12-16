@@ -15,3 +15,7 @@ button.button-primary {
     justify-content: center;
     margin-top: 50px;
 }
+
+.anchor.dropdown-menu-text {
+    color: #676a6c;
+}

@@ -102,7 +102,7 @@ export class DashboardService implements OnDestroy {
      */
     setDimensions(width: number = this.dimensions.width, height: number = this.dimensions.height): void {
         if (this.dimensions.width !== width || this.dimensions.height !== height) {
-            this.dimensions$.next({ width: width, height: height });
+            this.dimensions$.next({ width, height });
         }
     }
 
@@ -270,7 +270,7 @@ export class DashboardService implements OnDestroy {
         return this.widgets.filter(widget => widget.getColumn() !== undefined && widget.getRow() !== undefined)
             .reduce((value, widget) => {
 
-                this.forEachBlock(widget, (column, row) => value.push({ widget: widget, column: column, row: row }));
+                this.forEachBlock(widget, (column, row) => value.push({ widget, column, row }));
 
                 return value;
             }, []);
@@ -579,7 +579,7 @@ export class DashboardService implements OnDestroy {
      * Return the set of widgets which overlap the given dashboard region.
      */
     getOverlappingWidgets(region: DashboardRegion, actionWidget: DashboardWidgetComponent): DashboardWidgetComponent[] {
-        let widgetsToMove: DashboardWidgetComponent[] = [];
+        const widgetsToMove: DashboardWidgetComponent[] = [];
 
         // check if there are any widgets overlapping widgets
         for (let row = region.row; row < region.row + region.rowSpan; row++) {
@@ -603,7 +603,7 @@ export class DashboardService implements OnDestroy {
     resizeWidget(widget: DashboardWidgetComponent): void {
 
         // make widget action and origin widget, direction is irrelevant to this function so set to 0
-        this._actionWidget = { widget: widget, direction: 0 };
+        this._actionWidget = { widget, direction: 0 };
         this._widgetOrigin = widget;
 
         const widgetRegion = {
@@ -774,7 +774,7 @@ export class DashboardService implements OnDestroy {
                 } else {
 
                     // else work out the exact number of spaces it will move left
-                    let widgetDifference =  actionWgt.column - widget.getColumn();
+                    const widgetDifference =  actionWgt.column - widget.getColumn();
                     colShift = widget.getColumnSpan() - widgetDifference;
                 }
             } else {
@@ -845,7 +845,7 @@ export class DashboardService implements OnDestroy {
                 } else {
 
                     // else work out the exact number of spaces it will move right
-                    let widgetDifference = widget.getColumn() - actionWgt.column;
+                    const widgetDifference = widget.getColumn() - actionWgt.column;
                     colShift = actionWgt.columnSpan - widgetDifference;
                 }
             } else {
@@ -907,7 +907,7 @@ export class DashboardService implements OnDestroy {
 
         for (let y = row; y < row + widget.getRowSpan(); y++) {
             for (let x = column; x < column + widget.getColumnSpan(); x++) {
-                spaces.push({ column: x, row: y, widget: widget });
+                spaces.push({ column: x, row: y, widget });
             }
         }
 
@@ -1054,7 +1054,7 @@ export class DashboardService implements OnDestroy {
         }
 
         // get any overflow
-        let overflow = height < this._rowHeight ? 0 : height % this._rowHeight;
+        const overflow = height < this._rowHeight ? 0 : height % this._rowHeight;
 
         return (y <= 0 || rowSpan === 0 || overflow === 0 || overflow > (this._rowHeight / 2)) ? Math.max(row, 0) : Math.max(row + 1, 0);
     }

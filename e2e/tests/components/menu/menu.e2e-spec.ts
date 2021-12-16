@@ -43,6 +43,18 @@ describe('Menu', () => {
         expect(await imageCompare('menu-dynamic-placement-left')).toEqual(0);
     });
 
+    it('should invoke href links when anchor tags are used as the menuItem', async () => {
+        await page.openMenuBtn.click();
+
+        await page.menuItem4.click();
+
+        const alert = await browser.switchTo().alert();
+
+        expect(await alert.getText()).toBe('href works!');
+
+        await alert.accept();
+    });
+
     describe('- closeOnBlur (false)', () => {
 
         it('should not close the menu when tabbed away from the menu', async () => {

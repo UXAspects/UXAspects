@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import moduleTs from './snippets/module.ts.txt';
+import cliJson from './snippets/cli.txt';
 
 @Component({
     selector: 'uxd-getting-started',
@@ -7,6 +9,6 @@ import { Component } from '@angular/core';
 })
 export class GettingStartedPageComponent {
 
-    moduleTs = require('!!raw-loader!./snippets/module.ts.txt');
-    cliJson = require('!!raw-loader!./snippets/cli.txt');
+    moduleTs = moduleTs;
+    cliJson = cliJson;
 }

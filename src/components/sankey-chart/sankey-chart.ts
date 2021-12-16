@@ -404,7 +404,7 @@ export class SankeyChart<T> {
         let largestColumnHeight = 0;
 
         for (const group of groupList) {
-            let totalHeight = group.reduce((acc, node) => acc += node.height, 0) + group.length * this._spacing;
+            const totalHeight = group.reduce((acc, node) => acc += node.height, 0) + group.length * this._spacing;
             if (totalHeight > largestColumnHeight) {
                 largestColumnHeight = totalHeight;
                 largestColumn = group;
