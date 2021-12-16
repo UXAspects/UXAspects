@@ -1,12 +1,16 @@
-import { OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import {
-	AbstractControl, FormControl,
+	AbstractControl,
+	FormControl,
 	FormGroup,
 	Validators
 } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-
+@Component({
+    selector: 'app',
+    templateUrl: './app.component.html'
+})
 export class AppComponent implements OnInit, OnDestroy {
 
 	formGroup: FormGroup = new FormGroup({
