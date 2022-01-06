@@ -1,68 +1,68 @@
 {
-    "name": "@ux-aspects/ux-aspects",
-    "version": "5.0.0",
-    "description": "Open source user interface framework for building modern, responsive, mobile big data applications",
-    "files": [
-        "common/",
-        "components/",
-        "directives/",
-        "esm2020/",
-        "fesm2015/",
-        "fesm2020/",
-        "pipes/",
-        "plugins/",
-        "services/",
-        "fonts/",
-        "hybrid/",
-        "img/",
-        "index.d.ts",
-        "less/",
-        "package.json",
-        "README.md",
-        "styles/",
-        "ux-aspects-ux-aspects.d.ts"
-    ],
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/UXAspects/UXAspects.git"
-    },
-    "keywords": [
-        "ux",
-        "aspects",
-        "ui",
-        "framework",
-        "angular",
-        "bootstrap"
-    ],
-    "contributors": [
-        "Ashley Hunter",
-        "Alastair McKee",
-        "Pearse McMurray",
-        "Donna Marijne Worby",
-        "Chris Brennan",
-        "Tara Todd"
-    ],
-    "license": "Apache-2.0",
-    "bugs": {
-        "url": "https://github.com/UXAspects/UXAspects/issues"
-    },
-    "homepage": "https://uxaspects.github.io/UXAspects",
-    "dependencies": {
-        "@juggle/resize-observer": "^3.3.1",
-        "@types/chart.js": "^2.9.3",
-        "@types/d3": "^5.7.2",
-        "angular-split": "^4.0.0",
-        "bootstrap": "^3.3.7",
-        "d3": "^5.9.2"
-    },
-    "peerDependencies": {
-        "@angular/animations": ">=12.0.0 <14.0.0",
-        "@angular/cdk": ">=12.0.0 <14.0.0",
-        "@angular/common": ">=12.0.0 <14.0.0",
-        "@angular/compiler": ">=12.0.0 <14.0.0",
-        "@angular/core": ">=12.0.0 <14.0.0",
-        "@angular/forms": ">=12.0.0 <14.0.0",
-        "chart.js": ">2.9.0 <3.0.0",
-        "ng2-charts": ">=2.3.0 <3.0.0"
-    }
+  "name": "@ux-aspects/ux-aspects",
+  "version": "5.1.0",
+  "description": "Open source user interface framework for building modern, responsive, mobile big data applications",
+  "files": [
+    "common/",
+    "components/",
+    "directives/",
+    "esm2020/",
+    "fesm2015/",
+    "fesm2020/",
+    "pipes/",
+    "plugins/",
+    "services/",
+    "fonts/",
+    "hybrid/",
+    "img/",
+    "index.d.ts",
+    "less/",
+    "package.json",
+    "README.md",
+    "styles/",
+    "ux-aspects-ux-aspects.d.ts"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/UXAspects/UXAspects.git"
+  },
+  "keywords": [
+    "ux",
+    "aspects",
+    "ui",
+    "framework",
+    "angular",
+    "bootstrap"
+  ],
+  "contributors": [
+    "Ashley Hunter",
+    "Alastair McKee",
+    "Pearse McMurray",
+    "Donna Marijne Worby",
+    "Chris Brennan",
+    "Tara Todd"
+  ],
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/UXAspects/UXAspects/issues"
+  },
+  "homepage": "https://uxaspects.github.io/UXAspects",
+  "dependencies": {
+    "@juggle/resize-observer": "^3.3.1",
+    "@types/chart.js": "^2.9.3",
+    "@types/d3": "^5.7.2",
+    "angular-split": "^4.0.0",
+    "bootstrap": "^3.3.7",
+    "d3": "^5.9.2"
+  },
+  "peerDependencies": {
+    "@angular/animations": ">=12.0.0 <14.0.0",
+    "@angular/cdk": ">=12.0.0 <14.0.0",
+    "@angular/common": ">=12.0.0 <14.0.0",
+    "@angular/compiler": ">=12.0.0 <14.0.0",
+    "@angular/core": ">=12.0.0 <14.0.0",
+    "@angular/forms": ">=12.0.0 <14.0.0",
+    "chart.js": ">2.9.0 <3.0.0",
+    "ng2-charts": ">=2.3.0 <3.0.0"
+  }
 }
