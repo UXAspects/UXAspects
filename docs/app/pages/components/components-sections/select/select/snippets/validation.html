@@ -1,8 +1,4 @@
 <form [formGroup]="formGroup">
-    <div class="form-group">
-        <ux-checkbox formControlName="checkbox">Activate select</ux-checkbox>
-    </div>
-
     <div class="form-group" [class.has-error]="select.invalid && (select.dirty || select.touched)">
         <ux-select
             formControlName="select"
