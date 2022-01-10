@@ -32,6 +32,7 @@
         <ul class="marquee-wizard-steps"
             uxTabbableList
             direction="vertical"
+            focusOnShow="true"
             role="tablist"
             aria-orientation="vertical">
 
@@ -48,6 +49,7 @@
                 [attr.aria-labelledby]="id + '-step-' + index + '-label'"
                 [attr.aria-expanded]="step._active"
                 [id]="id + '-step-' + index + '-label'"
+                [attr.tabindex]="step._active ? 0 : -1"
                 uxFocusIndicator
                 [programmaticFocusIndicator]="true"
                 uxTabbableListItem
