@@ -271,6 +271,14 @@ describe('Marquee Wizard Tests', () => {
         expect(await page.resetButton.getText()).toBe('RESET STEP 1');
     });
 
+    it('should show a close icon when the step is invalid', async () => {
+
+        // Setting step 1 to be invalid
+        await page.step1InvalidButton.click();
+
+        expect(await imageCompare('marquee-wizard-step-invalid')).toEqual(0);
+    });
+
 
     /**
      * Resizable Marquee Wizard Tests
