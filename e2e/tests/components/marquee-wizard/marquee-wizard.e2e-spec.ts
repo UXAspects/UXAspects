@@ -1,4 +1,4 @@
-import { ElementFinder } from 'protractor';
+import { browser, ElementFinder, Key } from 'protractor';
 import { imageCompare } from '../common/image-compare';
 import { MarqueeWizardPage } from './marquee-wizard.po.spec';
 
@@ -435,5 +435,25 @@ describe('Marquee Wizard Tests', () => {
         expect(await page.emittedWidth.getText()).toBe('35.0');
 
         expect(await imageCompare('marquee-wizard-width')).toEqual(0);
+    });
+
+    it('should allow tabbing to the first step when using the keyboard', async () => {
+
+        // tab to first item on list
+        await browser.actions().sendKeys(Key.TAB).perform();
+
+        expect(await imageCompare('marquee-wizard-step-tab')).toEqual(0);
+
+    });
+
+    it('should allow tabbing to the first step when using the keyboard', async () => {
+
+        // move to next button
+        await browser.actions().sendKeys(Key.TAB, Key.TAB, Key.TAB).perform();
+        await page.sendEnterKey();
+        
+        await browser.actions().sendKeys(Key.TAB, Key.TAB, Key.TAB, Key.TAB, Key.TAB, Key.TAB, Key.TAB, Key.TAB).perform();
+        expect(await imageCompare('marquee-wizard-step-tab-2')).toEqual(0);
+
     });
 });
