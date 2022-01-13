@@ -276,7 +276,7 @@ describe('Marquee Wizard Tests', () => {
         // tab to first item on list
         await browser.actions().sendKeys(Key.TAB).perform();
 
-        expect(await page.activeElementId()).toBe('ux-wizard-0-step-0-label');
+        expect(await page.activeElementAttr('id')).toBe('ux-wizard-0-step-0-label');
     });
 
     it('should allow tabbing to the second step and moving focus with the arrow keys when using the keyboard', async () => {
@@ -285,16 +285,20 @@ describe('Marquee Wizard Tests', () => {
         await browser.actions().click(await page.getNextButton()).perform();
 
         // tab on to steps
-        await browser.actions().sendKeys(Key.chord(Key.SHIFT, Key.TAB, Key.TAB, Key.TAB)).perform();
+        await browser.actions().sendKeys(Key.chord(Key.SHIFT, Key.TAB)).perform();
+        expect(await page.activeElementAttr('aria-label')).toBe('Go to the previous step');
+        await browser.actions().sendKeys(Key.chord(Key.SHIFT, Key.TAB)).perform();
+        expect(await page.activeElementAttr('id')).toBe('step2Invalid-input');
+        await browser.actions().sendKeys(Key.chord(Key.SHIFT, Key.TAB)).perform();
 
         // expect step 2 focused
-        expect(await page.activeElementId()).toBe('ux-wizard-0-step-1-label');
+        expect(await page.activeElementAttr('id')).toBe('ux-wizard-0-step-1-label');
 
         // move focus up
         await browser.actions().sendKeys(Key.ARROW_UP).perform();
 
         // expect step 1 focused
-        expect(await page.activeElementId()).toBe('ux-wizard-0-step-0-label');
+        expect(await page.activeElementAttr('id')).toBe('ux-wizard-0-step-0-label');
     });
 
 

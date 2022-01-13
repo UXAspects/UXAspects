@@ -105,7 +105,7 @@ export class MarqueeWizardPage {
         return await browser.actions().dragAndDrop(this.gutter, { x: 10, y: 0 }).perform();
     }
 
-    async activeElementId(): Promise<string> {
-        return await browser.driver.switchTo().activeElement().getAttribute('id');
+    async activeElementAttr(attr: string): Promise<string> {
+        return await browser.driver.switchTo().activeElement().getAttribute(attr);
     };
 }
