@@ -247,6 +247,8 @@ export class OrganizationChartComponent<T> implements AfterViewInit, OnChanges, 
     /** Perform the actual rendering of the chart */
     render(): void {
 
+        console.log('render');
+
         // perform the layout algorithm on the current dataset
         this.updateLayout();
 
@@ -344,6 +346,8 @@ export class OrganizationChartComponent<T> implements AfterViewInit, OnChanges, 
     /** Select a specified node */
     select(node: OrganizationChartNode<T> | HierarchyPointNode<OrganizationChartNode<T>>): void {
 
+        console.log('select');
+
         // get the node in the desired format
         node = this.coerceDataNode(node) as OrganizationChartNode<T>;
 
@@ -395,6 +399,8 @@ export class OrganizationChartComponent<T> implements AfterViewInit, OnChanges, 
 
     /** Toggle the collapsed state of a node */
     toggle(node: OrganizationChartNode<T> | HierarchyPointNode<OrganizationChartNode<T>>): void {
+
+        console.log('toggle');
 
         if (this._isTransitioning) {
             return;
@@ -760,6 +766,10 @@ export class OrganizationChartComponent<T> implements AfterViewInit, OnChanges, 
 
     /** Handle click events */
     private onClick(node: HierarchyPointNode<OrganizationChartNode<T>>): void {
+
+        // eslint-disable-next-line no-debugger
+        debugger;
+
         if (!this.toggleNodesOnClick) {
             return;
         }

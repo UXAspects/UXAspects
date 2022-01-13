@@ -335,6 +335,9 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
 
     inputBlurHandler(): void {
 
+        // eslint-disable-next-line no-debugger
+        debugger;
+
         // If a click on the typeahead is in progress, just refocus the input.
         // This works around an issue in IE where clicking a scrollbar drops focus.
         if (this.singleTypeahead && this.singleTypeahead.clicking) {
@@ -383,6 +386,9 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
 
     /** This gets called whenever the user types in the input */
     onInputChange(input: string): void {
+
+        // eslint-disable-next-line no-debugger
+        debugger;
 
         this._input$.next({
             value: input,
