@@ -276,19 +276,25 @@ describe('Marquee Wizard Tests', () => {
         // tab to first item on list
         await browser.actions().sendKeys(Key.TAB).perform();
 
-        expect(await imageCompare('marquee-wizard-step-tab')).toEqual(0);
-
+        expect(await page.activeElementId()).toBe('ux-wizard-0-step-0-label');
     });
 
-    it('should allow tabbing to the first step when using the keyboard', async () => {
+    it('should allow tabbing to the second step and moving focus with the arrow keys when using the keyboard', async () => {
 
-        // move to next button
-        await browser.actions().sendKeys(Key.TAB, Key.TAB, Key.TAB).perform();
-        await page.sendEnterKey();
+        // move to next button and skip to 4th step
+        await browser.actions().click(await page.getNextButton()).perform();
 
-        await browser.actions().sendKeys(Key.TAB, Key.TAB, Key.TAB, Key.TAB, Key.TAB, Key.TAB, Key.TAB, Key.TAB).perform();
-        expect(await imageCompare('marquee-wizard-step-tab-2')).toEqual(0);
+        // tab on to steps
+        await browser.actions().sendKeys(Key.chord(Key.SHIFT, Key.TAB, Key.TAB, Key.TAB)).perform();
 
+        // expect step 2 focused
+        expect(await page.activeElementId()).toBe('ux-wizard-0-step-1-label');
+
+        // move focus up
+        await browser.actions().sendKeys(Key.ARROW_UP).perform();
+
+        // expect step 1 focused
+        expect(await page.activeElementId()).toBe('ux-wizard-0-step-0-label');
     });
 
 
