@@ -62,10 +62,10 @@ describe('Marquee Wizard Tests', () => {
     });
 
     it('should show the correct buttons by default', async () => {
-        let previous = await page.getPreviousButton();
-        let next = await page.getNextButton();
-        let cancel = await page.getCancelButton();
-        let finish = await page.getFinishButton();
+        const previous = await page.getPreviousButton();
+        const next = await page.getNextButton();
+        const cancel = await page.getCancelButton();
+        const finish = await page.getFinishButton();
 
         expect(previous).not.toBeNull();
         expect(next).not.toBeNull();
@@ -74,14 +74,14 @@ describe('Marquee Wizard Tests', () => {
     });
 
     it('should prevent the user from going back on the first step', async () => {
-        let previous: ElementFinder = await page.getPreviousButton();
-        let attr = await previous.getAttribute('disabled');
+        const previous: ElementFinder = await page.getPreviousButton();
+        const attr = await previous.getAttribute('disabled');
         expect(attr).not.toBeNull();
     });
 
     it('should allow the user to go next on the first step', async () => {
-        let next: ElementFinder = await page.getNextButton();
-        let attr = await next.getAttribute('disabled');
+        const next: ElementFinder = await page.getNextButton();
+        const attr = await next.getAttribute('disabled');
         expect(attr).toBeNull();
     });
 
@@ -184,7 +184,7 @@ describe('Marquee Wizard Tests', () => {
         await page.goToNext();
 
         // check that the first header is not still active
-        let steps: ElementFinder[] = await page.stepHeaders;
+        const steps: ElementFinder[] = await page.stepHeaders;
 
         // check the first step header classes are updated correctly
         expect(await steps[0].getAttribute('class')).toContain('visited');
@@ -195,7 +195,7 @@ describe('Marquee Wizard Tests', () => {
         expect(await steps[1].getAttribute('class')).toContain('active');
 
         // check the content of the wizard is correct
-        let content: ElementFinder[] = await page.stepContents;
+        const content: ElementFinder[] = await page.stepContents;
 
         // check that only the second step is showing its content
         page.stepContents.each(async (step, idx) =>
@@ -203,10 +203,10 @@ describe('Marquee Wizard Tests', () => {
         expect(await imageCompare('marquee-wizard-next-page')).toEqual(0);
     });
 
-    it('should navigate back to the first step if clicking on a visted step header', async () => {
+    it('should navigate back to the first step if clicking on a visited step header', async () => {
         await page.goToNext();
 
-        let headers: ElementFinder[] = await page.stepHeaders;
+        const headers: ElementFinder[] = await page.stepHeaders;
 
         // click on the first header
         await headers[0].click();
@@ -236,9 +236,9 @@ describe('Marquee Wizard Tests', () => {
             expect(await step.$$('*').count() > 0).toBe(idx === 3));
 
         // check that the finish button is visible
-        let finish = await page.getFinishButton();
-        let next = await page.getNextButton();
-        let cancel = await page.getCancelButton();
+        const finish = await page.getFinishButton();
+        const next = await page.getNextButton();
+        const cancel = await page.getCancelButton();
 
         // the finish button should now be visible
         expect(finish).not.toBe(null);
@@ -269,6 +269,14 @@ describe('Marquee Wizard Tests', () => {
 
         // Check that the step value has updated
         expect(await page.resetButton.getText()).toBe('RESET STEP 1');
+    });
+
+    it('should show a close icon when the step is invalid', async () => {
+
+        // Setting step 1 to be invalid
+        await page.step1InvalidButton.click();
+
+        expect(await imageCompare('marquee-wizard-step-invalid')).toEqual(0);
     });
 
 
