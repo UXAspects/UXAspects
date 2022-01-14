@@ -137,5 +137,6 @@
     </div>
 
     <span class="marquee-wizard-step-title">{{ step.header }}</span>
-    <ux-icon *ngIf="step.completed" class="marquee-wizard-step-status" name="checkmark"></ux-icon>
+    <ux-icon *ngIf="step.completed && step.valid" class="marquee-wizard-step-status" name="checkmark"></ux-icon>
+    <ux-icon *ngIf="!step.valid" class="marquee-wizard-step-status" name="close"></ux-icon>
 </ng-template>
