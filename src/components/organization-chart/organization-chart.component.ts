@@ -339,6 +339,7 @@ export class OrganizationChartComponent<T> implements AfterViewInit, OnChanges, 
 
         // reset the connector changed status
         this._hasConnectorChanged = false;
+        this._isTransitioning = false;
     }
 
     /** Select a specified node */
