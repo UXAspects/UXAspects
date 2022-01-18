@@ -1029,7 +1029,7 @@ export class DashboardService implements OnDestroy {
             this._actionWidget.direction !== ActionDirection.Left &&
             this._actionWidget.direction !== ActionDirection.TopLeft &&
             this._actionWidget.direction !== ActionDirection.BottomLeft) {
-            return Math.max(columnSpan, 1);
+            return this.getColumnFromPx(width, Rounding.RoundUpOverHalf);
         }
 
         // get the current column span and any overflow
