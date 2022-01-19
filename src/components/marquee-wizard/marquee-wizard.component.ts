@@ -1,5 +1,6 @@
-import { ChangeDetectorRef, Component, ContentChildren, ElementRef, EventEmitter, Input, OnDestroy, Output, QueryList, TemplateRef } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ContentChildren, ElementRef, EventEmitter, Input, OnDestroy, Output, QueryList, TemplateRef, ViewChild } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
+import { TabbableListDirective } from '../../directives/accessibility';
 import { ResizeDimensions, ResizeService } from '../../directives/resize/index';
 import { WizardComponent, WizardService, WizardStepComponent } from '../wizard/index';
 import { MarqueeWizardStepComponent } from './marquee-wizard-step.component';
@@ -7,10 +8,15 @@ import { MarqueeWizardStepComponent } from './marquee-wizard-step.component';
 @Component({
     selector: 'ux-marquee-wizard',
     templateUrl: './marquee-wizard.component.html',
-    providers: [WizardService],
+    providers: [
+        WizardService
+    ],
     preserveWhitespaces: false
 })
-export class MarqueeWizardComponent<TStepContext = any> extends WizardComponent implements OnDestroy {
+export class MarqueeWizardComponent<TStepContext = any> extends WizardComponent implements OnDestroy, AfterViewInit {
+
+    @ViewChild(TabbableListDirective)
+    tabbleList: TabbableListDirective;
 
     /** Provide a custom template for the description in the left panel */
     @Input() description: string | TemplateRef<void>;
@@ -58,6 +64,12 @@ export class MarqueeWizardComponent<TStepContext = any> extends WizardComponent 
         _resizeService.addResizeListener(this._elementRef.nativeElement)
             .pipe(takeUntil(this._onDestroy))
             .subscribe(this.onResize.bind(this));
+    }
+
+    ngAfterViewInit(): void {
+        setTimeout(() => {
+            this.tabbleList.setFirstItemTabbable();
+        }, 50);
     }
 
     ngOnDestroy(): void {
