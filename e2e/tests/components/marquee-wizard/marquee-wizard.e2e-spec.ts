@@ -279,7 +279,7 @@ describe('Marquee Wizard Tests', () => {
         expect(await page.activeElementAttr('id')).toBe('ux-wizard-0-step-0-label');
     });
 
-    it('should allow tabbing to the second step and moving focus with the arrow keys when using the keyboard', async () => {
+    it('should allow tabbing to the first step and moving focus with the arrow keys when using the keyboard', async () => {
 
         // move to next button and skip to 4th step
         await browser.actions().click(await page.getNextButton()).perform();
@@ -292,13 +292,13 @@ describe('Marquee Wizard Tests', () => {
         await browser.actions().sendKeys(Key.chord(Key.SHIFT, Key.TAB)).perform();
 
         // expect step 2 focused
-        expect(await page.activeElementAttr('id')).toBe('ux-wizard-0-step-1-label');
+        expect(await page.activeElementAttr('id')).toBe('ux-wizard-0-step-0-label');
 
         // move focus up
         await browser.actions().sendKeys(Key.ARROW_UP).perform();
 
         // expect step 1 focused
-        expect(await page.activeElementAttr('id')).toBe('ux-wizard-0-step-0-label');
+        expect(await page.activeElementAttr('id')).toBe('ux-wizard-0-step-1-label');
     });
 
     it('should show a close icon when the step is invalid', async () => {
