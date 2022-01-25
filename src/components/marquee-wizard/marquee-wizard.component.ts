@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectorRef, Component, ContentChildren, ElementRef, EventEmitter, Input, OnDestroy, Output, QueryList, TemplateRef, ViewChild } from '@angular/core';
+import { AfterViewChecked, ChangeDetectorRef, Component, ContentChildren, ElementRef, EventEmitter, Input, OnDestroy, Output, QueryList, TemplateRef, ViewChild } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
 import { TabbableListDirective } from '../../directives/accessibility';
 import { ResizeDimensions, ResizeService } from '../../directives/resize/index';
@@ -13,7 +13,7 @@ import { MarqueeWizardStepComponent } from './marquee-wizard-step.component';
     ],
     preserveWhitespaces: false
 })
-export class MarqueeWizardComponent<TStepContext = any> extends WizardComponent implements OnDestroy, AfterViewInit {
+export class MarqueeWizardComponent<TStepContext = any> extends WizardComponent implements OnDestroy, AfterViewChecked {
 
     @ViewChild(TabbableListDirective)
     tabbleList: TabbableListDirective;
@@ -66,10 +66,8 @@ export class MarqueeWizardComponent<TStepContext = any> extends WizardComponent 
             .subscribe(this.onResize.bind(this));
     }
 
-    ngAfterViewInit(): void {
-        setTimeout(() => {
-            this.tabbleList.setFirstItemTabbable();
-        }, 50);
+    ngAfterViewChecked(): void {
+        this.tabbleList.setFirstItemTabbable();
     }
 
     ngOnDestroy(): void {

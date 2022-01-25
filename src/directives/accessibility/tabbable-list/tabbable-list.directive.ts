@@ -132,7 +132,9 @@ export class TabbableListDirective implements AfterContentInit, OnDestroy {
     }
 
     setFirstItemTabbable(): void {
-        this._tabbableList.setFirstItemTabbable();
+        if (!this._tabbableList.isAnyItemTabble()) {
+            this._tabbableList.setFirstItemTabbable();
+        }
     }
 
     focus(): void {
