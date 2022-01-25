@@ -157,6 +157,7 @@ export class TimelineChartPlugin {
 
             case 'mouseout':
                 this.resetCursor(chart);
+                this.handleMouseMove(chart, event as MouseEvent);
                 break;
         }
     }
@@ -389,6 +390,7 @@ export class TimelineChartPlugin {
 
     private handleMouseMove(chart: TimelineChart, event: Partial<MouseEvent>): void {
         const mousePosition = this.isWithinHandle(chart, event);
+        console.log('file: timeline-chart.module.ts ~ line 392 ~ TimelineChartPlugin ~ handleMouseMove ~ mousePosition', mousePosition);
 
         const timelineOptions = chart.options as TimelineChartOptions;
         const hasTooltipOnRange: boolean = timelineOptions.timeline.range.hasOwnProperty('tooltip');
