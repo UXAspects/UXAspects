@@ -141,10 +141,8 @@ export class TabbableListService implements OnDestroy {
     }
 
     isAnyItemTabble(): boolean {
-        const itemsArr = this._items.toArray();
-        const match = itemsArr.find(item => item.tabindex === 0);
-
-        return match ? true : false;
+        const tabbleItem = this._items.toArray().find(item => item.tabindex === 0);
+        return tabbleItem ? true : false;
     }
 
     ensureTabbableItem(): void {

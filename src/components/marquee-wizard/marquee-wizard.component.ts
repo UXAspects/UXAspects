@@ -8,9 +8,7 @@ import { MarqueeWizardStepComponent } from './marquee-wizard-step.component';
 @Component({
     selector: 'ux-marquee-wizard',
     templateUrl: './marquee-wizard.component.html',
-    providers: [
-        WizardService
-    ],
+    providers: [WizardService],
     preserveWhitespaces: false
 })
 export class MarqueeWizardComponent<TStepContext = any> extends WizardComponent implements OnDestroy, AfterViewChecked {

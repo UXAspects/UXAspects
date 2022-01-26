@@ -6,7 +6,6 @@ export class MarqueeWizardPage {
     stepHeaders = $$('.marquee-wizard-step');
     stepContents = $$('ux-marquee-wizard-step');
     gutter = $('.as-split-gutter');
-    content = $('.marquee-wizard-content');
     resizeableButton = element(by.id('resizeable'));
     footerTemplateButton = element(by.id('footerTemplate'));
     step4InvalidButton = element(by.id('step4Invalid'));
