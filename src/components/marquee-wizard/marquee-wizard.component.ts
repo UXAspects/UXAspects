@@ -14,7 +14,7 @@ import { MarqueeWizardStepComponent } from './marquee-wizard-step.component';
 export class MarqueeWizardComponent<TStepContext = any> extends WizardComponent implements OnDestroy, AfterViewChecked {
 
     @ViewChild(TabbableListDirective)
-    tabbleList: TabbableListDirective;
+    tabbableList: TabbableListDirective;
 
     /** Provide a custom template for the description in the left panel */
     @Input() description: string | TemplateRef<void>;
@@ -65,7 +65,7 @@ export class MarqueeWizardComponent<TStepContext = any> extends WizardComponent 
     }
 
     ngAfterViewChecked(): void {
-        this.tabbleList.setFirstItemTabbable();
+        this.tabbableList.setFirstItemTabbable();
     }
 
     ngOnDestroy(): void {
