@@ -157,7 +157,7 @@ export class TimelineChartPlugin {
 
             case 'mouseout':
                 this.resetCursor(chart);
-                this.handleMouseMove(chart, event as MouseEvent);
+                this.hideTooltip(chart);
                 break;
         }
     }
@@ -412,10 +412,14 @@ export class TimelineChartPlugin {
         } else if (mousePosition === TimelineHandle.Upper && hasTooltipOnHandles) {
             this.externalTooltipHandler(chart, TimelineHandle.Upper, handleTooltipText.rangeUpper);
         } else {
-            const tooltipEl = this.getOrCreateTooltip(chart);
-            tooltipEl.style.opacity = '0';
+            this.hideTooltip(chart);
         }
 
+    }
+
+    private hideTooltip(chart: TimelineChart): void {
+        const tooltipEl = this.getOrCreateTooltip(chart);
+        tooltipEl.style.opacity = '0';
     }
 
 
