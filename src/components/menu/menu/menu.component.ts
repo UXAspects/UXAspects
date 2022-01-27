@@ -1,5 +1,6 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { FocusKeyManager, FocusOrigin } from '@angular/cdk/a11y';
+import { TAB } from '@angular/cdk/keycodes';
 import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, HostBinding, Inject, Input, OnChanges, OnDestroy, Optional, Output, QueryList, SimpleChanges, TemplateRef, ViewChild, ViewRef } from '@angular/core';
 import { BehaviorSubject, merge, Observable, Subject } from 'rxjs';
 import { map, switchMap, takeUntil } from 'rxjs/operators';
@@ -241,6 +242,10 @@ export class MenuComponent implements AfterContentInit, OnDestroy, OnChanges {
 
         // emit the keydown event
         this._onKeydown$.next(event);
+
+        if (event.keyCode === TAB) {
+            this._closeAll$.next('keyboard');
+        }
     }
 
     _onHoverStart(): void {
