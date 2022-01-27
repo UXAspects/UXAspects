@@ -92,6 +92,10 @@ export class MarqueeWizardPage {
         return await browser.actions().sendKeys(Key.END).perform();
     }
 
+    async sendEnterKey(): Promise<void> {
+        return await browser.actions().sendKeys(Key.ENTER).perform();
+    }
+
     async mouseMoveLeft(): Promise<void> {
         await browser.actions().dragAndDrop(this.gutter, { x: -10, y: 0 }).perform();
     }
@@ -99,4 +103,8 @@ export class MarqueeWizardPage {
     async mouseMoveRight(): Promise<void> {
         return await browser.actions().dragAndDrop(this.gutter, { x: 10, y: 0 }).perform();
     }
+
+    async activeElementAttr(attr: string): Promise<string> {
+        return await browser.driver.switchTo().activeElement().getAttribute(attr);
+    };
 }

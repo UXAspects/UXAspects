@@ -1,4 +1,4 @@
-import { ElementFinder } from 'protractor';
+import { browser, ElementFinder, Key } from 'protractor';
 import { imageCompare } from '../common/image-compare';
 import { MarqueeWizardPage } from './marquee-wizard.po.spec';
 
@@ -269,6 +269,36 @@ describe('Marquee Wizard Tests', () => {
 
         // Check that the step value has updated
         expect(await page.resetButton.getText()).toBe('RESET STEP 1');
+    });
+
+    it('should allow tabbing to the first step when using the keyboard', async () => {
+
+        // tab to first item on list
+        await browser.actions().sendKeys(Key.TAB).perform();
+
+        expect(await page.activeElementAttr('id')).toBe('ux-wizard-0-step-0-label');
+    });
+
+    it('should allow tabbing to the first step and moving focus with the arrow keys when using the keyboard', async () => {
+
+        // move to next button and skip to 4th step
+        await browser.actions().click(await page.getNextButton()).perform();
+
+        // tab on to steps
+        await browser.actions().sendKeys(Key.chord(Key.SHIFT, Key.TAB)).perform();
+        expect(await page.activeElementAttr('aria-label')).toBe('Go to the previous step');
+        await browser.actions().sendKeys(Key.chord(Key.SHIFT, Key.TAB)).perform();
+        expect(await page.activeElementAttr('id')).toBe('step2Invalid-input');
+        await browser.actions().sendKeys(Key.chord(Key.SHIFT, Key.TAB)).perform();
+
+        // expect step 2 focused
+        expect(await page.activeElementAttr('id')).toBe('ux-wizard-0-step-0-label');
+
+        // move focus up
+        await browser.actions().sendKeys(Key.ARROW_UP).perform();
+
+        // expect step 1 focused
+        expect(await page.activeElementAttr('id')).toBe('ux-wizard-0-step-1-label');
     });
 
     it('should show a close icon when the step is invalid', async () => {
