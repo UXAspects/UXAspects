@@ -389,7 +389,6 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
     private didMenuClose(): Observable<any> {
         return merge(
             this._overlayRef.backdropClick(),
-            this._overlayRef.detachments(),
             this._parentMenu ? this._parentMenu.closing : of(),
             this._menuShouldClose
         );
