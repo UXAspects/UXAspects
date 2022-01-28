@@ -55,6 +55,46 @@ describe('Menu', () => {
         await alert.accept();
     });
 
+    it('should tab to the next tabbable item and close the menu when pressing the tab key on a menu item', async () => {
+        // first change placement to bottom
+        await page.placementBottomBtn.click();
+
+        // tab to menu and open it with the keyboard
+        await page.topFocusBtn.click();
+        await browser.actions().sendKeys(Key.TAB).perform();
+        await browser.actions().sendKeys(Key.ARROW_DOWN).perform();
+
+        // expect menu to be open
+        expect(await element(by.className('ux-menu')).isPresent()).toBe(true);
+
+        await browser.actions().sendKeys(Key.TAB).perform();
+
+        // expect menu to be closed and focus to be on the next element
+        expect(await element(by.className('ux-menu')).isPresent()).toBe(false);
+        expect(await page.activeElementAttr('id')).toBe('placement-left');
+    });
+
+    it('should tab to the next tabbable item and close the menu when pressing the tab key on a sub menu item', async () => {
+        // first change placement to bottom
+        await page.placementBottomBtn.click();
+
+        // tab to menu and open it with the keyboard
+        await page.topFocusBtn.click();
+        await browser.actions().sendKeys(Key.TAB).perform();
+        await browser.actions().sendKeys(Key.ARROW_DOWN).perform();
+        await browser.actions().sendKeys(Key.ARROW_RIGHT).perform();
+
+        // expect menu and submenu to be open
+        expect(await element(by.className('ux-menu')).isPresent()).toBe(true);
+        expect((await $$('.ux-menu')).length).toBe(2);
+
+        await browser.actions().sendKeys(Key.TAB).perform();
+
+        // expect menu to be closed
+        expect(await element(by.className('ux-menu')).isPresent()).toBe(false);
+        expect(await page.activeElementAttr('id')).toBe('placement-left');
+    });
+
     describe('- closeOnBlur (false)', () => {
 
         it('should not close the menu when tabbed away from the menu', async () => {
