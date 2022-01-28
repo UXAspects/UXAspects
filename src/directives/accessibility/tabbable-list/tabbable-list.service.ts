@@ -1,8 +1,8 @@
 import { FocusKeyManager, FocusOrigin } from '@angular/cdk/a11y';
 import { DOWN_ARROW, END, HOME, LEFT_ARROW, RIGHT_ARROW, UP_ARROW } from '@angular/cdk/keycodes';
 import { Injectable, OnDestroy, QueryList } from '@angular/core';
-import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { TabbableListItemDirective } from './tabbable-list-item.directive';
 
 @Injectable()
@@ -138,6 +138,11 @@ export class TabbableListService implements OnDestroy {
         if (first !== -1) {
             this.updateActiveItemIndex(first);
         }
+    }
+
+    isAnyItemTabbable(): boolean {
+        const tabbable = this._items.toArray().find(item => item.tabindex === 0);
+        return tabbable ? true : false;
     }
 
     ensureTabbableItem(): void {
