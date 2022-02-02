@@ -56,14 +56,11 @@
     "d3": "^5.9.2"
   },
   "exports": {
-    "./styles/ux-aspects.css": {
-      "style": "./styles/ux-aspects.css"
-    },
-    "./styles/ux-aspects.min.css": {
-      "style": "./styles/ux-aspects.min.css"
+    "./styles/*": {
+      "style": "./styles/*.css"
     },
     "./less/ux-aspects.less": {
-      "sass": "./less/ux-aspects.less"
+      "style": "./less/ux-aspects.less"
     },
     "./fonts/*": {
       "asset:": "./fonts/*"
