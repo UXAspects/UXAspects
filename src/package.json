@@ -55,6 +55,24 @@
     "bootstrap": "^3.3.7",
     "d3": "^5.9.2"
   },
+  "exports": {
+    "./styles/*": {
+      "less": "./styles/*.less"
+    },
+    "./fonts/*": {
+      "otf:": "./fonts/*.otf",
+      "woff:": "./fonts/*.woff",
+      "ttf:": "./fonts/*.ttf"
+    },
+    "./img/*": {
+      "png": "./img/*.png",
+      "svg": "./img/*.svg",
+      "gif": "./img/*.gif"
+    },
+    "./icons/ux/*": {
+      "svg": "./icons/ux/*.svg"
+    }
+  },
   "peerDependencies": {
     "@angular/animations": ">=12.0.0 <14.0.0",
     "@angular/cdk": ">=12.0.0 <14.0.0",
