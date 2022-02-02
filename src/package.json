@@ -63,20 +63,16 @@
       "style": "./styles/ux-aspects.min.css"
     },
     "./less/ux-aspects.less": {
-      "less": "./less/ux-aspects.less"
+      "sass": "./less/ux-aspects.less"
     },
     "./fonts/*": {
-      "otf:": "./fonts/*.otf",
-      "woff:": "./fonts/*.woff",
-      "ttf:": "./fonts/*.ttf"
+      "asset:": "./fonts/*"
     },
     "./img/*": {
-      "png": "./img/*.png",
-      "svg": "./img/*.svg",
-      "gif": "./img/*.gif"
+      "asset": "./img/*"
     },
     "./icons/ux/*": {
-      "svg": "./icons/ux/*.svg"
+      "asset": "./icons/ux/*"
     }
   },
   "peerDependencies": {
