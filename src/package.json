@@ -56,8 +56,14 @@
     "d3": "^5.9.2"
   },
   "exports": {
-    "./styles/*": {
-      "less": "./styles/*.less"
+    "./styles/ux-aspects.css": {
+      "style": "./styles/ux-aspects.css"
+    },
+    "./styles/ux-aspects.min.css": {
+      "style": "./styles/ux-aspects.min.css"
+    },
+    "./less/ux-aspects.less": {
+      "less": "./less/ux-aspects.less"
     },
     "./fonts/*": {
       "otf:": "./fonts/*.otf",
