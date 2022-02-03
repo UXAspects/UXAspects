@@ -93,6 +93,20 @@ describe('Menu', () => {
         // expect menu to be closed
         expect(await element(by.className('ux-menu')).isPresent()).toBe(false);
         expect(await page.activeElementAttr('id')).toBe('placement-left');
+    it('should focus first item in menu when opening menu by pressing space', async () => {
+        await page.topFocusBtn.click();
+        await browser.actions().sendKeys(Key.TAB).perform();
+        await browser.actions().sendKeys(Key.SPACE).perform();
+
+        expect(await page.activeElementAttr('id')).toBe('menu-item-1');
+    });
+
+    it('should focus first item in menu when opening menu by pressing enter', async () => {
+        await page.topFocusBtn.click();
+        await browser.actions().sendKeys(Key.TAB).perform();
+        await browser.actions().sendKeys(Key.ENTER).perform();
+
+        expect(await page.activeElementAttr('id')).toBe('menu-item-1');
     });
 
     describe('- closeOnBlur (false)', () => {

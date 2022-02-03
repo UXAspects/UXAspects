@@ -229,6 +229,7 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
     /** Toggle the open state of a menu */
     @HostListener('click', ['$event'])
     @HostListener('keydown.enter', ['$event'])
+    @HostListener('keydown.space', ['$event'])
     toggleMenu(event?: MouseEvent | KeyboardEvent): void {
 
         // if this occurs on a submenu trigger then we can skip
