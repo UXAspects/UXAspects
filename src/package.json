@@ -55,6 +55,20 @@
     "bootstrap": "^3.3.7",
     "d3": "^5.9.2"
   },
+  "exports": {
+    "./styles/ux-aspects.css": {
+      "style": "./styles/ux-aspects.css",
+      "default": "./styles/ux-aspects.css"
+    },
+    "./styles/ux-aspects.min.css": {
+      "style": "./styles/ux-aspects.min.css",
+      "default": "./styles/ux-aspects.min.css"
+    },
+    "./less/ux-aspects.less": {
+      "style": "./less/ux-aspects.less",
+      "default": "./less/ux-aspects.less"
+    }
+  },
   "peerDependencies": {
     "@angular/animations": ">=12.0.0 <14.0.0",
     "@angular/cdk": ">=12.0.0 <14.0.0",
