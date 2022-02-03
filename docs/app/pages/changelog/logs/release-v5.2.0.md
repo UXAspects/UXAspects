@@ -21,7 +21,7 @@ Dashboard widgets correctly resize when a scrollbar is introduced during a resiz
 * [(398386)](https://internal.almoctane.com/ui/entity-navigation?p=131002/7002&entityType=work_item&id=398386) -
 Fixed package exports to prevent errors when upgrading.
 
-### Documentation
+#### Documentation
 * [(374517)](https://internal.almoctane.com/ui/entity-navigation?p=131002/7002&entityType=work_item&id=374517) -
 [Side Panel](https://uxaspects.github.io/UXAspects/#/components/panels#side-panel) -
 The animate input now has the correct default value of false.
