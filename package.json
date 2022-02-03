@@ -132,7 +132,7 @@
     "karma-jasmine-html-reporter": "~1.7.0",
     "less-loader": "10.2.0",
     "load-grunt-config": "0.19.2",
-    "marked": "^0.8.0",
+    "marked": "^4.0.10",
     "ng-packagr": "^13.0.3",
     "prettier": "^2.5.0",
     "protractor": "^7.0.0",
