@@ -56,20 +56,17 @@
     "d3": "^5.9.2"
   },
   "exports": {
-    "./styles/*": {
-      "style": "./styles/*.css"
+    "./styles/ux-aspects.css": {
+      "style": "./styles/ux-aspects.css",
+      "default": "./styles/ux-aspects.css"
+    },
+    "./styles/ux-aspects.min.css": {
+      "style": "./styles/ux-aspects.min.css",
+      "default": "./styles/ux-aspects.min.css"
     },
     "./less/ux-aspects.less": {
-      "style": "./less/ux-aspects.less"
-    },
-    "./fonts/*": {
-      "asset:": "./fonts/*"
-    },
-    "./img/*": {
-      "asset": "./img/*"
-    },
-    "./icons/ux/*": {
-      "asset": "./icons/ux/*"
+      "style": "./less/ux-aspects.less",
+      "default": "./less/ux-aspects.less"
     }
   },
   "peerDependencies": {
