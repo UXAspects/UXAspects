@@ -1,8 +1,7 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { FocusKeyManager, FocusOrigin } from '@angular/cdk/a11y';
-import { TAB } from '@angular/cdk/keycodes';
 import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, HostBinding, Inject, Input, OnChanges, OnDestroy, Optional, Output, QueryList, SimpleChanges, TemplateRef, ViewChild, ViewRef } from '@angular/core';
-import { BehaviorSubject, merge, Observable, Subject } from 'rxjs';
+import { BehaviorSubject, merge, Observable, Subject, Subscription } from 'rxjs';
 import { map, switchMap, takeUntil } from 'rxjs/operators';
 import { AnchorAlignment, AnchorPlacement } from '../../../common/overlay/index';
 import { MenuItemType } from '../menu-item/menu-item-type.enum';
@@ -73,6 +72,9 @@ export class MenuComponent implements AfterContentInit, OnDestroy, OnChanges {
     /** Handle keyboard interactions */
     _keyManager: FocusKeyManager<MenuItemComponent | MenuTabbableItemDirective>;
 
+    /** Subscription to tab events on the menu panel */
+    private _tabSubscription = Subscription.EMPTY;
+
     /** Emit when the focused item changes (we use this as the key manager is not instantiated until a late lifecycle hook) */
     readonly _activeItem$ = new BehaviorSubject<MenuItemComponent | MenuTabbableItemDirective>(null);
 
@@ -142,7 +144,8 @@ export class MenuComponent implements AfterContentInit, OnDestroy, OnChanges {
             .withVerticalOrientation()
             .withTypeAhead()
             .withWrap();
-
+        this._keyManager.tabOut.subscribe(() => this._closeAll$.next('keyboard'));
+        
         // emit the tabbable item on change
         this._keyManager.change.pipe(map(() => this._keyManager.activeItem), takeUntil(this._onDestroy$))
             .subscribe(item => this._activeItem$.next(item));
@@ -168,6 +171,7 @@ export class MenuComponent implements AfterContentInit, OnDestroy, OnChanges {
         this._activeItem$.complete();
         this._items$.complete();
         this._placement$.complete();
+        this._keyManager.tabOut.complete();
     }
 
     /** Register a menu item - we do this do avoid `@ContentChildren` detecting submenu items */
@@ -242,10 +246,6 @@ export class MenuComponent implements AfterContentInit, OnDestroy, OnChanges {
 
         // emit the keydown event
         this._onKeydown$.next(event);
-
-        if (event.keyCode === TAB) {
-            this._closeAll$.next('keyboard');
-        }
     }
 
     _onHoverStart(): void {
