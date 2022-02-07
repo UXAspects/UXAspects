@@ -206,6 +206,10 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
     /** Close a menu or submenu */
     closeMenu(origin?: FocusOrigin, closeParents: boolean = false): Observable<void> {
 
+        if (!this._overlayRef.hasAttached()) {
+            return;
+        }
+
         // update the menu state
         this.menu._setMenuOpen(false);
 
