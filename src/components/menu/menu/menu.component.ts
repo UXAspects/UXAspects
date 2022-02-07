@@ -1,7 +1,7 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { FocusKeyManager, FocusOrigin } from '@angular/cdk/a11y';
 import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, HostBinding, Inject, Input, OnChanges, OnDestroy, Optional, Output, QueryList, SimpleChanges, TemplateRef, ViewChild, ViewRef } from '@angular/core';
-import { BehaviorSubject, merge, Observable, Subject, Subscription } from 'rxjs';
+import { BehaviorSubject, merge, Observable, Subject } from 'rxjs';
 import { map, switchMap, takeUntil } from 'rxjs/operators';
 import { AnchorAlignment, AnchorPlacement } from '../../../common/overlay/index';
 import { MenuItemType } from '../menu-item/menu-item-type.enum';
@@ -72,9 +72,6 @@ export class MenuComponent implements AfterContentInit, OnDestroy, OnChanges {
     /** Handle keyboard interactions */
     _keyManager: FocusKeyManager<MenuItemComponent | MenuTabbableItemDirective>;
 
-    /** Subscription to tab events on the menu panel */
-    private _tabSubscription = Subscription.EMPTY;
-
     /** Emit when the focused item changes (we use this as the key manager is not instantiated until a late lifecycle hook) */
     readonly _activeItem$ = new BehaviorSubject<MenuItemComponent | MenuTabbableItemDirective>(null);
 
@@ -144,8 +141,8 @@ export class MenuComponent implements AfterContentInit, OnDestroy, OnChanges {
             .withVerticalOrientation()
             .withTypeAhead()
             .withWrap();
-        this._keyManager.tabOut.subscribe(() => this._closeAll$.next('keyboard'));
-        
+        this._keyManager.tabOut.pipe(takeUntil(this._onDestroy$)).subscribe(() => this._closeAll$.next('keyboard'));
+
         // emit the tabbable item on change
         this._keyManager.change.pipe(map(() => this._keyManager.activeItem), takeUntil(this._onDestroy$))
             .subscribe(item => this._activeItem$.next(item));
