@@ -113,11 +113,9 @@ describe('Menu', () => {
 
     describe('- closeOnBlur (false)', () => {
 
-        it('should not close the menu when tabbed away from the menu', async () => {
+        it('should not close the menu when tabbed away from the menu trigger', async () => {
             // tab to menu and open it with the keyboard
-            await page.topFocusBtn.click();
-            await browser.actions().sendKeys(Key.TAB).perform();
-            await browser.actions().sendKeys(Key.SPACE).perform();
+            await browser.actions().mouseMove(page.openMenuBtn).click().perform();
             await browser.actions().sendKeys(Key.TAB).perform();
 
             // check menu open
@@ -131,11 +129,9 @@ describe('Menu', () => {
             await page.closeOnBlurBtn.click();
         });
 
-        it('should close the menu when tabbed away from the menu', async () => {
+        it('should close the menu when tabbed away from the menu trigger', async () => {
             // tab to menu and open it with the keyboard
-            await page.topFocusBtn.click();
-            await browser.actions().sendKeys(Key.TAB).perform();
-            await browser.actions().sendKeys(Key.SPACE).perform();
+            await browser.actions().mouseMove(page.openMenuBtn).click().perform();
 
             // check menu open
             expect(await element(by.className('ux-menu')).isPresent()).toBe(true);
@@ -151,7 +147,6 @@ describe('Menu', () => {
             await page.topFocusBtn.click();
             await browser.actions().sendKeys(Key.TAB).perform();
             await browser.actions().sendKeys(Key.SPACE).perform();
-            await browser.actions().sendKeys(Key.ARROW_LEFT).perform();
             await browser.actions().sendKeys(Key.ARROW_RIGHT).perform();
 
             // check menu open and submenu are open
