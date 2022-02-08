@@ -339,21 +339,10 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
             return this._overlayRef;
         }
 
-        let strategy: FlexibleConnectedPositionStrategy;
-
-        if (!this._isSubmenuTrigger) {
-            strategy = this._overlay.position()
-                .flexibleConnectedTo(this._elementRef)
-                .withFlexibleDimensions(false)
-                .withPush(false);
-        } else {
-            strategy = this._overlay.position()
-                .flexibleConnectedTo(this._elementRef)
-                .withFlexibleDimensions(false)
-                .withPush(true);
-        }
-
-
+        const strategy = this._overlay.position()
+            .flexibleConnectedTo(this._elementRef)
+            .withFlexibleDimensions(false)
+            .withPush(false);
 
         // otherwise create a new one
         this._overlayRef = this._overlay.create({
@@ -363,7 +352,7 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
             positionStrategy: strategy
         });
 
-        this._overlayPlacement.updatePosition(this._overlayRef, this.menu.placement, this.menu.alignment);
+        this._overlayPlacement.updatePosition(this._overlayRef, this.menu.placement, this.menu.alignment, undefined, this._isSubmenuTrigger);
 
         const position = this._overlayRef.getConfig().positionStrategy as FlexibleConnectedPositionStrategy;
 

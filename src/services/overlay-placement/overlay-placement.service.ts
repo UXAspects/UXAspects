@@ -14,16 +14,26 @@ import { AnchorPlacement } from '../../common/overlay/index';
     providedIn: 'root',
 })
 export class OverlayPlacementService {
+
+    private _isSubMenu: boolean = false;
+
     /** Updates the position of the current menu. */
-    updatePosition(overlayRef: OverlayRef, placement: string, alignment: string, fallbackPlacement?: AnchorPlacement): void {
+    updatePosition(overlayRef: OverlayRef, placement: string, alignment: string, fallbackPlacement?: AnchorPlacement, subMenu?: boolean): void {
+        this._isSubMenu = subMenu;
         const position = overlayRef.getConfig().positionStrategy as FlexibleConnectedPositionStrategy;
         const origin = this.getOrigin(placement, alignment);
         const overlay = this.getOverlayPosition(placement, alignment);
 
-        if (!fallbackPlacement) {
+        if (!fallbackPlacement && !this._isSubMenu) {
             position.withPositions([
                 this.addOffset({ ...origin.main, ...overlay.main }),
                 this.addOffset({ ...origin.fallback, ...overlay.fallback }),
+            ]);
+        } else if (this._isSubMenu){
+            position.withPositions([
+                this.addOffset({ ...origin.main, ...overlay.main }),
+                this.addOffset({ ...origin.fallback, ...overlay.fallback }),
+                this.addOffset({ ...{ originX: 'end', originY: 'bottom' }, ...{ overlayX: 'start', overlayY: 'bottom' } })
             ]);
         } else {
             position.withPositions([
@@ -43,7 +53,7 @@ export class OverlayPlacementService {
         let originPosition: OriginConnectionPosition;
 
         if (placement === 'top' || placement === 'bottom') {
-            originPosition = { originX: alignment as HorizontalConnectionPos, originY: placement };
+            originPosition = { originX: alignment as HorizontalConnectionPos, originY: 'bottom' };
         }
 
         if (placement === 'left') {
@@ -133,6 +143,36 @@ export class OverlayPlacementService {
         return { x, y };
     }
 
+    // private invertSubMenuOriginPosition(placement: string, x: HorizontalConnectionPos, y: VerticalConnectionPos) {
+    //     if (placement === 'right') {
+    //         if (y === 'bottom') {
+    //             y = 'bottom';
+    //         } else if (y === 'bottom') {
+    //             y = 'top';
+    //         }
+    //     } 
+
+    //     return { x, y };
+    // }
+
+    private invertSubMenuOverlayPosition(placement: string, x: HorizontalConnectionPos, y: VerticalConnectionPos) {
+        if (placement === 'top' || placement === 'bottom') {
+            if (y === 'top') {
+                y = 'bottom';
+            } else if (y === 'bottom') {
+                y = 'top';
+            }
+        } else {
+            if (x === 'end') {
+                x = 'start';
+            } else if (x === 'start') {
+                x = 'end';
+            }
+        }
+
+        return { x, y };
+    }
+
     private getFallbackPosition(fallbackPlacement: string): ConnectedPosition {
         switch (fallbackPlacement) {
             case 'left':
@@ -145,4 +185,8 @@ export class OverlayPlacementService {
                 return { originX: 'center', originY: 'bottom', overlayX: 'center', overlayY: 'top' };
         }
     }
+}
+interface IFallbackPosition {
+    x: HorizontalConnectionPos;
+    y: VerticalConnectionPos
 }
