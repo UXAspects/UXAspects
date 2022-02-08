@@ -339,10 +339,21 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
             return this._overlayRef;
         }
 
-        const strategy = this._overlay.position()
-            .flexibleConnectedTo(this._elementRef)
-            .withFlexibleDimensions(false)
-            .withPush(false);
+        let strategy: FlexibleConnectedPositionStrategy;
+
+        if (!this._isSubmenuTrigger) {
+            strategy = this._overlay.position()
+                .flexibleConnectedTo(this._elementRef)
+                .withFlexibleDimensions(false)
+                .withPush(false);
+        } else {
+            strategy = this._overlay.position()
+                .flexibleConnectedTo(this._elementRef)
+                .withFlexibleDimensions(false)
+                .withPush(true);
+        }
+
+
 
         // otherwise create a new one
         this._overlayRef = this._overlay.create({
