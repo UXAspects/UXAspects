@@ -168,7 +168,6 @@ export class MenuComponent implements AfterContentInit, OnDestroy, OnChanges {
         this._activeItem$.complete();
         this._items$.complete();
         this._placement$.complete();
-        this._keyManager.tabOut.complete();
     }
 
     /** Register a menu item - we do this do avoid `@ContentChildren` detecting submenu items */
