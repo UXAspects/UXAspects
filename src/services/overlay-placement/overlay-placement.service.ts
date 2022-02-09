@@ -17,8 +17,8 @@ export class OverlayPlacementService {
 
     private _isSubMenu: boolean = false;
     private _position: FlexibleConnectedPositionStrategy;
-    private _origin: IOriginConnectedPositions;
-    private _overlay: IOverlayConnectedPositions;
+    private _origin: OriginConnectedPositions;
+    private _overlay: OverlayConnectedPositions;
     private _customFallbackPlacement: AnchorPlacement;
 
     /** Updates the position of the current menu. */
@@ -168,12 +168,12 @@ export class OverlayPlacementService {
     }
 }
 
-interface IOriginConnectedPositions {
+interface OriginConnectedPositions {
     main: OriginConnectionPosition;
     fallback: OriginConnectionPosition;
 }
 
-interface IOverlayConnectedPositions {
+interface OverlayConnectedPositions {
     main: OverlayConnectionPosition;
     fallback: OverlayConnectionPosition;
 }
