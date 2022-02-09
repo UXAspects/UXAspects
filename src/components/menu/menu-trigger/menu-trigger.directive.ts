@@ -4,7 +4,7 @@ import { DOWN_ARROW, LEFT_ARROW, RIGHT_ARROW, UP_ARROW } from '@angular/cdk/keyc
 import { FlexibleConnectedPositionStrategy, Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { ContentChildren, Directive, ElementRef, HostListener, Input, OnDestroy, OnInit, Optional, QueryList, Self, ViewContainerRef } from '@angular/core';
-import { combineLatest, fromEvent, merge, Observable, of, Subject, timer } from 'rxjs';
+import { combineLatest, merge, Observable, of, Subject, timer } from 'rxjs';
 import { debounceTime, filter, take, takeUntil } from 'rxjs/operators';
 import { AnchorPlacement } from '../../../common/overlay/anchor-placement';
 import { FocusIndicator, FocusIndicatorOriginService, FocusIndicatorService } from '../../../directives/accessibility/index';
@@ -158,6 +158,10 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
             return;
         }
 
+        if (this.closeOnBlur) {
+            this.menu.setCloseOnBlur(this.closeOnBlur);
+        }
+
         // get or create an overlayRef
         const overlayRef = this.getOverlay();
         const portal = this.getPortal();
@@ -196,15 +200,10 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
             this.menu.closed.pipe(take(1), takeUntil(this._onDestroy$))
                 .subscribe(() => this.destroyMenu());
         }
-
-        if (this.closeOnBlur) {
-            // listen the overlay to lose focus then close the menu
-            fromEvent(this._overlayRef.hostElement, 'focusout').pipe(takeUntil(this._onDestroy$)).subscribe(() => this.closeOnFocusout());
-        }
     }
 
     /** Close a menu or submenu */
-    closeMenu(origin?: FocusOrigin, closeParents: boolean = false): Observable<void> {
+    closeMenu(origin?: FocusOrigin, closeParents: boolean = false, focusTrigger: boolean = true): Observable<void> {
 
         if (!this._overlayRef.hasAttached()) {
             return;
@@ -223,7 +222,7 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
         }
 
         // we should focus the trigger element if this is the root trigger
-        if (this._isRootTrigger) {
+        if (this._isRootTrigger && focusTrigger) {
             this._focusIndicator.focus(origin);
         }
 
@@ -445,7 +444,7 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
         if (this.menu.isMenuOpen) {
             setTimeout(() => {
                 if (!this.hasFocus()) {
-                    this.closeMenu(undefined, true);
+                    this.closeMenu(undefined, true, false);
                 }
             }, this._debounceTime);
         }
