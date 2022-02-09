@@ -1,5 +1,5 @@
 ALT_DOCUMENTATION_FOLDER=target/docs
-SEPG_BUILD_ENV_IMAGE=uxaspects/buildenv:2.0.0
+SEPG_BUILD_ENV_IMAGE=uxaspects/prereleases:buildenv-2.2.0-397514-SNAPSHOT
 LIST_RELEASED_ARTIFACT_IN_GITHUB_RELEASE=FALSE
 
 GENERIC_1_TARGET_URL=${genericRepoMgr}/saas-npm-dev-local/${path}/${filename}
