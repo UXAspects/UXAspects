@@ -33,7 +33,8 @@ export class OverlayPlacementService {
             position.withPositions([
                 this.addOffset({ ...origin.main, ...overlay.main }),
                 this.addOffset({ ...origin.fallback, ...overlay.fallback }),
-                this.addOffset({ ...{ originX: 'end', originY: 'bottom' }, ...{ overlayX: 'start', overlayY: 'bottom' } })
+                this.addOffset({ ...{ originX: 'end', originY: 'bottom' }, ...{ overlayX: 'start', overlayY: 'bottom' } }),
+                this.addOffset({ ...{ originX: 'start', originY: 'bottom' }, ...{ overlayX: 'end', overlayY: 'bottom' } })
             ]);
         } else {
             position.withPositions([
@@ -126,36 +127,6 @@ export class OverlayPlacementService {
 
     /** Inverts an overlay position. */
     private invertPosition(placement: string, x: HorizontalConnectionPos, y: VerticalConnectionPos) {
-        if (placement === 'top' || placement === 'bottom') {
-            if (y === 'top') {
-                y = 'bottom';
-            } else if (y === 'bottom') {
-                y = 'top';
-            }
-        } else {
-            if (x === 'end') {
-                x = 'start';
-            } else if (x === 'start') {
-                x = 'end';
-            }
-        }
-
-        return { x, y };
-    }
-
-    // private invertSubMenuOriginPosition(placement: string, x: HorizontalConnectionPos, y: VerticalConnectionPos) {
-    //     if (placement === 'right') {
-    //         if (y === 'bottom') {
-    //             y = 'bottom';
-    //         } else if (y === 'bottom') {
-    //             y = 'top';
-    //         }
-    //     } 
-
-    //     return { x, y };
-    // }
-
-    private invertSubMenuOverlayPosition(placement: string, x: HorizontalConnectionPos, y: VerticalConnectionPos) {
         if (placement === 'top' || placement === 'bottom') {
             if (y === 'top') {
                 y = 'bottom';
