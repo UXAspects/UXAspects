@@ -353,7 +353,13 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
             positionStrategy: strategy
         });
 
-        this._overlayPlacement.updatePosition(this._overlayRef, this.menu.placement, this.menu.alignment, undefined, this._isSubmenuTrigger);
+        this._overlayPlacement.updatePosition(
+            this._overlayRef,
+            this.menu.placement,
+            this.menu.alignment,
+            undefined,
+            this._isSubmenuTrigger
+        );
 
         return this._overlayRef;
     }

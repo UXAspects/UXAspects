@@ -64,7 +64,7 @@ export class OverlayPlacementService {
         let originPosition: OriginConnectionPosition;
 
         if (placement === 'top' || placement === 'bottom') {
-            originPosition = { originX: alignment as HorizontalConnectionPos, originY: 'bottom' };
+            originPosition = { originX: alignment as HorizontalConnectionPos, originY: placement };
         }
 
         if (placement === 'left') {
