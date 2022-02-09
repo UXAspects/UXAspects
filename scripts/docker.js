@@ -4,7 +4,7 @@ const { join } = require('path');
 const { mkdirpSync } = require('fs-extra');
 
 const args = argv.slice(2);
-const image = args[0] || 'uxaspects/buildenv:latest';
+const image = args[0] || 'uxaspects/prereleases:buildenv-2.2.0-397514-SNAPSHOT';
 const command = args[1] ? `/bin/bash -c "${args[1]}"` : '/bin/bash';
 const http_proxy = process.env.HTTP_PROXY;
 const https_proxy = process.env.HTTPS_PROXY;
