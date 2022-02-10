@@ -7,14 +7,14 @@ import { concat, fromEvent, Observable, Observer } from 'rxjs';
 export class FrameExtractionService {
 
     private createVideoPlayer(source: string): HTMLVideoElement {
-        let videoPlayer = document.createElement('video');
+        const videoPlayer = document.createElement('video');
         videoPlayer.preload = 'auto';
         videoPlayer.src = source;
         return videoPlayer;
     }
 
     private createCanvas(width: number, height: number): HTMLCanvasElement {
-        let canvas = document.createElement('canvas');
+        const canvas = document.createElement('canvas');
         canvas.width = width;
         canvas.height = height;
         return canvas;
@@ -30,10 +30,10 @@ export class FrameExtractionService {
         return Observable.create((observer: Observer<ExtractedFrame>) => {
 
             // go to specified frame
-            let subscription = this.goToFrame(videoPlayer, time).subscribe(() => {
+            const subscription = this.goToFrame(videoPlayer, time).subscribe(() => {
                 // create image from current frame
                 canvas.getContext('2d').drawImage(videoPlayer, 0, 0, width, height);
-                observer.next({ image: canvas.toDataURL(), width: width, height: height, time: time });
+                observer.next({ image: canvas.toDataURL(), width, height, time });
                 observer.complete();
                 subscription.unsubscribe();
             });
@@ -46,7 +46,7 @@ export class FrameExtractionService {
         let videoPlayer = this.createVideoPlayer(source);
         let canvas = this.createCanvas(width, height);
 
-        let frameSubscription = this.getThumbnail(videoPlayer, canvas, time, width, height);
+        const frameSubscription = this.getThumbnail(videoPlayer, canvas, time, width, height);
 
         // ensure we release memory after we are finished
         frameSubscription.subscribe(null, null, () => {
@@ -68,7 +68,7 @@ export class FrameExtractionService {
             fromEvent(videoPlayer, 'loadedmetadata').subscribe(() => {
 
                 // calculate the frames required
-                let frames = [];
+                const frames = [];
 
                 for (let idx = start; idx < end; idx += skip) {
                     frames.push(this.getThumbnail(videoPlayer, canvas, idx, width, height));

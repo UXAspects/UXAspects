@@ -39,7 +39,7 @@ export class SelectListComponent<T> implements AfterContentInit, OnDestroy {
         if (Array.isArray(selected)) {
             this._selection.selectOnly(...selected);
         } else {
-            this._selection.selectOnly(<T>selected);
+            this._selection.selectOnly(selected as T);
         }
     }
 

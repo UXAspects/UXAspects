@@ -23,7 +23,7 @@ export class DayViewService implements OnDestroy {
 
     setFocus(day: number, month: number, year: number): void {
 
-        this.focused$.next({ day: day, month: month, year: year });
+        this.focused$.next({ day, month, year });
 
         // update the date picker to show the required month and year
         this._datepicker.setViewportMonth(month);
@@ -55,7 +55,7 @@ export class DayViewService implements OnDestroy {
             day: date.getDate(),
             month: date.getMonth(),
             year: date.getFullYear(),
-            date: date,
+            date,
             isToday: this.isToday(date),
             isActive: this.isActive(date),
             isCurrentMonth: date.getMonth() === month
@@ -87,9 +87,9 @@ export class DayViewService implements OnDestroy {
     }
 
     /**
-   * Determine whether or not a specific date is today
-   * @param date The date to check
-   */
+     * Determine whether or not a specific date is today
+     * @param date The date to check
+     */
     private isToday(date: Date): boolean {
         return compareDays(new Date(), date);
     }

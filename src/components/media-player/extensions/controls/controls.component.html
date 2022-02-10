@@ -25,7 +25,7 @@
         </button>
 
         <div class="volume-slider-node">
-            <ux-slider [(value)]="volume" [options]="options"></ux-slider>
+            <ux-slider [value]="volume" (valueChange)="volume = $any($event)" [options]="options"></ux-slider>
         </div>
     </div>
 </div>
@@ -52,7 +52,7 @@
     (click)="mediaPlayerService.togglePlay()"
     (mouseup)="playButton.blur()">
 
-    <svg *ngIf="!(mediaPlayerService.playing | async)" viewBox="0 0 45 64" width="20" height="29" focusable="false">
+    <svg *ngIf="(mediaPlayerService.playing | async) === false" viewBox="0 0 45 64" width="20" height="29" focusable="false">
         <polygon points="0.4,0 0.4,64 44.6,32" />
     </svg>
     <svg *ngIf="mediaPlayerService.playing | async" viewBox="0 0 43 56.9" width="20" height="29" focusable="false">

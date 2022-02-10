@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { IChangeLog } from '../../interfaces/IChangeLog';
 import { AppConfiguration } from '../../services/app-configuration/app-configuration.service';
@@ -8,13 +8,30 @@ import { AppConfiguration } from '../../services/app-configuration/app-configura
     templateUrl: './changelog.component.html',
     styleUrls: ['./changelog.component.less']
 })
-export class ChangeLogPageComponent {
+export class ChangeLogPageComponent implements OnInit {
 
     logs: IChangeLog[];
 
-    constructor(domSanitizer: DomSanitizer, appConfig: AppConfiguration) {
+    constructor(private domSanitizer: DomSanitizer, private appConfig: AppConfiguration) {
+    }
 
+    async ngOnInit(): Promise<void> {
         this.logs = [
+            {
+                version: '5.2.0',
+                date: 'February 3rd 2022',
+                content: require('./logs/release-v5.2.0.md')
+            },
+            {
+                version: '5.1.0',
+                date: 'January 20th 2022',
+                content: require('./logs/release-v5.1.0.md')
+            },
+            {
+                version: '5.0.0',
+                date: 'January 6th 2022',
+                content: require('./logs/release-v5.0.0.md')
+            },
             {
                 version: '4.9.0',
                 date: 'October 28th 2021',
@@ -598,8 +615,8 @@ export class ChangeLogPageComponent {
         ];
 
         this.logs.forEach(log => {
-            const markdown = log.content.replace(/{{baseUrl}}/g, appConfig.baseUrl);
-            log.content = domSanitizer.bypassSecurityTrustHtml(markdown) as string;
+            const markdown = log.content.replace(/{{baseUrl}}/g, this.appConfig.baseUrl);
+            log.content = this.domSanitizer.bypassSecurityTrustHtml(markdown) as string;
         });
 
     }

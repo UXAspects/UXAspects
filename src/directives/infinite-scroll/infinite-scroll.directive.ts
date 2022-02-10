@@ -155,7 +155,7 @@ export class InfiniteScrollDirective<T = any> implements OnInit, AfterContentIni
             }
 
             this._updateRequests.next({
-                check: check,
+                check,
                 pageNumber: this._nextPageNum,
                 pageSize: this.pageSize,
                 filter: this.coerceFilter(this.filter) as T
@@ -324,13 +324,12 @@ export class InfiniteScrollDirective<T = any> implements OnInit, AfterContentIni
             const observable = Array.isArray(loadResult) ? of(loadResult) : from(loadResult);
 
             let completed: boolean = false;
-            let subscription: Subscription;
 
             // subscription needs to be a let here if subscription completes right away the complete function can be called
             // before the assignment. While browsers will ignore this currently as we transpile
             // all const/let statements to var, when this is no longer the case (or we are running in a test environment)
             // const will be used and this can throw an error if we try to access a const variable before it is assigned
-            subscription = observable.pipe(first()).subscribe(
+            const subscription = observable.pipe(first()).subscribe(
                 items => {
                     // Make sure that the parameters have not changed since the load started;
                     // otherwise discard the results.
@@ -384,7 +383,7 @@ export class InfiniteScrollDirective<T = any> implements OnInit, AfterContentIni
         // Load if the remaining scroll area is <= the element height.
         if (this._scrollElement && this.loadOnScroll) {
 
-            const element = <HTMLElement>this._scrollElement.nativeElement;
+            const element = this._scrollElement.nativeElement;
             const remainingScroll = element.scrollHeight - (element.scrollTop + element.clientHeight);
             const isVisible = element.scrollHeight > 0;
 

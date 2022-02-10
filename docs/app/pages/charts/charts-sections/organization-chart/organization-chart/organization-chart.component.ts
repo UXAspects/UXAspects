@@ -209,7 +209,7 @@ export class ChartsOrganizationChartComponent extends BaseDocumentationSection i
     getHierarchy(node: OrganizationChartNode<OrganizationChartContext>): HierarchyBarNode {
         return {
             title: node.data.name,
-            icon: require('../../../../../assets/img/IconManagerColorized.png'),
+            icon: 'assets/img/IconManagerColorized.png',
             children: node.children ? node.children.map(child => this.getHierarchy(child)) : null
         } as HierarchyBarNode;
     }

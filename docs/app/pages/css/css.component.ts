@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-
+import * as cssPage from '../../data/css-page.json';
 import { IDocumentationPage } from '../../interfaces/IDocumentationPage';
 
 @Component({
@@ -7,12 +7,5 @@ import { IDocumentationPage } from '../../interfaces/IDocumentationPage';
     templateUrl: './css.component.html'
 })
 export class CssPageComponent {
-
-    navigation: IDocumentationPage;
-
-    constructor() {
-        // load in the navigation json for this page
-        this.navigation = require('../../data/css-page.json');
-    }
-
+    navigation = cssPage as IDocumentationPage;
 }

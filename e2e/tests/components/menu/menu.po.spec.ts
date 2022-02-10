@@ -24,4 +24,8 @@ export class MenuPage {
     async getPage(): Promise<void> {
         await browser.get('#/menu');
     }
+
+    async activeElementAttr(attr: string): Promise<string> {
+        return await browser.driver.switchTo().activeElement().getAttribute(attr);
+    };
 }

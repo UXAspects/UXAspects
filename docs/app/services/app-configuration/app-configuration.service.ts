@@ -1,8 +1,17 @@
 import { Location } from '@angular/common';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
-const jsonTemplate = require('json-templater/object');
-const { major, minor, patch, prerelease } = require('semver');
+import jsonTemplate from 'json-templater/object';
+import { major, minor, patch, prerelease } from 'semver';
+import * as config from '../../data/config.json';
+import * as configDev from '../../data/config.dev.json';
+import * as footerNavigation from '../../data/footer-navigation.json';
+import * as landingPage from '../../data/landing-page.json';
+import * as teamPage from '../../data/team-page.json';
+import * as topNavigation from '../../data/top-navigation.json';
+import * as componentsPage from '../../data/components-page.json';
+import * as cssPage from '../../data/css-page.json';
+import * as chartsPage from '../../data/charts-page.json';
 
 @Injectable({
     providedIn: 'root'
@@ -49,15 +58,15 @@ export class AppConfiguration {
             BUILD: this.getBuild(environment.version)
         };
 
-        this.setConfigurationTemplateData('config', require('../../data/config.json'));
-        this.setConfigurationTemplateData('config.dev', require('../../data/config.dev.json'));
-        this.setConfigurationTemplateData('footer-navigation', require('../../data/footer-navigation.json'));
-        this.setConfigurationTemplateData('landing-page', require('../../data/landing-page.json'));
-        this.setConfigurationData('team-page', require('../../data/team-page.json'));
-        this.setConfigurationData('top-navigation', require('../../data/top-navigation.json'));
-        this.setConfigurationData('components-page', require('../../data/components-page.json'));
-        this.setConfigurationData('css-page', require('../../data/css-page.json'));
-        this.setConfigurationData('charts-page', require('../../data/charts-page.json'));
+        this.setConfigurationTemplateData('config', config);
+        this.setConfigurationTemplateData('config.dev', configDev);
+        this.setConfigurationTemplateData('footer-navigation', footerNavigation);
+        this.setConfigurationTemplateData('landing-page', landingPage);
+        this.setConfigurationData('team-page', teamPage);
+        this.setConfigurationData('top-navigation', topNavigation);
+        this.setConfigurationData('components-page', componentsPage);
+        this.setConfigurationData('css-page', cssPage);
+        this.setConfigurationData('charts-page', chartsPage);
     }
 
     get(key: string): any {

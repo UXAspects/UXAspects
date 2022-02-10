@@ -110,7 +110,7 @@ export class HierarchyBarService {
                 this.setRootNode(this._root);
 
                 // emit the latest value
-                observer.next({ loading: false, children: children });
+                observer.next({ loading: false, children });
 
                 // close the observable stream
                 observer.complete();
