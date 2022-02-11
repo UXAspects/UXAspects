@@ -7,6 +7,10 @@ import { AppComponent } from './app.component';
 
 const routes: Routes = [
     {
+        path: 'alert',
+        loadChildren: () => import('./alert/alert.module').then(m => m.AlertTestPageModule)
+    },
+    {
         path: 'badge',
         loadChildren: () => import('./badge/badge.module').then(m => m.BadgeTestPageModule)
     },
@@ -111,6 +115,10 @@ const routes: Routes = [
         loadChildren: () => import('./media-player/media-player.module').then(m => m.MediaPlayerTestPageModule)
     },
     {
+        path: 'menu',
+        loadChildren: () => import('./menu/menu.module').then(m => m.MenuTestPageModule)
+    },
+    {
         path: 'navigation',
         loadChildren: () => import('./navigation/navigation.module').then(m => m.NavigationTestPageModule)
     },
@@ -123,12 +131,20 @@ const routes: Routes = [
         loadChildren: () => import('./number-picker/number-picker.module').then(m => m.NumberPickerTestPageModule)
     },
     {
+        path: 'organization-chart',
+        loadChildren: () => import('./organization-chart/organization-chart.module').then(m => m.OrganizationChartTestPageModule)
+    },
+    {
         path: 'page-header',
         loadChildren: () => import('./page-header/page-header.module').then(m => m.PageHeaderTestPageModule)
     },
     {
         path: 'pagination',
         loadChildren: () => import('./pagination/pagination.module').then(m => m.PaginationTestPageModule)
+    },
+    {
+        path: 'partition-map',
+        loadChildren: () => import('./partition-map/partition-map.module').then(m => m.PartitionMapTestPageModule)
     },
     {
         path: 'popover',

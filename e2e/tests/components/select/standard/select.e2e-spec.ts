@@ -1,4 +1,4 @@
-import { Key } from 'protractor';
+import { $, browser, Key } from 'protractor';
 import { imageCompare } from '../../common/image-compare';
 import { numberOfCountries, SelectPage } from './select.po.spec';
 
@@ -646,4 +646,91 @@ describe('Select Tests', () => {
         expect(await page.confirmDropdownIsExpanded()).toBe(false);
         expect(await page.getSelectedLocationText()).toBe('[ "United Kingdom" ]');
     });
+
+    it('should allow quick filtering when using a lower filterDebounceTime value', async () => {
+        await page.toggleClearButton();
+        await page.clickOnIncrementFilterDebounce();
+        await page.getDropdown(false).sendKeys('al', Key.ENTER);
+        expect(await page.getSelectedLocationText()).toBe('"United States"', 'should select incorrect value when debounceTime is 1200');
+
+        await page.clickOnDecrementFilterDebounce();
+        await page.clickOnDecrementFilterDebounce();
+        await page.getClearButton().click();
+        await page.getDropdown(false).sendKeys('al');
+        await page.getDropdown(false).sendKeys(Key.ENTER);
+        expect(await page.getSelectedLocationText()).toBe('"Aland Islands"', 'should select correct value when debounceTime is 0');
+    });
+
+    it('should close the dropdown on external click when autoCloseDropdown = true and multiple = true', async() => {
+        expect(await page.confirmDropdownIsExpanded()).toBe(false, 'before external click');
+        await page.clickOnCheckbox(page.checkboxMulti);
+        await page.clickOnDropdown(true);
+
+        await browser.actions().click($('body')).perform();
+        expect(await page.confirmDropdownIsExpanded()).toBe(false, 'after external click');
+    });
+
+    it('should not close the dropdown on external click when autoCloseDropdown = false and multiple = false', async() => {
+        expect(await page.confirmDropdownIsExpanded()).toBe(false, 'before external click');
+        await page.clickOnCheckbox(page.checkboxAutoCloseDropdown);
+        await page.clickOnDropdown(false);
+
+        await browser.actions().click($('body')).perform();
+        expect(await page.confirmDropdownIsExpanded()).toBe(true, 'after external click');
+    });
+
+    it('should close the dropdown on external click when autoCloseDropdown = true and multiple = false', async() => {
+        expect(await page.confirmDropdownIsExpanded()).toBe(false, 'before external click');
+        await page.clickOnDropdown(false);
+
+        await browser.actions().click($('body')).perform();
+        expect(await page.confirmDropdownIsExpanded()).toBe(false, 'after external click');
+    });
+
+    it('should not close the dropdown on external click when autoCloseDropdown = false and multiple = true', async() => {
+        expect(await page.confirmDropdownIsExpanded()).toBe(false, 'before external click');
+        await page.clickOnCheckbox(page.checkboxMulti);
+        await page.clickOnCheckbox(page.checkboxAutoCloseDropdown);
+        await page.clickOnDropdown(true);
+
+        await browser.actions().click($('body')).perform();
+        expect(await page.confirmDropdownIsExpanded()).toBe(true, 'after external click');
+    });
+
+    it('should automatically change the drop direction depending on the available space when using dropDirection=auto', async () => {
+        await page.clickOnDropDirectionAuto();
+        await page.decreaseMaxHeight.click();
+        await page.clickOnDropdown(false);
+        expect(await page.confirmDropdownIsExpanded()).toBe(true);
+        expect(await imageCompare('select-drop-direction-auto-down')).toBe(0, 'should use direction down when space is available');
+
+        await page.increaseMaxHeight.click();
+        await page.clickOnDropdown(false);
+        expect(await page.confirmDropdownIsExpanded()).toBe(true);
+        expect(await imageCompare('select-drop-direction-auto-up')).toBe(0, 'should use direction up when space is not available');
+    });
+
+    it('should close the dropdown menu when opened by the icon after losing focus with readonlyInput activated', async () => {
+        await page.clickOnCheckbox(page.checkboxReadonlyInput);
+
+        await page.clickOnSelectIcon();
+        expect(await page.confirmDropdownIsExpanded()).toBe(true);
+
+        await browser.actions().click($('body')).perform();
+        expect(await page.confirmDropdownIsExpanded()).toBe(false);
+    });
+
+    it('should show the correct invalid state', async () => {
+        await page.clickOnCheckbox(page.checkboxHasError);
+
+        expect(await imageCompare('select-invalid-state')).toEqual(0);
+    });
+
+    it('should show the correct invalid state in multiple mode', async () => {
+        await page.clickOnCheckbox(page.checkboxMulti);
+        await page.clickOnCheckbox(page.checkboxHasError);
+
+        expect(await imageCompare('select-invalid-state-multi')).toEqual(0);
+    });
+
 });

@@ -15,8 +15,8 @@ export class HierarchyBarTestPageComponent {
     mode: string = 'standard';
     readonly: boolean = false;
 
-    managerIcon = 'https://uxaspects.github.io/UXAspects/assets/IconManagerColorized.png';
-    userIcon = 'https://uxaspects.github.io/UXAspects/assets/IconUser.png';
+    managerIcon = '/assets/IconManagerColorized.png';
+    userIcon = '/assets/IconUser.png';
 
     node: HierarchyBarNode = {
         title: 'Theresa Chandler',

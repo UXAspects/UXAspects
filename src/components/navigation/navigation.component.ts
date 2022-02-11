@@ -55,7 +55,7 @@ export class NavigationComponent {
         return items && items.some(item => item.children && item.children.length > 0);
     }
 
-    /** Determine the type of icon to display. We support `hpe-icon`, `ux-icon` or `component` */
+    /** Determine the type of icon to display. We support `ux-icon` or `component` */
     _getIconType(item: NavigationItem): string {
         return getIconType(item.icon);
     }

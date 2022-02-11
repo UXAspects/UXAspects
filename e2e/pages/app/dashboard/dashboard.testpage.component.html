@@ -14,7 +14,9 @@
                              name="Usage Analytics"
                              [colSpan]="4"
                              [rowSpan]="2"
-                             [resizable]="true">
+                             [resizable]="true"
+                             minColSpan="2"
+                             minRowSpan="2">
 
             <div class="widget-content"
                  [class.widget-grabbing]="usageHandle.isGrabbing"
@@ -32,7 +34,12 @@
 
         </ux-dashboard-widget>
 
-        <ux-dashboard-widget id="subscription-widget" name="Service" [colSpan]="2">
+        <ux-dashboard-widget
+            id="subscription-widget"
+            name="Service"
+            [colSpan]="2"
+            [resizable]="true"
+            minColSpan="2">
             <div class="widget-content"
                  [class.widget-grabbing]="handle2.isGrabbing"
                  uxDashboardWidgetDragHandle>
@@ -49,7 +56,10 @@
 
         </ux-dashboard-widget>
 
-        <ux-dashboard-widget id="users-widget" name="Users">
+        <ux-dashboard-widget
+            id="users-widget"
+            name="Users"
+            [resizable]="false">
 
             <div class="widget-content"
                  [class.widget-grabbing]="handle3.isGrabbing"
@@ -67,7 +77,7 @@
 
         </ux-dashboard-widget>
 
-        <ux-dashboard-widget id="alert-widget" name="Alert" autoPositioning="false">
+        <ux-dashboard-widget id="alert-widget" name="Alert" autoPositioning="false" [col]="undefined" [row]="undefined">
 
             <div class="widget-content"
                  [class.widget-grabbing]="handle4.isGrabbing"
@@ -99,6 +109,12 @@
 <div class="m-t-xs">
     <button type="button" id="change-dashboard-options" class="btn button-accent" (click)="changeOptions()">
         Change Options
+    </button>
+</div>
+
+<div class="m-t-xs">
+    <button type="button" id="refresh-layout-btn" class="btn button-accent" (click)="refreshLayout()">
+        Refresh Layout
     </button>
 </div>
 

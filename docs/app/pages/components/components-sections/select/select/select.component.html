@@ -15,6 +15,7 @@
                 [readonlyInput]="readonlyInput"
                 [clearButton]="clearButton"
                 [(recentOptions)]="recentOptions"
+                [autoCloseDropdown]="autoCloseDropdown"
                 [recentOptionsMaxCount]="recentOptionsMaxCount">
 
                 <ng-template #icon *ngIf="multiple | async">
@@ -67,6 +68,9 @@
                 <div class="row uxd-customize-row">
                     <div class="col-md-3 col-sm-12">
                         <ux-checkbox [(value)]="clearButton" [disabled]="!(multiple | async) && !allowNull">clearButton</ux-checkbox>
+                    </div>
+                    <div class="col-md-3 col-sm-12">
+                        <ux-checkbox [(value)]="autoCloseDropdown">autoCloseDropdown</ux-checkbox>
                     </div>
                 </div>
                 <div class="row uxd-customize-row">
@@ -196,7 +200,8 @@
         The aria-label to apply to the child <code>input</code> element.
     </tr>
     <tr uxd-api-property name="disabled" type="boolean" defaultValue="false">
-        Controls the disabled state of the tag input.
+        Controls the disabled state of the tag input. If using a <code>FormControl</code> do not use this input, instead
+        disable the <code>FormControl</code>.
     </tr>
     <tr uxd-api-property name="dropDirection" type="'up' | 'down' | 'auto'" defaultValue="'down'">
         The positioning of the typeahead dropdown in relation to its parent. If 'auto' is used the
@@ -262,6 +267,23 @@
     <tr uxd-api-property name="recentOptionsMaxCount" type="number" defaultValue="5">
         Maximum number of displayed recently selected options.
     </tr>
+    <tr uxd-api-property name="required" type="boolean" defaultValue="false">
+        If set to <code>true</code> the select will be marked as required. If using a <code>FormControl</code> do not
+        use this input, instead add the required validator to the <code>FormControl</code>. See an example below under
+        Validation heading.
+    </tr>
+    <tr uxd-api-property name="filterDebounceTime" type="number" defaultValue="200">
+        Allows customization of the <code>debounceTime</code> used on the select's input filter.
+    </tr>
+    <tr uxd-api-property name="autoCloseDropdown" type="boolean" defaultValue="true">
+        Determine if the dropdown panel should close on external click.
+    </tr>
+    <tr uxd-api-property name="optionsHeadingTemplate" type="TemplateRef">
+        <p>A template which will display custom headings for normal options.</p>
+    </tr>
+    <tr uxd-api-property name="recentOptionsHeadingTemplate" type="TemplateRef">
+        <p>A template which will display custom headings for recent options.</p>
+    </tr>
 </uxd-api-properties>
 
 <uxd-api-properties tableTitle="Outputs">
@@ -291,6 +313,29 @@
         canRemoveTagAt</code>.
     </tr>
 </uxd-api-properties>
+
+<h4>Validation</h4>
+<p>
+    The <code>ux-select</code> component can have validation applied to it like any
+    other Angular form element.
+</p>
+<p>
+    Do not use the <code>disabled</code> or <code>required</code> inputs when using Reactive Forms. Use the
+    <a class="hyperlink" href="https://angular.io/guide/reactive-forms">Reactive Forms API</a> to achieve this instead.
+</p>
+<p>Below is a code example on how to implement validation with the <strong>Select</strong> component.</p>
+
+<ux-tabset [minimal]="false">
+    <ux-tab heading="HTML">
+        <uxd-snippet [content]="snippets.compiled.validationHtml"></uxd-snippet>
+    </ux-tab>
+    <ux-tab heading="TypeScript">
+        <uxd-snippet [content]="snippets.compiled.validationTs"></uxd-snippet>
+    </ux-tab>
+</ux-tabset>
+
+<h4>Source code</h4>
+<p>The following code can be used to create the example above.</p>
 
 <ux-tabset [minimal]="false">
     <ux-tab heading="HTML">

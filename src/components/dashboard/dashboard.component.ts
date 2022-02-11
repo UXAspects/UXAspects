@@ -38,6 +38,7 @@ export class DashboardComponent implements AfterViewInit, AfterContentInit, OnDe
     @Output() layoutChange = new EventEmitter<DashboardLayoutData[]>();
 
     @HostBinding('attr.aria-label') ariaLabel: string;
+    @HostBinding('attr.role') @Input() role: string = 'region';
 
     @ViewChild('dashboard', { static: true }) dashboardElement: ElementRef;
 
@@ -103,6 +104,8 @@ export class DashboardComponent implements AfterViewInit, AfterContentInit, OnDe
             // height. We should remove any unneeded whitespace below widgets too.
             this.dashboardService.setDashboardHeight();
 
+            // emit information about the layout
+            this.dashboardService.layout$.next(this.dashboardService.getLayoutData());
             this.layoutChange.emit(this.dashboardService.layout$.value);
         }
     }

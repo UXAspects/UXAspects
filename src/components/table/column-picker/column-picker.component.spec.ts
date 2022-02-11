@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ComponentFixture, async, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { TableModule } from '../table.module';
 import { ColumnPickerGroup } from './column-picker.component';
 import { ColumnPickerGroupItem } from './interfaces/column-picker-group-item.interface';
@@ -125,7 +125,7 @@ export class ColumnPickerSortTestComponent {
         const aCombined = a.group ? `${a.group}${a.name}` : a.name;
         const bCombined = b.group ? `${b.group}${b.name}` : b.name;
         return aCombined.localeCompare(bCombined);
-    }
+    };
 }
 
 describe('Column Picker Component - Sort Input', () => {

@@ -1,3 +1,12 @@
+# 4.x to 5.0
+* Angular 10 and 11 is no longer supported
+* Tree Grid no longer supports the `rows` input. Use `(rowChange)="rows = $event"` instead.
+
+# 3.x to 4.0
+* Angular 9 is no longer supported.
+* The `hpe-*` icon set has been removed. Use the `ux-icon` component instead.
+* The `valid` input has been removed from `ux-number-picker`. Use Angular form validation instead.
+
 # 2.1.x to 3.0
 * Angular 8 is no longer supported.
 * If you are using ng2-file-upload and ngx-mask packages in your application, you will need to install manually.

@@ -1,16 +1,15 @@
 import { FocusOrigin } from '@angular/cdk/a11y';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, HostBinding, HostListener, Input, OnChanges, OnDestroy, Output, Renderer2, SimpleChanges, TemplateRef } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, HostBinding, HostListener, Input, OnChanges, OnDestroy, Output, SimpleChanges, TemplateRef, ViewChild } from '@angular/core';
 import { BehaviorSubject, combineLatest, Subject } from 'rxjs';
 import { distinctUntilChanged, takeUntil } from 'rxjs/operators';
-import { InfiniteScrollLoadedEvent, InfiniteScrollLoadFunction } from '../../directives/infinite-scroll/index';
+import { InfiniteScrollDirective, InfiniteScrollLoadedEvent, InfiniteScrollLoadFunction } from '../../directives/infinite-scroll/index';
+import { PopoverOrientation, PopoverOrientationListener, PopoverOrientationService } from '../../services/popover-orientation/popover-orientation.service';
 import { TypeaheadOptionEvent } from './typeahead-event';
 import { TypeaheadOptionApi } from './typeahead-option-api';
 import { TypeaheadOptionContext } from './typeahead-option-context';
 import { TypeaheadVisibleOption } from './typeahead-visible-option';
 import { TypeaheadService } from './typeahead.service';
-import { ViewportRuler } from '@angular/cdk/scrolling';
-import { ResizeService } from '../../directives/resize/index';
-import { PopoverOrientationService, PopoverOrientation, PopoverOrientationListener } from '../../services/popover-orientation/popover-orientation.service';
+import { coerceArray } from '@angular/cdk/coercion';
 
 let uniqueId = 0;
 
@@ -26,6 +25,8 @@ let uniqueId = 0;
     }
 })
 export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
+
+    @ViewChild(InfiniteScrollDirective) infiniteScroll: InfiniteScrollDirective;
 
     /** Define a unique id for the typeahead */
     @Input() @HostBinding('attr.id') id: string = `ux-typeahead-${++uniqueId}`;
@@ -46,19 +47,37 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
     }
 
     /** Extract the test to display from an option */
-    @Input() display: (option: T) => string | string;
+    @Input() display: ((option: T) => string) | string;
 
     /** Extract the key from an option */
-    @Input() key: (option: T) => string | string;
+    @Input() key: ((option: T) => string) | string;
 
     /** Specify which options are disabled */
-    @Input() disabledOptions: T | T[];
+    @Input() set disabledOptions(options: T | T[]) {
+        this._disabledOptions = coerceArray(options);
+    }
+
+    get disabledOptions(): T | T[] {
+        return this._disabledOptions;
+    }
+
+    _disabledOptions: T[] = [];
 
     /** Specify the drop direction */
     @Input() dropDirection: 'auto' | 'up' | 'down' = 'down';
 
     /** Specify the max height of the dropdown */
-    @Input() maxHeight: string = '250px';
+    @Input()
+    get maxHeight(): string {
+        return this._maxHeight;
+    }
+
+    set maxHeight(maxHeight: string) {
+        this._maxHeight = maxHeight;
+        if (this.maxHeight.endsWith('px')) {
+            this._popoverOrientationListener.maxHeight = Number(this.maxHeight.slice(0, -2));
+        }
+    }
 
     /** Specify the aria multi selectable attribute value */
     @Input()
@@ -103,6 +122,10 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
     /** Maximum number of displayed recently selected options. */
     @Input() recentOptionsMaxCount: number = 5;
 
+    @Input() recentOptionsHeadingTemplate: TemplateRef<void>;
+
+    @Input() optionsHeadingTemplate: TemplateRef<void>;
+
     /** Emit when the open state changes */
     @Output() openChange = new EventEmitter<boolean>();
 
@@ -139,6 +162,8 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
 
     private _popoverOrientationListener: PopoverOrientationListener;
 
+    private _maxHeight = '250px';
+
     @HostBinding('class.drop-up')
     dropUp: boolean;
 
@@ -153,10 +178,7 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
         public typeaheadElement: ElementRef,
         private _changeDetector: ChangeDetectorRef,
         popoverOrientation: PopoverOrientationService,
-        private _service: TypeaheadService,
-        private _viewportRuler: ViewportRuler,
-        private _renderer: Renderer2,
-        private _resizeService: ResizeService,
+        private _service: TypeaheadService
     ) {
         this.loadOptionsCallback = (pageNum: number, pageSize: number, filter: any) => {
             if (typeof this.options === 'function') {
@@ -260,6 +282,11 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
             }
         }
 
+        if (changes.options && changes.options.firstChange === false) {
+            this.infiniteScroll.reset(false);
+            this.infiniteScroll.reload();
+        }
+
         // Re-filter visibleOptions
         this.updateOptions();
     }
@@ -311,7 +338,7 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
             return this.key(option);
         }
         if (typeof this.key === 'string' && option && option.hasOwnProperty(this.key)) {
-            return option[<string>this.key];
+            return option[this.key];
         }
         return this.getDisplay(option);
     }
@@ -325,7 +352,7 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
         }
 
         if (typeof this.display === 'string' && option && option.hasOwnProperty(this.display)) {
-            return option[<string>this.display];
+            return option[this.display];
         }
 
         if (typeof option === 'string') {
@@ -497,7 +524,7 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
             return options
                 .filter(option => this.getDisplay(option).toLowerCase().indexOf(filter) >= 0)
                 .map(value => ({
-                    value: value,
+                    value,
                     key: this.getKey(value),
                     isRecentOption: isRecentOptions
                 }));

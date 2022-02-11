@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnDestroy, TemplateRef } from '@angular/core';
 import { Subject } from 'rxjs';
-import { AnchorAlignment, AnchorPlacement } from './tooltip.directive';
+import { AnchorAlignment, AnchorPlacement } from '../../common/overlay/index';
 
 let uniqueTooltipId = 0;
 
@@ -12,7 +12,7 @@ let uniqueTooltipId = 0;
 export class TooltipComponent<T = any> implements OnDestroy {
 
     /** Define a unique id for each tooltip */
-    id: string = `ux-tooltip-${++uniqueTooltipId}`;
+    id: string = `ux-tooltip-${ ++uniqueTooltipId }`;
 
     /** Define the tooltip role */
     role: string = 'tooltip';
@@ -52,7 +52,8 @@ export class TooltipComponent<T = any> implements OnDestroy {
         this._changeDetectorRef.detectChanges();
     }
 
-    constructor(protected _changeDetectorRef: ChangeDetectorRef) { }
+    constructor(protected _changeDetectorRef: ChangeDetectorRef) {
+    }
 
     /** Cleanup after the component is destroyed */
     ngOnDestroy(): void {

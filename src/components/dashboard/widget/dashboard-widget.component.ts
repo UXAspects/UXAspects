@@ -1,7 +1,7 @@
-import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
-import { AfterViewInit, Component, HostBinding, Input, OnDestroy, OnInit } from '@angular/core';
-import { map, takeUntil } from 'rxjs/operators';
+import { BooleanInput, coerceBooleanProperty, coerceNumberProperty, NumberInput } from '@angular/cdk/coercion';
+import { AfterViewInit, Component, HostBinding, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { Subject } from 'rxjs';
+import { map, takeUntil } from 'rxjs/operators';
 import { ActionDirection, DashboardService } from '../dashboard.service';
 import { DashboardStackMode } from './dashboard-stack-mode.enum';
 
@@ -9,7 +9,7 @@ import { DashboardStackMode } from './dashboard-stack-mode.enum';
     selector: 'ux-dashboard-widget',
     templateUrl: './dashboard-widget.component.html'
 })
-export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestroy {
+export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestroy, OnChanges {
 
     /** Sets the ID of the widget. Each widget should be given a unique ID. */
     @Input() id: string;
@@ -19,8 +19,10 @@ export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestro
 
     /** Defines the column the widget is placed in */
     @Input() set col(col: number) {
-        this.setColumn(coerceNumberProperty(col));
-        this.dashboardService.renderDashboard();
+        if (col !== null && col !== undefined) {
+            this.setColumn(coerceNumberProperty(col));
+            this.dashboardService.renderDashboard();
+        }
     }
 
     get col(): number {
@@ -29,8 +31,10 @@ export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestro
 
     /** Defines the row the widget is placed in */
     @Input() set row(row: number) {
-        this.setRow(coerceNumberProperty(row));
-        this.dashboardService.renderDashboard();
+        if (row !== null && row !== undefined) {
+            this.setRow(coerceNumberProperty(row));
+            this.dashboardService.renderDashboard();
+        }
     }
 
     get row(): number {
@@ -38,10 +42,44 @@ export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestro
     }
 
     /** Defines the number of columns this widget should occupy. */
-    @Input() colSpan: number = 1;
+    @Input() get colSpan() {
+        return this.getColumnSpan();
+    }
+
+    set colSpan(colSpan: number) {
+        if (colSpan !== null && colSpan !== undefined) {
+            this.setColumnSpan(coerceNumberProperty(colSpan));
+        }
+    }
 
     /** Defines the number of rows this widget should occupy. */
-    @Input() rowSpan: number = 1;
+    @Input() get rowSpan() {
+        return this.getRowSpan();
+    }
+
+    set rowSpan(rowSpan: number) {
+        if (rowSpan !== null && rowSpan !== undefined) {
+            this.setRowSpan(coerceNumberProperty(rowSpan));
+        }
+    }
+
+    /** Defines the minimum number of columns this widget should occupy. */
+    @Input() get minColSpan(): number {
+        return this._minColSpan;
+    }
+
+    set minColSpan(minColumns: number) {
+        this._minColSpan = coerceNumberProperty(minColumns);
+    }
+
+    /** Defines the minimum number of rows this widget should occupy. */
+    @Input() get minRowSpan(): number {
+        return this._minRowSpan;
+    }
+
+    set minRowSpan(minRows: number) {
+        this._minRowSpan = coerceNumberProperty(minRows);
+    }
 
     /** Defines whether or not this widget can be resized. */
     @Input() resizable: boolean = false;
@@ -63,8 +101,9 @@ export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestro
     @HostBinding('style.width.px') width: number = 100;
     @HostBinding('style.height.px') height: number = 100;
     @HostBinding('style.padding.px') padding: number = 0;
-    @HostBinding('style.z-index') zIndex: number = 0;
+    @HostBinding('style.z-index') zIndex: number = null;
     @HostBinding('attr.aria-label') ariaLabel: string;
+    @HostBinding('attr.role') @Input() role: string = 'group';
     @HostBinding('class.dragging') isDragging: boolean = false;
     @HostBinding('class.grabbing') isGrabbing: boolean = false;
     @HostBinding('class.resizing') isResizing: boolean = false;
@@ -75,6 +114,8 @@ export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestro
     private _row: StackableValue = { regular: undefined, stacked: undefined };
     private _columnSpan: StackableValue = { regular: 1, stacked: 1 };
     private _rowSpan: StackableValue = { regular: 1, stacked: 1 };
+    private _minColSpan: number = 1;
+    private _minRowSpan: number = 1;
     private _autoPositioning: boolean = true;
     private _onDestroy = new Subject<void>();
 
@@ -120,6 +161,13 @@ export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestro
 
         // apply the current options
         this.update();
+    }
+
+    ngOnChanges(changes: SimpleChanges): void {
+        if (this.hasPosition() && (changes.colSpan || changes.rowSpan)) {
+            this.dashboardService.resizeWidget(this);
+            this.dashboardService.renderDashboard();
+        }
     }
 
     /**
@@ -204,18 +252,22 @@ export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestro
     }
 
     setColumnSpan(columnSpan: number, render: boolean = true): void {
-        this.setStackableValue(this._columnSpan, columnSpan);
+        if (columnSpan >= this.minColSpan) {
+            this.setStackableValue(this._columnSpan, columnSpan);
 
-        if (render) {
-            this.render();
+            if (render) {
+                this.render();
+            }
         }
     }
 
     setRowSpan(rowSpan: number, render: boolean = true): void {
-        this.setStackableValue(this._rowSpan, rowSpan);
+        if (rowSpan >= this.minRowSpan) {
+            this.setStackableValue(this._rowSpan, rowSpan);
 
-        if (render) {
-            this.render();
+            if (render) {
+                this.render();
+            }
         }
     }
 
@@ -224,7 +276,7 @@ export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestro
     }
 
     sendToBack(): void {
-        this.zIndex = 0;
+        this.zIndex = null;
     }
 
     setBounds(x: number, y: number, width: number, height: number): void {
@@ -296,9 +348,18 @@ export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestro
         return this.dashboardService.stacked ? property.stacked : property.regular;
     }
 
-    static ngAcceptInputType_autoPositioning: boolean | string;
-    static ngAcceptInputType_col: number | string;
-    static ngAcceptInputType_row: number | string;
+    /** Determine if the layout has been performed yet */
+    private hasPosition(): boolean {
+        return this.getColumn() !== undefined && this.getRow() !== undefined;
+    }
+
+    static ngAcceptInputType_autoPositioning: BooleanInput;
+    static ngAcceptInputType_col: NumberInput;
+    static ngAcceptInputType_row: NumberInput;
+    static ngAcceptInputType_colSpan: NumberInput;
+    static ngAcceptInputType_rowSpan: NumberInput;
+    static ngAcceptInputType_minColSpan: NumberInput;
+    static ngAcceptInputType_minRowSpan: NumberInput;
 }
 
 export interface StackableValue {

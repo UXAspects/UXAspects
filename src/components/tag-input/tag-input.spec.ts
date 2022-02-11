@@ -11,6 +11,7 @@ import { TagInputComponent } from './tag-input.component';
 describe('Tag Input Component', () => {
 
     let component: TagInputComponent<string>;
+    let nativeElement: HTMLElement;
     let fixture: ComponentFixture<TagInputComponent>;
 
     beforeEach(() => {
@@ -28,6 +29,7 @@ describe('Tag Input Component', () => {
 
         fixture = TestBed.createComponent(TagInputComponent);
         component = fixture.componentInstance;
+        nativeElement = fixture.nativeElement;
     });
 
     afterEach(() => fixture.nativeElement.remove());
@@ -96,6 +98,32 @@ describe('Tag Input Component', () => {
          expect(onInputChange).toHaveBeenCalled();
 
          subscription.unsubscribe();
+    });
+
+    it('should add a required attribute to the input when required is true', () => {
+        component.required = true;
+
+        fixture.detectChanges();
+
+        const inputElementEmpty = nativeElement.querySelector<HTMLInputElement>('input.ux-tag-input');
+        const attributeRequired = inputElementEmpty.hasAttribute('required');
+
+        expect(attributeRequired).toBe(true);
+    });
+
+    it('should emit inputBlur when the input field loses focus', () => {
+        fixture.detectChanges();
+
+        const onInputBlur = jasmine.createSpy('inputBlur');
+        const subscription = component.inputBlur.subscribe(onInputBlur);
+        const inputElement = nativeElement.querySelector<HTMLInputElement>('input.ux-tag-input');
+
+        inputElement.dispatchEvent(new Event('blur'));
+
+        fixture.detectChanges();
+
+        expect(onInputBlur).toHaveBeenCalled();
+        subscription.unsubscribe();
     });
 
 });

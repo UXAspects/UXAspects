@@ -3,8 +3,8 @@ import { ArrayDataSource } from '@angular/cdk/collections';
 import { FlatTreeControl } from '@angular/cdk/tree';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnChanges, Output, QueryList, SimpleChanges, TemplateRef, ViewChildren } from '@angular/core';
 import { ColumnPickerService } from './column-picker.service';
-import { ColumnPickerTreeNode } from './interfaces/column-picker-tree-node.interface';
 import { ColumnPickerGroupItem, isColumnPickerGroupItem } from './interfaces/column-picker-group-item.interface';
+import { ColumnPickerTreeNode } from './interfaces/column-picker-tree-node.interface';
 
 @Component({
     selector: 'ux-column-picker',
@@ -42,13 +42,13 @@ export class ColumnPickerComponent implements OnChanges {
     @Input() actionsTemplate: TemplateRef<ColumnPickerActionsContext>;
 
     /** Define a function to get the aria label of reorderable items in the selected column. */
-    @Input() selectedAriaLabel: (column: string, index: number) => string = this.getDefaultSelectedAriaLabel;
+    @Input() selectedAriaLabel: (column: string | ColumnPickerGroupItem, index: number) => string = this.getDefaultSelectedAriaLabel;
 
     /** Define a function to get the aria label of a group in the deselected list. */
-    @Input() deselectedGroupAriaLabel: (column: string, isExpanded: boolean) => string = this.getDefaultDeselectedGroupAriaLabel;
+    @Input() deselectedGroupAriaLabel: (column: string | ColumnPickerGroupItem, isExpanded: boolean) => string = this.getDefaultDeselectedGroupAriaLabel;
 
     /** Define a function that returns a column move announcement. */
-    @Input() columnMovedAnnouncement: (column: string, delta: number) => string = this.getColumnMovedAnnouncement;
+    @Input() columnMovedAnnouncement: (column: string | ColumnPickerGroupItem, delta: number) => string = this.getColumnMovedAnnouncement;
 
     /** Define settings for the grouped deselected items. */
     @Input() set groups(groups: ColumnPickerGroup[]) {
@@ -91,6 +91,9 @@ export class ColumnPickerComponent implements OnChanges {
 
     /** Cache selection during reordering */
     private _selection: ReadonlyArray<string | ColumnPickerGroupItem> = [];
+
+    /** Shallow copy of selection for reordering directive */
+    _storedSelection: Array<string | ColumnPickerGroupItem> = [];
 
     /** Get the elements for the selected items */
     @ViewChildren('selectedColumn') selectedElements: QueryList<ElementRef>;
@@ -177,11 +180,12 @@ export class ColumnPickerComponent implements OnChanges {
     /** Ensure we don't select while dragging */
     storeSelection(): void {
         this._selection = [...this._selectedSelection];
+        this._storedSelection = [...this.selected];
     }
 
     /** Restore the selection once dragging ends */
     restoreSelection(): void {
-        this._selectedSelection = this._selection;
+        this._selectedSelection = [...this._selection];
     }
 
     /** Update when reordering has occurred */
@@ -205,7 +209,7 @@ export class ColumnPickerComponent implements OnChanges {
     }
 
     /** Perform a reorder with the keyboard */
-    move(column: string, delta: number): void {
+    move(column: string | ColumnPickerGroupItem, delta: number): void {
         // perform the move
         const index = this.selected.indexOf(column);
         this.swap(index, index + delta);
@@ -300,6 +304,7 @@ export class ColumnPickerComponent implements OnChanges {
     /** Update the order of the items when reordering has changed */
     onReorderChange(model: string[]): void {
         this.selected = [...model];
+        this.onReorder();
     }
 
     /** Get the action context, ensuring that functions have a pre-bound context */

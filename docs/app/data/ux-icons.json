@@ -165,6 +165,10 @@
             "classname": "ux-icon-catalog"
         },
         {
+            "name": "change-password",
+            "classname": "ux-icon-change-password"
+        },
+        {
             "name": "chapter-add",
             "classname": "ux-icon-chapter-add"
         },
@@ -465,6 +469,10 @@
             "classname": "ux-icon-document-executable"
         },
         {
+            "name": "document-html",
+            "classname": "ux-icon-document-html"
+        },
+        {
             "name": "document-image",
             "classname": "ux-icon-document-image"
         },
@@ -679,6 +687,10 @@
         {
             "name": "grid",
             "classname": "ux-icon-grid"
+        },
+        {
+            "name": "group-add",
+            "classname": "ux-icon-group-add"
         },
         {
             "name": "group",
@@ -1249,6 +1261,14 @@
             "classname": "ux-icon-shop-cart"
         },
         {
+            "name": "show-less",
+            "classname": "ux-icon-show-less"
+        },
+        {
+            "name": "show-more",
+            "classname": "ux-icon-show-more"
+        },
+        {
             "name": "sms",
             "classname": "ux-icon-sms"
         },
@@ -1283,6 +1303,10 @@
         {
             "name": "social-instant-message",
             "classname": "ux-icon-social-instant-message"
+        },
+        {
+            "name": "social-jira",
+            "classname": "ux-icon-social-jira"
         },
         {
             "name": "social-linkedin",
@@ -1353,6 +1377,10 @@
             "classname": "ux-icon-social-youtube"
         },
         {
+            "name": "social-zoom",
+            "classname": "ux-icon-social-zoom"
+        },
+        {
             "name": "sort",
             "classname": "ux-icon-sort"
         },
@@ -1383,6 +1411,10 @@
         {
             "name": "status-information-filled",
             "classname": "ux-icon-status-information-filled"
+        },
+        {
+            "name": "status-information",
+            "classname": "ux-icon-status-information"
         },
         {
             "name": "status-warning-filled",
@@ -1507,6 +1539,10 @@
         {
             "name": "transaction",
             "classname": "ux-icon-transaction"
+        },
+        {
+            "name": "translate",
+            "classname": "ux-icon-translate"
         },
         {
             "name": "trash-filled",

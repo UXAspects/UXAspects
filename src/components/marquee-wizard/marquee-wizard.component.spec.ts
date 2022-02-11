@@ -157,6 +157,14 @@ describe('Marquee Wizard', () => {
         expect(component.onNext).toHaveBeenCalledWith(1);
     });
 
+    it('should only emit stepChange once when "Next" is clicked', async () => {
+        spyOn(component, 'onStepChange');
+
+        await wrapper.clickStepButton('Next');
+
+        expect(component.onStepChange).toHaveBeenCalledTimes(1);
+    });
+
     it('should set visited = true on the second step when "Next" is clicked', async () => {
         await wrapper.clickStepButton('Next');
 
@@ -169,6 +177,12 @@ describe('Marquee Wizard', () => {
 
         expect(component.steps[0].completed).toBe(true);
         expect(component.steps[1].completed).toBeUndefined();
+    });
+
+    it('should have an identifying class present on the next button', () => {
+        const button = wrapper.getStepButton('Next');
+
+        expect(button.classList).toContain('marquee-wizard-next-button');
     });
 
     describe('on the last step', () => {
@@ -242,6 +256,18 @@ describe('Marquee Wizard', () => {
             expect(component.steps[0].visited).toBe(true, 'steps[0]');
             expect(component.steps[1].visited).toBe(false, 'steps[1]');
         });
+
+        it('should have an identifying class present on the previous button', () => {
+            const button = wrapper.getStepButton('Previous');
+
+            expect(button.classList).toContain('marquee-wizard-previous-button');
+        });
+
+        it('should have an identifying class present on the finish button', () => {
+            const button = wrapper.getStepButton('Finish');
+
+            expect(button.classList).toContain('marquee-wizard-finish-button');
+        });
     });
 
     describe('with cancel button', () => {
@@ -266,6 +292,13 @@ describe('Marquee Wizard', () => {
 
             expect(component.onCancel).toHaveBeenCalledTimes(1);
         });
+
+        it('should have an identifying class present on the cancel button', () => {
+            const button = wrapper.getStepButton('Cancel');
+
+            expect(button.classList).toContain('marquee-wizard-cancel-button');
+        });
+
     });
 });
 

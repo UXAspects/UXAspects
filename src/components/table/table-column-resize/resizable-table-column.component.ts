@@ -206,10 +206,6 @@ export class ResizableTableColumnComponent implements AfterViewInit, OnDestroy {
             `${this._table.getColumnWidth(this.getCellIndex(), ColumnUnit.Pixel)}px` :
             `${this._table.getColumnWidth(this.getCellIndex(), ColumnUnit.Percentage)}%`;
 
-        if (this._table.type === ResizableTableType.Expand) {
-            const minWidth = Math.max(this._table.getColumnWidth(this.getCellIndex(), ColumnUnit.Pixel), this._minWidth);
-            this._renderer.setStyle(this._elementRef.nativeElement, 'min-width', `${minWidth}px`);
-        }
 
         this._renderer.setStyle(this._elementRef.nativeElement, 'width', width);
         this._renderer.setStyle(this._elementRef.nativeElement, 'max-width', null);
@@ -218,12 +214,19 @@ export class ResizableTableColumnComponent implements AfterViewInit, OnDestroy {
     /** The flex width of the column */
     private setColumnFlex(): void {
 
+        let flex;
+
         // if we are resizing then always return 'none' to allow free movement
         if (this._table.isResizing$.value || this.disabled) {
             this._renderer.setStyle(this._elementRef.nativeElement, 'flex', 'none');
         }
 
-        const flex = this._table.isInitialised$.value ? `0 1 ${this._table.getColumnWidth(this.getCellIndex(), ColumnUnit.Percentage)}%` : '';
+        if (this._table.type === ResizableTableType.Expand) {
+            flex = this._table.isInitialised$.value ? `0 0 ${this._table.getColumnWidth(this.getCellIndex(), ColumnUnit.Pixel)}px` : '';
+        } else {
+            flex = this._table.isInitialised$.value ? `0 1 ${this._table.getColumnWidth(this.getCellIndex(), ColumnUnit.Percentage)}%` : '';
+        }
+
         this._renderer.setStyle(this._elementRef.nativeElement, 'flex', flex);
     }
 }

@@ -12,6 +12,7 @@
             <li [attr.role]="(item.children && item.children.length > 0) ? 'treeitem' : 'none'"
                 [attr.aria-expanded]="item.expanded"
                 [class.selected]="item.expanded"
+                [class.disabled]="item.disabled"
                 [class.active]="navigationLink.isActive">
 
                 <a uxNavigationLink
@@ -22,6 +23,7 @@
                     [canExpand]="level < _depthLimit"
                     [indent]="indent"
                     uxTabbableListItem
+                    [disabled]="item.disabled"
                     [parent]="parent"
                     [rank]="rank"
                     [(expanded)]="item.expanded">
@@ -32,7 +34,7 @@
                           (click)="item.expanded = !item.expanded; $event.stopPropagation(); $event.preventDefault()">
                     </span>
 
-                    <!-- Support HPE Icons, UX Icons and Icon Component -->
+                    <!-- Support UX Icons and Icon Component -->
                     <ng-container *ngIf="!navigationItemTemplate && item.icon && !tree">
 
                         <span *ngIf="_getIconType(item) !== 'component'"

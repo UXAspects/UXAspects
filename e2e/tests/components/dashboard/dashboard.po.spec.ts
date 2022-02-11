@@ -77,6 +77,12 @@ export class DashboardPage {
         }
     }
 
+    async resizeWidget(widgetIndex: number, directionKey: string): Promise<void> {
+        await browser.actions().sendKeys(Key.TAB, ...Array(widgetIndex + 1).fill(Key.TAB), Key.SPACE).perform();
+        await browser.actions().keyDown(Key.CONTROL).sendKeys(directionKey).perform();
+        await browser.actions().sendKeys(Key.SPACE).perform();
+    }
+
     async getGrabHandle(widgetId = 'analytics-1-widget'): Promise<ElementFinder> {
         return await this.container.$(`#${widgetId} button.widget-grab-handle`);
     }
@@ -107,6 +113,10 @@ export class DashboardPage {
 
     async toggleWidget(): Promise<void> {
         await element(by.id('widget-1-checkbox')).click();
+    }
+
+    async refreshLayout(): Promise<void> {
+        return await element(by.id('refresh-layout-btn')).click();
     }
 }
 

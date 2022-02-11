@@ -1,4 +1,4 @@
-import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
+import { BooleanInput, coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, forwardRef, HostListener, Input, OnChanges, OnDestroy, Optional, Output } from '@angular/core';
 import { ControlValueAccessor, FormGroupDirective, NG_VALUE_ACCESSOR } from '@angular/forms';
 
@@ -20,22 +20,20 @@ export const NUMBER_PICKER_VALUE_ACCESSOR: any = {
     }
 })
 export class NumberPickerComponent implements ControlValueAccessor, OnDestroy, OnChanges {
-    private _min: number = -Infinity;
-    private _max: number = Infinity;
+    private _min: number;
+    private _max: number;
     private _step: number | ((value: number, direction: StepDirection) => number) = 1;
     private _disabled: boolean = false;
     private _value: number = 0;
     private _lastValue: number;
     private _focused: boolean = false;
-    private _propagateChange = (_: number) => { };
-    _touchedChange = () => { };
+    private _propagateChange = (_: number) => {
+    };
+    _touchedChange = () => {
+    };
 
     /** Sets the id of the number picker. The child input will have this value with a -input suffix as its id. */
-    @Input() id: string = `ux-number-picker-${uniqueId++}`;
-
-    /** @deprecated - Use reactive form validation instead.
-    * Can be used to show a red outline around the input to indicate an invalid value. By default the error state will appear if the user enters a number below the minimum value or above the maximum value. */
-    @Input() valid: boolean = true;
+    @Input() id: string = `ux-number-picker-${ uniqueId++ }`;
 
     /** Provide an aria labelledby attribute */
     @Input('aria-labelledby') labelledBy: string;
@@ -45,6 +43,18 @@ export class NumberPickerComponent implements ControlValueAccessor, OnDestroy, O
 
     /** The placeholder text which appears in the text input area when it is empty.*/
     @Input() placeholder: string;
+
+    /** Specified if this is a required input. */
+    @Input() required: boolean;
+
+    /** Specified if this is a readonly input. */
+    @Input() set readonly(value: boolean) {
+        this._readonly = coerceBooleanProperty(value);
+    }
+
+    get readonly(): boolean {
+        return this._readonly;
+    }
 
     /** If two way binding is used this value will be updated any time the number picker value changes. */
     @Output() valueChange = new EventEmitter<number>();
@@ -112,11 +122,13 @@ export class NumberPickerComponent implements ControlValueAccessor, OnDestroy, O
     /** This is a flag to indicate when the component has been destroyed to avoid change detection being made after the component
      *  is no longer instantiated. A workaround for Angular Forms bug (https://github.com/angular/angular/issues/27803) */
     private _isDestroyed: boolean = false;
+    private _readonly: boolean = false;
 
     constructor(
         private readonly _changeDetector: ChangeDetectorRef,
         @Optional() public _formGroup: FormGroupDirective
-    ) { }
+    ) {
+    }
 
     ngOnChanges(): void {
         this._valid = this.isValid();
@@ -135,8 +147,8 @@ export class NumberPickerComponent implements ControlValueAccessor, OnDestroy, O
             event.preventDefault();
         }
 
-        if (!this.disabled) {
-            this.value = Math.max(Math.min(this.value + this.getStep(StepDirection.Increment), this.max), this.min);
+        if (!this.disabled && !this.readonly) {
+            this.value = Math.max(Math.min(this.value + this.getStep(StepDirection.Increment), this.getMaxValueForComparison()), this.getMinValueForComparison());
 
             // account for javascripts terrible handling of floating point numbers
             this.value = parseFloat(this.value.toPrecision(this.precision));
@@ -151,8 +163,8 @@ export class NumberPickerComponent implements ControlValueAccessor, OnDestroy, O
             event.preventDefault();
         }
 
-        if (!this.disabled) {
-            this.value = Math.min(Math.max(this.value - this.getStep(StepDirection.Decrement), this.min), this.max);
+        if (!this.disabled && !this.readonly) {
+            this.value = Math.min(Math.max(this.value - this.getStep(StepDirection.Decrement), this.getMinValueForComparison()), this.getMaxValueForComparison());
 
             // account for javascripts terrible handling of floating point numbers
             this.value = parseFloat(this.value.toPrecision(this.precision));
@@ -163,11 +175,7 @@ export class NumberPickerComponent implements ControlValueAccessor, OnDestroy, O
     }
 
     isValid(): boolean {
-        if (this.value < this.min || this.value > this.max) {
-            return false;
-        }
-
-        return this.valid;
+        return (this.value >= this.getMinValueForComparison() && this.value <= this.getMaxValueForComparison());
     }
 
     onScroll(event: WheelEvent): void {
@@ -217,14 +225,25 @@ export class NumberPickerComponent implements ControlValueAccessor, OnDestroy, O
         this._propagateChange(value);
     }
 
+    getMaxValueForComparison(): number {
+        return (this.max === undefined || this.max === null) ? Infinity : this.max;
+    }
+
+    getMinValueForComparison(): number {
+        return (this.min === undefined || this.min === null) ? -Infinity : this.min;
+    }
+
     @HostListener('focusin')
     onFocusIn(): void {
         this._focused = true;
     }
+
     @HostListener('focusout')
     onFocusOut(): void {
         this._focused = false;
     }
+
+    static ngAcceptInputType_readonly: BooleanInput;
 }
 
 export enum StepDirection {

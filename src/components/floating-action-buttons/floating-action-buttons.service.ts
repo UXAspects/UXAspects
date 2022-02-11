@@ -1,6 +1,6 @@
 import { Injectable, QueryList } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { AnchorPlacement } from '../tooltip/index';
+import { AnchorPlacement } from '../../common/overlay/index';
 import { FloatingActionButtonComponent } from './floating-action-button.component';
 
 export type FloatingActionButtonDirection = AnchorPlacement;

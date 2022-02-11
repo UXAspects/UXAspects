@@ -122,7 +122,6 @@
         }
     }
 
-    .hpe-icon,
     .ux-icon,
     ux-icon {
         line-height: inherit;
@@ -804,8 +803,11 @@ button {
 .btn-group {
     :not(.dropdown-toggle:first-child) {
         &.btn {
-            margin-bottom: 5px;
             padding: 6px 12px;
+
+            &.btn-sm {
+                padding: 4px 8px;
+            }
         }
     }
 
@@ -837,8 +839,6 @@ button {
 }
 
 .dropdown-toggle {
-    .hp-icon,
-    .hpe-icon,
     .ux-icon,
     ux-icon {
         margin-left: 3px;

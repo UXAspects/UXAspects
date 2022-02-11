@@ -1,0 +1,136 @@
+<a id="top-focus" href="javascript:void(0)">Top focus target</a>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 justify-content-center">
+            <div class="btn-group">
+                <button
+                    type="button"
+                    id="open-menu"
+                    class="btn button-primary dropdown-toggle dropdown-button"
+                    [uxMenuTriggerFor]="menu"
+                    [closeOnBlur]="(closeOnBlur$ | async)">
+                    <span>Menu</span><ux-icon name="chevron-down" class="dropdown-icon-inline"></ux-icon>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <ux-menu id="menu" #menu menuClass="ux-menu-demo"
+        [placement]="(placement$ | async)">
+
+        <button id="menu-item-1" type="button" uxMenuItem
+            [uxMenuTriggerFor]="markAsMenu"
+            [closeOnBlur]="(closeOnBlur$ | async)">
+            <span class="dropdown-menu-icon"></span>
+            <span class="dropdown-menu-text">Menu Item</span>
+            <span class="dropdown-menu-right dropdown-menu-hint">
+                <ux-icon name="next"></ux-icon>
+            </span>
+        </button>
+
+        <ux-menu-divider></ux-menu-divider>
+
+        <button id="menu-item-2" type="button" uxMenuItem [uxMenuTriggerFor]="markAsMenu">
+            <span class="dropdown-menu-icon"></span>
+            <span class="dropdown-menu-text">Export</span>
+            <span class="dropdown-menu-right dropdown-menu-hint">
+                <ux-icon name="next"></ux-icon>
+            </span>
+        </button>
+
+        <button id="menu-item-3" type="button" uxMenuItem [uxMenuTriggerFor]="saveListMenu">
+            <span class="dropdown-menu-icon"></span>
+            <span class="dropdown-menu-text">Save list</span>
+            <span class="dropdown-menu-right dropdown-menu-hint">
+                <ux-icon name="next"></ux-icon>
+            </span>
+        </button>
+
+        <a id="menu-item-4" href="javascript:alert('href works!');" type="button" uxMenuItem>
+            <span class="dropdown-menu-icon"></span>
+            <span class="dropdown-menu-text anchor">Save search query</span>
+        </a>
+
+    </ux-menu>
+
+    <ux-menu #markAsMenu [placement]="(subMenuPlacement$ | async)" menuClass="mark-as-menu">
+
+        <button type="button" uxMenuItem>
+            <span class="dropdown-menu-icon">
+                <ux-icon name="more"></ux-icon>
+            </span>
+            <span class="dropdown-menu-text">Pending</span>
+            <span class="dropdown-menu-right dropdown-menu-hint">ALT+P</span>
+        </button>
+
+        <button type="button" uxMenuItem>
+            <span class="dropdown-menu-icon">
+                <ux-icon name="link-up"></ux-icon>
+            </span>
+            <span class="dropdown-menu-text">Escalated</span>
+            <span class="dropdown-menu-right dropdown-menu-hint">ALT+E</span>
+        </button>
+
+        <button type="button" uxMenuItem>
+            <span class="dropdown-menu-icon">
+                <ux-icon name="checkmark"></ux-icon>
+            </span>
+            <span class="dropdown-menu-text">Closed</span>
+            <span class="dropdown-menu-right dropdown-menu-hint">ALT+C</span>
+        </button>
+
+    </ux-menu>
+
+    <ux-menu #saveListMenu menuClass="save-list-menu">
+
+        <button type="button" uxMenuItem>
+            <span class="dropdown-menu-icon">
+                <ux-icon name="more"></ux-icon>
+            </span>
+            <span class="dropdown-menu-text">Pending</span>
+            <span class="dropdown-menu-right dropdown-menu-hint">ALT+P</span>
+        </button>
+
+        <button type="button" uxMenuItem>
+            <span class="dropdown-menu-icon">
+                <ux-icon name="link-up"></ux-icon>
+            </span>
+            <span class="dropdown-menu-text">Escalated</span>
+            <span class="dropdown-menu-right dropdown-menu-hint">ALT+E</span>
+        </button>
+
+        <button type="button" uxMenuItem>
+            <span class="dropdown-menu-icon">
+                <ux-icon name="checkmark"></ux-icon>
+            </span>
+            <span class="dropdown-menu-text">Closed</span>
+            <span class="dropdown-menu-right dropdown-menu-hint">ALT+C</span>
+        </button>
+
+    </ux-menu>
+
+    <span>menu placement</span>
+    <div class="btn-container">
+        <button id="placement-left" type="button" class="btn button-secondary" (click)="changePlacement('left')">Placement Left</button>
+        <button id="placement-right" type="button" class="btn button-secondary" (click)="changePlacement('right')">Placement Right</button>
+        <button id="placement-top" type="button" class="btn button-secondary" (click)="changePlacement('top')">Placement Top</button>
+        <button id="placement-bottom" type="button" class="btn button-secondary" (click)="changePlacement('bottom')">Placement Bottom</button>
+    </div>
+
+    <span>submenu placement</span>
+    <div class="btn-container">
+        <button id="submenu-placement-left" type="button" class="btn button-secondary" (click)="changeSubmenuPlacement('left')">Placement Left</button>
+        <button id="submenu-placement-right" type="button" class="btn button-secondary" (click)="changeSubmenuPlacement('right')">Placement Right</button>
+        <button id="submenu-placement-top" type="button" class="btn button-secondary" (click)="changeSubmenuPlacement('top')">Placement Top</button>
+        <button id="submenu-placement-bottom" type="button" class="btn button-secondary" (click)="changeSubmenuPlacement('bottom')">Placement Bottom</button>
+    </div>
+
+    <div class="btn-container">
+        <ux-checkbox id="closeOnBlur"
+            [value]="closeOnBlur$ | async"
+            (valueChange)="closeOnBlur$.next($event)">
+            closeOnBlur
+        </ux-checkbox>
+    </div>
+</div>

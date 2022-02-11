@@ -1,11 +1,14 @@
 import { FocusOrigin } from '@angular/cdk/a11y';
+import { BooleanInput, coerceBooleanProperty } from '@angular/cdk/coercion';
 import { DOWN_ARROW, LEFT_ARROW, RIGHT_ARROW, UP_ARROW } from '@angular/cdk/keycodes';
-import { HorizontalConnectionPos, OriginConnectionPosition, Overlay, OverlayConnectionPosition, OverlayRef, VerticalConnectionPos } from '@angular/cdk/overlay';
+import { FlexibleConnectedPositionStrategy, Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { ContentChildren, Directive, ElementRef, HostListener, Input, OnDestroy, OnInit, Optional, QueryList, Self, ViewContainerRef } from '@angular/core';
-import { combineLatest, merge, Observable, of, Subject } from 'rxjs';
+import { combineLatest, fromEvent, merge, Observable, of, Subject, timer } from 'rxjs';
 import { debounceTime, filter, take, takeUntil } from 'rxjs/operators';
+import { AnchorPlacement } from '../../../common/overlay/anchor-placement';
 import { FocusIndicator, FocusIndicatorOriginService, FocusIndicatorService } from '../../../directives/accessibility/index';
+import { OverlayPlacementService } from '../../../services/overlay-placement/index';
 import { MenuItemComponent } from '../menu-item/menu-item.component';
 import { MenuComponent } from '../menu/menu.component';
 
@@ -15,7 +18,8 @@ import { MenuComponent } from '../menu/menu.component';
     host: {
         '[attr.disabled]': 'disabled ? true : null',
         '[attr.aria-haspopup]': '!!menu',
-        '[attr.aria-expanded]': 'menu?.isMenuOpen'
+        '[attr.aria-expanded]': 'menu?.isMenuOpen',
+        '[attr.aria-controls]': 'ariaControls'
     }
 })
 export class MenuTriggerDirective implements OnInit, OnDestroy {
@@ -29,17 +33,34 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
     /** Optionally specify the menu's parent element */
     @Input('uxMenuParent') parent: ElementRef;
 
+    /** Determine if the menu should close when it loses focus */
+    @Input() set closeOnBlur(value: boolean) {
+        this._closeOnBlur = coerceBooleanProperty(value);
+    }
+
+    get closeOnBlur(): boolean {
+        return this._closeOnBlur;
+    }
+
     /** Reference to the portal based off the MenuCompont templateRef */
     private _portal: TemplatePortal;
 
     /** Store the reference to the overlay */
-    private _overlayRef: OverlayRef;
+    private _overlayRef?: OverlayRef;
+
+    /** Get the aria controls for accessibility */
+    get ariaControls(): string | null {
+        return this.menu?.isMenuOpen ? this.menu?.innerId : null;
+    }
 
     /** Store the instance of the focus indicator */
     private _focusIndicator: FocusIndicator;
 
     /** Automatically unsubscribe on directive destroy */
     private readonly _onDestroy$ = new Subject<void>();
+
+    /** Reference to the menu should close when it loses focus */
+    private _closeOnBlur: boolean = false;
 
     /** Determine if this triggers a submenu */
     private get _isSubmenuTrigger(): boolean {
@@ -51,10 +72,12 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
         return !this._isSubmenuTrigger;
     }
 
+    private readonly _debounceTime: number = 50;
+
     @ContentChildren(MenuTriggerDirective) menuTriggers: QueryList<MenuTriggerDirective>;
 
     /** If this is a submenu we want to know when the mouse leaves the items or parent item */
-    private get _menuShouldClose(): Observable<any> {
+    private get _menuShouldClose(): Observable<boolean[]> {
         if (!this._isSubmenuTrigger) {
             return of();
         }
@@ -70,7 +93,7 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
         //
         // We also debounce this because there is often a delay between a blur and a focus event or moving the mouse
         // from a menu item to a sub menu item, so we add this buffer time to prevent the menu from closing unexpectedly
-        return combineLatest(this.menu._isHovering$, this.menu._isFocused$, this._menuItem.isHovered$, this.menu._isExpanded, this._menuItem.isFocused$)
+        return combineLatest([ this.menu._isHovering$, this.menu._isFocused$, this._menuItem.isHovered$, this.menu._isExpanded, this._menuItem.isFocused$ ])
             .pipe(debounceTime(50), filter(([isHovered, isFocused, isItemHovered, isExpanded, isItemFocused]) =>
                 !isHovered && !isFocused && !isItemHovered && !isExpanded && !isItemFocused));
     }
@@ -81,6 +104,7 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
         private readonly _viewContainerRef: ViewContainerRef,
         private readonly _focusOrigin: FocusIndicatorOriginService,
         private readonly _focusIndicatorService: FocusIndicatorService,
+        private readonly _overlayPlacement: OverlayPlacementService,
         @Optional() private readonly _parentMenu: MenuComponent,
         @Optional() @Self() private readonly _menuItem: MenuItemComponent
     ) { }
@@ -96,7 +120,7 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
         // position then it will still take precendence
         if (this._isSubmenuTrigger) {
             this.menu._isSubMenu = true;
-            this.menu.placement = 'right';
+            this.menu.placement = this.getSubMenuPlacement(this.menu.placement);
         }
 
         // listen for the menu to open (after animation so we can focus the first item)
@@ -110,6 +134,15 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
         // handle keyboard events in the menu
         this.menu._onKeydown$.pipe(takeUntil(this._onDestroy$))
             .subscribe(event => this.onMenuKeydown(event));
+
+        combineLatest([this.menu._placement$, this.menu._alignment$])
+            .pipe(takeUntil(this._onDestroy$))
+            .subscribe(() => {
+                if (this._isSubmenuTrigger) {
+                    this.menu.placement = this.getSubMenuPlacement(this.menu.placement);
+                }
+                this.getOverlay(true);
+            });
     }
 
     ngOnDestroy(): void {
@@ -141,7 +174,10 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
         this.menu._setMenuOpen(true);
 
         if (this._menuItem) {
-            this._menuItem.isExpanded$.next(true);
+            // timer is needed because isExpanded$ will get set to false
+            // prematurely due to the debounceTime on the menuShouldClose.
+            timer(this._debounceTime).pipe(takeUntil(this._onDestroy$))
+                .subscribe(() => this._menuItem.isExpanded$.next(true));
         }
 
         // listen for a menu item to be selected
@@ -152,11 +188,20 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
         this.didMenuClose().pipe(take(1), takeUntil(this._onDestroy$))
             .subscribe(() => this.closeMenu());
 
-        // listen for the menu to animate closed then destroy it
-        this.menu.closed.pipe(take(1), takeUntil(this._onDestroy$))
-            .subscribe(() => this.destroyMenu());
-    }
+        // listen for the menu to animate closed then destroy it, if submenu wait for it to start closing to destroy.
+        if (this._isSubmenuTrigger) {
+            this.menu.closing.pipe(take(1), takeUntil(this._onDestroy$))
+                .subscribe(() => this.destroyMenu());
+        } else {
+            this.menu.closed.pipe(take(1), takeUntil(this._onDestroy$))
+                .subscribe(() => this.destroyMenu());
+        }
 
+        if (this.closeOnBlur) {
+            // listen the overlay to lose focus then close the menu
+            fromEvent(this._overlayRef.hostElement, 'focusout').pipe(takeUntil(this._onDestroy$)).subscribe(() => this.closeOnFocusout());
+        }
+    }
 
     /** Close a menu or submenu */
     closeMenu(origin?: FocusOrigin, closeParents: boolean = false): Observable<void> {
@@ -184,6 +229,7 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
     /** Toggle the open state of a menu */
     @HostListener('click', ['$event'])
     @HostListener('keydown.enter', ['$event'])
+    @HostListener('keydown.space', ['$event'])
     toggleMenu(event?: MouseEvent | KeyboardEvent): void {
 
         // if this occurs on a submenu trigger then we can skip
@@ -215,6 +261,15 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
     _onMouseEnter(): void {
         if (this._isSubmenuTrigger && !this._parentMenu._isAnimating) {
             this.openMenu();
+        }
+    }
+
+    @HostListener('mousemove')
+    _onMouseMove(): void {
+        if (this._isSubmenuTrigger && !this._parentMenu._isAnimating) {
+            setTimeout(() => {
+                this.openMenu();
+            }, this._debounceTime);
         }
     }
 
@@ -257,6 +312,14 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
         }
     }
 
+    /** Blurring the trigger should check if the menu has focus and close it if not */
+    @HostListener('blur')
+    _onBlur(): void {
+        if (this.closeOnBlur) {
+            this.closeOnFocusout();
+        }
+    }
+
     /** Remove the menu from the DOM */
     private destroyMenu(): void {
         // if the menu has been destroyed already then do nothing
@@ -269,31 +332,36 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
     }
 
     /** Create an overlay or return an existing instance */
-    private getOverlay(): OverlayRef {
+    private getOverlay(recreateOverlay: boolean = false): OverlayRef {
 
         // if we have already created the overlay then reuse it
-        if (this._overlayRef) {
+        if (this._overlayRef && !recreateOverlay) {
             return this._overlayRef;
         }
 
-        const { originX, originY } = this.getOrigin();
-        const { overlayX, overlayY } = this.getOverlayPosition();
+        const strategy = this._overlay.position()
+            .flexibleConnectedTo(this._elementRef)
+            .withFlexibleDimensions(false)
+            .withPush(false);
 
         // otherwise create a new one
         this._overlayRef = this._overlay.create({
             hasBackdrop: !this._isSubmenuTrigger,
             backdropClass: 'cdk-overlay-transparent-backdrop',
             scrollStrategy: this._overlay.scrollStrategies.reposition({ scrollThrottle: 0 }),
-            positionStrategy: this._overlay.position()
-                .flexibleConnectedTo(this.parent ?? this._elementRef)
-                .withLockedPosition()
-                .withPositions([
-                    { originX, originY, overlayX, overlayY },
-                    { originX: this.menu.alignment === 'start' ? 'end' : 'start', originY, overlayX, overlayY }, // Add a fallback position if off screen on horizontal axis
-                    { originX, originY: this.menu.placement === 'bottom' ? 'top' : 'bottom', overlayX, overlayY }, // Add a fallback position if off screen on vertical axis
-                    { originX: this.menu.alignment === 'start' ? 'end' : 'start', originY: this.menu.placement === 'bottom' ? 'top' : 'bottom', overlayX, overlayY }, // Add a fallback position if off screen onboth axis
-                ])
+            positionStrategy: strategy
         });
+
+        this._overlayPlacement.updatePosition(this._overlayRef, this.menu.placement, this.menu.alignment);
+
+        const position = this._overlayRef.getConfig().positionStrategy as FlexibleConnectedPositionStrategy;
+
+        // add panelClass to positions
+        position.withPositions(
+            position.positions.map((pos) => {
+                return { ...pos, panelClass: this.menuAnimation(pos.originY) };
+            })
+        );
 
         return this._overlayRef;
     }
@@ -309,60 +377,13 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
         return this._portal;
     }
 
-    /** Get the origin position based on the specified tooltip placement */
-    private getOrigin(): OriginConnectionPosition {
-
-        // ensure placement is defined
-        this.menu.placement = this.menu.placement || 'bottom';
-
-        if (this.menu.placement === 'top' || this.menu.placement === 'bottom') {
-            return { originX: this.menu.alignment as HorizontalConnectionPos, originY: this.menu.placement };
+    /** Determine the direction of the animation. */
+    private menuAnimation(originY: string): string | null {
+        if ((this.menu.placement === 'top' || this.menu.placement === 'bottom') && originY === 'top' && !this._isSubmenuTrigger) {
+            return 'ux-menu-placement-top';
         }
 
-        if (this.menu.placement === 'left') {
-            return { originX: 'start', originY: this.getVerticalAlignment() };
-        }
-
-        if (this.menu.placement === 'right') {
-            return { originX: 'end', originY: this.getVerticalAlignment() };
-        }
-    }
-
-    /** Calculate the overlay position based on the specified tooltip placement */
-    private getOverlayPosition(): OverlayConnectionPosition {
-
-        // ensure placement is defined
-        this.menu.placement = this.menu.placement || 'top';
-
-        if (this.menu.placement === 'top') {
-            return { overlayX: this.menu.alignment as HorizontalConnectionPos, overlayY: 'bottom' };
-        }
-
-        if (this.menu.placement === 'bottom') {
-            return { overlayX: this.menu.alignment as HorizontalConnectionPos, overlayY: 'top' };
-        }
-
-        if (this.menu.placement === 'left') {
-            return { overlayX: 'end', overlayY: this.getVerticalAlignment() };
-        }
-
-        if (this.menu.placement === 'right') {
-            return { overlayX: 'start', overlayY: this.getVerticalAlignment() };
-        }
-    }
-
-    /** Convert the alignment property to a valid CDK alignment value */
-    private getVerticalAlignment(): VerticalConnectionPos {
-        switch (this.menu.alignment) {
-            case 'start':
-                return 'top';
-
-            case 'end':
-                return 'bottom';
-
-            default:
-                return this.menu.alignment;
-        }
+        return null;
     }
 
     /** Get an observable that emits on any of the triggers that close a menu */
@@ -403,4 +424,33 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
         }
     }
 
+    /** Check whether the overlay has focus */
+    private hasFocus(): boolean {
+        let check = false;
+
+        document.querySelectorAll('.cdk-overlay-container .ux-menu').forEach(el => {
+            if (el.contains(document.activeElement)) {
+                check = true;
+            }
+        });
+
+        return check;
+    }
+
+    /** Close the menu if there is no element focused */
+    private closeOnFocusout(): void {
+        if (this.menu.isMenuOpen) {
+            setTimeout(() => {
+                if (!this.hasFocus()) {
+                    this.closeMenu(undefined, true);
+                }
+            }, this._debounceTime);
+        }
+    }
+
+    private getSubMenuPlacement(placement: AnchorPlacement): AnchorPlacement {
+        return placement === 'left' ? 'left' : 'right';
+    }
+
+    static ngAcceptInputType_closeOnBlur: BooleanInput;
 }

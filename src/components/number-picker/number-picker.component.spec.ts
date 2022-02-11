@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { StepDirection } from './number-picker.component';
 import { NumberPickerModule } from './number-picker.module';
@@ -7,20 +7,19 @@ import { NumberPickerModule } from './number-picker.module';
 /** Number picker example using form group */
 @Component({
     selector: 'app-number-picker-form',
-    template: `<ux-number-picker [min]="min"
-                                 [max]="max"
-                                 [step]="step"
-                                 [valid]="form.controls['integer'].valid"
-                                 [formControl]="form.controls['integer']"
-                                 [placeholder]="placeholder">
-                </ux-number-picker>
-                <ux-number-picker [min]="min"
-                                  [max]="max"
-                                  [step]="step"
-                                  [valid]="form.controls['integer2'].valid"
-                                  [formControl]="form.controls['integer2']"
-                                  [placeholder]="placeholder">
-                </ux-number-picker>
+    template: `
+        <ux-number-picker [min]="min"
+                          [max]="max"
+                          [step]="step"
+                          [formControl]="form.controls['integer']"
+                          [placeholder]="placeholder">
+        </ux-number-picker>
+        <ux-number-picker [min]="min"
+                          [max]="max"
+                          [step]="step"
+                          [formControl]="form.controls['integer2']"
+                          [placeholder]="placeholder">
+        </ux-number-picker>
 
     `
 })
@@ -36,8 +35,14 @@ export class NumberPickerTestFormGroupComponent {
     constructor(formBuilder: FormBuilder) {
 
         this.form = formBuilder.group({
-            integer: [{ value: 0, disabled: false }, Validators.compose([Validators.required, Validators.min(-10), Validators.max(10)])],
-            integer2: [{ value: 0, disabled: true }, Validators.compose([Validators.required, Validators.min(-10), Validators.max(10)])]
+            integer: [{
+                value: 0,
+                disabled: false
+            }, Validators.compose([Validators.required, Validators.min(-10), Validators.max(10)])],
+            integer2: [{
+                value: 0,
+                disabled: true
+            }, Validators.compose([Validators.required, Validators.min(-10), Validators.max(10)])]
         });
     }
 }
@@ -58,7 +63,7 @@ describe('Number Picker Component - FormGroup', () => {
         await fixture.whenStable();
     }
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             imports: [NumberPickerModule, ReactiveFormsModule],
             declarations: [NumberPickerTestFormGroupComponent],
@@ -419,11 +424,12 @@ describe('Number Picker Component - FormGroup', () => {
 
 @Component({
     selector: 'app-number-picker-ngmodel',
-    template: `<ux-number-picker [min]="min"
-                                 [max]="max"
-                                 [disabled]="disabled"
-                                 [(ngModel)]="value">
-                </ux-number-picker>
+    template: `
+        <ux-number-picker [min]="min"
+                          [max]="max"
+                          [disabled]="disabled"
+                          [(ngModel)]="value">
+        </ux-number-picker>
 
     `
 })
@@ -443,7 +449,7 @@ describe('Number Picker Component - ngModel', () => {
     let numberPicker: HTMLElement;
     let input: HTMLInputElement;
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             imports: [
                 NumberPickerModule,
@@ -542,30 +548,44 @@ describe('Number Picker Component - ngModel', () => {
 
         expect(numberPicker.classList.contains('ux-number-picker-invalid')).toBe(false);
     });
+
+    it('should have aria-valuemin as the min value', () => {
+        expect(input.getAttribute('aria-valuemin')).toBe('-10');
+    });
+
+    it('should have aria-valuemax as the max value', () => {
+        expect(input.getAttribute('aria-valuemax')).toBe('10');
+    });
 });
 
 @Component({
     selector: 'app-number-picker-value',
-    template: `<ux-number-picker [min]="min"
-                                 [max]="max"
-                                 [disabled]="disabled"
-                                 (valueChange)="onValueChange($event)"
-                                 [value]="value"
-                                 [(ngModel)]="value"
-                                 (ngModelChange)="onNgModelChange($event)">
-                </ux-number-picker>
+    template: `
+        <ux-number-picker [min]="min"
+                          [max]="max"
+                          [required]="required"
+                          [disabled]="disabled"
+                          (valueChange)="onValueChange($event)"
+                          [value]="value"
+                          [(ngModel)]="value"
+                          (ngModelChange)="onNgModelChange($event)">
+        </ux-number-picker>
 
     `
 })
 export class NumberPickerTestValueComponent {
 
+    required: boolean = false;
     value = 0;
     disabled = false;
     min = -10;
     max = 10;
 
-    onValueChange(value: number): void { }
-    onNgModelChange(value: number): void { }
+    onValueChange(value: number): void {
+    }
+
+    onNgModelChange(value: number): void {
+    }
 
 }
 
@@ -576,7 +596,7 @@ describe('Number Picker Component - value', () => {
     let numberPicker: HTMLElement;
     let input: HTMLInputElement;
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             imports: [
                 NumberPickerModule,
@@ -741,8 +761,101 @@ describe('Number Picker Component - value', () => {
 
     });
 
+    it('should add a required attribute to the input when required is true', () => {
+        component.required = true;
+
+        fixture.detectChanges();
+
+        const inputElementEmpty = nativeElement.querySelector<HTMLInputElement>('input.form-control');
+        const attributeRequired = inputElementEmpty.hasAttribute('required');
+
+        expect(attributeRequired).toBe(true);
+    });
+
     function getInput(): HTMLInputElement | null {
         return nativeElement.querySelector('input.form-control');
     }
 
+});
+
+@Component({
+    selector: 'app-number-picker-form',
+    template: `
+        <ux-number-picker readonly
+                          [formControl]="form.controls['readonly']">
+        </ux-number-picker>`
+})
+export class NumberPickerTestReadonlyComponent {
+
+    form: FormGroup;
+
+    constructor(formBuilder: FormBuilder) {
+
+        this.form = formBuilder.group({
+            readonly: [5, Validators.required]
+        });
+    }
+}
+
+describe('Number Picker Component - Readonly', () => {
+    let component: NumberPickerTestReadonlyComponent;
+    let fixture: ComponentFixture<NumberPickerTestReadonlyComponent>;
+    let nativeElement: HTMLElement;
+    let numberPickers: NodeListOf<HTMLInputElement>;
+    let numberPicker1: HTMLInputElement;
+    let input1: HTMLInputElement;
+
+    beforeEach(waitForAsync(() => {
+        TestBed.configureTestingModule({
+            imports: [NumberPickerModule, ReactiveFormsModule],
+            declarations: [NumberPickerTestReadonlyComponent],
+        })
+            .compileComponents();
+    }));
+
+    beforeEach(() => {
+        fixture = TestBed.createComponent(NumberPickerTestReadonlyComponent);
+        component = fixture.componentInstance;
+        nativeElement = fixture.nativeElement;
+        numberPickers = nativeElement.querySelectorAll<HTMLInputElement>('ux-number-picker');
+        numberPicker1 = numberPickers.item(0);
+        input1 = numberPicker1.querySelector('input');
+
+        fixture.detectChanges();
+    });
+
+
+    it('should initialise correctly', () => {
+
+        expect(component).toBeTruthy();
+        expect(component.form.controls.readonly.value).toBe(5);
+    });
+
+    describe('on scroll', () => {
+
+        it('should not change the value when scrolling in reaodnly mode', async () => {
+            await input1.focus();
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            input1.dispatchEvent(new WheelEvent('wheel', { deltaY: 5 }));
+            fixture.detectChanges();
+            await fixture.whenStable();
+            expect(input1.value).toBe('5');
+
+            input1.dispatchEvent(new WheelEvent('wheel', { deltaY: -5 }));
+            fixture.detectChanges();
+            await fixture.whenStable();
+            expect(input1.value).toBe('5');
+        });
+
+    });
+
+    it('should not have aria-valuemin as the min value is undefined', () => {
+        expect(input1.hasAttribute('aria-valuemin')).toBe(false);
+    });
+
+    it('should not have aria-valuemax as the max value is undefined', () => {
+        expect(input1.hasAttribute('aria-valuemax')).toBe(false);
+    });
 });

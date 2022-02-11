@@ -3,6 +3,9 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
 import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
+import videoSource from '../../../../../../assets/media/catchingwave.mp4';
+import audioSource from '../../../../../../assets/media/Ocean-Waves.mp3';
+import subtitles from '../../../../../../assets/media/subtitles.vtt';
 
 @Component({
     selector: 'uxd-components-media-player',
@@ -15,9 +18,9 @@ export class ComponentsMediaPlayerComponent extends BaseDocumentationSection imp
     type: string = 'video';
     mode: string = 'standard';
 
-    videoSource: string = require('../../../../../assets/media/catchingwave.mp4');
-    audioSource: string = require('../../../../../assets/media/Ocean-Waves.mp3');
-    subtitles: string = require('!!file-loader!../../../../../assets/media/subtitles.vtt');
+    videoSource: string = videoSource;
+    audioSource: string = audioSource;
+    subtitles: string = subtitles;
 
     playground: IPlayground = {
         files: {

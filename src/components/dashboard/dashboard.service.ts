@@ -2,9 +2,10 @@ import { Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject, combineLatest, Observable, Subject } from 'rxjs';
 import { distinctUntilChanged, filter, map, takeUntil } from 'rxjs/operators';
 import { tick } from '../../common/index';
+import { DragScrollEvent } from '../../directives/drag/index';
 import { DashboardOptions } from './dashboard.component';
-import { DashboardWidgetComponent } from './widget/dashboard-widget.component';
 import { DashboardStackMode } from './widget/dashboard-stack-mode.enum';
+import { DashboardWidgetComponent } from './widget/dashboard-widget.component';
 
 @Injectable()
 export class DashboardService implements OnDestroy {
@@ -101,7 +102,7 @@ export class DashboardService implements OnDestroy {
      */
     setDimensions(width: number = this.dimensions.width, height: number = this.dimensions.height): void {
         if (this.dimensions.width !== width || this.dimensions.height !== height) {
-            this.dimensions$.next({ width: width, height: height });
+            this.dimensions$.next({ width, height });
         }
     }
 
@@ -116,7 +117,9 @@ export class DashboardService implements OnDestroy {
                 col: widget.getColumn(),
                 row: widget.getRow(),
                 colSpan: widget.getColumnSpan(),
-                rowSpan: widget.getRowSpan()
+                rowSpan: widget.getRowSpan(),
+                minColSpan: widget.minColSpan,
+                minRowSpan: widget.minRowSpan
             };
         });
     }
@@ -137,6 +140,8 @@ export class DashboardService implements OnDestroy {
                 target.setRow(widget.row);
                 target.setColumnSpan(widget.colSpan);
                 target.setRowSpan(widget.rowSpan);
+                target.minColSpan = widget.minColSpan ?? 1;
+                target.minRowSpan = widget.minRowSpan ?? 1;
             }
         });
     }
@@ -265,7 +270,7 @@ export class DashboardService implements OnDestroy {
         return this.widgets.filter(widget => widget.getColumn() !== undefined && widget.getRow() !== undefined)
             .reduce((value, widget) => {
 
-                this.forEachBlock(widget, (column, row) => value.push({ widget: widget, column: column, row: row }));
+                this.forEachBlock(widget, (column, row) => value.push({ widget, column, row }));
 
                 return value;
             }, []);
@@ -276,6 +281,7 @@ export class DashboardService implements OnDestroy {
      * @param action The the widget to resize
      */
     onResizeStart(action: DashboardAction): void {
+        this.cacheWidgets();
 
         // store the mouse event
         this._event = action.event;
@@ -436,6 +442,22 @@ export class DashboardService implements OnDestroy {
             dimensions.height = this.options.minHeight;
         }
 
+        const minWidth = ((this.getColumnWidth() * action.widget.minColSpan) - this.getColumnWidth() / 2) + 1;
+        const isBelowMinWidth = dimensions.width < minWidth;
+
+        if (isBelowMinWidth) {
+            dimensions.x = action.widget.x;
+            dimensions.width = minWidth;
+        }
+
+        const minHeight = ((this.options.rowHeight * action.widget.minRowSpan) - this.options.rowHeight / 2) + 1;
+        const isBelowMinHeight = dimensions.height < minHeight;
+
+        if (isBelowMinHeight) {
+            dimensions.y = action.widget.y;
+            dimensions.height = minHeight;
+        }
+
         // update the widget actual values
         action.widget.setBounds(dimensions.x, dimensions.y, dimensions.width, dimensions.height);
 
@@ -491,6 +513,8 @@ export class DashboardService implements OnDestroy {
 
         this._widgetOrigin = {};
 
+        this.isDragging$.getValue().sendToBack();
+
         this.isDragging$.next(null);
 
         this.userLayoutChange$.next(this.getLayoutData());
@@ -499,36 +523,22 @@ export class DashboardService implements OnDestroy {
     onDrag(action: DashboardAction): void {
 
         // if there was no movement then do nothing
-        if (action.event.pageX === this._event.pageX && action.event.pageY === this._event.pageY) {
+        if (action.event.clientX === this._event.clientX && action.event.clientY === this._event.clientY) {
             return;
         }
 
         // get the current mouse position
-        const mouseX = action.event.pageX - this._event.pageX;
-        const mouseY = action.event.pageY - this._event.pageY;
+        const mouseX = action.event.clientX - this._event.clientX;
+        const mouseY = action.event.clientY - this._event.clientY;
 
         // store the latest event
         this._event = action.event;
 
-        const dimensions: DashboardWidgetDimensions = {
-            x: action.widget.x + mouseX,
-            y: action.widget.y + mouseY,
-            width: action.widget.width,
-            height: action.widget.height
-        };
+        this.moveWidget(action.widget, mouseX, mouseY);
+    }
 
-        this.restoreWidgets(true);
-
-        // update widget position
-        action.widget.setBounds(dimensions.x, dimensions.y, dimensions.width, dimensions.height);
-
-        // update placeholder position and value
-        this.setPlaceholderBounds(true, dimensions.x, dimensions.y, dimensions.width, dimensions.height);
-
-        // show the widget positions if the current positions and sizes were to persist
-        this.shiftWidgets();
-
-        this.setDashboardHeight();
+    onDragScroll(widget: DashboardWidgetComponent, event: DragScrollEvent): void {
+        this.moveWidget(widget, event.offsetX, event.offsetY);
     }
 
     getRowHeight(): number {
@@ -566,27 +576,74 @@ export class DashboardService implements OnDestroy {
     }
 
     /**
-     * When dragging any widgets that need to be moved should be moved to an appropriate position
+     * Return the set of widgets which overlap the given dashboard region.
      */
-    shiftWidgets(): void {
+    getOverlappingWidgets(region: DashboardRegion, actionWidget: DashboardWidgetComponent): DashboardWidgetComponent[] {
+        const widgetsToMove: DashboardWidgetComponent[] = [];
 
-        let widgetsToMove: DashboardWidgetComponent[] = [];
-
-        const placeholder = this.placeholder$.getValue();
-
-        // check if there are any widgets under the placeholder
-        for (let row = placeholder.row; row < placeholder.row + placeholder.rowSpan; row++) {
-            for (let column = placeholder.column; column < placeholder.column + placeholder.columnSpan; column++) {
+        // check if there are any widgets overlapping widgets
+        for (let row = region.row; row < region.row + region.rowSpan; row++) {
+            for (let column = region.column; column < region.column + region.columnSpan; column++) {
 
                 // store reference to any widgets that need moved
                 this.getOccupiedSpaces()
-                    .filter(space => space.column === column && space.row === row && space.widget !== this._actionWidget.widget)
+                    .filter(space => space.column === column && space.row === row && space.widget !== actionWidget)
                     .forEach(space => widgetsToMove.push(space.widget));
             }
         }
 
         // remove any duplicates
-        widgetsToMove = widgetsToMove.filter((widget, idx, array) => array.indexOf(widget) === idx);
+        return widgetsToMove.filter((wgt, idx, array) => array.indexOf(wgt) === idx);
+    }
+
+
+    /**
+     * Resolve any overlapping widgets after a widget changes rowSpan/colSpan.
+     */
+    resizeWidget(widget: DashboardWidgetComponent): void {
+
+        // make widget action and origin widget, direction is irrelevant to this function so set to 0
+        this._actionWidget = { widget, direction: 0 };
+        this._widgetOrigin = widget;
+
+        const widgetRegion = {
+            row: widget.row,
+            column: widget.col,
+            rowSpan: widget.rowSpan,
+            columnSpan: widget.colSpan
+        };
+
+        let done = false;
+        const ITERATION_LIMIT = 100;
+
+        for (let i = 0; i <= ITERATION_LIMIT; i++) {
+
+            // Check for overlapping widgets and move them. This may need several iterations.
+            this.shiftWidgetsFromRegion(widgetRegion, widget);
+            done = this.getOverlappingWidgets(widgetRegion, widget).length === 0;
+
+            if (done) {
+                break;
+            }
+        }
+
+        if (!done) {
+            throw new Error('Unable to resolve overlapping widgets!');
+        }
+
+        this.shiftWidgetsUp();
+
+        // clear the action and origin widget once we are done
+        this._actionWidget = undefined;
+        this._widgetOrigin = undefined;
+    }
+
+    /**
+     * Move any widgets which intersect with the given dashboard region.
+     */
+    shiftWidgetsFromRegion(region: DashboardRegion, actionWidget: DashboardWidgetComponent, validatePosition?: (shiftDirection: ActionDirection) => void): void {
+
+        const widgetsToMove = this.getOverlappingWidgets(region, actionWidget);
 
         // if no widgets need moved then we can stop here
         if (widgetsToMove.length === 0) {
@@ -627,7 +684,7 @@ export class DashboardService implements OnDestroy {
             if (this.canWidgetMoveRight(widget, true)) {
 
                 // after the shift check if placeholder position is still valid
-                this.validatePlaceholderPosition(ActionDirection.Right);
+                validatePosition?.(ActionDirection.Right);
                 return;
             }
 
@@ -635,7 +692,7 @@ export class DashboardService implements OnDestroy {
             if (this.canWidgetMoveLeft(widget, true)) {
 
                 // after the shift check if placeholder position is still valid
-                this.validatePlaceholderPosition(ActionDirection.Left);
+                validatePosition?.(ActionDirection.Left);
                 return;
             }
 
@@ -645,6 +702,21 @@ export class DashboardService implements OnDestroy {
             // as a last resort move the widget downwards
             this.moveWidgetDown(widget, distance);
         });
+
+    }
+
+    /**
+     * When dragging any widgets that need to be moved should be moved to an appropriate position
+     */
+    shiftWidgets(): void {
+
+        const placeholder = this.placeholder$.getValue();
+
+        this.shiftWidgetsFromRegion(
+            placeholder,
+            this._actionWidget.widget,
+            this.validatePlaceholderPosition.bind(this)
+        );
     }
 
     /**
@@ -678,16 +750,47 @@ export class DashboardService implements OnDestroy {
     /**
      * Determine if a widget can be moved left - or if it can move the widgets to the right to make space for the widget
      */
-    canWidgetMoveLeft(widget: DashboardWidgetComponent, performMove: boolean = false): boolean {
+    canWidgetMoveLeft(widget: DashboardWidgetComponent, performMove: boolean = false, shift: number = 0): boolean {
+
+        const actionWgt = this._widgetOrigin;
+        let colShift = shift;
 
         // check if the widget is the action widget or occupies the first column
         if (widget === this._actionWidget.widget || widget.getColumn() === 0) {
             return false;
         }
 
+        // if value has been provided skip this step
+        if (colShift === 0) {
+
+            // work out how far the widget is planning to move left
+            if (actionWgt.row !== widget.getRow()) {
+
+                // if the widgets aren't on the same row work out the difference
+                if (actionWgt.column === widget.getColumn()) {
+
+                    // if the widgets occupy the same column then shift the widget of the action widget
+                    colShift = actionWgt.columnSpan;
+                } else {
+
+                    // else work out the exact number of spaces it will move left
+                    const widgetDifference =  actionWgt.column - widget.getColumn();
+                    colShift = widget.getColumnSpan() - widgetDifference;
+                }
+            } else {
+
+                // if they are on the same row then move one row
+                colShift = 1;
+            }
+        }
+
+        if (isNaN(colShift) || colShift === 0) {
+            return;
+        }
+
         // find the positions required
         const targetSpaces = this.getOccupiedSpaces().filter(space => space.widget === widget).map(space => {
-            return { column: space.column - widget.getColumnSpan(), row: space.row, widget: space.widget };
+            return { column: space.column - colShift, row: space.row, widget: space.widget };
         });
 
         // check if any of the target spaces are out of bounds
@@ -696,12 +799,12 @@ export class DashboardService implements OnDestroy {
         }
 
         // check if there are widget in the required positions and if so, can they move right?
-        const moveable = targetSpaces.every(space => this.getWidgetsAtPosition(space.column, space.row).filter(wgt => wgt !== space.widget).every(wgt => this.canWidgetMoveLeft(wgt)));
+        const moveable = targetSpaces.every(space => this.getWidgetsAtPosition(space.column, space.row).filter(wgt => wgt !== space.widget).every(wgt => this.canWidgetMoveLeft(wgt, false, colShift)));
 
         if (performMove && moveable) {
 
             // move all widgets to the left
-            targetSpaces.forEach(space => this.getWidgetsAtPosition(space.column, space.row).filter(wgt => wgt !== space.widget).forEach(wgt => this.canWidgetMoveLeft(wgt, true)));
+            targetSpaces.forEach(space => this.getWidgetsAtPosition(space.column, space.row).filter(wgt => wgt !== space.widget).forEach(wgt => this.canWidgetMoveLeft(wgt, true, colShift)));
 
             // find the target column
             const column = targetSpaces.reduce((target, space) => Math.min(target, space.column), Infinity);
@@ -718,16 +821,47 @@ export class DashboardService implements OnDestroy {
     /**
      * Determine if a widget can be moved right - or if it can move the widgets to the right to make space for the widget
      */
-    canWidgetMoveRight(widget: DashboardWidgetComponent, performMove: boolean = false): boolean {
+    canWidgetMoveRight(widget: DashboardWidgetComponent, performMove: boolean = false, shift: number = 0): boolean {
+
+        const actionWgt = this._widgetOrigin;
+        let colShift = shift;
 
         // check if the widget is the dragging widget or the widget occupies the final column
         if (widget === this._actionWidget.widget || widget.getColumn() + widget.getColumnSpan() === this.options.columns) {
             return false;
         }
 
+        // if value has been provided skip this step
+        if (colShift === 0) {
+
+            // work out how far the widget is planning to move right
+            if (actionWgt.row !== widget.getRow()) {
+
+                // if the widgets aren't on the same row work out the difference
+                if (actionWgt.column === widget.getColumn()) {
+
+                    // if the widgets occupy the same column then shift the widget of the action widget
+                    colShift = actionWgt.columnSpan;
+                } else {
+
+                    // else work out the exact number of spaces it will move right
+                    const widgetDifference = widget.getColumn() - actionWgt.column;
+                    colShift = actionWgt.columnSpan - widgetDifference;
+                }
+            } else {
+
+                // if they are on the same row then move one row
+                colShift = 1;
+            }
+        }
+
+        if (isNaN(colShift) || colShift === 0) {
+            return;
+        }
+
         // find the positions required
         const targetSpaces = this.getOccupiedSpaces().filter(space => space.widget === widget).map(space => {
-            return { column: space.column + widget.getColumnSpan(), row: space.row, widget: space.widget };
+            return { column: space.column + colShift, row: space.row, widget: space.widget };
         });
 
         // check if any of the target spaces are out of bounds
@@ -738,15 +872,16 @@ export class DashboardService implements OnDestroy {
         // check if there are widget in the required positions and if so, can they move right?
         const moveable = targetSpaces.every(space => this.getWidgetsAtPosition(space.column, space.row)
             .filter(wgt => wgt !== space.widget)
-            .every(wgt => this.canWidgetMoveRight(wgt))
+            .every(wgt => this.canWidgetMoveRight(wgt, false, colShift))
         );
 
         if (performMove && moveable) {
+
             // move all widgets to the right
-            targetSpaces.forEach(space => this.getWidgetsAtPosition(space.column, space.row).filter(wgt => wgt !== space.widget).forEach(wgt => this.canWidgetMoveRight(wgt, true)));
+            targetSpaces.forEach(space => this.getWidgetsAtPosition(space.column, space.row).filter(wgt => wgt !== space.widget).forEach(wgt => this.canWidgetMoveRight(wgt, true, colShift)));
 
             // move current widget to the right
-            widget.setColumn(widget.getColumn() + 1);
+            widget.setColumn(widget.getColumn() + colShift);
         }
 
         return moveable;
@@ -772,7 +907,7 @@ export class DashboardService implements OnDestroy {
 
         for (let y = row; y < row + widget.getRowSpan(); y++) {
             for (let x = column; x < column + widget.getColumnSpan(); x++) {
-                spaces.push({ column: x, row: y, widget: widget });
+                spaces.push({ column: x, row: y, widget });
             }
         }
 
@@ -894,7 +1029,7 @@ export class DashboardService implements OnDestroy {
             this._actionWidget.direction !== ActionDirection.Left &&
             this._actionWidget.direction !== ActionDirection.TopLeft &&
             this._actionWidget.direction !== ActionDirection.BottomLeft) {
-            return Math.max(columnSpan, 1);
+            return this.getColumnFromPx(width, Rounding.RoundUpOverHalf);
         }
 
         // get the current column span and any overflow
@@ -919,7 +1054,7 @@ export class DashboardService implements OnDestroy {
         }
 
         // get any overflow
-        let overflow = height < this._rowHeight ? 0 : height % this._rowHeight;
+        const overflow = height < this._rowHeight ? 0 : height % this._rowHeight;
 
         return (y <= 0 || rowSpan === 0 || overflow === 0 || overflow > (this._rowHeight / 2)) ? Math.max(row, 0) : Math.max(row + 1, 0);
     }
@@ -1062,6 +1197,12 @@ export class DashboardService implements OnDestroy {
      * @param widget The widget to move downwards
      */
     moveWidgetDown(widget: DashboardWidgetComponent, distance: number = 1): void {
+
+        // stop if a negative number is passed through
+        if (distance < 0) {
+            return;
+        }
+
         // move the widget down one position
         widget.setRow((widget.getRow(DashboardStackMode.Auto)) + distance);
 
@@ -1083,10 +1224,29 @@ export class DashboardService implements OnDestroy {
         // iterate each widget and
         this.widgets.forEach(widget => {
             const widgetIsOnTopRow = widget.getRow() === 0;
-            const widgetIsBeingDragged = this._actionWidget?.widget === widget;
-            const widgetShouldBeAutoPositioned = widget.autoPositioning  || this.stacked;
+            const widgetIsBeingResized = this._actionWidget?.widget === widget;
+            const widgetShouldBeAutoPositioned = widget.autoPositioning || this.stacked;
+            const widgetIsBeingMoved = !widgetShouldBeAutoPositioned && this.isDragging$.value?.id === widget.id;
 
-            if (widgetIsOnTopRow || widgetIsBeingDragged || !widgetShouldBeAutoPositioned) {
+            if (widgetIsOnTopRow || widgetIsBeingResized || widgetIsBeingMoved || (!widgetShouldBeAutoPositioned && !this._cache)) {
+                return;
+            }
+
+            if (!widgetShouldBeAutoPositioned) {
+                const cachedVersionOfWidget = this._cache.find(cachedWidget => cachedWidget.id === widget.id);
+                const isPreviousPositionAvailable = this.getPositionAvailable(
+                    cachedVersionOfWidget.column,
+                    cachedVersionOfWidget.row,
+                    cachedVersionOfWidget.columnSpan,
+                    cachedVersionOfWidget.rowSpan,
+                    widget
+                );
+
+                if (isPreviousPositionAvailable && widget.row !== cachedVersionOfWidget.row) {
+                    widget.setRow(cachedVersionOfWidget.row);
+                    stable = false;
+                }
+
                 return;
             }
 
@@ -1194,11 +1354,6 @@ export class DashboardService implements OnDestroy {
     /** Programmatically resize a widget in a given direction */
     onResize(widget: DashboardWidgetComponent, direction: ActionDirection): void {
 
-        // do not perform resizing if we are in stacked mode
-        if (this.stacked) {
-            return;
-        }
-
         // perform the resizing
         let deltaX = 0, deltaY = 0;
 
@@ -1255,6 +1410,22 @@ export class DashboardService implements OnDestroy {
             dimensions.height = this.getRowHeight();
         }
 
+        const minWidth = this.getColumnWidth() * widget.minColSpan;
+        const isBelowMinWidth = dimensions.width < minWidth;
+
+        if (isBelowMinWidth) {
+            dimensions.x = widget.x;
+            dimensions.width = minWidth;
+        }
+
+        const minHeight = this.options.rowHeight * widget.minRowSpan;
+        const isBelowMinHeight = dimensions.height < minHeight;
+
+        if (isBelowMinHeight) {
+            dimensions.y = widget.y;
+            dimensions.height = minHeight;
+        }
+
         // move the widget to the placeholder position
         widget.setBounds(dimensions.x, dimensions.y, dimensions.width, dimensions.height);
 
@@ -1283,6 +1454,29 @@ export class DashboardService implements OnDestroy {
         }
 
         return widgets;
+    }
+
+    private moveWidget(widget: DashboardWidgetComponent, offsetX: number, offsetY: number): void {
+
+        const dimensions: DashboardWidgetDimensions = {
+            x: widget.x + offsetX,
+            y: widget.y + offsetY,
+            width: widget.width,
+            height: widget.height
+        };
+
+        this.restoreWidgets(true);
+
+        // update widget position
+        widget.setBounds(dimensions.x, dimensions.y, dimensions.width, dimensions.height);
+
+        // update placeholder position and value
+        this.setPlaceholderBounds(true, dimensions.x, dimensions.y, dimensions.width, dimensions.height);
+
+        // show the widget positions if the current positions and sizes were to persist
+        this.shiftWidgets();
+
+        this.setDashboardHeight();
     }
 }
 
@@ -1319,16 +1513,19 @@ export interface DashboardSpace {
     row: number;
 }
 
-export interface DashboardPlaceholder {
+export interface DashboardRegion {
+    column?: number;
+    row?: number;
+    columnSpan?: number;
+    rowSpan?: number;
+}
+
+export interface DashboardPlaceholder extends DashboardRegion {
     visible: boolean;
     x: number;
     y: number;
     width: number;
     height: number;
-    column?: number;
-    row?: number;
-    columnSpan?: number;
-    rowSpan?: number;
 }
 
 export interface DashboardCache {
@@ -1345,6 +1542,8 @@ export interface DashboardLayoutData {
     row: number;
     colSpan: number;
     rowSpan: number;
+    minColSpan?: number;
+    minRowSpan?: number;
 }
 
 export enum ActionDirection {

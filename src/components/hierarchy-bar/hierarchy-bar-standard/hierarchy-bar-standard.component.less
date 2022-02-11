@@ -8,6 +8,13 @@ ux-hierarchy-bar-standard {
         flex: none;
     }
 
+    ux-hierarchy-bar-node:last-of-type {
+        .hierarchy-bar-node-title {
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    }
+
     .hierarchy-bar-nodes {
         position: relative;
         display: flex;
@@ -17,16 +24,46 @@ ux-hierarchy-bar-standard {
     }
 
     .hierarchy-bar-overflow-indicator {
-        position: absolute;
-        top: 0;
-        left: 0;
-        bottom: 0;
-        width: 47px;
-        z-index: 1;
-        padding: 16px 0 16px 16px;
-        text-align: left;
-        background-color: @white;
-        box-shadow: 0 0 25px 0 @btn-secondary-active-hover-shadow;
-        cursor: pointer;
+        color: @primary;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0 0.25rem 0 0.75rem;
+        min-width: 70px;
+
+        .overflow-button {
+            margin-top: 3px;
+            border: none;
+            background: transparent;
+            padding: 0 2px;
+
+            &:focus {
+                .native-focus-outline;
+            }
+
+            > ux-icon {
+                font-size: 1.5rem;
+            }
+        }
+
+        .hierarchy-bar-node-arrow {
+            display: inline-flex;
+            color: @organization-chart-hierarchy-bar-arrow;
+            margin-left: 5px;
+            transition: color 250ms ease-in-out;
+            border: none;
+            background: transparent;
+            padding: 0;
+            height: 16px;
+
+            &:hover:not(:disabled) {
+                color: @primary;
+            }
+
+            &:focus:not(:disabled) {
+                color: @primary;
+                .native-focus-outline;
+            }
+        }
     }
 }

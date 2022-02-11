@@ -1,12 +1,13 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { ReorderableModule, SparkModule, AccessibilityModule } from '@ux-aspects/ux-aspects';
-import { ReorderableTableTestPageComponent, MapPipe } from './reorderable-table.testpage.component';
+import { AccessibilityModule, IconModule, ReorderableModule, SparkModule } from '@ux-aspects/ux-aspects';
+import { MapPipe, ReorderableTableTestPageComponent } from './reorderable-table.testpage.component';
 
 @NgModule({
     imports: [
         CommonModule,
+        IconModule,
         ReorderableModule,
         SparkModule,
         AccessibilityModule,

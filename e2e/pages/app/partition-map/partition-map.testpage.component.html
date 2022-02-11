@@ -1,0 +1,64 @@
+<div id="partition-container" style="height: 600px; width: 800px;">
+    <ux-partition-map class="partition-map" [dataset]="dataset" [colors]="colors">
+
+        <ng-template
+            #partitionMapSegment
+            let-segment="segment"
+            let-value="value"
+            let-expanded="expanded"
+            let-color="color"
+            let-children="children">
+
+            <ux-icon class="partition-map-segment-icon" name="home" *ngIf="segment === dataset"></ux-icon>
+
+                <span class="partition-map-segment-label"
+                      #popover="ux-popover"
+                      [uxPopover]="popoverTemplate"
+                      [popoverContext]="{ name: segment.name, children: children, value: value, color: color, popover: popover }"
+                      popoverClass="popover-arrow partition-map-popover"
+                      [popoverDelay]="500"
+                      [placement]="segment.children ? 'bottom' : 'top'"
+                      [showTriggers]="[]"
+                      [hideTriggers]="[]">
+                    {{ segment.name }}
+                </span>
+
+        </ng-template>
+    </ux-partition-map>
+</div>
+
+<button id="change-dataset-btn" style="margin-top: 20px;" (click)="changeDataset()">Change Dataset</button>
+
+
+<ng-template #popoverTemplate
+    let-name="name"
+    let-value="value"
+    let-color="color"
+    let-children="children"
+    let-segment="segment"
+    let-popover="popover">
+
+    <div class="partition-segment-popover" (mouseenter)="show(popover)" (mouseleave)="hide(popover)">
+
+        <div *ngIf="children.length === 0"
+             class="partition-segment-color-indicator"
+             [style.background-color]="color">
+        </div>
+
+        <div class="partition-segment-info">
+            <p class="group-name-header">Group Name</p>
+            <p class="group-name-value">{{ name }}</p>
+            <p class="group-value">
+                <span class="group-value-count">{{ value }}</span> Items
+            </p>
+        </div>
+
+        <div class="partition-segment-children" *ngIf="children?.length > 0">
+            <div class="partition-segment-child" *ngFor="let child of children">
+                <div class="partition-segment-color-block" [style.background-color]="child.color"></div>
+                <p class="partition-segment-child-title">{{ child.segment.name }}</p>
+                <p class="partition-segment-child-value">{{ child.value }}</p>
+            </div>
+        </div>
+    </div>
+</ng-template>

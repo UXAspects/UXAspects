@@ -1,6 +1,5 @@
 import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
 import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, Input, OnChanges, OnDestroy, Renderer2, SimpleChanges } from '@angular/core';
-// tslint:disable-next-line: import-blacklist
 import { Subject } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
 import { IconService } from './icon.service';

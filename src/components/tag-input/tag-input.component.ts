@@ -1,3 +1,4 @@
+import { BooleanInput, coerceBooleanProperty } from '@angular/cdk/coercion';
 import { BACKSPACE, DELETE, ENTER, LEFT_ARROW, RIGHT_ARROW, SPACE } from '@angular/cdk/keycodes';
 import { DOCUMENT } from '@angular/common';
 import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, ElementRef, EventEmitter, forwardRef, HostBinding, HostListener, Inject, Input, OnChanges, OnDestroy, Output, QueryList, SimpleChanges, TemplateRef, ViewChild } from '@angular/core';
@@ -37,20 +38,21 @@ const TAGINPUT_VALIDATOR = {
 export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, ControlValueAccessor, Validator, OnDestroy {
 
     /** Specify a unique Id for the component */
-    @Input() @HostBinding('attr.id') id: string = `ux-tag-input-${++uniqueId}`;
+    @Input() @HostBinding('attr.id') id: string = `ux-tag-input-${ ++uniqueId }`;
 
     /**
      * The list of tags appearing in the tag input. This can be an array of strings or custom objects.
      * See the `displayProperty` property for details of using a custom object.
      */
     @Input()
-    get tags() {
+    get tags(): T | ReadonlyArray<T> {
         if (!this._tags) {
             this._tags = [];
         }
         return this._tags;
     }
-    set tags(value: ReadonlyArray<T>) {
+
+    set tags(value: T | ReadonlyArray<T>) {
         this._tags = Array.isArray(value) ? value : [];
     }
 
@@ -73,6 +75,9 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
 
     /** Controls the disabled state of the tag input. */
     @Input() disabled: boolean = false;
+
+    /** Specified if this is a required input. */
+    @Input() required: boolean;
 
     /**
      * If set to `true`, the tag input will prevent addition and removal of tags to enforce the minTags and maxTags settings.
@@ -163,6 +168,15 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
     /** Determine an aria label for the clear button */
     @Input() clearButtonAriaLabel: string = 'Reset selection';
 
+    /** Determine if the dropdown panel should close on external click.*/
+    @Input() set autoCloseDropdown(value: boolean) {
+        this._autoCloseDropdown = coerceBooleanProperty(value);
+    }
+
+    get autoCloseDropdown(): boolean {
+        return this._autoCloseDropdown;
+    }
+
     /** Emits when tags is changed. */
     @Output() tagsChange = new EventEmitter<ReadonlyArray<T>>();
 
@@ -190,6 +204,9 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
     // When clicking on the input during multiple mode it will send a on touched event to the parent component
     @Output() inputFocus = new EventEmitter<FocusEvent>();
 
+    // Emits when the component loses focus
+    @Output() inputBlur = new EventEmitter<FocusEvent>();
+
     @ContentChildren(TypeaheadComponent) typeaheadQuery: QueryList<TypeaheadComponent>;
 
     @ViewChild('tagInput', { static: false }) tagInput: ElementRef;
@@ -208,20 +225,26 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
     highlightedElement: HTMLElement;
 
     get _showClearButton(): boolean {
-        return this.clearButton && this.tags && this.tags.length > 0;
+        return this.clearButton && this._tags && this._tags.length > 0;
     }
 
-    private _tags: ReadonlyArray<T> = [];
-    private _onChangeHandler: (_: any) => void = () => { };
-    private _onTouchedHandler: () => void = () => { };
+    _tags: ReadonlyArray<T> = [];
+    private _onChangeHandler: (_: any) => void = () => {
+    };
+    private _onTouchedHandler: () => void = () => {
+    };
     private _subscription: Subscription;
     private _onDestroy = new Subject<void>();
+    private _autoCloseDropdown: boolean = true;
+
+    static ngAcceptInputType_autoCloseDropdown: BooleanInput;
 
     constructor(
         private _changeDetector: ChangeDetectorRef,
         private _element: ElementRef,
         @Inject(DOCUMENT) private _document: any,
-        private _typeaheadKeyService: TypeaheadKeyService) { }
+        private _typeaheadKeyService: TypeaheadKeyService) {
+    }
 
     ngAfterContentInit(): void {
         // Watch for optional child typeahead control
@@ -291,15 +314,15 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
         this.valid = true;
 
         let tagRangeError = null;
-        if (this.tags && (this.tags.length < this.minTags || this.tags.length > this.maxTags)) {
+        if (this._tags && (this._tags.length < this.minTags || this._tags.length > this.maxTags)) {
             tagRangeError = {
-                given: this.tags.length,
+                given: this._tags.length,
                 min: this.minTags,
                 max: this.maxTags
             };
             this.valid = false;
         }
-        this.validationErrors['tagRangeError'] = tagRangeError;
+        this.validationErrors.tagRangeError = tagRangeError;
 
         // forward any error to the form control
         return tagRangeError;
@@ -308,7 +331,9 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
     @HostListener('keydown', ['$event'])
     keyHandler(event: KeyboardEvent): void {
 
-        if (this.disabled) { return; }
+        if (this.disabled) {
+            return;
+        }
 
         // Get the input field cursor location
         const inputCursorPos = this.tagInput.nativeElement.selectionStart;
@@ -394,7 +419,7 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
 
         // Close the dropdown on blur
         setTimeout(() => {
-            if (!this._element.nativeElement.contains(this._document.activeElement)) {
+            if (!this._element.nativeElement.contains(this._document.activeElement) && this.autoCloseDropdown) {
                 this.selectedIndex = -1;
                 if (this.typeahead) {
                     this.typeahead.open = false;
@@ -408,7 +433,9 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
     onClick(): void {
 
         // Prevent error if you click input when at max tag limit
-        if (this.tagInput === undefined) { return; }
+        if (this.tagInput === undefined) {
+            return;
+        }
 
         // focus the input element
         this.tagInput.nativeElement.focus();
@@ -419,7 +446,9 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
 
     tagClickHandler(event: MouseEvent, tag: T, index: number): void {
 
-        if (this.disabled) { return; }
+        if (this.disabled) {
+            return;
+        }
 
         // Send tagClick event
         const tagClickEvent = new TagInputEvent(tag);
@@ -437,7 +466,9 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
 
     inputClickHandler(): void {
 
-        if (this.disabled) { return; }
+        if (this.disabled) {
+            return;
+        }
 
         if (this.typeahead && this.showTypeaheadOnClick) {
             this.typeahead.open = true;
@@ -458,7 +489,9 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
 
     inputPasteHandler(event: ClipboardEvent): void {
 
-        if (this.disabled) { return; }
+        if (this.disabled) {
+            return;
+        }
 
         if (this.addOnPaste) {
             // Get text from the clipboard
@@ -481,7 +514,9 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
 
     typeaheadOptionSelectedHandler(event: TypeaheadOptionEvent): void {
 
-        if (this.disabled) { return; }
+        if (this.disabled) {
+            return;
+        }
 
         // When the typeahead sends the optionSelected event, commit the object directly
         this.commitTypeahead(event.option);
@@ -493,6 +528,7 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
     commitInput(): void {
         if (this.commit(this.input)) {
             this.selectInput();
+            this.toggle();
             this.setInputValue('');
         }
     }
@@ -518,7 +554,7 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
 
             // Check tag validation for all of the individual values
             let allValid = true;
-            for (let newTag of newTags) {
+            for (const newTag of newTags) {
                 const valid = this.validateTag(newTag);
                 if (!valid) {
                     allValid = false;
@@ -527,7 +563,7 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
 
             // Add the tags if all are valid
             if (allValid) {
-                for (let newTag of newTags) {
+                for (const newTag of newTags) {
                     this.addTag(this.createTag(newTag));
                 }
 
@@ -548,7 +584,7 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
         }
 
         if (!this.isValidTagIndex(this.selectedIndex)) {
-            this.selectTagAt(this.tags.length - 1);
+            this.selectTagAt(this._tags.length - 1);
         } else {
             this.removeTagAt(this.selectedIndex);
         }
@@ -560,15 +596,17 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
      */
     moveSelection(delta: number): void {
 
-        if (this.disabled) { return; }
+        if (this.disabled) {
+            return;
+        }
 
         if (this.isValidSelectIndex(this.selectedIndex)) {
             this.selectedIndex += delta;
 
             // Do wrapping of selection when out of bounds
             if (this.selectedIndex < 0) {
-                this.selectedIndex = this.tags.length;
-            } else if (this.selectedIndex > this.tags.length) {
+                this.selectedIndex = this._tags.length;
+            } else if (this.selectedIndex > this._tags.length) {
                 this.selectedIndex = 0;
             }
         }
@@ -582,7 +620,7 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
             return this.display(tag);
         }
         if (typeof this.display === 'string') {
-            return tag[<string>this.display];
+            return tag[this.display];
         }
         return tag;
     }
@@ -599,7 +637,9 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
      */
     selectTagAt(tagIndex: number): void {
 
-        if (this.disabled) { return; }
+        if (this.disabled) {
+            return;
+        }
 
         if (this.isValidTagIndex(tagIndex)) {
             this.selectedIndex = tagIndex;
@@ -615,7 +655,7 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
             return;
         }
 
-        this.selectedIndex = this.tags.length;
+        this.selectedIndex = this._tags.length;
     }
 
     /**
@@ -623,11 +663,13 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
      */
     removeTagAt(tagIndex: number): void {
 
-        if (this.disabled || !this.canRemoveTagAt(tagIndex)) { return; }
+        if (this.disabled || !this.canRemoveTagAt(tagIndex)) {
+            return;
+        }
 
         // Check that the tagIndex is in range
         if (this.isValidTagIndex(tagIndex)) {
-            const tag = this.tags[tagIndex];
+            const tag = this._tags[tagIndex];
             const tagRemovingEvent = new TagInputEvent(tag);
             this.tagRemoving.emit(tagRemovingEvent);
             if (!tagRemovingEvent.defaultPrevented()) {
@@ -635,7 +677,7 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
                 this.selectInput();
 
                 // Remove the tag
-                this.tags = this.tags.filter((_tag, index) => index !== tagIndex);
+                this.tags = this._tags.filter((_tag, index) => index !== tagIndex);
                 this.setTagsValue(this._tags);
                 // Set focus again since indices have changed
                 this.selectInput();
@@ -649,14 +691,14 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
      * Returns true if the tag at the given index can be removed.
      */
     canRemoveTagAt(tagIndex: number): boolean {
-        return this.tags.length > this.minTags || !this.enforceTagLimits;
+        return this._tags.length > this.minTags || !this.enforceTagLimits;
     }
 
     /**
      * Returns true if the input field should be available.
      */
     isInputVisible(): boolean {
-        return this.tags.length < this.maxTags || !this.enforceTagLimits;
+        return this._tags.length < this.maxTags || !this.enforceTagLimits;
     }
 
     /**
@@ -724,7 +766,7 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
             };
             this.inputValid = false;
         }
-        this.validationErrors['inputPattern'] = inputPattern;
+        this.validationErrors.inputPattern = inputPattern;
         return this.inputValid;
     }
 
@@ -737,7 +779,7 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
             tag = this.createTagHandler(tagValue);
         } else if (typeof this.display === 'string') {
             tag = {};
-            tag[<string>this.display] = tagValue;
+            tag[this.display] = tagValue;
         } else {
             tag = tagValue;
         }
@@ -755,7 +797,7 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
                 const tagAddingEvent = new TagInputEvent(tag);
                 this.tagAdding.emit(tagAddingEvent);
                 if (!tagAddingEvent.defaultPrevented()) {
-                    this.tags = [...this.tags, tag];
+                    this.tags = [...this._tags, tag];
                     this.setTagsValue(this._tags);
                     this.tagAdded.emit(new TagInputEvent(tag));
                     this.validate();
@@ -771,14 +813,14 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
      * Returns true if the given tagIndex is a valid tag index.
      */
     private isValidTagIndex(tagIndex: number): boolean {
-        return tagIndex >= 0 && tagIndex < this.tags.length;
+        return tagIndex >= 0 && tagIndex < this._tags.length;
     }
 
     /**
      * Returns true if the given index is a valid selection index (tags or input field).
      */
     private isValidSelectIndex(index: number): boolean {
-        return index >= 0 && index <= this.tags.length;
+        return index >= 0 && index <= this._tags.length;
     }
 
     /**
@@ -799,7 +841,7 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
         let tagValues = [input];
         if (this.tagDelimiters && typeof this.tagDelimiters === 'string') {
             const escapedDelimiters = this.tagDelimiters.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
-            const delimiterRegex = new RegExp(`[${escapedDelimiters}]`, 'g');
+            const delimiterRegex = new RegExp(`[${ escapedDelimiters }]`, 'g');
             tagValues = input.split(delimiterRegex).filter((s) => s.length > 0);
         }
         return tagValues;
@@ -821,7 +863,7 @@ export interface TagApi<T = any> {
     removeTagAt: (index: number) => void;
 
     /**
-     * 	Returns true if the tag at the given index can be removed.
+     *    Returns true if the tag at the given index can be removed.
      */
     canRemoveTagAt: (index: number) => boolean;
 }

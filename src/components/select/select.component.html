@@ -5,6 +5,7 @@
     [tags]="_value$ | async"
     (tagsChange)="_multipleOptionSelected($event)"
     [(input)]="input"
+    [required]="required"
     (inputChange)="onInputChange($event)"
     [ariaLabel]="ariaLabel"
     [autocomplete]="autocomplete"
@@ -19,6 +20,7 @@
     [readonlyInput]="readonlyInput"
     [icon]="icon"
     [clearButton]="clearButton"
+    [autoCloseDropdown]="autoCloseDropdown"
     [clearButtonAriaLabel]="clearButtonAriaLabel">
 
     <ux-typeahead #multipleTypeahead
@@ -39,7 +41,9 @@
         [noOptionsTemplate]="noOptionsTemplate"
         [recentOptions]="recentOptions"
         [recentOptionsMaxCount]="recentOptionsMaxCount"
-        (recentOptionsChange)="recentOptionsChange.emit($event)">
+        (recentOptionsChange)="recentOptionsChange.emit($event)"
+        [optionsHeadingTemplate]="optionsHeadingTemplate"
+        [recentOptionsHeadingTemplate]="recentOptionsHeadingTemplate">
     </ux-typeahead>
 
 </ux-tag-input>
@@ -54,6 +58,7 @@
     <input #singleInput type="text"
         [attr.id]="id + '-input'"
         class="form-control"
+        [required]="required"
         [class.ux-tag-input-clear-inset]="clearButton && allowNull && _hasValue"
         [attr.aria-activedescendant]="highlightedElement?.id"
         aria-autocomplete="list"
@@ -84,7 +89,7 @@
            class="ux-select-icon ux-icon ux-select-chevron-icon"
            [class.ux-icon-up]="dropDirection === 'up'"
            [class.ux-icon-down]="dropDirection === 'down'"
-           (click)="toggle(); $event.stopPropagation()">
+           (click)="toggle(); $event.stopPropagation(); singleInput.focus();">
         </i>
         <div *ngIf="icon" class="ux-custom-icon">
             <ng-container [ngTemplateOutlet]="icon"></ng-container>
@@ -110,9 +115,11 @@
         [noOptionsTemplate]="noOptionsTemplate"
         [recentOptions]="recentOptions"
         [recentOptionsMaxCount]="recentOptionsMaxCount"
+        [optionsHeadingTemplate]="optionsHeadingTemplate"
+        [recentOptionsHeadingTemplate]="recentOptionsHeadingTemplate"
         (optionSelected)="_singleOptionSelected($event)"
         (highlightedElementChange)="highlightedElement = $event"
-        (recentOptionsChange)="recentOptionsChange.emit($event)">
+        (recentOptionsChange)="recentOptionsChange.emit($any($event))">
 
     </ux-typeahead>
 

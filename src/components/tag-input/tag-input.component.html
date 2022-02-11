@@ -4,7 +4,7 @@
     [class.ux-tag-input-icon-inset]="icon"
     (click)="toggle()">
 
-    <li *ngFor="let tag of tags; let i = index" class="ux-tag"
+    <li *ngFor="let tag of _tags; let i = index" class="ux-tag"
         [class.disabled]="disabled"
         [ngClass]="tagClass(tag, i, isSelected(i))"
         [attr.tabindex]="disabled ? null : 0"
@@ -23,6 +23,7 @@
                (ngModelChange)="setInputValue($event)"
                [autocomplete]="autocomplete"
                [class.invalid]="!inputValid"
+               [required]="required"
                [attr.aria-activedescendant]="highlightedElement?.id"
                [attr.aria-autocomplete]="typeahead ? 'list' : 'none'"
                [attr.aria-controls]="typeahead?.id"
@@ -30,9 +31,10 @@
                aria-multiline="false"
                [placeholder]="disabled ? '' : (placeholder || '')"
                [disabled]="disabled"
-               [focusIf]="isSelected(tags.length)"
+               [focusIf]="isSelected(_tags.length)"
                (click)="toggle(); $event.stopPropagation()"
                (focus)="inputFocusHandler(); inputFocus.emit($event)"
+               (blur)="inputBlur.emit($event)"
                (paste)="inputPasteHandler($event)"
                [readonly]="readonlyInput">
     </li>

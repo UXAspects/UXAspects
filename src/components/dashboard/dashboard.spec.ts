@@ -68,7 +68,7 @@ describe('Dashboard', () => {
     });
 
     it('should stack widgets if columns reduced allowing only one widget per row', async () => {
-        expect(widgetB.style.top).toBe('0px');
+        expect(widgetB.style.top).toBe('');
 
         const adjustedOptions = { ...component.options, columns: 3 };
 

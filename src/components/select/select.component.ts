@@ -1,3 +1,4 @@
+import { BooleanInput, coerceBooleanProperty, coerceNumberProperty, NumberInput } from '@angular/cdk/coercion';
 import { ENTER } from '@angular/cdk/keycodes';
 import { Platform } from '@angular/cdk/platform';
 import { DOCUMENT } from '@angular/common';
@@ -46,10 +47,10 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
     /** The text in the input area. This is used to filter the options dropdown. */
     @Input()
     set input(value: string) {
-        this._input$.next(value);
+        this._input$.next({ ...this._input$.value, value });
     }
     get input() {
-        return this._input$.value;
+        return this._input$.value.value;
     }
 
     /** The status of the typeahead dropdown. */
@@ -103,7 +104,7 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
     @Input() disabled: boolean = false;
 
     /** The positioning of the typeahead dropdown in relation to its parent. */
-    @Input() dropDirection: 'up' | 'down' = 'down';
+    @Input() dropDirection: 'auto' | 'up' | 'down' = 'down';
 
     /** The maximum height of the typeahead dropdown, as a CSS value. */
     @Input() maxHeight: string = '250px';
@@ -133,6 +134,10 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
      */
     @Input() tagTemplate: TemplateRef<TagTemplateContext>;
 
+    @Input() optionsHeadingTemplate: TemplateRef<void>;
+
+    @Input() recentOptionsHeadingTemplate: TemplateRef<void>;
+
     /**
      * Defines the `autocomplete` property on the `input` element which can be used to prevent the browser from
      * displaying autocomplete suggestions.
@@ -154,6 +159,15 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
     /** Determine an aria label for the clear button */
     @Input() clearButtonAriaLabel: string = 'Reset selection';
 
+    /** Determine if the dropdown panel should close on external click.*/
+    @Input() set autoCloseDropdown(value: boolean) {
+        this._autoCloseDropdown = coerceBooleanProperty(value);
+    }
+
+    get autoCloseDropdown(): boolean {
+        return this._autoCloseDropdown;
+    }
+
     /**
      * A template which will be rendered in the dropdown for each option.
      * The following context properties are available in the template:
@@ -170,6 +184,18 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
 
     /** Maximum number of displayed recently selected options. */
     @Input() recentOptionsMaxCount: number;
+
+    /** Specified if this is a required input. */
+    @Input() required: boolean;
+
+    /** Specify the debounceTime value for the select filter */
+    @Input() get filterDebounceTime(): number {
+        return this._filterDebounceTime;
+    }
+
+    set filterDebounceTime(filterDebounceTime: number) {
+        this._filterDebounceTime = coerceNumberProperty(filterDebounceTime);
+    }
 
     /** Emits when `value` changes. */
     @Output() valueChange = new EventEmitter<T | ReadonlyArray<T>>();
@@ -199,10 +225,12 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
 
     /** We need to store the most recent value*/
     private _value: T | ReadonlyArray<T>;
-    private _input$ = new BehaviorSubject<string>('');
+    private _input$ = new BehaviorSubject<InputValue>({ userInteraction: false, value: '' });
     private _dropdownOpen: boolean = false;
     private _userInput: boolean = false;
-    private _onChange = (_: T | ReadonlyArray<T>) => { };
+    private _filterDebounceTime: number = 200;
+    private _autoCloseDropdown: boolean = true;
+    private _onChange = (_: T | ReadonlyArray<T>) => {};
     private _onTouched = () => { };
     private _onDestroy = new Subject<void>();
 
@@ -225,19 +253,16 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
         this._input$.pipe(
             skip(1),
             filter(() => this.allowNull),
-            filter(value => !this.multiple && value !== this.getDisplay(this.value)),
+            filter(value => !this.multiple && value.value !== this.getDisplay(this.value)),
             takeUntil(this._onDestroy)
-        ).subscribe(() => {
-            this.value = null;
-            this.valueChange.next(null),
-            this._onChange(null);
-        });
+            ).subscribe((input) => {
+                if (input.userInteraction && input.value === '') {
+                    this.value = null;
+                    this._onChange(null);
+                    this.valueChange.next(null);
+                }
+            });
 
-        // Set up filter from input
-        this.filter$ = this._input$.pipe(
-            map(input => !this.multiple && input === this.getDisplay(this.value) ? '' : input),
-            debounceTime(200)
-        );
 
         // open the dropdown once the filter debounce has elapsed
         this.filter$.pipe(
@@ -270,6 +295,12 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
         if (changes.multiple && !changes.multiple.firstChange && changes.multiple.currentValue !== changes.multiple.previousValue) {
             this.input = '';
         }
+
+        // Set up filter from input
+        this.filter$ = this._input$.pipe(
+            map(input => !this.multiple && input.value === this.getDisplay(this.value) ? '' : input.value),
+            debounceTime(this.filterDebounceTime)
+        );
     }
 
     ngOnDestroy(): void {
@@ -313,7 +344,7 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
 
         // Close dropdown and reset text input if focus is lost
         setTimeout(() => {
-            if (!this._element.nativeElement.contains(this._document.activeElement)) {
+            if (!this._element.nativeElement.contains(this._document.activeElement) && this._autoCloseDropdown) {
                 this.dropdownOpen = false;
                 if (!this.multiple) {
                     this.input = this.getDisplay(this.value);
@@ -352,7 +383,13 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
 
     /** This gets called whenever the user types in the input */
     onInputChange(input: string): void {
-        this.inputChange.emit(input);
+
+        this._input$.next({
+            value: input,
+            userInteraction: true
+        });
+
+        this.inputChange.emit(this.input);
     }
 
     /** Whenever a single select item is selected emit the values */
@@ -432,6 +469,7 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
         // clear the value and input text
         this.value = null;
         this.input = null;
+
         this.selectInputText();
 
         // emit the latest values
@@ -445,5 +483,12 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
             this.singleInput.nativeElement.select();
         }
     }
+
+    static ngAcceptInputType_filterDebounceTime: NumberInput;
+    static ngAcceptInputType_autoCloseDropdown: BooleanInput;
 }
 
+interface InputValue {
+    value: string;
+    userInteraction: boolean;
+}

@@ -1,7 +1,7 @@
-import { CheckboxModule } from './checkbox.module';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { CheckboxComponent } from './checkbox.component';
 import { ChangeDetectionStrategy } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { CheckboxComponent } from './checkbox.component';
+import { CheckboxModule } from './checkbox.module';
 
 describe('Checkbox Component', () => {
     let fixture: ComponentFixture<CheckboxComponent>;
@@ -11,7 +11,7 @@ describe('Checkbox Component', () => {
     let changeCallbackSpy: jasmine.Spy;
     let touchedCallbackSpy: jasmine.Spy;
 
-    beforeEach(async(() => {
+    beforeEach((() => {
         TestBed.configureTestingModule({
             imports: [CheckboxModule]
         })
@@ -130,6 +130,17 @@ describe('Checkbox Component', () => {
         expect(valueChangeSpy).not.toHaveBeenCalled();
         expect(changeCallbackSpy).not.toHaveBeenCalled();
         expect(touchedCallbackSpy).not.toHaveBeenCalled();
+    });
+
+    it('should add a required attribute to the input when required is true', () => {
+        component.required = true;
+
+        fixture.detectChanges();
+
+        const inputElementEmpty = nativeElement.querySelector<HTMLInputElement>('input.ux-checkbox-input');
+        const attributeRequired = inputElementEmpty.hasAttribute('required');
+
+        expect(attributeRequired).toBe(true);
     });
 
     function getInput(): HTMLInputElement {

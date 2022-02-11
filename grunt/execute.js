@@ -3,9 +3,7 @@ const { cwd } = require('process');
 
 const scripts = join(cwd(), 'scripts');
 const uxaScripts = join(cwd(), 'node_modules', '@ux-aspects', 'ux-aspects-scripts', 'bin');
-const downlevelDts = join(cwd(), 'node_modules', 'downlevel-dts', 'index.js');
-const ngPackagr = join(cwd(), 'node_modules', 'ng-packagr', 'cli', 'main.js');
-const webpack = join(cwd(), 'node_modules', 'webpack', 'bin', 'webpack.js');
+const ngCli = join(cwd(), 'node_modules', '@angular', 'cli', 'bin', 'ng.js');
 
 module.exports = {
     iconset: {
@@ -17,19 +15,10 @@ module.exports = {
     less: {
         src: [join(scripts, 'inline-less.js')]
     },
-    protractor: {
-        src: [join(cwd(), 'scripts', 'protractor.js')]
-    },
-    'downlevel-dts': {
-        src: [downlevelDts],
+    'build-library': {
+        src: [ngCli],
         options: {
-            args: [join(cwd(), 'dist', 'library'), join(cwd(), 'dist', 'library'), '--to', '3.7']
-        }
-    },
-    ngpackagr: {
-        src: [ngPackagr],
-        options: {
-            args: ['-p', 'src/ng-package.json']
+            args: ['build', 'ux-aspects', '--configuration=production']
         }
     },
     'package_artifactory_ux-aspects': {
@@ -44,11 +33,29 @@ module.exports = {
             args: ['ux-aspects-docs', 'ux-aspects']
         }
     },
-    webpack_documentation: {
-        src: [webpack],
+    'build-documentation': {
+        src: [ngCli],
         options: {
-            nodeargs: ['--max-old-space-size=4096'],
-            args: ['--config', 'configs/webpack.docs.prod.config.js']
+            args: ['build', 'documentation', '--configuration=production'],
+            nodeargs: ['--max-old-space-size=8192']
+        }
+    },
+    'lint-documentation': {
+        src: [ngCli],
+        options: {
+            args: ['lint', 'documentation']
+        }
+    },
+    'lint-library': {
+        src: [ngCli],
+        options: {
+            args: ['lint', 'ux-aspects']
+        }
+    },
+    'lint-e2e': {
+        src: [ngCli],
+        options: {
+            args: ['lint', 'ux-aspects-e2e']
         }
     },
 };

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ColorService, ColorIdentifier } from '@ux-aspects/ux-aspects';
+import { ColorIdentifier, ColorService } from '@ux-aspects/ux-aspects';
 
 @Component({
     selector: 'app',
@@ -20,7 +20,8 @@ export class AppComponent {
             theme: 'chart3',
             value: 30,
             barHeight: 5,
-            inlineLabel: '30%'
+            inlineLabel: '30%',
+            ariaLabel: 'Spark Line indicator - 30%'
         },
         {
             theme: 'chart2',
@@ -39,7 +40,8 @@ export class AppComponent {
             barHeight: 5,
             inlineLabel: `<div class="spark-label hidden-spark"><span class="x-large">30%</span></div>`,
             topLeftLabel: `<span class="spark-label hidden-xxs"><span class="small">
-                            STORAGE ON HOLD</span></span>`
+                            STORAGE ON HOLD</span></span>`,
+            ariaLabel: 'Spark Line indicator - STORAGE ON HOLD'
         },
         {
             theme: 'chart4',
@@ -47,7 +49,8 @@ export class AppComponent {
             barHeight: 8,
             topLeftLabel: `<span class="spark-label hidden-xxs"><span class="large">8.6</span>
                             <span class="medium light">&nbsp;GB&nbsp;Disk Space&nbsp;&nbsp;(55%)
-                            </span></span>`
+                            </span></span>`,
+            ariaLabel: 'Spark Line indicator - 55% Disk Space'
         },
         {
             theme: 'chart5',
@@ -56,7 +59,8 @@ export class AppComponent {
             topLeftLabel: `<span class="spark-label">21.7 MB</span>`,
             topRightLabel: `<span class="spark-label">75.0 MB</span>`,
             bottomLeftLabel: `<span class="spark-label">ITEMS ON HOLD</span>`,
-            bottomRightLabel: `<span class="spark-label">TOTAL</span>`
+            bottomRightLabel: `<span class="spark-label">TOTAL</span>`,
+            ariaLabel: 'Spark Line indicator - ITEMS ON HOLD'
         },
         {
             value: [70, 20, 10],
@@ -75,7 +79,8 @@ export class AppComponent {
             topRightLabel: `<span class="spark-label hidden-spark"><span class="medium light">
                                 75.0 MB</span></span>`,
             bottomRightLabel: `<span class="spark-label hidden-xxs"><span class="medium light">
-                                #TOTAL</span></span>`
+                                #TOTAL</span></span>`,
+            ariaLabel: 'Spark Line indicator'
         }
     ];
 

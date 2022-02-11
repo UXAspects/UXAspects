@@ -1,14 +1,15 @@
-import { OverlayContainer } from '@angular/cdk/overlay';
+import { OverlayContainer, OverlayRef } from '@angular/cdk/overlay';
 import { Component, ViewChild } from '@angular/core';
 import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { OverlayPlacementService } from '../../services/overlay-placement';
 import { MenuTriggerDirective } from './menu-trigger/menu-trigger.directive';
 import { MenuModule } from './menu.module';
 
 @Component({
     selector: 'app-menu-test',
     template: `
-        <ux-menu #menu>
+        <ux-menu #menu [alignment]="alignment">
             <button
                 type="button"
                 id="menu-item-1"
@@ -45,6 +46,7 @@ import { MenuModule } from './menu.module';
     `
 })
 export class MenuTestComponent {
+    alignment = 'start';
     disabled: boolean = false;
     @ViewChild('menuTrigger', { static: true }) trigger: MenuTriggerDirective;
     @ViewChild('subMenuTrigger', { static: true }) subMenuTrigger: MenuTriggerDirective;
@@ -60,6 +62,7 @@ describe('MenuComponent', () => {
     let triggerElement: HTMLButtonElement;
     let overlayContainer: OverlayContainer;
     let overlayContainerElement: HTMLElement;
+    let overlayPlacement: OverlayPlacementService;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
@@ -83,11 +86,12 @@ describe('MenuComponent', () => {
         component = fixture.componentInstance;
         nativeElement = fixture.nativeElement;
         triggerElement = nativeElement.querySelector('#trigger');
+        overlayPlacement = TestBed.inject(OverlayPlacementService);
 
         fixture.detectChanges();
     });
 
-    it('should create not intially show the menus', () => {
+    it('should create not initially show the menus', () => {
         // attempt to find the .ux-menu elements
         expect(document.querySelectorAll('.ux-menu').length).toBe(0);
     });
@@ -427,6 +431,33 @@ describe('MenuComponent', () => {
         expect(subItemMenu).toBeFalsy();
     });
 
+    it('should contain the role menu in the overlay dropdown', async () => {
+        // perform a click on the trigger element
+        await triggerElement.click();
+
+        // run change detection
+        await fixture.detectChanges();
+
+        // only the root level menu item should be open
+        expect(document.querySelectorAll('.ux-menu').length).toBe(1);
+
+        // expect the ux-menu to contain the role
+        expect(document.querySelector('.ux-menu').getAttribute('role')).toBe('menu');
+    });
+
+    it('should change update the alignment when the alignment input is changed', async () => {
+        spyOn(overlayPlacement, 'updatePosition').and.callThrough();
+
+        // change the input
+        component.alignment = 'end';
+
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        // expect alignment to be the default
+        expect(await overlayPlacement.updatePosition).toHaveBeenCalledWith(jasmine.any(OverlayRef), 'bottom', 'end');
+    });
+
 });
 
 @Component({
@@ -441,13 +472,13 @@ describe('MenuComponent', () => {
             </button>
         </div>
 
-        <ux-menu #menu>
+        <ux-menu id="ux-menu-1" #menu>
             <button type="button" uxMenuItem>
                 <span class="dropdown-menu"></span>
                 <span class="dropdown-menu-text">Export</span>
             </button>
 
-            <button type="button" uxMenuItem>
+            <button type="button" id="menu-item-2" (activate)="onActivate($event)" [closeOnSelect]="closeOnSelect" uxMenuItem>
                 <span class="dropdown-menu"></span>
                 <span class="dropdown-menu-text">Annotate</span>
             </button>
@@ -461,9 +492,12 @@ describe('MenuComponent', () => {
 })
 export class MenuTriggerDestroyTestComponent {
     @ViewChild(MenuTriggerDirective, { static: false })
+
     trigger: MenuTriggerDirective;
+    onActivate(_: MouseEvent | KeyboardEvent): void { }
 
     showTrigger: boolean = true;
+    closeOnSelect: boolean = true;
 }
 
 describe('MenuTriggerDestroyTestComponent', () => {
@@ -498,4 +532,64 @@ describe('MenuTriggerDestroyTestComponent', () => {
         expect(component.trigger).toBeFalsy();
         expect(document.querySelectorAll('.ux-menu').length).toBe(0);
     });
+
+    it('should not close the menu when an item is clicked when closeOnSelect is false', async () => {
+        component.closeOnSelect = false;
+        // open menu
+        component.trigger.openMenu();
+
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        // close menu by clicking on an item
+        const items = document.querySelectorAll<HTMLButtonElement>(
+            'button[uxmenuitem]'
+        );
+
+        items.item(1).click();
+        fixture.detectChanges();
+        await fixture.whenStable();
+        expect(document.querySelectorAll('.ux-menu').length).toBe(1);
+    });
+
+    it('should not close the menu item when pressing enter key when closeOnSelect is false', async () => {
+        component.closeOnSelect = false;
+        component.trigger.openMenu();
+
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        const item2Element = document.querySelector('#menu-item-2') as HTMLButtonElement;
+        item2Element.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
+
+        fixture.detectChanges();
+        await fixture.whenStable();
+        expect(document.querySelectorAll('.ux-menu').length).toBe(1);
+    });
+
+    it('should contain the aria-controls attribute when the menu is opened', async () => {
+        expect(document.querySelector('.btn').getAttribute('aria-controls')).toBe(null);
+
+        // open menu
+        component.trigger.openMenu();
+
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        // get the aria-controls overlay
+        expect(document.querySelector('.btn').getAttribute('aria-controls')).toBe('ux-menu-1-menu');
+
+    });
+
+    it('should contain the correct id for the ux-menu and the overlay', async () => {
+        // open menu
+        component.trigger.openMenu();
+
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        expect(document.querySelector('.ux-menu').getAttribute('id')).toBe('ux-menu-1-menu');
+        expect(document.querySelector('ux-menu').getAttribute('id')).toBe('ux-menu-1');
+    });
+
 });

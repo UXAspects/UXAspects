@@ -1,30 +1,26 @@
 {
   "name": "@ux-aspects/ux-aspects",
-  "version": "3.2.0",
+  "version": "5.3.0",
   "description": "Open source user interface framework for building modern, responsive, mobile big data applications",
-  "main": "dist/bundles/ux-aspects.umd.js",
   "files": [
-    "bundles/",
     "common/",
     "components/",
     "directives/",
-    "esm2015/",
-    "esm5/",
+    "esm2020/",
     "fesm2015/",
-    "fesm5/",
+    "fesm2020/",
+    "pipes/",
+    "plugins/",
+    "services/",
     "fonts/",
     "hybrid/",
     "img/",
     "index.d.ts",
     "less/",
     "package.json",
-    "pipes/",
-    "plugins/",
     "README.md",
-    "services/",
     "styles/",
-    "ux-aspects-ux-aspects.d.ts",
-    "ux-aspects-ux-aspects.metadata.json"
+    "ux-aspects-ux-aspects.d.ts"
   ],
   "repository": {
     "type": "git",
@@ -52,24 +48,35 @@
   },
   "homepage": "https://uxaspects.github.io/UXAspects",
   "dependencies": {
+    "@juggle/resize-observer": "^3.3.1",
     "@types/chart.js": "^2.9.3",
     "@types/d3": "^5.7.2",
-    "@types/dragula": "^2.1.33",
     "angular-split": "^4.0.0",
     "bootstrap": "^3.3.7",
-    "chart.js": "^2.9.3",
-    "d3": "^5.9.2",
-    "dragula": "^3.7.2",
-    "resize-observer-polyfill": "^1.5.0"
+    "d3": "^5.9.2"
+  },
+  "exports": {
+    "./styles/ux-aspects.css": {
+      "style": "./styles/ux-aspects.css",
+      "default": "./styles/ux-aspects.css"
+    },
+    "./styles/ux-aspects.min.css": {
+      "style": "./styles/ux-aspects.min.css",
+      "default": "./styles/ux-aspects.min.css"
+    },
+    "./less/ux-aspects.less": {
+      "style": "./less/ux-aspects.less",
+      "default": "./less/ux-aspects.less"
+    }
   },
   "peerDependencies": {
-    "@angular/animations": ">=9.0.0 <12.0.0",
-    "@angular/cdk": ">=9.0.0 <12.0.0",
-    "@angular/common": ">=9.0.0 <12.0.0",
-    "@angular/compiler": ">=9.0.0 <12.0.0",
-    "@angular/core": ">=9.0.0 <12.0.0",
-    "@angular/forms": ">=9.0.0 <12.0.0",
-    "@circlon/angular-tree-component": ">=10.0.0",
-    "ng2-charts": ">=2.3.0"
+    "@angular/animations": ">=12.0.0 <14.0.0",
+    "@angular/cdk": ">=12.0.0 <14.0.0",
+    "@angular/common": ">=12.0.0 <14.0.0",
+    "@angular/compiler": ">=12.0.0 <14.0.0",
+    "@angular/core": ">=12.0.0 <14.0.0",
+    "@angular/forms": ">=12.0.0 <14.0.0",
+    "chart.js": ">2.9.0 <3.0.0",
+    "ng2-charts": ">=2.3.0 <3.0.0"
   }
 }

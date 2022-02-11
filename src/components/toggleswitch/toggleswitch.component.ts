@@ -44,6 +44,9 @@ export class ToggleSwitchComponent implements ControlValueAccessor {
     /** Specify an aria labelledby property for the input element */
     @Input('aria-labelledby') ariaLabelledby: string = null;
 
+    /** Specified if this is a required input. */
+    @Input() required: boolean;
+
     /** Emits when `value` has been changed. */
     @Output() valueChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 

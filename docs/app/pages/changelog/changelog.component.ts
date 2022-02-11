@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { IChangeLog } from '../../interfaces/IChangeLog';
 import { AppConfiguration } from '../../services/app-configuration/app-configuration.service';
@@ -8,13 +8,130 @@ import { AppConfiguration } from '../../services/app-configuration/app-configura
     templateUrl: './changelog.component.html',
     styleUrls: ['./changelog.component.less']
 })
-export class ChangeLogPageComponent {
+export class ChangeLogPageComponent implements OnInit {
 
     logs: IChangeLog[];
 
-    constructor(domSanitizer: DomSanitizer, appConfig: AppConfiguration) {
+    constructor(private domSanitizer: DomSanitizer, private appConfig: AppConfiguration) {
+    }
 
+    async ngOnInit(): Promise<void> {
         this.logs = [
+            {
+                version: '5.2.0',
+                date: 'February 3rd 2022',
+                content: require('./logs/release-v5.2.0.md')
+            },
+            {
+                version: '5.1.0',
+                date: 'January 20th 2022',
+                content: require('./logs/release-v5.1.0.md')
+            },
+            {
+                version: '5.0.0',
+                date: 'January 6th 2022',
+                content: require('./logs/release-v5.0.0.md')
+            },
+            {
+                version: '4.9.0',
+                date: 'October 28th 2021',
+                content: require('./logs/release-v4.9.0.md')
+            },
+            {
+                version: '4.8.0',
+                date: 'October 14th 2021',
+                content: require('./logs/release-v4.8.0.md')
+            },
+            {
+                version: '4.7.0',
+                date: 'September 30th 2021',
+                content: require('./logs/release-v4.7.0.md')
+            },
+            {
+                version: '4.6.0',
+                date: 'September 16th 2021',
+                content: require('./logs/release-v4.6.0.md')
+            },
+            {
+                version: '4.5.0',
+                date: 'September 2nd 2021',
+                content: require('./logs/release-v4.5.0.md')
+            },
+            {
+                version: '4.4.0',
+                date: 'August 19th 2021',
+                content: require('./logs/release-v4.4.0.md')
+            },
+            {
+                version: '4.3.0',
+                date: 'August 5th 2021',
+                content: require('./logs/release-v4.3.0.md')
+            },
+            {
+                version: '4.2.0',
+                date: 'July 22nd 2021',
+                content: require('./logs/release-v4.2.0.md')
+            },
+            {
+                version: '4.1.0',
+                date: 'June 8th 2021',
+                content: require('./logs/release-v4.1.0.md')
+            },
+            {
+                version: '4.0.0',
+                date: 'June 24th 2021',
+                content: require('./logs/release-v4.0.0.md')
+            },
+            {
+                version: '3.10.0',
+                date: 'May 27th 2021',
+                content: require('./logs/release-v3.10.0.md')
+            },
+            {
+                version: '3.9.0',
+                date: 'May 13th 2021',
+                content: require('./logs/release-v3.9.0.md')
+            },
+            {
+                version: '3.8.1',
+                date: 'April 29th 2021',
+                content: require('./logs/release-v3.8.1.md')
+            },
+            {
+                version: '3.7.0',
+                date: 'April 15th 2021',
+                content: require('./logs/release-v3.7.0.md')
+            },
+            {
+                version: '3.6.0',
+                date: 'April 1st 2021',
+                content: require('./logs/release-v3.6.0.md')
+            },
+            {
+                version: '3.5.0',
+                date: 'March 18th 2021',
+                content: require('./logs/release-v3.5.0.md')
+            },
+            {
+                version: '3.4.0',
+                date: 'March 4th 2021',
+                content: require('./logs/release-v3.4.0.md')
+            },
+            {
+                version: '3.3.0',
+                date: 'February 19th 2021',
+                content: require('./logs/release-v3.3.0.md')
+            },
+            {
+                version: '3.2.1',
+                date: 'February 8th 2021',
+                content: require('./logs/release-v3.2.1.md')
+            },
+            {
+                version: '3.2.0',
+                date: 'February 4th 2021',
+                content: require('./logs/release-v3.2.0.md')
+            },
             {
                 version: '3.1.0',
                 date: 'January 21st 2021',
@@ -498,8 +615,8 @@ export class ChangeLogPageComponent {
         ];
 
         this.logs.forEach(log => {
-            const markdown = log.content.replace(/{{baseUrl}}/g, appConfig.baseUrl);
-            log.content = domSanitizer.bypassSecurityTrustHtml(markdown) as string;
+            const markdown = log.content.replace(/{{baseUrl}}/g, this.appConfig.baseUrl);
+            log.content = this.domSanitizer.bypassSecurityTrustHtml(markdown) as string;
         });
 
     }

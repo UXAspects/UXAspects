@@ -155,7 +155,7 @@ export class InfiniteScrollDirective<T = any> implements OnInit, AfterContentIni
             }
 
             this._updateRequests.next({
-                check: check,
+                check,
                 pageNumber: this._nextPageNum,
                 pageSize: this.pageSize,
                 filter: this.coerceFilter(this.filter) as T
@@ -204,7 +204,7 @@ export class InfiniteScrollDirective<T = any> implements OnInit, AfterContentIni
     /**
      * Clear the collection. Future requests will load from page 0.
      */
-    reset(): void {
+    reset(clearSubscriptions: boolean = true): void {
         if (!this.enabled) {
             return;
         }
@@ -212,18 +212,18 @@ export class InfiniteScrollDirective<T = any> implements OnInit, AfterContentIni
         // Reset the page counter.
         this._nextPageNum = 0;
 
-        this._pages = [];
-
         // Clear the collection (without changing the reference).
         if (this.collection) {
             this.collection.length = 0;
         }
 
-        // Reset the exhausted flag, allowing the Load More button to appear.
-        this._isExhausted.next(false);
+        if (this._subscriptions && clearSubscriptions) {
+            this._pages = [];
 
-        // Cancel any pending requests
-        if (this._subscriptions) {
+            // Reset the exhausted flag, allowing the Load More button to appear.
+            this._isExhausted.next(false);
+
+            // Cancel any pending requests
             this._subscriptions.forEach(request => request.unsubscribe());
         }
     }
@@ -232,7 +232,7 @@ export class InfiniteScrollDirective<T = any> implements OnInit, AfterContentIni
      * Reload the data without clearing the view.
      */
     reload(): void {
-        this._pages.forEach((page, i) => this.reloadPage(i));
+        this._pages?.forEach((page, i) => this.reloadPage(i));
     }
 
     /**
@@ -317,16 +317,19 @@ export class InfiniteScrollDirective<T = any> implements OnInit, AfterContentIni
             // Invoke the callback load function, which returns a promose or plain data.
             const loadResult = this.load(request.pageNumber, request.pageSize, request.filter);
 
+            if (loadResult === null) {
+                return;
+            }
+
             const observable = Array.isArray(loadResult) ? of(loadResult) : from(loadResult);
 
             let completed: boolean = false;
-            let subscription: Subscription;
 
             // subscription needs to be a let here if subscription completes right away the complete function can be called
             // before the assignment. While browsers will ignore this currently as we transpile
             // all const/let statements to var, when this is no longer the case (or we are running in a test environment)
             // const will be used and this can throw an error if we try to access a const variable before it is assigned
-            subscription = observable.pipe(first()).subscribe(
+            const subscription = observable.pipe(first()).subscribe(
                 items => {
                     // Make sure that the parameters have not changed since the load started;
                     // otherwise discard the results.
@@ -380,7 +383,7 @@ export class InfiniteScrollDirective<T = any> implements OnInit, AfterContentIni
         // Load if the remaining scroll area is <= the element height.
         if (this._scrollElement && this.loadOnScroll) {
 
-            const element = <HTMLElement>this._scrollElement.nativeElement;
+            const element = this._scrollElement.nativeElement;
             const remainingScroll = element.scrollHeight - (element.scrollTop + element.clientHeight);
             const isVisible = element.scrollHeight > 0;
 
