@@ -15,41 +15,44 @@ import { AnchorPlacement } from '../../common/overlay/index';
 })
 export class OverlayPlacementService {
 
-    private _isSubMenu: boolean = false;
-    private _position: FlexibleConnectedPositionStrategy;
-    private _origin: OriginConnectedPositions;
-    private _overlay: OverlayConnectedPositions;
-    private _customFallbackPlacement: AnchorPlacement;
-
     /** Updates the position of the current menu. */
-    updatePosition(overlayRef: OverlayRef, placement: string, alignment: string, customFallbackPlacement?: AnchorPlacement, isSubMenu?: boolean): void {
-        this._isSubMenu = isSubMenu;
-        this._position = overlayRef.getConfig().positionStrategy as FlexibleConnectedPositionStrategy;
-        this._origin = this.getOrigin(placement, alignment);
-        this._overlay = this.getOverlayPosition(placement, alignment);
-        this._customFallbackPlacement = customFallbackPlacement;
+    updatePosition(
+        overlayRef: OverlayRef,
+        placement: string,
+        alignment: string,
+        customFallbackPlacement?: AnchorPlacement,
+        isSubMenu?: boolean
+    ): void {
+        const position = overlayRef.getConfig().positionStrategy as FlexibleConnectedPositionStrategy;
+        const origin = this.getOrigin(placement, alignment);
+        const overlay = this.getOverlayPosition(placement, alignment);
 
-        this._position.withPositions(this.addPositions());
+        position.withPositions(this.addPositions(origin, overlay, isSubMenu, customFallbackPlacement));
     }
 
     /** Apply position to position strategy */
-    private addPositions(): ConnectedPosition[] {
-        if (this._customFallbackPlacement) {
+    private addPositions(
+        origin: OriginConnectedPositions,
+        overlay: OverlayConnectedPositions,
+        isSubMenu: boolean,
+        customFallbackPlacement: AnchorPlacement
+    ): ConnectedPosition[] {
+        if (customFallbackPlacement) {
             return [
-                this.addOffset({ ...this._origin.main, ...this._overlay.main }),
-                this.addOffset(this.getFallbackPosition(this._customFallbackPlacement)),
+                this.addOffset({ ...origin.main, ...overlay.main }),
+                this.addOffset(this.getFallbackPosition(customFallbackPlacement)),
             ];
-        } else if (this._isSubMenu) {
+        } else if (isSubMenu) {
             return [
-                this.addOffset({ ...this._origin.main, ...this._overlay.main }),
-                this.addOffset({ ...this._origin.fallback, ...this._overlay.fallback }),
+                this.addOffset({ ...origin.main, ...overlay.main }),
+                this.addOffset({ ...origin.fallback, ...overlay.fallback }),
                 this.addOffset({ ...{ originX: 'end', originY: 'bottom' }, ...{ overlayX: 'start', overlayY: 'bottom' } }),
                 this.addOffset({ ...{ originX: 'start', originY: 'bottom' }, ...{ overlayX: 'end', overlayY: 'bottom' } })
             ];
         } else {
             return [
-                this.addOffset({ ...this._origin.main, ...this._overlay.main }),
-                this.addOffset({ ...this._origin.fallback, ...this._overlay.fallback })
+                this.addOffset({ ...origin.main, ...overlay.main }),
+                this.addOffset({ ...origin.fallback, ...overlay.fallback })
             ];
         }
     }
