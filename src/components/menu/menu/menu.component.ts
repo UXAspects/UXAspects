@@ -169,6 +169,7 @@ export class MenuComponent implements AfterContentInit, OnDestroy, OnChanges {
         this._placement$.complete();
     }
 
+    /** Set whether this menu should close when it loses focus */
     setCloseOnBlur(): void {
         this._keyManager.tabOut.pipe(take(1)).subscribe(() => this._closeAll$.next('keyboard'));
     }

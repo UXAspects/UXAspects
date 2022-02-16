@@ -221,7 +221,7 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
             this._parentMenu._closeAll$.next(origin);
         }
 
-        // we should focus the trigger element if this is the root trigger
+        // we should focus the trigger element if this is the root trigger unless otherwise specified
         if (this._isRootTrigger && focusTrigger) {
             this._focusIndicator.focus(origin);
         }
