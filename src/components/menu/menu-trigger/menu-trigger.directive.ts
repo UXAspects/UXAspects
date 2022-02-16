@@ -159,7 +159,7 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
         }
 
         if (this.closeOnBlur) {
-            this.menu.setCloseOnBlur(this.closeOnBlur);
+            this.menu.setCloseOnBlur();
         }
 
         // get or create an overlayRef

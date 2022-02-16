@@ -169,10 +169,8 @@ export class MenuComponent implements AfterContentInit, OnDestroy, OnChanges {
         this._placement$.complete();
     }
 
-    setCloseOnBlur(closeOnBlur: boolean): void {
-        if (closeOnBlur) {
-            this._keyManager.tabOut.pipe(take(1)).subscribe(() => this._closeAll$.next('keyboard'));
-        }
+    setCloseOnBlur(): void {
+        this._keyManager.tabOut.pipe(take(1)).subscribe(() => this._closeAll$.next('keyboard'));
     }
 
     /** Register a menu item - we do this do avoid `@ContentChildren` detecting submenu items */

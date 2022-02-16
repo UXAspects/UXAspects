@@ -93,7 +93,7 @@ describe('Menu', () => {
 
             await browser.actions().sendKeys(Key.TAB).perform();
 
-            // check menu open
+            // menu remains open
             expect(await element(by.className('ux-menu')).isPresent()).toBe(true);
         });
 
@@ -111,7 +111,7 @@ describe('Menu', () => {
 
             await browser.actions().sendKeys(Key.TAB).perform();
 
-            // check menu open
+            // menu remains open
             expect(await element(by.className('ux-menu')).isPresent()).toBe(true);
         });
 
@@ -131,7 +131,7 @@ describe('Menu', () => {
 
             await browser.actions().sendKeys(Key.TAB).perform();
 
-            // check menu open
+            // menu remains open
             expect(await element(by.className('ux-menu')).isPresent()).toBe(true);
         });
     });
