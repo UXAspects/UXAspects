@@ -107,7 +107,10 @@
     <tr uxd-api-property name="id" type="string" [required]="true">Sets the ID of the widget. Each widget should be given a unique ID.</tr>
     <tr uxd-api-property name="name" type="string" [required]="true">Sets the name used by aria labels and announcements.</tr>
     <tr uxd-api-property name="heading" type="string">Sets the heading of the widget.</tr>
-    <tr uxd-api-property name="fixedMode" type="boolean">Defines whether the widget can be dragged and resized.</tr>
+    <tr uxd-api-property name="fixedMode" type="boolean">
+        Defines whether the widget can be dragged and resized.<br>
+        <b>Note:</b> Widgets of the same dashboard need to be either all in fixed mode or none.
+    </tr>
     <tr uxd-api-property name="colSpan" type="number">Defines the number of columns this widget should occupy.</tr>
     <tr uxd-api-property name="rowSpan" type="number">Defines the number of rows this widget should occupy.</tr>
     <tr uxd-api-property name="grabHandleText" type="string">Sets the tooltip text for the grab handle.</tr>
