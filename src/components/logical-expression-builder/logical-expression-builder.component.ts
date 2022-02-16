@@ -77,6 +77,7 @@ export class LogicalExpressionBuilderComponent implements OnChanges, OnDestroy, 
         this.lebService.setDisplayValueFunction(displayValueFunction);
     }
 
+    readonly indentationStep: number = 30;
     hoverPath: number[] = [];
     _editBlocked$: Observable<boolean>;
     private destroy$: Subject<void> = new Subject<void>();
@@ -159,10 +160,12 @@ export class LogicalExpressionBuilderComponent implements OnChanges, OnDestroy, 
 
     /** Store the change callback provided by Angular Forms */
     onChange: (_: LogicalExpression) => void = () => {
+        // Empty function
     }
 
     /** Store the touched callback provided by Angular Forms */
     onTouched: () => void = () => {
+        // Empty function
     }
 
     registerOnChange(fn: (_: LogicalExpression) => void): void {

@@ -42,6 +42,7 @@ export class LebConditionComponent implements OnChanges, OnInit, OnDestroy {
         this._condition = condition;
     }
     @Input() indent: number = 0;
+    @Input() indentationStep: number = 30;
     @Input() path: number[];
     @Input() maxChildren: number[] = [];
     @Input() hoverPath: number[] = [];

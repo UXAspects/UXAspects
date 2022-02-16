@@ -17,7 +17,9 @@
             (subExpressionChange)="handleSubExpressionChange($event)"
             [path]="[0]"
             [maxChildren]="[99]"
-            [hoverPath]="hoverPath" (hoverPathChanged)="hoverPath = $event">
+            [hoverPath]="hoverPath" (hoverPathChanged)="hoverPath = $event"
+            [indent]="0"
+            [indentationStep]="indentationStep">
         </ux-leb-group>
     </div>
 </ng-template>
@@ -31,7 +33,9 @@
         [maxChildren]="[99]"
         [hoverPath]="hoverPath" (hoverPathChanged)="hoverPath = $event"
         (conditionDeleted)="deleteCondition()"
-        (conditionEmbedded)="addGroup()">
+        (conditionEmbedded)="addGroup()"
+        [indent]="0"
+        [indentationStep]="indentationStep">
     </ux-leb-condition>
 
     <div class="leb-expression-row" expressionRow [rowPath]="[1]">

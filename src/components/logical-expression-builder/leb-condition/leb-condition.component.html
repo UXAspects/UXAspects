@@ -77,11 +77,11 @@
                         invisible: (maxChildren?.length > index) && (maxChildren[index] - path[index] < 2),
                         emphasis: (hoverPath | isEmphasized : path : index)
                     }"
-                    *ngFor="let levels of [].constructor(indent / 40 - 1); let index = index"
+                    *ngFor="let levels of [].constructor(indent / indentationStep - 1); let index = index"
                 ></span><span
                     class="lastTreeElement"
                     [ngClass]="{
-                        emphasis: (hoverPath | isEmphasized : path : (indent / 40 - 1))
+                        emphasis: (hoverPath | isEmphasized : path : (indent / indentationStep - 1))
                     }"
                 ></span>
             </span>

@@ -23,6 +23,7 @@ export class LebGroupComponent implements OnInit, OnDestroy {
     @Output() subExpressionChange: EventEmitter<ExpressionGroup> = new EventEmitter<ExpressionGroup>();
 
     @Input() indent: number = 0;
+    @Input() indentationStep: number = 30;
     @Input() path: number[];
     @Input() maxChildren: number[] = [];
     @Input() hoverPath: number[] = [];
@@ -42,7 +43,6 @@ export class LebGroupComponent implements OnInit, OnDestroy {
     private _subExpression: ExpressionGroup;
     _children: ReadonlyArray<LogicalExpression>;
 
-    readonly additionalIndent: number = 40;
     logicalOperators: LogicalOperatorDefinition[];
     _logicalOperatorOptions: ReadonlyArray<LogicalOperatorDefinition> = null;
     selectedLogicalOperator: LogicalOperatorDefinition;
@@ -182,8 +182,8 @@ export class LebGroupComponent implements OnInit, OnDestroy {
     private validate(logicalOperator: LogicalOperatorDefinition = this.selectedLogicalOperator): boolean {
         if ('minNumberOfChildren' in logicalOperator && 'maxNumberOfChildren' in logicalOperator) {
             const numberOfChildren = this._subExpression.children?.length;
-            const tooFew = !(numberOfChildren >= logicalOperator.minNumberOfChildren);
-            const tooMany = !(numberOfChildren <= logicalOperator.maxNumberOfChildren);
+            const tooFew = numberOfChildren < logicalOperator.minNumberOfChildren;
+            const tooMany = numberOfChildren > logicalOperator.maxNumberOfChildren;
 
             this._valid = !tooFew && !tooMany;
 

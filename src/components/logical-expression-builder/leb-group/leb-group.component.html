@@ -9,11 +9,11 @@
         <span
             class="firstTreeElement"
             [ngClass]="{
-                firstOperatorTreeElement: index === indent / 40 - 1,
+                firstOperatorTreeElement: index === indent / indentationStep - 1,
                 emphasis: (hoverPath | isEmphasized : path : index),
                 'L-TreeElement': (maxChildren?.length > index) && (maxChildren[index] - path[index] < 2)
             }"
-            *ngFor="let levels of [].constructor(indent / 40); let index = index"
+            *ngFor="let levels of [].constructor(indent / indentationStep); let index = index"
         ></span>
 
         <div class="btn-group">
@@ -74,7 +74,8 @@
         (hoverPathChanged)="hoverPathChanged.emit($event)"
         (conditionDeleted)="removeConditionAtIndex($event)"
         (conditionEmbedded)="embedConditionAtIndex($event)"
-        [indent]="indent + additionalIndent">
+        [indent]="indent + indentationStep"
+        [indentationStep]="indentationStep">
     </ux-leb-condition>
 
     <ux-leb-group
@@ -85,7 +86,8 @@
         [hoverPath]="hoverPath"
         (hoverPathChanged)="hoverPathChanged.emit($event)"
         (subExpressionChange)="handleSubExpressionChange($event, index)"
-        [indent]="indent + additionalIndent">
+        [indent]="indent + indentationStep"
+        [indentationStep]="indentationStep">
     </ux-leb-group>
 </ng-container>
 
@@ -103,11 +105,11 @@
                 invisible: (maxChildren?.length > index) && (maxChildren[index] - path[index] < 2),
                 emphasis: (hoverPath | isEmphasized : path : index)
             }"
-            *ngFor="let levels of [].constructor(indent / 40); let index = index;"
+            *ngFor="let levels of [].constructor(indent / indentationStep); let index = index;"
         ></span><span
             class="L-TreeElement"
             [ngClass]="{
-                emphasis: (hoverPath | isEmphasized : path.concat([_children?.length || 0]) : (indent / 40))
+                emphasis: (hoverPath | isEmphasized : path.concat([_children?.length || 0]) : (indent / indentationStep))
             }"
         ></span>
             <button
