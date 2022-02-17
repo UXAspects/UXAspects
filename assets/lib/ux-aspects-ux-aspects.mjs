@@ -12957,6 +12957,10 @@ class MenuComponent {
         this._items$.complete();
         this._placement$.complete();
     }
+    /** Set whether this menu should close when it loses focus */
+    setCloseOnBlur() {
+        this._keyManager.tabOut.pipe(take(1)).subscribe(() => this._closeAll$.next('keyboard'));
+    }
     /** Register a menu item - we do this do avoid `@ContentChildren` detecting submenu items */
     _addItem(item) {
         if (!this.hasItem(item)) {
@@ -13325,6 +13329,9 @@ class MenuTriggerDirective {
         if (this.menu.isMenuOpen || this.disabled) {
             return;
         }
+        if (this.closeOnBlur) {
+            this.menu.setCloseOnBlur();
+        }
         // get or create an overlayRef
         const overlayRef = this.getOverlay();
         const portal = this.getPortal();
@@ -13357,13 +13364,12 @@ class MenuTriggerDirective {
             this.menu.closed.pipe(take(1), takeUntil(this._onDestroy$))
                 .subscribe(() => this.destroyMenu());
         }
-        if (this.closeOnBlur) {
-            // listen the overlay to lose focus then close the menu
-            fromEvent(this._overlayRef.hostElement, 'focusout').pipe(takeUntil(this._onDestroy$)).subscribe(() => this.closeOnFocusout());
-        }
     }
     /** Close a menu or submenu */
-    closeMenu(origin, closeParents = false) {
+    closeMenu(origin, closeParents = false, focusTrigger = true) {
+        if (!this._overlayRef.hasAttached()) {
+            return;
+        }
         // update the menu state
         this.menu._setMenuOpen(false);
         if (this._menuItem) {
@@ -13373,8 +13379,8 @@ class MenuTriggerDirective {
         if (closeParents && this._parentMenu) {
             this._parentMenu._closeAll$.next(origin);
         }
-        // we should focus the trigger element if this is the root trigger
-        if (this._isRootTrigger) {
+        // we should focus the trigger element if this is the root trigger unless otherwise specified
+        if (this._isRootTrigger && focusTrigger) {
             this._focusIndicator.focus(origin);
         }
         return this.menu.closed;
@@ -13499,7 +13505,7 @@ class MenuTriggerDirective {
     }
     /** Get an observable that emits on any of the triggers that close a menu */
     didMenuClose() {
-        return merge(this._overlayRef.backdropClick(), this._overlayRef.detachments(), this._parentMenu ? this._parentMenu.closing : of(), this._menuShouldClose);
+        return merge(this._overlayRef.backdropClick(), this._parentMenu ? this._parentMenu.closing : of(), this._menuShouldClose);
     }
     /** When the menu opens we want to focus the first item in the list */
     menuDidOpen() {
@@ -13539,7 +13545,7 @@ class MenuTriggerDirective {
         if (this.menu.isMenuOpen) {
             setTimeout(() => {
                 if (!this.hasFocus()) {
-                    this.closeMenu(undefined, true);
+                    this.closeMenu(undefined, true, false);
                 }
             }, this._debounceTime);
         }
