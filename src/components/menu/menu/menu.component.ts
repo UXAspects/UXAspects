@@ -2,7 +2,7 @@ import { animate, style, transition, trigger } from '@angular/animations';
 import { FocusKeyManager, FocusOrigin } from '@angular/cdk/a11y';
 import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, HostBinding, Inject, Input, OnChanges, OnDestroy, Optional, Output, QueryList, SimpleChanges, TemplateRef, ViewChild, ViewRef } from '@angular/core';
 import { BehaviorSubject, merge, Observable, Subject } from 'rxjs';
-import { map, switchMap, takeUntil } from 'rxjs/operators';
+import { map, switchMap, take, takeUntil } from 'rxjs/operators';
 import { AnchorAlignment, AnchorPlacement } from '../../../common/overlay/index';
 import { MenuItemType } from '../menu-item/menu-item-type.enum';
 import { MenuItemComponent } from '../menu-item/menu-item.component';
@@ -167,6 +167,11 @@ export class MenuComponent implements AfterContentInit, OnDestroy, OnChanges {
         this._activeItem$.complete();
         this._items$.complete();
         this._placement$.complete();
+    }
+
+    /** Set whether this menu should close when it loses focus */
+    setCloseOnBlur(): void {
+        this._keyManager.tabOut.pipe(take(1)).subscribe(() => this._closeAll$.next('keyboard'));
     }
 
     /** Register a menu item - we do this do avoid `@ContentChildren` detecting submenu items */
