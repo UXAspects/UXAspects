@@ -39,20 +39,20 @@ export class OverlayPlacementService {
     ): ConnectedPosition[] {
         if (customFallbackPlacement) {
             return [
-                this.addOffset({ ...origin.main, ...overlay.main }),
-                this.addOffset(this.getFallbackPosition(customFallbackPlacement)),
+                { ...origin.main, ...overlay.main },
+                this.getFallbackPosition(customFallbackPlacement),
             ];
         } else if (isSubMenu) {
             return [
-                this.addOffset({ ...origin.main, ...overlay.main }),
-                this.addOffset({ ...origin.fallback, ...overlay.fallback }),
-                this.addOffset({ ...{ originX: 'end', originY: 'bottom' }, ...{ overlayX: 'start', overlayY: 'bottom' } }),
-                this.addOffset({ ...{ originX: 'start', originY: 'bottom' }, ...{ overlayX: 'end', overlayY: 'bottom' } })
+                { ...origin.main, ...overlay.main },
+                { ...origin.fallback, ...overlay.fallback },
+                { ...{ originX: 'end', originY: 'bottom' }, ...{ overlayX: 'start', overlayY: 'bottom' } },
+                { ...{ originX: 'start', originY: 'bottom' }, ...{ overlayX: 'end', overlayY: 'bottom' } }
             ];
         } else {
             return [
-                this.addOffset({ ...origin.main, ...overlay.main }),
-                this.addOffset({ ...origin.fallback, ...overlay.fallback })
+                { ...origin.main, ...overlay.main },
+                { ...origin.fallback, ...overlay.fallback }
             ];
         }
     }
@@ -61,7 +61,7 @@ export class OverlayPlacementService {
     private getOrigin(
         initialPlacement: string,
         alignment: string
-    ): { main: OriginConnectionPosition; fallback: OriginConnectionPosition } {
+    ): OriginConnectedPositions {
         // ensure placement is defined
         const placement = initialPlacement || 'bottom';
         let originPosition: OriginConnectionPosition;
@@ -90,7 +90,7 @@ export class OverlayPlacementService {
     private getOverlayPosition(
         initialPlacement: string,
         alignment: string
-    ): { main: OverlayConnectionPosition; fallback: OverlayConnectionPosition } {
+    ): OverlayConnectedPositions {
         // ensure placement is defined
         const placement = initialPlacement || 'top';
         let overlayPosition: OverlayConnectionPosition;
@@ -117,11 +117,6 @@ export class OverlayPlacementService {
             main: overlayPosition!,
             fallback: { overlayX: x, overlayY: y },
         };
-    }
-
-    /** Adds the configured offset to a position. Used as a hook for child classes. */
-    private addOffset(position: ConnectedPosition): ConnectedPosition {
-        return position;
     }
 
     /** Convert the alignment property to a valid CDK alignment value */
