@@ -3,11 +3,11 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { CheckboxModule, DashboardModule, FacetsModule, FloatLabelModule, IconModule, PageHeaderModule, SliderModule, TooltipModule } from '@ux-aspects/ux-aspects';
-import { ChartsModule } from 'ng2-charts';
+import { NgChartsModule } from 'ng2-charts';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
-import { ShowcasePageComponent } from './showcase.component';
 import { DocumentationComponentsModule } from '../../components/components.module';
 import { ShowcaseOverviewPageComponent } from './overview/overview.component';
+import { ShowcasePageComponent } from './showcase.component';
 
 const DECLARATIONS = [
     ShowcasePageComponent,
@@ -30,7 +30,7 @@ const routes: Routes = [
 @NgModule({
     imports: [
         ButtonsModule,
-        ChartsModule,
+        NgChartsModule,
         CheckboxModule,
         CommonModule,
         DashboardModule,

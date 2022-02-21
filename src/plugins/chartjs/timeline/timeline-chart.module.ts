@@ -874,16 +874,16 @@ export enum TimelineHandle {
 
 export interface TimelineChartOptions {
     timeline?: {
-        backgroundColor?: Chart.ChartColor;
-        selectionColor?: Chart.ChartColor;
+        backgroundColor?: Chart.Color;
+        selectionColor?: Chart.Color;
         onChange?: (lower: Date, upper: Date) => void;
         keyboard?: {
             step?: number;
         },
         handles?: {
-            backgroundColor?: Chart.ChartColor;
-            foregroundColor?: Chart.ChartColor;
-            focusIndicatorColor?: Chart.ChartColor;
+            backgroundColor?: Chart.Color;
+            foregroundColor?: Chart.Color;
+            focusIndicatorColor?: Chart.Color;
             tooltip?: {
                 label: Function;
             }

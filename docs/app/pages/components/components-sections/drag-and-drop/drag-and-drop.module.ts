@@ -4,7 +4,7 @@ import { ComponentFactoryResolver, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { AccessibilityModule, ColorServiceModule, FocusIfModule, IconModule, MenuNavigationModule, ReorderableModule, TabsetModule } from '@ux-aspects/ux-aspects';
-import { ChartsModule } from 'ng2-charts';
+import { NgChartsModule } from 'ng2-charts';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
@@ -35,7 +35,7 @@ const ROUTES = [
         AccessibilityModule,
         BsDropdownModule,
         ButtonsModule,
-        ChartsModule,
+        NgChartsModule,
         ColorServiceModule,
         CommonModule,
         DocumentationComponentsModule,
