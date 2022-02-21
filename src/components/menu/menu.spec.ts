@@ -455,7 +455,7 @@ describe('MenuComponent', () => {
         await fixture.whenStable();
 
         // expect alignment to be the default
-        expect(await overlayPlacement.updatePosition).toHaveBeenCalledWith(jasmine.any(OverlayRef), 'bottom', 'end');
+        expect(await overlayPlacement.updatePosition).toHaveBeenCalledWith(jasmine.any(OverlayRef), 'bottom', 'end', undefined, false);
     });
 
 });

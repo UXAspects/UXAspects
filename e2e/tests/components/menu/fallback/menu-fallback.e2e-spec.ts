@@ -1,3 +1,4 @@
+import { $$, browser, Key } from 'protractor';
 import { imageCompare } from '../../common/image-compare';
 import { MenuFallbackPage } from './menu-fallback.po.spec';
 
@@ -37,4 +38,53 @@ describe('Menu (Fallback) Tests', () => {
         expect(await page.cdkOverlayContainer.isPresent()).toBe(true);
         expect(await imageCompare('menu-fallback-top')).toEqual(0);
     });
+
+    describe('Sub Menu', () => {
+
+        it('should default to bottom right', async () => {
+            await page.leftMenu.click();
+            await browser.actions().sendKeys(Key.SPACE).perform();
+            await browser.actions().sendKeys(Key.SPACE).perform();
+            await browser.actions().sendKeys(Key.ARROW_RIGHT).perform();
+
+            // check menu and submenu are open
+            expect((await $$('.ux-menu')).length).toBe(2);
+            expect(await imageCompare('menu-submenu-fallback-bottom-right')).toEqual(0);
+        });
+
+        it('should fallback to top right when space at the bottom is unavailable', async () => {
+            await page.bottomMenu.click();
+            await browser.actions().sendKeys(Key.SPACE).perform();
+            await browser.actions().sendKeys(Key.SPACE).perform();
+            await browser.actions().sendKeys(Key.ARROW_RIGHT).perform();
+
+            // check menu and submenu are open
+            expect((await $$('.ux-menu')).length).toBe(2);
+            expect(await imageCompare('menu-submenu-fallback-top-right')).toEqual(0);
+        });
+
+        it('should fallback to top left when space at the bottom and right is unavailable', async () => {
+            await page.bottomRightMenu.click();
+            await browser.actions().sendKeys(Key.SPACE).perform();
+            await browser.actions().sendKeys(Key.SPACE).perform();
+            await browser.actions().sendKeys(Key.ARROW_RIGHT).perform();
+
+            // check menu and submenu are open
+            expect((await $$('.ux-menu')).length).toBe(2);
+            expect(await imageCompare('menu-submenu-fallback-top-left')).toEqual(0);
+        });
+
+        it('should fallback to bottom left when space at the right is unavailable', async () => {
+            await page.rightMenu.click();
+            await browser.actions().sendKeys(Key.SPACE).perform();
+            await browser.actions().sendKeys(Key.SPACE).perform();
+            await browser.actions().sendKeys(Key.ARROW_RIGHT).perform();
+
+            // check menu and submenu are open
+            expect((await $$('.ux-menu')).length).toBe(2);
+            expect(await imageCompare('menu-submenu-fallback-bottom-left')).toEqual(0);
+        });
+
+    });
+
 });
