@@ -138,6 +138,7 @@
     "protractor": "^7.0.0",
     "protractor-console-plugin": "^0.1.1",
     "protractor-image-comparison": "^3.3.0",
+    "protractor-retry": "^2.0.1",
     "raw-loader": "^4.0.2",
     "stylelint": "7.13.0",
     "time-grunt": "1.4.0",
