@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ColorService } from '@ux-aspects/ux-aspects';
+import { ChartDataset, ChartOptions, TooltipItem } from 'chart.js';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
@@ -30,68 +31,70 @@ export class ChartsHorizontalBarChartComponent extends BaseDocumentationSection 
         }]
     };
 
-    // configure the directive data
-    barChartData: Chart.ChartDataSets[] = [{
-        data: [44, 32, 34, 19, 25, 34],
-        borderWidth: 1,
-        barPercentage: 0.5,
-        categoryPercentage: 1
-    }];
-
+    barChartData: ChartDataset[];
     barChartLabels: string[] = ['.txt', '.html', '.xls', '.pdf', '.ppt', '.doc'];
-    barChartOptions: Chart.ChartOptions;
+    barChartOptions: ChartOptions<'bar'>;
     barChartLegend: boolean = false;
     barChartColors: any;
 
     constructor(colorService: ColorService) {
         super(require.context('./snippets/', false, /(html|css|js|ts)$/));
 
-        let tooltipBackgroundColor = colorService.getColor('grey2').toHex();
-        let barBackgroundColor = colorService.getColor('chart1').setAlpha(0.1).toRgba();
-        let barHoverBackgroundColor = colorService.getColor('chart1').setAlpha(0.2).toRgba();
-        let barBorderColor = colorService.getColor('chart1').toHex();
+        const tooltipBackgroundColor = colorService.getColor('grey2').toHex();
+        const barBackgroundColor = colorService.getColor('chart1').setAlpha(0.1).toRgba();
+        const barHoverBackgroundColor = colorService.getColor('chart1').setAlpha(0.2).toRgba();
+        const barBorderColor = colorService.getColor('chart1').toHex();
+
+        // configure the directive data
+        this.barChartData = [{
+            data: [44, 32, 34, 19, 25, 34],
+            borderWidth: 1,
+            barPercentage: 0.5,
+            categoryPercentage: 1,
+            backgroundColor: barBackgroundColor,
+            hoverBackgroundColor: barHoverBackgroundColor,
+            borderColor: barBorderColor,
+            hoverBorderColor: barBorderColor,
+        }];
 
         this.barChartOptions = {
             maintainAspectRatio: false,
             responsive: true,
             scales: {
-                xAxes: [{
-                    gridLines: {
+                x: {
+                    min: 0,
+                    max: 45,
+                    grid: {
                         color: 'transparent'
                     },
                     ticks: {
-                        min: 0,
-                        max: 45,
                         stepSize: 5
-                    } as Chart.LinearTickOptions
-                }],
-                yAxes: [{
-                    gridLines: {
-                        color: 'transparent'
-                    }
-                } as Chart.ChartXAxe]
-            },
-            tooltips: {
-                backgroundColor: tooltipBackgroundColor,
-                cornerRadius: 0,
-                callbacks: {
-                    title: (item: Chart.ChartTooltipItem[]) => {
-                        return;
-                    },
-                    label: (item: Chart.ChartTooltipItem) => {
-                        return `x: ${item.xLabel}, y: ${item.yLabel}`;
                     }
                 },
-                displayColors: false
-            } as any
+                y: {
+                    grid: {
+                        color: 'transparent'
+                    }
+                }
+            },
+            
+            indexAxis: 'y',
+            plugins: {
+                tooltip: {
+                    backgroundColor: tooltipBackgroundColor,
+                    cornerRadius: 0,
+                    callbacks: {
+                        title: (item: TooltipItem<'bar'>[])=> {
+                            return null;
+                        },
+                        label: (item: TooltipItem<'bar'>) => {
+                            return `x: ${item.label}, y: ${item.formattedValue}`;
+                        }
+                    },
+                    displayColors: false
+                }
+            }
         };
-
-        this.barChartColors = [{
-            backgroundColor: barBackgroundColor,
-            hoverBackgroundColor: barHoverBackgroundColor,
-            borderColor: barBorderColor
-        }];
-
     }
 
 }
