@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { ColorService } from '@ux-aspects/ux-aspects';
-import { Chart, ChartDataset, ChartOptions, ChartType, TooltipItem } from 'chart.js';
+import { Chart, ChartDataset, ChartOptions, TooltipItem } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
@@ -27,7 +27,7 @@ export class ChartsBarChartComponent extends BaseDocumentationSection implements
             library: 'chart.js'
         },
         {
-            imports: ['ChartsModule'],
+            imports: ['NgChartsModule'],
             library: 'ng2-charts'
         }, {
             imports: ['ColorServiceModule'],
@@ -37,7 +37,6 @@ export class ChartsBarChartComponent extends BaseDocumentationSection implements
 
     barChartData: ChartDataset[];
     barChartLabels: string[] = ['.doc', '.ppt', '.pdf', '.xls', '.html', '.txt', '.csv', '.mht'];
-    barChartType: ChartType = 'bar';
     barChartOptions: ChartOptions<'bar'>;
     barChartLegend: boolean = false;
     barChartColors: any;
