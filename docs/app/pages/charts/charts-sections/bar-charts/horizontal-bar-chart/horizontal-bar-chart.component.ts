@@ -77,7 +77,6 @@ export class ChartsHorizontalBarChartComponent extends BaseDocumentationSection 
                     }
                 }
             },
-            
             indexAxis: 'y',
             plugins: {
                 tooltip: {
