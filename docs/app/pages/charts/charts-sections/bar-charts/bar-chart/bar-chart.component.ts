@@ -118,7 +118,7 @@ export class ChartsBarChartComponent extends BaseDocumentationSection implements
 
             // only alter the bars that are forecast data
             if (index >= 6) {
-                bar.draw = function () {
+                bar.draw = function() {
                     chartInstance.ctx.save();
                     chartInstance.ctx.setLineDash([2, 2]);
                     chartJs.elements.Rectangle.prototype.draw.apply(this, arguments);
