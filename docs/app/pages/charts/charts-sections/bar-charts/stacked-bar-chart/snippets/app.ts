@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ColorService } from '@ux-aspects/ux-aspects';
+import { ChartDataset, ChartOptions, TooltipItem } from 'chart.js';
 
 @Component({
     selector: 'app',
@@ -7,33 +8,38 @@ import { ColorService } from '@ux-aspects/ux-aspects';
     styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-
     // configure the directive data
-    barChartData: Chart.ChartDataSets[];
+    barChartData: ChartDataset[];
     barChartLabels: string[] = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13'];
-    barChartOptions: Chart.ChartOptions;
+    barChartOptions: ChartOptions<'bar'>;
     barChartLegend: boolean = false;
     barChartColors: any;
 
     constructor(private colorService: ColorService) {
 
-        let tooltipBackgroundColor = colorService.getColor('grey2').toHex();
+        const tooltipBackgroundColor = colorService.getColor('grey2').toHex();
 
         this.barChartData = [
             {
                 data: this.generateRandomData(),
                 barPercentage: 0.6,
-                categoryPercentage: 1
+                categoryPercentage: 1,
+                backgroundColor: this.generateBarColors('chart1').backgroundColor,
+                hoverBackgroundColor: this.generateBarColors('chart1').hoverBackgroundColor
             },
             {
                 data: this.generateRandomData(),
                 barPercentage: 0.6,
-                categoryPercentage: 1
+                categoryPercentage: 1,
+                backgroundColor: this.generateBarColors('chart2').backgroundColor,
+                hoverBackgroundColor: this.generateBarColors('chart2').hoverBackgroundColor
             },
             {
                 data: this.generateRandomData(),
                 barPercentage: 0.6,
-                categoryPercentage: 1
+                categoryPercentage: 1,
+                backgroundColor: this.generateBarColors('chart3').backgroundColor,
+                hoverBackgroundColor: this.generateBarColors('chart3').hoverBackgroundColor
             }
         ];
 
@@ -44,50 +50,45 @@ export class AppComponent {
                 mode: 'nearest'
             },
             scales: {
-                xAxes: [{
+                x: {
                     stacked: true,
-                    gridLines: {
+                    grid: {
                         color: 'transparent'
                     }
-                }],
-                yAxes: [{
+                },
+                y: {
                     stacked: true,
+                    min: 0,
+                    max: 30000,
                     ticks: {
-                        min: 0,
-                        max: 30000,
                         stepSize: 5000,
                         callback: (value: any, index: any, values: any) => {
                             return value + '€';
                         }
-                    } as Chart.LinearTickOptions
-                }]
-            },
-            tooltips: {
-                backgroundColor: tooltipBackgroundColor,
-                cornerRadius: 0,
-                callbacks: {
-                    title: (item: Chart.ChartTooltipItem[]) => {
-                        return `Sales ${item[0].datasetIndex + 1}`;
-                    },
-                    label: (item: Chart.ChartTooltipItem) => {
-                        return `${item.yLabel}€ in cycle ${item.index}`;
                     }
-                },
-                displayColors: false
-            } as any
+                }
+            },
+            plugins: {
+                tooltip: {
+                    backgroundColor: tooltipBackgroundColor,
+                    cornerRadius: 0,
+                    callbacks: {
+                        title: (item: TooltipItem<'bar'>[])=> {
+                            return `Sales ${item[0].datasetIndex + 1}`;
+                        },
+                        label: (item: TooltipItem<'bar'>) => {
+                            return `${item.label}€ in cycle ${item.formattedValue}`;
+                        }
+                    },
+                    displayColors: false
+                }
+            }
         };
-
-        this.barChartColors = [
-            this.generateBarColors('chart1'),
-            this.generateBarColors('chart2'),
-            this.generateBarColors('chart3')
-        ];
-
     }
 
     generateRandomData(): number[] {
 
-        let data: number[] = [];
+        const data: number[] = [];
 
         // generate random data
         for (let idx = 0; idx < 13; idx++) {
@@ -99,20 +100,12 @@ export class AppComponent {
 
     generateBarColors(baseColor: string) {
 
-        let backgroundColors = [];
-        let hoverColors = [];
+        const backgroundColors = [];
+        const hoverColors = [];
 
         for (let idx = 0; idx < 13; idx++) {
-
-            backgroundColors.push(
-                this.colorService.getColor(baseColor)
-                    .setAlpha(idx < 10 ? 0.7 : 0.3)
-                    .toRgba());
-
-            hoverColors.push(
-                this.colorService.getColor(baseColor)
-                    .setAlpha(idx < 10 ? 0.8 : 0.4)
-                    .toRgba());
+            backgroundColors.push(this.colorService.getColor(baseColor).setAlpha(idx < 10 ? 0.7 : 0.3).toRgba());
+            hoverColors.push(this.colorService.getColor(baseColor).setAlpha(idx < 10 ? 0.8 : 0.4).toRgba());
         }
 
         return {
@@ -120,5 +113,4 @@ export class AppComponent {
             hoverBackgroundColor: hoverColors
         };
     }
-
 }
