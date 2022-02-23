@@ -10,12 +10,14 @@ const isIp = require('is-ip');
 const express = require('express');
 const cors = require('cors');
 const { SpecReporter } = require('jasmine-spec-reporter');
+const retry = require('protractor-retry').retry;
 
 const outputDir = join(cwd(), 'target', 'e2e');
 const junitDir = join(outputDir, 'junit');
 const screenshotOutputDir = join(outputDir, 'screenshots');
 const isJenkinsBuild = !!env.RE_BUILD_TYPE;
 const DOCKER_CONTAINER_NAME = 'uxa-selenium';
+const MAX_RETRIES = 2;
 
 if (!isJenkinsBuild) {
     startSeleniumContainer();
@@ -57,6 +59,8 @@ const config = {
         }
     },
     onPrepare() {
+        retry.onPrepare();
+
         require('ts-node').register({
             project: 'e2e/tsconfig.e2e.json'
         });
@@ -101,6 +105,12 @@ const config = {
         server.use(cors());
         server.use('/', express.static(join('dist', 'e2e')));
         server.listen(4000, () => console.log('E2E application is now available at http://localhost:4000'));
+    },
+    afterLaunch() {
+        return retry.afterLaunch(MAX_RETRIES);
+    },
+    onCleanUp(results) {
+        retry.onCleanUp(results);
     },
     plugins: [
         {
