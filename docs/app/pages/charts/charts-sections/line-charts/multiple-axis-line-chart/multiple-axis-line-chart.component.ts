@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, ViewChild, ViewEncapsulation } from '@angular/core';
-import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { DomSanitizer } from '@angular/platform-browser';
 import { ColorService } from '@ux-aspects/ux-aspects';
+import { ChartDataset, ChartOptions, Tick, TooltipItem } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
@@ -41,64 +42,89 @@ export class ChartsMultipleAxisLineChartComponent extends BaseDocumentationSecti
     @ViewChild(BaseChartDirective, { static: true }) baseChart: BaseChartDirective;
 
     // configure the directive data
-    lineChartData: Chart.ChartDataSets[];
-    lineChartOptions: Chart.ChartOptions;
+    lineChartData: ChartDataset<'line'>[];
+    lineChartOptions: ChartOptions<'line'>;
     lineChartLegend: boolean = false;
     lineChartColors: any;
-    lineChartLegendContents: SafeHtml;
+    lineChartPlugins: any;
+    htmlLegendPlugin: any;
 
     constructor(private sanitizer: DomSanitizer, colorService: ColorService, dataService: MultipleAxisLineChartService) {
         super(require.context('./snippets/', false, /(html|css|js|ts)$/));
 
-        let tooltipBackgroundColor = colorService.getColor('grey2').toHex();
-        let gridColor = colorService.getColor('grey6').toHex();
+        // Chart.register(this.htmlLegendPlugin);
 
-        let lineBorderColor1 = colorService.getColor('chart1').toRgb();
-        let lineFillColor1 = colorService
+        const tooltipBackgroundColor = colorService.getColor('grey2').toHex();
+        const gridColor = colorService.getColor('grey6').toHex();
+
+        const lineBorderColor1 = colorService.getColor('chart1').toRgb();
+        const lineFillColor1 = colorService
             .getColor('chart1')
             .setAlpha(0.1)
             .toRgba();
-        let pointBorderColor1 = colorService
+        const pointBorderColor1 = colorService
             .getColor('chart1')
             .setAlpha(0.5)
             .toRgba();
 
-        let lineBorderColor2 = colorService.getColor('chart2').toRgb();
-        let lineFillColor2 = colorService
+        const lineBorderColor2 = colorService.getColor('chart2').toRgb();
+        const lineFillColor2 = colorService
             .getColor('chart2')
             .setAlpha(0.1)
             .toRgba();
-        let pointBorderColor2 = colorService
+        const pointBorderColor2 = colorService
             .getColor('chart2')
             .setAlpha(0.5)
             .toRgba();
 
-        let oilPrices = dataService.getOilPrices().map((values: number[]) => {
+        const oilPrices = dataService.getOilPrices().map((values: number[]) => {
             return {
                 x: values[0],
                 y: values[1]
             };
         });
 
-        let exchangeRates = dataService.getExchangeRates().map((values: number[]) => {
+        const exchangeRates = dataService.getExchangeRates().map((values: number[]) => {
             return {
                 x: values[0],
                 y: values[1]
             };
         });
+
+        this.lineChartPlugins = [
+            this.htmlLegendPlugin
+        ];
 
         this.lineChartData = [
             {
                 label: 'Oil price ($)',
                 data: oilPrices,
                 borderWidth: 1,
-                yAxisID: 'y-axis-1'
+                yAxisID: 'y',
+                borderColor: lineBorderColor1,
+                backgroundColor: lineFillColor1,
+                pointBackgroundColor: 'transparent',
+                pointBorderColor: 'transparent',
+                pointHoverBorderColor: pointBorderColor1,
+                pointHoverBorderWidth: 3,
+                pointHoverRadius: 5,
+                pointHitRadius: 5,
+                fill: 'origin'
             },
             {
                 label: 'USD/EUR exchange rate',
                 data: exchangeRates,
                 borderWidth: 1,
-                yAxisID: 'y-axis-2'
+                yAxisID: 'y1',
+                borderColor: lineBorderColor2,
+                backgroundColor: lineFillColor2,
+                pointBackgroundColor: 'transparent',
+                pointBorderColor: 'transparent',
+                pointHoverBorderColor: pointBorderColor2,
+                pointHoverBorderWidth: 3,
+                pointHoverRadius: 5,
+                pointHitRadius: 5,
+                fill: 'origin'
             }
         ];
 
@@ -113,89 +139,97 @@ export class ChartsMultipleAxisLineChartComponent extends BaseDocumentationSecti
             hover: {
                 mode: 'nearest'
             },
-            legendCallback: (chart: any) => {
-                let sets = chart.data.datasets.map((dataset: Chart.ChartDataSets) => {
-                    return `<li class="multi-axis-legend-list-item">
-                                <span class="multi-axis-legend-box" style="background-color: ${
-                                    dataset.backgroundColor
-                                }; border-color: ${dataset.borderColor}"></span>
-                                <span class="multi-axis-legend-text">${dataset.label}</span>
-                            </li>`;
-                });
-
-                // create html for chart legend
-                return `<ul class="multi-axis-legend-list">${sets.join('')}</ul>`;
-            },
             scales: {
-                xAxes: [
-                    {
-                        type: 'linear',
-                        position: 'bottom',
-                        ticks: {
-                            min: 1167692400000,
-                            max: 1220824800000,
-                            stepSize: 5313240000,
-                            callback: (value: number, index: number, values: number[]) => {
-                                let date = new Date(value);
-                                return (
-                                    date.toLocaleString('en', { month: 'short' }) +
-                                    ' ' +
-                                    date.toLocaleString('en', { year: 'numeric' })
-                                );
-                            }
-                        } as Chart.LinearTickOptions
-                    }
-                ],
-                yAxes: [
-                    {
-                        id: 'y-axis-1',
-                        position: 'left',
-                        ticks: {
-                            min: 0,
-                            max: 150,
-                            stepSize: 50
-                        } as Chart.LinearTickOptions,
-                        gridLines: {
-                            color: gridColor
-                        }
-                    },
-                    {
-                        id: 'y-axis-2',
-                        position: 'right',
-                        ticks: {
-                            min: 0,
-                            max: 0.79,
-                            stepSize: 0.79 / 3,
-                            callback: (value: number, index: number, values: number[]) => {
-                                return value.toFixed(2) + '€';
-                            }
-                        } as Chart.LinearTickOptions,
-                        gridLines: {
-                            display: false
-                        }
-                    }
-                ]
-            },
-            tooltips: {
-                backgroundColor: tooltipBackgroundColor,
-                cornerRadius: 0,
-                callbacks: {
-                    title: (item: Chart.ChartTooltipItem[]) => {
-                        return;
-                    },
-                    label: (item: Chart.ChartTooltipItem) => {
-                        const date = this.formatDateForTooltip(new Date(item.xLabel));
-                        if (item.datasetIndex === 1) {
-                            const euro = Number(item.yLabel).toFixed(2);
-                            return `USD/EUR exchange rate for ${date} was ${euro}€`;
-                        } else {
-                            return `Oil price ($) ${date} was ${item.yLabel}`;
+                x: {
+                    type: 'linear',
+                    position: 'bottom',
+                    min: 1167692400000,
+                    max: 1220824800000,
+                    ticks: {
+                        stepSize: 5313240000,
+                        callback: (value: number, index: number, ticks: Tick[]) => {
+                            const date = new Date(value);
+                            return (
+                                date.toLocaleString('en', { month: 'short' }) +
+                                ' ' +
+                                date.toLocaleString('en', { year: 'numeric' })
+                            );
                         }
                     }
                 },
-                displayColors: false
+                y: {
+                    position: 'left',
+                    min: 0,
+                    max: 150,
+                    ticks: {
+                        stepSize: 50
+                    },
+                    grid: {
+                        color: gridColor
+                    }
+                },
+                y1: {
+                    position: 'right',
+                    min: 0,
+                    max: 0.79,
+                    ticks: {
+                        stepSize: 0.79 / 3,
+                        callback(value: number, index: number, ticks: Tick[]) {
+                            return value.toFixed(2) + '€';
+                        }
+                    },
+                    grid: {
+                        display: false
+                    }
+                }
+            },
+            plugins: {
+                htmlLegend: {
+                    containerID: 'legend-container',
+                },
+                legend: {
+                    display: false,
+                    labels: {
+                        
+                        // generateLabels: (chart: Chart<'line'>) => {
+                        //     const sets = chart.data.datasets.map((dataset: ChartDataset) => {
+                        //         return `<li class="multi-axis-legend-list-item">
+                        //                     <span class="multi-axis-legend-box" style="background-color: ${
+                        //                         dataset.backgroundColor
+                        //                     }; border-color: ${dataset.borderColor}"></span>
+                        //                     <span class="multi-axis-legend-text">${dataset.label}</span>
+                        //                 </li>`;
+                        //     });
+
+                        //     // create html for chart legend
+                        //     return {
+                        //         text: `<ul class="multi-axis-legend-list">${sets.join('')}</ul>`,
+                        //         datasetIndex: dataset.
+                        //     };
+                        // },
+                    }
+                },
+                tooltip: {
+                    backgroundColor: tooltipBackgroundColor,
+                    cornerRadius: 0,
+                    callbacks: {
+                        title: (item: TooltipItem<'line'>[]) => {
+                            return null;
+                        },
+                        label: (item: TooltipItem<'line'>) => {
+                            const date = this.formatDateForTooltip(new Date(item.label));
+                            if (item.datasetIndex === 1) {
+                                const euro = Number(item.formattedValue).toFixed(2);
+                                return `USD/EUR exchange rate for ${date} was ${euro}€`;
+                            } else {
+                                return `Oil price ($) ${date} was ${item.formattedValue}`;
+                            }
+                        }
+                    },
+                    displayColors: false
+                },
             } as any
-        } as any;
+        };
 
         this.lineChartColors = [
             {
@@ -223,13 +257,90 @@ export class ChartsMultipleAxisLineChartComponent extends BaseDocumentationSecti
 
     ngAfterViewInit() {
         // get the HTML for the legend after timeout - as expressions cannot be updated here
-        setTimeout(() => {
-            this.lineChartLegendContents = this.sanitizer.bypassSecurityTrustHtml(
-                // Type information for generateLegend appears to be incorrect
-                <string>this.baseChart.chart.generateLegend()
-            );
-        });
+        // setTimeout(() => {
+        //     this.lineChartLegendContents = this.sanitizer.bypassSecurityTrustHtml(
+        //         // Type information for generateLegend appears to be incorrect
+        //         // this.baseChart.chart.generateLegend() as sting
+        //     );
+        // });
+
+        // this.htmlLegendPlugin = {
+        //     id: 'htmlLegend',
+        //     afterUpdate(chart, args, options) {
+        //         const ul = this.getOrCreateLegendList(chart, options.containerID);
+    
+        //         // Remove old legend items
+        //         while (ul.firstChild) {
+        //         ul.firstChild.remove();
+        //         }
+    
+        //         // Reuse the built-in legendItems generator
+        //         const items = chart.options.plugins.legend.labels.generateLabels(chart);
+    
+        //         items.forEach(item => {
+        //             const li = document.createElement('li');
+        //             li.style.alignItems = 'center';
+        //             li.style.cursor = 'pointer';
+        //             li.style.display = 'flex';
+        //             li.style.flexDirection = 'row';
+        //             li.style.marginLeft = '10px';
+    
+        //             li.onclick = () => {
+        //                 const {type} = chart.config;
+        //                 if (type === 'pie' || type === 'doughnut') {
+        //                     // Pie and doughnut charts only have a single dataset and visibility is per item
+        //                     chart.toggleDataVisibility(item.index);
+        //                 } else {
+        //                     chart.setDatasetVisibility(item.datasetIndex, !chart.isDatasetVisible(item.datasetIndex));
+        //                 }
+        //                 chart.update();
+        //             };
+    
+        //             // Color box
+        //             const boxSpan = document.createElement('span');
+        //             boxSpan.style.background = item.fillStyle;
+        //             boxSpan.style.borderColor = item.strokeStyle;
+        //             boxSpan.style.borderWidth = item.lineWidth + 'px';
+        //             boxSpan.style.display = 'inline-block';
+        //             boxSpan.style.height = '20px';
+        //             boxSpan.style.marginRight = '10px';
+        //             boxSpan.style.width = '20px';
+    
+        //             // Text
+        //             const textContainer = document.createElement('p');
+        //             textContainer.style.color = item.fontColor;
+        //             textContainer.style.margin = '0';
+        //             textContainer.style.padding = '0';
+        //             textContainer.style.textDecoration = item.hidden ? 'line-through' : '';
+    
+        //             const text = document.createTextNode(item.text);
+        //             textContainer.appendChild(text);
+    
+        //             li.appendChild(boxSpan);
+        //             li.appendChild(textContainer);
+        //             ul.appendChild(li);
+        //         });
+        //     }
+        // };
     }
+
+    // getOrCreateLegendList(chart, id) {
+    //     const legendContainer = document.getElementById(id);
+    //     let listContainer = legendContainer.querySelector('ul');
+
+    //     if (!listContainer) {
+    //     listContainer = document.createElement('ul');
+    //     listContainer.style.display = 'flex';
+    //     listContainer.style.flexDirection = 'row';
+    //     listContainer.style.margin = '0';
+    //     listContainer.style.padding = '0';
+
+    //     legendContainer.appendChild(listContainer);
+    //     }
+    //    return listContainer;
+    // };
+
+   
 
     formatDate(date: number): string {
         return new Date(date).toLocaleDateString();

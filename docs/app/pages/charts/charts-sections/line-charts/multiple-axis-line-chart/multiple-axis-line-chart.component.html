@@ -4,8 +4,8 @@
         [datasets]="lineChartData"
         [options]="lineChartOptions"
         [legend]="lineChartLegend"
-        [colors]="lineChartColors"
-        chartType="line">
+        [plugins]="lineChartPlugins"
+        type="line">
 
         <table *ngFor="let dataset of lineChartData" attr.aria-label="{{dataset.label}} chart data">
             <thead>
@@ -26,7 +26,7 @@
 
     </canvas>
 
-    <div class="multi-axis-legend" [innerHtml]="lineChartLegendContents" aria-hidden="true"></div>
+    <!-- <div class="multi-axis-legend" [innerHtml]="lineChartLegendContents" aria-hidden="true"></div> -->
 
 </div>
 
