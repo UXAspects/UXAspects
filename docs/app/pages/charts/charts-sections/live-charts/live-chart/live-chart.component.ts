@@ -1,5 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { ColorService } from '@ux-aspects/ux-aspects';
+import { ChartDataset, ChartOptions } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
@@ -35,19 +36,23 @@ export class ChartsLiveChartComponent extends BaseDocumentationSection implement
     @ViewChild(BaseChartDirective, { static: true }) baseChart: BaseChartDirective;
 
     // configure the directive data
-    lineChartData: Chart.ChartDataSets[];
-    lineChartOptions: Chart.ChartOptions;
+    lineChartData: ChartDataset<'line'>[];
+    lineChartOptions: ChartOptions<'line'>;
     lineChartLegend: boolean = false;
     lineChartColors: any;
+
+    gridColor;
+    lineBorderColor;
+    lineFillColor;
 
     livedata: number[] = [];
 
     constructor(colorService: ColorService) {
         super(require.context('./snippets/', false, /(html|css|js|ts)$/));
 
-        let gridColor = colorService.getColor('grey6').toHex();
-        let lineBorderColor = colorService.getColor('chart1').toRgb();
-        let lineFillColor = colorService.getColor('chart1').setAlpha(0.1).toRgba();
+        this.gridColor = colorService.getColor('grey6').toHex();
+        this.lineBorderColor = colorService.getColor('chart1').toRgb();
+        this.lineFillColor = colorService.getColor('chart1').setAlpha(0.1).toRgba();
 
         // set the initial chart data
         this.updateChartData();
@@ -64,43 +69,35 @@ export class ChartsLiveChartComponent extends BaseDocumentationSection implement
                 }
             },
             scales: {
-                xAxes: [{
+                x: {
                     type: 'linear',
                     position: 'bottom',
+                    min: 0,
+                    max: 299,
                     ticks: {
-                        min: 0,
-                        max: 299,
-                        step: 50,
-                        fontSize: 0 /* Hide Labels on X Axis */
-                    } as Chart.LinearTickOptions,
-                    gridLines: {
-                        color: gridColor
+                        display: false
+                    },
+                    grid: {
+                        display: false
                     }
-                }],
-                yAxes: [{
+                },
+                y: {
+                    min: 0,
+                    max: 100,
                     ticks: {
-                        min: 0,
-                        max: 100,
                         stepSize: 25
-                    } as Chart.LinearTickOptions,
-                    gridLines: {
-                        color: gridColor
+                    },
+                    grid: {
+                        color: this.gridColor
                     }
-                }]
+                }
             },
-            tooltips: {
-                enabled: false
+            plugins: {
+                tooltip: {
+                    enabled: false
+                }
             }
         };
-
-        this.lineChartColors = [
-            {
-                borderColor: lineBorderColor,
-                backgroundColor: lineFillColor,
-                pointBackgroundColor: 'transparent',
-                pointBorderColor: 'transparent'
-            }
-        ];
 
         setInterval(() => {
             // update chart data every 40ms
@@ -111,11 +108,16 @@ export class ChartsLiveChartComponent extends BaseDocumentationSection implement
     updateChartData() {
 
         // instatiate new array to trigger change detection
-        this.lineChartData = new Array<Chart.ChartDataSets>();
+        this.lineChartData = new Array<ChartDataset<'line'>>();
 
         this.lineChartData.push({
             data: this.getRandomData(),
-            borderWidth: 1
+            borderWidth: 1,
+            borderColor: this.lineBorderColor,
+            backgroundColor: this.lineFillColor,
+            pointBackgroundColor: 'transparent',
+            pointBorderColor: 'transparent',
+            fill: 'origin'
         });
     }
 
@@ -126,14 +128,14 @@ export class ChartsLiveChartComponent extends BaseDocumentationSection implement
         }
 
         while (this.livedata.length < 300) {
-            let previous = this.livedata.length ? this.livedata[this.livedata.length - 1] : 50;
-            let y = previous + Math.random() * 10 - 5;
+            const previous = this.livedata.length ? this.livedata[this.livedata.length - 1] : 50;
+            const y = previous + Math.random() * 10 - 5;
 
             this.livedata.push(y < 0 ? 0 : y > 100 ? 100 : y);
         }
 
         // zip the generated y values with the x values
-        let res = [];
+        const res = [];
         for (let i = 0; i < this.livedata.length; ++i) {
             res.push({
                 x: i,
