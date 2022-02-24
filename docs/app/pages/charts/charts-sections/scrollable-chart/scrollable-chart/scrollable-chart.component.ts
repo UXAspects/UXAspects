@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ColorService } from '@ux-aspects/ux-aspects';
+import { ChartDataset, ChartOptions, TooltipItem } from 'chart.js';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
@@ -32,10 +33,10 @@ export class ChartsScrollableChartComponent extends BaseDocumentationSection imp
     };
 
     // configure the directive data
-    barChartData: Chart.ChartDataSets[];
+    barChartData: ChartDataset<'bar'>[];
 
     barChartLabels: string[];
-    barChartOptions: Chart.ChartOptions;
+    barChartOptions: ChartOptions<'bar'>;
     barChartLegend: boolean = false;
     barChartColors: any;
 
@@ -50,19 +51,23 @@ export class ChartsScrollableChartComponent extends BaseDocumentationSection imp
 
         this.barChartLabels = this.getPageLabels();
 
+        // Prepare colors used in chart
+        const gridColor = colorService.getColor('grey6').toHex();
+        const barBackgroundColor = colorService.getColor('chart1').setAlpha(0.1).toRgba();
+        const barHoverBackgroundColor = colorService.getColor('chart1').setAlpha(0.2).toRgba();
+        const barBorderColor = colorService.getColor('chart1').toHex();
+        const tooltipBackgroundColor = colorService.getColor('grey2').toHex();
+
         this.barChartData = [{
             data: this.getPageData(),
             borderWidth: 1,
             barPercentage: 0.5,
-            categoryPercentage: 1
+            categoryPercentage: 1,
+            backgroundColor: barBackgroundColor,
+            hoverBackgroundColor: barHoverBackgroundColor,
+            hoverBorderColor: barBorderColor,
+            borderColor: barBorderColor
         }];
-
-        // Prepare colors used in chart
-        let gridColor = colorService.getColor('grey6').toHex();
-        let barBackgroundColor = colorService.getColor('chart1').setAlpha(0.1).toRgba();
-        let barHoverBackgroundColor = colorService.getColor('chart1').setAlpha(0.2).toRgba();
-        let barBorderColor = colorService.getColor('chart1').toHex();
-        let tooltipBackgroundColor = colorService.getColor('grey2').toHex();
 
         this.barChartOptions = {
             maintainAspectRatio: false,
@@ -71,57 +76,50 @@ export class ChartsScrollableChartComponent extends BaseDocumentationSection imp
                 duration: 0
             },
             scales: {
-                xAxes: [{
-                    gridLines: {
+                x: {
+                    grid: {
                         color: 'transparent'
                     }
-                }],
-                yAxes: [{
-                    gridLines: {
+                },
+                y: {
+                    grid: {
                         color: gridColor
                     },
+                    min: 0,
+                    max: 50,
                     ticks: {
-                        min: 0,
-                        max: 50,
                         stepSize: 10
-                    } as Chart.LinearTickOptions
-                }]
-            },
-            tooltips: {
-                backgroundColor: tooltipBackgroundColor,
-                cornerRadius: 0,
-                callbacks: {
-                    title: (item: Chart.ChartTooltipItem[]) => {
-                        return;
-                    },
-                    label: (item: Chart.ChartTooltipItem) => {
-                        return `x: ${item.xLabel}, y: ${item.yLabel}`;
                     }
-                },
-                displayColors: false
-            } as any
-        };
-
-        this.barChartColors = [
-            {
-                backgroundColor: barBackgroundColor,
-                hoverBackgroundColor: barHoverBackgroundColor,
-                borderColor: barBorderColor
+                }
+            },
+            plugins: {
+                tooltip: {
+                    backgroundColor: tooltipBackgroundColor,
+                    cornerRadius: 0,
+                    callbacks: {
+                        title: (item: TooltipItem<'bar'>[]) => {
+                            return null;
+                        },
+                        label: (item: TooltipItem<'bar'>) => {
+                            return `x: ${item.label}, y: ${item.formattedValue}`;
+                        }
+                    },
+                    displayColors: false
+                }
             }
-        ];
-
+        };
     }
 
     getPageData(): number[] {
-        let startIdx = this.page * this.pageSize;
-        let endIdx = startIdx + this.pageSize;
+        const startIdx = this.page * this.pageSize;
+        const endIdx = startIdx + this.pageSize;
 
         return this.data.slice(startIdx, endIdx);
     }
 
     getPageLabels(): string[] {
-        let startIdx = this.page * this.pageSize;
-        let endIdx = startIdx + this.pageSize;
+        const startIdx = this.page * this.pageSize;
+        const endIdx = startIdx + this.pageSize;
 
         return this.labels.slice(startIdx, endIdx);
     }
@@ -152,7 +150,7 @@ export class ChartsScrollableChartComponent extends BaseDocumentationSection imp
 
     hasNextPage(): boolean {
         // get the index of the next page
-        let nextPageIndex = (this.page + 1) * this.pageSize;
+        const nextPageIndex = (this.page + 1) * this.pageSize;
 
         // check if this index is out of bounds
         return nextPageIndex < this.data.length;
