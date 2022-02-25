@@ -6,7 +6,7 @@ const chance = new Chance();
 @Injectable()
 export class TimelineChartService {
 
-    private _dataset: Chart.ChartPoint[] = [];
+    private _dataset: any = [];
 
     constructor() {
         const date = new Date(2014, 1, 0);
@@ -44,7 +44,7 @@ export class TimelineChartService {
         }
     }
 
-    getDataset(): Chart.ChartPoint[] {
+    getDataset(): any {
         return [...this._dataset];
     }
 
