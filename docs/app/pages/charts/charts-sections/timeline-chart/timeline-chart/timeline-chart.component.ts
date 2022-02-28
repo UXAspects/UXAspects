@@ -146,21 +146,21 @@ export class ChartsTimelineChartComponent extends BaseDocumentationSection imple
                 },
                 selectionColor: this._colorService.getColor('alternate3').setAlpha(0.15).toRgba(),
                 onChange: (min: Date, max: Date) => {
-                    this.lineChartData = this._dataService.getDataset().filter(point => {
+                    this.lineChartData[0].data = this._dataService.getDataset().filter(point => {
                         return (point.x as Date).getTime() >= min.getTime() &&
                             (point.x as Date).getTime() <= max.getTime();
                     });
                 },
                 range: {
                     lower: new Date(2017, 6, 15),
-                    upper: this.lineChartData[0].data[this.lineChartData[0].data.length - 1] as any,
+                    upper: (this.lineChartData[0].data as any)[this.lineChartData[0].data.length - 1].x as Date,
                     minimum: 8_640_000_000, // 100 days
                     maximum: 110_595_600_000, // 3.5 years
                     tooltip: {
                         label: () => {
-                            const data = this.lineChartLabels;
-                            const rangeLower = (data[0] as any).toLocaleDateString([], DATE_LOCALE_OPTIONS);
-                            const rangeUpper = (data[data.length - 1] as any).toLocaleDateString([], DATE_LOCALE_OPTIONS);
+                            const data = this.lineChartData[0].data as any;
+                            const rangeLower = (data[0].x as Date).toLocaleDateString([], DATE_LOCALE_OPTIONS);
+                            const rangeUpper = (data[data.length - 1].x as Date).toLocaleDateString([], DATE_LOCALE_OPTIONS);
                             const label = `${rangeLower} - ${rangeUpper}`;
                             return label;
                         }

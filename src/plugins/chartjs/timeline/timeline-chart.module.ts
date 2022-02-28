@@ -1,6 +1,7 @@
 import { END, HOME, LEFT_ARROW, RIGHT_ARROW } from '@angular/cdk/keycodes';
 import { NgModule } from '@angular/core';
-import * as Chart from 'chart.js';
+import { Chart, Color } from 'chart.js';
+import { TRBL } from 'chart.js/types/geometric';
 
 const timelineDefaultOptions: TimelineChartOptions & TimelineChartStateOptions = {
     timeline: {
@@ -31,11 +32,14 @@ const timelineDefaultOptions: TimelineChartOptions & TimelineChartStateOptions =
 
 export class TimelineChartPlugin {
 
+    id: string = 'timeline-chart-plugin';
+
     /** We only want to register the plugin once per application */
     private static _isRegistered: boolean = false;
 
     /** Register this plugin */
     static register(): void {
+
         /**
          * We have to register this plugin globally because
          * ng2-charts doesn't support plugins on an invidual
@@ -48,12 +52,11 @@ export class TimelineChartPlugin {
          */
         if (!this._isRegistered) {
 
-            if (!(window as any).Chart) {
-                throw new Error('Please import Chart.js to use the timeline chart.');
-            }
-
+            // if (!(window as any).Chart) {
+            //     throw new Error('Please import Chart.js to use the timeline chart.');
+            // }
             // register the plugin
-            (window as any).Chart.pluginService.register(new TimelineChartPlugin());
+            Chart.register(new TimelineChartPlugin());
 
             this._isRegistered = true;
         }
@@ -73,6 +76,7 @@ export class TimelineChartPlugin {
 
         // provide the default options for any missing properties
         if (this.getEnabled(chart)) {
+
             // chart.config.options.timeline = { ...timelineDefaultOptions.timeline, ...this.getOptions(chart) };
             chart.config.options.timeline = this.getOptionsWithDefaults(this.getOptions(chart));
 
@@ -187,7 +191,7 @@ export class TimelineChartPlugin {
     }
 
     /** Get the chart area but include any padding */
-    private getChartArea(chart: TimelineChart): Chart.ChartArea {
+    private getChartArea(chart: TimelineChart): TRBL {
         const { top, right, bottom, left } = chart.chartArea;
         const padding = chart.config.options.layout && chart.config.options.layout.padding ? chart.config.options.layout.padding : 0;
 
@@ -727,7 +731,7 @@ export class TimelineChartPlugin {
     }
 
     /** Get the area a specific handle covers within the chart */
-    private getHandleArea(chart: TimelineChart, handle: TimelineHandle): Chart.ChartArea {
+    private getHandleArea(chart: TimelineChart, handle: TimelineHandle): TRBL {
         // get the region that the chart is drawn on (excluding axis)
         const { left, top, right, bottom } = this.getChartArea(chart);
 
@@ -760,11 +764,12 @@ export class TimelineChartPlugin {
      */
     private getChartRange(chart: TimelineChart): [number, number] {
         // get the current data
-        const { data } = chart.getDatasetMeta(0);
+        const data  = chart.scales;
+        console.log('file: timeline-chart.module.ts ~ line 777 ~ TimelineChartPlugin ~ getChartRange ~ data', data);
 
         // get the range on the x-axis
-        const minimum: number = (data[0] as any)._xScale.min;
-        const maximum: number = (data[0] as any)._xScale.max;
+        const minimum: number = data.x.min;
+        const maximum: number = data.x.max;
 
         return [minimum, maximum];
     }
@@ -874,16 +879,16 @@ export enum TimelineHandle {
 
 export interface TimelineChartOptions {
     timeline?: {
-        backgroundColor?: Chart.Color;
-        selectionColor?: Chart.Color;
+        backgroundColor?: Color;
+        selectionColor?: Color;
         onChange?: (lower: Date, upper: Date) => void;
         keyboard?: {
             step?: number;
         },
         handles?: {
-            backgroundColor?: Chart.Color;
-            foregroundColor?: Chart.Color;
-            focusIndicatorColor?: Chart.Color;
+            backgroundColor?: Color;
+            foregroundColor?: Color;
+            focusIndicatorColor?: Color;
             tooltip?: {
                 label: Function;
             }
