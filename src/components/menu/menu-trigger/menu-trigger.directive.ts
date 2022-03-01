@@ -1,7 +1,7 @@
 import { FocusOrigin } from '@angular/cdk/a11y';
 import { BooleanInput, coerceBooleanProperty } from '@angular/cdk/coercion';
 import { DOWN_ARROW, LEFT_ARROW, RIGHT_ARROW, UP_ARROW } from '@angular/cdk/keycodes';
-import { FlexibleConnectedPositionStrategy, Overlay, OverlayRef } from '@angular/cdk/overlay';
+import { Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { ContentChildren, Directive, ElementRef, HostListener, Input, OnDestroy, OnInit, Optional, QueryList, Self, ViewContainerRef } from '@angular/core';
 import { combineLatest, merge, Observable, of, Subject, timer } from 'rxjs';
@@ -345,7 +345,8 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
         const strategy = this._overlay.position()
             .flexibleConnectedTo(this._elementRef)
             .withFlexibleDimensions(false)
-            .withPush(false);
+            .withPush(false)
+            .withTransformOriginOn('.ux-menu');
 
         // otherwise create a new one
         this._overlayRef = this._overlay.create({
@@ -355,15 +356,12 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
             positionStrategy: strategy
         });
 
-        this._overlayPlacement.updatePosition(this._overlayRef, this.menu.placement, this.menu.alignment);
-
-        const position = this._overlayRef.getConfig().positionStrategy as FlexibleConnectedPositionStrategy;
-
-        // add panelClass to positions
-        position.withPositions(
-            position.positions.map((pos) => {
-                return { ...pos, panelClass: this.menuAnimation(pos.originY) };
-            })
+        this._overlayPlacement.updatePosition(
+            this._overlayRef,
+            this.menu.placement,
+            this.menu.alignment,
+            undefined,
+            this._isSubmenuTrigger
         );
 
         return this._overlayRef;
@@ -378,15 +376,6 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
         }
 
         return this._portal;
-    }
-
-    /** Determine the direction of the animation. */
-    private menuAnimation(originY: string): string | null {
-        if ((this.menu.placement === 'top' || this.menu.placement === 'bottom') && originY === 'top' && !this._isSubmenuTrigger) {
-            return 'ux-menu-placement-top';
-        }
-
-        return null;
     }
 
     /** Get an observable that emits on any of the triggers that close a menu */

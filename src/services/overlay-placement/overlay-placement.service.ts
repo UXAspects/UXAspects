@@ -14,22 +14,46 @@ import { AnchorPlacement } from '../../common/overlay/index';
     providedIn: 'root',
 })
 export class OverlayPlacementService {
+
     /** Updates the position of the current menu. */
-    updatePosition(overlayRef: OverlayRef, placement: string, alignment: string, fallbackPlacement?: AnchorPlacement): void {
+    updatePosition(
+        overlayRef: OverlayRef,
+        placement: string,
+        alignment: string,
+        customFallbackPlacement?: AnchorPlacement,
+        isSubMenu?: boolean
+    ): void {
         const position = overlayRef.getConfig().positionStrategy as FlexibleConnectedPositionStrategy;
         const origin = this.getOrigin(placement, alignment);
         const overlay = this.getOverlayPosition(placement, alignment);
 
-        if (!fallbackPlacement) {
-            position.withPositions([
-                this.addOffset({ ...origin.main, ...overlay.main }),
-                this.addOffset({ ...origin.fallback, ...overlay.fallback }),
-            ]);
+        position.withPositions(this.addPositions(origin, overlay, isSubMenu, customFallbackPlacement));
+    }
+
+    /** Apply position to position strategy */
+    private addPositions(
+        origin: OriginConnectedPositions,
+        overlay: OverlayConnectedPositions,
+        isSubMenu: boolean,
+        customFallbackPlacement: AnchorPlacement
+    ): ConnectedPosition[] {
+        if (customFallbackPlacement) {
+            return [
+                { ...origin.main, ...overlay.main },
+                this.getFallbackPosition(customFallbackPlacement),
+            ];
+        } else if (isSubMenu) {
+            return [
+                { ...origin.main, ...overlay.main },
+                { ...origin.fallback, ...overlay.fallback },
+                { ...{ originX: 'end', originY: 'bottom' }, ...{ overlayX: 'start', overlayY: 'bottom' } },
+                { ...{ originX: 'start', originY: 'bottom' }, ...{ overlayX: 'end', overlayY: 'bottom' } }
+            ];
         } else {
-            position.withPositions([
-                this.addOffset({ ...origin.main, ...overlay.main }),
-                this.addOffset(this.getFallbackPosition(fallbackPlacement)),
-            ]);
+            return [
+                { ...origin.main, ...overlay.main },
+                { ...origin.fallback, ...overlay.fallback }
+            ];
         }
     }
 
@@ -37,7 +61,7 @@ export class OverlayPlacementService {
     private getOrigin(
         initialPlacement: string,
         alignment: string
-    ): { main: OriginConnectionPosition; fallback: OriginConnectionPosition } {
+    ): OriginConnectedPositions {
         // ensure placement is defined
         const placement = initialPlacement || 'bottom';
         let originPosition: OriginConnectionPosition;
@@ -66,7 +90,7 @@ export class OverlayPlacementService {
     private getOverlayPosition(
         initialPlacement: string,
         alignment: string
-    ): { main: OverlayConnectionPosition; fallback: OverlayConnectionPosition } {
+    ): OverlayConnectedPositions {
         // ensure placement is defined
         const placement = initialPlacement || 'top';
         let overlayPosition: OverlayConnectionPosition;
@@ -93,11 +117,6 @@ export class OverlayPlacementService {
             main: overlayPosition!,
             fallback: { overlayX: x, overlayY: y },
         };
-    }
-
-    /** Adds the configured offset to a position. Used as a hook for child classes. */
-    private addOffset(position: ConnectedPosition): ConnectedPosition {
-        return position;
     }
 
     /** Convert the alignment property to a valid CDK alignment value */
@@ -145,4 +164,14 @@ export class OverlayPlacementService {
                 return { originX: 'center', originY: 'bottom', overlayX: 'center', overlayY: 'top' };
         }
     }
+}
+
+interface OriginConnectedPositions {
+    main: OriginConnectionPosition;
+    fallback: OriginConnectionPosition;
+}
+
+interface OverlayConnectedPositions {
+    main: OverlayConnectionPosition;
+    fallback: OverlayConnectionPosition;
 }

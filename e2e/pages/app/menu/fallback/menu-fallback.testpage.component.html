@@ -30,6 +30,14 @@
         [uxMenuTriggerFor]="menuRight">
         Menu on right
     </button>
+
+    <button
+        type="button"
+        id="right-bottom-menu"
+        class="btn button-secondary"
+        [uxMenuTriggerFor]="menuBottomRight">
+        Bottom Right
+    </button>
 </div>
 
 <ux-menu id="menuTop" #menuTop menuClass="ux-menu-demo" placement="top">
@@ -40,22 +48,41 @@
 </ux-menu>
 
 <ux-menu id="menuRight" #menuRight menuClass="ux-menu-demo" placement="right">
-    <button type="button" uxMenuItem>
+    <button type="button" uxMenuItem [uxMenuTriggerFor]="subMenu">
         <span class="dropdown-menu-icon"></span>
         <span class="dropdown-menu-text">Menu Item</span>
     </button>
 </ux-menu>
 
 <ux-menu id="menuBottom" #menuBottom menuClass="ux-menu-demo" placement="bottom">
-    <button type="button" uxMenuItem>
+    <button type="button" uxMenuItem [uxMenuTriggerFor]="subMenu">
         <span class="dropdown-menu-icon"></span>
         <span class="dropdown-menu-text">Menu Item</span>
     </button>
 </ux-menu>
 
 <ux-menu id="menuLeft" #menuLeft menuClass="ux-menu-demo" placement="left">
-    <button type="button" uxMenuItem>
+    <button type="button" uxMenuItem [uxMenuTriggerFor]="subMenu">
         <span class="dropdown-menu-icon"></span>
         <span class="dropdown-menu-text">Menu Item</span>
+    </button>
+</ux-menu>
+
+<ux-menu id="menuBottomRight" #menuBottomRight menuClass="ux-menu-demo" placement="right">
+    <button type="button" uxMenuItem [uxMenuTriggerFor]="subMenu">
+        <span class="dropdown-menu-icon"></span>
+        <span class="dropdown-menu-text">Menu Item</span>
+    </button>
+</ux-menu>
+
+<ux-menu id="subMenu" #subMenu menuClass="ux-menu-demo">
+    <button type="button" uxMenuItem>
+        <span class="dropdown-menu-text">Sub Menu Item</span>
+    </button>
+    <button type="button" uxMenuItem>
+        <span class="dropdown-menu-text">Sub Menu Item</span>
+    </button>
+    <button type="button" uxMenuItem>
+        <span class="dropdown-menu-text">Sub Menu Item</span>
     </button>
 </ux-menu>
