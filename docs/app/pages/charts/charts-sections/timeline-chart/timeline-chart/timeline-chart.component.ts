@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { ColorService, TimelineChartOptions } from '@ux-aspects/ux-aspects';
-import { ChartDataset, ChartOptions } from 'chart.js';
+import { ChartDataset, ChartOptions, ScatterDataPoint } from 'chart.js';
 import 'chartjs-adapter-moment';
+import { BaseChartDirective } from 'ng2-charts';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
@@ -22,6 +23,8 @@ const DATE_LOCALE_OPTIONS = {
 })
 @DocumentationSectionComponent('ChartsTimelineChartComponent')
 export class ChartsTimelineChartComponent extends BaseDocumentationSection implements IPlaygroundProvider {
+
+    @ViewChild(BaseChartDirective, { static: true }) baseChart: BaseChartDirective;
 
     playground: IPlayground = {
         files: {
@@ -54,7 +57,7 @@ export class ChartsTimelineChartComponent extends BaseDocumentationSection imple
         super(require.context('./snippets/', false, /(html|css|js|ts)$/));
 
         this.lineChartData = [{
-            data: this._dataService.getDataset(),
+            data: this._dataService.getDataset() as ScatterDataPoint[],
             backgroundColor: this._colorService.getColor('alternate3').setAlpha(0.8).toRgba(),
             borderColor: 'transparent',
             pointRadius: 0,
@@ -98,7 +101,7 @@ export class ChartsTimelineChartComponent extends BaseDocumentationSection imple
         };
 
         this.timelineChartData = [{
-            data: this._dataService.getDataset(),
+            data: this._dataService.getDataset() as ScatterDataPoint[],
             backgroundColor: this._colorService.getColor('alternate3').setAlpha(0.8).toRgba(),
             borderColor: 'transparent',
             pointRadius: 0,
@@ -127,7 +130,7 @@ export class ChartsTimelineChartComponent extends BaseDocumentationSection imple
                     time: {
                         unit: 'month',
                         stepSize: 6
-                    },
+                    }
                 },
                 y: {
                     display: false
@@ -137,34 +140,35 @@ export class ChartsTimelineChartComponent extends BaseDocumentationSection imple
                 handles: {
                     tooltip: {
                         label: () => {
-                            const data = this.lineChartData[0].data as any;
-                            const rangeLower = (data[0].x as Date).toLocaleDateString([], DATE_LOCALE_OPTIONS);
-                            const rangeUpper = (data[data.length - 1].x as Date).toLocaleDateString([], DATE_LOCALE_OPTIONS);
+                            const data = this.lineChartData[0].data as ScatterDataPoint[];
+                            const rangeLower = (data[0].x as unknown as Date).toLocaleDateString([], DATE_LOCALE_OPTIONS);
+                            const rangeUpper = (data[data.length - 1].x as unknown as Date).toLocaleDateString([], DATE_LOCALE_OPTIONS);
                             return {rangeLower, rangeUpper};
                         }
-                    } as any
+                    }
                 },
                 selectionColor: this._colorService.getColor('alternate3').setAlpha(0.15).toRgba(),
                 onChange: (min: Date, max: Date) => {
                     this.lineChartData[0].data = this._dataService.getDataset().filter(point => {
-                        return (point.x as Date).getTime() >= min.getTime() &&
-                            (point.x as Date).getTime() <= max.getTime();
+                        return (point.x as unknown as Date).getTime() >= min.getTime() &&
+                            (point.x as unknown as Date).getTime() <= max.getTime();
                     });
+                    this.baseChart.update();
                 },
                 range: {
                     lower: new Date(2017, 6, 15),
-                    upper: (this.lineChartData[0].data as any)[this.lineChartData[0].data.length - 1].x as Date,
+                    upper: (this.lineChartData[0].data as ScatterDataPoint[])[this.lineChartData[0].data.length - 1].x as unknown as Date,
                     minimum: 8_640_000_000, // 100 days
                     maximum: 110_595_600_000, // 3.5 years
                     tooltip: {
                         label: () => {
-                            const data = this.lineChartData[0].data as any;
-                            const rangeLower = (data[0].x as Date).toLocaleDateString([], DATE_LOCALE_OPTIONS);
-                            const rangeUpper = (data[data.length - 1].x as Date).toLocaleDateString([], DATE_LOCALE_OPTIONS);
+                            const data = this.lineChartData[0].data as ScatterDataPoint[];
+                            const rangeLower = (data[0].x as unknown as Date).toLocaleDateString([], DATE_LOCALE_OPTIONS);
+                            const rangeUpper = (data[data.length - 1].x as unknown as Date).toLocaleDateString([], DATE_LOCALE_OPTIONS);
                             const label = `${rangeLower} - ${rangeUpper}`;
                             return label;
                         }
-                    } as any
+                    }
                 }
             }
         };
