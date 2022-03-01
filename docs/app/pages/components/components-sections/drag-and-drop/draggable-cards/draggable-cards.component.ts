@@ -16,16 +16,16 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 export class ComponentsDraggableCardsComponent extends BaseDocumentationSection implements IPlaygroundProvider {
 
     colors = [
-                this._colorService.getColor('accent').toRgb(),
-                this._colorService.getColor('accent').setAlpha(0.5).toRgba(),
-                this._colorService.getColor('grey5').toRgb()
+        this._colorService.getColor('accent').toRgb(),
+        this._colorService.getColor('accent').setAlpha(0.5).toRgba(),
+        this._colorService.getColor('grey5').toRgb()
     ];
 
     options: ChartOptions<'doughnut'> = {
         animation: {
             duration: 0
         },
-        cutout: 70,
+        cutout: 20,
         elements: {
             arc: {
                 borderWidth: 0
