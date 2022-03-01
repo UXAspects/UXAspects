@@ -1,7 +1,7 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { Component, ElementRef, QueryList, ViewChildren } from '@angular/core';
 import { ColorService, TabbableListDirective } from '@ux-aspects/ux-aspects';
-import { ChartOptions } from 'chart.js';
+import { ChartDataset, ChartOptions } from 'chart.js';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
@@ -16,29 +16,27 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 export class ComponentsDraggableCardsComponent extends BaseDocumentationSection implements IPlaygroundProvider {
 
     colors = [
-        {
-            backgroundColor: [
                 this._colorService.getColor('accent').toRgb(),
                 this._colorService.getColor('accent').setAlpha(0.5).toRgba(),
                 this._colorService.getColor('grey5').toRgb()
-            ]
-        }
     ];
 
-    options: ChartOptions = {
+    options: ChartOptions<'doughnut'> = {
         animation: {
             duration: 0
         },
-        tooltips: {
-            enabled: false
-        },
+        cutout: 70,
         elements: {
             arc: {
                 borderWidth: 0
             }
         },
-        responsive: false,
-        cutoutPercentage: 70
+        plugins: {
+            tooltip: {
+                enabled: false
+            }
+        },
+        responsive: false
     };
 
     fixedCards: FixedCard[] = [
@@ -60,7 +58,10 @@ export class ComponentsDraggableCardsComponent extends BaseDocumentationSection 
             description: 'NYC Preliminary Production 1 created from the protected items.',
             chart: {
                 count: 13.2,
-                segments: [45, 25, 30]
+                segments: [{
+                    data: [45, 25, 30],
+                    backgroundColor: this.colors
+                }]
             }
         },
         {
@@ -70,7 +71,10 @@ export class ComponentsDraggableCardsComponent extends BaseDocumentationSection 
             description: 'NYC Production 2 created as a follow up to Production 1.',
             chart: {
                 count: 6.5,
-                segments: [10, 5, 85]
+                segments: [{
+                    data: [10, 5, 85],
+                    backgroundColor: this.colors
+                }]
             }
         },
         {
@@ -80,7 +84,10 @@ export class ComponentsDraggableCardsComponent extends BaseDocumentationSection 
             description: 'NYC Production 3 Lorem ipsum dolor sit amet, consectetur…',
             chart: {
                 count: 33.2,
-                segments: [60, 15, 25]
+                segments: [{
+                    data: [60, 15, 25],
+                    backgroundColor: this.colors
+                }]
             }
         },
         {
@@ -90,7 +97,10 @@ export class ComponentsDraggableCardsComponent extends BaseDocumentationSection 
             description: 'NYC Production 4 Lorem ipsum dolor sit amet, consectetur…',
             chart: {
                 count: 5.4,
-                segments: [10, 5, 85]
+                segments: [{
+                    data: [10, 5, 85],
+                    backgroundColor: this.colors
+                }]
             }
         },
         {
@@ -100,7 +110,10 @@ export class ComponentsDraggableCardsComponent extends BaseDocumentationSection 
             description: 'NYC Production 3 Lorem ipsum dolor sit amet, consectetur…',
             chart: {
                 count: 33.2,
-                segments: [60, 10, 30]
+                segments: [{
+                    data: [60, 10, 30],
+                    backgroundColor: this.colors
+                }]
             }
         }
     ];
@@ -119,7 +132,7 @@ export class ComponentsDraggableCardsComponent extends BaseDocumentationSection 
                 library: '@ux-aspects/ux-aspects'
             },
             {
-                imports: ['ChartsModule'],
+                imports: ['NgChartsModule'],
                 library: 'ng2-charts'
             },
             {
@@ -199,6 +212,6 @@ export interface DraggableCard {
     description: string;
     chart: {
         count: number;
-        segments: number[];
+        segments: ChartDataset[];
     };
 }
