@@ -1,5 +1,5 @@
-import { AfterViewInit, Component, ViewChild, ViewEncapsulation } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
+import { Component, ViewChild, ViewEncapsulation } from '@angular/core';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { ColorService } from '@ux-aspects/ux-aspects';
 import { ChartDataset, ChartOptions, Tick, TooltipItem } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
@@ -17,7 +17,7 @@ import { MultipleAxisLineChartService } from './multiple-axis-line-chart.service
     providers: [MultipleAxisLineChartService]
 })
 @DocumentationSectionComponent('ChartsMultipleAxisLineChartComponent')
-export class ChartsMultipleAxisLineChartComponent extends BaseDocumentationSection implements AfterViewInit, IPlaygroundProvider {
+export class ChartsMultipleAxisLineChartComponent extends BaseDocumentationSection implements IPlaygroundProvider {
 
     playground: IPlayground = {
         files: {
@@ -44,10 +44,9 @@ export class ChartsMultipleAxisLineChartComponent extends BaseDocumentationSecti
     // configure the directive data
     lineChartData: ChartDataset<'line'>[];
     lineChartOptions: ChartOptions<'line'>;
-    lineChartLegend: boolean = false;
     lineChartColors: any;
+    lineChartLegendContents: SafeHtml;
     lineChartPlugins: any;
-    htmlLegendPlugin: any;
 
     constructor(private sanitizer: DomSanitizer, colorService: ColorService, dataService: MultipleAxisLineChartService) {
         super(require.context('./snippets/', false, /(html|css|js|ts)$/));
@@ -91,9 +90,26 @@ export class ChartsMultipleAxisLineChartComponent extends BaseDocumentationSecti
             };
         });
 
-        this.lineChartPlugins = [
-            this.htmlLegendPlugin
-        ];
+        this.lineChartPlugins = [{
+            beforeInit(chart, args, options) {
+                // Make sure we're applying the legend to the right chart
+                if (chart.canvas.id === 'chart-id') {
+
+                    const sets = chart.data.datasets.map((dataset: ChartDataset) => {
+                        return `<li class="multi-axis-legend-list-item">
+                                    <span class="multi-axis-legend-box" style="background-color: ${
+                                        dataset.backgroundColor
+                                    }; border-color: ${dataset.borderColor}"></span>
+                                    <span class="multi-axis-legend-text">${dataset.label}</span>
+                                </li>`;
+                    });
+
+                    // create html for chart legend
+                    return document.getElementById('legend-id').innerHTML = `<ul class="multi-axis-legend-list">${sets.join('')}</ul>`;
+
+                }
+            }
+        }];
 
         this.lineChartData = [
             {
@@ -184,30 +200,8 @@ export class ChartsMultipleAxisLineChartComponent extends BaseDocumentationSecti
                 }
             },
             plugins: {
-                htmlLegend: {
-                    containerID: 'legend-container',
-                },
                 legend: {
                     display: false,
-                    labels: {
-                        
-                        // generateLabels: (chart: Chart<'line'>) => {
-                        //     const sets = chart.data.datasets.map((dataset: ChartDataset) => {
-                        //         return `<li class="multi-axis-legend-list-item">
-                        //                     <span class="multi-axis-legend-box" style="background-color: ${
-                        //                         dataset.backgroundColor
-                        //                     }; border-color: ${dataset.borderColor}"></span>
-                        //                     <span class="multi-axis-legend-text">${dataset.label}</span>
-                        //                 </li>`;
-                        //     });
-
-                        //     // create html for chart legend
-                        //     return {
-                        //         text: `<ul class="multi-axis-legend-list">${sets.join('')}</ul>`,
-                        //         datasetIndex: dataset.
-                        //     };
-                        // },
-                    }
                 },
                 tooltip: {
                     backgroundColor: tooltipBackgroundColor,
@@ -228,7 +222,7 @@ export class ChartsMultipleAxisLineChartComponent extends BaseDocumentationSecti
                     },
                     displayColors: false
                 },
-            } as any
+            }
         };
 
         this.lineChartColors = [
@@ -253,97 +247,6 @@ export class ChartsMultipleAxisLineChartComponent extends BaseDocumentationSecti
                 pointHitRadius: 5
             }
         ];
-    }
-
-    ngAfterViewInit() {
-        // get the HTML for the legend after timeout - as expressions cannot be updated here
-        // setTimeout(() => {
-        //     this.lineChartLegendContents = this.sanitizer.bypassSecurityTrustHtml(
-        //         // Type information for generateLegend appears to be incorrect
-        //         // this.baseChart.chart.generateLegend() as sting
-        //     );
-        // });
-
-        // this.htmlLegendPlugin = {
-        //     id: 'htmlLegend',
-        //     afterUpdate(chart, args, options) {
-        //         const ul = this.getOrCreateLegendList(chart, options.containerID);
-    
-        //         // Remove old legend items
-        //         while (ul.firstChild) {
-        //         ul.firstChild.remove();
-        //         }
-    
-        //         // Reuse the built-in legendItems generator
-        //         const items = chart.options.plugins.legend.labels.generateLabels(chart);
-    
-        //         items.forEach(item => {
-        //             const li = document.createElement('li');
-        //             li.style.alignItems = 'center';
-        //             li.style.cursor = 'pointer';
-        //             li.style.display = 'flex';
-        //             li.style.flexDirection = 'row';
-        //             li.style.marginLeft = '10px';
-    
-        //             li.onclick = () => {
-        //                 const {type} = chart.config;
-        //                 if (type === 'pie' || type === 'doughnut') {
-        //                     // Pie and doughnut charts only have a single dataset and visibility is per item
-        //                     chart.toggleDataVisibility(item.index);
-        //                 } else {
-        //                     chart.setDatasetVisibility(item.datasetIndex, !chart.isDatasetVisible(item.datasetIndex));
-        //                 }
-        //                 chart.update();
-        //             };
-    
-        //             // Color box
-        //             const boxSpan = document.createElement('span');
-        //             boxSpan.style.background = item.fillStyle;
-        //             boxSpan.style.borderColor = item.strokeStyle;
-        //             boxSpan.style.borderWidth = item.lineWidth + 'px';
-        //             boxSpan.style.display = 'inline-block';
-        //             boxSpan.style.height = '20px';
-        //             boxSpan.style.marginRight = '10px';
-        //             boxSpan.style.width = '20px';
-    
-        //             // Text
-        //             const textContainer = document.createElement('p');
-        //             textContainer.style.color = item.fontColor;
-        //             textContainer.style.margin = '0';
-        //             textContainer.style.padding = '0';
-        //             textContainer.style.textDecoration = item.hidden ? 'line-through' : '';
-    
-        //             const text = document.createTextNode(item.text);
-        //             textContainer.appendChild(text);
-    
-        //             li.appendChild(boxSpan);
-        //             li.appendChild(textContainer);
-        //             ul.appendChild(li);
-        //         });
-        //     }
-        // };
-    }
-
-    // getOrCreateLegendList(chart, id) {
-    //     const legendContainer = document.getElementById(id);
-    //     let listContainer = legendContainer.querySelector('ul');
-
-    //     if (!listContainer) {
-    //     listContainer = document.createElement('ul');
-    //     listContainer.style.display = 'flex';
-    //     listContainer.style.flexDirection = 'row';
-    //     listContainer.style.margin = '0';
-    //     listContainer.style.padding = '0';
-
-    //     legendContainer.appendChild(listContainer);
-    //     }
-    //    return listContainer;
-    // };
-
-   
-
-    formatDate(date: number): string {
-        return new Date(date).toLocaleDateString();
     }
 
     formatDateForTooltip(date: Date): string {
