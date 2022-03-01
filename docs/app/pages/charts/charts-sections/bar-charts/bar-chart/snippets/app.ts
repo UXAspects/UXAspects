@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { ColorService } from '@ux-aspects/ux-aspects';
-import { Chart, ChartDataset, ChartOptions, ChartType, TooltipItem } from 'chart.js';
+import { Chart, ChartDataset, ChartOptions, TooltipItem } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
 
 @Component({
@@ -13,10 +13,8 @@ export class AppComponent implements AfterViewInit {
     // access the chart directive properties
     @ViewChild(BaseChartDirective, { static: true }) baseChart: BaseChartDirective;
 
-
     barChartData: ChartDataset[];
     barChartLabels: string[] = ['.doc', '.ppt', '.pdf', '.xls', '.html', '.txt', '.csv', '.mht'];
-    barChartType: ChartType = 'bar';
     barChartOptions: ChartOptions<'bar'>;
     barChartLegend: boolean = false;
     barChartColors: any;
