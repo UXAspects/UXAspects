@@ -24,7 +24,7 @@ export class ChartsLiveChartComponent extends BaseDocumentationSection implement
             library: 'chart.js'
         },
         {
-            imports: ['ChartsModule'],
+            imports: ['NgChartsModule'],
             library: 'ng2-charts'
         }, {
             imports: ['ColorServiceModule'],

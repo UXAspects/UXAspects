@@ -23,7 +23,7 @@ export class ComponentsColorServiceComponent extends BaseDocumentationSection im
         modules: [{
             library: 'chart.js'
         }, {
-            imports: ['ChartsModule'],
+            imports: ['NgChartsModule'],
             library: 'ng2-charts'
         }, {
             imports: ['ColorServiceModule', 'SelectModule'],

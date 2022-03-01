@@ -23,7 +23,7 @@ export class ChartsStackedLineChartComponent extends BaseDocumentationSection im
             library: 'chart.js'
         },
         {
-            imports: ['ChartsModule'],
+            imports: ['NgChartsModule'],
             library: 'ng2-charts'
         }, {
             imports: ['ColorServiceModule'],
