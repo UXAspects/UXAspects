@@ -142,7 +142,14 @@ export class TimelineChartPlugin {
      * one of the drag handles. We have do calculate this manually
      * as there are no DOM element to add CSS to.
      */
-    afterEvent(chart: TimelineChart, event: MouseEvent) {
+    afterEvent(chart: TimelineChart, parentEvent: any) {
+
+        const event = parentEvent.event as MouseEvent;
+
+        if (parentEvent.replay === true) {
+            return;
+        }
+
         // skip this if timeline is not enabled
         if (!this.getEnabled(chart)) {
             return;
@@ -215,7 +222,7 @@ export class TimelineChartPlugin {
         chart.config.options.timeline.state = { ...chart.config.options.timeline.state, ...state };
 
         // trigger a chart re-render
-        chart.update();
+        chart.update('normal');
     }
 
     /** Call the callback with the latest range */
@@ -392,10 +399,10 @@ export class TimelineChartPlugin {
         }
     }
 
-    private handleMouseMove(chart: TimelineChart, event: Partial<MouseEvent>): void {
+    private handleMouseMove(chart: TimelineChart, event: any): void {
         const mousePosition = this.isWithinHandle(chart, event);
 
-        const timelineOptions = chart.options as TimelineChartOptions;
+        const timelineOptions = chart.config.options as TimelineChartOptions;
         const hasTooltipOnRange: boolean = timelineOptions.timeline.range.hasOwnProperty('tooltip');
         const hasTooltipOnHandles: boolean = timelineOptions.timeline.handles.hasOwnProperty('tooltip');
         let timelineTooltipText: string;
@@ -507,6 +514,8 @@ export class TimelineChartPlugin {
 
     /** Update the range when dragged */
     private setRangeOnDrag(chart: TimelineChart, event: Partial<MouseEvent>): void {
+
+        // compare this to the original, handle and mouseX doesn't seem to be on this
 
         const { handle, mouseX } = this.getState(chart);
 
@@ -765,7 +774,6 @@ export class TimelineChartPlugin {
     private getChartRange(chart: TimelineChart): [number, number] {
         // get the current data
         const data  = chart.scales;
-        console.log('file: timeline-chart.module.ts ~ line 777 ~ TimelineChartPlugin ~ getChartRange ~ data', data);
 
         // get the range on the x-axis
         const minimum: number = data.x.min;
