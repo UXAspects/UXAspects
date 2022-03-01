@@ -1,6 +1,6 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { ColorService } from '@ux-aspects/ux-aspects';
-import { Chart, ChartDataset, ChartOptions, TooltipItem } from 'chart.js';
+import { ChartDataset, ChartOptions, TooltipItem } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
 
 @Component({
@@ -8,7 +8,7 @@ import { BaseChartDirective } from 'ng2-charts';
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.css']
 })
-export class AppComponent implements AfterViewInit {
+export class AppComponent {
 
     // access the chart directive properties
     @ViewChild(BaseChartDirective, { static: true }) baseChart: BaseChartDirective;
@@ -80,28 +80,4 @@ export class AppComponent implements AfterViewInit {
             }
         };
     }
-
-    ngAfterViewInit() {
-
-        // get instance of the chart
-        const chartInstance = this.baseChart.chart;
-
-        // create reference to Chart with type of any
-        const chartJs = Chart as any;
-
-        // Added dashed borders to forecast data
-        chartJs.helpers.each(chartInstance.getDatasetMeta(0).data, (bar: any, index: number) => {
-
-            // only alter the bars that are forecast data
-            if (index >= 6) {
-                bar.draw = function() {
-                    chartInstance.ctx.save();
-                    chartInstance.ctx.setLineDash([2, 2]);
-                    chartJs.elements.Rectangle.prototype.draw.apply(this, arguments);
-                    chartInstance.ctx.restore();
-                };
-            }
-        });
-    }
-
 }
