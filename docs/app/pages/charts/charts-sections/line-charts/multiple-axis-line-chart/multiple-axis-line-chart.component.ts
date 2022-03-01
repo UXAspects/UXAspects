@@ -249,6 +249,10 @@ export class ChartsMultipleAxisLineChartComponent extends BaseDocumentationSecti
         ];
     }
 
+    formatDate(date: number): string {
+        return new Date(date).toLocaleDateString();
+    }
+
     formatDateForTooltip(date: Date): string {
         return `${date.getFullYear().toString().substr(-2)}-${date.getMonth()}m-${date.getDate()}d`;
     }
