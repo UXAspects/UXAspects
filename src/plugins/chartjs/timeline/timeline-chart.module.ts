@@ -1,7 +1,6 @@
 import { END, HOME, LEFT_ARROW, RIGHT_ARROW } from '@angular/cdk/keycodes';
 import { NgModule } from '@angular/core';
-import { Chart, Color } from 'chart.js';
-import { TRBL } from 'chart.js/types/geometric';
+import { Chart } from 'chart.js';
 
 const timelineDefaultOptions: TimelineChartOptions & TimelineChartStateOptions = {
     timeline: {
@@ -52,14 +51,20 @@ export class TimelineChartPlugin {
          */
         if (!this._isRegistered) {
 
-            // if (!(window as any).Chart) {
-            //     throw new Error('Please import Chart.js to use the timeline chart.');
-            // }
-            // register the plugin
-            Chart.register(new TimelineChartPlugin());
+            // if pluginService exists then we are in v2
+            if ((window as any).Chart) {
+                (window as any).Chart.pluginService.register(new TimelineChartPlugin());
+            }
+            else {
+                (Chart as any).register(new TimelineChartPlugin());
+            }
 
             this._isRegistered = true;
         }
+    }
+
+    version3Check(): boolean {
+        return (window as any).Chart? false : true;
     }
 
     /**
@@ -76,7 +81,6 @@ export class TimelineChartPlugin {
 
         // provide the default options for any missing properties
         if (this.getEnabled(chart)) {
-
             // chart.config.options.timeline = { ...timelineDefaultOptions.timeline, ...this.getOptions(chart) };
             chart.config.options.timeline = this.getOptionsWithDefaults(this.getOptions(chart));
 
@@ -144,7 +148,11 @@ export class TimelineChartPlugin {
      */
     afterEvent(chart: TimelineChart, parentEvent: any) {
 
-        const event = parentEvent.event as MouseEvent;
+        let event = parentEvent;
+
+        if (this.version3Check()) {
+            event = event.event as MouseEvent;
+        }
 
         if (parentEvent.replay === true) {
             return;
@@ -198,7 +206,7 @@ export class TimelineChartPlugin {
     }
 
     /** Get the chart area but include any padding */
-    private getChartArea(chart: TimelineChart): TRBL {
+    private getChartArea(chart: TimelineChart): ChartArea {
         const { top, right, bottom, left } = chart.chartArea;
         const padding = chart.config.options.layout && chart.config.options.layout.padding ? chart.config.options.layout.padding : 0;
 
@@ -222,7 +230,7 @@ export class TimelineChartPlugin {
         chart.config.options.timeline.state = { ...chart.config.options.timeline.state, ...state };
 
         // trigger a chart re-render
-        chart.update('normal');
+        chart.update();
     }
 
     /** Call the callback with the latest range */
@@ -402,7 +410,10 @@ export class TimelineChartPlugin {
     private handleMouseMove(chart: TimelineChart, event: any): void {
         const mousePosition = this.isWithinHandle(chart, event);
 
-        const timelineOptions = chart.config.options as TimelineChartOptions;
+        let timelineOptions = chart.options as TimelineChartOptions;
+        if (this.version3Check()) {
+            timelineOptions = chart.config.options;
+        }
         const hasTooltipOnRange: boolean = timelineOptions.timeline.range.hasOwnProperty('tooltip');
         const hasTooltipOnHandles: boolean = timelineOptions.timeline.handles.hasOwnProperty('tooltip');
         let timelineTooltipText: string;
@@ -514,8 +525,6 @@ export class TimelineChartPlugin {
 
     /** Update the range when dragged */
     private setRangeOnDrag(chart: TimelineChart, event: Partial<MouseEvent>): void {
-
-        // compare this to the original, handle and mouseX doesn't seem to be on this
 
         const { handle, mouseX } = this.getState(chart);
 
@@ -740,7 +749,7 @@ export class TimelineChartPlugin {
     }
 
     /** Get the area a specific handle covers within the chart */
-    private getHandleArea(chart: TimelineChart, handle: TimelineHandle): TRBL {
+    private getHandleArea(chart: TimelineChart, handle: TimelineHandle): ChartArea {
         // get the region that the chart is drawn on (excluding axis)
         const { left, top, right, bottom } = this.getChartArea(chart);
 
@@ -772,12 +781,29 @@ export class TimelineChartPlugin {
      * Get the minimum and maximum values on the x-axis
      */
     private getChartRange(chart: TimelineChart): [number, number] {
-        // get the current data
-        const data  = chart.scales;
 
-        // get the range on the x-axis
-        const minimum: number = data.x.min;
-        const maximum: number = data.x.max;
+        let minimum: number;
+        let maximum: number;
+
+        if (this.version3Check()) {
+
+            // get the current data
+            const data = (chart as any).scales;
+
+            // get the range on the x-axis
+            minimum = data.x.min;
+            maximum = data.x.max;
+        } else {
+
+            // get the current data
+            const { data } = chart.getDatasetMeta(0);
+
+            console.log(data);
+
+            // get the range on the x-axis
+            minimum = (data[0] as any)._xScale.min;
+            maximum = (data[0] as any)._xScale.max;
+        }
 
         return [minimum, maximum];
     }
@@ -887,16 +913,16 @@ export enum TimelineHandle {
 
 export interface TimelineChartOptions {
     timeline?: {
-        backgroundColor?: Color;
-        selectionColor?: Color;
+        backgroundColor?: ChartColor;
+        selectionColor?: ChartColor;
         onChange?: (lower: Date, upper: Date) => void;
         keyboard?: {
             step?: number;
         },
         handles?: {
-            backgroundColor?: Color;
-            foregroundColor?: Color;
-            focusIndicatorColor?: Color;
+            backgroundColor?: ChartColor;
+            foregroundColor?: ChartColor;
+            focusIndicatorColor?: ChartColor;
             tooltip?: {
                 label: Function;
             }
@@ -937,6 +963,15 @@ export interface TimelineChartState {
     upperHandleElement?: HTMLDivElement;
     rangeHandleElement?: HTMLDivElement;
 }
+
+export interface ChartArea {
+    top: number;
+    right: number;
+    bottom: number;
+    left: number;
+}
+
+export type ChartColor = string | CanvasGradient | CanvasPattern;
 
 export interface TimelineChartConfig {
     config: {
