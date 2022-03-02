@@ -224,29 +224,6 @@ export class ChartsMultipleAxisLineChartComponent extends BaseDocumentationSecti
                 },
             }
         };
-
-        this.lineChartColors = [
-            {
-                borderColor: lineBorderColor1,
-                backgroundColor: lineFillColor1,
-                pointBackgroundColor: 'transparent',
-                pointBorderColor: 'transparent',
-                pointHoverBorderColor: pointBorderColor1,
-                pointHoverBorderWidth: 3,
-                pointHoverRadius: 5,
-                pointHitRadius: 5
-            },
-            {
-                borderColor: lineBorderColor2,
-                backgroundColor: lineFillColor2,
-                pointBackgroundColor: 'transparent',
-                pointBorderColor: 'transparent',
-                pointHoverBorderColor: pointBorderColor2,
-                pointHoverBorderWidth: 3,
-                pointHoverRadius: 5,
-                pointHitRadius: 5
-            }
-        ];
     }
 
     formatDate(date: number): string {
