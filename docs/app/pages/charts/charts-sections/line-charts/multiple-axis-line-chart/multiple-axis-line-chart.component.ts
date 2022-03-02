@@ -51,8 +51,6 @@ export class ChartsMultipleAxisLineChartComponent extends BaseDocumentationSecti
     constructor(private sanitizer: DomSanitizer, colorService: ColorService, dataService: MultipleAxisLineChartService) {
         super(require.context('./snippets/', false, /(html|css|js|ts)$/));
 
-        // Chart.register(this.htmlLegendPlugin);
-
         const tooltipBackgroundColor = colorService.getColor('grey2').toHex();
         const gridColor = colorService.getColor('grey6').toHex();
 
