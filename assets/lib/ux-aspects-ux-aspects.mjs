@@ -3628,21 +3628,33 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.2", ngImpor
 
 class OverlayPlacementService {
     /** Updates the position of the current menu. */
-    updatePosition(overlayRef, placement, alignment, fallbackPlacement) {
+    updatePosition(overlayRef, placement, alignment, customFallbackPlacement, isSubMenu) {
         const position = overlayRef.getConfig().positionStrategy;
         const origin = this.getOrigin(placement, alignment);
         const overlay = this.getOverlayPosition(placement, alignment);
-        if (!fallbackPlacement) {
-            position.withPositions([
-                this.addOffset(Object.assign(Object.assign({}, origin.main), overlay.main)),
-                this.addOffset(Object.assign(Object.assign({}, origin.fallback), overlay.fallback)),
-            ]);
+        position.withPositions(this.addPositions(origin, overlay, isSubMenu, customFallbackPlacement));
+    }
+    /** Apply position to position strategy */
+    addPositions(origin, overlay, isSubMenu, customFallbackPlacement) {
+        if (customFallbackPlacement) {
+            return [
+                Object.assign(Object.assign({}, origin.main), overlay.main),
+                this.getFallbackPosition(customFallbackPlacement),
+            ];
+        }
+        else if (isSubMenu) {
+            return [
+                Object.assign(Object.assign({}, origin.main), overlay.main),
+                Object.assign(Object.assign({}, origin.fallback), overlay.fallback),
+                Object.assign({ originX: 'end', originY: 'bottom' }, { overlayX: 'start', overlayY: 'bottom' }),
+                Object.assign({ originX: 'start', originY: 'bottom' }, { overlayX: 'end', overlayY: 'bottom' })
+            ];
         }
         else {
-            position.withPositions([
-                this.addOffset(Object.assign(Object.assign({}, origin.main), overlay.main)),
-                this.addOffset(this.getFallbackPosition(fallbackPlacement)),
-            ]);
+            return [
+                Object.assign(Object.assign({}, origin.main), overlay.main),
+                Object.assign(Object.assign({}, origin.fallback), overlay.fallback)
+            ];
         }
     }
     /** Get the origin position based on the specified tooltip placement */
@@ -3687,10 +3699,6 @@ class OverlayPlacementService {
             main: overlayPosition,
             fallback: { overlayX: x, overlayY: y },
         };
-    }
-    /** Adds the configured offset to a position. Used as a hook for child classes. */
-    addOffset(position) {
-        return position;
     }
     /** Convert the alignment property to a valid CDK alignment value */
     getVerticalAlignment(alignment) {
@@ -13472,7 +13480,8 @@ class MenuTriggerDirective {
         const strategy = this._overlay.position()
             .flexibleConnectedTo(this._elementRef)
             .withFlexibleDimensions(false)
-            .withPush(false);
+            .withPush(false)
+            .withTransformOriginOn('.ux-menu');
         // otherwise create a new one
         this._overlayRef = this._overlay.create({
             hasBackdrop: !this._isSubmenuTrigger,
@@ -13480,12 +13489,7 @@ class MenuTriggerDirective {
             scrollStrategy: this._overlay.scrollStrategies.reposition({ scrollThrottle: 0 }),
             positionStrategy: strategy
         });
-        this._overlayPlacement.updatePosition(this._overlayRef, this.menu.placement, this.menu.alignment);
-        const position = this._overlayRef.getConfig().positionStrategy;
-        // add panelClass to positions
-        position.withPositions(position.positions.map((pos) => {
-            return Object.assign(Object.assign({}, pos), { panelClass: this.menuAnimation(pos.originY) });
-        }));
+        this._overlayPlacement.updatePosition(this._overlayRef, this.menu.placement, this.menu.alignment, undefined, this._isSubmenuTrigger);
         return this._overlayRef;
     }
     /** Create a Template portal if one does not already exist (or the template has changed) */
@@ -13495,13 +13499,6 @@ class MenuTriggerDirective {
             this._portal = new TemplatePortal(this.menu.templateRef, this._viewContainerRef);
         }
         return this._portal;
-    }
-    /** Determine the direction of the animation. */
-    menuAnimation(originY) {
-        if ((this.menu.placement === 'top' || this.menu.placement === 'bottom') && originY === 'top' && !this._isSubmenuTrigger) {
-            return 'ux-menu-placement-top';
-        }
-        return null;
     }
     /** Get an observable that emits on any of the triggers that close a menu */
     didMenuClose() {

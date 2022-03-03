@@ -1,5 +1,5 @@
 /*
- * @ux-aspects/ux-aspects - v5.3.0-388
+ * @ux-aspects/ux-aspects - v5.4.0-393
  * © Copyright 2022 EntIT Software LLC, a Micro Focus company
  */
 .cdk-overlay-container,
@@ -8302,9 +8302,6 @@ ux-media-player .control-bar.control-bar-visible {
 }
 .ux-menu.ux-sub-menu {
   margin-top: 0;
-}
-.ux-menu-placement-top .ux-menu {
-  transform-origin: bottom center;
 }
 ux-menu-divider {
   display: block;
