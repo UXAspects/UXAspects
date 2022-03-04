@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ColorService } from '@ux-aspects/ux-aspects';
-import { ChartDataset, ChartOptions } from 'chart.js';
+import { ChartDataset, ChartOptions, TooltipItem } from 'chart.js';
 
 @Component({
     selector: 'app',
