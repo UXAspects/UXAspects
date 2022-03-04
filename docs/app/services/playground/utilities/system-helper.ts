@@ -63,6 +63,8 @@ export class SystemJSHelper {
         { name: 'ng2-charts', path: 'ng2-charts@3.0.8/fesm2020/ng2-charts.mjs' },
         { name: 'lodash', path: 'lodash/lodash.js' },
         { name: 'lodash-es', path: 'lodash-es@4.17.21/lodash.js' },
+        { name: 'chartjs-adapter-moment', path: 'chartjs-adapter-moment' },
+        { name: 'moment', path: 'moment' },
         { name: 'ng2-file-upload', path: 'ng2-file-upload/bundles/ng2-file-upload.umd.js' },
         { name: 'angular-split', path: 'angular-split@3.0.2/bundles/angular-split.umd.js' },
         { name: 'ngx-mask', path: 'ngx-mask/bundles/ngx-mask.umd.js' },

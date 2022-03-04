@@ -37,6 +37,9 @@ export class ChartsTimelineChartComponent extends BaseDocumentationSection imple
             library: 'chart.js'
         },
         {
+            library: 'chartjs-adapter-moment'
+        },
+        {
             imports: ['NgChartsModule'],
             library: 'ng2-charts'
         }, {
