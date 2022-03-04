@@ -52,7 +52,7 @@ export class TimelineChartPlugin {
         if (!this._isRegistered) {
 
             // if pluginService exists then we are in v2
-            if ((window as any).Chart) {
+            if ((window as any).Chart?.pluginService) {
                 (window as any).Chart.pluginService.register(new TimelineChartPlugin());
             }
             else {
