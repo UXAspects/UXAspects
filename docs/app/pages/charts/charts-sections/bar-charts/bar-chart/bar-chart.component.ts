@@ -24,7 +24,6 @@ export class ChartsBarChartComponent extends BaseDocumentationSection implements
             'app.component.css': this.snippets.raw.appCss
         },
         modules: [{
-            imports: ['Chart, ChartDataset, ChartOptions, TooltipItem'],
             library: 'chart.js'
         },
         {

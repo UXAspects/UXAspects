@@ -1,9 +1,10 @@
 <div class="demo-chart-container">
 
     <canvas baseChart
+        id="chart-id"
         [datasets]="lineChartData"
         [options]="lineChartOptions"
-        [legend]="lineChartLegend"
+        [plugins]="lineChartPlugins"
         type="line">
 
         <table *ngFor="let dataset of lineChartData" attr.aria-label="{{dataset.label}} chart data">
@@ -25,6 +26,6 @@
 
     </canvas>
 
-    <div class="multi-axis-legend" [innerHtml]="lineChartLegendContents" aria-hidden="true"></div>
+    <div class="multi-axis-legend" id="legend-id" aria-hidden="true"></div>
 
 </div>

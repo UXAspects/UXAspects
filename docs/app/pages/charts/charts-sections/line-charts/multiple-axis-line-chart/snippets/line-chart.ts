@@ -13,6 +13,7 @@ import { MultipleAxisLineChartService } from './data.service';
     providers: [MultipleAxisLineChartService]
 })
 export class AppComponent implements AfterViewInit {
+
     // access the chart directive properties
     @ViewChild(BaseChartDirective, { static: true }) baseChart: BaseChartDirective;
 
