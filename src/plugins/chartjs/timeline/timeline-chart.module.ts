@@ -798,8 +798,6 @@ export class TimelineChartPlugin {
             // get the current data
             const { data } = chart.getDatasetMeta(0);
 
-            console.log(data);
-
             // get the range on the x-axis
             minimum = (data[0] as any)._xScale.min;
             maximum = (data[0] as any)._xScale.max;

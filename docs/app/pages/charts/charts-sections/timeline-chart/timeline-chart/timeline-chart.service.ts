@@ -11,7 +11,6 @@ export class TimelineChartService {
 
     constructor() {
         const date = new Date(2014, 1, 0);
-        console.log('file: timeline-chart.service.ts ~ line 14 ~ TimelineChartService ~ constructor ~ date', date);
 
         for (let idx = 0; idx < 63; idx++) {
 

@@ -40,8 +40,6 @@ export class AppComponent {
             fill: 'origin'
         }];
 
-        console.log(this.lineChartData);
-
         this.lineChartOptions = {
             responsive: true,
             maintainAspectRatio: false,

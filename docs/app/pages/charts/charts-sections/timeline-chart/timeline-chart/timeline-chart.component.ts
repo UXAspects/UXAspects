@@ -66,8 +66,6 @@ export class ChartsTimelineChartComponent extends BaseDocumentationSection imple
             fill: 'origin'
         }];
 
-        console.log(this.lineChartData);
-
         this.lineChartOptions = {
             responsive: true,
             maintainAspectRatio: false,
