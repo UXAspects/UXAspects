@@ -9,7 +9,7 @@ describe('Expanding Text Area Tests', () => {
         await page.getPage();
     });
 
-    const height: number = 33;
+    const height: number = 34;
 
     it('should have correct initial states', async () => {
         expect(await page.getHeight()).toBe(height);
@@ -38,7 +38,7 @@ describe('Expanding Text Area Tests', () => {
 
         await page.setText('A first line of text\nA second line of text');
 
-        expect(await page.getHeight()).toBe(58);
+        expect(await page.getHeight()).toBe(59);
         expect(await page.getText()).toBe('A first line of text\nA second line of text');
 
         // clear text content
