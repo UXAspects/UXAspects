@@ -64,7 +64,7 @@ export class TimelineChartPlugin {
     }
 
     version3Check(): boolean {
-        return (window as any).Chart? false : true;
+        return (window as any).Chart?.pluginService ? false : true;
     }
 
     /**
