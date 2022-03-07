@@ -38,7 +38,6 @@ export class TimelineChartPlugin {
 
     /** Register this plugin */
     static register(): void {
-
         /**
          * We have to register this plugin globally because
          * ng2-charts doesn't support plugins on an invidual
@@ -779,7 +778,6 @@ export class TimelineChartPlugin {
         let maximum: number;
 
         if (this.isVersion3()) {
-
             // get the current data
             const data = (chart as any).scales;
 
@@ -787,7 +785,6 @@ export class TimelineChartPlugin {
             minimum = data.x.min;
             maximum = data.x.max;
         } else {
-
             // get the current data
             const { data } = chart.getDatasetMeta(0);
 
