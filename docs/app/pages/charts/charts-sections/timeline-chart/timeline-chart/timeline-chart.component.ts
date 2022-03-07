@@ -24,7 +24,7 @@ const DATE_LOCALE_OPTIONS = {
 @DocumentationSectionComponent('ChartsTimelineChartComponent')
 export class ChartsTimelineChartComponent extends BaseDocumentationSection implements IPlaygroundProvider {
 
-    @ViewChild(BaseChartDirective, { static: true }) baseChart: BaseChartDirective;
+    @ViewChild(BaseChartDirective, { static: true }) baseChart!: BaseChartDirective;
 
     playground: IPlayground = {
         files: {
@@ -50,10 +50,8 @@ export class ChartsTimelineChartComponent extends BaseDocumentationSection imple
 
     lineChartData: ChartDataset[];
     lineChartOptions: ChartOptions<'line'>;
-    lineChartLabels: string[];
 
     timelineChartData: ChartDataset[];
-    timelineChartLabels: string[];
     timelineChartOptions: ChartOptions & TimelineChartOptions;
 
     constructor(private _dataService: TimelineChartService, private _colorService: ColorService) {

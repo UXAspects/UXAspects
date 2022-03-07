@@ -18,14 +18,12 @@ const DATE_LOCALE_OPTIONS = {
 })
 export class AppComponent {
 
-    @ViewChild(BaseChartDirective, { static: true }) baseChart: BaseChartDirective;
+    @ViewChild(BaseChartDirective, { static: true }) baseChart!: BaseChartDirective;
 
-    lineChartData: ChartDataset[];
+    lineChartData: ChartDataset<'line'>[];
     lineChartOptions: ChartOptions<'line'>;
-    lineChartLabels: string[];
 
-    timelineChartData: ChartDataset[];
-    timelineChartLabels: string[];
+    timelineChartData: ChartDataset<'line'>[];
     timelineChartOptions: ChartOptions & TimelineChartOptions;
 
     constructor(private _dataService: TimelineChartService, private _colorService: ColorService) {
