@@ -63,7 +63,7 @@ export class TimelineChartPlugin {
         }
     }
 
-    version3Check(): boolean {
+    isVersion3(): boolean {
         return (window as any).Chart?.pluginService ? false : true;
     }
 
@@ -148,11 +148,7 @@ export class TimelineChartPlugin {
      */
     afterEvent(chart: TimelineChart, parentEvent: any) {
 
-        let event = parentEvent;
-
-        if (this.version3Check()) {
-            event = event.event as MouseEvent;
-        }
+        const event: MouseEvent = this.isVersion3() ? parentEvent.event: parentEvent;
 
         if (parentEvent.replay === true) {
             return;
@@ -410,10 +406,7 @@ export class TimelineChartPlugin {
     private handleMouseMove(chart: TimelineChart, event: any): void {
         const mousePosition = this.isWithinHandle(chart, event);
 
-        let timelineOptions = chart.options as TimelineChartOptions;
-        if (this.version3Check()) {
-            timelineOptions = chart.config.options;
-        }
+        const timelineOptions = (this.isVersion3() ? chart.config.options : chart.options) as TimelineChartOptions;
         const hasTooltipOnRange: boolean = timelineOptions.timeline.range.hasOwnProperty('tooltip');
         const hasTooltipOnHandles: boolean = timelineOptions.timeline.handles.hasOwnProperty('tooltip');
         let timelineTooltipText: string;
@@ -785,7 +778,7 @@ export class TimelineChartPlugin {
         let minimum: number;
         let maximum: number;
 
-        if (this.version3Check()) {
+        if (this.isVersion3()) {
 
             // get the current data
             const data = (chart as any).scales;

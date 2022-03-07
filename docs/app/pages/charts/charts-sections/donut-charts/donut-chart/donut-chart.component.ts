@@ -86,15 +86,15 @@ export class ChartsDonutChartComponent extends BaseDocumentationSection implemen
                         label: (item: TooltipItem<'doughnut'>) => {
 
                             // get the dataset (we only have one)
-                            const dataset: any = this.donutChartData[0];
+                            const dataset = this.donutChartData[0];
 
                             // calculate the total of all segment values
                             const total = dataset.data.reduce((previousValue: any, currentValue: any) => {
                                 return previousValue + currentValue;
-                            });
+                            }) as number;
 
                             // get the value of the current segment
-                            const segmentValue = dataset.data[item.dataIndex];
+                            const segmentValue = dataset.data[item.dataIndex] as number;
 
                             // calculate the percentage of the current segment compared to the total
                             const percentage = Math.round(((segmentValue / total) * 100));
