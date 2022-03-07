@@ -61,7 +61,6 @@ export class SystemJSHelper {
         { name: 'chance', path: 'chance' },
         { name: 'chart.js', path: 'chart.js@3.7.1/dist/chart.min.js' },
         { name: 'ng2-charts', path: 'ng2-charts@3.0.8/fesm2020/ng2-charts.mjs' },
-        { name: 'lodash', path: 'lodash/lodash.js' },
         { name: 'lodash-es', path: 'lodash-es@4.17.21/lodash.js' },
         { name: 'chartjs-adapter-moment', path: 'chartjs-adapter-moment' },
         { name: 'moment', path: 'moment' },
