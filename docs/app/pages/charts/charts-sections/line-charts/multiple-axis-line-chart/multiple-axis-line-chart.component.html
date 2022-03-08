@@ -17,8 +17,8 @@
             <tbody>
                 <ng-container *ngFor="let row of dataset.data; let idx = index">
                     <tr *ngIf="idx % 10 === 0">
-                        <td>{{formatDate(row.x)}}</td>
-                        <td>{{row.y}}</td>
+                        <td>{{formatDate($any(row).x)}}</td>
+                        <td>{{$any(row).y}}</td>
                     </tr>
                 </ng-container>
             </tbody>
@@ -28,7 +28,7 @@
 
     <div class="multi-axis-legend" id="legend-id" aria-hidden="true"></div>
 
-</div>
+  </div>
 
 <hr>
 

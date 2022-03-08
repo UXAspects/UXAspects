@@ -41,7 +41,7 @@ export class AppComponent {
             fill: 'origin'
         },
         {
-            data: [, , , , , 44, 45, 50, 55],
+            data: [null, null, null, null, null, 44, 45, 50, 55],
             borderDash: [5],
             borderWidth: 1,
             borderColor: lineBorderColor,
@@ -81,12 +81,8 @@ export class AppComponent {
                     backgroundColor: tooltipBackgroundColor,
                     cornerRadius: 0,
                     callbacks: {
-                        title: (item: TooltipItem<'line'>[]) => {
-                            return null;
-                        },
-                        label: (item: TooltipItem<'line'>) => {
-                            return `x: ${item.label}, y: ${item.formattedValue}`;
-                        }
+                        title: () => '',
+                        label: (item: TooltipItem<'line'>) => `x: ${item.label}, y: ${item.formattedValue}`
                     },
                     displayColors: false
                 }

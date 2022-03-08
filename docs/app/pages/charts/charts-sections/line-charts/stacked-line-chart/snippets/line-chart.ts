@@ -104,9 +104,7 @@ export class AppComponent {
                     backgroundColor: tooltipBackgroundColor,
                     cornerRadius: 0,
                     callbacks: {
-                        title: (item: TooltipItem<'line'>[]) => {
-                            return null;
-                        },
+                        title: () => '',
                         label: (item: TooltipItem<'line'>) => `Sales ${ item.datasetIndex + 1 } - ${ item.formattedValue }€ in cycle ${ item.dataIndex + 1 }`
                     },
                     displayColors: false

@@ -83,7 +83,7 @@ export class ChartsHorizontalBarChartComponent extends BaseDocumentationSection 
                     backgroundColor: tooltipBackgroundColor,
                     cornerRadius: 0,
                     callbacks: {
-                        title: (item: TooltipItem<'bar'>[]) => '',
+                        title: () => '',
                         label: (item: TooltipItem<'bar'>) => `x: ${item.label}, y: ${item.formattedValue}`
                     },
                     displayColors: false

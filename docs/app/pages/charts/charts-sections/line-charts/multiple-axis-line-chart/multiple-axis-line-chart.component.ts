@@ -1,7 +1,7 @@
 import { Component, ViewChild, ViewEncapsulation } from '@angular/core';
-import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { DomSanitizer } from '@angular/platform-browser';
 import { ColorService } from '@ux-aspects/ux-aspects';
-import { ChartDataset, ChartOptions, Tick, TooltipItem } from 'chart.js';
+import { Chart, ChartDataset, ChartOptions, TooltipItem } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
@@ -39,13 +39,11 @@ export class ChartsMultipleAxisLineChartComponent extends BaseDocumentationSecti
     };
 
     // access the chart directive properties
-    @ViewChild(BaseChartDirective, { static: true }) baseChart: BaseChartDirective;
+    @ViewChild(BaseChartDirective, { static: true }) baseChart!: BaseChartDirective;
 
     // configure the directive data
     lineChartData: ChartDataset<'line'>[];
     lineChartOptions: ChartOptions<'line'>;
-    lineChartColors: any;
-    lineChartLegendContents: SafeHtml;
     lineChartPlugins: any;
 
     constructor(private sanitizer: DomSanitizer, colorService: ColorService, dataService: MultipleAxisLineChartService) {
@@ -89,23 +87,18 @@ export class ChartsMultipleAxisLineChartComponent extends BaseDocumentationSecti
         });
 
         this.lineChartPlugins = [{
-            beforeInit(chart, args, options) {
-                // Make sure we're applying the legend to the right chart
-                if (chart.canvas.id === 'chart-id') {
+            beforeInit(chart: Chart) {
+                const sets = chart.data.datasets.map((dataset: ChartDataset) => {
+                    return `<li class="multi-axis-legend-list-item">
+                                <span class="multi-axis-legend-box" style="background-color: ${
+                                    dataset.backgroundColor
+                                }; border-color: ${dataset.borderColor}"></span>
+                                <span class="multi-axis-legend-text">${dataset.label}</span>
+                            </li>`;
+                });
 
-                    const sets = chart.data.datasets.map((dataset: ChartDataset) => {
-                        return `<li class="multi-axis-legend-list-item">
-                                    <span class="multi-axis-legend-box" style="background-color: ${
-                                        dataset.backgroundColor
-                                    }; border-color: ${dataset.borderColor}"></span>
-                                    <span class="multi-axis-legend-text">${dataset.label}</span>
-                                </li>`;
-                    });
-
-                    // create html for chart legend
-                    return document.getElementById('legend-id').innerHTML = `<ul class="multi-axis-legend-list">${sets.join('')}</ul>`;
-
-                }
+                // create html for chart legend
+                return document.getElementById('legend-id')!.innerHTML = `<ul class="multi-axis-legend-list">${sets.join('')}</ul>`;
             }
         }];
 
@@ -161,7 +154,7 @@ export class ChartsMultipleAxisLineChartComponent extends BaseDocumentationSecti
                     max: 1220824800000,
                     ticks: {
                         stepSize: 5313240000,
-                        callback: (value: number, index: number, ticks: Tick[]) => {
+                        callback: (value: string | number) => {
                             const date = new Date(value);
                             return (
                                 date.toLocaleString('en', { month: 'short' }) +
@@ -188,8 +181,8 @@ export class ChartsMultipleAxisLineChartComponent extends BaseDocumentationSecti
                     max: 0.79,
                     ticks: {
                         stepSize: 0.79 / 3,
-                        callback(value: number, index: number, ticks: Tick[]) {
-                            return value.toFixed(2) + '€';
+                        callback(value: string | number) {
+                            return (value as number).toFixed(2) + '€';
                         }
                     },
                     grid: {
@@ -205,9 +198,7 @@ export class ChartsMultipleAxisLineChartComponent extends BaseDocumentationSecti
                     backgroundColor: tooltipBackgroundColor,
                     cornerRadius: 0,
                     callbacks: {
-                        title: (item: TooltipItem<'line'>[]) => {
-                            return null;
-                        },
+                        title: () => '',
                         label: (item: TooltipItem<'line'>) => {
                             const date = this.formatDateForTooltip(new Date(item.label));
                             if (item.datasetIndex === 1) {

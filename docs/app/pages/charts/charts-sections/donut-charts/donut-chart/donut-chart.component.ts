@@ -80,7 +80,7 @@ export class ChartsDonutChartComponent extends BaseDocumentationSection implemen
                 },
                 tooltip: {
                     callbacks: {
-                        title: (item: TooltipItem<'doughnut'>[]) => '',
+                        title: () => '',
                         label: (item: TooltipItem<'doughnut'>) => {
 
                             // get the dataset (we only have one)

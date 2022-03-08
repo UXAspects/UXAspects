@@ -57,7 +57,7 @@ export class AppComponent {
                 },
                 tooltip: {
                     callbacks: {
-                        title: (item: TooltipItem<'doughnut'>[]) => '',
+                        title: () => '',
                         label: (item: TooltipItem<'doughnut'>) => {
 
                             // get the dataset (we only have one)
