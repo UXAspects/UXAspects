@@ -1,6 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { ColorService, TimelineChartOptions } from '@ux-aspects/ux-aspects';
 import { ChartDataset, ChartOptions, ScatterDataPoint } from 'chart.js';
+import 'chartjs-adapter-moment';
 import { BaseChartDirective } from 'ng2-charts';
 import { TimelineChartService } from './timeline-chart.service';
 
@@ -119,7 +120,7 @@ export class AppComponent {
                 },
                 selectionColor: this._colorService.getColor('alternate3').setAlpha(0.15).toRgba(),
                 onChange: (min: Date, max: Date) => {
-                    this.lineChartData[0].data = this._dataService.getDataset().filter(point => {
+                    this.lineChartData[0].data = this._dataService.getDataset().filter((point: any) => {
                         return (point.x as unknown as Date).getTime() >= min.getTime() &&
                             (point.x as unknown as Date).getTime() <= max.getTime();
                     });

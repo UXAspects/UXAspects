@@ -48,5 +48,4 @@ export class TimelineChartService {
     getDataset(): ScatterDataPoint[] {
         return [...this._dataset];
     }
-
 }
