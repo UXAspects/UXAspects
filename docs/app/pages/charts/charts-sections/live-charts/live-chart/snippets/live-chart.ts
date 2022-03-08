@@ -11,10 +11,10 @@ import { BaseChartDirective } from 'ng2-charts';
 export class AppComponent {
 
     // access the chart directive properties
-    @ViewChild(BaseChartDirective, { static: true }) baseChart: BaseChartDirective;
+    @ViewChild(BaseChartDirective, { static: true }) baseChart!: BaseChartDirective;
 
     // configure the directive data
-    lineChartData: ChartDataset<'line'>[];
+    lineChartData!: ChartDataset<'line'>[];
     lineChartOptions: ChartOptions<'line'>;
     lineChartLegend: boolean = false;
     lineChartColors: any;
