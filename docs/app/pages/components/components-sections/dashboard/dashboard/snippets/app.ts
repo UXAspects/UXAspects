@@ -11,7 +11,7 @@ import { ChartDataset, ChartOptions } from 'chart.js';
 export class AppComponent {
 
     // configure the directive data
-    lineChartData: ChartDataset[] = [{
+    lineChartData: ChartDataset<'line'>[] = [{
         data: [],
         borderWidth: 2,
         fill: false,

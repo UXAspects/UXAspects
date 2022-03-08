@@ -142,7 +142,7 @@ export class ComponentsDraggableCardsComponent extends BaseDocumentationSection 
         ]
     };
 
-    @ViewChildren('draggableCard') cards: QueryList<ElementRef>;
+    @ViewChildren('draggableCard') cards!: QueryList<ElementRef>;
 
     constructor(private _colorService: ColorService, private _liveAnnouncer: LiveAnnouncer) {
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
@@ -156,7 +156,7 @@ export class ComponentsDraggableCardsComponent extends BaseDocumentationSection 
         this._liveAnnouncer.announce('Card has been removed');
 
         // we want to focus the previous card
-        if (tabbableList.focusKeyManager) {
+        if (tabbableList.focusKeyManager && tabbableList.focusKeyManager.activeItemIndex != null) {
 
             if (tabbableList.focusKeyManager.activeItemIndex > 0) {
                 tabbableList.focusKeyManager.setActiveItem(tabbableList.focusKeyManager.activeItemIndex - 1);
@@ -212,6 +212,6 @@ export interface DraggableCard {
     description: string;
     chart: {
         count: number;
-        segments: ChartDataset[];
+        segments: ChartDataset<'doughnut'>[];
     };
 }

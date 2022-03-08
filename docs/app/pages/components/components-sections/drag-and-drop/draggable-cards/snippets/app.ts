@@ -1,7 +1,7 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { Component, ElementRef, QueryList, ViewChildren } from '@angular/core';
 import { ColorService, TabbableListDirective } from '@ux-aspects/ux-aspects';
-import { ChartOptions } from 'chart.js';
+import { ChartDataset, ChartOptions } from 'chart.js';
 
 @Component({
     selector: 'app',
@@ -11,29 +11,27 @@ import { ChartOptions } from 'chart.js';
 export class AppComponent {
 
     colors = [
-        {
-            backgroundColor: [
-                this._colorService.getColor('accent').toRgb(),
-                this._colorService.getColor('accent').setAlpha(0.5).toRgba(),
-                this._colorService.getColor('grey5').toRgb()
-            ]
-        }
+        this._colorService.getColor('accent').toRgb(),
+        this._colorService.getColor('accent').setAlpha(0.5).toRgba(),
+        this._colorService.getColor('grey5').toRgb()
     ];
 
-    options: ChartOptions = {
+    options: ChartOptions<'doughnut'> = {
         animation: {
             duration: 0
         },
-        tooltips: {
-            enabled: false
-        },
+        cutout: 20,
         elements: {
             arc: {
                 borderWidth: 0
             }
         },
-        responsive: false,
-        cutoutPercentage: 70
+        plugins: {
+            tooltip: {
+                enabled: false
+            }
+        },
+        responsive: false
     };
 
     fixedCards: FixedCard[] = [
@@ -55,7 +53,10 @@ export class AppComponent {
             description: 'NYC Preliminary Production 1 created from the protected items.',
             chart: {
                 count: 13.2,
-                segments: [45, 25, 30]
+                segments: [{
+                    data: [45, 25, 30],
+                    backgroundColor: this.colors
+                }]
             }
         },
         {
@@ -65,7 +66,10 @@ export class AppComponent {
             description: 'NYC Production 2 created as a follow up to Production 1.',
             chart: {
                 count: 6.5,
-                segments: [10, 5, 85]
+                segments: [{
+                    data: [10, 5, 85],
+                    backgroundColor: this.colors
+                }]
             }
         },
         {
@@ -75,7 +79,10 @@ export class AppComponent {
             description: 'NYC Production 3 Lorem ipsum dolor sit amet, consectetur…',
             chart: {
                 count: 33.2,
-                segments: [60, 15, 25]
+                segments: [{
+                    data: [60, 15, 25],
+                    backgroundColor: this.colors
+                }]
             }
         },
         {
@@ -85,7 +92,10 @@ export class AppComponent {
             description: 'NYC Production 4 Lorem ipsum dolor sit amet, consectetur…',
             chart: {
                 count: 5.4,
-                segments: [10, 5, 85]
+                segments: [{
+                    data: [10, 5, 85],
+                    backgroundColor: this.colors
+                }]
             }
         },
         {
@@ -95,7 +105,10 @@ export class AppComponent {
             description: 'NYC Production 3 Lorem ipsum dolor sit amet, consectetur…',
             chart: {
                 count: 33.2,
-                segments: [60, 10, 30]
+                segments: [{
+                    data: [60, 10, 30],
+                    backgroundColor: this.colors
+                }]
             }
         }
     ];
@@ -104,7 +117,7 @@ export class AppComponent {
 
     @ViewChildren('draggableCard') cards: QueryList<ElementRef>;
 
-    constructor(private _colorService: ColorService, private _liveAnnouncer: LiveAnnouncer) { }
+    constructor(private _colorService: ColorService, private _liveAnnouncer: LiveAnnouncer) {}
 
     remove(card: DraggableCard, tabbableList: TabbableListDirective): void {
         // remove the card
@@ -114,7 +127,7 @@ export class AppComponent {
         this._liveAnnouncer.announce('Card has been removed');
 
         // we want to focus the previous card
-        if (tabbableList.focusKeyManager) {
+        if (tabbableList.focusKeyManager && tabbableList.focusKeyManager.activeItemIndex != null) {
 
             if (tabbableList.focusKeyManager.activeItemIndex > 0) {
                 tabbableList.focusKeyManager.setActiveItem(tabbableList.focusKeyManager.activeItemIndex - 1);
@@ -170,6 +183,6 @@ export interface DraggableCard {
     description: string;
     chart: {
         count: number;
-        segments: number[];
+        segments: ChartDataset<'doughnut'>[];
     };
 }

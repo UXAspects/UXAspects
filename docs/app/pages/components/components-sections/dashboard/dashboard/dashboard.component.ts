@@ -16,7 +16,7 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 export class ComponentsDashboardComponent extends BaseDocumentationSection implements IPlaygroundProvider {
 
     // configure the directive data
-    lineChartData: ChartDataset[] = [{
+    lineChartData: ChartDataset<'line'>[] = [{
         data: [],
         borderWidth: 2,
         fill: false,
