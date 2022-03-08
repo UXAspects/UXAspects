@@ -97,9 +97,7 @@ export class ChartsScrollableChartComponent extends BaseDocumentationSection imp
                     backgroundColor: tooltipBackgroundColor,
                     cornerRadius: 0,
                     callbacks: {
-                        title: (item: TooltipItem<'bar'>[]) => {
-                            return null;
-                        },
+                        title: () => '',
                         label: (item: TooltipItem<'bar'>) => {
                             return `x: ${item.label}, y: ${item.formattedValue}`;
                         }
