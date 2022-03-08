@@ -48,7 +48,7 @@ export class ChartsTimelineChartComponent extends BaseDocumentationSection imple
         }]
     };
 
-    lineChartData: ChartDataset[];
+    lineChartData: ChartDataset<'line'>[];
     lineChartOptions: ChartOptions<'line'>;
 
     timelineChartData: ChartDataset[];
