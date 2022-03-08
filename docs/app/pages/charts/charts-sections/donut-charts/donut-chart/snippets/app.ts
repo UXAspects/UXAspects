@@ -9,8 +9,7 @@ import { ChartDataset, ChartOptions, TooltipItem } from 'chart.js';
 })
 export class AppComponent {
 
-
-    donutChartData: ChartDataset[];
+    donutChartData: ChartDataset<'doughnut'>[];
     donutChartLabels: string[] = ['Sales 1', 'Sales 2', 'Sales 3', 'Sales 4', 'Sales 5'];
     donutChartOptions: ChartOptions<'doughnut'>;
     donutChartLegend: boolean = true;
@@ -58,9 +57,7 @@ export class AppComponent {
                 },
                 tooltip: {
                     callbacks: {
-                        title: (item: TooltipItem<'doughnut'>[]) => {
-                            return null;
-                        },
+                        title: (item: TooltipItem<'doughnut'>[]) => '',
                         label: (item: TooltipItem<'doughnut'>) => {
 
                             // get the dataset (we only have one)

@@ -31,7 +31,7 @@ export class ChartsDonutChartComponent extends BaseDocumentationSection implemen
         }]
     };
 
-    donutChartData: ChartDataset[];
+    donutChartData: ChartDataset<'doughnut'>[];
     donutChartLabels: string[] = ['Sales 1', 'Sales 2', 'Sales 3', 'Sales 4', 'Sales 5'];
     donutChartOptions: ChartOptions<'doughnut'>;
     donutChartLegend: boolean = true;
@@ -80,21 +80,19 @@ export class ChartsDonutChartComponent extends BaseDocumentationSection implemen
                 },
                 tooltip: {
                     callbacks: {
-                        title: (item: TooltipItem<'doughnut'>[]) => {
-                            return null;
-                        },
+                        title: (item: TooltipItem<'doughnut'>[]) => '',
                         label: (item: TooltipItem<'doughnut'>) => {
 
                             // get the dataset (we only have one)
-                            const dataset = this.donutChartData[0];
+                            const dataset: any = this.donutChartData[0];
 
                             // calculate the total of all segment values
                             const total = dataset.data.reduce((previousValue: any, currentValue: any) => {
                                 return previousValue + currentValue;
-                            }) as number;
+                            });
 
                             // get the value of the current segment
-                            const segmentValue = dataset.data[item.dataIndex] as number;
+                            const segmentValue = dataset.data[item.dataIndex];
 
                             // calculate the percentage of the current segment compared to the total
                             const percentage = Math.round(((segmentValue / total) * 100));
