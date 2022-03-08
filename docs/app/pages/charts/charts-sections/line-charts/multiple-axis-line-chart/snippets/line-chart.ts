@@ -123,6 +123,7 @@ export class AppComponent {
             },
             scales: {
                 x: {
+                    type: 'linear',
                     position: 'bottom',
                     min: 1167692400000,
                     max: 1220824800000,
