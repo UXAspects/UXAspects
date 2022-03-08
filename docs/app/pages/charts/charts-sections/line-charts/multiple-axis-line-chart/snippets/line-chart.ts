@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, ViewChild, ViewEncapsulation } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ColorService } from '@ux-aspects/ux-aspects';
 import { Chart, ChartDataset, ChartOptions, TooltipItem } from 'chart.js';
@@ -12,7 +12,7 @@ import { MultipleAxisLineChartService } from './data.service';
     encapsulation: ViewEncapsulation.None,
     providers: [MultipleAxisLineChartService]
 })
-export class AppComponent implements AfterViewInit {
+export class AppComponent {
 
     // access the chart directive properties
     @ViewChild(BaseChartDirective, { static: true }) baseChart!: BaseChartDirective;
