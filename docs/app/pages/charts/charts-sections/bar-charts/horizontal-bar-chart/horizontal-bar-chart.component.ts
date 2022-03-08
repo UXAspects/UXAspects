@@ -31,7 +31,7 @@ export class ChartsHorizontalBarChartComponent extends BaseDocumentationSection 
         }]
     };
 
-    barChartData: ChartDataset[];
+    barChartData: ChartDataset<'bar'>[];
     barChartLabels: string[] = ['.txt', '.html', '.xls', '.pdf', '.ppt', '.doc'];
     barChartOptions: ChartOptions<'bar'>;
     barChartLegend: boolean = false;
@@ -83,12 +83,8 @@ export class ChartsHorizontalBarChartComponent extends BaseDocumentationSection 
                     backgroundColor: tooltipBackgroundColor,
                     cornerRadius: 0,
                     callbacks: {
-                        title: (item: TooltipItem<'bar'>[])=> {
-                            return null;
-                        },
-                        label: (item: TooltipItem<'bar'>) => {
-                            return `x: ${item.label}, y: ${item.formattedValue}`;
-                        }
+                        title: (item: TooltipItem<'bar'>[]) => '',
+                        label: (item: TooltipItem<'bar'>) => `x: ${item.label}, y: ${item.formattedValue}`
                     },
                     displayColors: false
                 }

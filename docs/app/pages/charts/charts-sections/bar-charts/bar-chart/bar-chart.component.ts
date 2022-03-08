@@ -15,7 +15,7 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 export class ChartsBarChartComponent extends BaseDocumentationSection implements IPlaygroundProvider {
 
     // access the chart directive properties
-    @ViewChild(BaseChartDirective, { static: true }) baseChart: BaseChartDirective;
+    @ViewChild(BaseChartDirective, { static: true }) baseChart!: BaseChartDirective;
 
     playground: IPlayground = {
         files: {
@@ -35,7 +35,7 @@ export class ChartsBarChartComponent extends BaseDocumentationSection implements
         }]
     };
 
-    barChartData: ChartDataset[];
+    barChartData: ChartDataset<'bar'>[];
     barChartLabels: string[] = ['.doc', '.ppt', '.pdf', '.xls', '.html', '.txt', '.csv', '.mht'];
     barChartOptions: ChartOptions<'bar'>;
     barChartLegend: boolean = false;
@@ -91,12 +91,8 @@ export class ChartsBarChartComponent extends BaseDocumentationSection implements
                     backgroundColor: tooltipBackgroundColor,
                     cornerRadius: 0,
                     callbacks: {
-                        title: (item: TooltipItem<'bar'>[])=> {
-                            return null;
-                        },
-                        label: (item: TooltipItem<'bar'>) => {
-                            return `x: ${item.label}, y: ${item.formattedValue}`;
-                        }
+                        title: (item: TooltipItem<'bar'>[])=> '',
+                        label: (item: TooltipItem<'bar'>) => `x: ${item.label}, y: ${item.formattedValue}`
                     },
                     displayColors: false
                 }

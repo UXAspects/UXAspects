@@ -9,7 +9,7 @@ import { ChartDataset, ChartOptions, TooltipItem } from 'chart.js';
 })
 export class AppComponent {
     // configure the directive data
-    barChartData: ChartDataset[];
+    barChartData: ChartDataset<'bar'>[];
     barChartLabels: string[] = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13'];
     barChartOptions: ChartOptions<'bar'>;
     barChartLegend: boolean = false;
@@ -73,12 +73,8 @@ export class AppComponent {
                     backgroundColor: tooltipBackgroundColor,
                     cornerRadius: 0,
                     callbacks: {
-                        title: (item: TooltipItem<'bar'>[])=> {
-                            return `Sales ${item[0].datasetIndex + 1}`;
-                        },
-                        label: (item: TooltipItem<'bar'>) => {
-                            return `${item.label}€ in cycle ${item.formattedValue}`;
-                        }
+                        title: (item: TooltipItem<'bar'>[]) => `Sales ${item[0].datasetIndex + 1}`,
+                        label: (item: TooltipItem<'bar'>) => `${item.label}€ in cycle ${item.formattedValue}`
                     },
                     displayColors: false
                 }
