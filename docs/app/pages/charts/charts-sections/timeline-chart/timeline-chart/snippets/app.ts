@@ -120,7 +120,7 @@ export class AppComponent {
                 },
                 selectionColor: this._colorService.getColor('alternate3').setAlpha(0.15).toRgba(),
                 onChange: (min: Date, max: Date) => {
-                    this.lineChartData[0].data = this._dataService.getDataset().filter((point: { x: Date}) => {
+                    this.lineChartData[0].data = this._dataService.getDataset().filter((point: any) => {
                         return point.x.getTime() >= min.getTime() && point.x.getTime() <= max.getTime();
                     });
                     this.baseChart.update();
