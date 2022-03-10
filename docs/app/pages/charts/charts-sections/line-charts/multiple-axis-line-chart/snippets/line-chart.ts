@@ -1,8 +1,7 @@
-import { Component, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ColorService } from '@ux-aspects/ux-aspects';
 import { Chart, ChartDataset, ChartOptions, TooltipItem } from 'chart.js';
-import { BaseChartDirective } from 'ng2-charts';
 import { MultipleAxisLineChartService } from './data.service';
 
 @Component({
@@ -13,9 +12,6 @@ import { MultipleAxisLineChartService } from './data.service';
     providers: [MultipleAxisLineChartService]
 })
 export class AppComponent {
-
-    // access the chart directive properties
-    @ViewChild(BaseChartDirective, { static: true }) baseChart!: BaseChartDirective;
 
     // configure the directive data
     lineChartData: ChartDataset<'line'>[];

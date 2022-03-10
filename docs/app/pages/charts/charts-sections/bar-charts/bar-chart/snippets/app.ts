@@ -1,7 +1,6 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { ColorService } from '@ux-aspects/ux-aspects';
 import { ChartDataset, ChartOptions, TooltipItem } from 'chart.js';
-import { BaseChartDirective } from 'ng2-charts';
 
 @Component({
     selector: 'app',
@@ -9,9 +8,6 @@ import { BaseChartDirective } from 'ng2-charts';
     styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-
-    // access the chart directive properties
-    @ViewChild(BaseChartDirective, { static: true }) baseChart!: BaseChartDirective;
 
     barChartData: ChartDataset<'bar'>[];
     barChartLabels: string[] = ['.doc', '.ppt', '.pdf', '.xls', '.html', '.txt', '.csv', '.mht'];

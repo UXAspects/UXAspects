@@ -24,7 +24,7 @@ const DATE_LOCALE_OPTIONS = {
 @DocumentationSectionComponent('ChartsTimelineChartComponent')
 export class ChartsTimelineChartComponent extends BaseDocumentationSection implements IPlaygroundProvider {
 
-    @ViewChild(BaseChartDirective, { static: true }) baseChart!: BaseChartDirective;
+    @ViewChild(BaseChartDirective, { static: true }) baseChart?: BaseChartDirective;
 
     playground: IPlayground = {
         files: {
@@ -151,7 +151,7 @@ export class ChartsTimelineChartComponent extends BaseDocumentationSection imple
                     this.lineChartData[0].data = this._dataService.getDataset().filter((point: any) => {
                         return point.x.getTime() >= min.getTime() && point.x.getTime() <= max.getTime();
                     });
-                    this.baseChart.update();
+                    this.baseChart?.update();
                 },
                 range: {
                     lower: new Date(2017, 6, 15),

@@ -115,7 +115,7 @@ export class AppComponent {
 
     active: FixedCard | DraggableCard = this.draggableCards[0];
 
-    @ViewChildren('draggableCard') cards!: QueryList<ElementRef>;
+    @ViewChildren('draggableCard') cards?: QueryList<ElementRef>;
 
     constructor(private _colorService: ColorService, private _liveAnnouncer: LiveAnnouncer) {}
 

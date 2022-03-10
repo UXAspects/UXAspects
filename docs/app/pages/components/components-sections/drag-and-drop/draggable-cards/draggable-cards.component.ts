@@ -142,7 +142,7 @@ export class ComponentsDraggableCardsComponent extends BaseDocumentationSection 
         ]
     };
 
-    @ViewChildren('draggableCard') cards!: QueryList<ElementRef>;
+    @ViewChildren('draggableCard') cards?: QueryList<ElementRef>;
 
     constructor(private _colorService: ColorService, private _liveAnnouncer: LiveAnnouncer) {
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));

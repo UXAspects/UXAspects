@@ -14,7 +14,7 @@ export class TimelineChartService {
 
         for (let idx = 0; idx < 63; idx++) {
 
-            let value!: number;
+            let value: number = 10;
 
             if (date.getFullYear() === 2014) {
                 value = chance.integer({ min: 10, max: 100 });

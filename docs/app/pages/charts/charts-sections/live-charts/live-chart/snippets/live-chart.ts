@@ -1,7 +1,6 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { ColorService } from '@ux-aspects/ux-aspects';
 import { ChartDataset, ChartOptions } from 'chart.js';
-import { BaseChartDirective } from 'ng2-charts';
 
 @Component({
     selector: 'app',
@@ -10,11 +9,8 @@ import { BaseChartDirective } from 'ng2-charts';
 })
 export class AppComponent {
 
-    // access the chart directive properties
-    @ViewChild(BaseChartDirective, { static: true }) baseChart!: BaseChartDirective;
-
     // configure the directive data
-    lineChartData!: ChartDataset<'line'>[];
+    lineChartData?: ChartDataset<'line'>[];
     lineChartOptions: ChartOptions<'line'>;
     lineChartLegend: boolean = false;
     lineChartColors: any;

@@ -19,7 +19,7 @@ const DATE_LOCALE_OPTIONS = {
 })
 export class AppComponent {
 
-    @ViewChild(BaseChartDirective, { static: true }) baseChart!: BaseChartDirective;
+    @ViewChild(BaseChartDirective, { static: true }) baseChart?: BaseChartDirective;
 
     lineChartData: ChartDataset<'line'>[];
     lineChartOptions: ChartOptions<'line'>;
@@ -123,7 +123,7 @@ export class AppComponent {
                     this.lineChartData[0].data = this._dataService.getDataset().filter((point: any) => {
                         return point.x.getTime() >= min.getTime() && point.x.getTime() <= max.getTime();
                     });
-                    this.baseChart.update();
+                    this.baseChart?.update();
                 },
                 range: {
                     lower: new Date(2017, 6, 15),

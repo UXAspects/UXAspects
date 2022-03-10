@@ -1,8 +1,7 @@
-import { Component, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ColorService } from '@ux-aspects/ux-aspects';
 import { Chart, ChartDataset, ChartOptions, TooltipItem } from 'chart.js';
-import { BaseChartDirective } from 'ng2-charts';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
@@ -37,9 +36,6 @@ export class ChartsMultipleAxisLineChartComponent extends BaseDocumentationSecti
             library: '@ux-aspects/ux-aspects'
         }]
     };
-
-    // access the chart directive properties
-    @ViewChild(BaseChartDirective, { static: true }) baseChart!: BaseChartDirective;
 
     // configure the directive data
     lineChartData: ChartDataset<'line'>[];

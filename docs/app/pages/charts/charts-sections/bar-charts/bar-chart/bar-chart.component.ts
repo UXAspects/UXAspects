@@ -1,7 +1,6 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { ColorService } from '@ux-aspects/ux-aspects';
 import { ChartDataset, ChartOptions, TooltipItem } from 'chart.js';
-import { BaseChartDirective } from 'ng2-charts';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
@@ -13,9 +12,6 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 })
 @DocumentationSectionComponent('ChartsBarChartComponent')
 export class ChartsBarChartComponent extends BaseDocumentationSection implements IPlaygroundProvider {
-
-    // access the chart directive properties
-    @ViewChild(BaseChartDirective, { static: true }) baseChart!: BaseChartDirective;
 
     playground: IPlayground = {
         files: {
