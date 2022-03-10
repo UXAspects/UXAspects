@@ -26,6 +26,7 @@ import { SideNavigationComponent } from './side-navigation/side-navigation.compo
 import { SnippetComponent } from './snippet/snippet.component';
 import { TextPageLayoutComponent } from './text-page-layout/text-page-layout.component';
 import { ThemeSelectorComponent } from './theme-selector/theme-selector.component';
+import { UpgradeLinkComponent } from './upgrade-link/upgrade-link.component';
 import { UsageLinkComponent } from './usage-link/usage-link.component';
 
 const DOCUMENTATION_COMPONENTS = [
@@ -49,7 +50,8 @@ const DOCUMENTATION_COMPONENTS = [
     SnippetComponent,
     TextPageLayoutComponent,
     ThemeSelectorComponent,
-    UsageLinkComponent
+    UsageLinkComponent,
+    UpgradeLinkComponent
 ];
 
 @NgModule({

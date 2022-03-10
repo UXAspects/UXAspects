@@ -1,0 +1,63 @@
+@import '../../../assets/styles/variables.less';
+
+:host {
+    display: inline-block;
+    margin-left: 15px;
+
+    a {
+        color: @text-color;
+    }
+}
+
+.upgrade-title {
+    font-weight: 600;
+    padding-right: 15px;
+}
+
+.upgrade-popover {
+    width: 100%;
+
+    tr {
+        border-bottom: 1px solid @grey5;
+
+        th {
+            text-align: center;
+            padding-bottom: 10px;
+        }
+
+        td {
+            padding-top: 10px;
+            padding-bottom: 10px;
+            font-size: 14px;
+
+            ux-icon {
+                color: @grey5;
+                cursor: pointer;
+
+                &:hover,
+                &:focus {
+                    color: @grey1;
+                }
+            }
+        }
+
+        &:first-child {
+            td {
+                padding-top: 0;
+            }
+        }
+
+        &:last-child {
+            border-bottom: none;
+
+            td {
+                padding-bottom: 0;
+            }
+        }
+    }
+}
+
+.upgrade-tooltip {
+    white-space: nowrap;
+    margin-bottom: 0;
+}

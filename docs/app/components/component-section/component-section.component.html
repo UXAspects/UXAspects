@@ -82,13 +82,17 @@
             >
             <a
                 *ngIf="upgrade"
-                href="javascript:void(0)"
+                [attr.href]="upgrade.href"
                 class="label label-alternate1 uxd-component-section-labels"
-                [uxPopover]="upgradeContent"
+                [uxPopover]="upgrade.caveat"
+                [showTriggers]="['mouseenter']"
                 placement="bottom"
                 popoverClass="ux-popover-schematic-tag"
                 >Upgrade</a
             >
+
+            <!-- Show usage link if required -->
+            <uxd-upgrade-link *ngIf="upgrade" [upgrade]="upgrade"></uxd-upgrade-link>
         </div>
     </ux-ebox-header>
 

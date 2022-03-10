@@ -30,7 +30,7 @@ export class ComponentSectionComponent<T> implements OnInit, OnDestroy {
     @Input() externalUrl: string;
     @Input() usage: Usage[];
     @Input() schematic: string;
-    @Input() upgrade: boolean = false;
+    @Input() upgrade: Upgrade;
 
     @ViewChild('container', { read: ViewContainerRef, static: true }) viewContainer: ViewContainerRef;
 
@@ -96,5 +96,5 @@ export class ComponentSectionComponent<T> implements OnInit, OnDestroy {
 
 export interface Upgrade {
     href: string;
-    cavet: string;
+    caveat?: string;
 }

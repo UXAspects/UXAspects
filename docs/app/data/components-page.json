@@ -776,7 +776,11 @@
                             "title": "Module",
                             "content": "AccordionModule"
                         }
-                    ]
+                    ],
+                    "upgrade": {
+                        "href": "https://pages.github.houston.softwaregrp.net/Inner-Source-Incubating/ux-aspects-universal/angular-storybook/?path=/docs/components-accordion--default",
+                        "caveats": ["Disabled input is unavailable."]
+                    }
                 },
                 {
                     "title": "EBox Panel",
