@@ -80,6 +80,15 @@
                 popoverClass="ux-popover-schematic-tag"
                 >Schematic</a
             >
+            <a
+                *ngIf="upgrade"
+                href="javascript:void(0)"
+                class="label label-alternate1 uxd-component-section-labels"
+                [uxPopover]="upgradeContent"
+                placement="bottom"
+                popoverClass="ux-popover-schematic-tag"
+                >Upgrade</a
+            >
         </div>
     </ux-ebox-header>
 
