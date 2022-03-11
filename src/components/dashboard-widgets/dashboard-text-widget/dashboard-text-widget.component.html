@@ -1,0 +1,47 @@
+<ux-predefined-widget class="widget-element"
+                      [id]="id"
+                      [colSpan]="colSpan"
+                      [rowSpan]="rowSpan"
+                      [name]="name"
+                      [heading]="heading"
+                      [fixedMode]="fixedMode"
+                      [grabHandleText]="grabHandleText">
+    <div #textWrapper class="widget-text" [class.is-truncated]="textWrapper.clientHeight < textParagraph.clientHeight">
+        <p #textParagraph>{{ text }}</p>
+    </div>
+    <button id="show-details-button"
+            class="widget-side-panel-opener btn btn-link btn-icon button-primary"
+            (click)="open()"
+            [attr.title]="editable ? editLabel : showFullTextLabel"
+            [attr.aria-label]="editable ? editLabel : showFullTextLabel">
+        <ux-icon name="chevron-right" *ngIf="!editable"></ux-icon>
+        <ux-icon name="edit" *ngIf="editable"></ux-icon>
+    </button>
+</ux-predefined-widget>
+
+<ux-side-panel #sidePanel
+               id="side-panel"
+               class="widget-side-panel"
+               attachTo="container"
+               [animate]="false"
+               width="100%">
+    <div class="ux-side-panel-header">
+        <h3>{{ heading }}</h3>
+        <button uxSidePanelClose
+                [attr.title]="closeLabel"
+                [attr.aria-label]="closeLabel"
+                type="button"
+                class="btn btn-lg btn-link btn-icon button-secondary close-button">
+            <ux-icon name="close"></ux-icon>
+        </button>
+    </div>
+    <textarea class="widget-side-panel-textarea ux-side-panel-content"
+              [disabled]="!editable"
+              [(ngModel)]="editText"
+              [focusIf]="textAreaFocused">
+    </textarea>
+    <div class="ux-side-panel-footer" *ngIf="editable">
+        <button type="button" class="m-b btn btn-link button-secondary cancel-button" (click)="cancel()">{{ cancelLabel }}</button>
+        <button type="button" class="m-b btn btn-link button-primary save-button" (click)="save()">{{ saveLabel }}</button>
+    </div>
+</ux-side-panel>

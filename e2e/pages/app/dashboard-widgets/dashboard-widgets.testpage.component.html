@@ -1,0 +1,76 @@
+<a id="top-focus" href="javascript:void(0)">Top focus target</a>
+
+<div class="container p-lg">
+
+    <ux-dashboard #dashboard
+                  id="dashboardWidgetContainer"
+                  class="customizable-dashboard"
+                  [class.dashboard-grabbing]="dashboard.isGrabbing"
+                  [options]="options"
+                  [(layout)]="layout">
+
+        <ux-dashboard-actions-widget class="widget"
+                                     id="widget-actions"
+                                     name="Actions Widget"
+                                     heading="Actions Widget"
+                                     [fixedMode]="fixedMode"
+                                     [colSpan]="2"
+                                     [status]="status"
+                                     [actions]="actions"
+                                     (actionSelected)="handleActionChange($event)">
+            <ng-template #iconDecline>
+                <span class="custom-icon"><b>X</b></span>
+            </ng-template>
+        </ux-dashboard-actions-widget>
+
+        <ux-dashboard-table-widget class="widget"
+                                   id="widget-table"
+                                   name="Table Widget"
+                                   heading="Table Widget"
+                                   [fixedMode]="fixedMode"
+                                   [colSpan]="2"
+                                   [rowSpan]="2"
+                                   [header]="tableHeader"
+                                   [data]="tableData">
+        </ux-dashboard-table-widget>
+
+        <ux-dashboard-select-widget class="widget"
+                                    id="widget-select"
+                                    name="Select Widget"
+                                    heading="Select Widget"
+                                    [fixedMode]="fixedMode"
+                                    [colSpan]="2"
+                                    [options]="selectOptions"
+                                    value="nothing">
+        </ux-dashboard-select-widget>
+
+        <ux-dashboard-text-widget class="widget"
+                                  id="widget-text"
+                                  name="Text Widget"
+                                  heading="Text Widget"
+                                  [fixedMode]="fixedMode"
+                                  [colSpan]="4"
+                                  [rowSpan]="2"
+                                  [text]="loremIpsum"
+                                  [editable]="true">
+        </ux-dashboard-text-widget>
+
+        <ux-dashboard-text-widget class="widget"
+                                  id="widget-text-readonly"
+                                  name="Read-only Text Widget"
+                                  heading="Read-only Text Widget"
+                                  [fixedMode]="fixedMode"
+                                  [colSpan]="4"
+                                  [rowSpan]="2"
+                                  [text]="loremIpsum"
+                                  [editable]="false">
+        </ux-dashboard-text-widget>
+
+    </ux-dashboard>
+</div>
+
+<div>
+    <a id="bottom-focus" href="javascript:void(0)">Bottom focus target</a>
+</div>
+
+<p id="layout-output">{{ layout | json }}</p>

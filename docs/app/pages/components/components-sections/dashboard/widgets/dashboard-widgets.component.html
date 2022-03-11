@@ -1,0 +1,226 @@
+<ux-dashboard
+    #dashboard
+    id="dashboardWidgetContainer"
+    class="customizable-dashboard"
+    [class.dashboard-grabbing]="dashboard.isGrabbing"
+    [options]="options">
+
+    <ux-dashboard-actions-widget
+        class="widget"
+        id="widget-actions"
+        name="Actions Widget"
+        heading="Actions Widget"
+        [fixedMode]="fixedMode"
+        [colSpan]="2"
+        [status]="status"
+        [actions]="actions"
+        (actionSelected)="handleActionChange($event)">
+        <ng-template #iconDecline>
+            <span class="custom-icon"><b>X</b></span>
+        </ng-template>
+    </ux-dashboard-actions-widget>
+
+    <ux-dashboard-table-widget
+        class="widget"
+        id="widget-table"
+        name="Table Widget"
+        heading="Table Widget"
+        [fixedMode]="fixedMode"
+        [colSpan]="2"
+        [rowSpan]="2"
+        [header]="tableHeader"
+        [data]="tableData">
+    </ux-dashboard-table-widget>
+
+    <ux-dashboard-select-widget
+        class="widget"
+        id="widget-select"
+        name="Select Widget"
+        heading="Select Widget"
+        [fixedMode]="fixedMode"
+        [colSpan]="2"
+        [options]="selectOptions"
+        value="0">
+    </ux-dashboard-select-widget>
+
+    <ux-dashboard-text-widget
+        class="widget"
+        id="widget-text"
+        name="Text Widget"
+        heading="Text Widget"
+        [fixedMode]="fixedMode"
+        [colSpan]="4"
+        [rowSpan]="2"
+        [text]="loremIpsum2"
+        [editable]="true">
+    </ux-dashboard-text-widget>
+
+    <ux-dashboard-text-widget
+        class="widget"
+        id="widget-text-readonly"
+        name="Read-only Text Widget"
+        heading="Read-only Text Widget"
+        [fixedMode]="fixedMode"
+        [colSpan]="4"
+        [rowSpan]="2"
+        [text]="loremIpsum2"
+        [editable]="false">
+    </ux-dashboard-text-widget>
+
+</ux-dashboard>
+
+<div class="row uxd-customize-example">
+    <div class="col-md-12">
+        <ux-accordion>
+            <ux-accordion-panel class="accordion-chevron" heading="Customize Example...">
+                <div class="row">
+                    <div class="col-md-6">
+                        <ux-checkbox [(ngModel)]="fixedMode">fixedMode</ux-checkbox>
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label" for="dashboard-padding">Padding</label>
+                    </div>
+                    <div class="col-md-4">
+                        <ux-number-picker-inline id="dashboard-padding" [(value)]="dashboardPadding"
+                                                 min="0" placeholder="Enter padding">
+                        </ux-number-picker-inline>
+                    </div>
+                </div>
+            </ux-accordion-panel>
+        </ux-accordion>
+    </div>
+</div>
+
+<hr>
+
+<p>
+    The pre-built widgets which include the <code>ux-dashboard-actions-widget</code>,
+    <code>ux-dashboard-select-widget</code>,
+    <code>ux-dashboard-table-widget</code> and <code>ux-dashboard-text-widget</code> are ready-to-use widgets for the
+    <code>ux-dashboard</code>
+    component.
+</p>
+
+<p>The following attributes are required by all pre-built widgets:</p>
+
+<uxd-api-properties tableTitle="Inputs">
+    <tr uxd-api-property name="id" type="string" [required]="true">Sets the ID of the widget. Each widget should be given a unique ID.</tr>
+    <tr uxd-api-property name="name" type="string" [required]="true">Sets the name used by aria labels and announcements.</tr>
+    <tr uxd-api-property name="heading" type="string">Sets the heading of the widget.</tr>
+    <tr uxd-api-property name="fixedMode" type="boolean">
+        Defines whether the widget can be dragged and resized.<br>
+        <b>Note:</b> Widgets of the same dashboard need to be either all in fixed mode or none.
+    </tr>
+    <tr uxd-api-property name="colSpan" type="number">Defines the number of columns this widget should occupy.</tr>
+    <tr uxd-api-property name="rowSpan" type="number">Defines the number of rows this widget should occupy.</tr>
+    <tr uxd-api-property name="grabHandleText" type="string">Sets the tooltip text for the grab handle.</tr>
+</uxd-api-properties>
+
+<p>Each widget has its own customizable attributes.</p>
+
+<h3>Actions Widget</h3>
+
+<p>
+    The <code>ux-dashboard-actions-widget</code> displays a status of a system and provides the user options to react to
+    the status.
+</p>
+
+<p>It has the following additional attributes:</p>
+
+<uxd-api-properties tableTitle="Inputs">
+    <tr uxd-api-property name="actions" type="ActionConfig[]" [required]="true">
+        List of buttons to be displayed
+        <uxd-api-properties tableTitle="Properties of ActionConfig">
+            <tr uxd-api-property name="label" type="string">Button label</tr>
+            <tr uxd-api-property name="icon" type="string">Icon code</tr>
+            <tr uxd-api-property name="iconTemplate" type="TemplateRef">Icon template (in place of <code>icon</code>)</tr>
+            <tr uxd-api-property name="action" type="function">Click function of the button</tr>
+        </uxd-api-properties>
+    </tr>
+    <tr uxd-api-property name="status" type="ActionStatus" [required]="true">
+        Status displayed by the widget
+        <uxd-api-properties tableTitle="Properties of ActionStatus">
+            <tr uxd-api-property name="label" type="string">Button label</tr>
+            <tr uxd-api-property name="icon" type="string">Icon code</tr>
+            <tr uxd-api-property name="iconTemplate" type="TemplateRef">Icon template (in place of <code>icon</code>)</tr>
+        </uxd-api-properties>
+    </tr>
+</uxd-api-properties>
+
+<p>Additionally the actions widget has these outputs available:</p>
+
+<uxd-api-properties tableTitle="Outputs">
+    <tr uxd-api-property name="actionSelected" type="string">Emits when the selected value has been changed and saved.
+    </tr>
+</uxd-api-properties>
+
+<h3>Select Widget</h3>
+
+<p>
+    The <code>ux-dashboard-select-widget</code> is a select input at its core. The label of the currently selected value
+    is displayed in the dropdown input.
+    The value can be changed by using the dropdown input.
+</p>
+
+<p>The select widget has the following additional attributes:</p>
+
+<uxd-api-properties tableTitle="Inputs">
+    <tr uxd-api-property name="value" type="string" [required]="true">Current value</tr>
+    <tr uxd-api-property name="options" type="SelectConfig[]" [required]="true">
+        Values to choose from
+        <uxd-api-properties tableTitle="Properties of SelectConfig">
+            <tr uxd-api-property name="label" type="string">Display value</tr>
+            <tr uxd-api-property name="value" type="string">Select value</tr>
+            <tr uxd-api-property name="icon" type="string">Icon code</tr>
+            <tr uxd-api-property name="iconTemplate" type="TemplateRef">Icon template (in place of <code>icon</code>)</tr>
+        </uxd-api-properties>
+    </tr>
+</uxd-api-properties>
+
+<p>Additionally the select widget has these outputs available:</p>
+
+<uxd-api-properties tableTitle="Outputs">
+    <tr uxd-api-property name="valueChange" type="string">Emits when the selected value has been changed and saved.</tr>
+</uxd-api-properties>
+
+<h3>Table Widget</h3>
+
+<p>
+    The <code>ux-dashboard-table-widget</code> is a normal HTML <code>table</code> element which renders a header and a
+    data array into a scrollable table.
+</p>
+
+<p>The table widget has the following additional attributes:</p>
+
+<uxd-api-properties tableTitle="Inputs">
+    <tr uxd-api-property name="header" type="any[]">The headers for the table columns.</tr>
+    <tr uxd-api-property name="data" type="any[][]" [required]="true">The data being displayed in the table. Each
+        sub-array should be the same length as the header array.
+    </tr>
+</uxd-api-properties>
+
+<h3>Text Widget</h3>
+
+<p>
+    The <code>ux-dashboard-text-widget</code> displays static text. The button in the bottom right opens a side panel
+    which also fills the whole parent dashboard component and displays the full text.
+    Additionally the side panel can be set to be a text editor as well so that the user can edit the text and save it.
+</p>
+
+<p>It has the following additional attributes:</p>
+
+<uxd-api-properties tableTitle="Inputs">
+    <tr uxd-api-property name="text" type="string" [required]="true">The text that is being displayed.</tr>
+    <tr uxd-api-property name="editable" type="boolean">Whether the text can be edited in the side panel.</tr>
+    <tr uxd-api-property name="editLabel" type="string" [required]="true">Localized label for the edit button</tr>
+    <tr uxd-api-property name="showFullTextLabel" type="string" [required]="true">Localized label for the show full text button</tr>
+    <tr uxd-api-property name="saveLabel" type="string" [required]="true">Localized label for the save button</tr>
+    <tr uxd-api-property name="cancelLabel" type="string" [required]="true">Localized label for the cancel button</tr>
+    <tr uxd-api-property name="closeLabel" type="string" [required]="true">Localized label for the close button of the side panel</tr>
+</uxd-api-properties>
+
+<p>Additionally the select widget has these outputs available:</p>
+
+<uxd-api-properties tableTitle="Outputs">
+    <tr uxd-api-property name="textChange" type="string">Emits when the text has been changed.</tr>
+</uxd-api-properties>

@@ -1,0 +1,53 @@
+ux-dashboard-text-widget {
+    .widget-text {
+        height: 100%;
+        overflow: hidden;
+        position: relative;
+
+        p {
+            white-space: pre-wrap;
+        }
+
+        &.is-truncated:after {
+            background: linear-gradient(0deg, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 100%);
+            bottom: 0;
+            content: ' ';
+            display: block;
+            height: 30px;
+            position: absolute;
+            width: 100%;
+        }
+    }
+
+    .widget-side-panel-opener.btn.btn-link {
+        background-color: white;
+        border: none;
+        bottom: 3px;
+        padding: 1px 6px;
+        position: absolute;
+        right: 3px;
+        min-width: 0;
+    }
+
+    .ux-side-panel {
+        &.open > .ux-side-panel-host {
+            border-left: none;
+        }
+
+        > .ux-side-panel-host {
+            z-index: 1;
+
+            > .widget-side-panel-textarea {
+                background-color: transparent;
+                color: inherit;
+                border: none;
+                outline: none;
+                resize: none;
+            }
+
+            button {
+                float: right;
+            }
+        }
+    }
+}
