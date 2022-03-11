@@ -84,15 +84,14 @@
                 *ngIf="upgrade"
                 [attr.href]="upgrade.href"
                 class="label label-alternate1 uxd-component-section-labels"
-                [uxPopover]="upgrade.caveat"
-                [showTriggers]="['mouseenter']"
+                [uxTooltip]="upgradeTooltip"
                 placement="bottom"
                 popoverClass="ux-popover-schematic-tag"
                 >Upgrade</a
             >
 
             <!-- Show usage link if required -->
-            <uxd-upgrade-link *ngIf="upgrade" [upgrade]="upgrade"></uxd-upgrade-link>
+            <uxd-upgrade-link *ngIf="upgrade" [upgrade]="upgrade" [componentName]="title"></uxd-upgrade-link>
         </div>
     </ux-ebox-header>
 
@@ -100,6 +99,17 @@
         <div #container></div>
     </ux-ebox-content>
 </ux-ebox>
+
+<ng-template #upgradeTooltip>
+
+    <h4 style="margin-left: 20px;">Caveats</h4>
+
+    <ul>
+        <li *ngFor="let caveat of upgrade.caveats">
+            {{ caveat }}
+        </li>
+    </ul>
+</ng-template>
 
 <ng-template #hybridHelpContent>
     <p>

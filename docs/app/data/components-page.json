@@ -779,7 +779,10 @@
                     ],
                     "upgrade": {
                         "href": "https://pages.github.houston.softwaregrp.net/Inner-Source-Incubating/ux-aspects-universal/angular-storybook/?path=/docs/components-accordion--default",
-                        "caveats": ["Disabled input is unavailable."]
+                        "caveats": [
+                            "Disabled input is unavailable.",
+                            "Disabled input is unavailable. Longer caveat potentially causing issues due to long string."
+                        ]
                     }
                 },
                 {

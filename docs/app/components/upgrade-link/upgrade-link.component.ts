@@ -10,6 +10,7 @@ import { Upgrade } from '../../interfaces/Upgrade';
 export class UpgradeLinkComponent {
 
     @Input() upgrade: Upgrade;
+    @Input() componentName: string;
 
     constructor(private _renderer: Renderer2, private _elementRef: ElementRef) {}
 
