@@ -16,7 +16,7 @@
             <uxd-usage-link *ngIf="usage" [usage]="usage"></uxd-usage-link>
 
             <!-- Show UAU migration if available -->
-            <uxd-migrate-link *ngIf="migration && theme !== SiteThemeId.Keppel" [migration]="migration" [componentName]="title"></uxd-migrate-link>
+            <uxd-migrate-link *ngIf="migration && theme !== SiteThemeId.Keppel" [migration]="migration"></uxd-migrate-link>
 
             <a
                 *ngIf="hybrid"

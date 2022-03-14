@@ -1,5 +1,5 @@
 export interface Migration {
   title: string;
-  link: string;
+  href: string;
   caveats: string[];
 }

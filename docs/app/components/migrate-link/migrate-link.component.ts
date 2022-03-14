@@ -14,7 +14,6 @@ import { SiteThemeService } from '../../services/site-theme/site-theme.service';
 export class MigrateLinkComponent implements OnDestroy {
 
     @Input() migration: Migration;
-    @Input() componentName: string;
     SiteThemeId = SiteThemeId;
     theme: SiteThemeId = this._siteThemeService.theme$.getValue();
 
