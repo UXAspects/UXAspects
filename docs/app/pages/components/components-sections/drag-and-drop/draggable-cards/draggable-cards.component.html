@@ -81,11 +81,10 @@
                 <canvas baseChart
                   width="60"
                   height="60"
-                  [colors]="colors"
                   [options]="options"
-                  [data]="card.chart.segments"
+                  [datasets]="card.chart.segments"
                   [legend]="false"
-                  chartType="doughnut"></canvas>
+                  type="doughnut"></canvas>
             </div>
 
             <div class="draggable-card-details">

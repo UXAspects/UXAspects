@@ -1,29 +1,27 @@
 <div class="main-chart">
     <canvas baseChart
             height="250"
-            [data]="lineChartData"
+            [datasets]="lineChartData"
             [options]="lineChartOptions"
-            [colors]="lineChartColors"
             [legend]="false"
-            chartType="line">
+            type="line">
     </canvas>
 </div>
 
 <div class="timeline-chart">
     <canvas baseChart
             height="75"
-            [data]="timelineChartData"
+            [datasets]="timelineChartData"
             [options]="timelineChartOptions"
-            [colors]="lineChartColors"
             [legend]="false"
-            chartType="line">
+            type="line">
     </canvas>
 </div>
 
 <hr>
 
 <p>
-    Timeline Charts can be added using the <code>ng2-charts</code> library. The <code>chart.js</code> library needs to be imported and the <code>ChartsModule</code>
+    Timeline Charts can be added using the <code>ng2-charts</code> library. The <code>chart.js</code> library needs to be imported and the <code>NgChartsModule</code>
     needs to be added to the appropriate <code>NgModule</code>.
 </p>
 <p>

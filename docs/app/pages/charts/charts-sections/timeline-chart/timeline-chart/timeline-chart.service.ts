@@ -1,19 +1,20 @@
 import { Injectable } from '@angular/core';
 import { Chance } from 'chance';
+import { ScatterDataPoint } from 'chart.js';
 
 const chance = new Chance();
 
 @Injectable()
 export class TimelineChartService {
 
-    private _dataset: Chart.ChartPoint[] = [];
+    private _dataset: ScatterDataPoint[] = [];
 
     constructor() {
         const date = new Date(2014, 1, 0);
 
         for (let idx = 0; idx < 63; idx++) {
 
-            let value: number;
+            let value: number = 10;
 
             if (date.getFullYear() === 2014) {
                 value = chance.integer({ min: 10, max: 100 });
@@ -39,13 +40,12 @@ export class TimelineChartService {
                 value = chance.integer({ min: 250, max: 600 });
             }
 
-            this._dataset.push({ x: new Date(date), y: value });
+            this._dataset.push({ x: new Date(date) as any, y: value });
             date.setMonth(date.getMonth() + 1);
         }
     }
 
-    getDataset(): Chart.ChartPoint[] {
+    getDataset(): ScatterDataPoint[] {
         return [...this._dataset];
     }
-
 }
