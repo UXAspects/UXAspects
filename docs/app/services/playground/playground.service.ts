@@ -1,26 +1,16 @@
 import { DOCUMENT } from '@angular/common';
 import { Inject, Injectable } from '@angular/core';
+import { IFiles } from 'codesandbox-import-utils/lib/api/define';
+import { getParameters } from 'codesandbox/lib/api/define';
 import { IPlayground } from '../../interfaces/IPlayground';
-import { SiteThemeId } from '../../interfaces/SiteTheme';
 import { AppConfiguration } from '../app-configuration/app-configuration.service';
 import { SiteThemeService } from '../site-theme/site-theme.service';
-import { AngularPlaygroundStrategy } from './strategies/angular-strategy';
-import { CssPlaygroundStrategy } from './strategies/css-strategy';
-import { PlaygroundStrategy } from './strategies/playground-strategy';
-import { KeppelThemeStrategy } from './strategies/themes/keppel-strategy';
-import { MicroFocusNextThemeStrategy } from './strategies/themes/microfocus-next-strategy';
-import { MicroFocusThemeStrategy } from './strategies/themes/microfocus-strategy';
-import { RobotoThemeStrategy } from './strategies/themes/roboto-strategy';
-import { ThemeStrategy } from './strategies/themes/theme-strategy';
-import { WhiteLabelThemeStrategy } from './strategies/themes/white-label-strategy';
 import { DocumentationType, DOCUMENTATION_TOKEN } from './tokens/documentation.token';
-import { PlaygroundHelper } from './utilities/playground-helper';
 
 @Injectable({
-    providedIn: 'root'
+    providedIn: 'root',
 })
 export class PlaygroundService {
-
     constructor(
         /** Access the document element */
         @Inject(DOCUMENT) private _document: Document,
@@ -29,80 +19,72 @@ export class PlaygroundService {
         /** Get the global configuation properties */
         private _appConfig: AppConfiguration,
         private _siteThemeService: SiteThemeService
-    ) { }
+    ) {}
 
     /** Launch the code playground */
     launch(title: string, playground: IPlayground) {
-        const form = this.initForm(title, playground);
-        this._document.body.appendChild(form);
-        form.submit();
-        this._document.body.removeChild(form);
+        const parameters = this.getSandboxParameters(title, playground);
+        this.postData('https://codesandbox.io/api/v1/sandboxes/define', { parameters });
     }
 
-    /** Create a form for a post submission */
-    private initForm(title: string, playground: IPlayground): HTMLFormElement {
+    getSandboxParameters(title: string, playground: IPlayground): string {
+        const template = require.context('./templates/angular', true, /\.(ts|html|css|json)$/);
+        const paths = template.keys();
+        const contents = paths.map(template);
 
-        // determine the strategy to use
-        const strategy = this.createPlaygroundStrategy(playground);
+        const files = paths.reduce<IFiles>((_files, path, index) => {
+            if (path.startsWith('./')) {
+                _files[path.substr(2)] = {
+                    content: contents[index] as string,
+                    isBinary: false,
+                };
+            }
+            return _files;
+        }, {});
 
-        // create the index page
-        const files = PlaygroundHelper.create(strategy, this._appConfig.assetsUrl, playground);
+        this.transformFiles(files, title, playground);
 
-        const playgroundData = { 'description': title, 'private': true };
+        return getParameters({
+            files,
+            template: 'angular-cli',
+        });
+    }
 
-        for (const file in files) {
-            playgroundData[`files[${file}]`] = files[file];
+    transformFiles(files: IFiles, title: string, playground: IPlayground): void {
+        const packageJson = JSON.parse(files['package.json'].content);
+        packageJson.name = `${title} (UX Aspects)`;
+        packageJson.description = 'UX Aspects example from https://uxaspects.github.io/UXAspects',
+        packageJson.license = 'Apache-2.0';
+        packageJson.dependencies['@ux-aspects/ux-aspects'] = 'latest';
+        files['package.json'].content = JSON.stringify(packageJson, null, 2);
+
+        for (const playgroundFile in playground.files) {
+            files[`src/app/${playgroundFile}`] = {
+                content: playground.files[playgroundFile],
+                isBinary: false,
+            };
         }
+    }
 
+    private postData(action: string, data: Record<string, string>): void {
         const form = this._document.createElement('form');
 
-        form.action = this._appConfig.plunker;
+        form.action = action;
         form.method = 'POST';
         form.target = '_blank';
 
-        for (const field in playgroundData) {
-
+        for (const field in data) {
             const input = this._document.createElement('input');
 
             input.type = 'hidden';
             input.name = field;
-            input.value = playgroundData[field];
+            input.value = data[field];
 
             form.appendChild(input);
         }
 
-        return form;
+        this._document.body.appendChild(form);
+        form.submit();
+        this._document.body.removeChild(form);
     }
-
-    private createPlaygroundStrategy(playground: IPlayground): PlaygroundStrategy {
-        const theme = this._siteThemeService.theme$.value;
-        switch (playground.framework) {
-            case 'css':
-                return new CssPlaygroundStrategy(this._documentationType, this.createThemeStrategy(theme));
-            case 'angular':
-            default:
-                return new AngularPlaygroundStrategy(this._documentationType, this.createThemeStrategy(theme));
-        }
-    }
-
-    private createThemeStrategy(theme: SiteThemeId): ThemeStrategy {
-        switch (theme) {
-            case SiteThemeId.MicroFocusNext:
-                return new MicroFocusNextThemeStrategy();
-            case SiteThemeId.WhiteLabel:
-                return new WhiteLabelThemeStrategy();
-            case SiteThemeId.MicroFocus:
-                return new MicroFocusThemeStrategy();
-            case SiteThemeId.Keppel:
-                return new KeppelThemeStrategy();
-            case SiteThemeId.Roboto:
-                return new RobotoThemeStrategy();
-        }
-    }
-}
-
-export interface Library {
-    path: string;
-    url: string;
-    asset?: boolean;
 }

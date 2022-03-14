@@ -101,6 +101,7 @@
     "@ux-aspects/ux-aspects-scripts": "^2.5.0",
     "cheerio": "^1.0.0-rc.2",
     "chromedriver": "^98.0.1",
+    "codesandbox": "^2.2.3",
     "concurrently": "^6.4.0",
     "eslint": "^8.2.0",
     "eslint-plugin-import": "^2.25.3",
