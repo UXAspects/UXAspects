@@ -1,0 +1,44 @@
+<ng-template #popTemplate>
+    <table class="migrate-popover">
+        <tbody>
+            <tr>
+                <th colspan="2"><a [attr.href]="'https://pages.github.houston.softwaregrp.net/Inner-Source-Incubating/ux-aspects-universal/angular-storybook/?path=/docs/' + migration.href">UX Aspects Universal: {{ componentName }}</a></th>
+            </tr>
+            <tr>
+                <td class="universal-info" colspan="2">
+                    UX Aspects Universal components are lightweight and fully style-encapsulated,
+                    which means you can drop them into a page without disrupting other components.
+                    Benefits include a dark theme and right-to-left language support.
+                    <a href="https://pages.github.houston.softwaregrp.net/Inner-Source-Incubating/ux-aspects-universal/angular-storybook/?path=/docs/welcome-migrating-from-ux-aspects--page">More...</a>
+                </td>
+            </tr>
+            <tr *ngIf="migration.caveats">
+                <td class="caveats-title">Caveats</td>
+                <td>
+                    <ul>
+                        <li *ngFor="let caveat of migration.caveats">{{ caveat }}</li>
+                        <li *ngIf="theme !== SiteThemeId.MicroFocusNext">
+                            It is recommended to switch to the Micro Focus 2021 theme before migrating to the new UX Aspects Universal component.
+                            See more under the using themes section in <a href="">Getting Started</a>.
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</ng-template>
+
+<a class="hyperlink-hover"
+   tabindex="0"
+   #pop="ux-popover"
+   [uxPopover]="popTemplate"
+   [showTriggers]="[]"
+   [hideTriggers]="['escape', 'clickoutside']"
+   (click)="pop.show(); $event.target?.blur()"
+   (keyup.enter)="pop.toggle()"
+   placement="bottom"
+   popoverClass="ux-migrate-popover"
+   uxFocusIndicator>
+
+   <img class="uau-icon" src="../../../assets/img/uau-rounded-logo.svg"> Migrate
+</a>

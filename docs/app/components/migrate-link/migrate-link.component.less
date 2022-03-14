@@ -9,12 +9,18 @@
     }
 }
 
-.upgrade-title {
-    font-weight: 600;
-    padding-right: 15px;
+::ng-deep .ux-migrate-popover {
+    max-width: 400px;
 }
 
-.upgrade-popover {
+.uau-icon {
+    height: 20px;
+    position: relative;
+    top: -2px;
+    padding-right: 4px;
+}
+
+.migrate-popover {
     width: 100%;
 
     tr {
@@ -23,6 +29,7 @@
         th {
             text-align: center;
             padding-bottom: 10px;
+            font-size: 16px;
         }
 
         td {
@@ -30,14 +37,12 @@
             padding-bottom: 10px;
             font-size: 14px;
 
-            ux-icon {
-                color: @grey5;
-                cursor: pointer;
+            &.caveats-title {
+                vertical-align: top;
+            }
 
-                &:hover,
-                &:focus {
-                    color: @grey1;
-                }
+            ul {
+                padding-left: 28px;
             }
         }
 
@@ -55,9 +60,4 @@
             }
         }
     }
-}
-
-.upgrade-tooltip {
-    white-space: nowrap;
-    margin-bottom: 0;
 }
