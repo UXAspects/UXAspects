@@ -3,13 +3,12 @@
     <canvas aria-label="Bar chart showing file type totals"
         baseChart
         [datasets]="barChartData"
-        [labels]="barChartLabels"
         [options]="barChartOptions"
+        [labels]="barChartLabels"
         [legend]="barChartLegend"
-        [colors]="barChartColors"
-        chartType="bar">
+        type="bar">
 
-        <table>
+        <table aria-label="Chart data">
             <thead>
                 <tr>
                     <th>File Type</th>

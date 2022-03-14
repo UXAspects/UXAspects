@@ -49,7 +49,6 @@
   "homepage": "https://uxaspects.github.io/UXAspects",
   "dependencies": {
     "@juggle/resize-observer": "^3.3.1",
-    "@types/chart.js": "^2.9.3",
     "@types/d3": "^5.7.2",
     "angular-split": "^4.0.0",
     "bootstrap": "^3.3.7",
@@ -76,7 +75,7 @@
     "@angular/compiler": ">=12.0.0 <14.0.0",
     "@angular/core": ">=12.0.0 <14.0.0",
     "@angular/forms": ">=12.0.0 <14.0.0",
-    "chart.js": ">2.9.0 <3.0.0",
-    "ng2-charts": ">=2.3.0 <3.0.0"
+    "chart.js": ">2.9.0 <4.0.0",
+    "ng2-charts": ">=2.3.0 <4.0.0"
   }
 }

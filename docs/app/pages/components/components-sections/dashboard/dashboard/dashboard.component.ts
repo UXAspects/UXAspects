@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ColorService, DashboardOptions } from '@ux-aspects/ux-aspects';
 import 'chance';
+import { ChartDataset, ChartOptions } from 'chart.js';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
@@ -15,18 +16,20 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 export class ComponentsDashboardComponent extends BaseDocumentationSection implements IPlaygroundProvider {
 
     // configure the directive data
-    lineChartData: Chart.ChartDataSets[] = [{
+    lineChartData: ChartDataset<'line'>[] = [{
         data: [],
         borderWidth: 2,
-        fill: false
+        fill: false,
+        borderColor: this.colorService.getColor('vibrant1').toHex(),
     },
     {
         data: [],
         borderWidth: 2,
-        fill: false
+        fill: false,
+        borderColor: this.colorService.getColor('vibrant2').toHex(),
     }];
 
-    lineChartOptions: Chart.ChartOptions = {
+    lineChartOptions: ChartOptions<'line'> = {
         maintainAspectRatio: false,
         responsive: true,
         elements: {
@@ -38,37 +41,30 @@ export class ComponentsDashboardComponent extends BaseDocumentationSection imple
             }
         },
         scales: {
-            xAxes: [{
-                gridLines: {
+            x: {
+                min: 0,
+                max: 49,
+                grid: {
                     color: 'transparent'
                 },
                 ticks: {
-                    min: 0,
-                    max: 49,
                     maxRotation: 0
-                } as Chart.LinearTickOptions
-            }],
-            yAxes: [{
-                gridLines: {
+                }
+            },
+            y: {
+                beginAtZero: true,
+                grid: {
                     color: '#ddd'
                 },
                 ticks: {
-                    beginAtZero: true,
                     stepSize: 100
-                } as Chart.LinearTickOptions,
-            }]
+                }
+            }
         },
     };
 
     lineChartLabels: string[] = [];
     lineChartLegend: boolean = false;
-    lineChartColors = [
-        {
-            borderColor: this.colorService.getColor('vibrant1').toHex(),
-        },
-        {
-            borderColor: this.colorService.getColor('vibrant2').toHex(),
-        }];
 
     options: DashboardOptions = {
         columns: 4,
@@ -94,7 +90,7 @@ export class ComponentsDashboardComponent extends BaseDocumentationSection imple
             library: 'chart.js'
         },
         {
-            imports: ['ChartsModule'],
+            imports: ['NgChartsModule'],
             library: 'ng2-charts'
         }]
     };
@@ -117,8 +113,8 @@ export class ComponentsDashboardComponent extends BaseDocumentationSection imple
 
             this.lineChartLabels.push(label);
 
-            let dataset1 = this.lineChartData[0].data as Chart.ChartPoint[];
-            let dataset2 = this.lineChartData[1].data as Chart.ChartPoint[];
+            const dataset1 = this.lineChartData[0].data as any;
+            const dataset2 = this.lineChartData[1].data as any;
 
             dataset1.push({
                 x: idx,
