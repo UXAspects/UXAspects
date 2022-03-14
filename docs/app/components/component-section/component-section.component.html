@@ -15,17 +15,8 @@
             <!-- Show usage link if required -->
             <uxd-usage-link *ngIf="usage" [usage]="usage"></uxd-usage-link>
 
-            <!-- Show the Angular Version -->
-            <span
-                *ngIf="version === 'AngularJS'"
-                class="label label-primary uxd-component-section-labels"
-                >AngularJS</span
-            >
-            <span
-                *ngIf="version === 'Angular'"
-                class="label label-accent uxd-component-section-labels"
-                >Angular</span
-            >
+            <!-- Show UAU migration if available -->
+            <uxd-migrate-link *ngIf="migration && theme !== SiteThemeId.Keppel" [migration]="migration" [componentName]="title"></uxd-migrate-link>
 
             <a
                 *ngIf="hybrid"
@@ -80,18 +71,7 @@
                 popoverClass="ux-popover-schematic-tag"
                 >Schematic</a
             >
-            <a
-                *ngIf="upgrade"
-                [attr.href]="upgrade.href"
-                class="label label-alternate1 uxd-component-section-labels"
-                [uxTooltip]="upgradeTooltip"
-                placement="bottom"
-                popoverClass="ux-popover-schematic-tag"
-                >Upgrade</a
-            >
 
-            <!-- Show usage link if required -->
-            <uxd-upgrade-link *ngIf="upgrade" [upgrade]="upgrade" [componentName]="title"></uxd-upgrade-link>
         </div>
     </ux-ebox-header>
 
@@ -99,17 +79,6 @@
         <div #container></div>
     </ux-ebox-content>
 </ux-ebox>
-
-<ng-template #upgradeTooltip>
-
-    <h4 style="margin-left: 20px;">Caveats</h4>
-
-    <ul>
-        <li *ngFor="let caveat of upgrade.caveats">
-            {{ caveat }}
-        </li>
-    </ul>
-</ng-template>
 
 <ng-template #hybridHelpContent>
     <p>
