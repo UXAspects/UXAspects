@@ -3,11 +3,9 @@ import { Component } from '@angular/core';
 @Component({
     selector: 'uxd-landing-page-feature-list',
     template: '<ng-content></ng-content>',
-    styles: [':host { display: block; }'],
+    styles: [':host { display: flex; justify-content: center; }'],
     host: {
-        'class': 'row'
+        'class': 'row',
     }
 })
-export class LandingPageFeatureListComponent { 
-
-}
+export class LandingPageFeatureListComponent {}

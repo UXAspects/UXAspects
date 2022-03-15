@@ -18,7 +18,5 @@ export class NavigationBarComponent {
     themes: SiteTheme[] = this.navigation.themes;
     expanded: boolean = false;
 
-    constructor(private _appConfig: AppConfiguration) { 
-        console.log('module', this._appConfig.getConfigurationData('top-navigation').help);
-     }
+    constructor(private _appConfig: AppConfiguration) {}
 }
