@@ -45,9 +45,9 @@
         "description": "Get involved in the UX Aspects project. Suggest new features, report issues or take part in development.",
         "links": [
             {
-                "image": "assets/img/twitter-icon.png",
+                "image": "assets/img/teams-icon.png",
                 "title": "Teams",
-                "description": "Take a look at the channel to keep up with the latest news and updates from the UX Aspects team or to get in touch with us!",
+                "description": "Take a look at the Teams channel to keep up with the latest news and updates from the UX Aspects team or to get in touch with us!",
                 "link": {
                     "title": "Teams Channel",
                     "link": "https://teams.microsoft.com/l/channel/19%3af9c3e360e0454784a9fb04c49f04ea65%40thread.skype/General?groupId=51fc2a42-4497-4231-baca-19348d1ef830&tenantId=856b813c-16e5-49a5-85ec-6f081e13b527"
