@@ -28,8 +28,7 @@
     </table>
 </ng-template>
 
-<a class="hyperlink-hover"
-   tabindex="0"
+<a tabindex="0"
    #pop="ux-popover"
    [uxPopover]="popTemplate"
    [showTriggers]="[]"
@@ -40,5 +39,5 @@
    popoverClass="ux-migrate-popover"
    uxFocusIndicator>
 
-   <img class="uau-icon" src="assets/img/uau-rounded-logo.svg"> Migrate
+   <img class="uau-icon" src="assets/img/uau-rounded-logo.svg"><span class="hyperlink-hover">Migrate</span>
 </a>
