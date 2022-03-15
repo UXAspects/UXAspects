@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
     template: '<ng-content></ng-content>',
     styles: [':host { display: flex; justify-content: center; }'],
     host: {
-        'class': 'row',
+        'class': 'row'
     }
 })
 export class LandingPageFeatureListComponent {}
