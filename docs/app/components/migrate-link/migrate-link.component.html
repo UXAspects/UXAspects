@@ -3,7 +3,7 @@
         <div class="migration-title">
             <h4><a [attr.href]="universalURL + migration.href">UX Aspects Universal: {{ migration.title }}</a></h4>
         </div>
-        <div class="universal-info">
+        <div class="universal-info" [class.border-bottom]="migration.notes">
             <span>
                 UX Aspects Universal components are lightweight and fully style-encapsulated,
                 which means you can drop them into a page without disrupting other components.
