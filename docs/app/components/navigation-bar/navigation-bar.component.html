@@ -63,13 +63,6 @@
         <li class="navigation-bar-dropdown-list-item" *ngFor="let link of social">
             <a class="navigation-bar-dropdown-list-item-link" [routerLink]="link.link" routerLinkActive="active" (click)="expanded = false">{{ link.title }}</a>
         </li>
-
-        <ng-container *ngIf="themes">
-            <li class="navigation-bar-dropdown-list-item" *ngFor="let link of help">
-                <a class="navigation-bar-dropdown-list-item-link" [attr.href]="link.link" (click)="expanded = false">{{ link.title }}</a>
-            </li>
-        </ng-container>
-
     </ul>
 
 </div>
