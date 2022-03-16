@@ -1,31 +1,33 @@
 <ng-template #popTemplate>
-    <table class="migrate-popover">
-        <tbody>
-            <tr>
-                <th colspan="2"><a [attr.href]="'https://pages.github.houston.softwaregrp.net/Inner-Source-Incubating/ux-aspects-universal/angular-storybook/?path=/docs/' + migration.href">UX Aspects Universal: {{ migration.title }}</a></th>
-            </tr>
-            <tr>
-                <td class="universal-info" colspan="2">
-                    UX Aspects Universal components are lightweight and fully style-encapsulated,
-                    which means you can drop them into a page without disrupting other components.
-                    Benefits include a dark theme and right-to-left language support.
-                    <a href="https://pages.github.houston.softwaregrp.net/Inner-Source-Incubating/ux-aspects-universal/angular-storybook/?path=/docs/welcome-migrating-from-ux-aspects--page">More...</a>
-                </td>
-            </tr>
-            <tr *ngIf="migration.caveats">
-                <td class="caveats-title">Caveats</td>
-                <td>
-                    <ul>
-                        <li *ngFor="let caveat of migration.caveats">{{ caveat }}</li>
-                        <li *ngIf="theme !== SiteThemeId.MicroFocusNext">
-                            It is recommended to switch to the Micro Focus 2021 theme before migrating to the new UX Aspects Universal component.
-                            See more under the using themes section in <a href="">Getting Started</a>.
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="migrate-popover">
+        <div class="migration-title">
+            <h4><a [attr.href]="universalURL + migration.href">UX Aspects Universal: {{ migration.title }}</a></h4>
+        </div>
+        <div class="universal-info">
+            <span>
+                UX Aspects Universal components are lightweight and fully style-encapsulated,
+                which means you can drop them into a page without disrupting other components.
+                Benefits include a dark theme and right-to-left language support.
+                <a [attr.href]="universalURL + 'welcome-migrating-from-ux-aspects--page'">More...</a>
+            </span>
+        </div>
+        <table>
+            <tbody>
+                <tr *ngIf="migration.notes">
+                    <td class="notes-title">Notes</td>
+                    <td>
+                        <ul>
+                            <li *ngFor="let note of migration.notes">{{ note }}</li>
+                            <li *ngIf="theme !== SiteThemeId.MicroFocusNext">
+                                It is recommended to switch to the Micro Focus 2021 theme before migrating to the new UX Aspects Universal component.
+                                See <a href="https://pages.github.houston.softwaregrp.net/caf/ux-aspects-micro-focus/#/gettingstarted#using-themes">Using Themes</a> for more information.
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </ng-template>
 
 <a tabindex="0"
@@ -33,11 +35,12 @@
    [uxPopover]="popTemplate"
    [showTriggers]="[]"
    [hideTriggers]="['escape', 'clickoutside']"
-   (click)="pop.show(); $event.target?.blur()"
+   (click)="pop.show()"
    (keyup.enter)="pop.toggle()"
    placement="bottom"
-   popoverClass="ux-migrate-popover"
-   uxFocusIndicator>
+   popoverClass="uxd-migrate-popover popover-arrow"
+   uxFocusIndicator
+   (indicator)="false">
 
-   <img class="uau-icon" src="assets/img/uau-rounded-logo.svg"><span class="hyperlink-hover">Migrate</span>
+   <img class="universal-icon" src="assets/img/universal-rounded-logo.svg"><span class="hyperlink-hover">Migrate</span>
 </a>

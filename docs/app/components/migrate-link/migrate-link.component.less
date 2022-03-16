@@ -4,16 +4,16 @@
     display: inline-block;
     margin-left: 15px;
 
-    a {
+    .hyperlink-hover {
         color: @text-color;
     }
 }
 
-::ng-deep .ux-migrate-popover {
+::ng-deep .uxd-migrate-popover {
     max-width: 400px;
 }
 
-.uau-icon {
+.universal-icon {
     height: 22px;
     position: relative;
     top: -1px;
@@ -23,21 +23,29 @@
 .migrate-popover {
     width: 100%;
 
-    tr {
+    .migration-title {
+        text-align: center;
+        padding-bottom: 10px;
+        font-size: 16px;
+        margin: 0;
+    }
+
+    .universal-info {
+        padding-top: 10px;
+        padding-bottom: 10px;
+        font-size: 14px;
+        border-top: 1px solid @grey5;
         border-bottom: 1px solid @grey5;
+        margin-bottom: 8px;
+    }
 
-        th {
-            text-align: center;
-            padding-bottom: 10px;
-            font-size: 16px;
-        }
-
+    tr {
         td {
             padding-top: 10px;
             padding-bottom: 10px;
             font-size: 14px;
 
-            &.caveats-title {
+            &.notes-title {
                 vertical-align: top;
             }
 
