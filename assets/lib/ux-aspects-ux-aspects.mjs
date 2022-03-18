@@ -33,6 +33,7 @@ import { ArrayDataSource } from '@angular/cdk/collections';
 import * as i3$2 from '@angular/cdk/tree';
 import { FlatTreeControl, CdkTreeModule } from '@angular/cdk/tree';
 import * as i1$6 from '@angular/cdk/text-field';
+import { Chart } from 'chart.js';
 
 var Color;
 (function (Color) {
@@ -29975,8 +29976,12 @@ const timelineDefaultOptions = {
     }
 };
 class TimelineChartPlugin {
+    constructor() {
+        this.id = 'timeline-chart-plugin';
+    }
     /** Register this plugin */
     static register() {
+        var _a;
         /**
          * We have to register this plugin globally because
          * ng2-charts doesn't support plugins on an invidual
@@ -29988,13 +29993,19 @@ class TimelineChartPlugin {
          * Having it here allows it to be tree-shaken.
          */
         if (!this._isRegistered) {
-            if (!window.Chart) {
-                throw new Error('Please import Chart.js to use the timeline chart.');
+            // if pluginService exists then we are in v2
+            if ((_a = window.Chart) === null || _a === void 0 ? void 0 : _a.pluginService) {
+                window.Chart.pluginService.register(new TimelineChartPlugin());
             }
-            // register the plugin
-            window.Chart.pluginService.register(new TimelineChartPlugin());
+            else {
+                Chart.register(new TimelineChartPlugin());
+            }
             this._isRegistered = true;
         }
+    }
+    isVersion3() {
+        var _a;
+        return ((_a = window.Chart) === null || _a === void 0 ? void 0 : _a.pluginService) ? false : true;
     }
     /**
      * When chart is initialised store the chart instance and context
@@ -30064,7 +30075,11 @@ class TimelineChartPlugin {
      * one of the drag handles. We have do calculate this manually
      * as there are no DOM element to add CSS to.
      */
-    afterEvent(chart, event) {
+    afterEvent(chart, parentEvent) {
+        const event = this.isVersion3() ? parentEvent.event : parentEvent;
+        if (parentEvent.replay === true) {
+            return;
+        }
         // skip this if timeline is not enabled
         if (!this.getEnabled(chart)) {
             return;
@@ -30265,7 +30280,7 @@ class TimelineChartPlugin {
     }
     handleMouseMove(chart, event) {
         const mousePosition = this.isWithinHandle(chart, event);
-        const timelineOptions = chart.options;
+        const timelineOptions = (this.isVersion3() ? chart.config.options : chart.options);
         const hasTooltipOnRange = timelineOptions.timeline.range.hasOwnProperty('tooltip');
         const hasTooltipOnHandles = timelineOptions.timeline.handles.hasOwnProperty('tooltip');
         let timelineTooltipText;
@@ -30559,11 +30574,22 @@ class TimelineChartPlugin {
      * Get the minimum and maximum values on the x-axis
      */
     getChartRange(chart) {
-        // get the current data
-        const { data } = chart.getDatasetMeta(0);
-        // get the range on the x-axis
-        const minimum = data[0]._xScale.min;
-        const maximum = data[0]._xScale.max;
+        let minimum;
+        let maximum;
+        if (this.isVersion3()) {
+            // get the current data
+            const data = chart.scales;
+            // get the range on the x-axis
+            minimum = data.x.min;
+            maximum = data.x.max;
+        }
+        else {
+            // get the current data
+            const { data } = chart.getDatasetMeta(0);
+            // get the range on the x-axis
+            minimum = data[0]._xScale.min;
+            maximum = data[0]._xScale.max;
+        }
         return [minimum, maximum];
     }
     /** Get the value for a given handle */
