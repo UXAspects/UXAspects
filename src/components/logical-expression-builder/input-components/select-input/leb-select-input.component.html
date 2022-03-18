@@ -1,0 +1,32 @@
+<div class="form-group m-b-nil select-input-component" [ngClass]="{ 'has-error': !_valid }">
+    <ux-select
+        [value]="_value"
+        (valueChange)="handleValueChange($event)"
+        [options]="_options"
+        [optionTemplate]="optionTemplate"
+        [tagTemplate]="tagTemplate"
+        [multiple]="true"
+        [display]="'label'"
+        [key]="'name'">
+
+        <ng-template #optionTemplate let-option="option" let-api="api">
+            <ng-container *ngIf="option.icon">
+                <ux-icon [name]="option.icon" class="m-r-sm"></ux-icon>
+            </ng-container>
+
+            <span [innerHTML]="api.getDisplayHtml(option)"></span>
+        </ng-template>
+
+        <ng-template #tagTemplate let-tag="tag" let-index="index" let-api="api">
+            <ux-icon [name]="tag.icon" class="m-r-sm"></ux-icon>
+            <span class="ux-tag-text">{{ tag.label }}</span>
+            <button *ngIf="api.canRemoveTagAt(index)"
+                    uxFocusIndicator
+                    type="button"
+                    class="ux-tag-remove"
+                    (click)="api.removeTagAt(index); $event.stopPropagation();">
+                <ux-icon name="close"></ux-icon>
+            </button>
+        </ng-template>
+    </ux-select>
+</div>

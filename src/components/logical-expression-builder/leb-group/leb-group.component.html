@@ -1,0 +1,147 @@
+<div
+    expressionRow
+    [rowPath]="path"
+    class="leb-group {{ selectedLogicalOperator?.label }}"
+    (mouseenter)="hoverPathChanged.emit(path)"
+    (mouseleave)="hoverPathChanged.emit([])"
+    uxHoverActionContainer>
+    <span class="leb-cell">
+        <span
+            class="firstTreeElement"
+            [ngClass]="{
+                firstOperatorTreeElement: index === indent / indentationStep - 1,
+                emphasis: (hoverPath | isEmphasized : path : index),
+                'L-TreeElement': (maxChildren?.length > index) && (maxChildren[index] - path[index] < 2)
+            }"
+            *ngFor="let levels of [].constructor(indent / indentationStep); let index = index"
+        ></span>
+
+        <div class="btn-group">
+            <button
+                type="button"
+                class="btn btn-link button-secondary dropdown-toggle dropdown-button"
+                [ngClass]="{'disabled' : (_editBlocked$ | async)}"
+                [disabled]="_editBlocked$ | async"
+                uxFocusIndicatorOrigin
+                (keydown.arrowDown)="$event.stopPropagation();"
+                (keydown.arrowUp)="$event.stopPropagation();"
+                [uxMenuTriggerFor]="logicalOperatorMenu">
+                <span>{{ selectedLogicalOperator?.label | uppercase }}</span>
+                <ux-icon name="chevron-down" class="dropdown-icon-inline"></ux-icon>
+            </button>
+        </div>
+
+        <ux-menu #logicalOperatorMenu>
+            <button
+                *ngFor="let logicalOperator of logicalOperators; index as index"
+                (activate)="handleSelectedOperatorChange(index)"
+                type="button"
+                uxMenuItem>
+                <span class="dropdown-menu-text">{{logicalOperator.label | uppercase}}</span>
+            </button>
+        </ux-menu>
+    </span>
+
+    <span *ngIf="!_valid" class="leb-cell m-l-md text-error">
+        <ux-alert [dismissible]="false" type="error">
+            <ux-icon uxAlertIcon name="alert"></ux-icon>
+            {{ _errorMessage }}
+        </ux-alert>
+    </span>
+
+    <span class="leb-cell logical-operator-delete hover-btn-cell">
+        <button
+            uxHoverAction
+            uxFocusIndicatorOrigin
+            (click)="deleteGroup()"
+            type="button"
+            class="btn btn-icon delete-btn"
+            [disabled]="_editBlocked$ | async"
+            [attr.aria-label]="('deleteLogicalOperatorAriaLabel' | l10n) || 'Delete logical operator'">
+            <span class="ux-icon ux-icon-trash" aria-hidden="true"></span>
+        </button>
+    </span>
+</div>
+
+<ng-container *ngFor="let child of _children; index as index">
+    <ux-leb-condition
+        *ngIf="child.type === 'condition'"
+        (conditionChange)="handleSubExpressionChange($event, index)"
+        [condition]="child"
+        [path]="index | rowPath:path"
+        [maxChildren]="maxChildren"
+        [hoverPath]="hoverPath"
+        (hoverPathChanged)="hoverPathChanged.emit($event)"
+        (conditionDeleted)="removeConditionAtIndex($event)"
+        (conditionEmbedded)="embedConditionAtIndex($event)"
+        [indent]="indent + indentationStep"
+        [indentationStep]="indentationStep">
+    </ux-leb-condition>
+
+    <ux-leb-group
+        *ngIf="child.type === 'group'"
+        [subExpression]="child"
+        [path]="index | rowPath:path"
+        [maxChildren]="child.logicalOperator | maxChildren : maxChildren : lebService"
+        [hoverPath]="hoverPath"
+        (hoverPathChanged)="hoverPathChanged.emit($event)"
+        (subExpressionChange)="handleSubExpressionChange($event, index)"
+        [indent]="indent + indentationStep"
+        [indentationStep]="indentationStep">
+    </ux-leb-group>
+</ng-container>
+
+<ng-container *ngIf="_showAddBtn">
+    <div
+        expressionRow
+        [rowPath]="(_children?.length || 0) | rowPath:path"
+        (mouseenter)="hoverPathChanged.emit(path.concat([_children?.length || 0]))"
+        (mouseleave)="hoverPathChanged.emit([])"
+        class="leb-group">
+        <span class="leb-cell">
+        <span
+            class="firstTreeElement"
+            [ngClass]="{
+                invisible: (maxChildren?.length > index) && (maxChildren[index] - path[index] < 2),
+                emphasis: (hoverPath | isEmphasized : path : index)
+            }"
+            *ngFor="let levels of [].constructor(indent / indentationStep); let index = index;"
+        ></span><span
+            class="L-TreeElement"
+            [ngClass]="{
+                emphasis: (hoverPath | isEmphasized : path.concat([_children?.length || 0]) : (indent / indentationStep))
+            }"
+        ></span>
+            <button
+                [uxMenuTriggerFor]="addMenu"
+                [disabled]="_editBlocked$ | async"
+                (keydown.arrowDown)="$event.stopPropagation();"
+                (keydown.arrowUp)="$event.stopPropagation();"
+                uxFocusIndicatorOrigin
+                type="button"
+                class="btn btn-icon button-primary group-add-btn"
+                [ngClass]="{'disabled' : (_editBlocked$ | async)}"
+                aria-label="Add">
+                <span class="ux-icon ux-icon-add" aria-hidden="true"></span>
+            </button>
+        </span>
+    </div>
+
+    <ux-menu #addMenu>
+        <button
+            type="button"
+            uxMenuItem
+            uxFocusIndicatorOrigin
+            (activate)="addCondition()">
+            <span class="dropdown-menu-text">{{ ('addConditionBtnText' | l10n) || 'Add condition' }}</span>
+        </button>
+
+        <button
+            type="button"
+            uxMenuItem
+            uxFocusIndicatorOrigin
+            (activate)="addGroup()">
+            <span class="dropdown-menu-text">{{ ('addLogicalOperatorBtnText' | l10n) || 'Add logical operator'}} </span>
+        </button>
+    </ux-menu>
+</ng-container>

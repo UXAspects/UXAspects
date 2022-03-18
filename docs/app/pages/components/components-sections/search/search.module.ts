@@ -3,17 +3,33 @@ import { CommonModule } from '@angular/common';
 import { ComponentFactoryResolver, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { AccordionModule, ColorServiceModule, FocusIfModule, IconModule, ItemDisplayPanelModule, RadioButtonModule, SearchBuilderModule, SelectListModule, TabsetModule, ToggleSwitchModule, ToolbarSearchModule, TooltipModule } from '@ux-aspects/ux-aspects';
+import {
+    AccordionModule,
+    ColorServiceModule,
+    FocusIfModule,
+    LogicalExpressionBuilderModule,
+    IconModule,
+    ItemDisplayPanelModule,
+    RadioButtonModule,
+    SearchBuilderModule,
+    SelectListModule,
+    TabsetModule,
+    ToggleSwitchModule,
+    ToolbarSearchModule,
+    TooltipModule
+} from '@ux-aspects/ux-aspects';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
 import { DocumentationPage, ResolverService } from '../../../../services/resolver/resolver.service';
 import { ComponentsSearchBuilderComponent } from './search-builder/search-builder.component';
 import { ComponentsToolbarSearchComponent } from './toolbar-search/toolbar-search.component';
+import { ComponentsLogicalExpressionBuilderComponent } from './logical-expression-builder/logical-expression-builder.component';
 
 const SECTIONS = [
     ComponentsToolbarSearchComponent,
-    ComponentsSearchBuilderComponent
+    ComponentsSearchBuilderComponent,
+    ComponentsLogicalExpressionBuilderComponent,
 ];
 
 const ROUTES = [
@@ -35,6 +51,7 @@ const ROUTES = [
         DocumentationComponentsModule,
         FocusIfModule,
         FormsModule,
+        LogicalExpressionBuilderModule,
         IconModule,
         ItemDisplayPanelModule,
         ModalModule,
@@ -48,7 +65,7 @@ const ROUTES = [
         TooltipModule,
     ],
     exports: SECTIONS,
-    declarations: SECTIONS,
+    declarations: SECTIONS
 })
 export class ComponentsSearchModule {
 

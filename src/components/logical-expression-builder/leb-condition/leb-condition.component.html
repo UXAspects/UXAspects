@@ -1,0 +1,131 @@
+<div
+    expressionRow
+    [rowPath]="path"
+    *ngIf="_isInEditMode; else staticMode"
+    class="leb-condition-row"
+    [style.padding-left.px]="indent || 8"
+    cdkTrapFocus
+    [cdkTrapFocusAutoCapture]="true"
+    (keydown.escape)="cancelEdit()">
+
+    <span class="edit-mode">
+        <span class="field-selection">
+            <ux-select
+                [value]="_field"
+                [input]="_field?.label || null"
+                (valueChange)="handleFieldSelected($event)"
+                [options]="fields"
+                (keydown.arrowDown)="$event.stopPropagation();"
+                (keydown.arrowUp)="$event.stopPropagation();"
+                display="label"
+                key="name">
+            </ux-select>
+        </span>
+
+        <span class="operator-selection">
+            <ux-select
+                *ngIf="_field?.name"
+                [value]="_operator"
+                (valueChange)="handleOperatorSelected($event)"
+                [input]="_operator?.label || null"
+                [options]="operators"
+                display="label"
+                key="name">
+            </ux-select>
+        </span>
+
+        <span class="value-input-container">
+            <div #inputContainer></div>
+        </span>
+
+        <span class="confirm-cancel-btn-cell">
+            <button
+                [disabled]="!(_field && _operator && (_value || _value === 0) && _valid)"
+                (click)="confirmCondition()"
+                uxFocusIndicatorOrigin
+                type="button"
+                class="btn btn-icon confirm-btn"
+                [attr.aria-label]="('confirmConditionAriaLabel' | l10n) || 'Confirm edit'">
+                <span class="ux-icon ux-icon-checkmark" aria-hidden="true"></span>
+            </button>
+
+            <button
+                (click)="cancelEdit()"
+                uxFocusIndicatorOrigin
+                type="button"
+                class="btn btn-icon cancel-btn"
+                [attr.aria-label]="('cancelConditionEditAriaLabel' | l10n) || 'Cancel editing'">
+                <span class="ux-icon ux-icon-close" aria-hidden="true"></span>
+            </button>
+        </span>
+    </span>
+</div>
+
+<ng-template #staticMode>
+    <div
+        expressionRow
+        [rowPath]="path"
+        class="leb-condition-row"
+        (mouseenter)="hoverPathChanged.emit(path)"
+        (mouseleave)="hoverPathChanged.emit([])"
+        uxHoverActionContainer>
+        <span class="leb-cell" [ngClass]="{'leb-cell-unindented' : (indent === 0)}">
+            <span *ngIf="indent > 0">
+                <span
+                    class="firstTreeElement"
+                    [ngClass]="{
+                        invisible: (maxChildren?.length > index) && (maxChildren[index] - path[index] < 2),
+                        emphasis: (hoverPath | isEmphasized : path : index)
+                    }"
+                    *ngFor="let levels of [].constructor(indent / indentationStep - 1); let index = index"
+                ></span><span
+                    class="lastTreeElement"
+                    [ngClass]="{
+                        emphasis: (hoverPath | isEmphasized : path : (indent / indentationStep - 1))
+                    }"
+                ></span>
+            </span>
+            <span class="leb-field-display">{{ _field?.label }}</span>{{' '}}<span
+            class="leb-operator-display">{{ _operator?.label }}</span>{{' '}}<span
+            class="leb-value-display">{{ _value | displayValue : _field?.fieldType : _field?.configuration }}</span>
+        </span>
+
+        <span class="leb-cell hover-btn-cell">
+            <button
+                [disabled]="_editBlocked"
+                uxHoverAction
+                uxFocusIndicatorOrigin
+                (click)="editCondition()"
+                type="button"
+                class="btn btn-icon edit-btn"
+                [uxTooltip]="_getLabel('editConditionAriaLabel', 'Edit condition')"
+                [attr.aria-label]="_getLabel('editConditionAriaLabel', 'Edit condition')">
+                <span class="ux-icon ux-icon-edit" aria-hidden="true"></span>
+            </button>
+
+            <button
+                [disabled]="_editBlocked"
+                uxHoverAction
+                uxFocusIndicatorOrigin
+                (click)="embedConditionInGroup()"
+                type="button"
+                class="btn btn-icon embed-btn"
+                [uxTooltip]="_getLabel('embedConditionAriaLabel', 'Embed condition')"
+                [attr.aria-label]="_getLabel('embedConditionAriaLabel', 'Embed condition')">
+                <span class="ux-icon ux-icon-chart-organization" aria-hidden="true"></span>
+            </button>
+
+            <button
+                [disabled]="_editBlocked"
+                uxHoverAction
+                uxFocusIndicatorOrigin
+                (click)="deleteCondition()"
+                type="button"
+                class="btn btn-icon delete-btn"
+                [uxTooltip]="_getLabel('deleteConditionAriaLabel', 'Delete condition')"
+                [attr.aria-label]="_getLabel('deleteConditionAriaLabel', 'Delete condition')">
+                <span class="ux-icon ux-icon-trash" aria-hidden="true"></span>
+            </button>
+        </span>
+    </div>
+</ng-template>

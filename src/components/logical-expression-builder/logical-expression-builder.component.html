@@ -1,0 +1,55 @@
+<button
+    uxFocusIndicatorOrigin
+    *ngIf="!expression?.type; else queryItems"
+    (click)="addCondition()"
+    type="button"
+    class="btn btn-icon-with-text button-primary"
+    [attr.aria-label]="('addConditionBtnAriaLabel' | l10n) || 'Add condition'">
+    <span class="ux-icon ux-icon-add"
+          aria-hidden="true"></span><span>{{ ('addConditionBtnText' | l10n) || 'Add condition'}}</span>
+</button>
+
+<ng-template #queryItems>
+    <div class="table table-hover leb-table" uxFocusIndicatorOrigin>
+        <ux-leb-group
+            *ngIf="expression?.type === 'group'; else conditionBlock"
+            [subExpression]="expression"
+            (subExpressionChange)="handleSubExpressionChange($event)"
+            [path]="[0]"
+            [maxChildren]="[99]"
+            [hoverPath]="hoverPath" (hoverPathChanged)="hoverPath = $event"
+            [indent]="0"
+            [indentationStep]="indentationStep">
+        </ux-leb-group>
+    </div>
+</ng-template>
+
+<ng-template #conditionBlock>
+    <ux-leb-condition
+        *ngIf="expression?.type === 'condition'"
+        (conditionChange)="handleSubExpressionChange($event)"
+        [condition]="expression"
+        [path]="[0]"
+        [maxChildren]="[99]"
+        [hoverPath]="hoverPath" (hoverPathChanged)="hoverPath = $event"
+        (conditionDeleted)="deleteCondition()"
+        (conditionEmbedded)="addGroup()"
+        [indent]="0"
+        [indentationStep]="indentationStep">
+    </ux-leb-condition>
+
+    <div class="leb-expression-row" expressionRow [rowPath]="[1]">
+        <span class="leb-cell">
+            <button
+                uxFocusIndicatorOrigin
+                uxFocusIndicator
+                (click)="addGroup()"
+                type="button"
+                class="btn btn-icon button-primary group-add-btn"
+                [ngClass]="{'disabled' : (_editBlocked$ | async)}"
+                [attr.aria-label]="('addConditionBtnAriaLabel' | l10n) || 'Add condition'">
+                <span class="ux-icon ux-icon-add" aria-hidden="true"></span>
+            </button>
+        </span>
+    </div>
+</ng-template>

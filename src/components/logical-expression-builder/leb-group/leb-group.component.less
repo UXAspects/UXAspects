@@ -1,0 +1,24 @@
+ux-leb-group {
+    .leb-group {
+        ux-alert.ux-alert-error {
+            padding: 5px 15px;
+            display: inline-flex;
+            vertical-align: middle;
+        }
+
+        td.logical-operator-delete {
+            margin-left: auto;
+        }
+
+        .delete-btn {
+            .button-warning;
+
+            &:disabled {
+                background-color: @btn-warning-disabled-bg;
+                color: @btn-warning-disabled-color;
+                border-color: @btn-warning-disabled-border;
+            }
+        }
+    }
+}
+
