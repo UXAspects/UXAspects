@@ -1,11 +1,11 @@
 <div class="demo-chart-container">
 
     <canvas baseChart
+        id="chart-id"
         [datasets]="lineChartData"
         [options]="lineChartOptions"
-        [legend]="lineChartLegend"
-        [colors]="lineChartColors"
-        chartType="line">
+        [plugins]="lineChartPlugins"
+        type="line">
 
         <table *ngFor="let dataset of lineChartData" attr.aria-label="{{dataset.label}} chart data">
             <thead>
@@ -17,8 +17,8 @@
             <tbody>
                 <ng-container *ngFor="let row of dataset.data; let idx = index">
                     <tr *ngIf="idx % 10 === 0">
-                        <td>{{formatDate(row.x)}}</td>
-                        <td>{{row.y}}</td>
+                        <td>{{formatDate($any(row).x)}}</td>
+                        <td>{{$any(row).y}}</td>
                     </tr>
                 </ng-container>
             </tbody>
@@ -26,7 +26,7 @@
 
     </canvas>
 
-    <div class="multi-axis-legend" [innerHtml]="lineChartLegendContents" aria-hidden="true"></div>
+    <div class="multi-axis-legend" id="legend-id" aria-hidden="true"></div>
 
 </div>
 
@@ -34,7 +34,7 @@
 
 <p>
     Multiple Axis Line Charts can be added using the <code>ng2-charts</code> library.
-    The <code>chart.js</code> library needs to be imported and the <code>ChartsModule</code> needs to be added to the appropriate NgModule.
+    The <code>chart.js</code> library needs to be imported and the <code>NgChartsModule</code> needs to be added to the appropriate NgModule.
 </p>
 
 <p>The <code>baseChart</code> directive should be added to a <code>canvas</code> element and the following attributes can be used to customize the chart behavior and appearance:</p>
@@ -43,14 +43,11 @@
     <tr uxd-api-property name="dataSets" type="object[]">
         Contains the data and properties for each data set to be displayed in the chart.
     </tr>
-    <tr uxd-api-property name="chartType" type="string">
+    <tr uxd-api-property name="type" type="string">
         Indicates the type of the chart. Possible options are: <code>line</code>, <code>bar</code>, <code>radar</code>, <code>pie</code>, <code>polarArea</code>, <code>doughnut</code>
     </tr>
     <tr uxd-api-property name="options" type="ChartOptions">
         Configures the appearance and behavior of all aspects of the chart.
-    </tr>
-    <tr uxd-api-property name="colors" type="object[]">
-        Configure the color values to be used within the chart.
     </tr>
     <tr uxd-api-property name="legend" type="boolean">
         Determines whether or not the legend should be displayed.
@@ -97,13 +94,8 @@
     </p>
 
     <p class="m-b-nil">
-        <b>Type Definitions: </b>
-        <a class="hyperlink" href="https://www.npmjs.com/package/@types/chart.js">@types/chart.js</a>
-    </p>
-
-    <p class="m-b-nil">
         <b>Modules: </b>
-        <span>ChartsModule</span>
+        <span>NgChartsModule</span>
     </p>
 
 
