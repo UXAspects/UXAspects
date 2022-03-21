@@ -60,6 +60,9 @@ function servePlunkerAssets() {
     // serve the contents of the docs assets folder
     plunkerServer.use('/assets', express.static(join('dist', 'docs', 'assets')));
 
+    // serve NPM packages
+    plunkerServer.use('/npm', express.static(join('target', 'playground')))
+
     https
         .createServer(
             {

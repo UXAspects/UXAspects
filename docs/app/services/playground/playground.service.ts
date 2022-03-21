@@ -2,6 +2,7 @@ import { DOCUMENT } from '@angular/common';
 import { Inject, Injectable } from '@angular/core';
 import { IFiles } from 'codesandbox-import-utils/lib/api/define';
 import { getParameters } from 'codesandbox/lib/api/define';
+import * as ts from 'typescript';
 import { IPlayground } from '../../interfaces/IPlayground';
 import { AppConfiguration } from '../app-configuration/app-configuration.service';
 import { SiteThemeService } from '../site-theme/site-theme.service';
@@ -53,9 +54,10 @@ export class PlaygroundService {
     transformFiles(files: IFiles, title: string, playground: IPlayground): void {
         const packageJson = JSON.parse(files['package.json'].content);
         packageJson.name = `${title} (UX Aspects)`;
-        packageJson.description = 'UX Aspects example from https://uxaspects.github.io/UXAspects',
+        packageJson.description = 'UX Aspects example from https://uxaspects.github.io/UXAspects';
         packageJson.license = 'Apache-2.0';
-        packageJson.dependencies['@ux-aspects/ux-aspects'] = 'latest';
+        packageJson.dependencies['@ux-aspects/ux-aspects'] =
+            'https://localhost:8090/npm/ux-aspects-ux-aspects.tgz';
         files['package.json'].content = JSON.stringify(packageJson, null, 2);
 
         for (const playgroundFile in playground.files) {
@@ -64,6 +66,58 @@ export class PlaygroundService {
                 isBinary: false,
             };
         }
+
+        this.updateAppModule(files, playground);
+    }
+
+    private updateAppModule(files: IFiles, playground: IPlayground): void {
+        const source = ts.createSourceFile(
+            'src/app/app.module.ts',
+            files['src/app/app.module.ts'].content,
+            ts.ScriptTarget.Latest,
+            true
+        );
+
+        const output = ts.transform(source, [
+            addImportsTransformer(this.getImports(playground)),
+            ngModuleMetadataTransformer('imports', this.getModuleImports(playground)),
+            ngModuleMetadataTransformer('declarations', this.getModuleDeclarations(playground)),
+        ]);
+
+        const printer = ts.createPrinter({ newLine: ts.NewLineKind.LineFeed });
+
+        const sourceOutput = printer.printFile(output.transformed[0]);
+
+        console.log(sourceOutput);
+
+        files['src/app/app.module.ts'].content = sourceOutput;
+    }
+
+    private getImports(playground: IPlayground): ts.ImportDeclaration[] {
+        return playground.modules
+            .filter(module => module.library)
+            .map(module => getImportDeclaration(module.library, module.imports, module.importAs));
+    }
+
+    private getModuleDeclarations(playground: IPlayground): ts.Expression[] {
+        return playground.modules
+            .filter(module => module.declaration)
+            .reduce((declarations, module) => {
+                const imports = module.imports instanceof Array ? module.imports : [module.imports];
+                return [...declarations, ...imports.map(ts.factory.createIdentifier)];
+            }, [] as ts.Expression[]);
+    }
+
+    private getModuleImports(playground: IPlayground): ts.Expression[] {
+        return playground.modules
+            .filter(module => !module.declaration)
+            .reduce((declarations, module) => {
+                const imports = module.imports instanceof Array ? module.imports : [module.imports];
+                return [
+                    ...declarations,
+                    ...imports.map(_import => getModuleImportStatement(_import, module.forRoot)),
+                ];
+            }, [] as ts.Expression[]);
     }
 
     private postData(action: string, data: Record<string, string>): void {
@@ -87,4 +141,108 @@ export class PlaygroundService {
         form.submit();
         this._document.body.removeChild(form);
     }
+}
+
+function getImportDeclaration(
+    path: string,
+    imports?: string | string[],
+    isAlias?: boolean
+): ts.ImportDeclaration {
+    if (!imports) {
+        return ts.factory.createImportDeclaration(
+            undefined,
+            undefined,
+            undefined,
+            ts.factory.createStringLiteral(path)
+        );
+    }
+
+    if (imports instanceof Array) {
+        const importSpecifiers = imports.map(_import =>
+            ts.factory.createImportSpecifier(undefined, ts.factory.createIdentifier(_import))
+        );
+
+        return ts.factory.createImportDeclaration(
+            undefined,
+            undefined,
+            ts.factory.createImportClause(
+                false,
+                undefined,
+                ts.factory.createNamedImports(importSpecifiers)
+            ),
+            ts.factory.createStringLiteral(path)
+        );
+    }
+
+    if (isAlias) {
+        return ts.factory.createImportDeclaration(
+            undefined,
+            undefined,
+            ts.factory.createImportClause(
+                false,
+                undefined,
+                ts.factory.createNamespaceImport(ts.factory.createIdentifier(imports))
+            ),
+            ts.factory.createStringLiteral(path)
+        );
+    }
+
+    return ts.factory.createImportDeclaration(
+        undefined,
+        undefined,
+        ts.factory.createImportClause(false, ts.factory.createIdentifier(imports), undefined),
+        ts.factory.createStringLiteral(path)
+    );
+}
+
+function getModuleImportStatement(moduleName: string, forRoot: boolean): ts.Expression {
+    const moduleIdentifier = ts.factory.createIdentifier(moduleName);
+    return forRoot
+        ? ts.factory.createCallExpression(
+              ts.factory.createPropertyAccessExpression(
+                  moduleIdentifier,
+                  ts.factory.createIdentifier('forRoot')
+              ),
+              undefined,
+              []
+          )
+        : moduleIdentifier;
+}
+
+function addImportsTransformer(
+    imports: ts.ImportDeclaration[]
+): ts.TransformerFactory<ts.SourceFile> {
+    return () => {
+        const visitor: ts.Visitor = node => {
+            if (ts.isSourceFile(node)) {
+                return ts.factory.updateSourceFile(node, [...imports, ...node.statements]);
+            }
+        };
+
+        return node => ts.visitNode(node, visitor);
+    };
+}
+
+function ngModuleMetadataTransformer(
+    property: 'imports' | 'declarations',
+    expressions: ts.Expression[]
+): ts.TransformerFactory<ts.SourceFile> {
+    return context => {
+        const visitor: ts.Visitor = node => {
+            if (
+                ts.isArrayLiteralExpression(node) &&
+                node.parent &&
+                ts.isPropertyAssignment(node.parent) &&
+                node.parent.name.getText() === property
+            ) {
+                return ts.factory.createArrayLiteralExpression(
+                    [...node.elements, ...expressions],
+                    true
+                );
+            }
+            return ts.visitEachChild(node, visitor, context);
+        };
+
+        return node => ts.visitNode(node, visitor);
+    };
 }
