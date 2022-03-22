@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import 'chance';
 
 @Component({
-    selector: 'app',
+    selector: 'app-root',
     templateUrl: './app.component.html'
 })
 export class AppComponent {
@@ -10,7 +10,7 @@ export class AppComponent {
     private _now = Date.now();
     private _dayInMilliSeconds = 24 * 60 * 60 * 1000;
     private _daysAfterFirstEvent = 3;
-    
+
     events: TimelineEvent[] = [{
         color: 'accent',
         date: new Date(this._now + (this._dayInMilliSeconds * 3)),

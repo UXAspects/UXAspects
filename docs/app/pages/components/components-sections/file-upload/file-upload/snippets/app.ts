@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { FileUploader } from 'ng2-file-upload';
 
 @Component({
-    selector: 'app',
+    selector: 'app-root',
     templateUrl: './app.component.html'
 })
 export class AppComponent {

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ConduitZone, ConduitZoneComponent } from '@ux-aspects/ux-aspects';
 
 @Component({
-    selector: 'app',
+    selector: 'app-root',
     templateUrl: './app.component.html',
     providers: [ConduitZone]
 })

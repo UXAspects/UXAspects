@@ -3,7 +3,7 @@ import { Conduit, ConduitZone, ConduitZoneComponent } from '@ux-aspects/ux-aspec
 import { BehaviorSubject } from 'rxjs';
 
 @Component({
-    selector: 'app',
+    selector: 'app-root',
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.css'],
     providers: [ConduitZone]

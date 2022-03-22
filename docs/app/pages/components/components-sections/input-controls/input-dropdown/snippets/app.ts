@@ -15,7 +15,7 @@ export class HighlightSearch implements PipeTransform {
 
 
 @Component({
-    selector: 'app',
+    selector: 'app-root',
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.css']
 })
