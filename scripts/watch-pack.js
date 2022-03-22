@@ -1,8 +1,11 @@
+const chalk = require('chalk');
 const { execSync } = require('child_process');
 const { argv, exit } = require('process');
 const { moveSync, existsSync, unlinkSync, mkdirpSync, watch } = require('fs-extra');
 const { join, dirname, resolve } = require('path');
 
+const START_DELAY = 10000;
+const RESTART_INTERVAL = 5000;
 const DEBOUNCE_INTERVAL = 1000;
 
 (async () => {
@@ -12,16 +15,54 @@ const DEBOUNCE_INTERVAL = 1000;
 
     // Wait for a bit while the old dist directory is deleted and recreated
     // Node watch is likely to crash if we dive right in
-    await new Promise(resolve => setTimeout(resolve, 10000));
+    await new Promise(resolve => setTimeout(resolve, START_DELAY));
 
     const outputDir = dirname(outputPath);
     mkdirpSync(outputDir);
 
-    // create initial package
-    createPackage(cwd, outputPath);
+    await startWatchWithRetry(cwd, outputPath);
+})().catch(error => {
+    err(error);
+    exit(1);
+});
 
-    // recreate package after every change
-    console.log('- Starting watch (this might crash but concurrently will relaunch the process)')
+async function startWatchWithRetry(cwd, outputPath) {
+    let done = false;
+    do {
+        try {
+            // create initial package
+            createPackage(cwd, outputPath);
+
+            // watch for future changes
+            startWatch(cwd, outputPath);
+
+            done = true;
+        } catch (error) {
+            warn('watch failed to start, retrying');
+            await new Promise(resolve => setTimeout(resolve, RESTART_INTERVAL));
+        }
+    } while (!done);
+}
+
+function createPackage(cwd, outputPath) {
+    if (existsSync(outputPath)) {
+        unlinkSync(outputPath);
+    }
+
+    const outputDir = dirname(outputPath);
+
+    // create the package tgz file
+    const tempFileName = createTempPackage(cwd, outputDir);
+
+    // rename to the requested filename
+    moveSync(join(outputDir, tempFileName), outputPath);
+
+    if (existsSync(outputPath)) {
+        console.log(`✔ Package created: ${outputPath}`);
+    }
+}
+
+function startWatch(cwd, outputPath) {
     let timeout;
     watch(cwd, { recursive: true }, () => {
         clearTimeout(timeout);
@@ -29,39 +70,6 @@ const DEBOUNCE_INTERVAL = 1000;
             createPackage(cwd, outputPath);
         }, DEBOUNCE_INTERVAL);
     });
-})().catch(error => {
-    console.error('FATAL ERROR:', error);
-    exit(1);
-});
-
-function createPackage(cwd, outputPath) {
-    try {
-        if (existsSync(outputPath)) {
-            unlinkSync(outputPath);
-        }
-
-        const outputDir = dirname(outputPath);
-
-        if (!existsSync(join(cwd, 'package.json'))) {
-            console.warn(`WARN: no package.json found in ${cwd}`);
-            return null;
-        }
-
-        // create the package tgz file
-        const tempFileName = createTempPackage(cwd, outputDir);
-
-        // rename to the requested filename
-        moveSync(join(outputDir, tempFileName), outputPath);
-
-        if (existsSync(outputPath)) {
-            console.log(`✔ Package created: ${outputPath}`);
-            return outputPath;
-        }
-    } catch (error) {
-        console.warn('WARN: failed to create package', error);
-    }
-
-    return null;
 }
 
 function createTempPackage(cwd, outputDir) {
@@ -70,4 +78,12 @@ function createTempPackage(cwd, outputDir) {
         encoding: 'utf8',
         stdio: ['ignore', 'pipe', 'ignore'],
     }).trim();
+}
+
+function warn(...args) {
+    console.warn(chalk.yellowBright('WARNING:'), ...args);
+}
+
+function err(...args) {
+    console.error(chalk.red('ERROR:'), ...args);
 }
