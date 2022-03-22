@@ -13,7 +13,6 @@ export class NavigationBarComponent {
     navigation = this._appConfig.getConfigurationData('top-navigation');
     brand: ILink = this.navigation.brand;
     links: ILink[] = this.navigation.links;
-    help: ILink[] = this.navigation.help;
     social: ILink[] = this.navigation.social;
     themes: SiteTheme[] = this.navigation.themes;
     expanded: boolean = false;
