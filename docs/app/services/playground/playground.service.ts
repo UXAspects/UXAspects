@@ -1,5 +1,6 @@
 import { DOCUMENT } from '@angular/common';
 import { Inject, Injectable } from '@angular/core';
+import { load } from 'cheerio';
 import { IFiles } from 'codesandbox-import-utils/lib/api/define';
 import { getParameters } from 'codesandbox/lib/api/define';
 import * as ts from 'typescript';
@@ -10,7 +11,6 @@ import { DocumentationType, DOCUMENTATION_TOKEN } from './tokens/documentation.t
 
 const PACKAGE_DEPENDENCIES = {
     '@angular/cdk': '^12.0.0',
-    '@fontsource/source-sans-pro': '^4.0.0',
     'bootstrap-css': '^3.3.7',
     'chart.js': '~3.7.1',
     'ng2-charts': '~3.0.8',
@@ -78,6 +78,7 @@ export class PlaygroundService {
         }
 
         this.addStyles(files);
+        this.addFonts(files);
         this.updateAppModule(files, playground);
         this.renameAngularJson(files);
     }
@@ -85,11 +86,18 @@ export class PlaygroundService {
     private addStyles(files: IFiles): void {
         const angularJson = JSON.parse(files['angular.json'].content);
         angularJson.apps[0].styles.unshift(
-            'node_modules/@fontsource/source-sans-pro',
             'node_modules/bootstrap-css',
             'node_modules/@ux-aspects/ux-aspects/styles/ux-aspects.css'
         );
         files['angular.json'].content = JSON.stringify(angularJson, null, 2);
+    }
+
+    private addFonts(files: IFiles): void {
+        const $ = load(files['src/index.html'].content);
+        $('head').append(
+            '<link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700;1,900&display=swap" rel="stylesheet" />'
+        );
+        files['src/index.html'].content = $.root().html();
     }
 
     private updateAppModule(files: IFiles, playground: IPlayground): void {
