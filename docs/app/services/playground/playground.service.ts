@@ -8,6 +8,15 @@ import { AppConfiguration } from '../app-configuration/app-configuration.service
 import { SiteThemeService } from '../site-theme/site-theme.service';
 import { DocumentationType, DOCUMENTATION_TOKEN } from './tokens/documentation.token';
 
+const PACKAGE_DEPENDENCIES = {
+    '@angular/cdk': '^12.0.0',
+    '@fontsource/source-sans-pro': '^4.0.0',
+    'bootstrap-css': '^3.3.7',
+    'chart.js': '~3.7.1',
+    'ng2-charts': '~3.0.8',
+    'ngx-bootstrap': '^6.0.0',
+};
+
 @Injectable({
     providedIn: 'root',
 })
@@ -58,6 +67,7 @@ export class PlaygroundService {
         packageJson.license = 'Apache-2.0';
         packageJson.dependencies['@ux-aspects/ux-aspects'] =
             'https://localhost:8090/npm/ux-aspects-ux-aspects.tgz';
+        packageJson.dependencies = { ...packageJson.dependencies, ...PACKAGE_DEPENDENCIES };
         files['package.json'].content = JSON.stringify(packageJson, null, 2);
 
         for (const playgroundFile in playground.files) {
@@ -67,7 +77,19 @@ export class PlaygroundService {
             };
         }
 
+        this.addStyles(files);
         this.updateAppModule(files, playground);
+        this.renameAngularJson(files);
+    }
+
+    private addStyles(files: IFiles): void {
+        const angularJson = JSON.parse(files['angular.json'].content);
+        angularJson.apps[0].styles.unshift(
+            'node_modules/@fontsource/source-sans-pro',
+            'node_modules/bootstrap-css',
+            'node_modules/@ux-aspects/ux-aspects/styles/ux-aspects.css'
+        );
+        files['angular.json'].content = JSON.stringify(angularJson, null, 2);
     }
 
     private updateAppModule(files: IFiles, playground: IPlayground): void {
@@ -88,9 +110,13 @@ export class PlaygroundService {
 
         const sourceOutput = printer.printFile(output.transformed[0]);
 
-        console.log(sourceOutput);
-
         files['src/app/app.module.ts'].content = sourceOutput;
+    }
+
+    private renameAngularJson(files: IFiles): void {
+        // See https://github.com/codesandbox/codesandbox-client/issues/6243, remove when resolved
+        files['.angular-cli.json'] = files['angular.json'];
+        delete files['angular.json'];
     }
 
     private getImports(playground: IPlayground): ts.ImportDeclaration[] {
