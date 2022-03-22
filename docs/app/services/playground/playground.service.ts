@@ -66,7 +66,7 @@ export class PlaygroundService {
         packageJson.description = 'UX Aspects example from https://uxaspects.github.io/UXAspects';
         packageJson.license = 'Apache-2.0';
         packageJson.dependencies['@ux-aspects/ux-aspects'] =
-            'https://localhost:8090/npm/ux-aspects-ux-aspects.tgz';
+            'http://localhost:8090/ux-aspects-ux-aspects.tgz';
         packageJson.dependencies = { ...packageJson.dependencies, ...PACKAGE_DEPENDENCIES };
         files['package.json'].content = JSON.stringify(packageJson, null, 2);
 
