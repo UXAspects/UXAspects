@@ -43,7 +43,7 @@ export class AppConfiguration {
         return this.config['plunker'];
     }
 
-    get getUniversalURL(): string {
+    get getUniversalUrl(): string {
         return this.config['universal'];
     }
 

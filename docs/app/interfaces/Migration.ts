@@ -1,5 +1,5 @@
 export interface Migration {
   title: string;
-  href: string;
+  storybookPath: string;
   notes: string[];
 }

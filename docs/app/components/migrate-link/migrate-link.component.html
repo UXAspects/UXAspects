@@ -1,14 +1,14 @@
 <ng-template #popTemplate>
     <div class="migrate-popover">
         <div class="migration-title">
-            <h4><a [attr.href]="universalURL + migration.href">UX Aspects Universal: {{ migration.title }}</a></h4>
+            <h4><a [href]="universalUrl + migration.storybookPath">UX Aspects Universal: {{ migration.title }}</a></h4>
         </div>
         <div class="universal-info" [class.border-bottom]="migration.notes">
             <span>
                 UX Aspects Universal components are lightweight and fully style-encapsulated,
                 which means you can drop them into a page without disrupting other components.
                 Benefits include a dark theme and right-to-left language support.
-                <a [attr.href]="universalURL + 'welcome-migrating-from-ux-aspects--page'">More...</a>
+                <a [href]="universalUrl + 'welcome-migrating-from-ux-aspects--page'">More...</a>
             </span>
         </div>
         <table>
@@ -33,14 +33,12 @@
 <a tabindex="0"
    #pop="ux-popover"
    [uxPopover]="popTemplate"
-   [showTriggers]="[]"
    [hideTriggers]="['escape', 'clickoutside']"
    (click)="pop.show()"
    (keyup.enter)="pop.toggle()"
    placement="bottom"
    popoverClass="uxd-migrate-popover popover-arrow"
-   uxFocusIndicator
-   (indicator)="false">
+   uxFocusIndicator>
 
    <img class="universal-icon" src="assets/img/universal-rounded-logo.svg"><span class="hyperlink-hover">Migrate</span>
 </a>
