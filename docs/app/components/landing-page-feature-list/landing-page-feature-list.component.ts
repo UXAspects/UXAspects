@@ -8,6 +8,6 @@ import { Component } from '@angular/core';
         'class': 'row'
     }
 })
-export class LandingPageFeatureListComponent {
+export class LandingPageFeatureListComponent { 
 
 }
