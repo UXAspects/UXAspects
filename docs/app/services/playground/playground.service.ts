@@ -3,6 +3,8 @@ import { Inject, Injectable } from '@angular/core';
 import { load } from 'cheerio';
 import { IFiles } from 'codesandbox-import-utils/lib/api/define';
 import { getParameters } from 'codesandbox/lib/api/define';
+import { format } from 'prettier';
+import * as prettierHtml from 'prettier/parser-html';
 import * as ts from 'typescript';
 import { IPlayground } from '../../interfaces/IPlayground';
 import { AppConfiguration } from '../app-configuration/app-configuration.service';
@@ -79,8 +81,20 @@ export class PlaygroundService {
 
         this.addStyles(files);
         this.addFonts(files);
+        this.addIconSet(files);
         this.updateAppModule(files, playground);
         this.renameAngularJson(files);
+    }
+
+    private addIconSet(files: IFiles): void {
+        files['src/styles.css'].content += `
+@font-face {
+  font-family: "ux-icons";
+  src: url(https://unpkg.com/@ux-aspects/ux-aspects@latest/fonts/ux-icons.woff)
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
+}`;
     }
 
     private addStyles(files: IFiles): void {
@@ -97,7 +111,10 @@ export class PlaygroundService {
         $('head').append(
             '<link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700;1,900&display=swap" rel="stylesheet" />'
         );
-        files['src/index.html'].content = $.root().html();
+        files['src/index.html'].content = format($.root().html(), {
+            parser: 'html',
+            plugins: [prettierHtml],
+        });
     }
 
     private updateAppModule(files: IFiles, playground: IPlayground): void {

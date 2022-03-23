@@ -94,6 +94,7 @@
     "@types/karma-jasmine": "^4.0.2",
     "@types/moment-timezone": "0.2.35",
     "@types/node": "^12.11.1",
+    "@types/prettier": "^2.4.4",
     "@types/prismjs": "1.6.5",
     "@types/semver": "5.5.0",
     "@types/webpack-env": "1.13.2",
