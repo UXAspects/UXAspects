@@ -7,7 +7,8 @@ import { ILink } from '../../interfaces/ILink';
     styleUrls: ['./landing-page-feature.component.less'],
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
-        '[class.col-md-4.col-sm-4]': 'columns === 3',
+        '[class.col-md-12.col-sm-12]': 'columns === 1',
+        '[class.col-md-6.col-sm-6]': 'columns === 2',
         '[class.col-md-3.col-sm-6]': 'columns === 4'
     }
 })
