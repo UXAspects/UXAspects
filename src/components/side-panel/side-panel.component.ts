@@ -125,7 +125,6 @@ export class SidePanelComponent implements OnInit, OnDestroy {
             const container = this.attachTo === 'window' ? document.body : this._elementRef.nativeElement.parentElement;
 
             if (this.preventBackgroundScroll) {
-
                 isOpen ?
                     this._renderer.addClass(container, 'modal-open') :
                     this._renderer.removeClass(container, 'modal-open');
