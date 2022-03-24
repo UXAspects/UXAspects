@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, HostBinding, HostListener, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, HostBinding, HostListener, Input, OnDestroy, OnInit, Output, Renderer2 } from '@angular/core';
 import { Subject } from 'rxjs';
 import { distinctUntilChanged, skip, takeUntil } from 'rxjs/operators';
 import { FocusIndicatorOriginService } from '../../directives/accessibility/index';
@@ -55,6 +55,9 @@ export class SidePanelComponent implements OnInit, OnDestroy {
     @Input()
     focusOnShow: boolean = false;
 
+    @Input()
+    preventBackgroundScroll: boolean = false;
+
     @Output()
     openChange = new EventEmitter<boolean>();
 
@@ -104,7 +107,8 @@ export class SidePanelComponent implements OnInit, OnDestroy {
     constructor(
         protected readonly service: SidePanelService,
         private readonly _elementRef: ElementRef,
-        private readonly _focusOrigin: FocusIndicatorOriginService) { }
+        private readonly _focusOrigin: FocusIndicatorOriginService,
+        private readonly _renderer: Renderer2) { }
 
     ngOnInit(): void {
 
@@ -117,6 +121,15 @@ export class SidePanelComponent implements OnInit, OnDestroy {
                     ? SidePanelAnimationState.Open
                     : SidePanelAnimationState.OpenImmediate
                 : SidePanelAnimationState.Closed;
+
+            const container = this.attachTo === 'window' ? document.body : this._elementRef.nativeElement.parentElement;
+
+            if (this.preventBackgroundScroll) {
+
+                isOpen ?
+                    this._renderer.addClass(container, 'modal-open') :
+                    this._renderer.removeClass(container, 'modal-open');
+            }
         });
     }
 
