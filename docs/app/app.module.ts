@@ -24,7 +24,6 @@ const appRoutes: Routes = [
     { path: 'css', loadChildren: () => import('./pages/css/css.module').then(m => m.CssPageModule) },
     { path: 'charts', loadChildren: () => import('./pages/charts/charts.module').then(m => m.ChartsPageModule) },
     { path: 'team', loadChildren: () => import('./pages/team/team.module').then(m => m.TeamPageModule) },
-    { path: 'blog', loadChildren: () => import('./pages/blog/blog.module').then(m => m.BlogPageModule) },
     { path: 'licenses', loadChildren: () => import('./pages/licenses/licenses.module').then(m => m.LicensesPageModule) },
     { path: 'changelog', loadChildren: () => import('./pages/changelog/changelog.module').then(m => m.ChangeLogPageModule) },
     { path: '', redirectTo: '/landing', pathMatch: 'full' },
