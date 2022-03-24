@@ -9,9 +9,15 @@ import { Component } from '@angular/core';
             width: 600px;
             height: 300px;
         }
+        .demo-side-panel-container.modal-open .demo-content {
+            overflow-y: hidden;
+        }
         .demo-side-panel-container .demo-content {
             padding: 8px;
-            overflow-y: auto;
+            overflow: auto;
+        }
+        .demo-side-panel-container .demo-content .modal-open {
+            overflow-y: scroll;
         }
     `]
 })
@@ -24,4 +30,5 @@ export class SidePanelTestPageComponent {
     top = '0';
     modal = false;
     closeOnExternalClick = false;
+    preventBackgroundScroll = false;
 }

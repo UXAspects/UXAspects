@@ -19,6 +19,7 @@ export class SidePanelPage {
     top2 = $('ux-radio-button#top2');
     modal = $('#modal');
     closeOnExternalClick = $('#closeOnExternalClick');
+    preventBackgroundScroll = $('#preventBackgroundScroll');
 
     async getPage() {
         await browser.get('#/side-panel');

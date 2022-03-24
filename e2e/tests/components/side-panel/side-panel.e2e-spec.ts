@@ -106,6 +106,13 @@ describe('Side Panel', () => {
             expect(await page.externalClick1.$('input').isSelected()).toBe(true);
         });
 
+        it('should prevent scroll on the background content when preventBackgroundScroll is true', async () => {
+            await page.preventBackgroundScroll.click();
+            await page.toggle.click();
+
+            console.log(await page.panelContainer.element);
+        });
+
     });
 
     describe('with width = 50%', () => {
