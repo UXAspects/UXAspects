@@ -13,7 +13,7 @@
         </div>
         <table>
             <tbody>
-                <tr *ngIf="migration.notes">
+                <tr *ngIf="migration.notes || theme !== SiteThemeId.MicroFocusNext">
                     <td class="notes-title">Notes</td>
                     <td>
                         <ul>
