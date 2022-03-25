@@ -47,6 +47,14 @@ export class AppConfiguration {
         return environment.production ? this._data['config'] : this._data['config.dev'];
     }
 
+    get isProduction(): boolean {
+        return environment.production;
+    }
+
+    get isPreRelease(): boolean {
+        return prerelease(this.version) === null ? false : true;
+    }
+
     private _data = {};
 
     private _templateVars: { [key: string]: any };
