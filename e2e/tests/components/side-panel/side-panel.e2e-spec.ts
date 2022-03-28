@@ -43,6 +43,32 @@ describe('Side Panel', () => {
             expect(await page.externalClick1.$('input').isSelected()).toBe(true);
         });
 
+        it('should add modal-open class to body when the side-panel is open when preventBackgroundScroll is true', async () => {
+            await page.preventBackgroundScroll.click();
+            await page.toggle.click();
+
+            // check class added
+            expect ((await page.body.getAttribute('class')).includes('modal-open'));
+
+            await page.toggle.click();
+
+            // check class removed
+            expect (!(await page.body.getAttribute('class')).includes('modal-open'));
+
+        });
+
+        it('should add not modal-open class body element when the side-panel is open when preventBackgroundScroll is false', async () => {
+            await page.toggle.click();
+
+            // check class not added
+            expect ((await page.body.getAttribute('class')).includes('modal-open'));
+
+            await page.toggle.click();
+
+            // check class still not on element
+            expect (!(await page.body.getAttribute('class')).includes('modal-open'));
+        });
+
     });
 
     describe('with inline = true', () => {
@@ -106,11 +132,30 @@ describe('Side Panel', () => {
             expect(await page.externalClick1.$('input').isSelected()).toBe(true);
         });
 
-        it('should prevent scroll on the background content when preventBackgroundScroll is true', async () => {
+        it('should add modal-open class to parent element when the side-panel is open when preventBackgroundScroll is true', async () => {
             await page.preventBackgroundScroll.click();
             await page.toggle.click();
 
-            console.log(await page.panelContainer.element);
+            // check class added
+            expect ((await page.panelContainer.getAttribute('class')).includes('modal-open'));
+
+            await page.toggle.click();
+
+            // check class removed
+            expect (!(await page.panelContainer.getAttribute('class')).includes('modal-open'));
+
+        });
+
+        it('should add not modal-open class to parent element when the side-panel is open when preventBackgroundScroll is false', async () => {
+            await page.toggle.click();
+
+            // check class not added
+            expect ((await page.panelContainer.getAttribute('class')).includes('modal-open'));
+
+            await page.toggle.click();
+
+            // check class still not on element
+            expect (!(await page.panelContainer.getAttribute('class')).includes('modal-open'));
         });
 
     });

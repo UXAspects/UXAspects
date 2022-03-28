@@ -2,6 +2,7 @@ import { $, browser, ElementFinder } from 'protractor';
 
 export class SidePanelPage {
 
+    body = $('body');
     panelContainer = $('#panelContainer');
     panel = $('ux-side-panel');
     panelHost = $('ux-side-panel > .ux-side-panel-host');
