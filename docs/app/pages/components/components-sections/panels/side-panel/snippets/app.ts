@@ -11,6 +11,8 @@ export class AppComponent {
     inline = false;
     attachTo = 'window';
     width = '50%';
+    minWidth = '75%';
+    maxWidth = '25%';
     top = '0';
     modal = false;
     animate = true;

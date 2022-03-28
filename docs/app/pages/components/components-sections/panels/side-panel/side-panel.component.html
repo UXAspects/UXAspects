@@ -28,6 +28,8 @@
         [width]="width"
         [modal]="modal"
         [animate]="animate"
+        [minWidth]="minWidth"
+        [maxWidth]="maxWidth"
         [closeOnExternalClick]="closeOnExternalClick"
         [closeOnEscape]="closeOnEscape">
 
@@ -109,6 +111,16 @@
                 </div>
                 <div class="row uxd-customize-row">
                     <div class="col-md-4 col-sm-12">
+                        <label for="width">minWidth</label>
+                        <input type="text" id="min-width" class="form-control" [(ngModel)]="minWidth">
+                    </div>
+                    <div class="col-md-4 col-sm-12">
+                        <label for="top">maxWidth</label>
+                        <input type="text" id="max-width" class="form-control" [(ngModel)]="maxWidth">
+                    </div>
+                </div>
+                <div class="row uxd-customize-row">
+                    <div class="col-md-4 col-sm-12">
                         <ux-checkbox [(value)]="modal" [disabled]="inline">modal</ux-checkbox>
                     </div>
                     <div class="col-md-4 col-sm-12">
@@ -177,6 +189,12 @@
     </tr>
     <tr uxd-api-property name="width" type="string" defaultValue="50%">
         The width of the side panel when open, as a CSS value. E.g. <code>50%</code> or <code>450px</code>.
+    </tr>
+    <tr uxd-api-property name="minWidth" type="string" defaultValue="undefined">
+        The minimum width of the side panel when open, as a CSS value. E.g. <code>25%</code> or <code>250px</code>.
+    </tr>
+    <tr uxd-api-property name="maxWidth" type="string" defaultValue="undefined">
+        The maximum width of the side panel when open, as a CSS value. E.g. <code>75%</code> or <code>750px</code>.
     </tr>
     <tr uxd-api-property name="top" type="string" defaultValue="0">
         The top offset of the side panel, as a CSS value. This can be used to display the panel below a page header.
