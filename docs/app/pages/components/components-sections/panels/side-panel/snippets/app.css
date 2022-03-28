@@ -8,3 +8,7 @@
     padding: 8px;
     overflow-y: auto;
 }
+
+.demo-side-panel-container.modal-open .demo-content {
+    overflow-y: hidden;
+}
