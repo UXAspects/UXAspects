@@ -48,12 +48,12 @@ describe('Side Panel', () => {
             await page.toggle.click();
 
             // check class added
-            expect ((await page.body.getAttribute('class')).includes('modal-open'));
+            expect ((await page.body.getAttribute('class')).includes('modal-open')).toBe(true);
 
             await page.toggle.click();
 
             // check class removed
-            expect (!(await page.body.getAttribute('class')).includes('modal-open'));
+            expect ((await page.body.getAttribute('class')).includes('modal-open')).toBe(false);
 
         });
 
@@ -61,12 +61,12 @@ describe('Side Panel', () => {
             await page.toggle.click();
 
             // check class not added
-            expect ((await page.body.getAttribute('class')).includes('modal-open'));
+            expect ((await page.body.getAttribute('class')).includes('modal-open')).toBe(false);
 
             await page.toggle.click();
 
             // check class still not on element
-            expect (!(await page.body.getAttribute('class')).includes('modal-open'));
+            expect ((await page.body.getAttribute('class')).includes('modal-open')).toBe(false);
         });
 
     });
@@ -137,12 +137,12 @@ describe('Side Panel', () => {
             await page.toggle.click();
 
             // check class added
-            expect ((await page.panelContainer.getAttribute('class')).includes('modal-open'));
+            expect ((await page.panelContainer.getAttribute('class')).includes('modal-open')).toBe(true);
 
             await page.toggle.click();
 
             // check class removed
-            expect (!(await page.panelContainer.getAttribute('class')).includes('modal-open'));
+            expect ((await page.panelContainer.getAttribute('class')).includes('modal-open')).toBe(false);
 
         });
 
@@ -150,12 +150,12 @@ describe('Side Panel', () => {
             await page.toggle.click();
 
             // check class not added
-            expect ((await page.panelContainer.getAttribute('class')).includes('modal-open'));
+            expect ((await page.panelContainer.getAttribute('class')).includes('modal-open')).toBe(false);
 
             await page.toggle.click();
 
             // check class still not on element
-            expect (!(await page.panelContainer.getAttribute('class')).includes('modal-open'));
+            expect ((await page.panelContainer.getAttribute('class')).includes('modal-open')).toBe(false);
         });
 
     });
