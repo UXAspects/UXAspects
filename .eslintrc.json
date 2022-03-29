@@ -1,8 +1,7 @@
 {
   "root": true,
   "ignorePatterns": [
-    "projects/**/*",
-    "scripts/*"
+    "projects/**/*"
   ],
   "overrides": [
     {
@@ -73,6 +72,14 @@
         "plugin:@angular-eslint/template/recommended"
       ],
       "rules": {}
+    },
+    {
+      "files": [
+        "*.js"
+      ],
+      "parserOptions": {
+        "ecmaVersion": "latest"
+      }
     }
   ]
 }
