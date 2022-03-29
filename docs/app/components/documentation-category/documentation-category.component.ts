@@ -41,7 +41,7 @@ export class DocumentationCategoryComponent implements OnInit, AfterViewInit {
         let updateUrl = true;
 
         // Check all sections in this category to find the one in view (at the top of the visible view)
-        for (let section of this.category.sections) {
+        for (const section of this.category.sections) {
 
             // Check fragment corresponding to section ID.
             if (this._navigation.isFragmentActive(section.id)) {
