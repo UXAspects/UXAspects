@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { SiteThemeId } from 'docs/app/interfaces/SiteTheme';
+import { SiteThemeId } from '../../../interfaces/SiteTheme';
 import { PlaygroundContext } from '../playground-context';
 import { PlaygroundTree } from '../playground-tree';
 import { PlaygroundTransformer } from './playground-transformer';
