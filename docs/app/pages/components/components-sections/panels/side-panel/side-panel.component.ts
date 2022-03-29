@@ -34,8 +34,8 @@ export class ComponentsSidePanelComponent extends BaseDocumentationSection imple
     open = false;
     inline = false;
     width = '50%';
-    minWidth;
-    maxWidth;
+    minWidth: string;
+    maxWidth: string;
     top = '53px';
     modal = false;
     animate = true;

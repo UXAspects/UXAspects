@@ -86,16 +86,10 @@ export class SidePanelComponent implements OnInit, OnDestroy {
     }
 
     get cssMinWidth(): string {
-        if (!this.minWidth || this.minWidth === 'none') {
-            return 'none';
-        }
         return this.getCssValue(this.minWidth);
     }
 
     get cssMaxWidth(): string {
-        if (!this.maxWidth || this.maxWidth === 'none') {
-            return 'none';
-        }
         return this.getCssValue(this.maxWidth);
     }
 
@@ -112,11 +106,11 @@ export class SidePanelComponent implements OnInit, OnDestroy {
     }
 
     get hostMinWidth(): string {
-        return this.inline ? 'none' : this.cssMinWidth;
+        return this.inline ? undefined : this.cssMinWidth;
     }
 
     get hostMaxWidth(): string {
-        return this.inline ? 'none' : this.cssMaxWidth;
+        return this.inline ? undefined : this.cssMaxWidth;
     }
 
     animationPanelState: SidePanelAnimationState = SidePanelAnimationState.Closed;
@@ -174,7 +168,7 @@ export class SidePanelComponent implements OnInit, OnDestroy {
         }
     }
 
-    getCssValue(value: number | string): string {
+    private getCssValue(value: number | string): string {
         if (typeof value === 'number') {
             return value === 0 ? '0' : value + 'px';
         }
