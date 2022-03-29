@@ -43,6 +43,16 @@ describe('Side Panel', () => {
             expect(await page.externalClick1.$('input').isSelected()).toBe(true);
         });
 
+        it('should have min-width applied when the minWidth input is used', async () => {
+            await page.toggle.click();
+            expect(page.panelHost.getAttribute('style')).toContain('min-width: 200px;');
+        });
+
+        it('should have max-width applied when the maxWidth input is used', async () => {
+            await page.toggle.click();
+            expect(page.panelHost.getAttribute('style')).toContain('max-width: 400px;');
+        });
+
     });
 
     describe('with inline = true', () => {
