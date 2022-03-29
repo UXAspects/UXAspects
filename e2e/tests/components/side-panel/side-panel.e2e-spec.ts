@@ -84,6 +84,16 @@ describe('Side Panel', () => {
             expect(await page.externalClick1.$('input').isSelected()).toBe(true);
         });
 
+        it('should not apply min-width when the minWidth input is used', async () => {
+            await page.toggle.click();
+            expect ((await page.panelContainer.getAttribute('style')).includes('min-width: 200px;')).toBe(false);
+        });
+
+        it('should not apply max-width when the maxWidth input is used', async () => {
+            await page.toggle.click();
+            expect ((await page.panelContainer.getAttribute('style')).includes('max-width: 400px;')).toBe(false);
+        });
+
     });
 
     describe('with attachTo = container', () => {
@@ -114,6 +124,16 @@ describe('Side Panel', () => {
             expect(page.panel.getAttribute('class')).toContain('open');
             expect(await page.getRightOffsetFromContainer()).toBe(300);
             expect(await page.externalClick1.$('input').isSelected()).toBe(true);
+        });
+
+        it('should have min-width applied when the minWidth input is used', async () => {
+            await page.toggle.click();
+            expect(page.panelHost.getAttribute('style')).toContain('min-width: 200px;');
+        });
+
+        it('should have max-width applied when the maxWidth input is used', async () => {
+            await page.toggle.click();
+            expect(page.panelHost.getAttribute('style')).toContain('max-width: 400px;');
         });
 
     });
