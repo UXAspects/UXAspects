@@ -1,0 +1,43 @@
+<ng-template #popTemplate>
+    <div class="migrate-popover">
+        <div class="migration-title">
+            <h4><a [href]="universalUrl + migration.storybookPath">UX Aspects Universal: {{ migration.title }}</a></h4>
+        </div>
+        <div class="universal-info" [class.border-bottom]="migration.notes">
+            <span>
+                UX Aspects Universal components are lightweight and fully style-encapsulated,
+                which means you can drop them into a page without disrupting other components.
+                Benefits include a dark theme and right-to-left language support.
+                <a [href]="universalUrl + 'welcome-migrating-from-ux-aspects--page'">More...</a>
+            </span>
+        </div>
+        <table>
+            <tbody>
+                <tr *ngIf="migration.notes || theme !== SiteThemeId.MicroFocusNext">
+                    <td class="notes-title">Notes</td>
+                    <td>
+                        <ul>
+                            <li *ngFor="let note of migration.notes">{{ note }}</li>
+                            <li *ngIf="theme !== SiteThemeId.MicroFocusNext">
+                                It is recommended to switch to the Micro Focus 2021 theme before migrating to the new UX Aspects Universal component.
+                                See <a href="https://pages.github.houston.softwaregrp.net/caf/ux-aspects-micro-focus/#/gettingstarted#using-themes">Using Themes</a> for more information.
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</ng-template>
+
+<a tabindex="0"
+   #pop="ux-popover"
+   [uxPopover]="popTemplate"
+   [hideTriggers]="['escape', 'clickoutside']"
+   (keyup.enter)="pop.toggle()"
+   placement="bottom"
+   popoverClass="uxd-migrate-popover popover-arrow"
+   uxFocusIndicator>
+
+   <img class="universal-icon" src="assets/img/universal-rounded-logo.svg"><span class="hyperlink-hover">Migrate</span>
+</a>
