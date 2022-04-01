@@ -1,17 +1,17 @@
 import { Location } from '@angular/common';
 import { Injectable } from '@angular/core';
-import { environment } from '../../../environments/environment';
 import jsonTemplate from 'json-templater/object';
 import { major, minor, patch, prerelease } from 'semver';
-import * as config from '../../data/config.json';
+import { environment } from '../../../environments/environment';
+import * as chartsPage from '../../data/charts-page.json';
+import * as componentsPage from '../../data/components-page.json';
 import * as configDev from '../../data/config.dev.json';
+import * as config from '../../data/config.json';
+import * as cssPage from '../../data/css-page.json';
 import * as footerNavigation from '../../data/footer-navigation.json';
 import * as landingPage from '../../data/landing-page.json';
 import * as teamPage from '../../data/team-page.json';
 import * as topNavigation from '../../data/top-navigation.json';
-import * as componentsPage from '../../data/components-page.json';
-import * as cssPage from '../../data/css-page.json';
-import * as chartsPage from '../../data/charts-page.json';
 
 @Injectable({
     providedIn: 'root'
@@ -41,6 +41,10 @@ export class AppConfiguration {
 
     get plunker(): string {
         return this.config['plunker'];
+    }
+
+    get getUniversalUrl(): string {
+        return this.config['universal'];
     }
 
     get config(): { [key: string]: any } {

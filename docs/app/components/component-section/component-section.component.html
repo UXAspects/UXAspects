@@ -15,17 +15,8 @@
             <!-- Show usage link if required -->
             <uxd-usage-link *ngIf="usage" [usage]="usage"></uxd-usage-link>
 
-            <!-- Show the Angular Version -->
-            <span
-                *ngIf="version === 'AngularJS'"
-                class="label label-primary uxd-component-section-labels"
-                >AngularJS</span
-            >
-            <span
-                *ngIf="version === 'Angular'"
-                class="label label-accent uxd-component-section-labels"
-                >Angular</span
-            >
+            <!-- Show UAU migration if available -->
+            <uxd-migrate-link *ngIf="migration && theme !== SiteThemeId.Keppel" [migration]="migration"></uxd-migrate-link>
 
             <a
                 *ngIf="hybrid"

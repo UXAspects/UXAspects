@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ILink } from '../../interfaces/ILink';
-import { AppConfiguration } from '../../services/app-configuration/app-configuration.service';
 import { SiteTheme } from '../../interfaces/SiteTheme';
+import { AppConfiguration } from '../../services/app-configuration/app-configuration.service';
 
 @Component({
     selector: 'uxd-navigation-bar',
@@ -17,5 +17,5 @@ export class NavigationBarComponent {
     themes: SiteTheme[] = this.navigation.themes;
     expanded: boolean = false;
 
-    constructor(private _appConfig: AppConfiguration) { }
+    constructor(private _appConfig: AppConfiguration) {}
 }

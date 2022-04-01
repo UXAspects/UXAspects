@@ -16,6 +16,7 @@ import { LandingPageFeatureListComponent } from './landing-page-feature-list/lan
 import { LandingPageFeatureComponent } from './landing-page-feature/landing-page-feature.component';
 import { LandingPageHeaderComponent } from './landing-page-header/landing-page-header.component';
 import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.component';
+import { MigrateLinkComponent } from './migrate-link/migrate-link.component';
 import { NavigationBarSearchComponent } from './navigation-bar-search/navigation-bar-search.component';
 import { NavigationBarComponent } from './navigation-bar/navigation-bar.component';
 import { PageFooterComponent } from './page-footer/page-footer.component';
@@ -49,7 +50,8 @@ const DOCUMENTATION_COMPONENTS = [
     SnippetComponent,
     TextPageLayoutComponent,
     ThemeSelectorComponent,
-    UsageLinkComponent
+    UsageLinkComponent,
+    MigrateLinkComponent
 ];
 
 @NgModule({

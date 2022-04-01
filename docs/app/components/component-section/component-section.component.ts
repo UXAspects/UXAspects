@@ -5,6 +5,7 @@ import { documentationSectionNames } from '../../decorators/documentation-sectio
 import { ILink } from '../../interfaces/ILink';
 import { IPlayground } from '../../interfaces/IPlayground';
 import { isIPlaygroundProvider } from '../../interfaces/IPlaygroundProvider';
+import { Migration } from '../../interfaces/Migration';
 import { SiteThemeId } from '../../interfaces/SiteTheme';
 import { NavigationService } from '../../services/navigation/navigation.service';
 import { ResolverService } from '../../services/resolver/resolver.service';
@@ -30,12 +31,15 @@ export class ComponentSectionComponent<T> implements OnInit, OnDestroy {
     @Input() externalUrl: string;
     @Input() usage: Usage[];
     @Input() schematic: string;
+    @Input() migration: Migration;
 
     @ViewChild('container', { read: ViewContainerRef, static: true }) viewContainer: ViewContainerRef;
 
     playground: IPlayground;
     deprecatedLink: ILink;
     hybridModuleTs: string = hybridModuleTs;
+    theme: SiteThemeId;
+    SiteThemeId = SiteThemeId;
 
     private _documentationSection: T;
     private _onDestroy = new Subject<void>();
@@ -75,6 +79,8 @@ export class ComponentSectionComponent<T> implements OnInit, OnDestroy {
     }
 
     private setTheme(theme: SiteThemeId): void {
+        this.theme = theme;
+
         // Some sections without snippets don't extend BaseDocumentationSection, ignore those
         if (isBaseDocumentationSection(this._documentationSection)) {
             this._documentationSection.onThemeChange(theme);

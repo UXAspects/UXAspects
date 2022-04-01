@@ -45,31 +45,12 @@
         "description": "Get involved in the UX Aspects project. Suggest new features, report issues or take part in development.",
         "links": [
             {
-                "image": "assets/img/twitter-icon.png",
-                "title": "Twitter",
-                "description": "Follow us on Twitter to keep up with the latest news and updates from the UX Aspects team or to get in touch with us!",
-                "link": {
-                    "title": "@UXAspects",
-                    "link": "http://twitter.com/UXAspects"
-                }
-            },
-            {
                 "image": "assets/img/github-icon.png",
                 "title": "GitHub",
                 "description": "Fork UX Aspects on GitHub and submit a pull request to help contribute to the project! Or if you have discovered an issue, report it to us.",
                 "link": {
                     "title": "Fork UX Aspects",
                     "link": "https://github.com/UXAspects/UXAspects"
-                }
-            },
-            {
-                "image": "assets/img/blog-icon.png",
-                "title": "Blog",
-                "description": "Follow our blog to find out all of the exciting news and announcements regarding UX Aspects.",
-                "link": {
-                    "title": "Read More Here",
-                    "link": "/blog",
-                    "router": true
                 }
             }
         ]
