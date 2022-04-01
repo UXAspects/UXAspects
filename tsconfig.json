@@ -37,10 +37,5 @@
         "strictInjectionParameters": false,
         "strictInputAccessModifiers": false,
         "strictTemplates": false
-    },
-    "ts-node": {
-        "compilerOptions": {
-            "module": "commonjs"
-        }
     }
 }

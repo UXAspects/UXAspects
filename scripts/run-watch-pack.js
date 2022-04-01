@@ -1,8 +1,8 @@
-import { exit } from 'process';
-import { err, Package, WatchPack } from './watch-pack';
+const { exit } = require('process');
+const { err, WatchPack } = require('./lib/watch-pack');
 
 (async () => {
-    const packages: Package[] = [
+    const packages = [
         { dir: './dist/library', outputPath: './target/playground/ux-aspects-ux-aspects.tgz' },
     ];
     await new WatchPack(packages).run();

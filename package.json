@@ -33,9 +33,9 @@
     "start:e2e": "ng serve ux-aspects-e2e",
     "start:karma": "npm run ng test ux-aspects -- --watch --browsers=Chrome",
     "start:library": "npm run ng build ux-aspects -- --watch",
-    "start:pack": "ts-node ./scripts/run-watch-pack.ts",
+    "start:pack": "node ./scripts/run-watch-pack.js",
     "start:style": "webpack watch --config configs/webpack.css-assets.dev.config --output-path dist/library/styles",
-    "start": "concurrently --restart-tries 5 --restart-after 5000 -n docs,lib,style,pack,serve -c cyan,magenta,yellow,bgCyan,bgMagenta \"npm:start:documentation\" \"npm:start:library\" \"npm:start:style\" \"npm:start:pack\" \"http-server target/playground -p 8090 --cors\"",
+    "start": "concurrently -n docs,lib,style,pack,serve -c cyan,magenta,yellow,bgCyan,bgMagenta \"npm:start:documentation\" \"npm:start:library\" \"npm:start:style\" \"npm:start:pack\" \"http-server target/playground -p 8090 --cors\"",
     "test:e2e": "ng e2e ux-aspects-e2e",
     "test:karma": "npm run ng test ux-aspects -- --watch=false",
     "test": "npm run test:karma && npm run test:e2e"

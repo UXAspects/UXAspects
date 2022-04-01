@@ -1,42 +1,31 @@
-import * as chalk from 'chalk';
-import { execSync } from 'child_process';
-import { existsSync, mkdirpSync, moveSync, unlinkSync, watch } from 'fs-extra';
-import { dirname, isAbsolute, join, relative, resolve } from 'path';
-import { cwd, exit } from 'process';
+const chalk = require('chalk');
+const { execSync } = require('child_process');
+const { existsSync, mkdirpSync, moveSync, unlinkSync, watch } = require('fs-extra');
+const { dirname, isAbsolute, join, relative, resolve } = require('path');
+const { cwd } = require('process');
 
 const RESTART_INTERVAL = 5000;
 const DEBOUNCE_INTERVAL = 1000;
 
-export interface Package {
-    dir: string;
-    outputPath: string;
-}
-
-interface InternalPackage extends Package {
-    timeout?: NodeJS.Timeout;
-}
-
-export class WatchPack {
-    private _packages: InternalPackage[];
-
-    constructor(data: Package[]) {
+class WatchPack {
+    constructor(data) {
         this._packages = data;
     }
 
-    async run(): Promise<void> {
+    async run() {
         this.createOutputDirs();
 
         await this.packAndWatchForChanges();
     }
 
-    private createOutputDirs(): void {
+    createOutputDirs() {
         for (const watchInfo of this._packages) {
             const outputDir = dirname(watchInfo.outputPath);
             mkdirpSync(outputDir);
         }
     }
 
-    private async packAndWatchForChanges(): Promise<void> {
+    async packAndWatchForChanges() {
         let done = false;
         do {
             try {
@@ -48,20 +37,19 @@ export class WatchPack {
 
                 done = true;
             } catch (error) {
-                warn(error);
                 warn('pack failed, retrying');
                 await sleep(RESTART_INTERVAL);
             }
         } while (!done);
     }
 
-    private createPackages() {
+    createPackages() {
         for (const pkg of this._packages) {
             this.createPackage(pkg);
         }
     }
 
-    private startWatch() {
+    startWatch() {
         watch(cwd(), { recursive: true }, (_, fileName) => {
             const pkg = this.getPackageForFile(fileName);
             if (pkg) {
@@ -73,7 +61,7 @@ export class WatchPack {
         });
     }
 
-    private getPackageForFile(filePath: string): InternalPackage | null {
+    getPackageForFile(filePath) {
         if (!filePath) {
             return null;
         }
@@ -84,7 +72,7 @@ export class WatchPack {
         });
     }
 
-    private createPackage(pkg: InternalPackage): void {
+    createPackage(pkg) {
         if (existsSync(pkg.outputPath)) {
             unlinkSync(pkg.outputPath);
         }
@@ -102,24 +90,29 @@ export class WatchPack {
         }
     }
 
-    private createTempPackage(dir: string, outputDir: string) {
+    createTempPackage(dir, outputDir) {
         const command = `npm pack --quiet --pack-destination "${resolve(outputDir)}"`;
         return execSync(command, {
             cwd: dir,
             encoding: 'utf8',
-            stdio: ['ignore', 'pipe', 'ignore'],
         }).trim();
     }
 }
 
-async function sleep(duration: number): Promise<void> {
+async function sleep(duration) {
     await new Promise(_resolve => setTimeout(_resolve, duration));
 }
 
-export function warn(...args: string[]) {
+function warn(...args) {
     console.warn(chalk.yellowBright('WARNING:'), ...args);
 }
 
-export function err(...args: string[]) {
+function err(...args) {
     console.error(chalk.red('ERROR:'), ...args);
 }
+
+module.exports = {
+    WatchPack,
+    warn,
+    err,
+};
