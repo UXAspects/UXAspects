@@ -27,7 +27,7 @@ import {
     PLAYGROUND_TRANSFORMER,
     RenameAngularJsonPlaygroundTransformer,
     StylesheetPlaygroundTransformer,
-} from './services/playground/transformer/index';
+} from './services/playground/transformers/index';
 
 /*
   Configure Application Routes

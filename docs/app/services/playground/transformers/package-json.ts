@@ -25,19 +25,19 @@ export class PackageJsonPlaygroundTransformer implements PlaygroundTransformer {
         });
     }
 
-    getName(context: PlaygroundContext): string {
+    protected getName(context: PlaygroundContext): string {
         return `${context.title} (UX Aspects)`;
     }
 
-    getDescription(context: PlaygroundContext): string {
+    protected getDescription(context: PlaygroundContext): string {
         return 'UX Aspects example from https://uxaspects.github.io/UXAspects';
     }
 
-    getKeywords(context: PlaygroundContext): string[] {
+    protected getKeywords(context: PlaygroundContext): string[] {
         return [SiteThemeId[context.theme]];
     }
 
-    getExternalDependencies(context: PlaygroundContext): { [key: string]: string } {
+    protected getExternalDependencies(context: PlaygroundContext): { [key: string]: string } {
         return {
             '@angular/cdk': '^12.0.0',
             'bootstrap-css': '^3.3.7',
@@ -47,13 +47,28 @@ export class PackageJsonPlaygroundTransformer implements PlaygroundTransformer {
         };
     }
 
-    getProjectDependencies(context: PlaygroundContext): { [key: string]: string } {
-        return {
-            '@ux-aspects/ux-aspects': this.getPackageVersion(context),
-        };
+    protected getProjectDependencies(context: PlaygroundContext): { [key: string]: string } {
+        const dependencies = {};
+        this.getProjectPackageNames().forEach(pkg => {
+            dependencies[pkg] = this.getVersionForPackage(
+                getPackageScope(pkg),
+                getPackageName(pkg),
+                context
+            );
+        });
+
+        return dependencies;
     }
 
-    private getPackageVersion(context: PlaygroundContext): string {
+    protected getProjectPackageNames(): string[] {
+        return ['@ux-aspects/ux-aspects'];
+    }
+
+    private getVersionForPackage(
+        packageScope: string,
+        packageName: string,
+        context: PlaygroundContext
+    ): string {
         if (context.appConfig.isProduction) {
             return context.appConfig.version;
         }
@@ -63,6 +78,14 @@ export class PackageJsonPlaygroundTransformer implements PlaygroundTransformer {
             throw new Error('Not yet implemented');
         }
 
-        return 'http://localhost:8090/ux-aspects-ux-aspects.tgz';
+        return `${context.appConfig.assetsUrl}/${packageScope}-${packageName}.tgz`;
     }
+}
+
+function getPackageScope(name: string): string {
+    return name.split('/')[0].substr(1);
+}
+
+function getPackageName(name: string): string {
+    return name.split('/')[1];
 }

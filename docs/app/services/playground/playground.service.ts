@@ -9,8 +9,8 @@ import { PlaygroundContext } from './playground-context';
 import { PlaygroundTree } from './playground-tree';
 import {
     PlaygroundTransformer,
-    PLAYGROUND_TRANSFORMER
-} from './transformer/playground-transformer';
+    PLAYGROUND_TRANSFORMER,
+} from './transformers/playground-transformer';
 
 @Injectable({
     providedIn: 'root',
@@ -30,7 +30,7 @@ export class PlaygroundService {
         this.applyTransforms(tree, context);
 
         const parameters = this.getPostData(tree, context);
-        this.postData('https://codesandbox.io/api/v1/sandboxes/define', { parameters });
+        this.postData(this._appConfig.playgroundUrl, { parameters });
     }
 
     /** Generate a context object to be used by the playground transformers. */

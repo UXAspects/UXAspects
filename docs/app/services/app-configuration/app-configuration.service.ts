@@ -21,30 +21,34 @@ export class AppConfiguration {
     public documentationPages = ['components-page', 'css-page', 'charts-page'];
 
     get version(): string {
-        return this.config['version'];
+        return this.config.version;
     }
 
     get baseUrl(): string {
-        if (!this.config['baseUrl']) {
-            this.config['baseUrl'] = this.getBaseUrl();
+        if (!this.config.baseUrl) {
+            this.config.baseUrl = this.getBaseUrl();
         }
-        return this.config['baseUrl'];
+        return this.config.baseUrl;
     }
 
     get assetsUrl(): string {
-        if (!this.config['assetsUrl']) {
+        if (!this.config.assetsUrl) {
             // If not configured, derive from the application's base URL.
-            this.config['assetsUrl'] = Location.joinWithSlash(this.baseUrl, 'assets');
+            this.config.assetsUrl = Location.joinWithSlash(this.baseUrl, 'assets');
         }
-        return this.config['assetsUrl'];
+        return this.config.assetsUrl;
     }
 
-    get plunker(): string {
-        return this.config['plunker'];
+    get packagesUrl(): string {
+        return this.config.packagesUrl;
+    }
+
+    get playgroundUrl(): string {
+        return this.config.playgroundUrl;
     }
 
     get getUniversalUrl(): string {
-        return this.config['universal'];
+        return this.config.universal;
     }
 
     get config(): { [key: string]: any } {
