@@ -10,9 +10,12 @@ import { PlaygroundTransformer } from './playground-transformer';
 @Injectable()
 export class FontPlaygroundTransformer implements PlaygroundTransformer {
     transform(tree: PlaygroundTree, context: PlaygroundContext): void {
-        tree.updateHtmlFile('src/index.html', $ => {
-            $('head').append(`<link href="${this.getFontHref(context)}" rel="stylesheet" />`);
-        });
+        const fontHref = this.getFontHref(context);
+        if (fontHref) {
+            tree.updateHtmlFile('src/index.html', $ => {
+                $('head').append(`<link href="${fontHref}" rel="stylesheet" />`);
+            });
+        }
     }
 
     protected getFontHref(context: PlaygroundContext): string {
