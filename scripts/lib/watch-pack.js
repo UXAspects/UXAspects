@@ -1,5 +1,5 @@
 const chalk = require('chalk');
-const { execSync } = require('child_process');
+const { spawnSync } = require('child_process');
 const { existsSync, mkdirpSync, moveSync, unlinkSync, watch } = require('fs-extra');
 const { dirname, isAbsolute, join, relative, resolve } = require('path');
 const { cwd } = require('process');
@@ -37,7 +37,8 @@ class WatchPack {
 
                 done = true;
             } catch (error) {
-                warn('pack failed, retrying');
+                warn(error.message ?? error);
+                warn('pack failed, retrying...');
                 await sleep(RESTART_INTERVAL);
             }
         } while (!done);
@@ -91,11 +92,22 @@ class WatchPack {
     }
 
     createTempPackage(dir, outputDir) {
+        if (!existsSync(join(dir, 'package.json'))) {
+            throw new Error(`package.json not found in ${dir}`);
+        }
+
         const command = `npm pack --quiet --pack-destination "${resolve(outputDir)}"`;
-        return execSync(command, {
+        const process = spawnSync(command, {
             cwd: dir,
             encoding: 'utf8',
-        }).trim();
+            shell: true,
+        });
+
+        if (process.status || process.error) {
+            throw new Error(`npm pack failed: ${process.error ?? process.stderr}`);
+        }
+
+        return process.stdout.trim();
     }
 }
 
