@@ -78,7 +78,7 @@ export class PackageJsonPlaygroundTransformer implements PlaygroundTransformer {
             throw new Error('Not yet implemented');
         }
 
-        return `${context.appConfig.assetsUrl}/${packageScope}-${packageName}.tgz`;
+        return `${context.appConfig.packagesUrl}/${packageScope}-${packageName}.tgz`;
     }
 }
 
