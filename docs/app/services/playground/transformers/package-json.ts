@@ -34,7 +34,17 @@ export class PackageJsonPlaygroundTransformer implements PlaygroundTransformer {
     }
 
     protected getKeywords(context: PlaygroundContext): string[] {
-        return [SiteThemeId[context.theme]];
+        // add site theme and build type as keywords for reference during QA
+        const keywords: string[] = [dasherize(SiteThemeId[context.theme])];
+        if (!context.appConfig.isProduction) {
+            keywords.push('dev');
+        }
+
+        if (context.appConfig.isPreRelease) {
+            keywords.push(context.appConfig.branchName ?? 'master');
+        }
+
+        return keywords;
     }
 
     protected getExternalDependencies(context: PlaygroundContext): { [key: string]: string } {
@@ -88,4 +98,8 @@ function getPackageScope(name: string): string {
 
 function getPackageName(name: string): string {
     return name.split('/')[1];
+}
+
+function dasherize(input: string): string {
+    return input.replace(/([a-z\d])([A-Z]+)/g, '$1-$2').toLowerCase();
 }

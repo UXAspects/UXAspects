@@ -47,12 +47,8 @@ export class AppConfiguration {
         return this.config.playgroundUrl;
     }
 
-    get getUniversalUrl(): string {
+    get universalUrl(): string {
         return this.config.universal;
-    }
-
-    get config(): { [key: string]: any } {
-        return environment.production ? this._data['config'] : this._data['config.dev'];
     }
 
     get isProduction(): boolean {
@@ -61,6 +57,15 @@ export class AppConfiguration {
 
     get isPreRelease(): boolean {
         return prerelease(this.version) === null ? false : true;
+    }
+
+    get branchName(): string | null {
+        const components = prerelease(this.version)?.filter(component => component !== 'SNAPSHOT');
+        return components ? components.join('-') : null;
+    }
+
+    get config(): { [key: string]: any } {
+        return environment.production ? this._data['config'] : this._data['config.dev'];
     }
 
     private _data = {};
