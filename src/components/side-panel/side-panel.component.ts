@@ -39,6 +39,12 @@ export class SidePanelComponent implements OnInit, OnDestroy {
     width: string | number = '50%';
 
     @Input()
+    minWidth: string | number;
+
+    @Input()
+    maxWidth: string | number;
+
+    @Input()
     top: string | number = '0';
 
     @Input()
@@ -72,17 +78,19 @@ export class SidePanelComponent implements OnInit, OnDestroy {
     }
 
     get cssWidth(): string {
-        if (typeof this.width === 'number') {
-            return this.width === 0 ? '0' : this.width + 'px';
-        }
-        return this.width;
+        return this.getCssValue(this.width);
     }
 
     get cssTop(): string {
-        if (typeof this.top === 'number') {
-            return this.top === 0 ? '0' : this.top + 'px';
-        }
-        return this.top;
+        return this.getCssValue(this.top);
+    }
+
+    get cssMinWidth(): string {
+        return this.getCssValue(this.minWidth);
+    }
+
+    get cssMaxWidth(): string {
+        return this.getCssValue(this.maxWidth);
     }
 
     @HostBinding('style.width')
@@ -95,6 +103,14 @@ export class SidePanelComponent implements OnInit, OnDestroy {
 
     get hostWidth(): string {
         return this.inline ? '100%' : this.cssWidth;
+    }
+
+    get hostMinWidth(): string {
+        return this.inline ? undefined : this.cssMinWidth;
+    }
+
+    get hostMaxWidth(): string {
+        return this.inline ? undefined : this.cssMaxWidth;
     }
 
     animationPanelState: SidePanelAnimationState = SidePanelAnimationState.Closed;
@@ -150,5 +166,12 @@ export class SidePanelComponent implements OnInit, OnDestroy {
         if (!this._elementRef.nativeElement.contains(target) || (target && target.classList.contains('modal-backdrop'))) {
             this.closePanel();
         }
+    }
+
+    private getCssValue(value: number | string): string {
+        if (typeof value === 'number') {
+            return value === 0 ? '0' : value + 'px';
+        }
+        return value;
     }
 }
