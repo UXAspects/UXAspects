@@ -77,13 +77,13 @@ export class PackageJsonPlaygroundTransformer implements PlaygroundTransformer {
         packageName: string,
         context: PlaygroundContext
     ): string {
-        if (context.appConfig.isProduction) {
-            return context.appConfig.version;
-        }
-
         if (context.appConfig.isPreRelease) {
             // TODO: load from Artifactory
             throw new Error('Not yet implemented');
+        }
+
+        if (context.appConfig.isProduction) {
+            return context.appConfig.version;
         }
 
         return `${context.appConfig.packagesUrl}/${packageScope}-${packageName}.tgz`;
