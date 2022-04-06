@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { PlaygroundContext } from '../playground-context';
 import { PlaygroundTree } from '../playground-tree';
 import { PlaygroundTransformer } from './playground-transformer';
 
@@ -10,9 +11,9 @@ import { PlaygroundTransformer } from './playground-transformer';
  */
 @Injectable()
 export class IconSetPlaygroundTransformer implements PlaygroundTransformer {
-    transform(tree: PlaygroundTree): void {
-        const stylesheet =
-            tree.getContent('src/styles.css') +
+    transform(tree: PlaygroundTree, context: PlaygroundContext): void {
+        tree.appendContent(
+            context.cssEntryPoint,
             `
 @font-face {
   font-family: "ux-icons";
@@ -20,7 +21,7 @@ export class IconSetPlaygroundTransformer implements PlaygroundTransformer {
     format("woff");
   font-weight: normal;
   font-style: normal;
-}`;
-        tree.setContent('src/styles.css', stylesheet);
+}`
+        );
     }
 }

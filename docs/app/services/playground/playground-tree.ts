@@ -14,6 +14,11 @@ export class PlaygroundTree extends Map<string, string> {
         return this.get(path);
     }
 
+    appendContent(path: string, content: string): void {
+        const existingContent = this.get(path);
+        this.set(path, existingContent + content);
+    }
+
     /** Parse a file as JSON, apply changes via a callback, and serialize the result back. */
     updateJsonFile(path: string, callback: (json: any) => any): void {
         const json = JSON.parse(this.getContent(path));

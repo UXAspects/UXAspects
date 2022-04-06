@@ -12,7 +12,7 @@ export class FontPlaygroundTransformer implements PlaygroundTransformer {
     transform(tree: PlaygroundTree, context: PlaygroundContext): void {
         const fontHref = this.getFontHref(context);
         if (fontHref) {
-            tree.updateHtmlFile('src/index.html', $ => {
+            tree.updateHtmlFile(context.htmlEntryPoint, $ => {
                 $('head').append(`<link href="${fontHref}" rel="stylesheet" />`);
             });
         }

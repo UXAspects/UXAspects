@@ -40,26 +40,23 @@ export class PlaygroundService {
             playground,
             theme: this._siteThemeService.theme$.getValue(),
             appConfig: this._appConfig,
+            htmlEntryPoint: playground.framework === 'angular' ? 'src/index.html' : 'index.html',
+            cssEntryPoint: playground.framework === 'angular' ? 'src/styles.css' : 'styles.css',
         };
     }
 
     /** Load a project with files from the playground. */
     private loadTree(playground: IPlayground): PlaygroundTree {
-        let tree: PlaygroundTree;
-
-        if (playground.framework === 'angular') {
-            tree = this.loadAngularTemplate();
+        switch (playground.framework) {
+            case 'angular':
+                return this.createTreeWithTemplate(
+                    require.context('./templates/angular', true, /\.(ts|html|css|json)$/)
+                );
+            case 'css':
+                return this.createTreeWithTemplate(
+                    require.context('./templates/css', true, /\.(ts|html|css|json)$/)
+                );
         }
-
-        if (playground.framework === 'css') {
-            tree = this.loadCssTemplate(playground);
-        }
-
-        Object.entries(playground.files).forEach(([fileName, content]) => {
-            tree.setContent(`src/app/${fileName}`, content);
-        });
-
-        return tree;
     }
 
     /** Transform the template project using the configured transformers. */
@@ -99,8 +96,7 @@ export class PlaygroundService {
         this._document.body.removeChild(form);
     }
 
-    private loadAngularTemplate(): PlaygroundTree {
-        const template = require.context('./templates/angular', true, /\.(ts|html|css|json)$/);
+    private createTreeWithTemplate(template: __WebpackModuleApi.RequireContext): PlaygroundTree {
         const paths = template.keys();
         const contents = paths.map(template);
 
@@ -112,10 +108,6 @@ export class PlaygroundService {
         });
 
         return tree;
-    }
-
-    private loadCssTemplate(playground: IPlayground): PlaygroundTree {
-        throw new Error('Method not implemented.');
     }
 
     private getIFiles(tree: PlaygroundTree): IFiles {

@@ -20,7 +20,9 @@ import {
     DOCUMENTATION_TOKEN,
 } from './services/playground/tokens/documentation.token';
 import {
+    AngularFilesPlaygroundTransformer,
     AppModulePlaygroundTransformer,
+    CssFilesPlaygroundTransformer,
     FontPlaygroundTransformer,
     IconSetPlaygroundTransformer,
     PackageJsonPlaygroundTransformer,
@@ -64,6 +66,8 @@ const appRoutes: Routes = [
     providers: [
         PersistentDataService,
         { provide: DOCUMENTATION_TOKEN, useValue: DocumentationType.Keppel },
+        { provide: PLAYGROUND_TRANSFORMER, useClass: AngularFilesPlaygroundTransformer, multi: true },
+        { provide: PLAYGROUND_TRANSFORMER, useClass: CssFilesPlaygroundTransformer, multi: true },
         { provide: PLAYGROUND_TRANSFORMER, useClass: AppModulePlaygroundTransformer, multi: true },
         { provide: PLAYGROUND_TRANSFORMER, useClass: FontPlaygroundTransformer, multi: true },
         { provide: PLAYGROUND_TRANSFORMER, useClass: IconSetPlaygroundTransformer, multi: true },

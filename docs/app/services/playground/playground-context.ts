@@ -7,4 +7,6 @@ export interface PlaygroundContext {
     playground: IPlayground;
     theme: SiteThemeId;
     appConfig: AppConfiguration;
+    htmlEntryPoint: string;
+    cssEntryPoint: string;
 }
