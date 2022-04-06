@@ -27,6 +27,8 @@ export class SidePanelTestPageComponent {
     inline = false;
     attachTo = 'window';
     width = '300px';
+    minWidth = '200px';
+    maxWidth = '400px';
     top = '0';
     modal = false;
     closeOnExternalClick = false;

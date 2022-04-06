@@ -22,6 +22,8 @@ describe('Side Panel', () => {
             expect(await page.panelHost.getCssValue('position')).toBe('fixed');
             expect(await page.getRightOffsetFromWindow()).toBe(300);
             expect(await page.getPanelWidth()).toBe(300);
+            expect(page.panelHost.getAttribute('style')).toContain('min-width: 200px;');
+            expect(page.panelHost.getAttribute('style')).toContain('max-width: 400px;');
             expect(page.getPanelHeight()).toBe(page.getViewportHeight());
 
             expect(await imageCompare('side-panel-initial')).toEqual(0);
@@ -76,6 +78,8 @@ describe('Side Panel', () => {
             expect(await page.panelHost.getCssValue('position')).toBe('static');
             expect(await page.getInlinePanelWidth()).toBe(300);
             expect(await page.getInlinePanelHeight()).toBe(300);
+            expect ((await page.panelContainer.getAttribute('style')).includes('min-width')).toBe(false);
+            expect ((await page.panelContainer.getAttribute('style')).includes('max-width')).toBe(false);
 
             expect(await imageCompare('side-panel-inline-initial')).toEqual(0);
         });
@@ -106,6 +110,8 @@ describe('Side Panel', () => {
             expect(page.panel.getAttribute('class')).toContain('open');
             expect(await page.getRightOffsetFromContainer()).toBe(300);
             expect(await page.getPanelWidth()).toBe(300);
+            expect(page.panelHost.getAttribute('style')).toContain('min-width: 200px;');
+            expect(page.panelHost.getAttribute('style')).toContain('max-width: 400px;');
             expect(page.getPanelHeight()).toBe(page.getContainerHeight());
             expect(await page.panelHost.getCssValue('position')).toBe('absolute');
 
