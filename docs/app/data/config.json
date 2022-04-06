@@ -1,4 +1,5 @@
 {
     "version": "{{VERSION}}",
-    "playgroundUrl": "https://codesandbox.io/api/v1/sandboxes/define"
+    "playgroundUrl": "https://codesandbox.io/api/v1/sandboxes/define",
+    "devRepositoryUrl": "https://svsartifactory.swinfra.net:443/artifactory/saas-npm-dev-local"
 }

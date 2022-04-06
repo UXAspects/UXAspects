@@ -39,6 +39,10 @@ export class AppConfiguration {
         return this.config.assetsUrl;
     }
 
+    get devRepositoryUrl(): string {
+        return this.config.devRepositoryUrl;
+    }
+
     get packagesUrl(): string {
         return this.config.packagesUrl;
     }

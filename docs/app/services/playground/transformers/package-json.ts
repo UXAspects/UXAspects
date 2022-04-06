@@ -78,15 +78,31 @@ export class PackageJsonPlaygroundTransformer implements PlaygroundTransformer {
         context: PlaygroundContext
     ): string {
         if (context.appConfig.isPreRelease) {
-            // TODO: load from Artifactory
-            throw new Error('Not yet implemented');
+            // packages in a CI build load from Artifactory
+            return this.getArtifactoryUrl(
+                context.appConfig.devRepositoryUrl,
+                packageScope,
+                packageName,
+                context.appConfig.version
+            );
         }
 
         if (context.appConfig.isProduction) {
+            // TODO: internal packages need to come from artifactory
             return context.appConfig.version;
         }
 
+        // packages in a dev build load from localhost
         return `${context.appConfig.packagesUrl}/${packageScope}-${packageName}.tgz`;
+    }
+
+    private getArtifactoryUrl(
+        repositoryUrl: string,
+        packageScope: string,
+        packageName: string,
+        version: string
+    ): string {
+        return `${repositoryUrl}/%40${packageScope}/${packageName}/-/%40${packageScope}/${packageScope}-${packageName}-${version}.tgz`;
     }
 }
 
