@@ -122,12 +122,8 @@ export class SidePanelComponent implements OnInit, OnDestroy {
                     : SidePanelAnimationState.OpenImmediate
                 : SidePanelAnimationState.Closed;
 
-            const container = this.attachTo === 'window' ? document.body : this._elementRef.nativeElement.parentElement;
-
-            if (this.preventBackgroundScroll) {
-                isOpen ?
-                    this._renderer.addClass(container, 'modal-open') :
-                    this._renderer.removeClass(container, 'modal-open');
+            if (!isOpen && this.preventBackgroundScroll) {
+                this.enableScroll();
             }
         });
     }
@@ -162,5 +158,29 @@ export class SidePanelComponent implements OnInit, OnDestroy {
         if (!this._elementRef.nativeElement.contains(target) || (target && target.classList.contains('modal-backdrop'))) {
             this.closePanel();
         }
+    }
+
+    @HostListener('focusin')
+    _onFocus(): void {
+        if (this.preventBackgroundScroll) {
+            this.disableScroll();
+        }
+    }
+
+    @HostListener('focusout')
+    _onBlur(): void {
+        if (this.preventBackgroundScroll) {
+            this.enableScroll();
+        }
+    }
+
+    private disableScroll(): void {
+        const container = this.attachTo === 'window' ? document.body : this._elementRef.nativeElement.parentElement;
+        this._renderer.addClass(container, 'modal-open');
+    }
+
+    private enableScroll(): void {
+        const container = this.attachTo === 'window' ? document.body : this._elementRef.nativeElement.parentElement;
+        this._renderer.removeClass(container, 'modal-open');
     }
 }

@@ -204,7 +204,9 @@
         Whether the panel should become focused when it is opened.
     </tr>
     <tr uxd-api-property name="preventBackgroundScroll" type="boolean" defaultValue="false">
-        Whether the panel will prevent scrolling of the background page or container.
+        Whether the panel will prevent scrolling of the background page or container when the panel is focused.
+        The `modal-open` class will be added to the `body` or the `container`. Ensure `overflow-y: hidden` style is applied
+        to the correct container.
     </tr>
 </uxd-api-properties>
 
