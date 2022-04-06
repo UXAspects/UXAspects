@@ -45,9 +45,10 @@ describe('Side Panel', () => {
             expect(await page.externalClick1.$('input').isSelected()).toBe(true);
         });
 
-        it('should add modal-open class to body when the side-panel is open when preventBackgroundScroll is true', async () => {
+        it('should add modal-open class to body when the side-panel is open and focused when preventBackgroundScroll is true', async () => {
             // First check class isn't added until preventBackgroundScroll is true
             await page.toggle.click();
+            await page.panelHost.click();
             expect ((await page.body.getAttribute('class')).includes('modal-open')).toBe(false);
             await page.toggle.click();
             expect ((await page.body.getAttribute('class')).includes('modal-open')).toBe(false);
@@ -55,6 +56,7 @@ describe('Side Panel', () => {
             // preventBackgroundScroll true
             await page.preventBackgroundScroll.click();
             await page.toggle.click();
+            await page.panelHost.click();
             expect ((await page.body.getAttribute('class')).includes('modal-open')).toBe(true);
             await page.toggle.click();
             expect ((await page.body.getAttribute('class')).includes('modal-open')).toBe(false);
@@ -130,6 +132,7 @@ describe('Side Panel', () => {
         it('should add modal-open class to parent element when the side-panel is open when preventBackgroundScroll is true', async () => {
             // First check class isn't added until preventBackgroundScroll is true
             await page.toggle.click();
+            await page.panelHost.click();
             expect ((await page.panelContainer.getAttribute('class')).includes('modal-open')).toBe(false);
             await page.toggle.click();
             expect ((await page.panelContainer.getAttribute('class')).includes('modal-open')).toBe(false);
@@ -137,6 +140,7 @@ describe('Side Panel', () => {
             // preventBackgroundScroll true
             await page.preventBackgroundScroll.click();
             await page.toggle.click();
+            await page.panelHost.click();
             expect ((await page.panelContainer.getAttribute('class')).includes('modal-open')).toBe(true);
             await page.toggle.click();
             expect ((await page.panelContainer.getAttribute('class')).includes('modal-open')).toBe(false);
