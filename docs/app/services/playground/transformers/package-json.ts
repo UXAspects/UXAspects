@@ -38,9 +38,7 @@ export class PackageJsonPlaygroundTransformer implements PlaygroundTransformer {
         const keywords: string[] = [dasherize(SiteThemeId[context.theme])];
         if (!context.appConfig.isProduction) {
             keywords.push('dev');
-        }
-
-        if (context.appConfig.isPreRelease) {
+        } else if (context.appConfig.isPreRelease) {
             keywords.push(context.appConfig.branchName ?? 'master');
         }
 

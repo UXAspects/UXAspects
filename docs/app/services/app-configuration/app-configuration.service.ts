@@ -21,7 +21,7 @@ export class AppConfiguration {
     public documentationPages = ['components-page', 'css-page', 'charts-page'];
 
     get version(): string {
-        return this.config.version;
+        return environment.version;
     }
 
     get baseUrl(): string {
@@ -60,8 +60,8 @@ export class AppConfiguration {
     }
 
     get branchName(): string | null {
-        const components = prerelease(this.version)?.filter(component => component !== 'SNAPSHOT');
-        return components ? components.join('-') : null;
+        const pre = prerelease(this.version)?.join('.');
+        return pre?.replace(/-?SNAPSHOT$/, '');
     }
 
     get config(): { [key: string]: any } {
