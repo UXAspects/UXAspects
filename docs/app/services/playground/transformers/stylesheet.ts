@@ -7,14 +7,21 @@ import { PlaygroundTransformer } from './playground-transformer';
 @Injectable()
 export class StylesheetPlaygroundTransformer implements PlaygroundTransformer {
     transform(tree: PlaygroundTree, context: PlaygroundContext): void {
+        // add stylesheet imports
         if (context.playground.framework === 'angular') {
             tree.updateJsonFile('angular.json', angularJson => {
                 angularJson.apps[0].styles.unshift(...this.getStylesheets(context));
                 return angularJson;
             });
         } else if (context.playground.framework === 'css') {
-            // TODO: import stylesheet in HTML
+            const stylesheets = this.getStylesheets(context);
+            tree.appendContent('index.js', stylesheets.map(stylesheet => `import "./${stylesheet}";`).join('\n'));
         }
+
+        // add global playground styling
+        tree.updateHtmlFile(context.htmlEntryPoint, $ => {
+            $('body').css({ padding: '16px', });
+        });
     }
 
     protected getStylesheets(context: PlaygroundContext): string[] {

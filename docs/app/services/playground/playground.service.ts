@@ -50,11 +50,11 @@ export class PlaygroundService {
         switch (playground.framework) {
             case 'angular':
                 return this.createTreeWithTemplate(
-                    require.context('./templates/angular', true, /\.(ts|html|css|json)$/)
+                    require.context('./templates/angular', true, /\.(ts|js|html|css|json)$/)
                 );
             case 'css':
                 return this.createTreeWithTemplate(
-                    require.context('./templates/css', true, /\.(ts|html|css|json)$/)
+                    require.context('./templates/css', true, /\.(ts|js|html|css|json)$/)
                 );
         }
     }
@@ -69,7 +69,7 @@ export class PlaygroundService {
     /** Get the serialized data to post to the codesandbox API. */
     private getPostData(tree: PlaygroundTree, context: PlaygroundContext): string {
         const files = this.getIFiles(tree);
-        const template = context.playground.framework === 'angular' ? 'angular-cli' : 'static';
+        const template = context.playground.framework === 'angular' ? 'angular-cli' : 'parcel';
 
         return getParameters({ files, template });
     }

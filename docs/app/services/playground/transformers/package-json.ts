@@ -46,12 +46,20 @@ export class PackageJsonPlaygroundTransformer implements PlaygroundTransformer {
     }
 
     protected getExternalDependencies(context: PlaygroundContext): { [key: string]: string } {
-        return {
-            '@angular/cdk': '^13.0.0',
+        const commonDependencies = {
             'bootstrap-css': '^3.3.7',
+        };
+
+        if (context.playground.framework === 'css') {
+            return commonDependencies;
+        }
+
+        return {
+            ...commonDependencies,
+            '@angular/cdk': '^13.0.0',
             'chart.js': '~3.7.1',
             'ng2-charts': '~3.0.8',
-            'ngx-bootstrap': '^6.0.0',
+            'ngx-bootstrap': '^8.0.0',
         };
     }
 

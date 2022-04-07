@@ -15,7 +15,7 @@ export class PlaygroundTree extends Map<string, string> {
     }
 
     appendContent(path: string, content: string): void {
-        const existingContent = this.get(path);
+        const existingContent = this.get(path) ?? '';
         this.set(path, existingContent + content);
     }
 
