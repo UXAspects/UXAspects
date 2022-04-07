@@ -1,4 +1,4 @@
-import { $, browser, Key } from 'protractor';
+import { browser, Key } from 'protractor';
 import { imageCompare } from '../../common/image-compare';
 import { numberOfCountries, SelectPage } from './select.po.spec';
 
@@ -733,4 +733,23 @@ describe('Select Tests', () => {
         expect(await imageCompare('select-invalid-state-multi')).toEqual(0);
     });
 
+    it('should allow selection of empty strings in single mode', async () => {
+        await page.clickOnDropdown(false);
+        await page.clickOnCountry(false, 0);
+        expect(await page.getSelectedLocationText()).toBe('"United States"');
+
+        await page.clickOnDropdown(false);
+        await page.clickOnCountry(false, 251);
+        expect(await page.getSelectedLocationText()).toBe('""');
+    });
+
+    it('should allow selection of empty strings in multiple mode', async () => {
+        await page.clickOnCheckbox(page.checkboxMulti);
+        await page.clickOnDropdown(true);
+        await page.clickOnCountry(false, 0);
+        expect(await page.getSelectedLocationText()).toBe('[ "United States" ]');
+
+        await page.clickOnCountry(false, 251);
+        expect(await page.getSelectedLocationText()).toBe('[ "United States", "" ]');
+    });
 });
