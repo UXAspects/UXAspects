@@ -793,7 +793,7 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
         if (tag) {
             // Verify that the new tag can be displayed
             const displayValue = this.getTagDisplay(tag);
-            if (displayValue && typeof displayValue === 'string' && displayValue.length > 0) {
+            if (typeof displayValue === 'string') {
                 const tagAddingEvent = new TagInputEvent(tag);
                 this.tagAdding.emit(tagAddingEvent);
                 if (!tagAddingEvent.defaultPrevented()) {
