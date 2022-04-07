@@ -61,7 +61,7 @@ export class AppModulePlaygroundTransformer implements PlaygroundTransformer {
         return this.getPlaygroundModules(context)
             .filter(module => module.declaration)
             .reduce((declarations, module) => {
-                const imports = module.imports instanceof Array ? module.imports : [module.imports];
+                const imports = ensureArray(module.imports);
                 return [...declarations, ...imports.map(ts.factory.createIdentifier)];
             }, [] as ts.Expression[]);
     }
@@ -70,7 +70,9 @@ export class AppModulePlaygroundTransformer implements PlaygroundTransformer {
         const moduleImports = this.getPlaygroundModules(context)
             .filter(module => !module.declaration)
             .reduce((declarations, module) => {
-                const imports = module.imports instanceof Array ? module.imports : [module.imports];
+                const imports = module.providers
+                    ? ensureArray(module.providers)
+                    : ensureArray(module.imports);
                 return [
                     ...declarations,
                     ...imports.map(_import => getModuleImportStatement(_import, module.forRoot)),
@@ -84,4 +86,12 @@ export class AppModulePlaygroundTransformer implements PlaygroundTransformer {
     getPlaygroundModules(context: PlaygroundContext): IPlaygroundModule[] {
         return [...DEFAULT_MODULES, ...context.playground.modules];
     }
+}
+
+function ensureArray(objectOrArray?: string | string[]): string[] {
+    if (!objectOrArray) {
+        return [];
+    }
+
+    return objectOrArray instanceof Array ? objectOrArray : [objectOrArray];
 }
