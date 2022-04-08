@@ -4,6 +4,24 @@ import { PlaygroundContext } from '../playground-context';
 import { PlaygroundTree } from '../playground-tree';
 import { PlaygroundTransformer } from './playground-transformer';
 
+const COMMON_DEPENDENCIES = {
+    'bootstrap-css': '^3.3.7',
+};
+
+const ANGULAR_DEPENDENCIES = {
+    ...COMMON_DEPENDENCIES,
+    '@angular/cdk': '^13.0.0',
+    chance: '^1.0.0',
+    'chart.js': '~3.7.1',
+    'ng2-charts': '~3.0.8',
+};
+
+const OPTIONAL_DEPENDENCIES = {
+    'ng2-file-upload': '^1.3.0',
+    'ngx-bootstrap': '^8.0.0',
+    'ngx-mask': '^12.0.0',
+};
+
 /**
  * Add dependencies and other metadata to the playground's package.json file.
  */
@@ -45,26 +63,18 @@ export class PackageJsonPlaygroundTransformer implements PlaygroundTransformer {
         return keywords;
     }
 
-    protected getExternalDependencies(context: PlaygroundContext): { [key: string]: string } {
-        const commonDependencies = {
-            'bootstrap-css': '^3.3.7',
-        };
-
-        if (context.playground.framework === 'css') {
-            return commonDependencies;
+    protected getExternalDependencies(context: PlaygroundContext): Record<string, string> {
+        if (context.playground.framework === 'angular') {
+            return {
+                ...ANGULAR_DEPENDENCIES,
+                ...this.getOptionalDependencies(context),
+            };
         }
 
-        return {
-            ...commonDependencies,
-            '@angular/cdk': '^13.0.0',
-            'chance': '^1.0.0',
-            'chart.js': '~3.7.1',
-            'ng2-charts': '~3.0.8',
-            'ngx-bootstrap': '^8.0.0',
-        };
+        return COMMON_DEPENDENCIES;
     }
 
-    protected getProjectDependencies(context: PlaygroundContext): { [key: string]: string } {
+    protected getProjectDependencies(context: PlaygroundContext): Record<string, string> {
         const dependencies = {};
         this.getProjectPackageNames().forEach(pkg => {
             dependencies[pkg] = this.getVersionForPackage(
@@ -79,6 +89,17 @@ export class PackageJsonPlaygroundTransformer implements PlaygroundTransformer {
 
     protected getProjectPackageNames(): string[] {
         return ['@ux-aspects/ux-aspects'];
+    }
+
+    private getOptionalDependencies(context: PlaygroundContext): Record<string, string> {
+        // some dependencies aren't needed in all examples
+        return context.playground.modules.reduce<Record<string, string>>((dependencies, module) => {
+            const library = module.library?.split('/')[0];
+            if (library && OPTIONAL_DEPENDENCIES[library]) {
+                return { ...dependencies, [library]: OPTIONAL_DEPENDENCIES[library] };
+            }
+            return dependencies;
+        }, {});
     }
 
     private getVersionForPackage(
