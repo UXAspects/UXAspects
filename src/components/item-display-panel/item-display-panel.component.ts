@@ -61,9 +61,7 @@ export class ItemDisplayPanelComponent extends SidePanelComponent implements OnI
         return this.open;
     }
 
-    constructor(service: SidePanelService,
-                elementRef: ElementRef,
-                focusOrigin: FocusIndicatorOriginService) {
+    constructor(service: SidePanelService, elementRef: ElementRef, focusOrigin: FocusIndicatorOriginService) {
         super(service, elementRef, focusOrigin);
 
         this.animate = false;
