@@ -26,7 +26,7 @@ export class StylesheetPlaygroundTransformer implements PlaygroundTransformer {
 
     protected getStylesheets(context: PlaygroundContext): string[] {
         return [
-            'node_modules/bootstrap-css',
+            'node_modules/bootstrap/dist/css/bootstrap.min.css',
             'node_modules/@ux-aspects/ux-aspects/styles/ux-aspects.css',
         ];
     }

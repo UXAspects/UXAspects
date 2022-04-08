@@ -12,18 +12,20 @@ import { TimelineChartService } from './timeline-chart.service';
 const DATE_LOCALE_OPTIONS = {
     year: 'numeric',
     month: 'long',
-    day: 'numeric'
+    day: 'numeric',
 } as const;
 
 @Component({
     selector: 'uxd-charts-timeline-chart',
     templateUrl: './timeline-chart.component.html',
     styleUrls: ['./timeline-chart.component.less'],
-    providers: [TimelineChartService]
+    providers: [TimelineChartService],
 })
 @DocumentationSectionComponent('ChartsTimelineChartComponent')
-export class ChartsTimelineChartComponent extends BaseDocumentationSection implements IPlaygroundProvider {
-
+export class ChartsTimelineChartComponent
+    extends BaseDocumentationSection
+    implements IPlaygroundProvider
+{
     @ViewChild(BaseChartDirective, { static: true }) baseChart?: BaseChartDirective;
 
     playground: IPlayground = {
@@ -31,21 +33,27 @@ export class ChartsTimelineChartComponent extends BaseDocumentationSection imple
             'app.component.ts': this.snippets.raw.appTs,
             'app.component.html': this.snippets.raw.appHtml,
             'app.component.css': this.snippets.raw.appCss,
-            'timeline-chart.service.ts': this.snippets.raw.dataTs
+            'timeline-chart.service.ts': this.snippets.raw.dataTs,
         },
-        modules: [{
-            library: 'chart.js'
-        },
-        {
-            library: 'chartjs-adapter-moment'
-        },
-        {
-            imports: ['NgChartsModule'],
-            library: 'ng2-charts'
-        }, {
-            imports: ['ColorServiceModule', 'TimelineChartModule'],
-            library: '@ux-aspects/ux-aspects'
-        }]
+        modules: [
+            {
+                library: 'chart.js',
+            },
+            {
+                library: 'chartjs-adapter-moment',
+            },
+            {
+                library: 'moment',
+            },
+            {
+                imports: ['NgChartsModule'],
+                library: 'ng2-charts',
+            },
+            {
+                imports: ['ColorServiceModule', 'TimelineChartModule'],
+                library: '@ux-aspects/ux-aspects',
+            },
+        ],
     };
 
     lineChartData: ChartDataset<'line'>[];
@@ -57,67 +65,27 @@ export class ChartsTimelineChartComponent extends BaseDocumentationSection imple
     constructor(private _dataService: TimelineChartService, private _colorService: ColorService) {
         super(require.context('./snippets/', false, /(html|css|js|ts)$/));
 
-        this.lineChartData = [{
-            data: this._dataService.getDataset() as ScatterDataPoint[],
-            backgroundColor: this._colorService.getColor('alternate3').setAlpha(0.8).toRgba(),
-            borderColor: 'transparent',
-            pointRadius: 0,
-            pointHitRadius: 0,
-            borderWidth: 1,
-            fill: 'origin'
-        }];
+        this.lineChartData = [
+            {
+                data: this._dataService.getDataset() as ScatterDataPoint[],
+                backgroundColor: this._colorService.getColor('alternate3').setAlpha(0.8).toRgba(),
+                borderColor: 'transparent',
+                pointRadius: 0,
+                pointHitRadius: 0,
+                borderWidth: 1,
+                fill: 'origin',
+            },
+        ];
 
         this.lineChartOptions = {
             responsive: true,
             maintainAspectRatio: false,
             animation: {
-                duration: 0
+                duration: 0,
             },
             elements: {
                 line: {
-                    tension: 0
-                },
-            },
-            scales: {
-                x: {
-                    type: 'time',
-                    grid: {
-                        display: false
-                    },
-                    time: {
-                        unit: 'month'
-                    }
-                },
-                y: {
-                    beginAtZero: true,
-                    max: 1000,
-                    ticks: {
-                        stepSize: 250,
-                        padding: 8,
-                    }
-                }
-            }
-        };
-
-        this.timelineChartData = [{
-            data: this._dataService.getDataset() as ScatterDataPoint[],
-            backgroundColor: this._colorService.getColor('alternate3').setAlpha(0.8).toRgba(),
-            borderColor: 'transparent',
-            pointRadius: 0,
-            pointHitRadius: 0,
-            borderWidth: 1,
-            fill: 'origin'
-        }];
-
-        this.timelineChartOptions = {
-            responsive: true,
-            maintainAspectRatio: false,
-            animation: {
-                duration: 0
-            },
-            elements: {
-                line: {
-                    tension: 0
+                    tension: 0,
                 },
             },
             scales: {
@@ -128,47 +96,108 @@ export class ChartsTimelineChartComponent extends BaseDocumentationSection imple
                     },
                     time: {
                         unit: 'month',
-                        stepSize: 6
-                    }
+                    },
                 },
                 y: {
-                    display: false
-                }
+                    beginAtZero: true,
+                    max: 1000,
+                    ticks: {
+                        stepSize: 250,
+                        padding: 8,
+                    },
+                },
+            },
+        };
+
+        this.timelineChartData = [
+            {
+                data: this._dataService.getDataset() as ScatterDataPoint[],
+                backgroundColor: this._colorService.getColor('alternate3').setAlpha(0.8).toRgba(),
+                borderColor: 'transparent',
+                pointRadius: 0,
+                pointHitRadius: 0,
+                borderWidth: 1,
+                fill: 'origin',
+            },
+        ];
+
+        this.timelineChartOptions = {
+            responsive: true,
+            maintainAspectRatio: false,
+            animation: {
+                duration: 0,
+            },
+            elements: {
+                line: {
+                    tension: 0,
+                },
+            },
+            scales: {
+                x: {
+                    type: 'time',
+                    grid: {
+                        display: false,
+                    },
+                    time: {
+                        unit: 'month',
+                        stepSize: 6,
+                    },
+                },
+                y: {
+                    display: false,
+                },
             },
             timeline: {
                 handles: {
                     tooltip: {
                         label: () => {
                             const data = this.lineChartData[0].data as ScatterDataPoint[];
-                            const rangeLower = (data[0].x as unknown as Date).toLocaleDateString([], DATE_LOCALE_OPTIONS);
-                            const rangeUpper = (data[data.length - 1].x as unknown as Date).toLocaleDateString([], DATE_LOCALE_OPTIONS);
-                            return {rangeLower, rangeUpper};
-                        }
-                    }
+                            const rangeLower = (data[0].x as unknown as Date).toLocaleDateString(
+                                [],
+                                DATE_LOCALE_OPTIONS
+                            );
+                            const rangeUpper = (
+                                data[data.length - 1].x as unknown as Date
+                            ).toLocaleDateString([], DATE_LOCALE_OPTIONS);
+                            return { rangeLower, rangeUpper };
+                        },
+                    },
                 },
                 selectionColor: this._colorService.getColor('alternate3').setAlpha(0.15).toRgba(),
                 onChange: (min: Date, max: Date) => {
-                    this.lineChartData[0].data = this._dataService.getDataset().filter((point: any) => {
-                        return point.x.getTime() >= min.getTime() && point.x.getTime() <= max.getTime();
-                    });
+                    this.lineChartData[0].data = this._dataService
+                        .getDataset()
+                        .filter((point: any) => {
+                            return (
+                                point.x.getTime() >= min.getTime() &&
+                                point.x.getTime() <= max.getTime()
+                            );
+                        });
                     this.baseChart?.update();
                 },
                 range: {
                     lower: new Date(2017, 6, 15),
-                    upper: (this.lineChartData[0].data as ScatterDataPoint[])[this.lineChartData[0].data.length - 1].x as unknown as Date,
+                    upper: (this.lineChartData[0].data as ScatterDataPoint[])[
+                        this.lineChartData[0].data.length - 1
+                    ].x as unknown as Date,
                     minimum: 8_640_000_000, // 100 days
                     maximum: 110_595_600_000, // 3.5 years
                     tooltip: {
                         label: () => {
                             const data = this.lineChartData[0].data as ScatterDataPoint[];
-                            const rangeLower = (data[0].x as unknown as Date).toLocaleDateString([], DATE_LOCALE_OPTIONS);
-                            const rangeUpper = (data[data.length - 1].x as unknown as Date).toLocaleDateString([], DATE_LOCALE_OPTIONS);
+                            const rangeLower = (data[0].x as unknown as Date).toLocaleDateString(
+                                [],
+                                DATE_LOCALE_OPTIONS
+                            );
+                            const rangeUpper = (
+                                data[data.length - 1].x as unknown as Date
+                            ).toLocaleDateString([], DATE_LOCALE_OPTIONS);
                             const label = `${rangeLower} - ${rangeUpper}`;
                             return label;
-                        }
-                    }
-                }
-            }
+                        },
+                    },
+                },
+            },
         };
     }
 }

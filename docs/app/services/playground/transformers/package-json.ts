@@ -5,7 +5,7 @@ import { PlaygroundTree } from '../playground-tree';
 import { PlaygroundTransformer } from './playground-transformer';
 
 const COMMON_DEPENDENCIES = {
-    'bootstrap-css': '^3.3.7',
+    bootstrap: '^3.3.7',
 };
 
 const ANGULAR_DEPENDENCIES = {
@@ -17,9 +17,11 @@ const ANGULAR_DEPENDENCIES = {
 };
 
 const OPTIONAL_DEPENDENCIES = {
+    'chartjs-adapter-moment': '^1.0.0',
+    moment: '^2.0.0',
     'ng2-file-upload': '^1.3.0',
     'ngx-bootstrap': '^8.0.0',
-    'ngx-mask': '^12.0.0',
+    'ngx-mask': '^13.0.0',
 };
 
 /**
