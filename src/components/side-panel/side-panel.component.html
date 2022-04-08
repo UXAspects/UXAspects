@@ -13,7 +13,7 @@
     [@panelState]="animationPanelState"
     [focusIf]="open && focusOnShow"
     [focusIfScroll]="false"
-    [cdkTrapFocus]="open && (modal || preventBackgroundScroll)"
+    [cdkTrapFocus]="open && modal"
     *ngIf="open">
     <ng-content></ng-content>
 </div>

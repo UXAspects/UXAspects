@@ -1,14 +1,10 @@
 .demo-side-panel-container {
     position: relative;
     height: 300px;
-    border: 1px solid #AFAFAF;
+    border: 1px solid #afafaf;
 }
 
 .demo-side-panel-container .demo-content {
     padding: 8px;
     overflow-y: auto;
-}
-
-.demo-side-panel-container.modal-open .demo-content {
-    overflow-y: hidden;
 }

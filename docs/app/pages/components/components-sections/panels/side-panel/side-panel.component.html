@@ -31,8 +31,7 @@
         [minWidth]="minWidth"
         [maxWidth]="maxWidth"
         [closeOnExternalClick]="closeOnExternalClick"
-        [closeOnEscape]="closeOnEscape"
-        [preventBackgroundScroll]="preventBackgroundScroll">
+        [closeOnEscape]="closeOnEscape">
 
         <div class="ux-side-panel-header">
             <h3>Side Panel</h3>
@@ -135,9 +134,6 @@
                     <div class="col-md-4 col-sm-12">
                         <ux-checkbox [(value)]="closeOnEscape">closeOnEscape</ux-checkbox>
                     </div>
-                    <div class="col-md-4 col-sm-12">
-                        <ux-checkbox [(value)]="preventBackgroundScroll">preventBackgroundScroll</ux-checkbox>
-                    </div>
                 </div>
             </ux-accordion-panel>
         </ux-accordion>
@@ -220,11 +216,6 @@
     </tr>
     <tr uxd-api-property name="focusOnShow" type="boolean" defaultValue="false">
         Whether the panel should become focused when it is opened.
-    </tr>
-    <tr uxd-api-property name="preventBackgroundScroll" type="boolean" defaultValue="false">
-        Whether the panel will prevent scrolling of the background page or container when the panel is focused.
-        The `modal-open` class will be added to the `body` or the `container`. Ensure `overflow-y: hidden` style is applied
-        to the correct container.
     </tr>
 </uxd-api-properties>
 

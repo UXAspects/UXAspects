@@ -2,7 +2,6 @@ import { $, browser, ElementFinder } from 'protractor';
 
 export class SidePanelPage {
 
-    body = $('body');
     panelContainer = $('#panelContainer');
     panel = $('ux-side-panel');
     panelHost = $('ux-side-panel > .ux-side-panel-host');
@@ -20,7 +19,6 @@ export class SidePanelPage {
     top2 = $('ux-radio-button#top2');
     modal = $('#modal');
     closeOnExternalClick = $('#closeOnExternalClick');
-    preventBackgroundScroll = $('#preventBackgroundScroll');
 
     async getPage() {
         await browser.get('#/side-panel');

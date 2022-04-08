@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, HostBinding, HostListener, Input, OnDestroy, OnInit, Output, Renderer2 } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, HostBinding, HostListener, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { Subject } from 'rxjs';
 import { distinctUntilChanged, skip, takeUntil } from 'rxjs/operators';
 import { FocusIndicatorOriginService } from '../../directives/accessibility/index';
@@ -61,9 +61,6 @@ export class SidePanelComponent implements OnInit, OnDestroy {
     @Input()
     focusOnShow: boolean = false;
 
-    @Input()
-    preventBackgroundScroll: boolean = false;
-
     @Output()
     openChange = new EventEmitter<boolean>();
 
@@ -123,8 +120,7 @@ export class SidePanelComponent implements OnInit, OnDestroy {
     constructor(
         protected readonly service: SidePanelService,
         private readonly _elementRef: ElementRef,
-        private readonly _focusOrigin: FocusIndicatorOriginService,
-        private readonly _renderer: Renderer2) { }
+        private readonly _focusOrigin: FocusIndicatorOriginService) { }
 
     ngOnInit(): void {
 
@@ -137,10 +133,6 @@ export class SidePanelComponent implements OnInit, OnDestroy {
                     ? SidePanelAnimationState.Open
                     : SidePanelAnimationState.OpenImmediate
                 : SidePanelAnimationState.Closed;
-
-            if (!isOpen && this.preventBackgroundScroll) {
-                this.enableScroll();
-            }
         });
     }
 
@@ -176,30 +168,6 @@ export class SidePanelComponent implements OnInit, OnDestroy {
         }
     }
 
-    @HostListener('focusin')
-    _onFocus(): void {
-        if (this.preventBackgroundScroll) {
-            this.disableScroll();
-        }
-    }
-
-    @HostListener('focusout')
-    _onBlur(): void {
-        if (this.preventBackgroundScroll) {
-            this.enableScroll();
-        }
-    }
-
-    private disableScroll(): void {
-        const container = this.attachTo === 'window' ? document.body : this._elementRef.nativeElement.parentElement;
-        this._renderer.addClass(container, 'modal-open');
-    }
-
-    private enableScroll(): void {
-        const container = this.attachTo === 'window' ? document.body : this._elementRef.nativeElement.parentElement;
-        this._renderer.removeClass(container, 'modal-open');
-    }
-    
     private getCssValue(value: number | string): string {
         if (typeof value === 'number') {
             return value === 0 ? '0' : value + 'px';

@@ -41,7 +41,6 @@ export class ComponentsSidePanelComponent extends BaseDocumentationSection imple
     animate = true;
     closeOnExternalClick = false;
     closeOnEscape = true;
-    preventBackgroundScroll = false;
 
     get attachTo(): string {
         return this._attachTo;
