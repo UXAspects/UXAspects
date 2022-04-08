@@ -29,8 +29,8 @@ export class PlaygroundService {
         const tree = this.loadTree(playground);
         this.applyTransforms(tree, context);
 
-        const parameters = this.getPostData(tree, context);
-        this.post(this._appConfig.playgroundUrl, { parameters });
+        const data = this.getPostData(tree, context);
+        this.post(this._appConfig.playgroundUrl, data);
     }
 
     /** Generate a context object to be used by the playground transformers. */
@@ -67,11 +67,18 @@ export class PlaygroundService {
     }
 
     /** Get the serialized data to post to the codesandbox API. */
-    private getPostData(tree: PlaygroundTree, context: PlaygroundContext): string {
+    private getPostData(tree: PlaygroundTree, context: PlaygroundContext): Record<string, string> {
         const files = this.getIFiles(tree);
         const template = context.playground.framework === 'angular' ? 'angular-cli' : 'parcel';
+        const initialFile =
+            context.playground.framework === 'angular'
+                ? '/src/app/app.component.html'
+                : '/index.html';
 
-        return getParameters({ files, template });
+        return {
+            parameters: getParameters({ files, template }),
+            query: `file=${initialFile}`,
+        };
     }
 
     private post(action: string, data: Record<string, string>): void {
