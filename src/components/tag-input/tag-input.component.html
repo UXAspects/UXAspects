@@ -5,6 +5,7 @@
     (click)="toggle()">
 
     <li *ngFor="let tag of _tags; let i = index" class="ux-tag"
+        [class.ux-tag-empty]="!tag"
         [class.disabled]="disabled"
         [ngClass]="tagClass(tag, i, isSelected(i))"
         [attr.tabindex]="disabled ? null : 0"
