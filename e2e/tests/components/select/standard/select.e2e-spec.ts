@@ -1,4 +1,4 @@
-import { browser, Key } from 'protractor';
+import { $, browser, Key } from 'protractor';
 import { imageCompare } from '../../common/image-compare';
 import { numberOfCountries, SelectPage } from './select.po.spec';
 
