@@ -22,7 +22,7 @@ export class StylesheetPlaygroundTransformer implements PlaygroundTransformer {
 
         // add global playground styling
         tree.updateHtmlFile(context.htmlEntryPoint, $ => {
-            $('body').css({ padding: '16px' });
+            $('body').css({ padding: '16px', backgroundColor: '#fff' });
         });
     }
 
