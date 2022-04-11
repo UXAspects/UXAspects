@@ -24,13 +24,15 @@ module.exports = {
         cwd: join(cwd(), 'dist', 'library'),
         src: 'ux-aspects-ux-aspects-*.*.*.tgz',
         dest: join(cwd(), 'target', 'npm'),
-        expand: true
+        expand: true,
+        rename: path => join(path, 'ux-aspects-ux-aspects.tgz')
     },
     'npm_ux-aspects-docs_tgz': {
         cwd: cwd(),
         src: 'ux-aspects-ux-aspects-docs-*.*.*.tgz',
         dest: join(cwd(), 'target', 'npm'),
-        expand: true
+        expand: true,
+        rename: path => join(path, 'ux-aspects-ux-aspects-docs.tgz')
     },
     'md': {
         cwd: cwd(),

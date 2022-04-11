@@ -110,13 +110,7 @@ export class PackageJsonPlaygroundTransformer implements PlaygroundTransformer {
         context: PlaygroundContext
     ): string {
         if (context.appConfig.isPreRelease) {
-            // packages in a CI build load from Artifactory
-            return this.getArtifactoryUrl(
-                context.appConfig.devRepositoryUrl,
-                packageScope,
-                packageName,
-                context.appConfig.version
-            );
+            return `${context.appConfig.baseUrl}/assets/lib/${packageScope}-${packageName}.tgz`;
         }
 
         if (context.appConfig.isProduction) {
@@ -128,14 +122,14 @@ export class PackageJsonPlaygroundTransformer implements PlaygroundTransformer {
         return `${context.appConfig.packagesUrl}/${packageScope}-${packageName}.tgz`;
     }
 
-    private getArtifactoryUrl(
-        repositoryUrl: string,
-        packageScope: string,
-        packageName: string,
-        version: string
-    ): string {
-        return `${repositoryUrl}/%40${packageScope}/${packageName}/-/%40${packageScope}/${packageScope}-${packageName}-${version}.tgz`;
-    }
+    // private getArtifactoryPackageUrl(
+    //     repositoryUrl: string,
+    //     packageScope: string,
+    //     packageName: string,
+    //     version: string
+    // ): string {
+    //     return `${repositoryUrl}/%40${packageScope}/${packageName}/-/%40${packageScope}/${packageScope}-${packageName}-${version}.tgz`;
+    // }
 }
 
 function getPackageScope(name: string): string {
