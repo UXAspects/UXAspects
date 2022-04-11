@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { PlaygroundContext } from '../playground-context';
-import { PlaygroundTree } from '../playground-tree';
+import { PlaygroundContext, PlaygroundTree } from '../index';
 import { PlaygroundTransformer } from './playground-transformer';
 
 /**

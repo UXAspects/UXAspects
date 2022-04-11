@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { SiteThemeId } from '../../../interfaces/SiteTheme';
-import { PlaygroundContext } from '../playground-context';
-import { PlaygroundTree } from '../playground-tree';
+import { PlaygroundContext, PlaygroundTree } from '../index';
 import { PlaygroundTransformer } from './playground-transformer';
 
 const COMMON_DEPENDENCIES = {

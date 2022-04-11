@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import * as ts from 'typescript';
 import { IPlaygroundModule } from '../../../interfaces/IPlayground';
-import { PlaygroundContext } from '../playground-context';
-import { PlaygroundTree } from '../playground-tree';
+import { PlaygroundContext, PlaygroundTree } from '../index';
 import {
     addImportsTransformer,
     getColorServiceImport,

@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { PlaygroundContext } from '../playground-context';
-import { PlaygroundTree } from '../playground-tree';
+import { PlaygroundContext, PlaygroundTree } from '../index';
 import { PlaygroundTransformer } from './playground-transformer';
 
 /** Add the UX Aspects and Bootstrap stylesheet to the playground. */
@@ -15,12 +14,15 @@ export class StylesheetPlaygroundTransformer implements PlaygroundTransformer {
             });
         } else if (context.playground.framework === 'css') {
             const stylesheets = this.getStylesheets(context);
-            tree.appendContent('index.js', stylesheets.map(stylesheet => `import "./${stylesheet}";`).join('\n'));
+            tree.appendContent(
+                'index.js',
+                stylesheets.map(stylesheet => `import "./${stylesheet}";`).join('\n')
+            );
         }
 
         // add global playground styling
         tree.updateHtmlFile(context.htmlEntryPoint, $ => {
-            $('body').css({ padding: '16px', });
+            $('body').css({ padding: '16px' });
         });
     }
 

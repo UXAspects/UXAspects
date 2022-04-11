@@ -3,7 +3,7 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
 import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
-import { DOCUMENTATION_TOKEN, DocumentationType } from '../../../../../services/playground/tokens/documentation.token';
+import { DOCUMENTATION_TOKEN, DocumentationType } from '../../../../../tokens/documentation.token';
 
 @Component({
     selector: 'uxd-components-icon',

@@ -5,7 +5,7 @@ import 'chance';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
-import { DocumentationType, DOCUMENTATION_TOKEN } from '../../../../../services/playground/tokens/documentation.token';
+import { DocumentationType, DOCUMENTATION_TOKEN } from '../../../../../tokens/documentation.token';
 
 @Component({
     selector: 'uxd-components-column-sorting',

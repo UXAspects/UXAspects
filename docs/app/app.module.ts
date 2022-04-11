@@ -6,7 +6,7 @@ import {
     ColorServiceModule,
     colorSets,
     PageHeaderModule,
-    PersistentDataService,
+    PersistentDataService
 } from '@ux-aspects/ux-aspects';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
@@ -16,10 +16,6 @@ import { NgxMaskModule } from 'ngx-mask';
 import { AppComponent } from './app.component';
 import { DocumentationComponentsModule } from './components/components.module';
 import {
-    DocumentationType,
-    DOCUMENTATION_TOKEN,
-} from './services/playground/tokens/documentation.token';
-import {
     AngularFilesPlaygroundTransformer,
     AppModulePlaygroundTransformer,
     CssFilesPlaygroundTransformer,
@@ -28,8 +24,12 @@ import {
     PackageJsonPlaygroundTransformer,
     PLAYGROUND_TRANSFORMER,
     RenameAngularJsonPlaygroundTransformer,
-    StylesheetPlaygroundTransformer,
-} from './services/playground/transformers/index';
+    StylesheetPlaygroundTransformer
+} from './services/playground/index';
+import {
+    DocumentationType,
+    DOCUMENTATION_TOKEN
+} from './tokens/documentation.token';
 
 /*
   Configure Application Routes
