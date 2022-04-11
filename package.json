@@ -207,6 +207,7 @@
     "docs/app/pages/css/css-sections/buttons/size-variations",
     "docs/app/pages/css/css-sections/icons/ux-icons",
     "docs/app/services",
+    "docs/app/tokens",
     "docs/environments",
     "docs/styles.less",
     "e2e/pages",
