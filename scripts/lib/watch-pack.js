@@ -1,8 +1,8 @@
 const chalk = require('chalk');
-const { spawnSync } = require('child_process');
-const { existsSync, mkdirpSync, moveSync, unlinkSync, watch } = require('fs-extra');
-const { dirname, isAbsolute, join, relative, resolve } = require('path');
+const { existsSync, mkdirpSync, watch } = require('fs-extra');
+const { dirname, isAbsolute, relative } = require('path');
 const { cwd } = require('process');
+const { createPackage } = require('./package');
 
 const RESTART_INTERVAL = 5000;
 const DEBOUNCE_INTERVAL = 1000;
@@ -74,40 +74,11 @@ class WatchPack {
     }
 
     createPackage(pkg) {
-        if (existsSync(pkg.outputPath)) {
-            unlinkSync(pkg.outputPath);
-        }
-
-        const outputDir = dirname(pkg.outputPath);
-
-        // create the package tgz file
-        const tempFileName = this.createTempPackage(pkg.dir, outputDir);
-
-        // rename to the requested filename
-        moveSync(join(outputDir, tempFileName), pkg.outputPath);
+        createPackage(pkg.dir, pkg.outputPath);
 
         if (existsSync(pkg.outputPath)) {
             console.log(`✔ Package created: ${pkg.outputPath}`);
         }
-    }
-
-    createTempPackage(dir, outputDir) {
-        if (!existsSync(join(dir, 'package.json'))) {
-            throw new Error(`package.json not found in ${dir}`);
-        }
-
-        const command = `npm pack --quiet --pack-destination "${resolve(outputDir)}"`;
-        const process = spawnSync(command, {
-            cwd: dir,
-            encoding: 'utf8',
-            shell: true,
-        });
-
-        if (process.status || process.error) {
-            throw new Error(`npm pack failed: ${process.error ?? process.stderr}`);
-        }
-
-        return process.stdout.trim();
     }
 }
 
