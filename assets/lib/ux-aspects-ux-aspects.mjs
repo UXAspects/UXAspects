@@ -15249,16 +15249,16 @@ class SidePanelComponent {
         return 'fixed';
     }
     get cssWidth() {
-        if (typeof this.width === 'number') {
-            return this.width === 0 ? '0' : this.width + 'px';
-        }
-        return this.width;
+        return this.getCssValue(this.width);
     }
     get cssTop() {
-        if (typeof this.top === 'number') {
-            return this.top === 0 ? '0' : this.top + 'px';
-        }
-        return this.top;
+        return this.getCssValue(this.top);
+    }
+    get cssMinWidth() {
+        return this.getCssValue(this.minWidth);
+    }
+    get cssMaxWidth() {
+        return this.getCssValue(this.maxWidth);
     }
     get componentWidth() {
         if (this.inline) {
@@ -15268,6 +15268,12 @@ class SidePanelComponent {
     }
     get hostWidth() {
         return this.inline ? '100%' : this.cssWidth;
+    }
+    get hostMinWidth() {
+        return this.inline ? undefined : this.cssMinWidth;
+    }
+    get hostMaxWidth() {
+        return this.inline ? undefined : this.cssMaxWidth;
     }
     ngOnInit() {
         this.service.open$.pipe(skip(1), distinctUntilChanged(), takeUntil(this._onDestroy))
@@ -15304,14 +15310,20 @@ class SidePanelComponent {
             this.closePanel();
         }
     }
+    getCssValue(value) {
+        if (typeof value === 'number') {
+            return value === 0 ? '0' : value + 'px';
+        }
+        return value;
+    }
 }
 SidePanelComponent.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.2", ngImport: i0, type: SidePanelComponent, deps: [{ token: SidePanelService }, { token: i0.ElementRef }, { token: FocusIndicatorOriginService }], target: i0.ɵɵFactoryTarget.Component });
-SidePanelComponent.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "13.0.2", type: SidePanelComponent, selector: "ux-side-panel", inputs: { open: "open", inline: "inline", attachTo: "attachTo", width: "width", top: "top", modal: "modal", animate: "animate", closeOnExternalClick: "closeOnExternalClick", focusOnShow: "focusOnShow", closeOnEscape: "closeOnEscape" }, outputs: { openChange: "openChange" }, host: { listeners: { "document:keyup.escape": "_onDocumentEscape()", "document:click": "_onDocumentClick($event.target)" }, properties: { "class.open": "this.open", "class.inline": "this.inline", "attr.aria-modal": "this.modal", "class.animate": "this.animate", "style.width": "this.componentWidth" }, classAttribute: "ux-side-panel" }, providers: [SidePanelService], exportAs: ["ux-side-panel"], ngImport: i0, template: "<div *ngIf=\"modal && open\" class=\"modal-backdrop\"\n    [style.position]=\"position\"\n    [style.top]=\"cssTop\"></div>\n\n<div class=\"ux-side-panel-host\"\n    [class.modal-panel]=\"modal\"\n    [style.position]=\"position\"\n    [style.width]=\"hostWidth\"\n    [style.top]=\"cssTop\"\n    [tabindex]=\"open ? 0 : -1\"\n    [@panelState]=\"animationPanelState\"\n    [focusIf]=\"open && focusOnShow\"\n    [focusIfScroll]=\"false\"\n    [cdkTrapFocus]=\"open && modal\"\n    *ngIf=\"open\">\n    <ng-content></ng-content>\n</div>\n", directives: [{ type: i3$1.NgIf, selector: "[ngIf]", inputs: ["ngIf", "ngIfThen", "ngIfElse"] }, { type: FocusIfDirective, selector: "[focusIf]", inputs: ["focusIfDelay", "focusIfScroll", "focusIf"] }, { type: i3.CdkTrapFocus, selector: "[cdkTrapFocus]", inputs: ["cdkTrapFocus", "cdkTrapFocusAutoCapture"], exportAs: ["cdkTrapFocus"] }], animations: [sidePanelStateAnimation], changeDetection: i0.ChangeDetectionStrategy.OnPush });
+SidePanelComponent.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "13.0.2", type: SidePanelComponent, selector: "ux-side-panel", inputs: { open: "open", inline: "inline", attachTo: "attachTo", width: "width", minWidth: "minWidth", maxWidth: "maxWidth", top: "top", modal: "modal", animate: "animate", closeOnExternalClick: "closeOnExternalClick", focusOnShow: "focusOnShow", closeOnEscape: "closeOnEscape" }, outputs: { openChange: "openChange" }, host: { listeners: { "document:keyup.escape": "_onDocumentEscape()", "document:click": "_onDocumentClick($event.target)" }, properties: { "class.open": "this.open", "class.inline": "this.inline", "attr.aria-modal": "this.modal", "class.animate": "this.animate", "style.width": "this.componentWidth" }, classAttribute: "ux-side-panel" }, providers: [SidePanelService], exportAs: ["ux-side-panel"], ngImport: i0, template: "<div *ngIf=\"modal && open\" class=\"modal-backdrop\"\n    [style.position]=\"position\"\n    [style.top]=\"cssTop\"></div>\n\n<div class=\"ux-side-panel-host\"\n    [class.modal-panel]=\"modal\"\n    [style.position]=\"position\"\n    [style.width]=\"hostWidth\"\n    [style.min-width]=\"hostMinWidth\"\n    [style.max-width]=\"hostMaxWidth\"\n    [style.top]=\"cssTop\"\n    [tabindex]=\"open ? 0 : -1\"\n    [@panelState]=\"animationPanelState\"\n    [focusIf]=\"open && focusOnShow\"\n    [focusIfScroll]=\"false\"\n    [cdkTrapFocus]=\"open && modal\"\n    *ngIf=\"open\">\n    <ng-content></ng-content>\n</div>\n", directives: [{ type: i3$1.NgIf, selector: "[ngIf]", inputs: ["ngIf", "ngIfThen", "ngIfElse"] }, { type: FocusIfDirective, selector: "[focusIf]", inputs: ["focusIfDelay", "focusIfScroll", "focusIf"] }, { type: i3.CdkTrapFocus, selector: "[cdkTrapFocus]", inputs: ["cdkTrapFocus", "cdkTrapFocusAutoCapture"], exportAs: ["cdkTrapFocus"] }], animations: [sidePanelStateAnimation], changeDetection: i0.ChangeDetectionStrategy.OnPush });
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.2", ngImport: i0, type: SidePanelComponent, decorators: [{
             type: Component,
             args: [{ selector: 'ux-side-panel', exportAs: 'ux-side-panel', providers: [SidePanelService], animations: [sidePanelStateAnimation], changeDetection: ChangeDetectionStrategy.OnPush, host: {
                         class: 'ux-side-panel'
-                    }, template: "<div *ngIf=\"modal && open\" class=\"modal-backdrop\"\n    [style.position]=\"position\"\n    [style.top]=\"cssTop\"></div>\n\n<div class=\"ux-side-panel-host\"\n    [class.modal-panel]=\"modal\"\n    [style.position]=\"position\"\n    [style.width]=\"hostWidth\"\n    [style.top]=\"cssTop\"\n    [tabindex]=\"open ? 0 : -1\"\n    [@panelState]=\"animationPanelState\"\n    [focusIf]=\"open && focusOnShow\"\n    [focusIfScroll]=\"false\"\n    [cdkTrapFocus]=\"open && modal\"\n    *ngIf=\"open\">\n    <ng-content></ng-content>\n</div>\n" }]
+                    }, template: "<div *ngIf=\"modal && open\" class=\"modal-backdrop\"\n    [style.position]=\"position\"\n    [style.top]=\"cssTop\"></div>\n\n<div class=\"ux-side-panel-host\"\n    [class.modal-panel]=\"modal\"\n    [style.position]=\"position\"\n    [style.width]=\"hostWidth\"\n    [style.min-width]=\"hostMinWidth\"\n    [style.max-width]=\"hostMaxWidth\"\n    [style.top]=\"cssTop\"\n    [tabindex]=\"open ? 0 : -1\"\n    [@panelState]=\"animationPanelState\"\n    [focusIf]=\"open && focusOnShow\"\n    [focusIfScroll]=\"false\"\n    [cdkTrapFocus]=\"open && modal\"\n    *ngIf=\"open\">\n    <ng-content></ng-content>\n</div>\n" }]
         }], ctorParameters: function () { return [{ type: SidePanelService }, { type: i0.ElementRef }, { type: FocusIndicatorOriginService }]; }, propDecorators: { open: [{
                 type: Input
             }, {
@@ -15325,6 +15337,10 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.2", ngImpor
             }], attachTo: [{
                 type: Input
             }], width: [{
+                type: Input
+            }], minWidth: [{
+                type: Input
+            }], maxWidth: [{
                 type: Input
             }], top: [{
                 type: Input
@@ -23541,10 +23557,10 @@ class TagInputComponent {
      * Add a tag object, calling the tagAdding and tagAdded events. Returns true if the tag was added to the tags array.
      */
     addTag(tag) {
-        if (tag) {
+        if (tag !== null) {
             // Verify that the new tag can be displayed
             const displayValue = this.getTagDisplay(tag);
-            if (displayValue && typeof displayValue === 'string' && displayValue.length > 0) {
+            if (typeof displayValue === 'string') {
                 const tagAddingEvent = new TagInputEvent(tag);
                 this.tagAdding.emit(tagAddingEvent);
                 if (!tagAddingEvent.defaultPrevented()) {
@@ -23918,7 +23934,7 @@ class SelectComponent {
     }
     /** Whenever a single select item is selected emit the values */
     _singleOptionSelected(event) {
-        if (event.option && event.option !== this.value) {
+        if (event.option !== null && event.option !== this.value) {
             this.value = event.option;
             this.dropdownOpen = false;
             this.valueChange.emit(this.value);
