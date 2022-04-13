@@ -1,4 +1,5 @@
 import { FocusOrigin } from '@angular/cdk/a11y';
+import { coerceArray } from '@angular/cdk/coercion';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, HostBinding, HostListener, Input, OnChanges, OnDestroy, Output, SimpleChanges, TemplateRef, ViewChild } from '@angular/core';
 import { BehaviorSubject, combineLatest, Subject } from 'rxjs';
 import { distinctUntilChanged, takeUntil } from 'rxjs/operators';
@@ -9,7 +10,6 @@ import { TypeaheadOptionApi } from './typeahead-option-api';
 import { TypeaheadOptionContext } from './typeahead-option-context';
 import { TypeaheadVisibleOption } from './typeahead-visible-option';
 import { TypeaheadService } from './typeahead.service';
-import { coerceArray } from '@angular/cdk/coercion';
 
 let uniqueId = 0;
 

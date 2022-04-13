@@ -790,10 +790,10 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
      * Add a tag object, calling the tagAdding and tagAdded events. Returns true if the tag was added to the tags array.
      */
     private addTag(tag: T): boolean {
-        if (tag) {
+        if (tag !== null) {
             // Verify that the new tag can be displayed
             const displayValue = this.getTagDisplay(tag);
-            if (displayValue && typeof displayValue === 'string' && displayValue.length > 0) {
+            if (typeof displayValue === 'string') {
                 const tagAddingEvent = new TagInputEvent(tag);
                 this.tagAdding.emit(tagAddingEvent);
                 if (!tagAddingEvent.defaultPrevented()) {
