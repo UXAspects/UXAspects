@@ -11,7 +11,7 @@ export class EditExampleService {
 
     launchEditor(title: string, content: IPlayground) {
         content.framework = content.framework ?? 'angular';
+        content.modules = content.modules ?? [];
         this._playgroundService.launch(title, content);
     }
-
 }
