@@ -81,7 +81,7 @@ export class ComponentsDashboardComponent extends BaseDocumentationSection imple
             'app.component.css': this.snippets.raw.appCss
         },
         modules: [{
-            imports: ['DashboardModule', 'ColorServiceModule', 'SparkModule'],
+            imports: ['DashboardModule', 'SparkModule'],
             library: '@ux-aspects/ux-aspects'
         }, {
             library: 'chance'

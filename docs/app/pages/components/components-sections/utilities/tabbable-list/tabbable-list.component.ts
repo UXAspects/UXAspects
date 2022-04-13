@@ -47,7 +47,7 @@ export class ComponentsTabbableListComponent extends BaseDocumentationSection im
         },
         modules: [
             {
-                imports: ['AccessibilityModule', 'CheckboxModule'],
+                imports: ['CheckboxModule'],
                 library: '@ux-aspects/ux-aspects'
             },
             {

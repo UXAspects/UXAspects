@@ -50,7 +50,7 @@ export class ChartsTimelineChartComponent
                 library: 'ng2-charts',
             },
             {
-                imports: ['ColorServiceModule', 'TimelineChartModule'],
+                imports: ['TimelineChartModule'],
                 library: '@ux-aspects/ux-aspects',
             },
         ],

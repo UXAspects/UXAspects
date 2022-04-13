@@ -21,7 +21,7 @@ export class ComponentsColorPickerComponent extends BaseDocumentationSection imp
         },
         modules: [
             {
-                imports: ['ColorPickerModule', 'ColorServiceModule'],
+                imports: ['ColorPickerModule'],
                 library: '@ux-aspects/ux-aspects'
             },
             {

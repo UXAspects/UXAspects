@@ -21,7 +21,7 @@ export class ComponentsDragAndDropCardsComponent extends BaseDocumentationSectio
         },
         modules: [
             {
-                imports: ['FocusIfModule', 'ReorderableModule', 'AccessibilityModule', 'MenuNavigationModule'],
+                imports: ['FocusIfModule', 'ReorderableModule', 'MenuNavigationModule'],
                 library: '@ux-aspects/ux-aspects'
             },
             {

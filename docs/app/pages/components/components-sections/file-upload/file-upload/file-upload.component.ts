@@ -27,7 +27,7 @@ export class ComponentsFileUploadComponent extends BaseDocumentationSection impl
                 library: 'ng2-file-upload'
             },
             {
-                imports: ['ProgressBarModule', 'AccessibilityModule'],
+                imports: ['ProgressBarModule'],
                 library: '@ux-aspects/ux-aspects'
             },
             {

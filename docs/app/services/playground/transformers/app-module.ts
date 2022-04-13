@@ -7,6 +7,7 @@ import {
     getColorServiceImport,
     getImportDeclaration,
     getModuleImportStatement,
+    mergeImports,
     ngModuleMetadataTransformer,
 } from '../utilities/typescript';
 import { PlaygroundTransformer } from './playground-transformer';
@@ -40,23 +41,23 @@ export class AppModulePlaygroundTransformer implements PlaygroundTransformer {
         }
     }
 
-    getColorSetName(): string {
+    protected getColorSetName(): string {
         return 'keppel';
     }
 
-    getImports(context: PlaygroundContext): ts.ImportDeclaration[] {
-        const imports = this.getPlaygroundModules(context)
-            .filter(module => module.library)
-            .map(module => getImportDeclaration(module.library, module.imports, module.importAs));
+    private getImports(context: PlaygroundContext): ts.ImportDeclaration[] {
         const colorServiceImport = getImportDeclaration('@ux-aspects/ux-aspects', [
             'ColorServiceModule',
             'colorSets',
         ]);
+        const imports = this.getPlaygroundModules(context)
+            .filter(module => module.library)
+            .map(module => getImportDeclaration(module.library, module.imports, module.importAs));
 
-        return [colorServiceImport, ...imports];
+        return mergeImports(colorServiceImport, ...imports);
     }
 
-    getModuleDeclarations(context: PlaygroundContext): ts.Expression[] {
+    private getModuleDeclarations(context: PlaygroundContext): ts.Expression[] {
         return this.getPlaygroundModules(context)
             .filter(module => module.declaration)
             .reduce((declarations, module) => {
@@ -65,7 +66,7 @@ export class AppModulePlaygroundTransformer implements PlaygroundTransformer {
             }, [] as ts.Expression[]);
     }
 
-    getModuleImports(context: PlaygroundContext): ts.Expression[] {
+    private getModuleImports(context: PlaygroundContext): ts.Expression[] {
         const moduleImports = this.getPlaygroundModules(context)
             .filter(module => !module.declaration)
             .reduce((declarations, module) => {
@@ -82,7 +83,7 @@ export class AppModulePlaygroundTransformer implements PlaygroundTransformer {
         return [colorServiceModuleImport, ...moduleImports];
     }
 
-    getPlaygroundModules(context: PlaygroundContext): IPlaygroundModule[] {
+    private getPlaygroundModules(context: PlaygroundContext): IPlaygroundModule[] {
         return [...DEFAULT_MODULES, ...context.playground.modules];
     }
 }

@@ -85,7 +85,7 @@ export class ChartsSparkChartsComponent extends BaseDocumentationSection impleme
             'app.component.ts': this.snippets.raw.appTs
         },
         modules: [{
-            imports: ['SparkModule', 'ColorServiceModule'],
+            imports: ['SparkModule'],
             library: '@ux-aspects/ux-aspects'
         }]
     };

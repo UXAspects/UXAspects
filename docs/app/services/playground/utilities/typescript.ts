@@ -119,3 +119,54 @@ export function getColorServiceImport(colorSet: string): ts.Expression {
         ]
     );
 }
+
+export function mergeImports(...imports: ts.ImportDeclaration[]): ts.ImportDeclaration[] {
+    return imports.reduce<ts.ImportDeclaration[]>((mergedImports, originImport) => {
+        const index = mergedImports.findIndex(mergedImport =>
+            isSameImportModule(mergedImport, originImport)
+        );
+        if (index >= 0) {
+            mergedImports[index] = addIdentifiersToImportDeclaration(
+                mergedImports[index],
+                originImport.importClause.namedBindings as ts.NamedImports
+            );
+        } else {
+            mergedImports.push(originImport);
+        }
+
+        return mergedImports;
+    }, []);
+}
+
+function addIdentifiersToImportDeclaration(
+    node: ts.ImportDeclaration,
+    namedImports: ts.NamedImports
+): ts.ImportDeclaration {
+    if (!ts.isNamedImports(node.importClause?.namedBindings)) {
+        throw new Error('Import does not have named imports');
+    }
+
+    return ts.factory.updateImportDeclaration(
+        node,
+        node.decorators,
+        node.modifiers,
+        ts.factory.updateImportClause(
+            node.importClause,
+            node.importClause.isTypeOnly,
+            node.importClause.name,
+            ts.factory.updateNamedImports(node.importClause.namedBindings, [
+                ...node.importClause.namedBindings.elements,
+                ...namedImports.elements,
+            ])
+        ),
+        node.moduleSpecifier
+    );
+}
+
+function isSameImportModule(a: ts.ImportDeclaration, b: ts.ImportDeclaration): boolean {
+    if (ts.isStringLiteral(a.moduleSpecifier) && ts.isStringLiteral(b.moduleSpecifier)) {
+        return a.moduleSpecifier.text === b.moduleSpecifier.text;
+    }
+
+    return false;
+}

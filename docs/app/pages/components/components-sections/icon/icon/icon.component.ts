@@ -22,13 +22,7 @@ export class ComponentsIconComponent extends BaseDocumentationSection implements
             'app.component.html': this.snippets.raw.appHtml,
             'app.component.ts': this.snippets.raw.appTs,
             'app.component.css': this.snippets.raw.appCss
-        },
-        modules: [
-            {
-                imports: ['IconModule'],
-                library: '@ux-aspects/ux-aspects'
-            }
-        ]
+        }
     };
 
     constructor(@Inject(DOCUMENTATION_TOKEN) private _documentationType: DocumentationType) {
