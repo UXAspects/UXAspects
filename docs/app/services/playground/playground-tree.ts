@@ -1,8 +1,6 @@
 import { CheerioAPI, load } from 'cheerio';
-import { format } from 'prettier';
-import * as parserHtml from 'prettier/parser-html';
-import * as parserTypeScript from 'prettier/parser-typescript';
 import * as ts from 'typescript';
+import { formatHtml, formatTypeScript } from './utilities/format';
 
 /** Represents the file tree for the playground. */
 export class PlaygroundTree extends Map<string, string> {
@@ -14,9 +12,11 @@ export class PlaygroundTree extends Map<string, string> {
         return this.get(path);
     }
 
-    appendContent(path: string, content: string): void {
-        const existingContent = this.get(path) ?? '';
-        this.set(path, existingContent + content);
+    /** Append content to the end of a file, and optionally format the entire content. */
+    appendContent(path: string, content: string, format?: (_: string) => string): void {
+        const newContent = (this.get(path) ?? '') + content;
+        const formattedContent = format ? format(newContent) : newContent;
+        this.set(path, formattedContent);
     }
 
     /** Parse a file as JSON, apply changes via a callback, and serialize the result back. */
@@ -41,10 +41,7 @@ export class PlaygroundTree extends Map<string, string> {
         const transformResult = ts.transform(source, transformers);
         const printer = ts.createPrinter({ newLine: ts.NewLineKind.LineFeed });
         const modifiedContent = printer.printFile(transformResult.transformed[0]);
-        const formattedContent = format(modifiedContent, {
-            parser: 'typescript',
-            plugins: [parserTypeScript],
-        });
+        const formattedContent = formatTypeScript(modifiedContent);
 
         this.setContent(path, formattedContent);
     }
@@ -53,10 +50,7 @@ export class PlaygroundTree extends Map<string, string> {
     updateHtmlFile(path: string, callback: ($: CheerioAPI) => void): void {
         const $ = load(this.getContent(path));
         callback($);
-        const modifiedHtml = format($.root().html(), {
-            parser: 'html',
-            plugins: [parserHtml],
-        });
+        const modifiedHtml = formatHtml($.root().html());
         this.setContent(path, modifiedHtml);
     }
 }

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { PlaygroundContext, PlaygroundTree } from '../index';
+import { formatCss } from '../utilities/format';
 import { PlaygroundTransformer } from './playground-transformer';
 
 /** Add the UX Aspects and Bootstrap stylesheet to the playground. */
@@ -21,9 +22,11 @@ export class StylesheetPlaygroundTransformer implements PlaygroundTransformer {
         }
 
         // add global playground styling
-        tree.updateHtmlFile(context.htmlEntryPoint, $ => {
-            $('body').css({ padding: '16px', 'background-color': '#fff' });
-        });
+        tree.appendContent(
+            context.cssEntryPoint,
+            'body { padding: 16px; background-color: #fff; }',
+            formatCss
+        );
     }
 
     protected getStylesheets(context: PlaygroundContext): string[] {
