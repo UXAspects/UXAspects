@@ -1,6 +1,6 @@
 import { $, browser, by, element, ElementFinder, protractor } from 'protractor';
 
-export const numberOfCountries: number = 251;
+export const numberOfCountries: number = 252;
 export const scrollingTimeout: number = 5000;
 
 export class SelectPage {

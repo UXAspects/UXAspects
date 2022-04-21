@@ -394,7 +394,7 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
 
     /** Whenever a single select item is selected emit the values */
     _singleOptionSelected(event: TypeaheadOptionEvent): void {
-        if (event.option && event.option !== this.value) {
+        if (event.option !== null && event.option !== this.value) {
             this.value = event.option;
             this.dropdownOpen = false;
             this.valueChange.emit(this.value);
