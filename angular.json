@@ -64,7 +64,10 @@
                         "scripts": [],
                         "allowedCommonJsDependencies": [
                             "chart.js",
-                            "json-templater/object"
+                            "cheerio",
+                            "codesandbox/lib/api/define",
+                            "json-templater/object",
+                            "typescript"
                         ]
                     },
                     "configurations": {
