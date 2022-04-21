@@ -31,14 +31,6 @@ export class AppConfiguration {
         return this.config.baseUrl;
     }
 
-    get assetsUrl(): string {
-        if (!this.config.assetsUrl) {
-            // If not configured, derive from the application's base URL.
-            this.config.assetsUrl = Location.joinWithSlash(this.baseUrl, 'assets');
-        }
-        return this.config.assetsUrl;
-    }
-
     get devRepositoryUrl(): string {
         return this.config.devRepositoryUrl;
     }
