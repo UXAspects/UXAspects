@@ -7,3 +7,4 @@ export * from './icon-set';
 export * from './package-json';
 export * from './rename-angular-json';
 export * from './stylesheet';
+export * from './view-engine-downgrade';

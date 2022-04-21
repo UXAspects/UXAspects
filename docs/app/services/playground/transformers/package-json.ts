@@ -19,7 +19,7 @@ const OPTIONAL_DEPENDENCIES = {
     'chartjs-adapter-moment': '^1.0.0',
     moment: '^2.0.0',
     'ng2-file-upload': '^1.3.0',
-    'ngx-bootstrap': '^8.0.0',
+    'ngx-bootstrap': '^6.2.0',
     'ngx-mask': '^13.0.0',
 };
 
@@ -120,15 +120,6 @@ export class PackageJsonPlaygroundTransformer implements PlaygroundTransformer {
         // packages in a dev build load from localhost
         return `${context.appConfig.packagesUrl}/${packageScope}-${packageName}.tgz`;
     }
-
-    // private getArtifactoryPackageUrl(
-    //     repositoryUrl: string,
-    //     packageScope: string,
-    //     packageName: string,
-    //     version: string
-    // ): string {
-    //     return `${repositoryUrl}/%40${packageScope}/${packageName}/-/%40${packageScope}/${packageScope}-${packageName}-${version}.tgz`;
-    // }
 }
 
 function getPackageScope(name: string): string {
