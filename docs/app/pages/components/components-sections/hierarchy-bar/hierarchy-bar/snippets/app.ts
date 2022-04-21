@@ -10,8 +10,8 @@ import { Observable, Observer } from 'rxjs';
 })
 export class AppComponent {
 
-    managerIcon = 'https://uxaspects.github.io/UXAspects/assets/IconManagerColorized.png';
-    userIcon = 'https://uxaspects.github.io/UXAspects/assets/IconUser.png';
+    managerIcon = 'https://uxaspects.github.io/UXAspects/assets/img/IconManagerColorized.png';
+    userIcon = 'https://uxaspects.github.io/UXAspects/assets/img/IconUser.png';
     mode: string = 'standard';
     node: HierarchyBarNode = {
         title: chance.name(),

@@ -183,7 +183,7 @@ export class AppComponent {
     getHierarchy(node: OrganizationChartNode<OrganizationChartContext>): HierarchyBarNode {
         return {
             title: node.data.name,
-            icon: 'https://uxaspects.github.io/UXAspects/assets/IconManagerColorized.png',
+            icon: 'https://uxaspects.github.io/UXAspects/assets/img/IconManagerColorized.png',
             children: node.children ? node.children.map(child => this.getHierarchy(child)) : null
         } as HierarchyBarNode;
     }

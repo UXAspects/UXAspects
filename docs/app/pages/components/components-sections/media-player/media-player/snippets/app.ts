@@ -10,8 +10,8 @@ export class AppComponent {
     type: string = 'video';
     mode: string = 'standard';
 
-    videoSource: string = `${uxdAssetsUrl}/media/catchingwave.mp4`;
-    audioSource: string = `${uxdAssetsUrl}/media/Ocean-Waves.mp3`;
-    subtitles: string = `${uxdAssetsUrl}/media/subtitles.vtt`;
+    videoSource: string = 'https://uxaspects.github.io/UXAspects/assets/media/catchingwave.mp4';
+    audioSource: string = 'https://uxaspects.github.io/UXAspects/assets/media/Ocean-Waves.mp3';
+    subtitles: string = 'https://uxaspects.github.io/UXAspects/assets/media/subtitles.vtt';
 
 }
