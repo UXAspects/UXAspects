@@ -1,5 +1,5 @@
 const { spawnSync } = require('child_process');
-const { existsSync, moveSync, unlinkSync } = require('fs-extra');
+const { existsSync, moveSync, unlinkSync, mkdirpSync } = require('fs-extra');
 const { dirname, join, resolve } = require('path');
 
 function createPackage(dir, outputPath) {
@@ -21,6 +21,10 @@ function createTempPackage(dir, outputDir) {
         throw new Error(`package.json not found in ${dir}`);
     }
 
+    if (!existsSync(outputDir)) {
+        mkdirpSync(outputDir);
+    }
+
     const command = `npm pack --quiet --pack-destination "${resolve(outputDir)}"`;
     const process = spawnSync(command, {
         cwd: dir,
@@ -29,7 +33,9 @@ function createTempPackage(dir, outputDir) {
     });
 
     if (process.status || process.error) {
-        throw new Error(`npm pack failed: ${process.error ?? process.stderr}`);
+        throw new Error(
+            `command failed: ${command}\ncwd: ${dir}\n${process.error ?? process.stderr}`
+        );
     }
 
     return process.stdout.trim();
