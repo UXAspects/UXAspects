@@ -1,5 +1,5 @@
 {
     "version": "{{VERSION}}",
-    "plunker": "https://plnkr.co/edit/?p=preview",
-    "assetsUrl": "https://localhost:8090/assets"
+    "playgroundUrl": "https://codesandbox.io/api/v1/sandboxes/define",
+    "packagesUrl": "http://localhost:8090"
 }

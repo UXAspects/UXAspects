@@ -25,10 +25,6 @@ export class ComponentsSideInsetPanelSplitterComponent extends BaseDocumentation
             {
                 imports: ['AngularSplitModule'],
                 library: 'angular-split'
-            },
-            {
-                imports: ['AccessibilityModule'],
-                library: '@ux-aspects/ux-aspects'
             }
         ]
     };

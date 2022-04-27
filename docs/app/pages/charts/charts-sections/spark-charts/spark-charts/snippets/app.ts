@@ -2,12 +2,12 @@ import { Component } from '@angular/core';
 import { ColorIdentifier, ColorService } from '@ux-aspects/ux-aspects';
 
 @Component({
-    selector: 'app',
+    selector: 'app-root',
     templateUrl: './app.component.html'
 })
 export class AppComponent {
 
-    
+
     charts: SparkChart[] = [
         {
             theme: 'chart1',

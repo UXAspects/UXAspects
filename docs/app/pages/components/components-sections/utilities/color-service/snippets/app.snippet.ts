@@ -2,7 +2,7 @@ import { ColorService, ThemeColor } from '@ux-aspects/ux-aspects';
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'app',
+    selector: 'app-root',
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.css']
 })

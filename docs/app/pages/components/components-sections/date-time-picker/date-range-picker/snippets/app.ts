@@ -3,7 +3,7 @@ import { Component, ViewEncapsulation } from '@angular/core';
 import { DateTimePickerTimezone, timezones } from '@ux-aspects/ux-aspects';
 
 @Component({
-    selector: 'app',
+    selector: 'app-root',
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.css'],
     encapsulation: ViewEncapsulation.None

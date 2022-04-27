@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import { DocumentationType, DOCUMENTATION_TOKEN } from '../../../../../services/playground/tokens/documentation.token';
+import { DocumentationType, DOCUMENTATION_TOKEN } from '../../../../../tokens/documentation.token';
 import { IIcon, IIcons } from '../../../../../interfaces/IIcons';
 
 @Component({

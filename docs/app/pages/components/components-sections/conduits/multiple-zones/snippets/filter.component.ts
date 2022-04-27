@@ -4,7 +4,7 @@ import { BehaviorSubject } from 'rxjs';
 
 @Component({
     selector: 'app-filter',
-    templateUrl: './filter/filter.component.html',
+    templateUrl: './filter.component.html',
     providers: [ConduitZone]
 })
 export class FilterComponent extends ConduitZoneComponent {

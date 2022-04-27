@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 @Component({
-    selector: 'app',
+    selector: 'app-root',
     templateUrl: './app.component.html'
 })
 export class AppComponent {
@@ -14,7 +14,7 @@ export class AppComponent {
         italic: true,
         underline: false
     };
-    
+
     accentCheckValue = {
         bold: false,
         italic: true,

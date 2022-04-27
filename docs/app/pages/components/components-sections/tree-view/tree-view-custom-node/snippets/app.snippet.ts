@@ -3,7 +3,7 @@ import { TreeNode } from '@circlon/angular-tree-component';
 import { TreeViewService } from './service.ts';
 
 @Component({
-    selector: 'app',
+    selector: 'app-root',
     templateUrl: './app.html',
     styleUrls: ['./app.css']
 })

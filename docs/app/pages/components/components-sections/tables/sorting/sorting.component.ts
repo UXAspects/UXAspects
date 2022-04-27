@@ -29,7 +29,7 @@ export class ComponentsSortingComponent extends BaseDocumentationSection impleme
         modules: [
             {
                 imports: ['BsDropdownModule'],
-                library: 'ngx-bootstrap',
+                library: 'ngx-bootstrap/dropdown',
                 forRoot: true
             },
             {

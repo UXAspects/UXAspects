@@ -2,7 +2,7 @@ import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
 import { ColorPickerColor, ColorService } from '@ux-aspects/ux-aspects';
 
 @Component({
-    selector: 'app',
+    selector: 'app-root',
     templateUrl: 'app.component.html',
     styleUrls: ['app.component.css']
 })

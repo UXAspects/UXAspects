@@ -61,6 +61,11 @@ export default (
         type: 'asset/resource',
     });
 
+    config.module.rules.push({
+        test: /playground[/\\]templates/,
+        type: 'asset/source'
+    });
+
     config.plugins.push(new webpack.DefinePlugin({
         VERSION: JSON.stringify(pkg.version),
         PRODUCTION: targetOptions.configuration === 'production',

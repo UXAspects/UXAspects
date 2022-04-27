@@ -5,7 +5,7 @@ import { Chart, ChartDataset, ChartOptions, TooltipItem } from 'chart.js';
 import { MultipleAxisLineChartService } from './data.service';
 
 @Component({
-    selector: 'app',
+    selector: 'app-root',
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.css'],
     encapsulation: ViewEncapsulation.None,
