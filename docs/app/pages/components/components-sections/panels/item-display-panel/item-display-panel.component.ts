@@ -32,7 +32,7 @@ export class ComponentsItemDisplayPanelComponent extends BaseDocumentationSectio
             'app.component.css': this.snippets.raw.appCss
         },
         modules: [{
-            imports: ['ItemDisplayPanelModule', 'ColorServiceModule', 'SparkModule', 'AccessibilityModule'],
+            imports: ['ItemDisplayPanelModule', 'SparkModule'],
             library: '@ux-aspects/ux-aspects'
         }]
     };

@@ -31,7 +31,7 @@ export class ComponentsSlidersComponent extends BaseDocumentationSection impleme
             'app.component.html': this.snippets.raw.appHtml
         },
         modules: [{
-            imports: ['SliderModule', 'ColorServiceModule'],
+            imports: ['SliderModule'],
             library: '@ux-aspects/ux-aspects'
         }]
     };

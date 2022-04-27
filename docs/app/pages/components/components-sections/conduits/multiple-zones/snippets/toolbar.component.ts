@@ -4,8 +4,8 @@ import { BehaviorSubject } from 'rxjs';
 
 @Component({
     selector: 'app-toolbar',
-    templateUrl: './toolbar/toolbar.component.html',
-    styleUrls: ['./toolbar/toolbar.component.css'],
+    templateUrl: './toolbar.component.html',
+    styleUrls: ['./toolbar.component.css'],
     providers: [ConduitZone]
 })
 export class ToolbarComponent extends ConduitZoneComponent {

@@ -23,10 +23,6 @@ export class ComponentsSplitterComponent extends BaseDocumentationSection implem
             {
                 imports: ['AngularSplitModule'],
                 library: 'angular-split'
-            },
-            {
-                imports: ['AccessibilityModule'],
-                library: '@ux-aspects/ux-aspects'
             }
         ]
     };

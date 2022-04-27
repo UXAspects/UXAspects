@@ -21,30 +21,43 @@ export class AppConfiguration {
     public documentationPages = ['components-page', 'css-page', 'charts-page'];
 
     get version(): string {
-        return this.config['version'];
+        return environment.version;
     }
 
     get baseUrl(): string {
-        if (!this.config['baseUrl']) {
-            this.config['baseUrl'] = this.getBaseUrl();
+        if (!this.config.baseUrl) {
+            this.config.baseUrl = this.getBaseUrl();
         }
-        return this.config['baseUrl'];
+        return this.config.baseUrl;
     }
 
-    get assetsUrl(): string {
-        if (!this.config['assetsUrl']) {
-            // If not configured, derive from the application's base URL.
-            this.config['assetsUrl'] = Location.joinWithSlash(this.baseUrl, 'assets');
-        }
-        return this.config['assetsUrl'];
+    get devRepositoryUrl(): string {
+        return this.config.devRepositoryUrl;
     }
 
-    get plunker(): string {
-        return this.config['plunker'];
+    get packagesUrl(): string {
+        return this.config.packagesUrl;
     }
 
-    get getUniversalUrl(): string {
-        return this.config['universal'];
+    get playgroundUrl(): string {
+        return this.config.playgroundUrl;
+    }
+
+    get universalUrl(): string {
+        return this.config.universal;
+    }
+
+    get isProduction(): boolean {
+        return environment.production;
+    }
+
+    get isPreRelease(): boolean {
+        return prerelease(this.version) === null ? false : true;
+    }
+
+    get branchName(): string | null {
+        const pre = prerelease(this.version)?.join('.');
+        return pre?.replace(/-?SNAPSHOT$/, '');
     }
 
     get config(): { [key: string]: any } {

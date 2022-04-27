@@ -17,7 +17,7 @@ export class MigrateLinkComponent implements OnDestroy {
     @Input() migration: Migration;
 
     SiteThemeId = SiteThemeId;
-    universalUrl: string = this._appConfig.getUniversalUrl;
+    universalUrl: string = this._appConfig.universalUrl;
     theme: SiteThemeId = this._siteThemeService.theme$.getValue();
 
     private _onDestroy = new Subject<void>();

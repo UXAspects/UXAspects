@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { ColorService, NestedDonutChartData } from '@ux-aspects/ux-aspects';
 
 @Component({
-    selector: 'app',
+    selector: 'app-root',
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.css']
 })

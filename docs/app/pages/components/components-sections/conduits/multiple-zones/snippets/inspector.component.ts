@@ -2,8 +2,8 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
     selector: 'app-zone-inspector',
-    templateUrl: './inspector/inspector.component.html',
-    styleUrls: ['./inspector/inspector.component.css']
+    templateUrl: './inspector.component.html',
+    styleUrls: ['./inspector.component.css']
 })
 export class ZoneInspectorComponent {
 

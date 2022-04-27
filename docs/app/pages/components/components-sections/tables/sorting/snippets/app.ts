@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'app',
+    selector: 'app-root',
     templateUrl: './app.component.html'
 })
 export class AppComponent {
-    
+
     options: string[] = [
         'Date Modified',
         'Name',
@@ -16,7 +16,7 @@ export class AppComponent {
     descending: boolean = true;
 
     /**
-     * Perform any sorting here 
+     * Perform any sorting here
      */
     sort(option: string): void {
         // store the selected option to be displayed in the UI

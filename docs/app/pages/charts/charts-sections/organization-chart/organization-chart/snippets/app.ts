@@ -4,7 +4,7 @@ import 'chance';
 import { Observable } from 'rxjs';
 
 @Component({
-    selector: 'app',
+    selector: 'app-root',
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.css']
 })
@@ -183,7 +183,7 @@ export class AppComponent {
     getHierarchy(node: OrganizationChartNode<OrganizationChartContext>): HierarchyBarNode {
         return {
             title: node.data.name,
-            icon: 'https://uxaspects.github.io/UXAspects/assets/IconManagerColorized.png',
+            icon: 'https://uxaspects.github.io/UXAspects/assets/img/IconManagerColorized.png',
             children: node.children ? node.children.map(child => this.getHierarchy(child)) : null
         } as HierarchyBarNode;
     }

@@ -128,7 +128,7 @@ export class ComponentsDraggableCardsComponent extends BaseDocumentationSection 
         },
         modules: [
             {
-                imports: ['ReorderableModule', 'ColorServiceModule', 'AccessibilityModule'],
+                imports: ['ReorderableModule'],
                 library: '@ux-aspects/ux-aspects'
             },
             {

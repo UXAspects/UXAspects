@@ -12,7 +12,7 @@ const DATE_LOCALE_OPTIONS = {
 } as const;
 
 @Component({
-    selector: 'app',
+    selector: 'app-root',
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.css'],
     providers: [TimelineChartService]

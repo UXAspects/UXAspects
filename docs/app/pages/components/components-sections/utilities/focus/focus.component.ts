@@ -20,13 +20,7 @@ export class ComponentsFocusComponent extends BaseDocumentationSection implement
             'app.component.html': this.snippets.raw.appHtml,
             'app.component.ts': this.snippets.raw.appTs,
             'app.component.css': this.snippets.raw.appCss,
-        },
-        modules: [
-            {
-                imports: ['AccessibilityModule'],
-                library: '@ux-aspects/ux-aspects'
-            }
-        ]
+        }
     };
 
     constructor() {
