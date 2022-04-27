@@ -4,7 +4,7 @@ import { Filter, FilterAddEvent, FilterEvent, FilterRemoveAllEvent, FilterRemove
 import 'chance';
 
 @Component({
-    selector: 'app',
+    selector: 'app-root',
     templateUrl: './app.component.html',
 })
 export class AppComponent {

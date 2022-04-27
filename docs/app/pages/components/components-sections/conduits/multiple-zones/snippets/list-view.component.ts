@@ -5,7 +5,7 @@ import { BehaviorSubject, Subscription } from 'rxjs';
 
 @Component({
     selector: 'app-list-view',
-    templateUrl: './list-view/list-view.component.html',
+    templateUrl: './list-view.component.html',
     providers: [ConduitZone]
 })
 export class ListViewComponent extends ConduitZoneComponent implements OnDestroy {

@@ -4,7 +4,7 @@ import { FormControl, Validators } from '@angular/forms';
 import { MarqueeWizardComponent } from '@ux-aspects/ux-aspects';
 
 @Component({
-    selector: 'app',
+    selector: 'app-root',
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.css']
 })

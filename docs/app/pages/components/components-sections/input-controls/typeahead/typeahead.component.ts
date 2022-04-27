@@ -4,7 +4,7 @@ import { DocumentationSectionComponent } from '../../../../../decorators/documen
 import { IPlayground } from '../../../../../interfaces/IPlayground';
 import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
 import 'chance';
-import { DOCUMENTATION_TOKEN, DocumentationType } from '../../../../../services/playground/tokens/documentation.token';
+import { DOCUMENTATION_TOKEN, DocumentationType } from '../../../../../tokens/documentation.token';
 import { TypeaheadKeyService } from '@ux-aspects/ux-aspects';
 import { of } from 'rxjs';
 import { delay } from 'rxjs/operators';

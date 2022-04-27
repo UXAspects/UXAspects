@@ -4,7 +4,7 @@ import 'chance';
 import { Observable, Observer } from 'rxjs';
 
 @Component({
-    selector: 'app',
+    selector: 'app-root',
     templateUrl: './app.component.html'
 })
 export class AppComponent {

@@ -3,7 +3,7 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
 import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
-import { DocumentationType, DOCUMENTATION_TOKEN } from '../../../../../services/playground/tokens/documentation.token';
+import { DocumentationType, DOCUMENTATION_TOKEN } from '../../../../../tokens/documentation.token';
 
 @Component({
     selector: 'uxd-components-buttons-split-button-dropdowns',
@@ -16,7 +16,7 @@ export class ComponentsSplitButtonDropdownsComponent extends BaseDocumentationSe
             'app.component.html':
                 this._documentationType === DocumentationType.MicroFocus
                     ? this.snippets.raw.appMicrofocusHtml
-                    : this.snippets.raw.appKeppelHtml,
+                    : this.snippets.raw.appHtml,
             'app.component.ts': this.snippets.raw.appTs
         },
         modules: [
@@ -35,6 +35,6 @@ export class ComponentsSplitButtonDropdownsComponent extends BaseDocumentationSe
         this.snippets.compiled.appHtml =
             this._documentationType === DocumentationType.MicroFocus
                 ? this.snippets.compiled.appMicrofocusHtml
-                : this.snippets.compiled.appKeppelHtml;
+                : this.snippets.compiled.appHtml;
     }
 }

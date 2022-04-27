@@ -20,7 +20,7 @@ export class ComponentsToolbarSearchComponent extends BaseDocumentationSection i
         },
         modules: [
             {
-                imports: ['ToolbarSearchModule', 'ColorServiceModule', 'TooltipModule'],
+                imports: ['ToolbarSearchModule', 'TooltipModule'],
                 library: '@ux-aspects/ux-aspects'
             }
         ]

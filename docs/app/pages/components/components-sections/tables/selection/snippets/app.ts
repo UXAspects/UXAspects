@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import 'chance';
 
 @Component({
-    selector: 'app',
+    selector: 'app-root',
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.css']
 })

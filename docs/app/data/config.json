@@ -1,4 +1,5 @@
 {
     "version": "{{VERSION}}",
-    "plunker": "https://plnkr.co/edit/?p=preview"
+    "playgroundUrl": "https://codesandbox.io/api/v1/sandboxes/define",
+    "devRepositoryUrl": "https://svsartifactory.swinfra.net:443/artifactory/saas-npm-dev-local"
 }

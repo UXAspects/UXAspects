@@ -30,7 +30,7 @@ export class ComponentsFocusIndicatorComponent extends BaseDocumentationSection 
         },
         modules: [
             {
-                imports: ['AccessibilityModule', 'AccordionModule', 'CheckboxModule'],
+                imports: ['AccordionModule', 'CheckboxModule'],
                 library: '@ux-aspects/ux-aspects'
             }
         ]

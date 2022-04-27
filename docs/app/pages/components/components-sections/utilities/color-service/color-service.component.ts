@@ -26,7 +26,7 @@ export class ComponentsColorServiceComponent extends BaseDocumentationSection im
             imports: ['NgChartsModule'],
             library: 'ng2-charts'
         }, {
-            imports: ['ColorServiceModule', 'SelectModule'],
+            imports: ['SelectModule'],
             library: '@ux-aspects/ux-aspects'
         }]
     };

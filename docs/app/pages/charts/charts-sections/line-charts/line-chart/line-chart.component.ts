@@ -25,9 +25,6 @@ export class ChartsLineChartComponent extends BaseDocumentationSection implement
         {
             imports: ['NgChartsModule'],
             library: 'ng2-charts'
-        }, {
-            imports: ['ColorServiceModule'],
-            library: '@ux-aspects/ux-aspects'
         }]
     };
 

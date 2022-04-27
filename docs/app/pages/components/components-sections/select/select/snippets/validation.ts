@@ -6,7 +6,7 @@ import {
 	Validators
 } from '@angular/forms';
 @Component({
-    selector: 'app',
+    selector: 'app-root',
     templateUrl: './app.component.html'
 })
 export class AppComponent implements OnDestroy {

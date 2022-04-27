@@ -31,9 +31,6 @@ export class ChartsMultipleAxisLineChartComponent extends BaseDocumentationSecti
         {
             imports: ['NgChartsModule'],
             library: 'ng2-charts'
-        }, {
-            imports: ['ColorServiceModule'],
-            library: '@ux-aspects/ux-aspects'
         }]
     };
 

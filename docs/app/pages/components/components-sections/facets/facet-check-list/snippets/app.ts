@@ -3,7 +3,7 @@ import { Facet, FacetDeselect, FacetDeselectAll, FacetEvent, FacetSelect } from 
 import 'chance';
 
 @Component({
-    selector: 'app',
+    selector: 'app-root',
     templateUrl: './app.component.html'
 })
 export class AppComponent {

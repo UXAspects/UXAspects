@@ -2,7 +2,7 @@ import { ColorService, ThemeColor } from '@ux-aspects/ux-aspects';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-    selector: 'app',
+    selector: 'app-root',
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.css']
 })
@@ -13,7 +13,7 @@ export class AppComponent implements OnInit {
 
     salesColorNames = ['chart1', 'chart2', 'chart3'];
     salesColorValues = this.salesColorNames.map(color => this.colorService.getColor(color).toHex());
-    
+
     // configure the directive data
     donutChartData: Chart.ChartData = [{
         data: [33, 34, 33],

@@ -25,9 +25,6 @@ export class ChartsStackedBarChartComponent extends BaseDocumentationSection imp
         {
             imports: ['NgChartsModule'],
             library: 'ng2-charts'
-        }, {
-            imports: ['ColorServiceModule'],
-            library: '@ux-aspects/ux-aspects'
         }]
     };
 
