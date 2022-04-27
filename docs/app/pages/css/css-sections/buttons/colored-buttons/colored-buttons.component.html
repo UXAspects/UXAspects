@@ -1,10 +1,3 @@
-<ux-alert *ngIf="theme === SiteThemeId.MicroFocusNext" class="m-b" type="warning">
-    <ux-icon uxAlertIcon name="status-warning-filled"></ux-icon>
-    <span>
-        The Neutral button is deprecated and will be removed in the next major release.
-    </span>
-</ux-alert>
-
 <ng-container [ngSwitch]="theme">
     <div *ngSwitchDefault class="btn-container">
         <button type="button" class="btn button-primary">Primary</button>
@@ -17,7 +10,6 @@
     <div *ngSwitchCase="SiteThemeId.MicroFocusNext" class="btn-container">
         <button type="button" class="btn button-primary">Primary</button>
         <button type="button" class="btn button-secondary">Secondary</button>
-        <button type="button" class="btn button-neutral">Neutral</button>
         <button type="button" class="btn button-warning">Warning</button>
         <button type="button" class="btn button-primary" disabled>Disabled</button>
     </div>
