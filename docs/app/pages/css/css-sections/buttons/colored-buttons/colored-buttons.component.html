@@ -1,19 +1,11 @@
-<ng-container [ngSwitch]="theme">
-    <div *ngSwitchDefault class="btn-container">
-        <button type="button" class="btn button-primary">Primary</button>
-        <button type="button" class="btn button-secondary">Secondary</button>
-        <button type="button" class="btn button-accent">Accent</button>
-        <button type="button" class="btn button-warning">Warning</button>
-        <button type="button" class="btn button-primary" disabled>Disabled</button>
-    </div>
+<div class="btn-container">
+    <button type="button" class="btn button-primary">Primary</button>
+    <button type="button" class="btn button-secondary">Secondary</button>
+    <button type="button" class="btn button-accent">Accent</button>
+    <button type="button" class="btn button-warning">Warning</button>
+    <button type="button" class="btn button-primary" disabled>Disabled</button>
+</div>
 
-    <div *ngSwitchCase="SiteThemeId.MicroFocusNext" class="btn-container">
-        <button type="button" class="btn button-primary">Primary</button>
-        <button type="button" class="btn button-secondary">Secondary</button>
-        <button type="button" class="btn button-warning">Warning</button>
-        <button type="button" class="btn button-primary" disabled>Disabled</button>
-    </div>
-</ng-container>
 
 <hr>
 
