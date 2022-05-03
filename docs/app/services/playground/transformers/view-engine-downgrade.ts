@@ -28,7 +28,6 @@ function isViewEngineModule(playgroundModule: IPlaygroundModule): boolean {
     return (
         playgroundModule.library === 'angular-split' ||
         playgroundModule.library === 'ng2-file-upload' ||
-        playgroundModule.library?.startsWith('ngx-bootstrap') ||
         imports.findIndex(_import => _import === 'MarqueeWizardModule') >= 0
     );
 }

@@ -19,7 +19,7 @@ const OPTIONAL_DEPENDENCIES = {
     'chartjs-adapter-moment': '^1.0.0',
     moment: '^2.0.0',
     'ng2-file-upload': '^1.3.0',
-    'ngx-bootstrap': '^6.2.0',
+    'ngx-bootstrap': '^8.0.0',
     'ngx-mask': '^13.0.0',
 };
 

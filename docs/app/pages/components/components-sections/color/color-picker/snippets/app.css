@@ -5,3 +5,7 @@
 .btn-container.demo-color-picker-close > button {
     width: 100%;
 }
+
+.btn-group {
+    display: inline-block !important;
+}
