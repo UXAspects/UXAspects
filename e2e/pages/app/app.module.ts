@@ -23,6 +23,10 @@ const routes: Routes = [
         loadChildren: () => import('./checkbox/checkbox.module').then(m => m.CheckboxTestPageModule)
     },
     {
+        path: 'color-picker',
+        loadChildren: () => import('./color-picker/color-picker.testpage.component.module').then(m => m.ColumnPickerTestPageModule)
+    },
+    {
         path: 'column-resizing',
         loadChildren: () => import('./column-resizing/column-resizing.module').then(m => m.ColumnResizingTestPageModule)
     },
