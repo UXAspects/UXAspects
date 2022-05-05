@@ -1,4 +1,4 @@
-import { Key } from 'protractor';
+import { browser, Key } from 'protractor';
 import { imageCompare } from '../common/image-compare';
 import { RadioButtonsPage } from './radiobuttons.po.spec';
 
@@ -123,5 +123,15 @@ describe('RadioButton Tests', () => {
         expect(await page.confirmIsChecked(page.radiobutton4)).toBeFalsy();
         expect(await page.text1.getText()).toBe('string');
 
+    });
+
+    it('should allow selection via the keyboard when no radio button is selected', async () => {
+
+        await page.removeSelected.click();
+
+        await browser.actions().sendKeys(Key.chord(Key.SHIFT, Key.TAB)).perform();
+        await browser.actions().sendKeys(Key.ARROW_UP).perform();
+
+        expect(await page.text1.getText()).toBe('[object Object]');
     });
 });
