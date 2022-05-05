@@ -13,7 +13,7 @@ export class RadioButtonsPage {
     text1 = element(by.id('text1'));
     disableFirstButton = element(by.id('button1'));
     changeToSimplified = element(by.id('button2'));
-    removeSelected = element(by.id('button3'));
+    removeSelected = element(by.id('remove-selected-button'));
 
     confirmIsChecked(radiobutton: ElementFinder) {
         return radiobutton.$('.ux-radio-button-checked').isPresent();
