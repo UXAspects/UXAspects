@@ -7,7 +7,6 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 @Component({
     selector: 'uxd-components-sorting',
     templateUrl: './sorting.component.html',
-    styleUrls: ['./sorting.component.less'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 @DocumentationSectionComponent('ComponentsSortingComponent')
