@@ -7,7 +7,7 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 @Component({
     selector: 'uxd-components-sorting',
     templateUrl: './sorting.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 @DocumentationSectionComponent('ComponentsSortingComponent')
 export class ComponentsSortingComponent extends BaseDocumentationSection implements IPlaygroundProvider {
