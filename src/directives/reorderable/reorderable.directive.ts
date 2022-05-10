@@ -1,13 +1,17 @@
-import { CdkDragDrop, CdkDropList, CDK_DROP_LIST, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import {
+    CdkDragDrop,
+    CdkDropList,
+    CDK_DROP_LIST,
+    moveItemInArray,
+    transferArrayItem,
+} from '@angular/cdk/drag-drop';
 import { Directive, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 @Directive({
     selector: '[uxReorderable]',
-    providers: [
-        { provide: CDK_DROP_LIST, useExisting: ReorderableDirective },
-    ],
+    providers: [{ provide: CDK_DROP_LIST, useExisting: ReorderableDirective }],
 })
 export class ReorderableDirective<T> extends CdkDropList<T> implements OnInit, OnDestroy {
     /**
@@ -67,9 +71,13 @@ export class ReorderableDirective<T> extends CdkDropList<T> implements OnInit, O
     private readonly _destroy$ = new Subject<void>();
 
     ngOnInit(): void {
-        this.dropped.subscribe((dropEvent: CdkDragDrop<T>) => {
+        this.dropped.pipe(takeUntil(this._destroy$)).subscribe((dropEvent: CdkDragDrop<T>) => {
             if (dropEvent.previousContainer === dropEvent.container) {
-                moveItemInArray(this.reorderableModel, dropEvent.previousIndex, dropEvent.currentIndex);
+                moveItemInArray(
+                    this.reorderableModel,
+                    dropEvent.previousIndex,
+                    dropEvent.currentIndex
+                );
             } else {
                 const previousContainer = dropEvent.previousContainer as ReorderableDirective<T>;
                 const currentContainer = dropEvent.container as ReorderableDirective<T>;
@@ -89,8 +97,10 @@ export class ReorderableDirective<T> extends CdkDropList<T> implements OnInit, O
         ReorderableDirective._groups$
             .pipe(takeUntil(this._destroy$))
             .subscribe(
-                (groups) =>
-                    (this.connectedTo = (groups[this.reorderableGroup] ?? []).filter((group) => group !== this.id))
+                groups =>
+                    (this.connectedTo = (groups[this.reorderableGroup] ?? []).filter(
+                        group => group !== this.id
+                    ))
             );
     }
 

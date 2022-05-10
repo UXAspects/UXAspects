@@ -1,4 +1,4 @@
-import { CdkDrag, CdkDragDrop } from '@angular/cdk/drag-drop';
+import { CdkDrag, CdkDragDrop, CDK_DRAG_PARENT } from '@angular/cdk/drag-drop';
 import { Directive, Input, OnDestroy, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -6,6 +6,7 @@ import { ReorderableDirective } from './reorderable.directive';
 
 @Directive({
     selector: '[uxReorderableModel]',
+    providers: [{ provide: CDK_DRAG_PARENT, useExisting: ReorderableModelDirective }],
     host: {
         '[class.ux-reorderable-moving]': '_dragRef.isDragging()',
     },
@@ -29,10 +30,15 @@ export class ReorderableModelDirective<T> extends CdkDrag implements OnInit, OnD
         // cast the drop container as we have replaced it with our directive
         const dropContainer = this.dropContainer as ReorderableDirective<T>;
 
-        this._dragRef.beforeStarted.pipe(takeUntil(this._destroy$)).subscribe(() => this.captureTableCellStyles());
+        this._dragRef.beforeStarted
+            .pipe(takeUntil(this._destroy$))
+            .subscribe(() => this.captureTableCellStyles());
 
         this.started.pipe(takeUntil(this._destroy$)).subscribe(() => {
-            dropContainer.reorderStart.emit({ element: this.element.nativeElement, model: this.data });
+            dropContainer.reorderStart.emit({
+                element: this.element.nativeElement,
+                model: this.data,
+            });
             this.setTableCellWidths();
         });
 
@@ -41,9 +47,15 @@ export class ReorderableModelDirective<T> extends CdkDrag implements OnInit, OnD
                 dragEvent.container === dragEvent.previousContainer &&
                 dragEvent.currentIndex === dragEvent.previousIndex
             ) {
-                dropContainer.reorderCancel.emit({ element: this.element.nativeElement, model: this.data });
+                dropContainer.reorderCancel.emit({
+                    element: this.element.nativeElement,
+                    model: this.data,
+                });
             } else {
-                dropContainer.reorderEnd.emit({ element: this.element.nativeElement, model: this.data });
+                dropContainer.reorderEnd.emit({
+                    element: this.element.nativeElement,
+                    model: this.data,
+                });
             }
         });
     }
