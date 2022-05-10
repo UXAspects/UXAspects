@@ -33,14 +33,14 @@ export class RadioButtonComponent<T = any> implements ControlValueAccessor {
     /** Specify if this is a required input */
     @Input() required: boolean;
 
-    /** Specify the tabindex */
-    @Input() tabindex: number = 0;
-
     /** If set to `true` the radio button will not change state when clicked. */
     @Input() clickable: boolean = true;
 
     /** If this value is set to `true` then the radio button will be disabled */
     @Input() disabled: boolean = false;
+
+    /** If this value is set to `true` then the radio button will be readonly */
+    @Input() readonly: boolean = false;
 
     /** If set to `true` the checkbox will be displayed without a border and background. */
     @Input() simplified: boolean = false;
@@ -75,7 +75,7 @@ export class RadioButtonComponent<T = any> implements ControlValueAccessor {
     constructor(
         private readonly _changeDetector: ChangeDetectorRef,
         @Optional() private readonly _group: RadioButtonGroupDirective
-    ) {}
+    ) { }
 
     /** Select the current option */
     select(): void {
