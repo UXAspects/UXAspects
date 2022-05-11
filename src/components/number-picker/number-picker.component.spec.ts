@@ -428,6 +428,7 @@ describe('Number Picker Component - FormGroup', () => {
         <ux-number-picker [min]="min"
                           [max]="max"
                           [disabled]="disabled"
+                          aria-label="Example label"
                           [(ngModel)]="value">
         </ux-number-picker>
 
@@ -555,6 +556,10 @@ describe('Number Picker Component - ngModel', () => {
 
     it('should have aria-valuemax as the max value', () => {
         expect(input.getAttribute('aria-valuemax')).toBe('10');
+    });
+
+    it('should have an aria-label when provided as an input', () => {
+        expect(input.getAttribute('aria-label')).toBe('Example label');
     });
 });
 
