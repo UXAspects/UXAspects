@@ -273,7 +273,6 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
 
         // update the thumb state
         this.setThumbState(thumb, state.hover, state.drag);
-        this.updateOrder(thumb);
 
     }
 
@@ -454,32 +453,14 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
 
     }
 
-    private initialiseThumbOrder(): void {
-        const lowerValue = this.getThumbValue(this.sliderThumb.Lower);
-        const upperValue = this.getThumbValue(this.sliderThumb.Upper);
-        const max = this._options?.track?.max;
-
-        if (max === upperValue && max === lowerValue) {
-            this.thumbs.lower.order = 101;
-            this.thumbs.upper.order = 100;
-        }
-    }
-
     private updateOrder(thumb: SliderThumb): void {
-        const lowerValue = this.getThumbValue(this.sliderThumb.Lower);
-        const upperValue = this.getThumbValue(this.sliderThumb.Upper);
-        const lowerOrder = thumb === SliderThumb.Lower ? 101 : 100;
-        const upperOrder = thumb === SliderThumb.Lower ? 100 : 101;
-        const max = this._options?.track?.max;
+
+        const lower = thumb === SliderThumb.Lower ? 101 : 100;
+        const upper = thumb === SliderThumb.Lower ? 100 : 101;
 
         // The most recently used thumb should be above
-        this.thumbs.lower.order = lowerOrder;
-        this.thumbs.upper.order = upperOrder;
-
-        if (max === upperValue && max === lowerValue) {
-            this.thumbs.lower.order = 101;
-            this.thumbs.upper.order = 100;
-        }
+        this.thumbs.lower.order = lower;
+        this.thumbs.upper.order = upper;
     }
 
     private getTickDistances(value: number, thumb: SliderThumb, snapTarget: SliderSnap): SliderTick[] {
@@ -642,8 +623,6 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
         } else {
             this.valueChange.emit(this.clone(this.value));
         }
-
-        // this.initialiseThumbOrder();
     }
 
     private setThumbValue(thumb: SliderThumb, value: number): void {
