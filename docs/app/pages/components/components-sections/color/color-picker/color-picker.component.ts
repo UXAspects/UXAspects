@@ -1,5 +1,5 @@
-import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
-import { ColorPickerColor, ColorService } from '@ux-aspects/ux-aspects';
+import { Component, ElementRef, ViewChild } from '@angular/core';
+import { ColorPickerColor, ColorService, MenuTriggerDirective } from '@ux-aspects/ux-aspects';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
@@ -40,15 +40,20 @@ export class ComponentsColorPickerComponent extends BaseDocumentationSection imp
     showTooltips = false;
     showInput = false;
 
-    isPickerOpen = true;
-
-    @ViewChild('toggleButton', { static: true }) toggleButton: ElementRef;
-    @ViewChild('dropdownMenu', { static: false }) dropdownMenu: ElementRef;
-    @ViewChild('customize', { static: true }) customize: ElementRef;
+    @ViewChild('toggleButton') toggleButton?: ElementRef<HTMLButtonElement>;
+    @ViewChild(MenuTriggerDirective) menuTrigger?: MenuTriggerDirective;
 
     private _colorNames = [
-        ['Primary', 'Accent', 'Secondary', 'Alternate1', 'Alternate2', 'Alternate3', 'Vibrant1',
-            'Vibrant2'],
+        [
+            'Primary',
+            'Accent',
+            'Secondary',
+            'Alternate1',
+            'Alternate2',
+            'Alternate3',
+            'Vibrant1',
+            'Vibrant2'
+        ],
         ['Grey1', 'Grey2', 'Grey3', 'Grey4', 'Grey5', 'Grey6', 'Grey7', 'Grey8']
     ];
 
@@ -61,21 +66,14 @@ export class ComponentsColorPickerComponent extends BaseDocumentationSection imp
         this.selected = this.colors[0][0];
     }
 
-    colorPickerSelectedChange(): void {
-        if (!this.showInput) {
-            this.isPickerOpen = false;
-        }
+    close(): void {
+        this.menuTrigger?.closeMenu();
+        this.toggleButton?.nativeElement.focus();
     }
 
-    @HostListener('document:click', ['$event.target'])
-    clickHandler(target: Node): void {
-        // Close on outside click
-        if (
-            !this.toggleButton.nativeElement.contains(target) &&
-            !this.dropdownMenu.nativeElement.contains(target) &&
-            !this.customize.nativeElement.contains(target)
-        ) {
-            this.isPickerOpen = false;
+    onColorPickerSelectedChange(): void {
+        if (!this.showInput) {
+            this.close();
         }
     }
 }
