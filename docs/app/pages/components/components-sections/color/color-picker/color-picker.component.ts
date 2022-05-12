@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import { ColorPickerColor, ColorService, MenuTriggerDirective } from '@ux-aspects/ux-aspects';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
@@ -11,7 +11,7 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
     styleUrls: ['./color-picker.component.less']
 })
 @DocumentationSectionComponent('ComponentsColorPickerComponent')
-export class ComponentsColorPickerComponent extends BaseDocumentationSection implements IPlaygroundProvider {
+export class ComponentsColorPickerComponent extends BaseDocumentationSection implements IPlaygroundProvider, AfterViewInit {
 
     playground: IPlayground = {
         files: {
@@ -21,13 +21,8 @@ export class ComponentsColorPickerComponent extends BaseDocumentationSection imp
         },
         modules: [
             {
-                imports: ['ColorPickerModule'],
+                imports: ['ColorPickerModule, MenuModule'],
                 library: '@ux-aspects/ux-aspects'
-            },
-            {
-                imports: ['BsDropdownModule'],
-                forRoot: true,
-                library: 'ngx-bootstrap/dropdown'
             }
         ]
     };
@@ -64,6 +59,10 @@ export class ComponentsColorPickerComponent extends BaseDocumentationSection imp
             row.map(colorName => new ColorPickerColor(colorName, colorService.resolve(colorName))));
 
         this.selected = this.colors[0][0];
+    }
+
+    ngAfterViewInit(): void {
+        this.menuTrigger.openMenu();
     }
 
     close(): void {

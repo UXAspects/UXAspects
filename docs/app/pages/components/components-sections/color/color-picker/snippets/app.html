@@ -1,49 +1,38 @@
-<div class="demo-color-picker-container bs-dropdown-container">
-    <div class="btn-group"
-        (keydown.esc)="isPickerOpen = false; toggleButton.focus()"
-        dropdown
-        [(isOpen)]="isPickerOpen"
-        [autoClose]="false">
-
-        <button type="button"
-            aria-label="Select a color"
-            class="btn button-secondary dropdown-toggle"
-            #toggleButton
-            dropdownToggle>
-
-            <span class="ux-color-picker-button-preview" [style.background-color]="selected.rgba">
-                &nbsp;
-            </span>
-            <ux-icon name="chevron-down"></ux-icon>
-
-        </button>
-
-        <div *dropdownMenu
-            #dropdownMenu
-            id="color-picker-dropdown"
-            class="dropdown-menu ux-color-picker-dropdown">
-
-            <ux-color-picker
-                [colors]="colors"
-                [(selected)]="selected"
-                (selectedChange)="colorPickerSelectedChange(); toggleButton.focus()"
-                [columns]="columns"
-                [buttonStyle]="buttonStyle"
-                [buttonSize]="buttonSize"
-                [showTooltips]="showTooltips"
-                [showInput]="showInput"
-                (inputSubmit)="isPickerOpen = false"></ux-color-picker>
-
-            <div *ngIf="showInput" class="btn-container demo-color-picker-close">
-                <button type="button" class="btn button-primary" (click)="isPickerOpen = false">
-                    Accept
-                </button>
-            </div>
-
-        </div>
-    </div>
+<div class="demo-color-picker-container">
+    <button
+        type="button"
+        aria-label="Select a color"
+        class="btn button-secondary dropdown-toggle"
+        #toggleButton
+        [uxMenuTriggerFor]="dropdownMenu"
+    >
+        <span class="ux-color-picker-button-preview" [style.background-color]="selected.rgba">
+            &nbsp;
+        </span>
+        <ux-icon name="chevron-down"></ux-icon>
+    </button>
 
     <span class="m-l-lg">
-        Selected: <code>{{selected.hex}}</code> &mdash; <code>{{selected.rgba}}</code>
+        Selected: <code>{{ selected.hex }}</code> &mdash;
+        <code>{{ selected.rgba }}</code>
     </span>
 </div>
+
+<ux-menu #dropdownMenu id="color-picker-dropdown">
+    <div uxMenuItem [closeOnSelect]="false">
+        <ux-color-picker
+            [colors]="colors"
+            [(selected)]="selected"
+            (selectedChange)="onColorPickerSelectedChange()"
+            [columns]="columns"
+            [buttonStyle]="buttonStyle"
+            [buttonSize]="buttonSize"
+            [showTooltips]="showTooltips"
+            [showInput]="showInput"
+            (inputSubmit)="close()"
+        ></ux-color-picker>
+        <div *ngIf="showInput" class="btn-container demo-color-picker-close">
+            <button type="button" class="btn button-primary" (click)="close()">Accept</button>
+        </div>
+    </div>
+</ux-menu>
