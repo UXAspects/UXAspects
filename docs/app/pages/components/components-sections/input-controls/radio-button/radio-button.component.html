@@ -25,8 +25,7 @@
 </div>
 
 <p class="m-t">
-    <code>radioModel</code> is <em>{{ selected }}</em
-    >.
+    <code>radioModel</code> is <em>{{ selected }}</em>.
 </p>
 
 <div>
@@ -109,17 +108,25 @@
 
 <h4>Keyboard Accessibility</h4>
 <p>
-    Due to an issue within native HTML it is impossible to select any of the radio buttons while one
-    is `selected` and `disabled` when using the keyboard. As a workaround we recommend removing the
-    selected state from the radio button when disabling it. Below is a code example of this.
+    Due to an issue within native HTML it is impossible to focus any of the
+    <code>ux-radio-buttons</code> while one is <code>selected</code> and <code>disabled</code> when
+    using the keyboard. As a workaround we recommend removing the <code>selected</code> state from
+    the <code>ux-radio-button</code> when disabling it.
 </p>
+<p>Below is a code example:</p>
 
 <ux-tabset [minimal]="false">
     <ux-tab heading="HTML">
-        <uxd-snippet [content]="snippets.compiled.disabledRadioButtonHtml"></uxd-snippet>
+        <uxd-snippet
+            language="html"
+            [content]="snippets.compiled.disabledRadioButtonHtml"
+        ></uxd-snippet>
     </ux-tab>
     <ux-tab heading="TypeScript">
-        <uxd-snippet [content]="snippets.compiled.disabledRadioButtonTs"></uxd-snippet>
+        <uxd-snippet
+            language="javascript"
+            [content]="snippets.compiled.disabledRadioButtonTs"
+        ></uxd-snippet>
     </ux-tab>
 </ux-tabset>
 
@@ -128,9 +135,9 @@
 
 <ux-tabset [minimal]="false">
     <ux-tab heading="HTML">
-        <uxd-snippet [content]="snippets.compiled.appHtml"></uxd-snippet>
+        <uxd-snippet language="html" [content]="snippets.compiled.appHtml"></uxd-snippet>
     </ux-tab>
     <ux-tab heading="TypeScript">
-        <uxd-snippet [content]="snippets.compiled.appTs"></uxd-snippet>
+        <uxd-snippet language="javascript" [content]="snippets.compiled.appTs"></uxd-snippet>
     </ux-tab>
 </ux-tabset>
