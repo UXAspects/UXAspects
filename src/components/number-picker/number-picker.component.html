@@ -1,4 +1,5 @@
-<input type="number"
+<input
+    type="number"
     [id]="inputId"
     role="spinbutton"
     class="form-control number-picker-input"
@@ -18,22 +19,24 @@
     [attr.aria-valuemin]="min"
     [attr.aria-valuenow]="value"
     [attr.aria-valuemax]="max"
-    [attr.aria-labelledby]="labelledBy">
+    [attr.aria-label]="ariaLabel"
+    [attr.aria-labelledby]="labelledBy"
+/>
 
 <div class="number-picker-controls">
-
-    <div class="number-picker-control number-picker-control-up"
-         (click)="increment($event); _touchedChange()"
-         [class.disabled]="disabled || value >= max || readonly">
-
+    <div
+        class="number-picker-control number-picker-control-up"
+        (click)="increment($event); _touchedChange()"
+        [class.disabled]="disabled || value >= max || readonly"
+    >
         <ux-icon name="up"></ux-icon>
     </div>
 
-    <div class="number-picker-control number-picker-control-down"
-         (click)="decrement($event); _touchedChange()"
-         [class.disabled]="disabled || value <= min || readonly">
-
-         <ux-icon name="down"></ux-icon>
+    <div
+        class="number-picker-control number-picker-control-down"
+        (click)="decrement($event); _touchedChange()"
+        [class.disabled]="disabled || value <= min || readonly"
+    >
+        <ux-icon name="down"></ux-icon>
     </div>
-
 </div>

@@ -33,7 +33,10 @@ export class NumberPickerComponent implements ControlValueAccessor, OnDestroy, O
     };
 
     /** Sets the id of the number picker. The child input will have this value with a -input suffix as its id. */
-    @Input() id: string = `ux-number-picker-${ uniqueId++ }`;
+    @Input() id: string = `ux-number-picker-${uniqueId++}`;
+
+    /** Provide an aria label for the number picker. */
+    @Input('aria-label') ariaLabel: string;
 
     /** Provide an aria labelledby attribute */
     @Input('aria-labelledby') labelledBy: string;
