@@ -107,28 +107,30 @@
     <code>name</code> or <code>id</code> if required.
 </p>
 
-<h4>Validation</h4>
+<h4>Keyboard Accessibility</h4>
 <p>
-    Due to an issue within native HTML it is impossible to select a disabled selected radio button.
+    Due to an issue within native HTML it is impossible to select any of the radio buttons while one
+    is `selected` and `disabled` when using the keyboard. As a workaround we recommend removing the
+    selected state from the radio button when disabling it. Below is a code example of this.
 </p>
 
-<!-- <ux-tabset [minimal]="false">
+<ux-tabset [minimal]="false">
     <ux-tab heading="HTML">
-        <uxd-snippet [content]="snippets.compiled.validationHtml"></uxd-snippet>
+        <uxd-snippet [content]="snippets.compiled.disabledRadioButtonHtml"></uxd-snippet>
     </ux-tab>
     <ux-tab heading="TypeScript">
-        <uxd-snippet [content]="snippets.compiled.validationTs"></uxd-snippet>
+        <uxd-snippet [content]="snippets.compiled.disabledRadioButtonTs"></uxd-snippet>
     </ux-tab>
-</ux-tabset> -->
+</ux-tabset>
 
 <h4>Source Code</h4>
 <p>The following code can be used to create the example above:</p>
 
 <ux-tabset [minimal]="false">
     <ux-tab heading="HTML">
-        <uxd-snippet language="html" [content]="snippets.compiled.appHtml"></uxd-snippet>
+        <uxd-snippet [content]="snippets.compiled.appHtml"></uxd-snippet>
     </ux-tab>
     <ux-tab heading="TypeScript">
-        <uxd-snippet language="javascript" [content]="snippets.compiled.appTs"></uxd-snippet>
+        <uxd-snippet [content]="snippets.compiled.appTs"></uxd-snippet>
     </ux-tab>
 </ux-tabset>

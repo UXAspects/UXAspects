@@ -1,0 +1,17 @@
+<div uxRadioButtonGroup [(value)]="selected" class="radio-button-container">
+    <ux-radio-button name="group" [option]="radioOptions.option1" [disabled]="disabled">
+        Option 1
+    </ux-radio-button>
+
+    <ux-radio-button name="group" [option]="radioOptions.option2">Option 2</ux-radio-button>
+
+    <ux-radio-button name="group" [option]="radioOptions.option3">Option 3</ux-radio-button>
+
+    <ux-radio-button name="group" [option]="radioOptions.option4">Option 4</ux-radio-button>
+</div>
+
+<div>
+    <button class="btn button-primary m-r-xs" (click)="disable('option1')">
+        {{ disabled ? 'Click to enable Option1' : 'Click to disable Option1' }}
+    </button>
+</div>
