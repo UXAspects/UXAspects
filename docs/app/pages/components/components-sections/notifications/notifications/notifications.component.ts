@@ -1,7 +1,7 @@
 
 import { LiveAnnouncer } from '@angular/cdk/a11y';
-import { ChangeDetectionStrategy, Component, HostListener, OnDestroy, TemplateRef } from '@angular/core';
-import { ColorPickerColor, ColorService, NotificationService } from '@ux-aspects/ux-aspects';
+import { ChangeDetectionStrategy, Component, ElementRef, HostListener, OnDestroy, TemplateRef, ViewChild } from '@angular/core';
+import { ColorPickerColor, ColorService, MenuTriggerDirective, NotificationService } from '@ux-aspects/ux-aspects';
 import { Subject, Subscription } from 'rxjs';
 import { buffer, debounceTime } from 'rxjs/operators';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
@@ -18,9 +18,7 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 @DocumentationSectionComponent('ComponentsNotificationsComponent')
 export class ComponentsNotificationsComponent extends BaseDocumentationSection implements IPlaygroundProvider, OnDestroy {
 
-    isPickerOpen: boolean = false;
-    duration: number = 4;
-    description: string = 'You have 16 messages';
+
 
     colors: ColorPickerColor[][] = [
         [
@@ -36,6 +34,13 @@ export class ComponentsNotificationsComponent extends BaseDocumentationSection i
         ]
     ];
 
+    @ViewChild('toggleButton') toggleButton?: ElementRef<HTMLButtonElement>;
+    @ViewChild(MenuTriggerDirective) menuTrigger?: MenuTriggerDirective;
+
+    isPickerOpen: boolean = false;
+    duration: number = 4;
+    description: string = 'You have 16 messages';
+
     selected: ColorPickerColor = this.colors[0][1];
 
     playground: IPlayground = {
@@ -46,17 +51,12 @@ export class ComponentsNotificationsComponent extends BaseDocumentationSection i
         },
         modules: [
             {
-                imports: ['NotificationModule', 'NumberPickerModule', 'ColorPickerModule', 'AccordionModule'],
+                imports: ['NotificationModule', 'NumberPickerModule', 'ColorPickerModule', 'AccordionModule', 'MenuModule'],
                 library: '@ux-aspects/ux-aspects'
             },
             {
                 imports: ['A11yModule'],
                 library: '@angular/cdk/a11y'
-            },
-            {
-                imports: ['BsDropdownModule'],
-                forRoot: true,
-                library: 'ngx-bootstrap/dropdown'
             }
         ]
     };
@@ -89,6 +89,11 @@ export class ComponentsNotificationsComponent extends BaseDocumentationSection i
     @HostListener('document:keydown.escape')
     dismissNotifications(): void {
         this.notificationService.dismissAll();
+    }
+
+    close(): void {
+        this.menuTrigger?.closeMenu();
+        this.toggleButton?.nativeElement.focus();
     }
 }
 

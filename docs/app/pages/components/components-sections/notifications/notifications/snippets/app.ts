@@ -1,6 +1,6 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
-import { Component, HostListener, OnDestroy, TemplateRef } from '@angular/core';
-import { ColorPickerColor, ColorService, NotificationService } from '@ux-aspects/ux-aspects';
+import { Component, ElementRef, HostListener, OnDestroy, TemplateRef, ViewChild } from '@angular/core';
+import { ColorPickerColor, ColorService, MenuTriggerDirective, NotificationService } from '@ux-aspects/ux-aspects';
 import { Subject, Subscription } from 'rxjs';
 import { buffer, debounceTime } from 'rxjs/operators';
 
@@ -10,6 +10,9 @@ import { buffer, debounceTime } from 'rxjs/operators';
     styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnDestroy {
+
+    @ViewChild('toggleButton') toggleButton?: ElementRef<HTMLButtonElement>;
+    @ViewChild(MenuTriggerDirective) menuTrigger?: MenuTriggerDirective;
 
     duration: number = 4;
     description: string = 'You have 16 messages';
@@ -67,5 +70,10 @@ export class AppComponent implements OnDestroy {
     @HostListener('document:keydown.escape')
     dismissNotifications(): void {
         this.notificationService.dismissAll();
+    }
+
+    close(): void {
+        this.menuTrigger?.closeMenu();
+        this.toggleButton?.nativeElement.focus();
     }
 }
