@@ -1,7 +1,7 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { Filter, FilterRemoveAllEvent, FilterService } from '@ux-aspects/ux-aspects';
-import { filter as rxFilter, takeUntil } from 'rxjs/operators';
+import { Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Filter, FilterRemoveAllEvent, FilterService, MenuTriggerDirective } from '@ux-aspects/ux-aspects';
 import { Subject } from 'rxjs';
+import { filter as rxFilter, takeUntil } from 'rxjs/operators';
 
 @Component({
     selector: 'ux-filter-custom',
@@ -9,6 +9,9 @@ import { Subject } from 'rxjs';
     styleUrls: ['./sample-filter.component.css']
 })
 export class SampleFilterCustomComponent implements OnInit, OnDestroy {
+
+    @ViewChild('toggleButton') toggleButton?: ElementRef<HTMLButtonElement>;
+    @ViewChild(MenuTriggerDirective) menuTrigger?: MenuTriggerDirective;
 
     @Input() filters: Filter[] = [];
     @Input() initial: Filter;
@@ -71,5 +74,11 @@ export class SampleFilterCustomComponent implements OnInit, OnDestroy {
 
         // select the filter
         this._filterService.add(this.selected);
+    }
+
+
+    close(): void {
+        this.menuTrigger?.closeMenu();
+        this.toggleButton?.nativeElement.focus();
     }
 }
