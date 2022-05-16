@@ -7,7 +7,7 @@ import { ColorPickerColor, ColorService, MenuTriggerDirective } from '@ux-aspect
     styleUrls: ['color-picker.testpage.component.css']
 })
 
-export class ColorPickerTestPageComponent extends AfterViewInit {
+export class ColorPickerTestPageComponent implements AfterViewInit {
 
     colors: ColorPickerColor[][];
     selected: ColorPickerColor;
