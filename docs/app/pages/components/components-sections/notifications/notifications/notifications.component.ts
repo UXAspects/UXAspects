@@ -18,8 +18,6 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 @DocumentationSectionComponent('ComponentsNotificationsComponent')
 export class ComponentsNotificationsComponent extends BaseDocumentationSection implements IPlaygroundProvider, OnDestroy {
 
-
-
     colors: ColorPickerColor[][] = [
         [
             new ColorPickerColor('primary', this.colorService.getColor('primary').toHex()),
