@@ -1,8 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { AccessibilityModule, ColorPickerModule, IconModule, TableModule } from '@ux-aspects/ux-aspects';
-import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { AccessibilityModule, ColorPickerModule, IconModule, MenuModule, TableModule } from '@ux-aspects/ux-aspects';
 import { ColorPickerTestPageComponent } from './color-picker.testpage.component';
 
 @NgModule({
@@ -11,7 +10,7 @@ import { ColorPickerTestPageComponent } from './color-picker.testpage.component'
         ColorPickerModule,
         TableModule,
         AccessibilityModule,
-        BsDropdownModule,
+        MenuModule,
         IconModule,
         RouterModule.forChild([
             {

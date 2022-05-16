@@ -28,7 +28,7 @@ export class ComponentsSortingComponent extends BaseDocumentationSection impleme
         },
         modules: [
             {
-                imports: ['MenuNavigationModule, MenuModule'],
+                imports: ['MenuModule'],
                 library: '@ux-aspects/ux-aspects'
             }
         ]
