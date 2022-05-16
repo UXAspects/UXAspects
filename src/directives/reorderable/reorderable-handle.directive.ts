@@ -1,7 +1,8 @@
-import { CdkDragHandle } from '@angular/cdk/drag-drop';
+import { CdkDragHandle, CDK_DRAG_HANDLE } from '@angular/cdk/drag-drop';
 import { Directive } from '@angular/core';
 
 @Directive({
-    selector: '[uxReorderableHandle]'
+    selector: '[uxReorderableHandle]',
+    providers: [{ provide: CDK_DRAG_HANDLE, useExisting: ReorderableHandleDirective }],
 })
-export class ReorderableHandleDirective extends CdkDragHandle { }
+export class ReorderableHandleDirective extends CdkDragHandle {}
