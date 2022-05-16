@@ -18,6 +18,12 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 @DocumentationSectionComponent('ComponentsNotificationsComponent')
 export class ComponentsNotificationsComponent extends BaseDocumentationSection implements IPlaygroundProvider, OnDestroy {
 
+    @ViewChild('toggleButton') toggleButton?: ElementRef<HTMLButtonElement>;
+    @ViewChild(MenuTriggerDirective) menuTrigger?: MenuTriggerDirective;
+
+    duration: number = 4;
+    description: string = 'You have 16 messages';
+
     colors: ColorPickerColor[][] = [
         [
             new ColorPickerColor('primary', this.colorService.getColor('primary').toHex()),
@@ -31,12 +37,6 @@ export class ComponentsNotificationsComponent extends BaseDocumentationSection i
             new ColorPickerColor('critical', this.colorService.getColor('critical').toHex())
         ]
     ];
-
-    @ViewChild('toggleButton') toggleButton?: ElementRef<HTMLButtonElement>;
-    @ViewChild(MenuTriggerDirective) menuTrigger?: MenuTriggerDirective;
-
-    duration: number = 4;
-    description: string = 'You have 16 messages';
 
     selected: ColorPickerColor = this.colors[0][1];
 
