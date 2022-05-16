@@ -37,7 +37,6 @@ export class ComponentsNotificationsComponent extends BaseDocumentationSection i
     @ViewChild('toggleButton') toggleButton?: ElementRef<HTMLButtonElement>;
     @ViewChild(MenuTriggerDirective) menuTrigger?: MenuTriggerDirective;
 
-    isPickerOpen: boolean = false;
     duration: number = 4;
     description: string = 'You have 16 messages';
 
