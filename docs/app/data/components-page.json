@@ -742,10 +742,6 @@
                         {
                             "title": "Module",
                             "content": "PageHeaderModule"
-                        },
-                        {
-                            "title": "Dependencies",
-                            "content": "BsDropdownModule"
                         }
                     ]
                 }
@@ -1279,12 +1275,8 @@
                             "content": "[dropdownMenu]"
                         },
                         {
-                            "title": "Selector",
-                            "content": "[dropdownToggle]"
-                        },
-                        {
                             "title": "Module",
-                            "content": "BsDropdownModule"
+                            "content": "[MenuModule]"
                         }
                     ]
                 }

@@ -4,7 +4,6 @@ import { ComponentFactoryResolver, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { AccordionModule, AlertModule, BadgeModule, CheckboxModule, ColorPickerModule, IconModule, MenuModule, NotificationModule, NumberPickerModule, RadioButtonModule, TabsetModule } from '@ux-aspects/ux-aspects';
-import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
 import { DocumentationPage, ResolverService } from '../../../../services/resolver/resolver.service';
@@ -34,7 +33,6 @@ const ROUTES = [
         AccordionModule,
         AlertModule,
         BadgeModule,
-        BsDropdownModule,
         CheckboxModule,
         ColorPickerModule,
         CommonModule,

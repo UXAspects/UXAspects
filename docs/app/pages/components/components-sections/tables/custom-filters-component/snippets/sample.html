@@ -1,35 +1,32 @@
-<div class="bs-dropdown-container">
-    <div class="btn-group ux-custom-filter">
-        <button
-            type="button"
-            uxFocusIndicator
-            tabindex="0"
-            #toggleButton
-            [uxMenuTriggerFor]="dropdownMenu"
-            aria-haspopup="true"
-            class="filter-dropdown btn dropdown-toggle"
-            [class.active]="selected !== initial"
-        >
-            {{ selected?.group }}
-            <span class="filter-title" *ngIf="selected !== initial"> ({{ selected?.title }}) </span>
-            <ux-icon class="custom-filter-chevron" name="down"></ux-icon>
-        </button>
+<div class="btn-group ux-custom-filter">
+    <button
+        type="button"
+        uxFocusIndicator
+        tabindex="0"
+        #toggleButton
+        [uxMenuTriggerFor]="dropdownMenu"
+        aria-haspopup="true"
+        class="filter-dropdown btn dropdown-toggle"
+        [class.active]="selected !== initial"
+    >
+        {{ selected?.group }}
+        <span class="filter-title" *ngIf="selected !== initial"> ({{ selected?.title }}) </span>
+        <ux-icon class="custom-filter-chevron" name="down"></ux-icon>
+    </button>
 
-        <ux-menu #dropdownMenu class="dropdown-menu">
-            <button
-                class="dropdown-list-item"
-                type="button"
-                uxMenuItem
-                *ngFor="let filter of filters"
-                role="none"
-                (click)="selectFilter(filter)"
-                (keydown.enter)="selectFilter(filter)"
-            >
-                <span class="dropdown-menu-icon">
-                    <ux-icon [name]="filter === selected ? 'checkmark' : null"></ux-icon>
-                </span>
-                <span class="dropdown-menu-text">{{ filter.name }}</span>
-            </button>
-        </ux-menu>
-    </div>
+    <ux-menu #dropdownMenu class="dropdown-menu">
+        <button
+            class="dropdown-list-item"
+            type="button"
+            uxMenuItem
+            *ngFor="let filter of filters"
+            (click)="selectFilter(filter)"
+            (keydown.enter)="selectFilter(filter)"
+        >
+            <span class="dropdown-menu-icon">
+                <ux-icon [name]="filter === selected ? 'checkmark' : null"></ux-icon>
+            </span>
+            <span class="dropdown-menu-text">{{ filter.name }}</span>
+        </button>
+    </ux-menu>
 </div>

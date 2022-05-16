@@ -28,12 +28,7 @@ export class ComponentsSortingComponent extends BaseDocumentationSection impleme
         },
         modules: [
             {
-                imports: ['BsDropdownModule'],
-                library: 'ngx-bootstrap/dropdown',
-                forRoot: true
-            },
-            {
-                imports: ['MenuNavigationModule'],
+                imports: ['MenuNavigationModule, MenuModule'],
                 library: '@ux-aspects/ux-aspects'
             }
         ]
