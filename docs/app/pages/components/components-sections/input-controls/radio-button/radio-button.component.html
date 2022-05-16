@@ -25,11 +25,12 @@
 </div>
 
 <p class="m-t">
-    <code>radioModel</code> is <em>{{ selected }}</em>.
+    <code>radioModel</code> is <em>{{ selected }}</em
+    >.
 </p>
 
 <div>
-    <button class="btn button-primary m-r-xs" (click)="disabled = !disabled">
+    <button class="btn button-primary m-r-xs" (click)="disable(100)">
         {{ disabled ? 'Click to enable Option1' : 'Click to disable Option1' }}
     </button>
 
@@ -111,27 +112,9 @@
     Due to an issue within native HTML it is impossible to focus any of the
     <code>ux-radio-buttons</code> while one is <code>selected</code> and <code>disabled</code> when
     using the keyboard. As a workaround we recommend removing the <code>selected</code> state from
-    the <code>ux-radio-button</code> when disabling it.
+    the <code>ux-radio-button</code> when disabling it. We have provided a workaround in our example
+    code.
 </p>
-<p>Below is a code example:</p>
-
-<ux-tabset [minimal]="false">
-    <ux-tab heading="HTML">
-        <uxd-snippet
-            language="html"
-            [content]="snippets.compiled.disabledRadioButtonHtml"
-        ></uxd-snippet>
-    </ux-tab>
-    <ux-tab heading="TypeScript">
-        <uxd-snippet
-            language="javascript"
-            [content]="snippets.compiled.disabledRadioButtonTs"
-        ></uxd-snippet>
-    </ux-tab>
-</ux-tabset>
-
-<h4>Source Code</h4>
-<p>The following code can be used to create the example above:</p>
 
 <ux-tabset [minimal]="false">
     <ux-tab heading="HTML">
