@@ -277,7 +277,7 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
         // Update the single-select input when the model changes
         this._value$.pipe(
             distinctUntilChanged(),
-            delay(1),
+            delay(0),
             filter(value => value !== null && !this.multiple),
             takeUntil(this._onDestroy)
         ).subscribe(value => {
@@ -288,6 +288,7 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
                 this.input = inputValue;
                 this.inputChange.emit(this.input);
             }
+            this._changeDetector.detectChanges();
         });
     }
 
