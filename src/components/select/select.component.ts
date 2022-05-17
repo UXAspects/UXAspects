@@ -230,7 +230,7 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
     private _userInput: boolean = false;
     private _filterDebounceTime: number = 200;
     private _autoCloseDropdown: boolean = true;
-    private _onChange = (_: T | ReadonlyArray<T>) => {};
+    private _onChange = (_: T | ReadonlyArray<T>) => { };
     private _onTouched = () => { };
     private _onDestroy = new Subject<void>();
 
@@ -255,13 +255,13 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
             filter(() => this.allowNull),
             filter(value => !this.multiple && value.value !== this.getDisplay(this.value)),
             takeUntil(this._onDestroy)
-            ).subscribe((input) => {
-                if (input.userInteraction && input.value === '') {
-                    this.value = null;
-                    this._onChange(null);
-                    this.valueChange.next(null);
-                }
-            });
+        ).subscribe((input) => {
+            if (input.userInteraction && input.value === '') {
+                this.value = null;
+                this._onChange(null);
+                this.valueChange.next(null);
+            }
+        });
 
 
         // open the dropdown once the filter debounce has elapsed
@@ -277,7 +277,7 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
         // Update the single-select input when the model changes
         this._value$.pipe(
             distinctUntilChanged(),
-            delay(0),
+            delay(1),
             filter(value => value !== null && !this.multiple),
             takeUntil(this._onDestroy)
         ).subscribe(value => {
