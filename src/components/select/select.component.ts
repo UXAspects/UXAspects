@@ -288,7 +288,8 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
                 this.input = inputValue;
                 this.inputChange.emit(this.input);
             }
-            this._changeDetector.detectChanges();
+
+            this._changeDetector.markForCheck();
         });
     }
 
