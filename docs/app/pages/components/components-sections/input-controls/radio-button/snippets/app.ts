@@ -20,7 +20,7 @@ export class AppComponent {
     disabled = false;
     simplified = false;
 
-    disable(radio: number | string | object): void {
+    toggleDisabled(radio: number | string | object): void {
         this.disabled = !this.disabled;
 
         if (this.selected === radio && this.disabled) {

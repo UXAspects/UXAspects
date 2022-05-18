@@ -42,7 +42,7 @@ export class ComponentsRadioButtonComponent extends BaseDocumentationSection imp
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
     }
 
-    disable(radio: number | string | object): void {
+    toggleDisabled(radio: number | string | object): void {
         this.disabled = !this.disabled;
 
         if (this.selected === radio && this.disabled) {
