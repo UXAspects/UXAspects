@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, forwardRef, Input, Optional, Output } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, forwardRef, Input, OnChanges, Optional, Output, SimpleChanges } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { RadioButtonGroupDirective } from './radio-button-group/radio-button-group.directive';
 
@@ -16,7 +16,7 @@ let uniqueRadioId = 0;
     providers: [RADIOBUTTON_VALUE_ACCESSOR],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class RadioButtonComponent<T = any> implements ControlValueAccessor {
+export class RadioButtonComponent<T = any> implements ControlValueAccessor, OnChanges {
 
     /** Provide a default unique id value for the radiobutton */
     _radioButtonId: string = `ux-radio-button-${++uniqueRadioId}`;
@@ -69,6 +69,9 @@ export class RadioButtonComponent<T = any> implements ControlValueAccessor {
     /** Determine if the underlying input component has been focused with the keyboard */
     _focused: boolean = false;
 
+    /** Internally store the current tabindex */
+    internalTabindex: number = null;
+
     /** Used to inform Angular forms that the component has been touched */
     onTouchedCallback: () => void = () => { };
 
@@ -79,6 +82,12 @@ export class RadioButtonComponent<T = any> implements ControlValueAccessor {
         private readonly _changeDetector: ChangeDetectorRef,
         @Optional() private readonly _group: RadioButtonGroupDirective
     ) { }
+
+    ngOnChanges(changes: SimpleChanges): void {
+        if (changes.disabled && this._group && !changes.disabled.firstChange) {
+            this._group.determineAndSetTabIndex();
+        }
+    }
 
     /** Select the current option */
     select(): void {
@@ -128,5 +137,10 @@ export class RadioButtonComponent<T = any> implements ControlValueAccessor {
     setDisabledState(isDisabled: boolean): void {
         this.disabled = isDisabled;
         this._changeDetector.markForCheck();
+    }
+
+    setTabIndex(tabIndex): void {
+        this.internalTabindex = tabIndex;
+        this._changeDetector.detectChanges();
     }
 }

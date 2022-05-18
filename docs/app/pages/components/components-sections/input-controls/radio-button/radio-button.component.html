@@ -42,44 +42,34 @@
 <hr />
 
 <p>
-    A radio button can be created by using the <code>ux-radio-button</code> component placed inside
-    a <code>uxRadioButtonGroup</code>. In order to use the radio button in a reactive form, define
-    the <code>formControlName</code> property on the <code>uxRadioButtonGroup</code> element. The
-    following attributes can be used to configure the appearance and behavior of the component:
+    A radio button can be created by using the <code>ux-radio-button</code> component placed inside a
+    <code>uxRadioButtonGroup</code>. In order to use the radio button in a reactive form, define the
+    <code>formControlName</code> property on the <code>uxRadioButtonGroup</code> element. The following
+    attributes can be used to configure the appearance and behavior of the component:
 </p>
 
 <uxd-api-properties tableTitle="Radio Button Inputs">
     <tr uxd-api-property name="value" type="any">
-        This should be a two way binding and will store the currently selected option. Each radio
-        button in the same group should have the same
-        <code>value</code>
-        variable.
+        This should be a two way binding and will store the currently selected option. Each radio button in the same
+        group should have the same <code>value</code> variable.
     </tr>
     <tr uxd-api-property name="option" type="any">
-        This should contain the value that this radio button represents. This will be stored in the
-        <code>value</code>
-        variable when the radio button is selected. No two radio buttons should have the same
-        <code>option</code>
+        This should contain the value that this radio button represents. This will be stored in the <code>value</code>
+        variable when the radio button is selected. No two radio buttons should have the same <code>option</code>
         value within the same group of radio buttons.
     </tr>
     <tr uxd-api-property name="simplified" type="boolean" defaultValue="false">
-        If set to
-        <code>true</code>
-        the checkbox will be displayed without a border and background.
+        If set to <code>true</code> the checkbox will be displayed without a border and background.
     </tr>
     <tr uxd-api-property name="clickable" type="boolean" defaultValue="false">
-        If set to
-        <code>true</code>
-        the checkbox will not toggle state when clicked.
+        If set to <code>true</code> the checkbox will not toggle state when clicked.
     </tr>
     <tr uxd-api-property name="name" type="string">
-        Specify the value for the name property of the input element. Use the same value for
-        multiple radio buttons to group them together and allow keyboard navigation.
+        Specify the value for the name property of the input element. Use the same value for multiple radio buttons
+        to group them together and allow keyboard navigation.
     </tr>
     <tr uxd-api-property name="required" type="boolean" defaultValue="false">
-        If set to
-        <code>true</code>
-        the radio button will be marked as required.
+        If set to <code>true</code> the radio button will be marked as required.
     </tr>
 </uxd-api-properties>
 
@@ -102,9 +92,8 @@
 </uxd-api-properties>
 
 <p>
-    In addition to the options listed above, a radio button can be disabled using the
-    <code>disabled</code> attribute. You can also provide the radio button with a
-    <code>name</code> or <code>id</code> if required.
+    In addition to the options listed above, a radio button can be disabled using the <code>disabled</code> attribute. You can also provide
+    the radio button with a <code>name</code> or <code>id</code> if required.
 </p>
 
 <h4>Keyboard Accessibility</h4>
