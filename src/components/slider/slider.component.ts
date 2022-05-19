@@ -747,15 +747,25 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
     }
 
     private updateOrderAtMax(): void {
-        const lowerValue = this.getThumbValue(this.sliderThumb.Lower);
-        const upperValue = this.getThumbValue(this.sliderThumb.Upper);
-        const max = this._options?.track?.max;
-        const maxBuffer = max / 100 * 95;
 
+        if (this._options) {
+            const lowerValue = this.getThumbValue(this.sliderThumb.Lower);
+            const upperValue = this.getThumbValue(this.sliderThumb.Upper);
 
-        if (upperValue >= maxBuffer && lowerValue >= maxBuffer) {
-            this.thumbs.lower.order = 101;
-            this.thumbs.upper.order = 100;
+            const max = this._options.track.max;
+            const min = this._options.track.min;
+            const range = max - min;
+            const median = (range / 100 * 50) + min;
+
+            if (upperValue < median) {
+                this.thumbs.lower.order = 100;
+                this.thumbs.upper.order = 101;
+            }
+
+            if (lowerValue >= median) {
+                this.thumbs.lower.order = 101;
+                this.thumbs.upper.order = 100;
+            }
         }
     }
 
