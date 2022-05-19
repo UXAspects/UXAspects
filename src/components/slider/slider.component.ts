@@ -180,6 +180,8 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
             // mark as dirty
             this._changeDetectorRef.markForCheck();
         });
+
+        this.updateOrder();
     }
 
     snapToNearestTick(thumb: SliderThumb, snapTarget: SliderSnap, forwards: boolean): void {
@@ -273,8 +275,7 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
 
         // update the thumb state
         this.setThumbState(thumb, state.hover, state.drag);
-        this.updateOrderOnHover();
-
+        this.updateOrder();
     }
 
     getAriaValueText(thumb: SliderThumb): string | number {
@@ -454,14 +455,39 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
 
     }
 
-    private updateOrder(thumb: SliderThumb): void {
+    private updateOrder(thumb?: SliderThumb): void {
 
-        const lower = thumb === SliderThumb.Lower ? 101 : 100;
-        const upper = thumb === SliderThumb.Lower ? 100 : 101;
+        const isDragged = this.thumbs.lower.drag || this.thumbs.upper.drag;
 
-        // The most recently used thumb should be above
-        this.thumbs.lower.order = lower;
-        this.thumbs.upper.order = upper;
+        if (thumb === SliderThumb.Lower || thumb === SliderThumb.Upper) {
+
+            const lower = thumb === SliderThumb.Lower ? 101 : 100;
+            const upper = thumb === SliderThumb.Lower ? 100 : 101;
+
+            // Ensure currently dragged thumb is on top
+            this.thumbs.lower.order = lower;
+            this.thumbs.upper.order = upper;
+
+        } else if (this._options && !isDragged) {
+
+            const lowerValue = this.getThumbValue(this.sliderThumb.Lower);
+            const upperValue = this.getThumbValue(this.sliderThumb.Upper);
+
+            const max = this._options.track.max;
+            const min = this._options.track.min;
+            const range = max - min;
+            const median = (range / 100 * 50) + min;
+
+            if (upperValue <= median) {
+                this.thumbs.lower.order = 100;
+                this.thumbs.upper.order = 101;
+            }
+
+            if (lowerValue > median) {
+                this.thumbs.lower.order = 101;
+                this.thumbs.upper.order = 100;
+            }
+        }
     }
 
     private getTickDistances(value: number, thumb: SliderThumb, snapTarget: SliderSnap): SliderTick[] {
@@ -744,29 +770,6 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
         }
 
         return destination;
-    }
-
-    private updateOrderOnHover(): void {
-
-        if (this._options) {
-            const lowerValue = this.getThumbValue(this.sliderThumb.Lower);
-            const upperValue = this.getThumbValue(this.sliderThumb.Upper);
-
-            const max = this._options.track.max;
-            const min = this._options.track.min;
-            const range = max - min;
-            const median = (range / 100 * 50) + min;
-
-            if (upperValue <= median) {
-                this.thumbs.lower.order = 100;
-                this.thumbs.upper.order = 101;
-            }
-
-            if (lowerValue > median) {
-                this.thumbs.lower.order = 101;
-                this.thumbs.upper.order = 100;
-            }
-        }
     }
 
     private detectValueChange(value1: number | SliderValue, value2: number | SliderValue): boolean {

@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { AccessibilityModule, SliderModule } from '@ux-aspects/ux-aspects';
 import { SlidersPersistentCalloutTestPageComponent } from './persistent-callout/sliders-persistent-callout.component';
 import { SlidersTestPageComponent } from './sliders.testpage.component';
+import { SlidersThumbOrderTestPageComponent } from './thumb-order/sliders-thumb-order.testpage.component';
 
 @NgModule({
     imports: [
@@ -18,12 +19,17 @@ import { SlidersTestPageComponent } from './sliders.testpage.component';
             {
                 path: 'persistent-callout',
                 component: SlidersPersistentCalloutTestPageComponent
+            },
+            {
+                path: 'thumb-order',
+                component: SlidersThumbOrderTestPageComponent
             }
         ])
     ],
     declarations: [
         SlidersTestPageComponent,
-        SlidersPersistentCalloutTestPageComponent
+        SlidersPersistentCalloutTestPageComponent,
+        SlidersThumbOrderTestPageComponent
     ]
 })
 export class SlidersTestPageModule { }
