@@ -1,12 +1,8 @@
 <ux-notification-list direction="above" position="top-right"></ux-notification-list>
 
 <div class="btn-container">
-    <button class="btn button-primary m-r-sm" (click)="showNotification(notification)">
-        Show Notification
-    </button>
-    <button class="btn button-secondary m-r-sm" (click)="notificationService.dismissAll()">
-        Dismiss Notifications
-    </button>
+    <button class="btn button-primary m-r-sm" (click)="showNotification(notification)">Show Notification</button>
+    <button class="btn button-secondary m-r-sm" (click)="notificationService.dismissAll()">Dismiss Notifications</button>
 </div>
 
 <ng-template #notification let-notificationRef let-data="data">
@@ -20,6 +16,7 @@
     </button>
 
     <div class="notification-wrapper">
+
         <div class="notification-icon">
             <ux-icon name="chat"></ux-icon>
         </div>
@@ -27,10 +24,9 @@
         <div class="notification-content">
             <h4 class="notification-title">Messages Received</h4>
             <p class="notification-description">{{ data.description }}</p>
-            <p class="notification-timestamp">
-                {{ notificationRef.date | date: 'EEEE, MMMM d, y, h:mm:ss a' }}
-            </p>
+            <p class="notification-timestamp">{{ notificationRef.date | date:'EEEE, MMMM d, y, h:mm:ss a' }}</p>
         </div>
+
     </div>
 </ng-template>
 

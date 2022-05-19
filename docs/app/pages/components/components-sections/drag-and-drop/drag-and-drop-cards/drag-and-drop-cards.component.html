@@ -31,7 +31,9 @@
                 <div class="name">{{ component.name }}</div>
                 <div class="type">{{ component.type }}</div>
             </div>
+
         </div>
+
     </div>
 
     <div
@@ -64,11 +66,13 @@
 
             <div class="title">{{ component.name }}</div>
             <div class="component">
-                <ng-container
-                    *ngTemplateOutlet="component.content; context: { tabindex: listItem.tabindex }"></ng-container>
+                <ng-container *ngTemplateOutlet="component.content; context: { tabindex: listItem.tabindex }"></ng-container>
             </div>
+
         </div>
+
     </div>
+
 </div>
 
 <ng-template #dropdown let-tabindex="tabindex">

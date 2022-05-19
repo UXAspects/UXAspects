@@ -19,11 +19,7 @@
         <button
             class="sort-icon text-muted"
             uxFocusIndicator
-            attr.aria-label="{{
-                descending ? 'Descending' : 'Ascending'
-            }} sort applied, activate to apply a {{
-                !descending ? 'descending' : 'ascending'
-            }} sort"
+            attr.aria-label="{{ descending ? 'Descending' : 'Ascending' }} sort applied, activate to apply a {{ !descending ? 'descending' : 'ascending' }} sort"
             (click)="descending = !descending"
         >
             <ux-icon [name]="descending ? 'descend' : 'ascend'"></ux-icon>

@@ -13,8 +13,7 @@
     </button>
 
     <span class="m-l-lg">
-        Selected: <code>{{ selected.hex }}</code> &mdash;
-        <code>{{ selected.rgba }}</code>
+        Selected: <code>{{selected.hex}}</code> &mdash; <code>{{selected.rgba}}</code>
     </span>
 </div>
 
@@ -45,11 +44,7 @@
                     <label for="columns">columns</label>
                 </div>
                 <div class="col-md-4 col-sm-9">
-                    <ux-number-picker
-                        name="columns"
-                        [(value)]="columns"
-                        [min]="-1"
-                    ></ux-number-picker>
+                    <ux-number-picker name="columns" [(value)]="columns" [min]="-1"></ux-number-picker>
                 </div>
                 <div class="col-md-3 col-sm-6">
                     <ux-checkbox [(value)]="showInput">showInput</ux-checkbox>
@@ -63,12 +58,8 @@
                     <label for="buttonStyle">buttonStyle</label>
                 </div>
                 <div class="col-md-4 col-sm-9">
-                    <ux-radio-button [(value)]="buttonStyle" option="circle"
-                        >circle</ux-radio-button
-                    >
-                    <ux-radio-button [(value)]="buttonStyle" option="square"
-                        >square</ux-radio-button
-                    >
+                    <ux-radio-button [(value)]="buttonStyle" option="circle">circle</ux-radio-button>
+                    <ux-radio-button [(value)]="buttonStyle" option="square">square</ux-radio-button>
                 </div>
                 <div class="col-md-2 col-sm-3">
                     <label for="buttonSize">buttonSize</label>
