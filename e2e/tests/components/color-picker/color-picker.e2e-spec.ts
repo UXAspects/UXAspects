@@ -1,7 +1,7 @@
 import { imageCompare } from '../common/image-compare';
 import { ColorPickerPage } from './color-picker.po.spec';
 
-describe('Color Picker Tests', () => {
+describe('Color Picker', () => {
 
     let page: ColorPickerPage;
 
