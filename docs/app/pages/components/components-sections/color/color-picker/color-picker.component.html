@@ -86,36 +86,32 @@
 <hr />
 
 <p>
-    A color picker can be added using the <code>ux-color-picker</code> component. The example above
-    shows the color picker hosted in a
-    <a routerLink="/components/buttons" fragment="dropdowns">dropdown button</a>; however, it could
-    equally be added to a modal or side panel. Colors can be picked from a pre-determined swatch, or
-    optionally edited in hex or RGBA format with a live preview. This example constructs a swatch of
-    UX Aspects theme colors using the
+    A color picker can be added using the <code>ux-color-picker</code> component.
+    The example above shows the color picker hosted in a
+    <a routerLink="/components/buttons" fragment="dropdowns">dropdown button</a>; however, it could equally be added to
+    a modal or side panel.
+    Colors can be picked from a pre-determined swatch, or optionally edited in hex or RGBA format with a live preview.
+    This example constructs a swatch of UX Aspects theme colors using the
     <a routerLink="/components/utilities" fragment="color-service">color service</a>.
 </p>
 
 <p>
-    The following properties can be used to customize and interact with
-    <code>ux-color-picker</code>.
+    The following properties can be used to customize and interact with <code>ux-color-picker</code>.
 </p>
 
 <uxd-api-properties tableTitle="Inputs">
-    <tr
-        uxd-api-property
-        name="colors"
-        type="(ColorPickerColor | string)[] | (ColorPickerColor | string)[][]"
-    >
-        <p>The collection of colors to display in the color swatch.</p>
+    <tr uxd-api-property name="colors" type="(ColorPickerColor | string)[] | (ColorPickerColor | string)[][]">
         <p>
-            Colors can be specified either as a string, which is the hex or RGBA value of the color;
-            or as a
-            <code>ColorPickerColor</code> object, which allows a name to be associated with the
-            color. See below for details of the <code>ColorPickerColor</code> class.
+            The collection of colors to display in the color swatch.
         </p>
         <p>
-            This property is either a one-dimensional or two-dimensional array. If a two-dimensional
-            array is provided, the colors will be split into rows, providing more control over the
+            Colors can be specified either as a string, which is the hex or RGBA value of the color; or as a
+            <code>ColorPickerColor</code> object, which allows a name to be associated with the color.
+            See below for details of the <code>ColorPickerColor</code> class.
+        </p>
+        <p>
+            This property is either a one-dimensional or two-dimensional array.
+            If a two-dimensional array is provided, the colors will be split into rows, providing more control over the
             appearance of the swatch.
         </p>
     </tr>
@@ -129,30 +125,29 @@
         See below for details of the <code>ColorPickerColor</code> class.
     </tr>
     <tr uxd-api-property name="columns" type="number" defaultValue="6">
-        The number of columns to display in the color swatch. Set this to -1 if the width should be
-        specified by a stylesheet instead, e.g. to provide a responsive layout.
+        The number of columns to display in the color swatch.
+        Set this to -1 if the width should be specified by a stylesheet instead, e.g. to provide a responsive layout.
     </tr>
     <tr uxd-api-property name="buttonStyle" type="'square' | 'circle'" defaultValue="circle">
         The style of the color swatch buttons.
     </tr>
     <tr uxd-api-property name="buttonSize" type="'sm' | 'md' | 'lg'" defaultValue="md">
-        The size of the color swatch buttons. Three size variants are currently supported.
+        The size of the color swatch buttons.
+        Three size variants are currently supported.
     </tr>
     <tr uxd-api-property name="showTooltips" type="boolean" defaultValue="false">
-        Whether to show tooltips above the color swatch buttons. These contain the color name if
-        provided; otherwise the color hex/RGBA value.
+        Whether to show tooltips above the color swatch buttons.
+        These contain the color name if provided; otherwise the color hex/RGBA value.
     </tr>
     <tr uxd-api-property name="showInput" type="boolean" defaultValue="false">
         Whether to show the hex/RGBA input panel.
     </tr>
     <tr uxd-api-property name="inputMode" type="'hex' | 'rgba'" defaultValue="hex">
-        The default input mode to display in the input panel. The user can switch modes using the
-        toggle button.
+        The default input mode to display in the input panel.
+        The user can switch modes using the toggle button.
     </tr>
     <tr uxd-api-property name="colorAriaLabel" type="(color: ColorPickerColor) => string">
-        Define a function that returns an aria-label for a
-        <code>ColorPickerColor</code
-        >.
+        Define a function that returns an aria-label for a <code>ColorPickerColor</code>.
     </tr>
     <tr uxd-api-property name="switchModeAriaLabel" type="(mode: ColorPickerInputMode) => string">
         Define a function that returns an aria-label for the button that switches input modes.
@@ -164,12 +159,12 @@
 
 <uxd-api-properties tableTitle="Outputs">
     <tr uxd-api-property name="selectedChange" type="ColorPickerColor">
-        Emitted when the user changes the selected color, either by clicking a color swatch button,
-        or entering a valid color value into the input panel text field.
+        Emitted when the user changes the selected color, either by clicking a color swatch button, or entering a valid
+        color value into the input panel text field.
     </tr>
     <tr uxd-api-property name="inputSubmit" type="void">
-        Emitted when the user presses enter in the input panel text field. This can be used to
-        commit a color change and/or close a popup.
+        Emitted when the user presses enter in the input panel text field.
+        This can be used to commit a color change and/or close a popup.
     </tr>
     <tr uxd-api-property name="inputModeChange" type="'hex' | 'rgba'">
         Emitted when the user changes the colour input mode.
@@ -179,27 +174,22 @@
 <h4>ColorPickerColor</h4>
 
 <p>
-    This is the type used by <code>ux-color-picker</code> to define available colors and return the
-    selected color. This provides access to the hex and RGBA values of any color, as well as
-    individual color components.
+    This is the type used by <code>ux-color-picker</code> to define available colors and return the selected color.
+    This provides access to the hex and RGBA values of any color, as well as individual color components.
 </p>
 
 <uxd-api-properties>
-    <tr
-        uxd-api-property
-        name="constructor"
-        args="name: string, value: string, inputMode?: 'hex' | 'rgba'"
-    >
+    <tr uxd-api-property name="constructor" args="name: string, value: string, inputMode?: 'hex' | 'rgba'">
         <ul>
             <li><code>name</code>: The human readable name of the color.</li>
             <li>
-                <code>value</code>: The hex or RGBA value of the color. If this cannot be parsed
-                then an error will be thrown.
+                <code>value</code>: The hex or RGBA value of the color.
+                If this cannot be parsed then an error will be thrown.
             </li>
             <li>
-                <code>inputMode</code>: Whether <code>value</code> is in hex or RGBA format. If this
-                is specified, then the format of <code>value</code> will be preserved, e.g. if
-                short-form hex strings should not be expanded.
+                <code>inputMode</code>: Whether <code>value</code> is in hex or RGBA format.
+                If this is specified, then the format of <code>value</code> will be preserved, e.g. if short-form hex
+                strings should not be expanded.
             </li>
         </ul>
     </tr>
@@ -228,13 +218,12 @@
 
 <h4>Classes</h4>
 
-<p>The following classes are provided to help style components surrounding the color picker.</p>
+<p>
+    The following classes are provided to help style components surrounding the color picker.
+</p>
 
 <ul>
-    <li>
-        <code>ux-color-picker-button-preview</code>: An inline color sample which can be added to
-        the popup button.
-    </li>
+    <li><code>ux-color-picker-button-preview</code>: An inline color sample which can be added to the popup button.</li>
     <li><code>ux-color-picker-dropdown</code>: Additional styling for a dropdown container.</li>
 </ul>
 

@@ -36,7 +36,6 @@ export class AppComponent implements AfterViewInit {
     constructor(colorService: ColorService) {
         this.colors = this._colorNames.map(row =>
             row.map(colorName => new ColorPickerColor(colorName, colorService.resolve(colorName))));
-
         this.selected = this.colors[0][0];
     }
 
