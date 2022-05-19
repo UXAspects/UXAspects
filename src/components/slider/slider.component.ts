@@ -273,7 +273,7 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
 
         // update the thumb state
         this.setThumbState(thumb, state.hover, state.drag);
-        this.updateOrderAtMax();
+        this.updateOrderOnHover();
 
     }
 
@@ -746,7 +746,7 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
         return destination;
     }
 
-    private updateOrderAtMax(): void {
+    private updateOrderOnHover(): void {
 
         if (this._options) {
             const lowerValue = this.getThumbValue(this.sliderThumb.Lower);
@@ -757,12 +757,12 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
             const range = max - min;
             const median = (range / 100 * 50) + min;
 
-            if (upperValue < median) {
+            if (upperValue <= median) {
                 this.thumbs.lower.order = 100;
                 this.thumbs.upper.order = 101;
             }
 
-            if (lowerValue >= median) {
+            if (lowerValue > median) {
                 this.thumbs.lower.order = 101;
                 this.thumbs.upper.order = 100;
             }
