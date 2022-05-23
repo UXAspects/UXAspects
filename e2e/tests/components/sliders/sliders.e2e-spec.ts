@@ -344,20 +344,6 @@ describe('Sliders', () => {
 
     });
 
-    it('should allow dragging of the lower thumb when both values are set to the max', async () => {
-
-        page.input2.clear();
-        page.input2.sendKeys('100' + Key.ENTER);
-
-        page.input1.clear();
-        page.input1.sendKeys('100' + Key.ENTER);
-
-        page.dragAndDropHandle(page.rangeWithTextInputs, 'lower', { x: -30, y: 0 });
-        expect(await page.getTooltipValue(page.rangeWithTextInputs, 'lower')).toEqual('95');
-        expect(await page.getInputValue(page.input1)).toEqual('95');
-
-    });
-
     describe('in disabled state', () => {
         beforeEach(async () => {
             await page.disabledButton.click();
