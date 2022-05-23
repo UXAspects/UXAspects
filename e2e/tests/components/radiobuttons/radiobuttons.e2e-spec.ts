@@ -113,25 +113,77 @@ describe('RadioButton Tests', () => {
 
     });
 
-    it('should toggle the radio button when pressing space', async () => {
+    describe('Keyboard Tests', () => {
 
-        await page.toggleByKey(page.radiobutton2, Key.SPACE);
+        beforeAll(async () => {
+            // Re-enabling first button
+            await page.disableFirstButton.click();
+        });
 
-        expect(await page.confirmIsChecked(page.radiobutton1)).toBeFalsy();
-        expect(await page.confirmIsChecked(page.radiobutton2)).toBeTruthy();
-        expect(await page.confirmIsChecked(page.radiobutton3)).toBeFalsy();
-        expect(await page.confirmIsChecked(page.radiobutton4)).toBeFalsy();
-        expect(await page.text1.getText()).toBe('string');
+        it('should focus the top radio button and toggle the radio button when pressing space', async () => {
 
-    });
+            await page.removeSelected.click();
+            await page.topFocus.click();
+            await browser.actions().sendKeys(Key.TAB).perform();
 
-    it('should allow selection via the keyboard when no radio button is selected', async () => {
+            expect(await page.confirmIsFocused(page.radiobutton1)).toBeTruthy();
+            expect(await page.confirmIsFocused(page.radiobutton2)).toBeFalsy();
+            expect(await page.confirmIsFocused(page.radiobutton3)).toBeFalsy();
+            expect(await page.confirmIsFocused(page.radiobutton4)).toBeFalsy();
 
-        await page.removeSelected.click();
+            await browser.actions().sendKeys(Key.SPACE).perform();
 
-        await browser.actions().sendKeys(Key.chord(Key.SHIFT, Key.TAB)).perform();
-        await browser.actions().sendKeys(Key.ARROW_UP).perform();
+            expect(await page.confirmIsChecked(page.radiobutton1)).toBeTruthy();
+            expect(await page.confirmIsChecked(page.radiobutton2)).toBeFalsy();
+            expect(await page.confirmIsChecked(page.radiobutton3)).toBeFalsy();
+            expect(await page.confirmIsChecked(page.radiobutton4)).toBeFalsy();
+            expect(await page.text1.getText()).toBe('100');
 
-        expect(await page.text1.getText()).toBe('[object Object]');
+        });
+
+        it('should focus the selected radio button', async () => {
+
+            await page.radiobutton2.click();
+            expect(await page.confirmIsChecked(page.radiobutton2)).toBeTruthy();
+
+            await page.topFocus.click();
+            await browser.actions().sendKeys(Key.TAB).perform();
+
+            expect(await page.confirmIsChecked(page.radiobutton1)).toBeFalsy();
+            expect(await page.confirmIsChecked(page.radiobutton2)).toBeTruthy();
+            expect(await page.confirmIsChecked(page.radiobutton3)).toBeFalsy();
+            expect(await page.confirmIsChecked(page.radiobutton4)).toBeFalsy();
+
+        });
+
+        it('should allow the first enabled radio button to be focusable when one is disabled', async () => {
+
+            await page.removeSelected.click();
+            await page.disableFirstButton.click();
+
+            await page.topFocus.click();
+            await browser.actions().sendKeys(Key.TAB).perform();
+
+            expect(await page.confirmIsFocused(page.radiobutton1)).toBeFalsy();
+            expect(await page.confirmIsFocused(page.radiobutton2)).toBeTruthy();
+            expect(await page.confirmIsFocused(page.radiobutton3)).toBeFalsy();
+            expect(await page.confirmIsFocused(page.radiobutton4)).toBeFalsy();
+
+        });
+
+        it('should only allow one radio button to be focused', async () => {
+
+            await page.removeSelected.click();
+
+            await page.topFocus.click();
+            await browser.actions().sendKeys(Key.TAB).perform();
+            await browser.actions().sendKeys(Key.TAB).perform();
+
+            expect(await page.confirmIsFocused(page.radiobutton1)).toBeFalsy();
+            expect(await page.confirmIsFocused(page.radiobutton2)).toBeFalsy();
+            expect(await page.confirmIsFocused(page.radiobutton3)).toBeFalsy();
+            expect(await page.confirmIsFocused(page.radiobutton4)).toBeFalsy();
+
+        });
     });
 });
