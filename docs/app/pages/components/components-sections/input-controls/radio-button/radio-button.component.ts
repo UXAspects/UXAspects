@@ -46,7 +46,7 @@ export class ComponentsRadioButtonComponent extends BaseDocumentationSection imp
         this.disabled = !this.disabled;
 
         if (this.selected === radio && this.disabled) {
-            this.selected = null;
+            this.selected = undefined;
         }
     }
 }

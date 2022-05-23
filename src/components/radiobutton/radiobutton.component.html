@@ -14,7 +14,7 @@
             [id]="(id || _radioButtonId) + '-input'"
             [checked]="value === option"
             [disabled]="disabled"
-            [tabindex]="tabindex || internalTabindex"
+            [tabindex]="tabindex ?? _internalTabindex"
             [attr.name]="name"
             [required]="required"
             [attr.aria-label]="ariaLabel"

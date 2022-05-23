@@ -70,7 +70,7 @@ export class RadioButtonComponent<T = any> implements ControlValueAccessor, OnCh
     _focused: boolean = false;
 
     /** Internally store the current tabindex */
-    internalTabindex: number = null;
+    _internalTabindex: number = null;
 
     /** Used to inform Angular forms that the component has been touched */
     onTouchedCallback: () => void = () => { };
@@ -85,7 +85,7 @@ export class RadioButtonComponent<T = any> implements ControlValueAccessor, OnCh
 
     ngOnChanges(changes: SimpleChanges): void {
         if (changes.disabled && this._group && !changes.disabled.firstChange) {
-            this._group.determineAndSetTabIndex();
+            this._group.determineAndSetInternalTabIndex();
         }
     }
 
@@ -139,8 +139,9 @@ export class RadioButtonComponent<T = any> implements ControlValueAccessor, OnCh
         this._changeDetector.markForCheck();
     }
 
-    setTabIndex(tabIndex): void {
-        this.internalTabindex = tabIndex;
+    /** Set the internal tab index of the radio button */
+    setInternalTabindex(tabIndex): void {
+        this._internalTabindex = tabIndex;
         this._changeDetector.detectChanges();
     }
 }

@@ -24,7 +24,7 @@ export class AppComponent {
         this.disabled = !this.disabled;
 
         if (this.selected === radio && this.disabled) {
-            this.selected = null;
+            this.selected = undefined;
         }
     }
 }
