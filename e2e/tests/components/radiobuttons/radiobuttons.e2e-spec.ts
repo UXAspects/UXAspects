@@ -116,7 +116,7 @@ describe('RadioButton Tests', () => {
     describe('Keyboard Tests', () => {
 
         beforeAll(async () => {
-            // Re-enabling first button
+            // Re-enabling first radio button
             await page.disableFirstButton.click();
         });
 
@@ -143,15 +143,15 @@ describe('RadioButton Tests', () => {
 
         it('should focus the selected radio button', async () => {
 
-            await page.radiobutton2.click();
-            expect(await page.confirmIsChecked(page.radiobutton2)).toBeTruthy();
+            await page.radiobutton3.click();
+            expect(await page.confirmIsChecked(page.radiobutton3)).toBeTruthy();
 
             await page.topFocus.click();
             await browser.actions().sendKeys(Key.TAB).perform();
 
             expect(await page.confirmIsChecked(page.radiobutton1)).toBeFalsy();
-            expect(await page.confirmIsChecked(page.radiobutton2)).toBeTruthy();
-            expect(await page.confirmIsChecked(page.radiobutton3)).toBeFalsy();
+            expect(await page.confirmIsChecked(page.radiobutton2)).toBeFalsy();
+            expect(await page.confirmIsChecked(page.radiobutton3)).toBeTruthy();
             expect(await page.confirmIsChecked(page.radiobutton4)).toBeFalsy();
 
         });
@@ -177,6 +177,12 @@ describe('RadioButton Tests', () => {
 
             await page.topFocus.click();
             await browser.actions().sendKeys(Key.TAB).perform();
+
+            expect(await page.confirmIsFocused(page.radiobutton1)).toBeFalsy();
+            expect(await page.confirmIsFocused(page.radiobutton2)).toBeTruthy();
+            expect(await page.confirmIsFocused(page.radiobutton3)).toBeFalsy();
+            expect(await page.confirmIsFocused(page.radiobutton4)).toBeFalsy();
+
             await browser.actions().sendKeys(Key.TAB).perform();
 
             expect(await page.confirmIsFocused(page.radiobutton1)).toBeFalsy();
