@@ -21,6 +21,7 @@
 <ux-menu #dropdownMenu id="color-picker-dropdown">
     <ux-color-picker
         uxMenuTabbableItem
+        [forwardFocusToButton]="true"
         [colors]="colors"
         [(selected)]="selected"
         (selectedChange)="onColorPickerSelectedChange()"
@@ -145,6 +146,9 @@
     </tr>
     <tr uxd-api-property name="inputAriaLabel" type="(mode: ColorPickerInputMode) => string">
         Define a function that returns an aria-label for the input control.
+    </tr>
+    <tr uxd-api-property name="forwardFocusToButton" type="boolean" defaultValue="false">
+        Whether focus should be forwarded to the first or selected button when the component receives focus.
     </tr>
 </uxd-api-properties>
 

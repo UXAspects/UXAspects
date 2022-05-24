@@ -106,6 +106,10 @@ export class ColorPickerComponent implements OnInit, OnDestroy {
     @Input()
     inputAriaLabel: (mode: ColorPickerInputMode) => string = this.getInputAriaLabel;
 
+    /** Whether or not to forward focus to the selected or first button in the color picker. */
+    @Input()
+    forwardFocusToButton: boolean = false;
+
     /** Emitted when the user changes the selected color, either by clicking a color swatch button, or entering a valid color value into the input panel text field. */
     @Output()
     selectedChange = new EventEmitter<ColorPickerColor>();
@@ -168,7 +172,7 @@ export class ColorPickerComponent implements OnInit, OnDestroy {
     @HostListener('focusin', ['$event'])
     onFocusin(event) {
 
-        if (this.colorButtons && event.target === this._elementRef.nativeElement) {
+        if (this.forwardFocusToButton && this.colorButtons && event.target === this._elementRef.nativeElement) {
             const checked = this.colorButtons.find(button => button.nativeElement.classList.contains('ux-selected'));
 
             if (checked) {
