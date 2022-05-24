@@ -64,8 +64,6 @@ export class ComponentsColorPickerComponent extends BaseDocumentationSection imp
 
     ngAfterViewInit(): void {
         this.menuTrigger.openMenu();
-
-        console.log(this.tabbleItem);
     }
 
     close(): void {
