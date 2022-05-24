@@ -21,6 +21,7 @@
 <ux-menu #dropdownMenu id="color-picker-dropdown">
     <ux-color-picker
         uxMenuTabbableItem
+        [type]="menuItemType"
         [forwardFocusToButton]="true"
         [colors]="colors"
         [(selected)]="selected"

@@ -1,5 +1,5 @@
-import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
-import { ColorPickerColor, ColorService, MenuTabbableItemDirective, MenuTriggerDirective } from '@ux-aspects/ux-aspects';
+import { AfterViewInit, ChangeDetectorRef, Component, ViewChild } from '@angular/core';
+import { ColorPickerColor, ColorService, MenuItemType, MenuTriggerDirective } from '@ux-aspects/ux-aspects';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
@@ -34,10 +34,9 @@ export class ComponentsColorPickerComponent extends BaseDocumentationSection imp
     buttonSize = 'md';
     showTooltips = false;
     showInput = false;
+    menuItemType: MenuItemType = MenuItemType.Custom;
 
-    @ViewChild('toggleButton') toggleButton?: ElementRef<HTMLButtonElement>;
     @ViewChild(MenuTriggerDirective) menuTrigger?: MenuTriggerDirective;
-    @ViewChild(MenuTabbableItemDirective) tabbleItem?: MenuTabbableItemDirective;
 
     private _colorNames = [
         [
@@ -53,7 +52,7 @@ export class ComponentsColorPickerComponent extends BaseDocumentationSection imp
         ['Grey1', 'Grey2', 'Grey3', 'Grey4', 'Grey5', 'Grey6', 'Grey7', 'Grey8']
     ];
 
-    constructor(colorService: ColorService) {
+    constructor(colorService: ColorService, private _cd: ChangeDetectorRef) {
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
 
         this.colors = this._colorNames.map(row =>
@@ -63,12 +62,12 @@ export class ComponentsColorPickerComponent extends BaseDocumentationSection imp
     }
 
     ngAfterViewInit(): void {
-        this.menuTrigger.openMenu();
+        this.menuTrigger?.openMenu();
+        this._cd.detectChanges();
     }
 
     close(): void {
         this.menuTrigger?.closeMenu();
-        this.toggleButton?.nativeElement.focus();
     }
 
     onColorPickerSelectedChange(): void {
