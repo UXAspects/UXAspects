@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
 
-    selected = 100;
+    selected: number | string | object = 100;
 
     radioOptions = {
         option1: 100,
@@ -20,4 +20,11 @@ export class AppComponent {
     disabled = false;
     simplified = false;
 
+    toggleDisabled(radio: number | string | object): void {
+        this.disabled = !this.disabled;
+
+        if (this.selected === radio && this.disabled) {
+            this.selected = undefined;
+        }
+    }
 }
