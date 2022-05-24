@@ -11,7 +11,7 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 @DocumentationSectionComponent('ComponentsRadioButtonComponent')
 export class ComponentsRadioButtonComponent extends BaseDocumentationSection implements IPlaygroundProvider {
 
-    selected = 100;
+    selected: number | string | object = 100;
 
     radioOptions = {
         option1: 100,
@@ -42,4 +42,11 @@ export class ComponentsRadioButtonComponent extends BaseDocumentationSection imp
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
     }
 
+    toggleDisabled(radio: number | string | object): void {
+        this.disabled = !this.disabled;
+
+        if (this.selected === radio && this.disabled) {
+            this.selected = undefined;
+        }
+    }
 }
