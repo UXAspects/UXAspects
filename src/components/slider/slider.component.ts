@@ -440,7 +440,7 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
         // update the value accordingly
         this.setThumbValue(thumb, value);
 
-        this.updateOrder(thumb);
+        this.updateOrderOnDrag(thumb);
         this.updateValues();
 
         // update tooltip text & position
@@ -455,20 +455,21 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
 
     }
 
-    private updateOrder(thumb?: SliderThumb): void {
+    private updateOrderOnDrag(thumb: SliderThumb): void {
+
+        const lower = thumb === SliderThumb.Lower ? 101 : 100;
+        const upper = thumb === SliderThumb.Lower ? 100 : 101;
+
+        // Ensure currently dragged thumb is on top
+        this.thumbs.lower.order = lower;
+        this.thumbs.upper.order = upper;
+    }
+
+    private updateOrder(): void {
 
         const isDragged = this.thumbs.lower.drag || this.thumbs.upper.drag;
 
-        if (thumb === SliderThumb.Lower || thumb === SliderThumb.Upper) {
-
-            const lower = thumb === SliderThumb.Lower ? 101 : 100;
-            const upper = thumb === SliderThumb.Lower ? 100 : 101;
-
-            // Ensure currently dragged thumb is on top
-            this.thumbs.lower.order = lower;
-            this.thumbs.upper.order = upper;
-
-        } else if (this._options && !isDragged) {
+        if (this._options && !isDragged) {
 
             const lowerValue = this.getThumbValue(this.sliderThumb.Lower);
             const upperValue = this.getThumbValue(this.sliderThumb.Upper);
