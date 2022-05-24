@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
-import { ColorPickerColor, ColorService, MenuTriggerDirective } from '@ux-aspects/ux-aspects';
+import { ColorPickerColor, ColorService, MenuTabbableItemDirective, MenuTriggerDirective } from '@ux-aspects/ux-aspects';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
@@ -37,6 +37,7 @@ export class ComponentsColorPickerComponent extends BaseDocumentationSection imp
 
     @ViewChild('toggleButton') toggleButton?: ElementRef<HTMLButtonElement>;
     @ViewChild(MenuTriggerDirective) menuTrigger?: MenuTriggerDirective;
+    @ViewChild(MenuTabbableItemDirective) tabbleItem?: MenuTabbableItemDirective;
 
     private _colorNames = [
         [
@@ -63,6 +64,8 @@ export class ComponentsColorPickerComponent extends BaseDocumentationSection imp
 
     ngAfterViewInit(): void {
         this.menuTrigger.openMenu();
+
+        console.log(this.tabbleItem);
     }
 
     close(): void {

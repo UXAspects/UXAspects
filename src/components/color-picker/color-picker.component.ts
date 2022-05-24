@@ -1,4 +1,4 @@
-import { Component, EventEmitter, HostBinding, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, HostBinding, HostListener, Input, OnDestroy, OnInit, Output, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { NgModel } from '@angular/forms';
 import { BehaviorSubject, combineLatest, Subject } from 'rxjs';
 import { pairwise, takeUntil } from 'rxjs/operators';
@@ -132,8 +132,11 @@ export class ColorPickerComponent implements OnInit, OnDestroy {
 
     /** Access the ngModel instance of the input field */
     @ViewChild('inputField', { static: false }) inputFormControl: NgModel;
+    @ViewChildren('colorPickerColor') colorButtons: QueryList<any>;
 
     private readonly _onDestroy = new Subject();
+
+    constructor(private readonly _elementRef: ElementRef<HTMLElement>) { }
 
     ngOnInit(): void {
 
@@ -160,6 +163,20 @@ export class ColorPickerComponent implements OnInit, OnDestroy {
     ngOnDestroy(): void {
         this._onDestroy.next();
         this._onDestroy.complete();
+    }
+
+    @HostListener('focusin', ['$event'])
+    onFocusin(event) {
+
+        if (this.colorButtons && event.target === this._elementRef.nativeElement) {
+            const checked = this.colorButtons.find(button => button.nativeElement.classList.contains('ux-selected'));
+
+            if (checked) {
+                checked.nativeElement.querySelector('button').focus();
+            } else {
+                this.colorButtons.first.querySelector('button').focus();
+            }
+        }
     }
 
     updateColorValue(input: string, mode: ColorPickerInputMode): void {
