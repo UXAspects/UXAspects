@@ -74,7 +74,7 @@
 
 <ng-template #dropdown let-tabindex="tabindex">
     <div class="btn-group split-dropdown" #parent>
-        <button type="button" class="btn button-secondary">Action</button>
+        <button [tabindex]="tabindex" type="button" class="btn button-secondary">Action</button>
         <button
             type="button"
             id="dropdown-btn"
