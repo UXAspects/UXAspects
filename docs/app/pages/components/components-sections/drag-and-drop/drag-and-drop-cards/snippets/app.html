@@ -15,7 +15,7 @@
             uxTabbableListItem
             [uxReorderableModel]="component"
             attr.aria-label="{{ component.name }}. Press Alt up and alt down to reorder.
-                Press Alt right to move to the list container."
+                 Press Alt right to move to the list container."
             [focusIf]="component === focus"
             (keydown.arrowright)="listContainer.focusTabbableItem()"
             (keydown.alt.arrowup)="moveUp(cards, idx, $event)"

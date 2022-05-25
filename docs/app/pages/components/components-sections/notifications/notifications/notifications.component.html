@@ -6,12 +6,10 @@
 </div>
 
 <ng-template #notification let-notificationRef let-data="data">
-    <button
-        class="dismiss"
+    <button class="dismiss"
         tabindex="0"
         aria-label="Dismiss Notification"
-        (click)="notificationService.dismiss(notificationRef)"
-    >
+        (click)="notificationService.dismiss(notificationRef)">
         <ux-icon name="close"></ux-icon>
     </button>
 
@@ -30,7 +28,7 @@
     </div>
 </ng-template>
 
-<hr />
+<hr>
 
 <div class="row uxd-customize-example">
     <div class="col-md-12">
