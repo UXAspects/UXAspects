@@ -16,12 +16,11 @@
 
     <ux-menu #dropdownMenu class="dropdown-menu">
         <button
+            *ngFor="let filter of filters"
             class="dropdown-list-item"
             type="button"
             uxMenuItem
-            *ngFor="let filter of filters"
-            (click)="selectFilter(filter)"
-            (keydown.enter)="selectFilter(filter)"
+            (activate)="selectFilter(filter)"
         >
             <span class="dropdown-menu-icon">
                 <ux-icon [name]="filter === selected ? 'checkmark' : null"></ux-icon>

@@ -31,12 +31,11 @@
 
         <ux-menu #dropdownMenu class="dropdown-menu">
             <button
+                *ngFor="let option of options"
                 class="dropdown-list-item"
                 type="button"
                 uxMenuItem
-                *ngFor="let option of options"
-                (click)="sort(option)"
-                (keydown.enter)="sort(option)"
+                (activate)="sort(option)"
             >
                 <span class="dropdown-menu-icon">
                     <ux-icon
