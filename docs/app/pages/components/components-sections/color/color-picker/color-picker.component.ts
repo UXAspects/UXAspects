@@ -1,5 +1,4 @@
-import { AfterViewInit, ChangeDetectorRef, Component, ViewChild } from '@angular/core';
-import { ColorPickerColor, ColorService, MenuItemType, MenuTriggerDirective } from '@ux-aspects/ux-aspects';
+import { Component } from '@angular/core';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
@@ -11,7 +10,7 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
     styleUrls: ['./color-picker.component.less']
 })
 @DocumentationSectionComponent('ComponentsColorPickerComponent')
-export class ComponentsColorPickerComponent extends BaseDocumentationSection implements IPlaygroundProvider, AfterViewInit {
+export class ComponentsColorPickerComponent extends BaseDocumentationSection implements IPlaygroundProvider {
 
     playground: IPlayground = {
         files: {
@@ -27,18 +26,13 @@ export class ComponentsColorPickerComponent extends BaseDocumentationSection imp
         ]
     };
 
-    colors: ColorPickerColor[][];
-    selected: ColorPickerColor;
     columns = 4;
     buttonStyle = 'circle';
     buttonSize = 'md';
     showTooltips = false;
     showInput = false;
-    menuItemType: MenuItemType = MenuItemType.Custom;
 
-    @ViewChild(MenuTriggerDirective) menuTrigger?: MenuTriggerDirective;
-
-    private _colorNames = [
+    colorNames = [
         [
             'Primary',
             'Accent',
@@ -52,27 +46,7 @@ export class ComponentsColorPickerComponent extends BaseDocumentationSection imp
         ['Grey1', 'Grey2', 'Grey3', 'Grey4', 'Grey5', 'Grey6', 'Grey7', 'Grey8']
     ];
 
-    constructor(colorService: ColorService, private _cd: ChangeDetectorRef) {
+    constructor() {
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
-
-        this.colors = this._colorNames.map(row =>
-            row.map(colorName => new ColorPickerColor(colorName, colorService.resolve(colorName))));
-
-        this.selected = this.colors[0][0];
-    }
-
-    ngAfterViewInit(): void {
-        this.menuTrigger?.openMenu();
-        this._cd.detectChanges();
-    }
-
-    close(): void {
-        this.menuTrigger?.closeMenu();
-    }
-
-    onColorPickerSelectedChange(): void {
-        if (!this.showInput) {
-            this.close();
-        }
     }
 }

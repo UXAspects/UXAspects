@@ -2,13 +2,14 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { AccessibilityModule, EboxModule, IconModule, MenuModule, PersistentDataModule, PopoverModule, ScrollModule, TooltipModule } from '@ux-aspects/ux-aspects';
+import { AccessibilityModule, ColorPickerModule, EboxModule, IconModule, MenuModule, PersistentDataModule, PopoverModule, ScrollModule, TooltipModule } from '@ux-aspects/ux-aspects';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 import { ApiPropertiesComponent } from './api-properties/api-properties.component';
 import { ApiPropertyComponent } from './api-property/api-property.component';
 import { ComponentSectionComponent } from './component-section/component-section.component';
 import { DocumentationCategoryComponent } from './documentation-category/documentation-category.component';
+import { DocumentationColorPickerComponent } from './documentation-color-picker/documentation-color-picker.component';
 import { EditExampleLinkComponent } from './edit-example-link/edit-example-link.component';
 import { FullPageLayoutComponent } from './full-page-layout/full-page-layout.component';
 import { LandingPageFeatureListComponent } from './landing-page-feature-list/landing-page-feature-list.component';
@@ -33,6 +34,7 @@ const DOCUMENTATION_COMPONENTS = [
     ApiPropertyComponent,
     ComponentSectionComponent,
     DocumentationCategoryComponent,
+    DocumentationColorPickerComponent,
     EditExampleLinkComponent,
     FullPageLayoutComponent,
     LandingPageFeatureComponent,
@@ -58,6 +60,7 @@ const DOCUMENTATION_COMPONENTS = [
         AccessibilityModule,
         ButtonsModule,
         CommonModule,
+        ColorPickerModule,
         EboxModule,
         FormsModule,
         IconModule,
