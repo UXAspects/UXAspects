@@ -180,6 +180,8 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
             // mark as dirty
             this._changeDetectorRef.markForCheck();
         });
+
+        this.updateOrder();
     }
 
     snapToNearestTick(thumb: SliderThumb, snapTarget: SliderSnap, forwards: boolean): void {
@@ -273,7 +275,7 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
 
         // update the thumb state
         this.setThumbState(thumb, state.hover, state.drag);
-
+        this.updateOrder();
     }
 
     getAriaValueText(thumb: SliderThumb): string | number {
@@ -438,7 +440,7 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
         // update the value accordingly
         this.setThumbValue(thumb, value);
 
-        this.updateOrder(thumb);
+        this.updateOrderOnDrag(thumb);
         this.updateValues();
 
         // update tooltip text & position
@@ -453,14 +455,40 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
 
     }
 
-    private updateOrder(thumb: SliderThumb): void {
+    private updateOrderOnDrag(thumb: SliderThumb): void {
 
         const lower = thumb === SliderThumb.Lower ? 101 : 100;
         const upper = thumb === SliderThumb.Lower ? 100 : 101;
 
-        // The most recently used thumb should be above
+        // Ensure currently dragged thumb is on top
         this.thumbs.lower.order = lower;
         this.thumbs.upper.order = upper;
+    }
+
+    private updateOrder(): void {
+
+        const isDragged = this.thumbs.lower.drag || this.thumbs.upper.drag;
+
+        if (this._options && !isDragged) {
+
+            const lowerValue = this.getThumbValue(this.sliderThumb.Lower);
+            const upperValue = this.getThumbValue(this.sliderThumb.Upper);
+
+            const max = this._options.track.max;
+            const min = this._options.track.min;
+            const range = max - min;
+            const median = (range / 100 * 50) + min;
+
+            if (upperValue <= median) {
+                this.thumbs.lower.order = 100;
+                this.thumbs.upper.order = 101;
+            }
+
+            if (lowerValue > median) {
+                this.thumbs.lower.order = 101;
+                this.thumbs.upper.order = 100;
+            }
+        }
     }
 
     private getTickDistances(value: number, thumb: SliderThumb, snapTarget: SliderSnap): SliderTick[] {
