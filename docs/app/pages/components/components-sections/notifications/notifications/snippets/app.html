@@ -46,17 +46,13 @@
                     <div class="col-md-6 col-sm-12">
                         <label for="backgroundColor">backgroundColor</label>
 
-                        <button
-                            type="button"
+                        <button type="button"
                             aria-label="Select a color"
                             class="btn button-secondary dropdown-toggle"
                             #toggleButton
-                            [uxMenuTriggerFor]="dropdownMenu"
-                        >
-                            <span
-                                class="ux-color-picker-button-preview"
-                                [style.background-color]="selected.rgba"
-                            >
+                            [uxMenuTriggerFor]="dropdownMenu">
+                            <span class="ux-color-picker-button-preview"
+                                [style.background-color]="selected.rgba">
                                 &nbsp;
                             </span>
                             <ux-icon name="chevron-down"></ux-icon>

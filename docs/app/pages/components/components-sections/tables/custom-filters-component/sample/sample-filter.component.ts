@@ -1,5 +1,5 @@
-import { Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { Filter, FilterRemoveAllEvent, FilterService, MenuTriggerDirective } from '@ux-aspects/ux-aspects';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Filter, FilterRemoveAllEvent, FilterService } from '@ux-aspects/ux-aspects';
 import { Subject } from 'rxjs';
 import { filter as rxFilter, takeUntil } from 'rxjs/operators';
 
@@ -9,9 +9,6 @@ import { filter as rxFilter, takeUntil } from 'rxjs/operators';
     styleUrls: ['./sample-filter.component.less']
 })
 export class SampleFilterCustomComponent implements OnInit, OnDestroy {
-
-    @ViewChild('toggleButton') toggleButton?: ElementRef<HTMLButtonElement>;
-    @ViewChild(MenuTriggerDirective) menuTrigger?: MenuTriggerDirective;
 
     @Input() filters: Filter[] = [];
     @Input() initial: Filter;
