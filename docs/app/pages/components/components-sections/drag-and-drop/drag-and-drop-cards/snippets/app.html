@@ -1,4 +1,5 @@
 <div class="dnd-cards-demo">
+
     <div role="list"
         #cardContainer="ux-tabbable-list"
         class="dnd-cards-container card-view"
@@ -7,6 +8,7 @@
         [allowAltModifier]="false"
         [(reorderableModel)]="cards"
         reorderableGroup="cards-demo">
+
         <div *ngFor="let component of cards; let idx = index"
             class="card"
             role="listitem"
@@ -18,6 +20,7 @@
             (keydown.alt.arrowup)="moveUp(cards, idx, $event)"
             (keydown.alt.arrowdown)="moveDown(cards, idx, $event)"
             (keydown.alt.arrowright)="toList(cards, idx, $event)">
+
             <div class="content">
                 <div uxReorderableHandle class="handle" aria-hidden="true">
                     <ux-icon name="drag"></ux-icon>
@@ -40,6 +43,7 @@
         [allowAltModifier]="false"
         [(reorderableModel)]="list"
         reorderableGroup="cards-demo">
+
         <div *ngFor="let component of list; let idx = index"
             #listItem="ux-tabbable-list-item"
             role="listitem"
@@ -52,6 +56,7 @@
             (keydown.alt.arrowup)="moveUp(list, idx, $event)"
             (keydown.alt.arrowdown)="moveDown(list, idx, $event)"
             (keydown.alt.arrowleft)="toCard(list, idx, $event)">
+
             <div uxReorderableHandle class="handle" aria-hidden="true">
                 <ux-icon name="drag"></ux-icon>
             </div>
@@ -68,44 +73,30 @@
 </div>
 
 <ng-template #dropdown let-tabindex="tabindex">
-    <div class="btn-group" dropdown #dropdown="bs-dropdown">
-        <button type="button" class="btn button-secondary" [tabindex]="tabindex">Action</button>
+    <div class="btn-group split-dropdown" #parent>
+        <button type="button" class="btn button-secondary">Action</button>
         <button
-            class="btn button-secondary dropdown-toggle"
+            type="button"
             id="dropdown-btn"
-            [tabindex]="tabindex"
-            dropdownToggle
-            uxMenuNavigationToggle
-            #menuNavigationToggle="uxMenuNavigationToggle"
-            aria-label="Toggle Dropdown"
-            aria-haspopup="true"
-            [attr.aria-expanded]="dropdown.isOpen"
-            (keydown.enter)="dropdown.show()">
+            class="btn button-secondary dropdown-toggle"
+            [uxMenuTriggerFor]="dropdownMenu"
+            [uxMenuParent]="parent">
+
             <ux-icon name="down"></ux-icon>
         </button>
-        <ul class="dropdown-menu"
-            aria-labelledby="dropdown-btn"
-            role="menu"
-            uxMenuNavigation
-            [toggleButton]="menuNavigationToggle"
-            toggleButtonPosition="top"
-            *dropdownMenu>
-            <li>
-                <a [tabindex]="tabindex"
-                uxMenuNavigationItem
-                (click)="dropdown.hide()">
-                Action
-                </a>
-            </li>
-            <li>
-                <a [tabindex]="tabindex"
-                uxMenuNavigationItem
-                (click)="dropdown.hide()">
-                Another action
-                </a>
-            </li>
-        </ul>
     </div>
+
+    <ux-menu #dropdownMenu menuClass="ux-menu-demo">
+
+        <button type="button" uxMenuItem>
+            <span class="dropdown-menu-text">Action</span>
+        </button>
+
+        <button type="button" uxMenuItem>
+            <span class="dropdown-menu-text">Another action</span>
+        </button>
+
+    </ux-menu>
 </ng-template>
 
 <ng-template #text let-tabindex="tabindex">

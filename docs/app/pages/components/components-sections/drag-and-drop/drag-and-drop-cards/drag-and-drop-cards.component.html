@@ -73,43 +73,30 @@
 </div>
 
 <ng-template #dropdown let-tabindex="tabindex">
-    <div class="btn-group" dropdown #dropdown="bs-dropdown">
-        <button type="button" class="btn button-secondary" [tabindex]="tabindex">Action</button>
-        <button class="btn button-secondary dropdown-toggle"
+    <div class="btn-group split-dropdown" #parent>
+        <button type="button" class="btn button-secondary">Action</button>
+        <button
+            type="button"
             id="dropdown-btn"
-            [tabindex]="tabindex"
-            dropdownToggle
-            uxMenuNavigationToggle
-            #menuNavigationToggle="uxMenuNavigationToggle"
-            aria-label="Toggle Dropdown"
-            aria-haspopup="true"
-            [attr.aria-expanded]="dropdown.isOpen"
-            (keydown.enter)="dropdown.show()">
+            class="btn button-secondary dropdown-toggle"
+            [uxMenuTriggerFor]="dropdownMenu"
+            [uxMenuParent]="parent">
+
             <ux-icon name="down"></ux-icon>
         </button>
-        <ul class="dropdown-menu"
-            aria-labelledby="dropdown-btn"
-            role="menu"
-            uxMenuNavigation
-            [toggleButton]="menuNavigationToggle"
-            toggleButtonPosition="top"
-            *dropdownMenu>
-            <li>
-                <a [tabindex]="tabindex"
-                   uxMenuNavigationItem
-                   (click)="dropdown.hide()">
-                   Action
-                </a>
-            </li>
-            <li>
-                <a [tabindex]="tabindex"
-                   uxMenuNavigationItem
-                   (click)="dropdown.hide()">
-                   Another action
-                </a>
-            </li>
-        </ul>
     </div>
+
+    <ux-menu #dropdownMenu menuClass="ux-menu-demo">
+
+        <button type="button" uxMenuItem>
+            <span class="dropdown-menu-text">Action</span>
+        </button>
+
+        <button type="button" uxMenuItem>
+            <span class="dropdown-menu-text">Another action</span>
+        </button>
+
+    </ux-menu>
 </ng-template>
 
 <ng-template #text let-tabindex="tabindex">
