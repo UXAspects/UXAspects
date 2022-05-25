@@ -24,7 +24,7 @@ import {
     PLAYGROUND_TRANSFORMER,
     RenameAngularJsonPlaygroundTransformer,
     StylesheetPlaygroundTransformer,
-    ViewEngineDowngradeTransformer
+    ViewEngineDowngradeTransformer,
 } from './services/playground/index';
 import {
     DocumentationType,
@@ -78,4 +78,4 @@ const appRoutes: Routes = [
     declarations: [AppComponent],
     bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

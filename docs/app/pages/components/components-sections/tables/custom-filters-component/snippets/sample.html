@@ -1,27 +1,25 @@
 <div class="btn-group ux-custom-filter">
-    <button
-        type="button"
+    <button type="button"
         uxFocusIndicator
         tabindex="0"
         #toggleButton
         [uxMenuTriggerFor]="dropdownMenu"
         aria-haspopup="true"
         class="filter-dropdown btn dropdown-toggle"
-        [class.active]="selected !== initial"
-    >
+        [class.active]="selected !== initial">
         {{ selected?.group }}
-        <span class="filter-title" *ngIf="selected !== initial"> ({{ selected?.title }}) </span>
+            <span class="filter-title" *ngIf="selected !== initial">
+                ({{ selected?.title }})
+            </span>
         <ux-icon class="custom-filter-chevron" name="down"></ux-icon>
     </button>
 
     <ux-menu #dropdownMenu class="dropdown-menu">
-        <button
-            *ngFor="let filter of filters"
+        <button *ngFor="let filter of filters"
             class="dropdown-list-item"
             type="button"
             uxMenuItem
-            (activate)="selectFilter(filter)"
-        >
+            (activate)="selectFilter(filter)">
             <span class="dropdown-menu-icon">
                 <ux-icon [name]="filter === selected ? 'checkmark' : null"></ux-icon>
             </span>
