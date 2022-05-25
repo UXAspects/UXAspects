@@ -1264,7 +1264,13 @@
                 {
                     "title": "Toolbar Sorting",
                     "component": "ComponentsSortingComponent",
-                    "version": "Angular"
+                    "version": "Angular",
+                    "usage": [
+                        {
+                            "title": "Module",
+                            "content": "MenuModule"
+                        }
+                    ]
                 }
             ]
         },
