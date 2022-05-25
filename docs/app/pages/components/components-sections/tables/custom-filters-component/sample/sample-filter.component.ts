@@ -72,12 +72,5 @@ export class SampleFilterCustomComponent implements OnInit, OnDestroy {
 
         // select the filter
         this._filterService.add(this.selected);
-
-        this.close();
-    }
-
-    close(): void {
-        this.menuTrigger?.closeMenu();
-        this.toggleButton?.nativeElement.focus();
     }
 }
