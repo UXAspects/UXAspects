@@ -9,6 +9,8 @@ import { ColorPickerColor, ColorService, MenuItemType, MenuTriggerDirective } fr
 })
 export class DocumentationColorPickerComponent implements AfterViewInit, OnInit {
 
+    @ViewChild(MenuTriggerDirective) menuTrigger?: MenuTriggerDirective;
+
     @Input() showInput = false;
     @Input() colors: ColorPickerColor[][];
     @Input() selected: ColorPickerColor;
@@ -23,8 +25,6 @@ export class DocumentationColorPickerComponent implements AfterViewInit, OnInit 
     @Output() selectedChange = new EventEmitter<ColorPickerColor>();
 
     menuItemType: MenuItemType = MenuItemType.Custom;
-
-    @ViewChild(MenuTriggerDirective) menuTrigger?: MenuTriggerDirective;
 
     constructor(private readonly colorService: ColorService, private _cd: ChangeDetectorRef) { }
 

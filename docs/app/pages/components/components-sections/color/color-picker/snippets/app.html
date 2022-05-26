@@ -5,6 +5,7 @@
         class="btn button-secondary dropdown-toggle"
         #toggleButton
         [uxMenuTriggerFor]="dropdownMenu"
+        [closeOnBlur]="true"
     >
         <span class="ux-color-picker-button-preview" [style.background-color]="selected.rgba">
             &nbsp;
@@ -18,20 +19,21 @@
 </div>
 
 <ux-menu #dropdownMenu id="color-picker-dropdown">
-    <div uxMenuItem [closeOnSelect]="false">
-        <ux-color-picker
-            [colors]="colors"
-            [(selected)]="selected"
-            (selectedChange)="onColorPickerSelectedChange()"
-            [columns]="columns"
-            [buttonStyle]="buttonStyle"
-            [buttonSize]="buttonSize"
-            [showTooltips]="showTooltips"
-            [showInput]="showInput"
-            (inputSubmit)="close()"
-        ></ux-color-picker>
-        <div *ngIf="showInput" class="btn-container demo-color-picker-close">
-            <button type="button" class="btn button-primary" (click)="close()">Accept</button>
-        </div>
+    <ux-color-picker
+        uxMenuTabbableItem
+        [type]="menuItemType"
+        [forwardFocusToButton]="true"
+        [colors]="colors"
+        [(selected)]="selected"
+        (selectedChange)="onColorPickerSelectedChange()"
+        [columns]="columns"
+        [buttonStyle]="buttonStyle"
+        [buttonSize]="buttonSize"
+        [showTooltips]="showTooltips"
+        [showInput]="showInput"
+        (inputSubmit)="close()"
+    ></ux-color-picker>
+    <div *ngIf="showInput" class="btn-container demo-color-picker-close">
+        <button type="button" class="btn button-primary" (click)="close()">Accept</button>
     </div>
 </ux-menu>
