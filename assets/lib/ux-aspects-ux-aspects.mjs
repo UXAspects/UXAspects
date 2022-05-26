@@ -23,7 +23,7 @@ import { ObserversModule as ObserversModule$1 } from '@angular/cdk/observers';
 import * as i1$2 from '@angular/cdk/overlay';
 import { OverlayModule } from '@angular/cdk/overlay';
 import * as i1$4 from '@angular/cdk/scrolling';
-import { CdkDropList, moveItemInArray, transferArrayItem, CDK_DROP_LIST, CdkDragHandle, CdkDrag, DragDropModule } from '@angular/cdk/drag-drop';
+import { CdkDropList, moveItemInArray, transferArrayItem, CDK_DROP_LIST, CdkDragHandle, CDK_DRAG_HANDLE, CdkDrag, CDK_DRAG_PARENT, DragDropModule } from '@angular/cdk/drag-drop';
 import { trigger, transition, style, animate, query, stagger, state } from '@angular/animations';
 import { __awaiter } from 'tslib';
 import * as i1$5 from '@angular/common/http';
@@ -10778,7 +10778,7 @@ class ReorderableDirective extends CdkDropList {
         this.disabled = isDisabled;
     }
     ngOnInit() {
-        this.dropped.subscribe((dropEvent) => {
+        this.dropped.pipe(takeUntil(this._destroy$)).subscribe((dropEvent) => {
             if (dropEvent.previousContainer === dropEvent.container) {
                 moveItemInArray(this.reorderableModel, dropEvent.previousIndex, dropEvent.currentIndex);
             }
@@ -10792,7 +10792,7 @@ class ReorderableDirective extends CdkDropList {
         // if the available groups are updated we need to update the lists we can drag to
         ReorderableDirective._groups$
             .pipe(takeUntil(this._destroy$))
-            .subscribe((groups) => { var _a; return (this.connectedTo = ((_a = groups[this.reorderableGroup]) !== null && _a !== void 0 ? _a : []).filter((group) => group !== this.id)); });
+            .subscribe(groups => { var _a; return (this.connectedTo = ((_a = groups[this.reorderableGroup]) !== null && _a !== void 0 ? _a : []).filter(group => group !== this.id)); });
     }
     ngOnDestroy() {
         this._destroy$.next();
@@ -10802,16 +10802,12 @@ class ReorderableDirective extends CdkDropList {
 /** Store all the group ids so we can identify which lists can interact */
 ReorderableDirective._groups$ = new BehaviorSubject({});
 ReorderableDirective.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.2", ngImport: i0, type: ReorderableDirective, deps: null, target: i0.ɵɵFactoryTarget.Directive });
-ReorderableDirective.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "12.0.0", version: "13.0.2", type: ReorderableDirective, selector: "[uxReorderable]", inputs: { reorderableModel: "reorderableModel", reorderableGroup: "reorderableGroup", reorderingDisabled: "reorderingDisabled" }, outputs: { reorderableModelChange: "reorderableModelChange", reorderStart: "reorderStart", reorderCancel: "reorderCancel", reorderEnd: "reorderEnd" }, providers: [
-        { provide: CDK_DROP_LIST, useExisting: ReorderableDirective },
-    ], usesInheritance: true, ngImport: i0 });
+ReorderableDirective.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "12.0.0", version: "13.0.2", type: ReorderableDirective, selector: "[uxReorderable]", inputs: { reorderableModel: "reorderableModel", reorderableGroup: "reorderableGroup", reorderingDisabled: "reorderingDisabled" }, outputs: { reorderableModelChange: "reorderableModelChange", reorderStart: "reorderStart", reorderCancel: "reorderCancel", reorderEnd: "reorderEnd" }, providers: [{ provide: CDK_DROP_LIST, useExisting: ReorderableDirective }], usesInheritance: true, ngImport: i0 });
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.2", ngImport: i0, type: ReorderableDirective, decorators: [{
             type: Directive,
             args: [{
                     selector: '[uxReorderable]',
-                    providers: [
-                        { provide: CDK_DROP_LIST, useExisting: ReorderableDirective },
-                    ],
+                    providers: [{ provide: CDK_DROP_LIST, useExisting: ReorderableDirective }],
                 }]
         }], propDecorators: { reorderableModel: [{
                 type: Input
@@ -10832,11 +10828,12 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.2", ngImpor
 class ReorderableHandleDirective extends CdkDragHandle {
 }
 ReorderableHandleDirective.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.2", ngImport: i0, type: ReorderableHandleDirective, deps: null, target: i0.ɵɵFactoryTarget.Directive });
-ReorderableHandleDirective.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "12.0.0", version: "13.0.2", type: ReorderableHandleDirective, selector: "[uxReorderableHandle]", usesInheritance: true, ngImport: i0 });
+ReorderableHandleDirective.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "12.0.0", version: "13.0.2", type: ReorderableHandleDirective, selector: "[uxReorderableHandle]", providers: [{ provide: CDK_DRAG_HANDLE, useExisting: ReorderableHandleDirective }], usesInheritance: true, ngImport: i0 });
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.2", ngImport: i0, type: ReorderableHandleDirective, decorators: [{
             type: Directive,
             args: [{
-                    selector: '[uxReorderableHandle]'
+                    selector: '[uxReorderableHandle]',
+                    providers: [{ provide: CDK_DRAG_HANDLE, useExisting: ReorderableHandleDirective }],
                 }]
         }] });
 
@@ -10857,18 +10854,29 @@ class ReorderableModelDirective extends CdkDrag {
     ngOnInit() {
         // cast the drop container as we have replaced it with our directive
         const dropContainer = this.dropContainer;
-        this._dragRef.beforeStarted.pipe(takeUntil(this._destroy$)).subscribe(() => this.captureTableCellStyles());
+        this._dragRef.beforeStarted
+            .pipe(takeUntil(this._destroy$))
+            .subscribe(() => this.captureTableCellStyles());
         this.started.pipe(takeUntil(this._destroy$)).subscribe(() => {
-            dropContainer.reorderStart.emit({ element: this.element.nativeElement, model: this.data });
+            dropContainer.reorderStart.emit({
+                element: this.element.nativeElement,
+                model: this.data,
+            });
             this.setTableCellWidths();
         });
         this.dropped.pipe(takeUntil(this._destroy$)).subscribe((dragEvent) => {
             if (dragEvent.container === dragEvent.previousContainer &&
                 dragEvent.currentIndex === dragEvent.previousIndex) {
-                dropContainer.reorderCancel.emit({ element: this.element.nativeElement, model: this.data });
+                dropContainer.reorderCancel.emit({
+                    element: this.element.nativeElement,
+                    model: this.data,
+                });
             }
             else {
-                dropContainer.reorderEnd.emit({ element: this.element.nativeElement, model: this.data });
+                dropContainer.reorderEnd.emit({
+                    element: this.element.nativeElement,
+                    model: this.data,
+                });
             }
         });
     }
@@ -10906,11 +10914,12 @@ class ReorderableModelDirective extends CdkDrag {
     }
 }
 ReorderableModelDirective.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.2", ngImport: i0, type: ReorderableModelDirective, deps: null, target: i0.ɵɵFactoryTarget.Directive });
-ReorderableModelDirective.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "12.0.0", version: "13.0.2", type: ReorderableModelDirective, selector: "[uxReorderableModel]", inputs: { uxReorderableModel: "uxReorderableModel" }, host: { properties: { "class.ux-reorderable-moving": "_dragRef.isDragging()" } }, usesInheritance: true, ngImport: i0 });
+ReorderableModelDirective.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "12.0.0", version: "13.0.2", type: ReorderableModelDirective, selector: "[uxReorderableModel]", inputs: { uxReorderableModel: "uxReorderableModel" }, host: { properties: { "class.ux-reorderable-moving": "_dragRef.isDragging()" } }, providers: [{ provide: CDK_DRAG_PARENT, useExisting: ReorderableModelDirective }], usesInheritance: true, ngImport: i0 });
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.2", ngImport: i0, type: ReorderableModelDirective, decorators: [{
             type: Directive,
             args: [{
                     selector: '[uxReorderableModel]',
+                    providers: [{ provide: CDK_DRAG_PARENT, useExisting: ReorderableModelDirective }],
                     host: {
                         '[class.ux-reorderable-moving]': '_dragRef.isDragging()',
                     },
@@ -16777,6 +16786,7 @@ class SliderComponent {
             // mark as dirty
             this._changeDetectorRef.markForCheck();
         });
+        this.updateOrder();
     }
     snapToNearestTick(thumb, snapTarget, forwards) {
         if (this.disabled) {
@@ -16846,6 +16856,7 @@ class SliderComponent {
         }
         // update the thumb state
         this.setThumbState(thumb, state.hover, state.drag);
+        this.updateOrder();
     }
     getAriaValueText(thumb) {
         // get the current thumb value
@@ -16965,7 +16976,7 @@ class SliderComponent {
         value = this.snapToTick(value, thumb);
         // update the value accordingly
         this.setThumbValue(thumb, value);
-        this.updateOrder(thumb);
+        this.updateOrderOnDrag(thumb);
         this.updateValues();
         // update tooltip text & position
         this.updateTooltipText(thumb);
@@ -16975,12 +16986,31 @@ class SliderComponent {
         // mark as dirty for change detection
         this._changeDetectorRef.markForCheck();
     }
-    updateOrder(thumb) {
+    updateOrderOnDrag(thumb) {
         const lower = thumb === SliderThumb.Lower ? 101 : 100;
         const upper = thumb === SliderThumb.Lower ? 100 : 101;
-        // The most recently used thumb should be above
+        // Ensure currently dragged thumb is on top
         this.thumbs.lower.order = lower;
         this.thumbs.upper.order = upper;
+    }
+    updateOrder() {
+        const isDragged = this.thumbs.lower.drag || this.thumbs.upper.drag;
+        if (this._options && !isDragged) {
+            const lowerValue = this.getThumbValue(this.sliderThumb.Lower);
+            const upperValue = this.getThumbValue(this.sliderThumb.Upper);
+            const max = this._options.track.max;
+            const min = this._options.track.min;
+            const range = max - min;
+            const median = (range / 100 * 50) + min;
+            if (upperValue <= median) {
+                this.thumbs.lower.order = 100;
+                this.thumbs.upper.order = 101;
+            }
+            if (lowerValue > median) {
+                this.thumbs.lower.order = 101;
+                this.thumbs.upper.order = 100;
+            }
+        }
     }
     getTickDistances(value, thumb, snapTarget) {
         // if snap target is none then return original value
@@ -21636,10 +21666,25 @@ class RadioButtonGroupDirective {
         this.onChange(value);
         this.onTouched();
     }
+    /** Determine and set the correct internal tabindex */
+    determineAndSetInternalTabIndex() {
+        const firstEnabled = this._radioButtons.find(radio => {
+            return radio.disabled === false;
+        });
+        this._radioButtons.forEach(radio => {
+            if (this._value !== undefined) {
+                radio.setInternalTabindex(radio.option === this._value ? 0 : -1);
+            }
+            else {
+                radio.setInternalTabindex(firstEnabled === radio ? 0 : -1);
+            }
+        });
+    }
     /** Inform all child radio buttons of the latest value */
     updateSelectedRadioButton() {
         // update the selected value in all radio buttons
         if (this._radioButtons) {
+            this.determineAndSetInternalTabIndex();
             this._radioButtons.forEach(radio => radio.writeValue(this._value));
         }
     }
@@ -21682,8 +21727,6 @@ class RadioButtonComponent {
         this._radioButtonId = `ux-radio-button-${++uniqueRadioId}`;
         /** Specify a unique Id for this component */
         this.id = this._radioButtonId;
-        /** Specify the tabindex */
-        this.tabindex = 0;
         /** If set to `true` the radio button will not change state when clicked. */
         this.clickable = true;
         /** If this value is set to `true` then the radio button will be disabled */
@@ -21700,10 +21743,17 @@ class RadioButtonComponent {
         this.valueChange = new EventEmitter();
         /** Determine if the underlying input component has been focused with the keyboard */
         this._focused = false;
+        /** Internally store the current tabindex */
+        this._internalTabindex = null;
         /** Used to inform Angular forms that the component has been touched */
         this.onTouchedCallback = () => { };
         /** Used to inform Angular forms that the component value has changed */
         this.onChangeCallback = () => { };
+    }
+    ngOnChanges(changes) {
+        if (changes.disabled && this._group && !changes.disabled.firstChange) {
+            this._group.determineAndSetInternalTabIndex();
+        }
     }
     /** Select the current option */
     select() {
@@ -21744,12 +21794,17 @@ class RadioButtonComponent {
         this.disabled = isDisabled;
         this._changeDetector.markForCheck();
     }
+    /** Set the internal tab index of the radio button */
+    setInternalTabindex(tabIndex) {
+        this._internalTabindex = tabIndex;
+        this._changeDetector.detectChanges();
+    }
 }
 RadioButtonComponent.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.2", ngImport: i0, type: RadioButtonComponent, deps: [{ token: i0.ChangeDetectorRef }, { token: RadioButtonGroupDirective, optional: true }], target: i0.ɵɵFactoryTarget.Component });
-RadioButtonComponent.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "13.0.2", type: RadioButtonComponent, selector: "ux-radio-button", inputs: { id: "id", name: "name", value: "value", required: "required", tabindex: "tabindex", clickable: "clickable", disabled: "disabled", simplified: "simplified", option: "option", ariaLabel: ["aria-label", "ariaLabel"], ariaLabelledby: ["aria-labelledby", "ariaLabelledby"], ariaDescribedby: ["aria-describedby", "ariaDescribedby"] }, outputs: { valueChange: "valueChange" }, providers: [RADIOBUTTON_VALUE_ACCESSOR], ngImport: i0, template: "<label [attr.for]=\"(id || _radioButtonId) + '-input'\"\n       class=\"ux-radio-button\"\n       [class.ux-radio-button-checked]=\"value === option\"\n       [class.ux-radio-button-simplified]=\"simplified\"\n       [class.ux-radio-button-disabled]=\"disabled\"\n       [class.ux-radio-button-focused]=\"_focused\">\n\n    <div class=\"ux-radio-button-container\">\n\n        <input class=\"ux-radio-button-input\"\n            uxFocusIndicator\n            type=\"radio\"\n            [id]=\"(id || _radioButtonId) + '-input'\"\n            [checked]=\"value === option\"\n            [disabled]=\"disabled\"\n            [tabindex]=\"tabindex || value === option ? 0 : -1\"\n            [attr.name]=\"name\"\n            [required]=\"required\"\n            [attr.aria-label]=\"ariaLabel\"\n            [attr.aria-labelledby]=\"ariaLabelledby\"\n            [attr.aria-describedby]=\"ariaDescribedby\"\n            [attr.aria-checked]=\"value === option\"\n            (indicator)=\"_focused = $event\"\n            (change)=\"select()\"\n            (click)=\"$event.stopPropagation()\">\n    </div>\n\n    <span class=\"ux-radio-button-label\">\n        <ng-content></ng-content>\n    </span>\n\n</label>\n", directives: [{ type: FocusIndicatorDirective, selector: "[uxFocusIndicator]", inputs: ["checkChildren", "mouseFocusIndicator", "touchFocusIndicator", "keyboardFocusIndicator", "programmaticFocusIndicator"], outputs: ["indicator"], exportAs: ["ux-focus-indicator"] }], changeDetection: i0.ChangeDetectionStrategy.OnPush });
+RadioButtonComponent.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "13.0.2", type: RadioButtonComponent, selector: "ux-radio-button", inputs: { id: "id", name: "name", value: "value", required: "required", tabindex: "tabindex", clickable: "clickable", disabled: "disabled", simplified: "simplified", option: "option", ariaLabel: ["aria-label", "ariaLabel"], ariaLabelledby: ["aria-labelledby", "ariaLabelledby"], ariaDescribedby: ["aria-describedby", "ariaDescribedby"] }, outputs: { valueChange: "valueChange" }, providers: [RADIOBUTTON_VALUE_ACCESSOR], usesOnChanges: true, ngImport: i0, template: "<label\n    [attr.for]=\"(id || _radioButtonId) + '-input'\"\n    class=\"ux-radio-button\"\n    [class.ux-radio-button-checked]=\"value === option\"\n    [class.ux-radio-button-simplified]=\"simplified\"\n    [class.ux-radio-button-disabled]=\"disabled\"\n    [class.ux-radio-button-focused]=\"_focused\"\n>\n    <div class=\"ux-radio-button-container\">\n        <input\n            class=\"ux-radio-button-input\"\n            uxFocusIndicator\n            type=\"radio\"\n            [id]=\"(id || _radioButtonId) + '-input'\"\n            [checked]=\"value === option\"\n            [disabled]=\"disabled\"\n            [tabindex]=\"tabindex ?? _internalTabindex\"\n            [attr.name]=\"name\"\n            [required]=\"required\"\n            [attr.aria-label]=\"ariaLabel\"\n            [attr.aria-labelledby]=\"ariaLabelledby\"\n            [attr.aria-describedby]=\"ariaDescribedby\"\n            [attr.aria-checked]=\"value === option\"\n            (indicator)=\"_focused = $event\"\n            (change)=\"select()\"\n            (click)=\"$event.stopPropagation()\"\n        />\n    </div>\n\n    <span class=\"ux-radio-button-label\">\n        <ng-content></ng-content>\n    </span>\n\n</label>\n", directives: [{ type: FocusIndicatorDirective, selector: "[uxFocusIndicator]", inputs: ["checkChildren", "mouseFocusIndicator", "touchFocusIndicator", "keyboardFocusIndicator", "programmaticFocusIndicator"], outputs: ["indicator"], exportAs: ["ux-focus-indicator"] }], changeDetection: i0.ChangeDetectionStrategy.OnPush });
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.2", ngImport: i0, type: RadioButtonComponent, decorators: [{
             type: Component,
-            args: [{ selector: 'ux-radio-button', providers: [RADIOBUTTON_VALUE_ACCESSOR], changeDetection: ChangeDetectionStrategy.OnPush, template: "<label [attr.for]=\"(id || _radioButtonId) + '-input'\"\n       class=\"ux-radio-button\"\n       [class.ux-radio-button-checked]=\"value === option\"\n       [class.ux-radio-button-simplified]=\"simplified\"\n       [class.ux-radio-button-disabled]=\"disabled\"\n       [class.ux-radio-button-focused]=\"_focused\">\n\n    <div class=\"ux-radio-button-container\">\n\n        <input class=\"ux-radio-button-input\"\n            uxFocusIndicator\n            type=\"radio\"\n            [id]=\"(id || _radioButtonId) + '-input'\"\n            [checked]=\"value === option\"\n            [disabled]=\"disabled\"\n            [tabindex]=\"tabindex || value === option ? 0 : -1\"\n            [attr.name]=\"name\"\n            [required]=\"required\"\n            [attr.aria-label]=\"ariaLabel\"\n            [attr.aria-labelledby]=\"ariaLabelledby\"\n            [attr.aria-describedby]=\"ariaDescribedby\"\n            [attr.aria-checked]=\"value === option\"\n            (indicator)=\"_focused = $event\"\n            (change)=\"select()\"\n            (click)=\"$event.stopPropagation()\">\n    </div>\n\n    <span class=\"ux-radio-button-label\">\n        <ng-content></ng-content>\n    </span>\n\n</label>\n" }]
+            args: [{ selector: 'ux-radio-button', providers: [RADIOBUTTON_VALUE_ACCESSOR], changeDetection: ChangeDetectionStrategy.OnPush, template: "<label\n    [attr.for]=\"(id || _radioButtonId) + '-input'\"\n    class=\"ux-radio-button\"\n    [class.ux-radio-button-checked]=\"value === option\"\n    [class.ux-radio-button-simplified]=\"simplified\"\n    [class.ux-radio-button-disabled]=\"disabled\"\n    [class.ux-radio-button-focused]=\"_focused\"\n>\n    <div class=\"ux-radio-button-container\">\n        <input\n            class=\"ux-radio-button-input\"\n            uxFocusIndicator\n            type=\"radio\"\n            [id]=\"(id || _radioButtonId) + '-input'\"\n            [checked]=\"value === option\"\n            [disabled]=\"disabled\"\n            [tabindex]=\"tabindex ?? _internalTabindex\"\n            [attr.name]=\"name\"\n            [required]=\"required\"\n            [attr.aria-label]=\"ariaLabel\"\n            [attr.aria-labelledby]=\"ariaLabelledby\"\n            [attr.aria-describedby]=\"ariaDescribedby\"\n            [attr.aria-checked]=\"value === option\"\n            (indicator)=\"_focused = $event\"\n            (change)=\"select()\"\n            (click)=\"$event.stopPropagation()\"\n        />\n    </div>\n\n    <span class=\"ux-radio-button-label\">\n        <ng-content></ng-content>\n    </span>\n\n</label>\n" }]
         }], ctorParameters: function () {
         return [{ type: i0.ChangeDetectorRef }, { type: RadioButtonGroupDirective, decorators: [{
                         type: Optional
@@ -23853,6 +23908,7 @@ class SelectComponent {
                 this.input = inputValue;
                 this.inputChange.emit(this.input);
             }
+            this._changeDetector.markForCheck();
         });
     }
     ngOnChanges(changes) {
