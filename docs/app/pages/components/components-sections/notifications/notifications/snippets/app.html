@@ -10,12 +10,10 @@
 </div>
 
 <ng-template #notification let-notificationRef let-data="data">
-    <button
-        class="dismiss"
+    <button class="dismiss"
         tabindex="0"
         aria-label="Dismiss Notification"
-        (click)="notificationService.dismiss(notificationRef)"
-    >
+        (click)="notificationService.dismiss(notificationRef)">
         <ux-icon name="close"></ux-icon>
     </button>
 
@@ -36,7 +34,7 @@
     </div>
 </ng-template>
 
-<hr />
+<hr>
 
 <div class="row uxd-customize-example">
     <div class="col-md-12">
@@ -44,35 +42,10 @@
             <ux-accordion-panel class="accordion-chevron" heading="Customize Example...">
                 <div class="row uxd-customize-row">
                     <div class="col-md-6 col-sm-12">
-                        <label for="backgroundColor">backgroundColor</label>
-
-                        <button type="button"
-                            aria-label="Select a color"
-                            class="btn button-secondary dropdown-toggle"
-                            #toggleButton
-                            [uxMenuTriggerFor]="dropdownMenu">
-                            <span class="ux-color-picker-button-preview"
-                                [style.background-color]="selected.rgba">
-                                &nbsp;
-                            </span>
-                            <ux-icon name="chevron-down"></ux-icon>
-                        </button>
-
-                        <ux-menu #dropdownMenu id="color-picker-dropdown">
-                            <div uxMenuItem [closeOnSelect]="false">
-                                <ux-color-picker
-                                    [colors]="colors"
-                                    [(selected)]="selected"
-                                    (selectedChange)="close()"
-                                    [columns]="4"
-                                    buttonStyle="circle"
-                                    buttonSize="md"
-                                    [showTooltips]="false"
-                                    [showInput]="false"
-                                >
-                                </ux-color-picker>
-                            </div>
-                        </ux-menu>
+                        <label for="backgroundColor">description</label>
+                        <div class="input-group m-b-sm">
+                            <input type="text" placeholder="Enter description" class="form-control" [(ngModel)]="description">
+                        </div>
                     </div>
                     <div class="col-md-6 col-sm-12">
                         <label for="duration">duration</label>
@@ -80,12 +53,19 @@
                     </div>
                 </div>
                 <div class="row uxd-customize-row">
-                    <div class="col-md-6 col-sm-12">
-                        <label for="backgroundColor">description</label>
-                        <div class="input-group m-b-sm">
-                            <input type="text" placeholder="Enter description"
-                                class="form-control" [(ngModel)]="description">
-                        </div>
+                    <div class="col-md-12">
+                        <label for="backgroundColor">backgroundColor</label>
+
+                        <uxd-documentation-color-picker
+                            [colors]="colors"
+                            [(selected)]="selected"
+                            [buttonStyle]="'circle'"
+                            [buttonSize]="'md'"
+                            [showTooltips]="false"
+                            [showInput]="false"
+                            [columns]="4"
+                        >
+                        </uxd-documentation-color-picker>
                     </div>
                 </div>
             </ux-accordion-panel>
