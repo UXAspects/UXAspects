@@ -1,5 +1,5 @@
-import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
-import { ColorPickerColor, ColorService, MenuTriggerDirective } from '@ux-aspects/ux-aspects';
+import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { ColorPickerColor, ColorService, MenuItemType, MenuTriggerDirective } from '@ux-aspects/ux-aspects';
 
 @Component({
     selector: 'app-color-picker',
@@ -9,6 +9,8 @@ import { ColorPickerColor, ColorService, MenuTriggerDirective } from '@ux-aspect
 
 export class ColorPickerTestPageComponent implements AfterViewInit {
 
+    @ViewChild(MenuTriggerDirective) menuTrigger?: MenuTriggerDirective;
+
     colors: ColorPickerColor[][];
     selected: ColorPickerColor;
     columns = 4;
@@ -16,9 +18,7 @@ export class ColorPickerTestPageComponent implements AfterViewInit {
     buttonSize = 'md';
     showTooltips = false;
     showInput = false;
-
-    @ViewChild('toggleButton') toggleButton?: ElementRef<HTMLButtonElement>;
-    @ViewChild(MenuTriggerDirective) menuTrigger?: MenuTriggerDirective;
+    menuItemType: MenuItemType = MenuItemType.Custom;
 
     private _colorNames = [
         [
@@ -46,7 +46,6 @@ export class ColorPickerTestPageComponent implements AfterViewInit {
 
     close(): void {
         this.menuTrigger?.closeMenu();
-        this.toggleButton?.nativeElement.focus();
     }
 
     onColorPickerSelectedChange(): void {
