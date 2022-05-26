@@ -36,7 +36,7 @@
 </p>
 
 <div>
-    <button class="btn button-primary m-r-xs" (click)="disabled = !disabled">
+    <button class="btn button-primary m-r-xs" (click)="toggleDisabled(100)">
         {{ disabled ? 'Click to enable Option1' : 'Click to disable Option1' }}
     </button>
 
@@ -100,6 +100,14 @@
 <p>
     In addition to the options listed above, a radio button can be disabled using the <code>disabled</code> attribute. You can also provide
     the radio button with a <code>name</code> or <code>id</code> if required.
+</p>
+
+<h4>Keyboard Accessibility</h4>
+<p>
+    It is impossible to land keyboard focus on a radio button group when the <code>selected</code> option is
+    <code>disabled</code>. As a workaround we recommend removing the <code>selected</code> state from
+    the <code>ux-radio-button</code> when disabling it. We have provided a workaround in our example
+    code.
 </p>
 
 <p>The following code can be used to create the example above:</p>

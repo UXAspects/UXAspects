@@ -95,10 +95,28 @@ export class RadioButtonGroupDirective<T = any> implements ControlValueAccessor,
         this.onTouched();
     }
 
+    /** Determine and set the correct internal tabindex */
+    determineAndSetInternalTabIndex() {
+
+        const firstEnabled = this._radioButtons.find(radio => {
+            return radio.disabled === false;
+        });
+
+        this._radioButtons.forEach(radio => {
+
+            if (this._value !== undefined) {
+                radio.setInternalTabindex(radio.option === this._value ? 0 : -1);
+            } else {
+                radio.setInternalTabindex(firstEnabled === radio ? 0 : -1);
+            }
+        });
+    }
+
     /** Inform all child radio buttons of the latest value */
     private updateSelectedRadioButton(): void {
         // update the selected value in all radio buttons
         if (this._radioButtons) {
+            this.determineAndSetInternalTabIndex();
             this._radioButtons.forEach(radio => radio.writeValue(this._value));
         }
 

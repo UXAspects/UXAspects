@@ -1,23 +1,19 @@
-<div>
-    <ux-radio-button id="radiobutton1" [(value)]="selected" [option]="radioOptions.option1" [disabled]="disabled" [simplified]="simplified">
+<a id="top-focus" href="javascript:void(0)">Top focus target</a>
+
+<div uxRadioButtonGroup [(value)]="selected" class="radio-button-container">
+    <ux-radio-button id="radiobutton1" name="group" [option]="radioOptions.option1" [disabled]="disabled" [simplified]="simplified">
         Option1
     </ux-radio-button>
-</div>
 
-<div>
-    <ux-radio-button id="radiobutton2" [(value)]="selected" [option]="radioOptions.option2" [simplified]="simplified">
+    <ux-radio-button id="radiobutton2" name="group" [option]="radioOptions.option2" [simplified]="simplified">
         Option2
     </ux-radio-button>
-</div>
 
-<div>
-    <ux-radio-button id="radiobutton3" [(value)]="selected" [option]="radioOptions.option3" [simplified]="simplified">
+    <ux-radio-button id="radiobutton3" name="group" [option]="radioOptions.option3" [simplified]="simplified">
         Option3
     </ux-radio-button>
-</div>
 
-<div>
-    <ux-radio-button id="radiobutton4" [(value)]="selected" [option]="radioOptions.option4" [simplified]="simplified">
+    <ux-radio-button id="radiobutton4" name="group" [option]="radioOptions.option4" [simplified]="simplified">
         Option four onsectetur adipiscing elit. Inte adipiscing elit onsectetur adipiscing elit. Inte adipiscing elit onsectetur adipiscing elit. Inte adipiscing elit onsectetur adipiscing elit. Inte adipiscing elit onsectetur adipiscing elit. Inte adipiscing elit onsectetur adipiscing elit.
     </ux-radio-button>
 </div>
@@ -31,6 +27,11 @@
 <br>
 
 <div>
+
+    <button id="remove-selected-button" class="btn button-primary m-r-xs" (click)="selected = undefined">
+        Remove selected
+    </button>
+
     <button id="button1" class="btn button-primary m-r-xs" (click)="disabled = !disabled">
         {{ disabled ? 'Click to enable Option1' : 'Click to disable Option1' }}
     </button>

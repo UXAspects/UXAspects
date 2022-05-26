@@ -1,0 +1,33 @@
+<div class="test-container">
+    <a id="top-focus" href="javascript:void(0)">Top focus target</a>
+    <h4>Range Slider - 0</h4>
+    <ux-slider
+        id="range-value-min"
+        [value]="{ low: 0, high: 0 }"
+        [options]="standard"
+    ></ux-slider>
+    <h4>Range Slider - 50</h4>
+    <ux-slider
+        id="range-value-middle"
+        [value]="{ low: 50, high: 50 }"
+        [options]="standard"
+    ></ux-slider>
+    <h4>Range Slider - 100</h4>
+    <ux-slider
+        id="range-value-max"
+        [value]="{ low: 100, high: 100 }"
+        [options]="standard"
+    ></ux-slider>
+    <h4>Range Slider - 99-100</h4>
+    <ux-slider
+        id="range-value-nearly-max"
+        [value]="{ low: 99, high: 100 }"
+        [options]="standard"
+    ></ux-slider>
+    <h4>Range Slider - 9900-9900</h4>
+    <ux-slider
+        id="range-value-min-not-zero"
+        [value]="{ low: 9900, high: 9900 }"
+        [options]="minNotZero"
+    ></ux-slider>
+</div>
