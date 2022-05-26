@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
-import { ColorPickerColor, ColorService, MenuTriggerDirective } from '@ux-aspects/ux-aspects';
+import { ColorPickerColor, ColorService, MenuItemType, MenuTriggerDirective } from '@ux-aspects/ux-aspects';
 
 @Component({
     selector: 'app-root',
@@ -17,6 +17,7 @@ export class AppComponent implements AfterViewInit {
     buttonSize = 'md';
     showTooltips = false;
     showInput = false;
+    menuItemType: MenuItemType = MenuItemType.Custom;
 
     private _colorNames = [
         [

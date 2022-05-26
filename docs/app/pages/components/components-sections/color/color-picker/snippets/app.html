@@ -5,7 +5,6 @@
         class="btn button-secondary dropdown-toggle"
         #toggleButton
         [uxMenuTriggerFor]="dropdownMenu"
-        [closeOnBlur]="true"
     >
         <span class="ux-color-picker-button-preview" [style.background-color]="selected.rgba">
             &nbsp;
@@ -14,7 +13,8 @@
     </button>
 
     <span class="m-l-lg">
-        Selected: <code>{{selected.hex}}</code> &mdash; <code>{{selected.rgba}}</code>
+        Selected: <code>{{ selected.hex }}</code> &mdash;
+        <code>{{ selected.rgba }}</code>
     </span>
 </div>
 
@@ -22,7 +22,6 @@
     <ux-color-picker
         uxMenuTabbableItem
         [type]="menuItemType"
-        [forwardFocusToButton]="true"
         [colors]="colors"
         [(selected)]="selected"
         (selectedChange)="onColorPickerSelectedChange()"
