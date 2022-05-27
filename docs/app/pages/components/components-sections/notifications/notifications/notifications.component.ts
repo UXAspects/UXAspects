@@ -51,9 +51,6 @@ export class ComponentsNotificationsComponent extends BaseDocumentationSection i
             {
                 imports: ['A11yModule'],
                 library: '@angular/cdk/a11y'
-            },
-            {
-                imports: ['DocumentationColorPickerComponent']
             }
         ]
     };
