@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ColorPickerColor, ColorService } from '@ux-aspects/ux-aspects';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
@@ -26,13 +27,15 @@ export class ComponentsColorPickerComponent extends BaseDocumentationSection imp
         ]
     };
 
+    colors: ColorPickerColor[][];
+    selected: ColorPickerColor;
     columns = 4;
     buttonStyle = 'circle';
     buttonSize = 'md';
     showTooltips = false;
     showInput = false;
 
-    colorNames = [
+    _colorNames = [
         [
             'Primary',
             'Accent',
@@ -46,7 +49,12 @@ export class ComponentsColorPickerComponent extends BaseDocumentationSection imp
         ['Grey1', 'Grey2', 'Grey3', 'Grey4', 'Grey5', 'Grey6', 'Grey7', 'Grey8']
     ];
 
-    constructor() {
+    constructor(colorService: ColorService) {
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
+
+        this.colors = this._colorNames.map(row =>
+            row.map(colorName => new ColorPickerColor(colorName, colorService.resolve(colorName))));
+
+        this.selected = this.colors[0][0];
     }
 }
