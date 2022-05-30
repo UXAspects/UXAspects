@@ -22,6 +22,7 @@
     <ux-color-picker
         uxMenuTabbableItem
         [type]="menuItemType"
+        [forwardFocusToButton]="true"
         [colors]="colors"
         [(selected)]="selected"
         (selectedChange)="onColorPickerSelectedChange()"
