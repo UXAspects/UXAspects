@@ -56,16 +56,9 @@
                     <div class="col-md-12">
                         <label for="backgroundColor">backgroundColor</label>
 
-                        <uxd-documentation-color-picker
-                            [colors]="colors"
-                            [(selected)]="selected"
-                            [buttonStyle]="'circle'"
-                            [buttonSize]="'md'"
-                            [showTooltips]="false"
-                            [showInput]="false"
-                            [columns]="4"
-                        >
-                        </uxd-documentation-color-picker>
+                        <div class="input-group m-b-sm">
+                            <input type="text" placeholder="Background color" class="form-control" [(ngModel)]="backgroundColor">
+                        </div>
                     </div>
                 </div>
             </ux-accordion-panel>
