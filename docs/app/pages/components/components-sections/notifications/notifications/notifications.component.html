@@ -36,10 +36,8 @@
             <ux-accordion-panel class="accordion-chevron" heading="Customize Example...">
                 <div class="row uxd-customize-row">
                     <div class="col-md-6 col-sm-12">
-                        <label for="backgroundColor">description</label>
-                        <div class="input-group m-b-sm">
-                            <input type="text" placeholder="Enter description" class="form-control" [(ngModel)]="description">
-                        </div>
+                        <label for="backgroundColor">backgroundColor</label>
+                        <uxd-documentation-color-picker [colors]="colors" [(selected)]="selected"></uxd-documentation-color-picker>
                     </div>
                     <div class="col-md-6 col-sm-12">
                         <label for="duration">duration</label>
@@ -47,9 +45,11 @@
                     </div>
                 </div>
                 <div class="row uxd-customize-row">
-                    <div class="col-md-12">
-                        <label for="backgroundColor">backgroundColor</label>
-                        <uxd-documentation-color-picker [colors]="colors" [(selected)]="selected"></uxd-documentation-color-picker>
+                    <div class="col-md-6 col-sm-12">
+                        <label for="backgroundColor">description</label>
+                        <div class="input-group m-b-sm">
+                            <input type="text" placeholder="Enter description" class="form-control" [(ngModel)]="description">
+                        </div>
                     </div>
                 </div>
             </ux-accordion-panel>
