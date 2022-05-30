@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, Output, ViewChild } from "@angular/core";
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, ViewChild } from "@angular/core";
 import { ColorPickerColor, MenuItemType, MenuTriggerDirective } from "@ux-aspects/ux-aspects";
 
 @Component({
@@ -7,32 +7,20 @@ import { ColorPickerColor, MenuItemType, MenuTriggerDirective } from "@ux-aspect
     changeDetection: ChangeDetectionStrategy.OnPush,
     styleUrls: ['./documentation-color-picker.component.less']
 })
-export class DocumentationColorPickerComponent implements AfterViewInit {
+export class DocumentationColorPickerComponent {
 
     @ViewChild(MenuTriggerDirective) menuTrigger?: MenuTriggerDirective;
 
-    @Input() showInput = false;
+    /** Colors to display on color picker widget. */
     @Input() colors: ColorPickerColor[][];
-    @Input() selected: ColorPickerColor;
-    @Input() showTooltips = false;
-    @Input() buttonStyle: string = 'circle';
-    @Input() buttonSize = 'md';
-    @Input() columns = 4;
-    @Input() menuOpen: boolean = false;
 
-    /** Emit when the currently selected value changes */
+    /** Selected color for color picker. */
+    @Input() selected: ColorPickerColor;
+
+    /** Emit when the currently selected value changes. */
     @Output() selectedChange = new EventEmitter<ColorPickerColor>();
 
     menuItemType: MenuItemType = MenuItemType.Custom;
-
-    constructor(private _cd: ChangeDetectorRef) { }
-
-    ngAfterViewInit(): void {
-        if (this.menuOpen) {
-            this.menuTrigger?.openMenu();
-            this._cd.detectChanges();
-        }
-    }
 
     close(): void {
         this.menuTrigger?.closeMenu();
@@ -40,8 +28,6 @@ export class DocumentationColorPickerComponent implements AfterViewInit {
 
     onColorPickerSelectedChange(color: ColorPickerColor): void {
         this.selectedChange.next(color);
-        if (!this.showInput) {
-            this.close();
-        }
+        this.close();
     }
 }

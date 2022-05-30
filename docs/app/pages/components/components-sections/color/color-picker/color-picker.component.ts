@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { ColorPickerColor, ColorService } from '@ux-aspects/ux-aspects';
+import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { ColorPickerColor, ColorService, MenuItemType, MenuTriggerDirective } from '@ux-aspects/ux-aspects';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
@@ -11,7 +11,9 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
     styleUrls: ['./color-picker.component.less']
 })
 @DocumentationSectionComponent('ComponentsColorPickerComponent')
-export class ComponentsColorPickerComponent extends BaseDocumentationSection implements IPlaygroundProvider {
+export class ComponentsColorPickerComponent extends BaseDocumentationSection implements IPlaygroundProvider, AfterViewInit {
+
+    @ViewChild(MenuTriggerDirective) menuTrigger?: MenuTriggerDirective;
 
     playground: IPlayground = {
         files: {
@@ -34,6 +36,7 @@ export class ComponentsColorPickerComponent extends BaseDocumentationSection imp
     buttonSize = 'md';
     showTooltips = false;
     showInput = false;
+    menuItemType: MenuItemType = MenuItemType.Custom;
 
     _colorNames = [
         [
@@ -56,5 +59,19 @@ export class ComponentsColorPickerComponent extends BaseDocumentationSection imp
             row.map(colorName => new ColorPickerColor(colorName, colorService.resolve(colorName))));
 
         this.selected = this.colors[0][0];
+    }
+
+    ngAfterViewInit(): void {
+        this.menuTrigger.openMenu();
+    }
+
+    close(): void {
+        this.menuTrigger?.closeMenu();
+    }
+
+    onColorPickerSelectedChange(): void {
+        if (!this.showInput) {
+            this.close();
+        }
     }
 }

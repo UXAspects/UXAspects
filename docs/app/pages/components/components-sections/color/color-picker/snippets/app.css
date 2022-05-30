@@ -1,5 +1,6 @@
 .btn-container.demo-color-picker-close {
     margin: 0 8px 8px;
+    justify-content: center;
 }
 
 .btn-container.demo-color-picker-close > button {

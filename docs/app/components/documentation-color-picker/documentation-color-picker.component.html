@@ -24,14 +24,6 @@
         [colors]="colors"
         [(selected)]="selected"
         (selectedChange)="onColorPickerSelectedChange($event)"
-        [columns]="columns"
-        [buttonStyle]="buttonStyle"
-        [buttonSize]="buttonSize"
-        [showTooltips]="showTooltips"
-        [showInput]="showInput"
         (inputSubmit)="close()"
     ></ux-color-picker>
-    <div *ngIf="showInput" class="btn-container demo-color-picker-close">
-        <button type="button" class="btn button-primary" (click)="close()">Accept</button>
-    </div>
 </ux-menu>
