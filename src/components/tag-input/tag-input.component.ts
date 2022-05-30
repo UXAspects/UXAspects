@@ -336,10 +336,10 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
         }
 
         // Get the input field cursor location
-        const inputCursorPos = this.tagInput.nativeElement.selectionStart;
+        const inputCursorPos = this.tagInput?.nativeElement.selectionStart;
 
         // Determine if the input field has any text selected
-        const hasSelection = this.tagInput.nativeElement.selectionStart !== this.tagInput.nativeElement.selectionEnd;
+        const hasSelection = this.tagInput?.nativeElement.selectionStart !== this.tagInput?.nativeElement.selectionEnd;
 
         // Determine if a tag has focus
         const tagSelected = this.isValidTagIndex(this.selectedIndex);

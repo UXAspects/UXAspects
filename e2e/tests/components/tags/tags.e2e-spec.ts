@@ -1,4 +1,4 @@
-import { Key } from 'protractor';
+import { browser, Key } from 'protractor';
 import { imageCompare } from '../common/image-compare';
 import { TagsPage } from './tags.po.spec';
 
@@ -298,5 +298,13 @@ describe('TagsPage Tests', () => {
         await page.sendCharactersToTagsInput(Key.ENTER);
 
         expect(await imageCompare('tags-typeahead-reopen')).toEqual(0);
+    });
+
+    it('should allow tabbing through the component when enforceTagLimits is true and the tags is at the max', async () => {
+        await page.enforceTagLimits.click();
+        await page.changeMaxTags('3');
+
+        await page.clickOnTagAtIndex(2);
+        await browser.actions().sendKeys(Key.TAB).perform();
     });
 });
