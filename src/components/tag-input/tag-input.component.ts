@@ -209,7 +209,7 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
 
     @ContentChildren(TypeaheadComponent) typeaheadQuery: QueryList<TypeaheadComponent>;
 
-    @ViewChild('tagInput', { static: false }) tagInput: ElementRef;
+    @ViewChild('tagInput', { static: false }) tagInput: ElementRef<HTMLInputElement>;
 
     selectedIndex: number = -1;
 
@@ -336,7 +336,7 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
         }
 
         // Get the input field cursor location
-        const inputCursorPos = this.tagInput?.nativeElement.selectionStart;
+        const inputCursorPos = this.tagInput?.nativeElement.selectionStart ?? 0;
 
         // Determine if the input field has any text selected
         const hasSelection = this.tagInput?.nativeElement.selectionStart !== this.tagInput?.nativeElement.selectionEnd;
