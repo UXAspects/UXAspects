@@ -300,7 +300,7 @@ describe('TagsPage Tests', () => {
         expect(await imageCompare('tags-typeahead-reopen')).toEqual(0);
     });
 
-    it('should have a unique id for the input element', async () => {
+    it('should have an unique id for the input element', async () => {
         const inputId = await page.input.getAttribute('id');
         expect(await page.countElementsWithIds(inputId)).toBe(1);
     });
