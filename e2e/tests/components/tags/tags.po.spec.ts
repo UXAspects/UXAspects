@@ -19,6 +19,7 @@ export class TagsPage {
     selectFirst = $('#selectFirst');
     showTypeaheadOnClick = $('#showTypeaheadOnClick');
     typeahead = $('ux-typeahead');
+    input = $('input.ux-tag-input');
 
     async getPage(): Promise<void> {
         await browser.get('#/tags');
@@ -159,5 +160,9 @@ export class TagsPage {
 
     getInputPatternErrorMessage() {
         return this.inputPatternErrorMessage.getText();
+    }
+
+    async countElementsWithIds(id: string): Promise<number> {
+        return element.all(by.id(id)).count();
     }
 }
