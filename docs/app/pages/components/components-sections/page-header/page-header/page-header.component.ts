@@ -51,26 +51,33 @@ export class ComponentsPageHeaderComponent extends BaseDocumentationSection impl
     items: PageHeaderNavigationItem[] = [
         {
             icon: 'home',
-            title: 'Home'
+            title: 'Home',
+            id: 'home-id'
         },
         {
             icon: 'analytics',
             title: 'Analytics',
+            id: 'analytics-id',
             children: [
                 {
-                    title: 'Bar Charts'
+                    title: 'Bar Charts',
+                    id: 'bar-charts-id',
                 },
                 {
                     title: 'Pie Charts',
+                    id: 'pie-charts-id',
                     children: [
                         {
-                            title: 'Daily View'
+                            title: 'Daily View',
+                            id: 'daily-id',
                         },
                         {
-                            title: 'Weekly View'
+                            title: 'Weekly View',
+                            id: 'weekly-id',
                         },
                         {
-                            title: 'Monthly View'
+                            title: 'Monthly View',
+                            id: 'monthly-id',
                         }
                     ]
                 }

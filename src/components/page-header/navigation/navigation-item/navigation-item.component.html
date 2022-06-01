@@ -2,6 +2,7 @@
     <button
         #navigationBtn
         type="button"
+        [id]="_item.id"
         [tabindex]="_tabindex | async"
         [uxMenuTriggerFor]="menu"
         [disabled]="_item.disabled"
@@ -28,6 +29,7 @@
         uxFocusIndicator
         #navigationBtn
         [tabindex]="_tabindex | async"
+        [id]="_item.id"
         role="menuitem"
         class="horizontal-navigation-button"
         [class.disabled]="_item.disabled"
@@ -50,6 +52,7 @@
         #navigationBtn
         type="button"
         [tabindex]="_tabindex | async"
+        [id]="_item.id"
         role="menuitem"
         class="horizontal-navigation-button"
         [class.disabled]="_item.disabled"
@@ -64,9 +67,9 @@
 <!-- Support all icon types -->
 <ng-template #navigationItemContent>
     <ng-container *ngIf="_item.icon">
-        <i *ngIf="_iconType !== 'component'" class="navigation-item-icon" [ngClass]="[_iconType, _item.icon]"> </i>
+        <i *ngIf="_iconType !== 'component'" [id]="_item.id" class="navigation-item-icon" [ngClass]="[_iconType, _item.icon]"> </i>
 
-        <ux-icon *ngIf="_iconType === 'component'" class="navigation-item-icon" [name]="_item.icon"> </ux-icon>
+        <ux-icon *ngIf="_iconType === 'component'" [id]="_item.id" class="navigation-item-icon" [name]="_item.icon"> </ux-icon>
     </ng-container>
 
     <span class="navigation-item-label">{{ _item?.title }}</span>
