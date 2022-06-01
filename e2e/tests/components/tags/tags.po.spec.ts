@@ -1,4 +1,4 @@
-import { $, browser, by, element, ElementFinder, Key, protractor } from 'protractor';
+import { $, browser, by, element, ElementFinder, Key, protractor, WebElement } from 'protractor';
 
 export class TagsPage {
 
@@ -121,7 +121,7 @@ export class TagsPage {
     }
 
     confirmTypeaheadClassExists(item: ElementFinder, soughtClass: string) {
-        return item.getAttribute('class').then(function (classes: string) {
+        return item.getAttribute('class').then(function(classes: string) {
             const allClasses = classes.split(' ');
             if (allClasses.indexOf(soughtClass) > -1) {
                 return true;
@@ -164,5 +164,13 @@ export class TagsPage {
 
     async countElementsWithIds(id: string): Promise<number> {
         return element.all(by.id(id)).count();
+    }
+
+    async activeElement(): Promise<WebElement> {
+        return await browser.driver.switchTo().activeElement();
+    }
+
+    async clickOnTagAtIndex(index: number) {
+        return this.tagsInput.$$('li.ux-tag').get(index).click();
     }
 }
