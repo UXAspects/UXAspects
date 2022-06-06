@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, ViewChild } from "@angular/core";
-import { ColorPickerColor, MenuItemType, MenuTriggerDirective } from "@ux-aspects/ux-aspects";
+import { ColorPickerColor, MenuTriggerDirective } from "@ux-aspects/ux-aspects";
 
 @Component({
     selector: 'uxd-documentation-color-picker',
@@ -20,7 +20,7 @@ export class DocumentationColorPickerComponent {
     /** Emit when the currently selected value changes. */
     @Output() selectedChange = new EventEmitter<ColorPickerColor>();
 
-    menuItemType: MenuItemType = MenuItemType.Custom;
+    focused = false;
 
     close(): void {
         this.menuTrigger?.closeMenu();

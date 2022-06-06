@@ -2,6 +2,7 @@ import { Component, ElementRef, EventEmitter, HostBinding, HostListener, Input, 
 import { NgModel } from '@angular/forms';
 import { BehaviorSubject, combineLatest, Subject } from 'rxjs';
 import { pairwise, takeUntil } from 'rxjs/operators';
+import { TabbableListDirective, TabbableListItemDirective } from '../../directives/accessibility';
 import { ColorPickerColor } from './color-picker-color';
 import { ColorPickerButtonSize, ColorPickerButtonStyle, ColorPickerInputColors, ColorPickerInputMode } from './color-picker.type';
 
@@ -133,6 +134,8 @@ export class ColorPickerComponent implements OnInit, OnDestroy {
     /** Access the ngModel instance of the input field */
     @ViewChild('inputField', { static: false }) inputFormControl: NgModel;
     @ViewChildren('colorPickerColor') colorButtons: QueryList<any>;
+    @ViewChild(TabbableListDirective) tabbableList: TabbableListDirective;
+    @ViewChildren(TabbableListItemDirective) tabbableListItem: TabbableListItemDirective[];
 
     private readonly _onDestroy = new Subject();
 
@@ -167,15 +170,8 @@ export class ColorPickerComponent implements OnInit, OnDestroy {
 
     @HostListener('focusin', ['$event'])
     onFocusin(event) {
-
-        if (this.colorButtons && event.target === this._elementRef.nativeElement) {
-            const checked = this.colorButtons.find(button => button.nativeElement.classList.contains('ux-selected'));
-
-            if (checked) {
-                checked.nativeElement.querySelector('button').focus();
-            } else {
-                this.colorButtons.first.querySelector('button').focus();
-            }
+        if (event.target === this._elementRef.nativeElement) {
+            this.tabbableList.focusTabbableItem();
         }
     }
 

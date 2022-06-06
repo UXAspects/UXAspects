@@ -12,10 +12,15 @@
     <ux-icon name="chevron-down"></ux-icon>
 </button>
 
-<ux-menu #dropdownMenu id="color-picker-dropdown">
+<ux-menu
+    #dropdownMenu
+    id="color-picker-dropdown"
+    (opened)="focused = true"
+    (closed)="focused = false">
+
     <ux-color-picker
-        uxMenuTabbableItem
-        [type]="menuItemType"
+        tabindex="0"
+        [focusIf]="focused"
         [colors]="colors"
         [(selected)]="selected"
         (selectedChange)="onColorPickerSelectedChange($event)"

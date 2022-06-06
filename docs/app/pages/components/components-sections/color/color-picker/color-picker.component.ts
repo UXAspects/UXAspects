@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
-import { ColorPickerColor, ColorService, MenuItemType, MenuTriggerDirective } from '@ux-aspects/ux-aspects';
+import { ColorPickerColor, ColorService, MenuTriggerDirective } from '@ux-aspects/ux-aspects';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
@@ -23,7 +23,7 @@ export class ComponentsColorPickerComponent extends BaseDocumentationSection imp
         },
         modules: [
             {
-                imports: ['ColorPickerModule, MenuModule'],
+                imports: ['ColorPickerModule, MenuModule', 'FocusIfModule'],
                 library: '@ux-aspects/ux-aspects'
             }
         ]
@@ -36,7 +36,7 @@ export class ComponentsColorPickerComponent extends BaseDocumentationSection imp
     buttonSize = 'md';
     showTooltips = false;
     showInput = false;
-    menuItemType: MenuItemType = MenuItemType.Custom;
+    focused = false;
 
     _colorNames = [
         [

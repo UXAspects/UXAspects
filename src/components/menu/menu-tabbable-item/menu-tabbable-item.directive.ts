@@ -15,7 +15,7 @@ export class MenuTabbableItemDirective implements OnInit, OnDestroy, FocusableOp
     @Input() disabled: boolean = false;
 
     /** Indicate the type of the menu item */
-    @Input() type: MenuItemType = MenuItemType.Default;
+    readonly type: MenuItemType = MenuItemType.Default;
 
     /** Store the focus indicator instance */
     private _focusIndicator: FocusIndicator;

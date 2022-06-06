@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { AccessibilityModule, ColorPickerModule, EboxModule, IconModule, MenuModule, PersistentDataModule, PopoverModule, ScrollModule, TooltipModule } from '@ux-aspects/ux-aspects';
+import { AccessibilityModule, ColorPickerModule, EboxModule, FocusIfModule, IconModule, MenuModule, PersistentDataModule, PopoverModule, ScrollModule, TooltipModule } from '@ux-aspects/ux-aspects';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 import { ApiPropertiesComponent } from './api-properties/api-properties.component';
@@ -63,6 +63,7 @@ const DOCUMENTATION_COMPONENTS = [
         ColorPickerModule,
         EboxModule,
         FormsModule,
+        FocusIfModule,
         IconModule,
         MenuModule,
         PersistentDataModule,

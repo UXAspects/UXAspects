@@ -18,11 +18,16 @@
     </span>
 </div>
 
-<ux-menu #dropdownMenu id="color-picker-dropdown">
+<ux-menu
+    #dropdownMenu
+    id="color-picker-dropdown"
+    (opened)="focused = true"
+    (closed)="focused = false">
+
     <ux-color-picker
-        uxMenuTabbableItem
-        [type]="menuItemType"
-        [forwardFocusToButton]="true"
+        tabindex="0"
+        [focusIf]="focused"
+        (blur)="focused = false"
         [colors]="colors"
         [(selected)]="selected"
         (selectedChange)="onColorPickerSelectedChange()"
