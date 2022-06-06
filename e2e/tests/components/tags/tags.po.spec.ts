@@ -1,4 +1,4 @@
-import { $, browser, by, element, ElementFinder, Key, protractor } from 'protractor';
+import { $, browser, by, element, ElementFinder, Key, protractor, WebElement } from 'protractor';
 
 export class TagsPage {
 
@@ -19,6 +19,7 @@ export class TagsPage {
     selectFirst = $('#selectFirst');
     showTypeaheadOnClick = $('#showTypeaheadOnClick');
     typeahead = $('ux-typeahead');
+    input = $('input.ux-tag-input');
 
     async getPage(): Promise<void> {
         await browser.get('#/tags');
@@ -120,7 +121,7 @@ export class TagsPage {
     }
 
     confirmTypeaheadClassExists(item: ElementFinder, soughtClass: string) {
-        return item.getAttribute('class').then(function (classes: string) {
+        return item.getAttribute('class').then(function(classes: string) {
             const allClasses = classes.split(' ');
             if (allClasses.indexOf(soughtClass) > -1) {
                 return true;
@@ -159,5 +160,13 @@ export class TagsPage {
 
     getInputPatternErrorMessage() {
         return this.inputPatternErrorMessage.getText();
+    }
+
+    async activeElement(): Promise<WebElement> {
+        return await browser.driver.switchTo().activeElement();
+    };
+
+    async clickOnTagAtIndex(index: number) {
+        return this.tagsInput.$$('li.ux-tag').get(index).click();
     }
 }
