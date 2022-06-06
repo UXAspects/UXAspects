@@ -131,5 +131,14 @@ export class PageHeaderPage {
     async clickBreadcrumb(index: number): Promise<void> {
         return this.breadcrumbs.get(index).click();
     }
+
+    async findElementWithIds(id: string): Promise<boolean> {
+        return $(`#${id}`).isPresent();
+    }
+
+    async noDuplicateIds(id: string): Promise<boolean> {
+        if (await element.all(by.id(id)).count() <= 1)
+        return element.all(by.id(id)).count();
+    }
 }
 
