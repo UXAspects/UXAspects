@@ -162,10 +162,6 @@ export class TagsPage {
         return this.inputPatternErrorMessage.getText();
     }
 
-    async countElementsWithIds(id: string): Promise<number> {
-        return element.all(by.id(id)).count();
-    }
-
     async activeElement(): Promise<WebElement> {
         return await browser.driver.switchTo().activeElement();
     }

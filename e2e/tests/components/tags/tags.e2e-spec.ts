@@ -300,11 +300,6 @@ describe('TagsPage Tests', () => {
         expect(await imageCompare('tags-typeahead-reopen')).toEqual(0);
     });
 
-    it('should have an unique id for the input element', async () => {
-        const inputId = await page.input.getAttribute('id');
-        expect(await page.countElementsWithIds(inputId)).toBe(1);
-    });
-
     it('should allow tabbing through the component when enforceTagLimits is true and the tags is at the max', async () => {
         await page.enforceTagLimits.click();
         await page.changeMaxTags('3');
