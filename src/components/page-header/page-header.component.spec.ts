@@ -1,10 +1,12 @@
-import { ComponentFixture, TestBed} from '@angular/core/testing';
-import { PageHeaderModule } from './page-header.module';
-import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
 import { APP_BASE_HREF } from '@angular/common';
+import { Component } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterModule } from '@angular/router';
 import { ColorServiceModule, colorSets } from '../../services/color';
 import { Breadcrumb } from '../breadcrumbs/breadcrumbs.component';
+import { PageHeaderNavigationItem } from './navigation/navigation.component';
+import { PageHeaderModule } from './page-header.module';
 
 @Component({
     selector: 'app-page-header-test',
@@ -13,12 +15,50 @@ import { Breadcrumb } from '../breadcrumbs/breadcrumbs.component';
             header="UX"
             [backVisible]="true"
             [crumbs]="crumbs"
+            [items]="items"
             (backClick)="onBackClick()"
             (logoClick)="onLogoClick()">
         </ux-page-header>
     `
 })
 export class PageHeaderTestComponent {
+
+    items: PageHeaderNavigationItem[] = [
+        {
+            icon: 'home',
+            title: 'Home',
+            id: 'home'
+        },
+        {
+            icon: 'analytics',
+            title: 'Analytics',
+            id: 'analytics',
+            children: [
+                {
+                    title: 'Bar Charts',
+                    id: 'bar-charts'
+                },
+                {
+                    title: 'Pie Charts',
+                    id: 'pie-charts',
+                    children: [
+                        {
+                            title: 'Daily View',
+                            id: 'daily-view'
+                        },
+                        {
+                            title: 'Weekly View',
+                            id: 'weekly-view'
+                        },
+                        {
+                            title: 'Monthly View',
+                            id: 'monthly-view'
+                        }
+                    ]
+                }
+            ]
+        }
+    ];
 
     crumbs: Breadcrumb[] = [
         {
@@ -51,7 +91,8 @@ describe('Page Header Component', () => {
             imports: [
                 PageHeaderModule,
                 RouterModule.forRoot([]),
-                ColorServiceModule.forRoot(colorSets.keppel)
+                ColorServiceModule.forRoot(colorSets.keppel),
+                NoopAnimationsModule
             ],
             providers: [
                 { provide: APP_BASE_HREF, useValue: '/' }
@@ -122,4 +163,33 @@ describe('Page Header Component', () => {
         expect(breadcrumbs.length).toBe(3);
     });
 
+    it('should propagate ids through menu and sub menu items', async () => {
+        const navigation = nativeElement.querySelector('.page-header-navigation');
+        const navItems = navigation.querySelectorAll('button');
+
+        expect(navItems[0].id).toBe('home');
+        expect(navItems[1].id).toBe('analytics');
+
+        // open and check menu items
+        navItems[1].click();
+        fixture.detectChanges();
+
+        const menu = document.querySelector('.ux-menu');
+        const menuItems = menu.querySelectorAll('button');
+
+        expect(menuItems[0].id).toBe('bar-charts');
+        expect(menuItems[1].id).toBe('pie-charts');
+
+        // open and check sub menu items
+        menuItems[1].dispatchEvent(new MouseEvent('mouseenter'));
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        const subMenu = document.querySelector('.horizontal-navigation-dropdown-submenu');
+        const subMenuItems = subMenu.querySelectorAll('button');
+
+        expect(subMenuItems[0].id).toBe('daily-view');
+        expect(subMenuItems[1].id).toBe('weekly-view');
+        expect(subMenuItems[2].id).toBe('monthly-view');
+    });
 });

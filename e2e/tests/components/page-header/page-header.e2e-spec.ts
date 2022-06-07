@@ -283,8 +283,4 @@ describe('Page Header Tests', () => {
         await page.clickBreadcrumb(1);
         expect(await page.getBreadcrumbPageTextContent()).toBe('');
     });
-
-    it('should have id applied to page', async () => {
-
-    });
 });
