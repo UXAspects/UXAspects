@@ -26,33 +26,26 @@ export class PageHeaderTestPageComponent {
     items: PageHeaderNavigationItem[] = [
         {
             icon: 'home',
-            title: 'Home',
-            id: 'home-id'
+            title: 'Home'
         },
         {
             icon: 'analytics',
             title: 'Analytics',
-            id: 'analytics-id',
             children: [
                 {
-                    title: 'Bar Charts',
-                    id: 'bar-charts-id'
+                    title: 'Bar Charts'
                 },
                 {
                     title: 'Pie Charts',
-                    id: 'pie-charts-id',
                     children: [
                         {
-                            title: 'Daily View',
-                            id: 'daily-view-id'
+                            title: 'Daily View'
                         },
                         {
-                            title: 'Weekly View',
-                            id: 'weekly-view-id'
+                            title: 'Weekly View'
                         },
                         {
-                            title: 'Monthly View',
-                            id: 'monthly-view-id'
+                            title: 'Monthly View'
                         }
                     ]
                 }
