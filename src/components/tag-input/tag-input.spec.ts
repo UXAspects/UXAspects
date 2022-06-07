@@ -129,7 +129,7 @@ describe('Tag Input Component', () => {
     it('should have an unique id for the input element', () => {
         fixture.detectChanges();
 
-        const inputId = component.tagInput.nativeElement.getAttribute('id');
+        const inputId = component.tagInput.nativeElement.id;
         const elementsWithId = document.querySelectorAll(`#${inputId}`);
 
         expect(elementsWithId.length).toBe(1);
