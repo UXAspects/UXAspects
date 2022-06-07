@@ -164,7 +164,7 @@ export class TagsPage {
 
     async activeElement(): Promise<WebElement> {
         return await browser.driver.switchTo().activeElement();
-    }
+    };
 
     async clickOnTagAtIndex(index: number) {
         return this.tagsInput.$$('li.ux-tag').get(index).click();
