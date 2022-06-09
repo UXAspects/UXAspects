@@ -126,4 +126,13 @@ describe('Tag Input Component', () => {
         subscription.unsubscribe();
     });
 
+    it('should have an unique id for the input element', () => {
+        fixture.detectChanges();
+
+        const inputId = component.tagInput.nativeElement.id;
+        const elementsWithId = document.querySelectorAll(`#${inputId}`);
+
+        expect(elementsWithId.length).toBe(1);
+    });
+
 });
