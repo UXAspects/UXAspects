@@ -1041,7 +1041,7 @@
                     "title": "Splitter",
                     "component": "ComponentsSplitterComponent",
                     "version": "Angular",
-                    "externalUrl": "https://bertrandg.github.io/angular-split/#/",
+                    "externalUrl": "https://angular-split.github.io/",
                     "usage": [
                         {
                             "title": "Selector",
@@ -1061,7 +1061,7 @@
                     "title": "Side Inset Panel Splitter",
                     "component": "ComponentsSideInsetPanelSplitterComponent",
                     "version": "Angular",
-                    "externalUrl": "https://bertrandg.github.io/angular-split/#/",
+                    "externalUrl": "https://angular-split.github.io/",
                     "usage": [
                         {
                             "title": "Selector",
