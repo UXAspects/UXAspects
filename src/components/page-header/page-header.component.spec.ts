@@ -193,3 +193,89 @@ describe('Page Header Component', () => {
         expect(subMenuItems[2].id).toBe('monthly-view');
     });
 });
+
+@Component({
+    selector: 'app-page-header-secondary-test',
+    template: `
+        <ux-page-header
+            [items]="items"
+            [secondaryNavigation]="true"
+            [secondaryNavigationAlignment]="'center'"
+            [secondaryNavigationAutoselect]="true">
+        </ux-page-header>
+    `
+})
+export class PageHeaderSecondaryTestComponent {
+
+    items: PageHeaderNavigationItem[] = [
+        {
+            title: 'Home',
+            id: 'home'
+        },
+        {
+            title: 'Secondary',
+            id: 'secondary',
+            children: [
+                {
+                    title: 'Secondary Menu 1',
+                    id: 'secondary-menu-1'
+                },
+                {
+                    title: 'Secondary Menu 2',
+                    id: 'secondary-menu-2'
+                },
+                {
+                    title: 'Secondary Menu 3',
+                    id: 'secondary-menu-3'
+                },
+            ]
+        }
+    ];
+}
+
+fdescribe('Page Header Secondary Component', () => {
+    let component: PageHeaderSecondaryTestComponent;
+    let fixture: ComponentFixture<PageHeaderSecondaryTestComponent>;
+    let nativeElement: HTMLElement;
+
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
+            imports: [
+                PageHeaderModule,
+                RouterModule.forRoot([]),
+                ColorServiceModule.forRoot(colorSets.keppel),
+                NoopAnimationsModule
+            ],
+            providers: [
+                { provide: APP_BASE_HREF, useValue: '/' }
+            ],
+            declarations: [PageHeaderSecondaryTestComponent]
+        }).compileComponents();
+
+        fixture = TestBed.createComponent(PageHeaderSecondaryTestComponent);
+        component = fixture.componentInstance;
+        nativeElement = fixture.nativeElement;
+
+        fixture.detectChanges();
+    });
+
+    it ('should propagate ids through secondary menu items', async () => {
+        const navigation = nativeElement.querySelector('.page-header-navigation');
+        const navItems = navigation.querySelectorAll('button');
+
+        expect(navItems[0].id).toBe('home');
+        expect(navItems[1].id).toBe('secondary');
+
+        // open and check menu items
+        navItems[1].click();
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        const navTabs = document.querySelector('.nav-tabs');
+        const tabItem = navTabs.querySelectorAll('.nav-link');
+
+        expect(tabItem[0].id).toBe('secondary-menu-1');
+        expect(tabItem[1].id).toBe('secondary-menu-2');
+        expect(tabItem[2].id).toBe('secondary-menu-3');
+    });
+});

@@ -2,7 +2,7 @@
     <button
         #navigationBtn
         type="button"
-        [id]="_item.id"
+        [attr.id]="_item.id"
         [tabindex]="_tabindex | async"
         [uxMenuTriggerFor]="menu"
         [disabled]="_item.disabled"
@@ -29,7 +29,7 @@
         uxFocusIndicator
         #navigationBtn
         [tabindex]="_tabindex | async"
-        [id]="_item.id"
+        [attr.id]="_item.id"
         role="menuitem"
         class="horizontal-navigation-button"
         [class.disabled]="_item.disabled"
@@ -52,7 +52,7 @@
         #navigationBtn
         type="button"
         [tabindex]="_tabindex | async"
-        [id]="_item.id"
+        [attr.id]="_item.id"
         role="menuitem"
         class="horizontal-navigation-button"
         [class.disabled]="_item.disabled"
