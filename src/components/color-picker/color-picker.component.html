@@ -11,6 +11,7 @@
                 [class.ux-selected]="color === (selected$ | async)">
 
                 <button type="button"
+                    uxFocusIndicator
                     [attr.aria-label]="colorAriaLabel(color)"
                     aria-selected="color === (selected$ | async)"
                     class="btn btn-icon"

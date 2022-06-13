@@ -2,9 +2,9 @@
     <button
         type="button"
         aria-label="Select a color"
+        id="color-picker-toggle"
         class="btn button-secondary dropdown-toggle"
-        #toggleButton
-        [uxMenuTriggerFor]="dropdownMenu"
+        [uxMenuTriggerFor]="colorPickerDropdown"
     >
         <span class="ux-color-picker-button-preview" [style.background-color]="selected.rgba">
             &nbsp;
@@ -13,21 +13,12 @@
     </button>
 
     <span class="m-l-lg">
-        Selected: <code>{{ selected.hex }}</code> &mdash;
-        <code>{{ selected.rgba }}</code>
+        Selected: <code id="selected-color-hex">{{selected.hex}}</code> &mdash; <code>{{selected.rgba}}</code>
     </span>
 </div>
 
-<ux-menu
-    #dropdownMenu
-    id="color-picker-dropdown"
-    (opened)="focused = true"
-    (closed)="focused = false">
-
+<ux-menu #colorPickerDropdown id="color-picker-dropdown">
     <ux-color-picker
-        tabindex="0"
-        [focusIf]="focused"
-        (blur)="focused = false"
         [colors]="colors"
         [(selected)]="selected"
         (selectedChange)="onColorPickerSelectedChange()"
@@ -37,7 +28,9 @@
         [showTooltips]="showTooltips"
         [showInput]="showInput"
         (inputSubmit)="close()"
+        uxMenuInitialFocus
     ></ux-color-picker>
+
     <div *ngIf="showInput" class="btn-container demo-color-picker-close">
         <button type="button" class="btn button-primary" (click)="close()">Accept</button>
     </div>

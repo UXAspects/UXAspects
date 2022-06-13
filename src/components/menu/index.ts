@@ -1,4 +1,5 @@
 export * from './menu-divider/menu-divider.component';
+export * from './menu-initial-focus/menu-initial-focus.directive';
 export * from './menu-item/menu-item-type.enum';
 export * from './menu-item/menu-item.component';
 export * from './menu-tabbable-item/menu-tabbable-item.directive';

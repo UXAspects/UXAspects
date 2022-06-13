@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { AccessibilityModule } from '../../directives/accessibility/index';
 import { MenuDividerComponent } from './menu-divider/menu-divider.component';
+import { MenuInitialFocusDirective } from './menu-initial-focus/menu-initial-focus.directive';
 import { MenuItemComponent } from './menu-item/menu-item.component';
 import { MenuModuleOptions } from './menu-options.interface';
 import { MENU_OPTIONS_TOKEN } from './menu-options.token';
@@ -17,7 +18,8 @@ import { MenuComponent } from './menu/menu.component';
         MenuTriggerDirective,
         MenuItemComponent,
         MenuDividerComponent,
-        MenuTabbableItemDirective
+        MenuTabbableItemDirective,
+        MenuInitialFocusDirective,
     ],
     imports: [
         A11yModule,
@@ -30,7 +32,8 @@ import { MenuComponent } from './menu/menu.component';
         MenuTriggerDirective,
         MenuItemComponent,
         MenuDividerComponent,
-        MenuTabbableItemDirective
+        MenuTabbableItemDirective,
+        MenuInitialFocusDirective,
     ]
 })
 export class MenuModule {

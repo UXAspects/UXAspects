@@ -1,13 +1,12 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { ColorPickerColor, ColorService, MenuTriggerDirective } from '@ux-aspects/ux-aspects';
 
 @Component({
     selector: 'app-color-picker',
-    templateUrl: 'color-picker.testpage.component.html',
-    styleUrls: ['color-picker.testpage.component.css']
+    templateUrl: 'color-picker.testpage.component.html'
 })
 
-export class ColorPickerTestPageComponent implements AfterViewInit {
+export class ColorPickerTestPageComponent {
 
     @ViewChild(MenuTriggerDirective) menuTrigger?: MenuTriggerDirective;
 
@@ -18,7 +17,6 @@ export class ColorPickerTestPageComponent implements AfterViewInit {
     buttonSize = 'md';
     showTooltips = false;
     showInput = false;
-    focused = false;
 
     private _colorNames = [
         [
@@ -38,10 +36,6 @@ export class ColorPickerTestPageComponent implements AfterViewInit {
         this.colors = this._colorNames.map(row =>
             row.map(colorName => new ColorPickerColor(colorName, colorService.resolve(colorName))));
         this.selected = this.colors[0][0];
-    }
-
-    ngAfterViewInit(): void {
-        this.menuTrigger.openMenu();
     }
 
     close(): void {

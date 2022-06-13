@@ -1,8 +1,8 @@
-import { Component, ElementRef, EventEmitter, HostBinding, HostListener, Input, OnDestroy, OnInit, Output, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { Component, EventEmitter, HostBinding, HostListener, Input, OnDestroy, OnInit, Output, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { NgModel } from '@angular/forms';
 import { BehaviorSubject, combineLatest, Subject } from 'rxjs';
 import { pairwise, takeUntil } from 'rxjs/operators';
-import { TabbableListDirective, TabbableListItemDirective } from '../../directives/accessibility';
+import { TabbableListDirective } from '../../directives/accessibility/index';
 import { ColorPickerColor } from './color-picker-color';
 import { ColorPickerButtonSize, ColorPickerButtonStyle, ColorPickerInputColors, ColorPickerInputMode } from './color-picker.type';
 
@@ -19,7 +19,10 @@ let uniqueId = 0;
 @Component({
     selector: 'ux-color-picker',
     exportAs: 'ux-color-picker',
-    templateUrl: 'color-picker.component.html'
+    templateUrl: 'color-picker.component.html',
+    host: {
+        'tabindex': '0'
+    }
 })
 export class ColorPickerComponent implements OnInit, OnDestroy {
 
@@ -135,11 +138,8 @@ export class ColorPickerComponent implements OnInit, OnDestroy {
     @ViewChild('inputField', { static: false }) inputFormControl: NgModel;
     @ViewChildren('colorPickerColor') colorButtons: QueryList<any>;
     @ViewChild(TabbableListDirective) tabbableList: TabbableListDirective;
-    @ViewChildren(TabbableListItemDirective) tabbableListItem: TabbableListItemDirective[];
 
     private readonly _onDestroy = new Subject();
-
-    constructor(private readonly _elementRef: ElementRef<HTMLElement>) { }
 
     ngOnInit(): void {
 
@@ -168,11 +168,10 @@ export class ColorPickerComponent implements OnInit, OnDestroy {
         this._onDestroy.complete();
     }
 
-    @HostListener('focusin', ['$event'])
-    onFocusin(event) {
-        if (event.target === this._elementRef.nativeElement) {
-            this.tabbableList.focusTabbableItem();
-        }
+    @HostListener('focus', ['$event'])
+    onFocus() {
+        // Forward focus to the color grid
+        this.tabbableList.focusTabbableItem();
     }
 
     updateColorValue(input: string, mode: ColorPickerInputMode): void {
