@@ -233,7 +233,7 @@ export class PageHeaderSecondaryTestComponent {
     ];
 }
 
-fdescribe('Page Header Secondary Component', () => {
+describe('Page Header Secondary Component', () => {
     let component: PageHeaderSecondaryTestComponent;
     let fixture: ComponentFixture<PageHeaderSecondaryTestComponent>;
     let nativeElement: HTMLElement;
