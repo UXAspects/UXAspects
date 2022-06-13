@@ -2,14 +2,14 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { AccessibilityModule, ColorPickerModule, EboxModule, FocusIfModule, IconModule, MenuModule, PersistentDataModule, PopoverModule, ScrollModule, TooltipModule } from '@ux-aspects/ux-aspects';
+import { AccessibilityModule, ColorPickerModule, EboxModule, IconModule, MenuModule, PersistentDataModule, PopoverModule, ScrollModule, TooltipModule } from '@ux-aspects/ux-aspects';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 import { ApiPropertiesComponent } from './api-properties/api-properties.component';
 import { ApiPropertyComponent } from './api-property/api-property.component';
+import { ColorPickerDropdownComponent } from './color-picker-dropdown/color-picker-dropdown.component';
 import { ComponentSectionComponent } from './component-section/component-section.component';
 import { DocumentationCategoryComponent } from './documentation-category/documentation-category.component';
-import { DocumentationColorPickerComponent } from './documentation-color-picker/documentation-color-picker.component';
 import { EditExampleLinkComponent } from './edit-example-link/edit-example-link.component';
 import { FullPageLayoutComponent } from './full-page-layout/full-page-layout.component';
 import { LandingPageFeatureListComponent } from './landing-page-feature-list/landing-page-feature-list.component';
@@ -32,9 +32,9 @@ import { UsageLinkComponent } from './usage-link/usage-link.component';
 const DOCUMENTATION_COMPONENTS = [
     ApiPropertiesComponent,
     ApiPropertyComponent,
+    ColorPickerDropdownComponent,
     ComponentSectionComponent,
     DocumentationCategoryComponent,
-    DocumentationColorPickerComponent,
     EditExampleLinkComponent,
     FullPageLayoutComponent,
     LandingPageFeatureComponent,
@@ -63,7 +63,6 @@ const DOCUMENTATION_COMPONENTS = [
         ColorPickerModule,
         EboxModule,
         FormsModule,
-        FocusIfModule,
         IconModule,
         MenuModule,
         PersistentDataModule,

@@ -2,9 +2,8 @@
     type="button"
     aria-label="Select a color"
     class="btn button-secondary dropdown-toggle"
-    #toggleButton
-    [uxMenuTriggerFor]="dropdownMenu"
-    [closeOnBlur]="true"
+    [uxMenuTriggerFor]="colorPickerDropdown"
+    closeOnBlur="true"
 >
     <span class="ux-color-picker-button-preview" [style.background-color]="selected.rgba">
         &nbsp;
@@ -12,18 +11,10 @@
     <ux-icon name="chevron-down"></ux-icon>
 </button>
 
-<ux-menu
-    #dropdownMenu
-    id="color-picker-dropdown"
-    (opened)="focused = true"
-    (closed)="focused = false">
-
+<ux-menu #colorPickerDropdown id="color-picker-dropdown">
     <ux-color-picker
-        tabindex="0"
-        [focusIf]="focused"
         [colors]="colors"
-        [(selected)]="selected"
+        [selected]="selected"
         (selectedChange)="onColorPickerSelectedChange($event)"
-        (inputSubmit)="close()"
     ></ux-color-picker>
 </ux-menu>

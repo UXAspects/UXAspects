@@ -2,12 +2,11 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, ViewCh
 import { ColorPickerColor, MenuTriggerDirective } from "@ux-aspects/ux-aspects";
 
 @Component({
-    selector: 'uxd-documentation-color-picker',
-    templateUrl: './documentation-color-picker.component.html',
+    selector: 'uxd-color-picker-dropdown',
+    templateUrl: './color-picker-dropdown.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    styleUrls: ['./documentation-color-picker.component.less']
 })
-export class DocumentationColorPickerComponent {
+export class ColorPickerDropdownComponent {
 
     @ViewChild(MenuTriggerDirective) menuTrigger?: MenuTriggerDirective;
 
@@ -20,14 +19,12 @@ export class DocumentationColorPickerComponent {
     /** Emit when the currently selected value changes. */
     @Output() selectedChange = new EventEmitter<ColorPickerColor>();
 
-    focused = false;
-
     close(): void {
         this.menuTrigger?.closeMenu();
     }
 
     onColorPickerSelectedChange(color: ColorPickerColor): void {
-        this.selectedChange.next(color);
+        this.selectedChange.emit(color);
         this.close();
     }
 }
