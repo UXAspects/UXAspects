@@ -139,16 +139,15 @@ describe('Typeahead Component', () => {
         expect(getTypeaheadItem(2).classList).not.toContain('disabled');
     });
 
-    it('should allow options to be changed to a promise', () => {
+    it('should allow options to be changed to a promise', async () => {
         component.changeOptions();
         fixture.detectChanges();
         typeaheadInput.click();
         fixture.detectChanges();
+        await fixture.whenStable();
 
-        fixture.whenStable().then(() => {
-            expect(getTypeaheadItem(0).innerText).toBe('Four');
-            expect(getTypeaheadItem(1).innerText).toBe('Five');
-        });
+        expect(getTypeaheadItem(0).innerText).toBe('Four');
+        expect(getTypeaheadItem(1).innerText).toBe('Five');
     });
 
     function getTypeaheadItems(): NodeListOf<HTMLElement> {
