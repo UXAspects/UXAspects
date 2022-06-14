@@ -235,8 +235,9 @@
             }
         }
     },
-    "defaultProject": "documentation",
     "cli": {
-        "defaultCollection": "@angular-eslint/schematics"
+      "schematicCollections": [
+          "@angular-eslint/schematics"
+        ]
     }
 }

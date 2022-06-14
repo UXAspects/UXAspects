@@ -1,7 +1,7 @@
 import { O, SHIFT, TAB } from '@angular/cdk/keycodes';
 import { Component } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { dispatchKeyboardEvent } from '../../common/testing/dispatch-event';
 import { InfiniteScrollLoadFunction } from '../../directives/infinite-scroll/index';
@@ -665,8 +665,8 @@ export class SelectReactiveFormTestComponent {
 
     multiple: boolean = false;
 
-    form = new FormGroup({
-        select: new FormControl('One')
+    form = new UntypedFormGroup({
+        select: new UntypedFormControl('One')
     });
 
     options: string[] = ['One', 'Two', 'Three'];

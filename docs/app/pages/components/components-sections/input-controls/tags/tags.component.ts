@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
@@ -16,7 +16,7 @@ export class ComponentsTagsComponent extends BaseDocumentationSection implements
 
     typeaheadDocumentationRoute: string;
 
-    tagInput: FormControl;
+    tagInput: UntypedFormControl;
 
     tags = ['Alpha', 'Beta', 'Kappa'];
 

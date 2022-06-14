@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RadioButtonComponent } from './radiobutton.component';
 import { RadioButtonModule } from './radiobutton.module';
 
@@ -713,8 +713,8 @@ describe('Radio Button Component - NgModel', () => {
 })
 export class RadioButtonTestReactiveFormComponent {
 
-    form = new FormGroup({
-        option: new FormControl(2),
+    form = new UntypedFormGroup({
+        option: new UntypedFormControl(2),
     });
 
     required: boolean = false;

@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 
 @Component({
     selector: 'app-input-dropdown-forms',
@@ -27,13 +27,13 @@ export class InputDropdownFormsTestPageComponent {
 
     private _filter: string = '';
 
-    constructor(private formBuilder: FormBuilder) {}
+    constructor(private formBuilder: UntypedFormBuilder) {}
 
     placeholder: string = 'Type to search...';
     selected: string;
     disabled: boolean = false;
 
-    form: FormGroup = this.formBuilder.group({
+    form: UntypedFormGroup = this.formBuilder.group({
         inputDropdown: [{value: '', disabled: this.disabled}]
     });
 

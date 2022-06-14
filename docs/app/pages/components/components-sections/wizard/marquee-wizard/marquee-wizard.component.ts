@@ -1,6 +1,6 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { Component } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { UntypedFormControl, Validators } from '@angular/forms';
 import { MarqueeWizardComponent } from '@ux-aspects/ux-aspects';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
@@ -19,7 +19,7 @@ export class ComponentsMarqueeWizardComponent extends BaseDocumentationSection i
     skip: boolean = false;
     validate: boolean = false;
     modalOpen: boolean = false;
-    requiredText = new FormControl('', Validators.required);
+    requiredText = new UntypedFormControl('', Validators.required);
     resizable: boolean = false;
     sidePanelWidth: number = 25;
     gutterSize: number = 10;

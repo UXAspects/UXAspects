@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs';
 
 @Component({
@@ -32,7 +32,7 @@ export class SelectFormsTestPageComponent implements OnInit {
 
     dataSets: { strings?: any[], objects?: any[] } = {};
 
-    form: FormGroup = this.formBuilder.group({
+    form: UntypedFormGroup = this.formBuilder.group({
         select1: ['', [Validators.minLength(2), Validators.maxLength(3)]]
     });
 
@@ -40,7 +40,7 @@ export class SelectFormsTestPageComponent implements OnInit {
         return this.form.get('select1');
     }
 
-    constructor(private formBuilder: FormBuilder) {
+    constructor(private formBuilder: UntypedFormBuilder) {
 
         // Reset select when "multiple" checkbox changes.
         this.multiple.subscribe((value) => {

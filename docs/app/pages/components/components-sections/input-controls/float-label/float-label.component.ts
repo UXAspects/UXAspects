@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
@@ -25,7 +25,7 @@ export class ComponentsFloatLabelComponent extends BaseDocumentationSection impl
         ]
     };
 
-    demoForm: FormGroup;
+    demoForm: UntypedFormGroup;
 
     get locationValue(): string {
         return this.demoForm.get('location').value;
@@ -35,7 +35,7 @@ export class ComponentsFloatLabelComponent extends BaseDocumentationSection impl
         this.demoForm.get('location').setValue(value);
     }
 
-    constructor(formBuilder: FormBuilder) {
+    constructor(formBuilder: UntypedFormBuilder) {
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
 
         this.demoForm = formBuilder.group({
