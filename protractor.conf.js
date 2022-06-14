@@ -16,7 +16,6 @@ const junitDir = join(outputDir, 'junit');
 const screenshotOutputDir = join(outputDir, 'screenshots');
 const isJenkinsBuild = !!env.RE_BUILD_TYPE;
 const DOCKER_CONTAINER_NAME = 'uxa-selenium';
-const MAX_RETRIES = 2;
 
 if (!isJenkinsBuild) {
     startSeleniumContainer();
@@ -26,7 +25,7 @@ const e2eHostAddress = isJenkinsBuild ? 'localhost' : getHostAddressFromSelenium
 
 const config = {
     chromeDriver: require('chromedriver').path,
-    baseUrl: `http://${ e2eHostAddress }:4000/#/`,
+    baseUrl: `http://${e2eHostAddress}:4000/#/`,
     allScriptsTimeout: 11000,
     specs: [
         './e2e/**/*.e2e-spec.ts'
@@ -54,8 +53,7 @@ const config = {
     jasmineNodeOpts: {
         showColors: true,
         defaultTimeoutInterval: 30000,
-        print: function () {
-        }
+        print: function () {}
     },
     onPrepare() {
         require('ts-node').register({
@@ -139,12 +137,12 @@ if (!isJenkinsBuild) {
 module.exports.config = config;
 
 function getHostAddressFromSeleniumContainer() {
-    const cmd = `docker exec ${ DOCKER_CONTAINER_NAME } getent ahosts host.docker.internal`;
+    const cmd = `docker exec ${DOCKER_CONTAINER_NAME} getent ahosts host.docker.internal`;
     const output = execSync(cmd, { encoding: 'utf8' });
     const address = getHostAddressFromAHosts(output);
 
     if (!isIp(address)) {
-        throw new Error(`Expected an IP address but got "${ address }". Make sure docker container ${ DOCKER_CONTAINER_NAME } is running.`);
+        throw new Error(`Expected an IP address but got "${address}". Make sure docker container ${DOCKER_CONTAINER_NAME} is running.`);
     }
 
     return address;
