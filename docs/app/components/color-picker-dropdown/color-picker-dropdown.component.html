@@ -13,6 +13,7 @@
 
 <ux-menu #colorPickerDropdown id="color-picker-dropdown">
     <ux-color-picker
+        uxMenuInitialFocus
         [colors]="colors"
         [selected]="selected"
         (selectedChange)="onColorPickerSelectedChange($event)"
