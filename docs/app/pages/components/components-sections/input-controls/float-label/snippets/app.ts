@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder } from '@angular/forms';
 
 @Component({
     selector: 'app-root',
@@ -7,7 +7,7 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 })
 export class AppComponent {
 
-    demoForm: FormGroup;
+    demoForm: UntypedFormGroup;
 
     get locationValue(): string {
         return this.demoForm.get('location').value;
@@ -17,7 +17,7 @@ export class AppComponent {
         this.demoForm.get('location').setValue(value);
     }
 
-    constructor(formBuilder: FormBuilder) {
+    constructor(formBuilder: UntypedFormBuilder) {
         this.demoForm = formBuilder.group({
             'username': [''],
             'location': ['']

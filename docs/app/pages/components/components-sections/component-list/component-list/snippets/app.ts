@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormArray, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 
 @Component({
     selector: 'app-root',
@@ -7,19 +7,19 @@ import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class AppComponent {
 
-    form = new FormGroup({
-        items: new FormArray([
-            new FormControl(null, [Validators.required])
+    form = new UntypedFormGroup({
+        items: new UntypedFormArray([
+            new UntypedFormControl(null, [Validators.required])
         ])
     });
 
-    get items(): FormArray {
-        return this.form.get('items') as FormArray;
+    get items(): UntypedFormArray {
+        return this.form.get('items') as UntypedFormArray;
     }
 
     add(): void {
         if (this.form.valid) {
-            this.items.push(new FormControl(null, [Validators.required]));
+            this.items.push(new UntypedFormControl(null, [Validators.required]));
         }
     }
 

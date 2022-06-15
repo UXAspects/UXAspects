@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, Validators, UntypedFormGroup } from '@angular/forms';
 
 @Component({
     selector: 'app-root',
@@ -7,9 +7,9 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
     styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-    form: FormGroup;
+    form: UntypedFormGroup;
 
-    constructor(formBuilder: FormBuilder) {
+    constructor(formBuilder: UntypedFormBuilder) {
 
         this.form = formBuilder.group({
             integer: [0, Validators.compose([Validators.required, Validators.min(-10), Validators.max(10)])],
