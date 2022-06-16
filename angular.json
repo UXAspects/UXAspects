@@ -58,9 +58,7 @@
                                 "output": "/assets/lib"
                             }
                         ],
-                        "styles": [
-                            "docs/styles.less"
-                        ],
+                        "styles": ["docs/styles.less"],
                         "scripts": [],
                         "allowedCommonJsDependencies": [
                             "chart.js",
@@ -104,10 +102,7 @@
                 "lint": {
                     "builder": "@angular-eslint/builder:lint",
                     "options": {
-                        "lintFilePatterns": [
-                            "src/**/*.ts",
-                            "src/**/*.html"
-                        ]
+                        "lintFilePatterns": ["src/**/*.ts", "src/**/*.html"]
                     }
                 }
             }
@@ -182,10 +177,7 @@
                 "lint": {
                     "builder": "@angular-eslint/builder:lint",
                     "options": {
-                        "lintFilePatterns": [
-                            "src/**/*.ts",
-                            "src/**/*.html"
-                        ]
+                        "lintFilePatterns": ["src/**/*.ts", "src/**/*.html"]
                     }
                 }
             }
@@ -197,7 +189,7 @@
             "prefix": "ux",
             "architect": {
                 "build": {
-                    "builder": "@angular-devkit/build-angular:ng-packagr",
+                    "builder": "@ashley-hunter/ng-packagr-compat:package",
                     "options": {
                         "project": "src/ng-package.json"
                     },
@@ -226,18 +218,13 @@
                 "lint": {
                     "builder": "@angular-eslint/builder:lint",
                     "options": {
-                        "lintFilePatterns": [
-                            "src/**/*.ts",
-                            "src/**/*.html"
-                        ]
+                        "lintFilePatterns": ["src/**/*.ts", "src/**/*.html"]
                     }
                 }
             }
         }
     },
     "cli": {
-      "schematicCollections": [
-          "@angular-eslint/schematics"
-        ]
+        "schematicCollections": ["@angular-eslint/schematics"]
     }
 }
