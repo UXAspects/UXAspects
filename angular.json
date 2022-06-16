@@ -19,6 +19,7 @@
             "architect": {
                 "build": {
                     "builder": "@angular-builders/custom-webpack:browser",
+                    "outputs": ["{options.outputPath}"],
                     "options": {
                         "customWebpackConfig": {
                             "path": "./docs/webpack.config.ts"
@@ -190,6 +191,7 @@
             "architect": {
                 "build": {
                     "builder": "@ashley-hunter/ng-packagr-compat:package",
+                    "outputs": ["dist/library"],
                     "options": {
                         "project": "src/ng-package.json"
                     },
