@@ -22,7 +22,7 @@
 
         <a *ngIf="tab.route"
             class="nav-link"
-            [id]="tab.id"
+            [attr.id]="tab.id"
             role="tab"
             uxTabbableListItem
             uxFocusIndicator
@@ -45,7 +45,7 @@
 
         <a *ngIf="!tab.route"
             class="nav-link"
-            [id]="tab.id"
+            [attr.id]="tab.id"
             role="tab"
             uxTabbableListItem
             uxFocusIndicator

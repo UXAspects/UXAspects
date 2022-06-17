@@ -2,8 +2,8 @@
     role="tabpanel"
     class="tab-pane"
     [style.display]="_active ? 'block' : 'none'"
-    [id]="id + '-panel'"
-    [attr.aria-labelledby]="id"
+    [id]="_id + '-panel'"
+    [attr.aria-labelledby]="_id"
     [attr.aria-hidden]="!_active"
 >
     <ng-content></ng-content>
