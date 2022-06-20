@@ -26,11 +26,6 @@ export class ComponentsPageHeaderComponent extends BaseDocumentationSection impl
                 imports: ['RouterModule'],
                 library: '@angular/router',
                 providers: ['RouterModule.forRoot([])']
-            },
-            {
-                imports: ['BsDropdownModule'],
-                library: 'ngx-bootstrap/dropdown',
-                providers: ['BsDropdownModule.forRoot()']
             }
         ]
     };

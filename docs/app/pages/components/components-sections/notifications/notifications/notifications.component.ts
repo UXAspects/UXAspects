@@ -18,7 +18,6 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 @DocumentationSectionComponent('ComponentsNotificationsComponent')
 export class ComponentsNotificationsComponent extends BaseDocumentationSection implements IPlaygroundProvider, OnDestroy {
 
-    isPickerOpen: boolean = false;
     duration: number = 4;
     description: string = 'You have 16 messages';
 
@@ -46,17 +45,12 @@ export class ComponentsNotificationsComponent extends BaseDocumentationSection i
         },
         modules: [
             {
-                imports: ['NotificationModule', 'NumberPickerModule', 'ColorPickerModule', 'AccordionModule'],
+                imports: ['NotificationModule', 'NumberPickerModule', 'ColorPickerModule', 'AccordionModule', 'MenuModule'],
                 library: '@ux-aspects/ux-aspects'
             },
             {
                 imports: ['A11yModule'],
                 library: '@angular/cdk/a11y'
-            },
-            {
-                imports: ['BsDropdownModule'],
-                forRoot: true,
-                library: 'ngx-bootstrap/dropdown'
             }
         ]
     };

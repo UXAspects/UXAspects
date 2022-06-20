@@ -21,13 +21,8 @@ export class ComponentsDragAndDropCardsComponent extends BaseDocumentationSectio
         },
         modules: [
             {
-                imports: ['FocusIfModule', 'ReorderableModule', 'MenuNavigationModule'],
+                imports: ['FocusIfModule', 'ReorderableModule', 'MenuModule'],
                 library: '@ux-aspects/ux-aspects'
-            },
-            {
-                imports: ['BsDropdownModule'],
-                library: 'ngx-bootstrap/dropdown',
-                forRoot: true
             },
             {
                 imports: ['ButtonsModule'],

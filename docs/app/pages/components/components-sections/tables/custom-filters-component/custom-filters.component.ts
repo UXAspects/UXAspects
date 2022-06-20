@@ -36,16 +36,13 @@ export class ComponentsCustomFiltersComponent extends BaseDocumentationSection i
             'sample-filter.component.ts': this.snippets.raw.sampleTs
         },
         modules: [{
-            imports: ['FilterModule', 'RadioButtonModule', 'MenuNavigationModule'],
+            imports: ['FilterModule', 'RadioButtonModule', 'MenuModule'],
             library: '@ux-aspects/ux-aspects'
-        }, {
+        },
+        {
             imports: ['SampleFilterCustomComponent'],
             library: './sample-filter.component',
             declaration: true
-        }, {
-            imports: ['BsDropdownModule'],
-            library: 'ngx-bootstrap/dropdown',
-            forRoot: true
         }]
     };
 

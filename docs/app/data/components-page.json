@@ -742,10 +742,6 @@
                         {
                             "title": "Module",
                             "content": "PageHeaderModule"
-                        },
-                        {
-                            "title": "Dependencies",
-                            "content": "BsDropdownModule"
                         }
                     ]
                 }
@@ -1271,20 +1267,8 @@
                     "version": "Angular",
                     "usage": [
                         {
-                            "title": "Selector",
-                            "content": "[dropdown]"
-                        },
-                        {
-                            "title": "Selector",
-                            "content": "[dropdownMenu]"
-                        },
-                        {
-                            "title": "Selector",
-                            "content": "[dropdownToggle]"
-                        },
-                        {
                             "title": "Module",
-                            "content": "BsDropdownModule"
+                            "content": "MenuModule"
                         }
                     ]
                 }

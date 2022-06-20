@@ -1,0 +1,21 @@
+<button
+    type="button"
+    aria-label="Select a color"
+    class="btn button-secondary dropdown-toggle"
+    [uxMenuTriggerFor]="colorPickerDropdown"
+    closeOnBlur="true"
+>
+    <span class="ux-color-picker-button-preview" [style.background-color]="selected.rgba">
+        &nbsp;
+    </span>
+    <ux-icon name="chevron-down"></ux-icon>
+</button>
+
+<ux-menu #colorPickerDropdown id="color-picker-dropdown">
+    <ux-color-picker
+        uxMenuInitialFocus
+        [colors]="colors"
+        [selected]="selected"
+        (selectedChange)="onColorPickerSelectedChange($event)"
+    ></ux-color-picker>
+</ux-menu>

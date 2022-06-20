@@ -9,7 +9,6 @@ import {
     PersistentDataService
 } from '@ux-aspects/ux-aspects';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
-import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 import { NgxMaskModule } from 'ngx-mask';
@@ -54,7 +53,6 @@ const appRoutes: Routes = [
     imports: [
         BrowserAnimationsModule,
         BrowserModule,
-        BsDropdownModule.forRoot(),
         ButtonsModule.forRoot(),
         ColorServiceModule.forRoot(colorSets.keppel),
         DocumentationComponentsModule,

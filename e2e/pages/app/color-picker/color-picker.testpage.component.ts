@@ -2,11 +2,11 @@ import { Component, ViewChild } from '@angular/core';
 import { ColorPickerColor, ColorService, MenuTriggerDirective } from '@ux-aspects/ux-aspects';
 
 @Component({
-    selector: 'app-root',
-    templateUrl: 'app.component.html',
-    styleUrls: ['app.component.css']
+    selector: 'app-color-picker',
+    templateUrl: 'color-picker.testpage.component.html'
 })
-export class AppComponent {
+
+export class ColorPickerTestPageComponent {
 
     @ViewChild(MenuTriggerDirective) menuTrigger?: MenuTriggerDirective;
 

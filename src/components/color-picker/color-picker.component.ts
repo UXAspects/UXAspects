@@ -1,7 +1,8 @@
-import { Component, EventEmitter, HostBinding, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, HostBinding, HostListener, Input, OnDestroy, OnInit, Output, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { NgModel } from '@angular/forms';
 import { BehaviorSubject, combineLatest, Subject } from 'rxjs';
 import { pairwise, takeUntil } from 'rxjs/operators';
+import { TabbableListDirective } from '../../directives/accessibility/index';
 import { ColorPickerColor } from './color-picker-color';
 import { ColorPickerButtonSize, ColorPickerButtonStyle, ColorPickerInputColors, ColorPickerInputMode } from './color-picker.type';
 
@@ -18,7 +19,10 @@ let uniqueId = 0;
 @Component({
     selector: 'ux-color-picker',
     exportAs: 'ux-color-picker',
-    templateUrl: 'color-picker.component.html'
+    templateUrl: 'color-picker.component.html',
+    host: {
+        'tabindex': '0'
+    }
 })
 export class ColorPickerComponent implements OnInit, OnDestroy {
 
@@ -132,6 +136,8 @@ export class ColorPickerComponent implements OnInit, OnDestroy {
 
     /** Access the ngModel instance of the input field */
     @ViewChild('inputField', { static: false }) inputFormControl: NgModel;
+    @ViewChildren('colorPickerColor') colorButtons: QueryList<any>;
+    @ViewChild(TabbableListDirective) tabbableList: TabbableListDirective;
 
     private readonly _onDestroy = new Subject();
 
@@ -160,6 +166,12 @@ export class ColorPickerComponent implements OnInit, OnDestroy {
     ngOnDestroy(): void {
         this._onDestroy.next();
         this._onDestroy.complete();
+    }
+
+    @HostListener('focus', ['$event'])
+    onFocus() {
+        // Forward focus to the color grid
+        this.tabbableList.focusTabbableItem();
     }
 
     updateColorValue(input: string, mode: ColorPickerInputMode): void {

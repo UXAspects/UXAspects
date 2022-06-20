@@ -5,16 +5,3 @@
 .ux-custom-filter .custom-filter-chevron {
     font-size: 0.625rem;
 }
-
-.ux-custom-filter .dropdown-menu .dropdown-list-item .dropdown-item {
-    padding-left: 10px;
-}
-
-.ux-custom-filter .dropdown-menu .dropdown-list-item .dropdown-item ux-icon {
-    display: inline-block;
-    width: 16px;
-}
-
-.ux-custom-filter .dropdown-menu .dropdown-list-item .dropdown-item .filter-dropdown-title {
-    padding-left: 10px;
-}

@@ -3,10 +3,9 @@ import { CommonModule } from '@angular/common';
 import { ComponentFactoryResolver, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { AccessibilityModule, ColorServiceModule, FocusIfModule, IconModule, MenuNavigationModule, ReorderableModule, TabsetModule } from '@ux-aspects/ux-aspects';
+import { AccessibilityModule, ColorServiceModule, FocusIfModule, IconModule, MenuModule, ReorderableModule, TabsetModule } from '@ux-aspects/ux-aspects';
 import { NgChartsModule } from 'ng2-charts';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
-import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
 import { DocumentationPage, ResolverService } from '../../../../services/resolver/resolver.service';
@@ -33,7 +32,6 @@ const ROUTES = [
     imports: [
         A11yModule,
         AccessibilityModule,
-        BsDropdownModule,
         ButtonsModule,
         NgChartsModule,
         ColorServiceModule,
@@ -42,7 +40,7 @@ const ROUTES = [
         FocusIfModule,
         FormsModule,
         IconModule,
-        MenuNavigationModule,
+        MenuModule,
         ReorderableModule,
         RouterModule.forChild(ROUTES),
         TabsetModule,
