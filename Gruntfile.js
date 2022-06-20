@@ -23,17 +23,9 @@ module.exports = function (grunt) {
     grunt.registerTask('iconset', ['execute:iconset', 'webfont']);
     grunt.registerTask('minify', ['cssmin:styles']);
 
-    grunt.registerTask('package:ux-aspects', [
-        'run:npm_pack_ux-aspects',
-        'copy:npm_ux-aspects_tgz',
-        'execute:package_artifactory_ux-aspects'
-    ]);
+    grunt.registerTask('package:ux-aspects', ['run:package-library']);
 
-    grunt.registerTask('package:ux-aspects-docs', [
-        'run:npm_pack_ux-aspects-docs',
-        'copy:npm_ux-aspects-docs_tgz',
-        'execute:package_artifactory_ux-aspects-docs'
-    ]);
+    grunt.registerTask('package:ux-aspects-docs', ['run:package-docs-library']);
 
     // build:documentation: build and package the documentation site.
     grunt.registerTask('build:documentation', [

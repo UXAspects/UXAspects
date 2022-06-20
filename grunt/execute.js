@@ -2,7 +2,6 @@ const { join } = require('path');
 const { cwd } = require('process');
 
 const scripts = join(cwd(), 'scripts');
-const uxaScripts = join(cwd(), 'node_modules', '@ux-aspects', 'ux-aspects-scripts', 'bin');
 const ngCli = join(cwd(), 'node_modules', '@angular', 'cli', 'bin', 'ng.js');
 
 module.exports = {
@@ -19,18 +18,6 @@ module.exports = {
         src: [ngCli],
         options: {
             args: ['build', 'ux-aspects', '--configuration=production']
-        }
-    },
-    'package_artifactory_ux-aspects': {
-        src: [join(uxaScripts, 'package-artifactory.js')],
-        options: {
-            args: ['ux-aspects', 'ux-aspects', 'dist/library']
-        }
-    },
-    'package_artifactory_ux-aspects-docs': {
-        src: [join(uxaScripts, 'package-artifactory.js')],
-        options: {
-            args: ['ux-aspects-docs', 'ux-aspects']
         }
     },
     'build-documentation': {
