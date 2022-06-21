@@ -2,12 +2,12 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { AccessibilityModule, EboxModule, IconModule, MenuModule, PersistentDataModule, PopoverModule, ScrollModule, TooltipModule } from '@ux-aspects/ux-aspects';
+import { AccessibilityModule, ColorPickerModule, EboxModule, IconModule, MenuModule, PersistentDataModule, PopoverModule, ScrollModule, TooltipModule } from '@ux-aspects/ux-aspects';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
-import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 import { ApiPropertiesComponent } from './api-properties/api-properties.component';
 import { ApiPropertyComponent } from './api-property/api-property.component';
+import { ColorPickerDropdownComponent } from './color-picker-dropdown/color-picker-dropdown.component';
 import { ComponentSectionComponent } from './component-section/component-section.component';
 import { DocumentationCategoryComponent } from './documentation-category/documentation-category.component';
 import { EditExampleLinkComponent } from './edit-example-link/edit-example-link.component';
@@ -32,6 +32,7 @@ import { UsageLinkComponent } from './usage-link/usage-link.component';
 const DOCUMENTATION_COMPONENTS = [
     ApiPropertiesComponent,
     ApiPropertyComponent,
+    ColorPickerDropdownComponent,
     ComponentSectionComponent,
     DocumentationCategoryComponent,
     EditExampleLinkComponent,
@@ -57,9 +58,9 @@ const DOCUMENTATION_COMPONENTS = [
 @NgModule({
     imports: [
         AccessibilityModule,
-        BsDropdownModule,
         ButtonsModule,
         CommonModule,
+        ColorPickerModule,
         EboxModule,
         FormsModule,
         IconModule,

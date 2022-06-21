@@ -2,6 +2,7 @@
     <button
         type="button"
         aria-label="Select a color"
+        id="color-picker-toggle"
         class="btn button-secondary dropdown-toggle"
         [uxMenuTriggerFor]="colorPickerDropdown"
     >
@@ -12,7 +13,7 @@
     </button>
 
     <span class="m-l-lg">
-        Selected: <code>{{selected.hex}}</code> &mdash; <code>{{selected.rgba}}</code>
+        Selected: <code id="selected-color-hex">{{selected.hex}}</code> &mdash; <code>{{selected.rgba}}</code>
     </span>
 </div>
 

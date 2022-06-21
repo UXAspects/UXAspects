@@ -1,6 +1,6 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { Component, HostListener, OnDestroy, TemplateRef } from '@angular/core';
-import { ColorPickerColor, ColorService, NotificationService } from '@ux-aspects/ux-aspects';
+import { ColorService, NotificationService } from '@ux-aspects/ux-aspects';
 import { Subject, Subscription } from 'rxjs';
 import { buffer, debounceTime } from 'rxjs/operators';
 
@@ -13,23 +13,7 @@ export class AppComponent implements OnDestroy {
 
     duration: number = 4;
     description: string = 'You have 16 messages';
-    isPickerOpen: boolean = false;
-
-    colors: ColorPickerColor[][] = [
-        [
-            new ColorPickerColor('primary', this.colorService.getColor('primary').toHex()),
-            new ColorPickerColor('accent', this.colorService.getColor('accent').toHex()),
-            new ColorPickerColor('chart4', this.colorService.getColor('chart4').toHex()),
-            new ColorPickerColor('chart5', this.colorService.getColor('chart5').toHex()),
-        ],
-        [
-            new ColorPickerColor('ok', this.colorService.getColor('ok').toHex()),
-            new ColorPickerColor('warning', this.colorService.getColor('warning').toHex()),
-            new ColorPickerColor('critical', this.colorService.getColor('critical').toHex())
-        ]
-    ];
-
-    selected: ColorPickerColor = this.colors[0][1];
+    backgroundColor: string = 'rgba(123, 99, 163, 1)';
 
     private _notifications = new Subject<string>();
     private _subscription: Subscription;
@@ -56,7 +40,7 @@ export class AppComponent implements OnDestroy {
 
     showNotification(template: TemplateRef<any>) {
         this.notificationService.show(template,
-            { duration: this.duration, backgroundColor: this.selected.hex },
+            { duration: this.duration, backgroundColor: this.backgroundColor },
             { description: this.description }
         );
 

@@ -16,7 +16,14 @@ let uniqueTabId = 0;
 export class TabComponent implements OnInit, OnDestroy {
 
     /** Define the tab unique id */
-    @Input() id: string = `ux-tab-${++uniqueTabId}`;
+    @Input()
+    set id(id: string) {
+        this._id = id ?? `ux-tab-${++uniqueTabId}`;
+    }
+
+    get id() {
+        return this._id;
+    }
 
     /** Define the active state of this tab */
     @Input()
@@ -55,6 +62,9 @@ export class TabComponent implements OnInit, OnDestroy {
 
     // Active state of the tab, for use in the template
     _active = false;
+
+    // Id of tab, for use in the template
+    _id: string;
 
     /** Unsubscribe from all subscriptions when component is destroyed */
     private _onDestroy = new Subject<void>();

@@ -79,6 +79,7 @@ export interface PageHeaderNavigationItem {
     children?: PageHeaderNavigationDropdownItem[];
     parent?: PageHeaderNavigation;
     disabled?: boolean;
+    id?: string;
 }
 
 export interface PageHeaderNavigationDropdownItem {
@@ -90,6 +91,7 @@ export interface PageHeaderNavigationDropdownItem {
     children?: PageHeaderNavigationDropdownItem[];
     parent?: PageHeaderNavigation;
     disabled?: boolean;
+    id?: string;
 }
 
 // This is an alias for MF use as "DropdownItem" doesn't make sense in context with how it is used

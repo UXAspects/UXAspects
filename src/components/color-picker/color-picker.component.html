@@ -3,6 +3,7 @@
         <div *ngFor="let row of colors" class="ux-color-picker-swatch-row">
 
             <div *ngFor="let color of row"
+                #colorPickerColor
                 class="ux-color-picker-color"
                 [class.ux-small]="(buttonSize$ | async) === 'sm'"
                 [class.ux-large]="(buttonSize$ | async) === 'lg'"

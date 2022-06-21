@@ -2,9 +2,8 @@ import { CommonModule } from '@angular/common';
 import { ComponentFactoryResolver, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { AccordionModule, FloatingActionButtonsModule, IconModule, MenuModule, MenuNavigationModule, PaginationModule, RadioButtonModule, StringFilterModule, TabsetModule, TooltipModule } from '@ux-aspects/ux-aspects';
+import { AccordionModule, FloatingActionButtonsModule, IconModule, MenuModule, PaginationModule, RadioButtonModule, StringFilterModule, TabsetModule, TooltipModule } from '@ux-aspects/ux-aspects';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
-import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
 import { DocumentationPage, ResolverService } from '../../../../services/resolver/resolver.service';
@@ -37,7 +36,6 @@ const ROUTES = [
 @NgModule({
     imports: [
         AccordionModule,
-        BsDropdownModule,
         ButtonsModule,
         CommonModule,
         DocumentationComponentsModule,
@@ -45,7 +43,6 @@ const ROUTES = [
         FormsModule,
         IconModule,
         MenuModule,
-        MenuNavigationModule,
         PaginationModule,
         RadioButtonModule,
         RouterModule.forChild(ROUTES),
