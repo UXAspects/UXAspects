@@ -29,16 +29,16 @@ export class SiteThemeService {
             if (link) {
                 switch (siteTheme) {
                     case SiteThemeId.MicroFocus:
-                        link.href = 'assets/themes/micro-focus/css/main.css';
+                        link.href = 'theme-micro-focus.css';
                         break;
                     case SiteThemeId.MicroFocus2017:
-                        link.href = 'assets/themes/micro-focus-2017/css/main.css';
+                        link.href = 'theme-micro-focus-2017.css';
                         break;
                     case SiteThemeId.MicroFocus2017Roboto:
-                        link.href = 'assets/themes/micro-focus-2017-roboto/css/main.css';
+                        link.href = 'theme-micro-focus-2017-roboto.css';
                         break;
                     case SiteThemeId.WhiteLabel:
-                        link.href = 'assets/themes/white-label/css/main.css';
+                        link.href = 'theme-white-label.css';
                         break;
                 }
             }
