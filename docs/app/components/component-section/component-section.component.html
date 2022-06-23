@@ -15,18 +15,8 @@
             <!-- Show usage link if required -->
             <uxd-usage-link *ngIf="usage" [usage]="usage"></uxd-usage-link>
 
-            <!-- Show UAU migration if available -->
+            <!-- Show Universal migration if available -->
             <uxd-migrate-link *ngIf="migration && theme !== SiteThemeId.Keppel" [migration]="migration"></uxd-migrate-link>
-
-            <a
-                *ngIf="hybrid"
-                href="javascript:void(0)"
-                class="label label-accent uxd-component-section-labels"
-                [uxPopover]="hybridHelpContent"
-                placement="bottom"
-                popoverClass="uxd-component-section-help-popover"
-                >Angular Compatible</a
-            >
 
             <!-- Identify as External plugin -->
             <a
