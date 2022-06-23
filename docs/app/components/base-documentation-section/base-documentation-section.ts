@@ -24,8 +24,6 @@ export abstract class BaseDocumentationSection {
 
         this._themedSnippetRegex = new RegExp(`\.${this.theme}`, 'i');
 
-        console.log('getSnippets', this.theme);
-
         const compiled: SnippetCollection = {};
         const raw: SnippetCollection = {};
 
