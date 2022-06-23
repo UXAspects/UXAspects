@@ -6,7 +6,6 @@ import { ILink } from '../../interfaces/ILink';
 import { ISection } from '../../interfaces/ISection';
 import { AppConfiguration } from '../app-configuration/app-configuration.service';
 
-
 const NAVIGATION_TOP_OFFSET = 50;
 
 // Slight offset for Firefox when checking which section is active
@@ -95,7 +94,10 @@ export class NavigationService {
     }
 
     scrollOnThemeChange(): void {
-        this.scrollToFragment(this._activeRoute.snapshot.fragment);
+        const fragment = this._activeRoute.snapshot.fragment;
+        setTimeout(() => {
+            this.scrollToFragment(fragment);
+        });
     }
 
     setSectionIds(sections: ISection[]) {

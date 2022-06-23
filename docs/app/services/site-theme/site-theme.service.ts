@@ -1,9 +1,9 @@
+import { DOCUMENT } from '@angular/common';
 import { Inject, Injectable } from '@angular/core';
+import { PersistentDataService } from '@ux-aspects/ux-aspects';
 import { BehaviorSubject } from 'rxjs';
 import { distinctUntilChanged } from 'rxjs/operators';
 import { SiteThemeId } from '../../interfaces/SiteTheme';
-import { DOCUMENT } from '@angular/common';
-import { PersistentDataService } from '@ux-aspects/ux-aspects';
 
 @Injectable({
     providedIn: 'root'
