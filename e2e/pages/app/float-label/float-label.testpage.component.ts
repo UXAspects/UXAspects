@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
     selector: 'uxt-float-label',
@@ -7,7 +7,7 @@ import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 })
 export class FloatLabelTestPageComponent {
 
-    demoForm: UntypedFormGroup;
+    demoForm: FormGroup;
 
     mode = 'input';
 
@@ -23,7 +23,7 @@ export class FloatLabelTestPageComponent {
         return this.demoForm.get('initial').value;
     }
 
-    constructor(formBuilder: UntypedFormBuilder) {
+    constructor(formBuilder: FormBuilder) {
 
         this.demoForm = formBuilder.group({
             'username': [''],

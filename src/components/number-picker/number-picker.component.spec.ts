@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { UntypedFormBuilder, UntypedFormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { StepDirection } from './number-picker.component';
 import { NumberPickerModule } from './number-picker.module';
 
@@ -25,14 +25,14 @@ import { NumberPickerModule } from './number-picker.module';
 })
 export class NumberPickerTestFormGroupComponent {
 
-    form: UntypedFormGroup;
+    form: FormGroup;
     disabled = false;
     min = -10;
     max = 10;
     step: number | ((value: number, direction: StepDirection) => number) = 1;
     placeholder: string;
 
-    constructor(formBuilder: UntypedFormBuilder) {
+    constructor(formBuilder: FormBuilder) {
 
         this.form = formBuilder.group({
             integer: [{
@@ -792,9 +792,9 @@ describe('Number Picker Component - value', () => {
 })
 export class NumberPickerTestReadonlyComponent {
 
-    form: UntypedFormGroup;
+    form: FormGroup;
 
-    constructor(formBuilder: UntypedFormBuilder) {
+    constructor(formBuilder: FormBuilder) {
 
         this.form = formBuilder.group({
             readonly: [5, Validators.required]

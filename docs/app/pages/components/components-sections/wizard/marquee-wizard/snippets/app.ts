@@ -1,6 +1,6 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { Component } from '@angular/core';
-import { UntypedFormControl, Validators } from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
 import { MarqueeWizardComponent } from '@ux-aspects/ux-aspects';
 
 @Component({
@@ -14,7 +14,7 @@ export class AppComponent {
     skip: boolean = false;
     validate: boolean = false;
     modalOpen: boolean = false;
-    requiredText = new UntypedFormControl('', Validators.required);
+    requiredText = new FormControl('', Validators.required);
     resizable: boolean = false;
     sidePanelWidth: number = 25;
     gutterSize: number = 10;

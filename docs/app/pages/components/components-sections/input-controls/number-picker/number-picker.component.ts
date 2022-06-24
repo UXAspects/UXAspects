@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
@@ -11,7 +11,7 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 })
 @DocumentationSectionComponent('ComponentsNumberPickerComponent')
 export class ComponentsNumberPickerComponent extends BaseDocumentationSection implements IPlaygroundProvider {
-    form: UntypedFormGroup;
+    form: FormGroup;
 
     playground: IPlayground = {
         files: {
@@ -25,7 +25,7 @@ export class ComponentsNumberPickerComponent extends BaseDocumentationSection im
         }]
     };
 
-    constructor(formBuilder: UntypedFormBuilder) {
+    constructor(formBuilder: FormBuilder) {
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
 
         this.form = formBuilder.group({

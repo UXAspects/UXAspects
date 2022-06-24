@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
     selector: 'number-picker-app',
@@ -8,10 +8,10 @@ import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NumberPickerReadOnlyTestPageComponent {
-    form: UntypedFormGroup;
+    form: FormGroup;
     readonly = true;
 
-    constructor(formBuilder: UntypedFormBuilder) {
+    constructor(formBuilder: FormBuilder) {
 
         this.form = formBuilder.group({
             readonly: [5, Validators.required],

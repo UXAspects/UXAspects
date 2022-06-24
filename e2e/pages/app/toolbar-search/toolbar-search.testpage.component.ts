@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
     selector: 'uxd-toolbar-search',
@@ -14,8 +14,8 @@ export class ToolbarSearchTestPageComponent {
     searchedFor: string = '';
     alwaysExpanded: boolean = false;
 
-    form = new UntypedFormGroup({
-        search: new UntypedFormControl('')
+    form = new FormGroup({
+        search: new FormControl('')
     });
 
     onSearch(searchText: string) {

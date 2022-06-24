@@ -1,8 +1,8 @@
 import { Component, OnDestroy } from '@angular/core';
 import {
 	AbstractControl,
-	UntypedFormControl,
-	UntypedFormGroup,
+	FormControl,
+	FormGroup,
 	Validators
 } from '@angular/forms';
 @Component({
@@ -11,8 +11,8 @@ import {
 })
 export class AppComponent implements OnDestroy {
 
-	formGroup: UntypedFormGroup = new UntypedFormGroup({
-		select: new UntypedFormControl(undefined, [Validators.required]),
+	formGroup: FormGroup = new FormGroup({
+		select: new FormControl(undefined, [Validators.required]),
 	});
 
 	options: string[] = ['Option1', 'Option2'];

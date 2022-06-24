@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
     selector: 'number-picker-app',
@@ -8,9 +8,9 @@ import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NumberPickerUpdateOnTestPageComponent {
-    form: UntypedFormGroup;
+    form: FormGroup;
 
-    constructor(formBuilder: UntypedFormBuilder) {
+    constructor(formBuilder: FormBuilder) {
 
         this.form = formBuilder.group({
             updateOnBlur: [
