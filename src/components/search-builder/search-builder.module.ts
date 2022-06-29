@@ -41,12 +41,6 @@ import { SearchTextComponent } from './search-components/text/text.component';
         SearchBuilderOutletDirective,
         SearchSelectComponent,
         BaseSearchComponent
-    ],
-    entryComponents: [
-        SearchTextComponent,
-        SearchDateComponent,
-        SearchDateRangeComponent,
-        SearchSelectComponent
     ]
 })
 export class SearchBuilderModule { }

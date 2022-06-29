@@ -1,3 +1,7 @@
+# 5.x to 6.0
+* Angular 12 is no longer supported.
+* Internet Explorer is no longer supported.
+
 # 4.x to 5.0
 * Angular 10 and 11 is no longer supported
 * Tree Grid no longer supports the `rows` input. Use `(rowChange)="rows = $event"` instead.

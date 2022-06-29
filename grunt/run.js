@@ -1,14 +1,8 @@
-const { join } = require('path');
-const { cwd } = require('process');
-
 module.exports = {
-    'npm_pack_ux-aspects': {
-        options: {
-            cwd: join(cwd(), 'dist', 'library')
-        },
-        exec: 'npm pack --quiet'
+    'package-library': {
+        exec: 'ux-package ./dist/library --output ./target/npm/ux-aspects-ux-aspects.tgz --artifactory',
     },
-    'npm_pack_ux-aspects-docs': {
-        exec: 'npm pack --quiet --unsafe-perm'
-    }
+    'package-docs-library': {
+        exec: 'ux-package . --output ./target/npm/ux-aspects-ux-aspects-docs.tgz --artifactory --remove-scripts',
+    },
 };

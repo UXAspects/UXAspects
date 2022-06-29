@@ -666,7 +666,7 @@ export class SelectReactiveFormTestComponent {
     multiple: boolean = false;
 
     form = new FormGroup({
-        select: new FormControl('One')
+        select: new FormControl<string | string[]>('One')
     });
 
     options: string[] = ['One', 'Two', 'Three'];
