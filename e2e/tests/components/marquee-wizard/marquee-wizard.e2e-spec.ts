@@ -260,7 +260,7 @@ describe('Marquee Wizard Tests', () => {
 
         // check that the reset button is visible
         expect(await page.resetButton.isPresent()).toBeTruthy();
-        expect(await page.resetButton.getText()).toBe('RESET STEP 0');
+        expect(await page.resetButton.getText()).toBe('Reset Step 0');
 
         expect(await imageCompare('marquee-wizard-footer-template')).toEqual(0);
 
@@ -268,7 +268,7 @@ describe('Marquee Wizard Tests', () => {
         await page.goToNext();
 
         // Check that the step value has updated
-        expect(await page.resetButton.getText()).toBe('RESET STEP 1');
+        expect(await page.resetButton.getText()).toBe('Reset Step 1');
     });
 
     it('should allow tabbing to the first step when using the keyboard', async () => {
