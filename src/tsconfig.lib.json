@@ -8,6 +8,7 @@
         "inlineSources": true,
         "types": []
     },
+    "include": ["**/*.ts"],
     "exclude": [
         "test.ts",
         "**/*.spec.ts"

@@ -68,7 +68,7 @@ export function getImportDeclaration(
 
     if (imports instanceof Array) {
         const importSpecifiers = imports.map(_import =>
-            ts.factory.createImportSpecifier(undefined, ts.factory.createIdentifier(_import))
+            ts.factory.createImportSpecifier(false, undefined, ts.factory.createIdentifier(_import))
         );
 
         return ts.factory.createImportDeclaration(
@@ -159,7 +159,8 @@ function addIdentifiersToImportDeclaration(
                 ...namedImports.elements,
             ])
         ),
-        node.moduleSpecifier
+        node.moduleSpecifier,
+        node.assertClause
     );
 }
 

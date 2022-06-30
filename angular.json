@@ -19,6 +19,7 @@
             "architect": {
                 "build": {
                     "builder": "@angular-builders/custom-webpack:browser",
+                    "outputs": ["{options.outputPath}"],
                     "options": {
                         "customWebpackConfig": {
                             "path": "./docs/webpack.config.ts"
@@ -58,9 +59,7 @@
                                 "output": "/assets/lib"
                             }
                         ],
-                        "styles": [
-                            "docs/styles.less"
-                        ],
+                        "styles": ["docs/styles.less"],
                         "scripts": [],
                         "allowedCommonJsDependencies": [
                             "chart.js",
@@ -104,10 +103,7 @@
                 "lint": {
                     "builder": "@angular-eslint/builder:lint",
                     "options": {
-                        "lintFilePatterns": [
-                            "src/**/*.ts",
-                            "src/**/*.html"
-                        ]
+                        "lintFilePatterns": ["src/**/*.ts", "src/**/*.html"]
                     }
                 }
             }
@@ -182,10 +178,7 @@
                 "lint": {
                     "builder": "@angular-eslint/builder:lint",
                     "options": {
-                        "lintFilePatterns": [
-                            "src/**/*.ts",
-                            "src/**/*.html"
-                        ]
+                        "lintFilePatterns": ["src/**/*.ts", "src/**/*.html"]
                     }
                 }
             }
@@ -197,7 +190,8 @@
             "prefix": "ux",
             "architect": {
                 "build": {
-                    "builder": "@angular-devkit/build-angular:ng-packagr",
+                    "builder": "@ashley-hunter/ng-packagr-compat:package",
+                    "outputs": ["dist/library"],
                     "options": {
                         "project": "src/ng-package.json"
                     },
@@ -226,17 +220,13 @@
                 "lint": {
                     "builder": "@angular-eslint/builder:lint",
                     "options": {
-                        "lintFilePatterns": [
-                            "src/**/*.ts",
-                            "src/**/*.html"
-                        ]
+                        "lintFilePatterns": ["src/**/*.ts", "src/**/*.html"]
                     }
                 }
             }
         }
     },
-    "defaultProject": "documentation",
     "cli": {
-        "defaultCollection": "@angular-eslint/schematics"
+        "schematicCollections": ["@angular-eslint/schematics"]
     }
 }

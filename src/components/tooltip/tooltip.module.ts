@@ -14,7 +14,6 @@ import { TooltipService } from './tooltip.service';
     ],
     exports: [TooltipDirective, TooltipComponent],
     declarations: [TooltipComponent, TooltipDirective],
-    providers: [TooltipService],
-    entryComponents: [TooltipComponent]
+    providers: [TooltipService]
 })
 export class TooltipModule { }

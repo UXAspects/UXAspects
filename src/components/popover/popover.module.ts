@@ -16,8 +16,7 @@ import { PopoverDirective } from './popover.directive';
         TooltipModule
     ],
     exports: [PopoverDirective],
-    declarations: [PopoverComponent, PopoverDirective],
-    entryComponents: [PopoverComponent]
+    declarations: [PopoverComponent, PopoverDirective]
 })
 export class PopoverModule {
 }

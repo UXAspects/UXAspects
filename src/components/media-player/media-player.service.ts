@@ -187,10 +187,10 @@ export class MediaPlayerService {
         return this._mediaPlayer ? this._mediaPlayer.played : new TimeRanges();
     }
 
-    get preload(): string {
+    get preload(): '' | 'auto' | 'metadata' | 'none' {
         return this._mediaPlayer ? this._mediaPlayer.preload : 'auto';
     }
-    set preload(value: string) {
+    set preload(value: '' | 'auto' | 'metadata' | 'none') {
         this._mediaPlayer.preload = value;
     }
 

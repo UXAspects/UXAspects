@@ -9,7 +9,7 @@ const COMMON_DEPENDENCIES = {
 
 const ANGULAR_DEPENDENCIES = {
     ...COMMON_DEPENDENCIES,
-    '@angular/cdk': '^13.0.0',
+    '@angular/cdk': '^14.0.0',
     chance: '^1.0.0',
     'chart.js': '~3.7.1',
     'ng2-charts': '~3.0.8',

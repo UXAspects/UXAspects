@@ -480,8 +480,8 @@ describe('Sankey Chart with minHeight', () => {
         expect(component.getNodeHeight(element, 'node0')).toBe(0, 'node0');
         expect(component.getNodeHeight(element, 'node1')).toBe(7, 'node1');
         expect(component.getNodeHeight(element, 'node2')).toBe(31, 'node2');
-        expect(component.getNodeHeight(element, 'node3')).toBe(78, 'node3');
-        expect(component.getNodeHeight(element, 'node4')).toBe(170, 'node4');
+        expect(component.getNodeHeight(element, 'node3')).toBeWithinRange(77, 78, 'node3');
+        expect(component.getNodeHeight(element, 'node4')).toBeWithinRange(170, 171, 'node4');
         expect(component.getNodeHeight(element, 'node5')).toBe(358, 'node5');
         expect(component.getNodeHeight(element, 'node6')).toBe(720, 'node6');
     });
