@@ -100,7 +100,7 @@ describe('Hierarchy Bar Tests - standard Mode', () => {
         // check the text of the addon
         const addon = (await page.getAddons())[0];
 
-        expect(await addon.getAttribute('innerText')).toBe('Left Addon');
+        expect((await addon.getText()).toUpperCase()).toBe('LEFT ADDON');
     });
 
     it('should show trailing addon', async () => {
@@ -113,7 +113,7 @@ describe('Hierarchy Bar Tests - standard Mode', () => {
         // check the text of the addon
         const addon = (await page.getAddons())[0];
 
-        expect(await addon.getAttribute('innerText')).toBe('Trailing Addon');
+        expect((await addon.getText()).toUpperCase()).toBe('TRAILING ADDON');
 
         expect(await imageCompare('hierarchy-bar-trailing-addon')).toEqual(0);
     });
@@ -128,7 +128,7 @@ describe('Hierarchy Bar Tests - standard Mode', () => {
         // check the text of the addon
         const addon = (await page.getAddons())[0];
 
-        expect(await addon.getAttribute('innerText')).toBe('Right Addon');
+        expect((await addon.getText()).toUpperCase()).toBe('RIGHT ADDON');
 
         expect(await imageCompare('hierarchy-bar-right-addon')).toEqual(0);
     });
