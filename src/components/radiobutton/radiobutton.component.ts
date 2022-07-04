@@ -33,6 +33,9 @@ export class RadioButtonComponent<T = any> implements ControlValueAccessor, OnCh
     /** Specify if this is a required input */
     @Input() required: boolean;
 
+    /** Specify the tabindex */
+     @Input() tabindex: number;
+
     /** If set to `true` the radio button will not change state when clicked. */
     @Input() clickable: boolean = true;
 
