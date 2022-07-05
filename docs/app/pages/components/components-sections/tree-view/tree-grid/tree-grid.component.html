@@ -205,10 +205,6 @@
         The items to display in the tree grid.
         See below for details of the <code>TreeGridItem</code> interface.
     </tr>
-    <tr uxd-api-property name="rows" type="TreeGridItem[]">
-        <strong>Deprecated:</strong> This input will be removed in the next major release.
-        Use <code>(rowsChange)="rows = $event"</code> instead.
-    </tr>
     <tr uxd-api-property name="loadChildren" type="(parent: TreeGridItem) => TreeGridItem[] | Promise<TreeGridItem[]> | Observable<TreeGridItem[]>">
         <p>
             A function which provides the array of child items of a particular row.
