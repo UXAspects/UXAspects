@@ -14,6 +14,7 @@
 }
 
 li.employee-item {
+    height: 67px;
     display: flex;
     padding: 10px 20px;
     border-bottom: 1px solid #eee;

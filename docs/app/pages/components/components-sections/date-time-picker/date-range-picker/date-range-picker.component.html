@@ -1,5 +1,5 @@
 <ng-container [ngSwitch]="theme">
-    <ng-container *ngSwitchDefault>
+    <ng-container *ngSwitchCase="SiteThemeId.MicroFocus2017">
         <div class="row">
             <div class="col-md-9 col-sm-12">
                 <div class="input-group" [class.has-error]="invalid">
@@ -32,7 +32,7 @@
             </div>
         </div>
     </ng-container>
-    <ng-container *ngSwitchCase="SiteThemeId.MicroFocusNext">
+    <ng-container *ngSwitchDefault>
         <div class="row">
             <div class="col-md-9 col-sm-12">
                 <div class="input-group" [class.has-error]="invalid">

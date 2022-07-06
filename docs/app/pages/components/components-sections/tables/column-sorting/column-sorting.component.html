@@ -1,5 +1,5 @@
 <ng-container [ngSwitch]="theme">
-    <ng-container *ngSwitchDefault>
+    <ng-container *ngSwitchCase="SiteThemeId.MicroFocus2017">
         <table class="table table-hover">
             <thead>
                 <tr uxColumnSorting>
@@ -76,7 +76,7 @@
             </tbody>
         </table>
     </ng-container>
-    <ng-container *ngSwitchCase="SiteThemeId.MicroFocusNext">
+    <ng-container *ngSwitchDefault>
         <table class="table table-hover">
             <thead>
                 <tr uxColumnSorting>

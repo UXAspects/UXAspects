@@ -1,10 +1,9 @@
+import { DOCUMENT } from '@angular/common';
 import { Inject, Injectable } from '@angular/core';
+import { PersistentDataService } from '@ux-aspects/ux-aspects';
 import { BehaviorSubject } from 'rxjs';
 import { distinctUntilChanged } from 'rxjs/operators';
 import { SiteThemeId } from '../../interfaces/SiteTheme';
-import { DOCUMENT } from '@angular/common';
-import { PersistentDataService } from '@ux-aspects/ux-aspects';
-
 
 @Injectable({
     providedIn: 'root'
@@ -30,16 +29,16 @@ export class SiteThemeService {
             if (link) {
                 switch (siteTheme) {
                     case SiteThemeId.MicroFocus:
-                        link.href = 'assets/themes/ux-aspects/css/main.css';
+                        link.href = 'theme-micro-focus.css';
                         break;
-                    case SiteThemeId.MicroFocusNext:
-                        link.href = 'assets/themes/next/css/main.css';
+                    case SiteThemeId.MicroFocus2017:
+                        link.href = 'theme-micro-focus-2017.css';
                         break;
-                    case SiteThemeId.Roboto:
-                        link.href = 'assets/themes/roboto/css/main.css';
+                    case SiteThemeId.MicroFocus2017Roboto:
+                        link.href = 'theme-micro-focus-2017-roboto.css';
                         break;
                     case SiteThemeId.WhiteLabel:
-                        link.href = 'assets/themes/white-label/css/main.css';
+                        link.href = 'theme-white-label.css';
                         break;
                 }
             }

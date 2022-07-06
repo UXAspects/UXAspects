@@ -6,7 +6,6 @@ import { ILink } from '../../interfaces/ILink';
 import { ISection } from '../../interfaces/ISection';
 import { AppConfiguration } from '../app-configuration/app-configuration.service';
 
-
 const NAVIGATION_TOP_OFFSET = 50;
 
 // Slight offset for Firefox when checking which section is active
@@ -19,9 +18,6 @@ export class NavigationService {
 
     // This is used to record the ID of the fragment currently in view if the URL was not updated
     private activeFragment: string = null;
-
-    // Reference counter for components that are rendering asynchronously
-    private renderingCount: number = 0;
 
     constructor(@Inject(DOCUMENT) private _document: Document,
         private _activeRoute: ActivatedRoute,
@@ -97,9 +93,16 @@ export class NavigationService {
         this.activeFragment = null;
     }
 
+    scrollOnThemeChange(): void {
+        const fragment = this._activeRoute.snapshot.fragment;
+        setTimeout(() => {
+            this.scrollToFragment(fragment);
+        });
+    }
+
     setSectionIds(sections: ISection[]) {
         // Ensure that every section has an ID suitable for fragment navigation
-        for (let section of sections) {
+        for (const section of sections) {
             if (!section.id) {
                 // E.g. ComponentsRadioButtonsNg1Component => radio-buttons-ng1
                 section.id = section.component.replace(/^(?:Components|Css|Charts)(.+)Component$/, '$1')
@@ -110,10 +113,10 @@ export class NavigationService {
     }
 
     getComponentLink(component: string): ILink {
-        for (let pageName of this._appConfig.documentationPages) {
-            const page = <IDocumentationPage>this._appConfig.getConfigurationData(pageName);
+        for (const pageName of this._appConfig.documentationPages) {
+            const page = this._appConfig.getConfigurationData(pageName) as IDocumentationPage;
             const pageLink = page.id || page.title.toLowerCase();
-            for (let category of page.categories) {
+            for (const category of page.categories) {
                 const section = category.sections.find(s => s.component === component);
                 if (section) {
                     return {

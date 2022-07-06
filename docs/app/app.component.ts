@@ -1,8 +1,8 @@
 import { Component, NgZone, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { Breadcrumb, PageHeaderIconMenu, PageHeaderNavigationItem } from '@ux-aspects/ux-aspects';
 import { filter, map } from 'rxjs/operators';
 import { NavigationService } from './services/navigation/navigation.service';
-import { Breadcrumb, PageHeaderIconMenu, PageHeaderNavigationItem } from '@ux-aspects/ux-aspects';
 
 @Component({
     selector: 'uxd-app',
@@ -86,26 +86,25 @@ export class AppComponent implements OnInit {
         }
     ];
 
-    constructor(private router: Router,
+    constructor(
+        private router: Router,
         private activatedRoute: ActivatedRoute,
         private navigation: NavigationService,
-        ngZone: NgZone) {
-        (<any>window).ngZone = ngZone;
+        ngZone: NgZone
+    ) {
+        (window as any).ngZone = ngZone;
     }
 
     ngOnInit() {
 
         this.router.events.pipe(
             filter(event => event instanceof NavigationEnd),
-            map(event => {
+            map((event: NavigationEnd) => {
                 let route = this.activatedRoute;
                 while (route.firstChild) {
                     route = route.firstChild;
                 }
-                return {
-                    event: <NavigationEnd>event,
-                    route: route
-                };
+                return { event, route };
             }),
             filter(data => data.route.outlet === 'primary')
         ).subscribe((data: any) => {

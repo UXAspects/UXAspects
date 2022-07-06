@@ -2,15 +2,6 @@
     <div class="col-md-9 col-sm-12">
 
         <div class="input-group" [class.has-error]="invalid">
-            <span class="input-group-btn">
-                <button class="btn button-secondary"
-                        aria-label="Show Date Picker"
-                        uxFocusIndicatorOrigin
-                        (click)="popover.show()">
-                    <ux-icon name="calendar" aria-hidden="true"></ux-icon>
-                </button>
-            </span>
-
             <input type="text"
                     #input
                     #popover="ux-popover"
@@ -23,14 +14,26 @@
                     [popoverClass]="showNowBtn ? 'date-range-picker-now-btn-popover' :
                     'date-range-picker-popover'"
                     class="form-control"
+                    [class.ux-date-picker-open]="popover.isVisible"
                     aria-label="Selected date"
                     (keydown.enter)="popover.show()">
 
             <span class="input-group-btn" *ngIf="date">
                 <button class="btn button-secondary"
+                        [class.ux-date-picker-open]="popover.isVisible"
                         aria-label="Clear"
                         (click)="clear()">
                     <ux-icon name="close" aria-hidden="true"></ux-icon>
+                </button>
+            </span>
+
+            <span class="input-group-btn">
+                <button class="btn button-secondary"
+                        [class.ux-date-picker-open]="popover.isVisible"
+                        aria-label="Show Date Picker"
+                        uxFocusIndicatorOrigin
+                        (click)="popover.show()">
+                    <ux-icon name="calendar" aria-hidden="true"></ux-icon>
                 </button>
             </span>
         </div>
