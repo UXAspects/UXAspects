@@ -9,8 +9,7 @@
             [(filter)]="filter"
             [allowNull]="allowNull"
             [maxHeight]="maxHeight"
-            [placeholder]="placeholder"
-            aria-label="Filter input">
+            [placeholder]="placeholder">
 
             <ng-template #displayContent>
                 <b>Selection:</b> {{ selected ? selected.name : '(none)' }}
