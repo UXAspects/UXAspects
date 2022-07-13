@@ -10,7 +10,7 @@
          class="calendar-item"
          [focusIf]="(yearService.focused$ | async) === item.year"
          [attr.aria-label]="item.year"
-         [attr.aria-selected]="item.isActiveYear"
+         [attr.aria-pressed]="item.isActiveYear"
          [class.current]="item.isCurrentYear"
          [class.active]="item.isActiveYear && !getDisabled(item)"
          [disabled]="getDisabled(item)"
