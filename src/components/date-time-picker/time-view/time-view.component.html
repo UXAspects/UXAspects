@@ -32,7 +32,7 @@
                 [ngModel]="(datepicker.timezone$ | async)?.name"
                 (ngModelChange)="selectTimezone($event)"
                 aria-label="Timezone"
-                [attr.aria-valuenow]="(datepicker.timezone$ | async)?.name">
+                [attr.aria-valuetext]="(datepicker.timezone$ | async)?.name">
 
             <option *ngFor="let zone of datepicker.timezones$ | async"
                     [selected]="zone.name === (datepicker.timezone$ | async)?.name"
