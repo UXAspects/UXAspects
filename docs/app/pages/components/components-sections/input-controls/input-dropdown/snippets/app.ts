@@ -43,6 +43,7 @@ export class AppComponent {
     dropdownOpen: boolean = false;
     maxHeight: string = '400px';
     placeholder: string = 'Type to search...';
+    ariaLabelIcon: string = 'Search';
 
     selectOption(event: KeyboardEvent, option: RadioOption): void {
         this.selected = option;
@@ -51,6 +52,10 @@ export class AppComponent {
 
     dropdownOpenChange(value: boolean): void {
         this.dropdownOpen = value;
+    }
+
+    setFilterIconAriaLabel(filter: string): void {
+        this.ariaLabelIcon = filter === '' ? 'Search' : 'Close';
     }
 }
 

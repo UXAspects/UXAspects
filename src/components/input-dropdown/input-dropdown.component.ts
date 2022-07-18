@@ -16,7 +16,8 @@ import { MenuTriggerDirective } from '../menu/menu-trigger/menu-trigger.directiv
         }
     ],
     host: {
-        '[class.ux-select-disabled]': 'disabled'
+        '[class.ux-select-disabled]': 'disabled',
+        '[attr.aria-label]': 'null'
     }
 })
 export class InputDropdownComponent<T> implements ControlValueAccessor, AfterViewInit, OnChanges, OnDestroy {
@@ -46,6 +47,9 @@ export class InputDropdownComponent<T> implements ControlValueAccessor, AfterVie
 
     /** Aria label of the filter field. If not specified, the placeholder will be used. */
     @Input('aria-label') ariaLabel: string = '';
+
+    /** Aria label of the filter field icon. */
+    @Input() ariaLabelIcon: string = '';
 
     /** Emit when the selected item is changed */
     @Output() selectedChange = new EventEmitter<T>();

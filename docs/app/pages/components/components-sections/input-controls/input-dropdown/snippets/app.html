@@ -6,10 +6,12 @@
             [dropdownOpen]="dropdownOpen"
             [disabled]="disabled"
             (dropdownOpenChange)="dropdownOpenChange($event)"
+            (filterChange)="setFilterIconAriaLabel($event)"
             [(filter)]="filter"
             [allowNull]="allowNull"
             [maxHeight]="maxHeight"
             [placeholder]="placeholder"
+            [ariaLabelIcon]="ariaLabelIcon"
             [aria-label]="'Filter input'">
 
             <ng-template #displayContent>
