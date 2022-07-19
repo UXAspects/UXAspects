@@ -79,7 +79,7 @@ export class InputDropdownComponent<T> implements ControlValueAccessor, AfterVie
     _maxHeight: string;
 
     /** Store the filter button aria label */
-    _filterButtonAriaLabel: string = this.searchButtonAriaLabel;
+    _filterButtonAriaLabel: string = this.searchFilterButtonAriaLabel;
 
     /** Store the change callback provided by Angular Forms */
     onChange: (_: T) => void = () => { };
@@ -205,6 +205,7 @@ export class InputDropdownComponent<T> implements ControlValueAccessor, AfterVie
     }
 
     setFilterButtonAriaLabel() {
-        this._filterButtonAriaLabel = this.filter === '' ? this.searchButtonAriaLabel : this.clearButtonAriaLabel;
+        this._filterButtonAriaLabel = this.filter === ''
+            ? this.searchFilterButtonAriaLabel : this.clearFilterButtonAriaLabel;
     }
 }
