@@ -49,10 +49,10 @@ export class InputDropdownComponent<T> implements ControlValueAccessor, AfterVie
     @Input('aria-label') ariaLabel: string = '';
 
     /** Aria label of the search button icon. */
-    @Input() searchButtonAriaLabel: string = 'Search';
+    @Input() searchFilterButtonAriaLabel: string = 'Search';
 
     /** Aria label of the clear button icon. */
-    @Input() clearButtonAriaLabel: string = 'Clear';
+    @Input() clearFilterButtonAriaLabel: string = 'Clear';
 
     /** Emit when the selected item is changed */
     @Output() selectedChange = new EventEmitter<T>();
