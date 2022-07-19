@@ -48,8 +48,11 @@ export class InputDropdownComponent<T> implements ControlValueAccessor, AfterVie
     /** Aria label of the filter field. If not specified, the placeholder will be used. */
     @Input('aria-label') ariaLabel: string = '';
 
-    /** Aria label of the filter field icon. */
-    @Input() ariaLabelIcon: string = '';
+    /** Aria label of the search button icon. */
+    @Input() searchButtonAriaLabel: string = 'Search';
+
+    /** Aria label of the clear button icon. */
+    @Input() clearButtonAriaLabel: string = 'Clear';
 
     /** Emit when the selected item is changed */
     @Output() selectedChange = new EventEmitter<T>();
@@ -74,6 +77,9 @@ export class InputDropdownComponent<T> implements ControlValueAccessor, AfterVie
 
     /** Store the max height */
     _maxHeight: string;
+
+    /** Store the filter button aria label */
+    _filterButtonAriaLabel: string = this.searchButtonAriaLabel;
 
     /** Store the change callback provided by Angular Forms */
     onChange: (_: T) => void = () => { };
@@ -104,6 +110,10 @@ export class InputDropdownComponent<T> implements ControlValueAccessor, AfterVie
             this.selectedChange.emit(changes.selected.currentValue);
             this.onChange(changes.selected.currentValue);
             this.onTouched();
+        }
+
+        if (changes.filter) {
+            this.setFilterButtonAriaLabel();
         }
     }
 
@@ -192,5 +202,9 @@ export class InputDropdownComponent<T> implements ControlValueAccessor, AfterVie
         this.dropdownOpen = !this.dropdownOpen;
         this.dropdownOpenChange.emit(this.dropdownOpen);
         this.menuTrigger.toggleMenu();
+    }
+
+    setFilterButtonAriaLabel() {
+        this._filterButtonAriaLabel = this.filter === '' ? this.searchButtonAriaLabel : this.clearButtonAriaLabel;
     }
 }

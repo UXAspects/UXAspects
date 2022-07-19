@@ -53,10 +53,6 @@ export class AppComponent {
     dropdownOpenChange(value: boolean): void {
         this.dropdownOpen = value;
     }
-
-    setFilterIconAriaLabel(filter: string): void {
-        this.ariaLabelIcon = filter === '' ? 'Search' : 'Close';
-    }
 }
 
 export interface RadioOption {

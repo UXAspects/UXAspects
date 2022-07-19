@@ -44,7 +44,7 @@
 
             <button type="button"
                     class="btn btn-flat filter-button"
-                    [attr.aria-label]="ariaLabelIcon"
+                    [attr.aria-label]="_filterButtonAriaLabel"
                     (click)="resetFilter(); $event.stopPropagation();"
                     [tabindex]="filter.length > 0 ? 0 : -1">
                 <ux-icon [name]="filter.length === 0 ? 'search' : 'close'"></ux-icon>

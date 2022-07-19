@@ -48,7 +48,6 @@ export class ComponentsInputDropdownComponent extends BaseDocumentationSection i
     disabled: boolean = false;
     maxHeight: string = '400px';
     placeholder: string = 'Type to search...';
-    ariaLabelIcon: string = 'Search';
 
     playground: IPlayground = {
         files: {
@@ -80,10 +79,6 @@ export class ComponentsInputDropdownComponent extends BaseDocumentationSection i
 
     dropdownOpenChange(value: boolean): void {
         this.dropdownOpen = value;
-    }
-
-    setFilterIconAriaLabel(filter: string): void {
-        this.ariaLabelIcon = filter === '' ? 'Search' : 'Close';
     }
 }
 

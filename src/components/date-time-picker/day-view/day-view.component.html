@@ -5,8 +5,8 @@
         </tr>
     </thead>
 
-    <tbody role="grid">
-        <tr role="row" *ngFor="let row of dayService.grid$ | async; trackBy: trackWeekByFn">
+    <tbody>
+        <tr *ngFor="let row of dayService.grid$ | async; trackBy: trackWeekByFn">
 
             <td *ngFor="let item of row; trackBy: trackDayByFn" class="date-cell">
 
@@ -14,7 +14,6 @@
                         uxFocusIndicator
                         uxFocusIndicatorOrigin
                         class="date-button"
-                        role="gridcell"
                         [class.range-start]="isRangeStartDate(item.date)"
                         [class.range-between]="isWithinRange(item.date) || isDateHovered(item.date)"
                         [class.range-end]="isRangeEndDate(item.date)"

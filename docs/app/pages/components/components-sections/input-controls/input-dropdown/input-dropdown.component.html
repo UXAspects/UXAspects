@@ -5,13 +5,11 @@
             [(selected)]="selected"
             [dropdownOpen]="dropdownOpen"
             (dropdownOpenChange)="dropdownOpenChange($event)"
-            (filterChange)="setFilterIconAriaLabel($event)"
             [disabled]="disabled"
             [(filter)]="filter"
             [allowNull]="allowNull"
             [maxHeight]="maxHeight"
             [placeholder]="placeholder"
-            [ariaLabelIcon]="ariaLabelIcon"
             aria-label="Filter input">
 
             <ng-template #displayContent>
@@ -114,8 +112,11 @@
     <tr uxd-api-property name="aria-label" type="string">
         Aria label of the filter field. If not specified, the placeholder will be used.
     </tr>
-    <tr uxd-api-property name="ariaLabelIcon" type="string">
-        Aria label of the filter field icon.
+    <tr uxd-api-property name="searchButtonAriaLabel" type="string">
+        Aria label of the Search filter field icon.
+    </tr>
+    <tr uxd-api-property name="clearButtonAriaLabel" type="string">
+        Aria label of the Clear filter field icon.
     </tr>
     <tr uxd-api-property name="dropdownOpen" type="boolean">
         If set to <code>true</code> this will programmatically show the typeahead dropdown.
