@@ -5,10 +5,10 @@
         </tr>
     </thead>
 
-    <tbody role="grid">
-        <tr role="row" *ngFor="let row of dayService.grid$ | async; trackBy: trackWeekByFn">
+    <tbody>
+        <tr *ngFor="let row of dayService.grid$ | async; trackBy: trackWeekByFn">
 
-            <td *ngFor="let item of row; trackBy: trackDayByFn" class="date-cell" role="gridcell">
+            <td *ngFor="let item of row; trackBy: trackDayByFn" class="date-cell">
 
                 <button type="button"
                         uxFocusIndicator

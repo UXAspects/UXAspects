@@ -12,10 +12,7 @@ export const TIME_PICKER_VALUE_ACCESSOR: any = {
     templateUrl: './time-picker.component.html',
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
-    providers: [TIME_PICKER_VALUE_ACCESSOR],
-    host: {
-        'aria-label': 'Time Picker'
-    }
+    providers: [TIME_PICKER_VALUE_ACCESSOR]
 })
 export class TimePickerComponent implements ControlValueAccessor {
 
