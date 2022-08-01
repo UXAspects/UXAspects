@@ -24,6 +24,7 @@
     [clearButtonAriaLabel]="clearButtonAriaLabel">
 
     <ux-typeahead #multipleTypeahead
+        [attr.aria-label]="typeaheadAriaLabel"
         [id]="id + '-typeahead'"
         [options]="options"
         [filter]="filter$ | async"
@@ -52,6 +53,7 @@
     class="ux-select-container"
     [class.disabled]="disabled"
     role="combobox"
+    [attr.aria-controls]="id + '-typeahead'"
     [attr.aria-expanded]="dropdownOpen"
     aria-haspopup="listbox">
 
@@ -97,6 +99,7 @@
     </div>
 
     <ux-typeahead #singleTypeahead
+        [attr.aria-label]="typeaheadAriaLabel"
         [id]="id + '-typeahead'"
         [active]="_value$ | async"
         [options]="options"

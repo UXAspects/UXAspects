@@ -20,6 +20,7 @@ let uniqueId = 0;
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
         'role': 'listbox',
+        '[attr.aria-label]': 'aria-label',
         '[class.open]': 'open',
         '[style.maxHeight]': 'maxHeight'
     }
