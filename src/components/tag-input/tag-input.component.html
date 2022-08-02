@@ -1,5 +1,6 @@
-<ol [attr.role]="typeahead ? 'combobox' : 'none'"
-    [attr.aria-haspopup]="typeahead ? 'listbox' : null"
+<ol [attr.aria-haspopup]="typeahead ? 'listbox' : null"
+    [attr.aria-expanded]="typeahead.open"
+    [attr.aria-controls]="typeahead.id"
     [class.ux-tag-input-clear-inset]="_showClearButton"
     [class.ux-tag-input-icon-inset]="icon"
     (click)="toggle()">
@@ -17,7 +18,7 @@
         </ng-container>
 
     </li>
-    <li *ngIf="isInputVisible()" class="ux-tag-input" role="none">
+    <li *ngIf="isInputVisible()" class="ux-tag-input">
         <input #tagInput type="text" attr.id="{{id}}-input" class="ux-tag-input"
                [ngModel]="input"
                (ngModelChange)="setInputValue($event)"

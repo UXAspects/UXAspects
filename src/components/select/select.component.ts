@@ -101,7 +101,7 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
     @Input() ariaLabel: string;
 
     /** The aria-label to apply to the typeahead */
-    @Input() typeaheadAriaLabel: string = '';
+    @Input() typeaheadAriaLabel: string = 'Dropdown listbox';
 
     /** Controls the disabled state of the tag input. */
     @Input() disabled: boolean = false;
