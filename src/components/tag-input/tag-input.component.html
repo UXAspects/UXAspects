@@ -1,6 +1,6 @@
 <ol [attr.aria-haspopup]="typeahead ? 'listbox' : null"
-    [attr.aria-expanded]="typeahead.open"
-    [attr.aria-controls]="typeahead.id"
+    [attr.aria-expanded]="typeahead ? typeahead.open : null"
+    [attr.aria-controls]="typeahead ? typeahead.id : null"
     [class.ux-tag-input-clear-inset]="_showClearButton"
     [class.ux-tag-input-icon-inset]="icon"
     (click)="toggle()">
