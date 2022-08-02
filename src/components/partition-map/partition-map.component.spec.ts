@@ -142,27 +142,27 @@ describe('Partition Map Component', () => {
     });
 
     it('should collapse root segment when immediate child is selected', () => {
-        expect(segments.item(0).getAttribute('aria-expanded')).toBe('true');
-        expect(segments.item(1).getAttribute('aria-expanded')).toBe('true');
-        expect(segments.item(0).getAttribute('aria-selected')).toBe('false');
-        expect(segments.item(1).getAttribute('aria-selected')).toBe('false');
+        expect(segments.item(0).classList.contains('partition-map-segment-expanded')).toBe(true);
+        expect(segments.item(1).classList.contains('partition-map-segment-expanded')).toBe(true);
+        expect(segments.item(0).classList.contains('partition-map-segment-selected')).toBe(false);
+        expect(segments.item(1).classList.contains('partition-map-segment-selected')).toBe(false);
         segments.item(1).click();
         fixture.detectChanges();
-        expect(segments.item(0).getAttribute('aria-expanded')).toBe('false');
-        expect(segments.item(1).getAttribute('aria-expanded')).toBe('true');
-        expect(segments.item(0).getAttribute('aria-selected')).toBe('false');
-        expect(segments.item(1).getAttribute('aria-selected')).toBe('true');
+        expect(!segments.item(0).classList.contains('partition-map-segment-expanded')).toBe(true);
+        expect(segments.item(1).classList.contains('partition-map-segment-expanded')).toBe(true);
+        expect(!segments.item(0).classList.contains('partition-map-segment-selected')).toBe(true);
+        expect(segments.item(1).classList.contains('partition-map-segment-selected')).toBe(true);
     });
 
     it('should collapse all parents when leaf segment is selected', () => {
-        expect(segments.item(0).getAttribute('aria-expanded')).toBe('true');
-        expect(segments.item(1).getAttribute('aria-expanded')).toBe('true');
-        expect(segments.item(4).getAttribute('aria-expanded')).toBe('true');
+        expect(segments.item(0).classList.contains('partition-map-segment-expanded')).toBe(true);
+        expect(segments.item(1).classList.contains('partition-map-segment-expanded')).toBe(true);
+        expect(segments.item(4).classList.contains('partition-map-segment-expanded')).toBe(true);
         segments.item(4).click();
         fixture.detectChanges();
-        expect(segments.item(0).getAttribute('aria-expanded')).toBe('false');
-        expect(segments.item(1).getAttribute('aria-expanded')).toBe('false');
-        expect(segments.item(4).getAttribute('aria-expanded')).toBe('true');
+        expect(segments.item(0).classList.contains('partition-map-segment-expanded')).toBe(false);
+        expect(segments.item(1).classList.contains('partition-map-segment-expanded')).toBe(false);
+        expect(segments.item(4).classList.contains('partition-map-segment-expanded')).toBe(true);
     });
 
     it('should apply appropriate classes for color contrast ratio', () => {
@@ -191,11 +191,11 @@ describe('Partition Map Component', () => {
     it('should move selection to the parent when the selected node is clicked again', () => {
         segments.item(4).click();
         fixture.detectChanges();
-        expect(segments.item(4).getAttribute('aria-selected')).toBe('true');
+        expect(segments.item(4).classList.contains('partition-map-segment-selected')).toBe(true);
         segments.item(4).click();
         fixture.detectChanges();
-        expect(segments.item(1).getAttribute('aria-selected')).toBe('true');
-        expect(segments.item(4).getAttribute('aria-selected')).toBe('false');
+        expect(segments.item(1).classList.contains('partition-map-segment-selected')).toBe(true);
+        expect(segments.item(4).classList.contains('partition-map-segment-selected')).toBe(false);
     });
 
     it('should emit selectedChange @Output when an item is selected', (done) => {
@@ -213,7 +213,7 @@ describe('Partition Map Component', () => {
     it('should allow a segment to be programmatically selected using the selected @Input', () => {
 
         // the node should segment be selected initially
-        expect(segments.item(1).getAttribute('aria-selected')).toBe('false');
+        expect(segments.item(1).classList.contains('partition-map-segment-selected')).toBe(false);
 
         // get the segment we want to select
         const segment = (component.dataset as PartitionMapSegmentWithChildren).children[0];
@@ -231,7 +231,7 @@ describe('Partition Map Component', () => {
         fixture.detectChanges();
 
         // it should now be selected
-        expect(segments.item(1).getAttribute('aria-selected')).toBe('true');
+        expect(segments.item(1).classList.contains('partition-map-segment-selected')).toBe(true);
     });
 
     it('should allow the dataset to change using the dataset @Input', () => {
