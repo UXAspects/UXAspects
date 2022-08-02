@@ -148,9 +148,9 @@ describe('Partition Map Component', () => {
         expect(segments.item(1).classList.contains('partition-map-segment-selected')).toBe(false);
         segments.item(1).click();
         fixture.detectChanges();
-        expect(!segments.item(0).classList.contains('partition-map-segment-expanded')).toBe(true);
+        expect(segments.item(0).classList.contains('partition-map-segment-expanded')).toBe(false);
         expect(segments.item(1).classList.contains('partition-map-segment-expanded')).toBe(true);
-        expect(!segments.item(0).classList.contains('partition-map-segment-selected')).toBe(true);
+        expect(segments.item(0).classList.contains('partition-map-segment-selected')).toBe(false);
         expect(segments.item(1).classList.contains('partition-map-segment-selected')).toBe(true);
     });
 
