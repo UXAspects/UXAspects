@@ -23,8 +23,7 @@
 
 <ux-menu #menu menuClass="select-menu"
          (opened)="onMenuOpen()"
-         (closed)="onMenuClose()"
-         [attr.aria-expanded]="dropdownOpen">
+         (closed)="onMenuClose()">
 
     <div [style.max-height]="_maxHeight"
          [style.width.px]="button.offsetWidth">
