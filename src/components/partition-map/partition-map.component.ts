@@ -10,7 +10,10 @@ import { ColorService, ThemeColor } from '../../services/color/index';
 @Component({
     selector: 'ux-partition-map',
     templateUrl: './partition-map.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    host: {
+        'role': 'tree'
+    },
 })
 export class PartitionMapComponent implements OnInit, OnDestroy {
 
