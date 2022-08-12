@@ -12,7 +12,8 @@ import { ColorService, ThemeColor } from '../../services/color/index';
     templateUrl: './partition-map.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
-        'role': 'tree'
+        'role': 'tree',
+        '[attr.aria-orientation]': 'vertical',
     },
 })
 export class PartitionMapComponent implements OnInit, OnDestroy {
