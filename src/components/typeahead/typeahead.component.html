@@ -39,6 +39,7 @@
         *ngIf="(visibleOptions$ | async).length > 0"
         class="ux-typeahead-all-options"
         [id]="id"
+        [ariaLabel]="ariaLabel"
         [startIndex]="(visibleRecentOptions$ | async).length"
         [options]="visibleOptions$ | async"
         [highlighted]="highlighted$ | async"

@@ -1,4 +1,6 @@
-<ol>
+<ol
+    role="listbox"
+    [attr.aria-label]="ariaLabel">
 
     <li *ngFor="let option of options; let i = index; trackBy: trackByFn"
         [attr.id]="id + '-option-' + (i + startIndex)"
@@ -7,6 +9,8 @@
         [class.active]="activeKey === option.key && !option.isRecentOption"
         [uxTypeaheadHighlight]="highlighted?.key === option.key && highlighted?.isRecentOption === option.isRecentOption"
         [uxScrollIntoViewIf]="highlighted?.key === option.key && highlighted?.isRecentOption === option.isRecentOption"
+        role="option"
+        [attr.aria-selected]="isMultiselectable ? optionApi.getDisabled(option.value) : (activeKey === option.key ? true : null)"
         [scrollParent]="typeaheadElement.nativeElement"
         (mouseover)="optionMouseover.emit({ option: option, event: $event })"
         (mousedown)="optionMousedown.emit({ option: option, event: $event })"
