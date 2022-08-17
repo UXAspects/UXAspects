@@ -1,0 +1,78 @@
+<!-- <div class="row" [class.drop-direction-up]="dropDirection === 'up'">
+    <div class="col-sm-6 col-xs-12">
+        <div class="form-group m-nil">
+            <ux-select [(value)]="selected"
+                [options]="options"
+                [multiple]="multiple | async"
+                [display]="display"
+                [key]="key"
+                [allowNull]="allowNull"
+                [disabled]="disabled"
+                [dropDirection]="dropDirection"
+                [(dropdownOpen)]="dropdownOpen"
+                [pageSize]="pageSize"
+                [placeholder]="placeholder"
+                [readonlyInput]="readonlyInput"
+                [clearButton]="clearButton"
+                [(recentOptions)]="recentOptions"
+                [recentOptionsMaxCount]="recentOptionsMaxCount">
+
+                <ng-template #icon *ngIf="multiple | async">
+                    <div class="ux-select-icon">
+                        <i class="ux-icon ux-icon-add"></i>
+                    </div>
+                </ng-template>
+            </ux-select>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12 m-t-md">
+        Selected location(s): <code>{{selected | json}}</code>
+    </div>
+</div> -->
+
+<!-- <div class="row" [class.drop-direction-up]="dropDirection === 'up'">
+    <div class="col-md-12 has-feedback">
+        <form class="input-typeahead-form">
+            <input [(ngModel)]="input"
+                   [ngModelOptions]="{standalone: true}"
+                   placeholder="Enter Text"
+                   class="form-control"
+                   type="text"
+                   (click)="dropdownOpen = true"
+                   (keydown)="typeaheadKeyService.handleKey($event, typeahead)"
+                   (keydown.escape)="dropdownOpen = false"
+                   (blur)="dropdownOpen = false">
+
+            <ux-typeahead #typeahead
+                          class="typeahead-example"
+                          [(open)]="dropdownOpen"
+                          [filter]="input"
+                          [options]="loadOptionsFn"
+                          [openOnFilterChange]="true"
+                          [pageSize]="40"
+                          [selectOnEnter]="selectOnEnter"
+                          [selectFirst]="selectFirst"
+                          [dropDirection]="dropDirection"
+                          (optionSelected)="input = $event.option"
+                          [(recentOptions)]="recentOptions"
+                          [recentOptionsMaxCount]="recentOptionsMaxCount">
+            </ux-typeahead>
+        </form>
+    </div>
+</div> -->
+
+<ux-page-header [condensed]="true" [items]="items" [alignment]="alignment">
+    <button type="button" *uxPageHeaderCustomItem [uxMenuTriggerFor]="helpMenu">
+        <ux-icon name="help-circle"></ux-icon>
+    </button>
+    <ux-menu #helpMenu alignment="end">
+        <button type="button" uxMenuItem>
+            <span class="dropdown-menu-icon">
+                <ux-icon name="help-circle"></ux-icon>
+            </span>
+            <span class="dropdown-menu-text">About UX Aspects...</span>
+        </button>
+    </ux-menu>
+</ux-page-header>
