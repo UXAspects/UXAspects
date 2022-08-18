@@ -24,7 +24,7 @@
     [clearButtonAriaLabel]="clearButtonAriaLabel">
 
     <ux-typeahead #multipleTypeahead
-        [ariaLabel]="typeaheadAriaLabel"
+        [ariaLabel]="listboxAriaLabel"
         [id]="id + '-typeahead'"
         [options]="options"
         [filter]="filter$ | async"
@@ -97,7 +97,7 @@
     </div>
 
     <ux-typeahead #singleTypeahead
-        [ariaLabel]="typeaheadAriaLabel"
+        [ariaLabel]="listboxAriaLabel"
         [id]="id + '-typeahead'"
         [active]="_value$ | async"
         [options]="options"

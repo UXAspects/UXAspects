@@ -1,6 +1,7 @@
 <ol
     role="listbox"
-    [attr.aria-label]="ariaLabel">
+    [attr.aria-label]="ariaLabel"
+    [attr.aria-multiselectable]="isMultiselectable">
 
     <li *ngFor="let option of options; let i = index; trackBy: trackByFn"
         [attr.id]="id + '-option-' + (i + startIndex)"
