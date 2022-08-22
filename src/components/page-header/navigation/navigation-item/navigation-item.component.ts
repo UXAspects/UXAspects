@@ -97,7 +97,8 @@ export class PageHeaderNavigationItemComponent implements AfterViewInit, OnDestr
             this._navigationService.onKeydown(event);
         }
 
-        if (event.keyCode === SPACE && target.getAttribute('href')) {
+        if (event.keyCode === SPACE) {
+            event.preventDefault();
             target.click();
         }
     }
