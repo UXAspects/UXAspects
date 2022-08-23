@@ -48,6 +48,9 @@ export class InputDropdownComponent<T> implements ControlValueAccessor, AfterVie
     /** Aria label of the filter field. If not specified, the placeholder will be used. */
     @Input('aria-label') ariaLabel: string = '';
 
+    /** Aria label of the filter field. If not specified, the placeholder will be used. */
+    @Input() ariaLabelledby: string;
+
     /** Aria label of the search button icon. */
     @Input() searchFilterButtonAriaLabel: string = 'Search';
 

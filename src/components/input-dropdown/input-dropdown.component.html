@@ -40,6 +40,7 @@
                     (input)="filterChange.emit(filter)"
                     (click)="$event.stopPropagation()"
                     [attr.aria-label]="ariaLabel || placeholder"
+                    [attr.aria-labelledby]="ariaLabelledby"
                     (focus)="inputFocusHandler()">
 
             <button type="button"

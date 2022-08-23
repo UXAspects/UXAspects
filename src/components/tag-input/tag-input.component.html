@@ -29,6 +29,7 @@
                [attr.aria-autocomplete]="typeahead ? 'list' : 'none'"
                [attr.aria-controls]="typeahead?.id"
                [attr.aria-label]="ariaLabel"
+               [attr.aria-labelledby]="ariaLabelledby"
                aria-multiline="false"
                [placeholder]="disabled ? '' : (placeholder || '')"
                [disabled]="disabled"

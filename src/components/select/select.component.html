@@ -4,6 +4,7 @@
     [id]="id + '-input'"
     [tags]="_value$ | async"
     (tagsChange)="_multipleOptionSelected($event)"
+    [ariaLabelledby]="ariaLabelledby"
     [(input)]="input"
     [required]="required"
     (inputChange)="onInputChange($event)"
@@ -56,6 +57,7 @@
 
     <input #singleInput type="text"
         [attr.id]="id + '-input'"
+        [attr.aria-labelledby]="ariaLabelledby"
         class="form-control"
         [required]="required"
         [class.ux-tag-input-clear-inset]="clearButton && allowNull && _hasValue"
