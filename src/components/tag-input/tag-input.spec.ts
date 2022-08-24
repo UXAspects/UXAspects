@@ -8,7 +8,7 @@ import { IconModule } from '../icon/index';
 import { TypeaheadModule } from '../typeahead/index';
 import { TagInputComponent } from './tag-input.component';
 
-fdescribe('Tag Input Component', () => {
+describe('Tag Input Component', () => {
 
     let component: TagInputComponent<string>;
     let nativeElement: HTMLElement;
@@ -135,7 +135,7 @@ fdescribe('Tag Input Component', () => {
         expect(elementsWithId.length).toBe(1);
     });
 
-    fit('should apply aria-labelledby to the input element', () => {
+    it('should apply aria-labelledby to the input element', () => {
         component.ariaLabelledby = 'test-id';
         fixture.detectChanges();
 
