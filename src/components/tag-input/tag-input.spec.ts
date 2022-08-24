@@ -8,7 +8,7 @@ import { IconModule } from '../icon/index';
 import { TypeaheadModule } from '../typeahead/index';
 import { TagInputComponent } from './tag-input.component';
 
-describe('Tag Input Component', () => {
+fdescribe('Tag Input Component', () => {
 
     let component: TagInputComponent<string>;
     let nativeElement: HTMLElement;
@@ -135,4 +135,12 @@ describe('Tag Input Component', () => {
         expect(elementsWithId.length).toBe(1);
     });
 
+    fit('should apply aria-labelledby to the input element', () => {
+        component.ariaLabelledby = 'test-id';
+        fixture.detectChanges();
+
+        const input = document.querySelector<HTMLInputElement>('input.ux-tag-input');
+
+        expect(input.getAttribute('aria-labelledby')).toContain('test-id');
+    });
 });
