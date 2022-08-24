@@ -28,6 +28,9 @@ export class FilterDynamicComponent implements OnInit, OnDestroy {
     /** Specify if there should be an initially selected filter */
     @Input() initial: Filter;
 
+    /** Defined the closeOnBlur state for the ux-menu trigger */
+    @Input() closeOnBlur: boolean = false;
+
     /** Specify the typeahead options */
     @Input() set options(options: FilterDynamicListConfig) {
         this._options = options;

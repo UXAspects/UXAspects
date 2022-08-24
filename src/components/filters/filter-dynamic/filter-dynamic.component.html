@@ -6,6 +6,7 @@
         class="filter-dropdown btn dropdown-toggle"
         [id]="filterId + '-trigger'"
         [uxMenuTriggerFor]="menu"
+        [closeOnBlur]="closeOnBlur"
         #trigger="ux-menu-trigger">
         {{ selected?.group }}
         <span class="filter-header" *ngIf="selected !== initial">
@@ -41,7 +42,7 @@
 
         <ux-menu-divider *ngIf="showTypeahead"></ux-menu-divider>
 
-        <div *ngIf="showTypeahead" class="typeahead-box" role="none">
+        <div *ngIf="showTypeahead" class="typeahead-box" role="none" uxMenuItem>
 
             <input type="text"
                    class="form-control"

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { filter as rxFilter, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { filter as rxFilter, takeUntil } from 'rxjs/operators';
 import { FilterRemoveAllEvent } from '../events/filter-remove-all-event';
 import { FilterService } from '../filter.service';
 import { Filter } from '../interfaces/filter.interface';
@@ -25,6 +25,9 @@ export class FilterDropdownComponent implements OnInit, OnDestroy {
 
     /** Define an initial item to select */
     @Input() initial: Filter;
+
+    /** Defined the closeOnBlur state for the ux-menu trigger */
+    @Input() closeOnBlur: boolean = false;
 
     selected: Filter;
 

@@ -4,7 +4,8 @@
         class="filter-dropdown btn dropdown-toggle"
         [id]="filterId + '-trigger'"
         [class.active]="selected !== initial"
-        [uxMenuTriggerFor]="menu">
+        [uxMenuTriggerFor]="menu"
+        [closeOnBlur]="closeOnBlur">
         {{ selected?.group }}
         <span class="filter-header" *ngIf="selected !== initial">
             ({{ selected?.name }})
