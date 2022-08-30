@@ -81,7 +81,8 @@ export class TabsetComponent implements AfterViewInit, OnDestroy {
     }
 
     handleKeyDown(event: KeyboardEvent, tab: HTMLElement): void {
-        if (event.keyCode === SPACE && tab.getAttribute('href')) {
+        if (event.keyCode === SPACE) {
+            event.preventDefault();
             tab.click();
         }
     }
