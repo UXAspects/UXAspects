@@ -1,7 +1,7 @@
 <div class="row" [class.drop-direction-up]="dropDirection === 'up'">
     <div class="col-sm-6 col-xs-12">
         <div class="form-group m-nil">
-            <h4 id="select-ux-select-input">Select</h4>
+            <h4 id="select-ux-select-input-label">Select</h4>
             <ux-select [(value)]="selected"
                 [options]="options"
                 [multiple]="multiple | async"
@@ -19,7 +19,7 @@
                 [autoCloseDropdown]="autoCloseDropdown"
                 [recentOptionsMaxCount]="recentOptionsMaxCount"
                 [listboxAriaLabel]="listboxAriaLabel"
-                [ariaLabelledby]="'select-ux-select-input'">
+                [ariaLabelledby]="'select-ux-select-input-label'">
 
                 <ng-template #icon *ngIf="multiple | async">
                     <div class="ux-select-icon">
