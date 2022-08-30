@@ -20,6 +20,7 @@
                  uxTabbableList>
                 <ux-radio-button
                     uxTabbableListItem
+                    role="menuitemradio"
                     *ngFor="let option of filteredOptionList"
                     name="group"
                     [(value)]="selected"
@@ -113,7 +114,7 @@
         Aria label of the filter field. If not specified, the placeholder will be used.
     </tr>
     <tr uxd-api-property name="ariaLabelledby" type="string">
-        Aria Labelledby of the filter field.
+        ID of the element which serves as a label for the filter field.
     </tr>
     <tr uxd-api-property name="searchFilterButtonAriaLabel" type="string">
         Aria label of the filter field search icon.

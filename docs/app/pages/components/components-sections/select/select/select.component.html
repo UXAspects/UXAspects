@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-sm-6 col-xs-12">
         <div class="form-group m-nil">
-            <h4 id="select-ux-select-input-label">Select</h4>
+            <h4 id="ux-select-input-label">Select</h4>
             <ux-select [(value)]="selected"
                 [options]="options"
                 [multiple]="multiple | async"
@@ -19,7 +19,7 @@
                 [autoCloseDropdown]="autoCloseDropdown"
                 [recentOptionsMaxCount]="recentOptionsMaxCount"
                 [listboxAriaLabel]="listboxAriaLabel"
-                [ariaLabelledby]="'select-ux-select-input-label'">
+                ariaLabelledby="ux-select-input-label">
 
                 <ng-template #icon *ngIf="multiple | async">
                     <div class="ux-select-icon">
@@ -203,7 +203,7 @@
         The aria-label to apply to the child <code>input</code> element.
     </tr>
     <tr uxd-api-property name="ariaLabelledby" type="string">
-        The aria-labelledby to apply to the child <code>input</code> element.
+        ID of the element which serves as a label for the child <code>input</code> element.
     </tr>
     <tr uxd-api-property name="listboxAriaLabel" type="string">
         The aria-label to apply to the <code>ux-typeahead</code> list element.

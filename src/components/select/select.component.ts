@@ -100,7 +100,7 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
     /** The aria-label to apply to the child `input` element. */
     @Input() ariaLabel: string;
 
-    /** The aria-labelledby id to apply to the child `input` element. */
+    /** ID of the element which serves as a label for the input element. */
     @Input() ariaLabelledby: string;
 
     /** The aria-label to apply to the typeahead listbox */
