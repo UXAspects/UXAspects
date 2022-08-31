@@ -20,9 +20,9 @@
                  uxTabbableList>
                 <ux-radio-button
                     uxTabbableListItem
-                    role="menuitemradio"
                     *ngFor="let option of filteredOptionList"
                     name="group"
+                    inputRole="menuitemradio"
                     [(value)]="selected"
                     [option]="option"
                     (keydown.space)="selectOption($event, option)">
