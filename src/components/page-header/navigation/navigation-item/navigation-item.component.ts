@@ -1,5 +1,5 @@
 import { FocusableOption } from '@angular/cdk/a11y';
-import { LEFT_ARROW, RIGHT_ARROW } from '@angular/cdk/keycodes';
+import { LEFT_ARROW, RIGHT_ARROW, SPACE } from '@angular/cdk/keycodes';
 import { AfterViewInit, Component, ElementRef, HostListener, Input, OnDestroy, ViewChild } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -91,10 +91,15 @@ export class PageHeaderNavigationItemComponent implements AfterViewInit, OnDestr
         this._pageHeaderService.select(this.item);
     }
 
-    @HostListener('keydown', ['$event'])
-    onKeydown(event: KeyboardEvent): void {
+    @HostListener('keydown', ['$event', '$event.target'])
+    onKeydown(event: KeyboardEvent, target: HTMLElement): void {
         if (event.keyCode === LEFT_ARROW || event.keyCode === RIGHT_ARROW) {
             this._navigationService.onKeydown(event);
+        }
+
+        if (event.keyCode === SPACE) {
+            event.preventDefault();
+            target.click();
         }
     }
 }
