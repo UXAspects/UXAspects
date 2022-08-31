@@ -205,6 +205,8 @@ export class InfiniteScrollDirective<T = any> implements OnInit, AfterContentIni
      * Clear the collection. Future requests will load from page 0.
      */
     reset(clearSubscriptions: boolean = true): void {
+        console.log(this._isLoading.getValue());
+
         if (!this.enabled) {
             return;
         }
@@ -338,6 +340,7 @@ export class InfiniteScrollDirective<T = any> implements OnInit, AfterContentIni
                             this.setPageItems(request.pageNumber, items);
                         }
 
+                        console.log('end loading called')
                         // Emit the loaded event
                         this.endLoading(request, items);
                     }
