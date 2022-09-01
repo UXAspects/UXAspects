@@ -24,7 +24,7 @@ import {
     PLAYGROUND_TRANSFORMER,
     RenameAngularJsonPlaygroundTransformer,
     StylesheetPlaygroundTransformer,
-    ViewEngineDowngradeTransformer,
+    ViewEngineDowngradeTransformer
 } from './services/playground/index';
 import {
     DocumentationType,
@@ -45,6 +45,7 @@ const appRoutes: Routes = [
     { path: 'team', loadChildren: () => import('./pages/team/team.module').then(m => m.TeamPageModule) },
     { path: 'licenses', loadChildren: () => import('./pages/licenses/licenses.module').then(m => m.LicensesPageModule) },
     { path: 'changelog', loadChildren: () => import('./pages/changelog/changelog.module').then(m => m.ChangeLogPageModule) },
+    { path: 'test', loadChildren: () => import('./pages/test/test.module').then(m => m.TestPageModule) },
     { path: '', redirectTo: '/landing', pathMatch: 'full' },
     { path: '**', redirectTo: '/landing' },
 ];

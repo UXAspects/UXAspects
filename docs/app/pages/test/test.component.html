@@ -1,0 +1,61 @@
+<div class="table-container">
+    <table
+      class="table table-hover m-b-nil"
+      uxFixedHeaderTable
+      aria-multiselectable="true"
+    >
+      <thead>
+        <tr uxColumnSorting singleSort="true">
+          <th
+            id="users-title"
+            class="clickable column-sorting"
+            [attr.aria-sort]="userNameColumn.state"
+            (click)="changeSortingOrder(userNameColumn)"
+            (keydown.enter)="changeSortingOrder(userNameColumn)"
+          >
+            NAME<ux-column-sorting
+              #userNameColumn="ux-column-sorting"
+              key="username"
+            ></ux-column-sorting>
+          </th>
+          <th
+            id="users-description"
+            class="clickable column-sorting"
+            [attr.aria-sort]="userDescriptionColumn.state"
+            (click)="changeSortingOrder(userDescriptionColumn)"
+            (keydown.enter)="changeSortingOrder(userDescriptionColumn)"
+          >
+            DESCRIPTION<ux-column-sorting
+              #userDescriptionColumn="ux-column-sorting"
+              key="description"
+            ></ux-column-sorting>
+          </th>
+        </tr>
+      </thead>
+      <tbody
+        #listUsers="uxInfiniteScroll"
+        [uxInfiniteScroll]="loadCallback"
+        [(collection)]="users"
+        [pageSize]="pageSize"
+        [loadOnScroll]="true"
+        (loading)="isLoading = true"
+        (loaded)="isLoading = false"
+        (loadError)="isLoading = false"
+        class="list-users-tbody"
+      >
+        <tr *ngFor="let user of users">
+          <td>
+            <span class="user-name"> {{ user.username }}</span>
+          </td>
+          <td>
+            <span class="user-description" title="{{ user.description }}"
+              >{{ user.description.length > 0 ? user.description : '-' }}</span
+            >
+          </td>
+        </tr>
+        <div *uxInfiniteScrollLoading class="display-table-loading">
+          <div class="spinner spinner-accent spinner-bounce-middle"></div>
+        </div>
+      </tbody>
+    </table>
+</div>
