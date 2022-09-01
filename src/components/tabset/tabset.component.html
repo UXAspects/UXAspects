@@ -24,6 +24,7 @@
             class="nav-link"
             [attr.id]="tab.id"
             role="tab"
+            #anchorTab
             uxTabbableListItem
             uxFocusIndicator
             [attr.aria-controls]="tab.id"
@@ -36,7 +37,8 @@
             [preserveFragment]="tab.routerLinkExtras?.preserveFragment"
             [skipLocationChange]="tab.routerLinkExtras?.skipLocationChange"
             [replaceUrl]="tab.routerLinkExtras?.replaceUrl"
-            [state]="tab.routerLinkExtras?.state">
+            [state]="tab.routerLinkExtras?.state"
+            (keydown)="handleKeyDown($event, anchorTab)">
 
             <ng-container
                 [ngTemplateOutlet]="tabDetails">

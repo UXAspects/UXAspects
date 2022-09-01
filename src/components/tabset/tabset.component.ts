@@ -1,3 +1,4 @@
+import { SPACE } from '@angular/cdk/keycodes';
 import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, Input, OnDestroy, QueryList } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -77,5 +78,12 @@ export class TabsetComponent implements AfterViewInit, OnDestroy {
 
         // run change detection
         this._changeDetector.detectChanges();
+    }
+
+    handleKeyDown(event: KeyboardEvent, tab: HTMLElement): void {
+        if (event.keyCode === SPACE) {
+            event.preventDefault();
+            tab.click();
+        }
     }
 }
