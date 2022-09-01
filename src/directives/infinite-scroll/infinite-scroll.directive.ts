@@ -204,8 +204,7 @@ export class InfiniteScrollDirective<T = any> implements OnInit, AfterContentIni
     /**
      * Clear the collection. Future requests will load from page 0.
      */
-    reset(clearSubscriptions: boolean = true, doRequest: boolean = false): void {
-
+    reset(clearSubscriptions: boolean = true): void {
         if (!this.enabled) {
             return;
         }
@@ -227,17 +226,6 @@ export class InfiniteScrollDirective<T = any> implements OnInit, AfterContentIni
             // Cancel any pending requests
             this._subscriptions.forEach(request => request.unsubscribe());
         }
-
-        // Maybe trigger request again?
-
-        // if (doRequest) {
-            // this._updateRequests.next({
-            //     check: true,
-            //     pageNumber: this._nextPageNum,
-            //     pageSize: this.pageSize,
-            //     filter: this.coerceFilter(this.filter) as T
-            // });
-        // }
     }
 
     /**
@@ -321,8 +309,6 @@ export class InfiniteScrollDirective<T = any> implements OnInit, AfterContentIni
      * Conditionally loads a page into the collection based on directive state and request parameters.
      */
     private doRequest(request: InfiniteScrollRequest<T>): void {
-
-        // Not called again
 
         // Load a new page if the scroll position is beyond the threshhold and if the client code did not
         // cancel.
