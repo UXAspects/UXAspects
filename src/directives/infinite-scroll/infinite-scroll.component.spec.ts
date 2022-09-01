@@ -1,8 +1,8 @@
-import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
-import { InfiniteScrollModule } from './infinite-scroll.module';
 import { Component, ViewChild } from '@angular/core';
+import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { InfiniteScrollDirective } from './infinite-scroll.directive';
+import { InfiniteScrollModule } from './infinite-scroll.module';
 
 @Component({
     template: `<div [uxInfiniteScroll]="load"
@@ -132,4 +132,60 @@ describe('Directive - Infinite Scroll', () => {
 
         expect(loadSpy).not.toHaveBeenCalled();
     }));
+});
+
+@Component({
+    template: `<div [uxInfiniteScroll]="load"
+                    [filter]="filterText"
+                    [pageSize]="20"
+                    [loadOnScroll]="loadOnScroll">
+                </div>
+    `
+})
+export class InfiniteScrollTestDelayComponent {
+
+    filterText: any;
+    loadOnScroll: boolean = false;
+
+    @ViewChild(InfiniteScrollDirective) infiniteScrollDirective: InfiniteScrollDirective;
+
+    load(pageNum: number, pageSize: number, filter: any): Promise<boolean> {
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                resolve(true);
+            }, 2000);
+        });
+    }
+
+}
+fdescribe('Directive - Infinite Scroll', () => {
+    let component: InfiniteScrollTestDelayComponent;
+    let fixture: ComponentFixture<InfiniteScrollTestDelayComponent>;
+    let loadSpy: jasmine.Spy;
+
+    beforeEach(async(() => {
+        TestBed.configureTestingModule({
+            imports: [InfiniteScrollModule, FormsModule],
+            declarations: [InfiniteScrollTestDelayComponent],
+        })
+            .compileComponents();
+    }));
+
+    beforeEach(() => {
+        fixture = TestBed.createComponent(InfiniteScrollTestDelayComponent);
+        component = fixture.componentInstance;
+        loadSpy = spyOn(component, 'load').and.callThrough().and.returnValue(true);
+        fixture.detectChanges();
+    });
+
+    fit ('should ', async () => {
+
+        component.load(0, 0, null);
+        component.infiniteScrollDirective.reset();
+
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        expect(loadSpy).toHaveBeenCalledTimes(2);
+    });
 });
