@@ -24,7 +24,7 @@ import {
     PLAYGROUND_TRANSFORMER,
     RenameAngularJsonPlaygroundTransformer,
     StylesheetPlaygroundTransformer,
-    ViewEngineDowngradeTransformer
+    ViewEngineDowngradeTransformer,
 } from './services/playground/index';
 import {
     DocumentationType,
