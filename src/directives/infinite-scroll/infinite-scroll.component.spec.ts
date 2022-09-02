@@ -169,6 +169,7 @@ fdescribe('Directive - Infinite Scroll', () => {
     let component: InfiniteScrollTestDelayComponent;
     let fixture: ComponentFixture<InfiniteScrollTestDelayComponent>;
     let resolvedSpy: jasmine.Spy;
+    let loadSpy: jasmine.Spy;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
@@ -182,9 +183,11 @@ fdescribe('Directive - Infinite Scroll', () => {
         fixture = TestBed.createComponent(InfiniteScrollTestDelayComponent);
         component = fixture.componentInstance;
         resolvedSpy = spyOn(component, 'resolved');
+        loadSpy = spyOn(component, 'load').and.callThrough();
         fixture.detectChanges();
     });
 
+    // checking if promise resolves twice
     fit ('should resolve the load function when reset is called during load', async () => {
 
         component.load(0, 0, null);
@@ -194,5 +197,16 @@ fdescribe('Directive - Infinite Scroll', () => {
         await fixture.whenStable();
 
         expect(resolvedSpy).toHaveBeenCalledTimes(2);
+    });
+
+    fit ('#2: loadSpy called twice regardless of fix', async () => {
+
+        component.load(0, 0, null);
+        component.infiniteScrollDirective.reset();
+
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        expect(loadSpy).toHaveBeenCalledTimes(2);
     });
 });
