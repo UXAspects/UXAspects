@@ -1,19 +1,18 @@
 import { Component, ViewChild } from '@angular/core';
-import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { async, ComponentFixture, fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { InfiniteScrollDirective } from './infinite-scroll.directive';
 import { InfiniteScrollModule } from './infinite-scroll.module';
 
 @Component({
-    template: `<div [uxInfiniteScroll]="load"
-                    [filter]="filterText"
-                    [pageSize]="20"
-                    [loadOnScroll]="loadOnScroll">
-                </div>
-    `
+    template: `<div
+        [uxInfiniteScroll]="load"
+        [filter]="filterText"
+        [pageSize]="20"
+        [loadOnScroll]="loadOnScroll"
+    ></div> `,
 })
 export class InfiniteScrollTestComponent {
-
     filterText: any;
     loadOnScroll: boolean = false;
 
@@ -26,7 +25,6 @@ export class InfiniteScrollTestComponent {
         }
         return items;
     }
-
 }
 
 describe('Directive - Infinite Scroll', () => {
@@ -38,8 +36,7 @@ describe('Directive - Infinite Scroll', () => {
         TestBed.configureTestingModule({
             imports: [InfiniteScrollModule, FormsModule],
             declarations: [InfiniteScrollTestComponent],
-        })
-            .compileComponents();
+        }).compileComponents();
     }));
 
     beforeEach(() => {
@@ -49,13 +46,12 @@ describe('Directive - Infinite Scroll', () => {
         fixture.detectChanges();
     });
 
-    it ('should initially call load with filter value of "" if filter input value is undefined', () => {
+    it('should initially call load with filter value of "" if filter input value is undefined', () => {
         expect(loadSpy).toHaveBeenCalledWith(0, 20, '');
         expect(loadSpy).toHaveBeenCalledTimes(1);
     });
 
-    it ('should call load with filter value of "" if filter input value changes to null', async () => {
-
+    it('should call load with filter value of "" if filter input value changes to null', async () => {
         component.filterText = null;
 
         fixture.detectChanges();
@@ -65,8 +61,7 @@ describe('Directive - Infinite Scroll', () => {
         expect(loadSpy).toHaveBeenCalledTimes(1);
     });
 
-    it ('should call load with filter value of "some string" if filter input value changes to string', async () => {
-
+    it('should call load with filter value of "some string" if filter input value changes to string', async () => {
         component.filterText = 'some string';
 
         fixture.detectChanges();
@@ -76,8 +71,7 @@ describe('Directive - Infinite Scroll', () => {
         expect(loadSpy).toHaveBeenCalledTimes(2);
     });
 
-    it ('should call load with filter value of 10 if filter input value changes to number', async () => {
-
+    it('should call load with filter value of 10 if filter input value changes to number', async () => {
         component.filterText = 10;
 
         fixture.detectChanges();
@@ -87,8 +81,7 @@ describe('Directive - Infinite Scroll', () => {
         expect(loadSpy).toHaveBeenCalledTimes(2);
     });
 
-    it ('should call load with filter value of true if filter input value changes to boolean', async () => {
-
+    it('should call load with filter value of true if filter input value changes to boolean', async () => {
         component.filterText = true;
 
         fixture.detectChanges();
@@ -98,8 +91,7 @@ describe('Directive - Infinite Scroll', () => {
         expect(loadSpy).toHaveBeenCalledTimes(2);
     });
 
-    it ('should call load with filter value of { name: "somebody" } if filter input value changes to object', async () => {
-
+    it('should call load with filter value of { name: "somebody" } if filter input value changes to object', async () => {
         component.filterText = { name: 'somebody' };
 
         fixture.detectChanges();
@@ -111,7 +103,6 @@ describe('Directive - Infinite Scroll', () => {
 
     // Test Case for https://portal.digitalsafe.net/browse/EL-4093
     it('should not attempt to load a subsequent page if the element is invisible', fakeAsync(async () => {
-
         // hide the component so it has a height of 0 but is still within the DOM
         const nativeElement = fixture.nativeElement as HTMLElement;
         nativeElement.style.display = 'none';
@@ -135,78 +126,64 @@ describe('Directive - Infinite Scroll', () => {
 });
 
 @Component({
-    template: `<div [uxInfiniteScroll]="load"
-                    [filter]="filterText"
-                    [pageSize]="20"
-                    [loadOnScroll]="loadOnScroll">
-                </div>
-    `
+    template: `
+        <div
+            style="height: 200px; overflow: auto;"
+            [uxInfiniteScroll]="load"
+            [pageSize]="20"
+            [loadOnScroll]="true"
+        >
+            <!-- Increase scroll height -->
+            <div style="height: 220px;"></div>
+        </div>
+    `,
 })
 export class InfiniteScrollTestDelayComponent {
-
-    filterText: any;
-    loadOnScroll: boolean = false;
-
     @ViewChild(InfiniteScrollDirective) infiniteScrollDirective: InfiniteScrollDirective;
 
-    resolved(): void {};
-
-    load(pageNum: number, pageSize: number, filter: any): Promise<any[]> {
+    load(pageNum: number): Promise<any[]> {
         const items = [];
-        return new Promise((resolve, reject) => {
+        return new Promise(resolve => {
             setTimeout(() => {
                 for (let idx = pageNum * 20; idx < (pageNum + 1) * 20; idx++) {
                     items.push(`Item ${idx}`);
                 }
+                resolve(items);
             }, 2000);
-            resolve(items);
-            this.resolved();
         });
     }
-
 }
 fdescribe('Directive - Infinite Scroll', () => {
     let component: InfiniteScrollTestDelayComponent;
     let fixture: ComponentFixture<InfiniteScrollTestDelayComponent>;
-    let resolvedSpy: jasmine.Spy;
     let loadSpy: jasmine.Spy;
 
-    beforeEach(async(() => {
-        TestBed.configureTestingModule({
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
             imports: [InfiniteScrollModule, FormsModule],
             declarations: [InfiniteScrollTestDelayComponent],
-        })
-            .compileComponents();
-    }));
+        }).compileComponents();
 
-    beforeEach(() => {
         fixture = TestBed.createComponent(InfiniteScrollTestDelayComponent);
         component = fixture.componentInstance;
-        resolvedSpy = spyOn(component, 'resolved');
         loadSpy = spyOn(component, 'load').and.callThrough();
         fixture.detectChanges();
     });
 
     // checking if promise resolves twice
-    fit ('should resolve the load function when reset is called during load', async () => {
-
-        component.load(0, 0, null);
-        component.infiniteScrollDirective.reset();
-
-        fixture.detectChanges();
-        await fixture.whenStable();
-
-        expect(resolvedSpy).toHaveBeenCalledTimes(2);
+    it('should resolve the load function when reset is called during load', () => {
+        expect(loadSpy).toHaveBeenCalledTimes(1);
     });
 
-    fit ('#2: loadSpy called twice regardless of fix', async () => {
+    fit('should allow loading to be triggered after reset, regardless if there are any pending requests', fakeAsync(() => {
+        component.infiniteScrollDirective.reset(true);
+        component.infiniteScrollDirective.check();
 
-        component.load(0, 0, null);
-        component.infiniteScrollDirective.reset();
-
-        fixture.detectChanges();
-        await fixture.whenStable();
+        // check adds a 200ms auditTime delay
+        tick(200);
 
         expect(loadSpy).toHaveBeenCalledTimes(2);
-    });
+
+        flush();
+    }));
 });
