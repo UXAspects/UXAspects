@@ -5,14 +5,15 @@ import { InfiniteScrollDirective } from './infinite-scroll.directive';
 import { InfiniteScrollModule } from './infinite-scroll.module';
 
 @Component({
-    template: `<div
-        [uxInfiniteScroll]="load"
-        [filter]="filterText"
-        [pageSize]="20"
-        [loadOnScroll]="loadOnScroll"
-    ></div> `,
+    template: `<div [uxInfiniteScroll]="load"
+                    [filter]="filterText"
+                    [pageSize]="20"
+                    [loadOnScroll]="loadOnScroll">
+                </div>
+    `
 })
 export class InfiniteScrollTestComponent {
+
     filterText: any;
     loadOnScroll: boolean = false;
 
@@ -25,6 +26,7 @@ export class InfiniteScrollTestComponent {
         }
         return items;
     }
+
 }
 
 describe('Directive - Infinite Scroll', () => {
@@ -36,7 +38,8 @@ describe('Directive - Infinite Scroll', () => {
         TestBed.configureTestingModule({
             imports: [InfiniteScrollModule, FormsModule],
             declarations: [InfiniteScrollTestComponent],
-        }).compileComponents();
+        })
+            .compileComponents();
     }));
 
     beforeEach(() => {
@@ -46,12 +49,13 @@ describe('Directive - Infinite Scroll', () => {
         fixture.detectChanges();
     });
 
-    it('should initially call load with filter value of "" if filter input value is undefined', () => {
+    it ('should initially call load with filter value of "" if filter input value is undefined', () => {
         expect(loadSpy).toHaveBeenCalledWith(0, 20, '');
         expect(loadSpy).toHaveBeenCalledTimes(1);
     });
 
-    it('should call load with filter value of "" if filter input value changes to null', async () => {
+    it ('should call load with filter value of "" if filter input value changes to null', async () => {
+
         component.filterText = null;
 
         fixture.detectChanges();
@@ -61,7 +65,8 @@ describe('Directive - Infinite Scroll', () => {
         expect(loadSpy).toHaveBeenCalledTimes(1);
     });
 
-    it('should call load with filter value of "some string" if filter input value changes to string', async () => {
+    it ('should call load with filter value of "some string" if filter input value changes to string', async () => {
+
         component.filterText = 'some string';
 
         fixture.detectChanges();
@@ -71,7 +76,8 @@ describe('Directive - Infinite Scroll', () => {
         expect(loadSpy).toHaveBeenCalledTimes(2);
     });
 
-    it('should call load with filter value of 10 if filter input value changes to number', async () => {
+    it ('should call load with filter value of 10 if filter input value changes to number', async () => {
+
         component.filterText = 10;
 
         fixture.detectChanges();
@@ -81,7 +87,8 @@ describe('Directive - Infinite Scroll', () => {
         expect(loadSpy).toHaveBeenCalledTimes(2);
     });
 
-    it('should call load with filter value of true if filter input value changes to boolean', async () => {
+    it ('should call load with filter value of true if filter input value changes to boolean', async () => {
+
         component.filterText = true;
 
         fixture.detectChanges();
@@ -91,7 +98,8 @@ describe('Directive - Infinite Scroll', () => {
         expect(loadSpy).toHaveBeenCalledTimes(2);
     });
 
-    it('should call load with filter value of { name: "somebody" } if filter input value changes to object', async () => {
+    it ('should call load with filter value of { name: "somebody" } if filter input value changes to object', async () => {
+
         component.filterText = { name: 'somebody' };
 
         fixture.detectChanges();
@@ -103,6 +111,7 @@ describe('Directive - Infinite Scroll', () => {
 
     // Test Case for https://portal.digitalsafe.net/browse/EL-4093
     it('should not attempt to load a subsequent page if the element is invisible', fakeAsync(async () => {
+
         // hide the component so it has a height of 0 but is still within the DOM
         const nativeElement = fixture.nativeElement as HTMLElement;
         nativeElement.style.display = 'none';
@@ -153,7 +162,8 @@ export class InfiniteScrollTestDelayComponent {
         });
     }
 }
-fdescribe('Directive - Infinite Scroll', () => {
+
+fdescribe('Directive - Infinite Scroll Promise', () => {
     let component: InfiniteScrollTestDelayComponent;
     let fixture: ComponentFixture<InfiniteScrollTestDelayComponent>;
     let loadSpy: jasmine.Spy;
@@ -175,7 +185,7 @@ fdescribe('Directive - Infinite Scroll', () => {
         expect(loadSpy).toHaveBeenCalledTimes(1);
     });
 
-    fit('should allow loading to be triggered after reset, regardless if there are any pending requests', fakeAsync(() => {
+    it('should allow loading to be triggered after reset, regardless if there are any pending requests', fakeAsync(() => {
         component.infiniteScrollDirective.reset(true);
         component.infiniteScrollDirective.check();
 
