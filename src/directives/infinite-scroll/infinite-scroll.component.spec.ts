@@ -149,11 +149,18 @@ export class InfiniteScrollTestDelayComponent {
 
     @ViewChild(InfiniteScrollDirective) infiniteScrollDirective: InfiniteScrollDirective;
 
-    load(pageNum: number, pageSize: number, filter: any): Promise<boolean> {
+    resolved(): void {};
+
+    load(pageNum: number, pageSize: number, filter: any): Promise<any[]> {
+        const items = [];
         return new Promise((resolve, reject) => {
             setTimeout(() => {
-                resolve(true);
+                for (let idx = pageNum * 20; idx < (pageNum + 1) * 20; idx++) {
+                    items.push(`Item ${idx}`);
+                }
             }, 2000);
+            resolve(items);
+            this.resolved();
         });
     }
 
@@ -161,7 +168,7 @@ export class InfiniteScrollTestDelayComponent {
 fdescribe('Directive - Infinite Scroll', () => {
     let component: InfiniteScrollTestDelayComponent;
     let fixture: ComponentFixture<InfiniteScrollTestDelayComponent>;
-    let loadSpy: jasmine.Spy;
+    let resolvedSpy: jasmine.Spy;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
@@ -174,11 +181,11 @@ fdescribe('Directive - Infinite Scroll', () => {
     beforeEach(() => {
         fixture = TestBed.createComponent(InfiniteScrollTestDelayComponent);
         component = fixture.componentInstance;
-        loadSpy = spyOn(component, 'load').and.callThrough().and.returnValue(true);
+        resolvedSpy = spyOn(component, 'resolved');
         fixture.detectChanges();
     });
 
-    fit ('should ', async () => {
+    fit ('should resolve the load function when reset is called during load', async () => {
 
         component.load(0, 0, null);
         component.infiniteScrollDirective.reset();
@@ -186,6 +193,6 @@ fdescribe('Directive - Infinite Scroll', () => {
         fixture.detectChanges();
         await fixture.whenStable();
 
-        expect(loadSpy).toHaveBeenCalledTimes(2);
+        expect(resolvedSpy).toHaveBeenCalledTimes(2);
     });
 });
