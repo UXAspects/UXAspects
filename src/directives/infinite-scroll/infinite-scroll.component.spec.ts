@@ -163,7 +163,7 @@ export class InfiniteScrollTestDelayComponent {
     }
 }
 
-fdescribe('Directive - Infinite Scroll Promise', () => {
+describe('Directive - Infinite Scroll Promise', () => {
     let component: InfiniteScrollTestDelayComponent;
     let fixture: ComponentFixture<InfiniteScrollTestDelayComponent>;
     let loadSpy: jasmine.Spy;
