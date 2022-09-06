@@ -1,6 +1,7 @@
+import { browser } from 'protractor';
 import { InfiniteScrollColumnSortingPage } from './infinite-scroll-column-sorting.po.spec';
 
-describe('Infinite Scroll (Fullscreen) Tests', () => {
+describe('Infinite Scroll (Column Sorting) Tests', () => {
 
     let page: InfiniteScrollColumnSortingPage;
 
@@ -11,9 +12,17 @@ describe('Infinite Scroll (Fullscreen) Tests', () => {
 
     it('should have correct initial states', async () => {
 
-        // 20 visible employees
-        expect(await page.getNumberOfEmployees()).toEqual(20);
+        await page.nameColumn.click();
 
+        // wait for the animations to finish
+        await browser.sleep(250);
+
+        await page.nameColumn.click();
+        expect((await page.employeesRows).length).toBe(0);
+
+        await browser.sleep(1000);
+
+        expect((await page.employeesRows).length).toBe(90);
 
     });
 

@@ -31,7 +31,7 @@ export class InfiniteScrollColumnSortingTestPageComponent {
                 }
                 loadedEmployees = this.sort(loadedEmployees);
                 resolve(loadedEmployees);
-            }, 2000);
+            }, 500);
         });
     }
 

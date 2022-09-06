@@ -39,7 +39,7 @@
             (loadError)="isLoading = false"
             class="list-users-tbody"
         >
-            <tr *ngFor="let employee of employees">
+            <tr *ngFor="let employee of employees" class="employee-row">
                 <td>
                     <span class="user-name"> {{ employee.name }}</span>
                 </td>
