@@ -163,7 +163,7 @@ export class InfiniteScrollTestDelayComponent {
     }
 }
 
-describe('Directive - Infinite Scroll Promise', () => {
+fdescribe('Directive - Infinite Scroll Promise', () => {
     let component: InfiniteScrollTestDelayComponent;
     let fixture: ComponentFixture<InfiniteScrollTestDelayComponent>;
     let loadSpy: jasmine.Spy;
@@ -180,13 +180,12 @@ describe('Directive - Infinite Scroll Promise', () => {
         fixture.detectChanges();
     });
 
-    // checking if promise resolves twice
-    it('should resolve the load function when reset is called during load', () => {
+    it('should initially call load', () => {
         expect(loadSpy).toHaveBeenCalledTimes(1);
     });
 
     it('should allow loading to be triggered after reset, regardless if there are any pending requests', fakeAsync(() => {
-        component.infiniteScrollDirective.reset(true);
+        component.infiniteScrollDirective.reset();
         component.infiniteScrollDirective.check();
 
         // check adds a 200ms auditTime delay
