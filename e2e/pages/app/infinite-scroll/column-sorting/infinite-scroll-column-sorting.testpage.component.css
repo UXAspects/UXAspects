@@ -1,6 +1,6 @@
 .list-users-tbody {
     width: 100%;
-    height: 250px;
+    height: 355px;
     overflow-y: auto;
     border: 1px solid #ddd;
 }
