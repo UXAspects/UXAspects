@@ -76,7 +76,7 @@ export class MenuComponent implements AfterContentInit, OnDestroy, OnChanges {
     readonly _activeItem$ = new BehaviorSubject<MenuItemComponent | MenuTabbableItemDirective>(null);
 
     /** Access allow a close event to propagate all the way up the submenus */
-    readonly _closeAll$ = new Subject<FocusOrigin>();
+    readonly _closeAll$ = new Subject<FocusOrigin | 'tabout'>();
 
     /** Emit keyboard events */
     readonly _onKeydown$ = new Subject<KeyboardEvent>();
@@ -169,16 +169,26 @@ export class MenuComponent implements AfterContentInit, OnDestroy, OnChanges {
         this._placement$.complete();
     }
 
+    check(event) {
+        console.log(event)
+
+        if (event === null) {
+            this._closeAll$.next('tabout');
+            // focus the trigger button and then focus next item
+        }
+    }
+
     /** Set whether this menu should close when it loses focus */
     setCloseOnBlur(): void {
-        this._keyManager.tabOut.subscribe(() => {
+        // this._keyManager.tabOut.pipe().subscribe((origin) => {
 
-            console.log(this._isFocused$.getValue())
-            if (!this._isFocused$.getValue()) {
-                this._closeAll$.next('keyboard');
-            }
+        //     // console.lo
 
-        });
+        //     if (!this._isFocused$.getValue()) {
+        //         this._closeAll$.next(origin as FocusOrigin);
+        //     }
+
+        // });
     }
 
     /** Register a menu item - we do this do avoid `@ContentChildren` detecting submenu items */
@@ -268,10 +278,10 @@ export class MenuComponent implements AfterContentInit, OnDestroy, OnChanges {
     }
 
     _onBlur(event): void {
+        console.log('file: menu.component.ts ~ line 278 ~ MenuComponent ~ _onBlur ~ event', event);
 
         if (event.relatedTarget === null) {
             this._isFocused$.next(false);
-            console.log('isFocused false')
         }
     }
 

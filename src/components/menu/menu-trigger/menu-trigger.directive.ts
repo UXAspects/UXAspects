@@ -129,7 +129,17 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
 
         // propagate the close event if it is triggered
         this.menu._closeAll$.pipe(takeUntil(this._onDestroy$))
-            .subscribe(origin => this.closeMenu(origin, true));
+            .subscribe(origin => {
+                if (origin === 'tabout') {
+                    console.log('tabot here', this._elementRef.nativeElement);
+                    this.closeMenu('keyboard' as FocusOrigin, true);
+                    // this._focusIndicator.focus();
+                    this.focusNextElement();
+
+                } else {
+                    this.closeMenu(origin as FocusOrigin, true);
+                }
+            });
 
         // handle keyboard events in the menu
         this.menu._onKeydown$.pipe(takeUntil(this._onDestroy$))
@@ -149,6 +159,28 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
         this.destroyMenu();
         this._onDestroy$.next();
         this._onDestroy$.complete();
+    }
+
+    focusNextElement() {
+        //add all elements we want to include in our selection
+        const focussableElements = 'a:not([disabled]), button:not([disabled]), input[type=text]:not([disabled]), [tabindex]:not([disabled]):not([tabindex="-1"])';
+        console.log('active ELement', document.activeElement)
+        if (document.activeElement) {
+            const focussable = Array.prototype.filter.call(document.querySelectorAll(focussableElements),
+            function(element) {
+                console.log('file: menu-trigger.directive.ts ~ line 171 ~ MenuTriggerDirective ~ focusNextElement ~ element', element);
+                //check for visibility while always include the current activeElement
+                return element.offsetWidth > 0 || element.offsetHeight > 0 || element === document.activeElement;
+            });
+            const index = focussable.indexOf(document.activeElement);
+            console.log('file: menu-trigger.directive.ts ~ line 177 ~ MenuTriggerDirective ~ focusNextElement ~ focussable', focussable);
+            console.log('file: menu-trigger.directive.ts ~ line 175 ~ MenuTriggerDirective ~ focusNextElement ~ index', index);
+            if(index > -1) {
+               const nextElement = focussable[index + 1] || focussable[0];
+               console.log('file: menu-trigger.directive.ts ~ line 176 ~ MenuTriggerDirective ~ focusNextElement ~ nextElement', nextElement);
+               nextElement.focus();
+            }
+        }
     }
 
     /** Open the menu */

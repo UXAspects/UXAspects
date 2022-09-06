@@ -80,7 +80,7 @@ export class MenuItemComponent implements OnInit, OnDestroy, FocusableOption {
         private readonly _menu: MenuComponent,
         private readonly _elementRef: ElementRef<HTMLElement>,
         private readonly _focusIndicatorService: FocusIndicatorService,
-        private readonly _renderer: Renderer2
+        private readonly _renderer: Renderer2,
     ) { }
 
     ngOnInit(): void {
