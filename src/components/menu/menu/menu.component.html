@@ -14,10 +14,10 @@
         (mouseover)="_onHoverStart()"
         (mouseleave)="_onHoverEnd()"
         (focusin)="_onFocus()"
-        (focusout)="_onBlur($event)"
+        (focusout)="_onBlur()"
         cdkMonitorSubtreeFocus
-        cdkTrapFocus
-        (cdkFocusChange)="check($event)">
+        [cdkTrapFocus]="_closeOnBlur"
+        (cdkFocusChange)="_focusChange($event)">
         <ng-content></ng-content>
     </div>
 </ng-template>

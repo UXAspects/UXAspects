@@ -131,9 +131,7 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
         this.menu._closeAll$.pipe(takeUntil(this._onDestroy$))
             .subscribe(origin => {
                 if (origin === 'tabout') {
-                    console.log('tabot here', this._elementRef.nativeElement);
                     this.closeMenu('keyboard' as FocusOrigin, true);
-                    // this._focusIndicator.focus();
                     this.focusNextElement();
 
                 } else {
@@ -161,23 +159,23 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
         this._onDestroy$.complete();
     }
 
+    /** Focus the next focusable element */
     focusNextElement() {
-        //add all elements we want to include in our selection
-        const focussableElements = 'a:not([disabled]), button:not([disabled]), input[type=text]:not([disabled]), [tabindex]:not([disabled]):not([tabindex="-1"])';
-        console.log('active ELement', document.activeElement)
+        // add elements we want to include in our selection
+        const focusableElements = 'a:not([disabled]), button:not([disabled]), input:not([disabled]), [tabindex]:not([disabled]):not([tabindex="-1"])';
+
         if (document.activeElement) {
-            const focussable = Array.prototype.filter.call(document.querySelectorAll(focussableElements),
-            function(element) {
-                console.log('file: menu-trigger.directive.ts ~ line 171 ~ MenuTriggerDirective ~ focusNextElement ~ element', element);
-                //check for visibility while always include the current activeElement
-                return element.offsetWidth > 0 || element.offsetHeight > 0 || element === document.activeElement;
-            });
-            const index = focussable.indexOf(document.activeElement);
-            console.log('file: menu-trigger.directive.ts ~ line 177 ~ MenuTriggerDirective ~ focusNextElement ~ focussable', focussable);
-            console.log('file: menu-trigger.directive.ts ~ line 175 ~ MenuTriggerDirective ~ focusNextElement ~ index', index);
-            if(index > -1) {
-               const nextElement = focussable[index + 1] || focussable[0];
-               console.log('file: menu-trigger.directive.ts ~ line 176 ~ MenuTriggerDirective ~ focusNextElement ~ nextElement', nextElement);
+            const focusable = Array.prototype.filter.call(document.querySelectorAll(focusableElements),
+                (element) => {
+                    //check for visibility while always include the current activeElement
+                    return element.offsetWidth > 0 || element.offsetHeight > 0 || element === document.activeElement;
+                }
+            );
+
+            const index = focusable.indexOf(document.activeElement);
+
+            if (index > -1) {
+               const nextElement = focusable[index + 1] || focusable[0];
                nextElement.focus();
             }
         }
@@ -191,7 +189,7 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
         }
 
         if (this.closeOnBlur) {
-            this.menu.setCloseOnBlur();
+            this.menu._closeOnBlur = true;
         }
 
         // get or create an overlayRef

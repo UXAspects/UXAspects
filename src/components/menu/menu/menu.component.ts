@@ -72,6 +72,9 @@ export class MenuComponent implements AfterContentInit, OnDestroy, OnChanges {
     /** Handle keyboard interactions */
     _keyManager: FocusKeyManager<MenuItemComponent | MenuTabbableItemDirective>;
 
+    /** Whether this menu should close when it loses focus */
+    _closeOnBlur: boolean = false;
+
     /** Emit when the focused item changes (we use this as the key manager is not instantiated until a late lifecycle hook) */
     readonly _activeItem$ = new BehaviorSubject<MenuItemComponent | MenuTabbableItemDirective>(null);
 
@@ -169,28 +172,6 @@ export class MenuComponent implements AfterContentInit, OnDestroy, OnChanges {
         this._placement$.complete();
     }
 
-    check(event) {
-        console.log(event)
-
-        if (event === null) {
-            this._closeAll$.next('tabout');
-            // focus the trigger button and then focus next item
-        }
-    }
-
-    /** Set whether this menu should close when it loses focus */
-    setCloseOnBlur(): void {
-        // this._keyManager.tabOut.pipe().subscribe((origin) => {
-
-        //     // console.lo
-
-        //     if (!this._isFocused$.getValue()) {
-        //         this._closeAll$.next(origin as FocusOrigin);
-        //     }
-
-        // });
-    }
-
     /** Register a menu item - we do this do avoid `@ContentChildren` detecting submenu items */
     _addItem(item: MenuItemComponent | MenuTabbableItemDirective): void {
         if (!this.hasItem(item)) {
@@ -238,6 +219,13 @@ export class MenuComponent implements AfterContentInit, OnDestroy, OnChanges {
     }
 
     /** Track the animation state */
+    _focusChange(event) {
+        if (event === null && this._closeOnBlur) {
+            this._closeAll$.next('tabout');
+        }
+    }
+
+    /** Track the animation state */
     _onAnimationStart(): void {
         this._isAnimating = true;
     }
@@ -277,12 +265,8 @@ export class MenuComponent implements AfterContentInit, OnDestroy, OnChanges {
         this._isFocused$.next(true);
     }
 
-    _onBlur(event): void {
-        console.log('file: menu.component.ts ~ line 278 ~ MenuComponent ~ _onBlur ~ event', event);
-
-        if (event.relatedTarget === null) {
-            this._isFocused$.next(false);
-        }
+    _onBlur(): void {
+        this._isFocused$.next(false);
     }
 
 }
