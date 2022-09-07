@@ -1,4 +1,4 @@
-import { $, $$, browser } from 'protractor';
+import { $$, browser } from 'protractor';
 import { InfiniteScrollPage } from '../standard/infinite-scroll.po.spec';
 
 export class InfiniteScrollColumnSortingPage extends InfiniteScrollPage {
@@ -7,7 +7,6 @@ export class InfiniteScrollColumnSortingPage extends InfiniteScrollPage {
         await browser.get('#/infinite-scroll/column-sorting');
     }
 
-    nameColumn = $('#users-name');
     employeesRows = $$('.employee-row');
-
+    clickSortTwice = $$('#click-sort-twice');
 }

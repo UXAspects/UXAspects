@@ -3,6 +3,7 @@
         <thead>
             <tr uxColumnSorting singleSort="true">
                 <th
+                    #userNameSort
                     id="users-name"
                     class="clickable column-sorting"
                     (click)="changeSortingOrder(nameColumn)"
@@ -55,3 +56,7 @@
         </tbody>
     </table>
 </div>
+
+<br />
+
+<button class="btn button-primary" id="click-sort-twice" (click)="clickSortTwice()">Click sort twice</button>

@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { async, ComponentFixture, fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
+import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { InfiniteScrollDirective } from './infinite-scroll.directive';
 import { InfiniteScrollModule } from './infinite-scroll.module';
@@ -131,68 +131,5 @@ describe('Directive - Infinite Scroll', () => {
         tick(200);
 
         expect(loadSpy).not.toHaveBeenCalled();
-    }));
-});
-
-@Component({
-    template: `
-        <div
-            style="height: 200px; overflow: auto;"
-            [uxInfiniteScroll]="load"
-            [pageSize]="20"
-            [loadOnScroll]="true"
-        >
-            <!-- Increase scroll height -->
-            <div style="height: 220px;"></div>
-        </div>
-    `,
-})
-export class InfiniteScrollTestDelayComponent {
-    @ViewChild(InfiniteScrollDirective) infiniteScrollDirective: InfiniteScrollDirective;
-
-    load(pageNum: number): Promise<any[]> {
-        const items = [];
-        return new Promise(resolve => {
-            setTimeout(() => {
-                for (let idx = pageNum * 20; idx < (pageNum + 1) * 20; idx++) {
-                    items.push(`Item ${idx}`);
-                }
-                resolve(items);
-            }, 2000);
-        });
-    }
-}
-
-fdescribe('Directive - Infinite Scroll Promise', () => {
-    let component: InfiniteScrollTestDelayComponent;
-    let fixture: ComponentFixture<InfiniteScrollTestDelayComponent>;
-    let loadSpy: jasmine.Spy;
-
-    beforeEach(async () => {
-        await TestBed.configureTestingModule({
-            imports: [InfiniteScrollModule, FormsModule],
-            declarations: [InfiniteScrollTestDelayComponent],
-        }).compileComponents();
-
-        fixture = TestBed.createComponent(InfiniteScrollTestDelayComponent);
-        component = fixture.componentInstance;
-        loadSpy = spyOn(component, 'load').and.callThrough();
-        fixture.detectChanges();
-    });
-
-    it('should initially call load', () => {
-        expect(loadSpy).toHaveBeenCalledTimes(1);
-    });
-
-    it('should allow loading to be triggered after reset, regardless if there are any pending requests', fakeAsync(() => {
-        component.infiniteScrollDirective.reset();
-        component.infiniteScrollDirective.check();
-
-        // check adds a 200ms auditTime delay
-        tick(200);
-
-        expect(loadSpy).toHaveBeenCalledTimes(2);
-
-        flush();
     }));
 });

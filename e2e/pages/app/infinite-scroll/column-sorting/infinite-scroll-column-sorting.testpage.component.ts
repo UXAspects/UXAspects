@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ColumnSortingComponent, ColumnSortingOrder, ColumnSortingState, InfiniteScrollDirective } from '@ux-aspects/ux-aspects';
 
 @Component({
@@ -9,6 +9,7 @@ import { ColumnSortingComponent, ColumnSortingOrder, ColumnSortingState, Infinit
 export class InfiniteScrollColumnSortingTestPageComponent {
 
     @ViewChild('listEmployees') loadedEmployees: InfiniteScrollDirective;
+    @ViewChild('userNameSort') userNameSort: ElementRef;
 
     loadCallback = this.load.bind(this);
     isLoading = false;
@@ -54,5 +55,12 @@ export class InfiniteScrollColumnSortingTestPageComponent {
             users?.sort((a, b) => (a[this.sortBy] > b[this.sortBy] ? -1 : 1));
         }
         return users;
+    }
+
+    clickSortTwice(): void {
+        this.userNameSort.nativeElement.click();
+        setTimeout(() => {
+            this.userNameSort.nativeElement.click();
+        }, 250);
     }
 }

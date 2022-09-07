@@ -1,4 +1,3 @@
-import { browser } from 'protractor';
 import { InfiniteScrollColumnSortingPage } from './infinite-scroll-column-sorting.po.spec';
 
 describe('Infinite Scroll (Column Sorting) Tests', () => {
@@ -10,20 +9,9 @@ describe('Infinite Scroll (Column Sorting) Tests', () => {
         await page.getPage();
     });
 
-    it('should have correct initial states', async () => {
-
-        await page.nameColumn.click();
-
-        // wait for the animations to finish
-        await browser.sleep(250);
-
-        await page.nameColumn.click();
-        expect((await page.employeesRows).length).toBe(0);
-
-        await browser.sleep(1000);
+    it('should allow loading to be triggered after reset, regardless if there are any pending requests', async () => {
+        await page.clickSortTwice.click();
 
         expect((await page.employeesRows).length).toBe(90);
-
     });
-
 });
