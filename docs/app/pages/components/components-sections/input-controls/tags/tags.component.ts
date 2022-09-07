@@ -4,7 +4,7 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
 import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
-import { DOCUMENTATION_TOKEN, DocumentationType } from '../../../../../tokens/documentation.token';
+import { DocumentationType, DOCUMENTATION_TOKEN } from '../../../../../tokens/documentation.token';
 
 @Component({
     selector: 'uxd-components-tags',
@@ -31,6 +31,7 @@ export class ComponentsTagsComponent extends BaseDocumentationSection implements
     minTags: number = 1;
     maxTags: number = 10;
     tagPatternRegExp: RegExp;
+    ariaLabel: string = 'Tags listbox';
     get tagPattern(): string {
         return this.tagPatternRegExp ? this.tagPatternRegExp.source : '';
     }

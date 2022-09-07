@@ -4,6 +4,7 @@
     [id]="id + '-input'"
     [tags]="_value$ | async"
     (tagsChange)="_multipleOptionSelected($event)"
+    [ariaLabelledby]="ariaLabelledby"
     [(input)]="input"
     [required]="required"
     (inputChange)="onInputChange($event)"
@@ -24,6 +25,7 @@
     [clearButtonAriaLabel]="clearButtonAriaLabel">
 
     <ux-typeahead #multipleTypeahead
+        [ariaLabel]="listboxAriaLabel"
         [id]="id + '-typeahead'"
         [options]="options"
         [filter]="filter$ | async"
@@ -51,20 +53,20 @@
 <div *ngIf="!multiple"
     class="ux-select-container"
     [class.disabled]="disabled"
-    role="combobox"
-    [attr.aria-expanded]="dropdownOpen"
     aria-haspopup="listbox">
 
     <input #singleInput type="text"
         [attr.id]="id + '-input'"
+        [attr.aria-labelledby]="ariaLabelledby"
         class="form-control"
         [required]="required"
         [class.ux-tag-input-clear-inset]="clearButton && allowNull && _hasValue"
         [attr.aria-activedescendant]="highlightedElement?.id"
         aria-autocomplete="list"
+        role="combobox"
         [attr.aria-controls]="id + '-typeahead'"
         [attr.aria-label]="ariaLabel"
-        aria-multiline="false"
+        [attr.aria-expanded]="dropdownOpen"
         [autocomplete]="autocomplete"
         [(ngModel)]="input"
         (ngModelChange)="onInputChange($event)"
@@ -97,6 +99,7 @@
     </div>
 
     <ux-typeahead #singleTypeahead
+        [ariaLabel]="listboxAriaLabel"
         [id]="id + '-typeahead'"
         [active]="_value$ | async"
         [options]="options"

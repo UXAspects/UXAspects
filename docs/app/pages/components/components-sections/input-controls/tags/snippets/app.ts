@@ -21,6 +21,7 @@ export class AppComponent {
     minTags: number = 1;
     maxTags: number = 10;
     tagPatternRegExp: RegExp;
+    ariaLabel: string = 'Tags listbox';
     get tagPattern(): string {
         return this.tagPatternRegExp ? this.tagPatternRegExp.source : '';
     }

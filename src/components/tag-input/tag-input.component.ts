@@ -73,6 +73,9 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
     /** The aria-label to apply to the child `input` element. */
     @Input() ariaLabel: string;
 
+    /** ID of the element which serves as a label for the input element. */
+    @Input() ariaLabelledby: string;
+
     /** Controls the disabled state of the tag input. */
     @Input() disabled: boolean = false;
 

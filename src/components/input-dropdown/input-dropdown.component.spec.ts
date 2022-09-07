@@ -104,7 +104,8 @@ describe('InputDropdownComponent', () => {
             [disabled]="disabled"
             (selectedChange)="onSelectedChange($event)"
             [(selected)]="selected"
-            (dropdownOpenChange)="onOpenChange($event)">
+            (dropdownOpenChange)="onOpenChange($event)"
+            [ariaLabelledby]="ariaLabelledby">
 
             <ng-template #displayContent>
                 <span class="selection"><b>Selection:</b> {{ selected ? selected : '(none)' }}</span>
@@ -125,6 +126,7 @@ export class InputDropdownTestComponent {
     allowNull: boolean = false;
     options: string[] = ['One', 'Two', 'Three'];
     selected: string = null;
+    ariaLabelledby: string;
 
     onSelectedChange(event: any): void { }
 
@@ -278,6 +280,17 @@ describe('InputDropdownComponent', () => {
         await fixture.whenStable();
 
         expect(openChangeSpy).not.toHaveBeenCalled();
+    });
+
+    it('should apply aria-labelledby to the input element', async () => {
+        component.ariaLabelledby = 'test-id';
+        component.dropdownOpen = true;
+
+        fixture.detectChanges();
+        await fixture.whenStable();
+        const input = document.querySelector<HTMLInputElement>('input.form-control');
+
+        expect(input.getAttribute('aria-labelledby')).toContain('test-id');
     });
 
     describe('with allowNull = true', () => {

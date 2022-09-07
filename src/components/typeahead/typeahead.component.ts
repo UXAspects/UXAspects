@@ -19,7 +19,6 @@ let uniqueId = 0;
     providers: [TypeaheadService, PopoverOrientationService],
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
-        'role': 'listbox',
         '[class.open]': 'open',
         '[style.maxHeight]': 'maxHeight'
     }
@@ -81,8 +80,11 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
 
     /** Specify the aria multi selectable attribute value */
     @Input()
-    @HostBinding('attr.aria-multiselectable')
     multiselectable: boolean = false;
+
+    /** Specify the aria label for the listbox */
+    @Input()
+    ariaLabel: string;
 
     /** Specify if the dropdown should appear when the filter appears */
     @Input() openOnFilterChange: boolean = true;

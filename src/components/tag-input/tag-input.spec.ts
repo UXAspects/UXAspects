@@ -135,4 +135,12 @@ describe('Tag Input Component', () => {
         expect(elementsWithId.length).toBe(1);
     });
 
+    it('should apply aria-labelledby to the input element', () => {
+        component.ariaLabelledby = 'test-id';
+        fixture.detectChanges();
+
+        const input = document.querySelector<HTMLInputElement>('input.ux-tag-input');
+
+        expect(input.getAttribute('aria-labelledby')).toContain('test-id');
+    });
 });
