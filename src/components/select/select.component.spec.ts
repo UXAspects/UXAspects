@@ -24,7 +24,8 @@ import { SelectModule } from './select.module';
                    [placeholder]="placeholder"
                    [pageSize]="pageSize"
                    [readonlyInput]="readonlyInput"
-                   [(dropdownOpen)]="dropdownOpen">
+                   [(dropdownOpen)]="dropdownOpen"
+                   [ariaLabelledby]="ariaLabelledby">
         </ux-select>
     `
 })
@@ -42,6 +43,7 @@ export class SelectTestComponent {
     pageSize: number = 20;
     dropdownOpen: boolean = false;
     readonlyInput: boolean = false;
+    ariaLabelledby: string;
 
     onValueChange(): void { }
 
@@ -392,6 +394,23 @@ describe('Select Component', () => {
         fixture.detectChanges();
 
         expect(component.onValueChange).not.toHaveBeenCalled();
+    });
+
+    it('should apply aria-labelledby to the input element', () => {
+        component.ariaLabelledby = 'test-id';
+        fixture.detectChanges();
+        const inputElement = nativeElement.querySelector<HTMLElement>('input.form-control');
+
+        expect(inputElement.getAttribute('aria-labelledby')).toContain('test-id');
+    });
+
+    it('should apply aria-labelledby to the input element when multiple is true', () => {
+        component.multiple = true;
+        component.ariaLabelledby = 'test-id';
+        fixture.detectChanges();
+        const inputElement = nativeElement.querySelector<HTMLElement>('input.ux-tag-input');
+
+        expect(inputElement.getAttribute('aria-labelledby')).toContain('test-id');
     });
 
     function enablePagination(): void {

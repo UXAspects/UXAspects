@@ -40,6 +40,9 @@ export class TypeaheadOptionsListComponent<T> {
     @Input()
     typeaheadElement: ElementRef<HTMLElement>;
 
+    @Input()
+    ariaLabel: string;
+
     @Output()
     optionMouseover = new EventEmitter<TypeaheadOptionDomEvent<T, MouseEvent>>();
 

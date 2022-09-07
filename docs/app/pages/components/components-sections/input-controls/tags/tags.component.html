@@ -21,7 +21,8 @@
                     [disabledOptions]="tags"
                     [dropDirection]="dropDirection"
                     [multiselectable]="true"
-                    [selectFirst]="selectFirst">
+                    [selectFirst]="selectFirst"
+                    [ariaLabel]="ariaLabel">
                 </ux-typeahead>
 
             </ux-tag-input>
@@ -144,6 +145,9 @@
     </tr>
     <tr uxd-api-property name="ariaLabel" type="string">
         The aria-label to apply to the child <code>input</code> element.
+    </tr>
+    <tr uxd-api-property name="ariaLabelledby" type="string">
+        ID of the element which serves as a label for child <code>input</code> element.
     </tr>
     <tr uxd-api-property name="disabled" type="boolean" defaultValue="false">
         Controls the disabled state of the tag input.

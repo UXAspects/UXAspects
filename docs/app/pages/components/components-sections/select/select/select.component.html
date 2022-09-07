@@ -1,6 +1,7 @@
 <div class="row">
     <div class="col-sm-6 col-xs-12">
         <div class="form-group m-nil">
+            <h4 id="ux-select-input-label">Select</h4>
             <ux-select [(value)]="selected"
                 [options]="options"
                 [multiple]="multiple | async"
@@ -16,7 +17,9 @@
                 [clearButton]="clearButton"
                 [(recentOptions)]="recentOptions"
                 [autoCloseDropdown]="autoCloseDropdown"
-                [recentOptionsMaxCount]="recentOptionsMaxCount">
+                [recentOptionsMaxCount]="recentOptionsMaxCount"
+                [listboxAriaLabel]="listboxAriaLabel"
+                ariaLabelledby="ux-select-input-label">
 
                 <ng-template #icon *ngIf="multiple | async">
                     <div class="ux-select-icon">
@@ -198,6 +201,12 @@
     </tr>
     <tr uxd-api-property name="ariaLabel" type="string">
         The aria-label to apply to the child <code>input</code> element.
+    </tr>
+    <tr uxd-api-property name="ariaLabelledby" type="string">
+        ID of the element which serves as a label for the child <code>input</code> element.
+    </tr>
+    <tr uxd-api-property name="listboxAriaLabel" type="string">
+        The aria-label to apply to the <code>ux-typeahead</code> list element.
     </tr>
     <tr uxd-api-property name="disabled" type="boolean" defaultValue="false">
         Controls the disabled state of the tag input. If using a <code>FormControl</code> do not use this input, instead

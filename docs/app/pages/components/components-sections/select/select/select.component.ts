@@ -30,6 +30,7 @@ export class ComponentsSelectComponent extends BaseDocumentationSection implemen
     recentOptions: ReadonlyArray<any>;
     recentOptionsMaxCount: number = 5;
     autoCloseDropdown: boolean = true;
+    listboxAriaLabel: string = 'Select listbox';
 
     private _pageSize = 20;
     private _onDestroy = new Subject<void>();
