@@ -15,6 +15,7 @@
         (mouseleave)="_onHoverEnd()"
         (focusin)="_onFocus()"
         (focusout)="_onBlur()"
+        (keydown)="_onKeyDown($event)"
         cdkMonitorSubtreeFocus
         [cdkTrapFocus]="_closeOnBlur"
         (cdkFocusChange)="_focusChange($event)">

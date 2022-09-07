@@ -1,5 +1,6 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { FocusKeyManager, FocusOrigin } from '@angular/cdk/a11y';
+import { TAB } from '@angular/cdk/keycodes';
 import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, HostBinding, Inject, Input, OnChanges, OnDestroy, Optional, Output, QueryList, SimpleChanges, TemplateRef, ViewChild, ViewRef } from '@angular/core';
 import { BehaviorSubject, merge, Observable, Subject } from 'rxjs';
 import { map, switchMap, takeUntil } from 'rxjs/operators';
@@ -100,6 +101,8 @@ export class MenuComponent implements AfterContentInit, OnDestroy, OnChanges {
     /** Automatically unsubscribe when the component is destroyed */
     private readonly _onDestroy$ = new Subject<void>();
 
+    private readonly _isTabPressed$ = new BehaviorSubject<boolean>(false);
+
     /** Get innerId for use for accessibility  */
     get innerId(): string {
        return `${this.id}-menu`;
@@ -170,6 +173,7 @@ export class MenuComponent implements AfterContentInit, OnDestroy, OnChanges {
         this._activeItem$.complete();
         this._items$.complete();
         this._placement$.complete();
+        this._isTabPressed$.complete();
     }
 
     /** Register a menu item - we do this do avoid `@ContentChildren` detecting submenu items */
@@ -218,9 +222,9 @@ export class MenuComponent implements AfterContentInit, OnDestroy, OnChanges {
         menuOpen ? this.opening.emit() : this.closing.emit();
     }
 
-    /** Track the animation state */
+    /** Close the menu if the focus event is null */
     _focusChange(event) {
-        if (event === null && this._closeOnBlur) {
+        if (event === null && this._closeOnBlur && this._isTabPressed$.getValue()) {
             this._closeAll$.next('tabout');
         }
     }
@@ -268,5 +272,9 @@ export class MenuComponent implements AfterContentInit, OnDestroy, OnChanges {
     _onBlur(): void {
         this._isFocused$.next(false);
     }
+
+    _onKeyDown(event: KeyboardEvent): void {
+        this._isTabPressed$.next(event.keyCode === TAB);
+    };
 
 }

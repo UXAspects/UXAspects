@@ -130,10 +130,9 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
         // propagate the close event if it is triggered
         this.menu._closeAll$.pipe(takeUntil(this._onDestroy$))
             .subscribe(origin => {
-                if (origin === 'tabout') {
-                    this.closeMenu('keyboard' as FocusOrigin, true);
+                if (origin === 'tabout' && this._isRootTrigger) {
+                    this.closeMenu('keyboard', true);
                     this.focusNextElement();
-
                 } else {
                     this.closeMenu(origin as FocusOrigin, true);
                 }
