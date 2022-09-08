@@ -1,13 +1,13 @@
 import { Component, Inject } from '@angular/core';
+import { TypeaheadKeyService } from '@ux-aspects/ux-aspects';
+import 'chance';
+import { of } from 'rxjs';
+import { delay } from 'rxjs/operators';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
 import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
-import 'chance';
-import { DOCUMENTATION_TOKEN, DocumentationType } from '../../../../../tokens/documentation.token';
-import { TypeaheadKeyService } from '@ux-aspects/ux-aspects';
-import { of } from 'rxjs';
-import { delay } from 'rxjs/operators';
+import { DocumentationType, DOCUMENTATION_TOKEN } from '../../../../../tokens/documentation.token';
 
 @Component({
     selector: 'uxd-components-typeahead',
@@ -26,6 +26,7 @@ export class ComponentsTypeaheadComponent extends BaseDocumentationSection imple
     selectFirst: boolean = true;
     recentOptions: ReadonlyArray<string>;
     recentOptionsMaxCount: number = 5;
+    ariaLabel: string = 'Listbox items';
 
     input: string = '';
 

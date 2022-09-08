@@ -12,6 +12,7 @@
             uxFocusIndicator
             type="radio"
             [id]="(id || _radioButtonId) + '-input'"
+            [attr.role]="inputRole"
             [checked]="value === option"
             [disabled]="disabled"
             [tabindex]="tabindex ?? _internalTabindex"

@@ -27,6 +27,9 @@ export class RadioButtonComponent<T = any> implements ControlValueAccessor, OnCh
     /** Specify a form name for the input element */
     @Input() name: string | null;
 
+    /** Specify the role of the input element. */
+    @Input() inputRole: string;
+
     /** This should be a two way binding and will store the currently selected option. Each radio button in the same group should have the same value variable. */
     @Input() value: T;
 
@@ -34,7 +37,7 @@ export class RadioButtonComponent<T = any> implements ControlValueAccessor, OnCh
     @Input() required: boolean;
 
     /** Specify the tabindex */
-     @Input() tabindex: number;
+    @Input() tabindex: number;
 
     /** If set to `true` the radio button will not change state when clicked. */
     @Input() clickable: boolean = true;
