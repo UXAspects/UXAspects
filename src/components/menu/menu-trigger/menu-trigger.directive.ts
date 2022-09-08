@@ -164,14 +164,17 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
         const focusableElements = 'a:not([disabled]), button:not([disabled]), input:not([disabled]), [tabindex]:not([disabled]):not([tabindex="-1"])';
 
         if (document.activeElement) {
-            const focusable = Array.prototype.filter.call(document.querySelectorAll(focusableElements),
-                (element) => {
-                    //check for visibility while always include the current activeElement
-                    return element.offsetWidth > 0 || element.offsetHeight > 0 || element === document.activeElement;
-                }
-            );
 
-            const index = focusable.indexOf(document.activeElement);
+            const focusable: NodeListOf<HTMLElement> = document.querySelectorAll(focusableElements);
+            const suitableElements = [];
+
+            focusable.forEach((element) => {
+                if ((element.offsetWidth > 0 || element.offsetHeight > 0 || element === document.activeElement) && !element.classList.contains('cdk-visually-hidden')) {
+                    suitableElements.push(element);
+                }
+            });
+
+            const index = suitableElements.indexOf(document.activeElement);
 
             if (index > -1) {
                const nextElement = focusable[index + 1] || focusable[0];
