@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import 'chance';
 import { TypeaheadKeyService } from '@ux-aspects/ux-aspects';
+import 'chance';
 import { of } from 'rxjs';
 import { delay } from 'rxjs/operators';
 
@@ -19,6 +19,7 @@ export class AppComponent {
     selectFirst: boolean = true;
     recentOptions: ReadonlyArray<string>;
     recentOptionsMaxCount: number = 5;
+    ariaLabel: string = 'Listbox items';
 
     input: string = '';
 
