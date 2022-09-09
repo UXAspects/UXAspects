@@ -223,6 +223,9 @@ export class InfiniteScrollDirective<T = any> implements OnInit, AfterContentIni
             // Reset the exhausted flag, allowing the Load More button to appear.
             this._isExhausted.next(false);
 
+            // reset the loading state
+            this._isLoading.next(false);
+
             // Cancel any pending requests
             this._subscriptions.forEach(request => request.unsubscribe());
         }
