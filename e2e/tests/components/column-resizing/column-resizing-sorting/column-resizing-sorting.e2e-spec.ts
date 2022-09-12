@@ -1,5 +1,6 @@
-import { ColumnResizingSortingPage } from './column-resizing-sorting.po.spec';
+import { browser, Key } from 'protractor';
 import { imageCompare } from '../../common/image-compare';
+import { ColumnResizingSortingPage } from './column-resizing-sorting.po.spec';
 
 
 describe('Table with Column Resizing and Sorting', () => {
@@ -26,5 +27,11 @@ describe('Table with Column Resizing and Sorting', () => {
 
         expect(await page.getColumnValues('name')).toEqual(['Document', 'Email', 'Email']);
         expect(await imageCompare('column-resize-sort')).toEqual(0);
+    });
+
+    it ('should show the entire focus ring when focusing on the table column', async () => {
+        await browser.actions().sendKeys(Key.TAB).perform();
+
+        expect(await imageCompare('column-resize-sort-focus-ring')).toEqual(0);
     });
 });
