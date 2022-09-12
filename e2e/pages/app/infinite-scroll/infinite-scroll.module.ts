@@ -2,10 +2,11 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { AccordionModule, CheckboxModule, InfiniteScrollModule, NumberPickerModule, AccessibilityModule } from '@ux-aspects/ux-aspects';
+import { AccessibilityModule, AccordionModule, CheckboxModule, ColumnSortingModule, InfiniteScrollModule, NumberPickerModule } from '@ux-aspects/ux-aspects';
+import { InfiniteScrollColumnSortingTestPageComponent } from './column-sorting/infinite-scroll-column-sorting.testpage.component';
 import { InfiniteScrollFullscreenTestPageComponent } from './fullscreen/infinite-scroll-fullscreen.testpage.component';
-import { InfiniteScrollTestPageComponent } from './standard/infinite-scroll.testpage.component';
 import { InfiniteScrollImmediateTestPageComponent } from './immediate/infinite-scroll-immediate.testpage.component';
+import { InfiniteScrollTestPageComponent } from './standard/infinite-scroll.testpage.component';
 
 @NgModule({
     imports: [
@@ -16,6 +17,7 @@ import { InfiniteScrollImmediateTestPageComponent } from './immediate/infinite-s
         CommonModule,
         FormsModule,
         InfiniteScrollModule,
+        ColumnSortingModule,
         RouterModule.forChild([
             {
                 path: '',
@@ -28,6 +30,10 @@ import { InfiniteScrollImmediateTestPageComponent } from './immediate/infinite-s
             {
                 path: 'immediate',
                 component: InfiniteScrollImmediateTestPageComponent
+            },
+            {
+                path: 'column-sorting',
+                component: InfiniteScrollColumnSortingTestPageComponent
             }
         ])
     ],
@@ -35,6 +41,7 @@ import { InfiniteScrollImmediateTestPageComponent } from './immediate/infinite-s
         InfiniteScrollTestPageComponent,
         InfiniteScrollFullscreenTestPageComponent,
         InfiniteScrollImmediateTestPageComponent,
+        InfiniteScrollColumnSortingTestPageComponent
     ]
 })
 export class InfiniteScrollTestPageModule { }

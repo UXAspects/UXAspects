@@ -1,8 +1,8 @@
-import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
-import { InfiniteScrollModule } from './infinite-scroll.module';
 import { Component, ViewChild } from '@angular/core';
+import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { InfiniteScrollDirective } from './infinite-scroll.directive';
+import { InfiniteScrollModule } from './infinite-scroll.module';
 
 @Component({
     template: `<div [uxInfiniteScroll]="load"
