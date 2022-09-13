@@ -3,7 +3,7 @@ import { BooleanInput, coerceBooleanProperty } from '@angular/cdk/coercion';
 import { DOWN_ARROW, LEFT_ARROW, RIGHT_ARROW, UP_ARROW } from '@angular/cdk/keycodes';
 import { Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
-import { ContentChildren, Directive, ElementRef, HostListener, Input, OnDestroy, OnInit, Optional, QueryList, Self, ViewContainerRef } from '@angular/core';
+import { ContentChildren, Directive, ElementRef, EventEmitter, HostListener, Input, OnDestroy, OnInit, Optional, Output, QueryList, Self, ViewContainerRef } from '@angular/core';
 import { combineLatest, merge, Observable, of, Subject, timer } from 'rxjs';
 import { debounceTime, filter, take, takeUntil } from 'rxjs/operators';
 import { AnchorPlacement } from '../../../common/overlay/anchor-placement';
@@ -41,6 +41,9 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
     get closeOnBlur(): boolean {
         return this._closeOnBlur;
     }
+
+    /** Emit when the menu is closed */
+    @Output() readonly closed = new EventEmitter<void>();
 
     /** Reference to the portal based off the MenuCompont templateRef */
     private _portal: TemplatePortal;
@@ -131,8 +134,7 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
         this.menu._closeAll$.pipe(takeUntil(this._onDestroy$))
             .subscribe(origin => {
                 if (origin === 'tabout' && this._isRootTrigger) {
-                    this.closeMenu('keyboard', true);
-                    this.focusNextElement();
+                    this.closeMenu('keyboard', true, true, true);
                 } else {
                     this.closeMenu(origin as FocusOrigin, true);
                 }
@@ -235,7 +237,7 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
     }
 
     /** Close a menu or submenu */
-    closeMenu(origin?: FocusOrigin, closeParents: boolean = false, focusTrigger: boolean = true): Observable<void> {
+    closeMenu(origin?: FocusOrigin, closeParents: boolean = false, focusTrigger: boolean = true, focusNextElement: boolean = false): Observable<void> {
 
         if (!this._overlayRef.hasAttached()) {
             return;
@@ -258,6 +260,11 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
             this._focusIndicator.focus(origin);
         }
 
+        if (focusNextElement) {
+            this.focusNextElement();
+        }
+
+        this.closed.emit();
         return this.menu.closed;
     }
 

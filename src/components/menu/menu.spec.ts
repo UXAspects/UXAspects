@@ -467,7 +467,8 @@ describe('MenuComponent', () => {
             <button
                 type="button"
                 class="btn button-secondary dropdown-toggle"
-                [uxMenuTriggerFor]="menu">
+                [uxMenuTriggerFor]="menu"
+                (closed)="closed()">
                 Actions
             </button>
         </div>
@@ -495,6 +496,7 @@ export class MenuTriggerDestroyTestComponent {
 
     trigger: MenuTriggerDirective;
     onActivate(_: MouseEvent | KeyboardEvent): void { }
+    closed(): void { }
 
     showTrigger: boolean = true;
     closeOnSelect: boolean = true;
@@ -590,6 +592,26 @@ describe('MenuTriggerDestroyTestComponent', () => {
 
         expect(document.querySelector('.ux-menu').getAttribute('id')).toBe('ux-menu-1-menu');
         expect(document.querySelector('ux-menu').getAttribute('id')).toBe('ux-menu-1');
+    });
+
+    it('should emit closed when the menu has closed', async () => {
+        spyOn(component, 'closed');
+        // open menu
+        component.trigger.openMenu();
+
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        // close menu by clicking on an item
+        const items = document.querySelectorAll<HTMLButtonElement>(
+            'button[uxmenuitem]'
+        );
+
+        items.item(1).click();
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        expect(component.closed).toHaveBeenCalledTimes(1);
     });
 
 });
