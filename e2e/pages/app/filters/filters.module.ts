@@ -2,20 +2,8 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { AccessibilityModule, CheckboxModule, FilterModule, IconModule, MenuModule, SparkModule } from '@ux-aspects/ux-aspects';
-import { FiltersCloseOnBlurTestPageComponent } from './closeOnBlur/filters-closeonblur.testpage.component';
 import { FiltersTestPageComponent } from './filters.testpage.component';
 
-
-const ROUTES = [
-    {
-        path: '',
-        component: FiltersTestPageComponent,
-    },
-    {
-        path: 'close-on-blur',
-        component: FiltersCloseOnBlurTestPageComponent
-    }
-];
 @NgModule({
     imports: [
         CommonModule,
@@ -25,11 +13,13 @@ const ROUTES = [
         IconModule,
         CheckboxModule,
         MenuModule.forChild({ animate: false }),
-        RouterModule.forChild(ROUTES)
+        RouterModule.forChild([
+            {
+                path: '',
+                component: FiltersTestPageComponent
+            }
+        ])
     ],
-    declarations: [
-        FiltersTestPageComponent,
-        FiltersCloseOnBlurTestPageComponent
-    ]
+    declarations: [FiltersTestPageComponent]
 })
 export class FiltersTestPageModule { }

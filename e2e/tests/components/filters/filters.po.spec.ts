@@ -11,11 +11,13 @@ export class FiltersPage {
     statusMenu = element(by.id('statusMenu'));
     title = element(by.id('tableTitle'));
     table = element(by.id('tableRow'));
+    topFocus = $('#top-focus');
+    closeOnBlur = $('#closeOnBlur');
 
     // confirm
     confirmClassExists(item: ElementFinder, soughtClass: string) {
-        return item.getAttribute('class').then(function (classes: string) {
-            var allClasses = classes.split(' ');
+        return item.getAttribute('class').then(function(classes: string) {
+            const allClasses = classes.split(' ');
             if (allClasses.indexOf(soughtClass) > -1) {
                 return true;
             } else {
@@ -169,4 +171,8 @@ export class FiltersPage {
     async closeMenus() {
         return $$('.cdk-overlay-backdrop.cdk-overlay-backdrop-showing').click();
     }
+
+    async activeElementClasses(): Promise<string> {
+        return await browser.driver.switchTo().activeElement().getAttribute('class');
+    };
 }

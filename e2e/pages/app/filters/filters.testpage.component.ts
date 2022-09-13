@@ -1,5 +1,5 @@
-import { ColorService, Filter, FilterEvent, FilterRemoveEvent, FilterAddEvent, FilterRemoveAllEvent } from '@ux-aspects/ux-aspects';
 import { Component } from '@angular/core';
+import { ColorService, Filter, FilterAddEvent, FilterEvent, FilterRemoveAllEvent, FilterRemoveEvent } from '@ux-aspects/ux-aspects';
 
 @Component({
     selector: 'app',
@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
 })
 export class FiltersTestPageComponent {
 
-   activeFilters: Filter[] = [];  
+   activeFilters: Filter[] = [];
 
     table: FilterSampleItem[] = [{
         id: 1,
@@ -131,6 +131,8 @@ export class FiltersTestPageComponent {
     sparkTrackColor: string = this.colorService.getColor('accent').setAlpha(0.2).toRgba();
     sparkBarColor: string = this.colorService.getColor('accent').toHex();
 
+    closeOnBlur: boolean = false;
+
     constructor(private colorService: ColorService) { }
 
     filtersChanged(event: FilterEvent) {
@@ -179,7 +181,6 @@ export class FiltersTestPageComponent {
 
         this.activeFilters.push(filter);
     }
-
 }
 
 interface FilterSampleItem {
