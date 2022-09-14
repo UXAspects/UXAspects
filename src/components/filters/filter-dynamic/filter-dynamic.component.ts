@@ -1,5 +1,5 @@
 import { BooleanInput, coerceBooleanProperty } from '@angular/cdk/coercion';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { filter as rxFilter, takeUntil } from 'rxjs/operators';
 import { TypeaheadKeyService, TypeaheadOptionEvent } from '../../typeahead/index';
@@ -47,6 +47,9 @@ export class FilterDynamicComponent implements OnInit, OnDestroy {
     get options(): FilterDynamicListConfig {
         return { ...this._defaultOptions, ...this._options };
     }
+
+    /** Emit when the filter menu is closed */
+    @Output() readonly closed = new EventEmitter<void>();
 
     /** Generate a unique id for the typeahead */
     typeaheadId: string = `ux-filter-dynamic-typeahead-${ this._uniqueId }`;

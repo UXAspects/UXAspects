@@ -1,5 +1,5 @@
 import { BooleanInput, coerceBooleanProperty } from '@angular/cdk/coercion';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { Subject } from 'rxjs';
 import { filter as rxFilter, takeUntil } from 'rxjs/operators';
 import { FilterRemoveAllEvent } from '../events/filter-remove-all-event';
@@ -35,6 +35,9 @@ export class FilterDropdownComponent implements OnInit, OnDestroy {
     get closeOnBlur(): boolean {
         return this._closeOnBlur;
     }
+
+    /** Emit when the filter menu is closed */
+    @Output() readonly closed = new EventEmitter<void>();
 
     selected: Filter;
 

@@ -179,7 +179,7 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
             const index = suitableElements.indexOf(document.activeElement);
 
             if (index > -1) {
-               const nextElement = focusable[index + 1] || focusable[0];
+               const nextElement = suitableElements[index + 1] || focusable[0];
                nextElement.focus();
             }
         }
@@ -192,9 +192,7 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
             return;
         }
 
-        if (this.closeOnBlur) {
-            this.menu._closeOnBlur = true;
-        }
+        this.menu._closeOnBlur = this.closeOnBlur;
 
         // get or create an overlayRef
         const overlayRef = this.getOverlay();

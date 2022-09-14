@@ -5,7 +5,8 @@
         [id]="filterId + '-trigger'"
         [class.active]="selected !== initial"
         [uxMenuTriggerFor]="menu"
-        [closeOnBlur]="closeOnBlur">
+        [closeOnBlur]="closeOnBlur"
+        (closed)="closed.emit()">
         {{ selected?.group }}
         <span class="filter-header" *ngIf="selected !== initial">
             ({{ selected?.name }})
