@@ -3,6 +3,7 @@
 
     .ux-resizable-table-column {
         position: relative;
+        overflow: hidden;
 
         &:last-of-type {
             .ux-resizable-table-column-handle {
@@ -17,11 +18,16 @@
 
     .ux-resizable-table-column {
         position: relative;
+        overflow: hidden;
     }
 }
 
 .ux-resizable-table-column {
     justify-content: space-between;
+
+    &.cdk-keyboard-focused .ux-resizable-table-column-handle {
+        background-color: transparent;
+    }
 }
 
 .ux-resizable-table-column-handle {
