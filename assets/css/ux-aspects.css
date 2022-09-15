@@ -1,5 +1,5 @@
 /*
- * @ux-aspects/ux-aspects - v6.3.0-441
+ * @ux-aspects/ux-aspects - v6.4.0-448
  * © Copyright 2022 EntIT Software LLC, a Micro Focus company
  */
 .cdk-overlay-container,
@@ -11081,6 +11081,7 @@ ux-wizard.vertical .wizard-body .wizard-content {
 }
 .ux-resizable-table .ux-resizable-table-column {
   position: relative;
+  overflow: hidden;
 }
 .ux-resizable-table .ux-resizable-table-column:last-of-type .ux-resizable-table-column-handle {
   display: none;
@@ -11090,9 +11091,13 @@ ux-wizard.vertical .wizard-body .wizard-content {
 }
 .ux-resizable-expanding-table .ux-resizable-table-column {
   position: relative;
+  overflow: hidden;
 }
 .ux-resizable-table-column {
   justify-content: space-between;
+}
+.ux-resizable-table-column.cdk-keyboard-focused .ux-resizable-table-column-handle {
+  background-color: transparent;
 }
 .ux-resizable-table-column-handle {
   content: '';
