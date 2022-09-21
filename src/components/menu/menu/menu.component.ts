@@ -1,8 +1,9 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { FocusKeyManager, FocusOrigin } from '@angular/cdk/a11y';
+import { TAB } from '@angular/cdk/keycodes';
 import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, HostBinding, Inject, Input, OnChanges, OnDestroy, Optional, Output, QueryList, SimpleChanges, TemplateRef, ViewChild, ViewRef } from '@angular/core';
 import { BehaviorSubject, merge, Observable, Subject } from 'rxjs';
-import { map, switchMap, take, takeUntil } from 'rxjs/operators';
+import { map, switchMap, takeUntil } from 'rxjs/operators';
 import { AnchorAlignment, AnchorPlacement } from '../../../common/overlay/index';
 import { MenuItemType } from '../menu-item/menu-item-type.enum';
 import { MenuItemComponent } from '../menu-item/menu-item.component';
@@ -72,11 +73,14 @@ export class MenuComponent implements AfterContentInit, OnDestroy, OnChanges {
     /** Handle keyboard interactions */
     _keyManager: FocusKeyManager<MenuItemComponent | MenuTabbableItemDirective>;
 
+    /** Whether this menu should close when it loses focus */
+    _closeOnBlur: boolean = false;
+
     /** Emit when the focused item changes (we use this as the key manager is not instantiated until a late lifecycle hook) */
     readonly _activeItem$ = new BehaviorSubject<MenuItemComponent | MenuTabbableItemDirective>(null);
 
     /** Access allow a close event to propagate all the way up the submenus */
-    readonly _closeAll$ = new Subject<FocusOrigin>();
+    readonly _closeAll$ = new Subject<FocusOrigin | 'tabout'>();
 
     /** Emit keyboard events */
     readonly _onKeydown$ = new Subject<KeyboardEvent>();
@@ -96,6 +100,8 @@ export class MenuComponent implements AfterContentInit, OnDestroy, OnChanges {
 
     /** Automatically unsubscribe when the component is destroyed */
     private readonly _onDestroy$ = new Subject<void>();
+
+    private _isTabPressed = false;
 
     /** Get innerId for use for accessibility  */
     get innerId(): string {
@@ -169,11 +175,6 @@ export class MenuComponent implements AfterContentInit, OnDestroy, OnChanges {
         this._placement$.complete();
     }
 
-    /** Set whether this menu should close when it loses focus */
-    setCloseOnBlur(): void {
-        this._keyManager.tabOut.pipe(take(1)).subscribe(() => this._closeAll$.next('keyboard'));
-    }
-
     /** Register a menu item - we do this do avoid `@ContentChildren` detecting submenu items */
     _addItem(item: MenuItemComponent | MenuTabbableItemDirective): void {
         if (!this.hasItem(item)) {
@@ -220,6 +221,13 @@ export class MenuComponent implements AfterContentInit, OnDestroy, OnChanges {
         menuOpen ? this.opening.emit() : this.closing.emit();
     }
 
+    /** Close the menu if the focus event is null */
+    _focusChange(event) {
+        if (event === null && this._closeOnBlur && this._isTabPressed) {
+            this._closeAll$.next('tabout');
+        }
+    }
+
     /** Track the animation state */
     _onAnimationStart(): void {
         this._isAnimating = true;
@@ -263,5 +271,9 @@ export class MenuComponent implements AfterContentInit, OnDestroy, OnChanges {
     _onBlur(): void {
         this._isFocused$.next(false);
     }
+
+    _onKeyDown(event: KeyboardEvent): void {
+        this._isTabPressed = event.keyCode === TAB;
+    };
 
 }

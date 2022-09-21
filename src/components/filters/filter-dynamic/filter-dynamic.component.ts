@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { BooleanInput, coerceBooleanProperty } from '@angular/cdk/coercion';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { filter as rxFilter, takeUntil } from 'rxjs/operators';
 import { TypeaheadKeyService, TypeaheadOptionEvent } from '../../typeahead/index';
@@ -28,6 +29,15 @@ export class FilterDynamicComponent implements OnInit, OnDestroy {
     /** Specify if there should be an initially selected filter */
     @Input() initial: Filter;
 
+    /** Defined the closeOnBlur state for the ux-menu trigger */
+    @Input() set closeOnBlur(value: boolean) {
+        this._closeOnBlur = coerceBooleanProperty(value);
+    }
+
+    get closeOnBlur(): boolean {
+        return this._closeOnBlur;
+    }
+
     /** Specify the typeahead options */
     @Input() set options(options: FilterDynamicListConfig) {
         this._options = options;
@@ -37,6 +47,9 @@ export class FilterDynamicComponent implements OnInit, OnDestroy {
     get options(): FilterDynamicListConfig {
         return { ...this._defaultOptions, ...this._options };
     }
+
+    /** Emit when the filter menu is closed */
+    @Output() readonly closed = new EventEmitter<void>();
 
     /** Generate a unique id for the typeahead */
     typeaheadId: string = `ux-filter-dynamic-typeahead-${ this._uniqueId }`;
@@ -72,6 +85,7 @@ export class FilterDynamicComponent implements OnInit, OnDestroy {
 
     /** Unsubscribe from all subscriptions */
     private readonly _onDestroy = new Subject<void>();
+    private _closeOnBlur: boolean = false;
 
     constructor(public readonly typeaheadKeyService: TypeaheadKeyService,
                 private readonly _filterService: FilterService,
@@ -181,4 +195,5 @@ export class FilterDynamicComponent implements OnInit, OnDestroy {
         }
     }
 
+    static ngAcceptInputType_closeOnBlur: BooleanInput;
 }

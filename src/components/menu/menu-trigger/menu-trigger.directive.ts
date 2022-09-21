@@ -3,7 +3,7 @@ import { BooleanInput, coerceBooleanProperty } from '@angular/cdk/coercion';
 import { DOWN_ARROW, LEFT_ARROW, RIGHT_ARROW, UP_ARROW } from '@angular/cdk/keycodes';
 import { Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
-import { ContentChildren, Directive, ElementRef, HostListener, Input, OnDestroy, OnInit, Optional, QueryList, Self, ViewContainerRef } from '@angular/core';
+import { ContentChildren, Directive, ElementRef, EventEmitter, HostListener, Input, OnDestroy, OnInit, Optional, Output, QueryList, Self, ViewContainerRef } from '@angular/core';
 import { combineLatest, merge, Observable, of, Subject, timer } from 'rxjs';
 import { debounceTime, filter, take, takeUntil } from 'rxjs/operators';
 import { AnchorPlacement } from '../../../common/overlay/anchor-placement';
@@ -41,6 +41,9 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
     get closeOnBlur(): boolean {
         return this._closeOnBlur;
     }
+
+    /** Emit when the menu is closed */
+    @Output() readonly closed = new EventEmitter<void>();
 
     /** Reference to the portal based off the MenuCompont templateRef */
     private _portal: TemplatePortal;
@@ -129,7 +132,13 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
 
         // propagate the close event if it is triggered
         this.menu._closeAll$.pipe(takeUntil(this._onDestroy$))
-            .subscribe(origin => this.closeMenu(origin, true));
+            .subscribe(origin => {
+                if (origin === 'tabout' && this._isRootTrigger) {
+                    this.closeMenu('keyboard', true, true, true);
+                } else {
+                    this.closeMenu(origin as FocusOrigin, true);
+                }
+            });
 
         // handle keyboard events in the menu
         this.menu._onKeydown$.pipe(takeUntil(this._onDestroy$))
@@ -151,6 +160,31 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
         this._onDestroy$.complete();
     }
 
+    /** Focus the next focusable element */
+    focusNextElement() {
+        // add elements we want to include in our selection
+        const focusableElements = 'a:not([disabled]), button:not([disabled]), input:not([disabled]), [tabindex]:not([disabled]):not([tabindex="-1"])';
+
+        if (document.activeElement) {
+
+            const focusable: NodeListOf<HTMLElement> = document.querySelectorAll(focusableElements);
+            const suitableElements = [];
+
+            focusable.forEach((element) => {
+                if ((element.offsetWidth > 0 || element.offsetHeight > 0 || element === document.activeElement) && !element.classList.contains('cdk-visually-hidden')) {
+                    suitableElements.push(element);
+                }
+            });
+
+            const index = suitableElements.indexOf(document.activeElement);
+
+            if (index > -1) {
+               const nextElement = suitableElements[index + 1] || focusable[0];
+               nextElement.focus();
+            }
+        }
+    }
+
     /** Open the menu */
     openMenu(): void {
         // if the menu is already open then do nothing
@@ -158,9 +192,7 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
             return;
         }
 
-        if (this.closeOnBlur) {
-            this.menu.setCloseOnBlur();
-        }
+        this.menu._closeOnBlur = this.closeOnBlur;
 
         // get or create an overlayRef
         const overlayRef = this.getOverlay();
@@ -203,7 +235,7 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
     }
 
     /** Close a menu or submenu */
-    closeMenu(origin?: FocusOrigin, closeParents: boolean = false, focusTrigger: boolean = true): Observable<void> {
+    closeMenu(origin?: FocusOrigin, closeParents: boolean = false, focusTrigger: boolean = true, focusNextElement: boolean = false): Observable<void> {
 
         if (!this._overlayRef.hasAttached()) {
             return;
@@ -226,6 +258,11 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
             this._focusIndicator.focus(origin);
         }
 
+        if (focusNextElement) {
+            this.focusNextElement();
+        }
+
+        this.closed.emit();
         return this.menu.closed;
     }
 

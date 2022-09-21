@@ -1,4 +1,4 @@
-import { Key } from 'protractor';
+import { browser, by, element, Key } from 'protractor';
 import { imageCompare } from '../common/image-compare';
 import { FiltersPage } from './filters.po.spec';
 
@@ -314,5 +314,41 @@ describe('Filters Tests', () => {
         expect(await page.confirmStatusMenuItemCheckExists(1)).toBeFalsy();
         expect(await page.confirmStatusMenuItemCheckExists(2)).toBeTruthy();
 
+    });
+
+    describe(' - closeOnBlur = true', () => {
+        it('should tab into the dynamic filter input and close when the menu loses focus when closeOnBlur is true', async () => {
+            await page.closeOnBlur.click();
+            await page.topFocus.click();
+
+            await browser.actions().sendKeys(Key.TAB).perform();
+            await browser.actions().sendKeys(Key.ARROW_DOWN).perform();
+            await browser.actions().sendKeys(Key.TAB).perform();
+
+            expect(await page.activeElementClasses()).toContain('form-control');
+            expect(await element(by.className('ux-menu')).isPresent()).toBe(true);
+
+            await browser.actions().sendKeys(Key.TAB).perform();
+            expect(await page.activeElementClasses()).toContain('filter-dropdown');
+            expect(await element(by.className('ux-menu')).isPresent()).toBe(false);
+        });
+    });
+
+    describe(' - closeOnBlur = false', () => {
+        it('should tab into the dynamic filter input and not close when closeOnBlur is false', async () => {
+            await page.topFocus.click();
+
+            await browser.actions().sendKeys(Key.TAB).perform();
+            await browser.actions().sendKeys(Key.ARROW_DOWN).perform();
+            await browser.actions().sendKeys(Key.TAB).perform();
+
+            expect(await page.activeElementClasses()).toContain('form-control');
+            expect(await element(by.className('ux-menu')).isPresent()).toBe(true);
+
+            await browser.actions().sendKeys(Key.TAB).perform();
+            expect(await page.activeElementClasses()).toBe('');
+            expect(await element(by.className('ux-menu')).isPresent()).toBe(true);
+
+        });
     });
 });

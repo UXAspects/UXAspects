@@ -6,6 +6,8 @@
         class="filter-dropdown btn dropdown-toggle"
         [id]="filterId + '-trigger'"
         [uxMenuTriggerFor]="menu"
+        [closeOnBlur]="closeOnBlur"
+        (closed)="closed.emit()"
         #trigger="ux-menu-trigger">
         {{ selected?.group }}
         <span class="filter-header" *ngIf="selected !== initial">

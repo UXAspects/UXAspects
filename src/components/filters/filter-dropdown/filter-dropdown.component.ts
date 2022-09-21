@@ -1,6 +1,7 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { filter as rxFilter, takeUntil } from 'rxjs/operators';
+import { BooleanInput, coerceBooleanProperty } from '@angular/cdk/coercion';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { Subject } from 'rxjs';
+import { filter as rxFilter, takeUntil } from 'rxjs/operators';
 import { FilterRemoveAllEvent } from '../events/filter-remove-all-event';
 import { FilterService } from '../filter.service';
 import { Filter } from '../interfaces/filter.interface';
@@ -26,6 +27,18 @@ export class FilterDropdownComponent implements OnInit, OnDestroy {
     /** Define an initial item to select */
     @Input() initial: Filter;
 
+    /** Defined the closeOnBlur state for the ux-menu trigger */
+    @Input() set closeOnBlur(value: boolean) {
+        this._closeOnBlur = coerceBooleanProperty(value);
+    }
+
+    get closeOnBlur(): boolean {
+        return this._closeOnBlur;
+    }
+
+    /** Emit when the filter menu is closed */
+    @Output() readonly closed = new EventEmitter<void>();
+
     selected: Filter;
 
     get filterId(): string {
@@ -33,6 +46,7 @@ export class FilterDropdownComponent implements OnInit, OnDestroy {
     }
 
     private readonly _onDestroy = new Subject<void>();
+    private _closeOnBlur: boolean = false;
 
     constructor(private readonly _filterService: FilterService,
                 private readonly _changeDetector: ChangeDetectorRef) {
@@ -83,4 +97,5 @@ export class FilterDropdownComponent implements OnInit, OnDestroy {
         this._changeDetector.markForCheck();
     }
 
+    static ngAcceptInputType_closeOnBlur: BooleanInput;
 }
