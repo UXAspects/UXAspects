@@ -19,7 +19,7 @@
 
       <button type="button"
         uxFocusIndicator
-        aria-label="Remove field"
+        [attr.aria-label]="removeFieldAriaLabel"
         class="search-group-item-remove"
         (click)="removeFieldAtIndex(i, field)">
 

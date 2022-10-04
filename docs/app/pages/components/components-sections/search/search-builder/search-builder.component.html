@@ -190,6 +190,9 @@
     <tr uxd-api-property name="placeholder" type="TemplateRef">
         Allows a custom template to be used as the placeholder.
     </tr>
+    <tr uxs-api-property name="removeFieldAriaLabel" type="string" defaultValue="'Remove field'">
+        Provide an aria label for the remove field button.
+    </tr>
 
 </uxd-api-properties>
 
@@ -234,6 +237,7 @@
             <li><code>label</code> - If specified will display a label above the input field.</li>
             <li><code>placeholder</code> - If specified will display a placeholder in the input field.</li>
             <li><code>validation</code> - If specified will allow custom validation to be used to determine if this field is valid.</li>
+            <li><code>dateAriaLabel</code> - If specified will provide the date picker input with an aria-label.</li>
         </ul>
     </tr>
 
@@ -247,10 +251,12 @@
             <li><code>toLabel</code> - Defines the text displayed beside the second date picker. Defaults to <code>To</code>.</li>
             <li><code>fromPlaceholder</code> - If specified will display a placeholder in the first date picker.</li>
             <li><code>toPlaceholder</code> - If specified will display a placeholder in the second date picker.</li>
+            <li><code>fromDateAriaLabel</code> - If specified will provide the from date picker input with an aria-label.</li>
+            <li><code>toDateAriaLabel</code> - If specified will provide the to date picker input with an aria-label.</li>
         </ul>
     </tr>
 
-    <tr uxd-api-property name="SearchDateComponent">
+    <tr uxd-api-property name="SearchSelectComponent">
         <p class="m-b">A select component allowing both single and multiple selection. The following configuration options are available:</p>
 
         <ul>

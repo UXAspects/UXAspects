@@ -17,6 +17,10 @@ export class SearchDateComponent extends BaseSearchComponent implements OnInit {
     return this.config.placeholder || 'Enter date';
   }
 
+  get dateAriaLabel(): string {
+    return this.config.dateAriaLabel || 'Selected date';
+  }
+
   ngOnInit(): void {
 
     // by default set to the current date if not specified
@@ -26,4 +30,6 @@ export class SearchDateComponent extends BaseSearchComponent implements OnInit {
   }
 }
 
-export interface SearchDateConfig extends BaseSearchComponentConfig { }
+export interface SearchDateConfig extends BaseSearchComponentConfig {
+  dateAriaLabel: string;
+}

@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, TemplateRef } from '@angular/core';
-import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { SearchBuilderGroupQuery } from '../interfaces/group-query.interface';
 import { SearchBuilderFocusService } from '../search-builder-focus.service';
 import { SearchBuilderGroupService } from './search-builder-group.service';
@@ -18,6 +18,7 @@ export class SearchBuilderGroupComponent implements OnInit, OnDestroy {
   @Input() addText: string = 'Add a field';
   @Input() placeholder: TemplateRef<any>;
   @Input() showPlaceholder: boolean = false;
+  @Input() removeFieldAriaLabel: string = 'Remove field';
 
   @Output() add: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
   @Output() remove: EventEmitter<SearchBuilderGroupQuery> = new EventEmitter<SearchBuilderGroupQuery>();

@@ -6,7 +6,7 @@
     </span>
     <input type="text"
         class="form-control"
-        aria-label="Selected date"
+        [attr.aria-label]="dateAriaLabel"
         [placeholder]="placeholder"
         #popover="ux-popover"
         [ngModel]="value | date:'dd MMMM yyyy'"
