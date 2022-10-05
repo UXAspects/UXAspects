@@ -13,7 +13,7 @@
                     </span>
                     <input type="text" #fromPopover="ux-popover" [ngModel]="from | date:'dd MMMM yyyy'"
                         [uxPopover]="fromPopoverTemplate" placement="bottom" popoverClass="date-time-picker-popover"
-                        class="form-control" [attr.aria-label]="fromDateAriaLabel" [placeholder]="fromPlaceholder" [focusIf]="focus">
+                        class="form-control" [attr.aria-label]="fromDateInputAriaLabel" [placeholder]="fromPlaceholder" [focusIf]="focus">
                 </div>
             </div>
 
@@ -26,7 +26,7 @@
                     </span>
                     <input type="text" #toPopover="ux-popover" [ngModel]="to | date:'dd MMMM yyyy'"
                         [uxPopover]="toPopoverTemplate" placement="bottom" popoverClass="date-time-picker-popover"
-                        class="form-control" [attr.aria-label]="toDateAriaLabel" [placeholder]="toPlaceholder">
+                        class="form-control" [attr.aria-label]="toDateInputAriaLabel" [placeholder]="toPlaceholder">
                 </div>
             </div>
 

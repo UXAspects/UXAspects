@@ -17,8 +17,8 @@ export class SearchDateComponent extends BaseSearchComponent implements OnInit {
     return this.config.placeholder || 'Enter date';
   }
 
-  get dateAriaLabel(): string {
-    return this.config.dateAriaLabel || 'Selected date';
+  get dateInputAriaLabel(): string {
+    return this.config.dateInputAriaLabel || 'Selected date';
   }
 
   ngOnInit(): void {
@@ -31,5 +31,5 @@ export class SearchDateComponent extends BaseSearchComponent implements OnInit {
 }
 
 export interface SearchDateConfig extends BaseSearchComponentConfig {
-  dateAriaLabel: string;
+  dateInputAriaLabel: string;
 }

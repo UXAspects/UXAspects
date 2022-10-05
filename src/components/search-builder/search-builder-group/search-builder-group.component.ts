@@ -18,7 +18,7 @@ export class SearchBuilderGroupComponent implements OnInit, OnDestroy {
   @Input() addText: string = 'Add a field';
   @Input() placeholder: TemplateRef<any>;
   @Input() showPlaceholder: boolean = false;
-  @Input() removeFieldAriaLabel: string = 'Remove field';
+  @Input() removeFieldButtonAriaLabel: string = 'Remove field';
 
   @Output() add: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
   @Output() remove: EventEmitter<SearchBuilderGroupQuery> = new EventEmitter<SearchBuilderGroupQuery>();

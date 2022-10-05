@@ -93,12 +93,12 @@ export class SearchDateRangeComponent extends BaseSearchComponent {
         return this.config.toPlaceholder;
     }
 
-    get toDateAriaLabel(): string {
-        return this.config.toDateAriaLabel || 'Selected date';
+    get toDateInputAriaLabel(): string {
+        return this.config.toDateInputAriaLabel || 'Selected date';
     }
 
-    get fromDateAriaLabel(): string {
-        return this.config.fromDateAriaLabel || 'Selected date';
+    get fromDateInputAriaLabel(): string {
+        return this.config.fromDateInputAriaLabel || 'Selected date';
     }
 
     /**
@@ -130,7 +130,7 @@ export interface SearchDateRangeConfig {
     toLabel?: string;
     fromPlaceholder?: string;
     toPlaceholder?: string;
-    toDateAriaLabel?: string;
-    fromDateAriaLabel?: string;
+    toDateInputAriaLabel?: string;
+    fromDateInputAriaLabel?: string;
     validation: (value: any) => boolean;
 }
