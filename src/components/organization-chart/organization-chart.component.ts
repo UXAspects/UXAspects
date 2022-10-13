@@ -2,7 +2,7 @@ import { BooleanInput, coerceBooleanProperty } from '@angular/cdk/coercion';
 import { DOWN_ARROW, ENTER, LEFT_ARROW, RIGHT_ARROW, UP_ARROW } from '@angular/cdk/keycodes';
 import { DomPortalOutlet, TemplatePortal } from '@angular/cdk/portal';
 import { AfterViewInit, ApplicationRef, ChangeDetectionStrategy, Component, ComponentFactoryResolver, ContentChild, ElementRef, EventEmitter, Injector, Input, NgZone, OnChanges, OnDestroy, Output, Renderer2, SimpleChanges, TemplateRef, ViewChild, ViewContainerRef } from '@angular/core';
-import { event, hierarchy, HierarchyPointLink, HierarchyPointNode, interpolate, linkVertical, select, Selection, transition, tree, zoom, ZoomBehavior, ZoomTransform, zoomTransform } from 'd3';
+import { hierarchy, HierarchyPointLink, HierarchyPointNode, interpolate, linkVertical, select, Selection, transition, tree, zoom, ZoomBehavior, ZoomTransform, zoomTransform } from 'd3';
 import { Subject } from 'rxjs';
 import { debounceTime, takeUntil } from 'rxjs/operators';
 import { FocusIndicator, FocusIndicatorService } from '../../directives/accessibility/index';
@@ -284,6 +284,8 @@ export class OrganizationChartComponent<T> implements AfterViewInit, OnChanges, 
             .attr('opacity', 0)
             .remove();
 
+        console.log(this._nodes)
+
         // when a node is first added to the DOM position it
         this._nodes.enter()
             .append('div')
@@ -293,10 +295,9 @@ export class OrganizationChartComponent<T> implements AfterViewInit, OnChanges, 
             .style('left', node => (node.parent ? node.parent.x : node.x) + 'px')
             .style('top', node => (node.parent ? node.parent.y : node.y) + 'px')
             .style('opacity', 0)
-            .on('keydown', this.onKeydown.bind(this))
-            .on('focus', this.onFocus.bind(this))
-            .on('mousedown', () => event.stopPropagation())
-            .on('click', this.onClick.bind(this))
+            .on('keydown', (event, node) => this.onKeydown((event as any), (node as any)))
+            .on('focus', (event, node) => this.onFocus((node as any)))
+            .on('click', (event, node) => this.onClick(node as any))
             .each(this.renderNodeTemplate.bind(this))
             .each((node, index, group) => this.monitorFocus(group[index], node))
             .transition(defaultTransition)
@@ -395,7 +396,6 @@ export class OrganizationChartComponent<T> implements AfterViewInit, OnChanges, 
 
     /** Toggle the collapsed state of a node */
     toggle(node: OrganizationChartNode<T> | HierarchyPointNode<OrganizationChartNode<T>>): void {
-
         if (this._isTransitioning) {
             return;
         }
@@ -520,6 +520,7 @@ export class OrganizationChartComponent<T> implements AfterViewInit, OnChanges, 
 
     /** Destroy the outlet and portal associated with a node */
     private destroyNode(node: OrganizationChartNode<T> | HierarchyPointNode<OrganizationChartNode<T>>): void {
+        console.log('file: organization-chart.component.ts ~ line 522 ~ OrganizationChartComponent<T> ~ destroyNode ~ destroyNode', node);
 
         // get the node in a consistent format
         node = this.coercePointNode(node);
@@ -760,6 +761,7 @@ export class OrganizationChartComponent<T> implements AfterViewInit, OnChanges, 
 
     /** Handle click events */
     private onClick(node: HierarchyPointNode<OrganizationChartNode<T>>): void {
+        console.log('file: organization-chart.component.ts ~ line 762 ~ OrganizationChartComponent<T> ~ onClick ~ node', node);
         if (!this.toggleNodesOnClick) {
             return;
         }
@@ -768,7 +770,7 @@ export class OrganizationChartComponent<T> implements AfterViewInit, OnChanges, 
     }
 
     /** Handle keyboard events */
-    private onKeydown(node: HierarchyPointNode<OrganizationChartNode<T>>): void {
+    private onKeydown(event: KeyboardEvent, node: HierarchyPointNode<OrganizationChartNode<T>>): void {
         if (!this.toggleNodesOnClick) {
             return;
         }
