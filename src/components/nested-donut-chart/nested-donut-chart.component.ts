@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ElementRef, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
-import { arc, Arc, BaseType, easeCubic, interpolate, mouse, select, Selection, transition } from 'd3';
+import { arc, Arc, BaseType, easeCubic, interpolate, pointer, select, Selection, transition } from 'd3';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { Color } from '../../common/colors/index';
@@ -199,7 +199,7 @@ export class NestedDonutChartComponent implements OnInit, OnChanges, OnDestroy {
             .attr('opacity', 1)
             .on('click', data => this.itemClick.emit(data))
             .on('mouseenter', (data, index, nodes) => this.onArcMouseEnter(nodes[index], data))
-            .on('mousemove', () => this.onArcMouseMove(mouse(this._chartElement.nativeElement)))
+            .on('mousemove', () => this.onArcMouseMove(pointer(this._chartElement.nativeElement)))
             .on('mouseleave', (_data, index, nodes) => this.onArcMouseLeave(nodes[index]))
             .transition(arcTransition)
             .attrTween('d', this.getArcTween.bind(this));
