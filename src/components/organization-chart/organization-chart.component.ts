@@ -284,8 +284,6 @@ export class OrganizationChartComponent<T> implements AfterViewInit, OnChanges, 
             .attr('opacity', 0)
             .remove();
 
-        console.log(this._nodes)
-
         // when a node is first added to the DOM position it
         this._nodes.enter()
             .append('div')
@@ -520,7 +518,6 @@ export class OrganizationChartComponent<T> implements AfterViewInit, OnChanges, 
 
     /** Destroy the outlet and portal associated with a node */
     private destroyNode(node: OrganizationChartNode<T> | HierarchyPointNode<OrganizationChartNode<T>>): void {
-        console.log('file: organization-chart.component.ts ~ line 522 ~ OrganizationChartComponent<T> ~ destroyNode ~ destroyNode', node);
 
         // get the node in a consistent format
         node = this.coercePointNode(node);
@@ -761,7 +758,6 @@ export class OrganizationChartComponent<T> implements AfterViewInit, OnChanges, 
 
     /** Handle click events */
     private onClick(node: HierarchyPointNode<OrganizationChartNode<T>>): void {
-        console.log('file: organization-chart.component.ts ~ line 762 ~ OrganizationChartComponent<T> ~ onClick ~ node', node);
         if (!this.toggleNodesOnClick) {
             return;
         }
