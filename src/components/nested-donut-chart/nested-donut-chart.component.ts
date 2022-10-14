@@ -198,9 +198,9 @@ export class NestedDonutChartComponent implements OnInit, OnChanges, OnDestroy {
             .style('fill', data => this.getColor(data.color))
             .attr('opacity', 1)
             .on('click', data => this.itemClick.emit(data))
-            .on('mouseenter', (data, index, nodes) => this.onArcMouseEnter(nodes[index], data))
-            .on('mousemove', () => this.onArcMouseMove(pointer(this._chartElement.nativeElement)))
-            .on('mouseleave', (_data, index, nodes) => this.onArcMouseLeave(nodes[index]))
+            .on('mouseenter', (event, node) => this.onArcMouseEnter(event.srcElement, node))
+            .on('mousemove', (event) => this.onArcMouseMove(pointer(event, this._chartElement.nativeElement)))
+            .on('mouseleave', (event) => this.onArcMouseLeave(event.srcElement))
             .transition(arcTransition)
             .attrTween('d', this.getArcTween.bind(this));
 
@@ -330,6 +330,7 @@ export class NestedDonutChartComponent implements OnInit, OnChanges, OnDestroy {
 
     /** Update the tooltip position on mouse move */
     private onArcMouseMove([x, y]: [number, number]): void {
+        console.log([x, y])
         this._tooltipX = x;
         this._tooltipY = y - 2; // subtract 2 so that it appears slightly above the cursor
 
