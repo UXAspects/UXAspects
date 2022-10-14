@@ -330,7 +330,6 @@ export class NestedDonutChartComponent implements OnInit, OnChanges, OnDestroy {
 
     /** Update the tooltip position on mouse move */
     private onArcMouseMove([x, y]: [number, number]): void {
-        console.log([x, y])
         this._tooltipX = x;
         this._tooltipY = y - 2; // subtract 2 so that it appears slightly above the cursor
 
