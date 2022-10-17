@@ -172,7 +172,7 @@ export class NestedDonutChartComponent implements OnInit, OnChanges, OnDestroy {
             .data(this.getChartData());
 
         // create the default transition based on the specified duration
-        const arcTransition = transition().ease(easeCubic).duration(this.animationDuration);
+        const arcTransition = transition('nestedDonutArcTransition').ease(easeCubic).duration(this.animationDuration);
 
         // create the tracks based on the dataset
         this._tracks = this._trackLayer.selectAll('path')

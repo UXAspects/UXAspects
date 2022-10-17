@@ -254,7 +254,7 @@ export class OrganizationChartComponent<T> implements AfterViewInit, OnChanges, 
         this.updateSelections();
 
         // create a d3 transition based in the specified transition time
-        const defaultTransition = transition()
+        const defaultTransition = transition('organizationChartDefaultTransition')
             .duration(this.duration)
             .on('start', () => this._isTransitioning = true)
             .on('end', () => {
