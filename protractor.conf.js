@@ -28,7 +28,7 @@ const config = {
     baseUrl: `http://${e2eHostAddress}:4000/#/`,
     allScriptsTimeout: 11000,
     specs: [
-        './e2e/tests/components/organization-chart/*.e2e-spec.ts'
+        './e2e/**/*.e2e-spec.ts'
     ],
     capabilities: {
         browserName: 'chrome',
