@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ElementRef, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
-import { arc, Arc, BaseType, easeCubic, interpolate, mouse, select, Selection, transition } from 'd3';
+import { arc, Arc, BaseType, easeCubic, interpolate, pointer, select, Selection, transition } from 'd3';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { Color } from '../../common/colors/index';
@@ -172,7 +172,7 @@ export class NestedDonutChartComponent implements OnInit, OnChanges, OnDestroy {
             .data(this.getChartData());
 
         // create the default transition based on the specified duration
-        const arcTransition = transition().ease(easeCubic).duration(this.animationDuration);
+        const arcTransition = transition('nestedDonutArcTransition').ease(easeCubic).duration(this.animationDuration);
 
         // create the tracks based on the dataset
         this._tracks = this._trackLayer.selectAll('path')
@@ -198,9 +198,9 @@ export class NestedDonutChartComponent implements OnInit, OnChanges, OnDestroy {
             .style('fill', data => this.getColor(data.color))
             .attr('opacity', 1)
             .on('click', data => this.itemClick.emit(data))
-            .on('mouseenter', (data, index, nodes) => this.onArcMouseEnter(nodes[index], data))
-            .on('mousemove', () => this.onArcMouseMove(mouse(this._chartElement.nativeElement)))
-            .on('mouseleave', (_data, index, nodes) => this.onArcMouseLeave(nodes[index]))
+            .on('mouseenter', (event, node) => this.onArcMouseEnter(event.srcElement, node))
+            .on('mousemove', (event) => this.onArcMouseMove(pointer(event, this._chartElement.nativeElement)))
+            .on('mouseleave', (event) => this.onArcMouseLeave(event.srcElement))
             .transition(arcTransition)
             .attrTween('d', this.getArcTween.bind(this));
 

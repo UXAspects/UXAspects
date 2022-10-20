@@ -2,7 +2,7 @@ import { BooleanInput, coerceBooleanProperty } from '@angular/cdk/coercion';
 import { DOWN_ARROW, ENTER, LEFT_ARROW, RIGHT_ARROW, UP_ARROW } from '@angular/cdk/keycodes';
 import { DomPortalOutlet, TemplatePortal } from '@angular/cdk/portal';
 import { AfterViewInit, ApplicationRef, ChangeDetectionStrategy, Component, ComponentFactoryResolver, ContentChild, ElementRef, EventEmitter, Injector, Input, NgZone, OnChanges, OnDestroy, Output, Renderer2, SimpleChanges, TemplateRef, ViewChild, ViewContainerRef } from '@angular/core';
-import { event, hierarchy, HierarchyPointLink, HierarchyPointNode, interpolate, linkVertical, select, Selection, transition, tree, zoom, ZoomBehavior, ZoomTransform, zoomTransform } from 'd3';
+import { hierarchy, HierarchyPointLink, HierarchyPointNode, interpolate, linkVertical, select, Selection, transition, tree, zoom, ZoomBehavior, ZoomTransform, zoomTransform } from 'd3';
 import { Subject } from 'rxjs';
 import { debounceTime, takeUntil } from 'rxjs/operators';
 import { FocusIndicator, FocusIndicatorService } from '../../directives/accessibility/index';
@@ -254,7 +254,7 @@ export class OrganizationChartComponent<T> implements AfterViewInit, OnChanges, 
         this.updateSelections();
 
         // create a d3 transition based in the specified transition time
-        const defaultTransition = transition()
+        const defaultTransition = transition('organizationChartDefaultTransition')
             .duration(this.duration)
             .on('start', () => this._isTransitioning = true)
             .on('end', () => {
@@ -293,10 +293,9 @@ export class OrganizationChartComponent<T> implements AfterViewInit, OnChanges, 
             .style('left', node => (node.parent ? node.parent.x : node.x) + 'px')
             .style('top', node => (node.parent ? node.parent.y : node.y) + 'px')
             .style('opacity', 0)
-            .on('keydown', this.onKeydown.bind(this))
-            .on('focus', this.onFocus.bind(this))
-            .on('mousedown', () => event.stopPropagation())
-            .on('click', this.onClick.bind(this))
+            .on('keydown', (event, node) => this.onKeydown(event, node))
+            .on('focus', (event, node) => this.onFocus(node))
+            .on('click', (event, node) => this.onClick(node))
             .each(this.renderNodeTemplate.bind(this))
             .each((node, index, group) => this.monitorFocus(group[index], node))
             .transition(defaultTransition)
@@ -395,7 +394,6 @@ export class OrganizationChartComponent<T> implements AfterViewInit, OnChanges, 
 
     /** Toggle the collapsed state of a node */
     toggle(node: OrganizationChartNode<T> | HierarchyPointNode<OrganizationChartNode<T>>): void {
-
         if (this._isTransitioning) {
             return;
         }
@@ -768,7 +766,7 @@ export class OrganizationChartComponent<T> implements AfterViewInit, OnChanges, 
     }
 
     /** Handle keyboard events */
-    private onKeydown(node: HierarchyPointNode<OrganizationChartNode<T>>): void {
+    private onKeydown(event: KeyboardEvent, node: HierarchyPointNode<OrganizationChartNode<T>>): void {
         if (!this.toggleNodesOnClick) {
             return;
         }

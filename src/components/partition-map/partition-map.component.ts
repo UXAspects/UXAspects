@@ -658,7 +658,7 @@ export class PartitionMapComponent implements OnInit, OnDestroy {
         this._y.domain([segment.y0, 1]).range([this.getTotalCollapsedHeight(), 100]);
 
         // create the transition
-        const segmentTransition = transition().duration(500);
+        const segmentTransition = transition('organizationChartSegmentTransition').duration(500);
 
         // update the segment sizes - outside angular zone as there is lots of `requestAnimationFrames` triggering lots of change detection
         this._ngZone.runOutsideAngular(() => {
