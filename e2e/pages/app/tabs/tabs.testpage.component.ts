@@ -7,6 +7,7 @@ import { Component } from '@angular/core';
 export class TabsTestPageComponent {
 
     minimal: boolean = true;
+    disabled: boolean = false;
     tabs: string[] = ['Schedule', 'Protection', 'Solution', 'Analytics'];
     selected: string;
 
