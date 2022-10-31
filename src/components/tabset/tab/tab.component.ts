@@ -84,7 +84,7 @@ export class TabComponent implements OnInit, OnDestroy, OnChanges {
     }
 
     ngOnChanges(changes: SimpleChanges): void {
-        if (changes.disabled.previousValue !== changes.disabled.currentValue) {
+        if (changes.disabled && changes.disabled.previousValue !== changes.disabled.currentValue) {
             this._tabset.tabsChange();
         }
     }
