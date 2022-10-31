@@ -47,6 +47,8 @@ export class TabsetComponent implements AfterViewInit, OnDestroy {
         // provide the service with the initial array of items
         this._tabset.update(this._tabs.toArray());
 
+        console.log(this._tabset.tabs)
+
         // Make sure a tab is selected
         if (!this._tabset.isTabActive()) {
             this._tabset.selectFirstTab();
@@ -55,15 +57,25 @@ export class TabsetComponent implements AfterViewInit, OnDestroy {
         // run change detection once we have setup the tabs
         this._changeDetector.detectChanges();
 
-        // watch for any future changes
-        this._tabs.changes.pipe(takeUntil(this._onDestroy$)).subscribe(tabs => {
+        this._tabs.changes
+            .pipe(takeUntil(this._onDestroy$))
+            .subscribe(tabs => {
+                // update the internal list of tabs
+                this._tabset.update(tabs);
 
-            // update the internal list of tabs
-            this._tabset.update(tabs);
+                // run change detection
+                this._changeDetector.detectChanges();
+            });
 
-            // run change detection
-            this._changeDetector.detectChanges();
-        });
+        this._tabset.tabsChange$
+            .pipe(takeUntil(this._onDestroy$))
+            .subscribe(tabs => {
+                // update the internal list of tabs
+                this._tabset.update(tabs);
+
+                // run change detection
+                this._changeDetector.detectChanges();
+            });
     }
 
     ngOnDestroy(): void {

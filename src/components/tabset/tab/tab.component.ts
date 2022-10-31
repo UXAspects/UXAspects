@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, EventEmitter, Input, OnDestroy, OnInit, Output, TemplateRef } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, TemplateRef } from '@angular/core';
 import { NavigationExtras } from '@angular/router';
 import { Subject } from 'rxjs';
 import { distinctUntilChanged, takeUntil } from 'rxjs/operators';
@@ -13,7 +13,7 @@ let uniqueTabId = 0;
     templateUrl: './tab.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TabComponent implements OnInit, OnDestroy {
+export class TabComponent implements OnInit, OnDestroy, OnChanges {
 
     /** Define the tab unique id */
     @Input()
@@ -81,6 +81,12 @@ export class TabComponent implements OnInit, OnDestroy {
                 this.setActive(isActive);
             }
         });
+    }
+
+    ngOnChanges(changes: SimpleChanges): void {
+        if (changes.disabled.previousValue !== changes.disabled.currentValue) {
+            this._tabset.tabsChange();
+        }
     }
 
     ngOnDestroy(): void {
