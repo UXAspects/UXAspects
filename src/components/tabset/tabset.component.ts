@@ -47,8 +47,6 @@ export class TabsetComponent implements AfterViewInit, OnDestroy {
         // provide the service with the initial array of items
         this._tabset.update(this._tabs.toArray());
 
-        console.log(this._tabset.tabs)
-
         // Make sure a tab is selected
         if (!this._tabset.isTabActive()) {
             this._tabset.selectFirstTab();
