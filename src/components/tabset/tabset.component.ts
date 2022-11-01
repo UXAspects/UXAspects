@@ -62,7 +62,7 @@ export class TabsetComponent implements AfterViewInit, OnDestroy {
         // run change detection once we have setup the tabs
         this._changeDetector.detectChanges();
 
-        // watch for any future changes        this._tabs.changes
+        // watch for any future changes
         this._tabs.changes.pipe(takeUntil(this._onDestroy$)).subscribe(tabs => {
 
             // update the internal list of tabs
