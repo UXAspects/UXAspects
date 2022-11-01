@@ -71,11 +71,17 @@ export class TabComponent implements OnInit, OnDestroy, OnChanges {
     /** Unsubscribe from all subscriptions when component is destroyed */
     private _onDestroy = new Subject<void>();
 
+    /** Store the tabset instance */
+    private readonly _tabset: TabsetComponent;
+
     constructor(
         private readonly _tabsetService: TabsetService,
         private readonly _changeDetector: ChangeDetectorRef,
-        @Inject(TabsetToken) private readonly _tabset: TabsetComponent
-    ) {}
+        @Inject(TabsetToken) tabset: unknown
+    ) {
+        // this is required because Karma has issues with injecting the TabsetComponent directly
+        this._tabset = tabset as TabsetComponent;
+    }
 
     ngOnInit(): void {
         this._tabsetService.activeTab$.pipe(tick(), distinctUntilChanged(), takeUntil(this._onDestroy)).subscribe(activeTab => {
