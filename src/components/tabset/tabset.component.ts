@@ -1,15 +1,22 @@
 import { SPACE } from '@angular/cdk/keycodes';
-import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, Input, OnDestroy, QueryList } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, forwardRef, Input, OnDestroy, QueryList } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { TabComponent } from './tab/tab.component';
 import { TabsetService } from './tabset.service';
+import { TabsetToken } from './tabset.token';
 
 @Component({
     selector: 'ux-tabset',
     templateUrl: './tabset.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    providers: [TabsetService],
+    providers: [
+        TabsetService,
+        {
+            provide: TabsetToken,
+            useExisting: forwardRef(() => TabsetComponent),
+        }
+    ],
     host: {
         '[class.tabs-left]': 'stacked === "left"',
         '[class.tabs-right]': 'stacked === "right"',
@@ -64,16 +71,6 @@ export class TabsetComponent implements AfterViewInit, OnDestroy {
                 // run change detection
                 this._changeDetector.detectChanges();
             });
-
-        this._tabset.tabsChange$
-            .pipe(takeUntil(this._onDestroy$))
-            .subscribe(tabs => {
-                // update the internal list of tabs
-                this._tabset.update(tabs);
-
-                // run change detection
-                this._changeDetector.detectChanges();
-            });
     }
 
     ngOnDestroy(): void {
@@ -95,5 +92,9 @@ export class TabsetComponent implements AfterViewInit, OnDestroy {
             event.preventDefault();
             tab.click();
         }
+    }
+
+    markForCheck(): void {
+        this._changeDetector.detectChanges();
     }
 }

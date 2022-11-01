@@ -1,16 +1,14 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Subject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { TabComponent } from './tab/tab.component';
 
 @Injectable()
 export class TabsetService {
 
     /** Store the list of tabs */
-    tabs: TabComponent[] = [];
+    tabs: ReadonlyArray<TabComponent> = [];
 
     activeTab$ = new BehaviorSubject<TabComponent>(null);
-
-    tabsChange$ = new Subject<TabComponent[]>();
 
     /** Store the manual state */
     manual: boolean = false;
@@ -33,10 +31,6 @@ export class TabsetService {
         } else {
             this.activeTab$.next(tab);
         }
-    }
-
-    tabsChange() {
-        this.tabsChange$.next(this.tabs);
     }
 
     /** Set tab active state */
