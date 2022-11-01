@@ -2,8 +2,8 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, Ev
 import { NavigationExtras } from '@angular/router';
 import { Subject } from 'rxjs';
 import { distinctUntilChanged, takeUntil } from 'rxjs/operators';
-import type { TabsetComponent } from '../../..';
 import { tick } from '../../../common';
+import type { TabsetComponent } from '../tabset.component';
 import { TabsetService } from '../tabset.service';
 import { TabsetToken } from '../tabset.token';
 import { TabHeadingDirective } from './tab-heading.directive';
