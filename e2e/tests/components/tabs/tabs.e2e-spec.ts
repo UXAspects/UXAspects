@@ -218,4 +218,12 @@ describe('Tabs Tests (Angular)', () => {
 
     });
 
+    it('should disable the first tab when programmatically disabling the first tab', async () => {
+        expect((await page.getSelectedTab()).toLocaleLowerCase()).toBe('schedule');
+
+        await page.disabledCheckbox.click();
+
+        expect(await page.getTabAttribute(0, 'class')).toContain('disabled');
+    });
+
 });

@@ -3,6 +3,7 @@ import { $, $$, browser, ElementFinder } from 'protractor';
 export class TabsTestPageComponent {
 
     minimalCheckbox = $('#minimal-checkbox');
+    disabledCheckbox = $('#disabled-checkbox');
     stackNoneRadio = $('#stack-none-radio');
     stackLeftRadio = $('#stack-left-radio');
     stackRightRadio = $('#stack-right-radio');
@@ -63,6 +64,10 @@ export class TabsTestPageComponent {
 
     async getSelectedTabElement(): Promise<ElementFinder> {
         return await $$('ux-tab > .tab-pane').filter(async pane => await pane.getCssValue('display') === 'block').first();
+    }
+
+    async getTabAttribute(index: number, attribute: string): Promise<string> {
+        return await this.tabs.get(index).getAttribute(attribute);
     }
 
 }

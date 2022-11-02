@@ -1,9 +1,11 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, EventEmitter, Input, OnDestroy, OnInit, Output, TemplateRef } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, EventEmitter, Inject, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, TemplateRef } from '@angular/core';
 import { NavigationExtras } from '@angular/router';
 import { Subject } from 'rxjs';
 import { distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { tick } from '../../../common';
+import type { TabsetComponent } from '../tabset.component';
 import { TabsetService } from '../tabset.service';
+import { TabsetToken } from '../tabset.token';
 import { TabHeadingDirective } from './tab-heading.directive';
 
 let uniqueTabId = 0;
@@ -13,7 +15,7 @@ let uniqueTabId = 0;
     templateUrl: './tab.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TabComponent implements OnInit, OnDestroy {
+export class TabComponent implements OnInit, OnDestroy, OnChanges {
 
     /** Define the tab unique id */
     @Input()
@@ -29,7 +31,7 @@ export class TabComponent implements OnInit, OnDestroy {
     @Input()
     set active(active: boolean) {
         if (active) {
-            this._tabset.setTabActive(this);
+            this._tabsetService.setTabActive(this);
         }
     }
 
@@ -69,18 +71,31 @@ export class TabComponent implements OnInit, OnDestroy {
     /** Unsubscribe from all subscriptions when component is destroyed */
     private _onDestroy = new Subject<void>();
 
+    /** Store the tabset instance */
+    private readonly _tabset: TabsetComponent;
+
     constructor(
-        private readonly _tabset: TabsetService,
-        private readonly _changeDetector: ChangeDetectorRef
-    ) { }
+        private readonly _tabsetService: TabsetService,
+        private readonly _changeDetector: ChangeDetectorRef,
+        @Inject(TabsetToken) tabset: unknown
+    ) {
+        // this is required because Karma has issues with injecting the TabsetComponent directly
+        this._tabset = tabset as TabsetComponent;
+    }
 
     ngOnInit(): void {
-        this._tabset.activeTab$.pipe(tick(), distinctUntilChanged(), takeUntil(this._onDestroy)).subscribe(activeTab => {
+        this._tabsetService.activeTab$.pipe(tick(), distinctUntilChanged(), takeUntil(this._onDestroy)).subscribe(activeTab => {
             const isActive = (activeTab === this);
             if (this._active !== isActive) {
                 this.setActive(isActive);
             }
         });
+    }
+
+    ngOnChanges(changes: SimpleChanges): void {
+        if (changes.disabled && changes.disabled.previousValue !== changes.disabled.currentValue) {
+            this._tabset.markForCheck();
+        }
     }
 
     ngOnDestroy(): void {
@@ -103,7 +118,7 @@ export class TabComponent implements OnInit, OnDestroy {
         this._active = active;
         this.activeChange.emit(active);
 
-        if (!this._tabset.manual) {
+        if (!this._tabsetService.manual) {
             if (active) {
                 this.activate();
             } else {

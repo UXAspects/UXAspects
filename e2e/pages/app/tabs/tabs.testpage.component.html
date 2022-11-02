@@ -1,7 +1,7 @@
 <div class="clearfix">
 
     <ux-tabset [minimal]="minimal" [stacked]="stacked" aria-label="Tabset Example">
-        <ux-tab customClass="text-center" *ngFor="let tab of tabs" [heading]="tab" (activated)="selected
+        <ux-tab customClass="text-center" *ngFor="let tab of tabs; let i = index" [disabled]="i === 0 && disabled" [heading]="tab" (activated)="selected
         = tab">
             <div class="m-t">
                 <h4 class="tab-content">{{ tab }}</h4>
@@ -15,6 +15,10 @@
 
 <div>
     <ux-checkbox id="minimal-checkbox" [disabled]="stacked === 'left' || stacked === 'right'" [(value)]="minimal">minimal</ux-checkbox>
+</div>
+
+<div>
+    <ux-checkbox id="disabled-checkbox" [(value)]="disabled">Disable tab 1</ux-checkbox>
 </div>
 
 <div>
