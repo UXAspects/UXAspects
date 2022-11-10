@@ -19882,6 +19882,11 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.3.11", ngImpo
                 }]
         }] });
 
+/**
+ * This token is used to avoid circular dependency
+ */
+const TabsetToken = new InjectionToken('Tabset');
+
 class TabsetService {
     constructor() {
         /** Store the list of tabs */
@@ -19935,8 +19940,8 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.3.11", ngImpo
 
 let uniqueTabId = 0;
 class TabComponent {
-    constructor(_tabset, _changeDetector) {
-        this._tabset = _tabset;
+    constructor(_tabsetService, _changeDetector, tabset) {
+        this._tabsetService = _tabsetService;
         this._changeDetector = _changeDetector;
         /** Define if this tab is disabled */
         this.disabled = false;
@@ -19950,6 +19955,8 @@ class TabComponent {
         this._active = false;
         /** Unsubscribe from all subscriptions when component is destroyed */
         this._onDestroy = new Subject();
+        // this is required because Karma has issues with injecting the TabsetComponent directly
+        this._tabset = tabset;
     }
     /** Define the tab unique id */
     set id(id) {
@@ -19961,16 +19968,21 @@ class TabComponent {
     /** Define the active state of this tab */
     set active(active) {
         if (active) {
-            this._tabset.setTabActive(this);
+            this._tabsetService.setTabActive(this);
         }
     }
     ngOnInit() {
-        this._tabset.activeTab$.pipe(tick(), distinctUntilChanged(), takeUntil(this._onDestroy)).subscribe(activeTab => {
+        this._tabsetService.activeTab$.pipe(tick(), distinctUntilChanged(), takeUntil(this._onDestroy)).subscribe(activeTab => {
             const isActive = (activeTab === this);
             if (this._active !== isActive) {
                 this.setActive(isActive);
             }
         });
+    }
+    ngOnChanges(changes) {
+        if (changes.disabled && changes.disabled.previousValue !== changes.disabled.currentValue) {
+            this._tabset.markForCheck();
+        }
     }
     ngOnDestroy() {
         this._onDestroy.next();
@@ -19988,7 +20000,7 @@ class TabComponent {
     setActive(active) {
         this._active = active;
         this.activeChange.emit(active);
-        if (!this._tabset.manual) {
+        if (!this._tabsetService.manual) {
             if (active) {
                 this.activate();
             }
@@ -19999,12 +20011,17 @@ class TabComponent {
         this._changeDetector.detectChanges();
     }
 }
-TabComponent.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.3.11", ngImport: i0, type: TabComponent, deps: [{ token: TabsetService }, { token: i0.ChangeDetectorRef }], target: i0.ɵɵFactoryTarget.Component });
-TabComponent.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "13.3.11", type: TabComponent, selector: "ux-tab", inputs: { id: "id", active: "active", disabled: "disabled", heading: "heading", route: "route", routerLinkExtras: "routerLinkExtras", customClass: "customClass" }, outputs: { activeChange: "activeChange", activated: "activated", deactivated: "deactivated" }, queries: [{ propertyName: "headingRef", first: true, predicate: TabHeadingDirective, descendants: true, read: TemplateRef }], ngImport: i0, template: "<div\n    role=\"tabpanel\"\n    class=\"tab-pane\"\n    [style.display]=\"_active ? 'block' : 'none'\"\n    [id]=\"_id + '-panel'\"\n    [attr.aria-labelledby]=\"_id\"\n    [attr.aria-hidden]=\"!_active\"\n>\n    <ng-content></ng-content>\n</div>\n", changeDetection: i0.ChangeDetectionStrategy.OnPush });
+TabComponent.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.3.11", ngImport: i0, type: TabComponent, deps: [{ token: TabsetService }, { token: i0.ChangeDetectorRef }, { token: TabsetToken }], target: i0.ɵɵFactoryTarget.Component });
+TabComponent.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "13.3.11", type: TabComponent, selector: "ux-tab", inputs: { id: "id", active: "active", disabled: "disabled", heading: "heading", route: "route", routerLinkExtras: "routerLinkExtras", customClass: "customClass" }, outputs: { activeChange: "activeChange", activated: "activated", deactivated: "deactivated" }, queries: [{ propertyName: "headingRef", first: true, predicate: TabHeadingDirective, descendants: true, read: TemplateRef }], usesOnChanges: true, ngImport: i0, template: "<div\n    role=\"tabpanel\"\n    class=\"tab-pane\"\n    [style.display]=\"_active ? 'block' : 'none'\"\n    [id]=\"_id + '-panel'\"\n    [attr.aria-labelledby]=\"_id\"\n    [attr.aria-hidden]=\"!_active\"\n>\n    <ng-content></ng-content>\n</div>\n", changeDetection: i0.ChangeDetectionStrategy.OnPush });
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.3.11", ngImport: i0, type: TabComponent, decorators: [{
             type: Component,
             args: [{ selector: 'ux-tab', changeDetection: ChangeDetectionStrategy.OnPush, template: "<div\n    role=\"tabpanel\"\n    class=\"tab-pane\"\n    [style.display]=\"_active ? 'block' : 'none'\"\n    [id]=\"_id + '-panel'\"\n    [attr.aria-labelledby]=\"_id\"\n    [attr.aria-hidden]=\"!_active\"\n>\n    <ng-content></ng-content>\n</div>\n" }]
-        }], ctorParameters: function () { return [{ type: TabsetService }, { type: i0.ChangeDetectorRef }]; }, propDecorators: { id: [{
+        }], ctorParameters: function () {
+        return [{ type: TabsetService }, { type: i0.ChangeDetectorRef }, { type: undefined, decorators: [{
+                        type: Inject,
+                        args: [TabsetToken]
+                    }] }];
+    }, propDecorators: { id: [{
                 type: Input
             }], active: [{
                 type: Input
@@ -20077,12 +20094,27 @@ class TabsetComponent {
             tab.click();
         }
     }
+    markForCheck() {
+        this._changeDetector.detectChanges();
+    }
 }
 TabsetComponent.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.3.11", ngImport: i0, type: TabsetComponent, deps: [{ token: TabsetService }, { token: i0.ChangeDetectorRef }], target: i0.ɵɵFactoryTarget.Component });
-TabsetComponent.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "13.3.11", type: TabsetComponent, selector: "ux-tabset", inputs: { minimal: "minimal", stacked: "stacked", manual: "manual", ariaLabel: ["aria-label", "ariaLabel"] }, host: { properties: { "class.tabs-left": "stacked === \"left\"", "class.tabs-right": "stacked === \"right\"" } }, providers: [TabsetService], queries: [{ propertyName: "_tabs", predicate: TabComponent }], ngImport: i0, template: "<!-- Nav tabs -->\n<ul role=\"tablist\"\n    uxTabbableList\n    [direction]=\"stacked === 'none' ? 'horizontal' : 'vertical'\"\n    [allowBoundaryKeys]=\"true\"\n    class=\"nav nav-tabs\"\n    [class.minimal-tab]=\"minimal\"\n    [attr.aria-label]=\"ariaLabel\"\n    [attr.aria-orientation]=\"stacked === 'none' ? 'horizontal' : 'vertical'\">\n\n    <li role=\"presentation\"\n        class=\"nav-item\"\n        *ngFor=\"let tab of _tabset.tabs; let index = index\"\n        [class.active]=\"(_tabset.activeTab$ | async) === tab\"\n        [class.disabled]=\"tab.disabled\"\n        [ngClass]=\"tab.customClass\">\n\n        <ng-template #tabDetails>\n            <span *ngIf=\"!tab.headingRef\">{{ tab.heading }}</span>\n            <ng-container *ngIf=\"tab.headingRef\" [ngTemplateOutlet]=\"tab.headingRef\"></ng-container>\n        </ng-template>\n\n        <a *ngIf=\"tab.route\"\n            class=\"nav-link\"\n            [attr.id]=\"tab.id\"\n            role=\"tab\"\n            #anchorTab\n            uxTabbableListItem\n            uxFocusIndicator\n            [attr.aria-controls]=\"tab.id\"\n            [attr.aria-selected]=\"(_tabset.activeTab$ | async) === tab\"\n            [attr.aria-disabled]=\"tab.disabled\"\n            [routerLink]=\"tab.route\"\n            [fragment]=\"tab.routerLinkExtras?.fragment\"\n            [queryParams]=\"tab.routerLinkExtras?.queryParams\"\n            [queryParamsHandling]=\"tab.routerLinkExtras?.queryParamsHandling\"\n            [preserveFragment]=\"tab.routerLinkExtras?.preserveFragment\"\n            [skipLocationChange]=\"tab.routerLinkExtras?.skipLocationChange\"\n            [replaceUrl]=\"tab.routerLinkExtras?.replaceUrl\"\n            [state]=\"tab.routerLinkExtras?.state\"\n            (keydown)=\"handleKeyDown($event, anchorTab)\">\n\n            <ng-container\n                [ngTemplateOutlet]=\"tabDetails\">\n            </ng-container>\n        </a>\n\n        <a *ngIf=\"!tab.route\"\n            class=\"nav-link\"\n            [attr.id]=\"tab.id\"\n            role=\"tab\"\n            uxTabbableListItem\n            uxFocusIndicator\n            (mousedown)=\"_tabset.select(tab)\"\n            (activated)=\"_tabset.select(tab)\"\n            [attr.aria-controls]=\"tab.id\"\n            [attr.aria-selected]=\"(_tabset.activeTab$ | async) === tab\"\n            [attr.aria-disabled]=\"tab.disabled\">\n\n            <ng-container\n                [ngTemplateOutlet]=\"tabDetails\">\n            </ng-container>\n        </a>\n    </li>\n</ul>\n\n<!-- Tab panes -->\n<div class=\"tab-content\">\n    <ng-content></ng-content>\n</div>\n", directives: [{ type: TabbableListDirective, selector: "[uxTabbableList]", inputs: ["direction", "wrap", "focusOnShow", "returnFocus", "hierarchy", "allowAltModifier", "allowCtrlModifier", "allowBoundaryKeys"], exportAs: ["ux-tabbable-list"] }, { type: i3$1.NgForOf, selector: "[ngFor][ngForOf]", inputs: ["ngForOf", "ngForTrackBy", "ngForTemplate"] }, { type: i3$1.NgClass, selector: "[ngClass]", inputs: ["class", "ngClass"] }, { type: i3$1.NgIf, selector: "[ngIf]", inputs: ["ngIf", "ngIfThen", "ngIfElse"] }, { type: i3$1.NgTemplateOutlet, selector: "[ngTemplateOutlet]", inputs: ["ngTemplateOutletContext", "ngTemplateOutlet", "ngTemplateOutletInjector"] }, { type: i1$1.RouterLinkWithHref, selector: "a[routerLink],area[routerLink]", inputs: ["target", "queryParams", "fragment", "queryParamsHandling", "state", "relativeTo", "preserveFragment", "skipLocationChange", "replaceUrl", "routerLink"] }, { type: TabbableListItemDirective, selector: "[uxTabbableListItem]", inputs: ["parent", "rank", "disabled", "expanded", "key"], outputs: ["expandedChange", "activated"], exportAs: ["ux-tabbable-list-item"] }, { type: FocusIndicatorDirective, selector: "[uxFocusIndicator]", inputs: ["checkChildren", "mouseFocusIndicator", "touchFocusIndicator", "keyboardFocusIndicator", "programmaticFocusIndicator"], outputs: ["indicator"], exportAs: ["ux-focus-indicator"] }], pipes: { "async": i3$1.AsyncPipe }, changeDetection: i0.ChangeDetectionStrategy.OnPush });
+TabsetComponent.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "13.3.11", type: TabsetComponent, selector: "ux-tabset", inputs: { minimal: "minimal", stacked: "stacked", manual: "manual", ariaLabel: ["aria-label", "ariaLabel"] }, host: { properties: { "class.tabs-left": "stacked === \"left\"", "class.tabs-right": "stacked === \"right\"" } }, providers: [
+        TabsetService,
+        {
+            provide: TabsetToken,
+            useExisting: forwardRef(() => TabsetComponent),
+        }
+    ], queries: [{ propertyName: "_tabs", predicate: TabComponent }], ngImport: i0, template: "<!-- Nav tabs -->\n<ul role=\"tablist\"\n    uxTabbableList\n    [direction]=\"stacked === 'none' ? 'horizontal' : 'vertical'\"\n    [allowBoundaryKeys]=\"true\"\n    class=\"nav nav-tabs\"\n    [class.minimal-tab]=\"minimal\"\n    [attr.aria-label]=\"ariaLabel\"\n    [attr.aria-orientation]=\"stacked === 'none' ? 'horizontal' : 'vertical'\">\n\n    <li role=\"presentation\"\n        class=\"nav-item\"\n        *ngFor=\"let tab of _tabset.tabs; let index = index\"\n        [class.active]=\"(_tabset.activeTab$ | async) === tab\"\n        [class.disabled]=\"tab.disabled\"\n        [ngClass]=\"tab.customClass\">\n\n        <ng-template #tabDetails>\n            <span *ngIf=\"!tab.headingRef\">{{ tab.heading }}</span>\n            <ng-container *ngIf=\"tab.headingRef\" [ngTemplateOutlet]=\"tab.headingRef\"></ng-container>\n        </ng-template>\n\n        <a *ngIf=\"tab.route\"\n            class=\"nav-link\"\n            [attr.id]=\"tab.id\"\n            role=\"tab\"\n            #anchorTab\n            uxTabbableListItem\n            uxFocusIndicator\n            [attr.aria-controls]=\"tab.id\"\n            [attr.aria-selected]=\"(_tabset.activeTab$ | async) === tab\"\n            [attr.aria-disabled]=\"tab.disabled\"\n            [routerLink]=\"tab.route\"\n            [fragment]=\"tab.routerLinkExtras?.fragment\"\n            [queryParams]=\"tab.routerLinkExtras?.queryParams\"\n            [queryParamsHandling]=\"tab.routerLinkExtras?.queryParamsHandling\"\n            [preserveFragment]=\"tab.routerLinkExtras?.preserveFragment\"\n            [skipLocationChange]=\"tab.routerLinkExtras?.skipLocationChange\"\n            [replaceUrl]=\"tab.routerLinkExtras?.replaceUrl\"\n            [state]=\"tab.routerLinkExtras?.state\"\n            (keydown)=\"handleKeyDown($event, anchorTab)\">\n\n            <ng-container\n                [ngTemplateOutlet]=\"tabDetails\">\n            </ng-container>\n        </a>\n\n        <a *ngIf=\"!tab.route\"\n            class=\"nav-link\"\n            [attr.id]=\"tab.id\"\n            role=\"tab\"\n            uxTabbableListItem\n            uxFocusIndicator\n            (mousedown)=\"_tabset.select(tab)\"\n            (activated)=\"_tabset.select(tab)\"\n            [attr.aria-controls]=\"tab.id\"\n            [attr.aria-selected]=\"(_tabset.activeTab$ | async) === tab\"\n            [attr.aria-disabled]=\"tab.disabled\">\n\n            <ng-container\n                [ngTemplateOutlet]=\"tabDetails\">\n            </ng-container>\n        </a>\n    </li>\n</ul>\n\n<!-- Tab panes -->\n<div class=\"tab-content\">\n    <ng-content></ng-content>\n</div>\n", directives: [{ type: TabbableListDirective, selector: "[uxTabbableList]", inputs: ["direction", "wrap", "focusOnShow", "returnFocus", "hierarchy", "allowAltModifier", "allowCtrlModifier", "allowBoundaryKeys"], exportAs: ["ux-tabbable-list"] }, { type: i3$1.NgForOf, selector: "[ngFor][ngForOf]", inputs: ["ngForOf", "ngForTrackBy", "ngForTemplate"] }, { type: i3$1.NgClass, selector: "[ngClass]", inputs: ["class", "ngClass"] }, { type: i3$1.NgIf, selector: "[ngIf]", inputs: ["ngIf", "ngIfThen", "ngIfElse"] }, { type: i3$1.NgTemplateOutlet, selector: "[ngTemplateOutlet]", inputs: ["ngTemplateOutletContext", "ngTemplateOutlet", "ngTemplateOutletInjector"] }, { type: i1$1.RouterLinkWithHref, selector: "a[routerLink],area[routerLink]", inputs: ["target", "queryParams", "fragment", "queryParamsHandling", "state", "relativeTo", "preserveFragment", "skipLocationChange", "replaceUrl", "routerLink"] }, { type: TabbableListItemDirective, selector: "[uxTabbableListItem]", inputs: ["parent", "rank", "disabled", "expanded", "key"], outputs: ["expandedChange", "activated"], exportAs: ["ux-tabbable-list-item"] }, { type: FocusIndicatorDirective, selector: "[uxFocusIndicator]", inputs: ["checkChildren", "mouseFocusIndicator", "touchFocusIndicator", "keyboardFocusIndicator", "programmaticFocusIndicator"], outputs: ["indicator"], exportAs: ["ux-focus-indicator"] }], pipes: { "async": i3$1.AsyncPipe }, changeDetection: i0.ChangeDetectionStrategy.OnPush });
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.3.11", ngImport: i0, type: TabsetComponent, decorators: [{
             type: Component,
-            args: [{ selector: 'ux-tabset', changeDetection: ChangeDetectionStrategy.OnPush, providers: [TabsetService], host: {
+            args: [{ selector: 'ux-tabset', changeDetection: ChangeDetectionStrategy.OnPush, providers: [
+                        TabsetService,
+                        {
+                            provide: TabsetToken,
+                            useExisting: forwardRef(() => TabsetComponent),
+                        }
+                    ], host: {
                         '[class.tabs-left]': 'stacked === "left"',
                         '[class.tabs-right]': 'stacked === "right"',
                     }, template: "<!-- Nav tabs -->\n<ul role=\"tablist\"\n    uxTabbableList\n    [direction]=\"stacked === 'none' ? 'horizontal' : 'vertical'\"\n    [allowBoundaryKeys]=\"true\"\n    class=\"nav nav-tabs\"\n    [class.minimal-tab]=\"minimal\"\n    [attr.aria-label]=\"ariaLabel\"\n    [attr.aria-orientation]=\"stacked === 'none' ? 'horizontal' : 'vertical'\">\n\n    <li role=\"presentation\"\n        class=\"nav-item\"\n        *ngFor=\"let tab of _tabset.tabs; let index = index\"\n        [class.active]=\"(_tabset.activeTab$ | async) === tab\"\n        [class.disabled]=\"tab.disabled\"\n        [ngClass]=\"tab.customClass\">\n\n        <ng-template #tabDetails>\n            <span *ngIf=\"!tab.headingRef\">{{ tab.heading }}</span>\n            <ng-container *ngIf=\"tab.headingRef\" [ngTemplateOutlet]=\"tab.headingRef\"></ng-container>\n        </ng-template>\n\n        <a *ngIf=\"tab.route\"\n            class=\"nav-link\"\n            [attr.id]=\"tab.id\"\n            role=\"tab\"\n            #anchorTab\n            uxTabbableListItem\n            uxFocusIndicator\n            [attr.aria-controls]=\"tab.id\"\n            [attr.aria-selected]=\"(_tabset.activeTab$ | async) === tab\"\n            [attr.aria-disabled]=\"tab.disabled\"\n            [routerLink]=\"tab.route\"\n            [fragment]=\"tab.routerLinkExtras?.fragment\"\n            [queryParams]=\"tab.routerLinkExtras?.queryParams\"\n            [queryParamsHandling]=\"tab.routerLinkExtras?.queryParamsHandling\"\n            [preserveFragment]=\"tab.routerLinkExtras?.preserveFragment\"\n            [skipLocationChange]=\"tab.routerLinkExtras?.skipLocationChange\"\n            [replaceUrl]=\"tab.routerLinkExtras?.replaceUrl\"\n            [state]=\"tab.routerLinkExtras?.state\"\n            (keydown)=\"handleKeyDown($event, anchorTab)\">\n\n            <ng-container\n                [ngTemplateOutlet]=\"tabDetails\">\n            </ng-container>\n        </a>\n\n        <a *ngIf=\"!tab.route\"\n            class=\"nav-link\"\n            [attr.id]=\"tab.id\"\n            role=\"tab\"\n            uxTabbableListItem\n            uxFocusIndicator\n            (mousedown)=\"_tabset.select(tab)\"\n            (activated)=\"_tabset.select(tab)\"\n            [attr.aria-controls]=\"tab.id\"\n            [attr.aria-selected]=\"(_tabset.activeTab$ | async) === tab\"\n            [attr.aria-disabled]=\"tab.disabled\">\n\n            <ng-container\n                [ngTemplateOutlet]=\"tabDetails\">\n            </ng-container>\n        </a>\n    </li>\n</ul>\n\n<!-- Tab panes -->\n<div class=\"tab-content\">\n    <ng-content></ng-content>\n</div>\n" }]
