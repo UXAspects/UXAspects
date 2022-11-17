@@ -484,7 +484,7 @@ describe('MenuComponent', () => {
                 <span class="dropdown-menu-text">Annotate</span>
             </button>
 
-            <button type="button" uxMenuItem>
+            <button type="button" uxMenuItem (focused)="focused()">
                 <span class="dropdown-menu"></span>
                 <span class="dropdown-menu-text">Save List</span>
             </button>
@@ -497,6 +497,7 @@ export class MenuTriggerDestroyTestComponent {
     trigger: MenuTriggerDirective;
     onActivate(_: MouseEvent | KeyboardEvent): void { }
     closed(): void { }
+    focused(): void { }
 
     showTrigger: boolean = true;
     closeOnSelect: boolean = true;
@@ -614,4 +615,23 @@ describe('MenuTriggerDestroyTestComponent', () => {
         expect(component.closed).toHaveBeenCalledTimes(1);
     });
 
+    it('should emit focused when focusing a menu item', async () => {
+        spyOn(component, 'focused');
+
+        // open menu
+        component.trigger.openMenu();
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        // focus menu item
+        const items = document.querySelectorAll<HTMLButtonElement>(
+            'button[uxmenuitem]'
+        );
+        items.item(2).focus();
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        // the trigger element should be focused
+        expect(component.focused).toHaveBeenCalledTimes(1);
+    });
 });
