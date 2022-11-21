@@ -69,12 +69,12 @@
     }
   },
   "peerDependencies": {
-    "@angular/animations": ">=13.0.0 <15.0.0",
-    "@angular/cdk": ">=13.0.0 <15.0.0",
-    "@angular/common": ">=13.0.0 <15.0.0",
-    "@angular/compiler": ">=13.0.0 <15.0.0",
-    "@angular/core": ">=13.0.0 <15.0.0",
-    "@angular/forms": ">=13.0.0 <15.0.0",
+    "@angular/animations": ">=14.0.0 <16.0.0",
+    "@angular/cdk": ">=14.0.0 <16.0.0",
+    "@angular/common": ">=14.0.0 <16.0.0",
+    "@angular/compiler": ">=14.0.0 <16.0.0",
+    "@angular/core": ">=14.0.0 <16.0.0",
+    "@angular/forms": ">=14.0.0 <16.0.0",
     "chart.js": ">2.9.0 <4.0.0",
     "ng2-charts": ">=2.3.0 <4.0.0"
   }
