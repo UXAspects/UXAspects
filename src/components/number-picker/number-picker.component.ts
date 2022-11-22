@@ -1,5 +1,5 @@
 import { BooleanInput, coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, forwardRef, HostListener, Input, OnChanges, OnDestroy, Optional, Output } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, forwardRef, HostListener, Input, OnChanges, OnDestroy, Optional, Output, ViewChild } from '@angular/core';
 import { ControlValueAccessor, FormGroupDirective, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 let uniqueId = 0;
@@ -119,6 +119,10 @@ export class NumberPickerComponent implements ControlValueAccessor, OnDestroy, O
         return this.id + '-input';
     }
 
+    /** @internal */
+    @ViewChild('input')
+    _inputElement?: ElementRef<HTMLInputElement>;
+
     /** Store the current valid state */
     _valid: boolean = true;
 
@@ -234,6 +238,11 @@ export class NumberPickerComponent implements ControlValueAccessor, OnDestroy, O
 
     getMinValueForComparison(): number {
         return (this.min === undefined || this.min === null) ? -Infinity : this.min;
+    }
+
+    /** Focus the input element */
+    focus(): void {
+        this._inputElement?.nativeElement.focus();
     }
 
     @HostListener('focusin')
