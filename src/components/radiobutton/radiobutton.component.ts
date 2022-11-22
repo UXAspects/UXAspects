@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, forwardRef, Input, OnChanges, Optional, Output, SimpleChanges } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, forwardRef, Input, OnChanges, Optional, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { RadioButtonGroupDirective } from './radio-button-group/radio-button-group.directive';
 
@@ -65,6 +65,10 @@ export class RadioButtonComponent<T = any> implements ControlValueAccessor, OnCh
 
     /** Emits when the value has been changed. */
     @Output() valueChange: EventEmitter<T> = new EventEmitter<T>();
+
+    /** @internal */
+    @ViewChild('input')
+    _inputElement?: ElementRef<HTMLInputElement>;
 
     /** Determine if the underlying input component has been focused with the keyboard */
     _focused: boolean = false;
@@ -143,5 +147,10 @@ export class RadioButtonComponent<T = any> implements ControlValueAccessor, OnCh
     setInternalTabindex(tabIndex): void {
         this._internalTabindex = tabIndex;
         this._changeDetector.detectChanges();
+    }
+
+    /** Focus the input element */
+    focus(): void {
+        this._inputElement?.nativeElement.focus();
     }
 }
