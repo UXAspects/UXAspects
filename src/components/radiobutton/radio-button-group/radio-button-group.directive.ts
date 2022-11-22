@@ -96,11 +96,9 @@ export class RadioButtonGroupDirective<T = any> implements ControlValueAccessor,
     }
 
     /** Determine and set the correct internal tabindex */
-    determineAndSetInternalTabIndex() {
+    determineAndSetInternalTabIndex(): void {
 
-        const firstEnabled = this._radioButtons.find(radio => {
-            return radio.disabled === false;
-        });
+        const firstEnabled = this._firstEnabledRadioButton();
 
         this._radioButtons.forEach(radio => {
 
@@ -110,6 +108,15 @@ export class RadioButtonGroupDirective<T = any> implements ControlValueAccessor,
                 radio.setInternalTabindex(firstEnabled === radio ? 0 : -1);
             }
         });
+    }
+
+    /** Focus the first enabled radio button unless specified */
+    focus(): void {
+        this._firstEnabledRadioButton().focus();
+    }
+
+    private _firstEnabledRadioButton(): RadioButtonComponent {
+        return this._radioButtons.find(radio => radio.disabled === false);
     }
 
     /** Inform all child radio buttons of the latest value */
