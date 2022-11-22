@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, forwardRef, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, forwardRef, Input, Output, ViewChild } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 const TOGGLESWITCH_VALUE_ACCESSOR = {
@@ -50,6 +50,10 @@ export class ToggleSwitchComponent implements ControlValueAccessor {
     /** Emits when `value` has been changed. */
     @Output() valueChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
+    /** @internal */
+    @ViewChild('input')
+    _inputElement?: ElementRef<HTMLInputElement>;
+
     /** Determine if the underlying input component has been focused with the keyboard */
     _focused: boolean = false;
 
@@ -92,5 +96,10 @@ export class ToggleSwitchComponent implements ControlValueAccessor {
     setDisabledState(isDisabled: boolean): void {
         this.disabled = isDisabled;
         this._changeDetector.markForCheck();
+    }
+
+    /** Focus the input element */
+    focus(): void {
+        this._inputElement?.nativeElement.focus();
     }
 }
