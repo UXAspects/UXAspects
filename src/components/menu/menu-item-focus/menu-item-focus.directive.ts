@@ -10,6 +10,7 @@ export const FocusableItemToken = new InjectionToken<FocusableOption>('Focusable
     selector: '[uxMenuItemFocus]',
     host: {
         '[class.ux-menu-item]': 'true',
+        'role': 'menuitem'
     }
 })
 export class MenuItemFocus extends MenuTabbableItemDirective implements OnInit, OnDestroy, FocusableOption {
