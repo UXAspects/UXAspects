@@ -1,6 +1,7 @@
 import { FocusableOption, FocusOrigin } from '@angular/cdk/a11y';
 import { Directive, ElementRef, Inject, InjectionToken, OnDestroy, OnInit, Optional, Renderer2 } from '@angular/core';
 import { FocusIndicatorService } from '../../../directives/accessibility/index';
+import { MenuItemType } from '../menu-item/menu-item-type.enum';
 import { MenuTabbableItemDirective } from '../menu-tabbable-item/menu-tabbable-item.directive';
 import { MenuComponent } from '../menu/menu.component';
 
@@ -14,6 +15,9 @@ export const FocusableItemToken = new InjectionToken<FocusableOption>('Focusable
     }
 })
 export class MenuItemFocus extends MenuTabbableItemDirective implements OnInit, OnDestroy, FocusableOption {
+
+    /** Indicate the type of the menu item */
+    readonly type: MenuItemType = MenuItemType.Custom;
 
     constructor(
         readonly _menu: MenuComponent,
