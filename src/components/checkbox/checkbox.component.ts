@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, ExistingProvider, forwardRef, Input, Output, ViewChild } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { FocusableItemToken } from '../menu';
 
 export const CHECKBOX_VALUE_ACCESSOR: ExistingProvider = {
     provide: NG_VALUE_ACCESSOR,
@@ -12,7 +13,10 @@ let uniqueCheckboxId = 0;
 @Component({
     selector: 'ux-checkbox',
     templateUrl: './checkbox.component.html',
-    providers: [CHECKBOX_VALUE_ACCESSOR],
+    providers: [CHECKBOX_VALUE_ACCESSOR, {
+        provide: FocusableItemToken,
+        useExisting: CheckboxComponent
+    }],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CheckboxComponent<T = number> implements ControlValueAccessor {

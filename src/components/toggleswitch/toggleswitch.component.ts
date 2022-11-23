@@ -1,5 +1,7 @@
+import { FocusableOption } from '@angular/cdk/a11y';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, forwardRef, Input, Output, ViewChild } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { FocusableItemToken } from '../menu';
 
 const TOGGLESWITCH_VALUE_ACCESSOR = {
     provide: NG_VALUE_ACCESSOR,
@@ -12,10 +14,13 @@ let uniqueToggleSwitchId = 0;
 @Component({
     selector: 'ux-toggleswitch',
     templateUrl: './toggleswitch.component.html',
-    providers: [TOGGLESWITCH_VALUE_ACCESSOR],
+    providers: [TOGGLESWITCH_VALUE_ACCESSOR, {
+        provide: FocusableItemToken,
+        useExisting: ToggleSwitchComponent
+    }],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ToggleSwitchComponent implements ControlValueAccessor {
+export class ToggleSwitchComponent implements ControlValueAccessor, FocusableOption {
 
     /** Provide a default unique id value for the toggle switch */
     _toggleSwitchId: string = `ux-toggleswitch-${++uniqueToggleSwitchId}`;

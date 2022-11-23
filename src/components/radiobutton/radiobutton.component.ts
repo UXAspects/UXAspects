@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, forwardRef, Input, OnChanges, Optional, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { FocusableItemToken } from '../menu';
 import { RadioButtonGroupDirective } from './radio-button-group/radio-button-group.directive';
 
 export const RADIOBUTTON_VALUE_ACCESSOR: any = {
@@ -13,7 +14,10 @@ let uniqueRadioId = 0;
 @Component({
     selector: 'ux-radio-button',
     templateUrl: './radiobutton.component.html',
-    providers: [RADIOBUTTON_VALUE_ACCESSOR],
+    providers: [RADIOBUTTON_VALUE_ACCESSOR, {
+        provide: FocusableItemToken,
+        useExisting: RadioButtonComponent
+    }],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RadioButtonComponent<T = any> implements ControlValueAccessor, OnChanges {

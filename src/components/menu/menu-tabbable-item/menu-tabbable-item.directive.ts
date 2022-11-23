@@ -18,16 +18,16 @@ export class MenuTabbableItemDirective implements OnInit, OnDestroy, FocusableOp
     readonly type: MenuItemType = MenuItemType.Default;
 
     /** Store the focus indicator instance */
-    private _focusIndicator: FocusIndicator;
+    focusIndicator: FocusIndicator;
 
     /** Automatically unsubscribe when directive is destroyed */
     private _onDestroy$ = new Subject<void>();
 
     constructor(
-        private readonly _menu: MenuComponent,
-        private readonly _elementRef: ElementRef<HTMLElement>,
-        private readonly _focusIndicatorService: FocusIndicatorService,
-        private readonly _renderer: Renderer2
+        readonly _menu: MenuComponent,
+        readonly _elementRef: ElementRef<HTMLElement>,
+        readonly _focusIndicatorService: FocusIndicatorService,
+        readonly _renderer: Renderer2
     ) { }
 
     ngOnInit(): void {
@@ -35,7 +35,7 @@ export class MenuTabbableItemDirective implements OnInit, OnDestroy, FocusableOp
         this._menu._addItem(this);
 
         // we only want to show the focus indicator whenever the keyboard is used
-        this._focusIndicator = this._focusIndicatorService.monitor(this._elementRef.nativeElement);
+        this.focusIndicator = this._focusIndicatorService.monitor(this._elementRef.nativeElement);
 
         // subscribe to active item changes
         this._menu._activeItem$.pipe(takeUntil(this._onDestroy$))
@@ -45,12 +45,12 @@ export class MenuTabbableItemDirective implements OnInit, OnDestroy, FocusableOp
     ngOnDestroy(): void {
         this._onDestroy$.next();
         this._onDestroy$.complete();
-        this._focusIndicator.destroy();
+        this.focusIndicator.destroy();
     }
 
     /** Focus this item with a given origin */
     focus(origin: FocusOrigin): void {
-        this._focusIndicator.focus(origin);
+        this.focusIndicator.focus(origin);
     }
 
     /** This function is built into the CDK manager to allow jumping to items based on text content */
