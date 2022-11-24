@@ -13,6 +13,11 @@ export class MenuItemFocusPage {
     checkboxes = $$('.cdk-overlay-container ux-checkbox');
     radioButtons = $$('ux-radio-button');
 
+    // Component values
+    radioValue = $('#radio-value');
+    checkboxValue = $('#checkbox-value');
+    toggleSwitchValue = $('#toggleswitch-value');
+
 
     async getPage() {
         return await browser.get('#/menu/menu-item-focus');

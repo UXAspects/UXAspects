@@ -6,15 +6,13 @@ import { Component } from '@angular/core';
     styleUrls: ['./menu-item-focus.testpage.component.less']
 })
 export class MenuItemFocusTestPageComponent {
-    radioSelected: number | string | object = 100;
+    radioSelected: string = 'option1';
+    toggleSwitchValue: boolean = false;
 
     radioOptions = {
-        option1: 100,
-        option2: 'string',
-        option3: {
-            test: 1
-        },
-        option4: 'Wrap-Text'
+        option1: 'option1',
+        option2: 'option2',
+        option3: 'option3',
     };
 
     checkOptions = {

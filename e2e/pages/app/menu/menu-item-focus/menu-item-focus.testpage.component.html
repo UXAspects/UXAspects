@@ -18,14 +18,19 @@
         <div class="col-md-6">
             <ux-checkbox id="disable-checkbox" [(value)]="disabled">
                 Disable options
-            </ux-checkbox >
+            </ux-checkbox>
+
+            <p>Toggleswitch Value: <span id="toggleswitch-value">{{ toggleSwitchValue }}</span></p>
+            <p>Checkbox Value: <span id="checkbox-value">{{ checkOptions | json }}</span></p>
+            <p>Radio Value: <span id="radio-value">{{ radioSelected }}</span></p>
+
         </div>
     </div>
 </div>
 
 <ux-menu #menu>
 
-    <ux-toggleswitch uxMenuItemFocus [disabled]="disabled">
+    <ux-toggleswitch [(value)]="toggleSwitchValue" uxMenuItemFocus [disabled]="disabled">
         Toggle 1
     </ux-toggleswitch>
 
