@@ -46,9 +46,6 @@ export class MenuItemComponent implements OnInit, OnDestroy, FocusableOption {
     /** Emits when the menu item is clicked or the enter key is pressed. */
     @Output() activate = new EventEmitter<MouseEvent | KeyboardEvent>();
 
-    /** Emit when the menu item is focused */
-    @Output() readonly focused = new EventEmitter<void>();
-
     /** Access the open state */
     get isOpen(): boolean {
         return this._menu.isMenuOpen;
@@ -131,7 +128,6 @@ export class MenuItemComponent implements OnInit, OnDestroy, FocusableOption {
     @HostListener('focus')
     _onFocus(): void {
         this.isFocused$.next(true);
-        this.focused.emit();
     }
 
     @HostListener('blur')

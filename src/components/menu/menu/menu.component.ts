@@ -114,11 +114,7 @@ export class MenuComponent implements AfterContentInit, OnDestroy, OnChanges {
     }
 
     get _menuItemClick(): Observable<FocusOrigin> {
-        return this._menuItems.pipe(switchMap(items => merge(...items.map(item => {
-            if (item.onClick$) {
-                return item.onClick$;
-            }
-        }))), takeUntil(this._onDestroy$));
+        return this._menuItems.pipe(switchMap(items => merge(...items.map(item => item.onClick$))), takeUntil(this._onDestroy$));
     }
 
     /** Return only menu items an not custom tabbable items */
