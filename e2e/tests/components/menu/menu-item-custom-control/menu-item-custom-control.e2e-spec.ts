@@ -9,8 +9,6 @@ describe('Menu Item Custom Control Directive', () => {
     beforeEach(async () => {
         page = new MenuItemCustomControlPage();
         await page.getPage();
-
-
     });
 
     describe('When menu open', () => {
