@@ -48,7 +48,7 @@ export class MenuItemCustomControlDirective extends MenuTabbableItemDirective im
         this._focusableOption ? this._focusableOption.focus(origin) : this._elementRef.nativeElement.focus();
     }
 
-    // remove any existing tab index on internal component instance and have it handled by this directive
+    // remove any existing tab index on component instance and have it handled by this directive
     removeInternalTabIndex(): void {
         const elementsWithTabIndex = this._elementRef.nativeElement.querySelectorAll('[tabindex]');
 
