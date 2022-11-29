@@ -8,9 +8,9 @@ export class MenuItemCustomControlPage {
     disableCheckbox = $('#disable-checkbox');
 
     // Component Inputs
-    toggleSwitch = $('.ux-menu .ux-toggleswitch');
-    checkboxes = $$('.cdk-overlay-container .ux-checkbox');
-    radioButtons = $$('.ux-radio-button');
+    toggleSwitch = $('#test-toggleswitch');
+    checkboxes = $$('.cdk-overlay-container .test-checkbox');
+    radioButtons = $$('.radio-button-container .test-radio-button');
 
     // Component values
     radioValue = $('#radio-value');
