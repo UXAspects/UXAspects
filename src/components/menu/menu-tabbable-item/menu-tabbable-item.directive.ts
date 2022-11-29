@@ -18,7 +18,7 @@ export class MenuTabbableItemDirective implements OnInit, OnDestroy, FocusableOp
     readonly type: MenuItemType = MenuItemType.Default;
 
     /** Store the focus indicator instance */
-    focusIndicator: FocusIndicator;
+    protected focusIndicator: FocusIndicator;
 
     /** Automatically unsubscribe when directive is destroyed */
     protected _onDestroy$ = new Subject<void>();

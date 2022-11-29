@@ -1,6 +1,7 @@
-import { FocusableOption } from '@angular/cdk/a11y';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, forwardRef, Input, Output, ViewChild } from '@angular/core';
+import { FocusableOption, FocusOrigin } from '@angular/cdk/a11y';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, forwardRef, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { FocusIndicator, FocusIndicatorService } from '../../directives/accessibility';
 import { FocusableItemToken } from '../menu';
 
 const TOGGLESWITCH_VALUE_ACCESSOR = {
@@ -20,7 +21,7 @@ let uniqueToggleSwitchId = 0;
     }],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ToggleSwitchComponent implements ControlValueAccessor, FocusableOption {
+export class ToggleSwitchComponent implements ControlValueAccessor, FocusableOption, OnInit {
 
     /** Provide a default unique id value for the toggle switch */
     _toggleSwitchId: string = `ux-toggleswitch-${++uniqueToggleSwitchId}`;
@@ -68,7 +69,19 @@ export class ToggleSwitchComponent implements ControlValueAccessor, FocusableOpt
     /** Used to inform Angular forms that the component value has changed */
     onChangeCallback: (_: any) => void = () => { };
 
-    constructor(private readonly _changeDetector: ChangeDetectorRef) { }
+    /** Store the focus indicator instance */
+    protected focusIndicator: FocusIndicator;
+
+    constructor(
+        private readonly _changeDetector: ChangeDetectorRef,
+        private readonly _focusIndicatorService: FocusIndicatorService,
+        private readonly _elementRef: ElementRef
+    ) { }
+
+    ngOnInit() {
+        // we only want to show the focus indicator whenever the keyboard is used
+        this.focusIndicator = this._focusIndicatorService.monitor(this._elementRef.nativeElement);
+    }
 
     toggle(): void {
         if (!this.disabled && this.clickable) {
@@ -104,7 +117,8 @@ export class ToggleSwitchComponent implements ControlValueAccessor, FocusableOpt
     }
 
     /** Focus the input element */
-    focus(): void {
+    focus(origin: FocusOrigin): void {
+        this.focusIndicator.focus(origin);
         this._inputElement?.nativeElement.focus();
     }
 }

@@ -45,7 +45,7 @@ export class MenuItemCustomControlDirective extends MenuTabbableItemDirective im
     /** Focus this item with a given origin */
     focus(origin: FocusOrigin): void {
         super.focus(origin);
-        this._focusableOption ? this._focusableOption.focus() : this._elementRef.nativeElement.focus();
+        this._focusableOption ? this._focusableOption.focus(origin) : this._elementRef.nativeElement.focus();
     }
 
     // remove any existing tab index on internal component instance and have it handled by this directive
