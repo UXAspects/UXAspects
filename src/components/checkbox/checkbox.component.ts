@@ -72,7 +72,7 @@ export class CheckboxComponent<T = number> implements ControlValueAccessor {
     /** Used to inform Angular forms that the component value has changed */
     onChangeCallback: (_: boolean | T) => void = () => { };
 
-    /** @internal */
+    /** Get the elementRef for the input to set focus */
     @ViewChild('input')
     _inputElement?: ElementRef<HTMLInputElement>;
 

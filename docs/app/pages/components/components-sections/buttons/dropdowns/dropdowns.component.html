@@ -54,6 +54,12 @@
 
     <ux-menu-divider></ux-menu-divider>
 
+    <ux-toggleswitch class="ux-toggleswitch" [(value)]="toggleSwitchValue" uxMenuItemCustomControl>
+        Toggle 1
+    </ux-toggleswitch>
+
+    <ux-menu-divider></ux-menu-divider>
+
     <button type="button" uxMenuItem (activate)="export()">
         <span class="dropdown-menu-icon"></span>
         <span class="dropdown-menu-text">Export</span>

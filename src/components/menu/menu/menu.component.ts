@@ -5,7 +5,7 @@ import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component
 import { BehaviorSubject, merge, Observable, Subject } from 'rxjs';
 import { map, switchMap, takeUntil } from 'rxjs/operators';
 import { AnchorAlignment, AnchorPlacement } from '../../../common/overlay/index';
-import { MenuItemFocus } from '../menu-item-focus/menu-item-focus.directive';
+import { MenuItemCustomControlDirective } from '../menu-item-custom-control/menu-item-custom-control.directive';
 import { MenuItemType } from '../menu-item/menu-item-type.enum';
 import { MenuItemComponent } from '../menu-item/menu-item.component';
 import { MenuModuleOptions } from '../menu-options.interface';
@@ -72,13 +72,13 @@ export class MenuComponent implements AfterContentInit, OnDestroy, OnChanges {
     _isSubMenu: boolean = false;
 
     /** Handle keyboard interactions */
-    _keyManager: FocusKeyManager<MenuItemComponent | MenuTabbableItemDirective | MenuItemFocus>;
+    _keyManager: FocusKeyManager<MenuItemComponent | MenuTabbableItemDirective | MenuItemCustomControlDirective>;
 
     /** Whether this menu should close when it loses focus */
     _closeOnBlur: boolean = false;
 
     /** Emit when the focused item changes (we use this as the key manager is not instantiated until a late lifecycle hook) */
-    readonly _activeItem$ = new BehaviorSubject<MenuItemComponent | MenuTabbableItemDirective | MenuItemFocus>(null);
+    readonly _activeItem$ = new BehaviorSubject<MenuItemComponent | MenuTabbableItemDirective | MenuItemCustomControlDirective>(null);
 
     /** Access allow a close event to propagate all the way up the submenus */
     readonly _closeAll$ = new Subject<FocusOrigin | 'tabout'>();
@@ -97,7 +97,7 @@ export class MenuComponent implements AfterContentInit, OnDestroy, OnChanges {
     readonly _alignment$ = new BehaviorSubject<AnchorAlignment>('start');
 
     /** Access all child menu items for accessibility purposes */
-    private readonly _items$ = new BehaviorSubject<(MenuItemComponent | MenuTabbableItemDirective | MenuItemFocus)[]>([]);
+    private readonly _items$ = new BehaviorSubject<(MenuItemComponent | MenuTabbableItemDirective | MenuItemCustomControlDirective)[]>([]);
 
     /** Automatically unsubscribe when the component is destroyed */
     private readonly _onDestroy$ = new Subject<void>();
@@ -123,7 +123,7 @@ export class MenuComponent implements AfterContentInit, OnDestroy, OnChanges {
     }
 
     /** Create an internal querylist to store the menu items */
-    private _itemsList = new QueryList<MenuItemComponent | MenuTabbableItemDirective | MenuItemFocus>();
+    private _itemsList = new QueryList<MenuItemComponent | MenuTabbableItemDirective | MenuItemCustomControlDirective>();
 
     constructor(
         private readonly _changeDetector: ChangeDetectorRef,
@@ -144,7 +144,7 @@ export class MenuComponent implements AfterContentInit, OnDestroy, OnChanges {
         });
 
         // setup keyboard functionality
-        this._keyManager = new FocusKeyManager<MenuItemComponent | MenuTabbableItemDirective | MenuItemFocus>(this._itemsList)
+        this._keyManager = new FocusKeyManager<MenuItemComponent | MenuTabbableItemDirective | MenuItemCustomControlDirective>(this._itemsList)
             .withVerticalOrientation()
             .withTypeAhead()
             .withWrap();
@@ -177,21 +177,21 @@ export class MenuComponent implements AfterContentInit, OnDestroy, OnChanges {
     }
 
     /** Register a menu item - we do this do avoid `@ContentChildren` detecting submenu items */
-    _addItem(item: MenuItemComponent | MenuTabbableItemDirective | MenuItemFocus): void {
+    _addItem(item: MenuItemComponent | MenuTabbableItemDirective | MenuItemCustomControlDirective): void {
         if (!this.hasItem(item)) {
             this._items$.next([...this._items$.value, item]);
         }
     }
 
     /** Remove an item */
-    _removeItem(item: MenuItemComponent | MenuTabbableItemDirective | MenuItemFocus): void {
+    _removeItem(item: MenuItemComponent | MenuTabbableItemDirective | MenuItemCustomControlDirective): void {
         if (this.hasItem(item)) {
             this._items$.next(this._items$.value.filter(_item => _item !== item));
         }
     }
 
     /** Determine if an item exists */
-    private hasItem(item: MenuItemComponent | MenuTabbableItemDirective | MenuItemFocus): boolean {
+    private hasItem(item: MenuItemComponent | MenuTabbableItemDirective | MenuItemCustomControlDirective): boolean {
         return !!this._items$.value.find(_item => _item === item);
     }
 

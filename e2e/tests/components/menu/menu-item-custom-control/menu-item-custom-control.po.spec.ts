@@ -1,17 +1,16 @@
 import { $, $$, browser } from 'protractor';
 
-export class MenuItemFocusPage {
+export class MenuItemCustomControlPage {
 
     menuTrigger = $('#open-menu');
     topFocus = $('#top-focus');
-    cdkOverlayContainer = $('.cdk-overlay-container');
     menu = $('.ux-menu');
     disableCheckbox = $('#disable-checkbox');
 
     // Component Inputs
-    toggleSwitch = $('.ux-menu ux-toggleswitch');
-    checkboxes = $$('.cdk-overlay-container ux-checkbox');
-    radioButtons = $$('ux-radio-button');
+    toggleSwitch = $('.ux-menu .ux-toggleswitch');
+    checkboxes = $$('.cdk-overlay-container .ux-checkbox');
+    radioButtons = $$('.ux-radio-button');
 
     // Component values
     radioValue = $('#radio-value');
@@ -20,7 +19,7 @@ export class MenuItemFocusPage {
 
 
     async getPage() {
-        return await browser.get('#/menu/menu-item-focus');
+        return await browser.get('#/menu/menu-item-custom-control');
     }
 
     async activeElementAttr(attr: string): Promise<string> {

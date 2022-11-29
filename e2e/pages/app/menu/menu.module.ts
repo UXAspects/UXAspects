@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { AccessibilityModule, CheckboxModule, IconModule, MenuModule, RadioButtonModule, StringFilterModule, ToggleSwitchModule } from '@ux-aspects/ux-aspects';
 import { MenuFallbackTestPageComponent } from './fallback/menu-fallback.testpage.component';
-import { MenuItemFocusTestPageComponent } from './menu-item-focus/menu-item-focus.testpage.component';
+import { MenuItemCustomControlTestPageComponent } from './menu-item-custom-control/menu-item-custom-control.testpage.component';
 import { MenuTestPageComponent } from './menu.testpage.component';
 
 const ROUTES = [
@@ -17,8 +17,8 @@ const ROUTES = [
         component: MenuFallbackTestPageComponent
     },
     {
-        path: 'menu-item-focus',
-        component: MenuItemFocusTestPageComponent
+        path: 'menu-item-custom-control',
+        component: MenuItemCustomControlTestPageComponent
     }
 ];
 
@@ -40,7 +40,7 @@ const ROUTES = [
     declarations: [
         MenuTestPageComponent,
         MenuFallbackTestPageComponent,
-        MenuItemFocusTestPageComponent
+        MenuItemCustomControlTestPageComponent
     ]
 })
 

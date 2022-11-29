@@ -70,7 +70,7 @@ export class RadioButtonComponent<T = any> implements ControlValueAccessor, OnCh
     /** Emits when the value has been changed. */
     @Output() valueChange: EventEmitter<T> = new EventEmitter<T>();
 
-    /** @internal */
+    /** Get the elementRef for the input to set focus */
     @ViewChild('input')
     _inputElement?: ElementRef<HTMLInputElement>;
 

@@ -30,9 +30,11 @@
 
 <ux-menu #menu>
 
-    <ux-toggleswitch [(value)]="toggleSwitchValue" uxMenuItemFocus [disabled]="disabled">
+    <ux-toggleswitch class="ux-toggleswitch" [(value)]="toggleSwitchValue" uxMenuItemCustomControl [disabled]="disabled">
         Toggle 1
     </ux-toggleswitch>
+
+    <ux-menu-divider></ux-menu-divider>
 
     <button type="button" uxMenuItem>
         <span class="dropdown-menu-icon"></span>
@@ -41,28 +43,28 @@
 
     <ux-menu-divider></ux-menu-divider>
 
-    <ux-checkbox uxMenuItemFocus [(value)]="checkOptions.option1" [disabled]="disabled">
+    <ux-checkbox class="ux-checkbox" uxMenuItemCustomControl [(value)]="checkOptions.option1" [disabled]="disabled">
         Option 1
     </ux-checkbox>
-    <ux-checkbox uxMenuItemFocus [(value)]="checkOptions.option2">
+    <ux-checkbox class="ux-checkbox" uxMenuItemCustomControl [(value)]="checkOptions.option2">
         Option 2
     </ux-checkbox>
-    <ux-checkbox uxMenuItemFocus [(value)]="checkOptions.option3">
+    <ux-checkbox class="ux-checkbox" uxMenuItemCustomControl [(value)]="checkOptions.option3">
         Option 3
     </ux-checkbox>
 
     <ux-menu-divider></ux-menu-divider>
 
     <div uxRadioButtonGroup [(value)]="radioSelected" class="radio-button-container">
-        <ux-radio-button uxMenuItemFocus name="radio-group" [option]="radioOptions.option1" [disabled]="disabled">
+        <ux-radio-button class="ux-radio-button" uxMenuItemCustomControl name="radio-group" [option]="radioOptions.option1" [disabled]="disabled">
             Option 1
         </ux-radio-button>
 
-        <ux-radio-button uxMenuItemFocus name="radio-group" [option]="radioOptions.option2">
+        <ux-radio-button class="ux-radio-button" uxMenuItemCustomControl name="radio-group" [option]="radioOptions.option2">
             Option 2
         </ux-radio-button>
 
-        <ux-radio-button uxMenuItemFocus name="radio-group" [option]="radioOptions.option3">
+        <ux-radio-button class="ux-radio-button" uxMenuItemCustomControl name="radio-group" [option]="radioOptions.option3">
             Option 3
         </ux-radio-button>
     </div>

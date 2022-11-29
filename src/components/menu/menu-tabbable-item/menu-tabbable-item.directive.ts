@@ -21,13 +21,13 @@ export class MenuTabbableItemDirective implements OnInit, OnDestroy, FocusableOp
     focusIndicator: FocusIndicator;
 
     /** Automatically unsubscribe when directive is destroyed */
-    private _onDestroy$ = new Subject<void>();
+    protected _onDestroy$ = new Subject<void>();
 
     constructor(
-        readonly _menu: MenuComponent,
-        readonly _elementRef: ElementRef<HTMLElement>,
-        readonly _focusIndicatorService: FocusIndicatorService,
-        readonly _renderer: Renderer2
+        protected readonly _menu: MenuComponent,
+        protected readonly _elementRef: ElementRef<HTMLElement>,
+        protected readonly _focusIndicatorService: FocusIndicatorService,
+        protected readonly _renderer: Renderer2
     ) { }
 
     ngOnInit(): void {

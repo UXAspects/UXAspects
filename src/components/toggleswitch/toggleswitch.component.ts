@@ -55,7 +55,7 @@ export class ToggleSwitchComponent implements ControlValueAccessor, FocusableOpt
     /** Emits when `value` has been changed. */
     @Output() valueChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-    /** @internal */
+    /** Get the elementRef for the input to set focus */
     @ViewChild('input')
     _inputElement?: ElementRef<HTMLInputElement>;
 
