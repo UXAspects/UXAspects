@@ -190,7 +190,7 @@
             "prefix": "ux",
             "architect": {
                 "build": {
-                    "builder": "@ashley-hunter/ng-packagr-compat:package",
+                    "builder": "@nrwl/angular:package",
                     "outputs": ["dist/library"],
                     "options": {
                         "project": "src/ng-package.json"
