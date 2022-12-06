@@ -1,8 +1,9 @@
-import { FocusableOption, FocusOrigin } from '@angular/cdk/a11y';
+import { FocusOrigin } from '@angular/cdk/a11y';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, forwardRef, Input, OnChanges, Optional, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { FocusIndicatorDirective } from '../../directives/accessibility';
 import { FocusableItemToken } from '../menu';
+import { FocusableControl } from '../menu/interfaces/focusable-control.interface';
 import { RadioButtonGroupDirective } from './radio-button-group/radio-button-group.directive';
 
 export const RADIOBUTTON_VALUE_ACCESSOR: any = {
@@ -22,7 +23,7 @@ let uniqueRadioId = 0;
     }],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class RadioButtonComponent<T = any> implements ControlValueAccessor, OnChanges, FocusableOption {
+export class RadioButtonComponent<T = any> implements ControlValueAccessor, OnChanges, FocusableControl {
 
     /** Provide a default unique id value for the radiobutton */
     _radioButtonId: string = `ux-radio-button-${++uniqueRadioId}`;

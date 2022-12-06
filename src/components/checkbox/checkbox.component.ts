@@ -1,8 +1,9 @@
-import { FocusableOption, FocusOrigin } from '@angular/cdk/a11y';
+import { FocusOrigin } from '@angular/cdk/a11y';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, ExistingProvider, forwardRef, Input, Output, ViewChild } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { FocusIndicatorDirective } from '../../directives/accessibility';
 import { FocusableItemToken } from '../menu';
+import { FocusableControl } from '../menu/interfaces/focusable-control.interface';
 
 export const CHECKBOX_VALUE_ACCESSOR: ExistingProvider = {
     provide: NG_VALUE_ACCESSOR,
@@ -21,7 +22,7 @@ let uniqueCheckboxId = 0;
     }],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CheckboxComponent<T = number> implements ControlValueAccessor, FocusableOption {
+export class CheckboxComponent<T = number> implements ControlValueAccessor, FocusableControl {
 
     /** Provide a default unique id value for the checkbox */
     _checkboxId: string = `ux-checkbox-${++uniqueCheckboxId}`;
