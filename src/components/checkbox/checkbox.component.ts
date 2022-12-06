@@ -1,5 +1,5 @@
 import { FocusableOption, FocusOrigin } from '@angular/cdk/a11y';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, ExistingProvider, forwardRef, Input, Output, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, ExistingProvider, forwardRef, Input, Output, ViewChild } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { FocusIndicatorDirective } from '../../directives/accessibility';
 import { FocusableItemToken } from '../menu';
@@ -74,10 +74,7 @@ export class CheckboxComponent<T = number> implements ControlValueAccessor, Focu
     /** Used to inform Angular forms that the component value has changed */
     onChangeCallback: (_: boolean | T) => void = () => { };
 
-    /** Get the elementRef for the input to set focus */
-    @ViewChild('input')
-    _inputElement?: ElementRef<HTMLInputElement>;
-
+    /** Get the focus indicator to set focus */
     @ViewChild(FocusIndicatorDirective)
     _focusIndicator?: FocusIndicatorDirective;
 
@@ -135,6 +132,10 @@ export class CheckboxComponent<T = number> implements ControlValueAccessor, Focu
     /** Focus the input element */
     focus(origin: FocusOrigin): void {
         this._focusIndicator.focus(origin);
-        this._inputElement?.nativeElement.focus();
+    }
+
+    setInputTabIndex(tabindex: number): void {
+        this.tabindex = tabindex;
+        this._changeDetector.markForCheck();
     }
 }

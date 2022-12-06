@@ -1,8 +1,9 @@
-import { FocusableOption, FocusOrigin } from '@angular/cdk/a11y';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, forwardRef, Input, Output, ViewChild } from '@angular/core';
+import { FocusOrigin } from '@angular/cdk/a11y';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, forwardRef, Input, Output, ViewChild } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { FocusIndicatorDirective } from '../../directives/accessibility';
 import { FocusableItemToken } from '../menu';
+import { FocusableControl } from '../menu/interfaces/focusable-control.interface';
 
 const TOGGLESWITCH_VALUE_ACCESSOR = {
     provide: NG_VALUE_ACCESSOR,
@@ -21,7 +22,7 @@ let uniqueToggleSwitchId = 0;
     }],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ToggleSwitchComponent implements ControlValueAccessor, FocusableOption {
+export class ToggleSwitchComponent implements ControlValueAccessor, FocusableControl {
 
     /** Provide a default unique id value for the toggle switch */
     _toggleSwitchId: string = `ux-toggleswitch-${++uniqueToggleSwitchId}`;
@@ -56,10 +57,7 @@ export class ToggleSwitchComponent implements ControlValueAccessor, FocusableOpt
     /** Emits when `value` has been changed. */
     @Output() valueChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-    /** Get the elementRef for the input to set focus */
-    @ViewChild('input')
-    _inputElement?: ElementRef<HTMLInputElement>;
-
+    /** Get the focus indicator to set focus */
     @ViewChild(FocusIndicatorDirective)
     _focusIndicator?: FocusIndicatorDirective;
 
@@ -110,6 +108,10 @@ export class ToggleSwitchComponent implements ControlValueAccessor, FocusableOpt
     /** Focus the input element */
     focus(origin: FocusOrigin): void {
         this._focusIndicator.focus(origin);
-        this._inputElement?.nativeElement.focus();
+    }
+
+    setInputTabIndex(tabindex: number): void {
+        this.tabindex = tabindex;
+        this._changeDetector.markForCheck();
     }
 }

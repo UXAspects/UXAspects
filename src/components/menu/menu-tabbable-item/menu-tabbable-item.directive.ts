@@ -65,7 +65,7 @@ export class MenuTabbableItemDirective implements OnInit, OnDestroy, FocusableOp
     }
 
     /** Update the tab index on this item */
-    private setTabIndex(isTabbable: boolean): void {
+    protected setTabIndex(isTabbable: boolean): void {
         this._renderer.setAttribute(this._elementRef.nativeElement, 'tabindex', isTabbable ? '0' : '-1');
     }
 

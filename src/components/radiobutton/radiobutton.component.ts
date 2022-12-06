@@ -1,5 +1,5 @@
 import { FocusableOption, FocusOrigin } from '@angular/cdk/a11y';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, forwardRef, Input, OnChanges, Optional, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, forwardRef, Input, OnChanges, Optional, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { FocusIndicatorDirective } from '../../directives/accessibility';
 import { FocusableItemToken } from '../menu';
@@ -72,10 +72,7 @@ export class RadioButtonComponent<T = any> implements ControlValueAccessor, OnCh
     /** Emits when the value has been changed. */
     @Output() valueChange: EventEmitter<T> = new EventEmitter<T>();
 
-    /** Get the elementRef for the input to set focus */
-    @ViewChild('input')
-    _inputElement?: ElementRef<HTMLInputElement>;
-
+    /** Get the focus indicator to set focus */
     @ViewChild(FocusIndicatorDirective)
     _focusIndicator?: FocusIndicatorDirective;
 
@@ -161,6 +158,10 @@ export class RadioButtonComponent<T = any> implements ControlValueAccessor, OnCh
     /** Focus the input element */
     focus(origin: FocusOrigin): void {
         this._focusIndicator.focus(origin);
-        this._inputElement?.nativeElement.focus();
+    }
+
+    setInputTabIndex(tabindex: number): void {
+        this.tabindex = tabindex;
+        this._changeDetector.detectChanges();
     }
 }
