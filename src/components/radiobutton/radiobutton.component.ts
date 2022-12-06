@@ -1,7 +1,7 @@
-import { FocusOrigin } from '@angular/cdk/a11y';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, forwardRef, Input, OnChanges, OnInit, Optional, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { FocusableOption, FocusOrigin } from '@angular/cdk/a11y';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, forwardRef, Input, OnChanges, Optional, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { FocusIndicator, FocusIndicatorService } from '../../directives/accessibility';
+import { FocusIndicatorDirective } from '../../directives/accessibility';
 import { FocusableItemToken } from '../menu';
 import { RadioButtonGroupDirective } from './radio-button-group/radio-button-group.directive';
 
@@ -22,7 +22,7 @@ let uniqueRadioId = 0;
     }],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class RadioButtonComponent<T = any> implements ControlValueAccessor, OnChanges, OnInit {
+export class RadioButtonComponent<T = any> implements ControlValueAccessor, OnChanges, FocusableOption {
 
     /** Provide a default unique id value for the radiobutton */
     _radioButtonId: string = `ux-radio-button-${++uniqueRadioId}`;
@@ -76,6 +76,9 @@ export class RadioButtonComponent<T = any> implements ControlValueAccessor, OnCh
     @ViewChild('input')
     _inputElement?: ElementRef<HTMLInputElement>;
 
+    @ViewChild(FocusIndicatorDirective)
+    _focusIndicator?: FocusIndicatorDirective;
+
     /** Determine if the underlying input component has been focused with the keyboard */
     _focused: boolean = false;
 
@@ -88,20 +91,10 @@ export class RadioButtonComponent<T = any> implements ControlValueAccessor, OnCh
     /** Used to inform Angular forms that the component value has changed */
     onChangeCallback: (_: any) => void = () => { };
 
-    /** Store the focus indicator instance */
-    private focusIndicator: FocusIndicator;
-
     constructor(
         private readonly _changeDetector: ChangeDetectorRef,
-        private readonly _focusIndicatorService: FocusIndicatorService,
-        private readonly _elementRef: ElementRef,
         @Optional() private readonly _group: RadioButtonGroupDirective
     ) { }
-
-    ngOnInit(): void {
-        // we only want to show the focus indicator whenever the keyboard is used
-        this.focusIndicator = this._focusIndicatorService.monitor(this._elementRef.nativeElement);
-    }
 
     ngOnChanges(changes: SimpleChanges): void {
         if (changes.disabled && this._group && !changes.disabled.firstChange) {
@@ -167,7 +160,7 @@ export class RadioButtonComponent<T = any> implements ControlValueAccessor, OnCh
 
     /** Focus the input element */
     focus(origin: FocusOrigin): void {
-        this.focusIndicator.focus(origin);
+        this._focusIndicator.focus(origin);
         this._inputElement?.nativeElement.focus();
     }
 }

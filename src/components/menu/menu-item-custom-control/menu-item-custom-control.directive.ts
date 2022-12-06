@@ -49,7 +49,7 @@ export class MenuItemCustomControlDirective extends MenuTabbableItemDirective im
     }
 
     // remove any existing tab index on component instance and have it handled by this directive
-    removeInternalTabIndex(): void {
+    private removeInternalTabIndex(): void {
         const elementsWithTabIndex = this._elementRef.nativeElement.querySelectorAll('[tabindex]');
 
         if (elementsWithTabIndex.length === 0) {

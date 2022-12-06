@@ -1,7 +1,7 @@
-import { FocusOrigin } from '@angular/cdk/a11y';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, ExistingProvider, forwardRef, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { FocusableOption, FocusOrigin } from '@angular/cdk/a11y';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, ExistingProvider, forwardRef, Input, Output, ViewChild } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { FocusIndicator, FocusIndicatorService } from '../../directives/accessibility';
+import { FocusIndicatorDirective } from '../../directives/accessibility';
 import { FocusableItemToken } from '../menu';
 
 export const CHECKBOX_VALUE_ACCESSOR: ExistingProvider = {
@@ -21,7 +21,7 @@ let uniqueCheckboxId = 0;
     }],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CheckboxComponent<T = number> implements ControlValueAccessor, OnInit {
+export class CheckboxComponent<T = number> implements ControlValueAccessor, FocusableOption {
 
     /** Provide a default unique id value for the checkbox */
     _checkboxId: string = `ux-checkbox-${++uniqueCheckboxId}`;
@@ -78,19 +78,11 @@ export class CheckboxComponent<T = number> implements ControlValueAccessor, OnIn
     @ViewChild('input')
     _inputElement?: ElementRef<HTMLInputElement>;
 
-    /** Store the focus indicator instance */
-    private focusIndicator: FocusIndicator;
+    @ViewChild(FocusIndicatorDirective)
+    _focusIndicator?: FocusIndicatorDirective;
 
-    constructor(
-        private readonly _changeDetector: ChangeDetectorRef,
-        private readonly _focusIndicatorService: FocusIndicatorService,
-        private readonly _elementRef: ElementRef
-    ) { }
 
-    ngOnInit(): void {
-        // we only want to show the focus indicator whenever the keyboard is used
-        this.focusIndicator = this._focusIndicatorService.monitor(this._elementRef.nativeElement);
-    }
+    constructor(private readonly _changeDetector: ChangeDetectorRef) { }
 
     /** Toggle the current state of the checkbox */
     toggle(): void {
@@ -142,7 +134,7 @@ export class CheckboxComponent<T = number> implements ControlValueAccessor, OnIn
 
     /** Focus the input element */
     focus(origin: FocusOrigin): void {
-        this.focusIndicator.focus(origin);
+        this._focusIndicator.focus(origin);
         this._inputElement?.nativeElement.focus();
     }
 }
