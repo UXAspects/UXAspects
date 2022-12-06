@@ -39,7 +39,7 @@ export class MenuItemCustomControlDirective extends MenuTabbableItemDirective im
             .pipe(takeUntil(this._onDestroy$))
             .subscribe(() => {
                 // remove any existing tab index on component instance and have it handled by this directive
-                this._focusableControl.setInputTabIndex(-1);
+                this._focusableControl?.setInputTabIndex(-1);
             });
     }
 
