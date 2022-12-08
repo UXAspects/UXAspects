@@ -1,8 +1,8 @@
-import { Observable, Subject, BehaviorSubject, ReplaySubject, fromEvent, combineLatest, merge, Subscription, of, from, isObservable, timer, concat } from 'rxjs';
+import { Observable, Subject, BehaviorSubject, ReplaySubject, merge, of, combineLatest, timer, fromEvent, Subscription, from, isObservable, concat } from 'rxjs';
 import * as i0 from '@angular/core';
 import { Directive, Injectable, InjectionToken, Optional, Inject, EventEmitter, Input, Output, Component, HostBinding, NgModule, Self, PLATFORM_ID, ContentChildren, HostListener, QueryList, SkipSelf, ChangeDetectionStrategy, ContentChild, TemplateRef, ViewChild, forwardRef, ViewChildren, Pipe, ViewEncapsulation, LOCALE_ID, ElementRef, Attribute } from '@angular/core';
 import { coerceBooleanProperty, coerceNumberProperty, coerceArray, coerceCssPixelValue } from '@angular/cdk/coercion';
-import { takeUntil, filter, debounceTime, map, pairwise, distinctUntilChanged, first, tap, delay, combineLatest as combineLatest$1, auditTime, mergeMap, switchMap, take, skip, withLatestFrom } from 'rxjs/operators';
+import { takeUntil, filter, debounceTime, map, switchMap, take, pairwise, distinctUntilChanged, first, tap, delay, combineLatest as combineLatest$1, auditTime, mergeMap, skip, withLatestFrom } from 'rxjs/operators';
 import * as i3 from '@angular/cdk/a11y';
 import { FocusKeyManager, A11yModule } from '@angular/cdk/a11y';
 import * as i3$1 from '@angular/common';
@@ -11,20 +11,20 @@ import * as i4 from '@angular/cdk/platform';
 import { PlatformModule } from '@angular/cdk/platform';
 import * as i1 from 'angular-split';
 import { SplitAreaDirective, AngularSplitModule } from 'angular-split';
-import { END, HOME, DOWN_ARROW, RIGHT_ARROW, UP_ARROW, LEFT_ARROW, ENTER, SPACE, ESCAPE, TAB, DELETE, BACKSPACE, PAGE_DOWN, PAGE_UP } from '@angular/cdk/keycodes';
+import { END, HOME, DOWN_ARROW, RIGHT_ARROW, UP_ARROW, LEFT_ARROW, TAB, ENTER, SPACE, ESCAPE, DELETE, BACKSPACE, PAGE_DOWN, PAGE_UP } from '@angular/cdk/keycodes';
 import * as i1$1 from '@angular/router';
 import { RouterModule, NavigationEnd, NavigationCancel, NavigationError } from '@angular/router';
 import { ResizeObserver } from '@juggle/resize-observer';
 import * as i1$3 from '@angular/forms';
 import { NG_VALUE_ACCESSOR, FormsModule, NG_VALIDATORS } from '@angular/forms';
-import { ComponentPortal, TemplatePortal, DomPortalOutlet } from '@angular/cdk/portal';
-import * as i2 from '@angular/cdk/observers';
-import { ObserversModule as ObserversModule$1 } from '@angular/cdk/observers';
+import { trigger, transition, style, animate, query, stagger, state } from '@angular/animations';
+import { TemplatePortal, ComponentPortal, DomPortalOutlet } from '@angular/cdk/portal';
 import * as i1$2 from '@angular/cdk/overlay';
 import { OverlayModule } from '@angular/cdk/overlay';
+import * as i2 from '@angular/cdk/observers';
+import { ObserversModule as ObserversModule$1 } from '@angular/cdk/observers';
 import * as i1$4 from '@angular/cdk/scrolling';
 import { CdkDropList, moveItemInArray, transferArrayItem, CDK_DROP_LIST, CdkDragHandle, CDK_DRAG_HANDLE, CdkDrag, CDK_DRAG_PARENT, DragDropModule } from '@angular/cdk/drag-drop';
-import { trigger, transition, style, animate, query, stagger, state } from '@angular/animations';
 import { __awaiter } from 'tslib';
 import * as i1$5 from '@angular/common/http';
 import { HttpClientModule } from '@angular/common/http';
@@ -3338,6 +3338,1157 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.3.11", ngImpo
                 }]
         }] });
 
+class MenuDividerComponent {
+}
+MenuDividerComponent.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.3.11", ngImport: i0, type: MenuDividerComponent, deps: [], target: i0.ɵɵFactoryTarget.Component });
+MenuDividerComponent.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "13.3.11", type: MenuDividerComponent, selector: "ux-menu-divider", host: { attributes: { "role": "separator" } }, ngImport: i0, template: "", changeDetection: i0.ChangeDetectionStrategy.OnPush });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.3.11", ngImport: i0, type: MenuDividerComponent, decorators: [{
+            type: Component,
+            args: [{ selector: 'ux-menu-divider', changeDetection: ChangeDetectionStrategy.OnPush, host: {
+                        role: 'separator'
+                    }, template: "" }]
+        }] });
+
+/**
+ * This is used to avoid having to do an `instanceof` check
+ * which would cause a circular dependency between the
+ * `MenuComponent` and `MenuItemComponent`
+ */
+var MenuItemType;
+(function (MenuItemType) {
+    MenuItemType[MenuItemType["Default"] = 0] = "Default";
+    MenuItemType[MenuItemType["Custom"] = 1] = "Custom";
+})(MenuItemType || (MenuItemType = {}));
+
+const MENU_OPTIONS_TOKEN = new InjectionToken('MENU_OPTIONS_TOKEN');
+
+let uniqueId$c = 0;
+class MenuComponent {
+    constructor(_changeDetector, _options) {
+        this._changeDetector = _changeDetector;
+        this._options = _options;
+        /** A unique id for the component. */
+        this.id = `ux-menu-${++uniqueId$c}`;
+        /** Define the position of the menu */
+        this.placement = 'bottom';
+        /** Define the alignment of the menu */
+        this.alignment = 'start';
+        /** Define if we should animate the menu */
+        this.animate = this._options && this._options.hasOwnProperty('animate') ? this._options.animate : true;
+        /** Emit when the opening has begun (the opened EventEmitter waits until the animation has finished) */
+        this.opening = new EventEmitter();
+        /** Emit when the menu is opened */
+        this.opened = new EventEmitter();
+        /** Emit whenever closing has begun (the closed EventEmitter waits until animation has finished) */
+        this.closing = new EventEmitter();
+        /** Emit when the menu is closed */
+        this.closed = new EventEmitter();
+        /** Store the menu open state */
+        this.isMenuOpen = false;
+        /** Store the animation state */
+        this._isAnimating = false;
+        /** Determine if this is a submenu */
+        this._isSubMenu = false;
+        /** Whether this menu should close when it loses focus */
+        this._closeOnBlur = false;
+        /** Emit when the focused item changes (we use this as the key manager is not instantiated until a late lifecycle hook) */
+        this._activeItem$ = new BehaviorSubject(null);
+        /** Access allow a close event to propagate all the way up the submenus */
+        this._closeAll$ = new Subject();
+        /** Emit keyboard events */
+        this._onKeydown$ = new Subject();
+        /** Emit hover events */
+        this._isHovering$ = new BehaviorSubject(false);
+        /** Emit focus events */
+        this._isFocused$ = new BehaviorSubject(false);
+        /** Emit placement change */
+        this._placement$ = new BehaviorSubject('bottom');
+        this._alignment$ = new BehaviorSubject('start');
+        /** Access all child menu items for accessibility purposes */
+        this._items$ = new BehaviorSubject([]);
+        /** Automatically unsubscribe when the component is destroyed */
+        this._onDestroy$ = new Subject();
+        this._isTabPressed = false;
+        /** Create an internal querylist to store the menu items */
+        this._itemsList = new QueryList();
+    }
+    /** Get innerId for use for accessibility  */
+    get innerId() {
+        return `${this.id}-menu`;
+    }
+    get _isExpanded() {
+        return this._menuItems.pipe(switchMap(items => merge(...items.map(item => item.isExpanded$))), takeUntil(this._onDestroy$));
+    }
+    get _menuItemClick() {
+        return this._menuItems.pipe(switchMap(items => merge(...items.map(item => item.onClick$))), takeUntil(this._onDestroy$));
+    }
+    /** Return only menu items an not custom tabbable items */
+    get _menuItems() {
+        return this._items$.pipe(map(items => items.filter(item => item.type === MenuItemType.Default)));
+    }
+    ngAfterContentInit() {
+        // initialise the query list with the items
+        this._items$.pipe(takeUntil(this._onDestroy$)).subscribe(items => {
+            // if no items has been marked as tabbable then this should be
+            if (!this._activeItem$.value && items.length > 0) {
+                this._activeItem$.next(items[0]);
+            }
+            this._itemsList.reset(items);
+            this._itemsList.notifyOnChanges();
+        });
+        // setup keyboard functionality
+        this._keyManager = new FocusKeyManager(this._itemsList)
+            .withVerticalOrientation()
+            .withTypeAhead()
+            .withWrap();
+        // emit the tabbable item on change
+        this._keyManager.change.pipe(map(() => this._keyManager.activeItem), takeUntil(this._onDestroy$))
+            .subscribe(item => this._activeItem$.next(item));
+    }
+    ngOnChanges(changes) {
+        if (changes.placement && changes.placement.currentValue !== changes.placement.previousValue) {
+            this._placement$.next(changes.placement.currentValue);
+        }
+        if (changes.alignment && changes.alignment.currentValue !== changes.alignment.previousValue) {
+            this._alignment$.next(changes.alignment.currentValue);
+        }
+    }
+    ngOnDestroy() {
+        this._onDestroy$.next();
+        this._onDestroy$.complete();
+        this._closeAll$.complete();
+        this._isHovering$.complete();
+        this._isFocused$.complete();
+        this._activeItem$.complete();
+        this._items$.complete();
+        this._placement$.complete();
+    }
+    /** Register a menu item - we do this do avoid `@ContentChildren` detecting submenu items */
+    _addItem(item) {
+        if (!this.hasItem(item)) {
+            this._items$.next([...this._items$.value, item]);
+        }
+    }
+    /** Remove an item */
+    _removeItem(item) {
+        if (this.hasItem(item)) {
+            this._items$.next(this._items$.value.filter(_item => _item !== item));
+        }
+    }
+    /** Determine if an item exists */
+    hasItem(item) {
+        return !!this._items$.value.find(_item => _item === item);
+    }
+    /** Internal function to set the open state and run change detection */
+    _setMenuOpen(menuOpen) {
+        // store the open state
+        this.isMenuOpen = menuOpen;
+        // if we are closing the menu reset some values
+        if (!menuOpen) {
+            this._isHovering$.next(false);
+            this._isFocused$.next(false);
+        }
+        // the change detector is actually an instance of a ViewRef (which extends ChangeDetectorRef) when used within a component
+        // and the ViewRef contains the destroyed state of the component which is more reliable
+        // than setting a flag in ngOnDestroy as the component can be destroyed before
+        // the lifecycle hook is called
+        const viewRef = this._changeDetector;
+        // check for changes - required to show the menu as we are using `*ngIf`
+        if (!viewRef.destroyed) {
+            this._changeDetector.detectChanges();
+        }
+        // emit the closing event
+        menuOpen ? this.opening.emit() : this.closing.emit();
+    }
+    /** Close the menu if the focus event is null */
+    _focusChange(event) {
+        if (event === null && this._closeOnBlur && this._isTabPressed) {
+            this._closeAll$.next('tabout');
+        }
+    }
+    /** Track the animation state */
+    _onAnimationStart() {
+        this._isAnimating = true;
+    }
+    /** Track animation state and emit event when opening or closing */
+    _onAnimationDone() {
+        this._isAnimating = false;
+        if (this.isMenuOpen) {
+            this.opened.emit();
+        }
+        else {
+            this.closed.emit();
+        }
+    }
+    _closeMenu() {
+        this._setMenuOpen(false);
+    }
+    /** Forward any keyboard events to the key manage for accessibility */
+    _onKeydown(event) {
+        this._keyManager.setFocusOrigin('keyboard').onKeydown(event);
+        // emit the keydown event
+        this._onKeydown$.next(event);
+    }
+    _onHoverStart() {
+        this._isHovering$.next(true);
+    }
+    _onHoverEnd() {
+        this._isHovering$.next(false);
+    }
+    _onFocus() {
+        this._isFocused$.next(true);
+    }
+    _onBlur() {
+        this._isFocused$.next(false);
+    }
+    _onKeyDown(event) {
+        this._isTabPressed = event.keyCode === TAB;
+    }
+    ;
+}
+MenuComponent.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.3.11", ngImport: i0, type: MenuComponent, deps: [{ token: i0.ChangeDetectorRef }, { token: MENU_OPTIONS_TOKEN, optional: true }], target: i0.ɵɵFactoryTarget.Component });
+MenuComponent.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "13.3.11", type: MenuComponent, selector: "ux-menu", inputs: { id: "id", placement: "placement", alignment: "alignment", animate: "animate", menuClass: "menuClass" }, outputs: { opening: "opening", opened: "opened", closing: "closing", closed: "closed" }, host: { properties: { "attr.id": "this.id" } }, viewQueries: [{ propertyName: "templateRef", first: true, predicate: TemplateRef, descendants: true }], usesOnChanges: true, ngImport: i0, template: "<ng-template>\n    <div\n        *ngIf=\"isMenuOpen\"\n        class=\"ux-menu\"\n        role=\"menu\"\n        [id]=\"innerId\"\n        [class.ux-sub-menu]=\"_isSubMenu\"\n        [ngClass]=\"menuClass\"\n        @menuAnimation\n        [@.disabled]=\"!animate\"\n        (@menuAnimation.start)=\"_onAnimationStart()\"\n        (@menuAnimation.done)=\"_onAnimationDone()\"\n        (mouseenter)=\"_onHoverStart()\"\n        (mouseover)=\"_onHoverStart()\"\n        (mouseleave)=\"_onHoverEnd()\"\n        (focusin)=\"_onFocus()\"\n        (focusout)=\"_onBlur()\"\n        (keydown)=\"_onKeyDown($event)\"\n        cdkMonitorSubtreeFocus\n        [cdkTrapFocus]=\"_closeOnBlur\"\n        (cdkFocusChange)=\"_focusChange($event)\">\n        <ng-content></ng-content>\n    </div>\n</ng-template>\n", directives: [{ type: i3$1.NgIf, selector: "[ngIf]", inputs: ["ngIf", "ngIfThen", "ngIfElse"] }, { type: i3.CdkMonitorFocus, selector: "[cdkMonitorElementFocus], [cdkMonitorSubtreeFocus]", outputs: ["cdkFocusChange"], exportAs: ["cdkMonitorFocus"] }, { type: i3$1.NgClass, selector: "[ngClass]", inputs: ["class", "ngClass"] }, { type: i3.CdkTrapFocus, selector: "[cdkTrapFocus]", inputs: ["cdkTrapFocus", "cdkTrapFocusAutoCapture"], exportAs: ["cdkTrapFocus"] }], animations: [
+        trigger('menuAnimation', [
+            transition(':enter', [
+                style({ opacity: 0, transform: 'scaleY(0)' }),
+                animate('200ms ease-out', style({ opacity: 1, transform: 'none' })),
+            ]),
+            transition(':leave', [
+                animate('200ms ease-out', style({ opacity: 0, transform: 'scaleY(0)' }))
+            ])
+        ]),
+    ], changeDetection: i0.ChangeDetectionStrategy.OnPush });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.3.11", ngImport: i0, type: MenuComponent, decorators: [{
+            type: Component,
+            args: [{ selector: 'ux-menu', changeDetection: ChangeDetectionStrategy.OnPush, animations: [
+                        trigger('menuAnimation', [
+                            transition(':enter', [
+                                style({ opacity: 0, transform: 'scaleY(0)' }),
+                                animate('200ms ease-out', style({ opacity: 1, transform: 'none' })),
+                            ]),
+                            transition(':leave', [
+                                animate('200ms ease-out', style({ opacity: 0, transform: 'scaleY(0)' }))
+                            ])
+                        ]),
+                    ], template: "<ng-template>\n    <div\n        *ngIf=\"isMenuOpen\"\n        class=\"ux-menu\"\n        role=\"menu\"\n        [id]=\"innerId\"\n        [class.ux-sub-menu]=\"_isSubMenu\"\n        [ngClass]=\"menuClass\"\n        @menuAnimation\n        [@.disabled]=\"!animate\"\n        (@menuAnimation.start)=\"_onAnimationStart()\"\n        (@menuAnimation.done)=\"_onAnimationDone()\"\n        (mouseenter)=\"_onHoverStart()\"\n        (mouseover)=\"_onHoverStart()\"\n        (mouseleave)=\"_onHoverEnd()\"\n        (focusin)=\"_onFocus()\"\n        (focusout)=\"_onBlur()\"\n        (keydown)=\"_onKeyDown($event)\"\n        cdkMonitorSubtreeFocus\n        [cdkTrapFocus]=\"_closeOnBlur\"\n        (cdkFocusChange)=\"_focusChange($event)\">\n        <ng-content></ng-content>\n    </div>\n</ng-template>\n" }]
+        }], ctorParameters: function () {
+        return [{ type: i0.ChangeDetectorRef }, { type: undefined, decorators: [{
+                        type: Optional
+                    }, {
+                        type: Inject,
+                        args: [MENU_OPTIONS_TOKEN]
+                    }] }];
+    }, propDecorators: { id: [{
+                type: Input
+            }, {
+                type: HostBinding,
+                args: ['attr.id']
+            }], placement: [{
+                type: Input
+            }], alignment: [{
+                type: Input
+            }], animate: [{
+                type: Input
+            }], menuClass: [{
+                type: Input
+            }], opening: [{
+                type: Output
+            }], opened: [{
+                type: Output
+            }], closing: [{
+                type: Output
+            }], closed: [{
+                type: Output
+            }], templateRef: [{
+                type: ViewChild,
+                args: [TemplateRef, { static: false }]
+            }] } });
+
+class MenuInitialFocusDirective {
+    constructor(_menu, _elementRef, _renderer) {
+        this._menu = _menu;
+        this._elementRef = _elementRef;
+        this._renderer = _renderer;
+        this._onDestroy = new Subject();
+    }
+    ngOnInit() {
+        this.ensureFocusable();
+        // Focus the host element when the parent menu is opened.
+        this._menu.opened
+            .pipe(takeUntil(this._onDestroy))
+            .subscribe(() => {
+            this._elementRef.nativeElement.focus();
+        });
+    }
+    ngOnDestroy() {
+        this._onDestroy.next();
+        this._onDestroy.complete();
+    }
+    /** Apply tabindex="0" to the element if it's not already focusable. */
+    ensureFocusable() {
+        if (this._elementRef.nativeElement.tabIndex >= 0) {
+            return;
+        }
+        this._renderer.setAttribute(this._elementRef.nativeElement, 'tabindex', '0');
+    }
+}
+MenuInitialFocusDirective.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.3.11", ngImport: i0, type: MenuInitialFocusDirective, deps: [{ token: MenuComponent }, { token: i0.ElementRef }, { token: i0.Renderer2 }], target: i0.ɵɵFactoryTarget.Directive });
+MenuInitialFocusDirective.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "12.0.0", version: "13.3.11", type: MenuInitialFocusDirective, selector: "[uxMenuInitialFocus]", ngImport: i0 });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.3.11", ngImport: i0, type: MenuInitialFocusDirective, decorators: [{
+            type: Directive,
+            args: [{ selector: '[uxMenuInitialFocus]' }]
+        }], ctorParameters: function () { return [{ type: MenuComponent }, { type: i0.ElementRef }, { type: i0.Renderer2 }]; } });
+
+class MenuTabbableItemDirective {
+    constructor(_menu, _elementRef, _focusIndicatorService, _renderer) {
+        this._menu = _menu;
+        this._elementRef = _elementRef;
+        this._focusIndicatorService = _focusIndicatorService;
+        this._renderer = _renderer;
+        /** Define if this item is disabled or not */
+        this.disabled = false;
+        /** Indicate the type of the menu item */
+        this.type = MenuItemType.Default;
+        /** Automatically unsubscribe when directive is destroyed */
+        this._onDestroy$ = new Subject();
+    }
+    ngOnInit() {
+        // register this item in the MenuComponent
+        this._menu._addItem(this);
+        // we only want to show the focus indicator whenever the keyboard is used
+        this.focusIndicator = this._focusIndicatorService.monitor(this._elementRef.nativeElement);
+        // subscribe to active item changes
+        this._menu._activeItem$.pipe(takeUntil(this._onDestroy$))
+            .subscribe(item => this.setTabIndex(item === this));
+    }
+    ngOnDestroy() {
+        this._onDestroy$.next();
+        this._onDestroy$.complete();
+        this.focusIndicator.destroy();
+    }
+    /** Focus this item with a given origin */
+    focus(origin) {
+        this.focusIndicator.focus(origin);
+    }
+    /** This function is built into the CDK manager to allow jumping to items based on text content */
+    getLabel() {
+        return this._elementRef.nativeElement.textContent.trim();
+    }
+    /** Forward any keyboard events to the MenuComponent for accessibility */
+    _onKeydown(event) {
+        this._menu._onKeydown(event);
+    }
+    /** Update the tab index on this item */
+    setTabIndex(isTabbable) {
+        this._renderer.setAttribute(this._elementRef.nativeElement, 'tabindex', isTabbable ? '0' : '-1');
+    }
+}
+MenuTabbableItemDirective.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.3.11", ngImport: i0, type: MenuTabbableItemDirective, deps: [{ token: MenuComponent }, { token: i0.ElementRef }, { token: FocusIndicatorService }, { token: i0.Renderer2 }], target: i0.ɵɵFactoryTarget.Directive });
+MenuTabbableItemDirective.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "12.0.0", version: "13.3.11", type: MenuTabbableItemDirective, selector: "[uxMenuTabbableItem]", inputs: { disabled: "disabled" }, host: { listeners: { "keydown": "_onKeydown($event)" } }, ngImport: i0 });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.3.11", ngImport: i0, type: MenuTabbableItemDirective, decorators: [{
+            type: Directive,
+            args: [{
+                    selector: '[uxMenuTabbableItem]',
+                }]
+        }], ctorParameters: function () { return [{ type: MenuComponent }, { type: i0.ElementRef }, { type: FocusIndicatorService }, { type: i0.Renderer2 }]; }, propDecorators: { disabled: [{
+                type: Input
+            }], _onKeydown: [{
+                type: HostListener,
+                args: ['keydown', ['$event']]
+            }] } });
+
+const FocusableItemToken = new InjectionToken('Focusable Option');
+class MenuItemCustomControlDirective extends MenuTabbableItemDirective {
+    constructor(_menu, _elementRef, _focusIndicatorService, _renderer, _focusableControl) {
+        super(_menu, _elementRef, _focusIndicatorService, _renderer);
+        this._menu = _menu;
+        this._elementRef = _elementRef;
+        this._focusIndicatorService = _focusIndicatorService;
+        this._renderer = _renderer;
+        this._focusableControl = _focusableControl;
+        /** Indicate the type of the menu item */
+        this.type = MenuItemType.Custom;
+    }
+    ngOnInit() {
+        // register this item in the MenuComponent
+        super.ngOnInit();
+        this._menu.opened
+            .pipe(takeUntil(this._onDestroy$))
+            .subscribe(() => {
+            var _a;
+            // remove any existing tab index on component instance and have it handled by this directive
+            (_a = this._focusableControl) === null || _a === void 0 ? void 0 : _a.setInputTabIndex(-1);
+        });
+    }
+    /** Focus this item with a given origin */
+    focus(origin) {
+        super.focus(origin);
+        this._focusableControl ? this._focusableControl.focus(origin) : this._elementRef.nativeElement.focus();
+    }
+    /** We want to remove the ability to shift+tab back into the parent element */
+    setTabIndex() {
+        super.setTabIndex(false);
+    }
+}
+MenuItemCustomControlDirective.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.3.11", ngImport: i0, type: MenuItemCustomControlDirective, deps: [{ token: MenuComponent }, { token: i0.ElementRef }, { token: FocusIndicatorService }, { token: i0.Renderer2 }, { token: FocusableItemToken, optional: true }], target: i0.ɵɵFactoryTarget.Directive });
+MenuItemCustomControlDirective.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "12.0.0", version: "13.3.11", type: MenuItemCustomControlDirective, selector: "[uxMenuItemCustomControl]", host: { attributes: { "role": "menuitem" }, properties: { "class.ux-menu-item": "true" } }, usesInheritance: true, ngImport: i0 });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.3.11", ngImport: i0, type: MenuItemCustomControlDirective, decorators: [{
+            type: Directive,
+            args: [{
+                    selector: '[uxMenuItemCustomControl]',
+                    host: {
+                        '[class.ux-menu-item]': 'true',
+                        'role': 'menuitem'
+                    }
+                }]
+        }], ctorParameters: function () {
+        return [{ type: MenuComponent }, { type: i0.ElementRef }, { type: FocusIndicatorService }, { type: i0.Renderer2 }, { type: undefined, decorators: [{
+                        type: Inject,
+                        args: [FocusableItemToken]
+                    }, {
+                        type: Optional
+                    }] }];
+    } });
+
+class MenuItemComponent {
+    constructor(_menu, _elementRef, _focusIndicatorService, _renderer) {
+        this._menu = _menu;
+        this._elementRef = _elementRef;
+        this._focusIndicatorService = _focusIndicatorService;
+        this._renderer = _renderer;
+        /** Define the role of the element */
+        this.role = 'menuitem';
+        /** Emits when the menu item is clicked or the enter key is pressed. */
+        this.activate = new EventEmitter();
+        /** Indicate the type of the menu item */
+        this.type = MenuItemType.Default;
+        /** Store the current hover state */
+        this.isHovered$ = new BehaviorSubject(false);
+        /** Store the current focus state */
+        this.isFocused$ = new BehaviorSubject(false);
+        /** Store the current expanded state */
+        this.isExpanded$ = new BehaviorSubject(false);
+        /** Emit when an item is clicked */
+        this.onClick$ = new Subject();
+        /** Automatically unsubscribe from observables on destroy */
+        this._onDestroy$ = new Subject();
+        this._disabled = false;
+        this._closeOnSelect = true;
+    }
+    /** Define if this item is disabled or not */
+    set disabled(disabled) {
+        this._disabled = coerceBooleanProperty(disabled);
+    }
+    get disabled() {
+        return this._disabled;
+    }
+    /** Determine if the menu should close on item click/enter.*/
+    set closeOnSelect(value) {
+        this._closeOnSelect = coerceBooleanProperty(value);
+    }
+    get closeOnSelect() {
+        return this._closeOnSelect;
+    }
+    /** Access the open state */
+    get isOpen() {
+        return this._menu.isMenuOpen;
+    }
+    ngOnInit() {
+        // register this item in the MenuComponent
+        this._menu._addItem(this);
+        // we only want to show the focus indicator whenever the keyboard is used
+        this._focusIndicator = this._focusIndicatorService.monitor(this._elementRef.nativeElement);
+        // subscribe to active item changes
+        this._menu._activeItem$.pipe(takeUntil(this._onDestroy$))
+            .subscribe(item => this.setTabIndex(item === this));
+    }
+    ngOnDestroy() {
+        this._menu._removeItem(this);
+        this.isHovered$.complete();
+        this.isExpanded$.complete();
+        this.isFocused$.complete();
+        this.onClick$.complete();
+        this._focusIndicator.destroy();
+        this._onDestroy$.next();
+        this._onDestroy$.complete();
+    }
+    focus(origin) {
+        this._focusIndicator.focus(origin);
+    }
+    /** This function is built into the CDK manager to allow jumping to items based on text content */
+    getLabel() {
+        return this._elementRef.nativeElement.textContent.trim();
+    }
+    _onMouseEnter() {
+        this.isHovered$.next(true);
+    }
+    _onMouseLeave() {
+        this.isHovered$.next(false);
+    }
+    _onFocus() {
+        this.isFocused$.next(true);
+    }
+    _onBlur() {
+        this.isFocused$.next(false);
+    }
+    _onClick(event) {
+        if (!this.disabled) {
+            if (this.closeOnSelect) {
+                this.onClick$.next(isKeyboardTrigger(event) ? 'keyboard' : 'mouse');
+            }
+            this.activate.emit(event);
+        }
+    }
+    /** Forward any keyboard events to the MenuComponent for accessibility */
+    _onKeydown(event) {
+        this._menu._onKeydown(event);
+    }
+    /** Update the tab index on this item */
+    setTabIndex(isTabbable) {
+        this._renderer.setAttribute(this._elementRef.nativeElement, 'tabindex', isTabbable ? '0' : '-1');
+    }
+}
+MenuItemComponent.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.3.11", ngImport: i0, type: MenuItemComponent, deps: [{ token: MenuComponent }, { token: i0.ElementRef }, { token: FocusIndicatorService }, { token: i0.Renderer2 }], target: i0.ɵɵFactoryTarget.Component });
+MenuItemComponent.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "13.3.11", type: MenuItemComponent, selector: "[uxMenuItem]", inputs: { disabled: "disabled", closeOnSelect: "closeOnSelect", role: "role" }, outputs: { activate: "activate" }, host: { listeners: { "mouseenter": "_onMouseEnter()", "mouseleave": "_onMouseLeave()", "focus": "_onFocus()", "blur": "_onBlur()", "click": "_onClick($event)", "keydown.enter": "_onClick($event)", "keydown": "_onKeydown($event)" }, properties: { "attr.disabled": "disabled ? \"disabled\" : null", "attr.role": "role", "class.disabled": "disabled", "class.ux-menu-item": "true", "class.open": "isOpen" } }, ngImport: i0, template: "<ng-content></ng-content>\n", changeDetection: i0.ChangeDetectionStrategy.OnPush });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.3.11", ngImport: i0, type: MenuItemComponent, decorators: [{
+            type: Component,
+            args: [{ selector: '[uxMenuItem]', changeDetection: ChangeDetectionStrategy.OnPush, host: {
+                        '[attr.disabled]': 'disabled ? "disabled" : null',
+                        '[attr.role]': 'role',
+                        '[class.disabled]': 'disabled',
+                        '[class.ux-menu-item]': 'true',
+                        '[class.open]': 'isOpen'
+                    }, template: "<ng-content></ng-content>\n" }]
+        }], ctorParameters: function () { return [{ type: MenuComponent }, { type: i0.ElementRef }, { type: FocusIndicatorService }, { type: i0.Renderer2 }]; }, propDecorators: { disabled: [{
+                type: Input
+            }], closeOnSelect: [{
+                type: Input
+            }], role: [{
+                type: Input
+            }], activate: [{
+                type: Output
+            }], _onMouseEnter: [{
+                type: HostListener,
+                args: ['mouseenter']
+            }], _onMouseLeave: [{
+                type: HostListener,
+                args: ['mouseleave']
+            }], _onFocus: [{
+                type: HostListener,
+                args: ['focus']
+            }], _onBlur: [{
+                type: HostListener,
+                args: ['blur']
+            }], _onClick: [{
+                type: HostListener,
+                args: ['click', ['$event']]
+            }, {
+                type: HostListener,
+                args: ['keydown.enter', ['$event']]
+            }], _onKeydown: [{
+                type: HostListener,
+                args: ['keydown', ['$event']]
+            }] } });
+
+class OverlayPlacementService {
+    /** Updates the position of the current menu. */
+    updatePosition(overlayRef, placement, alignment, customFallbackPlacement, isSubMenu) {
+        const position = overlayRef.getConfig().positionStrategy;
+        const origin = this.getOrigin(placement, alignment);
+        const overlay = this.getOverlayPosition(placement, alignment);
+        position.withPositions(this.addPositions(origin, overlay, isSubMenu, customFallbackPlacement));
+    }
+    /** Apply position to position strategy */
+    addPositions(origin, overlay, isSubMenu, customFallbackPlacement) {
+        if (customFallbackPlacement) {
+            return [
+                Object.assign(Object.assign({}, origin.main), overlay.main),
+                this.getFallbackPosition(customFallbackPlacement),
+            ];
+        }
+        else if (isSubMenu) {
+            return [
+                Object.assign(Object.assign({}, origin.main), overlay.main),
+                Object.assign(Object.assign({}, origin.fallback), overlay.fallback),
+                Object.assign({ originX: 'end', originY: 'bottom' }, { overlayX: 'start', overlayY: 'bottom' }),
+                Object.assign({ originX: 'start', originY: 'bottom' }, { overlayX: 'end', overlayY: 'bottom' })
+            ];
+        }
+        else {
+            return [
+                Object.assign(Object.assign({}, origin.main), overlay.main),
+                Object.assign(Object.assign({}, origin.fallback), overlay.fallback)
+            ];
+        }
+    }
+    /** Get the origin position based on the specified tooltip placement */
+    getOrigin(initialPlacement, alignment) {
+        // ensure placement is defined
+        const placement = initialPlacement || 'bottom';
+        let originPosition;
+        if (placement === 'top' || placement === 'bottom') {
+            originPosition = { originX: alignment, originY: placement };
+        }
+        if (placement === 'left') {
+            originPosition = { originX: 'start', originY: this.getVerticalAlignment(alignment) };
+        }
+        if (placement === 'right') {
+            originPosition = { originX: 'end', originY: this.getVerticalAlignment(alignment) };
+        }
+        const { x, y } = this.invertPosition(placement, originPosition.originX, originPosition.originY);
+        return {
+            main: originPosition,
+            fallback: { originX: x, originY: y },
+        };
+    }
+    /** Calculate the overlay position based on the specified tooltip placement */
+    getOverlayPosition(initialPlacement, alignment) {
+        // ensure placement is defined
+        const placement = initialPlacement || 'top';
+        let overlayPosition;
+        if (placement === 'top') {
+            overlayPosition = { overlayX: alignment, overlayY: 'bottom' };
+        }
+        if (placement === 'bottom') {
+            overlayPosition = { overlayX: alignment, overlayY: 'top' };
+        }
+        if (placement === 'left') {
+            overlayPosition = { overlayX: 'end', overlayY: this.getVerticalAlignment(alignment) };
+        }
+        if (placement === 'right') {
+            overlayPosition = { overlayX: 'start', overlayY: this.getVerticalAlignment(alignment) };
+        }
+        const { x, y } = this.invertPosition(placement, overlayPosition.overlayX, overlayPosition.overlayY);
+        return {
+            main: overlayPosition,
+            fallback: { overlayX: x, overlayY: y },
+        };
+    }
+    /** Convert the alignment property to a valid CDK alignment value */
+    getVerticalAlignment(alignment) {
+        switch (alignment) {
+            case 'start':
+                return 'top';
+            case 'end':
+                return 'bottom';
+            default:
+                return alignment;
+        }
+    }
+    /** Inverts an overlay position. */
+    invertPosition(placement, x, y) {
+        if (placement === 'top' || placement === 'bottom') {
+            if (y === 'top') {
+                y = 'bottom';
+            }
+            else if (y === 'bottom') {
+                y = 'top';
+            }
+        }
+        else {
+            if (x === 'end') {
+                x = 'start';
+            }
+            else if (x === 'start') {
+                x = 'end';
+            }
+        }
+        return { x, y };
+    }
+    getFallbackPosition(fallbackPlacement) {
+        switch (fallbackPlacement) {
+            case 'left':
+                return { originX: 'start', originY: 'center', overlayX: 'end', overlayY: 'center' };
+            case 'right':
+                return { originX: 'end', originY: 'center', overlayX: 'start', overlayY: 'center' };
+            case 'top':
+                return { originX: 'center', originY: 'top', overlayX: 'center', overlayY: 'bottom' };
+            case 'bottom':
+                return { originX: 'center', originY: 'bottom', overlayX: 'center', overlayY: 'top' };
+        }
+    }
+}
+OverlayPlacementService.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.3.11", ngImport: i0, type: OverlayPlacementService, deps: [], target: i0.ɵɵFactoryTarget.Injectable });
+OverlayPlacementService.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "13.3.11", ngImport: i0, type: OverlayPlacementService, providedIn: 'root' });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.3.11", ngImport: i0, type: OverlayPlacementService, decorators: [{
+            type: Injectable,
+            args: [{
+                    providedIn: 'root',
+                }]
+        }] });
+
+class MenuTriggerDirective {
+    constructor(_overlay, _elementRef, _viewContainerRef, _focusOrigin, _focusIndicatorService, _overlayPlacement, _parentMenu, _menuItem) {
+        this._overlay = _overlay;
+        this._elementRef = _elementRef;
+        this._viewContainerRef = _viewContainerRef;
+        this._focusOrigin = _focusOrigin;
+        this._focusIndicatorService = _focusIndicatorService;
+        this._overlayPlacement = _overlayPlacement;
+        this._parentMenu = _parentMenu;
+        this._menuItem = _menuItem;
+        /** Determine if we should disable the trigger */
+        this.disabled = false;
+        /** Emit when the menu is closed */
+        this.closed = new EventEmitter();
+        /** Automatically unsubscribe on directive destroy */
+        this._onDestroy$ = new Subject();
+        /** Reference to the menu should close when it loses focus */
+        this._closeOnBlur = false;
+        this._debounceTime = 50;
+    }
+    /** Determine if the menu should close when it loses focus */
+    set closeOnBlur(value) {
+        this._closeOnBlur = coerceBooleanProperty(value);
+    }
+    get closeOnBlur() {
+        return this._closeOnBlur;
+    }
+    /** Get the aria controls for accessibility */
+    get ariaControls() {
+        var _a, _b;
+        return ((_a = this.menu) === null || _a === void 0 ? void 0 : _a.isMenuOpen) ? (_b = this.menu) === null || _b === void 0 ? void 0 : _b.innerId : null;
+    }
+    /** Determine if this triggers a submenu */
+    get _isSubmenuTrigger() {
+        return !!this._parentMenu;
+    }
+    /** Determine if this is the root trigger */
+    get _isRootTrigger() {
+        return !this._isSubmenuTrigger;
+    }
+    /** If this is a submenu we want to know when the mouse leaves the items or parent item */
+    get _menuShouldClose() {
+        if (!this._isSubmenuTrigger) {
+            return of();
+        }
+        // This combined observable will essentially check for all of the combinations of events that can cause a menu
+        // to remain open, for example:
+        //
+        // 1. Hovering over any item in the menu should keep the menu open
+        // 2. Having any item in the menu focused should keep the menu open
+        // 3. Having the parent menu item hovered should keep a submenu open
+        // 4. Having the parent menu item focused should keep a submenu open
+        // 5. Having a submenu open should keep the parent open (if the submenu meets one of the above conditions)
+        //
+        // We also debounce this because there is often a delay between a blur and a focus event or moving the mouse
+        // from a menu item to a sub menu item, so we add this buffer time to prevent the menu from closing unexpectedly
+        return combineLatest([this.menu._isHovering$, this.menu._isFocused$, this._menuItem.isHovered$, this.menu._isExpanded, this._menuItem.isFocused$])
+            .pipe(debounceTime(50), filter(([isHovered, isFocused, isItemHovered, isExpanded, isItemFocused]) => !isHovered && !isFocused && !isItemHovered && !isExpanded && !isItemFocused));
+    }
+    ngOnInit() {
+        // set up focus indicator handling
+        this._focusIndicator = this._focusIndicatorService.monitor(this._elementRef.nativeElement);
+        // if there is a parent menu then we should override the default initial
+        // position to be to the right rather than beneath. Note this gets called
+        // before ngOnInit in the MenuComponent so if the user specifies an explicit
+        // position then it will still take precendence
+        if (this._isSubmenuTrigger) {
+            this.menu._isSubMenu = true;
+            this.menu.placement = this.getSubMenuPlacement(this.menu.placement);
+        }
+        // listen for the menu to open (after animation so we can focus the first item)
+        this.menu.opened.pipe(takeUntil(this._onDestroy$))
+            .subscribe(() => this.menuDidOpen());
+        // propagate the close event if it is triggered
+        this.menu._closeAll$.pipe(takeUntil(this._onDestroy$))
+            .subscribe(origin => {
+            if (origin === 'tabout' && this._isRootTrigger) {
+                this.closeMenu('keyboard', true, true, true);
+            }
+            else {
+                this.closeMenu(origin, true);
+            }
+        });
+        // handle keyboard events in the menu
+        this.menu._onKeydown$.pipe(takeUntil(this._onDestroy$))
+            .subscribe(event => this.onMenuKeydown(event));
+        combineLatest([this.menu._placement$, this.menu._alignment$])
+            .pipe(takeUntil(this._onDestroy$))
+            .subscribe(() => {
+            if (this._isSubmenuTrigger) {
+                this.menu.placement = this.getSubMenuPlacement(this.menu.placement);
+            }
+            this.getOverlay(true);
+        });
+    }
+    ngOnDestroy() {
+        this.destroyMenu();
+        this._onDestroy$.next();
+        this._onDestroy$.complete();
+    }
+    /** Focus the next focusable element */
+    focusNextElement() {
+        // add elements we want to include in our selection
+        const focusableElements = 'a:not([disabled]), button:not([disabled]), input:not([disabled]), [tabindex]:not([disabled]):not([tabindex="-1"])';
+        if (document.activeElement) {
+            const focusable = document.querySelectorAll(focusableElements);
+            const suitableElements = [];
+            focusable.forEach((element) => {
+                if ((element.offsetWidth > 0 || element.offsetHeight > 0 || element === document.activeElement) && !element.classList.contains('cdk-visually-hidden')) {
+                    suitableElements.push(element);
+                }
+            });
+            const index = suitableElements.indexOf(document.activeElement);
+            if (index > -1) {
+                const nextElement = suitableElements[index + 1] || focusable[0];
+                nextElement.focus();
+            }
+        }
+    }
+    /** Open the menu */
+    openMenu() {
+        // if the menu is already open then do nothing
+        if (this.menu.isMenuOpen || this.disabled) {
+            return;
+        }
+        this.menu._closeOnBlur = this.closeOnBlur;
+        // get or create an overlayRef
+        const overlayRef = this.getOverlay();
+        const portal = this.getPortal();
+        // if the overlay is already attached do nothing
+        if (overlayRef.hasAttached()) {
+            return;
+        }
+        // attach the menu to the DOM
+        overlayRef.attach(portal);
+        // mark the menu as open
+        this.menu._setMenuOpen(true);
+        if (this._menuItem) {
+            // timer is needed because isExpanded$ will get set to false
+            // prematurely due to the debounceTime on the menuShouldClose.
+            timer(this._debounceTime).pipe(takeUntil(this._onDestroy$))
+                .subscribe(() => this._menuItem.isExpanded$.next(true));
+        }
+        // listen for a menu item to be selected
+        this.menu._menuItemClick.pipe(take(1), takeUntil(this._onDestroy$))
+            .subscribe(origin => this.closeMenu(origin, true));
+        // subscribe to any close events
+        this.didMenuClose().pipe(take(1), takeUntil(this._onDestroy$))
+            .subscribe(() => this.closeMenu());
+        // listen for the menu to animate closed then destroy it, if submenu wait for it to start closing to destroy.
+        if (this._isSubmenuTrigger) {
+            this.menu.closing.pipe(take(1), takeUntil(this._onDestroy$))
+                .subscribe(() => this.destroyMenu());
+        }
+        else {
+            this.menu.closed.pipe(take(1), takeUntil(this._onDestroy$))
+                .subscribe(() => this.destroyMenu());
+        }
+    }
+    /** Close a menu or submenu */
+    closeMenu(origin, closeParents = false, focusTrigger = true, focusNextElement = false) {
+        if (!this._overlayRef.hasAttached()) {
+            return;
+        }
+        // update the menu state
+        this.menu._setMenuOpen(false);
+        if (this._menuItem) {
+            this._menuItem.isExpanded$.next(false);
+        }
+        // if we should close parents then propagate the event
+        if (closeParents && this._parentMenu) {
+            this._parentMenu._closeAll$.next(origin);
+        }
+        // we should focus the trigger element if this is the root trigger unless otherwise specified
+        if (this._isRootTrigger && focusTrigger) {
+            this._focusIndicator.focus(origin);
+        }
+        if (focusNextElement) {
+            this.focusNextElement();
+        }
+        this.closed.emit();
+        return this.menu.closed;
+    }
+    /** Toggle the open state of a menu */
+    toggleMenu(event) {
+        // if this occurs on a submenu trigger then we can skip
+        if (this._isSubmenuTrigger) {
+            return;
+        }
+        if (!this.menu._isAnimating) {
+            // determine the focus origin based on whether or not a keyboard was used
+            const origin = event instanceof KeyboardEvent ? 'keyboard' : 'mouse';
+            // set the correct focus origin - if triggered by an event then use the source otherwise it was programmatic
+            this._focusOrigin.setOrigin(event ? origin : 'program');
+            // toggle the menu open state
+            this.menu.isMenuOpen ? this.closeMenu(origin, true) : this.openMenu();
+        }
+        // the enter key will trigger the click event and therefore set the wrong focus origin
+        // so we nee to ensure this doesn't happen
+        if (event) {
+            event.preventDefault();
+        }
+    }
+    /** Submenus should be opened by hovering on the menu item */
+    _onMouseEnter() {
+        if (this._isSubmenuTrigger && !this._parentMenu._isAnimating) {
+            this.openMenu();
+        }
+    }
+    _onMouseMove() {
+        if (this._isSubmenuTrigger && !this._parentMenu._isAnimating) {
+            setTimeout(() => {
+                this.openMenu();
+            }, this._debounceTime);
+        }
+    }
+    /** Pressing the escape key should close all menus */
+    _onEscape() {
+        if (this.menu.isMenuOpen) {
+            this.closeMenu();
+            // refocus the root trigger and show the focus ring
+            if (this._isRootTrigger) {
+                this._focusIndicator.focus('keyboard');
+            }
+        }
+    }
+    /** Handle keyboard events for opening submenus */
+    _onKeydown(event) {
+        // arrow key in the correct direction should open the menu
+        if (this.menu.placement === 'right' && event.keyCode === RIGHT_ARROW ||
+            this.menu.placement === 'left' && event.keyCode === LEFT_ARROW ||
+            this.menu.placement === 'top' && event.keyCode === UP_ARROW ||
+            this.menu.placement === 'bottom' && event.keyCode === DOWN_ARROW) {
+            this._focusOrigin.setOrigin('keyboard');
+            // if the menu was opened by a click but we subsequently use the arrow keys focus the first item
+            if (this.menu.isMenuOpen) {
+                this.menu._keyManager.setFocusOrigin('keyboard').setFirstItemActive();
+            }
+            else {
+                // otherwise open the menu
+                this.openMenu();
+            }
+            // prevent the browser from scrolling
+            event.preventDefault();
+        }
+    }
+    /** Blurring the trigger should check if the menu has focus and close it if not */
+    _onBlur() {
+        if (this.closeOnBlur) {
+            this.closeOnFocusout();
+        }
+    }
+    /** Remove the menu from the DOM */
+    destroyMenu() {
+        // if the menu has been destroyed already then do nothing
+        if (!this._overlayRef) {
+            return;
+        }
+        // remove the overlay
+        this._overlayRef.detach();
+    }
+    /** Create an overlay or return an existing instance */
+    getOverlay(recreateOverlay = false) {
+        var _a;
+        // if we have already created the overlay then reuse it
+        if (this._overlayRef && !recreateOverlay) {
+            return this._overlayRef;
+        }
+        const strategy = this._overlay.position()
+            .flexibleConnectedTo((_a = this.parent) !== null && _a !== void 0 ? _a : this._elementRef)
+            .withFlexibleDimensions(false)
+            .withPush(false)
+            .withTransformOriginOn('.ux-menu');
+        // otherwise create a new one
+        this._overlayRef = this._overlay.create({
+            hasBackdrop: !this._isSubmenuTrigger,
+            backdropClass: 'cdk-overlay-transparent-backdrop',
+            scrollStrategy: this._overlay.scrollStrategies.reposition({ scrollThrottle: 0 }),
+            positionStrategy: strategy
+        });
+        this._overlayPlacement.updatePosition(this._overlayRef, this.menu.placement, this.menu.alignment, undefined, this._isSubmenuTrigger);
+        return this._overlayRef;
+    }
+    /** Create a Template portal if one does not already exist (or the template has changed) */
+    getPortal() {
+        // if there is no portal or the templateRef has changed then create a new one
+        if (!this._portal || this.menu.templateRef !== this._portal.templateRef) {
+            this._portal = new TemplatePortal(this.menu.templateRef, this._viewContainerRef);
+        }
+        return this._portal;
+    }
+    /** Get an observable that emits on any of the triggers that close a menu */
+    didMenuClose() {
+        return merge(this._overlayRef.backdropClick(), this._parentMenu ? this._parentMenu.closing : of(), this._menuShouldClose);
+    }
+    /** When the menu opens we want to focus the first item in the list */
+    menuDidOpen() {
+        // if the keyboard is used we should always focus and show the indicator
+        // regardless of it this is the root menu or not
+        if (this._focusOrigin.getOrigin() === 'keyboard') {
+            this.menu._keyManager.setFocusOrigin('keyboard').setFirstItemActive();
+        }
+    }
+    /** Handle keypresses in submenus where we may want to close them */
+    onMenuKeydown(event) {
+        // if we are a submenu and the user presses an arrow key in the opposite
+        // direction than it is positioned from its parents then we should close the menu
+        if (this._parentMenu) {
+            if (this.menu.placement === 'right' && event.keyCode === LEFT_ARROW ||
+                this.menu.placement === 'left' && event.keyCode === RIGHT_ARROW ||
+                this.menu.placement === 'top' && event.keyCode === DOWN_ARROW ||
+                this.menu.placement === 'bottom' && event.keyCode === UP_ARROW) {
+                this.closeMenu();
+                // refocus the parent menu item
+                this._menuItem.focus('keyboard');
+            }
+        }
+    }
+    /** Check whether the overlay has focus */
+    hasFocus() {
+        let check = false;
+        document.querySelectorAll('.cdk-overlay-container .ux-menu').forEach(el => {
+            if (el.contains(document.activeElement)) {
+                check = true;
+            }
+        });
+        return check;
+    }
+    /** Close the menu if there is no element focused */
+    closeOnFocusout() {
+        if (this.menu.isMenuOpen) {
+            setTimeout(() => {
+                if (!this.hasFocus()) {
+                    this.closeMenu(undefined, true, false);
+                }
+            }, this._debounceTime);
+        }
+    }
+    getSubMenuPlacement(placement) {
+        return placement === 'left' ? 'left' : 'right';
+    }
+}
+MenuTriggerDirective.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.3.11", ngImport: i0, type: MenuTriggerDirective, deps: [{ token: i1$2.Overlay }, { token: i0.ElementRef }, { token: i0.ViewContainerRef }, { token: FocusIndicatorOriginService }, { token: FocusIndicatorService }, { token: OverlayPlacementService }, { token: MenuComponent, optional: true }, { token: MenuItemComponent, optional: true, self: true }], target: i0.ɵɵFactoryTarget.Directive });
+MenuTriggerDirective.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "12.0.0", version: "13.3.11", type: MenuTriggerDirective, selector: "[uxMenuTriggerFor]", inputs: { menu: ["uxMenuTriggerFor", "menu"], disabled: "disabled", parent: ["uxMenuParent", "parent"], closeOnBlur: "closeOnBlur" }, outputs: { closed: "closed" }, host: { listeners: { "click": "toggleMenu($event)", "keydown.enter": "toggleMenu($event)", "keydown.space": "toggleMenu($event)", "mouseenter": "_onMouseEnter()", "mousemove": "_onMouseMove()", "document:keydown.escape": "_onEscape()", "keydown": "_onKeydown($event)", "blur": "_onBlur()" }, properties: { "attr.disabled": "disabled ? true : null", "attr.aria-haspopup": "!!menu", "attr.aria-expanded": "menu?.isMenuOpen", "attr.aria-controls": "ariaControls" } }, queries: [{ propertyName: "menuTriggers", predicate: MenuTriggerDirective }], exportAs: ["ux-menu-trigger"], ngImport: i0 });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.3.11", ngImport: i0, type: MenuTriggerDirective, decorators: [{
+            type: Directive,
+            args: [{
+                    selector: '[uxMenuTriggerFor]',
+                    exportAs: 'ux-menu-trigger',
+                    host: {
+                        '[attr.disabled]': 'disabled ? true : null',
+                        '[attr.aria-haspopup]': '!!menu',
+                        '[attr.aria-expanded]': 'menu?.isMenuOpen',
+                        '[attr.aria-controls]': 'ariaControls'
+                    }
+                }]
+        }], ctorParameters: function () {
+        return [{ type: i1$2.Overlay }, { type: i0.ElementRef }, { type: i0.ViewContainerRef }, { type: FocusIndicatorOriginService }, { type: FocusIndicatorService }, { type: OverlayPlacementService }, { type: MenuComponent, decorators: [{
+                        type: Optional
+                    }] }, { type: MenuItemComponent, decorators: [{
+                        type: Optional
+                    }, {
+                        type: Self
+                    }] }];
+    }, propDecorators: { menu: [{
+                type: Input,
+                args: ['uxMenuTriggerFor']
+            }], disabled: [{
+                type: Input
+            }], parent: [{
+                type: Input,
+                args: ['uxMenuParent']
+            }], closeOnBlur: [{
+                type: Input
+            }], closed: [{
+                type: Output
+            }], menuTriggers: [{
+                type: ContentChildren,
+                args: [MenuTriggerDirective]
+            }], toggleMenu: [{
+                type: HostListener,
+                args: ['click', ['$event']]
+            }, {
+                type: HostListener,
+                args: ['keydown.enter', ['$event']]
+            }, {
+                type: HostListener,
+                args: ['keydown.space', ['$event']]
+            }], _onMouseEnter: [{
+                type: HostListener,
+                args: ['mouseenter']
+            }], _onMouseMove: [{
+                type: HostListener,
+                args: ['mousemove']
+            }], _onEscape: [{
+                type: HostListener,
+                args: ['document:keydown.escape']
+            }], _onKeydown: [{
+                type: HostListener,
+                args: ['keydown', ['$event']]
+            }], _onBlur: [{
+                type: HostListener,
+                args: ['blur']
+            }] } });
+
+class MenuModule {
+    static forRoot(options) {
+        return {
+            ngModule: MenuModule,
+            providers: [
+                { provide: MENU_OPTIONS_TOKEN, useValue: options }
+            ]
+        };
+    }
+    /** Support options at a child module level (implementation is the same as `forRoot`) */
+    static forChild(options) {
+        return MenuModule.forRoot(options);
+    }
+}
+MenuModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.3.11", ngImport: i0, type: MenuModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
+MenuModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "13.3.11", ngImport: i0, type: MenuModule, declarations: [MenuComponent,
+        MenuTriggerDirective,
+        MenuItemComponent,
+        MenuDividerComponent,
+        MenuTabbableItemDirective,
+        MenuInitialFocusDirective,
+        MenuItemCustomControlDirective], imports: [A11yModule,
+        AccessibilityModule,
+        CommonModule,
+        OverlayModule], exports: [MenuComponent,
+        MenuTriggerDirective,
+        MenuItemComponent,
+        MenuDividerComponent,
+        MenuTabbableItemDirective,
+        MenuInitialFocusDirective,
+        MenuItemCustomControlDirective] });
+MenuModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "13.3.11", ngImport: i0, type: MenuModule, imports: [[
+            A11yModule,
+            AccessibilityModule,
+            CommonModule,
+            OverlayModule
+        ]] });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.3.11", ngImport: i0, type: MenuModule, decorators: [{
+            type: NgModule,
+            args: [{
+                    declarations: [
+                        MenuComponent,
+                        MenuTriggerDirective,
+                        MenuItemComponent,
+                        MenuDividerComponent,
+                        MenuTabbableItemDirective,
+                        MenuInitialFocusDirective,
+                        MenuItemCustomControlDirective
+                    ],
+                    imports: [
+                        A11yModule,
+                        AccessibilityModule,
+                        CommonModule,
+                        OverlayModule
+                    ],
+                    exports: [
+                        MenuComponent,
+                        MenuTriggerDirective,
+                        MenuItemComponent,
+                        MenuDividerComponent,
+                        MenuTabbableItemDirective,
+                        MenuInitialFocusDirective,
+                        MenuItemCustomControlDirective
+                    ]
+                }]
+        }] });
+
 const CHECKBOX_VALUE_ACCESSOR = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => CheckboxComponent),
@@ -3418,12 +4569,26 @@ class CheckboxComponent {
         this.disabled = isDisabled;
         this._changeDetector.markForCheck();
     }
+    /** Focus the input element */
+    focus(origin) {
+        this._focusIndicator.focus(origin);
+    }
+    setInputTabIndex(tabindex) {
+        this.tabindex = tabindex;
+        this._changeDetector.markForCheck();
+    }
 }
 CheckboxComponent.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.3.11", ngImport: i0, type: CheckboxComponent, deps: [{ token: i0.ChangeDetectorRef }], target: i0.ɵɵFactoryTarget.Component });
-CheckboxComponent.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "13.3.11", type: CheckboxComponent, selector: "ux-checkbox", inputs: { id: "id", name: "name", value: "value", required: "required", tabindex: "tabindex", clickable: "clickable", simplified: "simplified", indeterminateValue: "indeterminateValue", disabled: "disabled", ariaLabel: ["aria-label", "ariaLabel"], ariaLabelledby: ["aria-labelledby", "ariaLabelledby"] }, outputs: { valueChange: "valueChange" }, providers: [CHECKBOX_VALUE_ACCESSOR], ngImport: i0, template: "<label [attr.for]=\"(id || _checkboxId) + '-input'\"\n       class=\"ux-checkbox\"\n       [class.ux-checkbox-checked]=\"value === true\"\n       [class.ux-checkbox-indeterminate]=\"value === indeterminateValue\"\n       [class.ux-checkbox-simplified]=\"simplified\"\n       [class.ux-checkbox-disabled]=\"disabled\"\n       [class.ux-checkbox-focused]=\"_focused\">\n\n    <div class=\"ux-checkbox-container\">\n\n        <input type=\"checkbox\"\n               uxFocusIndicator\n               class=\"ux-checkbox-input\"\n               [id]=\"(id || _checkboxId) + '-input'\"\n               [required]=\"required\"\n               [checked]=\"value\"\n               [attr.value]=\"value\"\n               [disabled]=\"disabled\"\n               [attr.name]=\"name\"\n               [tabindex]=\"tabindex\"\n               [indeterminate]=\"value === indeterminateValue\"\n               [attr.aria-label]=\"ariaLabel\"\n               [attr.aria-labelledby]=\"ariaLabelledby\"\n               [attr.aria-checked]=\"value === indeterminateValue ? 'mixed' : value\"\n               (indicator)=\"_focused = $event\"\n               (change)=\"$event.stopPropagation()\"\n               (click)=\"toggle()\">\n    </div>\n\n    <span class=\"ux-checkbox-label\">\n        <ng-content></ng-content>\n    </span>\n</label>\n", directives: [{ type: FocusIndicatorDirective, selector: "[uxFocusIndicator]", inputs: ["checkChildren", "mouseFocusIndicator", "touchFocusIndicator", "keyboardFocusIndicator", "programmaticFocusIndicator"], outputs: ["indicator"], exportAs: ["ux-focus-indicator"] }], changeDetection: i0.ChangeDetectionStrategy.OnPush });
+CheckboxComponent.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "13.3.11", type: CheckboxComponent, selector: "ux-checkbox", inputs: { id: "id", name: "name", value: "value", required: "required", tabindex: "tabindex", clickable: "clickable", simplified: "simplified", indeterminateValue: "indeterminateValue", disabled: "disabled", ariaLabel: ["aria-label", "ariaLabel"], ariaLabelledby: ["aria-labelledby", "ariaLabelledby"] }, outputs: { valueChange: "valueChange" }, providers: [CHECKBOX_VALUE_ACCESSOR, {
+            provide: FocusableItemToken,
+            useExisting: CheckboxComponent
+        }], viewQueries: [{ propertyName: "_focusIndicator", first: true, predicate: FocusIndicatorDirective, descendants: true }], ngImport: i0, template: "<label [attr.for]=\"(id || _checkboxId) + '-input'\"\n       class=\"ux-checkbox\"\n       [class.ux-checkbox-checked]=\"value === true\"\n       [class.ux-checkbox-indeterminate]=\"value === indeterminateValue\"\n       [class.ux-checkbox-simplified]=\"simplified\"\n       [class.ux-checkbox-disabled]=\"disabled\"\n       [class.ux-checkbox-focused]=\"_focused\">\n\n    <div class=\"ux-checkbox-container\">\n\n        <input #input\n               type=\"checkbox\"\n               uxFocusIndicator\n               class=\"ux-checkbox-input\"\n               [id]=\"(id || _checkboxId) + '-input'\"\n               [required]=\"required\"\n               [checked]=\"value\"\n               [attr.value]=\"value\"\n               [disabled]=\"disabled\"\n               [attr.name]=\"name\"\n               [tabindex]=\"tabindex\"\n               [indeterminate]=\"value === indeterminateValue\"\n               [attr.aria-label]=\"ariaLabel\"\n               [attr.aria-labelledby]=\"ariaLabelledby\"\n               [attr.aria-checked]=\"value === indeterminateValue ? 'mixed' : value\"\n               (indicator)=\"_focused = $event\"\n               (change)=\"$event.stopPropagation()\"\n               (click)=\"toggle()\">\n    </div>\n\n    <span class=\"ux-checkbox-label\">\n        <ng-content></ng-content>\n    </span>\n</label>\n", directives: [{ type: FocusIndicatorDirective, selector: "[uxFocusIndicator]", inputs: ["checkChildren", "mouseFocusIndicator", "touchFocusIndicator", "keyboardFocusIndicator", "programmaticFocusIndicator"], outputs: ["indicator"], exportAs: ["ux-focus-indicator"] }], changeDetection: i0.ChangeDetectionStrategy.OnPush });
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.3.11", ngImport: i0, type: CheckboxComponent, decorators: [{
             type: Component,
-            args: [{ selector: 'ux-checkbox', providers: [CHECKBOX_VALUE_ACCESSOR], changeDetection: ChangeDetectionStrategy.OnPush, template: "<label [attr.for]=\"(id || _checkboxId) + '-input'\"\n       class=\"ux-checkbox\"\n       [class.ux-checkbox-checked]=\"value === true\"\n       [class.ux-checkbox-indeterminate]=\"value === indeterminateValue\"\n       [class.ux-checkbox-simplified]=\"simplified\"\n       [class.ux-checkbox-disabled]=\"disabled\"\n       [class.ux-checkbox-focused]=\"_focused\">\n\n    <div class=\"ux-checkbox-container\">\n\n        <input type=\"checkbox\"\n               uxFocusIndicator\n               class=\"ux-checkbox-input\"\n               [id]=\"(id || _checkboxId) + '-input'\"\n               [required]=\"required\"\n               [checked]=\"value\"\n               [attr.value]=\"value\"\n               [disabled]=\"disabled\"\n               [attr.name]=\"name\"\n               [tabindex]=\"tabindex\"\n               [indeterminate]=\"value === indeterminateValue\"\n               [attr.aria-label]=\"ariaLabel\"\n               [attr.aria-labelledby]=\"ariaLabelledby\"\n               [attr.aria-checked]=\"value === indeterminateValue ? 'mixed' : value\"\n               (indicator)=\"_focused = $event\"\n               (change)=\"$event.stopPropagation()\"\n               (click)=\"toggle()\">\n    </div>\n\n    <span class=\"ux-checkbox-label\">\n        <ng-content></ng-content>\n    </span>\n</label>\n" }]
+            args: [{ selector: 'ux-checkbox', providers: [CHECKBOX_VALUE_ACCESSOR, {
+                            provide: FocusableItemToken,
+                            useExisting: CheckboxComponent
+                        }], changeDetection: ChangeDetectionStrategy.OnPush, template: "<label [attr.for]=\"(id || _checkboxId) + '-input'\"\n       class=\"ux-checkbox\"\n       [class.ux-checkbox-checked]=\"value === true\"\n       [class.ux-checkbox-indeterminate]=\"value === indeterminateValue\"\n       [class.ux-checkbox-simplified]=\"simplified\"\n       [class.ux-checkbox-disabled]=\"disabled\"\n       [class.ux-checkbox-focused]=\"_focused\">\n\n    <div class=\"ux-checkbox-container\">\n\n        <input #input\n               type=\"checkbox\"\n               uxFocusIndicator\n               class=\"ux-checkbox-input\"\n               [id]=\"(id || _checkboxId) + '-input'\"\n               [required]=\"required\"\n               [checked]=\"value\"\n               [attr.value]=\"value\"\n               [disabled]=\"disabled\"\n               [attr.name]=\"name\"\n               [tabindex]=\"tabindex\"\n               [indeterminate]=\"value === indeterminateValue\"\n               [attr.aria-label]=\"ariaLabel\"\n               [attr.aria-labelledby]=\"ariaLabelledby\"\n               [attr.aria-checked]=\"value === indeterminateValue ? 'mixed' : value\"\n               (indicator)=\"_focused = $event\"\n               (change)=\"$event.stopPropagation()\"\n               (click)=\"toggle()\">\n    </div>\n\n    <span class=\"ux-checkbox-label\">\n        <ng-content></ng-content>\n    </span>\n</label>\n" }]
         }], ctorParameters: function () { return [{ type: i0.ChangeDetectorRef }]; }, propDecorators: { id: [{
                 type: Input
             }], name: [{
@@ -3450,6 +4615,9 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.3.11", ngImpo
                 args: ['aria-labelledby']
             }], valueChange: [{
                 type: Output
+            }], _focusIndicator: [{
+                type: ViewChild,
+                args: [FocusIndicatorDirective]
             }] } });
 
 class CheckboxModule {
@@ -3625,133 +4793,6 @@ TooltipService.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: 
 TooltipService.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "13.3.11", ngImport: i0, type: TooltipService });
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.3.11", ngImport: i0, type: TooltipService, decorators: [{
             type: Injectable
-        }] });
-
-class OverlayPlacementService {
-    /** Updates the position of the current menu. */
-    updatePosition(overlayRef, placement, alignment, customFallbackPlacement, isSubMenu) {
-        const position = overlayRef.getConfig().positionStrategy;
-        const origin = this.getOrigin(placement, alignment);
-        const overlay = this.getOverlayPosition(placement, alignment);
-        position.withPositions(this.addPositions(origin, overlay, isSubMenu, customFallbackPlacement));
-    }
-    /** Apply position to position strategy */
-    addPositions(origin, overlay, isSubMenu, customFallbackPlacement) {
-        if (customFallbackPlacement) {
-            return [
-                Object.assign(Object.assign({}, origin.main), overlay.main),
-                this.getFallbackPosition(customFallbackPlacement),
-            ];
-        }
-        else if (isSubMenu) {
-            return [
-                Object.assign(Object.assign({}, origin.main), overlay.main),
-                Object.assign(Object.assign({}, origin.fallback), overlay.fallback),
-                Object.assign({ originX: 'end', originY: 'bottom' }, { overlayX: 'start', overlayY: 'bottom' }),
-                Object.assign({ originX: 'start', originY: 'bottom' }, { overlayX: 'end', overlayY: 'bottom' })
-            ];
-        }
-        else {
-            return [
-                Object.assign(Object.assign({}, origin.main), overlay.main),
-                Object.assign(Object.assign({}, origin.fallback), overlay.fallback)
-            ];
-        }
-    }
-    /** Get the origin position based on the specified tooltip placement */
-    getOrigin(initialPlacement, alignment) {
-        // ensure placement is defined
-        const placement = initialPlacement || 'bottom';
-        let originPosition;
-        if (placement === 'top' || placement === 'bottom') {
-            originPosition = { originX: alignment, originY: placement };
-        }
-        if (placement === 'left') {
-            originPosition = { originX: 'start', originY: this.getVerticalAlignment(alignment) };
-        }
-        if (placement === 'right') {
-            originPosition = { originX: 'end', originY: this.getVerticalAlignment(alignment) };
-        }
-        const { x, y } = this.invertPosition(placement, originPosition.originX, originPosition.originY);
-        return {
-            main: originPosition,
-            fallback: { originX: x, originY: y },
-        };
-    }
-    /** Calculate the overlay position based on the specified tooltip placement */
-    getOverlayPosition(initialPlacement, alignment) {
-        // ensure placement is defined
-        const placement = initialPlacement || 'top';
-        let overlayPosition;
-        if (placement === 'top') {
-            overlayPosition = { overlayX: alignment, overlayY: 'bottom' };
-        }
-        if (placement === 'bottom') {
-            overlayPosition = { overlayX: alignment, overlayY: 'top' };
-        }
-        if (placement === 'left') {
-            overlayPosition = { overlayX: 'end', overlayY: this.getVerticalAlignment(alignment) };
-        }
-        if (placement === 'right') {
-            overlayPosition = { overlayX: 'start', overlayY: this.getVerticalAlignment(alignment) };
-        }
-        const { x, y } = this.invertPosition(placement, overlayPosition.overlayX, overlayPosition.overlayY);
-        return {
-            main: overlayPosition,
-            fallback: { overlayX: x, overlayY: y },
-        };
-    }
-    /** Convert the alignment property to a valid CDK alignment value */
-    getVerticalAlignment(alignment) {
-        switch (alignment) {
-            case 'start':
-                return 'top';
-            case 'end':
-                return 'bottom';
-            default:
-                return alignment;
-        }
-    }
-    /** Inverts an overlay position. */
-    invertPosition(placement, x, y) {
-        if (placement === 'top' || placement === 'bottom') {
-            if (y === 'top') {
-                y = 'bottom';
-            }
-            else if (y === 'bottom') {
-                y = 'top';
-            }
-        }
-        else {
-            if (x === 'end') {
-                x = 'start';
-            }
-            else if (x === 'start') {
-                x = 'end';
-            }
-        }
-        return { x, y };
-    }
-    getFallbackPosition(fallbackPlacement) {
-        switch (fallbackPlacement) {
-            case 'left':
-                return { originX: 'start', originY: 'center', overlayX: 'end', overlayY: 'center' };
-            case 'right':
-                return { originX: 'end', originY: 'center', overlayX: 'start', overlayY: 'center' };
-            case 'top':
-                return { originX: 'center', originY: 'top', overlayX: 'center', overlayY: 'bottom' };
-            case 'bottom':
-                return { originX: 'center', originY: 'bottom', overlayX: 'center', overlayY: 'top' };
-        }
-    }
-}
-OverlayPlacementService.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.3.11", ngImport: i0, type: OverlayPlacementService, deps: [], target: i0.ɵɵFactoryTarget.Injectable });
-OverlayPlacementService.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "13.3.11", ngImport: i0, type: OverlayPlacementService, providedIn: 'root' });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.3.11", ngImport: i0, type: OverlayPlacementService, decorators: [{
-            type: Injectable,
-            args: [{
-                    providedIn: 'root',
-                }]
         }] });
 
 class TooltipDirective {
@@ -4123,10 +5164,10 @@ const BUTTON_WIDTHS = {
     'md': 32,
     'lg': 40
 };
-let uniqueId$c = 0;
+let uniqueId$b = 0;
 class ColorPickerComponent {
     constructor() {
-        this.id = `ux-color-picker-${uniqueId$c++}`;
+        this.id = `ux-color-picker-${uniqueId$b++}`;
         /** The style of the color swatch buttons. */
         this.buttonStyle = 'circle';
         /** Whether to show tooltips above the color swatch buttons. These contain the color name if provided; otherwise the color hex/RGBA value. */
@@ -4320,7 +5361,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.3.11", ngImpo
                 args: ['focus', ['$event']]
             }] } });
 
-let uniqueId$b = 0;
+let uniqueId$a = 0;
 const NUMBER_PICKER_VALUE_ACCESSOR = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => NumberPickerComponent),
@@ -4339,7 +5380,7 @@ class NumberPickerComponent {
         this._touchedChange = () => {
         };
         /** Sets the id of the number picker. The child input will have this value with a -input suffix as its id. */
-        this.id = `ux-number-picker-${uniqueId$b++}`;
+        this.id = `ux-number-picker-${uniqueId$a++}`;
         /** Define the precision of floating point values */
         this.precision = Number.MAX_SAFE_INTEGER.toString().length - 1;
         /** If two way binding is used this value will be updated any time the number picker value changes. */
@@ -10643,11 +11684,11 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.3.11", ngImpo
             type: Injectable
         }] });
 
-let uniqueId$a = 0;
+let uniqueId$9 = 0;
 class FacetCheckListComponent {
     constructor(facetService) {
         this.facetService = facetService;
-        this.id = `ux-facet-check-list-${uniqueId$a++}`;
+        this.id = `ux-facet-check-list-${uniqueId$9++}`;
         /** Defines the complete list of facets that can be selected. */
         this.facets = [];
         /** If `false` the list will grow to display all possible facets. If `true` a scrollbar will appear to prevent the list from growing too large. */
@@ -11924,14 +12965,14 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.3.11", ngImpo
                 type: Output
             }] } });
 
-let uniqueId$9 = 0;
+let uniqueId$8 = 0;
 class TypeaheadComponent {
     constructor(typeaheadElement, _changeDetector, popoverOrientation, _service) {
         this.typeaheadElement = typeaheadElement;
         this._changeDetector = _changeDetector;
         this._service = _service;
         /** Define a unique id for the typeahead */
-        this.id = `ux-typeahead-${++uniqueId$9}`;
+        this.id = `ux-typeahead-${++uniqueId$8}`;
         this._disabledOptions = [];
         /** Specify the drop direction */
         this.dropDirection = 'down';
@@ -12475,7 +13516,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.3.11", ngImpo
                 }]
         }] });
 
-let uniqueId$8 = 1;
+let uniqueId$7 = 1;
 class FacetTypeaheadListComponent {
     constructor(typeaheadKeyService, facetService, _announcer) {
         this.typeaheadKeyService = typeaheadKeyService;
@@ -12500,7 +13541,7 @@ class FacetTypeaheadListComponent {
         this.query$ = new BehaviorSubject('');
         this.loading = false;
         this.activeIndex = 0;
-        this.typeaheadId = `ux-facet-typeahead-${uniqueId$8++}`;
+        this.typeaheadId = `ux-facet-typeahead-${uniqueId$7++}`;
         this.typeaheadOpen = false;
         this.typeaheadOptions = [];
         this._facets = [];
@@ -12881,806 +13922,6 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.3.11", ngImpo
                 args: ['clearAllTemplate', { static: false }]
             }] } });
 
-/**
- * This is used to avoid having to do an `instanceof` check
- * which would cause a circular dependency between the
- * `MenuComponent` and `MenuItemComponent`
- */
-var MenuItemType;
-(function (MenuItemType) {
-    MenuItemType[MenuItemType["Default"] = 0] = "Default";
-    MenuItemType[MenuItemType["Custom"] = 1] = "Custom";
-})(MenuItemType || (MenuItemType = {}));
-
-const MENU_OPTIONS_TOKEN = new InjectionToken('MENU_OPTIONS_TOKEN');
-
-let uniqueId$7 = 0;
-class MenuComponent {
-    constructor(_changeDetector, _options) {
-        this._changeDetector = _changeDetector;
-        this._options = _options;
-        /** A unique id for the component. */
-        this.id = `ux-menu-${++uniqueId$7}`;
-        /** Define the position of the menu */
-        this.placement = 'bottom';
-        /** Define the alignment of the menu */
-        this.alignment = 'start';
-        /** Define if we should animate the menu */
-        this.animate = this._options && this._options.hasOwnProperty('animate') ? this._options.animate : true;
-        /** Emit when the opening has begun (the opened EventEmitter waits until the animation has finished) */
-        this.opening = new EventEmitter();
-        /** Emit when the menu is opened */
-        this.opened = new EventEmitter();
-        /** Emit whenever closing has begun (the closed EventEmitter waits until animation has finished) */
-        this.closing = new EventEmitter();
-        /** Emit when the menu is closed */
-        this.closed = new EventEmitter();
-        /** Store the menu open state */
-        this.isMenuOpen = false;
-        /** Store the animation state */
-        this._isAnimating = false;
-        /** Determine if this is a submenu */
-        this._isSubMenu = false;
-        /** Whether this menu should close when it loses focus */
-        this._closeOnBlur = false;
-        /** Emit when the focused item changes (we use this as the key manager is not instantiated until a late lifecycle hook) */
-        this._activeItem$ = new BehaviorSubject(null);
-        /** Access allow a close event to propagate all the way up the submenus */
-        this._closeAll$ = new Subject();
-        /** Emit keyboard events */
-        this._onKeydown$ = new Subject();
-        /** Emit hover events */
-        this._isHovering$ = new BehaviorSubject(false);
-        /** Emit focus events */
-        this._isFocused$ = new BehaviorSubject(false);
-        /** Emit placement change */
-        this._placement$ = new BehaviorSubject('bottom');
-        this._alignment$ = new BehaviorSubject('start');
-        /** Access all child menu items for accessibility purposes */
-        this._items$ = new BehaviorSubject([]);
-        /** Automatically unsubscribe when the component is destroyed */
-        this._onDestroy$ = new Subject();
-        this._isTabPressed = false;
-        /** Create an internal querylist to store the menu items */
-        this._itemsList = new QueryList();
-    }
-    /** Get innerId for use for accessibility  */
-    get innerId() {
-        return `${this.id}-menu`;
-    }
-    get _isExpanded() {
-        return this._menuItems.pipe(switchMap(items => merge(...items.map(item => item.isExpanded$))), takeUntil(this._onDestroy$));
-    }
-    get _menuItemClick() {
-        return this._menuItems.pipe(switchMap(items => merge(...items.map(item => item.onClick$))), takeUntil(this._onDestroy$));
-    }
-    /** Return only menu items an not custom tabbable items */
-    get _menuItems() {
-        return this._items$.pipe(map(items => items.filter(item => item.type === MenuItemType.Default)));
-    }
-    ngAfterContentInit() {
-        // initialise the query list with the items
-        this._items$.pipe(takeUntil(this._onDestroy$)).subscribe(items => {
-            // if no items has been marked as tabbable then this should be
-            if (!this._activeItem$.value && items.length > 0) {
-                this._activeItem$.next(items[0]);
-            }
-            this._itemsList.reset(items);
-            this._itemsList.notifyOnChanges();
-        });
-        // setup keyboard functionality
-        this._keyManager = new FocusKeyManager(this._itemsList)
-            .withVerticalOrientation()
-            .withTypeAhead()
-            .withWrap();
-        // emit the tabbable item on change
-        this._keyManager.change.pipe(map(() => this._keyManager.activeItem), takeUntil(this._onDestroy$))
-            .subscribe(item => this._activeItem$.next(item));
-    }
-    ngOnChanges(changes) {
-        if (changes.placement && changes.placement.currentValue !== changes.placement.previousValue) {
-            this._placement$.next(changes.placement.currentValue);
-        }
-        if (changes.alignment && changes.alignment.currentValue !== changes.alignment.previousValue) {
-            this._alignment$.next(changes.alignment.currentValue);
-        }
-    }
-    ngOnDestroy() {
-        this._onDestroy$.next();
-        this._onDestroy$.complete();
-        this._closeAll$.complete();
-        this._isHovering$.complete();
-        this._isFocused$.complete();
-        this._activeItem$.complete();
-        this._items$.complete();
-        this._placement$.complete();
-    }
-    /** Register a menu item - we do this do avoid `@ContentChildren` detecting submenu items */
-    _addItem(item) {
-        if (!this.hasItem(item)) {
-            this._items$.next([...this._items$.value, item]);
-        }
-    }
-    /** Remove an item */
-    _removeItem(item) {
-        if (this.hasItem(item)) {
-            this._items$.next(this._items$.value.filter(_item => _item !== item));
-        }
-    }
-    /** Determine if an item exists */
-    hasItem(item) {
-        return !!this._items$.value.find(_item => _item === item);
-    }
-    /** Internal function to set the open state and run change detection */
-    _setMenuOpen(menuOpen) {
-        // store the open state
-        this.isMenuOpen = menuOpen;
-        // if we are closing the menu reset some values
-        if (!menuOpen) {
-            this._isHovering$.next(false);
-            this._isFocused$.next(false);
-        }
-        // the change detector is actually an instance of a ViewRef (which extends ChangeDetectorRef) when used within a component
-        // and the ViewRef contains the destroyed state of the component which is more reliable
-        // than setting a flag in ngOnDestroy as the component can be destroyed before
-        // the lifecycle hook is called
-        const viewRef = this._changeDetector;
-        // check for changes - required to show the menu as we are using `*ngIf`
-        if (!viewRef.destroyed) {
-            this._changeDetector.detectChanges();
-        }
-        // emit the closing event
-        menuOpen ? this.opening.emit() : this.closing.emit();
-    }
-    /** Close the menu if the focus event is null */
-    _focusChange(event) {
-        if (event === null && this._closeOnBlur && this._isTabPressed) {
-            this._closeAll$.next('tabout');
-        }
-    }
-    /** Track the animation state */
-    _onAnimationStart() {
-        this._isAnimating = true;
-    }
-    /** Track animation state and emit event when opening or closing */
-    _onAnimationDone() {
-        this._isAnimating = false;
-        if (this.isMenuOpen) {
-            this.opened.emit();
-        }
-        else {
-            this.closed.emit();
-        }
-    }
-    _closeMenu() {
-        this._setMenuOpen(false);
-    }
-    /** Forward any keyboard events to the key manage for accessibility */
-    _onKeydown(event) {
-        this._keyManager.setFocusOrigin('keyboard').onKeydown(event);
-        // emit the keydown event
-        this._onKeydown$.next(event);
-    }
-    _onHoverStart() {
-        this._isHovering$.next(true);
-    }
-    _onHoverEnd() {
-        this._isHovering$.next(false);
-    }
-    _onFocus() {
-        this._isFocused$.next(true);
-    }
-    _onBlur() {
-        this._isFocused$.next(false);
-    }
-    _onKeyDown(event) {
-        this._isTabPressed = event.keyCode === TAB;
-    }
-    ;
-}
-MenuComponent.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.3.11", ngImport: i0, type: MenuComponent, deps: [{ token: i0.ChangeDetectorRef }, { token: MENU_OPTIONS_TOKEN, optional: true }], target: i0.ɵɵFactoryTarget.Component });
-MenuComponent.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "13.3.11", type: MenuComponent, selector: "ux-menu", inputs: { id: "id", placement: "placement", alignment: "alignment", animate: "animate", menuClass: "menuClass" }, outputs: { opening: "opening", opened: "opened", closing: "closing", closed: "closed" }, host: { properties: { "attr.id": "this.id" } }, viewQueries: [{ propertyName: "templateRef", first: true, predicate: TemplateRef, descendants: true }], usesOnChanges: true, ngImport: i0, template: "<ng-template>\n    <div\n        *ngIf=\"isMenuOpen\"\n        class=\"ux-menu\"\n        role=\"menu\"\n        [id]=\"innerId\"\n        [class.ux-sub-menu]=\"_isSubMenu\"\n        [ngClass]=\"menuClass\"\n        @menuAnimation\n        [@.disabled]=\"!animate\"\n        (@menuAnimation.start)=\"_onAnimationStart()\"\n        (@menuAnimation.done)=\"_onAnimationDone()\"\n        (mouseenter)=\"_onHoverStart()\"\n        (mouseover)=\"_onHoverStart()\"\n        (mouseleave)=\"_onHoverEnd()\"\n        (focusin)=\"_onFocus()\"\n        (focusout)=\"_onBlur()\"\n        (keydown)=\"_onKeyDown($event)\"\n        cdkMonitorSubtreeFocus\n        [cdkTrapFocus]=\"_closeOnBlur\"\n        (cdkFocusChange)=\"_focusChange($event)\">\n        <ng-content></ng-content>\n    </div>\n</ng-template>\n", directives: [{ type: i3$1.NgIf, selector: "[ngIf]", inputs: ["ngIf", "ngIfThen", "ngIfElse"] }, { type: i3.CdkMonitorFocus, selector: "[cdkMonitorElementFocus], [cdkMonitorSubtreeFocus]", outputs: ["cdkFocusChange"], exportAs: ["cdkMonitorFocus"] }, { type: i3$1.NgClass, selector: "[ngClass]", inputs: ["class", "ngClass"] }, { type: i3.CdkTrapFocus, selector: "[cdkTrapFocus]", inputs: ["cdkTrapFocus", "cdkTrapFocusAutoCapture"], exportAs: ["cdkTrapFocus"] }], animations: [
-        trigger('menuAnimation', [
-            transition(':enter', [
-                style({ opacity: 0, transform: 'scaleY(0)' }),
-                animate('200ms ease-out', style({ opacity: 1, transform: 'none' })),
-            ]),
-            transition(':leave', [
-                animate('200ms ease-out', style({ opacity: 0, transform: 'scaleY(0)' }))
-            ])
-        ]),
-    ], changeDetection: i0.ChangeDetectionStrategy.OnPush });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.3.11", ngImport: i0, type: MenuComponent, decorators: [{
-            type: Component,
-            args: [{ selector: 'ux-menu', changeDetection: ChangeDetectionStrategy.OnPush, animations: [
-                        trigger('menuAnimation', [
-                            transition(':enter', [
-                                style({ opacity: 0, transform: 'scaleY(0)' }),
-                                animate('200ms ease-out', style({ opacity: 1, transform: 'none' })),
-                            ]),
-                            transition(':leave', [
-                                animate('200ms ease-out', style({ opacity: 0, transform: 'scaleY(0)' }))
-                            ])
-                        ]),
-                    ], template: "<ng-template>\n    <div\n        *ngIf=\"isMenuOpen\"\n        class=\"ux-menu\"\n        role=\"menu\"\n        [id]=\"innerId\"\n        [class.ux-sub-menu]=\"_isSubMenu\"\n        [ngClass]=\"menuClass\"\n        @menuAnimation\n        [@.disabled]=\"!animate\"\n        (@menuAnimation.start)=\"_onAnimationStart()\"\n        (@menuAnimation.done)=\"_onAnimationDone()\"\n        (mouseenter)=\"_onHoverStart()\"\n        (mouseover)=\"_onHoverStart()\"\n        (mouseleave)=\"_onHoverEnd()\"\n        (focusin)=\"_onFocus()\"\n        (focusout)=\"_onBlur()\"\n        (keydown)=\"_onKeyDown($event)\"\n        cdkMonitorSubtreeFocus\n        [cdkTrapFocus]=\"_closeOnBlur\"\n        (cdkFocusChange)=\"_focusChange($event)\">\n        <ng-content></ng-content>\n    </div>\n</ng-template>\n" }]
-        }], ctorParameters: function () {
-        return [{ type: i0.ChangeDetectorRef }, { type: undefined, decorators: [{
-                        type: Optional
-                    }, {
-                        type: Inject,
-                        args: [MENU_OPTIONS_TOKEN]
-                    }] }];
-    }, propDecorators: { id: [{
-                type: Input
-            }, {
-                type: HostBinding,
-                args: ['attr.id']
-            }], placement: [{
-                type: Input
-            }], alignment: [{
-                type: Input
-            }], animate: [{
-                type: Input
-            }], menuClass: [{
-                type: Input
-            }], opening: [{
-                type: Output
-            }], opened: [{
-                type: Output
-            }], closing: [{
-                type: Output
-            }], closed: [{
-                type: Output
-            }], templateRef: [{
-                type: ViewChild,
-                args: [TemplateRef, { static: false }]
-            }] } });
-
-class MenuItemComponent {
-    constructor(_menu, _elementRef, _focusIndicatorService, _renderer) {
-        this._menu = _menu;
-        this._elementRef = _elementRef;
-        this._focusIndicatorService = _focusIndicatorService;
-        this._renderer = _renderer;
-        /** Define the role of the element */
-        this.role = 'menuitem';
-        /** Emits when the menu item is clicked or the enter key is pressed. */
-        this.activate = new EventEmitter();
-        /** Indicate the type of the menu item */
-        this.type = MenuItemType.Default;
-        /** Store the current hover state */
-        this.isHovered$ = new BehaviorSubject(false);
-        /** Store the current focus state */
-        this.isFocused$ = new BehaviorSubject(false);
-        /** Store the current expanded state */
-        this.isExpanded$ = new BehaviorSubject(false);
-        /** Emit when an item is clicked */
-        this.onClick$ = new Subject();
-        /** Automatically unsubscribe from observables on destroy */
-        this._onDestroy$ = new Subject();
-        this._disabled = false;
-        this._closeOnSelect = true;
-    }
-    /** Define if this item is disabled or not */
-    set disabled(disabled) {
-        this._disabled = coerceBooleanProperty(disabled);
-    }
-    get disabled() {
-        return this._disabled;
-    }
-    /** Determine if the menu should close on item click/enter.*/
-    set closeOnSelect(value) {
-        this._closeOnSelect = coerceBooleanProperty(value);
-    }
-    get closeOnSelect() {
-        return this._closeOnSelect;
-    }
-    /** Access the open state */
-    get isOpen() {
-        return this._menu.isMenuOpen;
-    }
-    ngOnInit() {
-        // register this item in the MenuComponent
-        this._menu._addItem(this);
-        // we only want to show the focus indicator whenever the keyboard is used
-        this._focusIndicator = this._focusIndicatorService.monitor(this._elementRef.nativeElement);
-        // subscribe to active item changes
-        this._menu._activeItem$.pipe(takeUntil(this._onDestroy$))
-            .subscribe(item => this.setTabIndex(item === this));
-    }
-    ngOnDestroy() {
-        this._menu._removeItem(this);
-        this.isHovered$.complete();
-        this.isExpanded$.complete();
-        this.isFocused$.complete();
-        this.onClick$.complete();
-        this._focusIndicator.destroy();
-        this._onDestroy$.next();
-        this._onDestroy$.complete();
-    }
-    focus(origin) {
-        this._focusIndicator.focus(origin);
-    }
-    /** This function is built into the CDK manager to allow jumping to items based on text content */
-    getLabel() {
-        return this._elementRef.nativeElement.textContent.trim();
-    }
-    _onMouseEnter() {
-        this.isHovered$.next(true);
-    }
-    _onMouseLeave() {
-        this.isHovered$.next(false);
-    }
-    _onFocus() {
-        this.isFocused$.next(true);
-    }
-    _onBlur() {
-        this.isFocused$.next(false);
-    }
-    _onClick(event) {
-        if (!this.disabled) {
-            if (this.closeOnSelect) {
-                this.onClick$.next(isKeyboardTrigger(event) ? 'keyboard' : 'mouse');
-            }
-            this.activate.emit(event);
-        }
-    }
-    /** Forward any keyboard events to the MenuComponent for accessibility */
-    _onKeydown(event) {
-        this._menu._onKeydown(event);
-    }
-    /** Update the tab index on this item */
-    setTabIndex(isTabbable) {
-        this._renderer.setAttribute(this._elementRef.nativeElement, 'tabindex', isTabbable ? '0' : '-1');
-    }
-}
-MenuItemComponent.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.3.11", ngImport: i0, type: MenuItemComponent, deps: [{ token: MenuComponent }, { token: i0.ElementRef }, { token: FocusIndicatorService }, { token: i0.Renderer2 }], target: i0.ɵɵFactoryTarget.Component });
-MenuItemComponent.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "13.3.11", type: MenuItemComponent, selector: "[uxMenuItem]", inputs: { disabled: "disabled", closeOnSelect: "closeOnSelect", role: "role" }, outputs: { activate: "activate" }, host: { listeners: { "mouseenter": "_onMouseEnter()", "mouseleave": "_onMouseLeave()", "focus": "_onFocus()", "blur": "_onBlur()", "click": "_onClick($event)", "keydown.enter": "_onClick($event)", "keydown": "_onKeydown($event)" }, properties: { "attr.disabled": "disabled ? \"disabled\" : null", "attr.role": "role", "class.disabled": "disabled", "class.ux-menu-item": "true", "class.open": "isOpen" } }, ngImport: i0, template: "<ng-content></ng-content>\n", changeDetection: i0.ChangeDetectionStrategy.OnPush });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.3.11", ngImport: i0, type: MenuItemComponent, decorators: [{
-            type: Component,
-            args: [{ selector: '[uxMenuItem]', changeDetection: ChangeDetectionStrategy.OnPush, host: {
-                        '[attr.disabled]': 'disabled ? "disabled" : null',
-                        '[attr.role]': 'role',
-                        '[class.disabled]': 'disabled',
-                        '[class.ux-menu-item]': 'true',
-                        '[class.open]': 'isOpen'
-                    }, template: "<ng-content></ng-content>\n" }]
-        }], ctorParameters: function () { return [{ type: MenuComponent }, { type: i0.ElementRef }, { type: FocusIndicatorService }, { type: i0.Renderer2 }]; }, propDecorators: { disabled: [{
-                type: Input
-            }], closeOnSelect: [{
-                type: Input
-            }], role: [{
-                type: Input
-            }], activate: [{
-                type: Output
-            }], _onMouseEnter: [{
-                type: HostListener,
-                args: ['mouseenter']
-            }], _onMouseLeave: [{
-                type: HostListener,
-                args: ['mouseleave']
-            }], _onFocus: [{
-                type: HostListener,
-                args: ['focus']
-            }], _onBlur: [{
-                type: HostListener,
-                args: ['blur']
-            }], _onClick: [{
-                type: HostListener,
-                args: ['click', ['$event']]
-            }, {
-                type: HostListener,
-                args: ['keydown.enter', ['$event']]
-            }], _onKeydown: [{
-                type: HostListener,
-                args: ['keydown', ['$event']]
-            }] } });
-
-class MenuTriggerDirective {
-    constructor(_overlay, _elementRef, _viewContainerRef, _focusOrigin, _focusIndicatorService, _overlayPlacement, _parentMenu, _menuItem) {
-        this._overlay = _overlay;
-        this._elementRef = _elementRef;
-        this._viewContainerRef = _viewContainerRef;
-        this._focusOrigin = _focusOrigin;
-        this._focusIndicatorService = _focusIndicatorService;
-        this._overlayPlacement = _overlayPlacement;
-        this._parentMenu = _parentMenu;
-        this._menuItem = _menuItem;
-        /** Determine if we should disable the trigger */
-        this.disabled = false;
-        /** Emit when the menu is closed */
-        this.closed = new EventEmitter();
-        /** Automatically unsubscribe on directive destroy */
-        this._onDestroy$ = new Subject();
-        /** Reference to the menu should close when it loses focus */
-        this._closeOnBlur = false;
-        this._debounceTime = 50;
-    }
-    /** Determine if the menu should close when it loses focus */
-    set closeOnBlur(value) {
-        this._closeOnBlur = coerceBooleanProperty(value);
-    }
-    get closeOnBlur() {
-        return this._closeOnBlur;
-    }
-    /** Get the aria controls for accessibility */
-    get ariaControls() {
-        var _a, _b;
-        return ((_a = this.menu) === null || _a === void 0 ? void 0 : _a.isMenuOpen) ? (_b = this.menu) === null || _b === void 0 ? void 0 : _b.innerId : null;
-    }
-    /** Determine if this triggers a submenu */
-    get _isSubmenuTrigger() {
-        return !!this._parentMenu;
-    }
-    /** Determine if this is the root trigger */
-    get _isRootTrigger() {
-        return !this._isSubmenuTrigger;
-    }
-    /** If this is a submenu we want to know when the mouse leaves the items or parent item */
-    get _menuShouldClose() {
-        if (!this._isSubmenuTrigger) {
-            return of();
-        }
-        // This combined observable will essentially check for all of the combinations of events that can cause a menu
-        // to remain open, for example:
-        //
-        // 1. Hovering over any item in the menu should keep the menu open
-        // 2. Having any item in the menu focused should keep the menu open
-        // 3. Having the parent menu item hovered should keep a submenu open
-        // 4. Having the parent menu item focused should keep a submenu open
-        // 5. Having a submenu open should keep the parent open (if the submenu meets one of the above conditions)
-        //
-        // We also debounce this because there is often a delay between a blur and a focus event or moving the mouse
-        // from a menu item to a sub menu item, so we add this buffer time to prevent the menu from closing unexpectedly
-        return combineLatest([this.menu._isHovering$, this.menu._isFocused$, this._menuItem.isHovered$, this.menu._isExpanded, this._menuItem.isFocused$])
-            .pipe(debounceTime(50), filter(([isHovered, isFocused, isItemHovered, isExpanded, isItemFocused]) => !isHovered && !isFocused && !isItemHovered && !isExpanded && !isItemFocused));
-    }
-    ngOnInit() {
-        // set up focus indicator handling
-        this._focusIndicator = this._focusIndicatorService.monitor(this._elementRef.nativeElement);
-        // if there is a parent menu then we should override the default initial
-        // position to be to the right rather than beneath. Note this gets called
-        // before ngOnInit in the MenuComponent so if the user specifies an explicit
-        // position then it will still take precendence
-        if (this._isSubmenuTrigger) {
-            this.menu._isSubMenu = true;
-            this.menu.placement = this.getSubMenuPlacement(this.menu.placement);
-        }
-        // listen for the menu to open (after animation so we can focus the first item)
-        this.menu.opened.pipe(takeUntil(this._onDestroy$))
-            .subscribe(() => this.menuDidOpen());
-        // propagate the close event if it is triggered
-        this.menu._closeAll$.pipe(takeUntil(this._onDestroy$))
-            .subscribe(origin => {
-            if (origin === 'tabout' && this._isRootTrigger) {
-                this.closeMenu('keyboard', true, true, true);
-            }
-            else {
-                this.closeMenu(origin, true);
-            }
-        });
-        // handle keyboard events in the menu
-        this.menu._onKeydown$.pipe(takeUntil(this._onDestroy$))
-            .subscribe(event => this.onMenuKeydown(event));
-        combineLatest([this.menu._placement$, this.menu._alignment$])
-            .pipe(takeUntil(this._onDestroy$))
-            .subscribe(() => {
-            if (this._isSubmenuTrigger) {
-                this.menu.placement = this.getSubMenuPlacement(this.menu.placement);
-            }
-            this.getOverlay(true);
-        });
-    }
-    ngOnDestroy() {
-        this.destroyMenu();
-        this._onDestroy$.next();
-        this._onDestroy$.complete();
-    }
-    /** Focus the next focusable element */
-    focusNextElement() {
-        // add elements we want to include in our selection
-        const focusableElements = 'a:not([disabled]), button:not([disabled]), input:not([disabled]), [tabindex]:not([disabled]):not([tabindex="-1"])';
-        if (document.activeElement) {
-            const focusable = document.querySelectorAll(focusableElements);
-            const suitableElements = [];
-            focusable.forEach((element) => {
-                if ((element.offsetWidth > 0 || element.offsetHeight > 0 || element === document.activeElement) && !element.classList.contains('cdk-visually-hidden')) {
-                    suitableElements.push(element);
-                }
-            });
-            const index = suitableElements.indexOf(document.activeElement);
-            if (index > -1) {
-                const nextElement = suitableElements[index + 1] || focusable[0];
-                nextElement.focus();
-            }
-        }
-    }
-    /** Open the menu */
-    openMenu() {
-        // if the menu is already open then do nothing
-        if (this.menu.isMenuOpen || this.disabled) {
-            return;
-        }
-        this.menu._closeOnBlur = this.closeOnBlur;
-        // get or create an overlayRef
-        const overlayRef = this.getOverlay();
-        const portal = this.getPortal();
-        // if the overlay is already attached do nothing
-        if (overlayRef.hasAttached()) {
-            return;
-        }
-        // attach the menu to the DOM
-        overlayRef.attach(portal);
-        // mark the menu as open
-        this.menu._setMenuOpen(true);
-        if (this._menuItem) {
-            // timer is needed because isExpanded$ will get set to false
-            // prematurely due to the debounceTime on the menuShouldClose.
-            timer(this._debounceTime).pipe(takeUntil(this._onDestroy$))
-                .subscribe(() => this._menuItem.isExpanded$.next(true));
-        }
-        // listen for a menu item to be selected
-        this.menu._menuItemClick.pipe(take(1), takeUntil(this._onDestroy$))
-            .subscribe(origin => this.closeMenu(origin, true));
-        // subscribe to any close events
-        this.didMenuClose().pipe(take(1), takeUntil(this._onDestroy$))
-            .subscribe(() => this.closeMenu());
-        // listen for the menu to animate closed then destroy it, if submenu wait for it to start closing to destroy.
-        if (this._isSubmenuTrigger) {
-            this.menu.closing.pipe(take(1), takeUntil(this._onDestroy$))
-                .subscribe(() => this.destroyMenu());
-        }
-        else {
-            this.menu.closed.pipe(take(1), takeUntil(this._onDestroy$))
-                .subscribe(() => this.destroyMenu());
-        }
-    }
-    /** Close a menu or submenu */
-    closeMenu(origin, closeParents = false, focusTrigger = true, focusNextElement = false) {
-        if (!this._overlayRef.hasAttached()) {
-            return;
-        }
-        // update the menu state
-        this.menu._setMenuOpen(false);
-        if (this._menuItem) {
-            this._menuItem.isExpanded$.next(false);
-        }
-        // if we should close parents then propagate the event
-        if (closeParents && this._parentMenu) {
-            this._parentMenu._closeAll$.next(origin);
-        }
-        // we should focus the trigger element if this is the root trigger unless otherwise specified
-        if (this._isRootTrigger && focusTrigger) {
-            this._focusIndicator.focus(origin);
-        }
-        if (focusNextElement) {
-            this.focusNextElement();
-        }
-        this.closed.emit();
-        return this.menu.closed;
-    }
-    /** Toggle the open state of a menu */
-    toggleMenu(event) {
-        // if this occurs on a submenu trigger then we can skip
-        if (this._isSubmenuTrigger) {
-            return;
-        }
-        if (!this.menu._isAnimating) {
-            // determine the focus origin based on whether or not a keyboard was used
-            const origin = event instanceof KeyboardEvent ? 'keyboard' : 'mouse';
-            // set the correct focus origin - if triggered by an event then use the source otherwise it was programmatic
-            this._focusOrigin.setOrigin(event ? origin : 'program');
-            // toggle the menu open state
-            this.menu.isMenuOpen ? this.closeMenu(origin, true) : this.openMenu();
-        }
-        // the enter key will trigger the click event and therefore set the wrong focus origin
-        // so we nee to ensure this doesn't happen
-        if (event) {
-            event.preventDefault();
-        }
-    }
-    /** Submenus should be opened by hovering on the menu item */
-    _onMouseEnter() {
-        if (this._isSubmenuTrigger && !this._parentMenu._isAnimating) {
-            this.openMenu();
-        }
-    }
-    _onMouseMove() {
-        if (this._isSubmenuTrigger && !this._parentMenu._isAnimating) {
-            setTimeout(() => {
-                this.openMenu();
-            }, this._debounceTime);
-        }
-    }
-    /** Pressing the escape key should close all menus */
-    _onEscape() {
-        if (this.menu.isMenuOpen) {
-            this.closeMenu();
-            // refocus the root trigger and show the focus ring
-            if (this._isRootTrigger) {
-                this._focusIndicator.focus('keyboard');
-            }
-        }
-    }
-    /** Handle keyboard events for opening submenus */
-    _onKeydown(event) {
-        // arrow key in the correct direction should open the menu
-        if (this.menu.placement === 'right' && event.keyCode === RIGHT_ARROW ||
-            this.menu.placement === 'left' && event.keyCode === LEFT_ARROW ||
-            this.menu.placement === 'top' && event.keyCode === UP_ARROW ||
-            this.menu.placement === 'bottom' && event.keyCode === DOWN_ARROW) {
-            this._focusOrigin.setOrigin('keyboard');
-            // if the menu was opened by a click but we subsequently use the arrow keys focus the first item
-            if (this.menu.isMenuOpen) {
-                this.menu._keyManager.setFocusOrigin('keyboard').setFirstItemActive();
-            }
-            else {
-                // otherwise open the menu
-                this.openMenu();
-            }
-            // prevent the browser from scrolling
-            event.preventDefault();
-        }
-    }
-    /** Blurring the trigger should check if the menu has focus and close it if not */
-    _onBlur() {
-        if (this.closeOnBlur) {
-            this.closeOnFocusout();
-        }
-    }
-    /** Remove the menu from the DOM */
-    destroyMenu() {
-        // if the menu has been destroyed already then do nothing
-        if (!this._overlayRef) {
-            return;
-        }
-        // remove the overlay
-        this._overlayRef.detach();
-    }
-    /** Create an overlay or return an existing instance */
-    getOverlay(recreateOverlay = false) {
-        var _a;
-        // if we have already created the overlay then reuse it
-        if (this._overlayRef && !recreateOverlay) {
-            return this._overlayRef;
-        }
-        const strategy = this._overlay.position()
-            .flexibleConnectedTo((_a = this.parent) !== null && _a !== void 0 ? _a : this._elementRef)
-            .withFlexibleDimensions(false)
-            .withPush(false)
-            .withTransformOriginOn('.ux-menu');
-        // otherwise create a new one
-        this._overlayRef = this._overlay.create({
-            hasBackdrop: !this._isSubmenuTrigger,
-            backdropClass: 'cdk-overlay-transparent-backdrop',
-            scrollStrategy: this._overlay.scrollStrategies.reposition({ scrollThrottle: 0 }),
-            positionStrategy: strategy
-        });
-        this._overlayPlacement.updatePosition(this._overlayRef, this.menu.placement, this.menu.alignment, undefined, this._isSubmenuTrigger);
-        return this._overlayRef;
-    }
-    /** Create a Template portal if one does not already exist (or the template has changed) */
-    getPortal() {
-        // if there is no portal or the templateRef has changed then create a new one
-        if (!this._portal || this.menu.templateRef !== this._portal.templateRef) {
-            this._portal = new TemplatePortal(this.menu.templateRef, this._viewContainerRef);
-        }
-        return this._portal;
-    }
-    /** Get an observable that emits on any of the triggers that close a menu */
-    didMenuClose() {
-        return merge(this._overlayRef.backdropClick(), this._parentMenu ? this._parentMenu.closing : of(), this._menuShouldClose);
-    }
-    /** When the menu opens we want to focus the first item in the list */
-    menuDidOpen() {
-        // if the keyboard is used we should always focus and show the indicator
-        // regardless of it this is the root menu or not
-        if (this._focusOrigin.getOrigin() === 'keyboard') {
-            this.menu._keyManager.setFocusOrigin('keyboard').setFirstItemActive();
-        }
-    }
-    /** Handle keypresses in submenus where we may want to close them */
-    onMenuKeydown(event) {
-        // if we are a submenu and the user presses an arrow key in the opposite
-        // direction than it is positioned from its parents then we should close the menu
-        if (this._parentMenu) {
-            if (this.menu.placement === 'right' && event.keyCode === LEFT_ARROW ||
-                this.menu.placement === 'left' && event.keyCode === RIGHT_ARROW ||
-                this.menu.placement === 'top' && event.keyCode === DOWN_ARROW ||
-                this.menu.placement === 'bottom' && event.keyCode === UP_ARROW) {
-                this.closeMenu();
-                // refocus the parent menu item
-                this._menuItem.focus('keyboard');
-            }
-        }
-    }
-    /** Check whether the overlay has focus */
-    hasFocus() {
-        let check = false;
-        document.querySelectorAll('.cdk-overlay-container .ux-menu').forEach(el => {
-            if (el.contains(document.activeElement)) {
-                check = true;
-            }
-        });
-        return check;
-    }
-    /** Close the menu if there is no element focused */
-    closeOnFocusout() {
-        if (this.menu.isMenuOpen) {
-            setTimeout(() => {
-                if (!this.hasFocus()) {
-                    this.closeMenu(undefined, true, false);
-                }
-            }, this._debounceTime);
-        }
-    }
-    getSubMenuPlacement(placement) {
-        return placement === 'left' ? 'left' : 'right';
-    }
-}
-MenuTriggerDirective.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.3.11", ngImport: i0, type: MenuTriggerDirective, deps: [{ token: i1$2.Overlay }, { token: i0.ElementRef }, { token: i0.ViewContainerRef }, { token: FocusIndicatorOriginService }, { token: FocusIndicatorService }, { token: OverlayPlacementService }, { token: MenuComponent, optional: true }, { token: MenuItemComponent, optional: true, self: true }], target: i0.ɵɵFactoryTarget.Directive });
-MenuTriggerDirective.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "12.0.0", version: "13.3.11", type: MenuTriggerDirective, selector: "[uxMenuTriggerFor]", inputs: { menu: ["uxMenuTriggerFor", "menu"], disabled: "disabled", parent: ["uxMenuParent", "parent"], closeOnBlur: "closeOnBlur" }, outputs: { closed: "closed" }, host: { listeners: { "click": "toggleMenu($event)", "keydown.enter": "toggleMenu($event)", "keydown.space": "toggleMenu($event)", "mouseenter": "_onMouseEnter()", "mousemove": "_onMouseMove()", "document:keydown.escape": "_onEscape()", "keydown": "_onKeydown($event)", "blur": "_onBlur()" }, properties: { "attr.disabled": "disabled ? true : null", "attr.aria-haspopup": "!!menu", "attr.aria-expanded": "menu?.isMenuOpen", "attr.aria-controls": "ariaControls" } }, queries: [{ propertyName: "menuTriggers", predicate: MenuTriggerDirective }], exportAs: ["ux-menu-trigger"], ngImport: i0 });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.3.11", ngImport: i0, type: MenuTriggerDirective, decorators: [{
-            type: Directive,
-            args: [{
-                    selector: '[uxMenuTriggerFor]',
-                    exportAs: 'ux-menu-trigger',
-                    host: {
-                        '[attr.disabled]': 'disabled ? true : null',
-                        '[attr.aria-haspopup]': '!!menu',
-                        '[attr.aria-expanded]': 'menu?.isMenuOpen',
-                        '[attr.aria-controls]': 'ariaControls'
-                    }
-                }]
-        }], ctorParameters: function () {
-        return [{ type: i1$2.Overlay }, { type: i0.ElementRef }, { type: i0.ViewContainerRef }, { type: FocusIndicatorOriginService }, { type: FocusIndicatorService }, { type: OverlayPlacementService }, { type: MenuComponent, decorators: [{
-                        type: Optional
-                    }] }, { type: MenuItemComponent, decorators: [{
-                        type: Optional
-                    }, {
-                        type: Self
-                    }] }];
-    }, propDecorators: { menu: [{
-                type: Input,
-                args: ['uxMenuTriggerFor']
-            }], disabled: [{
-                type: Input
-            }], parent: [{
-                type: Input,
-                args: ['uxMenuParent']
-            }], closeOnBlur: [{
-                type: Input
-            }], closed: [{
-                type: Output
-            }], menuTriggers: [{
-                type: ContentChildren,
-                args: [MenuTriggerDirective]
-            }], toggleMenu: [{
-                type: HostListener,
-                args: ['click', ['$event']]
-            }, {
-                type: HostListener,
-                args: ['keydown.enter', ['$event']]
-            }, {
-                type: HostListener,
-                args: ['keydown.space', ['$event']]
-            }], _onMouseEnter: [{
-                type: HostListener,
-                args: ['mouseenter']
-            }], _onMouseMove: [{
-                type: HostListener,
-                args: ['mousemove']
-            }], _onEscape: [{
-                type: HostListener,
-                args: ['document:keydown.escape']
-            }], _onKeydown: [{
-                type: HostListener,
-                args: ['keydown', ['$event']]
-            }], _onBlur: [{
-                type: HostListener,
-                args: ['blur']
-            }] } });
-
 let uniqueId$6 = 0;
 class FilterDropdownComponent {
     constructor(_filterService, _changeDetector) {
@@ -13759,17 +14000,6 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.3.11", ngImpo
             }], closed: [{
                 type: Output
             }] } });
-
-class MenuDividerComponent {
-}
-MenuDividerComponent.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.3.11", ngImport: i0, type: MenuDividerComponent, deps: [], target: i0.ɵɵFactoryTarget.Component });
-MenuDividerComponent.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "13.3.11", type: MenuDividerComponent, selector: "ux-menu-divider", host: { attributes: { "role": "separator" } }, ngImport: i0, template: "", changeDetection: i0.ChangeDetectionStrategy.OnPush });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.3.11", ngImport: i0, type: MenuDividerComponent, decorators: [{
-            type: Component,
-            args: [{ selector: 'ux-menu-divider', changeDetection: ChangeDetectionStrategy.OnPush, host: {
-                        role: 'separator'
-                    }, template: "" }]
-        }] });
 
 class FilterTypeaheadHighlight {
     transform(value, searchQuery) {
@@ -13936,162 +14166,6 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.3.11", ngImpo
             }], closed: [{
                 type: Output
             }] } });
-
-class MenuInitialFocusDirective {
-    constructor(_menu, _elementRef, _renderer) {
-        this._menu = _menu;
-        this._elementRef = _elementRef;
-        this._renderer = _renderer;
-        this._onDestroy = new Subject();
-    }
-    ngOnInit() {
-        this.ensureFocusable();
-        // Focus the host element when the parent menu is opened.
-        this._menu.opened
-            .pipe(takeUntil(this._onDestroy))
-            .subscribe(() => {
-            this._elementRef.nativeElement.focus();
-        });
-    }
-    ngOnDestroy() {
-        this._onDestroy.next();
-        this._onDestroy.complete();
-    }
-    /** Apply tabindex="0" to the element if it's not already focusable. */
-    ensureFocusable() {
-        if (this._elementRef.nativeElement.tabIndex >= 0) {
-            return;
-        }
-        this._renderer.setAttribute(this._elementRef.nativeElement, 'tabindex', '0');
-    }
-}
-MenuInitialFocusDirective.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.3.11", ngImport: i0, type: MenuInitialFocusDirective, deps: [{ token: MenuComponent }, { token: i0.ElementRef }, { token: i0.Renderer2 }], target: i0.ɵɵFactoryTarget.Directive });
-MenuInitialFocusDirective.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "12.0.0", version: "13.3.11", type: MenuInitialFocusDirective, selector: "[uxMenuInitialFocus]", ngImport: i0 });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.3.11", ngImport: i0, type: MenuInitialFocusDirective, decorators: [{
-            type: Directive,
-            args: [{ selector: '[uxMenuInitialFocus]' }]
-        }], ctorParameters: function () { return [{ type: MenuComponent }, { type: i0.ElementRef }, { type: i0.Renderer2 }]; } });
-
-class MenuTabbableItemDirective {
-    constructor(_menu, _elementRef, _focusIndicatorService, _renderer) {
-        this._menu = _menu;
-        this._elementRef = _elementRef;
-        this._focusIndicatorService = _focusIndicatorService;
-        this._renderer = _renderer;
-        /** Define if this item is disabled or not */
-        this.disabled = false;
-        /** Indicate the type of the menu item */
-        this.type = MenuItemType.Default;
-        /** Automatically unsubscribe when directive is destroyed */
-        this._onDestroy$ = new Subject();
-    }
-    ngOnInit() {
-        // register this item in the MenuComponent
-        this._menu._addItem(this);
-        // we only want to show the focus indicator whenever the keyboard is used
-        this._focusIndicator = this._focusIndicatorService.monitor(this._elementRef.nativeElement);
-        // subscribe to active item changes
-        this._menu._activeItem$.pipe(takeUntil(this._onDestroy$))
-            .subscribe(item => this.setTabIndex(item === this));
-    }
-    ngOnDestroy() {
-        this._onDestroy$.next();
-        this._onDestroy$.complete();
-        this._focusIndicator.destroy();
-    }
-    /** Focus this item with a given origin */
-    focus(origin) {
-        this._focusIndicator.focus(origin);
-    }
-    /** This function is built into the CDK manager to allow jumping to items based on text content */
-    getLabel() {
-        return this._elementRef.nativeElement.textContent.trim();
-    }
-    /** Forward any keyboard events to the MenuComponent for accessibility */
-    _onKeydown(event) {
-        this._menu._onKeydown(event);
-    }
-    /** Update the tab index on this item */
-    setTabIndex(isTabbable) {
-        this._renderer.setAttribute(this._elementRef.nativeElement, 'tabindex', isTabbable ? '0' : '-1');
-    }
-}
-MenuTabbableItemDirective.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.3.11", ngImport: i0, type: MenuTabbableItemDirective, deps: [{ token: MenuComponent }, { token: i0.ElementRef }, { token: FocusIndicatorService }, { token: i0.Renderer2 }], target: i0.ɵɵFactoryTarget.Directive });
-MenuTabbableItemDirective.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "12.0.0", version: "13.3.11", type: MenuTabbableItemDirective, selector: "[uxMenuTabbableItem]", inputs: { disabled: "disabled" }, host: { listeners: { "keydown": "_onKeydown($event)" } }, ngImport: i0 });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.3.11", ngImport: i0, type: MenuTabbableItemDirective, decorators: [{
-            type: Directive,
-            args: [{
-                    selector: '[uxMenuTabbableItem]',
-                }]
-        }], ctorParameters: function () { return [{ type: MenuComponent }, { type: i0.ElementRef }, { type: FocusIndicatorService }, { type: i0.Renderer2 }]; }, propDecorators: { disabled: [{
-                type: Input
-            }], _onKeydown: [{
-                type: HostListener,
-                args: ['keydown', ['$event']]
-            }] } });
-
-class MenuModule {
-    static forRoot(options) {
-        return {
-            ngModule: MenuModule,
-            providers: [
-                { provide: MENU_OPTIONS_TOKEN, useValue: options }
-            ]
-        };
-    }
-    /** Support options at a child module level (implementation is the same as `forRoot`) */
-    static forChild(options) {
-        return MenuModule.forRoot(options);
-    }
-}
-MenuModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.3.11", ngImport: i0, type: MenuModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-MenuModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "13.3.11", ngImport: i0, type: MenuModule, declarations: [MenuComponent,
-        MenuTriggerDirective,
-        MenuItemComponent,
-        MenuDividerComponent,
-        MenuTabbableItemDirective,
-        MenuInitialFocusDirective], imports: [A11yModule,
-        AccessibilityModule,
-        CommonModule,
-        OverlayModule], exports: [MenuComponent,
-        MenuTriggerDirective,
-        MenuItemComponent,
-        MenuDividerComponent,
-        MenuTabbableItemDirective,
-        MenuInitialFocusDirective] });
-MenuModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "13.3.11", ngImport: i0, type: MenuModule, imports: [[
-            A11yModule,
-            AccessibilityModule,
-            CommonModule,
-            OverlayModule
-        ]] });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.3.11", ngImport: i0, type: MenuModule, decorators: [{
-            type: NgModule,
-            args: [{
-                    declarations: [
-                        MenuComponent,
-                        MenuTriggerDirective,
-                        MenuItemComponent,
-                        MenuDividerComponent,
-                        MenuTabbableItemDirective,
-                        MenuInitialFocusDirective,
-                    ],
-                    imports: [
-                        A11yModule,
-                        AccessibilityModule,
-                        CommonModule,
-                        OverlayModule
-                    ],
-                    exports: [
-                        MenuComponent,
-                        MenuTriggerDirective,
-                        MenuItemComponent,
-                        MenuDividerComponent,
-                        MenuTabbableItemDirective,
-                        MenuInitialFocusDirective,
-                    ]
-                }]
-        }] });
 
 const DECLARATIONS$7 = [
     FilterContainerComponent,
@@ -21970,12 +22044,26 @@ class RadioButtonComponent {
         this._internalTabindex = tabIndex;
         this._changeDetector.detectChanges();
     }
+    /** Focus the input element */
+    focus(origin) {
+        this._focusIndicator.focus(origin);
+    }
+    setInputTabIndex(tabindex) {
+        this.tabindex = tabindex;
+        this._changeDetector.detectChanges();
+    }
 }
 RadioButtonComponent.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.3.11", ngImport: i0, type: RadioButtonComponent, deps: [{ token: i0.ChangeDetectorRef }, { token: RadioButtonGroupDirective, optional: true }], target: i0.ɵɵFactoryTarget.Component });
-RadioButtonComponent.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "13.3.11", type: RadioButtonComponent, selector: "ux-radio-button", inputs: { id: "id", name: "name", inputRole: "inputRole", value: "value", required: "required", tabindex: "tabindex", clickable: "clickable", disabled: "disabled", simplified: "simplified", option: "option", ariaLabel: ["aria-label", "ariaLabel"], ariaLabelledby: ["aria-labelledby", "ariaLabelledby"], ariaDescribedby: ["aria-describedby", "ariaDescribedby"] }, outputs: { valueChange: "valueChange" }, providers: [RADIOBUTTON_VALUE_ACCESSOR], usesOnChanges: true, ngImport: i0, template: "<label\n    [attr.for]=\"(id || _radioButtonId) + '-input'\"\n    class=\"ux-radio-button\"\n    [class.ux-radio-button-checked]=\"value === option\"\n    [class.ux-radio-button-simplified]=\"simplified\"\n    [class.ux-radio-button-disabled]=\"disabled\"\n    [class.ux-radio-button-focused]=\"_focused\"\n>\n    <div class=\"ux-radio-button-container\">\n        <input\n            class=\"ux-radio-button-input\"\n            uxFocusIndicator\n            type=\"radio\"\n            [id]=\"(id || _radioButtonId) + '-input'\"\n            [attr.role]=\"inputRole\"\n            [checked]=\"value === option\"\n            [disabled]=\"disabled\"\n            [tabindex]=\"tabindex ?? _internalTabindex\"\n            [attr.name]=\"name\"\n            [required]=\"required\"\n            [attr.aria-label]=\"ariaLabel\"\n            [attr.aria-labelledby]=\"ariaLabelledby\"\n            [attr.aria-describedby]=\"ariaDescribedby\"\n            [attr.aria-checked]=\"value === option\"\n            (indicator)=\"_focused = $event\"\n            (change)=\"select()\"\n            (click)=\"$event.stopPropagation()\"\n        />\n    </div>\n\n    <span class=\"ux-radio-button-label\">\n        <ng-content></ng-content>\n    </span>\n\n</label>\n", directives: [{ type: FocusIndicatorDirective, selector: "[uxFocusIndicator]", inputs: ["checkChildren", "mouseFocusIndicator", "touchFocusIndicator", "keyboardFocusIndicator", "programmaticFocusIndicator"], outputs: ["indicator"], exportAs: ["ux-focus-indicator"] }], changeDetection: i0.ChangeDetectionStrategy.OnPush });
+RadioButtonComponent.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "13.3.11", type: RadioButtonComponent, selector: "ux-radio-button", inputs: { id: "id", name: "name", inputRole: "inputRole", value: "value", required: "required", tabindex: "tabindex", clickable: "clickable", disabled: "disabled", simplified: "simplified", option: "option", ariaLabel: ["aria-label", "ariaLabel"], ariaLabelledby: ["aria-labelledby", "ariaLabelledby"], ariaDescribedby: ["aria-describedby", "ariaDescribedby"] }, outputs: { valueChange: "valueChange" }, providers: [RADIOBUTTON_VALUE_ACCESSOR, {
+            provide: FocusableItemToken,
+            useExisting: RadioButtonComponent
+        }], viewQueries: [{ propertyName: "_focusIndicator", first: true, predicate: FocusIndicatorDirective, descendants: true }], usesOnChanges: true, ngImport: i0, template: "<label\n    [attr.for]=\"(id || _radioButtonId) + '-input'\"\n    class=\"ux-radio-button\"\n    [class.ux-radio-button-checked]=\"value === option\"\n    [class.ux-radio-button-simplified]=\"simplified\"\n    [class.ux-radio-button-disabled]=\"disabled\"\n    [class.ux-radio-button-focused]=\"_focused\"\n>\n    <div class=\"ux-radio-button-container\">\n        <input\n            #input\n            class=\"ux-radio-button-input\"\n            uxFocusIndicator\n            type=\"radio\"\n            [id]=\"(id || _radioButtonId) + '-input'\"\n            [attr.role]=\"inputRole\"\n            [checked]=\"value === option\"\n            [disabled]=\"disabled\"\n            [tabindex]=\"tabindex ?? _internalTabindex\"\n            [attr.name]=\"name\"\n            [required]=\"required\"\n            [attr.aria-label]=\"ariaLabel\"\n            [attr.aria-labelledby]=\"ariaLabelledby\"\n            [attr.aria-describedby]=\"ariaDescribedby\"\n            [attr.aria-checked]=\"value === option\"\n            (indicator)=\"_focused = $event\"\n            (change)=\"select()\"\n            (click)=\"$event.stopPropagation()\"\n        />\n    </div>\n\n    <span class=\"ux-radio-button-label\">\n        <ng-content></ng-content>\n    </span>\n\n</label>\n", directives: [{ type: FocusIndicatorDirective, selector: "[uxFocusIndicator]", inputs: ["checkChildren", "mouseFocusIndicator", "touchFocusIndicator", "keyboardFocusIndicator", "programmaticFocusIndicator"], outputs: ["indicator"], exportAs: ["ux-focus-indicator"] }], changeDetection: i0.ChangeDetectionStrategy.OnPush });
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.3.11", ngImport: i0, type: RadioButtonComponent, decorators: [{
             type: Component,
-            args: [{ selector: 'ux-radio-button', providers: [RADIOBUTTON_VALUE_ACCESSOR], changeDetection: ChangeDetectionStrategy.OnPush, template: "<label\n    [attr.for]=\"(id || _radioButtonId) + '-input'\"\n    class=\"ux-radio-button\"\n    [class.ux-radio-button-checked]=\"value === option\"\n    [class.ux-radio-button-simplified]=\"simplified\"\n    [class.ux-radio-button-disabled]=\"disabled\"\n    [class.ux-radio-button-focused]=\"_focused\"\n>\n    <div class=\"ux-radio-button-container\">\n        <input\n            class=\"ux-radio-button-input\"\n            uxFocusIndicator\n            type=\"radio\"\n            [id]=\"(id || _radioButtonId) + '-input'\"\n            [attr.role]=\"inputRole\"\n            [checked]=\"value === option\"\n            [disabled]=\"disabled\"\n            [tabindex]=\"tabindex ?? _internalTabindex\"\n            [attr.name]=\"name\"\n            [required]=\"required\"\n            [attr.aria-label]=\"ariaLabel\"\n            [attr.aria-labelledby]=\"ariaLabelledby\"\n            [attr.aria-describedby]=\"ariaDescribedby\"\n            [attr.aria-checked]=\"value === option\"\n            (indicator)=\"_focused = $event\"\n            (change)=\"select()\"\n            (click)=\"$event.stopPropagation()\"\n        />\n    </div>\n\n    <span class=\"ux-radio-button-label\">\n        <ng-content></ng-content>\n    </span>\n\n</label>\n" }]
+            args: [{ selector: 'ux-radio-button', providers: [RADIOBUTTON_VALUE_ACCESSOR, {
+                            provide: FocusableItemToken,
+                            useExisting: RadioButtonComponent
+                        }], changeDetection: ChangeDetectionStrategy.OnPush, template: "<label\n    [attr.for]=\"(id || _radioButtonId) + '-input'\"\n    class=\"ux-radio-button\"\n    [class.ux-radio-button-checked]=\"value === option\"\n    [class.ux-radio-button-simplified]=\"simplified\"\n    [class.ux-radio-button-disabled]=\"disabled\"\n    [class.ux-radio-button-focused]=\"_focused\"\n>\n    <div class=\"ux-radio-button-container\">\n        <input\n            #input\n            class=\"ux-radio-button-input\"\n            uxFocusIndicator\n            type=\"radio\"\n            [id]=\"(id || _radioButtonId) + '-input'\"\n            [attr.role]=\"inputRole\"\n            [checked]=\"value === option\"\n            [disabled]=\"disabled\"\n            [tabindex]=\"tabindex ?? _internalTabindex\"\n            [attr.name]=\"name\"\n            [required]=\"required\"\n            [attr.aria-label]=\"ariaLabel\"\n            [attr.aria-labelledby]=\"ariaLabelledby\"\n            [attr.aria-describedby]=\"ariaDescribedby\"\n            [attr.aria-checked]=\"value === option\"\n            (indicator)=\"_focused = $event\"\n            (change)=\"select()\"\n            (click)=\"$event.stopPropagation()\"\n        />\n    </div>\n\n    <span class=\"ux-radio-button-label\">\n        <ng-content></ng-content>\n    </span>\n\n</label>\n" }]
         }], ctorParameters: function () {
         return [{ type: i0.ChangeDetectorRef }, { type: RadioButtonGroupDirective, decorators: [{
                         type: Optional
@@ -22011,6 +22099,9 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.3.11", ngImpo
                 args: ['aria-describedby']
             }], valueChange: [{
                 type: Output
+            }], _focusIndicator: [{
+                type: ViewChild,
+                args: [FocusIndicatorDirective]
             }] } });
 
 class RadioButtonModule {
@@ -27611,12 +27702,26 @@ class ToggleSwitchComponent {
         this.disabled = isDisabled;
         this._changeDetector.markForCheck();
     }
+    /** Focus the input element */
+    focus(origin) {
+        this._focusIndicator.focus(origin);
+    }
+    setInputTabIndex(tabindex) {
+        this.tabindex = tabindex;
+        this._changeDetector.markForCheck();
+    }
 }
 ToggleSwitchComponent.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.3.11", ngImport: i0, type: ToggleSwitchComponent, deps: [{ token: i0.ChangeDetectorRef }], target: i0.ɵɵFactoryTarget.Component });
-ToggleSwitchComponent.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "13.3.11", type: ToggleSwitchComponent, selector: "ux-toggleswitch", inputs: { id: "id", name: "name", value: "value", tabindex: "tabindex", clickable: "clickable", disabled: "disabled", ariaLabel: ["aria-label", "ariaLabel"], ariaLabelledby: ["aria-labelledby", "ariaLabelledby"], required: "required" }, outputs: { valueChange: "valueChange" }, providers: [TOGGLESWITCH_VALUE_ACCESSOR], ngImport: i0, template: "<label [attr.for]=\"(id || _toggleSwitchId) + '-input'\"\n       class=\"ux-toggleswitch\"\n       [class.ux-toggleswitch-checked]=\"value\"\n       [class.ux-toggleswitch-disabled]=\"disabled\"\n       [class.ux-toggleswitch-focused]=\"_focused\">\n\n    <input class=\"ux-toggleswitch-input\"\n           uxFocusIndicator\n           type=\"checkbox\"\n           [id]=\"(id || _toggleSwitchId) + '-input'\"\n           [checked]=\"value\"\n           [disabled]=\"disabled\"\n           [required]=\"required\"\n           [attr.name]=\"name\"\n           [tabindex]=\"tabindex\"\n           [attr.aria-label]=\"ariaLabel\"\n           [attr.aria-labelledby]=\"ariaLabelledby\"\n           [attr.aria-checked]=\"value\"\n           (indicator)=\"_focused = $event\"\n           (change)=\"toggle()\"\n           (click)=\"$event.stopPropagation()\">\n\n    <div class=\"ux-toggleswitch-container\">\n        <div class=\"ux-toggleswitch-bg\"></div>\n        <div class=\"ux-toggleswitch-nub\"></div>\n    </div>\n\n    <span class=\"ux-toggleswitch-label\">\n        <ng-content></ng-content>\n    </span>\n</label>\n", directives: [{ type: FocusIndicatorDirective, selector: "[uxFocusIndicator]", inputs: ["checkChildren", "mouseFocusIndicator", "touchFocusIndicator", "keyboardFocusIndicator", "programmaticFocusIndicator"], outputs: ["indicator"], exportAs: ["ux-focus-indicator"] }], changeDetection: i0.ChangeDetectionStrategy.OnPush });
+ToggleSwitchComponent.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "13.3.11", type: ToggleSwitchComponent, selector: "ux-toggleswitch", inputs: { id: "id", name: "name", value: "value", tabindex: "tabindex", clickable: "clickable", disabled: "disabled", ariaLabel: ["aria-label", "ariaLabel"], ariaLabelledby: ["aria-labelledby", "ariaLabelledby"], required: "required" }, outputs: { valueChange: "valueChange" }, providers: [TOGGLESWITCH_VALUE_ACCESSOR, {
+            provide: FocusableItemToken,
+            useExisting: ToggleSwitchComponent
+        }], viewQueries: [{ propertyName: "_focusIndicator", first: true, predicate: FocusIndicatorDirective, descendants: true }], ngImport: i0, template: "<label [attr.for]=\"(id || _toggleSwitchId) + '-input'\"\n       class=\"ux-toggleswitch\"\n       [class.ux-toggleswitch-checked]=\"value\"\n       [class.ux-toggleswitch-disabled]=\"disabled\"\n       [class.ux-toggleswitch-focused]=\"_focused\">\n\n    <input #input\n           class=\"ux-toggleswitch-input\"\n           uxFocusIndicator\n           type=\"checkbox\"\n           [id]=\"(id || _toggleSwitchId) + '-input'\"\n           [checked]=\"value\"\n           [disabled]=\"disabled\"\n           [required]=\"required\"\n           [attr.name]=\"name\"\n           [tabindex]=\"tabindex\"\n           [attr.aria-label]=\"ariaLabel\"\n           [attr.aria-labelledby]=\"ariaLabelledby\"\n           [attr.aria-checked]=\"value\"\n           (indicator)=\"_focused = $event\"\n           (change)=\"toggle()\"\n           (click)=\"$event.stopPropagation()\">\n\n    <div class=\"ux-toggleswitch-container\">\n        <div class=\"ux-toggleswitch-bg\"></div>\n        <div class=\"ux-toggleswitch-nub\"></div>\n    </div>\n\n    <span class=\"ux-toggleswitch-label\">\n        <ng-content></ng-content>\n    </span>\n</label>\n", directives: [{ type: FocusIndicatorDirective, selector: "[uxFocusIndicator]", inputs: ["checkChildren", "mouseFocusIndicator", "touchFocusIndicator", "keyboardFocusIndicator", "programmaticFocusIndicator"], outputs: ["indicator"], exportAs: ["ux-focus-indicator"] }], changeDetection: i0.ChangeDetectionStrategy.OnPush });
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.3.11", ngImport: i0, type: ToggleSwitchComponent, decorators: [{
             type: Component,
-            args: [{ selector: 'ux-toggleswitch', providers: [TOGGLESWITCH_VALUE_ACCESSOR], changeDetection: ChangeDetectionStrategy.OnPush, template: "<label [attr.for]=\"(id || _toggleSwitchId) + '-input'\"\n       class=\"ux-toggleswitch\"\n       [class.ux-toggleswitch-checked]=\"value\"\n       [class.ux-toggleswitch-disabled]=\"disabled\"\n       [class.ux-toggleswitch-focused]=\"_focused\">\n\n    <input class=\"ux-toggleswitch-input\"\n           uxFocusIndicator\n           type=\"checkbox\"\n           [id]=\"(id || _toggleSwitchId) + '-input'\"\n           [checked]=\"value\"\n           [disabled]=\"disabled\"\n           [required]=\"required\"\n           [attr.name]=\"name\"\n           [tabindex]=\"tabindex\"\n           [attr.aria-label]=\"ariaLabel\"\n           [attr.aria-labelledby]=\"ariaLabelledby\"\n           [attr.aria-checked]=\"value\"\n           (indicator)=\"_focused = $event\"\n           (change)=\"toggle()\"\n           (click)=\"$event.stopPropagation()\">\n\n    <div class=\"ux-toggleswitch-container\">\n        <div class=\"ux-toggleswitch-bg\"></div>\n        <div class=\"ux-toggleswitch-nub\"></div>\n    </div>\n\n    <span class=\"ux-toggleswitch-label\">\n        <ng-content></ng-content>\n    </span>\n</label>\n" }]
+            args: [{ selector: 'ux-toggleswitch', providers: [TOGGLESWITCH_VALUE_ACCESSOR, {
+                            provide: FocusableItemToken,
+                            useExisting: ToggleSwitchComponent
+                        }], changeDetection: ChangeDetectionStrategy.OnPush, template: "<label [attr.for]=\"(id || _toggleSwitchId) + '-input'\"\n       class=\"ux-toggleswitch\"\n       [class.ux-toggleswitch-checked]=\"value\"\n       [class.ux-toggleswitch-disabled]=\"disabled\"\n       [class.ux-toggleswitch-focused]=\"_focused\">\n\n    <input #input\n           class=\"ux-toggleswitch-input\"\n           uxFocusIndicator\n           type=\"checkbox\"\n           [id]=\"(id || _toggleSwitchId) + '-input'\"\n           [checked]=\"value\"\n           [disabled]=\"disabled\"\n           [required]=\"required\"\n           [attr.name]=\"name\"\n           [tabindex]=\"tabindex\"\n           [attr.aria-label]=\"ariaLabel\"\n           [attr.aria-labelledby]=\"ariaLabelledby\"\n           [attr.aria-checked]=\"value\"\n           (indicator)=\"_focused = $event\"\n           (change)=\"toggle()\"\n           (click)=\"$event.stopPropagation()\">\n\n    <div class=\"ux-toggleswitch-container\">\n        <div class=\"ux-toggleswitch-bg\"></div>\n        <div class=\"ux-toggleswitch-nub\"></div>\n    </div>\n\n    <span class=\"ux-toggleswitch-label\">\n        <ng-content></ng-content>\n    </span>\n</label>\n" }]
         }], ctorParameters: function () { return [{ type: i0.ChangeDetectorRef }]; }, propDecorators: { id: [{
                 type: Input
             }], name: [{
@@ -27639,6 +27744,9 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.3.11", ngImpo
                 type: Input
             }], valueChange: [{
                 type: Output
+            }], _focusIndicator: [{
+                type: ViewChild,
+                args: [FocusIndicatorDirective]
             }] } });
 
 class ToggleSwitchModule {
@@ -31134,5 +31242,5 @@ class StorageAdapter {
  * Generated bundle index. Do not edit.
  */
 
-export { ACCESSIBILITY_OPTIONS_TOKEN, AccessibilityModule, AccessibilityOptionsService, AccordionComponent, AccordionModule, AccordionPanelComponent, AccordionPanelHeadingDirective, AccordionService, ActionDirection, AlertComponent, AlertIconDirective, AlertModule, AudioService, AudioServiceModule, AutoGrowDirective, AutoGrowModule, BadgeDirective, BadgeModule, BaseSearchComponent, BreadcrumbsComponent, BreadcrumbsModule, CHECKBOX_VALUE_ACCESSOR, COLOR_SET_TOKEN, CONDUITS, CardTabComponent, CardTabContentDirective, CardTabsModule, CardTabsService, CardTabsetComponent, CheckboxComponent, CheckboxModule, ClickOutsideDirective, ClickOutsideModule, Color, ColorContrastDirective, ColorPickerColor, ColorPickerComponent, ColorPickerModule, ColorService, ColorServiceModule, ColumnPickerComponent, ColumnSortingComponent, ColumnSortingDirective, ColumnSortingModule, ColumnSortingState, Conduit, ConduitComponent, ConduitModule, ConduitSubject, ConduitZone, ConduitZoneComponent, ContrastService, CookieAdapter, DashboardComponent, DashboardDragHandleDirective, DashboardGrabHandleDirective, DashboardModule, DashboardService, DashboardWidgetComponent, DateFormatterPipe, DateFormatterPipeModule, DatePickerHeaderEvent, DatePickerMode, DateRangeOptions, DateRangePicker, DateRangePickerComponent, DateRangePickerDirective, DateRangePickerModule, DateRangeService, DateTimePickerComponent, DateTimePickerConfig, DateTimePickerModule, DateTimePickerService, DefaultFocusIndicatorDirective, DragDirective, DragModule, DragService, DropDirective, DurationPipe, DurationPipeModule, EboxComponent, EboxContentDirective, EboxHeaderDirective, EboxModule, Facet, FacetCheckListComponent, FacetCheckListItemComponent, FacetClearButtonDirective, FacetContainerComponent, FacetDeselect, FacetDeselectAll, FacetHeaderComponent, FacetSelect, FacetService, FacetTypeaheadHighlight, FacetTypeaheadListComponent, FacetTypeaheadListItemComponent, FacetsModule, FileSizePipe, FileSizePipeModule, FilterAddEvent, FilterContainerComponent, FilterDropdownComponent, FilterDynamicComponent, FilterModule, FilterRemoveAllEvent, FilterRemoveEvent, FilterService, FilterTypeaheadHighlight, FixedHeaderTableDirective, FixedHeaderTableModule, FlippableCardBackDirective, FlippableCardComponent, FlippableCardFrontDirective, FlippableCardModule, FloatLabelDirective, FloatLabelModule, FloatingActionButtonComponent, FloatingActionButtonsComponent, FloatingActionButtonsModule, FocusIfDirective, FocusIfModule, FocusIndicator, FocusIndicatorDirective, FocusIndicatorOptionsDirective, FocusIndicatorOrigin, FocusIndicatorOriginDirective, FocusIndicatorOriginService, FocusIndicatorService, FocusWithinDirective, FrameExtractionService, HelpCenterItemDirective, HelpCenterModule, HelpCenterService, HierarchyBarCollapsedComponent, HierarchyBarComponent, HierarchyBarModule, HierarchyBarNodeIconDirective, HierarchyBarStandardComponent, HoverActionContainerDirective, HoverActionDirective, HoverActionModule, ICON_OPTIONS_TOKEN, IconComponent, IconModule, IconService, IconType, InfiniteScrollDirective, InfiniteScrollLoadButtonDirective, InfiniteScrollLoadErrorEvent, InfiniteScrollLoadedEvent, InfiniteScrollLoadingDirective, InfiniteScrollLoadingEvent, InfiniteScrollModule, InputDropdownComponent, InputDropdownModule, ItemDisplayPanelComponent, ItemDisplayPanelContentDirective, ItemDisplayPanelFooterDirective, ItemDisplayPanelModule, LayoutSwitcherDirective, LayoutSwitcherItemDirective, LayoutSwitcherModule, LocalFocusIndicatorOptions, LocalStorageAdapter, ManagedFocusContainerDirective, ManagedFocusContainerService, MarqueeWizardComponent, MarqueeWizardModule, MarqueeWizardStepComponent, MarqueeWizardStepIconDirective, MediaPlayerBaseExtensionDirective, MediaPlayerComponent, MediaPlayerControlsExtensionComponent, MediaPlayerCustomControlDirective, MediaPlayerModule, MediaPlayerTimelineExtensionComponent, MenuComponent, MenuDividerComponent, MenuInitialFocusDirective, MenuItemComponent, MenuItemType, MenuModule, MenuNavigationDirective, MenuNavigationItemDirective, MenuNavigationModule, MenuNavigationToggleDirective, MenuTabbableItemDirective, MenuTriggerDirective, ModeDirection, NAVIGATION_MODULE_OPTIONS, NUMBER_PICKER_VALUE_ACCESSOR, NavigationComponent, NavigationItemComponent, NavigationLinkDirective, NavigationModule, NavigationService, NestedDonutChartComponent, NestedDonutChartModule, NotificationListComponent, NotificationModule, NotificationService, NumberPickerComponent, NumberPickerModule, ObserversModule, OrganizationChartAxis, OrganizationChartComponent, OrganizationChartModule, OverflowDirective, OverlayPlacementService, PAGINATION_CONTROL_VALUE_ACCESSOR, PageHeaderComponent, PageHeaderCustomMenuDirective, PageHeaderIconMenuComponent, PageHeaderModule, PageHeaderNavigationComponent, PaginationComponent, PaginationModule, PartitionMapComponent, PartitionMapModule, PartitionMapSegmentEventsDirective, PersistentDataModule, PersistentDataService, PersistentDataStorageType, PopoverComponent, PopoverDirective, PopoverModule, ProgressBarComponent, ProgressBarModule, RADIOBUTTON_VALUE_ACCESSOR, RADIO_GROUP_CONTROL_VALUE_ACCESSOR, RadioButtonComponent, RadioButtonGroupDirective, RadioButtonModule, ReorderableDirective, ReorderableHandleDirective, ReorderableModelDirective, ReorderableModule, ResizableExpandingTableDirective, ResizableTableCellComponent, ResizableTableColumnComponent, ResizableTableDirective, ResizeDirective, ResizeModule, ResizeService, Rounding, SELECT_VALUE_ACCESSOR, SPIN_BUTTON_VALUE_ACCESSOR, SankeyChart, SankeyChartComponent, SankeyChartModule, SankeyNodeDirective, ScrollIntoViewDirective, ScrollIntoViewIfDirective, ScrollIntoViewService, ScrollModule, SearchBuilderComponent, SearchBuilderFocusService, SearchBuilderGroupComponent, SearchBuilderGroupService, SearchBuilderModule, SearchBuilderOutletDirective, SearchBuilderService, SearchDateComponent, SearchDateRangeComponent, SearchSelectComponent, SearchTextComponent, SelectComponent, SelectListComponent, SelectListItemComponent, SelectListModule, SelectModule, SelectionDirective, SelectionItemDirective, SelectionModule, SelectionService, SelectionStrategy, SessionStorageAdapter, SidePanelCloseDirective, SidePanelComponent, SidePanelModule, SliderCalloutTrigger, SliderComponent, SliderModule, SliderSize, SliderSnap, SliderStyle, SliderThumb, SliderThumbEvent, SliderTickType, SliderType, SparkComponent, SparkModule, SpinButtonComponent, SpinButtonModule, SplitterAccessibilityDirective, StepChangingEvent, StepDirection, StorageAdapter, StringFilterModule, StringFilterPipe, TIME_PICKER_VALUE_ACCESSOR, TOOLBAR_SEARCH_VALUE_ACCESSOR, TabComponent, TabHeadingDirective, TabbableListDirective, TabbableListItemDirective, TabbableListService, TableModule, TabsetComponent, TabsetModule, TabsetService, TagInputComponent, TagInputEvent, TagInputModule, ThemeColor, TimePickerComponent, TimePickerModule, TimelineChartModule, TimelineChartPlugin, TimelineComponent, TimelineEventComponent, TimelineHandle, TimelineModule, ToggleSwitchComponent, ToggleSwitchModule, ToolbarSearchButtonDirective, ToolbarSearchComponent, ToolbarSearchFieldDirective, ToolbarSearchModule, TooltipComponent, TooltipDirective, TooltipModule, TooltipService, TreeGridDirective, TreeGridIndentDirective, TreeGridModule, TreeGridRowDirective, TreeGridState, TypeaheadComponent, TypeaheadKeyService, TypeaheadModule, TypeaheadOptionEvent, VirtualForContainerComponent, VirtualForDirective, VirtualForService, VirtualScrollCellDirective, VirtualScrollComponent, VirtualScrollLoadButtonDirective, VirtualScrollLoadingDirective, VirtualScrollModule, WizardComponent, WizardModule, WizardService, WizardStepComponent, colorSets, compareDays, dateComparator, dateRange, defaultConduitProps, defaultOptions, differenceBetweenDates, getIconType, getStartOfDay, gridify, isColumnPickerGroupItem, isDateAfter, isDateBefore, isKeyboardTrigger, isMouseTrigger, meridians, months, monthsShort, range, tick, timezoneComparator, timezones, uxIconset, weekdays, weekdaysShort };
+export { ACCESSIBILITY_OPTIONS_TOKEN, AccessibilityModule, AccessibilityOptionsService, AccordionComponent, AccordionModule, AccordionPanelComponent, AccordionPanelHeadingDirective, AccordionService, ActionDirection, AlertComponent, AlertIconDirective, AlertModule, AudioService, AudioServiceModule, AutoGrowDirective, AutoGrowModule, BadgeDirective, BadgeModule, BaseSearchComponent, BreadcrumbsComponent, BreadcrumbsModule, CHECKBOX_VALUE_ACCESSOR, COLOR_SET_TOKEN, CONDUITS, CardTabComponent, CardTabContentDirective, CardTabsModule, CardTabsService, CardTabsetComponent, CheckboxComponent, CheckboxModule, ClickOutsideDirective, ClickOutsideModule, Color, ColorContrastDirective, ColorPickerColor, ColorPickerComponent, ColorPickerModule, ColorService, ColorServiceModule, ColumnPickerComponent, ColumnSortingComponent, ColumnSortingDirective, ColumnSortingModule, ColumnSortingState, Conduit, ConduitComponent, ConduitModule, ConduitSubject, ConduitZone, ConduitZoneComponent, ContrastService, CookieAdapter, DashboardComponent, DashboardDragHandleDirective, DashboardGrabHandleDirective, DashboardModule, DashboardService, DashboardWidgetComponent, DateFormatterPipe, DateFormatterPipeModule, DatePickerHeaderEvent, DatePickerMode, DateRangeOptions, DateRangePicker, DateRangePickerComponent, DateRangePickerDirective, DateRangePickerModule, DateRangeService, DateTimePickerComponent, DateTimePickerConfig, DateTimePickerModule, DateTimePickerService, DefaultFocusIndicatorDirective, DragDirective, DragModule, DragService, DropDirective, DurationPipe, DurationPipeModule, EboxComponent, EboxContentDirective, EboxHeaderDirective, EboxModule, Facet, FacetCheckListComponent, FacetCheckListItemComponent, FacetClearButtonDirective, FacetContainerComponent, FacetDeselect, FacetDeselectAll, FacetHeaderComponent, FacetSelect, FacetService, FacetTypeaheadHighlight, FacetTypeaheadListComponent, FacetTypeaheadListItemComponent, FacetsModule, FileSizePipe, FileSizePipeModule, FilterAddEvent, FilterContainerComponent, FilterDropdownComponent, FilterDynamicComponent, FilterModule, FilterRemoveAllEvent, FilterRemoveEvent, FilterService, FilterTypeaheadHighlight, FixedHeaderTableDirective, FixedHeaderTableModule, FlippableCardBackDirective, FlippableCardComponent, FlippableCardFrontDirective, FlippableCardModule, FloatLabelDirective, FloatLabelModule, FloatingActionButtonComponent, FloatingActionButtonsComponent, FloatingActionButtonsModule, FocusIfDirective, FocusIfModule, FocusIndicator, FocusIndicatorDirective, FocusIndicatorOptionsDirective, FocusIndicatorOrigin, FocusIndicatorOriginDirective, FocusIndicatorOriginService, FocusIndicatorService, FocusWithinDirective, FocusableItemToken, FrameExtractionService, HelpCenterItemDirective, HelpCenterModule, HelpCenterService, HierarchyBarCollapsedComponent, HierarchyBarComponent, HierarchyBarModule, HierarchyBarNodeIconDirective, HierarchyBarStandardComponent, HoverActionContainerDirective, HoverActionDirective, HoverActionModule, ICON_OPTIONS_TOKEN, IconComponent, IconModule, IconService, IconType, InfiniteScrollDirective, InfiniteScrollLoadButtonDirective, InfiniteScrollLoadErrorEvent, InfiniteScrollLoadedEvent, InfiniteScrollLoadingDirective, InfiniteScrollLoadingEvent, InfiniteScrollModule, InputDropdownComponent, InputDropdownModule, ItemDisplayPanelComponent, ItemDisplayPanelContentDirective, ItemDisplayPanelFooterDirective, ItemDisplayPanelModule, LayoutSwitcherDirective, LayoutSwitcherItemDirective, LayoutSwitcherModule, LocalFocusIndicatorOptions, LocalStorageAdapter, ManagedFocusContainerDirective, ManagedFocusContainerService, MarqueeWizardComponent, MarqueeWizardModule, MarqueeWizardStepComponent, MarqueeWizardStepIconDirective, MediaPlayerBaseExtensionDirective, MediaPlayerComponent, MediaPlayerControlsExtensionComponent, MediaPlayerCustomControlDirective, MediaPlayerModule, MediaPlayerTimelineExtensionComponent, MenuComponent, MenuDividerComponent, MenuInitialFocusDirective, MenuItemComponent, MenuItemCustomControlDirective, MenuItemType, MenuModule, MenuNavigationDirective, MenuNavigationItemDirective, MenuNavigationModule, MenuNavigationToggleDirective, MenuTabbableItemDirective, MenuTriggerDirective, ModeDirection, NAVIGATION_MODULE_OPTIONS, NUMBER_PICKER_VALUE_ACCESSOR, NavigationComponent, NavigationItemComponent, NavigationLinkDirective, NavigationModule, NavigationService, NestedDonutChartComponent, NestedDonutChartModule, NotificationListComponent, NotificationModule, NotificationService, NumberPickerComponent, NumberPickerModule, ObserversModule, OrganizationChartAxis, OrganizationChartComponent, OrganizationChartModule, OverflowDirective, OverlayPlacementService, PAGINATION_CONTROL_VALUE_ACCESSOR, PageHeaderComponent, PageHeaderCustomMenuDirective, PageHeaderIconMenuComponent, PageHeaderModule, PageHeaderNavigationComponent, PaginationComponent, PaginationModule, PartitionMapComponent, PartitionMapModule, PartitionMapSegmentEventsDirective, PersistentDataModule, PersistentDataService, PersistentDataStorageType, PopoverComponent, PopoverDirective, PopoverModule, ProgressBarComponent, ProgressBarModule, RADIOBUTTON_VALUE_ACCESSOR, RADIO_GROUP_CONTROL_VALUE_ACCESSOR, RadioButtonComponent, RadioButtonGroupDirective, RadioButtonModule, ReorderableDirective, ReorderableHandleDirective, ReorderableModelDirective, ReorderableModule, ResizableExpandingTableDirective, ResizableTableCellComponent, ResizableTableColumnComponent, ResizableTableDirective, ResizeDirective, ResizeModule, ResizeService, Rounding, SELECT_VALUE_ACCESSOR, SPIN_BUTTON_VALUE_ACCESSOR, SankeyChart, SankeyChartComponent, SankeyChartModule, SankeyNodeDirective, ScrollIntoViewDirective, ScrollIntoViewIfDirective, ScrollIntoViewService, ScrollModule, SearchBuilderComponent, SearchBuilderFocusService, SearchBuilderGroupComponent, SearchBuilderGroupService, SearchBuilderModule, SearchBuilderOutletDirective, SearchBuilderService, SearchDateComponent, SearchDateRangeComponent, SearchSelectComponent, SearchTextComponent, SelectComponent, SelectListComponent, SelectListItemComponent, SelectListModule, SelectModule, SelectionDirective, SelectionItemDirective, SelectionModule, SelectionService, SelectionStrategy, SessionStorageAdapter, SidePanelCloseDirective, SidePanelComponent, SidePanelModule, SliderCalloutTrigger, SliderComponent, SliderModule, SliderSize, SliderSnap, SliderStyle, SliderThumb, SliderThumbEvent, SliderTickType, SliderType, SparkComponent, SparkModule, SpinButtonComponent, SpinButtonModule, SplitterAccessibilityDirective, StepChangingEvent, StepDirection, StorageAdapter, StringFilterModule, StringFilterPipe, TIME_PICKER_VALUE_ACCESSOR, TOOLBAR_SEARCH_VALUE_ACCESSOR, TabComponent, TabHeadingDirective, TabbableListDirective, TabbableListItemDirective, TabbableListService, TableModule, TabsetComponent, TabsetModule, TabsetService, TagInputComponent, TagInputEvent, TagInputModule, ThemeColor, TimePickerComponent, TimePickerModule, TimelineChartModule, TimelineChartPlugin, TimelineComponent, TimelineEventComponent, TimelineHandle, TimelineModule, ToggleSwitchComponent, ToggleSwitchModule, ToolbarSearchButtonDirective, ToolbarSearchComponent, ToolbarSearchFieldDirective, ToolbarSearchModule, TooltipComponent, TooltipDirective, TooltipModule, TooltipService, TreeGridDirective, TreeGridIndentDirective, TreeGridModule, TreeGridRowDirective, TreeGridState, TypeaheadComponent, TypeaheadKeyService, TypeaheadModule, TypeaheadOptionEvent, VirtualForContainerComponent, VirtualForDirective, VirtualForService, VirtualScrollCellDirective, VirtualScrollComponent, VirtualScrollLoadButtonDirective, VirtualScrollLoadingDirective, VirtualScrollModule, WizardComponent, WizardModule, WizardService, WizardStepComponent, colorSets, compareDays, dateComparator, dateRange, defaultConduitProps, defaultOptions, differenceBetweenDates, getIconType, getStartOfDay, gridify, isColumnPickerGroupItem, isDateAfter, isDateBefore, isKeyboardTrigger, isMouseTrigger, meridians, months, monthsShort, range, tick, timezoneComparator, timezones, uxIconset, weekdays, weekdaysShort };
 //# sourceMappingURL=ux-aspects-ux-aspects.mjs.map
