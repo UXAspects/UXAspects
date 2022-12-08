@@ -1,5 +1,9 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, ExistingProvider, forwardRef, Input, Output } from '@angular/core';
+import { FocusOrigin } from '@angular/cdk/a11y';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, ExistingProvider, forwardRef, Input, Output, ViewChild } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { FocusIndicatorDirective } from '../../directives/accessibility';
+import { FocusableItemToken } from '../menu';
+import { FocusableControl } from '../menu/interfaces/focusable-control.interface';
 
 export const CHECKBOX_VALUE_ACCESSOR: ExistingProvider = {
     provide: NG_VALUE_ACCESSOR,
@@ -12,10 +16,13 @@ let uniqueCheckboxId = 0;
 @Component({
     selector: 'ux-checkbox',
     templateUrl: './checkbox.component.html',
-    providers: [CHECKBOX_VALUE_ACCESSOR],
+    providers: [CHECKBOX_VALUE_ACCESSOR, {
+        provide: FocusableItemToken,
+        useExisting: CheckboxComponent
+    }],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CheckboxComponent<T = number> implements ControlValueAccessor {
+export class CheckboxComponent<T = number> implements ControlValueAccessor, FocusableControl {
 
     /** Provide a default unique id value for the checkbox */
     _checkboxId: string = `ux-checkbox-${++uniqueCheckboxId}`;
@@ -68,6 +75,11 @@ export class CheckboxComponent<T = number> implements ControlValueAccessor {
     /** Used to inform Angular forms that the component value has changed */
     onChangeCallback: (_: boolean | T) => void = () => { };
 
+    /** Get the focus indicator to set focus */
+    @ViewChild(FocusIndicatorDirective)
+    _focusIndicator?: FocusIndicatorDirective;
+
+
     constructor(private readonly _changeDetector: ChangeDetectorRef) { }
 
     /** Toggle the current state of the checkbox */
@@ -115,6 +127,16 @@ export class CheckboxComponent<T = number> implements ControlValueAccessor {
     /** Allow Angular forms to disable the component */
     setDisabledState(isDisabled: boolean): void {
         this.disabled = isDisabled;
+        this._changeDetector.markForCheck();
+    }
+
+    /** Focus the input element */
+    focus(origin: FocusOrigin): void {
+        this._focusIndicator.focus(origin);
+    }
+
+    setInputTabIndex(tabindex: number): void {
+        this.tabindex = tabindex;
         this._changeDetector.markForCheck();
     }
 }

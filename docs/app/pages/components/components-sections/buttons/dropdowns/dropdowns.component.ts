@@ -30,6 +30,8 @@ export class ComponentsDropdownsComponent extends BaseDocumentationSection imple
 
     caseFilter: string = '';
 
+    toggleSwitchValue: boolean = false;
+
     playground: IPlayground = {
         files: {
             'app.component.html': this.snippets.raw.appHtml,

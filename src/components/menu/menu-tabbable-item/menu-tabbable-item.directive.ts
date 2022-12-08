@@ -18,16 +18,16 @@ export class MenuTabbableItemDirective implements OnInit, OnDestroy, FocusableOp
     readonly type: MenuItemType = MenuItemType.Default;
 
     /** Store the focus indicator instance */
-    private _focusIndicator: FocusIndicator;
+    protected focusIndicator: FocusIndicator;
 
     /** Automatically unsubscribe when directive is destroyed */
-    private _onDestroy$ = new Subject<void>();
+    protected _onDestroy$ = new Subject<void>();
 
     constructor(
-        private readonly _menu: MenuComponent,
-        private readonly _elementRef: ElementRef<HTMLElement>,
-        private readonly _focusIndicatorService: FocusIndicatorService,
-        private readonly _renderer: Renderer2
+        protected readonly _menu: MenuComponent,
+        protected readonly _elementRef: ElementRef<HTMLElement>,
+        protected readonly _focusIndicatorService: FocusIndicatorService,
+        protected readonly _renderer: Renderer2
     ) { }
 
     ngOnInit(): void {
@@ -35,7 +35,7 @@ export class MenuTabbableItemDirective implements OnInit, OnDestroy, FocusableOp
         this._menu._addItem(this);
 
         // we only want to show the focus indicator whenever the keyboard is used
-        this._focusIndicator = this._focusIndicatorService.monitor(this._elementRef.nativeElement);
+        this.focusIndicator = this._focusIndicatorService.monitor(this._elementRef.nativeElement);
 
         // subscribe to active item changes
         this._menu._activeItem$.pipe(takeUntil(this._onDestroy$))
@@ -45,12 +45,12 @@ export class MenuTabbableItemDirective implements OnInit, OnDestroy, FocusableOp
     ngOnDestroy(): void {
         this._onDestroy$.next();
         this._onDestroy$.complete();
-        this._focusIndicator.destroy();
+        this.focusIndicator.destroy();
     }
 
     /** Focus this item with a given origin */
     focus(origin: FocusOrigin): void {
-        this._focusIndicator.focus(origin);
+        this.focusIndicator.focus(origin);
     }
 
     /** This function is built into the CDK manager to allow jumping to items based on text content */
@@ -65,7 +65,7 @@ export class MenuTabbableItemDirective implements OnInit, OnDestroy, FocusableOp
     }
 
     /** Update the tab index on this item */
-    private setTabIndex(isTabbable: boolean): void {
+    protected setTabIndex(isTabbable: boolean): void {
         this._renderer.setAttribute(this._elementRef.nativeElement, 'tabindex', isTabbable ? '0' : '-1');
     }
 

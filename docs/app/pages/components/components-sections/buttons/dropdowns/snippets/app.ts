@@ -24,6 +24,8 @@ export class AppComponent {
 
     caseFilter: string = '';
 
+    toggleSwitchValue: boolean = false;
+
     export(): void {}
     saveList(): void {}
     saveQuery(): void {}
