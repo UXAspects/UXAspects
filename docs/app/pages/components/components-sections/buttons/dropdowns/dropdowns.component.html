@@ -54,6 +54,12 @@
 
     <ux-menu-divider></ux-menu-divider>
 
+    <ux-toggleswitch class="ux-toggleswitch" [(value)]="toggleSwitchValue" uxMenuItemCustomControl>
+        Toggle 1
+    </ux-toggleswitch>
+
+    <ux-menu-divider></ux-menu-divider>
+
     <button type="button" uxMenuItem (activate)="export()">
         <span class="dropdown-menu-icon"></span>
         <span class="dropdown-menu-text">Export</span>
@@ -169,6 +175,19 @@
   <li><code>dropdown-menu-right</code> - Optionally, this may contain right aligned text or icons. <code>dropdown-menu-hint</code> provides a default text style for keyboard shortcut hints here.</li>
 </ul>
 
+<h4>Using UX Aspects components in the Dropdown Menu</h4>
+<p>
+    The <code>uxMenuItemCustomControl</code> directive can be added to any element to to focus it within the menu. It can
+    also be added to the following UX Aspects components to make them work within the <code>ux-menu</code>
+</p>
+
+<ul>
+    <li>Checkbox</li>
+    <li>Radio Button</li>
+    <li>Toggle Switch</li>
+</ul>
+
+
 <p>
     The following inputs and outputs are available on the menu component and directives:
 </p>
@@ -251,6 +270,12 @@
     </tr>
     <tr uxd-api-property name="toggleMenu">
         Programmatically toggle the open state of the menu.
+    </tr>
+</uxd-api-properties>
+
+<uxd-api-properties tableTitle="Menu Item Focus Directive Inputs">
+    <tr uxd-api-property name="disabled" type="boolean">
+        Define if this item is disabled.
     </tr>
 </uxd-api-properties>
 

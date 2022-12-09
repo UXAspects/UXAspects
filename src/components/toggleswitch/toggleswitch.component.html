@@ -4,7 +4,8 @@
        [class.ux-toggleswitch-disabled]="disabled"
        [class.ux-toggleswitch-focused]="_focused">
 
-    <input class="ux-toggleswitch-input"
+    <input #input
+           class="ux-toggleswitch-input"
            uxFocusIndicator
            type="checkbox"
            [id]="(id || _toggleSwitchId) + '-input'"

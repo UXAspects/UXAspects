@@ -1,5 +1,9 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, forwardRef, Input, Output } from '@angular/core';
+import { FocusOrigin } from '@angular/cdk/a11y';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, forwardRef, Input, Output, ViewChild } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { FocusIndicatorDirective } from '../../directives/accessibility';
+import { FocusableItemToken } from '../menu';
+import { FocusableControl } from '../menu/interfaces/focusable-control.interface';
 
 const TOGGLESWITCH_VALUE_ACCESSOR = {
     provide: NG_VALUE_ACCESSOR,
@@ -12,10 +16,13 @@ let uniqueToggleSwitchId = 0;
 @Component({
     selector: 'ux-toggleswitch',
     templateUrl: './toggleswitch.component.html',
-    providers: [TOGGLESWITCH_VALUE_ACCESSOR],
+    providers: [TOGGLESWITCH_VALUE_ACCESSOR, {
+        provide: FocusableItemToken,
+        useExisting: ToggleSwitchComponent
+    }],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ToggleSwitchComponent implements ControlValueAccessor {
+export class ToggleSwitchComponent implements ControlValueAccessor, FocusableControl {
 
     /** Provide a default unique id value for the toggle switch */
     _toggleSwitchId: string = `ux-toggleswitch-${++uniqueToggleSwitchId}`;
@@ -49,6 +56,10 @@ export class ToggleSwitchComponent implements ControlValueAccessor {
 
     /** Emits when `value` has been changed. */
     @Output() valueChange: EventEmitter<boolean> = new EventEmitter<boolean>();
+
+    /** Get the focus indicator to set focus */
+    @ViewChild(FocusIndicatorDirective)
+    _focusIndicator?: FocusIndicatorDirective;
 
     /** Determine if the underlying input component has been focused with the keyboard */
     _focused: boolean = false;
@@ -91,6 +102,16 @@ export class ToggleSwitchComponent implements ControlValueAccessor {
 
     setDisabledState(isDisabled: boolean): void {
         this.disabled = isDisabled;
+        this._changeDetector.markForCheck();
+    }
+
+    /** Focus the input element */
+    focus(origin: FocusOrigin): void {
+        this._focusIndicator.focus(origin);
+    }
+
+    setInputTabIndex(tabindex: number): void {
+        this.tabindex = tabindex;
         this._changeDetector.markForCheck();
     }
 }

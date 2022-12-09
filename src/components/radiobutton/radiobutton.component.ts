@@ -1,5 +1,9 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, forwardRef, Input, OnChanges, Optional, Output, SimpleChanges } from '@angular/core';
+import { FocusOrigin } from '@angular/cdk/a11y';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, forwardRef, Input, OnChanges, Optional, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { FocusIndicatorDirective } from '../../directives/accessibility';
+import { FocusableItemToken } from '../menu';
+import { FocusableControl } from '../menu/interfaces/focusable-control.interface';
 import { RadioButtonGroupDirective } from './radio-button-group/radio-button-group.directive';
 
 export const RADIOBUTTON_VALUE_ACCESSOR: any = {
@@ -13,10 +17,13 @@ let uniqueRadioId = 0;
 @Component({
     selector: 'ux-radio-button',
     templateUrl: './radiobutton.component.html',
-    providers: [RADIOBUTTON_VALUE_ACCESSOR],
+    providers: [RADIOBUTTON_VALUE_ACCESSOR, {
+        provide: FocusableItemToken,
+        useExisting: RadioButtonComponent
+    }],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class RadioButtonComponent<T = any> implements ControlValueAccessor, OnChanges {
+export class RadioButtonComponent<T = any> implements ControlValueAccessor, OnChanges, FocusableControl {
 
     /** Provide a default unique id value for the radiobutton */
     _radioButtonId: string = `ux-radio-button-${++uniqueRadioId}`;
@@ -65,6 +72,10 @@ export class RadioButtonComponent<T = any> implements ControlValueAccessor, OnCh
 
     /** Emits when the value has been changed. */
     @Output() valueChange: EventEmitter<T> = new EventEmitter<T>();
+
+    /** Get the focus indicator to set focus */
+    @ViewChild(FocusIndicatorDirective)
+    _focusIndicator?: FocusIndicatorDirective;
 
     /** Determine if the underlying input component has been focused with the keyboard */
     _focused: boolean = false;
@@ -142,6 +153,16 @@ export class RadioButtonComponent<T = any> implements ControlValueAccessor, OnCh
     /** Set the internal tab index of the radio button */
     setInternalTabindex(tabIndex): void {
         this._internalTabindex = tabIndex;
+        this._changeDetector.detectChanges();
+    }
+
+    /** Focus the input element */
+    focus(origin: FocusOrigin): void {
+        this._focusIndicator.focus(origin);
+    }
+
+    setInputTabIndex(tabindex: number): void {
+        this.tabindex = tabindex;
         this._changeDetector.detectChanges();
     }
 }

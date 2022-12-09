@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { ComponentFactoryResolver, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { AccordionModule, FloatingActionButtonsModule, IconModule, MenuModule, PaginationModule, RadioButtonModule, StringFilterModule, TabsetModule, TooltipModule } from '@ux-aspects/ux-aspects';
+import { AccordionModule, FloatingActionButtonsModule, IconModule, MenuModule, PaginationModule, RadioButtonModule, StringFilterModule, TabsetModule, ToggleSwitchModule, TooltipModule } from '@ux-aspects/ux-aspects';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
@@ -49,6 +49,7 @@ const ROUTES = [
         StringFilterModule,
         TabsetModule,
         TooltipModule,
+        ToggleSwitchModule
     ],
     exports: SECTIONS,
     declarations: SECTIONS,
