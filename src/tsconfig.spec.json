@@ -1,18 +1,11 @@
-/* To learn more about this file see: https://angular.io/config/tsconfig. */
 {
     "extends": "../tsconfig.json",
     "compilerOptions": {
         "outDir": "../out-tsc/spec",
-        "types": [
-            "jasmine",
-            "jasmine-expect"
-        ]
+        "types": ["jasmine", "jasmine-expect"],
+        "target": "ES2022",
+        "useDefineForClassFields": false
     },
-    "files": [
-        "test.ts"
-    ],
-    "include": [
-        "**/*.spec.ts",
-        "**/*.d.ts"
-    ]
+    "files": ["test.ts"],
+    "include": ["**/*.spec.ts", "**/*.d.ts"]
 }
