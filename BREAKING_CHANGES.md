@@ -1,3 +1,6 @@
+# 6.x to 7.0
+* Angular 13 is no longer supported.
+
 # 5.x to 6.0
 * Angular 12 is no longer supported.
 * Internet Explorer is no longer supported.
