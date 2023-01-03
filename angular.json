@@ -27,7 +27,7 @@
                         "outputPath": "dist/docs",
                         "index": "docs/index.html",
                         "main": "docs/main.ts",
-                        "polyfills": "docs/polyfills.ts",
+                        "polyfills": ["zone.js"],
                         "tsConfig": "tsconfig.app.json",
                         "inlineStyleLanguage": "less",
                         "assets": [
@@ -115,7 +115,7 @@
             "prefix": "ux",
             "architect": {
                 "build": {
-                    "builder": "@nrwl/angular:package",
+                    "builder": "@ashley-hunter/ng-packagr-compat:package",
                     "outputs": ["{projectRoot}/dist/library"],
                     "options": {
                         "project": "src/ng-package.json"
@@ -161,7 +161,7 @@
                         "outputPath": "dist/e2e",
                         "index": "e2e/pages/index.html",
                         "main": "e2e/pages/main.ts",
-                        "polyfills": "e2e/pages/polyfills.ts",
+                        "polyfills": ["zone.js"],
                         "tsConfig": "e2e/tsconfig.app.json",
                         "inlineStyleLanguage": "css",
                         "assets": [
