@@ -46,7 +46,7 @@ export class ComponentsDragAndDropCardsComponent extends BaseDocumentationSectio
     @ViewChild('buttons', { static: true }) buttonsTemplate: TemplateRef<any>;
 
     constructor(private _liveAnnouncer: LiveAnnouncer) {
-        super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
+        super(import.meta.webpackContext('./snippets/', { recursive: false, regExp: /\.(html|css|js|ts)$/ }));
 
         this.cards = [
             {

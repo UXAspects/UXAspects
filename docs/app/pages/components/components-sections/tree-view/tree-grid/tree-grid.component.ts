@@ -10,11 +10,13 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
     selector: 'uxd-tree-grid',
     templateUrl: './tree-grid.component.html',
     styleUrls: ['./tree-grid.component.less'],
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
 })
 @DocumentationSectionComponent('ComponentsTreeGridComponent')
-export class ComponentsTreeGridComponent extends BaseDocumentationSection implements IPlaygroundProvider {
-
+export class ComponentsTreeGridComponent
+    extends BaseDocumentationSection
+    implements IPlaygroundProvider
+{
     selected: FileNode[] = [];
 
     set selectAll(selectAll: boolean | -1) {
@@ -53,19 +55,19 @@ export class ComponentsTreeGridComponent extends BaseDocumentationSection implem
                         {
                             title: 'Alcazar',
                             date: new Date('2014-05-15'),
-                            type: 'file'
+                            type: 'file',
                         },
                         {
                             title: 'Citadel',
                             date: new Date('2015-09-02'),
-                            type: 'file'
+                            type: 'file',
                         },
                         {
                             title: 'Donjon',
                             date: new Date('2014-04-10'),
-                            type: 'file'
-                        }
-                    ]
+                            type: 'file',
+                        },
+                    ],
                 },
                 {
                     title: 'Word files',
@@ -80,33 +82,33 @@ export class ComponentsTreeGridComponent extends BaseDocumentationSection implem
                                 {
                                     title: 'Castle',
                                     date: new Date('2014-05-15'),
-                                    type: 'file'
+                                    type: 'file',
                                 },
                                 {
                                     title: 'Estate',
                                     date: new Date('2015-08-03'),
-                                    type: 'file'
+                                    type: 'file',
                                 },
                                 {
                                     title: 'Manor',
                                     date: new Date('2014-05-30'),
-                                    type: 'file'
+                                    type: 'file',
                                 },
                                 {
                                     title: 'Mansion',
                                     date: new Date('2014-04-23'),
-                                    type: 'file'
+                                    type: 'file',
                                 },
                                 {
                                     title: 'Villa',
                                     date: new Date('2015-09-21'),
-                                    type: 'file'
-                                }
-                            ]
-                        }
-                    ]
-                }
-            ]
+                                    type: 'file',
+                                },
+                            ],
+                        },
+                    ],
+                },
+            ],
         },
         {
             title: 'Emails',
@@ -116,20 +118,20 @@ export class ComponentsTreeGridComponent extends BaseDocumentationSection implem
                 {
                     title: 'Inbox',
                     date: new Date('2013-03-17'),
-                    type: 'folder'
+                    type: 'folder',
                 },
                 {
                     title: 'Outbox',
                     date: new Date('2013-03-17'),
-                    type: 'folder'
-                }
-            ]
+                    type: 'folder',
+                },
+            ],
         },
         {
             title: 'Empty',
             date: new Date('2016-06-02'),
-            type: 'folder'
-        }
+            type: 'folder',
+        },
     ];
 
     itemsFlat = this.flatten(this.items);
@@ -141,16 +143,16 @@ export class ComponentsTreeGridComponent extends BaseDocumentationSection implem
     asyncItems: FileNode[] = [
         {
             title: 'Folder 1',
-            type: 'folder'
+            type: 'folder',
         },
         {
             title: 'Folder 2',
-            type: 'folder'
+            type: 'folder',
         },
         {
             title: 'Folder 3',
-            type: 'folder'
-        }
+            type: 'folder',
+        },
     ];
 
     loadChildrenFn: TreeGridLoadFunction = this.loadChildren.bind(this);
@@ -163,17 +165,21 @@ export class ComponentsTreeGridComponent extends BaseDocumentationSection implem
         modules: [
             {
                 imports: ['AccordionModule', 'CheckboxModule', 'SelectionModule', 'TreeGridModule'],
-                library: '@ux-aspects/ux-aspects'
-            }
-        ]
+                library: '@ux-aspects/ux-aspects',
+            },
+        ],
     };
 
     constructor() {
-        super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
+        super(
+            import.meta.webpackContext('./snippets/', {
+                recursive: false,
+                regExp: /\.(html|css|js|ts)$/,
+            })
+        );
     }
 
     select(row: FileNode): void {
-
         // if the row is not currently selected then select it
         if (this.selected.indexOf(row) === -1) {
             this.selected = [...this.selected, row];
@@ -186,7 +192,6 @@ export class ComponentsTreeGridComponent extends BaseDocumentationSection implem
     }
 
     deselect(row: FileNode): void {
-
         // deselect the current row
         this.selected = this.selected.filter(_row => _row !== row);
 
@@ -196,7 +201,6 @@ export class ComponentsTreeGridComponent extends BaseDocumentationSection implem
         }
 
         this.checkChildren();
-
     }
 
     checkChildren(): void {
@@ -222,10 +226,10 @@ export class ComponentsTreeGridComponent extends BaseDocumentationSection implem
                 const result: FileNode[] = [];
                 for (let i = 0; i < 10; i += 1) {
                     result.push({
-                        title: `Document ${(index * 10) + i + 1}`,
+                        title: `Document ${index * 10 + i + 1}`,
                         author: chance.name(),
                         date: chance.date(),
-                        type: 'file'
+                        type: 'file',
                     });
                 }
                 resolve(result);

@@ -8,16 +8,23 @@ import { playgroundAdapter } from '../../../../../services/playground/adapters/l
 @Component({
     selector: 'uxd-css-typography-paragraph-text',
     templateUrl: './paragraph-text.component.html',
-    styleUrls: ['./paragraph-text.component.less']
+    styleUrls: ['./paragraph-text.component.less'],
 })
 @DocumentationSectionComponent('CssParagraphTextComponent')
-export class CssParagraphTextComponent extends BaseDocumentationSection implements IPlaygroundProvider {
-
+export class CssParagraphTextComponent
+    extends BaseDocumentationSection
+    implements IPlaygroundProvider
+{
     playground: IPlayground = playgroundAdapter({
-        html: this.snippets.raw.codeExampleHtml
+        html: this.snippets.raw.codeExampleHtml,
     });
 
     constructor() {
-        super(require.context('./snippets/', false, /(html|css|js|ts)$/));
+        super(
+            import.meta.webpackContext('./snippets/', {
+                recursive: false,
+                regExp: /\.(html|css|js|ts)$/,
+            })
+        );
     }
 }

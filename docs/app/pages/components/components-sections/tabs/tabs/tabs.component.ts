@@ -11,32 +11,34 @@ const chance = new Chance();
     selector: 'uxd-components-tabs',
     templateUrl: './tabs.component.html',
     styleUrls: ['./tabs.component.less'],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 @DocumentationSectionComponent('ComponentsTabsComponent')
-export class ComponentsTabsComponent extends BaseDocumentationSection implements IPlaygroundProvider {
-
+export class ComponentsTabsComponent
+    extends BaseDocumentationSection
+    implements IPlaygroundProvider
+{
     tabs: Tab[] = [
         {
             icon: 'schedule',
             title: 'Schedule',
-            content: chance.paragraph()
+            content: chance.paragraph(),
         },
         {
             icon: 'shield',
             title: 'Protection',
-            content: chance.paragraph()
+            content: chance.paragraph(),
         },
         {
             icon: 'information',
             title: 'Solution',
-            content: chance.paragraph()
+            content: chance.paragraph(),
         },
         {
             icon: 'analytics',
             title: 'Analytics',
-            content: chance.paragraph()
-        }
+            content: chance.paragraph(),
+        },
     ];
 
     minimal: boolean = true;
@@ -65,18 +67,22 @@ export class ComponentsTabsComponent extends BaseDocumentationSection implements
         modules: [
             {
                 imports: ['TabsetModule'],
-                library: '@ux-aspects/ux-aspects'
+                library: '@ux-aspects/ux-aspects',
             },
             {
-                library: 'chance'
-            }
-        ]
+                library: 'chance',
+            },
+        ],
     };
 
     constructor() {
-        super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
+        super(
+            import.meta.webpackContext('./snippets/', {
+                recursive: false,
+                regExp: /\.(html|css|js|ts)$/,
+            })
+        );
     }
-
 }
 
 export type TabStackType = 'left' | 'right' | 'none';

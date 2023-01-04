@@ -7,31 +7,42 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 @Component({
     selector: 'uxd-components-color-service',
     templateUrl: './color-service.component.html',
-    styleUrls: ['./color-service.component.less']
+    styleUrls: ['./color-service.component.less'],
 })
 @DocumentationSectionComponent('ComponentsColorServiceComponent')
-export class ComponentsColorServiceComponent extends BaseDocumentationSection implements IPlaygroundProvider {
-
+export class ComponentsColorServiceComponent
+    extends BaseDocumentationSection
+    implements IPlaygroundProvider
+{
     focused = false;
 
     playground: IPlayground = {
         files: {
             'app.component.ts': this.snippets.raw.appExampleTs,
             'app.component.html': this.snippets.raw.appHtml,
-            'app.component.css': this.snippets.raw.appCss
+            'app.component.css': this.snippets.raw.appCss,
         },
-        modules: [{
-            library: 'chart.js'
-        }, {
-            imports: ['NgChartsModule'],
-            library: 'ng2-charts'
-        }, {
-            imports: ['SelectModule'],
-            library: '@ux-aspects/ux-aspects'
-        }]
+        modules: [
+            {
+                library: 'chart.js',
+            },
+            {
+                imports: ['NgChartsModule'],
+                library: 'ng2-charts',
+            },
+            {
+                imports: ['SelectModule'],
+                library: '@ux-aspects/ux-aspects',
+            },
+        ],
     };
 
     constructor() {
-        super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
+        super(
+            import.meta.webpackContext('./snippets/', {
+                recursive: false,
+                regExp: /\.(html|css|js|ts)$/,
+            })
+        );
     }
 }

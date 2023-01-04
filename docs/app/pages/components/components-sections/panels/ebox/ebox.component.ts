@@ -6,25 +6,32 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 
 @Component({
     selector: 'uxd-components-ebox',
-    templateUrl: './ebox.component.html'
+    templateUrl: './ebox.component.html',
 })
 @DocumentationSectionComponent('ComponentsEboxComponent')
-export class ComponentsEboxComponent extends BaseDocumentationSection implements IPlaygroundProvider {
-
+export class ComponentsEboxComponent
+    extends BaseDocumentationSection
+    implements IPlaygroundProvider
+{
     playground: IPlayground = {
         files: {
             'app.component.html': this.snippets.raw.appHtml,
-            'app.component.ts': this.snippets.raw.appTs
+            'app.component.ts': this.snippets.raw.appTs,
         },
         modules: [
             {
                 imports: ['EboxModule'],
-                library: '@ux-aspects/ux-aspects'
-            }
-        ]
+                library: '@ux-aspects/ux-aspects',
+            },
+        ],
     };
 
     constructor() {
-        super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
+        super(
+            import.meta.webpackContext('./snippets/', {
+                recursive: false,
+                regExp: /\.(html|css|js|ts)$/,
+            })
+        );
     }
 }

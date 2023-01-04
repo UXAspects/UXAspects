@@ -6,74 +6,91 @@ import { DocumentationSectionComponent } from '../../../../../decorators/documen
 @Component({
     selector: 'uxd-components-tree-view',
     templateUrl: './tree-view.component.html',
-    styleUrls: ['./tree-view.component.less']
+    styleUrls: ['./tree-view.component.less'],
 })
 @DocumentationSectionComponent('ComponentsTreeViewComponent')
 export class ComponentsTreeViewComponent extends BaseDocumentationSection {
-
-    nodes: TreeViewExampleNode[] = [{
-        id: 1,
-        name: 'Documents',
-        children: [{
-            id: 12,
-            name: 'Profiles',
-            children: [{
-                name: 'Alcazar'
-            }, {
-                name: 'Citadel'
-            }, {
-                name: 'Donjon'
-            }]
-        }, {
-            id: 11,
-            name: 'Word files',
-            children: [{
-                id: 111,
-                name: 'Accounts',
-                children: [{
-                    name: 'Castle'
-                }, {
-                    name: 'Estate'
-                }, {
-                    name: 'Manor'
-                }, {
-                    name: 'Mansion'
-                }, {
-                    name: 'Villa'
-                }]
-            }]
-        }]
-    }, {
-        id: 2,
-        name: 'Emails',
-        children: [{
-            id: 21,
-            name: 'Inbox',
+    nodes: TreeViewExampleNode[] = [
+        {
+            id: 1,
+            name: 'Documents',
             children: [
-                { name: 'Invoice' },
-                { name: 'Order Confirmation' }
-            ]
-        }, {
-            id: 22,
-            name: 'Outbox',
+                {
+                    id: 12,
+                    name: 'Profiles',
+                    children: [
+                        {
+                            name: 'Alcazar',
+                        },
+                        {
+                            name: 'Citadel',
+                        },
+                        {
+                            name: 'Donjon',
+                        },
+                    ],
+                },
+                {
+                    id: 11,
+                    name: 'Word files',
+                    children: [
+                        {
+                            id: 111,
+                            name: 'Accounts',
+                            children: [
+                                {
+                                    name: 'Castle',
+                                },
+                                {
+                                    name: 'Estate',
+                                },
+                                {
+                                    name: 'Manor',
+                                },
+                                {
+                                    name: 'Mansion',
+                                },
+                                {
+                                    name: 'Villa',
+                                },
+                            ],
+                        },
+                    ],
+                },
+            ],
+        },
+        {
+            id: 2,
+            name: 'Emails',
             children: [
-                { name: 'Customer Support' }
-            ]
-        }]
-    }, {
-        id: 3,
-        name: 'Pictures',
-        children: [
-            { name: 'IMG_001.jpg' },
-            { name: 'IMG_002.jpg' },
-            { name: 'IMG_003.jpg' }
-        ]
-    }];
+                {
+                    id: 21,
+                    name: 'Inbox',
+                    children: [{ name: 'Invoice' }, { name: 'Order Confirmation' }],
+                },
+                {
+                    id: 22,
+                    name: 'Outbox',
+                    children: [{ name: 'Customer Support' }],
+                },
+            ],
+        },
+        {
+            id: 3,
+            name: 'Pictures',
+            children: [{ name: 'IMG_001.jpg' }, { name: 'IMG_002.jpg' }, { name: 'IMG_003.jpg' }],
+        },
+    ];
 
     focused: TreeNode;
 
     constructor() {
-        super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
+        super(
+            import.meta.webpackContext('./snippets/', {
+                recursive: false,
+                regExp: /\.(html|css|js|ts)$/,
+            })
+        );
     }
 
     /**

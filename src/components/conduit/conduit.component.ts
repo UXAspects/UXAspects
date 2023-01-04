@@ -1,14 +1,13 @@
-import { Directive, inject, OnDestroy, OnInit, Optional } from '@angular/core';
+import { Directive, inject, OnDestroy, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { ConduitZone } from './conduit-zone.service';
 import { ConduitProperties } from './interfaces/conduit-properties';
 
 @Directive({
-    selector: 'ux-conduit'
+    selector: 'ux-conduit',
 })
 export class ConduitComponent implements OnInit, OnDestroy {
-
-    @Optional() protected _zone = inject(ConduitZone);
+    protected _zone = inject(ConduitZone, { optional: true });
 
     /** We need to register the conduits with the zone when the component is initialised */
     ngOnInit(): void {
@@ -30,5 +29,4 @@ export class ConduitComponent implements OnInit, OnDestroy {
     createConduit(subject: Subject<any>, properties: ConduitProperties): void {
         this._zone.createConduit(subject, properties);
     }
-
 }

@@ -7,69 +7,83 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 
 @Component({
     selector: 'uxd-components-timeline',
-    templateUrl: './timeline.component.html'
+    templateUrl: './timeline.component.html',
 })
 @DocumentationSectionComponent('ComponentsTimelineComponent')
-export class ComponentsTimelineComponent extends BaseDocumentationSection implements IPlaygroundProvider {
-
+export class ComponentsTimelineComponent
+    extends BaseDocumentationSection
+    implements IPlaygroundProvider
+{
     private _now = Date.now();
     private _dayInMilliSeconds = 24 * 60 * 60 * 1000;
     private _daysAfterFirstEvent = 3;
 
-    events: TimelineEvent[] = [{
-        color: 'accent',
-        date: new Date(this._now + (this._dayInMilliSeconds * 3)),
-        url: '#',
-        id: chance.integer({ min: 1000, max: 9999 }),
-        action: 'tested',
-        assignee: chance.name()
-    }, {
-        color: 'alternate2',
-        date: new Date(this._now + (this._dayInMilliSeconds * 2)),
-        url: '#',
-        id: chance.integer({ min: 1000, max: 9999 }),
-        action: 'reviewed',
-        assignee: chance.name()
-    }, {
-        color: 'grey4',
-        date: new Date(this._now + (this._dayInMilliSeconds * 1)),
-        url: '#',
-        id: chance.integer({ min: 1000, max: 9999 }),
-        action: 'developed',
-        assignee: chance.name()
-    }, {
-        color: 'primary',
-        date: new Date(this._now),
-        url: '#',
-        id: chance.integer({ min: 1000, max: 9999 }),
-        action: 'recorded',
-        assignee: chance.name()
-    }];
+    events: TimelineEvent[] = [
+        {
+            color: 'accent',
+            date: new Date(this._now + this._dayInMilliSeconds * 3),
+            url: '#',
+            id: chance.integer({ min: 1000, max: 9999 }),
+            action: 'tested',
+            assignee: chance.name(),
+        },
+        {
+            color: 'alternate2',
+            date: new Date(this._now + this._dayInMilliSeconds * 2),
+            url: '#',
+            id: chance.integer({ min: 1000, max: 9999 }),
+            action: 'reviewed',
+            assignee: chance.name(),
+        },
+        {
+            color: 'grey4',
+            date: new Date(this._now + this._dayInMilliSeconds * 1),
+            url: '#',
+            id: chance.integer({ min: 1000, max: 9999 }),
+            action: 'developed',
+            assignee: chance.name(),
+        },
+        {
+            color: 'primary',
+            date: new Date(this._now),
+            url: '#',
+            id: chance.integer({ min: 1000, max: 9999 }),
+            action: 'recorded',
+            assignee: chance.name(),
+        },
+    ];
 
     playground: IPlayground = {
         files: {
             'app.component.html': this.snippets.raw.appHtml,
             'app.component.ts': this.snippets.raw.appTs,
         },
-        modules: [{
-            imports: ['TimelineModule'],
-            library: '@ux-aspects/ux-aspects'
-        }]
+        modules: [
+            {
+                imports: ['TimelineModule'],
+                library: '@ux-aspects/ux-aspects',
+            },
+        ],
     };
 
     constructor() {
-        super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
+        super(
+            import.meta.webpackContext('./snippets/', {
+                recursive: false,
+                regExp: /\.(html|css|js|ts)$/,
+            })
+        );
     }
 
     addEvent(): void {
         this._daysAfterFirstEvent++;
         this.events.unshift({
             color: 'grey4',
-            date: new Date(this._now + (this._dayInMilliSeconds * this._daysAfterFirstEvent)),
+            date: new Date(this._now + this._dayInMilliSeconds * this._daysAfterFirstEvent),
             url: '#',
             id: chance.integer({ min: 1000, max: 9999 }),
             action: 'updated',
-            assignee: chance.name()
+            assignee: chance.name(),
         });
     }
 }

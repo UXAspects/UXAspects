@@ -6,11 +6,13 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 
 @Component({
     selector: 'uxd-components-multiple-zones',
-    templateUrl: './multiple-zones.component.html'
+    templateUrl: './multiple-zones.component.html',
 })
 @DocumentationSectionComponent('ComponentsMultipleZonesComponent')
-export class ComponentsMultipleZonesComponent extends BaseDocumentationSection implements IPlaygroundProvider {
-
+export class ComponentsMultipleZonesComponent
+    extends BaseDocumentationSection
+    implements IPlaygroundProvider
+{
     playground: IPlayground = {
         files: {
             'app.component.html': this.snippets.raw.appComponentHtml,
@@ -30,32 +32,37 @@ export class ComponentsMultipleZonesComponent extends BaseDocumentationSection i
         modules: [
             {
                 imports: ['CheckboxModule', 'PopoverModule'],
-                library: '@ux-aspects/ux-aspects'
+                library: '@ux-aspects/ux-aspects',
             },
             {
                 imports: ['FilterComponent'],
                 library: './filter/filter.component',
-                declaration: true
+                declaration: true,
             },
             {
                 imports: ['ListViewComponent'],
                 library: './list-view/list-view.component',
-                declaration: true
+                declaration: true,
             },
             {
                 imports: ['ZoneInspectorComponent'],
                 library: './inspector/inspector.component',
-                declaration: true
+                declaration: true,
             },
             {
                 imports: ['ToolbarComponent'],
                 library: './toolbar/toolbar.component',
-                declaration: true
-            }
-        ]
+                declaration: true,
+            },
+        ],
     };
 
     constructor() {
-        super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
+        super(
+            import.meta.webpackContext('./snippets/', {
+                recursive: false,
+                regExp: /\.(html|css|js|ts)$/,
+            })
+        );
     }
 }

@@ -7,17 +7,23 @@ import { playgroundAdapter } from '../../../../../services/playground/adapters/l
 
 @Component({
     selector: 'uxd-css-text-inputs-disabled-inputs',
-    templateUrl: './disabled-inputs.component.html'
+    templateUrl: './disabled-inputs.component.html',
 })
 @DocumentationSectionComponent('CssDisabledAreaComponent')
-export class CssDisabledAreaComponent extends BaseDocumentationSection implements IPlaygroundProvider {
-
+export class CssDisabledAreaComponent
+    extends BaseDocumentationSection
+    implements IPlaygroundProvider
+{
     playground: IPlayground = playgroundAdapter({
-        html: this.snippets.raw.sampleHtml
+        html: this.snippets.raw.sampleHtml,
     });
 
     constructor() {
-        super(require.context('./snippets/', false, /(html|css|js|ts)$/));
+        super(
+            import.meta.webpackContext('./snippets/', {
+                recursive: false,
+                regExp: /\.(html|css|js|ts)$/,
+            })
+        );
     }
-
 }

@@ -1,5 +1,10 @@
 import { Component, Inject } from '@angular/core';
-import { BadgeHorizontalPosition, BadgeSize, BadgeVerticalPosition, ColorService } from '@ux-aspects/ux-aspects';
+import {
+    BadgeHorizontalPosition,
+    BadgeSize,
+    BadgeVerticalPosition,
+    ColorService,
+} from '@ux-aspects/ux-aspects';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
@@ -9,10 +14,13 @@ import { DocumentationType, DOCUMENTATION_TOKEN } from '../../../../../tokens/do
 @Component({
     selector: 'uxd-components-badge',
     templateUrl: './badge.component.html',
-    styleUrls: [ './badge.component.less' ]
+    styleUrls: ['./badge.component.less'],
 })
 @DocumentationSectionComponent('ComponentsBadgeComponent')
-export class ComponentsBadgeComponent extends BaseDocumentationSection implements IPlaygroundProvider {
+export class ComponentsBadgeComponent
+    extends BaseDocumentationSection
+    implements IPlaygroundProvider
+{
     colorPaletteDocumentationRoute: string;
     colorPaletteFragment: string;
 
@@ -24,7 +32,7 @@ export class ComponentsBadgeComponent extends BaseDocumentationSection implement
     badgeHidden: boolean = false;
     badgeHorizontalPosition: BadgeHorizontalPosition = 'after';
     badgeVerticalPosition: BadgeVerticalPosition = 'above';
-    selectedColor: string  = 'critical';
+    selectedColor: string = 'critical';
     selectedBorderColor: string = null;
 
     playground: IPlayground = {
@@ -49,9 +57,17 @@ export class ComponentsBadgeComponent extends BaseDocumentationSection implement
         @Inject(DOCUMENTATION_TOKEN) private readonly documentationType: DocumentationType,
         private readonly colorService: ColorService
     ) {
-        super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
+        super(
+            import.meta.webpackContext('./snippets/', {
+                recursive: false,
+                regExp: /\.(html|css|js|ts)$/,
+            })
+        );
 
-        this.colorPaletteDocumentationRoute = documentationType === DocumentationType.MicroFocus ? '/ui-components/styling' : '/css/color-palette';
+        this.colorPaletteDocumentationRoute =
+            documentationType === DocumentationType.MicroFocus
+                ? '/ui-components/styling'
+                : '/css/color-palette';
 
         if (documentationType === DocumentationType.MicroFocus) {
             this.colorPaletteFragment = 'color-palette';

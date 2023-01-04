@@ -5,11 +5,13 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 
 @Component({
     selector: 'uxd-components-checkbox',
-    templateUrl: './checkbox.component.html'
+    templateUrl: './checkbox.component.html',
 })
 @DocumentationSectionComponent('ComponentsCheckboxComponent')
-export class ComponentsCheckboxComponent extends BaseDocumentationSection implements IPlaygroundProvider {
-
+export class ComponentsCheckboxComponent
+    extends BaseDocumentationSection
+    implements IPlaygroundProvider
+{
     checkModel: any;
     simplified: boolean;
     indeterminateValue: number;
@@ -26,8 +28,8 @@ export class ComponentsCheckboxComponent extends BaseDocumentationSection implem
                 color: '#fff',
                 formatter: function (value: any) {
                     return value;
-                }
-            }
+                },
+            },
         },
         track: {
             height: 'wide',
@@ -41,7 +43,7 @@ export class ComponentsCheckboxComponent extends BaseDocumentationSection implem
                     labels: true,
                     formatter: function (value: any) {
                         return value;
-                    }
+                    },
                 },
                 minor: {
                     show: true,
@@ -49,38 +51,45 @@ export class ComponentsCheckboxComponent extends BaseDocumentationSection implem
                     labels: false,
                     formatter: function (value: any) {
                         return value;
-                    }
-                }
+                    },
+                },
             },
             colors: {
                 lower: '#f2f2f2',
                 range: 'rgba(96,121,141, 0.75)',
-                higher: '#f2f2f2'
-            }
-        }
+                higher: '#f2f2f2',
+            },
+        },
     };
 
     playground = () => {
         return {
             files: {
                 'app.component.ts': this.snippets.raw.appTs,
-                'app.component.html': this.snippets.raw.appHtml
+                'app.component.html': this.snippets.raw.appHtml,
             },
-            modules: [{
-                imports: ['CheckboxModule'],
-                library: '@ux-aspects/ux-aspects'
-            }]
+            modules: [
+                {
+                    imports: ['CheckboxModule'],
+                    library: '@ux-aspects/ux-aspects',
+                },
+            ],
         };
-    }
+    };
 
     constructor() {
-        super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
+        super(
+            import.meta.webpackContext('./snippets/', {
+                recursive: false,
+                regExp: /\.(html|css|js|ts)$/,
+            })
+        );
 
         this.checkModel = {
             option1: true,
             option2: false,
             option3: false,
-            option4: false
+            option4: false,
         };
 
         this.simplified = false;

@@ -9,8 +9,10 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
     templateUrl: './conduit.component.html',
 })
 @DocumentationSectionComponent('ComponentsConduitComponent')
-export class ComponentsConduitComponent extends BaseDocumentationSection implements IPlaygroundProvider {
-
+export class ComponentsConduitComponent
+    extends BaseDocumentationSection
+    implements IPlaygroundProvider
+{
     playground: IPlayground = {
         files: {
             'app.component.html': this.snippets.raw.appHtml,
@@ -21,17 +23,22 @@ export class ComponentsConduitComponent extends BaseDocumentationSection impleme
         modules: [
             {
                 imports: ['CheckboxModule'],
-                library: '@ux-aspects/ux-aspects'
+                library: '@ux-aspects/ux-aspects',
             },
             {
                 imports: ['SearchComponent'],
                 library: './search.component',
-                declaration: true
-            }
-        ]
+                declaration: true,
+            },
+        ],
     };
 
     constructor() {
-        super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
+        super(
+            import.meta.webpackContext('./snippets/', {
+                recursive: false,
+                regExp: /\.(html|css|js|ts)$/,
+            })
+        );
     }
 }

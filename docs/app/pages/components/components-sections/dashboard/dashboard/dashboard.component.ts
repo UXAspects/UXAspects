@@ -10,56 +10,60 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 @Component({
     selector: 'uxd-components-dashboard',
     templateUrl: './dashboard.component.html',
-    styleUrls: ['./dashboard.component.less']
+    styleUrls: ['./dashboard.component.less'],
 })
 @DocumentationSectionComponent('ComponentsDashboardComponent')
-export class ComponentsDashboardComponent extends BaseDocumentationSection implements IPlaygroundProvider {
-
+export class ComponentsDashboardComponent
+    extends BaseDocumentationSection
+    implements IPlaygroundProvider
+{
     // configure the directive data
-    lineChartData: ChartDataset<'line'>[] = [{
-        data: [],
-        borderWidth: 2,
-        fill: false,
-        borderColor: this.colorService.getColor('vibrant1').toHex(),
-    },
-    {
-        data: [],
-        borderWidth: 2,
-        fill: false,
-        borderColor: this.colorService.getColor('vibrant2').toHex(),
-    }];
+    lineChartData: ChartDataset<'line'>[] = [
+        {
+            data: [],
+            borderWidth: 2,
+            fill: false,
+            borderColor: this.colorService.getColor('vibrant1').toHex(),
+        },
+        {
+            data: [],
+            borderWidth: 2,
+            fill: false,
+            borderColor: this.colorService.getColor('vibrant2').toHex(),
+        },
+    ];
 
     lineChartOptions: ChartOptions<'line'> = {
         maintainAspectRatio: false,
         responsive: true,
         elements: {
             line: {
-                tension: 0
+                tension: 0,
             },
             point: {
-                radius: 0
-            }
+                radius: 0,
+            },
         },
         scales: {
             x: {
                 min: 0,
                 max: 49,
                 grid: {
-                    color: 'transparent'
+                    color: 'transparent',
                 },
                 ticks: {
-                    maxRotation: 0
-                }
+                    maxRotation: 0,
+                },
             },
             y: {
                 beginAtZero: true,
                 grid: {
-                    color: '#ddd'
+                    color: '#ddd',
                 },
                 ticks: {
-                    stepSize: 100
-                }
-            }
+                    stepSize: 100,
+                },
+            },
         },
     };
 
@@ -71,36 +75,43 @@ export class ComponentsDashboardComponent extends BaseDocumentationSection imple
         padding: 10,
         rowHeight: 220,
         emptyRow: false,
-        minWidth: 187
+        minWidth: 187,
     };
 
     playground: IPlayground = {
         files: {
             'app.component.html': this.snippets.raw.appHtml,
             'app.component.ts': this.snippets.raw.appTs,
-            'app.component.css': this.snippets.raw.appCss
+            'app.component.css': this.snippets.raw.appCss,
         },
-        modules: [{
-            imports: ['DashboardModule', 'SparkModule'],
-            library: '@ux-aspects/ux-aspects'
-        }, {
-            library: 'chance'
-        },
-        {
-            library: 'chart.js'
-        },
-        {
-            imports: ['NgChartsModule'],
-            library: 'ng2-charts'
-        }]
+        modules: [
+            {
+                imports: ['DashboardModule', 'SparkModule'],
+                library: '@ux-aspects/ux-aspects',
+            },
+            {
+                library: 'chance',
+            },
+            {
+                library: 'chart.js',
+            },
+            {
+                imports: ['NgChartsModule'],
+                library: 'ng2-charts',
+            },
+        ],
     };
 
     constructor(public colorService: ColorService) {
-        super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
+        super(
+            import.meta.webpackContext('./snippets/', {
+                recursive: false,
+                regExp: /\.(html|css|js|ts)$/,
+            })
+        );
 
         // generate the chart data
         for (let idx = 0; idx < 50; idx++) {
-
             let label = '';
 
             if (idx === 0) {
@@ -118,12 +129,12 @@ export class ComponentsDashboardComponent extends BaseDocumentationSection imple
 
             dataset1.push({
                 x: idx,
-                y: chance.integer({ min: 280, max: 460 })
+                y: chance.integer({ min: 280, max: 460 }),
             });
 
             dataset2.push({
                 x: idx,
-                y: chance.integer({ min: 50, max: 250 })
+                y: chance.integer({ min: 50, max: 250 }),
             });
         }
     }

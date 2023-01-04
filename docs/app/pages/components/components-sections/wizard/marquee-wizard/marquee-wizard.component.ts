@@ -10,11 +10,13 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 @Component({
     selector: 'uxd-components-marquee-wizard',
     templateUrl: './marquee-wizard.component.html',
-    styleUrls: ['./marquee-wizard.component.less']
+    styleUrls: ['./marquee-wizard.component.less'],
 })
 @DocumentationSectionComponent('ComponentsMarqueeWizardComponent')
-export class ComponentsMarqueeWizardComponent extends BaseDocumentationSection implements IPlaygroundProvider {
-
+export class ComponentsMarqueeWizardComponent
+    extends BaseDocumentationSection
+    implements IPlaygroundProvider
+{
     error: boolean = false;
     skip: boolean = false;
     validate: boolean = false;
@@ -28,27 +30,32 @@ export class ComponentsMarqueeWizardComponent extends BaseDocumentationSection i
         files: {
             'app.component.html': this.snippets.raw.appHtml,
             'app.component.ts': this.snippets.raw.appTs,
-            'app.component.css': this.snippets.raw.appCss
+            'app.component.css': this.snippets.raw.appCss,
         },
         modules: [
             {
                 imports: ['ModalModule'],
                 forRoot: true,
-                library: 'ngx-bootstrap/modal'
+                library: 'ngx-bootstrap/modal',
             },
             {
                 imports: ['MarqueeWizardModule', 'CheckboxModule', 'FocusIfModule'],
-                library: '@ux-aspects/ux-aspects'
+                library: '@ux-aspects/ux-aspects',
             },
             {
                 imports: ['A11yModule'],
-                library: '@angular/cdk/a11y'
-            }
-        ]
+                library: '@angular/cdk/a11y',
+            },
+        ],
     };
 
     constructor(private _announcer: LiveAnnouncer) {
-        super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
+        super(
+            import.meta.webpackContext('./snippets/', {
+                recursive: false,
+                regExp: /\.(html|css|js|ts)$/,
+            })
+        );
     }
 
     /**
@@ -63,7 +70,6 @@ export class ComponentsMarqueeWizardComponent extends BaseDocumentationSection i
     }
 
     onChange(index: number, wizard: MarqueeWizardComponent): void {
-
         // get the step header
         const step = wizard.steps.toArray()[index];
 

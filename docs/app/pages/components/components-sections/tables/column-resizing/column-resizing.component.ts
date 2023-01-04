@@ -1,19 +1,21 @@
 import { Component, Inject, ViewChild } from '@angular/core';
-import { ResizableTableDirective, ResizableExpandingTableDirective } from '@ux-aspects/ux-aspects';
+import { ResizableExpandingTableDirective, ResizableTableDirective } from '@ux-aspects/ux-aspects';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
 import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
-import { DOCUMENTATION_TOKEN, DocumentationType } from '../../../../../tokens/documentation.token';
+import { DocumentationType, DOCUMENTATION_TOKEN } from '../../../../../tokens/documentation.token';
 
 @Component({
     selector: 'uxd-components-column-resizing',
     templateUrl: './column-resizing.component.html',
-    styleUrls: ['./column-resizing.component.less']
+    styleUrls: ['./column-resizing.component.less'],
 })
 @DocumentationSectionComponent('ComponentsColumnResizingComponent')
-export class ComponentsColumnResizingComponent extends BaseDocumentationSection implements IPlaygroundProvider {
-
+export class ComponentsColumnResizingComponent
+    extends BaseDocumentationSection
+    implements IPlaygroundProvider
+{
     type: 'uxResizableTable' | 'uxResizableExpandingTable' = 'uxResizableTable';
     documents: TableDocument[] = [];
     selection: TableDocument[] = [];
@@ -23,31 +25,47 @@ export class ComponentsColumnResizingComponent extends BaseDocumentationSection 
     dateWidth: number;
     dateWidthExpanding: number = 150;
 
-    uxFixedHeaderComponentRoute: string = this._documentationType === DocumentationType.MicroFocus ? '/ui-components/tables' : 'components/tables';
+    uxFixedHeaderComponentRoute: string =
+        this._documentationType === DocumentationType.MicroFocus
+            ? '/ui-components/tables'
+            : 'components/tables';
 
     @ViewChild(ResizableTableDirective, { static: false }) resizableTable: ResizableTableDirective;
-    @ViewChild(ResizableExpandingTableDirective, { static: false }) resizableExpandingTable: ResizableExpandingTableDirective;
+    @ViewChild(ResizableExpandingTableDirective, { static: false })
+    resizableExpandingTable: ResizableExpandingTableDirective;
 
     playground: IPlayground = {
         files: {
             'app.component.html': this.snippets.raw.appHtml,
             'app.component.ts': this.snippets.raw.appTs,
-            'app.component.css': this.snippets.raw.appCss
+            'app.component.css': this.snippets.raw.appCss,
         },
         modules: [
             {
-                imports: ['TableModule', 'CheckboxModule', 'FixedHeaderTableModule', 'SelectionModule', 'AccordionModule', 'RadioButtonModule'],
-                library: '@ux-aspects/ux-aspects'
+                imports: [
+                    'TableModule',
+                    'CheckboxModule',
+                    'FixedHeaderTableModule',
+                    'SelectionModule',
+                    'AccordionModule',
+                    'RadioButtonModule',
+                ],
+                library: '@ux-aspects/ux-aspects',
             },
             {
                 imports: ['ButtonsModule'],
-                library: 'ngx-bootstrap/buttons'
-            }
-        ]
+                library: 'ngx-bootstrap/buttons',
+            },
+        ],
     };
 
     constructor(@Inject(DOCUMENTATION_TOKEN) private _documentationType: DocumentationType) {
-        super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
+        super(
+            import.meta.webpackContext('./snippets/', {
+                recursive: false,
+                regExp: /\.(html|css|js|ts)$/,
+            })
+        );
 
         // generate some dummy data
         for (let idx = 0; idx < 15; idx++) {
@@ -55,7 +73,7 @@ export class ComponentsColumnResizingComponent extends BaseDocumentationSection 
                 selected: false,
                 title: `Document ${idx + 1}`,
                 author: chance.name(),
-                date: chance.date({ year: new Date().getFullYear() }) as Date
+                date: chance.date({ year: new Date().getFullYear() }) as Date,
             });
         }
     }

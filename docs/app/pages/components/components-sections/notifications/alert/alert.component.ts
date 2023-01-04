@@ -7,37 +7,44 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 @Component({
     selector: 'uxmd-pages-alert',
     templateUrl: './alert.component.html',
-    styleUrls: ['./alert.component.less']
+    styleUrls: ['./alert.component.less'],
 })
 @DocumentationSectionComponent('ComponentsAlertComponent')
-export class ComponentsAlertComponent extends BaseDocumentationSection implements IPlaygroundProvider {
-
+export class ComponentsAlertComponent
+    extends BaseDocumentationSection
+    implements IPlaygroundProvider
+{
     private _alerts: ReadonlyArray<AlertExample> = [
         {
             type: 'info',
             icon: 'status-information-filled',
-            description: 'This is an example of an info alert message <a class="alert-link">with a link</a>.',
+            description:
+                'This is an example of an info alert message <a class="alert-link">with a link</a>.',
         },
         {
             type: 'error',
             icon: 'status-error-filled',
-            description: 'This is an example of an error alert message <a class="alert-link">with a link</a>.',
+            description:
+                'This is an example of an error alert message <a class="alert-link">with a link</a>.',
         },
         {
             type: 'success',
             icon: 'status-approved-filled',
-            description: 'This is an example of a success alert message <a class="alert-link">with a link</a>.',
+            description:
+                'This is an example of a success alert message <a class="alert-link">with a link</a>.',
         },
         {
             type: 'warning',
             icon: 'status-warning-filled',
-            description: 'This is an example of a warning alert message <a class="alert-link">with a link</a>.',
+            description:
+                'This is an example of a warning alert message <a class="alert-link">with a link</a>.',
         },
         {
             type: 'dark',
             icon: 'status-information-filled',
-            description: 'This is an example of a dark alert message <a class="alert-link">with a link</a>.',
-        }
+            description:
+                'This is an example of a dark alert message <a class="alert-link">with a link</a>.',
+        },
     ];
 
     alerts: AlertExample[] = [...this._alerts];
@@ -51,13 +58,18 @@ export class ComponentsAlertComponent extends BaseDocumentationSection implement
         modules: [
             {
                 imports: ['AlertModule', 'AccordionModule', 'CheckboxModule'],
-                library: '@ux-aspects/ux-aspects'
-            }
-        ]
+                library: '@ux-aspects/ux-aspects',
+            },
+        ],
     };
 
     constructor() {
-        super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
+        super(
+            import.meta.webpackContext('./snippets/', {
+                recursive: false,
+                regExp: /\.(html|css|js|ts)$/,
+            })
+        );
     }
 
     remove(alert: AlertExample): void {

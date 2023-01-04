@@ -10,8 +10,10 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
     templateUrl: './float-label.component.html',
 })
 @DocumentationSectionComponent('ComponentsFloatLabelComponent')
-export class ComponentsFloatLabelComponent extends BaseDocumentationSection implements IPlaygroundProvider {
-
+export class ComponentsFloatLabelComponent
+    extends BaseDocumentationSection
+    implements IPlaygroundProvider
+{
     playground: IPlayground = {
         files: {
             'app.component.html': this.snippets.raw.appHtml,
@@ -20,9 +22,9 @@ export class ComponentsFloatLabelComponent extends BaseDocumentationSection impl
         modules: [
             {
                 imports: ['FloatLabelModule'],
-                library: '@ux-aspects/ux-aspects'
+                library: '@ux-aspects/ux-aspects',
             },
-        ]
+        ],
     };
 
     demoForm: FormGroup;
@@ -36,11 +38,16 @@ export class ComponentsFloatLabelComponent extends BaseDocumentationSection impl
     }
 
     constructor(formBuilder: FormBuilder) {
-        super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
+        super(
+            import.meta.webpackContext('./snippets/', {
+                recursive: false,
+                regExp: /\.(html|css|js|ts)$/,
+            })
+        );
 
         this.demoForm = formBuilder.group({
-            'username': [''],
-            'location': ['']
+            username: [''],
+            location: [''],
         });
     }
 }

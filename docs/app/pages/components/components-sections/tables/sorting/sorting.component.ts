@@ -7,16 +7,14 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 @Component({
     selector: 'uxd-components-sorting',
     templateUrl: './sorting.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 @DocumentationSectionComponent('ComponentsSortingComponent')
-export class ComponentsSortingComponent extends BaseDocumentationSection implements IPlaygroundProvider {
-
-    options: string[] = [
-        'Date Modified',
-        'Name',
-        'Author'
-    ];
+export class ComponentsSortingComponent
+    extends BaseDocumentationSection
+    implements IPlaygroundProvider
+{
+    options: string[] = ['Date Modified', 'Name', 'Author'];
 
     selected: string = this.options[0];
     descending: boolean = true;
@@ -24,23 +22,27 @@ export class ComponentsSortingComponent extends BaseDocumentationSection impleme
     playground: IPlayground = {
         files: {
             'app.component.html': this.snippets.raw.appHtml,
-            'app.component.ts': this.snippets.raw.appTs
+            'app.component.ts': this.snippets.raw.appTs,
         },
         modules: [
             {
                 imports: ['MenuModule'],
-                library: '@ux-aspects/ux-aspects'
-            }
-        ]
+                library: '@ux-aspects/ux-aspects',
+            },
+        ],
     };
 
     constructor() {
-        super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
+        super(
+            import.meta.webpackContext('./snippets/', {
+                recursive: false,
+                regExp: /\.(html|css|js|ts)$/,
+            })
+        );
     }
 
     sort(option: string): void {
         // ... perform sorting here ...
         this.selected = option;
     }
-
 }

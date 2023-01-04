@@ -6,11 +6,13 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 
 @Component({
     selector: 'uxd-time-picker',
-    templateUrl: './time-picker.component.html'
+    templateUrl: './time-picker.component.html',
 })
 @DocumentationSectionComponent('ComponentsTimePickerComponent')
-export class ComponentsTimePickerComponent extends BaseDocumentationSection implements IPlaygroundProvider {
-
+export class ComponentsTimePickerComponent
+    extends BaseDocumentationSection
+    implements IPlaygroundProvider
+{
     playground: IPlayground = {
         files: {
             'app.component.html': this.snippets.raw.appHtml,
@@ -19,9 +21,9 @@ export class ComponentsTimePickerComponent extends BaseDocumentationSection impl
         modules: [
             {
                 imports: ['TimePickerModule'],
-                library: '@ux-aspects/ux-aspects'
+                library: '@ux-aspects/ux-aspects',
             },
-        ]
+        ],
     };
 
     value = new Date();
@@ -36,6 +38,11 @@ export class ComponentsTimePickerComponent extends BaseDocumentationSection impl
     disabled = false;
 
     constructor() {
-        super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
+        super(
+            import.meta.webpackContext('./snippets/', {
+                recursive: false,
+                regExp: /\.(html|css|js|ts)$/,
+            })
+        );
     }
 }

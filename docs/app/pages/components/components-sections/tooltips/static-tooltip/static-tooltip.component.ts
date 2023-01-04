@@ -8,13 +8,14 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
     selector: 'uxd-components-static-tooltip',
     templateUrl: './static-tooltip.component.html',
     styleUrls: ['./static-tooltip.component.less'],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 @DocumentationSectionComponent('ComponentsStaticTooltipComponent')
-export class ComponentsStaticTooltipComponent extends BaseDocumentationSection implements IPlaygroundProvider {
-
+export class ComponentsStaticTooltipComponent
+    extends BaseDocumentationSection
+    implements IPlaygroundProvider
+{
     open: boolean = true;
-
 
     playground: IPlayground = {
         files: {
@@ -25,13 +26,17 @@ export class ComponentsStaticTooltipComponent extends BaseDocumentationSection i
         modules: [
             {
                 imports: ['PopoverModule'],
-                library: '@ux-aspects/ux-aspects'
-            }
-        ]
+                library: '@ux-aspects/ux-aspects',
+            },
+        ],
     };
 
     constructor() {
-        super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
+        super(
+            import.meta.webpackContext('./snippets/', {
+                recursive: false,
+                regExp: /\.(html|css|js|ts)$/,
+            })
+        );
     }
-
 }

@@ -7,17 +7,20 @@ import { playgroundAdapter } from '../../../../../services/playground/adapters/l
 
 @Component({
     selector: 'uxd-css-tables-tables',
-    templateUrl: './tables.component.html'
+    templateUrl: './tables.component.html',
 })
 @DocumentationSectionComponent('CssTablesComponent')
 export class CssTablesComponent extends BaseDocumentationSection implements IPlaygroundProvider {
-
     playground: IPlayground = playgroundAdapter({
-        html: this.snippets.raw.sampleHtml
+        html: this.snippets.raw.sampleHtml,
     });
 
     constructor() {
-        super(require.context('./snippets/', false, /(html|css|js|ts)$/));
+        super(
+            import.meta.webpackContext('./snippets/', {
+                recursive: false,
+                regExp: /\.(html|css|js|ts)$/,
+            })
+        );
     }
-
 }

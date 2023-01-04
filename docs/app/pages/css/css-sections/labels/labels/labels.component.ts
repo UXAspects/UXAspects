@@ -7,16 +7,20 @@ import { playgroundAdapter } from '../../../../../services/playground/adapters/l
 
 @Component({
     selector: 'uxd-css-labels-labels',
-    templateUrl: './labels.component.html'
+    templateUrl: './labels.component.html',
 })
 @DocumentationSectionComponent('CssLabelsComponent')
 export class CssLabelsComponent extends BaseDocumentationSection implements IPlaygroundProvider {
-
     playground: IPlayground = playgroundAdapter({
-        html: this.snippets.raw.codeExampleHtml
+        html: this.snippets.raw.codeExampleHtml,
     });
 
     constructor() {
-        super(require.context('./snippets/', false, /(html|css|js|ts)$/));
+        super(
+            import.meta.webpackContext('./snippets/', {
+                recursive: false,
+                regExp: /\.(html|css|js|ts)$/,
+            })
+        );
     }
 }

@@ -7,16 +7,25 @@ import { DocumentationSectionComponent } from '../../../../../decorators/documen
 import { IPlayground } from '../../../../../interfaces/IPlayground';
 import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
 
-const DEPARTMENTS = ['Finance', 'Operations', 'Investor Relations', 'Technical', 'Auditing', 'Labs'];
+const DEPARTMENTS = [
+    'Finance',
+    'Operations',
+    'Investor Relations',
+    'Technical',
+    'Auditing',
+    'Labs',
+];
 
 @Component({
     selector: 'uxd-components-virtual-scroll',
     templateUrl: './virtual-scroll.component.html',
-    styleUrls: ['./virtual-scroll.component.less']
+    styleUrls: ['./virtual-scroll.component.less'],
 })
 @DocumentationSectionComponent('ComponentsVirtualScrollComponent')
-export class ComponentsVirtualScrollComponent extends BaseDocumentationSection implements IPlaygroundProvider {
-
+export class ComponentsVirtualScrollComponent
+    extends BaseDocumentationSection
+    implements IPlaygroundProvider
+{
     loadOnScroll: boolean = true;
     employees: Subject<Employee[]> = new Subject<Employee[]>();
     loading = false;
@@ -29,27 +38,31 @@ export class ComponentsVirtualScrollComponent extends BaseDocumentationSection i
         files: {
             'app.component.html': this.snippets.raw.appHtml,
             'app.component.ts': this.snippets.raw.appTs,
-            'app.component.css': this.snippets.raw.appCss
+            'app.component.css': this.snippets.raw.appCss,
         },
         modules: [
             {
                 imports: ['VirtualScrollModule', 'CheckboxModule', 'AccordionModule'],
-                library: '@ux-aspects/ux-aspects'
+                library: '@ux-aspects/ux-aspects',
             },
             {
                 imports: ['A11yModule'],
-                library: '@angular/cdk/a11y'
-            }
-        ]
+                library: '@angular/cdk/a11y',
+            },
+        ],
     };
 
     constructor(private _liveAnnouncer: LiveAnnouncer) {
-        super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
+        super(
+            import.meta.webpackContext('./snippets/', {
+                recursive: false,
+                regExp: /\.(html|css|js|ts)$/,
+            })
+        );
         this.totalItems = this.pageSize * this.totalPages;
     }
 
     loadPage(pageNumber: number): void {
-
         const startIdx = pageNumber * this.pageSize;
         const endIdx = startIdx + this.pageSize;
         const employees: Employee[] = [];
@@ -59,14 +72,13 @@ export class ComponentsVirtualScrollComponent extends BaseDocumentationSection i
 
         // generate sample employee data
         for (let idx = startIdx; idx < endIdx; idx++) {
-
             const name = chance.name();
 
             employees.push({
                 id: idx,
                 name: name,
                 email: name.toLowerCase().replace(' ', '.') + '@business.com',
-                department: chance.pickone(DEPARTMENTS)
+                department: chance.pickone(DEPARTMENTS),
             });
         }
 

@@ -6,11 +6,13 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 
 @Component({
     selector: 'uxd-components-buttons-pagination',
-    templateUrl: './pagination.component.html'
+    templateUrl: './pagination.component.html',
 })
 @DocumentationSectionComponent('ComponentsPaginationComponent')
-export class ComponentsPaginationComponent extends BaseDocumentationSection implements IPlaygroundProvider {
-
+export class ComponentsPaginationComponent
+    extends BaseDocumentationSection
+    implements IPlaygroundProvider
+{
     // Pagination
     currentPage: number = 1;
     totalItems: number = 100;
@@ -21,15 +23,22 @@ export class ComponentsPaginationComponent extends BaseDocumentationSection impl
     playground: IPlayground = {
         files: {
             'app.component.html': this.snippets.raw.appHtml,
-            'app.component.ts': this.snippets.raw.appTs
+            'app.component.ts': this.snippets.raw.appTs,
         },
-        modules: [{
-            library: '@ux-aspects/ux-aspects',
-            imports: ['PaginationModule']
-        }]
+        modules: [
+            {
+                library: '@ux-aspects/ux-aspects',
+                imports: ['PaginationModule'],
+            },
+        ],
     };
 
     constructor() {
-        super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
+        super(
+            import.meta.webpackContext('./snippets/', {
+                recursive: false,
+                regExp: /\.(html|css|js|ts)$/,
+            })
+        );
     }
 }

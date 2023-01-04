@@ -8,11 +8,13 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 @Component({
     selector: 'uxd-components-selection',
     templateUrl: './selection.component.html',
-    styleUrls: ['./selection.component.less']
+    styleUrls: ['./selection.component.less'],
 })
 @DocumentationSectionComponent('ComponentsSelectionComponent')
-export class ComponentsSelectionComponent extends BaseDocumentationSection implements IPlaygroundProvider {
-
+export class ComponentsSelectionComponent
+    extends BaseDocumentationSection
+    implements IPlaygroundProvider
+{
     data: TableData[] = [];
     selection: TableData[] = [];
     mode: string = 'simple';
@@ -25,17 +27,32 @@ export class ComponentsSelectionComponent extends BaseDocumentationSection imple
         },
         modules: [
             {
-                imports: ['SelectionModule', 'CheckboxModule', 'RadioButtonModule', 'AccordionModule'],
-                library: '@ux-aspects/ux-aspects'
-            }
-        ]
+                imports: [
+                    'SelectionModule',
+                    'CheckboxModule',
+                    'RadioButtonModule',
+                    'AccordionModule',
+                ],
+                library: '@ux-aspects/ux-aspects',
+            },
+        ],
     };
 
     constructor() {
-        super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
+        super(
+            import.meta.webpackContext('./snippets/', {
+                recursive: false,
+                regExp: /\.(html|css|js|ts)$/,
+            })
+        );
 
         for (let idx = 0; idx < 8; idx++) {
-            this.data.push({ name: `Document ${idx + 1}`, author: chance.name(), date: chance.date(), selected: false });
+            this.data.push({
+                name: `Document ${idx + 1}`,
+                author: chance.name(),
+                date: chance.date(),
+                selected: false,
+            });
         }
     }
 }

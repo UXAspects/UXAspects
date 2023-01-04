@@ -63,7 +63,12 @@ export class ChartsTimelineChartComponent
     timelineChartOptions: ChartOptions & TimelineChartOptions;
 
     constructor(private _dataService: TimelineChartService, private _colorService: ColorService) {
-        super(require.context('./snippets/', false, /(html|css|js|ts)$/));
+        super(
+            import.meta.webpackContext('./snippets/', {
+                recursive: false,
+                regExp: /\.(html|css|js|ts)$/,
+            })
+        );
 
         this.lineChartData = [
             {

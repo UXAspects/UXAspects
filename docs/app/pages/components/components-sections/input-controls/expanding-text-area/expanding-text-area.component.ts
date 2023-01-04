@@ -8,11 +8,13 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
     selector: 'uxd-expanding-text-area',
     templateUrl: './expanding-text-area.component.html',
     styleUrls: ['./expanding-text-area.component.less'],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 @DocumentationSectionComponent('ComponentsExpandingTextAreaComponent')
-export class ComponentsExpandingTextAreaComponent extends BaseDocumentationSection implements IPlaygroundProvider {
-    
+export class ComponentsExpandingTextAreaComponent
+    extends BaseDocumentationSection
+    implements IPlaygroundProvider
+{
     playground: IPlayground = {
         files: {
             'app.component.html': this.snippets.raw.appHtml,
@@ -22,13 +24,17 @@ export class ComponentsExpandingTextAreaComponent extends BaseDocumentationSecti
         modules: [
             {
                 imports: ['AutoGrowModule'],
-                library: '@ux-aspects/ux-aspects'
-            }
-        ]
+                library: '@ux-aspects/ux-aspects',
+            },
+        ],
     };
 
     constructor() {
-        super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
+        super(
+            import.meta.webpackContext('./snippets/', {
+                recursive: false,
+                regExp: /\.(html|css|js|ts)$/,
+            })
+        );
     }
-
 }

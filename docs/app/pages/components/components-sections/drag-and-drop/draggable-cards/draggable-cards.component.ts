@@ -10,44 +10,46 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 @Component({
     selector: 'uxd-draggable-cards',
     templateUrl: './draggable-cards.component.html',
-    styleUrls: ['./draggable-cards.component.less']
+    styleUrls: ['./draggable-cards.component.less'],
 })
 @DocumentationSectionComponent('ComponentsDraggableCardsComponent')
-export class ComponentsDraggableCardsComponent extends BaseDocumentationSection implements IPlaygroundProvider {
-
+export class ComponentsDraggableCardsComponent
+    extends BaseDocumentationSection
+    implements IPlaygroundProvider
+{
     colors = [
         this._colorService.getColor('accent').toRgb(),
         this._colorService.getColor('accent').setAlpha(0.5).toRgba(),
-        this._colorService.getColor('grey5').toRgb()
+        this._colorService.getColor('grey5').toRgb(),
     ];
 
     options: ChartOptions<'doughnut'> = {
         animation: {
-            duration: 0
+            duration: 0,
         },
         cutout: 20,
         elements: {
             arc: {
-                borderWidth: 0
-            }
+                borderWidth: 0,
+            },
         },
         plugins: {
             tooltip: {
-                enabled: false
-            }
+                enabled: false,
+            },
         },
-        responsive: false
+        responsive: false,
     };
 
     fixedCards: FixedCard[] = [
         {
             title: 'All',
-            count: 8
+            count: 8,
         },
         {
             title: 'No Category',
-            count: 2
-        }
+            count: 2,
+        },
     ];
 
     draggableCards: DraggableCard[] = [
@@ -58,11 +60,13 @@ export class ComponentsDraggableCardsComponent extends BaseDocumentationSection 
             description: 'NYC Preliminary Production 1 created from the protected items.',
             chart: {
                 count: 13.2,
-                segments: [{
-                    data: [45, 25, 30],
-                    backgroundColor: this.colors
-                }]
-            }
+                segments: [
+                    {
+                        data: [45, 25, 30],
+                        backgroundColor: this.colors,
+                    },
+                ],
+            },
         },
         {
             title: 'Privileged',
@@ -71,11 +75,13 @@ export class ComponentsDraggableCardsComponent extends BaseDocumentationSection 
             description: 'NYC Production 2 created as a follow up to Production 1.',
             chart: {
                 count: 6.5,
-                segments: [{
-                    data: [10, 5, 85],
-                    backgroundColor: this.colors
-                }]
-            }
+                segments: [
+                    {
+                        data: [10, 5, 85],
+                        backgroundColor: this.colors,
+                    },
+                ],
+            },
         },
         {
             title: 'Relevant',
@@ -84,11 +90,13 @@ export class ComponentsDraggableCardsComponent extends BaseDocumentationSection 
             description: 'NYC Production 3 Lorem ipsum dolor sit amet, consectetur…',
             chart: {
                 count: 33.2,
-                segments: [{
-                    data: [60, 15, 25],
-                    backgroundColor: this.colors
-                }]
-            }
+                segments: [
+                    {
+                        data: [60, 15, 25],
+                        backgroundColor: this.colors,
+                    },
+                ],
+            },
         },
         {
             title: 'Proprietary',
@@ -97,11 +105,13 @@ export class ComponentsDraggableCardsComponent extends BaseDocumentationSection 
             description: 'NYC Production 4 Lorem ipsum dolor sit amet, consectetur…',
             chart: {
                 count: 5.4,
-                segments: [{
-                    data: [10, 5, 85],
-                    backgroundColor: this.colors
-                }]
-            }
+                segments: [
+                    {
+                        data: [10, 5, 85],
+                        backgroundColor: this.colors,
+                    },
+                ],
+            },
         },
         {
             title: 'Reviewed',
@@ -110,12 +120,14 @@ export class ComponentsDraggableCardsComponent extends BaseDocumentationSection 
             description: 'NYC Production 3 Lorem ipsum dolor sit amet, consectetur…',
             chart: {
                 count: 33.2,
-                segments: [{
-                    data: [60, 10, 30],
-                    backgroundColor: this.colors
-                }]
-            }
-        }
+                segments: [
+                    {
+                        data: [60, 10, 30],
+                        backgroundColor: this.colors,
+                    },
+                ],
+            },
+        },
     ];
 
     active: FixedCard | DraggableCard = this.draggableCards[0];
@@ -129,23 +141,28 @@ export class ComponentsDraggableCardsComponent extends BaseDocumentationSection 
         modules: [
             {
                 imports: ['ReorderableModule'],
-                library: '@ux-aspects/ux-aspects'
+                library: '@ux-aspects/ux-aspects',
             },
             {
                 imports: ['NgChartsModule'],
-                library: 'ng2-charts'
+                library: 'ng2-charts',
             },
             {
                 imports: ['A11yModule'],
-                library: '@angular/cdk/a11y'
-            }
-        ]
+                library: '@angular/cdk/a11y',
+            },
+        ],
     };
 
     @ViewChildren('draggableCard') cards?: QueryList<ElementRef>;
 
     constructor(private _colorService: ColorService, private _liveAnnouncer: LiveAnnouncer) {
-        super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
+        super(
+            import.meta.webpackContext('./snippets/', {
+                recursive: false,
+                regExp: /\.(html|css|js|ts)$/,
+            })
+        );
     }
 
     remove(card: DraggableCard, tabbableList: TabbableListDirective): void {
@@ -157,17 +174,19 @@ export class ComponentsDraggableCardsComponent extends BaseDocumentationSection 
 
         // we want to focus the previous card
         if (tabbableList.focusKeyManager && tabbableList.focusKeyManager.activeItemIndex != null) {
-
             if (tabbableList.focusKeyManager.activeItemIndex > 0) {
-                tabbableList.focusKeyManager.setActiveItem(tabbableList.focusKeyManager.activeItemIndex - 1);
+                tabbableList.focusKeyManager.setActiveItem(
+                    tabbableList.focusKeyManager.activeItemIndex - 1
+                );
             } else {
-                tabbableList.focusKeyManager.setActiveItem(tabbableList.focusKeyManager.activeItemIndex + 1);
+                tabbableList.focusKeyManager.setActiveItem(
+                    tabbableList.focusKeyManager.activeItemIndex + 1
+                );
             }
         }
     }
 
     move(card: DraggableCard, delta: number): void {
-
         // perform the move
         const index = this.draggableCards.indexOf(card);
         this.swap(index, index + delta);
@@ -188,7 +207,6 @@ export class ComponentsDraggableCardsComponent extends BaseDocumentationSection 
     }
 
     private swap(source: number, target: number): void {
-
         // perform boundary checks
         if (target < 0 || target > this.draggableCards.length - 1) {
             return;

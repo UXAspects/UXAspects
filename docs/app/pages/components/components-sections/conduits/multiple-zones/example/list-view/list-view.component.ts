@@ -6,7 +6,7 @@ import { BehaviorSubject, Subscription } from 'rxjs';
 @Component({
     selector: 'uxd-components-conduit-list-view',
     templateUrl: './list-view.component.html',
-    providers: [ConduitZone]
+    providers: [ConduitZone],
 })
 export class ComponentsConduitListViewComponent extends ConduitZoneComponent implements OnDestroy {
     zoneId: string = 'list-zone';
@@ -23,14 +23,14 @@ export class ComponentsConduitListViewComponent extends ConduitZoneComponent imp
     private _documents: ConduitListItem[] = [];
     private _subscription: Subscription;
 
-    constructor(zone: ConduitZone) {
-        super(zone);
+    constructor() {
+        super();
 
         for (let index = 0; index < 10; index++) {
             this._documents.push({
                 document: `Document ${index}`,
                 author: chance.name(),
-                date: chance.date({ year: chance.integer({ min: 2015, max: 2018 }) }) as Date
+                date: chance.date({ year: chance.integer({ min: 2015, max: 2018 }) }) as Date,
             });
         }
 
@@ -43,11 +43,12 @@ export class ComponentsConduitListViewComponent extends ConduitZoneComponent imp
     }
 
     filterItems(value: string = ''): void {
-        this.documents = this._documents.filter(_document =>
-            _document.document.toLowerCase().indexOf(value.toLowerCase()) !== -1 ||
-            _document.author.toLowerCase().indexOf(value.toLowerCase()) !== -1);
+        this.documents = this._documents.filter(
+            _document =>
+                _document.document.toLowerCase().indexOf(value.toLowerCase()) !== -1 ||
+                _document.author.toLowerCase().indexOf(value.toLowerCase()) !== -1
+        );
     }
-
 }
 
 interface ConduitListItem {

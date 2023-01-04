@@ -7,30 +7,38 @@ import { DocumentationType, DOCUMENTATION_TOKEN } from '../../../../../tokens/do
 
 @Component({
     selector: 'uxd-components-buttons-split-button-dropdowns',
-    templateUrl: './split-button-dropdowns.component.html'
+    templateUrl: './split-button-dropdowns.component.html',
 })
 @DocumentationSectionComponent('ComponentsSplitButtonDropdownsComponent')
-export class ComponentsSplitButtonDropdownsComponent extends BaseDocumentationSection implements IPlaygroundProvider {
+export class ComponentsSplitButtonDropdownsComponent
+    extends BaseDocumentationSection
+    implements IPlaygroundProvider
+{
     playground: IPlayground = {
         files: {
             'app.component.html':
                 this._documentationType === DocumentationType.MicroFocus
                     ? this.snippets.raw.appMicrofocusHtml
                     : this.snippets.raw.appHtml,
-            'app.component.ts': this.snippets.raw.appTs
+            'app.component.ts': this.snippets.raw.appTs,
         },
         modules: [
             {
                 imports: ['MenuModule'],
-                library: '@ux-aspects/ux-aspects'
-            }
-        ]
+                library: '@ux-aspects/ux-aspects',
+            },
+        ],
     };
 
     toggleIcon = this._documentationType === DocumentationType.MicroFocus ? 'chevron-down' : 'down';
 
     constructor(@Inject(DOCUMENTATION_TOKEN) private _documentationType: DocumentationType) {
-        super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
+        super(
+            import.meta.webpackContext('./snippets/', {
+                recursive: false,
+                regExp: /\.(html|css|js|ts)$/,
+            })
+        );
 
         this.snippets.compiled.appHtml =
             this._documentationType === DocumentationType.MicroFocus

@@ -7,27 +7,29 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 
 @Component({
     selector: 'uxd-components-page-header',
-    templateUrl: './page-header.component.html'
+    templateUrl: './page-header.component.html',
 })
 @DocumentationSectionComponent('ComponentsPageHeaderComponent')
-export class ComponentsPageHeaderComponent extends BaseDocumentationSection implements IPlaygroundProvider {
-
+export class ComponentsPageHeaderComponent
+    extends BaseDocumentationSection
+    implements IPlaygroundProvider
+{
     playground: IPlayground = {
         files: {
             'app.component.html': this.snippets.raw.appHtml,
-            'app.component.ts': this.snippets.raw.appTs
+            'app.component.ts': this.snippets.raw.appTs,
         },
         modules: [
             {
                 imports: ['PageHeaderModule'],
-                library: '@ux-aspects/ux-aspects'
+                library: '@ux-aspects/ux-aspects',
             },
             {
                 imports: ['RouterModule'],
                 library: '@angular/router',
-                providers: ['RouterModule.forRoot([])']
-            }
-        ]
+                providers: ['RouterModule.forRoot([])'],
+            },
+        ],
     };
 
     condensed: boolean = false;
@@ -35,42 +37,42 @@ export class ComponentsPageHeaderComponent extends BaseDocumentationSection impl
     crumbs: Breadcrumb[] = [
         {
             title: 'Archive',
-            onClick: () => { }
+            onClick: () => {},
         },
         {
             title: '2017',
-            onClick: () => { }
-        }
+            onClick: () => {},
+        },
     ];
 
     items: PageHeaderNavigationItem[] = [
         {
             icon: 'home',
-            title: 'Home'
+            title: 'Home',
         },
         {
             icon: 'analytics',
             title: 'Analytics',
             children: [
                 {
-                    title: 'Bar Charts'
+                    title: 'Bar Charts',
                 },
                 {
                     title: 'Pie Charts',
                     children: [
                         {
-                            title: 'Daily View'
+                            title: 'Daily View',
                         },
                         {
-                            title: 'Weekly View'
+                            title: 'Weekly View',
                         },
                         {
-                            title: 'Monthly View'
-                        }
-                    ]
-                }
-            ]
-        }
+                            title: 'Monthly View',
+                        },
+                    ],
+                },
+            ],
+        },
     ];
 
     iconMenus: PageHeaderIconMenu[] = [
@@ -83,20 +85,20 @@ export class ComponentsPageHeaderComponent extends BaseDocumentationSection impl
                     icon: 'chat',
                     title: 'You have 16 messages',
                     subtitle: '4 minutes ago',
-                    divider: true
+                    divider: true,
                 },
                 {
                     icon: 'social-twitter',
                     title: '3 New Followers',
                     subtitle: '12 minutes ago',
-                    divider: true
+                    divider: true,
                 },
                 {
                     icon: 'cloud',
                     title: 'Server Rebooted',
-                    subtitle: '22 minutes ago'
-                }
-            ]
+                    subtitle: '22 minutes ago',
+                },
+            ],
         },
         {
             icon: 'actions',
@@ -105,24 +107,29 @@ export class ComponentsPageHeaderComponent extends BaseDocumentationSection impl
                 {
                     header: true,
                     title: 'John Doe',
-                    divider: true
+                    divider: true,
                 },
                 {
                     icon: 'user-settings',
-                    title: 'Settings'
+                    title: 'Settings',
                 },
                 {
                     icon: 'logout',
-                    title: 'Log Out'
+                    title: 'Log Out',
                 },
                 {
-                    title: 'Show Tips'
-                }
-            ]
-        }
+                    title: 'Show Tips',
+                },
+            ],
+        },
     ];
 
     constructor() {
-        super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
+        super(
+            import.meta.webpackContext('./snippets/', {
+                recursive: false,
+                regExp: /\.(html|css|js|ts)$/,
+            })
+        );
     }
 }

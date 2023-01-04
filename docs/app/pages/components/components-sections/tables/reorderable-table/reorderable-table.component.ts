@@ -1,4 +1,10 @@
-import { ChangeDetectionStrategy, Component, ElementRef, QueryList, ViewChildren } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    Component,
+    ElementRef,
+    QueryList,
+    ViewChildren,
+} from '@angular/core';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
@@ -8,11 +14,13 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
     selector: 'uxd-components-reorderable-table',
     templateUrl: './reorderable-table.component.html',
     styleUrls: ['./reorderable-table.component.less'],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 @DocumentationSectionComponent('ComponentsReorderableTableComponent')
-export class ComponentsReorderableTableComponent extends BaseDocumentationSection implements IPlaygroundProvider {
-
+export class ComponentsReorderableTableComponent
+    extends BaseDocumentationSection
+    implements IPlaygroundProvider
+{
     data: ReorderableTableData[] = [];
 
     playground: IPlayground = {
@@ -24,15 +32,20 @@ export class ComponentsReorderableTableComponent extends BaseDocumentationSectio
         modules: [
             {
                 imports: ['ReorderableModule', 'SparkModule'],
-                library: '@ux-aspects/ux-aspects'
-            }
-        ]
+                library: '@ux-aspects/ux-aspects',
+            },
+        ],
     };
 
     @ViewChildren('row') rows: QueryList<ElementRef>;
 
     constructor() {
-        super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
+        super(
+            import.meta.webpackContext('./snippets/', {
+                recursive: false,
+                regExp: /\.(html|css|js|ts)$/,
+            })
+        );
 
         for (let idx = 0; idx < 10; idx++) {
             this.data.push({
@@ -40,7 +53,7 @@ export class ComponentsReorderableTableComponent extends BaseDocumentationSectio
                 author: chance.name(),
                 date: chance.date({ year: 2018 }) as Date,
                 completed: chance.integer({ min: 10, max: 100 }),
-                active: chance.bool()
+                active: chance.bool(),
             });
         }
     }
