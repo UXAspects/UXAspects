@@ -7,23 +7,30 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 @Component({
     selector: 'uxd-floating-action-button',
     templateUrl: './floating-action-button.component.html',
-    styleUrls: ['./floating-action-button.component.less']
+    styleUrls: ['./floating-action-button.component.less'],
 })
 @DocumentationSectionComponent('ComponentsFloatingActionButtonComponent')
-export class ComponentsFloatingActionButtonComponent extends BaseDocumentationSection implements IPlaygroundProvider {
-
+export class ComponentsFloatingActionButtonComponent
+    extends BaseDocumentationSection
+    implements IPlaygroundProvider
+{
     playground: IPlayground = {
         files: {
             'app.component.ts': this.snippets.raw.appTs,
             'app.component.html': this.snippets.raw.appHtml,
-            'app.component.css': this.snippets.raw.appCss
+            'app.component.css': this.snippets.raw.appCss,
         },
         modules: [
             {
-                imports: ['FloatingActionButtonsModule', 'RadioButtonModule', 'TooltipModule', 'AccordionModule'],
-                library: '@ux-aspects/ux-aspects'
-            }
-        ]
+                imports: [
+                    'FloatingActionButtonsModule',
+                    'RadioButtonModule',
+                    'TooltipModule',
+                    'AccordionModule',
+                ],
+                library: '@ux-aspects/ux-aspects',
+            },
+        ],
     };
 
     direction: string = 'right';
@@ -33,6 +40,11 @@ export class ComponentsFloatingActionButtonComponent extends BaseDocumentationSe
     }
 
     constructor() {
-        super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
+        super(
+            import.meta.webpackContext('./snippets/', {
+                recursive: false,
+                regExp: /\.(html|css|js|ts)$/,
+            })
+        );
     }
 }

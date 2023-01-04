@@ -8,26 +8,35 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 
 @Component({
     selector: 'uxd-components-facet-check-list',
-    templateUrl: './facet-check-list.component.html'
+    templateUrl: './facet-check-list.component.html',
 })
 @DocumentationSectionComponent('ComponentsFacetCheckListComponent')
-export class ComponentsFacetCheckListComponent extends BaseDocumentationSection implements IPlaygroundProvider {
-
+export class ComponentsFacetCheckListComponent
+    extends BaseDocumentationSection
+    implements IPlaygroundProvider
+{
     facets: Facet[] = [];
 
     playground: IPlayground = {
         files: {
             'app.component.ts': this.snippets.raw.appTs,
-            'app.component.html': this.snippets.raw.appHtml
+            'app.component.html': this.snippets.raw.appHtml,
         },
-        modules: [{
-            imports: ['FacetsModule'],
-            library: '@ux-aspects/ux-aspects'
-        }]
+        modules: [
+            {
+                imports: ['FacetsModule'],
+                library: '@ux-aspects/ux-aspects',
+            },
+        ],
     };
 
     constructor() {
-        super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
+        super(
+            import.meta.webpackContext('./snippets/', {
+                recursive: false,
+                regExp: /\.(html|css|js|ts)$/,
+            })
+        );
 
         // generate some facets
         for (let idx = 0; idx < 30; idx++) {

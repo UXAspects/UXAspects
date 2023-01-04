@@ -8,11 +8,13 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
     selector: 'uxd-components-focus',
     templateUrl: './focus.component.html',
     styleUrls: ['./focus.component.less'],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 @DocumentationSectionComponent('ComponentsFocusComponent')
-export class ComponentsFocusComponent extends BaseDocumentationSection implements IPlaygroundProvider {
-
+export class ComponentsFocusComponent
+    extends BaseDocumentationSection
+    implements IPlaygroundProvider
+{
     focus: boolean = false;
 
     playground: IPlayground = {
@@ -20,10 +22,15 @@ export class ComponentsFocusComponent extends BaseDocumentationSection implement
             'app.component.html': this.snippets.raw.appHtml,
             'app.component.ts': this.snippets.raw.appTs,
             'app.component.css': this.snippets.raw.appCss,
-        }
+        },
     };
 
     constructor() {
-        super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
+        super(
+            import.meta.webpackContext('./snippets/', {
+                recursive: false,
+                regExp: /\.(html|css|js|ts)$/,
+            })
+        );
     }
 }

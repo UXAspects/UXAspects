@@ -13,25 +13,29 @@ import { MultipleAxisLineChartService } from './multiple-axis-line-chart.service
     templateUrl: './multiple-axis-line-chart.component.html',
     styleUrls: ['./multiple-axis-line-chart.component.less'],
     encapsulation: ViewEncapsulation.None,
-    providers: [MultipleAxisLineChartService]
+    providers: [MultipleAxisLineChartService],
 })
 @DocumentationSectionComponent('ChartsMultipleAxisLineChartComponent')
-export class ChartsMultipleAxisLineChartComponent extends BaseDocumentationSection implements IPlaygroundProvider {
-
+export class ChartsMultipleAxisLineChartComponent
+    extends BaseDocumentationSection
+    implements IPlaygroundProvider
+{
     playground: IPlayground = {
         files: {
             'app.component.ts': this.snippets.raw.lineChartTs,
             'app.component.html': this.snippets.raw.lineChartHtml,
             'app.component.css': this.snippets.raw.lineChartCss,
-            'data.service.ts': this.snippets.raw.dataServiceTs
+            'data.service.ts': this.snippets.raw.dataServiceTs,
         },
-        modules: [{
-            library: 'chart.js'
-        },
-        {
-            imports: ['NgChartsModule'],
-            library: 'ng2-charts'
-        }]
+        modules: [
+            {
+                library: 'chart.js',
+            },
+            {
+                imports: ['NgChartsModule'],
+                library: 'ng2-charts',
+            },
+        ],
     };
 
     // configure the directive data
@@ -39,61 +43,60 @@ export class ChartsMultipleAxisLineChartComponent extends BaseDocumentationSecti
     lineChartOptions: ChartOptions<'line'>;
     lineChartPlugins: any;
 
-    constructor(private sanitizer: DomSanitizer, colorService: ColorService, dataService: MultipleAxisLineChartService) {
-        super(require.context('./snippets/', false, /(html|css|js|ts)$/));
+    constructor(
+        private sanitizer: DomSanitizer,
+        colorService: ColorService,
+        dataService: MultipleAxisLineChartService
+    ) {
+        super(
+            import.meta.webpackContext('./snippets/', {
+                recursive: false,
+                regExp: /\.(html|css|js|ts)$/,
+            })
+        );
 
         const tooltipBackgroundColor = colorService.getColor('grey2').toHex();
         const gridColor = colorService.getColor('grey6').toHex();
 
         const lineBorderColor1 = colorService.getColor('chart1').toRgb();
-        const lineFillColor1 = colorService
-            .getColor('chart1')
-            .setAlpha(0.1)
-            .toRgba();
-        const pointBorderColor1 = colorService
-            .getColor('chart1')
-            .setAlpha(0.5)
-            .toRgba();
+        const lineFillColor1 = colorService.getColor('chart1').setAlpha(0.1).toRgba();
+        const pointBorderColor1 = colorService.getColor('chart1').setAlpha(0.5).toRgba();
 
         const lineBorderColor2 = colorService.getColor('chart2').toRgb();
-        const lineFillColor2 = colorService
-            .getColor('chart2')
-            .setAlpha(0.1)
-            .toRgba();
-        const pointBorderColor2 = colorService
-            .getColor('chart2')
-            .setAlpha(0.5)
-            .toRgba();
+        const lineFillColor2 = colorService.getColor('chart2').setAlpha(0.1).toRgba();
+        const pointBorderColor2 = colorService.getColor('chart2').setAlpha(0.5).toRgba();
 
         const oilPrices = dataService.getOilPrices().map((values: number[]) => {
             return {
                 x: values[0],
-                y: values[1]
+                y: values[1],
             };
         });
 
         const exchangeRates = dataService.getExchangeRates().map((values: number[]) => {
             return {
                 x: values[0],
-                y: values[1]
+                y: values[1],
             };
         });
 
-        this.lineChartPlugins = [{
-            beforeInit(chart: Chart) {
-                const sets = chart.data.datasets.map((dataset: ChartDataset) => {
-                    return `<li class="multi-axis-legend-list-item">
-                                <span class="multi-axis-legend-box" style="background-color: ${
-                                    dataset.backgroundColor
-                                }; border-color: ${dataset.borderColor}"></span>
+        this.lineChartPlugins = [
+            {
+                beforeInit(chart: Chart) {
+                    const sets = chart.data.datasets.map((dataset: ChartDataset) => {
+                        return `<li class="multi-axis-legend-list-item">
+                                <span class="multi-axis-legend-box" style="background-color: ${dataset.backgroundColor}; border-color: ${dataset.borderColor}"></span>
                                 <span class="multi-axis-legend-text">${dataset.label}</span>
                             </li>`;
-                });
+                    });
 
-                // create html for chart legend
-                return document.getElementById('legend-id')!.innerHTML = `<ul class="multi-axis-legend-list">${sets.join('')}</ul>`;
-            }
-        }];
+                    // create html for chart legend
+                    return (document.getElementById(
+                        'legend-id'
+                    )!.innerHTML = `<ul class="multi-axis-legend-list">${sets.join('')}</ul>`);
+                },
+            },
+        ];
 
         this.lineChartData = [
             {
@@ -109,7 +112,7 @@ export class ChartsMultipleAxisLineChartComponent extends BaseDocumentationSecti
                 pointHoverBorderWidth: 3,
                 pointHoverRadius: 5,
                 pointHitRadius: 5,
-                fill: 'origin'
+                fill: 'origin',
             },
             {
                 label: 'USD/EUR exchange rate',
@@ -124,8 +127,8 @@ export class ChartsMultipleAxisLineChartComponent extends BaseDocumentationSecti
                 pointHoverBorderWidth: 3,
                 pointHoverRadius: 5,
                 pointHitRadius: 5,
-                fill: 'origin'
-            }
+                fill: 'origin',
+            },
         ];
 
         this.lineChartOptions = {
@@ -133,11 +136,11 @@ export class ChartsMultipleAxisLineChartComponent extends BaseDocumentationSecti
             responsive: true,
             elements: {
                 line: {
-                    tension: 0
-                }
+                    tension: 0,
+                },
             },
             hover: {
-                mode: 'nearest'
+                mode: 'nearest',
             },
             scales: {
                 x: {
@@ -154,19 +157,19 @@ export class ChartsMultipleAxisLineChartComponent extends BaseDocumentationSecti
                                 ' ' +
                                 date.toLocaleString('en', { year: 'numeric' })
                             );
-                        }
-                    }
+                        },
+                    },
                 },
                 y: {
                     position: 'left',
                     min: 0,
                     max: 150,
                     ticks: {
-                        stepSize: 50
+                        stepSize: 50,
                     },
                     grid: {
-                        color: gridColor
-                    }
+                        color: gridColor,
+                    },
                 },
                 y1: {
                     position: 'right',
@@ -176,12 +179,12 @@ export class ChartsMultipleAxisLineChartComponent extends BaseDocumentationSecti
                         stepSize: 0.79 / 3,
                         callback(value: string | number) {
                             return (value as number).toFixed(2) + '€';
-                        }
+                        },
                     },
                     grid: {
-                        display: false
-                    }
-                }
+                        display: false,
+                    },
+                },
             },
             plugins: {
                 legend: {
@@ -200,11 +203,11 @@ export class ChartsMultipleAxisLineChartComponent extends BaseDocumentationSecti
                             } else {
                                 return `Oil price ($) ${date} was ${item.formattedValue}`;
                             }
-                        }
+                        },
                     },
-                    displayColors: false
+                    displayColors: false,
                 },
-            }
+            },
         };
     }
 

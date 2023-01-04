@@ -7,32 +7,36 @@ import { TreeViewService } from './tree-view-custom-node.service';
 @Component({
     selector: 'uxd-components-tree-view-custom-node',
     templateUrl: './tree-view-custom-node.component.html',
-    styleUrls: ['./tree-view-custom-node.component.less']
+    styleUrls: ['./tree-view-custom-node.component.less'],
 })
 @DocumentationSectionComponent('ComponentsTreeViewCustomNodeComponent')
 export class ComponentsTreeViewCustomNodeComponent extends BaseDocumentationSection {
-
     nodes: TreeViewExampleNode[] = [
         {
             name: 'Documents',
             hasChildren: true,
-            source: this._treeViewService.getDocuments
+            source: this._treeViewService.getDocuments,
         },
         {
             name: 'Pictures',
             hasChildren: true,
-            source: this._treeViewService.getPictures
-        }
+            source: this._treeViewService.getPictures,
+        },
     ];
 
     options = {
-        getChildren: (node: TreeNode) => node.data.source ? node.data.source() : [],
+        getChildren: (node: TreeNode) => (node.data.source ? node.data.source() : []),
     };
 
     focused: TreeNode;
 
     constructor(private _treeViewService: TreeViewService) {
-        super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
+        super(
+            import.meta.webpackContext('./snippets/', {
+                recursive: false,
+                regExp: /\.(html|css|js|ts)$/,
+            })
+        );
     }
 
     /**
@@ -40,9 +44,8 @@ export class ComponentsTreeViewCustomNodeComponent extends BaseDocumentationSect
      * and the state of all parent nodes should also be updated (if there are any).
      */
     setChecked(node: TreeNode, checked: boolean = node.data.checked, event?: KeyboardEvent) {
-
         // if the value of the node has not changed then do nothing - or if triggered by keyboard only react when spacebar is pressed
-        if (node.data.checked === checked || event && event.keyCode !== 32) {
+        if (node.data.checked === checked || (event && event.keyCode !== 32)) {
             return;
         }
 
@@ -64,7 +67,7 @@ export class ComponentsTreeViewCustomNodeComponent extends BaseDocumentationSect
         node.data.checked = checked;
 
         if (node.children) {
-            node.children.forEach((child) => this.setChildrenState(child, checked));
+            node.children.forEach(child => this.setChildrenState(child, checked));
         }
     }
 
@@ -75,7 +78,6 @@ export class ComponentsTreeViewCustomNodeComponent extends BaseDocumentationSect
      * If some nodes are checked then the checkbox should show an indeterminate state
      */
     setParentNodeState(node: TreeNode) {
-
         if (!node) {
             return;
         }

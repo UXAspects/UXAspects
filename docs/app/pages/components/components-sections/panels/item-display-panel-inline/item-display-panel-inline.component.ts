@@ -8,11 +8,13 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 @Component({
     selector: 'uxd-item-display-panel-inline-component',
     templateUrl: './item-display-panel-inline.component.html',
-    styleUrls: ['./item-display-panel-inline.component.less']
+    styleUrls: ['./item-display-panel-inline.component.less'],
 })
 @DocumentationSectionComponent('ComponentsItemDisplayPanelInlineComponent')
-export class ComponentsItemDisplayPanelInlineComponent extends BaseDocumentationSection implements IPlaygroundProvider {
-
+export class ComponentsItemDisplayPanelInlineComponent
+    extends BaseDocumentationSection
+    implements IPlaygroundProvider
+{
     visible: boolean = false;
     items: DisplayPanelItem[] = [];
     selected: DisplayPanelItem;
@@ -21,19 +23,25 @@ export class ComponentsItemDisplayPanelInlineComponent extends BaseDocumentation
         files: {
             'app.component.ts': this.snippets.raw.appTs,
             'app.component.html': this.snippets.raw.appHtml,
-            'app.component.css': this.snippets.raw.appCss
+            'app.component.css': this.snippets.raw.appCss,
         },
-        modules: [{
-            imports: ['ItemDisplayPanelModule', 'SparkModule'],
-            library: '@ux-aspects/ux-aspects'
-        }]
+        modules: [
+            {
+                imports: ['ItemDisplayPanelModule', 'SparkModule'],
+                library: '@ux-aspects/ux-aspects',
+            },
+        ],
     };
 
     constructor() {
-        super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
+        super(
+            import.meta.webpackContext('./snippets/', {
+                recursive: false,
+                regExp: /\.(html|css|js|ts)$/,
+            })
+        );
 
         for (let idx = 0; idx < 20; idx++) {
-
             const extension = chance.pickone(['ppt', 'doc', 'pdf']);
 
             const item: DisplayPanelItem = {
@@ -45,8 +53,8 @@ export class ComponentsItemDisplayPanelInlineComponent extends BaseDocumentation
                 active: chance.bool(),
                 panel: {
                     title: `Site Detail - UX Aspects (${extension.toUpperCase()})`,
-                    content: chance.paragraph()
-                }
+                    content: chance.paragraph(),
+                },
             };
 
             this.items.push(item);

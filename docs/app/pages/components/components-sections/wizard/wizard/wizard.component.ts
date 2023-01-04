@@ -7,30 +7,32 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 
 @Component({
     selector: 'uxd-components-wizard',
-    templateUrl: './wizard.component.html'
+    templateUrl: './wizard.component.html',
 })
 @DocumentationSectionComponent('ComponentsWizardComponent')
-export class ComponentsWizardComponent extends BaseDocumentationSection implements IPlaygroundProvider {
-
+export class ComponentsWizardComponent
+    extends BaseDocumentationSection
+    implements IPlaygroundProvider
+{
     orientation: string = 'horizontal';
 
     steps: WizardStep[] = [
         {
             header: '1. First Step',
-            content: 'Content of step 1.'
+            content: 'Content of step 1.',
         },
         {
             header: '2. Second Step',
-            content: 'Content of step 2.'
+            content: 'Content of step 2.',
         },
         {
             header: '3. Third Step',
-            content: 'Content of step 3.'
+            content: 'Content of step 3.',
         },
         {
             header: '4. Fourth Step',
-            content: 'Content of step 4.'
-        }
+            content: 'Content of step 4.',
+        },
     ];
 
     playground: IPlayground = {
@@ -41,17 +43,22 @@ export class ComponentsWizardComponent extends BaseDocumentationSection implemen
         modules: [
             {
                 library: '@ux-aspects/ux-aspects',
-                imports: ['RadioButtonModule', 'WizardModule', 'AccordionModule']
+                imports: ['RadioButtonModule', 'WizardModule', 'AccordionModule'],
             },
             {
                 imports: ['A11yModule'],
-                library: '@angular/cdk/a11y'
-            }
-        ]
+                library: '@angular/cdk/a11y',
+            },
+        ],
     };
 
     constructor(private _announcer: LiveAnnouncer) {
-        super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
+        super(
+            import.meta.webpackContext('./snippets/', {
+                recursive: false,
+                regExp: /\.(html|css|js|ts)$/,
+            })
+        );
     }
 
     onStepChange(index: number): void {

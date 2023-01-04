@@ -8,35 +8,58 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 
 @Component({
     selector: 'uxd-charts-stacked-bar-chart',
-    templateUrl: './stacked-bar-chart.component.html'
+    templateUrl: './stacked-bar-chart.component.html',
 })
 @DocumentationSectionComponent('ChartsStackedBarChartComponent')
-export class ChartsStackedBarChartComponent extends BaseDocumentationSection implements IPlaygroundProvider {
-
+export class ChartsStackedBarChartComponent
+    extends BaseDocumentationSection
+    implements IPlaygroundProvider
+{
     playground: IPlayground = {
         files: {
             'app.component.ts': this.snippets.raw.appTs,
             'app.component.html': this.snippets.raw.appHtml,
-            'app.component.css': this.snippets.raw.appCss
+            'app.component.css': this.snippets.raw.appCss,
         },
-        modules: [{
-            library: 'chart.js'
-        },
-        {
-            imports: ['NgChartsModule'],
-            library: 'ng2-charts'
-        }]
+        modules: [
+            {
+                library: 'chart.js',
+            },
+            {
+                imports: ['NgChartsModule'],
+                library: 'ng2-charts',
+            },
+        ],
     };
 
     // configure the directive data
     barChartData: ChartDataset<'bar'>[];
-    barChartLabels: string[] = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13'];
+    barChartLabels: string[] = [
+        '1',
+        '2',
+        '3',
+        '4',
+        '5',
+        '6',
+        '7',
+        '8',
+        '9',
+        '10',
+        '11',
+        '12',
+        '13',
+    ];
     barChartOptions: ChartOptions<'bar'>;
     barChartLegend: boolean = false;
     barChartColors: any;
 
     constructor(private colorService: ColorService) {
-        super(require.context('./snippets/', false, /(html|css|js|ts)$/));
+        super(
+            import.meta.webpackContext('./snippets/', {
+                recursive: false,
+                regExp: /\.(html|css|js|ts)$/,
+            })
+        );
 
         const tooltipBackgroundColor = colorService.getColor('grey2').toHex();
 
@@ -46,36 +69,36 @@ export class ChartsStackedBarChartComponent extends BaseDocumentationSection imp
                 barPercentage: 0.6,
                 categoryPercentage: 1,
                 backgroundColor: this.generateBarColors('chart1').backgroundColor,
-                hoverBackgroundColor: this.generateBarColors('chart1').hoverBackgroundColor
+                hoverBackgroundColor: this.generateBarColors('chart1').hoverBackgroundColor,
             },
             {
                 data: this.generateRandomData(),
                 barPercentage: 0.6,
                 categoryPercentage: 1,
                 backgroundColor: this.generateBarColors('chart2').backgroundColor,
-                hoverBackgroundColor: this.generateBarColors('chart2').hoverBackgroundColor
+                hoverBackgroundColor: this.generateBarColors('chart2').hoverBackgroundColor,
             },
             {
                 data: this.generateRandomData(),
                 barPercentage: 0.6,
                 categoryPercentage: 1,
                 backgroundColor: this.generateBarColors('chart3').backgroundColor,
-                hoverBackgroundColor: this.generateBarColors('chart3').hoverBackgroundColor
-            }
+                hoverBackgroundColor: this.generateBarColors('chart3').hoverBackgroundColor,
+            },
         ];
 
         this.barChartOptions = {
             maintainAspectRatio: false,
             responsive: true,
             hover: {
-                mode: 'nearest'
+                mode: 'nearest',
             },
             scales: {
                 x: {
                     stacked: true,
                     grid: {
-                        color: 'transparent'
-                    }
+                        color: 'transparent',
+                    },
                 },
                 y: {
                     stacked: true,
@@ -85,9 +108,9 @@ export class ChartsStackedBarChartComponent extends BaseDocumentationSection imp
                         stepSize: 5000,
                         callback: (value: any, index: any, values: any) => {
                             return value + '€';
-                        }
-                    }
-                }
+                        },
+                    },
+                },
             },
             plugins: {
                 tooltip: {
@@ -95,16 +118,16 @@ export class ChartsStackedBarChartComponent extends BaseDocumentationSection imp
                     cornerRadius: 0,
                     callbacks: {
                         title: (item: TooltipItem<'bar'>[]) => `Sales ${item[0].datasetIndex + 1}`,
-                        label: (item: TooltipItem<'bar'>) => `${item.label}€ in cycle ${item.formattedValue}`
+                        label: (item: TooltipItem<'bar'>) =>
+                            `${item.label}€ in cycle ${item.formattedValue}`,
                     },
-                    displayColors: false
-                }
-            }
+                    displayColors: false,
+                },
+            },
         };
     }
 
     generateRandomData(): number[] {
-
         const data: number[] = [];
 
         // generate random data
@@ -116,19 +139,27 @@ export class ChartsStackedBarChartComponent extends BaseDocumentationSection imp
     }
 
     generateBarColors(baseColor: string) {
-
         const backgroundColors = [];
         const hoverColors = [];
 
         for (let idx = 0; idx < 13; idx++) {
-            backgroundColors.push(this.colorService.getColor(baseColor).setAlpha(idx < 10 ? 0.7 : 0.3).toRgba());
-            hoverColors.push(this.colorService.getColor(baseColor).setAlpha(idx < 10 ? 0.8 : 0.4).toRgba());
+            backgroundColors.push(
+                this.colorService
+                    .getColor(baseColor)
+                    .setAlpha(idx < 10 ? 0.7 : 0.3)
+                    .toRgba()
+            );
+            hoverColors.push(
+                this.colorService
+                    .getColor(baseColor)
+                    .setAlpha(idx < 10 ? 0.8 : 0.4)
+                    .toRgba()
+            );
         }
 
         return {
             backgroundColor: backgroundColors,
-            hoverBackgroundColor: hoverColors
+            hoverBackgroundColor: hoverColors,
         };
     }
-
 }

@@ -8,24 +8,28 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 
 @Component({
     selector: 'uxd-charts-bar-chart',
-    templateUrl: './bar-chart.component.html'
+    templateUrl: './bar-chart.component.html',
 })
 @DocumentationSectionComponent('ChartsBarChartComponent')
-export class ChartsBarChartComponent extends BaseDocumentationSection implements IPlaygroundProvider {
-
+export class ChartsBarChartComponent
+    extends BaseDocumentationSection
+    implements IPlaygroundProvider
+{
     playground: IPlayground = {
         files: {
             'app.component.ts': this.snippets.raw.appTs,
             'app.component.html': this.snippets.raw.appHtml,
-            'app.component.css': this.snippets.raw.appCss
+            'app.component.css': this.snippets.raw.appCss,
         },
-        modules: [{
-            library: 'chart.js'
-        },
-        {
-            imports: ['NgChartsModule'],
-            library: 'ng2-charts'
-        }]
+        modules: [
+            {
+                library: 'chart.js',
+            },
+            {
+                imports: ['NgChartsModule'],
+                library: 'ng2-charts',
+            },
+        ],
     };
 
     barChartData: ChartDataset<'bar'>[];
@@ -35,7 +39,12 @@ export class ChartsBarChartComponent extends BaseDocumentationSection implements
     barChartColors: any;
 
     constructor(colorService: ColorService) {
-        super(require.context('./snippets/', false, /(html|css|js|ts)$/));
+        super(
+            import.meta.webpackContext('./snippets/', {
+                recursive: false,
+                regExp: /\.(html|css|js|ts)$/,
+            })
+        );
 
         // Prepare colors used in chart
         const borderColor = colorService.getColor('grey2').setAlpha(0.5).toRgba();
@@ -44,16 +53,18 @@ export class ChartsBarChartComponent extends BaseDocumentationSection implements
         const barBorderColor = colorService.getColor('chart1').toHex();
         const tooltipBackgroundColor = colorService.getColor('grey2').toHex();
 
-        this.barChartData = [{
-            data: [34, 25, 19, 34, 32, 44, 50, 67],
-            borderWidth: 1,
-            barPercentage: 0.5,
-            categoryPercentage: 1,
-            backgroundColor: barBackgroundColor,
-            borderColor: barBorderColor,
-            hoverBackgroundColor: barHoverBackgroundColor,
-            hoverBorderColor: barBorderColor,
-        }];
+        this.barChartData = [
+            {
+                data: [34, 25, 19, 34, 32, 44, 50, 67],
+                borderWidth: 1,
+                barPercentage: 0.5,
+                categoryPercentage: 1,
+                backgroundColor: barBackgroundColor,
+                borderColor: barBorderColor,
+                hoverBackgroundColor: barHoverBackgroundColor,
+                hoverBorderColor: barBorderColor,
+            },
+        ];
 
         this.barChartOptions = {
             maintainAspectRatio: false,
@@ -63,33 +74,34 @@ export class ChartsBarChartComponent extends BaseDocumentationSection implements
                     grid: {
                         display: true,
                         borderColor,
-                        color: 'transparent'
-                    }
+                        color: 'transparent',
+                    },
                 },
                 y: {
                     type: 'linear',
                     min: 0,
                     max: 80,
                     ticks: {
-                        stepSize: 20
+                        stepSize: 20,
                     },
                     grid: {
                         display: true,
-                        borderColor
-                    }
-                }
+                        borderColor,
+                    },
+                },
             },
             plugins: {
                 tooltip: {
                     backgroundColor: tooltipBackgroundColor,
                     cornerRadius: 0,
                     callbacks: {
-                        title: ()=> '',
-                        label: (item: TooltipItem<'bar'>) => `x: ${item.label}, y: ${item.formattedValue}`
+                        title: () => '',
+                        label: (item: TooltipItem<'bar'>) =>
+                            `x: ${item.label}, y: ${item.formattedValue}`,
                     },
-                    displayColors: false
-                }
-            }
+                    displayColors: false,
+                },
+            },
         };
     }
 }

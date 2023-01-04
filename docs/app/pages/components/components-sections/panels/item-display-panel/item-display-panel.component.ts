@@ -8,11 +8,13 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 
 @Component({
     selector: 'uxd-item-display-panel-component',
-    templateUrl: './item-display-panel.component.html'
+    templateUrl: './item-display-panel.component.html',
 })
 @DocumentationSectionComponent('ComponentsItemDisplayPanelComponent')
-export class ComponentsItemDisplayPanelComponent extends BaseDocumentationSection implements IPlaygroundProvider {
-
+export class ComponentsItemDisplayPanelComponent
+    extends BaseDocumentationSection
+    implements IPlaygroundProvider
+{
     visible: boolean = false;
     selected: DisplayPanelItem;
     items: DisplayPanelItem[] = [];
@@ -29,18 +31,25 @@ export class ComponentsItemDisplayPanelComponent extends BaseDocumentationSectio
         files: {
             'app.component.ts': this.snippets.raw.appTs,
             'app.component.html': this.snippets.raw.appHtml,
-            'app.component.css': this.snippets.raw.appCss
+            'app.component.css': this.snippets.raw.appCss,
         },
-        modules: [{
-            imports: ['ItemDisplayPanelModule', 'SparkModule'],
-            library: '@ux-aspects/ux-aspects'
-        }]
+        modules: [
+            {
+                imports: ['ItemDisplayPanelModule', 'SparkModule'],
+                library: '@ux-aspects/ux-aspects',
+            },
+        ],
     };
 
     @ViewChildren(TabbableListItemDirective) tabbableItems: QueryList<TabbableListItemDirective>;
 
     constructor() {
-        super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
+        super(
+            import.meta.webpackContext('./snippets/', {
+                recursive: false,
+                regExp: /\.(html|css|js|ts)$/,
+            })
+        );
 
         for (let idx = 1; idx <= 5; idx++) {
             const extension = chance.pickone(['ppt', 'pdf', 'doc']);
@@ -53,8 +62,8 @@ export class ComponentsItemDisplayPanelComponent extends BaseDocumentationSectio
                 storage: chance.floating({ min: 10, max: 100, fixed: 2 }),
                 panel: {
                     header: `Site Detail - UX Aspects (${extension.toUpperCase()})`,
-                    content: chance.paragraph()
-                }
+                    content: chance.paragraph(),
+                },
             });
         }
     }

@@ -6,11 +6,13 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 
 @Component({
     selector: 'uxd-components-buttons-toggle-buttons',
-    templateUrl: './toggle-buttons.component.html'
+    templateUrl: './toggle-buttons.component.html',
 })
 @DocumentationSectionComponent('ComponentsToggleButtonsComponent')
-export class ComponentsToggleButtonsComponent extends BaseDocumentationSection implements IPlaygroundProvider {
-
+export class ComponentsToggleButtonsComponent
+    extends BaseDocumentationSection
+    implements IPlaygroundProvider
+{
     // Toggle model
     primaryToggleValue: number = 0;
     accentToggleValue: string = 'off';
@@ -19,28 +21,35 @@ export class ComponentsToggleButtonsComponent extends BaseDocumentationSection i
     primaryCheckValue = {
         bold: false,
         italic: true,
-        underline: false
+        underline: false,
     };
 
     accentCheckValue = {
         bold: false,
         italic: true,
-        underline: false
+        underline: false,
     };
 
     playground: IPlayground = {
         files: {
             'app.component.html': this.snippets.raw.toggleHtml + this.snippets.raw.checkHtml,
-            'app.component.ts': this.snippets.raw.appTs
+            'app.component.ts': this.snippets.raw.appTs,
         },
-        modules: [{
-            library: 'ngx-bootstrap/buttons',
-            imports: ['ButtonsModule'],
-            providers: ['ButtonsModule.forRoot()']
-        }]
+        modules: [
+            {
+                library: 'ngx-bootstrap/buttons',
+                imports: ['ButtonsModule'],
+                providers: ['ButtonsModule.forRoot()'],
+            },
+        ],
     };
 
     constructor() {
-        super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
+        super(
+            import.meta.webpackContext('./snippets/', {
+                recursive: false,
+                regExp: /\.(html|css|js|ts)$/,
+            })
+        );
     }
 }

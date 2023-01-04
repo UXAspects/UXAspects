@@ -10,11 +10,13 @@ const chance = new Chance();
 @Component({
     selector: 'uxd-components-select-list',
     templateUrl: './select-list.component.html',
-    styleUrls: ['./select-list.component.less']
+    styleUrls: ['./select-list.component.less'],
 })
 @DocumentationSectionComponent('ComponentsSelectListComponent')
-export class ComponentsSelectListComponent extends BaseDocumentationSection implements IPlaygroundProvider {
-
+export class ComponentsSelectListComponent
+    extends BaseDocumentationSection
+    implements IPlaygroundProvider
+{
     multiple: boolean = false;
     selected: ReadonlyArray<string> = [];
     authors: string[] = [];
@@ -26,18 +28,23 @@ export class ComponentsSelectListComponent extends BaseDocumentationSection impl
         files: {
             'app.component.html': this.snippets.raw.appHtml,
             'app.component.ts': this.snippets.raw.appTs,
-            'app.component.css': this.snippets.raw.appCss
+            'app.component.css': this.snippets.raw.appCss,
         },
         modules: [
             {
                 imports: ['SelectListModule'],
-                library: '@ux-aspects/ux-aspects'
-            }
-        ]
+                library: '@ux-aspects/ux-aspects',
+            },
+        ],
     };
 
     constructor() {
-        super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
+        super(
+            import.meta.webpackContext('./snippets/', {
+                recursive: false,
+                regExp: /\.(html|css|js|ts)$/,
+            })
+        );
 
         // create some dummy list items
         for (let idx = 0; idx < 20; idx++) {
@@ -49,7 +56,8 @@ export class ComponentsSelectListComponent extends BaseDocumentationSection impl
     }
 
     search(): void {
-        this.authors = this._authors.filter(author => author.toLowerCase().indexOf(this.query.toLowerCase()) !== -1);
+        this.authors = this._authors.filter(
+            author => author.toLowerCase().indexOf(this.query.toLowerCase()) !== -1
+        );
     }
-
 }

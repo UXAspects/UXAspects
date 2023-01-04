@@ -8,24 +8,28 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 
 @Component({
     selector: 'uxd-charts-line-chart',
-    templateUrl: './line-chart.component.html'
+    templateUrl: './line-chart.component.html',
 })
 @DocumentationSectionComponent('ChartsLineChartComponent')
-export class ChartsLineChartComponent extends BaseDocumentationSection implements IPlaygroundProvider {
-
+export class ChartsLineChartComponent
+    extends BaseDocumentationSection
+    implements IPlaygroundProvider
+{
     playground: IPlayground = {
         files: {
             'app.component.ts': this.snippets.raw.lineChartTs,
             'app.component.html': this.snippets.raw.lineChartHtml,
-            'app.component.css': this.snippets.raw.lineChartCss
+            'app.component.css': this.snippets.raw.lineChartCss,
         },
-        modules: [{
-            library: 'chart.js'
-        },
-        {
-            imports: ['NgChartsModule'],
-            library: 'ng2-charts'
-        }]
+        modules: [
+            {
+                library: 'chart.js',
+            },
+            {
+                imports: ['NgChartsModule'],
+                library: 'ng2-charts',
+            },
+        ],
     };
 
     lineChartData: ChartDataset<'line'>[];
@@ -35,7 +39,12 @@ export class ChartsLineChartComponent extends BaseDocumentationSection implement
     lineChartColors: any;
 
     constructor(colorService: ColorService) {
-        super(require.context('./snippets/', false, /(html|css|js|ts)$/));
+        super(
+            import.meta.webpackContext('./snippets/', {
+                recursive: false,
+                regExp: /\.(html|css|js|ts)$/,
+            })
+        );
 
         const tooltipBackgroundColor = colorService.getColor('grey2').toHex();
         const gridBorderColor = colorService.getColor('grey4').toHex();
@@ -46,54 +55,56 @@ export class ChartsLineChartComponent extends BaseDocumentationSection implement
         const pointBorderColor = colorService.getColor('chart1').setAlpha(0.5).toRgba();
 
         // configure the directive data
-        this.lineChartData = [{
-            data: [34, 25, 19, 34, 32, 44],
-            borderWidth: 1,
-            borderColor: lineBorderColor,
-            backgroundColor: lineFillColor,
-            pointBackgroundColor: 'transparent',
-            pointBorderColor: 'transparent',
-            pointHoverBorderColor: pointBorderColor,
-            pointHoverBorderWidth: 3,
-            pointHoverRadius: 5,
-            pointHitRadius: 5,
-            fill: 'origin'
-        },
-        {
-            data: [null, null, null, null, null, 44, 45, 50, 55],
-            borderDash: [5],
-            borderWidth: 1,
-            borderColor: lineBorderColor,
-            backgroundColor: lineForecastFillColor,
-            pointBorderColor: 'transparent',
-            pointBackgroundColor: 'transparent',
-            pointHoverBorderColor: pointBorderColor,
-            pointHoverBorderWidth: 3,
-            pointHoverRadius: 5,
-            pointHitRadius: 5,
-            fill: 'origin'
-        }];
+        this.lineChartData = [
+            {
+                data: [34, 25, 19, 34, 32, 44],
+                borderWidth: 1,
+                borderColor: lineBorderColor,
+                backgroundColor: lineFillColor,
+                pointBackgroundColor: 'transparent',
+                pointBorderColor: 'transparent',
+                pointHoverBorderColor: pointBorderColor,
+                pointHoverBorderWidth: 3,
+                pointHoverRadius: 5,
+                pointHitRadius: 5,
+                fill: 'origin',
+            },
+            {
+                data: [null, null, null, null, null, 44, 45, 50, 55],
+                borderDash: [5],
+                borderWidth: 1,
+                borderColor: lineBorderColor,
+                backgroundColor: lineForecastFillColor,
+                pointBorderColor: 'transparent',
+                pointBackgroundColor: 'transparent',
+                pointHoverBorderColor: pointBorderColor,
+                pointHoverBorderWidth: 3,
+                pointHoverRadius: 5,
+                pointHitRadius: 5,
+                fill: 'origin',
+            },
+        ];
 
         this.lineChartOptions = {
             maintainAspectRatio: false,
             responsive: true,
             elements: {
                 line: {
-                    tension: 0
-                }
+                    tension: 0,
+                },
             },
             scales: {
                 x: {
                     grid: {
-                        color: gridColor
-                    }
+                        color: gridColor,
+                    },
                 },
                 y: {
                     beginAtZero: true,
                     grid: {
-                        color: gridColor
-                    }
-                }
+                        color: gridColor,
+                    },
+                },
             },
             plugins: {
                 tooltip: {
@@ -101,11 +112,12 @@ export class ChartsLineChartComponent extends BaseDocumentationSection implement
                     cornerRadius: 0,
                     callbacks: {
                         title: () => '',
-                        label: (item: TooltipItem<'line'>) => `x: ${item.label}, y: ${item.formattedValue}`
+                        label: (item: TooltipItem<'line'>) =>
+                            `x: ${item.label}, y: ${item.formattedValue}`,
                     },
-                    displayColors: false
-                }
-            }
+                    displayColors: false,
+                },
+            },
         };
     }
 }

@@ -160,7 +160,7 @@ export class ComponentsSearchBuilderComponent extends BaseDocumentationSection i
         private _modalService: BsModalService,
         private _searchBuilderFocusService: SearchBuilderFocusService
     ) {
-        super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
+        super(import.meta.webpackContext('./snippets/', { recursive: false, regExp: /\.(html|css|js|ts)$/ }));
 
         // if the modal is closed by clicking on backdrop perform cancel
         this._modalService.onHide.pipe(takeUntil(this._onDestroy)).subscribe(() => this.cancel());

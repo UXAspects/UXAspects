@@ -7,16 +7,23 @@ import { playgroundAdapter } from '../../../../../services/playground/adapters/l
 
 @Component({
     selector: 'uxd-css-progress-activity-indicator',
-    templateUrl: './activity-indicator.component.html'
+    templateUrl: './activity-indicator.component.html',
 })
 @DocumentationSectionComponent('CssActivityIndicatorComponent')
-export class CssActivityIndicatorComponent extends BaseDocumentationSection implements IPlaygroundProvider {
-
+export class CssActivityIndicatorComponent
+    extends BaseDocumentationSection
+    implements IPlaygroundProvider
+{
     playground: IPlayground = playgroundAdapter({
-        html: this.snippets.raw.sampleHtml
+        html: this.snippets.raw.sampleHtml,
     });
 
     constructor() {
-        super(require.context('./snippets/', false, /(html|css|js|ts)$/));
+        super(
+            import.meta.webpackContext('./snippets/', {
+                recursive: false,
+                regExp: /\.(html|css|js|ts)$/,
+            })
+        );
     }
 }

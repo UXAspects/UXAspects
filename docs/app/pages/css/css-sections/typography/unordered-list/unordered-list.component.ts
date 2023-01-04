@@ -7,16 +7,23 @@ import { playgroundAdapter } from '../../../../../services/playground/adapters/l
 
 @Component({
     selector: 'uxd-css-typography-unordered-list',
-    templateUrl: './unordered-list.component.html'
+    templateUrl: './unordered-list.component.html',
 })
 @DocumentationSectionComponent('CssUnorderedListComponent')
-export class CssUnorderedListComponent extends BaseDocumentationSection implements IPlaygroundProvider {
-
+export class CssUnorderedListComponent
+    extends BaseDocumentationSection
+    implements IPlaygroundProvider
+{
     playground: IPlayground = playgroundAdapter({
-        html: this.snippets.raw.codeExampleHtml
+        html: this.snippets.raw.codeExampleHtml,
     });
 
     constructor() {
-        super(require.context('./snippets/', false, /(html|css|js|ts)$/));
+        super(
+            import.meta.webpackContext('./snippets/', {
+                recursive: false,
+                regExp: /\.(html|css|js|ts)$/,
+            })
+        );
     }
 }

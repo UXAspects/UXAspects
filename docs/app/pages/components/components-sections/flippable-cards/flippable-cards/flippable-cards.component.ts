@@ -7,11 +7,10 @@ import { DocumentationSectionComponent } from '../../../../../decorators/documen
 @Component({
     selector: 'uxd-components-flippable-cards',
     templateUrl: './flippable-cards.component.html',
-    styleUrls: ['./flippable-cards.component.less']
+    styleUrls: ['./flippable-cards.component.less'],
 })
 @DocumentationSectionComponent('ComponentsFlippableCardsComponent')
 export class ComponentsFlippableCardsComponent extends BaseDocumentationSection {
-
     icon: string = 'assets/img/IconCaseColorized36x36.png';
 
     cards: Card[] = [
@@ -25,9 +24,9 @@ export class ComponentsFlippableCardsComponent extends BaseDocumentationSection 
                 documents: 23456,
                 reviewed: 19876,
                 produced: 11123,
-                size: 1.2
+                size: 1.2,
             },
-            chart: this.getChartData(23456, 19876, 11123)
+            chart: this.getChartData(23456, 19876, 11123),
         },
         {
             title: 'The Dorling Case',
@@ -39,9 +38,9 @@ export class ComponentsFlippableCardsComponent extends BaseDocumentationSection 
                 documents: 15678,
                 reviewed: 10123,
                 produced: 3123,
-                size: 0.8
+                size: 0.8,
             },
-            chart: this.getChartData(15678, 10123, 3123)
+            chart: this.getChartData(15678, 10123, 3123),
         },
         {
             title: 'The Salisbury Case',
@@ -53,14 +52,19 @@ export class ComponentsFlippableCardsComponent extends BaseDocumentationSection 
                 documents: 256987,
                 reviewed: 143567,
                 produced: 45678,
-                size: 10.7
+                size: 10.7,
             },
-            chart: this.getChartData(256987, 143567, 45678)
-        }
+            chart: this.getChartData(256987, 143567, 45678),
+        },
     ];
 
     constructor(public colorService: ColorService, private _announcer: LiveAnnouncer) {
-        super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
+        super(
+            import.meta.webpackContext('./snippets/', {
+                recursive: false,
+                regExp: /\.(html|css|js|ts)$/,
+            })
+        );
     }
 
     getChartData(documents: number, reviewed: number, produced: number): NestedDonutChartData[] {
@@ -68,23 +72,27 @@ export class ComponentsFlippableCardsComponent extends BaseDocumentationSection 
             {
                 name: 'documents',
                 color: this.colorService.getColor('grey6').toHex(),
-                value: documents
-            }, {
+                value: documents,
+            },
+            {
                 name: 'reviewed',
                 color: this.colorService.getColor('vibrant1').toHex(),
-                value: reviewed
-            }, {
+                value: reviewed,
+            },
+            {
                 name: 'produced',
                 color: this.colorService.getColor('vibrant2').toHex(),
-                value: produced
-            }
+                value: produced,
+            },
         ];
     }
 
     onCardFlip(flipped: boolean): void {
-        this._announcer.announce(flipped ? 'Card is flipped.' : 'Card is not flipped.', 'assertive');
+        this._announcer.announce(
+            flipped ? 'Card is flipped.' : 'Card is not flipped.',
+            'assertive'
+        );
     }
-
 }
 
 export interface Card {

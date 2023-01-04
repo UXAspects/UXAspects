@@ -6,34 +6,42 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 
 @Component({
     selector: 'uxd-components-toggleswitch',
-    templateUrl: './toggleswitch.component.html'
+    templateUrl: './toggleswitch.component.html',
 })
 @DocumentationSectionComponent('ComponentsToggleSwitchComponent')
-export class ComponentsToggleSwitchComponent extends BaseDocumentationSection implements IPlaygroundProvider {
-
+export class ComponentsToggleSwitchComponent
+    extends BaseDocumentationSection
+    implements IPlaygroundProvider
+{
     toggleSwitches: any;
     toggleSwitchDisable: boolean;
 
     playground: IPlayground = {
         files: {
             'app.component.ts': this.snippets.raw.appTs,
-            'app.component.html': this.snippets.raw.appHtml
+            'app.component.html': this.snippets.raw.appHtml,
         },
-        modules: [{
-            imports: ['ToggleSwitchModule'],
-            library: '@ux-aspects/ux-aspects'
-        }]
+        modules: [
+            {
+                imports: ['ToggleSwitchModule'],
+                library: '@ux-aspects/ux-aspects',
+            },
+        ],
     };
 
     constructor() {
-
-        super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
+        super(
+            import.meta.webpackContext('./snippets/', {
+                recursive: false,
+                regExp: /\.(html|css|js|ts)$/,
+            })
+        );
 
         this.toggleSwitches = {
             option1: true,
             option2: false,
             option3: false,
-            option4: false
+            option4: false,
         };
 
         this.toggleSwitchDisable = false;

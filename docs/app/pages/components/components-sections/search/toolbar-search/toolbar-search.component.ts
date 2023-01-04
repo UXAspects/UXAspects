@@ -7,23 +7,25 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 @Component({
     selector: 'uxd-toolbar-search',
     templateUrl: 'toolbar-search.component.html',
-    styleUrls: ['toolbar-search.component.less']
+    styleUrls: ['toolbar-search.component.less'],
 })
 @DocumentationSectionComponent('ComponentsToolbarSearchComponent')
-export class ComponentsToolbarSearchComponent extends BaseDocumentationSection implements IPlaygroundProvider {
-
+export class ComponentsToolbarSearchComponent
+    extends BaseDocumentationSection
+    implements IPlaygroundProvider
+{
     playground: IPlayground = {
         files: {
             'app.component.ts': this.snippets.raw.appTs,
             'app.component.html': this.snippets.raw.appHtml,
-            'app.component.css': this.snippets.raw.appCss
+            'app.component.css': this.snippets.raw.appCss,
         },
         modules: [
             {
                 imports: ['ToolbarSearchModule', 'TooltipModule'],
-                library: '@ux-aspects/ux-aspects'
-            }
-        ]
+                library: '@ux-aspects/ux-aspects',
+            },
+        ],
     };
 
     expanded: boolean;
@@ -34,7 +36,12 @@ export class ComponentsToolbarSearchComponent extends BaseDocumentationSection i
     searchFieldRight: ElementRef;
 
     constructor() {
-        super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
+        super(
+            import.meta.webpackContext('./snippets/', {
+                recursive: false,
+                regExp: /\.(html|css|js|ts)$/,
+            })
+        );
     }
 
     onSearch(searchText: string) {

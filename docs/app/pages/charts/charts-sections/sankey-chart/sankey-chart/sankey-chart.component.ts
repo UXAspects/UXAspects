@@ -8,76 +8,78 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
     selector: 'uxd-charts-sankey-chart',
     templateUrl: './sankey-chart.component.html',
     styleUrls: ['./sankey-chart.component.less'],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 @DocumentationSectionComponent('ChartsSankeyChartComponent')
-export class ChartsSankeyChartComponent extends BaseDocumentationSection implements IPlaygroundProvider {
-
+export class ChartsSankeyChartComponent
+    extends BaseDocumentationSection
+    implements IPlaygroundProvider
+{
     nodes: ReadonlyArray<SankeyNode<SankeyNodeData>> = [
         {
             id: SankeyNodeId.FileSystem,
-            data: { name: 'File System Windows', files: 2_100_000, space: 23_100_000_000 }
+            data: { name: 'File System Windows', files: 2_100_000, space: 23_100_000_000 },
         },
         {
             id: SankeyNodeId.Exchange,
-            data: { name: 'Exchange', files: 3_700_000, space: 40_700_000_000 }
+            data: { name: 'Exchange', files: 3_700_000, space: 40_700_000_000 },
         },
         {
             id: SankeyNodeId.Office365,
-            data: { name: 'Office 365 Exchange', files: 1_600_000, space: 17_600_000_000 }
+            data: { name: 'Office 365 Exchange', files: 1_600_000, space: 17_600_000_000 },
         },
         {
             id: SankeyNodeId.SharePoint,
-            data: { name: 'Sharepoint', files: 5_300_000, space: 58_300_000_000 }
+            data: { name: 'Sharepoint', files: 5_300_000, space: 58_300_000_000 },
         },
         {
             id: SankeyNodeId.Text,
-            data: { name: 'Text', files: 2_300_000, space: 18_700_000_000 }
+            data: { name: 'Text', files: 2_300_000, space: 18_700_000_000 },
         },
         {
             id: SankeyNodeId.Audio,
-            data: { name: 'Audio', files: 1_300_000, space: 17_600_000_000 }
+            data: { name: 'Audio', files: 1_300_000, space: 17_600_000_000 },
         },
         {
             id: SankeyNodeId.Video,
-            data: { name: 'Video', files: 2_500_000, space: 23_100_000_000 }
+            data: { name: 'Video', files: 2_500_000, space: 23_100_000_000 },
         },
         {
             id: SankeyNodeId.Entity,
-            data: { name: 'Entity', files: 2_950_000, space: 22_000_000_000 }
+            data: { name: 'Entity', files: 2_950_000, space: 22_000_000_000 },
         },
         {
             id: SankeyNodeId.Metadata,
-            data: { name: 'Metadata', files: 1_450_000, space: 12_100_000_000 }
+            data: { name: 'Metadata', files: 1_450_000, space: 12_100_000_000 },
         },
         {
             id: SankeyNodeId.Other,
-            data: { name: 'Other', files: 2_200_000, space: 20_900_000_000 }
+            data: { name: 'Other', files: 2_200_000, space: 20_900_000_000 },
         },
         {
             id: SankeyNodeId.EmployeeData,
-            data: { name: 'Employee data', files: 3_030_000, space: 23_100_000_000 }
+            data: { name: 'Employee data', files: 3_030_000, space: 23_100_000_000 },
         },
         {
             id: SankeyNodeId.HealthData,
-            data: { name: 'Health data', files: 1_400_000, space: 17_600_000_000 }
+            data: { name: 'Health data', files: 1_400_000, space: 17_600_000_000 },
         },
         {
             id: SankeyNodeId.FinancialData,
-            data: { name: 'Financial', files: 2_540_000, space: 17_600_000_000 }
+            data: { name: 'Financial', files: 2_540_000, space: 17_600_000_000 },
         },
         {
             id: SankeyNodeId.LegalData,
-            data: { name: 'Legal', files: 640_000, space: 30_000_000 }
+            data: { name: 'Legal', files: 640_000, space: 30_000_000 },
         },
         {
             id: SankeyNodeId.PersonalData,
-            data: { name: 'Personal', files: 2_480_000, space: 20_900_000_000 }
+            data: { name: 'Personal', files: 2_480_000, space: 20_900_000_000 },
         },
         {
             id: SankeyNodeId.OtherData,
-            data: { name: 'Other', files: 2_800_000, space: 19_800_000_000 }
-        }
+            data: { name: 'Other', files: 2_800_000, space: 19_800_000_000 },
+        },
     ];
 
     links: ReadonlyArray<SankeyLink> = [
@@ -122,14 +124,19 @@ export class ChartsSankeyChartComponent extends BaseDocumentationSection impleme
             modules: [
                 {
                     imports: ['SankeyChartModule', 'FileSizePipeModule'],
-                    library: '@ux-aspects/ux-aspects'
-                }
-            ]
+                    library: '@ux-aspects/ux-aspects',
+                },
+            ],
         };
     };
 
     constructor() {
-        super(require.context('./snippets/', false, /(html|css|js|ts)$/));
+        super(
+            import.meta.webpackContext('./snippets/', {
+                recursive: false,
+                regExp: /\.(html|css|js|ts)$/,
+            })
+        );
     }
 
     getFileCount(count: number): string {
@@ -137,9 +144,14 @@ export class ChartsSankeyChartComponent extends BaseDocumentationSection impleme
     }
 
     getAriaLabel(node: SankeyNode<SankeyNodeData>, size: string): string {
-        return node.data.name + ' has ' +
+        return (
+            node.data.name +
+            ' has ' +
             (node.data.files / 1_000_000).toPrecision(2) +
-            ' million files, occupying ' + size + ' of disk space';
+            ' million files, occupying ' +
+            size +
+            ' of disk space'
+        );
     }
 }
 
@@ -165,5 +177,5 @@ export enum SankeyNodeId {
     FinancialData,
     LegalData,
     PersonalData,
-    OtherData
+    OtherData,
 }

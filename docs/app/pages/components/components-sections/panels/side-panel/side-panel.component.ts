@@ -8,11 +8,13 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 @Component({
     selector: 'uxd-side-panel',
     templateUrl: './side-panel.component.html',
-    styleUrls: ['./side-panel.component.less']
+    styleUrls: ['./side-panel.component.less'],
 })
 @DocumentationSectionComponent('ComponentsSidePanelComponent')
-export class ComponentsSidePanelComponent extends BaseDocumentationSection implements IPlaygroundProvider {
-
+export class ComponentsSidePanelComponent
+    extends BaseDocumentationSection
+    implements IPlaygroundProvider
+{
     playground: IPlayground = {
         files: {
             'app.component.html': this.snippets.raw.appHtml,
@@ -22,13 +24,13 @@ export class ComponentsSidePanelComponent extends BaseDocumentationSection imple
         modules: [
             {
                 imports: ['SidePanelModule'],
-                library: '@ux-aspects/ux-aspects'
+                library: '@ux-aspects/ux-aspects',
             },
             {
                 imports: ['A11yModule'],
-                library: '@angular/cdk/a11y'
+                library: '@angular/cdk/a11y',
             },
-        ]
+        ],
     };
 
     open = false;
@@ -58,7 +60,12 @@ export class ComponentsSidePanelComponent extends BaseDocumentationSection imple
     private _attachTo = 'window';
 
     constructor(private _liveAnnouncer: LiveAnnouncer) {
-        super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
+        super(
+            import.meta.webpackContext('./snippets/', {
+                recursive: false,
+                regExp: /\.(html|css|js|ts)$/,
+            })
+        );
     }
 
     announce(isOpen: boolean): void {

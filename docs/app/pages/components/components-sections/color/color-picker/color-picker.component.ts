@@ -8,11 +8,13 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 @Component({
     selector: 'uxd-color-picker',
     templateUrl: './color-picker.component.html',
-    styleUrls: ['./color-picker.component.less']
+    styleUrls: ['./color-picker.component.less'],
 })
 @DocumentationSectionComponent('ComponentsColorPickerComponent')
-export class ComponentsColorPickerComponent extends BaseDocumentationSection implements IPlaygroundProvider{
-
+export class ComponentsColorPickerComponent
+    extends BaseDocumentationSection
+    implements IPlaygroundProvider
+{
     playground: IPlayground = {
         files: {
             'app.component.html': this.snippets.raw.appHtml,
@@ -22,9 +24,9 @@ export class ComponentsColorPickerComponent extends BaseDocumentationSection imp
         modules: [
             {
                 imports: ['ColorPickerModule, MenuModule'],
-                library: '@ux-aspects/ux-aspects'
-            }
-        ]
+                library: '@ux-aspects/ux-aspects',
+            },
+        ],
     };
 
     @ViewChild(MenuTriggerDirective) menuTrigger?: MenuTriggerDirective;
@@ -46,16 +48,22 @@ export class ComponentsColorPickerComponent extends BaseDocumentationSection imp
             'Alternate2',
             'Alternate3',
             'Vibrant1',
-            'Vibrant2'
+            'Vibrant2',
         ],
-        ['Grey1', 'Grey2', 'Grey3', 'Grey4', 'Grey5', 'Grey6', 'Grey7', 'Grey8']
+        ['Grey1', 'Grey2', 'Grey3', 'Grey4', 'Grey5', 'Grey6', 'Grey7', 'Grey8'],
     ];
 
     constructor(colorService: ColorService) {
-        super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
+        super(
+            import.meta.webpackContext('./snippets/', {
+                recursive: false,
+                regExp: /\.(html|css|js|ts)$/,
+            })
+        );
 
         this.colors = this._colorNames.map(row =>
-            row.map(colorName => new ColorPickerColor(colorName, colorService.resolve(colorName))));
+            row.map(colorName => new ColorPickerColor(colorName, colorService.resolve(colorName)))
+        );
 
         this.selected = this.colors[0][0];
     }

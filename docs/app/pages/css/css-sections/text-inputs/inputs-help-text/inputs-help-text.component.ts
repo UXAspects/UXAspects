@@ -5,20 +5,25 @@ import { IPlayground } from '../../../../../interfaces/IPlayground';
 import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
 import { playgroundAdapter } from '../../../../../services/playground/adapters/legacy-playground-adapter';
 
-
 @Component({
     selector: 'uxd-css-text-inputs-inputs-help-text',
-    templateUrl: './inputs-help-text.component.html'
+    templateUrl: './inputs-help-text.component.html',
 })
 @DocumentationSectionComponent('CssInputsHelpTextComponent')
-export class CssInputsHelpTextComponent extends BaseDocumentationSection implements IPlaygroundProvider {
-
+export class CssInputsHelpTextComponent
+    extends BaseDocumentationSection
+    implements IPlaygroundProvider
+{
     playground: IPlayground = playgroundAdapter({
-        html: this.snippets.raw.sampleHtml
+        html: this.snippets.raw.sampleHtml,
     });
 
     constructor() {
-        super(require.context('./snippets/', false, /(html|css|js|ts)$/));
+        super(
+            import.meta.webpackContext('./snippets/', {
+                recursive: false,
+                regExp: /\.(html|css|js|ts)$/,
+            })
+        );
     }
-
 }

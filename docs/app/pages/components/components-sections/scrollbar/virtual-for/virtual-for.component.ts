@@ -8,11 +8,13 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 @Component({
     selector: 'uxd-components-virtual-for',
     templateUrl: './virtual-for.component.html',
-    styleUrls: ['./virtual-for.component.less']
+    styleUrls: ['./virtual-for.component.less'],
 })
 @DocumentationSectionComponent('ComponentsVirtualForComponent')
-export class ComponentsVirtualForComponent extends BaseDocumentationSection implements IPlaygroundProvider {
-
+export class ComponentsVirtualForComponent
+    extends BaseDocumentationSection
+    implements IPlaygroundProvider
+{
     /** Store the current loading state */
     isLoading: boolean = false;
 
@@ -23,28 +25,32 @@ export class ComponentsVirtualForComponent extends BaseDocumentationSection impl
         files: {
             'app.component.html': this.snippets.raw.appHtml,
             'app.component.ts': this.snippets.raw.appTs,
-            'app.component.css': this.snippets.raw.appCss
+            'app.component.css': this.snippets.raw.appCss,
         },
         modules: [
             {
                 imports: ['VirtualScrollModule', 'FixedHeaderTableModule'],
-                library: '@ux-aspects/ux-aspects'
-            }
-        ]
+                library: '@ux-aspects/ux-aspects',
+            },
+        ],
     };
 
     /** Store the current page */
     private _page: number = 0;
 
     constructor() {
-        super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
+        super(
+            import.meta.webpackContext('./snippets/', {
+                recursive: false,
+                regExp: /\.(html|css|js|ts)$/,
+            })
+        );
 
         // load the first page
         this.load();
     }
 
     load(page: number = 0): void {
-
         // update the loading state
         this.isLoading = true;
 
@@ -53,10 +59,17 @@ export class ComponentsVirtualForComponent extends BaseDocumentationSection impl
 
         for (let idx = 1; idx <= 5000; idx++) {
             employees.push({
-                id: idx + (5000 * page),
+                id: idx + 5000 * page,
                 name: chance.name(),
                 email: chance.email(),
-                department: chance.pickone(['Finance', 'Operations', 'Investor Relations', 'Technical', 'Auditing', 'Labs'])
+                department: chance.pickone([
+                    'Finance',
+                    'Operations',
+                    'Investor Relations',
+                    'Technical',
+                    'Auditing',
+                    'Labs',
+                ]),
             });
         }
 

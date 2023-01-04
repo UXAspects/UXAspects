@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
-import { HierarchyBarNode, OrganizationChartConnector, OrganizationChartNode } from '@ux-aspects/ux-aspects';
+import {
+    HierarchyBarNode,
+    OrganizationChartConnector,
+    OrganizationChartNode,
+} from '@ux-aspects/ux-aspects';
 import { Chance } from 'chance';
 import { Observable } from 'rxjs';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
@@ -12,11 +16,13 @@ const chance = new Chance();
 @Component({
     selector: 'uxd-charts-organization-chart',
     templateUrl: './organization-chart.component.html',
-    styleUrls: ['./organization-chart.component.less']
+    styleUrls: ['./organization-chart.component.less'],
 })
 @DocumentationSectionComponent('ChartsOrganizationChartComponent')
-export class ChartsOrganizationChartComponent extends BaseDocumentationSection implements IPlaygroundProvider {
-
+export class ChartsOrganizationChartComponent
+    extends BaseDocumentationSection
+    implements IPlaygroundProvider
+{
     connector: OrganizationChartConnector = 'elbow';
 
     canReveal: boolean = true;
@@ -28,7 +34,7 @@ export class ChartsOrganizationChartComponent extends BaseDocumentationSection i
             name: chance.name(),
             position: 'National Manager',
             phone: chance.phone(),
-            email: 'nat_manager@company.com'
+            email: 'nat_manager@company.com',
         },
         children: [
             {
@@ -37,7 +43,7 @@ export class ChartsOrganizationChartComponent extends BaseDocumentationSection i
                     name: chance.name(),
                     position: 'Regional Manager',
                     phone: chance.phone(),
-                    email: 'reg_manager@company.com'
+                    email: 'reg_manager@company.com',
                 },
                 children: [
                     {
@@ -46,7 +52,7 @@ export class ChartsOrganizationChartComponent extends BaseDocumentationSection i
                             name: chance.name(),
                             position: 'Assistant',
                             phone: chance.phone(),
-                            email: 'assistant@company.com'
+                            email: 'assistant@company.com',
                         },
                         children: [
                             {
@@ -55,7 +61,7 @@ export class ChartsOrganizationChartComponent extends BaseDocumentationSection i
                                     name: chance.name(),
                                     position: 'Human Resources',
                                     phone: chance.phone(),
-                                    email: 'hr@company.com'
+                                    email: 'hr@company.com',
                                 },
                             },
                             {
@@ -64,7 +70,7 @@ export class ChartsOrganizationChartComponent extends BaseDocumentationSection i
                                     name: chance.name(),
                                     position: 'Engineer',
                                     phone: chance.phone(),
-                                    email: 'tech@company.com'
+                                    email: 'tech@company.com',
                                 },
                             },
                             {
@@ -73,20 +79,19 @@ export class ChartsOrganizationChartComponent extends BaseDocumentationSection i
                                     name: chance.name(),
                                     position: 'Quality Assurance',
                                     phone: chance.phone(),
-                                    email: 'qa@company.com'
+                                    email: 'qa@company.com',
                                 },
-                            }
-                        ]
+                            },
+                        ],
                     },
                     {
-
                         id: 3,
                         data: {
                             name: chance.name(),
                             position: 'Manager',
                             phone: chance.phone(),
                             email: 'manager@company.com',
-                            marker: true
+                            marker: true,
                         },
                         children: [
                             {
@@ -115,8 +120,8 @@ export class ChartsOrganizationChartComponent extends BaseDocumentationSection i
                                             phone: chance.phone(),
                                             email: 'reception@company.com',
                                         },
-                                    }
-                                ]
+                                    },
+                                ],
                             },
                             {
                                 id: 10,
@@ -126,8 +131,8 @@ export class ChartsOrganizationChartComponent extends BaseDocumentationSection i
                                     phone: chance.phone(),
                                     email: 'sales2@company.com',
                                 },
-                            }
-                        ]
+                            },
+                        ],
                     },
                     {
                         id: 4,
@@ -155,12 +160,12 @@ export class ChartsOrganizationChartComponent extends BaseDocumentationSection i
                                     phone: chance.phone(),
                                     email: 'accountant2@company.com',
                                 },
-                            }
-                        ]
-                    }
-                ]
-            }
-        ]
+                            },
+                        ],
+                    },
+                ],
+            },
+        ],
     };
 
     hierarchy: HierarchyBarNode = this.getHierarchy(this.dataset);
@@ -177,13 +182,18 @@ export class ChartsOrganizationChartComponent extends BaseDocumentationSection i
         modules: [
             {
                 imports: ['OrganizationChartModule', 'HierarchyBarModule'],
-                library: '@ux-aspects/ux-aspects'
-            }
-        ]
+                library: '@ux-aspects/ux-aspects',
+            },
+        ],
     };
 
     constructor() {
-        super(require.context('./snippets/', false, /(html|css|js|ts)$/));
+        super(
+            import.meta.webpackContext('./snippets/', {
+                recursive: false,
+                regExp: /\.(html|css|js|ts)$/,
+            })
+        );
     }
 
     onReveal(): void {
@@ -197,7 +207,7 @@ export class ChartsOrganizationChartComponent extends BaseDocumentationSection i
                 phone: chance.phone(),
                 email: 'ceo@company.com',
             },
-            children: [this.dataset]
+            children: [this.dataset],
         };
 
         // update the hierarchy bar
@@ -210,7 +220,7 @@ export class ChartsOrganizationChartComponent extends BaseDocumentationSection i
         return {
             title: node.data.name,
             icon: 'assets/img/IconManagerColorized.png',
-            children: node.children ? node.children.map(child => this.getHierarchy(child)) : null
+            children: node.children ? node.children.map(child => this.getHierarchy(child)) : null,
         } as HierarchyBarNode;
     }
 
@@ -233,10 +243,13 @@ export class ChartsOrganizationChartComponent extends BaseDocumentationSection i
     /** Get a flattened array of the OrganizationChart nodes or HierarchyBarNodes */
     flatten<T extends HasChildren<T>>(nodes: T | T[]): T[] {
         nodes = Array.isArray(nodes) ? nodes : [nodes];
-        return nodes.reduce((accumulation, node) =>
-            Array.isArray(node.children) ?
-                [...accumulation, node, ...this.flatten(node.children)] :
-                [...accumulation, node], []);
+        return nodes.reduce(
+            (accumulation, node) =>
+                Array.isArray(node.children)
+                    ? [...accumulation, node, ...this.flatten(node.children)]
+                    : [...accumulation, node],
+            []
+        );
     }
 }
 

@@ -9,11 +9,13 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
     selector: 'uxd-components-date-range-picker',
     templateUrl: './date-range-picker.component.html',
     styleUrls: ['./date-range-picker.component.less'],
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
 })
 @DocumentationSectionComponent('ComponentsDateRangePickerComponent')
-export class ComponentsDateRangePickerComponent extends BaseDocumentationSection implements IPlaygroundProvider {
-
+export class ComponentsDateRangePickerComponent
+    extends BaseDocumentationSection
+    implements IPlaygroundProvider
+{
     /** The date in the left side of the date range picker */
     start: Date;
 
@@ -60,24 +62,28 @@ export class ComponentsDateRangePickerComponent extends BaseDocumentationSection
             modules: [
                 {
                     imports: ['DateRangePickerModule', 'PopoverModule'],
-                    library: '@ux-aspects/ux-aspects'
-                }
-            ]
+                    library: '@ux-aspects/ux-aspects',
+                },
+            ],
         };
-    }
+    };
 
     constructor() {
-        super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
+        super(
+            import.meta.webpackContext('./snippets/', {
+                recursive: false,
+                regExp: /\.(html|css|js|ts)$/,
+            })
+        );
     }
 
     /** Parse a date string when the input changes */
     onDateChange(date: string): void {
-
         // reset any invalid state
         this.invalid = false;
 
         // check if the date contains a hyphen
-        const parts = (date.indexOf('—') ? date.split('—') : date.split('-'));
+        const parts = date.indexOf('—') ? date.split('—') : date.split('-');
         const startDate = Date.parse(parts[0].trim());
         const endDate = Date.parse(parts[1].trim());
 
@@ -106,8 +112,12 @@ export class ComponentsDateRangePickerComponent extends BaseDocumentationSection
 
     /** Update the date string when the date range changes */
     onRangeChange(): void {
-        const start = this.start ? formatDate(this.start, 'd MMMM y  h:mm a', 'en-US') + ' ' + this.startTimezone.name : '';
-        const end = this.end ? formatDate(this.end, 'd MMMM y  h:mm a', 'en-US') + ' ' + this.endTimezone.name : '';
+        const start = this.start
+            ? formatDate(this.start, 'd MMMM y  h:mm a', 'en-US') + ' ' + this.startTimezone.name
+            : '';
+        const end = this.end
+            ? formatDate(this.end, 'd MMMM y  h:mm a', 'en-US') + ' ' + this.endTimezone.name
+            : '';
 
         if (!this.start || !this.end) {
             return;
@@ -117,7 +127,10 @@ export class ComponentsDateRangePickerComponent extends BaseDocumentationSection
         this.invalid = false;
 
         // check if the dates are valid
-        if (this.getNormalizedDate(this.start, this.startTimezone).getTime() > this.getNormalizedDate(this.end, this.endTimezone).getTime()) {
+        if (
+            this.getNormalizedDate(this.start, this.startTimezone).getTime() >
+            this.getNormalizedDate(this.end, this.endTimezone).getTime()
+        ) {
             this.invalid = true;
         }
 
@@ -145,7 +158,6 @@ export class ComponentsDateRangePickerComponent extends BaseDocumentationSection
     }
 
     private getTimezone(date: string): DateTimePickerTimezone {
-
         // get the timezone from the datestring
         const timezone = date.match(/GMT(\+|-)([0-9]+)/gi);
 
@@ -153,7 +165,9 @@ export class ComponentsDateRangePickerComponent extends BaseDocumentationSection
         if (timezone === null) {
             return { name: 'GMT', offset: 0 };
         } else {
-            const match = timezones.find(_timezone => _timezone.name.toLowerCase() === timezone[0].trim().toLowerCase());
+            const match = timezones.find(
+                _timezone => _timezone.name.toLowerCase() === timezone[0].trim().toLowerCase()
+            );
             return match ? match : { name: 'GMT', offset: 0 };
         }
     }

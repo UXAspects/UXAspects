@@ -7,7 +7,6 @@ import { ConduitProperties } from './interfaces/conduit-properties';
 
 @Injectable()
 export class ConduitZone implements OnDestroy {
-
     /** Create a global subject store */
     static subjects: ConduitSubject[] = [];
 
@@ -19,13 +18,14 @@ export class ConduitZone implements OnDestroy {
 
     ngOnDestroy(): void {
         // find all conduit subjects that are part of this zone
-        ConduitZone.subjects.filter(_subject => _subject.zoneId === this._zoneId)
+        ConduitZone.subjects
+            .filter(_subject => _subject.zoneId === this._zoneId)
             .forEach(_subject => this.unregisterConduit(_subject.conduit));
     }
 
     /** Store reference to the repository and begin watching for and emitting changes */
     registerConduit(conduit: ConduitMetadata): void {
-        ConduitZone.subjects.push(new ConduitSubject(conduit, this, this._zoneId));
+        ConduitZone.subjects.push(new ConduitSubject(conduit, this._zoneId));
     }
 
     /** Destroy a conduit */
@@ -63,13 +63,13 @@ export class ConduitZone implements OnDestroy {
 
     /** Alter the properties of a conduit dynamically */
     setConduitProperties(subject: Subject<any>, properties: Partial<ConduitProperties>): void {
-
         // find the conduit with the matching subject
-        const conduitSubject = this.getSubjects().find(_conduit => _conduit.conduit.subject === subject);
+        const conduitSubject = this.getSubjects().find(
+            _conduit => _conduit.conduit.subject === subject
+        );
 
         // if a match was found update the properties
         if (conduitSubject) {
-
             // update each specified property
             for (const prop in properties) {
                 conduitSubject.conduit[prop] = properties[prop];
@@ -79,7 +79,6 @@ export class ConduitZone implements OnDestroy {
 
     /** Programmatically create a conduit at runtime */
     createConduit(subject: Subject<any>, properties: ConduitProperties): void {
-
         // register the conduit with the zone
         this.registerConduit({ ...properties, subject });
     }
@@ -87,14 +86,18 @@ export class ConduitZone implements OnDestroy {
     /** Register all conduits in a component */
     registerConduits(component: any): void {
         if (Array.isArray(component._conduits)) {
-            component._conduits.forEach((conduit: ConduitMetadata) => this.registerConduit({ ...conduit, subject: component[conduit.propertyKey] }));
+            component._conduits.forEach((conduit: ConduitMetadata) =>
+                this.registerConduit({ ...conduit, subject: component[conduit.propertyKey] })
+            );
         }
     }
 
     /** Register all conduits in a component */
     unregisterConduits(component: any): void {
         if (Array.isArray(component._conduits)) {
-            component._conduits.forEach((conduit: ConduitMetadata) => this.unregisterConduit(conduit));
+            component._conduits.forEach((conduit: ConduitMetadata) =>
+                this.unregisterConduit(conduit)
+            );
         }
     }
 

@@ -8,24 +8,28 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 
 @Component({
     selector: 'uxd-charts-live-chart',
-    templateUrl: './live-chart.component.html'
+    templateUrl: './live-chart.component.html',
 })
 @DocumentationSectionComponent('ChartsLiveChartComponent')
-export class ChartsLiveChartComponent extends BaseDocumentationSection implements IPlaygroundProvider {
-
+export class ChartsLiveChartComponent
+    extends BaseDocumentationSection
+    implements IPlaygroundProvider
+{
     playground: IPlayground = {
         files: {
             'app.component.ts': this.snippets.raw.liveChartTs,
             'app.component.html': this.snippets.raw.liveChartHtml,
-            'app.component.css': this.snippets.raw.liveChartCss
+            'app.component.css': this.snippets.raw.liveChartCss,
         },
-        modules: [{
-            library: 'chart.js'
-        },
-        {
-            imports: ['NgChartsModule'],
-            library: 'ng2-charts'
-        }]
+        modules: [
+            {
+                library: 'chart.js',
+            },
+            {
+                imports: ['NgChartsModule'],
+                library: 'ng2-charts',
+            },
+        ],
     };
 
     // configure the directive data
@@ -41,7 +45,12 @@ export class ChartsLiveChartComponent extends BaseDocumentationSection implement
     livedata: number[] = [];
 
     constructor(colorService: ColorService) {
-        super(require.context('./snippets/', false, /(html|css|js|ts)$/));
+        super(
+            import.meta.webpackContext('./snippets/', {
+                recursive: false,
+                regExp: /\.(html|css|js|ts)$/,
+            })
+        );
 
         this.gridColor = colorService.getColor('grey6').toHex();
         this.lineBorderColor = colorService.getColor('chart1').toRgb();
@@ -54,12 +63,12 @@ export class ChartsLiveChartComponent extends BaseDocumentationSection implement
             maintainAspectRatio: false,
             responsive: true,
             animation: {
-                duration: 0
+                duration: 0,
             },
             elements: {
                 line: {
-                    tension: 0
-                }
+                    tension: 0,
+                },
             },
             scales: {
                 x: {
@@ -68,28 +77,28 @@ export class ChartsLiveChartComponent extends BaseDocumentationSection implement
                     min: 0,
                     max: 299,
                     ticks: {
-                        display: false
+                        display: false,
                     },
                     grid: {
-                        display: false
-                    }
+                        display: false,
+                    },
                 },
                 y: {
                     min: 0,
                     max: 100,
                     ticks: {
-                        stepSize: 25
+                        stepSize: 25,
                     },
                     grid: {
-                        color: this.gridColor
-                    }
-                }
+                        color: this.gridColor,
+                    },
+                },
             },
             plugins: {
                 tooltip: {
-                    enabled: false
-                }
-            }
+                    enabled: false,
+                },
+            },
         };
 
         setInterval(() => {
@@ -99,7 +108,6 @@ export class ChartsLiveChartComponent extends BaseDocumentationSection implement
     }
 
     updateChartData() {
-
         // instatiate new array to trigger change detection
         this.lineChartData = new Array<ChartDataset<'line'>>();
 
@@ -110,12 +118,11 @@ export class ChartsLiveChartComponent extends BaseDocumentationSection implement
             backgroundColor: this.lineFillColor,
             pointBackgroundColor: 'transparent',
             pointBorderColor: 'transparent',
-            fill: 'origin'
+            fill: 'origin',
         });
     }
 
-    getRandomData(): { x: number, y: number }[] {
-
+    getRandomData(): { x: number; y: number }[] {
         if (this.livedata.length) {
             this.livedata = this.livedata.slice(1);
         }
@@ -132,11 +139,10 @@ export class ChartsLiveChartComponent extends BaseDocumentationSection implement
         for (let i = 0; i < this.livedata.length; ++i) {
             res.push({
                 x: i,
-                y: this.livedata[i]
+                y: this.livedata[i],
             });
         }
 
         return res;
     }
-
 }
