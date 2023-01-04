@@ -22,7 +22,7 @@ import { MenuItemType } from './menu-item-type.enum';
 })
 export class MenuItemComponent implements OnInit, OnDestroy, FocusableOption {
     private readonly _menu = inject(MenuComponent);
-    private readonly _elementRef = inject(ElementRef<HTMLElement>);
+    private readonly _elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
     private readonly _focusIndicatorService = inject(FocusIndicatorService);
     private readonly _renderer = inject(Renderer2);
 

@@ -6,7 +6,7 @@ import { MenuComponent } from '../menu/menu.component';
 @Directive({ selector: '[uxMenuInitialFocus]' })
 export class MenuInitialFocusDirective implements OnInit, OnDestroy {
     private readonly _menu = inject(MenuComponent);
-    private readonly _elementRef = inject(ElementRef<HTMLElement>);
+    private readonly _elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
     private readonly _renderer = inject(Renderer2);
 
     private _onDestroy = new Subject<void>();

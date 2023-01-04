@@ -11,7 +11,7 @@ import { MenuComponent } from '../menu/menu.component';
 })
 export class MenuTabbableItemDirective implements OnInit, OnDestroy, FocusableOption {
     protected readonly _menu = inject(MenuComponent);
-    protected readonly _elementRef = inject(ElementRef<HTMLElement>);
+    protected readonly _elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
     protected readonly _focusIndicatorService = inject(FocusIndicatorService);
     protected readonly _renderer = inject(Renderer2);
 
