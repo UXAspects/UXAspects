@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Directive, ElementRef, EventEmitter, HostListener, Input, OnDestroy, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Directive, ElementRef, EventEmitter, HostListener, inject, Input, OnDestroy, Output } from '@angular/core';
 import { FocusIndicator, FocusIndicatorService } from '../../directives/accessibility/index';
 
 @Component({
@@ -13,6 +13,8 @@ import { FocusIndicator, FocusIndicatorService } from '../../directives/accessib
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FlippableCardComponent implements OnDestroy {
+    readonly focusIndicatorService = inject(FocusIndicatorService);
+    readonly elementRef = inject(ElementRef);
 
     /** Determines whether the card should flip horizontally or vertically. */
     @Input() direction: 'horizontal' | 'vertical' = 'horizontal';
@@ -38,8 +40,8 @@ export class FlippableCardComponent implements OnDestroy {
     /** Focus Indicator instance */
     private _focusIndicator: FocusIndicator;
 
-    constructor(focusIndicatorService: FocusIndicatorService, elementRef: ElementRef) {
-        this._focusIndicator = focusIndicatorService.monitor(elementRef.nativeElement);
+    constructor() {
+        this._focusIndicator = this.focusIndicatorService.monitor(this.elementRef.nativeElement);
     }
 
     ngOnDestroy(): void {

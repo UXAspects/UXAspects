@@ -1,5 +1,5 @@
 import { animate, query, stagger, style, transition, trigger } from '@angular/animations';
-import { AfterViewInit, ChangeDetectionStrategy, Component, ContentChildren, ElementRef, EventEmitter, HostListener, Input, OnDestroy, Output, QueryList } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, ContentChildren, ElementRef, EventEmitter, HostListener, inject, Input, OnDestroy, Output, QueryList } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { FloatingActionButtonComponent } from './floating-action-button.component';
 import { FloatingActionButtonDirection, FloatingActionButtonsService } from './floating-action-buttons.service';
@@ -23,6 +23,8 @@ import { FloatingActionButtonDirection, FloatingActionButtonsService } from './f
     ]
 })
 export class FloatingActionButtonsComponent implements AfterViewInit, OnDestroy {
+    public readonly fab = inject(FloatingActionButtonsService);
+    private readonly _elementRef = inject(ElementRef);
 
     /** Specify the direction that the FAB should display */
     @Input() set direction(direction: FloatingActionButtonDirection) { this.fab.direction$.next(direction); }
@@ -35,7 +37,7 @@ export class FloatingActionButtonsComponent implements AfterViewInit, OnDestroy 
 
     private _subscription: Subscription = new Subscription();
 
-    constructor(public fab: FloatingActionButtonsService, private _elementRef: ElementRef) {
+    constructor() {
         this._subscription.add(this.fab.open$.subscribe(value => this.openChange.emit(value)));
     }
 

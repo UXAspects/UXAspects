@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ContentChild, EventEmitter, Input, OnDestroy, Output, TemplateRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ContentChild, EventEmitter, inject, Input, OnDestroy, Output, TemplateRef } from '@angular/core';
 import { Subject } from 'rxjs';
 import { distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { FilterEvent } from './events/filter-event';
@@ -12,6 +12,7 @@ import { Filter } from './interfaces/filter.interface';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FilterContainerComponent implements OnDestroy {
+    public readonly filterService = inject(FilterService);
 
     /** Allow filters to set from outside the component */
     @Input() set filters(filters: Filter[]) {
@@ -36,10 +37,10 @@ export class FilterContainerComponent implements OnDestroy {
     /** Unsubscribe from the subscriptions on destroy */
     private _onDestroy = new Subject<void>();
 
-    constructor(public filterService: FilterService) {
+    constructor() {
 
         // subscribe to changes to the active filters
-        filterService.filters$.pipe(distinctUntilChanged(), takeUntil(this._onDestroy))
+        this.filterService.filters$.pipe(distinctUntilChanged(), takeUntil(this._onDestroy))
             .subscribe(filters => this.filtersChange.emit(filters));
 
         // relay any events to the event emitter
