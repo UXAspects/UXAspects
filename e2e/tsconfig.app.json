@@ -1,10 +1,5 @@
 {
     "extends": "../tsconfig.app.json",
-    "files": [
-        "./pages/main.ts",
-        "./pages/polyfills.ts"
-    ],
-    "include": [
-        "e2e/**/*.d.ts"
-    ]
+    "files": ["./pages/main.ts"],
+    "include": ["e2e/**/*.d.ts"]
 }

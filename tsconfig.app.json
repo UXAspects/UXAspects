@@ -3,16 +3,8 @@
     "extends": "./tsconfig.json",
     "compilerOptions": {
         "outDir": "./out-tsc/app",
-        "types": [
-            "node",
-            "webpack-env"
-        ]
+        "types": ["node", "webpack-env"]
     },
-    "files": [
-        "docs/main.ts",
-        "docs/polyfills.ts"
-    ],
-    "include": [
-        "docs/**/*.d.ts"
-    ]
+    "files": ["docs/main.ts"],
+    "include": ["docs/**/*.d.ts"]
 }
