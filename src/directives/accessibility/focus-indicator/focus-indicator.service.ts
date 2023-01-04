@@ -1,5 +1,5 @@
 import { FocusMonitor } from '@angular/cdk/a11y';
-import { inject, Inject, Injectable, Optional, Renderer2, RendererFactory2 } from '@angular/core';
+import { inject, Injectable, Renderer2, RendererFactory2 } from '@angular/core';
 import { AccessibilityOptions } from '../options/accessibility-options.interface';
 import { AccessibilityOptionsService } from '../options/accessibility-options.service';
 import { ACCESSIBILITY_OPTIONS_TOKEN } from '../options/accessibility-options.token';
@@ -9,6 +9,7 @@ import { FocusIndicatorOriginService } from './focus-indicator-origin/focus-indi
 
 @Injectable()
 export class FocusIndicatorService {
+    private readonly _localOptions = inject<AccessibilityOptions>(ACCESSIBILITY_OPTIONS_TOKEN, { optional: true });
     readonly rendererFactory = inject(RendererFactory2);
     private readonly _focusMonitor = inject(FocusMonitor);
     private readonly _globalOptions = inject(AccessibilityOptionsService);
@@ -17,7 +18,7 @@ export class FocusIndicatorService {
     /** We need the renderer to add and remove classes */
     private _renderer: Renderer2;
 
-    constructor(@Optional() @Inject(ACCESSIBILITY_OPTIONS_TOKEN) private _localOptions: AccessibilityOptions) {
+    constructor() {
         // programmatically create a renderer as it can't be injected into a service
         this._renderer = this.rendererFactory.createRenderer(null, null);
     }
