@@ -1,6 +1,6 @@
-import { Directive, Input, OnDestroy, OnInit } from '@angular/core';
-import { delay, takeUntil } from 'rxjs/operators';
+import { Directive, inject, Input, OnDestroy, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
+import { delay, takeUntil } from 'rxjs/operators';
 import { PageHeaderService } from '../../page-header.service';
 import { PageHeaderNavigationItem } from '../navigation.component';
 
@@ -8,13 +8,12 @@ import { PageHeaderNavigationItem } from '../navigation.component';
     selector: '[uxPageHeaderNavigationSecondaryItem]'
 })
 export class PageHeaderNavigationSecondaryItemDirective implements OnInit, OnDestroy {
+    private readonly _pageHeaderService = inject(PageHeaderService);
 
     @Input('uxPageHeaderNavigationSecondaryItem')
     item: PageHeaderNavigationItem;
 
     private _onDestroy = new Subject<void>();
-
-    constructor(private _pageHeaderService: PageHeaderService) { }
 
     ngOnInit() {
 

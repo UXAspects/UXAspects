@@ -1,7 +1,7 @@
 import { ESCAPE } from '@angular/cdk/keycodes';
 import { Overlay, OverlayRef, ScrollDispatcher } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
-import { ChangeDetectorRef, Directive, ElementRef, HostBinding, Input, OnChanges, OnInit, Renderer2, SimpleChanges, TemplateRef, ViewContainerRef } from '@angular/core';
+import { ChangeDetectorRef, Directive, ElementRef, HostBinding, inject, Input, OnChanges, OnInit, Renderer2, SimpleChanges, TemplateRef, ViewContainerRef } from '@angular/core';
 import { fromEvent } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { OverlayPlacementService } from '../../services/overlay-placement/index';
@@ -13,6 +13,14 @@ import { PopoverComponent } from './popover.component';
     exportAs: 'ux-popover'
 })
 export class PopoverDirective extends TooltipDirective implements OnInit, OnChanges {
+    readonly elementRef = inject(ElementRef);
+    readonly viewContainerRef = inject(ViewContainerRef);
+    readonly overlay = inject(Overlay);
+    readonly scrollDispatcher = inject(ScrollDispatcher);
+    readonly changeDetectorRef = inject(ChangeDetectorRef);
+    readonly renderer = inject(Renderer2);
+    readonly tooltipService = inject(TooltipService);
+    readonly overlayFallback = inject(OverlayPlacementService);
 
     /** Contains the content of the popover or a TemplateRef for more detailed content */
     @Input('uxPopover') content: string | TemplateRef<any>;
@@ -59,17 +67,8 @@ export class PopoverDirective extends TooltipDirective implements OnInit, OnChan
     /** Internally store the type of this component - usual for distinctions when extending the tooltip class */
     protected _type: string = 'popover';
 
-    constructor(
-        elementRef: ElementRef,
-        viewContainerRef: ViewContainerRef,
-        overlay: Overlay,
-        scrollDispatcher: ScrollDispatcher,
-        changeDetectorRef: ChangeDetectorRef,
-        renderer: Renderer2,
-        tooltipService: TooltipService,
-        overlayFallback: OverlayPlacementService
-    ) {
-        super(elementRef, viewContainerRef, overlay, scrollDispatcher, changeDetectorRef, renderer, tooltipService, overlayFallback);
+    constructor() {
+        super();
     }
 
     /** Set up the triggers and bind to the show/hide events to keep visibility in sync */

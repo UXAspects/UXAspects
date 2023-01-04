@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, forwardRef, Input, OnInit, Output, TemplateRef } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, forwardRef, inject, Input, OnInit, Output, TemplateRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 export const PAGINATION_CONTROL_VALUE_ACCESSOR: any = {
@@ -14,6 +14,7 @@ export const PAGINATION_CONTROL_VALUE_ACCESSOR: any = {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PaginationComponent implements OnInit, ControlValueAccessor {
+  private readonly _changeDetector = inject(ChangeDetectorRef);
 
   /** Specify if we should show the next and previous buttons */
   @Input() directionButtons: boolean = true;
@@ -38,8 +39,6 @@ export class PaginationComponent implements OnInit, ControlValueAccessor {
 
   /** Aria label for the next button */
   @Input() nextAriaLabel: string = 'Navigate to the next page';
-
-  constructor(private readonly _changeDetector: ChangeDetectorRef) { }
 
   /** Specify the index of the active page */
   @Input() set page(page: number) {

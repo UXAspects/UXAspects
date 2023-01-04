@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject } from '@angular/core';
 import { Subject } from 'rxjs';
 import { TooltipComponent } from '../tooltip/index';
 
@@ -10,6 +10,7 @@ let uniquePopoverId = 0;
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PopoverComponent extends TooltipComponent {
+  readonly changeDetectorRef = inject(ChangeDetectorRef);
 
   /** Define a unique id for each popover */
   id: string = `ux-popover-${++uniquePopoverId}`;
@@ -20,8 +21,8 @@ export class PopoverComponent extends TooltipComponent {
   /** This will emit an event any time the user clicks outside the popover */
   clickOutside$ = new Subject<MouseEvent>();
 
-  constructor(changeDetectorRef: ChangeDetectorRef) {
-    super(changeDetectorRef);
+  constructor() {
+    super();
   }
 
   /** This will update the title of the popover and trigger change detection */

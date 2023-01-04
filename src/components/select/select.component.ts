@@ -2,7 +2,7 @@ import { BooleanInput, coerceBooleanProperty, coerceNumberProperty, NumberInput 
 import { ENTER } from '@angular/cdk/keycodes';
 import { Platform } from '@angular/cdk/platform';
 import { DOCUMENT } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ElementRef, EventEmitter, forwardRef, HostBinding, Inject, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, StaticProvider, TemplateRef, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ElementRef, EventEmitter, forwardRef, HostBinding, inject, Inject, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, StaticProvider, TemplateRef, ViewChild } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { BehaviorSubject, Observable, ReplaySubject, Subject } from 'rxjs';
 import { debounceTime, delay, distinctUntilChanged, filter, map, skip, take, takeUntil } from 'rxjs/operators';
@@ -30,6 +30,10 @@ export const SELECT_VALUE_ACCESSOR: StaticProvider = {
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, ControlValueAccessor {
+    private readonly _element = inject(ElementRef);
+    private readonly _platform = inject(Platform);
+    private readonly _typeaheadKeyService = inject(TypeaheadKeyService);
+    private readonly _changeDetector = inject(ChangeDetectorRef);
 
     /** A unique id for the component. */
     @Input() @HostBinding('attr.id') id: string = `ux-select-${++uniqueId}`;
@@ -240,12 +244,7 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
     private _onTouched = () => { };
     private _onDestroy = new Subject<void>();
 
-    constructor(
-        private _element: ElementRef,
-        private _platform: Platform,
-        @Inject(DOCUMENT) private _document: any,
-        private _typeaheadKeyService: TypeaheadKeyService,
-        private readonly _changeDetector: ChangeDetectorRef) { }
+    constructor(@Inject(DOCUMENT) private _document: any) { }
 
     ngOnInit(): void {
 

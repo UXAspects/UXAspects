@@ -1,5 +1,5 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ElementRef, EventEmitter, Input, NgZone, OnDestroy, OnInit, Output, TemplateRef } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ElementRef, EventEmitter, inject, Input, NgZone, OnDestroy, OnInit, Output, TemplateRef } from '@angular/core';
 import { hierarchy, HierarchyRectangularNode, partition, scaleLinear, select, Selection, transition } from 'd3';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -17,6 +17,14 @@ import { ColorService, ThemeColor } from '../../services/color/index';
     },
 })
 export class PartitionMapComponent implements OnInit, OnDestroy {
+    private readonly _colorService = inject(ColorService);
+    private readonly _elementRef = inject(ElementRef);
+    private readonly _changeDetector = inject(ChangeDetectorRef);
+    private readonly _ngZone = inject(NgZone);
+    private readonly _focusOrigin = inject(FocusIndicatorOriginService);
+    private readonly _contrastRatio = inject(ContrastService);
+    private readonly _liveAnnouncer = inject(LiveAnnouncer);
+    private readonly _resizeService = inject(ResizeService);
 
     /** Define the colors to be used for each row and the order they should appear. */
     @Input() set colors(colors: (string | ThemeColor)[][]) {
@@ -112,17 +120,6 @@ export class PartitionMapComponent implements OnInit, OnDestroy {
 
     /** Unsubscribe from any observables on destroy */
     private _onDestroy = new Subject<void>();
-
-    constructor(
-        private _colorService: ColorService,
-        private _elementRef: ElementRef,
-        private _changeDetector: ChangeDetectorRef,
-        private _ngZone: NgZone,
-        private _focusOrigin: FocusIndicatorOriginService,
-        private _contrastRatio: ContrastService,
-        private _liveAnnouncer: LiveAnnouncer,
-        private _resizeService: ResizeService
-    ) { }
 
     ngOnInit(): void {
         this._resizeService.addResizeListener(this._elementRef.nativeElement).pipe(takeUntil(this._onDestroy)).subscribe(dimensions => {

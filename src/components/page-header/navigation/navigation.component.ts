@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, OnDestroy, QueryList, ViewChildren } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, inject, OnDestroy, QueryList, ViewChildren } from '@angular/core';
 import { NavigationExtras } from '@angular/router';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { distinctUntilChanged, takeUntil } from 'rxjs/operators';
@@ -16,6 +16,10 @@ import { PageHeaderNavigationService } from './navigation.service';
     }
 })
 export class PageHeaderNavigationComponent implements AfterViewInit, OnDestroy {
+    readonly elementRef = inject(ElementRef);
+    readonly resizeService = inject(ResizeService);
+    private readonly _navigationService = inject(PageHeaderNavigationService);
+    private readonly _pageHeaderService = inject(PageHeaderService);
 
     @ViewChildren(PageHeaderNavigationItemComponent) menuItems: QueryList<PageHeaderNavigationItemComponent>;
 
@@ -26,15 +30,10 @@ export class PageHeaderNavigationComponent implements AfterViewInit, OnDestroy {
 
     private _onDestroy = new Subject();
 
-    constructor(
-        elementRef: ElementRef,
-        resizeService: ResizeService,
-        private _navigationService: PageHeaderNavigationService,
-        private _pageHeaderService: PageHeaderService
-    ) {
-        resizeService.addResizeListener(elementRef.nativeElement).pipe(takeUntil(this._onDestroy)).subscribe(this.updateSelectedIndicator.bind(this));
-        _pageHeaderService.selected$.pipe(takeUntil(this._onDestroy), distinctUntilChanged()).subscribe(this.updateSelectedIndicator.bind(this));
-        _pageHeaderService.secondary$.pipe(takeUntil(this._onDestroy), distinctUntilChanged()).subscribe(this.updateSelectedIndicator.bind(this));
+    constructor() {
+        this. resizeService.addResizeListener(this.elementRef.nativeElement).pipe(takeUntil(this._onDestroy)).subscribe(this.updateSelectedIndicator.bind(this));
+        this._pageHeaderService.selected$.pipe(takeUntil(this._onDestroy), distinctUntilChanged()).subscribe(this.updateSelectedIndicator.bind(this));
+        this._pageHeaderService.secondary$.pipe(takeUntil(this._onDestroy), distinctUntilChanged()).subscribe(this.updateSelectedIndicator.bind(this));
     }
 
     ngAfterViewInit(): void {

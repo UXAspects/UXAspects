@@ -1,4 +1,4 @@
-import { AfterContentInit, ChangeDetectorRef, ContentChildren, Directive, EventEmitter, ExistingProvider, forwardRef, Input, OnDestroy, Output, QueryList } from '@angular/core';
+import { AfterContentInit, ChangeDetectorRef, ContentChildren, Directive, EventEmitter, ExistingProvider, forwardRef, inject, Input, OnDestroy, Output, QueryList } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -20,6 +20,7 @@ export const RADIO_GROUP_CONTROL_VALUE_ACCESSOR: ExistingProvider = {
     }
 })
 export class RadioButtonGroupDirective<T = any> implements ControlValueAccessor, AfterContentInit, OnDestroy  {
+    private readonly _changeDetector = inject(ChangeDetectorRef);
 
     /** Define the current selected value within the group */
     @Input() set value(value: T) {
@@ -48,8 +49,6 @@ export class RadioButtonGroupDirective<T = any> implements ControlValueAccessor,
 
     /** Internally store the current value */
     private _value: T = null;
-
-    constructor(private readonly _changeDetector: ChangeDetectorRef ) { }
 
     ngAfterContentInit(): void {
         this.updateSelectedRadioButton();

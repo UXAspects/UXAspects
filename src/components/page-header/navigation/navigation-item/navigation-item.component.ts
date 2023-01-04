@@ -1,6 +1,6 @@
 import { FocusableOption } from '@angular/cdk/a11y';
 import { LEFT_ARROW, RIGHT_ARROW, SPACE } from '@angular/cdk/keycodes';
-import { AfterViewInit, Component, ElementRef, HostListener, Input, OnDestroy, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, HostListener, inject, Input, OnDestroy, ViewChild } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { getIconType, IconType } from '../../../../common/index';
@@ -14,6 +14,9 @@ import { PageHeaderNavigationService } from '../navigation.service';
     templateUrl: './navigation-item.component.html'
 })
 export class PageHeaderNavigationItemComponent implements AfterViewInit, OnDestroy, FocusableOption {
+    readonly elementRef = inject(ElementRef);
+    private readonly _pageHeaderService = inject(PageHeaderService);
+    private readonly _navigationService = inject(PageHeaderNavigationService);
 
     /** Access the data for this dropdown item */
     @Input() set item(item: PageHeaderNavigationItem) {
@@ -45,12 +48,6 @@ export class PageHeaderNavigationItemComponent implements AfterViewInit, OnDestr
 
     /** Unsubscribe when the component is destroyed */
     private _onDestroy = new Subject<void>();
-
-    constructor(
-        public elementRef: ElementRef,
-        private _pageHeaderService: PageHeaderService,
-        private _navigationService: PageHeaderNavigationService) {
-    }
 
     ngAfterViewInit(): void {
         this._pageHeaderService.selected$.pipe(tick(), takeUntil(this._onDestroy)).subscribe(selectedItem => {

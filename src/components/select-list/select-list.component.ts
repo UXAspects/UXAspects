@@ -1,9 +1,9 @@
-import { AfterContentInit, Component, ContentChildren, EventEmitter, Input, OnDestroy, Output, QueryList } from '@angular/core';
-import { takeUntil } from 'rxjs/operators';
+import { AfterContentInit, Component, ContentChildren, EventEmitter, inject, Input, OnDestroy, Output, QueryList } from '@angular/core';
 import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { SelectionService } from '../../directives/selection/selection.service';
-import { MultipleSelectListStrategy } from './strategies/multiple-select-list.strategy';
 import { SelectListItemComponent } from './select-list-item/select-list-item.component';
+import { MultipleSelectListStrategy } from './strategies/multiple-select-list.strategy';
 import { SingleSelectListStrategy } from './strategies/single-select-list.strategy';
 
 @Component({
@@ -15,6 +15,7 @@ import { SingleSelectListStrategy } from './strategies/single-select-list.strate
     }
 })
 export class SelectListComponent<T> implements AfterContentInit, OnDestroy {
+    private readonly _selection = inject<SelectionService<T>>(SelectionService);
 
     /** Determine if we allow multiple items to be selected */
     @Input() set multiple(multiple: boolean) {
@@ -52,7 +53,7 @@ export class SelectListComponent<T> implements AfterContentInit, OnDestroy {
     /** Automatically unsubscribe all observables */
     private _onDestroy = new Subject<void>();
 
-    constructor(private _selection: SelectionService<T>) {
+    constructor() {
         // set the selection strategy to single by default
         this._selection.setStrategy(new SingleSelectListStrategy<T>());
 

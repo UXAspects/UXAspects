@@ -1,5 +1,5 @@
 import { animate, style, transition, trigger } from '@angular/animations';
-import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ElementRef, Input, OnChanges, TemplateRef, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ElementRef, inject, Input, OnChanges, TemplateRef, ViewChild } from '@angular/core';
 import { ResizeDimensions } from '../../directives/resize/index';
 import { ColorService, ThemeColor } from '../../services/color/index';
 import { SankeyLink, SankeyLinkInteraction, SankeyLinkPlot } from './interfaces/link.interface';
@@ -26,6 +26,9 @@ import { SankeyFocusManager } from './sankey-focus-manager';
     ],
 })
 export class SankeyChartComponent<T> implements OnChanges, AfterViewInit {
+    private readonly _focusManager = inject(SankeyFocusManager<T>);
+    private readonly _changeDetector = inject(ChangeDetectorRef);
+    private readonly _colorService = inject(ColorService);
 
     /** Define the nodes to display */
     @Input() nodes: ReadonlyArray<SankeyNode<T>> = [];
@@ -89,12 +92,6 @@ export class SankeyChartComponent<T> implements OnChanges, AfterViewInit {
 
     /** Store the instance of the sankey layout */
     private _sankey = new SankeyChart<T>();
-
-    constructor(
-        private _focusManager: SankeyFocusManager<T>,
-        private _changeDetector: ChangeDetectorRef,
-        private _colorService: ColorService
-    ) { }
 
     ngAfterViewInit(): void {
 

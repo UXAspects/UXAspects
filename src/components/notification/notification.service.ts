@@ -1,4 +1,4 @@
-import { Injectable, TemplateRef } from '@angular/core';
+import { inject, Injectable, TemplateRef } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { ColorService } from '../../services/color/index';
 
@@ -6,6 +6,7 @@ import { ColorService } from '../../services/color/index';
     providedIn: 'root'
 })
 export class NotificationService {
+    private readonly _colorService = inject(ColorService);
 
     /**
      *  Sets the order in which notifications are displayed:
@@ -34,8 +35,6 @@ export class NotificationService {
         backgroundColor: this._colorService.getColor('accent').toHex(),
         iconColor: this._colorService.getColor('accent').toHex()
     };
-
-    constructor(private readonly _colorService: ColorService) { }
 
     /**
      * This function should be called to show a notification.
