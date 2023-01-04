@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, TemplateRef } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, inject, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, TemplateRef } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ColumnSortingDirective, ColumnSortingIndicatorContext, ColumnSortingOrder, ColumnSortingState } from './column-sorting.directive';
@@ -10,6 +10,9 @@ import { ColumnSortingDirective, ColumnSortingIndicatorContext, ColumnSortingOrd
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ColumnSortingComponent implements OnInit, OnChanges, OnDestroy {
+
+    private readonly _sorter = inject(ColumnSortingDirective);
+    private readonly _changeDetector = inject(ChangeDetectorRef);
 
     /** Defines the sorting order of a column: `NoSort`, `Ascending` or `Descending`. */
     @Input() state: ColumnSortingState = ColumnSortingState.NoSort;
@@ -50,10 +53,6 @@ export class ColumnSortingComponent implements OnInit, OnChanges, OnDestroy {
 
     /** Unsubscribe from all observables on component destroy */
     private _onDestroy$ = new Subject<void>();
-
-    constructor(private readonly _sorter: ColumnSortingDirective,
-        private readonly _changeDetector: ChangeDetectorRef) {
-    }
 
     ngOnInit(): void {
         // listen for changes triggered by the directive

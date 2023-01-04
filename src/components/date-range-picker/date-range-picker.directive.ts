@@ -8,7 +8,7 @@
  * options if the Angular Language Service is installed, and we don't want these to be public
  * options.
  */
-import { Directive, Input, Self } from '@angular/core';
+import { Directive, inject, Input, Self } from '@angular/core';
 import { DateRangePicker } from './date-range.service';
 
 export class DateRangeOptions {
@@ -21,12 +21,10 @@ export class DateRangeOptions {
 })
 export class DateRangePickerDirective {
 
+    @Self() private _options = inject(DateRangeOptions);
+
     /** Specify whether this is the start or end picker */
     @Input() set picker(picker: DateRangePicker) {
         this._options.picker = picker;
     }
-
-    constructor(@Self() private _options: DateRangeOptions) {
-    }
-
 }

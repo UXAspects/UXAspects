@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostBinding, Input, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostBinding, inject, Input, ViewChild } from '@angular/core';
 import { ResizeDimensions } from '../../../directives/resize';
 import { CardTabComponent } from '../card-tab/card-tab.component';
 import { CardTabsService } from '../card-tabs.service';
@@ -9,6 +9,8 @@ import { CardTabsService } from '../card-tabs.service';
     providers: [CardTabsService]
 })
 export class CardTabsetComponent {
+
+    public tabService = inject(CardTabsService);
 
     @HostBinding('class')
     @Input() set position(direction: string) {
@@ -26,8 +28,6 @@ export class CardTabsetComponent {
 
     private _width: number;
     private _innerWidth: number;
-
-    constructor(public tabService: CardTabsService) { }
 
     select(tab: CardTabComponent, element: HTMLElement): void {
         // select the tab

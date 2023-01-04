@@ -1,5 +1,5 @@
 import { FocusOrigin } from '@angular/cdk/a11y';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, ExistingProvider, forwardRef, Input, Output, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, ExistingProvider, forwardRef, inject, Input, Output, ViewChild } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { FocusIndicatorDirective } from '../../directives/accessibility';
 import { FocusableItemToken } from '../menu';
@@ -23,6 +23,8 @@ let uniqueCheckboxId = 0;
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CheckboxComponent<T = number> implements ControlValueAccessor, FocusableControl {
+
+    private readonly _changeDetector = inject(ChangeDetectorRef);
 
     /** Provide a default unique id value for the checkbox */
     _checkboxId: string = `ux-checkbox-${++uniqueCheckboxId}`;
@@ -78,9 +80,6 @@ export class CheckboxComponent<T = number> implements ControlValueAccessor, Focu
     /** Get the focus indicator to set focus */
     @ViewChild(FocusIndicatorDirective)
     _focusIndicator?: FocusIndicatorDirective;
-
-
-    constructor(private readonly _changeDetector: ChangeDetectorRef) { }
 
     /** Toggle the current state of the checkbox */
     toggle(): void {

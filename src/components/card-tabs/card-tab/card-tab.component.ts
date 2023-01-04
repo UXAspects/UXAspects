@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ContentChild, OnDestroy, TemplateRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ContentChild, inject, OnDestroy, TemplateRef } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { CardTabsService } from '../card-tabs.service';
@@ -11,10 +11,12 @@ import { CardTabContentDirective } from './card-tab-content.directive';
 })
 export class CardTabComponent implements OnDestroy {
 
+    private _tabService = inject(CardTabsService);
+
     active$: Observable<boolean> = this._tabService.tab$.pipe(map(tab => tab === this));
     @ContentChild(CardTabContentDirective, { read: TemplateRef, static: false }) content: TemplateRef<any>;
 
-    constructor(private _tabService: CardTabsService) {
+    constructor() {
         this._tabService.addTab(this);
     }
 
