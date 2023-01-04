@@ -1,10 +1,12 @@
-import { Directive, ElementRef, Input } from '@angular/core';
+import { Directive, ElementRef, inject, Input } from '@angular/core';
 import { TypeaheadService } from './typeahead.service';
 
 @Directive({
     selector: '[uxTypeaheadHighlight]'
 })
 export class TypeaheadHighlightDirective {
+    private readonly _service = inject(TypeaheadService);
+    private readonly _elementRef = inject(ElementRef);
 
     @Input('uxTypeaheadHighlight')
     set highlight(value: boolean) {
@@ -12,6 +14,4 @@ export class TypeaheadHighlightDirective {
             this._service.highlightedElement$.next(this._elementRef.nativeElement);
         }
     }
-
-    constructor(private _service: TypeaheadService, private _elementRef: ElementRef) {}
 }

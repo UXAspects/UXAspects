@@ -1,6 +1,6 @@
 import { FocusOrigin } from '@angular/cdk/a11y';
 import { coerceArray } from '@angular/cdk/coercion';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, HostBinding, HostListener, Input, OnChanges, OnDestroy, Output, SimpleChanges, TemplateRef, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, HostBinding, HostListener, inject, Input, OnChanges, OnDestroy, Output, SimpleChanges, TemplateRef, ViewChild } from '@angular/core';
 import { BehaviorSubject, combineLatest, Subject } from 'rxjs';
 import { distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { InfiniteScrollDirective, InfiniteScrollLoadedEvent, InfiniteScrollLoadFunction } from '../../directives/infinite-scroll/index';
@@ -24,6 +24,10 @@ let uniqueId = 0;
     }
 })
 export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
+    readonly typeaheadElement = inject(ElementRef);
+    readonly popoverOrientation = inject(PopoverOrientationService);
+    private readonly _changeDetector = inject(ChangeDetectorRef);
+    private readonly _service = inject(TypeaheadService);
 
     @ViewChild(InfiniteScrollDirective) infiniteScroll: InfiniteScrollDirective;
 
@@ -176,12 +180,7 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
         getDisabled: this.isDisabled.bind(this)
     };
 
-    constructor(
-        public typeaheadElement: ElementRef,
-        private _changeDetector: ChangeDetectorRef,
-        popoverOrientation: PopoverOrientationService,
-        private _service: TypeaheadService
-    ) {
+    constructor() {
         this.loadOptionsCallback = (pageNum: number, pageSize: number, filter: any) => {
             if (typeof this.options === 'function') {
                 // Invoke the callback which may return an array or a promise.
@@ -210,7 +209,7 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
                 }
             });
 
-        this._popoverOrientationListener = popoverOrientation.createPopoverOrientationListener(this.typeaheadElement.nativeElement, this.typeaheadElement.nativeElement.parentElement);
+        this._popoverOrientationListener = this.popoverOrientation.createPopoverOrientationListener(this.typeaheadElement.nativeElement, this.typeaheadElement.nativeElement.parentElement);
 
         this._popoverOrientationListener.orientation$.pipe(takeUntil(this._onDestroy))
             .subscribe(direction => {

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, Input } from '@angular/core';
 import { ColorIdentifier, ColorService } from '../../services/color/index';
 
 @Component({
@@ -7,6 +7,7 @@ import { ColorIdentifier, ColorService } from '../../services/color/index';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SparkComponent {
+    readonly _colorService = inject(ColorService);
     values: number[] = [];
 
     @Input() barHeight: number = 10;
@@ -69,8 +70,6 @@ export class SparkComponent {
     get value(): number | number[] {
         return this.values;
     }
-
-    constructor(private _colorService: ColorService) {}
 
     /**
      * Get the aria label for the spark chart

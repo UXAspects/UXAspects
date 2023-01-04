@@ -53,7 +53,7 @@ export class MarqueeWizardComponent<TStepContext = any> extends WizardComponent 
                 private readonly _resizeService: ResizeService,
                 private readonly _elementRef: ElementRef<HTMLElement>
     ) {
-        super(wizardService);
+        super();
 
         // set to true as default for Marquee Wizard only
         this.resetVisitedOnValidationError = true;

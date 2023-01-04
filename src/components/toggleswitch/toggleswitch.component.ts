@@ -1,5 +1,5 @@
 import { FocusOrigin } from '@angular/cdk/a11y';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, forwardRef, Input, Output, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, forwardRef, inject, Input, Output, ViewChild } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { FocusIndicatorDirective } from '../../directives/accessibility';
 import { FocusableItemToken } from '../menu';
@@ -23,6 +23,7 @@ let uniqueToggleSwitchId = 0;
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ToggleSwitchComponent implements ControlValueAccessor, FocusableControl {
+    private readonly _changeDetector = inject(ChangeDetectorRef);
 
     /** Provide a default unique id value for the toggle switch */
     _toggleSwitchId: string = `ux-toggleswitch-${++uniqueToggleSwitchId}`;
@@ -69,8 +70,6 @@ export class ToggleSwitchComponent implements ControlValueAccessor, FocusableCon
 
     /** Used to inform Angular forms that the component value has changed */
     onChangeCallback: (_: any) => void = () => { };
-
-    constructor(private readonly _changeDetector: ChangeDetectorRef) { }
 
     toggle(): void {
         if (!this.disabled && this.clickable) {

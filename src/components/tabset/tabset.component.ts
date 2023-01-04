@@ -1,5 +1,5 @@
 import { SPACE } from '@angular/cdk/keycodes';
-import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, forwardRef, Input, OnDestroy, QueryList } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, forwardRef, inject, Input, OnDestroy, QueryList } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { TabComponent } from './tab/tab.component';
@@ -23,6 +23,8 @@ import { TabsetToken } from './tabset.token';
     }
 })
 export class TabsetComponent implements AfterViewInit, OnDestroy {
+    readonly _tabset = inject(TabsetService);
+    private readonly _changeDetector = inject(ChangeDetectorRef);
 
     /** Determine if the appearance of the tabset */
     @Input() minimal: boolean = true;
@@ -43,11 +45,6 @@ export class TabsetComponent implements AfterViewInit, OnDestroy {
 
     /** Remove subscriptions on destroy */
     private _onDestroy$ = new Subject<void>();
-
-    constructor(
-        public readonly _tabset: TabsetService,
-        private readonly _changeDetector: ChangeDetectorRef
-    ) {}
 
     ngAfterViewInit(): void {
 

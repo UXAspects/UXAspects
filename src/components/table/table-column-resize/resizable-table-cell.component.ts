@@ -1,9 +1,8 @@
-import { Component, ElementRef, Inject, OnDestroy, OnInit, Renderer2, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, inject, OnDestroy, OnInit, Renderer2 } from '@angular/core';
 import { combineLatest, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { ColumnUnit } from './table-column-resize-standard/resizable-table.service';
-import { RESIZABLE_TABLE_SERVICE_TOKEN } from './resizable-table-service.token';
 import { BaseResizableTableService, ResizableTableType } from './resizable-table-base.service';
+import { ColumnUnit } from './table-column-resize-standard/resizable-table.service';
 
 @Component({
     selector: '[uxResizableTableCell]',
@@ -11,6 +10,8 @@ import { BaseResizableTableService, ResizableTableType } from './resizable-table
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ResizableTableCellComponent implements OnInit, OnDestroy {
+    private readonly _elementRef = inject(ElementRef);
+    private readonly _renderer = inject(Renderer2);
 
     /** Unsubscribe from all subscriptions on destroy */
     private readonly _onDestroy = new Subject<void>();
@@ -18,7 +19,7 @@ export class ResizableTableCellComponent implements OnInit, OnDestroy {
     /** Min width of the column*/
     private _minWidth: number;
 
-    constructor(private _elementRef: ElementRef, private _renderer: Renderer2, @Inject(RESIZABLE_TABLE_SERVICE_TOKEN) private _table: BaseResizableTableService) { }
+    constructor(private _table: BaseResizableTableService) { }
 
     ngOnInit(): void {
         this._minWidth = parseFloat(getComputedStyle(this._elementRef.nativeElement).minWidth);

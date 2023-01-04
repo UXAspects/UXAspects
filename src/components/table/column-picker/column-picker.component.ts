@@ -1,7 +1,7 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { ArrayDataSource } from '@angular/cdk/collections';
 import { FlatTreeControl } from '@angular/cdk/tree';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnChanges, Output, QueryList, SimpleChanges, TemplateRef, ViewChildren } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, inject, Input, OnChanges, Output, QueryList, SimpleChanges, TemplateRef, ViewChildren } from '@angular/core';
 import { ColumnPickerService } from './column-picker.service';
 import { ColumnPickerGroupItem, isColumnPickerGroupItem } from './interfaces/column-picker-group-item.interface';
 import { ColumnPickerTreeNode } from './interfaces/column-picker-tree-node.interface';
@@ -13,6 +13,9 @@ import { ColumnPickerTreeNode } from './interfaces/column-picker-tree-node.inter
     providers: [ColumnPickerService]
 })
 export class ColumnPickerComponent implements OnChanges {
+    private readonly _columnPicker = inject(ColumnPickerService);
+    private readonly _liveAnnouncer = inject(LiveAnnouncer);
+    private readonly _changeDetectorRef = inject(ChangeDetectorRef);
 
     /** Define a list of all selected columns. */
     @Input() selected: ReadonlyArray<string | ColumnPickerGroupItem> = [];
@@ -97,14 +100,6 @@ export class ColumnPickerComponent implements OnChanges {
 
     /** Get the elements for the selected items */
     @ViewChildren('selectedColumn') selectedElements: QueryList<ElementRef>;
-
-    constructor(
-        private readonly _columnPicker: ColumnPickerService,
-        /** Access the LiveAnnounce to provide accessibility on reordering */
-        private readonly _liveAnnouncer: LiveAnnouncer,
-        /** We are using OnPush change detection so we must manually trigger CD */
-        private readonly _changeDetectorRef: ChangeDetectorRef
-    ) { }
 
     ngOnChanges(changes: SimpleChanges): void {
         // recreate tree when deselected changes

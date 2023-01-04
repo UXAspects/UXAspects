@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, EventEmitter, Inject, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, TemplateRef } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, EventEmitter, inject, Inject, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, TemplateRef } from '@angular/core';
 import { NavigationExtras } from '@angular/router';
 import { Subject } from 'rxjs';
 import { distinctUntilChanged, takeUntil } from 'rxjs/operators';
@@ -16,6 +16,8 @@ let uniqueTabId = 0;
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TabComponent implements OnInit, OnDestroy, OnChanges {
+    private readonly _tabsetService = inject(TabsetService);
+    private readonly _changeDetector = inject(ChangeDetectorRef);
 
     /** Define the tab unique id */
     @Input()
@@ -74,11 +76,7 @@ export class TabComponent implements OnInit, OnDestroy, OnChanges {
     /** Store the tabset instance */
     private readonly _tabset: TabsetComponent;
 
-    constructor(
-        private readonly _tabsetService: TabsetService,
-        private readonly _changeDetector: ChangeDetectorRef,
-        @Inject(TabsetToken) tabset: unknown
-    ) {
+    constructor(@Inject(TabsetToken) tabset: unknown) {
         // this is required because Karma has issues with injecting the TabsetComponent directly
         this._tabset = tabset as TabsetComponent;
     }
