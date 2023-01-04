@@ -21,8 +21,11 @@ import { ResizableTableService } from './resizable-table.service';
 })
 export class ResizableTableDirective extends BaseResizableTableDirective {
     readonly table = inject<ResizableTableService>(RESIZABLE_TABLE_SERVICE_TOKEN);
+
     readonly elementRef = inject<ElementRef<HTMLTableElement>>(ElementRef);
+
     readonly renderer = inject(Renderer2);
+
     readonly resize = inject(ResizeService);
 
     /** Get all the column headers */

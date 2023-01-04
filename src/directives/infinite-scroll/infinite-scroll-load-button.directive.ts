@@ -6,7 +6,9 @@ import { Observable, Subject } from 'rxjs';
 })
 export class InfiniteScrollLoadButtonDirective {
     private readonly _template = inject<TemplateRef<any>>(TemplateRef);
+
     private readonly _viewContainer = inject(ViewContainerRef);
+
     private readonly _renderer = inject(Renderer2);
 
     @Input('uxInfiniteScrollLoadButton')

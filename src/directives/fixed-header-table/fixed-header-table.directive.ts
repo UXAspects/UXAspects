@@ -9,7 +9,9 @@ import { ResizeService } from '../resize/index';
 })
 export class FixedHeaderTableDirective<T> implements OnInit, OnDestroy {
     private readonly _elementRef = inject(ElementRef);
+
     private readonly _renderer = inject(Renderer2);
+
     private readonly _resizeService = inject(ResizeService);
 
     /** Allow dataset changes to trigger re-layout */

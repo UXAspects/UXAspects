@@ -7,6 +7,7 @@ export class ResizeService implements OnDestroy {
     private readonly _zone = inject(NgZone);
 
     private _observer = new ResizeObserver(this.elementDidResize.bind(this));
+
     private _targets = new WeakMap<HTMLElement, ReplaySubject<ResizeDimensions>>();
 
     ngOnDestroy(): void {

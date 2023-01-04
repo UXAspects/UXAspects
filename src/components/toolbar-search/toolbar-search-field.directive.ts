@@ -13,6 +13,7 @@ export const TOOLBAR_SEARCH_VALUE_ACCESSOR: any = {
 })
 export class ToolbarSearchFieldDirective implements ControlValueAccessor {
     private readonly _elementRef = inject(ElementRef);
+
     private readonly _changeDetector = inject(ChangeDetectorRef);
 
     /** Emit whenever the escape key is pressed */

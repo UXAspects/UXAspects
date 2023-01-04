@@ -14,10 +14,15 @@ import { NavigationService } from '../navigation.service';
 })
 export class NavigationLinkDirective implements OnInit, OnChanges, OnDestroy {
     private readonly _options = inject<NavigationModuleOptions>(NAVIGATION_MODULE_OPTIONS);
+
     private readonly _router = inject(Router);
+
     private readonly _locationStrategy = inject(LocationStrategy);
+
     private readonly _navigationService = inject(NavigationService);
+
     private readonly _changeDetector = inject(ChangeDetectorRef);
+
     private readonly _route = inject(ActivatedRoute);
 
     /** The NavigationItem this element represents */

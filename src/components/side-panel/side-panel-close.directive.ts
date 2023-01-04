@@ -8,6 +8,7 @@ import { SidePanelService } from './side-panel.service';
 })
 export class SidePanelCloseDirective {
     private readonly _service = inject(SidePanelService);
+
     private readonly _focusOrigin = inject(FocusIndicatorOriginService);
 
     @HostListener('click', ['$event'])

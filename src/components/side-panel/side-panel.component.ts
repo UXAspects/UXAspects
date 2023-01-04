@@ -18,7 +18,9 @@ import { SidePanelService } from './side-panel.service';
 })
 export class SidePanelComponent implements OnInit, OnDestroy {
     protected readonly service = inject(SidePanelService);
+
     private readonly _elementRef = inject(ElementRef);
+
     private readonly _focusOrigin = inject(FocusIndicatorOriginService);
 
     @Input()

@@ -17,7 +17,9 @@ let uniqueId = 1;
 })
 export class FacetTypeaheadListComponent implements AfterViewInit, OnInit, OnDestroy {
     readonly typeaheadKeyService = inject(TypeaheadKeyService);
+
     readonly facetService = inject(FacetService);
+
     private readonly _announcer = inject(LiveAnnouncer);
 
     /** This will allow you to define an initial set of selected facets. */

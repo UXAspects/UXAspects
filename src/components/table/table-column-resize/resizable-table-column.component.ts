@@ -17,7 +17,9 @@ import { ColumnUnit } from './table-column-resize-standard/resizable-table.servi
 })
 export class ResizableTableColumnComponent implements AfterViewInit, OnDestroy {
     private readonly _table = inject<BaseResizableTableService>(RESIZABLE_TABLE_SERVICE_TOKEN);
+
     private readonly _elementRef = inject(ElementRef);
+
     private readonly _renderer = inject(Renderer2);
 
     /** Show/Hide column resizable handle */

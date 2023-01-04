@@ -7,6 +7,7 @@ import { ContrastService } from './contrast.service';
 })
 export class ColorContrastDirective {
     private readonly _colorService = inject(ColorService);
+
     private readonly _contrastService = inject(ContrastService);
 
     /**

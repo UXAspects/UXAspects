@@ -7,7 +7,9 @@ import { LayoutSwitcherItemDirective } from './layout-switcher-item.directive';
 })
 export class LayoutSwitcherDirective implements AfterContentInit, OnChanges {
     readonly resizeService = inject(ResizeService);
+
     private readonly _elementRef = inject(ElementRef);
+
     private readonly _viewContainerRef = inject(ViewContainerRef);
 
     @Input() group: string;

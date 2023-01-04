@@ -13,8 +13,11 @@ import { filter, takeUntil } from 'rxjs/operators';
 })
 export class NavigationItemComponent implements AfterViewInit, AfterContentInit, OnDestroy {
     private readonly _elementRef = inject(ElementRef);
+
     private readonly _renderer = inject(Renderer2);
+
     private readonly _router = inject(Router);
+
     private readonly _parent = inject(NavigationItemComponent, { optional: true, skipSelf: true });
 
     /** The text to display in the navigation menu item. */

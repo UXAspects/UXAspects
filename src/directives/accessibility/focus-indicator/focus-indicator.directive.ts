@@ -15,9 +15,13 @@ import { FocusIndicatorService } from './focus-indicator.service';
 })
 export class FocusIndicatorDirective implements OnInit, OnDestroy {
     readonly optionsService = inject(AccessibilityOptionsService);
+
     private readonly _elementRef = inject(ElementRef);
+
     private readonly _focusIndicatorService = inject(FocusIndicatorService);
+
     private readonly _ngZone = inject(NgZone);
+
     readonly localOptions = inject(LocalFocusIndicatorOptions, { optional: true });
 
     /** Specify whether or not we should mark this element as having focus if a child is focused */

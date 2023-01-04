@@ -9,7 +9,9 @@ import { MenuNavigationService } from './menu-navigation.service';
 })
 export class MenuNavigationItemDirective implements OnDestroy {
     readonly focusIndicatorService = inject(FocusIndicatorService);
+
     private readonly _elementRef = inject(ElementRef);
+
     private readonly _menuNavigationService = inject(MenuNavigationService);
 
     /** Emit when this menu is activated */

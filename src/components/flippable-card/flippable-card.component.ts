@@ -14,6 +14,7 @@ import { FocusIndicator, FocusIndicatorService } from '../../directives/accessib
 })
 export class FlippableCardComponent implements OnDestroy {
     readonly focusIndicatorService = inject(FocusIndicatorService);
+
     readonly elementRef = inject(ElementRef);
 
     /** Determines whether the card should flip horizontally or vertically. */

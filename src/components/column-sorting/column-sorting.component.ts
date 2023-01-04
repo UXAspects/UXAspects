@@ -12,6 +12,7 @@ import { ColumnSortingDirective, ColumnSortingIndicatorContext, ColumnSortingOrd
 export class ColumnSortingComponent implements OnInit, OnChanges, OnDestroy {
 
     private readonly _sorter = inject(ColumnSortingDirective);
+
     private readonly _changeDetector = inject(ChangeDetectorRef);
 
     /** Defines the sorting order of a column: `NoSort`, `Ascending` or `Descending`. */

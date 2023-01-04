@@ -13,6 +13,7 @@ import { WizardService } from './wizard.service';
 })
 export class WizardStepComponent {
     private readonly _wizardService = inject<WizardService<WizardStepComponent>>(WizardService);
+
     private readonly _changeDetector = inject(ChangeDetectorRef);
 
     /** The text to be displayed in the wizard step tab. */

@@ -16,14 +16,18 @@ import { DayViewItem, DayViewService } from './day-view.service';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DayViewComponent implements AfterViewInit, OnDestroy {
-
     readonly datePicker = inject(DateTimePickerService);
+
     readonly dayService = inject(DayViewService);
+
     private readonly _changeDetector = inject(ChangeDetectorRef);
+
     private readonly _focusOrigin = inject(FocusIndicatorOriginService);
+
     private readonly _liveAnnouncer = inject(LiveAnnouncer);
 
     private readonly _rangeService = inject(DateRangeService, { optional: true });
+
     private readonly _rangeOptions = inject(DateRangeOptions, { optional: true });
 
     /** Determine if we are in range selection mode */

@@ -12,6 +12,7 @@ import { VirtualScrollLoadingDirective } from './directives/virtual-scroll-loadi
 })
 export class VirtualScrollComponent<T> implements OnInit, AfterContentInit, OnChanges, OnDestroy {
     readonly resizeService = inject(ResizeService);
+
     private readonly _elementRef = inject(ElementRef);
 
     /** Provide the collection of items to display */

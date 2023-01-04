@@ -13,8 +13,11 @@ import { compareDays, DateTimePickerTimezone } from '../date-time-picker.utils';
 })
 export class TimeViewComponent implements OnInit, OnDestroy {
     readonly datepicker = inject(DateTimePickerService);
+
     private readonly _changeDetector = inject(ChangeDetectorRef);
+
     private readonly _rangeService = inject(DateRangeService, { optional: true });
+
     private readonly _rangeOptions = inject(DateRangeOptions, { optional: true });
 
     /** Dont bind directly to the selected date as if it's null we can end up in 1970! */

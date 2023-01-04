@@ -15,6 +15,7 @@ let uniqueId = 0;
 })
 export class FilterDropdownComponent implements OnInit, OnDestroy {
     private readonly _filterService = inject(FilterService);
+
     private readonly _changeDetector = inject(ChangeDetectorRef);
 
     /** Store the unique id so we only increment the counter once per instance */

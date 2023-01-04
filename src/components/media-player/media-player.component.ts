@@ -26,7 +26,9 @@ import { MediaPlayerService } from './media-player.service';
 })
 export class MediaPlayerComponent implements AfterViewInit, OnDestroy {
     readonly mediaPlayerService = inject(MediaPlayerService);
+
     private readonly _audioService = inject(AudioService);
+
     private readonly _elementRef = inject(ElementRef);
 
     @ViewChild('player', { static: false }) private _playerRef: ElementRef;

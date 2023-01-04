@@ -19,7 +19,7 @@ import { ColorPickerInputMode } from './color-picker.type';
 })
 export class ColorPickerTestComponent {
 
-    private _colorService = inject(ColorService)
+    private _colorService = inject(ColorService);
 
     private _colorNames = [
         ['Primary', 'Accent', 'Secondary', 'Alternate1', 'Alternate2', 'Alternate3', 'Vibrant1',

@@ -17,6 +17,7 @@ let uniqueTabId = 0;
 })
 export class TabComponent implements OnInit, OnDestroy, OnChanges {
     private readonly _tabsetService = inject(TabsetService);
+
     private readonly _changeDetector = inject(ChangeDetectorRef);
 
     /** Define the tab unique id */

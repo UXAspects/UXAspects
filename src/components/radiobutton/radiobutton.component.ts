@@ -25,6 +25,7 @@ let uniqueRadioId = 0;
 })
 export class RadioButtonComponent<T = any> implements ControlValueAccessor, OnChanges, FocusableControl {
     private readonly _changeDetector = inject(ChangeDetectorRef);
+
     private readonly _group = inject(RadioButtonGroupDirective, { optional: true });
 
     /** Provide a default unique id value for the radiobutton */

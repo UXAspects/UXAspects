@@ -9,6 +9,7 @@ import { FocusIndicator, FocusIndicatorService } from '../accessibility/index';
 })
 export class MenuNavigationToggleDirective implements OnDestroy {
     readonly elementRef = inject(ElementRef);
+
     readonly focusIndicatorService = inject(FocusIndicatorService);
 
     /** Define if the menu is open */

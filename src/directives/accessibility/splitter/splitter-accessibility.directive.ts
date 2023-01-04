@@ -11,8 +11,11 @@ import { FocusIndicatorService } from '../focus-indicator/focus-indicator.servic
 })
 export class SplitterAccessibilityDirective implements AfterViewInit, OnDestroy {
     private readonly _elementRef = inject(ElementRef);
+
     private readonly _renderer = inject(Renderer2);
+
     private readonly _splitter = inject(SplitComponent);
+
     private readonly _focusIndicatorService = inject(FocusIndicatorService);
 
     /** Emit an event whenever the gutter is moved using the keyboard */

@@ -9,8 +9,11 @@ import { RESIZABLE_TABLE_SERVICE_TOKEN } from './resizable-table-service.token';
 @Directive()
 export abstract class BaseResizableTableDirective implements OnDestroy {
     protected readonly _table = inject<BaseResizableTableService>(RESIZABLE_TABLE_SERVICE_TOKEN);
+
     protected readonly _elementRef = inject<ElementRef<HTMLTableElement>>(ElementRef);
+
     protected readonly _renderer = inject(Renderer2);
+
     readonly resize = inject(ResizeService);
 
     columns: QueryList<ResizableTableColumnComponent>;

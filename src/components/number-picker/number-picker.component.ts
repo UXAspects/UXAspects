@@ -21,6 +21,7 @@ export const NUMBER_PICKER_VALUE_ACCESSOR: any = {
 })
 export class NumberPickerComponent implements ControlValueAccessor, OnDestroy, OnChanges {
     readonly _formGroup = inject(FormGroupDirective, { optional: true });
+
     private readonly _changeDetector = inject(ChangeDetectorRef);
 
     private _min: number;

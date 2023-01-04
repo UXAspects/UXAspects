@@ -10,8 +10,11 @@ import { HierarchyBarNode } from '../interfaces/hierarchy-bar-node.interface';
 })
 export class HierarchyBarPopoverItemComponent implements OnDestroy {
     readonly focusOriginService = inject(FocusIndicatorOriginService);
+
     readonly elementRef = inject(ElementRef);
+
     readonly renderer = inject(Renderer2);
+
     readonly hierarchyBar = inject(HierarchyBarService);
 
     /** Specify the node to display */

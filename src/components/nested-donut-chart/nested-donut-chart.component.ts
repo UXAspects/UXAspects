@@ -14,8 +14,11 @@ import { ColorService, ThemeColor } from '../../services/color/index';
 })
 export class NestedDonutChartComponent implements OnInit, OnChanges, OnDestroy {
     private readonly _colorService = inject(ColorService);
+
     private readonly _changeDetector = inject(ChangeDetectorRef);
+
     private readonly _elementRef = inject(ElementRef);
+
     private readonly _resizeService = inject(ResizeService);
 
     /** Define a the dataset to display */

@@ -22,14 +22,21 @@ export type BadgeSize = 'small' | 'medium' | 'large';
 })
 export class BadgeDirective implements AfterViewInit, OnChanges, OnDestroy {
     private readonly _element = inject<ElementRef<HTMLElement>>(ElementRef);
+
     private readonly _renderer = inject(Renderer2);
+
     private readonly _colorService = inject(ColorService);
+
     private readonly _contrastService = inject(ContrastService);
 
     private readonly _className = 'ux-badge';
+
     private readonly _darkColor: ThemeColor = ThemeColor.parse('#000');
+
     private readonly _lightColor: ThemeColor = ThemeColor.parse('#FFF');
+
     private _badgeElement: HTMLElement | undefined;
+
     private _isNumber: boolean;
 
     /**

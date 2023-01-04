@@ -6,6 +6,7 @@ import { SearchBuilderService } from '../search-builder.service';
 @Injectable()
 export class SearchBuilderGroupService {
   private readonly _searchBuilderService = inject(SearchBuilderService);
+
   private readonly _searchBuilderFocusService = inject(SearchBuilderFocusService);
 
   private _id: string;

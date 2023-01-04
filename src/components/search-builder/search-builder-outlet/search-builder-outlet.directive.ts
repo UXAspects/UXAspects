@@ -10,8 +10,11 @@ import { BaseSearchComponent } from '../search-components/base-search.component'
 })
 export class SearchBuilderOutletDirective implements OnInit, OnDestroy {
     private readonly _viewContainerRef = inject(ViewContainerRef);
+
     private readonly _componentFactoryResolver = inject(ComponentFactoryResolver);
+
     private readonly _searchBuilderService = inject(SearchBuilderService);
+
     private readonly _searchBuilderFocusService = inject(SearchBuilderFocusService);
 
     @Input('uxSearchBuilderOutlet') outlet: string;

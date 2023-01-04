@@ -10,9 +10,13 @@ import { FocusIndicatorOriginService } from './focus-indicator-origin/focus-indi
 @Injectable()
 export class FocusIndicatorService {
     private readonly _localOptions = inject<AccessibilityOptions>(ACCESSIBILITY_OPTIONS_TOKEN, { optional: true });
+
     readonly rendererFactory = inject(RendererFactory2);
+
     private readonly _focusMonitor = inject(FocusMonitor);
+
     private readonly _globalOptions = inject(AccessibilityOptionsService);
+
     private readonly _focusIndicatorOrigin = inject(FocusIndicatorOriginService);
 
     /** We need the renderer to add and remove classes */

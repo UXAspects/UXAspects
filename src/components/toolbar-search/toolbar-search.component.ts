@@ -33,8 +33,11 @@ import { ToolbarSearchFieldDirective } from './toolbar-search-field.directive';
 })
 export class ToolbarSearchComponent implements AfterContentInit, OnDestroy {
     private readonly _platformId = inject<Object>(PLATFORM_ID);
+
     private readonly _elementRef = inject(ElementRef);
+
     private readonly _colorService = inject(ColorService);
+
     private readonly _renderer = inject(Renderer2);
 
     /** The direction in which the search box will expand. If the search button is aligned to the right edge of the container, specify left. */

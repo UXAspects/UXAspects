@@ -14,9 +14,13 @@ export interface DragScrollEvent {
 })
 export class DragDirective<T = any> implements OnDestroy {
     private readonly _elementRef = inject<ElementRef<Element>>(ElementRef);
+
     private readonly _ngZone = inject(NgZone);
+
     private readonly _renderer = inject(Renderer2);
+
     private readonly _scrollDispatcher = inject(ScrollDispatcher);
+
     private readonly _drag = inject<DragService<T>>(DragService);
 
     /** Detemine if we should show a clone when dragging */

@@ -24,6 +24,7 @@ import { TabsetToken } from './tabset.token';
 })
 export class TabsetComponent implements AfterViewInit, OnDestroy {
     readonly _tabset = inject(TabsetService);
+
     private readonly _changeDetector = inject(ChangeDetectorRef);
 
     /** Determine if the appearance of the tabset */

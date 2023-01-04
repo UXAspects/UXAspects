@@ -16,10 +16,15 @@ import { VirtualForRange, VirtualForService } from './virtual-for.service';
 })
 export class VirtualForDirective<T> implements OnInit, DoCheck, OnDestroy {
     private readonly _viewContainerRef = inject(ViewContainerRef);
+
     private readonly _templateRef = inject<TemplateRef<VirtualForOfContext<T>>>(TemplateRef);
+
     private readonly _differs = inject(IterableDiffers);
+
     private readonly _renderer = inject(Renderer2);
+
     private readonly _changeDetector = inject(ChangeDetectorRef);
+
     private readonly _virtualScroll = inject<VirtualForService<T>>(VirtualForService);
 
     /** Store the list of items to display */

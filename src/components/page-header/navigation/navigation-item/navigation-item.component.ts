@@ -15,7 +15,9 @@ import { PageHeaderNavigationService } from '../navigation.service';
 })
 export class PageHeaderNavigationItemComponent implements AfterViewInit, OnDestroy, FocusableOption {
     readonly elementRef = inject(ElementRef);
+
     private readonly _pageHeaderService = inject(PageHeaderService);
+
     private readonly _navigationService = inject(PageHeaderNavigationService);
 
     /** Access the data for this dropdown item */

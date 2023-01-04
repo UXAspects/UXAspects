@@ -12,6 +12,7 @@ import { SearchBuilderGroupService } from './search-builder-group.service';
 })
 export class SearchBuilderGroupComponent implements OnInit, OnDestroy {
   readonly searchBuilderGroupService = inject(SearchBuilderGroupService);
+
   private readonly _searchBuilderFocusService = inject(SearchBuilderFocusService);
 
   @Input() id: string;

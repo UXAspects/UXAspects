@@ -16,10 +16,15 @@ import { FocusedMonthItem, MonthViewItem, MonthViewService } from './month-view.
 })
 export class MonthViewComponent implements AfterViewInit, OnDestroy {
     readonly monthService = inject(MonthViewService);
+
     private readonly _datePicker = inject(DateTimePickerService);
+
     private readonly _liveAnnouncer = inject(LiveAnnouncer);
+
     private readonly _changeDetector = inject(ChangeDetectorRef);
+
     private readonly _rangeService = inject(DateRangeService, { optional: true});
+
     private readonly _rangeOptions = inject(DateRangeOptions, { optional: true});
 
 

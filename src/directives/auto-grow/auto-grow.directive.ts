@@ -5,6 +5,7 @@ import { AfterViewInit, Directive, ElementRef, HostListener, inject, Renderer2 }
 })
 export class AutoGrowDirective implements AfterViewInit {
   private readonly _elementRef = inject(ElementRef);
+
   private readonly _renderer = inject(Renderer2);
 
   constructor() {

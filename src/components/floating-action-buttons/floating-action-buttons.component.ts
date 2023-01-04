@@ -24,6 +24,7 @@ import { FloatingActionButtonDirection, FloatingActionButtonsService } from './f
 })
 export class FloatingActionButtonsComponent implements AfterViewInit, OnDestroy {
     readonly fab = inject(FloatingActionButtonsService);
+
     private readonly _elementRef = inject(ElementRef);
 
     /** Specify the direction that the FAB should display */

@@ -9,7 +9,9 @@ import { ResizeDimensions, ResizeService } from './resize.service';
 })
 export class ResizeDirective implements OnInit, OnDestroy {
     private readonly _elementRef = inject(ElementRef);
+
     private readonly _resizeService = inject(ResizeService);
+
     private readonly _ngZone = inject(NgZone);
 
     /** Debounce the resize event emitter */

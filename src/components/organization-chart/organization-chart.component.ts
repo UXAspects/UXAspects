@@ -15,13 +15,21 @@ import { ResizeDimensions, ResizeService } from '../../directives/resize/index';
 })
 export class OrganizationChartComponent<T> implements AfterViewInit, OnChanges, OnDestroy {
     private readonly _resizeService = inject(ResizeService);
+
     private readonly _componentFactoryResolver = inject(ComponentFactoryResolver);
+
     private readonly _injector = inject(Injector);
+
     private readonly _elementRef = inject(ElementRef);
+
     private readonly _appRef = inject(ApplicationRef);
+
     private readonly _viewContainerRef = inject(ViewContainerRef);
+
     private readonly _renderer = inject(Renderer2);
+
     private readonly _focusIndicator = inject(FocusIndicatorService);
+
     private readonly _ngZone = inject(NgZone);
 
     /** Define the root node of the chart */

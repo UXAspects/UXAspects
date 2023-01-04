@@ -14,7 +14,9 @@ import { ColumnPickerTreeNode } from './interfaces/column-picker-tree-node.inter
 })
 export class ColumnPickerComponent implements OnChanges {
     private readonly _columnPicker = inject(ColumnPickerService);
+
     private readonly _liveAnnouncer = inject(LiveAnnouncer);
+
     private readonly _changeDetectorRef = inject(ChangeDetectorRef);
 
     /** Define a list of all selected columns. */

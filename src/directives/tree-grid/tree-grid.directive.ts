@@ -14,6 +14,7 @@ import { TreeGridService } from './tree-grid.service';
 })
 export class TreeGridDirective implements OnInit, OnDestroy {
     private readonly _changeDetector = inject(ChangeDetectorRef);
+
     private readonly _treeGridService = inject(TreeGridService);
 
     @Input('uxTreeGrid')

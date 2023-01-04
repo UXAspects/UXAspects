@@ -13,9 +13,13 @@ import { HierarchyBarNode } from '../interfaces/hierarchy-bar-node.interface';
 })
 export class HierarchyBarCollapsedComponent implements AfterViewInit, OnDestroy {
     readonly hierarchyBar = inject(HierarchyBarService);
+
     private readonly _renderer = inject(Renderer2);
+
     private readonly _resizeService = inject(ResizeService);
+
     private readonly _elementRef = inject(ElementRef);
+
     private readonly _changeDetector = inject(ChangeDetectorRef);
 
     /** Determine read only state */

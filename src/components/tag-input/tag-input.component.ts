@@ -37,7 +37,9 @@ const TAGINPUT_VALIDATOR = {
 })
 export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, ControlValueAccessor, Validator, OnDestroy {
     private readonly _changeDetector = inject(ChangeDetectorRef);
+
     private readonly _element = inject(ElementRef);
+
     private readonly _typeaheadKeyService = inject(TypeaheadKeyService);
 
     /** Specify a unique Id for the component */

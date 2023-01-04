@@ -17,7 +17,9 @@ let uniqueId = 0;
 })
 export class FilterDynamicComponent implements OnInit, OnDestroy {
     readonly typeaheadKeyService = inject(TypeaheadKeyService);
+
     private readonly _filterService = inject(FilterService);
+
     private readonly _changeDetector = inject(ChangeDetectorRef);
 
     /** The unique id is used multiple times - this is to ensure we only increment it once per instance */

@@ -16,10 +16,15 @@ import { YearViewItem, YearViewService } from './year-view.service';
 })
 export class YearViewComponent implements AfterViewInit, OnDestroy {
     readonly yearService = inject(YearViewService);
+
     private readonly _datePicker = inject(DateTimePickerService);
+
     private readonly _liveAnnouncer = inject(LiveAnnouncer);
+
     private readonly _changeDetector = inject(ChangeDetectorRef);
+
     private readonly _rangeService = inject(DateRangeService, { optional: true });
+
     private readonly _rangeOptions = inject(DateRangeOptions, { optional: true });
 
     /** Determine if we are in range selection mode */

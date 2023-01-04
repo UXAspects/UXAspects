@@ -12,6 +12,7 @@ import { SelectionStrategy } from './strategies/selection.strategy';
 })
 export class SelectionDirective<T> implements AfterContentInit, OnDestroy {
     readonly _selectionService = inject<SelectionService<T>>(SelectionService);
+
     readonly _cdRef = inject(ChangeDetectorRef);
 
     /** Defines the items that should be selected. */

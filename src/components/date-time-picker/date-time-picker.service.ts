@@ -10,7 +10,9 @@ import { dateComparator, DateTimePickerTimezone, meridians, months, monthsShort,
 export class DateTimePickerService implements OnDestroy {
 
     private readonly _config = inject(DateTimePickerConfig, { optional: true });
+
     readonly rangeService = inject(DateRangeService, { optional: true });
+
     readonly rangeOptions = inject(DateRangeOptions, { optional: true });
 
     mode$: BehaviorSubject<DatePickerMode> = new BehaviorSubject<DatePickerMode>(DatePickerMode.Day);

@@ -5,6 +5,7 @@ import { Directive, EmbeddedViewRef, inject, Input, TemplateRef, ViewContainerRe
 })
 export class LayoutSwitcherItemDirective {
     private readonly _templateRef = inject<TemplateRef<any>>(TemplateRef);
+
     private readonly _viewContainerRef = inject(ViewContainerRef);
 
     @Input('uxLayoutSwitcherItem') private _config: LayoutSwitcherItem;

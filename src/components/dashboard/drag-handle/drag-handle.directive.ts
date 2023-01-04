@@ -11,11 +11,17 @@ import { DashboardWidgetComponent } from '../widget/dashboard-widget.component';
 })
 export class DashboardDragHandleDirective extends DragDirective {
     readonly widget = inject(DashboardWidgetComponent);
+
     readonly dashboardService = inject(DashboardService);
+
     readonly elementRef = inject<ElementRef<Element>>(ElementRef);
+
     readonly ngZone = inject(NgZone);
+
     readonly renderer = inject(Renderer2);
+
     readonly scrollDispatcher = inject(ScrollDispatcher);
+
     readonly drag = inject(DragService);
 
     constructor() {

@@ -24,9 +24,13 @@ import { ResizableExpandingTableService } from './resizable-expanding-table.serv
 })
 export class ResizableExpandingTableDirective extends BaseResizableTableDirective implements AfterViewInit {
     readonly table = inject<ResizableExpandingTableService>(RESIZABLE_TABLE_SERVICE_TOKEN);
+
     readonly elementRef = inject<ElementRef<HTMLTableElement>>(ElementRef);
+
     readonly renderer = inject(Renderer2);
+
     readonly resize = inject(ResizeService);
+
     private readonly _platformId = inject<Object>(PLATFORM_ID);
 
     /** Get all the column headers */

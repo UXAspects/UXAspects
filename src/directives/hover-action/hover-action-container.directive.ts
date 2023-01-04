@@ -10,7 +10,9 @@ import { HoverActionService } from './hover-action.service';
 })
 export class HoverActionContainerDirective implements OnInit, OnDestroy {
     private readonly _elementRef = inject(ElementRef);
+
     private readonly _managedFocusContainerService = inject(ManagedFocusContainerService);
+
     private readonly _hoverActionService = inject(HoverActionService);
 
     @Input()

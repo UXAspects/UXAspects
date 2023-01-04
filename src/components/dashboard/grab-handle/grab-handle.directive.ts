@@ -13,9 +13,13 @@ import { DashboardGrabHandleService } from './grab-handle.service';
 })
 export class DashboardGrabHandleDirective implements OnInit, OnDestroy {
     readonly widget = inject(DashboardWidgetComponent);
+
     private readonly _dashboard = inject(DashboardService);
+
     private readonly _handle = inject(DashboardGrabHandleService);
+
     private readonly _elementRef = inject(ElementRef);
+
     private readonly _announcer = inject(LiveAnnouncer);
 
     /** Specify whether or not this handle can be used to perform moving */

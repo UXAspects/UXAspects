@@ -6,6 +6,7 @@ import { ManagedFocusContainerService } from './managed-focus-container.service'
 })
 export class ManagedFocusContainerDirective implements OnInit, OnDestroy {
     private readonly _elementRef = inject(ElementRef);
+
     private readonly _managedFocusContainerService = inject(ManagedFocusContainerService);
 
     ngOnInit(): void {

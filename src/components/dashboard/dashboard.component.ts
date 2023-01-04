@@ -19,6 +19,7 @@ import { DashboardWidgetComponent } from './widget/dashboard-widget.component';
 export class DashboardComponent implements AfterViewInit, AfterContentInit, OnDestroy, OnChanges {
 
     readonly dashboardService = inject(DashboardService);
+
     private readonly _changeDetector = inject(ChangeDetectorRef);
 
     isGrabbing: boolean = false;

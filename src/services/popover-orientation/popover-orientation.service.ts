@@ -7,7 +7,9 @@ import { ResizeService } from '../../directives/resize/index';
 @Injectable()
 export class PopoverOrientationService {
     readonly elementRef = inject(ElementRef);
+
     readonly _resizeService = inject(ResizeService);
+
     readonly _viewportRuler = inject(ViewportRuler);
 
     public createPopoverOrientationListener(

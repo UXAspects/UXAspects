@@ -18,12 +18,19 @@ import { ColorService, ThemeColor } from '../../services/color/index';
 })
 export class PartitionMapComponent implements OnInit, OnDestroy {
     private readonly _colorService = inject(ColorService);
+
     private readonly _elementRef = inject(ElementRef);
+
     private readonly _changeDetector = inject(ChangeDetectorRef);
+
     private readonly _ngZone = inject(NgZone);
+
     private readonly _focusOrigin = inject(FocusIndicatorOriginService);
+
     private readonly _contrastRatio = inject(ContrastService);
+
     private readonly _liveAnnouncer = inject(LiveAnnouncer);
+
     private readonly _resizeService = inject(ResizeService);
 
     /** Define the colors to be used for each row and the order they should appear. */

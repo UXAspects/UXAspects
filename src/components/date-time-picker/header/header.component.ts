@@ -12,8 +12,11 @@ import { DatePickerMode, DateTimePickerService } from '../date-time-picker.servi
 })
 export class HeaderComponent implements AfterViewInit, OnDestroy {
     readonly datepicker = inject(DateTimePickerService);
+
     private readonly _changeDetector = inject(ChangeDetectorRef);
+
     @Optional() readonly _rangeService = inject(DateRangeService);
+
     @Optional() readonly _rangeOptions = inject(DateRangeOptions);
 
     canAscend$: Observable<boolean> = this.datepicker.mode$.pipe(map(mode => mode !== DatePickerMode.Year));

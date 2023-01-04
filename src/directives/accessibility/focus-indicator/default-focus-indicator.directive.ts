@@ -17,9 +17,13 @@ import { FocusIndicatorService } from './focus-indicator.service';
 })
 export class DefaultFocusIndicatorDirective extends FocusIndicatorDirective {
     readonly elementRef = inject(ElementRef);
+
     readonly focusIndicatorService = inject(FocusIndicatorService);
+
     readonly optionsService = inject(AccessibilityOptionsService);
+
     readonly ngZone = inject(NgZone);
+
     readonly localOptions = inject(LocalFocusIndicatorOptions);
 
     constructor() {

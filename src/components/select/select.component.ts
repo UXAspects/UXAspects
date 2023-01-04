@@ -31,8 +31,11 @@ export const SELECT_VALUE_ACCESSOR: StaticProvider = {
 })
 export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, ControlValueAccessor {
     private readonly _element = inject(ElementRef);
+
     private readonly _platform = inject(Platform);
+
     private readonly _typeaheadKeyService = inject(TypeaheadKeyService);
+
     private readonly _changeDetector = inject(ChangeDetectorRef);
 
     /** A unique id for the component. */

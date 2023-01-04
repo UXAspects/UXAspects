@@ -11,9 +11,13 @@ import { SelectionService } from './selection.service';
 })
 export class SelectionItemDirective<T> implements OnInit, OnChanges, OnDestroy {
     private readonly _selectionService = inject<SelectionService<T>>(SelectionService);
+
     private readonly _elementRef = inject(ElementRef);
+
     private readonly focusIndicatorService = inject(FocusIndicatorService);
+
     private readonly _managedFocusContainerService = inject(ManagedFocusContainerService);
+
     private readonly _changeDetector = inject(ChangeDetectorRef);
 
     /** Defines the data associated with this item. */

@@ -6,6 +6,7 @@ import { Directive, inject, Input, TemplateRef, ViewContainerRef } from '@angula
 })
 export class InfiniteScrollLoadingDirective {
     private readonly _templateRef = inject<TemplateRef<any>>(TemplateRef);
+
     private readonly _viewContainer = inject(ViewContainerRef);
 
     @Input('uxInfiniteScrollLoading')

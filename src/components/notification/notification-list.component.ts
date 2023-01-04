@@ -24,7 +24,9 @@ import { NotificationListDirection, NotificationRef, NotificationService } from 
 })
 export class NotificationListComponent implements AfterViewInit, OnChanges, OnDestroy {
     private readonly _notificationService = inject(NotificationService);
+
     private readonly _changeDetectorRef = inject(ChangeDetectorRef);
+
     private readonly _renderer = inject(Renderer2);
 
     /**

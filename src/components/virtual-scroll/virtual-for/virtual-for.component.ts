@@ -16,7 +16,9 @@ import { VirtualForRange, VirtualForService } from './virtual-for.service';
 })
 export class VirtualForContainerComponent<T> implements AfterViewInit, OnDestroy {
     private readonly _elementRef = inject(ElementRef);
+
     private readonly _virtualScroll = inject<VirtualForService<T>>(VirtualForService);
+
     private readonly _tabbableList = inject(TabbableListService, { optional: true, self: true });
 
     /** Define the height of each virtual item */

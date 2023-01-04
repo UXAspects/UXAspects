@@ -7,6 +7,7 @@ import { ScrollIntoViewService } from './scroll-into-view.service';
  })
 export class ScrollIntoViewIfDirective implements OnChanges {
     private readonly _element = inject(ElementRef);
+
     private readonly _scrollIntoViewService = inject(ScrollIntoViewService);
 
     @Input('uxScrollIntoViewIf') condition = false;

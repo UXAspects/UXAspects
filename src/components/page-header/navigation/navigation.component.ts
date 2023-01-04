@@ -17,8 +17,11 @@ import { PageHeaderNavigationService } from './navigation.service';
 })
 export class PageHeaderNavigationComponent implements AfterViewInit, OnDestroy {
     readonly elementRef = inject(ElementRef);
+
     readonly resizeService = inject(ResizeService);
+
     private readonly _navigationService = inject(PageHeaderNavigationService);
+
     private readonly _pageHeaderService = inject(PageHeaderService);
 
     @ViewChildren(PageHeaderNavigationItemComponent) menuItems: QueryList<PageHeaderNavigationItemComponent>;

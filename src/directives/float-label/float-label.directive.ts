@@ -10,7 +10,9 @@ import { Subscription } from 'rxjs';
 })
 export class FloatLabelDirective<T = string> implements OnInit, OnChanges, OnDestroy {
     private readonly _elementRef = inject(ElementRef);
+
     private readonly _renderer = inject(Renderer2);
+
     private readonly _autofillMonitor = inject(AutofillMonitor);
 
     @Input('uxFloatLabel')

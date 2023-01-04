@@ -6,6 +6,7 @@ import { TypeaheadService } from './typeahead.service';
 })
 export class TypeaheadHighlightDirective {
     private readonly _service = inject(TypeaheadService);
+
     private readonly _elementRef = inject(ElementRef);
 
     @Input('uxTypeaheadHighlight')

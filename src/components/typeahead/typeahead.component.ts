@@ -25,8 +25,11 @@ let uniqueId = 0;
 })
 export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
     readonly typeaheadElement = inject(ElementRef);
+
     readonly popoverOrientation = inject(PopoverOrientationService);
+
     private readonly _changeDetector = inject(ChangeDetectorRef);
+
     private readonly _service = inject(TypeaheadService);
 
     @ViewChild(InfiniteScrollDirective) infiniteScroll: InfiniteScrollDirective;

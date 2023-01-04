@@ -9,7 +9,9 @@ import { HoverActionService } from './hover-action.service';
 })
 export class HoverActionDirective implements OnDestroy {
     private readonly _elementRef = inject(ElementRef);
+
     private readonly _hoverActionService = inject(HoverActionService);
+
     readonly focusIndicatorService = inject(FocusIndicatorService);
 
     @Input()

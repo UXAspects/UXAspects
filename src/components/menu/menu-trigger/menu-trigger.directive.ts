@@ -24,12 +24,19 @@ import { MenuComponent } from '../menu/menu.component';
 })
 export class MenuTriggerDirective implements OnInit, OnDestroy {
     private readonly _overlay = inject(Overlay);
+
     private readonly _elementRef = inject(ElementRef);
+
     private readonly _viewContainerRef = inject(ViewContainerRef);
+
     private readonly _focusOrigin = inject(FocusIndicatorOriginService);
+
     private readonly _focusIndicatorService = inject(FocusIndicatorService);
+
     private readonly _overlayPlacement = inject(OverlayPlacementService);
+
     private readonly _parentMenu = inject(MenuComponent, { optional: true });
+
     private readonly _menuItem = inject(MenuItemComponent, { optional: true, self: true });
 
     /** Access the menu we should show */

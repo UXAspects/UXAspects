@@ -8,6 +8,7 @@ import { ColorIdentifier, ColorService } from '../../services/color/index';
 })
 export class SparkComponent {
     readonly _colorService = inject(ColorService);
+
     values: number[] = [];
 
     @Input() barHeight: number = 10;

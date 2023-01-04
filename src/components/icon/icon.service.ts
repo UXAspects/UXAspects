@@ -9,6 +9,7 @@ import { uxIconset } from './iconsets/ux-iconset';
 @Injectable()
 export class IconService {
     readonly options = inject<IconModuleOptions>(ICON_OPTIONS_TOKEN, { optional: true });
+
     private readonly _iconService = inject(IconService, { optional: true, skipSelf: true });
 
     /** Emit whenever the iconset changes */

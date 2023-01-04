@@ -14,12 +14,19 @@ import { TooltipService } from './tooltip.service';
 })
 export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
     protected readonly _elementRef = inject(ElementRef);
+
     protected readonly _viewContainerRef = inject(ViewContainerRef);
+
     protected readonly _overlay = inject(Overlay);
+
     protected readonly _scrollDispatcher = inject(ScrollDispatcher);
+
     private readonly _changeDetectorRef = inject(ChangeDetectorRef);
+
     private readonly _renderer = inject(Renderer2);
+
     private readonly _tooltipService = inject(TooltipService);
+
     private readonly _overlayFallback = inject(OverlayPlacementService);
 
     /** Contains the content of the tooltip or a TemplateRef for more detailed content */
