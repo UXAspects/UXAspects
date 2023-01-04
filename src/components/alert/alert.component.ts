@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ContentChild, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ContentChild, EventEmitter, inject, Input, Output } from '@angular/core';
 import { ColorService } from '../../services/color/index';
 import { AlertIconDirective } from './alert-icon.directive';
 
@@ -18,6 +18,8 @@ import { AlertIconDirective } from './alert-icon.directive';
     }
 })
 export class AlertComponent {
+
+    private readonly colorService = inject(ColorService);
 
     /** Determine the style of the alert */
     @Input() type: AlertType = 'info';
@@ -54,8 +56,6 @@ export class AlertComponent {
     get _isCustomColor(): boolean {
         return !!this.backgroundColor && !!this.foregroundColor;
     }
-
-    constructor(private readonly colorService: ColorService) { }
 
     private getColor(color: string): string | null {
         // check if it is a color name from the color palette or just return the CSS color value

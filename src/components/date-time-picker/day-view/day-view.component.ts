@@ -1,5 +1,5 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
-import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, Optional } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, OnDestroy, Optional } from '@angular/core';
 import { merge, Subject } from 'rxjs';
 import { delay, filter, takeUntil } from 'rxjs/operators';
 import { FocusIndicatorOriginService } from '../../../directives/accessibility/index';
@@ -16,6 +16,15 @@ import { DayViewItem, DayViewService } from './day-view.service';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DayViewComponent implements AfterViewInit, OnDestroy {
+
+    public datePicker = inject(DateTimePickerService);
+    public dayService = inject(DayViewService);
+    private _changeDetector = inject(ChangeDetectorRef);
+    private _focusOrigin = inject(FocusIndicatorOriginService);
+    private _liveAnnouncer = inject(LiveAnnouncer);
+
+    @Optional() private _rangeService = inject(DateRangeService);
+    @Optional() private _rangeOptions = inject(DateRangeOptions);
 
     /** Determine if we are in range selection mode */
     get _isRangeMode(): boolean {
@@ -42,34 +51,28 @@ export class DayViewComponent implements AfterViewInit, OnDestroy {
 
     private _onDestroy = new Subject<void>();
 
-    constructor(public datePicker: DateTimePickerService,
-        public dayService: DayViewService,
-        private _changeDetector: ChangeDetectorRef,
-        private _focusOrigin: FocusIndicatorOriginService,
-        private _liveAnnouncer: LiveAnnouncer,
-        @Optional() private _rangeService: DateRangeService,
-        @Optional() private _rangeOptions: DateRangeOptions) {
+    constructor() {
 
-        datePicker.headerEvent$.pipe(takeUntil(this._onDestroy))
+        this.datePicker.headerEvent$.pipe(takeUntil(this._onDestroy))
             .subscribe(event => event === DatePickerHeaderEvent.Next ? this.next() : this.previous());
 
         // if we are a range picker then we also want to subscribe to range changes
-        if (_rangeService) {
-            merge(_rangeService.onRangeChange, _rangeService.onHoverChange).pipe(takeUntil(this._onDestroy))
-                .subscribe(() => _changeDetector.detectChanges());
+        if (this._rangeService) {
+            merge(this._rangeService.onRangeChange, this._rangeService.onHoverChange).pipe(takeUntil(this._onDestroy))
+                .subscribe(() => this._changeDetector.detectChanges());
 
             // subscribe to changes to the start date
-            _rangeService.onStartChange
+            this._rangeService.onStartChange
                 .pipe(takeUntil(this._onDestroy), filter(date => !!date && this._isRangeEnd && this.datePicker.initialised), delay(0))
                 .subscribe(date => this.onRangeChange(date));
 
             // subscribe to changes to the end date
-            _rangeService.onEndChange
+            this._rangeService.onEndChange
                 .pipe(takeUntil(this._onDestroy), filter(date => !!date && this._isRangeStart && this.datePicker.initialised), delay(0))
                 .subscribe(date => this.onRangeChange(date));
 
             // when the range is cleared reset the selected date so we can click on the same date again if we want to
-            _rangeService.onClear.pipe(takeUntil(this._onDestroy)).subscribe(() => this.datePicker.selected$.next(null));
+            this._rangeService.onClear.pipe(takeUntil(this._onDestroy)).subscribe(() => this.datePicker.selected$.next(null));
         }
     }
 

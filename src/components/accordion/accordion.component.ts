@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { AccordionService } from './accordion.service';
 
 @Component({
@@ -12,9 +12,10 @@ import { AccordionService } from './accordion.service';
 })
 export class AccordionComponent {
 
+    private _accordion = inject(AccordionService);
+
     @Input() set collapseOthers(collapseOthers: boolean) {
         this._accordion.collapseOthers = collapseOthers;
     }
 
-    constructor(private _accordion: AccordionService) { }
 }

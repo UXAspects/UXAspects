@@ -1,5 +1,5 @@
 import { BooleanInput, coerceBooleanProperty, coerceNumberProperty, NumberInput } from '@angular/cdk/coercion';
-import { AfterViewInit, Component, HostBinding, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
+import { AfterViewInit, Component, HostBinding, inject, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { Subject } from 'rxjs';
 import { map, takeUntil } from 'rxjs/operators';
 import { ActionDirection, DashboardService } from '../dashboard.service';
@@ -10,6 +10,8 @@ import { DashboardStackMode } from './dashboard-stack-mode.enum';
     templateUrl: './dashboard-widget.component.html'
 })
 export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestroy, OnChanges {
+
+    public dashboardService = inject(DashboardService);
 
     /** Sets the ID of the widget. Each widget should be given a unique ID. */
     @Input() id: string;
@@ -119,21 +121,21 @@ export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestro
     private _autoPositioning: boolean = true;
     private _onDestroy = new Subject<void>();
 
-    constructor(public dashboardService: DashboardService) {
+    constructor() {
         // subscribe to option changes
-        dashboardService.options$.pipe(takeUntil(this._onDestroy))
+        this.dashboardService.options$.pipe(takeUntil(this._onDestroy))
             .subscribe(() => this.update());
 
         // every time the layout changes we want to update the aria label
-        dashboardService.layout$.pipe(takeUntil(this._onDestroy))
+        this.dashboardService.layout$.pipe(takeUntil(this._onDestroy))
             .subscribe(() => this.ariaLabel = this.getAriaLabel());
 
         // allow widget movements to be animated
-        dashboardService.isDragging$.pipe(takeUntil(this._onDestroy), map(widget => widget === this))
+        this.dashboardService.isDragging$.pipe(takeUntil(this._onDestroy), map(widget => widget === this))
             .subscribe(isDragging => this.isDragging = isDragging);
 
         // allow widget movements to be animated
-        dashboardService.isGrabbing$.pipe(takeUntil(this._onDestroy), map(widget => widget === this))
+        this.dashboardService.isGrabbing$.pipe(takeUntil(this._onDestroy), map(widget => widget === this))
             .subscribe(isGrabbing => this.isGrabbing = isGrabbing);
     }
 

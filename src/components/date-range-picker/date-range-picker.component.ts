@@ -1,5 +1,5 @@
 import { WeekDay } from '@angular/common';
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, inject, Input, OnDestroy, Output } from '@angular/core';
 import { Subject } from 'rxjs';
 import { debounceTime, takeUntil } from 'rxjs/operators';
 import { DateFormatter } from '../../pipes/date-formatter/date-formatter.type';
@@ -13,6 +13,8 @@ import { DateRangePicker, DateRangeService } from './date-range.service';
     providers: [DateRangeService]
 })
 export class DateRangePickerComponent implements OnDestroy {
+
+    public rangeService = inject(DateRangeService);
 
     /** Expose enum to the view */
     DateRangePicker = DateRangePicker;
@@ -159,7 +161,7 @@ export class DateRangePickerComponent implements OnDestroy {
     /** Unsubscribe from all observables private  */
     private _onDestroy = new Subject<void>();
 
-    constructor(public rangeService: DateRangeService) {
+    constructor() {
         this.startChange$.pipe(takeUntil(this._onDestroy), debounceTime(0)).subscribe(date => this.onStartChange(date));
         this.endChange$.pipe(takeUntil(this._onDestroy), debounceTime(0)).subscribe(date => this.onEndChange(date));
     }

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, HostBinding, Input, Output } from '@angular/core';
+import { Component, EventEmitter, HostBinding, inject, Input, Output } from '@angular/core';
 import { AccordionService } from '../accordion.service';
 
 let uniqueId: number = 1;
@@ -12,6 +12,8 @@ let uniqueId: number = 1;
 })
 export class AccordionPanelComponent {
 
+    public accordion = inject(AccordionService);
+
     @Input() panelId: string = `ux-accordion-panel-${uniqueId++}`;
     @Input() headingId: string = `${this.panelId}-heading`;
 
@@ -21,8 +23,8 @@ export class AccordionPanelComponent {
 
     @Output() expandedChange = new EventEmitter<boolean>();
 
-    constructor(public accordion: AccordionService) {
-        accordion.collapse.subscribe(() => this.collapse());
+    constructor() {
+        this.accordion.collapse.subscribe(() => this.collapse());
     }
 
     toggle(): void {

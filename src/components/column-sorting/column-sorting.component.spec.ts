@@ -1,10 +1,10 @@
-import { ColumnSortingComponent } from './column-sorting.component';
+import { ChangeDetectionStrategy, DebugElement, inject } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { ColumnSortingModule } from './column-sorting.module';
-import { ColumnSortingDirective, ColumnSortingState } from './column-sorting.directive';
-import { ChangeDetectionStrategy, DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { IconComponent } from '../icon';
+import { ColumnSortingComponent } from './column-sorting.component';
+import { ColumnSortingDirective, ColumnSortingState } from './column-sorting.directive';
+import { ColumnSortingModule } from './column-sorting.module';
 
 describe('Column Sorting Component', () => {
     let fixture: ComponentFixture<ColumnSortingComponent>;
@@ -145,6 +145,8 @@ describe('Column Sorting Component', () => {
 
 export class ColumnSortingTestHarness {
 
+    private _fixture = inject(ComponentFixture<ColumnSortingComponent>);
+
     private _component = this._fixture.componentInstance;
 
     orderChangeSpy = spyOn(this._component.orderChange, 'emit');
@@ -152,9 +154,6 @@ export class ColumnSortingTestHarness {
 
     /** Access the instance of the column sorting directive */
     private _sorter: ColumnSortingDirective = TestBed.get(ColumnSortingDirective);
-
-    constructor(private _fixture: ComponentFixture<ColumnSortingComponent>) {
-    }
 
     /** Toggle the sort direction */
     async toggleSort(): Promise<void> {

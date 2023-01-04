@@ -1,4 +1,4 @@
-import { Directive, OnDestroy, OnInit, Optional } from '@angular/core';
+import { Directive, inject, OnDestroy, OnInit, Optional } from '@angular/core';
 import { Subject } from 'rxjs';
 import { ConduitZone } from './conduit-zone.service';
 import { ConduitProperties } from './interfaces/conduit-properties';
@@ -8,7 +8,7 @@ import { ConduitProperties } from './interfaces/conduit-properties';
 })
 export class ConduitComponent implements OnInit, OnDestroy {
 
-    constructor(@Optional() protected _zone: ConduitZone) {}
+    @Optional() protected _zone = inject(ConduitZone);
 
     /** We need to register the conduits with the zone when the component is initialised */
     ngOnInit(): void {
