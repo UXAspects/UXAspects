@@ -1,18 +1,19 @@
-import { Injectable, OnDestroy } from '@angular/core';
+import { inject, Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { DateTimePickerService, ModeDirection } from '../date-time-picker.service';
 import { gridify, range } from '../date-time-picker.utils';
 
 @Injectable()
 export class MonthViewService implements OnDestroy {
+    private readonly _datepicker = inject(DateTimePickerService);
 
     grid$ = new BehaviorSubject<MonthViewItem[][]>([[]]);
     focused$ = new BehaviorSubject<FocusedMonthItem>(null);
 
     private _subscription: Subscription;
 
-    constructor(private _datepicker: DateTimePickerService) {
-        this._subscription = _datepicker.year$.subscribe(year => this.createMonthGrid(year));
+    constructor() {
+        this._subscription = this._datepicker.year$.subscribe(year => this.createMonthGrid(year));
     }
 
     ngOnDestroy(): void {

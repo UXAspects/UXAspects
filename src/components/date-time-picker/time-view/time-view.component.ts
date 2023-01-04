@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, HostListener, OnDestroy, OnInit, Optional, Output } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, HostListener, inject, OnDestroy, OnInit, Output } from '@angular/core';
 import { combineLatest, Subject } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
 import { DateRangeOptions } from '../../date-range-picker/date-range-picker.directive';
@@ -12,6 +12,10 @@ import { compareDays, DateTimePickerTimezone } from '../date-time-picker.utils';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TimeViewComponent implements OnInit, OnDestroy {
+    public readonly datepicker = inject(DateTimePickerService);
+    private readonly _changeDetector = inject(ChangeDetectorRef);
+    private readonly _rangeService = inject(DateRangeService, { optional: true });
+    private readonly _rangeOptions = inject(DateRangeOptions, { optional: true });
 
     /** Dont bind directly to the selected date as if it's null we can end up in 1970! */
     value: Date;
@@ -50,22 +54,18 @@ export class TimeViewComponent implements OnInit, OnDestroy {
 
     private _onDestroy = new Subject<void>();
 
-    constructor(
-        public datepicker: DateTimePickerService,
-        private _changeDetector: ChangeDetectorRef,
-        @Optional() private _rangeService: DateRangeService,
-        @Optional() private _rangeOptions: DateRangeOptions) {
+    constructor() {
 
         // when the date changes we should update the value
-        datepicker.date$.pipe(filter(date => date && this.value instanceof Date), takeUntil(this._onDestroy)).subscribe(date => {
+        this.datepicker.date$.pipe(filter(date => date && this.value instanceof Date), takeUntil(this._onDestroy)).subscribe(date => {
 
             this.value = new Date(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds());
 
-            _changeDetector.detectChanges();
+            this._changeDetector.detectChanges();
         });
 
         if (!this._isRangeMode) {
-            datepicker.selected$.pipe(filter(date => !!date), takeUntil(this._onDestroy))
+            this.datepicker.selected$.pipe(filter(date => !!date), takeUntil(this._onDestroy))
                 .subscribe(date => this.value = new Date(date));
         }
 

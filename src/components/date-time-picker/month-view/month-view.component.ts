@@ -62,7 +62,7 @@ export class MonthViewComponent implements AfterViewInit, OnDestroy {
             .subscribe(event => event === DatePickerHeaderEvent.Next ? this.next() : this.previous());
 
         if (this._rangeService) {
-            this._rangeService.onRangeChange.pipe(takeUntil(this._onDestroy)).subscribe(() => _changeDetector.detectChanges());
+            this._rangeService.onRangeChange.pipe(takeUntil(this._onDestroy)).subscribe(() => this._changeDetector.detectChanges());
         }
 
         // if the currently focused item is disabled then choose a month that isn't disabled
