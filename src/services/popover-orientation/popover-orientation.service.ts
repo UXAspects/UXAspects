@@ -1,17 +1,14 @@
-import { ElementRef, Injectable } from '@angular/core';
 import { ViewportRuler } from '@angular/cdk/scrolling';
-import { ResizeService } from '../../directives/resize/index';
-import { takeUntil } from 'rxjs/operators';
+import { ElementRef, inject, Injectable } from '@angular/core';
 import { BehaviorSubject, fromEvent, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { ResizeService } from '../../directives/resize/index';
 
 @Injectable()
 export class PopoverOrientationService {
-
-    constructor(
-        public elementRef: ElementRef,
-        public _resizeService: ResizeService,
-        public _viewportRuler: ViewportRuler) {
-    }
+    readonly elementRef = inject(ElementRef);
+    readonly _resizeService = inject(ResizeService);
+    readonly _viewportRuler = inject(ViewportRuler);
 
     public createPopoverOrientationListener(
         element: ElementRef | HTMLElement,

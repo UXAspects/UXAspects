@@ -1,15 +1,16 @@
-import { Inject, Injectable, Optional } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { ColorSet, colorSets, COLOR_SET_TOKEN } from './color-sets/index';
 import { ThemeColor } from './theme-color';
 
 @Injectable()
 export class ColorService {
+    private _colorSet = inject<ColorSet>(COLOR_SET_TOKEN, { optional: true });
 
     /** Set the default theme to the Keppel colorset */
     private _theme: Readonly<Theme>;
 
     /** Allow the color set to be provided in a forRoot function otherwise set it to the Keppel theme by default */
-    constructor(@Optional() @Inject(COLOR_SET_TOKEN) private _colorSet: ColorSet) {
+    constructor() {
 
         // resolve the theme based on the colorset
         this._theme = this.getTheme(this._colorSet);
