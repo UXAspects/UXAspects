@@ -1,6 +1,6 @@
-import { Directive, EventEmitter, HostListener, Input, OnDestroy, Output } from '@angular/core';
-import { filter, takeUntil, tap } from 'rxjs/operators';
+import { Directive, EventEmitter, HostListener, inject, Input, OnDestroy, Output } from '@angular/core';
 import { Subject } from 'rxjs';
+import { filter, takeUntil, tap } from 'rxjs/operators';
 import { DragService, UxDragEvent } from './drag.service';
 
 @Directive({
@@ -10,6 +10,7 @@ import { DragService, UxDragEvent } from './drag.service';
     }
 })
 export class DropDirective<T = any> implements OnDestroy {
+    private readonly _dragService = inject<DragService<T>>(DragService);
 
     /** Define a specific group of dragged items to listen to */
     @Input() group: string | string[];
@@ -32,12 +33,12 @@ export class DropDirective<T = any> implements OnDestroy {
     /** Ensure we destroy all subscriptions */
     private _onDestroy = new Subject<void>();
 
-    constructor(private _dragService: DragService<T>) {
+    constructor() {
         // subscribe to drag events
-        _dragService.onDragStart.pipe(tap(event => this._group = event.group), filter(event => this.isDropAllowed(event.group)), takeUntil(this._onDestroy))
+        this._dragService.onDragStart.pipe(tap(event => this._group = event.group), filter(event => this.isDropAllowed(event.group)), takeUntil(this._onDestroy))
             .subscribe(this.onDragStart.bind(this));
 
-        _dragService.onDragEnd.pipe(filter(event => this.isDropAllowed(event.group)), takeUntil(this._onDestroy))
+        this._dragService.onDragEnd.pipe(filter(event => this.isDropAllowed(event.group)), takeUntil(this._onDestroy))
             .subscribe(this.onDragEnd.bind(this));
     }
 

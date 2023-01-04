@@ -10,6 +10,7 @@ import { ColumnUnit } from './table-column-resize-standard/resizable-table.servi
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ResizableTableCellComponent implements OnInit, OnDestroy {
+    private readonly _table = inject(BaseResizableTableService);
     private readonly _elementRef = inject(ElementRef);
     private readonly _renderer = inject(Renderer2);
 
@@ -18,8 +19,6 @@ export class ResizableTableCellComponent implements OnInit, OnDestroy {
 
     /** Min width of the column*/
     private _minWidth: number;
-
-    constructor(private _table: BaseResizableTableService) { }
 
     ngOnInit(): void {
         this._minWidth = parseFloat(getComputedStyle(this._elementRef.nativeElement).minWidth);

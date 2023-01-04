@@ -1,4 +1,4 @@
-import { Inject, Injectable, Optional, SkipSelf } from '@angular/core';
+import { inject, Inject, Injectable, Optional } from '@angular/core';
 // eslint-disable-next-line no-restricted-imports
 import { Subject } from 'rxjs';
 import { IconModuleOptions } from './icon-options.interface';
@@ -8,6 +8,7 @@ import { uxIconset } from './iconsets/ux-iconset';
 
 @Injectable()
 export class IconService {
+    private readonly _iconService = inject(IconService, { optional: true, skipSelf: true });
 
     /** Emit whenever the iconset changes */
     iconsChanged$ = new Subject<IconChangeEvent>();
@@ -16,10 +17,7 @@ export class IconService {
     private _icons: ReadonlyArray<SingleIconDefinition> = [...uxIconset];
 
     /** Inject a parent service if one exists */
-    constructor(
-        @Optional() @SkipSelf() private _iconService: IconService,
-        @Optional() @Inject(ICON_OPTIONS_TOKEN) options?: IconModuleOptions
-    ) {
+    constructor(@Optional() @Inject(ICON_OPTIONS_TOKEN) options?: IconModuleOptions) {
         // if the iconset was defined at the root or child module level apply this configuration
         if (options && options.icons) {
             this.setIcons(options.icons);
