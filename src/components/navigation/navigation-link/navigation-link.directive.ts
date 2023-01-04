@@ -1,5 +1,5 @@
 import { LocationStrategy } from '@angular/common';
-import { ChangeDetectorRef, Directive, HostBinding, HostListener, inject, Inject, Input, OnChanges, OnDestroy, OnInit, Optional } from '@angular/core';
+import { ChangeDetectorRef, Directive, HostBinding, HostListener, inject, Input, OnChanges, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
@@ -13,6 +13,7 @@ import { NavigationService } from '../navigation.service';
     exportAs: 'uxNavigationLink'
 })
 export class NavigationLinkDirective implements OnInit, OnChanges, OnDestroy {
+    private readonly _options = inject<NavigationModuleOptions>(NAVIGATION_MODULE_OPTIONS);
     private readonly _router = inject(Router);
     private readonly _locationStrategy = inject(LocationStrategy);
     private readonly _navigationService = inject(NavigationService);
@@ -52,9 +53,6 @@ export class NavigationLinkDirective implements OnInit, OnChanges, OnDestroy {
     /** Unsubscribe from all observables when this directive is destroyed */
     private _onDestroy = new Subject<void>();
 
-    constructor(
-        @Optional() @Inject(NAVIGATION_MODULE_OPTIONS) private _options: NavigationModuleOptions
-    ) { }
 
     ngOnInit(): void {
 

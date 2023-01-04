@@ -1,6 +1,6 @@
 import { animate, AnimationEvent, state, style, transition, trigger } from '@angular/animations';
 import { isPlatformServer } from '@angular/common';
-import { AfterContentInit, ChangeDetectionStrategy, Component, ContentChild, ElementRef, EventEmitter, HostListener, inject, Inject, Input, OnDestroy, Output, PLATFORM_ID, Renderer2 } from '@angular/core';
+import { AfterContentInit, ChangeDetectionStrategy, Component, ContentChild, ElementRef, EventEmitter, HostListener, inject, Input, OnDestroy, Output, PLATFORM_ID, Renderer2 } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ColorService } from '../../services/color/color.service';
@@ -32,6 +32,7 @@ import { ToolbarSearchFieldDirective } from './toolbar-search-field.directive';
     }
 })
 export class ToolbarSearchComponent implements AfterContentInit, OnDestroy {
+    private readonly _platformId = inject<Object>(PLATFORM_ID);
     private readonly _elementRef = inject(ElementRef);
     private readonly _colorService = inject(ColorService);
     private readonly _renderer = inject(Renderer2);
@@ -116,8 +117,6 @@ export class ToolbarSearchComponent implements AfterContentInit, OnDestroy {
 
     /** Unsubscribe from all subscriptions on component destroy */
     private _onDestroy = new Subject<void>();
-
-    constructor(@Inject(PLATFORM_ID) private _platformId: Object) { }
 
     ngAfterContentInit(): void {
         // Subscribe to the submitted event on the input field, triggering the search event

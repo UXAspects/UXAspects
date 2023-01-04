@@ -1,4 +1,4 @@
-import { Directive, ElementRef, inject, Inject, OnDestroy, QueryList, Renderer2 } from '@angular/core';
+import { Directive, ElementRef, inject, OnDestroy, QueryList, Renderer2 } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ResizeService } from '../../../directives/resize';
@@ -8,6 +8,7 @@ import { RESIZABLE_TABLE_SERVICE_TOKEN } from './resizable-table-service.token';
 
 @Directive()
 export abstract class BaseResizableTableDirective implements OnDestroy {
+    protected readonly _table = inject<BaseResizableTableService>(RESIZABLE_TABLE_SERVICE_TOKEN);
     protected readonly _elementRef = inject<ElementRef<HTMLTableElement>>(ElementRef);
     protected readonly _renderer = inject(Renderer2);
     readonly resize = inject(ResizeService);
@@ -20,11 +21,11 @@ export abstract class BaseResizableTableDirective implements OnDestroy {
     /** Store the initialised state of the table */
     protected _initialised: boolean = false;
 
-    constructor(@Inject(RESIZABLE_TABLE_SERVICE_TOKEN) protected _table: BaseResizableTableService) {
+    constructor() {
         // watch for the table being resized
         this.resize.addResizeListener(this._elementRef.nativeElement).pipe(takeUntil(this._onDestroy)).subscribe(() => {
             // store the latest table size
-            _table.tableWidth = this.getScrollWidth();
+            this._table.tableWidth = this.getScrollWidth();
 
             // run the initial logic if the table is fully visible
             this.onTableReady();

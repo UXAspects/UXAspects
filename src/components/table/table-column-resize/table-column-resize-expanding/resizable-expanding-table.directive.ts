@@ -1,5 +1,5 @@
 import { isPlatformBrowser } from '@angular/common';
-import { AfterViewInit, ContentChildren, Directive, ElementRef, inject, Inject, PLATFORM_ID, QueryList, Renderer2 } from '@angular/core';
+import { AfterViewInit, ContentChildren, Directive, ElementRef, inject, PLATFORM_ID, QueryList, Renderer2 } from '@angular/core';
 import { fromEvent, merge } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ResizeService } from '../../../../directives/resize/index';
@@ -23,9 +23,11 @@ import { ResizableExpandingTableService } from './resizable-expanding-table.serv
     }
 })
 export class ResizableExpandingTableDirective extends BaseResizableTableDirective implements AfterViewInit {
+    readonly table = inject<ResizableExpandingTableService>(RESIZABLE_TABLE_SERVICE_TOKEN);
     readonly elementRef = inject<ElementRef<HTMLTableElement>>(ElementRef);
     readonly renderer = inject(Renderer2);
     readonly resize = inject(ResizeService);
+    private readonly _platformId = inject<Object>(PLATFORM_ID);
 
     /** Get all the column headers */
     @ContentChildren(ResizableTableColumnComponent, { descendants: true }) columns: QueryList<ResizableTableColumnComponent>;
@@ -33,8 +35,8 @@ export class ResizableExpandingTableDirective extends BaseResizableTableDirectiv
     /** Has horizontal overflow */
     _overflowX: boolean = false;
 
-    constructor(@Inject(RESIZABLE_TABLE_SERVICE_TOKEN) table: ResizableExpandingTableService, @Inject(PLATFORM_ID) private _platformId: Object) {
-        super(table);
+    constructor() {
+        super();
     }
 
     ngAfterViewInit(): void {
