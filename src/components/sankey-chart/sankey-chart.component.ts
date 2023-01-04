@@ -26,7 +26,7 @@ import { SankeyFocusManager } from './sankey-focus-manager';
     ],
 })
 export class SankeyChartComponent<T> implements OnChanges, AfterViewInit {
-    private readonly _focusManager = inject(SankeyFocusManager<T>);
+    private readonly _focusManager = inject<SankeyFocusManager<T>>(SankeyFocusManager);
     private readonly _changeDetector = inject(ChangeDetectorRef);
     private readonly _colorService = inject(ColorService);
 

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Subject } from 'rxjs';
 import { TooltipComponent } from '../tooltip/index';
 
@@ -10,7 +10,6 @@ let uniquePopoverId = 0;
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PopoverComponent extends TooltipComponent {
-  readonly changeDetectorRef = inject(ChangeDetectorRef);
 
   /** Define a unique id for each popover */
   id: string = `ux-popover-${++uniquePopoverId}`;

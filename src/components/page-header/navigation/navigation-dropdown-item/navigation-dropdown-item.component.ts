@@ -9,7 +9,7 @@ import type { PageHeaderNavigationDropdownItem } from '../navigation.component';
     templateUrl: './navigation-dropdown-item.component.html'
 })
 export class PageHeaderNavigationDropdownItemComponent {
-    prviate readonly _pageHeaderService = inject(PageHeaderService);
+    private readonly _pageHeaderService = inject(PageHeaderService);
 
     /** Access the data for this item */
     @Input() item: PageHeaderNavigationDropdownItem;

@@ -1,11 +1,10 @@
 import { ESCAPE } from '@angular/cdk/keycodes';
-import { Overlay, OverlayRef, ScrollDispatcher } from '@angular/cdk/overlay';
+import { OverlayRef } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
-import { ChangeDetectorRef, Directive, ElementRef, HostBinding, inject, Input, OnChanges, OnInit, Renderer2, SimpleChanges, TemplateRef, ViewContainerRef } from '@angular/core';
+import { Directive, HostBinding, Input, OnChanges, OnInit, SimpleChanges, TemplateRef } from '@angular/core';
 import { fromEvent } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { OverlayPlacementService } from '../../services/overlay-placement/index';
-import { OverlayTrigger, TooltipDirective, TooltipService } from '../tooltip/index';
+import { OverlayTrigger, TooltipDirective } from '../tooltip/index';
 import { PopoverComponent } from './popover.component';
 
 @Directive({
@@ -13,14 +12,6 @@ import { PopoverComponent } from './popover.component';
     exportAs: 'ux-popover'
 })
 export class PopoverDirective extends TooltipDirective implements OnInit, OnChanges {
-    readonly elementRef = inject(ElementRef);
-    readonly viewContainerRef = inject(ViewContainerRef);
-    readonly overlay = inject(Overlay);
-    readonly scrollDispatcher = inject(ScrollDispatcher);
-    readonly changeDetectorRef = inject(ChangeDetectorRef);
-    readonly renderer = inject(Renderer2);
-    readonly tooltipService = inject(TooltipService);
-    readonly overlayFallback = inject(OverlayPlacementService);
 
     /** Contains the content of the popover or a TemplateRef for more detailed content */
     @Input('uxPopover') content: string | TemplateRef<any>;

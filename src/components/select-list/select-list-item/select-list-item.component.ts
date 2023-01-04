@@ -13,7 +13,7 @@ import { SelectionService } from '../../../directives/selection/selection.servic
     }
 })
 export class SelectListItemComponent<T> implements OnDestroy {
-    private readonly _selection = inject(SelectionService<T>);
+    private readonly _selection = inject<SelectionService<T>>(SelectionService);
     readonly elementRef = inject(ElementRef);
     readonly focusIndicatorService = inject(FocusIndicatorService);
 
