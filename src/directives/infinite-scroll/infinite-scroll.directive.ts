@@ -1,4 +1,4 @@
-import { AfterContentInit, ContentChildren, Directive, ElementRef, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, QueryList, SimpleChanges } from '@angular/core';
+import { AfterContentInit, ContentChildren, Directive, ElementRef, EventEmitter, inject, Input, OnChanges, OnDestroy, OnInit, Output, QueryList, SimpleChanges } from '@angular/core';
 import { BehaviorSubject, from, fromEvent, Observable, of, Subject, Subscription } from 'rxjs';
 import { auditTime, combineLatest, filter as filterOperator, first, takeUntil } from 'rxjs/operators';
 import { InfiniteScrollLoadButtonDirective } from './infinite-scroll-load-button.directive';
@@ -9,6 +9,7 @@ import { InfiniteScrollLoadingDirective } from './infinite-scroll-loading.direct
     exportAs: 'uxInfiniteScroll'
 })
 export class InfiniteScrollDirective<T = any> implements OnInit, AfterContentInit, OnChanges, OnDestroy {
+    private readonly _element = inject(ElementRef);
 
     @Input('uxInfiniteScroll') load: InfiniteScrollLoadFunction<T>;
 
@@ -65,7 +66,7 @@ export class InfiniteScrollDirective<T = any> implements OnInit, AfterContentIni
     private _loadButtonSubscriptions: Subscription[] = [];
     private _onDestroy = new Subject<void>();
 
-    constructor(private _element: ElementRef) {
+    constructor() {
         this._canLoadManually = this._isLoading.pipe(combineLatest(
             this._isExhausted,
             this._loadButtonEnabled,

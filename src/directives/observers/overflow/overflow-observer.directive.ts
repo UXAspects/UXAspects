@@ -1,4 +1,4 @@
-import { AfterViewInit, Directive, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { AfterViewInit, Directive, ElementRef, EventEmitter, inject, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
@@ -7,6 +7,7 @@ import { takeUntil } from 'rxjs/operators';
   exportAs: 'ux-overflow-observer'
 })
 export class OverflowDirective implements OnInit, AfterViewInit, OnDestroy {
+  private readonly _elementRef = inject(ElementRef);
 
   /** Allow a observable to be used to check for overflow */
   @Input() trigger: Observable<void>;
@@ -28,8 +29,6 @@ export class OverflowDirective implements OnInit, AfterViewInit, OnDestroy {
 
   /** Unsubscribe from all the observables */
   private _onDestroy = new Subject<void>();
-
-  constructor(private _elementRef: ElementRef) { }
 
   /** Set up the trigger if specified */
   ngOnInit(): void {

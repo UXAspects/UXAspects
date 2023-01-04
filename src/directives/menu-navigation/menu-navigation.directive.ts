@@ -1,7 +1,7 @@
 import { DOWN_ARROW, END, ESCAPE, HOME, LEFT_ARROW, RIGHT_ARROW, UP_ARROW } from '@angular/cdk/keycodes';
-import { Directive, EventEmitter, HostListener, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { takeUntil } from 'rxjs/operators';
+import { Directive, EventEmitter, HostListener, inject, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { MenuNavigationItemDirective } from './menu-navigation-item.directive';
 import { MenuNavigationToggleDirective } from './menu-navigation-toggle.directive';
 import { MenuNavigationService } from './menu-navigation.service';
@@ -12,6 +12,7 @@ import { MenuNavigationService } from './menu-navigation.service';
     providers: [MenuNavigationService]
 })
 export class MenuNavigationDirective implements OnInit, OnDestroy {
+    private readonly _menuNavigationService = inject(MenuNavigationService);
 
     /** Define the menu toggle button */
     @Input() toggleButton: MenuNavigationToggleDirective;
@@ -37,8 +38,6 @@ export class MenuNavigationDirective implements OnInit, OnDestroy {
 
     /** Unsubscribe from all observables on destroy */
     private _onDestroy = new Subject<void>();
-
-    constructor(private _menuNavigationService: MenuNavigationService) { }
 
     ngOnInit(): void {
         if (this.toggleButton) {

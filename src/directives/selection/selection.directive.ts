@@ -1,6 +1,6 @@
-import { AfterContentInit, ChangeDetectorRef, ContentChildren, Directive, EventEmitter, HostBinding, Input, OnDestroy, Output, QueryList } from '@angular/core';
-import { debounceTime, takeUntil } from 'rxjs/operators';
+import { AfterContentInit, ChangeDetectorRef, ContentChildren, Directive, EventEmitter, HostBinding, inject, Input, OnDestroy, Output, QueryList } from '@angular/core';
 import { Subject } from 'rxjs';
+import { debounceTime, takeUntil } from 'rxjs/operators';
 import { SelectionItemDirective } from './selection-item.directive';
 import { SelectionMode, SelectionService } from './selection.service';
 import { SelectionStrategy } from './strategies/selection.strategy';
@@ -11,6 +11,8 @@ import { SelectionStrategy } from './strategies/selection.strategy';
     providers: [SelectionService]
 })
 export class SelectionDirective<T> implements AfterContentInit, OnDestroy {
+    readonly _selectionService = inject<SelectionService<T>>(SelectionService);
+    readonly _cdRef = inject(ChangeDetectorRef);
 
     /** Defines the items that should be selected. */
     @Input() set uxSelection(items: Array<T> | ReadonlyArray<T>) {
@@ -74,8 +76,8 @@ export class SelectionDirective<T> implements AfterContentInit, OnDestroy {
     /** Whether a value has been provided to the `selectionItems` input. */
     private _hasExplicitDataset: boolean = false;
 
-    constructor(private _selectionService: SelectionService<T>, private _cdRef: ChangeDetectorRef) {
-        _selectionService.selection$.pipe(debounceTime(0), takeUntil(this._onDestroy)).subscribe(items => {
+    constructor() {
+        this._selectionService.selection$.pipe(debounceTime(0), takeUntil(this._onDestroy)).subscribe(items => {
             if (this.isSelectionChanged(items)) {
                 this.uxSelectionChange.emit(items);
             }

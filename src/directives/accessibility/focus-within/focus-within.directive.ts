@@ -1,9 +1,10 @@
-import { Directive, ElementRef, EventEmitter, OnDestroy, Output } from '@angular/core';
+import { Directive, ElementRef, EventEmitter, inject, OnDestroy, Output } from '@angular/core';
 
 @Directive({
     selector: '[uxFocusWithin],[uxBlurWithin]',
 })
 export class FocusWithinDirective implements OnDestroy {
+    private readonly _elementRef = inject(ElementRef);
 
     /** Emits when a child element gains focus */
     @Output() uxFocusWithin = new EventEmitter<void>();
@@ -17,11 +18,11 @@ export class FocusWithinDirective implements OnDestroy {
      * eg: `uxFocusIndicator` which not get the correct `origin`, they will instead get a programmatic
      * origin even if it was clicked or focused via the keyboard.
      */
-    constructor(private _elementRef: ElementRef) {
+    constructor() {
 
         // We need to listen in capture phase since focus events don't bubble.
-        _elementRef.nativeElement.addEventListener('focus', this.onFocus.bind(this), true);
-        _elementRef.nativeElement.addEventListener('blur', this.onBlur.bind(this), true);
+        this._elementRef.nativeElement.addEventListener('focus', this.onFocus.bind(this), true);
+        this._elementRef.nativeElement.addEventListener('blur', this.onBlur.bind(this), true);
     }
 
     ngOnDestroy(): void {

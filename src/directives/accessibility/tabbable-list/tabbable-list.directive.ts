@@ -1,5 +1,5 @@
 import { FocusKeyManager } from '@angular/cdk/a11y';
-import { AfterContentInit, ContentChildren, Directive, ElementRef, Input, OnDestroy, QueryList } from '@angular/core';
+import { AfterContentInit, ContentChildren, Directive, ElementRef, inject, Input, OnDestroy, QueryList } from '@angular/core';
 import { Subject } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
 import { TabbableListItemDirective } from './tabbable-list-item.directive';
@@ -11,6 +11,10 @@ import { TabbableListService } from './tabbable-list.service';
     providers: [TabbableListService]
 })
 export class TabbableListDirective implements AfterContentInit, OnDestroy {
+    /** Access the tabbable list service */
+    private readonly _tabbableList = inject(TabbableListService);
+    /** Access the native dom element */
+    readonly elementRef = inject(ElementRef);
 
     /** Determine whether the up/down arrows should be used or the left/right arrows */
     @Input() direction: 'horizontal' | 'vertical' = 'vertical';
@@ -52,14 +56,9 @@ export class TabbableListDirective implements AfterContentInit, OnDestroy {
         return this._tabbableList.focusKeyManager;
     }
 
-    constructor(
-        /** Access the tabbable list service */
-        private _tabbableList: TabbableListService,
-        /** Access the native dom element */
-        elementRef: ElementRef
-    ) {
+    constructor() {
         // store a reference to the container element
-        this._tabbableList.containerRef = elementRef.nativeElement;
+        this._tabbableList.containerRef = this.elementRef.nativeElement;
     }
 
     ngAfterContentInit(): void {

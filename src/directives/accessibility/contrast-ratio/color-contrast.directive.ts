@@ -1,4 +1,4 @@
-import { Directive, HostBinding, Input } from '@angular/core';
+import { Directive, HostBinding, inject, Input } from '@angular/core';
 import { ColorService, ThemeColor } from '../../../services/color/index';
 import { ContrastService } from './contrast.service';
 
@@ -6,6 +6,8 @@ import { ContrastService } from './contrast.service';
     selector: '[uxColorContrast]'
 })
 export class ColorContrastDirective {
+    private readonly _colorService = inject(ColorService);
+    private readonly _contrastService = inject(ContrastService);
 
     /**
      * Define the background color for contrast comparison.
@@ -48,7 +50,5 @@ export class ColorContrastDirective {
 
     /** Store the light color as a ThemeColor object */
     private _darkColor: ThemeColor = ThemeColor.parse('#000');
-
-    constructor(private _colorService: ColorService, private _contrastService: ContrastService) { }
 
 }

@@ -1,14 +1,13 @@
-import { Injectable, NgZone, OnDestroy } from '@angular/core';
+import { inject, Injectable, NgZone, OnDestroy } from '@angular/core';
 import { ResizeObserver } from '@juggle/resize-observer';
 import { ReplaySubject } from 'rxjs';
 
 @Injectable()
 export class ResizeService implements OnDestroy {
+    private readonly _zone = inject(NgZone);
 
     private _observer = new ResizeObserver(this.elementDidResize.bind(this));
     private _targets = new WeakMap<HTMLElement, ReplaySubject<ResizeDimensions>>();
-
-    constructor(private _zone: NgZone) {}
 
     ngOnDestroy(): void {
         this._observer.disconnect();

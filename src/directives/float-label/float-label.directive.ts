@@ -1,5 +1,5 @@
-import { Directive, ElementRef, HostBinding, Input, OnChanges, OnDestroy, OnInit, Renderer2 } from '@angular/core';
 import { AutofillMonitor } from '@angular/cdk/text-field';
+import { Directive, ElementRef, HostBinding, inject, Input, OnChanges, OnDestroy, OnInit, Renderer2 } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 @Directive({
@@ -9,6 +9,9 @@ import { Subscription } from 'rxjs';
     }
 })
 export class FloatLabelDirective<T = string> implements OnInit, OnChanges, OnDestroy {
+    private readonly _elementRef = inject(ElementRef);
+    private readonly _renderer = inject(Renderer2);
+    private readonly _autofillMonitor = inject(AutofillMonitor);
 
     @Input('uxFloatLabel')
     set input(input: HTMLInputElement) {
@@ -56,10 +59,6 @@ export class FloatLabelDirective<T = string> implements OnInit, OnChanges, OnDes
     private _focused = false;
     private _eventHandles: any[] = [];
     private _subscription = new Subscription();
-
-    constructor(private _elementRef: ElementRef,
-                private _renderer: Renderer2,
-                private _autofillMonitor: AutofillMonitor) {}
 
     ngOnInit(): void {
         this._eventHandles.push(

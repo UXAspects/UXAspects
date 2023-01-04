@@ -1,4 +1,4 @@
-import { Directive, ElementRef, EventEmitter, HostBinding, Input, OnDestroy, OnInit, Output, Renderer2 } from '@angular/core';
+import { Directive, ElementRef, EventEmitter, HostBinding, inject, Input, OnDestroy, OnInit, Output, Renderer2 } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ResizeService } from '../resize/index';
@@ -8,6 +8,9 @@ import { ResizeService } from '../resize/index';
     exportAs: 'ux-fixed-header-table'
 })
 export class FixedHeaderTableDirective<T> implements OnInit, OnDestroy {
+    private readonly _elementRef = inject(ElementRef);
+    private readonly _renderer = inject(Renderer2);
+    private readonly _resizeService = inject(ResizeService);
 
     /** Allow dataset changes to trigger re-layout */
     @Input() set dataset(_dataset: ReadonlyArray<T>) {
@@ -32,12 +35,6 @@ export class FixedHeaderTableDirective<T> implements OnInit, OnDestroy {
 
     /** Unsubscribe from all observables on destroy */
     private _onDestroy = new Subject<void>();
-
-    constructor(
-        private _elementRef: ElementRef,
-        private _renderer: Renderer2,
-        private _resizeService: ResizeService
-    ) { }
 
     ngOnInit(): void {
 

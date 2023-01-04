@@ -1,6 +1,6 @@
-import { Directive, ElementRef, HostBinding, HostListener, Input, OnDestroy } from '@angular/core';
-import { takeUntil } from 'rxjs/operators';
+import { Directive, ElementRef, HostBinding, HostListener, inject, Input, OnDestroy } from '@angular/core';
 import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { FocusIndicator, FocusIndicatorService } from '../accessibility/index';
 import { HoverActionService } from './hover-action.service';
 
@@ -8,6 +8,9 @@ import { HoverActionService } from './hover-action.service';
     selector: '[uxHoverAction]'
 })
 export class HoverActionDirective implements OnDestroy {
+    private readonly _elementRef = inject(ElementRef);
+    private readonly _hoverActionService = inject(HoverActionService);
+    readonly focusIndicatorService = inject(FocusIndicatorService);
 
     @Input()
     @HostBinding('tabindex')
@@ -22,14 +25,10 @@ export class HoverActionDirective implements OnDestroy {
     private _focusIndicator: FocusIndicator;
     private _onDestroy = new Subject<void>();
 
-    constructor(
-        private _elementRef: ElementRef,
-        private _hoverActionService: HoverActionService,
-        focusIndicatorService: FocusIndicatorService
-    ) {
+    constructor() {
 
         // create the focus indicator
-        this._focusIndicator = focusIndicatorService.monitor(_elementRef.nativeElement);
+        this._focusIndicator = this.focusIndicatorService.monitor(this._elementRef.nativeElement);
 
         // register the action
         this._hoverActionService.register(this);

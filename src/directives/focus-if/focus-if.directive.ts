@@ -1,9 +1,10 @@
-import { Directive, ElementRef, Input, OnDestroy } from '@angular/core';
+import { Directive, ElementRef, inject, Input, OnDestroy } from '@angular/core';
 
 @Directive({
     selector: '[focusIf]'
 })
 export class FocusIfDirective implements OnDestroy {
+    private readonly _elementRef = inject(ElementRef);
 
     /** The delay that should ellapse before focussing the element */
     @Input() focusIfDelay: number = 0;
@@ -30,8 +31,6 @@ export class FocusIfDirective implements OnDestroy {
     }
 
     private _timeout: number = null;
-
-    constructor(private _elementRef: ElementRef) { }
 
     ngOnDestroy(): void {
         if (this._timeout !== null) {

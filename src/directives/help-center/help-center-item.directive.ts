@@ -1,12 +1,11 @@
-import { Directive, Input, OnInit, OnDestroy } from '@angular/core';
-import { HelpCenterService, HelpCenterItem } from './help-center.service';
+import { Directive, inject, Input, OnDestroy, OnInit } from '@angular/core';
+import { HelpCenterItem, HelpCenterService } from './help-center.service';
 
 @Directive({ selector: '[uxHelpCenterItem]' })
 export class HelpCenterItemDirective implements OnInit, OnDestroy {
+    private readonly _helpCenterService = inject(HelpCenterService);
 
     @Input() uxHelpCenterItem: HelpCenterItem;
-
-    constructor(private _helpCenterService: HelpCenterService) { }
 
     ngOnInit(): void {
 

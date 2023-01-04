@@ -1,6 +1,6 @@
 import { FocusOrigin } from '@angular/cdk/a11y';
 import { DOWN_ARROW, ENTER, LEFT_ARROW, RIGHT_ARROW, SPACE, UP_ARROW } from '@angular/cdk/keycodes';
-import { Directive, ElementRef, EventEmitter, HostListener, Input, OnDestroy, Output } from '@angular/core';
+import { Directive, ElementRef, EventEmitter, HostListener, inject, Input, OnDestroy, Output } from '@angular/core';
 import { FocusIndicator, FocusIndicatorService } from '../accessibility/index';
 
 @Directive({
@@ -8,6 +8,8 @@ import { FocusIndicator, FocusIndicatorService } from '../accessibility/index';
     exportAs: 'uxMenuNavigationToggle'
 })
 export class MenuNavigationToggleDirective implements OnDestroy {
+    readonly elementRef = inject(ElementRef);
+    readonly focusIndicatorService = inject(FocusIndicatorService);
 
     /** Define if the menu is open */
     @Input()
@@ -35,8 +37,8 @@ export class MenuNavigationToggleDirective implements OnDestroy {
     /** Store a reference to the focus indicator */
     private _focusIndicator: FocusIndicator;
 
-    constructor(elementRef: ElementRef, focusIndicatorService: FocusIndicatorService) {
-        this._focusIndicator = focusIndicatorService.monitor(elementRef.nativeElement);
+    constructor() {
+        this._focusIndicator = this.focusIndicatorService.monitor(this.elementRef.nativeElement);
     }
 
     ngOnDestroy(): void {

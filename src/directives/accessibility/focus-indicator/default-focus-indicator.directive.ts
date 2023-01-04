@@ -1,4 +1,4 @@
-import { Directive, ElementRef, NgZone, Optional } from '@angular/core';
+import { Directive, ElementRef, inject, NgZone } from '@angular/core';
 import { AccessibilityOptionsService } from '../options/accessibility-options.service';
 import { LocalFocusIndicatorOptions } from './focus-indicator-options/focus-indicator-options';
 import { FocusIndicatorDirective } from './focus-indicator.directive';
@@ -13,17 +13,17 @@ import { FocusIndicatorService } from './focus-indicator.service';
  */
 @Directive({
     selector: '.btn:not([uxFocusIndicator]):not([uxMenuNavigationToggle]):not([uxMenuTriggerFor]), a[href]:not([uxFocusIndicator]):not([uxMenuNavigationToggle]):not([uxMenuTriggerFor])',
+    providers: [LocalFocusIndicatorOptions]
 })
 export class DefaultFocusIndicatorDirective extends FocusIndicatorDirective {
+    readonly elementRef = inject(ElementRef);
+    readonly focusIndicatorService = inject(FocusIndicatorService);
+    readonly optionsService = inject(AccessibilityOptionsService);
+    readonly ngZone = inject(NgZone);
+    readonly localOptions = inject(LocalFocusIndicatorOptions);
 
-    constructor(
-        elementRef: ElementRef,
-        focusIndicatorService: FocusIndicatorService,
-        optionsService: AccessibilityOptionsService,
-        ngZone: NgZone,
-        @Optional() localOptions: LocalFocusIndicatorOptions
-    ) {
-        super(elementRef, focusIndicatorService, optionsService, ngZone, localOptions);
+    constructor() {
+        super();
 
         // Enable programmatic focus by default
         this.programmaticFocusIndicator = true;

@@ -1,4 +1,4 @@
-import { AfterViewInit, Directive, ElementRef, HostBinding, Input, OnChanges, OnDestroy, Renderer2, SimpleChanges } from '@angular/core';
+import { AfterViewInit, Directive, ElementRef, HostBinding, inject, Input, OnChanges, OnDestroy, Renderer2, SimpleChanges } from '@angular/core';
 import { ColorService } from '../../services/color/color.service';
 import { ThemeColor } from '../../services/color/theme-color';
 import { ContrastService } from '../accessibility/contrast-ratio/contrast.service';
@@ -21,6 +21,11 @@ export type BadgeSize = 'small' | 'medium' | 'large';
     },
 })
 export class BadgeDirective implements AfterViewInit, OnChanges, OnDestroy {
+    private readonly _element = inject<ElementRef<HTMLElement>>(ElementRef);
+    private readonly _renderer = inject(Renderer2);
+    private readonly _colorService = inject(ColorService);
+    private readonly _contrastService = inject(ContrastService);
+
     private readonly _className = 'ux-badge';
     private readonly _darkColor: ThemeColor = ThemeColor.parse('#000');
     private readonly _lightColor: ThemeColor = ThemeColor.parse('#FFF');
@@ -112,13 +117,6 @@ export class BadgeDirective implements AfterViewInit, OnChanges, OnDestroy {
     @HostBinding('class.ux-badge-hidden')
     @Input()
     badgeHidden: boolean = false;
-
-    constructor(
-        private readonly _element: ElementRef<HTMLElement>,
-        private readonly _renderer: Renderer2,
-        private readonly _colorService: ColorService,
-        private readonly _contrastService: ContrastService
-    ) { }
 
     ngAfterViewInit(): void {
         this._badgeElement = this._renderer.createElement('span');
