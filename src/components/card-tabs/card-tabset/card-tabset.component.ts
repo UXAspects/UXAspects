@@ -10,7 +10,7 @@ import { CardTabsService } from '../card-tabs.service';
 })
 export class CardTabsetComponent {
 
-    public tabService = inject(CardTabsService);
+    tabService = inject(CardTabsService);
 
     @HostBinding('class')
     @Input() set position(direction: string) {

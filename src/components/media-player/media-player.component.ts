@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, Input, OnDestroy, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, inject, Input, OnDestroy, ViewChild } from '@angular/core';
 import { fromEvent, Observable, Subject } from 'rxjs';
 import { debounceTime, takeUntil, tap } from 'rxjs/operators';
 import { AudioMetadata, AudioService } from '../../services/audio/index';
@@ -25,6 +25,9 @@ import { MediaPlayerService } from './media-player.service';
     }
 })
 export class MediaPlayerComponent implements AfterViewInit, OnDestroy {
+    readonly mediaPlayerService = inject(MediaPlayerService);
+    private readonly _audioService = inject(AudioService);
+    private readonly _elementRef = inject(ElementRef);
 
     @ViewChild('player', { static: false }) private _playerRef: ElementRef;
 
@@ -155,7 +158,7 @@ export class MediaPlayerComponent implements AfterViewInit, OnDestroy {
 
     private _onDestroy = new Subject<void>();
 
-    constructor(public mediaPlayerService: MediaPlayerService, private _audioService: AudioService, private _elementRef: ElementRef) {
+    constructor() {
 
         // show controls when hovering and in quiet mode
         fromEvent(this._elementRef.nativeElement, 'mousemove').pipe(

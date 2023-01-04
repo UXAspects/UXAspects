@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { HierarchyBarService } from '../hierarchy-bar.service';
 import { HierarchyBarNode } from '../interfaces/hierarchy-bar-node.interface';
 
@@ -8,6 +8,7 @@ import { HierarchyBarNode } from '../interfaces/hierarchy-bar-node.interface';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HierarchyBarPopoverComponent {
+    readonly hierarchyBar = inject(HierarchyBarService);
 
     /** Define the nodes to display */
     @Input() nodes: HierarchyBarNode[] = [];
@@ -20,7 +21,5 @@ export class HierarchyBarPopoverComponent {
 
     /** Emit a select event when an item ahs been clicked or enter key pressed */
     @Output() selected = new EventEmitter<HierarchyBarNode>();
-
-    constructor(public readonly hierarchyBar: HierarchyBarService) { }
 
 }

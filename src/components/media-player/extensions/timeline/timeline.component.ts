@@ -13,6 +13,7 @@ import { MediaPlayerService } from '../../media-player.service';
     }
 })
 export class MediaPlayerTimelineExtensionComponent implements OnInit, AfterViewInit, OnDestroy {
+    readonly mediaPlayerService = inject(MediaPlayerService);
 
     @ViewChild('progressThumb', { static: true }) thumb: ElementRef;
     @ViewChild('timeline', { static: true }) timelineRef: ElementRef;
@@ -25,7 +26,6 @@ export class MediaPlayerTimelineExtensionComponent implements OnInit, AfterViewI
 
     private _onDestroy = new Subject<void>();
 
-    constructor(public mediaPlayerService: MediaPlayerService) { }
 
     ngOnInit(): void {
 

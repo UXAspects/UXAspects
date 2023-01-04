@@ -3,7 +3,7 @@ import { BooleanInput, coerceBooleanProperty } from '@angular/cdk/coercion';
 import { DOWN_ARROW, LEFT_ARROW, RIGHT_ARROW, UP_ARROW } from '@angular/cdk/keycodes';
 import { Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
-import { ContentChildren, Directive, ElementRef, EventEmitter, HostListener, Input, OnDestroy, OnInit, Optional, Output, QueryList, Self, ViewContainerRef } from '@angular/core';
+import { ContentChildren, Directive, ElementRef, EventEmitter, HostListener, inject, Input, OnDestroy, OnInit, Output, QueryList, ViewContainerRef } from '@angular/core';
 import { combineLatest, merge, Observable, of, Subject, timer } from 'rxjs';
 import { debounceTime, filter, take, takeUntil } from 'rxjs/operators';
 import { AnchorPlacement } from '../../../common/overlay/anchor-placement';
@@ -23,6 +23,14 @@ import { MenuComponent } from '../menu/menu.component';
     }
 })
 export class MenuTriggerDirective implements OnInit, OnDestroy {
+    private readonly _overlay = inject(Overlay);
+    private readonly _elementRef = inject(ElementRef);
+    private readonly _viewContainerRef = inject(ViewContainerRef);
+    private readonly _focusOrigin = inject(FocusIndicatorOriginService);
+    private readonly _focusIndicatorService = inject(FocusIndicatorService);
+    private readonly _overlayPlacement = inject(OverlayPlacementService);
+    private readonly _parentMenu = inject(MenuComponent, { optional: true });
+    private readonly _menuItem = inject(MenuItemComponent, { optional: true, self: true });
 
     /** Access the menu we should show */
     @Input('uxMenuTriggerFor') menu: MenuComponent;
@@ -100,17 +108,6 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
             .pipe(debounceTime(50), filter(([isHovered, isFocused, isItemHovered, isExpanded, isItemFocused]) =>
                 !isHovered && !isFocused && !isItemHovered && !isExpanded && !isItemFocused));
     }
-
-    constructor(
-        private readonly _overlay: Overlay,
-        private readonly _elementRef: ElementRef,
-        private readonly _viewContainerRef: ViewContainerRef,
-        private readonly _focusOrigin: FocusIndicatorOriginService,
-        private readonly _focusIndicatorService: FocusIndicatorService,
-        private readonly _overlayPlacement: OverlayPlacementService,
-        @Optional() private readonly _parentMenu: MenuComponent,
-        @Optional() @Self() private readonly _menuItem: MenuItemComponent
-    ) { }
 
     ngOnInit(): void {
 

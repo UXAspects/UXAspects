@@ -12,7 +12,7 @@ let uniqueId: number = 1;
 })
 export class AccordionPanelComponent {
 
-    public accordion = inject(AccordionService);
+    readonly accordion = inject(AccordionService);
 
     @Input() panelId: string = `ux-accordion-panel-${uniqueId++}`;
     @Input() headingId: string = `${this.panelId}-heading`;

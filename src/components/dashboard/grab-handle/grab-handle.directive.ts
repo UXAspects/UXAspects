@@ -12,7 +12,7 @@ import { DashboardGrabHandleService } from './grab-handle.service';
     exportAs: 'ux-dashboard-grab-handle'
 })
 export class DashboardGrabHandleDirective implements OnInit, OnDestroy {
-    public readonly widget = inject(DashboardWidgetComponent);
+    readonly widget = inject(DashboardWidgetComponent);
     private readonly _dashboard = inject(DashboardService);
     private readonly _handle = inject(DashboardGrabHandleService);
     private readonly _elementRef = inject(ElementRef);

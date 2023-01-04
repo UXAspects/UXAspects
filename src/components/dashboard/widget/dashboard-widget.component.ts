@@ -11,7 +11,7 @@ import { DashboardStackMode } from './dashboard-stack-mode.enum';
 })
 export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestroy, OnChanges {
 
-    public readonly dashboardService = inject(DashboardService);
+    readonly dashboardService = inject(DashboardService);
 
     /** Sets the ID of the widget. Each widget should be given a unique ID. */
     @Input() id: string;

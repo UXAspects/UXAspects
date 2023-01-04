@@ -12,7 +12,7 @@ import { FloatingActionButtonsService } from './floating-action-buttons.service'
     preserveWhitespaces: false
 })
 export class FloatingActionButtonComponent implements AfterViewInit, OnDestroy {
-    public readonly fab = inject(FloatingActionButtonsService);
+    readonly fab = inject(FloatingActionButtonsService);
     private readonly _tooltip = inject(TooltipDirective, { optional : true});
 
     /** Define the aria label for the button */

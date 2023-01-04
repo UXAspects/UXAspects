@@ -14,7 +14,7 @@ import { DateRangePicker, DateRangeService } from './date-range.service';
 })
 export class DateRangePickerComponent implements OnDestroy {
 
-    public readonly rangeService = inject(DateRangeService);
+    readonly rangeService = inject(DateRangeService);
 
     /** Expose enum to the view */
     DateRangePicker = DateRangePicker;

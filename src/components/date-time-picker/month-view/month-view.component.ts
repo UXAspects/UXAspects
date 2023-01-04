@@ -15,7 +15,7 @@ import { FocusedMonthItem, MonthViewItem, MonthViewService } from './month-view.
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MonthViewComponent implements AfterViewInit, OnDestroy {
-    public readonly monthService = inject(MonthViewService);
+    readonly monthService = inject(MonthViewService);
     private readonly _datePicker = inject(DateTimePickerService);
     private readonly _liveAnnouncer = inject(LiveAnnouncer);
     private readonly _changeDetector = inject(ChangeDetectorRef);

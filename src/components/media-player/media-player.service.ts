@@ -1,10 +1,11 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { BehaviorSubject, from, Observable, Observer, ReplaySubject, Subject } from 'rxjs';
 import { ExtractedFrame, FrameExtractionService } from '../../services/frame-extraction/index';
 import type { MediaPlayerType } from './media-player.component';
 
 @Injectable()
 export class MediaPlayerService {
+    private readonly _frameExtractionService = inject(FrameExtractionService);
 
     source: string;
     type: MediaPlayerType = 'video';
@@ -71,7 +72,6 @@ export class MediaPlayerService {
     private _fullscreen: boolean = false;
     private _quietMode: boolean;
 
-    constructor(private _frameExtractionService: FrameExtractionService) { }
 
     /*
         Create all the getters and setters the can be used by media player extensions

@@ -1,5 +1,5 @@
 import { coerceCssPixelValue } from '@angular/cdk/coercion';
-import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ElementRef, EventEmitter, forwardRef, Input, OnChanges, OnDestroy, Output, SimpleChanges, TemplateRef, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ElementRef, EventEmitter, forwardRef, inject, Input, OnChanges, OnDestroy, Output, SimpleChanges, TemplateRef, ViewChild } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { MenuTriggerDirective } from '../menu/menu-trigger/menu-trigger.directive';
@@ -21,6 +21,7 @@ import { MenuTriggerDirective } from '../menu/menu-trigger/menu-trigger.directiv
     }
 })
 export class InputDropdownComponent<T> implements ControlValueAccessor, AfterViewInit, OnChanges, OnDestroy {
+    private readonly _changeDetector = inject(ChangeDetectorRef);
 
     /** Define the selected item */
     @Input() selected: T;
@@ -92,8 +93,6 @@ export class InputDropdownComponent<T> implements ControlValueAccessor, AfterVie
 
     /** Unsubscribe from all observables on component destroy */
     private readonly _onDestroy$ = new Subject<void>();
-
-    constructor(private readonly _changeDetector: ChangeDetectorRef) { }
 
     ngOnChanges(changes: SimpleChanges): void {
 

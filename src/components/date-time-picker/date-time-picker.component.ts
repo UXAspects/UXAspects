@@ -15,7 +15,7 @@ import { dateComparator, DateTimePickerTimezone, isDateAfter, isDateBefore, time
 })
 export class DateTimePickerComponent implements OnInit, AfterViewInit, OnDestroy {
 
-    public readonly datepicker = inject(DateTimePickerService);
+    readonly datepicker = inject(DateTimePickerService);
     private readonly _rangeService = inject(DateRangeService, { optional: true });
     private readonly _rangeOptions = inject(DateRangeOptions, { optional: true });
 

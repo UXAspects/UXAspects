@@ -15,7 +15,7 @@ import { YearViewItem, YearViewService } from './year-view.service';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class YearViewComponent implements AfterViewInit, OnDestroy {
-    public readonly yearService = inject(YearViewService);
+    readonly yearService = inject(YearViewService);
     private readonly _datePicker = inject(DateTimePickerService);
     private readonly _liveAnnouncer = inject(LiveAnnouncer);
     private readonly _changeDetector = inject(ChangeDetectorRef);

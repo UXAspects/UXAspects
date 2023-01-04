@@ -16,8 +16,8 @@ let uniqueId = 1;
     templateUrl: './facet-typeahead-list.component.html'
 })
 export class FacetTypeaheadListComponent implements AfterViewInit, OnInit, OnDestroy {
-    public readonly typeaheadKeyService = inject(TypeaheadKeyService);
-    public readonly facetService = inject(FacetService);
+    readonly typeaheadKeyService = inject(TypeaheadKeyService);
+    readonly facetService = inject(FacetService);
     private readonly _announcer = inject(LiveAnnouncer);
 
     /** This will allow you to define an initial set of selected facets. */

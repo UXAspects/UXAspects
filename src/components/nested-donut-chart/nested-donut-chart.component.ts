@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ElementRef, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ElementRef, EventEmitter, inject, Input, OnChanges, OnDestroy, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
 import { arc, Arc, BaseType, easeCubic, interpolate, pointer, select, Selection, transition } from 'd3';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -13,6 +13,10 @@ import { ColorService, ThemeColor } from '../../services/color/index';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NestedDonutChartComponent implements OnInit, OnChanges, OnDestroy {
+    private readonly _colorService = inject(ColorService);
+    private readonly _changeDetector = inject(ChangeDetectorRef);
+    private readonly _elementRef = inject(ElementRef);
+    private readonly _resizeService = inject(ResizeService);
 
     /** Define a the dataset to display */
     @Input() dataset: ReadonlyArray<NestedDonutChartData>;
@@ -95,13 +99,6 @@ export class NestedDonutChartComponent implements OnInit, OnChanges, OnDestroy {
 
     /** Unsubscribe from all observables automatically */
     private _onDestroy = new Subject<void>();
-
-    constructor(
-        private _colorService: ColorService,
-        private _changeDetector: ChangeDetectorRef,
-        private _elementRef: ElementRef,
-        private _resizeService: ResizeService
-    ) { }
 
     /** Perform the initial render */
     ngOnInit(): void {

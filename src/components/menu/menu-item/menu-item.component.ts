@@ -1,6 +1,6 @@
 import { FocusableOption, FocusOrigin } from '@angular/cdk/a11y';
 import { BooleanInput, coerceBooleanProperty } from '@angular/cdk/coercion';
-import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, HostListener, Input, OnDestroy, OnInit, Output, Renderer2 } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, HostListener, inject, Input, OnDestroy, OnInit, Output, Renderer2 } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { isKeyboardTrigger } from '../../../common/index';
@@ -21,6 +21,10 @@ import { MenuItemType } from './menu-item-type.enum';
     }
 })
 export class MenuItemComponent implements OnInit, OnDestroy, FocusableOption {
+    private readonly _menu = inject(MenuComponent);
+    private readonly _elementRef = inject(ElementRef<HTMLElement>);
+    private readonly _focusIndicatorService = inject(FocusIndicatorService);
+    private readonly _renderer = inject(Renderer2);
 
     /** Define if this item is disabled or not */
     @Input() set disabled(disabled: boolean) {
@@ -75,13 +79,6 @@ export class MenuItemComponent implements OnInit, OnDestroy, FocusableOption {
     private _disabled: boolean = false;
 
     private _closeOnSelect: boolean = true;
-
-    constructor(
-        private readonly _menu: MenuComponent,
-        private readonly _elementRef: ElementRef<HTMLElement>,
-        private readonly _focusIndicatorService: FocusIndicatorService,
-        private readonly _renderer: Renderer2,
-    ) { }
 
     ngOnInit(): void {
         // register this item in the MenuComponent

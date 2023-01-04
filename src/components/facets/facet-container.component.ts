@@ -15,8 +15,8 @@ import { Facet } from './models/facet';
     preserveWhitespaces: false
 })
 export class FacetContainerComponent implements OnDestroy {
+    readonly facetService = inject(FacetService);
     private readonly _announcer = inject(LiveAnnouncer);
-    public readonly facetService = inject(FacetService);
 
     /** Defines the text displayed at the top of the Facet Container. */
     @Input() header: string = 'Selected';

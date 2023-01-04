@@ -17,8 +17,8 @@ import { DayViewItem, DayViewService } from './day-view.service';
 })
 export class DayViewComponent implements AfterViewInit, OnDestroy {
 
-    public readonly datePicker = inject(DateTimePickerService);
-    public readonly dayService = inject(DayViewService);
+    readonly datePicker = inject(DateTimePickerService);
+    readonly dayService = inject(DayViewService);
     private readonly _changeDetector = inject(ChangeDetectorRef);
     private readonly _focusOrigin = inject(FocusIndicatorOriginService);
     private readonly _liveAnnouncer = inject(LiveAnnouncer);

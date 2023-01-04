@@ -1,7 +1,7 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { FocusKeyManager, FocusOrigin } from '@angular/cdk/a11y';
 import { TAB } from '@angular/cdk/keycodes';
-import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, HostBinding, Inject, Input, OnChanges, OnDestroy, Optional, Output, QueryList, SimpleChanges, TemplateRef, ViewChild, ViewRef } from '@angular/core';
+import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, HostBinding, inject, Inject, Input, OnChanges, OnDestroy, Optional, Output, QueryList, SimpleChanges, TemplateRef, ViewChild, ViewRef } from '@angular/core';
 import { BehaviorSubject, merge, Observable, Subject } from 'rxjs';
 import { map, switchMap, takeUntil } from 'rxjs/operators';
 import { AnchorAlignment, AnchorPlacement } from '../../../common/overlay/index';
@@ -30,6 +30,7 @@ let uniqueId = 0;
     ]
 })
 export class MenuComponent implements AfterContentInit, OnDestroy, OnChanges {
+    private readonly _changeDetector = inject(ChangeDetectorRef);
 
     /** A unique id for the component. */
     @Input() @HostBinding('attr.id') id: string = `ux-menu-${++uniqueId}`;
@@ -124,10 +125,7 @@ export class MenuComponent implements AfterContentInit, OnDestroy, OnChanges {
     /** Create an internal querylist to store the menu items */
     private _itemsList = new QueryList<MenuItemComponent | MenuTabbableItemDirective>();
 
-    constructor(
-        private readonly _changeDetector: ChangeDetectorRef,
-        @Optional() @Inject(MENU_OPTIONS_TOKEN) private readonly _options: MenuModuleOptions
-    ) { }
+    constructor(@Optional() @Inject(MENU_OPTIONS_TOKEN) private readonly _options: MenuModuleOptions) { }
 
     ngAfterContentInit(): void {
 

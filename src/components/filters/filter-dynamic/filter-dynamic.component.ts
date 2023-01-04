@@ -16,7 +16,7 @@ let uniqueId = 0;
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FilterDynamicComponent implements OnInit, OnDestroy {
-    public readonly typeaheadKeyService = inject(TypeaheadKeyService);
+    readonly typeaheadKeyService = inject(TypeaheadKeyService);
     private readonly _filterService = inject(FilterService);
     private readonly _changeDetector = inject(ChangeDetectorRef);
 

@@ -12,7 +12,7 @@ import { compareDays, DateTimePickerTimezone } from '../date-time-picker.utils';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TimeViewComponent implements OnInit, OnDestroy {
-    public readonly datepicker = inject(DateTimePickerService);
+    readonly datepicker = inject(DateTimePickerService);
     private readonly _changeDetector = inject(ChangeDetectorRef);
     private readonly _rangeService = inject(DateRangeService, { optional: true });
     private readonly _rangeOptions = inject(DateRangeOptions, { optional: true });

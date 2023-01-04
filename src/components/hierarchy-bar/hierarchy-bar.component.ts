@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ContentChild, EventEmitter, Input, OnDestroy, Output, TemplateRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ContentChild, EventEmitter, inject, Input, OnDestroy, Output, TemplateRef } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { OverlayTrigger } from '../tooltip/index';
@@ -15,6 +15,7 @@ import { HierarchyBarMode, IHierachyBarComponent } from './interfaces/hierarchy-
     viewProviders: [HierarchyBarService]
 })
 export class HierarchyBarComponent implements IHierachyBarComponent, OnDestroy {
+    private readonly _hierarchyBar = inject(HierarchyBarService);
 
     /** Define which presentational mode we should display */
     @Input() mode: HierarchyBarMode = 'standard';
@@ -69,10 +70,10 @@ export class HierarchyBarComponent implements IHierachyBarComponent, OnDestroy {
     /** Unsubscribe from all subscriptions when component is destroyed */
     private _onDestroy = new Subject<void>();
 
-    constructor(private readonly _hierarchyBar: HierarchyBarService) {
+    constructor() {
 
         // emit the latest selection value
-        _hierarchyBar.selection$.pipe(takeUntil(this._onDestroy))
+        this._hierarchyBar.selection$.pipe(takeUntil(this._onDestroy))
             .subscribe(selection => this.selectedChange.next(selection));
     }
 

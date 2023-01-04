@@ -12,7 +12,7 @@ import { Filter } from './interfaces/filter.interface';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FilterContainerComponent implements OnDestroy {
-    public readonly filterService = inject(FilterService);
+    readonly filterService = inject(FilterService);
 
     /** Allow filters to set from outside the component */
     @Input() set filters(filters: Filter[]) {
