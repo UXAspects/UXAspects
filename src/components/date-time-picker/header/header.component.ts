@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, Optional } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, OnDestroy, Optional } from '@angular/core';
 import { merge, Observable, Subject } from 'rxjs';
 import { delay, map, takeUntil } from 'rxjs/operators';
 import { DateRangeOptions } from '../../date-range-picker/date-range-picker.directive';
@@ -11,6 +11,10 @@ import { DatePickerMode, DateTimePickerService } from '../date-time-picker.servi
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderComponent implements AfterViewInit, OnDestroy {
+    readonly datepicker = inject(DateTimePickerService);
+    private readonly _changeDetector = inject(ChangeDetectorRef);
+    @Optional() readonly _rangeService = inject(DateRangeService);
+    @Optional() readonly _rangeOptions = inject(DateRangeOptions);
 
     canAscend$: Observable<boolean> = this.datepicker.mode$.pipe(map(mode => mode !== DatePickerMode.Year));
 
@@ -84,16 +88,11 @@ export class HeaderComponent implements AfterViewInit, OnDestroy {
     /** Unsubscribe from all observables */
     private _onDestroy = new Subject<void>();
 
-    constructor(
-        public datepicker: DateTimePickerService,
-        private _changeDetector: ChangeDetectorRef,
-        @Optional() private _rangeService: DateRangeService,
-        @Optional() private _rangeOptions: DateRangeOptions
-    ) {
+    constructor() {
         if (this._rangeService) {
             // delay required to allow all ui to update elsewhere
             this._rangeService.onRangeChange.pipe(delay(100), takeUntil(this._onDestroy))
-                .subscribe(() => _changeDetector.detectChanges());
+                .subscribe(() => this._changeDetector.detectChanges());
         }
     }
 

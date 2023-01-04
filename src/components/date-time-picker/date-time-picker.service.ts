@@ -1,5 +1,5 @@
 import { WeekDay } from '@angular/common';
-import { inject, Injectable, OnDestroy, Optional } from '@angular/core';
+import { inject, Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject, Subject, Subscription } from 'rxjs';
 import { DateRangeOptions } from '../date-range-picker/date-range-picker.directive';
 import { DateRangeService } from '../date-range-picker/date-range.service';
@@ -9,9 +9,9 @@ import { dateComparator, DateTimePickerTimezone, meridians, months, monthsShort,
 @Injectable()
 export class DateTimePickerService implements OnDestroy {
 
-    @Optional() private _config = inject(DateTimePickerConfig);
-    @Optional()  rangeService = inject(DateRangeService);
-    @Optional()  rangeOptions = inject(DateRangeOptions);
+    private readonly _config = inject(DateTimePickerConfig, { optional: true });
+    readonly rangeService = inject(DateRangeService, { optional: true });
+    readonly rangeOptions = inject(DateRangeOptions, { optional: true });
 
     mode$: BehaviorSubject<DatePickerMode> = new BehaviorSubject<DatePickerMode>(DatePickerMode.Day);
     date$: BehaviorSubject<Date> = new BehaviorSubject<Date>(new Date());

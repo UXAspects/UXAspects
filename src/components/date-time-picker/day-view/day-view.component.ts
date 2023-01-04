@@ -1,5 +1,5 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
-import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, OnDestroy, Optional } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, OnDestroy } from '@angular/core';
 import { merge, Subject } from 'rxjs';
 import { delay, filter, takeUntil } from 'rxjs/operators';
 import { FocusIndicatorOriginService } from '../../../directives/accessibility/index';
@@ -17,14 +17,14 @@ import { DayViewItem, DayViewService } from './day-view.service';
 })
 export class DayViewComponent implements AfterViewInit, OnDestroy {
 
-    public datePicker = inject(DateTimePickerService);
-    public dayService = inject(DayViewService);
-    private _changeDetector = inject(ChangeDetectorRef);
-    private _focusOrigin = inject(FocusIndicatorOriginService);
-    private _liveAnnouncer = inject(LiveAnnouncer);
+    public readonly datePicker = inject(DateTimePickerService);
+    public readonly dayService = inject(DayViewService);
+    private readonly _changeDetector = inject(ChangeDetectorRef);
+    private readonly _focusOrigin = inject(FocusIndicatorOriginService);
+    private readonly _liveAnnouncer = inject(LiveAnnouncer);
 
-    @Optional() private _rangeService = inject(DateRangeService);
-    @Optional() private _rangeOptions = inject(DateRangeOptions);
+    private readonly _rangeService = inject(DateRangeService, { optional: true });
+    private readonly _rangeOptions = inject(DateRangeOptions, { optional: true });
 
     /** Determine if we are in range selection mode */
     get _isRangeMode(): boolean {

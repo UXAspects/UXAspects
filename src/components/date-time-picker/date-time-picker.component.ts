@@ -1,5 +1,5 @@
 import { WeekDay } from '@angular/common';
-import { AfterViewInit, ChangeDetectionStrategy, Component, EventEmitter, inject, Input, OnDestroy, OnInit, Optional, Output } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, EventEmitter, inject, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { Subject } from 'rxjs';
 import { distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { DateRangeOptions } from '../date-range-picker/date-range-picker.directive';
@@ -15,9 +15,9 @@ import { dateComparator, DateTimePickerTimezone, isDateAfter, isDateBefore, time
 })
 export class DateTimePickerComponent implements OnInit, AfterViewInit, OnDestroy {
 
-    public datepicker = inject(DateTimePickerService);
-    @Optional() private _rangeService = inject(DateRangeService);
-    @Optional() private _rangeOptions = inject(DateRangeOptions);
+    public readonly datepicker = inject(DateTimePickerService);
+    private readonly _rangeService = inject(DateRangeService, { optional: true });
+    private readonly _rangeOptions = inject(DateRangeOptions, { optional: true });
 
     /** Defines whether or not the date picker should be visible. */
     @Input() set showDate(value: boolean) {
