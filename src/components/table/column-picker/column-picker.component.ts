@@ -15,8 +15,10 @@ import { ColumnPickerTreeNode } from './interfaces/column-picker-tree-node.inter
 export class ColumnPickerComponent implements OnChanges {
     private readonly _columnPicker = inject(ColumnPickerService);
 
+    /** Access the LiveAnnounce to provide accessibility on reordering */
     private readonly _liveAnnouncer = inject(LiveAnnouncer);
 
+    /** We are using OnPush change detection so we must manually trigger CD */
     private readonly _changeDetectorRef = inject(ChangeDetectorRef);
 
     /** Define a list of all selected columns. */
