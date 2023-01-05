@@ -8,6 +8,7 @@ import { DatePickerMode, DateTimePickerService } from '../date-time-picker.servi
 @Component({
     selector: 'ux-date-time-picker-header',
     templateUrl: './header.component.html',
+    providers: [DateRangeOptions],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderComponent implements AfterViewInit, OnDestroy {

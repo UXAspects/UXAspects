@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, DebugElement, inject } from '@angular/core';
+import { ChangeDetectionStrategy, DebugElement } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { IconComponent } from '../icon';
@@ -145,8 +145,6 @@ describe('Column Sorting Component', () => {
 
 export class ColumnSortingTestHarness {
 
-    private _fixture = inject(ComponentFixture<ColumnSortingComponent>);
-
     private _component = this._fixture.componentInstance;
 
     orderChangeSpy = spyOn(this._component.orderChange, 'emit');
@@ -154,6 +152,8 @@ export class ColumnSortingTestHarness {
 
     /** Access the instance of the column sorting directive */
     private _sorter: ColumnSortingDirective = TestBed.get(ColumnSortingDirective);
+
+    constructor(private _fixture: ComponentFixture<ColumnSortingComponent>) {}
 
     /** Toggle the sort direction */
     async toggleSort(): Promise<void> {
