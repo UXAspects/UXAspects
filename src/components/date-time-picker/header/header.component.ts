@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, OnDestroy, Optional } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, OnDestroy } from '@angular/core';
 import { merge, Observable, Subject } from 'rxjs';
 import { delay, map, takeUntil } from 'rxjs/operators';
 import { DateRangeOptions } from '../../date-range-picker/date-range-picker.directive';
@@ -16,9 +16,9 @@ export class HeaderComponent implements AfterViewInit, OnDestroy {
 
     private readonly _changeDetector = inject(ChangeDetectorRef);
 
-    @Optional() readonly _rangeService = inject(DateRangeService);
+    private readonly _rangeService = inject(DateRangeService, { optional: true });
 
-    @Optional() readonly _rangeOptions = inject(DateRangeOptions);
+    private readonly _rangeOptions = inject(DateRangeOptions, { optional: true });
 
     canAscend$: Observable<boolean> = this.datepicker.mode$.pipe(map(mode => mode !== DatePickerMode.Year));
 

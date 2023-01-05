@@ -10,7 +10,7 @@ import { dateComparator, DateTimePickerTimezone, isDateAfter, isDateBefore, time
 @Component({
     selector: 'ux-date-time-picker',
     templateUrl: './date-time-picker.component.html',
-    providers: [DateTimePickerService, DateRangeOptions, DateRangeService],
+    providers: [DateTimePickerService],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DateTimePickerComponent implements OnInit, AfterViewInit, OnDestroy {
