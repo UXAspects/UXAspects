@@ -146,7 +146,8 @@
                         "styles": [
                             "node_modules/bootstrap/dist/css/bootstrap.min.css",
                             "src/styles/ux-aspects.less"
-                        ]
+                        ],
+                        "polyfills": ["zone.js", "zone.js/testing"]
                     }
                 },
                 "lint": {
@@ -163,7 +164,7 @@
             "projectType": "application",
             "architect": {
                 "build": {
-                    "builder": "@angular-devkit/build-angular:browser-esbuild",
+                    "builder": "@angular-devkit/build-angular:browser",
                     "options": {
                         "outputPath": "dist/e2e",
                         "index": "e2e/pages/index.html",
