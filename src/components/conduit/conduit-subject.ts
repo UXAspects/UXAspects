@@ -1,4 +1,3 @@
-import { inject } from '@angular/core';
 import { Subject } from 'rxjs';
 import { distinctUntilChanged, filter, takeUntil } from 'rxjs/operators';
 import { ConduitZone } from './conduit-zone.service';
@@ -7,12 +6,10 @@ import { ConduitMetadata } from './interfaces/conduit-metadata';
 
 export class ConduitSubject {
 
-    private _zone = inject(ConduitZone);
-
     private _subject: Subject<any>;
     private _onDestroy = new Subject<void>();
 
-    constructor(public conduit: ConduitMetadata, public zoneId: string) {
+    constructor(public conduit: ConduitMetadata, private _zone: ConduitZone, public zoneId: string) {
 
         // store the target subject object
         this._subject = conduit.subject;
@@ -25,7 +22,7 @@ export class ConduitSubject {
             .subscribe(this.onOutput.bind(this));
 
         // subscribe to the zone events and root zone events
-        this._zone.getEvents().pipe(filter(event => event.conduit.id === conduit.id), takeUntil(this._onDestroy)).subscribe(this.onInput.bind(this));
+        _zone.getEvents().pipe(filter(event => event.conduit.id === conduit.id), takeUntil(this._onDestroy)).subscribe(this.onInput.bind(this));
     }
 
     /** Check all allow inputs to see if there is a value we should initially set the conduit to */

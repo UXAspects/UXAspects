@@ -25,7 +25,7 @@ export class ConduitZone implements OnDestroy {
 
     /** Store reference to the repository and begin watching for and emitting changes */
     registerConduit(conduit: ConduitMetadata): void {
-        ConduitZone.subjects.push(new ConduitSubject(conduit, this._zoneId));
+        ConduitZone.subjects.push(new ConduitSubject(conduit, this, this._zoneId));
     }
 
     /** Destroy a conduit */

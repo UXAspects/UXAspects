@@ -13,8 +13,6 @@ import { NavigationService } from '../navigation.service';
     exportAs: 'uxNavigationLink'
 })
 export class NavigationLinkDirective implements OnInit, OnChanges, OnDestroy {
-    private readonly _options = inject<NavigationModuleOptions>(NAVIGATION_MODULE_OPTIONS);
-
     private readonly _router = inject(Router);
 
     private readonly _locationStrategy = inject(LocationStrategy);
@@ -24,6 +22,8 @@ export class NavigationLinkDirective implements OnInit, OnChanges, OnDestroy {
     private readonly _changeDetector = inject(ChangeDetectorRef);
 
     private readonly _route = inject(ActivatedRoute);
+
+    private readonly _options = inject<NavigationModuleOptions>(NAVIGATION_MODULE_OPTIONS, { optional: true });
 
     /** The NavigationItem this element represents */
     @Input() navigationItem: NavigationItem;
