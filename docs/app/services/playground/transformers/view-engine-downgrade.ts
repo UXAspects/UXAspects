@@ -26,7 +26,6 @@ function isViewEngineModule(playgroundModule: IPlaygroundModule): boolean {
         ? playgroundModule.imports
         : [playgroundModule.imports];
     return (
-        playgroundModule.library === 'angular-split' ||
         playgroundModule.library === 'ng2-file-upload' ||
         imports.findIndex(_import => _import === 'MarqueeWizardModule') >= 0
     );
