@@ -1,4 +1,6 @@
-import { Component, EventEmitter, HostBinding, inject, Input, Output } from '@angular/core';
+import { Component, EventEmitter, HostBinding, inject, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { AccordionService } from '../accordion.service';
 
 let uniqueId: number = 1;
@@ -10,7 +12,7 @@ let uniqueId: number = 1;
         'class': 'panel panel-default'
     }
 })
-export class AccordionPanelComponent {
+export class AccordionPanelComponent implements OnInit, OnDestroy {
 
     readonly accordion = inject(AccordionService);
 
@@ -23,8 +25,15 @@ export class AccordionPanelComponent {
 
     @Output() expandedChange = new EventEmitter<boolean>();
 
-    constructor() {
-        this.accordion.collapse.subscribe(() => this.collapse());
+    private readonly _onDestroy = new Subject<void>();
+
+    ngOnInit(): void {
+        this.accordion.collapse.pipe(takeUntil(this._onDestroy)).subscribe(() => this.collapse());
+    }
+
+    ngOnDestroy(): void {
+        this._onDestroy.next();
+        this._onDestroy.complete();
     }
 
     toggle(): void {

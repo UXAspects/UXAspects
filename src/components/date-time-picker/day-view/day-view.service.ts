@@ -6,12 +6,12 @@ import { compareDays, dateRange, gridify } from '../date-time-picker.utils';
 
 @Injectable()
 export class DayViewService implements OnDestroy {
-    readonly _datepicker = inject(DateTimePickerService);
+    private readonly _datepicker = inject(DateTimePickerService);
 
     grid$ = new BehaviorSubject<DayViewItem[][]>([[]]);
     focused$ = new BehaviorSubject<FocusedDayItem>(null);
 
-    private _subscription: Subscription;
+    private readonly _subscription: Subscription;
 
     constructor() {
         this._subscription = combineLatest(this._datepicker.month$, this._datepicker.year$, this._datepicker.startOfWeek$)
