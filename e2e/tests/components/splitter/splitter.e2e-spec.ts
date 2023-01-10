@@ -23,36 +23,58 @@ describe('SplitterPage Tests', () => {
         expect(await imageCompare('splitter-initial')).toEqual(0);
     });
 
-    it('should move left when left arrow key is pressed', async () => {
+    it('should move left when up/left arrow key is pressed', async () => {
 
         // focus the gutter
         await page.setGutterFocused();
 
-        // press the left key
-        await page.sendLeftKey();
+        // press the up key
+        await page.sendUpKey();
 
-        const valuenow = await page.getGutterAriaValue();
-        const valuemin = await page.getGutterAriaValueMin();
-        const valuemax = await page.getGutterAriaValueMax();
+        let valuenow = await page.getGutterAriaValue();
+        let valuemin = await page.getGutterAriaValueMin();
+        let valuemax = await page.getGutterAriaValueMax();
 
         expect(valuenow).toContain('39');
         expect(valuemin).toContain('0');
         expect(valuemax).toContain('100');
+
+        // press the left key
+        await page.sendLeftKey();
+
+        valuenow = await page.getGutterAriaValue();
+        valuemin = await page.getGutterAriaValueMin();
+        valuemax = await page.getGutterAriaValueMax();
+
+        expect(valuenow).toContain('32');
+        expect(valuemin).toContain('0');
+        expect(valuemax).toContain('100');
     });
 
-    it('should move right when right arrow key is pressed', async () => {
+    it('should move right when down/right arrow key is pressed', async () => {
 
         // focus the gutter
         await page.setGutterFocused();
 
+        // press the down key
+        await page.sendDownKey();
+
+        let valuenow = await page.getGutterAriaValue();
+        let valuemin = await page.getGutterAriaValueMin();
+        let valuemax = await page.getGutterAriaValueMax();
+
+        expect(valuenow).toContain('41');
+        expect(valuemin).toContain('0');
+        expect(valuemax).toContain('100');
+
         // press the right key
         await page.sendRightKey();
 
-        const valuenow = await page.getGutterAriaValue();
-        const valuemin = await page.getGutterAriaValueMin();
-        const valuemax = await page.getGutterAriaValueMax();
+        valuenow = await page.getGutterAriaValue();
+        valuemin = await page.getGutterAriaValueMin();
+        valuemax = await page.getGutterAriaValueMax();
 
-        expect(valuenow).toContain('41');
+        expect(valuenow).toContain('46');
         expect(valuemin).toContain('0');
         expect(valuemax).toContain('100');
     });
