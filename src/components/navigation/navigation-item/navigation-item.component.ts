@@ -44,14 +44,14 @@ export class NavigationItemComponent implements AfterViewInit, AfterContentInit,
     _indentWithoutArrow: boolean = true;
 
     @ContentChildren(NavigationItemComponent, { descendants: true })
-    private _children: QueryList<NavigationItemComponent>;
+    private readonly _children: QueryList<NavigationItemComponent>;
 
     get children(): NavigationItemComponent[] {
         return this._children.filter(item => item !== this);
     }
 
     /** Automatically unsubscribe when the component is destroyed */
-    private _onDestroy = new Subject<void>();
+    private readonly _onDestroy = new Subject<void>();
 
     constructor() {
 

@@ -10,7 +10,7 @@ export class CardTabsService implements OnDestroy {
     tabs$ = new BehaviorSubject<CardTabComponent[]>([]);
     position$ = new BehaviorSubject<string>('top');
 
-    private _subscription: Subscription;
+    private readonly _subscription: Subscription;
 
     constructor() {
 

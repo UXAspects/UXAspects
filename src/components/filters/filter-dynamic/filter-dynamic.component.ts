@@ -83,7 +83,7 @@ export class FilterDynamicComponent implements OnInit, OnDestroy {
     }
 
     /** The default options */
-    private _defaultOptions: FilterDynamicListConfig = { placeholder: '', minCharacters: 3, maxResults: Infinity };
+    private readonly _defaultOptions: FilterDynamicListConfig = { placeholder: '', minCharacters: 3, maxResults: Infinity };
 
     /** Store the user specified typeahead options */
     private _options: FilterDynamicListConfig = { ...this._defaultOptions };

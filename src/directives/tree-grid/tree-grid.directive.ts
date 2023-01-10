@@ -30,7 +30,7 @@ export class TreeGridDirective implements OnInit, OnDestroy {
     @Output()
     rowsChange = new EventEmitter<TreeGridItem[]>();
 
-    private _onDestroy = new Subject<void>();
+    private readonly _onDestroy = new Subject<void>();
 
     ngOnInit(): void {
         this._treeGridService.rows$

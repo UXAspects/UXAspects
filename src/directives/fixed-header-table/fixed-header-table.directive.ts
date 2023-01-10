@@ -36,7 +36,7 @@ export class FixedHeaderTableDirective<T> implements OnInit, OnDestroy {
     private _tableBody: HTMLTableSectionElement;
 
     /** Unsubscribe from all observables on destroy */
-    private _onDestroy = new Subject<void>();
+    private readonly _onDestroy = new Subject<void>();
 
     ngOnInit(): void {
 

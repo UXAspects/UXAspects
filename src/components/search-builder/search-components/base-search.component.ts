@@ -45,7 +45,7 @@ export class BaseSearchComponent implements OnDestroy {
         this._searchBuilderService.setValid(this._id, valid);
     }
 
-    private _id: number = this._searchBuilderService.generateComponentId();
+    private readonly _id: number = this._searchBuilderService.generateComponentId();
     private _valid: boolean = true;
 
     /**

@@ -8,7 +8,7 @@ export class AccessibilityOptionsService {
     readonly _options = inject<AccessibilityOptions>(ACCESSIBILITY_OPTIONS_TOKEN, { optional: true });
 
     /** Determine the default options */
-    private _defaultOptions: AccessibilityOptions = {
+    private readonly _defaultOptions: AccessibilityOptions = {
         mouseFocusIndicator: false,
         touchFocusIndicator: false,
         keyboardFocusIndicator: true,

@@ -49,7 +49,7 @@ export class MediaPlayerControlsExtensionComponent implements OnInit, OnDestroy 
 
     private _volume: number = 100;
     private _previousVolume = 100;
-    private _onDestroy = new Subject<void>();
+    private readonly _onDestroy = new Subject<void>();
 
 
     get volume(): number {

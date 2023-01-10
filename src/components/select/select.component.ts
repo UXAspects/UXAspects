@@ -238,16 +238,16 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
 
     /** We need to store the most recent value*/
     private _value: T | ReadonlyArray<T>;
-    private _input$ = new BehaviorSubject<InputValue>({ userInteraction: false, value: '' });
+    private readonly _input$ = new BehaviorSubject<InputValue>({ userInteraction: false, value: '' });
     private _dropdownOpen: boolean = false;
     private _userInput: boolean = false;
     private _filterDebounceTime: number = 200;
     private _autoCloseDropdown: boolean = true;
     private _onChange = (_: T | ReadonlyArray<T>) => { };
     private _onTouched = () => { };
-    private _onDestroy = new Subject<void>();
+    private readonly _onDestroy = new Subject<void>();
 
-    constructor(@Inject(DOCUMENT) private _document: any) { }
+    constructor(@Inject(DOCUMENT) private readonly _document: any) { }
 
     ngOnInit(): void {
 

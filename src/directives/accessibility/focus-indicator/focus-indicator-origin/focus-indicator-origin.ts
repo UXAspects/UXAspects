@@ -11,12 +11,12 @@ import { FocusIndicatorOriginService } from './focus-indicator-origin.service';
 export class FocusIndicatorOrigin {
 
     /** Store all event handlers */
-    private _handlers: (() => void)[] = [];
+    private readonly _handlers: (() => void)[] = [];
 
     /** Click events can be trigged by both mouse and keyboard so we want to ensure we emit the correct origin */
     private _isMouseEvent: boolean;
 
-    constructor(private _focusIndicatorOrigin: FocusIndicatorOriginService, elementRef: ElementRef, renderer: Renderer2) {
+    constructor(private readonly _focusIndicatorOrigin: FocusIndicatorOriginService, elementRef: ElementRef, renderer: Renderer2) {
 
         // add event handlers
         this._handlers = [

@@ -18,10 +18,10 @@ export class MenuNavigationItemDirective implements OnDestroy {
     @Output() activated = new EventEmitter<void>();
 
     /** Unsubscribe from all observables on destroy */
-    private _onDestroy = new Subject<void>();
+    private readonly _onDestroy = new Subject<void>();
 
     /** Keep a reference to the focus indicator */
-    private _focusIndicator: FocusIndicator;
+    private readonly _focusIndicator: FocusIndicator;
 
     constructor() {
 

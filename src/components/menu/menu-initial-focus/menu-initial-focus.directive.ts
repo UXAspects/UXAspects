@@ -11,7 +11,7 @@ export class MenuInitialFocusDirective implements OnInit, OnDestroy {
 
     private readonly _renderer = inject(Renderer2);
 
-    private _onDestroy = new Subject<void>();
+    private readonly _onDestroy = new Subject<void>();
 
     ngOnInit(): void {
         this.ensureFocusable();

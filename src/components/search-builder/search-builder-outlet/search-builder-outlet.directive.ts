@@ -23,7 +23,7 @@ export class SearchBuilderOutletDirective implements OnInit, OnDestroy {
     @Input('uxSearchBuilderOutletIndex') index: number;
 
     private _componentRef: ComponentRef<BaseSearchComponent>;
-    private _onDestroy = new Subject<void>();
+    private readonly _onDestroy = new Subject<void>();
 
     ngOnInit(): void {
 

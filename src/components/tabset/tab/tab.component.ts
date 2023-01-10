@@ -72,7 +72,7 @@ export class TabComponent implements OnInit, OnDestroy, OnChanges {
     _id: string;
 
     /** Unsubscribe from all subscriptions when component is destroyed */
-    private _onDestroy = new Subject<void>();
+    private readonly _onDestroy = new Subject<void>();
 
     /** Store the tabset instance */
     private readonly _tabset: TabsetComponent;

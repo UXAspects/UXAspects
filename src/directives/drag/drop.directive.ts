@@ -31,7 +31,7 @@ export class DropDirective<T = any> implements OnDestroy {
     private _group: string;
 
     /** Ensure we destroy all subscriptions */
-    private _onDestroy = new Subject<void>();
+    private readonly _onDestroy = new Subject<void>();
 
     constructor() {
         // subscribe to drag events

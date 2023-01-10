@@ -30,7 +30,7 @@ export class FacetHeaderComponent implements OnDestroy {
     @Output() expandedChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
     /** Store Focus Indicator instance */
-    private _focusIndicator: FocusIndicator;
+    private readonly _focusIndicator: FocusIndicator;
 
     constructor() {
         this._focusIndicator = this.focusIndicatorService.monitor(this.elementRef.nativeElement);

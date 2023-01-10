@@ -18,7 +18,7 @@ export class SankeyNodeDirective<T> implements OnInit, OnDestroy {
   @HostBinding() tabIndex: number = -1;
 
   /** Unsubscribe from all observables on destroy */
-  private _onDestroy = new Subject<void>();
+  private readonly _onDestroy = new Subject<void>();
 
   ngOnInit(): void {
     // Update the tabindex based on the current active item

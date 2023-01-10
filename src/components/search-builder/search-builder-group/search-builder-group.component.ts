@@ -28,7 +28,7 @@ export class SearchBuilderGroupComponent implements OnInit, OnDestroy {
 
   focusIndex: number = -1;
 
-  private _onDestroy = new Subject<void>();
+  private readonly _onDestroy = new Subject<void>();
 
   ngOnInit(): void {
 

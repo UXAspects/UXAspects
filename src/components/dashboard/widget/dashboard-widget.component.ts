@@ -119,7 +119,7 @@ export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestro
     private _minColSpan: number = 1;
     private _minRowSpan: number = 1;
     private _autoPositioning: boolean = true;
-    private _onDestroy = new Subject<void>();
+    private readonly _onDestroy = new Subject<void>();
 
     constructor() {
         // subscribe to option changes

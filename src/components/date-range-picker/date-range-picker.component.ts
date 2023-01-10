@@ -159,7 +159,7 @@ export class DateRangePickerComponent implements OnDestroy {
     endChange$ = new Subject<Date>();
 
     /** Unsubscribe from all observables private  */
-    private _onDestroy = new Subject<void>();
+    private readonly _onDestroy = new Subject<void>();
 
     constructor() {
         this.startChange$.pipe(takeUntil(this._onDestroy), debounceTime(0)).subscribe(date => this.onStartChange(date));

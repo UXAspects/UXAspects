@@ -59,7 +59,7 @@ export class FloatLabelDirective<T = string> implements OnInit, OnChanges, OnDes
 
     private _input: HTMLInputElement;
     private _focused = false;
-    private _eventHandles: any[] = [];
+    private readonly _eventHandles: any[] = [];
     private _subscription = new Subscription();
 
     ngOnInit(): void {

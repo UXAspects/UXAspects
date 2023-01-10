@@ -65,7 +65,7 @@ export class DashboardGrabHandleDirective implements OnInit, OnDestroy {
     private _lastMovement: DashboardCache[];
 
     /** Emit when the directive is destroyed to unsubscribe from all observables */
-    private _onDestroy = new Subject<void>();
+    private readonly _onDestroy = new Subject<void>();
 
     constructor() {
 

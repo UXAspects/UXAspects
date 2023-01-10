@@ -53,10 +53,10 @@ export class NavigationLinkDirective implements OnInit, OnChanges, OnDestroy {
     indentChildren: boolean;
 
     /** Emit with the current expaned state */
-    private _expanded$ = new Subject<boolean>();
+    private readonly _expanded$ = new Subject<boolean>();
 
     /** Unsubscribe from all observables when this directive is destroyed */
-    private _onDestroy = new Subject<void>();
+    private readonly _onDestroy = new Subject<void>();
 
 
     ngOnInit(): void {

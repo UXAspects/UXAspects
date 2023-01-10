@@ -200,7 +200,7 @@ export class DateTimePickerComponent implements OnInit, AfterViewInit, OnDestroy
     // expose enum to view
     DatePickerMode = DatePickerMode;
 
-    private _onDestroy = new Subject<void>();
+    private readonly _onDestroy = new Subject<void>();
 
     constructor() {
 

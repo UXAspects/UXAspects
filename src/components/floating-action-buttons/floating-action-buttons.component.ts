@@ -36,7 +36,7 @@ export class FloatingActionButtonsComponent implements AfterViewInit, OnDestroy 
     /** Get all child FAB buttons */
     @ContentChildren(FloatingActionButtonComponent) buttons: QueryList<FloatingActionButtonComponent>;
 
-    private _subscription: Subscription = new Subscription();
+    private readonly _subscription: Subscription = new Subscription();
 
     constructor() {
         this._subscription.add(this.fab.open$.subscribe(value => this.openChange.emit(value)));

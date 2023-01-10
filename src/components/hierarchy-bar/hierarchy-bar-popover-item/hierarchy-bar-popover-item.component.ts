@@ -30,7 +30,7 @@ export class HierarchyBarPopoverItemComponent implements OnDestroy {
     @Output() selected = new EventEmitter<HierarchyBarNode>(true);
 
     /** Allow this to control the focus origin */
-    private _focusOrigin: FocusIndicatorOrigin;
+    private readonly _focusOrigin: FocusIndicatorOrigin;
 
     constructor() {
         this._focusOrigin = new FocusIndicatorOrigin(this.focusOriginService, this.elementRef, this.renderer);

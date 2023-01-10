@@ -167,7 +167,7 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
     /** Store the list of recent items */
     private _recentOptions: T[];
 
-    private _onDestroy = new Subject<void>();
+    private readonly _onDestroy = new Subject<void>();
 
     private _popoverOrientationListener: PopoverOrientationListener;
 

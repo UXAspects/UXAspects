@@ -45,7 +45,7 @@ export class TabsetComponent implements AfterViewInit, OnDestroy {
     @ContentChildren(TabComponent) _tabs: QueryList<TabComponent>;
 
     /** Remove subscriptions on destroy */
-    private _onDestroy$ = new Subject<void>();
+    private readonly _onDestroy$ = new Subject<void>();
 
     ngAfterViewInit(): void {
 

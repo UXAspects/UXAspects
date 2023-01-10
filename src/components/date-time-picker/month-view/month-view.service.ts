@@ -10,7 +10,7 @@ export class MonthViewService implements OnDestroy {
     grid$ = new BehaviorSubject<MonthViewItem[][]>([[]]);
     focused$ = new BehaviorSubject<FocusedMonthItem>(null);
 
-    private _subscription: Subscription;
+    private readonly _subscription: Subscription;
 
     constructor() {
         this._subscription = this._datepicker.year$.subscribe(year => this.createMonthGrid(year));

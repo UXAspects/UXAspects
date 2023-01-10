@@ -20,7 +20,7 @@ export class FocusIndicatorService {
     private readonly _focusIndicatorOrigin = inject(FocusIndicatorOriginService);
 
     /** We need the renderer to add and remove classes */
-    private _renderer: Renderer2;
+    private readonly _renderer: Renderer2;
 
     constructor() {
         // programmatically create a renderer as it can't be injected into a service

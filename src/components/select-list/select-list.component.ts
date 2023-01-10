@@ -51,7 +51,7 @@ export class SelectListComponent<T> implements AfterContentInit, OnDestroy {
     @ContentChildren(SelectListItemComponent) items: QueryList<SelectListItemComponent<T>>;
 
     /** Automatically unsubscribe all observables */
-    private _onDestroy = new Subject<void>();
+    private readonly _onDestroy = new Subject<void>();
 
     constructor() {
         // set the selection strategy to single by default

@@ -45,7 +45,7 @@ export class TabbableListService implements OnDestroy {
     private _direction: 'horizontal' | 'vertical';
 
     /** Unsubscribe from all observables on destroy */
-    private _onDestroy = new Subject<void>();
+    private readonly _onDestroy = new Subject<void>();
 
     ngOnDestroy(): void {
         this._onDestroy.next();

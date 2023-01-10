@@ -36,12 +36,12 @@ export class PopoverOrientationListener {
     /** Store the last known position and size */
     private _rect: ClientRect;
 
-    private _onDestroy = new Subject<void>();
+    private readonly _onDestroy = new Subject<void>();
 
-    constructor(private _element: HTMLElement,
-                private _elementParent: HTMLElement,
-                private _resizeService: ResizeService,
-                private _viewportRuler: ViewportRuler) {
+    constructor(private readonly _element: HTMLElement,
+                private readonly _elementParent: HTMLElement,
+                private readonly _resizeService: ResizeService,
+                private readonly _viewportRuler: ViewportRuler) {
 
         // watch for changes to the typeahead size
         this._resizeService.addResizeListener(this._element).pipe(takeUntil(this._onDestroy))

@@ -124,7 +124,7 @@ export class MenuComponent implements AfterContentInit, OnDestroy, OnChanges {
     }
 
     /** Create an internal querylist to store the menu items */
-    private _itemsList = new QueryList<MenuItemComponent | MenuTabbableItemDirective>();
+    private readonly _itemsList = new QueryList<MenuItemComponent | MenuTabbableItemDirective>();
 
     ngAfterContentInit(): void {
 

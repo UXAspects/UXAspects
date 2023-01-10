@@ -55,7 +55,7 @@ export class TimeViewComponent implements OnInit, OnDestroy {
     /** Emit when the timezone changes. */
     @Output() timezoneChange: EventEmitter<DateTimePickerTimezone> = new EventEmitter<DateTimePickerTimezone>();
 
-    private _onDestroy = new Subject<void>();
+    private readonly _onDestroy = new Subject<void>();
 
     constructor() {
 

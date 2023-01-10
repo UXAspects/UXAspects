@@ -13,7 +13,7 @@ export class PageHeaderNavigationSecondaryItemDirective implements OnInit, OnDes
     @Input('uxPageHeaderNavigationSecondaryItem')
     item: PageHeaderNavigationItem;
 
-    private _onDestroy = new Subject<void>();
+    private readonly _onDestroy = new Subject<void>();
 
     ngOnInit() {
 

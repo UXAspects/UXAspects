@@ -101,7 +101,7 @@ export class NestedDonutChartComponent implements OnInit, OnChanges, OnDestroy {
     private _isInitialized: boolean = false;
 
     /** Unsubscribe from all observables automatically */
-    private _onDestroy = new Subject<void>();
+    private readonly _onDestroy = new Subject<void>();
 
     /** Perform the initial render */
     ngOnInit(): void {

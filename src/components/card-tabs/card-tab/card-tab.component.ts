@@ -11,7 +11,7 @@ import { CardTabContentDirective } from './card-tab-content.directive';
 })
 export class CardTabComponent implements OnDestroy {
 
-    private _tabService = inject(CardTabsService);
+    private readonly _tabService = inject(CardTabsService);
 
     active$: Observable<boolean> = this._tabService.tab$.pipe(map(tab => tab === this));
     @ContentChild(CardTabContentDirective, { read: TemplateRef, static: false }) content: TemplateRef<any>;

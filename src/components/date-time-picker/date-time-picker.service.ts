@@ -58,7 +58,7 @@ export class DateTimePickerService implements OnDestroy {
      */
     initialised: boolean = false;
 
-    private _subscription: Subscription;
+    private readonly _subscription: Subscription;
 
     constructor() {
 

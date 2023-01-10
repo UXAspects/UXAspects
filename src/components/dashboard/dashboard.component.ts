@@ -50,7 +50,7 @@ export class DashboardComponent implements AfterViewInit, AfterContentInit, OnDe
     @ContentChildren(DashboardGrabHandleDirective, { descendants: true }) handles: QueryList<DashboardGrabHandleDirective>;
 
     /** Ensure we unsubscribe from all observables */
-    private _onDestroy = new Subject<void>();
+    private readonly _onDestroy = new Subject<void>();
 
     constructor() {
 

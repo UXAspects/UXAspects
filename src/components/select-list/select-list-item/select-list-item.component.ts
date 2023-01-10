@@ -35,10 +35,10 @@ export class SelectListItemComponent<T> implements OnDestroy {
     }
 
     /** Store a reference to the focus indicator instance */
-    private _focusIndicator: FocusIndicator;
+    private readonly _focusIndicator: FocusIndicator;
 
     /** Unsubscribe from all subscriptions on destroy */
-    private _onDestroy = new Subject<void>();
+    private readonly _onDestroy = new Subject<void>();
 
     constructor() {
 

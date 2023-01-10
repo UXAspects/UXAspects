@@ -42,7 +42,7 @@ export class TreeGridRowDirective implements OnInit, OnDestroy {
 
     private _expanded = false;
 
-    private _onDestroy = new Subject<void>();
+    private readonly _onDestroy = new Subject<void>();
 
     ngOnInit(): void {
 

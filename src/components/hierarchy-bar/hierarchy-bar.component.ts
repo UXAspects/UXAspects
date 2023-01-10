@@ -68,7 +68,7 @@ export class HierarchyBarComponent implements IHierachyBarComponent, OnDestroy {
     }
 
     /** Unsubscribe from all subscriptions when component is destroyed */
-    private _onDestroy = new Subject<void>();
+    private readonly _onDestroy = new Subject<void>();
 
     constructor() {
 

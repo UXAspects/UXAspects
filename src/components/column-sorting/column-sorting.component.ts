@@ -53,7 +53,7 @@ export class ColumnSortingComponent implements OnInit, OnChanges, OnDestroy {
     }
 
     /** Unsubscribe from all observables on component destroy */
-    private _onDestroy$ = new Subject<void>();
+    private readonly _onDestroy$ = new Subject<void>();
 
     ngOnInit(): void {
         // listen for changes triggered by the directive

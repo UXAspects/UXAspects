@@ -91,7 +91,7 @@ export class FocusIndicatorDirective implements OnInit, OnDestroy {
     private _checkChildren: boolean = false;
 
     /** Store all configuation options*/
-    private _options = new Map<string, boolean>();
+    private readonly _options = new Map<string, boolean>();
 
     /** Store a reference to the focus handler */
     private _focusIndicator: FocusIndicator;

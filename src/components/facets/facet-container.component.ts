@@ -58,7 +58,7 @@ export class FacetContainerComponent implements OnDestroy {
     /** Allow a custom clear button */
     @ContentChild(FacetClearButtonDirective, { read: TemplateRef, static: false }) clearButton: TemplateRef<FacetClearButtonDirective>;
 
-    private _onDestroy = new Subject<void>();
+    private readonly _onDestroy = new Subject<void>();
 
     constructor() {
         this.facetService.facets$.subscribe(facets => this.facetsChange.next(facets));

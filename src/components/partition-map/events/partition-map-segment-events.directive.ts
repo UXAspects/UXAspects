@@ -15,7 +15,7 @@ export class PartitionMapSegmentEventsDirective implements AfterViewInit, OnDest
     @Output() segmentBlur = new EventEmitter<FocusEvent>();
 
     /** Unsubscribe from observables */
-    private _onDestroy = new Subject<void>();
+    private readonly _onDestroy = new Subject<void>();
 
     ngAfterViewInit(): void {
         // Get the parent segment element

@@ -21,7 +21,7 @@ export class ResizeDirective implements OnInit, OnDestroy {
     @Output() uxResize: EventEmitter<ResizeDimensions> = new EventEmitter<ResizeDimensions>();
 
     /** Remove all subscriptions on component destroy */
-    private _onDestroy = new Subject<void>();
+    private readonly _onDestroy = new Subject<void>();
 
     ngOnInit(): void {
         this._resizeService.addResizeListener(this._elementRef.nativeElement)

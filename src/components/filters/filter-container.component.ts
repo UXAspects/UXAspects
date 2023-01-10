@@ -35,7 +35,7 @@ export class FilterContainerComponent implements OnDestroy {
     @ContentChild('clearAllTemplate', { static: false }) clearAllTemplate: TemplateRef<void>;
 
     /** Unsubscribe from the subscriptions on destroy */
-    private _onDestroy = new Subject<void>();
+    private readonly _onDestroy = new Subject<void>();
 
     constructor() {
 

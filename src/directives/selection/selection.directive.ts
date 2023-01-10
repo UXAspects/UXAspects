@@ -69,7 +69,7 @@ export class SelectionDirective<T> implements AfterContentInit, OnDestroy {
     @ContentChildren(SelectionItemDirective) items: QueryList<SelectionItemDirective<T>>;
 
     /** Unsubscribe from all observables on component destroy */
-    private _onDestroy = new Subject<void>();
+    private readonly _onDestroy = new Subject<void>();
 
     /** Store the previous selection so we don't emit more than we have to */
     private _lastSelection: ReadonlyArray<T> = [];

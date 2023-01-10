@@ -8,7 +8,7 @@ export class LayoutSwitcherItemDirective {
 
     private readonly _viewContainerRef = inject(ViewContainerRef);
 
-    @Input('uxLayoutSwitcherItem') private _config: LayoutSwitcherItem;
+    @Input('uxLayoutSwitcherItem') private readonly _config: LayoutSwitcherItem;
 
     private _embeddedView: EmbeddedViewRef<any>;
 

@@ -13,7 +13,7 @@ export class FocusIndicatorOriginDirective implements OnDestroy {
     readonly renderer = inject(Renderer2);
 
     /** Store the instance of the focus indicator origin */
-    private _focusOrigin: FocusIndicatorOrigin;
+    private readonly _focusOrigin: FocusIndicatorOrigin;
 
     constructor() {
         this._focusOrigin = new FocusIndicatorOrigin(this.focusOriginService, this.elementRef, this.renderer);

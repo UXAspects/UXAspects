@@ -8,7 +8,7 @@ export class WizardTestWrapper<T> {
     protected contentSelector = '.test-step-content';
     protected stepButtonsSelector = '.wizard-footer button';
 
-    constructor(private _fixture: ComponentFixture<T>) {
+    constructor(private readonly _fixture: ComponentFixture<T>) {
         this.nativeElement = _fixture.nativeElement;
     }
 

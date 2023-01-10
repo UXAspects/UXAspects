@@ -6,7 +6,7 @@ export class ManagedFocusContainerService {
     readonly rendererFactory = inject(RendererFactory2);
 
     private _containers: ManagedFocusContainerWithReferences[] = [];
-    private _renderer: Renderer2;
+    private readonly _renderer: Renderer2;
 
     constructor() {
         // programmatically create a renderer as it can't be injected into a service
@@ -90,7 +90,7 @@ class ManagedFocusContainer {
 
     constructor(
         public readonly element: HTMLElement,
-        private _renderer: Renderer2
+        private readonly _renderer: Renderer2
     ) { }
 
     /** Start managing the focus of child elements. */
