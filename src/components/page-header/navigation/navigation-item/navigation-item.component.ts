@@ -49,7 +49,7 @@ export class PageHeaderNavigationItemComponent implements AfterViewInit, OnDestr
     @ViewChild('navigationBtn', { static: false }) navigationBtn: ElementRef;
 
     /** Unsubscribe when the component is destroyed */
-    private _onDestroy = new Subject<void>();
+    private readonly _onDestroy = new Subject<void>();
 
     ngAfterViewInit(): void {
         this._pageHeaderService.selected$.pipe(tick(), takeUntil(this._onDestroy)).subscribe(selectedItem => {

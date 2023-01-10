@@ -36,7 +36,7 @@ export class MenuNavigationToggleDirective implements OnDestroy {
     private _menuOpen: boolean;
 
     /** Store a reference to the focus indicator */
-    private _focusIndicator: FocusIndicator;
+    private readonly _focusIndicator: FocusIndicator;
 
     constructor() {
         this._focusIndicator = this.focusIndicatorService.monitor(this.elementRef.nativeElement);

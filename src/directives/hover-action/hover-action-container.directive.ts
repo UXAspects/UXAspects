@@ -22,7 +22,7 @@ export class HoverActionContainerDirective implements OnInit, OnDestroy {
     @HostBinding('class.hover-action-container-active')
     active: boolean = false;
 
-    private _onDestroy = new Subject<void>();
+    private readonly _onDestroy = new Subject<void>();
 
     ngOnInit(): void {
 

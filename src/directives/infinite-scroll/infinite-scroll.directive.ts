@@ -45,26 +45,26 @@ export class InfiniteScrollDirective<T = any> implements OnInit, AfterContentIni
     loadErrorEvent = new EventEmitter<InfiniteScrollLoadErrorEvent>();
 
     @ContentChildren(InfiniteScrollLoadButtonDirective)
-    private _loadButtonQuery: QueryList<InfiniteScrollLoadButtonDirective>;
+    private readonly _loadButtonQuery: QueryList<InfiniteScrollLoadButtonDirective>;
 
     @ContentChildren(InfiniteScrollLoadingDirective)
-    private _loadingIndicatorQuery: QueryList<InfiniteScrollLoadingDirective>;
+    private readonly _loadingIndicatorQuery: QueryList<InfiniteScrollLoadingDirective>;
 
     private _pages: T[][];
     private _nextPageNum = 0;
     private _domObserver: MutationObserver;
     private _scrollEventSub: Subscription;
-    private _updateRequests = new Subject<InfiniteScrollRequest<T>>();
+    private readonly _updateRequests = new Subject<InfiniteScrollRequest<T>>();
 
-    private _isLoading = new BehaviorSubject<boolean>(false);
-    private _isExhausted = new BehaviorSubject<boolean>(false);
-    private _loadButtonEnabled = new BehaviorSubject<boolean>(false);
-    private _canLoadManually: Observable<boolean>;
+    private readonly _isLoading = new BehaviorSubject<boolean>(false);
+    private readonly _isExhausted = new BehaviorSubject<boolean>(false);
+    private readonly _loadButtonEnabled = new BehaviorSubject<boolean>(false);
+    private readonly _canLoadManually: Observable<boolean>;
 
     private _scrollElement: ElementRef;
     private _subscriptions: Subscription[] = [];
     private _loadButtonSubscriptions: Subscription[] = [];
-    private _onDestroy = new Subject<void>();
+    private readonly _onDestroy = new Subject<void>();
 
     constructor() {
         this._canLoadManually = this._isLoading.pipe(combineLatest(

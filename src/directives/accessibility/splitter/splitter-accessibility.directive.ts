@@ -31,12 +31,12 @@ export class SplitterAccessibilityDirective implements AfterViewInit, OnDestroy 
     private _observer: MutationObserver;
 
     /** Teardown our observables on destroy */
-    private _onDestroy = new Subject<void>();
+    private readonly _onDestroy = new Subject<void>();
 
     /** Store references to all focus indicators */
     private _focusIndicators: FocusIndicator[] = [];
 
-    constructor(@Inject(PLATFORM_ID) private _platform: string,) {
+    constructor(@Inject(PLATFORM_ID) private readonly _platform: string,) {
         // update aria values when the a gutter is dragged
         this._splitter.dragProgress$
             .pipe(takeUntil(this._onDestroy))

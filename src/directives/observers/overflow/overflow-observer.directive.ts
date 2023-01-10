@@ -28,7 +28,7 @@ export class OverflowDirective implements OnInit, AfterViewInit, OnDestroy {
   private _state = { horizontalOverflow: false, verticalOverflow: false };
 
   /** Unsubscribe from all the observables */
-  private _onDestroy = new Subject<void>();
+  private readonly _onDestroy = new Subject<void>();
 
   /** Set up the trigger if specified */
   ngOnInit(): void {

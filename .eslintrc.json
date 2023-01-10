@@ -61,7 +61,8 @@
         "@typescript-eslint/require-await": "error",
         "@typescript-eslint/semi": "error",
         "no-redeclare": "error",
-        "no-trailing-spaces": "off"
+        "no-trailing-spaces": "off",
+        "@typescript-eslint/prefer-readonly": "error"
       }
     },
     {

@@ -24,8 +24,8 @@ export class HoverActionDirective implements OnDestroy {
     @HostBinding('class.hover-action-focused')
     focused: boolean = false;
 
-    private _focusIndicator: FocusIndicator;
-    private _onDestroy = new Subject<void>();
+    private readonly _focusIndicator: FocusIndicator;
+    private readonly _onDestroy = new Subject<void>();
 
     constructor() {
 

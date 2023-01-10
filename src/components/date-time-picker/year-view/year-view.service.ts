@@ -12,7 +12,7 @@ export class YearViewService implements OnDestroy {
 
     private _year: number = new Date().getFullYear();
 
-    private _subscription = new Subscription();
+    private readonly _subscription = new Subscription();
 
     constructor() {
         const year = this._datepicker.year$.subscribe(_year => this.createYearGrid(_year));

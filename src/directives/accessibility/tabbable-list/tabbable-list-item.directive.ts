@@ -106,16 +106,16 @@ export class TabbableListItemDirective implements FocusableOption, OnDestroy {
     keyboardExpanded$ = new Subject<boolean>();
 
     /** Automatically unsubscribe from all observables */
-    private _onDestroy = new Subject<void>();
+    private readonly _onDestroy = new Subject<void>();
 
     /** Store a reference to the focus indicator instance */
-    private _focusIndicator: FocusIndicator;
+    private readonly _focusIndicator: FocusIndicator;
 
     /** Store the current key - it may change in a ngFor/uxVirtualFor if the cell is reused. */
     private _key: any;
 
     /** Store a default key to use if one is not provided */
-    private _defaultKey: string = `tabbable-list-key-${uniqueKey++}`;
+    private readonly _defaultKey: string = `tabbable-list-key-${uniqueKey++}`;
 
     /** Determine if this element has a focus indicator visible */
     private _focusOrigin: FocusOrigin = null;

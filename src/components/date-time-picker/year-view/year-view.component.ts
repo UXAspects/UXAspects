@@ -58,7 +58,7 @@ export class YearViewComponent implements AfterViewInit, OnDestroy {
         return this._datePicker.max$.value ? new Date(this._datePicker.max$.value.getFullYear(), 0) : null;
     }
 
-    private _onDestroy = new Subject<void>();
+    private readonly _onDestroy = new Subject<void>();
 
     constructor() {
 

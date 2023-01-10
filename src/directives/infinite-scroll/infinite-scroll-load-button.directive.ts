@@ -31,7 +31,7 @@ export class InfiniteScrollLoadButtonDirective {
     @Output() loading: Observable<Event>;
 
     private _visible: boolean = false;
-    private _load = new Subject();
+    private readonly _load = new Subject();
 
     constructor() {
         this.loading = this._load.asObservable() as Observable<Event>;

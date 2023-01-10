@@ -19,9 +19,9 @@ import { ColorPickerInputMode } from './color-picker.type';
 })
 export class ColorPickerTestComponent {
 
-    private _colorService = inject(ColorService);
+    private readonly _colorService = inject(ColorService);
 
-    private _colorNames = [
+    private readonly _colorNames = [
         ['Primary', 'Accent', 'Secondary', 'Alternate1', 'Alternate2', 'Alternate3', 'Vibrant1',
             'Vibrant2'],
         ['Grey1', 'Grey2', 'Grey3', 'Grey4', 'Grey5', 'Grey6', 'Grey7', 'Grey8']

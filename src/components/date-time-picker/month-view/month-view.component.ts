@@ -59,7 +59,7 @@ export class MonthViewComponent implements AfterViewInit, OnDestroy {
         return this._datePicker.max$.value ? new Date(this._datePicker.max$.value.getFullYear(), this._datePicker.max$.value.getMonth()) : null;
     }
 
-    private _onDestroy = new Subject<void>();
+    private readonly _onDestroy = new Subject<void>();
 
     constructor() {
 

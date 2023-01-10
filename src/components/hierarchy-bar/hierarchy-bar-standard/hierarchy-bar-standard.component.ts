@@ -40,7 +40,7 @@ export class HierarchyBarStandardComponent implements OnDestroy {
     isOverflowing$ = new BehaviorSubject<boolean>(false);
 
     /** Unsubscribe from all subscriptions when component is destroyed */
-    private _onDestroy = new Subject<void>();
+    private readonly _onDestroy = new Subject<void>();
 
     constructor() {
         // subscribe to changes in the selected node - update the UI after the render

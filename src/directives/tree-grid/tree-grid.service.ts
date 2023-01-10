@@ -18,7 +18,7 @@ export class TreeGridService implements OnDestroy {
     loadChildren: TreeGridLoadFunction;
 
     /** Ensure we destroy all observables correctly */
-    private _onDestroy = new Subject<void>();
+    private readonly _onDestroy = new Subject<void>();
 
     constructor() {
         this.data$.pipe(takeUntil(this._onDestroy)).subscribe(data => this.rows$.next(this.getFlattenedTree(data)));

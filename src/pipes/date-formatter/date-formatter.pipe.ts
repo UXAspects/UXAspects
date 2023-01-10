@@ -7,7 +7,7 @@ import { DateFormatter } from './date-formatter.type';
 })
 export class DateFormatterPipe implements PipeTransform {
 
-    constructor(@Inject(LOCALE_ID) private _locale: string) { }
+    constructor(@Inject(LOCALE_ID) private readonly _locale: string) { }
 
     transform(value: Date, formatter: string | DateFormatter): string {
 

@@ -151,9 +151,9 @@ export class ColumnSortingTestHarness {
     stateChangeSpy = spyOn(this._component.stateChange, 'emit');
 
     /** Access the instance of the column sorting directive */
-    private _sorter: ColumnSortingDirective = TestBed.get(ColumnSortingDirective);
+    private readonly _sorter: ColumnSortingDirective = TestBed.get(ColumnSortingDirective);
 
-    constructor(private _fixture: ComponentFixture<ColumnSortingComponent>) {}
+    constructor(private readonly _fixture: ComponentFixture<ColumnSortingComponent>) {}
 
     /** Toggle the sort direction */
     async toggleSort(): Promise<void> {

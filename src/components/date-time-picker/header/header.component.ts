@@ -89,7 +89,7 @@ export class HeaderComponent implements AfterViewInit, OnDestroy {
     }
 
     /** Unsubscribe from all observables */
-    private _onDestroy = new Subject<void>();
+    private readonly _onDestroy = new Subject<void>();
 
     constructor() {
         if (this._rangeService) {

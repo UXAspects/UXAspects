@@ -51,8 +51,8 @@ export class SpinButtonComponent implements ControlValueAccessor {
     onChangeCallback: (_: string | number) => void = () => { };
 
     private _value: string | number;
-    private _regexKeypress = RegExp(/^[0-9.,-]+$/);
-    private _regexPaste = RegExp(/^\-?\d+(\.\d+)?$/);
+    private readonly _regexKeypress = RegExp(/^[0-9.,-]+$/);
+    private readonly _regexPaste = RegExp(/^\-?\d+(\.\d+)?$/);
 
     scroll(event: WheelEvent): void {
 

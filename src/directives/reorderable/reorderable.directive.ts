@@ -66,7 +66,7 @@ export class ReorderableDirective<T> extends CdkDropList<T> implements OnInit, O
     @Output() reorderEnd = new EventEmitter<ReorderEvent<T>>();
 
     /** Store all the group ids so we can identify which lists can interact */
-    private static _groups$ = new BehaviorSubject<Record<string, string[]>>({});
+    private static readonly _groups$ = new BehaviorSubject<Record<string, string[]>>({});
 
     private readonly _destroy$ = new Subject<void>();
 

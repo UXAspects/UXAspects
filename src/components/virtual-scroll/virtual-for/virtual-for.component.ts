@@ -50,7 +50,7 @@ export class VirtualForContainerComponent<T> implements AfterViewInit, OnDestroy
     private _initialized: boolean = false;
 
     /** Unsubscribe from all observables */
-    private _onDestroy = new Subject<void>();
+    private readonly _onDestroy = new Subject<void>();
 
     /** Determine if this is a table */
     get _isTable(): boolean {

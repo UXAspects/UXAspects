@@ -93,7 +93,7 @@ export class SankeyChartComponent<T> implements OnChanges, AfterViewInit {
     private _isInitialised: boolean = false;
 
     /** Store the instance of the sankey layout */
-    private _sankey = new SankeyChart<T>();
+    private readonly _sankey = new SankeyChart<T>();
 
     ngAfterViewInit(): void {
 

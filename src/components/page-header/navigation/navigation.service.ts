@@ -19,10 +19,10 @@ export class PageHeaderNavigationService implements OnDestroy {
      * `change` observable as it cannot be instantiate until after the view
      * has been instantiated.
      */
-    private _onChange = new Subject<void>();
+    private readonly _onChange = new Subject<void>();
 
     /** Unsubscribe on destroy */
-    private _onDestroy = new Subject<void>();
+    private readonly _onDestroy = new Subject<void>();
 
     ngOnDestroy(): void {
         this._onDestroy.next();

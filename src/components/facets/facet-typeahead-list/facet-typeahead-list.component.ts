@@ -92,7 +92,7 @@ export class FacetTypeaheadListComponent implements AfterViewInit, OnInit, OnDes
 
     private _facets: Facet[] = [];
     private _selected: Facet[] = [];
-    private _onDestroy = new Subject<void>();
+    private readonly _onDestroy = new Subject<void>();
     private _config: FacetTypeaheadListConfig = { placeholder: '', maxResults: 50, minCharacters: 1 };
     private _focusKeyManager: FocusKeyManager<FacetTypeaheadListItemComponent>;
 

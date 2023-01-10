@@ -13,7 +13,7 @@ export class LayoutSwitcherDirective implements AfterContentInit, OnChanges {
     private readonly _viewContainerRef = inject(ViewContainerRef);
 
     @Input() group: string;
-    @ContentChildren(LayoutSwitcherItemDirective) private _layouts: QueryList<LayoutSwitcherItemDirective>;
+    @ContentChildren(LayoutSwitcherItemDirective) private readonly _layouts: QueryList<LayoutSwitcherItemDirective>;
 
     private _width: number;
     private _activeLayout: LayoutSwitcherItemDirective;

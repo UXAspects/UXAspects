@@ -105,7 +105,7 @@ export class ResizableTableColumnComponent implements AfterViewInit, OnDestroy {
     private _minWidth: number;
 
     /** Emit when all observables should be unsubscribed */
-    private _onDestroy = new Subject<void>();
+    private readonly _onDestroy = new Subject<void>();
 
     ngAfterViewInit(): void {
         // initially emit the size when we have initialised

@@ -37,7 +37,7 @@ export class MenuNavigationDirective implements OnInit, OnDestroy {
     private _isFocused: boolean = false;
 
     /** Unsubscribe from all observables on destroy */
-    private _onDestroy = new Subject<void>();
+    private readonly _onDestroy = new Subject<void>();
 
     ngOnInit(): void {
         if (this.toggleButton) {

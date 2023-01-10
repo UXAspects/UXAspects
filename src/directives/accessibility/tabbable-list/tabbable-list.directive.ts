@@ -50,7 +50,7 @@ export class TabbableListDirective implements AfterContentInit, OnDestroy {
     private _orderedItems: QueryList<TabbableListItemDirective>;
 
     /** Unsubscribe from all observables automatically on destroy */
-    private _onDestroy = new Subject<void>();
+    private readonly _onDestroy = new Subject<void>();
 
     get focusKeyManager(): FocusKeyManager<TabbableListItemDirective> {
         return this._tabbableList.focusKeyManager;

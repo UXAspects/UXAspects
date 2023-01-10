@@ -31,7 +31,7 @@ export class MediaPlayerComponent implements AfterViewInit, OnDestroy {
 
     private readonly _elementRef = inject(ElementRef);
 
-    @ViewChild('player', { static: false }) private _playerRef: ElementRef;
+    @ViewChild('player', { static: false }) private readonly _playerRef: ElementRef;
 
     hovering: boolean = false;
     focused: boolean = false;
@@ -158,7 +158,7 @@ export class MediaPlayerComponent implements AfterViewInit, OnDestroy {
         this.mediaPlayerService.seekAriaLabel = ariaLabel;
     }
 
-    private _onDestroy = new Subject<void>();
+    private readonly _onDestroy = new Subject<void>();
 
     constructor() {
 

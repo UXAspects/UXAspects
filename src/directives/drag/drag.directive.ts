@@ -81,13 +81,13 @@ export class DragDirective<T = any> implements OnDestroy {
     private _scrollIntervalHandle: number;
 
     /** Create an observable from the mouse down event */
-    private _mousedown$ = fromEvent<MouseEvent>(this._elementRef.nativeElement, 'mousedown');
+    private readonly _mousedown$ = fromEvent<MouseEvent>(this._elementRef.nativeElement, 'mousedown');
 
     /** Create an observable from the mouse move event */
-    private _mousemove$ = fromEvent<MouseEvent>(document, 'mousemove');
+    private readonly _mousemove$ = fromEvent<MouseEvent>(document, 'mousemove');
 
     /** Create an observable from the mouse up event */
-    private _mouseup$ = fromEvent<MouseEvent>(document, 'mouseup');
+    private readonly _mouseup$ = fromEvent<MouseEvent>(document, 'mouseup');
 
     /** Use an observable to unsubscribe from all subscriptions */
     protected _onDestroy = new Subject<void>();

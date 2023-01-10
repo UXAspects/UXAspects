@@ -39,7 +39,7 @@ export class FlippableCardComponent implements OnDestroy {
     @Output() flippedChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
     /** Focus Indicator instance */
-    private _focusIndicator: FocusIndicator;
+    private readonly _focusIndicator: FocusIndicator;
 
     constructor() {
         this._focusIndicator = this.focusIndicatorService.monitor(this.elementRef.nativeElement);

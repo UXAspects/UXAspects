@@ -41,9 +41,9 @@ export class ColorPickerColor {
         return parseFloat(this._color.getAlpha());
     }
 
-    private _color: ThemeColor;
-    private _originalHexValue: string;
-    private _originalRgbaValue: string;
+    private readonly _color: ThemeColor;
+    private readonly _originalHexValue: string;
+    private readonly _originalRgbaValue: string;
 
     constructor(name: string, value: string, inputMode?: ColorPickerInputMode) {
         this.name = name;

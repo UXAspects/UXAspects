@@ -60,7 +60,7 @@ export class NotificationListComponent implements AfterViewInit, OnChanges, OnDe
     }
 
     /** Unsubscribe from all subscriptions on component destroy */
-    private _onDestroy = new Subject<void>();
+    private readonly _onDestroy = new Subject<void>();
 
     ngAfterViewInit(): void {
 

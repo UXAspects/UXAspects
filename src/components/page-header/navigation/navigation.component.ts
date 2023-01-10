@@ -31,7 +31,7 @@ export class PageHeaderNavigationComponent implements AfterViewInit, OnDestroy {
     indicatorX: number = 0;
     indicatorWidth: number = 0;
 
-    private _onDestroy = new Subject();
+    private readonly _onDestroy = new Subject();
 
     constructor() {
         this. resizeService.addResizeListener(this.elementRef.nativeElement).pipe(takeUntil(this._onDestroy)).subscribe(this.updateSelectedIndicator.bind(this));

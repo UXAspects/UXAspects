@@ -38,10 +38,10 @@ export class VirtualScrollComponent<T> implements OnInit, AfterContentInit, OnCh
     data: ReadonlyArray<T> = [];
     loadingComplete: boolean = false;
 
-    private _buffer: number = 5;
+    private readonly _buffer: number = 5;
     private _subscription: Subscription;
     private _height: number;
-    private _onDestroy = new Subject<void>();
+    private readonly _onDestroy = new Subject<void>();
 
     constructor() {
 

@@ -119,7 +119,7 @@ export class ToolbarSearchComponent implements AfterContentInit, OnDestroy {
     private _placeholder: HTMLElement;
 
     /** Unsubscribe from all subscriptions on component destroy */
-    private _onDestroy = new Subject<void>();
+    private readonly _onDestroy = new Subject<void>();
 
     ngAfterContentInit(): void {
         // Subscribe to the submitted event on the input field, triggering the search event

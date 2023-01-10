@@ -64,13 +64,13 @@ export class VirtualForDirective<T> implements OnInit, DoCheck, OnDestroy {
     private _isDirty: boolean = false;
 
     /** Store a cache of recently disposed views for reuse */
-    private _templateCache: EmbeddedViewRef<VirtualForOfContext<T>>[] = [];
+    private readonly _templateCache: EmbeddedViewRef<VirtualForOfContext<T>>[] = [];
 
     /** Limit the size of the cache as it can use a lot of memory */
-    private _cacheSize: number = 20;
+    private readonly _cacheSize: number = 20;
 
     /** Unsubscribe from all observables */
-    private _onDestroy = new Subject<void>();
+    private readonly _onDestroy = new Subject<void>();
 
     constructor() {
         // While marked as optional, it isn't. We do this so we can provide a more helpful error message

@@ -30,8 +30,8 @@ export class SearchBuilderComponent implements OnDestroy {
   @Output() queryChange: EventEmitter<SearchBuilderQuery> = new EventEmitter<SearchBuilderQuery>();
   @Output() valid: EventEmitter<boolean> = new EventEmitter<boolean>(true);
 
-  private _querySubscription: Subscription;
-  private _validSubscription: Subscription;
+  private readonly _querySubscription: Subscription;
+  private readonly _validSubscription: Subscription;
 
   /**
    * Register the default search builder components

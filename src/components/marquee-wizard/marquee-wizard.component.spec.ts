@@ -325,7 +325,7 @@ export class MarqueeWizardAsyncTestComponent implements OnDestroy {
     steps: StepDefinition[] = [];
     valid: boolean = true;
     disableNextWhenInvalid: boolean;
-    private _timeout: number;
+    private readonly _timeout: number;
 
     constructor(changeDetector: ChangeDetectorRef) {
         this._timeout = window.setTimeout(() => {

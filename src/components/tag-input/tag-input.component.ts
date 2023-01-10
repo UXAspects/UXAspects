@@ -242,12 +242,12 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
     private _onTouchedHandler: () => void = () => {
     };
     private _subscription: Subscription;
-    private _onDestroy = new Subject<void>();
+    private readonly _onDestroy = new Subject<void>();
     private _autoCloseDropdown: boolean = true;
 
     static ngAcceptInputType_autoCloseDropdown: BooleanInput;
 
-    constructor(@Inject(DOCUMENT) private _document: any) {
+    constructor(@Inject(DOCUMENT) private readonly _document: any) {
     }
 
     ngAfterContentInit(): void {

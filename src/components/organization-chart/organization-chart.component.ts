@@ -139,10 +139,10 @@ export class OrganizationChartComponent<T> implements AfterViewInit, OnChanges, 
     private _height: number;
 
     /** Store the portal/outlets associated with some data */
-    private _portals = new Map<OrganizationChartNode<T>, OrganizationChartPortalRef>();
+    private readonly _portals = new Map<OrganizationChartNode<T>, OrganizationChartPortalRef>();
 
     /** Store the focus indicators associated with nodes */
-    private _indicators = new Map<OrganizationChartNode<T>, FocusIndicator>();
+    private readonly _indicators = new Map<OrganizationChartNode<T>, FocusIndicator>();
 
     /** Store whether or not a transition is in progress */
     private _isTransitioning: boolean = false;
@@ -163,7 +163,7 @@ export class OrganizationChartComponent<T> implements AfterViewInit, OnChanges, 
     private _pendingSelection: OrganizationChartNode<T>;
 
     /** Automatically unsubscribe from all subscriptions on destroy */
-    private _onDestroy = new Subject<void>();
+    private readonly _onDestroy = new Subject<void>();
 
     ngAfterViewInit(): void {
 

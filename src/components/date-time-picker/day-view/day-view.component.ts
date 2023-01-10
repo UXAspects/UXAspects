@@ -53,7 +53,7 @@ export class DayViewComponent implements AfterViewInit, OnDestroy {
         return this._isRangeMode && this._rangeService ? this._rangeService.end : null;
     }
 
-    private _onDestroy = new Subject<void>();
+    private readonly _onDestroy = new Subject<void>();
 
     constructor() {
 

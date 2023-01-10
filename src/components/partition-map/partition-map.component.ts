@@ -99,13 +99,13 @@ export class PartitionMapComponent implements OnInit, OnDestroy {
     private _selected: HierarchyRectangularNode<PartitionMapSegment>;
 
     /** Store the assigned colors for each segment */
-    private _segmentColors = new Map<string, string>();
+    private readonly _segmentColors = new Map<string, string>();
 
     /** Store the visible x scale */
-    private _x = scaleLinear().range([0, 100]);
+    private readonly _x = scaleLinear().range([0, 100]);
 
     /** Store the visible y scale */
-    private _y = scaleLinear().range([0, 100]);
+    private readonly _y = scaleLinear().range([0, 100]);
 
     /** Store the visible d3 segments */
     private _segmentsSelection: Selection<HTMLDivElement, HierarchyRectangularNode<PartitionMapSegment>, HTMLElement, {}>;
@@ -126,7 +126,7 @@ export class PartitionMapComponent implements OnInit, OnDestroy {
     private _initialized = false;
 
     /** Unsubscribe from any observables on destroy */
-    private _onDestroy = new Subject<void>();
+    private readonly _onDestroy = new Subject<void>();
 
     ngOnInit(): void {
         this._resizeService.addResizeListener(this._elementRef.nativeElement).pipe(takeUntil(this._onDestroy)).subscribe(dimensions => {

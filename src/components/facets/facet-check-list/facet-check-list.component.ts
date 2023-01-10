@@ -56,7 +56,7 @@ export class FacetCheckListComponent implements AfterViewInit, OnDestroy {
     isFocused: boolean = false;
     activeIndex: number = 0;
 
-    private _onDestroy = new Subject<void>();
+    private readonly _onDestroy = new Subject<void>();
     private _focusKeyManager: FocusKeyManager<FacetCheckListItemComponent>;
 
     constructor() {

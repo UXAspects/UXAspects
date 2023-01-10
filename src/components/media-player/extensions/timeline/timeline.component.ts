@@ -24,7 +24,7 @@ export class MediaPlayerTimelineExtensionComponent implements OnInit, AfterViewI
     mouseDown: boolean = false;
     scrub = { visible: false, position: 0, time: 0 };
 
-    private _onDestroy = new Subject<void>();
+    private readonly _onDestroy = new Subject<void>();
 
 
     ngOnInit(): void {

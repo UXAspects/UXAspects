@@ -33,7 +33,7 @@ export class SankeyChart<T> {
     private _spacing: number;
 
     /** Define the minimum distance from the edge of the chart */
-    private _padding: number = 24;
+    private readonly _padding: number = 24;
 
     /** Define the spacing of the chart */
     spacing(spacing: number): this {

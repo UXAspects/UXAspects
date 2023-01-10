@@ -8,13 +8,13 @@ import { DashboardGrabHandleDirective } from './grab-handle.directive';
 @Injectable()
 export class DashboardGrabHandleService implements OnDestroy {
 
-    private readonly _dashboard = inject(DashboardService)
+    private readonly _dashboard = inject(DashboardService);
 
     /** Self-registered drag handles in the dashboard. */
     private _handles: DashboardGrabHandleDirective[] = [];
 
     /** Automatically unsubscribe from all observables when destroyed */
-    private _onDestroy = new Subject<void>();
+    private readonly _onDestroy = new Subject<void>();
 
     constructor() {
 
