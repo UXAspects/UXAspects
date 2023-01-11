@@ -1,7 +1,7 @@
 import { BooleanInput, coerceBooleanProperty } from '@angular/cdk/coercion';
 import { BACKSPACE, DELETE, ENTER, LEFT_ARROW, RIGHT_ARROW, SPACE } from '@angular/cdk/keycodes';
 import { DOCUMENT } from '@angular/common';
-import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, ElementRef, EventEmitter, forwardRef, HostBinding, HostListener, inject, Inject, Input, OnChanges, OnDestroy, Output, QueryList, SimpleChanges, TemplateRef, ViewChild } from '@angular/core';
+import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, ElementRef, EventEmitter, forwardRef, HostBinding, HostListener, inject, Input, OnChanges, OnDestroy, Output, QueryList, SimpleChanges, TemplateRef, ViewChild } from '@angular/core';
 import { ControlValueAccessor, NG_VALIDATORS, NG_VALUE_ACCESSOR, ValidationErrors, Validator } from '@angular/forms';
 import { Subject, Subscription } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -41,6 +41,8 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
     private readonly _element = inject(ElementRef);
 
     private readonly _typeaheadKeyService = inject(TypeaheadKeyService);
+
+    private readonly _document = inject<any>(DOCUMENT);
 
     /** Specify a unique Id for the component */
     @Input() @HostBinding('attr.id') id: string = `ux-tag-input-${ ++uniqueId }`;
@@ -246,9 +248,6 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
     private _autoCloseDropdown: boolean = true;
 
     static ngAcceptInputType_autoCloseDropdown: BooleanInput;
-
-    constructor(@Inject(DOCUMENT) private readonly _document: any) {
-    }
 
     ngAfterContentInit(): void {
         // Watch for optional child typeahead control

@@ -4,7 +4,7 @@ import { Observable, Observer, of } from 'rxjs';
 
 @Injectable()
 export class AudioService {
-    readonly _http = inject(HttpClient);
+    private readonly _http = inject(HttpClient);
 
     private _audioBuffer: AudioBuffer;
     private _audioBufferSource: AudioBufferSourceNode;

@@ -7,7 +7,6 @@ import { map, switchMap, takeUntil } from 'rxjs/operators';
 import { AnchorAlignment, AnchorPlacement } from '../../../common/overlay/index';
 import { MenuItemType } from '../menu-item/menu-item-type.enum';
 import { MenuItemComponent } from '../menu-item/menu-item.component';
-import { MenuModuleOptions } from '../menu-options.interface';
 import { MENU_OPTIONS_TOKEN } from '../menu-options.token';
 import { MenuTabbableItemDirective } from '../menu-tabbable-item/menu-tabbable-item.directive';
 
@@ -30,7 +29,8 @@ let uniqueId = 0;
     ]
 })
 export class MenuComponent implements AfterContentInit, OnDestroy, OnChanges {
-    readonly _options = inject<MenuModuleOptions>(MENU_OPTIONS_TOKEN, { optional: true });
+    private readonly _options = inject(MENU_OPTIONS_TOKEN, { optional: true });
+
     private readonly _changeDetector = inject(ChangeDetectorRef);
 
     /** A unique id for the component. */

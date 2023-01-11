@@ -10,11 +10,11 @@ import { SelectionService } from './selection.service';
     exportAs: 'ux-selection-item'
 })
 export class SelectionItemDirective<T> implements OnInit, OnChanges, OnDestroy {
+    readonly focusIndicatorService = inject(FocusIndicatorService);
+
     private readonly _selectionService = inject<SelectionService<T>>(SelectionService);
 
     private readonly _elementRef = inject(ElementRef);
-
-    private readonly focusIndicatorService = inject(FocusIndicatorService);
 
     private readonly _managedFocusContainerService = inject(ManagedFocusContainerService);
 

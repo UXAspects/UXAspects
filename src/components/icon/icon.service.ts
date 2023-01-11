@@ -1,14 +1,13 @@
 import { inject, Injectable } from '@angular/core';
 // eslint-disable-next-line no-restricted-imports
 import { Subject } from 'rxjs';
-import { IconModuleOptions } from './icon-options.interface';
 import { ICON_OPTIONS_TOKEN } from './icon-options.token';
 import { IconDefinition, SingleIconDefinition } from './iconsets/iconset.interface';
 import { uxIconset } from './iconsets/ux-iconset';
 
 @Injectable()
 export class IconService {
-    readonly options = inject<IconModuleOptions>(ICON_OPTIONS_TOKEN, { optional: true });
+    readonly options = inject(ICON_OPTIONS_TOKEN, { optional: true });
 
     private readonly _iconService = inject(IconService, { optional: true, skipSelf: true });
 

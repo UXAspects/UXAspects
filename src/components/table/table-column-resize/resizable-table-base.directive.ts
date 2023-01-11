@@ -2,13 +2,12 @@ import { Directive, ElementRef, inject, OnDestroy, QueryList, Renderer2 } from '
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ResizeService } from '../../../directives/resize';
-import { BaseResizableTableService } from './resizable-table-base.service';
 import { ResizableTableColumnComponent } from './resizable-table-column.component';
 import { RESIZABLE_TABLE_SERVICE_TOKEN } from './resizable-table-service.token';
 
 @Directive()
 export abstract class BaseResizableTableDirective implements OnDestroy {
-    protected readonly _table = inject<BaseResizableTableService>(RESIZABLE_TABLE_SERVICE_TOKEN);
+    protected readonly _table = inject(RESIZABLE_TABLE_SERVICE_TOKEN);
 
     protected readonly _elementRef = inject<ElementRef<HTMLTableElement>>(ElementRef);
 

@@ -16,4 +16,4 @@ export type ColorSet = {
 };
 
 /** Provide a default color set for an application */
-export const COLOR_SET_TOKEN = new InjectionToken('COLOR_SET_TOKEN');
+export const COLOR_SET_TOKEN = new InjectionToken<ColorSet>('COLOR_SET_TOKEN');

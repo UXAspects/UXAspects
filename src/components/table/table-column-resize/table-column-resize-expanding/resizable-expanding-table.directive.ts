@@ -22,7 +22,7 @@ import { ResizableExpandingTableService } from './resizable-expanding-table.serv
     }
 })
 export class ResizableExpandingTableDirective extends BaseResizableTableDirective implements AfterViewInit {
-    private readonly _platformId = inject<Object>(PLATFORM_ID);
+    private readonly _platformId = inject(PLATFORM_ID);
 
     /** Get all the column headers */
     @ContentChildren(ResizableTableColumnComponent, { descendants: true }) columns: QueryList<ResizableTableColumnComponent>;

@@ -13,7 +13,7 @@ import { ColorService } from '../../services/color/index';
 export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
     readonly colorService = inject(ColorService);
 
-    readonly _changeDetectorRef = inject(ChangeDetectorRef);
+    private readonly _changeDetectorRef = inject(ChangeDetectorRef);
 
     /** A single number or a SliderValue object, depending on the slider type specified. */
     @Input() value: SliderValue | number = 0;

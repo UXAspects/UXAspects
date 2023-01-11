@@ -15,7 +15,7 @@ export const FocusableItemToken = new InjectionToken<FocusableControl>('Focusabl
     }
 })
 export class MenuItemCustomControlDirective extends MenuTabbableItemDirective implements FocusableOption, OnInit, OnDestroy {
-    readonly _focusableControl = inject<FocusableControl>(FocusableItemToken, { optional: true });
+    private readonly _focusableControl = inject(FocusableItemToken, { optional: true });
 
     /** Indicate the type of the menu item */
     readonly type: MenuItemType = MenuItemType.Custom;

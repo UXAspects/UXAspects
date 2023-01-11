@@ -15,10 +15,13 @@ import { VirtualForRange, VirtualForService } from './virtual-for.service';
     }
 })
 export class VirtualForContainerComponent<T> implements AfterViewInit, OnDestroy {
+    /** Get the ElementRef of the container element */
     private readonly _elementRef = inject(ElementRef);
 
+    /** A service to share values between the container and child elements */
     private readonly _virtualScroll = inject<VirtualForService<T>>(VirtualForService);
 
+    /** Handle key presses if there is a tabbable list */
     private readonly _tabbableList = inject(TabbableListService, { optional: true, self: true });
 
     /** Define the height of each virtual item */

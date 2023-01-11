@@ -15,17 +15,22 @@ import { VirtualForRange, VirtualForService } from './virtual-for.service';
     selector: '[uxVirtualFor][uxVirtualForOf]',
 })
 export class VirtualForDirective<T> implements OnInit, DoCheck, OnDestroy {
+    /** A reference to the container element where we will insert elements. */
     private readonly _viewContainerRef = inject(ViewContainerRef);
 
+    /** The template for all items */
     private readonly _templateRef = inject<TemplateRef<VirtualForOfContext<T>>>(TemplateRef);
 
+    /** Gets the set of Angular differs for detecting changes. */
     private readonly _differs = inject(IterableDiffers);
 
+    /** Get the renderer to perform DOM manipulation */
     private readonly _renderer = inject(Renderer2);
 
     private readonly _changeDetector = inject(ChangeDetectorRef);
 
-    private readonly _virtualScroll = inject<VirtualForService<T>>(VirtualForService);
+    /** A service to share values between the container and child elements */
+    private readonly _virtualScroll = inject<VirtualForService<T>>(VirtualForService, { optional: true });
 
     /** Store the list of items to display */
     @Input() set uxVirtualForOf(dataset: T[]) {

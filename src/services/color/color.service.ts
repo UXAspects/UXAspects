@@ -4,7 +4,7 @@ import { ThemeColor } from './theme-color';
 
 @Injectable()
 export class ColorService {
-    private _colorSet = inject<ColorSet>(COLOR_SET_TOKEN, { optional: true });
+    private _colorSet = inject(COLOR_SET_TOKEN, { optional: true });
 
     /** Set the default theme to the Keppel colorset */
     private _theme: Readonly<Theme>;

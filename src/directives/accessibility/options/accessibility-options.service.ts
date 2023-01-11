@@ -5,7 +5,7 @@ import { ACCESSIBILITY_OPTIONS_TOKEN } from './accessibility-options.token';
 @Injectable()
 export class AccessibilityOptionsService {
     /** Get the user specified options - but handle cases where they may not be specified */
-    readonly _options = inject<AccessibilityOptions>(ACCESSIBILITY_OPTIONS_TOKEN, { optional: true });
+    readonly _options = inject(ACCESSIBILITY_OPTIONS_TOKEN, { optional: true });
 
     /** Determine the default options */
     private readonly _defaultOptions: AccessibilityOptions = {

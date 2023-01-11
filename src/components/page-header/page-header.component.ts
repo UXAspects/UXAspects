@@ -17,6 +17,7 @@ export type PageHeaderNavigationAlignment = 'left' | 'right' | 'center';
 })
 export class PageHeaderComponent {
     private readonly _colorService = inject(ColorService);
+
     private readonly _pageHeaderService = inject(PageHeaderService);
 
     /** The path to an image to display as the product logo in the left corner. */
