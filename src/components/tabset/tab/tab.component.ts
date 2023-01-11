@@ -3,7 +3,6 @@ import { NavigationExtras } from '@angular/router';
 import { Subject } from 'rxjs';
 import { distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { tick } from '../../../common';
-import type { TabsetComponent } from '../tabset.component';
 import { TabsetService } from '../tabset.service';
 import { TabsetToken } from '../tabset.token';
 import { TabHeadingDirective } from './tab-heading.directive';
@@ -76,9 +75,6 @@ export class TabComponent implements OnInit, OnDestroy, OnChanges {
     /** Unsubscribe from all subscriptions when component is destroyed */
     private readonly _onDestroy = new Subject<void>();
 
-    /** Store the tabset instance */
-    private readonly _tabset: TabsetComponent;
-
     ngOnInit(): void {
         this._tabsetService.activeTab$.pipe(tick(), distinctUntilChanged(), takeUntil(this._onDestroy)).subscribe(activeTab => {
             const isActive = (activeTab === this);
@@ -90,7 +86,7 @@ export class TabComponent implements OnInit, OnDestroy, OnChanges {
 
     ngOnChanges(changes: SimpleChanges): void {
         if (changes.disabled && changes.disabled.previousValue !== changes.disabled.currentValue) {
-            this._tabset.markForCheck();
+            this.tabset.markForCheck();
         }
     }
 
