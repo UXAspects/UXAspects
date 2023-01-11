@@ -1,4 +1,4 @@
-import { AfterViewChecked, ChangeDetectorRef, Component, ContentChildren, ElementRef, EventEmitter, inject, Input, OnDestroy, Output, QueryList, TemplateRef, ViewChild } from '@angular/core';
+import { AfterViewChecked, Component, ContentChildren, ElementRef, EventEmitter, inject, Input, OnDestroy, Output, QueryList, TemplateRef, ViewChild } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
 import { TabbableListDirective } from '../../directives/accessibility';
 import { ResizeDimensions, ResizeService } from '../../directives/resize/index';
@@ -13,8 +13,6 @@ import { MarqueeWizardStepComponent } from './marquee-wizard-step.component';
 })
 export class MarqueeWizardComponent<TStepContext = any> extends WizardComponent implements OnDestroy, AfterViewChecked {
     readonly wizardService = inject<WizardService<MarqueeWizardStepComponent>>(WizardService);
-
-    private readonly _changeDetector = inject(ChangeDetectorRef);
 
     private readonly _resizeService = inject(ResizeService);
 

@@ -1,8 +1,6 @@
-import { Directive, ElementRef, inject, NgZone } from '@angular/core';
-import { AccessibilityOptionsService } from '../options/accessibility-options.service';
+import { Directive } from '@angular/core';
 import { LocalFocusIndicatorOptions } from './focus-indicator-options/focus-indicator-options';
 import { FocusIndicatorDirective } from './focus-indicator.directive';
-import { FocusIndicatorService } from './focus-indicator.service';
 
 /**
  * This directive can be used to target specific elements based on their CSS
@@ -16,15 +14,6 @@ import { FocusIndicatorService } from './focus-indicator.service';
     providers: [LocalFocusIndicatorOptions]
 })
 export class DefaultFocusIndicatorDirective extends FocusIndicatorDirective {
-    readonly elementRef = inject(ElementRef);
-
-    readonly focusIndicatorService = inject(FocusIndicatorService);
-
-    readonly optionsService = inject(AccessibilityOptionsService);
-
-    readonly ngZone = inject(NgZone);
-
-    readonly localOptions = inject(LocalFocusIndicatorOptions);
 
     constructor() {
         super();
