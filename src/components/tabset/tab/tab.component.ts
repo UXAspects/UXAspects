@@ -19,7 +19,7 @@ export class TabComponent implements OnInit, OnDestroy, OnChanges {
 
     private readonly _changeDetector = inject(ChangeDetectorRef);
 
-    readonly tabset = inject(TabsetToken);
+    private readonly _tabset = inject(TabsetToken);
 
     /** Define the tab unique id */
     @Input()
@@ -86,7 +86,7 @@ export class TabComponent implements OnInit, OnDestroy, OnChanges {
 
     ngOnChanges(changes: SimpleChanges): void {
         if (changes.disabled && changes.disabled.previousValue !== changes.disabled.currentValue) {
-            this.tabset.markForCheck();
+            this._tabset.markForCheck();
         }
     }
 
