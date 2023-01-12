@@ -66,7 +66,7 @@ export class MarqueeWizardComponent<TStepContext = any> extends WizardComponent 
     }
 
     ngAfterViewChecked(): void {
-        this.tabbableList.setFirstItemTabbable();
+        this.tabbableList?.setFirstItemTabbable();
     }
 
     ngOnDestroy(): void {
