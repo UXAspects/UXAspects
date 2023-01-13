@@ -49,7 +49,7 @@ export class ComponentsMarqueeWizardComponent
         ],
     };
 
-    constructor(private _announcer: LiveAnnouncer) {
+    constructor(private readonly _announcer: LiveAnnouncer) {
         super(
             import.meta.webpackContext('./snippets/', {
                 recursive: false,
@@ -82,6 +82,6 @@ export class ComponentsMarqueeWizardComponent
     }
 
     onError(): void {
-        this._announcer.announce(`The current step is invalid`);
+        this._announcer.announce('The current step is invalid');
     }
 }
