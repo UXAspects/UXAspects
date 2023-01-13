@@ -1,6 +1,5 @@
-import { ContentChildren, Directive, ElementRef, inject, QueryList, Renderer2 } from '@angular/core';
+import { ContentChildren, Directive, QueryList } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
-import { ResizeService } from '../../../../directives/resize/index';
 import { BaseResizableTableDirective } from '../resizable-table-base.directive';
 import { ResizableTableColumnComponent } from '../resizable-table-column.component';
 import { RESIZABLE_TABLE_SERVICE_TOKEN } from '../resizable-table-service.token';
@@ -20,13 +19,6 @@ import { ResizableTableService } from './resizable-table.service';
     }
 })
 export class ResizableTableDirective extends BaseResizableTableDirective {
-    readonly table = inject<ResizableTableService>(RESIZABLE_TABLE_SERVICE_TOKEN);
-
-    readonly elementRef = inject<ElementRef<HTMLTableElement>>(ElementRef);
-
-    readonly renderer = inject(Renderer2);
-
-    readonly resize = inject(ResizeService);
 
     /** Get all the column headers */
     @ContentChildren(ResizableTableColumnComponent, { descendants: true }) columns: QueryList<ResizableTableColumnComponent>;

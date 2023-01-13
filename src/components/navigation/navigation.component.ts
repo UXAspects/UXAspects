@@ -11,7 +11,7 @@ import { NavigationService } from './navigation.service';
     preserveWhitespaces: false
 })
 export class NavigationComponent {
-    readonly _navigationService = inject(NavigationService);
+    private readonly _navigationService = inject(NavigationService);
 
     /** The navigation items to populate the menu with. */
     @Input()

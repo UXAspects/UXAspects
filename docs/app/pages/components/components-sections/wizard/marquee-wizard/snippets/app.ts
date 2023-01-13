@@ -19,7 +19,7 @@ export class AppComponent {
     sidePanelWidth: number = 25;
     gutterSize: number = 10;
 
-    constructor(private _announcer: LiveAnnouncer) {}
+    constructor(private readonly _announcer: LiveAnnouncer) {}
 
     /**
      * Close the modal and reset everything
@@ -46,6 +46,6 @@ export class AppComponent {
     }
 
     onError(): void {
-        this._announcer.announce(`The current step is invalid`);
+        this._announcer.announce('The current step is invalid');
     }
 }

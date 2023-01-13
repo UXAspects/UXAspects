@@ -7,6 +7,7 @@ import type { PageHeaderNavigationDropdownItem, PageHeaderNavigationItem } from 
 @Injectable()
 export class PageHeaderService implements OnDestroy {
     private readonly _router = inject(Router);
+
     items$ = new BehaviorSubject<PageHeaderNavigationItem[]>([]);
     selected$ = new BehaviorSubject<PageHeaderNavigationItem>(null);
     selectedRoot$ = new BehaviorSubject<PageHeaderNavigationItem>(null);

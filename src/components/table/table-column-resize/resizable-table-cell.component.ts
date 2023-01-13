@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, ElementRef, inject, OnDestroy, OnInit, Renderer2 } from '@angular/core';
 import { combineLatest, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { BaseResizableTableService, ResizableTableType } from './resizable-table-base.service';
+import { ResizableTableType } from './resizable-table-base.service';
 import { RESIZABLE_TABLE_SERVICE_TOKEN } from './resizable-table-service.token';
 import { ColumnUnit } from './table-column-resize-standard/resizable-table.service';
 
@@ -11,7 +11,7 @@ import { ColumnUnit } from './table-column-resize-standard/resizable-table.servi
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ResizableTableCellComponent implements OnInit, OnDestroy {
-    private readonly _table = inject<BaseResizableTableService>(RESIZABLE_TABLE_SERVICE_TOKEN);
+    private readonly _table = inject(RESIZABLE_TABLE_SERVICE_TOKEN);
 
     private readonly _elementRef = inject(ElementRef);
 

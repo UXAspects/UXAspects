@@ -5,7 +5,7 @@ import { Subject } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
 import { tick } from '../../../common/index';
 import { NavigationItem, NavigationItemRouterOptions } from '../navigation-item.interface';
-import { NavigationModuleOptions, NAVIGATION_MODULE_OPTIONS } from '../navigation-options';
+import { NAVIGATION_MODULE_OPTIONS } from '../navigation-options';
 import { NavigationService } from '../navigation.service';
 
 @Directive({
@@ -23,7 +23,7 @@ export class NavigationLinkDirective implements OnInit, OnChanges, OnDestroy {
 
     private readonly _route = inject(ActivatedRoute);
 
-    private readonly _options = inject<NavigationModuleOptions>(NAVIGATION_MODULE_OPTIONS, { optional: true });
+    private readonly _options = inject(NAVIGATION_MODULE_OPTIONS, { optional: true });
 
     /** The NavigationItem this element represents */
     @Input() navigationItem: NavigationItem;

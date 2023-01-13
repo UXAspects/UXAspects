@@ -32,7 +32,7 @@ import { ToolbarSearchFieldDirective } from './toolbar-search-field.directive';
     }
 })
 export class ToolbarSearchComponent implements AfterContentInit, OnDestroy {
-    private readonly _platformId = inject<Object>(PLATFORM_ID);
+    private readonly _platformId = inject(PLATFORM_ID);
 
     private readonly _elementRef = inject(ElementRef);
 

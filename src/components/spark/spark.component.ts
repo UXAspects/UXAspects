@@ -7,7 +7,7 @@ import { ColorIdentifier, ColorService } from '../../services/color/index';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SparkComponent {
-    readonly _colorService = inject(ColorService);
+    private readonly _colorService = inject(ColorService);
 
     values: number[] = [];
 

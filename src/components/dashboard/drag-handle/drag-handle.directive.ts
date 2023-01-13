@@ -1,8 +1,6 @@
-import { ScrollDispatcher } from '@angular/cdk/scrolling';
-import { Directive, ElementRef, inject, NgZone, Renderer2 } from '@angular/core';
+import { Directive, inject } from '@angular/core';
 import { takeUntil, tap } from 'rxjs/operators';
 import { DragDirective, DragScrollEvent } from '../../../directives/drag/drag.directive';
-import { DragService } from '../../../directives/drag/index';
 import { ActionDirection, DashboardService } from '../dashboard.service';
 import { DashboardWidgetComponent } from '../widget/dashboard-widget.component';
 
@@ -13,16 +11,6 @@ export class DashboardDragHandleDirective extends DragDirective {
     readonly widget = inject(DashboardWidgetComponent);
 
     readonly dashboardService = inject(DashboardService);
-
-    readonly elementRef = inject<ElementRef<Element>>(ElementRef);
-
-    readonly ngZone = inject(NgZone);
-
-    readonly renderer = inject(Renderer2);
-
-    readonly scrollDispatcher = inject(ScrollDispatcher);
-
-    readonly drag = inject(DragService);
 
     constructor() {
 

@@ -1,11 +1,9 @@
 import { FocusableOption, FocusOrigin } from '@angular/cdk/a11y';
-import { Directive, ElementRef, inject, InjectionToken, OnDestroy, OnInit, Renderer2 } from '@angular/core';
+import { Directive, inject, InjectionToken, OnDestroy, OnInit } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
-import { FocusIndicatorService } from '../../../directives/accessibility';
 import { FocusableControl } from '../interfaces/focusable-control.interface';
 import { MenuItemType } from '../menu-item/menu-item-type.enum';
 import { MenuTabbableItemDirective } from '../menu-tabbable-item/menu-tabbable-item.directive';
-import { MenuComponent } from '../menu/menu.component';
 
 export const FocusableItemToken = new InjectionToken<FocusableControl>('Focusable Option');
 
@@ -17,15 +15,7 @@ export const FocusableItemToken = new InjectionToken<FocusableControl>('Focusabl
     }
 })
 export class MenuItemCustomControlDirective extends MenuTabbableItemDirective implements FocusableOption, OnInit, OnDestroy {
-    readonly _focusableControl = inject<FocusableControl>(FocusableItemToken, { optional: true });
-
-    readonly _menu = inject(MenuComponent);
-
-    readonly _elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
-
-    readonly _focusIndicatorService = inject(FocusIndicatorService);
-
-    readonly _renderer = inject(Renderer2);
+    private readonly _focusableControl = inject(FocusableItemToken, { optional: true });
 
     /** Indicate the type of the menu item */
     readonly type: MenuItemType = MenuItemType.Custom;
