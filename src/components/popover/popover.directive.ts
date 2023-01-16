@@ -1,11 +1,10 @@
 import { ESCAPE } from '@angular/cdk/keycodes';
-import { Overlay, OverlayRef, ScrollDispatcher } from '@angular/cdk/overlay';
+import { OverlayRef } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
-import { ChangeDetectorRef, Directive, ElementRef, HostBinding, Input, OnChanges, OnInit, Renderer2, SimpleChanges, TemplateRef, ViewContainerRef } from '@angular/core';
+import { Directive, HostBinding, Input, OnChanges, OnInit, SimpleChanges, TemplateRef } from '@angular/core';
 import { fromEvent } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { OverlayPlacementService } from '../../services/overlay-placement/index';
-import { OverlayTrigger, TooltipDirective, TooltipService } from '../tooltip/index';
+import { OverlayTrigger, TooltipDirective } from '../tooltip/index';
 import { PopoverComponent } from './popover.component';
 
 @Directive({
@@ -59,17 +58,8 @@ export class PopoverDirective extends TooltipDirective implements OnInit, OnChan
     /** Internally store the type of this component - usual for distinctions when extending the tooltip class */
     protected _type: string = 'popover';
 
-    constructor(
-        elementRef: ElementRef,
-        viewContainerRef: ViewContainerRef,
-        overlay: Overlay,
-        scrollDispatcher: ScrollDispatcher,
-        changeDetectorRef: ChangeDetectorRef,
-        renderer: Renderer2,
-        tooltipService: TooltipService,
-        overlayFallback: OverlayPlacementService
-    ) {
-        super(elementRef, viewContainerRef, overlay, scrollDispatcher, changeDetectorRef, renderer, tooltipService, overlayFallback);
+    constructor() {
+        super();
     }
 
     /** Set up the triggers and bind to the show/hide events to keep visibility in sync */

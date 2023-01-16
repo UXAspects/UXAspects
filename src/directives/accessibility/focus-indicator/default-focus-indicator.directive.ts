@@ -1,8 +1,5 @@
-import { Directive, ElementRef, NgZone, Optional } from '@angular/core';
-import { AccessibilityOptionsService } from '../options/accessibility-options.service';
-import { LocalFocusIndicatorOptions } from './focus-indicator-options/focus-indicator-options';
+import { Directive } from '@angular/core';
 import { FocusIndicatorDirective } from './focus-indicator.directive';
-import { FocusIndicatorService } from './focus-indicator.service';
 
 /**
  * This directive can be used to target specific elements based on their CSS
@@ -12,18 +9,12 @@ import { FocusIndicatorService } from './focus-indicator.service';
  * If the button has a uxFocusIndicator, uxMenuTriggerFor or uxMenuNavigationToggle directive applied we should skip this
  */
 @Directive({
-    selector: '.btn:not([uxFocusIndicator]):not([uxMenuNavigationToggle]):not([uxMenuTriggerFor]), a[href]:not([uxFocusIndicator]):not([uxMenuNavigationToggle]):not([uxMenuTriggerFor])',
+    selector: '.btn:not([uxFocusIndicator]):not([uxMenuNavigationToggle]):not([uxMenuTriggerFor]), a[href]:not([uxFocusIndicator]):not([uxMenuNavigationToggle]):not([uxMenuTriggerFor])'
 })
 export class DefaultFocusIndicatorDirective extends FocusIndicatorDirective {
 
-    constructor(
-        elementRef: ElementRef,
-        focusIndicatorService: FocusIndicatorService,
-        optionsService: AccessibilityOptionsService,
-        ngZone: NgZone,
-        @Optional() localOptions: LocalFocusIndicatorOptions
-    ) {
-        super(elementRef, focusIndicatorService, optionsService, ngZone, localOptions);
+    constructor() {
+        super();
 
         // Enable programmatic focus by default
         this.programmaticFocusIndicator = true;

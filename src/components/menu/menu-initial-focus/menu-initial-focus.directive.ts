@@ -1,17 +1,17 @@
-import { Directive, ElementRef, OnDestroy, OnInit, Renderer2 } from '@angular/core';
+import { Directive, ElementRef, inject, OnDestroy, OnInit, Renderer2 } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { MenuComponent } from '../menu/menu.component';
 
 @Directive({ selector: '[uxMenuInitialFocus]' })
 export class MenuInitialFocusDirective implements OnInit, OnDestroy {
-    constructor(
-        private readonly _menu: MenuComponent,
-        private readonly _elementRef: ElementRef<HTMLElement>,
-        private readonly _renderer: Renderer2
-    ) {}
+    private readonly _menu = inject(MenuComponent);
 
-    private _onDestroy = new Subject<void>();
+    private readonly _elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
+
+    private readonly _renderer = inject(Renderer2);
+
+    private readonly _onDestroy = new Subject<void>();
 
     ngOnInit(): void {
         this.ensureFocusable();

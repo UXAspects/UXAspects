@@ -5,4 +5,4 @@ export interface NavigationModuleOptions {
     routerOptions: NavigationItemRouterOptions;
 }
 
-export const NAVIGATION_MODULE_OPTIONS = new InjectionToken('NAVIGATION_MODULE_OPTIONS');
+export const NAVIGATION_MODULE_OPTIONS = new InjectionToken<NavigationModuleOptions>('NAVIGATION_MODULE_OPTIONS');

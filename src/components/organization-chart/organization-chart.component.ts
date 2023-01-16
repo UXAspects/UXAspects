@@ -1,7 +1,7 @@
 import { BooleanInput, coerceBooleanProperty } from '@angular/cdk/coercion';
 import { DOWN_ARROW, ENTER, LEFT_ARROW, RIGHT_ARROW, UP_ARROW } from '@angular/cdk/keycodes';
 import { DomPortalOutlet, TemplatePortal } from '@angular/cdk/portal';
-import { AfterViewInit, ApplicationRef, ChangeDetectionStrategy, Component, ComponentFactoryResolver, ContentChild, ElementRef, EventEmitter, Injector, Input, NgZone, OnChanges, OnDestroy, Output, Renderer2, SimpleChanges, TemplateRef, ViewChild, ViewContainerRef } from '@angular/core';
+import { AfterViewInit, ApplicationRef, ChangeDetectionStrategy, Component, ComponentFactoryResolver, ContentChild, ElementRef, EventEmitter, inject, Injector, Input, NgZone, OnChanges, OnDestroy, Output, Renderer2, SimpleChanges, TemplateRef, ViewChild, ViewContainerRef } from '@angular/core';
 import { hierarchy, HierarchyPointLink, HierarchyPointNode, interpolate, linkVertical, select, Selection, transition, tree, zoom, ZoomBehavior, ZoomTransform, zoomTransform } from 'd3';
 import { Subject } from 'rxjs';
 import { debounceTime, takeUntil } from 'rxjs/operators';
@@ -14,6 +14,23 @@ import { ResizeDimensions, ResizeService } from '../../directives/resize/index';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class OrganizationChartComponent<T> implements AfterViewInit, OnChanges, OnDestroy {
+    private readonly _resizeService = inject(ResizeService);
+
+    private readonly _componentFactoryResolver = inject(ComponentFactoryResolver);
+
+    private readonly _injector = inject(Injector);
+
+    private readonly _elementRef = inject(ElementRef);
+
+    private readonly _appRef = inject(ApplicationRef);
+
+    private readonly _viewContainerRef = inject(ViewContainerRef);
+
+    private readonly _renderer = inject(Renderer2);
+
+    private readonly _focusIndicator = inject(FocusIndicatorService);
+
+    private readonly _ngZone = inject(NgZone);
 
     /** Define the root node of the chart */
     @Input() dataset: OrganizationChartNode<T>;
@@ -122,10 +139,10 @@ export class OrganizationChartComponent<T> implements AfterViewInit, OnChanges, 
     private _height: number;
 
     /** Store the portal/outlets associated with some data */
-    private _portals = new Map<OrganizationChartNode<T>, OrganizationChartPortalRef>();
+    private readonly _portals = new Map<OrganizationChartNode<T>, OrganizationChartPortalRef>();
 
     /** Store the focus indicators associated with nodes */
-    private _indicators = new Map<OrganizationChartNode<T>, FocusIndicator>();
+    private readonly _indicators = new Map<OrganizationChartNode<T>, FocusIndicator>();
 
     /** Store whether or not a transition is in progress */
     private _isTransitioning: boolean = false;
@@ -146,19 +163,7 @@ export class OrganizationChartComponent<T> implements AfterViewInit, OnChanges, 
     private _pendingSelection: OrganizationChartNode<T>;
 
     /** Automatically unsubscribe from all subscriptions on destroy */
-    private _onDestroy = new Subject<void>();
-
-    constructor(
-        private _elementRef: ElementRef,
-        private _resizeService: ResizeService,
-        private _componentFactoryResolver: ComponentFactoryResolver,
-        private _injector: Injector,
-        private _appRef: ApplicationRef,
-        private _viewContainerRef: ViewContainerRef,
-        private _renderer: Renderer2,
-        private _focusIndicator: FocusIndicatorService,
-        private _ngZone: NgZone
-    ) { }
+    private readonly _onDestroy = new Subject<void>();
 
     ngAfterViewInit(): void {
 

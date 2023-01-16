@@ -7,17 +7,23 @@ import { playgroundAdapter } from '../../../../../services/playground/adapters/l
 
 @Component({
     selector: 'uxd-css-buttons-hyperlinks',
-    templateUrl: './hyperlinks.component.html'
+    templateUrl: './hyperlinks.component.html',
 })
 @DocumentationSectionComponent('CssHyperlinksComponent')
-export class CssHyperlinksComponent extends BaseDocumentationSection implements IPlaygroundProvider {
-
+export class CssHyperlinksComponent
+    extends BaseDocumentationSection
+    implements IPlaygroundProvider
+{
     playground: IPlayground = playgroundAdapter({
-        html: this.snippets.raw.codepenExampleHtml
+        html: this.snippets.raw.codepenExampleHtml,
     });
 
     constructor() {
-        super(require.context('./snippets/', false, /(html|css|js|ts)$/));
+        super(
+            import.meta.webpackContext('./snippets/', {
+                recursive: false,
+                regExp: /\.(html|css|js|ts)$/,
+            })
+        );
     }
-
 }

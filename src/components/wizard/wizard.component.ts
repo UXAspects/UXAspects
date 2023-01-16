@@ -1,4 +1,4 @@
-import { AfterContentInit, Component, ContentChild, ContentChildren, EventEmitter, Input, OnDestroy, OnInit, Output, QueryList, TemplateRef } from '@angular/core';
+import { AfterContentInit, Component, ContentChild, ContentChildren, EventEmitter, inject, Input, OnDestroy, OnInit, Output, QueryList, TemplateRef } from '@angular/core';
 import { Subject } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
 import { tick } from '../../common/index';
@@ -16,6 +16,7 @@ let uniqueId: number = 0;
     }
 })
 export class WizardComponent implements OnInit, AfterContentInit, OnDestroy {
+    protected readonly _wizardService = inject<WizardService<WizardStepComponent>>(WizardService);
 
     /** Defines whether or not the wizard should be displayed in a `horizontal` or `vertical` layout. */
     @Input() orientation: 'horizontal' | 'vertical' = 'horizontal';
@@ -153,9 +154,6 @@ export class WizardComponent implements OnInit, AfterContentInit, OnDestroy {
 
     private _step: number = 0;
     protected readonly _onDestroy = new Subject<void>();
-
-    constructor(protected readonly _wizardService: WizardService<WizardStepComponent>) {
-    }
 
     ngOnInit(): void {
         // initially set the correct visibility of the steps

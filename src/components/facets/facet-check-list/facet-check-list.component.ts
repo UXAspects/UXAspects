@@ -1,7 +1,7 @@
 import { FocusKeyManager } from '@angular/cdk/a11y';
-import { AfterViewInit, Component, EventEmitter, Input, OnDestroy, Output, QueryList, ViewChildren, HostBinding } from '@angular/core';
-import { takeUntil } from 'rxjs/operators';
+import { AfterViewInit, Component, EventEmitter, HostBinding, inject, Input, OnDestroy, Output, QueryList, ViewChildren } from '@angular/core';
 import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { FacetDeselect, FacetDeselectAll, FacetEvent, FacetSelect } from '../facet-events';
 import { FacetService } from '../facet.service';
 import { Facet } from '../models/facet';
@@ -14,6 +14,7 @@ let uniqueId = 0;
     templateUrl: './facet-check-list.component.html'
 })
 export class FacetCheckListComponent implements AfterViewInit, OnDestroy {
+    readonly facetService = inject(FacetService);
 
     @Input() @HostBinding()
     id: string = `ux-facet-check-list-${uniqueId++}`;
@@ -55,12 +56,12 @@ export class FacetCheckListComponent implements AfterViewInit, OnDestroy {
     isFocused: boolean = false;
     activeIndex: number = 0;
 
-    private _onDestroy = new Subject<void>();
+    private readonly _onDestroy = new Subject<void>();
     private _focusKeyManager: FocusKeyManager<FacetCheckListItemComponent>;
 
-    constructor(public facetService: FacetService) {
+    constructor() {
 
-        facetService.events$.pipe(takeUntil(this._onDestroy)).subscribe(event => {
+        this.facetService.events$.pipe(takeUntil(this._onDestroy)).subscribe(event => {
 
             // deselect all events should always be emitted
             if (event instanceof FacetDeselectAll) {

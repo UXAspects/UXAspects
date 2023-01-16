@@ -1,15 +1,15 @@
-import { distinctUntilChanged, filter, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { distinctUntilChanged, filter, takeUntil } from 'rxjs/operators';
 import { ConduitZone } from './conduit-zone.service';
 import { ConduitEvent } from './interfaces/conduit-event';
 import { ConduitMetadata } from './interfaces/conduit-metadata';
 
 export class ConduitSubject {
 
-    private _subject: Subject<any>;
-    private _onDestroy = new Subject<void>();
+    private readonly _subject: Subject<any>;
+    private readonly _onDestroy = new Subject<void>();
 
-    constructor(public conduit: ConduitMetadata, private _zone: ConduitZone, public zoneId: string) {
+    constructor(public conduit: ConduitMetadata, private readonly _zone: ConduitZone, public zoneId: string) {
 
         // store the target subject object
         this._subject = conduit.subject;

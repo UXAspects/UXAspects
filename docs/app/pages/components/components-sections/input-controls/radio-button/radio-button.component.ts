@@ -6,20 +6,22 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 
 @Component({
     selector: 'uxd-components-radio-button',
-    templateUrl: './radio-button.component.html'
+    templateUrl: './radio-button.component.html',
 })
 @DocumentationSectionComponent('ComponentsRadioButtonComponent')
-export class ComponentsRadioButtonComponent extends BaseDocumentationSection implements IPlaygroundProvider {
-
+export class ComponentsRadioButtonComponent
+    extends BaseDocumentationSection
+    implements IPlaygroundProvider
+{
     selected: number | string | object = 100;
 
     radioOptions = {
         option1: 100,
         option2: 'string',
         option3: {
-            test: 1
+            test: 1,
         },
-        option4: 'Wrap-Text'
+        option4: 'Wrap-Text',
     };
 
     disabled = false;
@@ -33,13 +35,18 @@ export class ComponentsRadioButtonComponent extends BaseDocumentationSection imp
         modules: [
             {
                 imports: ['RadioButtonModule'],
-                library: '@ux-aspects/ux-aspects'
-            }
-        ]
+                library: '@ux-aspects/ux-aspects',
+            },
+        ],
     };
 
     constructor() {
-        super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
+        super(
+            import.meta.webpackContext('./snippets/', {
+                recursive: false,
+                regExp: /\.(html|css|js|ts)$/,
+            })
+        );
     }
 
     toggleDisabled(radio: number | string | object): void {

@@ -1,6 +1,6 @@
 import { animate, AnimationEvent, state, style, transition, trigger } from '@angular/animations';
 import { isPlatformServer } from '@angular/common';
-import { AfterContentInit, ChangeDetectionStrategy, Component, ContentChild, ElementRef, EventEmitter, HostListener, Inject, Input, OnDestroy, Output, PLATFORM_ID, Renderer2 } from '@angular/core';
+import { AfterContentInit, ChangeDetectionStrategy, Component, ContentChild, ElementRef, EventEmitter, HostListener, inject, Input, OnDestroy, Output, PLATFORM_ID, Renderer2 } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ColorService } from '../../services/color/color.service';
@@ -32,6 +32,13 @@ import { ToolbarSearchFieldDirective } from './toolbar-search-field.directive';
     }
 })
 export class ToolbarSearchComponent implements AfterContentInit, OnDestroy {
+    private readonly _platformId = inject(PLATFORM_ID);
+
+    private readonly _elementRef = inject(ElementRef);
+
+    private readonly _colorService = inject(ColorService);
+
+    private readonly _renderer = inject(Renderer2);
 
     /** The direction in which the search box will expand. If the search button is aligned to the right edge of the container, specify left. */
     @Input() direction: 'left' | 'right' = 'right';
@@ -112,14 +119,7 @@ export class ToolbarSearchComponent implements AfterContentInit, OnDestroy {
     private _placeholder: HTMLElement;
 
     /** Unsubscribe from all subscriptions on component destroy */
-    private _onDestroy = new Subject<void>();
-
-    constructor(
-        private _elementRef: ElementRef,
-        private _colorService: ColorService,
-        private _renderer: Renderer2,
-        @Inject(PLATFORM_ID) private _platformId: Object
-    ) { }
+    private readonly _onDestroy = new Subject<void>();
 
     ngAfterContentInit(): void {
         // Subscribe to the submitted event on the input field, triggering the search event

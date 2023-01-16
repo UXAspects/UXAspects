@@ -1,5 +1,5 @@
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, DoCheck, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, DoCheck, ElementRef, EventEmitter, inject, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { ColorService } from '../../services/color/index';
 
 @Component({
@@ -11,6 +11,9 @@ import { ColorService } from '../../services/color/index';
     }
 })
 export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
+    readonly colorService = inject(ColorService);
+
+    private readonly _changeDetectorRef = inject(ChangeDetectorRef);
 
     /** A single number or a SliderValue object, depending on the slider type specified. */
     @Input() value: SliderValue | number = 0;
@@ -106,7 +109,7 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
     ticks: SliderTick[] = [];
     defaultOptions: SliderOptions;
 
-    constructor(colorService: ColorService, private _changeDetectorRef: ChangeDetectorRef) {
+    constructor() {
         // setup default options
         this.defaultOptions = {
             type: SliderType.Value,
@@ -114,7 +117,7 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
                 style: SliderStyle.Button,
                 callout: {
                     trigger: SliderCalloutTrigger.None,
-                    background: colorService.getColor('grey2').toHex(),
+                    background: this.colorService.getColor('grey2').toHex(),
                     color: '#fff',
                     formatter: (value: number): string | number => value
                 },

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Subject } from 'rxjs';
 import { TooltipComponent } from '../tooltip/index';
 
@@ -20,8 +20,8 @@ export class PopoverComponent extends TooltipComponent {
   /** This will emit an event any time the user clicks outside the popover */
   clickOutside$ = new Subject<MouseEvent>();
 
-  constructor(changeDetectorRef: ChangeDetectorRef) {
-    super(changeDetectorRef);
+  constructor() {
+    super();
   }
 
   /** This will update the title of the popover and trigger change detection */

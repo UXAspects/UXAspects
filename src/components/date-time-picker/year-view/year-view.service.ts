@@ -1,22 +1,23 @@
-import { Injectable, OnDestroy } from '@angular/core';
+import { inject, Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { DatePickerHeaderEvent, DateTimePickerService, YearRange } from '../date-time-picker.service';
 import { gridify, range } from '../date-time-picker.utils';
 
 @Injectable()
 export class YearViewService implements OnDestroy {
+    private readonly _datepicker = inject(DateTimePickerService);
 
     grid$ = new BehaviorSubject<YearViewItem[][]>([[]]);
     focused$ = new BehaviorSubject<number>(null);
 
     private _year: number = new Date().getFullYear();
 
-    private _subscription = new Subscription();
+    private readonly _subscription = new Subscription();
 
-    constructor(private _datepicker: DateTimePickerService) {
-        const year = _datepicker.year$.subscribe(_year => this.createYearGrid(_year));
+    constructor() {
+        const year = this._datepicker.year$.subscribe(_year => this.createYearGrid(_year));
 
-        const event = _datepicker.headerEvent$
+        const event = this._datepicker.headerEvent$
             .subscribe(_event => _event === DatePickerHeaderEvent.Next ? this.goToNextDecade() : this.goToPreviousDecade());
 
         this._subscription.add(year);

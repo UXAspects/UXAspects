@@ -1,5 +1,5 @@
 import { ENTER, SPACE } from '@angular/cdk/keycodes';
-import { Component, Input } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { PageHeaderService } from '../../page-header.service';
 import type { PageHeaderNavigationDropdownItem } from '../navigation.component';
 
@@ -9,11 +9,10 @@ import type { PageHeaderNavigationDropdownItem } from '../navigation.component';
     templateUrl: './navigation-dropdown-item.component.html'
 })
 export class PageHeaderNavigationDropdownItemComponent {
+    private readonly _pageHeaderService = inject(PageHeaderService);
 
     /** Access the data for this item */
     @Input() item: PageHeaderNavigationDropdownItem;
-
-    constructor(private _pageHeaderService: PageHeaderService) { }
 
     select(item: PageHeaderNavigationDropdownItem): void {
 

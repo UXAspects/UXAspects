@@ -9,11 +9,13 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 
 @Component({
     selector: 'uxd-components-facet-typeahead-list',
-    templateUrl: './facet-typeahead-list.component.html'
+    templateUrl: './facet-typeahead-list.component.html',
 })
 @DocumentationSectionComponent('ComponentsFacetTypeaheadListComponent')
-export class ComponentsFacetTypeaheadListComponent extends BaseDocumentationSection implements IPlaygroundProvider {
-
+export class ComponentsFacetTypeaheadListComponent
+    extends BaseDocumentationSection
+    implements IPlaygroundProvider
+{
     facets: Observable<Facet[]>;
     suggestions: Facet[] = [];
     query: string = '';
@@ -22,16 +24,23 @@ export class ComponentsFacetTypeaheadListComponent extends BaseDocumentationSect
     playground: IPlayground = {
         files: {
             'app.component.ts': this.snippets.raw.appTs,
-            'app.component.html': this.snippets.raw.appHtml
+            'app.component.html': this.snippets.raw.appHtml,
         },
-        modules: [{
-            imports: ['FacetsModule'],
-            library: '@ux-aspects/ux-aspects'
-        }]
+        modules: [
+            {
+                imports: ['FacetsModule'],
+                library: '@ux-aspects/ux-aspects',
+            },
+        ],
     };
 
     constructor() {
-        super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
+        super(
+            import.meta.webpackContext('./snippets/', {
+                recursive: false,
+                regExp: /\.(html|css|js|ts)$/,
+            })
+        );
 
         // generate random facet data
         for (let idx = 0; idx < 1000; idx++) {
@@ -58,11 +67,13 @@ export class ComponentsFacetTypeaheadListComponent extends BaseDocumentationSect
         this.facets = Observable.create((observer: Observer<Facet[]>) => {
             // simulate server request
             setTimeout(() => {
-
                 // return list of filtered users from "server"
-                observer.next(this.users.filter(user => user.title.toLowerCase().indexOf(this.query.toLowerCase()) !== -1));
+                observer.next(
+                    this.users.filter(
+                        user => user.title.toLowerCase().indexOf(this.query.toLowerCase()) !== -1
+                    )
+                );
             }, 750);
         });
-
     }
 }

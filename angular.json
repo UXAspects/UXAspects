@@ -27,7 +27,7 @@
                         "outputPath": "dist/docs",
                         "index": "docs/index.html",
                         "main": "docs/main.ts",
-                        "polyfills": "docs/polyfills.ts",
+                        "polyfills": ["zone.js"],
                         "tsConfig": "tsconfig.app.json",
                         "inlineStyleLanguage": "less",
                         "assets": [
@@ -66,7 +66,14 @@
                             "cheerio",
                             "codesandbox/lib/api/define",
                             "json-templater/object",
-                            "typescript"
+                            "typescript",
+                            "prismjs",
+                            "chance",
+                            "semver",
+                            "moment",
+                            "mobx",
+                            "boolbase",
+                            "prettier"
                         ]
                     },
                     "configurations": {
@@ -108,6 +115,49 @@
                 }
             }
         },
+        "ux-aspects": {
+            "projectType": "library",
+            "root": "",
+            "sourceRoot": "src",
+            "prefix": "ux",
+            "architect": {
+                "build": {
+                    "builder": "@ashley-hunter/ng-packagr-compat:package",
+                    "outputs": ["{projectRoot}/dist/library"],
+                    "options": {
+                        "project": "src/ng-package.json"
+                    },
+                    "configurations": {
+                        "production": {
+                            "tsConfig": "src/tsconfig.lib.prod.json"
+                        },
+                        "development": {
+                            "tsConfig": "src/tsconfig.lib.json"
+                        }
+                    },
+                    "defaultConfiguration": "production"
+                },
+                "test": {
+                    "builder": "@angular-devkit/build-angular:karma",
+                    "options": {
+                        "main": "src/test.ts",
+                        "tsConfig": "src/tsconfig.spec.json",
+                        "karmaConfig": "src/karma.conf.js",
+                        "styles": [
+                            "node_modules/bootstrap/dist/css/bootstrap.min.css",
+                            "src/styles/ux-aspects.less"
+                        ],
+                        "polyfills": ["zone.js", "zone.js/testing"]
+                    }
+                },
+                "lint": {
+                    "builder": "@angular-eslint/builder:lint",
+                    "options": {
+                        "lintFilePatterns": ["src/**/*.ts", "src/**/*.html"]
+                    }
+                }
+            }
+        },
         "ux-aspects-e2e": {
             "root": "",
             "sourceRoot": "e2e",
@@ -119,7 +169,7 @@
                         "outputPath": "dist/e2e",
                         "index": "e2e/pages/index.html",
                         "main": "e2e/pages/main.ts",
-                        "polyfills": "e2e/pages/polyfills.ts",
+                        "polyfills": ["zone.js"],
                         "tsConfig": "e2e/tsconfig.app.json",
                         "inlineStyleLanguage": "css",
                         "assets": [
@@ -182,51 +232,6 @@
                     }
                 }
             }
-        },
-        "ux-aspects": {
-            "projectType": "library",
-            "root": "",
-            "sourceRoot": "src",
-            "prefix": "ux",
-            "architect": {
-                "build": {
-                    "builder": "@ashley-hunter/ng-packagr-compat:package",
-                    "outputs": ["dist/library"],
-                    "options": {
-                        "project": "src/ng-package.json"
-                    },
-                    "configurations": {
-                        "production": {
-                            "tsConfig": "src/tsconfig.lib.prod.json"
-                        },
-                        "development": {
-                            "tsConfig": "src/tsconfig.lib.json"
-                        }
-                    },
-                    "defaultConfiguration": "production"
-                },
-                "test": {
-                    "builder": "@angular-devkit/build-angular:karma",
-                    "options": {
-                        "main": "src/test.ts",
-                        "tsConfig": "src/tsconfig.spec.json",
-                        "karmaConfig": "src/karma.conf.js",
-                        "styles": [
-                            "node_modules/bootstrap/dist/css/bootstrap.min.css",
-                            "src/styles/ux-aspects.less"
-                        ]
-                    }
-                },
-                "lint": {
-                    "builder": "@angular-eslint/builder:lint",
-                    "options": {
-                        "lintFilePatterns": ["src/**/*.ts", "src/**/*.html"]
-                    }
-                }
-            }
         }
-    },
-    "cli": {
-        "schematicCollections": ["@angular-eslint/schematics"]
     }
 }

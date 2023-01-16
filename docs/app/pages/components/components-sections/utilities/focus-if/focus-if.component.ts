@@ -7,26 +7,35 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 @Component({
     selector: 'uxd-components-focus-if',
     templateUrl: './focus-if.component.html',
-    styleUrls: ['./focus-if.component.less']
+    styleUrls: ['./focus-if.component.less'],
 })
 @DocumentationSectionComponent('ComponentsFocusIfComponent')
-export class ComponentsFocusIfComponent extends BaseDocumentationSection implements IPlaygroundProvider {
-
+export class ComponentsFocusIfComponent
+    extends BaseDocumentationSection
+    implements IPlaygroundProvider
+{
     focused = false;
 
     playground: IPlayground = {
         files: {
             'app.component.ts': this.snippets.raw.appTs,
             'app.component.html': this.snippets.raw.appHtml,
-            'app.component.css': this.snippets.raw.appCss
+            'app.component.css': this.snippets.raw.appCss,
         },
-        modules: [{
-            imports: ['FocusIfModule'],
-            library: '@ux-aspects/ux-aspects'
-        }]
+        modules: [
+            {
+                imports: ['FocusIfModule'],
+                library: '@ux-aspects/ux-aspects',
+            },
+        ],
     };
 
     constructor() {
-        super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
+        super(
+            import.meta.webpackContext('./snippets/', {
+                recursive: false,
+                regExp: /\.(html|css|js|ts)$/,
+            })
+        );
     }
 }

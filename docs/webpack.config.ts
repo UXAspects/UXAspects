@@ -7,6 +7,11 @@ export default (
     options: CustomWebpackBrowserSchema,
     targetOptions: TargetOptions
 ) => {
+    // Add NodeJS fallbacks
+    config.resolve ??= {};
+    config.resolve.fallback = {
+        perf_hooks: false,
+    };
 
     config.resolveLoader = {
         ...config.resolveLoader,
@@ -42,7 +47,7 @@ export default (
 
     config.module.rules.push({
         test: /\.txt$/,
-        type: 'asset/source'
+        type: 'asset/source',
     });
 
     config.module.rules.push({
@@ -63,13 +68,15 @@ export default (
 
     config.module.rules.push({
         test: /playground[/\\]templates/,
-        type: 'asset/source'
+        type: 'asset/source',
     });
 
-    config.plugins.push(new webpack.DefinePlugin({
-        VERSION: JSON.stringify(pkg.version),
-        PRODUCTION: targetOptions.configuration === 'production',
-    }));
+    config.plugins.push(
+        new webpack.DefinePlugin({
+            VERSION: JSON.stringify(pkg.version),
+            PRODUCTION: targetOptions.configuration === 'production',
+        })
+    );
 
     return config;
 };

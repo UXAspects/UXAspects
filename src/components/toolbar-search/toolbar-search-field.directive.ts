@@ -1,4 +1,4 @@
-import { Directive, ElementRef, EventEmitter, forwardRef, HostListener, Output, ChangeDetectorRef } from '@angular/core';
+import { ChangeDetectorRef, Directive, ElementRef, EventEmitter, forwardRef, HostListener, inject, Output } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 export const TOOLBAR_SEARCH_VALUE_ACCESSOR: any = {
@@ -12,6 +12,9 @@ export const TOOLBAR_SEARCH_VALUE_ACCESSOR: any = {
     providers: [TOOLBAR_SEARCH_VALUE_ACCESSOR]
 })
 export class ToolbarSearchFieldDirective implements ControlValueAccessor {
+    private readonly _elementRef = inject(ElementRef);
+
+    private readonly _changeDetector = inject(ChangeDetectorRef);
 
     /** Emit whenever the escape key is pressed */
     @Output() cancel = new EventEmitter<void>();
@@ -29,10 +32,6 @@ export class ToolbarSearchFieldDirective implements ControlValueAccessor {
 
     /** Call this function with the latest value to update ngModel or formControl name */
     private onChangeCallback: (_: any) => void = () => { };
-
-    constructor(
-        private _elementRef: ElementRef,
-        private readonly _changeDetector: ChangeDetectorRef) { }
 
     focus(): void {
         // mark the control as dirty

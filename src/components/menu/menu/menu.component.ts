@@ -1,13 +1,12 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { FocusKeyManager, FocusOrigin } from '@angular/cdk/a11y';
 import { TAB } from '@angular/cdk/keycodes';
-import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, HostBinding, Inject, Input, OnChanges, OnDestroy, Optional, Output, QueryList, SimpleChanges, TemplateRef, ViewChild, ViewRef } from '@angular/core';
+import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, HostBinding, inject, Input, OnChanges, OnDestroy, Output, QueryList, SimpleChanges, TemplateRef, ViewChild, ViewRef } from '@angular/core';
 import { BehaviorSubject, merge, Observable, Subject } from 'rxjs';
 import { map, switchMap, takeUntil } from 'rxjs/operators';
 import { AnchorAlignment, AnchorPlacement } from '../../../common/overlay/index';
 import { MenuItemType } from '../menu-item/menu-item-type.enum';
 import { MenuItemComponent } from '../menu-item/menu-item.component';
-import { MenuModuleOptions } from '../menu-options.interface';
 import { MENU_OPTIONS_TOKEN } from '../menu-options.token';
 import { MenuTabbableItemDirective } from '../menu-tabbable-item/menu-tabbable-item.directive';
 
@@ -30,6 +29,9 @@ let uniqueId = 0;
     ]
 })
 export class MenuComponent implements AfterContentInit, OnDestroy, OnChanges {
+    private readonly _options = inject(MENU_OPTIONS_TOKEN, { optional: true });
+
+    private readonly _changeDetector = inject(ChangeDetectorRef);
 
     /** A unique id for the component. */
     @Input() @HostBinding('attr.id') id: string = `ux-menu-${++uniqueId}`;
@@ -122,12 +124,7 @@ export class MenuComponent implements AfterContentInit, OnDestroy, OnChanges {
     }
 
     /** Create an internal querylist to store the menu items */
-    private _itemsList = new QueryList<MenuItemComponent | MenuTabbableItemDirective>();
-
-    constructor(
-        private readonly _changeDetector: ChangeDetectorRef,
-        @Optional() @Inject(MENU_OPTIONS_TOKEN) private readonly _options: MenuModuleOptions
-    ) { }
+    private readonly _itemsList = new QueryList<MenuItemComponent | MenuTabbableItemDirective>();
 
     ngAfterContentInit(): void {
 

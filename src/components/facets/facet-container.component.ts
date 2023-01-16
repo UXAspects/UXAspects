@@ -1,5 +1,5 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
-import { Component, ContentChild, EventEmitter, Input, OnDestroy, Output, TemplateRef } from '@angular/core';
+import { Component, ContentChild, EventEmitter, inject, Input, OnDestroy, Output, TemplateRef } from '@angular/core';
 import { Subject } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { ReorderEvent } from '../../directives/reorderable/index';
@@ -15,6 +15,8 @@ import { Facet } from './models/facet';
     preserveWhitespaces: false
 })
 export class FacetContainerComponent implements OnDestroy {
+    readonly facetService = inject(FacetService);
+    private readonly _announcer = inject(LiveAnnouncer);
 
     /** Defines the text displayed at the top of the Facet Container. */
     @Input() header: string = 'Selected';
@@ -56,14 +58,14 @@ export class FacetContainerComponent implements OnDestroy {
     /** Allow a custom clear button */
     @ContentChild(FacetClearButtonDirective, { read: TemplateRef, static: false }) clearButton: TemplateRef<FacetClearButtonDirective>;
 
-    private _onDestroy = new Subject<void>();
+    private readonly _onDestroy = new Subject<void>();
 
-    constructor(private _announcer: LiveAnnouncer, public facetService: FacetService) {
-        facetService.facets$.subscribe(facets => this.facetsChange.next(facets));
-        facetService.events$.subscribe(event => this.triggerEvent(event));
+    constructor() {
+        this.facetService.facets$.subscribe(facets => this.facetsChange.next(facets));
+        this.facetService.events$.subscribe(event => this.triggerEvent(event));
 
         // announce deselection
-        facetService.events$.pipe(filter<FacetDeselect>(event => event instanceof FacetDeselect))
+        this.facetService.events$.pipe(filter<FacetDeselect>(event => event instanceof FacetDeselect))
             .subscribe(event => this._announcer.announce(`Option ${event.facet.title} deselected.`, 'assertive'));
     }
 

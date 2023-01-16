@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Input, OnChanges } from '@angular/core';
+import { Directive, ElementRef, inject, Input, OnChanges } from '@angular/core';
 import { ScrollIntoViewService } from './scroll-into-view.service';
 
 @Directive({
@@ -6,11 +6,12 @@ import { ScrollIntoViewService } from './scroll-into-view.service';
     providers: [ScrollIntoViewService]
  })
 export class ScrollIntoViewIfDirective implements OnChanges {
+    private readonly _element = inject(ElementRef);
+
+    private readonly _scrollIntoViewService = inject(ScrollIntoViewService);
 
     @Input('uxScrollIntoViewIf') condition = false;
     @Input() scrollParent: HTMLElement;
-
-    constructor(private _element: ElementRef, private _scrollIntoViewService: ScrollIntoViewService) {}
 
     ngOnChanges() {
         if (this.condition) {

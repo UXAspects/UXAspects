@@ -1,6 +1,6 @@
-import { Component, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
-import { distinctUntilChanged } from 'rxjs/operators';
+import { Component, EventEmitter, inject, Input, OnDestroy, Output } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { distinctUntilChanged } from 'rxjs/operators';
 import { SearchBuilderComponentDefinition } from './interfaces/component-definition.interface';
 import { SearchBuilderQuery } from './interfaces/query.interface';
 import { SearchBuilderService } from './search-builder.service';
@@ -11,6 +11,7 @@ import { SearchBuilderService } from './search-builder.service';
   providers: [SearchBuilderService]
 })
 export class SearchBuilderComponent implements OnDestroy {
+  private readonly _searchBuilderService = inject(SearchBuilderService);
 
   @Input()
   set components(components: SearchBuilderComponentDefinition[]) {
@@ -29,19 +30,19 @@ export class SearchBuilderComponent implements OnDestroy {
   @Output() queryChange: EventEmitter<SearchBuilderQuery> = new EventEmitter<SearchBuilderQuery>();
   @Output() valid: EventEmitter<boolean> = new EventEmitter<boolean>(true);
 
-  private _querySubscription: Subscription;
-  private _validSubscription: Subscription;
+  private readonly _querySubscription: Subscription;
+  private readonly _validSubscription: Subscription;
 
   /**
    * Register the default search builder components
    */
-  constructor(private _searchBuilderService: SearchBuilderService) {
+  constructor() {
 
     // watch for any query changes
-    this._querySubscription = _searchBuilderService.queryChange.subscribe(query => this.queryChange.emit(query));
+    this._querySubscription = this._searchBuilderService.queryChange.subscribe(query => this.queryChange.emit(query));
 
     // watch for any changes to the validation
-    this._validSubscription = _searchBuilderService.validationChange.pipe(distinctUntilChanged()).subscribe(valid => this.valid.emit(valid));
+    this._validSubscription = this._searchBuilderService.validationChange.pipe(distinctUntilChanged()).subscribe(valid => this.valid.emit(valid));
   }
 
   /**

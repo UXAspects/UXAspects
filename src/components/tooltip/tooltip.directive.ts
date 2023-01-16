@@ -1,6 +1,6 @@
 import { ConnectionPositionPair, Overlay, OverlayRef, ScrollDispatcher } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
-import { ChangeDetectorRef, Directive, ElementRef, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, Renderer2, SimpleChanges, TemplateRef, ViewContainerRef } from '@angular/core';
+import { ChangeDetectorRef, Directive, ElementRef, EventEmitter, inject, Input, OnChanges, OnDestroy, OnInit, Output, Renderer2, SimpleChanges, TemplateRef, ViewContainerRef } from '@angular/core';
 import { fromEvent, Subject } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
 import { AnchorAlignment, AnchorPlacement } from '../../common/overlay/index';
@@ -13,6 +13,21 @@ import { TooltipService } from './tooltip.service';
     exportAs: 'ux-tooltip'
 })
 export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
+    protected readonly _elementRef = inject(ElementRef);
+
+    protected readonly _viewContainerRef = inject(ViewContainerRef);
+
+    protected readonly _overlay = inject(Overlay);
+
+    protected readonly _scrollDispatcher = inject(ScrollDispatcher);
+
+    private readonly _changeDetectorRef = inject(ChangeDetectorRef);
+
+    private readonly _renderer = inject(Renderer2);
+
+    private readonly _tooltipService = inject(TooltipService);
+
+    private readonly _overlayFallback = inject(OverlayPlacementService);
 
     /** Contains the content of the tooltip or a TemplateRef for more detailed content */
     @Input('uxTooltip') content: string | TemplateRef<any>;
@@ -85,17 +100,6 @@ export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
 
     /** Internally store the type of this component - usual for distinctions when extending this class */
     protected _type: string = 'tooltip';
-
-    constructor(
-        protected _elementRef: ElementRef,
-        protected _viewContainerRef: ViewContainerRef,
-        protected _overlay: Overlay,
-        protected _scrollDispatcher: ScrollDispatcher,
-        private _changeDetectorRef: ChangeDetectorRef,
-        private _renderer: Renderer2,
-        private _tooltipService: TooltipService,
-        private _overlayFallback: OverlayPlacementService,
-    ) { }
 
     /** Set up the triggers and bind to the show/hide events to keep visibility in sync */
     ngOnInit(): void {

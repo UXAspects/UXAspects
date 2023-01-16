@@ -1,6 +1,6 @@
 import { FocusableOption, FocusOrigin } from '@angular/cdk/a11y';
 import { Platform } from '@angular/cdk/platform';
-import { ChangeDetectorRef, Directive, ElementRef, EventEmitter, HostListener, Input, OnDestroy, Output, Renderer2 } from '@angular/core';
+import { ChangeDetectorRef, Directive, ElementRef, EventEmitter, HostListener, inject, Input, OnDestroy, Output, Renderer2 } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { tick } from '../../../common/index';
@@ -18,6 +18,23 @@ let uniqueKey = 0;
     exportAs: 'ux-tabbable-list-item'
 })
 export class TabbableListItemDirective implements FocusableOption, OnDestroy {
+    /** Access the service to programmatically control focus indicators */
+    readonly focusIndicatorService = inject(FocusIndicatorService);
+    /** Access the tabbable list service */
+    private readonly _tabbableList = inject(TabbableListService);
+    /** Access the tabbable item element */
+    private readonly _elementRef = inject(ElementRef);
+    /** Access the service responsible for handling focus in child elements */
+    private readonly _managedFocusContainerService = inject(ManagedFocusContainerService);
+    /** Access the service which can provide us with browser identification */
+    private readonly _platform = inject(Platform);
+    /** Access the change detector to ensure tabindex gets updated as expects */
+    private readonly _changeDetector = inject(ChangeDetectorRef);
+    /** Access the focus origin if one is provided */
+    private readonly _focusOriginService = inject(FocusIndicatorOriginService);
+    /** Access the renderer to make manual dom manipulations */
+    private readonly _renderer = inject(Renderer2);
+
 
     /** Indicate the parent tabbable list item if one is present. */
     @Input() parent: TabbableListItemDirective;
@@ -89,41 +106,24 @@ export class TabbableListItemDirective implements FocusableOption, OnDestroy {
     keyboardExpanded$ = new Subject<boolean>();
 
     /** Automatically unsubscribe from all observables */
-    private _onDestroy = new Subject<void>();
+    private readonly _onDestroy = new Subject<void>();
 
     /** Store a reference to the focus indicator instance */
-    private _focusIndicator: FocusIndicator;
+    private readonly _focusIndicator: FocusIndicator;
 
     /** Store the current key - it may change in a ngFor/uxVirtualFor if the cell is reused. */
     private _key: any;
 
     /** Store a default key to use if one is not provided */
-    private _defaultKey: string = `tabbable-list-key-${uniqueKey++}`;
+    private readonly _defaultKey: string = `tabbable-list-key-${uniqueKey++}`;
 
     /** Determine if this element has a focus indicator visible */
     private _focusOrigin: FocusOrigin = null;
 
-    constructor(
-        /** Access the tabbable list service */
-        private _tabbableList: TabbableListService,
-        /** Access the tabbable item element */
-        private _elementRef: ElementRef,
-        /** Access the service to programmatically control focus indicators */
-        focusIndicatorService: FocusIndicatorService,
-        /** Access the service responsible for handling focus in child elements */
-        private _managedFocusContainerService: ManagedFocusContainerService,
-        /** Access the service which can provide us with browser identification */
-        private _platform: Platform,
-        /** Access the change detector to ensure tabindex gets updated as expects */
-        private _changeDetector: ChangeDetectorRef,
-        /** Access the focus origin if one is provided */
-        private _focusOriginService: FocusIndicatorOriginService,
-        /** Access the renderer to make manual dom manipulations */
-        private _renderer: Renderer2
-    ) {
+    constructor() {
 
         // create the focus indicator
-        this._focusIndicator = focusIndicatorService.monitor(_elementRef.nativeElement);
+        this._focusIndicator = this.focusIndicatorService.monitor(this._elementRef.nativeElement);
 
         // store the most current focus origin
         this._focusIndicator.origin$.pipe(takeUntil(this._onDestroy))

@@ -1,6 +1,6 @@
-import { Directive, ElementRef, HostBinding, HostListener, Input, OnDestroy, OnInit } from '@angular/core';
-import { filter, map, takeUntil } from 'rxjs/operators';
+import { Directive, ElementRef, HostBinding, HostListener, inject, Input, OnDestroy, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
+import { filter, map, takeUntil } from 'rxjs/operators';
 import { SankeyNodeLink } from './interfaces/node-link.interface';
 import { SankeyFocusManager } from './sankey-focus-manager';
 
@@ -8,6 +8,8 @@ import { SankeyFocusManager } from './sankey-focus-manager';
   selector: '[uxSankeyNode]',
 })
 export class SankeyNodeDirective<T> implements OnInit, OnDestroy {
+  private readonly _focusManager = inject<SankeyFocusManager<T>>(SankeyFocusManager);
+  private readonly _elementRef = inject(ElementRef);
 
   /** Access the node data */
   @Input('uxSankeyNode') node: SankeyNodeLink<T>;
@@ -16,12 +18,7 @@ export class SankeyNodeDirective<T> implements OnInit, OnDestroy {
   @HostBinding() tabIndex: number = -1;
 
   /** Unsubscribe from all observables on destroy */
-  private _onDestroy = new Subject<void>();
-
-  constructor(
-    private _focusManager: SankeyFocusManager<T>,
-    private _elementRef: ElementRef
-  ) { }
+  private readonly _onDestroy = new Subject<void>();
 
   ngOnInit(): void {
     // Update the tabindex based on the current active item

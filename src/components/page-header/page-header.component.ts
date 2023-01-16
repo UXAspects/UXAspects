@@ -1,4 +1,4 @@
-import { Component, ContentChild, ContentChildren, EventEmitter, Input, Output, QueryList, TemplateRef } from '@angular/core';
+import { Component, ContentChild, ContentChildren, EventEmitter, inject, Input, Output, QueryList, TemplateRef } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { ColorService } from '../../services/color/index';
 import { Breadcrumb } from '../breadcrumbs/index';
@@ -16,6 +16,9 @@ export type PageHeaderNavigationAlignment = 'left' | 'right' | 'center';
     providers: [PageHeaderService]
 })
 export class PageHeaderComponent {
+    private readonly _colorService = inject(ColorService);
+
+    private readonly _pageHeaderService = inject(PageHeaderService);
 
     /** The path to an image to display as the product logo in the left corner. */
     @Input() logo: string;
@@ -138,8 +141,6 @@ export class PageHeaderComponent {
     private _crumbs: Breadcrumb[] = [];
     private _logoBackground: string;
     private _logoForeground: string;
-
-    constructor(private _colorService: ColorService, private _pageHeaderService: PageHeaderService) { }
 
     select(item: PageHeaderNavigation, navigate: boolean): void {
         this._pageHeaderService.select(item, navigate);

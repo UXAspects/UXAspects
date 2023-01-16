@@ -1,4 +1,4 @@
-import { Directive, HostListener } from '@angular/core';
+import { Directive, HostListener, inject } from '@angular/core';
 import { isKeyboardTrigger } from '../../common/index';
 import { FocusIndicatorOriginService } from '../../directives/accessibility/index';
 import { SidePanelService } from './side-panel.service';
@@ -7,11 +7,9 @@ import { SidePanelService } from './side-panel.service';
     selector: '[uxSidePanelClose]'
 })
 export class SidePanelCloseDirective {
+    private readonly _service = inject(SidePanelService);
 
-    constructor(
-        private readonly _service: SidePanelService,
-        private readonly _focusOrigin: FocusIndicatorOriginService
-    ) { }
+    private readonly _focusOrigin = inject(FocusIndicatorOriginService);
 
     @HostListener('click', ['$event'])
     onClick(event: MouseEvent | KeyboardEvent): void {

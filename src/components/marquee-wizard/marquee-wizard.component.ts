@@ -1,4 +1,4 @@
-import { AfterViewChecked, ChangeDetectorRef, Component, ContentChildren, ElementRef, EventEmitter, Input, OnDestroy, Output, QueryList, TemplateRef, ViewChild } from '@angular/core';
+import { AfterViewChecked, Component, ContentChildren, ElementRef, EventEmitter, inject, Input, OnDestroy, Output, QueryList, TemplateRef, ViewChild } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
 import { TabbableListDirective } from '../../directives/accessibility';
 import { ResizeDimensions, ResizeService } from '../../directives/resize/index';
@@ -12,6 +12,11 @@ import { MarqueeWizardStepComponent } from './marquee-wizard-step.component';
     preserveWhitespaces: false
 })
 export class MarqueeWizardComponent<TStepContext = any> extends WizardComponent implements OnDestroy, AfterViewChecked {
+    readonly wizardService = inject<WizardService<MarqueeWizardStepComponent>>(WizardService);
+
+    private readonly _resizeService = inject(ResizeService);
+
+    private readonly _elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
 
     @ViewChild(TabbableListDirective)
     tabbableList: TabbableListDirective;
@@ -48,24 +53,20 @@ export class MarqueeWizardComponent<TStepContext = any> extends WizardComponent 
         return this.description && this.description instanceof TemplateRef;
     }
 
-    constructor(readonly wizardService: WizardService<MarqueeWizardStepComponent>,
-                private readonly _changeDetector: ChangeDetectorRef,
-                private readonly _resizeService: ResizeService,
-                private readonly _elementRef: ElementRef<HTMLElement>
-    ) {
-        super(wizardService);
+    constructor() {
+        super();
 
         // set to true as default for Marquee Wizard only
         this.resetVisitedOnValidationError = true;
 
         // watch for changes to the size
-        _resizeService.addResizeListener(this._elementRef.nativeElement)
+        this._resizeService.addResizeListener(this._elementRef.nativeElement)
             .pipe(takeUntil(this._onDestroy))
             .subscribe(this.onResize.bind(this));
     }
 
     ngAfterViewChecked(): void {
-        this.tabbableList.setFirstItemTabbable();
+        this.tabbableList?.setFirstItemTabbable();
     }
 
     ngOnDestroy(): void {

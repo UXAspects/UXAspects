@@ -1,19 +1,20 @@
 import { WeekDay } from '@angular/common';
-import { Injectable, OnDestroy } from '@angular/core';
+import { inject, Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject, combineLatest, Subscription } from 'rxjs';
 import { DateTimePickerService, ModeDirection } from '../date-time-picker.service';
 import { compareDays, dateRange, gridify } from '../date-time-picker.utils';
 
 @Injectable()
 export class DayViewService implements OnDestroy {
+    private readonly _datepicker = inject(DateTimePickerService);
 
     grid$ = new BehaviorSubject<DayViewItem[][]>([[]]);
     focused$ = new BehaviorSubject<FocusedDayItem>(null);
 
-    private _subscription: Subscription;
+    private readonly _subscription: Subscription;
 
-    constructor(private _datepicker: DateTimePickerService) {
-        this._subscription = combineLatest(_datepicker.month$, _datepicker.year$, _datepicker.startOfWeek$)
+    constructor() {
+        this._subscription = combineLatest(this._datepicker.month$, this._datepicker.year$, this._datepicker.startOfWeek$)
             .subscribe(([month, year]) => this.createDayGrid(month, year));
     }
 

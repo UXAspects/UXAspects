@@ -1,6 +1,6 @@
-import { Directive, DoCheck, EmbeddedViewRef, Input, IterableChangeRecord, IterableChanges, IterableDiffer, IterableDiffers, OnDestroy, OnInit, Optional, Renderer2, TemplateRef, TrackByFunction, ViewContainerRef, ChangeDetectorRef } from '@angular/core';
-import { distinctUntilChanged, takeUntil } from 'rxjs/operators';
+import { ChangeDetectorRef, Directive, DoCheck, EmbeddedViewRef, inject, Input, IterableChangeRecord, IterableChanges, IterableDiffer, IterableDiffers, OnDestroy, OnInit, Renderer2, TemplateRef, TrackByFunction, ViewContainerRef } from '@angular/core';
 import { Subject } from 'rxjs';
+import { distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { VirtualForRange, VirtualForService } from './virtual-for.service';
 
 /**
@@ -15,6 +15,22 @@ import { VirtualForRange, VirtualForService } from './virtual-for.service';
     selector: '[uxVirtualFor][uxVirtualForOf]',
 })
 export class VirtualForDirective<T> implements OnInit, DoCheck, OnDestroy {
+    /** A reference to the container element where we will insert elements. */
+    private readonly _viewContainerRef = inject(ViewContainerRef);
+
+    /** The template for all items */
+    private readonly _templateRef = inject<TemplateRef<VirtualForOfContext<T>>>(TemplateRef);
+
+    /** Gets the set of Angular differs for detecting changes. */
+    private readonly _differs = inject(IterableDiffers);
+
+    /** Get the renderer to perform DOM manipulation */
+    private readonly _renderer = inject(Renderer2);
+
+    private readonly _changeDetector = inject(ChangeDetectorRef);
+
+    /** A service to share values between the container and child elements */
+    private readonly _virtualScroll = inject<VirtualForService<T>>(VirtualForService, { optional: true });
 
     /** Store the list of items to display */
     @Input() set uxVirtualForOf(dataset: T[]) {
@@ -53,27 +69,15 @@ export class VirtualForDirective<T> implements OnInit, DoCheck, OnDestroy {
     private _isDirty: boolean = false;
 
     /** Store a cache of recently disposed views for reuse */
-    private _templateCache: EmbeddedViewRef<VirtualForOfContext<T>>[] = [];
+    private readonly _templateCache: EmbeddedViewRef<VirtualForOfContext<T>>[] = [];
 
     /** Limit the size of the cache as it can use a lot of memory */
-    private _cacheSize: number = 20;
+    private readonly _cacheSize: number = 20;
 
     /** Unsubscribe from all observables */
-    private _onDestroy = new Subject<void>();
+    private readonly _onDestroy = new Subject<void>();
 
-    constructor(
-        /** A reference to the container element where we will insert elements. */
-        private _viewContainerRef: ViewContainerRef,
-        /** The template for all items */
-        private _templateRef: TemplateRef<VirtualForOfContext<T>>,
-        /** Gets the set of Angular differs for detecting changes. */
-        private _differs: IterableDiffers,
-        /** Get the renderer to perform DOM manipulation */
-        private _renderer: Renderer2,
-        private _changeDetector: ChangeDetectorRef,
-        /** A service to share values between the container and child elements */
-        @Optional() private _virtualScroll: VirtualForService<T>,
-    ) {
+    constructor() {
         // While marked as optional, it isn't. We do this so we can provide a more helpful error message
         if (!this._virtualScroll) {
             throw new Error('The "uxVirtualFor" directive requires the "uxVirtualForContainer" directive to be added to the parent element.');

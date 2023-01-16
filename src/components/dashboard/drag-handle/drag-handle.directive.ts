@@ -1,8 +1,6 @@
-import { ScrollDispatcher } from '@angular/cdk/scrolling';
-import { Directive, ElementRef, NgZone, Renderer2 } from '@angular/core';
+import { Directive, inject } from '@angular/core';
 import { takeUntil, tap } from 'rxjs/operators';
 import { DragDirective, DragScrollEvent } from '../../../directives/drag/drag.directive';
-import { DragService } from '../../../directives/drag/index';
 import { ActionDirection, DashboardService } from '../dashboard.service';
 import { DashboardWidgetComponent } from '../widget/dashboard-widget.component';
 
@@ -10,32 +8,27 @@ import { DashboardWidgetComponent } from '../widget/dashboard-widget.component';
     selector: '[uxDashboardWidgetDragHandle], [ux-dashboard-widget-drag-handle]'
 })
 export class DashboardDragHandleDirective extends DragDirective {
+    readonly widget = inject(DashboardWidgetComponent);
 
-    constructor(
-        widget: DashboardWidgetComponent,
-        dashboardService: DashboardService,
-        elementRef: ElementRef<Element>,
-        ngZone: NgZone,
-        renderer: Renderer2,
-        scrollDispatcher: ScrollDispatcher,
-        drag: DragService
-    ) {
+    readonly dashboardService = inject(DashboardService);
 
-        super(elementRef, ngZone, renderer, scrollDispatcher, drag);
+    constructor() {
+
+        super();
 
         // inform the widget that it can be dragged
-        widget.isDraggable = true;
+        this.widget.isDraggable = true;
 
-        this.onDragStart.pipe(takeUntil(this._onDestroy), tap(() => dashboardService.isGrabbing$.next(null)))
-            .subscribe((event: MouseEvent) => dashboardService.onDragStart({ widget, direction: ActionDirection.Move, event }));
+        this.onDragStart.pipe(takeUntil(this._onDestroy), tap(() => this.dashboardService.isGrabbing$.next(null)))
+            .subscribe((event: MouseEvent) => this.dashboardService.onDragStart({ widget: this.widget, direction: ActionDirection.Move, event }));
 
         this.onDrag.pipe(takeUntil(this._onDestroy))
-            .subscribe((event: MouseEvent) => dashboardService.onDrag({ widget, direction: ActionDirection.Move, event }));
+            .subscribe((event: MouseEvent) => this.dashboardService.onDrag({ widget: this.widget, direction: ActionDirection.Move, event }));
 
         this.onDragScroll.pipe(takeUntil(this._onDestroy))
-            .subscribe((event: DragScrollEvent) => dashboardService.onDragScroll(widget, event));
+            .subscribe((event: DragScrollEvent) => this.dashboardService.onDragScroll(this.widget, event));
 
         this.onDragEnd.pipe(takeUntil(this._onDestroy))
-            .subscribe(() => dashboardService.onDragEnd());
+            .subscribe(() => this.dashboardService.onDragEnd());
     }
 }

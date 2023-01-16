@@ -1,4 +1,4 @@
-import { AfterViewInit, Directive, ElementRef, EventEmitter, OnDestroy, Output } from '@angular/core';
+import { AfterViewInit, Directive, ElementRef, EventEmitter, inject, OnDestroy, Output } from '@angular/core';
 import { fromEvent, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
@@ -6,6 +6,7 @@ import { takeUntil } from 'rxjs/operators';
     selector: '[segmentFocus],[segmentBlur]',
 })
 export class PartitionMapSegmentEventsDirective implements AfterViewInit, OnDestroy {
+    private readonly _elementRef = inject(ElementRef);
 
     /** Emit when the segment receives focus */
     @Output() segmentFocus = new EventEmitter<FocusEvent>();
@@ -14,9 +15,7 @@ export class PartitionMapSegmentEventsDirective implements AfterViewInit, OnDest
     @Output() segmentBlur = new EventEmitter<FocusEvent>();
 
     /** Unsubscribe from observables */
-    private _onDestroy = new Subject<void>();
-
-    constructor(private _elementRef: ElementRef) { }
+    private readonly _onDestroy = new Subject<void>();
 
     ngAfterViewInit(): void {
         // Get the parent segment element

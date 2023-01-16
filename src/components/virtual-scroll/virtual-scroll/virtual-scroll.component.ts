@@ -1,4 +1,4 @@
-import { AfterContentInit, Component, ContentChild, ElementRef, EventEmitter, HostListener, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, TemplateRef } from '@angular/core';
+import { AfterContentInit, Component, ContentChild, ElementRef, EventEmitter, HostListener, inject, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, TemplateRef } from '@angular/core';
 import { BehaviorSubject, Observable, Subject, Subscription } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ResizeService } from '../../../directives/resize/index';
@@ -11,6 +11,9 @@ import { VirtualScrollLoadingDirective } from './directives/virtual-scroll-loadi
     templateUrl: './virtual-scroll.component.html'
 })
 export class VirtualScrollComponent<T> implements OnInit, AfterContentInit, OnChanges, OnDestroy {
+    readonly resizeService = inject(ResizeService);
+
+    private readonly _elementRef = inject(ElementRef);
 
     /** Provide the collection of items to display */
     @Input() collection: Observable<T[]> = Observable.create();
@@ -35,15 +38,15 @@ export class VirtualScrollComponent<T> implements OnInit, AfterContentInit, OnCh
     data: ReadonlyArray<T> = [];
     loadingComplete: boolean = false;
 
-    private _buffer: number = 5;
+    private readonly _buffer: number = 5;
     private _subscription: Subscription;
     private _height: number;
-    private _onDestroy = new Subject<void>();
+    private readonly _onDestroy = new Subject<void>();
 
-    constructor(private _elementRef: ElementRef, resizeService: ResizeService) {
+    constructor() {
 
         // watch for any future changes to size
-        resizeService.addResizeListener(_elementRef.nativeElement).pipe(takeUntil(this._onDestroy))
+        this.resizeService.addResizeListener(this._elementRef.nativeElement).pipe(takeUntil(this._onDestroy))
             .subscribe(event => this._height = event.height);
     }
 

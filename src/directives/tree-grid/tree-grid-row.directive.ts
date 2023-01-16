@@ -1,5 +1,5 @@
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { Directive, EventEmitter, HostBinding, HostListener, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Directive, EventEmitter, HostBinding, HostListener, inject, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { TreeGridItem } from './tree-grid-item.interface';
@@ -13,6 +13,7 @@ import { TreeGridService } from './tree-grid.service';
     }
 })
 export class TreeGridRowDirective implements OnInit, OnDestroy {
+    private readonly _treeGridService = inject(TreeGridService);
 
     @Input('uxTreeGridRow')
     item: TreeGridItem;
@@ -41,9 +42,7 @@ export class TreeGridRowDirective implements OnInit, OnDestroy {
 
     private _expanded = false;
 
-    private _onDestroy = new Subject<void>();
-
-    constructor(private _treeGridService: TreeGridService) { }
+    private readonly _onDestroy = new Subject<void>();
 
     ngOnInit(): void {
 

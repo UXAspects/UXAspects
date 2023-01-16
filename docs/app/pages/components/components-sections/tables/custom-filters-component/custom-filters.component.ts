@@ -7,25 +7,31 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 
 @Component({
     selector: 'uxd-components-custom-filters',
-    templateUrl: './custom-filters.component.html'
+    templateUrl: './custom-filters.component.html',
 })
 @DocumentationSectionComponent('ComponentsCustomFiltersComponent')
-export class ComponentsCustomFiltersComponent extends BaseDocumentationSection implements IPlaygroundProvider {
-
-    statusFilters: Filter[] = [{
-        group: 'Custom',
-        title: 'Status',
-        name: 'Status (All)',
-        initial: true
-    }, {
-        group: 'Custom',
-        title: 'Active',
-        name: 'Active'
-    }, {
-        group: 'Custom',
-        title: 'Inactive',
-        name: 'Inactive'
-    }];
+export class ComponentsCustomFiltersComponent
+    extends BaseDocumentationSection
+    implements IPlaygroundProvider
+{
+    statusFilters: Filter[] = [
+        {
+            group: 'Custom',
+            title: 'Status',
+            name: 'Status (All)',
+            initial: true,
+        },
+        {
+            group: 'Custom',
+            title: 'Active',
+            name: 'Active',
+        },
+        {
+            group: 'Custom',
+            title: 'Inactive',
+            name: 'Inactive',
+        },
+    ];
 
     playground: IPlayground = {
         files: {
@@ -33,21 +39,27 @@ export class ComponentsCustomFiltersComponent extends BaseDocumentationSection i
             'app.component.html': this.snippets.raw.appHtml,
             'sample-filter.component.html': this.snippets.raw.sampleHtml,
             'sample-filter.component.css': this.snippets.raw.sampleCss,
-            'sample-filter.component.ts': this.snippets.raw.sampleTs
+            'sample-filter.component.ts': this.snippets.raw.sampleTs,
         },
-        modules: [{
-            imports: ['FilterModule', 'RadioButtonModule', 'MenuModule'],
-            library: '@ux-aspects/ux-aspects'
-        },
-        {
-            imports: ['SampleFilterCustomComponent'],
-            library: './sample-filter.component',
-            declaration: true
-        }]
+        modules: [
+            {
+                imports: ['FilterModule', 'RadioButtonModule', 'MenuModule'],
+                library: '@ux-aspects/ux-aspects',
+            },
+            {
+                imports: ['SampleFilterCustomComponent'],
+                library: './sample-filter.component',
+                declaration: true,
+            },
+        ],
     };
 
     constructor() {
-        super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
+        super(
+            import.meta.webpackContext('./snippets/', {
+                recursive: false,
+                regExp: /\.(html|css|js|ts)$/,
+            })
+        );
     }
-
 }

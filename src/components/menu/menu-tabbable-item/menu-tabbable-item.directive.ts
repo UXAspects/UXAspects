@@ -1,5 +1,5 @@
 import { FocusableOption, FocusOrigin } from '@angular/cdk/a11y';
-import { Directive, ElementRef, HostListener, Input, OnDestroy, OnInit, Renderer2 } from '@angular/core';
+import { Directive, ElementRef, HostListener, inject, Input, OnDestroy, OnInit, Renderer2 } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { FocusIndicator, FocusIndicatorService } from '../../../directives/accessibility/index';
@@ -10,6 +10,13 @@ import { MenuComponent } from '../menu/menu.component';
     selector: '[uxMenuTabbableItem]',
 })
 export class MenuTabbableItemDirective implements OnInit, OnDestroy, FocusableOption {
+    protected readonly _menu = inject(MenuComponent);
+
+    protected readonly _elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
+
+    protected readonly _focusIndicatorService = inject(FocusIndicatorService);
+
+    protected readonly _renderer = inject(Renderer2);
 
     /** Define if this item is disabled or not */
     @Input() disabled: boolean = false;
@@ -22,13 +29,6 @@ export class MenuTabbableItemDirective implements OnInit, OnDestroy, FocusableOp
 
     /** Automatically unsubscribe when directive is destroyed */
     protected _onDestroy$ = new Subject<void>();
-
-    constructor(
-        protected readonly _menu: MenuComponent,
-        protected readonly _elementRef: ElementRef<HTMLElement>,
-        protected readonly _focusIndicatorService: FocusIndicatorService,
-        protected readonly _renderer: Renderer2
-    ) { }
 
     ngOnInit(): void {
         // register this item in the MenuComponent

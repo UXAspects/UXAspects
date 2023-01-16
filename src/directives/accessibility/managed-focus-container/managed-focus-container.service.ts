@@ -1,15 +1,16 @@
-import { Injectable, Renderer2, RendererFactory2 } from '@angular/core';
+import { inject, Injectable, Renderer2, RendererFactory2 } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable()
 export class ManagedFocusContainerService {
+    readonly rendererFactory = inject(RendererFactory2);
 
     private _containers: ManagedFocusContainerWithReferences[] = [];
-    private _renderer: Renderer2;
+    private readonly _renderer: Renderer2;
 
-    constructor(rendererFactory: RendererFactory2) {
+    constructor() {
         // programmatically create a renderer as it can't be injected into a service
-        this._renderer = rendererFactory.createRenderer(null, null);
+        this._renderer = this.rendererFactory.createRenderer(null, null);
     }
 
     /**
@@ -89,7 +90,7 @@ class ManagedFocusContainer {
 
     constructor(
         public readonly element: HTMLElement,
-        private _renderer: Renderer2
+        private readonly _renderer: Renderer2
     ) { }
 
     /** Start managing the focus of child elements. */

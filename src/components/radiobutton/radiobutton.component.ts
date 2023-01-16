@@ -1,5 +1,5 @@
 import { FocusOrigin } from '@angular/cdk/a11y';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, forwardRef, Input, OnChanges, Optional, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, forwardRef, inject, Input, OnChanges, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { FocusIndicatorDirective } from '../../directives/accessibility';
 import { FocusableItemToken } from '../menu';
@@ -24,6 +24,9 @@ let uniqueRadioId = 0;
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RadioButtonComponent<T = any> implements ControlValueAccessor, OnChanges, FocusableControl {
+    private readonly _changeDetector = inject(ChangeDetectorRef);
+
+    private readonly _group = inject(RadioButtonGroupDirective, { optional: true });
 
     /** Provide a default unique id value for the radiobutton */
     _radioButtonId: string = `ux-radio-button-${++uniqueRadioId}`;
@@ -88,11 +91,6 @@ export class RadioButtonComponent<T = any> implements ControlValueAccessor, OnCh
 
     /** Used to inform Angular forms that the component value has changed */
     onChangeCallback: (_: any) => void = () => { };
-
-    constructor(
-        private readonly _changeDetector: ChangeDetectorRef,
-        @Optional() private readonly _group: RadioButtonGroupDirective
-    ) { }
 
     ngOnChanges(changes: SimpleChanges): void {
         if (changes.disabled && this._group && !changes.disabled.firstChange) {

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, forwardRef, Input, Output, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, forwardRef, inject, Input, Output, ViewEncapsulation } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 export const SPIN_BUTTON_VALUE_ACCESSOR: any = {
@@ -15,6 +15,7 @@ export const SPIN_BUTTON_VALUE_ACCESSOR: any = {
     providers: [SPIN_BUTTON_VALUE_ACCESSOR]
 })
 export class SpinButtonComponent implements ControlValueAccessor {
+    private readonly _changeDetector = inject(ChangeDetectorRef);
 
     @Input() set value(value: string | number) {
         this._value = value;
@@ -50,10 +51,8 @@ export class SpinButtonComponent implements ControlValueAccessor {
     onChangeCallback: (_: string | number) => void = () => { };
 
     private _value: string | number;
-    private _regexKeypress = RegExp(/^[0-9.,-]+$/);
-    private _regexPaste = RegExp(/^\-?\d+(\.\d+)?$/);
-
-    constructor(private readonly _changeDetector: ChangeDetectorRef) { }
+    private readonly _regexKeypress = RegExp(/^[0-9.,-]+$/);
+    private readonly _regexPaste = RegExp(/^\-?\d+(\.\d+)?$/);
 
     scroll(event: WheelEvent): void {
 

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ContentChild, Input, TemplateRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ContentChild, inject, Input, TemplateRef } from '@angular/core';
 import { getIconType } from '../../common/index';
 import { NavigationItem } from './navigation-item.interface';
 import { NavigationService } from './navigation.service';
@@ -11,6 +11,7 @@ import { NavigationService } from './navigation.service';
     preserveWhitespaces: false
 })
 export class NavigationComponent {
+    private readonly _navigationService = inject(NavigationService);
 
     /** The navigation items to populate the menu with. */
     @Input()
@@ -45,8 +46,6 @@ export class NavigationComponent {
     get _depthLimit(): number {
         return this.tree ? this._hierarchyClasses.length : 2;
     }
-
-    constructor(private _navigationService: NavigationService) { }
 
     /**
      * Returns true if the sets of items needs to be indented to make room for one or more expander.

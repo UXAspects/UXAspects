@@ -1,10 +1,10 @@
-import { ColumnSortingComponent } from './column-sorting.component';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { ColumnSortingModule } from './column-sorting.module';
-import { ColumnSortingDirective, ColumnSortingState } from './column-sorting.directive';
 import { ChangeDetectionStrategy, DebugElement } from '@angular/core';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { IconComponent } from '../icon';
+import { ColumnSortingComponent } from './column-sorting.component';
+import { ColumnSortingDirective, ColumnSortingState } from './column-sorting.directive';
+import { ColumnSortingModule } from './column-sorting.module';
 
 describe('Column Sorting Component', () => {
     let fixture: ComponentFixture<ColumnSortingComponent>;
@@ -151,10 +151,9 @@ export class ColumnSortingTestHarness {
     stateChangeSpy = spyOn(this._component.stateChange, 'emit');
 
     /** Access the instance of the column sorting directive */
-    private _sorter: ColumnSortingDirective = TestBed.get(ColumnSortingDirective);
+    private readonly _sorter: ColumnSortingDirective = TestBed.get(ColumnSortingDirective);
 
-    constructor(private _fixture: ComponentFixture<ColumnSortingComponent>) {
-    }
+    constructor(private readonly _fixture: ComponentFixture<ColumnSortingComponent>) {}
 
     /** Toggle the sort direction */
     async toggleSort(): Promise<void> {

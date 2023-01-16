@@ -1,5 +1,5 @@
 import { WeekDay } from '@angular/common';
-import { Injectable, OnDestroy, Optional } from '@angular/core';
+import { inject, Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject, Subject, Subscription } from 'rxjs';
 import { DateRangeOptions } from '../date-range-picker/date-range-picker.directive';
 import { DateRangeService } from '../date-range-picker/date-range.service';
@@ -8,6 +8,12 @@ import { dateComparator, DateTimePickerTimezone, meridians, months, monthsShort,
 
 @Injectable()
 export class DateTimePickerService implements OnDestroy {
+
+    private readonly _config = inject(DateTimePickerConfig, { optional: true });
+
+    readonly rangeService = inject(DateRangeService, { optional: true });
+
+    readonly rangeOptions = inject(DateRangeOptions, { optional: true });
 
     mode$: BehaviorSubject<DatePickerMode> = new BehaviorSubject<DatePickerMode>(DatePickerMode.Day);
     date$: BehaviorSubject<Date> = new BehaviorSubject<Date>(new Date());
@@ -52,11 +58,9 @@ export class DateTimePickerService implements OnDestroy {
      */
     initialised: boolean = false;
 
-    private _subscription: Subscription;
+    private readonly _subscription: Subscription;
 
-    constructor(@Optional() private _config: DateTimePickerConfig,
-    @Optional() rangeService: DateRangeService,
-    @Optional() rangeOptions: DateRangeOptions) {
+    constructor() {
 
         // when the active date changes set the currently selected date
         this._subscription = this.selected$.subscribe(date => {
@@ -68,11 +72,11 @@ export class DateTimePickerService implements OnDestroy {
 
             // emit the new date to the component host but only if they are different
             if (!dateComparator(date, this.date$.value)) {
-                if (rangeService) {
-                    if (rangeOptions.picker === 'start') {
-                        rangeService.setStartDate(date);
+                if (this.rangeService) {
+                    if (this.rangeOptions.picker === 'start') {
+                        this.rangeService.setStartDate(date);
                     } else {
-                        rangeService.setEndDate(date);
+                        this.rangeService.setEndDate(date);
                     }
                 } else {
                     this.date$.next(date);

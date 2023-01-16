@@ -1,13 +1,16 @@
-import { AfterViewInit, Directive, ElementRef, HostListener, Renderer2 } from '@angular/core';
+import { AfterViewInit, Directive, ElementRef, HostListener, inject, Renderer2 } from '@angular/core';
 
 @Directive({
   selector: '[uxAutoGrow]'
 })
 export class AutoGrowDirective implements AfterViewInit {
+  private readonly _elementRef = inject(ElementRef);
 
-  constructor(private _elementRef: ElementRef, private _renderer: Renderer2) {
+  private readonly _renderer = inject(Renderer2);
+
+  constructor() {
     // ensure this is a textarea or else throw error
-    if (_elementRef.nativeElement.tagName.toLowerCase() !== 'textarea') {
+    if (this._elementRef.nativeElement.tagName.toLowerCase() !== 'textarea') {
       throw new Error('uxAutoGrow directive can only be used on <textarea> elements.');
     }
   }

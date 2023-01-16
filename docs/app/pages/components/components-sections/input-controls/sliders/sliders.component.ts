@@ -1,5 +1,14 @@
 import { Component } from '@angular/core';
-import { ColorService, SliderCalloutTrigger, SliderOptions, SliderSize, SliderSnap, SliderStyle, SliderType, SliderValue } from '@ux-aspects/ux-aspects';
+import {
+    ColorService,
+    SliderCalloutTrigger,
+    SliderOptions,
+    SliderSize,
+    SliderSnap,
+    SliderStyle,
+    SliderType,
+    SliderValue,
+} from '@ux-aspects/ux-aspects';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
@@ -7,11 +16,13 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 
 @Component({
     selector: 'uxd-components-sliders',
-    templateUrl: './sliders.component.html'
+    templateUrl: './sliders.component.html',
 })
 @DocumentationSectionComponent('ComponentsSlidersComponent')
-export class ComponentsSlidersComponent extends BaseDocumentationSection implements IPlaygroundProvider {
-
+export class ComponentsSlidersComponent
+    extends BaseDocumentationSection
+    implements IPlaygroundProvider
+{
     slider1: SliderExample;
     slider2: SliderExample;
     slider3: SliderExample;
@@ -28,16 +39,23 @@ export class ComponentsSlidersComponent extends BaseDocumentationSection impleme
     playground: IPlayground = {
         files: {
             'app.component.ts': this.snippets.raw.appTs,
-            'app.component.html': this.snippets.raw.appHtml
+            'app.component.html': this.snippets.raw.appHtml,
         },
-        modules: [{
-            imports: ['SliderModule'],
-            library: '@ux-aspects/ux-aspects'
-        }]
+        modules: [
+            {
+                imports: ['SliderModule'],
+                library: '@ux-aspects/ux-aspects',
+            },
+        ],
     };
 
     constructor(colorService: ColorService) {
-        super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
+        super(
+            import.meta.webpackContext('./snippets/', {
+                recursive: false,
+                regExp: /\.(html|css|js|ts)$/,
+            })
+        );
 
         this.slider1 = {
             value: 50,
@@ -47,7 +65,7 @@ export class ComponentsSlidersComponent extends BaseDocumentationSection impleme
                         major: {
                             steps: [0, 50, 100],
                             labels: true,
-                            formatter: (value) => {
+                            formatter: value => {
                                 if (value === 0) {
                                     return 'Minimum';
                                 }
@@ -57,14 +75,14 @@ export class ComponentsSlidersComponent extends BaseDocumentationSection impleme
                                 if (value === 100) {
                                     return 'Maximum';
                                 }
-                            }
+                            },
                         },
                         minor: {
-                            show: false
-                        }
-                    }
-                }
-            }
+                            show: false,
+                        },
+                    },
+                },
+            },
         };
 
         this.slider2 = {
@@ -74,8 +92,8 @@ export class ComponentsSlidersComponent extends BaseDocumentationSection impleme
                     style: SliderStyle.Line,
                     callout: {
                         trigger: SliderCalloutTrigger.Drag,
-                        formatter: value => value ? value.toFixed(1) : value
-                    }
+                        formatter: value => (value ? value.toFixed(1) : value),
+                    },
                 },
                 track: {
                     min: 1,
@@ -83,15 +101,15 @@ export class ComponentsSlidersComponent extends BaseDocumentationSection impleme
                     ticks: {
                         major: {
                             steps: [1, 5],
-                            labels: true
+                            labels: true,
                         },
                         minor: {
                             steps: 1,
-                            labels: false
-                        }
-                    }
-                }
-            }
+                            labels: false,
+                        },
+                    },
+                },
+            },
         };
 
         this.slider3 = {
@@ -105,18 +123,18 @@ export class ComponentsSlidersComponent extends BaseDocumentationSection impleme
                         snap: SliderSnap.All,
                         major: {
                             steps: 5,
-                            labels: true
+                            labels: true,
                         },
                         minor: {
                             steps: 1,
-                            labels: true
-                        }
+                            labels: true,
+                        },
                     },
                     colors: {
-                        lower: colorService.getColor('accent').toHex()
-                    }
-                }
-            }
+                        lower: colorService.getColor('accent').toHex(),
+                    },
+                },
+            },
         };
 
         this.slider4 = {
@@ -126,41 +144,41 @@ export class ComponentsSlidersComponent extends BaseDocumentationSection impleme
                     style: SliderStyle.Line,
                     callout: {
                         trigger: SliderCalloutTrigger.Hover,
-                        formatter: value => value ? value.toFixed(0) : value
-                    }
+                        formatter: value => (value ? value.toFixed(0) : value),
+                    },
                 },
                 track: {
                     height: SliderSize.Narrow,
                     ticks: {
                         major: {
-                            steps: 50
+                            steps: 50,
                         },
                         minor: {
-                            steps: 10
-                        }
+                            steps: 10,
+                        },
                     },
                     colors: {
-                        higher: ['#fdf690', '#f14a50']
-                    }
-                }
-            }
+                        higher: ['#fdf690', '#f14a50'],
+                    },
+                },
+            },
         };
 
         this.slider5 = {
             value: {
                 low: 1234,
-                high: 9876
+                high: 9876,
             },
             options: {
                 type: SliderType.Range,
                 handles: {
                     callout: {
                         trigger: SliderCalloutTrigger.Persistent,
-                        formatter: value => value ? value.toFixed(0) : value
+                        formatter: value => (value ? value.toFixed(0) : value),
                     },
                     keyboard: {
-                        minor: 50
-                    }
+                        minor: 50,
+                    },
                 },
                 track: {
                     height: SliderSize.Narrow,
@@ -168,23 +186,23 @@ export class ComponentsSlidersComponent extends BaseDocumentationSection impleme
                     max: 10000,
                     ticks: {
                         major: {
-                            show: false
+                            show: false,
                         },
                         minor: {
-                            show: false
-                        }
+                            show: false,
+                        },
                     },
                     colors: {
-                        range: colorService.getColor('accent').toHex()
-                    }
-                }
-            }
+                        range: colorService.getColor('accent').toHex(),
+                    },
+                },
+            },
         };
 
         this.slider6 = {
             value: {
                 low: 22,
-                high: 76
+                high: 76,
             },
             options: {
                 type: SliderType.Range,
@@ -193,30 +211,30 @@ export class ComponentsSlidersComponent extends BaseDocumentationSection impleme
                     callout: {
                         trigger: SliderCalloutTrigger.Hover,
                         background: colorService.getColor('alternate1').toHex(),
-                        formatter: value => value ? value.toFixed(0) : value
-                    }
+                        formatter: value => (value ? value.toFixed(0) : value),
+                    },
                 },
                 track: {
                     height: SliderSize.Narrow,
                     ticks: {
                         major: {
-                            steps: 25
+                            steps: 25,
                         },
                         minor: {
-                            steps: 5
-                        }
+                            steps: 5,
+                        },
                     },
                     colors: {
-                        range: colorService.getColor('alternate1').toHex()
-                    }
-                }
-            }
+                        range: colorService.getColor('alternate1').toHex(),
+                    },
+                },
+            },
         };
 
         this.slider7 = {
             value: {
                 low: 25,
-                high: 75
+                high: 75,
             },
             options: {
                 type: SliderType.Range,
@@ -225,24 +243,24 @@ export class ComponentsSlidersComponent extends BaseDocumentationSection impleme
                     callout: {
                         trigger: SliderCalloutTrigger.Hover,
                         background: colorService.getColor('accent').toHex(),
-                        formatter: value => value ? value.toFixed(0) : value
-                    }
+                        formatter: value => (value ? value.toFixed(0) : value),
+                    },
                 },
                 track: {
                     ticks: {
                         snap: SliderSnap.All,
                         major: {
-                            steps: 25
+                            steps: 25,
                         },
                         minor: {
-                            steps: 5
-                        }
+                            steps: 5,
+                        },
                     },
                     colors: {
-                        range: colorService.getColor('accent').toHex()
-                    }
-                }
-            }
+                        range: colorService.getColor('accent').toHex(),
+                    },
+                },
+            },
         };
     }
 
@@ -264,7 +282,6 @@ export class ComponentsSlidersComponent extends BaseDocumentationSection impleme
         this.lowerValue = value.low.toString();
         this.upperValue = value.high.toString();
     }
-
 }
 
 interface SliderExample {

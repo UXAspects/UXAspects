@@ -1,6 +1,6 @@
 import { FocusOrigin } from '@angular/cdk/a11y';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { Directive, ElementRef, EventEmitter, Input, NgZone, OnDestroy, OnInit, Optional, Output } from '@angular/core';
+import { Directive, ElementRef, EventEmitter, inject, Input, NgZone, OnDestroy, OnInit, Output } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { AccessibilityOptionsService } from '../options/accessibility-options.service';
@@ -10,9 +10,18 @@ import { FocusIndicatorService } from './focus-indicator.service';
 
 @Directive({
     selector: '[uxFocusIndicator]',
-    exportAs: 'ux-focus-indicator'
+    exportAs: 'ux-focus-indicator',
 })
 export class FocusIndicatorDirective implements OnInit, OnDestroy {
+    readonly optionsService = inject(AccessibilityOptionsService);
+
+    private readonly _elementRef = inject(ElementRef);
+
+    private readonly _focusIndicatorService = inject(FocusIndicatorService);
+
+    private readonly _ngZone = inject(NgZone);
+
+    readonly localOptions = inject(LocalFocusIndicatorOptions, { optional: true });
 
     /** Specify whether or not we should mark this element as having focus if a child is focused */
     @Input() set checkChildren(checkChildren: boolean | string) {
@@ -81,7 +90,7 @@ export class FocusIndicatorDirective implements OnInit, OnDestroy {
     private _checkChildren: boolean = false;
 
     /** Store all configuation options*/
-    private _options = new Map<string, boolean>();
+    private readonly _options = new Map<string, boolean>();
 
     /** Store a reference to the focus handler */
     private _focusIndicator: FocusIndicator;
@@ -89,22 +98,16 @@ export class FocusIndicatorDirective implements OnInit, OnDestroy {
     /** Unsubscribe on component destroy */
     private readonly _onDestroy = new Subject<void>();
 
-    constructor(
-        private readonly _elementRef: ElementRef,
-        private readonly _focusIndicatorService: FocusIndicatorService,
-        readonly optionsService: AccessibilityOptionsService,
-        private readonly _ngZone: NgZone,
-        @Optional() readonly localOptions?: LocalFocusIndicatorOptions
-    ) {
+    constructor() {
 
         // set the inital option values based on global options
-        for (const option in (optionsService.options || {})) {
-            this._options.set(option, optionsService.options[option]);
+        for (const option in (this.optionsService.options || {})) {
+            this._options.set(option, this.optionsService.options[option]);
         }
 
         // set the inital option values based on local options (if there are any)
-        for (const option in (localOptions || {})) {
-            this._options.set(option, localOptions[option]);
+        for (const option in (this.localOptions || {})) {
+            this._options.set(option, this.localOptions[option]);
         }
     }
 

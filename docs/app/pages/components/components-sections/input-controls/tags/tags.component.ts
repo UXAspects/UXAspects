@@ -12,15 +12,42 @@ import { DocumentationType, DOCUMENTATION_TOKEN } from '../../../../../tokens/do
     styleUrls: ['./tags.component.less'],
 })
 @DocumentationSectionComponent('ComponentsTagsComponent')
-export class ComponentsTagsComponent extends BaseDocumentationSection implements IPlaygroundProvider {
-
+export class ComponentsTagsComponent
+    extends BaseDocumentationSection
+    implements IPlaygroundProvider
+{
     typeaheadDocumentationRoute: string;
 
     tagInput: FormControl;
 
     tags = ['Alpha', 'Beta', 'Kappa'];
 
-    allTags = ['Alpha', 'Beta', 'Gamma', 'Delta', 'Epsilon', 'Zeta', 'Eta', 'Theta', 'Iota', 'Kappa', 'Lambda', 'Mu', 'Nu', 'Xi', 'Omicron', 'Pi', 'Rho', 'Sigma', 'Tau', 'Upsilon', 'Phi', 'Chi', 'Psi', 'Omega'];
+    allTags = [
+        'Alpha',
+        'Beta',
+        'Gamma',
+        'Delta',
+        'Epsilon',
+        'Zeta',
+        'Eta',
+        'Theta',
+        'Iota',
+        'Kappa',
+        'Lambda',
+        'Mu',
+        'Nu',
+        'Xi',
+        'Omicron',
+        'Pi',
+        'Rho',
+        'Sigma',
+        'Tau',
+        'Upsilon',
+        'Phi',
+        'Chi',
+        'Psi',
+        'Omega',
+    ];
 
     input: string;
 
@@ -57,17 +84,34 @@ export class ComponentsTagsComponent extends BaseDocumentationSection implements
         files: {
             'app.component.ts': this.snippets.raw.appTs,
             'app.component.html': this.snippets.raw.appHtml,
-            'app.component.css': this.snippets.raw.appCss
+            'app.component.css': this.snippets.raw.appCss,
         },
-        modules: [{
-            imports: ['TagInputModule', 'TypeaheadModule', 'CheckboxModule', 'RadioButtonModule', 'NumberPickerModule', 'AccordionModule'],
-            library: '@ux-aspects/ux-aspects'
-        }]
+        modules: [
+            {
+                imports: [
+                    'TagInputModule',
+                    'TypeaheadModule',
+                    'CheckboxModule',
+                    'RadioButtonModule',
+                    'NumberPickerModule',
+                    'AccordionModule',
+                ],
+                library: '@ux-aspects/ux-aspects',
+            },
+        ],
     };
 
     constructor(@Inject(DOCUMENTATION_TOKEN) private _documentationType: DocumentationType) {
-        super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
+        super(
+            import.meta.webpackContext('./snippets/', {
+                recursive: false,
+                regExp: /\.(html|css|js|ts)$/,
+            })
+        );
 
-        this.typeaheadDocumentationRoute = _documentationType === DocumentationType.MicroFocus ? 'ui-components/input-controls' : 'components/input-controls';
+        this.typeaheadDocumentationRoute =
+            _documentationType === DocumentationType.MicroFocus
+                ? 'ui-components/input-controls'
+                : 'components/input-controls';
     }
 }

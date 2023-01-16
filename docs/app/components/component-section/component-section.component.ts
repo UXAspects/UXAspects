@@ -42,12 +42,12 @@ export class ComponentSectionComponent<T> implements OnInit, OnDestroy {
     SiteThemeId = SiteThemeId;
 
     private _documentationSection: T;
-    private _onDestroy = new Subject<void>();
+    private readonly _onDestroy = new Subject<void>();
 
     constructor(
-        private _resolverService: ResolverService,
-        private _navigationService: NavigationService,
-        private _siteThemeService: SiteThemeService
+        private readonly _resolverService: ResolverService,
+        private readonly _navigationService: NavigationService,
+        private readonly _siteThemeService: SiteThemeService
     ) { }
 
     ngOnInit(): void {

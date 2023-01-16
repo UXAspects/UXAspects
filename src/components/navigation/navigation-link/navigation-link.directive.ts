@@ -1,11 +1,11 @@
 import { LocationStrategy } from '@angular/common';
-import { ChangeDetectorRef, Directive, HostBinding, HostListener, Inject, Input, OnChanges, OnDestroy, OnInit, Optional } from '@angular/core';
+import { ChangeDetectorRef, Directive, HostBinding, HostListener, inject, Input, OnChanges, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
 import { tick } from '../../../common/index';
 import { NavigationItem, NavigationItemRouterOptions } from '../navigation-item.interface';
-import { NavigationModuleOptions, NAVIGATION_MODULE_OPTIONS } from '../navigation-options';
+import { NAVIGATION_MODULE_OPTIONS } from '../navigation-options';
 import { NavigationService } from '../navigation.service';
 
 @Directive({
@@ -13,6 +13,17 @@ import { NavigationService } from '../navigation.service';
     exportAs: 'uxNavigationLink'
 })
 export class NavigationLinkDirective implements OnInit, OnChanges, OnDestroy {
+    private readonly _router = inject(Router);
+
+    private readonly _locationStrategy = inject(LocationStrategy);
+
+    private readonly _navigationService = inject(NavigationService);
+
+    private readonly _changeDetector = inject(ChangeDetectorRef);
+
+    private readonly _route = inject(ActivatedRoute);
+
+    private readonly _options = inject(NAVIGATION_MODULE_OPTIONS, { optional: true });
 
     /** The NavigationItem this element represents */
     @Input() navigationItem: NavigationItem;
@@ -42,19 +53,11 @@ export class NavigationLinkDirective implements OnInit, OnChanges, OnDestroy {
     indentChildren: boolean;
 
     /** Emit with the current expaned state */
-    private _expanded$ = new Subject<boolean>();
+    private readonly _expanded$ = new Subject<boolean>();
 
     /** Unsubscribe from all observables when this directive is destroyed */
-    private _onDestroy = new Subject<void>();
+    private readonly _onDestroy = new Subject<void>();
 
-    constructor(
-        private _router: Router,
-        private _locationStrategy: LocationStrategy,
-        private _navigationService: NavigationService,
-        private _changeDetector: ChangeDetectorRef,
-        private _route: ActivatedRoute,
-        @Optional() @Inject(NAVIGATION_MODULE_OPTIONS) private _options: NavigationModuleOptions
-    ) { }
 
     ngOnInit(): void {
 

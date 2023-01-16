@@ -1,6 +1,6 @@
-import { Directive, ElementRef, HostBinding, HostListener, Input, OnDestroy, OnInit } from '@angular/core';
-import { takeUntil } from 'rxjs/operators';
+import { Directive, ElementRef, HostBinding, HostListener, inject, Input, OnDestroy, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { ManagedFocusContainerService } from '../accessibility/managed-focus-container/managed-focus-container.service';
 import { HoverActionService } from './hover-action.service';
 
@@ -9,6 +9,11 @@ import { HoverActionService } from './hover-action.service';
     providers: [HoverActionService]
 })
 export class HoverActionContainerDirective implements OnInit, OnDestroy {
+    private readonly _elementRef = inject(ElementRef);
+
+    private readonly _managedFocusContainerService = inject(ManagedFocusContainerService);
+
+    private readonly _hoverActionService = inject(HoverActionService);
 
     @Input()
     @HostBinding('tabindex')
@@ -17,13 +22,7 @@ export class HoverActionContainerDirective implements OnInit, OnDestroy {
     @HostBinding('class.hover-action-container-active')
     active: boolean = false;
 
-    private _onDestroy = new Subject<void>();
-
-    constructor(
-        private _elementRef: ElementRef,
-        private _managedFocusContainerService: ManagedFocusContainerService,
-        private _hoverActionService: HoverActionService
-    ) { }
+    private readonly _onDestroy = new Subject<void>();
 
     ngOnInit(): void {
 

@@ -1,5 +1,5 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
-import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, Optional } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, OnDestroy } from '@angular/core';
 import { merge, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { DateRangeOptions } from '../../date-range-picker/date-range-picker.directive';
@@ -15,6 +15,18 @@ import { FocusedMonthItem, MonthViewItem, MonthViewService } from './month-view.
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MonthViewComponent implements AfterViewInit, OnDestroy {
+    readonly monthService = inject(MonthViewService);
+
+    private readonly _datePicker = inject(DateTimePickerService);
+
+    private readonly _liveAnnouncer = inject(LiveAnnouncer);
+
+    private readonly _changeDetector = inject(ChangeDetectorRef);
+
+    private readonly _rangeService = inject(DateRangeService, { optional: true});
+
+    private readonly _rangeOptions = inject(DateRangeOptions, { optional: true});
+
 
     /** Determine if we are in range selection mode */
     get _isRangeMode(): boolean {
@@ -47,21 +59,15 @@ export class MonthViewComponent implements AfterViewInit, OnDestroy {
         return this._datePicker.max$.value ? new Date(this._datePicker.max$.value.getFullYear(), this._datePicker.max$.value.getMonth()) : null;
     }
 
-    private _onDestroy = new Subject<void>();
+    private readonly _onDestroy = new Subject<void>();
 
-    constructor(
-        private _datePicker: DateTimePickerService,
-        public monthService: MonthViewService,
-        private _liveAnnouncer: LiveAnnouncer,
-        private _changeDetector: ChangeDetectorRef,
-        @Optional() private _rangeService: DateRangeService,
-        @Optional() private _rangeOptions: DateRangeOptions) {
+    constructor() {
 
-        _datePicker.headerEvent$.pipe(takeUntil(this._onDestroy))
+        this._datePicker.headerEvent$.pipe(takeUntil(this._onDestroy))
             .subscribe(event => event === DatePickerHeaderEvent.Next ? this.next() : this.previous());
 
         if (this._rangeService) {
-            this._rangeService.onRangeChange.pipe(takeUntil(this._onDestroy)).subscribe(() => _changeDetector.detectChanges());
+            this._rangeService.onRangeChange.pipe(takeUntil(this._onDestroy)).subscribe(() => this._changeDetector.detectChanges());
         }
 
         // if the currently focused item is disabled then choose a month that isn't disabled

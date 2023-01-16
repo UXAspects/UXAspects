@@ -1,9 +1,9 @@
-import { Directive } from '@angular/core';
+import { Directive, inject } from '@angular/core';
 import { MediaPlayerService } from '../media-player.service';
 
 @Directive({
     selector: '[mediaPlayerBaseExtension]'
 })
 export class MediaPlayerBaseExtensionDirective {
-    constructor(public mediaPlayerService: MediaPlayerService) { }
+    readonly mediaPlayerService = inject(MediaPlayerService);
 }

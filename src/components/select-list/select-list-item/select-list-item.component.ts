@@ -1,6 +1,6 @@
-import { Component, ElementRef, HostBinding, HostListener, Input, OnDestroy } from '@angular/core';
-import { filter, takeUntil } from 'rxjs/operators';
+import { Component, ElementRef, HostBinding, HostListener, inject, Input, OnDestroy } from '@angular/core';
 import { Subject } from 'rxjs';
+import { filter, takeUntil } from 'rxjs/operators';
 import { tick } from '../../../common/index';
 import { FocusIndicator, FocusIndicatorService } from '../../../directives/accessibility/index';
 import { SelectionService } from '../../../directives/selection/selection.service';
@@ -13,6 +13,11 @@ import { SelectionService } from '../../../directives/selection/selection.servic
     }
 })
 export class SelectListItemComponent<T> implements OnDestroy {
+    private readonly _selection = inject<SelectionService<T>>(SelectionService);
+
+    readonly elementRef = inject(ElementRef);
+
+    readonly focusIndicatorService = inject(FocusIndicatorService);
 
     /** This should define the data this item represents. This value will appear in the selected array whenever this item is selected. */
     @Input() data: T;
@@ -30,23 +35,23 @@ export class SelectListItemComponent<T> implements OnDestroy {
     }
 
     /** Store a reference to the focus indicator instance */
-    private _focusIndicator: FocusIndicator;
+    private readonly _focusIndicator: FocusIndicator;
 
     /** Unsubscribe from all subscriptions on destroy */
-    private _onDestroy = new Subject<void>();
+    private readonly _onDestroy = new Subject<void>();
 
-    constructor(private _selection: SelectionService<T>, elementRef: ElementRef, focusIndicatorService: FocusIndicatorService) {
+    constructor() {
 
         // create the focus indicator
-        this._focusIndicator = focusIndicatorService.monitor(elementRef.nativeElement);
+        this._focusIndicator = this.focusIndicatorService.monitor(this.elementRef.nativeElement);
 
-        _selection.active$.pipe(takeUntil(this._onDestroy), filter(data => data === this.data)).subscribe(active => {
-            _selection.focus$.next(active);
-            elementRef.nativeElement.focus();
+        this._selection.active$.pipe(takeUntil(this._onDestroy), filter(data => data === this.data)).subscribe(active => {
+            this._selection.focus$.next(active);
+            this.elementRef.nativeElement.focus();
         });
 
         // make this item tabbable or not based on the focused element
-        _selection.focus$.pipe(takeUntil(this._onDestroy), tick())
+        this._selection.focus$.pipe(takeUntil(this._onDestroy), tick())
             .subscribe(focused => this.tabindex = focused === this.data ? 0 : -1);
     }
 

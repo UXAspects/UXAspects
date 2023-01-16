@@ -7,11 +7,13 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 
 @Component({
     selector: 'uxd-component-list',
-    templateUrl: './component-list.component.html'
+    templateUrl: './component-list.component.html',
 })
 @DocumentationSectionComponent('ComponentsComponentListComponent')
-export class ComponentsComponentListComponent extends BaseDocumentationSection implements IPlaygroundProvider {
-
+export class ComponentsComponentListComponent
+    extends BaseDocumentationSection
+    implements IPlaygroundProvider
+{
     playground: IPlayground = {
         files: {
             'app.component.html': this.snippets.raw.appHtml,
@@ -20,15 +22,13 @@ export class ComponentsComponentListComponent extends BaseDocumentationSection i
         modules: [
             {
                 imports: ['FocusIfModule'],
-                library: '@ux-aspects/ux-aspects'
-            }
-        ]
+                library: '@ux-aspects/ux-aspects',
+            },
+        ],
     };
 
     form = new FormGroup({
-        items: new FormArray([
-            new FormControl(null, [Validators.required])
-        ])
+        items: new FormArray([new FormControl(null, [Validators.required])]),
     });
 
     get items(): FormArray {
@@ -36,7 +36,12 @@ export class ComponentsComponentListComponent extends BaseDocumentationSection i
     }
 
     constructor() {
-        super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
+        super(
+            import.meta.webpackContext('./snippets/', {
+                recursive: false,
+                regExp: /\.(html|css|js|ts)$/,
+            })
+        );
     }
 
     add(): void {

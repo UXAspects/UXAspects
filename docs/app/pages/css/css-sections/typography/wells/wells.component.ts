@@ -17,7 +17,7 @@ export class CssWellsComponent extends BaseDocumentationSection implements IPlay
     });
 
     constructor() {
-        super(require.context('./snippets/', false, /(html|css|js|ts)$/));
+        super(import.meta.webpackContext('./snippets/', { recursive: false, regExp: /\.(html|css|js|ts)$/ }));
     }
 
 }

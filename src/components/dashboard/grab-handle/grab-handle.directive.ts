@@ -1,8 +1,8 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { DOWN_ARROW, ENTER, ESCAPE, LEFT_ARROW, RIGHT_ARROW, SPACE, UP_ARROW } from '@angular/cdk/keycodes';
-import { Directive, ElementRef, HostBinding, HostListener, Input, OnDestroy, OnInit } from '@angular/core';
-import { map, takeUntil } from 'rxjs/operators';
+import { Directive, ElementRef, HostBinding, HostListener, inject, Input, OnDestroy, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
+import { map, takeUntil } from 'rxjs/operators';
 import { ActionDirection, DashboardCache, DashboardService } from '../dashboard.service';
 import { DashboardWidgetComponent } from '../widget/dashboard-widget.component';
 import { DashboardGrabHandleService } from './grab-handle.service';
@@ -12,6 +12,15 @@ import { DashboardGrabHandleService } from './grab-handle.service';
     exportAs: 'ux-dashboard-grab-handle'
 })
 export class DashboardGrabHandleDirective implements OnInit, OnDestroy {
+    readonly widget = inject(DashboardWidgetComponent);
+
+    private readonly _dashboard = inject(DashboardService);
+
+    private readonly _handle = inject(DashboardGrabHandleService);
+
+    private readonly _elementRef = inject(ElementRef);
+
+    private readonly _announcer = inject(LiveAnnouncer);
 
     /** Specify whether or not this handle can be used to perform moving */
     @Input() uxGrabAllowMove: boolean = true;
@@ -56,23 +65,18 @@ export class DashboardGrabHandleDirective implements OnInit, OnDestroy {
     private _lastMovement: DashboardCache[];
 
     /** Emit when the directive is destroyed to unsubscribe from all observables */
-    private _onDestroy = new Subject<void>();
+    private readonly _onDestroy = new Subject<void>();
 
-    constructor(
-        public widget: DashboardWidgetComponent,
-        private _dashboard: DashboardService,
-        private _handle: DashboardGrabHandleService,
-        private _elementRef: ElementRef,
-        private _announcer: LiveAnnouncer) {
+    constructor() {
 
-        if (!widget) {
+        if (!this.widget) {
             throw new Error('uxDashboardGrabHandle must be used within a dashboard widget');
         }
 
-        _handle.addHandle(this);
+        this._handle.addHandle(this);
 
         // subscribe to changes to the current grab state
-        _dashboard.isGrabbing$.pipe(takeUntil(this._onDestroy), map(_widget => _widget === widget))
+        this._dashboard.isGrabbing$.pipe(takeUntil(this._onDestroy), map(_widget => _widget === this.widget))
             .subscribe(isGrabbing => this.isGrabbing = isGrabbing);
     }
 

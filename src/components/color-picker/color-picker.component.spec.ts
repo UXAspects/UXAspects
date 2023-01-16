@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ColorService, ColorServiceModule, colorSets } from '../../services/color/index';
 import { ColorPickerColor } from './color-picker-color';
@@ -19,7 +19,9 @@ import { ColorPickerInputMode } from './color-picker.type';
 })
 export class ColorPickerTestComponent {
 
-    private _colorNames = [
+    private readonly _colorService = inject(ColorService);
+
+    private readonly _colorNames = [
         ['Primary', 'Accent', 'Secondary', 'Alternate1', 'Alternate2', 'Alternate3', 'Vibrant1',
             'Vibrant2'],
         ['Grey1', 'Grey2', 'Grey3', 'Grey4', 'Grey5', 'Grey6', 'Grey7', 'Grey8']
@@ -28,9 +30,6 @@ export class ColorPickerTestComponent {
     colors = this._colorNames.map(row => row.map(colorName => new ColorPickerColor(colorName, this._colorService.resolve(colorName))));
     selected: ColorPickerColor = this.colors[0][0];
     inputMode: ColorPickerInputMode = 'hex';
-
-    constructor(private _colorService: ColorService) { }
-
 }
 
 describe('Color Picker Component', () => {

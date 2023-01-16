@@ -1,5 +1,5 @@
 import { formatDate } from '@angular/common';
-import { Inject, LOCALE_ID, Pipe, PipeTransform } from '@angular/core';
+import { inject, LOCALE_ID, Pipe, PipeTransform } from '@angular/core';
 import { DateFormatter } from './date-formatter.type';
 
 @Pipe({
@@ -7,7 +7,7 @@ import { DateFormatter } from './date-formatter.type';
 })
 export class DateFormatterPipe implements PipeTransform {
 
-    constructor(@Inject(LOCALE_ID) private _locale: string) { }
+    private readonly _locale = inject<string>(LOCALE_ID);
 
     transform(value: Date, formatter: string | DateFormatter): string {
 

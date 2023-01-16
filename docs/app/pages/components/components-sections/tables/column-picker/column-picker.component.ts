@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ColumnPickerGroupItem, ColumnPickerGroup } from '@ux-aspects/ux-aspects';
+import { ColumnPickerGroup, ColumnPickerGroupItem } from '@ux-aspects/ux-aspects';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
@@ -8,24 +8,18 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 @Component({
     selector: 'uxd-components-column-picker',
     templateUrl: './column-picker.component.html',
-    styleUrls: ['./column-picker.component.less']
+    styleUrls: ['./column-picker.component.less'],
 })
 @DocumentationSectionComponent('ComponentsColumnPickerComponent')
-export class ComponentsColumnPickerComponent extends BaseDocumentationSection implements IPlaygroundProvider {
-
+export class ComponentsColumnPickerComponent
+    extends BaseDocumentationSection
+    implements IPlaygroundProvider
+{
     /** Store a list of all selected columns */
-    selected: ReadonlyArray<string> = [
-        'Type',
-        'Date',
-        'Requested by',
-        'Status',
-        'Completion'
-    ];
+    selected: ReadonlyArray<string> = ['Type', 'Date', 'Requested by', 'Status', 'Completion'];
 
     /** Store a list of columns that must be selected */
-    locked: ReadonlyArray<string> = [
-        'ID'
-    ];
+    locked: ReadonlyArray<string> = ['ID'];
 
     /** Store a list of columns that are not selected or locked */
     deselected: ReadonlyArray<string | ColumnPickerGroupItem> = [
@@ -46,28 +40,31 @@ export class ComponentsColumnPickerComponent extends BaseDocumentationSection im
         'Time',
         'Time Created',
         'Time Modified',
-        'Work Completed'
+        'Work Completed',
     ];
 
-    groups: ColumnPickerGroup[] = [
-        { name: 'Metadata', expanded: true }
-    ];
+    groups: ColumnPickerGroup[] = [{ name: 'Metadata', expanded: true }];
 
     playground: IPlayground = {
         files: {
             'app.component.html': this.snippets.raw.appHtml,
             'app.component.ts': this.snippets.raw.appTs,
-            'app.component.css': this.snippets.raw.appCss
+            'app.component.css': this.snippets.raw.appCss,
         },
         modules: [
             {
                 imports: ['TableModule'],
-                library: '@ux-aspects/ux-aspects'
-            }
-        ]
+                library: '@ux-aspects/ux-aspects',
+            },
+        ],
     };
 
     constructor() {
-        super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
+        super(
+            import.meta.webpackContext('./snippets/', {
+                recursive: false,
+                regExp: /\.(html|css|js|ts)$/,
+            })
+        );
     }
 }

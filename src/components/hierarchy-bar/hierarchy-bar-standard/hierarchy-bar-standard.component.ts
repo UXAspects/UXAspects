@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ElementRef, Input, OnDestroy, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, inject, Input, OnDestroy, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { HierarchyBarNodeComponent } from '../hierarchy-bar-node/hierarchy-bar-node.component';
@@ -11,6 +11,8 @@ import { HierarchyBarNode } from '../interfaces/hierarchy-bar-node.interface';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HierarchyBarStandardComponent implements OnDestroy {
+    readonly hierarchyBar = inject(HierarchyBarService);
+
     /** Determine the mode of the hierarchy bar */
     @Input() mode: string;
 
@@ -38,11 +40,11 @@ export class HierarchyBarStandardComponent implements OnDestroy {
     isOverflowing$ = new BehaviorSubject<boolean>(false);
 
     /** Unsubscribe from all subscriptions when component is destroyed */
-    private _onDestroy = new Subject<void>();
+    private readonly _onDestroy = new Subject<void>();
 
-    constructor(public readonly hierarchyBar: HierarchyBarService) {
+    constructor() {
         // subscribe to changes in the selected node - update the UI after the render
-        hierarchyBar.nodes$
+        this.hierarchyBar.nodes$
             .pipe(takeUntil(this._onDestroy))
             .subscribe(() => requestAnimationFrame(this.scrollIntoView.bind(this)));
     }

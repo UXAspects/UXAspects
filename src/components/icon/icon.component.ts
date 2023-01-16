@@ -1,5 +1,5 @@
 import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
-import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, Input, OnChanges, OnDestroy, Renderer2, SimpleChanges } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, inject, Input, OnChanges, OnDestroy, Renderer2, SimpleChanges } from '@angular/core';
 import { Subject } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
 import { IconService } from './icon.service';
@@ -19,6 +19,11 @@ import { IconDefinition } from './iconsets/iconset.interface';
     }
 })
 export class IconComponent implements OnChanges, AfterViewInit, OnDestroy {
+    private readonly _elementRef = inject(ElementRef);
+
+    private readonly _renderer = inject(Renderer2);
+
+    private readonly _iconService = inject(IconService);
 
     /** Define the icon to display */
     @Input() name: string;
@@ -67,12 +72,6 @@ export class IconComponent implements OnChanges, AfterViewInit, OnDestroy {
 
     /** Automatically unsubscribe from observables */
     private readonly _onDestroy = new Subject<void>();
-
-    constructor(
-        private readonly _elementRef: ElementRef,
-        private readonly _renderer: Renderer2,
-        private readonly _iconService: IconService,
-    ) { }
 
     /** When inputs change ensure we have the best icon definition */
     ngOnChanges(changes: SimpleChanges): void {
@@ -123,6 +122,5 @@ export class IconComponent implements OnChanges, AfterViewInit, OnDestroy {
         }
     }
 }
-
 
 export type IconRotation = 90 | 180 | 270;

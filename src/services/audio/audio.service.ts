@@ -1,17 +1,16 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Observable, Observer, of } from 'rxjs';
 
 @Injectable()
 export class AudioService {
+    private readonly _http = inject(HttpClient);
 
     private _audioBuffer: AudioBuffer;
     private _audioBufferSource: AudioBufferSourceNode;
     private _audioContext: AudioContext;
     private _gainNode: GainNode;
     private _analyserNode: AnalyserNode;
-
-    constructor(private _http: HttpClient) { }
 
     getAudioFileMetadata(mediaElement: HTMLMediaElement): Observable<AudioMetadata> {
         return Observable.create((observer: Observer<AudioMetadata>) => {

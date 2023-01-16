@@ -7,16 +7,23 @@ import { playgroundAdapter } from '../../../../../services/playground/adapters/l
 
 @Component({
     selector: 'uxd-css-typography-emphasis-classes',
-    templateUrl: './emphasis-classes.component.html'
+    templateUrl: './emphasis-classes.component.html',
 })
 @DocumentationSectionComponent('CssEmphasisClassesComponent')
-export class CssEmphasisClassesComponent extends BaseDocumentationSection implements IPlaygroundProvider {
-
+export class CssEmphasisClassesComponent
+    extends BaseDocumentationSection
+    implements IPlaygroundProvider
+{
     playground: IPlayground = playgroundAdapter({
-        html: this.snippets.raw.sampleHtml
+        html: this.snippets.raw.sampleHtml,
     });
 
     constructor() {
-        super(require.context('./snippets/', false, /(html|css|js|ts)$/));
+        super(
+            import.meta.webpackContext('./snippets/', {
+                recursive: false,
+                regExp: /\.(html|css|js|ts)$/,
+            })
+        );
     }
 }

@@ -1,6 +1,5 @@
-import { ContentChildren, Directive, ElementRef, Inject, QueryList, Renderer2 } from '@angular/core';
+import { ContentChildren, Directive, QueryList } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
-import { ResizeService } from '../../../../directives/resize/index';
 import { BaseResizableTableDirective } from '../resizable-table-base.directive';
 import { ResizableTableColumnComponent } from '../resizable-table-column.component';
 import { RESIZABLE_TABLE_SERVICE_TOKEN } from '../resizable-table-service.token';
@@ -24,8 +23,8 @@ export class ResizableTableDirective extends BaseResizableTableDirective {
     /** Get all the column headers */
     @ContentChildren(ResizableTableColumnComponent, { descendants: true }) columns: QueryList<ResizableTableColumnComponent>;
 
-    constructor(elementRef: ElementRef<HTMLTableElement>, @Inject(RESIZABLE_TABLE_SERVICE_TOKEN) table: ResizableTableService, renderer: Renderer2, resize: ResizeService) {
-        super(elementRef, table, renderer, resize);
+    constructor() {
+        super();
         // we should hide any horizontal overflow when we are resizing
         this._table.isResizing$.pipe(takeUntil(this._onDestroy)).subscribe(this.setOverflow.bind(this));
     }

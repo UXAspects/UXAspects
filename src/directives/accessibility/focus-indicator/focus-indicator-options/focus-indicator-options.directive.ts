@@ -1,4 +1,4 @@
-import { Directive, Input, Self } from '@angular/core';
+import { Directive, inject, Input } from '@angular/core';
 import { AccessibilityOptions } from '../../options/accessibility-options.interface';
 import { LocalFocusIndicatorOptions } from './focus-indicator-options';
 
@@ -7,6 +7,7 @@ import { LocalFocusIndicatorOptions } from './focus-indicator-options';
     providers: [LocalFocusIndicatorOptions]
 })
 export class FocusIndicatorOptionsDirective implements AccessibilityOptions {
+    private readonly _options = inject(LocalFocusIndicatorOptions, { self: true });
 
     /** If `true`, this element will receive a focus indicator when the element is clicked on. */
     @Input() set mouseFocusIndicator(mouseFocusIndicator: boolean) {
@@ -27,8 +28,4 @@ export class FocusIndicatorOptionsDirective implements AccessibilityOptions {
     @Input() set programmaticFocusIndicator(programmaticFocusIndicator: boolean) {
         this._options.programmaticFocusIndicator = programmaticFocusIndicator;
     }
-
-
-    constructor(@Self() private _options: LocalFocusIndicatorOptions) { }
-
 }

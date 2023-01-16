@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, inject, OnDestroy } from '@angular/core';
 import { SearchBuilderComponentContext } from '../interfaces/component-context.interface';
 import { SearchBuilderService } from '../search-builder.service';
 
@@ -7,6 +7,7 @@ import { SearchBuilderService } from '../search-builder.service';
     template: ''
 })
 export class BaseSearchComponent implements OnDestroy {
+    private readonly _searchBuilderService = inject(SearchBuilderService);
 
     get id(): string {
         return `ux-search-builder-search-component-${this._id}`;
@@ -44,10 +45,8 @@ export class BaseSearchComponent implements OnDestroy {
         this._searchBuilderService.setValid(this._id, valid);
     }
 
-    private _id: number = this._searchBuilderService.generateComponentId();
+    private readonly _id: number = this._searchBuilderService.generateComponentId();
     private _valid: boolean = true;
-
-    constructor(private _searchBuilderService: SearchBuilderService) { }
 
     /**
      * Make sure we clean up after ourselves

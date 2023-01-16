@@ -11,7 +11,7 @@ export class SearchBuilderService {
   validationChange: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
 
   private _componentId: number = 0;
-  private _components: SearchBuilderComponentDefinition[] = [];
+  private readonly _components: SearchBuilderComponentDefinition[] = [];
   private _validation: { [key: number]: boolean } = {};
 
   /**

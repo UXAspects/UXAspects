@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, Input, OnDestroy, Output, HostBinding } from '@angular/core';
+import { Component, ElementRef, EventEmitter, HostBinding, inject, Input, OnDestroy, Output } from '@angular/core';
 import { FocusIndicator, FocusIndicatorService } from '../../../../directives/accessibility/index';
 
 @Component({
@@ -14,6 +14,8 @@ import { FocusIndicator, FocusIndicatorService } from '../../../../directives/ac
     }
 })
 export class FacetHeaderComponent implements OnDestroy {
+    readonly focusIndicatorService = inject(FocusIndicatorService);
+    readonly elementRef = inject(ElementRef);
 
     /** Defines the text to display in the header. */
     @Input() header: string;
@@ -28,10 +30,10 @@ export class FacetHeaderComponent implements OnDestroy {
     @Output() expandedChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
     /** Store Focus Indicator instance */
-    private _focusIndicator: FocusIndicator;
+    private readonly _focusIndicator: FocusIndicator;
 
-    constructor(focusIndicatorService: FocusIndicatorService, elementRef: ElementRef) {
-        this._focusIndicator = focusIndicatorService.monitor(elementRef.nativeElement);
+    constructor() {
+        this._focusIndicator = this.focusIndicatorService.monitor(this.elementRef.nativeElement);
     }
 
     ngOnDestroy(): void {

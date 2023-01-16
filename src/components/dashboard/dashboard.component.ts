@@ -1,4 +1,4 @@
-import { AfterContentInit, AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, ElementRef, EventEmitter, HostBinding, Input, OnChanges, OnDestroy, Output, QueryList, ViewChild } from '@angular/core';
+import { AfterContentInit, AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, ElementRef, EventEmitter, HostBinding, inject, Input, OnChanges, OnDestroy, Output, QueryList, ViewChild } from '@angular/core';
 import { Subject } from 'rxjs';
 import { map, takeUntil, tap } from 'rxjs/operators';
 import { ResizeDimensions } from '../../directives/resize/resize.service';
@@ -17,6 +17,10 @@ import { DashboardWidgetComponent } from './widget/dashboard-widget.component';
     ]
 })
 export class DashboardComponent implements AfterViewInit, AfterContentInit, OnDestroy, OnChanges {
+
+    readonly dashboardService = inject(DashboardService);
+
+    private readonly _changeDetector = inject(ChangeDetectorRef);
 
     isGrabbing: boolean = false;
 
@@ -46,17 +50,17 @@ export class DashboardComponent implements AfterViewInit, AfterContentInit, OnDe
     @ContentChildren(DashboardGrabHandleDirective, { descendants: true }) handles: QueryList<DashboardGrabHandleDirective>;
 
     /** Ensure we unsubscribe from all observables */
-    private _onDestroy = new Subject<void>();
+    private readonly _onDestroy = new Subject<void>();
 
-    constructor(public dashboardService: DashboardService, private readonly _changeDetector: ChangeDetectorRef) {
+    constructor() {
 
-        dashboardService.layout$.pipe(takeUntil(this._onDestroy), tap(() => this.ariaLabel = this.getAriaLabel()))
-            .subscribe(() => _changeDetector.markForCheck());
+        this.dashboardService.layout$.pipe(takeUntil(this._onDestroy), tap(() => this.ariaLabel = this.getAriaLabel()))
+            .subscribe(() => this._changeDetector.markForCheck());
 
-        dashboardService.userLayoutChange$.pipe(takeUntil(this._onDestroy)).subscribe(data => this.layoutChange.emit(data));
+            this.dashboardService.userLayoutChange$.pipe(takeUntil(this._onDestroy)).subscribe(data => this.layoutChange.emit(data));
 
         // subscribe to changes to the grab mode
-        dashboardService.isGrabbing$.pipe(takeUntil(this._onDestroy), map(widget => !!widget))
+        this.dashboardService.isGrabbing$.pipe(takeUntil(this._onDestroy), map(widget => !!widget))
             .subscribe(isGrabbing => this.isGrabbing = isGrabbing);
     }
 

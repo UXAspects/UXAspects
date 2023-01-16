@@ -7,17 +7,23 @@ import { playgroundAdapter } from '../../../../../services/playground/adapters/l
 
 @Component({
     selector: 'uxd-css-panels-basic-panel',
-    templateUrl: './basic-panel.component.html'
+    templateUrl: './basic-panel.component.html',
 })
 @DocumentationSectionComponent('CssBasicPanelComponent')
-export class CssBasicPanelComponent extends BaseDocumentationSection implements IPlaygroundProvider {
-
+export class CssBasicPanelComponent
+    extends BaseDocumentationSection
+    implements IPlaygroundProvider
+{
     playground: IPlayground = playgroundAdapter({
-        html: this.snippets.raw.sampleHtml
+        html: this.snippets.raw.sampleHtml,
     });
 
     constructor() {
-        super(require.context('./snippets/', false, /(html|css|js|ts)$/));
+        super(
+            import.meta.webpackContext('./snippets/', {
+                recursive: false,
+                regExp: /\.(html|css|js|ts)$/,
+            })
+        );
     }
-
 }

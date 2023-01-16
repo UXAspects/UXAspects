@@ -1,5 +1,5 @@
 import { isPlatformBrowser } from '@angular/common';
-import { AfterViewInit, ContentChildren, Directive, ElementRef, EventEmitter, HostListener, Inject, OnDestroy, Output, PLATFORM_ID, QueryList, Renderer2 } from '@angular/core';
+import { AfterViewInit, ContentChildren, Directive, ElementRef, EventEmitter, HostListener, inject, OnDestroy, OnInit, Output, PLATFORM_ID, QueryList, Renderer2 } from '@angular/core';
 import { SplitAreaDirective, SplitComponent } from 'angular-split';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -9,7 +9,16 @@ import { FocusIndicatorService } from '../focus-indicator/focus-indicator.servic
 @Directive({
     selector: 'as-split'
 })
-export class SplitterAccessibilityDirective implements AfterViewInit, OnDestroy {
+export class SplitterAccessibilityDirective implements OnInit, AfterViewInit, OnDestroy {
+    private readonly _elementRef = inject(ElementRef);
+
+    private readonly _renderer = inject(Renderer2);
+
+    private readonly _splitter = inject(SplitComponent);
+
+    private readonly _focusIndicatorService = inject(FocusIndicatorService);
+
+    private readonly _platform = inject<string>(PLATFORM_ID);
 
     /** Emit an event whenever the gutter is moved using the keyboard */
     @Output() gutterKeydown = new EventEmitter<KeyboardEvent>();
@@ -24,20 +33,14 @@ export class SplitterAccessibilityDirective implements AfterViewInit, OnDestroy 
     private _observer: MutationObserver;
 
     /** Teardown our observables on destroy */
-    private _onDestroy = new Subject<void>();
+    private readonly _onDestroy = new Subject<void>();
 
     /** Store references to all focus indicators */
     private _focusIndicators: FocusIndicator[] = [];
 
-    constructor(
-        private _elementRef: ElementRef,
-        private _renderer: Renderer2,
-        @Inject(PLATFORM_ID) private _platform: string,
-        private _splitter: SplitComponent,
-        private _focusIndicatorService: FocusIndicatorService
-    ) {
+    ngOnInit(): void {
         // update aria values when the a gutter is dragged
-        _splitter.dragProgress$
+        this._splitter.dragProgress$
             .pipe(takeUntil(this._onDestroy))
             .subscribe(() => this.updateGutterAttributes());
     }

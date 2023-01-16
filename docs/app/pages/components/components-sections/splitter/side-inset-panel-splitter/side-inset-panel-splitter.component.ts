@@ -8,11 +8,13 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
     selector: 'uxd-side-inset-panel-splitter',
     templateUrl: './side-inset-panel-splitter.component.html',
     styleUrls: ['./side-inset-panel-splitter.component.less'],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 @DocumentationSectionComponent('ComponentsSideInsetPanelSplitterComponent')
-export class ComponentsSideInsetPanelSplitterComponent extends BaseDocumentationSection implements IPlaygroundProvider {
-
+export class ComponentsSideInsetPanelSplitterComponent
+    extends BaseDocumentationSection
+    implements IPlaygroundProvider
+{
     visible: boolean = false;
 
     playground: IPlayground = {
@@ -24,12 +26,17 @@ export class ComponentsSideInsetPanelSplitterComponent extends BaseDocumentation
         modules: [
             {
                 imports: ['AngularSplitModule'],
-                library: 'angular-split'
-            }
-        ]
+                library: 'angular-split',
+            },
+        ],
     };
 
     constructor() {
-        super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
+        super(
+            import.meta.webpackContext('./snippets/', {
+                recursive: false,
+                regExp: /\.(html|css|js|ts)$/,
+            })
+        );
     }
 }

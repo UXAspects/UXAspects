@@ -1,12 +1,14 @@
-import { Inject, Injectable, Optional } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { AccessibilityOptions } from './accessibility-options.interface';
 import { ACCESSIBILITY_OPTIONS_TOKEN } from './accessibility-options.token';
 
 @Injectable()
 export class AccessibilityOptionsService {
+    /** Get the user specified options - but handle cases where they may not be specified */
+    readonly _options = inject(ACCESSIBILITY_OPTIONS_TOKEN, { optional: true });
 
     /** Determine the default options */
-    private _defaultOptions: AccessibilityOptions = {
+    private readonly _defaultOptions: AccessibilityOptions = {
         mouseFocusIndicator: false,
         touchFocusIndicator: false,
         keyboardFocusIndicator: true,
@@ -17,8 +19,4 @@ export class AccessibilityOptionsService {
     get options(): AccessibilityOptions {
         return { ...this._defaultOptions, ...this._options };
     }
-
-    /** Get the user specified options - but handle cases where they may not be specified */
-    constructor(@Optional() @Inject(ACCESSIBILITY_OPTIONS_TOKEN) private _options: AccessibilityOptions = {}) { }
-
 }

@@ -9,24 +9,28 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 @Component({
     selector: 'uxd-charts-scrollable-chart',
     templateUrl: './scrollable-chart.component.html',
-    styleUrls: ['./scrollable-chart.component.less']
+    styleUrls: ['./scrollable-chart.component.less'],
 })
 @DocumentationSectionComponent('ChartsScrollableChartComponent')
-export class ChartsScrollableChartComponent extends BaseDocumentationSection implements IPlaygroundProvider {
-
+export class ChartsScrollableChartComponent
+    extends BaseDocumentationSection
+    implements IPlaygroundProvider
+{
     playground: IPlayground = {
         files: {
             'app.component.ts': this.snippets.raw.scrollableChartTs,
             'app.component.html': this.snippets.raw.scrollableChartHtml,
-            'app.component.css': this.snippets.raw.scrollableChartCss
+            'app.component.css': this.snippets.raw.scrollableChartCss,
         },
-        modules: [{
-            library: 'chart.js'
-        },
-        {
-            imports: ['NgChartsModule'],
-            library: 'ng2-charts'
-        }]
+        modules: [
+            {
+                library: 'chart.js',
+            },
+            {
+                imports: ['NgChartsModule'],
+                library: 'ng2-charts',
+            },
+        ],
     };
 
     // configure the directive data
@@ -37,14 +41,32 @@ export class ChartsScrollableChartComponent extends BaseDocumentationSection imp
     barChartLegend: boolean = false;
     barChartColors: any;
 
-    labels: string[] = ['.doc', '.ppt', '.pdf', '.xls', '.html', '.txt', '.png', '.bmp', '.gif', '.svg', '.ttf', '.wav'];
+    labels: string[] = [
+        '.doc',
+        '.ppt',
+        '.pdf',
+        '.xls',
+        '.html',
+        '.txt',
+        '.png',
+        '.bmp',
+        '.gif',
+        '.svg',
+        '.ttf',
+        '.wav',
+    ];
     data: number[] = [34, 25, 19, 34, 32, 44, 12, 27, 15, 48, 40, 36];
 
     page: number = 0;
     pageSize: number = 4;
 
     constructor(colorService: ColorService) {
-        super(require.context('./snippets/', false, /(html|css|js|ts)$/));
+        super(
+            import.meta.webpackContext('./snippets/', {
+                recursive: false,
+                regExp: /\.(html|css|js|ts)$/,
+            })
+        );
 
         this.barChartLabels = this.getPageLabels();
 
@@ -55,39 +77,41 @@ export class ChartsScrollableChartComponent extends BaseDocumentationSection imp
         const barBorderColor = colorService.getColor('chart1').toHex();
         const tooltipBackgroundColor = colorService.getColor('grey2').toHex();
 
-        this.barChartData = [{
-            data: this.getPageData(),
-            borderWidth: 1,
-            barPercentage: 0.5,
-            categoryPercentage: 1,
-            backgroundColor: barBackgroundColor,
-            hoverBackgroundColor: barHoverBackgroundColor,
-            hoverBorderColor: barBorderColor,
-            borderColor: barBorderColor
-        }];
+        this.barChartData = [
+            {
+                data: this.getPageData(),
+                borderWidth: 1,
+                barPercentage: 0.5,
+                categoryPercentage: 1,
+                backgroundColor: barBackgroundColor,
+                hoverBackgroundColor: barHoverBackgroundColor,
+                hoverBorderColor: barBorderColor,
+                borderColor: barBorderColor,
+            },
+        ];
 
         this.barChartOptions = {
             maintainAspectRatio: false,
             responsive: true,
             animation: {
-                duration: 0
+                duration: 0,
             },
             scales: {
                 x: {
                     grid: {
-                        color: 'transparent'
-                    }
+                        color: 'transparent',
+                    },
                 },
                 y: {
                     grid: {
-                        color: gridColor
+                        color: gridColor,
                     },
                     min: 0,
                     max: 50,
                     ticks: {
-                        stepSize: 10
-                    }
-                }
+                        stepSize: 10,
+                    },
+                },
             },
             plugins: {
                 tooltip: {
@@ -97,11 +121,11 @@ export class ChartsScrollableChartComponent extends BaseDocumentationSection imp
                         title: () => '',
                         label: (item: TooltipItem<'bar'>) => {
                             return `x: ${item.label}, y: ${item.formattedValue}`;
-                        }
+                        },
                     },
-                    displayColors: false
-                }
-            }
+                    displayColors: false,
+                },
+            },
         };
     }
 
@@ -120,7 +144,6 @@ export class ChartsScrollableChartComponent extends BaseDocumentationSection imp
     }
 
     goToPreviousPage(): void {
-
         if (this.hasPreviousPage()) {
             this.page -= 1;
 
@@ -128,11 +151,9 @@ export class ChartsScrollableChartComponent extends BaseDocumentationSection imp
             this.barChartLabels = this.getPageLabels();
             this.barChartData[0].data = this.getPageData();
         }
-
     }
 
     goToNextPage(): void {
-
         if (this.hasNextPage()) {
             this.page += 1;
 
@@ -140,7 +161,6 @@ export class ChartsScrollableChartComponent extends BaseDocumentationSection imp
             this.barChartLabels = this.getPageLabels();
             this.barChartData[0].data = this.getPageData();
         }
-
     }
 
     hasNextPage(): boolean {
@@ -154,5 +174,4 @@ export class ChartsScrollableChartComponent extends BaseDocumentationSection imp
     hasPreviousPage(): boolean {
         return this.page > 0;
     }
-
 }

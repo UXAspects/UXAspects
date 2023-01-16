@@ -7,17 +7,23 @@ import { playgroundAdapter } from '../../../../../services/playground/adapters/l
 
 @Component({
     selector: 'uxd-css-text-inputs-button-addons',
-    templateUrl: './button-addons.component.html'
+    templateUrl: './button-addons.component.html',
 })
 @DocumentationSectionComponent('CssButtonAddonsComponent')
-export class CssButtonAddonsComponent extends BaseDocumentationSection implements IPlaygroundProvider {
-
+export class CssButtonAddonsComponent
+    extends BaseDocumentationSection
+    implements IPlaygroundProvider
+{
     playground: IPlayground = playgroundAdapter({
-        html: this.snippets.raw.sampleHtml
+        html: this.snippets.raw.sampleHtml,
     });
 
     constructor() {
-        super(require.context('./snippets/', false, /(html|css|js|ts)$/));
+        super(
+            import.meta.webpackContext('./snippets/', {
+                recursive: false,
+                regExp: /\.(html|css|js|ts)$/,
+            })
+        );
     }
-
 }

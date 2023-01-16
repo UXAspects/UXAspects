@@ -1,4 +1,4 @@
-import { Injectable, OnDestroy } from '@angular/core';
+import { inject, Injectable, OnDestroy } from '@angular/core';
 import { NavigationCancel, NavigationEnd, NavigationError, Router } from '@angular/router';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { filter, map, takeUntil } from 'rxjs/operators';
@@ -6,15 +6,17 @@ import type { PageHeaderNavigationDropdownItem, PageHeaderNavigationItem } from 
 
 @Injectable()
 export class PageHeaderService implements OnDestroy {
+    private readonly _router = inject(Router);
+
     items$ = new BehaviorSubject<PageHeaderNavigationItem[]>([]);
     selected$ = new BehaviorSubject<PageHeaderNavigationItem>(null);
     selectedRoot$ = new BehaviorSubject<PageHeaderNavigationItem>(null);
     secondary$ = new BehaviorSubject<boolean>(false);
     secondaryNavigationAutoselect = false;
 
-    private _onDestroy = new Subject();
+    private readonly _onDestroy = new Subject();
 
-    constructor(private _router: Router) {
+    constructor() {
 
         this.selected$
             .pipe(takeUntil(this._onDestroy), map(selected => this.getRoot(selected)))

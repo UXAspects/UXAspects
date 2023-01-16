@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, HostListener, Input, OnDestroy, Output, Renderer2 } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, HostListener, inject, Input, OnDestroy, Output, Renderer2 } from '@angular/core';
 import { FocusIndicatorOrigin, FocusIndicatorOriginService } from '../../../directives/accessibility/index';
 import { HierarchyBarService } from '../hierarchy-bar.service';
 import { HierarchyBarNode } from '../interfaces/hierarchy-bar-node.interface';
@@ -9,6 +9,13 @@ import { HierarchyBarNode } from '../interfaces/hierarchy-bar-node.interface';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HierarchyBarPopoverItemComponent implements OnDestroy {
+    readonly focusOriginService = inject(FocusIndicatorOriginService);
+
+    readonly elementRef = inject(ElementRef);
+
+    readonly renderer = inject(Renderer2);
+
+    readonly hierarchyBar = inject(HierarchyBarService);
 
     /** Specify the node to display */
     @Input() node: HierarchyBarNode;
@@ -23,15 +30,10 @@ export class HierarchyBarPopoverItemComponent implements OnDestroy {
     @Output() selected = new EventEmitter<HierarchyBarNode>(true);
 
     /** Allow this to control the focus origin */
-    private _focusOrigin: FocusIndicatorOrigin;
+    private readonly _focusOrigin: FocusIndicatorOrigin;
 
-    constructor(
-        focusOriginService: FocusIndicatorOriginService,
-        elementRef: ElementRef,
-        renderer: Renderer2,
-        public readonly hierarchyBar: HierarchyBarService
-    ) {
-        this._focusOrigin = new FocusIndicatorOrigin(focusOriginService, elementRef, renderer);
+    constructor() {
+        this._focusOrigin = new FocusIndicatorOrigin(this.focusOriginService, this.elementRef, this.renderer);
     }
 
     ngOnDestroy(): void {

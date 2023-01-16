@@ -11,12 +11,14 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
     styleUrls: ['./hotkeys.component.less'],
     host: {
         '(window:keydown.q)': 'focusNextQ()',
-        '(window:keydown.w)': 'focusNextW()'
-    }
+        '(window:keydown.w)': 'focusNextW()',
+    },
 })
 @DocumentationSectionComponent('ComponentsHotkeysComponent')
-export class ComponentsHotkeysComponent extends BaseDocumentationSection implements IPlaygroundProvider {
-
+export class ComponentsHotkeysComponent
+    extends BaseDocumentationSection
+    implements IPlaygroundProvider
+{
     qText: string = 'None';
     wText: string = 'None';
     qFocused: number = null;
@@ -26,22 +28,27 @@ export class ComponentsHotkeysComponent extends BaseDocumentationSection impleme
         files: {
             'app.component.ts': this.snippets.raw.appTs,
             'app.component.html': this.snippets.raw.appHtml,
-            'app.component.css': this.snippets.raw.appCss
+            'app.component.css': this.snippets.raw.appCss,
         },
         modules: [
             {
                 imports: ['FocusIfModule'],
-                library: '@ux-aspects/ux-aspects'
+                library: '@ux-aspects/ux-aspects',
             },
             {
                 imports: ['A11yModule'],
-                library: '@angular/cdk/a11y'
-            }
-        ]
+                library: '@angular/cdk/a11y',
+            },
+        ],
     };
 
     constructor(private _liveAnnouncer: LiveAnnouncer) {
-        super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
+        super(
+            import.meta.webpackContext('./snippets/', {
+                recursive: false,
+                regExp: /\.(html|css|js|ts)$/,
+            })
+        );
     }
 
     announce(item: string): void {

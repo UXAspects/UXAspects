@@ -4,8 +4,6 @@
     "semi": true,
     "arrowParens": "avoid",
     "trailingComma": "es5",
-    "importOrder": [
-        "^[./]"
-    ],
+    "importOrder": ["^[./]"],
     "importOrderSeparation": false
 }

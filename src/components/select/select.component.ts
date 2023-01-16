@@ -2,7 +2,7 @@ import { BooleanInput, coerceBooleanProperty, coerceNumberProperty, NumberInput 
 import { ENTER } from '@angular/cdk/keycodes';
 import { Platform } from '@angular/cdk/platform';
 import { DOCUMENT } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ElementRef, EventEmitter, forwardRef, HostBinding, Inject, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, StaticProvider, TemplateRef, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ElementRef, EventEmitter, forwardRef, HostBinding, inject, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, StaticProvider, TemplateRef, ViewChild } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { BehaviorSubject, Observable, ReplaySubject, Subject } from 'rxjs';
 import { debounceTime, delay, distinctUntilChanged, filter, map, skip, take, takeUntil } from 'rxjs/operators';
@@ -30,6 +30,15 @@ export const SELECT_VALUE_ACCESSOR: StaticProvider = {
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, ControlValueAccessor {
+    private readonly _element = inject(ElementRef);
+
+    private readonly _platform = inject(Platform);
+
+    private readonly _typeaheadKeyService = inject(TypeaheadKeyService);
+
+    private readonly _changeDetector = inject(ChangeDetectorRef);
+
+    private readonly _document = inject<any>(DOCUMENT);
 
     /** A unique id for the component. */
     @Input() @HostBinding('attr.id') id: string = `ux-select-${++uniqueId}`;
@@ -231,21 +240,14 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
 
     /** We need to store the most recent value*/
     private _value: T | ReadonlyArray<T>;
-    private _input$ = new BehaviorSubject<InputValue>({ userInteraction: false, value: '' });
+    private readonly _input$ = new BehaviorSubject<InputValue>({ userInteraction: false, value: '' });
     private _dropdownOpen: boolean = false;
     private _userInput: boolean = false;
     private _filterDebounceTime: number = 200;
     private _autoCloseDropdown: boolean = true;
     private _onChange = (_: T | ReadonlyArray<T>) => { };
     private _onTouched = () => { };
-    private _onDestroy = new Subject<void>();
-
-    constructor(
-        private _element: ElementRef,
-        private _platform: Platform,
-        @Inject(DOCUMENT) private _document: any,
-        private _typeaheadKeyService: TypeaheadKeyService,
-        private readonly _changeDetector: ChangeDetectorRef) { }
+    private readonly _onDestroy = new Subject<void>();
 
     ngOnInit(): void {
 

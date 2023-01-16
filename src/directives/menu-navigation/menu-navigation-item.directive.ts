@@ -1,6 +1,6 @@
-import { Directive, ElementRef, EventEmitter, OnDestroy, Output } from '@angular/core';
-import { filter, takeUntil } from 'rxjs/operators';
+import { Directive, ElementRef, EventEmitter, inject, OnDestroy, Output } from '@angular/core';
 import { Subject } from 'rxjs';
+import { filter, takeUntil } from 'rxjs/operators';
 import { FocusIndicator, FocusIndicatorService } from '../accessibility/index';
 import { MenuNavigationService } from './menu-navigation.service';
 
@@ -8,26 +8,31 @@ import { MenuNavigationService } from './menu-navigation.service';
     selector: '[uxMenuNavigationItem]'
 })
 export class MenuNavigationItemDirective implements OnDestroy {
+    readonly focusIndicatorService = inject(FocusIndicatorService);
+
+    private readonly _elementRef = inject(ElementRef);
+
+    private readonly _menuNavigationService = inject(MenuNavigationService);
 
     /** Emit when this menu is activated */
     @Output() activated = new EventEmitter<void>();
 
     /** Unsubscribe from all observables on destroy */
-    private _onDestroy = new Subject<void>();
+    private readonly _onDestroy = new Subject<void>();
 
     /** Keep a reference to the focus indicator */
-    private _focusIndicator: FocusIndicator;
+    private readonly _focusIndicator: FocusIndicator;
 
-    constructor(private _menuNavigationService: MenuNavigationService, private _elementRef: ElementRef, focusIndicatorService: FocusIndicatorService) {
+    constructor() {
 
         // register this item with the menu - this allows for nested menus as we each uxMenuNavigation will create its own service
-        _menuNavigationService.register(this);
+        this._menuNavigationService.register(this);
 
         // create the focus indicator
-        this._focusIndicator = focusIndicatorService.monitor(_elementRef.nativeElement, { programmaticFocusIndicator: true, checkChildren: false });
+        this._focusIndicator = this.focusIndicatorService.monitor(this._elementRef.nativeElement, { programmaticFocusIndicator: true, checkChildren: false });
 
         /** Subscribe to the current active index */
-        _menuNavigationService.active$.pipe(takeUntil(this._onDestroy), filter(item => item === this)).subscribe(() => this.setActive());
+        this._menuNavigationService.active$.pipe(takeUntil(this._onDestroy), filter(item => item === this)).subscribe(() => this.setActive());
     }
 
     ngOnDestroy(): void {

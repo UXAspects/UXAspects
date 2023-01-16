@@ -1,5 +1,5 @@
 import { BooleanInput, coerceBooleanProperty } from '@angular/cdk/coercion';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, inject, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { filter as rxFilter, takeUntil } from 'rxjs/operators';
 import { TypeaheadKeyService, TypeaheadOptionEvent } from '../../typeahead/index';
@@ -16,6 +16,11 @@ let uniqueId = 0;
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FilterDynamicComponent implements OnInit, OnDestroy {
+    readonly typeaheadKeyService = inject(TypeaheadKeyService);
+
+    private readonly _filterService = inject(FilterService);
+
+    private readonly _changeDetector = inject(ChangeDetectorRef);
 
     /** The unique id is used multiple times - this is to ensure we only increment it once per instance */
     private readonly _uniqueId: number = uniqueId++;
@@ -78,7 +83,7 @@ export class FilterDynamicComponent implements OnInit, OnDestroy {
     }
 
     /** The default options */
-    private _defaultOptions: FilterDynamicListConfig = { placeholder: '', minCharacters: 3, maxResults: Infinity };
+    private readonly _defaultOptions: FilterDynamicListConfig = { placeholder: '', minCharacters: 3, maxResults: Infinity };
 
     /** Store the user specified typeahead options */
     private _options: FilterDynamicListConfig = { ...this._defaultOptions };
@@ -87,15 +92,13 @@ export class FilterDynamicComponent implements OnInit, OnDestroy {
     private readonly _onDestroy = new Subject<void>();
     private _closeOnBlur: boolean = false;
 
-    constructor(public readonly typeaheadKeyService: TypeaheadKeyService,
-                private readonly _filterService: FilterService,
-                private readonly _changeDetector: ChangeDetectorRef) {
+    constructor() {
         // listen for remove all events in which case we should deselect event initial filters
-        _filterService.events$.pipe(rxFilter(event => event instanceof FilterRemoveAllEvent), takeUntil(this._onDestroy))
+        this._filterService.events$.pipe(rxFilter(event => event instanceof FilterRemoveAllEvent), takeUntil(this._onDestroy))
             .subscribe(() => this.removeFilter());
 
         // ensure that the current selected filter is still selected when the active filters change
-        _filterService.filters$.pipe(takeUntil(this._onDestroy)).subscribe(filters => {
+        this._filterService.filters$.pipe(takeUntil(this._onDestroy)).subscribe(filters => {
             if (this.selected && filters.indexOf(this.selected) === -1) {
                 this.removeFilter();
             }

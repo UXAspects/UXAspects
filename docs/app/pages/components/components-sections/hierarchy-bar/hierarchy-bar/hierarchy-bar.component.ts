@@ -12,11 +12,13 @@ const chance = new Chance();
 @Component({
     selector: 'uxd-components-hierarchy-bar',
     templateUrl: './hierarchy-bar.component.html',
-    styleUrls: ['./hierarchy-bar.component.less']
+    styleUrls: ['./hierarchy-bar.component.less'],
 })
 @DocumentationSectionComponent('ComponentsHierarchyBarComponent')
-export class ComponentsHierarchyBarComponent extends BaseDocumentationSection implements IPlaygroundProvider {
-
+export class ComponentsHierarchyBarComponent
+    extends BaseDocumentationSection
+    implements IPlaygroundProvider
+{
     /** Get the url for the manager icon asset */
     managerIcon = 'assets/img/IconManagerColorized.png';
 
@@ -38,10 +40,8 @@ export class ComponentsHierarchyBarComponent extends BaseDocumentationSection im
                 title: chance.name(),
                 icon: this.managerIcon,
                 children: Observable.create((observer: Observer<HierarchyBarNode[]>) => {
-
                     // simulate server loading
                     setTimeout(() => {
-
                         observer.next([
                             {
                                 icon: this.userIcon,
@@ -62,8 +62,8 @@ export class ComponentsHierarchyBarComponent extends BaseDocumentationSection im
                                             {
                                                 title: chance.name(),
                                                 icon: this.userIcon,
-                                            }
-                                        ]
+                                            },
+                                        ],
                                     },
                                     {
                                         title: chance.name(),
@@ -72,18 +72,18 @@ export class ComponentsHierarchyBarComponent extends BaseDocumentationSection im
                                     {
                                         title: chance.name(),
                                         icon: this.userIcon,
-                                    }
-                                ]
+                                    },
+                                ],
                             },
                             {
                                 title: chance.name(),
                                 icon: this.userIcon,
-                            }
+                            },
                         ]);
 
                         observer.complete();
                     }, 2000);
-                })
+                }),
             },
             {
                 title: chance.name(),
@@ -96,10 +96,10 @@ export class ComponentsHierarchyBarComponent extends BaseDocumentationSection im
                     {
                         title: chance.name(),
                         icon: this.userIcon,
-                    }
-                ]
-            }
-        ]
+                    },
+                ],
+            },
+        ],
     };
 
     selected: HierarchyBarNode = this.node.children[0];
@@ -113,12 +113,17 @@ export class ComponentsHierarchyBarComponent extends BaseDocumentationSection im
         modules: [
             {
                 imports: ['HierarchyBarModule', 'RadioButtonModule', 'CheckboxModule'],
-                library: '@ux-aspects/ux-aspects'
-            }
-        ]
+                library: '@ux-aspects/ux-aspects',
+            },
+        ],
     };
 
     constructor() {
-        super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
+        super(
+            import.meta.webpackContext('./snippets/', {
+                recursive: false,
+                regExp: /\.(html|css|js|ts)$/,
+            })
+        );
     }
 }

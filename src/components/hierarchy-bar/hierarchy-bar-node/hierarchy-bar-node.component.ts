@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Input, Output, TemplateRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, inject, Input, Output, TemplateRef } from '@angular/core';
 import { HierarchyBarService } from '../hierarchy-bar.service';
 import { HierarchyBarNode } from '../interfaces/hierarchy-bar-node.interface';
 
@@ -11,6 +11,9 @@ import { HierarchyBarNode } from '../interfaces/hierarchy-bar-node.interface';
     },
 })
 export class HierarchyBarNodeComponent {
+    readonly hierarchyBar = inject(HierarchyBarService);
+    private readonly _elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
+
     /** Specify the node data */
     @Input() node: HierarchyBarNode;
 
@@ -36,9 +39,4 @@ export class HierarchyBarNodeComponent {
     get width(): number {
         return this._elementRef.nativeElement.offsetWidth;
     }
-
-    constructor(
-        public readonly hierarchyBar: HierarchyBarService,
-        private readonly _elementRef: ElementRef<HTMLElement>
-    ) {}
 }

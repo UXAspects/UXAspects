@@ -1,7 +1,7 @@
-import { AfterContentInit, AfterViewInit, Component, ContentChildren, ElementRef, Input, OnDestroy, Optional, QueryList, Renderer2, SkipSelf } from '@angular/core';
+import { AfterContentInit, AfterViewInit, Component, ContentChildren, ElementRef, inject, Input, OnDestroy, QueryList, Renderer2 } from '@angular/core';
 import { NavigationEnd, Router, UrlTree } from '@angular/router';
-import { filter, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { filter, takeUntil } from 'rxjs/operators';
 
 @Component({
     selector: '[ux-navigation-item]',
@@ -12,6 +12,13 @@ import { Subject } from 'rxjs';
     }
 })
 export class NavigationItemComponent implements AfterViewInit, AfterContentInit, OnDestroy {
+    private readonly _elementRef = inject(ElementRef);
+
+    private readonly _renderer = inject(Renderer2);
+
+    private readonly _router = inject(Router);
+
+    private readonly _parent = inject(NavigationItemComponent, { optional: true, skipSelf: true });
 
     /** The text to display in the navigation menu item. */
     @Input() header: string;
@@ -37,26 +44,21 @@ export class NavigationItemComponent implements AfterViewInit, AfterContentInit,
     _indentWithoutArrow: boolean = true;
 
     @ContentChildren(NavigationItemComponent, { descendants: true })
-    private _children: QueryList<NavigationItemComponent>;
+    private readonly _children: QueryList<NavigationItemComponent>;
 
     get children(): NavigationItemComponent[] {
         return this._children.filter(item => item !== this);
     }
 
     /** Automatically unsubscribe when the component is destroyed */
-    private _onDestroy = new Subject<void>();
+    private readonly _onDestroy = new Subject<void>();
 
-    constructor(
-        private _elementRef: ElementRef,
-        private _renderer: Renderer2,
-        private _router: Router,
-        @Optional() @SkipSelf() private _parent: NavigationItemComponent
-    ) {
+    constructor() {
 
         this._level = this._parent ? this._parent._level + 1 : 1;
 
         // Expand this component if it or a descendant is active.
-        _router.events.pipe(filter(event => event instanceof NavigationEnd), takeUntil(this._onDestroy)).subscribe(() => {
+        this._router.events.pipe(filter(event => event instanceof NavigationEnd), takeUntil(this._onDestroy)).subscribe(() => {
             this.expanded = this.hasActiveLink(this.link);
         });
     }

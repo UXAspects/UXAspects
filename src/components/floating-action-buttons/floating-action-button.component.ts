@@ -1,5 +1,5 @@
 import { DOWN_ARROW, ENTER, ESCAPE, LEFT_ARROW, RIGHT_ARROW, UP_ARROW } from '@angular/cdk/keycodes';
-import { AfterViewInit, Attribute, ChangeDetectionStrategy, Component, ElementRef, HostListener, Input, OnDestroy, Optional, ViewChild } from '@angular/core';
+import { AfterViewInit, Attribute, ChangeDetectionStrategy, Component, ElementRef, HostListener, inject, Input, OnDestroy, ViewChild } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
 import { TooltipDirective } from '../tooltip/index';
@@ -12,6 +12,9 @@ import { FloatingActionButtonsService } from './floating-action-buttons.service'
     preserveWhitespaces: false
 })
 export class FloatingActionButtonComponent implements AfterViewInit, OnDestroy {
+    readonly fab = inject(FloatingActionButtonsService);
+
+    private readonly _tooltip = inject(TooltipDirective, { optional : true});
 
     /** Define the aria label for the button */
     @Input('aria-label') ariaLabel: string;
@@ -28,7 +31,7 @@ export class FloatingActionButtonComponent implements AfterViewInit, OnDestroy {
     /** Unsubscribe from all observables on component destroy */
     private readonly _onDestroy = new Subject<void>();
 
-    constructor(@Attribute('fab-primary') primary: string, public fab: FloatingActionButtonsService, @Optional() private _tooltip: TooltipDirective) {
+    constructor(@Attribute('fab-primary') primary: string) {
         this.primary = primary !== null;
     }
 

@@ -1,7 +1,7 @@
 import { BooleanInput, coerceBooleanProperty } from '@angular/cdk/coercion';
 import { BACKSPACE, DELETE, ENTER, LEFT_ARROW, RIGHT_ARROW, SPACE } from '@angular/cdk/keycodes';
 import { DOCUMENT } from '@angular/common';
-import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, ElementRef, EventEmitter, forwardRef, HostBinding, HostListener, Inject, Input, OnChanges, OnDestroy, Output, QueryList, SimpleChanges, TemplateRef, ViewChild } from '@angular/core';
+import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, ElementRef, EventEmitter, forwardRef, HostBinding, HostListener, inject, Input, OnChanges, OnDestroy, Output, QueryList, SimpleChanges, TemplateRef, ViewChild } from '@angular/core';
 import { ControlValueAccessor, NG_VALIDATORS, NG_VALUE_ACCESSOR, ValidationErrors, Validator } from '@angular/forms';
 import { Subject, Subscription } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -36,6 +36,13 @@ const TAGINPUT_VALIDATOR = {
     }
 })
 export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, ControlValueAccessor, Validator, OnDestroy {
+    private readonly _changeDetector = inject(ChangeDetectorRef);
+
+    private readonly _element = inject(ElementRef);
+
+    private readonly _typeaheadKeyService = inject(TypeaheadKeyService);
+
+    private readonly _document = inject<any>(DOCUMENT);
 
     /** Specify a unique Id for the component */
     @Input() @HostBinding('attr.id') id: string = `ux-tag-input-${ ++uniqueId }`;
@@ -237,17 +244,10 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
     private _onTouchedHandler: () => void = () => {
     };
     private _subscription: Subscription;
-    private _onDestroy = new Subject<void>();
+    private readonly _onDestroy = new Subject<void>();
     private _autoCloseDropdown: boolean = true;
 
     static ngAcceptInputType_autoCloseDropdown: BooleanInput;
-
-    constructor(
-        private _changeDetector: ChangeDetectorRef,
-        private _element: ElementRef,
-        @Inject(DOCUMENT) private _document: any,
-        private _typeaheadKeyService: TypeaheadKeyService) {
-    }
 
     ngAfterContentInit(): void {
         // Watch for optional child typeahead control

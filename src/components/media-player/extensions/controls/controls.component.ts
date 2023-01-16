@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { Subject, timer } from 'rxjs';
 import { switchMap, takeUntil } from 'rxjs/operators';
 import { SliderOptions, SliderSize } from '../../../slider/index';
@@ -15,6 +15,7 @@ let uniqueId: number = 1;
     }
 })
 export class MediaPlayerControlsExtensionComponent implements OnInit, OnDestroy {
+    readonly mediaPlayerService = inject(MediaPlayerService);
 
     volumeActive: boolean = false;
     volumeFocus: boolean = false;
@@ -48,9 +49,8 @@ export class MediaPlayerControlsExtensionComponent implements OnInit, OnDestroy 
 
     private _volume: number = 100;
     private _previousVolume = 100;
-    private _onDestroy = new Subject<void>();
+    private readonly _onDestroy = new Subject<void>();
 
-    constructor(public mediaPlayerService: MediaPlayerService) { }
 
     get volume(): number {
         return this._volume;

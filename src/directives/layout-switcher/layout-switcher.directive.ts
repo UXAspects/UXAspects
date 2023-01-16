@@ -1,4 +1,4 @@
-import { Directive, ElementRef, QueryList, ContentChildren, Input, AfterContentInit, ViewContainerRef, OnChanges, SimpleChanges } from '@angular/core';
+import { AfterContentInit, ContentChildren, Directive, ElementRef, inject, Input, OnChanges, QueryList, SimpleChanges, ViewContainerRef } from '@angular/core';
 import { ResizeService } from '../resize/index';
 import { LayoutSwitcherItemDirective } from './layout-switcher-item.directive';
 
@@ -6,18 +6,22 @@ import { LayoutSwitcherItemDirective } from './layout-switcher-item.directive';
     selector: '[uxLayoutSwitcher]'
 })
 export class LayoutSwitcherDirective implements AfterContentInit, OnChanges {
+    readonly resizeService = inject(ResizeService);
+
+    private readonly _elementRef = inject(ElementRef);
+
+    private readonly _viewContainerRef = inject(ViewContainerRef);
 
     @Input() group: string;
-    @ContentChildren(LayoutSwitcherItemDirective) private _layouts: QueryList<LayoutSwitcherItemDirective>;
-    
+    @ContentChildren(LayoutSwitcherItemDirective) private readonly _layouts: QueryList<LayoutSwitcherItemDirective>;
+
     private _width: number;
     private _activeLayout: LayoutSwitcherItemDirective;
 
-    constructor(private _elementRef: ElementRef, resizeService: ResizeService,
-        private _viewContainerRef: ViewContainerRef) {
+    constructor() {
 
         // watch for changes to the container size
-        resizeService.addResizeListener(_elementRef.nativeElement).subscribe(event => {
+        this.resizeService.addResizeListener(this._elementRef.nativeElement).subscribe(event => {
             this._width = event.width;
 
             // render the appropriate layout

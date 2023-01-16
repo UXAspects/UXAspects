@@ -1,5 +1,5 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, HostBinding, Input, OnChanges, OnDestroy, QueryList, Renderer2, ViewChildren } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, HostBinding, inject, Input, OnChanges, OnDestroy, QueryList, Renderer2, ViewChildren } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { map, takeUntil, withLatestFrom } from 'rxjs/operators';
 import { tick } from '../../common/index';
@@ -23,6 +23,11 @@ import { NotificationListDirection, NotificationRef, NotificationService } from 
     ]
 })
 export class NotificationListComponent implements AfterViewInit, OnChanges, OnDestroy {
+    private readonly _notificationService = inject(NotificationService);
+
+    private readonly _changeDetectorRef = inject(ChangeDetectorRef);
+
+    private readonly _renderer = inject(Renderer2);
 
     /**
      *  Sets the order in which notifications are displayed:
@@ -55,13 +60,7 @@ export class NotificationListComponent implements AfterViewInit, OnChanges, OnDe
     }
 
     /** Unsubscribe from all subscriptions on component destroy */
-    private _onDestroy = new Subject<void>();
-
-    constructor(
-        private _notificationService: NotificationService,
-        private _changeDetectorRef: ChangeDetectorRef,
-        private _renderer: Renderer2
-    ) { }
+    private readonly _onDestroy = new Subject<void>();
 
     ngAfterViewInit(): void {
 

@@ -1,4 +1,4 @@
-import { AfterContentInit, ContentChildren, Directive, ElementRef, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, QueryList, SimpleChanges } from '@angular/core';
+import { AfterContentInit, ContentChildren, Directive, ElementRef, EventEmitter, inject, Input, OnChanges, OnDestroy, OnInit, Output, QueryList, SimpleChanges } from '@angular/core';
 import { BehaviorSubject, from, fromEvent, Observable, of, Subject, Subscription } from 'rxjs';
 import { auditTime, combineLatest, filter as filterOperator, first, takeUntil } from 'rxjs/operators';
 import { InfiniteScrollLoadButtonDirective } from './infinite-scroll-load-button.directive';
@@ -9,6 +9,7 @@ import { InfiniteScrollLoadingDirective } from './infinite-scroll-loading.direct
     exportAs: 'uxInfiniteScroll'
 })
 export class InfiniteScrollDirective<T = any> implements OnInit, AfterContentInit, OnChanges, OnDestroy {
+    private readonly _element = inject(ElementRef);
 
     @Input('uxInfiniteScroll') load: InfiniteScrollLoadFunction<T>;
 
@@ -44,28 +45,28 @@ export class InfiniteScrollDirective<T = any> implements OnInit, AfterContentIni
     loadErrorEvent = new EventEmitter<InfiniteScrollLoadErrorEvent>();
 
     @ContentChildren(InfiniteScrollLoadButtonDirective)
-    private _loadButtonQuery: QueryList<InfiniteScrollLoadButtonDirective>;
+    private readonly _loadButtonQuery: QueryList<InfiniteScrollLoadButtonDirective>;
 
     @ContentChildren(InfiniteScrollLoadingDirective)
-    private _loadingIndicatorQuery: QueryList<InfiniteScrollLoadingDirective>;
+    private readonly _loadingIndicatorQuery: QueryList<InfiniteScrollLoadingDirective>;
 
     private _pages: T[][];
     private _nextPageNum = 0;
     private _domObserver: MutationObserver;
     private _scrollEventSub: Subscription;
-    private _updateRequests = new Subject<InfiniteScrollRequest<T>>();
+    private readonly _updateRequests = new Subject<InfiniteScrollRequest<T>>();
 
-    private _isLoading = new BehaviorSubject<boolean>(false);
-    private _isExhausted = new BehaviorSubject<boolean>(false);
-    private _loadButtonEnabled = new BehaviorSubject<boolean>(false);
-    private _canLoadManually: Observable<boolean>;
+    private readonly _isLoading = new BehaviorSubject<boolean>(false);
+    private readonly _isExhausted = new BehaviorSubject<boolean>(false);
+    private readonly _loadButtonEnabled = new BehaviorSubject<boolean>(false);
+    private readonly _canLoadManually: Observable<boolean>;
 
     private _scrollElement: ElementRef;
     private _subscriptions: Subscription[] = [];
     private _loadButtonSubscriptions: Subscription[] = [];
-    private _onDestroy = new Subject<void>();
+    private readonly _onDestroy = new Subject<void>();
 
-    constructor(private _element: ElementRef) {
+    constructor() {
         this._canLoadManually = this._isLoading.pipe(combineLatest(
             this._isExhausted,
             this._loadButtonEnabled,

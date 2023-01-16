@@ -1,8 +1,8 @@
 import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
-import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, HostBinding, Inject, Input, OnDestroy, Output, Renderer2 } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, HostBinding, inject, Input, OnDestroy, Output, Renderer2 } from '@angular/core';
 import { Subject } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
-import { BaseResizableTableService, ResizableTableType } from './resizable-table-base.service';
+import { ResizableTableType } from './resizable-table-base.service';
 import { RESIZABLE_TABLE_SERVICE_TOKEN } from './resizable-table-service.token';
 import { ColumnUnit } from './table-column-resize-standard/resizable-table.service';
 
@@ -16,6 +16,11 @@ import { ColumnUnit } from './table-column-resize-standard/resizable-table.servi
     }
 })
 export class ResizableTableColumnComponent implements AfterViewInit, OnDestroy {
+    private readonly _table = inject(RESIZABLE_TABLE_SERVICE_TOKEN);
+
+    private readonly _elementRef = inject(ElementRef);
+
+    private readonly _renderer = inject(Renderer2);
 
     /** Show/Hide column resizable handle */
     private _handleVisible: boolean = true;
@@ -100,9 +105,7 @@ export class ResizableTableColumnComponent implements AfterViewInit, OnDestroy {
     private _minWidth: number;
 
     /** Emit when all observables should be unsubscribed */
-    private _onDestroy = new Subject<void>();
-
-    constructor(private _elementRef: ElementRef, @Inject(RESIZABLE_TABLE_SERVICE_TOKEN) private _table: BaseResizableTableService, private _renderer: Renderer2) { }
+    private readonly _onDestroy = new Subject<void>();
 
     ngAfterViewInit(): void {
         // initially emit the size when we have initialised

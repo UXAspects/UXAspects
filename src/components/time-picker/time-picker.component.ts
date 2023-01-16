@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, forwardRef, Input, Output, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, forwardRef, inject, Input, Output, ViewEncapsulation } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 export const TIME_PICKER_VALUE_ACCESSOR: any = {
@@ -15,6 +15,7 @@ export const TIME_PICKER_VALUE_ACCESSOR: any = {
     providers: [TIME_PICKER_VALUE_ACCESSOR]
 })
 export class TimePickerComponent implements ControlValueAccessor {
+    private readonly _changeDetector = inject(ChangeDetectorRef);
 
     /** Whether the arrow keys can be used to increment or decrement the selected time component. */
     @Input() arrowkeys: boolean = true;
@@ -87,8 +88,6 @@ export class TimePickerComponent implements ControlValueAccessor {
 
     /** Emitted when the validity of the control changes. */
     @Output() isValid = new EventEmitter<boolean>();
-
-    constructor(private readonly _changeDetector: ChangeDetectorRef) { }
 
     onTouchedCallback: () => void = () => {};
     onChangeCallback: (_: Date) => void = () => {};

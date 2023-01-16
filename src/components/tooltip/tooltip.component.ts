@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnDestroy, TemplateRef } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, Input, OnDestroy, TemplateRef } from '@angular/core';
 import { Subject } from 'rxjs';
 import { AnchorAlignment, AnchorPlacement } from '../../common/overlay/index';
 
@@ -10,6 +10,7 @@ let uniqueTooltipId = 0;
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TooltipComponent<T = any> implements OnDestroy {
+    protected readonly _changeDetectorRef = inject(ChangeDetectorRef);
 
     /** Define a unique id for each tooltip */
     id: string = `ux-tooltip-${ ++uniqueTooltipId }`;
@@ -50,9 +51,6 @@ export class TooltipComponent<T = any> implements OnDestroy {
     set positionClass(positionClass: string) {
         this._positionClass = positionClass;
         this._changeDetectorRef.detectChanges();
-    }
-
-    constructor(protected _changeDetectorRef: ChangeDetectorRef) {
     }
 
     /** Cleanup after the component is destroyed */

@@ -1,15 +1,16 @@
-import { Directive, EmbeddedViewRef, Input, TemplateRef, ViewContainerRef } from '@angular/core';
+import { Directive, EmbeddedViewRef, inject, Input, TemplateRef, ViewContainerRef } from '@angular/core';
 
 @Directive({
     selector: '[uxLayoutSwitcherItem]'
 })
 export class LayoutSwitcherItemDirective {
+    private readonly _templateRef = inject<TemplateRef<any>>(TemplateRef);
 
-    @Input('uxLayoutSwitcherItem') private _config: LayoutSwitcherItem;
+    private readonly _viewContainerRef = inject(ViewContainerRef);
+
+    @Input('uxLayoutSwitcherItem') private readonly _config: LayoutSwitcherItem;
 
     private _embeddedView: EmbeddedViewRef<any>;
-
-    constructor(private _templateRef: TemplateRef<any>, private _viewContainerRef: ViewContainerRef) { }
 
     getLayout(): TemplateRef<any> {
         return this._templateRef;

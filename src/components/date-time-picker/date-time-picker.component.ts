@@ -1,5 +1,5 @@
 import { WeekDay } from '@angular/common';
-import { AfterViewInit, ChangeDetectionStrategy, Component, EventEmitter, Input, OnDestroy, OnInit, Optional, Output } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, EventEmitter, inject, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { Subject } from 'rxjs';
 import { distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { DateRangeOptions } from '../date-range-picker/date-range-picker.directive';
@@ -14,6 +14,11 @@ import { dateComparator, DateTimePickerTimezone, isDateAfter, isDateBefore, time
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DateTimePickerComponent implements OnInit, AfterViewInit, OnDestroy {
+    readonly datepicker = inject(DateTimePickerService);
+
+    private readonly _rangeService = inject(DateRangeService, { optional: true });
+
+    private readonly _rangeOptions = inject(DateRangeOptions, { optional: true });
 
     /** Defines whether or not the date picker should be visible. */
     @Input() set showDate(value: boolean) {
@@ -195,14 +200,11 @@ export class DateTimePickerComponent implements OnInit, AfterViewInit, OnDestroy
     // expose enum to view
     DatePickerMode = DatePickerMode;
 
-    private _onDestroy = new Subject<void>();
+    private readonly _onDestroy = new Subject<void>();
 
-    constructor(
-        public datepicker: DateTimePickerService,
-        @Optional() private _rangeService: DateRangeService,
-        @Optional() private _rangeOptions: DateRangeOptions) {
+    constructor() {
 
-        datepicker.selected$.pipe(distinctUntilChanged(dateComparator), takeUntil(this._onDestroy))
+        this.datepicker.selected$.pipe(distinctUntilChanged(dateComparator), takeUntil(this._onDestroy))
             .subscribe(date => this.dateChange.emit(date));
     }
 

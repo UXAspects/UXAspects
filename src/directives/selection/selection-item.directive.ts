@@ -1,5 +1,5 @@
 import { SPACE } from '@angular/cdk/keycodes';
-import { ChangeDetectorRef, Directive, ElementRef, EventEmitter, HostBinding, HostListener, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
+import { ChangeDetectorRef, Directive, ElementRef, EventEmitter, HostBinding, HostListener, inject, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
 import { Subject, Subscription } from 'rxjs';
 import { debounceTime, map, skip, takeUntil, tap } from 'rxjs/operators';
 import { FocusIndicator, FocusIndicatorService, ManagedFocusContainerService } from '../accessibility/index';
@@ -10,6 +10,15 @@ import { SelectionService } from './selection.service';
     exportAs: 'ux-selection-item'
 })
 export class SelectionItemDirective<T> implements OnInit, OnChanges, OnDestroy {
+    readonly focusIndicatorService = inject(FocusIndicatorService);
+
+    private readonly _selectionService = inject<SelectionService<T>>(SelectionService);
+
+    private readonly _elementRef = inject(ElementRef);
+
+    private readonly _managedFocusContainerService = inject(ManagedFocusContainerService);
+
+    private readonly _changeDetector = inject(ChangeDetectorRef);
 
     /** Defines the data associated with this item. */
     @Input() uxSelectionItem: T;
@@ -78,14 +87,8 @@ export class SelectionItemDirective<T> implements OnInit, OnChanges, OnDestroy {
     /** The the instance of the focus indicator */
     private readonly _focusIndicator: FocusIndicator;
 
-    constructor(
-        private readonly _selectionService: SelectionService<T>,
-        private readonly _elementRef: ElementRef,
-        readonly focusIndicatorService: FocusIndicatorService,
-        private readonly _managedFocusContainerService: ManagedFocusContainerService,
-        private readonly _changeDetector: ChangeDetectorRef
-    ) {
-        this._focusIndicator = focusIndicatorService.monitor(_elementRef.nativeElement);
+    constructor() {
+        this._focusIndicator = this.focusIndicatorService.monitor(this._elementRef.nativeElement);
     }
 
     ngOnInit(): void {

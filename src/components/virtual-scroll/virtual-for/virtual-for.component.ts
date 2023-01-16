@@ -1,5 +1,5 @@
 import { END, HOME, PAGE_DOWN, PAGE_UP } from '@angular/cdk/keycodes';
-import { AfterViewInit, Component, ContentChild, ElementRef, HostListener, Input, OnDestroy, Optional, Self } from '@angular/core';
+import { AfterViewInit, Component, ContentChild, ElementRef, HostListener, inject, Input, OnDestroy } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { TabbableListService } from '../../../directives/accessibility/index';
@@ -15,6 +15,14 @@ import { VirtualForRange, VirtualForService } from './virtual-for.service';
     }
 })
 export class VirtualForContainerComponent<T> implements AfterViewInit, OnDestroy {
+    /** Get the ElementRef of the container element */
+    private readonly _elementRef = inject(ElementRef);
+
+    /** A service to share values between the container and child elements */
+    private readonly _virtualScroll = inject<VirtualForService<T>>(VirtualForService);
+
+    /** Handle key presses if there is a tabbable list */
+    private readonly _tabbableList = inject(TabbableListService, { optional: true, self: true });
 
     /** Define the height of each virtual item */
     @Input() set itemSize(itemSize: number) {
@@ -45,7 +53,7 @@ export class VirtualForContainerComponent<T> implements AfterViewInit, OnDestroy
     private _initialized: boolean = false;
 
     /** Unsubscribe from all observables */
-    private _onDestroy = new Subject<void>();
+    private readonly _onDestroy = new Subject<void>();
 
     /** Determine if this is a table */
     get _isTable(): boolean {
@@ -59,15 +67,6 @@ export class VirtualForContainerComponent<T> implements AfterViewInit, OnDestroy
 
     /** Access the uxVirtualFor child directive */
     @ContentChild(VirtualForDirective, { static: false }) virtualFor: VirtualForDirective<T>;
-
-    constructor(
-        /** Get the ElementRef of the container element */
-        private _elementRef: ElementRef,
-        /** A service to share values between the container and child elements */
-        private _virtualScroll: VirtualForService<T>,
-        /** Handle key presses if there is a tabbable list */
-        @Self() @Optional() private _tabbableList: TabbableListService
-    ) { }
 
     ngAfterViewInit(): void {
         // subscribe to changes to the dataset

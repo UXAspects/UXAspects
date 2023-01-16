@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { fromEvent, Subject } from 'rxjs';
 import { switchMap, takeUntil } from 'rxjs/operators';
 import { MediaPlayerService } from '../../media-player.service';
@@ -13,6 +13,7 @@ import { MediaPlayerService } from '../../media-player.service';
     }
 })
 export class MediaPlayerTimelineExtensionComponent implements OnInit, AfterViewInit, OnDestroy {
+    readonly mediaPlayerService = inject(MediaPlayerService);
 
     @ViewChild('progressThumb', { static: true }) thumb: ElementRef;
     @ViewChild('timeline', { static: true }) timelineRef: ElementRef;
@@ -23,9 +24,8 @@ export class MediaPlayerTimelineExtensionComponent implements OnInit, AfterViewI
     mouseDown: boolean = false;
     scrub = { visible: false, position: 0, time: 0 };
 
-    private _onDestroy = new Subject<void>();
+    private readonly _onDestroy = new Subject<void>();
 
-    constructor(public mediaPlayerService: MediaPlayerService) { }
 
     ngOnInit(): void {
 

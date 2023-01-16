@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, TemplateRef } from '@angular/core';
+import { Component, EventEmitter, inject, Input, OnDestroy, OnInit, Output, TemplateRef } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { SearchBuilderGroupQuery } from '../interfaces/group-query.interface';
@@ -11,6 +11,9 @@ import { SearchBuilderGroupService } from './search-builder-group.service';
   providers: [SearchBuilderGroupService]
 })
 export class SearchBuilderGroupComponent implements OnInit, OnDestroy {
+  readonly searchBuilderGroupService = inject(SearchBuilderGroupService);
+
+  private readonly _searchBuilderFocusService = inject(SearchBuilderFocusService);
 
   @Input() id: string;
   @Input() header: string;
@@ -25,12 +28,7 @@ export class SearchBuilderGroupComponent implements OnInit, OnDestroy {
 
   focusIndex: number = -1;
 
-  private _onDestroy = new Subject<void>();
-
-  constructor(
-    public searchBuilderGroupService: SearchBuilderGroupService,
-    private _searchBuilderFocusService: SearchBuilderFocusService
-  ) { }
+  private readonly _onDestroy = new Subject<void>();
 
   ngOnInit(): void {
 

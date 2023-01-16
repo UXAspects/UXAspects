@@ -1,6 +1,6 @@
-import { ComponentFactoryResolver, ComponentRef, Directive, Input, OnDestroy, OnInit, ViewContainerRef } from '@angular/core';
-import { delay, distinctUntilChanged, takeUntil } from 'rxjs/operators';
+import { ComponentFactoryResolver, ComponentRef, Directive, inject, Input, OnDestroy, OnInit, ViewContainerRef } from '@angular/core';
 import { Subject } from 'rxjs';
+import { delay, distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { SearchBuilderFocusService } from '../search-builder-focus.service';
 import { SearchBuilderService } from '../search-builder.service';
 import { BaseSearchComponent } from '../search-components/base-search.component';
@@ -9,6 +9,13 @@ import { BaseSearchComponent } from '../search-components/base-search.component'
     selector: '[uxSearchBuilderOutlet]'
 })
 export class SearchBuilderOutletDirective implements OnInit, OnDestroy {
+    private readonly _viewContainerRef = inject(ViewContainerRef);
+
+    private readonly _componentFactoryResolver = inject(ComponentFactoryResolver);
+
+    private readonly _searchBuilderService = inject(SearchBuilderService);
+
+    private readonly _searchBuilderFocusService = inject(SearchBuilderFocusService);
 
     @Input('uxSearchBuilderOutlet') outlet: string;
     @Input('uxSearchBuilderOutletContext') context: any;
@@ -16,14 +23,7 @@ export class SearchBuilderOutletDirective implements OnInit, OnDestroy {
     @Input('uxSearchBuilderOutletIndex') index: number;
 
     private _componentRef: ComponentRef<BaseSearchComponent>;
-    private _onDestroy = new Subject<void>();
-
-    constructor(
-        private _viewContainerRef: ViewContainerRef,
-        private _componentFactoryResolver: ComponentFactoryResolver,
-        private _searchBuilderService: SearchBuilderService,
-        private _searchBuilderFocusService: SearchBuilderFocusService
-    ) { }
+    private readonly _onDestroy = new Subject<void>();
 
     ngOnInit(): void {
 

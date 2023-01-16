@@ -1,9 +1,8 @@
-
-import {debounceTime} from 'rxjs/operators';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { Component } from '@angular/core';
 import 'chance';
 import { BehaviorSubject } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
@@ -11,16 +10,25 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 
 const chance = new Chance();
 
-const DEPARTMENTS = ['Finance', 'Operations', 'Investor Relations', 'Technical', 'Auditing', 'Labs'];
+const DEPARTMENTS = [
+    'Finance',
+    'Operations',
+    'Investor Relations',
+    'Technical',
+    'Auditing',
+    'Labs',
+];
 
 @Component({
     selector: 'uxd-components-infinite-scroll',
     templateUrl: 'infinite-scroll.component.html',
-    styleUrls: ['./infinite-scroll.component.less']
+    styleUrls: ['./infinite-scroll.component.less'],
 })
 @DocumentationSectionComponent('ComponentsInfiniteScrollComponent')
-export class ComponentsInfiniteScrollComponent extends BaseDocumentationSection implements IPlaygroundProvider {
-
+export class ComponentsInfiniteScrollComponent
+    extends BaseDocumentationSection
+    implements IPlaygroundProvider
+{
     filterText = new BehaviorSubject<string>('');
     debouncedFilterText = this.filterText.pipe(debounceTime(500));
     allEmployees: any[] = [];
@@ -39,7 +47,9 @@ export class ComponentsInfiniteScrollComponent extends BaseDocumentationSection 
                 const newItems = this.allEmployees
                     .filter(e => this.isFilterMatch(e))
                     .slice(pageStart, pageStart + pageSize);
-                this._liveAnnouncer.announce(`${newItems.length} items loaded at the end of the list.`);
+                this._liveAnnouncer.announce(
+                    `${newItems.length} items loaded at the end of the list.`
+                );
                 resolve(newItems);
             }, 2000);
         });
@@ -56,22 +66,32 @@ export class ComponentsInfiniteScrollComponent extends BaseDocumentationSection 
         files: {
             'app.component.ts': this.snippets.raw.appTs,
             'app.component.html': this.snippets.raw.appHtml,
-            'app.component.css': this.snippets.raw.appCss
+            'app.component.css': this.snippets.raw.appCss,
         },
         modules: [
             {
-                imports: ['InfiniteScrollModule', 'CheckboxModule', 'NumberPickerModule', 'AccordionModule'],
-                library: '@ux-aspects/ux-aspects'
+                imports: [
+                    'InfiniteScrollModule',
+                    'CheckboxModule',
+                    'NumberPickerModule',
+                    'AccordionModule',
+                ],
+                library: '@ux-aspects/ux-aspects',
             },
             {
                 imports: ['A11yModule'],
-                library: '@angular/cdk/a11y'
-            }
-        ]
+                library: '@angular/cdk/a11y',
+            },
+        ],
     };
 
     constructor(private _liveAnnouncer: LiveAnnouncer) {
-        super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
+        super(
+            import.meta.webpackContext('./snippets/', {
+                recursive: false,
+                regExp: /\.(html|css|js|ts)$/,
+            })
+        );
 
         for (let i = 0; i < this.totalItems; i += 1) {
             const name = chance.name();
@@ -80,7 +100,7 @@ export class ComponentsInfiniteScrollComponent extends BaseDocumentationSection 
                 name: name,
                 department: chance.pickone(DEPARTMENTS),
                 email: name.toLowerCase().replace(' ', '.') + '@business.com',
-                position: i
+                position: i,
             });
         }
     }

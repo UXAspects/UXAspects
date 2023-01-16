@@ -1,17 +1,14 @@
-import { ElementRef, Injectable } from '@angular/core';
 import { ViewportRuler } from '@angular/cdk/scrolling';
-import { ResizeService } from '../../directives/resize/index';
-import { takeUntil } from 'rxjs/operators';
+import { ElementRef, inject, Injectable } from '@angular/core';
 import { BehaviorSubject, fromEvent, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { ResizeService } from '../../directives/resize/index';
 
 @Injectable()
 export class PopoverOrientationService {
+    private readonly _resizeService = inject(ResizeService);
 
-    constructor(
-        public elementRef: ElementRef,
-        public _resizeService: ResizeService,
-        public _viewportRuler: ViewportRuler) {
-    }
+    private readonly _viewportRuler = inject(ViewportRuler);
 
     public createPopoverOrientationListener(
         element: ElementRef | HTMLElement,
@@ -37,12 +34,12 @@ export class PopoverOrientationListener {
     /** Store the last known position and size */
     private _rect: ClientRect;
 
-    private _onDestroy = new Subject<void>();
+    private readonly _onDestroy = new Subject<void>();
 
-    constructor(private _element: HTMLElement,
-                private _elementParent: HTMLElement,
-                private _resizeService: ResizeService,
-                private _viewportRuler: ViewportRuler) {
+    constructor(private readonly _element: HTMLElement,
+                private readonly _elementParent: HTMLElement,
+                private readonly _resizeService: ResizeService,
+                private readonly _viewportRuler: ViewportRuler) {
 
         // watch for changes to the typeahead size
         this._resizeService.addResizeListener(this._element).pipe(takeUntil(this._onDestroy))

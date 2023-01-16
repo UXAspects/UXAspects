@@ -1,5 +1,5 @@
 import { BooleanInput, coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, forwardRef, HostListener, Input, OnChanges, OnDestroy, Optional, Output } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, forwardRef, HostListener, inject, Input, OnChanges, OnDestroy, Output } from '@angular/core';
 import { ControlValueAccessor, FormGroupDirective, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 let uniqueId = 0;
@@ -20,6 +20,10 @@ export const NUMBER_PICKER_VALUE_ACCESSOR: any = {
     }
 })
 export class NumberPickerComponent implements ControlValueAccessor, OnDestroy, OnChanges {
+    readonly _formGroup = inject(FormGroupDirective, { optional: true });
+
+    private readonly _changeDetector = inject(ChangeDetectorRef);
+
     private _min: number;
     private _max: number;
     private _step: number | ((value: number, direction: StepDirection) => number) = 1;
@@ -126,12 +130,6 @@ export class NumberPickerComponent implements ControlValueAccessor, OnDestroy, O
      *  is no longer instantiated. A workaround for Angular Forms bug (https://github.com/angular/angular/issues/27803) */
     private _isDestroyed: boolean = false;
     private _readonly: boolean = false;
-
-    constructor(
-        private readonly _changeDetector: ChangeDetectorRef,
-        @Optional() public _formGroup: FormGroupDirective
-    ) {
-    }
 
     ngOnChanges(): void {
         this._valid = this.isValid();

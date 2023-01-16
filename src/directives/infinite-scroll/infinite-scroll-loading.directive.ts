@@ -1,10 +1,13 @@
-import { Directive, Input, TemplateRef, ViewContainerRef } from '@angular/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import { Directive, inject, Input, TemplateRef, ViewContainerRef } from '@angular/core';
 
 @Directive({
     selector: '[uxInfiniteScrollLoading]'
 })
 export class InfiniteScrollLoadingDirective {
+    private readonly _templateRef = inject<TemplateRef<any>>(TemplateRef);
+
+    private readonly _viewContainer = inject(ViewContainerRef);
 
     @Input('uxInfiniteScrollLoading')
     get visible() {
@@ -25,8 +28,4 @@ export class InfiniteScrollLoadingDirective {
     }
 
     private _visible: boolean = false;
-
-    constructor(
-        private _templateRef: TemplateRef<any>,
-        private _viewContainer: ViewContainerRef) { }
 }

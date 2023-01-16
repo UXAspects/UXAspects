@@ -1,4 +1,11 @@
-import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild, ViewEncapsulation } from '@angular/core';
+import {
+    AfterViewInit,
+    Component,
+    ElementRef,
+    OnDestroy,
+    ViewChild,
+    ViewEncapsulation,
+} from '@angular/core';
 import { DateTimePickerTimezone } from '@ux-aspects/ux-aspects';
 import { fromEvent, Subscription } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
@@ -10,11 +17,13 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
     selector: 'uxd-components-date-time-picker',
     templateUrl: './date-time-picker.component.html',
     styleUrls: ['./date-time-picker.component.less'],
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
 })
 @DocumentationSectionComponent('ComponentsDateTimePickerComponent')
-export class ComponentsDateTimePickerComponent extends BaseDocumentationSection implements IPlaygroundProvider, AfterViewInit, OnDestroy {
-
+export class ComponentsDateTimePickerComponent
+    extends BaseDocumentationSection
+    implements IPlaygroundProvider, AfterViewInit, OnDestroy
+{
     @ViewChild('input', { static: false }) dateInput: ElementRef;
 
     date: Date = new Date();
@@ -35,15 +44,25 @@ export class ComponentsDateTimePickerComponent extends BaseDocumentationSection 
             },
             modules: [
                 {
-                    imports: ['DateTimePickerModule', 'CheckboxModule', 'PopoverModule', 'AccordionModule'],
-                    library: '@ux-aspects/ux-aspects'
-                }
-            ]
+                    imports: [
+                        'DateTimePickerModule',
+                        'CheckboxModule',
+                        'PopoverModule',
+                        'AccordionModule',
+                    ],
+                    library: '@ux-aspects/ux-aspects',
+                },
+            ],
         };
-    }
+    };
 
     constructor() {
-        super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
+        super(
+            import.meta.webpackContext('./snippets/', {
+                recursive: false,
+                regExp: /\.(html|css|js|ts)$/,
+            })
+        );
     }
 
     ngAfterViewInit(): void {
@@ -57,7 +76,6 @@ export class ComponentsDateTimePickerComponent extends BaseDocumentationSection 
     }
 
     parse(value: string): void {
-
         // try and parse the date
         const date = new Date(value);
 

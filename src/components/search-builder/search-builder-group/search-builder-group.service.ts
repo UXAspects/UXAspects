@@ -1,17 +1,15 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { SearchBuilderGroupQuery } from '../interfaces/group-query.interface';
 import { SearchBuilderFocusService } from '../search-builder-focus.service';
 import { SearchBuilderService } from '../search-builder.service';
 
 @Injectable()
 export class SearchBuilderGroupService {
+  private readonly _searchBuilderService = inject(SearchBuilderService);
+
+  private readonly _searchBuilderFocusService = inject(SearchBuilderFocusService);
 
   private _id: string;
-
-  constructor(
-    private _searchBuilderService: SearchBuilderService,
-    private _searchBuilderFocusService: SearchBuilderFocusService
-  ) { }
 
   /**
    * Initialise the group by defining an id

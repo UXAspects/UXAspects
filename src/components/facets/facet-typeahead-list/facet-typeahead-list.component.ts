@@ -1,5 +1,5 @@
 import { FocusKeyManager, LiveAnnouncer } from '@angular/cdk/a11y';
-import { AfterViewInit, Component, EventEmitter, Input, OnDestroy, OnInit, Output, Pipe, PipeTransform, QueryList, ViewChildren } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, inject, Input, OnDestroy, OnInit, Output, Pipe, PipeTransform, QueryList, ViewChildren } from '@angular/core';
 import { BehaviorSubject, isObservable, Observable, of, Subject } from 'rxjs';
 import { distinctUntilChanged, first, map, mergeMap, takeUntil, tap } from 'rxjs/operators';
 import { tick } from '../../../common/index';
@@ -16,6 +16,11 @@ let uniqueId = 1;
     templateUrl: './facet-typeahead-list.component.html'
 })
 export class FacetTypeaheadListComponent implements AfterViewInit, OnInit, OnDestroy {
+    readonly typeaheadKeyService = inject(TypeaheadKeyService);
+
+    readonly facetService = inject(FacetService);
+
+    private readonly _announcer = inject(LiveAnnouncer);
 
     /** This will allow you to define an initial set of selected facets. */
     @Input() set selected(selection: Facet[]) {
@@ -87,11 +92,9 @@ export class FacetTypeaheadListComponent implements AfterViewInit, OnInit, OnDes
 
     private _facets: Facet[] = [];
     private _selected: Facet[] = [];
-    private _onDestroy = new Subject<void>();
+    private readonly _onDestroy = new Subject<void>();
     private _config: FacetTypeaheadListConfig = { placeholder: '', maxResults: 50, minCharacters: 1 };
     private _focusKeyManager: FocusKeyManager<FacetTypeaheadListItemComponent>;
-
-    constructor(public typeaheadKeyService: TypeaheadKeyService, public facetService: FacetService, private _announcer: LiveAnnouncer) { }
 
     ngOnInit(): void {
 

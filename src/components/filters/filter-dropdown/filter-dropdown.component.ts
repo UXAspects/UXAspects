@@ -1,5 +1,5 @@
 import { BooleanInput, coerceBooleanProperty } from '@angular/cdk/coercion';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, inject, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { Subject } from 'rxjs';
 import { filter as rxFilter, takeUntil } from 'rxjs/operators';
 import { FilterRemoveAllEvent } from '../events/filter-remove-all-event';
@@ -14,6 +14,9 @@ let uniqueId = 0;
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FilterDropdownComponent implements OnInit, OnDestroy {
+    private readonly _filterService = inject(FilterService);
+
+    private readonly _changeDetector = inject(ChangeDetectorRef);
 
     /** Store the unique id so we only increment the counter once per instance */
     private readonly _uniqueId: number = uniqueId++;
@@ -48,14 +51,13 @@ export class FilterDropdownComponent implements OnInit, OnDestroy {
     private readonly _onDestroy = new Subject<void>();
     private _closeOnBlur: boolean = false;
 
-    constructor(private readonly _filterService: FilterService,
-                private readonly _changeDetector: ChangeDetectorRef) {
+    constructor() {
 
-        _filterService.events$.pipe(rxFilter(event => event instanceof FilterRemoveAllEvent), takeUntil(this._onDestroy))
+        this._filterService.events$.pipe(rxFilter(event => event instanceof FilterRemoveAllEvent), takeUntil(this._onDestroy))
             .subscribe(() => this.removeFilter());
 
         // ensure that the current selected filter is still selected when the active filters change
-        _filterService.filters$.pipe(takeUntil(this._onDestroy)).subscribe(filters => {
+        this._filterService.filters$.pipe(takeUntil(this._onDestroy)).subscribe(filters => {
             if (this.selected && filters.indexOf(this.selected) === -1) {
                 this.removeFilter();
             }

@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Input, OnDestroy, Renderer2, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, inject, Input, OnDestroy, Renderer2, ViewChild } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ResizeService } from '../../../directives/resize/index';
@@ -12,6 +12,15 @@ import { HierarchyBarNode } from '../interfaces/hierarchy-bar-node.interface';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HierarchyBarCollapsedComponent implements AfterViewInit, OnDestroy {
+    readonly hierarchyBar = inject(HierarchyBarService);
+
+    private readonly _renderer = inject(Renderer2);
+
+    private readonly _resizeService = inject(ResizeService);
+
+    private readonly _elementRef = inject(ElementRef);
+
+    private readonly _changeDetector = inject(ChangeDetectorRef);
 
     /** Determine read only state */
     @Input() readonly: boolean;
@@ -38,21 +47,10 @@ export class HierarchyBarCollapsedComponent implements AfterViewInit, OnDestroy 
     }
 
     /** Unsubscribe from all observables on destroy */
-    private _onDestroy = new Subject<void>();
+    private readonly _onDestroy = new Subject<void>();
 
     /** Access the node container */
     @ViewChild('nodes', { static: true }) nodeContainer: ElementRef;
-
-    constructor(
-        public readonly hierarchyBar: HierarchyBarService,
-        /** Access the renderer to mutate the DOM */
-        private _renderer: Renderer2,
-        /** Access the resize service to watch for changes to the host element */
-        private _resizeService: ResizeService,
-        /** Access the host elementRef */
-        private _elementRef: ElementRef,
-        private _changeDetector: ChangeDetectorRef
-    ) { }
 
     ngAfterViewInit(): void {
         // Update the UI when the selected nodes change

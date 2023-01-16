@@ -1,5 +1,5 @@
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { WizardService } from './wizard.service';
 
 
@@ -12,6 +12,9 @@ import { WizardService } from './wizard.service';
     }
 })
 export class WizardStepComponent {
+    private readonly _wizardService = inject<WizardService<WizardStepComponent>>(WizardService);
+
+    private readonly _changeDetector = inject(ChangeDetectorRef);
 
     /** The text to be displayed in the wizard step tab. */
     @Input() header: string;
@@ -78,11 +81,6 @@ export class WizardStepComponent {
      * Defines the currently visible step.
      */
     _active: boolean = false;
-
-    constructor(
-        private readonly _wizardService: WizardService<WizardStepComponent>,
-        private readonly _changeDetector: ChangeDetectorRef) {
-    }
 
     setVisitedAndEmitChangeEvent(value: boolean): void {
         if (value === this.visited) {

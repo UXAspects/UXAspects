@@ -50,11 +50,17 @@ export class PlaygroundService {
         switch (playground.framework) {
             case 'angular':
                 return this.createTreeWithTemplate(
-                    require.context('./templates/angular', true, /\.(ts|js|html|css|json)$/)
+                    import.meta.webpackContext('./templates/angular', {
+                        recursive: true,
+                        regExp: /\.(ts|js|html|css|json)$/,
+                    })
                 );
             case 'css':
                 return this.createTreeWithTemplate(
-                    require.context('./templates/css', true, /\.(ts|js|html|css|json)$/)
+                    import.meta.webpackContext('./templates/css', {
+                        recursive: true,
+                        regExp: /\.(ts|js|html|css|json)$/,
+                    })
                 );
         }
     }

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, HostBinding, HostListener, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, HostBinding, HostListener, inject, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { Subject } from 'rxjs';
 import { distinctUntilChanged, skip, takeUntil } from 'rxjs/operators';
 import { FocusIndicatorOriginService } from '../../directives/accessibility/index';
@@ -17,6 +17,11 @@ import { SidePanelService } from './side-panel.service';
     }
 })
 export class SidePanelComponent implements OnInit, OnDestroy {
+    protected readonly service = inject(SidePanelService);
+
+    private readonly _elementRef = inject(ElementRef);
+
+    private readonly _focusOrigin = inject(FocusIndicatorOriginService);
 
     @Input()
     @HostBinding('class.open')
@@ -116,11 +121,6 @@ export class SidePanelComponent implements OnInit, OnDestroy {
     animationPanelState: SidePanelAnimationState = SidePanelAnimationState.Closed;
 
     protected _onDestroy = new Subject<void>();
-
-    constructor(
-        protected readonly service: SidePanelService,
-        private readonly _elementRef: ElementRef,
-        private readonly _focusOrigin: FocusIndicatorOriginService) { }
 
     ngOnInit(): void {
 
