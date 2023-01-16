@@ -8,7 +8,7 @@ import { FileUploader } from 'ng2-file-upload';
 })
 export class AppComponent {
     fileOver: boolean = false;
-    uploader: FileUploader = new FileUploader({ url: '' });
+    uploader: FileUploader = new FileUploader({ url: './' });
 
     constructor(announcer: LiveAnnouncer) {
         this.uploader.onCompleteAll = () => announcer.announce('All files have been uploaded.');

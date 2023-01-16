@@ -16,7 +16,7 @@ export class ComponentsFileUploadComponent
     implements IPlaygroundProvider
 {
     fileOver: boolean = false;
-    uploader: FileUploader = new FileUploader({ url: '' });
+    uploader: FileUploader = new FileUploader({ url: './' });
 
     playground: IPlayground = {
         files: {
@@ -48,5 +48,7 @@ export class ComponentsFileUploadComponent
         );
 
         this.uploader.onCompleteAll = () => announcer.announce('All files have been uploaded.');
+
+        // this.uploader.on
     }
 }
