@@ -16,7 +16,7 @@ export class ComponentsFileUploadComponent
     implements IPlaygroundProvider
 {
     fileOver: boolean = false;
-    uploader: FileUploader = new FileUploader({});
+    uploader: FileUploader = new FileUploader({ url: './' });
 
     playground: IPlayground = {
         files: {

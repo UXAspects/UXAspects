@@ -23,8 +23,7 @@ import {
     PackageJsonPlaygroundTransformer,
     PLAYGROUND_TRANSFORMER,
     RenameAngularJsonPlaygroundTransformer,
-    StylesheetPlaygroundTransformer,
-    ViewEngineDowngradeTransformer,
+    StylesheetPlaygroundTransformer
 } from './services/playground/index';
 import {
     DocumentationType,
@@ -73,7 +72,6 @@ const appRoutes: Routes = [
         { provide: PLAYGROUND_TRANSFORMER, useClass: PackageJsonPlaygroundTransformer, multi: true, },
         { provide: PLAYGROUND_TRANSFORMER, useClass: StylesheetPlaygroundTransformer, multi: true },
         { provide: PLAYGROUND_TRANSFORMER, useClass: RenameAngularJsonPlaygroundTransformer, multi: true },
-        { provide: PLAYGROUND_TRANSFORMER, useClass: ViewEngineDowngradeTransformer, multi: true },
     ],
     declarations: [AppComponent],
     bootstrap: [AppComponent],

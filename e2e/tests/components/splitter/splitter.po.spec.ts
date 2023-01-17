@@ -1,4 +1,4 @@
-import { browser, Key, $ } from 'protractor';
+import { $, browser, Key } from 'protractor';
 
 export class SplitterPage {
 
@@ -30,6 +30,14 @@ export class SplitterPage {
 
     async sendRightKey(): Promise<void> {
         return await browser.actions().sendKeys(Key.ARROW_RIGHT).perform();
+    }
+
+    async sendUpKey(): Promise<void> {
+        return await browser.actions().sendKeys(Key.ARROW_UP).perform();
+    }
+
+    async sendDownKey(): Promise<void> {
+        return await browser.actions().sendKeys(Key.ARROW_DOWN).perform();
     }
 
     async sendHomeKey(): Promise<void> {

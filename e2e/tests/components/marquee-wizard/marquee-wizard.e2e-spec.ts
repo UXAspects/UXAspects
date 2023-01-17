@@ -368,6 +368,28 @@ describe('Marquee Wizard Tests', () => {
         // focus the gutter
         await page.setGutterFocused();
 
+        // press the up key
+        await page.sendUpKey();
+
+        valuenow = await page.getGutterAriaValue();
+        valuemin = await page.getGutterAriaValueMin();
+        valuemax = await page.getGutterAriaValueMax();
+
+        expect(valuenow).toContain('24');
+        expect(valuemin).toContain('0');
+        expect(valuemax).toContain('100');
+
+        // press the down key
+        await page.sendDownKey();
+
+        valuenow = await page.getGutterAriaValue();
+        valuemin = await page.getGutterAriaValueMin();
+        valuemax = await page.getGutterAriaValueMax();
+
+        expect(valuenow).toContain('25');
+        expect(valuemin).toContain('0');
+        expect(valuemax).toContain('100');
+
         // press the left key
         await page.sendLeftKey();
 
@@ -375,7 +397,7 @@ describe('Marquee Wizard Tests', () => {
         valuemin = await page.getGutterAriaValueMin();
         valuemax = await page.getGutterAriaValueMax();
 
-        expect(valuenow).toContain('24');
+        expect(valuenow).toContain('18');
         expect(valuemin).toContain('0');
         expect(valuemax).toContain('100');
 
