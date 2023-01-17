@@ -48,7 +48,5 @@ export class ComponentsFileUploadComponent
         );
 
         this.uploader.onCompleteAll = () => announcer.announce('All files have been uploaded.');
-
-        // this.uploader.on
     }
 }
