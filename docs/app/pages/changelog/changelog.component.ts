@@ -19,7 +19,7 @@ export class ChangeLogPageComponent implements OnInit {
         this.logs = [
             {
                 version: '7.0.0',
-                date: 'January 18th 2023',
+                date: 'January 19th 2023',
                 content: require('./logs/release-v7.0.0.md')
             },
             {
