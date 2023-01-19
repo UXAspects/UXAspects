@@ -6,7 +6,7 @@ npm install @ux-aspects/ux-aspects@7.0.0
 ```
 
 #### New Features
-* [(474061)](https://internal.almoctane.com/ui/entity-navigation?p=131002/7002&entityType=work_item&id=474061) - Angular 15 Support.
+* [(#920)](https://github.houston.softwaregrp.net/caf/ux-aspects-micro-focus/issues/920) - Angular 15 Support.
 * Upgraded to Angular Split 14.1.0.
 * Upgraded to ng2-file-upload 3.0.0.
 * Components now use `inject` for Dependency Injection.
