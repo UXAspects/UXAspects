@@ -1,6 +1,6 @@
 /*
- * @ux-aspects/ux-aspects - v6.9.0-487
- * © Copyright 2022 EntIT Software LLC, a Micro Focus company
+ * @ux-aspects/ux-aspects - v7.0.0-504
+ * © Copyright 2023 EntIT Software LLC, a Micro Focus company
  */
 .cdk-overlay-container,
 .cdk-global-overlay-wrapper {
@@ -9752,6 +9752,7 @@ ux-dropdown.ux-select-disabled .ux-select-container .ux-select-icons ux-tag-inpu
   width: 100%;
   padding: 20px;
   overflow-y: auto;
+  /* stylelint-disable-next-line */
   overscroll-behavior: contain;
 }
 .ux-side-panel > .ux-side-panel-host .ux-side-panel-footer {
