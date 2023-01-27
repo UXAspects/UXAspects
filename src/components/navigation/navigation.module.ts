@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { AccessibilityModule } from '../../directives/accessibility/index';
-import { RouterLinkDirective } from '../../directives/router-link/router-link.directive';
+import { RouterLinkDirective } from '../../directives/router-link/index';
 import { IconModule } from '../icon/index';
 import { NavigationItemComponent } from './navigation-item/navigation-item.component';
 import { NavigationLinkDirective } from './navigation-link/navigation-link.directive';
