@@ -1,9 +1,9 @@
 import { A11yModule } from '@angular/cdk/a11y';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
 import { AccessibilityModule } from '../../directives/accessibility/index';
 import { ResizeModule } from '../../directives/resize/index';
+import { RouterLinkDirective } from '../../directives/router-link/router-link.directive';
 import { ColorServiceModule } from '../../services/color/index';
 import { BreadcrumbsModule } from '../breadcrumbs/index';
 import { IconModule } from '../icon/index';
@@ -27,13 +27,10 @@ import { PageHeaderComponent } from './page-header.component';
         IconModule,
         MenuModule,
         ResizeModule,
-        RouterModule,
         TabsetModule,
+        RouterLinkDirective,
     ],
-    exports: [
-        PageHeaderComponent,
-        PageHeaderCustomMenuDirective
-    ],
+    exports: [PageHeaderComponent, PageHeaderCustomMenuDirective],
     declarations: [
         PageHeaderComponent,
         PageHeaderIconMenuComponent,
@@ -41,7 +38,7 @@ import { PageHeaderComponent } from './page-header.component';
         PageHeaderNavigationComponent,
         PageHeaderNavigationItemComponent,
         PageHeaderNavigationDropdownItemComponent,
-        PageHeaderNavigationSecondaryItemDirective
-    ]
+        PageHeaderNavigationSecondaryItemDirective,
+    ],
 })
-export class PageHeaderModule { }
+export class PageHeaderModule {}

@@ -1,16 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
 import { AccessibilityModule } from '../../directives/accessibility/index';
+import { RouterLinkDirective } from '../../directives/router-link/router-link.directive';
 import { BreadcrumbsComponent } from './breadcrumbs.component';
 
 @NgModule({
-    imports: [
-        AccessibilityModule,
-        CommonModule,
-        RouterModule
-    ],
+    imports: [AccessibilityModule, CommonModule, RouterLinkDirective],
     exports: [BreadcrumbsComponent],
-    declarations: [BreadcrumbsComponent]
+    declarations: [BreadcrumbsComponent],
 })
-export class BreadcrumbsModule { }
+export class BreadcrumbsModule {}

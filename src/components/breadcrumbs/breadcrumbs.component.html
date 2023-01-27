@@ -1,21 +1,24 @@
 <nav aria-label="Breadcrumb">
     <ol class="breadcrumb">
         <li *ngFor="let crumb of crumbs">
-
             <!-- If there is a router link or an onClick function then use a tag -->
-            <a *ngIf="crumb.routerLink"
+            <a
+                *ngIf="crumb.routerLink"
                 uxFocusIndicator
                 tabindex="0"
-                [routerLink]="crumb.routerLink"
+                [uxRouterLink]="crumb.routerLink"
                 [fragment]="crumb.fragment"
                 [queryParams]="crumb.queryParams"
-                (click)="clickCrumb($event, crumb)">
+                (click)="clickCrumb($event, crumb)"
+            >
                 {{ crumb.title }}
             </a>
-            <a *ngIf="crumb.onClick && !crumb.routerLink"
+            <a
+                *ngIf="crumb.onClick && !crumb.routerLink"
                 uxFocusIndicator
                 tabindex="0"
-                (click)="clickCrumb($event, crumb)">
+                (click)="clickCrumb($event, crumb)"
+            >
                 {{ crumb.title }}
             </a>
 
