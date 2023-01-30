@@ -40,7 +40,7 @@ import { Subject, Subscription } from 'rxjs';
 })
 export class RouterLinkDirective implements OnChanges, OnDestroy {
     private readonly router = inject(Router);
-    private readonly route = inject(ActivatedRoute);
+    private readonly route? = inject(ActivatedRoute, { optional: true });
     private readonly renderer = inject(Renderer2);
     private readonly element = inject(ElementRef);
     private readonly locationStrategy? = inject(LocationStrategy, { optional: true });
@@ -67,7 +67,7 @@ export class RouterLinkDirective implements OnChanges, OnDestroy {
     private readonly subscription?: Subscription;
 
     /** @internal */
-    onChanges = new Subject<RouterLinkDirective>();
+    readonly onChanges = new Subject<RouterLinkDirective>();
 
     constructor(
         @Attribute('tabindex') private readonly tabIndexAttribute: string | null | undefined
