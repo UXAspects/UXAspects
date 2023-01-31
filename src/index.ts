@@ -23,6 +23,7 @@ export * from './components/flippable-card/index';
 export * from './components/floating-action-buttons/index';
 export * from './components/hierarchy-bar/index';
 export * from './components/icon/index';
+export * from './components/input-dropdown/index';
 export * from './components/item-display-panel/index';
 export * from './components/marquee-wizard/index';
 export * from './components/media-player/index';
@@ -41,7 +42,6 @@ export * from './components/radiobutton/index';
 export * from './components/sankey-chart/index';
 export * from './components/search-builder/index';
 export * from './components/select-list/index';
-export * from './components/input-dropdown/index';
 export * from './components/select/index';
 export * from './components/side-panel/index';
 export * from './components/slider/index';
@@ -77,16 +77,17 @@ export * from './directives/menu-navigation/index';
 export * from './directives/observers/index';
 export * from './directives/reorderable/index';
 export * from './directives/resize/index';
+export * from './directives/router-link/index';
 export * from './directives/scroll/index';
 export * from './directives/selection/index';
 export * from './directives/tree-grid/index';
+export * from './pipes/date-formatter/index';
 /*
   Export Pipes
 */
 export * from './pipes/duration/index';
 export * from './pipes/file-size/index';
 export * from './pipes/string-filter/index';
-export * from './pipes/date-formatter/index';
 /*
  * Export Plugins
  */
@@ -97,6 +98,5 @@ export * from './plugins/index';
 export * from './services/audio/index';
 export * from './services/color/index';
 export * from './services/frame-extraction/index';
-export * from './services/persistent-data/index';
 export * from './services/overlay-placement/index';
-
+export * from './services/persistent-data/index';

@@ -1,14 +1,18 @@
-<a *ngIf="link"
-   [class.has-arrow]="children.length > 0"
-   [class.no-arrow]="_indentWithoutArrow"
-   [routerLink]="link">
+<a
+    *ngIf="link"
+    [class.has-arrow]="children.length > 0"
+    [class.no-arrow]="_indentWithoutArrow"
+    [uxRouterLink]="link"
+>
     <span>{{ header }}</span>
 </a>
 
-<a *ngIf="!link"
-   (click)="expanded = !expanded"
-   [class.has-arrow]="children.length > 0"
-   [class.no-arrow]="_indentWithoutArrow">
+<a
+    *ngIf="!link"
+    (click)="expanded = !expanded"
+    [class.has-arrow]="children.length > 0"
+    [class.no-arrow]="_indentWithoutArrow"
+>
     <span>{{ header }}</span>
 </a>
 
