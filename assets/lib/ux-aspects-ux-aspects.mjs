@@ -1,18 +1,17 @@
 import { Observable, Subject, BehaviorSubject, ReplaySubject, merge, of, combineLatest, timer, fromEvent, Subscription, from, isObservable, concat } from 'rxjs';
 import * as i0 from '@angular/core';
-import { Directive, Injectable, InjectionToken, inject, RendererFactory2, ElementRef, NgZone, EventEmitter, Input, Output, Component, HostBinding, NgModule, Renderer2, PLATFORM_ID, ContentChildren, HostListener, ChangeDetectorRef, QueryList, ChangeDetectionStrategy, ContentChild, TemplateRef, ViewChild, ViewContainerRef, forwardRef, ViewChildren, Pipe, ViewEncapsulation, LOCALE_ID, Attribute, ComponentFactoryResolver, Injector, ApplicationRef, IterableDiffers } from '@angular/core';
+import { Directive, Injectable, InjectionToken, inject, RendererFactory2, ElementRef, NgZone, EventEmitter, Input, Output, Component, HostBinding, NgModule, Renderer2, PLATFORM_ID, ContentChildren, HostListener, ChangeDetectorRef, QueryList, ChangeDetectionStrategy, ContentChild, ɵɵsanitizeUrlOrResourceUrl, Attribute, TemplateRef, ViewChild, ViewContainerRef, forwardRef, ViewChildren, Pipe, ViewEncapsulation, LOCALE_ID, ComponentFactoryResolver, Injector, ApplicationRef, IterableDiffers } from '@angular/core';
 import { takeUntil, filter, debounceTime, map, switchMap, take, pairwise, distinctUntilChanged, first, tap, delay, combineLatest as combineLatest$1, auditTime, mergeMap, skip, withLatestFrom } from 'rxjs/operators';
 import { coerceBooleanProperty, coerceNumberProperty, coerceArray, coerceCssPixelValue } from '@angular/cdk/coercion';
 import * as i1$1 from '@angular/cdk/a11y';
 import { FocusMonitor, FocusKeyManager, A11yModule, LiveAnnouncer } from '@angular/cdk/a11y';
 import * as i1 from '@angular/common';
-import { isPlatformBrowser, CommonModule, WeekDay, formatDate, LocationStrategy, DOCUMENT, isPlatformServer } from '@angular/common';
+import { isPlatformBrowser, CommonModule, LocationStrategy, WeekDay, formatDate, DOCUMENT, isPlatformServer } from '@angular/common';
 import { Platform, PlatformModule } from '@angular/cdk/platform';
 import * as i9 from 'angular-split';
 import { SplitComponent, SplitAreaDirective, AngularSplitModule } from 'angular-split';
 import { END, HOME, DOWN_ARROW, RIGHT_ARROW, UP_ARROW, LEFT_ARROW, TAB, ENTER, SPACE, ESCAPE, DELETE, BACKSPACE, PAGE_DOWN, PAGE_UP } from '@angular/cdk/keycodes';
-import * as i3 from '@angular/router';
-import { RouterModule, Router, NavigationEnd, ActivatedRoute, NavigationCancel, NavigationError } from '@angular/router';
+import { Router, ActivatedRoute, NavigationEnd, NavigationCancel, NavigationError } from '@angular/router';
 import { ResizeObserver } from '@juggle/resize-observer';
 import * as i2$1 from '@angular/forms';
 import { NG_VALUE_ACCESSOR, FormsModule, FormGroupDirective, NG_VALIDATORS } from '@angular/forms';
@@ -2976,6 +2975,215 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.2.12", ngImpo
                 }]
         }] });
 
+/**
+ * This is a temporary directive that will be removed once Angular 14 support can be dropped.
+ *
+ * It is a modified version of the RouterLink directive from Angular 15.0.0.
+ *
+ * Angular 15 merged the RouterLink and RouterLinkWithHref directives into a single directive.
+ * The issue is that the Angular build tooling is detecting a[routerLink] as using the RouterLink directive,
+ * but it is actually using the RouterLinkWithHref directive in Angular 14. As a result, the directive
+ * is not being instantiated and the routerLink attribute is not being processed.
+ */
+class RouterLinkDirective {
+    constructor(tabIndexAttribute) {
+        this.tabIndexAttribute = tabIndexAttribute;
+        this.router = inject(Router);
+        this.route = inject(ActivatedRoute, { optional: true });
+        this.renderer = inject(Renderer2);
+        this.element = inject(ElementRef);
+        this.locationStrategy = inject(LocationStrategy, { optional: true });
+        this._preserveFragment = false;
+        this._skipLocationChange = false;
+        this._replaceUrl = false;
+        this.href = null;
+        this.commands = null;
+        /** @internal */
+        this.onChanges = new Subject();
+        const tagName = this.element.nativeElement.tagName;
+        this.isAnchorElement = tagName === 'A' || tagName === 'AREA';
+        if (this.isAnchorElement) {
+            this.subscription = this.router.events.subscribe(s => {
+                if (s instanceof NavigationEnd) {
+                    this.updateHref();
+                }
+            });
+        }
+        else {
+            this.setTabIndexIfNotOnNativeEl('0');
+        }
+    }
+    set preserveFragment(preserveFragment) {
+        this._preserveFragment = coerceBooleanProperty(preserveFragment);
+    }
+    get preserveFragment() {
+        return this._preserveFragment;
+    }
+    set skipLocationChange(skipLocationChange) {
+        this._skipLocationChange = coerceBooleanProperty(skipLocationChange);
+    }
+    get skipLocationChange() {
+        return this._skipLocationChange;
+    }
+    set replaceUrl(replaceUrl) {
+        this._replaceUrl = coerceBooleanProperty(replaceUrl);
+    }
+    get replaceUrl() {
+        return this._replaceUrl;
+    }
+    /**
+     * Modifies the tab index if there was not a tabindex attribute on the element during
+     * instantiation.
+     */
+    setTabIndexIfNotOnNativeEl(newTabIndex) {
+        if (this.tabIndexAttribute != null /* both `null` and `undefined` */ ||
+            this.isAnchorElement) {
+            return;
+        }
+        this.applyAttributeValue('tabindex', newTabIndex);
+    }
+    /** @nodoc */
+    ngOnChanges(changes) {
+        if (this.isAnchorElement) {
+            this.updateHref();
+        }
+        // This is subscribed to by `RouterLinkActive` so that it knows to update when there are changes
+        // to the RouterLinks it's tracking.
+        this.onChanges.next(this);
+    }
+    set routerLink(commands) {
+        if (commands != null) {
+            this.commands = Array.isArray(commands) ? commands : [commands];
+            this.setTabIndexIfNotOnNativeEl('0');
+        }
+        else {
+            this.commands = null;
+            this.setTabIndexIfNotOnNativeEl(null);
+        }
+    }
+    /** @nodoc */
+    onClick(button, ctrlKey, shiftKey, altKey, metaKey) {
+        if (this.urlTree === null) {
+            return true;
+        }
+        if (this.isAnchorElement) {
+            if (button !== 0 || ctrlKey || shiftKey || altKey || metaKey) {
+                return true;
+            }
+            if (typeof this.target === 'string' && this.target !== '_self') {
+                return true;
+            }
+        }
+        const extras = {
+            skipLocationChange: this.skipLocationChange,
+            replaceUrl: this.replaceUrl,
+            state: this.state,
+        };
+        this.router.navigateByUrl(this.urlTree, extras);
+        // Return `false` for `<a>` elements to prevent default action
+        // and cancel the native behavior, since the navigation is handled
+        // by the Router.
+        return !this.isAnchorElement;
+    }
+    /** @nodoc */
+    ngOnDestroy() {
+        var _a;
+        (_a = this.subscription) === null || _a === void 0 ? void 0 : _a.unsubscribe();
+    }
+    updateHref() {
+        var _a;
+        this.href =
+            this.urlTree !== null && this.locationStrategy
+                ? (_a = this.locationStrategy) === null || _a === void 0 ? void 0 : _a.prepareExternalUrl(this.router.serializeUrl(this.urlTree))
+                : null;
+        const sanitizedValue = this.href === null
+            ? null
+            : // This class represents a directive that can be added to both `<a>` elements,
+                // as well as other elements. As a result, we can't define security context at
+                // compile time. So the security context is deferred to runtime.
+                // The `ɵɵsanitizeUrlOrResourceUrl` selects the necessary sanitizer function
+                // based on the tag and property names. The logic mimics the one from
+                // `packages/compiler/src/schema/dom_security_schema.ts`, which is used at compile time.
+                //
+                // Note: we should investigate whether we can switch to using `@HostBinding('attr.href')`
+                // instead of applying a value via a renderer, after a final merge of the
+                // `RouterLinkWithHref` directive.
+                ɵɵsanitizeUrlOrResourceUrl(this.href, this.element.nativeElement.tagName.toLowerCase(), 'href');
+        this.applyAttributeValue('href', sanitizedValue);
+    }
+    applyAttributeValue(attrName, attrValue) {
+        const renderer = this.renderer;
+        const nativeElement = this.element.nativeElement;
+        if (attrValue !== null) {
+            renderer.setAttribute(nativeElement, attrName, attrValue);
+        }
+        else {
+            renderer.removeAttribute(nativeElement, attrName);
+        }
+    }
+    get urlTree() {
+        if (this.commands === null) {
+            return null;
+        }
+        return this.router.createUrlTree(this.commands, {
+            // If the `relativeTo` input is not defined, we want to use `this.route` by default.
+            // Otherwise, we should use the value provided by the user in the input.
+            relativeTo: this.relativeTo !== undefined ? this.relativeTo : this.route,
+            queryParams: this.queryParams,
+            fragment: this.fragment,
+            queryParamsHandling: this.queryParamsHandling,
+            preserveFragment: this.preserveFragment,
+        });
+    }
+}
+RouterLinkDirective.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.2.12", ngImport: i0, type: RouterLinkDirective, deps: [{ token: 'tabindex', attribute: true }], target: i0.ɵɵFactoryTarget.Directive });
+RouterLinkDirective.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "14.2.12", type: RouterLinkDirective, isStandalone: true, selector: "[uxRouterLink]", inputs: { target: "target", queryParams: "queryParams", fragment: "fragment", queryParamsHandling: "queryParamsHandling", state: "state", relativeTo: "relativeTo", preserveFragment: "preserveFragment", skipLocationChange: "skipLocationChange", replaceUrl: "replaceUrl", routerLink: ["uxRouterLink", "routerLink"] }, host: { listeners: { "click": "onClick($event.button,$event.ctrlKey,$event.shiftKey,$event.altKey,$event.metaKey)" }, properties: { "attr.target": "this.target" } }, usesOnChanges: true, ngImport: i0 });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.2.12", ngImport: i0, type: RouterLinkDirective, decorators: [{
+            type: Directive,
+            args: [{
+                    standalone: true,
+                    selector: '[uxRouterLink]',
+                }]
+        }], ctorParameters: function () {
+        return [{ type: undefined, decorators: [{
+                        type: Attribute,
+                        args: ['tabindex']
+                    }] }];
+    }, propDecorators: { target: [{
+                type: HostBinding,
+                args: ['attr.target']
+            }, {
+                type: Input
+            }], queryParams: [{
+                type: Input
+            }], fragment: [{
+                type: Input
+            }], queryParamsHandling: [{
+                type: Input
+            }], state: [{
+                type: Input
+            }], relativeTo: [{
+                type: Input
+            }], preserveFragment: [{
+                type: Input
+            }], skipLocationChange: [{
+                type: Input
+            }], replaceUrl: [{
+                type: Input
+            }], routerLink: [{
+                type: Input,
+                args: ['uxRouterLink']
+            }], onClick: [{
+                type: HostListener,
+                args: ['click', [
+                        '$event.button',
+                        '$event.ctrlKey',
+                        '$event.shiftKey',
+                        '$event.altKey',
+                        '$event.metaKey',
+                    ]]
+            }] } });
+
 class BreadcrumbsComponent {
     clickCrumb(event, crumb) {
         if (crumb.onClick) {
@@ -2984,10 +3192,10 @@ class BreadcrumbsComponent {
     }
 }
 BreadcrumbsComponent.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.2.12", ngImport: i0, type: BreadcrumbsComponent, deps: [], target: i0.ɵɵFactoryTarget.Component });
-BreadcrumbsComponent.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "14.0.0", version: "14.2.12", type: BreadcrumbsComponent, selector: "ux-breadcrumbs", inputs: { crumbs: "crumbs" }, ngImport: i0, template: "<nav aria-label=\"Breadcrumb\">\n    <ol class=\"breadcrumb\">\n        <li *ngFor=\"let crumb of crumbs\">\n\n            <!-- If there is a router link or an onClick function then use a tag -->\n            <a *ngIf=\"crumb.routerLink\"\n                uxFocusIndicator\n                tabindex=\"0\"\n                [routerLink]=\"crumb.routerLink\"\n                [fragment]=\"crumb.fragment\"\n                [queryParams]=\"crumb.queryParams\"\n                (click)=\"clickCrumb($event, crumb)\">\n                {{ crumb.title }}\n            </a>\n            <a *ngIf=\"crumb.onClick && !crumb.routerLink\"\n                uxFocusIndicator\n                tabindex=\"0\"\n                (click)=\"clickCrumb($event, crumb)\">\n                {{ crumb.title }}\n            </a>\n\n            <!-- If there is no router link or onClick function then display text in a span -->\n            <span *ngIf=\"!crumb.routerLink && !crumb.onClick\">{{ crumb.title }}</span>\n        </li>\n    </ol>\n</nav>\n", dependencies: [{ kind: "directive", type: FocusIndicatorDirective, selector: "[uxFocusIndicator]", inputs: ["checkChildren", "mouseFocusIndicator", "touchFocusIndicator", "keyboardFocusIndicator", "programmaticFocusIndicator"], outputs: ["indicator"], exportAs: ["ux-focus-indicator"] }, { kind: "directive", type: i1.NgForOf, selector: "[ngFor][ngForOf]", inputs: ["ngForOf", "ngForTrackBy", "ngForTemplate"] }, { kind: "directive", type: i1.NgIf, selector: "[ngIf]", inputs: ["ngIf", "ngIfThen", "ngIfElse"] }, { kind: "directive", type: i3.RouterLink, selector: "[routerLink]", inputs: ["target", "queryParams", "fragment", "queryParamsHandling", "state", "relativeTo", "preserveFragment", "skipLocationChange", "replaceUrl", "routerLink"] }], changeDetection: i0.ChangeDetectionStrategy.OnPush });
+BreadcrumbsComponent.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "14.0.0", version: "14.2.12", type: BreadcrumbsComponent, selector: "ux-breadcrumbs", inputs: { crumbs: "crumbs" }, ngImport: i0, template: "<nav aria-label=\"Breadcrumb\">\n    <ol class=\"breadcrumb\">\n        <li *ngFor=\"let crumb of crumbs\">\n            <!-- If there is a router link or an onClick function then use a tag -->\n            <a\n                *ngIf=\"crumb.routerLink\"\n                uxFocusIndicator\n                tabindex=\"0\"\n                [uxRouterLink]=\"crumb.routerLink\"\n                [fragment]=\"crumb.fragment\"\n                [queryParams]=\"crumb.queryParams\"\n                (click)=\"clickCrumb($event, crumb)\"\n            >\n                {{ crumb.title }}\n            </a>\n            <a\n                *ngIf=\"crumb.onClick && !crumb.routerLink\"\n                uxFocusIndicator\n                tabindex=\"0\"\n                (click)=\"clickCrumb($event, crumb)\"\n            >\n                {{ crumb.title }}\n            </a>\n\n            <!-- If there is no router link or onClick function then display text in a span -->\n            <span *ngIf=\"!crumb.routerLink && !crumb.onClick\">{{ crumb.title }}</span>\n        </li>\n    </ol>\n</nav>\n", dependencies: [{ kind: "directive", type: FocusIndicatorDirective, selector: "[uxFocusIndicator]", inputs: ["checkChildren", "mouseFocusIndicator", "touchFocusIndicator", "keyboardFocusIndicator", "programmaticFocusIndicator"], outputs: ["indicator"], exportAs: ["ux-focus-indicator"] }, { kind: "directive", type: i1.NgForOf, selector: "[ngFor][ngForOf]", inputs: ["ngForOf", "ngForTrackBy", "ngForTemplate"] }, { kind: "directive", type: i1.NgIf, selector: "[ngIf]", inputs: ["ngIf", "ngIfThen", "ngIfElse"] }, { kind: "directive", type: RouterLinkDirective, selector: "[uxRouterLink]", inputs: ["target", "queryParams", "fragment", "queryParamsHandling", "state", "relativeTo", "preserveFragment", "skipLocationChange", "replaceUrl", "uxRouterLink"] }], changeDetection: i0.ChangeDetectionStrategy.OnPush });
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.2.12", ngImport: i0, type: BreadcrumbsComponent, decorators: [{
             type: Component,
-            args: [{ selector: 'ux-breadcrumbs', changeDetection: ChangeDetectionStrategy.OnPush, template: "<nav aria-label=\"Breadcrumb\">\n    <ol class=\"breadcrumb\">\n        <li *ngFor=\"let crumb of crumbs\">\n\n            <!-- If there is a router link or an onClick function then use a tag -->\n            <a *ngIf=\"crumb.routerLink\"\n                uxFocusIndicator\n                tabindex=\"0\"\n                [routerLink]=\"crumb.routerLink\"\n                [fragment]=\"crumb.fragment\"\n                [queryParams]=\"crumb.queryParams\"\n                (click)=\"clickCrumb($event, crumb)\">\n                {{ crumb.title }}\n            </a>\n            <a *ngIf=\"crumb.onClick && !crumb.routerLink\"\n                uxFocusIndicator\n                tabindex=\"0\"\n                (click)=\"clickCrumb($event, crumb)\">\n                {{ crumb.title }}\n            </a>\n\n            <!-- If there is no router link or onClick function then display text in a span -->\n            <span *ngIf=\"!crumb.routerLink && !crumb.onClick\">{{ crumb.title }}</span>\n        </li>\n    </ol>\n</nav>\n" }]
+            args: [{ selector: 'ux-breadcrumbs', changeDetection: ChangeDetectionStrategy.OnPush, template: "<nav aria-label=\"Breadcrumb\">\n    <ol class=\"breadcrumb\">\n        <li *ngFor=\"let crumb of crumbs\">\n            <!-- If there is a router link or an onClick function then use a tag -->\n            <a\n                *ngIf=\"crumb.routerLink\"\n                uxFocusIndicator\n                tabindex=\"0\"\n                [uxRouterLink]=\"crumb.routerLink\"\n                [fragment]=\"crumb.fragment\"\n                [queryParams]=\"crumb.queryParams\"\n                (click)=\"clickCrumb($event, crumb)\"\n            >\n                {{ crumb.title }}\n            </a>\n            <a\n                *ngIf=\"crumb.onClick && !crumb.routerLink\"\n                uxFocusIndicator\n                tabindex=\"0\"\n                (click)=\"clickCrumb($event, crumb)\"\n            >\n                {{ crumb.title }}\n            </a>\n\n            <!-- If there is no router link or onClick function then display text in a span -->\n            <span *ngIf=\"!crumb.routerLink && !crumb.onClick\">{{ crumb.title }}</span>\n        </li>\n    </ol>\n</nav>\n" }]
         }], propDecorators: { crumbs: [{
                 type: Input
             }] } });
@@ -2995,22 +3203,14 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.2.12", ngImpo
 class BreadcrumbsModule {
 }
 BreadcrumbsModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.2.12", ngImport: i0, type: BreadcrumbsModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-BreadcrumbsModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "14.2.12", ngImport: i0, type: BreadcrumbsModule, declarations: [BreadcrumbsComponent], imports: [AccessibilityModule,
-        CommonModule,
-        RouterModule], exports: [BreadcrumbsComponent] });
-BreadcrumbsModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "14.2.12", ngImport: i0, type: BreadcrumbsModule, imports: [AccessibilityModule,
-        CommonModule,
-        RouterModule] });
+BreadcrumbsModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "14.2.12", ngImport: i0, type: BreadcrumbsModule, declarations: [BreadcrumbsComponent], imports: [AccessibilityModule, CommonModule, RouterLinkDirective], exports: [BreadcrumbsComponent] });
+BreadcrumbsModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "14.2.12", ngImport: i0, type: BreadcrumbsModule, imports: [AccessibilityModule, CommonModule] });
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.2.12", ngImport: i0, type: BreadcrumbsModule, decorators: [{
             type: NgModule,
             args: [{
-                    imports: [
-                        AccessibilityModule,
-                        CommonModule,
-                        RouterModule
-                    ],
+                    imports: [AccessibilityModule, CommonModule, RouterLinkDirective],
                     exports: [BreadcrumbsComponent],
-                    declarations: [BreadcrumbsComponent]
+                    declarations: [BreadcrumbsComponent],
                 }]
         }] });
 
@@ -15216,6 +15416,218 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.2.12", ngImpo
                 }]
         }] });
 
+class InputDropdownComponent {
+    constructor() {
+        this._changeDetector = inject(ChangeDetectorRef);
+        /** Filter text */
+        this.filter = '';
+        /** Controls the disabled state of the input-dropdown. */
+        this.disabled = false;
+        /** Define the placeholder for the filter input */
+        this.placeholder = 'Type to filter...';
+        /** Aria label of the filter field. If not specified, the placeholder will be used. */
+        this.ariaLabel = '';
+        /** Aria label of the search button icon. */
+        this.searchFilterButtonAriaLabel = 'Search';
+        /** Aria label of the clear button icon. */
+        this.clearFilterButtonAriaLabel = 'Clear';
+        /** Emit when the selected item is changed */
+        this.selectedChange = new EventEmitter();
+        /** Emit when the filter text is changed */
+        this.filterChange = new EventEmitter();
+        /** Emits when `dropdownOpen` changes. */
+        this.dropdownOpenChange = new EventEmitter();
+        /** The status of the dropdown. */
+        this.dropdownOpen = false;
+        /** Store the filter button aria label */
+        this._filterButtonAriaLabel = this.searchFilterButtonAriaLabel;
+        /** Store the change callback provided by Angular Forms */
+        this.onChange = () => { };
+        /** Store the touched callback provided by Angular Forms */
+        this.onTouched = () => { };
+        /** Unsubscribe from all observables on component destroy */
+        this._onDestroy$ = new Subject();
+    }
+    /** Define the max height of the dropdown */
+    set maxHeight(value) {
+        this._maxHeight = coerceCssPixelValue(value);
+    }
+    ngOnChanges(changes) {
+        // if the dropdownOpen state changes via the input we should show or hide the input accordingly
+        if (changes.dropdownOpen && !changes.dropdownOpen.firstChange && changes.dropdownOpen.currentValue !== changes.dropdownOpen.previousValue) {
+            changes.dropdownOpen.currentValue ? this.menuTrigger.openMenu() : this.menuTrigger.closeMenu();
+        }
+        if (changes.selected) {
+            // if an item is programmatically selected we should close the menu if it is open
+            if (this.menuTrigger && !changes.selected.firstChange) {
+                this.menuTrigger.closeMenu();
+            }
+            this.resetFilter();
+            this.selectedChange.emit(changes.selected.currentValue);
+            this.onChange(changes.selected.currentValue);
+            this.onTouched();
+        }
+        if (changes.filter) {
+            this.setFilterButtonAriaLabel();
+        }
+    }
+    ngAfterViewInit() {
+        // if the user has initially set the dropdownOpen input to true we should open the menu
+        // once we have access to the ViewChild menu trigger directive
+        if (this.dropdownOpen) {
+            // trigger menu open on the next tick to avoid expression changed issues)
+            Promise.resolve().then(() => this.menuTrigger.openMenu());
+        }
+        this._changeDetector.detectChanges();
+    }
+    ngOnDestroy() {
+        this._onDestroy$.next();
+        this._onDestroy$.complete();
+    }
+    resetFilter() {
+        this.filter = '';
+        this.filterChange.emit(this.filter);
+        this._focusFilter();
+    }
+    registerOnChange(onChange) {
+        this.onChange = onChange;
+    }
+    registerOnTouched(onTouched) {
+        this.onTouched = onTouched;
+    }
+    writeValue(value) {
+        this.selected = value;
+        this._changeDetector.markForCheck();
+    }
+    resetValue(event) {
+        if (this.disabled) {
+            return;
+        }
+        this.writeValue(undefined);
+        this.selectedChange.emit(undefined);
+        event.stopPropagation();
+    }
+    setDisabledState(isDisabled) {
+        this.disabled = isDisabled;
+        this._changeDetector.markForCheck();
+    }
+    onMenuOpen() {
+        if (this.dropdownOpen !== true) {
+            this.dropdownOpen = true;
+            this.dropdownOpenChange.emit(this.dropdownOpen);
+            this._focusFilter();
+        }
+    }
+    onMenuClose() {
+        if (this.dropdownOpen !== false) {
+            this.dropdownOpen = false;
+            this.dropdownOpenChange.emit(this.dropdownOpen);
+        }
+    }
+    _focusFilter() {
+        if (this.filterInputElement) {
+            this.filterInputElement.nativeElement.focus();
+        }
+    }
+    inputFocusHandler() {
+        if (!this.dropdownOpen) {
+            this.dropdownOpen = true;
+            this.dropdownOpenChange.emit(this.dropdownOpen);
+        }
+    }
+    toggleMenu() {
+        if (this.disabled) {
+            return;
+        }
+        this.dropdownOpen = !this.dropdownOpen;
+        this.dropdownOpenChange.emit(this.dropdownOpen);
+        this.menuTrigger.toggleMenu();
+    }
+    setFilterButtonAriaLabel() {
+        this._filterButtonAriaLabel = this.filter === ''
+            ? this.searchFilterButtonAriaLabel : this.clearFilterButtonAriaLabel;
+    }
+}
+InputDropdownComponent.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.2.12", ngImport: i0, type: InputDropdownComponent, deps: [], target: i0.ɵɵFactoryTarget.Component });
+InputDropdownComponent.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "14.0.0", version: "14.2.12", type: InputDropdownComponent, selector: "ux-input-dropdown", inputs: { selected: "selected", filter: "filter", hideFilter: "hideFilter", maxHeight: "maxHeight", disabled: "disabled", allowNull: "allowNull", placeholder: "placeholder", ariaLabel: ["aria-label", "ariaLabel"], ariaLabelledby: "ariaLabelledby", searchFilterButtonAriaLabel: "searchFilterButtonAriaLabel", clearFilterButtonAriaLabel: "clearFilterButtonAriaLabel", dropdownOpen: "dropdownOpen" }, outputs: { selectedChange: "selectedChange", filterChange: "filterChange", dropdownOpenChange: "dropdownOpenChange" }, host: { properties: { "class.ux-select-disabled": "disabled", "attr.aria-label": "null" } }, providers: [
+        {
+            provide: NG_VALUE_ACCESSOR,
+            multi: true,
+            useExisting: forwardRef(() => InputDropdownComponent)
+        }
+    ], queries: [{ propertyName: "displayContentRef", first: true, predicate: ["displayContent"], descendants: true }], viewQueries: [{ propertyName: "menuTrigger", first: true, predicate: MenuTriggerDirective, descendants: true }, { propertyName: "filterInputElement", first: true, predicate: ["filterInput"], descendants: true }], usesOnChanges: true, ngImport: i0, template: "<div class=\"ux-select-container\">\n    <button #button type=\"button\" class=\"form-control\"\n            [uxMenuTriggerFor]=\"menu\"\n            [disabled]=\"disabled\">\n        <ng-template #defaultDisplayContent>{{selected ? (selected | json) : '-'}}</ng-template>\n        <ng-container [ngTemplateOutlet]=\"displayContentRef || defaultDisplayContent\"></ng-container>\n    </button>\n    <div class=\"ux-select-icons\">\n        <ux-icon name=\"close\"\n                 uxFocusIndicator\n                 class=\"ux-select-icon ux-select-clear-icon\"\n                 *ngIf=\"allowNull && selected\"\n                 (click)=\"resetValue($event)\"\n                 (keydown.enter)=\"resetValue($event)\"\n                 tabindex=\"0\">\n        </ux-icon>\n        <ux-icon name=\"chevron-down\"\n                 class=\"ux-select-icon ux-select-chevron-icon\"\n                 (click)=\"toggleMenu(); $event.stopPropagation()\">\n        </ux-icon>\n    </div>\n</div>\n\n<ux-menu #menu menuClass=\"select-menu\"\n         (opened)=\"onMenuOpen()\"\n         (closed)=\"onMenuClose()\">\n\n    <div [style.max-height]=\"_maxHeight\"\n         [style.width.px]=\"button.offsetWidth\">\n\n        <div *ngIf=\"!hideFilter\"\n             class=\"filter-container\">\n\n            <input #filterInput\n                    type=\"text\"\n                    [placeholder]=\"placeholder\"\n                    class=\"form-control\"\n                    [(ngModel)]=\"filter\"\n                    (input)=\"filterChange.emit(filter)\"\n                    (click)=\"$event.stopPropagation()\"\n                    [attr.aria-label]=\"ariaLabel || placeholder\"\n                    [attr.aria-labelledby]=\"ariaLabelledby\"\n                    (focus)=\"inputFocusHandler()\">\n\n            <button type=\"button\"\n                    class=\"btn btn-flat filter-button\"\n                    [attr.aria-label]=\"_filterButtonAriaLabel\"\n                    (click)=\"resetFilter(); $event.stopPropagation();\"\n                    [tabindex]=\"filter.length > 0 ? 0 : -1\">\n                <ux-icon [name]=\"filter.length === 0 ? 'search' : 'close'\"></ux-icon>\n            </button>\n        </div>\n\n        <ng-content></ng-content>\n\n    </div>\n</ux-menu>\n", dependencies: [{ kind: "directive", type: i1.NgIf, selector: "[ngIf]", inputs: ["ngIf", "ngIfThen", "ngIfElse"] }, { kind: "directive", type: i1.NgTemplateOutlet, selector: "[ngTemplateOutlet]", inputs: ["ngTemplateOutletContext", "ngTemplateOutlet", "ngTemplateOutletInjector"] }, { kind: "directive", type: i2$1.DefaultValueAccessor, selector: "input:not([type=checkbox])[formControlName],textarea[formControlName],input:not([type=checkbox])[formControl],textarea[formControl],input:not([type=checkbox])[ngModel],textarea[ngModel],[ngDefaultControl]" }, { kind: "directive", type: i2$1.NgControlStatus, selector: "[formControlName],[ngModel],[formControl]" }, { kind: "directive", type: i2$1.NgModel, selector: "[ngModel]:not([formControlName]):not([formControl])", inputs: ["name", "disabled", "ngModel", "ngModelOptions"], outputs: ["ngModelChange"], exportAs: ["ngModel"] }, { kind: "component", type: IconComponent, selector: "ux-icon", inputs: ["name", "size", "rotate", "flipHorizontal", "flipVertical"] }, { kind: "component", type: MenuComponent, selector: "ux-menu", inputs: ["id", "placement", "alignment", "animate", "menuClass"], outputs: ["opening", "opened", "closing", "closed"] }, { kind: "directive", type: MenuTriggerDirective, selector: "[uxMenuTriggerFor]", inputs: ["uxMenuTriggerFor", "disabled", "uxMenuParent", "closeOnBlur"], outputs: ["closed"], exportAs: ["ux-menu-trigger"] }, { kind: "directive", type: DefaultFocusIndicatorDirective, selector: ".btn:not([uxFocusIndicator]):not([uxMenuNavigationToggle]):not([uxMenuTriggerFor]), a[href]:not([uxFocusIndicator]):not([uxMenuNavigationToggle]):not([uxMenuTriggerFor])" }, { kind: "directive", type: FocusIndicatorDirective, selector: "[uxFocusIndicator]", inputs: ["checkChildren", "mouseFocusIndicator", "touchFocusIndicator", "keyboardFocusIndicator", "programmaticFocusIndicator"], outputs: ["indicator"], exportAs: ["ux-focus-indicator"] }, { kind: "pipe", type: i1.JsonPipe, name: "json" }], changeDetection: i0.ChangeDetectionStrategy.OnPush });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.2.12", ngImport: i0, type: InputDropdownComponent, decorators: [{
+            type: Component,
+            args: [{ selector: 'ux-input-dropdown', changeDetection: ChangeDetectionStrategy.OnPush, providers: [
+                        {
+                            provide: NG_VALUE_ACCESSOR,
+                            multi: true,
+                            useExisting: forwardRef(() => InputDropdownComponent)
+                        }
+                    ], host: {
+                        '[class.ux-select-disabled]': 'disabled',
+                        '[attr.aria-label]': 'null'
+                    }, template: "<div class=\"ux-select-container\">\n    <button #button type=\"button\" class=\"form-control\"\n            [uxMenuTriggerFor]=\"menu\"\n            [disabled]=\"disabled\">\n        <ng-template #defaultDisplayContent>{{selected ? (selected | json) : '-'}}</ng-template>\n        <ng-container [ngTemplateOutlet]=\"displayContentRef || defaultDisplayContent\"></ng-container>\n    </button>\n    <div class=\"ux-select-icons\">\n        <ux-icon name=\"close\"\n                 uxFocusIndicator\n                 class=\"ux-select-icon ux-select-clear-icon\"\n                 *ngIf=\"allowNull && selected\"\n                 (click)=\"resetValue($event)\"\n                 (keydown.enter)=\"resetValue($event)\"\n                 tabindex=\"0\">\n        </ux-icon>\n        <ux-icon name=\"chevron-down\"\n                 class=\"ux-select-icon ux-select-chevron-icon\"\n                 (click)=\"toggleMenu(); $event.stopPropagation()\">\n        </ux-icon>\n    </div>\n</div>\n\n<ux-menu #menu menuClass=\"select-menu\"\n         (opened)=\"onMenuOpen()\"\n         (closed)=\"onMenuClose()\">\n\n    <div [style.max-height]=\"_maxHeight\"\n         [style.width.px]=\"button.offsetWidth\">\n\n        <div *ngIf=\"!hideFilter\"\n             class=\"filter-container\">\n\n            <input #filterInput\n                    type=\"text\"\n                    [placeholder]=\"placeholder\"\n                    class=\"form-control\"\n                    [(ngModel)]=\"filter\"\n                    (input)=\"filterChange.emit(filter)\"\n                    (click)=\"$event.stopPropagation()\"\n                    [attr.aria-label]=\"ariaLabel || placeholder\"\n                    [attr.aria-labelledby]=\"ariaLabelledby\"\n                    (focus)=\"inputFocusHandler()\">\n\n            <button type=\"button\"\n                    class=\"btn btn-flat filter-button\"\n                    [attr.aria-label]=\"_filterButtonAriaLabel\"\n                    (click)=\"resetFilter(); $event.stopPropagation();\"\n                    [tabindex]=\"filter.length > 0 ? 0 : -1\">\n                <ux-icon [name]=\"filter.length === 0 ? 'search' : 'close'\"></ux-icon>\n            </button>\n        </div>\n\n        <ng-content></ng-content>\n\n    </div>\n</ux-menu>\n" }]
+        }], propDecorators: { selected: [{
+                type: Input
+            }], filter: [{
+                type: Input
+            }], hideFilter: [{
+                type: Input
+            }], maxHeight: [{
+                type: Input
+            }], disabled: [{
+                type: Input
+            }], allowNull: [{
+                type: Input
+            }], placeholder: [{
+                type: Input
+            }], ariaLabel: [{
+                type: Input,
+                args: ['aria-label']
+            }], ariaLabelledby: [{
+                type: Input
+            }], searchFilterButtonAriaLabel: [{
+                type: Input
+            }], clearFilterButtonAriaLabel: [{
+                type: Input
+            }], selectedChange: [{
+                type: Output
+            }], filterChange: [{
+                type: Output
+            }], dropdownOpenChange: [{
+                type: Output
+            }], dropdownOpen: [{
+                type: Input
+            }], displayContentRef: [{
+                type: ContentChild,
+                args: ['displayContent', { static: false }]
+            }], menuTrigger: [{
+                type: ViewChild,
+                args: [MenuTriggerDirective, { static: false }]
+            }], filterInputElement: [{
+                type: ViewChild,
+                args: ['filterInput', { static: false }]
+            }] } });
+
+class InputDropdownModule {
+}
+InputDropdownModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.2.12", ngImport: i0, type: InputDropdownModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
+InputDropdownModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "14.2.12", ngImport: i0, type: InputDropdownModule, declarations: [InputDropdownComponent], imports: [CommonModule, FormsModule, IconModule, MenuModule, AccessibilityModule], exports: [InputDropdownComponent] });
+InputDropdownModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "14.2.12", ngImport: i0, type: InputDropdownModule, imports: [CommonModule, FormsModule, IconModule, MenuModule, AccessibilityModule] });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.2.12", ngImport: i0, type: InputDropdownModule, decorators: [{
+            type: NgModule,
+            args: [{
+                    imports: [CommonModule, FormsModule, IconModule, MenuModule, AccessibilityModule],
+                    declarations: [
+                        InputDropdownComponent
+                    ],
+                    exports: [
+                        InputDropdownComponent
+                    ]
+                }]
+        }] });
+
 var SidePanelAnimationState;
 (function (SidePanelAnimationState) {
     SidePanelAnimationState["Closed"] = "closed";
@@ -18093,13 +18505,13 @@ class NavigationItemComponent {
     }
 }
 NavigationItemComponent.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.2.12", ngImport: i0, type: NavigationItemComponent, deps: [], target: i0.ɵɵFactoryTarget.Component });
-NavigationItemComponent.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "14.0.0", version: "14.2.12", type: NavigationItemComponent, selector: "[ux-navigation-item]", inputs: { header: "header", icon: "icon", expanded: "expanded", link: "link" }, host: { properties: { "class.active": "active", "class.selected": "expanded" } }, queries: [{ propertyName: "_children", predicate: NavigationItemComponent, descendants: true }], ngImport: i0, template: "<a *ngIf=\"link\"\n   [class.has-arrow]=\"children.length > 0\"\n   [class.no-arrow]=\"_indentWithoutArrow\"\n   [routerLink]=\"link\">\n    <span>{{ header }}</span>\n</a>\n\n<a *ngIf=\"!link\"\n   (click)=\"expanded = !expanded\"\n   [class.has-arrow]=\"children.length > 0\"\n   [class.no-arrow]=\"_indentWithoutArrow\">\n    <span>{{ header }}</span>\n</a>\n\n<ng-content></ng-content>\n", dependencies: [{ kind: "directive", type: i1.NgIf, selector: "[ngIf]", inputs: ["ngIf", "ngIfThen", "ngIfElse"] }, { kind: "directive", type: i3.RouterLink, selector: "[routerLink]", inputs: ["target", "queryParams", "fragment", "queryParamsHandling", "state", "relativeTo", "preserveFragment", "skipLocationChange", "replaceUrl", "routerLink"] }] });
+NavigationItemComponent.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "14.0.0", version: "14.2.12", type: NavigationItemComponent, selector: "[ux-navigation-item]", inputs: { header: "header", icon: "icon", expanded: "expanded", link: "link" }, host: { properties: { "class.active": "active", "class.selected": "expanded" } }, queries: [{ propertyName: "_children", predicate: NavigationItemComponent, descendants: true }], ngImport: i0, template: "<a\n    *ngIf=\"link\"\n    [class.has-arrow]=\"children.length > 0\"\n    [class.no-arrow]=\"_indentWithoutArrow\"\n    [uxRouterLink]=\"link\"\n>\n    <span>{{ header }}</span>\n</a>\n\n<a\n    *ngIf=\"!link\"\n    (click)=\"expanded = !expanded\"\n    [class.has-arrow]=\"children.length > 0\"\n    [class.no-arrow]=\"_indentWithoutArrow\"\n>\n    <span>{{ header }}</span>\n</a>\n\n<ng-content></ng-content>\n", dependencies: [{ kind: "directive", type: i1.NgIf, selector: "[ngIf]", inputs: ["ngIf", "ngIfThen", "ngIfElse"] }, { kind: "directive", type: RouterLinkDirective, selector: "[uxRouterLink]", inputs: ["target", "queryParams", "fragment", "queryParamsHandling", "state", "relativeTo", "preserveFragment", "skipLocationChange", "replaceUrl", "uxRouterLink"] }] });
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.2.12", ngImport: i0, type: NavigationItemComponent, decorators: [{
             type: Component,
             args: [{ selector: '[ux-navigation-item]', host: {
                         '[class.active]': 'active',
                         '[class.selected]': 'expanded',
-                    }, template: "<a *ngIf=\"link\"\n   [class.has-arrow]=\"children.length > 0\"\n   [class.no-arrow]=\"_indentWithoutArrow\"\n   [routerLink]=\"link\">\n    <span>{{ header }}</span>\n</a>\n\n<a *ngIf=\"!link\"\n   (click)=\"expanded = !expanded\"\n   [class.has-arrow]=\"children.length > 0\"\n   [class.no-arrow]=\"_indentWithoutArrow\">\n    <span>{{ header }}</span>\n</a>\n\n<ng-content></ng-content>\n" }]
+                    }, template: "<a\n    *ngIf=\"link\"\n    [class.has-arrow]=\"children.length > 0\"\n    [class.no-arrow]=\"_indentWithoutArrow\"\n    [uxRouterLink]=\"link\"\n>\n    <span>{{ header }}</span>\n</a>\n\n<a\n    *ngIf=\"!link\"\n    (click)=\"expanded = !expanded\"\n    [class.has-arrow]=\"children.length > 0\"\n    [class.no-arrow]=\"_indentWithoutArrow\"\n>\n    <span>{{ header }}</span>\n</a>\n\n<ng-content></ng-content>\n" }]
         }], ctorParameters: function () { return []; }, propDecorators: { header: [{
                 type: Input
             }], icon: [{
@@ -18364,42 +18776,19 @@ class NavigationModule {
     static forRoot(options) {
         return {
             ngModule: NavigationModule,
-            providers: [
-                { provide: NAVIGATION_MODULE_OPTIONS, useValue: options }
-            ]
+            providers: [{ provide: NAVIGATION_MODULE_OPTIONS, useValue: options }],
         };
     }
 }
 NavigationModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.2.12", ngImport: i0, type: NavigationModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-NavigationModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "14.2.12", ngImport: i0, type: NavigationModule, declarations: [NavigationComponent,
-        NavigationItemComponent,
-        NavigationLinkDirective], imports: [AccessibilityModule,
-        CommonModule,
-        IconModule,
-        RouterModule], exports: [NavigationComponent,
-        NavigationItemComponent] });
-NavigationModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "14.2.12", ngImport: i0, type: NavigationModule, imports: [AccessibilityModule,
-        CommonModule,
-        IconModule,
-        RouterModule] });
+NavigationModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "14.2.12", ngImport: i0, type: NavigationModule, declarations: [NavigationComponent, NavigationItemComponent, NavigationLinkDirective], imports: [AccessibilityModule, CommonModule, IconModule, RouterLinkDirective], exports: [NavigationComponent, NavigationItemComponent] });
+NavigationModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "14.2.12", ngImport: i0, type: NavigationModule, imports: [AccessibilityModule, CommonModule, IconModule] });
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.2.12", ngImport: i0, type: NavigationModule, decorators: [{
             type: NgModule,
             args: [{
-                    imports: [
-                        AccessibilityModule,
-                        CommonModule,
-                        IconModule,
-                        RouterModule
-                    ],
-                    exports: [
-                        NavigationComponent,
-                        NavigationItemComponent
-                    ],
-                    declarations: [
-                        NavigationComponent,
-                        NavigationItemComponent,
-                        NavigationLinkDirective
-                    ]
+                    imports: [AccessibilityModule, CommonModule, IconModule, RouterLinkDirective],
+                    exports: [NavigationComponent, NavigationItemComponent],
+                    declarations: [NavigationComponent, NavigationItemComponent, NavigationLinkDirective],
                 }]
         }] });
 
@@ -19967,7 +20356,7 @@ TabsetComponent.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "14.0.0", versio
             provide: TabsetToken,
             useExisting: forwardRef(() => TabsetComponent),
         }
-    ], queries: [{ propertyName: "_tabs", predicate: TabComponent }], ngImport: i0, template: "<!-- Nav tabs -->\n<ul role=\"tablist\"\n    uxTabbableList\n    [direction]=\"stacked === 'none' ? 'horizontal' : 'vertical'\"\n    [allowBoundaryKeys]=\"true\"\n    class=\"nav nav-tabs\"\n    [class.minimal-tab]=\"minimal\"\n    [attr.aria-label]=\"ariaLabel\"\n    [attr.aria-orientation]=\"stacked === 'none' ? 'horizontal' : 'vertical'\">\n\n    <li role=\"presentation\"\n        class=\"nav-item\"\n        *ngFor=\"let tab of _tabset.tabs; let index = index\"\n        [class.active]=\"(_tabset.activeTab$ | async) === tab\"\n        [class.disabled]=\"tab.disabled\"\n        [ngClass]=\"tab.customClass\">\n\n        <ng-template #tabDetails>\n            <span *ngIf=\"!tab.headingRef\">{{ tab.heading }}</span>\n            <ng-container *ngIf=\"tab.headingRef\" [ngTemplateOutlet]=\"tab.headingRef\"></ng-container>\n        </ng-template>\n\n        <a *ngIf=\"tab.route\"\n            class=\"nav-link\"\n            [attr.id]=\"tab.id\"\n            role=\"tab\"\n            #anchorTab\n            uxTabbableListItem\n            uxFocusIndicator\n            [attr.aria-controls]=\"tab.id\"\n            [attr.aria-selected]=\"(_tabset.activeTab$ | async) === tab\"\n            [attr.aria-disabled]=\"tab.disabled\"\n            [routerLink]=\"tab.route\"\n            [fragment]=\"tab.routerLinkExtras?.fragment\"\n            [queryParams]=\"tab.routerLinkExtras?.queryParams\"\n            [queryParamsHandling]=\"tab.routerLinkExtras?.queryParamsHandling\"\n            [preserveFragment]=\"tab.routerLinkExtras?.preserveFragment\"\n            [skipLocationChange]=\"tab.routerLinkExtras?.skipLocationChange\"\n            [replaceUrl]=\"tab.routerLinkExtras?.replaceUrl\"\n            [state]=\"tab.routerLinkExtras?.state\"\n            (keydown)=\"handleKeyDown($event, anchorTab)\">\n\n            <ng-container\n                [ngTemplateOutlet]=\"tabDetails\">\n            </ng-container>\n        </a>\n\n        <a *ngIf=\"!tab.route\"\n            class=\"nav-link\"\n            [attr.id]=\"tab.id\"\n            role=\"tab\"\n            uxTabbableListItem\n            uxFocusIndicator\n            (mousedown)=\"_tabset.select(tab)\"\n            (activated)=\"_tabset.select(tab)\"\n            [attr.aria-controls]=\"tab.id\"\n            [attr.aria-selected]=\"(_tabset.activeTab$ | async) === tab\"\n            [attr.aria-disabled]=\"tab.disabled\">\n\n            <ng-container\n                [ngTemplateOutlet]=\"tabDetails\">\n            </ng-container>\n        </a>\n    </li>\n</ul>\n\n<!-- Tab panes -->\n<div class=\"tab-content\">\n    <ng-content></ng-content>\n</div>\n", dependencies: [{ kind: "directive", type: FocusIndicatorDirective, selector: "[uxFocusIndicator]", inputs: ["checkChildren", "mouseFocusIndicator", "touchFocusIndicator", "keyboardFocusIndicator", "programmaticFocusIndicator"], outputs: ["indicator"], exportAs: ["ux-focus-indicator"] }, { kind: "directive", type: TabbableListDirective, selector: "[uxTabbableList]", inputs: ["direction", "wrap", "focusOnShow", "returnFocus", "hierarchy", "allowAltModifier", "allowCtrlModifier", "allowBoundaryKeys"], exportAs: ["ux-tabbable-list"] }, { kind: "directive", type: TabbableListItemDirective, selector: "[uxTabbableListItem]", inputs: ["parent", "rank", "disabled", "expanded", "key"], outputs: ["expandedChange", "activated"], exportAs: ["ux-tabbable-list-item"] }, { kind: "directive", type: i1.NgClass, selector: "[ngClass]", inputs: ["class", "ngClass"] }, { kind: "directive", type: i1.NgForOf, selector: "[ngFor][ngForOf]", inputs: ["ngForOf", "ngForTrackBy", "ngForTemplate"] }, { kind: "directive", type: i1.NgIf, selector: "[ngIf]", inputs: ["ngIf", "ngIfThen", "ngIfElse"] }, { kind: "directive", type: i1.NgTemplateOutlet, selector: "[ngTemplateOutlet]", inputs: ["ngTemplateOutletContext", "ngTemplateOutlet", "ngTemplateOutletInjector"] }, { kind: "directive", type: i3.RouterLink, selector: "[routerLink]", inputs: ["target", "queryParams", "fragment", "queryParamsHandling", "state", "relativeTo", "preserveFragment", "skipLocationChange", "replaceUrl", "routerLink"] }, { kind: "pipe", type: i1.AsyncPipe, name: "async" }], changeDetection: i0.ChangeDetectionStrategy.OnPush });
+    ], queries: [{ propertyName: "_tabs", predicate: TabComponent }], ngImport: i0, template: "<!-- Nav tabs -->\n<ul\n    role=\"tablist\"\n    uxTabbableList\n    [direction]=\"stacked === 'none' ? 'horizontal' : 'vertical'\"\n    [allowBoundaryKeys]=\"true\"\n    class=\"nav nav-tabs\"\n    [class.minimal-tab]=\"minimal\"\n    [attr.aria-label]=\"ariaLabel\"\n    [attr.aria-orientation]=\"stacked === 'none' ? 'horizontal' : 'vertical'\"\n>\n    <li\n        role=\"presentation\"\n        class=\"nav-item\"\n        *ngFor=\"let tab of _tabset.tabs; let index = index\"\n        [class.active]=\"(_tabset.activeTab$ | async) === tab\"\n        [class.disabled]=\"tab.disabled\"\n        [ngClass]=\"tab.customClass\"\n    >\n        <ng-template #tabDetails>\n            <span *ngIf=\"!tab.headingRef\">{{ tab.heading }}</span>\n            <ng-container *ngIf=\"tab.headingRef\" [ngTemplateOutlet]=\"tab.headingRef\"></ng-container>\n        </ng-template>\n\n        <a\n            *ngIf=\"tab.route\"\n            class=\"nav-link\"\n            [attr.id]=\"tab.id\"\n            role=\"tab\"\n            #anchorTab\n            uxTabbableListItem\n            uxFocusIndicator\n            [attr.aria-controls]=\"tab.id\"\n            [attr.aria-selected]=\"(_tabset.activeTab$ | async) === tab\"\n            [attr.aria-disabled]=\"tab.disabled\"\n            [uxRouterLink]=\"tab.route\"\n            [fragment]=\"tab.routerLinkExtras?.fragment\"\n            [queryParams]=\"tab.routerLinkExtras?.queryParams\"\n            [queryParamsHandling]=\"tab.routerLinkExtras?.queryParamsHandling\"\n            [preserveFragment]=\"tab.routerLinkExtras?.preserveFragment\"\n            [skipLocationChange]=\"tab.routerLinkExtras?.skipLocationChange\"\n            [replaceUrl]=\"tab.routerLinkExtras?.replaceUrl\"\n            [state]=\"tab.routerLinkExtras?.state\"\n            (keydown)=\"handleKeyDown($event, anchorTab)\"\n        >\n            <ng-container [ngTemplateOutlet]=\"tabDetails\"> </ng-container>\n        </a>\n\n        <a\n            *ngIf=\"!tab.route\"\n            class=\"nav-link\"\n            [attr.id]=\"tab.id\"\n            role=\"tab\"\n            uxTabbableListItem\n            uxFocusIndicator\n            (mousedown)=\"_tabset.select(tab)\"\n            (activated)=\"_tabset.select(tab)\"\n            [attr.aria-controls]=\"tab.id\"\n            [attr.aria-selected]=\"(_tabset.activeTab$ | async) === tab\"\n            [attr.aria-disabled]=\"tab.disabled\"\n        >\n            <ng-container [ngTemplateOutlet]=\"tabDetails\"> </ng-container>\n        </a>\n    </li>\n</ul>\n\n<!-- Tab panes -->\n<div class=\"tab-content\">\n    <ng-content></ng-content>\n</div>\n", dependencies: [{ kind: "directive", type: FocusIndicatorDirective, selector: "[uxFocusIndicator]", inputs: ["checkChildren", "mouseFocusIndicator", "touchFocusIndicator", "keyboardFocusIndicator", "programmaticFocusIndicator"], outputs: ["indicator"], exportAs: ["ux-focus-indicator"] }, { kind: "directive", type: TabbableListDirective, selector: "[uxTabbableList]", inputs: ["direction", "wrap", "focusOnShow", "returnFocus", "hierarchy", "allowAltModifier", "allowCtrlModifier", "allowBoundaryKeys"], exportAs: ["ux-tabbable-list"] }, { kind: "directive", type: TabbableListItemDirective, selector: "[uxTabbableListItem]", inputs: ["parent", "rank", "disabled", "expanded", "key"], outputs: ["expandedChange", "activated"], exportAs: ["ux-tabbable-list-item"] }, { kind: "directive", type: i1.NgClass, selector: "[ngClass]", inputs: ["class", "ngClass"] }, { kind: "directive", type: i1.NgForOf, selector: "[ngFor][ngForOf]", inputs: ["ngForOf", "ngForTrackBy", "ngForTemplate"] }, { kind: "directive", type: i1.NgIf, selector: "[ngIf]", inputs: ["ngIf", "ngIfThen", "ngIfElse"] }, { kind: "directive", type: i1.NgTemplateOutlet, selector: "[ngTemplateOutlet]", inputs: ["ngTemplateOutletContext", "ngTemplateOutlet", "ngTemplateOutletInjector"] }, { kind: "directive", type: RouterLinkDirective, selector: "[uxRouterLink]", inputs: ["target", "queryParams", "fragment", "queryParamsHandling", "state", "relativeTo", "preserveFragment", "skipLocationChange", "replaceUrl", "uxRouterLink"] }, { kind: "pipe", type: i1.AsyncPipe, name: "async" }], changeDetection: i0.ChangeDetectionStrategy.OnPush });
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.2.12", ngImport: i0, type: TabsetComponent, decorators: [{
             type: Component,
             args: [{ selector: 'ux-tabset', changeDetection: ChangeDetectionStrategy.OnPush, providers: [
@@ -19979,7 +20368,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.2.12", ngImpo
                     ], host: {
                         '[class.tabs-left]': 'stacked === "left"',
                         '[class.tabs-right]': 'stacked === "right"',
-                    }, template: "<!-- Nav tabs -->\n<ul role=\"tablist\"\n    uxTabbableList\n    [direction]=\"stacked === 'none' ? 'horizontal' : 'vertical'\"\n    [allowBoundaryKeys]=\"true\"\n    class=\"nav nav-tabs\"\n    [class.minimal-tab]=\"minimal\"\n    [attr.aria-label]=\"ariaLabel\"\n    [attr.aria-orientation]=\"stacked === 'none' ? 'horizontal' : 'vertical'\">\n\n    <li role=\"presentation\"\n        class=\"nav-item\"\n        *ngFor=\"let tab of _tabset.tabs; let index = index\"\n        [class.active]=\"(_tabset.activeTab$ | async) === tab\"\n        [class.disabled]=\"tab.disabled\"\n        [ngClass]=\"tab.customClass\">\n\n        <ng-template #tabDetails>\n            <span *ngIf=\"!tab.headingRef\">{{ tab.heading }}</span>\n            <ng-container *ngIf=\"tab.headingRef\" [ngTemplateOutlet]=\"tab.headingRef\"></ng-container>\n        </ng-template>\n\n        <a *ngIf=\"tab.route\"\n            class=\"nav-link\"\n            [attr.id]=\"tab.id\"\n            role=\"tab\"\n            #anchorTab\n            uxTabbableListItem\n            uxFocusIndicator\n            [attr.aria-controls]=\"tab.id\"\n            [attr.aria-selected]=\"(_tabset.activeTab$ | async) === tab\"\n            [attr.aria-disabled]=\"tab.disabled\"\n            [routerLink]=\"tab.route\"\n            [fragment]=\"tab.routerLinkExtras?.fragment\"\n            [queryParams]=\"tab.routerLinkExtras?.queryParams\"\n            [queryParamsHandling]=\"tab.routerLinkExtras?.queryParamsHandling\"\n            [preserveFragment]=\"tab.routerLinkExtras?.preserveFragment\"\n            [skipLocationChange]=\"tab.routerLinkExtras?.skipLocationChange\"\n            [replaceUrl]=\"tab.routerLinkExtras?.replaceUrl\"\n            [state]=\"tab.routerLinkExtras?.state\"\n            (keydown)=\"handleKeyDown($event, anchorTab)\">\n\n            <ng-container\n                [ngTemplateOutlet]=\"tabDetails\">\n            </ng-container>\n        </a>\n\n        <a *ngIf=\"!tab.route\"\n            class=\"nav-link\"\n            [attr.id]=\"tab.id\"\n            role=\"tab\"\n            uxTabbableListItem\n            uxFocusIndicator\n            (mousedown)=\"_tabset.select(tab)\"\n            (activated)=\"_tabset.select(tab)\"\n            [attr.aria-controls]=\"tab.id\"\n            [attr.aria-selected]=\"(_tabset.activeTab$ | async) === tab\"\n            [attr.aria-disabled]=\"tab.disabled\">\n\n            <ng-container\n                [ngTemplateOutlet]=\"tabDetails\">\n            </ng-container>\n        </a>\n    </li>\n</ul>\n\n<!-- Tab panes -->\n<div class=\"tab-content\">\n    <ng-content></ng-content>\n</div>\n" }]
+                    }, template: "<!-- Nav tabs -->\n<ul\n    role=\"tablist\"\n    uxTabbableList\n    [direction]=\"stacked === 'none' ? 'horizontal' : 'vertical'\"\n    [allowBoundaryKeys]=\"true\"\n    class=\"nav nav-tabs\"\n    [class.minimal-tab]=\"minimal\"\n    [attr.aria-label]=\"ariaLabel\"\n    [attr.aria-orientation]=\"stacked === 'none' ? 'horizontal' : 'vertical'\"\n>\n    <li\n        role=\"presentation\"\n        class=\"nav-item\"\n        *ngFor=\"let tab of _tabset.tabs; let index = index\"\n        [class.active]=\"(_tabset.activeTab$ | async) === tab\"\n        [class.disabled]=\"tab.disabled\"\n        [ngClass]=\"tab.customClass\"\n    >\n        <ng-template #tabDetails>\n            <span *ngIf=\"!tab.headingRef\">{{ tab.heading }}</span>\n            <ng-container *ngIf=\"tab.headingRef\" [ngTemplateOutlet]=\"tab.headingRef\"></ng-container>\n        </ng-template>\n\n        <a\n            *ngIf=\"tab.route\"\n            class=\"nav-link\"\n            [attr.id]=\"tab.id\"\n            role=\"tab\"\n            #anchorTab\n            uxTabbableListItem\n            uxFocusIndicator\n            [attr.aria-controls]=\"tab.id\"\n            [attr.aria-selected]=\"(_tabset.activeTab$ | async) === tab\"\n            [attr.aria-disabled]=\"tab.disabled\"\n            [uxRouterLink]=\"tab.route\"\n            [fragment]=\"tab.routerLinkExtras?.fragment\"\n            [queryParams]=\"tab.routerLinkExtras?.queryParams\"\n            [queryParamsHandling]=\"tab.routerLinkExtras?.queryParamsHandling\"\n            [preserveFragment]=\"tab.routerLinkExtras?.preserveFragment\"\n            [skipLocationChange]=\"tab.routerLinkExtras?.skipLocationChange\"\n            [replaceUrl]=\"tab.routerLinkExtras?.replaceUrl\"\n            [state]=\"tab.routerLinkExtras?.state\"\n            (keydown)=\"handleKeyDown($event, anchorTab)\"\n        >\n            <ng-container [ngTemplateOutlet]=\"tabDetails\"> </ng-container>\n        </a>\n\n        <a\n            *ngIf=\"!tab.route\"\n            class=\"nav-link\"\n            [attr.id]=\"tab.id\"\n            role=\"tab\"\n            uxTabbableListItem\n            uxFocusIndicator\n            (mousedown)=\"_tabset.select(tab)\"\n            (activated)=\"_tabset.select(tab)\"\n            [attr.aria-controls]=\"tab.id\"\n            [attr.aria-selected]=\"(_tabset.activeTab$ | async) === tab\"\n            [attr.aria-disabled]=\"tab.disabled\"\n        >\n            <ng-container [ngTemplateOutlet]=\"tabDetails\"> </ng-container>\n        </a>\n    </li>\n</ul>\n\n<!-- Tab panes -->\n<div class=\"tab-content\">\n    <ng-content></ng-content>\n</div>\n" }]
         }], propDecorators: { minimal: [{
                 type: Input
             }], stacked: [{
@@ -19997,34 +20386,14 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.2.12", ngImpo
 class TabsetModule {
 }
 TabsetModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.2.12", ngImport: i0, type: TabsetModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-TabsetModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "14.2.12", ngImport: i0, type: TabsetModule, declarations: [TabsetComponent,
-        TabComponent,
-        TabHeadingDirective], imports: [AccessibilityModule,
-        CommonModule,
-        RouterModule], exports: [TabsetComponent,
-        TabComponent,
-        TabHeadingDirective] });
-TabsetModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "14.2.12", ngImport: i0, type: TabsetModule, imports: [AccessibilityModule,
-        CommonModule,
-        RouterModule] });
+TabsetModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "14.2.12", ngImport: i0, type: TabsetModule, declarations: [TabsetComponent, TabComponent, TabHeadingDirective], imports: [AccessibilityModule, CommonModule, RouterLinkDirective], exports: [TabsetComponent, TabComponent, TabHeadingDirective] });
+TabsetModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "14.2.12", ngImport: i0, type: TabsetModule, imports: [AccessibilityModule, CommonModule] });
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.2.12", ngImport: i0, type: TabsetModule, decorators: [{
             type: NgModule,
             args: [{
-                    imports: [
-                        AccessibilityModule,
-                        CommonModule,
-                        RouterModule
-                    ],
-                    exports: [
-                        TabsetComponent,
-                        TabComponent,
-                        TabHeadingDirective
-                    ],
-                    declarations: [
-                        TabsetComponent,
-                        TabComponent,
-                        TabHeadingDirective
-                    ],
+                    imports: [AccessibilityModule, CommonModule, RouterLinkDirective],
+                    exports: [TabsetComponent, TabComponent, TabHeadingDirective],
+                    declarations: [TabsetComponent, TabComponent, TabHeadingDirective],
                 }]
         }] });
 
@@ -20379,10 +20748,10 @@ class PageHeaderNavigationItemComponent {
     }
 }
 PageHeaderNavigationItemComponent.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.2.12", ngImport: i0, type: PageHeaderNavigationItemComponent, deps: [], target: i0.ɵɵFactoryTarget.Component });
-PageHeaderNavigationItemComponent.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "14.0.0", version: "14.2.12", type: PageHeaderNavigationItemComponent, selector: "ux-page-header-horizontal-navigation-item", inputs: { item: "item" }, host: { listeners: { "keydown": "onKeydown($event,$event.target)" } }, viewQueries: [{ propertyName: "navigationBtn", first: true, predicate: ["navigationBtn"], descendants: true }], ngImport: i0, template: "<div *ngIf=\"_item.children && _item.children.length > 0 && (secondary$ | async) === false\">\n    <button\n        #navigationBtn\n        type=\"button\"\n        [attr.id]=\"_item.id\"\n        [tabindex]=\"_tabindex | async\"\n        [uxMenuTriggerFor]=\"menu\"\n        [disabled]=\"_item.disabled\"\n        role=\"menuitem\"\n        class=\"horizontal-navigation-button\"\n        [class.disabled]=\"_item.disabled\"\n        [class.selected]=\"_item.selected\"\n        [class.open]=\"isOpen\"\n    >\n        <ng-container [ngTemplateOutlet]=\"navigationItemContent\"> </ng-container>\n\n        <ux-icon class=\"navigation-item-dropdown-icon\" name=\"down\"></ux-icon>\n    </button>\n\n    <ux-menu #menu menuClass=\"horizontal-navigation-dropdown-menu\" (opened)=\"isOpen = true\" (closed)=\"isOpen = false\">\n        <ux-page-header-horizontal-navigation-dropdown-item *ngFor=\"let item of _item?.children\" [item]=\"item\">\n        </ux-page-header-horizontal-navigation-dropdown-item>\n    </ux-menu>\n</div>\n\n<ng-container *ngIf=\"!_item.children || _item.children.length === 0 || (secondary$ | async)\">\n    <a\n        *ngIf=\"_item.routerLink\"\n        uxFocusIndicator\n        #navigationBtn\n        [tabindex]=\"_tabindex | async\"\n        [attr.id]=\"_item.id\"\n        role=\"menuitem\"\n        class=\"horizontal-navigation-button\"\n        [class.disabled]=\"_item.disabled\"\n        [class.selected]=\"_item.selected\"\n        [routerLink]=\"_item.routerLink\"\n        [fragment]=\"_item.routerExtras?.fragment\"\n        [queryParams]=\"_item.routerExtras?.queryParams\"\n        [queryParamsHandling]=\"_item.routerExtras?.queryParamsHandling\"\n        [preserveFragment]=\"_item.routerExtras?.preserveFragment\"\n        [skipLocationChange]=\"_item.routerExtras?.skipLocationChange\"\n        [replaceUrl]=\"_item.routerExtras?.replaceUrl\"\n        [state]=\"_item.routerExtras?.state\"\n    >\n        <ng-container [ngTemplateOutlet]=\"navigationItemContent\"> </ng-container>\n    </a>\n\n    <button\n        *ngIf=\"!_item.routerLink\"\n        uxFocusIndicator\n        #navigationBtn\n        type=\"button\"\n        [tabindex]=\"_tabindex | async\"\n        [attr.id]=\"_item.id\"\n        role=\"menuitem\"\n        class=\"horizontal-navigation-button\"\n        [class.disabled]=\"_item.disabled\"\n        [class.selected]=\"_item.selected\"\n        (click)=\"select()\"\n        [disabled]=\"_item.disabled\"\n    >\n        <ng-container [ngTemplateOutlet]=\"navigationItemContent\"> </ng-container>\n    </button>\n</ng-container>\n\n<!-- Support all icon types -->\n<ng-template #navigationItemContent>\n    <ng-container *ngIf=\"_item.icon\">\n        <i *ngIf=\"_iconType !== 'component'\" class=\"navigation-item-icon\" [ngClass]=\"[_iconType, _item.icon]\"> </i>\n\n        <ux-icon *ngIf=\"_iconType === 'component'\" class=\"navigation-item-icon\" [name]=\"_item.icon\"> </ux-icon>\n    </ng-container>\n\n    <span class=\"navigation-item-label\">{{ _item?.title }}</span>\n</ng-template>\n", dependencies: [{ kind: "directive", type: FocusIndicatorDirective, selector: "[uxFocusIndicator]", inputs: ["checkChildren", "mouseFocusIndicator", "touchFocusIndicator", "keyboardFocusIndicator", "programmaticFocusIndicator"], outputs: ["indicator"], exportAs: ["ux-focus-indicator"] }, { kind: "directive", type: i1.NgClass, selector: "[ngClass]", inputs: ["class", "ngClass"] }, { kind: "directive", type: i1.NgForOf, selector: "[ngFor][ngForOf]", inputs: ["ngForOf", "ngForTrackBy", "ngForTemplate"] }, { kind: "directive", type: i1.NgIf, selector: "[ngIf]", inputs: ["ngIf", "ngIfThen", "ngIfElse"] }, { kind: "directive", type: i1.NgTemplateOutlet, selector: "[ngTemplateOutlet]", inputs: ["ngTemplateOutletContext", "ngTemplateOutlet", "ngTemplateOutletInjector"] }, { kind: "component", type: IconComponent, selector: "ux-icon", inputs: ["name", "size", "rotate", "flipHorizontal", "flipVertical"] }, { kind: "component", type: MenuComponent, selector: "ux-menu", inputs: ["id", "placement", "alignment", "animate", "menuClass"], outputs: ["opening", "opened", "closing", "closed"] }, { kind: "directive", type: MenuTriggerDirective, selector: "[uxMenuTriggerFor]", inputs: ["uxMenuTriggerFor", "disabled", "uxMenuParent", "closeOnBlur"], outputs: ["closed"], exportAs: ["ux-menu-trigger"] }, { kind: "directive", type: i3.RouterLink, selector: "[routerLink]", inputs: ["target", "queryParams", "fragment", "queryParamsHandling", "state", "relativeTo", "preserveFragment", "skipLocationChange", "replaceUrl", "routerLink"] }, { kind: "component", type: PageHeaderNavigationDropdownItemComponent, selector: "ux-page-header-horizontal-navigation-dropdown-item", inputs: ["item"], exportAs: ["ux-page-header-horizontal-navigation-dropdown-item"] }, { kind: "pipe", type: i1.AsyncPipe, name: "async" }] });
+PageHeaderNavigationItemComponent.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "14.0.0", version: "14.2.12", type: PageHeaderNavigationItemComponent, selector: "ux-page-header-horizontal-navigation-item", inputs: { item: "item" }, host: { listeners: { "keydown": "onKeydown($event,$event.target)" } }, viewQueries: [{ propertyName: "navigationBtn", first: true, predicate: ["navigationBtn"], descendants: true }], ngImport: i0, template: "<div *ngIf=\"_item.children && _item.children.length > 0 && (secondary$ | async) === false\">\n    <button\n        #navigationBtn\n        type=\"button\"\n        [attr.id]=\"_item.id\"\n        [tabindex]=\"_tabindex | async\"\n        [uxMenuTriggerFor]=\"menu\"\n        [disabled]=\"_item.disabled\"\n        role=\"menuitem\"\n        class=\"horizontal-navigation-button\"\n        [class.disabled]=\"_item.disabled\"\n        [class.selected]=\"_item.selected\"\n        [class.open]=\"isOpen\"\n    >\n        <ng-container [ngTemplateOutlet]=\"navigationItemContent\"> </ng-container>\n\n        <ux-icon class=\"navigation-item-dropdown-icon\" name=\"down\"></ux-icon>\n    </button>\n\n    <ux-menu\n        #menu\n        menuClass=\"horizontal-navigation-dropdown-menu\"\n        (opened)=\"isOpen = true\"\n        (closed)=\"isOpen = false\"\n    >\n        <ux-page-header-horizontal-navigation-dropdown-item\n            *ngFor=\"let item of _item?.children\"\n            [item]=\"item\"\n        >\n        </ux-page-header-horizontal-navigation-dropdown-item>\n    </ux-menu>\n</div>\n\n<ng-container *ngIf=\"!_item.children || _item.children.length === 0 || (secondary$ | async)\">\n    <a\n        *ngIf=\"_item.routerLink\"\n        uxFocusIndicator\n        #navigationBtn\n        [tabindex]=\"_tabindex | async\"\n        [attr.id]=\"_item.id\"\n        role=\"menuitem\"\n        class=\"horizontal-navigation-button\"\n        [class.disabled]=\"_item.disabled\"\n        [class.selected]=\"_item.selected\"\n        [uxRouterLink]=\"_item.routerLink\"\n        [fragment]=\"_item.routerExtras?.fragment\"\n        [queryParams]=\"_item.routerExtras?.queryParams\"\n        [queryParamsHandling]=\"_item.routerExtras?.queryParamsHandling\"\n        [preserveFragment]=\"_item.routerExtras?.preserveFragment\"\n        [skipLocationChange]=\"_item.routerExtras?.skipLocationChange\"\n        [replaceUrl]=\"_item.routerExtras?.replaceUrl\"\n        [state]=\"_item.routerExtras?.state\"\n    >\n        <ng-container [ngTemplateOutlet]=\"navigationItemContent\"> </ng-container>\n    </a>\n\n    <button\n        *ngIf=\"!_item.routerLink\"\n        uxFocusIndicator\n        #navigationBtn\n        type=\"button\"\n        [tabindex]=\"_tabindex | async\"\n        [attr.id]=\"_item.id\"\n        role=\"menuitem\"\n        class=\"horizontal-navigation-button\"\n        [class.disabled]=\"_item.disabled\"\n        [class.selected]=\"_item.selected\"\n        (click)=\"select()\"\n        [disabled]=\"_item.disabled\"\n    >\n        <ng-container [ngTemplateOutlet]=\"navigationItemContent\"> </ng-container>\n    </button>\n</ng-container>\n\n<!-- Support all icon types -->\n<ng-template #navigationItemContent>\n    <ng-container *ngIf=\"_item.icon\">\n        <i\n            *ngIf=\"_iconType !== 'component'\"\n            class=\"navigation-item-icon\"\n            [ngClass]=\"[_iconType, _item.icon]\"\n        >\n        </i>\n\n        <ux-icon *ngIf=\"_iconType === 'component'\" class=\"navigation-item-icon\" [name]=\"_item.icon\">\n        </ux-icon>\n    </ng-container>\n\n    <span class=\"navigation-item-label\">{{ _item?.title }}</span>\n</ng-template>\n", dependencies: [{ kind: "directive", type: FocusIndicatorDirective, selector: "[uxFocusIndicator]", inputs: ["checkChildren", "mouseFocusIndicator", "touchFocusIndicator", "keyboardFocusIndicator", "programmaticFocusIndicator"], outputs: ["indicator"], exportAs: ["ux-focus-indicator"] }, { kind: "directive", type: i1.NgClass, selector: "[ngClass]", inputs: ["class", "ngClass"] }, { kind: "directive", type: i1.NgForOf, selector: "[ngFor][ngForOf]", inputs: ["ngForOf", "ngForTrackBy", "ngForTemplate"] }, { kind: "directive", type: i1.NgIf, selector: "[ngIf]", inputs: ["ngIf", "ngIfThen", "ngIfElse"] }, { kind: "directive", type: i1.NgTemplateOutlet, selector: "[ngTemplateOutlet]", inputs: ["ngTemplateOutletContext", "ngTemplateOutlet", "ngTemplateOutletInjector"] }, { kind: "component", type: IconComponent, selector: "ux-icon", inputs: ["name", "size", "rotate", "flipHorizontal", "flipVertical"] }, { kind: "component", type: MenuComponent, selector: "ux-menu", inputs: ["id", "placement", "alignment", "animate", "menuClass"], outputs: ["opening", "opened", "closing", "closed"] }, { kind: "directive", type: MenuTriggerDirective, selector: "[uxMenuTriggerFor]", inputs: ["uxMenuTriggerFor", "disabled", "uxMenuParent", "closeOnBlur"], outputs: ["closed"], exportAs: ["ux-menu-trigger"] }, { kind: "directive", type: RouterLinkDirective, selector: "[uxRouterLink]", inputs: ["target", "queryParams", "fragment", "queryParamsHandling", "state", "relativeTo", "preserveFragment", "skipLocationChange", "replaceUrl", "uxRouterLink"] }, { kind: "component", type: PageHeaderNavigationDropdownItemComponent, selector: "ux-page-header-horizontal-navigation-dropdown-item", inputs: ["item"], exportAs: ["ux-page-header-horizontal-navigation-dropdown-item"] }, { kind: "pipe", type: i1.AsyncPipe, name: "async" }] });
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.2.12", ngImport: i0, type: PageHeaderNavigationItemComponent, decorators: [{
             type: Component,
-            args: [{ selector: 'ux-page-header-horizontal-navigation-item', template: "<div *ngIf=\"_item.children && _item.children.length > 0 && (secondary$ | async) === false\">\n    <button\n        #navigationBtn\n        type=\"button\"\n        [attr.id]=\"_item.id\"\n        [tabindex]=\"_tabindex | async\"\n        [uxMenuTriggerFor]=\"menu\"\n        [disabled]=\"_item.disabled\"\n        role=\"menuitem\"\n        class=\"horizontal-navigation-button\"\n        [class.disabled]=\"_item.disabled\"\n        [class.selected]=\"_item.selected\"\n        [class.open]=\"isOpen\"\n    >\n        <ng-container [ngTemplateOutlet]=\"navigationItemContent\"> </ng-container>\n\n        <ux-icon class=\"navigation-item-dropdown-icon\" name=\"down\"></ux-icon>\n    </button>\n\n    <ux-menu #menu menuClass=\"horizontal-navigation-dropdown-menu\" (opened)=\"isOpen = true\" (closed)=\"isOpen = false\">\n        <ux-page-header-horizontal-navigation-dropdown-item *ngFor=\"let item of _item?.children\" [item]=\"item\">\n        </ux-page-header-horizontal-navigation-dropdown-item>\n    </ux-menu>\n</div>\n\n<ng-container *ngIf=\"!_item.children || _item.children.length === 0 || (secondary$ | async)\">\n    <a\n        *ngIf=\"_item.routerLink\"\n        uxFocusIndicator\n        #navigationBtn\n        [tabindex]=\"_tabindex | async\"\n        [attr.id]=\"_item.id\"\n        role=\"menuitem\"\n        class=\"horizontal-navigation-button\"\n        [class.disabled]=\"_item.disabled\"\n        [class.selected]=\"_item.selected\"\n        [routerLink]=\"_item.routerLink\"\n        [fragment]=\"_item.routerExtras?.fragment\"\n        [queryParams]=\"_item.routerExtras?.queryParams\"\n        [queryParamsHandling]=\"_item.routerExtras?.queryParamsHandling\"\n        [preserveFragment]=\"_item.routerExtras?.preserveFragment\"\n        [skipLocationChange]=\"_item.routerExtras?.skipLocationChange\"\n        [replaceUrl]=\"_item.routerExtras?.replaceUrl\"\n        [state]=\"_item.routerExtras?.state\"\n    >\n        <ng-container [ngTemplateOutlet]=\"navigationItemContent\"> </ng-container>\n    </a>\n\n    <button\n        *ngIf=\"!_item.routerLink\"\n        uxFocusIndicator\n        #navigationBtn\n        type=\"button\"\n        [tabindex]=\"_tabindex | async\"\n        [attr.id]=\"_item.id\"\n        role=\"menuitem\"\n        class=\"horizontal-navigation-button\"\n        [class.disabled]=\"_item.disabled\"\n        [class.selected]=\"_item.selected\"\n        (click)=\"select()\"\n        [disabled]=\"_item.disabled\"\n    >\n        <ng-container [ngTemplateOutlet]=\"navigationItemContent\"> </ng-container>\n    </button>\n</ng-container>\n\n<!-- Support all icon types -->\n<ng-template #navigationItemContent>\n    <ng-container *ngIf=\"_item.icon\">\n        <i *ngIf=\"_iconType !== 'component'\" class=\"navigation-item-icon\" [ngClass]=\"[_iconType, _item.icon]\"> </i>\n\n        <ux-icon *ngIf=\"_iconType === 'component'\" class=\"navigation-item-icon\" [name]=\"_item.icon\"> </ux-icon>\n    </ng-container>\n\n    <span class=\"navigation-item-label\">{{ _item?.title }}</span>\n</ng-template>\n" }]
+            args: [{ selector: 'ux-page-header-horizontal-navigation-item', template: "<div *ngIf=\"_item.children && _item.children.length > 0 && (secondary$ | async) === false\">\n    <button\n        #navigationBtn\n        type=\"button\"\n        [attr.id]=\"_item.id\"\n        [tabindex]=\"_tabindex | async\"\n        [uxMenuTriggerFor]=\"menu\"\n        [disabled]=\"_item.disabled\"\n        role=\"menuitem\"\n        class=\"horizontal-navigation-button\"\n        [class.disabled]=\"_item.disabled\"\n        [class.selected]=\"_item.selected\"\n        [class.open]=\"isOpen\"\n    >\n        <ng-container [ngTemplateOutlet]=\"navigationItemContent\"> </ng-container>\n\n        <ux-icon class=\"navigation-item-dropdown-icon\" name=\"down\"></ux-icon>\n    </button>\n\n    <ux-menu\n        #menu\n        menuClass=\"horizontal-navigation-dropdown-menu\"\n        (opened)=\"isOpen = true\"\n        (closed)=\"isOpen = false\"\n    >\n        <ux-page-header-horizontal-navigation-dropdown-item\n            *ngFor=\"let item of _item?.children\"\n            [item]=\"item\"\n        >\n        </ux-page-header-horizontal-navigation-dropdown-item>\n    </ux-menu>\n</div>\n\n<ng-container *ngIf=\"!_item.children || _item.children.length === 0 || (secondary$ | async)\">\n    <a\n        *ngIf=\"_item.routerLink\"\n        uxFocusIndicator\n        #navigationBtn\n        [tabindex]=\"_tabindex | async\"\n        [attr.id]=\"_item.id\"\n        role=\"menuitem\"\n        class=\"horizontal-navigation-button\"\n        [class.disabled]=\"_item.disabled\"\n        [class.selected]=\"_item.selected\"\n        [uxRouterLink]=\"_item.routerLink\"\n        [fragment]=\"_item.routerExtras?.fragment\"\n        [queryParams]=\"_item.routerExtras?.queryParams\"\n        [queryParamsHandling]=\"_item.routerExtras?.queryParamsHandling\"\n        [preserveFragment]=\"_item.routerExtras?.preserveFragment\"\n        [skipLocationChange]=\"_item.routerExtras?.skipLocationChange\"\n        [replaceUrl]=\"_item.routerExtras?.replaceUrl\"\n        [state]=\"_item.routerExtras?.state\"\n    >\n        <ng-container [ngTemplateOutlet]=\"navigationItemContent\"> </ng-container>\n    </a>\n\n    <button\n        *ngIf=\"!_item.routerLink\"\n        uxFocusIndicator\n        #navigationBtn\n        type=\"button\"\n        [tabindex]=\"_tabindex | async\"\n        [attr.id]=\"_item.id\"\n        role=\"menuitem\"\n        class=\"horizontal-navigation-button\"\n        [class.disabled]=\"_item.disabled\"\n        [class.selected]=\"_item.selected\"\n        (click)=\"select()\"\n        [disabled]=\"_item.disabled\"\n    >\n        <ng-container [ngTemplateOutlet]=\"navigationItemContent\"> </ng-container>\n    </button>\n</ng-container>\n\n<!-- Support all icon types -->\n<ng-template #navigationItemContent>\n    <ng-container *ngIf=\"_item.icon\">\n        <i\n            *ngIf=\"_iconType !== 'component'\"\n            class=\"navigation-item-icon\"\n            [ngClass]=\"[_iconType, _item.icon]\"\n        >\n        </i>\n\n        <ux-icon *ngIf=\"_iconType === 'component'\" class=\"navigation-item-icon\" [name]=\"_item.icon\">\n        </ux-icon>\n    </ng-container>\n\n    <span class=\"navigation-item-label\">{{ _item?.title }}</span>\n</ng-template>\n" }]
         }], propDecorators: { item: [{
                 type: Input
             }], navigationBtn: [{
@@ -20619,9 +20988,8 @@ PageHeaderModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", versio
         IconModule,
         MenuModule,
         ResizeModule,
-        RouterModule,
-        TabsetModule], exports: [PageHeaderComponent,
-        PageHeaderCustomMenuDirective] });
+        TabsetModule,
+        RouterLinkDirective], exports: [PageHeaderComponent, PageHeaderCustomMenuDirective] });
 PageHeaderModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "14.2.12", ngImport: i0, type: PageHeaderModule, imports: [A11yModule,
         AccessibilityModule,
         BreadcrumbsModule,
@@ -20630,7 +20998,6 @@ PageHeaderModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", versio
         IconModule,
         MenuModule,
         ResizeModule,
-        RouterModule,
         TabsetModule] });
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.2.12", ngImport: i0, type: PageHeaderModule, decorators: [{
             type: NgModule,
@@ -20644,13 +21011,10 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.2.12", ngImpo
                         IconModule,
                         MenuModule,
                         ResizeModule,
-                        RouterModule,
                         TabsetModule,
+                        RouterLinkDirective,
                     ],
-                    exports: [
-                        PageHeaderComponent,
-                        PageHeaderCustomMenuDirective
-                    ],
+                    exports: [PageHeaderComponent, PageHeaderCustomMenuDirective],
                     declarations: [
                         PageHeaderComponent,
                         PageHeaderIconMenuComponent,
@@ -20658,8 +21022,8 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.2.12", ngImpo
                         PageHeaderNavigationComponent,
                         PageHeaderNavigationItemComponent,
                         PageHeaderNavigationDropdownItemComponent,
-                        PageHeaderNavigationSecondaryItemDirective
-                    ]
+                        PageHeaderNavigationSecondaryItemDirective,
+                    ],
                 }]
         }] });
 
@@ -25699,218 +26063,6 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.2.12", ngImpo
                 }]
         }] });
 
-class InputDropdownComponent {
-    constructor() {
-        this._changeDetector = inject(ChangeDetectorRef);
-        /** Filter text */
-        this.filter = '';
-        /** Controls the disabled state of the input-dropdown. */
-        this.disabled = false;
-        /** Define the placeholder for the filter input */
-        this.placeholder = 'Type to filter...';
-        /** Aria label of the filter field. If not specified, the placeholder will be used. */
-        this.ariaLabel = '';
-        /** Aria label of the search button icon. */
-        this.searchFilterButtonAriaLabel = 'Search';
-        /** Aria label of the clear button icon. */
-        this.clearFilterButtonAriaLabel = 'Clear';
-        /** Emit when the selected item is changed */
-        this.selectedChange = new EventEmitter();
-        /** Emit when the filter text is changed */
-        this.filterChange = new EventEmitter();
-        /** Emits when `dropdownOpen` changes. */
-        this.dropdownOpenChange = new EventEmitter();
-        /** The status of the dropdown. */
-        this.dropdownOpen = false;
-        /** Store the filter button aria label */
-        this._filterButtonAriaLabel = this.searchFilterButtonAriaLabel;
-        /** Store the change callback provided by Angular Forms */
-        this.onChange = () => { };
-        /** Store the touched callback provided by Angular Forms */
-        this.onTouched = () => { };
-        /** Unsubscribe from all observables on component destroy */
-        this._onDestroy$ = new Subject();
-    }
-    /** Define the max height of the dropdown */
-    set maxHeight(value) {
-        this._maxHeight = coerceCssPixelValue(value);
-    }
-    ngOnChanges(changes) {
-        // if the dropdownOpen state changes via the input we should show or hide the input accordingly
-        if (changes.dropdownOpen && !changes.dropdownOpen.firstChange && changes.dropdownOpen.currentValue !== changes.dropdownOpen.previousValue) {
-            changes.dropdownOpen.currentValue ? this.menuTrigger.openMenu() : this.menuTrigger.closeMenu();
-        }
-        if (changes.selected) {
-            // if an item is programmatically selected we should close the menu if it is open
-            if (this.menuTrigger && !changes.selected.firstChange) {
-                this.menuTrigger.closeMenu();
-            }
-            this.resetFilter();
-            this.selectedChange.emit(changes.selected.currentValue);
-            this.onChange(changes.selected.currentValue);
-            this.onTouched();
-        }
-        if (changes.filter) {
-            this.setFilterButtonAriaLabel();
-        }
-    }
-    ngAfterViewInit() {
-        // if the user has initially set the dropdownOpen input to true we should open the menu
-        // once we have access to the ViewChild menu trigger directive
-        if (this.dropdownOpen) {
-            // trigger menu open on the next tick to avoid expression changed issues)
-            Promise.resolve().then(() => this.menuTrigger.openMenu());
-        }
-        this._changeDetector.detectChanges();
-    }
-    ngOnDestroy() {
-        this._onDestroy$.next();
-        this._onDestroy$.complete();
-    }
-    resetFilter() {
-        this.filter = '';
-        this.filterChange.emit(this.filter);
-        this._focusFilter();
-    }
-    registerOnChange(onChange) {
-        this.onChange = onChange;
-    }
-    registerOnTouched(onTouched) {
-        this.onTouched = onTouched;
-    }
-    writeValue(value) {
-        this.selected = value;
-        this._changeDetector.markForCheck();
-    }
-    resetValue(event) {
-        if (this.disabled) {
-            return;
-        }
-        this.writeValue(undefined);
-        this.selectedChange.emit(undefined);
-        event.stopPropagation();
-    }
-    setDisabledState(isDisabled) {
-        this.disabled = isDisabled;
-        this._changeDetector.markForCheck();
-    }
-    onMenuOpen() {
-        if (this.dropdownOpen !== true) {
-            this.dropdownOpen = true;
-            this.dropdownOpenChange.emit(this.dropdownOpen);
-            this._focusFilter();
-        }
-    }
-    onMenuClose() {
-        if (this.dropdownOpen !== false) {
-            this.dropdownOpen = false;
-            this.dropdownOpenChange.emit(this.dropdownOpen);
-        }
-    }
-    _focusFilter() {
-        if (this.filterInputElement) {
-            this.filterInputElement.nativeElement.focus();
-        }
-    }
-    inputFocusHandler() {
-        if (!this.dropdownOpen) {
-            this.dropdownOpen = true;
-            this.dropdownOpenChange.emit(this.dropdownOpen);
-        }
-    }
-    toggleMenu() {
-        if (this.disabled) {
-            return;
-        }
-        this.dropdownOpen = !this.dropdownOpen;
-        this.dropdownOpenChange.emit(this.dropdownOpen);
-        this.menuTrigger.toggleMenu();
-    }
-    setFilterButtonAriaLabel() {
-        this._filterButtonAriaLabel = this.filter === ''
-            ? this.searchFilterButtonAriaLabel : this.clearFilterButtonAriaLabel;
-    }
-}
-InputDropdownComponent.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.2.12", ngImport: i0, type: InputDropdownComponent, deps: [], target: i0.ɵɵFactoryTarget.Component });
-InputDropdownComponent.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "14.0.0", version: "14.2.12", type: InputDropdownComponent, selector: "ux-input-dropdown", inputs: { selected: "selected", filter: "filter", hideFilter: "hideFilter", maxHeight: "maxHeight", disabled: "disabled", allowNull: "allowNull", placeholder: "placeholder", ariaLabel: ["aria-label", "ariaLabel"], ariaLabelledby: "ariaLabelledby", searchFilterButtonAriaLabel: "searchFilterButtonAriaLabel", clearFilterButtonAriaLabel: "clearFilterButtonAriaLabel", dropdownOpen: "dropdownOpen" }, outputs: { selectedChange: "selectedChange", filterChange: "filterChange", dropdownOpenChange: "dropdownOpenChange" }, host: { properties: { "class.ux-select-disabled": "disabled", "attr.aria-label": "null" } }, providers: [
-        {
-            provide: NG_VALUE_ACCESSOR,
-            multi: true,
-            useExisting: forwardRef(() => InputDropdownComponent)
-        }
-    ], queries: [{ propertyName: "displayContentRef", first: true, predicate: ["displayContent"], descendants: true }], viewQueries: [{ propertyName: "menuTrigger", first: true, predicate: MenuTriggerDirective, descendants: true }, { propertyName: "filterInputElement", first: true, predicate: ["filterInput"], descendants: true }], usesOnChanges: true, ngImport: i0, template: "<div class=\"ux-select-container\">\n    <button #button type=\"button\" class=\"form-control\"\n            [uxMenuTriggerFor]=\"menu\"\n            [disabled]=\"disabled\">\n        <ng-template #defaultDisplayContent>{{selected ? (selected | json) : '-'}}</ng-template>\n        <ng-container [ngTemplateOutlet]=\"displayContentRef || defaultDisplayContent\"></ng-container>\n    </button>\n    <div class=\"ux-select-icons\">\n        <ux-icon name=\"close\"\n                 uxFocusIndicator\n                 class=\"ux-select-icon ux-select-clear-icon\"\n                 *ngIf=\"allowNull && selected\"\n                 (click)=\"resetValue($event)\"\n                 (keydown.enter)=\"resetValue($event)\"\n                 tabindex=\"0\">\n        </ux-icon>\n        <ux-icon name=\"chevron-down\"\n                 class=\"ux-select-icon ux-select-chevron-icon\"\n                 (click)=\"toggleMenu(); $event.stopPropagation()\">\n        </ux-icon>\n    </div>\n</div>\n\n<ux-menu #menu menuClass=\"select-menu\"\n         (opened)=\"onMenuOpen()\"\n         (closed)=\"onMenuClose()\">\n\n    <div [style.max-height]=\"_maxHeight\"\n         [style.width.px]=\"button.offsetWidth\">\n\n        <div *ngIf=\"!hideFilter\"\n             class=\"filter-container\">\n\n            <input #filterInput\n                    type=\"text\"\n                    [placeholder]=\"placeholder\"\n                    class=\"form-control\"\n                    [(ngModel)]=\"filter\"\n                    (input)=\"filterChange.emit(filter)\"\n                    (click)=\"$event.stopPropagation()\"\n                    [attr.aria-label]=\"ariaLabel || placeholder\"\n                    [attr.aria-labelledby]=\"ariaLabelledby\"\n                    (focus)=\"inputFocusHandler()\">\n\n            <button type=\"button\"\n                    class=\"btn btn-flat filter-button\"\n                    [attr.aria-label]=\"_filterButtonAriaLabel\"\n                    (click)=\"resetFilter(); $event.stopPropagation();\"\n                    [tabindex]=\"filter.length > 0 ? 0 : -1\">\n                <ux-icon [name]=\"filter.length === 0 ? 'search' : 'close'\"></ux-icon>\n            </button>\n        </div>\n\n        <ng-content></ng-content>\n\n    </div>\n</ux-menu>\n", dependencies: [{ kind: "directive", type: i1.NgIf, selector: "[ngIf]", inputs: ["ngIf", "ngIfThen", "ngIfElse"] }, { kind: "directive", type: i1.NgTemplateOutlet, selector: "[ngTemplateOutlet]", inputs: ["ngTemplateOutletContext", "ngTemplateOutlet", "ngTemplateOutletInjector"] }, { kind: "directive", type: i2$1.DefaultValueAccessor, selector: "input:not([type=checkbox])[formControlName],textarea[formControlName],input:not([type=checkbox])[formControl],textarea[formControl],input:not([type=checkbox])[ngModel],textarea[ngModel],[ngDefaultControl]" }, { kind: "directive", type: i2$1.NgControlStatus, selector: "[formControlName],[ngModel],[formControl]" }, { kind: "directive", type: i2$1.NgModel, selector: "[ngModel]:not([formControlName]):not([formControl])", inputs: ["name", "disabled", "ngModel", "ngModelOptions"], outputs: ["ngModelChange"], exportAs: ["ngModel"] }, { kind: "component", type: IconComponent, selector: "ux-icon", inputs: ["name", "size", "rotate", "flipHorizontal", "flipVertical"] }, { kind: "component", type: MenuComponent, selector: "ux-menu", inputs: ["id", "placement", "alignment", "animate", "menuClass"], outputs: ["opening", "opened", "closing", "closed"] }, { kind: "directive", type: MenuTriggerDirective, selector: "[uxMenuTriggerFor]", inputs: ["uxMenuTriggerFor", "disabled", "uxMenuParent", "closeOnBlur"], outputs: ["closed"], exportAs: ["ux-menu-trigger"] }, { kind: "directive", type: DefaultFocusIndicatorDirective, selector: ".btn:not([uxFocusIndicator]):not([uxMenuNavigationToggle]):not([uxMenuTriggerFor]), a[href]:not([uxFocusIndicator]):not([uxMenuNavigationToggle]):not([uxMenuTriggerFor])" }, { kind: "directive", type: FocusIndicatorDirective, selector: "[uxFocusIndicator]", inputs: ["checkChildren", "mouseFocusIndicator", "touchFocusIndicator", "keyboardFocusIndicator", "programmaticFocusIndicator"], outputs: ["indicator"], exportAs: ["ux-focus-indicator"] }, { kind: "pipe", type: i1.JsonPipe, name: "json" }], changeDetection: i0.ChangeDetectionStrategy.OnPush });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.2.12", ngImport: i0, type: InputDropdownComponent, decorators: [{
-            type: Component,
-            args: [{ selector: 'ux-input-dropdown', changeDetection: ChangeDetectionStrategy.OnPush, providers: [
-                        {
-                            provide: NG_VALUE_ACCESSOR,
-                            multi: true,
-                            useExisting: forwardRef(() => InputDropdownComponent)
-                        }
-                    ], host: {
-                        '[class.ux-select-disabled]': 'disabled',
-                        '[attr.aria-label]': 'null'
-                    }, template: "<div class=\"ux-select-container\">\n    <button #button type=\"button\" class=\"form-control\"\n            [uxMenuTriggerFor]=\"menu\"\n            [disabled]=\"disabled\">\n        <ng-template #defaultDisplayContent>{{selected ? (selected | json) : '-'}}</ng-template>\n        <ng-container [ngTemplateOutlet]=\"displayContentRef || defaultDisplayContent\"></ng-container>\n    </button>\n    <div class=\"ux-select-icons\">\n        <ux-icon name=\"close\"\n                 uxFocusIndicator\n                 class=\"ux-select-icon ux-select-clear-icon\"\n                 *ngIf=\"allowNull && selected\"\n                 (click)=\"resetValue($event)\"\n                 (keydown.enter)=\"resetValue($event)\"\n                 tabindex=\"0\">\n        </ux-icon>\n        <ux-icon name=\"chevron-down\"\n                 class=\"ux-select-icon ux-select-chevron-icon\"\n                 (click)=\"toggleMenu(); $event.stopPropagation()\">\n        </ux-icon>\n    </div>\n</div>\n\n<ux-menu #menu menuClass=\"select-menu\"\n         (opened)=\"onMenuOpen()\"\n         (closed)=\"onMenuClose()\">\n\n    <div [style.max-height]=\"_maxHeight\"\n         [style.width.px]=\"button.offsetWidth\">\n\n        <div *ngIf=\"!hideFilter\"\n             class=\"filter-container\">\n\n            <input #filterInput\n                    type=\"text\"\n                    [placeholder]=\"placeholder\"\n                    class=\"form-control\"\n                    [(ngModel)]=\"filter\"\n                    (input)=\"filterChange.emit(filter)\"\n                    (click)=\"$event.stopPropagation()\"\n                    [attr.aria-label]=\"ariaLabel || placeholder\"\n                    [attr.aria-labelledby]=\"ariaLabelledby\"\n                    (focus)=\"inputFocusHandler()\">\n\n            <button type=\"button\"\n                    class=\"btn btn-flat filter-button\"\n                    [attr.aria-label]=\"_filterButtonAriaLabel\"\n                    (click)=\"resetFilter(); $event.stopPropagation();\"\n                    [tabindex]=\"filter.length > 0 ? 0 : -1\">\n                <ux-icon [name]=\"filter.length === 0 ? 'search' : 'close'\"></ux-icon>\n            </button>\n        </div>\n\n        <ng-content></ng-content>\n\n    </div>\n</ux-menu>\n" }]
-        }], propDecorators: { selected: [{
-                type: Input
-            }], filter: [{
-                type: Input
-            }], hideFilter: [{
-                type: Input
-            }], maxHeight: [{
-                type: Input
-            }], disabled: [{
-                type: Input
-            }], allowNull: [{
-                type: Input
-            }], placeholder: [{
-                type: Input
-            }], ariaLabel: [{
-                type: Input,
-                args: ['aria-label']
-            }], ariaLabelledby: [{
-                type: Input
-            }], searchFilterButtonAriaLabel: [{
-                type: Input
-            }], clearFilterButtonAriaLabel: [{
-                type: Input
-            }], selectedChange: [{
-                type: Output
-            }], filterChange: [{
-                type: Output
-            }], dropdownOpenChange: [{
-                type: Output
-            }], dropdownOpen: [{
-                type: Input
-            }], displayContentRef: [{
-                type: ContentChild,
-                args: ['displayContent', { static: false }]
-            }], menuTrigger: [{
-                type: ViewChild,
-                args: [MenuTriggerDirective, { static: false }]
-            }], filterInputElement: [{
-                type: ViewChild,
-                args: ['filterInput', { static: false }]
-            }] } });
-
-class InputDropdownModule {
-}
-InputDropdownModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.2.12", ngImport: i0, type: InputDropdownModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-InputDropdownModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "14.2.12", ngImport: i0, type: InputDropdownModule, declarations: [InputDropdownComponent], imports: [CommonModule, FormsModule, IconModule, MenuModule, AccessibilityModule], exports: [InputDropdownComponent] });
-InputDropdownModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "14.2.12", ngImport: i0, type: InputDropdownModule, imports: [CommonModule, FormsModule, IconModule, MenuModule, AccessibilityModule] });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.2.12", ngImport: i0, type: InputDropdownModule, decorators: [{
-            type: NgModule,
-            args: [{
-                    imports: [CommonModule, FormsModule, IconModule, MenuModule, AccessibilityModule],
-                    declarations: [
-                        InputDropdownComponent
-                    ],
-                    exports: [
-                        InputDropdownComponent
-                    ]
-                }]
-        }] });
-
 class SidePanelCloseDirective {
     constructor() {
         this._service = inject(SidePanelService);
@@ -30928,5 +31080,5 @@ class StorageAdapter {
  * Generated bundle index. Do not edit.
  */
 
-export { ACCESSIBILITY_OPTIONS_TOKEN, AccessibilityModule, AccessibilityOptionsService, AccordionComponent, AccordionModule, AccordionPanelComponent, AccordionPanelHeadingDirective, AccordionService, ActionDirection, AlertComponent, AlertIconDirective, AlertModule, AudioService, AudioServiceModule, AutoGrowDirective, AutoGrowModule, BadgeDirective, BadgeModule, BaseSearchComponent, BreadcrumbsComponent, BreadcrumbsModule, CHECKBOX_VALUE_ACCESSOR, COLOR_SET_TOKEN, CONDUITS, CardTabComponent, CardTabContentDirective, CardTabsModule, CardTabsService, CardTabsetComponent, CheckboxComponent, CheckboxModule, ClickOutsideDirective, ClickOutsideModule, Color, ColorContrastDirective, ColorPickerColor, ColorPickerComponent, ColorPickerModule, ColorService, ColorServiceModule, ColumnPickerComponent, ColumnSortingComponent, ColumnSortingDirective, ColumnSortingModule, ColumnSortingState, Conduit, ConduitComponent, ConduitModule, ConduitSubject, ConduitZone, ConduitZoneComponent, ContrastService, CookieAdapter, DashboardComponent, DashboardDragHandleDirective, DashboardGrabHandleDirective, DashboardModule, DashboardService, DashboardWidgetComponent, DateFormatterPipe, DateFormatterPipeModule, DatePickerHeaderEvent, DatePickerMode, DateRangeOptions, DateRangePicker, DateRangePickerComponent, DateRangePickerDirective, DateRangePickerModule, DateRangeService, DateTimePickerComponent, DateTimePickerConfig, DateTimePickerModule, DateTimePickerService, DefaultFocusIndicatorDirective, DragDirective, DragModule, DragService, DropDirective, DurationPipe, DurationPipeModule, EboxComponent, EboxContentDirective, EboxHeaderDirective, EboxModule, Facet, FacetCheckListComponent, FacetCheckListItemComponent, FacetClearButtonDirective, FacetContainerComponent, FacetDeselect, FacetDeselectAll, FacetHeaderComponent, FacetSelect, FacetService, FacetTypeaheadHighlight, FacetTypeaheadListComponent, FacetTypeaheadListItemComponent, FacetsModule, FileSizePipe, FileSizePipeModule, FilterAddEvent, FilterContainerComponent, FilterDropdownComponent, FilterDynamicComponent, FilterModule, FilterRemoveAllEvent, FilterRemoveEvent, FilterService, FilterTypeaheadHighlight, FixedHeaderTableDirective, FixedHeaderTableModule, FlippableCardBackDirective, FlippableCardComponent, FlippableCardFrontDirective, FlippableCardModule, FloatLabelDirective, FloatLabelModule, FloatingActionButtonComponent, FloatingActionButtonsComponent, FloatingActionButtonsModule, FocusIfDirective, FocusIfModule, FocusIndicator, FocusIndicatorDirective, FocusIndicatorOptionsDirective, FocusIndicatorOrigin, FocusIndicatorOriginDirective, FocusIndicatorOriginService, FocusIndicatorService, FocusWithinDirective, FocusableItemToken, FrameExtractionService, HelpCenterItemDirective, HelpCenterModule, HelpCenterService, HierarchyBarCollapsedComponent, HierarchyBarComponent, HierarchyBarModule, HierarchyBarNodeIconDirective, HierarchyBarStandardComponent, HoverActionContainerDirective, HoverActionDirective, HoverActionModule, ICON_OPTIONS_TOKEN, IconComponent, IconModule, IconService, IconType, InfiniteScrollDirective, InfiniteScrollLoadButtonDirective, InfiniteScrollLoadErrorEvent, InfiniteScrollLoadedEvent, InfiniteScrollLoadingDirective, InfiniteScrollLoadingEvent, InfiniteScrollModule, InputDropdownComponent, InputDropdownModule, ItemDisplayPanelComponent, ItemDisplayPanelContentDirective, ItemDisplayPanelFooterDirective, ItemDisplayPanelModule, LayoutSwitcherDirective, LayoutSwitcherItemDirective, LayoutSwitcherModule, LocalFocusIndicatorOptions, LocalStorageAdapter, ManagedFocusContainerDirective, ManagedFocusContainerService, MarqueeWizardComponent, MarqueeWizardModule, MarqueeWizardStepComponent, MarqueeWizardStepIconDirective, MediaPlayerBaseExtensionDirective, MediaPlayerComponent, MediaPlayerControlsExtensionComponent, MediaPlayerCustomControlDirective, MediaPlayerModule, MediaPlayerTimelineExtensionComponent, MenuComponent, MenuDividerComponent, MenuInitialFocusDirective, MenuItemComponent, MenuItemCustomControlDirective, MenuItemType, MenuModule, MenuNavigationDirective, MenuNavigationItemDirective, MenuNavigationModule, MenuNavigationToggleDirective, MenuTabbableItemDirective, MenuTriggerDirective, ModeDirection, NAVIGATION_MODULE_OPTIONS, NUMBER_PICKER_VALUE_ACCESSOR, NavigationComponent, NavigationItemComponent, NavigationLinkDirective, NavigationModule, NavigationService, NestedDonutChartComponent, NestedDonutChartModule, NotificationListComponent, NotificationModule, NotificationService, NumberPickerComponent, NumberPickerModule, ObserversModule, OrganizationChartAxis, OrganizationChartComponent, OrganizationChartModule, OverflowDirective, OverlayPlacementService, PAGINATION_CONTROL_VALUE_ACCESSOR, PageHeaderComponent, PageHeaderCustomMenuDirective, PageHeaderIconMenuComponent, PageHeaderModule, PageHeaderNavigationComponent, PaginationComponent, PaginationModule, PartitionMapComponent, PartitionMapModule, PartitionMapSegmentEventsDirective, PersistentDataModule, PersistentDataService, PersistentDataStorageType, PopoverComponent, PopoverDirective, PopoverModule, ProgressBarComponent, ProgressBarModule, RADIOBUTTON_VALUE_ACCESSOR, RADIO_GROUP_CONTROL_VALUE_ACCESSOR, RadioButtonComponent, RadioButtonGroupDirective, RadioButtonModule, ReorderableDirective, ReorderableHandleDirective, ReorderableModelDirective, ReorderableModule, ResizableExpandingTableDirective, ResizableTableCellComponent, ResizableTableColumnComponent, ResizableTableDirective, ResizeDirective, ResizeModule, ResizeService, Rounding, SELECT_VALUE_ACCESSOR, SPIN_BUTTON_VALUE_ACCESSOR, SankeyChart, SankeyChartComponent, SankeyChartModule, SankeyNodeDirective, ScrollIntoViewDirective, ScrollIntoViewIfDirective, ScrollIntoViewService, ScrollModule, SearchBuilderComponent, SearchBuilderFocusService, SearchBuilderGroupComponent, SearchBuilderGroupService, SearchBuilderModule, SearchBuilderOutletDirective, SearchBuilderService, SearchDateComponent, SearchDateRangeComponent, SearchSelectComponent, SearchTextComponent, SelectComponent, SelectListComponent, SelectListItemComponent, SelectListModule, SelectModule, SelectionDirective, SelectionItemDirective, SelectionModule, SelectionService, SelectionStrategy, SessionStorageAdapter, SidePanelCloseDirective, SidePanelComponent, SidePanelModule, SliderCalloutTrigger, SliderComponent, SliderModule, SliderSize, SliderSnap, SliderStyle, SliderThumb, SliderThumbEvent, SliderTickType, SliderType, SparkComponent, SparkModule, SpinButtonComponent, SpinButtonModule, SplitterAccessibilityDirective, StepChangingEvent, StepDirection, StorageAdapter, StringFilterModule, StringFilterPipe, TIME_PICKER_VALUE_ACCESSOR, TOOLBAR_SEARCH_VALUE_ACCESSOR, TabComponent, TabHeadingDirective, TabbableListDirective, TabbableListItemDirective, TabbableListService, TableModule, TabsetComponent, TabsetModule, TabsetService, TagInputComponent, TagInputEvent, TagInputModule, ThemeColor, TimePickerComponent, TimePickerModule, TimelineChartModule, TimelineChartPlugin, TimelineComponent, TimelineEventComponent, TimelineHandle, TimelineModule, ToggleSwitchComponent, ToggleSwitchModule, ToolbarSearchButtonDirective, ToolbarSearchComponent, ToolbarSearchFieldDirective, ToolbarSearchModule, TooltipComponent, TooltipDirective, TooltipModule, TooltipService, TreeGridDirective, TreeGridIndentDirective, TreeGridModule, TreeGridRowDirective, TreeGridState, TypeaheadComponent, TypeaheadKeyService, TypeaheadModule, TypeaheadOptionEvent, VirtualForContainerComponent, VirtualForDirective, VirtualForService, VirtualScrollCellDirective, VirtualScrollComponent, VirtualScrollLoadButtonDirective, VirtualScrollLoadingDirective, VirtualScrollModule, WizardComponent, WizardModule, WizardService, WizardStepComponent, colorSets, compareDays, dateComparator, dateRange, defaultConduitProps, defaultOptions, differenceBetweenDates, getIconType, getStartOfDay, gridify, isColumnPickerGroupItem, isDateAfter, isDateBefore, isKeyboardTrigger, isMouseTrigger, meridians, months, monthsShort, range, tick, timezoneComparator, timezones, uxIconset, weekdays, weekdaysShort };
+export { ACCESSIBILITY_OPTIONS_TOKEN, AccessibilityModule, AccessibilityOptionsService, AccordionComponent, AccordionModule, AccordionPanelComponent, AccordionPanelHeadingDirective, AccordionService, ActionDirection, AlertComponent, AlertIconDirective, AlertModule, AudioService, AudioServiceModule, AutoGrowDirective, AutoGrowModule, BadgeDirective, BadgeModule, BaseSearchComponent, BreadcrumbsComponent, BreadcrumbsModule, CHECKBOX_VALUE_ACCESSOR, COLOR_SET_TOKEN, CONDUITS, CardTabComponent, CardTabContentDirective, CardTabsModule, CardTabsService, CardTabsetComponent, CheckboxComponent, CheckboxModule, ClickOutsideDirective, ClickOutsideModule, Color, ColorContrastDirective, ColorPickerColor, ColorPickerComponent, ColorPickerModule, ColorService, ColorServiceModule, ColumnPickerComponent, ColumnSortingComponent, ColumnSortingDirective, ColumnSortingModule, ColumnSortingState, Conduit, ConduitComponent, ConduitModule, ConduitSubject, ConduitZone, ConduitZoneComponent, ContrastService, CookieAdapter, DashboardComponent, DashboardDragHandleDirective, DashboardGrabHandleDirective, DashboardModule, DashboardService, DashboardWidgetComponent, DateFormatterPipe, DateFormatterPipeModule, DatePickerHeaderEvent, DatePickerMode, DateRangeOptions, DateRangePicker, DateRangePickerComponent, DateRangePickerDirective, DateRangePickerModule, DateRangeService, DateTimePickerComponent, DateTimePickerConfig, DateTimePickerModule, DateTimePickerService, DefaultFocusIndicatorDirective, DragDirective, DragModule, DragService, DropDirective, DurationPipe, DurationPipeModule, EboxComponent, EboxContentDirective, EboxHeaderDirective, EboxModule, Facet, FacetCheckListComponent, FacetCheckListItemComponent, FacetClearButtonDirective, FacetContainerComponent, FacetDeselect, FacetDeselectAll, FacetHeaderComponent, FacetSelect, FacetService, FacetTypeaheadHighlight, FacetTypeaheadListComponent, FacetTypeaheadListItemComponent, FacetsModule, FileSizePipe, FileSizePipeModule, FilterAddEvent, FilterContainerComponent, FilterDropdownComponent, FilterDynamicComponent, FilterModule, FilterRemoveAllEvent, FilterRemoveEvent, FilterService, FilterTypeaheadHighlight, FixedHeaderTableDirective, FixedHeaderTableModule, FlippableCardBackDirective, FlippableCardComponent, FlippableCardFrontDirective, FlippableCardModule, FloatLabelDirective, FloatLabelModule, FloatingActionButtonComponent, FloatingActionButtonsComponent, FloatingActionButtonsModule, FocusIfDirective, FocusIfModule, FocusIndicator, FocusIndicatorDirective, FocusIndicatorOptionsDirective, FocusIndicatorOrigin, FocusIndicatorOriginDirective, FocusIndicatorOriginService, FocusIndicatorService, FocusWithinDirective, FocusableItemToken, FrameExtractionService, HelpCenterItemDirective, HelpCenterModule, HelpCenterService, HierarchyBarCollapsedComponent, HierarchyBarComponent, HierarchyBarModule, HierarchyBarNodeIconDirective, HierarchyBarStandardComponent, HoverActionContainerDirective, HoverActionDirective, HoverActionModule, ICON_OPTIONS_TOKEN, IconComponent, IconModule, IconService, IconType, InfiniteScrollDirective, InfiniteScrollLoadButtonDirective, InfiniteScrollLoadErrorEvent, InfiniteScrollLoadedEvent, InfiniteScrollLoadingDirective, InfiniteScrollLoadingEvent, InfiniteScrollModule, InputDropdownComponent, InputDropdownModule, ItemDisplayPanelComponent, ItemDisplayPanelContentDirective, ItemDisplayPanelFooterDirective, ItemDisplayPanelModule, LayoutSwitcherDirective, LayoutSwitcherItemDirective, LayoutSwitcherModule, LocalFocusIndicatorOptions, LocalStorageAdapter, ManagedFocusContainerDirective, ManagedFocusContainerService, MarqueeWizardComponent, MarqueeWizardModule, MarqueeWizardStepComponent, MarqueeWizardStepIconDirective, MediaPlayerBaseExtensionDirective, MediaPlayerComponent, MediaPlayerControlsExtensionComponent, MediaPlayerCustomControlDirective, MediaPlayerModule, MediaPlayerTimelineExtensionComponent, MenuComponent, MenuDividerComponent, MenuInitialFocusDirective, MenuItemComponent, MenuItemCustomControlDirective, MenuItemType, MenuModule, MenuNavigationDirective, MenuNavigationItemDirective, MenuNavigationModule, MenuNavigationToggleDirective, MenuTabbableItemDirective, MenuTriggerDirective, ModeDirection, NAVIGATION_MODULE_OPTIONS, NUMBER_PICKER_VALUE_ACCESSOR, NavigationComponent, NavigationItemComponent, NavigationLinkDirective, NavigationModule, NavigationService, NestedDonutChartComponent, NestedDonutChartModule, NotificationListComponent, NotificationModule, NotificationService, NumberPickerComponent, NumberPickerModule, ObserversModule, OrganizationChartAxis, OrganizationChartComponent, OrganizationChartModule, OverflowDirective, OverlayPlacementService, PAGINATION_CONTROL_VALUE_ACCESSOR, PageHeaderComponent, PageHeaderCustomMenuDirective, PageHeaderIconMenuComponent, PageHeaderModule, PageHeaderNavigationComponent, PaginationComponent, PaginationModule, PartitionMapComponent, PartitionMapModule, PartitionMapSegmentEventsDirective, PersistentDataModule, PersistentDataService, PersistentDataStorageType, PopoverComponent, PopoverDirective, PopoverModule, ProgressBarComponent, ProgressBarModule, RADIOBUTTON_VALUE_ACCESSOR, RADIO_GROUP_CONTROL_VALUE_ACCESSOR, RadioButtonComponent, RadioButtonGroupDirective, RadioButtonModule, ReorderableDirective, ReorderableHandleDirective, ReorderableModelDirective, ReorderableModule, ResizableExpandingTableDirective, ResizableTableCellComponent, ResizableTableColumnComponent, ResizableTableDirective, ResizeDirective, ResizeModule, ResizeService, Rounding, RouterLinkDirective, SELECT_VALUE_ACCESSOR, SPIN_BUTTON_VALUE_ACCESSOR, SankeyChart, SankeyChartComponent, SankeyChartModule, SankeyNodeDirective, ScrollIntoViewDirective, ScrollIntoViewIfDirective, ScrollIntoViewService, ScrollModule, SearchBuilderComponent, SearchBuilderFocusService, SearchBuilderGroupComponent, SearchBuilderGroupService, SearchBuilderModule, SearchBuilderOutletDirective, SearchBuilderService, SearchDateComponent, SearchDateRangeComponent, SearchSelectComponent, SearchTextComponent, SelectComponent, SelectListComponent, SelectListItemComponent, SelectListModule, SelectModule, SelectionDirective, SelectionItemDirective, SelectionModule, SelectionService, SelectionStrategy, SessionStorageAdapter, SidePanelCloseDirective, SidePanelComponent, SidePanelModule, SliderCalloutTrigger, SliderComponent, SliderModule, SliderSize, SliderSnap, SliderStyle, SliderThumb, SliderThumbEvent, SliderTickType, SliderType, SparkComponent, SparkModule, SpinButtonComponent, SpinButtonModule, SplitterAccessibilityDirective, StepChangingEvent, StepDirection, StorageAdapter, StringFilterModule, StringFilterPipe, TIME_PICKER_VALUE_ACCESSOR, TOOLBAR_SEARCH_VALUE_ACCESSOR, TabComponent, TabHeadingDirective, TabbableListDirective, TabbableListItemDirective, TabbableListService, TableModule, TabsetComponent, TabsetModule, TabsetService, TagInputComponent, TagInputEvent, TagInputModule, ThemeColor, TimePickerComponent, TimePickerModule, TimelineChartModule, TimelineChartPlugin, TimelineComponent, TimelineEventComponent, TimelineHandle, TimelineModule, ToggleSwitchComponent, ToggleSwitchModule, ToolbarSearchButtonDirective, ToolbarSearchComponent, ToolbarSearchFieldDirective, ToolbarSearchModule, TooltipComponent, TooltipDirective, TooltipModule, TooltipService, TreeGridDirective, TreeGridIndentDirective, TreeGridModule, TreeGridRowDirective, TreeGridState, TypeaheadComponent, TypeaheadKeyService, TypeaheadModule, TypeaheadOptionEvent, VirtualForContainerComponent, VirtualForDirective, VirtualForService, VirtualScrollCellDirective, VirtualScrollComponent, VirtualScrollLoadButtonDirective, VirtualScrollLoadingDirective, VirtualScrollModule, WizardComponent, WizardModule, WizardService, WizardStepComponent, colorSets, compareDays, dateComparator, dateRange, defaultConduitProps, defaultOptions, differenceBetweenDates, getIconType, getStartOfDay, gridify, isColumnPickerGroupItem, isDateAfter, isDateBefore, isKeyboardTrigger, isMouseTrigger, meridians, months, monthsShort, range, tick, timezoneComparator, timezones, uxIconset, weekdays, weekdaysShort };
 //# sourceMappingURL=ux-aspects-ux-aspects.mjs.map
