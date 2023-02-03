@@ -10,7 +10,7 @@
         <ng-template #navigationNode let-item="item" let-parent="parent" let-level="level" let-rank="rank" let-indent="indent">
 
             <li [attr.role]="(item.children && item.children.length > 0) ? 'treeitem' : 'none'"
-                [attr.aria-expanded]="item.expanded"
+                [attr.aria-expanded]="(item.children && item.children.length > 0) ? item.expanded : null"
                 [class.selected]="item.expanded"
                 [class.disabled]="item.disabled"
                 [class.active]="navigationLink.isActive">
