@@ -20,7 +20,7 @@
         uxTabbableList>
 
         <!-- Create item for not expandable node -->
-        <cdk-nested-tree-node
+        <cdk-tree-node
             *cdkTreeNodeDef="let node"
             [attr.aria-hidden]="selected && selected.indexOf(node.name) > -1"
             uxTabbableListItem
@@ -37,7 +37,7 @@
                     [ngTemplateOutletContext]="{ $implicit: node.name }">
                 </ng-container>
 
-        </cdk-nested-tree-node>
+        </cdk-tree-node>
 
         <!-- Create item for expandable node -->
         <cdk-tree-node *cdkTreeNodeDef="let node; when: _nodeHasChildren"
