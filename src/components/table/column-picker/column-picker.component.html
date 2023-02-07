@@ -20,13 +20,14 @@
         uxTabbableList>
 
         <!-- Create item for not expandable node -->
-        <cdk-tree-node *cdkTreeNodeDef="let node"
-            [attr.aria-hidden]="selected && selected.indexOf(node.name) > -1">
-            <div uxTabbableListItem
-                [uxSelectionItem]="node.column"
-                *ngIf="_shouldRenderNode(node)"
-                class="column-picker-list-item"
-                [ngClass]="'column-picker-tree-node-level-' + node.level">
+        <cdk-nested-tree-node
+            *cdkTreeNodeDef="let node"
+            [attr.aria-hidden]="selected && selected.indexOf(node.name) > -1"
+            uxTabbableListItem
+            [uxSelectionItem]="node.column"
+            class="column-picker-list-item"
+            [ngClass]="'column-picker-tree-node-level-' + node.level"
+            role="treeitem">
 
                 <ng-container *ngIf="!deselectedTemplate">{{ node.name }}</ng-container>
 
@@ -35,9 +36,8 @@
                     [ngTemplateOutlet]="deselectedTemplate"
                     [ngTemplateOutletContext]="{ $implicit: node.name }">
                 </ng-container>
-            </div>
 
-        </cdk-tree-node>
+        </cdk-nested-tree-node>
 
         <!-- Create item for expandable node -->
         <cdk-tree-node *cdkTreeNodeDef="let node; when: _nodeHasChildren"
@@ -120,7 +120,7 @@
         </ng-container>
     </div>
 
-    <div class="column-picker-list">
+    <div class="column-picker-list" role="listbox" [attr.aria-label]="columnPickerListAriaLabel">
 
         <div *ngFor="let column of locked"
              class="column-picker-list-item column-picker-list-item-locked">
@@ -152,7 +152,8 @@
                  [uxReorderableModel]="column"
                  [attr.aria-label]="selectedAriaLabel(column, selected.indexOf(column))"
                  (keydown.alt.arrowup)="move(column, -1)"
-                 (keydown.alt.arrowdown)="move(column, 1)">
+                 (keydown.alt.arrowdown)="move(column, 1)"
+                 role="option">
 
                  <ng-container *ngIf="!selectedTemplate">
                     <ux-icon uxReorderableHandle name="drag" class="drag-handle-icon"></ux-icon>

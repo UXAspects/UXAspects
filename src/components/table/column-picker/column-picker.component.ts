@@ -69,6 +69,9 @@ export class ColumnPickerComponent implements OnChanges {
     /** Define a comparator function used for sorting the deselected columns. */
     @Input() sort: (a: ColumnPickerGroupItem, b: ColumnPickerGroupItem) => number;
 
+    /** Define a aria label for the column picker list. */
+    @Input() columnPickerListAriaLabel: string = 'Column Picker aria label';
+
     /** Emits when the selected items change or the order of the selected items change. */
     @Output() selectedChange = new EventEmitter<ReadonlyArray<string | ColumnPickerGroupItem>>();
 
