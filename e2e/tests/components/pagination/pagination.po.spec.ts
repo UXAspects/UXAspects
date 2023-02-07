@@ -28,6 +28,6 @@ export class PaginationPage {
     }
 
     async clickButton(index: number) {
-        await this.pagination.$('ul.pagination').$$('li.page-item').get(index).$('a').click();
+        await this.pagination.$('ul.pagination').$$('li.page-item').get(index).$('button').click();
     }
 }
