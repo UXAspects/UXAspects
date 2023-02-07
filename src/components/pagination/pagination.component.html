@@ -15,14 +15,14 @@
         [checkChildren]="true"
         [class.disabled]="page === 1 || disabled">
 
-      <a class="page-link"
+      <button class="page-link"
          [tabindex]="page === 1 || disabled ? -1 : 0"
          [attr.aria-label]="previousAriaLabel"
          [ngClass]="pageBtnClass"
          (click)="select(page - 1)"
          (keydown.enter)="select(page - 1)">
         <ng-container [ngTemplateOutlet]="previousBtnTemplate || defaultPreviousBtnTemplate"></ng-container>
-      </a>
+      </button>
     </li>
 
     <ng-container *ngFor="let pg of pages; trackBy: trackByFn">
@@ -34,18 +34,15 @@
           [class.active]="page === pg.index"
           class="pagination-page page-item">
 
-        <a class="page-link"
-           role="option"
+        <button class="page-link"
            tabindex="0"
            [ngClass]="pageBtnClass"
            [focusIf]="isKeyboardEvent && page === pg.index"
            [attr.aria-current]="page === pg.index"
-           [attr.aria-setsize]="pageCount"
-           [attr.aria-posinset]="pg.index"
            (click)="select(pg.index)"
            (keydown.enter)="select(pg.index)">
             {{ pg.index }}
-        </a>
+        </button>
       </li>
     </ng-container>
 
@@ -56,7 +53,7 @@
         [checkChildren]="true"
         [class.disabled]="page === pageCount || disabled">
 
-      <a class="page-link"
+      <button class="page-link"
          [tabindex]="page === pageCount || disabled ? -1 : 0"
          [attr.aria-label]="nextAriaLabel"
          [ngClass]="pageBtnClass"
@@ -64,7 +61,7 @@
          (keydown.enter)="select(page + 1)">
 
         <ng-container [ngTemplateOutlet]="nextBtnTemplate || defaultNextBtnTemplate"></ng-container>
-      </a>
+      </button>
     </li>
   </ul>
 </nav>
