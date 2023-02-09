@@ -1,6 +1,6 @@
 <div class="column-picker-column">
 
-    <div class="column-picker-stats">
+    <div class="column-picker-stats" id="column-picker-stats-left">
 
         <ng-container *ngIf="!deselectedTitleTemplate">
             {{ _deselectedSelection.length }} of {{ _availableDeselectedColumns }} selected
@@ -16,6 +16,7 @@
         [dataSource]="_treeDataSource"
         [treeControl]="_treeControl"
         [(uxSelection)]="_deselectedSelection"
+        aria-labelledby="column-picker-stats-left"
         tabindex="-1"
         uxTabbableList>
 
@@ -108,7 +109,7 @@
 </div>
 
 <div class="column-picker-column">
-    <div class="column-picker-stats">
+    <div class="column-picker-stats" id="column-picker-stats-right">
 
         <ng-container *ngIf="!selectedTitleTemplate">
             {{ selected.length + locked.length }} columns added
@@ -120,7 +121,7 @@
         </ng-container>
     </div>
 
-    <div class="column-picker-list" role="listbox" [attr.aria-label]="columnPickerListAriaLabel">
+    <div class="column-picker-list" role="listbox" aria-labelledby="column-picker-stats-right">
 
         <div *ngFor="let column of locked"
              class="column-picker-list-item column-picker-list-item-locked">
