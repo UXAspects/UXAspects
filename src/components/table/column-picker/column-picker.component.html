@@ -21,23 +21,20 @@
 
         <!-- Create item for not expandable node -->
         <cdk-tree-node *cdkTreeNodeDef="let node"
-            [attr.aria-hidden]="selected && selected.indexOf(node.name) > -1">
-            <div role="group">
-                <div uxTabbableListItem
-                    [uxSelectionItem]="node.column"
-                    *ngIf="_shouldRenderNode(node)"
-                    class="column-picker-list-item"
-                    [ngClass]="'column-picker-tree-node-level-' + node.level"
-                    role="treeitem">
+            [attr.aria-hidden]="selected && selected.indexOf(node.name) > -1"
+            [uxSelectionItem]="node.column">
+            <div uxTabbableListItem
+                *ngIf="_shouldRenderNode(node)"
+                class="column-picker-list-item"
+                [ngClass]="'column-picker-tree-node-level-' + node.level">
 
-                    <ng-container *ngIf="!deselectedTemplate">{{ node.name }}</ng-container>
+                <ng-container *ngIf="!deselectedTemplate">{{ node.name }}</ng-container>
 
-                    <ng-container
-                        *ngIf="deselectedTemplate"
-                        [ngTemplateOutlet]="deselectedTemplate"
-                        [ngTemplateOutletContext]="{ $implicit: node.name }">
-                    </ng-container>
-                </div>
+                <ng-container
+                    *ngIf="deselectedTemplate"
+                    [ngTemplateOutlet]="deselectedTemplate"
+                    [ngTemplateOutletContext]="{ $implicit: node.name }">
+                </ng-container>
             </div>
 
         </cdk-tree-node>
