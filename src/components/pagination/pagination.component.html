@@ -31,6 +31,8 @@
           [programmaticFocusIndicator]="true"
           [checkChildren]="true"
           [class.disabled]="disabled"
+          [attr.aria-setsize]="pageCount"
+          [attr.aria-posinset]="pg.index"
           [class.active]="page === pg.index"
           class="pagination-page page-item">
 
