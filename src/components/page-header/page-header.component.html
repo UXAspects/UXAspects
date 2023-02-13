@@ -2,8 +2,10 @@
 
     <div *ngIf="!condensed" class="page-header-content">
 
+        <ng-container *ngIf="customMastheadContent" [ngTemplateOutlet]="customMastheadContent"></ng-container>
+
         <!-- Logo/product acronym -->
-        <div uxFocusIndicator (keydown.enter)="logoClick.emit($event)" [attr.tabindex]="_hasLogoClick ? 0: -1"
+        <div *ngIf="!customMastheadContent" uxFocusIndicator (keydown.enter)="logoClick.emit($event)" [attr.tabindex]="_hasLogoClick ? 0: -1"
              [class.page-header-logo-template]="logoTemplate" [class.clickable]="_hasLogoClick"
              class="page-header-logo-container"
              role="presentation" [style.backgroundColor]="logoBackground" [style.color]="logoForeground" (click)="logoClick.emit($event)">
