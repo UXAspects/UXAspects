@@ -7,7 +7,7 @@ module.exports = {
     styles: {
         options: {
             position: 'top',
-            banner: `/*\n * ${ package.name } - v${ package.version }\n * © Copyright ${ new Date().getFullYear() } EntIT Software LLC, a Micro Focus company\n */`,
+            banner: `/*\n * ${ package.name } - v${ package.version }\n * © Copyright ${ new Date().getFullYear() } EntIT Software LLC, a OpenText company\n */`,
             linebreak: true
         },
         files: {
