@@ -2,7 +2,7 @@
     "team": [
         {
             "name": "Ashley Hunter",
-            "email": "ashley-glenn.hunter@microfocus.com",
+            "email": "ahunter2@opentext.com",
             "avatar": "assets/img/team/ashley.jpg",
             "social": [
                 {
@@ -11,7 +11,7 @@
                 },
                 {
                     "icon": "mail",
-                    "url": "mailto:ashley-glenn.hunter@microfocus.com"
+                    "url": "mailto:ahunter2@opentext.com"
                 },
                 {
                     "icon": "social-github",
@@ -21,45 +21,45 @@
         },
         {
             "name": "Donna Worby",
-            "email": "donna.worby@microfocus.com",
+            "email": "dworby@opentext.com",
             "avatar": "assets/img/team/donna.jpg",
             "social": [
                 {
                     "icon": "mail",
-                    "url": "mailto:donna.worby@microfocus.com"
+                    "url": "mailto:dworby@opentext.com"
                 }
             ]
         },
         {
             "name": "Roland Penny",
-            "email": "roland.penny@microfocus.com",
+            "email": "rpenny2@opentext.com",
             "avatar": "assets/img/team/roland.jpg",
             "social": [
                 {
                     "icon": "mail",
-                    "url": "mailto:roland.penny@microfocus.com"
+                    "url": "mailto:rpenny2@opentext.com"
                 }
             ]
         },
         {
             "name": "Jonathan Todd",
-            "email": "jonathan.todd@microfocus.com",
+            "email": "jtodd2@opentext.com",
             "avatar": "assets/img/team/jonathan.jpg",
             "social": [
                 {
                     "icon": "mail",
-                    "url": "mailto:jonathan.todd@microfocus.com"
+                    "url": "mailto:jtodd2@opentext.com"
                 }
             ]
         },
         {
             "name": "Sasikumar",
-            "email": "sasikumar.c@microfocus.com",
+            "email": "sasikumarc@opentext.com",
             "avatar": "assets/img/team/Sasi.jpg",
             "social": [
                 {
                     "icon": "mail",
-                    "url": "mailto:sasikumar.c@microfocus.com"
+                    "url": "mailto:sasikumarc@opentext.com"
                 }
             ]
         }

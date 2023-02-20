@@ -4,4 +4,6 @@ import { Component } from '@angular/core';
     selector: 'uxd-licenses-page',
     templateUrl: './licenses.component.html'
 })
-export class LicensesPageComponent { }
+export class LicensesPageComponent {
+    year: number = new Date().getFullYear();
+}

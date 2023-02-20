@@ -176,7 +176,7 @@
    END OF TERMS AND CONDITIONS
 
 
-   Copyright 2017 EntIT Software LLC, a Micro Focus company
+   Copyright 2023 Open Text. All Rights Reserved. Trademarks owned by Open Text.
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
