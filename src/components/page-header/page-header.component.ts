@@ -117,9 +117,6 @@ export class PageHeaderComponent {
     /** Emit whenever the product logo in the left corner is clicked. */
     @Output() logoClick = new EventEmitter<Event>();
 
-    /** Access custom masthead content */
-    @ContentChild('customMastheadContent', { static: false }) customMastheadContent: TemplateRef<any>;
-
     /** Access a custom subheader template */
     @ContentChild('subheader', { static: false }) subheaderTemplate: TemplateRef<any>;
 
