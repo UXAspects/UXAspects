@@ -7,7 +7,10 @@ import { SelectionService } from './selection.service';
 
 @Directive({
     selector: '[uxSelectionItem]',
-    exportAs: 'ux-selection-item'
+    exportAs: 'ux-selection-item',
+    host: {
+        '[attr.aria-selected]': 'preventAriaSelected ? null : selected',
+    }
 })
 export class SelectionItemDirective<T> implements OnInit, OnChanges, OnDestroy {
     readonly focusIndicatorService = inject(FocusIndicatorService);
@@ -26,7 +29,6 @@ export class SelectionItemDirective<T> implements OnInit, OnChanges, OnDestroy {
     /** Defines whether or not this item is currently selected. */
     @Input()
     @HostBinding('class.ux-selection-selected')
-    @HostBinding('attr.aria-selected')
     set selected(selected: boolean) {
         selected ? this.select() : this.deselect();
     }
@@ -51,6 +53,8 @@ export class SelectionItemDirective<T> implements OnInit, OnChanges, OnDestroy {
         // store the current disabled state
         this._isDisabled = isDisabled;
     }
+
+    @Input() preventAriaSelected: boolean = false;
 
     /** Defines whether or not this item is currently selected. */
     @Output() selectedChange = new EventEmitter<boolean>();
