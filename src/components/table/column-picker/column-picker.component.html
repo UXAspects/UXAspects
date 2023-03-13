@@ -23,8 +23,10 @@
         <!-- Create item for not expandable node -->
         <cdk-tree-node *cdkTreeNodeDef="let node"
             [attr.aria-hidden]="selected && selected.indexOf(node.name) > -1"
-            [uxSelectionItem]="node.column">
+            [attr.aria-selected]="selected && selected.indexOf(node.name) > -1">
             <div uxTabbableListItem
+                [uxSelectionItem]="node.column"
+                [preventAriaSelected]="true"
                 *ngIf="_shouldRenderNode(node)"
                 class="column-picker-list-item"
                 [ngClass]="'column-picker-tree-node-level-' + node.level">
