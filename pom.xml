@@ -1,6 +1,6 @@
 <!--
 
-    Copyright 2015-2020 Micro Focus or one of its affiliates.
+    Copyright © 2015 – 2023 Open Text. All Rights Reserved. Trademarks owned by Open Text.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -28,7 +28,7 @@
 
     <groupId>com.github.uxaspects</groupId>
     <artifactId>aspects-core</artifactId>
-    <version>7.2.0-SNAPSHOT</version>
+    <version>7.3.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <properties>
