@@ -54,6 +54,7 @@ export class SelectionItemDirective<T> implements OnInit, OnChanges, OnDestroy {
         this._isDisabled = isDisabled;
     }
 
+    /** Defines whether or not aria-selected is added to the host element. */
     @Input() preventAriaSelected: boolean = false;
 
     /** Defines whether or not this item is currently selected. */
