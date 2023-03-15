@@ -758,7 +758,7 @@ export class TimelineChartPlugin {
             const percentage = ((lower.getTime() - minimum) / (maximum - minimum) * 100);
             const position = left + ((width / 100) * percentage);
 
-            return { top, left: position, right: position, bottom };
+            return { top, left: position, right: position + 5, bottom };
         }
 
         if (handle === TimelineHandle.Upper) {
