@@ -1,12 +1,12 @@
+import { FocusOrigin } from '@angular/cdk/a11y';
 import { Component, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { CheckboxModule } from '../../components/checkbox/index';
+import { AccessibilityModule, FocusIndicator } from '../accessibility/index';
+import { SelectionItemDirective } from './selection-item.directive';
+import { SelectionDirective } from './selection.directive';
 import { SelectionModule } from './selection.module';
 import { SelectionMode } from './selection.service';
-import { AccessibilityModule, FocusIndicator } from '../accessibility/index';
-import { SelectionDirective } from './selection.directive';
-import { CheckboxModule } from '../../components/checkbox/index';
-import { FocusOrigin } from '@angular/cdk/a11y';
-import { SelectionItemDirective } from './selection-item.directive';
 
 @Component({
     selector: 'app-selection-test',
@@ -17,6 +17,7 @@ import { SelectionItemDirective } from './selection-item.directive';
 
             <li *ngFor="let option of options"
                 [uxSelectionItem]="option"
+                [addAriaAttributes]="addAriaAttributes"
                 (selectedChange)="onSelectedItemChange($event)">
 
                 <ux-checkbox tabindex="-1"
@@ -41,6 +42,8 @@ export class SelectionDirectiveSpec {
     selection: ReadonlyArray<string> = [
         'Option 2'
     ];
+
+    addAriaAttributes: boolean = true;
 
     @ViewChild(SelectionDirective) selectionDirective: SelectionDirective<string>;
     @ViewChildren(SelectionItemDirective) selectionItemDirectives: QueryList<SelectionItemDirective<string>>;
@@ -248,6 +251,16 @@ describe('Selection Directive', () => {
         getListItem(0).dispatchEvent(new Event('blur'));
         fixture.detectChanges();
         expect(getListItem(0).classList).not.toContain('ux-selection-focused');
+    });
+
+    it('should have aria-selected when addAriaAttributes is true', () => {
+        expect(getListItem(0).getAttribute('aria-selected')).toBe('false');
+    });
+
+    it('should remove aria-selected when addAriaAttributes is false', () => {
+        component.addAriaAttributes = false;
+        fixture.detectChanges();
+        expect(getListItem(0).getAttribute('aria-selected')).toBe(null);
     });
 
     describe('mode = "row"', () => {
