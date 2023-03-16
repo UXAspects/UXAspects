@@ -6,6 +6,8 @@ import { ColumnPickerService } from './column-picker.service';
 import { ColumnPickerGroupItem, isColumnPickerGroupItem } from './interfaces/column-picker-group-item.interface';
 import { ColumnPickerTreeNode } from './interfaces/column-picker-tree-node.interface';
 
+let uniqueId = 0;
+
 @Component({
     selector: 'ux-column-picker',
     templateUrl: './column-picker.component.html',
@@ -20,6 +22,9 @@ export class ColumnPickerComponent implements OnChanges {
 
     /** We are using OnPush change detection so we must manually trigger CD */
     private readonly _changeDetectorRef = inject(ChangeDetectorRef);
+
+    /** Sets the id of the column picker. */
+    @Input() id: string = `ux-number-picker-${uniqueId++}`;
 
     /** Define a list of all selected columns. */
     @Input() selected: ReadonlyArray<string | ColumnPickerGroupItem> = [];

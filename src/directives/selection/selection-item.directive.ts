@@ -1,3 +1,4 @@
+import { BooleanInput, coerceBooleanProperty } from '@angular/cdk/coercion';
 import { SPACE } from '@angular/cdk/keycodes';
 import { ChangeDetectorRef, Directive, ElementRef, EventEmitter, HostBinding, HostListener, inject, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
 import { Subject, Subscription } from 'rxjs';
@@ -9,7 +10,7 @@ import { SelectionService } from './selection.service';
     selector: '[uxSelectionItem]',
     exportAs: 'ux-selection-item',
     host: {
-        '[attr.aria-selected]': 'preventAriaSelected ? null : selected',
+        '[attr.aria-selected]': 'addAriaAttributes ? selected : null',
     }
 })
 export class SelectionItemDirective<T> implements OnInit, OnChanges, OnDestroy {
@@ -54,8 +55,14 @@ export class SelectionItemDirective<T> implements OnInit, OnChanges, OnDestroy {
         this._isDisabled = isDisabled;
     }
 
-    /** Defines whether or not aria-selected is added to the host element. */
-    @Input() preventAriaSelected: boolean = false;
+    /** Whether aria-selected is added to the host element */
+    @Input() set addAriaAttributes(value: boolean) {
+        this._addAriaAttributes = coerceBooleanProperty(value);
+    }
+
+    get addAriaAttributes(): boolean {
+        return this._addAriaAttributes;
+    }
 
     /** Defines whether or not this item is currently selected. */
     @Output() selectedChange = new EventEmitter<boolean>();
@@ -85,6 +92,9 @@ export class SelectionItemDirective<T> implements OnInit, OnChanges, OnDestroy {
 
     /** Subscription to the selection state observable. */
     private _selectionStateSubscription: Subscription;
+
+    /** Store value for _addAriaAttributes */
+    private _addAriaAttributes: boolean = true;
 
     /** Automatically unsubscribe when the component is destroyed */
     private readonly _onDestroy = new Subject<void>();
@@ -229,4 +239,6 @@ export class SelectionItemDirective<T> implements OnInit, OnChanges, OnDestroy {
 
         this._selected = this._selectionService.isSelected(this.uxSelectionItem);
     }
+
+    static ngAcceptInputType_addAriaAttributes: BooleanInput;
 }
