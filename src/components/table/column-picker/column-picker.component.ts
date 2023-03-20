@@ -332,6 +332,13 @@ export class ColumnPickerComponent implements OnChanges {
         // QueryList gets updated in the uxTabbableList directive
         requestAnimationFrame(() => this._changeDetectorRef.detectChanges());
     }
+
+    protected _isNodeSelected(name): boolean {
+        const filtered = this._deselectedSelection.filter(selection => (
+            isColumnPickerGroupItem(selection) ? selection.name === name : selection === name
+        ));
+        return filtered.length > 0;
+    }
 }
 
 function getColumnPickerGroupItemName(column: string | ColumnPickerGroupItem) {

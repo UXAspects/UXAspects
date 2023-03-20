@@ -23,7 +23,7 @@
         <!-- Create item for not expandable node -->
         <cdk-tree-node *cdkTreeNodeDef="let node"
             [attr.aria-hidden]="selected && selected.indexOf(node.name) > -1"
-            [attr.aria-selected]="selected && selected.indexOf(node.name) > -1">
+            [attr.aria-selected]="_isNodeSelected(node.name)">
             <div uxTabbableListItem
                 [uxSelectionItem]="node.column"
                 addAriaAttributes="false"
