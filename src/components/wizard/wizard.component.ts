@@ -87,6 +87,9 @@ export class WizardComponent implements OnInit, AfterContentInit, OnDestroy {
     /** If set to `true` the 'Finish' button will be visible on all steps of the wizard. By default this button will only be visible on the final step of the wizard. */
     @Input() finishAlwaysVisible: boolean = false;
 
+    /** If set to `true` the 'Next' button will be visible even on the last step. By default it will be hidden on the final step. */
+    @Input() nextAlwaysVisible: boolean = false;
+
     /** If set to `true` the 'Next' or 'Finish' button will become disabled when the current step is invalid. */
     @Input() disableNextWhenInvalid: boolean = false;
 

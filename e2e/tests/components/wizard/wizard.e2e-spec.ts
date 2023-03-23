@@ -86,7 +86,7 @@ describe('Wizard Tests', () => {
         expect(await imageCompare('wizard-step2')).toEqual(0);
     });
 
-    it('should navigate back to the first step if clicking on a visted step header', async () => {
+    it('should navigate back to the first step if clicking on a visited step header', async () => {
         await page.goToNext();
 
         let headers: ElementFinder[] = await page.stepHeaders;

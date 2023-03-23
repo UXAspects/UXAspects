@@ -92,11 +92,11 @@
             <button #tip="ux-tooltip"
                     type="button"
                     class="btn button-primary marquee-wizard-next-button"
-                    *ngIf="nextVisible && !isLastStep()"
+                    *ngIf="nextVisible && !isLastStep() || nextAlwaysVisible"
                     [uxTooltip]="nextTooltip"
                     [attr.aria-label]="nextAriaLabel"
                     container="body"
-                    [disabled]="nextDisabled || isNextDisabled()"
+                    [disabled]="nextDisabled || step === steps.length - 1 || isNextDisabled()"
                     (click)="next(); tip.hide()">
                 {{ nextText }}
             </button>

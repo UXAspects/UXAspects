@@ -61,6 +61,9 @@
 
             <ux-marquee-wizard #wizard
                                class="marquee-wizard"
+                               [cancelAlwaysVisible]="true"
+                               [finishAlwaysVisible]="true"
+                               [nextAlwaysVisible]="true"
                                [description]="icon"
                                [sidePanelWidth]="sidePanelWidth"
                                [gutterSize]="gutterSize"
@@ -304,6 +307,10 @@
     <tr uxd-api-property name="finishVisible" type="boolean">
         If set to
         <code>false</code> the 'Finish' button will be hidden.
+    </tr>
+    <tr uxd-api-property name="nextAlwaysVisible" type="boolean">
+        If set to <code>true</code> the 'Next' button will be visible even on the last step.
+        By default it will be hidden on the final step.
     </tr>
     <tr uxd-api-property name="cancelAlwaysVisible" type="boolean">
         If set to

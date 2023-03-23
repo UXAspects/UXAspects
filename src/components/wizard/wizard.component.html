@@ -58,9 +58,9 @@
     <button #tip="ux-tooltip"
             type="button"
             class="btn button-primary"
-            *ngIf="nextVisible && !isLastStep()"
+            *ngIf="nextVisible && !isLastStep() || nextAlwaysVisible"
             [uxTooltip]="nextTooltip"
-            [disabled]="nextDisabled || isNextDisabled()"
+            [disabled]="nextDisabled || step === steps.length - 1 || isNextDisabled()"
             [attr.aria-label]="nextAriaLabel"
             (click)="next(); tip.hide()">
         {{ nextText }}
