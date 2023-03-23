@@ -63,7 +63,6 @@ export class BaseSearchComponent implements OnDestroy, OnInit {
      * Perform any required validation on the value
      */
     validate(): void {
-        console.log('VALIDATION RUN')
         // if a custom validation function has been provided then use it
         this.valid = this.config.validation ? this.config.validation(this, this.value) : true;
     }
