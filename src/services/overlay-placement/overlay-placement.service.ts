@@ -27,14 +27,13 @@ export class OverlayPlacementService {
         const origin = this.getOrigin(placement, alignment);
         const overlay = this.getOverlayPosition(placement, alignment);
 
-        position.withPositions(this.addPositions(origin, overlay, isSubMenu, customFallbackPlacement));
+        position.withPositions(this.addPositions(origin, overlay, customFallbackPlacement));
     }
 
     /** Apply position to position strategy */
     private addPositions(
         origin: OriginConnectedPositions,
         overlay: OverlayConnectedPositions,
-        isSubMenu: boolean,
         customFallbackPlacement: AnchorPlacement
     ): ConnectedPosition[] {
         if (customFallbackPlacement) {
@@ -42,19 +41,14 @@ export class OverlayPlacementService {
                 { ...origin.main, ...overlay.main },
                 this.getFallbackPosition(customFallbackPlacement),
             ];
-        } else if (isSubMenu) {
+        } else {
             return [
                 { ...origin.main, ...overlay.main },
                 { ...origin.fallback, ...overlay.fallback },
                 { ...{ originX: 'end', originY: 'bottom' }, ...{ overlayX: 'start', overlayY: 'bottom' } },
                 { ...{ originX: 'start', originY: 'bottom' }, ...{ overlayX: 'end', overlayY: 'bottom' } }
             ];
-        } else {
-            return [
-                { ...origin.main, ...overlay.main },
-                { ...origin.fallback, ...overlay.fallback }
-            ];
-        }
+        };
     }
 
     /** Get the origin position based on the specified tooltip placement */
