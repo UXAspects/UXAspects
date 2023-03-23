@@ -45,8 +45,8 @@ export class OverlayPlacementService {
             return [
                 { ...origin.main, ...overlay.main },
                 { ...origin.fallback, ...overlay.fallback },
-                { ...{ originX: 'end', originY: 'bottom' }, ...{ overlayX: 'start', overlayY: 'bottom' } },
-                { ...{ originX: 'start', originY: 'bottom' }, ...{ overlayX: 'end', overlayY: 'bottom' } }
+                { ...{ originX: origin.main.originX, originY: this.invertHorizontalPosition(origin.main.originY) }, ...{ overlayX: overlay.main.overlayX, overlayY: this.invertHorizontalPosition(overlay.main.overlayY) } },
+                { ...{ originX: origin.fallback.originX, originY: this.invertHorizontalPosition(origin.fallback.originY) }, ...{ overlayX: overlay.fallback.overlayX, overlayY: this.invertHorizontalPosition(overlay.fallback.overlayY) } }
             ];
         };
     }
@@ -64,6 +64,7 @@ export class OverlayPlacementService {
             originPosition = { originX: alignment as HorizontalConnectionPos, originY: placement };
         }
 
+
         if (placement === 'left') {
             originPosition = { originX: 'start', originY: this.getVerticalAlignment(alignment) };
         }
@@ -75,7 +76,7 @@ export class OverlayPlacementService {
         const { x, y } = this.invertPosition(placement, originPosition!.originX, originPosition!.originY);
 
         return {
-            main: originPosition,
+            main: { originX: originPosition.originX, originY: originPosition.originY },
             fallback: { originX: x, originY: y },
         };
     }
@@ -108,7 +109,7 @@ export class OverlayPlacementService {
         const { x, y } = this.invertPosition(placement, overlayPosition!.overlayX, overlayPosition!.overlayY);
 
         return {
-            main: overlayPosition!,
+            main: { overlayX: overlayPosition!.overlayX, overlayY: overlayPosition!.overlayY },
             fallback: { overlayX: x, overlayY: y },
         };
     }
@@ -144,6 +145,10 @@ export class OverlayPlacementService {
         }
 
         return { x, y };
+    }
+
+    invertHorizontalPosition(y: string): 'top' | 'center' | 'bottom' {
+        return y === 'top' ? 'bottom' : 'top';
     }
 
     private getFallbackPosition(fallbackPlacement: string): ConnectedPosition {
