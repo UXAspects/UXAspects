@@ -7,6 +7,7 @@ export class MenuFallbackPage {
     topMenu = $('#top-menu');
     bottomMenu = $('#bottom-menu');
     bottomRightMenu = $('#right-bottom-menu');
+    bottomLeftMenu = $('#left-bottom-menu');
 
     cdkOverlayContainer = $('.cdk-overlay-container');
     menu = $('.ux-menu');
