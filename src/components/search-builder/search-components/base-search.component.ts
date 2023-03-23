@@ -1,4 +1,4 @@
-import { Component, inject, OnDestroy } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { SearchBuilderComponentContext } from '../interfaces/component-context.interface';
 import { SearchBuilderService } from '../search-builder.service';
 
@@ -6,7 +6,7 @@ import { SearchBuilderService } from '../search-builder.service';
     selector: 'ux-base-search',
     template: ''
 })
-export class BaseSearchComponent implements OnDestroy {
+export class BaseSearchComponent implements OnDestroy, OnInit {
     private readonly _searchBuilderService = inject(SearchBuilderService);
 
     get id(): string {
@@ -48,6 +48,10 @@ export class BaseSearchComponent implements OnDestroy {
     private readonly _id: number = this._searchBuilderService.generateComponentId();
     private _valid: boolean = true;
 
+    ngOnInit(): void {
+        this.validate();
+    }
+
     /**
      * Make sure we clean up after ourselves
      */
@@ -59,6 +63,7 @@ export class BaseSearchComponent implements OnDestroy {
      * Perform any required validation on the value
      */
     validate(): void {
+        console.log('VALIDATION RUN')
         // if a custom validation function has been provided then use it
         this.valid = this.config.validation ? this.config.validation(this, this.value) : true;
     }
