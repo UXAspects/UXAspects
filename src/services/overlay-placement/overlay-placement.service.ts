@@ -64,7 +64,6 @@ export class OverlayPlacementService {
             originPosition = { originX: alignment as HorizontalConnectionPos, originY: placement };
         }
 
-
         if (placement === 'left') {
             originPosition = { originX: 'start', originY: this.getVerticalAlignment(alignment) };
         }
@@ -76,7 +75,7 @@ export class OverlayPlacementService {
         const { x, y } = this.invertPosition(placement, originPosition!.originX, originPosition!.originY);
 
         return {
-            main: { originX: originPosition.originX, originY: originPosition.originY },
+            main: originPosition,
             fallback: { originX: x, originY: y },
         };
     }
@@ -109,7 +108,7 @@ export class OverlayPlacementService {
         const { x, y } = this.invertPosition(placement, overlayPosition!.overlayX, overlayPosition!.overlayY);
 
         return {
-            main: { overlayX: overlayPosition!.overlayX, overlayY: overlayPosition!.overlayY },
+            main: overlayPosition!,
             fallback: { overlayX: x, overlayY: y },
         };
     }
