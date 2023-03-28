@@ -27,14 +27,13 @@ export class OverlayPlacementService {
         const origin = this.getOrigin(placement, alignment);
         const overlay = this.getOverlayPosition(placement, alignment);
 
-        position.withPositions(this.addPositions(origin, overlay, isSubMenu, customFallbackPlacement));
+        position.withPositions(this.addPositions(origin, overlay, customFallbackPlacement));
     }
 
     /** Apply position to position strategy */
     private addPositions(
         origin: OriginConnectedPositions,
         overlay: OverlayConnectedPositions,
-        isSubMenu: boolean,
         customFallbackPlacement: AnchorPlacement
     ): ConnectedPosition[] {
         if (customFallbackPlacement) {
@@ -42,19 +41,14 @@ export class OverlayPlacementService {
                 { ...origin.main, ...overlay.main },
                 this.getFallbackPosition(customFallbackPlacement),
             ];
-        } else if (isSubMenu) {
-            return [
-                { ...origin.main, ...overlay.main },
-                { ...origin.fallback, ...overlay.fallback },
-                { ...{ originX: 'end', originY: 'bottom' }, ...{ overlayX: 'start', overlayY: 'bottom' } },
-                { ...{ originX: 'start', originY: 'bottom' }, ...{ overlayX: 'end', overlayY: 'bottom' } }
-            ];
         } else {
             return [
                 { ...origin.main, ...overlay.main },
-                { ...origin.fallback, ...overlay.fallback }
+                { ...origin.fallback, ...overlay.fallback },
+                { ...{ originX: origin.main.originX, originY: this.invertHorizontalPosition(origin.main.originY) }, ...{ overlayX: overlay.main.overlayX, overlayY: this.invertHorizontalPosition(overlay.main.overlayY) } },
+                { ...{ originX: origin.fallback.originX, originY: this.invertHorizontalPosition(origin.fallback.originY) }, ...{ overlayX: overlay.fallback.overlayX, overlayY: this.invertHorizontalPosition(overlay.fallback.overlayY) } }
             ];
-        }
+        };
     }
 
     /** Get the origin position based on the specified tooltip placement */
@@ -150,6 +144,10 @@ export class OverlayPlacementService {
         }
 
         return { x, y };
+    }
+
+    invertHorizontalPosition(y: string): 'top' | 'center' | 'bottom' {
+        return y === 'top' ? 'bottom' : 'top';
     }
 
     private getFallbackPosition(fallbackPlacement: string): ConnectedPosition {
