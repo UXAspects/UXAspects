@@ -29,20 +29,22 @@
 // ngx-bootstrap - pagination
 .pagination {
     & > li.page-item {
-        & > a {
+        & > button {
             .btn;
             .button-secondary;
 
-            text-align: center;
             min-width: 45px;
             padding: 6px 12px;
+            border-radius: 0;
+            font-size: 0.875rem;
+            border: 1px solid #ccc;
 
             &:hover {
                 .button-secondary-hover;
             }
         }
 
-        &.active > a {
+        &.active > button {
             .button-primary-active;
 
             &:hover {
@@ -55,7 +57,7 @@
         }
 
         &.disabled {
-            & > a {
+            & > button {
                 .button-secondary-disabled;
             }
         }
@@ -71,7 +73,7 @@
 }
 
 .pagination > .disabled > span,
-.pagination > .disabled > a {
+.pagination > .disabled > button {
     .button-secondary-disabled;
 
     &:hover,
@@ -81,18 +83,23 @@
 }
 
 .pagination > li {
-    & > a {
+    & > button {
         .button-secondary;
 
-        min-width: 45px;
+        position: relative;
+        float: left;
+        margin-left: -1px;
 
         &:hover {
             .button-secondary-hover;
         }
     }
 
-    &.active > a {
+    &.active > button {
         .button-primary-active;
+
+        z-index: 3;
+        cursor: default;
 
         &:hover {
             .button-primary-hover;
@@ -101,6 +108,10 @@
         &:focus {
             .button-primary-active;
         }
+    }
+
+    &:first-child > button {
+        margin-left: 0;
     }
 }
 

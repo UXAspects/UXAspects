@@ -1,6 +1,6 @@
 <div class="column-picker-column">
 
-    <div class="column-picker-stats">
+    <div class="column-picker-stats" [id]="id + '-stats-left'">
 
         <ng-container *ngIf="!deselectedTitleTemplate">
             {{ _deselectedSelection.length }} of {{ _availableDeselectedColumns }} selected
@@ -16,14 +16,17 @@
         [dataSource]="_treeDataSource"
         [treeControl]="_treeControl"
         [(uxSelection)]="_deselectedSelection"
+        [attr.aria-labelledby]="id + '-stats-left'"
         tabindex="-1"
         uxTabbableList>
 
         <!-- Create item for not expandable node -->
         <cdk-tree-node *cdkTreeNodeDef="let node"
-            [attr.aria-hidden]="selected && selected.indexOf(node.name) > -1">
+            [attr.aria-hidden]="selected && selected.indexOf(node.name) > -1"
+            [attr.aria-selected]="_isNodeSelected(node.name)">
             <div uxTabbableListItem
                 [uxSelectionItem]="node.column"
+                addAriaAttributes="false"
                 *ngIf="_shouldRenderNode(node)"
                 class="column-picker-list-item"
                 [ngClass]="'column-picker-tree-node-level-' + node.level">
@@ -108,7 +111,7 @@
 </div>
 
 <div class="column-picker-column">
-    <div class="column-picker-stats">
+    <div class="column-picker-stats" [id]="id + '-stats-right'">
 
         <ng-container *ngIf="!selectedTitleTemplate">
             {{ selected.length + locked.length }} columns added
@@ -120,7 +123,7 @@
         </ng-container>
     </div>
 
-    <div class="column-picker-list">
+    <div class="column-picker-list" role="listbox" [attr.aria-labelledby]="id + '-stats-right'">
 
         <div *ngFor="let column of locked"
              class="column-picker-list-item column-picker-list-item-locked">
@@ -152,7 +155,8 @@
                  [uxReorderableModel]="column"
                  [attr.aria-label]="selectedAriaLabel(column, selected.indexOf(column))"
                  (keydown.alt.arrowup)="move(column, -1)"
-                 (keydown.alt.arrowdown)="move(column, 1)">
+                 (keydown.alt.arrowdown)="move(column, 1)"
+                 role="option">
 
                  <ng-container *ngIf="!selectedTemplate">
                     <ux-icon uxReorderableHandle name="drag" class="drag-handle-icon"></ux-icon>

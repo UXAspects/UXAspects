@@ -1,3 +1,4 @@
+import { BooleanInput, coerceBooleanProperty } from '@angular/cdk/coercion';
 import { SPACE } from '@angular/cdk/keycodes';
 import { ChangeDetectorRef, Directive, ElementRef, EventEmitter, HostBinding, HostListener, inject, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
 import { Subject, Subscription } from 'rxjs';
@@ -7,7 +8,10 @@ import { SelectionService } from './selection.service';
 
 @Directive({
     selector: '[uxSelectionItem]',
-    exportAs: 'ux-selection-item'
+    exportAs: 'ux-selection-item',
+    host: {
+        '[attr.aria-selected]': 'addAriaAttributes ? selected : null',
+    }
 })
 export class SelectionItemDirective<T> implements OnInit, OnChanges, OnDestroy {
     readonly focusIndicatorService = inject(FocusIndicatorService);
@@ -26,7 +30,6 @@ export class SelectionItemDirective<T> implements OnInit, OnChanges, OnDestroy {
     /** Defines whether or not this item is currently selected. */
     @Input()
     @HostBinding('class.ux-selection-selected')
-    @HostBinding('attr.aria-selected')
     set selected(selected: boolean) {
         selected ? this.select() : this.deselect();
     }
@@ -50,6 +53,15 @@ export class SelectionItemDirective<T> implements OnInit, OnChanges, OnDestroy {
 
         // store the current disabled state
         this._isDisabled = isDisabled;
+    }
+
+    /** Whether aria-selected is added to the host element */
+    @Input() set addAriaAttributes(value: boolean) {
+        this._addAriaAttributes = coerceBooleanProperty(value);
+    }
+
+    get addAriaAttributes(): boolean {
+        return this._addAriaAttributes;
     }
 
     /** Defines whether or not this item is currently selected. */
@@ -80,6 +92,9 @@ export class SelectionItemDirective<T> implements OnInit, OnChanges, OnDestroy {
 
     /** Subscription to the selection state observable. */
     private _selectionStateSubscription: Subscription;
+
+    /** Store value for _addAriaAttributes */
+    private _addAriaAttributes: boolean = true;
 
     /** Automatically unsubscribe when the component is destroyed */
     private readonly _onDestroy = new Subject<void>();
@@ -224,4 +239,6 @@ export class SelectionItemDirective<T> implements OnInit, OnChanges, OnDestroy {
 
         this._selected = this._selectionService.isSelected(this.uxSelectionItem);
     }
+
+    static ngAcceptInputType_addAriaAttributes: BooleanInput;
 }

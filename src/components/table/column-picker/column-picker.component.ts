@@ -6,6 +6,8 @@ import { ColumnPickerService } from './column-picker.service';
 import { ColumnPickerGroupItem, isColumnPickerGroupItem } from './interfaces/column-picker-group-item.interface';
 import { ColumnPickerTreeNode } from './interfaces/column-picker-tree-node.interface';
 
+let uniqueId = 0;
+
 @Component({
     selector: 'ux-column-picker',
     templateUrl: './column-picker.component.html',
@@ -20,6 +22,9 @@ export class ColumnPickerComponent implements OnChanges {
 
     /** We are using OnPush change detection so we must manually trigger CD */
     private readonly _changeDetectorRef = inject(ChangeDetectorRef);
+
+    /** Sets the id of the column picker. */
+    @Input() id: string = `ux-number-picker-${uniqueId++}`;
 
     /** Define a list of all selected columns. */
     @Input() selected: ReadonlyArray<string | ColumnPickerGroupItem> = [];
@@ -326,6 +331,13 @@ export class ColumnPickerComponent implements OnChanges {
         // a second change detection cycle on the next tick to ensure the ContentChildren
         // QueryList gets updated in the uxTabbableList directive
         requestAnimationFrame(() => this._changeDetectorRef.detectChanges());
+    }
+
+    protected _isNodeSelected(name): boolean {
+        const filtered = this._deselectedSelection.filter(selection => (
+            isColumnPickerGroupItem(selection) ? selection.name === name : selection === name
+        ));
+        return filtered.length > 0;
     }
 }
 
