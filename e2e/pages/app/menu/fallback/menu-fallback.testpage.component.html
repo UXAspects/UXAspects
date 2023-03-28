@@ -38,6 +38,14 @@
         [uxMenuTriggerFor]="menuBottomRight">
         Bottom Right
     </button>
+
+    <button
+        type="button"
+        id="left-bottom-menu"
+        class="btn button-secondary"
+        [uxMenuTriggerFor]="menuBottomLeft">
+        Bottom Left
+    </button>
 </div>
 
 <ux-menu id="menuTop" #menuTop menuClass="ux-menu-demo" placement="top">
@@ -70,6 +78,29 @@
 
 <ux-menu id="menuBottomRight" #menuBottomRight menuClass="ux-menu-demo" placement="right">
     <button type="button" uxMenuItem [uxMenuTriggerFor]="subMenu">
+        <span class="dropdown-menu-icon"></span>
+        <span class="dropdown-menu-text">Menu Item</span>
+    </button>
+</ux-menu>
+
+<ux-menu id="menuBottomLeft" #menuBottomLeft menuClass="ux-menu-demo" placement="left">
+    <button type="button" uxMenuItem>
+        <span class="dropdown-menu-icon"></span>
+        <span class="dropdown-menu-text">Menu Item</span>
+    </button>
+    <button type="button" uxMenuItem>
+        <span class="dropdown-menu-icon"></span>
+        <span class="dropdown-menu-text">Menu Item</span>
+    </button>
+    <button type="button" uxMenuItem>
+        <span class="dropdown-menu-icon"></span>
+        <span class="dropdown-menu-text">Menu Item</span>
+    </button>
+    <button type="button" uxMenuItem>
+        <span class="dropdown-menu-icon"></span>
+        <span class="dropdown-menu-text">Menu Item</span>
+    </button>
+    <button type="button" uxMenuItem>
         <span class="dropdown-menu-icon"></span>
         <span class="dropdown-menu-text">Menu Item</span>
     </button>

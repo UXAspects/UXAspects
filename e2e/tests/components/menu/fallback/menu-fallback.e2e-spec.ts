@@ -39,6 +39,13 @@ describe('Menu (Fallback) Tests', () => {
         expect(await imageCompare('menu-fallback-top')).toEqual(0);
     });
 
+    it('should fallback to the top right when left botto is unavailable', async () => {
+        await page.bottomLeftMenu.click();
+
+        expect(await page.cdkOverlayContainer.isPresent()).toBe(true);
+        expect(await imageCompare('menu-fallback-top-right')).toEqual(0);
+    });
+
     describe('Sub Menu', () => {
 
         it('should default to bottom right', async () => {
@@ -49,7 +56,7 @@ describe('Menu (Fallback) Tests', () => {
 
             // check menu and submenu are open
             expect((await $$('.ux-menu')).length).toBe(2);
-            expect(await imageCompare('menu-submenu-fallback-bottom-right')).toEqual(0);
+            expect(await imageCompare('menu-fallback-submenu-bottom-right')).toEqual(0);
         });
 
         it('should fallback to top right when space at the bottom is unavailable', async () => {
@@ -60,7 +67,7 @@ describe('Menu (Fallback) Tests', () => {
 
             // check menu and submenu are open
             expect((await $$('.ux-menu')).length).toBe(2);
-            expect(await imageCompare('menu-submenu-fallback-top-right')).toEqual(0);
+            expect(await imageCompare('menu-fallback-submenu-top-right')).toEqual(0);
         });
 
         it('should fallback to top left when space at the bottom and right is unavailable', async () => {
@@ -71,7 +78,7 @@ describe('Menu (Fallback) Tests', () => {
 
             // check menu and submenu are open
             expect((await $$('.ux-menu')).length).toBe(2);
-            expect(await imageCompare('menu-submenu-fallback-top-left')).toEqual(0);
+            expect(await imageCompare('menu-fallback-submenu-top-left')).toEqual(0);
         });
 
         it('should fallback to bottom left when space at the right is unavailable', async () => {
@@ -82,7 +89,7 @@ describe('Menu (Fallback) Tests', () => {
 
             // check menu and submenu are open
             expect((await $$('.ux-menu')).length).toBe(2);
-            expect(await imageCompare('menu-submenu-fallback-bottom-left')).toEqual(0);
+            expect(await imageCompare('menu-fallback-submenu-bottom-left')).toEqual(0);
         });
 
     });

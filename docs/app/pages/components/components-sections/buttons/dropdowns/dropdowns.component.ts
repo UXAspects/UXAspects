@@ -42,7 +42,7 @@ export class ComponentsDropdownsComponent
         },
         modules: [
             {
-                imports: ['StringFilterModule', 'MenuModule'],
+                imports: ['StringFilterModule', 'MenuModule', 'ToggleSwitchModule'],
                 library: '@ux-aspects/ux-aspects',
             },
         ],
