@@ -1,5 +1,5 @@
 /*
- * @ux-aspects/ux-aspects - v7.2.0-526
+ * @ux-aspects/ux-aspects - v7.3.0-540
  * © Copyright 2023 Open Text. All Rights Reserved. Trademarks owned by Open Text
  */
 .cdk-overlay-container,
@@ -2433,152 +2433,151 @@ label {
 .table.ux-resizable-expanding-table th {
   border: none;
 }
-.pagination > li.page-item > a {
-  border-radius: 0;
-  font-size: 0.875rem;
+.pagination > li.page-item > button {
   font-family: 'Source Sans Pro';
   text-transform: uppercase;
   padding: 4px 15px;
   color: #999;
   background: #fff;
-  border: 1px solid #ccc;
   box-shadow: none;
-  text-align: center;
   min-width: 45px;
   padding: 6px 12px;
+  border-radius: 0;
+  font-size: 0.875rem;
+  border: 1px solid #ccc;
 }
-.pagination > li.page-item > a:focus,
-.pagination > li.page-item > a:active:focus,
-.pagination > li.page-item > a.active:focus,
-.pagination > li.page-item > a.focus,
-.pagination > li.page-item > a:active.focus,
-.pagination > li.page-item > a.active.focus {
+.pagination > li.page-item > button:focus,
+.pagination > li.page-item > button:active:focus,
+.pagination > li.page-item > button.active:focus,
+.pagination > li.page-item > button.focus,
+.pagination > li.page-item > button:active.focus,
+.pagination > li.page-item > button.active.focus {
   outline: none;
 }
-.pagination > li.page-item > a:focus:not(.ux-focus-indicator),
-.pagination > li.page-item > a:active:focus:not(.ux-focus-indicator),
-.pagination > li.page-item > a.active:focus:not(.ux-focus-indicator),
-.pagination > li.page-item > a.focus:not(.ux-focus-indicator),
-.pagination > li.page-item > a:active.focus:not(.ux-focus-indicator),
-.pagination > li.page-item > a.active.focus:not(.ux-focus-indicator) {
+.pagination > li.page-item > button:focus:not(.ux-focus-indicator),
+.pagination > li.page-item > button:active:focus:not(.ux-focus-indicator),
+.pagination > li.page-item > button.active:focus:not(.ux-focus-indicator),
+.pagination > li.page-item > button.focus:not(.ux-focus-indicator),
+.pagination > li.page-item > button:active.focus:not(.ux-focus-indicator),
+.pagination > li.page-item > button.active.focus:not(.ux-focus-indicator) {
   outline: 2px dotted;
   outline: auto -webkit-focus-ring-color;
   outline-color: #00a7a2;
   outline-offset: 0;
 }
-.pagination > li.page-item > a:focus.ux-focus-indicator.ux-focus-indicator-active,
-.pagination > li.page-item > a:active:focus.ux-focus-indicator.ux-focus-indicator-active,
-.pagination > li.page-item > a.active:focus.ux-focus-indicator.ux-focus-indicator-active,
-.pagination > li.page-item > a.focus.ux-focus-indicator.ux-focus-indicator-active,
-.pagination > li.page-item > a:active.focus.ux-focus-indicator.ux-focus-indicator-active,
-.pagination > li.page-item > a.active.focus.ux-focus-indicator.ux-focus-indicator-active {
+.pagination > li.page-item > button:focus.ux-focus-indicator.ux-focus-indicator-active,
+.pagination > li.page-item > button:active:focus.ux-focus-indicator.ux-focus-indicator-active,
+.pagination > li.page-item > button.active:focus.ux-focus-indicator.ux-focus-indicator-active,
+.pagination > li.page-item > button.focus.ux-focus-indicator.ux-focus-indicator-active,
+.pagination > li.page-item > button:active.focus.ux-focus-indicator.ux-focus-indicator-active,
+.pagination > li.page-item > button.active.focus.ux-focus-indicator.ux-focus-indicator-active {
   outline: 2px dotted;
   outline: auto -webkit-focus-ring-color;
   outline-color: #00a7a2;
   outline-offset: 0;
 }
-.pagination > li.page-item > a:active,
-.pagination > li.page-item > a.active {
+.pagination > li.page-item > button:active,
+.pagination > li.page-item > button.active {
   box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
 }
-.pagination > li.page-item > a:hover {
+.pagination > li.page-item > button:hover {
   box-shadow: none;
 }
-.pagination > li.page-item > a.btn-lg {
+.pagination > li.page-item > button.btn-lg {
   font-size: 1.125rem;
   padding: 6px 20px;
 }
-.pagination > li.page-item > a.btn-sm,
-.pagination > li.page-item > a.btn-xs {
+.pagination > li.page-item > button.btn-sm,
+.pagination > li.page-item > button.btn-xs {
   font-size: 0.75rem;
   padding: 0 10px;
 }
-.pagination > li.page-item > a.btn-link {
+.pagination > li.page-item > button.btn-link {
   border: none;
   box-shadow: none;
 }
-.pagination > li.page-item > a.btn-link:hover {
+.pagination > li.page-item > button.btn-link:hover {
   text-decoration: none;
   box-shadow: none;
 }
-.pagination > li.page-item > a.btn-link:focus {
+.pagination > li.page-item > button.btn-link:focus {
   text-decoration: none;
   box-shadow: none;
 }
-.pagination > li.page-item > a .ux-icon,
-.pagination > li.page-item > a ux-icon {
+.pagination > li.page-item > button .ux-icon,
+.pagination > li.page-item > button ux-icon {
   line-height: inherit;
 }
-.pagination > li.page-item > a .ux-icon + *,
-.pagination > li.page-item > a ux-icon + * {
+.pagination > li.page-item > button .ux-icon + *,
+.pagination > li.page-item > button ux-icon + * {
   margin-left: 4px;
 }
-.pagination > li.page-item > a:active,
-.pagination > li.page-item > a.active {
+.pagination > li.page-item > button:active,
+.pagination > li.page-item > button.active {
   background-color: #ebebeb;
   color: #999;
   border-color: #b8b8b8;
   box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
 }
-.pagination > li.page-item > a:focus,
-.pagination > li.page-item > a.focus {
+.pagination > li.page-item > button:focus,
+.pagination > li.page-item > button.focus {
   background-color: #fff;
   border-color: #ccc;
   color: #999;
 }
-.pagination > li.page-item > a:hover {
+.pagination > li.page-item > button:hover {
   background-color: #f2f2f2;
   border: 1px solid #ccc;
   color: #999;
   box-shadow: none;
 }
-.pagination > li.page-item > a.btn-link {
+.pagination > li.page-item > button.btn-link {
   color: #999;
   background-color: transparent;
   border: none;
 }
-.pagination > li.page-item > a.btn-link:hover {
+.pagination > li.page-item > button.btn-link:hover {
   background-color: #e6e6e6;
 }
-.pagination > li.page-item > a.btn-link:focus {
+.pagination > li.page-item > button.btn-link:focus {
   background-color: transparent;
 }
-.pagination > li.page-item > a.btn-link:active {
+.pagination > li.page-item > button.btn-link:active {
   color: #999;
   background-color: #ccc;
 }
-.pagination > li.page-item > a.btn-grouped.active {
+.pagination > li.page-item > button.btn-grouped.active {
   background-color: #00a7a2;
   color: #fff;
   border-color: #00a7a2;
   box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
   border-radius: 0;
 }
-.pagination > li.page-item > a:hover {
+.pagination > li.page-item > button:hover {
   background-color: #f2f2f2;
   border: 1px solid #ccc;
   color: #999;
   box-shadow: none;
 }
-.pagination > li.page-item.active > a {
+.pagination > li.page-item.active > button {
   background-color: #00a7a2;
   color: #fff;
   border-color: #00a7a2;
   box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
 }
-.pagination > li.page-item.active > a:hover {
+.pagination > li.page-item.active > button:hover {
   background-color: #008e89;
   border-color: #008e89;
   color: #fff;
   box-shadow: none;
 }
-.pagination > li.page-item.active > a:focus {
+.pagination > li.page-item.active > button:focus {
   background-color: #00a7a2;
   color: #fff;
   border-color: #00a7a2;
   box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
 }
-.pagination > li.page-item.disabled > a {
+.pagination > li.page-item.disabled > button {
   background-color: #ededed;
   color: #a8a8a8;
   border-color: #ededed;
@@ -2591,92 +2590,99 @@ label {
   display: inline-block;
 }
 .pagination > .disabled > span,
-.pagination > .disabled > a {
+.pagination > .disabled > button {
   background-color: #ededed;
   color: #a8a8a8;
   border-color: #ededed;
   box-shadow: none;
 }
 .pagination > .disabled > span:hover,
-.pagination > .disabled > a:hover,
+.pagination > .disabled > button:hover,
 .pagination > .disabled > span:focus,
-.pagination > .disabled > a:focus {
+.pagination > .disabled > button:focus {
   background-color: #ededed;
   color: #a8a8a8;
   border-color: #ededed;
   box-shadow: none;
 }
-.pagination > li > a {
+.pagination > li > button {
   color: #999;
   background: #fff;
   border: 1px solid #ccc;
   box-shadow: none;
-  min-width: 45px;
+  position: relative;
+  float: left;
+  margin-left: -1px;
 }
-.pagination > li > a:active,
-.pagination > li > a.active {
+.pagination > li > button:active,
+.pagination > li > button.active {
   background-color: #ebebeb;
   color: #999;
   border-color: #b8b8b8;
   box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
 }
-.pagination > li > a:focus,
-.pagination > li > a.focus {
+.pagination > li > button:focus,
+.pagination > li > button.focus {
   background-color: #fff;
   border-color: #ccc;
   color: #999;
 }
-.pagination > li > a:hover {
+.pagination > li > button:hover {
   background-color: #f2f2f2;
   border: 1px solid #ccc;
   color: #999;
   box-shadow: none;
 }
-.pagination > li > a.btn-link {
+.pagination > li > button.btn-link {
   color: #999;
   background-color: transparent;
   border: none;
 }
-.pagination > li > a.btn-link:hover {
+.pagination > li > button.btn-link:hover {
   background-color: #e6e6e6;
 }
-.pagination > li > a.btn-link:focus {
+.pagination > li > button.btn-link:focus {
   background-color: transparent;
 }
-.pagination > li > a.btn-link:active {
+.pagination > li > button.btn-link:active {
   color: #999;
   background-color: #ccc;
 }
-.pagination > li > a.btn-grouped.active {
+.pagination > li > button.btn-grouped.active {
   background-color: #00a7a2;
   color: #fff;
   border-color: #00a7a2;
   box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
   border-radius: 0;
 }
-.pagination > li > a:hover {
+.pagination > li > button:hover {
   background-color: #f2f2f2;
   border: 1px solid #ccc;
   color: #999;
   box-shadow: none;
 }
-.pagination > li.active > a {
+.pagination > li.active > button {
   background-color: #00a7a2;
   color: #fff;
   border-color: #00a7a2;
   box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  z-index: 3;
+  cursor: default;
 }
-.pagination > li.active > a:hover {
+.pagination > li.active > button:hover {
   background-color: #008e89;
   border-color: #008e89;
   color: #fff;
   box-shadow: none;
 }
-.pagination > li.active > a:focus {
+.pagination > li.active > button:focus {
   background-color: #00a7a2;
   color: #fff;
   border-color: #00a7a2;
   box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+}
+.pagination > li:first-child > button {
+  margin-left: 0;
 }
 .table > tbody > tr .hover-action-btn {
   border: none;
