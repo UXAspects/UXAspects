@@ -28,7 +28,7 @@
 
     <groupId>com.github.uxaspects</groupId>
     <artifactId>aspects-core</artifactId>
-    <version>7.4.0-SNAPSHOT</version>
+    <version>7.4.0-544</version>
     <packaging>pom</packaging>
 
     <properties>
