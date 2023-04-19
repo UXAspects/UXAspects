@@ -34,7 +34,7 @@ export class FacetService {
         }
 
         // update the list of active facets
-        this.facets$.next(this.facets$.value.filter(_facet => _facet !== facet));
+        this.facets$.next(this.facets$.value.filter(_selectedFacets => _selectedFacets.id !== facet.id));
 
         // emit the event
         this.events$.next(new FacetDeselect(facet));
@@ -54,6 +54,6 @@ export class FacetService {
     }
 
     isSelected(facet: Facet): boolean {
-        return this.facets$.value.indexOf(facet) > -1;
+        return !!this.facets$.value.find((_selectedFacet) => _selectedFacet.id === facet.id);
     }
 }
