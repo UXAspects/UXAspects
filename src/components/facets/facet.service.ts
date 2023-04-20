@@ -34,7 +34,7 @@ export class FacetService {
         }
 
         // update the list of active facets
-        this.facets$.next(this.facets$.value.filter(_selectedFacet => !this.areFacetsMatching(_selectedFacet, facet)));
+        this.facets$.next(this.facets$.value.filter(_selectedFacet => !this.isFacetMatch(_selectedFacet, facet)));
 
         // emit the event
         this.events$.next(new FacetDeselect(facet));
@@ -54,11 +54,11 @@ export class FacetService {
     }
 
     isSelected(facet: Facet): boolean {
-        return !!this.facets$.value.find((_selectedFacet) => this.areFacetsMatching(_selectedFacet, facet));
+        return !!this.facets$.value.find((_selectedFacet) => this.isFacetMatch(_selectedFacet, facet));
     }
 
-    private areFacetsMatching(facet1: Facet, facet2: Facet): boolean {
-        if(facet1.id === undefined || facet2.id === undefined) {
+    private isFacetMatch(facet1: Facet, facet2: Facet): boolean {
+        if (facet1.id === undefined || facet2.id === undefined) {
             return facet1 === facet2;
         }
 
