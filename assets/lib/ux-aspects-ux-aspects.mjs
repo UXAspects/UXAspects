@@ -11654,7 +11654,7 @@ class FacetService {
             return;
         }
         // update the list of active facets
-        this.facets$.next(this.facets$.value.filter(_facet => _facet !== facet));
+        this.facets$.next(this.facets$.value.filter(_selectedFacet => !this.isFacetMatch(_selectedFacet, facet)));
         // emit the event
         this.events$.next(new FacetDeselect(facet));
     }
@@ -11668,7 +11668,13 @@ class FacetService {
         this.isSelected(facet) ? this.deselect(facet) : this.select(facet);
     }
     isSelected(facet) {
-        return this.facets$.value.indexOf(facet) > -1;
+        return !!this.facets$.value.find((_selectedFacet) => this.isFacetMatch(_selectedFacet, facet));
+    }
+    isFacetMatch(facet1, facet2) {
+        if (facet1.id === undefined || facet2.id === undefined) {
+            return facet1 === facet2;
+        }
+        return facet1.id === facet2.id;
     }
 }
 FacetService.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.2.12", ngImport: i0, type: FacetService, deps: [], target: i0.ɵɵFactoryTarget.Injectable });
