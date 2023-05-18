@@ -3,7 +3,7 @@ import { ComponentFactoryResolver, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { AccordionModule, AutoGrowModule, CheckboxModule, ColorServiceModule, FloatLabelModule, IconModule, InputDropdownModule, NumberPickerModule, RadioButtonModule, SliderModule, TabsetModule, TagInputModule, ToggleSwitchModule, TypeaheadModule } from '@ux-aspects/ux-aspects';
-import { NgxMaskModule } from 'ngx-mask';
+import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
 import { DocumentationPage, ResolverService } from '../../../../services/resolver/resolver.service';
@@ -55,7 +55,7 @@ const ROUTES = [
         FormsModule,
         IconModule,
         InputDropdownModule,
-        NgxMaskModule.forRoot(),
+        NgxMaskDirective,
         NumberPickerModule,
         RadioButtonModule,
         ReactiveFormsModule,
@@ -68,6 +68,9 @@ const ROUTES = [
     ],
     exports: SECTIONS,
     declarations: [...SECTIONS, HighlightSearch],
+    providers: [
+        provideNgxMask(),
+    ]
 })
 export class ComponentsInputControlsModule {
 
