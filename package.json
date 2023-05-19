@@ -43,7 +43,7 @@
   },
   "dependencies": {
     "@angular/animations": "16.0.0",
-    "@angular/cdk": "16.0.0",
+    "@angular/cdk": "^15.2.9",
     "@angular/cli": "16.0.0",
     "@angular/common": "16.0.0",
     "@angular/compiler": "16.0.0",
@@ -53,7 +53,6 @@
     "@angular/platform-browser": "16.0.0",
     "@angular/platform-browser-dynamic": "16.0.0",
     "@angular/router": "16.0.0",
-    "@circlon/angular-tree-component": "^11.0.4",
     "@juggle/resize-observer": "^3.3.1",
     "@swc/helpers": "~0.5.0",
     "angular-split": "^14.1.0",
@@ -245,4 +244,3 @@
     "README.md"
   ]
 }
-
