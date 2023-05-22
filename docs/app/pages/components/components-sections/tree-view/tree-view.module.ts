@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { ComponentFactoryResolver, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { TreeModule } from '@ux-aspects/angular-tree-component';
+import { TreeModule } from '@circlon/angular-tree-component';
 import { AccessibilityModule, AccordionModule, CheckboxModule, FocusIfModule, IconModule, SelectionModule, TabsetModule, TreeGridModule } from '@ux-aspects/ux-aspects';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';

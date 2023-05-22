@@ -20,7 +20,7 @@ const OPTIONAL_DEPENDENCIES = {
     moment: '^2.0.0',
     'ng2-file-upload': '^3.0.0',
     'ngx-bootstrap': '^8.0.0',
-    'ngx-mask': '^15.0.0',
+    'ngx-mask': '^13.0.0',
 };
 
 /**
