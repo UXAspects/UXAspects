@@ -77,7 +77,6 @@ export * from './directives/menu-navigation/index';
 export * from './directives/observers/index';
 export * from './directives/reorderable/index';
 export * from './directives/resize/index';
-export * from './directives/router-link/index';
 export * from './directives/scroll/index';
 export * from './directives/selection/index';
 export * from './directives/tree-grid/index';
@@ -100,3 +99,4 @@ export * from './services/color/index';
 export * from './services/frame-extraction/index';
 export * from './services/overlay-placement/index';
 export * from './services/persistent-data/index';
+

@@ -33,7 +33,7 @@
             [attr.aria-controls]="tab.id"
             [attr.aria-selected]="(_tabset.activeTab$ | async) === tab"
             [attr.aria-disabled]="tab.disabled"
-            [uxRouterLink]="tab.route"
+            [routerLink]="tab.route"
             [fragment]="tab.routerLinkExtras?.fragment"
             [queryParams]="tab.routerLinkExtras?.queryParams"
             [queryParamsHandling]="tab.routerLinkExtras?.queryParamsHandling"

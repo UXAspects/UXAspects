@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { AccessibilityModule } from '../../directives/accessibility/index';
 import { ResizeModule } from '../../directives/resize/index';
-import { RouterLinkDirective } from '../../directives/router-link/index';
 import { ColorServiceModule } from '../../services/color/index';
 import { BreadcrumbsModule } from '../breadcrumbs/index';
 import { IconModule } from '../icon/index';
@@ -28,7 +27,6 @@ import { PageHeaderComponent } from './page-header.component';
         MenuModule,
         ResizeModule,
         TabsetModule,
-        RouterLinkDirective,
     ],
     exports: [PageHeaderComponent, PageHeaderCustomMenuDirective],
     declarations: [
