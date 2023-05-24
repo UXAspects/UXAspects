@@ -6,7 +6,7 @@
   "prefix": "ux",
   "targets": {
     "build": {
-      "executor": "@ashley-hunter/ng-packagr-compat:package",
+      "executor": "@nx/angular:package",
       "outputs": ["{projectRoot}/dist/library"],
       "options": {
         "project": "src/ng-package.json"
