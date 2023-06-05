@@ -12,7 +12,7 @@ export class NotificationTestPageComponent {
 
     @ViewChild('notification', { static: false }) notification: TemplateRef<any>;
 
-    constructor(private _notificationService: NotificationService) {}
+    constructor(private readonly _notificationService: NotificationService) {}
 
     showNotification(spacing?: number): void {
         this._notificationService.show(

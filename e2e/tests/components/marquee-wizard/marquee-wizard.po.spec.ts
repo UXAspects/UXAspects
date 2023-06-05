@@ -24,9 +24,9 @@ export class MarqueeWizardPage {
     }
 
     async getButtonByText(text: string): Promise<ElementFinder> {
-        let buttons = await this.buttons;
-        let btnText = await this.buttons.map(button => button.getText());
-        let matchIdx = btnText.findIndex((label: string) => label.toLowerCase() === text.toLowerCase());
+        const buttons = await this.buttons;
+        const btnText = await this.buttons.map(button => button.getText());
+        const matchIdx = btnText.findIndex((label: string) => label.toLowerCase() === text.toLowerCase());
 
         return matchIdx === -1 ? null : buttons[matchIdx];
     }
@@ -50,7 +50,7 @@ export class MarqueeWizardPage {
 
     async goToNext() {
         // find the next button
-        let next: ElementFinder = await this.getNextButton();
+        const next: ElementFinder = await this.getNextButton();
 
         // click on the next button
         await next.click();
@@ -114,5 +114,5 @@ export class MarqueeWizardPage {
 
     async activeElementAttr(attr: string): Promise<string> {
         return await browser.driver.switchTo().activeElement().getAttribute(attr);
-    };
+    }
 }

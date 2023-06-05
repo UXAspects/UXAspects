@@ -145,7 +145,7 @@
             <ux-number-picker-inline
                 id="pageSize"
                 [(value)]="pageSize"
-                [disabled]="!(pagingEnabled | async)"
+                [disabled]="(pagingEnabled | async) === false"
             >
             </ux-number-picker-inline>
         </div>

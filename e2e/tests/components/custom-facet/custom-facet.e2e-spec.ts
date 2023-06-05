@@ -2,7 +2,7 @@ import { CustomFacetPage } from './custom-facet.po.spec';
 
 describe('Custom Facet Tests', () => {
 
-    let page: CustomFacetPage = new CustomFacetPage();
+    const page: CustomFacetPage = new CustomFacetPage();
 
     beforeAll(async () => {
         await page.getPage();

@@ -115,7 +115,7 @@ export class HierarchyBarPage {
 
         const titles: string[] = [];
 
-        for (let child of children) {
+        for (const child of children) {
 
             const title: ElementFinder = await child.$('.hierarchy-bar-node-title');
 
@@ -147,7 +147,7 @@ export class HierarchyBarPage {
 
         const titles: string[] = [];
 
-        for (let child of children) {
+        for (const child of children) {
 
             const title: ElementFinder = await child.$('.hierarchy-bar-node-title');
 

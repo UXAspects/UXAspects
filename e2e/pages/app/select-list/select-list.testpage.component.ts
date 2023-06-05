@@ -11,7 +11,7 @@ export class SelectListTestPageComponent {
     authors: string[] = [];
     query: string = '';
 
-    private _authors: string[] = [
+    private readonly _authors: string[] = [
         'Linnie Dixon',
         'Jeremy Floyd',
         'Benjamin Hawkins',

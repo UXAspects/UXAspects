@@ -25,7 +25,7 @@ describe('Virtual Scroll Tests', () => {
     it('should display the correct employee details', async () => {
 
         // Employee's name
-        for (var i = 0; i < 4; i++) {
+        for (let i = 0; i < 4; i++) {
             expect(await page.getEmployeeText(i)).toBe('Employee_' + i);
         }
 
@@ -93,7 +93,7 @@ describe('Virtual Scroll Tests', () => {
 
         // Button visible when not all employees are on the list
         await page.clickOnLoadOnScroll();
-        for (var i = 0; i < 9; i++) {
+        for (let i = 0; i < 9; i++) {
             await page.scrollToEnd();
             expect(await page.confirmLoadMoreIsVisible()).toBeTruthy();
             await page.loadMoreButton.click();

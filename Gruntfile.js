@@ -37,6 +37,7 @@ module.exports = function (grunt) {
     // build:library: build and package the npm lib and the npm docs lib.
     grunt.registerTask('build:library', [
         'clean',
+        'lint',
         'library',
         'styles',
         'minify',

@@ -4,7 +4,7 @@ import { ColumnResizingPage } from './column-resizing.po.spec';
 
 describe('Column Resizing', () => {
 
-    let page: ColumnResizingPage = new ColumnResizingPage();
+    const page: ColumnResizingPage = new ColumnResizingPage();
 
     beforeEach(async () => {
         await page.getPage();

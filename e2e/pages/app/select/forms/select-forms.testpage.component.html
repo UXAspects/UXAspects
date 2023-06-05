@@ -104,7 +104,7 @@
             <ux-number-picker
                 id="pageSize"
                 [(value)]="pageSize"
-                [disabled]="!(pagingEnabled | async)"
+                [disabled]="(pagingEnabled | async) === false"
             ></ux-number-picker>
         </div>
 

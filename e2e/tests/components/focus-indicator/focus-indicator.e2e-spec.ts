@@ -3,7 +3,7 @@ import { FocusIndicatorButtonsPage } from './focus-indicator.po.spec';
 
 describe('Focus Indicator Tests', () => {
 
-    let page = new FocusIndicatorButtonsPage();
+    const page = new FocusIndicatorButtonsPage();
 
     beforeEach(async () => {
         await page.getPage();

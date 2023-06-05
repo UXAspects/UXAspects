@@ -3,7 +3,7 @@ import { FacetContainerPage } from './facet-container.po.spec';
 
 describe('FacetContainerPage Tests', () => {
 
-    let page: FacetContainerPage = new FacetContainerPage();
+    const page: FacetContainerPage = new FacetContainerPage();
 
     beforeAll(async () => {
         await page.getPage();

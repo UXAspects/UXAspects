@@ -66,8 +66,8 @@ export class PartitionMapTestPageComponent {
         }, 200);
     }
 
-    changeDataset() {​​​​​​​​​
-        this.dataset = {​​​​​​​​​
+    changeDataset() {
+        this.dataset = {
             name: 'Another Workspace',
             children: [
                 {
@@ -79,8 +79,8 @@ export class PartitionMapTestPageComponent {
                         { name: 'Redundant', value: 50 },
                         { name: 'Obsolete', value: 70 },
                     ]
-                }​​​​​​​​​​​​​​​​​​
+                }
             ]
-        }​​​​​​​​​;
-    }​​​​​​​​​
+        };
+    }
 }

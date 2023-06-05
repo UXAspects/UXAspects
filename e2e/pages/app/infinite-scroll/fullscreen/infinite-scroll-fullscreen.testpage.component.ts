@@ -27,7 +27,7 @@ export class InfiniteScrollFullscreenTestPageComponent {
     exhausted: boolean = false;
 
     load(pageNum: number, pageSize: number, filter: any): Promise<any[]> {
-        let promise = new Promise<any[]>((resolve, reject) => {
+        const promise = new Promise<any[]>((resolve, reject) => {
             setTimeout(() => {
                 const pageStart = pageNum * pageSize;
                 const newItems = this.allEmployees

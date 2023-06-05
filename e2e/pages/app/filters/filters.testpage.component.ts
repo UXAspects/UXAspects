@@ -133,7 +133,7 @@ export class FiltersTestPageComponent {
 
     closeOnBlur: boolean = false;
 
-    constructor(private colorService: ColorService) { }
+    constructor(private readonly colorService: ColorService) { }
 
     filtersChanged(event: FilterEvent) {
 

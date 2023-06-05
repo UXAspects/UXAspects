@@ -11,7 +11,7 @@ describe('Search Builder Tests', () => {
     });
 
     it('should have the correct initial state', async () => {
-        let query = await page.getQueryObject();
+        const query = await page.getQueryObject();
 
         expect(query.keywords.length).toBe(0);
         expect(query.any.length).toBe(0);
@@ -28,7 +28,7 @@ describe('Search Builder Tests', () => {
         await page.addTextField();
 
         // get the updated query
-        let query = await page.getQueryObject();
+        const query = await page.getQueryObject();
 
         // check the query fields
         expect(query.keywords.length).toBe(1);
@@ -46,7 +46,7 @@ describe('Search Builder Tests', () => {
         await page.addDateField();
 
         // get the updated query
-        let query = await page.getQueryObject();
+        const query = await page.getQueryObject();
 
         // check the query fields
         expect(query.keywords.length).toBe(0);
@@ -62,7 +62,7 @@ describe('Search Builder Tests', () => {
         await page.addDateRangeField();
 
         // get the updated query
-        let query = await page.getQueryObject();
+        const query = await page.getQueryObject();
 
         // check the query fields
         expect(query.keywords.length).toBe(0);
@@ -78,7 +78,7 @@ describe('Search Builder Tests', () => {
         await page.addSelectField();
 
         // get the updated query
-        let query = await page.getQueryObject();
+        const query = await page.getQueryObject();
 
         // check the query fields
         expect(query.keywords.length).toBe(0);
@@ -96,7 +96,7 @@ describe('Search Builder Tests', () => {
         await page.setQuery();
 
         // get the updated query
-        let query = await page.getQueryObject();
+        const query = await page.getQueryObject();
 
         // check the query fields
         expect(query.keywords.length).toBe(1);

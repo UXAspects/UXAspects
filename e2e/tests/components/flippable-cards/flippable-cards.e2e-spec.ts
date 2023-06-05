@@ -7,7 +7,7 @@ describe('Flippable Cards Tests', () => {
     // Time, in milliseconds, to pause while waiting for the a card to flip.
     const FLIP_DELAY_MS = 700;
 
-    let page: FlippableCardsPage = new FlippableCardsPage();
+    const page: FlippableCardsPage = new FlippableCardsPage();
 
     beforeAll(async () => {
         await page.getPage();

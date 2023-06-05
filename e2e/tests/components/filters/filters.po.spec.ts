@@ -174,5 +174,5 @@ export class FiltersPage {
 
     async activeElementClasses(): Promise<string> {
         return await browser.driver.switchTo().activeElement().getAttribute('class');
-    };
+    }
 }

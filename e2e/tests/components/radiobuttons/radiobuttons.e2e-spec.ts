@@ -4,7 +4,7 @@ import { RadioButtonsPage } from './radiobuttons.po.spec';
 
 describe('RadioButton Tests', () => {
 
-    let page: RadioButtonsPage = new RadioButtonsPage();
+    const page: RadioButtonsPage = new RadioButtonsPage();
 
     beforeAll(async () => {
         await page.getPage();

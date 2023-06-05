@@ -27,7 +27,7 @@ export class InputDropdownFormsTestPageComponent {
 
     private _filter: string = '';
 
-    constructor(private formBuilder: FormBuilder) {}
+    constructor(private readonly formBuilder: FormBuilder) {}
 
     placeholder: string = 'Type to search...';
     selected: string;

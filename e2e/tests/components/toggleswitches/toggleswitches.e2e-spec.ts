@@ -4,7 +4,7 @@ import { ToggleSwitchesPage } from './toggleswitches.po.spec';
 
 describe('ToggleSwitchesPage Tests', () => {
 
-    let page: ToggleSwitchesPage = new ToggleSwitchesPage();
+    const page: ToggleSwitchesPage = new ToggleSwitchesPage();
 
     beforeAll(async () => {
         await page.getPage();

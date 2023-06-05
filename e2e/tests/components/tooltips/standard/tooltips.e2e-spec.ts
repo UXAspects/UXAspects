@@ -4,7 +4,7 @@ import { TooltipsPage } from './tooltips.po.spec';
 
 describe('Tooltips', () => {
 
-    let page: TooltipsPage = new TooltipsPage();
+    const page: TooltipsPage = new TooltipsPage();
 
     beforeAll(async () => {
         await page.getPage();

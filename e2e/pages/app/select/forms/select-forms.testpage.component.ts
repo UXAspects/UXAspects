@@ -40,7 +40,7 @@ export class SelectFormsTestPageComponent implements OnInit {
         return this.form.get('select1');
     }
 
-    constructor(private formBuilder: FormBuilder) {
+    constructor(private readonly formBuilder: FormBuilder) {
 
         // Reset select when "multiple" checkbox changes.
         this.multiple.subscribe((value) => {
@@ -87,7 +87,7 @@ export class SelectFormsTestPageComponent implements OnInit {
 
     loadOptions(pageNum: number, pageSize: number, filter: any): Promise<any[]> {
         // Return a promise using setTimeout to simulate an HTTP request.
-        let promise = new Promise<any[]>((resolve, reject) => {
+        const promise = new Promise<any[]>((resolve, reject) => {
             const pageStart = pageNum * pageSize;
             const newItems = this.selectedDataSet()
                 .filter((option) => this.isFilterMatch(option, filter))

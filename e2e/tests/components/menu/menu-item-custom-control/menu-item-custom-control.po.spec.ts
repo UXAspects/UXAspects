@@ -24,5 +24,5 @@ export class MenuItemCustomControlPage {
 
     async activeElementAttr(attr: string): Promise<string> {
         return await browser.driver.switchTo().activeElement().getAttribute(attr);
-    };
+    }
 }

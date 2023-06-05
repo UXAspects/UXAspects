@@ -4,7 +4,7 @@ import { CheckBoxesPage } from './checkbox.po.spec';
 
 describe('Checkbox Tests', () => {
 
-    let page: CheckBoxesPage = new CheckBoxesPage();
+    const page: CheckBoxesPage = new CheckBoxesPage();
 
     beforeAll(async () => {
         await page.getPage();

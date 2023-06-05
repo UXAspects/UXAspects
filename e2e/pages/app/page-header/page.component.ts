@@ -4,8 +4,8 @@ import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'app-pageheader-breadcrumb-page',
-    template: `<p id="page-content">{{ title }}</p>`,
-    styles: [``]
+    template: '<p id="page-content">{{ title }}</p>',
+    styles: ['']
 })
 export class PageHeaderPageComponent implements OnInit, OnDestroy {
 
