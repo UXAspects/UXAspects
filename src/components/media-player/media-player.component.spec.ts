@@ -12,9 +12,6 @@ export class MediaPlayerAudioComponent {
 
     filename: string = null;
     audioSource = '';
-
-    constructor() {
-    }
 }
 
 describe('Media Player Component - Audio', () => {

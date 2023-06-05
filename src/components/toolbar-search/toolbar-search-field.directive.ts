@@ -28,9 +28,11 @@ export class ToolbarSearchFieldDirective implements ControlValueAccessor {
     }
 
     /** For use with the Forms and ReactiveForms */
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     private onTouchedCallback: () => void = () => { };
 
     /** Call this function with the latest value to update ngModel or formControl name */
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     private onChangeCallback: (_: any) => void = () => { };
 
     focus(): void {

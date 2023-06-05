@@ -37,9 +37,11 @@ export class RadioButtonGroupDirective<T = any> implements ControlValueAccessor,
     @Output() valueChange = new EventEmitter<T>();
 
     /** Used to inform Angular forms that the component has been touched */
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     onTouched: () => void = () => {};
 
     /** Used to inform Angular forms that the component value has changed */
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     onChange: (value: any) => void = () => {};
 
     @ContentChildren(forwardRef(() => RadioButtonComponent), { descendants: true }) _radioButtons: QueryList<RadioButtonComponent>;

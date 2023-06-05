@@ -104,7 +104,7 @@
       "defaultConfiguration": "development"
     },
     "lint": {
-      "executor": "@angular-eslint/builder:lint",
+      "executor": "@nx/linter:eslint",
       "options": {
         "lintFilePatterns": ["docs/**/*.ts", "docs/**/*.html"]
       }

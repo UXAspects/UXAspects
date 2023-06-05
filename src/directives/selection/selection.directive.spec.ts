@@ -1,6 +1,6 @@
 import { FocusOrigin } from '@angular/cdk/a11y';
 import { Component, QueryList, ViewChild, ViewChildren } from '@angular/core';
-import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { CheckboxModule } from '../../components/checkbox/index';
 import { AccessibilityModule, FocusIndicator } from '../accessibility/index';
 import { SelectionItemDirective } from './selection-item.directive';
@@ -48,11 +48,11 @@ export class SelectionDirectiveSpec {
     @ViewChild(SelectionDirective) selectionDirective: SelectionDirective<string>;
     @ViewChildren(SelectionItemDirective) selectionItemDirectives: QueryList<SelectionItemDirective<string>>;
 
-    onSelectedChange(_: string[]): void {
-    }
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    onSelectedChange(_: string[]): void {}
 
-    onSelectedItemChange(_: boolean): void {
-    }
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    onSelectedItemChange(_: boolean): void {}
 
     isSelected(option: string): boolean {
         return this.selection.indexOf(option) !== -1;

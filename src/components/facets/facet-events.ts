@@ -8,8 +8,6 @@ export class FacetDeselect {
     constructor(public facet: Facet) {}
 }
 
-export class FacetDeselectAll {
-    constructor() {}
-}
+export class FacetDeselectAll {}
 
 export type FacetEvent = FacetSelect | FacetDeselect | FacetDeselectAll;

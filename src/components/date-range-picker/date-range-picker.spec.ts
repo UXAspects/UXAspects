@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { PopoverModule } from '../../components/popover';
+import { DateTimePickerTimezone } from '../date-time-picker';
 import { IconModule } from '../icon';
 import { DateRangePickerModule } from './date-range-picker.module';
-import { DateTimePickerTimezone } from '../date-time-picker';
 
 @Component({
     selector: 'ux-components-date-range-picker',
@@ -30,9 +30,13 @@ import { DateTimePickerTimezone } from '../date-time-picker';
 })
 export class DateRangePickerComponent {
 
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     onStartChange(): void { }
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     onEndChange(): void { }
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     onStartTimezoneChange(value: DateTimePickerTimezone): void { }
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     onEndTimezoneChange(value: DateTimePickerTimezone): void { }
 
     start: Date;

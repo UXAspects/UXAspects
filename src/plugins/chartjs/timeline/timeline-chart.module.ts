@@ -6,6 +6,7 @@ const timelineDefaultOptions: TimelineChartOptions & TimelineChartStateOptions =
     timeline: {
         backgroundColor: '#f1f2f3',
         selectionColor: 'rgba(198, 23, 157, 0.15)',
+        // eslint-disable-next-line @typescript-eslint/no-empty-function
         onChange: function onChange() { },
         keyboard: {
             step: 2_592_000_000 // 30 days
@@ -406,7 +407,9 @@ export class TimelineChartPlugin {
         const mousePosition = this.isWithinHandle(chart, event);
 
         const timelineOptions = (this.isVersion3() ? chart.config.options : chart.options) as TimelineChartOptions;
+        // eslint-disable-next-line no-prototype-builtins
         const hasTooltipOnRange: boolean = timelineOptions.timeline.range.hasOwnProperty('tooltip');
+        // eslint-disable-next-line no-prototype-builtins
         const hasTooltipOnHandles: boolean = timelineOptions.timeline.handles.hasOwnProperty('tooltip');
         let timelineTooltipText: string;
         let handleTooltipText: { rangeLower: string, rangeUpper: string };

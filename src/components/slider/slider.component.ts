@@ -753,6 +753,7 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
         for (const prop in source) {
 
             // check if the destination object has the property
+            // eslint-disable-next-line no-prototype-builtins
             if (!destination.hasOwnProperty(prop)) {
                 // copy the property across
                 destination[prop] = source[prop];

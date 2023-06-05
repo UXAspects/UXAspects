@@ -117,7 +117,7 @@ export class IconComponent implements OnChanges, AfterViewInit, OnDestroy {
         if (this._icon) {
             this._renderer.addClass(this._elementRef.nativeElement, this._icon.iconset);
             this._renderer.addClass(this._elementRef.nativeElement, this._icon.icon);
-        } else if (!!this.name) {
+        } else if (this.name) {
             console.warn(`The icon ${this.name} could not be found. Ensure you are using the correct iconset.`);
         }
     }

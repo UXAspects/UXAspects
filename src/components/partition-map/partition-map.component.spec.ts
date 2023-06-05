@@ -11,6 +11,7 @@ export class MockResizeService {
         return new BehaviorSubject<ResizeDimensions>({ width: target.offsetWidth, height: target.offsetHeight });
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     removeResizeListener(_target: HTMLElement): void { }
 }
 

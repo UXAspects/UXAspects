@@ -1,8 +1,8 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { FocusKeyManager, FocusOrigin } from '@angular/cdk/a11y';
 import { TAB } from '@angular/cdk/keycodes';
-import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, HostBinding, inject, Input, OnChanges, OnDestroy, Output, QueryList, SimpleChanges, TemplateRef, ViewChild, ViewRef } from '@angular/core';
-import { BehaviorSubject, merge, Observable, Subject } from 'rxjs';
+import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, HostBinding, Input, OnChanges, OnDestroy, Output, QueryList, SimpleChanges, TemplateRef, ViewChild, ViewRef, inject } from '@angular/core';
+import { BehaviorSubject, Observable, Subject, merge } from 'rxjs';
 import { map, switchMap, takeUntil } from 'rxjs/operators';
 import { AnchorAlignment, AnchorPlacement } from '../../../common/overlay/index';
 import { MenuItemType } from '../menu-item/menu-item-type.enum';
@@ -43,6 +43,7 @@ export class MenuComponent implements AfterContentInit, OnDestroy, OnChanges {
     @Input() alignment: AnchorAlignment = 'start';
 
     /** Define if we should animate the menu */
+    // eslint-disable-next-line no-prototype-builtins
     @Input() animate: boolean = this._options && this._options.hasOwnProperty('animate') ? this._options.animate : true;
 
     /** Forward any classes to the actual menu element */
@@ -271,6 +272,6 @@ export class MenuComponent implements AfterContentInit, OnDestroy, OnChanges {
 
     _onKeyDown(event: KeyboardEvent): void {
         this._isTabPressed = event.keyCode === TAB;
-    };
+    }
 
 }

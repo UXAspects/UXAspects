@@ -369,6 +369,7 @@ export class PartitionMapComponent implements OnInit, OnDestroy {
     _getSegmentValue(segment: PartitionMapSegment): number {
 
         // it it has a value then return the value
+        // eslint-disable-next-line no-prototype-builtins
         if (segment.hasOwnProperty('value')) {
             return (segment as PartitionMapSegmentWithValue).value;
         }
@@ -573,6 +574,7 @@ export class PartitionMapComponent implements OnInit, OnDestroy {
      * non-leaf segments should get their values based on the leaf segments that are children, in which case we can return 0
      */
     private getSegmentValue(segment: PartitionMapSegment): number {
+        // eslint-disable-next-line no-prototype-builtins
         if (segment.hasOwnProperty('value')) {
             const value = (segment as PartitionMapSegmentWithValue).value;
 

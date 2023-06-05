@@ -1,7 +1,7 @@
 import { BooleanInput, coerceBooleanProperty } from '@angular/cdk/coercion';
 import { BACKSPACE, DELETE, ENTER, LEFT_ARROW, RIGHT_ARROW, SPACE } from '@angular/cdk/keycodes';
 import { DOCUMENT } from '@angular/common';
-import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, ElementRef, EventEmitter, forwardRef, HostBinding, HostListener, inject, Input, OnChanges, OnDestroy, Output, QueryList, SimpleChanges, TemplateRef, ViewChild } from '@angular/core';
+import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, ElementRef, EventEmitter, HostBinding, HostListener, Input, OnChanges, OnDestroy, Output, QueryList, SimpleChanges, TemplateRef, ViewChild, forwardRef, inject } from '@angular/core';
 import { ControlValueAccessor, NG_VALIDATORS, NG_VALUE_ACCESSOR, ValidationErrors, Validator } from '@angular/forms';
 import { Subject, Subscription } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -239,10 +239,10 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
     }
 
     _tags: ReadonlyArray<T> = [];
-    private _onChangeHandler: (_: any) => void = () => {
-    };
-    private _onTouchedHandler: () => void = () => {
-    };
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    private _onChangeHandler: (_: any) => void = () => {};
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    private _onTouchedHandler: () => void = () => {};
     private _subscription: Subscription;
     private readonly _onDestroy = new Subject<void>();
     private _autoCloseDropdown: boolean = true;
@@ -843,6 +843,7 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
     private splitTagInput(input: string): string[] {
         let tagValues = [input];
         if (this.tagDelimiters && typeof this.tagDelimiters === 'string') {
+            // eslint-disable-next-line no-useless-escape
             const escapedDelimiters = this.tagDelimiters.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
             const delimiterRegex = new RegExp(`[${ escapedDelimiters }]`, 'g');
             tagValues = input.split(delimiterRegex).filter((s) => s.length > 0);

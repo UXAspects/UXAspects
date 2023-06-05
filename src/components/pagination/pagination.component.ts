@@ -87,7 +87,9 @@ export class PaginationComponent implements OnInit, ControlValueAccessor {
   pages: ReadonlyArray<Page> = [];
 
   /** ControlValueAccessor functions */
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   onTouched: Function = () => {};
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   onChange: Function = () => {};
 
   isKeyboardEvent: boolean = false;

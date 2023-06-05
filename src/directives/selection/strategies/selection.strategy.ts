@@ -8,10 +8,13 @@ export class SelectionStrategy<T = any> {
         this.selectionService = selectionService;
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     mousedown(event: MouseEvent, data: T): void { }
 
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     click(event: MouseEvent, data: T): void { }
 
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     keydown(event: KeyboardEvent, data: T): void { }
 
     /**
@@ -57,6 +60,4 @@ export class SelectionStrategy<T = any> {
         // call deselect on all items in the dataset
         this.selectionService.deselectAll();
     }
-
-    destroy(): void { }
 }

@@ -1,8 +1,8 @@
 import { BooleanInput, coerceBooleanProperty } from '@angular/cdk/coercion';
 import { DOWN_ARROW, ENTER, LEFT_ARROW, RIGHT_ARROW, UP_ARROW } from '@angular/cdk/keycodes';
 import { DomPortalOutlet, TemplatePortal } from '@angular/cdk/portal';
-import { AfterViewInit, ApplicationRef, ChangeDetectionStrategy, Component, ComponentFactoryResolver, ContentChild, ElementRef, EventEmitter, inject, Injector, Input, NgZone, OnChanges, OnDestroy, Output, Renderer2, SimpleChanges, TemplateRef, ViewChild, ViewContainerRef } from '@angular/core';
-import { hierarchy, HierarchyPointLink, HierarchyPointNode, interpolate, linkVertical, select, Selection, transition, tree, zoom, ZoomBehavior, ZoomTransform, zoomTransform } from 'd3';
+import { AfterViewInit, ApplicationRef, ChangeDetectionStrategy, Component, ComponentFactoryResolver, ContentChild, ElementRef, EventEmitter, Injector, Input, NgZone, OnChanges, OnDestroy, Output, Renderer2, SimpleChanges, TemplateRef, ViewChild, ViewContainerRef, inject } from '@angular/core';
+import { HierarchyPointLink, HierarchyPointNode, Selection, ZoomBehavior, ZoomTransform, hierarchy, interpolate, linkVertical, select, transition, tree, zoom, zoomTransform } from 'd3';
 import { Subject } from 'rxjs';
 import { debounceTime, takeUntil } from 'rxjs/operators';
 import { FocusIndicator, FocusIndicatorService } from '../../directives/accessibility/index';
@@ -654,6 +654,7 @@ export class OrganizationChartComponent<T> implements AfterViewInit, OnChanges, 
     /** Ensure we consistently use the HierarchyPoint data structure */
     private coercePointNode(node: OrganizationChartNode<T> | HierarchyPointNode<OrganizationChartNode<T>>): HierarchyPointNode<OrganizationChartNode<T>> {
         // determine if this is a raw data node or a hierarchy point
+        // eslint-disable-next-line no-prototype-builtins
         if (node.hasOwnProperty('depth') && node.hasOwnProperty('x') && node.hasOwnProperty('y')) {
             return node as HierarchyPointNode<OrganizationChartNode<T>>;
         }
@@ -670,6 +671,7 @@ export class OrganizationChartComponent<T> implements AfterViewInit, OnChanges, 
     }
 
     private coerceDataNode(node: OrganizationChartNode<T> | HierarchyPointNode<OrganizationChartNode<T>>): OrganizationChartNode<T> {
+        // eslint-disable-next-line no-prototype-builtins
         if (node.hasOwnProperty('depth') && node.hasOwnProperty('x') && node.hasOwnProperty('y')) {
             return (node as HierarchyPointNode<OrganizationChartNode<T>>).data;
         }
@@ -733,7 +735,7 @@ export class OrganizationChartComponent<T> implements AfterViewInit, OnChanges, 
             this._renderer.setAttribute(element, 'tabindex', '-1');
 
             // set the expanded aria attribute
-            this._renderer.setAttribute(element, 'aria-expanded', !!this.getNodeData(element).data.expanded ? 'true' : 'false');
+            this._renderer.setAttribute(element, 'aria-expanded', this.getNodeData(element).data.expanded ? 'true' : 'false');
         }
 
         // if there is a selected item then it should be tabbable otherwise make the root tabbable

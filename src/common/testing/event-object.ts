@@ -26,9 +26,9 @@ export function createKeyboardEvent(type: string, keyCode: number, target?: Elem
         target: { get: () => target }
     });
 
-    event.preventDefault = function() {
+    event.preventDefault = function(...args) {
         Object.defineProperty(event, 'defaultPrevented', { get: () => true });
-        return originalPreventDefault.apply(this, arguments);
+        return originalPreventDefault.apply(this, args);
     };
 
     return event;

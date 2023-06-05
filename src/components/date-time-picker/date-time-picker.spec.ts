@@ -25,7 +25,9 @@ import { DateTimePickerTimezone } from './date-time-picker.utils';
 })
 export class DateTimePickerTestComponent {
 
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     onDateChange(): void { }
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     onTimezoneChange(value: DateTimePickerTimezone): void {}
 
     date: Date;

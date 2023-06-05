@@ -66,9 +66,11 @@ export class ToggleSwitchComponent implements ControlValueAccessor, FocusableCon
     _focused: boolean = false;
 
     /** Used to inform Angular forms that the component has been touched */
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     onTouchedCallback: () => void = () => { };
 
     /** Used to inform Angular forms that the component value has changed */
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     onChangeCallback: (_: any) => void = () => { };
 
     toggle(): void {

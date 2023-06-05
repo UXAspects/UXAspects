@@ -169,7 +169,7 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
 
     private readonly _onDestroy = new Subject<void>();
 
-    private _popoverOrientationListener: PopoverOrientationListener;
+    private readonly _popoverOrientationListener: PopoverOrientationListener;
 
     private _maxHeight = '250px';
 
@@ -341,6 +341,7 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
         if (typeof this.key === 'function') {
             return this.key(option);
         }
+        // eslint-disable-next-line no-prototype-builtins
         if (typeof this.key === 'string' && option && option.hasOwnProperty(this.key)) {
             return option[this.key];
         }
@@ -355,6 +356,7 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
             return this.display(option);
         }
 
+        // eslint-disable-next-line no-prototype-builtins
         if (typeof this.display === 'string' && option && option.hasOwnProperty(this.display)) {
             return option[this.display];
         }

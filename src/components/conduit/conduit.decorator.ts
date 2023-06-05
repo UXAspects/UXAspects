@@ -13,6 +13,7 @@ export function Conduit(properties: ConduitProperties | Function): PropertyDecor
         }
 
         // if the target does not already have a conduit list then create one
+        // eslint-disable-next-line no-prototype-builtins
         if (!target.hasOwnProperty(CONDUITS)) {
             Object.defineProperty(target, CONDUITS, { value: [] });
         }

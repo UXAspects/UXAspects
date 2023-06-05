@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { StorageAdapter } from './adapters/storage-adapter';
 import { CookieAdapter } from './adapters/cookie-adapter';
 import { LocalStorageAdapter } from './adapters/local-storage-adapter';
 import { SessionStorageAdapter } from './adapters/session-storage-adapter';
+import { StorageAdapter } from './adapters/storage-adapter';
 
 @Injectable()
 export class PersistentDataService {
@@ -46,10 +46,12 @@ export class PersistentDataService {
                 return new CookieAdapter();
 
             case PersistentDataStorageType.LocalStorage:
+                // eslint-disable-next-line no-case-declarations
                 const localStorageAdapter = new LocalStorageAdapter();
                 return localStorageAdapter.getSupported();
 
             case PersistentDataStorageType.SessionStorage:
+                // eslint-disable-next-line no-case-declarations
                 const sessionStorageAdapter = new SessionStorageAdapter();
                 return sessionStorageAdapter.getSupported();
         }

@@ -1,5 +1,5 @@
 import { BooleanInput, coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, forwardRef, HostListener, inject, Input, OnChanges, OnDestroy, Output } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, HostListener, Input, OnChanges, OnDestroy, Output, forwardRef, inject } from '@angular/core';
 import { ControlValueAccessor, FormGroupDirective, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 let uniqueId = 0;
@@ -31,10 +31,10 @@ export class NumberPickerComponent implements ControlValueAccessor, OnDestroy, O
     private _value: number = 0;
     private _lastValue: number;
     private _focused: boolean = false;
-    private _propagateChange = (_: number) => {
-    };
-    _touchedChange = () => {
-    };
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    private _propagateChange = (_: number) => {};
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    _touchedChange = () => {};
 
     /** Sets the id of the number picker. The child input will have this value with a -input suffix as its id. */
     @Input() id: string = `ux-number-picker-${uniqueId++}`;

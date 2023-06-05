@@ -1,5 +1,8 @@
 {
+  "root": true,
+  "plugins": ["@nx"],
   "ignorePatterns": ["projects/**/*"],
+  "extends": ["plugin:@nx/typescript", "plugin:@angular-eslint/recommended"],
   "overrides": [
     {
       "files": ["*.ts"],
@@ -12,6 +15,19 @@
         "plugin:@angular-eslint/template/process-inline-templates"
       ],
       "rules": {
+        "@nx/enforce-module-boundaries": [
+          "error",
+          {
+            "enforceBuildableLibDependency": true,
+            "allow": [],
+            "depConstraints": [
+              {
+                "sourceTag": "*",
+                "onlyDependOnLibsWithTags": ["*"]
+              }
+            ]
+          }
+        ],
         "@angular-eslint/component-selector": "off",
         "@angular-eslint/directive-selector": "off",
         "eol-last": "off",
@@ -72,6 +88,5 @@
       "parser": "jsonc-eslint-parser",
       "rules": {}
     }
-  ],
-  "extends": ["./.eslintrc.base.json"]
+  ]
 }

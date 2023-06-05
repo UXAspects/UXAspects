@@ -48,7 +48,7 @@ export class OverlayPlacementService {
                 { ...{ originX: origin.main.originX, originY: this.invertHorizontalPosition(origin.main.originY) }, ...{ overlayX: overlay.main.overlayX, overlayY: this.invertHorizontalPosition(overlay.main.overlayY) } },
                 { ...{ originX: origin.fallback.originX, originY: this.invertHorizontalPosition(origin.fallback.originY) }, ...{ overlayX: overlay.fallback.overlayX, overlayY: this.invertHorizontalPosition(overlay.fallback.overlayY) } }
             ];
-        };
+        }
     }
 
     /** Get the origin position based on the specified tooltip placement */

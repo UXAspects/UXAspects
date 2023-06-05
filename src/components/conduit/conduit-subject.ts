@@ -37,6 +37,7 @@ export class ConduitSubject {
         const subjects = this._zone.getSubjects().filter(subject => {
 
             // If this is itself or if it has not value to give us then do nothing
+            // eslint-disable-next-line no-prototype-builtins
             if (subject === this || subject.conduit.id !== this.conduit.id || !subject.conduit.hasOwnProperty('currentValue')) {
                 return false;
             }

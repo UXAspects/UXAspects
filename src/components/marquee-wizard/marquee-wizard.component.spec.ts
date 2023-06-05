@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, OnDestroy, ViewChild } from '@angular/core';
-import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { ComponentFixture, TestBed, async, fakeAsync, tick } from '@angular/core/testing';
 import { StepChangingEvent } from '../wizard';
 import { MarqueeWizardTestWrapper } from './marquee-wizard-test-wrapper';
 import { MarqueeWizardComponent } from './marquee-wizard.component';
@@ -63,12 +63,19 @@ export class MarqueeWizardTestComponent {
 
     cancelVisible = false;
 
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     onStepChanging(_: StepChangingEvent): void {}
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     onStepChange(_: number): void {}
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     onNext(_: number): void {}
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     onPrevious(_: number): void {}
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     onFinishing(): void {}
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     onFinish(): void {}
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     onCancel(): void {}
 }
 
@@ -469,6 +476,7 @@ export class MarqueeWizardValidationTestComponent {
     step3Visited: boolean;
     step3Completed: boolean;
 
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     visitedChanged(index: number, value: boolean): void {}
 }
 
@@ -645,6 +653,7 @@ describe('Marquee wizard with custom step template', () => {
 export class MarqueeWizardStepNavigationComponent {
     currentStep: number;
     sequential: boolean = true;
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     onStepChange(_: number): void {}
 
     // step 1 values
@@ -662,7 +671,9 @@ export class MarqueeWizardStepNavigationComponent {
     step3Visited: boolean = true;
     step3Completed: boolean = false;
 
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     visitedChanged(index: number, value: boolean): void {}
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     completedChange(index: number, value: boolean): void {}
 
 }
