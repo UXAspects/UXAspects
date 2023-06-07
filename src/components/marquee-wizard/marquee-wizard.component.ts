@@ -11,7 +11,7 @@ import { MarqueeWizardStepComponent } from './marquee-wizard-step.component';
     providers: [WizardService],
     preserveWhitespaces: false
 })
-export class MarqueeWizardComponent<TStepContext = any> extends WizardComponent implements OnDestroy, AfterViewChecked {
+export class MarqueeWizardComponent<TStepContext = unknown> extends WizardComponent implements OnDestroy, AfterViewChecked {
     readonly wizardService = inject<WizardService<MarqueeWizardStepComponent>>(WizardService);
 
     private readonly _resizeService = inject(ResizeService);

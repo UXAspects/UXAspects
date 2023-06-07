@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, forwardRef, inject, Input, OnInit, Output, TemplateRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
-export const PAGINATION_CONTROL_VALUE_ACCESSOR: any = {
+export const PAGINATION_CONTROL_VALUE_ACCESSOR = {
   provide: NG_VALUE_ACCESSOR,
   useExisting: forwardRef(() => PaginationComponent),
   multi: true
@@ -60,10 +60,10 @@ export class PaginationComponent implements OnInit, ControlValueAccessor {
   }
 
   /** Define a custom template for the previous button */
-  @Input() previousBtnTemplate: TemplateRef<any>;
+  @Input() previousBtnTemplate: TemplateRef<void>;
 
   /** Define a custom template for the next button */
-  @Input() nextBtnTemplate: TemplateRef<any>;
+  @Input() nextBtnTemplate: TemplateRef<void>;
 
   /** Specify the page size */
   @Input() set itemsPerPage(pagesize: number) {
@@ -133,11 +133,11 @@ export class PaginationComponent implements OnInit, ControlValueAccessor {
     return item.index;
   }
 
-  registerOnChange(fn: any): void {
+  registerOnChange(fn: () => void): void {
     this.onChange = fn;
   }
 
-  registerOnTouched(fn: any): void {
+  registerOnTouched(fn: () => void): void {
     this.onTouched = fn;
   }
 

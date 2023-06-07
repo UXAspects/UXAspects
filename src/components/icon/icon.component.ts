@@ -1,5 +1,5 @@
 import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
-import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, inject, Input, OnChanges, OnDestroy, Renderer2, SimpleChanges } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, Input, OnChanges, OnDestroy, Renderer2, SimpleChanges, inject } from '@angular/core';
 import { Subject } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
 import { IconService } from './icon.service';
@@ -32,7 +32,7 @@ export class IconComponent implements OnChanges, AfterViewInit, OnDestroy {
     @Input() size: string;
 
     /** The number of degrees to rotate the icon */
-    @Input() set rotate(rotation: IconRotation | any) {
+    @Input() set rotate(rotation: IconRotation | number) {
         this._rotate = coerceNumberProperty(rotation) as IconRotation;
     }
 
@@ -41,7 +41,7 @@ export class IconComponent implements OnChanges, AfterViewInit, OnDestroy {
     }
 
     /** Define if the icon should be horizontally flipped */
-    @Input() set flipHorizontal(flipHorizontal: boolean | any) {
+    @Input() set flipHorizontal(flipHorizontal: boolean) {
         this._flipHorizontal = coerceBooleanProperty(flipHorizontal);
     }
 
@@ -50,7 +50,7 @@ export class IconComponent implements OnChanges, AfterViewInit, OnDestroy {
     }
 
     /** Define if the icon should be horizontally flipped */
-    @Input() set flipVertical(flipVertical: boolean | any) {
+    @Input() set flipVertical(flipVertical: boolean) {
         this._flipVertical = coerceBooleanProperty(flipVertical);
     }
 

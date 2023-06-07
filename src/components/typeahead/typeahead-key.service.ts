@@ -5,7 +5,7 @@ import { TypeaheadComponent } from './typeahead.component';
 @Injectable({
     providedIn: 'root'
 })
-export class TypeaheadKeyService<T = any> {
+export class TypeaheadKeyService<T = unknown> {
 
     handleKey(event: KeyboardEvent, typeahead: TypeaheadComponent<T>): void {
 

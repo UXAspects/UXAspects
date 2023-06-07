@@ -169,7 +169,7 @@ export class TabbableListService implements OnDestroy {
         }
     }
 
-    onKeydown(source: TabbableListItemDirective, event: KeyboardEvent): any {
+    onKeydown(source: TabbableListItemDirective, event: KeyboardEvent): void {
 
         // prevent anything happening when modifier keys are pressed if they have been disabled
         if (!this.allowAltModifier && event.altKey || !this.allowCtrlModifier && event.ctrlKey) {
@@ -239,7 +239,7 @@ export class TabbableListService implements OnDestroy {
      * We need to handle this correctly here. We already have keys implements to handle virtual elements so we can check
      * if a key changes and use it to update the focused item even if the QueryList doesn't inform us that we have changed.
      */
-    itemReferenceChange(previousKey: any, origin: FocusOrigin): void {
+    itemReferenceChange(previousKey: unknown, origin: FocusOrigin): void {
         // find the item that now has the previously focused key
         const item = this.getItemByKey(previousKey);
 
@@ -269,7 +269,7 @@ export class TabbableListService implements OnDestroy {
         return this.focusKeyManager && this.focusKeyManager.activeItemIndex >= 0;
     }
 
-    private getItemByKey(key: any): TabbableListItemDirective | null {
+    private getItemByKey(key: unknown): TabbableListItemDirective | null {
         return this._items.find(item => item.key === key);
     }
 

@@ -75,7 +75,9 @@
     {
       "files": ["*.html"],
       "extends": ["plugin:@angular-eslint/template/recommended"],
-      "rules": {}
+      "rules": {
+        "no-mixed-spaces-and-tabs": "off"
+      }
     },
     {
       "files": ["*.js"],
@@ -87,6 +89,12 @@
       "files": "*.json",
       "parser": "jsonc-eslint-parser",
       "rules": {}
+    },
+    {
+      "files": ["*.spec.ts", "*.e2e-spec.ts"],
+      "rules": {
+        "@typescript-eslint/no-unused-vars": "off"
+      }
     }
   ]
 }

@@ -52,10 +52,13 @@ export class TimelineChartPlugin {
         if (!this._isRegistered) {
 
             // if pluginService exists then we are in v2
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             if ((window as any).Chart?.pluginService) {
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 (window as any).Chart.pluginService.register(new TimelineChartPlugin());
             }
             else {
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 (Chart as any).register(new TimelineChartPlugin());
             }
 
@@ -64,6 +67,7 @@ export class TimelineChartPlugin {
     }
 
     isVersion3(): boolean {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         return (window as any).Chart?.pluginService ? false : true;
     }
 
@@ -146,6 +150,7 @@ export class TimelineChartPlugin {
      * one of the drag handles. We have do calculate this manually
      * as there are no DOM element to add CSS to.
      */
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     afterEvent(chart: TimelineChart, parentEvent: any) {
 
         const event: MouseEvent = this.isVersion3() ? parentEvent.event: parentEvent;
@@ -403,6 +408,7 @@ export class TimelineChartPlugin {
         }
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     private handleMouseMove(chart: TimelineChart, event: any): void {
         const mousePosition = this.isWithinHandle(chart, event);
 
@@ -782,6 +788,7 @@ export class TimelineChartPlugin {
 
         if (this.isVersion3()) {
             // get the current data
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             const data = (chart as any).scales;
 
             // get the range on the x-axis
@@ -792,7 +799,9 @@ export class TimelineChartPlugin {
             const { data } = chart.getDatasetMeta(0);
 
             // get the range on the x-axis
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             minimum = (data[0] as any)._xScale.min;
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             maximum = (data[0] as any)._xScale.max;
         }
 
@@ -879,6 +888,7 @@ export class TimelineChartPlugin {
             return Object.assign(target || {}, source);
         };
 
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         return merge({ ...timelineDefaultOptions.timeline } as any, options);
     }
 }

@@ -1,6 +1,10 @@
 import { SelectionService } from '../selection.service';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class SelectionStrategy<T = any> {
+    destroy() {
+        throw new Error('Method not implemented.');
+    }
 
     constructor(protected selectionService?: SelectionService<T>) { }
 
@@ -8,13 +12,13 @@ export class SelectionStrategy<T = any> {
         this.selectionService = selectionService;
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    // eslint-disable-next-line @typescript-eslint/no-empty-function, @typescript-eslint/no-unused-vars
     mousedown(event: MouseEvent, data: T): void { }
 
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    // eslint-disable-next-line @typescript-eslint/no-empty-function, @typescript-eslint/no-unused-vars
     click(event: MouseEvent, data: T): void { }
 
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    // eslint-disable-next-line @typescript-eslint/no-empty-function, @typescript-eslint/no-unused-vars
     keydown(event: KeyboardEvent, data: T): void { }
 
     /**

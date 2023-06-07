@@ -46,7 +46,7 @@ export class TabComponent implements OnInit, OnDestroy, OnChanges {
     @Input() heading: string;
 
     /** Define the tab router path */
-    @Input() route: string | any[];
+    @Input() route: string | unknown[];
 
     /** Define the tab router additional parameters */
     @Input() routerLinkExtras: NavigationExtras;

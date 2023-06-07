@@ -33,7 +33,7 @@ export class InputDropdownComponent<T> implements ControlValueAccessor, AfterVie
     @Input() hideFilter: boolean;
 
     /** Define the max height of the dropdown */
-    @Input() set maxHeight(value: string | any) {
+    @Input() set maxHeight(value: string | number) {
         this._maxHeight = coerceCssPixelValue(value);
     }
 

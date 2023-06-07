@@ -689,7 +689,7 @@ export class PartitionMapComponent implements OnInit, OnDestroy {
         }
 
         // convert this row to an array of strings
-        return colorSet.map(color => ThemeColor.isInstanceOf(color) ? (color as ThemeColor).toRgba() : this._colorService.resolve(color as string));
+        return colorSet.map(color => ThemeColor.isInstanceOf(color as ThemeColor) ? (color as ThemeColor).toRgba() : this._colorService.resolve(color as string));
     }
 
     /** Determine if a segment is a descendant of the currently selected item */
@@ -829,6 +829,7 @@ export class PartitionMapComponent implements OnInit, OnDestroy {
 
 export interface PartitionMapSegmentBase {
     name: string;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     data?: { [key: string]: any };
 }
 

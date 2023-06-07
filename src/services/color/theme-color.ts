@@ -50,7 +50,7 @@ export class ThemeColor {
      * where the ThemeColor is from @ux-aspects/ux-aspects and the color
      * comes from @micro-focus/ux-aspects
      */
-    static isInstanceOf(themeColor: any): boolean {
+    static isInstanceOf(themeColor: ThemeColor): boolean {
         return typeof themeColor.getRed === 'function' &&
             typeof themeColor.getGreen === 'function' &&
             typeof themeColor.getBlue === 'function' &&

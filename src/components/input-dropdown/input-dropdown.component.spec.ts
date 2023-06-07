@@ -8,7 +8,9 @@ import { InputDropdownComponent } from './input-dropdown.component';
 import { InputDropdownModule } from './input-dropdown.module';
 
 describe('InputDropdownComponent', () => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let component: InputDropdownComponent<any>;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let fixture: ComponentFixture<InputDropdownComponent<any>>;
 
     beforeEach(async(() => {
@@ -128,7 +130,7 @@ export class InputDropdownTestComponent {
     selected: string = null;
     ariaLabelledby: string;
 
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    // eslint-disable-next-line @typescript-eslint/no-empty-function, @typescript-eslint/no-explicit-any
     onSelectedChange(event: any): void { }
 
     // eslint-disable-next-line @typescript-eslint/no-empty-function

@@ -118,19 +118,19 @@ export class PageHeaderComponent {
     @Output() logoClick = new EventEmitter<Event>();
 
     /** Access a custom subheader template */
-    @ContentChild('subheader', { static: false }) subheaderTemplate: TemplateRef<any>;
+    @ContentChild('subheader', { static: false }) subheaderTemplate: TemplateRef<void>;
 
     /** Define a custom logo template  */
-    @ContentChild('logoTemplate', { static: false }) logoTemplate: TemplateRef<any>;
+    @ContentChild('logoTemplate', { static: false }) logoTemplate: TemplateRef<void>;
 
     /** Define a leading content secondary navigation template */
-    @ContentChild('secondaryNavigationLeadingContent', { static: false }) secondaryNavigationLeadingContentTemplate: TemplateRef<any>;
+    @ContentChild('secondaryNavigationLeadingContent', { static: false }) secondaryNavigationLeadingContentTemplate: TemplateRef<void>;
 
     /** Define a trailing content secondary navigation template */
-    @ContentChild('secondaryNavigationTrailingContent', { static: false }) secondaryNavigationTrailingContentTemplate: TemplateRef<any>;
+    @ContentChild('secondaryNavigationTrailingContent', { static: false }) secondaryNavigationTrailingContentTemplate: TemplateRef<void>;
 
     /** Access all the custom menu TemplateRefs */
-    @ContentChildren(PageHeaderCustomMenuDirective, { read: TemplateRef }) customMenus: QueryList<TemplateRef<any>>;
+    @ContentChildren(PageHeaderCustomMenuDirective, { read: TemplateRef }) customMenus: QueryList<TemplateRef<void>>;
 
     /** The currently selected page header item */
     selected$: BehaviorSubject<PageHeaderNavigationItem> = this._pageHeaderService.selected$;

@@ -77,6 +77,7 @@ export class SelectionDirectiveSpec {
     focusRow(index: number, origin: FocusOrigin): void {
         // access the private focus indicator instance for simulating focus with specific origins
         const row = this.selectionItemDirectives.toArray()[index];
+        //eslint-disable-next-line @typescript-eslint/no-explicit-any
         const focusIndicator = (row as any)._focusIndicator as FocusIndicator;
 
         focusIndicator.focus(origin);

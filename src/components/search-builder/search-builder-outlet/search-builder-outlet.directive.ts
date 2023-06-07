@@ -18,6 +18,7 @@ export class SearchBuilderOutletDirective implements OnInit, OnDestroy {
     private readonly _searchBuilderFocusService = inject(SearchBuilderFocusService);
 
     @Input('uxSearchBuilderOutlet') outlet: string;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     @Input('uxSearchBuilderOutletContext') context: any;
     @Input('uxSearchBuilderOutletGroupId') groupId: string;
     @Input('uxSearchBuilderOutletIndex') index: number;

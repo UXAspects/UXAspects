@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { ComponentFixture, TestBed, async, fakeAsync, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { InfiniteScrollDirective } from './infinite-scroll.directive';
 import { InfiniteScrollModule } from './infinite-scroll.module';
@@ -14,12 +14,12 @@ import { InfiniteScrollModule } from './infinite-scroll.module';
 })
 export class InfiniteScrollTestComponent {
 
-    filterText: any;
+    filterText: unknown;
     loadOnScroll: boolean = false;
 
     @ViewChild(InfiniteScrollDirective) infiniteScrollDirective: InfiniteScrollDirective;
 
-    load(pageNum: number, pageSize: number, filter: any): any[] {
+    load(pageNum: number, pageSize: number, filter: unknown): unknown[] {
         const items: string[] = [];
         for (let idx = pageNum * 20; idx < (pageNum + 1) * 20; idx++) {
             items.push(`Item ${idx}`);

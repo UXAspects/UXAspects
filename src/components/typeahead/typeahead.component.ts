@@ -23,6 +23,7 @@ let uniqueId = 0;
         '[style.maxHeight]': 'maxHeight'
     }
 })
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
     readonly typeaheadElement = inject(ElementRef);
 
@@ -184,7 +185,7 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
     };
 
     constructor() {
-        this.loadOptionsCallback = (pageNum: number, pageSize: number, filter: any) => {
+        this.loadOptionsCallback = (pageNum: number, pageSize: number, filter: unknown) => {
             if (typeof this.options === 'function') {
                 // Invoke the callback which may return an array or a promise.
                 const arrayOrPromise = this.options(pageNum, pageSize, filter);

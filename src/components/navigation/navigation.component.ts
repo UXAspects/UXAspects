@@ -32,7 +32,7 @@ export class NavigationComponent {
     }
 
     /** Access a custom navigation item template if provided */
-    @ContentChild('uxNavigationItem', { static: false }) navigationItemTemplate: TemplateRef<any>;
+    @ContentChild('uxNavigationItem', { static: false }) navigationItemTemplate: TemplateRef<void>;
 
     /** The classes to be added to each different level */
     _hierarchyClasses = [

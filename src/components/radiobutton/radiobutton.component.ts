@@ -6,7 +6,7 @@ import { FocusableItemToken } from '../menu';
 import { FocusableControl } from '../menu/interfaces/focusable-control.interface';
 import { RadioButtonGroupDirective } from './radio-button-group/radio-button-group.directive';
 
-export const RADIOBUTTON_VALUE_ACCESSOR: any = {
+export const RADIOBUTTON_VALUE_ACCESSOR = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => RadioButtonComponent),
     multi: true
@@ -23,7 +23,7 @@ let uniqueRadioId = 0;
     }],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class RadioButtonComponent<T = any> implements ControlValueAccessor, OnChanges, FocusableControl {
+export class RadioButtonComponent<T = unknown> implements ControlValueAccessor, OnChanges, FocusableControl {
     private readonly _changeDetector = inject(ChangeDetectorRef);
 
     private readonly _group = inject(RadioButtonGroupDirective, { optional: true });
@@ -91,7 +91,7 @@ export class RadioButtonComponent<T = any> implements ControlValueAccessor, OnCh
     onTouchedCallback: () => void = () => { };
 
     /** Used to inform Angular forms that the component value has changed */
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    // eslint-disable-next-line @typescript-eslint/no-empty-function, @typescript-eslint/no-explicit-any
     onChangeCallback: (_: any) => void = () => { };
 
     ngOnChanges(changes: SimpleChanges): void {
@@ -135,12 +135,13 @@ export class RadioButtonComponent<T = any> implements ControlValueAccessor, OnCh
     }
 
     /** Allow Angular forms for provide us with a callback for when the input value changes */
-    registerOnChange(fn: any): void {
+
+    registerOnChange(fn: () => void): void {
         this.onChangeCallback = fn;
     }
 
     /** Allow Angular forms for provide us with a callback for when the touched state changes */
-    registerOnTouched(fn: any): void {
+    registerOnTouched(fn: () => void): void {
         this.onTouchedCallback = fn;
     }
 

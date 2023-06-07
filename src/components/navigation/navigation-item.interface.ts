@@ -5,7 +5,7 @@ export interface NavigationItem {
     icon?: string;
     iconUrl?: string;
     iconLabel?: string;
-    routerLink?: string | any[];
+    routerLink?: string | unknown[];
     routerExtras?: NavigationExtras;
     routerOptions?: NavigationItemRouterOptions;
     click?: (event: Event, navigationItem: NavigationItem) => void;

@@ -21,7 +21,6 @@ export class OverlayPlacementService {
         placement: string,
         alignment: string,
         customFallbackPlacement?: AnchorPlacement,
-        isSubMenu?: boolean
     ): void {
         const position = overlayRef.getConfig().positionStrategy as FlexibleConnectedPositionStrategy;
         const origin = this.getOrigin(placement, alignment);

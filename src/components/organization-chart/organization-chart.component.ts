@@ -89,7 +89,7 @@ export class OrganizationChartComponent<T> implements AfterViewInit, OnChanges, 
     @Output() transitionEnd = new EventEmitter<void>();
 
     /** Get the template for the node content */
-    @ContentChild('revealTemplate', { static: false }) revealTemplate: TemplateRef<any>;
+    @ContentChild('revealTemplate', { static: false }) revealTemplate: TemplateRef<void>;
 
     /** Get the template for the node content */
     @ContentChild('nodeTemplate', { static: false }) nodeTemplate: TemplateRef<OrganizationChartNodeContext<T>>;

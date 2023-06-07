@@ -75,7 +75,7 @@ export interface PageHeaderNavigationItem {
     icon?: string;
     title: string;
     selected?: boolean;
-    routerLink?: string | any[];
+    routerLink?: string | unknown[];
     routerExtras?: NavigationExtras;
     select?: (item: PageHeaderNavigationItem) => void;
     children?: PageHeaderNavigationDropdownItem[];
@@ -87,7 +87,7 @@ export interface PageHeaderNavigationItem {
 export interface PageHeaderNavigationDropdownItem {
     title: string;
     selected?: boolean;
-    routerLink?: string | any[];
+    routerLink?: string | unknown[];
     routerExtras?: NavigationExtras;
     select?: (item: PageHeaderNavigationDropdownItem) => void;
     children?: PageHeaderNavigationDropdownItem[];

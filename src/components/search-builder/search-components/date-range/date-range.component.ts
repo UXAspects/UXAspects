@@ -28,7 +28,7 @@ export class SearchDateRangeComponent extends BaseSearchComponent {
         return this.value.from;
     }
 
-    set from(fromValue: any) {
+    set from(fromValue: string | number | Date) {
 
         // create new object based on the current value
         const value = Object.assign({}, this.value);
@@ -60,7 +60,7 @@ export class SearchDateRangeComponent extends BaseSearchComponent {
         return this.value.to;
     }
 
-    set to(toValue: any) {
+    set to(toValue: string | number | Date) {
 
         // create new object based on the current value
         const value = Object.assign({}, this.value);
@@ -132,5 +132,5 @@ export interface SearchDateRangeConfig {
     toPlaceholder?: string;
     toDateInputAriaLabel?: string;
     fromDateInputAriaLabel?: string;
-    validation: (value: any) => boolean;
+    validation: (value: unknown) => boolean;
 }

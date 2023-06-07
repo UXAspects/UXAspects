@@ -226,6 +226,7 @@ describe('Partition Map Component', () => {
          * Workaround for TestBed bug on components with ChangeDetectionStrategy.OnPush
          * https://github.com/angular/angular/issues/12313#issuecomment-263978801
          */
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         (component as any)._changeDetector.markForCheck();
 
         // run change detection
@@ -268,6 +269,7 @@ describe('Partition Map Component', () => {
          * Workaround for TestBed bug on components with ChangeDetectionStrategy.OnPush
          * https://github.com/angular/angular/issues/12313#issuecomment-263978801
          */
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         (component as any)._changeDetector.markForCheck();
 
         // run change detection

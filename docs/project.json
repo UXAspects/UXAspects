@@ -14,7 +14,7 @@
   "prefix": "app",
   "targets": {
     "build": {
-      "executor": "@nx/angular:webpack-browser",
+      "executor": "@nx/angular:webpack-dev-server",
       "outputs": ["{options.outputPath}"],
       "options": {
         "customWebpackConfig": {

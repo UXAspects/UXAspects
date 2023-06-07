@@ -4,7 +4,7 @@ import { ControlValueAccessor, FormGroupDirective, NG_VALUE_ACCESSOR } from '@an
 
 let uniqueId = 0;
 
-export const NUMBER_PICKER_VALUE_ACCESSOR: any = {
+export const NUMBER_PICKER_VALUE_ACCESSOR = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => NumberPickerComponent),
     multi: true
@@ -31,7 +31,7 @@ export class NumberPickerComponent implements ControlValueAccessor, OnDestroy, O
     private _value: number = 0;
     private _lastValue: number;
     private _focused: boolean = false;
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    // eslint-disable-next-line @typescript-eslint/no-empty-function, @typescript-eslint/no-unused-vars
     private _propagateChange = (_: number) => {};
     // eslint-disable-next-line @typescript-eslint/no-empty-function
     _touchedChange = () => {};
@@ -184,6 +184,7 @@ export class NumberPickerComponent implements ControlValueAccessor, OnDestroy, O
             return;
         }
         // get the distance scrolled
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const scrollValue = event.deltaY || (event as any).wheelDelta;
 
         // increment or decrement accordingly

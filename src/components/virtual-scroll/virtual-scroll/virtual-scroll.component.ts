@@ -27,9 +27,9 @@ export class VirtualScrollComponent<T> implements OnInit, AfterContentInit, OnCh
     /** Emit when we need to load another page */
     @Output() loading: EventEmitter<number> = new EventEmitter<number>();
 
-    @ContentChild(VirtualScrollCellDirective, { read: TemplateRef, static: false }) cellTemplate: TemplateRef<any>;
-    @ContentChild(VirtualScrollLoadingDirective, { read: TemplateRef, static: false }) loadingIndicatorTemplate: TemplateRef<any>;
-    @ContentChild(VirtualScrollLoadButtonDirective, { read: TemplateRef, static: false }) loadButtonTemplate: TemplateRef<any>;
+    @ContentChild(VirtualScrollCellDirective, { read: TemplateRef, static: false }) cellTemplate: TemplateRef<void>;
+    @ContentChild(VirtualScrollLoadingDirective, { read: TemplateRef, static: false }) loadingIndicatorTemplate: TemplateRef<void>;
+    @ContentChild(VirtualScrollLoadButtonDirective, { read: TemplateRef, static: false }) loadButtonTemplate: TemplateRef<void>;
 
     cells: BehaviorSubject<VirtualCell<T>[]> = new BehaviorSubject([]);
     scrollTop: number = 0;

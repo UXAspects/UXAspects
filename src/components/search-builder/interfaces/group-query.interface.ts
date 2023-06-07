@@ -1,5 +1,5 @@
 export interface SearchBuilderGroupQuery {
     type: string;
-    value: any;
-    config?: { [key: string]: any };
+    value: unknown;
+    config?: { [key: string]: unknown };
 }

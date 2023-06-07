@@ -333,7 +333,6 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
     private updateTooltipText(thumb: SliderThumb) {
 
         // get the thumb value
-        const state = this.getThumbState(thumb);
         const tooltip = this.getTooltip(thumb);
 
         // store the formatted label
@@ -381,7 +380,7 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
         }
     }
 
-    private preventTooltipOverlap(tooltip: any): void {
+    private preventTooltipOverlap(tooltip): void {
         const trackWidth = this.track.nativeElement.offsetWidth;
 
         const lower = (trackWidth / 100) * this.thumbs.lower.position;
@@ -798,7 +797,7 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
      * SliderValue interface.
      * @param value - The object to check - this must be type any
      */
-    private isSliderValue(value: any): boolean {
+    private isSliderValue(value: number | SliderValue): boolean {
 
         // check if is an object
         if (typeof value !== 'object') {

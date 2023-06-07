@@ -34,9 +34,9 @@ export class MediaPlayerService {
     canPlayThroughEvent: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
     durationChangeEvent: Subject<number> = new Subject<number>();
     endedEvent: Subject<void> = new Subject<void>();
-    errorEvent: Subject<any> = new Subject<any>();
-    loadedDataEvent: Subject<any> = new Subject<any>();
-    loadedMetadataEvent: Subject<any> = new Subject<any>();
+    errorEvent: Subject<void> = new Subject<void>();
+    loadedDataEvent: Subject<void> = new Subject<void>();
+    loadedMetadataEvent: Subject<void> = new Subject<void>();
     loadStartEvent: Subject<void> = new Subject<void>();
     pauseEvent: Subject<void> = new Subject<void>();
     playEvent: Subject<void> = new Subject<void>();
@@ -299,6 +299,7 @@ export class MediaPlayerService {
     requestFullscreen(): void {
 
         // get the host element (we need to do some browser specific checks and typescript complains)
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const host = this._hostElement as any;
         const requestFullscreen = host.requestFullscreen || host.webkitRequestFullscreen || host.msRequestFullscreen || host.mozRequestFullScreen;
 
@@ -317,6 +318,7 @@ export class MediaPlayerService {
     exitFullscreen(): void {
 
         // get the document element (we need to do some browser specific checks and typescript complains)
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const host = document as any;
         const exitFullscreen = host.exitFullscreen || host.webkitExitFullscreen || host.msExitFullscreen || host.mozCancelFullScreen;
 
@@ -342,6 +344,7 @@ export class MediaPlayerService {
 
     fullscreenChange(): void {
         // get the document element (we need to do some browser specific checks and typescript complains)
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const host = document as any;
 
         // set the fullscreen state (this also emits the event)
@@ -351,7 +354,7 @@ export class MediaPlayerService {
     /**
      * Extract the frames from the video
      */
-    getFrames(width: number, height: number, skip: number): Observable<ExtractedFrame> {
+    getFrames(width: number, height: number): Observable<ExtractedFrame> {
 
         if (this.type === 'video') {
             return this._frameExtractionService.getFrameThumbnails(this.source, width, height, 0, this.duration, 10);

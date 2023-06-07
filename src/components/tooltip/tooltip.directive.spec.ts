@@ -1,8 +1,8 @@
-import { ComponentFixture, fakeAsync, inject, TestBed, tick } from '@angular/core/testing';
-import { Component, ViewChild } from '@angular/core';
-import { TooltipModule } from './tooltip.module';
-import { TooltipDirective } from './tooltip.directive';
 import { OverlayContainer } from '@angular/cdk/overlay';
+import { Component, ViewChild } from '@angular/core';
+import { ComponentFixture, fakeAsync, inject, TestBed, tick } from '@angular/core/testing';
+import { TooltipDirective } from './tooltip.directive';
+import { TooltipModule } from './tooltip.module';
 
 
 @Component({
@@ -77,6 +77,7 @@ describe('Tooltip Directive', () => {
         await fixture.whenStable();
 
         // ensure the timeout is cancelled
+        //eslint-disable-next-line @typescript-eslint/no-explicit-any
         expect((component.showTrigger as any)._showTimeoutId).toBeFalsy();
     }));
 

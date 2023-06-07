@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
 export const tick = <T>() => (source: Observable<T>) => new Observable<T>((subscriber) => {
     source.subscribe({
         next(value: T) { requestAnimationFrame(() => subscriber.next(value)); },
-        error(err: any) { subscriber.error(err); },
+        error(err: unknown) { subscriber.error(err); },
         complete() { subscriber.complete(); },
     });
 });
