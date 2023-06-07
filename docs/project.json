@@ -14,7 +14,7 @@
   "prefix": "app",
   "targets": {
     "build": {
-      "executor": "@nx/angular:webpack-dev-server",
+      "executor": "@nx/angular:webpack-browser",
       "outputs": ["{options.outputPath}"],
       "options": {
         "customWebpackConfig": {
@@ -91,14 +91,15 @@
     },
     "serve": {
       "executor": "@nx/angular:webpack-dev-server",
+      "options": {
+        "port": 8080
+      },
       "configurations": {
         "production": {
-          "browserTarget": "documentation:build:production",
-          "port": 8080
+          "browserTarget": "documentation:build:production"
         },
         "development": {
-          "browserTarget": "documentation:build:development",
-          "port": 8080
+          "browserTarget": "documentation:build:development"
         }
       },
       "defaultConfiguration": "development"

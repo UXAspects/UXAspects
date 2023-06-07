@@ -21,7 +21,7 @@ export class ConduitComponent implements OnInit, OnDestroy {
     }
 
     /** Alter the properties of a conduit dynamically */
-    setConduitProperties(subject: Subject<void>, properties: Partial<ConduitProperties>): void {
+    setConduitProperties(subject: Subject<string>, properties: Partial<ConduitProperties>): void {
         this._zone.setConduitProperties(subject, properties);
     }
 

@@ -2,9 +2,6 @@ import { SelectionService } from '../selection.service';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class SelectionStrategy<T = any> {
-    destroy() {
-        throw new Error('Method not implemented.');
-    }
 
     constructor(protected selectionService?: SelectionService<T>) { }
 
@@ -64,4 +61,7 @@ export class SelectionStrategy<T = any> {
         // call deselect on all items in the dataset
         this.selectionService.deselectAll();
     }
+
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    destroy(): void { }
 }

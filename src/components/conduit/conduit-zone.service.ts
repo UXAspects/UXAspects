@@ -62,7 +62,7 @@ export class ConduitZone implements OnDestroy {
     }
 
     /** Alter the properties of a conduit dynamically */
-    setConduitProperties(subject: Subject<void>, properties: Partial<ConduitProperties>): void {
+    setConduitProperties(subject: Subject<string>, properties: Partial<ConduitProperties>): void {
         // find the conduit with the matching subject
         const conduitSubject = this.getSubjects().find(
             _conduit => _conduit.conduit.subject === subject
