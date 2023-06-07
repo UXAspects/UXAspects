@@ -60,16 +60,15 @@ export class AppConfiguration {
         return pre?.replace(/-?SNAPSHOT$/, '');
     }
 
-
-    get config(): { [key: string]: unknown } {
+    get config(): { [key: string]: any } {
         return environment.production ? this._data['config'] : this._data['config.dev'];
     }
 
     private _data = {};
 
-    private readonly _templateVars: { [key: string]: unknown };
+    private _templateVars: { [key: string]: any };
 
-    constructor(private readonly _location: Location) {
+    constructor(private _location: Location) {
 
         this._templateVars = {
             VERSION: this.getVersion(environment.version),
@@ -87,19 +86,19 @@ export class AppConfiguration {
         this.setConfigurationData('charts-page', chartsPage);
     }
 
-    get(key: string): unknown {
+    get(key: string): any {
         return this.config[key];
     }
 
-    getConfigurationData(key: string): unknown {
+    getConfigurationData(key: string): any {
         return this._data[key];
     }
 
-    setConfigurationData(key: string, data: unknown): void {
+    setConfigurationData(key: string, data: any): void {
         this._data[key] = data;
     }
 
-    setConfigurationTemplateData(key: string, data: unknown): void {
+    setConfigurationTemplateData(key: string, data: any): void {
         this._data[key] = jsonTemplate(data, this._templateVars);
     }
 
