@@ -25,7 +25,7 @@ export class AppComponent implements OnInit {
 
     constructor(public colorService: ColorService) {
 
-        let tooltipBackgroundColor = colorService.getColor('grey2').toHex();
+        const tooltipBackgroundColor = colorService.getColor('grey2').toHex();
 
         this.donutChartOptions = {
             maintainAspectRatio: false,
@@ -59,7 +59,7 @@ export class AppComponent implements OnInit {
     colorValuesUpdated() {
 
         // check if all colors are valid
-        for (let value of this.salesColorValues) {
+        for (const value of this.salesColorValues) {
             try {
                 ThemeColor.parse(value);
             } catch (err) {

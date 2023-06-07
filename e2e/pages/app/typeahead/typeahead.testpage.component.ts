@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
 import { TypeaheadKeyService } from '@ux-aspects/ux-aspects';
-import { of } from 'rxjs';
-import { delay } from 'rxjs/operators';
 
 @Component({
     selector: 'typeahead-app',

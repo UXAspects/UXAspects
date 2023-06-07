@@ -117,7 +117,7 @@ export class AppComponent {
 
     @ViewChildren('draggableCard') cards?: QueryList<ElementRef>;
 
-    constructor(private _colorService: ColorService, private _liveAnnouncer: LiveAnnouncer) {}
+    constructor(private readonly _colorService: ColorService, private readonly _liveAnnouncer: LiveAnnouncer) {}
 
     remove(card: DraggableCard, tabbableList: TabbableListDirective): void {
         // remove the card

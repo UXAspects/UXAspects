@@ -62,7 +62,7 @@ export class ChartsTimelineChartComponent
     timelineChartData: ChartDataset[];
     timelineChartOptions: ChartOptions & TimelineChartOptions;
 
-    constructor(private _dataService: TimelineChartService, private _colorService: ColorService) {
+    constructor(private readonly _dataService: TimelineChartService, private readonly _colorService: ColorService) {
         super(
             import.meta.webpackContext('./snippets/', {
                 recursive: false,

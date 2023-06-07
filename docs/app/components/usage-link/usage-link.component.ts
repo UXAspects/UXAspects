@@ -11,7 +11,7 @@ export class UsageLinkComponent {
 
     @Input() usage: Usage;
 
-    constructor(private _renderer: Renderer2, private _elementRef: ElementRef) {}
+    constructor(private readonly _renderer: Renderer2, private readonly _elementRef: ElementRef) {}
 
     // copy to clipboard button
     copy(text: string): void {

@@ -31,7 +31,7 @@ export class PackageJsonPlaygroundTransformer implements PlaygroundTransformer {
     transform(tree: PlaygroundTree, context: PlaygroundContext): void {
         tree.updateJsonFile('package.json', packageJson => {
             packageJson.name = this.getName(context);
-            packageJson.description = this.getDescription(context);
+            packageJson.description = this.getDescription();
             packageJson.keywords = this.getKeywords(context);
             packageJson.license = 'Apache-2.0';
             packageJson.dependencies = {
@@ -48,7 +48,7 @@ export class PackageJsonPlaygroundTransformer implements PlaygroundTransformer {
         return `${context.title} (UX Aspects)`;
     }
 
-    protected getDescription(context: PlaygroundContext): string {
+    protected getDescription(): string {
         return 'UX Aspects example from https://uxaspects.github.io/UXAspects';
     }
 

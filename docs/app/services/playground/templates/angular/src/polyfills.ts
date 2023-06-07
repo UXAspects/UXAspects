@@ -42,7 +42,7 @@
 
 /** Evergreen browsers require these. **/
 // Used for reflect-metadata in JIT. If you use AOT (and only Angular decorators), you can remove.
-import "core-js/proposals/reflect-metadata";
+import 'core-js/proposals/reflect-metadata';
 
 /**
  * Required to support Web Animations `@angular/platform-browser/animations`.
@@ -53,7 +53,7 @@ import "core-js/proposals/reflect-metadata";
 /***************************************************************************************************
  * Zone JS is required by default for Angular itself.
  */
-import "zone.js/dist/zone"; // Included with Angular CLI.
+import 'zone.js/dist/zone'; // Included with Angular CLI.
 
 /***************************************************************************************************
  * APPLICATION IMPORTS

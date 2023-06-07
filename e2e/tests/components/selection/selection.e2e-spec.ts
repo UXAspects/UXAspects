@@ -480,20 +480,20 @@ describe('Selection Tests', () => {
     it('should restore tabindex on focused rows', async () => {
 
         // tabindex should initially be disabled
-        expect<any>(page.getRowButtonTabIndex(page.row0)).toBe('-1');
+        expect(page.getRowButtonTabIndex(page.row0)).toBe('-1');
 
         // click the first row
         await page.clickSelectRow(page.row0);
 
         // Focus should restore the tabindex to its original value
-        expect<any>(page.getRowButtonTabIndex(page.row0)).toBe('5');
+        expect(page.getRowButtonTabIndex(page.row0)).toBe('5');
 
         // click the second row
         await page.clickSelectRow(page.row1);
 
         // tabindex should be disabled again on blur
-        expect<any>(page.getRowButtonTabIndex(page.row0)).toBe('-1');
-        expect<any>(page.getRowButtonTabIndex(page.row1)).toBe('5');
+        expect(page.getRowButtonTabIndex(page.row0)).toBe('-1');
+        expect(page.getRowButtonTabIndex(page.row1)).toBe('5');
     });
 
     it('should allow individual items to be disabled', async () => {

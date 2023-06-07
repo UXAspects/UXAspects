@@ -8,7 +8,7 @@ import { PopoverDirective } from '@ux-aspects/ux-aspects';
 })
 export class PartitionMapTestPageComponent {
 
-    dataset: any = {
+    dataset = {
         name: 'My Workspace',
         children: [
             {

@@ -20,8 +20,8 @@ export class ListViewComponent extends ConduitZoneComponent implements OnDestroy
     @Conduit({ id: 'show-zones', producesOutput: false })
     showZones = new BehaviorSubject(false);
 
-    private _documents: ConduitListItem[] = [];
-    private _subscription: Subscription;
+    private readonly _documents: ConduitListItem[] = [];
+    private readonly _subscription: Subscription;
 
     constructor(zone: ConduitZone) {
         super(zone);

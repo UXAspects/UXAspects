@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 import { Subject } from 'rxjs';
 
-const DEPARTMENTS = ['Finance', 'Operations', 'Investor Relations', 'Technical', 'Auditing', 'Labs'];
-
 @Component({
     selector: 'virtual-scroll-app',
     templateUrl: './virtual-scroll.testpage.component.html',

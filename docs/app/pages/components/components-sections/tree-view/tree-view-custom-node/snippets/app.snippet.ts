@@ -28,7 +28,7 @@ export class AppComponent {
 
     focused: TreeNode;
 
-    constructor(private _treeViewService: TreeViewService) { }
+    constructor(private readonly _treeViewService: TreeViewService) { }
 
     /**
      * When a node is checked the state of it's children should be updated (if there are any)
@@ -76,8 +76,8 @@ export class AppComponent {
             return;
         }
 
-        let allChildrenChecked = node.children.every(child => child.data.checked);
-        let noChildrenChecked = node.children.every(child => !child.data.checked);
+        const allChildrenChecked = node.children.every(child => child.data.checked);
+        const noChildrenChecked = node.children.every(child => !child.data.checked);
 
         if (allChildrenChecked) {
             node.data.checked = true;

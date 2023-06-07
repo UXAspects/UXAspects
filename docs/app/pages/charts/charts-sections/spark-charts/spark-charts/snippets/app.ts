@@ -13,8 +13,8 @@ export class AppComponent {
             theme: 'chart1',
             value: 35,
             barHeight: 8,
-            topLeftLabel: `<span class='spark-label'>21.7 MB</span>`,
-            tooltip: `Spark Line indicator - 2.17MB of 8.2GB occupied (35%)`
+            topLeftLabel: '<span class=\'spark-label\'>21.7 MB</span>',
+            tooltip: 'Spark Line indicator - 2.17MB of 8.2GB occupied (35%)'
         },
         {
             theme: 'chart3',
@@ -32,13 +32,13 @@ export class AppComponent {
                             </span></span>`,
             bottomLeftLabel: `<span class="spark-label hidden-xxxs"><span class="medium light">
                                 INDEX COVERAGE</span></span>`,
-            tooltip: `Spark Line indicator - 2.17MB of 8.2GB occupied (35%)`
+            tooltip: 'Spark Line indicator - 2.17MB of 8.2GB occupied (35%)'
         },
         {
             theme: 'chart3',
             value: 30,
             barHeight: 5,
-            inlineLabel: `<div class="spark-label hidden-spark"><span class="x-large">30%</span></div>`,
+            inlineLabel: '<div class="spark-label hidden-spark"><span class="x-large">30%</span></div>',
             topLeftLabel: `<span class="spark-label hidden-xxs"><span class="small">
                             STORAGE ON HOLD</span></span>`,
             ariaLabel: 'Spark Line indicator - STORAGE ON HOLD'
@@ -56,17 +56,17 @@ export class AppComponent {
             theme: 'chart5',
             value: 30,
             barHeight: 8,
-            topLeftLabel: `<span class="spark-label">21.7 MB</span>`,
-            topRightLabel: `<span class="spark-label">75.0 MB</span>`,
-            bottomLeftLabel: `<span class="spark-label">ITEMS ON HOLD</span>`,
-            bottomRightLabel: `<span class="spark-label">TOTAL</span>`,
+            topLeftLabel: '<span class="spark-label">21.7 MB</span>',
+            topRightLabel: '<span class="spark-label">75.0 MB</span>',
+            bottomLeftLabel: '<span class="spark-label">ITEMS ON HOLD</span>',
+            bottomRightLabel: '<span class="spark-label">TOTAL</span>',
             ariaLabel: 'Spark Line indicator - ITEMS ON HOLD'
         },
         {
             value: [70, 20, 10],
             barColor: ['#1aac60', '#fcdb1f', '#e5004c'],
             barHeight: 6,
-            topLeftLabel: `<span class='spark-label'>Multi-value</span>`,
+            topLeftLabel: '<span class=\'spark-label\'>Multi-value</span>',
             ariaLabel: ['70% Documents', '20% Audio', '10% Video']
         },
         {
@@ -84,7 +84,7 @@ export class AppComponent {
         }
     ];
 
-    constructor(private colorService: ColorService) { }
+    constructor(private readonly colorService: ColorService) { }
 
 }
 

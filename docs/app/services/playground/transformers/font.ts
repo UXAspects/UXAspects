@@ -9,7 +9,7 @@ import { PlaygroundTransformer } from './playground-transformer';
 @Injectable()
 export class FontPlaygroundTransformer implements PlaygroundTransformer {
     transform(tree: PlaygroundTree, context: PlaygroundContext): void {
-        const fontHref = this.getFontHref(context);
+        const fontHref = this.getFontHref();
         if (fontHref) {
             tree.updateHtmlFile(context.htmlEntryPoint, $ => {
                 $('head').append(`<link href="${fontHref}" rel="stylesheet" />`);
@@ -17,7 +17,7 @@ export class FontPlaygroundTransformer implements PlaygroundTransformer {
         }
     }
 
-    protected getFontHref(context: PlaygroundContext): string {
+    protected getFontHref(): string {
         return 'https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700;1,900&display=swap';
     }
 }

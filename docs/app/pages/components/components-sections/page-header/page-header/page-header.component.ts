@@ -37,10 +37,12 @@ export class ComponentsPageHeaderComponent
     crumbs: Breadcrumb[] = [
         {
             title: 'Archive',
+            // eslint-disable-next-line @typescript-eslint/no-empty-function
             onClick: () => {},
         },
         {
             title: '2017',
+            // eslint-disable-next-line @typescript-eslint/no-empty-function
             onClick: () => {},
         },
     ];

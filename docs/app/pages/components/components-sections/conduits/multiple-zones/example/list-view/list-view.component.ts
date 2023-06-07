@@ -20,8 +20,8 @@ export class ComponentsConduitListViewComponent extends ConduitZoneComponent imp
     @Conduit(forwardRef(() => ({ id: 'show-zones', producesOutput: false })) as any)
     showZones = new BehaviorSubject(false);
 
-    private _documents: ConduitListItem[] = [];
-    private _subscription: Subscription;
+    private readonly _documents: ConduitListItem[] = [];
+    private readonly _subscription: Subscription;
 
     constructor() {
         super();

@@ -22,7 +22,7 @@ export class ComponentsSelectListComponent
     authors: string[] = [];
     query: string = '';
 
-    private _authors: string[] = [];
+    private readonly _authors: string[] = [];
 
     playground: IPlayground = {
         files: {

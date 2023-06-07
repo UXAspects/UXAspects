@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, ViewChild } from "@angular/core";
-import { ColorPickerColor, MenuTriggerDirective } from "@ux-aspects/ux-aspects";
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { ColorPickerColor, MenuTriggerDirective } from '@ux-aspects/ux-aspects';
 
 @Component({
     selector: 'uxd-color-picker-dropdown',

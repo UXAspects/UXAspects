@@ -9,7 +9,7 @@ export class TooltipsTestPageComponent {
 
     placement: string = 'top';
     customClass: string;
-    content: string | TemplateRef<any> = 'Some content here';
+    content: string | TemplateRef<void> = 'Some content here';
 
     reset(): void {
         this.placement = 'top';

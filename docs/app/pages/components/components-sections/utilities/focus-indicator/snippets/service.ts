@@ -4,7 +4,7 @@
 })
 export class ButtonComponent implements OnDestroy {
 
-    private _focusIndicator: FocusIndicator;
+    private readonly _focusIndicator: FocusIndicator;
 
     constructor(focusIndicatorService: FocusIndicatorService, elementRef: ElementRef) {
         // begin controlling focus indicator with defined options

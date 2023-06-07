@@ -36,7 +36,7 @@ export class ReorderableTableTestPageComponent {
     pure: true
 })
 export class MapPipe implements PipeTransform {
-    transform(value: ReorderableTableData[], ...args: any[]) {
+    transform(value: ReorderableTableData[]) {
         return value.map(_value => _value.document);
     }
 }

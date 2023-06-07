@@ -56,7 +56,7 @@ export class AppComponent {
 
     constructor(
         public colorService: ColorService,
-        private _announcer: LiveAnnouncer) {
+        private readonly _announcer: LiveAnnouncer) {
     }
 
     getChartData(documents: number, reviewed: number, produced: number): NestedDonutChartData[] {

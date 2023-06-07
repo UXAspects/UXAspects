@@ -176,6 +176,7 @@ export class AppComponent {
 
     checkChildren(): void {
         for (const row of this.selected) {
+            // eslint-disable-next-line no-prototype-builtins
             if (row.hasOwnProperty('children')) {
                 const isChildSelected = row.children.some(child => this.isSelected(child));
 
@@ -216,14 +217,14 @@ export class AppComponent {
     }
 
     clearChildren(): void {
-        for (let item of this.asyncItems) {
+        for (const item of this.asyncItems) {
             item.expanded = false;
             delete item.children;
         }
     }
 
     setExpanded(items: FileNode[], expanded: boolean): void {
-        for (let item of items) {
+        for (const item of items) {
             item.expanded = expanded;
         }
     }

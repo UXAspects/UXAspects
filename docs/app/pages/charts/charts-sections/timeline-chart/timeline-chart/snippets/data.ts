@@ -7,7 +7,7 @@ const chance = new Chance();
 @Injectable()
 export class TimelineChartService {
 
-    private _dataset: ScatterDataPoint[] = [];
+    private readonly _dataset: ScatterDataPoint[] = [];
 
     constructor() {
         const date = new Date(2014, 1, 0);

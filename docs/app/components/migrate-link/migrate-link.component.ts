@@ -20,10 +20,10 @@ export class MigrateLinkComponent implements OnDestroy {
     universalUrl: string = this._appConfig.universalUrl;
     theme: SiteThemeId = this._siteThemeService.theme$.getValue();
 
-    private _onDestroy = new Subject<void>();
+    private readonly _onDestroy = new Subject<void>();
 
-    constructor(private _siteThemeService: SiteThemeService,
-                private _appConfig: AppConfiguration) {
+    constructor(private readonly _siteThemeService: SiteThemeService,
+                private readonly _appConfig: AppConfiguration) {
         this._siteThemeService.theme$
             .pipe(takeUntil(this._onDestroy))
             .subscribe(siteThemeId => this.theme = siteThemeId);

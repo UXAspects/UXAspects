@@ -72,7 +72,7 @@ export class AppComponent {
     sparkTrackColor = this._colorService.getColor('chart2').setAlpha(0.2).toRgba();
     sparkBarColor = this._colorService.getColor('chart2').toHex();
 
-    constructor(private _colorService: ColorService, private _announcer: LiveAnnouncer) {
+    constructor(private readonly _colorService: ColorService, private readonly _announcer: LiveAnnouncer) {
     }
 
     changeState(title: string, column: ColumnSortingComponent) {

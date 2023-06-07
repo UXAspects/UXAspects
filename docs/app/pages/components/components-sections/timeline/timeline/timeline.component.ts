@@ -14,8 +14,8 @@ export class ComponentsTimelineComponent
     extends BaseDocumentationSection
     implements IPlaygroundProvider
 {
-    private _now = Date.now();
-    private _dayInMilliSeconds = 24 * 60 * 60 * 1000;
+    private readonly _now = Date.now();
+    private readonly _dayInMilliSeconds = 24 * 60 * 60 * 1000;
     private _daysAfterFirstEvent = 3;
 
     events: TimelineEvent[] = [

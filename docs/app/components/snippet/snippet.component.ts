@@ -1,7 +1,6 @@
+import prism from '!!raw-loader!prismjs';
 import { ChangeDetectionStrategy, Component, Input, OnChanges, ViewChild, ViewContainerRef } from '@angular/core';
 import { highlight, languages } from 'prismjs';
-// @ts-ignore
-import prism from '!!raw-loader!prismjs';
 
 @Component({
     selector: 'uxd-snippet',
@@ -16,8 +15,6 @@ export class SnippetComponent implements OnChanges {
     @Input() synchronous: boolean = false;
 
     @ViewChild('code', { read: ViewContainerRef, static: true }) codeContainer: ViewContainerRef;
-
-    constructor() { }
 
     ngOnChanges(): void {
         if (this.code) {

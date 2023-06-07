@@ -20,7 +20,7 @@ export namespace SearchBuilderPage {
         setInvalidQueryBtn = $('#set-invalid-query');
         validity = $('#validity');
 
-        async getQueryObject(): Promise<any> {
+        async getQueryObject(): Promise<string> {
             return JSON.parse(await this.query.getText());
         }
 

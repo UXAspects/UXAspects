@@ -27,7 +27,7 @@ export class AppComponent implements OnInit, OnDestroy {
     recentOptionsMaxCount: number = 5;
 
     private _pageSize = 20;
-    private _onDestroy = new Subject<void>();
+    private readonly _onDestroy = new Subject<void>();
 
     get pageSize() {
         return this._pageSize;
@@ -74,7 +74,7 @@ export class AppComponent implements OnInit, OnDestroy {
         });
 
         // "strings" data set
-        this.dataSets.strings = ['United States', 'United Kingdom', ...];
+        this.dataSets.strings = ['United States', 'United Kingdom'];
 
         // "objects" data set
         this.dataSets.objects = this.dataSets.strings.map((option, i) => {
@@ -97,7 +97,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
     loadOptions(pageNum: number, pageSize: number, filter: any): Promise<any[]> {
         // Return a promise using setTimeout to simulate an HTTP request.
-        let promise = new Promise<any[]>((resolve, reject) => {
+        const promise = new Promise<any[]>((resolve) => {
             setTimeout(() => {
                 const pageStart = pageNum * pageSize;
                 const newItems = this.selectedDataSet()

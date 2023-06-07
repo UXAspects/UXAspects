@@ -30,7 +30,7 @@ export class ComponentsTreeViewCustomNodeComponent extends BaseDocumentationSect
 
     focused: TreeNode;
 
-    constructor(private _treeViewService: TreeViewService) {
+    constructor(private readonly _treeViewService: TreeViewService) {
         super(
             import.meta.webpackContext('./snippets/', {
                 recursive: false,
@@ -82,8 +82,8 @@ export class ComponentsTreeViewCustomNodeComponent extends BaseDocumentationSect
             return;
         }
 
-        let allChildrenChecked = node.children.every(child => child.data.checked);
-        let noChildrenChecked = node.children.every(child => !child.data.checked);
+        const allChildrenChecked = node.children.every(child => child.data.checked);
+        const noChildrenChecked = node.children.every(child => !child.data.checked);
 
         if (allChildrenChecked) {
             node.data.checked = true;

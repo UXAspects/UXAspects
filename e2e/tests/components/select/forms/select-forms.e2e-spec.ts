@@ -564,7 +564,7 @@ describe('Select (forms) Tests', () => {
 
         result = await page.calculateNewNumberOfCountries(true, pageSize);
         expect(await page.waitForLoadingAfterHoverToFinish(true)).toBeTruthy();
-        expect<any>(await page.getNumberOfCountries(true)).toEqual(result);
+        expect(await page.getNumberOfCountries(true)).toEqual(result);
 
     });
 

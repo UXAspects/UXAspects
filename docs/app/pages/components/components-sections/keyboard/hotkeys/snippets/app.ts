@@ -17,7 +17,7 @@ export class AppComponent {
     qFocused: number = null;
     wFocused: number = null;
 
-    constructor(private _liveAnnouncer: LiveAnnouncer) {}
+    constructor(private readonly _liveAnnouncer: LiveAnnouncer) {}
 
     announce(item: string): void {
         this._liveAnnouncer.announce(`${item} selected`);

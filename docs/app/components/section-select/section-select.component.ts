@@ -15,7 +15,7 @@ export class SectionSelectComponent implements OnInit, OnDestroy {
     private _path: string;
     private _routeSubscription: Subscription;
 
-    constructor(private router: Router, private activatedRoute: ActivatedRoute) { }
+    constructor(private readonly router: Router, private readonly activatedRoute: ActivatedRoute) { }
 
     ngOnInit(): void {
 

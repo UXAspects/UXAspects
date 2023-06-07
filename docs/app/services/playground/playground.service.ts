@@ -17,10 +17,10 @@ import {
 })
 export class PlaygroundService {
     constructor(
-        @Inject(DOCUMENT) private _document: Document,
-        @Inject(PLAYGROUND_TRANSFORMER) private _transformers: PlaygroundTransformer[],
-        private _appConfig: AppConfiguration,
-        private _siteThemeService: SiteThemeService
+        @Inject(DOCUMENT) private readonly _document: Document,
+        @Inject(PLAYGROUND_TRANSFORMER) private readonly _transformers: PlaygroundTransformer[],
+        private readonly _appConfig: AppConfiguration,
+        private readonly _siteThemeService: SiteThemeService
     ) {}
 
     /** Launch the code playground */

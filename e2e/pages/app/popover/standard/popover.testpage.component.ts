@@ -9,5 +9,5 @@ export class PopoverTestPageComponent {
     placement: string = 'top';
     customClass: string;
     title: string;
-    content: string | TemplateRef<any> = 'Some content here';
+    content: string | TemplateRef<void> = 'Some content here';
 }

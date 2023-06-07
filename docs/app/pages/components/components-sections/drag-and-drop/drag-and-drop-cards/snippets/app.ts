@@ -17,7 +17,7 @@ export class AppComponent implements AfterViewInit {
     @ViewChild('text') textTemplate: TemplateRef<any>;
     @ViewChild('buttons') buttonsTemplate: TemplateRef<any>;
 
-    constructor(private _liveAnnouncer: LiveAnnouncer) {
+    constructor(private readonly _liveAnnouncer: LiveAnnouncer) {
 
         this.cards = [
             {

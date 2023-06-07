@@ -30,7 +30,7 @@ export class SelectFormsTestPageComponent implements OnInit {
     loadOptionsCallback = this.loadOptions.bind(this);
 
 
-    dataSets: { strings?: any[], objects?: any[] } = {};
+    dataSets: { strings?, objects? } = {};
 
     form: FormGroup = this.formBuilder.group({
         select1: ['', [Validators.minLength(2), Validators.maxLength(3)]]
@@ -43,13 +43,13 @@ export class SelectFormsTestPageComponent implements OnInit {
     constructor(private readonly formBuilder: FormBuilder) {
 
         // Reset select when "multiple" checkbox changes.
-        this.multiple.subscribe((value) => {
+        this.multiple.subscribe(() => {
             this.selected = null;
             this.dropdownOpen = false;
         });
 
         // Reset and switch options between array and function when paging checkbox changes.
-        this.pagingEnabled.subscribe((value) => {
+        this.pagingEnabled.subscribe(() => {
             this.selected = null;
             this.dropdownOpen = false;
             this.options = this.pagingEnabled.getValue() ?
@@ -81,13 +81,13 @@ export class SelectFormsTestPageComponent implements OnInit {
         this.options = this.selectedDataSet();
     }
 
-    selectedDataSet(): any[] {
+    selectedDataSet() {
         return this.dataSets[this.dataSet.getValue()];
     }
 
-    loadOptions(pageNum: number, pageSize: number, filter: any): Promise<any[]> {
+    loadOptions(pageNum: number, pageSize: number, filter: string): Promise<unknown[]> {
         // Return a promise using setTimeout to simulate an HTTP request.
-        const promise = new Promise<any[]>((resolve, reject) => {
+        const promise = new Promise<unknown[]>((resolve) => {
             const pageStart = pageNum * pageSize;
             const newItems = this.selectedDataSet()
                 .filter((option) => this.isFilterMatch(option, filter))

@@ -19,10 +19,10 @@ export class NavigationService {
     // This is used to record the ID of the fragment currently in view if the URL was not updated
     private activeFragment: string = null;
 
-    constructor(@Inject(DOCUMENT) private _document: Document,
-        private _activeRoute: ActivatedRoute,
-        private _router: Router,
-        private _appConfig: AppConfiguration) { }
+    constructor(@Inject(DOCUMENT) private readonly _document: Document,
+        private readonly _activeRoute: ActivatedRoute,
+        private readonly _router: Router,
+        private readonly _appConfig: AppConfiguration) { }
 
     getScrollTop(): number {
         // support all browsers

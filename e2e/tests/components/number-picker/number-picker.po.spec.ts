@@ -24,7 +24,7 @@ export class NumberPickerPage {
         return await numberPicker.getAttribute('step') || '1';
     }
 
-    async getNumberPickerValue(numberPicker: ElementFinder): Promise<any> {
+    async getNumberPickerValue(numberPicker: ElementFinder): Promise<string> {
         return await numberPicker.$('input').getAttribute('value');
     }
 

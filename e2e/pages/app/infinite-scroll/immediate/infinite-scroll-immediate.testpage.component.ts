@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-const DEPARTMENTS = ['Finance', 'Operations', 'Investor Relations', 'Technical', 'Auditing', 'Labs'];
 
 @Component({
     selector: 'app',
@@ -12,14 +11,14 @@ export class InfiniteScrollImmediateTestPageComponent {
     filterText = new BehaviorSubject<string>('');
     debouncedFilterText = this.filterText;
 
-    allEmployees: any[] = [];
-    loadedEmployees: any[] = [];
+    allEmployees = [];
+    loadedEmployees = [];
     loadCallback = this.load.bind(this);
     pageSize = 20;
 
     loadOnScroll: boolean = true;
 
-    load(pageNum: number, pageSize: number): Promise<any[]> {
+    load(pageNum: number, pageSize: number): Promise<string[]> {
         return new Promise<string[]>(resolve => {
             setTimeout(() => {
                 const pageStart = pageNum * pageSize;

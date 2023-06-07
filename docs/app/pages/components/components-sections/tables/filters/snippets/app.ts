@@ -129,7 +129,7 @@ export class AppComponent {
 
     documents: ReadonlyArray<FilterSampleItem> = [...this.dataSource];
 
-    constructor(private _announcer: LiveAnnouncer) { }
+    constructor(private readonly _announcer: LiveAnnouncer) { }
 
     /** Provide accesibility feedback */
     onEvent(event: FilterEvent) {
@@ -146,7 +146,7 @@ export class AppComponent {
 
         // announce the deselection of all filters
         if (event instanceof FilterRemoveAllEvent) {
-            this._announcer.announce(`All filters deselected.`);
+            this._announcer.announce('All filters deselected.');
         }
     }
 

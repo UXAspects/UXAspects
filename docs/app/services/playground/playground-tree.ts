@@ -20,6 +20,7 @@ export class PlaygroundTree extends Map<string, string> {
     }
 
     /** Parse a file as JSON, apply changes via a callback, and serialize the result back. */
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     updateJsonFile(path: string, callback: (json: any) => any): void {
         const json = JSON.parse(this.getContent(path));
         const modifiedJson = callback(json) ?? json;

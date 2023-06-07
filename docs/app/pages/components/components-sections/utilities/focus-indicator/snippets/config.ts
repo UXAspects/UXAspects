@@ -1,9 +1,4 @@
 @NgModule({
-    AccessibilityModule.forRoot({
-        mouseFocusIndicator: true,
-        touchFocusIndicator: true,
-        keyboardFocusIndicator: true,
-        programmaticFocusIndicator: true,
-    })
+    AccessibilityModule,
 })
 export class AppModule { }

@@ -32,7 +32,7 @@ export class ComponentsSplitButtonDropdownsComponent
 
     toggleIcon = this._documentationType === DocumentationType.MicroFocus ? 'chevron-down' : 'down';
 
-    constructor(@Inject(DOCUMENTATION_TOKEN) private _documentationType: DocumentationType) {
+    constructor(@Inject(DOCUMENTATION_TOKEN) private readonly _documentationType: DocumentationType) {
         super(
             import.meta.webpackContext('./snippets/', {
                 recursive: false,

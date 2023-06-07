@@ -21,7 +21,7 @@ export class ThemeSelectorComponent implements OnChanges, OnDestroy {
     selected: SiteTheme;
     default: SiteTheme;
 
-    private _onDestroy = new Subject();
+    private readonly _onDestroy = new Subject();
 
     constructor(private readonly _siteThemeService: SiteThemeService) {
         _siteThemeService.theme$

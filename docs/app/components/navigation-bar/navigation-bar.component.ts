@@ -17,5 +17,5 @@ export class NavigationBarComponent {
     themes: SiteTheme[] = this.navigation.themes;
     expanded: boolean = false;
 
-    constructor(private _appConfig: AppConfiguration) {}
+    constructor(private readonly _appConfig: AppConfiguration) {}
 }

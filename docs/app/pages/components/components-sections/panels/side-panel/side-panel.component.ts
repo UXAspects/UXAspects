@@ -59,7 +59,7 @@ export class ComponentsSidePanelComponent
 
     private _attachTo = 'window';
 
-    constructor(private _liveAnnouncer: LiveAnnouncer) {
+    constructor(private readonly _liveAnnouncer: LiveAnnouncer) {
         super(
             import.meta.webpackContext('./snippets/', {
                 recursive: false,

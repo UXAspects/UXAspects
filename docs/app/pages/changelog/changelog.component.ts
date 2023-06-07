@@ -12,9 +12,10 @@ export class ChangeLogPageComponent implements OnInit {
 
     logs: IChangeLog[];
 
-    constructor(private domSanitizer: DomSanitizer, private appConfig: AppConfiguration) {
+    constructor(private readonly domSanitizer: DomSanitizer, private readonly appConfig: AppConfiguration) {
     }
 
+    // eslint-disable-next-line @typescript-eslint/require-await
     async ngOnInit(): Promise<void> {
         this.logs = [
             {

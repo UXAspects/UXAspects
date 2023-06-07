@@ -58,7 +58,7 @@ export class ComponentsFlippableCardsComponent extends BaseDocumentationSection 
         },
     ];
 
-    constructor(public colorService: ColorService, private _announcer: LiveAnnouncer) {
+    constructor(public colorService: ColorService, private readonly _announcer: LiveAnnouncer) {
         super(
             import.meta.webpackContext('./snippets/', {
                 recursive: false,

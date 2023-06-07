@@ -125,12 +125,12 @@ export class AppComponent implements OnDestroy {
     @ViewChild('searchBuilderContent')
     searchBuilderContent: ElementRef<HTMLElement>;
 
-    private _field$: Subject<SearchBuilderField> = new Subject<SearchBuilderField>();
-    private _onDestroy = new Subject<void>();
+    private readonly _field$: Subject<SearchBuilderField> = new Subject<SearchBuilderField>();
+    private readonly _onDestroy = new Subject<void>();
 
     constructor(
-        private _modalService: BsModalService,
-        private _searchBuilderFocusService: SearchBuilderFocusService
+        private readonly _modalService: BsModalService,
+        private readonly _searchBuilderFocusService: SearchBuilderFocusService
     ) {
         // if the modal is closed by clicking on backdrop perform cancel
         this._modalService.onHide.pipe(takeUntil(this._onDestroy)).subscribe(() => this.cancel());

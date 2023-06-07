@@ -58,9 +58,9 @@ export class ComponentsHelpCenterComponent
         ],
     };
 
-    private _helpCenter$: Subscription;
+    private readonly _helpCenter$: Subscription;
 
-    constructor(private _helpCenterService: HelpCenterService) {
+    constructor(private readonly _helpCenterService: HelpCenterService) {
         super(
             import.meta.webpackContext('./snippets/', {
                 recursive: false,
@@ -81,7 +81,7 @@ export class ComponentsHelpCenterComponent
         this.repositories = [];
         this.loading = true;
 
-        let types = ['File System', 'Exchange', 'Other'];
+        const types = ['File System', 'Exchange', 'Other'];
 
         // add delay to simulate loading
         setTimeout(() => {

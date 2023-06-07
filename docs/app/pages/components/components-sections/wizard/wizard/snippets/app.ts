@@ -28,7 +28,7 @@ export class AppComponent {
         }
     ];
 
-    constructor(private _announcer: LiveAnnouncer) { }
+    constructor(private readonly _announcer: LiveAnnouncer) { }
 
     onStepChange(index: number): void {
         this._announcer.announce(`${this.steps[index].header} activated`);

@@ -10,11 +10,11 @@ export class StylesheetPlaygroundTransformer implements PlaygroundTransformer {
         // add stylesheet imports
         if (context.playground.framework === 'angular') {
             tree.updateJsonFile('angular.json', angularJson => {
-                angularJson.apps[0].styles.unshift(...this.getStylesheets(context));
+                angularJson.apps[0].styles.unshift(...this.getStylesheets());
                 return angularJson;
             });
         } else if (context.playground.framework === 'css') {
-            const stylesheets = this.getStylesheets(context);
+            const stylesheets = this.getStylesheets();
             tree.appendContent(
                 'index.js',
                 stylesheets.map(stylesheet => `import "./${stylesheet}";`).join('\n')
@@ -29,7 +29,7 @@ export class StylesheetPlaygroundTransformer implements PlaygroundTransformer {
         );
     }
 
-    protected getStylesheets(context: PlaygroundContext): string[] {
+    protected getStylesheets(): string[] {
         return [
             'node_modules/bootstrap/dist/css/bootstrap.min.css',
             'node_modules/@ux-aspects/ux-aspects/styles/ux-aspects.css',

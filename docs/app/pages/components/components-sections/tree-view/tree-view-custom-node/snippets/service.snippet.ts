@@ -8,7 +8,7 @@ export class TreeViewService {
         return new Promise<TreeViewExampleNode[]>(resolve => {
             setTimeout(() => {
 
-                let output: TreeViewExampleNode[] = [];
+                const output: TreeViewExampleNode[] = [];
 
                 for (let idx = 0; idx < 50; idx++) {
                     output.push({ name: `Document ${idx}` });
@@ -23,7 +23,7 @@ export class TreeViewService {
         return new Promise<TreeViewExampleNode[]>(resolve => {
             setTimeout(() => {
 
-                let output: TreeViewExampleNode[] = [];
+                const output: TreeViewExampleNode[] = [];
 
                 for (let idx = 0; idx < 50; idx++) {
                     output.push({ name: `IMG_${chance.pad(idx, 4)}` });

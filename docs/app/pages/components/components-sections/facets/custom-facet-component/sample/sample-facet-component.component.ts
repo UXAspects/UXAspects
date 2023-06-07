@@ -20,7 +20,7 @@ export class SampleCustomFacetComponent implements OnInit, OnDestroy {
 
     private readonly _onDestroy = new Subject<void>();
 
-    constructor(private _facetService: FacetService) {}
+    constructor(private readonly _facetService: FacetService) {}
 
     ngOnInit(): void {
 

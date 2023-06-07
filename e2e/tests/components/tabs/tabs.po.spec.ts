@@ -54,7 +54,7 @@ export class TabsTestPageComponent {
         await this.tabs.get(index).click();
     }
 
-    async pressKey(key: any): Promise<void> {
+    async pressKey(key): Promise<void> {
         return await browser.actions().sendKeys(key).perform();
     }
 

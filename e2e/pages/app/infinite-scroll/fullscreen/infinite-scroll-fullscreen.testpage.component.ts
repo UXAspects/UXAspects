@@ -14,8 +14,8 @@ export class InfiniteScrollFullscreenTestPageComponent {
     filterText = new BehaviorSubject<string>('');
     debouncedFilterText = this.filterText.pipe(debounceTime(50));
 
-    allEmployees: any[] = [];
-    loadedEmployees: any[] = [];
+    allEmployees = [];
+    loadedEmployees = [];
 
     loadCallback = this.load.bind(this);
 
@@ -26,8 +26,8 @@ export class InfiniteScrollFullscreenTestPageComponent {
     loading: boolean = false;
     exhausted: boolean = false;
 
-    load(pageNum: number, pageSize: number, filter: any): Promise<any[]> {
-        const promise = new Promise<any[]>((resolve, reject) => {
+    load(pageNum: number, pageSize: number): Promise<unknown[]> {
+        const promise = new Promise<unknown[]>((resolve) => {
             setTimeout(() => {
                 const pageStart = pageNum * pageSize;
                 const newItems = this.allEmployees
@@ -40,7 +40,7 @@ export class InfiniteScrollFullscreenTestPageComponent {
         return promise;
     }
 
-    isFilterMatch(e: any): boolean {
+    isFilterMatch(e): boolean {
         const normalisedFilter = this.filterText.getValue().toLowerCase();
         return (e.name.toLowerCase().indexOf(normalisedFilter) >= 0);
     }

@@ -101,7 +101,7 @@ export class ComponentsTagsComponent
         ],
     };
 
-    constructor(@Inject(DOCUMENTATION_TOKEN) private _documentationType: DocumentationType) {
+    constructor(@Inject(DOCUMENTATION_TOKEN) private readonly _documentationType: DocumentationType) {
         super(
             import.meta.webpackContext('./snippets/', {
                 recursive: false,

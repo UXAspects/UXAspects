@@ -57,7 +57,10 @@ export class ComponentsDropdownsComponent
         );
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     export(): void {}
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     saveList(): void {}
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     saveQuery(): void {}
 }

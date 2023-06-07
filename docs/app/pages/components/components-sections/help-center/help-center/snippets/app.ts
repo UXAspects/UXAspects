@@ -27,9 +27,9 @@ export class AppComponent implements OnDestroy {
         select: this.loadData.bind(this)
     };
 
-    private _helpCenter$: Subscription;
+    private readonly _helpCenter$: Subscription;
 
-    constructor(private _helpCenterService: HelpCenterService) {
+    constructor(private readonly _helpCenterService: HelpCenterService) {
 
         // update the menu items when new ones are added
         this._helpCenter$ = this._helpCenterService.items
@@ -44,7 +44,7 @@ export class AppComponent implements OnDestroy {
         this.repositories = [];
         this.loading = true;
 
-        let types = ['File System', 'Exchange', 'Other'];
+        const types = ['File System', 'Exchange', 'Other'];
 
         // add delay to simulate loading
         setTimeout(() => {

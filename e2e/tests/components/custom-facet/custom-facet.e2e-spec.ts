@@ -10,7 +10,7 @@ describe('Custom Facet Tests', () => {
 
     it('should start with no facets', () => {
 
-        expect<any>(page.getNumberOfFacets()).toEqual(0);
+        expect(page.getNumberOfFacets()).toEqual(0);
         expect(page.getClearAllButton().isPresent()).toBeFalsy();
         expect(page.getNoItemsLabel().isPresent()).toBeTruthy();
         expect(page.confirmIsChecked(0)).toBeFalsy();
@@ -29,7 +29,7 @@ describe('Custom Facet Tests', () => {
         // Add the others
         page.getCheckbox(1).click();
         page.getCheckbox(2).click();
-        expect<any>(page.getNumberOfFacets()).toEqual(3);
+        expect(page.getNumberOfFacets()).toEqual(3);
 
         // Confirm facets are visible and checkboxes are checked
         expect(page.getFacetName(0)).toMatch('Components');
@@ -51,17 +51,17 @@ describe('Custom Facet Tests', () => {
         await page.getCheckbox(1).click();
         await page.getCheckbox(2).click();
 
-        expect<any>(await page.getNumberOfFacets()).toEqual(3);
+        expect(await page.getNumberOfFacets()).toEqual(3);
         expect(await page.confirmIsChecked(0)).toBeTruthy();
         expect(await page.confirmIsChecked(1)).toBeTruthy();
         expect(await page.confirmIsChecked(2)).toBeTruthy();
 
         // Close a couple of facets, testing the number displayed
         await page.closeFacet(2);
-        expect<any>(await page.getNumberOfFacets()).toEqual(2);
+        expect(await page.getNumberOfFacets()).toEqual(2);
 
         await page.closeFacet(0);
-        expect<any>(await page.getNumberOfFacets()).toEqual(1);
+        expect(await page.getNumberOfFacets()).toEqual(1);
 
         // Confirm the checkbox for the remaining facet is checked
         expect(await page.confirmIsChecked(0)).toBeFalsy();
@@ -79,21 +79,21 @@ describe('Custom Facet Tests', () => {
         await page.getCheckbox(2).click();
         await page.getCheckbox(1).click();
         await page.getCheckbox(0).click();
-        expect<any>(await page.getNumberOfFacets()).toEqual(3);
+        expect(await page.getNumberOfFacets()).toEqual(3);
         expect(await page.getFacetName(0)).toMatch('CSS');
         expect(await page.getFacetName(1)).toMatch('Charts');
         expect(await page.getFacetName(2)).toMatch('Components');
 
         // Close the facets by clicking the corresponding checkboxes, testing those still displayed
         await page.getCheckbox(1).click();
-        expect<any>(await page.getNumberOfFacets()).toEqual(2);
+        expect(await page.getNumberOfFacets()).toEqual(2);
         expect(await page.getFacetName(0)).toMatch('CSS');
         expect(await page.getFacetName(1)).toMatch('Components');
         await page.getCheckbox(0).click();
-        expect<any>(await page.getNumberOfFacets()).toEqual(1);
+        expect(await page.getNumberOfFacets()).toEqual(1);
         expect(await page.getFacetName(0)).toMatch('CSS');
         await page.getCheckbox(2).click();
-        expect<any>(await page.getNumberOfFacets()).toEqual(0);
+        expect(await page.getNumberOfFacets()).toEqual(0);
 
         // Confirm all the checkboxes are unchecked
         expect(await page.confirmIsChecked(0)).toBeFalsy();
@@ -107,11 +107,11 @@ describe('Custom Facet Tests', () => {
         page.getCheckbox(0).click();
         page.getCheckbox(1).click();
         page.getCheckbox(2).click();
-        expect<any>(page.getNumberOfFacets()).toEqual(3);
+        expect(page.getNumberOfFacets()).toEqual(3);
 
         // Remove all the facets by clicking on the Clear All button
         page.getClearAllButton().click();
-        expect<any>(page.getNumberOfFacets()).toEqual(0);
+        expect(page.getNumberOfFacets()).toEqual(0);
         expect(page.getClearAllButton().isPresent()).toBeFalsy();
         expect(page.getNoItemsLabel().isPresent()).toBeTruthy();
 

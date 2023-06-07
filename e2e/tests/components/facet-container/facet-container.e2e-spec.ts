@@ -12,7 +12,7 @@ describe('FacetContainerPage Tests', () => {
     it('should start with no facets', async () => {
 
         // No facets should be visible.
-        expect<any>(page.getNumberOfFacets()).toEqual(0);
+        expect(page.getNumberOfFacets()).toEqual(0);
         expect(page.getClearAllButton().isPresent()).toBeFalsy();
         expect(page.getNoItemsLabel().isPresent()).toBeTruthy();
 

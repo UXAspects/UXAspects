@@ -19,7 +19,7 @@ export class AppComponent {
     totalPages = 10;
     totalItems: number;
 
-    constructor(private _liveAnnouncer: LiveAnnouncer) {
+    constructor(private readonly _liveAnnouncer: LiveAnnouncer) {
         this.totalItems = this.pageSize * this.totalPages;
     }
 
