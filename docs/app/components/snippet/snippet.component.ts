@@ -1,6 +1,7 @@
 
 import { ChangeDetectionStrategy, Component, Input, OnChanges, ViewChild, ViewContainerRef } from '@angular/core';
 import { highlight, languages } from 'prismjs';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import prism from '!!raw-loader!prismjs';
 

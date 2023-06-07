@@ -66,9 +66,9 @@ export class AppConfiguration {
 
     private _data = {};
 
-    private _templateVars: { [key: string]: any };
+    private readonly _templateVars: { [key: string]: any };
 
-    constructor(private _location: Location) {
+    constructor(private readonly _location: Location) {
 
         this._templateVars = {
             VERSION: this.getVersion(environment.version),
