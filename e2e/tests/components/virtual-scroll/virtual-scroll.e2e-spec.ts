@@ -30,17 +30,17 @@ describe('Virtual Scroll Tests', () => {
         }
 
         // Employee's department
-        for (i = 0; i < 4; i++) {
+        for (let i = 0; i < 4; i++) {
             expect(await page.getDepartmentText(i)).toBe('(Department_' + i + ')');
         }
 
         // Employee's email
-        for (i = 0; i < 4; i++) {
+        for (let i = 0; i < 4; i++) {
             expect(await page.getEmailText(i)).toBe('employee.' + i + '@business.com');
         }
 
         // Employee's ID
-        for (i = 0; i < 4; i++) {
+        for (let i = 0; i < 4; i++) {
             expect(await page.getEmployeeIDNumber(i)).toBe(i.toString());
         }
 

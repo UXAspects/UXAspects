@@ -13,12 +13,14 @@ export class ReorderableGroupPage {
         await browser.get('#/reorderable-group');
     }
 
-    async getObjects1(): Promise<string[]> {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    async getObjects1(): Promise<any[]> {
         const json = await this.json1.getText();
         return JSON.parse(json);
     }
 
-    async getObjects2(): Promise<string[]> {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    async getObjects2(): Promise<any[]> {
         const json = await this.json2.getText();
         return JSON.parse(json);
     }
