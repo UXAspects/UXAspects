@@ -20,7 +20,8 @@ export namespace SearchBuilderPage {
         setInvalidQueryBtn = $('#set-invalid-query');
         validity = $('#validity');
 
-        async getQueryObject(): Promise<string> {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        async getQueryObject(): Promise<any> {
             return JSON.parse(await this.query.getText());
         }
 
