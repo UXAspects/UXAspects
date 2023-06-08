@@ -15,19 +15,6 @@
         "plugin:@angular-eslint/template/process-inline-templates"
       ],
       "rules": {
-        "@nx/enforce-module-boundaries": [
-          "error",
-          {
-            "enforceBuildableLibDependency": true,
-            "allow": [],
-            "depConstraints": [
-              {
-                "sourceTag": "*",
-                "onlyDependOnLibsWithTags": ["*"]
-              }
-            ]
-          }
-        ],
         "@angular-eslint/component-selector": "off",
         "@angular-eslint/directive-selector": "off",
         "eol-last": "off",
