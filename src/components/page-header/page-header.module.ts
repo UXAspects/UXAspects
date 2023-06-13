@@ -1,6 +1,7 @@
 import { A11yModule } from '@angular/cdk/a11y';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { AccessibilityModule } from '../../directives/accessibility/index';
 import { ResizeModule } from '../../directives/resize/index';
 import { ColorServiceModule } from '../../services/color/index';
@@ -27,6 +28,7 @@ import { PageHeaderComponent } from './page-header.component';
         MenuModule,
         ResizeModule,
         TabsetModule,
+        RouterModule
     ],
     exports: [PageHeaderComponent, PageHeaderCustomMenuDirective],
     declarations: [
