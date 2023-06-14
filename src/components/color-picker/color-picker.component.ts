@@ -1,4 +1,4 @@
-import { Component, EventEmitter, HostBinding, HostListener, Input, OnDestroy, OnInit, Output, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { Component, EventEmitter, HostBinding, HostListener, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { NgModel } from '@angular/forms';
 import { BehaviorSubject, Subject, combineLatest } from 'rxjs';
 import { pairwise, takeUntil } from 'rxjs/operators';
@@ -136,7 +136,6 @@ export class ColorPickerComponent implements OnInit, OnDestroy {
 
     /** Access the ngModel instance of the input field */
     @ViewChild('inputField', { static: false }) inputFormControl: NgModel;
-    @ViewChildren('colorPickerColor') colorButtons: QueryList<unknown>;
     @ViewChild(TabbableListDirective) tabbableList: TabbableListDirective;
 
     private readonly _onDestroy = new Subject();

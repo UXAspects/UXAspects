@@ -292,8 +292,7 @@ export class NestedDonutChartComponent implements OnInit, OnChanges, OnDestroy {
      * from the color set or a ThemeColor object. We return this as a rgba color to
      * support the alpha channel
      */
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    private getColor(color: string | any): string {
+    private getColor(color: string | ThemeColor): string {
         return ThemeColor.isInstanceOf(color) ? (color as ThemeColor).toRgba() : this._colorService.resolve(color as string);
     }
 
