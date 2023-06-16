@@ -12,7 +12,7 @@ export class TeamPageComponent {
 
     data: ITeam;
 
-    constructor(private _appConfig: AppConfiguration) {
+    constructor(private readonly _appConfig: AppConfiguration) {
         this.data = this._appConfig.getConfigurationData('team-page');
     }
 

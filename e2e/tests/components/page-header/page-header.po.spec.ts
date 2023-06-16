@@ -19,7 +19,7 @@ export class PageHeaderPage {
 
     confirmClassExists(item: ElementFinder, soughtClass: string) {
         return item.getAttribute('class').then(function (classes: string) {
-            var allClasses = classes.split(' ');
+            const allClasses = classes.split(' ');
             if (allClasses.indexOf(soughtClass) > -1) {
                 return true;
             } else {

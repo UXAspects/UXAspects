@@ -7,7 +7,7 @@ import { PlaygroundService } from '../playground/playground.service';
 })
 export class EditExampleService {
 
-    constructor(private _playgroundService: PlaygroundService) { }
+    constructor(private readonly _playgroundService: PlaygroundService) { }
 
     launchEditor(title: string, content: IPlayground) {
         content.framework = content.framework ?? 'angular';

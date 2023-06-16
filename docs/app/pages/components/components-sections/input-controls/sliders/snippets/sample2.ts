@@ -1,4 +1,4 @@
-value: SliderValue = {
+SliderValue = {
     low: 25,
     high: 75
 };

@@ -19,7 +19,7 @@ export class SearchBuilderGroupComponent implements OnInit, OnDestroy {
   @Input() header: string;
   @Input() operator: SearchBuilderGroupOperator = 'and';
   @Input() addText: string = 'Add a field';
-  @Input() placeholder: TemplateRef<any>;
+  @Input() placeholder: TemplateRef<void>;
   @Input() showPlaceholder: boolean = false;
   @Input() removeFieldButtonAriaLabel: string = 'Remove field';
 

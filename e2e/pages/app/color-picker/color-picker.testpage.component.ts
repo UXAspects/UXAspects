@@ -18,7 +18,7 @@ export class ColorPickerTestPageComponent {
     showTooltips = false;
     showInput = false;
 
-    private _colorNames = [
+    private readonly _colorNames = [
         [
             'Primary',
             'Accent',

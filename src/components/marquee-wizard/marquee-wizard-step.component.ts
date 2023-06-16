@@ -7,7 +7,7 @@ import { MarqueeWizardStepIconDirective } from './marquee-wizard-step-icon.direc
     templateUrl: './marquee-wizard-step.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MarqueeWizardStepComponent<TContext = any> extends WizardStepComponent {
+export class MarqueeWizardStepComponent<TContext = unknown> extends WizardStepComponent {
 
     /** Define additional data that will be available within the stepTemplate context */
     @Input() context: TContext;

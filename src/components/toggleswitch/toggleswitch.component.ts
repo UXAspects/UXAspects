@@ -66,10 +66,12 @@ export class ToggleSwitchComponent implements ControlValueAccessor, FocusableCon
     _focused: boolean = false;
 
     /** Used to inform Angular forms that the component has been touched */
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     onTouchedCallback: () => void = () => { };
 
     /** Used to inform Angular forms that the component value has changed */
-    onChangeCallback: (_: any) => void = () => { };
+    // eslint-disable-next-line @typescript-eslint/no-empty-function, @typescript-eslint/no-explicit-any
+    onChangeCallback: (_: unknown) => void = () => { };
 
     toggle(): void {
         if (!this.disabled && this.clickable) {
@@ -91,11 +93,13 @@ export class ToggleSwitchComponent implements ControlValueAccessor, FocusableCon
         this._changeDetector.markForCheck();
     }
 
-    registerOnChange(fn: any): void {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    registerOnChange(fn: () => void): void {
         this.onChangeCallback = fn;
     }
 
-    registerOnTouched(fn: any): void {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    registerOnTouched(fn: () => void): void {
         this.onTouchedCallback = fn;
     }
 

@@ -4,7 +4,7 @@ import { ColumnResizingExpandingPage } from './column-resizing-expanding.po.spec
 
 describe('Column Resizing Expanding Table Tests', () => {
 
-    let page: ColumnResizingExpandingPage = new ColumnResizingExpandingPage();
+    const page: ColumnResizingExpandingPage = new ColumnResizingExpandingPage();
 
     beforeEach(async () => {
         await page.getPage();

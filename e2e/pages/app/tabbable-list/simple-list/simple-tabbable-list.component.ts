@@ -25,7 +25,7 @@ export class SimpleTabbableListComponent {
     /** Determine if we should focus on show */
     focusOnShow: boolean = false;
 
-    constructor(private _changeDetector: ChangeDetectorRef) {
+    constructor(private readonly _changeDetector: ChangeDetectorRef) {
         // populate the list of items
         for (let idx = 0; idx < 5; idx++) {
             this.data = [...this.data, { id: idx, name: `Document ${idx}`, author: `Author ${idx}`, date: new Date(2019, 8, 12) }];

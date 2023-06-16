@@ -1,7 +1,7 @@
 /**
  * The API available to option templates.
  */
-export interface TypeaheadOptionApi<T = any> {
+export interface TypeaheadOptionApi<T = unknown> {
     /**
      * Returns the unique key value of the given option.
      */

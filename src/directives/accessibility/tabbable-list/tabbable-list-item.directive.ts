@@ -48,6 +48,7 @@ export class TabbableListItemDirective implements FocusableOption, OnDestroy {
     @Input() expanded: boolean = false;
 
     /** Provide a unique key to help identify items when used in a virtual list */
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     @Input() set key(key: any) {
 
         // store the previous key
@@ -79,6 +80,7 @@ export class TabbableListItemDirective implements FocusableOption, OnDestroy {
         }
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     get key(): any {
         return this._key || this._defaultKey;
     }
@@ -112,6 +114,7 @@ export class TabbableListItemDirective implements FocusableOption, OnDestroy {
     private readonly _focusIndicator: FocusIndicator;
 
     /** Store the current key - it may change in a ngFor/uxVirtualFor if the cell is reused. */
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     private _key: any;
 
     /** Store a default key to use if one is not provided */

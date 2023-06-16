@@ -18,7 +18,7 @@ export class ManagedFocusContainerService {
      * @param element The element containing focusable descendants.
      * @param component The component requesting the managed focus container.
      */
-    register(element: HTMLElement, component: any): void {
+    register(element: HTMLElement, component: unknown): void {
 
         // Only create a new instance if no other component has created a container on the same element
         let containerRef = this._containers.find(ref => ref.container.element.isEqualNode(element));
@@ -42,7 +42,7 @@ export class ManagedFocusContainerService {
      * @param element The element containing focusable descendants.
      * @param component The component requesting the managed focus container.
      */
-    unregister(element: HTMLElement, component: any): void {
+    unregister(element: HTMLElement, component: unknown): void {
 
         // Remove the container's reference to the source component
         const containerRef = this._containers.find(ref => ref.container.element.isEqualNode(element));
@@ -174,15 +174,15 @@ interface ManagedFocusElementInfo {
 
 class ManagedFocusContainerWithReferences {
 
-    private _components: any[] = [];
+    private _components: unknown[] = [];
 
     constructor(public container: ManagedFocusContainer) { }
 
-    addReference(component: any): void {
+    addReference(component: unknown): void {
         this._components.push(component);
     }
 
-    removeReference(component: any): void {
+    removeReference(component: unknown): void {
         this._components = this._components.filter(c => c !== component);
     }
 

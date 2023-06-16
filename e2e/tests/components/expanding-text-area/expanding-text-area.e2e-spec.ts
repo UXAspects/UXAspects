@@ -3,7 +3,7 @@ import { ExpandingTextAreaPage } from './expanding-text-area.po.spec';
 
 describe('Expanding Text Area Tests', () => {
 
-    let page: ExpandingTextAreaPage = new ExpandingTextAreaPage();
+    const page: ExpandingTextAreaPage = new ExpandingTextAreaPage();
 
     beforeAll(async () => {
         await page.getPage();

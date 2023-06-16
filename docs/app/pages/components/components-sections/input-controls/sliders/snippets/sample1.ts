@@ -1,1 +1,1 @@
-value: number = 50;
+number = 50;

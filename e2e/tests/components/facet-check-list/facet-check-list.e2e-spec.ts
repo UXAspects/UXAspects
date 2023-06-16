@@ -3,7 +3,7 @@ import { FacetCheckListPage } from './facet-check-list.po.spec';
 
 describe('FacetCheckListPage Tests', () => {
 
-    let page: FacetCheckListPage = new FacetCheckListPage();
+    const page: FacetCheckListPage = new FacetCheckListPage();
 
     beforeAll(async () => {
         await page.getPage();

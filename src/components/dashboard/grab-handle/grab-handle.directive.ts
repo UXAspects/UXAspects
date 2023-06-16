@@ -1,6 +1,6 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { DOWN_ARROW, ENTER, ESCAPE, LEFT_ARROW, RIGHT_ARROW, SPACE, UP_ARROW } from '@angular/cdk/keycodes';
-import { Directive, ElementRef, HostBinding, HostListener, inject, Input, OnDestroy, OnInit } from '@angular/core';
+import { Directive, ElementRef, HostBinding, HostListener, Input, OnDestroy, OnInit, inject } from '@angular/core';
 import { Subject } from 'rxjs';
 import { map, takeUntil } from 'rxjs/operators';
 import { ActionDirection, DashboardCache, DashboardService } from '../dashboard.service';
@@ -199,6 +199,7 @@ export class DashboardGrabHandleDirective implements OnInit, OnDestroy {
     }
 
     /** Get an announcement from the inputs - they may be a string or a function so handle both */
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     getAnnouncement(announcement: Function | string, ...args: any[]): string {
         return typeof announcement === 'function' ? announcement(this.widget, ...args) : announcement;
     }

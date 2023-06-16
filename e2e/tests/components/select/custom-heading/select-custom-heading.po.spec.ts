@@ -1,4 +1,4 @@
-import { browser, by, element, ElementFinder, promise } from 'protractor';
+import { browser, by, element, ElementFinder } from 'protractor';
 
 export class SelectCustomHeadingPage {
 
@@ -7,6 +7,7 @@ export class SelectCustomHeadingPage {
     recentOptionsHeading = element(by.id('recent-options-heading'));
     checkboxRecentOptions = element(by.id('recent-options-checkbox'));
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     async getPage(): Promise<any> {
         await browser.get('#/select/custom-heading');
     }

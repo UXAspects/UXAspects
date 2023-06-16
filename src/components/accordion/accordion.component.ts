@@ -12,7 +12,7 @@ import { AccordionService } from './accordion.service';
 })
 export class AccordionComponent {
 
-    private _accordion = inject(AccordionService);
+    private readonly _accordion = inject(AccordionService);
 
     @Input() set collapseOthers(collapseOthers: boolean) {
         this._accordion.collapseOthers = collapseOthers;

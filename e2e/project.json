@@ -1,0 +1,77 @@
+{
+  "name": "ux-aspects-e2e",
+  "$schema": "../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "e2e",
+  "prefix": "app",
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:browser",
+      "options": {
+        "outputPath": "dist/e2e",
+        "index": "e2e/pages/index.html",
+        "main": "e2e/pages/main.ts",
+        "polyfills": ["zone.js"],
+        "tsConfig": "e2e/tsconfig.app.json",
+        "inlineStyleLanguage": "css",
+        "assets": [
+          {
+            "glob": "**/*",
+            "input": "e2e/pages/assets",
+            "output": "/assets"
+          }
+        ],
+        "styles": [
+          "node_modules/source-sans-pro/source-sans-pro.css",
+          "node_modules/bootstrap/dist/css/bootstrap.min.css",
+          "src/styles/ux-aspects.less",
+          "e2e/pages/styles.css"
+        ],
+        "scripts": []
+      },
+      "configurations": {
+        "production": {
+          "budgets": [],
+          "fileReplacements": [],
+          "outputHashing": "all"
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "configurations": {
+        "production": {
+          "browserTarget": "ux-aspects-e2e:build:production",
+          "port": 4000
+        },
+        "development": {
+          "browserTarget": "ux-aspects-e2e:build:development",
+          "port": 4000
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "e2e": {
+      "executor": "@angular-devkit/build-angular:protractor",
+      "options": {
+        "protractorConfig": "protractor.conf.js",
+        "webdriverUpdate": false
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["e2e/**/*.ts", "e2e/**/*.html"]
+      }
+    }
+  }
+}

@@ -19,7 +19,7 @@ export const RADIO_GROUP_CONTROL_VALUE_ACCESSOR: ExistingProvider = {
         'role': 'radiogroup'
     }
 })
-export class RadioButtonGroupDirective<T = any> implements ControlValueAccessor, AfterContentInit, OnDestroy  {
+export class RadioButtonGroupDirective<T = unknown> implements ControlValueAccessor, AfterContentInit, OnDestroy  {
     private readonly _changeDetector = inject(ChangeDetectorRef);
 
     /** Define the current selected value within the group */
@@ -37,9 +37,11 @@ export class RadioButtonGroupDirective<T = any> implements ControlValueAccessor,
     @Output() valueChange = new EventEmitter<T>();
 
     /** Used to inform Angular forms that the component has been touched */
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     onTouched: () => void = () => {};
 
     /** Used to inform Angular forms that the component value has changed */
+    // eslint-disable-next-line @typescript-eslint/no-empty-function, @typescript-eslint/no-explicit-any
     onChange: (value: any) => void = () => {};
 
     @ContentChildren(forwardRef(() => RadioButtonComponent), { descendants: true }) _radioButtons: QueryList<RadioButtonComponent>;
@@ -64,6 +66,7 @@ export class RadioButtonGroupDirective<T = any> implements ControlValueAccessor,
     }
 
     /** Allow Angular forms for provide us with a callback for when the input value changes */
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     registerOnChange(fn: (value: any) => void): void {
         this.onChange = fn;
     }
@@ -74,6 +77,7 @@ export class RadioButtonGroupDirective<T = any> implements ControlValueAccessor,
     }
 
     /** Allow Angular forms to give us the current value */
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     writeValue(value: any): void {
         this.value = value;
         this._changeDetector.markForCheck();

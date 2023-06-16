@@ -21,6 +21,6 @@ export interface Breadcrumb {
     title: string;
     routerLink?: string;
     fragment?: string;
-    queryParams?: any;
+    queryParams?: unknown;
     onClick?: (event: MouseEvent) => void;
 }

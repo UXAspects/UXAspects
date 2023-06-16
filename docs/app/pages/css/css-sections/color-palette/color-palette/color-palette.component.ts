@@ -38,6 +38,6 @@ export class CssColorPaletteComponent {
         critical: this._colorService.getColor('critical'),
     };
 
-    constructor(private _colorService: ColorService) { }
+    constructor(private readonly _colorService: ColorService) { }
 
 }

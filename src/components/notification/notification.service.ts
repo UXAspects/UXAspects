@@ -43,7 +43,7 @@ export class NotificationService {
      * @param options - The properties to configure the notification.
      * @param context - The context passed to the notification TemplateRef. This can be accessed by adding a let-data="data" to the ng-template element.
      */
-    show(templateRef: TemplateRef<any>, options: NotificationOptions = this.options, context: { [key: string]: any } = {}): NotificationRef {
+    show(templateRef: TemplateRef<void>, options: NotificationOptions = this.options, context: { [key: string]: unknown } = {}): NotificationRef {
 
         // populate the specified options with the default values for any missing properties
         options = { ...this.options, ...options };
@@ -112,13 +112,13 @@ export class NotificationService {
 
 export interface NotificationRef extends NotificationOptions {
     /** The content to display in the notification */
-    templateRef: TemplateRef<any>;
+    templateRef: TemplateRef<void>;
     /** The datestamp to display in the notification */
     date: Date;
     /** Indicated whether or not the notification has been dismissed or not */
     visible?: boolean;
     /** Additional data passed as template context to the notification */
-    data: { [key: string]: any };
+    data: { [key: string]: unknown };
 }
 
 export interface NotificationOptions {

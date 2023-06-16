@@ -38,7 +38,7 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
 
     private readonly _changeDetector = inject(ChangeDetectorRef);
 
-    private readonly _document = inject<any>(DOCUMENT);
+    private readonly _document = inject<Document>(DOCUMENT);
 
     /** A unique id for the component. */
     @Input() @HostBinding('attr.id') id: string = `ux-select-${++uniqueId}`;
@@ -245,7 +245,9 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
     private _userInput: boolean = false;
     private _filterDebounceTime: number = 200;
     private _autoCloseDropdown: boolean = true;
+    // eslint-disable-next-line @typescript-eslint/no-empty-function, @typescript-eslint/no-unused-vars
     private _onChange = (_: T | ReadonlyArray<T>) => { };
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     private _onTouched = () => { };
     private readonly _onDestroy = new Subject<void>();
 
@@ -423,7 +425,7 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
     /**
      * Returns the display value of the given option.
      */
-    getDisplay(option: any): string {
+    getDisplay(option: T | readonly T[]): string {
 
         if (option === null || option === undefined) {
             return '';
@@ -433,6 +435,7 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
             return this.display(option as T);
         }
 
+        // eslint-disable-next-line no-prototype-builtins
         if (typeof this.display === 'string' && typeof option === 'object' && option.hasOwnProperty(this.display)) {
             return option[this.display];
         }

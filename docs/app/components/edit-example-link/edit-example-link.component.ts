@@ -17,7 +17,7 @@ export class EditExampleLinkComponent {
     @Input() content: IPlayground;
     @Input() version: 'Angular' | 'AngularJS' = 'Angular';
 
-    constructor(private editExampleService: EditExampleService) { }
+    constructor(private readonly editExampleService: EditExampleService) { }
 
     linkClick(event: MouseEvent) {
         const target = event.target as HTMLElement;

@@ -59,7 +59,7 @@ export class ResizableExpandingTableService extends BaseResizableTableService {
         // do the resizing
         this._columns.forEach((column, idx) => {
             if (!column.disabled) {
-                this.resizeColumn(idx, 0, false);
+                this.resizeColumn(idx, 0);
             }
         });
 
@@ -136,7 +136,7 @@ export class ResizableExpandingTableService extends BaseResizableTableService {
     }
 
     /** Resize a column by a specific pixel amount */
-    resizeColumn(index: number, delta: number, isDragging: boolean = true): void {
+    resizeColumn(index: number, delta: number): void {
 
         // get the sibling column that will also be resized
         const sibling = this.getSiblingColumn(index);

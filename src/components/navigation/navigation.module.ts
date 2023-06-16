@@ -1,15 +1,15 @@
 import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { AccessibilityModule } from '../../directives/accessibility/index';
-import { RouterLinkDirective } from '../../directives/router-link/index';
 import { IconModule } from '../icon/index';
 import { NavigationItemComponent } from './navigation-item/navigation-item.component';
 import { NavigationLinkDirective } from './navigation-link/navigation-link.directive';
-import { NavigationModuleOptions, NAVIGATION_MODULE_OPTIONS } from './navigation-options';
+import { NAVIGATION_MODULE_OPTIONS, NavigationModuleOptions } from './navigation-options';
 import { NavigationComponent } from './navigation.component';
 
 @NgModule({
-    imports: [AccessibilityModule, CommonModule, IconModule, RouterLinkDirective],
+    imports: [AccessibilityModule, CommonModule, IconModule, RouterModule],
     exports: [NavigationComponent, NavigationItemComponent],
     declarations: [NavigationComponent, NavigationItemComponent, NavigationLinkDirective],
 })

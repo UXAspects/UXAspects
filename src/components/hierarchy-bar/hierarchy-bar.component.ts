@@ -34,12 +34,12 @@ export class HierarchyBarComponent implements IHierachyBarComponent, OnDestroy {
     }
 
     /** Provide a custom loading indicator */
-    @Input() set loadingIndicator(loadingIndicator: TemplateRef<any>) {
+    @Input() set loadingIndicator(loadingIndicator: TemplateRef<void>) {
         this._hierarchyBar.loadingIndicator = loadingIndicator;
     }
 
     /** Provide a custom overflow template */
-    @Input() set overflowTemplate(overflowTemplate: TemplateRef<any>) {
+    @Input() set overflowTemplate(overflowTemplate: TemplateRef<void>) {
         this._hierarchyBar.overflowTemplate = overflowTemplate;
     }
 

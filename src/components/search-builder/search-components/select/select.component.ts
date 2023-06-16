@@ -51,6 +51,7 @@ export class SearchSelectComponent extends BaseSearchComponent {
 }
 
 export interface SearchSelectConfig extends BaseSearchComponentConfig {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   options?: any[] | InfiniteScrollLoadFunction;
   multiple?: boolean;
   dropDirection?: 'up' | 'down';

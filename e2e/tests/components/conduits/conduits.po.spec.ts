@@ -77,6 +77,7 @@ export class ConduitsPage {
                 if (target === Zone.Three) {
                     return await this.zone1AcceptsInput3.click();
                 }
+                break;
 
             case Zone.Two:
                 if (target === Zone.One) {
@@ -86,6 +87,7 @@ export class ConduitsPage {
                 if (target === Zone.Three) {
                     return await this.zone1AcceptsInput3.click();
                 }
+                break;
 
             case Zone.Three:
                 if (target === Zone.One) {
@@ -95,6 +97,7 @@ export class ConduitsPage {
                 if (target === Zone.Two) {
                     return await this.zone3AcceptsInput2.click();
                 }
+                break;
         }
     }
 

@@ -1,12 +1,8 @@
-import { CustomWebpackBrowserSchema, TargetOptions } from '@angular-builders/custom-webpack';
 import * as webpack from 'webpack';
+// eslint-disable-next-line @nx/enforce-module-boundaries
 import * as pkg from '../src/package.json';
 
-export default (
-    config: webpack.Configuration,
-    options: CustomWebpackBrowserSchema,
-    targetOptions: TargetOptions
-) => {
+export default function (config: webpack.Configuration, targetOptions: { configuration?: string }) {
     // Add NodeJS fallbacks
     config.resolve ??= {};
     config.resolve.fallback = {
@@ -79,4 +75,4 @@ export default (
     );
 
     return config;
-};
+}

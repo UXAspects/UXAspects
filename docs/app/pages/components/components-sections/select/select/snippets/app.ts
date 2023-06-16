@@ -29,7 +29,7 @@ export class AppComponent implements OnInit, OnDestroy {
     listboxAriaLabel: string = 'Select listbox';
 
     private _pageSize = 20;
-    private _onDestroy = new Subject<void>();
+    private readonly _onDestroy = new Subject<void>();
 
     get pageSize() {
         return this._pageSize;
@@ -99,7 +99,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
     loadOptions(pageNum: number, pageSize: number, filter: any): Promise<any[]> {
         // Return a promise using setTimeout to simulate an HTTP request.
-        let promise = new Promise<any[]>((resolve, reject) => {
+        const promise = new Promise<any[]>((resolve, reject) => {
             setTimeout(() => {
                 const pageStart = pageNum * pageSize;
                 const newItems = this.selectedDataSet()

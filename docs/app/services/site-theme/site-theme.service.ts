@@ -13,8 +13,8 @@ export class SiteThemeService {
     theme$ = new BehaviorSubject<SiteThemeId>(SiteThemeId.Keppel);
 
     constructor(
-        @Inject(DOCUMENT) private _document: Document,
-        private _persistentDataService: PersistentDataService
+        @Inject(DOCUMENT) private readonly _document: Document,
+        private readonly _persistentDataService: PersistentDataService
     ) {
     }
 

@@ -6,8 +6,8 @@ import { Component } from '@angular/core';
 })
 export class TimelineTestPageComponent {
 
-    private _now = Date.now();
-    private _dayInMilliSeconds = 24 * 60 * 60 * 1000;
+    private readonly _now = Date.now();
+    private readonly _dayInMilliSeconds = 24 * 60 * 60 * 1000;
     private _daysAfterFirstEvent = 3;
 
     events: TimelineEvent[] = [{
@@ -40,7 +40,7 @@ export class TimelineTestPageComponent {
         assignee: 'Ellen Obrien'
     }];
 
-    private _events = [...this.events];
+    private readonly _events = [...this.events];
 
     addEvent(): void {
         this._daysAfterFirstEvent++;

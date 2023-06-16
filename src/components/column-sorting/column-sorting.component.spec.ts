@@ -145,7 +145,7 @@ describe('Column Sorting Component', () => {
 
 export class ColumnSortingTestHarness {
 
-    private _component = this._fixture.componentInstance;
+    private readonly _component = this._fixture.componentInstance;
 
     orderChangeSpy = spyOn(this._component.orderChange, 'emit');
     stateChangeSpy = spyOn(this._component.stateChange, 'emit');

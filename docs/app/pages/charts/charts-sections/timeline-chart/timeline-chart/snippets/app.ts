@@ -27,7 +27,7 @@ export class AppComponent {
     timelineChartData: ChartDataset<'line'>[];
     timelineChartOptions: ChartOptions & TimelineChartOptions;
 
-    constructor(private _dataService: TimelineChartService, private _colorService: ColorService) {
+    constructor(private readonly _dataService: TimelineChartService, private readonly _colorService: ColorService) {
 
         this.lineChartData = [{
             data: this._dataService.getDataset() as ScatterDataPoint[],

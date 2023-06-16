@@ -67,17 +67,21 @@ export class PageHeaderTestComponent {
         },
         {
             title: 'Archive',
+            // eslint-disable-next-line @typescript-eslint/no-empty-function
             onClick: () => {}
         },
         {
             title: 'Page',
             routerLink: 'page',
+            // eslint-disable-next-line @typescript-eslint/no-empty-function
             onClick: () => {}
         }
     ];
 
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     onLogoClick(): void {}
 
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     onBackClick(): void {}
 }
 

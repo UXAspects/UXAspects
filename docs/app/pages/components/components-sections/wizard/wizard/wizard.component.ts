@@ -52,7 +52,7 @@ export class ComponentsWizardComponent
         ],
     };
 
-    constructor(private _announcer: LiveAnnouncer) {
+    constructor(private readonly _announcer: LiveAnnouncer) {
         super(
             import.meta.webpackContext('./snippets/', {
                 recursive: false,

@@ -184,6 +184,7 @@ export class RadioButtonValueTestComponent {
     simplified: boolean = false;
     clickable: boolean = true;
 
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     onButtonClick(): void {}
 }
 
@@ -323,6 +324,7 @@ export class RadioButtonTestValueGroupComponent {
     simplified: boolean = false;
     clickable: boolean = true;
 
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     onButtonClick(): void {}
 
 }
@@ -466,6 +468,7 @@ export class RadioButtonTestNgModelComponent {
     simplified: boolean = false;
     clickable: boolean = true;
 
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     onButtonClick(): void {}
 
 }
@@ -606,6 +609,7 @@ export class RadioButtonTestNgModelGroupComponent {
     simplified: boolean = false;
     clickable: boolean = true;
 
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     onButtonClick(): void {}
 
 }
@@ -722,6 +726,7 @@ export class RadioButtonTestReactiveFormComponent {
     simplified: boolean = false;
     clickable: boolean = true;
 
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     onButtonClick(): void {}
 }
 

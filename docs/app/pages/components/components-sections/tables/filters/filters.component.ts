@@ -182,7 +182,7 @@ export class ComponentsFiltersComponent
         ],
     };
 
-    constructor(private _announcer: LiveAnnouncer) {
+    constructor(private readonly _announcer: LiveAnnouncer) {
         super(
             import.meta.webpackContext('./snippets/', {
                 recursive: false,
@@ -205,7 +205,7 @@ export class ComponentsFiltersComponent
 
         // announce the deselection of all filters
         if (event instanceof FilterRemoveAllEvent) {
-            this._announcer.announce(`All filters deselected.`);
+            this._announcer.announce('All filters deselected.');
         }
     }
 

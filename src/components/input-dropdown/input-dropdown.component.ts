@@ -33,7 +33,7 @@ export class InputDropdownComponent<T> implements ControlValueAccessor, AfterVie
     @Input() hideFilter: boolean;
 
     /** Define the max height of the dropdown */
-    @Input() set maxHeight(value: string | any) {
+    @Input() set maxHeight(value: string | number) {
         this._maxHeight = coerceCssPixelValue(value);
     }
 
@@ -86,9 +86,11 @@ export class InputDropdownComponent<T> implements ControlValueAccessor, AfterVie
     _filterButtonAriaLabel: string = this.searchFilterButtonAriaLabel;
 
     /** Store the change callback provided by Angular Forms */
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     onChange: (_: T) => void = () => { };
 
     /** Store the touched callback provided by Angular Forms */
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     onTouched: () => void = () => { };
 
     /** Unsubscribe from all observables on component destroy */

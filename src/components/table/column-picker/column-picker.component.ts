@@ -198,12 +198,12 @@ export class ColumnPickerComponent implements OnChanges {
     }
 
     /** Get an aria label for deselected list groups */
-    private getDefaultDeselectedGroupAriaLabel(column: string, isExpanded: boolean): string {
+    private getDefaultDeselectedGroupAriaLabel(column: string): string {
         return `Toggle ${column}`;
     }
 
     /** Get an aria label for reorderable items */
-    private getDefaultSelectedAriaLabel(column: string, index: number): string {
+    private getDefaultSelectedAriaLabel(column: string): string {
         return `${column}. Press Alt up and alt down to reorder.`;
     }
 

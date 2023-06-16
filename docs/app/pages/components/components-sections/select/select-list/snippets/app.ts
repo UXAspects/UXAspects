@@ -13,7 +13,7 @@ export class AppComponent {
     authors: string[] = [];
     query: string = '';
 
-    private _authors: string[] = [];
+    private readonly _authors: string[] = [];
 
     constructor() {
         // create some dummy list items

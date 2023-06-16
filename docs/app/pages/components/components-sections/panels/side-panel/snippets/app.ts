@@ -19,7 +19,7 @@ export class AppComponent {
     closeOnExternalClick = false;
     closeOnEscape = true;
 
-    constructor(private _liveAnnouncer: LiveAnnouncer) { }
+    constructor(private readonly _liveAnnouncer: LiveAnnouncer) { }
 
     announce(isOpen: boolean): void {
         this._liveAnnouncer.announce(`Side panel ${ isOpen ? 'opened' : 'closed' }.`, 'assertive');

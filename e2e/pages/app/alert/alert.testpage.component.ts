@@ -3,10 +3,10 @@ import { Component } from '@angular/core';
 @Component({
     selector: 'app-alert',
     templateUrl: 'alert.testpage.component.html',
-    styles: [`ux-alert { margin-bottom: 4px; }`]
+    styles: ['ux-alert { margin-bottom: 4px; }']
 })
 export class AlertTestPageComponent {
-    private _alerts: ReadonlyArray<AlertExample> = [
+    private readonly _alerts: ReadonlyArray<AlertExample> = [
         {
             id: 'info',
             type: 'info',

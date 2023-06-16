@@ -25,22 +25,22 @@ describe('Virtual Scroll Tests', () => {
     it('should display the correct employee details', async () => {
 
         // Employee's name
-        for (var i = 0; i < 4; i++) {
+        for (let i = 0; i < 4; i++) {
             expect(await page.getEmployeeText(i)).toBe('Employee_' + i);
         }
 
         // Employee's department
-        for (i = 0; i < 4; i++) {
+        for (let i = 0; i < 4; i++) {
             expect(await page.getDepartmentText(i)).toBe('(Department_' + i + ')');
         }
 
         // Employee's email
-        for (i = 0; i < 4; i++) {
+        for (let i = 0; i < 4; i++) {
             expect(await page.getEmailText(i)).toBe('employee.' + i + '@business.com');
         }
 
         // Employee's ID
-        for (i = 0; i < 4; i++) {
+        for (let i = 0; i < 4; i++) {
             expect(await page.getEmployeeIDNumber(i)).toBe(i.toString());
         }
 
@@ -93,7 +93,7 @@ describe('Virtual Scroll Tests', () => {
 
         // Button visible when not all employees are on the list
         await page.clickOnLoadOnScroll();
-        for (var i = 0; i < 9; i++) {
+        for (let i = 0; i < 9; i++) {
             await page.scrollToEnd();
             expect(await page.confirmLoadMoreIsVisible()).toBeTruthy();
             await page.loadMoreButton.click();

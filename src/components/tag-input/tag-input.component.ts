@@ -1,7 +1,7 @@
 import { BooleanInput, coerceBooleanProperty } from '@angular/cdk/coercion';
 import { BACKSPACE, DELETE, ENTER, LEFT_ARROW, RIGHT_ARROW, SPACE } from '@angular/cdk/keycodes';
 import { DOCUMENT } from '@angular/common';
-import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, ElementRef, EventEmitter, forwardRef, HostBinding, HostListener, inject, Input, OnChanges, OnDestroy, Output, QueryList, SimpleChanges, TemplateRef, ViewChild } from '@angular/core';
+import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, ElementRef, EventEmitter, HostBinding, HostListener, Input, OnChanges, OnDestroy, Output, QueryList, SimpleChanges, TemplateRef, ViewChild, forwardRef, inject } from '@angular/core';
 import { ControlValueAccessor, NG_VALIDATORS, NG_VALUE_ACCESSOR, ValidationErrors, Validator } from '@angular/forms';
 import { Subject, Subscription } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -35,6 +35,7 @@ const TAGINPUT_VALIDATOR = {
         '[class.invalid]': '!valid || !inputValid'
     }
 })
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, ControlValueAccessor, Validator, OnDestroy {
     private readonly _changeDetector = inject(ChangeDetectorRef);
 
@@ -42,7 +43,7 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
 
     private readonly _typeaheadKeyService = inject(TypeaheadKeyService);
 
-    private readonly _document = inject<any>(DOCUMENT);
+    private readonly _document = inject<Document>(DOCUMENT);
 
     /** Specify a unique Id for the component */
     @Input() @HostBinding('attr.id') id: string = `ux-tag-input-${ ++uniqueId }`;
@@ -156,6 +157,7 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
      * - `tagRangeError` - present if the number of tags is outside the range specified by minTags and maxTags.
      * - `inputPattern` - present if an input has been submitted which does not match the tagPattern.
      */
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     @Input() validationErrors: any = {};
 
     /** Defines the autocomplete property on the input field which can be used to prevent the browser from displaying autocomplete suggestions. */
@@ -167,10 +169,11 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
      * If `createTag` is not provided, then an object is created with the `displayProperty` set to the input.
      * If `displayProperty` is also not set, then the tag is created as a simple string.
      */
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     @Input('createTag') createTagHandler: (value: string) => any;
 
     /** Define a custom icon to be used instead of the chevron */
-    @Input() icon: TemplateRef<any>;
+    @Input() icon: TemplateRef<void>;
 
     /** Determine if we should show the clear all button */
     @Input() clearButton: boolean = false;
@@ -239,10 +242,10 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
     }
 
     _tags: ReadonlyArray<T> = [];
-    private _onChangeHandler: (_: any) => void = () => {
-    };
-    private _onTouchedHandler: () => void = () => {
-    };
+    // eslint-disable-next-line @typescript-eslint/no-empty-function, @typescript-eslint/no-explicit-any
+    private _onChangeHandler: (_: any) => void = () => {};
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    private _onTouchedHandler: () => void = () => {};
     private _subscription: Subscription;
     private readonly _onDestroy = new Subject<void>();
     private _autoCloseDropdown: boolean = true;
@@ -288,11 +291,11 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
         }
     }
 
-    registerOnChange(fn: any): void {
+    registerOnChange(fn: () => void): void {
         this._onChangeHandler = fn;
     }
 
-    registerOnTouched(fn: any): void {
+    registerOnTouched(fn: () => void): void {
         this._onTouchedHandler = fn;
     }
 
@@ -501,8 +504,10 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
             let input: string = null;
             if (event.clipboardData) {
                 input = event.clipboardData.getData('text/plain');
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
             } else if ((window as any).clipboardData) {
                 // Internet Explorer only
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 input = (window as any).clipboardData.getData('Text');
             }
 
@@ -618,6 +623,7 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
     /**
      * Returns a value to display for the given tag. Uses display function/property name if set, otherwise assumes that the tag is a simple string.
      */
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     getTagDisplay(tag: any): string {
         if (typeof this.display === 'function') {
             return this.display(tag);
@@ -666,7 +672,7 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
      */
     removeTagAt(tagIndex: number): void {
 
-        if (this.disabled || !this.canRemoveTagAt(tagIndex)) {
+        if (this.disabled || !this.canRemoveTagAt()) {
             return;
         }
 
@@ -693,7 +699,7 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
     /**
      * Returns true if the tag at the given index can be removed.
      */
-    canRemoveTagAt(tagIndex: number): boolean {
+    canRemoveTagAt(): boolean {
         return this._tags.length > this.minTags || !this.enforceTagLimits;
     }
 
@@ -843,6 +849,7 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
     private splitTagInput(input: string): string[] {
         let tagValues = [input];
         if (this.tagDelimiters && typeof this.tagDelimiters === 'string') {
+            // eslint-disable-next-line no-useless-escape
             const escapedDelimiters = this.tagDelimiters.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
             const delimiterRegex = new RegExp(`[${ escapedDelimiters }]`, 'g');
             tagValues = input.split(delimiterRegex).filter((s) => s.length > 0);
@@ -854,6 +861,7 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
 /**
  * The API available to tag templates.
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export interface TagApi<T = any> {
     /**
      * Returns the display value of the given tag, according to the displayProperty property.
@@ -874,10 +882,12 @@ export interface TagApi<T = any> {
 /**
  * The function used to return custom class information, for use in `ngClass`.
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type TagClassFunction<T = any> = (tag: T, index: number, selected: boolean) => (string | string[] | Set<string>);
 
 export type TagInputDisplayFunction<T> = (option: T) => string;
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export interface TagTemplateContext<T = string | any> {
     tag: T;
     index: number;

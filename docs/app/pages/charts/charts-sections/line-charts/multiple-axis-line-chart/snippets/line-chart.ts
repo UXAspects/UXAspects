@@ -18,7 +18,7 @@ export class AppComponent {
     lineChartOptions: ChartOptions<'line'>;
     lineChartPlugins: any;
 
-    constructor(private sanitizer: DomSanitizer, colorService: ColorService, dataService: MultipleAxisLineChartService) {
+    constructor(private readonly sanitizer: DomSanitizer, colorService: ColorService, dataService: MultipleAxisLineChartService) {
 
         const tooltipBackgroundColor = colorService.getColor('grey2').toHex();
         const gridColor = colorService.getColor('grey6').toHex();

@@ -52,7 +52,7 @@ export class ConduitZone implements OnDestroy {
     }
 
     /** Retrieve a conduit subsject object from the rxjs subject */
-    getConduitSubject(subject: Subject<any>): ConduitSubject | null {
+    getConduitSubject(subject: Subject<void>): ConduitSubject | null {
         return ConduitZone.subjects.find(_subject => _subject.conduit.subject === subject);
     }
 
@@ -62,7 +62,7 @@ export class ConduitZone implements OnDestroy {
     }
 
     /** Alter the properties of a conduit dynamically */
-    setConduitProperties(subject: Subject<any>, properties: Partial<ConduitProperties>): void {
+    setConduitProperties(subject: Subject<string>, properties: Partial<ConduitProperties>): void {
         // find the conduit with the matching subject
         const conduitSubject = this.getSubjects().find(
             _conduit => _conduit.conduit.subject === subject
@@ -78,12 +78,13 @@ export class ConduitZone implements OnDestroy {
     }
 
     /** Programmatically create a conduit at runtime */
-    createConduit(subject: Subject<any>, properties: ConduitProperties): void {
+    createConduit(subject: Subject<void>, properties: ConduitProperties): void {
         // register the conduit with the zone
         this.registerConduit({ ...properties, subject });
     }
 
     /** Register all conduits in a component */
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     registerConduits(component: any): void {
         if (Array.isArray(component._conduits)) {
             component._conduits.forEach((conduit: ConduitMetadata) =>
@@ -93,6 +94,7 @@ export class ConduitZone implements OnDestroy {
     }
 
     /** Register all conduits in a component */
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     unregisterConduits(component: any): void {
         if (Array.isArray(component._conduits)) {
             component._conduits.forEach((conduit: ConduitMetadata) =>

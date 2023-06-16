@@ -6,7 +6,7 @@
                 *ngIf="crumb.routerLink"
                 uxFocusIndicator
                 tabindex="0"
-                [uxRouterLink]="crumb.routerLink"
+                [routerLink]="crumb.routerLink"
                 [fragment]="crumb.fragment"
                 [queryParams]="crumb.queryParams"
                 (click)="clickCrumb($event, crumb)"

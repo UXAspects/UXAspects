@@ -39,7 +39,7 @@ export class SearchBuilderService {
   /**
    * Get a registered component class
    */
-  getComponent(name: string): any {
+  getComponent(name: string): SearchBuilderComponentDefinition {
 
     // find the component
     const component = this._components.find(cmp => cmp.name === name);

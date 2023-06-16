@@ -12,7 +12,7 @@ export class LandingPageComponent {
 
     landingPage: ILandingPage;
 
-    constructor(private _appConfig: AppConfiguration) {
+    constructor(private readonly _appConfig: AppConfiguration) {
 
         // load the landing page data file
         this.landingPage = this._appConfig.getConfigurationData('landing-page');

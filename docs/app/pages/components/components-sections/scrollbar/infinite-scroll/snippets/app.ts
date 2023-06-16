@@ -27,7 +27,7 @@ export class AppComponent {
 
     load(pageNum: number, pageSize: number, filter: any): Promise<any[]> {
         this._liveAnnouncer.announce('Loading more items at the end of the list, please wait.');
-        let promise = new Promise<any[]>((resolve, reject) => {
+        const promise = new Promise<any[]>((resolve, reject) => {
             setTimeout(() => {
                 const pageStart = pageNum * pageSize;
                 const newItems = this.allEmployees
@@ -46,7 +46,7 @@ export class AppComponent {
         return (e.name.toLowerCase().indexOf(normalisedFilter) >= 0);
     }
 
-    constructor(private _liveAnnouncer: LiveAnnouncer) {
+    constructor(private readonly _liveAnnouncer: LiveAnnouncer) {
         for (let i = 0; i < 111; i += 1) {
             const name = chance.name();
             this.allEmployees.push({

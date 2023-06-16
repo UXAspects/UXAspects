@@ -4,7 +4,7 @@ import { Subject } from 'rxjs';
 @Injectable({
     providedIn: 'root'
 })
-export class DragService<T = any> implements OnDestroy {
+export class DragService<T = unknown> implements OnDestroy {
 
     /** Emit when dragging begins */
     onDragStart = new Subject<UxDragEvent<T>>();
@@ -36,4 +36,4 @@ export class DragService<T = any> implements OnDestroy {
 
 }
 
-export type UxDragEvent<T = any> = { group?: string, event?: MouseEvent, data?: T };
+export type UxDragEvent<T = unknown> = { group?: string, event?: MouseEvent, data?: T };

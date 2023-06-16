@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
 
-    private _alerts: ReadonlyArray<AlertExample> = [
+    private readonly _alerts: ReadonlyArray<AlertExample> = [
         {
             type: 'info',
             icon: 'status-information-filled',

@@ -44,7 +44,7 @@ export class ChartsMultipleAxisLineChartComponent
     lineChartPlugins: any;
 
     constructor(
-        private sanitizer: DomSanitizer,
+        private readonly sanitizer: DomSanitizer,
         colorService: ColorService,
         dataService: MultipleAxisLineChartService
     ) {

@@ -8,3 +8,5 @@
 /.tmp
 /.node_modules__docker
 release-notes-*.md
+
+.angular

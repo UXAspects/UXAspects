@@ -52,6 +52,7 @@ export class SidePanelTestComponent {
     animate = true;
     closeOnEscape: boolean = true;
 
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     onToggleChange(): void { }
 }
 

@@ -3,7 +3,7 @@ import { TimelinePage } from './timeline.po.spec';
 
 describe('TimelinePage Tests', () => {
 
-    let page: TimelinePage = new TimelinePage();
+    const page: TimelinePage = new TimelinePage();
 
     beforeAll(async () => {
         await page.getPage();

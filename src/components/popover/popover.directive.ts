@@ -14,7 +14,7 @@ import { PopoverComponent } from './popover.component';
 export class PopoverDirective extends TooltipDirective implements OnInit, OnChanges {
 
     /** Contains the content of the popover or a TemplateRef for more detailed content */
-    @Input('uxPopover') content: string | TemplateRef<any>;
+    @Input('uxPopover') content: string | TemplateRef<void>;
 
     /** Optionally display a title in the popover */
     @Input('popoverTitle') title: string;
@@ -29,6 +29,7 @@ export class PopoverDirective extends TooltipDirective implements OnInit, OnChan
     @Input('popoverRole') role: string = 'tooltip';
 
     /** Provide the TemplateRef a context object */
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     @Input('popoverContext') context: any = {};
 
     /** Delay the showing of the popover by a number of miliseconds */

@@ -119,7 +119,7 @@ export class ItemDisplayPanelTestPageComponent {
 
     previous(): void {
         if (this.previousEnabled) {
-            let id = this.selectedItem.id - 1;
+            const id = this.selectedItem.id - 1;
             this.selectedItem = this.items[id - 1];
             this.updatePanel();
         }
@@ -127,7 +127,7 @@ export class ItemDisplayPanelTestPageComponent {
 
     next(): void {
         if (this.nextEnabled) {
-            let id = this.selectedItem.id + 1;
+            const id = this.selectedItem.id + 1;
             this.selectedItem = this.items[id - 1];
             this.updatePanel();
         }

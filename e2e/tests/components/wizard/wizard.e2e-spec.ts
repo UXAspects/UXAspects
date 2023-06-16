@@ -42,10 +42,10 @@ describe('Wizard Tests', () => {
         );
 
         // Initial set of buttons
-        let previous = await page.getPreviousButton();
-        let next = await page.getNextButton();
-        let cancel = await page.getCancelButton();
-        let finish = await page.getFinishButton();
+        const previous = await page.getPreviousButton();
+        const next = await page.getNextButton();
+        const cancel = await page.getCancelButton();
+        const finish = await page.getFinishButton();
 
         // Previous button exists and is disabled
         expect(previous).not.toBeNull();
@@ -69,7 +69,7 @@ describe('Wizard Tests', () => {
         await page.goToNext();
 
         // check that the first header is not still active
-        let steps: ElementFinder[] = await page.stepHeaders;
+        const steps: ElementFinder[] = await page.stepHeaders;
 
         // check the first step header classes are updated correctly
         expect(await steps[0].getAttribute('class')).toContain('visited');
@@ -89,7 +89,7 @@ describe('Wizard Tests', () => {
     it('should navigate back to the first step if clicking on a visted step header', async () => {
         await page.goToNext();
 
-        let headers: ElementFinder[] = await page.stepHeaders;
+        const headers: ElementFinder[] = await page.stepHeaders;
 
         // click on the first header
         await headers[0].click();
@@ -212,9 +212,9 @@ describe('Wizard Tests', () => {
 
 
         // check that the finish button is visible
-        let finish = await page.getFinishButton();
-        let next = await page.getNextButton();
-        let cancel = await page.getCancelButton();
+        const finish = await page.getFinishButton();
+        const next = await page.getNextButton();
+        const cancel = await page.getCancelButton();
 
         // the finish button should now be visible
         expect(finish).not.toBe(null);

@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { dispatchMouseEvent } from '../../common/testing';
 import { TabsetComponent } from './tabset.component';
 import { TabsetModule } from './tabset.module';
@@ -49,10 +49,13 @@ export class TabsetTestComponent {
         }
     ];
 
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     activeChange(_title: string, _active: boolean) { }
 
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     onTabActivated(): void { }
 
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     onTabDeactivated(): void { }
 
     @ViewChild('tabset', { static: true })

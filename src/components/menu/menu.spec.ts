@@ -1,6 +1,6 @@
 import { OverlayContainer, OverlayRef } from '@angular/cdk/overlay';
 import { Component, ViewChild } from '@angular/core';
-import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, async, inject } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { OverlayPlacementService } from '../../services/overlay-placement';
 import { MenuTriggerDirective } from './menu-trigger/menu-trigger.directive';
@@ -51,7 +51,9 @@ export class MenuTestComponent {
     @ViewChild('menuTrigger', { static: true }) trigger: MenuTriggerDirective;
     @ViewChild('subMenuTrigger', { static: true }) subMenuTrigger: MenuTriggerDirective;
 
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     onActivate(_: MouseEvent | KeyboardEvent): void { }
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     onClick(_: MouseEvent): void { }
 }
 
@@ -455,7 +457,7 @@ describe('MenuComponent', () => {
         await fixture.whenStable();
 
         // expect alignment to be the default
-        expect(await overlayPlacement.updatePosition).toHaveBeenCalledWith(jasmine.any(OverlayRef), 'bottom', 'end', undefined, false);
+        expect(await overlayPlacement.updatePosition).toHaveBeenCalledWith(jasmine.any(OverlayRef), 'bottom', 'end', undefined);
     });
 
 });
@@ -495,7 +497,9 @@ export class MenuTriggerDestroyTestComponent {
     @ViewChild(MenuTriggerDirective, { static: false })
 
     trigger: MenuTriggerDirective;
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     onActivate(_: MouseEvent | KeyboardEvent): void { }
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     closed(): void { }
 
     showTrigger: boolean = true;

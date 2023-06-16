@@ -91,7 +91,7 @@ export class ToolbarSearchComponent implements AfterContentInit, OnDestroy {
     @Output() search = new EventEmitter<string>();
 
     /** Return the correct animation based on the expanded state */
-    get _expandedAnimation(): any {
+    get _expandedAnimation() {
         return {
             value: this.expanded ? 'expanded' : 'collapsed',
             params: {

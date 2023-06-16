@@ -1,6 +1,6 @@
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { ChangeDetectionStrategy, Component, SimpleChange } from '@angular/core';
-import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, async, inject } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RadioButtonModule } from '../radiobutton/radiobutton.module';
@@ -8,7 +8,9 @@ import { InputDropdownComponent } from './input-dropdown.component';
 import { InputDropdownModule } from './input-dropdown.module';
 
 describe('InputDropdownComponent', () => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let component: InputDropdownComponent<any>;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let fixture: ComponentFixture<InputDropdownComponent<any>>;
 
     beforeEach(async(() => {
@@ -128,8 +130,10 @@ export class InputDropdownTestComponent {
     selected: string = null;
     ariaLabelledby: string;
 
+    // eslint-disable-next-line @typescript-eslint/no-empty-function, @typescript-eslint/no-explicit-any
     onSelectedChange(event: any): void { }
 
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     onOpenChange(isOpen: boolean): void { }
 }
 

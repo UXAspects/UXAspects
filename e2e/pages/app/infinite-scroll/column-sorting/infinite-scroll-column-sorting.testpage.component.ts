@@ -19,9 +19,9 @@ export class InfiniteScrollColumnSortingTestPageComponent {
     sortOrder = 'ASC';
     order: ColumnSortingOrder;
 
-    load(pageNum: number, pageSize: number, filter: any): Promise<any[]> {
+    load(pageNum: number, pageSize: number): Promise<unknown[]> {
         let loadedEmployees = [];
-        return new Promise((resolve, reject) => {
+        return new Promise((resolve) => {
             setTimeout(() => {
                 for (let i = pageNum * pageSize; i < 50; i++) {
                     const name = 'employee_' + i;
@@ -48,7 +48,7 @@ export class InfiniteScrollColumnSortingTestPageComponent {
         this.loadedEmployees.reset();
     }
 
-    sort(users): any {
+    sort(users) {
         if (this.sortOrder === 'ASC') {
             users?.sort((a, b) => (a[this.sortBy] > b[this.sortBy] ? 1 : -1));
         } else if (this.sortOrder === 'DESC') {

@@ -1,4 +1,4 @@
-options: SliderOptions = {
+SliderOptions = {
     type: SliderType.Value,
     handles: {
         style: SliderStyle.Button,

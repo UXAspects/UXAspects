@@ -3,8 +3,6 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class MultipleAxisLineChartService {
 
-    constructor() { }
-
     getOilPrices(): any {
 
         const oilprices = [

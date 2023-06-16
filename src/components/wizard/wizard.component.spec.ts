@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { ComponentFixture, TestBed, async, fakeAsync, tick } from '@angular/core/testing';
 import { WizardTestWrapper } from './wizard-test-wrapper';
 import { StepChangingEvent, WizardComponent } from './wizard.component';
 import { WizardModule } from './wizard.module';
@@ -50,12 +50,19 @@ export class WizardTestComponent {
 
     cancelVisible = false;
 
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     onStepChanging(_: StepChangingEvent): void {}
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     onStepChange(_: number): void {}
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     onNext(_: number): void {}
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     onPrevious(_: number): void {}
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     onFinishing(): void {}
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     onFinish(): void {}
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     onCancel(): void {}
 }
 
@@ -258,10 +265,15 @@ describe('Wizard', () => {
 export class WizardAsyncValidationTestComponent {
     firstStepValidator: () => boolean | Promise<boolean>;
     lastStepValidator: () => boolean | Promise<boolean>;
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     stepChanging(_: StepChangingEvent) {}
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     stepChange(_: number) {}
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     onNext(_: number) {}
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     onFinishing() {}
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     onFinish() {}
 }
 
@@ -509,8 +521,8 @@ export class WizardValidationTestComponent {
     step3Visited: boolean;
     step3Completed: boolean;
 
-    visitedChanged(index: number, value: boolean): void {
-    }
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    visitedChanged(index: number, value: boolean): void {}
 }
 
 describe('Wizard with validation', () => {

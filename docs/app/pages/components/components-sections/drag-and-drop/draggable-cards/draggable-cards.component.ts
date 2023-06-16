@@ -156,7 +156,7 @@ export class ComponentsDraggableCardsComponent
 
     @ViewChildren('draggableCard') cards?: QueryList<ElementRef>;
 
-    constructor(private _colorService: ColorService, private _liveAnnouncer: LiveAnnouncer) {
+    constructor(private readonly _colorService: ColorService, private readonly _liveAnnouncer: LiveAnnouncer) {
         super(
             import.meta.webpackContext('./snippets/', {
                 recursive: false,

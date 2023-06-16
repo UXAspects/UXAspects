@@ -424,11 +424,11 @@ describe('Select Tests', () => {
 
         // enable paging
         await page.clickOnCheckbox(page.checkboxPaging);
-        var result;
+        let result;
 
         // increase page size
         await page.clickOnIncrementPageSize();
-        var pageSize = 21;
+        const pageSize = 21;
 
         // confirm number of visible countries increases by 21 each time
         expect(await page.waitForLoadingAfterClickToFinish(false)).toBeTruthy();
@@ -447,11 +447,11 @@ describe('Select Tests', () => {
 
         // enable paging
         await page.clickOnCheckbox(page.checkboxPaging);
-        var result;
+        let result;
 
         // decrease page size
         await page.clickOnDecrementPageSize();
-        var pageSize = 19;
+        const pageSize = 19;
 
         // confirm number of visible countries increases by 19 each time
         expect(await page.waitForLoadingAfterClickToFinish(false)).toBeTruthy();
@@ -471,8 +471,8 @@ describe('Select Tests', () => {
         // enable paging & multiple mode
         await page.clickOnCheckbox(page.checkboxMulti);
         await page.clickOnCheckbox(page.checkboxPaging);
-        var result;
-        var pageSize = 20;
+        let result;
+        const pageSize = 20;
 
         // confirm number of visible countries increases by 20 each time
         expect(await page.waitForLoadingAfterClickToFinish(true)).toBeTruthy();
@@ -490,7 +490,6 @@ describe('Select Tests', () => {
 
         // enable paging
         await page.clickOnCheckbox(page.checkboxPaging);
-        let result;
         const pageSize = 20;
 
         // use filter
@@ -499,7 +498,7 @@ describe('Select Tests', () => {
         expect(await page.getCountryText(false, 0)).toBe('Albania');
 
         // confirm number of visible countries increases by 20 each time
-        result = await page.calculateNewNumberOfCountries(false, pageSize);
+        const result = await page.calculateNewNumberOfCountries(false, pageSize);
         expect(await page.waitForLoadingAfterHoverToFinish(false)).toBeTruthy();
         expect(await page.getNumberOfCountries(false)).toEqual(result);
         expect(await page.getCountryText(false, 39)).toBe('Korea, Democratic People\'s Republic of');

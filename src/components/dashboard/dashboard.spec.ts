@@ -1,5 +1,5 @@
 import { Component, QueryList, ViewChild, ViewChildren } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, async } from '@angular/core/testing';
 import { DashboardComponent, DashboardOptions } from './dashboard.component';
 import { DashboardModule } from './dashboard.module';
 import { DashboardLayoutData } from './dashboard.service';
@@ -171,9 +171,8 @@ export class DashboardWithInitialLayoutTestComponent {
     @ViewChild(DashboardComponent) dashboard: DashboardComponent;
     @ViewChildren(DashboardWidgetComponent) widgets: QueryList<DashboardWidgetComponent>;
 
-    onLayoutChange(): void {
-
-    }
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    onLayoutChange(): void {}
 
     refreshLayout(): void {
         this.dashboard.refreshLayout();

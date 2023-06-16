@@ -586,11 +586,11 @@ export class NumberPickerTestValueComponent {
     min = -10;
     max = 10;
 
-    onValueChange(value: number): void {
-    }
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    onValueChange(value: number): void {}
 
-    onNgModelChange(value: number): void {
-    }
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    onNgModelChange(value: number): void {}
 
 }
 

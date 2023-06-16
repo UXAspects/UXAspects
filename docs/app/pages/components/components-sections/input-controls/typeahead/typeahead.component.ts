@@ -67,7 +67,7 @@ export class ComponentsTypeaheadComponent
 
     constructor(
         @Inject(DOCUMENTATION_TOKEN)
-        private _documentationType: DocumentationType,
+        private readonly _documentationType: DocumentationType,
         public typeaheadKeyService: TypeaheadKeyService<string>
     ) {
         super(

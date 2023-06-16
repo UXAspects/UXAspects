@@ -2,7 +2,7 @@ export class TagInputEvent {
 
     private _defaultPrevented = false;
 
-    constructor(public tag: any) {}
+    constructor(public tag: unknown) {}
 
     preventDefault() {
         this._defaultPrevented = true;

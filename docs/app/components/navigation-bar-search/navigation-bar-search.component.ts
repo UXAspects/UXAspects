@@ -33,14 +33,14 @@ export class NavigationBarSearchComponent implements AfterViewInit, OnDestroy {
     results: ISearchResult[] = [];
     activeIdx: number = 0;
 
-    private _data: ISearchResult[] = this.createSearchData();
-    private _history: ISearchResult[] = this.loadHistory();
-    private _onDestroy = new Subject<void>();
+    private readonly _data: ISearchResult[] = this.createSearchData();
+    private readonly _history: ISearchResult[] = this.loadHistory();
+    private readonly _onDestroy = new Subject<void>();
 
-    constructor(private router: Router,
-        private _navigation: NavigationService,
-        private _appConfig: AppConfiguration,
-        private _persistentDataService: PersistentDataService) {
+    constructor(private readonly router: Router,
+        private readonly _navigation: NavigationService,
+        private readonly _appConfig: AppConfiguration,
+        private readonly _persistentDataService: PersistentDataService) {
 
         this.query.pipe(debounceTime(200), takeUntil(this._onDestroy)).subscribe(this.search.bind(this));
     }
@@ -158,7 +158,7 @@ export class NavigationBarSearchComponent implements AfterViewInit, OnDestroy {
         if (this.results.length > 0) {
 
             // get the selected item
-            let item = this.results[this.activeIdx];
+            const item = this.results[this.activeIdx];
 
             this.navigate(item);
         }

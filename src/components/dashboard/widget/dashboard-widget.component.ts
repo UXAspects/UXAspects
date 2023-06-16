@@ -112,10 +112,10 @@ export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestro
 
     isDraggable: boolean = false;
 
-    private _column: StackableValue = { regular: undefined, stacked: undefined };
-    private _row: StackableValue = { regular: undefined, stacked: undefined };
-    private _columnSpan: StackableValue = { regular: 1, stacked: 1 };
-    private _rowSpan: StackableValue = { regular: 1, stacked: 1 };
+    private readonly _column: StackableValue = { regular: undefined, stacked: undefined };
+    private readonly _row: StackableValue = { regular: undefined, stacked: undefined };
+    private readonly _columnSpan: StackableValue = { regular: 1, stacked: 1 };
+    private readonly _rowSpan: StackableValue = { regular: 1, stacked: 1 };
     private _minColSpan: number = 1;
     private _minRowSpan: number = 1;
     private _autoPositioning: boolean = true;

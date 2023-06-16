@@ -11,6 +11,7 @@ export function createMouseEvent(type: string, x = 0, y = 0, button = 0): MouseE
 }
 
 export function createKeyboardEvent(type: string, keyCode: number, target?: Element, key?: string): KeyboardEvent {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const event = document.createEvent('KeyboardEvent') as any;
     const originalPreventDefault = event.preventDefault;
 
@@ -26,9 +27,9 @@ export function createKeyboardEvent(type: string, keyCode: number, target?: Elem
         target: { get: () => target }
     });
 
-    event.preventDefault = function() {
+    event.preventDefault = function(...args) {
         Object.defineProperty(event, 'defaultPrevented', { get: () => true });
-        return originalPreventDefault.apply(this, arguments);
+        return originalPreventDefault.apply(this, args);
     };
 
     return event;

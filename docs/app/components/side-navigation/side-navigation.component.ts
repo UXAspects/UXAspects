@@ -26,17 +26,17 @@ export class SideNavigationComponent implements OnInit, AfterViewInit, OnDestroy
     height: number;
     width: number;
 
-    private _onDestroy = new Subject<void>();
+    private readonly _onDestroy = new Subject<void>();
 
-    constructor(@Inject(DOCUMENT) private _document: Document,
-        private _router: Router,
-        private _activatedRoute: ActivatedRoute,
-        private _navigationService: NavigationService) { }
+    constructor(@Inject(DOCUMENT) private readonly _document: Document,
+        private readonly _router: Router,
+        private readonly _activatedRoute: ActivatedRoute,
+        private readonly _navigationService: NavigationService) { }
 
     ngOnInit(): void {
 
         // Set up fragment IDs
-        for (let category of this.navigation.categories) {
+        for (const category of this.navigation.categories) {
             this._navigationService.setSectionIds(category.sections);
         }
 

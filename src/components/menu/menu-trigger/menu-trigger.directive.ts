@@ -3,8 +3,8 @@ import { BooleanInput, coerceBooleanProperty } from '@angular/cdk/coercion';
 import { DOWN_ARROW, LEFT_ARROW, RIGHT_ARROW, UP_ARROW } from '@angular/cdk/keycodes';
 import { Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
-import { ContentChildren, Directive, ElementRef, EventEmitter, HostListener, inject, Input, OnDestroy, OnInit, Output, QueryList, ViewContainerRef } from '@angular/core';
-import { combineLatest, merge, Observable, of, Subject, timer } from 'rxjs';
+import { ContentChildren, Directive, ElementRef, EventEmitter, HostListener, Input, OnDestroy, OnInit, Output, QueryList, ViewContainerRef, forwardRef, inject } from '@angular/core';
+import { Observable, Subject, combineLatest, merge, of, timer } from 'rxjs';
 import { debounceTime, filter, take, takeUntil } from 'rxjs/operators';
 import { AnchorPlacement } from '../../../common/overlay/anchor-placement';
 import { FocusIndicator, FocusIndicatorOriginService, FocusIndicatorService } from '../../../directives/accessibility/index';
@@ -92,7 +92,7 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
 
     private readonly _debounceTime: number = 50;
 
-    @ContentChildren(MenuTriggerDirective) menuTriggers: QueryList<MenuTriggerDirective>;
+    @ContentChildren(forwardRef(() => MenuTriggerDirective)) menuTriggers: QueryList<MenuTriggerDirective>;
 
     /** If this is a submenu we want to know when the mouse leaves the items or parent item */
     private get _menuShouldClose(): Observable<boolean[]> {
@@ -402,7 +402,6 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
             this.menu.placement,
             this.menu.alignment,
             undefined,
-            this._isSubmenuTrigger
         );
 
         return this._overlayRef;
@@ -420,6 +419,7 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
     }
 
     /** Get an observable that emits on any of the triggers that close a menu */
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     private didMenuClose(): Observable<any> {
         return merge(
             this._overlayRef.backdropClick(),

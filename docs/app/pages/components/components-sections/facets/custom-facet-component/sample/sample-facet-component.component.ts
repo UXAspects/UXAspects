@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Facet, FacetDeselect, FacetDeselectAll, FacetService } from '@ux-aspects/ux-aspects';
-import { filter, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { filter, takeUntil } from 'rxjs/operators';
 
 @Component({
     selector: 'my-custom-facet-component',
@@ -18,9 +18,9 @@ export class SampleCustomFacetComponent implements OnInit, OnDestroy {
         new Facet('CSS', { checked: false })
     ];
 
-    private _onDestroy = new Subject<void>();
+    private readonly _onDestroy = new Subject<void>();
 
-    constructor(private _facetService: FacetService) {}
+    constructor(private readonly _facetService: FacetService) {}
 
     ngOnInit(): void {
 

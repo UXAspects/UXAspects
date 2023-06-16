@@ -10,8 +10,8 @@ export interface IHierachyBarComponent {
     mode: HierarchyBarMode;
     root: HierarchyBarNode;
     selected: HierarchyBarNode;
-    loadingIndicator: TemplateRef<any>;
-    overflowTemplate: TemplateRef<any>;
+    loadingIndicator: TemplateRef<void>;
+    overflowTemplate: TemplateRef<void>;
     selectedChange: EventEmitter<HierarchyBarNode>;
     popoverShowTriggers: OverlayTrigger[];
     popoverHideTriggers: OverlayTrigger[];

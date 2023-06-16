@@ -58,14 +58,14 @@ export class TagsPage {
         // Create a temporary input element if it does not already exist.
         await browser.executeScript(function () {
             if (!document.getElementById('tempInput')) {
-                var el = document.createElement('input');
+                const el = document.createElement('input');
                 el.setAttribute('id', 'tempInput');
                 document.getElementsByTagName('body')[0].appendChild(el);
             }
         });
 
         // Set the input value to the specified text.
-        var newInput = element(by.id('tempInput'));
+        const newInput = element(by.id('tempInput'));
         await newInput.clear();
         await newInput.sendKeys(tags);
 
@@ -164,7 +164,7 @@ export class TagsPage {
 
     async activeElement(): Promise<WebElement> {
         return await browser.driver.switchTo().activeElement();
-    };
+    }
 
     async clickOnTagAtIndex(index: number) {
         return this.tagsInput.$$('li.ux-tag').get(index).click();

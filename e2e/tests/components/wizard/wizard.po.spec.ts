@@ -21,9 +21,9 @@ export class WizardPage {
     }
 
     async getButtonByText(text: string): Promise<ElementFinder> {
-        let buttons = await this.buttons;
-        let btnText = await this.buttons.map(button => button.getText());
-        let matchIdx = btnText.findIndex((label: string) => label.toLowerCase() === text.toLowerCase());
+        const buttons = await this.buttons;
+        const btnText = await this.buttons.map(button => button.getText());
+        const matchIdx = btnText.findIndex((label: string) => label.toLowerCase() === text.toLowerCase());
 
         return matchIdx === -1 ? null : buttons[matchIdx];
     }

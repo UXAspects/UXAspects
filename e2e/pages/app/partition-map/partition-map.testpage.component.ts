@@ -8,7 +8,7 @@ import { PopoverDirective } from '@ux-aspects/ux-aspects';
 })
 export class PartitionMapTestPageComponent {
 
-    dataset: any = {
+    dataset = {
         name: 'My Workspace',
         children: [
             {
@@ -66,8 +66,8 @@ export class PartitionMapTestPageComponent {
         }, 200);
     }
 
-    changeDataset() {​​​​​​​​​
-        this.dataset = {​​​​​​​​​
+    changeDataset() {
+        this.dataset = {
             name: 'Another Workspace',
             children: [
                 {
@@ -79,8 +79,8 @@ export class PartitionMapTestPageComponent {
                         { name: 'Redundant', value: 50 },
                         { name: 'Obsolete', value: 70 },
                     ]
-                }​​​​​​​​​​​​​​​​​​
+                }
             ]
-        }​​​​​​​​​;
-    }​​​​​​​​​
+        };
+    }
 }

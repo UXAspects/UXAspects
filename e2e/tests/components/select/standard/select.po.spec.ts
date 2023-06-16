@@ -32,7 +32,7 @@ export class SelectPage {
     // confirm & check
     confirmClassExists(item: ElementFinder, soughtClass: string) {
         return item.getAttribute('class').then(function (classes: string) {
-            var allClasses = classes.split(' ');
+            const allClasses = classes.split(' ');
             if (allClasses.indexOf(soughtClass) > -1) {
                 return true;
             } else {
@@ -261,9 +261,8 @@ export class SelectPage {
     }
 
     waitForLoadingToFinish() {
-        var EC = protractor.ExpectedConditions;
-        var elem: ElementFinder;
-        elem = this.dropdown.$('ux-tag-input.focus').$('ux-typeahead.open').$('div.ux-typeahead-options').
+        const EC = protractor.ExpectedConditions;
+        const elem: ElementFinder = this.dropdown.$('ux-tag-input.focus').$('ux-typeahead.open').$('div.ux-typeahead-options').
             $('div').$('div.ux-typeahead-loading');
         return browser.wait(EC.invisibilityOf(elem), scrollingTimeout).then(function () {
             return true;

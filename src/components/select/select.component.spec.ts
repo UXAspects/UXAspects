@@ -1,6 +1,6 @@
 import { O, SHIFT, TAB } from '@angular/cdk/keycodes';
 import { Component } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, async } from '@angular/core/testing';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { dispatchKeyboardEvent } from '../../common/testing/dispatch-event';
@@ -45,8 +45,10 @@ export class SelectTestComponent {
     readonlyInput: boolean = false;
     ariaLabelledby: string;
 
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     onValueChange(): void { }
 
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     onInputChange(): void { }
 }
 
@@ -446,6 +448,7 @@ describe('Select Component', () => {
 })
 export class SelectValueTestComponent {
 
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     onValueChange(): void { }
 
     options: string[] = ['One', 'Two', 'Three'];
@@ -510,6 +513,7 @@ export class SelectNgModelTestComponent {
     value: string | string[];
     multiple: boolean = false;
 
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     onValueChange(): void { }
 }
 
@@ -690,6 +694,7 @@ export class SelectReactiveFormTestComponent {
 
     options: string[] = ['One', 'Two', 'Three'];
 
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     onValueChange(): void { }
 }
 
@@ -764,7 +769,9 @@ export class SingleSelectWithCustomIconTestComponent {
     visible: boolean = true;
     placeholder: string;
 
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     onValueChange(): void { }
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     onInputChange(): void { }
 }
 
@@ -854,6 +861,7 @@ export class SelectWithRecentOptionsTestComponent {
     recentOptions: string[] = [];
     recentOptionsMaxCount = 2;
 
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     onRecentOptionsChange(_: string[]): void {}
 }
 

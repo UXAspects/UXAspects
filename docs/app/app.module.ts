@@ -4,9 +4,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
 import {
     ColorServiceModule,
-    colorSets,
     PageHeaderModule,
-    PersistentDataService
+    PersistentDataService,
+    colorSets
 } from '@ux-aspects/ux-aspects';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { ModalModule } from 'ngx-bootstrap/modal';
@@ -20,14 +20,14 @@ import {
     CssFilesPlaygroundTransformer,
     FontPlaygroundTransformer,
     IconSetPlaygroundTransformer,
-    PackageJsonPlaygroundTransformer,
     PLAYGROUND_TRANSFORMER,
+    PackageJsonPlaygroundTransformer,
     RenameAngularJsonPlaygroundTransformer,
     StylesheetPlaygroundTransformer
 } from './services/playground/index';
 import {
-    DocumentationType,
-    DOCUMENTATION_TOKEN
+    DOCUMENTATION_TOKEN,
+    DocumentationType
 } from './tokens/documentation.token';
 
 /*
@@ -55,8 +55,8 @@ const appRoutes: Routes = [
         ButtonsModule.forRoot(),
         ColorServiceModule.forRoot(colorSets.keppel),
         DocumentationComponentsModule,
-        ModalModule.forRoot(),
         NgxMaskModule.forRoot(),
+        ModalModule.forRoot(),
         PageHeaderModule,
         RouterModule.forRoot(appRoutes, { useHash: true }),
         TypeaheadModule.forRoot(),

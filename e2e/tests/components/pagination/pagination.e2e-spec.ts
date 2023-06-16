@@ -3,7 +3,7 @@ import { PaginationPage } from './pagination.po.spec';
 
 describe('Pagination Tests', () => {
 
-    let page: PaginationPage = new PaginationPage();
+    const page: PaginationPage = new PaginationPage();
 
     beforeAll(async () => {
         await page.getPage();

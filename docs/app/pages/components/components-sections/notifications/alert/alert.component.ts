@@ -14,7 +14,7 @@ export class ComponentsAlertComponent
     extends BaseDocumentationSection
     implements IPlaygroundProvider
 {
-    private _alerts: ReadonlyArray<AlertExample> = [
+    private readonly _alerts: ReadonlyArray<AlertExample> = [
         {
             type: 'info',
             icon: 'status-information-filled',

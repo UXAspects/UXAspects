@@ -1,7 +1,7 @@
 import { ConnectionPositionPair, Overlay, OverlayRef, ScrollDispatcher } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
-import { ChangeDetectorRef, Directive, ElementRef, EventEmitter, inject, Input, OnChanges, OnDestroy, OnInit, Output, Renderer2, SimpleChanges, TemplateRef, ViewContainerRef } from '@angular/core';
-import { fromEvent, Subject } from 'rxjs';
+import { ChangeDetectorRef, Directive, ElementRef, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, Renderer2, SimpleChanges, TemplateRef, ViewContainerRef, inject } from '@angular/core';
+import { Subject, fromEvent } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
 import { AnchorAlignment, AnchorPlacement } from '../../common/overlay/index';
 import { OverlayPlacementService } from '../../services/overlay-placement/index';
@@ -30,6 +30,7 @@ export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
     private readonly _overlayFallback = inject(OverlayPlacementService);
 
     /** Contains the content of the tooltip or a TemplateRef for more detailed content */
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     @Input('uxTooltip') content: string | TemplateRef<any>;
 
     /** Allow the tooltip to be conditionally disabled */
@@ -42,6 +43,7 @@ export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
     @Input('tooltipRole') role: string = 'tooltip';
 
     /** Provide the TemplateRef a context object */
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     @Input('tooltipContext') context: any = {};
 
     /** Delay the showing of the tooltip by a number of miliseconds */
@@ -284,6 +286,7 @@ export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
     }
 
     /** Create the component portal - allows overriding to allow other portals eg. popovers */
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     protected createPortal(): ComponentPortal<any> {
         return this._portal || new ComponentPortal(TooltipComponent, this._viewContainerRef);
     }
@@ -359,7 +362,7 @@ export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
     }
 
     /** Handle the click event - show or hide accordingly */
-    protected onClick(_: MouseEvent): void {
+    protected onClick(): void {
 
         // if its not visible and click is a show trigger open it
         if (!this.isVisible && this.includes(this.showTriggers, 'click') && this._showTimeoutId === null) {
@@ -379,7 +382,7 @@ export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
     }
 
     /** Handle the mouse enter event - show or hide accordingly */
-    protected onMouseEnter(_: MouseEvent): void {
+    protected onMouseEnter(): void {
 
         // this is an show only trigger - if already open or it isn't a trigger do nothing
         if (this.isVisible || !this.includes(this.showTriggers, 'mouseenter')) {
@@ -391,7 +394,7 @@ export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
     }
 
     /** Handle the mouse leave event - show or hide accordingly */
-    protected onMouseLeave(_: MouseEvent): void {
+    protected onMouseLeave(): void {
 
         // If the tooltip is pending then cancel showing it
         if (!this.isVisible && this.includes(this.hideTriggers, 'mouseleave') && this._showTimeoutId !== null) {
@@ -408,7 +411,7 @@ export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
     }
 
     /** Handle the focus event - show or hide accordingly */
-    protected onFocus(_: Event): void {
+    protected onFocus(): void {
 
         // this is an show only trigger - if already open or it isn't a trigger do nothing
         if (this.isVisible || !this.includes(this.showTriggers, 'focus')) {
@@ -420,7 +423,7 @@ export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
     }
 
     /** Handle the blur event - show or hide accordingly */
-    protected onBlur(_: Event): void {
+    protected onBlur(): void {
 
         // If the tooltip is pending then cancel showing it
         if (!this.isVisible && this.includes(this.hideTriggers, 'blur') && this._showTimeoutId !== null) {

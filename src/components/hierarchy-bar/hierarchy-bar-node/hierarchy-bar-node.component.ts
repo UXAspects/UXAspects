@@ -18,7 +18,7 @@ export class HierarchyBarNodeComponent {
     @Input() node: HierarchyBarNode;
 
     /** Define the template for the popover */
-    @Input() popoverTemplate: TemplateRef<any>;
+    @Input() popoverTemplate: TemplateRef<void>;
 
     /** Determine the mode of the hierarchy bar */
     @Input() mode: string;

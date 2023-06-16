@@ -15,9 +15,9 @@ export class SampleFilterCustomComponent implements OnInit, OnDestroy {
 
     selected: Filter;
 
-    private _onDestroy = new Subject<void>();
+    private readonly _onDestroy = new Subject<void>();
 
-    constructor(private _filterService: FilterService) {
+    constructor(private readonly _filterService: FilterService) {
         // listen for remove all events in which case we should deselect event initial filters
         _filterService.events$.pipe(takeUntil(this._onDestroy), rxFilter(event => event instanceof FilterRemoveAllEvent))
             .subscribe(() => this.removeFilter());

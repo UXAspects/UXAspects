@@ -30,7 +30,7 @@ export class MediaPlayerTimelineExtensionComponent implements OnInit, AfterViewI
     ngOnInit(): void {
 
         // watch for changes to the current time
-        this.mediaPlayerService.fullscreenEvent.pipe(takeUntil(this._onDestroy)).subscribe(fullscreen => {
+        this.mediaPlayerService.fullscreenEvent.pipe(takeUntil(this._onDestroy)).subscribe(() => {
             this.scrub.position = 0;
         });
 

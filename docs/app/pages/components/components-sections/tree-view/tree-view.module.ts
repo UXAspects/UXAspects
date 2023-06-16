@@ -3,7 +3,7 @@ import { ComponentFactoryResolver, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { TreeModule } from '@circlon/angular-tree-component';
-import { AccessibilityModule, AccordionModule, CheckboxModule, FocusIfModule, IconModule, SelectionModule, TabsetModule, TreeGridModule } from '@ux-aspects/ux-aspects';
+import { AccessibilityModule, AccordionModule, AlertModule, CheckboxModule, FocusIfModule, IconModule, SelectionModule, TabsetModule, TreeGridModule } from '@ux-aspects/ux-aspects';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
 import { DocumentationPage, ResolverService } from '../../../../services/resolver/resolver.service';
@@ -42,6 +42,7 @@ const ROUTES = [
         TabsetModule,
         TreeGridModule,
         TreeModule,
+        AlertModule,
     ],
     exports: SECTIONS,
     declarations: SECTIONS

@@ -21,6 +21,6 @@ export class PageFooterComponent {
     feedback: ILink = this.footerData.feedback;
     year: number = new Date().getFullYear();
 
-    constructor(private _appConfig: AppConfiguration) { }
+    constructor(private readonly _appConfig: AppConfiguration) { }
 }
 

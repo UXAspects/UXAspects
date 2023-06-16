@@ -72,9 +72,11 @@ export class CheckboxComponent<T = number> implements ControlValueAccessor, Focu
     _focused: boolean = false;
 
     /** Used to inform Angular forms that the component has been touched */
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     onTouchedCallback: () => void = () => { };
 
     /** Used to inform Angular forms that the component value has changed */
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     onChangeCallback: (_: boolean | T) => void = () => { };
 
     /** Get the focus indicator to set focus */

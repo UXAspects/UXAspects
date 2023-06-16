@@ -47,7 +47,7 @@ export class FacetCheckListPage {
     confirmCheckListFacetIsTicked(index: number) {
         return this.container.$('div.facets-region').$('ux-facet-check-list').$('div.facet-check-list-container').$$('div.facet-check-list-item').get(index).
             getAttribute('class').then(function (classes: string) {
-                var allClasses = classes.split(' ');
+                const allClasses = classes.split(' ');
                 if (allClasses.indexOf('facet-active') > -1) {
                     return true;
                 } else {

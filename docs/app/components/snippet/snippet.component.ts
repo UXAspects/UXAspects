@@ -1,5 +1,7 @@
+
 import { ChangeDetectionStrategy, Component, Input, OnChanges, ViewChild, ViewContainerRef } from '@angular/core';
 import { highlight, languages } from 'prismjs';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import prism from '!!raw-loader!prismjs';
 
@@ -16,8 +18,6 @@ export class SnippetComponent implements OnChanges {
     @Input() synchronous: boolean = false;
 
     @ViewChild('code', { read: ViewContainerRef, static: true }) codeContainer: ViewContainerRef;
-
-    constructor() { }
 
     ngOnChanges(): void {
         if (this.code) {

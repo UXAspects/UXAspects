@@ -13,7 +13,7 @@ export class VirtualScrollPage {
 
     confirmClassExists(elem: ElementFinder, soughtClass: string) {
         return elem.getAttribute('class').then(function (classes: string) {
-            var allClasses = classes.split(' ');
+            const allClasses = classes.split(' ');
             if (allClasses.indexOf(soughtClass) > -1) {
                 return true;
             } else {

@@ -14,7 +14,7 @@ export class CardTabComponent implements OnDestroy {
     private readonly _tabService = inject(CardTabsService);
 
     active$: Observable<boolean> = this._tabService.tab$.pipe(map(tab => tab === this));
-    @ContentChild(CardTabContentDirective, { read: TemplateRef, static: false }) content: TemplateRef<any>;
+    @ContentChild(CardTabContentDirective, { read: TemplateRef, static: false }) content: TemplateRef<void>;
 
     constructor() {
         this._tabService.addTab(this);

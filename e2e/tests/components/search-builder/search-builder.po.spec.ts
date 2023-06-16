@@ -1,13 +1,14 @@
 import { $, $$, browser } from 'protractor';
 
+// eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace SearchBuilderPage {
-    
+
     export class Page {
-            
+
         async getPage(): Promise<void> {
             await browser.get('#/search-builder');
         }
-        
+
         query = $('pre');
         buttons = $$('.search-builder-group-add-field');
         textButton = this.buttons.get(0);
@@ -19,6 +20,7 @@ export namespace SearchBuilderPage {
         setInvalidQueryBtn = $('#set-invalid-query');
         validity = $('#validity');
 
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         async getQueryObject(): Promise<any> {
             return JSON.parse(await this.query.getText());
         }
@@ -48,10 +50,10 @@ export namespace SearchBuilderPage {
         }
 
         async getValid(): Promise<boolean> {
-            let valid = await this.validity.getText();
+            const valid = await this.validity.getText();
 
             return valid === 'valid';
         }
-       
+
     }
 }

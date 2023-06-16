@@ -8,7 +8,7 @@ export class OrganizationChartDataService {
 
     private _uniqueId: number = 0;
 
-    private _dataset: OrganizationChartNode<OrganizationChartContext> = {
+    private readonly _dataset: OrganizationChartNode<OrganizationChartContext> = {
         id: this._uniqueId++,
         expanded: true,
         data: {

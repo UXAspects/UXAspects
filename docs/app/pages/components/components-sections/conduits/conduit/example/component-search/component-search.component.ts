@@ -8,6 +8,7 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class ConduitComponentSearchComponent extends ConduitComponent {
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     @Conduit(forwardRef(() => ({ id: 'search' })) as any) search = new BehaviorSubject('');
 
     producesOutput: boolean = true;

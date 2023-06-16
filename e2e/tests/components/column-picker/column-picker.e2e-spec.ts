@@ -4,7 +4,7 @@ import { ColumnPickerList, ColumnPickerPage } from './column-picker.po.spec';
 
 describe('Column Picker Tests', () => {
 
-    let page: ColumnPickerPage = new ColumnPickerPage();
+    const page: ColumnPickerPage = new ColumnPickerPage();
 
     beforeEach(async () => {
         await page.getPage();

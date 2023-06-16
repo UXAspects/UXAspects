@@ -40,7 +40,7 @@ export class ChartsNestedDonutChartComponent
         ],
     };
 
-    constructor(private _colorService: ColorService) {
+    constructor(private readonly _colorService: ColorService) {
         super(
             import.meta.webpackContext('./snippets/', {
                 recursive: false,

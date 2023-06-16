@@ -1,20 +1,22 @@
 import { ComponentFactory, ComponentFactoryResolver, Injectable, Type } from '@angular/core';
-import { IDocumentationPage } from '../../interfaces/IDocumentationPage';
 import * as chartsPage from '../../data/charts-page.json';
 import * as componentsPage from '../../data/components-page.json';
 import * as cssPage from '../../data/css-page.json';
+import { IDocumentationPage } from '../../interfaces/IDocumentationPage';
 
 @Injectable({
     providedIn: 'root'
 })
 export class ResolverService {
 
-    private static resolvers: DocumentationResolver[] = [];
+    private static readonly resolvers: DocumentationResolver[] = [];
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     registerResolver(resolver: ComponentFactoryResolver, components: Type<any>[]) {
         ResolverService.resolvers.push({ resolver, components });
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     resolveComponentFactory(component: Type<any>): ComponentFactory<any> {
 
         // try resolving component in all available modules
@@ -47,7 +49,7 @@ export class ResolverService {
         }
 
         // find the matching section
-        let match = data.categories.find(category => category.title === categoryTitle);
+        const match = data.categories.find(category => category.title === categoryTitle);
 
         if (!match) {
             throw new Error(`The section "${ categoryTitle }" does not exist!`);

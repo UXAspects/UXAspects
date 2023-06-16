@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, forwardRef, inject, Input, Output, ViewEncapsulation } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
-export const TIME_PICKER_VALUE_ACCESSOR: any = {
+export const TIME_PICKER_VALUE_ACCESSOR = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => TimePickerComponent),
     multi: true
@@ -89,7 +89,9 @@ export class TimePickerComponent implements ControlValueAccessor {
     /** Emitted when the validity of the control changes. */
     @Output() isValid = new EventEmitter<boolean>();
 
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     onTouchedCallback: () => void = () => {};
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     onChangeCallback: (_: Date) => void = () => {};
 
     private _value = new Date();

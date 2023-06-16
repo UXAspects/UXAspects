@@ -15,12 +15,12 @@ export class AppComponent implements OnDestroy {
     description: string = 'You have 16 messages';
     backgroundColor: string = 'rgba(123, 99, 163, 1)';
 
-    private _notifications = new Subject<string>();
-    private _subscription: Subscription;
+    private readonly _notifications = new Subject<string>();
+    private readonly _subscription: Subscription;
 
     constructor(public notificationService: NotificationService,
         public colorService: ColorService,
-        private _liveAnnouncer: LiveAnnouncer) {
+        private readonly _liveAnnouncer: LiveAnnouncer) {
 
         // buffer notifications then announce them
         this._subscription = this._notifications.pipe(

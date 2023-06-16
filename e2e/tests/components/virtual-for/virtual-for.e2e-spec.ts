@@ -55,8 +55,8 @@ describe('Virtual For Tests', () => {
     it('should have the correct context for the last item', async () => {
         await page.scrollToPosition(parseInt(await page.getSpacerHeight()));
 
-        expect(await page.getValue(29)).toBe(`9999`);
-        expect(await page.getIndex(29)).toBe(`9999`);
+        expect(await page.getValue(29)).toBe('9999');
+        expect(await page.getIndex(29)).toBe('9999');
         expect(await page.getCount(29)).toBe('10000');
         expect(await page.getFirst(29)).toBe(false);
         expect(await page.getLast(29)).toBe(true);
@@ -121,7 +121,7 @@ describe('Virtual For Tests', () => {
         // get the value
         const value = await page.getValue(row);
 
-        expect(value).toBe(`38`);
+        expect(value).toBe('38');
     });
 
     it('should work with tabbable list directive (move page up)', async () => {
@@ -138,7 +138,7 @@ describe('Virtual For Tests', () => {
         // get the value
         const value = await page.getValue(row);
 
-        expect(value).toBe(`0`);
+        expect(value).toBe('0');
     });
 
     it('should work with tabbable list directive (move home)', async () => {
@@ -158,7 +158,7 @@ describe('Virtual For Tests', () => {
         // get the value
         const value = await page.getValue(row);
 
-        expect(value).toBe(`0`);
+        expect(value).toBe('0');
     });
 
     it('should work with tabbable list directive (move end)', async () => {
@@ -175,7 +175,7 @@ describe('Virtual For Tests', () => {
         // get the value
         const value = await page.getValue(row);
 
-        expect(value).toBe(`9999`);
+        expect(value).toBe('9999');
     });
 
     it('should update when table data is sorted', async () => {

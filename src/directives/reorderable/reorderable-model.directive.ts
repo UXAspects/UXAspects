@@ -1,4 +1,4 @@
-import { CdkDrag, CdkDragDrop, CDK_DRAG_PARENT } from '@angular/cdk/drag-drop';
+import { CDK_DRAG_PARENT, CdkDrag, CdkDragDrop } from '@angular/cdk/drag-drop';
 import { Directive, Input, OnDestroy, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -92,6 +92,7 @@ export class ReorderableModelDirective<T> extends CdkDrag implements OnInit, OnD
 
         // access the preview element, this is private but there is no public way to access
         // it and the UI is incorrect when draggingtable rows without this.
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const previewElement = (this._dragRef as any)._preview as HTMLElement;
 
         // re-apply all the stored styles

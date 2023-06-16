@@ -13,9 +13,9 @@ export class DocumentationCategoryComponent implements OnInit, AfterViewInit {
     private trackScroll: boolean = false;
 
     constructor(
-        private _activatedRoute: ActivatedRoute,
-        private _navigation: NavigationService,
-        private _changeDetectorRef: ChangeDetectorRef
+        private readonly _activatedRoute: ActivatedRoute,
+        private readonly _navigation: NavigationService,
+        private readonly _changeDetectorRef: ChangeDetectorRef
     ) { }
 
     ngOnInit() {

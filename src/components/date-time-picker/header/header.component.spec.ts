@@ -1,9 +1,9 @@
+import { ChangeDetectorRef } from '@angular/core';
 import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
-import { HeaderComponent } from './header.component';
-import { DateTimePickerService } from '../date-time-picker.service';
 import { DateRangeService } from '../../date-range-picker/index';
 import { IconModule } from '../../icon/icon.module';
-import { ChangeDetectorRef } from '@angular/core';
+import { DateTimePickerService } from '../date-time-picker.service';
+import { HeaderComponent } from './header.component';
 
 describe('Date Time Picker Header', () => {
     let component: HeaderComponent;
@@ -32,6 +32,7 @@ describe('Date Time Picker Header', () => {
 
     it('should detect changes on range change', fakeAsync(() => {
         // spy on the changeDetector detectChanges function
+        //eslint-disable-next-line @typescript-eslint/no-explicit-any
         const detectChangesSpy = spyOn(((component as any)._changeDetector as ChangeDetectorRef), 'detectChanges');
 
         // trigger the range change
@@ -46,6 +47,7 @@ describe('Date Time Picker Header', () => {
     /** Regression test for EL-3803 - Header component called detect changes after it was destroyed throwing an error */
     it('should teardown correctly', fakeAsync(() => {
         // spy on the changeDetector detectChanges function
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const detectChangesSpy = spyOn(((component as any)._changeDetector as ChangeDetectorRef), 'detectChanges');
 
         // trigger the range change

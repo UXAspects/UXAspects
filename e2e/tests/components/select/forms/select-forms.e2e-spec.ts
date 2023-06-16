@@ -564,7 +564,7 @@ describe('Select (forms) Tests', () => {
 
         result = await page.calculateNewNumberOfCountries(true, pageSize);
         expect(await page.waitForLoadingAfterHoverToFinish(true)).toBeTruthy();
-        expect<any>(await page.getNumberOfCountries(true)).toEqual(result);
+        expect(await page.getNumberOfCountries(true)).toEqual(result);
 
     });
 
@@ -572,7 +572,6 @@ describe('Select (forms) Tests', () => {
 
         // enable paging
         await page.clickOnCheckbox(page.checkboxPaging);
-        let result;
         const pageSize = 20;
 
         // use filter
@@ -581,7 +580,7 @@ describe('Select (forms) Tests', () => {
         expect(await page.getCountryText(false, 0)).toBe('Albania');
 
         // confirm number of visible countries increases by 20 each time
-        result = await page.calculateNewNumberOfCountries(false, pageSize);
+        const result = await page.calculateNewNumberOfCountries(false, pageSize);
         expect(await page.waitForLoadingAfterHoverToFinish(false)).toBeTruthy();
         expect(await page.getNumberOfCountries(false)).toEqual(result);
         expect(await page.getCountryText(false, 39)).toBe('Korea, Democratic People\'s Republic of');

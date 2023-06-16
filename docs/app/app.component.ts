@@ -87,9 +87,9 @@ export class AppComponent implements OnInit {
     ];
 
     constructor(
-        private router: Router,
-        private activatedRoute: ActivatedRoute,
-        private navigation: NavigationService,
+        private readonly router: Router,
+        private readonly activatedRoute: ActivatedRoute,
+        private readonly navigation: NavigationService,
         ngZone: NgZone
     ) {
         (window as any).ngZone = ngZone;

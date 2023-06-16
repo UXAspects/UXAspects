@@ -1,0 +1,114 @@
+{
+  "name": "documentation",
+  "$schema": "../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "generators": {
+    "@schematics/angular:component": {
+      "style": "less"
+    },
+    "@schematics/angular:application": {
+      "strict": true
+    }
+  },
+  "sourceRoot": "docs",
+  "prefix": "app",
+  "targets": {
+    "build": {
+      "executor": "@nx/angular:webpack-browser",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "customWebpackConfig": {
+          "path": "docs/webpack.config.ts"
+        },
+        "outputPath": "dist/docs",
+        "index": "docs/index.html",
+        "main": "docs/main.ts",
+        "polyfills": ["zone.js"],
+        "tsConfig": "tsconfig.app.json",
+        "inlineStyleLanguage": "less",
+        "assets": [
+          "docs/favicon.ico",
+          "docs/assets",
+          {
+            "glob": "**/*",
+            "input": "src/fonts/",
+            "output": "/assets/fonts/"
+          },
+          {
+            "glob": "**/*",
+            "input": "src/img/",
+            "output": "/assets/img/"
+          },
+          {
+            "glob": "**/*",
+            "input": "dist/library/styles/",
+            "output": "/assets/css/"
+          },
+          {
+            "glob": "ux-aspects-ux-aspects.mjs",
+            "input": "dist/library/fesm2015",
+            "output": "/assets/lib"
+          },
+          {
+            "glob": "ux-aspects-ux-aspects.tgz",
+            "input": "target/npm",
+            "output": "/assets/lib"
+          }
+        ],
+        "styles": ["docs/styles.less"],
+        "scripts": [],
+        "allowedCommonJsDependencies": [
+          "chart.js",
+          "cheerio",
+          "codesandbox/lib/api/define",
+          "json-templater/object",
+          "typescript",
+          "prismjs",
+          "chance",
+          "semver",
+          "moment",
+          "mobx",
+          "boolbase",
+          "prettier"
+        ]
+      },
+      "configurations": {
+        "production": {
+          "budgets": [],
+          "fileReplacements": [],
+          "outputHashing": "all"
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@nx/angular:webpack-dev-server",
+      "options": {
+        "port": 8080
+      },
+      "configurations": {
+        "production": {
+          "browserTarget": "documentation:build:production"
+        },
+        "development": {
+          "browserTarget": "documentation:build:development"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["docs/**/*.ts", "docs/**/*.html"]
+      }
+    }
+  }
+}

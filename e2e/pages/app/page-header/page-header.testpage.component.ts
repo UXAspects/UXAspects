@@ -19,6 +19,7 @@ export class PageHeaderTestPageComponent {
         },
         {
             title: 'Archive',
+            // eslint-disable-next-line @typescript-eslint/no-empty-function
             onClick: () => {}
         }
     ];

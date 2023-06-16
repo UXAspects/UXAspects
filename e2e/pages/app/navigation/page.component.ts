@@ -4,8 +4,8 @@ import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'app-navigation-page',
-    template: `<p id="page-content">{{ title }}</p>`,
-    styles: [``]
+    template: '<p id="page-content">{{ title }}</p>',
+    styles: ['']
 })
 export class NavigationPageComponent implements OnInit, OnDestroy {
 

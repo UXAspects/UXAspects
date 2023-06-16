@@ -4,7 +4,7 @@ import { SelectListPage } from './select-list.po.spec';
 
 describe('Select List Tests', () => {
 
-    let page: SelectListPage = new SelectListPage();
+    const page: SelectListPage = new SelectListPage();
 
     beforeAll(async () => {
         await page.getPage();

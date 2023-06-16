@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import { DocumentationType, DOCUMENTATION_TOKEN } from '../../../../../tokens/documentation.token';
 import { IIcon, IIcons } from '../../../../../interfaces/IIcons';
+import { DOCUMENTATION_TOKEN, DocumentationType } from '../../../../../tokens/documentation.token';
 
 @Component({
     selector: 'uxd-css-icons-ux-icons',
@@ -13,6 +13,7 @@ import { IIcon, IIcons } from '../../../../../interfaces/IIcons';
 export class CssUxIconsComponent {
 
     /** Store the icon set */
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
     icons: ReadonlyArray<IIcon> = require<IIcons>('../../../../../data/ux-icons.json').icons;
 
     /** Store the filtered icons to display */
@@ -31,7 +32,7 @@ export class CssUxIconsComponent {
         return this._documentationType === DocumentationType.Keppel;
     }
 
-    constructor(@Inject(DOCUMENTATION_TOKEN) private _documentationType: DocumentationType) {
+    constructor(@Inject(DOCUMENTATION_TOKEN) private readonly _documentationType: DocumentationType) {
         this.uxIconComponentRoute = _documentationType === DocumentationType.MicroFocus ? '/ui-components/styling' : '/components/icons';
     }
 

@@ -264,6 +264,7 @@ export class SplitterAccessibilityDirective implements OnInit, AfterViewInit, On
         areas.next.size += delta;
 
         // update the splitter - this is a private method but we need to call it
+        //eslint-disable-next-line @typescript-eslint/no-explicit-any
         (this._splitter as any).refreshStyleSizes();
 
         // update the gutter aria values

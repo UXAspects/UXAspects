@@ -14,5 +14,5 @@ export class AppComponent {
         { name: 'Sensitive', value: 9, color: this._colorService.getColor(Color.Critical).toHex() }
     ];
 
-    constructor(private _colorService: ColorService) { }
+    constructor(private readonly _colorService: ColorService) { }
 }

@@ -9,6 +9,7 @@ let uniqueTooltipId = 0;
     templateUrl: './tooltip.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush
 })
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class TooltipComponent<T = any> implements OnDestroy {
     protected readonly _changeDetectorRef = inject(ChangeDetectorRef);
 
@@ -64,6 +65,7 @@ export class TooltipComponent<T = any> implements OnDestroy {
     }
 
     /** This will update the content of the tooltip and trigger change detection */
+    //eslint-disable-next-line @typescript-eslint/no-explicit-any
     setContent(content: string | TemplateRef<any>): void {
         this.content = content;
         this._changeDetectorRef.markForCheck();

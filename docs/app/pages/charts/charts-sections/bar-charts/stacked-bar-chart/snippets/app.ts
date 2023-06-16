@@ -15,7 +15,7 @@ export class AppComponent {
     barChartLegend: boolean = false;
     barChartColors: any;
 
-    constructor(private colorService: ColorService) {
+    constructor(private readonly colorService: ColorService) {
 
         const tooltipBackgroundColor = colorService.getColor('grey2').toHex();
 

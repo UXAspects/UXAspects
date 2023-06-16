@@ -1,5 +1,5 @@
 import { Injectable, TemplateRef } from '@angular/core';
-import { BehaviorSubject, isObservable, Observable, Observer, of, Subject } from 'rxjs';
+import { BehaviorSubject, Observable, Observer, Subject, isObservable, of } from 'rxjs';
 import { first } from 'rxjs/operators';
 import { OverlayTrigger } from '../tooltip/index';
 import { HierarchyBarNodeChildren } from './interfaces/hierarchy-bar-node-children.interface';
@@ -13,10 +13,10 @@ export class HierarchyBarService {
     nodes$ = new BehaviorSubject<HierarchyBarNode[]>([]);
 
     /** Define a custom loading indicator */
-    loadingIndicator: TemplateRef<any>;
+    loadingIndicator: TemplateRef<void>;
 
     /** Define a custom overflow template */
-    overflowTemplate: TemplateRef<any>;
+    overflowTemplate: TemplateRef<void>;
 
     /** Define the events that show the popover when interacting with the arrows */
     popoverShowTriggers: OverlayTrigger[] = ['click'];

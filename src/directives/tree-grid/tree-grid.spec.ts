@@ -26,8 +26,8 @@ export class TreeGridTestComponent {
     rows: TreeGridTestItem[];
     @ViewChildren(TreeGridRowDirective) rowDirectives: QueryList<TreeGridRowDirective>;
 
-    expandedChange(row: TreeGridTestItem, expanded: boolean): void {
-    }
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    expandedChange(row: TreeGridTestItem, expanded: boolean): void {}
 }
 
 describe('Tree Grid', () => {

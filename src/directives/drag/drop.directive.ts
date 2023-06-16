@@ -9,7 +9,7 @@ import { DragService, UxDragEvent } from './drag.service';
         '[class.ux-drop-hover]': 'isMouseOver && isDragging && !dropDisabled'
     }
 })
-export class DropDirective<T = any> implements OnDestroy {
+export class DropDirective<T = unknown> implements OnDestroy {
     private readonly _dragService = inject<DragService<T>>(DragService);
 
     /** Define a specific group of dragged items to listen to */

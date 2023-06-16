@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, forwardRef, inject, Input, Output, ViewEncapsulation } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
-export const SPIN_BUTTON_VALUE_ACCESSOR: any = {
+export const SPIN_BUTTON_VALUE_ACCESSOR = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => SpinButtonComponent),
     multi: true
@@ -47,11 +47,14 @@ export class SpinButtonComponent implements ControlValueAccessor {
     @Output() increment = new EventEmitter<void>();
     @Output() decrement = new EventEmitter<void>();
 
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     onTouchedCallback: () => void = () => { };
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     onChangeCallback: (_: string | number) => void = () => { };
 
     private _value: string | number;
     private readonly _regexKeypress = RegExp(/^[0-9.,-]+$/);
+    // eslint-disable-next-line no-useless-escape
     private readonly _regexPaste = RegExp(/^\-?\d+(\.\d+)?$/);
 
     scroll(event: WheelEvent): void {

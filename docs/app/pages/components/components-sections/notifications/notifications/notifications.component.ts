@@ -68,13 +68,13 @@ export class ComponentsNotificationsComponent
         ],
     };
 
-    private _notifications = new Subject<string>();
-    private _subscription: Subscription;
+    private readonly _notifications = new Subject<string>();
+    private readonly _subscription: Subscription;
 
     constructor(
         public notificationService: NotificationService,
         public colorService: ColorService,
-        private _liveAnnouncer: LiveAnnouncer
+        private readonly _liveAnnouncer: LiveAnnouncer
     ) {
         super(
             import.meta.webpackContext('./snippets/', {

@@ -46,10 +46,10 @@ export class OrganizationChartShowcaseComponent implements OnInit, OnDestroy {
     @ViewChild(OrganizationChartComponent, { static: true }) organizationChart: OrganizationChartComponent<OrganizationChartContext>;
 
     constructor(
-        private _dataService: OrganizationChartDataService,
+        private readonly _dataService: OrganizationChartDataService,
         public typeaheadKeyService: TypeaheadKeyService,
-        private _changeDetector: ChangeDetectorRef,
-        private _focusIndicatorOrigin: FocusIndicatorOriginService
+        private readonly _changeDetector: ChangeDetectorRef,
+        private readonly _focusIndicatorOrigin: FocusIndicatorOriginService
     ) { }
 
     ngOnInit(): void {

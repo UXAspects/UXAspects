@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Directive, ElementRef, EventEmitter, forwardRef, HostListener, inject, Output } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
-export const TOOLBAR_SEARCH_VALUE_ACCESSOR: any = {
+export const TOOLBAR_SEARCH_VALUE_ACCESSOR = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => ToolbarSearchFieldDirective),
     multi: true
@@ -28,9 +28,11 @@ export class ToolbarSearchFieldDirective implements ControlValueAccessor {
     }
 
     /** For use with the Forms and ReactiveForms */
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     private onTouchedCallback: () => void = () => { };
 
     /** Call this function with the latest value to update ngModel or formControl name */
+    // eslint-disable-next-line @typescript-eslint/no-empty-function, @typescript-eslint/no-explicit-any
     private onChangeCallback: (_: any) => void = () => { };
 
     focus(): void {
@@ -74,11 +76,13 @@ export class ToolbarSearchFieldDirective implements ControlValueAccessor {
     }
 
     /** Register a function to update form control */
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     registerOnChange(fn: any): void {
         this.onChangeCallback = fn;
     }
 
     /** Register a function to mark form control as touched */
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     registerOnTouched(fn: any): void {
         this.onTouchedCallback = fn;
     }

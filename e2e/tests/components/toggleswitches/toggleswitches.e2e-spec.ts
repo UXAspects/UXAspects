@@ -4,7 +4,7 @@ import { ToggleSwitchesPage } from './toggleswitches.po.spec';
 
 describe('ToggleSwitchesPage Tests', () => {
 
-    let page: ToggleSwitchesPage = new ToggleSwitchesPage();
+    const page: ToggleSwitchesPage = new ToggleSwitchesPage();
 
     beforeAll(async () => {
         await page.getPage();
@@ -50,10 +50,10 @@ describe('ToggleSwitchesPage Tests', () => {
         expect(await page.confirmIsChecked(page.toggleswitch2)).toBeTruthy();
         expect(await page.confirmIsChecked(page.toggleswitch3)).toBeTruthy();
         expect(await page.confirmIsChecked(page.toggleswitch4)).toBeFalsy();
-        expect<any>(await page.text1.getText()).toBe('true');
-        expect<any>(await page.text2.getText()).toBe('true');
-        expect<any>(await page.text3.getText()).toBe('true');
-        expect<any>(await page.text4.getText()).toBe('false');
+        expect(await page.text1.getText()).toBe('true');
+        expect(await page.text2.getText()).toBe('true');
+        expect(await page.text3.getText()).toBe('true');
+        expect(await page.text4.getText()).toBe('false');
 
         await page.toggleswitch4.click();
 

@@ -3,7 +3,7 @@ import { PartitionMapPage } from './partition-map.po.spec';
 
 describe('Partition Map', () => {
 
-    let page: PartitionMapPage = new PartitionMapPage();
+    const page: PartitionMapPage = new PartitionMapPage();
 
     beforeAll(async () => {
         await page.getPage();

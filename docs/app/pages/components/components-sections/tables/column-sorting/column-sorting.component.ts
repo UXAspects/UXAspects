@@ -114,8 +114,8 @@ export class ComponentsColumnSortingComponent
     sparkBarColor = this._colorService.getColor('chart2').toHex();
 
     constructor(
-        private _colorService: ColorService,
-        private _announcer: LiveAnnouncer,
+        private readonly _colorService: ColorService,
+        private readonly _announcer: LiveAnnouncer,
         @Inject(DOCUMENTATION_TOKEN) documentationType: DocumentationType
     ) {
         super(

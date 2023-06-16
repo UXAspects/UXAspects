@@ -10,7 +10,7 @@ export abstract class BaseDocumentationSection {
 
     private _themedSnippetRegex: RegExp;
 
-    constructor(private _context: __WebpackModuleApi.RequireContext) {
+    constructor(private readonly _context: __WebpackModuleApi.RequireContext) {
         this.snippets = this.getSnippets();
     }
 
@@ -22,6 +22,7 @@ export abstract class BaseDocumentationSection {
 
     private getSnippets(): ISnippets {
 
+        // eslint-disable-next-line no-useless-escape
         this._themedSnippetRegex = new RegExp(`\.${this.theme}`, 'i');
 
         const compiled: SnippetCollection = {};

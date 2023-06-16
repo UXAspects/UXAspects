@@ -19,7 +19,7 @@ export class ChartsSparkChartsComponent
             theme: 'chart1',
             value: 35,
             barHeight: 8,
-            topLeftLabel: `<span class='spark-label'>21.7 MB</span>`,
+            topLeftLabel: '<span class=\'spark-label\'>21.7 MB</span>',
             tooltip: 'Spark Line indicator - 2.17MB of 8.2GB occupied (35%)',
         },
         {
@@ -33,7 +33,7 @@ export class ChartsSparkChartsComponent
             theme: 'chart2',
             value: 35,
             barHeight: 8,
-            topLeftLabel: `<span class='spark-label hidden-xxxs'><span class='large'>21.7</span><span class='medium light'>&nbsp;MB&nbsp;&nbsp;Items&nbsp;&nbsp;(35%)</span></span>`,
+            topLeftLabel: '<span class=\'spark-label hidden-xxxs\'><span class=\'large\'>21.7</span><span class=\'medium light\'>&nbsp;MB&nbsp;&nbsp;Items&nbsp;&nbsp;(35%)</span></span>',
             bottomLeftLabel:
                 '<span class="spark-label hidden-xxxs"><span class="medium light">INDEX COVERAGE</span></span>',
             tooltip: 'Spark Line indicator - 2.17MB of 8.2GB occupied (35%)',
@@ -101,7 +101,7 @@ export class ChartsSparkChartsComponent
         ],
     };
 
-    constructor(private colorService: ColorService) {
+    constructor(private readonly colorService: ColorService) {
         super(
             import.meta.webpackContext('./snippets/', {
                 recursive: false,

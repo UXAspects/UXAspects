@@ -17,7 +17,7 @@ export class SampleCustomFacetComponent implements OnInit {
         new Facet('CSS', { checked: false })
     ];
 
-    constructor(private _facetService: FacetService) {}
+    constructor(private readonly _facetService: FacetService) {}
 
     ngOnInit(): void {
 

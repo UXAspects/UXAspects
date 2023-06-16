@@ -152,13 +152,13 @@ export class ComponentsSearchBuilderComponent extends BaseDocumentationSection i
     @ViewChild('searchBuilderContent', { static: false })
     searchBuilderContent: ElementRef<HTMLElement>;
 
-    private _field$: Subject<SearchBuilderField> = new Subject<SearchBuilderField>();
+    private readonly _field$: Subject<SearchBuilderField> = new Subject<SearchBuilderField>();
     // private _subscription: Subscription;
-    private _onDestroy = new Subject<void>();
+    private readonly _onDestroy = new Subject<void>();
 
     constructor(
-        private _modalService: BsModalService,
-        private _searchBuilderFocusService: SearchBuilderFocusService
+        private readonly _modalService: BsModalService,
+        private readonly _searchBuilderFocusService: SearchBuilderFocusService
     ) {
         super(import.meta.webpackContext('./snippets/', { recursive: false, regExp: /\.(html|css|js|ts)$/ }));
 
