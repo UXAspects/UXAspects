@@ -19,6 +19,11 @@ export class ChangeLogPageComponent implements OnInit {
     async ngOnInit(): Promise<void> {
         this.logs = [
             {
+                version: '8.0.0',
+                date: 'June 22nd 2023',
+                content: require('./logs/release-v8.0.0.md')
+            },
+            {
                 version: '7.6.0',
                 date: 'May 11th 2023',
                 content: require('./logs/release-v7.6.0.md')
