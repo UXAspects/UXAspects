@@ -1,3 +1,15 @@
+<ux-alert type="warning">
+    <p><b>Action Required: Angular Tree Component Compatibility Update</b></p>
+    <p>The <code>@circlon/angular-tree-component</code> library that is used to create this example is no longer maintained and is not compatible with Angular 16.</p>
+    <p>To ensure continued compatibility with Angular 16, we recommend using one of the patched versions of the Angular Tree Component library:</p>
+    <ul>
+        <li><code>@ali-hm/angular-tree-component</code></li>
+        <li><code>@bugsplat/angular-tree-component</code></li>
+    </ul>
+</ux-alert>
+
+<br />
+
 <div class="tree-view-example-container">
     <tree-root [nodes]="nodes" (focus)="focused = $event.node" role="tree">
         <ng-template #treeNodeFullTemplate let-node let-index="index" let-templates="templates">
@@ -26,18 +38,6 @@
         </ng-template>
     </tree-root>
 </div>
-
-<ux-alert type="warning">
-    <p><b>Action Required: Angular Tree Component Compatibility Update</b></p>
-    <p>The <code>@circlon/angular-tree-component</code> library that is used to create this example is no longer maintained and is not compatible with Angular 16.</p>
-    <p>To ensure continued compatibility with Angular 16, we recommend using one of the patched versions of the Angular Tree Component library:</p>
-    <ul>
-        <li><code>@ali-hm/angular-tree-component</code></li>
-        <li><code>@bugsplat/angular-tree-component</code></li>
-    </ul>
-</ux-alert>
-
-<hr>
 
 <p>
     The Tree View component can be created by using the <code>tree-root</code> tag. It allows tree content to be
