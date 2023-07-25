@@ -121,11 +121,6 @@ export class DayViewComponent implements AfterViewInit, OnDestroy {
      */
     select(date: Date): void {
 
-        // if we are range picking, and have no dates selected clear the range (if we select the current day initially it won't get selected)
-        if (this._isRangeMode && !this._rangeStart && !this._rangeEnd) {
-            this._rangeService.clear();
-        }
-
         // if we are the start range picker and we click the already selected day deselect it
         if (this._isRangeMode && this._isRangeStart && this._rangeStart && compareDays(this._rangeStart, date)) {
             this._rangeService.setStartDate(null);
