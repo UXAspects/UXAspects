@@ -94,8 +94,9 @@ describe('Date Range Picker', () => {
         expect(component).toBeTruthy();
     });
 
-    it('should update start date and call onStartChange when start date is changed ', async () => {
+    it('should update start date and call onStartChange when start date is changed and not call onEndChange', async () => {
         spyOn(component, 'onStartChange');
+        spyOn(component, 'onEndChange');
         component.start = new Date(2020, 0, 7, 0, 0, 0);
 
         fixture.detectChanges();
@@ -103,10 +104,12 @@ describe('Date Range Picker', () => {
 
         expect(getDate().innerHTML).toBe(' 7 January 2020 ');
         expect(component.onStartChange).toHaveBeenCalled();
+        expect(component.onEndChange).not.toHaveBeenCalled();
     });
 
-    it('should update end date and call onEndChange when end date is changed', async () => {
+    it('should update end date and call onEndChange when end date is changed and not call onStartChange', async () => {
         spyOn(component, 'onEndChange');
+        spyOn(component, 'onStartChange');
         component.end = new Date(2020, 0, 23, 23, 59, 59);
 
         fixture.detectChanges();
@@ -114,6 +117,7 @@ describe('Date Range Picker', () => {
 
         expect(getDate(1).innerHTML).toBe(' 23 January 2020 ');
         expect(component.onEndChange).toHaveBeenCalled();
+        expect(component.onStartChange).not.toHaveBeenCalled();
     });
 
     it('should not cause an error when dates set to undefined', async () => {
