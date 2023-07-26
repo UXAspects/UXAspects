@@ -1,6 +1,6 @@
 import { END, HOME, LEFT_ARROW, RIGHT_ARROW } from '@angular/cdk/keycodes';
 import { NgModule } from '@angular/core';
-import { Chart } from 'chart.js';
+import type { Chart } from 'chart.js';
 
 const timelineDefaultOptions: TimelineChartOptions & TimelineChartStateOptions = {
     timeline: {
@@ -58,8 +58,10 @@ export class TimelineChartPlugin {
                 (window as any).Chart.pluginService.register(new TimelineChartPlugin());
             }
             else {
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                (Chart as any).register(new TimelineChartPlugin());
+                import('chart.js').then(({ Chart }) => {
+                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                    (Chart as any).register(new TimelineChartPlugin());
+                });
             }
 
             this._isRegistered = true;
