@@ -78,24 +78,28 @@
     <ng-container *ngIf="!actionsTemplate">
         <button class="btn button-primary btn-block"
                 [disabled]="_deselectedSelection.length === 0"
+                [attr.aria-label]="addColumnAriaLabel"
                 (click)="addColumns()">
             <ux-icon name="chevron-right"></ux-icon>
         </button>
 
         <button class="btn button-primary btn-block m-b-md"
                 [disabled]="_selectedSelection.length === 0"
+                [attr.aria-label]="removeColumnAriaLabel"
                 (click)="removeColumns()">
             <ux-icon name="chevron-left"></ux-icon>
         </button>
 
         <button class="btn button-secondary btn-block"
                 [disabled]="_availableDeselectedColumns === 0"
+                [attr.aria-label]="addAllColumnsAriaLabel"
                 (click)="addAllColumns()">
             <ux-icon name="chevron-right-double"></ux-icon>
         </button>
 
         <button class="btn button-secondary btn-block"
                 [disabled]="selected.length === 0"
+                [attr.aria-label]="removeAllColumnsAriaLabel"
                 (click)="removeAllColumns()">
             <ux-icon name="chevron-left-double"></ux-icon>
         </button>

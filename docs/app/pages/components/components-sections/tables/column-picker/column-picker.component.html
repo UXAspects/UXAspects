@@ -49,6 +49,18 @@
     <tr uxd-api-property name="deselectedGroupAriaLabel" type="(column: string, isExpanded: boolean) => string">
         Define a function to get the aria label of a group in the deselected list.
     </tr>
+    <tr uxd-api-property name="addColumnAriaLabel" type="string">
+        Define the aria label for the add column button
+    </tr>
+    <tr uxd-api-property name="removeColumnAriaLabel" type="string">
+        Define the aria label for the remove column button
+    </tr>
+    <tr uxd-api-property name="addAllColumnsAriaLabel" type="string">
+        Define the aria label for the add all columns button
+    </tr>
+    <tr uxd-api-property name="removeAllColumnsAriaLabel" type="string">
+        Define the aria label for the remove all columns button
+    </tr>
     <tr uxd-api-property name="columnMovedAnnouncement" type="(column: string, delta: number) => string">
         Define a function that returns a column move announcement.
     </tr>
@@ -59,6 +71,7 @@
         Define a comparator function used for sorting the deselected columns. For example, to sort the columns alphabetically, the function below could be used:
         <uxd-snippet [content]="snippets.compiled.sortTs"></uxd-snippet>
     </tr>
+
 </uxd-api-properties>
 
 <uxd-api-properties tableTitle="Outputs">
