@@ -24,7 +24,9 @@ export class TabComponent implements OnInit, OnDestroy, OnChanges {
     /** Define the tab unique id */
     @Input()
     set id(id: string) {
-        this._id = id;
+        if (id) {
+            this._id = id;
+        }
     }
 
     get id() {
