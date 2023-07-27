@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, inject, OnDestroy, QueryList, ViewChildren } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, inject, OnDestroy, QueryList, ViewChildren } from '@angular/core';
 import { NavigationExtras } from '@angular/router';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { distinctUntilChanged, takeUntil } from 'rxjs/operators';
@@ -12,7 +12,7 @@ import { PageHeaderNavigationService } from './navigation.service';
     templateUrl: './navigation.component.html',
     providers: [PageHeaderNavigationService],
     host: {
-        'role': 'menubar'
+        '[attr.role]': 'role'
     }
 })
 export class PageHeaderNavigationComponent implements AfterViewInit, OnDestroy {
@@ -24,6 +24,8 @@ export class PageHeaderNavigationComponent implements AfterViewInit, OnDestroy {
 
     private readonly _pageHeaderService = inject(PageHeaderService);
 
+    private readonly _changeDetectorRef = inject(ChangeDetectorRef);
+
     @ViewChildren(PageHeaderNavigationItemComponent) menuItems: QueryList<PageHeaderNavigationItemComponent>;
 
     items$: BehaviorSubject<PageHeaderNavigationItem[]> = this._pageHeaderService.items$;
@@ -32,6 +34,11 @@ export class PageHeaderNavigationComponent implements AfterViewInit, OnDestroy {
     indicatorWidth: number = 0;
 
     private readonly _onDestroy = new Subject();
+
+    get role(): string {
+        this._changeDetectorRef.detectChanges();
+        return this.menuItems?.length > 0 ? 'menubar' : null;
+    }
 
     constructor() {
         this. resizeService.addResizeListener(this.elementRef.nativeElement).pipe(takeUntil(this._onDestroy)).subscribe(this.updateSelectedIndicator.bind(this));
