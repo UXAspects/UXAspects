@@ -24,7 +24,9 @@ export class TabComponent implements OnInit, OnDestroy, OnChanges {
     /** Define the tab unique id */
     @Input()
     set id(id: string) {
-        this._id = id ?? `ux-tab-${++uniqueTabId}`;
+        if (id) {
+            this._id = id;
+        }
     }
 
     get id() {
@@ -70,7 +72,7 @@ export class TabComponent implements OnInit, OnDestroy, OnChanges {
     _active = false;
 
     // Id of tab, for use in the template
-    _id: string;
+    _id: string = `ux-tab-${++uniqueTabId}`;
 
     /** Unsubscribe from all subscriptions when component is destroyed */
     private readonly _onDestroy = new Subject<void>();
