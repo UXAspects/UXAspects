@@ -1,7 +1,7 @@
-import { AfterViewInit, Component, ElementRef, inject, OnDestroy, QueryList, ViewChildren } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, inject, OnDestroy, QueryList, ViewChildren } from '@angular/core';
 import { NavigationExtras } from '@angular/router';
 import { BehaviorSubject, Subject } from 'rxjs';
-import { distinctUntilChanged, takeUntil } from 'rxjs/operators';
+import { distinctUntilChanged, startWith, takeUntil } from 'rxjs/operators';
 import { ResizeService } from '../../../directives/resize/index';
 import { PageHeaderNavigation, PageHeaderService } from '../page-header.service';
 import { PageHeaderNavigationItemComponent } from './navigation-item/navigation-item.component';
@@ -11,18 +11,17 @@ import { PageHeaderNavigationService } from './navigation.service';
     selector: 'ux-page-header-horizontal-navigation',
     templateUrl: './navigation.component.html',
     providers: [PageHeaderNavigationService],
-    host: {
-        'role': 'menubar'
-    }
 })
 export class PageHeaderNavigationComponent implements AfterViewInit, OnDestroy {
-    readonly elementRef = inject(ElementRef);
+    readonly elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
 
     readonly resizeService = inject(ResizeService);
 
     private readonly _navigationService = inject(PageHeaderNavigationService);
 
     private readonly _pageHeaderService = inject(PageHeaderService);
+
+    private readonly _changeDetectorRef = inject(ChangeDetectorRef);
 
     @ViewChildren(PageHeaderNavigationItemComponent) menuItems: QueryList<PageHeaderNavigationItemComponent>;
 
@@ -44,6 +43,15 @@ export class PageHeaderNavigationComponent implements AfterViewInit, OnDestroy {
 
         // setup the page focus key manager
         this._navigationService.initialize(this.menuItems);
+
+        // add or remove the menubar role if there are not menuitems to remove accessibility errors
+        this.menuItems?.changes.pipe(startWith(this.menuItems.toArray()), takeUntil(this._onDestroy)).subscribe(() => {
+            if (this.menuItems.length > 0) {
+                this.elementRef.nativeElement.setAttribute('role', 'menubar');
+            } else {
+                this.elementRef.nativeElement.removeAttribute('role');
+            }
+        });
     }
 
     ngOnDestroy(): void {
