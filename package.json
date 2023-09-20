@@ -18,7 +18,7 @@
   ],
   "license": "Apache-2.0",
   "scripts": {
-    "install:packages": "npm cache clear --force && npm ci",
+    "install:packages": "npm install -g npm@10.1.0 && npm cache clear --force && npm ci",
     "build:documentation": "grunt build:documentation",
     "build:library": "grunt build:library",
     "build": "grunt build",
