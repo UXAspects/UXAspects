@@ -62,8 +62,7 @@
                         <configuration>
                             <executable>npm</executable>
                             <arguments>
-                                <argument>run</argument>
-                                <argument>install:packages</argument>
+                                <argument>ci</argument>
                             </arguments>
                         </configuration>
                     </execution>
