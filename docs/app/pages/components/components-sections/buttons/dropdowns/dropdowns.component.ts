@@ -63,4 +63,8 @@ export class ComponentsDropdownsComponent
     saveList(): void {}
     // eslint-disable-next-line @typescript-eslint/no-empty-function
     saveQuery(): void {}
+
+    closed(e) {
+        console.log('event!', e);
+    }
 }

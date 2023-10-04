@@ -1,10 +1,10 @@
 import { FocusableOption, FocusOrigin } from '@angular/cdk/a11y';
 import { BooleanInput, coerceBooleanProperty } from '@angular/cdk/coercion';
-import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, HostListener, inject, Input, OnDestroy, OnInit, Output, Renderer2 } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, HostListener, inject, Input, OnDestroy, OnInit, Output, Renderer2, ViewChild } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { isKeyboardTrigger } from '../../../common/index';
 import { FocusIndicator, FocusIndicatorService } from '../../../directives/accessibility/index';
+import { MenuTriggerDirective } from '../menu-trigger/menu-trigger.directive';
 import { MenuComponent } from '../menu/menu.component';
 import { MenuItemType } from './menu-item-type.enum';
 
@@ -28,6 +28,8 @@ export class MenuItemComponent implements OnInit, OnDestroy, FocusableOption {
     private readonly _focusIndicatorService = inject(FocusIndicatorService);
 
     private readonly _renderer = inject(Renderer2);
+
+    @ViewChild('uxMenuTriggerFor') _trigger: MenuTriggerDirective;
 
     /** Define if this item is disabled or not */
     @Input() set disabled(disabled: boolean) {
@@ -58,6 +60,11 @@ export class MenuItemComponent implements OnInit, OnDestroy, FocusableOption {
         return this._menu.isMenuOpen;
     }
 
+    get isMenuTrigger(): boolean {
+        console.log(this._trigger);
+        return this._trigger !== undefined;
+    }
+
     /** Indicate the type of the menu item */
     readonly type: MenuItemType = MenuItemType.Default;
 
@@ -71,7 +78,7 @@ export class MenuItemComponent implements OnInit, OnDestroy, FocusableOption {
     readonly isExpanded$ = new BehaviorSubject<boolean>(false);
 
     /** Emit when an item is clicked */
-    readonly onClick$ = new Subject<FocusOrigin>();
+    readonly onClick$ = new Subject<MouseEvent | KeyboardEvent>();
 
     /** Store the focus indicator instance */
     private _focusIndicator: FocusIndicator;
@@ -140,7 +147,7 @@ export class MenuItemComponent implements OnInit, OnDestroy, FocusableOption {
     _onClick(event: MouseEvent | KeyboardEvent): void {
         if (!this.disabled) {
             if (this.closeOnSelect) {
-                this.onClick$.next(isKeyboardTrigger(event) ? 'keyboard' : 'mouse');
+                this.onClick$.next(event);
             }
             this.activate.emit(event);
         }

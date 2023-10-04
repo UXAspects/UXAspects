@@ -6,6 +6,7 @@ import { TemplatePortal } from '@angular/cdk/portal';
 import { ContentChildren, Directive, ElementRef, EventEmitter, HostListener, Input, OnDestroy, OnInit, Output, QueryList, ViewContainerRef, forwardRef, inject } from '@angular/core';
 import { Observable, Subject, combineLatest, merge, of, timer } from 'rxjs';
 import { debounceTime, filter, take, takeUntil } from 'rxjs/operators';
+import { isKeyboardTrigger } from '../../../common/index';
 import { AnchorPlacement } from '../../../common/overlay/anchor-placement';
 import { FocusIndicator, FocusIndicatorOriginService, FocusIndicatorService } from '../../../directives/accessibility/index';
 import { OverlayPlacementService } from '../../../services/overlay-placement/index';
@@ -48,6 +49,9 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
     /** Optionally specify the menu's parent element */
     @Input('uxMenuParent') parent: ElementRef;
 
+    /** Optionally specify the trigger event to open the menu */
+    @Input() triggerEvent?: 'click' | 'hover';
+
     /** Determine if the menu should close when it loses focus */
     @Input() set closeOnBlur(value: boolean) {
         this._closeOnBlur = coerceBooleanProperty(value);
@@ -58,7 +62,7 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
     }
 
     /** Emit when the menu is closed */
-    @Output() readonly closed = new EventEmitter<void>();
+    @Output() readonly closed = new EventEmitter<Event>();
 
     /** Reference to the portal based off the MenuCompont templateRef */
     private _portal: TemplatePortal;
@@ -222,11 +226,15 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
 
         // listen for a menu item to be selected
         this.menu._menuItemClick.pipe(take(1), takeUntil(this._onDestroy$))
-            .subscribe(origin => this.closeMenu(origin, true));
+            .subscribe(event => this.closeMenu(isKeyboardTrigger(event) ? 'keyboard' : 'mouse', true, null, null, event));
 
         // subscribe to any close events
         this.didMenuClose().pipe(take(1), takeUntil(this._onDestroy$))
             .subscribe(() => this.closeMenu());
+
+        // subscribe to the backdrop click
+        this._overlayRef.backdropClick().pipe(take(1), takeUntil(this._onDestroy$))
+        .subscribe(event => this.closeMenu('mouse', null, null, null, event));
 
         // listen for the menu to animate closed then destroy it, if submenu wait for it to start closing to destroy.
         if (this._isSubmenuTrigger) {
@@ -239,7 +247,7 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
     }
 
     /** Close a menu or submenu */
-    closeMenu(origin?: FocusOrigin, closeParents: boolean = false, focusTrigger: boolean = true, focusNextElement: boolean = false): Observable<void> {
+    closeMenu(origin?: FocusOrigin, closeParents: boolean = false, focusTrigger: boolean = true, focusNextElement: boolean = false, event?: KeyboardEvent | MouseEvent): Observable<void> {
 
         if (!this._overlayRef.hasAttached()) {
             return;
@@ -266,7 +274,7 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
             this.focusNextElement();
         }
 
-        this.closed.emit();
+        this.closed.emit(event);
         return this.menu.closed;
     }
 
@@ -277,20 +285,26 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
     toggleMenu(event?: MouseEvent | KeyboardEvent): void {
 
         // if this occurs on a submenu trigger then we can skip
-        if (this._isSubmenuTrigger) {
+        if (this._isSubmenuTrigger && this.triggerEvent !== 'click') {
+            return;
+        }
+
+        // determine the focus origin based on whether or not a keyboard was used
+        const origin = event instanceof KeyboardEvent ? 'keyboard' : 'mouse';
+
+        // if it is a submenu trigger and it has triggerEvent click then we want to close only the submenu
+        if (this._isSubmenuTrigger && this.triggerEvent === 'click' && this.menu.isMenuOpen) {
+            this.closeMenu(origin, false, true, false, event);
             return;
         }
 
         if (!this.menu._isAnimating) {
 
-            // determine the focus origin based on whether or not a keyboard was used
-            const origin = event instanceof KeyboardEvent ? 'keyboard' : 'mouse';
-
             // set the correct focus origin - if triggered by an event then use the source otherwise it was programmatic
             this._focusOrigin.setOrigin(event ? origin : 'program');
 
             // toggle the menu open state
-            this.menu.isMenuOpen ? this.closeMenu(origin, true) : this.openMenu();
+            this.menu.isMenuOpen ? this.closeMenu(origin, true, true, false, event) : this.openMenu();
         }
 
         // the enter key will trigger the click event and therefore set the wrong focus origin
@@ -303,14 +317,14 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
     /** Submenus should be opened by hovering on the menu item */
     @HostListener('mouseenter')
     _onMouseEnter(): void {
-        if (this._isSubmenuTrigger && !this._parentMenu._isAnimating) {
+        if (this._isSubmenuTrigger && !this._parentMenu._isAnimating && this.triggerEvent !== 'click') {
             this.openMenu();
         }
     }
 
     @HostListener('mousemove')
     _onMouseMove(): void {
-        if (this._isSubmenuTrigger && !this._parentMenu._isAnimating) {
+        if (this._isSubmenuTrigger && !this._parentMenu._isAnimating && this.triggerEvent !== 'click') {
             setTimeout(() => {
                 this.openMenu();
             }, this._debounceTime);
@@ -318,10 +332,10 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
     }
 
     /** Pressing the escape key should close all menus */
-    @HostListener('document:keydown.escape')
-    _onEscape(): void {
+    @HostListener('document:keydown.escape', ['$event'])
+    _onEscape(event?: KeyboardEvent): void {
         if (this.menu.isMenuOpen) {
-            this.closeMenu();
+            this.closeMenu(null, null, null, null, event);
 
             // refocus the root trigger and show the focus ring
             if (this._isRootTrigger) {
@@ -422,7 +436,6 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     private didMenuClose(): Observable<any> {
         return merge(
-            this._overlayRef.backdropClick(),
             this._parentMenu ? this._parentMenu.closing : of(),
             this._menuShouldClose
         );
@@ -448,7 +461,7 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
                 this.menu.placement === 'top' && event.keyCode === DOWN_ARROW ||
                 this.menu.placement === 'bottom' && event.keyCode === UP_ARROW
             ) {
-                this.closeMenu();
+                this.closeMenu(null, null, null, null, event);
 
                 // refocus the parent menu item
                 this._menuItem.focus('keyboard');

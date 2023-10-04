@@ -115,7 +115,7 @@ export class MenuComponent implements AfterContentInit, OnDestroy, OnChanges {
         return this._menuItems.pipe(switchMap(items => merge(...items.map(item => item.isExpanded$))), takeUntil(this._onDestroy$));
     }
 
-    get _menuItemClick(): Observable<FocusOrigin> {
+    get _menuItemClick(): Observable<MouseEvent | KeyboardEvent> {
         return this._menuItems.pipe(switchMap(items => merge(...items.map(item => item.onClick$))), takeUntil(this._onDestroy$));
     }
 

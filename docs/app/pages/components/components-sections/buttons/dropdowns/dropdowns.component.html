@@ -5,7 +5,8 @@
             <button
                 type="button"
                 class="btn button-primary dropdown-toggle dropdown-button"
-                [uxMenuTriggerFor]="menu">
+                [uxMenuTriggerFor]="menu"
+                (closed)="closed($event)">
                 <span>Actions</span><ux-icon name="chevron-down" class="dropdown-icon-inline"></ux-icon>
             </button>
         </div>
@@ -44,7 +45,7 @@
 
 <ux-menu #menu menuClass="ux-menu-demo">
 
-    <button type="button" uxMenuItem [uxMenuTriggerFor]="markAsMenu">
+    <button type="button" uxMenuItem [uxMenuTriggerFor]="markAsMenu" [triggerEvent]="'click'" [closeOnSelect]="false">
         <span class="dropdown-menu-icon"></span>
         <span class="dropdown-menu-text">Mark as</span>
         <span class="dropdown-menu-right dropdown-menu-hint">
