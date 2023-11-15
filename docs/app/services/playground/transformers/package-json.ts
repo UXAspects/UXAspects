@@ -18,8 +18,8 @@ const ANGULAR_DEPENDENCIES = {
 const OPTIONAL_DEPENDENCIES = {
     'chartjs-adapter-moment': '^1.0.0',
     moment: '^2.0.0',
-    'ng2-file-upload': '^3.0.0',
-    'ngx-bootstrap': '^8.0.0',
+    'ng2-file-upload': '^5.0.0',
+    'ngx-bootstrap': '^11.0.0',
     'ngx-mask': '^16.4.1',
 };
 

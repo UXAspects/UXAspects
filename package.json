@@ -68,7 +68,7 @@
     "moment": "^2.29.1",
     "moment-timezone": "0.5.0",
     "ng2-charts": "^3.0.8",
-    "ng2-file-upload": "^3.0.0",
+    "ng2-file-upload": "^5.0.0",
     "ngx-bootstrap": "^11.0.2",
     "ngx-mask": "^16.4.1",
     "prismjs": "^1.6.0",
