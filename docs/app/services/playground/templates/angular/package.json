@@ -46,6 +46,9 @@
     "tslint": "~6.1.3",
     "typescript": "4.1.5"
   },
-  "keywords": ["angular", "starter"],
+  "keywords": [
+    "angular",
+    "starter"
+  ],
   "description": "Angular example starter project"
 }

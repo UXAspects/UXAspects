@@ -10,3 +10,5 @@
 release-notes-*.md
 
 .angular
+
+/.nx/cache

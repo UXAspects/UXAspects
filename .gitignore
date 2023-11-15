@@ -22,3 +22,5 @@ target/
 .tmp
 .DS_Store
 .angular
+
+.nx/cache
