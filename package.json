@@ -55,7 +55,7 @@
     "@circlon/angular-tree-component": "^11.0.4",
     "@juggle/resize-observer": "^3.3.1",
     "@swc/helpers": "0.5.3",
-    "angular-split": "^14.1.0",
+    "angular-split": "^17.0.0",
     "bootstrap": "^3.3.7",
     "chance": "^1.0.10",
     "chart.js": "^3.7.1",

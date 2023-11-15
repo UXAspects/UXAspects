@@ -50,7 +50,7 @@
   "dependencies": {
     "@juggle/resize-observer": "^3.3.1",
     "@types/d3": "^7.4.0",
-    "angular-split": "^14.0.0",
+    "angular-split": "^17.0.0",
     "bootstrap": "^3.3.7",
     "d3": "^7.6.1"
   },
