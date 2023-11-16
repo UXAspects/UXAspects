@@ -41,6 +41,7 @@
     "test": "npm run test:karma && npm run test:e2e"
   },
   "dependencies": {
+    "@ali-hm/angular-tree-component": "^12.0.5",
     "@angular/animations": "16.2.12",
     "@angular/cdk": "16.2.12",
     "@angular/cli": "~16.2.0",
@@ -52,7 +53,6 @@
     "@angular/platform-browser": "16.2.12",
     "@angular/platform-browser-dynamic": "16.2.12",
     "@angular/router": "16.2.12",
-    "@circlon/angular-tree-component": "^11.0.4",
     "@juggle/resize-observer": "^3.3.1",
     "@swc/helpers": "0.5.3",
     "angular-split": "^17.0.0",
@@ -89,6 +89,7 @@
     "@babel/runtime": "^7.21.5",
     "@nx/angular": "17.1.2",
     "@nx/devkit": "17.1.2",
+    "@nx/eslint": "17.1.2",
     "@nx/eslint-plugin": "17.1.2",
     "@nx/jest": "17.1.2",
     "@nx/js": "17.1.2",
@@ -175,8 +176,7 @@
     "ts-node": "10.9.1",
     "tslib": "^2.3.1",
     "typescript": "4.9.5",
-    "webpack-cli": "^5.0.1",
-    "@nx/eslint": "17.1.2"
+    "webpack-cli": "^5.0.1"
   },
   "files": [
     "configs/loaders",
