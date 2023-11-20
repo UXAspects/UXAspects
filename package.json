@@ -38,7 +38,9 @@
     "start": "rimraf dist/library && concurrently --restart-tries 3 --restart-after 5000 -n docs,lib,style,pack,serve -c cyan,magenta,yellow,bgCyan,bgMagenta \"npm:start:documentation\" \"npm:start:library\" \"npm:start:style\" \"npm:start:pack\" \"http-server target/playground -p 8090 --cors\"",
     "test:e2e": "nx e2e ux-aspects-e2e",
     "test:karma": "npm run nx test ux-aspects -- --watch=false",
-    "test": "npm run test:karma && npm run test:e2e"
+    "test": "npm run test:karma && npm run test:e2e",
+    "start:local-registry": "nx local-registry @ux-aspects/ux-aspects-docs",
+    "publish:local-registry": "sh ./scripts/local-publish.sh"
   },
   "dependencies": {
     "@ali-hm/angular-tree-component": "^12.0.5",
@@ -176,6 +178,7 @@
     "ts-node": "10.9.1",
     "tslib": "^2.3.1",
     "typescript": "4.9.5",
+    "verdaccio": "^5.0.4",
     "webpack-cli": "^5.0.1"
   },
   "files": [
@@ -239,5 +242,8 @@
     "src",
     "LICENSE.md",
     "README.md"
-  ]
+  ],
+  "nx": {
+    "includedScripts": []
+  }
 }
