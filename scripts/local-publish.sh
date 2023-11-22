@@ -30,3 +30,6 @@ dist_folders=(
 for folder in "${dist_folders[@]}"; do
     (cd "$folder" && yarn pack && yarn publish --registry http://localhost:4873 --new-version $version --no-git-tag-version -f)
 done
+
+# a tgz file is created in the root of the project, we no longer need this, so remove it
+rm ux-aspects-ux-aspects-docs-*.tgz
