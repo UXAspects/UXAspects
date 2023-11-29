@@ -155,8 +155,12 @@ export class SplitterAccessibilityDirective implements OnInit, AfterViewInit, On
         // get the matching split area
         const area = this._splitter.displayedAreas[index];
 
+        if (area.size === '*') {
+            return;
+        }
+
         // indicate the size
-        this._renderer.setAttribute(gutter, 'aria-valuenow', `${Math.round(area.size as number)}`);
+        this._renderer.setAttribute(gutter, 'aria-valuenow', `${Math.round(area.size)}`);
     }
 
     /** Apply the value min aria attribute */
@@ -216,8 +220,12 @@ export class SplitterAccessibilityDirective implements OnInit, AfterViewInit, On
             // get the affected panels
             const areas = this.getAreasFromGutter(event.target as HTMLElement);
 
+            if (areas.previous.size === '*') {
+                return;
+            }
+
             // set the previous area to it's minimum size
-            const delta = areas.previous.size as number - areas.previous.minSize;
+            const delta = areas.previous.size - areas.previous.minSize;
 
             // update the sizes accordingly
             this.setGutterPosition(event.target as HTMLElement, delta);
@@ -233,8 +241,12 @@ export class SplitterAccessibilityDirective implements OnInit, AfterViewInit, On
             // get the affected panels
             const areas = this.getAreasFromGutter(event.target as HTMLElement);
 
+            if (areas.next.size === '*') {
+                return;
+            }
+
             // set the next area to it's minimum size
-            const delta = areas.next.size as number - areas.next.minSize;
+            const delta = areas.next.size - areas.next.minSize;
 
             // update the sizes accordingly
             this.setGutterPosition(event.target as HTMLElement, -delta);
@@ -254,16 +266,18 @@ export class SplitterAccessibilityDirective implements OnInit, AfterViewInit, On
         // get the affected panels
         const areas = this.getAreasFromGutter(gutter);
 
+        if (areas.previous.size === '*' || areas.next.size === '*') {
+            return;
+        }
+
         // ensure we can perform the resize
-        if (areas.previous.size as number - delta < areas.previous.minSize || areas.next.size as number + delta < areas.next.minSize) {
+        if (areas.previous.size - delta < areas.previous.minSize || areas.next.size + delta < areas.next.minSize) {
             return;
         }
 
         // perform the resize
-        if (typeof areas.previous.size === 'number' && typeof areas.next.size === 'number') {
-            areas.previous.size -= delta;
-            areas.next.size += delta;
-        }
+        areas.previous.size -= delta;
+        areas.next.size += delta;
 
         // update the splitter - this is a private method but we need to call it
         //eslint-disable-next-line @typescript-eslint/no-explicit-any

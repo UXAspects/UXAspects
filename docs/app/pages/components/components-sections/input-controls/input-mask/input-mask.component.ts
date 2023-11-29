@@ -19,11 +19,11 @@ export class ComponentsInputMaskComponent
             'app.component.html': this.snippets.raw.appHtml,
             'app.component.ts': this.snippets.raw.appTs,
         },
-        // TODO: fix this playground
         modules: [
             {
-                imports: ['NgxMaskDirective, NgxMaskPipe'],
-                library: 'ngx-mask',
+                imports: ['NgxMaskDirective', 'NgxMaskPipe'],
+                providers: ['provideNgxMask()'],
+                library: 'ngx-mask'
             }
         ],
     };

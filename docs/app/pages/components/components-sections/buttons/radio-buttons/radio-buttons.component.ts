@@ -26,7 +26,7 @@ export class ComponentsRadioButtonsComponent
             {
                 library: 'ngx-bootstrap/buttons',
                 imports: ['ButtonsModule'],
-                providers: ['ButtonsModule.forRoot()'],
+                importsWithProviders: ['ButtonsModule.forRoot()'],
             },
         ],
     };
