@@ -383,6 +383,7 @@ export class PartitionMapComponent implements OnInit, OnDestroy {
             value: this._getSegmentValue(segment.data),
             color: this._getBackgroundColor(segment),
             expanded: !this._isCollapsed(segment),
+            depth: segment.depth,
             children: []
         };
 
@@ -850,6 +851,7 @@ export interface PartitionMapCustomSegmentContext {
     color: string;
     value: number;
     expanded: boolean;
+    depth: number;
     children: PartitionMapCustomSegmentContext[];
 }
 
