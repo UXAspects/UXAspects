@@ -8,7 +8,8 @@ export interface IPlayground {
 
 export interface IPlaygroundModule {
     imports?: string | string[];
-    providers?: string | string[];
+    importsWithProviders?: string | string[];
+    providers?: string[];
     library?: string;
     importAs?: boolean;
     declaration?: boolean;

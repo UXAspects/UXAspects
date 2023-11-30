@@ -1,3 +1,6 @@
+# 8.0 to 9.0
+* Angular 15 is no longer supported.
+
 # 7.0 to 8.0
 * Angular 14 is no longer supported.
 

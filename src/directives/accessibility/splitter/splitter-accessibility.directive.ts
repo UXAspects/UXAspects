@@ -155,6 +155,10 @@ export class SplitterAccessibilityDirective implements OnInit, AfterViewInit, On
         // get the matching split area
         const area = this._splitter.displayedAreas[index];
 
+        if (area.size === '*') {
+            return;
+        }
+
         // indicate the size
         this._renderer.setAttribute(gutter, 'aria-valuenow', `${Math.round(area.size)}`);
     }
@@ -216,6 +220,10 @@ export class SplitterAccessibilityDirective implements OnInit, AfterViewInit, On
             // get the affected panels
             const areas = this.getAreasFromGutter(event.target as HTMLElement);
 
+            if (areas.previous.size === '*') {
+                return;
+            }
+
             // set the previous area to it's minimum size
             const delta = areas.previous.size - areas.previous.minSize;
 
@@ -232,6 +240,10 @@ export class SplitterAccessibilityDirective implements OnInit, AfterViewInit, On
         if (this.isSplitterGutter(event.target as HTMLElement)) {
             // get the affected panels
             const areas = this.getAreasFromGutter(event.target as HTMLElement);
+
+            if (areas.next.size === '*') {
+                return;
+            }
 
             // set the next area to it's minimum size
             const delta = areas.next.size - areas.next.minSize;
@@ -253,6 +265,10 @@ export class SplitterAccessibilityDirective implements OnInit, AfterViewInit, On
     private setGutterPosition(gutter: HTMLElement, delta: number): void {
         // get the affected panels
         const areas = this.getAreasFromGutter(gutter);
+
+        if (areas.previous.size === '*' || areas.next.size === '*') {
+            return;
+        }
 
         // ensure we can perform the resize
         if (areas.previous.size - delta < areas.previous.minSize || areas.next.size + delta < areas.next.minSize) {

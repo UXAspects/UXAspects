@@ -39,7 +39,7 @@ export class ComponentsToggleButtonsComponent
             {
                 library: 'ngx-bootstrap/buttons',
                 imports: ['ButtonsModule'],
-                providers: ['ButtonsModule.forRoot()'],
+                importsWithProviders: ['ButtonsModule.forRoot()'],
             },
         ],
     };

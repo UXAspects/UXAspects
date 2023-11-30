@@ -9,7 +9,7 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
 import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
-import { DocumentationType, DOCUMENTATION_TOKEN } from '../../../../../tokens/documentation.token';
+import { DOCUMENTATION_TOKEN, DocumentationType } from '../../../../../tokens/documentation.token';
 
 @Component({
     selector: 'uxd-components-badge',
@@ -48,7 +48,7 @@ export class ComponentsBadgeComponent
             {
                 imports: ['RouterModule'],
                 library: '@angular/router',
-                providers: ['RouterModule.forRoot([])'],
+                importsWithProviders: ['RouterModule.forRoot([])'],
             },
         ],
     };
