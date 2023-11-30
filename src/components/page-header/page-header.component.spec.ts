@@ -197,12 +197,12 @@ describe('Page Header Component', () => {
         expect(subMenuItems[2].id).toBe('monthly-view');
     });
 
-    fit('should add the menubar role when there are items', () => {
+    it('should add the menubar role when there are items', () => {
         const menuBar = document.querySelector('ux-page-header-horizontal-navigation');
         expect(menuBar.getAttribute('role')).toContain('menubar');
     });
 
-    fit('should not add the menubar role when there are no items', () => {
+    it('should not add the menubar role when there are no items', () => {
         component.items = [];
         fixture.detectChanges();
         const menuBar = document.querySelector('ux-page-header-horizontal-navigation');

@@ -21,10 +21,10 @@ export class ComponentsInputMaskComponent
         },
         modules: [
             {
-                imports: ['NgxMaskModule'],
-                library: 'ngx-mask',
-                forRoot: true,
-            },
+                imports: ['NgxMaskDirective', 'NgxMaskPipe'],
+                providers: ['provideNgxMask()'],
+                library: 'ngx-mask'
+            }
         ],
     };
 

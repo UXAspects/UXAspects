@@ -15,7 +15,7 @@ export function addImportsTransformer(
 }
 
 export function ngModuleMetadataTransformer(
-  property: 'imports' | 'declarations',
+  property: 'imports' | 'declarations' | 'providers',
   expressions: ts.Expression[]
 ): ts.TransformerFactory<ts.SourceFile> {
   return context => {
@@ -52,33 +52,17 @@ export function getModuleImportStatement(moduleName: string, forRoot: boolean): 
 export function getImportDeclaration(
   path: string,
   imports?: string | string[],
-  isAlias?: boolean
+  isAlias?: boolean,
+  providers?: string[]
 ): ts.ImportDeclaration {
-  if (!imports) {
-    return ts.factory.createImportDeclaration(
-      undefined,
-      undefined,
-      ts.factory.createStringLiteral(path)
-    );
+
+  // if we have an alias and providers, then throw an error as this is not supported
+  if (isAlias && providers) {
+    throw new Error('Cannot have an alias and providers');
   }
 
-  if (imports instanceof Array) {
-    const importSpecifiers = imports.map(_import =>
-      ts.factory.createImportSpecifier(false, undefined, ts.factory.createIdentifier(_import))
-    );
-
-    return ts.factory.createImportDeclaration(
-      undefined,
-      ts.factory.createImportClause(
-        false,
-        undefined,
-        ts.factory.createNamedImports(importSpecifiers)
-      ),
-      ts.factory.createStringLiteral(path)
-    );
-  }
-
-  if (isAlias) {
+  // namespace import, we can't import anything else so just return early
+  if (isAlias && typeof imports === 'string') {
     return ts.factory.createImportDeclaration(
       undefined,
       ts.factory.createImportClause(
@@ -90,9 +74,47 @@ export function getImportDeclaration(
     );
   }
 
+  // if this is a default import then we also can't import anything else so just return early
+  if (typeof imports === 'string') {
+    return ts.factory.createImportDeclaration(
+      undefined,
+      ts.factory.createImportClause(false, ts.factory.createIdentifier(imports), undefined),
+      ts.factory.createStringLiteral(path)
+    );
+  }
+
+  // if there are no imports and no providers then this is a "global" import so just return early
+  if ((!imports || !imports.length) && (!providers || !providers.length)) {
+    return ts.factory.createImportDeclaration(
+      undefined,
+      undefined,
+      ts.factory.createStringLiteral(path)
+    );
+  }
+
+  const providerImports= providers ? providers.map(provider => {
+    const sourceFile = ts.createSourceFile('temp.ts', provider, ts.ScriptTarget.Latest, true, ts.ScriptKind.TS);
+
+    if (!ts.isExpressionStatement(sourceFile.statements[0]) || !ts.isCallExpression(sourceFile.statements[0].expression) || !ts.isIdentifier(sourceFile.statements[0].expression.expression)) {
+        throw new Error('Invalid provider specified for playground');
+    }
+
+    const identifier = sourceFile.statements[0].expression.expression;
+
+    return ts.factory.createImportSpecifier(false, undefined, identifier);
+  }) : [];
+
+  const moduleImports = imports ? imports.map(_import =>
+    ts.factory.createImportSpecifier(false, undefined, ts.factory.createIdentifier(_import))
+  ) : [];
+
   return ts.factory.createImportDeclaration(
     undefined,
-    ts.factory.createImportClause(false, ts.factory.createIdentifier(imports), undefined),
+    ts.factory.createImportClause(
+      false,
+      undefined,
+      ts.factory.createNamedImports([...moduleImports, ...providerImports])
+    ),
     ts.factory.createStringLiteral(path)
   );
 }
@@ -121,7 +143,7 @@ export function mergeImports(...imports: ts.ImportDeclaration[]): ts.ImportDecla
     if (index >= 0) {
       mergedImports[index] = addIdentifiersToImportDeclaration(
         mergedImports[index],
-        originImport.importClause.namedBindings as ts.NamedImports
+        originImport.importClause?.namedBindings as ts.NamedImports
       );
     } else {
       mergedImports.push(originImport);

@@ -1,5 +1,5 @@
+import { TreeNode } from '@ali-hm/angular-tree-component';
 import { Component } from '@angular/core';
-import { TreeNode } from '@circlon/angular-tree-component';
 import { TreeViewService } from './service.ts';
 
 @Component({

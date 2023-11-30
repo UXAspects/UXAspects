@@ -11,7 +11,7 @@ import {
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
-import { NgxMaskModule } from 'ngx-mask';
+import { provideEnvironmentNgxMask } from 'ngx-mask';
 import { AppComponent } from './app.component';
 import { DocumentationComponentsModule } from './components/components.module';
 import {
@@ -55,7 +55,6 @@ const appRoutes: Routes = [
         ButtonsModule.forRoot(),
         ColorServiceModule.forRoot(colorSets.keppel),
         DocumentationComponentsModule,
-        NgxMaskModule.forRoot(),
         ModalModule.forRoot(),
         PageHeaderModule,
         RouterModule.forRoot(appRoutes, { useHash: true }),
@@ -63,6 +62,7 @@ const appRoutes: Routes = [
     ],
     providers: [
         PersistentDataService,
+        provideEnvironmentNgxMask(),
         { provide: DOCUMENTATION_TOKEN, useValue: DocumentationType.Keppel },
         { provide: PLAYGROUND_TRANSFORMER, useClass: AngularFilesPlaygroundTransformer, multi: true },
         { provide: PLAYGROUND_TRANSFORMER, useClass: CssFilesPlaygroundTransformer, multi: true },

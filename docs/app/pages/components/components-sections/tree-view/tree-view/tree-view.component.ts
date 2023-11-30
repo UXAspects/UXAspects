@@ -1,5 +1,5 @@
+import { TreeNode } from '@ali-hm/angular-tree-component';
 import { Component } from '@angular/core';
-import { TreeNode } from '@circlon/angular-tree-component';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 

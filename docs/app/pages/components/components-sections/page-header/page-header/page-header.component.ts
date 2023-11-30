@@ -27,7 +27,7 @@ export class ComponentsPageHeaderComponent
             {
                 imports: ['RouterModule'],
                 library: '@angular/router',
-                providers: ['RouterModule.forRoot([])'],
+                importsWithProviders: ['RouterModule.forRoot([])'],
             },
         ],
     };

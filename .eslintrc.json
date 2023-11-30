@@ -43,6 +43,8 @@
         "@angular-eslint/template/no-negated-async": "off",
         "@angular-eslint/directive-class-suffix": "off",
         "@typescript-eslint/adjacent-overload-signatures": "off",
+        "@typescript-eslint/no-explicit-any": "off",
+        "@typescript-eslint/no-unused-vars": "off",
         "brace-style": "off",
         "one-var": "off",
         "@typescript-eslint/quotes": [

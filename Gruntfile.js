@@ -17,7 +17,7 @@ module.exports = function (grunt) {
     // Register Tasks
     grunt.registerTask('lint', ['execute:lint-library', 'execute:lint-documentation', 'execute:lint-e2e', 'stylelint']);
     grunt.registerTask('library', ['clean:library', 'execute:build-library']);
-    grunt.registerTask('styles', ['clean:styles', 'execute:less', 'usebanner:styles']);
+    grunt.registerTask('styles', ['execute:less', 'usebanner:styles']);
     grunt.registerTask('assets', ['copy:fonts', 'copy:images', 'copy:css', 'copy:md']);
     grunt.registerTask('assets:library', ['copy:fonts', 'copy:images', 'copy:md']);
     grunt.registerTask('iconset', ['execute:iconset', 'webfont']);
@@ -51,4 +51,16 @@ module.exports = function (grunt) {
 
     // default: build and package for all targets.
     grunt.registerTask('default', ['build']);
+
+    // a quick build for local development
+    grunt.registerTask('build:local-registry', [
+        'clean',
+        'clean:documentation',
+        'execute:build-documentation',
+        'compress:documentation',
+        'library',
+        'styles',
+        'minify',
+        'assets:library',
+    ]);
 };
