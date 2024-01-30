@@ -236,6 +236,11 @@ export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
             this._showTimeoutId = null;
             return;
         }
+        
+        // if the tooltip is hidden then do nothing
+        if (!this.isVisible) {
+            return;
+        }
 
         if (this._overlayRef && this._overlayRef.hasAttached()) {
             this._overlayRef.detach();
