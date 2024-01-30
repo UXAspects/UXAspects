@@ -7,6 +7,11 @@ import { ContrastService, FocusIndicatorOriginService } from '../../directives/a
 import { ResizeService } from '../../directives/resize/index';
 import { ColorService, ThemeColor } from '../../services/color/index';
 
+interface SegmentCacheData {
+    x?: number;
+    width?: number;
+}
+
 @Component({
     selector: 'ux-partition-map',
     templateUrl: './partition-map.component.html',
@@ -32,6 +37,8 @@ export class PartitionMapComponent implements OnInit, OnDestroy {
     private readonly _liveAnnouncer = inject(LiveAnnouncer);
 
     private readonly _resizeService = inject(ResizeService);
+    
+    private _segmentCache = new WeakMap<PartitionMapSegment, SegmentCacheData>();
 
     /** Define the colors to be used for each row and the order they should appear. */
     @Input() set colors(colors: (string | ThemeColor)[][]) {
@@ -444,6 +451,9 @@ export class PartitionMapComponent implements OnInit, OnDestroy {
         if (!this._segmentsSelection) {
             return;
         }
+        
+        // clear the segment cache
+        this._segmentCache = new WeakMap();
 
         // perform the chart positioning and sizing
         this._segmentsSelection
@@ -455,6 +465,18 @@ export class PartitionMapComponent implements OnInit, OnDestroy {
             .style('padding-left', data => this.getSegmentPaddingLeft(data) + '%');
     }
 
+    private cacheSegment(segment: PartitionMapSegment, data: SegmentCacheData): void {
+        // get any existing cache data
+        const existing = this._segmentCache.get(segment) ?? {};
+    
+        // store the new data
+        this._segmentCache.set(segment, { ...existing, ...data });
+      }
+    
+      private getSegmentCache(segment: PartitionMapSegment, key: keyof SegmentCacheData): number | null {
+        return this._segmentCache.get(segment)?.[key];
+      }    
+
     /**
      * Get the X position of a given segment. The X position can be determined
      * by calculating the width of every sibling segment to the left of it
@@ -465,6 +487,12 @@ export class PartitionMapComponent implements OnInit, OnDestroy {
         if (!segment.parent) {
             return segment.x0;
         }
+        
+        const cachedX = this.getSegmentCache(segment.data, 'x');
+
+        if (cachedX !== undefined) {
+          return cachedX;
+        }    
 
         // set initial start position equal to that of the parent
         let accumulation = this.getSegmentX(segment.parent);
@@ -474,6 +502,7 @@ export class PartitionMapComponent implements OnInit, OnDestroy {
 
             // if we have reached the current node then return all previous widths
             if (sibling === segment) {
+                this.cacheSegment(segment.data, { x: accumulation });
                 return accumulation;
             }
 
@@ -489,6 +518,13 @@ export class PartitionMapComponent implements OnInit, OnDestroy {
         if (!segment.parent) {
             return 1;
         }
+        
+        const cachedWidth = this.getSegmentCache(segment.data, 'width');
+
+        if (cachedWidth !== undefined) {
+          return cachedWidth;
+        }
+        
 
         // get width of parent
         const parentOffset = this.getSegmentWidth(segment.parent) / (segment.parent.x1 - segment.parent.x0);
@@ -505,10 +541,20 @@ export class PartitionMapComponent implements OnInit, OnDestroy {
             const modifier = this.getDistributionModifier(segment);
 
             // return the width of the current node relative to the parent
-            return (width * modifier) * parentOffset;
-        }
+            const result = width * modifier * parentOffset;
 
-        return width * parentOffset;
+            // store the result in the cache
+            this.cacheSegment(segment.data, { width: result });
+        
+            return result;
+        }
+    
+        const result = width * parentOffset;
+    
+        // store the result in the cache
+        this.cacheSegment(segment.data, { width: result });
+    
+        return result;
     }
 
     /** Return the X position of the segment in a normalized form based on the specifiec domain */
@@ -650,6 +696,9 @@ export class PartitionMapComponent implements OnInit, OnDestroy {
         if (!segment || this._isSelected(segment)) {
             return;
         }
+        
+        // clear the segment cache
+        this._segmentCache = new WeakMap();
 
         // emit the selection
         this.selectedChange.emit(segment.data);
