@@ -1,6 +1,6 @@
 <!--
 
-    Copyright © 2015 – 2023 Open Text. All Rights Reserved. Trademarks owned by Open Text.
+    Copyright © 2015 – 2024 Open Text. All Rights Reserved. Trademarks owned by Open Text.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -35,7 +35,7 @@
         <maven.install.skip>true</maven.install.skip>
         <skipNexusStagingDeployMojo>true</skipNexusStagingDeployMojo>
         <skipLicenseHeadersCheck>true</skipLicenseHeadersCheck>
-        <copyrightYear>2023</copyrightYear>
+        <copyrightYear>2024</copyrightYear>
     </properties>
 
     <build>
