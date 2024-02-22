@@ -93,25 +93,30 @@ ux-facet-container {
     }
 }
 
-/* Animate items as they're being sorted. */
-.cdk-drop-list-dragging .cdk-drag {
-    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
-}
+.facet-drag-item.cdk-drag-preview {
+    // background-color: orange;
 
-/* Animate an item that has been dropped. */
-.cdk-drag-animating {
-    transition: transform 300ms cubic-bezier(0, 0, 0.2, 1);
-}
-
-.facet-drag-item.cdk-drag-preview, .cdk-drag-placeholder {
     margin-right: 5px;
     margin-bottom: 5px;
-    cursor: pointer;
     outline: none;
     max-width: 100%;
-    color: @tag-input-tag-color;
-    background-color: @tag-input-tag-bg;
-    border: 1px solid @tag-input-tag-border;
+    color: #555;
+    background-color: #e2e3e5;
+    border: 1px solid #d8d9db;
+    border-radius: 1px;
+    padding: 0 5px;
+    white-space: nowrap;
+
+    .facet-selected-remove-btn {
+        display: none;
+    }
+}
+
+.facet-drag-item.cdk-drag-placeholder {
+    outline: none;
+    max-width: 100%;
+    color: #555;
+    background-color: #e2e3e5;
     border-radius: 1px;
     padding: 0 5px;
     white-space: nowrap;
@@ -125,4 +130,3 @@ ux-facet-container {
         }
     }
 }
-
