@@ -2,6 +2,7 @@ import { A11yModule } from '@angular/cdk/a11y';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 import { AccessibilityModule } from '../../directives/accessibility/index';
 import { CheckboxModule } from '../checkbox/index';
 import { IconModule } from '../icon/index';
@@ -38,6 +39,7 @@ const DECLARATIONS = [
         ReorderableModule,
         TooltipModule,
         TypeaheadModule,
+        DragDropModule
     ],
     exports: DECLARATIONS,
     declarations: DECLARATIONS

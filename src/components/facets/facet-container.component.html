@@ -14,39 +14,58 @@
 
     <!-- Display Tags For Selected Items -->
     <div class="facets-selected-list"
-        cdkDropListOrientation="horizontal"
-        uxReorderable
-        role="list"
-        [reorderingDisabled]="!facetsReorderable"
-        [(reorderableModel)]="facets"
-        (reorderableModelChange)="facetsChange.emit(facets)">
+        cdkDropListGroup
+        role="list">
+
+        <div
+            cdkDropList
+            (cdkDropListEntered)="onDropListEntered($event)"
+            (cdkDropListDropped)="onDropListDropped()"
+        ></div>
 
         <!-- Show Selected Tags -->
         <div #tag
             class="facet-selected-tag"
             role="listitem"
             tabindex="0"
-            uxReorderableHandle
+            cdkDropList
+            (cdkDropListEntered)="onDropListEntered($event)"
+            (cdkDropListDropped)="onDropListDropped()"
             *ngFor="let facet of (facetService.facets$ | async); trackBy: trackBy"
             [attr.aria-label]="facet.title"
-            [uxReorderableModel]="facet"
             (mousedown)="tag.focus()"
             (touchmove)="$event.preventDefault()"
             (keydown.ArrowRight)="shiftRight(facet, tag)"
             (keydown.ArrowLeft)="shiftLeft(facet, tag)">
 
-            <!-- Display Label -->
-            <span class="facet-selected-tag-label">{{ facet.title }}</span>
+            <ng-container *ngIf="facetsReorderable; then reorderable; else notReorderable"></ng-container>
 
-            <!-- Display Remove Icon -->
-            <button type="button"
-                uxFocusIndicator
-                class="facet-selected-remove-btn"
-                [attr.aria-label]="deselectFacetAriaLabel"
-                (click)="deselectFacet(facet, tag)">
+            <ng-template #reorderable>
+                <div class="facet-drag-item" cdkDrag>
+                    <!-- Display Label -->
+                    <span class="facet-selected-tag-label">{{ facet.title }}</span>
+        
+                    <!-- Display Remove Icon -->
+                    <button type="button"
+                        uxFocusIndicator
+                        class="facet-selected-remove-btn"
+                        [attr.aria-label]="deselectFacetAriaLabel"
+                        (click)="deselectFacet(facet, tag)">
+                        <ux-icon name="close"></ux-icon>
+                    </button>
+                </div>
+            </ng-template>
 
-                <ux-icon name="close"></ux-icon>
-            </button>
+            <ng-template #notReorderable>
+                <span class="facet-selected-tag-label">{{ facet.title }}</span>
+                <button type="button"
+                    uxFocusIndicator
+                    class="facet-selected-remove-btn"
+                    [attr.aria-label]="deselectFacetAriaLabel"
+                    (click)="deselectFacet(facet, tag)">
+                    <ux-icon name="close"></ux-icon>
+                </button>
+            </ng-template>
         </div>
 
     </div>

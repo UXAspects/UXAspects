@@ -6,9 +6,9 @@ import { Facet } from './models/facet';
 @Component({
     selector: 'app',
     template: `
-            <ux-facet-container>
-                <ux-facet-check-list header="Authors" [facets]="facets" [id]="chosenID"></ux-facet-check-list>
-            </ux-facet-container>
+        <ux-facet-container>
+            <ux-facet-check-list header="Authors" [facets]="facets" [id]="chosenID"></ux-facet-check-list>
+        </ux-facet-container>
     `
 })
 export class FacetCheckListTestComponent {
