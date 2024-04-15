@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AccessibilityModule } from '../../directives/accessibility/index';
+import { SafeInnerHtmlDirective } from '../../directives/safe-inner-html/safe-inner-html.directive';
 import { IconModule } from '../icon/index';
 import { MenuModule } from '../menu/index';
 import { TooltipModule } from '../tooltip/index';
@@ -13,24 +14,25 @@ import { FilterDynamicComponent } from './filter-dynamic/filter-dynamic.componen
 import { FilterTypeaheadHighlight } from './filter-dynamic/filter-typeahead-highlight.pipe';
 
 const DECLARATIONS = [
-    FilterContainerComponent,
-    FilterDropdownComponent,
-    FilterDynamicComponent,
-    FilterTypeaheadHighlight
+  FilterContainerComponent,
+  FilterDropdownComponent,
+  FilterDynamicComponent,
+  FilterTypeaheadHighlight,
 ];
 
 @NgModule({
-    imports: [
-        A11yModule,
-        AccessibilityModule,
-        CommonModule,
-        FormsModule,
-        IconModule,
-        MenuModule,
-        TooltipModule,
-        TypeaheadModule,
-    ],
-    exports: DECLARATIONS,
-    declarations: DECLARATIONS
+  imports: [
+    A11yModule,
+    AccessibilityModule,
+    CommonModule,
+    FormsModule,
+    IconModule,
+    MenuModule,
+    TooltipModule,
+    TypeaheadModule,
+    SafeInnerHtmlDirective,
+  ],
+  exports: DECLARATIONS,
+  declarations: DECLARATIONS,
 })
-export class FilterModule { }
+export class FilterModule {}
