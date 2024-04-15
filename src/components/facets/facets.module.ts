@@ -1,9 +1,10 @@
 import { A11yModule } from '@angular/cdk/a11y';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DragDropModule } from '@angular/cdk/drag-drop';
 import { AccessibilityModule } from '../../directives/accessibility/index';
+import { SafeInnerHtmlDirective } from '../../directives/safe-inner-html/safe-inner-html.directive';
 import { CheckboxModule } from '../checkbox/index';
 import { IconModule } from '../icon/index';
 import { TooltipModule } from '../tooltip/index';
@@ -14,34 +15,38 @@ import { FacetCheckListItemComponent } from './facet-check-list/check-list-item/
 import { FacetCheckListComponent } from './facet-check-list/facet-check-list.component';
 import { FacetClearButtonDirective } from './facet-clear-button/facet-clear-button.directive';
 import { FacetContainerComponent } from './facet-container.component';
-import { FacetTypeaheadHighlight, FacetTypeaheadListComponent } from './facet-typeahead-list/facet-typeahead-list.component';
+import {
+  FacetTypeaheadHighlight,
+  FacetTypeaheadListComponent,
+} from './facet-typeahead-list/facet-typeahead-list.component';
 import { FacetTypeaheadListItemComponent } from './facet-typeahead-list/typeahead-list-item/facet-typeahead-list-item.component';
 
 const DECLARATIONS = [
-    FacetContainerComponent,
-    FacetHeaderComponent,
-    FacetCheckListComponent,
-    FacetCheckListItemComponent,
-    FacetTypeaheadListComponent,
-    FacetTypeaheadListItemComponent,
-    FacetTypeaheadHighlight,
-    FacetClearButtonDirective
+  FacetContainerComponent,
+  FacetHeaderComponent,
+  FacetCheckListComponent,
+  FacetCheckListItemComponent,
+  FacetTypeaheadListComponent,
+  FacetTypeaheadListItemComponent,
+  FacetTypeaheadHighlight,
+  FacetClearButtonDirective,
 ];
 
 @NgModule({
-    imports: [
-        A11yModule,
-        AccessibilityModule,
-        CheckboxModule,
-        CommonModule,
-        FormsModule,
-        IconModule,
-        ReorderableModule,
-        TooltipModule,
-        TypeaheadModule,
-        DragDropModule
-    ],
-    exports: DECLARATIONS,
-    declarations: DECLARATIONS
+  imports: [
+    A11yModule,
+    AccessibilityModule,
+    CheckboxModule,
+    CommonModule,
+    FormsModule,
+    IconModule,
+    ReorderableModule,
+    TooltipModule,
+    TypeaheadModule,
+    DragDropModule,
+    SafeInnerHtmlDirective,
+  ],
+  exports: DECLARATIONS,
+  declarations: DECLARATIONS,
 })
-export class FacetsModule { }
+export class FacetsModule {}
