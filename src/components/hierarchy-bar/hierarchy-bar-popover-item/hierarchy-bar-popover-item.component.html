@@ -1,13 +1,17 @@
 <!-- Show an icon if specified -->
-<img class="hierarchy-bar-node-icon" *ngIf="!hierarchyBar.icon && node?.icon" [src]="node.icon" alt="Hierarchy Bar Icon">
+@if (!hierarchyBar.icon && node?.icon) {
+  <img class="hierarchy-bar-node-icon" [src]="node.icon" alt="Hierarchy Bar Icon">
+}
 
 <!-- Show a custom icon if specified -->
-<div class="hierarchy-bar-node-icon" *ngIf="hierarchyBar.icon">
+@if (hierarchyBar.icon) {
+  <div class="hierarchy-bar-node-icon">
     <ng-container
-        [ngTemplateOutlet]="hierarchyBar.icon"
-        [ngTemplateOutletContext]="{ node: node, $implicit: node }">
+      [ngTemplateOutlet]="hierarchyBar.icon"
+      [ngTemplateOutletContext]="{ node: node, $implicit: node }">
     </ng-container>
-</div>
+  </div>
+}
 
 <!-- Show the name of the current node -->
 <span class="hierarchy-bar-node-title">{{ node?.title }}</span>

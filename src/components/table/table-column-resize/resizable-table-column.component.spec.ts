@@ -16,32 +16,34 @@ interface TableDocument {
 @Component({
     template: `
         <table id="standard-table" class="table" uxResizableTable>
-            <thead>
+          <thead>
             <tr>
-                <th uxResizableTableColumn [width]="50" [disabled]="true"></th>
-                <th uxResizableTableColumn [(width)]="titleWidth">
-                    Title <small class="column-size-label">{{ titleWidth | number }}px</small>
-                </th>
-                <th uxResizableTableColumn [(width)]="authorWidth" handleVisible="false">
-                    Author <small class="column-size-label">{{ authorWidth | number }}px</small>
-                </th>
-                <th uxResizableTableColumn (widthChange)="dateWidth = $event">
-                    Date <small class="column-size-label">{{ dateWidth | number }}px</small>
-                </th>
+              <th uxResizableTableColumn [width]="50" [disabled]="true"></th>
+              <th uxResizableTableColumn [(width)]="titleWidth">
+                Title <small class="column-size-label">{{ titleWidth | number }}px</small>
+              </th>
+              <th uxResizableTableColumn [(width)]="authorWidth" handleVisible="false">
+                Author <small class="column-size-label">{{ authorWidth | number }}px</small>
+              </th>
+              <th uxResizableTableColumn (widthChange)="dateWidth = $event">
+                Date <small class="column-size-label">{{ dateWidth | number }}px</small>
+              </th>
             </tr>
-            </thead>
-            <tbody>
-            <tr *ngFor="let document of documents | slice:0:5">
+          </thead>
+          <tbody>
+            @for (document of documents | slice:0:5; track document) {
+              <tr>
                 <td class="checkbox-column">
-                    <ux-checkbox tabindex="-1"></ux-checkbox>
+                  <ux-checkbox tabindex="-1"></ux-checkbox>
                 </td>
                 <td>{{ document.title }}</td>
                 <td>{{ document.author }}</td>
                 <td>{{ document.date | date }}</td>
-            </tr>
-            </tbody>
+              </tr>
+            }
+          </tbody>
         </table>
-    `
+        `
 })
 
 

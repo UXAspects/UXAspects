@@ -7,17 +7,17 @@ import { AccordionModule } from './accordion.module';
     selector: 'app-accordion',
     template: `<ux-accordion [collapseOthers]="true">
 
-                    <ux-accordion-panel
-                        class="accordion-chevron"
-                        *ngFor="let group of groups"
-                        [heading]="group.heading"
-                        [(expanded)]="group.open"
-                        [disabled]="group.disabled">
+  @for (group of groups; track group) {
+    <ux-accordion-panel
+      class="accordion-chevron"
+      [heading]="group.heading"
+      [(expanded)]="group.open"
+      [disabled]="group.disabled">
+      <span>{{ group.content }}</span>
+    </ux-accordion-panel>
+  }
 
-                        <span>{{ group.content }}</span>
-                    </ux-accordion-panel>
-
-                </ux-accordion>`
+</ux-accordion>`
 })
 export class AccordionComponent {
 

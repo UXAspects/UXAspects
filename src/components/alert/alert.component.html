@@ -1,16 +1,20 @@
-<div class="alert-icon" *ngIf="icon">
+@if (icon) {
+  <div class="alert-icon">
     <ng-content select="[uxAlertIcon]"></ng-content>
-</div>
+  </div>
+}
 
 <div class="alert-content">
-    <ng-content></ng-content>
+  <ng-content></ng-content>
 </div>
 
-<button *ngIf="dismissible"
-        uxFocusIndicator
-        class="alert-close"
-        type="button"
-        (click)="dismiss.emit()"
-        [attr.aria-label]="dismissAriaLabel">
+@if (dismissible) {
+  <button
+    uxFocusIndicator
+    class="alert-close"
+    type="button"
+    (click)="dismiss.emit()"
+    [attr.aria-label]="dismissAriaLabel">
     <ux-icon name="close" class="alert-close-icon"></ux-icon>
-</button>
+  </button>
+}

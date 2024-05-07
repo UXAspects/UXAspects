@@ -101,25 +101,27 @@ describe('InputDropdownComponent', () => {
     selector: 'app-dropdown-test',
     template: `
         <ux-input-dropdown
-            [allowNull]="allowNull"
-            [(dropdownOpen)]="dropdownOpen"
-            [disabled]="disabled"
-            (selectedChange)="onSelectedChange($event)"
-            [(selected)]="selected"
-            (dropdownOpenChange)="onOpenChange($event)"
-            [ariaLabelledby]="ariaLabelledby">
-
-            <ng-template #displayContent>
-                <span class="selection"><b>Selection:</b> {{ selected ? selected : '(none)' }}</span>
-            </ng-template>
-
-            <div class="radio-button-container" uxTabbableList uxRadioButtonGroup [(ngModel)]="selected">
-                <ux-radio-button uxTabbableListItem *ngFor="let option of options" [option]="option">
-                    {{ option }}
-                </ux-radio-button>
-            </div>
+          [allowNull]="allowNull"
+          [(dropdownOpen)]="dropdownOpen"
+          [disabled]="disabled"
+          (selectedChange)="onSelectedChange($event)"
+          [(selected)]="selected"
+          (dropdownOpenChange)="onOpenChange($event)"
+          [ariaLabelledby]="ariaLabelledby">
+        
+          <ng-template #displayContent>
+            <span class="selection"><b>Selection:</b> {{ selected ? selected : '(none)' }}</span>
+          </ng-template>
+        
+          <div class="radio-button-container" uxTabbableList uxRadioButtonGroup [(ngModel)]="selected">
+            @for (option of options; track option) {
+              <ux-radio-button uxTabbableListItem [option]="option">
+                {{ option }}
+              </ux-radio-button>
+            }
+          </div>
         </ux-input-dropdown>
-    `
+        `
 })
 export class InputDropdownTestComponent {
 

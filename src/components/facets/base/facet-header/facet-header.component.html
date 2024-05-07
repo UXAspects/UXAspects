@@ -1,2 +1,4 @@
 <span class="facet-header-title">{{ header }}</span>
-<ux-icon *ngIf="canExpand" [name]="expanded ? 'down' : 'previous'" class="facet-header-icon"></ux-icon>
+@if (canExpand) {
+  <ux-icon [name]="expanded ? 'down' : 'previous'" class="facet-header-icon"></ux-icon>
+}

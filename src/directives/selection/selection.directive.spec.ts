@@ -12,22 +12,23 @@ import { SelectionMode } from './selection.service';
     selector: 'app-selection-test',
     template: `
         <ul [mode]="mode"
-            [(uxSelection)]="selection"
-            (uxSelectionChange)="onSelectedChange($event)">
-
-            <li *ngFor="let option of options"
-                [uxSelectionItem]="option"
-                [addAriaAttributes]="addAriaAttributes"
-                (selectedChange)="onSelectedItemChange($event)">
-
-                <ux-checkbox tabindex="-1"
-                             [value]="isSelected(option)"
-                             (valueChange)="setSelection(option, $event)">
-                </ux-checkbox>
-                {{ option }}
+          [(uxSelection)]="selection"
+          (uxSelectionChange)="onSelectedChange($event)">
+        
+          @for (option of options; track option) {
+            <li
+              [uxSelectionItem]="option"
+              [addAriaAttributes]="addAriaAttributes"
+              (selectedChange)="onSelectedItemChange($event)">
+              <ux-checkbox tabindex="-1"
+                [value]="isSelected(option)"
+                (valueChange)="setSelection(option, $event)">
+              </ux-checkbox>
+              {{ option }}
             </li>
+          }
         </ul>
-    `
+        `
 })
 export class SelectionDirectiveSpec {
 

@@ -1,103 +1,120 @@
 <div class="ux-page-header" [class.page-header-condensed]="condensed" role="banner">
 
-    <div *ngIf="!condensed" class="page-header-content">
-
-        <!-- Logo/product acronym -->
-        <div uxFocusIndicator (keydown.enter)="logoClick.emit($event)" [attr.tabindex]="_hasLogoClick ? 0: -1"
-             [class.page-header-logo-template]="logoTemplate" [class.clickable]="_hasLogoClick"
-             class="page-header-logo-container"
-             role="presentation" [style.backgroundColor]="logoBackground" [style.color]="logoForeground" (click)="logoClick.emit($event)">
-            <img *ngIf="logo && !logoTemplate" [attr.src]="logo" [alt]="header" class="page-header-logo">
-            <h1 *ngIf="header && !logo && !logoTemplate" class="page-header-acronym">{{header}}</h1>
-            <ng-container *ngIf="logoTemplate" [ngTemplateOutlet]="logoTemplate"></ng-container>
+  @if (!condensed) {
+    <div class="page-header-content">
+      <!-- Logo/product acronym -->
+      <div uxFocusIndicator (keydown.enter)="logoClick.emit($event)" [attr.tabindex]="_hasLogoClick ? 0: -1"
+        [class.page-header-logo-template]="logoTemplate" [class.clickable]="_hasLogoClick"
+        class="page-header-logo-container"
+        role="presentation" [style.backgroundColor]="logoBackground" [style.color]="logoForeground" (click)="logoClick.emit($event)">
+        @if (logo && !logoTemplate) {
+          <img [attr.src]="logo" [alt]="header" class="page-header-logo">
+        }
+        @if (header && !logo && !logoTemplate) {
+          <h1 class="page-header-acronym">{{header}}</h1>
+        }
+        @if (logoTemplate) {
+          <ng-container [ngTemplateOutlet]="logoTemplate"></ng-container>
+        }
+      </div>
+      <!-- Sub-title -->
+      @if (subheader || subheaderTemplate) {
+        <div class="page-header-subtitle-container">
+          @if (subheader) {
+            <span class="page-header-subtitle">{{subheader}}</span>
+          }
+          <ng-container [ngTemplateOutlet]="subheaderTemplate"></ng-container>
         </div>
-
-        <!-- Sub-title -->
-        <div *ngIf="subheader || subheaderTemplate" class="page-header-subtitle-container">
-            <span *ngIf="subheader" class="page-header-subtitle">{{subheader}}</span>
-            <ng-container [ngTemplateOutlet]="subheaderTemplate"></ng-container>
+      }
+      <div class="page-header-state-container" role="navigation">
+        <!-- Back button -->
+        @if (backVisible === true) {
+          <button uxFocusIndicator type="button" class="page-header-back-button" (click)="backClick.emit($event)" aria-label="Go Back">
+            <ux-icon name="previous" class="text-primary"></ux-icon>
+          </button>
+        }
+        <!-- Breadcrumbs and header -->
+        <div class="page-header-title-container">
+          @if (crumbs && crumbs.length > 0) {
+            <ux-breadcrumbs
+              [class.ux-breadcrumbs-small]="crumbsStyle === 'small'"
+            [crumbs]="crumbs"></ux-breadcrumbs>
+          }
+          <h1 class="page-header-title">{{header}}</h1>
         </div>
-
-        <div class="page-header-state-container" role="navigation">
-
-            <!-- Back button -->
-            <button *ngIf="backVisible === true" uxFocusIndicator type="button" class="page-header-back-button" (click)="backClick.emit($event)" aria-label="Go Back">
-                <ux-icon name="previous" class="text-primary"></ux-icon>
-            </button>
-
-            <!-- Breadcrumbs and header -->
-            <div class="page-header-title-container">
-
-                <ux-breadcrumbs *ngIf="crumbs && crumbs.length > 0"
-                    [class.ux-breadcrumbs-small]="crumbsStyle === 'small'"
-                    [crumbs]="crumbs"></ux-breadcrumbs>
-
-                <h1 class="page-header-title">{{header}}</h1>
-
-            </div>
-
-        </div>
-
-        <!-- Primary navigation -->
-        <div class="page-header-navigation" [ngClass]="alignment" role="navigation" aria-label="Primary Navigation">
-            <ux-page-header-horizontal-navigation></ux-page-header-horizontal-navigation>
-        </div>
-
-        <!-- Icon menus -->
-        <div class="page-header-icon-menus" role="toolbar">
-            <ng-container *ngFor="let menu of customMenus" [ngTemplateOutlet]="menu"></ng-container>
-            <ux-page-header-icon-menu *ngFor="let menu of iconMenus" [menu]="menu"></ux-page-header-icon-menu>
-        </div>
+      </div>
+      <!-- Primary navigation -->
+      <div class="page-header-navigation" [ngClass]="alignment" role="navigation" aria-label="Primary Navigation">
+        <ux-page-header-horizontal-navigation></ux-page-header-horizontal-navigation>
+      </div>
+      <!-- Icon menus -->
+      <div class="page-header-icon-menus" role="toolbar">
+        @for (menu of customMenus; track menu) {
+          <ng-container [ngTemplateOutlet]="menu"></ng-container>
+        }
+        @for (menu of iconMenus; track menu) {
+          <ux-page-header-icon-menu [menu]="menu"></ux-page-header-icon-menu>
+        }
+      </div>
     </div>
+  }
 
-    <!-- Display This Section Optimized for Condensed Mode -->
-    <div class="page-header-condensed-content" *ngIf="condensed">
-
-        <div class="page-header-breadcrumbs" role="navigation">
-            <ux-breadcrumbs [crumbs]="crumbs"></ux-breadcrumbs>
-        </div>
-
-        <div class="page-header-navigation" [ngClass]="alignment" role="navigation" aria-label="Primary Navigation">
-
-            <!-- The Top Navigation Options -->
-            <ux-page-header-horizontal-navigation></ux-page-header-horizontal-navigation>
-        </div>
-
-        <div class="page-header-icon-menus" role="toolbar">
-            <ng-container *ngFor="let menu of customMenus" [ngTemplateOutlet]="menu"></ng-container>
-            <ux-page-header-icon-menu *ngFor="let menu of iconMenus" [menu]="menu"></ux-page-header-icon-menu>
-        </div>
-
+  <!-- Display This Section Optimized for Condensed Mode -->
+  @if (condensed) {
+    <div class="page-header-condensed-content">
+      <div class="page-header-breadcrumbs" role="navigation">
+        <ux-breadcrumbs [crumbs]="crumbs"></ux-breadcrumbs>
+      </div>
+      <div class="page-header-navigation" [ngClass]="alignment" role="navigation" aria-label="Primary Navigation">
+        <!-- The Top Navigation Options -->
+        <ux-page-header-horizontal-navigation></ux-page-header-horizontal-navigation>
+      </div>
+      <div class="page-header-icon-menus" role="toolbar">
+        @for (menu of customMenus; track menu) {
+          <ng-container [ngTemplateOutlet]="menu"></ng-container>
+        }
+        @for (menu of iconMenus; track menu) {
+          <ux-page-header-icon-menu [menu]="menu"></ux-page-header-icon-menu>
+        }
+      </div>
     </div>
+  }
 
 </div>
 
 <!-- Secondary Header Section -->
-<div *ngIf="secondaryNavigation && ((selectedRoot$ | async) !== (selected$ | async))" class="ux-page-header-secondary">
-
+@if (secondaryNavigation && ((selectedRoot$ | async) !== (selected$ | async))) {
+  <div class="ux-page-header-secondary">
     <!-- Secondary Navigation Leading Content -->
-    <div class="page-header-secondary-leading-content" *ngIf="secondaryNavigationLeadingContentTemplate || secondaryNavigationTrailingContentTemplate">
+    @if (secondaryNavigationLeadingContentTemplate || secondaryNavigationTrailingContentTemplate) {
+      <div class="page-header-secondary-leading-content">
         <ng-container [ngTemplateOutlet]="secondaryNavigationLeadingContentTemplate"></ng-container>
-    </div>
-
+      </div>
+    }
     <!-- Secondary Navigation (children of top level items) -->
     <div [ngClass]="['page-header-navigation', secondaryNavigationAlignment]" role="navigation">
-        <ux-tabset *ngIf="(selectedRoot$ | async)?.children; let children" [manual]="true">
-            <ux-tab *ngFor="let child of children"
-                [heading]="child.title"
-                [route]="child.routerLink"
-                [id]="child.id"
-                [routerLinkExtras]="child.routerExtras"
-                [active]="child === (selected$ | async)"
-                (activated)="select(child, false)"
-                [uxPageHeaderNavigationSecondaryItem]="child"
-                [disabled]="child.disabled">
+      @if ((selectedRoot$ | async)?.children; as children) {
+        <ux-tabset [manual]="true">
+          @for (child of children; track child) {
+            <ux-tab
+              [heading]="child.title"
+              [route]="child.routerLink"
+              [id]="child.id"
+              [routerLinkExtras]="child.routerExtras"
+              [active]="child === (selected$ | async)"
+              (activated)="select(child, false)"
+              [uxPageHeaderNavigationSecondaryItem]="child"
+              [disabled]="child.disabled">
             </ux-tab>
+          }
         </ux-tabset>
+      }
     </div>
-
     <!-- Secondary Navigation Trialing Content -->
-    <div class="page-header-secondary-trailing-content" *ngIf="secondaryNavigationTrailingContentTemplate">
+    @if (secondaryNavigationTrailingContentTemplate) {
+      <div class="page-header-secondary-trailing-content">
         <ng-container [ngTemplateOutlet]="secondaryNavigationTrailingContentTemplate"></ng-container>
-    </div>
-</div>
+      </div>
+    }
+  </div>
+}

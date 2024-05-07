@@ -1,23 +1,22 @@
 <div class="ux-column-sorting"
-     [class.ux-column-sorting-hidden]="state === ColumnSortingState.NoSort">
+  [class.ux-column-sorting-hidden]="state === ColumnSortingState.NoSort">
 
-    <!-- The default sort indicator -->
-    <ng-container *ngIf="!_sortIndicator">
+  <!-- The default sort indicator -->
+  @if (!_sortIndicator) {
+    <ux-icon
+      class="ux-column-sorting-icon"
+      [class.column-sorting-icon-hidden]="state === ColumnSortingState.NoSort"
+      [name]="state === ColumnSortingState.Descending ? descendingIcon : ascendingIcon">
+    </ux-icon>
+    <p class="ux-column-sorting-number" aria-hidden="true">{{ order }}</p>
+  }
 
-        <ux-icon
-            class="ux-column-sorting-icon"
-            [class.column-sorting-icon-hidden]="state === ColumnSortingState.NoSort"
-            [name]="state === ColumnSortingState.Descending ? descendingIcon : ascendingIcon">
-        </ux-icon>
-
-        <p class="ux-column-sorting-number" aria-hidden="true">{{ order }}</p>
-    </ng-container>
-
-    <!-- Custom sort indicator -->
+  <!-- Custom sort indicator -->
+  @if (_sortIndicator) {
     <ng-container
-        *ngIf="_sortIndicator"
-        [ngTemplateOutlet]="_sortIndicator"
-        [ngTemplateOutletContext]="{ state: state, order: order }">
+      [ngTemplateOutlet]="_sortIndicator"
+      [ngTemplateOutletContext]="{ state: state, order: order }">
     </ng-container>
+  }
 
 </div>

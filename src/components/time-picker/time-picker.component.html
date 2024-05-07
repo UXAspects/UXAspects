@@ -1,96 +1,100 @@
 <div class="time-picker">
 
-    <div class="time-picker-column time-hours-picker" [class.has-error]="!_valid" *ngIf="showHours">
-
-        <ux-spin-button
-            type="number"
-            class="time-spinner"
-            placeholder="HH"
-            [maxLength]="2"
-            [min]="0"
-            [max]="showMeridian ? 12 : 23"
-            [value]="value | date: showMeridian ? 'h' : 'HH'"
-            (valueChange)="hourChange($event)"
-            [spinners]="showSpinners"
-            [disabled]="disabled"
-            [readOnly]="readOnly"
-            inputAriaLabel="hour"
-            incrementAriaLabel="Increment the hour"
-            decrementAriaLabel="Decrement the hour"
-            (increment)="incrementHour()"
-            (decrement)="decrementHour()">
-        </ux-spin-button>
-
+  @if (showHours) {
+    <div class="time-picker-column time-hours-picker" [class.has-error]="!_valid">
+      <ux-spin-button
+        type="number"
+        class="time-spinner"
+        placeholder="HH"
+        [maxLength]="2"
+        [min]="0"
+        [max]="showMeridian ? 12 : 23"
+        [value]="value | date: showMeridian ? 'h' : 'HH'"
+        (valueChange)="hourChange($event)"
+        [spinners]="showSpinners"
+        [disabled]="disabled"
+        [readOnly]="readOnly"
+        inputAriaLabel="hour"
+        incrementAriaLabel="Increment the hour"
+        decrementAriaLabel="Decrement the hour"
+        (increment)="incrementHour()"
+        (decrement)="decrementHour()">
+      </ux-spin-button>
     </div>
+  }
 
-    <div class="time-picker-separator" *ngIf="showMinutes">:</div>
+  @if (showMinutes) {
+    <div class="time-picker-separator">:</div>
+  }
 
-    <div class="time-picker-column time-minutes-picker" [class.has-error]="!_valid" *ngIf="showMinutes">
-
-        <ux-spin-button
-            type="number"
-            class="time-spinner"
-            placeholder="MM"
-            [maxLength]="2"
-            [min]="0"
-            [max]="59"
-            [value]="value | date: 'mm'"
-            (valueChange)="minuteChange($event)"
-            [spinners]="showSpinners"
-            [disabled]="disabled"
-            [readOnly]="readOnly"
-            inputAriaLabel="minute"
-            incrementAriaLabel="Increment the minute"
-            decrementAriaLabel="Decrement the minute"
-            (increment)="incrementMinute()"
-            (decrement)="decrementMinute()">
-        </ux-spin-button>
-
+  @if (showMinutes) {
+    <div class="time-picker-column time-minutes-picker" [class.has-error]="!_valid">
+      <ux-spin-button
+        type="number"
+        class="time-spinner"
+        placeholder="MM"
+        [maxLength]="2"
+        [min]="0"
+        [max]="59"
+        [value]="value | date: 'mm'"
+        (valueChange)="minuteChange($event)"
+        [spinners]="showSpinners"
+        [disabled]="disabled"
+        [readOnly]="readOnly"
+        inputAriaLabel="minute"
+        incrementAriaLabel="Increment the minute"
+        decrementAriaLabel="Decrement the minute"
+        (increment)="incrementMinute()"
+        (decrement)="decrementMinute()">
+      </ux-spin-button>
     </div>
+  }
 
-    <div class="time-picker-separator" *ngIf="showSeconds">:</div>
+  @if (showSeconds) {
+    <div class="time-picker-separator">:</div>
+  }
 
-    <div class="time-picker-column time-seconds-picker" [class.has-error]="!_valid" *ngIf="showSeconds">
-
-        <ux-spin-button
-            type="number"
-            class="time-spinner"
-            placeholder="SS"
-            [maxLength]="2"
-            [min]="0"
-            [max]="59"
-            [value]="value | date: 'ss'"
-            (valueChange)="secondChange($event)"
-            [spinners]="showSpinners"
-            [disabled]="disabled"
-            [readOnly]="readOnly"
-            inputAriaLabel="seconds"
-            incrementAriaLabel="Increment the second"
-            decrementAriaLabel="Decrement the second"
-            (increment)="incrementSecond()"
-            (decrement)="decrementSecond()">
-        </ux-spin-button>
-
+  @if (showSeconds) {
+    <div class="time-picker-column time-seconds-picker" [class.has-error]="!_valid">
+      <ux-spin-button
+        type="number"
+        class="time-spinner"
+        placeholder="SS"
+        [maxLength]="2"
+        [min]="0"
+        [max]="59"
+        [value]="value | date: 'ss'"
+        (valueChange)="secondChange($event)"
+        [spinners]="showSpinners"
+        [disabled]="disabled"
+        [readOnly]="readOnly"
+        inputAriaLabel="seconds"
+        incrementAriaLabel="Increment the second"
+        decrementAriaLabel="Decrement the second"
+        (increment)="incrementSecond()"
+        (decrement)="decrementSecond()">
+      </ux-spin-button>
     </div>
+  }
 </div>
 
-<div class="time-picker-meridian" *ngIf="showMeridian">
-
+@if (showMeridian) {
+  <div class="time-picker-meridian">
     <div class="btn-group" role="radiogroup">
-
+      @for (meridian of meridians; track meridian) {
         <button type="button"
-                class="btn button-toggle-accent"
-                *ngFor="let meridian of meridians"
-                role="radio"
-                tabindex="0"
-                [disabled]="disabled"
-                (click)="selectMeridian(meridian)"
-                [class.active]="meridian === _meridian"
-                [attr.aria-label]="meridian"
-                [attr.aria-checked]="meridian === _meridian"
-                [attr.aria-disabled]="disabled">
-                {{ meridian }}
+          class="btn button-toggle-accent"
+          role="radio"
+          tabindex="0"
+          [disabled]="disabled"
+          (click)="selectMeridian(meridian)"
+          [class.active]="meridian === _meridian"
+          [attr.aria-label]="meridian"
+          [attr.aria-checked]="meridian === _meridian"
+          [attr.aria-disabled]="disabled">
+          {{ meridian }}
         </button>
-
+      }
     </div>
-</div>
+  </div>
+}

@@ -1,146 +1,149 @@
 <div class="track"
-     #track
-     [class.narrow]="_options.track.height === sliderSize.Narrow"
-     [class.wide]="_options.track.height === sliderSize.Wide"
-     [class.range]="_options.type === sliderType.Range">
+  #track
+  [class.narrow]="_options.track.height === sliderSize.Narrow"
+  [class.wide]="_options.track.height === sliderSize.Wide"
+  [class.range]="_options.type === sliderType.Range">
 
-    <!-- Section Beneath Lower Thumb -->
-    <div class="track-section track-lower" [style.flex-grow]="tracks.lower.size" [style.background]="this.disabled ? null : tracks.lower.color"></div>
+  <!-- Section Beneath Lower Thumb -->
+  <div class="track-section track-lower" [style.flex-grow]="tracks.lower.size" [style.background]="this.disabled ? null : tracks.lower.color"></div>
 
-    <!-- Lower Thumb Button / Line -->
-    <div class="thumb lower"
-        uxDrag
-        uxFocusIndicator
-        role="slider"
-        [tabindex]="disabled ? -1 : 0"
-        #lowerthumb
+  <!-- Lower Thumb Button / Line -->
+  <div class="thumb lower"
+    uxDrag
+    uxFocusIndicator
+    role="slider"
+    [tabindex]="disabled ? -1 : 0"
+    #lowerthumb
         [attr.aria-label]="_options.type === sliderType.Range ? _options.handles.aria.lowerThumb :
         _options.handles.aria.thumb"
-        [attr.aria-valuemin]="_options?.track?.min"
+    [attr.aria-valuemin]="_options?.track?.min"
         [attr.aria-valuemax]="_options.type === sliderType.Range ? getThumbValue(sliderThumb.Upper) :
         _options?.track?.max"
-        [attr.aria-valuenow]="getThumbValue(sliderThumb.Lower)"
-        [attr.aria-valuetext]="getAriaValueText(sliderThumb.Lower)"
-        [style.left.%]="thumbs.lower.position"
-        [class.active]="thumbs.lower.drag"
-        [style.z-index]="thumbs.lower.order"
-        [class.button]="_options.handles.style === sliderStyle.Button"
-        [class.line]="_options.handles.style === sliderStyle.Line"
-        [class.narrow]="_options.track.height === sliderSize.Narrow"
-        [class.wide]="_options.track.height === sliderSize.Wide"
-        (onDragStart)="thumbEvent(sliderThumb.Lower, sliderThumbEvent.DragStart); lowerthumb.focus()"
-        (onDrag)="updateThumbPosition($event, sliderThumb.Lower)"
-        (onDragEnd)="thumbEvent(sliderThumb.Lower, sliderThumbEvent.DragEnd)"
-        (mouseenter)="thumbEvent(sliderThumb.Lower, sliderThumbEvent.MouseOver)"
-        (mouseleave)="thumbEvent(sliderThumb.Lower, sliderThumbEvent.MouseLeave)"
-        (focus)="thumbEvent(sliderThumb.Lower, sliderThumbEvent.MouseOver)"
-        (blur)="thumbEvent(sliderThumb.Lower, sliderThumbEvent.MouseLeave)"
-        (keydown.ArrowLeft)="snapToNearestTick(sliderThumb.Lower, sliderSnap.All, false); $event.preventDefault()"
-        (keydown.ArrowRight)="snapToNearestTick(sliderThumb.Lower, sliderSnap.All, true); $event.preventDefault()"
-        (keydown.ArrowUp)="snapToNearestTick(sliderThumb.Lower, sliderSnap.All, false); $event.preventDefault()"
-        (keydown.ArrowDown)="snapToNearestTick(sliderThumb.Lower, sliderSnap.All, true); $event.preventDefault()"
-        (keydown.PageDown)="snapToNearestTick(sliderThumb.Lower, sliderSnap.Major, false); $event.preventDefault()"
-        (keydown.PageUp)="snapToNearestTick(sliderThumb.Lower, sliderSnap.Major, true); $event.preventDefault()"
-        (keydown.Home)="snapToEnd(sliderThumb.Lower, false); $event.preventDefault()"
-        (keydown.End)="snapToEnd(sliderThumb.Lower, true); $event.preventDefault()">
+    [attr.aria-valuenow]="getThumbValue(sliderThumb.Lower)"
+    [attr.aria-valuetext]="getAriaValueText(sliderThumb.Lower)"
+    [style.left.%]="thumbs.lower.position"
+    [class.active]="thumbs.lower.drag"
+    [style.z-index]="thumbs.lower.order"
+    [class.button]="_options.handles.style === sliderStyle.Button"
+    [class.line]="_options.handles.style === sliderStyle.Line"
+    [class.narrow]="_options.track.height === sliderSize.Narrow"
+    [class.wide]="_options.track.height === sliderSize.Wide"
+    (onDragStart)="thumbEvent(sliderThumb.Lower, sliderThumbEvent.DragStart); lowerthumb.focus()"
+    (onDrag)="updateThumbPosition($event, sliderThumb.Lower)"
+    (onDragEnd)="thumbEvent(sliderThumb.Lower, sliderThumbEvent.DragEnd)"
+    (mouseenter)="thumbEvent(sliderThumb.Lower, sliderThumbEvent.MouseOver)"
+    (mouseleave)="thumbEvent(sliderThumb.Lower, sliderThumbEvent.MouseLeave)"
+    (focus)="thumbEvent(sliderThumb.Lower, sliderThumbEvent.MouseOver)"
+    (blur)="thumbEvent(sliderThumb.Lower, sliderThumbEvent.MouseLeave)"
+    (keydown.ArrowLeft)="snapToNearestTick(sliderThumb.Lower, sliderSnap.All, false); $event.preventDefault()"
+    (keydown.ArrowRight)="snapToNearestTick(sliderThumb.Lower, sliderSnap.All, true); $event.preventDefault()"
+    (keydown.ArrowUp)="snapToNearestTick(sliderThumb.Lower, sliderSnap.All, false); $event.preventDefault()"
+    (keydown.ArrowDown)="snapToNearestTick(sliderThumb.Lower, sliderSnap.All, true); $event.preventDefault()"
+    (keydown.PageDown)="snapToNearestTick(sliderThumb.Lower, sliderSnap.Major, false); $event.preventDefault()"
+    (keydown.PageUp)="snapToNearestTick(sliderThumb.Lower, sliderSnap.Major, true); $event.preventDefault()"
+    (keydown.Home)="snapToEnd(sliderThumb.Lower, false); $event.preventDefault()"
+    (keydown.End)="snapToEnd(sliderThumb.Lower, true); $event.preventDefault()">
 
-        <!-- Lower Thumb Callout -->
-        <div class="tooltip top tooltip-lower" #lowerTooltip
+    <!-- Lower Thumb Callout -->
+    <div class="tooltip top tooltip-lower" #lowerTooltip
             [class.tooltip-dynamic]="_options.handles.callout.trigger === sliderCalloutTrigger.Dynamic &&
              thumbs.lower.drag === false"
-            [style.opacity]="tooltips.lower.visible ? 1 : 0"
-            [style.left.px]="tooltips.lower.position">
+      [style.opacity]="tooltips.lower.visible ? 1 : 0"
+      [style.left.px]="tooltips.lower.position">
 
-            <div class="tooltip-arrow" [style.border-top-color]="_options.handles.callout.background"></div>
+      <div class="tooltip-arrow" [style.border-top-color]="_options.handles.callout.background"></div>
 
-            <div class="tooltip-inner"
-                [style.background-color]="_options.handles.callout.background"
-                [style.color]="_options.handles.callout.color">
-                {{ tooltips.lower.label }}
-            </div>
-        </div>
-
+      <div class="tooltip-inner"
+        [style.background-color]="_options.handles.callout.background"
+        [style.color]="_options.handles.callout.color">
+        {{ tooltips.lower.label }}
+      </div>
     </div>
 
-    <!-- Section of Track Between Lower and Upper Thumbs -->
-    <div class="track-section track-range" *ngIf="_options.type === sliderType.Range"
-         [style.flex-grow]="tracks.middle.size" [style.background]="this.disabled ? null : tracks.middle.color">
+  </div>
+
+  <!-- Section of Track Between Lower and Upper Thumbs -->
+  @if (_options.type === sliderType.Range) {
+    <div class="track-section track-range"
+      [style.flex-grow]="tracks.middle.size" [style.background]="this.disabled ? null : tracks.middle.color">
     </div>
+  }
 
-    <!-- Upper Thumb Button / Line -->
-    <div class="thumb upper"
-        uxDrag
-        uxFocusIndicator
-        role="slider"
-        [tabindex]="disabled ? -1 : 0"
-        #upperthumb
-        [attr.aria-label]="_options.handles.aria.upperThumb"
-        [attr.aria-valuemin]="getThumbValue(sliderThumb.Lower) || _options?.track?.min"
-        [attr.aria-valuemax]="_options?.track?.max"
-        [attr.aria-valuenow]="getThumbValue(sliderThumb.Upper)"
-        [attr.aria-valuetext]="getAriaValueText(sliderThumb.Upper)"
-        [hidden]="_options.type !== sliderType.Range"
-        [class.active]="thumbs.upper.drag"
-        [style.left.%]="thumbs.upper.position"
-        [style.z-index]="thumbs.upper.order"
-        [class.button]="_options.handles.style === sliderStyle.Button"
-        [class.line]="_options.handles.style === sliderStyle.Line"
-        [class.narrow]="_options.track.height === sliderSize.Narrow"
-        [class.wide]="_options.track.height === sliderSize.Wide"
-        (onDragStart)="thumbEvent(sliderThumb.Upper, sliderThumbEvent.DragStart); upperthumb.focus()"
-        (onDrag)="updateThumbPosition($event, sliderThumb.Upper)"
-        (onDragEnd)="thumbEvent(sliderThumb.Upper, sliderThumbEvent.DragEnd)"
-        (mouseenter)="thumbEvent(sliderThumb.Upper, sliderThumbEvent.MouseOver)"
-        (mouseleave)="thumbEvent(sliderThumb.Upper, sliderThumbEvent.MouseLeave)"
-        (focus)="thumbEvent(sliderThumb.Upper, sliderThumbEvent.MouseOver)"
-        (blur)="thumbEvent(sliderThumb.Upper, sliderThumbEvent.MouseLeave)"
-        (keydown.ArrowLeft)="snapToNearestTick(sliderThumb.Upper, sliderSnap.All, false); $event.preventDefault()"
-        (keydown.ArrowRight)="snapToNearestTick(sliderThumb.Upper, sliderSnap.All, true); $event.preventDefault()"
-        (keydown.ArrowUp)="snapToNearestTick(sliderThumb.Upper, sliderSnap.All, false); $event.preventDefault()"
-        (keydown.ArrowDown)="snapToNearestTick(sliderThumb.Upper, sliderSnap.All, true); $event.preventDefault()"
-        (keydown.PageDown)="snapToNearestTick(sliderThumb.Upper, sliderSnap.Major, false); $event.preventDefault()"
-        (keydown.PageUp)="snapToNearestTick(sliderThumb.Upper, sliderSnap.Major, true); $event.preventDefault()"
-        (keydown.Home)="snapToEnd(sliderThumb.Upper, false); $event.preventDefault()"
-        (keydown.End)="snapToEnd(sliderThumb.Upper, true); $event.preventDefault()">
+  <!-- Upper Thumb Button / Line -->
+  <div class="thumb upper"
+    uxDrag
+    uxFocusIndicator
+    role="slider"
+    [tabindex]="disabled ? -1 : 0"
+    #upperthumb
+    [attr.aria-label]="_options.handles.aria.upperThumb"
+    [attr.aria-valuemin]="getThumbValue(sliderThumb.Lower) || _options?.track?.min"
+    [attr.aria-valuemax]="_options?.track?.max"
+    [attr.aria-valuenow]="getThumbValue(sliderThumb.Upper)"
+    [attr.aria-valuetext]="getAriaValueText(sliderThumb.Upper)"
+    [hidden]="_options.type !== sliderType.Range"
+    [class.active]="thumbs.upper.drag"
+    [style.left.%]="thumbs.upper.position"
+    [style.z-index]="thumbs.upper.order"
+    [class.button]="_options.handles.style === sliderStyle.Button"
+    [class.line]="_options.handles.style === sliderStyle.Line"
+    [class.narrow]="_options.track.height === sliderSize.Narrow"
+    [class.wide]="_options.track.height === sliderSize.Wide"
+    (onDragStart)="thumbEvent(sliderThumb.Upper, sliderThumbEvent.DragStart); upperthumb.focus()"
+    (onDrag)="updateThumbPosition($event, sliderThumb.Upper)"
+    (onDragEnd)="thumbEvent(sliderThumb.Upper, sliderThumbEvent.DragEnd)"
+    (mouseenter)="thumbEvent(sliderThumb.Upper, sliderThumbEvent.MouseOver)"
+    (mouseleave)="thumbEvent(sliderThumb.Upper, sliderThumbEvent.MouseLeave)"
+    (focus)="thumbEvent(sliderThumb.Upper, sliderThumbEvent.MouseOver)"
+    (blur)="thumbEvent(sliderThumb.Upper, sliderThumbEvent.MouseLeave)"
+    (keydown.ArrowLeft)="snapToNearestTick(sliderThumb.Upper, sliderSnap.All, false); $event.preventDefault()"
+    (keydown.ArrowRight)="snapToNearestTick(sliderThumb.Upper, sliderSnap.All, true); $event.preventDefault()"
+    (keydown.ArrowUp)="snapToNearestTick(sliderThumb.Upper, sliderSnap.All, false); $event.preventDefault()"
+    (keydown.ArrowDown)="snapToNearestTick(sliderThumb.Upper, sliderSnap.All, true); $event.preventDefault()"
+    (keydown.PageDown)="snapToNearestTick(sliderThumb.Upper, sliderSnap.Major, false); $event.preventDefault()"
+    (keydown.PageUp)="snapToNearestTick(sliderThumb.Upper, sliderSnap.Major, true); $event.preventDefault()"
+    (keydown.Home)="snapToEnd(sliderThumb.Upper, false); $event.preventDefault()"
+    (keydown.End)="snapToEnd(sliderThumb.Upper, true); $event.preventDefault()">
 
-        <!-- Upper Thumb Callout -->
-        <div class="tooltip top tooltip-upper" #upperTooltip
+    <!-- Upper Thumb Callout -->
+    <div class="tooltip top tooltip-upper" #upperTooltip
             [class.tooltip-dynamic]="_options.handles.callout.trigger === sliderCalloutTrigger.Dynamic &&
              thumbs.upper.drag === false"
-            [style.opacity]="tooltips.upper.visible ? 1 : 0"
-            [style.left.px]="tooltips.upper.position">
+      [style.opacity]="tooltips.upper.visible ? 1 : 0"
+      [style.left.px]="tooltips.upper.position">
 
-            <div class="tooltip-arrow" [style.border-top-color]="_options.handles.callout.background"></div>
+      <div class="tooltip-arrow" [style.border-top-color]="_options.handles.callout.background"></div>
 
-            <div class="tooltip-inner"
-                *ngIf="_options.type === sliderType.Range"
-                [style.background-color]="_options.handles.callout.background"
-                [style.color]="_options.handles.callout.color">
-                {{ tooltips.upper.label }}
-            </div>
+      @if (_options.type === sliderType.Range) {
+        <div class="tooltip-inner"
+          [style.background-color]="_options.handles.callout.background"
+          [style.color]="_options.handles.callout.color">
+          {{ tooltips.upper.label }}
         </div>
+      }
     </div>
+  </div>
 
-    <!-- Section of Track Abover Upper Thumb -->
-    <div class="track-section track-higher" [style.flex-grow]="tracks.upper.size" [style.background]="this.disabled ? null : tracks.upper.color"></div>
+  <!-- Section of Track Abover Upper Thumb -->
+  <div class="track-section track-higher" [style.flex-grow]="tracks.upper.size" [style.background]="this.disabled ? null : tracks.upper.color"></div>
 
 </div>
 
 <!-- Chart Ticks and Tick Labels -->
-<div class="tick-container"
+@if ((_options.track.ticks.major.show || _options.track.ticks.minor.show) &&
+  _options.handles.callout.trigger !== sliderCalloutTrigger.Dynamic) {
+  <div class="tick-container"
     role="presentation"
-    *ngIf="(_options.track.ticks.major.show || _options.track.ticks.minor.show) &&
-    _options.handles.callout.trigger !== sliderCalloutTrigger.Dynamic"
     [class.show-labels]="_options.track.ticks.major.labels || _options.track.ticks.minor.labels">
-
-    <div class="tick"
-        *ngFor="let tick of ticks"
+    @for (tick of ticks; track tick) {
+      <div class="tick"
         [class.major]="tick.type === sliderTickType.Major"
         [class.minor]="tick.type === sliderTickType.Minor"
         [style.left.%]="tick.position"
         [hidden]="!tick.showTicks">
-
         <div class="tick-indicator"></div>
         <div class="tick-label" aria-hidden="true" [hidden]="!tick.showLabels">{{ tick.label }}</div>
-    </div>
-</div>
+      </div>
+    }
+  </div>
+}

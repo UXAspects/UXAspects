@@ -1,8 +1,14 @@
 <div class="popover show" [ngClass]="[positionClass, 'popover-align-' + alignment, customClass]" [id]="id" [attr.role]="role" (uxClickOutside)="clickOutside$.next($event)">
-    <div class="arrow"></div>
-    <h3 class="popover-title" *ngIf="title">{{ title }}</h3>
-    <div class="popover-content" (uxResize)="reposition()">
-        <ng-container *ngIf="!isTemplateRef">{{ content }}</ng-container>
-        <ng-container *ngIf="isTemplateRef" [ngTemplateOutlet]="$any(content)" [ngTemplateOutletContext]="context"></ng-container>
-    </div>
+  <div class="arrow"></div>
+  @if (title) {
+    <h3 class="popover-title">{{ title }}</h3>
+  }
+  <div class="popover-content" (uxResize)="reposition()">
+    @if (!isTemplateRef) {
+      {{ content }}
+    }
+    @if (isTemplateRef) {
+      <ng-container [ngTemplateOutlet]="$any(content)" [ngTemplateOutletContext]="context"></ng-container>
+    }
+  </div>
 </div>

@@ -1,13 +1,13 @@
-<div #notification
+@for (notificationRef of notifications$ | async; track notificationRef; let index = $index) {
+  <div #notification
     class="notification"
-    *ngFor="let notificationRef of notifications$ | async; let index = index"
     [style.height.px]="notificationRef.height"
     [style.background-color]="notificationRef.backgroundColor"
     [@notificationState]>
-
     <!-- Notification Content -->
     <ng-container
-        [ngTemplateOutlet]="notificationRef.templateRef"
-        [ngTemplateOutletContext]="{ $implicit: notificationRef, data: notificationRef.data }">
+      [ngTemplateOutlet]="notificationRef.templateRef"
+      [ngTemplateOutletContext]="{ $implicit: notificationRef, data: notificationRef.data }">
     </ng-container>
-</div>
+  </div>
+}

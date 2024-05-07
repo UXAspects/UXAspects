@@ -1,12 +1,13 @@
 <div class="ux-resizable-table-column-content">
-    <ng-content></ng-content>
+  <ng-content></ng-content>
 </div>
 
 <div class="ux-resizable-table-column-actions">
-    <ng-content select="ux-column-sorting"></ng-content>
+  <ng-content select="ux-column-sorting"></ng-content>
 </div>
 
-<div #handle *ngIf="!disabled && handleVisible"
+@if (!disabled && handleVisible) {
+  <div #handle
     uxDrag
     uxFocusIndicator
     tabindex="0"
@@ -21,7 +22,7 @@
     (keydown.ArrowLeft)="onMoveLeft()"
     (keydown.ArrowRight)="onMoveRight()"
     (click)="$event.stopPropagation()">
-
     <div class="ux-resizable-table-column-handle-icon"></div>
-</div>
+  </div>
+}
 

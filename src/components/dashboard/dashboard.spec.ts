@@ -394,13 +394,15 @@ describe('Dashboard Widgets layout', () => {
     selector: 'app-ux-dashboard-autopositioning',
     template: `
         <ux-dashboard [options]="options" #dashboard>
-            <ux-dashboard-widget *ngFor="let user of users" id="users-widget" name="Users" autoPositioning="false">
-                <div class="widget-content">
-                    <h3 class="widget-title">{{user}}</h3>
-                </div>
+          @for (user of users; track user) {
+            <ux-dashboard-widget id="users-widget" name="Users" autoPositioning="false">
+              <div class="widget-content">
+                <h3 class="widget-title">{{user}}</h3>
+              </div>
             </ux-dashboard-widget>
+          }
         </ux-dashboard>
-    `
+        `
 })
 export class DashboardAutoPositioningTestComponent {
 

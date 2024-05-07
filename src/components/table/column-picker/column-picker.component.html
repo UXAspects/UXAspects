@@ -1,179 +1,183 @@
 <div class="column-picker-column">
 
-    <div class="column-picker-stats" [id]="id + '-stats-left'">
+  <div class="column-picker-stats" [id]="id + '-stats-left'">
 
-        <ng-container *ngIf="!deselectedTitleTemplate">
-            {{ _deselectedSelection.length }} of {{ _availableDeselectedColumns }} selected
-        </ng-container>
+    @if (!deselectedTitleTemplate) {
+      {{ _deselectedSelection.length }} of {{ _availableDeselectedColumns }} selected
+    }
 
-        <ng-container
-            *ngIf="deselectedTitleTemplate"
-            [ngTemplateOutlet]="deselectedTitleTemplate">
-        </ng-container>
-    </div>
+    @if (deselectedTitleTemplate) {
+      <ng-container
+        [ngTemplateOutlet]="deselectedTitleTemplate">
+      </ng-container>
+    }
+  </div>
 
-    <cdk-tree class="column-picker-list"
-        [dataSource]="_treeDataSource"
-        [treeControl]="_treeControl"
-        [(uxSelection)]="_deselectedSelection"
-        [attr.aria-labelledby]="id + '-stats-left'"
-        tabindex="-1"
-        uxTabbableList>
+  <cdk-tree class="column-picker-list"
+    [dataSource]="_treeDataSource"
+    [treeControl]="_treeControl"
+    [(uxSelection)]="_deselectedSelection"
+    [attr.aria-labelledby]="id + '-stats-left'"
+    tabindex="-1"
+    uxTabbableList>
 
-        <!-- Create item for not expandable node -->
-        <cdk-tree-node *cdkTreeNodeDef="let node"
-            [attr.aria-hidden]="selected && selected.indexOf(node.name) > -1"
-            [attr.aria-selected]="_isNodeSelected(node.name)">
-            <div uxTabbableListItem
-                [uxSelectionItem]="node.column"
-                addAriaAttributes="false"
-                *ngIf="_shouldRenderNode(node)"
-                class="column-picker-list-item"
-                [ngClass]="'column-picker-tree-node-level-' + node.level">
+    <!-- Create item for not expandable node -->
+    <cdk-tree-node *cdkTreeNodeDef="let node"
+      [attr.aria-hidden]="selected && selected.indexOf(node.name) > -1"
+      [attr.aria-selected]="_isNodeSelected(node.name)">
+      @if (_shouldRenderNode(node)) {
+        <div uxTabbableListItem
+          [uxSelectionItem]="node.column"
+          addAriaAttributes="false"
+          class="column-picker-list-item"
+          [ngClass]="'column-picker-tree-node-level-' + node.level">
+          @if (!deselectedTemplate) {
+            {{ node.name }}
+          }
+          @if (deselectedTemplate) {
+            <ng-container
+              [ngTemplateOutlet]="deselectedTemplate"
+              [ngTemplateOutletContext]="{ $implicit: node.name }">
+            </ng-container>
+          }
+        </div>
+      }
 
-                <ng-container *ngIf="!deselectedTemplate">{{ node.name }}</ng-container>
+    </cdk-tree-node>
 
-                <ng-container
-                    *ngIf="deselectedTemplate"
-                    [ngTemplateOutlet]="deselectedTemplate"
-                    [ngTemplateOutletContext]="{ $implicit: node.name }">
-                </ng-container>
-            </div>
+    <!-- Create item for expandable node -->
+    <cdk-tree-node *cdkTreeNodeDef="let node; when: _nodeHasChildren"
+      [attr.aria-expanded]="node.isExpanded">
 
-        </cdk-tree-node>
-
-        <!-- Create item for expandable node -->
-        <cdk-tree-node *cdkTreeNodeDef="let node; when: _nodeHasChildren"
-            [attr.aria-expanded]="node.isExpanded">
-
-            <div *ngIf="_nodeHasAvailableChildren(node)"
-                class="column-picker-tree-group-node">
-
-                <button uxTabbableListItem
-                    (click)="_setNodeExpanded(node, !node.isExpanded)"
-                    (keydown.arrowright)="_setNodeExpanded(node, true)"
-                    (keydown.arrowleft)="_setNodeExpanded(node, false)"
-                    [style.visibility]="node.expandable ? 'visible' : 'hidden'"
-                    [attr.aria-label]="deselectedGroupAriaLabel(node.name, node.isExpanded)"
-                    class="column-picker-group-toggle-btn">
-
-                    <ux-icon [name]="node.isExpanded ? 'chevron-down' : 'chevron-right'"></ux-icon>
-
-                    <ng-container *ngIf="!deselectedTemplate">{{ node.name }}</ng-container>
-
-                    <ng-container
-                        *ngIf="deselectedTemplate"
-                        [ngTemplateOutlet]="deselectedTemplate"
-                        [ngTemplateOutletContext]="{ $implicit: node.name }">
-                    </ng-container>
-                </button>
-
-            </div>
-        </cdk-tree-node>
-    </cdk-tree>
+      @if (_nodeHasAvailableChildren(node)) {
+        <div
+          class="column-picker-tree-group-node">
+          <button uxTabbableListItem
+            (click)="_setNodeExpanded(node, !node.isExpanded)"
+            (keydown.arrowright)="_setNodeExpanded(node, true)"
+            (keydown.arrowleft)="_setNodeExpanded(node, false)"
+            [style.visibility]="node.expandable ? 'visible' : 'hidden'"
+            [attr.aria-label]="deselectedGroupAriaLabel(node.name, node.isExpanded)"
+            class="column-picker-group-toggle-btn">
+            <ux-icon [name]="node.isExpanded ? 'chevron-down' : 'chevron-right'"></ux-icon>
+            @if (!deselectedTemplate) {
+              {{ node.name }}
+            }
+            @if (deselectedTemplate) {
+              <ng-container
+                [ngTemplateOutlet]="deselectedTemplate"
+                [ngTemplateOutletContext]="{ $implicit: node.name }">
+              </ng-container>
+            }
+          </button>
+        </div>
+      }
+    </cdk-tree-node>
+  </cdk-tree>
 </div>
 
 <div class="column-picker-actions-column">
-    <!-- Show the default action buttons -->
-    <ng-container *ngIf="!actionsTemplate">
-        <button class="btn button-primary btn-block"
-                [disabled]="_deselectedSelection.length === 0"
-                [attr.aria-label]="addColumnAriaLabel"
-                (click)="addColumns()">
-            <ux-icon name="chevron-right"></ux-icon>
-        </button>
+  <!-- Show the default action buttons -->
+  @if (!actionsTemplate) {
+    <button class="btn button-primary btn-block"
+      [disabled]="_deselectedSelection.length === 0"
+      [attr.aria-label]="addColumnAriaLabel"
+      (click)="addColumns()">
+      <ux-icon name="chevron-right"></ux-icon>
+    </button>
+    <button class="btn button-primary btn-block m-b-md"
+      [disabled]="_selectedSelection.length === 0"
+      [attr.aria-label]="removeColumnAriaLabel"
+      (click)="removeColumns()">
+      <ux-icon name="chevron-left"></ux-icon>
+    </button>
+    <button class="btn button-secondary btn-block"
+      [disabled]="_availableDeselectedColumns === 0"
+      [attr.aria-label]="addAllColumnsAriaLabel"
+      (click)="addAllColumns()">
+      <ux-icon name="chevron-right-double"></ux-icon>
+    </button>
+    <button class="btn button-secondary btn-block"
+      [disabled]="selected.length === 0"
+      [attr.aria-label]="removeAllColumnsAriaLabel"
+      (click)="removeAllColumns()">
+      <ux-icon name="chevron-left-double"></ux-icon>
+    </button>
+  }
 
-        <button class="btn button-primary btn-block m-b-md"
-                [disabled]="_selectedSelection.length === 0"
-                [attr.aria-label]="removeColumnAriaLabel"
-                (click)="removeColumns()">
-            <ux-icon name="chevron-left"></ux-icon>
-        </button>
-
-        <button class="btn button-secondary btn-block"
-                [disabled]="_availableDeselectedColumns === 0"
-                [attr.aria-label]="addAllColumnsAriaLabel"
-                (click)="addAllColumns()">
-            <ux-icon name="chevron-right-double"></ux-icon>
-        </button>
-
-        <button class="btn button-secondary btn-block"
-                [disabled]="selected.length === 0"
-                [attr.aria-label]="removeAllColumnsAriaLabel"
-                (click)="removeAllColumns()">
-            <ux-icon name="chevron-left-double"></ux-icon>
-        </button>
-    </ng-container>
-
-    <!-- Allow custom actions template -->
+  <!-- Allow custom actions template -->
+  @if (actionsTemplate) {
     <ng-container
-        *ngIf="actionsTemplate"
-        [ngTemplateOutlet]="actionsTemplate"
-        [ngTemplateOutletContext]="_getActionContext()">
+      [ngTemplateOutlet]="actionsTemplate"
+      [ngTemplateOutletContext]="_getActionContext()">
     </ng-container>
+  }
 
 </div>
 
 <div class="column-picker-column">
-    <div class="column-picker-stats" [id]="id + '-stats-right'">
+  <div class="column-picker-stats" [id]="id + '-stats-right'">
 
-        <ng-container *ngIf="!selectedTitleTemplate">
-            {{ selected.length + locked.length }} columns added
-        </ng-container>
+    @if (!selectedTitleTemplate) {
+      {{ selected.length + locked.length }} columns added
+    }
 
-        <ng-container
-            *ngIf="selectedTitleTemplate"
-            [ngTemplateOutlet]="selectedTitleTemplate">
-        </ng-container>
+    @if (selectedTitleTemplate) {
+      <ng-container
+        [ngTemplateOutlet]="selectedTitleTemplate">
+      </ng-container>
+    }
+  </div>
+
+  <div class="column-picker-list" role="listbox" [attr.aria-labelledby]="id + '-stats-right'">
+
+    @for (column of locked; track column) {
+      <div
+        class="column-picker-list-item column-picker-list-item-locked">
+        @if (!lockedTemplate) {
+          {{ column }} <ux-icon name="lock"></ux-icon>
+        }
+        @if (lockedTemplate) {
+          <ng-container
+            [ngTemplateOutlet]="lockedTemplate"
+            [ngTemplateOutletContext]="{ $implicit: column }">
+          </ng-container>
+        }
+      </div>
+    }
+
+    <div [(uxSelection)]="_selectedSelection"
+      uxReorderable
+      [reorderableModel]="_storedSelection"
+      (reorderableModelChange)="onReorderChange($event)"
+      (reorderStart)="storeSelection()"
+      (reorderEnd)="restoreSelection()">
+
+      @for (column of selected; track selectedTrackBy(index, column); let index = $index) {
+        <div
+          #selectedColumn
+          uxFocusIndicator
+          [programmaticFocusIndicator]="true"
+          class="column-picker-list-item column-picker-list-item-selected"
+          [uxSelectionItem]="column"
+          [uxReorderableModel]="column"
+          [attr.aria-label]="selectedAriaLabel(column, selected.indexOf(column))"
+          (keydown.alt.arrowup)="move(column, -1)"
+          (keydown.alt.arrowdown)="move(column, 1)"
+          role="option">
+          @if (!selectedTemplate) {
+            <ux-icon uxReorderableHandle name="drag" class="drag-handle-icon"></ux-icon>
+            {{ _getColumnName(column) }}
+          }
+          @if (selectedTemplate) {
+            <ng-container
+              [ngTemplateOutlet]="selectedTemplate"
+              [ngTemplateOutletContext]="{ $implicit: column }">
+            </ng-container>
+          }
+        </div>
+      }
     </div>
 
-    <div class="column-picker-list" role="listbox" [attr.aria-labelledby]="id + '-stats-right'">
-
-        <div *ngFor="let column of locked"
-             class="column-picker-list-item column-picker-list-item-locked">
-
-             <ng-container *ngIf="!lockedTemplate">
-                {{ column }} <ux-icon name="lock"></ux-icon>
-            </ng-container>
-
-             <ng-container
-                *ngIf="lockedTemplate"
-                [ngTemplateOutlet]="lockedTemplate"
-                [ngTemplateOutletContext]="{ $implicit: column }">
-            </ng-container>
-        </div>
-
-        <div [(uxSelection)]="_selectedSelection"
-             uxReorderable
-             [reorderableModel]="_storedSelection"
-             (reorderableModelChange)="onReorderChange($event)"
-             (reorderStart)="storeSelection()"
-             (reorderEnd)="restoreSelection()">
-
-            <div *ngFor="let column of selected; trackBy: selectedTrackBy; let index = index"
-                 #selectedColumn
-                 uxFocusIndicator
-                 [programmaticFocusIndicator]="true"
-                 class="column-picker-list-item column-picker-list-item-selected"
-                 [uxSelectionItem]="column"
-                 [uxReorderableModel]="column"
-                 [attr.aria-label]="selectedAriaLabel(column, selected.indexOf(column))"
-                 (keydown.alt.arrowup)="move(column, -1)"
-                 (keydown.alt.arrowdown)="move(column, 1)"
-                 role="option">
-
-                 <ng-container *ngIf="!selectedTemplate">
-                    <ux-icon uxReorderableHandle name="drag" class="drag-handle-icon"></ux-icon>
-                    {{ _getColumnName(column) }}
-                 </ng-container>
-
-                 <ng-container
-                    *ngIf="selectedTemplate"
-                    [ngTemplateOutlet]="selectedTemplate"
-                    [ngTemplateOutletContext]="{ $implicit: column }">
-                </ng-container>
-            </div>
-        </div>
-
-    </div>
+  </div>
 </div>

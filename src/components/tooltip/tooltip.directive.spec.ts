@@ -8,10 +8,12 @@ import { TooltipModule } from './tooltip.module';
 @Component({
     selector: 'app-tooltip-test',
     template: `
-        <button *ngIf="showTrigger" uxTooltip="Tooltip content here" [(isOpen)]="isOpen">
+        @if (showTrigger) {
+          <button uxTooltip="Tooltip content here" [(isOpen)]="isOpen">
             Show Tooltip
-        </button>
-    `
+          </button>
+        }
+        `
 })
 export class TooltipDirectiveSpecComponent {
     @ViewChild(TooltipDirective, { static: false }) tooltipDirective: TooltipDirective;

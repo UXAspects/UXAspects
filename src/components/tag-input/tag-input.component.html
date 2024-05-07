@@ -1,77 +1,84 @@
 <ol [attr.aria-haspopup]="typeahead ? 'listbox' : null"
-    [attr.aria-expanded]="typeahead ? typeahead.open : null"
-    [attr.aria-controls]="typeahead ? typeahead.id : null"
-    [class.ux-tag-input-clear-inset]="_showClearButton"
-    [class.ux-tag-input-icon-inset]="icon"
-    (click)="toggle()">
+  [attr.aria-expanded]="typeahead ? typeahead.open : null"
+  [attr.aria-controls]="typeahead ? typeahead.id : null"
+  [class.ux-tag-input-clear-inset]="_showClearButton"
+  [class.ux-tag-input-icon-inset]="icon"
+  (click)="toggle()">
 
-    <li *ngFor="let tag of _tags; let i = index" class="ux-tag"
-        [class.disabled]="disabled"
-        [ngClass]="tagClass(tag, i, isSelected(i))"
-        [attr.tabindex]="disabled ? null : 0"
-        [focusIf]="isSelected(i)"
-        (click)="tagClickHandler($event, tag, i); $event.stopPropagation()"
-        (focus)="selectTagAt(i)">
-
-        <ng-container [ngTemplateOutlet]="tagTemplate || defaultTagTemplate"
-                      [ngTemplateOutletContext]="{tag: tag, index: i, disabled: disabled, api: tagApi}">
-        </ng-container>
-
+  @for (tag of _tags; track tag; let i = $index) {
+    <li class="ux-tag"
+      [class.disabled]="disabled"
+      [ngClass]="tagClass(tag, i, isSelected(i))"
+      [attr.tabindex]="disabled ? null : 0"
+      [focusIf]="isSelected(i)"
+      (click)="tagClickHandler($event, tag, i); $event.stopPropagation()"
+      (focus)="selectTagAt(i)">
+      <ng-container [ngTemplateOutlet]="tagTemplate || defaultTagTemplate"
+        [ngTemplateOutletContext]="{tag: tag, index: i, disabled: disabled, api: tagApi}">
+      </ng-container>
     </li>
-    <li *ngIf="isInputVisible()" class="ux-tag-input">
-        <input #tagInput type="text" attr.id="{{id}}-input" class="ux-tag-input"
-               [ngModel]="input"
-               (ngModelChange)="setInputValue($event)"
-               [autocomplete]="autocomplete"
-               [class.invalid]="!inputValid"
-               [required]="required"
-               [attr.aria-activedescendant]="highlightedElement?.id"
-               [attr.aria-autocomplete]="typeahead ? 'list' : 'none'"
-               [attr.aria-controls]="typeahead?.id"
-               [attr.aria-label]="ariaLabel"
-               [attr.aria-labelledby]="ariaLabelledby"
-               aria-multiline="false"
-               [placeholder]="disabled ? '' : (placeholder || '')"
-               [disabled]="disabled"
-               [focusIf]="isSelected(_tags.length)"
-               (click)="toggle(); $event.stopPropagation()"
-               (focus)="inputFocusHandler(); inputFocus.emit($event)"
-               (blur)="inputBlur.emit($event)"
-               (paste)="inputPasteHandler($event)"
-               [readonly]="readonlyInput">
-    </li>
-</ol>
+  }
+  @if (isInputVisible()) {
+    <li class="ux-tag-input">
+      <input #tagInput type="text" attr.id="{{id}}-input" class="ux-tag-input"
+        [ngModel]="input"
+        (ngModelChange)="setInputValue($event)"
+        [autocomplete]="autocomplete"
+        [class.invalid]="!inputValid"
+        [required]="required"
+        [attr.aria-activedescendant]="highlightedElement?.id"
+        [attr.aria-autocomplete]="typeahead ? 'list' : 'none'"
+        [attr.aria-controls]="typeahead?.id"
+        [attr.aria-label]="ariaLabel"
+        [attr.aria-labelledby]="ariaLabelledby"
+        aria-multiline="false"
+        [placeholder]="disabled ? '' : (placeholder || '')"
+        [disabled]="disabled"
+        [focusIf]="isSelected(_tags.length)"
+        (click)="toggle(); $event.stopPropagation()"
+        (focus)="inputFocusHandler(); inputFocus.emit($event)"
+        (blur)="inputBlur.emit($event)"
+        (paste)="inputPasteHandler($event)"
+        [readonly]="readonlyInput">
+      </li>
+    }
+  </ol>
 
-<!-- Insert the custom icon if provided -->
-<div class="ux-tag-icons" *ngIf="icon || _showClearButton" (click)="toggle(); $event.stopPropagation()">
-
-    <!-- Clear All Button -->
-    <i uxFocusIndicator
-       class="ux-tag-icon ux-icon ux-icon-close ux-select-clear-icon"
-       [attr.tabindex]="disabled ? -1 : 0"
-       [attr.aria-label]="clearButtonAriaLabel"
-       *ngIf="_showClearButton"
-       (click)="clear(); $event.stopPropagation()"
-       (keydown.enter)="clear(); $event.stopPropagation()">
-    </i>
-
-    <!-- Custom Icon -->
-    <div *ngIf="icon" class="ux-custom-icon">
-        <ng-container [ngTemplateOutlet]="icon"></ng-container>
+  <!-- Insert the custom icon if provided -->
+  @if (icon || _showClearButton) {
+    <div class="ux-tag-icons" (click)="toggle(); $event.stopPropagation()">
+      <!-- Clear All Button -->
+      @if (_showClearButton) {
+        <i uxFocusIndicator
+          class="ux-tag-icon ux-icon ux-icon-close ux-select-clear-icon"
+          [attr.tabindex]="disabled ? -1 : 0"
+          [attr.aria-label]="clearButtonAriaLabel"
+          (click)="clear(); $event.stopPropagation()"
+          (keydown.enter)="clear(); $event.stopPropagation()">
+        </i>
+      }
+      <!-- Custom Icon -->
+      @if (icon) {
+        <div class="ux-custom-icon">
+          <ng-container [ngTemplateOutlet]="icon"></ng-container>
+        </div>
+      }
     </div>
-</div>
+  }
 
-<ng-content #typeahead></ng-content>
+  <ng-content #typeahead></ng-content>
 
-<ng-template #defaultTagTemplate let-tag="tag" let-index="index" let-disabled="disabled" let-api="api">
+  <ng-template #defaultTagTemplate let-tag="tag" let-index="index" let-disabled="disabled" let-api="api">
     <span class="ux-tag-text">{{ api.getTagDisplay(tag) }}</span>
-    <button *ngIf="api.canRemoveTagAt(index)"
-            uxFocusIndicator
-            type="button"
-            class="ux-tag-remove"
-            aria-label="Remove Item"
-            [disabled]="disabled"
-            (click)="api.removeTagAt(index); $event.stopPropagation();">
+    @if (api.canRemoveTagAt(index)) {
+      <button
+        uxFocusIndicator
+        type="button"
+        class="ux-tag-remove"
+        aria-label="Remove Item"
+        [disabled]="disabled"
+        (click)="api.removeTagAt(index); $event.stopPropagation();">
         <ux-icon name="close"></ux-icon>
-    </button>
-</ng-template>
+      </button>
+    }
+  </ng-template>

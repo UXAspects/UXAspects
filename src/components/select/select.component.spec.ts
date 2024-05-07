@@ -11,23 +11,24 @@ import { SelectModule } from './select.module';
 @Component({
     selector: 'app-select-test',
     template: `
-        <ux-select (valueChange)="onValueChange()"
-                   (inputChange)="onInputChange()"
-                   *ngIf="visible"
-                   [(input)]="input"
-                   [(value)]="value"
-                   [options]="options"
-                   [required]="required"
-                   [multiple]="multiple"
-                   [allowNull]="allowNull"
-                   [clearButton]="clearButton"
-                   [placeholder]="placeholder"
-                   [pageSize]="pageSize"
-                   [readonlyInput]="readonlyInput"
-                   [(dropdownOpen)]="dropdownOpen"
-                   [ariaLabelledby]="ariaLabelledby">
-        </ux-select>
-    `
+        @if (visible) {
+          <ux-select (valueChange)="onValueChange()"
+            (inputChange)="onInputChange()"
+            [(input)]="input"
+            [(value)]="value"
+            [options]="options"
+            [required]="required"
+            [multiple]="multiple"
+            [allowNull]="allowNull"
+            [clearButton]="clearButton"
+            [placeholder]="placeholder"
+            [pageSize]="pageSize"
+            [readonlyInput]="readonlyInput"
+            [(dropdownOpen)]="dropdownOpen"
+            [ariaLabelledby]="ariaLabelledby">
+          </ux-select>
+        }
+        `
 })
 export class SelectTestComponent {
 
@@ -750,14 +751,18 @@ describe('Select Component - Reactive Form Input', () => {
 @Component({
     selector: 'app-select-test',
     template: `
-        <ux-select (valueChange)="onValueChange()" (inputChange)="onInputChange()" *ngIf="visible" [(input)]="input" [(value)]="value" [options]="options" [multiple]="multiple" [allowNull]="allowNull" [clearButton]="clearButton" [placeholder]="placeholder">
-            <ng-template #icon *ngIf="multiple">
+        @if (visible) {
+          <ux-select (valueChange)="onValueChange()" (inputChange)="onInputChange()" [(input)]="input" [(value)]="value" [options]="options" [multiple]="multiple" [allowNull]="allowNull" [clearButton]="clearButton" [placeholder]="placeholder">
+            @if (multiple) {
+              <ng-template #icon>
                 <div class="ux-select-icon">
-                    <i class="ux-icon ux-icon-add"></i>
+                  <i class="ux-icon ux-icon-add"></i>
                 </div>
-            </ng-template>
-        </ux-select>
-    `
+              </ng-template>
+            }
+          </ux-select>
+        }
+        `
 })
 export class SingleSelectWithCustomIconTestComponent {
     input: string = '';

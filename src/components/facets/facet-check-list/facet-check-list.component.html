@@ -1,15 +1,16 @@
 <ux-facet-header [header]="header" [(expanded)]="expanded"></ux-facet-header>
 
 <!-- Create a container which will show when section is expanded -->
-<div class="facet-check-list-container"
+@if (expanded) {
+  <div class="facet-check-list-container"
     tabindex="-1"
     role="listbox"
     [class.facet-check-list-scrollbar]="scrollbar"
     [class.facet-check-list-scrollbar-focused]="isFocused"
-    *ngIf="expanded">
-
+    >
     <!-- Iterate through each possible facet -->
-    <ux-facet-check-list-item *ngFor="let facet of facets; let index = index"
+    @for (facet of facets; track facet; let index = $index) {
+      <ux-facet-check-list-item
         [id]="id + '-check-list-item-' + index"
         [facet]="facet"
         [simplified]="simplified"
@@ -19,6 +20,7 @@
         (keydown)="onKeydown($event)"
         (itemFocus)="isFocused = true; onFocus(index)"
         (itemBlur)="isFocused = false">
-    </ux-facet-check-list-item>
-
-</div>
+      </ux-facet-check-list-item>
+    }
+  </div>
+}

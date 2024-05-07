@@ -1,21 +1,23 @@
-<label class="form-label" *ngIf="label">{{ label }}</label>
+@if (label) {
+  <label class="form-label">{{ label }}</label>
+}
 
 <div class="input-group date m-nil">
-    <span class="input-group-addon" tabindex="1" (click)="popover.show()">
-        <ux-icon name="calendar"></ux-icon>
-    </span>
-    <input type="text"
-        class="form-control"
-        [attr.aria-label]="dateInputAriaLabel"
-        [placeholder]="placeholder"
-        #popover="ux-popover"
-        [ngModel]="value | date:'dd MMMM yyyy'"
-        [uxPopover]="popoverTemplate"
-        placement="bottom"
-        popoverClass="date-time-picker-popover"
-        [focusIf]="focus">
-</div>
+  <span class="input-group-addon" tabindex="1" (click)="popover.show()">
+    <ux-icon name="calendar"></ux-icon>
+  </span>
+  <input type="text"
+    class="form-control"
+    [attr.aria-label]="dateInputAriaLabel"
+    [placeholder]="placeholder"
+    #popover="ux-popover"
+    [ngModel]="value | date:'dd MMMM yyyy'"
+    [uxPopover]="popoverTemplate"
+    placement="bottom"
+    popoverClass="date-time-picker-popover"
+    [focusIf]="focus">
+  </div>
 
-<ng-template #popoverTemplate>
+  <ng-template #popoverTemplate>
     <ux-date-time-picker [(date)]="value" [showTime]="false"></ux-date-time-picker>
-</ng-template>
+  </ng-template>

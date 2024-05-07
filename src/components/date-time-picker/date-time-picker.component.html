@@ -2,31 +2,38 @@
 
   <ux-date-time-picker-header></ux-date-time-picker-header>
 
-  <ng-container *ngIf="datepicker.showDate$ | async" [ngSwitch]="datepicker.mode$ | async">
-
-        <!-- Display days in the current month -->
-        <ux-date-time-picker-day-view *ngSwitchCase="DatePickerMode.Day"></ux-date-time-picker-day-view>
-
-        <!-- Display the months in the current year -->
-        <ux-date-time-picker-month-view *ngSwitchCase="DatePickerMode.Month"></ux-date-time-picker-month-view>
-
-        <!-- Display a decade -->
-        <ux-date-time-picker-year-view *ngSwitchCase="DatePickerMode.Year"></ux-date-time-picker-year-view>
-
-  </ng-container>
+  @if (datepicker.showDate$ | async) {
+    @switch (datepicker.mode$ | async) {
+      <!-- Display days in the current month -->
+      @case (DatePickerMode.Day) {
+        <ux-date-time-picker-day-view></ux-date-time-picker-day-view>
+      }
+      <!-- Display the months in the current year -->
+      @case (DatePickerMode.Month) {
+        <ux-date-time-picker-month-view></ux-date-time-picker-month-view>
+      }
+      <!-- Display a decade -->
+      @case (DatePickerMode.Year) {
+        <ux-date-time-picker-year-view></ux-date-time-picker-year-view>
+      }
+    }
+  }
 
   <!-- Display a Time Picker -->
-  <ux-date-time-picker-time-view (timezoneChange)="_onTimezoneChange($event)"
-                                 *ngIf="datepicker.showTime$ | async"></ux-date-time-picker-time-view>
+  @if (datepicker.showTime$ | async) {
+    <ux-date-time-picker-time-view (timezoneChange)="_onTimezoneChange($event)"
+    ></ux-date-time-picker-time-view>
+  }
 
 </div>
 
-<button type="button"
-    *ngIf="datepicker.showNowBtn$ | async"
+@if (datepicker.showNowBtn$ | async) {
+  <button type="button"
     uxFocusIndicator
     class="now-button"
     [attr.aria-label]="nowBtnAriaLabel"
     [disabled]="_isTodayDisabled"
     (click)="setToNow()">
     {{ datepicker.nowBtnText$ | async }}
-</button>
+  </button>
+}

@@ -1,7 +1,11 @@
 <div class="tooltip in" [id]="id" [attr.role]="role" [ngClass]="[positionClass, customClass]">
-    <div class="tooltip-arrow"></div>
-    <div class="tooltip-inner" (cdkObserveContent)="reposition()">
-        <ng-container *ngIf="!isTemplateRef">{{ content }}</ng-container>
-        <ng-container *ngIf="isTemplateRef" [ngTemplateOutlet]="$any(content)" [ngTemplateOutletContext]="context"></ng-container>
-    </div>
+  <div class="tooltip-arrow"></div>
+  <div class="tooltip-inner" (cdkObserveContent)="reposition()">
+    @if (!isTemplateRef) {
+      {{ content }}
+    }
+    @if (isTemplateRef) {
+      <ng-container [ngTemplateOutlet]="$any(content)" [ngTemplateOutletContext]="context"></ng-container>
+    }
+  </div>
 </div>

@@ -1,5 +1,7 @@
 <ng-content select="[fab-primary]"></ng-content>
 
-<div class="floating-action-button-list" [@fabAnimation]="fab.open$ | async" [ngClass]="fab.direction$ | async" *ngIf="fab.open$ | async">
+@if (fab.open$ | async) {
+  <div class="floating-action-button-list" [@fabAnimation]="fab.open$ | async" [ngClass]="fab.direction$ | async">
     <ng-content></ng-content>
-</div>
+  </div>
+}
