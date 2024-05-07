@@ -23,7 +23,7 @@
 </p>
 
 <p>
-    The variable should be given the <code>@Conduit</code> decorator with the appropriate configuration.
+    The variable should be given the <code>&#64;Conduit</code> decorator with the appropriate configuration.
     Additionally the component class should extend <code>ConduitComponent</code> where possible to setup all conduits automatically.
     If it is not possible to extend this class, inject the <code>ConduitZone</code> service and in the <code>ngOnInit</code> hook call
     <code>zone.registerConduits(this)</code>. In the <code>ngOnDestroy</code> hook call <code>zone.unregisterConduits(this)</code> to remove conduits
@@ -88,7 +88,7 @@
         <p>
             This allows programmatic creation of a conduit at runtime.
             The function should be called with two parameters, the first is the <code>Subject</code> or <code>BehaviorSubject</code>,
-            and the second is the properties object which is identical to the object normally passed to the <code>@Conduit</code> decorator.
+            and the second is the properties object which is identical to the object normally passed to the <code>&#64;Conduit</code> decorator.
         </p>
         <p>
             <b>Note: </b> If your class does not extend <code>ConduitComponent</code>, these functions are also available on the <code>ConduitZone</code> service.
