@@ -2,6 +2,8 @@
   "name": "documentation",
   "$schema": "../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
+  "sourceRoot": "docs",
+  "prefix": "app",
   "generators": {
     "@schematics/angular:component": {
       "style": "less"
@@ -10,8 +12,6 @@
       "strict": true
     }
   },
-  "sourceRoot": "docs",
-  "prefix": "app",
   "targets": {
     "build": {
       "executor": "@nx/angular:webpack-browser",
@@ -90,7 +90,7 @@
       "defaultConfiguration": "production"
     },
     "serve": {
-      "executor": "@nx/angular:webpack-dev-server",
+      "executor": "@nx/angular:dev-server",
       "options": {
         "port": 8080
       },

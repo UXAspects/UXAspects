@@ -1,7 +1,4 @@
 {
-  "affected": {
-    "defaultBase": "main"
-  },
   "workspaceLayout": {
     "appsDir": "projects",
     "libsDir": "projects"
@@ -34,6 +31,14 @@
           "codeCoverage": true
         }
       }
+    },
+    "@nx/eslint:lint": {
+      "cache": true,
+      "inputs": [
+        "default",
+        "{workspaceRoot}/.eslintrc.json",
+        "{workspaceRoot}/tools/eslint-rules/**/*"
+      ]
     }
   },
   "cli": {
@@ -66,5 +71,7 @@
     "@nx/angular:component": {
       "style": "less"
     }
-  }
+  },
+  "useInferencePlugins": false,
+  "defaultBase": "main"
 }
