@@ -47,13 +47,6 @@
         "@typescript-eslint/no-unused-vars": "off",
         "brace-style": "off",
         "one-var": "off",
-        "@typescript-eslint/quotes": [
-          "error",
-          "single",
-          {
-            "avoidEscape": true
-          }
-        ],
         "@typescript-eslint/require-await": "error",
         "@typescript-eslint/semi": "error",
         "no-redeclare": "error",
@@ -65,7 +58,8 @@
       "files": ["*.html"],
       "extends": ["plugin:@angular-eslint/template/recommended"],
       "rules": {
-        "no-mixed-spaces-and-tabs": "off"
+        "no-mixed-spaces-and-tabs": "off",
+        "@typescript-eslint/adjacent-overload-signatures": "off"
       }
     },
     {
@@ -82,7 +76,8 @@
     {
       "files": ["*.spec.ts", "*.e2e-spec.ts"],
       "rules": {
-        "@typescript-eslint/no-unused-vars": "off"
+        "@typescript-eslint/no-unused-vars": "off",
+        "@typescript-eslint/adjacent-overload-signatures": "off"
       }
     },
     {

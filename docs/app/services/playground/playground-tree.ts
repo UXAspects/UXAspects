@@ -28,10 +28,10 @@ export class PlaygroundTree extends Map<string, string> {
     }
 
     /** Parse a file into a TS AST, apply specified transformers, and serialize the result back. */
-    updateTypeScriptFile(
+    async updateTypeScriptFile(
         path: string,
         ...transformers: ts.TransformerFactory<ts.SourceFile>[]
-    ): void {
+    ): Promise<void> {
         const source = ts.createSourceFile(
             path,
             this.getContent(path),
@@ -42,16 +42,16 @@ export class PlaygroundTree extends Map<string, string> {
         const transformResult = ts.transform(source, transformers);
         const printer = ts.createPrinter({ newLine: ts.NewLineKind.LineFeed });
         const modifiedContent = printer.printFile(transformResult.transformed[0]);
-        const formattedContent = formatTypeScript(modifiedContent);
+        const formattedContent = await formatTypeScript(modifiedContent);
 
         this.setContent(path, formattedContent);
     }
 
     /** Parse a file as HTML, apply changes via a callback, and serialize the result back. */
-    updateHtmlFile(path: string, callback: ($: CheerioAPI) => void): void {
+    async updateHtmlFile(path: string, callback: ($: CheerioAPI) => void): Promise<void> {
         const $ = load(this.getContent(path));
         callback($);
-        const modifiedHtml = formatHtml($.root().html());
+        const modifiedHtml = await formatHtml($.root().html());
         this.setContent(path, modifiedHtml);
     }
 }
