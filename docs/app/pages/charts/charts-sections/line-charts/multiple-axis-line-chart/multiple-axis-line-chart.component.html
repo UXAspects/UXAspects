@@ -1,10 +1,8 @@
 <div class="demo-chart-container">
 
     <canvas baseChart
-        id="chart-id"
         [datasets]="lineChartData"
         [options]="lineChartOptions"
-        [plugins]="lineChartPlugins"
         type="line">
 
         <table *ngFor="let dataset of lineChartData" attr.aria-label="{{dataset.label}} chart data">
@@ -23,11 +21,7 @@
                 </ng-container>
             </tbody>
         </table>
-
     </canvas>
-
-    <div class="multi-axis-legend" id="legend-id" aria-hidden="true"></div>
-
 </div>
 
 <hr>
