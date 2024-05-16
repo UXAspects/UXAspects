@@ -30,9 +30,9 @@ const DEFAULT_MODULES: IPlaygroundModule[] = [
 /** Add imports and declarations to the playground AppModule. */
 @Injectable()
 export class AppModulePlaygroundTransformer implements PlaygroundTransformer {
-    transform(tree: PlaygroundTree, context: PlaygroundContext): void {
+    async transform(tree: PlaygroundTree, context: PlaygroundContext): Promise<void> {
         if (context.playground.framework === 'angular') {
-            tree.updateTypeScriptFile(
+            await tree.updateTypeScriptFile(
                 'src/app/app.module.ts',
                 addImportsTransformer(this.getImports(context)),
                 ngModuleMetadataTransformer('imports', this.getModuleImports(context)),

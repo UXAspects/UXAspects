@@ -8,10 +8,10 @@ import { PlaygroundTransformer } from './playground-transformer';
  */
 @Injectable()
 export class FontPlaygroundTransformer implements PlaygroundTransformer {
-    transform(tree: PlaygroundTree, context: PlaygroundContext): void {
+    async transform(tree: PlaygroundTree, context: PlaygroundContext): Promise<void> {
         const fontHref = this.getFontHref(context);
         if (fontHref) {
-            tree.updateHtmlFile(context.htmlEntryPoint, $ => {
+            await tree.updateHtmlFile(context.htmlEntryPoint, $ => {
                 $('head').append(`<link href="${fontHref}" rel="stylesheet" />`);
             });
         }

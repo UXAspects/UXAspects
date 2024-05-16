@@ -28,7 +28,8 @@ const OPTIONAL_DEPENDENCIES = {
  */
 @Injectable()
 export class PackageJsonPlaygroundTransformer implements PlaygroundTransformer {
-    transform(tree: PlaygroundTree, context: PlaygroundContext): void {
+    // eslint-disable-next-line @typescript-eslint/require-await
+    async transform(tree: PlaygroundTree, context: PlaygroundContext): Promise<void> {
         tree.updateJsonFile('package.json', packageJson => {
             packageJson.name = this.getName(context);
             packageJson.description = this.getDescription(context);
