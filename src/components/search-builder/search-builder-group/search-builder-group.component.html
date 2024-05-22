@@ -3,55 +3,49 @@
 <div class="search-group-content">
 
   <div class="search-group-operator search-group-operator-{{ operator }}"
-    [class.hidden-operator]="searchBuilderGroupService.getQuery().length < 2">{{ operator }}</div>
+  [class.hidden-operator]="searchBuilderGroupService.getQuery().length < 2">{{ operator }}</div>
 
   <div class="search-group-items">
 
-    <div *ngFor="let field of searchBuilderGroupService.getQuery(); let i = index"
-      class="search-group-item-container"
-      [class.search-group-item-focus]="focusIndex === i"
-      (uxFocusWithin)="setFocus(i)"
-      (uxBlurWithin)="clearFocus()">
-
-      <div class="search-group-item">
-        <ng-container *uxSearchBuilderOutlet="field.type; context: field; groupId: id; index: i"></ng-container>
+    @for (field of searchBuilderGroupService.getQuery(); track field; let i = $index) {
+      <div
+        class="search-group-item-container"
+        [class.search-group-item-focus]="focusIndex === i"
+        (uxFocusWithin)="setFocus(i)"
+        (uxBlurWithin)="clearFocus()">
+        <div class="search-group-item">
+          <ng-container *uxSearchBuilderOutlet="field.type; context: field; groupId: id; index: i"></ng-container>
+        </div>
+        <button type="button"
+          uxFocusIndicator
+          [attr.aria-label]="removeFieldButtonAriaLabel"
+          class="search-group-item-remove"
+          (click)="removeFieldAtIndex(i, field)">
+          <ux-icon name="close"></ux-icon>
+        </button>
       </div>
-
-      <button type="button"
-        uxFocusIndicator
-        [attr.aria-label]="removeFieldButtonAriaLabel"
-        class="search-group-item-remove"
-        (click)="removeFieldAtIndex(i, field)">
-
-        <ux-icon name="close"></ux-icon>
-
-      </button>
-
-    </div>
+    }
 
     <!-- Placeholder Item -->
-    <ng-container *ngIf="showPlaceholder">
-
+    @if (showPlaceholder) {
       <!-- The Default Placeholder -->
-      <div class="search-group-item-container placeholder-item" *ngIf="!placeholder">
-
-        <div class="search-group-item">
-          <label class="form-label">New field</label>
-          <div class="form-control"></div>
+      @if (!placeholder) {
+        <div class="search-group-item-container placeholder-item">
+          <div class="search-group-item">
+            <label class="form-label">New field</label>
+            <div class="form-control"></div>
+          </div>
         </div>
-
-      </div>
-
+      }
       <!-- Allow a custom placeholder -->
       <ng-container *ngTemplateOutlet="placeholder"></ng-container>
-
-    </ng-container>
+    }
 
   </div>
 
   <button type="button" uxFocusIndicator class="search-builder-group-add-field" (click)="addField($event)">
-        <ux-icon class="search-builder-group-add-field-icon" name="add"></ux-icon>
-        <span class="search-builder-group-add-field-label">{{ addText }}</span>
+    <ux-icon class="search-builder-group-add-field-icon" name="add"></ux-icon>
+    <span class="search-builder-group-add-field-label">{{ addText }}</span>
   </button>
 
 </div>

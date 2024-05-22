@@ -1,24 +1,25 @@
 <ng-template>
+  @if (isMenuOpen) {
     <div
-        *ngIf="isMenuOpen"
-        class="ux-menu"
-        role="menu"
-        [id]="innerId"
-        [class.ux-sub-menu]="_isSubMenu"
-        [ngClass]="menuClass"
-        @menuAnimation
-        [@.disabled]="!animate"
-        (@menuAnimation.start)="_onAnimationStart()"
-        (@menuAnimation.done)="_onAnimationDone()"
-        (mouseenter)="_onHoverStart()"
-        (mouseover)="_onHoverStart()"
-        (mouseleave)="_onHoverEnd()"
-        (focusin)="_onFocus()"
-        (focusout)="_onBlur()"
-        (keydown)="_onKeyDown($event)"
-        cdkMonitorSubtreeFocus
-        [cdkTrapFocus]="_closeOnBlur"
-        (cdkFocusChange)="_focusChange($event)">
-        <ng-content></ng-content>
+      class="ux-menu"
+      role="menu"
+      [id]="innerId"
+      [class.ux-sub-menu]="_isSubMenu"
+      [ngClass]="menuClass"
+      @menuAnimation
+      [@.disabled]="!animate"
+      (@menuAnimation.start)="_onAnimationStart()"
+      (@menuAnimation.done)="_onAnimationDone()"
+      (mouseenter)="_onHoverStart()"
+      (mouseover)="_onHoverStart()"
+      (mouseleave)="_onHoverEnd()"
+      (focusin)="_onFocus()"
+      (focusout)="_onBlur()"
+      (keydown)="_onKeyDown($event)"
+      cdkMonitorSubtreeFocus
+      [cdkTrapFocus]="_closeOnBlur"
+      (cdkFocusChange)="_focusChange($event)">
+      <ng-content></ng-content>
     </div>
+  }
 </ng-template>

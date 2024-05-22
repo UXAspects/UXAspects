@@ -6,7 +6,7 @@ import { PlaygroundTransformer } from './playground-transformer';
 /** Add the UX Aspects and Bootstrap stylesheet to the playground. */
 @Injectable()
 export class StylesheetPlaygroundTransformer implements PlaygroundTransformer {
-    transform(tree: PlaygroundTree, context: PlaygroundContext): void {
+    async transform(tree: PlaygroundTree, context: PlaygroundContext): Promise<void> {
         // add stylesheet imports
         if (context.playground.framework === 'angular') {
             tree.updateJsonFile('angular.json', angularJson => {
@@ -24,8 +24,7 @@ export class StylesheetPlaygroundTransformer implements PlaygroundTransformer {
         // add global playground styling
         tree.appendContent(
             context.cssEntryPoint,
-            'body { padding: 16px; background-color: #fff; }',
-            formatCss
+            await formatCss('body { padding: 16px; background-color: #fff; }'),
         );
     }
 

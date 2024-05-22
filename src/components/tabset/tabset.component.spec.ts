@@ -8,25 +8,25 @@ import { TabsetModule } from './tabset.module';
     selector: 'app-tabset-test',
     template: `
         <ux-tabset [minimal]="true" aria-label="Tabset Example" #tabset>
+          @for (tab of tabs; track tab) {
             <ux-tab
-                [active]="tab.active"
-                (activeChange)="activeChange(tab.title, $event)"
-                (deactivated)="onTabDeactivated()"
-                (activated)="onTabActivated()"
-                customClass="text-center"
-                *ngFor="let tab of tabs"
-            >
-                <ng-template uxTabHeading>
-                    <span>{{ tab.title }}</span>
-                </ng-template>
-
-                <div class="m-t">
-                    <h4>{{ tab.title }}</h4>
-                    <p>{{ tab.content }}</p>
-                </div>
+              [active]="tab.active"
+              (activeChange)="activeChange(tab.title, $event)"
+              (deactivated)="onTabDeactivated()"
+              (activated)="onTabActivated()"
+              customClass="text-center"
+              >
+              <ng-template uxTabHeading>
+                <span>{{ tab.title }}</span>
+              </ng-template>
+              <div class="m-t">
+                <h4>{{ tab.title }}</h4>
+                <p>{{ tab.content }}</p>
+              </div>
             </ux-tab>
+          }
         </ux-tabset>
-    `
+        `
 })
 export class TabsetTestComponent {
 

@@ -1,7 +1,6 @@
 import { Component, ViewEncapsulation } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
 import { ColorService } from '@ux-aspects/ux-aspects';
-import { Chart, ChartDataset, ChartOptions, TooltipItem } from 'chart.js';
+import { ChartDataset, ChartOptions, TooltipItem } from 'chart.js';
 import { MultipleAxisLineChartService } from './data.service';
 
 @Component({
@@ -16,9 +15,8 @@ export class AppComponent {
     // configure the directive data
     lineChartData: ChartDataset<'line'>[];
     lineChartOptions: ChartOptions<'line'>;
-    lineChartPlugins: any;
 
-    constructor(private readonly sanitizer: DomSanitizer, colorService: ColorService, dataService: MultipleAxisLineChartService) {
+    constructor(colorService: ColorService, dataService: MultipleAxisLineChartService) {
 
         const tooltipBackgroundColor = colorService.getColor('grey2').toHex();
         const gridColor = colorService.getColor('grey6').toHex();
@@ -56,22 +54,6 @@ export class AppComponent {
                 y: values[1]
             };
         });
-
-        this.lineChartPlugins = [{
-            beforeInit(chart: Chart) {
-                const sets = chart.data.datasets.map((dataset: ChartDataset) => {
-                    return `<li class="multi-axis-legend-list-item">
-                                <span class="multi-axis-legend-box" style="background-color: ${
-                                    dataset.backgroundColor
-                                }; border-color: ${dataset.borderColor}"></span>
-                                <span class="multi-axis-legend-text">${dataset.label}</span>
-                            </li>`;
-                });
-
-                // create html for chart legend
-                return document.getElementById('legend-id')!.innerHTML = `<ul class="multi-axis-legend-list">${sets.join('')}</ul>`;
-            }
-        }];
 
         this.lineChartData = [
             {

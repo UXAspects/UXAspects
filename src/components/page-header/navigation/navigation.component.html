@@ -1,10 +1,11 @@
-<ux-page-header-horizontal-navigation-item
-    *ngFor="let item of items$ | async"
+@for (item of items$ | async; track item) {
+  <ux-page-header-horizontal-navigation-item
     [item]="item">
-</ux-page-header-horizontal-navigation-item>
+  </ux-page-header-horizontal-navigation-item>
+}
 
 <div class="selected-indicator"
-    [style.opacity]="indicatorVisible ? 1 : 0"
-    [style.margin-left.px]="indicatorX"
-    [style.width.px]="indicatorWidth">
+  [style.opacity]="indicatorVisible ? 1 : 0"
+  [style.margin-left.px]="indicatorX"
+  [style.width.px]="indicatorWidth">
 </div>

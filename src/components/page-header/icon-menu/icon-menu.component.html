@@ -1,58 +1,66 @@
 <div class="page-header-icon-menu">
-    <button
-        type="button"
-        class="page-header-icon-menu-button"
-        [attr.aria-label]="menu.label"
-        [uxMenuTriggerFor]="iconMenu"
-        (click)="select(menu)">
+  <button
+    type="button"
+    class="page-header-icon-menu-button"
+    [attr.aria-label]="menu.label"
+    [uxMenuTriggerFor]="iconMenu"
+    (click)="select(menu)">
 
-        <!-- Support all icon types -->
-        <i *ngIf="_getIconType(menu.icon) !== 'component'"
-           [ngClass]="[_getIconType(menu.icon), menu.icon]">
-        </i>
+    <!-- Support all icon types -->
+    @if (_getIconType(menu.icon) !== 'component') {
+      <i
+        [ngClass]="[_getIconType(menu.icon), menu.icon]">
+      </i>
+    }
 
-        <ux-icon *ngIf="_getIconType(menu.icon) === 'component'"
-                 [name]="menu.icon">
-        </ux-icon>
+    @if (_getIconType(menu.icon) === 'component') {
+      <ux-icon
+        [name]="menu.icon">
+      </ux-icon>
+    }
 
-        <span class="label label-primary" *ngIf="menu?.badge" aria-hidden="true">{{ menu.badge }}</span>
-    </button>
+    @if (menu?.badge) {
+      <span class="label label-primary" aria-hidden="true">{{ menu.badge }}</span>
+    }
+  </button>
 
-    <ux-menu #iconMenu alignment="end" menuClass="ux-page-header-icon-menu">
-        <ng-container *ngFor="let dropdown of menu?.dropdown">
-
-            <div class="dropdown-header" *ngIf="dropdown.header">
-                <span class="font-bold">{{ dropdown.title }}</span>
-            </div>
-
-            <button
-                type="button"
-                *ngIf="!dropdown.header"
-                uxMenuItem
-                (click)="select(dropdown)"
-                (keydown)="keydownHandler(dropdown, $event)">
-
-
-                <span class="dropdown-item-title">
-                    <!-- Support all icon types -->
-                    <i *ngIf="_getIconType(dropdown.icon) !== 'component'"
-                       class="ux-fw"
-                       [ngClass]="[_getIconType(dropdown.icon) || 'ux-icon', dropdown.icon || '']">
-                    </i>
-
-                    <ux-icon *ngIf="_getIconType(dropdown.icon) === 'component'"
-                             class="m-r-xs"
-                             [name]="dropdown.icon">
-                    </ux-icon>
-
-                    {{ dropdown.title }}
-                </span>
-                <span *ngIf="dropdown.subtitle" class="dropdown-item-subtitle">{{ dropdown.subtitle }}</span>
-
-            </button>
-
-            <ux-menu-divider *ngIf="dropdown.divider"></ux-menu-divider>
-
-        </ng-container>
-    </ux-menu>
+  <ux-menu #iconMenu alignment="end" menuClass="ux-page-header-icon-menu">
+    @for (dropdown of menu?.dropdown; track dropdown) {
+      @if (dropdown.header) {
+        <div class="dropdown-header">
+          <span class="font-bold">{{ dropdown.title }}</span>
+        </div>
+      }
+      @if (!dropdown.header) {
+        <button
+          type="button"
+          uxMenuItem
+          (click)="select(dropdown)"
+          (keydown)="keydownHandler(dropdown, $event)">
+          <span class="dropdown-item-title">
+            <!-- Support all icon types -->
+            @if (_getIconType(dropdown.icon) !== 'component') {
+              <i
+                class="ux-fw"
+                [ngClass]="[_getIconType(dropdown.icon) || 'ux-icon', dropdown.icon || '']">
+              </i>
+            }
+            @if (_getIconType(dropdown.icon) === 'component') {
+              <ux-icon
+                class="m-r-xs"
+                [name]="dropdown.icon">
+              </ux-icon>
+            }
+            {{ dropdown.title }}
+          </span>
+          @if (dropdown.subtitle) {
+            <span class="dropdown-item-subtitle">{{ dropdown.subtitle }}</span>
+          }
+        </button>
+      }
+      @if (dropdown.divider) {
+        <ux-menu-divider></ux-menu-divider>
+      }
+    }
+  </ux-menu>
 </div>

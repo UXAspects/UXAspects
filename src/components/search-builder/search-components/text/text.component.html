@@ -1,2 +1,4 @@
-<label *ngIf="label" class="form-label" [attr.for]="id">{{ label }}</label>
+@if (label) {
+  <label class="form-label" [attr.for]="id">{{ label }}</label>
+}
 <input type="text" [attr.id]="id" class="form-control" [placeholder]="placeholder" [(ngModel)]="value" [focusIf]="focus">

@@ -465,33 +465,35 @@ describe('MenuComponent', () => {
 @Component({
     selector: 'app-menu-trigger-test',
     template: `
-        <div class="btn-group" *ngIf="showTrigger">
+        @if (showTrigger) {
+          <div class="btn-group">
             <button
-                type="button"
-                class="btn button-secondary dropdown-toggle"
-                [uxMenuTriggerFor]="menu"
-                (closed)="closed()">
-                Actions
+              type="button"
+              class="btn button-secondary dropdown-toggle"
+              [uxMenuTriggerFor]="menu"
+              (closed)="closed()">
+              Actions
             </button>
-        </div>
-
+          </div>
+        }
+        
         <ux-menu id="ux-menu-1" #menu>
-            <button type="button" uxMenuItem>
-                <span class="dropdown-menu"></span>
-                <span class="dropdown-menu-text">Export</span>
-            </button>
-
-            <button type="button" id="menu-item-2" (activate)="onActivate($event)" [closeOnSelect]="closeOnSelect" uxMenuItem>
-                <span class="dropdown-menu"></span>
-                <span class="dropdown-menu-text">Annotate</span>
-            </button>
-
-            <button type="button" uxMenuItem>
-                <span class="dropdown-menu"></span>
-                <span class="dropdown-menu-text">Save List</span>
-            </button>
+          <button type="button" uxMenuItem>
+            <span class="dropdown-menu"></span>
+            <span class="dropdown-menu-text">Export</span>
+          </button>
+        
+          <button type="button" id="menu-item-2" (activate)="onActivate($event)" [closeOnSelect]="closeOnSelect" uxMenuItem>
+            <span class="dropdown-menu"></span>
+            <span class="dropdown-menu-text">Annotate</span>
+          </button>
+        
+          <button type="button" uxMenuItem>
+            <span class="dropdown-menu"></span>
+            <span class="dropdown-menu-text">Save List</span>
+          </button>
         </ux-menu>
-    `
+        `
 })
 export class MenuTriggerDestroyTestComponent {
     @ViewChild(MenuTriggerDirective, { static: false })

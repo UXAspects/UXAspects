@@ -1,70 +1,75 @@
 <!-- Nav tabs -->
 <ul
-    role="tablist"
-    uxTabbableList
-    [direction]="stacked === 'none' ? 'horizontal' : 'vertical'"
-    [allowBoundaryKeys]="true"
-    class="nav nav-tabs"
-    [class.minimal-tab]="minimal"
-    [attr.aria-label]="ariaLabel"
-    [attr.aria-orientation]="stacked === 'none' ? 'horizontal' : 'vertical'"
->
+  role="tablist"
+  uxTabbableList
+  [direction]="stacked === 'none' ? 'horizontal' : 'vertical'"
+  [allowBoundaryKeys]="true"
+  class="nav nav-tabs"
+  [class.minimal-tab]="minimal"
+  [attr.aria-label]="ariaLabel"
+  [attr.aria-orientation]="stacked === 'none' ? 'horizontal' : 'vertical'"
+  >
+  @for (tab of _tabset.tabs; track tab; let index = $index) {
     <li
-        role="presentation"
-        class="nav-item"
-        *ngFor="let tab of _tabset.tabs; let index = index"
-        [class.active]="(_tabset.activeTab$ | async) === tab"
-        [class.disabled]="tab.disabled"
-        [ngClass]="tab.customClass"
-    >
-        <ng-template #tabDetails>
-            <span *ngIf="!tab.headingRef">{{ tab.heading }}</span>
-            <ng-container *ngIf="tab.headingRef" [ngTemplateOutlet]="tab.headingRef"></ng-container>
-        </ng-template>
-
+      role="presentation"
+      class="nav-item"
+      [class.active]="(_tabset.activeTab$ | async) === tab"
+      [class.disabled]="tab.disabled"
+      [ngClass]="tab.customClass"
+      >
+      <ng-template #tabDetails>
+        @if (!tab.headingRef) {
+          <span>{{ tab.heading }}</span>
+        }
+        @if (tab.headingRef) {
+          <ng-container [ngTemplateOutlet]="tab.headingRef"></ng-container>
+        }
+      </ng-template>
+      @if (tab.route) {
         <a
-            *ngIf="tab.route"
-            class="nav-link"
-            [attr.id]="tab.id"
-            role="tab"
-            #anchorTab
-            uxTabbableListItem
-            uxFocusIndicator
-            [attr.aria-controls]="tab.id"
-            [attr.aria-selected]="(_tabset.activeTab$ | async) === tab"
-            [attr.aria-disabled]="tab.disabled"
-            [routerLink]="tab.route"
-            [fragment]="tab.routerLinkExtras?.fragment"
-            [queryParams]="tab.routerLinkExtras?.queryParams"
-            [queryParamsHandling]="tab.routerLinkExtras?.queryParamsHandling"
-            [preserveFragment]="tab.routerLinkExtras?.preserveFragment"
-            [skipLocationChange]="tab.routerLinkExtras?.skipLocationChange"
-            [replaceUrl]="tab.routerLinkExtras?.replaceUrl"
-            [state]="tab.routerLinkExtras?.state"
-            (keydown)="handleKeyDown($event, anchorTab)"
-        >
-            <ng-container [ngTemplateOutlet]="tabDetails"> </ng-container>
+          class="nav-link"
+          [attr.id]="tab.id"
+          role="tab"
+          #anchorTab
+          uxTabbableListItem
+          uxFocusIndicator
+          [attr.aria-controls]="tab.id"
+          [attr.aria-selected]="(_tabset.activeTab$ | async) === tab"
+          [attr.aria-disabled]="tab.disabled"
+          [routerLink]="tab.route"
+          [fragment]="tab.routerLinkExtras?.fragment"
+          [queryParams]="tab.routerLinkExtras?.queryParams"
+          [queryParamsHandling]="tab.routerLinkExtras?.queryParamsHandling"
+          [preserveFragment]="tab.routerLinkExtras?.preserveFragment"
+          [skipLocationChange]="tab.routerLinkExtras?.skipLocationChange"
+          [replaceUrl]="tab.routerLinkExtras?.replaceUrl"
+          [state]="tab.routerLinkExtras?.state"
+          (keydown)="handleKeyDown($event, anchorTab)"
+          >
+          <ng-container [ngTemplateOutlet]="tabDetails"> </ng-container>
         </a>
-
+      }
+      @if (!tab.route) {
         <a
-            *ngIf="!tab.route"
-            class="nav-link"
-            [attr.id]="tab.id"
-            role="tab"
-            uxTabbableListItem
-            uxFocusIndicator
-            (mousedown)="_tabset.select(tab)"
-            (activated)="_tabset.select(tab)"
-            [attr.aria-controls]="tab.id"
-            [attr.aria-selected]="(_tabset.activeTab$ | async) === tab"
-            [attr.aria-disabled]="tab.disabled"
-        >
-            <ng-container [ngTemplateOutlet]="tabDetails"> </ng-container>
+          class="nav-link"
+          [attr.id]="tab.id"
+          role="tab"
+          uxTabbableListItem
+          uxFocusIndicator
+          (mousedown)="_tabset.select(tab)"
+          (activated)="_tabset.select(tab)"
+          [attr.aria-controls]="tab.id"
+          [attr.aria-selected]="(_tabset.activeTab$ | async) === tab"
+          [attr.aria-disabled]="tab.disabled"
+          >
+          <ng-container [ngTemplateOutlet]="tabDetails"> </ng-container>
         </a>
+      }
     </li>
+  }
 </ul>
 
 <!-- Tab panes -->
 <div class="tab-content">
-    <ng-content></ng-content>
+  <ng-content></ng-content>
 </div>

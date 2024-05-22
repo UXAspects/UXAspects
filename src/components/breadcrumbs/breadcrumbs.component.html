@@ -1,29 +1,34 @@
 <nav aria-label="Breadcrumb">
-    <ol class="breadcrumb">
-        <li *ngFor="let crumb of crumbs">
-            <!-- If there is a router link or an onClick function then use a tag -->
-            <a
-                *ngIf="crumb.routerLink"
-                uxFocusIndicator
-                tabindex="0"
-                [routerLink]="crumb.routerLink"
-                [fragment]="crumb.fragment"
-                [queryParams]="crumb.queryParams"
-                (click)="clickCrumb($event, crumb)"
+  <ol class="breadcrumb">
+    @for (crumb of crumbs; track crumb) {
+      <li>
+        <!-- If there is a router link or an onClick function then use a tag -->
+        @if (crumb.routerLink) {
+          <a
+            uxFocusIndicator
+            tabindex="0"
+            [routerLink]="crumb.routerLink"
+            [fragment]="crumb.fragment"
+            [queryParams]="crumb.queryParams"
+            (click)="clickCrumb($event, crumb)"
             >
-                {{ crumb.title }}
-            </a>
-            <a
-                *ngIf="crumb.onClick && !crumb.routerLink"
-                uxFocusIndicator
-                tabindex="0"
-                (click)="clickCrumb($event, crumb)"
+            {{ crumb.title }}
+          </a>
+        }
+        @if (crumb.onClick && !crumb.routerLink) {
+          <a
+            uxFocusIndicator
+            tabindex="0"
+            (click)="clickCrumb($event, crumb)"
             >
-                {{ crumb.title }}
-            </a>
-
-            <!-- If there is no router link or onClick function then display text in a span -->
-            <span *ngIf="!crumb.routerLink && !crumb.onClick">{{ crumb.title }}</span>
-        </li>
-    </ol>
+            {{ crumb.title }}
+          </a>
+        }
+        <!-- If there is no router link or onClick function then display text in a span -->
+        @if (!crumb.routerLink && !crumb.onClick) {
+          <span>{{ crumb.title }}</span>
+        }
+      </li>
+    }
+  </ol>
 </nav>

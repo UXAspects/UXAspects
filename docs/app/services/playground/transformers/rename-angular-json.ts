@@ -9,7 +9,8 @@ import { PlaygroundTransformer } from './playground-transformer';
  */
 @Injectable()
 export class RenameAngularJsonPlaygroundTransformer implements PlaygroundTransformer {
-    transform(tree: PlaygroundTree, context: PlaygroundContext): void {
+    // eslint-disable-next-line @typescript-eslint/require-await
+    async transform(tree: PlaygroundTree, context: PlaygroundContext): Promise<void> {
         if (context.playground.framework === 'angular') {
             tree.setContent('.angular-cli.json', tree.getContent('angular.json'));
             tree.delete('angular.json');

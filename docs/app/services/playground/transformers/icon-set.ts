@@ -10,7 +10,8 @@ import { PlaygroundTransformer } from './playground-transformer';
  */
 @Injectable()
 export class IconSetPlaygroundTransformer implements PlaygroundTransformer {
-    transform(tree: PlaygroundTree, context: PlaygroundContext): void {
+    // eslint-disable-next-line @typescript-eslint/require-await
+    async transform(tree: PlaygroundTree, context: PlaygroundContext): Promise<void> {
         tree.appendContent(
             context.cssEntryPoint,
             `

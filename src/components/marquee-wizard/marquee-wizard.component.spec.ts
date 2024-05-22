@@ -19,37 +19,38 @@ interface StepDefinition {
     selector: 'marquee-wizard-app',
     template: `
         <ux-marquee-wizard
-            [(step)]="step"
-            [description]="description"
-            [previousVisible]="step !== 0"
-            [cancelVisible]="cancelVisible"
-            (stepChanging)="onStepChanging($event)"
-            (stepChange)="onStepChange($event)"
-            (onNext)="onNext($event)"
-            (onPrevious)="onPrevious($event)"
-            (onFinishing)="onFinishing()"
-            (onFinish)="onFinish()"
-            (onCancel)="onCancel()"
-        >
-            <ng-template #description>
-                <img
-                    alt="Icon"
-                    src="https://pages.github.houston.softwaregrp.net/caf/ux-aspects-micro-focus/docs/app/assets/img/marquee-wizard-icon.svg"
-                />
-
-                <h3 class="marquee-title">Marquee Wizard</h3>
+          [(step)]="step"
+          [description]="description"
+          [previousVisible]="step !== 0"
+          [cancelVisible]="cancelVisible"
+          (stepChanging)="onStepChanging($event)"
+          (stepChange)="onStepChange($event)"
+          (onNext)="onNext($event)"
+          (onPrevious)="onPrevious($event)"
+          (onFinishing)="onFinishing()"
+          (onFinish)="onFinish()"
+          (onCancel)="onCancel()"
+          >
+          <ng-template #description>
+            <img
+              alt="Icon"
+              src="https://pages.github.houston.softwaregrp.net/caf/ux-aspects-micro-focus/docs/app/assets/img/marquee-wizard-icon.svg"
+              />
+        
+              <h3 class="marquee-title">Marquee Wizard</h3>
             </ng-template>
-
-            <ux-marquee-wizard-step
-                *ngFor="let step of steps"
+        
+            @for (step of steps; track step) {
+              <ux-marquee-wizard-step
                 [header]="step.title"
                 [(visited)]="step.visited"
                 [(completed)]="step.completed"
-            >
+                >
                 <p class="test-step-content">{{ step.content }}</p>
-            </ux-marquee-wizard-step>
-        </ux-marquee-wizard>
-    `,
+              </ux-marquee-wizard-step>
+            }
+          </ux-marquee-wizard>
+        `,
 })
 export class MarqueeWizardTestComponent {
     @ViewChild(MarqueeWizardComponent) marqueeWizard: MarqueeWizardComponent;
@@ -316,16 +317,17 @@ describe('Marquee Wizard', () => {
     selector: 'marquee-wizard-ngfor-app',
     template: `
         <ux-marquee-wizard [(step)]="step">
+          @for (step of steps; track step) {
             <ux-marquee-wizard-step
-                *ngFor="let step of steps"
-                [header]="step.title"
-                [valid]="valid"
-                [disableNextWhenInvalid]="disableNextWhenInvalid"
-            >
-                <p class="test-step-content">{{ step.content }}</p>
+              [header]="step.title"
+              [valid]="valid"
+              [disableNextWhenInvalid]="disableNextWhenInvalid"
+              >
+              <p class="test-step-content">{{ step.content }}</p>
             </ux-marquee-wizard-step>
+          }
         </ux-marquee-wizard>
-    `,
+        `,
 })
 export class MarqueeWizardAsyncTestComponent implements OnDestroy {
     step = 0;

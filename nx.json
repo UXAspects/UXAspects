@@ -1,7 +1,4 @@
 {
-  "affected": {
-    "defaultBase": "main"
-  },
   "workspaceLayout": {
     "appsDir": "projects",
     "libsDir": "projects"
@@ -66,5 +63,7 @@
     "@nx/angular:component": {
       "style": "less"
     }
-  }
+  },
+  "useInferencePlugins": false,
+  "defaultBase": "main"
 }

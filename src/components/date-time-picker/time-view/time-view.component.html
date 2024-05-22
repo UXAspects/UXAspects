@@ -1,4 +1,5 @@
-<ux-time-picker *ngIf="datepicker.showTime$ | async"
+@if (datepicker.showTime$ | async) {
+  <ux-time-picker
     [value]="value"
     (valueChange)="onTimeChange($event)"
     [showSeconds]="datepicker.showSeconds$ | async"
@@ -7,40 +8,40 @@
     [meridians]="datepicker.meridians"
     [min]="min"
     [max]="max">
-</ux-time-picker>
+  </ux-time-picker>
+}
 
-<ng-container *ngIf="datepicker.showTimezone$ | async">
-
-    <div class="time-zone-picker" *ngIf="datepicker.showSpinners$ | async">
-
-        <ux-spin-button
-            class="time-zone-spinner"
-            [value]="(datepicker.timezone$ | async)?.name"
-            [readOnly]="true"
-            (increment)="incrementTimezone()"
-            (decrement)="decrementTimezone()"
-            inputAriaLabel="Time Zone"
-            incrementAriaLabel="Switch to the next time zone"
-            decrementAriaLabel="Switch to the previous time zone">
-        </ux-spin-button>
+@if (datepicker.showTimezone$ | async) {
+  @if (datepicker.showSpinners$ | async) {
+    <div class="time-zone-picker">
+      <ux-spin-button
+        class="time-zone-spinner"
+        [value]="(datepicker.timezone$ | async)?.name"
+        [readOnly]="true"
+        (increment)="incrementTimezone()"
+        (decrement)="decrementTimezone()"
+        inputAriaLabel="Time Zone"
+        incrementAriaLabel="Switch to the next time zone"
+        decrementAriaLabel="Switch to the previous time zone">
+      </ux-spin-button>
     </div>
-
-    <div class="time-zone-picker" *ngIf="(datepicker.showSpinners$ | async) === false">
-
-        <select class="form-control time-zone-select"
-                tabindex="0"
-                [ngModel]="(datepicker.timezone$ | async)?.name"
-                (ngModelChange)="selectTimezone($event)"
-                aria-label="Timezone"
-                [attr.aria-valuetext]="(datepicker.timezone$ | async)?.name">
-
-            <option *ngFor="let zone of datepicker.timezones$ | async"
-                    [selected]="zone.name === (datepicker.timezone$ | async)?.name"
-                    [value]="zone.name">
-                {{ zone?.name }}
-            </option>
-
-        </select>
+  }
+  @if ((datepicker.showSpinners$ | async) === false) {
+    <div class="time-zone-picker">
+      <select class="form-control time-zone-select"
+        tabindex="0"
+        [ngModel]="(datepicker.timezone$ | async)?.name"
+        (ngModelChange)="selectTimezone($event)"
+        aria-label="Timezone"
+        [attr.aria-valuetext]="(datepicker.timezone$ | async)?.name">
+        @for (zone of datepicker.timezones$ | async; track zone) {
+          <option
+            [selected]="zone.name === (datepicker.timezone$ | async)?.name"
+            [value]="zone.name">
+            {{ zone?.name }}
+          </option>
+        }
+      </select>
     </div>
-
-</ng-container>
+  }
+}

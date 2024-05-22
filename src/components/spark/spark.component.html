@@ -1,75 +1,94 @@
 <!-- Inline Spark Chart -->
-<div *ngIf="inlineLabel" class="ux-spark-inline-label-container">
-
+@if (inlineLabel) {
+  <div class="ux-spark-inline-label-container">
     <div class="ux-spark-inline-label-left" [innerHtml]="inlineLabel"></div>
-
     <div class="ux-spark-line">
-
-        <div class="ux-spark-top-container" *ngIf="topLeftLabel || topRightLabel">
-            <div class="ux-spark-label-top-left" *ngIf="topLeftLabel" [innerHtml]="topLeftLabel"></div>
-            <div class="ux-spark-label-top-right" *ngIf="topRightLabel" [innerHtml]="topRightLabel"></div>
+      @if (topLeftLabel || topRightLabel) {
+        <div class="ux-spark-top-container">
+          @if (topLeftLabel) {
+            <div class="ux-spark-label-top-left" [innerHtml]="topLeftLabel"></div>
+          }
+          @if (topRightLabel) {
+            <div class="ux-spark-label-top-right" [innerHtml]="topRightLabel"></div>
+          }
         </div>
-
-        <div role="progressbar"
-            [attr.aria-label]="getAriaLabel()"
-            [attr.aria-description]="ariaDescription"
-            aria-valuemin="0"
-            aria-valuemax="100"
-            [attr.aria-valuenow]="values.length === 1 ? values[0] : undefined"
-            class="ux-spark ux-inline ux-spark-theme-{{theme}}"
-            [style.height.px]="barHeight"
-            [style.backgroundColor]="trackColor"
-            [uxTooltip]="tooltip">
-
-            <div class="ux-spark-bar"
-                *ngFor="let line of values; let idx = index"
-                [style.width.%]="line"
-                [style.backgroundColor]="barColor[idx]">
-            </div>
-        </div>
-
-        <div class="ux-spark-bottom-container" *ngIf="bottomLeftLabel || bottomRightLabel">
-            <div class="ux-spark-label-bottom-left" *ngIf="bottomLeftLabel" [innerHtml]="bottomLeftLabel"></div>
-            <div class="ux-spark-label-bottom-right" *ngIf="bottomRightLabel" [innerHtml]="bottomRightLabel"></div>
-        </div>
-
-    </div>
-</div>
-
-<!-- End Inline Spark Chart -->
-
-
-<!-- Non Inline Spark Chart -->
-<div *ngIf="!inlineLabel">
-
-    <div class="ux-spark-top-container" *ngIf="topLeftLabel || topRightLabel">
-        <div class="ux-spark-label-top-left" *ngIf="topLeftLabel" [innerHtml]="topLeftLabel"></div>
-        <div class="ux-spark-label-top-right" *ngIf="topRightLabel" [innerHtml]="topRightLabel"></div>
-    </div>
-
-    <div role="progressbar"
+      }
+      <div role="progressbar"
         [attr.aria-label]="getAriaLabel()"
         [attr.aria-description]="ariaDescription"
         aria-valuemin="0"
         aria-valuemax="100"
         [attr.aria-valuenow]="values.length === 1 ? values[0] : undefined"
-        class="ux-spark ux-spark-theme-{{theme}}"
-        [class.ux-spark-multi-value]="values.length > 1"
+        class="ux-spark ux-inline ux-spark-theme-{{theme}}"
         [style.height.px]="barHeight"
         [style.backgroundColor]="trackColor"
         [uxTooltip]="tooltip">
-
-        <div class="ux-spark-bar"
-            *ngFor="let line of values; let idx = index"
+        @for (line of values; track line; let idx = $index) {
+          <div class="ux-spark-bar"
             [style.width.%]="line"
             [style.backgroundColor]="barColor[idx]">
+          </div>
+        }
+      </div>
+      @if (bottomLeftLabel || bottomRightLabel) {
+        <div class="ux-spark-bottom-container">
+          @if (bottomLeftLabel) {
+            <div class="ux-spark-label-bottom-left" [innerHtml]="bottomLeftLabel"></div>
+          }
+          @if (bottomRightLabel) {
+            <div class="ux-spark-label-bottom-right" [innerHtml]="bottomRightLabel"></div>
+          }
         </div>
+      }
     </div>
+  </div>
+}
 
-    <div class="ux-spark-bottom-container" *ngIf="bottomLeftLabel || bottomRightLabel">
-        <div class="ux-spark-label-bottom-left" *ngIf="bottomLeftLabel" [innerHtml]="bottomLeftLabel"></div>
-        <div class="ux-spark-label-bottom-right" *ngIf="bottomRightLabel" [innerHtml]="bottomRightLabel"></div>
+<!-- End Inline Spark Chart -->
+
+
+<!-- Non Inline Spark Chart -->
+@if (!inlineLabel) {
+  <div>
+    @if (topLeftLabel || topRightLabel) {
+      <div class="ux-spark-top-container">
+        @if (topLeftLabel) {
+          <div class="ux-spark-label-top-left" [innerHtml]="topLeftLabel"></div>
+        }
+        @if (topRightLabel) {
+          <div class="ux-spark-label-top-right" [innerHtml]="topRightLabel"></div>
+        }
+      </div>
+    }
+    <div role="progressbar"
+      [attr.aria-label]="getAriaLabel()"
+      [attr.aria-description]="ariaDescription"
+      aria-valuemin="0"
+      aria-valuemax="100"
+      [attr.aria-valuenow]="values.length === 1 ? values[0] : undefined"
+      class="ux-spark ux-spark-theme-{{theme}}"
+      [class.ux-spark-multi-value]="values.length > 1"
+      [style.height.px]="barHeight"
+      [style.backgroundColor]="trackColor"
+      [uxTooltip]="tooltip">
+      @for (line of values; track line; let idx = $index) {
+        <div class="ux-spark-bar"
+          [style.width.%]="line"
+          [style.backgroundColor]="barColor[idx]">
+        </div>
+      }
     </div>
-</div>
+    @if (bottomLeftLabel || bottomRightLabel) {
+      <div class="ux-spark-bottom-container">
+        @if (bottomLeftLabel) {
+          <div class="ux-spark-label-bottom-left" [innerHtml]="bottomLeftLabel"></div>
+        }
+        @if (bottomRightLabel) {
+          <div class="ux-spark-label-bottom-right" [innerHtml]="bottomRightLabel"></div>
+        }
+      </div>
+    }
+  </div>
+}
 
 <!-- End Non Inline Spark Chart -->

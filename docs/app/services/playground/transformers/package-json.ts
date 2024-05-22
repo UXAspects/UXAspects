@@ -9,7 +9,7 @@ const COMMON_DEPENDENCIES = {
 
 const ANGULAR_DEPENDENCIES = {
     ...COMMON_DEPENDENCIES,
-    '@angular/cdk': '^15.0.0',
+    '@angular/cdk': '^17.0.0',
     chance: '^1.0.0',
     'chart.js': '~3.7.1',
     'ng2-charts': '~3.0.8',
@@ -28,7 +28,8 @@ const OPTIONAL_DEPENDENCIES = {
  */
 @Injectable()
 export class PackageJsonPlaygroundTransformer implements PlaygroundTransformer {
-    transform(tree: PlaygroundTree, context: PlaygroundContext): void {
+    // eslint-disable-next-line @typescript-eslint/require-await
+    async transform(tree: PlaygroundTree, context: PlaygroundContext): Promise<void> {
         tree.updateJsonFile('package.json', packageJson => {
             packageJson.name = this.getName(context);
             packageJson.description = this.getDescription(context);

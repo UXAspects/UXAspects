@@ -17,26 +17,27 @@ interface StepDefinition {
     selector: 'wizard-test-app',
     template: `
         <ux-wizard
-            [(step)]="step"
-            [previousVisible]="step !== 0"
-            [cancelVisible]="cancelVisible"
-            (stepChanging)="onStepChanging($event)"
-            (stepChange)="onStepChange($event)"
-            (onNext)="onNext($event)"
-            (onPrevious)="onPrevious($event)"
-            (onFinishing)="onFinishing()"
-            (onFinish)="onFinish()"
-            (onCancel)="onCancel()"
-        >
+          [(step)]="step"
+          [previousVisible]="step !== 0"
+          [cancelVisible]="cancelVisible"
+          (stepChanging)="onStepChanging($event)"
+          (stepChange)="onStepChange($event)"
+          (onNext)="onNext($event)"
+          (onPrevious)="onPrevious($event)"
+          (onFinishing)="onFinishing()"
+          (onFinish)="onFinish()"
+          (onCancel)="onCancel()"
+          >
+          @for (step of steps; track step) {
             <ux-wizard-step
-                *ngFor="let step of steps"
-                [header]="step.title"
-                [(visited)]="step.visited"
-            >
-                <p class="test-step-content">{{ step.content }}</p>
+              [header]="step.title"
+              [(visited)]="step.visited"
+              >
+              <p class="test-step-content">{{ step.content }}</p>
             </ux-wizard-step>
+          }
         </ux-wizard>
-    `,
+        `,
 })
 export class WizardTestComponent {
     @ViewChild(WizardComponent) wizard: WizardComponent;

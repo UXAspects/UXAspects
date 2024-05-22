@@ -1,19 +1,21 @@
-<a
-    *ngIf="link"
+@if (link) {
+  <a
     [class.has-arrow]="children.length > 0"
     [class.no-arrow]="_indentWithoutArrow"
     [routerLink]="link"
->
+    >
     <span>{{ header }}</span>
-</a>
+  </a>
+}
 
-<a
-    *ngIf="!link"
+@if (!link) {
+  <a
     (click)="expanded = !expanded"
     [class.has-arrow]="children.length > 0"
     [class.no-arrow]="_indentWithoutArrow"
->
+    >
     <span>{{ header }}</span>
-</a>
+  </a>
+}
 
 <ng-content></ng-content>

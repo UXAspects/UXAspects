@@ -8,8 +8,8 @@ import { SiteThemeService } from '../site-theme/site-theme.service';
 import { PlaygroundContext } from './playground-context';
 import { PlaygroundTree } from './playground-tree';
 import {
-    PlaygroundTransformer,
     PLAYGROUND_TRANSFORMER,
+    PlaygroundTransformer,
 } from './transformers/playground-transformer';
 
 @Injectable({
@@ -24,10 +24,10 @@ export class PlaygroundService {
     ) {}
 
     /** Launch the code playground */
-    launch(title: string, playground: IPlayground) {
+    async launch(title: string, playground: IPlayground) {
         const context = this.getContext(title, playground);
         const tree = this.loadTree(playground);
-        this.applyTransforms(tree, context);
+        await this.applyTransforms(tree, context);
 
         const data = this.getPostData(tree, context);
         this.post(this._appConfig.playgroundUrl, data);
@@ -66,10 +66,10 @@ export class PlaygroundService {
     }
 
     /** Transform the template project using the configured transformers. */
-    private applyTransforms(tree: PlaygroundTree, context: PlaygroundContext): void {
-        this._transformers.forEach(transformer => {
-            transformer.transform(tree, context);
-        });
+    private async applyTransforms(tree: PlaygroundTree, context: PlaygroundContext): Promise<void> {
+        for (const transformer of this._transformers) {
+            await transformer.transform(tree, context);
+        }
     }
 
     /** Get the serialized data to post to the codesandbox API. */

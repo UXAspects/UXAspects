@@ -1,100 +1,99 @@
 <!-- Display Any Selected Facets -->
 <div class="facets-selected-container">
 
-    <!-- Display Title an Clear Button -->
-    <div class="facets-selected-header-container">
+  <!-- Display Title an Clear Button -->
+  <div class="facets-selected-header-container">
 
-        <!-- Show The Selected Text -->
-        <span class="facets-selected-header-label">{{ header }}</span>
+    <!-- Show The Selected Text -->
+    <span class="facets-selected-header-label">{{ header }}</span>
 
-        <!-- Add a Clear Button -->
-        <ng-container *ngIf="(facetService.facets$ | async).length > 0" [ngTemplateOutlet]="clearButton || clearButtonDefault"></ng-container>
+    <!-- Add a Clear Button -->
+    @if ((facetService.facets$ | async).length > 0) {
+      <ng-container [ngTemplateOutlet]="clearButton || clearButtonDefault"></ng-container>
+    }
 
-    </div>
+  </div>
 
-    <!-- Display Tags For Selected Items -->
-    <div class="facets-selected-list"
-        cdkDropListGroup
-        role="list">
+  <!-- Display Tags For Selected Items -->
+  <div class="facets-selected-list"
+    cdkDropListGroup
+    role="list">
 
-        <div
-            cdkDropList
-            (cdkDropListEntered)="onDropListEntered($event)"
-            (cdkDropListDropped)="onDropListDropped()"
-        ></div>
+    <div
+      cdkDropList
+      (cdkDropListEntered)="onDropListEntered($event)"
+      (cdkDropListDropped)="onDropListDropped()"
+    ></div>
 
-        <!-- Show Selected Tags -->
-        <div #tag
-            class="facet-selected-tag"
-            role="listitem"
-            tabindex="0"
-            cdkDropList
-            (cdkDropListEntered)="onDropListEntered($event)"
-            (cdkDropListDropped)="onDropListDropped()"
-            *ngFor="let facet of (facetService.facets$ | async); trackBy: trackBy"
-            [attr.aria-label]="facet.title"
-            (mousedown)="tag.focus()"
-            (touchmove)="$event.preventDefault()"
-            (keydown.ArrowRight)="shiftRight(facet, tag)"
-            (keydown.ArrowLeft)="shiftLeft(facet, tag)">
+    <!-- Show Selected Tags -->
+    @for (facet of (facetService.facets$ | async); track trackBy($index, facet)) {
+      <div #tag
+        class="facet-selected-tag"
+        role="listitem"
+        tabindex="0"
+        cdkDropList
+        (cdkDropListEntered)="onDropListEntered($event)"
+        (cdkDropListDropped)="onDropListDropped()"
+        [attr.aria-label]="facet.title"
+        (mousedown)="tag.focus()"
+        (touchmove)="$event.preventDefault()"
+        (keydown.ArrowRight)="shiftRight(facet, tag)"
+        (keydown.ArrowLeft)="shiftLeft(facet, tag)">
+        @if (facetsReorderable) {
+          <div class="facet-drag-item" cdkDrag>
+            <!-- Display Label -->
+            <span class="facet-selected-tag-label">{{ facet.title }}</span>
+            <!-- Display Remove Icon -->
+            <button type="button"
+              uxFocusIndicator
+              class="facet-selected-remove-btn"
+              [attr.aria-label]="deselectFacetAriaLabel"
+              (click)="deselectFacet(facet, tag)">
+              <ux-icon name="close"></ux-icon>
+            </button>
+          </div>
+        } @else {
+          <span class="facet-selected-tag-label">{{ facet.title }}</span>
+          <button type="button"
+            uxFocusIndicator
+            class="facet-selected-remove-btn"
+            [attr.aria-label]="deselectFacetAriaLabel"
+            (click)="deselectFacet(facet, tag)">
+            <ux-icon name="close"></ux-icon>
+          </button>
+        }
+      </div>
+    }
 
-            <ng-container *ngIf="facetsReorderable; then reorderable; else notReorderable"></ng-container>
+  </div>
 
-            <ng-template #reorderable>
-                <div class="facet-drag-item" cdkDrag>
-                    <!-- Display Label -->
-                    <span class="facet-selected-tag-label">{{ facet.title }}</span>
-        
-                    <!-- Display Remove Icon -->
-                    <button type="button"
-                        uxFocusIndicator
-                        class="facet-selected-remove-btn"
-                        [attr.aria-label]="deselectFacetAriaLabel"
-                        (click)="deselectFacet(facet, tag)">
-                        <ux-icon name="close"></ux-icon>
-                    </button>
-                </div>
-            </ng-template>
-
-            <ng-template #notReorderable>
-                <span class="facet-selected-tag-label">{{ facet.title }}</span>
-                <button type="button"
-                    uxFocusIndicator
-                    class="facet-selected-remove-btn"
-                    [attr.aria-label]="deselectFacetAriaLabel"
-                    (click)="deselectFacet(facet, tag)">
-                    <ux-icon name="close"></ux-icon>
-                </button>
-            </ng-template>
-        </div>
-
-    </div>
-
-    <!-- Show Message Here if No Facets Selected -->
-    <p class="facets-selected-none-label" *ngIf="emptyText && (facetService.facets$ | async).length === 0">{{ emptyText }}</p>
+  <!-- Show Message Here if No Facets Selected -->
+  @if (emptyText && (facetService.facets$ | async).length === 0) {
+    <p class="facets-selected-none-label">{{ emptyText }}</p>
+  }
 
 </div>
 
 <!-- Any Facet Elements Should be Added Here By User -->
 <div class="facets-region">
-    <ng-content></ng-content>
+  <ng-content></ng-content>
 </div>
 
 <ng-template #clearButtonDefault>
-    <button type="button"
-            class="btn btn-link btn-icon button-secondary"
-            tabindex="0"
-            [attr.aria-label]="clearAriaLabel"
-            [uxTooltip]="clearTooltip"
-            placement="left"
-            (click)="deselectAllFacets()">
+  <button type="button"
+    class="btn btn-link btn-icon button-secondary"
+    tabindex="0"
+    [attr.aria-label]="clearAriaLabel"
+    [uxTooltip]="clearTooltip"
+    placement="left"
+    (click)="deselectAllFacets()">
 
-            <svg class="facets-selected-clear-graphic" focusable="false" viewBox="0 0 19 12" shape-rendering="geometricPrecision">
-                <rect class="light-grey" x="0" y="2" width="7" height="2"></rect>
-                <rect class="dark-grey" x="0" y="5" width="9" height="2"></rect>
-                <rect class="light-grey" x="0" y="8" width="7" height="2"></rect>
-                <path class="dark-grey" d="M9,1 h1 l9,9 v1 h-1 l-9,-9 v-1 Z"></path>
-                <path class="dark-grey" d="M9,11 v-1 l9,-9 h1 v1 l-9,9 h-1 Z"></path>
-            </svg>
-        </button>
+    <svg class="facets-selected-clear-graphic" focusable="false" viewBox="0 0 19 12" shape-rendering="geometricPrecision">
+      <rect class="light-grey" x="0" y="2" width="7" height="2"></rect>
+      <rect class="dark-grey" x="0" y="5" width="9" height="2"></rect>
+      <rect class="light-grey" x="0" y="8" width="7" height="2"></rect>
+      <path class="dark-grey" d="M9,1 h1 l9,9 v1 h-1 l-9,-9 v-1 Z"></path>
+      <path class="dark-grey" d="M9,11 v-1 l9,-9 h1 v1 l-9,9 h-1 Z"></path>
+    </svg>
+  </button>
 </ng-template>

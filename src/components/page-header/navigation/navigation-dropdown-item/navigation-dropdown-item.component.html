@@ -1,49 +1,46 @@
-<div *ngIf="item.children && item.children.length > 0">
-
+@if (item.children && item.children.length > 0) {
+  <div>
     <button
-        type="button"
-        uxMenuItem
-        [attr.id]="item.id"
-        [disabled]="item.disabled"
-        [class.selected]="item.selected"
-        [attr.aria-selected]="item.selected"
-        [uxMenuTriggerFor]="menu">
-
-        <span class="dropdown-item-title">{{ item.title }}</span>
-        <ux-icon class="dropdown-item-icon" name="next"></ux-icon>
+      type="button"
+      uxMenuItem
+      [attr.id]="item.id"
+      [disabled]="item.disabled"
+      [class.selected]="item.selected"
+      [attr.aria-selected]="item.selected"
+      [uxMenuTriggerFor]="menu">
+      <span class="dropdown-item-title">{{ item.title }}</span>
+      <ux-icon class="dropdown-item-icon" name="next"></ux-icon>
     </button>
-
     <ux-menu #menu placement="right" menuClass="horizontal-navigation-dropdown-submenu">
+      @for (subItem of item.children; track subItem) {
         <button
-            type="button"
-            *ngFor="let subItem of item.children"
-            uxMenuItem
-            [attr.id]="subItem.id"
-            [disabled]="subItem.disabled"
-            [class.selected]="subItem.selected"
-            [attr.aria-selected]="subItem.selected"
-            (click)="select(subItem)"
-            (keydown)="keydownHandler($event, subItem)">
-
-            <span class="dropdown-item-title">{{ subItem.title }}</span>
+          type="button"
+          uxMenuItem
+          [attr.id]="subItem.id"
+          [disabled]="subItem.disabled"
+          [class.selected]="subItem.selected"
+          [attr.aria-selected]="subItem.selected"
+          (click)="select(subItem)"
+          (keydown)="keydownHandler($event, subItem)">
+          <span class="dropdown-item-title">{{ subItem.title }}</span>
         </button>
+      }
     </ux-menu>
+  </div>
+}
 
-</div>
-
-<div *ngIf="!item.children || item.children.length === 0">
-
+@if (!item.children || item.children.length === 0) {
+  <div>
     <button
-        type="button"
-        uxMenuItem
-        [attr.id]="item.id"
-        [disabled]="item.disabled"
-        [class.selected]="item.selected"
-        [attr.aria-selected]="item.selected"
-        (click)="select(item)"
-        (keydown)="keydownHandler($event, item)">
-
-        <span class="dropdown-item-title">{{ item.title }}</span>
+      type="button"
+      uxMenuItem
+      [attr.id]="item.id"
+      [disabled]="item.disabled"
+      [class.selected]="item.selected"
+      [attr.aria-selected]="item.selected"
+      (click)="select(item)"
+      (keydown)="keydownHandler($event, item)">
+      <span class="dropdown-item-title">{{ item.title }}</span>
     </button>
-
-</div>
+  </div>
+}

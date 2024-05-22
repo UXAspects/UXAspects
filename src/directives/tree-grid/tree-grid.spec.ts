@@ -11,15 +11,17 @@ interface TreeGridTestItem extends TreeGridItem {
     selector: 'tree-grid-test',
     template: `
         <table [uxTreeGrid]="items" (rowsChange)="rows = $event">
-            <tr *ngFor="let row of rows"
-                [uxTreeGridRow]="row"
-                [canExpand]="true"
-                [(expanded)]="row.expanded"
-                (expandedChange)="expandedChange(row, $event)">
-                <td>{{ row.title }}</td>
+          @for (row of rows; track row) {
+            <tr
+              [uxTreeGridRow]="row"
+              [canExpand]="true"
+              [(expanded)]="row.expanded"
+              (expandedChange)="expandedChange(row, $event)">
+              <td>{{ row.title }}</td>
             </tr>
+          }
         </table>
-    `
+        `
 })
 export class TreeGridTestComponent {
     items: TreeGridTestItem[] = [];
