@@ -107,7 +107,7 @@ npm run test
 
 > Note: The Jenkins server is only available on the intranet. If the following link is not accessible, this part can be skipped.
 
-See [Using Jenkins](https://github.houston.softwaregrp.net/caf/ux-aspects-micro-focus/blob/master/JENKINS.md) for information on creating a continuous integration (CI) build for your branch.
+See [Using Jenkins](https://github.houston.softwaregrp.net/UXAspects/ux-aspects-micro-focus/blob/master/JENKINS.md) for information on creating a continuous integration (CI) build for your branch.
 
 ## Make a pull request
 

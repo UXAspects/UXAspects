@@ -34,7 +34,7 @@ interface StepDefinition {
           <ng-template #description>
             <img
               alt="Icon"
-              src="https://pages.github.houston.softwaregrp.net/caf/ux-aspects-micro-focus/docs/app/assets/img/marquee-wizard-icon.svg"
+              src="https://pages.github.houston.softwaregrp.net/UXAspects/ux-aspects-micro-focus/docs/app/assets/img/marquee-wizard-icon.svg"
               />
         
               <h3 class="marquee-title">Marquee Wizard</h3>
