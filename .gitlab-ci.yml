@@ -1,0 +1,30 @@
+image: ruby:3.2
+
+workflow:
+  rules:
+    - if: $CI_COMMIT_BRANCH
+
+before_script:
+  - gem install bundler
+  - bundle install
+
+pages:
+  stage: deploy
+  script:
+    - bundle exec jekyll build -d public
+  artifacts:
+    paths:
+      - public
+  rules:
+    - if: $CI_COMMIT_BRANCH == "gh-pages"
+  environment: production
+
+test:
+  stage: test
+  script:
+    - bundle exec jekyll build -d test
+  artifacts:
+    paths:
+      - test
+  rules:
+    - if: $CI_COMMIT_BRANCH != "gh-pages"
