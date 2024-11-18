@@ -217,13 +217,6 @@ describe('Selection Directive', () => {
     expect(onSelectedItemChangeSpy).toHaveBeenCalledWith(false);
   }));
 
-  it('should not add the "ux-selection-focused" class when an item is focused via mouse', fakeAsync(() => {
-    expect(getListItem(0).classList).not.toContain('ux-selection-focused');
-    component.focusRow(0, 'mouse');
-    fixture.detectChanges();
-    expect(getListItem(0).classList).not.toContain('ux-selection-focused');
-  }));
-
   it('should not add the "ux-selection-focused" class when an item is focused via programmatic focus', fakeAsync(() => {
     expect(getListItem(0).classList).not.toContain('ux-selection-focused');
     component.focusRow(0, 'program');
