@@ -68,10 +68,7 @@
       }
     },
     "lint": {
-      "executor": "@nx/eslint:lint",
-      "options": {
-        "lintFilePatterns": ["e2e/**/*.ts", "e2e/**/*.html"]
-      }
+      "executor": "@nx/eslint:lint"
     }
   }
 }

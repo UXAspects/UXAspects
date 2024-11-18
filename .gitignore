@@ -24,5 +24,6 @@ target/
 .angular
 
 .nx/cache
+.nx/workspace-data
 ux-aspects-ux-aspects-docs-v*.tgz
 .env
