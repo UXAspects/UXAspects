@@ -26,10 +26,10 @@ export class AppComponent {
 
     toggleSwitchValue: boolean = false;
 
-        // eslint-disable-next-line @typescript-eslint/no-empty-function
+         
     export(): void {}
-        // eslint-disable-next-line @typescript-eslint/no-empty-function
+         
     saveList(): void {}
-        // eslint-disable-next-line @typescript-eslint/no-empty-function
+         
     saveQuery(): void {}
 }

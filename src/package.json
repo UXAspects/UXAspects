@@ -47,9 +47,8 @@
   },
   "homepage": "https://uxaspects.github.io/UXAspects",
   "dependencies": {
-    "@juggle/resize-observer": "^3.3.1",
     "@types/d3": "^7.4.0",
-    "angular-split": "^17.0.0",
+    "angular-split": "^18.0.0",
     "bootstrap": "^3.3.7",
     "d3": "^7.6.1"
   },

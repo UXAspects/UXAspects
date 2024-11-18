@@ -79,7 +79,7 @@ describe('Tooltip Directive', () => {
         await fixture.whenStable();
 
         // ensure the timeout is cancelled
-        //eslint-disable-next-line @typescript-eslint/no-explicit-any
+         
         expect((component.showTrigger as any)._showTimeoutId).toBeFalsy();
     }));
 

@@ -91,7 +91,7 @@ export class RadioButtonComponent<T = unknown> implements ControlValueAccessor, 
     onTouchedCallback: () => void = () => { };
 
     /** Used to inform Angular forms that the component value has changed */
-    // eslint-disable-next-line @typescript-eslint/no-empty-function, @typescript-eslint/no-explicit-any
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     onChangeCallback: (_: any) => void = () => { };
 
     ngOnChanges(changes: SimpleChanges): void {

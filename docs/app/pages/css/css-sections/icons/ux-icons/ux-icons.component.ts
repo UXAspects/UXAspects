@@ -13,7 +13,7 @@ import { DOCUMENTATION_TOKEN, DocumentationType } from '../../../../../tokens/do
 export class CssUxIconsComponent {
 
     /** Store the icon set */
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
+     
     icons: ReadonlyArray<IIcon> = require<IIcons>('../../../../../data/ux-icons.json').icons;
 
     /** Store the filtered icons to display */

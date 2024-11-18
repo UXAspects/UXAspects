@@ -41,7 +41,7 @@ export class RadioButtonGroupDirective<T = unknown> implements ControlValueAcces
     onTouched: () => void = () => {};
 
     /** Used to inform Angular forms that the component value has changed */
-    // eslint-disable-next-line @typescript-eslint/no-empty-function, @typescript-eslint/no-explicit-any
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     onChange: (value: any) => void = () => {};
 
     @ContentChildren(forwardRef(() => RadioButtonComponent), { descendants: true }) _radioButtons: QueryList<RadioButtonComponent>;
@@ -66,7 +66,7 @@ export class RadioButtonGroupDirective<T = unknown> implements ControlValueAcces
     }
 
     /** Allow Angular forms for provide us with a callback for when the input value changes */
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+     
     registerOnChange(fn: (value: any) => void): void {
         this.onChange = fn;
     }
@@ -77,7 +77,7 @@ export class RadioButtonGroupDirective<T = unknown> implements ControlValueAcces
     }
 
     /** Allow Angular forms to give us the current value */
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+     
     writeValue(value: any): void {
         this.value = value;
         this._changeDetector.markForCheck();

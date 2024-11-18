@@ -59,7 +59,7 @@ export class FloatLabelDirective<T = string> implements OnInit, OnChanges, OnDes
 
     private _input: HTMLInputElement;
     private _focused = false;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+     
     private readonly _eventHandles: any[] = [];
     private _subscription = new Subscription();
 

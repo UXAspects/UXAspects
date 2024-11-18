@@ -42,10 +42,10 @@ module.exports = [
       'brace-style': 'off',
       'one-var': 'off',
       '@typescript-eslint/require-await': 'error',
-      '@typescript-eslint/semi': 'error',
       'no-redeclare': 'error',
       'no-trailing-spaces': 'off',
       '@typescript-eslint/prefer-readonly': 'error',
+      '@typescript-eslint/no-unsafe-function-type': 'off',
     },
     languageOptions: {
       parserOptions: {
@@ -59,6 +59,13 @@ module.exports = [
     rules: {
       'no-mixed-spaces-and-tabs': 'off',
       '@typescript-eslint/adjacent-overload-signatures': 'off',
+      '@angular-eslint/template/interactive-supports-focus': 'off',
+      '@angular-eslint/template/role-has-required-aria': 'off',
+      '@angular-eslint/template/click-events-have-key-events': 'off',
+      '@angular-eslint/template/elements-content': 'off',
+      '@angular-eslint/template/mouse-events-have-key-events': 'off',
+      '@angular-eslint/template/label-has-associated-control': 'off',
+      '@angular-eslint/template/alt-text': 'off',
     },
   },
   {

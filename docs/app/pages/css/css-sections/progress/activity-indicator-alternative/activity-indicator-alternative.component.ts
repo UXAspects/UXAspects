@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-// eslint-disable-next-line @nx/enforce-module-boundaries
+ 
 import progressGif from '../../../../../../../src/img/progress.gif';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';

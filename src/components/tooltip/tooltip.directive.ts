@@ -30,7 +30,7 @@ export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
     private readonly _overlayFallback = inject(OverlayPlacementService);
 
     /** Contains the content of the tooltip or a TemplateRef for more detailed content */
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+     
     @Input('uxTooltip') content: string | TemplateRef<any>;
 
     /** Allow the tooltip to be conditionally disabled */
@@ -43,7 +43,7 @@ export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
     @Input('tooltipRole') role: string = 'tooltip';
 
     /** Provide the TemplateRef a context object */
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+     
     @Input('tooltipContext') context: any = {};
 
     /** Delay the showing of the tooltip by a number of miliseconds */
@@ -291,7 +291,7 @@ export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
     }
 
     /** Create the component portal - allows overriding to allow other portals eg. popovers */
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+     
     protected createPortal(): ComponentPortal<any> {
         return this._portal || new ComponentPortal(TooltipComponent, this._viewContainerRef);
     }

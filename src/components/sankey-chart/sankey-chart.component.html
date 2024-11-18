@@ -1,11 +1,8 @@
 @if (columns && columns.length > 0) {
   <div class="ux-sankey-chart-columns">
-    @for (column of _columns; track column) {
-      <div
-        class="ux-sankey-chart-column"
-        [style.width.px]="column.width">
-        <p class="ux-sankey-chart-column-title"
-          [style.left.px]="column.position">
+    @for (column of _columns; track column.title) {
+      <div class="ux-sankey-chart-column" [style.width.px]="column.width">
+        <p class="ux-sankey-chart-column-title" [style.left.px]="column.position">
           {{ column.title }}
         </p>
       </div>
@@ -13,12 +10,13 @@
   </div>
 }
 
-<svg #linkContainer
+<svg
+  #linkContainer
   [attr.width]="_width"
   [attr.height]="_height"
   class="ux-sankey-chart-links"
-  [style.top.px]="!columns || columns.length === 0 ? 8 : null">
-
+  [style.top.px]="!columns || columns.length === 0 ? 8 : null"
+>
   <defs>
     <linearGradient id="falloff-gradient" x1="0%" y1="0%" x2="0%" y2="100%">
       <stop class="ux-sankey-chart-falloff-gradient-start" offset="25%"></stop>
@@ -35,8 +33,8 @@
             [style.fill]="_getColor(link)"
             (mouseenter)="_setLinkActive(link, true)"
             (mouseleave)="_setLinkActive(link, false)"
-            (mousemove)="_setTooltipPosition($event)">
-          </path>
+            (mousemove)="_setTooltipPosition($event)"
+          ></path>
         }
         @if (node.falloff && _showFalloff(node)) {
           <path
@@ -44,19 +42,20 @@
             [attr.d]="_getFalloffPath(node)"
             (mouseenter)="_setFalloffTooltip(node, true)"
             (mouseleave)="_setFalloffTooltip(node, false)"
-            (mousemove)="_setTooltipPosition($event)">
-          </path>
+            (mousemove)="_setTooltipPosition($event)"
+          ></path>
         }
       </ng-container>
     }
   </g>
 </svg>
 
-<div #nodeContainer
+<div
+  #nodeContainer
   class="ux-sankey-chart-nodes"
   (uxResize)="_onResize($event)"
-  [style.top.px]="!columns || columns.length === 0 ? 8 : null">
-
+  [style.top.px]="!columns || columns.length === 0 ? 8 : null"
+>
   @for (node of _nodes; track _trackNodeBy($index, node)) {
     <div
       #nodeElement
@@ -71,10 +70,12 @@
       [style.background-color]="_getColor(node)"
       (mouseenter)="_setNodeActive(node, true)"
       (mouseleave)="_setNodeActive(node, false)"
-      (indicator)="_setNodeFocus(node, $event, nodeElement)">
+      (indicator)="_setNodeFocus(node, $event, nodeElement)"
+    >
       <ng-container
         [ngTemplateOutlet]="nodeTemplate"
-        [ngTemplateOutletContext]="{ node: node.node, active: node.active, focus: node.focus }">
+        [ngTemplateOutletContext]="{ node: node.node, active: node.active, focus: node.focus }"
+      >
       </ng-container>
     </div>
   }
@@ -87,8 +88,8 @@
       alignment="center"
       [style.left.px]="_tooltipPosition.x"
       [style.top.px]="_tooltipPosition.y"
-      [@tooltipAnimation]>
+      [@tooltipAnimation]
+    >
     </ux-tooltip>
   }
-
 </div>

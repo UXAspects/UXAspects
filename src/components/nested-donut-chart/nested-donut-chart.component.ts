@@ -229,7 +229,7 @@ export class NestedDonutChartComponent implements OnInit, OnChanges, OnDestroy {
     }
 
     /** Get the arc layout for a specific item in the dataset */
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+     
     private getArc(): Arc<any, NestedDonutChartArc> {
         return arc<NestedDonutChartArc>()
             .innerRadius(data => this.getArcRadius(data.index))
@@ -243,7 +243,7 @@ export class NestedDonutChartComponent implements OnInit, OnChanges, OnDestroy {
      * This will match the arc of that represents the actual data
      * however the endAngle will always be a complete circle
      */
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+     
     private getTrackArc(): Arc<any, NestedDonutChartArc> {
         return this.getArc().endAngle(() => Math.PI * 2);
     }
