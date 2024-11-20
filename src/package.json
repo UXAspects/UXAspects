@@ -47,7 +47,6 @@
   },
   "homepage": "https://uxaspects.github.io/UXAspects",
   "dependencies": {
-    "@juggle/resize-observer": "^3.3.1",
     "@types/d3": "^7.4.0",
     "angular-split": "^17.0.0",
     "bootstrap": "^3.3.7",
@@ -68,12 +67,12 @@
     }
   },
   "peerDependencies": {
-    "@angular/animations": ">=17.0.0 <19.0.0",
-    "@angular/cdk": ">=17.0.0 <19.0.0",
-    "@angular/common": ">=17.0.0 <19.0.0",
-    "@angular/compiler": ">=17.0.0 <19.0.0",
-    "@angular/core": ">=17.0.0 <19.0.0",
-    "@angular/forms": ">=17.0.0 <19.0.0",
+    "@angular/animations": ">=18.0.0 <20.0.0",
+    "@angular/cdk": ">=18.0.0 <20.0.0",
+    "@angular/common": ">=18.0.0 <20.0.0",
+    "@angular/compiler": ">=18.0.0 <20.0.0",
+    "@angular/core": ">=18.0.0 <20.0.0",
+    "@angular/forms": ">=18.0.0 <20.0.0",
     "chart.js": ">2.9.0 <4.0.0"
   }
 }

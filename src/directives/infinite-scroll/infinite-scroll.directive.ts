@@ -28,7 +28,7 @@ export class InfiniteScrollDirective<T = unknown> implements OnInit, AfterConten
     }
 
     @Input() enabled: boolean = true;
-    //eslint-disable-next-line @typescript-eslint/no-explicit-any
+     
     @Input() filter: any;
     @Input() loadOnInit: boolean = true;
     @Input() loadOnScroll: boolean = true;
@@ -347,7 +347,7 @@ export class InfiniteScrollDirective<T = unknown> implements OnInit, AfterConten
                         this.endLoading(request, items);
                     }
                 },
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                 
                 (reason: any) => {
                     // Emit the loadError event
                     this.endLoadingWithError(request, reason);
@@ -424,7 +424,7 @@ export class InfiniteScrollDirective<T = unknown> implements OnInit, AfterConten
     /**
      * Updates state from a successful load. Raises the `loaded` event.
      */
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+     
     private endLoading(request: InfiniteScrollRequest<T>, data?: any): void {
         this._isLoading.next(false);
 
@@ -449,7 +449,7 @@ export class InfiniteScrollDirective<T = unknown> implements OnInit, AfterConten
     /**
      * Updates state from a failed load. Raises the `loadError` event.
      */
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+     
     private endLoadingWithError(request: InfiniteScrollRequest<T>, error: any): void {
         this._isLoading.next(false);
 
@@ -467,7 +467,7 @@ export class InfiniteScrollDirective<T = unknown> implements OnInit, AfterConten
 /**
  * The internal data associated with a load/check request.
  */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+ 
 class InfiniteScrollRequest<S = any> {
     check: boolean;
     pageNumber: number;
@@ -476,7 +476,7 @@ class InfiniteScrollRequest<S = any> {
     reload?: boolean;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+ 
 export type InfiniteScrollLoadFunction<T = any, S = any> = (
     pageNum: number,
     pageSize: number,
@@ -486,7 +486,7 @@ export type InfiniteScrollLoadFunction<T = any, S = any> = (
 /**
  * Event raised before the `loading` function is called.
  */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+ 
 export class InfiniteScrollLoadingEvent<S = any> {
     private _defaultPrevented = false;
 
@@ -520,7 +520,7 @@ export class InfiniteScrollLoadingEvent<S = any> {
 /**
  * Event raised when the loading function result has been resolved and added to the collection.
  */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+ 
 export class InfiniteScrollLoadedEvent<T = any, S = any> {
     constructor(
         /**
@@ -549,7 +549,7 @@ export class InfiniteScrollLoadedEvent<T = any, S = any> {
 /**
  * Event raised if the loading function returns a rejected promise.
  */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+ 
 export class InfiniteScrollLoadErrorEvent<S = any> {
     constructor(
         /**
@@ -567,7 +567,7 @@ export class InfiniteScrollLoadErrorEvent<S = any> {
         /**
          * The object provided when rejecting the promise.
          */
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+         
         public error: any
     ) { }
 }

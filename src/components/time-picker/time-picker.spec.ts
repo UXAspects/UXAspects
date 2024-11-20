@@ -1,243 +1,236 @@
 import { Component } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { TimePickerModule } from './time-picker.module';
 
 @Component({
-    selector: 'app-time-picker-test',
-    template: `
-        <ux-time-picker [(value)]="value"
-                        [showMeridian]="showMeridian"
-                        [showHours]="showHours"
-                        [showMinutes]="showMinutes"
-                        [showSeconds]="showSeconds"
-                        [showSpinners]="showSpinners"
-                        [hourStep]="hourStep"
-                        [minuteStep]="minuteStep"
-                        [secondStep]="secondStep"
-                        [disabled]="disabled">
-        </ux-time-picker>
-    `
+  selector: 'app-time-picker-test',
+  template: `
+    <ux-time-picker
+      [(value)]="value"
+      [showMeridian]="showMeridian"
+      [showHours]="showHours"
+      [showMinutes]="showMinutes"
+      [showSeconds]="showSeconds"
+      [showSpinners]="showSpinners"
+      [hourStep]="hourStep"
+      [minuteStep]="minuteStep"
+      [secondStep]="secondStep"
+      [disabled]="disabled"
+    >
+    </ux-time-picker>
+  `,
 })
 export class TimePickerTestComponent {
-
-    value = new Date();
-    showMeridian = true;
-    showHours = true;
-    showMinutes = true;
-    showSeconds = false;
-    showSpinners = true;
-    hourStep = 1;
-    minuteStep = 1;
-    secondStep = 1;
-    disabled = false;
-
+  value = new Date();
+  showMeridian = true;
+  showHours = true;
+  showMinutes = true;
+  showSeconds = false;
+  showSpinners = true;
+  hourStep = 1;
+  minuteStep = 1;
+  secondStep = 1;
+  disabled = false;
 }
 
 describe('Time Picker Component', () => {
-    let component: TimePickerTestComponent;
-    let fixture: ComponentFixture<TimePickerTestComponent>;
-    let nativeElement: HTMLElement;
+  let component: TimePickerTestComponent;
+  let fixture: ComponentFixture<TimePickerTestComponent>;
+  let nativeElement: HTMLElement;
 
-    beforeEach(async(() => {
-        TestBed.configureTestingModule({
-            imports: [TimePickerModule],
-            declarations: [TimePickerTestComponent],
-        })
-            .compileComponents();
-    }));
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      imports: [TimePickerModule],
+      declarations: [TimePickerTestComponent],
+    }).compileComponents();
+  });
 
-    beforeEach(() => {
-        fixture = TestBed.createComponent(TimePickerTestComponent);
-        component = fixture.componentInstance;
-        nativeElement = fixture.nativeElement;
-        fixture.detectChanges();
-    });
+  beforeEach(() => {
+    fixture = TestBed.createComponent(TimePickerTestComponent);
+    component = fixture.componentInstance;
+    nativeElement = fixture.nativeElement;
+    fixture.detectChanges();
+  });
 
-    it('should allow a number to be set in hour field', async () => {
+  it('should allow a number to be set in hour field', async () => {
+    const inputs = nativeElement.querySelectorAll<HTMLInputElement>('input');
+    const hourInput = inputs.item(0);
 
-        const inputs = nativeElement.querySelectorAll<HTMLInputElement>('input');
-        const hourInput = inputs.item(0);
+    component.value.setHours(5);
+    fixture.detectChanges();
+    await fixture.whenStable();
 
-        component.value.setHours(5);
-        fixture.detectChanges();
-        await fixture.whenStable();
+    expect(hourInput.value).toBe('5');
+  });
 
-        expect(hourInput.value).toBe('5');
-    });
+  it('should allow a number up to 23 to be set in the hour field when meridian is set to false', async () => {
+    component.showMeridian = false;
+    fixture.detectChanges();
 
-    it('should allow a number up to 23 to be set in the hour field when meridian is set to false', async () => {
-        component.showMeridian = false;
-        fixture.detectChanges();
+    const inputs = nativeElement.querySelectorAll<HTMLInputElement>('input');
+    const hourInput = inputs.item(0);
 
-        const inputs = nativeElement.querySelectorAll<HTMLInputElement>('input');
-        const hourInput = inputs.item(0);
+    component.value.setHours(23);
+    fixture.detectChanges();
+    await fixture.whenStable();
 
-        component.value.setHours(23);
-        fixture.detectChanges();
-        await fixture.whenStable();
+    expect(hourInput.value).toBe('23');
+  });
 
-        expect(hourInput.value).toBe('23');
-    });
+  it('should not allow a number above 23 in the hour field when meridian is set to false', async () => {
+    component.showMeridian = false;
+    fixture.detectChanges();
 
-    it('should not allow a number above 23 in the hour field when meridian is set to false', async () => {
-        component.showMeridian = false;
-        fixture.detectChanges();
+    const inputs = nativeElement.querySelectorAll<HTMLInputElement>('input');
+    const hourInput = inputs.item(0);
 
-        const inputs = nativeElement.querySelectorAll<HTMLInputElement>('input');
-        const hourInput = inputs.item(0);
+    hourInput.value = '78';
+    hourInput.dispatchEvent(new Event('input'));
 
-        hourInput.value = '78';
-        hourInput.dispatchEvent(new Event('input'));
+    fixture.detectChanges();
+    await fixture.whenStable();
 
-        fixture.detectChanges();
-        await fixture.whenStable();
+    expect(hourInput.value).toBe('23');
+  });
 
-        expect(hourInput.value).toBe('23');
-    });
+  it('should not allow a number less than 0 in the hour field when meridian is set to false', async () => {
+    component.showMeridian = false;
+    fixture.detectChanges();
 
-    it('should not allow a number less than 0 in the hour field when meridian is set to false', async () => {
-        component.showMeridian = false;
-        fixture.detectChanges();
+    const inputs = nativeElement.querySelectorAll<HTMLInputElement>('input');
+    const hourInput = inputs.item(0);
 
-        const inputs = nativeElement.querySelectorAll<HTMLInputElement>('input');
-        const hourInput = inputs.item(0);
+    hourInput.value = '-7';
+    hourInput.dispatchEvent(new Event('input'));
 
-        hourInput.value = '-7';
-        hourInput.dispatchEvent(new Event('input'));
+    fixture.detectChanges();
+    await fixture.whenStable();
 
-        fixture.detectChanges();
-        await fixture.whenStable();
+    expect(hourInput.value).toBe('00');
+  });
 
-        expect(hourInput.value).toBe('00');
-    });
+  it('should allow a number to be set in minute field', async () => {
+    const inputs = nativeElement.querySelectorAll<HTMLInputElement>('input');
+    const minuteInput = inputs.item(1);
 
-    it('should allow a number to be set in minute field', async () => {
-        const inputs = nativeElement.querySelectorAll<HTMLInputElement>('input');
-        const minuteInput = inputs.item(1);
+    component.value.setMinutes(50);
+    fixture.detectChanges();
+    await fixture.whenStable();
 
-        component.value.setMinutes(50);
-        fixture.detectChanges();
-        await fixture.whenStable();
+    expect(minuteInput.value).toBe('50');
+  });
 
-        expect(minuteInput.value).toBe('50');
-    });
+  it('should allow a number to be set in second field', async () => {
+    component.showSeconds = true;
+    fixture.detectChanges();
 
-    it('should allow a number to be set in second field', async () => {
-        component.showSeconds = true;
-        fixture.detectChanges();
+    const inputs = nativeElement.querySelectorAll<HTMLInputElement>('input');
+    const secondInput = inputs.item(2);
 
-        const inputs = nativeElement.querySelectorAll<HTMLInputElement>('input');
-        const secondInput = inputs.item(2);
+    component.value.setSeconds(20);
+    fixture.detectChanges();
+    await fixture.whenStable();
 
-        component.value.setSeconds(20);
-        fixture.detectChanges();
-        await fixture.whenStable();
+    expect(secondInput.value).toBe('20');
+  });
 
-        expect(secondInput.value).toBe('20');
-    });
+  it('should not allow a number more than 12 to be set in hour field', async () => {
+    const inputs = nativeElement.querySelectorAll<HTMLInputElement>('input');
+    const hourInput = inputs.item(0);
 
-    it('should not allow a number more than 12 to be set in hour field', async () => {
+    hourInput.value = '30';
+    hourInput.dispatchEvent(new Event('input'));
 
-        const inputs = nativeElement.querySelectorAll<HTMLInputElement>('input');
-        const hourInput = inputs.item(0);
+    fixture.detectChanges();
+    await fixture.whenStable();
 
-        hourInput.value = '30';
-        hourInput.dispatchEvent(new Event('input'));
+    expect(hourInput.value).toBe('12');
+  });
 
-        fixture.detectChanges();
-        await fixture.whenStable();
+  it('should not allow 13 in the hour field when meridian is set to true and PM', async () => {
+    component.showMeridian = true;
+    fixture.detectChanges();
 
-        expect(hourInput.value).toBe('12');
-    });
+    const inputs = nativeElement.querySelectorAll<HTMLInputElement>('input');
+    const hourInput = inputs.item(0);
 
-    it('should not allow 13 in the hour field when meridian is set to true and PM', async () => {
-        component.showMeridian = true;
-        fixture.detectChanges();
+    hourInput.value = '13';
+    hourInput.dispatchEvent(new Event('input'));
 
-        const inputs = nativeElement.querySelectorAll<HTMLInputElement>('input');
-        const hourInput = inputs.item(0);
+    fixture.detectChanges();
+    await fixture.whenStable();
 
-        hourInput.value = '13';
-        hourInput.dispatchEvent(new Event('input'));
+    expect(hourInput.value).toBe('12');
+  });
 
-        fixture.detectChanges();
-        await fixture.whenStable();
+  it('should not allow a number more than 59 to be set in the minute field', async () => {
+    const inputs = nativeElement.querySelectorAll<HTMLInputElement>('input');
+    const minutesInput = inputs.item(1);
 
-        expect(hourInput.value).toBe('12');
-    });
+    minutesInput.value = '78';
+    minutesInput.dispatchEvent(new Event('input'));
 
-    it('should not allow a number more than 59 to be set in the minute field', async () => {
+    fixture.detectChanges();
+    await fixture.whenStable();
 
-        const inputs = nativeElement.querySelectorAll<HTMLInputElement>('input');
-        const minutesInput = inputs.item(1);
+    expect(minutesInput.value).toBe('00');
+  });
 
-        minutesInput.value = '78';
-        minutesInput.dispatchEvent(new Event('input'));
+  it('should not allow a number more than 59 to be set in the second field', async () => {
+    component.showSeconds = true;
+    fixture.detectChanges();
 
-        fixture.detectChanges();
-        await fixture.whenStable();
+    const inputs = nativeElement.querySelectorAll<HTMLInputElement>('input');
+    const secondsInput = inputs.item(2);
 
-        expect(minutesInput.value).toBe('00');
-    });
+    secondsInput.value = '90';
+    secondsInput.dispatchEvent(new Event('input'));
 
-    it('should not allow a number more than 59 to be set in the second field', async () => {
-        component.showSeconds = true;
-        fixture.detectChanges();
+    fixture.detectChanges();
+    await fixture.whenStable();
 
-        const inputs = nativeElement.querySelectorAll<HTMLInputElement>('input');
-        const secondsInput = inputs.item(2);
+    expect(secondsInput.value).toBe('59');
+  });
 
-        secondsInput.value = '90';
-        secondsInput.dispatchEvent(new Event('input'));
+  it('should not allow a number less than 0 to be set in hour field', async () => {
+    const inputs = nativeElement.querySelectorAll<HTMLInputElement>('input');
+    const hourInput = inputs.item(0);
 
-        fixture.detectChanges();
-        await fixture.whenStable();
+    hourInput.value = '-30';
+    hourInput.dispatchEvent(new Event('input'));
 
-        expect(secondsInput.value).toBe('59');
-    });
+    fixture.detectChanges();
+    await fixture.whenStable();
 
-    it('should not allow a number less than 0 to be set in hour field', async () => {
+    expect(hourInput.value).toBe('12');
+  });
 
-        const inputs = nativeElement.querySelectorAll<HTMLInputElement>('input');
-        const hourInput = inputs.item(0);
+  it('should not allow a number less than 0 to be set in the minute field', async () => {
+    const inputs = nativeElement.querySelectorAll<HTMLInputElement>('input');
+    const minutesInput = inputs.item(1);
 
-        hourInput.value = '-30';
-        hourInput.dispatchEvent(new Event('input'));
+    minutesInput.value = '-78';
+    minutesInput.dispatchEvent(new Event('input'));
 
-        fixture.detectChanges();
-        await fixture.whenStable();
+    fixture.detectChanges();
+    await fixture.whenStable();
 
-        expect(hourInput.value).toBe('12');
-    });
+    expect(minutesInput.value).toBe('59');
+  });
 
-    it('should not allow a number less than 0 to be set in the minute field', async () => {
+  it('should not allow a number less than 0 to be set in the second field', async () => {
+    component.showSeconds = true;
+    fixture.detectChanges();
 
-        const inputs = nativeElement.querySelectorAll<HTMLInputElement>('input');
-        const minutesInput = inputs.item(1);
+    const inputs = nativeElement.querySelectorAll<HTMLInputElement>('input');
+    const secondsInput = inputs.item(2);
 
-        minutesInput.value = '-78';
-        minutesInput.dispatchEvent(new Event('input'));
+    secondsInput.value = '-90';
+    secondsInput.dispatchEvent(new Event('input'));
 
-        fixture.detectChanges();
-        await fixture.whenStable();
+    fixture.detectChanges();
+    await fixture.whenStable();
 
-        expect(minutesInput.value).toBe('59');
-    });
-
-    it('should not allow a number less than 0 to be set in the second field', async () => {
-        component.showSeconds = true;
-        fixture.detectChanges();
-
-        const inputs = nativeElement.querySelectorAll<HTMLInputElement>('input');
-        const secondsInput = inputs.item(2);
-
-        secondsInput.value = '-90';
-        secondsInput.dispatchEvent(new Event('input'));
-
-        fixture.detectChanges();
-        await fixture.whenStable();
-
-        expect(secondsInput.value).toBe('00');
-    });
-
+    expect(secondsInput.value).toBe('00');
+  });
 });

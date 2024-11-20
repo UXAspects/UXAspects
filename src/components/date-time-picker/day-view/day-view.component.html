@@ -1,7 +1,11 @@
 <table class="calendar">
   <thead>
     <tr>
-      @for (day of datePicker.weekdays$ | async | weekDaySort: (datePicker.startOfWeek$ | async); track day) {
+      @for (
+        day of datePicker.weekdays$ | async | weekDaySort: (datePicker.startOfWeek$ | async);
+        let index = $index;
+        track index
+      ) {
         <th class="weekday" [attr.aria-label]="day">{{ day }}</th>
       }
     </tr>
@@ -12,7 +16,8 @@
       <tr role="row">
         @for (item of row; track trackDayByFn($index, item)) {
           <td class="date-cell">
-            <button type="button"
+            <button
+              type="button"
               uxFocusIndicator
               uxFocusIndicatorOrigin
               class="date-button"
@@ -36,7 +41,8 @@
               (keydown.ArrowRight)="focusDate(item, 1); $event.preventDefault()"
               (keydown.ArrowUp)="focusDate(item, -7); $event.preventDefault()"
               (keydown.ArrowDown)="focusDate(item, 7); $event.preventDefault()"
-              (focus)="announceRangeMode()">
+              (focus)="announceRangeMode()"
+            >
               {{ item.date.getDate() }}
             </button>
           </td>

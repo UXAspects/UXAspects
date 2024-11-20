@@ -109,7 +109,7 @@ export class MediaPlayerControlsExtensionComponent implements OnInit, OnDestroy 
 
         // set the position of the subtitle track
         for (let idx = 0; idx < track.cues.length; idx++) {
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+             
             const cue: any = track.cues[idx];
             cue.line = -3;
         }

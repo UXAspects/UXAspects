@@ -1,10 +1,22 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, forwardRef, inject, Input, OnInit, Output, TemplateRef } from '@angular/core';
+ 
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  forwardRef,
+  inject,
+  Input,
+  OnInit,
+  Output,
+  TemplateRef,
+} from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 export const PAGINATION_CONTROL_VALUE_ACCESSOR = {
   provide: NG_VALUE_ACCESSOR,
   useExisting: forwardRef(() => PaginationComponent),
-  multi: true
+  multi: true,
 };
 
 @Component({
@@ -42,7 +54,6 @@ export class PaginationComponent implements OnInit, ControlValueAccessor {
 
   /** Specify the index of the active page */
   @Input() set page(page: number) {
-
     // do nothing if the page has not changed
     if (page === this._page) {
       return;
@@ -107,7 +118,6 @@ export class PaginationComponent implements OnInit, ControlValueAccessor {
   }
 
   select(index: number): void {
-
     // find the page we want to go to
     const target = this.pages.find(page => page.index === index);
 
@@ -152,7 +162,6 @@ export class PaginationComponent implements OnInit, ControlValueAccessor {
   }
 
   private getPages(): Page[] {
-
     // create a new array to store the pages
     const pages: Page[] = [];
 
@@ -168,14 +177,13 @@ export class PaginationComponent implements OnInit, ControlValueAccessor {
   }
 
   private isPageVisible(index: number): boolean {
-
     // if we do not have a max size specified or the number of pages is less than the max size then it is always visible
     if (!this.maxSize || this.pageCount <= this.maxSize) {
       return true;
     }
 
     // find the starting position
-    let start = Math.max(1, Math.ceil(this.page - (this.maxSize / 2)));
+    let start = Math.max(1, Math.ceil(this.page - this.maxSize / 2));
     const end = Math.min(start + this.maxSize, this.pageCount + 1);
 
     // if the range is less than the max size we need to adjust the starting point

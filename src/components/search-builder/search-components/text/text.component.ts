@@ -3,10 +3,9 @@ import { BaseSearchComponent, BaseSearchComponentConfig } from '../base-search.c
 
 @Component({
   selector: 'ux-search-text',
-  templateUrl: './text.component.html'
+  templateUrl: './text.component.html',
 })
 export class SearchTextComponent extends BaseSearchComponent {
-
   type: string = 'text';
 
   get label(): string {
@@ -18,4 +17,4 @@ export class SearchTextComponent extends BaseSearchComponent {
   }
 }
 
-export interface SearchTextConfig extends BaseSearchComponentConfig { }
+export type SearchTextConfig = BaseSearchComponentConfig;

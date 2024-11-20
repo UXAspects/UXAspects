@@ -84,7 +84,7 @@ export class ConduitZone implements OnDestroy {
     }
 
     /** Register all conduits in a component */
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+     
     registerConduits(component: any): void {
         if (Array.isArray(component._conduits)) {
             component._conduits.forEach((conduit: ConduitMetadata) =>
@@ -94,7 +94,7 @@ export class ConduitZone implements OnDestroy {
     }
 
     /** Register all conduits in a component */
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+     
     unregisterConduits(component: any): void {
         if (Array.isArray(component._conduits)) {
             component._conduits.forEach((conduit: ConduitMetadata) =>

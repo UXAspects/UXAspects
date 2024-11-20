@@ -47,7 +47,7 @@ let uniqueId = 0;
     '[style.maxHeight]': 'maxHeight',
   },
 })
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+ 
 export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
   readonly typeaheadElement = inject(ElementRef);
 

@@ -6,7 +6,7 @@ import { ConduitMetadata } from './interfaces/conduit-metadata';
 
 export class ConduitSubject {
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+     
     private readonly _subject: Subject<any>;
     private readonly _onDestroy = new Subject<void>();
 
@@ -93,7 +93,7 @@ export class ConduitSubject {
     }
 
     /** This will be fired when this conduit emits a new value */
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+     
     onOutput(value: any): void {
 
         // store the most recent value and when it was modified - can be used for any new conduits to lookup a value

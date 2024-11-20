@@ -6,11 +6,10 @@
   "prefix": "app",
   "targets": {
     "build": {
-      "executor": "@angular-devkit/build-angular:browser",
+      "executor": "@angular-devkit/build-angular:application",
       "options": {
         "outputPath": "dist/e2e",
         "index": "e2e/pages/index.html",
-        "main": "e2e/pages/main.ts",
         "polyfills": ["zone.js"],
         "tsConfig": "e2e/tsconfig.app.json",
         "inlineStyleLanguage": "css",
@@ -22,12 +21,12 @@
           }
         ],
         "styles": [
-          "node_modules/source-sans-pro/source-sans-pro.css",
           "node_modules/bootstrap/dist/css/bootstrap.min.css",
           "src/styles/ux-aspects.less",
           "e2e/pages/styles.css"
         ],
-        "scripts": []
+        "scripts": [],
+        "browser": "e2e/pages/main.ts"
       },
       "configurations": {
         "production": {
@@ -36,9 +35,7 @@
           "outputHashing": "all"
         },
         "development": {
-          "buildOptimizer": false,
           "optimization": false,
-          "vendorChunk": true,
           "extractLicenses": false,
           "sourceMap": true,
           "namedChunks": true
@@ -50,11 +47,11 @@
       "executor": "@angular-devkit/build-angular:dev-server",
       "configurations": {
         "production": {
-          "browserTarget": "ux-aspects-e2e:build:production",
+          "buildTarget": "ux-aspects-e2e:build:production",
           "port": 4000
         },
         "development": {
-          "browserTarget": "ux-aspects-e2e:build:development",
+          "buildTarget": "ux-aspects-e2e:build:development",
           "port": 4000
         }
       },
@@ -68,10 +65,7 @@
       }
     },
     "lint": {
-      "executor": "@nx/eslint:lint",
-      "options": {
-        "lintFilePatterns": ["e2e/**/*.ts", "e2e/**/*.html"]
-      }
+      "executor": "@nx/eslint:lint"
     }
   }
 }

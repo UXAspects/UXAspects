@@ -13,9 +13,6 @@
       "inputs": ["default", "^production", "{workspaceRoot}/jest.preset.js"],
       "cache": true
     },
-    "lint": {
-      "cache": true
-    },
     "e2e": {
       "cache": true
     },
@@ -31,6 +28,15 @@
           "codeCoverage": true
         }
       }
+    },
+    "@nx/eslint:lint": {
+      "cache": true,
+      "inputs": [
+        "default",
+        "{workspaceRoot}/.eslintrc.json",
+        "{workspaceRoot}/tools/eslint-rules/**/*",
+        "{workspaceRoot}/eslint.config.js"
+      ]
     }
   },
   "cli": {
@@ -46,7 +52,8 @@
       "!{projectRoot}/karma.conf.js",
       "!{projectRoot}/**/?(*.)+(spec|test).[jt]s?(x)?(.snap)",
       "!{projectRoot}/jest.config.[jt]s",
-      "!{projectRoot}/src/test-setup.[jt]s"
+      "!{projectRoot}/src/test-setup.[jt]s",
+      "!{projectRoot}/eslint.config.js"
     ]
   },
   "generators": {
@@ -65,5 +72,6 @@
     }
   },
   "useInferencePlugins": false,
-  "defaultBase": "main"
+  "defaultBase": "main",
+  "useLegacyCache": true
 }

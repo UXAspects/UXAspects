@@ -14,7 +14,7 @@ export class BaseSearchComponent implements OnDestroy {
     }
 
     type: string;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+     
     config: any;
     context: SearchBuilderComponentContext;
     focus: boolean;
@@ -29,7 +29,7 @@ export class BaseSearchComponent implements OnDestroy {
     /**
      * Set the current value of the component
      */
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+     
     set value(value: any) {
         this.context.value = value;
         this._searchBuilderService.queryHasChanged();

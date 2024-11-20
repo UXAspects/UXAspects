@@ -29,7 +29,7 @@ export class PopoverDirective extends TooltipDirective implements OnInit, OnChan
     @Input('popoverRole') role: string = 'tooltip';
 
     /** Provide the TemplateRef a context object */
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+     
     @Input('popoverContext') context: any = {};
 
     /** Delay the showing of the popover by a number of miliseconds */

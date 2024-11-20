@@ -11,12 +11,12 @@ export class ResolverService {
 
     private static readonly resolvers: DocumentationResolver[] = [];
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+     
     registerResolver(resolver: ComponentFactoryResolver, components: Type<any>[]) {
         ResolverService.resolvers.push({ resolver, components });
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+     
     resolveComponentFactory(component: Type<any>): ComponentFactory<any> {
 
         // try resolving component in all available modules

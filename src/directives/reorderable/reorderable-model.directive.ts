@@ -92,7 +92,7 @@ export class ReorderableModelDirective<T> extends CdkDrag implements OnInit, OnD
 
         // access the preview element, this is private but there is no public way to access
         // it and the UI is incorrect when draggingtable rows without this.
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+         
         const previewElement = (this._dragRef as any)._preview as HTMLElement;
 
         // re-apply all the stored styles

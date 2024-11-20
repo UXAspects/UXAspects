@@ -35,7 +35,7 @@ const TAGINPUT_VALIDATOR = {
         '[class.invalid]': '!valid || !inputValid'
     }
 })
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+ 
 export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, ControlValueAccessor, Validator, OnDestroy {
     private readonly _changeDetector = inject(ChangeDetectorRef);
 
@@ -157,7 +157,7 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
      * - `tagRangeError` - present if the number of tags is outside the range specified by minTags and maxTags.
      * - `inputPattern` - present if an input has been submitted which does not match the tagPattern.
      */
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+     
     @Input() validationErrors: any = {};
 
     /** Defines the autocomplete property on the input field which can be used to prevent the browser from displaying autocomplete suggestions. */
@@ -169,7 +169,7 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
      * If `createTag` is not provided, then an object is created with the `displayProperty` set to the input.
      * If `displayProperty` is also not set, then the tag is created as a simple string.
      */
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+     
     @Input('createTag') createTagHandler: (value: string) => any;
 
     /** Define a custom icon to be used instead of the chevron */
@@ -242,7 +242,7 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
     }
 
     _tags: ReadonlyArray<T> = [];
-    // eslint-disable-next-line @typescript-eslint/no-empty-function, @typescript-eslint/no-explicit-any
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     private _onChangeHandler: (_: any) => void = () => {};
     // eslint-disable-next-line @typescript-eslint/no-empty-function
     private _onTouchedHandler: () => void = () => {};
@@ -504,10 +504,10 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
             let input: string = null;
             if (event.clipboardData) {
                 input = event.clipboardData.getData('text/plain');
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                 
             } else if ((window as any).clipboardData) {
                 // Internet Explorer only
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                 
                 input = (window as any).clipboardData.getData('Text');
             }
 
@@ -623,7 +623,7 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
     /**
      * Returns a value to display for the given tag. Uses display function/property name if set, otherwise assumes that the tag is a simple string.
      */
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+     
     getTagDisplay(tag: any): string {
         if (typeof this.display === 'function') {
             return this.display(tag);
@@ -861,7 +861,7 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
 /**
  * The API available to tag templates.
  */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+ 
 export interface TagApi<T = any> {
     /**
      * Returns the display value of the given tag, according to the displayProperty property.
@@ -882,12 +882,12 @@ export interface TagApi<T = any> {
 /**
  * The function used to return custom class information, for use in `ngClass`.
  */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+ 
 export type TagClassFunction<T = any> = (tag: T, index: number, selected: boolean) => (string | string[] | Set<string>);
 
 export type TagInputDisplayFunction<T> = (option: T) => string;
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+ 
 export interface TagTemplateContext<T = string | any> {
     tag: T;
     index: number;

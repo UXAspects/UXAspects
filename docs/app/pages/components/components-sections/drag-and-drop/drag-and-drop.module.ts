@@ -3,7 +3,15 @@ import { CommonModule } from '@angular/common';
 import { ComponentFactoryResolver, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { AccessibilityModule, ColorServiceModule, FocusIfModule, IconModule, MenuModule, ReorderableModule, TabsetModule } from '@ux-aspects/ux-aspects';
+import {
+  AccessibilityModule,
+  ColorServiceModule,
+  FocusIfModule,
+  IconModule,
+  MenuModule,
+  ReorderableModule,
+  TabsetModule,
+} from '@ux-aspects/ux-aspects';
 import { NgChartsModule } from 'ng2-charts';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
@@ -12,45 +20,43 @@ import { DocumentationPage, ResolverService } from '../../../../services/resolve
 import { ComponentsDragAndDropCardsComponent } from './drag-and-drop-cards/drag-and-drop-cards.component';
 import { ComponentsDraggableCardsComponent } from './draggable-cards/draggable-cards.component';
 
-
-const SECTIONS = [
-    ComponentsDraggableCardsComponent,
-    ComponentsDragAndDropCardsComponent,
-];
+const SECTIONS = [ComponentsDraggableCardsComponent, ComponentsDragAndDropCardsComponent];
 
 const ROUTES = [
-    {
-        path: '**',
-        component: DocumentationCategoryComponent,
-        data: {
-            category: ResolverService.resolveCategoryData(DocumentationPage.Components, 'Drag & Drop')
-        }
-    }
+  {
+    path: '**',
+    component: DocumentationCategoryComponent,
+    data: {
+      category: ResolverService.resolveCategoryData(DocumentationPage.Components, 'Drag & Drop'),
+    },
+  },
 ];
 
 @NgModule({
-    imports: [
-        A11yModule,
-        AccessibilityModule,
-        ButtonsModule,
-        NgChartsModule,
-        ColorServiceModule,
-        CommonModule,
-        DocumentationComponentsModule,
-        FocusIfModule,
-        FormsModule,
-        IconModule,
-        MenuModule,
-        ReorderableModule,
-        RouterModule.forChild(ROUTES),
-        TabsetModule,
-    ],
-    exports: SECTIONS,
-    declarations: SECTIONS,
+  imports: [
+    A11yModule,
+    AccessibilityModule,
+    ButtonsModule,
+    NgChartsModule,
+    ColorServiceModule,
+    CommonModule,
+    DocumentationComponentsModule,
+    FocusIfModule,
+    FormsModule,
+    IconModule,
+    MenuModule,
+    ReorderableModule,
+    RouterModule.forChild(ROUTES),
+    TabsetModule,
+  ],
+  exports: SECTIONS,
+  declarations: SECTIONS,
 })
 export class ComponentsDragAndDropModule {
-
-    constructor(componentFactoryResolver: ComponentFactoryResolver, resolverService: ResolverService) {
-        resolverService.registerResolver(componentFactoryResolver, SECTIONS);
-    }
+  constructor(
+    componentFactoryResolver: ComponentFactoryResolver,
+    resolverService: ResolverService
+  ) {
+    resolverService.registerResolver(componentFactoryResolver, SECTIONS);
+  }
 }

@@ -299,7 +299,7 @@ export class MediaPlayerService {
     requestFullscreen(): void {
 
         // get the host element (we need to do some browser specific checks and typescript complains)
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+         
         const host = this._hostElement as any;
         const requestFullscreen = host.requestFullscreen || host.webkitRequestFullscreen || host.msRequestFullscreen || host.mozRequestFullScreen;
 
@@ -318,7 +318,7 @@ export class MediaPlayerService {
     exitFullscreen(): void {
 
         // get the document element (we need to do some browser specific checks and typescript complains)
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+         
         const host = document as any;
         const exitFullscreen = host.exitFullscreen || host.webkitExitFullscreen || host.msExitFullscreen || host.mozCancelFullScreen;
 
@@ -344,7 +344,7 @@ export class MediaPlayerService {
 
     fullscreenChange(): void {
         // get the document element (we need to do some browser specific checks and typescript complains)
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+         
         const host = document as any;
 
         // set the fullscreen state (this also emits the event)

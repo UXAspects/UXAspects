@@ -11,7 +11,7 @@ import { ConduitComponent } from './conduit.component';
 @NgModule({
     declarations: [
         ConduitComponent,
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+         
         ConduitZoneComponent as any // Any is required as this is an abstract class
     ]
 })

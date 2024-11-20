@@ -419,7 +419,7 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
     }
 
     /** Get an observable that emits on any of the triggers that close a menu */
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+     
     private didMenuClose(): Observable<any> {
         return merge(
             this._overlayRef.backdropClick(),

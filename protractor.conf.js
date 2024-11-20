@@ -96,7 +96,7 @@ const config = {
 
     const server = express();
     server.use(cors());
-    server.use('/', express.static(join('dist', 'e2e')));
+    server.use('/', express.static(join('dist', 'e2e', 'browser')));
     server.listen(4000, () =>
       console.log('E2E application is now available at http://localhost:4000')
     );

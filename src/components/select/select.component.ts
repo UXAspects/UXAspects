@@ -245,7 +245,7 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
     private _userInput: boolean = false;
     private _filterDebounceTime: number = 200;
     private _autoCloseDropdown: boolean = true;
-    // eslint-disable-next-line @typescript-eslint/no-empty-function, @typescript-eslint/no-unused-vars
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     private _onChange = (_: T | ReadonlyArray<T>) => { };
     // eslint-disable-next-line @typescript-eslint/no-empty-function
     private _onTouched = () => { };

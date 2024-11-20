@@ -1,5 +1,5 @@
 import * as webpack from 'webpack';
-// eslint-disable-next-line @nx/enforce-module-boundaries
+ 
 import * as pkg from '../src/package.json';
 
 export default function (config: webpack.Configuration, targetOptions: { configuration?: string }) {

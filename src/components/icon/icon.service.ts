@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-// eslint-disable-next-line no-restricted-imports
+ 
 import { Subject } from 'rxjs';
 import { ICON_OPTIONS_TOKEN } from './icon-options.token';
 import { IconDefinition, SingleIconDefinition } from './iconsets/iconset.interface';

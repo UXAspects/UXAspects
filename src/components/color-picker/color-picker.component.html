@@ -13,7 +13,7 @@
             <button type="button"
               uxFocusIndicator
               [attr.aria-label]="colorAriaLabel(color)"
-              aria-selected="color === (selected$ | async)"
+              [attr.aria-selected]="color === (selected$ | async)"
               class="btn btn-icon"
               [uxColorContrast]="color.hex"
               [style.background-color]="color.rgba"
