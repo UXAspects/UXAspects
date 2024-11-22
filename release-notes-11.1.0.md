@@ -1,6 +1,8 @@
+!not-ready-for-release!
+
 #### Version Number
 ${version-number}
 
 #### New Features
 
-- Angular 19 support
+#### Known Issues
