@@ -1,6 +1,6 @@
 <!--
 
-    Copyright © 2015 – 2024 Open Text. All Rights Reserved. Trademarks owned by Open Text.
+    Copyright © 2015 – 2025 Open Text. All Rights Reserved. Trademarks owned by Open Text.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -28,14 +28,14 @@
 
     <groupId>com.github.uxaspects</groupId>
     <artifactId>aspects-core</artifactId>
-    <version>11.1.0-SNAPSHOT</version>
+    <version>11.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <properties>
         <maven.install.skip>true</maven.install.skip>
         <skipNexusStagingDeployMojo>true</skipNexusStagingDeployMojo>
         <skipLicenseHeadersCheck>true</skipLicenseHeadersCheck>
-        <copyrightYear>2024</copyrightYear>
+        <copyrightYear>2025</copyrightYear>
     </properties>
 
     <build>
