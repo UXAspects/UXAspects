@@ -15,9 +15,6 @@ pages:
   artifacts:
     paths:
       - public
-  rules:
-    - if: $CI_COMMIT_BRANCH == "gh-pages"
-  environment: production
 
 test:
   stage: test
@@ -27,4 +24,4 @@ test:
     paths:
       - test
   rules:
-    - if: $CI_COMMIT_BRANCH != "gh-pages"
+    - if: $CI_COMMIT_BRANCH == "with-tests"
