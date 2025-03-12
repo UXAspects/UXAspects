@@ -1,5 +1,4 @@
 <div class="time-picker">
-
   @if (showHours) {
     <div class="time-picker-column time-hours-picker" [class.has-error]="!_valid">
       <ux-spin-button
@@ -9,7 +8,7 @@
         [maxLength]="2"
         [min]="0"
         [max]="showMeridian ? 12 : 23"
-        [value]="value | date: showMeridian ? 'h' : 'HH'"
+        [value]="isValidDate ? (value | date: (showMeridian ? 'h' : 'HH')) : ''"
         (valueChange)="hourChange($event)"
         [spinners]="showSpinners"
         [disabled]="disabled"
@@ -18,7 +17,8 @@
         incrementAriaLabel="Increment the hour"
         decrementAriaLabel="Decrement the hour"
         (increment)="incrementHour()"
-        (decrement)="decrementHour()">
+        (decrement)="decrementHour()"
+      >
       </ux-spin-button>
     </div>
   }
@@ -36,7 +36,7 @@
         [maxLength]="2"
         [min]="0"
         [max]="59"
-        [value]="value | date: 'mm'"
+        [value]="isValidDate ? (value | date: 'mm') : ''"
         (valueChange)="minuteChange($event)"
         [spinners]="showSpinners"
         [disabled]="disabled"
@@ -45,7 +45,8 @@
         incrementAriaLabel="Increment the minute"
         decrementAriaLabel="Decrement the minute"
         (increment)="incrementMinute()"
-        (decrement)="decrementMinute()">
+        (decrement)="decrementMinute()"
+      >
       </ux-spin-button>
     </div>
   }
@@ -63,7 +64,7 @@
         [maxLength]="2"
         [min]="0"
         [max]="59"
-        [value]="value | date: 'ss'"
+        [value]="isValidDate ? (value | date: 'ss') : ''"
         (valueChange)="secondChange($event)"
         [spinners]="showSpinners"
         [disabled]="disabled"
@@ -72,7 +73,8 @@
         incrementAriaLabel="Increment the second"
         decrementAriaLabel="Decrement the second"
         (increment)="incrementSecond()"
-        (decrement)="decrementSecond()">
+        (decrement)="decrementSecond()"
+      >
       </ux-spin-button>
     </div>
   }
@@ -82,7 +84,8 @@
   <div class="time-picker-meridian">
     <div class="btn-group" role="radiogroup">
       @for (meridian of meridians; track meridian) {
-        <button type="button"
+        <button
+          type="button"
           class="btn button-toggle-accent"
           role="radio"
           tabindex="0"
@@ -91,7 +94,8 @@
           [class.active]="meridian === _meridian"
           [attr.aria-label]="meridian"
           [attr.aria-checked]="meridian === _meridian"
-          [attr.aria-disabled]="disabled">
+          [attr.aria-disabled]="disabled"
+        >
           {{ meridian }}
         </button>
       }
