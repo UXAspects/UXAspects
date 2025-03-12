@@ -1,6 +1,5 @@
 import { WeekDay } from '@angular/common';
 import {
-  AfterViewInit,
   ChangeDetectionStrategy,
   Component,
   DestroyRef,
@@ -12,7 +11,7 @@ import {
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Subject } from 'rxjs';
-import { debounceTime } from 'rxjs/operators';
+import { debounceTime, filter } from 'rxjs/operators';
 import { DateFormatter } from '../../pipes/date-formatter/date-formatter.type';
 import {
   DateTimePickerTimezone,
@@ -27,7 +26,7 @@ import { DateRangePicker, DateRangeService } from './date-range.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [DateRangeService],
 })
-export class DateRangePickerComponent implements AfterViewInit, OnDestroy {
+export class DateRangePickerComponent implements OnDestroy {
   readonly rangeService = inject(DateRangeService);
   private readonly _destroyRef = inject(DestroyRef);
 
@@ -190,12 +189,20 @@ export class DateRangePickerComponent implements AfterViewInit, OnDestroy {
   /** Unsubscribe from all observables private  */
   private readonly _onDestroy = new Subject<void>();
 
-  ngAfterViewInit(): void {
+  constructor() {
     this.startChange$
-      .pipe(debounceTime(0), takeUntilDestroyed(this._destroyRef))
+      .pipe(
+        debounceTime(0),
+        filter(date => date !== undefined),
+        takeUntilDestroyed(this._destroyRef)
+      )
       .subscribe(date => this.onStartChange(date));
     this.endChange$
-      .pipe(debounceTime(0), takeUntilDestroyed(this._destroyRef))
+      .pipe(
+        debounceTime(0),
+        filter(date => date !== undefined),
+        takeUntilDestroyed(this._destroyRef)
+      )
       .subscribe(date => this.onEndChange(date));
   }
 
