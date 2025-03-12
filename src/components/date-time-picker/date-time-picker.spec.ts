@@ -97,7 +97,7 @@ describe('Date Time Picker', () => {
     expect(getHeader().innerHTML.trim()).toBe(
       now.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })
     );
-    expect(getSelected().innerHTML.trim()).toBe(now.getDate().toString());
+    expect(getSelected()).toBeFalsy();
   });
 
   it('should display the correct date when the last day in the month is selected', async () => {
