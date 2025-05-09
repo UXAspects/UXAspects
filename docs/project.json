@@ -107,5 +107,6 @@
     "lint": {
       "executor": "@nx/eslint:lint"
     }
-  }
+  },
+  "implicitDependencies": ["!ux-aspects"]
 }
