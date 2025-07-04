@@ -1,14 +1,14 @@
 import { Component, TemplateRef } from '@angular/core';
 
 @Component({
-    selector: 'uxd-popover',
-    templateUrl: './popover.testpage.component.html',
-    styleUrls: ['./popover.testpage.component.less'],
-    standalone: false
+  selector: 'uxd-popover',
+  templateUrl: './popover.testpage.component.html',
+  styleUrls: ['./popover.testpage.component.less'],
+  standalone: false,
 })
 export class PopoverTestPageComponent {
-    placement: string = 'top';
-    customClass: string;
-    title: string;
-    content: string | TemplateRef<void> = 'Some content here';
+  placement: string = 'top';
+  customClass: string;
+  title: string;
+  content: string | TemplateRef<void> = 'Some content here';
 }

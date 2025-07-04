@@ -1,24 +1,34 @@
-<div class="track"
+<div
+  class="track"
   #track
   [class.narrow]="_options.track.height === sliderSize.Narrow"
   [class.wide]="_options.track.height === sliderSize.Wide"
-  [class.range]="_options.type === sliderType.Range">
-
+  [class.range]="_options.type === sliderType.Range"
+>
   <!-- Section Beneath Lower Thumb -->
-  <div class="track-section track-lower" [style.flex-grow]="tracks.lower.size" [style.background]="this.disabled ? null : tracks.lower.color"></div>
+  <div
+    class="track-section track-lower"
+    [style.flex-grow]="tracks.lower.size"
+    [style.background]="this.disabled ? null : tracks.lower.color"
+  ></div>
 
   <!-- Lower Thumb Button / Line -->
-  <div class="thumb lower"
+  <div
+    class="thumb lower"
     uxDrag
     uxFocusIndicator
     role="slider"
     [tabindex]="disabled ? -1 : 0"
     #lowerthumb
-        [attr.aria-label]="_options.type === sliderType.Range ? _options.handles.aria.lowerThumb :
-        _options.handles.aria.thumb"
+    [attr.aria-label]="
+      _options.type === sliderType.Range
+        ? _options.handles.aria.lowerThumb
+        : _options.handles.aria.thumb
+    "
     [attr.aria-valuemin]="_options?.track?.min"
-        [attr.aria-valuemax]="_options.type === sliderType.Range ? getThumbValue(sliderThumb.Upper) :
-        _options?.track?.max"
+    [attr.aria-valuemax]="
+      _options.type === sliderType.Range ? getThumbValue(sliderThumb.Upper) : _options?.track?.max
+    "
     [attr.aria-valuenow]="getThumbValue(sliderThumb.Lower)"
     [attr.aria-valuetext]="getAriaValueText(sliderThumb.Lower)"
     [style.left.%]="thumbs.lower.position"
@@ -35,42 +45,65 @@
     (mouseleave)="thumbEvent(sliderThumb.Lower, sliderThumbEvent.MouseLeave)"
     (focus)="thumbEvent(sliderThumb.Lower, sliderThumbEvent.MouseOver)"
     (blur)="thumbEvent(sliderThumb.Lower, sliderThumbEvent.MouseLeave)"
-    (keydown.ArrowLeft)="snapToNearestTick(sliderThumb.Lower, sliderSnap.All, false); $event.preventDefault()"
-    (keydown.ArrowRight)="snapToNearestTick(sliderThumb.Lower, sliderSnap.All, true); $event.preventDefault()"
-    (keydown.ArrowUp)="snapToNearestTick(sliderThumb.Lower, sliderSnap.All, false); $event.preventDefault()"
-    (keydown.ArrowDown)="snapToNearestTick(sliderThumb.Lower, sliderSnap.All, true); $event.preventDefault()"
-    (keydown.PageDown)="snapToNearestTick(sliderThumb.Lower, sliderSnap.Major, false); $event.preventDefault()"
-    (keydown.PageUp)="snapToNearestTick(sliderThumb.Lower, sliderSnap.Major, true); $event.preventDefault()"
+    (keydown.ArrowLeft)="
+      snapToNearestTick(sliderThumb.Lower, sliderSnap.All, false); $event.preventDefault()
+    "
+    (keydown.ArrowRight)="
+      snapToNearestTick(sliderThumb.Lower, sliderSnap.All, true); $event.preventDefault()
+    "
+    (keydown.ArrowUp)="
+      snapToNearestTick(sliderThumb.Lower, sliderSnap.All, false); $event.preventDefault()
+    "
+    (keydown.ArrowDown)="
+      snapToNearestTick(sliderThumb.Lower, sliderSnap.All, true); $event.preventDefault()
+    "
+    (keydown.PageDown)="
+      snapToNearestTick(sliderThumb.Lower, sliderSnap.Major, false); $event.preventDefault()
+    "
+    (keydown.PageUp)="
+      snapToNearestTick(sliderThumb.Lower, sliderSnap.Major, true); $event.preventDefault()
+    "
     (keydown.Home)="snapToEnd(sliderThumb.Lower, false); $event.preventDefault()"
-    (keydown.End)="snapToEnd(sliderThumb.Lower, true); $event.preventDefault()">
-
+    (keydown.End)="snapToEnd(sliderThumb.Lower, true); $event.preventDefault()"
+  >
     <!-- Lower Thumb Callout -->
-    <div class="tooltip top tooltip-lower" #lowerTooltip
-            [class.tooltip-dynamic]="_options.handles.callout.trigger === sliderCalloutTrigger.Dynamic &&
-             thumbs.lower.drag === false"
+    <div
+      class="tooltip top tooltip-lower"
+      #lowerTooltip
+      [class.tooltip-dynamic]="
+        _options.handles.callout.trigger === sliderCalloutTrigger.Dynamic &&
+        thumbs.lower.drag === false
+      "
       [style.opacity]="tooltips.lower.visible ? 1 : 0"
-      [style.left.px]="tooltips.lower.position">
+      [style.left.px]="tooltips.lower.position"
+    >
+      <div
+        class="tooltip-arrow"
+        [style.border-top-color]="_options.handles.callout.background"
+      ></div>
 
-      <div class="tooltip-arrow" [style.border-top-color]="_options.handles.callout.background"></div>
-
-      <div class="tooltip-inner"
+      <div
+        class="tooltip-inner"
         [style.background-color]="_options.handles.callout.background"
-        [style.color]="_options.handles.callout.color">
+        [style.color]="_options.handles.callout.color"
+      >
         {{ tooltips.lower.label }}
       </div>
     </div>
-
   </div>
 
   <!-- Section of Track Between Lower and Upper Thumbs -->
   @if (_options.type === sliderType.Range) {
-    <div class="track-section track-range"
-      [style.flex-grow]="tracks.middle.size" [style.background]="this.disabled ? null : tracks.middle.color">
-    </div>
+    <div
+      class="track-section track-range"
+      [style.flex-grow]="tracks.middle.size"
+      [style.background]="this.disabled ? null : tracks.middle.color"
+    ></div>
   }
 
   <!-- Upper Thumb Button / Line -->
-  <div class="thumb upper"
+  <div
+    class="thumb upper"
     uxDrag
     uxFocusIndicator
     role="slider"
@@ -96,28 +129,49 @@
     (mouseleave)="thumbEvent(sliderThumb.Upper, sliderThumbEvent.MouseLeave)"
     (focus)="thumbEvent(sliderThumb.Upper, sliderThumbEvent.MouseOver)"
     (blur)="thumbEvent(sliderThumb.Upper, sliderThumbEvent.MouseLeave)"
-    (keydown.ArrowLeft)="snapToNearestTick(sliderThumb.Upper, sliderSnap.All, false); $event.preventDefault()"
-    (keydown.ArrowRight)="snapToNearestTick(sliderThumb.Upper, sliderSnap.All, true); $event.preventDefault()"
-    (keydown.ArrowUp)="snapToNearestTick(sliderThumb.Upper, sliderSnap.All, false); $event.preventDefault()"
-    (keydown.ArrowDown)="snapToNearestTick(sliderThumb.Upper, sliderSnap.All, true); $event.preventDefault()"
-    (keydown.PageDown)="snapToNearestTick(sliderThumb.Upper, sliderSnap.Major, false); $event.preventDefault()"
-    (keydown.PageUp)="snapToNearestTick(sliderThumb.Upper, sliderSnap.Major, true); $event.preventDefault()"
+    (keydown.ArrowLeft)="
+      snapToNearestTick(sliderThumb.Upper, sliderSnap.All, false); $event.preventDefault()
+    "
+    (keydown.ArrowRight)="
+      snapToNearestTick(sliderThumb.Upper, sliderSnap.All, true); $event.preventDefault()
+    "
+    (keydown.ArrowUp)="
+      snapToNearestTick(sliderThumb.Upper, sliderSnap.All, false); $event.preventDefault()
+    "
+    (keydown.ArrowDown)="
+      snapToNearestTick(sliderThumb.Upper, sliderSnap.All, true); $event.preventDefault()
+    "
+    (keydown.PageDown)="
+      snapToNearestTick(sliderThumb.Upper, sliderSnap.Major, false); $event.preventDefault()
+    "
+    (keydown.PageUp)="
+      snapToNearestTick(sliderThumb.Upper, sliderSnap.Major, true); $event.preventDefault()
+    "
     (keydown.Home)="snapToEnd(sliderThumb.Upper, false); $event.preventDefault()"
-    (keydown.End)="snapToEnd(sliderThumb.Upper, true); $event.preventDefault()">
-
+    (keydown.End)="snapToEnd(sliderThumb.Upper, true); $event.preventDefault()"
+  >
     <!-- Upper Thumb Callout -->
-    <div class="tooltip top tooltip-upper" #upperTooltip
-            [class.tooltip-dynamic]="_options.handles.callout.trigger === sliderCalloutTrigger.Dynamic &&
-             thumbs.upper.drag === false"
+    <div
+      class="tooltip top tooltip-upper"
+      #upperTooltip
+      [class.tooltip-dynamic]="
+        _options.handles.callout.trigger === sliderCalloutTrigger.Dynamic &&
+        thumbs.upper.drag === false
+      "
       [style.opacity]="tooltips.upper.visible ? 1 : 0"
-      [style.left.px]="tooltips.upper.position">
-
-      <div class="tooltip-arrow" [style.border-top-color]="_options.handles.callout.background"></div>
+      [style.left.px]="tooltips.upper.position"
+    >
+      <div
+        class="tooltip-arrow"
+        [style.border-top-color]="_options.handles.callout.background"
+      ></div>
 
       @if (_options.type === sliderType.Range) {
-        <div class="tooltip-inner"
+        <div
+          class="tooltip-inner"
           [style.background-color]="_options.handles.callout.background"
-          [style.color]="_options.handles.callout.color">
+          [style.color]="_options.handles.callout.color"
+        >
           {{ tooltips.upper.label }}
         </div>
       }
@@ -125,24 +179,35 @@
   </div>
 
   <!-- Section of Track Abover Upper Thumb -->
-  <div class="track-section track-higher" [style.flex-grow]="tracks.upper.size" [style.background]="this.disabled ? null : tracks.upper.color"></div>
-
+  <div
+    class="track-section track-higher"
+    [style.flex-grow]="tracks.upper.size"
+    [style.background]="this.disabled ? null : tracks.upper.color"
+  ></div>
 </div>
 
 <!-- Chart Ticks and Tick Labels -->
-@if ((_options.track.ticks.major.show || _options.track.ticks.minor.show) &&
-  _options.handles.callout.trigger !== sliderCalloutTrigger.Dynamic) {
-  <div class="tick-container"
+@if (
+  (_options.track.ticks.major.show || _options.track.ticks.minor.show) &&
+  _options.handles.callout.trigger !== sliderCalloutTrigger.Dynamic
+) {
+  <div
+    class="tick-container"
     role="presentation"
-    [class.show-labels]="_options.track.ticks.major.labels || _options.track.ticks.minor.labels">
+    [class.show-labels]="_options.track.ticks.major.labels || _options.track.ticks.minor.labels"
+  >
     @for (tick of ticks; track tick) {
-      <div class="tick"
+      <div
+        class="tick"
         [class.major]="tick.type === sliderTickType.Major"
         [class.minor]="tick.type === sliderTickType.Minor"
         [style.left.%]="tick.position"
-        [hidden]="!tick.showTicks">
+        [hidden]="!tick.showTicks"
+      >
         <div class="tick-indicator"></div>
-        <div class="tick-label" aria-hidden="true" [hidden]="!tick.showLabels">{{ tick.label }}</div>
+        <div class="tick-label" aria-hidden="true" [hidden]="!tick.showLabels">
+          {{ tick.label }}
+        </div>
       </div>
     }
   </div>

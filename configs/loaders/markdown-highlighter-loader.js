@@ -2,7 +2,7 @@ const marked = require('marked');
 const { load } = require('cheerio');
 const { highlightAuto } = require('highlight.js');
 
-module.exports = function(markdown) {
+module.exports = function (markdown) {
   marked.setOptions({
     renderer: new marked.Renderer(),
     gfm: true,
@@ -11,7 +11,7 @@ module.exports = function(markdown) {
     pedantic: false,
     sanitize: false,
     smartLists: true,
-    smartypants: false
+    smartypants: false,
   });
 
   const markdownTpl = marked(markdown);
@@ -20,7 +20,7 @@ module.exports = function(markdown) {
 
   const $ = load(markdownTpl);
 
-  $('pre code').replaceWith(function(i, block) {
+  $('pre code').replaceWith(function (i, block) {
     const $e = $(block);
     const text = $e.text();
 
@@ -32,7 +32,6 @@ module.exports = function(markdown) {
     } else {
       return highlightAuto(text).value;
     }
-
   });
 
   $('pre').addClass('hljs');

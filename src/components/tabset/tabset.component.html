@@ -8,7 +8,7 @@
   [class.minimal-tab]="minimal"
   [attr.aria-label]="ariaLabel"
   [attr.aria-orientation]="stacked === 'none' ? 'horizontal' : 'vertical'"
-  >
+>
   @for (tab of _tabset.tabs; track tab; let index = $index) {
     <li
       role="presentation"
@@ -16,7 +16,7 @@
       [class.active]="(_tabset.activeTab$ | async) === tab"
       [class.disabled]="tab.disabled"
       [ngClass]="tab.customClass"
-      >
+    >
       <ng-template #tabDetails>
         @if (!tab.headingRef) {
           <span>{{ tab.heading }}</span>
@@ -45,7 +45,7 @@
           [replaceUrl]="tab.routerLinkExtras?.replaceUrl"
           [state]="tab.routerLinkExtras?.state"
           (keydown)="handleKeyDown($event, anchorTab)"
-          >
+        >
           <ng-container [ngTemplateOutlet]="tabDetails"> </ng-container>
         </a>
       }
@@ -61,7 +61,7 @@
           [attr.aria-controls]="tab.id"
           [attr.aria-selected]="(_tabset.activeTab$ | async) === tab"
           [attr.aria-disabled]="tab.disabled"
-          >
+        >
           <ng-container [ngTemplateOutlet]="tabDetails"> </ng-container>
         </a>
       }

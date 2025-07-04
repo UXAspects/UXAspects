@@ -4,13 +4,13 @@ import { FacetsModule } from './facets.module';
 import { Facet } from './models/facet';
 
 @Component({
-    selector: 'app',
-    template: `
+  selector: 'app',
+  template: `
     <ux-facet-container>
       <ux-facet-check-list header="Authors" [facets]="facets" [id]="chosenID"></ux-facet-check-list>
     </ux-facet-container>
   `,
-    standalone: false
+  standalone: false,
 })
 export class FacetCheckListTestComponent {
   facets: Facet[] = [];

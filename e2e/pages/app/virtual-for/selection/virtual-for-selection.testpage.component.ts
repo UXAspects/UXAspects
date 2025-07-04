@@ -2,35 +2,35 @@ import { ChangeDetectionStrategy, Component, Pipe, PipeTransform } from '@angula
 import { SelectionMode } from '@ux-aspects/ux-aspects';
 
 @Component({
-    selector: 'app-virtual-for-selection',
-    templateUrl: 'virtual-for-selection.testpage.component.html',
-    styleUrls: ['virtual-for-selection.testpage.component.css'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'app-virtual-for-selection',
+  templateUrl: 'virtual-for-selection.testpage.component.html',
+  styleUrls: ['virtual-for-selection.testpage.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class VirtualForSelectionTestPageComponent {
-    items: TestItem[] = [];
-    selection: TestItem[] = [];
-    selectionMode: SelectionMode = 'simple';
+  items: TestItem[] = [];
+  selection: TestItem[] = [];
+  selectionMode: SelectionMode = 'simple';
 
-    constructor() {
-        for (let i = 0; i < 1000; i += 1) {
-            this.items.push({ id: i, name: `Item ${i}` });
-        }
+  constructor() {
+    for (let i = 0; i < 1000; i += 1) {
+      this.items.push({ id: i, name: `Item ${i}` });
     }
+  }
 }
 
 @Pipe({
-    name: 'formatTestItem',
-    standalone: false
+  name: 'formatTestItem',
+  standalone: false,
 })
 export class FormatTestItemPipe implements PipeTransform {
-    transform(value: TestItem[]): string {
-        return value.map((v) => v.id).join(', ');
-    }
+  transform(value: TestItem[]): string {
+    return value.map(v => v.id).join(', ');
+  }
 }
 
 interface TestItem {
-    id: number;
-    name: string;
+  id: number;
+  name: string;
 }

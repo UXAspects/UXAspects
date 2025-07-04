@@ -1,427 +1,466 @@
 <button type="button" class="btn button-primary" (click)="modalOpen = true">
-    <ux-icon name="deployment" aria-hidden="true"></ux-icon>
-    Launch Marquee Wizard
+  <ux-icon name="deployment" aria-hidden="true"></ux-icon>
+  Launch Marquee Wizard
 </button>
 
 <div class="uxd-customize-example">
-    <ux-accordion>
-        <ux-accordion-panel class="accordion-chevron" heading="Customize Example...">
-            <div class="row uxd-customize-row">
-                <div class="col-md-6 col-sm-12">
-                    <ux-checkbox [(value)]="resizable">resizable</ux-checkbox>
-                </div>
-            </div>
-            <div class="row uxd-customize-row">
-                <div class="col-md-4 col-sm-12">
-                    <label>sidePanelWidth</label>
-                    <ux-number-picker [(value)]="sidePanelWidth"
-                                      [min]="1"
-                                      [max]="100"
-                                      [disabled]="!resizable">
-                    </ux-number-picker>
-                </div>
-                <div class="col-md-4 col-sm-12">
-                    <label>gutterSize</label>
-                    <ux-number-picker [(value)]="gutterSize"
-                                      [min]="1"
-                                      [max]="100"
-                                      [disabled]="!resizable">
-                    </ux-number-picker>
-                </div>
-            </div>
-        </ux-accordion-panel>
-    </ux-accordion>
-</div>
-
-<div *ngIf="modalOpen"
-     (onHidden)="close()"
-     [config]="{ show: true, animated: false }"
-     bsModal
-     #modal="bs-modal"
-     class="modal marquee-modal-window"
-     tabindex="-1"
-     role="dialog"
-     aria-modal="true"
-     aria-labelledby="marquee-wizard-title">
-
-    <div class="modal-dialog modal-lg"
-         role="document"
-         [cdkTrapFocus]="modal.isShown"
-         [cdkTrapFocusAutoCapture]="true">
-
-        <div class="modal-content">
-
-            <!-- Add Dismiss Button to Modal -->
-            <div class="dismiss">
-                <button class="modal-close" uxFocusIndicator (click)="close()" type="button" aria-label="Close Modal"
-                        tabindex="0">
-                    <ux-icon name="close"></ux-icon>
-                </button>
-            </div>
-
-            <ux-marquee-wizard #wizard
-                               class="marquee-wizard"
-                               [description]="icon"
-                               [sidePanelWidth]="sidePanelWidth"
-                               [gutterSize]="gutterSize"
-                               [resizable]="resizable"
-                               [disableNextWhenInvalid]="true"
-                               (stepChange)="onChange($event, wizard)"
-                               (stepError)="onError()"
-                               (onFinishing)="validate = true"
-                               (onFinish)="close()"
-                               (onCancel)="close()">
-
-                <ng-template #icon>
-                    <img src="assets/img/IconUser.png" alt="User icon">
-                </ng-template>
-
-                <ux-marquee-wizard-step header="First step">
-                    <ux-icon name="soa" *uxMarqueeWizardStepIcon></ux-icon>
-
-                    <h1 id="marquee-wizard-title" class="m-t-nil">Marquee wizard</h1>
-
-                    <div class="row">
-                        <div class="col-xs-7">
-                            <div class="form-group">
-                                <label class="form-label" for="step-one-name">Name</label>
-                                <input id="step-one-name" type="text" placeholder="Enter name" class="form-control"
-                                       [focusIf]="modal.isShown">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="step-one-description" class="form-label">Description</label>
-                                <textarea id="step-one-description" placeholder="Enter Description"
-                                          class="form-control"></textarea>
-                            </div>
-                        </div>
-                    </div>
-                </ux-marquee-wizard-step>
-
-                <ux-marquee-wizard-step header="Second step" [valid]="!error">
-                    <ux-icon name="schedule-clone" *uxMarqueeWizardStepIcon></ux-icon>
-
-                    <h1 class="m-t-nil">Second step title</h1>
-
-                    <div class="row">
-                        <div class="col-xs-7">
-                            <p class="marquee-wizard-text">Content of second step</p>
-                            <ux-checkbox [(value)]="error">Set this step to error state</ux-checkbox>
-                        </div>
-                    </div>
-                </ux-marquee-wizard-step>
-
-                <ux-marquee-wizard-step header="Third step">
-                    <ux-icon name="sync" *uxMarqueeWizardStepIcon></ux-icon>
-
-                    <h1 class="m-t-nil">Third step title</h1>
-
-                    <div class="row">
-                        <div class="col-xs-7">
-                            <p class="marquee-wizard-text">Content of third step</p>
-                            <ux-checkbox [(value)]="skip">Skip to step 6</ux-checkbox>
-                        </div>
-                    </div>
-                </ux-marquee-wizard-step>
-
-                <ux-marquee-wizard-step header="Fourth step" *ngIf="!skip">
-                    <ux-icon name="compliance" *uxMarqueeWizardStepIcon></ux-icon>
-
-                    <h1 class="m-t-nil">Fourth step title</h1>
-
-                    <div class="row">
-                        <div class="col-xs-7">
-                            <p class="marquee-wizard-text">Content of fourth step</p>
-                        </div>
-                    </div>
-                </ux-marquee-wizard-step>
-
-                <ux-marquee-wizard-step header="Fifth step" *ngIf="!skip">
-                    <ux-icon name="storage" *uxMarqueeWizardStepIcon></ux-icon>
-
-                    <h1 class="m-t-nil">Fifth step title</h1>
-
-                    <div class="row">
-                        <div class="col-xs-7">
-                            <p class="marquee-wizard-text">Content of fifth step</p>
-                        </div>
-                    </div>
-                </ux-marquee-wizard-step>
-
-                <ux-marquee-wizard-step header="Sixth step" [valid]="requiredText.valid || !validate">
-                    <ux-icon name="scorecard" *uxMarqueeWizardStepIcon></ux-icon>
-                    <h1 class="m-t-nil">Sixth step title</h1>
-
-                    <div class="row">
-                        <div class="col-xs-7">
-                            <div class="form-group" [class.has-error]="!requiredText.valid && validate">
-                                <label for="requiredText" class="control-label">
-                                    Required Text <span class="form-control-validation">*</span>
-                                </label>
-                                <input type="text" id="requiredText" placeholder="Text" class="form-control"
-                                       [formControl]="requiredText">
-                                <ux-icon name="alert" class="form-control-feedback"></ux-icon>
-                            </div>
-
-                            <div class="form-group form-group-validation">
-                                <label class="control-label">
-                                    <span class="form-control-validation">*</span> required
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                </ux-marquee-wizard-step>
-
-            </ux-marquee-wizard>
+  <ux-accordion>
+    <ux-accordion-panel class="accordion-chevron" heading="Customize Example...">
+      <div class="row uxd-customize-row">
+        <div class="col-md-6 col-sm-12">
+          <ux-checkbox [(value)]="resizable">resizable</ux-checkbox>
         </div>
-    </div>
+      </div>
+      <div class="row uxd-customize-row">
+        <div class="col-md-4 col-sm-12">
+          <label>sidePanelWidth</label>
+          <ux-number-picker
+            [(value)]="sidePanelWidth"
+            [min]="1"
+            [max]="100"
+            [disabled]="!resizable"
+          >
+          </ux-number-picker>
+        </div>
+        <div class="col-md-4 col-sm-12">
+          <label>gutterSize</label>
+          <ux-number-picker [(value)]="gutterSize" [min]="1" [max]="100" [disabled]="!resizable">
+          </ux-number-picker>
+        </div>
+      </div>
+    </ux-accordion-panel>
+  </ux-accordion>
 </div>
 
-<hr>
+<div
+  *ngIf="modalOpen"
+  (onHidden)="close()"
+  [config]="{ show: true, animated: false }"
+  bsModal
+  #modal="bs-modal"
+  class="modal marquee-modal-window"
+  tabindex="-1"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="marquee-wizard-title"
+>
+  <div
+    class="modal-dialog modal-lg"
+    role="document"
+    [cdkTrapFocus]="modal.isShown"
+    [cdkTrapFocusAutoCapture]="true"
+  >
+    <div class="modal-content">
+      <!-- Add Dismiss Button to Modal -->
+      <div class="dismiss">
+        <button
+          class="modal-close"
+          uxFocusIndicator
+          (click)="close()"
+          type="button"
+          aria-label="Close Modal"
+          tabindex="0"
+        >
+          <ux-icon name="close"></ux-icon>
+        </button>
+      </div>
+
+      <ux-marquee-wizard
+        #wizard
+        class="marquee-wizard"
+        [description]="icon"
+        [sidePanelWidth]="sidePanelWidth"
+        [gutterSize]="gutterSize"
+        [resizable]="resizable"
+        [disableNextWhenInvalid]="true"
+        (stepChange)="onChange($event, wizard)"
+        (stepError)="onError()"
+        (onFinishing)="validate = true"
+        (onFinish)="close()"
+        (onCancel)="close()"
+      >
+        <ng-template #icon>
+          <img src="assets/img/IconUser.png" alt="User icon" />
+        </ng-template>
+
+        <ux-marquee-wizard-step header="First step">
+          <ux-icon name="soa" *uxMarqueeWizardStepIcon></ux-icon>
+
+          <h1 id="marquee-wizard-title" class="m-t-nil">Marquee wizard</h1>
+
+          <div class="row">
+            <div class="col-xs-7">
+              <div class="form-group">
+                <label class="form-label" for="step-one-name">Name</label>
+                <input
+                  id="step-one-name"
+                  type="text"
+                  placeholder="Enter name"
+                  class="form-control"
+                  [focusIf]="modal.isShown"
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="step-one-description" class="form-label">Description</label>
+                <textarea
+                  id="step-one-description"
+                  placeholder="Enter Description"
+                  class="form-control"
+                ></textarea>
+              </div>
+            </div>
+          </div>
+        </ux-marquee-wizard-step>
+
+        <ux-marquee-wizard-step header="Second step" [valid]="!error">
+          <ux-icon name="schedule-clone" *uxMarqueeWizardStepIcon></ux-icon>
+
+          <h1 class="m-t-nil">Second step title</h1>
+
+          <div class="row">
+            <div class="col-xs-7">
+              <p class="marquee-wizard-text">Content of second step</p>
+              <ux-checkbox [(value)]="error">Set this step to error state</ux-checkbox>
+            </div>
+          </div>
+        </ux-marquee-wizard-step>
+
+        <ux-marquee-wizard-step header="Third step">
+          <ux-icon name="sync" *uxMarqueeWizardStepIcon></ux-icon>
+
+          <h1 class="m-t-nil">Third step title</h1>
+
+          <div class="row">
+            <div class="col-xs-7">
+              <p class="marquee-wizard-text">Content of third step</p>
+              <ux-checkbox [(value)]="skip">Skip to step 6</ux-checkbox>
+            </div>
+          </div>
+        </ux-marquee-wizard-step>
+
+        <ux-marquee-wizard-step header="Fourth step" *ngIf="!skip">
+          <ux-icon name="compliance" *uxMarqueeWizardStepIcon></ux-icon>
+
+          <h1 class="m-t-nil">Fourth step title</h1>
+
+          <div class="row">
+            <div class="col-xs-7">
+              <p class="marquee-wizard-text">Content of fourth step</p>
+            </div>
+          </div>
+        </ux-marquee-wizard-step>
+
+        <ux-marquee-wizard-step header="Fifth step" *ngIf="!skip">
+          <ux-icon name="storage" *uxMarqueeWizardStepIcon></ux-icon>
+
+          <h1 class="m-t-nil">Fifth step title</h1>
+
+          <div class="row">
+            <div class="col-xs-7">
+              <p class="marquee-wizard-text">Content of fifth step</p>
+            </div>
+          </div>
+        </ux-marquee-wizard-step>
+
+        <ux-marquee-wizard-step header="Sixth step" [valid]="requiredText.valid || !validate">
+          <ux-icon name="scorecard" *uxMarqueeWizardStepIcon></ux-icon>
+          <h1 class="m-t-nil">Sixth step title</h1>
+
+          <div class="row">
+            <div class="col-xs-7">
+              <div class="form-group" [class.has-error]="!requiredText.valid && validate">
+                <label for="requiredText" class="control-label">
+                  Required Text <span class="form-control-validation">*</span>
+                </label>
+                <input
+                  type="text"
+                  id="requiredText"
+                  placeholder="Text"
+                  class="form-control"
+                  [formControl]="requiredText"
+                />
+                <ux-icon name="alert" class="form-control-feedback"></ux-icon>
+              </div>
+
+              <div class="form-group form-group-validation">
+                <label class="control-label">
+                  <span class="form-control-validation">*</span> required
+                </label>
+              </div>
+            </div>
+          </div>
+        </ux-marquee-wizard-step>
+      </ux-marquee-wizard>
+    </div>
+  </div>
+</div>
+
+<hr />
 
 <p>
-    The Marquee Wizard is designed for cases where a more complex wizard is needed, such as for infrequent configuration
-    of detailed
-    system settings which may take some time and focus by the user. It provides a modal wizard which allows for greater
-    screen
-    space for the form content in each step, and a larger number of steps. Steps in the marquee wizard can be displayed,
-    hidden, or disabled conditionally dependent on settings on previous steps. The left hand panel can include an
-    optional
-    text string for user help (such as an introduction or description of pre-requisites). Icons can also be displayed
-    next
-    to each step title if required, and a wizard title and icon can also be added.
+  The Marquee Wizard is designed for cases where a more complex wizard is needed, such as for
+  infrequent configuration of detailed system settings which may take some time and focus by the
+  user. It provides a modal wizard which allows for greater screen space for the form content in
+  each step, and a larger number of steps. Steps in the marquee wizard can be displayed, hidden, or
+  disabled conditionally dependent on settings on previous steps. The left hand panel can include an
+  optional text string for user help (such as an introduction or description of pre-requisites).
+  Icons can also be displayed next to each step title if required, and a wizard title and icon can
+  also be added.
 </p>
 
 <p>Some good practices for the use of wizards include:</p>
 
 <ul>
-    <li>
-        Steps should be ordered logically to aid understanding, especially for less experienced users, with higher level
-        or general
-        settings appearing earlier in the sequence.
-    </li>
-    <li>
-        Steps should be as self-sufficient as possible, containing related and connected items.
-    </li>
-    <li>
-        The step title (which can be more descriptive) and label (typically 1-3 words) can be used to help summarize the
-        purpose
-        of each step, to help the user understand their progress.
-    </li>
-    <li>
-        Where possible, allow the user to exit a wizard part way through and retain their settings, to resume or edit
-        existing
-        progress at a later date.
-    </li>
+  <li>
+    Steps should be ordered logically to aid understanding, especially for less experienced users,
+    with higher level or general settings appearing earlier in the sequence.
+  </li>
+  <li>Steps should be as self-sufficient as possible, containing related and connected items.</li>
+  <li>
+    The step title (which can be more descriptive) and label (typically 1-3 words) can be used to
+    help summarize the purpose of each step, to help the user understand their progress.
+  </li>
+  <li>
+    Where possible, allow the user to exit a wizard part way through and retain their settings, to
+    resume or edit existing progress at a later date.
+  </li>
 </ul>
 
 <p>
-    The example on this page shows how to launch the Marquee Wizard inside a modal. The following code shows a component
-    which
-    launches a Marquee Wizard modal; note that the <code>marquee-modal-window</code> class is applied to the modal to
-    ensure appropriate styling.
+  The example on this page shows how to launch the Marquee Wizard inside a modal. The following code
+  shows a component which launches a Marquee Wizard modal; note that the
+  <code>marquee-modal-window</code> class is applied to the modal to ensure appropriate styling.
 </p>
 
-<p>The following attributes can be used to customize the <code>ux-marquee-wizard</code> component:</p>
+<p>
+  The following attributes can be used to customize the <code>ux-marquee-wizard</code> component:
+</p>
 
 <uxd-api-properties tableTitle="Inputs">
-
-    <tr uxd-api-property name="step" type="number">
-        The current active step. When the step changes an event will be emitted containing the index of the newly active
-        step. If
-        this is not specified the wizard will start on the first step.
-    </tr>
-    <tr uxd-api-property name="description" type="string | TemplateRef<void>">
-        Allows descriptive text or custom html content to be added to the side panel of the wizard.
-    </tr>
-    <tr uxd-api-property name="stepTemplate" type="TemplateRef<MarqueeWizardStepContext<T>>">
-        Allows customization of the wizard step items in the side panel of the wizard.
-        See "Custom Step Template" below for an example.
-    </tr>
-    <tr uxd-api-property name="nextText" type="string">
-        Defines the text displayed in the 'Next' button.
-    </tr>
-    <tr uxd-api-property name="previousText" type="string">
-        Defines the text displayed in the 'Previous' button.
-    </tr>
-    <tr uxd-api-property name="cancelText" type="string">
-        Defines the text displayed in the 'Cancel' button.
-    </tr>
-    <tr uxd-api-property name="finishText" type="string">
-        Defines the text displayed in the 'Finish' button.
-    </tr>
-    <tr uxd-api-property name="nextTooltip" type="string">
-        Defines the text displayed in the tooltip when the 'Next' button is hovered.
-    </tr>
-    <tr uxd-api-property name="previousTooltip" type="string">
-        Defines the text displayed in the tooltip when the 'Previous' button is hovered.
-    </tr>
-    <tr uxd-api-property name="cancelTooltip" type="string">
-        Defines the text displayed in the tooltip when the 'Cancel' button is hovered.
-    </tr>
-    <tr uxd-api-property name="finishTooltip" type="string">
-        Defines the text displayed in the tooltip when the 'Finish' button is hovered.
-    </tr>
-    <tr uxd-api-property name="nextAriaLabel" type="string">
-        Defines the text for the aria label on the 'Next' button.
-    </tr>
-    <tr uxd-api-property name="previousAriaLabel" type="string">
-        Defines the text for the aria label on the 'Previous' button.
-    </tr>
-    <tr uxd-api-property name="cancelAriaLabel" type="string">
-        Defines the text for the aria label on the 'Cancel' button.
-    </tr>
-    <tr uxd-api-property name="finishAriaLabel" type="string">
-        Defines the text for the aria label on the 'Finish' button.
-    </tr>
-    <tr uxd-api-property name="nextDisabled" type="boolean">
-        If set to <code>true</code> the 'Next' button will appear disabled and will not respond to clicks.
-    </tr>
-    <tr uxd-api-property name="previousDisabled" type="boolean">
-        If set to
-        <code>true</code> the 'Previous' button will appear disabled and will not respond to clicks.
-    </tr>
-    <tr uxd-api-property name="cancelDisabled" type="boolean">
-        If set to
-        <code>true</code> the 'Cancel' button will appear disabled and will not respond to clicks.
-    </tr>
-    <tr uxd-api-property name="finishDisabled" type="boolean">
-        If set to
-        <code>true</code> the 'Finish' button will appear disabled and will not respond to clicks.
-    </tr>
-    <tr uxd-api-property name="nextVisible" type="boolean">
-        If set to
-        <code>false</code> the 'Next' button will be hidden.
-    </tr>
-    <tr uxd-api-property name="previousVisible" type="boolean">
-        If set to
-        <code>false</code> the 'Previous' button will be hidden.
-    </tr>
-    <tr uxd-api-property name="cancelVisible" type="boolean">
-        If set to
-        <code>false</code> the 'Cancel' button will be hidden.
-    </tr>
-    <tr uxd-api-property name="finishVisible" type="boolean">
-        If set to
-        <code>false</code> the 'Finish' button will be hidden.
-    </tr>
-    <tr uxd-api-property name="cancelAlwaysVisible" type="boolean">
-        If set to
-        <code>true</code> the 'Cancel' button will be visible even on the last step. By default it will be hidden on the
-        final
-        step.
-    </tr>
-    <tr uxd-api-property name="finishAlwaysVisible" type="boolean">
-        If set to
-        <code>true</code> the 'Finish' button will be visible on all steps of the wizard. By default this button will
-        only be visible
-        on the final step of the wizard.
-    </tr>
-    <tr uxd-api-property name="disableNextWhenInvalid" type="boolean">
-        If set to <code>true</code> the 'Next' or 'Finish' button will become disabled when the current step is invalid.
-    </tr>
-    <tr uxd-api-property name="resetVisitedOnValidationError" type="boolean" defaultValue="true">
-        Whether to set <code>visited</code> to <code>false</code> on subsequent steps after a validation fault.
-    </tr>
-    <tr uxd-api-property name="resizable" type="boolean" defaultValue="false">
-        If set to
-        <code>true</code> there will be a resizable splitter between the side panel and main content of
-        the wizard.
-    </tr>
-    <tr uxd-api-property name="sidePanelWidth" type="number" defaultValue="25">
-        Width of the side panel as a percent. This is only accessible when resizable is enabled.
-    </tr>
-    <tr uxd-api-property name="gutterSize" type="number" defaultValue="10">
-        Width of the splitter in pixels. This is only accessible when resizable is enabled.
-    </tr>
-    <tr uxd-api-property name="sequential" type="boolean" defaultValue="true">
-        If set to <code>false</code> the user will be allowed to navigate to any step in any order.
-    </tr>
+  <tr uxd-api-property name="step" type="number">
+    The current active step. When the step changes an event will be emitted containing the index of
+    the newly active step. If this is not specified the wizard will start on the first step.
+  </tr>
+  <tr uxd-api-property name="description" type="string | TemplateRef<void>">
+    Allows descriptive text or custom html content to be added to the side panel of the wizard.
+  </tr>
+  <tr uxd-api-property name="stepTemplate" type="TemplateRef<MarqueeWizardStepContext<T>>">
+    Allows customization of the wizard step items in the side panel of the wizard. See "Custom Step
+    Template" below for an example.
+  </tr>
+  <tr uxd-api-property name="nextText" type="string">
+    Defines the text displayed in the 'Next' button.
+  </tr>
+  <tr uxd-api-property name="previousText" type="string">
+    Defines the text displayed in the 'Previous' button.
+  </tr>
+  <tr uxd-api-property name="cancelText" type="string">
+    Defines the text displayed in the 'Cancel' button.
+  </tr>
+  <tr uxd-api-property name="finishText" type="string">
+    Defines the text displayed in the 'Finish' button.
+  </tr>
+  <tr uxd-api-property name="nextTooltip" type="string">
+    Defines the text displayed in the tooltip when the 'Next' button is hovered.
+  </tr>
+  <tr uxd-api-property name="previousTooltip" type="string">
+    Defines the text displayed in the tooltip when the 'Previous' button is hovered.
+  </tr>
+  <tr uxd-api-property name="cancelTooltip" type="string">
+    Defines the text displayed in the tooltip when the 'Cancel' button is hovered.
+  </tr>
+  <tr uxd-api-property name="finishTooltip" type="string">
+    Defines the text displayed in the tooltip when the 'Finish' button is hovered.
+  </tr>
+  <tr uxd-api-property name="nextAriaLabel" type="string">
+    Defines the text for the aria label on the 'Next' button.
+  </tr>
+  <tr uxd-api-property name="previousAriaLabel" type="string">
+    Defines the text for the aria label on the 'Previous' button.
+  </tr>
+  <tr uxd-api-property name="cancelAriaLabel" type="string">
+    Defines the text for the aria label on the 'Cancel' button.
+  </tr>
+  <tr uxd-api-property name="finishAriaLabel" type="string">
+    Defines the text for the aria label on the 'Finish' button.
+  </tr>
+  <tr uxd-api-property name="nextDisabled" type="boolean">
+    If set to
+    <code>true</code>
+    the 'Next' button will appear disabled and will not respond to clicks.
+  </tr>
+  <tr uxd-api-property name="previousDisabled" type="boolean">
+    If set to
+    <code>true</code>
+    the 'Previous' button will appear disabled and will not respond to clicks.
+  </tr>
+  <tr uxd-api-property name="cancelDisabled" type="boolean">
+    If set to
+    <code>true</code>
+    the 'Cancel' button will appear disabled and will not respond to clicks.
+  </tr>
+  <tr uxd-api-property name="finishDisabled" type="boolean">
+    If set to
+    <code>true</code>
+    the 'Finish' button will appear disabled and will not respond to clicks.
+  </tr>
+  <tr uxd-api-property name="nextVisible" type="boolean">
+    If set to
+    <code>false</code>
+    the 'Next' button will be hidden.
+  </tr>
+  <tr uxd-api-property name="previousVisible" type="boolean">
+    If set to
+    <code>false</code>
+    the 'Previous' button will be hidden.
+  </tr>
+  <tr uxd-api-property name="cancelVisible" type="boolean">
+    If set to
+    <code>false</code>
+    the 'Cancel' button will be hidden.
+  </tr>
+  <tr uxd-api-property name="finishVisible" type="boolean">
+    If set to
+    <code>false</code>
+    the 'Finish' button will be hidden.
+  </tr>
+  <tr uxd-api-property name="cancelAlwaysVisible" type="boolean">
+    If set to
+    <code>true</code>
+    the 'Cancel' button will be visible even on the last step. By default it will be hidden on the
+    final step.
+  </tr>
+  <tr uxd-api-property name="finishAlwaysVisible" type="boolean">
+    If set to
+    <code>true</code>
+    the 'Finish' button will be visible on all steps of the wizard. By default this button will only
+    be visible on the final step of the wizard.
+  </tr>
+  <tr uxd-api-property name="disableNextWhenInvalid" type="boolean">
+    If set to
+    <code>true</code>
+    the 'Next' or 'Finish' button will become disabled when the current step is invalid.
+  </tr>
+  <tr uxd-api-property name="resetVisitedOnValidationError" type="boolean" defaultValue="true">
+    Whether to set
+    <code>visited</code>
+    to
+    <code>false</code>
+    on subsequent steps after a validation fault.
+  </tr>
+  <tr uxd-api-property name="resizable" type="boolean" defaultValue="false">
+    If set to
+    <code>true</code>
+    there will be a resizable splitter between the side panel and main content of the wizard.
+  </tr>
+  <tr uxd-api-property name="sidePanelWidth" type="number" defaultValue="25">
+    Width of the side panel as a percent. This is only accessible when resizable is enabled.
+  </tr>
+  <tr uxd-api-property name="gutterSize" type="number" defaultValue="10">
+    Width of the splitter in pixels. This is only accessible when resizable is enabled.
+  </tr>
+  <tr uxd-api-property name="sequential" type="boolean" defaultValue="true">
+    If set to
+    <code>false</code>
+    the user will be allowed to navigate to any step in any order.
+  </tr>
 </uxd-api-properties>
 
 <uxd-api-properties tableTitle="Outputs">
-    <tr uxd-api-property name="stepChanging" type="StepChangingEvent">
-        Emits before the current step changes. The event contains the current step index in the
-        <code>from</code> property, and the requested step index in the <code>to</code> property.
-    </tr>
-    <tr uxd-api-property name="stepChange" type="number">
-        Emits when the current step has changed.
-    </tr>
-    <tr uxd-api-property name="stepError" type="number">
-        Emits when the user tries to continue but the current step is invalid.
-    </tr>
-    <tr uxd-api-property name="onNext" type="number">
-        Emits when the wizard has moved to the next step. It will receive the current step index as a parameter.
-    </tr>
-    <tr uxd-api-property name="onPrevious" type="number">
-        Emits when the wizard has moved to the previous step. It will receive the current step index as a parameter.
-    </tr>
-    <tr uxd-api-property name="onCancel" type="void">
-        Emits when the 'Cancel' button has been pressed.
-    </tr>
-    <tr uxd-api-property name="onFinishing" type="void">
-        Emits when the 'Finish' button is clicked, but before the finish event fires. This fires regardless of the
-        validity of the final step.
-    </tr>
-    <tr uxd-api-property name="onFinish" type="void">
-        Emits when the 'Finish' button has been pressed and the final step is valid.
-    </tr>
-    <tr uxd-api-property name="sidePanelWidthChange" type="number">
-        Emits when finished dragging the splitter. The event contains the current width of the side panel
-        in a percentage value. This is only accessible when resizable is enabled.
-    </tr>
+  <tr uxd-api-property name="stepChanging" type="StepChangingEvent">
+    Emits before the current step changes. The event contains the current step index in the
+    <code>from</code>
+    property, and the requested step index in the
+    <code>to</code>
+    property.
+  </tr>
+  <tr uxd-api-property name="stepChange" type="number">
+    Emits when the current step has changed.
+  </tr>
+  <tr uxd-api-property name="stepError" type="number">
+    Emits when the user tries to continue but the current step is invalid.
+  </tr>
+  <tr uxd-api-property name="onNext" type="number">
+    Emits when the wizard has moved to the next step. It will receive the current step index as a
+    parameter.
+  </tr>
+  <tr uxd-api-property name="onPrevious" type="number">
+    Emits when the wizard has moved to the previous step. It will receive the current step index as
+    a parameter.
+  </tr>
+  <tr uxd-api-property name="onCancel" type="void">
+    Emits when the 'Cancel' button has been pressed.
+  </tr>
+  <tr uxd-api-property name="onFinishing" type="void">
+    Emits when the 'Finish' button is clicked, but before the finish event fires. This fires
+    regardless of the validity of the final step.
+  </tr>
+  <tr uxd-api-property name="onFinish" type="void">
+    Emits when the 'Finish' button has been pressed and the final step is valid.
+  </tr>
+  <tr uxd-api-property name="sidePanelWidthChange" type="number">
+    Emits when finished dragging the splitter. The event contains the current width of the side
+    panel in a percentage value. This is only accessible when resizable is enabled.
+  </tr>
 </uxd-api-properties>
 
 <p>The following properties can be used to configure the <code>ux-marquee-wizard-step</code>:</p>
 
 <uxd-api-properties tableTitle="Inputs">
-    <tr uxd-api-property name="header" type="string">
-        The text to be displayed in the wizard step tab.
-    </tr>
-    <tr uxd-api-property name="valid" type="boolean">
-        Allows you to define whether or not a step is valid. The user will not be able to proceed to the next step if
-        this property
-        has a value of false.
-    </tr>
-    <tr uxd-api-property name="validator" type="() => boolean | Promise<boolean>">
-        A custom function which returns the validation status for the step.
-        This function will be called when 'Next' or 'Finish' is clicked.
-        A promise may be returned if asynchronous validation is required.
-        If using this property, ensure that <code>disableNextWhenInvalid</code> is false.
-    </tr>
-    <tr uxd-api-property name="visited" type="boolean">
-        Defines whether or not this step has previously been visited. A visited step can be clicked on and jumped to at
-        any time.
-        By default, steps will become 'visited' when the user navigates to a step for the first time.
-    </tr>
-    <tr uxd-api-property name="completed" type="boolean">
-        Defines whether or not this step has previously been completed. A completed step can be clicked on and jumped to
-        at any time.
-        By default, steps will become 'completed' when the user navigates to the next step.
-    </tr>
-    <tr uxd-api-property name="disableNextWhenInvalid" type="boolean">
-        If set to <code>true</code> the 'Next' or 'Finish' button will become disabled when the current step is invalid.
-        This will override the value
-        set on the <code>ux-marquee-wizard</code>.
-    </tr>
-    <tr uxd-api-property name="context" type="T">
-        Defines additional data that will be available to a custom <code>stepTemplate</code>.
-    </tr>
+  <tr uxd-api-property name="header" type="string">
+    The text to be displayed in the wizard step tab.
+  </tr>
+  <tr uxd-api-property name="valid" type="boolean">
+    Allows you to define whether or not a step is valid. The user will not be able to proceed to the
+    next step if this property has a value of false.
+  </tr>
+  <tr uxd-api-property name="validator" type="() => boolean | Promise<boolean>">
+    A custom function which returns the validation status for the step. This function will be called
+    when 'Next' or 'Finish' is clicked. A promise may be returned if asynchronous validation is
+    required. If using this property, ensure that
+    <code>disableNextWhenInvalid</code>
+    is false.
+  </tr>
+  <tr uxd-api-property name="visited" type="boolean">
+    Defines whether or not this step has previously been visited. A visited step can be clicked on
+    and jumped to at any time. By default, steps will become 'visited' when the user navigates to a
+    step for the first time.
+  </tr>
+  <tr uxd-api-property name="completed" type="boolean">
+    Defines whether or not this step has previously been completed. A completed step can be clicked
+    on and jumped to at any time. By default, steps will become 'completed' when the user navigates
+    to the next step.
+  </tr>
+  <tr uxd-api-property name="disableNextWhenInvalid" type="boolean">
+    If set to
+    <code>true</code>
+    the 'Next' or 'Finish' button will become disabled when the current step is invalid. This will
+    override the value set on the
+    <code>ux-marquee-wizard</code
+    >.
+  </tr>
+  <tr uxd-api-property name="context" type="T">
+    Defines additional data that will be available to a custom
+    <code>stepTemplate</code
+    >.
+  </tr>
 </uxd-api-properties>
 
 <uxd-api-properties tableTitle="Outputs">
-    <tr uxd-api-property name="visitedChange" type="boolean">
-        Emits when visited changes.
-    </tr>
-    <tr uxd-api-property name="completedChange" type="boolean">
-        Emits when completed changes.
-    </tr>
+  <tr uxd-api-property name="visitedChange" type="boolean">
+    Emits when visited changes.
+  </tr>
+  <tr uxd-api-property name="completedChange" type="boolean">
+    Emits when completed changes.
+  </tr>
 </uxd-api-properties>
 
 <h4>Custom Step Icon</h4>
 
 <p>
-    The <code>*uxMarqueeWizardStepIcon</code> structural directive can be used to define an icon for each step.
+  The <code>*uxMarqueeWizardStepIcon</code> structural directive can be used to define an icon for
+  each step.
 </p>
 
 <uxd-snippet [content]="snippets.compiled.iconTemplateHtml"></uxd-snippet>
@@ -429,54 +468,55 @@
 <h4>Custom Step Template</h4>
 
 <p>
-    The element representing each step in the side panel can be customized by providing a custom
-    <code>stepTemplate</code>.
-    The template will have access to data associated with that step via the template context which will conform to
-    the <code>MarqueeWizardStepContext</code> interface.
+  The element representing each step in the side panel can be customized by providing a custom
+  <code>stepTemplate</code>. The template will have access to data associated with that step via the
+  template context which will conform to the <code>MarqueeWizardStepContext</code> interface.
 </p>
 
 <p>
-    Below is an example of how to provide a custom step template, how to pass data to the template, and how to access
-    the template context.
+  Below is an example of how to provide a custom step template, how to pass data to the template,
+  and how to access the template context.
 </p>
 
 <uxd-snippet [content]="snippets.compiled.stepTemplateHtml"></uxd-snippet>
 
 <uxd-api-properties tableTitle="MarqueeWizardStepContext Interface">
-    <tr uxd-api-property name="$implicit" type="MarqueeWizardStepComponent">
-        The wizard step component instance.
-    </tr>
-    <tr uxd-api-property name="index" type="number">
-        The index of the current step.
-    </tr>
-    <tr uxd-api-property name="context" type="T">
-        The additional context data provided using the <code>context</code> Input on the
-        <code>ux-marquee-wizard-step</code> element.
-    </tr>
+  <tr uxd-api-property name="$implicit" type="MarqueeWizardStepComponent">
+    The wizard step component instance.
+  </tr>
+  <tr uxd-api-property name="index" type="number">
+    The index of the current step.
+  </tr>
+  <tr uxd-api-property name="context" type="T">
+    The additional context data provided using the
+    <code>context</code>
+    Input on the
+    <code>ux-marquee-wizard-step</code>
+    element.
+  </tr>
 </uxd-api-properties>
 
 <h4>Custom Footer Template</h4>
 
 <p>
-    Custom content can be added to left of the standard wizard buttons in the footer. Add an <code>ng-template</code>
-    named <code>#footerTemplate</code> as a child of the <code>ux-marquee-wizard</code> element. The <code>step</code>
-    context variable can be used to access the current step number (zero-based).
+  Custom content can be added to left of the standard wizard buttons in the footer. Add an
+  <code>ng-template</code> named <code>#footerTemplate</code> as a child of the
+  <code>ux-marquee-wizard</code> element. The <code>step</code>
+  context variable can be used to access the current step number (zero-based).
 </p>
 
 <uxd-snippet [content]="snippets.compiled.footerTemplateHtml"></uxd-snippet>
 
-<p>
-    The following code can be used create the example above:
-</p>
+<p>The following code can be used create the example above:</p>
 
 <ux-tabset [minimal]="false">
-    <ux-tab heading="HTML">
-        <uxd-snippet [content]="snippets.compiled.appHtml"></uxd-snippet>
-    </ux-tab>
-    <ux-tab heading="TypeScript">
-        <uxd-snippet [content]="snippets.compiled.appTs"></uxd-snippet>
-    </ux-tab>
-    <ux-tab heading="CSS">
-        <uxd-snippet [content]="snippets.compiled.appCss"></uxd-snippet>
-    </ux-tab>
+  <ux-tab heading="HTML">
+    <uxd-snippet [content]="snippets.compiled.appHtml"></uxd-snippet>
+  </ux-tab>
+  <ux-tab heading="TypeScript">
+    <uxd-snippet [content]="snippets.compiled.appTs"></uxd-snippet>
+  </ux-tab>
+  <ux-tab heading="CSS">
+    <uxd-snippet [content]="snippets.compiled.appCss"></uxd-snippet>
+  </ux-tab>
 </ux-tabset>

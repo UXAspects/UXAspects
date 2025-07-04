@@ -1,117 +1,123 @@
 ux-toggleswitch {
-    display: inline-block;
+  display: inline-block;
 
+  .ux-toggleswitch {
+    position: relative;
+    display: inline-flex;
+    cursor: pointer;
+    white-space: nowrap;
+    margin-bottom: 0;
+
+    .ux-toggleswitch-input {
+      position: absolute;
+      height: 0;
+      width: 0;
+      outline: none;
+      overflow: hidden;
+      border: none;
+      clip: rect(0 0 0 0);
+      margin: -1px;
+      padding: 0;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+    }
+
+    .ux-toggleswitch-container {
+      position: relative;
+    }
+
+    .ux-toggleswitch-bg {
+      flex: none;
+      width: 44px;
+      height: 22px;
+      background-color: @white;
+      border: 1px solid @grey5;
+      border-radius: 999px;
+      box-shadow: inset 0 0 0 0 @primary;
+      transition:
+        border 0.3s,
+        box-shadow 0.3s,
+        background-color 0s;
+    }
+
+    .ux-toggleswitch-nub {
+      background-color: @white;
+      border: 2px solid @grey5;
+      border-radius: 50%;
+      height: 22px;
+      width: 22px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      transition: left 0.15s;
+    }
+
+    .ux-toggleswitch-label {
+      display: inline-flex;
+      align-items: center;
+      margin-left: 7px;
+      white-space: nowrap;
+
+      &:empty {
+        margin-left: 0;
+      }
+    }
+
+    &.ux-toggleswitch-disabled {
+      cursor: default;
+      opacity: 0.5;
+    }
+
+    &.ux-toggleswitch-checked {
+      .ux-toggleswitch-bg {
+        background-color: @primary;
+        border-color: @primary;
+        box-shadow: inset 0 0 0 12px @primary;
+        transition:
+          border 0.3s,
+          box-shadow 0.3s,
+          background-color 0s 0.3s;
+      }
+
+      .ux-toggleswitch-nub {
+        left: 22px;
+        border-color: @primary;
+      }
+    }
+
+    &.ux-toggleswitch-focused {
+      .ux-toggleswitch-bg {
+        .focus-outline();
+      }
+    }
+  }
+
+  &.toggleswitch-lg {
     .ux-toggleswitch {
-        position: relative;
-        display: inline-flex;
-        cursor: pointer;
-        white-space: nowrap;
-        margin-bottom: 0;
+      .ux-toggleswitch-bg {
+        width: 60px;
+        height: 30px;
+      }
 
-        .ux-toggleswitch-input {
-            position: absolute;
-            height: 0;
-            width: 0;
-            outline: none;
-            overflow: hidden;
-            border: none;
-            clip: rect(0 0 0 0);
-            margin: -1px;
-            padding: 0;
-            -webkit-appearance: none;
-            -moz-appearance: none;
-        }
+      &.ux-toggleswitch-checked .ux-toggleswitch-bg {
+        box-shadow: inset 0 0 0 16px @primary;
+      }
 
-        .ux-toggleswitch-container {
-            position: relative;
-        }
+      .ux-toggleswitch-nub {
+        height: 30px;
+        width: 30px;
+      }
 
-        .ux-toggleswitch-bg {
-            flex: none;
-            width: 44px;
-            height: 22px;
-            background-color: @white;
-            border: 1px solid @grey5;
-            border-radius: 999px;
-            box-shadow: inset 0 0 0 0 @primary;
-            transition: border 0.3s, box-shadow 0.3s, background-color 0s;
-        }
-
-        .ux-toggleswitch-nub {
-            background-color: @white;
-            border: 2px solid @grey5;
-            border-radius: 50%;
-            height: 22px;
-            width: 22px;
-            position: absolute;
-            top: 0;
-            left: 0;
-            transition: left 0.15s;
-        }
-
-        .ux-toggleswitch-label {
-            display: inline-flex;
-            align-items: center;
-            margin-left: 7px;
-            white-space: nowrap;
-
-            &:empty {
-                margin-left: 0;
-            }
-        }
-
-        &.ux-toggleswitch-disabled {
-            cursor: default;
-            opacity: 0.5;
-        }
-
-        &.ux-toggleswitch-checked {
-            .ux-toggleswitch-bg {
-                background-color: @primary;
-                border-color: @primary;
-                box-shadow: inset 0 0 0 12px @primary;
-                transition: border 0.3s, box-shadow 0.3s, background-color 0s 0.3s;
-            }
-
-            .ux-toggleswitch-nub {
-                left: 22px;
-                border-color: @primary;
-            }
-        }
-
-        &.ux-toggleswitch-focused {
-            .ux-toggleswitch-bg {
-                .focus-outline();
-            }
-        }
+      &.ux-toggleswitch-checked .ux-toggleswitch-nub {
+        left: 30px;
+      }
     }
+  }
 
-    &.toggleswitch-lg {
-        .ux-toggleswitch {
-            .ux-toggleswitch-bg {
-                width: 60px;
-                height: 30px;
-            }
-
-            &.ux-toggleswitch-checked .ux-toggleswitch-bg {
-                box-shadow: inset 0 0 0 16px @primary;
-            }
-
-            .ux-toggleswitch-nub {
-                height: 30px;
-                width: 30px;
-            }
-
-            &.ux-toggleswitch-checked .ux-toggleswitch-nub {
-                left: 30px;
-            }
-        }
+  @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+    /* Internet Explorer workaround for border-radius rendering issue. */
+    .ux-toggleswitch-nub {
+      background-clip: padding-box;
     }
-
-    @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
-        /* Internet Explorer workaround for border-radius rendering issue. */
-        .ux-toggleswitch-nub {
-            background-clip: padding-box;
-        }
-    }
+  }
 }

@@ -5,17 +5,17 @@ import { DateTimePickerModule, AccessibilityModule } from '@ux-aspects/ux-aspect
 import { DateTimePickerTestPageComponent } from './date-time-picker.testpage.component';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        DateTimePickerModule,
-        AccessibilityModule,
-        RouterModule.forChild([
-            {
-                path: '',
-                component: DateTimePickerTestPageComponent
-            }
-        ])
-    ],
-    declarations: [DateTimePickerTestPageComponent]
+  imports: [
+    CommonModule,
+    DateTimePickerModule,
+    AccessibilityModule,
+    RouterModule.forChild([
+      {
+        path: '',
+        component: DateTimePickerTestPageComponent,
+      },
+    ]),
+  ],
+  declarations: [DateTimePickerTestPageComponent],
 })
-export class DateTimePickerTestPageModule { }
+export class DateTimePickerTestPageModule {}

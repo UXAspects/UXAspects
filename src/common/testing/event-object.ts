@@ -4,33 +4,53 @@
  */
 
 export function createMouseEvent(type: string, x = 0, y = 0, button = 0): MouseEvent {
-    const event = document.createEvent('MouseEvent');
-    event.initMouseEvent(type, true, false, window, 0, x, y, x, y, false, false, false, false, button, null);
-    Object.defineProperty(event, 'buttons', { get: () => 1 });
-    return event;
+  const event = document.createEvent('MouseEvent');
+  event.initMouseEvent(
+    type,
+    true,
+    false,
+    window,
+    0,
+    x,
+    y,
+    x,
+    y,
+    false,
+    false,
+    false,
+    false,
+    button,
+    null
+  );
+  Object.defineProperty(event, 'buttons', { get: () => 1 });
+  return event;
 }
 
-export function createKeyboardEvent(type: string, keyCode: number, target?: Element, key?: string): KeyboardEvent {
-     
-    const event = document.createEvent('KeyboardEvent') as any;
-    const originalPreventDefault = event.preventDefault;
+export function createKeyboardEvent(
+  type: string,
+  keyCode: number,
+  target?: Element,
+  key?: string
+): KeyboardEvent {
+  const event = document.createEvent('KeyboardEvent') as any;
+  const originalPreventDefault = event.preventDefault;
 
-    if (event.initKeyEvent) {
-        event.initKeyEvent(type, true, true, window, 0, 0, 0, 0, 0, keyCode);
-    } else {
-        event.initKeyboardEvent(type, true, true, window, 0, key, 0, '', false);
-    }
+  if (event.initKeyEvent) {
+    event.initKeyEvent(type, true, true, window, 0, 0, 0, 0, 0, keyCode);
+  } else {
+    event.initKeyboardEvent(type, true, true, window, 0, key, 0, '', false);
+  }
 
-    Object.defineProperties(event, {
-        keyCode: { get: () => keyCode },
-        key: { get: () => key },
-        target: { get: () => target }
-    });
+  Object.defineProperties(event, {
+    keyCode: { get: () => keyCode },
+    key: { get: () => key },
+    target: { get: () => target },
+  });
 
-    event.preventDefault = function(...args) {
-        Object.defineProperty(event, 'defaultPrevented', { get: () => true });
-        return originalPreventDefault.apply(this, args);
-    };
+  event.preventDefault = function (...args) {
+    Object.defineProperty(event, 'defaultPrevented', { get: () => true });
+    return originalPreventDefault.apply(this, args);
+  };
 
-    return event;
+  return event;
 }

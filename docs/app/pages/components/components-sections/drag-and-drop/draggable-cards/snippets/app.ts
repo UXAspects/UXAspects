@@ -4,185 +4,198 @@ import { ColorService, TabbableListDirective } from '@ux-aspects/ux-aspects';
 import { ChartDataset, ChartOptions } from 'chart.js';
 
 @Component({
-    selector: 'app-root',
-    templateUrl: './app.component.html',
-    styleUrls: ['./app.component.css']
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
+  colors = [
+    this._colorService.getColor('accent').toRgb(),
+    this._colorService.getColor('accent').setAlpha(0.5).toRgba(),
+    this._colorService.getColor('grey5').toRgb(),
+  ];
 
-    colors = [
-        this._colorService.getColor('accent').toRgb(),
-        this._colorService.getColor('accent').setAlpha(0.5).toRgba(),
-        this._colorService.getColor('grey5').toRgb()
-    ];
+  options: ChartOptions<'doughnut'> = {
+    animation: {
+      duration: 0,
+    },
+    cutout: 20,
+    elements: {
+      arc: {
+        borderWidth: 0,
+      },
+    },
+    plugins: {
+      tooltip: {
+        enabled: false,
+      },
+    },
+    responsive: false,
+  };
 
-    options: ChartOptions<'doughnut'> = {
-        animation: {
-            duration: 0
-        },
-        cutout: 20,
-        elements: {
-            arc: {
-                borderWidth: 0
-            }
-        },
-        plugins: {
-            tooltip: {
-                enabled: false
-            }
-        },
-        responsive: false
-    };
+  fixedCards: FixedCard[] = [
+    {
+      title: 'All',
+      count: 8,
+    },
+    {
+      title: 'No Category',
+      count: 2,
+    },
+  ];
 
-    fixedCards: FixedCard[] = [
-        {
-            title: 'All',
-            count: 8
-        },
-        {
-            title: 'No Category',
-            count: 2
-        }
-    ];
+  draggableCards: DraggableCard[] = [
+    {
+      title: 'Protected',
+      count: 6,
+      subtitle: '15% unique, 10% shared',
+      description: 'NYC Preliminary Production 1 created from the protected items.',
+      chart: {
+        count: 13.2,
+        segments: [
+          {
+            data: [45, 25, 30],
+            backgroundColor: this.colors,
+          },
+        ],
+      },
+    },
+    {
+      title: 'Privileged',
+      count: 4,
+      subtitle: '7% unique, 10% shared',
+      description: 'NYC Production 2 created as a follow up to Production 1.',
+      chart: {
+        count: 6.5,
+        segments: [
+          {
+            data: [10, 5, 85],
+            backgroundColor: this.colors,
+          },
+        ],
+      },
+    },
+    {
+      title: 'Relevant',
+      count: 2,
+      subtitle: '65% unique, 12% shared',
+      description: 'NYC Production 3 Lorem ipsum dolor sit amet, consectetur…',
+      chart: {
+        count: 33.2,
+        segments: [
+          {
+            data: [60, 15, 25],
+            backgroundColor: this.colors,
+          },
+        ],
+      },
+    },
+    {
+      title: 'Proprietary',
+      count: 3,
+      subtitle: '7% unique, 10% shared',
+      description: 'NYC Production 4 Lorem ipsum dolor sit amet, consectetur…',
+      chart: {
+        count: 5.4,
+        segments: [
+          {
+            data: [10, 5, 85],
+            backgroundColor: this.colors,
+          },
+        ],
+      },
+    },
+    {
+      title: 'Reviewed',
+      count: 2,
+      subtitle: '65% unique, 12% shared',
+      description: 'NYC Production 3 Lorem ipsum dolor sit amet, consectetur…',
+      chart: {
+        count: 33.2,
+        segments: [
+          {
+            data: [60, 10, 30],
+            backgroundColor: this.colors,
+          },
+        ],
+      },
+    },
+  ];
 
-    draggableCards: DraggableCard[] = [
-        {
-            title: 'Protected',
-            count: 6,
-            subtitle: '15% unique, 10% shared',
-            description: 'NYC Preliminary Production 1 created from the protected items.',
-            chart: {
-                count: 13.2,
-                segments: [{
-                    data: [45, 25, 30],
-                    backgroundColor: this.colors
-                }]
-            }
-        },
-        {
-            title: 'Privileged',
-            count: 4,
-            subtitle: '7% unique, 10% shared',
-            description: 'NYC Production 2 created as a follow up to Production 1.',
-            chart: {
-                count: 6.5,
-                segments: [{
-                    data: [10, 5, 85],
-                    backgroundColor: this.colors
-                }]
-            }
-        },
-        {
-            title: 'Relevant',
-            count: 2,
-            subtitle: '65% unique, 12% shared',
-            description: 'NYC Production 3 Lorem ipsum dolor sit amet, consectetur…',
-            chart: {
-                count: 33.2,
-                segments: [{
-                    data: [60, 15, 25],
-                    backgroundColor: this.colors
-                }]
-            }
-        },
-        {
-            title: 'Proprietary',
-            count: 3,
-            subtitle: '7% unique, 10% shared',
-            description: 'NYC Production 4 Lorem ipsum dolor sit amet, consectetur…',
-            chart: {
-                count: 5.4,
-                segments: [{
-                    data: [10, 5, 85],
-                    backgroundColor: this.colors
-                }]
-            }
-        },
-        {
-            title: 'Reviewed',
-            count: 2,
-            subtitle: '65% unique, 12% shared',
-            description: 'NYC Production 3 Lorem ipsum dolor sit amet, consectetur…',
-            chart: {
-                count: 33.2,
-                segments: [{
-                    data: [60, 10, 30],
-                    backgroundColor: this.colors
-                }]
-            }
-        }
-    ];
+  active: FixedCard | DraggableCard = this.draggableCards[0];
 
-    active: FixedCard | DraggableCard = this.draggableCards[0];
+  @ViewChildren('draggableCard') cards?: QueryList<ElementRef>;
 
-    @ViewChildren('draggableCard') cards?: QueryList<ElementRef>;
+  constructor(
+    private readonly _colorService: ColorService,
+    private readonly _liveAnnouncer: LiveAnnouncer
+  ) {}
 
-    constructor(private readonly _colorService: ColorService, private readonly _liveAnnouncer: LiveAnnouncer) {}
+  remove(card: DraggableCard, tabbableList: TabbableListDirective): void {
+    // remove the card
+    this.draggableCards = this.draggableCards.filter(_card => _card !== card);
 
-    remove(card: DraggableCard, tabbableList: TabbableListDirective): void {
-        // remove the card
-        this.draggableCards = this.draggableCards.filter(_card => _card !== card);
+    // announce the card has been removed
+    this._liveAnnouncer.announce('Card has been removed');
 
-        // announce the card has been removed
-        this._liveAnnouncer.announce('Card has been removed');
+    // we want to focus the previous card
+    if (tabbableList.focusKeyManager && tabbableList.focusKeyManager.activeItemIndex != null) {
+      if (tabbableList.focusKeyManager.activeItemIndex > 0) {
+        tabbableList.focusKeyManager.setActiveItem(
+          tabbableList.focusKeyManager.activeItemIndex - 1
+        );
+      } else {
+        tabbableList.focusKeyManager.setActiveItem(
+          tabbableList.focusKeyManager.activeItemIndex + 1
+        );
+      }
+    }
+  }
 
-        // we want to focus the previous card
-        if (tabbableList.focusKeyManager && tabbableList.focusKeyManager.activeItemIndex != null) {
+  move(card: DraggableCard, delta: number): void {
+    // perform the move
+    const index = this.draggableCards.indexOf(card);
+    this.swap(index, index + delta);
 
-            if (tabbableList.focusKeyManager.activeItemIndex > 0) {
-                tabbableList.focusKeyManager.setActiveItem(tabbableList.focusKeyManager.activeItemIndex - 1);
-            } else {
-                tabbableList.focusKeyManager.setActiveItem(tabbableList.focusKeyManager.activeItemIndex + 1);
-            }
-        }
+    // Announce the move if the order has changed
+    if (this.draggableCards.indexOf(card) !== index) {
+      this._liveAnnouncer.announce(`Card moved ${delta > 0 ? 'down' : 'up'}`);
     }
 
-    move(card: DraggableCard, delta: number): void {
+    // after the UI has updated focus the element again (ngFor creates new DOM elements)
+    requestAnimationFrame(() => {
+      const target = this.cards.toArray()[index + delta];
 
-        // perform the move
-        const index = this.draggableCards.indexOf(card);
-        this.swap(index, index + delta);
+      if (target) {
+        target.nativeElement.focus();
+      }
+    });
+  }
 
-        // Announce the move if the order has changed
-        if (this.draggableCards.indexOf(card) !== index) {
-            this._liveAnnouncer.announce(`Card moved ${delta > 0 ? 'down' : 'up'}`);
-        }
-
-        // after the UI has updated focus the element again (ngFor creates new DOM elements)
-        requestAnimationFrame(() => {
-            const target = this.cards.toArray()[index + delta];
-
-            if (target) {
-                target.nativeElement.focus();
-            }
-        });
+  private swap(source: number, target: number): void {
+    // perform boundary checks
+    if (target < 0 || target > this.draggableCards.length - 1) {
+      return;
     }
 
-    private swap(source: number, target: number): void {
-
-        // perform boundary checks
-        if (target < 0 || target > this.draggableCards.length - 1) {
-            return;
-        }
-
-        const temp = { ...this.draggableCards[target] };
-        this.draggableCards[target] = { ...this.draggableCards[source] };
-        this.draggableCards[source] = temp;
-    }
+    const temp = { ...this.draggableCards[target] };
+    this.draggableCards[target] = { ...this.draggableCards[source] };
+    this.draggableCards[source] = temp;
+  }
 }
 
 export interface FixedCard {
-    title: string;
-    count: number;
+  title: string;
+  count: number;
 }
 
 export interface DraggableCard {
-    title: string;
+  title: string;
+  count: number;
+  subtitle: string;
+  description: string;
+  chart: {
     count: number;
-    subtitle: string;
-    description: string;
-    chart: {
-        count: number;
-        segments: ChartDataset<'doughnut'>[];
-    };
+    segments: ChartDataset<'doughnut'>[];
+  };
 }

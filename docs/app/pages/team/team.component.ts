@@ -1,20 +1,17 @@
 import { Component } from '@angular/core';
-
 import { ITeam } from '../../interfaces/ITeam';
 import { AppConfiguration } from '../../services/app-configuration/app-configuration.service';
 
 @Component({
-    selector: 'uxd-team',
-    templateUrl: './team.component.html',
-    styleUrls: ['./team.component.less'],
-    standalone: false
+  selector: 'uxd-team',
+  templateUrl: './team.component.html',
+  styleUrls: ['./team.component.less'],
+  standalone: false,
 })
 export class TeamPageComponent {
+  data: ITeam;
 
-    data: ITeam;
-
-    constructor(private readonly _appConfig: AppConfiguration) {
-        this.data = this._appConfig.getConfigurationData('team-page');
-    }
-
+  constructor(private readonly _appConfig: AppConfiguration) {
+    this.data = this._appConfig.getConfigurationData('team-page');
+  }
 }

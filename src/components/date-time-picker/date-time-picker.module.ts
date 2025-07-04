@@ -17,34 +17,32 @@ import { TimeViewComponent } from './time-view/time-view.component';
 import { YearViewComponent } from './year-view/year-view.component';
 
 @NgModule({
-    imports: [
-        A11yModule,
-        AccessibilityModule,
-        CommonModule,
-        FocusIfModule,
-        FormsModule,
-        IconModule,
-        SpinButtonModule,
-        TimePickerModule,
-    ],
-    exports: [DateTimePickerComponent],
-    declarations: [
-        DateTimePickerComponent,
-        HeaderComponent,
-        DayViewComponent,
-        MonthViewComponent,
-        YearViewComponent,
-        TimeViewComponent,
-        WeekDaySortPipe
-    ]
+  imports: [
+    A11yModule,
+    AccessibilityModule,
+    CommonModule,
+    FocusIfModule,
+    FormsModule,
+    IconModule,
+    SpinButtonModule,
+    TimePickerModule,
+  ],
+  exports: [DateTimePickerComponent],
+  declarations: [
+    DateTimePickerComponent,
+    HeaderComponent,
+    DayViewComponent,
+    MonthViewComponent,
+    YearViewComponent,
+    TimeViewComponent,
+    WeekDaySortPipe,
+  ],
 })
 export class DateTimePickerModule {
-    static forRoot(): ModuleWithProviders<DateTimePickerModule> {
-        return {
-            ngModule: DateTimePickerModule,
-            providers: [
-                DateTimePickerConfig
-            ]
-        };
-    }
+  static forRoot(): ModuleWithProviders<DateTimePickerModule> {
+    return {
+      ngModule: DateTimePickerModule,
+      providers: [DateTimePickerConfig],
+    };
+  }
 }

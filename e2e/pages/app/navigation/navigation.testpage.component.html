@@ -1,24 +1,32 @@
 <a id="top-focus" href="javascript:void(0)">Top focus target</a>
 
 <div class="container">
-    <div class="row">
-        <div class="col-sm-6 col-md-3">
-            <ux-navigation
-                [items]="items"
-                [tree]="tree"
-                [autoCollapse]="autoCollapse">
-            </ux-navigation>
-        </div>
-        <div class="col-sm-6 col-md-9">
-            <router-outlet></router-outlet>
-            <span id="options-clicked" *ngIf="optionsClicked === true">Options click event</span>
-        </div>
+  <div class="row">
+    <div class="col-sm-6 col-md-3">
+      <ux-navigation [items]="items" [tree]="tree" [autoCollapse]="autoCollapse"> </ux-navigation>
     </div>
+    <div class="col-sm-6 col-md-9">
+      <router-outlet></router-outlet>
+      <span id="options-clicked" *ngIf="optionsClicked === true">Options click event</span>
+    </div>
+  </div>
 
-    <div class="btn-container">
-        <button id="enable-tree-btn" class="btn button-secondary" (click)="tree = true">Enable Tree Mode</button>
-        <button id="enable-auto-collapse-btn" class="btn button-secondary" (click)="autoCollapse = true">Enable Auto Collapse</button>
-        <button id="disable-exact" class="btn button-secondary" (click)="disableExact()">Disable Exact</button>
-        <button id="disable-options" class="btn button-secondary" (click)="disableOptions()">Disable Options</button>
-    </div>
+  <div class="btn-container">
+    <button id="enable-tree-btn" class="btn button-secondary" (click)="tree = true">
+      Enable Tree Mode
+    </button>
+    <button
+      id="enable-auto-collapse-btn"
+      class="btn button-secondary"
+      (click)="autoCollapse = true"
+    >
+      Enable Auto Collapse
+    </button>
+    <button id="disable-exact" class="btn button-secondary" (click)="disableExact()">
+      Disable Exact
+    </button>
+    <button id="disable-options" class="btn button-secondary" (click)="disableOptions()">
+      Disable Options
+    </button>
+  </div>
 </div>

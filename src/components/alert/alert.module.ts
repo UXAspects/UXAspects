@@ -6,18 +6,8 @@ import { AlertIconDirective } from './alert-icon.directive';
 import { AlertComponent } from './alert.component';
 
 @NgModule({
-    imports: [
-        AccessibilityModule,
-        CommonModule,
-        IconModule
-    ],
-    declarations: [
-        AlertComponent,
-        AlertIconDirective
-    ],
-    exports: [
-        AlertComponent,
-        AlertIconDirective
-    ]
+  imports: [AccessibilityModule, CommonModule, IconModule],
+  declarations: [AlertComponent, AlertIconDirective],
+  exports: [AlertComponent, AlertIconDirective],
 })
-export class AlertModule { }
+export class AlertModule {}

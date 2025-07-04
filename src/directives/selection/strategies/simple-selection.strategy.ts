@@ -2,7 +2,6 @@ import { DOWN_ARROW, SPACE, UP_ARROW } from '@angular/cdk/keycodes';
 import { SelectionStrategy } from './selection.strategy';
 
 export class SimpleSelectionStrategy<T> extends SelectionStrategy<T> {
-
   /**
    * When the item is clicked simply toggle the current selected state
    */
@@ -15,9 +14,7 @@ export class SimpleSelectionStrategy<T> extends SelectionStrategy<T> {
    * and selecting/deselecting items
    */
   keydown(event: KeyboardEvent, data: T): void {
-
     switch (event.which) {
-
       case UP_ARROW:
         event.preventDefault();
         this.selectionService.activateSibling(true);

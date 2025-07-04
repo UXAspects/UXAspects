@@ -1,7 +1,5 @@
 @if (resizable && _isInitialised) {
-  <as-split direction="horizontal"
-    [gutterSize]="gutterSize"
-    (dragEnd)="onDragEnd($event)">
+  <as-split direction="horizontal" [gutterSize]="gutterSize" (dragEnd)="onDragEnd($event)">
     <as-split-area [size]="sidePanelWidth">
       <ng-container [ngTemplateOutlet]="sidePanel"></ng-container>
     </as-split-area>
@@ -18,7 +16,6 @@
 
 <ng-template #sidePanel>
   <div class="marquee-wizard-side-panel" [class.marquee-wizard-side-panel-resize]="resizable">
-
     @if (description) {
       <div class="marquee-wizard-description-container">
         <!-- If a template was provided display it -->
@@ -32,12 +29,13 @@
       </div>
     }
 
-    <ul class="marquee-wizard-steps"
+    <ul
+      class="marquee-wizard-steps"
       uxTabbableList
       direction="vertical"
       role="tablist"
-      aria-orientation="vertical">
-
+      aria-orientation="vertical"
+    >
       @for (step of steps; track step; let index = $index) {
         <li
           role="tab"
@@ -57,16 +55,17 @@
           uxTabbableListItem
           [disabled]="!step.visited"
           (click)="gotoStep(step)"
-          (keydown.enter)="gotoStep(step)">
-          <ng-container [ngTemplateOutlet]="stepTemplate || defaultStepTemplate"
-          [ngTemplateOutletContext]="{ $implicit: step, index: index, context: step.context }"></ng-container>
+          (keydown.enter)="gotoStep(step)"
+        >
+          <ng-container
+            [ngTemplateOutlet]="stepTemplate || defaultStepTemplate"
+            [ngTemplateOutletContext]="{ $implicit: step, index: index, context: step.context }"
+          ></ng-container>
         </li>
       }
-
     </ul>
   </div>
 </ng-template>
-
 
 <ng-template #mainContentPanel>
   <div class="marquee-wizard-content-panel" [class.marquee-wizard-content-panel-resize]="resizable">
@@ -75,62 +74,70 @@
     </div>
 
     <div class="modal-footer">
-
       @if (footerTemplate) {
         <ng-container
           [ngTemplateOutlet]="footerTemplate"
-          [ngTemplateOutletContext]="{ step: step }">
+          [ngTemplateOutletContext]="{ step: step }"
+        >
         </ng-container>
       }
 
       @if (previousVisible) {
-        <button #tip="ux-tooltip"
+        <button
+          #tip="ux-tooltip"
           type="button"
           class="btn button-secondary marquee-wizard-previous-button"
           [uxTooltip]="previousTooltip"
           [attr.aria-label]="previousAriaLabel"
           container="body"
           [disabled]="previousDisabled || step === 0"
-          (click)="previous(); tip.hide()">
+          (click)="previous(); tip.hide()"
+        >
           {{ previousText }}
         </button>
       }
 
       @if (nextVisible && !isLastStep()) {
-        <button #tip="ux-tooltip"
+        <button
+          #tip="ux-tooltip"
           type="button"
           class="btn button-primary marquee-wizard-next-button"
           [uxTooltip]="nextTooltip"
           [attr.aria-label]="nextAriaLabel"
           container="body"
           [disabled]="nextDisabled || isNextDisabled()"
-          (click)="next(); tip.hide()">
+          (click)="next(); tip.hide()"
+        >
           {{ nextText }}
         </button>
       }
 
-      @if (finishVisible && isLastStep() || finishAlwaysVisible) {
-        <button #tip="ux-tooltip"
+      @if ((finishVisible && isLastStep()) || finishAlwaysVisible) {
+        <button
+          #tip="ux-tooltip"
           type="button"
           class="btn button-primary marquee-wizard-finish-button"
           [uxTooltip]="finishTooltip"
           [attr.aria-label]="finishAriaLabel"
           container="body"
           [disabled]="finishDisabled || isNextDisabled()"
-          (click)="finish(); tip.hide()">
+          (click)="finish(); tip.hide()"
+        >
           {{ finishText }}
         </button>
       }
 
-      @if (cancelVisible && !isLastStep() || cancelAlwaysVisible) {
-        <button #tip="ux-tooltip"
+      @if ((cancelVisible && !isLastStep()) || cancelAlwaysVisible) {
+        <button
+          #tip="ux-tooltip"
           type="button"
           class="btn button-secondary marquee-wizard-cancel-button"
           [uxTooltip]="cancelTooltip"
           [attr.aria-label]="cancelAriaLabel"
           container="body"
           [disabled]="cancelDisabled"
-          (click)="cancel(); tip.hide()">
+          (click)="cancel(); tip.hide()"
+        >
           {{ cancelText }}
         </button>
       }
@@ -139,7 +146,6 @@
 </ng-template>
 
 <ng-template #defaultStepTemplate let-step>
-
   <!-- Insert the icon -->
   @if (step._iconTemplate) {
     <div class="marquee-wizard-step-icon">

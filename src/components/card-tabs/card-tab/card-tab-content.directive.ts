@@ -1,7 +1,7 @@
 import { Directive } from '@angular/core';
 
 @Directive({
-    selector: '[uxCardTabContent]',
-    standalone: false
+  selector: '[uxCardTabContent]',
+  standalone: false,
 })
-export class CardTabContentDirective { }
+export class CardTabContentDirective {}

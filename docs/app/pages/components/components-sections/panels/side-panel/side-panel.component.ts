@@ -6,70 +6,70 @@ import { IPlayground } from '../../../../../interfaces/IPlayground';
 import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
 
 @Component({
-    selector: 'uxd-side-panel',
-    templateUrl: './side-panel.component.html',
-    styleUrls: ['./side-panel.component.less'],
-    standalone: false
+  selector: 'uxd-side-panel',
+  templateUrl: './side-panel.component.html',
+  styleUrls: ['./side-panel.component.less'],
+  standalone: false,
 })
 @DocumentationSectionComponent('ComponentsSidePanelComponent')
 export class ComponentsSidePanelComponent
-    extends BaseDocumentationSection
-    implements IPlaygroundProvider
+  extends BaseDocumentationSection
+  implements IPlaygroundProvider
 {
-    playground: IPlayground = {
-        files: {
-            'app.component.html': this.snippets.raw.appHtml,
-            'app.component.ts': this.snippets.raw.appTs,
-            'app.component.css': this.snippets.raw.appCss,
-        },
-        modules: [
-            {
-                imports: ['SidePanelModule'],
-                library: '@ux-aspects/ux-aspects',
-            },
-            {
-                imports: ['A11yModule'],
-                library: '@angular/cdk/a11y',
-            },
-        ],
-    };
+  playground: IPlayground = {
+    files: {
+      'app.component.html': this.snippets.raw.appHtml,
+      'app.component.ts': this.snippets.raw.appTs,
+      'app.component.css': this.snippets.raw.appCss,
+    },
+    modules: [
+      {
+        imports: ['SidePanelModule'],
+        library: '@ux-aspects/ux-aspects',
+      },
+      {
+        imports: ['A11yModule'],
+        library: '@angular/cdk/a11y',
+      },
+    ],
+  };
 
-    open = false;
-    inline = false;
-    width = '50%';
-    minWidth: string;
-    maxWidth: string;
-    top = '53px';
-    modal = false;
-    animate = true;
-    closeOnExternalClick = false;
-    closeOnEscape = true;
+  open = false;
+  inline = false;
+  width = '50%';
+  minWidth: string;
+  maxWidth: string;
+  top = '53px';
+  modal = false;
+  animate = true;
+  closeOnExternalClick = false;
+  closeOnEscape = true;
 
-    get attachTo(): string {
-        return this._attachTo;
+  get attachTo(): string {
+    return this._attachTo;
+  }
+
+  set attachTo(value: string) {
+    this._attachTo = value;
+    if (value === 'window') {
+      this.top = '53px';
+    } else {
+      this.top = '0';
     }
+  }
 
-    set attachTo(value: string) {
-        this._attachTo = value;
-        if (value === 'window') {
-            this.top = '53px';
-        } else {
-            this.top = '0';
-        }
-    }
+  private _attachTo = 'window';
 
-    private _attachTo = 'window';
+  constructor(private readonly _liveAnnouncer: LiveAnnouncer) {
+    super(
+      import.meta.webpackContext('./snippets/', {
+        recursive: false,
+        regExp: /\.(html|css|js|ts)$/,
+      })
+    );
+  }
 
-    constructor(private readonly _liveAnnouncer: LiveAnnouncer) {
-        super(
-            import.meta.webpackContext('./snippets/', {
-                recursive: false,
-                regExp: /\.(html|css|js|ts)$/,
-            })
-        );
-    }
-
-    announce(isOpen: boolean): void {
-        this._liveAnnouncer.announce(`Side panel ${isOpen ? 'opened' : 'closed'}.`);
-    }
+  announce(isOpen: boolean): void {
+    this._liveAnnouncer.announce(`Side panel ${isOpen ? 'opened' : 'closed'}.`);
+  }
 }

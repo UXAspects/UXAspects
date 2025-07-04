@@ -1,7 +1,7 @@
 import { Directive } from '@angular/core';
 
 @Directive({
-    selector: '[uxHierarchyBarNodeIcon]',
-    standalone: false
+  selector: '[uxHierarchyBarNodeIcon]',
+  standalone: false,
 })
-export class HierarchyBarNodeIconDirective { }
+export class HierarchyBarNodeIconDirective {}

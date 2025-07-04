@@ -1,20 +1,35 @@
 <nav class="ux-side-nav" [class.tree]="tree" role="navigation">
-
   @if (items) {
     <ol role="tree" class="nav" uxTabbableList [hierarchy]="true">
       @for (item of items; track item; let rank = $index) {
         <ng-container
           [ngTemplateOutlet]="navigationNode"
-          [ngTemplateOutletContext]="{ item: item, level: 1, rank: rank, indent: _needsIndent(items) }">
+          [ngTemplateOutletContext]="{
+            item: item,
+            level: 1,
+            rank: rank,
+            indent: _needsIndent(items)
+          }"
+        >
         </ng-container>
       }
-      <ng-template #navigationNode let-item="item" let-parent="parent" let-level="level" let-rank="rank" let-indent="indent">
-        <li [attr.role]="(item.children && item.children.length > 0) ? 'treeitem' : 'none'"
-          [attr.aria-expanded]="(item.children && item.children.length > 0) ? item.expanded : null"
+      <ng-template
+        #navigationNode
+        let-item="item"
+        let-parent="parent"
+        let-level="level"
+        let-rank="rank"
+        let-indent="indent"
+      >
+        <li
+          [attr.role]="item.children && item.children.length > 0 ? 'treeitem' : 'none'"
+          [attr.aria-expanded]="item.children && item.children.length > 0 ? item.expanded : null"
           [class.selected]="item.expanded"
           [class.disabled]="item.disabled"
-          [class.active]="navigationLink.isActive">
-          <a uxNavigationLink
+          [class.active]="navigationLink.isActive"
+        >
+          <a
+            uxNavigationLink
             #navigationLink="uxNavigationLink"
             #tli="ux-tabbable-list-item"
             [navigationItem]="item"
@@ -25,49 +40,57 @@
             [disabled]="item.disabled"
             [parent]="parent"
             [rank]="rank"
-            [(expanded)]="item.expanded">
-            @if (!navigationItemTemplate && item.children && item.children.length > 0 && level < _depthLimit) {
+            [(expanded)]="item.expanded"
+          >
+            @if (
+              !navigationItemTemplate &&
+              item.children &&
+              item.children.length > 0 &&
+              level < _depthLimit
+            ) {
               <span
                 aria-hidden="true"
                 class="nav-expander"
-                (click)="item.expanded = !item.expanded; $event.stopPropagation(); $event.preventDefault()">
+                (click)="
+                  item.expanded = !item.expanded; $event.stopPropagation(); $event.preventDefault()
+                "
+              >
               </span>
             }
             <!-- Support UX Icons and Icon Component -->
             @if (!navigationItemTemplate && item.icon && !tree) {
               @if (_getIconType(item) !== 'component') {
-                <span
-                  class="nav-icon"
-                  [ngClass]="[_getIconType(item), item.icon]">
-                </span>
+                <span class="nav-icon" [ngClass]="[_getIconType(item), item.icon]"> </span>
               }
               @if (_getIconType(item) === 'component') {
-                <ux-icon
-                  class="nav-icon"
-                  [name]="item.icon">
-                </ux-icon>
+                <ux-icon class="nav-icon" [name]="item.icon"> </ux-icon>
               }
             }
             @if (!navigationItemTemplate && item.iconUrl && !tree) {
-              <img class="nav-icon" [src]="item.iconUrl" alt="item.iconLabel">
+              <img class="nav-icon" [src]="item.iconUrl" alt="item.iconLabel" />
             }
             @if (!navigationItemTemplate) {
               <span class="nav-title">{{ item.title }}</span>
             }
             <ng-container
               [ngTemplateOutlet]="navigationItemTemplate"
-              [ngTemplateOutletContext]="{ item: item, level: level }">
+              [ngTemplateOutletContext]="{ item: item, level: level }"
+            >
             </ng-container>
           </a>
           @if (item.children && item.expanded && level < _depthLimit) {
-            <ol
-              role="group"
-              class="nav"
-              [ngClass]="_hierarchyClasses[level]">
+            <ol role="group" class="nav" [ngClass]="_hierarchyClasses[level]">
               @for (child of item.children; track child; let rank = $index) {
                 <ng-container
                   [ngTemplateOutlet]="navigationNode"
-                  [ngTemplateOutletContext]="{ item: child, parent: tli, level: level + 1, rank: rank, indent: navigationLink.indentChildren }">
+                  [ngTemplateOutletContext]="{
+                    item: child,
+                    parent: tli,
+                    level: level + 1,
+                    rank: rank,
+                    indent: navigationLink.indentChildren
+                  }"
+                >
                 </ng-container>
               }
             </ol>
@@ -83,5 +106,4 @@
       <ng-content></ng-content>
     </ol>
   }
-
 </nav>

@@ -1,81 +1,86 @@
-<div class="demo-attributes table-responsive ">
-    <table class="table table-hover">
-        <thead>
-            <tr class="table-header-dark">
-                <th class="listview-document-th"></th>
-                <th>NAME</th>
-                <th>AUTHOR</th>
-                <th>DATE MODIFIED</th>
-                <th>STORAGE (GB)</th>
-                <th class="text-center">STATUS</th>
-            </tr>
-        </thead>
-        <tbody uxTabbableList #list="ux-tabbable-list">
-            <tr class="clickable single-select"
-                uxTabbableListItem
-                aria-details="item-display-panel-content"
-                [class.highlight]="item === selected && visible"
-                *ngFor="let item of items"
-                (focus)="selected = item"
-                (click)="selected = item; visible = true; $event.stopPropagation()"
-                (keydown.enter)="selected = item; visible = true; $event.preventDefault()"
-                (keydown.space)="selected = item; visible = true; $event.preventDefault()"
-                (keydown.spacebar)="selected = item; visible = true; $event.preventDefault()"
-                (keydown.arrowright)="panel.focus()">
-
-                <td class="text-center">
-                    <div class="listview-page-icon"></div>
-                </td>
-                <td class="listview-text-emphasis">{{ item.document }}</td>
-                <td>{{ item.author }}</td>
-                <td>{{ item.date | date: 'mediumDate' }}</td>
-                <td>
-                    <ux-spark
-                        theme="accent"
-                        [value]="item.storage"
-                        [inlineLabel]="item.storage"
-                        [barHeight]="3">
-                    </ux-spark>
-                </td>
-                <td class="text-center vertical-center-icon">
-                    <ux-icon *ngIf="item.active" name="checkmark" class="text-secondary"></ux-icon>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+<div class="demo-attributes table-responsive">
+  <table class="table table-hover">
+    <thead>
+      <tr class="table-header-dark">
+        <th class="listview-document-th"></th>
+        <th>NAME</th>
+        <th>AUTHOR</th>
+        <th>DATE MODIFIED</th>
+        <th>STORAGE (GB)</th>
+        <th class="text-center">STATUS</th>
+      </tr>
+    </thead>
+    <tbody uxTabbableList #list="ux-tabbable-list">
+      <tr
+        class="clickable single-select"
+        uxTabbableListItem
+        aria-details="item-display-panel-content"
+        [class.highlight]="item === selected && visible"
+        *ngFor="let item of items"
+        (focus)="selected = item"
+        (click)="selected = item; visible = true; $event.stopPropagation()"
+        (keydown.enter)="selected = item; visible = true; $event.preventDefault()"
+        (keydown.space)="selected = item; visible = true; $event.preventDefault()"
+        (keydown.spacebar)="selected = item; visible = true; $event.preventDefault()"
+        (keydown.arrowright)="panel.focus()"
+      >
+        <td class="text-center">
+          <div class="listview-page-icon"></div>
+        </td>
+        <td class="listview-text-emphasis">{{ item.document }}</td>
+        <td>{{ item.author }}</td>
+        <td>{{ item.date | date: 'mediumDate' }}</td>
+        <td>
+          <ux-spark
+            theme="accent"
+            [value]="item.storage"
+            [inlineLabel]="item.storage"
+            [barHeight]="3"
+          >
+          </ux-spark>
+        </td>
+        <td class="text-center vertical-center-icon">
+          <ux-icon *ngIf="item.active" name="checkmark" class="text-secondary"></ux-icon>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>
 
 <ux-item-display-panel
-    #panel
-    [(visible)]="visible"
-    (visibleChange)="list.focusTabbableItem()"
-    [top]="0"
-    [shadow]="true"
-    [header]="selected?.panel.header"
-    [animate]="true"
-    (keydown.arrowleft)="list.focusTabbableItem()">
+  #panel
+  [(visible)]="visible"
+  (visibleChange)="list.focusTabbableItem()"
+  [top]="0"
+  [shadow]="true"
+  [header]="selected?.panel.header"
+  [animate]="true"
+  (keydown.arrowleft)="list.focusTabbableItem()"
+>
+  <div class="preview-display" uxItemDisplayPanelContent>
+    <p id="item-display-panel-content">{{ selected?.panel.content }}</p>
+  </div>
 
-    <div class="preview-display" uxItemDisplayPanelContent>
-        <p id="item-display-panel-content">{{ selected?.panel.content }}</p>
-    </div>
-
-    <div uxItemDisplayPanelFooter class="pull-right p-b-md p-t-md">
-        <span class="btn-pair">
-            <button #previousBtn
-                class="btn button-secondary"
-                [disabled]="!isPreviousEnabled"
-                (click)="previous(); previousBtn.focus()"
-                tabindex="0">
-                <ux-icon name="previous"></ux-icon> Previous
-            </button>
-            <button #nextBtn
-                class="btn button-secondary"
-                [disabled]="!isNextEnabled"
-                (click)="next(); nextBtn.focus()"
-                tabindex="0">
-                Next <ux-icon name="next"></ux-icon>
-            </button>
-        </span>
-    </div>
-
+  <div uxItemDisplayPanelFooter class="pull-right p-b-md p-t-md">
+    <span class="btn-pair">
+      <button
+        #previousBtn
+        class="btn button-secondary"
+        [disabled]="!isPreviousEnabled"
+        (click)="previous(); previousBtn.focus()"
+        tabindex="0"
+      >
+        <ux-icon name="previous"></ux-icon> Previous
+      </button>
+      <button
+        #nextBtn
+        class="btn button-secondary"
+        [disabled]="!isNextEnabled"
+        (click)="next(); nextBtn.focus()"
+        tabindex="0"
+      >
+        Next <ux-icon name="next"></ux-icon>
+      </button>
+    </span>
+  </div>
 </ux-item-display-panel>

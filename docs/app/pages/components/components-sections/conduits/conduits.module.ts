@@ -17,44 +17,46 @@ import { ComponentsConduitToolbarComponent } from './multiple-zones/example/tool
 import { ComponentsMultipleZonesComponent } from './multiple-zones/multiple-zones.component';
 
 const SECTIONS = [
-    ComponentsConduitComponent,
-    ConduitComponentSearchComponent,
-    ConduitComponentZoneComponent,
-    ComponentsMultipleZonesComponent,
-    ComponentsConduitToolbarComponent,
-    ComponentsConduitListViewComponent,
-    ComponentsConduitFilterComponent,
-    ConduitZoneExampleComponent,
-    ConduitZoneInspectorComponent
+  ComponentsConduitComponent,
+  ConduitComponentSearchComponent,
+  ConduitComponentZoneComponent,
+  ComponentsMultipleZonesComponent,
+  ComponentsConduitToolbarComponent,
+  ComponentsConduitListViewComponent,
+  ComponentsConduitFilterComponent,
+  ConduitZoneExampleComponent,
+  ConduitZoneInspectorComponent,
 ];
 
 const ROUTES = [
-    {
-        path: '**',
-        component: DocumentationCategoryComponent,
-        data: {
-            category: ResolverService.resolveCategoryData(DocumentationPage.Components, 'Conduits')
-        }
-    }
+  {
+    path: '**',
+    component: DocumentationCategoryComponent,
+    data: {
+      category: ResolverService.resolveCategoryData(DocumentationPage.Components, 'Conduits'),
+    },
+  },
 ];
 
 @NgModule({
-    imports: [
-        CheckboxModule,
-        CommonModule,
-        DocumentationComponentsModule,
-        FormsModule,
-        IconModule,
-        PopoverModule,
-        RouterModule.forChild(ROUTES),
-        TabsetModule,
-    ],
-    exports: SECTIONS,
-    declarations: SECTIONS,
+  imports: [
+    CheckboxModule,
+    CommonModule,
+    DocumentationComponentsModule,
+    FormsModule,
+    IconModule,
+    PopoverModule,
+    RouterModule.forChild(ROUTES),
+    TabsetModule,
+  ],
+  exports: SECTIONS,
+  declarations: SECTIONS,
 })
 export class ComponentsConduitsModule {
-
-    constructor(componentFactoryResolver: ComponentFactoryResolver, resolverService: ResolverService) {
-        resolverService.registerResolver(componentFactoryResolver, SECTIONS);
-    }
+  constructor(
+    componentFactoryResolver: ComponentFactoryResolver,
+    resolverService: ResolverService
+  ) {
+    resolverService.registerResolver(componentFactoryResolver, SECTIONS);
+  }
 }

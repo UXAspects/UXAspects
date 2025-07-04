@@ -3,15 +3,14 @@ import { BehaviorSubject } from 'rxjs';
 
 @Injectable()
 export class SidePanelService {
+  /** Emit the open state when it changes */
+  open$ = new BehaviorSubject<boolean>(false);
 
-    /** Emit the open state when it changes */
-    open$ = new BehaviorSubject<boolean>(false);
+  open(): void {
+    this.open$.next(true);
+  }
 
-    open(): void {
-        this.open$.next(true);
-    }
-
-    close(): void {
-        this.open$.next(false);
-    }
+  close(): void {
+    this.open$.next(false);
+  }
 }

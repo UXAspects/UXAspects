@@ -6,26 +6,21 @@ import { TooltipsFallbackTestPageComponent } from './fallback/tooltips-fallback.
 import { TooltipsTestPageComponent } from './standard/tooltips.testpage.component';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        TooltipModule,
-        AccessibilityModule,
-        RouterModule.forChild([
-            {
-                path: '',
-                component: TooltipsTestPageComponent
-            },
-            {
-                path: 'fallback',
-                component: TooltipsFallbackTestPageComponent
-            }
-    ])
-    ],
-    declarations: [
-        TooltipsTestPageComponent,
-        TooltipsFallbackTestPageComponent
-    ],
+  imports: [
+    CommonModule,
+    TooltipModule,
+    AccessibilityModule,
+    RouterModule.forChild([
+      {
+        path: '',
+        component: TooltipsTestPageComponent,
+      },
+      {
+        path: 'fallback',
+        component: TooltipsFallbackTestPageComponent,
+      },
+    ]),
+  ],
+  declarations: [TooltipsTestPageComponent, TooltipsFallbackTestPageComponent],
 })
-export class TooltipsTestPageModule {
-
-}
+export class TooltipsTestPageModule {}

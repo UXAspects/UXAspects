@@ -1,59 +1,59 @@
 .ux-splitter-toggle-btn {
-    position: absolute;
-    padding: 4px 6px;
+  position: absolute;
+  padding: 4px 6px;
 
-    &.right,
-    &.left {
-        top: 0;
-        width: 32px;
-        height: 30px;
-    }
+  &.right,
+  &.left {
+    top: 0;
+    width: 32px;
+    height: 30px;
+  }
 
-    &.top,
-    &.bottom {
-        right: 0;
-        width: 30px;
-        height: 32px;
-    }
+  &.top,
+  &.bottom {
+    right: 0;
+    width: 30px;
+    height: 32px;
+  }
 
-    &.top {
-        top: 0;
-        border-radius: 0 0 20px 20px;
-    }
+  &.top {
+    top: 0;
+    border-radius: 0 0 20px 20px;
+  }
 
-    &.right {
-        right: 0;
-        border-radius: 20px 0 0 20px;
-    }
+  &.right {
+    right: 0;
+    border-radius: 20px 0 0 20px;
+  }
 
-    &.bottom {
-        bottom: 0;
-        border-radius: 20px 20px 0 0;
-    }
+  &.bottom {
+    bottom: 0;
+    border-radius: 20px 20px 0 0;
+  }
 
-    &.left {
-        left: 0;
-        border-radius: 0 20px 20px 0;
-    }
+  &.left {
+    left: 0;
+    border-radius: 0 20px 20px 0;
+  }
 }
 
 /*
  * Angular Splitter
  */
 as-split {
-    .as-split-gutter {
-        background-color: #f2f2f2 !important;
+  .as-split-gutter {
+    background-color: #f2f2f2 !important;
 
-        &:focus {
-            .native-focus-outline();
-        }
+    &:focus {
+      .native-focus-outline();
     }
+  }
 
-    /* Added to fix an issue in IE11 when the last 0 in the flex value was ignored - https://github.com/bertrandg/angular-split/issues/188 */
-    .as-split-area {
-        &.as-hidden {
-            /* stylelint-disable-next-line length-zero-no-unit */
-            flex: 0 1 0px !important;
-        }
+  /* Added to fix an issue in IE11 when the last 0 in the flex value was ignored - https://github.com/bertrandg/angular-split/issues/188 */
+  .as-split-area {
+    &.as-hidden {
+      /* stylelint-disable-next-line length-zero-no-unit */
+      flex: 0 1 0px !important;
     }
+  }
 }

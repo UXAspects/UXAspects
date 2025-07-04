@@ -18,27 +18,27 @@ import { PageHeaderNavigationComponent } from './navigation/navigation.component
 import { PageHeaderComponent } from './page-header.component';
 
 @NgModule({
-    imports: [
-        A11yModule,
-        AccessibilityModule,
-        BreadcrumbsModule,
-        ColorServiceModule,
-        CommonModule,
-        IconModule,
-        MenuModule,
-        ResizeModule,
-        TabsetModule,
-        RouterModule
-    ],
-    exports: [PageHeaderComponent, PageHeaderCustomMenuDirective],
-    declarations: [
-        PageHeaderComponent,
-        PageHeaderIconMenuComponent,
-        PageHeaderCustomMenuDirective,
-        PageHeaderNavigationComponent,
-        PageHeaderNavigationItemComponent,
-        PageHeaderNavigationDropdownItemComponent,
-        PageHeaderNavigationSecondaryItemDirective,
-    ],
+  imports: [
+    A11yModule,
+    AccessibilityModule,
+    BreadcrumbsModule,
+    ColorServiceModule,
+    CommonModule,
+    IconModule,
+    MenuModule,
+    ResizeModule,
+    TabsetModule,
+    RouterModule,
+  ],
+  exports: [PageHeaderComponent, PageHeaderCustomMenuDirective],
+  declarations: [
+    PageHeaderComponent,
+    PageHeaderIconMenuComponent,
+    PageHeaderCustomMenuDirective,
+    PageHeaderNavigationComponent,
+    PageHeaderNavigationItemComponent,
+    PageHeaderNavigationDropdownItemComponent,
+    PageHeaderNavigationSecondaryItemDirective,
+  ],
 })
 export class PageHeaderModule {}

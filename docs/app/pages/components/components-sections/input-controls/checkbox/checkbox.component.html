@@ -1,123 +1,137 @@
 <ng-container [ngSwitch]="theme">
-    <ng-container *ngSwitchDefault>
-        <div class="checkbox-container">
-            <ux-checkbox [(value)]="checkModel.option1" [disabled]="disableCheck">
-                Option1
-            </ux-checkbox>
-            <ux-checkbox [(value)]="checkModel.option2" [indeterminateValue]="indeterminateValue">
-                Option2
-            </ux-checkbox>
-            <ux-checkbox [(value)]="checkModel.option3">
-                Option3
-            </ux-checkbox>
-            <ux-checkbox [(value)]="checkModel.option4">
-                Onsectetur adipiscing elit. Inte adipiscing elit onsectetur adipiscing elit. Inte adipiscing elit
-                onsectetur adipiscing elit. Inte adipiscing elit onsectetur adipiscing elit. Inte adipiscing elit
-                onsectetur adipiscing elit. Inte adipiscing elit onsectetur adipiscing elit.
-            </ux-checkbox>
-        </div>
+  <ng-container *ngSwitchDefault>
+    <div class="checkbox-container">
+      <ux-checkbox [(value)]="checkModel.option1" [disabled]="disableCheck"> Option1 </ux-checkbox>
+      <ux-checkbox [(value)]="checkModel.option2" [indeterminateValue]="indeterminateValue">
+        Option2
+      </ux-checkbox>
+      <ux-checkbox [(value)]="checkModel.option3"> Option3 </ux-checkbox>
+      <ux-checkbox [(value)]="checkModel.option4">
+        Onsectetur adipiscing elit. Inte adipiscing elit onsectetur adipiscing elit. Inte adipiscing
+        elit onsectetur adipiscing elit. Inte adipiscing elit onsectetur adipiscing elit. Inte
+        adipiscing elit onsectetur adipiscing elit. Inte adipiscing elit onsectetur adipiscing elit.
+      </ux-checkbox>
+    </div>
 
-        <p class="m-t">
-            <code>checkModel.option1</code> is <em>{{ checkModel.option1 }}</em>.
-            <code>checkModel.option2</code> is <em>{{ checkModel.option2 }}</em>.
-            <code>checkModel.option3</code> is <em>{{ checkModel.option3 }}</em>.
-            <code>checkModel.option4</code> is <em>{{ checkModel.option4 }}</em>.
-        </p>
+    <p class="m-t">
+      <code>checkModel.option1</code> is <em>{{ checkModel.option1 }}</em
+      >. <code>checkModel.option2</code> is <em>{{ checkModel.option2 }}</em
+      >. <code>checkModel.option3</code> is <em>{{ checkModel.option3 }}</em
+      >. <code>checkModel.option4</code> is <em>{{ checkModel.option4 }}</em
+      >.
+    </p>
 
-        <div class="btn-container m-t">
-            <button class="btn button-primary" (click)="disableCheck = !disableCheck">
-                {{ disableCheck ? "Enable Option1" : "Disable Option1" }}
-            </button>
+    <div class="btn-container m-t">
+      <button class="btn button-primary" (click)="disableCheck = !disableCheck">
+        {{ disableCheck ? 'Enable Option1' : 'Disable Option1' }}
+      </button>
 
-            <button class="btn button-secondary" (click)="checkModel.option2 = indeterminateValue">
-                Set Option2 to indeterminate state
-            </button>
-        </div>
-    </ng-container>
+      <button class="btn button-secondary" (click)="checkModel.option2 = indeterminateValue">
+        Set Option2 to indeterminate state
+      </button>
+    </div>
+  </ng-container>
 
-    <ng-container *ngSwitchCase="SiteThemeId.Keppel">
-        <div class="checkbox-container">
-            <ux-checkbox [(value)]="checkModel.option1" [disabled]="disableCheck" [simplified]="simplified">
-                Option1
-            </ux-checkbox>
-            <ux-checkbox
-                [(value)]="checkModel.option2"
-                [indeterminateValue]="indeterminateValue"
-                [simplified]="simplified">
-                Option2
-            </ux-checkbox>
-            <ux-checkbox [(value)]="checkModel.option3" [simplified]="simplified">
-                Option3
-            </ux-checkbox>
-            <ux-checkbox [(value)]="checkModel.option4" [simplified]="simplified">
-                Onsectetur adipiscing elit. Inte adipiscing elit onsectetur adipiscing elit. Inte adipiscing elit
-                onsectetur adipiscing elit. Inte adipiscing elit onsectetur adipiscing elit. Inte adipiscing elit
-                onsectetur adipiscing elit. Inte adipiscing elit onsectetur adipiscing elit.
-            </ux-checkbox>
-        </div>
+  <ng-container *ngSwitchCase="SiteThemeId.Keppel">
+    <div class="checkbox-container">
+      <ux-checkbox
+        [(value)]="checkModel.option1"
+        [disabled]="disableCheck"
+        [simplified]="simplified"
+      >
+        Option1
+      </ux-checkbox>
+      <ux-checkbox
+        [(value)]="checkModel.option2"
+        [indeterminateValue]="indeterminateValue"
+        [simplified]="simplified"
+      >
+        Option2
+      </ux-checkbox>
+      <ux-checkbox [(value)]="checkModel.option3" [simplified]="simplified"> Option3 </ux-checkbox>
+      <ux-checkbox [(value)]="checkModel.option4" [simplified]="simplified">
+        Onsectetur adipiscing elit. Inte adipiscing elit onsectetur adipiscing elit. Inte adipiscing
+        elit onsectetur adipiscing elit. Inte adipiscing elit onsectetur adipiscing elit. Inte
+        adipiscing elit onsectetur adipiscing elit. Inte adipiscing elit onsectetur adipiscing elit.
+      </ux-checkbox>
+    </div>
 
-        <p class="m-t">
-            <code>checkModel.option1</code> is <em>{{ checkModel.option1 }}</em>.
-            <code>checkModel.option2</code> is <em>{{ checkModel.option2 }}</em>.
-            <code>checkModel.option3</code> is <em>{{ checkModel.option3 }}</em>.
-            <code>checkModel.option4</code> is <em>{{ checkModel.option4 }}</em>.
-        </p>
+    <p class="m-t">
+      <code>checkModel.option1</code> is <em>{{ checkModel.option1 }}</em
+      >. <code>checkModel.option2</code> is <em>{{ checkModel.option2 }}</em
+      >. <code>checkModel.option3</code> is <em>{{ checkModel.option3 }}</em
+      >. <code>checkModel.option4</code> is <em>{{ checkModel.option4 }}</em
+      >.
+    </p>
 
-        <div class="btn-container m-t">
-            <button class="btn button-primary" (click)="disableCheck = !disableCheck">
-                {{ disableCheck ? "Enable Option1" : "Disable Option1" }}
-            </button>
+    <div class="btn-container m-t">
+      <button class="btn button-primary" (click)="disableCheck = !disableCheck">
+        {{ disableCheck ? 'Enable Option1' : 'Disable Option1' }}
+      </button>
 
-            <button class="btn button-secondary" (click)="checkModel.option2 = indeterminateValue">
-                Set Option2 to indeterminate state
-            </button>
+      <button class="btn button-secondary" (click)="checkModel.option2 = indeterminateValue">
+        Set Option2 to indeterminate state
+      </button>
 
-            <button class="btn button-accent" (click)="simplified = !simplified">
-                {{ simplified ? "Disable Simplified Style" : "Enable Simplified Style" }}
-            </button>
-        </div>
-    </ng-container>
+      <button class="btn button-accent" (click)="simplified = !simplified">
+        {{ simplified ? 'Disable Simplified Style' : 'Enable Simplified Style' }}
+      </button>
+    </div>
+  </ng-container>
 </ng-container>
 
-<hr>
+<hr />
 
 <p>In an Angular application, <code>ngModel</code> may be used to bind the control to a form.</p>
 
 <p>The following attributes can be set to customize the behavior of the control.</p>
 
 <uxd-api-properties tableTitle="Inputs">
-    <tr uxd-api-property name="value" type="any" defaultValue="false">
-        Determines if the checkbox should be checked, unchecked or indeterminate.
-    </tr>
-    <tr uxd-api-property name="indeterminateValue" type="any" defaultValue="-1">
-        If <code>value</code> is set to the indeterminate value specified using this attribute, it will
-        neither display the checkbox as checked or unchecked, and will instead show the indeterminate
-        variation.
-    </tr>
-    <tr *ngIf="theme === SiteThemeId.Keppel" uxd-api-property name="simplified" type="boolean" defaultValue="false">
-        If set to <code>true</code> the checkbox will be displayed without a border and background.
-    </tr>
-    <tr uxd-api-property name="clickable" type="boolean" defaultValue="false">
-        If set to <code>true</code> the checkbox will not toggle state when clicked.
-    </tr>
-    <tr uxd-api-property name="required" type="boolean" defaultValue="false">
-        If set to <code>true</code> the checkbox will be marked as required.
-    </tr>
+  <tr uxd-api-property name="value" type="any" defaultValue="false">
+    Determines if the checkbox should be checked, unchecked or indeterminate.
+  </tr>
+  <tr uxd-api-property name="indeterminateValue" type="any" defaultValue="-1">
+    If
+    <code>value</code>
+    is set to the indeterminate value specified using this attribute, it will neither display the
+    checkbox as checked or unchecked, and will instead show the indeterminate variation.
+  </tr>
+  <tr
+    *ngIf="theme === SiteThemeId.Keppel"
+    uxd-api-property
+    name="simplified"
+    type="boolean"
+    defaultValue="false"
+  >
+    If set to
+    <code>true</code>
+    the checkbox will be displayed without a border and background.
+  </tr>
+  <tr uxd-api-property name="clickable" type="boolean" defaultValue="false">
+    If set to
+    <code>true</code>
+    the checkbox will not toggle state when clicked.
+  </tr>
+  <tr uxd-api-property name="required" type="boolean" defaultValue="false">
+    If set to
+    <code>true</code>
+    the checkbox will be marked as required.
+  </tr>
 </uxd-api-properties>
 
 <uxd-api-properties tableTitle="Outputs">
-    <tr uxd-api-property name="valueChange" type="any">
-        Emits when value has been changed.
-    </tr>
+  <tr uxd-api-property name="valueChange" type="any">
+    Emits when value has been changed.
+  </tr>
 </uxd-api-properties>
 
 <p>The code used for the above example is shown below:</p>
 
 <ux-tabset [minimal]="false">
-    <ux-tab heading="HTML">
-        <uxd-snippet [content]="snippets.compiled.appHtml"></uxd-snippet>
-    </ux-tab>
-    <ux-tab heading="TypeScript">
-        <uxd-snippet [content]="snippets.compiled.appTs" language="javascript"></uxd-snippet>
-    </ux-tab>
+  <ux-tab heading="HTML">
+    <uxd-snippet [content]="snippets.compiled.appHtml"></uxd-snippet>
+  </ux-tab>
+  <ux-tab heading="TypeScript">
+    <uxd-snippet [content]="snippets.compiled.appTs" language="javascript"></uxd-snippet>
+  </ux-tab>
 </ux-tabset>

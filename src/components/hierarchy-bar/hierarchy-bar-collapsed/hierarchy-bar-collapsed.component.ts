@@ -1,4 +1,15 @@
-import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, inject, Input, OnDestroy, Renderer2, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  inject,
+  Input,
+  OnDestroy,
+  Renderer2,
+  ViewChild,
+} from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ResizeService } from '../../../directives/resize/index';
@@ -7,85 +18,88 @@ import { HierarchyBarNodeChildren } from '../interfaces/hierarchy-bar-node-child
 import { HierarchyBarNode } from '../interfaces/hierarchy-bar-node.interface';
 
 @Component({
-    selector: 'ux-hierarchy-bar-collapsed',
-    templateUrl: './hierarchy-bar-collapsed.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'ux-hierarchy-bar-collapsed',
+  templateUrl: './hierarchy-bar-collapsed.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class HierarchyBarCollapsedComponent implements AfterViewInit, OnDestroy {
-    readonly hierarchyBar = inject(HierarchyBarService);
+  readonly hierarchyBar = inject(HierarchyBarService);
 
-    private readonly _renderer = inject(Renderer2);
+  private readonly _renderer = inject(Renderer2);
 
-    private readonly _resizeService = inject(ResizeService);
+  private readonly _resizeService = inject(ResizeService);
 
-    private readonly _elementRef = inject(ElementRef);
+  private readonly _elementRef = inject(ElementRef);
 
-    private readonly _changeDetector = inject(ChangeDetectorRef);
+  private readonly _changeDetector = inject(ChangeDetectorRef);
 
-    /** Determine read only state */
-    @Input() readonly: boolean;
+  /** Determine read only state */
+  @Input() readonly: boolean;
 
-    /** Get the first node to display */
-    _first: HierarchyBarNode;
+  /** Get the first node to display */
+  _first: HierarchyBarNode;
 
-    /** Get the last node to display */
-    _last: HierarchyBarNode;
+  /** Get the last node to display */
+  _last: HierarchyBarNode;
 
-    /** Get all the sibling nodes */
-    get _siblings(): Observable<HierarchyBarNodeChildren> {
-        return this.hierarchyBar.getSiblings(this._last);
+  /** Get all the sibling nodes */
+  get _siblings(): Observable<HierarchyBarNodeChildren> {
+    return this.hierarchyBar.getSiblings(this._last);
+  }
+
+  /** Get all the nodes between the first and last nodes */
+  get _parents(): HierarchyBarNode[] {
+    return this._nodes.filter(node => node !== this._first && node !== this._last);
+  }
+
+  /** Get the nodes as an array */
+  private get _nodes(): HierarchyBarNode[] {
+    return this.hierarchyBar.nodes$.value;
+  }
+
+  /** Unsubscribe from all observables on destroy */
+  private readonly _onDestroy = new Subject<void>();
+
+  /** Access the node container */
+  @ViewChild('nodes', { static: true }) nodeContainer: ElementRef;
+
+  ngAfterViewInit(): void {
+    // Update the UI when the selected nodes change
+    this.hierarchyBar.nodes$.pipe(takeUntil(this._onDestroy)).subscribe(this.update.bind(this));
+
+    // watch for the host element size changing
+    this._resizeService
+      .addResizeListener(this._elementRef.nativeElement)
+      .pipe(takeUntil(this._onDestroy))
+      .subscribe(() => this.updateOverflow());
+  }
+
+  ngOnDestroy(): void {
+    this._onDestroy.next();
+    this._onDestroy.complete();
+
+    // remove the resize event listener
+    this._resizeService.removeResizeListener(this._elementRef.nativeElement);
+  }
+
+  private update(nodes: HierarchyBarNode[]): void {
+    this._first = nodes[0];
+    this._last = nodes.length > 1 ? nodes[nodes.length - 1] : null;
+    this.updateOverflow();
+
+    this._changeDetector.detectChanges();
+  }
+
+  updateOverflow(): void {
+    // remove the class if it is present
+    this._renderer.removeClass(this.nodeContainer.nativeElement, 'hierarchy-bar-nodes-overflow');
+
+    // check if there is overflow
+    if (
+      this.nodeContainer.nativeElement.scrollWidth > this.nodeContainer.nativeElement.offsetWidth
+    ) {
+      this._renderer.addClass(this.nodeContainer.nativeElement, 'hierarchy-bar-nodes-overflow');
     }
-
-    /** Get all the nodes between the first and last nodes */
-    get _parents(): HierarchyBarNode[] {
-        return this._nodes.filter(node => node !== this._first && node !== this._last);
-    }
-
-    /** Get the nodes as an array */
-    private get _nodes(): HierarchyBarNode[] {
-        return this.hierarchyBar.nodes$.value;
-    }
-
-    /** Unsubscribe from all observables on destroy */
-    private readonly _onDestroy = new Subject<void>();
-
-    /** Access the node container */
-    @ViewChild('nodes', { static: true }) nodeContainer: ElementRef;
-
-    ngAfterViewInit(): void {
-        // Update the UI when the selected nodes change
-        this.hierarchyBar.nodes$.pipe(takeUntil(this._onDestroy)).subscribe(this.update.bind(this));
-
-        // watch for the host element size changing
-        this._resizeService.addResizeListener(this._elementRef.nativeElement).pipe(takeUntil(this._onDestroy))
-            .subscribe(() => this.updateOverflow());
-    }
-
-    ngOnDestroy(): void {
-        this._onDestroy.next();
-        this._onDestroy.complete();
-
-        // remove the resize event listener
-        this._resizeService.removeResizeListener(this._elementRef.nativeElement);
-    }
-
-    private update(nodes: HierarchyBarNode[]): void {
-        this._first = nodes[0];
-        this._last = nodes.length > 1 ? nodes[nodes.length - 1] : null;
-        this.updateOverflow();
-
-        this._changeDetector.detectChanges();
-    }
-
-    updateOverflow(): void {
-
-        // remove the class if it is present
-        this._renderer.removeClass(this.nodeContainer.nativeElement, 'hierarchy-bar-nodes-overflow');
-
-        // check if there is overflow
-        if (this.nodeContainer.nativeElement.scrollWidth > this.nodeContainer.nativeElement.offsetWidth) {
-            this._renderer.addClass(this.nodeContainer.nativeElement, 'hierarchy-bar-nodes-overflow');
-        }
-    }
+  }
 }

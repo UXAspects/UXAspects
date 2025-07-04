@@ -20,7 +20,6 @@ export class SearchBuilderGroupService {
 
     // create the entry in the query object if it doesn't exist
     if (!this._searchBuilderService.query[this._id]) {
-
       // create the section
       this._searchBuilderService.query[this._id] = [];
 
@@ -33,7 +32,6 @@ export class SearchBuilderGroupService {
    * Remove a field from the search builder query and return focus to the previous field.
    */
   removeAtIndex(index: number): void {
-
     // get the query for this group
     const query = this.getQuery();
 
@@ -48,6 +46,8 @@ export class SearchBuilderGroupService {
    * Get the query for this specific search group
    */
   getQuery(): SearchBuilderGroupQuery[] {
-    return this._searchBuilderService.query[this._id] ? this._searchBuilderService.query[this._id] : [];
+    return this._searchBuilderService.query[this._id]
+      ? this._searchBuilderService.query[this._id]
+      : [];
   }
 }

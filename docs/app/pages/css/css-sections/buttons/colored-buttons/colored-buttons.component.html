@@ -1,32 +1,38 @@
 <div class="btn-container">
-    <button type="button" class="btn button-primary">Primary</button>
-    <button type="button" class="btn button-secondary">Secondary</button>
-    <button type="button" class="btn button-warning">Warning</button>
-    <button type="button" class="btn button-primary" disabled>Disabled</button>
+  <button type="button" class="btn button-primary">Primary</button>
+  <button type="button" class="btn button-secondary">Secondary</button>
+  <button type="button" class="btn button-warning">Warning</button>
+  <button type="button" class="btn button-primary" disabled>Disabled</button>
 </div>
 
-<hr>
+<hr />
 
 <p>
-    The Primary Button is a button with the primary brand color, and should be used with the default action in a page.
+  The Primary Button is a button with the primary brand color, and should be used with the default
+  action in a page.
 </p>
 
 <p>
-    Button colors can be used to prompt the user as to the type of action which will be performed; for example the
-    <code>.button-warning</code> style can be used to warn a user about a potentially negative action.
-</p>
-
-<p>The color of buttons will not be conveyed to users of assistive technologies such as screen readers.</p>
-
-<p>
-    If the button color is significant, a <code>.sr-only</code> tag should be added to describe this information. This
-    label will be available to assistive technologies, but it will not be visible in the page.
+  Button colors can be used to prompt the user as to the type of action which will be performed; for
+  example the
+  <code>.button-warning</code> style can be used to warn a user about a potentially negative action.
 </p>
 
 <p>
-    Buttons are <code>inline-block</code> level elements so whitespace in the HTML of the page is significant and will
-    affect their layout. Use a parent container with the <code>btn-container</code> class to eliminate the effect of
-    whitespace between buttons.
+  The color of buttons will not be conveyed to users of assistive technologies such as screen
+  readers.
+</p>
+
+<p>
+  If the button color is significant, a <code>.sr-only</code> tag should be added to describe this
+  information. This label will be available to assistive technologies, but it will not be visible in
+  the page.
+</p>
+
+<p>
+  Buttons are <code>inline-block</code> level elements so whitespace in the HTML of the page is
+  significant and will affect their layout. Use a parent container with the
+  <code>btn-container</code> class to eliminate the effect of whitespace between buttons.
 </p>
 
 <uxd-snippet [content]="snippets.compiled.sampleHtml"></uxd-snippet>

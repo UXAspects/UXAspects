@@ -3,24 +3,23 @@ import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 @Component({
-    selector: 'app-pageheader-breadcrumb-page',
-    template: '<p id="page-content">{{ title }}</p>',
-    styles: [''],
-    standalone: false
+  selector: 'app-pageheader-breadcrumb-page',
+  template: '<p id="page-content">{{ title }}</p>',
+  styles: [''],
+  standalone: false,
 })
 export class PageHeaderPageComponent implements OnInit, OnDestroy {
+  title: string;
 
-    title: string;
+  private _subscription: Subscription;
 
-    private _subscription: Subscription;
+  constructor(public route: ActivatedRoute) {}
 
-    constructor(public route: ActivatedRoute) { }
+  ngOnInit(): void {
+    this._subscription = this.route.data.subscribe(data => (this.title = data['title']));
+  }
 
-    ngOnInit(): void {
-        this._subscription = this.route.data.subscribe(data => this.title = data['title']);
-    }
-
-    ngOnDestroy(): void {
-        this._subscription.unsubscribe();
-    }
+  ngOnDestroy(): void {
+    this._subscription.unsubscribe();
+  }
 }

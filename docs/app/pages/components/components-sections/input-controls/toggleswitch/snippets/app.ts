@@ -1,22 +1,21 @@
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'app-root',
-    templateUrl: './app.component.html'
+  selector: 'app-root',
+  templateUrl: './app.component.html',
 })
 export class AppComponent {
-    toggleSwitches: any;
-    toggleSwitchDisable: boolean;
+  toggleSwitches: any;
+  toggleSwitchDisable: boolean;
 
-    constructor() {
+  constructor() {
+    this.toggleSwitches = {
+      option1: true,
+      option2: false,
+      option3: false,
+      option4: false,
+    };
 
-        this.toggleSwitches = {
-            option1: true,
-            option2: false,
-            option3: false,
-            option4: false
-        };
-
-        this.toggleSwitchDisable = false;
-    }
+    this.toggleSwitchDisable = false;
+  }
 }

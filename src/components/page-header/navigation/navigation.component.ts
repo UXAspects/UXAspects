@@ -17,10 +17,10 @@ import { PageHeaderNavigationItemComponent } from './navigation-item/navigation-
 import { PageHeaderNavigationService } from './navigation.service';
 
 @Component({
-    selector: 'ux-page-header-horizontal-navigation',
-    templateUrl: './navigation.component.html',
-    providers: [PageHeaderNavigationService],
-    standalone: false
+  selector: 'ux-page-header-horizontal-navigation',
+  templateUrl: './navigation.component.html',
+  providers: [PageHeaderNavigationService],
+  standalone: false,
 })
 export class PageHeaderNavigationComponent implements AfterViewInit, OnDestroy {
   readonly elementRef = inject<ElementRef<HTMLElement>>(ElementRef);

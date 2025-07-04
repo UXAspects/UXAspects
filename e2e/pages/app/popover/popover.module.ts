@@ -6,22 +6,22 @@ import { PopoverFallbackTestPageComponent } from './fallback/popover-fallback.te
 import { PopoverTestPageComponent } from './standard/popover.testpage.component';
 
 @NgModule({
-    imports: [
-        CheckboxModule,
-        CommonModule,
-        PopoverModule,
-        AccessibilityModule,
-        RouterModule.forChild([
-            {
-                path: '',
-                component: PopoverTestPageComponent,
-            },
-            {
-                path: 'fallback',
-                component: PopoverFallbackTestPageComponent,
-            },
-        ]),
-    ],
-    declarations: [PopoverTestPageComponent, PopoverFallbackTestPageComponent],
+  imports: [
+    CheckboxModule,
+    CommonModule,
+    PopoverModule,
+    AccessibilityModule,
+    RouterModule.forChild([
+      {
+        path: '',
+        component: PopoverTestPageComponent,
+      },
+      {
+        path: 'fallback',
+        component: PopoverFallbackTestPageComponent,
+      },
+    ]),
+  ],
+  declarations: [PopoverTestPageComponent, PopoverFallbackTestPageComponent],
 })
 export class PopoverTestPageModule {}

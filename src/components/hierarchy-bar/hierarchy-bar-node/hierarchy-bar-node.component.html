@@ -1,10 +1,12 @@
-<div class="hierarchy-bar-node"
+<div
+  class="hierarchy-bar-node"
   [class.hierarchy-bar-node-readonly]="readonly"
   [class.hierarchy-bar-node-child-indicator]="node.children"
-  [style.transform]="offset ? 'translateX(' + offset + 'px)' : null">
-
+  [style.transform]="offset ? 'translateX(' + offset + 'px)' : null"
+>
   @if (mode === 'dropdown') {
-    <button type="button"
+    <button
+      type="button"
       uxFocusIndicator
       uxFocusIndicatorOrigin
       #popover="ux-popover"
@@ -18,51 +20,59 @@
       [showTriggers]="node.children ? hierarchyBar.popoverShowTriggers : []"
       [hideTriggers]="node.children ? hierarchyBar.popoverHideTriggers : []"
       tabindex="0"
-      [attr.aria-label]="node.title">
+      [attr.aria-label]="node.title"
+    >
       <!-- Show a custom icon if specified -->
       @if (hierarchyBar.icon) {
         <div class="hierarchy-bar-node-icon">
-          <ng-container [ngTemplateOutlet]="hierarchyBar.icon" [ngTemplateOutletContext]="{ node: node, $implicit: node }"></ng-container>
+          <ng-container
+            [ngTemplateOutlet]="hierarchyBar.icon"
+            [ngTemplateOutletContext]="{ node: node, $implicit: node }"
+          ></ng-container>
         </div>
       }
       <!-- Show an icon if specified -->
       @if (node.icon && !hierarchyBar.icon) {
-        <img class="hierarchy-bar-node-icon" [src]="node.icon" alt="Hierarchy Bar Icon">
+        <img class="hierarchy-bar-node-icon" [src]="node.icon" alt="Hierarchy Bar Icon" />
       }
       <!-- Show the name of the current node -->
       <span class="hierarchy-bar-node-title">{{ node.title }}</span>
       <!-- Show a dropdown arrow if there are children -->
       <div [class.readonly-arrow]="readonly" class="hierarchy-bar-node-arrow-icon-dropdown">
         @if (node.children) {
-          <ux-icon name="next"
-            class="hierarchy-bar-node-arrow-icon">
-          </ux-icon>
+          <ux-icon name="next" class="hierarchy-bar-node-arrow-icon"> </ux-icon>
         }
       </div>
     </button>
   } @else {
-    <button type="button"
+    <button
+      type="button"
       uxFocusIndicator
       class="hierarchy-bar-node-content"
       [disabled]="readonly"
       [attr.aria-label]="node.title"
-      (click)="selected.emit(node)">
+      (click)="selected.emit(node)"
+    >
       <!-- Show a custom icon if specified -->
       @if (hierarchyBar.icon) {
         <div class="hierarchy-bar-node-icon">
-          <ng-container [ngTemplateOutlet]="hierarchyBar.icon" [ngTemplateOutletContext]="{ node: node, $implicit: node }"></ng-container>
+          <ng-container
+            [ngTemplateOutlet]="hierarchyBar.icon"
+            [ngTemplateOutletContext]="{ node: node, $implicit: node }"
+          ></ng-container>
         </div>
       }
       <!-- Show an icon if specified -->
       @if (node.icon && !hierarchyBar.icon) {
-        <img class="hierarchy-bar-node-icon" [src]="node.icon" alt="Hierarchy Bar Icon">
+        <img class="hierarchy-bar-node-icon" [src]="node.icon" alt="Hierarchy Bar Icon" />
       }
       <!-- Show the name of the current node -->
       <span class="hierarchy-bar-node-title">{{ node.title }}</span>
     </button>
     <!-- Show a dropdown arrow if there are children -->
     @if (node.children) {
-      <button type="button"
+      <button
+        type="button"
         uxFocusIndicator
         uxFocusIndicatorOrigin
         #popover="ux-popover"
@@ -76,14 +86,10 @@
         popoverClass="hierarchy-bar-popover"
         [showTriggers]="hierarchyBar.popoverShowTriggers"
         [hideTriggers]="hierarchyBar.popoverHideTriggers"
-        tabindex="0">
-        <ux-icon name="next"
-          class="hierarchy-bar-node-arrow-icon">
-        </ux-icon>
+        tabindex="0"
+      >
+        <ux-icon name="next" class="hierarchy-bar-node-arrow-icon"> </ux-icon>
       </button>
     }
   }
-
 </div>
-
-

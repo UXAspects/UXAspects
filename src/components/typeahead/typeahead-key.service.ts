@@ -3,44 +3,41 @@ import { Injectable } from '@angular/core';
 import { TypeaheadComponent } from './typeahead.component';
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root',
 })
 export class TypeaheadKeyService<T = unknown> {
+  handleKey(event: KeyboardEvent, typeahead: TypeaheadComponent<T>): void {
+    if (!typeahead) {
+      return;
+    }
 
-    handleKey(event: KeyboardEvent, typeahead: TypeaheadComponent<T>): void {
-
-        if (!typeahead) {
-            return;
+    switch (event.keyCode) {
+      case UP_ARROW:
+        if (!typeahead.open) {
+          typeahead.open = true;
+        } else {
+          typeahead.moveHighlight(-1);
         }
+        event.preventDefault();
+        break;
 
-        switch (event.keyCode) {
+      case DOWN_ARROW:
+        if (!typeahead.open) {
+          typeahead.open = true;
+        } else {
+          typeahead.moveHighlight(1);
+        }
+        event.preventDefault();
+        break;
 
-            case UP_ARROW:
-                if (!typeahead.open) {
-                    typeahead.open = true;
-                } else {
-                    typeahead.moveHighlight(-1);
-                }
-                event.preventDefault();
-                break;
+      case ESCAPE:
+        typeahead.open = false;
+        break;
 
-            case DOWN_ARROW:
-                if (!typeahead.open) {
-                    typeahead.open = true;
-                } else {
-                    typeahead.moveHighlight(1);
-                }
-                event.preventDefault();
-                break;
-
-            case ESCAPE:
-                typeahead.open = false;
-                break;
-
-            case ENTER:
-                if (typeahead.selectOnEnter) {
-                    typeahead.selectHighlighted();
-                }
+      case ENTER:
+        if (typeahead.selectOnEnter) {
+          typeahead.selectHighlighted();
         }
     }
+  }
 }

@@ -2,256 +2,260 @@ import { imageCompare } from '../common/image-compare';
 import { HierarchyBarPage } from './hierarchy-bar.po.spec';
 
 describe('Hierarchy Bar Tests - standard Mode', () => {
+  let page: HierarchyBarPage;
 
-    let page: HierarchyBarPage;
+  beforeEach(async () => {
+    page = new HierarchyBarPage();
+    await page.getPage();
+  });
 
-    beforeEach(async () => {
-        page = new HierarchyBarPage();
-        await page.getPage();
-    });
+  it('should have correct initial states', async () => {
+    // should initially only select the root node
+    expect(await page.getNodeCount()).toBe(1);
 
-    it('should have correct initial states', async () => {
+    // ensure that the selected change event emits the select node
+    expect(await page.getSelectedNodeTitle()).toBe('Theresa Chandler');
 
-        // should initially only select the root node
-        expect(await page.getNodeCount()).toBe(1);
+    expect(await imageCompare('hierarchy-bar-initial')).toEqual(0);
+  });
 
-        // ensure that the selected change event emits the select node
-        expect(await page.getSelectedNodeTitle()).toBe('Theresa Chandler');
+  it('can programmatically set the selected node', async () => {
+    // set the selected input
+    await page.selectButton.click();
 
-        expect(await imageCompare('hierarchy-bar-initial')).toEqual(0);
-    });
+    // should have two visible node
+    expect(await page.getNodeCount()).toBe(2);
 
-    it('can programmatically set the selected node', async () => {
+    // ensure that the selected change event emits the select node
+    expect(await page.getSelectedNodeTitle()).toBe('Leroy Rose');
+  });
 
-        // set the selected input
-        await page.selectButton.click();
+  it('should display arrow when item has children', async () => {
+    // check if the arrow appears on the root node
+    expect(await page.nodeHasChildren(0)).toBe(true);
+  });
 
-        // should have two visible node
-        expect(await page.getNodeCount()).toBe(2);
+  it('should display children in popover', async () => {
+    const titles = await page.getNodeChildrenTitles(0);
+    expect(titles).toEqual([
+      'Leroy Rose',
+      'Lilly Shaw Lilly Shaw Lilly Shaw Lilly Shaw Lilly Shaw Lilly Shaw Lilly Shaw Lilly Shaw Lilly Shaw Lilly Shaw',
+    ]);
 
-        // ensure that the selected change event emits the select node
-        expect(await page.getSelectedNodeTitle()).toBe('Leroy Rose');
+    expect(await imageCompare('hierarchy-bar-popover')).toEqual(0);
+  });
 
-    });
+  it('should have selected the correct node on popover click', async () => {
+    await page.selectPopoverNode(0, 0);
 
-    it('should display arrow when item has children', async () => {
+    expect(await page.getSelectedNodeTitle()).toBe('Leroy Rose');
 
-        // check if the arrow appears on the root node
-        expect(await page.nodeHasChildren(0)).toBe(true);
+    expect(await imageCompare('hierarchy-bar-selected')).toEqual(0);
+  });
 
-    });
+  it('should show correct children when an observable is used', async () => {
+    await page.selectPopoverNode(0, 0);
 
-    it('should display children in popover', async () => {
-        const titles = await page.getNodeChildrenTitles(0);
-        expect(titles).toEqual(['Leroy Rose', 'Lilly Shaw Lilly Shaw Lilly Shaw Lilly Shaw Lilly Shaw Lilly Shaw Lilly Shaw Lilly Shaw Lilly Shaw Lilly Shaw']);
+    expect(await page.getSelectedNodeTitle()).toBe('Leroy Rose');
 
-        expect(await imageCompare('hierarchy-bar-popover')).toEqual(0);
-    });
+    const titles = await page.getNodeChildrenTitles(1);
 
-    it('should have selected the correct node on popover click', async () => {
-        await page.selectPopoverNode(0, 0);
+    expect(titles).toEqual(['Christian Olson', 'Ernest Foster']);
+  });
 
-        expect(await page.getSelectedNodeTitle()).toBe('Leroy Rose');
+  it('should remove children when parent is clicked', async () => {
+    // set the selected input
+    await page.selectButton.click();
 
-        expect(await imageCompare('hierarchy-bar-selected')).toEqual(0);
-    });
+    // should have two visible node
+    expect(await page.getNodeCount()).toBe(2);
 
-    it('should show correct children when an observable is used', async () => {
-        await page.selectPopoverNode(0, 0);
+    // ensure that the selected change event emits the select node
+    expect(await page.getSelectedNodeTitle()).toBe('Leroy Rose');
 
-        expect(await page.getSelectedNodeTitle()).toBe('Leroy Rose');
+    // click the first node
+    await page.clickNode(0);
 
-        const titles = await page.getNodeChildrenTitles(1);
+    // should have one visible node
+    expect(await page.getNodeCount()).toBe(1);
 
-        expect(titles).toEqual(['Christian Olson', 'Ernest Foster']);
-    });
+    // ensure that the selected change event emits the select node
+    expect(await page.getSelectedNodeTitle()).toBe('Theresa Chandler');
+  });
 
-    it('should remove children when parent is clicked', async () => {
-        // set the selected input
-        await page.selectButton.click();
+  it('should not have any addons initially', async () => {
+    expect((await page.getAddons()).length).toBe(0);
+  });
 
-        // should have two visible node
-        expect(await page.getNodeCount()).toBe(2);
+  it('should show left addon', async () => {
+    // show the left addon
+    await page.showLeftAddonBtn.click();
 
-        // ensure that the selected change event emits the select node
-        expect(await page.getSelectedNodeTitle()).toBe('Leroy Rose');
+    // there should now be one addon
+    expect((await page.getAddons()).length).toBe(1);
 
-        // click the first node
-        await page.clickNode(0);
+    // check the text of the addon
+    const addon = (await page.getAddons())[0];
 
-        // should have one visible node
-        expect(await page.getNodeCount()).toBe(1);
+    expect((await addon.getText()).toUpperCase()).toBe('LEFT ADDON');
+  });
 
-        // ensure that the selected change event emits the select node
-        expect(await page.getSelectedNodeTitle()).toBe('Theresa Chandler');
-    });
+  it('should show trailing addon', async () => {
+    // show the trailing addon
+    await page.showTrailingAddonBtn.click();
 
-    it('should not have any addons initially', async () => {
-        expect((await page.getAddons()).length).toBe(0);
-    });
+    // there should now be one addon
+    expect((await page.getAddons()).length).toBe(1);
 
-    it('should show left addon', async () => {
-        // show the left addon
-        await page.showLeftAddonBtn.click();
+    // check the text of the addon
+    const addon = (await page.getAddons())[0];
 
-        // there should now be one addon
-        expect((await page.getAddons()).length).toBe(1);
+    expect((await addon.getText()).toUpperCase()).toBe('TRAILING ADDON');
 
-        // check the text of the addon
-        const addon = (await page.getAddons())[0];
+    expect(await imageCompare('hierarchy-bar-trailing-addon')).toEqual(0);
+  });
 
-        expect((await addon.getText()).toUpperCase()).toBe('LEFT ADDON');
-    });
+  it('should show right addon', async () => {
+    // show the right addon
+    await page.showRightAddonBtn.click();
 
-    it('should show trailing addon', async () => {
-        // show the trailing addon
-        await page.showTrailingAddonBtn.click();
+    // there should now be one addon
+    expect((await page.getAddons()).length).toBe(1);
 
-        // there should now be one addon
-        expect((await page.getAddons()).length).toBe(1);
+    // check the text of the addon
+    const addon = (await page.getAddons())[0];
 
-        // check the text of the addon
-        const addon = (await page.getAddons())[0];
+    expect((await addon.getText()).toUpperCase()).toBe('RIGHT ADDON');
 
-        expect((await addon.getText()).toUpperCase()).toBe('TRAILING ADDON');
+    expect(await imageCompare('hierarchy-bar-right-addon')).toEqual(0);
+  });
 
-        expect(await imageCompare('hierarchy-bar-trailing-addon')).toEqual(0);
-    });
+  it('should display collapsed view when 3 or more nodes are selected - collapsed mode', async () => {
+    // set the collapsed mode
+    await page.collapsedMode.click();
 
-    it('should show right addon', async () => {
-        // show the right addon
-        await page.showRightAddonBtn.click();
+    await page.selectPopoverNode(0, 0);
 
-        // there should now be one addon
-        expect((await page.getAddons()).length).toBe(1);
+    expect(await page.getSelectedNodeTitle()).toBe('Leroy Rose');
 
-        // check the text of the addon
-        const addon = (await page.getAddons())[0];
+    await page.selectPopoverNode(1, 0);
 
-        expect((await addon.getText()).toUpperCase()).toBe('RIGHT ADDON');
+    expect(await page.getSelectedNodeTitle()).toBe('Christian Olson');
 
-        expect(await imageCompare('hierarchy-bar-right-addon')).toEqual(0);
-    });
+    // To be restored as part of EL-4021:
+    // expect(await imageCompare('hierarchy-bar-collapsed')).toEqual(0);
+  });
 
-    it('should display collapsed view when 3 or more nodes are selected - collapsed mode', async () => {
-        // set the collapsed mode
-        await page.collapsedMode.click();
+  it('should allow nodes to be selected when clicking on ellipsis - collapsed mode', async () => {
+    // set the collapsed mode
+    await page.collapsedMode.click();
 
-        await page.selectPopoverNode(0, 0);
+    await page.selectPopoverNode(0, 0);
 
-        expect(await page.getSelectedNodeTitle()).toBe('Leroy Rose');
+    expect(await page.getSelectedNodeTitle()).toBe('Leroy Rose');
 
-        await page.selectPopoverNode(1, 0);
+    await page.selectPopoverNode(1, 0);
 
-        expect(await page.getSelectedNodeTitle()).toBe('Christian Olson');
+    expect(await page.getSelectedNodeTitle()).toBe('Christian Olson');
 
-        // To be restored as part of EL-4021:
-        // expect(await imageCompare('hierarchy-bar-collapsed')).toEqual(0);
-    });
+    // click collapsed more node and select item in popover
+    await page.selectPopoverNodeCollapsed(0);
 
-    it('should allow nodes to be selected when clicking on ellipsis - collapsed mode', async () => {
-        // set the collapsed mode
-        await page.collapsedMode.click();
+    expect(await page.getSelectedNodeTitle()).toBe('Leroy Rose');
+  });
 
-        await page.selectPopoverNode(0, 0);
+  it('should not display a popover when clicked when standard mode and readonly', async () => {
+    // set the collapsed mode
+    await page.readOnlyBtn.click();
 
-        expect(await page.getSelectedNodeTitle()).toBe('Leroy Rose');
+    // set the selected input
+    await page.selectButton.click();
 
-        await page.selectPopoverNode(1, 0);
+    // click the first node
+    await page.clickNode(0);
 
-        expect(await page.getSelectedNodeTitle()).toBe('Christian Olson');
+    // expected the name of the second node to be shown as no click event is fired
+    expect(await page.getSelectedNodeTitle()).toBe('Leroy Rose');
+  });
 
-        // click collapsed more node and select item in popover
-        await page.selectPopoverNodeCollapsed(0);
+  it('should not display a popover when clicked when collapsed mode and readonly', async () => {
+    // set the collapsed mode
+    await page.collapsedMode.click();
 
-        expect(await page.getSelectedNodeTitle()).toBe('Leroy Rose');
-    });
+    // set the collapsed mode
+    await page.readOnlyBtn.click();
 
-    it('should not display a popover when clicked when standard mode and readonly', async () => {
-        // set the collapsed mode
-        await page.readOnlyBtn.click();
+    // set the selected input
+    await page.selectButton.click();
 
-        // set the selected input
-        await page.selectButton.click();
+    // click the first node
+    await page.clickNode(0);
 
-        // click the first node
-        await page.clickNode(0);
+    // expected the name of the second node to be shown as no click event is fired
+    expect(await page.getSelectedNodeTitle()).toBe('Leroy Rose');
+  });
 
-        // expected the name of the second node to be shown as no click event is fired
-        expect(await page.getSelectedNodeTitle()).toBe('Leroy Rose');
-    });
+  it('should not display a popover when clicked when dropdown mode and readonly', async () => {
+    // set the collapsed mode
+    await page.dropdownMode.click();
 
-    it('should not display a popover when clicked when collapsed mode and readonly', async () => {
-        // set the collapsed mode
-        await page.collapsedMode.click();
+    // set the collapsed mode
+    await page.readOnlyBtn.click();
 
-        // set the collapsed mode
-        await page.readOnlyBtn.click();
+    // set the selected input
+    await page.selectButton.click();
 
-        // set the selected input
-        await page.selectButton.click();
+    // click the first node
+    await page.clickNode(0);
 
-        // click the first node
-        await page.clickNode(0);
+    // expected the name of the second node to be shown as no click event is fired
+    expect(await page.getSelectedNodeTitle()).toBe('Leroy Rose');
+  });
 
-        // expected the name of the second node to be shown as no click event is fired
-        expect(await page.getSelectedNodeTitle()).toBe('Leroy Rose');
-    });
+  it('should allow whole node to be selected - dropdown mode', async () => {
+    // set the alternative click mode
+    await page.dropdownMode.click();
 
-    it('should not display a popover when clicked when dropdown mode and readonly', async () => {
-        // set the collapsed mode
-        await page.dropdownMode.click();
+    // set the selected input
+    await page.selectButton.click();
 
-        // set the collapsed mode
-        await page.readOnlyBtn.click();
+    // should have two visible node
+    expect(await page.getNodeCount()).toBe(2);
 
-        // set the selected input
-        await page.selectButton.click();
+    // check if the arrow appears on the root node
+    expect(await page.nodeHasChildrenDropdown(1)).toBe(true);
 
-        // click the first node
-        await page.clickNode(0);
+    // ensure that the selected change event emits the select node
+    expect(await page.getSelectedNodeTitle()).toBe('Leroy Rose');
 
-        // expected the name of the second node to be shown as no click event is fired
-        expect(await page.getSelectedNodeTitle()).toBe('Leroy Rose');
-    });
+    // click the first node
+    await page.selectPopoverNodeDropdown(1, 0);
 
-    it('should allow whole node to be selected - dropdown mode', async () => {
-        // set the alternative click mode
-        await page.dropdownMode.click();
+    expect(await page.getSelectedNodeTitle()).toBe('Christian Olson');
 
-        // set the selected input
-        await page.selectButton.click();
+    expect(await imageCompare('hierarchy-bar-dropdown')).toEqual(0);
+  });
 
-        // should have two visible node
-        expect(await page.getNodeCount()).toBe(2);
+  it('should correctly hide overflow of nodes', async () => {
+    await page.showRightAddonBtn.click();
+    await page.selectPopoverNode(0, 1);
 
-        // check if the arrow appears on the root node
-        expect(await page.nodeHasChildrenDropdown(1)).toBe(true);
+    await page.collapsedMode.click();
+    expect(await imageCompare('hierarchy-bar-overflow-collapsed')).toEqual(
+      0,
+      'collapsed mode - node overflow'
+    );
 
-        // ensure that the selected change event emits the select node
-        expect(await page.getSelectedNodeTitle()).toBe('Leroy Rose');
+    await page.dropdownMode.click();
+    expect(await imageCompare('hierarchy-bar-overflow-dropdown')).toEqual(
+      0,
+      'dropdown mode - node overflow'
+    );
 
-        // click the first node
-        await page.selectPopoverNodeDropdown(1, 0);
-
-        expect(await page.getSelectedNodeTitle()).toBe('Christian Olson');
-
-        expect(await imageCompare('hierarchy-bar-dropdown')).toEqual(0);
-    });
-
-
-    it('should correctly hide overflow of nodes', async () => {
-        await page.showRightAddonBtn.click();
-        await page.selectPopoverNode(0, 1);
-
-        await page.collapsedMode.click();
-        expect(await imageCompare('hierarchy-bar-overflow-collapsed')).toEqual(0, 'collapsed mode - node overflow');
-
-        await page.dropdownMode.click();
-        expect(await imageCompare('hierarchy-bar-overflow-dropdown')).toEqual(0, 'dropdown mode - node overflow');
-
-        await page.standardMode.click();
-        expect(await imageCompare('hierarchy-bar-overflow-standard')).toEqual(0, 'standard mode - node overflow');
-    });
-
+    await page.standardMode.click();
+    expect(await imageCompare('hierarchy-bar-overflow-standard')).toEqual(
+      0,
+      'standard mode - node overflow'
+    );
+  });
 });

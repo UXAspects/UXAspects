@@ -1,161 +1,161 @@
 ux-tag-input {
-    display: inline-block;
-    position: relative;
-    width: 100%;
-    border: 1px solid @tag-input-border;
-    border-radius: 1px;
+  display: inline-block;
+  position: relative;
+  width: 100%;
+  border: 1px solid @tag-input-border;
+  border-radius: 1px;
 
-    & > ol {
-        display: flex;
-        flex-wrap: wrap;
-        list-style-type: none;
+  & > ol {
+    display: flex;
+    flex-wrap: wrap;
+    list-style-type: none;
+    margin: 0;
+    padding: 1px 3px;
+
+    & > li {
+      list-style: none;
+      margin: 2px 3px;
+    }
+
+    & > li.ux-tag {
+      flex: 0 1 auto;
+      display: flex;
+      align-items: baseline;
+      color: @tag-input-tag-color;
+      background-color: @tag-input-tag-bg;
+      border: 1px solid @tag-input-tag-border;
+      border-radius: 1px;
+      padding: 0 5px;
+      cursor: pointer;
+      text-overflow: ellipsis;
+      overflow: hidden;
+
+      &:focus {
+        color: @tag-input-tag-active-color;
+        background-color: @tag-input-tag-active-bg;
+        border-color: @tag-input-tag-active-border;
+        outline: none;
+      }
+
+      &.disabled {
+        cursor: default;
+      }
+
+      & > .ux-tag-remove {
+        flex: 0 0 auto;
+        font-size: 80%;
+        opacity: 0.7;
+        background-color: transparent;
+        margin-left: 7px;
+        border: none;
+        padding: 0;
+
+        &:hover:not([disabled]) {
+          opacity: 1;
+        }
+
+        &[disabled] {
+          cursor: default;
+        }
+      }
+    }
+
+    & > li.ux-tag-input {
+      flex: 1;
+
+      & > input {
+        width: 100%;
+        background-color: transparent;
         margin: 0;
-        padding: 1px 3px;
+        border: 1px solid transparent;
+        outline: none;
+        padding: 0 5px;
+        min-width: 140px;
 
-        & > li {
-            list-style: none;
-            margin: 2px 3px;
+        &::-webkit-input-placeholder {
+          color: @form-control-placeholder-color;
+          opacity: 1;
         }
 
-        & > li.ux-tag {
-            flex: 0 1 auto;
-            display: flex;
-            align-items: baseline;
-            color: @tag-input-tag-color;
-            background-color: @tag-input-tag-bg;
-            border: 1px solid @tag-input-tag-border;
-            border-radius: 1px;
-            padding: 0 5px;
-            cursor: pointer;
-            text-overflow: ellipsis;
-            overflow: hidden;
-
-            &:focus {
-                color: @tag-input-tag-active-color;
-                background-color: @tag-input-tag-active-bg;
-                border-color: @tag-input-tag-active-border;
-                outline: none;
-            }
-
-            &.disabled {
-                cursor: default;
-            }
-
-            & > .ux-tag-remove {
-                flex: 0 0 auto;
-                font-size: 80%;
-                opacity: 0.7;
-                background-color: transparent;
-                margin-left: 7px;
-                border: none;
-                padding: 0;
-
-                &:hover:not([disabled]) {
-                    opacity: 1;
-                }
-
-                &[disabled] {
-                    cursor: default;
-                }
-            }
+        &:-moz-placeholder {
+          color: @form-control-placeholder-color;
+          opacity: 1;
         }
 
-        & > li.ux-tag-input {
-            flex: 1;
-
-            & > input {
-                width: 100%;
-                background-color: transparent;
-                margin: 0;
-                border: 1px solid transparent;
-                outline: none;
-                padding: 0 5px;
-                min-width: 140px;
-
-                &::-webkit-input-placeholder {
-                    color: @form-control-placeholder-color;
-                    opacity: 1;
-                }
-
-                &:-moz-placeholder {
-                    color: @form-control-placeholder-color;
-                    opacity: 1;
-                }
-
-                &::-moz-placeholder {
-                    color: @form-control-placeholder-color;
-                    opacity: 1;
-                }
-
-                &:-ms-input-placeholder {
-                    color: @form-control-placeholder-color;
-                    opacity: 1;
-                }
-
-                &[readonly] {
-                    cursor: default;
-                }
-            }
+        &::-moz-placeholder {
+          color: @form-control-placeholder-color;
+          opacity: 1;
         }
 
-        &.ux-tag-input-icon-inset,
-        &.ux-tag-input-clear-inset {
-            padding-right: 32px;
+        &:-ms-input-placeholder {
+          color: @form-control-placeholder-color;
+          opacity: 1;
         }
 
-        &.ux-tag-input-icon-inset.ux-tag-input-clear-inset {
-            padding-right: 64px;
+        &[readonly] {
+          cursor: default;
         }
+      }
     }
 
-    &.disabled {
-        background-color: @tag-input-disabled-bg;
-
-        .ux-tag-icons {
-            .ux-tag-icon,
-            .ux-select-icon {
-                cursor: default;
-                color: #d8d9db;
-            }
-        }
+    &.ux-tag-input-icon-inset,
+    &.ux-tag-input-clear-inset {
+      padding-right: 32px;
     }
 
-    &.focus {
-        border-color: @form-control-focus-border;
+    &.ux-tag-input-icon-inset.ux-tag-input-clear-inset {
+      padding-right: 64px;
     }
+  }
 
-    &.invalid,
-    &.ng-invalid.ng-touched:not(.focus),
-    &.ng-invalid.ng-dirty {
-        border-color: @critical;
-    }
-
-    .has-error & {
-        border-color: @form-control-invalid-color;
-    }
+  &.disabled {
+    background-color: @tag-input-disabled-bg;
 
     .ux-tag-icons {
-        display: flex;
-        position: absolute;
-        top: 0;
-        right: 0;
-
-        .ux-tag-icon,
-        .ux-select-icon {
-            cursor: pointer;
-            pointer-events: all;
-            padding: 9px 5px;
-            font-size: 16px;
-            line-height: 16px;
-
-            &:last-of-type {
-                margin-right: 4px;
-            }
-        }
-
-        .ux-custom-icon {
-            display: flex;
-            align-items: center;
-        }
+      .ux-tag-icon,
+      .ux-select-icon {
+        cursor: default;
+        color: #d8d9db;
+      }
     }
+  }
+
+  &.focus {
+    border-color: @form-control-focus-border;
+  }
+
+  &.invalid,
+  &.ng-invalid.ng-touched:not(.focus),
+  &.ng-invalid.ng-dirty {
+    border-color: @critical;
+  }
+
+  .has-error & {
+    border-color: @form-control-invalid-color;
+  }
+
+  .ux-tag-icons {
+    display: flex;
+    position: absolute;
+    top: 0;
+    right: 0;
+
+    .ux-tag-icon,
+    .ux-select-icon {
+      cursor: pointer;
+      pointer-events: all;
+      padding: 9px 5px;
+      font-size: 16px;
+      line-height: 16px;
+
+      &:last-of-type {
+        margin-right: 4px;
+      }
+    }
+
+    .ux-custom-icon {
+      display: flex;
+      align-items: center;
+    }
+  }
 }

@@ -5,39 +5,39 @@ import { IPlayground } from '../../../../../interfaces/IPlayground';
 import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
 
 @Component({
-    selector: 'uxd-components-static-tooltip',
-    templateUrl: './static-tooltip.component.html',
-    styleUrls: ['./static-tooltip.component.less'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'uxd-components-static-tooltip',
+  templateUrl: './static-tooltip.component.html',
+  styleUrls: ['./static-tooltip.component.less'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 @DocumentationSectionComponent('ComponentsStaticTooltipComponent')
 export class ComponentsStaticTooltipComponent
-    extends BaseDocumentationSection
-    implements IPlaygroundProvider
+  extends BaseDocumentationSection
+  implements IPlaygroundProvider
 {
-    open: boolean = true;
+  open: boolean = true;
 
-    playground: IPlayground = {
-        files: {
-            'app.component.html': this.snippets.raw.appHtml,
-            'app.component.ts': this.snippets.raw.appTs,
-            'app.component.css': this.snippets.raw.appCss,
-        },
-        modules: [
-            {
-                imports: ['PopoverModule'],
-                library: '@ux-aspects/ux-aspects',
-            },
-        ],
-    };
+  playground: IPlayground = {
+    files: {
+      'app.component.html': this.snippets.raw.appHtml,
+      'app.component.ts': this.snippets.raw.appTs,
+      'app.component.css': this.snippets.raw.appCss,
+    },
+    modules: [
+      {
+        imports: ['PopoverModule'],
+        library: '@ux-aspects/ux-aspects',
+      },
+    ],
+  };
 
-    constructor() {
-        super(
-            import.meta.webpackContext('./snippets/', {
-                recursive: false,
-                regExp: /\.(html|css|js|ts)$/,
-            })
-        );
-    }
+  constructor() {
+    super(
+      import.meta.webpackContext('./snippets/', {
+        recursive: false,
+        regExp: /\.(html|css|js|ts)$/,
+      })
+    );
+  }
 }

@@ -7,8 +7,8 @@ import { MenuTriggerDirective } from './menu-trigger/menu-trigger.directive';
 import { MenuModule } from './menu.module';
 
 @Component({
-    selector: 'app-menu-test',
-    template: `
+  selector: 'app-menu-test',
+  template: `
     <ux-menu #menu [alignment]="alignment">
       <button
         type="button"
@@ -43,7 +43,7 @@ import { MenuModule } from './menu.module';
       </button>
     </div>
   `,
-    standalone: false
+  standalone: false,
 })
 export class MenuTestComponent {
   alignment = 'start';
@@ -461,8 +461,8 @@ describe('MenuComponent', () => {
 });
 
 @Component({
-    selector: 'app-menu-trigger-test',
-    template: `
+  selector: 'app-menu-trigger-test',
+  template: `
     @if (showTrigger) {
       <div class="btn-group">
         <button
@@ -499,7 +499,7 @@ describe('MenuComponent', () => {
       </button>
     </ux-menu>
   `,
-    standalone: false
+  standalone: false,
 })
 export class MenuTriggerDestroyTestComponent {
   @ViewChild(MenuTriggerDirective, { static: false })

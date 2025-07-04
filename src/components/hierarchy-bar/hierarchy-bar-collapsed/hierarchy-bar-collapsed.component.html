@@ -4,24 +4,27 @@
 </div>
 
 <div #nodes class="hierarchy-bar-nodes">
-
   @if (_first) {
     <ux-hierarchy-bar-node
       [readonly]="readonly"
       [popoverTemplate]="content"
       [node]="_first"
-      (selected)="hierarchyBar.selectNode($event)">
+      (selected)="hierarchyBar.selectNode($event)"
+    >
     </ux-hierarchy-bar-node>
   }
 
   @if (_parents.length > 0) {
     <div class="hierarchy-bar-overflow">
       <div class="hierarchy-bar-overflow-container">
-        <ng-container [ngTemplateOutlet]="hierarchyBar.overflowTemplate || defaultOverflowTemplate"
-          [ngTemplateOutletContext]="{ $implicit: _parents }">
+        <ng-container
+          [ngTemplateOutlet]="hierarchyBar.overflowTemplate || defaultOverflowTemplate"
+          [ngTemplateOutletContext]="{ $implicit: _parents }"
+        >
         </ng-container>
       </div>
-      <button [attr.aria-label]="hierarchyBar.showSiblingsAriaLabel"
+      <button
+        [attr.aria-label]="hierarchyBar.showSiblingsAriaLabel"
         uxFocusIndicator
         uxFocusIndicatorOrigin
         class="hierarchy-bar-node-arrow"
@@ -35,19 +38,20 @@
         [popoverContext]="{ popover: popover }"
         [showTriggers]="hierarchyBar.popoverShowTriggers"
         [hideTriggers]="hierarchyBar.popoverHideTriggers"
-        type="button">
+        type="button"
+      >
         <ux-icon name="next" class="hierarchy-bar-node-arrow-icon"></ux-icon>
       </button>
     </div>
   }
-
 
   @if (_last) {
     <ux-hierarchy-bar-node
       [readonly]="readonly"
       [popoverTemplate]="content"
       [node]="_last"
-      (selected)="hierarchyBar.selectNode($event)">
+      (selected)="hierarchyBar.selectNode($event)"
+    >
     </ux-hierarchy-bar-node>
   }
 
@@ -55,7 +59,6 @@
   <div class="hierarchy-bar-addons">
     <ng-content select="trailing-addons"></ng-content>
   </div>
-
 </div>
 
 <!-- Allow content to be placed on the right of the items -->
@@ -68,7 +71,8 @@
   <ux-hierarchy-bar-popover
     [loading]="(hierarchyBar.getChildren(node) | async)?.loading"
     [nodes]="(hierarchyBar.getChildren(node) | async)?.children"
-    (selected)="hierarchyBar.selectNode($event); popover.hide()">
+    (selected)="hierarchyBar.selectNode($event); popover.hide()"
+  >
   </ux-hierarchy-bar-popover>
 </ng-template>
 
@@ -77,7 +81,8 @@
   <ux-hierarchy-bar-popover
     [nodes]="(_siblings | async)?.children"
     [loading]="(_siblings | async)?.loading"
-    (selected)="hierarchyBar.selectNode($event); popover.hide()">
+    (selected)="hierarchyBar.selectNode($event); popover.hide()"
+  >
   </ux-hierarchy-bar-popover>
 </ng-template>
 
@@ -86,13 +91,15 @@
   <ux-hierarchy-bar-popover
     [nodes]="_parents"
     [separator]="true"
-    (selected)="hierarchyBar.selectNode($event); popover.hide()">
+    (selected)="hierarchyBar.selectNode($event); popover.hide()"
+  >
   </ux-hierarchy-bar-popover>
 </ng-template>
 
 <!-- Default Overflow Template -->
 <ng-template #defaultOverflowTemplate>
-  <button uxFocusIndicator
+  <button
+    uxFocusIndicator
     uxFocusIndicatorOrigin
     [disabled]="readonly"
     class="overflow-button"
@@ -106,7 +113,8 @@
     [showTriggers]="hierarchyBar.popoverShowTriggers"
     [hideTriggers]="hierarchyBar.popoverHideTriggers"
     placement="bottom"
-    type="button">
+    type="button"
+  >
     <ux-icon name="more"></ux-icon>
   </button>
 </ng-template>

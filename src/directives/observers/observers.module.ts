@@ -3,6 +3,6 @@ import { OverflowDirective } from './overflow/overflow-observer.directive';
 
 @NgModule({
   exports: [OverflowDirective],
-  declarations: [OverflowDirective]
+  declarations: [OverflowDirective],
 })
-export class ObserversModule { }
+export class ObserversModule {}

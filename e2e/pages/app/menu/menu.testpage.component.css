@@ -1,21 +1,21 @@
 .container {
-    margin-top: 150px;
+  margin-top: 150px;
 }
 
 button.button-primary {
-    margin-bottom: 30px;
+  margin-bottom: 30px;
 }
 
 .btn-container {
-    margin-bottom: 30px;
+  margin-bottom: 30px;
 }
 
 .justify-content-center {
-    display: flex;
-    justify-content: center;
-    margin-top: 50px;
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
 }
 
 .anchor.dropdown-menu-text {
-    color: #676a6c;
+  color: #676a6c;
 }

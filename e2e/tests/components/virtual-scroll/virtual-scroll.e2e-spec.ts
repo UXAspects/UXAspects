@@ -1,128 +1,115 @@
 import { VirtualScrollPage } from './virtual-scroll.po.spec';
 
 describe('Virtual Scroll Tests', () => {
+  let page: VirtualScrollPage;
 
-    let page: VirtualScrollPage;
+  beforeEach(async () => {
+    page = new VirtualScrollPage();
+    await page.getPage();
+  });
 
-    beforeEach(async () => {
-        page = new VirtualScrollPage();
-        await page.getPage();
-    });
+  it('should have correct initial states', async () => {
+    // LOAD MORE button not visible
+    expect(await page.confirmLoadMoreIsVisible()).toBeFalsy();
 
-    it('should have correct initial states', async () => {
+    // loadOnScroll checked
+    expect(await page.confirmLoadOnScrollIsChecked()).toBeTruthy();
 
-        // LOAD MORE button not visible
-        expect(await page.confirmLoadMoreIsVisible()).toBeFalsy();
+    // 5 visible employees
+    expect(await page.getLastVisibleEmployeeIDNumber()).toBe('8');
+  });
 
-        // loadOnScroll checked
-        expect(await page.confirmLoadOnScrollIsChecked()).toBeTruthy();
+  it('should display the correct employee details', async () => {
+    // Employee's name
+    for (let i = 0; i < 4; i++) {
+      expect(await page.getEmployeeText(i)).toBe('Employee_' + i);
+    }
 
-        // 5 visible employees
-        expect(await page.getLastVisibleEmployeeIDNumber()).toBe('8');
+    // Employee's department
+    for (let i = 0; i < 4; i++) {
+      expect(await page.getDepartmentText(i)).toBe('(Department_' + i + ')');
+    }
 
-    });
+    // Employee's email
+    for (let i = 0; i < 4; i++) {
+      expect(await page.getEmailText(i)).toBe('employee.' + i + '@business.com');
+    }
 
-    it('should display the correct employee details', async () => {
+    // Employee's ID
+    for (let i = 0; i < 4; i++) {
+      expect(await page.getEmployeeIDNumber(i)).toBe(i.toString());
+    }
+  });
 
-        // Employee's name
-        for (let i = 0; i < 4; i++) {
-            expect(await page.getEmployeeText(i)).toBe('Employee_' + i);
-        }
+  it('should react to clicking on the loadOnScroll checkbox', async () => {
+    // Unchecking
+    await page.clickOnLoadOnScroll();
+    expect(await page.confirmLoadOnScrollIsChecked()).toBeFalsy();
 
-        // Employee's department
-        for (let i = 0; i < 4; i++) {
-            expect(await page.getDepartmentText(i)).toBe('(Department_' + i + ')');
-        }
+    // Checking
+    await page.clickOnLoadOnScroll();
+    expect(await page.confirmLoadOnScrollIsChecked()).toBeTruthy();
+  });
 
-        // Employee's email
-        for (let i = 0; i < 4; i++) {
-            expect(await page.getEmailText(i)).toBe('employee.' + i + '@business.com');
-        }
+  it('should display more employees when the LOAD MORE button is clicked', async () => {
+    await page.clickOnLoadOnScroll();
 
-        // Employee's ID
-        for (let i = 0; i < 4; i++) {
-            expect(await page.getEmployeeIDNumber(i)).toBe(i.toString());
-        }
+    await page.scrollToEnd();
+    expect(await page.getLastVisibleEmployeeIDNumber()).toBe('1999');
 
-    });
+    // Click on LOAD MORE button
+    await page.loadMoreButton.click();
+    await page.scrollToEnd();
+    expect(await page.getLastVisibleEmployeeIDNumber()).toBe('3999');
 
-    it('should react to clicking on the loadOnScroll checkbox', async () => {
+    // Scrolling down should not have any effect
+    await page.scrollToEnd();
+    expect(await page.getLastVisibleEmployeeIDNumber()).toBe('3999');
 
-        // Unchecking
-        await page.clickOnLoadOnScroll();
-        expect(await page.confirmLoadOnScrollIsChecked()).toBeFalsy();
+    // Click on LOAD MORE button again
+    await page.loadMoreButton.click();
+    await page.scrollToEnd();
+    expect(await page.getLastVisibleEmployeeIDNumber()).toBe('5999');
+  });
 
-        // Checking
-        await page.clickOnLoadOnScroll();
-        expect(await page.confirmLoadOnScrollIsChecked()).toBeTruthy();
+  it('should display the LOAD MORE button when appropriate', async () => {
+    // Button visible when loadOnScroll is unchecked
+    await page.clickOnLoadOnScroll();
+    expect(await page.confirmLoadMoreIsVisible()).toBeTruthy();
 
-    });
+    // Button not visible when loadOnScroll is checked
+    await page.clickOnLoadOnScroll();
+    expect(await page.confirmLoadMoreIsVisible()).toBeFalsy();
 
-    it('should display more employees when the LOAD MORE button is clicked', async () => {
+    // Button visible when not all employees are on the list
+    await page.clickOnLoadOnScroll();
+    for (let i = 0; i < 9; i++) {
+      await page.scrollToEnd();
+      expect(await page.confirmLoadMoreIsVisible()).toBeTruthy();
+      await page.loadMoreButton.click();
+    }
+    await page.scrollToEnd();
+    expect(await page.getLastVisibleEmployeeIDNumber()).toBe('19999');
+    expect(await page.confirmLoadMoreIsVisible()).toBeTruthy();
 
-        await page.clickOnLoadOnScroll();
+    // Button not visible when all employees are on the list
+    await page.loadMoreButton.click();
+    await page.scrollToEnd();
+    expect(await page.getLastVisibleEmployeeIDNumber()).toBe('21999');
+    expect(await page.confirmLoadMoreIsVisible()).toBeFalsy();
+  });
 
-        await page.scrollToEnd();
-        expect(await page.getLastVisibleEmployeeIDNumber()).toBe('1999');
+  it('should display more employees when scrolling down', async () => {
+    await page.scrollToEnd();
+    await page.waitForLastVisibleEmployeeId('2009');
+    expect(await page.getLastVisibleEmployeeIDNumber()).toBe('2009');
 
-        // Click on LOAD MORE button
-        await page.loadMoreButton.click();
-        await page.scrollToEnd();
-        expect(await page.getLastVisibleEmployeeIDNumber()).toBe('3999');
+    await page.scrollToEnd();
+    await page.waitForLastVisibleEmployeeId('4009');
+    expect(await page.getLastVisibleEmployeeIDNumber()).toBe('4009');
 
-        // Scrolling down should not have any effect
-        await page.scrollToEnd();
-        expect(await page.getLastVisibleEmployeeIDNumber()).toBe('3999');
-
-        // Click on LOAD MORE button again
-        await page.loadMoreButton.click();
-        await page.scrollToEnd();
-        expect(await page.getLastVisibleEmployeeIDNumber()).toBe('5999');
-
-    });
-
-    it('should display the LOAD MORE button when appropriate', async () => {
-
-        // Button visible when loadOnScroll is unchecked
-        await page.clickOnLoadOnScroll();
-        expect(await page.confirmLoadMoreIsVisible()).toBeTruthy();
-
-        // Button not visible when loadOnScroll is checked
-        await page.clickOnLoadOnScroll();
-        expect(await page.confirmLoadMoreIsVisible()).toBeFalsy();
-
-        // Button visible when not all employees are on the list
-        await page.clickOnLoadOnScroll();
-        for (let i = 0; i < 9; i++) {
-            await page.scrollToEnd();
-            expect(await page.confirmLoadMoreIsVisible()).toBeTruthy();
-            await page.loadMoreButton.click();
-        }
-        await page.scrollToEnd();
-        expect(await page.getLastVisibleEmployeeIDNumber()).toBe('19999');
-        expect(await page.confirmLoadMoreIsVisible()).toBeTruthy();
-
-        // Button not visible when all employees are on the list
-        await page.loadMoreButton.click();
-        await page.scrollToEnd();
-        expect(await page.getLastVisibleEmployeeIDNumber()).toBe('21999');
-        expect(await page.confirmLoadMoreIsVisible()).toBeFalsy();
-
-    });
-
-    it('should display more employees when scrolling down', async () => {
-
-        await page.scrollToEnd();
-        await page.waitForLastVisibleEmployeeId('2009');
-        expect(await page.getLastVisibleEmployeeIDNumber()).toBe('2009');
-
-        await page.scrollToEnd();
-        await page.waitForLastVisibleEmployeeId('4009');
-        expect(await page.getLastVisibleEmployeeIDNumber()).toBe('4009');
-
-        await page.scrollToEnd();
-        await page.waitForLastVisibleEmployeeId('6009');
-        expect(await page.getLastVisibleEmployeeIDNumber()).toBe('6009');
-
-    });
+    await page.scrollToEnd();
+    await page.waitForLastVisibleEmployeeId('6009');
+    expect(await page.getLastVisibleEmployeeIDNumber()).toBe('6009');
+  });
 });

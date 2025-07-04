@@ -18,24 +18,23 @@ fs.mkdirpSync(cssDistPath);
 
 // set up the less options
 const options = {
-    rootFileInfo: {
-        currentDirectory: stylesPath
-    }
+  rootFileInfo: {
+    currentDirectory: stylesPath,
+  },
 };
 
 (async () => {
-    try {
-        await renderDefaultStylesheet();
-    } catch (err) {
-        console.error(err.stack || err);
-        process.exit(1);
-    }
+  try {
+    await renderDefaultStylesheet();
+  } catch (err) {
+    console.error(err.stack || err);
+    process.exit(1);
+  }
 })();
 
-
 async function renderDefaultStylesheet() {
-    const less = await getInlinedLess('ux-aspects.less');
-    await createStylesheets(less, 'ux-aspects');
+  const less = await getInlinedLess('ux-aspects.less');
+  await createStylesheets(less, 'ux-aspects');
 }
 
 /**
@@ -43,56 +42,54 @@ async function renderDefaultStylesheet() {
  * @param {*} importFilter a function to filter the import statements that are returned.
  */
 async function getInlinedLess(lessFileName, importFilter = () => true) {
-    return new Promise((resolve, reject) => {
+  return new Promise((resolve, reject) => {
+    // Read the source .less file
+    const lessFilePath = path.join(stylesPath, lessFileName);
+    const stylesheet = fs.readFileSync(lessFilePath, 'utf8');
 
-        // Read the source .less file
-        const lessFilePath = path.join(stylesPath, lessFileName);
-        const stylesheet = fs.readFileSync(lessFilePath, 'utf8');
+    less.parse(stylesheet, options, (err, ruleset) => {
+      if (err) {
+        reject(new Error(err));
+      }
 
-        less.parse(stylesheet, options, (err, ruleset) => {
+      // make all the import statements inline
+      const statements = ruleset.rules
+        .filter(rule => rule.type === 'Import' && importFilter(rule))
+        .map(rule => `@import (inline) "${resolveTildePaths(rule.path.value)}";`)
+        .join('\n');
 
-            if (err) {
-                reject(new Error(err));
-            }
-
-            // make all the import statements inline
-            const statements = ruleset.rules.filter(rule => rule.type === 'Import' && importFilter(rule))
-                .map(rule => `@import (inline) "${ resolveTildePaths(rule.path.value) }";`)
-                .join('\n');
-
-            resolve(statements);
-        });
+      resolve(statements);
     });
+  });
 }
 
 /**
  * Create .less and .css files within `dist` for the given less content.
  */
 async function createStylesheets(less, stylesheetName) {
+  const lessOutput = await lessRender(less);
 
-    const lessOutput = await lessRender(less);
+  const lessDestinationPath = path.join(lessDistPath, `${stylesheetName}.less`);
+  fs.writeFileSync(lessDestinationPath, lessOutput.css);
+  console.log(lessDestinationPath);
 
-    const lessDestinationPath = path.join(lessDistPath, `${stylesheetName}.less`)
-    fs.writeFileSync(lessDestinationPath, lessOutput.css);
-    console.log(lessDestinationPath);
+  const cssOutput = await lessRender(lessOutput.css);
 
-    const cssOutput = await lessRender(lessOutput.css);
-
-    const cssDestinationPath = path.join(cssDistPath, `${stylesheetName}.css`);
-    fs.writeFileSync(cssDestinationPath, cssOutput.css);
-    console.log(cssDestinationPath);
+  const cssDestinationPath = path.join(cssDistPath, `${stylesheetName}.css`);
+  fs.writeFileSync(cssDestinationPath, cssOutput.css);
+  console.log(cssDestinationPath);
 }
 
 async function lessRender(input) {
-    return new Promise((resolve, reject) => {
-        less.render(input, options, (err, output) => {
-            if (err) {
-                reject(new Error(err));
-            }
+  return new Promise((resolve, reject) => {
+    less.render(input, options, (err, output) => {
+      if (err) {
+        reject(new Error(err));
+      }
 
-            resolve(output);
-        });
+      resolve(output);
     });
+  });
 }
 
 /**
@@ -106,12 +103,11 @@ async function lessRender(input) {
  * to NPM flattening the folder structure.
  */
 function resolveTildePaths(location) {
+  // only make changes if the path starts with a tilde otherwise it is fine as it is
+  if (location.indexOf('~') === 0) {
+    // update the path to be {package_root}/node_nodules/{path}
+    location = path.join(rootPath, 'node_modules', location.substr(1));
+  }
 
-    // only make changes if the path starts with a tilde otherwise it is fine as it is
-    if (location.indexOf('~') === 0) {
-        // update the path to be {package_root}/node_nodules/{path}
-        location = path.join(rootPath, 'node_modules', location.substr(1));
-    }
-
-    return location;
+  return location;
 }

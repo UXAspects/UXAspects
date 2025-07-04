@@ -2,136 +2,130 @@ import { Component } from '@angular/core';
 import { BaseSearchComponent } from '../base-search.component';
 
 @Component({
-    selector: 'ux-search-date-range',
-    templateUrl: './date-range.component.html',
-    standalone: false
+  selector: 'ux-search-date-range',
+  templateUrl: './date-range.component.html',
+  standalone: false,
 })
 export class SearchDateRangeComponent extends BaseSearchComponent {
+  type: string = 'date-range';
 
-    type: string = 'date-range';
+  get label(): string {
+    return this.config.label;
+  }
 
-    get label(): string {
-        return this.config.label;
+  get from() {
+    // if value does not exist the set it
+    if (!this.value || !this.value.from) {
+      this.from = new Date();
     }
 
-    get from() {
-
-        // if value does not exist the set it
-        if (!this.value || !this.value.from) {
-            this.from = new Date();
-        }
-
-        // ensure that the from value is a date object
-        if (this.value.from instanceof Date === false) {
-            this.value.from = new Date(this.value.from);
-        }
-
-        return this.value.from;
+    // ensure that the from value is a date object
+    if (this.value.from instanceof Date === false) {
+      this.value.from = new Date(this.value.from);
     }
 
-    set from(fromValue: string | number | Date) {
+    return this.value.from;
+  }
 
-        // create new object based on the current value
-        const value = Object.assign({}, this.value);
+  set from(fromValue: string | number | Date) {
+    // create new object based on the current value
+    const value = Object.assign({}, this.value);
 
-        // ensure that the from value is a date
-        if (fromValue instanceof Date === false) {
-            fromValue = new Date(fromValue);
-        }
-
-        // set the latest value
-        value.from = fromValue;
-
-        // update the value object while ensuring immutability
-        this.value = value;
+    // ensure that the from value is a date
+    if (fromValue instanceof Date === false) {
+      fromValue = new Date(fromValue);
     }
 
-    get to() {
+    // set the latest value
+    value.from = fromValue;
 
-        // if value does not exist the set it
-        if (!this.value || !this.value.to) {
-            this.to = new Date();
-        }
+    // update the value object while ensuring immutability
+    this.value = value;
+  }
 
-        // ensure that the to value is a date object
-        if (this.value.to instanceof Date === false) {
-            this.value.to = new Date(this.value.to);
-        }
-
-        return this.value.to;
+  get to() {
+    // if value does not exist the set it
+    if (!this.value || !this.value.to) {
+      this.to = new Date();
     }
 
-    set to(toValue: string | number | Date) {
-
-        // create new object based on the current value
-        const value = Object.assign({}, this.value);
-
-        // ensure that the to value is a date
-        if (toValue instanceof Date === false) {
-            toValue = new Date(toValue);
-        }
-
-        // set the latest value
-        value.to = toValue;
-
-        // update the value object while ensuring immutability
-        this.value = value;
+    // ensure that the to value is a date object
+    if (this.value.to instanceof Date === false) {
+      this.value.to = new Date(this.value.to);
     }
 
-    get fromLabel(): string {
-        return this.config.fromLabel || 'From';
+    return this.value.to;
+  }
+
+  set to(toValue: string | number | Date) {
+    // create new object based on the current value
+    const value = Object.assign({}, this.value);
+
+    // ensure that the to value is a date
+    if (toValue instanceof Date === false) {
+      toValue = new Date(toValue);
     }
 
-    get toLabel(): string {
-        return this.config.toLabel || 'To';
+    // set the latest value
+    value.to = toValue;
+
+    // update the value object while ensuring immutability
+    this.value = value;
+  }
+
+  get fromLabel(): string {
+    return this.config.fromLabel || 'From';
+  }
+
+  get toLabel(): string {
+    return this.config.toLabel || 'To';
+  }
+
+  get fromPlaceholder(): string {
+    return this.config.fromPlaceholder;
+  }
+
+  get toPlaceholder(): string {
+    return this.config.toPlaceholder;
+  }
+
+  get toDateInputAriaLabel(): string {
+    return this.config.toDateInputAriaLabel || 'Selected date';
+  }
+
+  get fromDateInputAriaLabel(): string {
+    return this.config.fromDateInputAriaLabel || 'Selected date';
+  }
+
+  /**
+   * Override the default validation
+   */
+  validate(): void {
+    // check if there is a config validation function
+    if (this.config.validation) {
+      return super.validate();
     }
 
-    get fromPlaceholder(): string {
-        return this.config.fromPlaceholder;
-    }
+    // create copies of the dates so we can modify time value (to ignore it)
+    const from = new Date(this.value.from);
+    const to = new Date(this.value.to);
 
-    get toPlaceholder(): string {
-        return this.config.toPlaceholder;
-    }
+    // set the time to the same so we dont compare it
+    from.setHours(0, 0, 0, 0);
+    to.setHours(0, 0, 0, 0);
 
-    get toDateInputAriaLabel(): string {
-        return this.config.toDateInputAriaLabel || 'Selected date';
-    }
-
-    get fromDateInputAriaLabel(): string {
-        return this.config.fromDateInputAriaLabel || 'Selected date';
-    }
-
-    /**
-     * Override the default validation
-     */
-    validate(): void {
-
-        // check if there is a config validation function
-        if (this.config.validation) {
-            return super.validate();
-        }
-
-        // create copies of the dates so we can modify time value (to ignore it)
-        const from = new Date(this.value.from);
-        const to = new Date(this.value.to);
-
-        // set the time to the same so we dont compare it
-        from.setHours(0, 0, 0, 0);
-        to.setHours(0, 0, 0, 0);
-
-        // valid if the from date is less than or equal to the to date
-        this.valid = from <= to;
-    }
+    // valid if the from date is less than or equal to the to date
+    this.valid = from <= to;
+  }
 }
 
 export interface SearchDateRangeConfig {
-    label?: string;
-    fromLabel?: string;
-    toLabel?: string;
-    fromPlaceholder?: string;
-    toPlaceholder?: string;
-    toDateInputAriaLabel?: string;
-    fromDateInputAriaLabel?: string;
-    validation: (value: unknown) => boolean;
+  label?: string;
+  fromLabel?: string;
+  toLabel?: string;
+  fromPlaceholder?: string;
+  toPlaceholder?: string;
+  toDateInputAriaLabel?: string;
+  fromDateInputAriaLabel?: string;
+  validation: (value: unknown) => boolean;
 }

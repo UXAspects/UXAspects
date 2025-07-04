@@ -5,17 +5,17 @@ import { TableModule, AccessibilityModule } from '@ux-aspects/ux-aspects';
 import { ColumnPickerTestPageComponent } from './column-picker.testpage.component';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        TableModule,
-        AccessibilityModule,
-        RouterModule.forChild([
-            {
-                path: '',
-                component: ColumnPickerTestPageComponent
-            }
-        ])
-    ],
-    declarations: [ColumnPickerTestPageComponent]
+  imports: [
+    CommonModule,
+    TableModule,
+    AccessibilityModule,
+    RouterModule.forChild([
+      {
+        path: '',
+        component: ColumnPickerTestPageComponent,
+      },
+    ]),
+  ],
+  declarations: [ColumnPickerTestPageComponent],
 })
-export class ColumnPickerTestPageModule { }
+export class ColumnPickerTestPageModule {}

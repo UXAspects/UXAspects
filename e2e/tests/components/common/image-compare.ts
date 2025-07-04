@@ -7,7 +7,7 @@ import { browser } from 'protractor';
  * is different and we will always have variations causing tests to fail.
  */
 export async function imageCompare(name: string): Promise<number> {
-    return await browser.imageComparison.checkScreen(name);
+  return await browser.imageComparison.checkScreen(name);
 }
 
 /**
@@ -17,5 +17,5 @@ export async function imageCompare(name: string): Promise<number> {
  * is different and we will always have variations causing tests to fail.
  */
 export async function imageCompareFullPageScreen(name: string): Promise<number> {
-    return await browser.imageComparison.checkFullPageScreen(name);
+  return await browser.imageComparison.checkFullPageScreen(name);
 }

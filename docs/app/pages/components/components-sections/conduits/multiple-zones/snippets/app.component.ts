@@ -3,14 +3,14 @@ import { Conduit, ConduitZone, ConduitZoneComponent } from '@ux-aspects/ux-aspec
 import { BehaviorSubject } from 'rxjs';
 
 @Component({
-    selector: 'app-root',
-    templateUrl: './app.component.html',
-    styleUrls: ['./app.component.css'],
-    providers: [ConduitZone]
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css'],
+  providers: [ConduitZone],
 })
 export class AppComponent extends ConduitZoneComponent {
-    zoneId: string = 'root-zone';
+  zoneId: string = 'root-zone';
 
-    @Conduit({ id: 'show-zones', producesOutput: false })
-    showZones = new BehaviorSubject(false);
+  @Conduit({ id: 'show-zones', producesOutput: false })
+  showZones = new BehaviorSubject(false);
 }

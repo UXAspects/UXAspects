@@ -2,39 +2,39 @@ import { Component } from '@angular/core';
 import { OrganizationChartNode } from '@ux-aspects/ux-aspects';
 
 @Component({
-    selector: 'app-organization-chart',
-    templateUrl: './organization-chart.testpage.component.html',
-    styleUrls: ['./organization-chart.testpage.component.less'],
-    standalone: false
+  selector: 'app-organization-chart',
+  templateUrl: './organization-chart.testpage.component.html',
+  styleUrls: ['./organization-chart.testpage.component.less'],
+  standalone: false,
 })
 export class OrganizationChartTestPageComponent {
-    toggleNodesOnClick: boolean = true;
+  toggleNodesOnClick: boolean = true;
 
-    dataset: OrganizationChartNode<OrganizationChartContext> = {
-        id: 0,
-        expanded: true,
+  dataset: OrganizationChartNode<OrganizationChartContext> = {
+    id: 0,
+    expanded: true,
+    data: {
+      name: 'Node 0',
+    },
+    children: [
+      {
+        id: 1,
         data: {
-            name: 'Node 0',
+          name: 'Node 1',
         },
         children: [
-            {
-                id: 1,
-                data: {
-                    name: 'Node 1',
-                },
-                children: [
-                    {
-                        id: 2,
-                        data: {
-                            name: 'Node 2',
-                        },
-                    },
-                ],
+          {
+            id: 2,
+            data: {
+              name: 'Node 2',
             },
+          },
         ],
-    };
+      },
+    ],
+  };
 }
 
 interface OrganizationChartContext {
-    name: string;
+  name: string;
 }

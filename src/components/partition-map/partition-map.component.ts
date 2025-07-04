@@ -36,14 +36,14 @@ interface SegmentCacheData {
 }
 
 @Component({
-    selector: 'ux-partition-map',
-    templateUrl: './partition-map.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    host: {
-        role: 'tree',
-        'aria-orientation': 'vertical',
-    },
-    standalone: false
+  selector: 'ux-partition-map',
+  templateUrl: './partition-map.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  host: {
+    role: 'tree',
+    'aria-orientation': 'vertical',
+  },
+  standalone: false,
 })
 export class PartitionMapComponent implements OnInit, OnDestroy {
   private readonly _colorService = inject(ColorService);
@@ -949,7 +949,7 @@ export class PartitionMapComponent implements OnInit, OnDestroy {
 
 export interface PartitionMapSegmentBase {
   name: string;
-   
+
   data?: { [key: string]: any };
 }
 

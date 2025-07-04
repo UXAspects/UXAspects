@@ -2,72 +2,65 @@ import { imageCompare } from '../common/image-compare';
 import { FacetContainerPage } from './facet-container.po.spec';
 
 describe('FacetContainerPage Tests', () => {
+  const page: FacetContainerPage = new FacetContainerPage();
 
-    const page: FacetContainerPage = new FacetContainerPage();
+  beforeAll(async () => {
+    await page.getPage();
+  });
 
-    beforeAll(async () => {
-        await page.getPage();
-    });
+  it('should start with no facets', async () => {
+    // No facets should be visible.
+    expect(await page.getNumberOfFacets()).toEqual(0);
+    expect(page.getClearAllButton().isPresent()).toBeFalsy();
+    expect(page.getNoItemsLabel().isPresent()).toBeTruthy();
 
-    it('should start with no facets', async () => {
+    expect(await imageCompare('facet-container-list-initial')).toEqual(0);
+  });
 
-        // No facets should be visible.
-        expect(await page.getNumberOfFacets()).toEqual(0);
-        expect(page.getClearAllButton().isPresent()).toBeFalsy();
-        expect(page.getNoItemsLabel().isPresent()).toBeTruthy();
+  it('should allow addition of facets', async () => {
+    // Create facets, checking the number displayed.
+    await page.addFacet.click();
+    expect(await page.getClearAllButton().isPresent()).toBeTruthy();
+    expect(await page.getNoItemsLabel().isPresent()).toBeFalsy();
 
-        expect(await imageCompare('facet-container-list-initial')).toEqual(0);
-    });
+    await page.addFacet.click();
+    await page.addFacet.click();
+    expect(await page.getNumberOfFacets()).toEqual(3);
 
-    it('should allow addition of facets', async () => {
+    expect(await imageCompare('facet-container-list-addition')).toEqual(0);
 
-        // Create facets, checking the number displayed.
-        await page.addFacet.click();
-        expect(await page.getClearAllButton().isPresent()).toBeTruthy();
-        expect(await page.getNoItemsLabel().isPresent()).toBeFalsy();
+    expect(await page.getFacetName(0)).toMatch('\\w+\\d*\\w*');
+    expect(await page.getFacetName(1)).toMatch('\\w+\\d*\\w*');
+    expect(await page.getFacetName(2)).toMatch('\\w+\\d*\\w*');
 
-        await page.addFacet.click();
-        await page.addFacet.click();
-        expect(await page.getNumberOfFacets()).toEqual(3);
+    await page.getClearAllButton().click();
+  });
 
-        expect(await imageCompare('facet-container-list-addition')).toEqual(0);
+  it('should allow deletion of facets one by one', async () => {
+    // Create some facets.
+    await page.addFacet.click();
+    await page.addFacet.click();
+    await page.addFacet.click();
+    expect(await page.getNumberOfFacets()).toEqual(3);
 
-        expect(await page.getFacetName(0)).toMatch('\\w+\\d*\\w*');
-        expect(await page.getFacetName(1)).toMatch('\\w+\\d*\\w*');
-        expect(await page.getFacetName(2)).toMatch('\\w+\\d*\\w*');
+    // Close the facets and confirm that the corresponding list items are unchecked.
+    await page.closeFacet(2);
+    expect(await page.getNumberOfFacets()).toEqual(2);
+    await page.closeFacet(0);
+    expect(await page.getNumberOfFacets()).toEqual(1);
 
-        await page.getClearAllButton().click();
+    await page.getClearAllButton().click();
+  });
 
-    });
+  it('should allow deletion of all facets', async () => {
+    // Create some facets.
+    await page.addFacet.click();
+    await page.addFacet.click();
+    await page.addFacet.click();
+    expect(await page.getNumberOfFacets()).toEqual(3);
 
-    it('should allow deletion of facets one by one', async () => {
-
-        // Create some facets.
-        await page.addFacet.click();
-        await page.addFacet.click();
-        await page.addFacet.click();
-        expect(await page.getNumberOfFacets()).toEqual(3);
-
-        // Close the facets and confirm that the corresponding list items are unchecked.
-        await page.closeFacet(2);
-        expect(await page.getNumberOfFacets()).toEqual(2);
-        await page.closeFacet(0);
-        expect(await page.getNumberOfFacets()).toEqual(1);
-
-        await page.getClearAllButton().click();
-    });
-
-    it('should allow deletion of all facets', async () => {
-
-        // Create some facets.
-        await page.addFacet.click();
-        await page.addFacet.click();
-        await page.addFacet.click();
-        expect(await page.getNumberOfFacets()).toEqual(3);
-
-        // Close all the facets and then confirm that the corresponding list items are unchecked.
-        await page.getClearAllButton().click();
-        expect(await page.getNumberOfFacets()).toEqual(0);
-
-    });
+    // Close all the facets and then confirm that the corresponding list items are unchecked.
+    await page.getClearAllButton().click();
+    expect(await page.getNumberOfFacets()).toEqual(0);
+  });
 });

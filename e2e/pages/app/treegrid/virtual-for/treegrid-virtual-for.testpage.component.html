@@ -1,62 +1,64 @@
 <table
-    role="treegrid"
-    aria-multiselectable="true"
-    class="table table-hover"
-    [uxTreeGrid]="items"
-    (rowsChange)="rows = $event"
-    uxFixedHeaderTable
-    [tableHeight]="500"
-    [dataset]="rows"
+  role="treegrid"
+  aria-multiselectable="true"
+  class="table table-hover"
+  [uxTreeGrid]="items"
+  (rowsChange)="rows = $event"
+  uxFixedHeaderTable
+  [tableHeight]="500"
+  [dataset]="rows"
 >
-    <thead>
+  <thead>
     <tr class="treegrid-header table-header-dark">
-        <th>
-            <span class="treegrid-header-text">Title</span>
-        </th>
-        <th>Date</th>
+      <th>
+        <span class="treegrid-header-text">Title</span>
+      </th>
+      <th>Date</th>
     </tr>
-    </thead>
-    <tbody id="demo-treegrid-body" uxVirtualForContainer>
+  </thead>
+  <tbody id="demo-treegrid-body" uxVirtualForContainer>
     <tr
-        *uxVirtualFor="let row of rows"
-        role="row"
-        [attr.aria-expanded]="row.expanded"
-        [attr.aria-level]="row.state.level + 1"
-        [attr.aria-setsize]="row.state.setSize"
-        [attr.aria-posinset]="row.state.positionInSet"
-        class="clickable"
-        [uxTreeGridRow]="row"
-        [canExpand]="row.type === 'folder'"
-        [(expanded)]="row.expanded"
-        #treeGridRow="uxTreeGridRow"
+      *uxVirtualFor="let row of rows"
+      role="row"
+      [attr.aria-expanded]="row.expanded"
+      [attr.aria-level]="row.state.level + 1"
+      [attr.aria-setsize]="row.state.setSize"
+      [attr.aria-posinset]="row.state.positionInSet"
+      class="clickable"
+      [uxTreeGridRow]="row"
+      [canExpand]="row.type === 'folder'"
+      [(expanded)]="row.expanded"
+      #treeGridRow="uxTreeGridRow"
     >
-        <td uxTreeGridIndent>
-                <span class="treegrid-expander">
-                    <button
-                        *ngIf="row.children && row.children.length > 0"
-                        aria-hidden="true"
-                        type="button"
-                        tabindex="-1"
-                        (click)="treeGridRow.toggle(); $event.stopPropagation()"
-                    >
-                        <ux-icon class="treegrid-expander-icon" name="chevron-right"></ux-icon>
-                    </button>
-                </span>
+      <td uxTreeGridIndent>
+        <span class="treegrid-expander">
+          <button
+            *ngIf="row.children && row.children.length > 0"
+            aria-hidden="true"
+            type="button"
+            tabindex="-1"
+            (click)="treeGridRow.toggle(); $event.stopPropagation()"
+          >
+            <ux-icon class="treegrid-expander-icon" name="chevron-right"></ux-icon>
+          </button>
+        </span>
 
-            <span class="treegrid-icon">
-                    <ux-icon *ngIf="row.type === 'folder' && !row.expanded" name="folder"></ux-icon>
-                    <ux-icon *ngIf="row.type === 'folder' && row.expanded" name="folder-open"></ux-icon>
-                    <ux-icon *ngIf="row.type === 'file'" name="document"></ux-icon>
-                </span>
+        <span class="treegrid-icon">
+          <ux-icon *ngIf="row.type === 'folder' && !row.expanded" name="folder"></ux-icon>
+          <ux-icon *ngIf="row.type === 'folder' && row.expanded" name="folder-open"></ux-icon>
+          <ux-icon *ngIf="row.type === 'file'" name="document"></ux-icon>
+        </span>
 
-            <span class="demo-title-cell">{{ row.title }}</span>
-        </td>
+        <span class="demo-title-cell">{{ row.title }}</span>
+      </td>
 
-        <td>
-            <span>{{ row.date | date }}</span>
-        </td>
+      <td>
+        <span>{{ row.date | date }}</span>
+      </td>
     </tr>
-    </tbody>
+  </tbody>
 </table>
 
-<p><span id="demo-row-count">{{ rows.length }}</span> rows.</p>
+<p>
+  <span id="demo-row-count">{{ rows.length }}</span> rows.
+</p>

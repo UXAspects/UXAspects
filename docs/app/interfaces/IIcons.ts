@@ -1,8 +1,8 @@
 export interface IIcons {
-    icons: IIcon[];
+  icons: IIcon[];
 }
 
 export interface IIcon {
-    name: string;
-    classname: string;
+  name: string;
+  classname: string;
 }

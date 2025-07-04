@@ -5,13 +5,12 @@ import { TooltipComponent } from '../tooltip/index';
 let uniquePopoverId = 0;
 
 @Component({
-    selector: 'ux-popover',
-    templateUrl: './popover.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'ux-popover',
+  templateUrl: './popover.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class PopoverComponent extends TooltipComponent {
-
   /** Define a unique id for each popover */
   id: string = `ux-popover-${++uniquePopoverId}`;
 

@@ -1,4 +1,4 @@
 SliderValue = {
-    low: 25,
-    high: 75
+  low: 25,
+  high: 75,
 };

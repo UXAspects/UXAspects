@@ -1,15 +1,15 @@
-
 import { TestBed } from '@angular/core/testing';
 import { ColorServiceModule } from '.';
 import { colorSets } from './color-sets';
 import { ColorService } from './color.service';
 
 describe('Color Service - Micro Focus Color Set', () => {
-
-  beforeEach(() => TestBed.configureTestingModule({
-    imports: [ColorServiceModule.forRoot(colorSets.microFocus)],
-    providers: [ColorService]
-  }));
+  beforeEach(() =>
+    TestBed.configureTestingModule({
+      imports: [ColorServiceModule.forRoot(colorSets.microFocus)],
+      providers: [ColorService],
+    })
+  );
 
   it('should return the correct rgb values for aliases', () => {
     const service: ColorService = TestBed.inject(ColorService);

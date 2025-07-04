@@ -1,62 +1,61 @@
 <div class="wrapper">
-    <table class="table table-hover m-b-nil" uxFixedHeaderTable aria-multiselectable="true">
-        <thead>
-            <tr uxColumnSorting singleSort="true">
-                <th
-                    #userNameSort
-                    id="users-name"
-                    class="clickable column-sorting"
-                    (click)="changeSortingOrder(nameColumn)"
-                    (keydown.enter)="changeSortingOrder(nameColumn)"
-                >
-                    Name
-                    <ux-column-sorting
-                        #nameColumn="ux-column-sorting"
-                        key="name"
-                    ></ux-column-sorting>
-                </th>
-                <th
-                    id="users-department"
-                    class="clickable column-sorting"
-                    (click)="changeSortingOrder(departmentColumn)"
-                    (keydown.enter)="changeSortingOrder(departmentColumn)"
-                >
-                    Department
-                    <ux-column-sorting
-                        #departmentColumn="ux-column-sorting"
-                        key="department"
-                    ></ux-column-sorting>
-                </th>
-            </tr>
-        </thead>
-        <tbody
-            #listEmployees="uxInfiniteScroll"
-            [uxInfiniteScroll]="loadCallback"
-            [(collection)]="employees"
-            [pageSize]="pageSize"
-            [loadOnScroll]="true"
-            (loading)="isLoading = true"
-            (loaded)="isLoading = false"
-            (loadError)="isLoading = false"
-            class="list-users-tbody"
+  <table class="table table-hover m-b-nil" uxFixedHeaderTable aria-multiselectable="true">
+    <thead>
+      <tr uxColumnSorting singleSort="true">
+        <th
+          #userNameSort
+          id="users-name"
+          class="clickable column-sorting"
+          (click)="changeSortingOrder(nameColumn)"
+          (keydown.enter)="changeSortingOrder(nameColumn)"
         >
-            <tr *ngFor="let employee of employees" class="employee-row">
-                <td>
-                    <span class="user-name"> {{ employee.name }}</span>
-                </td>
-                <td>
-                    <span class="user-department" title="{{ employee.department }}">{{
-                        employee.department.length > 0 ? employee.department : '-'
-                    }}</span>
-                </td>
-            </tr>
-            <div *uxInfiniteScrollLoading class="display-table-loading">
-                <div class="spinner spinner-accent spinner-bounce-middle"></div>
-            </div>
-        </tbody>
-    </table>
+          Name
+          <ux-column-sorting #nameColumn="ux-column-sorting" key="name"></ux-column-sorting>
+        </th>
+        <th
+          id="users-department"
+          class="clickable column-sorting"
+          (click)="changeSortingOrder(departmentColumn)"
+          (keydown.enter)="changeSortingOrder(departmentColumn)"
+        >
+          Department
+          <ux-column-sorting
+            #departmentColumn="ux-column-sorting"
+            key="department"
+          ></ux-column-sorting>
+        </th>
+      </tr>
+    </thead>
+    <tbody
+      #listEmployees="uxInfiniteScroll"
+      [uxInfiniteScroll]="loadCallback"
+      [(collection)]="employees"
+      [pageSize]="pageSize"
+      [loadOnScroll]="true"
+      (loading)="isLoading = true"
+      (loaded)="isLoading = false"
+      (loadError)="isLoading = false"
+      class="list-users-tbody"
+    >
+      <tr *ngFor="let employee of employees" class="employee-row">
+        <td>
+          <span class="user-name"> {{ employee.name }}</span>
+        </td>
+        <td>
+          <span class="user-department" title="{{ employee.department }}">{{
+            employee.department.length > 0 ? employee.department : '-'
+          }}</span>
+        </td>
+      </tr>
+      <div *uxInfiniteScrollLoading class="display-table-loading">
+        <div class="spinner spinner-accent spinner-bounce-middle"></div>
+      </div>
+    </tbody>
+  </table>
 </div>
 
 <br />
 
-<button class="btn button-primary" id="click-sort-twice" (click)="clickSortTwice()">Click sort twice</button>
+<button class="btn button-primary" id="click-sort-twice" (click)="clickSortTwice()">
+  Click sort twice
+</button>

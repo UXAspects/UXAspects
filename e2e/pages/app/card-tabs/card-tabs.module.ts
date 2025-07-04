@@ -5,17 +5,17 @@ import { CardTabsModule, AccessibilityModule } from '@ux-aspects/ux-aspects';
 import { CardTabsTestPageComponent } from './card-tabs.testpage.component';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        CardTabsModule,
-        AccessibilityModule,
-        RouterModule.forChild([
-            {
-                path: '',
-                component: CardTabsTestPageComponent
-            }
-        ])
-    ],
-    declarations: [CardTabsTestPageComponent]
+  imports: [
+    CommonModule,
+    CardTabsModule,
+    AccessibilityModule,
+    RouterModule.forChild([
+      {
+        path: '',
+        component: CardTabsTestPageComponent,
+      },
+    ]),
+  ],
+  declarations: [CardTabsTestPageComponent],
 })
-export class CardTabsTestPageModule { }
+export class CardTabsTestPageModule {}

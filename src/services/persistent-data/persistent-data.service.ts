@@ -6,60 +6,67 @@ import { StorageAdapter } from './adapters/storage-adapter';
 
 @Injectable()
 export class PersistentDataService {
+  /**
+   * Save the item in some form of persistent storage
+   */
+  setItem(
+    key: string,
+    value: string,
+    type: PersistentDataStorageType = PersistentDataStorageType.LocalStorage
+  ): void {
+    this.getAdapter(type).setItem(key, value);
+  }
 
-    /**
-     * Save the item in some form of persistent storage
-     */
-    setItem(key: string, value: string, type: PersistentDataStorageType = PersistentDataStorageType.LocalStorage): void {
-        this.getAdapter(type).setItem(key, value);
+  /**
+   * Get a stored value from persistent storage
+   */
+  getItem(
+    key: string,
+    type: PersistentDataStorageType = PersistentDataStorageType.LocalStorage
+  ): string {
+    return this.getAdapter(type).getItem(key);
+  }
+
+  /**
+   * Remove a stored value from persistent storage
+   */
+  removeItem(
+    key: string,
+    type: PersistentDataStorageType = PersistentDataStorageType.LocalStorage
+  ): void {
+    this.getAdapter(type).removeItem(key);
+  }
+
+  /**
+   * Remove a stored value from persistent storage
+   */
+  clear(type: PersistentDataStorageType = PersistentDataStorageType.LocalStorage): void {
+    this.getAdapter(type).clear();
+  }
+
+  /**
+   * Return the appropriate adapter based on the type requested
+   */
+  private getAdapter(type: PersistentDataStorageType): StorageAdapter {
+    switch (type) {
+      case PersistentDataStorageType.Cookie:
+        return new CookieAdapter();
+
+      case PersistentDataStorageType.LocalStorage:
+        // eslint-disable-next-line no-case-declarations
+        const localStorageAdapter = new LocalStorageAdapter();
+        return localStorageAdapter.getSupported();
+
+      case PersistentDataStorageType.SessionStorage:
+        // eslint-disable-next-line no-case-declarations
+        const sessionStorageAdapter = new SessionStorageAdapter();
+        return sessionStorageAdapter.getSupported();
     }
-
-    /**
-     * Get a stored value from persistent storage
-     */
-    getItem(key: string, type: PersistentDataStorageType = PersistentDataStorageType.LocalStorage): string {
-        return this.getAdapter(type).getItem(key);
-    }
-
-    /**
-     * Remove a stored value from persistent storage
-     */
-    removeItem(key: string, type: PersistentDataStorageType = PersistentDataStorageType.LocalStorage): void {
-        this.getAdapter(type).removeItem(key);
-    }
-
-    /**
-     * Remove a stored value from persistent storage
-     */
-    clear(type: PersistentDataStorageType = PersistentDataStorageType.LocalStorage): void {
-        this.getAdapter(type).clear();
-    }
-
-    /**
-     * Return the appropriate adapter based on the type requested
-     */
-    private getAdapter(type: PersistentDataStorageType): StorageAdapter {
-
-        switch (type) {
-
-            case PersistentDataStorageType.Cookie:
-                return new CookieAdapter();
-
-            case PersistentDataStorageType.LocalStorage:
-                // eslint-disable-next-line no-case-declarations
-                const localStorageAdapter = new LocalStorageAdapter();
-                return localStorageAdapter.getSupported();
-
-            case PersistentDataStorageType.SessionStorage:
-                // eslint-disable-next-line no-case-declarations
-                const sessionStorageAdapter = new SessionStorageAdapter();
-                return sessionStorageAdapter.getSupported();
-        }
-    }
+  }
 }
 
 export enum PersistentDataStorageType {
-    LocalStorage,
-    Cookie,
-    SessionStorage
+  LocalStorage,
+  Cookie,
+  SessionStorage,
 }

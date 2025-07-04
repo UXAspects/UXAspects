@@ -5,45 +5,45 @@ import { IPlayground } from '../../../../../interfaces/IPlayground';
 import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
 
 @Component({
-    selector: 'uxd-components-sorting',
-    templateUrl: './sorting.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'uxd-components-sorting',
+  templateUrl: './sorting.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 @DocumentationSectionComponent('ComponentsSortingComponent')
 export class ComponentsSortingComponent
-    extends BaseDocumentationSection
-    implements IPlaygroundProvider
+  extends BaseDocumentationSection
+  implements IPlaygroundProvider
 {
-    options: string[] = ['Date Modified', 'Name', 'Author'];
+  options: string[] = ['Date Modified', 'Name', 'Author'];
 
-    selected: string = this.options[0];
-    descending: boolean = true;
+  selected: string = this.options[0];
+  descending: boolean = true;
 
-    playground: IPlayground = {
-        files: {
-            'app.component.html': this.snippets.raw.appHtml,
-            'app.component.ts': this.snippets.raw.appTs,
-        },
-        modules: [
-            {
-                imports: ['MenuModule'],
-                library: '@ux-aspects/ux-aspects',
-            },
-        ],
-    };
+  playground: IPlayground = {
+    files: {
+      'app.component.html': this.snippets.raw.appHtml,
+      'app.component.ts': this.snippets.raw.appTs,
+    },
+    modules: [
+      {
+        imports: ['MenuModule'],
+        library: '@ux-aspects/ux-aspects',
+      },
+    ],
+  };
 
-    constructor() {
-        super(
-            import.meta.webpackContext('./snippets/', {
-                recursive: false,
-                regExp: /\.(html|css|js|ts)$/,
-            })
-        );
-    }
+  constructor() {
+    super(
+      import.meta.webpackContext('./snippets/', {
+        recursive: false,
+        regExp: /\.(html|css|js|ts)$/,
+      })
+    );
+  }
 
-    sort(option: string): void {
-        // ... perform sorting here ...
-        this.selected = option;
-    }
+  sort(option: string): void {
+    // ... perform sorting here ...
+    this.selected = option;
+  }
 }

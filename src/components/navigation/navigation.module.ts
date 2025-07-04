@@ -9,16 +9,16 @@ import { NAVIGATION_MODULE_OPTIONS, NavigationModuleOptions } from './navigation
 import { NavigationComponent } from './navigation.component';
 
 @NgModule({
-    imports: [AccessibilityModule, CommonModule, IconModule, RouterModule],
-    exports: [NavigationComponent, NavigationItemComponent],
-    declarations: [NavigationComponent, NavigationItemComponent, NavigationLinkDirective],
+  imports: [AccessibilityModule, CommonModule, IconModule, RouterModule],
+  exports: [NavigationComponent, NavigationItemComponent],
+  declarations: [NavigationComponent, NavigationItemComponent, NavigationLinkDirective],
 })
 export class NavigationModule {
-    // allow options to be specified globally
-    static forRoot(options: NavigationModuleOptions): ModuleWithProviders<NavigationModule> {
-        return {
-            ngModule: NavigationModule,
-            providers: [{ provide: NAVIGATION_MODULE_OPTIONS, useValue: options }],
-        };
-    }
+  // allow options to be specified globally
+  static forRoot(options: NavigationModuleOptions): ModuleWithProviders<NavigationModule> {
+    return {
+      ngModule: NavigationModule,
+      providers: [{ provide: NAVIGATION_MODULE_OPTIONS, useValue: options }],
+    };
+  }
 }

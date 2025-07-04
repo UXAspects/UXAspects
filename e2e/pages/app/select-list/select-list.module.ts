@@ -6,20 +6,18 @@ import { SelectListModule, AccessibilityModule } from '@ux-aspects/ux-aspects';
 import { SelectListTestPageComponent } from './select-list.testpage.component';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        SelectListModule,
-        AccessibilityModule,
-        FormsModule,
-        RouterModule.forChild([
-            {
-                path: '',
-                component: SelectListTestPageComponent
-            }
-        ])
-    ],
-    declarations: [
-        SelectListTestPageComponent
-    ]
+  imports: [
+    CommonModule,
+    SelectListModule,
+    AccessibilityModule,
+    FormsModule,
+    RouterModule.forChild([
+      {
+        path: '',
+        component: SelectListTestPageComponent,
+      },
+    ]),
+  ],
+  declarations: [SelectListTestPageComponent],
 })
-export class SelectListTestPageModule { }
+export class SelectListTestPageModule {}

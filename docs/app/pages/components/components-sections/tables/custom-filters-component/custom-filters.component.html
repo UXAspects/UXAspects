@@ -1,49 +1,57 @@
-<p>As part of UX Aspects we provide two common prebuilt Filter components, however you may require different filter components specifically for your application. We provide some useful classes for you to use to make the process of creating your own filter component simple while ensuring that it will work well with Filter Containers automatically.</p>
+<p>
+  As part of UX Aspects we provide two common prebuilt Filter components, however you may require
+  different filter components specifically for your application. We provide some useful classes for
+  you to use to make the process of creating your own filter component simple while ensuring that it
+  will work well with Filter Containers automatically.
+</p>
 
 <h4>Creating a Custom Filter Component</h4>
 
-<p>Your custom filter component should inject the FilterService. This service will provide you with the following functions:</p>
+<p>
+  Your custom filter component should inject the FilterService. This service will provide you with
+  the following functions:
+</p>
 
 <uxd-api-properties>
-    <tr uxd-api-property name="add" args="filter: Filter">
-        Will add a filter to the list of active filters.
-    </tr>
-    <tr uxd-api-property name="remove" args="filter: Filter">
-        Will remove a filter to the list of active filters.
-    </tr>
-    <tr uxd-api-property name="removeAll">
-        Will remove all filters from the list of active filters.
-    </tr>
+  <tr uxd-api-property name="add" args="filter: Filter">
+    Will add a filter to the list of active filters.
+  </tr>
+  <tr uxd-api-property name="remove" args="filter: Filter">
+    Will remove a filter to the list of active filters.
+  </tr>
+  <tr uxd-api-property name="removeAll">
+    Will remove all filters from the list of active filters.
+  </tr>
 </uxd-api-properties>
 
 <h4>Sample Custom Filter Component</h4>
 
 <ux-filter-container>
-    <ux-filter-custom [filters]="statusFilters" [initial]="statusFilters[0]"></ux-filter-custom>
+  <ux-filter-custom [filters]="statusFilters" [initial]="statusFilters[0]"></ux-filter-custom>
 </ux-filter-container>
 
-<hr>
+<hr />
 
 <p>The following code can be used to create the example above:</p>
 
 <ux-tabset [minimal]="false">
-    <ux-tab heading="HTML">
-        <uxd-snippet language="html" [content]="snippets.compiled.appHtml"></uxd-snippet>
-    </ux-tab>
+  <ux-tab heading="HTML">
+    <uxd-snippet language="html" [content]="snippets.compiled.appHtml"></uxd-snippet>
+  </ux-tab>
 
-    <ux-tab heading="TypeScript">
-        <uxd-snippet language="javascript" [content]="snippets.compiled.appTs"></uxd-snippet>
-    </ux-tab>
+  <ux-tab heading="TypeScript">
+    <uxd-snippet language="javascript" [content]="snippets.compiled.appTs"></uxd-snippet>
+  </ux-tab>
 
-    <ux-tab heading="Filter HTML">
-        <uxd-snippet language="html" [content]="snippets.compiled.sampleHtml"></uxd-snippet>
-    </ux-tab>
+  <ux-tab heading="Filter HTML">
+    <uxd-snippet language="html" [content]="snippets.compiled.sampleHtml"></uxd-snippet>
+  </ux-tab>
 
-    <ux-tab heading="Filter TypeScript">
-        <uxd-snippet language="javascript" [content]="snippets.compiled.sampleTs"></uxd-snippet>
-    </ux-tab>
+  <ux-tab heading="Filter TypeScript">
+    <uxd-snippet language="javascript" [content]="snippets.compiled.sampleTs"></uxd-snippet>
+  </ux-tab>
 
-    <ux-tab heading="Filter CSS">
-        <uxd-snippet language="css" [content]="snippets.compiled.sampleCss"></uxd-snippet>
-    </ux-tab>
+  <ux-tab heading="Filter CSS">
+    <uxd-snippet language="css" [content]="snippets.compiled.sampleCss"></uxd-snippet>
+  </ux-tab>
 </ux-tabset>

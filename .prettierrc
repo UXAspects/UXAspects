@@ -1,10 +1,12 @@
 {
-    "singleQuote": true,
-    "printWidth": 100,
-    "semi": true,
-    "arrowParens": "avoid",
-    "trailingComma": "es5",
-    "importOrder": ["^[./]"],
-    "importOrderSeparation": false,
-    "tabWidth": 2
+  "singleQuote": true,
+  "printWidth": 100,
+  "semi": true,
+  "arrowParens": "avoid",
+  "trailingComma": "es5",
+  "importOrder": ["^[./]"],
+  "importOrderSeparation": false,
+  "tabWidth": 2,
+  "importOrderParserPlugins": ["typescript", "jsx", "classProperties", "decorators-legacy"],
+  "plugins": ["@trivago/prettier-plugin-sort-imports"]
 }

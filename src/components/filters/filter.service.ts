@@ -8,51 +8,47 @@ import { Filter } from './interfaces/filter.interface';
 
 @Injectable()
 export class FilterService {
+  /** The list of active filters */
+  filters$ = new BehaviorSubject<Filter[]>([]);
 
-    /** The list of active filters */
-    filters$ = new BehaviorSubject<Filter[]>([]);
+  /** Emit all the events when they occur */
+  events$ = new Subject<FilterEvent>();
 
-    /** Emit all the events when they occur */
-    events$ = new Subject<FilterEvent>();
-
-    add(filter: Filter): void {
-
-        // if the filter is already selected or it is the intial filter then do nothing
-        if (this.isSelected(filter) || filter.initial) {
-            return;
-        }
-
-        // update the list of active filters
-        this.filters$.next([...this.filters$.value, filter]);
-
-        // emit the event
-        this.events$.next(new FilterAddEvent(filter));
+  add(filter: Filter): void {
+    // if the filter is already selected or it is the intial filter then do nothing
+    if (this.isSelected(filter) || filter.initial) {
+      return;
     }
 
-    remove(filter: Filter): void {
+    // update the list of active filters
+    this.filters$.next([...this.filters$.value, filter]);
 
-        // if the filter is not selected then do nothing
-        if (!this.isSelected(filter)) {
-            return;
-        }
+    // emit the event
+    this.events$.next(new FilterAddEvent(filter));
+  }
 
-        // update the list of active filters
-        this.filters$.next(this.filters$.value.filter(_filter => _filter !== filter));
-
-        // emit the event
-        this.events$.next(new FilterRemoveEvent(filter));
+  remove(filter: Filter): void {
+    // if the filter is not selected then do nothing
+    if (!this.isSelected(filter)) {
+      return;
     }
 
-    removeAll(): void {
+    // update the list of active filters
+    this.filters$.next(this.filters$.value.filter(_filter => _filter !== filter));
 
-        // empty the list of active filters
-        this.filters$.next([]);
+    // emit the event
+    this.events$.next(new FilterRemoveEvent(filter));
+  }
 
-        // emit the event
-        this.events$.next(new FilterRemoveAllEvent());
-    }
+  removeAll(): void {
+    // empty the list of active filters
+    this.filters$.next([]);
 
-    isSelected(filter: Filter): boolean {
-        return this.filters$.value.indexOf(filter) > -1;
-    }
+    // emit the event
+    this.events$.next(new FilterRemoveAllEvent());
+  }
+
+  isSelected(filter: Filter): boolean {
+    return this.filters$.value.indexOf(filter) > -1;
+  }
 }

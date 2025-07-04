@@ -2,12 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { BaseSearchComponent, BaseSearchComponentConfig } from '../base-search.component';
 
 @Component({
-    selector: 'ux-search-date',
-    templateUrl: './date.component.html',
-    standalone: false
+  selector: 'ux-search-date',
+  templateUrl: './date.component.html',
+  standalone: false,
 })
 export class SearchDateComponent extends BaseSearchComponent implements OnInit {
-
   type: string = 'date';
 
   get label(): string {
@@ -23,7 +22,6 @@ export class SearchDateComponent extends BaseSearchComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
     // by default set to the current date if not specified
     if (!this.value) {
       this.value = new Date();

@@ -5,13 +5,13 @@ import { InfiniteScrollDirective } from './infinite-scroll.directive';
 import { InfiniteScrollModule } from './infinite-scroll.module';
 
 @Component({
-    template: `<div
+  template: `<div
     [uxInfiniteScroll]="load"
     [filter]="filterText"
     [pageSize]="20"
     [loadOnScroll]="loadOnScroll"
   ></div> `,
-    standalone: false
+  standalone: false,
 })
 export class InfiniteScrollTestComponent {
   filterText: unknown;

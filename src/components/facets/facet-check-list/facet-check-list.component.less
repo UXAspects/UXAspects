@@ -1,84 +1,84 @@
 ux-facet-check-list {
-    .facet-check-list-container {
-        display: flex;
-        flex-direction: column;
-        margin: 0;
-        padding: 0;
+  .facet-check-list-container {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
 
-        &:focus {
-            outline: none;
-        }
-
-        .facet-check-list-item {
-            display: flex;
-            flex: none;
-            height: 32px;
-            align-items: center;
-            outline: none;
-            cursor: pointer;
-            min-width: 100%;
-            max-width: 100%;
-
-            &.ux-focus-indicator-active {
-                .focus-outline();
-            }
-
-            ux-checkbox {
-                pointer-events: none;
-            }
-
-            .facet-check-list-item-title {
-                margin-right: 5px;
-                overflow: hidden;
-                text-overflow: ellipsis;
-                word-break: break-all;
-                white-space: nowrap;
-            }
-
-            .facet-check-list-item-count {
-                color: @grey4;
-            }
-
-            &:hover {
-                background-color: @grey7;
-            }
-
-            &.disabled {
-                opacity: 0.5;
-            }
-
-            &.facet-active {
-                &:hover,
-                &:focus {
-                    opacity: 1;
-                }
-            }
-        }
-
-        // Show scrollbars
-        &.facet-check-list-scrollbar {
-            max-height: 233px;
-            overflow-y: auto;
-
-            &::-webkit-scrollbar {
-                width: 6px;
-                height: 6px;
-            }
-
-            &::-webkit-scrollbar-track {
-                background-color: transparent;
-            }
-
-            &::-webkit-scrollbar-thumb {
-                border: none;
-                background-color: transparent;
-            }
-
-            &:hover::-webkit-scrollbar-thumb,
-            &.facet-check-list-scrollbar-focused::-webkit-scrollbar-thumb {
-                border-radius: 6px;
-                background-color: @grey4;
-            }
-        }
+    &:focus {
+      outline: none;
     }
+
+    .facet-check-list-item {
+      display: flex;
+      flex: none;
+      height: 32px;
+      align-items: center;
+      outline: none;
+      cursor: pointer;
+      min-width: 100%;
+      max-width: 100%;
+
+      &.ux-focus-indicator-active {
+        .focus-outline();
+      }
+
+      ux-checkbox {
+        pointer-events: none;
+      }
+
+      .facet-check-list-item-title {
+        margin-right: 5px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        word-break: break-all;
+        white-space: nowrap;
+      }
+
+      .facet-check-list-item-count {
+        color: @grey4;
+      }
+
+      &:hover {
+        background-color: @grey7;
+      }
+
+      &.disabled {
+        opacity: 0.5;
+      }
+
+      &.facet-active {
+        &:hover,
+        &:focus {
+          opacity: 1;
+        }
+      }
+    }
+
+    // Show scrollbars
+    &.facet-check-list-scrollbar {
+      max-height: 233px;
+      overflow-y: auto;
+
+      &::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+      }
+
+      &::-webkit-scrollbar-track {
+        background-color: transparent;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        border: none;
+        background-color: transparent;
+      }
+
+      &:hover::-webkit-scrollbar-thumb,
+      &.facet-check-list-scrollbar-focused::-webkit-scrollbar-thumb {
+        border-radius: 6px;
+        background-color: @grey4;
+      }
+    }
+  }
 }

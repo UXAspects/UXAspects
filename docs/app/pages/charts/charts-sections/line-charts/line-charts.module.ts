@@ -11,36 +11,38 @@ import { ChartsMultipleAxisLineChartComponent } from './multiple-axis-line-chart
 import { ChartsStackedLineChartComponent } from './stacked-line-chart/stacked-line-chart.component';
 
 const SECTIONS = [
-    ChartsLineChartComponent,
-    ChartsStackedLineChartComponent,
-    ChartsMultipleAxisLineChartComponent
+  ChartsLineChartComponent,
+  ChartsStackedLineChartComponent,
+  ChartsMultipleAxisLineChartComponent,
 ];
 
 const ROUTES = [
-    {
-        path: '**',
-        component: DocumentationCategoryComponent,
-        data: {
-            category: ResolverService.resolveCategoryData(DocumentationPage.Charts, 'Line Charts')
-        }
-    }
+  {
+    path: '**',
+    component: DocumentationCategoryComponent,
+    data: {
+      category: ResolverService.resolveCategoryData(DocumentationPage.Charts, 'Line Charts'),
+    },
+  },
 ];
 
 @NgModule({
-    imports: [
-        NgChartsModule,
-        ColorServiceModule,
-        CommonModule,
-        DocumentationComponentsModule,
-        RouterModule.forChild(ROUTES),
-        TabsetModule,
-    ],
-    exports: SECTIONS,
-    declarations: SECTIONS,
+  imports: [
+    NgChartsModule,
+    ColorServiceModule,
+    CommonModule,
+    DocumentationComponentsModule,
+    RouterModule.forChild(ROUTES),
+    TabsetModule,
+  ],
+  exports: SECTIONS,
+  declarations: SECTIONS,
 })
 export class ChartsLineChartsModule {
-
-    constructor(componentFactoryResolver: ComponentFactoryResolver, resolverService: ResolverService) {
-        resolverService.registerResolver(componentFactoryResolver, SECTIONS);
-    }
+  constructor(
+    componentFactoryResolver: ComponentFactoryResolver,
+    resolverService: ResolverService
+  ) {
+    resolverService.registerResolver(componentFactoryResolver, SECTIONS);
+  }
 }

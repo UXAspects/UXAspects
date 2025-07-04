@@ -11,36 +11,38 @@ import { ChartsHorizontalBarChartComponent } from './horizontal-bar-chart/horizo
 import { ChartsStackedBarChartComponent } from './stacked-bar-chart/stacked-bar-chart.component';
 
 const SECTIONS = [
-    ChartsBarChartComponent,
-    ChartsHorizontalBarChartComponent,
-    ChartsStackedBarChartComponent
+  ChartsBarChartComponent,
+  ChartsHorizontalBarChartComponent,
+  ChartsStackedBarChartComponent,
 ];
 
 const ROUTES = [
-    {
-        path: '**',
-        component: DocumentationCategoryComponent,
-        data: {
-            category: ResolverService.resolveCategoryData(DocumentationPage.Charts, 'Bar Charts')
-        }
-    }
+  {
+    path: '**',
+    component: DocumentationCategoryComponent,
+    data: {
+      category: ResolverService.resolveCategoryData(DocumentationPage.Charts, 'Bar Charts'),
+    },
+  },
 ];
 
 @NgModule({
-    imports: [
-        NgChartsModule,
-        ColorServiceModule,
-        CommonModule,
-        DocumentationComponentsModule,
-        RouterModule.forChild(ROUTES),
-        TabsetModule,
-    ],
-    exports: SECTIONS,
-    declarations: SECTIONS,
+  imports: [
+    NgChartsModule,
+    ColorServiceModule,
+    CommonModule,
+    DocumentationComponentsModule,
+    RouterModule.forChild(ROUTES),
+    TabsetModule,
+  ],
+  exports: SECTIONS,
+  declarations: SECTIONS,
 })
 export class ChartsBarChartsModule {
-
-    constructor(componentFactoryResolver: ComponentFactoryResolver, resolverService: ResolverService) {
-        resolverService.registerResolver(componentFactoryResolver, SECTIONS);
-    }
+  constructor(
+    componentFactoryResolver: ComponentFactoryResolver,
+    resolverService: ResolverService
+  ) {
+    resolverService.registerResolver(componentFactoryResolver, SECTIONS);
+  }
 }

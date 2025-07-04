@@ -1,33 +1,33 @@
 .ux-side-panel.ux-item-display-panel {
-    &.open {
-        > .ux-side-panel-host {
-            &:not(.box-shadow) {
-                border-left: none;
-                box-shadow: none;
-            }
-        }
-    }
-
+  &.open {
     > .ux-side-panel-host {
-        .ux-side-panel-header {
-            &:not(.item-display-panel-shadow) {
-                &:before {
-                    display: none;
-                }
-            }
-        }
-
-        .ux-side-panel-content {
-            padding: 0;
-        }
-
-        .ux-side-panel-footer {
-            padding: 0;
-        }
+      &:not(.box-shadow) {
+        border-left: none;
+        box-shadow: none;
+      }
     }
+  }
+
+  > .ux-side-panel-host {
+    .ux-side-panel-header {
+      &:not(.item-display-panel-shadow) {
+        &:before {
+          display: none;
+        }
+      }
+    }
+
+    .ux-side-panel-content {
+      padding: 0;
+    }
+
+    .ux-side-panel-footer {
+      padding: 0;
+    }
+  }
 }
 
 .item-display-panel-inline-container {
-    display: flex;
-    overflow-x: hidden;
+  display: flex;
+  overflow-x: hidden;
 }

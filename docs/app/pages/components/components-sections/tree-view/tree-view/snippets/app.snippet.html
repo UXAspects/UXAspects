@@ -1,28 +1,30 @@
 <div class="tree-view-example-container">
-    <tree-root [nodes]="nodes" (focus)="focused = $event.node" role="tree">
-        <ng-template #treeNodeFullTemplate let-node let-index="index" let-templates="templates">
-            <div class="tree-view-node"
-                uxFocusIndicator
-                role="treeitem"
-                [attr.aria-level]="node.level"
-                [attr.aria-expanded]="node.isExpanded"
-                [tabindex]="node === focused || !focused && node.isRoot && node.index === 0 ? 0 : -1"
-                (focus)="focus(node)"
-                (blur)="blur(node)"
-                [focusIf]="node === focused">
+  <tree-root [nodes]="nodes" (focus)="focused = $event.node" role="tree">
+    <ng-template #treeNodeFullTemplate let-node let-index="index" let-templates="templates">
+      <div
+        class="tree-view-node"
+        uxFocusIndicator
+        role="treeitem"
+        [attr.aria-level]="node.level"
+        [attr.aria-expanded]="node.isExpanded"
+        [tabindex]="node === focused || !focused && node.isRoot && node.index === 0 ? 0 : -1"
+        (focus)="focus(node)"
+        (blur)="blur(node)"
+        [focusIf]="node === focused"
+      >
+        <div
+          class="node-content-wrapper"
+          [class.node-content-wrapper-active]="node.isActive"
+          [class.node-content-wrapper-focused]="node.isFocused"
+        >
+          <tree-node-expander class="m-r-xs" [node]="node"></tree-node-expander>
 
-                <div class="node-content-wrapper"
-                    [class.node-content-wrapper-active]="node.isActive"
-                    [class.node-content-wrapper-focused]="node.isFocused">
+          <ux-icon [name]="getIcon(node)" class="m-r-xxs"></ux-icon>
+          <span>{{ node.data.name }}</span>
+        </div>
 
-                    <tree-node-expander class="m-r-xs" [node]="node"></tree-node-expander>
-
-                    <ux-icon [name]="getIcon(node)" class="m-r-xxs"></ux-icon>
-                    <span>{{ node.data.name }}</span>
-                </div>
-
-                <tree-node-children role="group" [node]="node" [templates]="templates"></tree-node-children>
-            </div>
-        </ng-template>
-    </tree-root>
+        <tree-node-children role="group" [node]="node" [templates]="templates"></tree-node-children>
+      </div>
+    </ng-template>
+  </tree-root>
 </div>

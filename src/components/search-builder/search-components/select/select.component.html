@@ -2,7 +2,8 @@
   <label class="form-label">{{ label }}</label>
 }
 
-<ux-select [(value)]="value"
+<ux-select
+  [(value)]="value"
   [options]="options"
   [multiple]="multiple"
   [placeholder]="placeholder"
@@ -16,5 +17,6 @@
   [loadingTemplate]="config.loadingTemplate"
   [optionTemplate]="config.optionTemplate"
   [noOptionsTemplate]="config.noOptionsTemplate"
-  [focusIf]="focus">
+  [focusIf]="focus"
+>
 </ux-select>

@@ -6,73 +6,75 @@ import { RESIZABLE_TABLE_SERVICE_TOKEN } from '../resizable-table-service.token'
 import { ResizableTableService } from './resizable-table.service';
 
 @Directive({
-    selector: '[uxResizableTable]',
-    exportAs: 'ux-resizable-table',
-    providers: [
-        {
-            provide: RESIZABLE_TABLE_SERVICE_TOKEN,
-            useClass: ResizableTableService
-        }
-    ],
-    host: {
-        class: 'ux-resizable-table'
+  selector: '[uxResizableTable]',
+  exportAs: 'ux-resizable-table',
+  providers: [
+    {
+      provide: RESIZABLE_TABLE_SERVICE_TOKEN,
+      useClass: ResizableTableService,
     },
-    standalone: false
+  ],
+  host: {
+    class: 'ux-resizable-table',
+  },
+  standalone: false,
 })
 export class ResizableTableDirective extends BaseResizableTableDirective {
+  /** Get all the column headers */
+  @ContentChildren(ResizableTableColumnComponent, { descendants: true })
+  columns: QueryList<ResizableTableColumnComponent>;
 
-    /** Get all the column headers */
-    @ContentChildren(ResizableTableColumnComponent, { descendants: true }) columns: QueryList<ResizableTableColumnComponent>;
+  constructor() {
+    super();
+    // we should hide any horizontal overflow when we are resizing
+    this._table.isResizing$.pipe(takeUntil(this._onDestroy)).subscribe(this.setOverflow.bind(this));
+  }
 
-    constructor() {
-        super();
-        // we should hide any horizontal overflow when we are resizing
-        this._table.isResizing$.pipe(takeUntil(this._onDestroy)).subscribe(this.setOverflow.bind(this));
+  /**
+   * If this is being used within a modal the table width may initially be zero. This can cause some issues when it does actually appear
+   * visibily on screen. We should only setup the table once we actually have a width/
+   */
+  onTableReady(): void {
+    // if we have already initialised or the table width is currently 0 then do nothing
+    if (this._initialised || this.getScrollWidth() === 0) {
+      return;
     }
 
-    /**
-     * If this is being used within a modal the table width may initially be zero. This can cause some issues when it does actually appear
-     * visibily on screen. We should only setup the table once we actually have a width/
-     */
-    onTableReady(): void {
+    // ensure we initially set the table width
+    this._table.tableWidth = this.getScrollWidth();
 
-        // if we have already initialised or the table width is currently 0 then do nothing
-        if (this._initialised || this.getScrollWidth() === 0) {
-            return;
-        }
+    // set the columns - prevent expression changed error
+    Promise.resolve().then(() => {
+      // initially set the columns
+      this._table.setColumns(this.columns);
 
-        // ensure we initially set the table width
-        this._table.tableWidth = this.getScrollWidth();
+      // force relayout to occur to ensure the UI is consistent with the internal state
+      this.updateLayout();
+    });
 
-        // set the columns - prevent expression changed error
-        Promise.resolve().then(() => {
-            // initially set the columns
-            this._table.setColumns(this.columns);
+    // watch for any future changes to the columns
+    this.columns.changes
+      .pipe(takeUntil(this._onDestroy))
+      .subscribe(() => Promise.resolve().then(() => this._table.setColumns(this.columns)));
 
-            // force relayout to occur to ensure the UI is consistent with the internal state
-            this.updateLayout();
-        });
+    this._initialised = true;
+  }
 
-        // watch for any future changes to the columns
-        this.columns.changes.pipe(takeUntil(this._onDestroy)).subscribe(() =>
-            Promise.resolve().then(() => this._table.setColumns(this.columns))
-        );
+  /** Force the layout to recalculate */
+  updateLayout(): void {
+    Promise.resolve().then(() =>
+      this.columns.forEach((_column, index) => this._table.resizeColumn(index, 0))
+    );
+  }
 
-        this._initialised = true;
-    }
-
-    /** Force the layout to recalculate */
-    updateLayout(): void {
-        Promise.resolve().then(() => this.columns.forEach((_column, index) => this._table.resizeColumn(index, 0)));
-    }
-
-    /**
-     * We should hide any horizontal overflow whenever we are resizing, this is because when we are dragging a column
-     * we must set the column widths in pixel values as percentages cause some jankiness when moving them. However pixel
-     * values are less precise and can in some cases cause overflow, so we should hide overflow when we are resizing
-     */
-    private setOverflow(isResizing: boolean): void {
-        Array.from((this._elementRef.nativeElement as HTMLTableElement).tBodies)
-            .forEach(tbody => this._renderer.setStyle(tbody, 'overflow-x', isResizing ? 'hidden' : null));
-    }
+  /**
+   * We should hide any horizontal overflow whenever we are resizing, this is because when we are dragging a column
+   * we must set the column widths in pixel values as percentages cause some jankiness when moving them. However pixel
+   * values are less precise and can in some cases cause overflow, so we should hide overflow when we are resizing
+   */
+  private setOverflow(isResizing: boolean): void {
+    Array.from((this._elementRef.nativeElement as HTMLTableElement).tBodies).forEach(tbody =>
+      this._renderer.setStyle(tbody, 'overflow-x', isResizing ? 'hidden' : null)
+    );
+  }
 }

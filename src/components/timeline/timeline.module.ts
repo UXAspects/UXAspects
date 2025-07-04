@@ -5,17 +5,8 @@ import { TimelineEventComponent } from './timeline-event/timeline-event.componen
 import { TimelineComponent } from './timeline.component';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        IconModule
-    ],
-    exports: [
-        TimelineComponent,
-        TimelineEventComponent
-    ],
-    declarations: [
-        TimelineComponent,
-        TimelineEventComponent
-    ]
+  imports: [CommonModule, IconModule],
+  exports: [TimelineComponent, TimelineEventComponent],
+  declarations: [TimelineComponent, TimelineEventComponent],
 })
-export class TimelineModule { }
+export class TimelineModule {}

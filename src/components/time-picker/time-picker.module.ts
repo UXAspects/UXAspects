@@ -6,13 +6,8 @@ import { SpinButtonModule } from '../spin-button/index';
 import { TimePickerComponent } from './time-picker.component';
 
 @NgModule({
-    imports: [
-        AccessibilityModule,
-        CommonModule,
-        FormsModule,
-        SpinButtonModule
-    ],
-    exports: [TimePickerComponent],
-    declarations: [TimePickerComponent],
+  imports: [AccessibilityModule, CommonModule, FormsModule, SpinButtonModule],
+  exports: [TimePickerComponent],
+  declarations: [TimePickerComponent],
 })
-export class TimePickerModule { }
+export class TimePickerModule {}

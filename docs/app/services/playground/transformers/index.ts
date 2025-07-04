@@ -7,4 +7,3 @@ export * from './package-json';
 export * from './playground-transformer';
 export * from './rename-angular-json';
 export * from './stylesheet';
-

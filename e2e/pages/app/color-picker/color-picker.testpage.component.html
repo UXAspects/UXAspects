@@ -1,37 +1,38 @@
 <div class="demo-color-picker-container">
-    <button
-        type="button"
-        aria-label="Select a color"
-        id="color-picker-toggle"
-        class="btn button-secondary dropdown-toggle"
-        [uxMenuTriggerFor]="colorPickerDropdown"
-    >
-        <span class="ux-color-picker-button-preview" [style.background-color]="selected.rgba">
-            &nbsp;
-        </span>
-        <ux-icon name="chevron-down"></ux-icon>
-    </button>
-
-    <span class="m-l-lg">
-        Selected: <code id="selected-color-hex">{{selected.hex}}</code> &mdash; <code>{{selected.rgba}}</code>
+  <button
+    type="button"
+    aria-label="Select a color"
+    id="color-picker-toggle"
+    class="btn button-secondary dropdown-toggle"
+    [uxMenuTriggerFor]="colorPickerDropdown"
+  >
+    <span class="ux-color-picker-button-preview" [style.background-color]="selected.rgba">
+      &nbsp;
     </span>
+    <ux-icon name="chevron-down"></ux-icon>
+  </button>
+
+  <span class="m-l-lg">
+    Selected: <code id="selected-color-hex">{{ selected.hex }}</code> &mdash;
+    <code>{{ selected.rgba }}</code>
+  </span>
 </div>
 
 <ux-menu #colorPickerDropdown id="color-picker-dropdown">
-    <ux-color-picker
-        [colors]="colors"
-        [(selected)]="selected"
-        (selectedChange)="onColorPickerSelectedChange()"
-        [columns]="columns"
-        [buttonStyle]="buttonStyle"
-        [buttonSize]="buttonSize"
-        [showTooltips]="showTooltips"
-        [showInput]="showInput"
-        (inputSubmit)="close()"
-        uxMenuInitialFocus
-    ></ux-color-picker>
+  <ux-color-picker
+    [colors]="colors"
+    [(selected)]="selected"
+    (selectedChange)="onColorPickerSelectedChange()"
+    [columns]="columns"
+    [buttonStyle]="buttonStyle"
+    [buttonSize]="buttonSize"
+    [showTooltips]="showTooltips"
+    [showInput]="showInput"
+    (inputSubmit)="close()"
+    uxMenuInitialFocus
+  ></ux-color-picker>
 
-    <div *ngIf="showInput" class="btn-container demo-color-picker-close">
-        <button type="button" class="btn button-primary" (click)="close()">Accept</button>
-    </div>
+  <div *ngIf="showInput" class="btn-container demo-color-picker-close">
+    <button type="button" class="btn button-primary" (click)="close()">Accept</button>
+  </div>
 </ux-menu>

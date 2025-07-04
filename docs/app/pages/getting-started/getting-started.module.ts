@@ -6,21 +6,19 @@ import { DocumentationComponentsModule } from '../../components/components.modul
 import { GettingStartedPageComponent } from './getting-started.component';
 
 const routes: Routes = [
-    {
-        path: '',
-        component: GettingStartedPageComponent
-    }
+  {
+    path: '',
+    component: GettingStartedPageComponent,
+  },
 ];
 
 @NgModule({
-    declarations: [
-        GettingStartedPageComponent
-    ],
-    imports: [
-        CommonModule,
-        DocumentationComponentsModule,
-        RouterModule.forChild(routes),
-        TabsetModule
-    ]
+  declarations: [GettingStartedPageComponent],
+  imports: [
+    CommonModule,
+    DocumentationComponentsModule,
+    RouterModule.forChild(routes),
+    TabsetModule,
+  ],
 })
 export class GettingStartedPageModule {}

@@ -1,30 +1,39 @@
-<ux-virtual-scroll id="container" class="virtual-scroll-container" [collection]="employees" [cellHeight]="63"
-    [loadOnScroll]="loadOnScroll" (loading)="loadPage($event)">
-
-    <div *uxVirtualScrollCell="let cell = cell" class="virtual-cell">
-        <div class="employee-details">
-            <div>
-                <span class="employee-name">{{cell.name}}</span>
-                <span class="employee-department">({{cell.department}})</span>
-            </div>
-            <div>
-                <span class="employee-email">{{cell.email}}</span>
-            </div>
-        </div>
-        <div class="employee-id">{{cell.id}}</div>
+<ux-virtual-scroll
+  id="container"
+  class="virtual-scroll-container"
+  [collection]="employees"
+  [cellHeight]="63"
+  [loadOnScroll]="loadOnScroll"
+  (loading)="loadPage($event)"
+>
+  <div *uxVirtualScrollCell="let cell = cell" class="virtual-cell">
+    <div class="employee-details">
+      <div>
+        <span class="employee-name">{{ cell.name }}</span>
+        <span class="employee-department">({{ cell.department }})</span>
+      </div>
+      <div>
+        <span class="employee-email">{{ cell.email }}</span>
+      </div>
     </div>
+    <div class="employee-id">{{ cell.id }}</div>
+  </div>
 
-    <div id="loading-text" *uxVirtualScrollLoading class="virtual-scroll-loading">
-        <div class="spinner spinner-accent spinner-bounce-middle"></div>
-        <div>Loading...</div>
-    </div>
+  <div id="loading-text" *uxVirtualScrollLoading class="virtual-scroll-loading">
+    <div class="spinner spinner-accent spinner-bounce-middle"></div>
+    <div>Loading...</div>
+  </div>
 
-    <button id="load-more-button" *uxVirtualScrollLoadButton type="button" class="btn btn-link button-primary virtual-scroll-load-more">
-        Load more
-    </button>
-
+  <button
+    id="load-more-button"
+    *uxVirtualScrollLoadButton
+    type="button"
+    class="btn btn-link button-primary virtual-scroll-load-more"
+  >
+    Load more
+  </button>
 </ux-virtual-scroll>
 
 <div>
-    <ux-checkbox id="load-on-scroll-checkbox" [(value)]="loadOnScroll">loadOnScroll</ux-checkbox>
+  <ux-checkbox id="load-on-scroll-checkbox" [(value)]="loadOnScroll">loadOnScroll</ux-checkbox>
 </div>

@@ -7,29 +7,29 @@ import { SlidersTestPageComponent } from './sliders.testpage.component';
 import { SlidersThumbOrderTestPageComponent } from './thumb-order/sliders-thumb-order.testpage.component';
 
 @NgModule({
-    imports: [
-        FormsModule,
-        SliderModule,
-        AccessibilityModule,
-        RouterModule.forChild([
-            {
-                path: '',
-                component: SlidersTestPageComponent
-            },
-            {
-                path: 'persistent-callout',
-                component: SlidersPersistentCalloutTestPageComponent
-            },
-            {
-                path: 'thumb-order',
-                component: SlidersThumbOrderTestPageComponent
-            }
-        ])
-    ],
-    declarations: [
-        SlidersTestPageComponent,
-        SlidersPersistentCalloutTestPageComponent,
-        SlidersThumbOrderTestPageComponent
-    ]
+  imports: [
+    FormsModule,
+    SliderModule,
+    AccessibilityModule,
+    RouterModule.forChild([
+      {
+        path: '',
+        component: SlidersTestPageComponent,
+      },
+      {
+        path: 'persistent-callout',
+        component: SlidersPersistentCalloutTestPageComponent,
+      },
+      {
+        path: 'thumb-order',
+        component: SlidersThumbOrderTestPageComponent,
+      },
+    ]),
+  ],
+  declarations: [
+    SlidersTestPageComponent,
+    SlidersPersistentCalloutTestPageComponent,
+    SlidersThumbOrderTestPageComponent,
+  ],
 })
-export class SlidersTestPageModule { }
+export class SlidersTestPageModule {}

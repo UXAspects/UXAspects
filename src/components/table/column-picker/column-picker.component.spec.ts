@@ -5,8 +5,8 @@ import { ColumnPickerGroup } from './column-picker.component';
 import { ColumnPickerGroupItem } from './interfaces/column-picker-group-item.interface';
 
 @Component({
-    selector: 'app-column-picker',
-    template: `
+  selector: 'app-column-picker',
+  template: `
     <ux-column-picker
       [(selected)]="selected"
       [(deselected)]="deselected"
@@ -15,7 +15,7 @@ import { ColumnPickerGroupItem } from './interfaces/column-picker-group-item.int
     >
     </ux-column-picker>
   `,
-    standalone: false
+  standalone: false,
 })
 export class ColumnPickerTestComponent {
   selected: ReadonlyArray<string> = ['Type', 'Date'];
@@ -96,8 +96,8 @@ describe('Column Picker Component', () => {
 });
 
 @Component({
-    selector: 'app-column-picker-sort',
-    template: `
+  selector: 'app-column-picker-sort',
+  template: `
     <ux-column-picker
       [(selected)]="selected"
       [(deselected)]="deselected"
@@ -106,7 +106,7 @@ describe('Column Picker Component', () => {
     >
     </ux-column-picker>
   `,
-    standalone: false
+  standalone: false,
 })
 export class ColumnPickerSortTestComponent {
   selected: ReadonlyArray<string | ColumnPickerGroupItem> = ['Type', 'Date'];

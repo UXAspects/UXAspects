@@ -6,35 +6,34 @@ import { DocumentationCategoryComponent } from '../../../../components/documenta
 import { DocumentationPage, ResolverService } from '../../../../services/resolver/resolver.service';
 import { ChartsSparkChartsComponent } from './spark-charts/spark-charts.component';
 
-
-const SECTIONS = [
-    ChartsSparkChartsComponent
-];
+const SECTIONS = [ChartsSparkChartsComponent];
 
 const ROUTES = [
-    {
-        path: '**',
-        component: DocumentationCategoryComponent,
-        data: {
-            category: ResolverService.resolveCategoryData(DocumentationPage.Charts, 'Spark Charts')
-        }
-    }
+  {
+    path: '**',
+    component: DocumentationCategoryComponent,
+    data: {
+      category: ResolverService.resolveCategoryData(DocumentationPage.Charts, 'Spark Charts'),
+    },
+  },
 ];
 
 @NgModule({
-    imports: [
-        ColorServiceModule,
-        DocumentationComponentsModule,
-        RouterModule.forChild(ROUTES),
-        SparkModule,
-        TabsetModule,
-    ],
-    exports: SECTIONS,
-    declarations: SECTIONS,
+  imports: [
+    ColorServiceModule,
+    DocumentationComponentsModule,
+    RouterModule.forChild(ROUTES),
+    SparkModule,
+    TabsetModule,
+  ],
+  exports: SECTIONS,
+  declarations: SECTIONS,
 })
 export class ChartsSparkChartsModule {
-
-    constructor(componentFactoryResolver: ComponentFactoryResolver, resolverService: ResolverService) {
-        resolverService.registerResolver(componentFactoryResolver, SECTIONS);
-    }
+  constructor(
+    componentFactoryResolver: ComponentFactoryResolver,
+    resolverService: ResolverService
+  ) {
+    resolverService.registerResolver(componentFactoryResolver, SECTIONS);
+  }
 }

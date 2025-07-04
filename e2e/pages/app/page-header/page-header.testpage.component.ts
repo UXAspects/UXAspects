@@ -1,130 +1,133 @@
 import { Component } from '@angular/core';
-import { Breadcrumb, PageHeaderIconMenu, PageHeaderNavigationAlignment, PageHeaderNavigationItem } from '@ux-aspects/ux-aspects';
+import {
+  Breadcrumb,
+  PageHeaderIconMenu,
+  PageHeaderNavigationAlignment,
+  PageHeaderNavigationItem,
+} from '@ux-aspects/ux-aspects';
 
 @Component({
-    selector: 'page-header-app',
-    templateUrl: './page-header.testpage.component.html',
-    standalone: false
+  selector: 'page-header-app',
+  templateUrl: './page-header.testpage.component.html',
+  standalone: false,
 })
 export class PageHeaderTestPageComponent {
+  condensed: boolean = false;
+  autoselect: boolean = false;
+  alignment: PageHeaderNavigationAlignment = 'center';
+  selected: string;
 
-    condensed: boolean = false;
-    autoselect: boolean = false;
-    alignment: PageHeaderNavigationAlignment = 'center';
-    selected: string;
+  crumbs: Breadcrumb[] = [
+    {
+      title: 'Home',
+      routerLink: 'home',
+    },
+    {
+      title: 'Archive',
+      // eslint-disable-next-line @typescript-eslint/no-empty-function
+      onClick: () => {},
+    },
+  ];
 
-    crumbs: Breadcrumb[] = [
+  items: PageHeaderNavigationItem[] = [
+    {
+      icon: 'home',
+      title: 'Home',
+    },
+    {
+      icon: 'analytics',
+      title: 'Analytics',
+      children: [
         {
-            title: 'Home',
-            routerLink: 'home'
+          title: 'Bar Charts',
         },
         {
-            title: 'Archive',
-            // eslint-disable-next-line @typescript-eslint/no-empty-function
-            onClick: () => {}
-        }
-    ];
+          title: 'Pie Charts',
+          children: [
+            {
+              title: 'Daily View',
+            },
+            {
+              title: 'Weekly View',
+            },
+            {
+              title: 'Monthly View',
+            },
+          ],
+        },
+      ],
+    },
+  ];
 
-    items: PageHeaderNavigationItem[] = [
+  items2: PageHeaderNavigationItem[] = [
+    {
+      icon: 'home',
+      title: 'Home',
+    },
+    {
+      icon: 'analytics',
+      title: 'Analytics',
+      children: [
         {
-            icon: 'home',
-            title: 'Home'
+          title: 'Daily View',
+          select: () => (this.selected = 'Daily View'),
         },
         {
-            icon: 'analytics',
-            title: 'Analytics',
-            children: [
-                {
-                    title: 'Bar Charts'
-                },
-                {
-                    title: 'Pie Charts',
-                    children: [
-                        {
-                            title: 'Daily View'
-                        },
-                        {
-                            title: 'Weekly View'
-                        },
-                        {
-                            title: 'Monthly View'
-                        }
-                    ]
-                }
-            ]
-        }
-    ];
-
-    items2: PageHeaderNavigationItem[] = [
-        {
-            icon: 'home',
-            title: 'Home'
+          title: 'Weekly View',
+          select: () => (this.selected = 'Weekly View'),
         },
         {
-            icon: 'analytics',
-            title: 'Analytics',
-            children: [
-                {
-                    title: 'Daily View',
-                    select: () => this.selected = 'Daily View'
-                },
-                {
-                    title: 'Weekly View',
-                    select: () => this.selected = 'Weekly View'
-                },
-                {
-                    title: 'Monthly View',
-                    select: () => this.selected = 'Monthly View'
-                }
-            ]
-        }
-    ];
+          title: 'Monthly View',
+          select: () => (this.selected = 'Monthly View'),
+        },
+      ],
+    },
+  ];
 
-    iconMenus: PageHeaderIconMenu[] = [
+  iconMenus: PageHeaderIconMenu[] = [
+    {
+      icon: 'notification',
+      badge: 3,
+      dropdown: [
         {
-            icon: 'notification',
-            badge: 3,
-            dropdown: [
-                {
-                    icon: 'chat',
-                    title: 'You have 16 messages',
-                    subtitle: '4 minutes ago',
-                    divider: true
-                },
-                {
-                    icon: 'social-twitter',
-                    title: '3 New Followers',
-                    subtitle: '12 minutes ago',
-                    divider: true
-                },
-                {
-                    icon: 'cloud',
-                    title: 'Server Rebooted',
-                    subtitle: '22 minutes ago'
-                }
-            ]
+          icon: 'chat',
+          title: 'You have 16 messages',
+          subtitle: '4 minutes ago',
+          divider: true,
         },
         {
-            icon: 'actions',
-            dropdown: [
-                {
-                    header: true,
-                    title: 'John Doe',
-                    divider: true
-                },
-                {
-                    icon: 'user-settings',
-                    title: 'Settings'
-                },
-                {
-                    icon: 'logout',
-                    title: 'Log Out'
-                },
-                {
-                    title: 'Show Tips'
-                }
-            ]
-        }
-    ];
-
+          icon: 'social-twitter',
+          title: '3 New Followers',
+          subtitle: '12 minutes ago',
+          divider: true,
+        },
+        {
+          icon: 'cloud',
+          title: 'Server Rebooted',
+          subtitle: '22 minutes ago',
+        },
+      ],
+    },
+    {
+      icon: 'actions',
+      dropdown: [
+        {
+          header: true,
+          title: 'John Doe',
+          divider: true,
+        },
+        {
+          icon: 'user-settings',
+          title: 'Settings',
+        },
+        {
+          icon: 'logout',
+          title: 'Log Out',
+        },
+        {
+          title: 'Show Tips',
+        },
+      ],
+    },
+  ];
 }

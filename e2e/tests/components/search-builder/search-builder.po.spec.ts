@@ -2,58 +2,55 @@ import { $, $$, browser } from 'protractor';
 
 // eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace SearchBuilderPage {
-
-    export class Page {
-
-        async getPage(): Promise<void> {
-            await browser.get('#/search-builder');
-        }
-
-        query = $('pre');
-        buttons = $$('.search-builder-group-add-field');
-        textButton = this.buttons.get(0);
-        anyButton = this.buttons.get(1);
-        allButton = this.buttons.get(2);
-        noneButton = this.buttons.get(3);
-
-        setQueryBtn = $('#set-query');
-        setInvalidQueryBtn = $('#set-invalid-query');
-        validity = $('#validity');
-
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        async getQueryObject(): Promise<any> {
-            return JSON.parse(await this.query.getText());
-        }
-
-        async addTextField(): Promise<void> {
-            return this.textButton.click();
-        }
-
-        async addDateField(): Promise<void> {
-            return this.anyButton.click();
-        }
-
-        async addDateRangeField(): Promise<void> {
-            return this.allButton.click();
-        }
-
-        async addSelectField(): Promise<void> {
-            return this.noneButton.click();
-        }
-
-        async setQuery(): Promise<void> {
-            return this.setQueryBtn.click();
-        }
-
-        async setInvalidQuery(): Promise<void> {
-            return this.setInvalidQueryBtn.click();
-        }
-
-        async getValid(): Promise<boolean> {
-            const valid = await this.validity.getText();
-
-            return valid === 'valid';
-        }
-
+  export class Page {
+    async getPage(): Promise<void> {
+      await browser.get('#/search-builder');
     }
+
+    query = $('pre');
+    buttons = $$('.search-builder-group-add-field');
+    textButton = this.buttons.get(0);
+    anyButton = this.buttons.get(1);
+    allButton = this.buttons.get(2);
+    noneButton = this.buttons.get(3);
+
+    setQueryBtn = $('#set-query');
+    setInvalidQueryBtn = $('#set-invalid-query');
+    validity = $('#validity');
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    async getQueryObject(): Promise<any> {
+      return JSON.parse(await this.query.getText());
+    }
+
+    async addTextField(): Promise<void> {
+      return this.textButton.click();
+    }
+
+    async addDateField(): Promise<void> {
+      return this.anyButton.click();
+    }
+
+    async addDateRangeField(): Promise<void> {
+      return this.allButton.click();
+    }
+
+    async addSelectField(): Promise<void> {
+      return this.noneButton.click();
+    }
+
+    async setQuery(): Promise<void> {
+      return this.setQueryBtn.click();
+    }
+
+    async setInvalidQuery(): Promise<void> {
+      return this.setInvalidQueryBtn.click();
+    }
+
+    async getValid(): Promise<boolean> {
+      const valid = await this.validity.getText();
+
+      return valid === 'valid';
+    }
+  }
 }

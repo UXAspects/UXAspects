@@ -1,12 +1,21 @@
-import { Directive, ElementRef, HostBinding, HostListener, inject, Input, OnDestroy, OnInit } from '@angular/core';
+import {
+  Directive,
+  ElementRef,
+  HostBinding,
+  HostListener,
+  inject,
+  Input,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { Subject } from 'rxjs';
 import { filter, map, takeUntil } from 'rxjs/operators';
 import { SankeyNodeLink } from './interfaces/node-link.interface';
 import { SankeyFocusManager } from './sankey-focus-manager';
 
 @Directive({
-    selector: '[uxSankeyNode]',
-    standalone: false
+  selector: '[uxSankeyNode]',
+  standalone: false,
 })
 export class SankeyNodeDirective<T> implements OnInit, OnDestroy {
   private readonly _focusManager = inject<SankeyFocusManager<T>>(SankeyFocusManager);
@@ -23,11 +32,19 @@ export class SankeyNodeDirective<T> implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     // Update the tabindex based on the current active item
-    this._focusManager.active$.pipe(map(item => item && item.node.id === this.node.node.id), takeUntil(this._onDestroy))
-      .subscribe(isActive => this.tabIndex = isActive ? 0 : -1);
+    this._focusManager.active$
+      .pipe(
+        map(item => item && item.node.id === this.node.node.id),
+        takeUntil(this._onDestroy)
+      )
+      .subscribe(isActive => (this.tabIndex = isActive ? 0 : -1));
 
     // If this element should be focused perform the focus
-    this._focusManager.focused$.pipe(filter(node => node.node.id === this.node.node.id), takeUntil(this._onDestroy))
+    this._focusManager.focused$
+      .pipe(
+        filter(node => node.node.id === this.node.node.id),
+        takeUntil(this._onDestroy)
+      )
       .subscribe(() => this._elementRef.nativeElement.focus());
   }
 

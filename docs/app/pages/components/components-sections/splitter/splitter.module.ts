@@ -8,36 +8,35 @@ import { DocumentationPage, ResolverService } from '../../../../services/resolve
 import { ComponentsSideInsetPanelSplitterComponent } from './side-inset-panel-splitter/side-inset-panel-splitter.component';
 import { ComponentsSplitterComponent } from './splitter/splitter.component';
 
-const SECTIONS = [
-    ComponentsSplitterComponent,
-    ComponentsSideInsetPanelSplitterComponent
-];
+const SECTIONS = [ComponentsSplitterComponent, ComponentsSideInsetPanelSplitterComponent];
 
 const ROUTES = [
-    {
-        path: '**',
-        component: DocumentationCategoryComponent,
-        data: {
-            category: ResolverService.resolveCategoryData(DocumentationPage.Components, 'Splitter')
-        }
-    }
+  {
+    path: '**',
+    component: DocumentationCategoryComponent,
+    data: {
+      category: ResolverService.resolveCategoryData(DocumentationPage.Components, 'Splitter'),
+    },
+  },
 ];
 
 @NgModule({
-    imports: [
-        AccessibilityModule,
-        AngularSplitModule,
-        DocumentationComponentsModule,
-        IconModule,
-        RouterModule.forChild(ROUTES),
-        TabsetModule,
-    ],
-    exports: SECTIONS,
-    declarations: SECTIONS,
+  imports: [
+    AccessibilityModule,
+    AngularSplitModule,
+    DocumentationComponentsModule,
+    IconModule,
+    RouterModule.forChild(ROUTES),
+    TabsetModule,
+  ],
+  exports: SECTIONS,
+  declarations: SECTIONS,
 })
 export class ComponentsSplitterModule {
-
-    constructor(componentFactoryResolver: ComponentFactoryResolver, resolverService: ResolverService) {
-        resolverService.registerResolver(componentFactoryResolver, SECTIONS);
-    }
+  constructor(
+    componentFactoryResolver: ComponentFactoryResolver,
+    resolverService: ResolverService
+  ) {
+    resolverService.registerResolver(componentFactoryResolver, SECTIONS);
+  }
 }

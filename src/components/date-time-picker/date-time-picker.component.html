@@ -1,5 +1,4 @@
 <div class="calendar-container">
-
   <ux-date-time-picker-header></ux-date-time-picker-header>
 
   @if (datepicker.showDate$ | async) {
@@ -21,19 +20,21 @@
 
   <!-- Display a Time Picker -->
   @if (datepicker.showTime$ | async) {
-    <ux-date-time-picker-time-view (timezoneChange)="_onTimezoneChange($event)"
+    <ux-date-time-picker-time-view
+      (timezoneChange)="_onTimezoneChange($event)"
     ></ux-date-time-picker-time-view>
   }
-
 </div>
 
 @if (datepicker.showNowBtn$ | async) {
-  <button type="button"
+  <button
+    type="button"
     uxFocusIndicator
     class="now-button"
     [attr.aria-label]="nowBtnAriaLabel"
     [disabled]="_isTodayDisabled"
-    (click)="setToNow()">
+    (click)="setToNow()"
+  >
     {{ datepicker.nowBtnText$ | async }}
   </button>
 }

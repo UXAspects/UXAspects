@@ -4,37 +4,35 @@ import { PageHeaderService } from '../../page-header.service';
 import type { PageHeaderNavigationDropdownItem } from '../navigation.component';
 
 @Component({
-    selector: 'ux-page-header-horizontal-navigation-dropdown-item',
-    exportAs: 'ux-page-header-horizontal-navigation-dropdown-item',
-    templateUrl: './navigation-dropdown-item.component.html',
-    standalone: false
+  selector: 'ux-page-header-horizontal-navigation-dropdown-item',
+  exportAs: 'ux-page-header-horizontal-navigation-dropdown-item',
+  templateUrl: './navigation-dropdown-item.component.html',
+  standalone: false,
 })
 export class PageHeaderNavigationDropdownItemComponent {
-    private readonly _pageHeaderService = inject(PageHeaderService);
+  private readonly _pageHeaderService = inject(PageHeaderService);
 
-    /** Access the data for this item */
-    @Input() item: PageHeaderNavigationDropdownItem;
+  /** Access the data for this item */
+  @Input() item: PageHeaderNavigationDropdownItem;
 
-    select(item: PageHeaderNavigationDropdownItem): void {
-
-        // clicking on an item that is disabled or with children then return
-        if (item.disabled || item.children) {
-            return;
-        }
-
-        // emit the selected item in an event
-        this._pageHeaderService.select(item);
+  select(item: PageHeaderNavigationDropdownItem): void {
+    // clicking on an item that is disabled or with children then return
+    if (item.disabled || item.children) {
+      return;
     }
 
-    keydownHandler(event: KeyboardEvent, item: PageHeaderNavigationDropdownItem): void {
+    // emit the selected item in an event
+    this._pageHeaderService.select(item);
+  }
 
-        switch (event.keyCode) {
-            case ENTER:
-            case SPACE:
-                this.select(item);
-                event.preventDefault();
-                event.stopPropagation();
-                break;
-        }
+  keydownHandler(event: KeyboardEvent, item: PageHeaderNavigationDropdownItem): void {
+    switch (event.keyCode) {
+      case ENTER:
+      case SPACE:
+        this.select(item);
+        event.preventDefault();
+        event.stopPropagation();
+        break;
     }
+  }
 }

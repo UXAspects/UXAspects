@@ -6,35 +6,34 @@ import { DocumentationCategoryComponent } from '../../../../components/documenta
 import { DocumentationPage, ResolverService } from '../../../../services/resolver/resolver.service';
 import { ChartsPartitionMapComponent } from './partition-map/partition-map.component';
 
-
-const SECTIONS = [
-    ChartsPartitionMapComponent
-];
+const SECTIONS = [ChartsPartitionMapComponent];
 
 const ROUTES = [
-    {
-        path: '**',
-        component: DocumentationCategoryComponent,
-        data: {
-            category: ResolverService.resolveCategoryData(DocumentationPage.Charts, 'Partition Map')
-        }
-    }
+  {
+    path: '**',
+    component: DocumentationCategoryComponent,
+    data: {
+      category: ResolverService.resolveCategoryData(DocumentationPage.Charts, 'Partition Map'),
+    },
+  },
 ];
 
 @NgModule({
-    imports: [
-        DocumentationComponentsModule,
-        PartitionMapModule,
-        RouterModule.forChild(ROUTES),
-        TabsetModule,
-        TooltipModule,
-    ],
-    exports: SECTIONS,
-    declarations: SECTIONS,
+  imports: [
+    DocumentationComponentsModule,
+    PartitionMapModule,
+    RouterModule.forChild(ROUTES),
+    TabsetModule,
+    TooltipModule,
+  ],
+  exports: SECTIONS,
+  declarations: SECTIONS,
 })
 export class ChartsPartitionMapModule {
-
-    constructor(componentFactoryResolver: ComponentFactoryResolver, resolverService: ResolverService) {
-        resolverService.registerResolver(componentFactoryResolver, SECTIONS);
-    }
+  constructor(
+    componentFactoryResolver: ComponentFactoryResolver,
+    resolverService: ResolverService
+  ) {
+    resolverService.registerResolver(componentFactoryResolver, SECTIONS);
+  }
 }

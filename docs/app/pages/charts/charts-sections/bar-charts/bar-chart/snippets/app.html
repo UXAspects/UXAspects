@@ -1,28 +1,26 @@
 <div class="demo-chart-container">
-
-    <canvas aria-label="Bar chart showing file type totals"
-        baseChart
-        [datasets]="barChartData"
-        [options]="barChartOptions"
-        [labels]="barChartLabels"
-        [legend]="barChartLegend"
-        type="bar">
-
-        <table aria-label="Chart data">
-            <thead>
-                <tr>
-                    <th>File Type</th>
-                    <th>Number of Files</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let label of barChartLabels; let idx = index">
-                    <td>{{label}}</td>
-                    <td>{{barChartData[0].data[idx]}}</td>
-                </tr>
-            </tbody>
-        </table>
-
-    </canvas>
-
+  <canvas
+    aria-label="Bar chart showing file type totals"
+    baseChart
+    [datasets]="barChartData"
+    [options]="barChartOptions"
+    [labels]="barChartLabels"
+    [legend]="barChartLegend"
+    type="bar"
+  >
+    <table aria-label="Chart data">
+      <thead>
+        <tr>
+          <th>File Type</th>
+          <th>Number of Files</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let label of barChartLabels; let idx = index">
+          <td>{{label}}</td>
+          <td>{{barChartData[0].data[idx]}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </canvas>
 </div>

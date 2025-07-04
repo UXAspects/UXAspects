@@ -4,9 +4,10 @@ import { ColorServiceModule, colorSets } from '../../services/color';
 import { MediaPlayerModule } from './media-player.module';
 
 @Component({
-    selector: 'ux-media-player-audio',
-    template: '<ux-media-player class="media-player" type="audio" [filename]="filename" [source]="audioSource"></ux-media-player>',
-    standalone: false
+  selector: 'ux-media-player-audio',
+  template:
+    '<ux-media-player class="media-player" type="audio" [filename]="filename" [source]="audioSource"></ux-media-player>',
+  standalone: false,
 })
 export class MediaPlayerAudioComponent {
   filename: string = null;

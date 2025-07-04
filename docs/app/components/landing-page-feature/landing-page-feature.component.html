@@ -1,5 +1,9 @@
-<img class="landing-feature-image" [src]="image">
+<img class="landing-feature-image" [src]="image" />
 <h2 class="landing-feature-title">{{ header }}</h2>
 <p class="landing-feature-description">{{ description }}</p>
-<a class="landing-feature-link" *ngIf="link && !link.router" [href]="link.link" target="_blank">{{ link.title }}</a>
-<a class="landing-feature-link" *ngIf="link && link.router" [routerLink]="link.link">{{ link.title }}</a>
+<a class="landing-feature-link" *ngIf="link && !link.router" [href]="link.link" target="_blank">{{
+  link.title
+}}</a>
+<a class="landing-feature-link" *ngIf="link && link.router" [routerLink]="link.link">{{
+  link.title
+}}</a>

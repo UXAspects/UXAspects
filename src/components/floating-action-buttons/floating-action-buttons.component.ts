@@ -1,62 +1,80 @@
 import { animate, query, stagger, style, transition, trigger } from '@angular/animations';
-import { AfterViewInit, ChangeDetectionStrategy, Component, ContentChildren, ElementRef, EventEmitter, HostListener, inject, Input, OnDestroy, Output, QueryList } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  Component,
+  ContentChildren,
+  ElementRef,
+  EventEmitter,
+  HostListener,
+  inject,
+  Input,
+  OnDestroy,
+  Output,
+  QueryList,
+} from '@angular/core';
 import { Subscription } from 'rxjs';
 import { FloatingActionButtonComponent } from './floating-action-button.component';
-import { FloatingActionButtonDirection, FloatingActionButtonsService } from './floating-action-buttons.service';
+import {
+  FloatingActionButtonDirection,
+  FloatingActionButtonsService,
+} from './floating-action-buttons.service';
 
 @Component({
-    selector: 'ux-floating-action-buttons',
-    templateUrl: './floating-action-buttons.component.html',
-    providers: [FloatingActionButtonsService],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    preserveWhitespaces: false,
-    animations: [
-        trigger('fabAnimation', [
-            transition('void => true', [
-                query('ux-floating-action-button', style({ opacity: 0 })),
-                query('ux-floating-action-button', stagger(50, animate(250, style({ opacity: 1 }))))
-            ]),
-            transition('true => void', [
-                query('ux-floating-action-button', stagger(-50, animate(250, style({ opacity: 0 }))))
-            ])
-        ])
-    ],
-    standalone: false
+  selector: 'ux-floating-action-buttons',
+  templateUrl: './floating-action-buttons.component.html',
+  providers: [FloatingActionButtonsService],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  preserveWhitespaces: false,
+  animations: [
+    trigger('fabAnimation', [
+      transition('void => true', [
+        query('ux-floating-action-button', style({ opacity: 0 })),
+        query('ux-floating-action-button', stagger(50, animate(250, style({ opacity: 1 })))),
+      ]),
+      transition('true => void', [
+        query('ux-floating-action-button', stagger(-50, animate(250, style({ opacity: 0 })))),
+      ]),
+    ]),
+  ],
+  standalone: false,
 })
 export class FloatingActionButtonsComponent implements AfterViewInit, OnDestroy {
-    readonly fab = inject(FloatingActionButtonsService);
+  readonly fab = inject(FloatingActionButtonsService);
 
-    private readonly _elementRef = inject(ElementRef);
+  private readonly _elementRef = inject(ElementRef);
 
-    /** Specify the direction that the FAB should display */
-    @Input() set direction(direction: FloatingActionButtonDirection) { this.fab.direction$.next(direction); }
+  /** Specify the direction that the FAB should display */
+  @Input() set direction(direction: FloatingActionButtonDirection) {
+    this.fab.direction$.next(direction);
+  }
 
-    /** Emit whenever the open state changes */
-    @Output() openChange = new EventEmitter<boolean>();
+  /** Emit whenever the open state changes */
+  @Output() openChange = new EventEmitter<boolean>();
 
-    /** Get all child FAB buttons */
-    @ContentChildren(FloatingActionButtonComponent) buttons: QueryList<FloatingActionButtonComponent>;
+  /** Get all child FAB buttons */
+  @ContentChildren(FloatingActionButtonComponent) buttons: QueryList<FloatingActionButtonComponent>;
 
-    private readonly _subscription: Subscription = new Subscription();
+  private readonly _subscription: Subscription = new Subscription();
 
-    constructor() {
-        this._subscription.add(this.fab.open$.subscribe(value => this.openChange.emit(value)));
+  constructor() {
+    this._subscription.add(this.fab.open$.subscribe(value => this.openChange.emit(value)));
+  }
+
+  ngAfterViewInit(): void {
+    this.fab.setButtons(this.buttons);
+  }
+
+  ngOnDestroy(): void {
+    this._subscription.unsubscribe();
+  }
+
+  /*
+   * Detect any clicks to trigger close of the menu
+   */
+  @HostListener('document:click', ['$event.target']) close(target: HTMLElement): void {
+    if (!this._elementRef.nativeElement.contains(target)) {
+      this.fab.close();
     }
-
-    ngAfterViewInit(): void {
-        this.fab.setButtons(this.buttons);
-    }
-
-    ngOnDestroy(): void {
-        this._subscription.unsubscribe();
-    }
-
-    /*
-     * Detect any clicks to trigger close of the menu
-     */
-    @HostListener('document:click', ['$event.target']) close(target: HTMLElement): void {
-        if (!this._elementRef.nativeElement.contains(target)) {
-            this.fab.close();
-        }
-    }
+  }
 }

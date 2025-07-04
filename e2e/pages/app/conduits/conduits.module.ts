@@ -9,23 +9,18 @@ import { ZoneThreeComponent } from './zones/zone-three/zone-three.component';
 import { ZoneTwoComponent } from './zones/zone-two/zone-two.component';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        CheckboxModule,
-        AccessibilityModule,
-        FormsModule,
-        RouterModule.forChild([
-            {
-                path: '',
-                component: ConduitTestPageComponent
-            }
-        ])
-    ],
-    declarations: [
-        ConduitTestPageComponent,
-        ZoneOneComponent,
-        ZoneTwoComponent,
-        ZoneThreeComponent
-    ]
+  imports: [
+    CommonModule,
+    CheckboxModule,
+    AccessibilityModule,
+    FormsModule,
+    RouterModule.forChild([
+      {
+        path: '',
+        component: ConduitTestPageComponent,
+      },
+    ]),
+  ],
+  declarations: [ConduitTestPageComponent, ZoneOneComponent, ZoneTwoComponent, ZoneThreeComponent],
 })
-export class ConduitsTestPageModule { }
+export class ConduitsTestPageModule {}

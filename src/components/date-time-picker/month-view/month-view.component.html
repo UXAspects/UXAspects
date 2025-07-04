@@ -2,7 +2,8 @@
   @for (row of monthService.grid$ | async; track trackRowByFn($index)) {
     <div class="calendar-row" role="row">
       @for (item of row; track trackMonthByFn($index, item)) {
-        <button type="button"
+        <button
+          type="button"
           uxFocusIndicator
           uxFocusIndicatorOrigin
           [programmaticFocusIndicator]="true"
@@ -20,7 +21,8 @@
           (keydown.ArrowLeft)="focusMonth(item, -1); $event.preventDefault()"
           (keydown.ArrowRight)="focusMonth(item, 1); $event.preventDefault()"
           (keydown.ArrowUp)="focusMonth(item, -4); $event.preventDefault()"
-          (keydown.ArrowDown)="focusMonth(item, 4); $event.preventDefault()">
+          (keydown.ArrowDown)="focusMonth(item, 4); $event.preventDefault()"
+        >
           {{ item.name }}
         </button>
       }

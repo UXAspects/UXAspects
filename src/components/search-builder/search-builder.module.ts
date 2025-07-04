@@ -17,30 +17,26 @@ import { SearchSelectComponent } from './search-components/select/select.compone
 import { SearchTextComponent } from './search-components/text/text.component';
 
 @NgModule({
-    imports: [
-        AccessibilityModule,
-        CommonModule,
-        DateTimePickerModule,
-        FocusIfModule,
-        FormsModule,
-        IconModule,
-        PopoverModule,
-        SelectModule,
-    ],
-    exports: [
-        SearchBuilderComponent,
-        SearchBuilderGroupComponent,
-        BaseSearchComponent
-    ],
-    declarations: [
-        SearchBuilderComponent,
-        SearchBuilderGroupComponent,
-        SearchTextComponent,
-        SearchDateComponent,
-        SearchDateRangeComponent,
-        SearchBuilderOutletDirective,
-        SearchSelectComponent,
-        BaseSearchComponent
-    ]
+  imports: [
+    AccessibilityModule,
+    CommonModule,
+    DateTimePickerModule,
+    FocusIfModule,
+    FormsModule,
+    IconModule,
+    PopoverModule,
+    SelectModule,
+  ],
+  exports: [SearchBuilderComponent, SearchBuilderGroupComponent, BaseSearchComponent],
+  declarations: [
+    SearchBuilderComponent,
+    SearchBuilderGroupComponent,
+    SearchTextComponent,
+    SearchDateComponent,
+    SearchDateRangeComponent,
+    SearchBuilderOutletDirective,
+    SearchSelectComponent,
+    BaseSearchComponent,
+  ],
 })
-export class SearchBuilderModule { }
+export class SearchBuilderModule {}

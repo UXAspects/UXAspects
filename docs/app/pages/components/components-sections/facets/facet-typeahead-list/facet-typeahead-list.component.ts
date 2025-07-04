@@ -8,73 +8,73 @@ import { IPlayground } from '../../../../../interfaces/IPlayground';
 import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
 
 @Component({
-    selector: 'uxd-components-facet-typeahead-list',
-    templateUrl: './facet-typeahead-list.component.html',
-    standalone: false
+  selector: 'uxd-components-facet-typeahead-list',
+  templateUrl: './facet-typeahead-list.component.html',
+  standalone: false,
 })
 @DocumentationSectionComponent('ComponentsFacetTypeaheadListComponent')
 export class ComponentsFacetTypeaheadListComponent
-    extends BaseDocumentationSection
-    implements IPlaygroundProvider
+  extends BaseDocumentationSection
+  implements IPlaygroundProvider
 {
-    facets: Observable<Facet[]>;
-    suggestions: Facet[] = [];
-    query: string = '';
-    users: Facet[] = [];
+  facets: Observable<Facet[]>;
+  suggestions: Facet[] = [];
+  query: string = '';
+  users: Facet[] = [];
 
-    playground: IPlayground = {
-        files: {
-            'app.component.ts': this.snippets.raw.appTs,
-            'app.component.html': this.snippets.raw.appHtml,
-        },
-        modules: [
-            {
-                imports: ['FacetsModule'],
-                library: '@ux-aspects/ux-aspects',
-            },
-        ],
-    };
+  playground: IPlayground = {
+    files: {
+      'app.component.ts': this.snippets.raw.appTs,
+      'app.component.html': this.snippets.raw.appHtml,
+    },
+    modules: [
+      {
+        imports: ['FacetsModule'],
+        library: '@ux-aspects/ux-aspects',
+      },
+    ],
+  };
 
-    constructor() {
-        super(
-            import.meta.webpackContext('./snippets/', {
-                recursive: false,
-                regExp: /\.(html|css|js|ts)$/,
-            })
-        );
+  constructor() {
+    super(
+      import.meta.webpackContext('./snippets/', {
+        recursive: false,
+        regExp: /\.(html|css|js|ts)$/,
+      })
+    );
 
-        // generate random facet data
-        for (let idx = 0; idx < 1000; idx++) {
-            this.users.push(new Facet(chance.name(), null, chance.integer({ min: 0, max: 100 })));
-        }
-
-        // sort the users alphabetically
-        this.users.sort((userOne, userTwo) => {
-            if (userOne.title < userTwo.title) {
-                return -1;
-            }
-
-            if (userOne.title > userTwo.title) {
-                return 1;
-            }
-
-            return 0;
-        });
-
-        // present the top 6 items as suggestions
-        this.suggestions = this.users.slice(0, 6);
-
-        // Create an observable which can be used for fetching data from server
-        this.facets = Observable.create((observer: Observer<Facet[]>) => {
-            // simulate server request
-            setTimeout(() => {
-                // return list of filtered users from "server"
-                observer.next(
-                    this.users.filter(
-                        user => user.title.toLowerCase().indexOf(this.query.toLowerCase()) !== -1
-                    )
-                );
-            }, 750);
-        });
+    // generate random facet data
+    for (let idx = 0; idx < 1000; idx++) {
+      this.users.push(new Facet(chance.name(), null, chance.integer({ min: 0, max: 100 })));
     }
+
+    // sort the users alphabetically
+    this.users.sort((userOne, userTwo) => {
+      if (userOne.title < userTwo.title) {
+        return -1;
+      }
+
+      if (userOne.title > userTwo.title) {
+        return 1;
+      }
+
+      return 0;
+    });
+
+    // present the top 6 items as suggestions
+    this.suggestions = this.users.slice(0, 6);
+
+    // Create an observable which can be used for fetching data from server
+    this.facets = Observable.create((observer: Observer<Facet[]>) => {
+      // simulate server request
+      setTimeout(() => {
+        // return list of filtered users from "server"
+        observer.next(
+          this.users.filter(
+            user => user.title.toLowerCase().indexOf(this.query.toLowerCase()) !== -1
+          )
+        );
+      }, 750);
+    });
+  }
 }

@@ -1,109 +1,109 @@
 .alert-info {
-    color: @alert-info-color;
-    background-color: @alert-info-bg;
-    border: 1px solid @alert-info-border;
+  color: @alert-info-color;
+  background-color: @alert-info-bg;
+  border: 1px solid @alert-info-border;
 }
 
 .alert-error {
-    color: @alert-error-color;
-    background-color: @alert-error-bg;
-    border: 1px solid @alert-error-border;
+  color: @alert-error-color;
+  background-color: @alert-error-bg;
+  border: 1px solid @alert-error-border;
 }
 
 .alert {
-    .close {
-        font-size: 0.875rem;
-        opacity: 0.5;
-        top: 4px;
+  .close {
+    font-size: 0.875rem;
+    opacity: 0.5;
+    top: 4px;
 
-        &:focus {
-            .native-focus-outline;
-        }
+    &:focus {
+      .native-focus-outline;
     }
+  }
 }
 
 .alert-link,
 ux-alert a {
+  color: inherit;
+  text-decoration: underline;
+  font-weight: normal;
+
+  &:hover {
     color: inherit;
     text-decoration: underline;
-    font-weight: normal;
+  }
 
-    &:hover {
-        color: inherit;
-        text-decoration: underline;
-    }
-
-    &:focus {
-        .native-focus-outline;
-    }
+  &:focus {
+    .native-focus-outline;
+  }
 }
 
 /*
  * Angular Alerts
  */
 ux-alert {
-    display: flex;
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+
+  .alert-icon {
+    display: inline-flex;
+    justify-content: center;
     align-items: center;
-    padding: 15px;
-    border: 1px solid transparent;
-    border-radius: 4px;
+    flex: none;
+    padding-right: 12px;
+  }
 
-    .alert-icon {
-        display: inline-flex;
-        justify-content: center;
-        align-items: center;
-        flex: none;
-        padding-right: 12px;
+  .alert-content {
+    flex: 1;
+    padding: 2px 0;
+  }
+
+  .alert-close {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    flex: none;
+    border: none;
+    color: inherit;
+    background: transparent;
+
+    &:focus {
+      .native-focus-outline();
     }
+  }
 
-    .alert-content {
-        flex: 1;
-        padding: 2px 0;
-    }
+  &.ux-alert-info {
+    color: @alert-info-color;
+    background-color: @alert-info-bg;
+    border: 1px solid @alert-info-border;
+  }
 
-    .alert-close {
-        display: inline-flex;
-        justify-content: center;
-        align-items: center;
-        flex: none;
-        border: none;
-        color: inherit;
-        background: transparent;
+  &.ux-alert-error {
+    color: @alert-error-color;
+    background-color: @alert-error-bg;
+    border: 1px solid @alert-error-border;
+  }
 
-        &:focus {
-            .native-focus-outline();
-        }
-    }
+  &.ux-alert-success {
+    color: @alert-success-color;
+    background-color: @alert-success-bg;
+    border: 1px solid @alert-success-border;
+  }
 
-    &.ux-alert-info {
-        color: @alert-info-color;
-        background-color: @alert-info-bg;
-        border: 1px solid @alert-info-border;
-    }
+  &.ux-alert-warning {
+    color: @alert-warning-color;
+    background-color: @alert-warning-bg;
+    border: 1px solid @alert-warning-border;
+  }
 
-    &.ux-alert-error {
-        color: @alert-error-color;
-        background-color: @alert-error-bg;
-        border: 1px solid @alert-error-border;
-    }
-
-    &.ux-alert-success {
-        color: @alert-success-color;
-        background-color: @alert-success-bg;
-        border: 1px solid @alert-success-border;
-    }
-
-    &.ux-alert-warning {
-        color: @alert-warning-color;
-        background-color: @alert-warning-bg;
-        border: 1px solid @alert-warning-border;
-    }
-
-    &.ux-alert-dark {
-        color: @alert-dark-color;
-        background-color: @alert-dark-bg;
-        border: 1px solid @alert-dark-border;
-    }
+  &.ux-alert-dark {
+    color: @alert-dark-color;
+    background-color: @alert-dark-bg;
+    border: 1px solid @alert-dark-border;
+  }
 }
 
 /*
@@ -111,137 +111,137 @@ ux-alert {
  */
 
 .ux-badge {
-    position: absolute;
-    text-align: center;
-    display: inline-block;
-    background-color: #000;
-    color: #fff;
-    text-transform: none;
-    font-weight: 700;
-    font-family: @font-family;
-    line-height: 1;
-    pointer-events: none;
-    white-space: nowrap;
-    box-sizing: border-box;
-    margin: 0;
-    border: 1px solid transparent;
-    padding: 0 3px;
+  position: absolute;
+  text-align: center;
+  display: inline-block;
+  background-color: #000;
+  color: #fff;
+  text-transform: none;
+  font-weight: 700;
+  font-family: @font-family;
+  line-height: 1;
+  pointer-events: none;
+  white-space: nowrap;
+  box-sizing: border-box;
+  margin: 0;
+  border: 1px solid transparent;
+  padding: 0 3px;
 
-    &.ux-badge-small {
-        border-radius: 7px;
-        font-size: 11px;
-        padding: 0 2px;
-        min-height: 12px;
-        min-width: 13px;
-    }
+  &.ux-badge-small {
+    border-radius: 7px;
+    font-size: 11px;
+    padding: 0 2px;
+    min-height: 12px;
+    min-width: 13px;
+  }
 
-    &.ux-badge-medium {
-        border-radius: 9px;
-        font-size: 13px;
-        min-height: 16px;
-        min-width: 16px;
-    }
+  &.ux-badge-medium {
+    border-radius: 9px;
+    font-size: 13px;
+    min-height: 16px;
+    min-width: 16px;
+  }
 
-    &.ux-badge-large {
-        border-radius: 11px;
-        font-size: 17px;
-        min-height: 20px;
-        min-width: 20px;
-    }
+  &.ux-badge-large {
+    border-radius: 11px;
+    font-size: 17px;
+    min-height: 20px;
+    min-width: 20px;
+  }
 }
 
 .ux-badge-container {
-    position: relative;
+  position: relative;
 
-    &.ux-badge-above {
-        .ux-badge {
-            top: 0;
-        }
-
-        .ux-badge-small {
-            top: -7px;
-        }
-
-        .ux-badge-medium {
-            top: -9px;
-        }
-
-        .ux-badge-large {
-            top: -11px;
-        }
+  &.ux-badge-above {
+    .ux-badge {
+      top: 0;
     }
 
-    &.ux-badge-below {
-        .ux-badge {
-            bottom: 0;
-        }
-
-        .ux-badge-small {
-            bottom: -7px;
-        }
-
-        .ux-badge-medium {
-            bottom: -9px;
-        }
-
-        .ux-badge-large {
-            bottom: -11px;
-        }
+    .ux-badge-small {
+      top: -7px;
     }
 
-    &.ux-badge-before .ux-badge {
-        left: -3px;
+    .ux-badge-medium {
+      top: -9px;
     }
 
-    &.ux-badge-after .ux-badge {
-        right: -3px;
+    .ux-badge-large {
+      top: -11px;
+    }
+  }
+
+  &.ux-badge-below {
+    .ux-badge {
+      bottom: 0;
     }
 
-    &.ux-badge-before {
-        .ux-badge {
-            transform: translateX(-100%);
-        }
-
-        &.ux-badge-overlap .ux-badge {
-            transform: translateX(-50%);
-            left: 0;
-        }
+    .ux-badge-small {
+      bottom: -7px;
     }
 
-    &.ux-badge-after {
-        .ux-badge {
-            transform: translateX(100%);
-        }
-
-        &.ux-badge-overlap .ux-badge {
-            transform: translateX(50%);
-            right: 0;
-        }
+    .ux-badge-medium {
+      bottom: -9px;
     }
 
-    &.ux-badge-hidden .ux-badge {
-        display: none;
+    .ux-badge-large {
+      bottom: -11px;
+    }
+  }
+
+  &.ux-badge-before .ux-badge {
+    left: -3px;
+  }
+
+  &.ux-badge-after .ux-badge {
+    right: -3px;
+  }
+
+  &.ux-badge-before {
+    .ux-badge {
+      transform: translateX(-100%);
     }
 
-    &:focus-within,
-    &:focus {
-        .ux-badge {
-            outline: none !important;
-        }
+    &.ux-badge-overlap .ux-badge {
+      transform: translateX(-50%);
+      left: 0;
     }
+  }
+
+  &.ux-badge-after {
+    .ux-badge {
+      transform: translateX(100%);
+    }
+
+    &.ux-badge-overlap .ux-badge {
+      transform: translateX(50%);
+      right: 0;
+    }
+  }
+
+  &.ux-badge-hidden .ux-badge {
+    display: none;
+  }
+
+  &:focus-within,
+  &:focus {
+    .ux-badge {
+      outline: none !important;
+    }
+  }
 }
 
 // some slight tweaks for firefox
 @-moz-document url-prefix() {
-    .ux-badge-container {
-        .ux-badge-small {
-            min-width: 14px;
-            min-height: 13px;
-        }
-
-        .ux-badge-large {
-            min-width: 21px;
-            min-height: 21px;
-        }
+  .ux-badge-container {
+    .ux-badge-small {
+      min-width: 14px;
+      min-height: 13px;
     }
+
+    .ux-badge-large {
+      min-width: 21px;
+      min-height: 21px;
+    }
+  }
 }

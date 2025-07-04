@@ -1,57 +1,57 @@
 @import '../../../assets/styles/variables.less';
 
 :host {
-    display: inline-block;
-    margin-left: 15px;
+  display: inline-block;
+  margin-left: 15px;
 
-    a {
-        color: @text-color;
-    }
+  a {
+    color: @text-color;
+  }
 }
 
 .usage-title {
-    font-weight: 600;
-    padding-right: 15px;
+  font-weight: 600;
+  padding-right: 15px;
 }
 
 .usage-popover {
-    width: 100%;
+  width: 100%;
 
-    tr {
-        border-bottom: 1px solid @grey5;
+  tr {
+    border-bottom: 1px solid @grey5;
 
-        td {
-            padding-top: 10px;
-            padding-bottom: 10px;
+    td {
+      padding-top: 10px;
+      padding-bottom: 10px;
 
-            ux-icon {
-                color: @grey5;
-                cursor: pointer;
+      ux-icon {
+        color: @grey5;
+        cursor: pointer;
 
-                &:hover,
-                &:focus {
-                    color: @grey1;
-                }
-            }
+        &:hover,
+        &:focus {
+          color: @grey1;
         }
-
-        &:first-child {
-            td {
-                padding-top: 0;
-            }
-        }
-
-        &:last-child {
-            border-bottom: none;
-
-            td {
-                padding-bottom: 0;
-            }
-        }
+      }
     }
+
+    &:first-child {
+      td {
+        padding-top: 0;
+      }
+    }
+
+    &:last-child {
+      border-bottom: none;
+
+      td {
+        padding-bottom: 0;
+      }
+    }
+  }
 }
 
 .usage-tooltip {
-    white-space: nowrap;
-    margin-bottom: 0;
+  white-space: nowrap;
+  margin-bottom: 0;
 }

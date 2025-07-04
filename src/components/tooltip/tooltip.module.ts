@@ -7,13 +7,9 @@ import { TooltipDirective } from './tooltip.directive';
 import { TooltipService } from './tooltip.service';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        OverlayModule,
-        ObserversModule
-    ],
-    exports: [TooltipDirective, TooltipComponent],
-    declarations: [TooltipComponent, TooltipDirective],
-    providers: [TooltipService]
+  imports: [CommonModule, OverlayModule, ObserversModule],
+  exports: [TooltipDirective, TooltipComponent],
+  declarations: [TooltipComponent, TooltipDirective],
+  providers: [TooltipService],
 })
-export class TooltipModule { }
+export class TooltipModule {}

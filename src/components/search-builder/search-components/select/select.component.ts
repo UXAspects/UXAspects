@@ -3,12 +3,11 @@ import { InfiniteScrollLoadFunction } from '../../../../directives/infinite-scro
 import { BaseSearchComponent, BaseSearchComponentConfig } from '../base-search.component';
 
 @Component({
-    selector: 'ux-search-select',
-    templateUrl: './select.component.html',
-    standalone: false
+  selector: 'ux-search-select',
+  templateUrl: './select.component.html',
+  standalone: false,
 })
 export class SearchSelectComponent extends BaseSearchComponent {
-
   type: string = 'select';
 
   /**
@@ -52,7 +51,6 @@ export class SearchSelectComponent extends BaseSearchComponent {
 }
 
 export interface SearchSelectConfig extends BaseSearchComponentConfig {
-   
   options?: any[] | InfiniteScrollLoadFunction;
   multiple?: boolean;
   dropDirection?: 'up' | 'down';

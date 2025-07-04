@@ -7,42 +7,42 @@ import { IPlayground } from '../../../../../interfaces/IPlayground';
 import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
 
 @Component({
-    selector: 'uxd-components-facet-container',
-    templateUrl: './facet-container.component.html',
-    standalone: false
+  selector: 'uxd-components-facet-container',
+  templateUrl: './facet-container.component.html',
+  standalone: false,
 })
 @DocumentationSectionComponent('ComponentsFacetContainerComponent')
 export class ComponentsFacetContainerComponent
-    extends BaseDocumentationSection
-    implements IPlaygroundProvider
+  extends BaseDocumentationSection
+  implements IPlaygroundProvider
 {
-    facets: Facet[] = [];
-    allowReorder = false;
+  facets: Facet[] = [];
+  allowReorder = false;
 
-    playground: IPlayground = {
-        files: {
-            'app.component.ts': this.snippets.raw.appTs,
-            'app.component.html': this.snippets.raw.appHtml,
-        },
-        modules: [
-            {
-                imports: ['FacetsModule', 'CheckboxModule'],
-                library: '@ux-aspects/ux-aspects',
-            },
-        ],
-    };
+  playground: IPlayground = {
+    files: {
+      'app.component.ts': this.snippets.raw.appTs,
+      'app.component.html': this.snippets.raw.appHtml,
+    },
+    modules: [
+      {
+        imports: ['FacetsModule', 'CheckboxModule'],
+        library: '@ux-aspects/ux-aspects',
+      },
+    ],
+  };
 
-    constructor() {
-        super(
-            import.meta.webpackContext('./snippets/', {
-                recursive: false,
-                regExp: /\.(html|css|js|ts)$/,
-            })
-        );
-    }
+  constructor() {
+    super(
+      import.meta.webpackContext('./snippets/', {
+        recursive: false,
+        regExp: /\.(html|css|js|ts)$/,
+      })
+    );
+  }
 
-    addFacet() {
-        // create a new random facet
-        this.facets.push(new Facet(chance.name(), {}, chance.integer({ min: 0, max: 100 })));
-    }
+  addFacet() {
+    // create a new random facet
+    this.facets.push(new Facet(chance.name(), {}, chance.integer({ min: 0, max: 100 })));
+  }
 }

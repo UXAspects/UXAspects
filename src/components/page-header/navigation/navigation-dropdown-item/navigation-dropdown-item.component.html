@@ -7,7 +7,8 @@
       [disabled]="item.disabled"
       [class.selected]="item.selected"
       [attr.aria-selected]="item.selected"
-      [uxMenuTriggerFor]="menu">
+      [uxMenuTriggerFor]="menu"
+    >
       <span class="dropdown-item-title">{{ item.title }}</span>
       <ux-icon class="dropdown-item-icon" name="next"></ux-icon>
     </button>
@@ -21,7 +22,8 @@
           [class.selected]="subItem.selected"
           [attr.aria-selected]="subItem.selected"
           (click)="select(subItem)"
-          (keydown)="keydownHandler($event, subItem)">
+          (keydown)="keydownHandler($event, subItem)"
+        >
           <span class="dropdown-item-title">{{ subItem.title }}</span>
         </button>
       }
@@ -39,7 +41,8 @@
       [class.selected]="item.selected"
       [attr.aria-selected]="item.selected"
       (click)="select(item)"
-      (keydown)="keydownHandler($event, item)">
+      (keydown)="keydownHandler($event, item)"
+    >
       <span class="dropdown-item-title">{{ item.title }}</span>
     </button>
   </div>

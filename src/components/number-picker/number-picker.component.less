@@ -1,78 +1,80 @@
 ux-number-picker,
 ux-number-picker-inline {
-    display: flex;
-    flex-direction: row;
+  display: flex;
+  flex-direction: row;
+  height: 34px;
+
+  &.ux-number-picker-invalid:not(.ng-invalid) {
+    > .number-picker-input {
+      border-color: @critical;
+    }
+  }
+
+  &.ng-invalid {
+    > .number-picker-input {
+      border-color: @critical;
+    }
+  }
+
+  > .number-picker-input {
+    flex: none;
+    text-align: right;
+    -moz-appearance: textfield;
+    width: ~'calc(100% - 27px)';
     height: 34px;
 
-    &.ux-number-picker-invalid:not(.ng-invalid) {
-        > .number-picker-input {
-            border-color: @critical;
-        }
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
     }
 
-    &.ng-invalid {
-        > .number-picker-input {
-            border-color: @critical;
-        }
+    &:read-only {
+      color: @form-control-color;
+      background-color: @form-control-bg;
+    }
+  }
+
+  > .number-picker-controls {
+    display: inline-flex;
+    flex-direction: column;
+    width: 27px;
+    flex: none;
+
+    > .number-picker-control {
+      display: flex;
+      height: 50%;
+      justify-content: center;
+      align-items: center;
+      font-size: 0.875rem;
+      border-right: 1px solid @form-control-border;
+      border-bottom: 1px solid @form-control-border;
+      cursor: pointer;
+      color: @grey5;
+      background-color: @white;
+      transition:
+        0.3s color ease-in-out,
+        0.3s background-color ease-in-out;
+
+      &:hover {
+        color: @grey3;
+        background-color: @btn-secondary-hover-bg;
+      }
+
+      &:active {
+        box-shadow: inset 0 0 0 1px gray;
+      }
+
+      &.disabled {
+        background-color: @btn-secondary-hover-bg;
+        cursor: default;
+        color: @grey5;
+        pointer-events: none;
+      }
     }
 
-    > .number-picker-input {
-        flex: none;
-        text-align: right;
-        -moz-appearance: textfield;
-        width: ~'calc(100% - 27px)';
-        height: 34px;
-
-        &::-webkit-outer-spin-button,
-        &::-webkit-inner-spin-button {
-            -webkit-appearance: none;
-            margin: 0;
-        }
-
-        &:read-only {
-            color: @form-control-color;
-            background-color: @form-control-bg;
-        }
+    > .number-picker-control-up {
+      border-top: 1px solid @form-control-border;
     }
-
-    > .number-picker-controls {
-        display: inline-flex;
-        flex-direction: column;
-        width: 27px;
-        flex: none;
-
-        > .number-picker-control {
-            display: flex;
-            height: 50%;
-            justify-content: center;
-            align-items: center;
-            font-size: 0.875rem;
-            border-right: 1px solid @form-control-border;
-            border-bottom: 1px solid @form-control-border;
-            cursor: pointer;
-            color: @grey5;
-            background-color: @white;
-            transition: 0.3s color ease-in-out, 0.3s background-color ease-in-out;
-
-            &:hover {
-                color: @grey3;
-                background-color: @btn-secondary-hover-bg;
-            }
-
-            &:active {
-                box-shadow: inset 0 0 0 1px gray;
-            }
-
-            &.disabled {
-                background-color: @btn-secondary-hover-bg;
-                cursor: default;
-                color: @grey5;
-                pointer-events: none;
-            }
-        }
-
-        > .number-picker-control-up {
-            border-top: 1px solid @form-control-border;
-        }
-    }
+  }
 }

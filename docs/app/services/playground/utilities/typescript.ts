@@ -55,7 +55,6 @@ export function getImportDeclaration(
   isAlias?: boolean,
   providers?: string[]
 ): ts.ImportDeclaration {
-
   // if we have an alias and providers, then throw an error as this is not supported
   if (isAlias && providers) {
     throw new Error('Cannot have an alias and providers');
@@ -92,21 +91,35 @@ export function getImportDeclaration(
     );
   }
 
-  const providerImports= providers ? providers.map(provider => {
-    const sourceFile = ts.createSourceFile('temp.ts', provider, ts.ScriptTarget.Latest, true, ts.ScriptKind.TS);
+  const providerImports = providers
+    ? providers.map(provider => {
+        const sourceFile = ts.createSourceFile(
+          'temp.ts',
+          provider,
+          ts.ScriptTarget.Latest,
+          true,
+          ts.ScriptKind.TS
+        );
 
-    if (!ts.isExpressionStatement(sourceFile.statements[0]) || !ts.isCallExpression(sourceFile.statements[0].expression) || !ts.isIdentifier(sourceFile.statements[0].expression.expression)) {
-        throw new Error('Invalid provider specified for playground');
-    }
+        if (
+          !ts.isExpressionStatement(sourceFile.statements[0]) ||
+          !ts.isCallExpression(sourceFile.statements[0].expression) ||
+          !ts.isIdentifier(sourceFile.statements[0].expression.expression)
+        ) {
+          throw new Error('Invalid provider specified for playground');
+        }
 
-    const identifier = sourceFile.statements[0].expression.expression;
+        const identifier = sourceFile.statements[0].expression.expression;
 
-    return ts.factory.createImportSpecifier(false, undefined, identifier);
-  }) : [];
+        return ts.factory.createImportSpecifier(false, undefined, identifier);
+      })
+    : [];
 
-  const moduleImports = imports ? imports.map(_import =>
-    ts.factory.createImportSpecifier(false, undefined, ts.factory.createIdentifier(_import))
-  ) : [];
+  const moduleImports = imports
+    ? imports.map(_import =>
+        ts.factory.createImportSpecifier(false, undefined, ts.factory.createIdentifier(_import))
+      )
+    : [];
 
   return ts.factory.createImportDeclaration(
     undefined,

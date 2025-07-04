@@ -1,6 +1,6 @@
 export interface FilterDynamicListConfig {
-    placeholder?: string;
-    minCharacters?: number;
-    maxResults?: number;
-    maxIndividualItems?: number;
+  placeholder?: string;
+  minCharacters?: number;
+  maxResults?: number;
+  maxIndividualItems?: number;
 }

@@ -7,54 +7,54 @@ import { IPlayground } from '../../../../../interfaces/IPlayground';
 import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
 
 @Component({
-    selector: 'uxd-components-facet-check-list',
-    templateUrl: './facet-check-list.component.html',
-    standalone: false
+  selector: 'uxd-components-facet-check-list',
+  templateUrl: './facet-check-list.component.html',
+  standalone: false,
 })
 @DocumentationSectionComponent('ComponentsFacetCheckListComponent')
 export class ComponentsFacetCheckListComponent
-    extends BaseDocumentationSection
-    implements IPlaygroundProvider
+  extends BaseDocumentationSection
+  implements IPlaygroundProvider
 {
-    facets: Facet[] = [];
+  facets: Facet[] = [];
 
-    playground: IPlayground = {
-        files: {
-            'app.component.ts': this.snippets.raw.appTs,
-            'app.component.html': this.snippets.raw.appHtml,
-        },
-        modules: [
-            {
-                imports: ['FacetsModule'],
-                library: '@ux-aspects/ux-aspects',
-            },
-        ],
-    };
+  playground: IPlayground = {
+    files: {
+      'app.component.ts': this.snippets.raw.appTs,
+      'app.component.html': this.snippets.raw.appHtml,
+    },
+    modules: [
+      {
+        imports: ['FacetsModule'],
+        library: '@ux-aspects/ux-aspects',
+      },
+    ],
+  };
 
-    constructor() {
-        super(
-            import.meta.webpackContext('./snippets/', {
-                recursive: false,
-                regExp: /\.(html|css|js|ts)$/,
-            })
-        );
+  constructor() {
+    super(
+      import.meta.webpackContext('./snippets/', {
+        recursive: false,
+        regExp: /\.(html|css|js|ts)$/,
+      })
+    );
 
-        // generate some facets
-        for (let idx = 0; idx < 30; idx++) {
-            this.facets.push(new Facet(chance.name(), null, chance.integer({ min: 0, max: 100 })));
-        }
-
-        // sort the users alphabetically
-        this.facets.sort((facetOne, facetTwo) => {
-            if (facetOne.title < facetTwo.title) {
-                return -1;
-            }
-
-            if (facetOne.title > facetTwo.title) {
-                return 1;
-            }
-
-            return 0;
-        });
+    // generate some facets
+    for (let idx = 0; idx < 30; idx++) {
+      this.facets.push(new Facet(chance.name(), null, chance.integer({ min: 0, max: 100 })));
     }
+
+    // sort the users alphabetically
+    this.facets.sort((facetOne, facetTwo) => {
+      if (facetOne.title < facetTwo.title) {
+        return -1;
+      }
+
+      if (facetOne.title > facetTwo.title) {
+        return 1;
+      }
+
+      return 0;
+    });
+  }
 }

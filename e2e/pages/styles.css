@@ -1,20 +1,20 @@
 * {
-    caret-color: transparent;
+  caret-color: transparent;
 }
 
 /* Prevent animations as they can cause screenshot tests to become flaky when using screenshot comparison. */
 *,
 *:before,
 *:after {
-    transition-duration: 0ms !important;
-    animation-duration: 0ms !important;
+  transition-duration: 0ms !important;
+  animation-duration: 0ms !important;
 }
 
 .form-control {
-    transition: none;
+  transition: none;
 }
 
 pre,
 code {
-    font-family: "Source Sans Pro";
+  font-family: 'Source Sans Pro';
 }

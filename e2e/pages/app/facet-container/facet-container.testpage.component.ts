@@ -2,19 +2,17 @@ import { Component } from '@angular/core';
 import { Facet } from '@ux-aspects/ux-aspects';
 
 @Component({
-    selector: 'facet-container-app',
-    templateUrl: './facet-container.testpage.component.html',
-    standalone: false
+  selector: 'facet-container-app',
+  templateUrl: './facet-container.testpage.component.html',
+  standalone: false,
 })
 export class FacetContainerTestPageComponent {
+  facets: Facet[] = [];
 
-    facets: Facet[] = [];
+  count: number = 1;
 
-    count: number = 1;
-
-    addFacet() {
-
-        // create a new random facet
-        this.facets.push(new Facet(`User ${this.count++}`, {}, this.count));
-    }
+  addFacet() {
+    // create a new random facet
+    this.facets.push(new Facet(`User ${this.count++}`, {}, this.count));
+  }
 }

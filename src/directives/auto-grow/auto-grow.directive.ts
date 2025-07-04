@@ -1,8 +1,15 @@
-import { AfterViewInit, Directive, ElementRef, HostListener, inject, Renderer2 } from '@angular/core';
+import {
+  AfterViewInit,
+  Directive,
+  ElementRef,
+  HostListener,
+  inject,
+  Renderer2,
+} from '@angular/core';
 
 @Directive({
-    selector: '[uxAutoGrow]',
-    standalone: false
+  selector: '[uxAutoGrow]',
+  standalone: false,
 })
 export class AutoGrowDirective implements AfterViewInit {
   private readonly _elementRef = inject(ElementRef);
@@ -22,7 +29,6 @@ export class AutoGrowDirective implements AfterViewInit {
 
   @HostListener('input')
   update(): void {
-
     // perform sizing
     this._renderer.setStyle(this._elementRef.nativeElement, 'overflowY', 'hidden');
     this._renderer.setStyle(this._elementRef.nativeElement, 'height', 'auto');
@@ -42,5 +48,4 @@ export class AutoGrowDirective implements AfterViewInit {
       this._renderer.setStyle(this._elementRef.nativeElement, 'height', scrollHeight + 'px');
     }
   }
-
 }

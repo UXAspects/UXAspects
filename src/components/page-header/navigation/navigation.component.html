@@ -1,11 +1,11 @@
 @for (item of items$ | async; track item) {
-  <ux-page-header-horizontal-navigation-item
-    [item]="item">
+  <ux-page-header-horizontal-navigation-item [item]="item">
   </ux-page-header-horizontal-navigation-item>
 }
 
-<div class="selected-indicator"
+<div
+  class="selected-indicator"
   [style.opacity]="indicatorVisible ? 1 : 0"
   [style.margin-left.px]="indicatorX"
-  [style.width.px]="indicatorWidth">
-</div>
+  [style.width.px]="indicatorWidth"
+></div>

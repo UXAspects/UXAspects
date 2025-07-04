@@ -2,24 +2,29 @@
 @if (loading) {
   <ul class="hierarchy-bar-node-list">
     <li class="hierarchy-bar-loading-indicator">
-      <ng-container [ngTemplateOutlet]="hierarchyBar.loadingIndicator || defaultLoadingIndicator"></ng-container>
+      <ng-container
+        [ngTemplateOutlet]="hierarchyBar.loadingIndicator || defaultLoadingIndicator"
+      ></ng-container>
     </li>
   </ul>
 }
 
 <!-- List of children -->
 @if (!loading) {
-  <div class="hierarchy-bar-node-list"
+  <div
+    class="hierarchy-bar-node-list"
     [class.hierarchy-bar-node-list-separator]="separator"
     uxTabbableList
-    [returnFocus]="true">
+    [returnFocus]="true"
+  >
     @for (node of nodes; track node; let first = $first) {
       <ux-hierarchy-bar-popover-item
         uxFocusIndicator
         [node]="node"
         [focusIf]="first"
         uxTabbableListItem
-        (selected)="selected.emit($event)">
+        (selected)="selected.emit($event)"
+      >
       </ux-hierarchy-bar-popover-item>
     }
   </div>

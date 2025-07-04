@@ -7,90 +7,90 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 import { DocumentationType, DOCUMENTATION_TOKEN } from '../../../../../tokens/documentation.token';
 
 @Component({
-    selector: 'uxd-components-column-resizing',
-    templateUrl: './column-resizing.component.html',
-    styleUrls: ['./column-resizing.component.less'],
-    standalone: false
+  selector: 'uxd-components-column-resizing',
+  templateUrl: './column-resizing.component.html',
+  styleUrls: ['./column-resizing.component.less'],
+  standalone: false,
 })
 @DocumentationSectionComponent('ComponentsColumnResizingComponent')
 export class ComponentsColumnResizingComponent
-    extends BaseDocumentationSection
-    implements IPlaygroundProvider
+  extends BaseDocumentationSection
+  implements IPlaygroundProvider
 {
-    type: 'uxResizableTable' | 'uxResizableExpandingTable' = 'uxResizableTable';
-    documents: TableDocument[] = [];
-    selection: TableDocument[] = [];
+  type: 'uxResizableTable' | 'uxResizableExpandingTable' = 'uxResizableTable';
+  documents: TableDocument[] = [];
+  selection: TableDocument[] = [];
 
-    titleWidth: number = 260;
-    authorWidth: number = 300;
-    dateWidth: number;
-    dateWidthExpanding: number = 150;
+  titleWidth: number = 260;
+  authorWidth: number = 300;
+  dateWidth: number;
+  dateWidthExpanding: number = 150;
 
-    uxFixedHeaderComponentRoute: string =
-        this._documentationType === DocumentationType.MicroFocus
-            ? '/ui-components/tables'
-            : 'components/tables';
+  uxFixedHeaderComponentRoute: string =
+    this._documentationType === DocumentationType.MicroFocus
+      ? '/ui-components/tables'
+      : 'components/tables';
 
-    @ViewChild(ResizableTableDirective, { static: false }) resizableTable: ResizableTableDirective;
-    @ViewChild(ResizableExpandingTableDirective, { static: false })
-    resizableExpandingTable: ResizableExpandingTableDirective;
+  @ViewChild(ResizableTableDirective, { static: false }) resizableTable: ResizableTableDirective;
+  @ViewChild(ResizableExpandingTableDirective, { static: false })
+  resizableExpandingTable: ResizableExpandingTableDirective;
 
-    playground: IPlayground = {
-        files: {
-            'app.component.html': this.snippets.raw.appHtml,
-            'app.component.ts': this.snippets.raw.appTs,
-            'app.component.css': this.snippets.raw.appCss,
-        },
-        modules: [
-            {
-                imports: [
-                    'TableModule',
-                    'CheckboxModule',
-                    'FixedHeaderTableModule',
-                    'SelectionModule',
-                    'AccordionModule',
-                    'RadioButtonModule',
-                ],
-                library: '@ux-aspects/ux-aspects',
-            },
-            {
-                imports: ['ButtonsModule'],
-                library: 'ngx-bootstrap/buttons',
-            },
+  playground: IPlayground = {
+    files: {
+      'app.component.html': this.snippets.raw.appHtml,
+      'app.component.ts': this.snippets.raw.appTs,
+      'app.component.css': this.snippets.raw.appCss,
+    },
+    modules: [
+      {
+        imports: [
+          'TableModule',
+          'CheckboxModule',
+          'FixedHeaderTableModule',
+          'SelectionModule',
+          'AccordionModule',
+          'RadioButtonModule',
         ],
-    };
+        library: '@ux-aspects/ux-aspects',
+      },
+      {
+        imports: ['ButtonsModule'],
+        library: 'ngx-bootstrap/buttons',
+      },
+    ],
+  };
 
-    constructor(@Inject(DOCUMENTATION_TOKEN) private readonly _documentationType: DocumentationType) {
-        super(
-            import.meta.webpackContext('./snippets/', {
-                recursive: false,
-                regExp: /\.(html|css|js|ts)$/,
-            })
-        );
+  constructor(@Inject(DOCUMENTATION_TOKEN) private readonly _documentationType: DocumentationType) {
+    super(
+      import.meta.webpackContext('./snippets/', {
+        recursive: false,
+        regExp: /\.(html|css|js|ts)$/,
+      })
+    );
 
-        // generate some dummy data
-        for (let idx = 0; idx < 15; idx++) {
-            this.documents.push({
-                selected: false,
-                title: `Document ${idx + 1}`,
-                author: chance.name(),
-                date: chance.date({ year: new Date().getFullYear() }) as Date,
-            });
-        }
+    // generate some dummy data
+    for (let idx = 0; idx < 15; idx++) {
+      this.documents.push({
+        selected: false,
+        title: `Document ${idx + 1}`,
+        author: chance.name(),
+        date: chance.date({ year: new Date().getFullYear() }) as Date,
+      });
     }
+  }
 
-    setToUniform(type: string): void {
-        if (type === 'uxResizableTable') {
-            this.resizableTable.setUniformWidths();
-        } else {
-            this.resizableExpandingTable.setUniformWidths();
-        }
+  setToUniform(type: string): void {
+    if (type === 'uxResizableTable') {
+      this.resizableTable.setUniformWidths();
+    } else {
+      this.resizableExpandingTable.setUniformWidths();
     }
+  }
 }
 
 interface TableDocument {
-    selected: boolean;
-    title: string;
-    author: string;
-    date: Date;
+  selected: boolean;
+  title: string;
+  author: string;
+  date: Date;
 }

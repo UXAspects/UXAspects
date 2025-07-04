@@ -1,3 +1,3 @@
 export interface MenuModuleOptions {
-    animate?: boolean;
+  animate?: boolean;
 }

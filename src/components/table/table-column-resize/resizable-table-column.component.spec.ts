@@ -14,7 +14,7 @@ interface TableDocument {
 }
 
 @Component({
-    template: `
+  template: `
     <table id="standard-table" class="table" uxResizableTable>
       <thead>
         <tr>
@@ -44,7 +44,7 @@ interface TableDocument {
       </tbody>
     </table>
   `,
-    standalone: false
+  standalone: false,
 })
 export class ResizableTableColumnComponent {
   documents: TableDocument[] = [];

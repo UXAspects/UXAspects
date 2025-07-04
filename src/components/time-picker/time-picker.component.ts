@@ -18,12 +18,12 @@ export const TIME_PICKER_VALUE_ACCESSOR = {
 };
 
 @Component({
-    selector: 'ux-time-picker',
-    templateUrl: './time-picker.component.html',
-    encapsulation: ViewEncapsulation.None,
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    providers: [TIME_PICKER_VALUE_ACCESSOR],
-    standalone: false
+  selector: 'ux-time-picker',
+  templateUrl: './time-picker.component.html',
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [TIME_PICKER_VALUE_ACCESSOR],
+  standalone: false,
 })
 export class TimePickerComponent implements ControlValueAccessor {
   private readonly _changeDetector = inject(ChangeDetectorRef);

@@ -8,19 +8,8 @@ import { SankeyNodeDirective } from './sankey-chart-node.directive';
 import { SankeyChartComponent } from './sankey-chart.component';
 
 @NgModule({
-    declarations: [
-        SankeyChartComponent,
-        SankeyNodeDirective
-    ],
-    imports: [
-        AccessibilityModule,
-        CommonModule,
-        ResizeModule,
-        TooltipModule,
-        ColorServiceModule
-    ],
-    exports: [
-        SankeyChartComponent
-    ]
+  declarations: [SankeyChartComponent, SankeyNodeDirective],
+  imports: [AccessibilityModule, CommonModule, ResizeModule, TooltipModule, ColorServiceModule],
+  exports: [SankeyChartComponent],
 })
-export class SankeyChartModule { }
+export class SankeyChartModule {}

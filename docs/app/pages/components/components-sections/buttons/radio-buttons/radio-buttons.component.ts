@@ -5,39 +5,39 @@ import { IPlayground } from '../../../../../interfaces/IPlayground';
 import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
 
 @Component({
-    selector: 'uxd-components-buttons-radio-buttons',
-    templateUrl: './radio-buttons.component.html',
-    standalone: false
+  selector: 'uxd-components-buttons-radio-buttons',
+  templateUrl: './radio-buttons.component.html',
+  standalone: false,
 })
 @DocumentationSectionComponent('ComponentsRadioButtonsComponent')
 export class ComponentsRadioButtonsComponent
-    extends BaseDocumentationSection
-    implements IPlaygroundProvider
+  extends BaseDocumentationSection
+  implements IPlaygroundProvider
 {
-    // Radio model
-    primaryRadioValue = 'left';
-    accentRadioValue = 'left';
+  // Radio model
+  primaryRadioValue = 'left';
+  accentRadioValue = 'left';
 
-    playground: IPlayground = {
-        files: {
-            'app.component.html': this.snippets.raw.appHtml,
-            'app.component.ts': this.snippets.raw.appTs,
-        },
-        modules: [
-            {
-                library: 'ngx-bootstrap/buttons',
-                imports: ['ButtonsModule'],
-                importsWithProviders: ['ButtonsModule.forRoot()'],
-            },
-        ],
-    };
+  playground: IPlayground = {
+    files: {
+      'app.component.html': this.snippets.raw.appHtml,
+      'app.component.ts': this.snippets.raw.appTs,
+    },
+    modules: [
+      {
+        library: 'ngx-bootstrap/buttons',
+        imports: ['ButtonsModule'],
+        importsWithProviders: ['ButtonsModule.forRoot()'],
+      },
+    ],
+  };
 
-    constructor() {
-        super(
-            import.meta.webpackContext('./snippets/', {
-                recursive: false,
-                regExp: /\.(html|css|js|ts)$/,
-            })
-        );
-    }
+  constructor() {
+    super(
+      import.meta.webpackContext('./snippets/', {
+        recursive: false,
+        regExp: /\.(html|css|js|ts)$/,
+      })
+    );
+  }
 }

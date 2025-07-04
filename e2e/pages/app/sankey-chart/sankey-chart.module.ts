@@ -5,18 +5,18 @@ import { AccessibilityModule, FileSizePipeModule, SankeyChartModule } from '@ux-
 import { SankeyChartTestPageComponent } from './sankey-chart.testpage.component';
 
 @NgModule({
-    imports: [
-        AccessibilityModule,
-        CommonModule,
-        FileSizePipeModule,
-        SankeyChartModule,
-        RouterModule.forChild([
-            {
-                path: '',
-                component: SankeyChartTestPageComponent
-            }
-        ])
-    ],
-    declarations: [SankeyChartTestPageComponent]
+  imports: [
+    AccessibilityModule,
+    CommonModule,
+    FileSizePipeModule,
+    SankeyChartModule,
+    RouterModule.forChild([
+      {
+        path: '',
+        component: SankeyChartTestPageComponent,
+      },
+    ]),
+  ],
+  declarations: [SankeyChartTestPageComponent],
 })
-export class SankeyChartTestPageModule { }
+export class SankeyChartTestPageModule {}

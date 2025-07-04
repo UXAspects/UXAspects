@@ -1,5 +1,6 @@
 @for (segment of _segments; track trackByIndex($index)) {
-  <div class="partition-map-segment"
+  <div
+    class="partition-map-segment"
     uxFocusIndicator
     [ngClass]="_getContrastColor(segment)"
     [style.background-color]="_getBackgroundColor(segment)"
@@ -17,8 +18,12 @@
     (keydown.ArrowLeft)="_focusSibling(segment, -1); $event.preventDefault()"
     (keydown.ArrowRight)="_focusSibling(segment, 1); $event.preventDefault()"
     (keydown.Home)="_focusFirstSibling(segment); $event.preventDefault()"
-    (keydown.End)="_focusLastSibling(segment); $event.preventDefault()">
-    <div class="partition-map-segment-content" [class.partition-map-segment-content-hidden]="_getSegmentContentHidden(segment)">
+    (keydown.End)="_focusLastSibling(segment); $event.preventDefault()"
+  >
+    <div
+      class="partition-map-segment-content"
+      [class.partition-map-segment-content-hidden]="_getSegmentContentHidden(segment)"
+    >
       <!-- Show default template if provided -->
       @if (!segmentTemplate) {
         <span class="partition-map-segment-label">
@@ -29,7 +34,8 @@
       @if (segmentTemplate) {
         <ng-container
           [ngTemplateOutlet]="segmentTemplate"
-          [ngTemplateOutletContext]="_getContext(segment)">
+          [ngTemplateOutletContext]="_getContext(segment)"
+        >
         </ng-container>
       }
     </div>

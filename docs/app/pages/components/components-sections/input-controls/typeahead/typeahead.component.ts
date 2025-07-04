@@ -10,82 +10,82 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 import { DocumentationType, DOCUMENTATION_TOKEN } from '../../../../../tokens/documentation.token';
 
 @Component({
-    selector: 'uxd-components-typeahead',
-    templateUrl: 'typeahead.component.html',
-    styleUrls: ['./typeahead.component.less'],
-    standalone: false
+  selector: 'uxd-components-typeahead',
+  templateUrl: 'typeahead.component.html',
+  styleUrls: ['./typeahead.component.less'],
+  standalone: false,
 })
 @DocumentationSectionComponent('ComponentsTypeaheadComponent')
 export class ComponentsTypeaheadComponent
-    extends BaseDocumentationSection
-    implements IPlaygroundProvider
+  extends BaseDocumentationSection
+  implements IPlaygroundProvider
 {
-    tagDocumentationRoute: string;
-    values: ReadonlyArray<string> = [];
+  tagDocumentationRoute: string;
+  values: ReadonlyArray<string> = [];
 
-    dropdownOpen: boolean = false;
-    selectOnEnter: boolean = true;
-    dropDirection: 'auto' | 'up' | 'down' = 'down';
-    selectFirst: boolean = true;
-    recentOptions: ReadonlyArray<string>;
-    recentOptionsMaxCount: number = 5;
-    ariaLabel: string = 'Listbox items';
+  dropdownOpen: boolean = false;
+  selectOnEnter: boolean = true;
+  dropDirection: 'auto' | 'up' | 'down' = 'down';
+  selectFirst: boolean = true;
+  recentOptions: ReadonlyArray<string>;
+  recentOptionsMaxCount: number = 5;
+  ariaLabel: string = 'Listbox items';
 
-    input: string = '';
+  input: string = '';
 
-    loadOptionsFn = this.loadOptions.bind(this);
+  loadOptionsFn = this.loadOptions.bind(this);
 
-    /** Load the options and filter the them */
-    loadOptions(pageNum: number, pageSize: number, filter: string): Promise<ReadonlyArray<string>> {
-        // get the values for the current page based on the filter text provided
-        const values = this.values
-            .filter(tag => tag.toLowerCase().indexOf(filter.toLowerCase()) !== -1)
-            .slice(pageNum * pageSize, (pageNum + 1) * pageSize);
+  /** Load the options and filter the them */
+  loadOptions(pageNum: number, pageSize: number, filter: string): Promise<ReadonlyArray<string>> {
+    // get the values for the current page based on the filter text provided
+    const values = this.values
+      .filter(tag => tag.toLowerCase().indexOf(filter.toLowerCase()) !== -1)
+      .slice(pageNum * pageSize, (pageNum + 1) * pageSize);
 
-        // return the values after a delay to simulate server response time
-        return of(values).pipe(delay(1000)).toPromise();
-    }
+    // return the values after a delay to simulate server response time
+    return of(values).pipe(delay(1000)).toPromise();
+  }
 
-    playground: IPlayground = {
-        files: {
-            'app.component.html': this.snippets.raw.appHtml,
-            'app.component.css': this.snippets.raw.appCss,
-            'app.component.ts': this.snippets.raw.appTs,
-        },
-        modules: [
-            {
-                imports: [
-                    'TypeaheadModule',
-                    'CheckboxModule',
-                    'RadioButtonModule',
-                    'NumberPickerModule',
-                    'AccordionModule',
-                ],
-                library: '@ux-aspects/ux-aspects',
-            },
+  playground: IPlayground = {
+    files: {
+      'app.component.html': this.snippets.raw.appHtml,
+      'app.component.css': this.snippets.raw.appCss,
+      'app.component.ts': this.snippets.raw.appTs,
+    },
+    modules: [
+      {
+        imports: [
+          'TypeaheadModule',
+          'CheckboxModule',
+          'RadioButtonModule',
+          'NumberPickerModule',
+          'AccordionModule',
         ],
-    };
+        library: '@ux-aspects/ux-aspects',
+      },
+    ],
+  };
 
-    constructor(
-        @Inject(DOCUMENTATION_TOKEN)
-        private readonly _documentationType: DocumentationType,
-        public typeaheadKeyService: TypeaheadKeyService<string>
-    ) {
-        super(
-            import.meta.webpackContext('./snippets/', {
-                recursive: false,
-                regExp: /\.(html|css|js|ts)$/,
-            })
-        );
+  constructor(
+    @Inject(DOCUMENTATION_TOKEN)
+    private readonly _documentationType: DocumentationType,
+    public typeaheadKeyService: TypeaheadKeyService<string>
+  ) {
+    super(
+      import.meta.webpackContext('./snippets/', {
+        recursive: false,
+        regExp: /\.(html|css|js|ts)$/,
+      })
+    );
 
-        /* Adding values to typeahead list */
-        for (let index = 0; index < 200; index++) {
-            this.values = [...this.values, chance.name()];
-        }
-
-        this.tagDocumentationRoute =
-            _documentationType === DocumentationType.MicroFocus
-                ? 'ui-components/input-controls'
-                : 'components/input-controls';
+    /* Adding values to typeahead list */
+    for (let index = 0; index < 200; index++) {
+      this.values = [...this.values, chance.name()];
     }
+
+    this.tagDocumentationRoute =
+      _documentationType === DocumentationType.MicroFocus
+        ? 'ui-components/input-controls'
+        : 'components/input-controls';
+  }
 }

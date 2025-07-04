@@ -3,11 +3,10 @@ import { Subject } from 'rxjs';
 
 @Injectable()
 export class AccordionService {
+  collapseOthers: boolean = false;
+  collapse = new Subject<void>();
 
-    collapseOthers: boolean = false;
-    collapse = new Subject<void>();
-
-    collapseAll(): void {
-        this.collapse.next();
-    }
+  collapseAll(): void {
+    this.collapse.next();
+  }
 }

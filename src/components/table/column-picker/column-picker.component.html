@@ -1,64 +1,67 @@
 <div class="column-picker-column">
-
   <div class="column-picker-stats" [id]="id + '-stats-left'">
-
     @if (!deselectedTitleTemplate) {
       {{ _deselectedSelection.length }} of {{ _availableDeselectedColumns }} selected
     }
 
     @if (deselectedTitleTemplate) {
-      <ng-container
-        [ngTemplateOutlet]="deselectedTitleTemplate">
-      </ng-container>
+      <ng-container [ngTemplateOutlet]="deselectedTitleTemplate"> </ng-container>
     }
   </div>
 
-  <cdk-tree class="column-picker-list"
+  <cdk-tree
+    class="column-picker-list"
     [dataSource]="_treeDataSource"
     [treeControl]="_treeControl"
     [(uxSelection)]="_deselectedSelection"
     [attr.aria-labelledby]="id + '-stats-left'"
     tabindex="-1"
-    uxTabbableList>
-
+    uxTabbableList
+  >
     <!-- Create item for not expandable node -->
-    <cdk-tree-node *cdkTreeNodeDef="let node"
+    <cdk-tree-node
+      *cdkTreeNodeDef="let node"
       [attr.aria-hidden]="selected && selected.indexOf(node.name) > -1"
-      [attr.aria-selected]="_isNodeSelected(node.name)">
+      [attr.aria-selected]="_isNodeSelected(node.name)"
+    >
       @if (_shouldRenderNode(node)) {
-        <div uxTabbableListItem
+        <div
+          uxTabbableListItem
           [uxSelectionItem]="node.column"
           addAriaAttributes="false"
           class="column-picker-list-item"
-          [ngClass]="'column-picker-tree-node-level-' + node.level">
+          [ngClass]="'column-picker-tree-node-level-' + node.level"
+        >
           @if (!deselectedTemplate) {
             {{ node.name }}
           }
           @if (deselectedTemplate) {
             <ng-container
               [ngTemplateOutlet]="deselectedTemplate"
-              [ngTemplateOutletContext]="{ $implicit: node.name }">
+              [ngTemplateOutletContext]="{ $implicit: node.name }"
+            >
             </ng-container>
           }
         </div>
       }
-
     </cdk-tree-node>
 
     <!-- Create item for expandable node -->
-    <cdk-tree-node *cdkTreeNodeDef="let node; when: _nodeHasChildren"
-      [attr.aria-expanded]="node.isExpanded">
-
+    <cdk-tree-node
+      *cdkTreeNodeDef="let node; when: _nodeHasChildren"
+      [attr.aria-expanded]="node.isExpanded"
+    >
       @if (_nodeHasAvailableChildren(node)) {
-        <div
-          class="column-picker-tree-group-node">
-          <button uxTabbableListItem
+        <div class="column-picker-tree-group-node">
+          <button
+            uxTabbableListItem
             (click)="_setNodeExpanded(node, !node.isExpanded)"
             (keydown.arrowright)="_setNodeExpanded(node, true)"
             (keydown.arrowleft)="_setNodeExpanded(node, false)"
             [style.visibility]="node.expandable ? 'visible' : 'hidden'"
             [attr.aria-label]="deselectedGroupAriaLabel(node.name, node.isExpanded)"
-            class="column-picker-group-toggle-btn">
+            class="column-picker-group-toggle-btn"
+          >
             <ux-icon [name]="node.isExpanded ? 'chevron-down' : 'chevron-right'"></ux-icon>
             @if (!deselectedTemplate) {
               {{ node.name }}
@@ -66,7 +69,8 @@
             @if (deselectedTemplate) {
               <ng-container
                 [ngTemplateOutlet]="deselectedTemplate"
-                [ngTemplateOutletContext]="{ $implicit: node.name }">
+                [ngTemplateOutletContext]="{ $implicit: node.name }"
+              >
               </ng-container>
             }
           </button>
@@ -79,28 +83,36 @@
 <div class="column-picker-actions-column">
   <!-- Show the default action buttons -->
   @if (!actionsTemplate) {
-    <button class="btn button-primary btn-block"
+    <button
+      class="btn button-primary btn-block"
       [disabled]="_deselectedSelection.length === 0"
       [attr.aria-label]="addColumnAriaLabel"
-      (click)="addColumns()">
+      (click)="addColumns()"
+    >
       <ux-icon name="chevron-right"></ux-icon>
     </button>
-    <button class="btn button-primary btn-block m-b-md"
+    <button
+      class="btn button-primary btn-block m-b-md"
       [disabled]="_selectedSelection.length === 0"
       [attr.aria-label]="removeColumnAriaLabel"
-      (click)="removeColumns()">
+      (click)="removeColumns()"
+    >
       <ux-icon name="chevron-left"></ux-icon>
     </button>
-    <button class="btn button-secondary btn-block"
+    <button
+      class="btn button-secondary btn-block"
       [disabled]="_availableDeselectedColumns === 0"
       [attr.aria-label]="addAllColumnsAriaLabel"
-      (click)="addAllColumns()">
+      (click)="addAllColumns()"
+    >
       <ux-icon name="chevron-right-double"></ux-icon>
     </button>
-    <button class="btn button-secondary btn-block"
+    <button
+      class="btn button-secondary btn-block"
       [disabled]="selected.length === 0"
       [attr.aria-label]="removeAllColumnsAriaLabel"
-      (click)="removeAllColumns()">
+      (click)="removeAllColumns()"
+    >
       <ux-icon name="chevron-left-double"></ux-icon>
     </button>
   }
@@ -109,50 +121,47 @@
   @if (actionsTemplate) {
     <ng-container
       [ngTemplateOutlet]="actionsTemplate"
-      [ngTemplateOutletContext]="_getActionContext()">
+      [ngTemplateOutletContext]="_getActionContext()"
+    >
     </ng-container>
   }
-
 </div>
 
 <div class="column-picker-column">
   <div class="column-picker-stats" [id]="id + '-stats-right'">
-
     @if (!selectedTitleTemplate) {
       {{ selected.length + locked.length }} columns added
     }
 
     @if (selectedTitleTemplate) {
-      <ng-container
-        [ngTemplateOutlet]="selectedTitleTemplate">
-      </ng-container>
+      <ng-container [ngTemplateOutlet]="selectedTitleTemplate"> </ng-container>
     }
   </div>
 
   <div class="column-picker-list" role="listbox" [attr.aria-labelledby]="id + '-stats-right'">
-
     @for (column of locked; track column) {
-      <div
-        class="column-picker-list-item column-picker-list-item-locked">
+      <div class="column-picker-list-item column-picker-list-item-locked">
         @if (!lockedTemplate) {
           {{ column }} <ux-icon name="lock"></ux-icon>
         }
         @if (lockedTemplate) {
           <ng-container
             [ngTemplateOutlet]="lockedTemplate"
-            [ngTemplateOutletContext]="{ $implicit: column }">
+            [ngTemplateOutletContext]="{ $implicit: column }"
+          >
           </ng-container>
         }
       </div>
     }
 
-    <div [(uxSelection)]="_selectedSelection"
+    <div
+      [(uxSelection)]="_selectedSelection"
       uxReorderable
       [reorderableModel]="_storedSelection"
       (reorderableModelChange)="onReorderChange($event)"
       (reorderStart)="storeSelection()"
-      (reorderEnd)="restoreSelection()">
-
+      (reorderEnd)="restoreSelection()"
+    >
       @for (column of selected; track selectedTrackBy(index, column); let index = $index) {
         <div
           #selectedColumn
@@ -164,7 +173,8 @@
           [attr.aria-label]="selectedAriaLabel(column, selected.indexOf(column))"
           (keydown.alt.arrowup)="move(column, -1)"
           (keydown.alt.arrowdown)="move(column, 1)"
-          role="option">
+          role="option"
+        >
           @if (!selectedTemplate) {
             <ux-icon uxReorderableHandle name="drag" class="drag-handle-icon"></ux-icon>
             {{ _getColumnName(column) }}
@@ -172,12 +182,12 @@
           @if (selectedTemplate) {
             <ng-container
               [ngTemplateOutlet]="selectedTemplate"
-              [ngTemplateOutletContext]="{ $implicit: column }">
+              [ngTemplateOutletContext]="{ $implicit: column }"
+            >
             </ng-container>
           }
         </div>
       }
     </div>
-
   </div>
 </div>

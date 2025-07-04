@@ -1,4 +1,5 @@
-<div #option
+<div
+  #option
   uxFocusIndicator
   class="facet-check-list-item"
   [class.facet-active]="selected"
@@ -11,10 +12,17 @@
   (keydown.enter)="selectedChange.emit(facet)"
   (keydown.space)="selectedChange.emit(facet); $event.preventDefault()"
   (keydown.spacebar)="selectedChange.emit(facet); $event.preventDefault()"
-  [class.disabled]="facet?.disabled">
-
+  [class.disabled]="facet?.disabled"
+>
   <!-- Show check icon to indicate the state -->
-  <ux-checkbox [clickable]="false" [value]="selected" [simplified]="simplified" [tabindex]="-1" [disabled]="disabled" [id]="id + '-checkbox'">
+  <ux-checkbox
+    [clickable]="false"
+    [value]="selected"
+    [simplified]="simplified"
+    [tabindex]="-1"
+    [disabled]="disabled"
+    [id]="id + '-checkbox'"
+  >
     <span class="facet-check-list-item-title">{{ facet?.title }}</span>
     @if (facet?.count !== undefined) {
       <span class="facet-check-list-item-count">({{ facet?.count }})</span>

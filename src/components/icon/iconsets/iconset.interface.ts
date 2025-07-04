@@ -1,8 +1,8 @@
 export interface IconDefinition {
-    name: string;
-    iconset: string;
-    icon: string;
-    size?: string | string[];
+  name: string;
+  iconset: string;
+  icon: string;
+  size?: string | string[];
 }
 
 /**
@@ -12,5 +12,5 @@ export interface IconDefinition {
  * array for convenience.
  */
 export interface SingleIconDefinition extends IconDefinition {
-    size?: string;
+  size?: string;
 }

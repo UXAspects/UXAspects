@@ -23,8 +23,8 @@ export class MockResizeService {
 }
 
 @Component({
-    selector: 'app-organization-chart',
-    template: ` <div style="width: 800px; height: 600px;">
+  selector: 'app-organization-chart',
+  template: ` <div style="width: 800px; height: 600px;">
     <ux-organization-chart
       [dataset]="dataset"
       [duration]="0"
@@ -40,7 +40,7 @@ export class MockResizeService {
       </ng-template>
     </ux-organization-chart>
   </div>`,
-    standalone: false
+  standalone: false,
 })
 export class OrganizationChartTestComponent {
   dataset: OrganizationChartNode<Employee> = {

@@ -7,18 +7,8 @@ import { DateRangePickerComponent } from './date-range-picker.component';
 import { DateRangePickerDirective } from './date-range-picker.directive';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        DateTimePickerModule,
-        IconModule,
-        DateFormatterPipeModule
-    ],
-    declarations: [
-        DateRangePickerComponent,
-        DateRangePickerDirective,
-    ],
-    exports: [
-        DateRangePickerComponent
-    ]
+  imports: [CommonModule, DateTimePickerModule, IconModule, DateFormatterPipeModule],
+  declarations: [DateRangePickerComponent, DateRangePickerDirective],
+  exports: [DateRangePickerComponent],
 })
-export class DateRangePickerModule { }
+export class DateRangePickerModule {}

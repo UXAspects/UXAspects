@@ -6,34 +6,33 @@ import { DocumentationCategoryComponent } from '../../../../components/documenta
 import { DocumentationPage, ResolverService } from '../../../../services/resolver/resolver.service';
 import { ComponentsPageHeaderComponent } from './page-header/page-header.component';
 
-
-const SECTIONS = [
-  ComponentsPageHeaderComponent
-];
+const SECTIONS = [ComponentsPageHeaderComponent];
 
 const ROUTES = [
-    {
-        path: '**',
-        component: DocumentationCategoryComponent,
-        data: {
-            category: ResolverService.resolveCategoryData(DocumentationPage.Components, 'Page Header')
-        }
-    }
+  {
+    path: '**',
+    component: DocumentationCategoryComponent,
+    data: {
+      category: ResolverService.resolveCategoryData(DocumentationPage.Components, 'Page Header'),
+    },
+  },
 ];
 
 @NgModule({
-    imports: [
-        TabsetModule,
-        PageHeaderModule,
-        DocumentationComponentsModule,
-        RouterModule.forChild(ROUTES)
-    ],
-    exports: SECTIONS,
-    declarations: SECTIONS,
+  imports: [
+    TabsetModule,
+    PageHeaderModule,
+    DocumentationComponentsModule,
+    RouterModule.forChild(ROUTES),
+  ],
+  exports: SECTIONS,
+  declarations: SECTIONS,
 })
 export class ComponentsPageHeaderModule {
-
-    constructor(componentFactoryResolver: ComponentFactoryResolver, resolverService: ResolverService) {
-        resolverService.registerResolver(componentFactoryResolver, SECTIONS);
-    }
+  constructor(
+    componentFactoryResolver: ComponentFactoryResolver,
+    resolverService: ResolverService
+  ) {
+    resolverService.registerResolver(componentFactoryResolver, SECTIONS);
+  }
 }

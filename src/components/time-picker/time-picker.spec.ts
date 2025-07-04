@@ -3,8 +3,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { TimePickerModule } from './time-picker.module';
 
 @Component({
-    selector: 'app-time-picker-test',
-    template: `
+  selector: 'app-time-picker-test',
+  template: `
     <ux-time-picker
       [(value)]="value"
       [showMeridian]="showMeridian"
@@ -19,7 +19,7 @@ import { TimePickerModule } from './time-picker.module';
     >
     </ux-time-picker>
   `,
-    standalone: false
+  standalone: false,
 })
 export class TimePickerTestComponent {
   value = new Date();

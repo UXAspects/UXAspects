@@ -1,4 +1,4 @@
 export interface Usage {
-    title: string;
-    content: string;
+  title: string;
+  content: string;
 }

@@ -4,6 +4,6 @@
  * `MenuComponent` and `MenuItemComponent`
  */
 export enum MenuItemType {
-    Default,
-    Custom
+  Default,
+  Custom,
 }

@@ -1,92 +1,99 @@
 <uxd-page-header header="Getting Started"></uxd-page-header>
 
 <uxd-text-page-layout>
+  <p>
+    UX Aspects components can be used in Angular projects (Angular 17 and 18 are currently
+    supported). The stylesheet can also be used in non-Angular projects to style basic controls.
+  </p>
+
+  <ol>
+    <li><a routerLink="." fragment="pre-requisites">Pre-Requisites</a></li>
+    <li><a routerLink="." fragment="install-ux-aspects">Install UX Aspects</a></li>
+    <li>
+      <a routerLink="." fragment="consuming-ux-aspects-components"
+        >Consuming UX Aspects Components</a
+      >
+    </li>
+    <li><a routerLink="." fragment="contributing">Contributing</a></li>
+    <li><a routerLink="." fragment="getting-help">Getting Help</a></li>
+  </ol>
+
+  <section>
+    <h2 id="pre-requisites">Pre-Requisites</h2>
+
+    <p>Instructions on this page refer to the following software:</p>
+
+    <ul>
+      <li>
+        <a href="https://nodejs.org/">Node.js</a> &mdash; this provides the
+        <code>npm</code> command, which is used to install application dependencies.
+      </li>
+      <li>
+        <a href="https://cli.angular.io/">Angular CLI</a> &mdash; used to create a new Angular
+        application.
+      </li>
+    </ul>
+  </section>
+
+  <section>
+    <h2 id="install-ux-aspects">Install UX Aspects</h2>
+
+    <pre>npm install --save &#64;ux-aspects/ux-aspects</pre>
+
+    <h3>Install Peer Dependencies</h3>
+
     <p>
-        UX Aspects components can be used in Angular projects (Angular 17 and 18 are currently supported). The
-        stylesheet can also be used in non-Angular projects to style basic controls.
+      UX Aspects has a number of peer dependencies which should be met to ensure proper
+      functionality across all components. You can select the version of each peer dependency that
+      suits your application, provided it matches the peer version criteria.
     </p>
 
-    <ol>
-        <li><a routerLink="." fragment="pre-requisites">Pre-Requisites</a></li>
-        <li><a routerLink="." fragment="install-ux-aspects">Install UX Aspects</a></li>
-        <li><a routerLink="." fragment="consuming-ux-aspects-components">Consuming UX Aspects Components</a></li>
-        <li><a routerLink="." fragment="contributing">Contributing</a></li>
-        <li><a routerLink="." fragment="getting-help">Getting Help</a></li>
-    </ol>
+    <h3>Stylesheets</h3>
 
-    <section>
-        <h2 id="pre-requisites">Pre-Requisites</h2>
+    <p>
+      Add the Bootstrap and UX Aspects stylesheets to the application. If using Angular CLI, add
+      these via the
+      <code>angular.json</code> file; otherwise, they can be imported into the master stylesheet.
+      Note that the order of import is significant.
+    </p>
 
-        <p>Instructions on this page refer to the following software:</p>
+    <uxd-snippet [code]="cliJson" language="javascript"></uxd-snippet>
+  </section>
 
-        <ul>
-            <li>
-                <a href="https://nodejs.org/">Node.js</a> &mdash; this provides the <code>npm</code> command, which
-                is used to install application dependencies.
-            </li>
-            <li>
-                <a href="https://cli.angular.io/">Angular CLI</a> &mdash; used to create a new
-                Angular application.
-            </li>
-        </ul>
-    </section>
+  <section>
+    <h2 id="consuming-ux-aspects-components">Consuming UX Aspects Components</h2>
 
-    <section>
-        <h2 id="install-ux-aspects">Install UX Aspects</h2>
+    <p>
+      Import the required component module(s) into the module that will be using them. The Usage
+      dropdown in the documentation lists the module to import, where appropriate.
+    </p>
 
-        <pre>npm install --save &#64;ux-aspects/ux-aspects</pre>
+    <uxd-snippet [code]="moduleTs" language="javascript"></uxd-snippet>
+  </section>
 
-        <h3>Install Peer Dependencies</h3>
+  <section>
+    <h2 id="contributing">Contributing</h2>
 
-        <p>
-            UX Aspects has a number of peer dependencies which should be met to ensure proper functionality across all
-            components. You can select the version of each peer dependency that suits your application, provided it
-            matches the peer version criteria.
-        </p>
+    <p>
+      UX Aspects is an open source project, which means that everyone is welcome to participate in
+      making improvements!
+    </p>
 
-        <h3>Stylesheets</h3>
+    <p>
+      See
+      <a href="https://github.com/UXAspects/UXAspects/blob/master/CONTRIBUTING.md"
+        >CONTRIBUTING.md</a
+      >
+      on GitHub for information on building, testing, and submitting pull requests for UX Aspects.
+    </p>
+  </section>
 
-        <p>
-            Add the Bootstrap and UX Aspects stylesheets to the application. If using Angular CLI, add these via the
-            <code>angular.json</code> file; otherwise, they can be imported into the master stylesheet. Note that the
-            order of import is significant.
-        </p>
+  <section>
+    <h2 id="getting-help">Getting Help</h2>
 
-        <uxd-snippet [code]="cliJson" language="javascript"></uxd-snippet>
-    </section>
-
-    <section>
-        <h2 id="consuming-ux-aspects-components">Consuming UX Aspects Components</h2>
-
-        <p>
-            Import the required component module(s) into the module that will be using them. The Usage dropdown in the
-            documentation lists the module to import, where appropriate.
-        </p>
-
-        <uxd-snippet [code]="moduleTs" language="javascript"></uxd-snippet>
-    </section>
-
-    <section>
-        <h2 id="contributing">Contributing</h2>
-
-        <p>
-            UX Aspects is an open source project, which means that everyone is welcome to participate in making
-            improvements!
-        </p>
-
-        <p>
-            See
-            <a href="https://github.com/UXAspects/UXAspects/blob/master/CONTRIBUTING.md">CONTRIBUTING.md</a>
-            on GitHub for information on building, testing, and submitting pull requests for UX Aspects.
-        </p>
-    </section>
-
-    <section>
-        <h2 id="getting-help">Getting Help</h2>
-
-        <p>
-            To get help with anything related to UX Aspects, please
-            <a href="https://github.com/UXAspects/UXAspects/issues">raise an issue</a> on GitHub.
-        </p>
-    </section>
+    <p>
+      To get help with anything related to UX Aspects, please
+      <a href="https://github.com/UXAspects/UXAspects/issues">raise an issue</a> on GitHub.
+    </p>
+  </section>
 </uxd-text-page-layout>

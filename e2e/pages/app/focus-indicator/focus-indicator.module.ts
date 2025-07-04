@@ -5,15 +5,17 @@ import { AccessibilityModule, CheckboxModule } from '@ux-aspects/ux-aspects';
 import { FocusIndicatorTestPageComponent } from './focus-indicator.testpage.component';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        CheckboxModule,
-        AccessibilityModule,
-        RouterModule.forChild([{
-            path: '',
-            component: FocusIndicatorTestPageComponent
-        }])
-    ],
-    declarations: [FocusIndicatorTestPageComponent],
+  imports: [
+    CommonModule,
+    CheckboxModule,
+    AccessibilityModule,
+    RouterModule.forChild([
+      {
+        path: '',
+        component: FocusIndicatorTestPageComponent,
+      },
+    ]),
+  ],
+  declarations: [FocusIndicatorTestPageComponent],
 })
-export class FocusIndicatorTestPageModule { }
+export class FocusIndicatorTestPageModule {}

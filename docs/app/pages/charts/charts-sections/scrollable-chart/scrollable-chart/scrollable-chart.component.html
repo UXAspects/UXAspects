@@ -1,140 +1,174 @@
 <div class="demo-chart-container">
+  <div
+    *ngIf="hasPreviousPage()"
+    aria-label="Scroll to previous chart page"
+    class="chart-scroll-previous-btn"
+    (click)="goToPreviousPage()"
+  >
+    <ux-icon name="previous"></ux-icon>
+  </div>
 
-    <div *ngIf="hasPreviousPage()"
-        aria-label="Scroll to previous chart page"
-        class="chart-scroll-previous-btn"
-        (click)="goToPreviousPage()">
-        <ux-icon name="previous"></ux-icon>
-    </div>
+  <canvas
+    aria-label="Bar chart showing file type totals"
+    baseChart
+    [datasets]="barChartData"
+    [labels]="barChartLabels"
+    [options]="barChartOptions"
+    [legend]="barChartLegend"
+    type="bar"
+  >
+    <table aria-label="Chart data">
+      <thead>
+        <tr>
+          <th>File Type</th>
+          <th>Number of Files</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let label of barChartLabels; let idx = index">
+          <td>{{ label }}</td>
+          <td>{{ barChartData[0].data[idx] }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </canvas>
 
-    <canvas aria-label="Bar chart showing file type totals"
-        baseChart
-        [datasets]="barChartData"
-        [labels]="barChartLabels"
-        [options]="barChartOptions"
-        [legend]="barChartLegend"
-        type="bar">
-
-        <table aria-label="Chart data">
-            <thead>
-                <tr>
-                    <th>File Type</th>
-                    <th>Number of Files</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let label of barChartLabels; let idx = index">
-                    <td>{{label}}</td>
-                    <td>{{barChartData[0].data[idx]}}</td>
-                </tr>
-            </tbody>
-        </table>
-
-    </canvas>
-
-    <div *ngIf="hasNextPage()"
-        aria-label="Scroll to previous chart page"
-        class="chart-scroll-next-btn"
-        (click)="goToNextPage()">
-        <ux-icon name="next"></ux-icon>
-    </div>
-
+  <div
+    *ngIf="hasNextPage()"
+    aria-label="Scroll to previous chart page"
+    class="chart-scroll-next-btn"
+    (click)="goToNextPage()"
+  >
+    <ux-icon name="next"></ux-icon>
+  </div>
 </div>
 
-<hr>
+<hr />
 
 <p>
-    Scrollable Charts can be added using the <code>ng2-charts</code> library.
-    The <code>chart.js</code> library needs to be imported and the <code>NgChartsModule</code> needs to be added to the appropriate NgModule.
+  Scrollable Charts can be added using the <code>ng2-charts</code> library. The
+  <code>chart.js</code> library needs to be imported and the <code>NgChartsModule</code> needs to be
+  added to the appropriate NgModule.
 </p>
 
-<p>The <code>baseChart</code> directive should be added to a <code>canvas</code> element and the following attributes can be used to customize the chart behavior and appearance:</p>
+<p>
+  The <code>baseChart</code> directive should be added to a <code>canvas</code> element and the
+  following attributes can be used to customize the chart behavior and appearance:
+</p>
 
 <uxd-api-properties tableTitle="Inputs">
-    <tr uxd-api-property name="dataSets" type="object[]">
-        Contains the data and properties for each data set to be displayed in the chart.
-    </tr>
-    <tr uxd-api-property name="type" type="string">
-        Indicates the type of the chart. Possible options are: <code>line</code>, <code>bar</code>, <code>radar</code>, <code>pie</code>, <code>polarArea</code>, <code>doughnut</code>
-    </tr>
-    <tr uxd-api-property name="options" type="ChartOptions">
-        Configures the appearance and behavior of all aspects of the chart.
-    </tr>
-    <tr uxd-api-property name="legend" type="boolean">
-        Determines whether or not the legend should be displayed.
-    </tr>
+  <tr uxd-api-property name="dataSets" type="object[]">
+    Contains the data and properties for each data set to be displayed in the chart.
+  </tr>
+  <tr uxd-api-property name="type" type="string">
+    Indicates the type of the chart. Possible options are:
+    <code>line</code
+    >,
+    <code>bar</code
+    >,
+    <code>radar</code
+    >,
+    <code>pie</code
+    >,
+    <code>polarArea</code
+    >,
+    <code>doughnut</code>
+  </tr>
+  <tr uxd-api-property name="options" type="ChartOptions">
+    Configures the appearance and behavior of all aspects of the chart.
+  </tr>
+  <tr uxd-api-property name="legend" type="boolean">
+    Determines whether or not the legend should be displayed.
+  </tr>
 </uxd-api-properties>
 
 <uxd-api-properties tableTitle="Outputs">
-    <tr uxd-api-property name="chartClick">
-        Fires when click on a chart has occurred, returns information regarding active points and labels.
-    </tr>
-    <tr uxd-api-property name="chartHover">
-        Fires when mousemove (hover) on a chart has occurred, returns information regarding active points and labels.
-    </tr>
+  <tr uxd-api-property name="chartClick">
+    Fires when click on a chart has occurred, returns information regarding active points and
+    labels.
+  </tr>
+  <tr uxd-api-property name="chartHover">
+    Fires when mousemove (hover) on a chart has occurred, returns information regarding active
+    points and labels.
+  </tr>
 </uxd-api-properties>
 
-<p>Complete documentation on the directive and chart options can be found at the documentation links below.</p>
+<p>
+  Complete documentation on the directive and chart options can be found at the documentation links
+  below.
+</p>
 
-<p>The following code can be used to create the example above: </p>
+<p>The following code can be used to create the example above:</p>
 
 <ux-tabset [minimal]="false">
+  <ux-tab heading="HTML">
+    <uxd-snippet language="html" [content]="snippets.compiled.scrollableChartHtml"></uxd-snippet>
+  </ux-tab>
 
-    <ux-tab heading="HTML">
-        <uxd-snippet language="html" [content]="snippets.compiled.scrollableChartHtml"></uxd-snippet>
-    </ux-tab>
+  <ux-tab heading="TypeScript">
+    <uxd-snippet
+      language="javascript"
+      [content]="snippets.compiled.scrollableChartTs"
+    ></uxd-snippet>
+  </ux-tab>
 
-    <ux-tab heading="TypeScript">
-        <uxd-snippet language="javascript" [content]="snippets.compiled.scrollableChartTs"></uxd-snippet>
-    </ux-tab>
-
-    <ux-tab heading="CSS">
-        <uxd-snippet language="css" [content]="snippets.compiled.scrollableChartCss"></uxd-snippet>
-    </ux-tab>
-
+  <ux-tab heading="CSS">
+    <uxd-snippet language="css" [content]="snippets.compiled.scrollableChartCss"></uxd-snippet>
+  </ux-tab>
 </ux-tabset>
 
-<br>
+<br />
 
 <p>
-    The effect of scrolling on a chart can be achieved by simply displaying only a subset of the dataset at a time.
-    We can add 'previous' and 'next' buttons to allow easy navigation between the different pages of data.
+  The effect of scrolling on a chart can be achieved by simply displaying only a subset of the
+  dataset at a time. We can add 'previous' and 'next' buttons to allow easy navigation between the
+  different pages of data.
 </p>
 
 <p>
-    In the example above, we store the entire dataset in an array. We also store an array containing all the labels for each data point.
-    By defining several variables (<code>pageSize</code> &amp; <code>pageNumber</code>) we can easily control the datasets shown.
+  In the example above, we store the entire dataset in an array. We also store an array containing
+  all the labels for each data point. By defining several variables (<code>pageSize</code> &amp;
+  <code>pageNumber</code>) we can easily control the datasets shown.
 </p>
 
-<p>
-    We then add several functions:
-</p>
+<p>We then add several functions:</p>
 
 <ul>
-    <li><code>getPageData</code> - this returns a subset of the complete dataset based on the current page number and page size.</li>
-    <li><code>getPageLabels</code> - this returns the labels to be displayed on the x-axis that correspond to the data points shown on the page.</li>
-    <li><code>goToPreviousPage</code> - this will decrement the current page number. It will then update the dataset and labels using methods described above.</li>
-    <li><code>hasPreviousPage</code> - this will determine whether we are on the first page or not.</li>
-    <li><code>hasNextPage</code> - this will determine whether we are on the last page or not.</li>
+  <li>
+    <code>getPageData</code> - this returns a subset of the complete dataset based on the current
+    page number and page size.
+  </li>
+  <li>
+    <code>getPageLabels</code> - this returns the labels to be displayed on the x-axis that
+    correspond to the data points shown on the page.
+  </li>
+  <li>
+    <code>goToPreviousPage</code> - this will decrement the current page number. It will then update
+    the dataset and labels using methods described above.
+  </li>
+  <li>
+    <code>hasPreviousPage</code> - this will determine whether we are on the first page or not.
+  </li>
+  <li><code>hasNextPage</code> - this will determine whether we are on the last page or not.</li>
 </ul>
 
 <blockquote>
+  <p class="m-b-nil">
+    <b>Dependencies: </b>
+    <a class="hyperlink" href="https://www.npmjs.com/package/ng2-charts">ng2-charts</a>,
+    <a class="hyperlink" href="https://www.npmjs.com/package/chart.js">chart.js</a>
+  </p>
 
-    <p class="m-b-nil">
-        <b>Dependencies: </b>
-        <a class="hyperlink" href="https://www.npmjs.com/package/ng2-charts">ng2-charts</a>,
-        <a class="hyperlink" href="https://www.npmjs.com/package/chart.js">chart.js</a>
-    </p>
+  <p class="m-b-nil">
+    <b>Modules: </b>
+    <span>NgChartsModule</span>
+  </p>
 
-    <p class="m-b-nil">
-        <b>Modules: </b>
-        <span>NgChartsModule</span>
-    </p>
-
-
-    <p class="m-b-nil">
-        <b>Documentation: </b>
-        <a class="hyperlink" href="http://valor-software.com/ng2-charts/">Angular Directive Documentation</a>,
-        <a class="hyperlink" href="http://www.chartjs.org/docs/">Chart Library Documentation</a>
-    </p>
+  <p class="m-b-nil">
+    <b>Documentation: </b>
+    <a class="hyperlink" href="http://valor-software.com/ng2-charts/"
+      >Angular Directive Documentation</a
+    >,
+    <a class="hyperlink" href="http://www.chartjs.org/docs/">Chart Library Documentation</a>
+  </p>
 </blockquote>

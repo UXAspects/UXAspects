@@ -2,113 +2,105 @@ import { imageCompare } from '../common/image-compare';
 import { FocusIndicatorButtonsPage } from './focus-indicator.po.spec';
 
 describe('Focus Indicator Tests', () => {
+  const page = new FocusIndicatorButtonsPage();
 
-    const page = new FocusIndicatorButtonsPage();
+  beforeEach(async () => {
+    await page.getPage();
+  });
 
-    beforeEach(async () => {
-        await page.getPage();
-    });
+  it('should have correct initial states', async () => {
+    // should now be controlled by the directive
+    expect(await page.getFocusIndicatorClass()).toBe(true);
 
-    it('should have correct initial states', async () => {
-        // should now be controlled by the directive
-        expect(await page.getFocusIndicatorClass()).toBe(true);
+    // should not be initially active
+    expect(await page.getFocusIndicatorActiveClass()).toBe(false);
 
-        // should not be initially active
-        expect(await page.getFocusIndicatorActiveClass()).toBe(false);
+    // the initial indicator state should be false
+    expect(await page.getIndicatorLabel()).toBe('false');
 
-        // the initial indicator state should be false
-        expect(await page.getIndicatorLabel()).toBe('false');
+    expect(await imageCompare('focus-indicator-initial')).toEqual(0);
+  });
 
-        expect(await imageCompare('focus-indicator-initial')).toEqual(0);
-    });
+  it('should not focus on click when mouseFocusIndicator: false', async () => {
+    // perform a click on the target element
+    await page.target.click();
 
-    it('should not focus on click when mouseFocusIndicator: false', async () => {
+    // check if the indicator is now active
+    expect(await page.getFocusIndicatorActiveClass()).toBe(false);
 
-        // perform a click on the target element
-        await page.target.click();
+    // the indicator state should be false
+    expect(await page.getIndicatorLabel()).toBe('false');
+  });
 
-        // check if the indicator is now active
-        expect(await page.getFocusIndicatorActiveClass()).toBe(false);
+  it('should focus on click when mouseFocusIndicator: true', async () => {
+    // toggle the mouseFocusIndicator state
+    await page.mouseToggle.click();
 
-        // the indicator state should be false
-        expect(await page.getIndicatorLabel()).toBe('false');
-    });
+    // perform a click on the target element
+    await page.target.click();
 
-    it('should focus on click when mouseFocusIndicator: true', async () => {
+    // check if the indicator is now active
+    expect(await page.getFocusIndicatorActiveClass()).toBe(true);
 
-        // toggle the mouseFocusIndicator state
-        await page.mouseToggle.click();
+    // the indicator state should be false
+    expect(await page.getIndicatorLabel()).toBe('true');
+  });
 
-        // perform a click on the target element
-        await page.target.click();
+  it('should not focus on programmatic focus when programmaticFocusIndicator: false', async () => {
+    // perform a programmatic focus on the target element
+    await page.setProgrammaticFocus();
 
-        // check if the indicator is now active
-        expect(await page.getFocusIndicatorActiveClass()).toBe(true);
+    // check if the indicator is now active
+    expect(await page.getFocusIndicatorActiveClass()).toBe(false);
 
-        // the indicator state should be false
-        expect(await page.getIndicatorLabel()).toBe('true');
-    });
+    // the indicator state should be false
+    expect(await page.getIndicatorLabel()).toBe('false');
+  });
 
-    it('should not focus on programmatic focus when programmaticFocusIndicator: false', async () => {
+  it('should focus on programmatic focus when programmaticFocusIndicator: true', async () => {
+    // toggle the programmaticFocusIndicator state
+    await page.programmaticToggle.click();
 
-        // perform a programmatic focus on the target element
-        await page.setProgrammaticFocus();
+    // perform a programmatic focus on the target element
+    await page.setProgrammaticFocus();
 
-        // check if the indicator is now active
-        expect(await page.getFocusIndicatorActiveClass()).toBe(false);
+    // check if the indicator is now active
+    expect(await page.getFocusIndicatorActiveClass()).toBe(true);
 
-        // the indicator state should be false
-        expect(await page.getIndicatorLabel()).toBe('false');
-    });
+    // the indicator state should be false
+    expect(await page.getIndicatorLabel()).toBe('true');
 
-    it('should focus on programmatic focus when programmaticFocusIndicator: true', async () => {
+    expect(await imageCompare('focus-indicator-focused')).toEqual(0);
+  });
 
-        // toggle the programmaticFocusIndicator state
-        await page.programmaticToggle.click();
+  it('should not focus on keyboard when keyboardFocusIndicator: false', async () => {
+    // focus the container element so pressing tab will bring us to the target next
+    await page.setContainerFocused();
 
-        // perform a programmatic focus on the target element
-        await page.setProgrammaticFocus();
+    // tab to the target element
+    await page.pressTab();
 
-        // check if the indicator is now active
-        expect(await page.getFocusIndicatorActiveClass()).toBe(true);
+    // check if the indicator is now active
+    expect(await page.getFocusIndicatorActiveClass()).toBe(false);
 
-        // the indicator state should be false
-        expect(await page.getIndicatorLabel()).toBe('true');
+    // the indicator state should be false
+    expect(await page.getIndicatorLabel()).toBe('false');
+  });
 
-        expect(await imageCompare('focus-indicator-focused')).toEqual(0);
-    });
+  it('should focus on keyboard when keyboardFocusIndicator: true', async () => {
+    // toggle the programmaticFocusIndicator state
+    await page.keyboardToggle.click();
 
-    it('should not focus on keyboard when keyboardFocusIndicator: false', async () => {
+    // focus the container element so pressing tab will bring us to the target next
+    await page.setContainerFocused();
 
-        // focus the container element so pressing tab will bring us to the target next
-        await page.setContainerFocused();
+    // tab to the target element
+    await page.pressTab();
 
-        // tab to the target element
-        await page.pressTab();
+    // check if the indicator is now active
+    expect(await page.getFocusIndicatorActiveClass()).toBe(true);
 
-        // check if the indicator is now active
-        expect(await page.getFocusIndicatorActiveClass()).toBe(false);
-
-        // the indicator state should be false
-        expect(await page.getIndicatorLabel()).toBe('false');
-    });
-
-    it('should focus on keyboard when keyboardFocusIndicator: true', async () => {
-
-        // toggle the programmaticFocusIndicator state
-        await page.keyboardToggle.click();
-
-        // focus the container element so pressing tab will bring us to the target next
-        await page.setContainerFocused();
-
-        // tab to the target element
-        await page.pressTab();
-
-        // check if the indicator is now active
-        expect(await page.getFocusIndicatorActiveClass()).toBe(true);
-
-        // the indicator state should be false
-        expect(await page.getIndicatorLabel()).toBe('true');
-    });
-
+    // the indicator state should be false
+    expect(await page.getIndicatorLabel()).toBe('true');
+  });
 });

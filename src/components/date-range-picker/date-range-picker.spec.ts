@@ -7,8 +7,8 @@ import { IconModule } from '../icon';
 import { DateRangePickerModule } from './date-range-picker.module';
 
 @Component({
-    selector: 'ux-components-date-range-picker',
-    template: `
+  selector: 'ux-components-date-range-picker',
+  template: `
     <ux-date-range-picker
       [(start)]="start"
       [(end)]="end"
@@ -28,7 +28,7 @@ import { DateRangePickerModule } from './date-range-picker.module';
     >
     </ux-date-range-picker>
   `,
-    standalone: false
+  standalone: false,
 })
 export class DateRangePickerComponent {
   // eslint-disable-next-line @typescript-eslint/no-empty-function

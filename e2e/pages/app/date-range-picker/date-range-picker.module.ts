@@ -6,18 +6,18 @@ import { AccessibilityModule, DateRangePickerModule } from '@ux-aspects/ux-aspec
 import { DateRangePickerTestPageComponent } from './date-range-picker.testpage.component';
 
 @NgModule({
-    imports: [
-        AccessibilityModule,
-        CommonModule,
-        DateRangePickerModule,
-        FormsModule,
-        RouterModule.forChild([
-            {
-                path: '',
-                component: DateRangePickerTestPageComponent
-            }
-        ])
-    ],
-    declarations: [DateRangePickerTestPageComponent]
+  imports: [
+    AccessibilityModule,
+    CommonModule,
+    DateRangePickerModule,
+    FormsModule,
+    RouterModule.forChild([
+      {
+        path: '',
+        component: DateRangePickerTestPageComponent,
+      },
+    ]),
+  ],
+  declarations: [DateRangePickerTestPageComponent],
 })
-export class DateRangePickerTestPageModule { }
+export class DateRangePickerTestPageModule {}

@@ -1,12 +1,15 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-    name: 'filterTypeaheadHighlight',
-    standalone: false
+  name: 'filterTypeaheadHighlight',
+  standalone: false,
 })
 export class FilterTypeaheadHighlight implements PipeTransform {
-    transform(value: string, searchQuery: string): string {
-        const regex = new RegExp(searchQuery, 'i');
-        return value.replace(regex, `<b class="filter-typeahead-highlighted">${value.match(regex)}</b>`);
-    }
+  transform(value: string, searchQuery: string): string {
+    const regex = new RegExp(searchQuery, 'i');
+    return value.replace(
+      regex,
+      `<b class="filter-typeahead-highlighted">${value.match(regex)}</b>`
+    );
+  }
 }

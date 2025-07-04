@@ -1,97 +1,97 @@
 ux-marquee-wizard {
+  display: flex;
+  height: 100%;
+  min-height: 500px;
+
+  .as-split-gutter {
+    background-color: @marquee-modal-side-panel-bg !important;
+  }
+
+  .marquee-wizard-side-panel {
     display: flex;
-    height: 100%;
-    min-height: 500px;
+    flex-direction: column;
+    flex: none;
+    width: 240px;
+    background-color: @marquee-modal-side-panel-bg;
 
-    .as-split-gutter {
-        background-color: @marquee-modal-side-panel-bg !important;
+    &.marquee-wizard-side-panel-resize {
+      height: 100%;
+      width: 100%;
     }
 
-    .marquee-wizard-side-panel {
+    .marquee-wizard-description-container {
+      padding: 20px;
+      color: @marquee-wizard-step-color;
+    }
+
+    .marquee-wizard-steps {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      list-style-type: none;
+      padding: 0;
+      margin-top: 0;
+      overflow-y: auto;
+
+      .marquee-wizard-step {
         display: flex;
-        flex-direction: column;
-        flex: none;
-        width: 240px;
-        background-color: @marquee-modal-side-panel-bg;
+        color: @marquee-wizard-step-color;
+        padding: 8px 20px;
+        cursor: default;
+        transition: background-color 0.3s linear;
+        align-items: center;
 
-        &.marquee-wizard-side-panel-resize {
-            height: 100%;
-            width: 100%;
+        &.active {
+          background-color: rgba(0, 0, 0, 0.2);
         }
 
-        .marquee-wizard-description-container {
-            padding: 20px;
-            color: @marquee-wizard-step-color;
+        &.active,
+        &.visited {
+          cursor: pointer;
         }
 
-        .marquee-wizard-steps {
-            display: flex;
-            flex-direction: column;
-            flex: 1;
-            list-style-type: none;
-            padding: 0;
-            margin-top: 0;
-            overflow-y: auto;
-
-            .marquee-wizard-step {
-                display: flex;
-                color: @marquee-wizard-step-color;
-                padding: 8px 20px;
-                cursor: default;
-                transition: background-color 0.3s linear;
-                align-items: center;
-
-                &.active {
-                    background-color: rgba(0, 0, 0, 0.2);
-                }
-
-                &.active,
-                &.visited {
-                    cursor: pointer;
-                }
-
-                &.invalid {
-                    background-color: @marquee-wizard-step-error-bg;
-                }
-
-                .marquee-wizard-step-icon {
-                    margin-right: 10px;
-                    flex: none;
-                }
-
-                .marquee-wizard-step-title {
-                    flex: 1;
-                    pointer-events: none;
-                }
-
-                .marquee-wizard-step-status {
-                    flex: none;
-                }
-
-                &:focus {
-                    outline: none;
-
-                    &.cdk-keyboard-focused {
-                        .focus-outline();
-                    }
-                }
-            }
+        &.invalid {
+          background-color: @marquee-wizard-step-error-bg;
         }
+
+        .marquee-wizard-step-icon {
+          margin-right: 10px;
+          flex: none;
+        }
+
+        .marquee-wizard-step-title {
+          flex: 1;
+          pointer-events: none;
+        }
+
+        .marquee-wizard-step-status {
+          flex: none;
+        }
+
+        &:focus {
+          outline: none;
+
+          &.cdk-keyboard-focused {
+            .focus-outline();
+          }
+        }
+      }
+    }
+  }
+
+  .marquee-wizard-content-panel {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    background-color: @marquee-modal-bg;
+
+    &.marquee-wizard-content-panel-resize {
+      height: 100%;
     }
 
-    .marquee-wizard-content-panel {
-        display: flex;
-        flex-direction: column;
-        flex: 1;
-        background-color: @marquee-modal-bg;
-
-        &.marquee-wizard-content-panel-resize {
-            height: 100%;
-        }
-
-        .marquee-wizard-content {
-            flex: 1;
-            padding: 35px;
-        }
+    .marquee-wizard-content {
+      flex: 1;
+      padding: 35px;
     }
+  }
 }

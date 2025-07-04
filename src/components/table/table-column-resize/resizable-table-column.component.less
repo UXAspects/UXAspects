@@ -1,61 +1,61 @@
 .ux-resizable-table {
-    table-layout: fixed;
+  table-layout: fixed;
 
-    .ux-resizable-table-column {
-        position: relative;
-        overflow: hidden;
+  .ux-resizable-table-column {
+    position: relative;
+    overflow: hidden;
 
-        &:last-of-type {
-            .ux-resizable-table-column-handle {
-                display: none;
-            }
-        }
+    &:last-of-type {
+      .ux-resizable-table-column-handle {
+        display: none;
+      }
     }
+  }
 }
 
 .ux-resizable-expanding-table {
-    table-layout: fixed;
+  table-layout: fixed;
 
-    .ux-resizable-table-column {
-        position: relative;
-        overflow: hidden;
-    }
+  .ux-resizable-table-column {
+    position: relative;
+    overflow: hidden;
+  }
 }
 
 .ux-resizable-table-column {
-    justify-content: space-between;
+  justify-content: space-between;
 
-    &.cdk-keyboard-focused .ux-resizable-table-column-handle {
-        background-color: transparent;
-    }
+  &.cdk-keyboard-focused .ux-resizable-table-column-handle {
+    background-color: transparent;
+  }
 }
 
 .ux-resizable-table-column-handle {
-    content: '';
-    position: absolute;
-    display: flex;
-    justify-content: center;
-    background-color: #fff;
-    align-items: center;
-    top: 0;
-    right: 0;
-    width: 16px;
-    height: 100%;
-    cursor: ew-resize;
+  content: '';
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  background-color: #fff;
+  align-items: center;
+  top: 0;
+  right: 0;
+  width: 16px;
+  height: 100%;
+  cursor: ew-resize;
 
-    &.cdk-keyboard-focused {
-        .focus-outline();
-    }
+  &.cdk-keyboard-focused {
+    .focus-outline();
+  }
 
-    .ux-resizable-table-column-handle-icon {
-        width: 5px;
-        height: 24px;
-        background-repeat: no-repeat;
-        background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAeCAYAAADkftS9AAAAIklEQVQoU2M4c+bMfxAGAgYYmwGrIIiDjrELjpo5aiZeMwF+yNnOs5KSvgAAAABJRU5ErkJggg==);
-    }
+  .ux-resizable-table-column-handle-icon {
+    width: 5px;
+    height: 24px;
+    background-repeat: no-repeat;
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAeCAYAAADkftS9AAAAIklEQVQoU2M4c+bMfxAGAgYYmwGrIIiDjrELjpo5aiZeMwF+yNnOs5KSvgAAAABJRU5ErkJggg==);
+  }
 
-    &:hover,
-    &.ux-drag-dragging {
-        background-color: @table-hover-bg;
-    }
+  &:hover,
+  &.ux-drag-dragging {
+    background-color: @table-hover-bg;
+  }
 }

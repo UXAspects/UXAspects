@@ -1,14 +1,13 @@
 export class TagInputEvent {
+  private _defaultPrevented = false;
 
-    private _defaultPrevented = false;
+  constructor(public tag: unknown) {}
 
-    constructor(public tag: unknown) {}
+  preventDefault() {
+    this._defaultPrevented = true;
+  }
 
-    preventDefault() {
-        this._defaultPrevented = true;
-    }
-
-    defaultPrevented(): boolean {
-        return this._defaultPrevented;
-    }
+  defaultPrevented(): boolean {
+    return this._defaultPrevented;
+  }
 }

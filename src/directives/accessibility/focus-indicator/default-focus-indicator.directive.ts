@@ -9,15 +9,15 @@ import { FocusIndicatorDirective } from './focus-indicator.directive';
  * If the button has a uxFocusIndicator, uxMenuTriggerFor or uxMenuNavigationToggle directive applied we should skip this
  */
 @Directive({
-    selector: '.btn:not([uxFocusIndicator]):not([uxMenuNavigationToggle]):not([uxMenuTriggerFor]), a[href]:not([uxFocusIndicator]):not([uxMenuNavigationToggle]):not([uxMenuTriggerFor])',
-    standalone: false
+  selector:
+    '.btn:not([uxFocusIndicator]):not([uxMenuNavigationToggle]):not([uxMenuTriggerFor]), a[href]:not([uxFocusIndicator]):not([uxMenuNavigationToggle]):not([uxMenuTriggerFor])',
+  standalone: false,
 })
 export class DefaultFocusIndicatorDirective extends FocusIndicatorDirective {
+  constructor() {
+    super();
 
-    constructor() {
-        super();
-
-        // Enable programmatic focus by default
-        this.programmaticFocusIndicator = true;
-    }
+    // Enable programmatic focus by default
+    this.programmaticFocusIndicator = true;
+  }
 }

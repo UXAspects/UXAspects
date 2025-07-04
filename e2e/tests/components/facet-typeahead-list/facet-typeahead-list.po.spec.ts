@@ -1,75 +1,134 @@
 import { browser, by, element } from 'protractor';
 
 export class FacetTypeaheadListPage {
+  async getPage(): Promise<void> {
+    await browser.get('#/facet-typeahead-list');
+  }
 
-    async getPage(): Promise<void> {
-        await browser.get('#/facet-typeahead-list');
-    }
+  container = element(by.id('container1'));
 
-    container = element(by.id('container1'));
+  getNumberOfFacets() {
+    return this.container
+      .$('div.facets-selected-container')
+      .$('div.facets-selected-list')
+      .$$('div.facet-selected-tag')
+      .count();
+  }
 
-    getNumberOfFacets() {
-        return this.container.$('div.facets-selected-container').$('div.facets-selected-list').$$('div.facet-selected-tag').count();
-    }
+  getClearAllButton() {
+    return this.container
+      .$('div.facets-selected-container')
+      .$('div.facets-selected-header-container')
+      .$('.btn.btn-link');
+  }
 
-    getClearAllButton() {
-        return this.container.$('div.facets-selected-container').$('div.facets-selected-header-container').$('.btn.btn-link');
-    }
+  getFacet(index: number) {
+    return this.container
+      .$('div.facets-selected-container')
+      .$('div.facets-selected-list')
+      .$$('div.facet-selected-tag')
+      .get(index);
+  }
 
-    getFacet(index: number) {
-        return this.container.$('div.facets-selected-container').$('div.facets-selected-list').$$('div.facet-selected-tag').get(index);
-    }
+  getFacetName(index: number) {
+    return this.container
+      .$('div.facets-selected-container')
+      .$('div.facets-selected-list')
+      .$$('div.facet-selected-tag')
+      .get(index)
+      .$('span.facet-selected-tag-label')
+      .getText();
+  }
 
-    getFacetName(index: number) {
-        return this.container.$('div.facets-selected-container').$('div.facets-selected-list').$$('div.facet-selected-tag').get(index).$('span.facet-selected-tag-label').getText();
-    }
+  async closeFacet(index: number) {
+    await this.container
+      .$('div.facets-selected-container')
+      .$('div.facets-selected-list')
+      .$$('div.facet-selected-tag')
+      .get(index)
+      .$('.facet-selected-remove-btn')
+      .click();
+  }
 
-    async closeFacet(index: number) {
-        await this.container.$('div.facets-selected-container').$('div.facets-selected-list').$$('div.facet-selected-tag').get(index).$('.facet-selected-remove-btn').click();
-    }
+  getNoItemsLabel() {
+    return this.container.$('div.facets-selected-container').$('p.facets-selected-none-label');
+  }
 
-    getNoItemsLabel() {
-        return this.container.$('div.facets-selected-container').$('p.facets-selected-none-label');
-    }
+  getNumberOfFacetsInSuggestedList() {
+    return this.container
+      .$('div.facets-region')
+      .$('ux-facet-typeahead-list')
+      .$('div.facet-typeahead-list-container')
+      .$('div.facet-typeahead-list-selected-container')
+      .$$('div.facet-typeahead-list-selected-option')
+      .count();
+  }
 
-    getNumberOfFacetsInSuggestedList() {
-        return this.container.$('div.facets-region').$('ux-facet-typeahead-list').$('div.facet-typeahead-list-container').
-            $('div.facet-typeahead-list-selected-container').$$('div.facet-typeahead-list-selected-option').count();
-    }
+  getFacetFromSuggestedList(index: number) {
+    return this.container
+      .$('div.facets-region')
+      .$('ux-facet-typeahead-list')
+      .$('div.facet-typeahead-list-container')
+      .$('div.facet-typeahead-list-selected-container')
+      .$$('div.facet-typeahead-list-selected-option')
+      .get(index);
+  }
 
-    getFacetFromSuggestedList(index: number) {
-        return this.container.$('div.facets-region').$('ux-facet-typeahead-list').$('div.facet-typeahead-list-container').
-            $('div.facet-typeahead-list-selected-container').$$('div.facet-typeahead-list-selected-option').get(index);
-    }
+  getFacetNameFromSuggestedList(index: number) {
+    return this.container
+      .$('div.facets-region')
+      .$('ux-facet-typeahead-list')
+      .$('div.facet-typeahead-list-container')
+      .$('div.facet-typeahead-list-selected-container')
+      .$$('div.facet-typeahead-list-selected-option')
+      .get(index)
+      .$('ux-checkbox')
+      .$('.ux-checkbox-label')
+      .$('span.facet-typeahead-list-selected-option-title')
+      .getText();
+  }
 
-    getFacetNameFromSuggestedList(index: number) {
-        return this.container.$('div.facets-region').$('ux-facet-typeahead-list').$('div.facet-typeahead-list-container').
-            $('div.facet-typeahead-list-selected-container').$$('div.facet-typeahead-list-selected-option').get(index).
-            $('ux-checkbox').$('.ux-checkbox-label').$('span.facet-typeahead-list-selected-option-title').getText();
-    }
+  confirmSuggestedListFacetIsTicked(index: number) {
+    return this.container
+      .$('div.facets-region')
+      .$('ux-facet-typeahead-list')
+      .$('div.facet-typeahead-list-container')
+      .$('div.facet-typeahead-list-selected-container')
+      .$$('div.facet-typeahead-list-selected-option')
+      .get(index)
+      .$('ux-checkbox')
+      .$('.ux-checkbox')
+      .getAttribute('class')
+      .then(function (classes: string) {
+        const allClasses = classes.split(' ');
+        if (allClasses.indexOf('ux-checkbox-checked') > -1) {
+          return true;
+        } else {
+          return false;
+        }
+      });
+  }
 
-    confirmSuggestedListFacetIsTicked(index: number) {
-        return this.container.$('div.facets-region').$('ux-facet-typeahead-list').$('div.facet-typeahead-list-container').
-            $('div.facet-typeahead-list-selected-container').$$('div.facet-typeahead-list-selected-option').get(index).
-            $('ux-checkbox').$('.ux-checkbox').
-            getAttribute('class').then(function (classes: string) {
-                const allClasses = classes.split(' ');
-                if (allClasses.indexOf('ux-checkbox-checked') > -1) {
-                    return true;
-                } else {
-                    return false;
-                }
-            });
-    }
+  async addTextToTypeaheadInput(text: string) {
+    await this.container
+      .$('div.facets-region')
+      .$('ux-facet-typeahead-list')
+      .$('div.facet-typeahead-list-container')
+      .$('div.facet-typeahead-list-control')
+      .$('input')
+      .sendKeys(text);
+  }
 
-    async addTextToTypeaheadInput(text: string) {
-        await this.container.$('div.facets-region').$('ux-facet-typeahead-list').$('div.facet-typeahead-list-container').
-            $('div.facet-typeahead-list-control').$('input').sendKeys(text);
-    }
-
-    getFacetFromDropdownList(index: number) {
-        return this.container.$('div.facets-region').$('ux-facet-typeahead-list').$('div.facet-typeahead-list-container').
-            $('div.facet-typeahead-list-control').$('ux-typeahead').$('ol').
-            $$('li').get(index).$('p');
-    }
+  getFacetFromDropdownList(index: number) {
+    return this.container
+      .$('div.facets-region')
+      .$('ux-facet-typeahead-list')
+      .$('div.facet-typeahead-list-container')
+      .$('div.facet-typeahead-list-control')
+      .$('ux-typeahead')
+      .$('ol')
+      .$$('li')
+      .get(index)
+      .$('p');
+  }
 }

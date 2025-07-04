@@ -9,8 +9,8 @@ import { SelectComponent } from './select.component';
 import { SelectModule } from './select.module';
 
 @Component({
-    selector: 'app-select-test',
-    template: `
+  selector: 'app-select-test',
+  template: `
     @if (visible) {
       <ux-select
         (valueChange)="onValueChange()"
@@ -31,7 +31,7 @@ import { SelectModule } from './select.module';
       </ux-select>
     }
   `,
-    standalone: false
+  standalone: false,
 })
 export class SelectTestComponent {
   input: string = '';
@@ -445,8 +445,8 @@ describe('Select Component', () => {
 });
 
 @Component({
-    selector: 'app-select-value-test',
-    template: `
+  selector: 'app-select-value-test',
+  template: `
     <ux-select
       (valueChange)="onValueChange()"
       [(value)]="value"
@@ -454,7 +454,7 @@ describe('Select Component', () => {
       [multiple]="multiple"
     ></ux-select>
   `,
-    standalone: false
+  standalone: false,
 })
 export class SelectValueTestComponent {
   // eslint-disable-next-line @typescript-eslint/no-empty-function
@@ -510,8 +510,8 @@ describe('Select Component - Value Input', () => {
 });
 
 @Component({
-    selector: 'app-select-ng-model-test',
-    template: `
+  selector: 'app-select-ng-model-test',
+  template: `
     <ux-select
       (ngModelChange)="onValueChange()"
       [(ngModel)]="value"
@@ -519,7 +519,7 @@ describe('Select Component - Value Input', () => {
       [multiple]="multiple"
     ></ux-select>
   `,
-    standalone: false
+  standalone: false,
 })
 export class SelectNgModelTestComponent {
   options: string[] = ['One', 'Two', 'Three'];
@@ -685,13 +685,13 @@ describe('Select Component - NgModel Input', () => {
 });
 
 @Component({
-    selector: 'app-select-reactive-form-test',
-    template: `
+  selector: 'app-select-reactive-form-test',
+  template: `
     <form [formGroup]="form">
       <ux-select formControlName="select" [options]="options" [multiple]="multiple"></ux-select>
     </form>
   `,
-    standalone: false
+  standalone: false,
 })
 export class SelectReactiveFormTestComponent {
   multiple: boolean = false;
@@ -752,8 +752,8 @@ describe('Select Component - Reactive Form Input', () => {
 });
 
 @Component({
-    selector: 'app-select-test',
-    template: `
+  selector: 'app-select-test',
+  template: `
     @if (visible) {
       <ux-select
         (valueChange)="onValueChange()"
@@ -776,7 +776,7 @@ describe('Select Component - Reactive Form Input', () => {
       </ux-select>
     }
   `,
-    standalone: false
+  standalone: false,
 })
 export class SingleSelectWithCustomIconTestComponent {
   input: string = '';
@@ -857,8 +857,8 @@ describe('Select Component - With custom Icon', () => {
 });
 
 @Component({
-    selector: 'app-select-with-recent-options-test',
-    template: `
+  selector: 'app-select-with-recent-options-test',
+  template: `
     <ux-select
       [(value)]="value"
       [options]="options"
@@ -870,7 +870,7 @@ describe('Select Component - With custom Icon', () => {
       (recentOptionsChange)="onRecentOptionsChange($event)"
     ></ux-select>
   `,
-    standalone: false
+  standalone: false,
 })
 export class SelectWithRecentOptionsTestComponent {
   value: string | string[];

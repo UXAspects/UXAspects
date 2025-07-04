@@ -8,19 +8,15 @@ import { TypeaheadModule } from '../typeahead/index';
 import { TagInputComponent } from './tag-input.component';
 
 @NgModule({
-    imports: [
-        AccessibilityModule,
-        CommonModule,
-        FormsModule,
-        FocusIfModule,
-        IconModule,
-        TypeaheadModule
-    ],
-    exports: [
-        TagInputComponent
-    ],
-    declarations: [
-        TagInputComponent
-    ]
+  imports: [
+    AccessibilityModule,
+    CommonModule,
+    FormsModule,
+    FocusIfModule,
+    IconModule,
+    TypeaheadModule,
+  ],
+  exports: [TagInputComponent],
+  declarations: [TagInputComponent],
 })
-export class TagInputModule { }
+export class TagInputModule {}

@@ -5,46 +5,46 @@ import { IPlayground } from '../../../../../interfaces/IPlayground';
 import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
 
 @Component({
-    selector: 'uxd-components-toggleswitch',
-    templateUrl: './toggleswitch.component.html',
-    standalone: false
+  selector: 'uxd-components-toggleswitch',
+  templateUrl: './toggleswitch.component.html',
+  standalone: false,
 })
 @DocumentationSectionComponent('ComponentsToggleSwitchComponent')
 export class ComponentsToggleSwitchComponent
-    extends BaseDocumentationSection
-    implements IPlaygroundProvider
+  extends BaseDocumentationSection
+  implements IPlaygroundProvider
 {
-    toggleSwitches: any;
-    toggleSwitchDisable: boolean;
+  toggleSwitches: any;
+  toggleSwitchDisable: boolean;
 
-    playground: IPlayground = {
-        files: {
-            'app.component.ts': this.snippets.raw.appTs,
-            'app.component.html': this.snippets.raw.appHtml,
-        },
-        modules: [
-            {
-                imports: ['ToggleSwitchModule'],
-                library: '@ux-aspects/ux-aspects',
-            },
-        ],
+  playground: IPlayground = {
+    files: {
+      'app.component.ts': this.snippets.raw.appTs,
+      'app.component.html': this.snippets.raw.appHtml,
+    },
+    modules: [
+      {
+        imports: ['ToggleSwitchModule'],
+        library: '@ux-aspects/ux-aspects',
+      },
+    ],
+  };
+
+  constructor() {
+    super(
+      import.meta.webpackContext('./snippets/', {
+        recursive: false,
+        regExp: /\.(html|css|js|ts)$/,
+      })
+    );
+
+    this.toggleSwitches = {
+      option1: true,
+      option2: false,
+      option3: false,
+      option4: false,
     };
 
-    constructor() {
-        super(
-            import.meta.webpackContext('./snippets/', {
-                recursive: false,
-                regExp: /\.(html|css|js|ts)$/,
-            })
-        );
-
-        this.toggleSwitches = {
-            option1: true,
-            option2: false,
-            option3: false,
-            option4: false,
-        };
-
-        this.toggleSwitchDisable = false;
-    }
+    this.toggleSwitchDisable = false;
+  }
 }

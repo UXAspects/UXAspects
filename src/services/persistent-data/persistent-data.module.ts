@@ -1,8 +1,7 @@
 import { NgModule } from '@angular/core';
-
 import { PersistentDataService } from './persistent-data.service';
 
 @NgModule({
-    providers: [PersistentDataService],
+  providers: [PersistentDataService],
 })
-export class PersistentDataModule { }
+export class PersistentDataModule {}

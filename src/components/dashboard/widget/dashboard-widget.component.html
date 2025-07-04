@@ -1,87 +1,97 @@
-<div class="widget-content widget-col-span-{{ getColumnSpan() }} widget-row-span-{{ getRowSpan() }}">
-    <ng-content></ng-content>
+<div
+  class="widget-content widget-col-span-{{ getColumnSpan() }} widget-row-span-{{ getRowSpan() }}"
+>
+  <ng-content></ng-content>
 </div>
 
-<div uxDrag
-     #handleTop
-     class="resizer-handle handle-top"
-     (onDragStart)="dragstart(handleTop, $event, 0)"
-     (onDrag)="drag(handleTop, $event, 0)"
-     (onDragEnd)="dragend()"
-     [style.top.px]="padding"
-     [hidden]="!resizable">
-</div>
+<div
+  uxDrag
+  #handleTop
+  class="resizer-handle handle-top"
+  (onDragStart)="dragstart(handleTop, $event, 0)"
+  (onDrag)="drag(handleTop, $event, 0)"
+  (onDragEnd)="dragend()"
+  [style.top.px]="padding"
+  [hidden]="!resizable"
+></div>
 
-<div uxDrag
-     #handleTopRight
-     class="resizer-handle handle-top-right"
-     (onDragStart)="dragstart(handleTopRight, $event, 1)"
-     (onDrag)="drag(handleTopRight, $event, 1)"
-     (onDragEnd)="dragend()"
-     [style.top.px]="padding"
-     [style.right.px]="padding"
-     [hidden]="!resizable || (dashboardService.stacked$ | async)">
-</div>
+<div
+  uxDrag
+  #handleTopRight
+  class="resizer-handle handle-top-right"
+  (onDragStart)="dragstart(handleTopRight, $event, 1)"
+  (onDrag)="drag(handleTopRight, $event, 1)"
+  (onDragEnd)="dragend()"
+  [style.top.px]="padding"
+  [style.right.px]="padding"
+  [hidden]="!resizable || (dashboardService.stacked$ | async)"
+></div>
 
-<div uxDrag
-     #handleRight
-     class="resizer-handle handle-right"
-     (onDragStart)="dragstart(handleRight, $event, 2)"
-     (onDrag)="drag(handleRight, $event, 2)"
-     (onDragEnd)="dragend()"
-     [style.right.px]="padding"
-     [hidden]="!resizable || (dashboardService.stacked$ | async)">
-</div>
+<div
+  uxDrag
+  #handleRight
+  class="resizer-handle handle-right"
+  (onDragStart)="dragstart(handleRight, $event, 2)"
+  (onDrag)="drag(handleRight, $event, 2)"
+  (onDragEnd)="dragend()"
+  [style.right.px]="padding"
+  [hidden]="!resizable || (dashboardService.stacked$ | async)"
+></div>
 
-<div uxDrag
-     #handleBottomRight
-     class="resizer-handle handle-bottom-right"
-     (onDragStart)="dragstart(handleBottomRight, $event, 3)"
-     (onDrag)="drag(handleBottomRight, $event, 3)"
-     (onDragEnd)="dragend()"
-     [style.bottom.px]="padding"
-     [style.right.px]="padding"
-     [hidden]="!resizable || (dashboardService.stacked$ | async)">
-</div>
+<div
+  uxDrag
+  #handleBottomRight
+  class="resizer-handle handle-bottom-right"
+  (onDragStart)="dragstart(handleBottomRight, $event, 3)"
+  (onDrag)="drag(handleBottomRight, $event, 3)"
+  (onDragEnd)="dragend()"
+  [style.bottom.px]="padding"
+  [style.right.px]="padding"
+  [hidden]="!resizable || (dashboardService.stacked$ | async)"
+></div>
 
-<div uxDrag
-     #handleBottom
-     class="resizer-handle handle-bottom"
-     (onDragStart)="dragstart(handleBottom, $event, 4)"
-     (onDrag)="drag(handleBottom, $event, 4)"
-     (onDragEnd)="dragend()"
-     [style.bottom.px]="padding"
-     [hidden]="!resizable">
-</div>
+<div
+  uxDrag
+  #handleBottom
+  class="resizer-handle handle-bottom"
+  (onDragStart)="dragstart(handleBottom, $event, 4)"
+  (onDrag)="drag(handleBottom, $event, 4)"
+  (onDragEnd)="dragend()"
+  [style.bottom.px]="padding"
+  [hidden]="!resizable"
+></div>
 
-<div uxDrag
-     #handleBottomLeft
-     class="resizer-handle handle-bottom-left"
-     (onDragStart)="dragstart(handleBottomLeft, $event, 5)"
-     (onDrag)="drag(handleBottomLeft, $event, 5)"
-     (onDragEnd)="dragend()"
-     [style.bottom.px]="padding"
-     [style.left.px]="padding"
-     [hidden]="!resizable || (dashboardService.stacked$ | async)">
-</div>
+<div
+  uxDrag
+  #handleBottomLeft
+  class="resizer-handle handle-bottom-left"
+  (onDragStart)="dragstart(handleBottomLeft, $event, 5)"
+  (onDrag)="drag(handleBottomLeft, $event, 5)"
+  (onDragEnd)="dragend()"
+  [style.bottom.px]="padding"
+  [style.left.px]="padding"
+  [hidden]="!resizable || (dashboardService.stacked$ | async)"
+></div>
 
-<div uxDrag
-     #handleLeft
-     class="resizer-handle handle-left"
-     (onDragStart)="dragstart(handleLeft, $event, 6)"
-     (onDrag)="drag(handleLeft, $event, 6)"
-     (onDragEnd)="dragend()"
-     [style.left.px]="padding"
-     [hidden]="!resizable || (dashboardService.stacked$ | async)">
-</div>
+<div
+  uxDrag
+  #handleLeft
+  class="resizer-handle handle-left"
+  (onDragStart)="dragstart(handleLeft, $event, 6)"
+  (onDrag)="drag(handleLeft, $event, 6)"
+  (onDragEnd)="dragend()"
+  [style.left.px]="padding"
+  [hidden]="!resizable || (dashboardService.stacked$ | async)"
+></div>
 
-<div uxDrag
-     #handleTopLeft
-     class="resizer-handle handle-top-left"
-     (onDragStart)="dragstart(handleTopLeft, $event, 7)"
-     (onDrag)="drag(handleTopLeft, $event, 7)"
-     (onDragEnd)="dragend()"
-     [style.top.px]="padding"
-     [style.left.px]="padding"
-     [hidden]="!resizable || (dashboardService.stacked$ | async)">
-</div>
+<div
+  uxDrag
+  #handleTopLeft
+  class="resizer-handle handle-top-left"
+  (onDragStart)="dragstart(handleTopLeft, $event, 7)"
+  (onDrag)="drag(handleTopLeft, $event, 7)"
+  (onDragEnd)="dragend()"
+  [style.top.px]="padding"
+  [style.left.px]="padding"
+  [hidden]="!resizable || (dashboardService.stacked$ | async)"
+></div>

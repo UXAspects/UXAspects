@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'uxt-focus-indicator',
-    templateUrl: 'focus-indicator.testpage.component.html',
-    styleUrls: ['focus-indicator.testpage.component.less'],
-    standalone: false
+  selector: 'uxt-focus-indicator',
+  templateUrl: 'focus-indicator.testpage.component.html',
+  styleUrls: ['focus-indicator.testpage.component.less'],
+  standalone: false,
 })
 export class FocusIndicatorTestPageComponent {
-    hasIndicator: boolean = false;
-    mouseFocusIndicator: boolean = false;
-    keyboardFocusIndicator: boolean = false;
-    programmaticFocusIndicator: boolean = false;
+  hasIndicator: boolean = false;
+  mouseFocusIndicator: boolean = false;
+  keyboardFocusIndicator: boolean = false;
+  programmaticFocusIndicator: boolean = false;
 }

@@ -5,29 +5,26 @@ import { PageHeaderService } from '../../page-header.service';
 import { PageHeaderNavigationItem } from '../navigation.component';
 
 @Directive({
-    selector: '[uxPageHeaderNavigationSecondaryItem]',
-    standalone: false
+  selector: '[uxPageHeaderNavigationSecondaryItem]',
+  standalone: false,
 })
 export class PageHeaderNavigationSecondaryItemDirective implements OnInit, OnDestroy {
-    private readonly _pageHeaderService = inject(PageHeaderService);
+  private readonly _pageHeaderService = inject(PageHeaderService);
 
-    @Input('uxPageHeaderNavigationSecondaryItem')
-    item: PageHeaderNavigationItem;
+  @Input('uxPageHeaderNavigationSecondaryItem')
+  item: PageHeaderNavigationItem;
 
-    private readonly _onDestroy = new Subject<void>();
+  private readonly _onDestroy = new Subject<void>();
 
-    ngOnInit() {
+  ngOnInit() {
+    this._pageHeaderService.selected$.pipe(delay(0), takeUntil(this._onDestroy)).subscribe(next => {
+      // Update selected state for this item
+      this._pageHeaderService.updateItem(this.item, next);
+    });
+  }
 
-        this._pageHeaderService.selected$.pipe(delay(0), takeUntil(this._onDestroy)).subscribe(next => {
-
-            // Update selected state for this item
-            this._pageHeaderService.updateItem(this.item, next);
-
-        });
-    }
-
-    ngOnDestroy(): void {
-        this._onDestroy.next();
-        this._onDestroy.complete();
-    }
+  ngOnDestroy(): void {
+    this._onDestroy.next();
+    this._onDestroy.complete();
+  }
 }

@@ -6,68 +6,68 @@ import { IPlayground } from '../../../../../interfaces/IPlayground';
 import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
 
 @Component({
-    selector: 'uxd-components-wizard',
-    templateUrl: './wizard.component.html',
-    standalone: false
+  selector: 'uxd-components-wizard',
+  templateUrl: './wizard.component.html',
+  standalone: false,
 })
 @DocumentationSectionComponent('ComponentsWizardComponent')
 export class ComponentsWizardComponent
-    extends BaseDocumentationSection
-    implements IPlaygroundProvider
+  extends BaseDocumentationSection
+  implements IPlaygroundProvider
 {
-    orientation: string = 'horizontal';
+  orientation: string = 'horizontal';
 
-    steps: WizardStep[] = [
-        {
-            header: '1. First Step',
-            content: 'Content of step 1.',
-        },
-        {
-            header: '2. Second Step',
-            content: 'Content of step 2.',
-        },
-        {
-            header: '3. Third Step',
-            content: 'Content of step 3.',
-        },
-        {
-            header: '4. Fourth Step',
-            content: 'Content of step 4.',
-        },
-    ];
+  steps: WizardStep[] = [
+    {
+      header: '1. First Step',
+      content: 'Content of step 1.',
+    },
+    {
+      header: '2. Second Step',
+      content: 'Content of step 2.',
+    },
+    {
+      header: '3. Third Step',
+      content: 'Content of step 3.',
+    },
+    {
+      header: '4. Fourth Step',
+      content: 'Content of step 4.',
+    },
+  ];
 
-    playground: IPlayground = {
-        files: {
-            'app.component.html': this.snippets.raw.appHtml,
-            'app.component.ts': this.snippets.raw.appTs,
-        },
-        modules: [
-            {
-                library: '@ux-aspects/ux-aspects',
-                imports: ['RadioButtonModule', 'WizardModule', 'AccordionModule'],
-            },
-            {
-                imports: ['A11yModule'],
-                library: '@angular/cdk/a11y',
-            },
-        ],
-    };
+  playground: IPlayground = {
+    files: {
+      'app.component.html': this.snippets.raw.appHtml,
+      'app.component.ts': this.snippets.raw.appTs,
+    },
+    modules: [
+      {
+        library: '@ux-aspects/ux-aspects',
+        imports: ['RadioButtonModule', 'WizardModule', 'AccordionModule'],
+      },
+      {
+        imports: ['A11yModule'],
+        library: '@angular/cdk/a11y',
+      },
+    ],
+  };
 
-    constructor(private readonly _announcer: LiveAnnouncer) {
-        super(
-            import.meta.webpackContext('./snippets/', {
-                recursive: false,
-                regExp: /\.(html|css|js|ts)$/,
-            })
-        );
-    }
+  constructor(private readonly _announcer: LiveAnnouncer) {
+    super(
+      import.meta.webpackContext('./snippets/', {
+        recursive: false,
+        regExp: /\.(html|css|js|ts)$/,
+      })
+    );
+  }
 
-    onStepChange(index: number): void {
-        this._announcer.announce(`${this.steps[index].header} activated`);
-    }
+  onStepChange(index: number): void {
+    this._announcer.announce(`${this.steps[index].header} activated`);
+  }
 }
 
 export interface WizardStep {
-    header: string;
-    content: string;
+  header: string;
+  content: string;
 }

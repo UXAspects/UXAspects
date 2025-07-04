@@ -9,16 +9,16 @@ import { TypeaheadModule } from '../typeahead/index';
 import { SelectComponent } from './select.component';
 
 @NgModule({
-    imports: [
-        AccessibilityModule,
-        CommonModule,
-        FormsModule,
-        InfiniteScrollModule,
-        TagInputModule,
-        TypeaheadModule,
-        PlatformModule
-    ],
-    exports: [SelectComponent],
-    declarations: [SelectComponent]
+  imports: [
+    AccessibilityModule,
+    CommonModule,
+    FormsModule,
+    InfiniteScrollModule,
+    TagInputModule,
+    TypeaheadModule,
+    PlatformModule,
+  ],
+  exports: [SelectComponent],
+  declarations: [SelectComponent],
 })
-export class SelectModule { }
+export class SelectModule {}

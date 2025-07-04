@@ -1,106 +1,114 @@
 ux-dashboard-widget {
+  position: absolute;
+  display: inline-block;
+  overflow: hidden;
+  transition:
+    transform 250ms ease-in-out,
+    top 250ms ease-in-out,
+    left 250ms ease-in-out;
+
+  &.dragging {
+    transition: transform 250ms ease-in-out;
+  }
+
+  &.grabbing {
+    transform: translateX(10px) translateY(10px);
+    transition:
+      transform 250ms ease-in-out,
+      top 250ms ease-in-out,
+      left 250ms ease-in-out,
+      width 250ms ease-in-out,
+      height 250ms ease-in-out;
+  }
+
+  &.resizing {
+    transition: none;
+  }
+
+  .widget-content {
+    width: 100%;
+    height: 100%;
+  }
+
+  .resizer-handle {
     position: absolute;
-    display: inline-block;
-    overflow: hidden;
-    transition: transform 250ms ease-in-out, top 250ms ease-in-out, left 250ms ease-in-out;
+    z-index: 2;
 
-    &.dragging {
-        transition: transform 250ms ease-in-out;
+    &.handle-top {
+      cursor: n-resize;
+      height: 10px;
+      left: 10px;
+      right: 10px;
+      top: 0;
     }
 
-    &.grabbing {
-        transform: translateX(10px) translateY(10px);
-        transition: transform 250ms ease-in-out, top 250ms ease-in-out, left 250ms ease-in-out, width 250ms ease-in-out, height 250ms ease-in-out;
+    &.handle-top-right {
+      cursor: ne-resize;
+      width: 10px;
+      height: 10px;
+      top: 0;
+      right: 0;
+      z-index: 3;
     }
 
-    &.resizing {
-        transition: none;
+    &.handle-right {
+      cursor: e-resize;
+      width: 10px;
+      right: 0;
+      top: 10px;
+      bottom: 10px;
     }
 
-    .widget-content {
-        width: 100%;
-        height: 100%;
+    &.handle-bottom-right {
+      cursor: se-resize;
+      width: 10px;
+      height: 10px;
+      right: 0;
+      bottom: 0;
+      z-index: 3;
     }
 
-    .resizer-handle {
-        position: absolute;
-        z-index: 2;
-
-        &.handle-top {
-            cursor: n-resize;
-            height: 10px;
-            left: 10px;
-            right: 10px;
-            top: 0;
-        }
-
-        &.handle-top-right {
-            cursor: ne-resize;
-            width: 10px;
-            height: 10px;
-            top: 0;
-            right: 0;
-            z-index: 3;
-        }
-
-        &.handle-right {
-            cursor: e-resize;
-            width: 10px;
-            right: 0;
-            top: 10px;
-            bottom: 10px;
-        }
-
-        &.handle-bottom-right {
-            cursor: se-resize;
-            width: 10px;
-            height: 10px;
-            right: 0;
-            bottom: 0;
-            z-index: 3;
-        }
-
-        &.handle-bottom {
-            cursor: s-resize;
-            height: 10px;
-            left: 10px;
-            right: 10px;
-            bottom: 0;
-        }
-
-        &.handle-bottom-left {
-            cursor: sw-resize;
-            width: 10px;
-            height: 10px;
-            left: 0;
-            bottom: 0;
-            z-index: 3;
-        }
-
-        &.handle-left {
-            cursor: w-resize;
-            width: 10px;
-            left: 0;
-            top: 10px;
-            bottom: 10px;
-        }
-
-        &.handle-top-left {
-            cursor: nw-resize;
-            width: 10px;
-            height: 10px;
-            top: 0;
-            left: 0;
-            z-index: 3;
-        }
+    &.handle-bottom {
+      cursor: s-resize;
+      height: 10px;
+      left: 10px;
+      right: 10px;
+      bottom: 0;
     }
 
-    &.ux-dashboard-grabbing {
-        opacity: 0.5;
+    &.handle-bottom-left {
+      cursor: sw-resize;
+      width: 10px;
+      height: 10px;
+      left: 0;
+      bottom: 0;
+      z-index: 3;
     }
 
-    &.ux-dashboard-grabbing-active {
-        opacity: 1;
-        box-shadow: 0 0 0 5px rgba(0, 115, 231, 0.5);
+    &.handle-left {
+      cursor: w-resize;
+      width: 10px;
+      left: 0;
+      top: 10px;
+      bottom: 10px;
     }
+
+    &.handle-top-left {
+      cursor: nw-resize;
+      width: 10px;
+      height: 10px;
+      top: 0;
+      left: 0;
+      z-index: 3;
+    }
+  }
+
+  &.ux-dashboard-grabbing {
+    opacity: 0.5;
+  }
+
+  &.ux-dashboard-grabbing-active {
+    opacity: 1;
+    box-shadow: 0 0 0 5px rgba(0, 115, 231, 0.5);
+  }
 }

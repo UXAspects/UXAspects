@@ -16,27 +16,27 @@ import { MediaPlayerTimelineExtensionComponent } from './extensions/timeline/tim
 import { MediaPlayerComponent } from './media-player.component';
 
 const DECLARATIONS = [
-    MediaPlayerComponent,
-    MediaPlayerTimelineExtensionComponent,
-    MediaPlayerBaseExtensionDirective,
-    MediaPlayerControlsExtensionComponent,
-    MediaPlayerCustomControlDirective
+  MediaPlayerComponent,
+  MediaPlayerTimelineExtensionComponent,
+  MediaPlayerBaseExtensionDirective,
+  MediaPlayerControlsExtensionComponent,
+  MediaPlayerCustomControlDirective,
 ];
 
 @NgModule({
-    imports: [
-        A11yModule,
-        AccessibilityModule,
-        AudioServiceModule,
-        ClickOutsideModule,
-        CommonModule,
-        DurationPipeModule,
-        FileSizePipeModule,
-        IconModule,
-        SliderModule,
-        TooltipModule,
-    ],
-    exports: DECLARATIONS,
-    declarations: DECLARATIONS
+  imports: [
+    A11yModule,
+    AccessibilityModule,
+    AudioServiceModule,
+    ClickOutsideModule,
+    CommonModule,
+    DurationPipeModule,
+    FileSizePipeModule,
+    IconModule,
+    SliderModule,
+    TooltipModule,
+  ],
+  exports: DECLARATIONS,
+  declarations: DECLARATIONS,
 })
-export class MediaPlayerModule { }
+export class MediaPlayerModule {}

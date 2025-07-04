@@ -7,18 +7,8 @@ import { IconModule } from '../icon/index';
 import { PaginationComponent } from './pagination.component';
 
 @NgModule({
-    imports: [
-        A11yModule,
-        AccessibilityModule,
-        CommonModule,
-        FocusIfModule,
-        IconModule,
-    ],
-    declarations: [
-        PaginationComponent
-    ],
-    exports: [
-        PaginationComponent
-    ]
+  imports: [A11yModule, AccessibilityModule, CommonModule, FocusIfModule, IconModule],
+  declarations: [PaginationComponent],
+  exports: [PaginationComponent],
 })
-export class PaginationModule { }
+export class PaginationModule {}

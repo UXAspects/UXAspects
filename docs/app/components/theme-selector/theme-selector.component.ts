@@ -5,46 +5,46 @@ import { SiteTheme, SiteThemeId } from '../../interfaces/SiteTheme';
 import { SiteThemeService } from '../../services/site-theme/site-theme.service';
 
 @Component({
-    selector: 'uxd-theme-selector',
-    templateUrl: './theme-selector.component.html',
-    styleUrls: ['./theme-selector.component.less'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'uxd-theme-selector',
+  templateUrl: './theme-selector.component.html',
+  styleUrls: ['./theme-selector.component.less'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class ThemeSelectorComponent implements OnChanges, OnDestroy {
-    @Input()
-    buttonTitle: string;
+  @Input()
+  buttonTitle: string;
 
-    @Input()
-    themes: ReadonlyArray<SiteTheme> = [];
+  @Input()
+  themes: ReadonlyArray<SiteTheme> = [];
 
-    dropdownOpen: boolean;
-    selected: SiteTheme;
-    default: SiteTheme;
+  dropdownOpen: boolean;
+  selected: SiteTheme;
+  default: SiteTheme;
 
-    private readonly _onDestroy = new Subject();
+  private readonly _onDestroy = new Subject();
 
-    constructor(private readonly _siteThemeService: SiteThemeService) {
-        _siteThemeService.theme$
-            .pipe(takeUntil(this._onDestroy))
-            .subscribe(this.updateWithTheme.bind(this));
-    }
+  constructor(private readonly _siteThemeService: SiteThemeService) {
+    _siteThemeService.theme$
+      .pipe(takeUntil(this._onDestroy))
+      .subscribe(this.updateWithTheme.bind(this));
+  }
 
-    ngOnChanges(): void {
-        this.updateWithTheme(this._siteThemeService.theme$.getValue());
-        this.default = this.themes[0];
-    }
+  ngOnChanges(): void {
+    this.updateWithTheme(this._siteThemeService.theme$.getValue());
+    this.default = this.themes[0];
+  }
 
-    ngOnDestroy(): void {
-        this._onDestroy.next();
-        this._onDestroy.complete();
-    }
+  ngOnDestroy(): void {
+    this._onDestroy.next();
+    this._onDestroy.complete();
+  }
 
-    setSelected(theme: SiteTheme): void {
-        this._siteThemeService.theme$.next(theme.id);
-    }
+  setSelected(theme: SiteTheme): void {
+    this._siteThemeService.theme$.next(theme.id);
+  }
 
-    private updateWithTheme(themeId: SiteThemeId): void {
-        this.selected = this.themes.find(theme => theme.id === themeId);
-    }
+  private updateWithTheme(themeId: SiteThemeId): void {
+    this.selected = this.themes.find(theme => theme.id === themeId);
+  }
 }

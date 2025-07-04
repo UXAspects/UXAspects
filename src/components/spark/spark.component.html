@@ -13,21 +13,24 @@
           }
         </div>
       }
-      <div role="progressbar"
+      <div
+        role="progressbar"
         [attr.aria-label]="getAriaLabel()"
         [attr.aria-description]="ariaDescription"
         aria-valuemin="0"
         aria-valuemax="100"
         [attr.aria-valuenow]="values.length === 1 ? values[0] : undefined"
-        class="ux-spark ux-inline ux-spark-theme-{{theme}}"
+        class="ux-spark ux-inline ux-spark-theme-{{ theme }}"
         [style.height.px]="barHeight"
         [style.backgroundColor]="trackColor"
-        [uxTooltip]="tooltip">
+        [uxTooltip]="tooltip"
+      >
         @for (line of values; track line; let idx = $index) {
-          <div class="ux-spark-bar"
+          <div
+            class="ux-spark-bar"
             [style.width.%]="line"
-            [style.backgroundColor]="barColor[idx]">
-          </div>
+            [style.backgroundColor]="barColor[idx]"
+          ></div>
         }
       </div>
       @if (bottomLeftLabel || bottomRightLabel) {
@@ -46,7 +49,6 @@
 
 <!-- End Inline Spark Chart -->
 
-
 <!-- Non Inline Spark Chart -->
 @if (!inlineLabel) {
   <div>
@@ -60,22 +62,25 @@
         }
       </div>
     }
-    <div role="progressbar"
+    <div
+      role="progressbar"
       [attr.aria-label]="getAriaLabel()"
       [attr.aria-description]="ariaDescription"
       aria-valuemin="0"
       aria-valuemax="100"
       [attr.aria-valuenow]="values.length === 1 ? values[0] : undefined"
-      class="ux-spark ux-spark-theme-{{theme}}"
+      class="ux-spark ux-spark-theme-{{ theme }}"
       [class.ux-spark-multi-value]="values.length > 1"
       [style.height.px]="barHeight"
       [style.backgroundColor]="trackColor"
-      [uxTooltip]="tooltip">
+      [uxTooltip]="tooltip"
+    >
       @for (line of values; track line; let idx = $index) {
-        <div class="ux-spark-bar"
+        <div
+          class="ux-spark-bar"
           [style.width.%]="line"
-          [style.backgroundColor]="barColor[idx]">
-        </div>
+          [style.backgroundColor]="barColor[idx]"
+        ></div>
       }
     </div>
     @if (bottomLeftLabel || bottomRightLabel) {

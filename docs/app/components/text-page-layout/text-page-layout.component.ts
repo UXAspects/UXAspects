@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
-    selector: 'uxd-text-page-layout',
-    templateUrl: './text-page-layout.component.html',
-    styleUrls: ['./text-page-layout.component.less'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'uxd-text-page-layout',
+  templateUrl: './text-page-layout.component.html',
+  styleUrls: ['./text-page-layout.component.less'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
-export class TextPageLayoutComponent { }
+export class TextPageLayoutComponent {}

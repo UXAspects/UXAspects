@@ -1,20 +1,19 @@
 import { Component, TemplateRef } from '@angular/core';
 
 @Component({
-    selector: 'uxd-tooltips',
-    templateUrl: './tooltips.testpage.component.html',
-    styleUrls: ['./tooltips.testpage.component.less'],
-    standalone: false
+  selector: 'uxd-tooltips',
+  templateUrl: './tooltips.testpage.component.html',
+  styleUrls: ['./tooltips.testpage.component.less'],
+  standalone: false,
 })
 export class TooltipsTestPageComponent {
+  placement: string = 'top';
+  customClass: string;
+  content: string | TemplateRef<void> = 'Some content here';
 
-    placement: string = 'top';
-    customClass: string;
-    content: string | TemplateRef<void> = 'Some content here';
-
-    reset(): void {
-        this.placement = 'top';
-        this.customClass = undefined;
-        this.content = 'Some content here';
-    }
+  reset(): void {
+    this.placement = 'top';
+    this.customClass = undefined;
+    this.content = 'Some content here';
+  }
 }

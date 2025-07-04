@@ -3,39 +3,36 @@ import 'chance';
 
 @Injectable()
 export class TreeViewService {
+  getDocuments(): Promise<TreeViewExampleNode[]> {
+    return new Promise<TreeViewExampleNode[]>(resolve => {
+      setTimeout(() => {
+        const output: TreeViewExampleNode[] = [];
 
-    getDocuments(): Promise<TreeViewExampleNode[]> {
-        return new Promise<TreeViewExampleNode[]>(resolve => {
-            setTimeout(() => {
+        for (let idx = 0; idx < 50; idx++) {
+          output.push({ name: `Document ${idx}` });
+        }
 
-                const output: TreeViewExampleNode[] = [];
+        resolve(output);
+      }, 1000);
+    });
+  }
 
-                for (let idx = 0; idx < 50; idx++) {
-                    output.push({ name: `Document ${idx}` });
-                }
+  getPictures(): Promise<TreeViewExampleNode[]> {
+    return new Promise<TreeViewExampleNode[]>(resolve => {
+      setTimeout(() => {
+        const output: TreeViewExampleNode[] = [];
 
-                resolve(output);
-            }, 1000);
-        });
-    }
+        for (let idx = 0; idx < 50; idx++) {
+          output.push({ name: `IMG_${chance.pad(idx, 4)}` });
+        }
 
-    getPictures(): Promise<TreeViewExampleNode[]> {
-        return new Promise<TreeViewExampleNode[]>(resolve => {
-            setTimeout(() => {
-
-                const output: TreeViewExampleNode[] = [];
-
-                for (let idx = 0; idx < 50; idx++) {
-                    output.push({ name: `IMG_${chance.pad(idx, 4)}` });
-                }
-
-                resolve(output);
-            }, 1000);
-        });
-    }
+        resolve(output);
+      }, 1000);
+    });
+  }
 }
 
 export interface TreeViewExampleNode {
-    name: string;
-    children?: TreeViewExampleNode[];
+  name: string;
+  children?: TreeViewExampleNode[];
 }

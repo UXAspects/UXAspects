@@ -7,4 +7,3 @@ export * from './menu-tabbable-item/menu-tabbable-item.directive';
 export * from './menu-trigger/menu-trigger.directive';
 export * from './menu.module';
 export * from './menu/menu.component';
-

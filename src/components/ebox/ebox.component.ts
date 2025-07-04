@@ -1,21 +1,21 @@
 import { ChangeDetectionStrategy, Component, Directive } from '@angular/core';
 
 @Component({
-    selector: 'ux-ebox',
-    templateUrl: './ebox.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'ux-ebox',
+  templateUrl: './ebox.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
-export class EboxComponent { }
+export class EboxComponent {}
 
 @Directive({
-    selector: 'ux-ebox-header',
-    standalone: false
+  selector: 'ux-ebox-header',
+  standalone: false,
 })
-export class EboxHeaderDirective { }
+export class EboxHeaderDirective {}
 
 @Directive({
-    selector: 'ux-ebox-content',
-    standalone: false
+  selector: 'ux-ebox-content',
+  standalone: false,
 })
-export class EboxContentDirective { }
+export class EboxContentDirective {}

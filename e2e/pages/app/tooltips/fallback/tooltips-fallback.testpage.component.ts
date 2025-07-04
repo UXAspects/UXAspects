@@ -1,14 +1,12 @@
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'uxd-tooltips-fallback',
-    templateUrl: './tooltips-fallback.testpage.component.html',
-    styleUrls: ['./tooltips-fallback.testpage.component.less'],
-    standalone: false
+  selector: 'uxd-tooltips-fallback',
+  templateUrl: './tooltips-fallback.testpage.component.html',
+  styleUrls: ['./tooltips-fallback.testpage.component.less'],
+  standalone: false,
 })
 export class TooltipsFallbackTestPageComponent {
-
-    placement: string = 'top';
-    fallbackPlacement: string = 'top';
-
+  placement: string = 'top';
+  fallbackPlacement: string = 'top';
 }

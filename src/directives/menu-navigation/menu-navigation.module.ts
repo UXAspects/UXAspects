@@ -4,18 +4,15 @@ import { MenuNavigationItemDirective } from './menu-navigation-item.directive';
 import { MenuNavigationToggleDirective } from './menu-navigation-toggle.directive';
 import { MenuNavigationDirective } from './menu-navigation.directive';
 
-
 const EXPORTS = [
-    MenuNavigationDirective,
-    MenuNavigationItemDirective,
-    MenuNavigationToggleDirective
+  MenuNavigationDirective,
+  MenuNavigationItemDirective,
+  MenuNavigationToggleDirective,
 ];
 
 @NgModule({
-    imports: [
-        AccessibilityModule
-    ],
-    exports: EXPORTS,
-    declarations: EXPORTS,
+  imports: [AccessibilityModule],
+  exports: EXPORTS,
+  declarations: EXPORTS,
 })
-export class MenuNavigationModule { }
+export class MenuNavigationModule {}

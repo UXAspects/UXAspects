@@ -1,89 +1,89 @@
 ux-typeahead {
-    display: none;
-    position: absolute;
-    top: 100%;
-    left: 0;
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  overflow-y: auto;
+  z-index: @select-drop-z-index;
+  padding: 5px 0;
+  border: none;
+  border-radius: 2px;
+  margin: 5px 0;
+  background-color: @dropdown-bg;
+  box-shadow: 0 0 3px @dropdown-shadow;
+
+  &.open {
+    display: block;
+  }
+
+  &.drop-up {
+    top: auto;
+    bottom: 100%;
+  }
+
+  ux-typeahead-options-list {
+    display: block;
     width: 100%;
-    overflow-y: auto;
-    z-index: @select-drop-z-index;
-    padding: 5px 0;
-    border: none;
-    border-radius: 2px;
-    margin: 5px 0;
-    background-color: @dropdown-bg;
-    box-shadow: 0 0 3px @dropdown-shadow;
+    overflow-x: hidden;
+  }
 
-    &.open {
-        display: block;
-    }
+  .ux-typeahead-options {
+    ol {
+      margin-bottom: 0;
+      padding: 0;
 
-    &.drop-up {
-        top: auto;
-        bottom: 100%;
-    }
-
-    ux-typeahead-options-list {
-        display: block;
-        width: 100%;
-        overflow-x: hidden;
-    }
-
-    .ux-typeahead-options {
-        ol {
-            margin-bottom: 0;
-            padding: 0;
-
-            li {
-                display: list-item;
-                list-style: none;
-                margin: 0;
-                padding: 0 10px;
-                line-height: 24px;
-                height: 24px;
-                cursor: pointer;
-
-                &.active {
-                    transition: none;
-                }
-
-                &.highlighted {
-                    background-color: @dropdown-highlight-bg;
-                }
-
-                &.disabled {
-                    cursor: default;
-                    color: @grey5;
-                }
-
-                .ux-filter-match {
-                    font-weight: bold;
-                    text-decoration: underline;
-                }
-            }
-        }
-    }
-
-    .ux-typeahead-loading {
-        display: flex;
-        align-items: center;
+      li {
+        display: list-item;
+        list-style: none;
+        margin: 0;
         padding: 0 10px;
         line-height: 24px;
-        font-style: italic;
+        height: 24px;
+        cursor: pointer;
 
-        & > .spinner {
-            margin: 0 1em 0 0.5em;
+        &.active {
+          transition: none;
         }
-    }
 
-    .ux-typeahead-no-options {
-        padding: 0 10px;
-        line-height: 24px;
-        font-style: italic;
-    }
+        &.highlighted {
+          background-color: @dropdown-highlight-bg;
+        }
 
-    .ux-typeahead-recent-options {
-        border-bottom: solid 1px @dropdown-divider;
-        margin-bottom: 8px;
-        padding-bottom: 8px;
+        &.disabled {
+          cursor: default;
+          color: @grey5;
+        }
+
+        .ux-filter-match {
+          font-weight: bold;
+          text-decoration: underline;
+        }
+      }
     }
+  }
+
+  .ux-typeahead-loading {
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    line-height: 24px;
+    font-style: italic;
+
+    & > .spinner {
+      margin: 0 1em 0 0.5em;
+    }
+  }
+
+  .ux-typeahead-no-options {
+    padding: 0 10px;
+    line-height: 24px;
+    font-style: italic;
+  }
+
+  .ux-typeahead-recent-options {
+    border-bottom: solid 1px @dropdown-divider;
+    margin-bottom: 8px;
+    padding-bottom: 8px;
+  }
 }

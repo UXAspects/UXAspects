@@ -1,18 +1,27 @@
 <a id="top-focus" href="javascript:void(0)">Top focus target</a>
 
 <div id="root">
+  <form [formGroup]="form">
+    <p>updateOn: Blur:</p>
+    <ux-number-picker
+      id="update-on-blur-number-picker"
+      class="number-picker-component-demo"
+      min="0"
+      max="10"
+      formControlName="updateOnBlur"
+    ></ux-number-picker>
 
-    <form [formGroup]="form">
-        <p>updateOn: Blur:</p>
-        <ux-number-picker id="update-on-blur-number-picker" class="number-picker-component-demo" min="0" max="10" formControlName="updateOnBlur"></ux-number-picker>
+    <p class="m-t-md">updateOn: Change:</p>
+    <ux-number-picker
+      id="update-on-change-number-picker"
+      class="number-picker-component-demo"
+      min="0"
+      max="10"
+      formControlName="updateOnChange"
+    ></ux-number-picker>
 
-        <p class="m-t-md">updateOn: Change:</p>
-        <ux-number-picker id="update-on-change-number-picker" class="number-picker-component-demo" min="0" max="10" formControlName="updateOnChange"></ux-number-picker>
+    <br />
 
-        <br>
-
-        <span id="emitted-value">{{ form.value | json }}</span>
-    </form>
-
-
+    <span id="emitted-value">{{ form.value | json }}</span>
+  </form>
 </div>

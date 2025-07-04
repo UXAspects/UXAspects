@@ -2,7 +2,15 @@ import { CommonModule } from '@angular/common';
 import { ComponentFactoryResolver, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { AccessibilityModule, IconModule, MenuModule, PopoverModule, SelectModule, TabsetModule, TooltipModule } from '@ux-aspects/ux-aspects';
+import {
+  AccessibilityModule,
+  IconModule,
+  MenuModule,
+  PopoverModule,
+  SelectModule,
+  TabsetModule,
+  TooltipModule,
+} from '@ux-aspects/ux-aspects';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
@@ -16,52 +24,50 @@ import { IconPreviewComponent } from './ux-icons/icon-preview/icon-preview.compo
 import { IconSnippetComponent } from './ux-icons/icon-preview/icon-snippet/icon-snippet.component';
 import { CssUxIconsComponent } from './ux-icons/ux-icons.component';
 
-
 const SECTIONS = [
-    CssUxIconsComponent,
-    CssBasicUsageComponent,
-    CssIconSizeComponent,
-    CssRotateFlipIconsComponent,
-    CssIconButtonsComponent,
-    CssIconColorsComponent,
-    IconPreviewComponent,
-    IconSnippetComponent
+  CssUxIconsComponent,
+  CssBasicUsageComponent,
+  CssIconSizeComponent,
+  CssRotateFlipIconsComponent,
+  CssIconButtonsComponent,
+  CssIconColorsComponent,
+  IconPreviewComponent,
+  IconSnippetComponent,
 ];
 
 const ROUTES = [
-    {
-        path: '**',
-        component: DocumentationCategoryComponent,
-        data: {
-            category: ResolverService.resolveCategoryData(DocumentationPage.Css, 'Icons')
-        }
-    }
+  {
+    path: '**',
+    component: DocumentationCategoryComponent,
+    data: {
+      category: ResolverService.resolveCategoryData(DocumentationPage.Css, 'Icons'),
+    },
+  },
 ];
 
 @NgModule({
-    imports: [
-        AccessibilityModule,
-        ButtonsModule,
-        CommonModule,
-        DocumentationComponentsModule,
-        FormsModule,
-        IconModule,
-        MenuModule,
-        PopoverModule,
-        RouterModule.forChild(ROUTES),
-        SelectModule,
-        TabsetModule,
-        TooltipModule,
-    ],
-    exports: SECTIONS,
-    declarations: [
-        SECTIONS,
-        IconPreviewComponent
-    ],
+  imports: [
+    AccessibilityModule,
+    ButtonsModule,
+    CommonModule,
+    DocumentationComponentsModule,
+    FormsModule,
+    IconModule,
+    MenuModule,
+    PopoverModule,
+    RouterModule.forChild(ROUTES),
+    SelectModule,
+    TabsetModule,
+    TooltipModule,
+  ],
+  exports: SECTIONS,
+  declarations: [SECTIONS, IconPreviewComponent],
 })
 export class CssIconsModule {
-
-    constructor(componentFactoryResolver: ComponentFactoryResolver, resolverService: ResolverService) {
-        resolverService.registerResolver(componentFactoryResolver, SECTIONS);
-    }
+  constructor(
+    componentFactoryResolver: ComponentFactoryResolver,
+    resolverService: ResolverService
+  ) {
+    resolverService.registerResolver(componentFactoryResolver, SECTIONS);
+  }
 }

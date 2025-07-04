@@ -5,63 +5,63 @@ import { IPlayground } from '../../../../../interfaces/IPlayground';
 import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
 
 @Component({
-    selector: 'uxd-components-buttons-dropdowns',
-    templateUrl: './dropdowns.component.html',
-    styleUrls: ['./dropdowns.component.less'],
-    encapsulation: ViewEncapsulation.None,
-    standalone: false
+  selector: 'uxd-components-buttons-dropdowns',
+  templateUrl: './dropdowns.component.html',
+  styleUrls: ['./dropdowns.component.less'],
+  encapsulation: ViewEncapsulation.None,
+  standalone: false,
 })
 @DocumentationSectionComponent('ComponentsDropdownsComponent')
 export class ComponentsDropdownsComponent
-    extends BaseDocumentationSection
-    implements IPlaygroundProvider
+  extends BaseDocumentationSection
+  implements IPlaygroundProvider
 {
-    cases: string[] = [
-        'Alpha',
-        'Beta',
-        'Gamma',
-        'Delta',
-        'Epsilon',
-        'Zeta',
-        'Eta',
-        'Theta',
-        'Iota',
-        'Kappa',
-        'Alpha 2',
-        'Alpha 3',
-    ];
+  cases: string[] = [
+    'Alpha',
+    'Beta',
+    'Gamma',
+    'Delta',
+    'Epsilon',
+    'Zeta',
+    'Eta',
+    'Theta',
+    'Iota',
+    'Kappa',
+    'Alpha 2',
+    'Alpha 3',
+  ];
 
-    caseFilter: string = '';
+  caseFilter: string = '';
 
-    toggleSwitchValue: boolean = false;
+  toggleSwitchValue: boolean = false;
 
-    playground: IPlayground = {
-        files: {
-            'app.component.html': this.snippets.raw.appHtml,
-            'app.component.css': this.snippets.raw.appCss,
-            'app.component.ts': this.snippets.raw.appTs,
-        },
-        modules: [
-            {
-                imports: ['StringFilterModule', 'MenuModule', 'ToggleSwitchModule'],
-                library: '@ux-aspects/ux-aspects',
-            },
-        ],
-    };
+  playground: IPlayground = {
+    files: {
+      'app.component.html': this.snippets.raw.appHtml,
+      'app.component.css': this.snippets.raw.appCss,
+      'app.component.ts': this.snippets.raw.appTs,
+    },
+    modules: [
+      {
+        imports: ['StringFilterModule', 'MenuModule', 'ToggleSwitchModule'],
+        library: '@ux-aspects/ux-aspects',
+      },
+    ],
+  };
 
-    constructor() {
-        super(
-            import.meta.webpackContext('./snippets/', {
-                recursive: false,
-                regExp: /\.(html|css|js|ts)$/,
-            })
-        );
-    }
+  constructor() {
+    super(
+      import.meta.webpackContext('./snippets/', {
+        recursive: false,
+        regExp: /\.(html|css|js|ts)$/,
+      })
+    );
+  }
 
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
-    export(): void {}
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
-    saveList(): void {}
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
-    saveQuery(): void {}
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  export(): void {}
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  saveList(): void {}
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  saveQuery(): void {}
 }

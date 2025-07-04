@@ -6,8 +6,8 @@ import { SidePanelComponent } from './side-panel.component';
 import { SidePanelModule } from './side-panel.module';
 
 @Component({
-    selector: 'app-page-side-panel',
-    template: `<div>
+  selector: 'app-page-side-panel',
+  template: `<div>
     <div class="page-content">
       <div class="wrapper-content">
         <div class="ebox">
@@ -46,7 +46,7 @@ import { SidePanelModule } from './side-panel.module';
       </div>
     </ux-side-panel>
   </div>`,
-    standalone: false
+  standalone: false,
 })
 export class SidePanelTestComponent {
   panelOpen = true;

@@ -11,40 +11,41 @@ import { ComponentsFacetCheckListComponent } from './facet-check-list/facet-chec
 import { ComponentsFacetContainerComponent } from './facet-container/facet-container.component';
 import { ComponentsFacetTypeaheadListComponent } from './facet-typeahead-list/facet-typeahead-list.component';
 
-
 const SECTIONS = [
-    ComponentsFacetContainerComponent,
-    ComponentsFacetCheckListComponent,
-    ComponentsFacetTypeaheadListComponent,
-    ComponentsCustomFacetComponent,
-    SampleCustomFacetComponent
+  ComponentsFacetContainerComponent,
+  ComponentsFacetCheckListComponent,
+  ComponentsFacetTypeaheadListComponent,
+  ComponentsCustomFacetComponent,
+  SampleCustomFacetComponent,
 ];
 
 const ROUTES = [
-    {
-        path: '**',
-        component: DocumentationCategoryComponent,
-        data: {
-            category: ResolverService.resolveCategoryData(DocumentationPage.Components, 'Facets')
-        }
-    }
+  {
+    path: '**',
+    component: DocumentationCategoryComponent,
+    data: {
+      category: ResolverService.resolveCategoryData(DocumentationPage.Components, 'Facets'),
+    },
+  },
 ];
 
 @NgModule({
-    imports: [
-        CheckboxModule,
-        CommonModule,
-        DocumentationComponentsModule,
-        FacetsModule,
-        RouterModule.forChild(ROUTES),
-        TabsetModule,
-    ],
-    exports: SECTIONS,
-    declarations: SECTIONS,
+  imports: [
+    CheckboxModule,
+    CommonModule,
+    DocumentationComponentsModule,
+    FacetsModule,
+    RouterModule.forChild(ROUTES),
+    TabsetModule,
+  ],
+  exports: SECTIONS,
+  declarations: SECTIONS,
 })
 export class ComponentsFacetsModule {
-
-    constructor(componentFactoryResolver: ComponentFactoryResolver, resolverService: ResolverService) {
-        resolverService.registerResolver(componentFactoryResolver, SECTIONS);
-    }
+  constructor(
+    componentFactoryResolver: ComponentFactoryResolver,
+    resolverService: ResolverService
+  ) {
+    resolverService.registerResolver(componentFactoryResolver, SECTIONS);
+  }
 }

@@ -3,5 +3,5 @@ declare const VERSION: string;
 
 export const environment = {
   production: PRODUCTION,
-  version: VERSION
+  version: VERSION,
 };

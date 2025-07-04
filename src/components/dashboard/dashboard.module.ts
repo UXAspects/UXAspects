@@ -10,21 +10,16 @@ import { DashboardGrabHandleDirective } from './grab-handle/grab-handle.directiv
 import { DashboardWidgetComponent } from './widget/dashboard-widget.component';
 
 const DECLARATIONS = [
-    DashboardComponent,
-    DashboardWidgetComponent,
-    DashboardDragHandleDirective,
-    DashboardGrabHandleDirective
+  DashboardComponent,
+  DashboardWidgetComponent,
+  DashboardDragHandleDirective,
+  DashboardGrabHandleDirective,
 ];
 
 @NgModule({
-    imports: [
-        A11yModule,
-        CommonModule,
-        ResizeModule,
-        DragModule
-    ],
-    exports: DECLARATIONS,
-    declarations: DECLARATIONS,
-    providers: [DashboardService],
+  imports: [A11yModule, CommonModule, ResizeModule, DragModule],
+  exports: DECLARATIONS,
+  declarations: DECLARATIONS,
+  providers: [DashboardService],
 })
-export class DashboardModule { }
+export class DashboardModule {}

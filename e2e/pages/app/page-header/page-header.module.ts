@@ -5,27 +5,24 @@ import { PageHeaderTestPageComponent } from './page-header.testpage.component';
 import { PageHeaderPageComponent } from './page.component';
 
 @NgModule({
-    imports: [
-        PageHeaderModule,
-        AccessibilityModule,
-        MenuModule.forChild({ animate: false }),
-        RouterModule.forChild([
-            {
-                path: '',
-                component: PageHeaderTestPageComponent,
-                children: [
-                    {
-                        path: 'home',
-                        component: PageHeaderPageComponent,
-                        data: { title: 'Home' }
-                    }
-                ]
-            }
-        ])
-    ],
-    declarations: [
-        PageHeaderTestPageComponent,
-        PageHeaderPageComponent
-    ]
+  imports: [
+    PageHeaderModule,
+    AccessibilityModule,
+    MenuModule.forChild({ animate: false }),
+    RouterModule.forChild([
+      {
+        path: '',
+        component: PageHeaderTestPageComponent,
+        children: [
+          {
+            path: 'home',
+            component: PageHeaderPageComponent,
+            data: { title: 'Home' },
+          },
+        ],
+      },
+    ]),
+  ],
+  declarations: [PageHeaderTestPageComponent, PageHeaderPageComponent],
 })
-export class PageHeaderTestPageModule { }
+export class PageHeaderTestPageModule {}

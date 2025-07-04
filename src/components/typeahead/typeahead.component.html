@@ -10,7 +10,7 @@
   [scrollElement]="typeaheadElement"
   (loading)="loading = true"
   (loaded)="loading = false; onLoadedHighlight($event)"
-  >
+>
   @if ((visibleRecentOptions$ | async).length > 0) {
     <div>
       <ng-container [ngTemplateOutlet]="recentOptionsHeadingTemplate"></ng-container>
@@ -33,7 +33,7 @@
       (optionMouseover)="highlight($event.option)"
       (optionMousedown)="optionMousedownHandler($event.event)"
       (optionClick)="optionClickHandler($event.event, $event.option)"
-      >
+    >
     </ux-typeahead-options-list>
   }
 
@@ -57,7 +57,7 @@
       (optionMouseover)="highlight($event.option)"
       (optionMousedown)="optionMousedownHandler($event.event)"
       (optionClick)="optionClickHandler($event.event, $event.option)"
-      >
+    >
     </ux-typeahead-options-list>
   }
 
@@ -73,7 +73,8 @@
 </div>
 @if ((visibleOptions$ | async).length === 0 && !loading) {
   <div>
-    <ng-container [ngTemplateOutlet]="noOptionsTemplate || defaultNoOptionsTemplate"> </ng-container>
+    <ng-container [ngTemplateOutlet]="noOptionsTemplate || defaultNoOptionsTemplate">
+    </ng-container>
   </div>
 }
 

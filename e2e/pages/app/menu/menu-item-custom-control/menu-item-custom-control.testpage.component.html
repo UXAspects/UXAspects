@@ -1,74 +1,102 @@
 <a id="top-focus" href="javascript:void(0)">Top focus target</a>
 
 <div class="container">
-    <div class="row menu-button-container">
-        <div class="col-md-6 justify-content-center">
-            <div class="btn-group">
-                <button
-                    type="button"
-                    id="open-menu"
-                    class="btn button-primary dropdown-toggle dropdown-button"
-                    [uxMenuTriggerFor]="menu">
-                    <span>Menu</span><ux-icon name="chevron-down" class="dropdown-icon-inline"></ux-icon>
-                </button>
-            </div>
-        </div>
+  <div class="row menu-button-container">
+    <div class="col-md-6 justify-content-center">
+      <div class="btn-group">
+        <button
+          type="button"
+          id="open-menu"
+          class="btn button-primary dropdown-toggle dropdown-button"
+          [uxMenuTriggerFor]="menu"
+        >
+          <span>Menu</span><ux-icon name="chevron-down" class="dropdown-icon-inline"></ux-icon>
+        </button>
+      </div>
     </div>
-    <div class="row">
-        <div class="col-md-6">
-            <ux-checkbox id="disable-checkbox" [(value)]="disabled">
-                Disable options
-            </ux-checkbox>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <ux-checkbox id="disable-checkbox" [(value)]="disabled"> Disable options </ux-checkbox>
 
-            <p>Toggleswitch Value: <span id="toggleswitch-value">{{ toggleSwitchValue }}</span></p>
-            <p>Checkbox Value: <span id="checkbox-value">{{ checkOptions | json }}</span></p>
-            <p>Radio Value: <span id="radio-value">{{ radioSelected }}</span></p>
-
-        </div>
+      <p>
+        Toggleswitch Value: <span id="toggleswitch-value">{{ toggleSwitchValue }}</span>
+      </p>
+      <p>
+        Checkbox Value: <span id="checkbox-value">{{ checkOptions | json }}</span>
+      </p>
+      <p>
+        Radio Value: <span id="radio-value">{{ radioSelected }}</span>
+      </p>
     </div>
+  </div>
 </div>
 
 <ux-menu #menu>
+  <ux-toggleswitch
+    id="test-toggleswitch"
+    [(value)]="toggleSwitchValue"
+    uxMenuItemCustomControl
+    [disabled]="disabled"
+  >
+    Toggle 1
+  </ux-toggleswitch>
 
-    <ux-toggleswitch id="test-toggleswitch" [(value)]="toggleSwitchValue" uxMenuItemCustomControl [disabled]="disabled">
-        Toggle 1
-    </ux-toggleswitch>
+  <ux-menu-divider></ux-menu-divider>
 
-    <ux-menu-divider></ux-menu-divider>
+  <button type="button" uxMenuItem>
+    <span class="dropdown-menu-icon"></span>
+    <span class="dropdown-menu-text">Regular Menu Item</span>
+  </button>
 
-    <button type="button" uxMenuItem>
-        <span class="dropdown-menu-icon"></span>
-        <span class="dropdown-menu-text">Regular Menu Item</span>
-    </button>
+  <ux-menu-divider></ux-menu-divider>
 
-    <ux-menu-divider></ux-menu-divider>
+  <ux-checkbox
+    class="test-checkbox"
+    uxMenuItemCustomControl
+    [(value)]="checkOptions.option1"
+    [disabled]="disabled"
+  >
+    Option 1
+  </ux-checkbox>
+  <ux-checkbox class="test-checkbox" uxMenuItemCustomControl [(value)]="checkOptions.option2">
+    Option 2
+  </ux-checkbox>
+  <ux-checkbox class="test-checkbox" uxMenuItemCustomControl [(value)]="checkOptions.option3">
+    Option 3
+  </ux-checkbox>
 
-    <ux-checkbox class="test-checkbox" uxMenuItemCustomControl [(value)]="checkOptions.option1" [disabled]="disabled">
-        Option 1
-    </ux-checkbox>
-    <ux-checkbox class="test-checkbox" uxMenuItemCustomControl [(value)]="checkOptions.option2">
-        Option 2
-    </ux-checkbox>
-    <ux-checkbox class="test-checkbox" uxMenuItemCustomControl [(value)]="checkOptions.option3">
-        Option 3
-    </ux-checkbox>
+  <ux-menu-divider></ux-menu-divider>
 
-    <ux-menu-divider></ux-menu-divider>
+  <div uxRadioButtonGroup [(value)]="radioSelected" class="radio-button-container">
+    <ux-radio-button
+      class="test-radio-button"
+      uxMenuItemCustomControl
+      name="radio-group"
+      [option]="radioOptions.option1"
+      [disabled]="disabled"
+    >
+      Option 1
+    </ux-radio-button>
 
-    <div uxRadioButtonGroup [(value)]="radioSelected" class="radio-button-container">
-        <ux-radio-button class="test-radio-button" uxMenuItemCustomControl name="radio-group" [option]="radioOptions.option1" [disabled]="disabled">
-            Option 1
-        </ux-radio-button>
+    <ux-radio-button
+      class="test-radio-button"
+      uxMenuItemCustomControl
+      name="radio-group"
+      [option]="radioOptions.option2"
+    >
+      Option 2
+    </ux-radio-button>
 
-        <ux-radio-button class="test-radio-button" uxMenuItemCustomControl name="radio-group" [option]="radioOptions.option2">
-            Option 2
-        </ux-radio-button>
+    <ux-radio-button
+      class="test-radio-button"
+      uxMenuItemCustomControl
+      name="radio-group"
+      [option]="radioOptions.option3"
+    >
+      Option 3
+    </ux-radio-button>
+  </div>
 
-        <ux-radio-button class="test-radio-button" uxMenuItemCustomControl name="radio-group" [option]="radioOptions.option3">
-            Option 3
-        </ux-radio-button>
-    </div>
-
-    <input type="password" id="password-input" uxMenuItemCustomControl placeholder="Custom Element">
-
+  <input type="password" id="password-input" uxMenuItemCustomControl placeholder="Custom Element" />
 </ux-menu>

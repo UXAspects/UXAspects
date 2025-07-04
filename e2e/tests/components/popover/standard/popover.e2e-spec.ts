@@ -3,169 +3,161 @@ import { imageCompare } from '../../common/image-compare';
 import { PopoverPage } from './popover.po.spec';
 
 describe('Popover', () => {
+  let page: PopoverPage;
 
-    let page: PopoverPage;
+  beforeEach(async () => {
+    page = new PopoverPage();
+    await page.getPage();
+  });
 
-    beforeEach(async () => {
-        page = new PopoverPage();
-        await page.getPage();
-    });
+  it('should have correct initial states', async () => {
+    expect(await page.cdkOverlayContainer.isPresent()).toBe(false);
+    expect(await page.popover.isPresent()).toBe(false);
 
-    it('should have correct initial states', async () => {
-        expect(await page.cdkOverlayContainer.isPresent()).toBe(false);
-        expect(await page.popover.isPresent()).toBe(false);
+    expect(await imageCompare('popover-initial')).toEqual(0);
+  });
 
-        expect(await imageCompare('popover-initial')).toEqual(0);
-    });
+  it('should show popover on mouse click', async () => {
+    // click the button
+    await page.showPopoverBtn.click();
 
-    it('should show popover on mouse click', async () => {
+    // the popover should now be visible
+    expect(await page.cdkOverlayContainer.isPresent()).toBe(true);
+    expect(await page.popover.isPresent()).toBe(true);
 
-        // click the button
-        await page.showPopoverBtn.click();
+    expect(await imageCompare('popover-open')).toEqual(0);
+  });
 
-        // the popover should now be visible
-        expect(await page.cdkOverlayContainer.isPresent()).toBe(true);
-        expect(await page.popover.isPresent()).toBe(true);
+  it('should hide popover on mouse click', async () => {
+    // click the button
+    await page.showPopoverBtn.click();
 
-        expect(await imageCompare('popover-open')).toEqual(0);
-    });
+    // the popover should now be visible
+    expect(await page.cdkOverlayContainer.isPresent()).toBe(true);
+    expect(await page.popover.isPresent()).toBe(true);
 
-    it('should hide popover on mouse click', async () => {
+    // click the button again
+    await page.showPopoverBtn.click();
 
-        // click the button
-        await page.showPopoverBtn.click();
+    // the popover should now be hidden but the overlay container should remain
+    expect(await page.cdkOverlayContainer.isPresent()).toBe(true);
+    expect(await page.popover.isPresent()).toBe(false);
+  });
 
-        // the popover should now be visible
-        expect(await page.cdkOverlayContainer.isPresent()).toBe(true);
-        expect(await page.popover.isPresent()).toBe(true);
+  it('should be able to programmatically show the popover', async () => {
+    await page.showPopover();
+    expect(await page.popover.isPresent()).toBe(true);
+  });
 
-        // click the button again
-        await page.showPopoverBtn.click();
+  it('should be able to programmatically hide the popover', async () => {
+    await page.showPopover();
+    expect(await page.popover.isPresent()).toBe(true);
 
-        // the popover should now be hidden but the overlay container should remain
-        expect(await page.cdkOverlayContainer.isPresent()).toBe(true);
-        expect(await page.popover.isPresent()).toBe(false);
-    });
+    await page.hidePopover();
+    expect(await page.popover.isPresent()).toBe(false);
+  });
 
-    it('should be able to programmatically show the popover', async () => {
-        await page.showPopover();
-        expect(await page.popover.isPresent()).toBe(true);
-    });
+  it('should be able to programmatically toggle the popover', async () => {
+    await page.togglePopover();
+    expect(await page.popover.isPresent()).toBe(true);
 
-    it('should be able to programmatically hide the popover', async () => {
-        await page.showPopover();
-        expect(await page.popover.isPresent()).toBe(true);
+    await page.togglePopover();
+    expect(await page.popover.isPresent()).toBe(false);
 
-        await page.hidePopover();
-        expect(await page.popover.isPresent()).toBe(false);
-    });
+    await page.togglePopover();
+    expect(await page.popover.isPresent()).toBe(true);
+  });
 
-    it('should be able to programmatically toggle the popover', async () => {
-        await page.togglePopover();
-        expect(await page.popover.isPresent()).toBe(true);
+  it('should be able to position the popover', async () => {
+    // by default the popover should be displayed on top
+    expect(await page.getPopoverPlacement()).toBe('top');
 
-        await page.togglePopover();
-        expect(await page.popover.isPresent()).toBe(false);
+    // set the popover placement to right
+    await page.placementRightBtn.click();
+    expect(await page.getPopoverPlacement()).toBe('right');
 
-        await page.togglePopover();
-        expect(await page.popover.isPresent()).toBe(true);
-    });
+    // set the popover placement to bottom
+    await page.placementBottomBtn.click();
+    expect(await page.getPopoverPlacement()).toBe('bottom');
 
-    it('should be able to position the popover', async () => {
-        // by default the popover should be displayed on top
-        expect(await page.getPopoverPlacement()).toBe('top');
+    // set the popover placement to left
+    await page.placementLeftBtn.click();
+    expect(await page.getPopoverPlacement()).toBe('left');
 
-        // set the popover placement to right
-        await page.placementRightBtn.click();
-        expect(await page.getPopoverPlacement()).toBe('right');
+    // set the popover placement to top
+    await page.placementTopBtn.click();
+    expect(await page.getPopoverPlacement()).toBe('top');
+  });
 
-        // set the popover placement to bottom
-        await page.placementBottomBtn.click();
-        expect(await page.getPopoverPlacement()).toBe('bottom');
+  it('should show the correct content', async () => {
+    expect(await page.getPopoverContent()).toBe('Some content here');
+  });
 
-        // set the popover placement to left
-        await page.placementLeftBtn.click();
-        expect(await page.getPopoverPlacement()).toBe('left');
+  it('should allow a custom class', async () => {
+    // should not initially have the class
+    expect(await page.popoverHasClass('my-custom-class')).toBe(false);
 
-        // set the popover placement to top
-        await page.placementTopBtn.click();
-        expect(await page.getPopoverPlacement()).toBe('top');
+    // add the custom class
+    await page.customClasssBtn.click();
 
-    });
+    // should now have the class
+    expect(await page.popoverHasClass('my-custom-class')).toBe(true);
 
-    it('should show the correct content', async () => {
-        expect(await page.getPopoverContent()).toBe('Some content here');
-    });
+    expect(await imageCompare('popover-custom-class')).toEqual(0);
+  });
 
-    it('should allow a custom class', async () => {
+  it('should allow a TemplateRef to be used', async () => {
+    // the original content should initially be shown
+    expect(await page.getPopoverContent()).toBe('Some content here');
 
-        // should not initially have the class
-        expect(await page.popoverHasClass('my-custom-class')).toBe(false);
+    // set the content to a TemplateRef
+    await page.templateRefBtn.click();
 
-        // add the custom class
-        await page.customClasssBtn.click();
+    // the content should now have changed
+    expect(await page.getPopoverContent()).toBe('My Template Here');
+  });
 
-        // should now have the class
-        expect(await page.popoverHasClass('my-custom-class')).toBe(true);
+  it('should show a title when specified', async () => {
+    // open the popover
+    await page.showPopover();
 
-        expect(await imageCompare('popover-custom-class')).toEqual(0);
-    });
+    // expect there to be no title
+    expect(await page.popoverTitle.isPresent()).toBe(false);
 
-    it('should allow a TemplateRef to be used', async () => {
-        // the original content should initially be shown
-        expect(await page.getPopoverContent()).toBe('Some content here');
+    // set the title
+    await page.setTitleBtn.click();
 
-        // set the content to a TemplateRef
-        await page.templateRefBtn.click();
+    // open the popover
+    await page.showPopover();
 
-        // the content should now have changed
-        expect(await page.getPopoverContent()).toBe('My Template Here');
-    });
+    // expect there to be a title
+    expect(await page.popoverTitle.isPresent()).toBe(true);
 
-    it('should show a title when specified', async () => {
+    // expect the title content to be correct
+    expect(await page.popoverTitle.getAttribute('textContent')).toBe('Popover Title');
+  });
 
-        // open the popover
-        await page.showPopover();
+  it('should close when escape is pressed', async () => {
+    // open the popover
+    await page.showPopover();
+    expect(await page.popover.isPresent()).toBe(true);
 
-        // expect there to be no title
-        expect(await page.popoverTitle.isPresent()).toBe(false);
+    // press the escape key
+    await browser.actions().sendKeys(Key.ESCAPE).perform();
 
-        // set the title
-        await page.setTitleBtn.click();
+    // popover should now be closed
+    expect(await page.popover.isPresent()).toBe(false);
+  });
 
-        // open the popover
-        await page.showPopover();
+  it('should close when a click outside occurs', async () => {
+    // open the popover
+    await page.showPopover();
+    expect(await page.popover.isPresent()).toBe(true);
 
-        // expect there to be a title
-        expect(await page.popoverTitle.isPresent()).toBe(true);
+    // press the mouse button key
+    await browser.actions().click($('body')).perform();
 
-        // expect the title content to be correct
-        expect(await page.popoverTitle.getAttribute('textContent')).toBe('Popover Title');
-    });
-
-    it('should close when escape is pressed', async () => {
-
-        // open the popover
-        await page.showPopover();
-        expect(await page.popover.isPresent()).toBe(true);
-
-        // press the escape key
-        await browser.actions().sendKeys(Key.ESCAPE).perform();
-
-        // popover should now be closed
-        expect(await page.popover.isPresent()).toBe(false);
-    });
-
-    it('should close when a click outside occurs', async () => {
-
-        // open the popover
-        await page.showPopover();
-        expect(await page.popover.isPresent()).toBe(true);
-
-        // press the mouse button key
-        await browser.actions().click($('body')).perform();
-
-        // popover should now be closed
-        expect(await page.popover.isPresent()).toBe(false);
-    });
+    // popover should now be closed
+    expect(await page.popover.isPresent()).toBe(false);
+  });
 });

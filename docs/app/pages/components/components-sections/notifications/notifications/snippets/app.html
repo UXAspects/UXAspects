@@ -1,67 +1,76 @@
 <ux-notification-list direction="above" position="top-right"></ux-notification-list>
 
 <div class="btn-container">
-    <button class="btn button-primary m-r-sm" (click)="showNotification(notification)">
-        Show Notification
-    </button>
-    <button class="btn button-secondary m-r-sm" (click)="notificationService.dismissAll()">
-        Dismiss Notifications
-    </button>
+  <button class="btn button-primary m-r-sm" (click)="showNotification(notification)">
+    Show Notification
+  </button>
+  <button class="btn button-secondary m-r-sm" (click)="notificationService.dismissAll()">
+    Dismiss Notifications
+  </button>
 </div>
 
 <ng-template #notification let-notificationRef let-data="data">
-    <button class="dismiss"
-        tabindex="0"
-        aria-label="Dismiss Notification"
-        (click)="notificationService.dismiss(notificationRef)">
-        <ux-icon name="close"></ux-icon>
-    </button>
+  <button
+    class="dismiss"
+    tabindex="0"
+    aria-label="Dismiss Notification"
+    (click)="notificationService.dismiss(notificationRef)"
+  >
+    <ux-icon name="close"></ux-icon>
+  </button>
 
-    <div class="notification-wrapper">
-
-        <div class="notification-icon">
-            <ux-icon name="chat"></ux-icon>
-        </div>
-
-        <div class="notification-content">
-            <h4 class="notification-title">Messages Received</h4>
-            <p class="notification-description">{{ data.description }}</p>
-            <p class="notification-timestamp">
-                {{ notificationRef.date | date:'EEEE, MMMM d, y, h:mm:ss a' }}
-            </p>
-        </div>
-
+  <div class="notification-wrapper">
+    <div class="notification-icon">
+      <ux-icon name="chat"></ux-icon>
     </div>
+
+    <div class="notification-content">
+      <h4 class="notification-title">Messages Received</h4>
+      <p class="notification-description">{{ data.description }}</p>
+      <p class="notification-timestamp">
+        {{ notificationRef.date | date:'EEEE, MMMM d, y, h:mm:ss a' }}
+      </p>
+    </div>
+  </div>
 </ng-template>
 
-<hr>
+<hr />
 
 <div class="row uxd-customize-example">
-    <div class="col-md-12">
-        <ux-accordion>
-            <ux-accordion-panel class="accordion-chevron" heading="Customize Example...">
-                <div class="row uxd-customize-row">
-                    <div class="col-md-6 col-sm-12">
-                        <label for="backgroundColor">backgroundColor</label>
-                        <div class="input-group m-b-sm">
-                            <input type="text" placeholder="Background color" class="form-control" [(ngModel)]="backgroundColor">
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-sm-12">
-                        <label for="duration">duration</label>
-                        <ux-number-picker [(value)]="duration" min="0" max="3600"></ux-number-picker>
-                    </div>
-                </div>
-                <div class="row uxd-customize-row">
-                    <div class="col-sm-6">
-                        <label for="backgroundColor">description</label>
-                        <div class="input-group m-b-sm">
-                            <input type="text" placeholder="Enter description"
-                                class="form-control" [(ngModel)]="description">
-                        </div>
-                    </div>
-                </div>
-            </ux-accordion-panel>
-        </ux-accordion>
-    </div>
+  <div class="col-md-12">
+    <ux-accordion>
+      <ux-accordion-panel class="accordion-chevron" heading="Customize Example...">
+        <div class="row uxd-customize-row">
+          <div class="col-md-6 col-sm-12">
+            <label for="backgroundColor">backgroundColor</label>
+            <div class="input-group m-b-sm">
+              <input
+                type="text"
+                placeholder="Background color"
+                class="form-control"
+                [(ngModel)]="backgroundColor"
+              />
+            </div>
+          </div>
+          <div class="col-md-6 col-sm-12">
+            <label for="duration">duration</label>
+            <ux-number-picker [(value)]="duration" min="0" max="3600"></ux-number-picker>
+          </div>
+        </div>
+        <div class="row uxd-customize-row">
+          <div class="col-sm-6">
+            <label for="backgroundColor">description</label>
+            <div class="input-group m-b-sm">
+              <input
+                type="text"
+                placeholder="Enter description"
+                class="form-control"
+                [(ngModel)]="description"
+              />
+            </div>
+          </div>
+        </div>
+      </ux-accordion-panel>
+    </ux-accordion>
+  </div>
 </div>

@@ -5,52 +5,52 @@ import { IPlayground } from '../../../../../interfaces/IPlayground';
 import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
 
 @Component({
-    selector: 'uxd-components-buttons-toggle-buttons',
-    templateUrl: './toggle-buttons.component.html',
-    standalone: false
+  selector: 'uxd-components-buttons-toggle-buttons',
+  templateUrl: './toggle-buttons.component.html',
+  standalone: false,
 })
 @DocumentationSectionComponent('ComponentsToggleButtonsComponent')
 export class ComponentsToggleButtonsComponent
-    extends BaseDocumentationSection
-    implements IPlaygroundProvider
+  extends BaseDocumentationSection
+  implements IPlaygroundProvider
 {
-    // Toggle model
-    primaryToggleValue: number = 0;
-    accentToggleValue: string = 'off';
+  // Toggle model
+  primaryToggleValue: number = 0;
+  accentToggleValue: string = 'off';
 
-    // Check model
-    primaryCheckValue = {
-        bold: false,
-        italic: true,
-        underline: false,
-    };
+  // Check model
+  primaryCheckValue = {
+    bold: false,
+    italic: true,
+    underline: false,
+  };
 
-    accentCheckValue = {
-        bold: false,
-        italic: true,
-        underline: false,
-    };
+  accentCheckValue = {
+    bold: false,
+    italic: true,
+    underline: false,
+  };
 
-    playground: IPlayground = {
-        files: {
-            'app.component.html': this.snippets.raw.toggleHtml + this.snippets.raw.checkHtml,
-            'app.component.ts': this.snippets.raw.appTs,
-        },
-        modules: [
-            {
-                library: 'ngx-bootstrap/buttons',
-                imports: ['ButtonsModule'],
-                importsWithProviders: ['ButtonsModule.forRoot()'],
-            },
-        ],
-    };
+  playground: IPlayground = {
+    files: {
+      'app.component.html': this.snippets.raw.toggleHtml + this.snippets.raw.checkHtml,
+      'app.component.ts': this.snippets.raw.appTs,
+    },
+    modules: [
+      {
+        library: 'ngx-bootstrap/buttons',
+        imports: ['ButtonsModule'],
+        importsWithProviders: ['ButtonsModule.forRoot()'],
+      },
+    ],
+  };
 
-    constructor() {
-        super(
-            import.meta.webpackContext('./snippets/', {
-                recursive: false,
-                regExp: /\.(html|css|js|ts)$/,
-            })
-        );
-    }
+  constructor() {
+    super(
+      import.meta.webpackContext('./snippets/', {
+        recursive: false,
+        regExp: /\.(html|css|js|ts)$/,
+      })
+    );
+  }
 }

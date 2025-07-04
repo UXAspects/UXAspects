@@ -1,42 +1,42 @@
 .breadcrumb {
-    background-color: transparent;
-    padding: 0;
-    margin-bottom: 0;
-    font-family: @font-family;
-    font-size: 0.875rem;
-    font-weight: 400;
-    height: 100%;
-    min-height: 22px;
+  background-color: transparent;
+  padding: 0;
+  margin-bottom: 0;
+  font-family: @font-family;
+  font-size: 0.875rem;
+  font-weight: 400;
+  height: 100%;
+  min-height: 22px;
 
-    li {
-        a,
-        span {
-            color: @breadcrumb-color;
+  li {
+    a,
+    span {
+      color: @breadcrumb-color;
 
-            &:focus {
-                .native-focus-outline;
-            }
-        }
-
-        a:hover {
-            color: @breadcrumb-hover-color;
-        }
-
-        + li {
-            .ux-icon-next;
-
-            &:before {
-                font-family: "ux-icons";
-                display: inline-block;
-                padding: 0 0 0 3px;
-                font-size: 0.6rem;
-                color: @breadcrumb-separator-color;
-            }
-        }
+      &:focus {
+        .native-focus-outline;
+      }
     }
+
+    a:hover {
+      color: @breadcrumb-hover-color;
+    }
+
+    + li {
+      .ux-icon-next;
+
+      &:before {
+        font-family: 'ux-icons';
+        display: inline-block;
+        padding: 0 0 0 3px;
+        font-size: 0.6rem;
+        color: @breadcrumb-separator-color;
+      }
+    }
+  }
 }
 
 .breadcrumb-inverse {
-    background-color: @white;
-    color: @grey2;
+  background-color: @white;
+  color: @grey2;
 }

@@ -5,19 +5,9 @@ import { DragModule } from '../../directives/drag/index';
 import { ColorServiceModule } from '../../services/color/index';
 import { SliderComponent } from './slider.component';
 
-
 @NgModule({
-    imports: [
-        AccessibilityModule,
-        CommonModule,
-        ColorServiceModule,
-        DragModule
-    ],
-    exports: [
-        SliderComponent
-    ],
-    declarations: [
-        SliderComponent
-    ]
+  imports: [AccessibilityModule, CommonModule, ColorServiceModule, DragModule],
+  exports: [SliderComponent],
+  declarations: [SliderComponent],
 })
-export class SliderModule { }
+export class SliderModule {}

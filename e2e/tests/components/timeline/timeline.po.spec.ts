@@ -1,40 +1,39 @@
 import { browser, by, element } from 'protractor';
 
 export class TimelinePage {
+  async getPage(): Promise<void> {
+    await browser.get('#/timeline');
+  }
 
-    async getPage(): Promise<void> {
-        await browser.get('#/timeline');
-    }
+  addEvent = element(by.id('button'));
+  timeline = element(by.id('timeline'));
+  resetBtn = element(by.id('reset-btn'));
 
-    addEvent = element(by.id('button'));
-    timeline = element(by.id('timeline'));
-    resetBtn = element(by.id('reset-btn'));
+  getNumberOfEvents() {
+    return this.timeline.$('div.timeline').$$('ux-timeline-event').count();
+  }
 
-    getNumberOfEvents() {
-        return this.timeline.$('div.timeline').$$('ux-timeline-event').count();
-    }
+  getEvent(index: number) {
+    return this.timeline.$('div.timeline').$$('ux-timeline-event').get(index);
+  }
 
-    getEvent(index: number) {
-        return this.timeline.$('div.timeline').$$('ux-timeline-event').get(index);
-    }
+  getEventBadge(index: number) {
+    return this.getEvent(index).$('.timeline-badge');
+  }
 
-    getEventBadge(index: number) {
-        return this.getEvent(index).$('.timeline-badge');
-    }
+  getEventPanel(index: number) {
+    return this.getEvent(index).$('.timeline-panel');
+  }
 
-    getEventPanel(index: number) {
-        return this.getEvent(index).$('.timeline-panel');
-    }
+  getEventBadgeTitle(index: number) {
+    return this.getEventBadge(index).getText();
+  }
 
-    getEventBadgeTitle(index: number) {
-        return this.getEventBadge(index).getText();
-    }
+  getEventPanelText(index: number) {
+    return this.getEventPanel(index).$('p').getText();
+  }
 
-    getEventPanelText(index: number) {
-        return this.getEventPanel(index).$('p').getText();
-    }
-
-    reset() {
-        return this.resetBtn.click();
-    }
+  reset() {
+    return this.resetBtn.click();
+  }
 }

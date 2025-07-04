@@ -1,9 +1,9 @@
 import { Component, OnDestroy } from '@angular/core';
 import {
-    Breadcrumb,
-    HelpCenterItem,
-    HelpCenterService,
-    PageHeaderIconMenu,
+  Breadcrumb,
+  HelpCenterItem,
+  HelpCenterService,
+  PageHeaderIconMenu,
 } from '@ux-aspects/ux-aspects';
 import 'chance';
 import { Subscription } from 'rxjs';
@@ -13,103 +13,103 @@ import { IPlayground } from '../../../../../interfaces/IPlayground';
 import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
 
 @Component({
-    selector: 'uxd-components-help-center',
-    templateUrl: './help-center.component.html',
-    styleUrls: ['./help-center.component.less'],
-    standalone: false
+  selector: 'uxd-components-help-center',
+  templateUrl: './help-center.component.html',
+  styleUrls: ['./help-center.component.less'],
+  standalone: false,
 })
 @DocumentationSectionComponent('ComponentsHelpCenterComponent')
 export class ComponentsHelpCenterComponent
-    extends BaseDocumentationSection
-    implements OnDestroy, IPlaygroundProvider
+  extends BaseDocumentationSection
+  implements OnDestroy, IPlaygroundProvider
 {
-    repositories: HelpCenterTableData[] = [];
-    loading: boolean = false;
-    crumbs: Breadcrumb[] = [{ title: 'Overview' }];
-    menus: PageHeaderIconMenu[] = [
-        {
-            icon: 'help',
-            label: 'Help Menu',
-            dropdown: [],
-        },
-    ];
+  repositories: HelpCenterTableData[] = [];
+  loading: boolean = false;
+  crumbs: Breadcrumb[] = [{ title: 'Overview' }];
+  menus: PageHeaderIconMenu[] = [
+    {
+      icon: 'help',
+      label: 'Help Menu',
+      dropdown: [],
+    },
+  ];
 
-    refreshHelpCenterItem: HelpCenterItem = {
-        icon: 'refresh',
-        title: 'Refresh Repositories',
-        select: this.loadData.bind(this),
-    };
+  refreshHelpCenterItem: HelpCenterItem = {
+    icon: 'refresh',
+    title: 'Refresh Repositories',
+    select: this.loadData.bind(this),
+  };
 
-    playground: IPlayground = {
-        files: {
-            'app.component.html': this.snippets.raw.appHtml,
-            'app.component.ts': this.snippets.raw.appTs,
-            'app.component.css': this.snippets.raw.appCss,
-        },
-        modules: [
-            {
-                imports: ['HelpCenterModule', 'PageHeaderModule'],
-                library: '@ux-aspects/ux-aspects',
-            },
-            {
-                imports: ['RouterModule'],
-                library: '@angular/router',
-                importsWithProviders: ['RouterModule.forRoot([])'],
-            },
-        ],
-    };
+  playground: IPlayground = {
+    files: {
+      'app.component.html': this.snippets.raw.appHtml,
+      'app.component.ts': this.snippets.raw.appTs,
+      'app.component.css': this.snippets.raw.appCss,
+    },
+    modules: [
+      {
+        imports: ['HelpCenterModule', 'PageHeaderModule'],
+        library: '@ux-aspects/ux-aspects',
+      },
+      {
+        imports: ['RouterModule'],
+        library: '@angular/router',
+        importsWithProviders: ['RouterModule.forRoot([])'],
+      },
+    ],
+  };
 
-    private readonly _helpCenter$: Subscription;
+  private readonly _helpCenter$: Subscription;
 
-    constructor(private readonly _helpCenterService: HelpCenterService) {
-        super(
-            import.meta.webpackContext('./snippets/', {
-                recursive: false,
-                regExp: /\.(html|css|js|ts)$/,
-            })
-        );
+  constructor(private readonly _helpCenterService: HelpCenterService) {
+    super(
+      import.meta.webpackContext('./snippets/', {
+        recursive: false,
+        regExp: /\.(html|css|js|ts)$/,
+      })
+    );
 
-        // update the menu items when new ones are added
-        this._helpCenter$ = this._helpCenterService.items.subscribe(
-            items => (this.menus[0].dropdown = items)
-        );
+    // update the menu items when new ones are added
+    this._helpCenter$ = this._helpCenterService.items.subscribe(
+      items => (this.menus[0].dropdown = items)
+    );
 
-        // load table data
-        this.loadData();
-    }
+    // load table data
+    this.loadData();
+  }
 
-    loadData(): void {
-        this.repositories = [];
-        this.loading = true;
+  loadData(): void {
+    this.repositories = [];
+    this.loading = true;
 
-        const types = ['File System', 'Exchange', 'Other'];
+    const types = ['File System', 'Exchange', 'Other'];
 
-        // add delay to simulate loading
-        setTimeout(() => {
-            // generate some sample data
-            for (let idx = 0; idx < 5; idx++) {
-                this.repositories.push({
-                    name: `Repository ${chance.integer({ min: 1, max: 100 })}`,
-                    type: types[chance.integer({ min: 0, max: 2 })],
-                    items: chance.integer({ min: 0, max: 1000000 }),
-                    location: chance.country({ full: true }),
-                    size: chance.floating({ fixed: 1, min: 1, max: 20 }),
-                });
-            }
+    // add delay to simulate loading
+    setTimeout(() => {
+      // generate some sample data
+      for (let idx = 0; idx < 5; idx++) {
+        this.repositories.push({
+          name: `Repository ${chance.integer({ min: 1, max: 100 })}`,
+          type: types[chance.integer({ min: 0, max: 2 })],
+          items: chance.integer({ min: 0, max: 1000000 }),
+          location: chance.country({ full: true }),
+          size: chance.floating({ fixed: 1, min: 1, max: 20 }),
+        });
+      }
 
-            this.loading = false;
-        }, 2000);
-    }
+      this.loading = false;
+    }, 2000);
+  }
 
-    ngOnDestroy(): void {
-        this._helpCenter$.unsubscribe();
-    }
+  ngOnDestroy(): void {
+    this._helpCenter$.unsubscribe();
+  }
 }
 
 interface HelpCenterTableData {
-    name: string;
-    type: string;
-    location: string;
-    items: number;
-    size: number;
+  name: string;
+  type: string;
+  location: string;
+  items: number;
+  size: number;
 }

@@ -38,17 +38,16 @@ import { TypeaheadService } from './typeahead.service';
 let uniqueId = 0;
 
 @Component({
-    selector: 'ux-typeahead',
-    templateUrl: 'typeahead.component.html',
-    providers: [TypeaheadService, PopoverOrientationService],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    host: {
-        '[class.open]': 'open',
-        '[style.maxHeight]': 'maxHeight',
-    },
-    standalone: false
+  selector: 'ux-typeahead',
+  templateUrl: 'typeahead.component.html',
+  providers: [TypeaheadService, PopoverOrientationService],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  host: {
+    '[class.open]': 'open',
+    '[style.maxHeight]': 'maxHeight',
+  },
+  standalone: false,
 })
- 
 export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
   readonly typeaheadElement = inject(ElementRef);
 

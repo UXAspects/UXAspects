@@ -1,17 +1,20 @@
 @if (spinners) {
-  <button type="button"
+  <button
+    type="button"
     uxFocusIndicator
     class="spin-button"
     tabindex="-1"
     [disabled]="disabled"
     [attr.aria-label]="incrementAriaLabel"
     [attr.aria-disabled]="disabled"
-    (click)="triggerIncrement()">
+    (click)="triggerIncrement()"
+  >
     <ux-icon name="up" class="spin-button-up-icon"></ux-icon>
   </button>
 }
 
-<input #input
+<input
+  #input
   type="text"
   role="spinbutton"
   [min]="min"
@@ -33,17 +36,20 @@
   (keypress)="onKeypress($event)"
   (paste)="onPaste($event)"
   (keydown.arrowup)="arrowkeys ? triggerIncrement() : null; $event.preventDefault()"
-  (keydown.arrowdown)="arrowkeys ? triggerDecrement() : null; $event.preventDefault()">
+  (keydown.arrowdown)="arrowkeys ? triggerDecrement() : null; $event.preventDefault()"
+/>
 
-  @if (spinners) {
-    <button type="button"
-      uxFocusIndicator
-      class="spin-button"
-      tabindex="-1"
-      [disabled]="disabled"
-      [attr.aria-label]="decrementAriaLabel"
-      [attr.aria-disabled]="disabled"
-      (click)="triggerDecrement()">
-      <ux-icon name="down" class="spin-button-down-icon"></ux-icon>
-    </button>
-  }
+@if (spinners) {
+  <button
+    type="button"
+    uxFocusIndicator
+    class="spin-button"
+    tabindex="-1"
+    [disabled]="disabled"
+    [attr.aria-label]="decrementAriaLabel"
+    [attr.aria-disabled]="disabled"
+    (click)="triggerDecrement()"
+  >
+    <ux-icon name="down" class="spin-button-down-icon"></ux-icon>
+  </button>
+}

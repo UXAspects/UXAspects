@@ -1,32 +1,38 @@
 <ng-template #popTemplate>
-    <table class="usage-popover">
-        <tbody>
-            <tr *ngFor="let use of usage">
-                <td class="usage-title p-l-xs">{{ use.title }}</td>
-                <td class="p-r-sm">{{ use.content }}</td>
-                <td>
-                    <ux-icon name="clipboard" class="m-r-xs" [uxTooltip]="tooltipTemplate" (click)="copy(use.content)"></ux-icon>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+  <table class="usage-popover">
+    <tbody>
+      <tr *ngFor="let use of usage">
+        <td class="usage-title p-l-xs">{{ use.title }}</td>
+        <td class="p-r-sm">{{ use.content }}</td>
+        <td>
+          <ux-icon
+            name="clipboard"
+            class="m-r-xs"
+            [uxTooltip]="tooltipTemplate"
+            (click)="copy(use.content)"
+          ></ux-icon>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </ng-template>
 
 <ng-template #tooltipTemplate>
-    <p class="usage-tooltip">Copy to Clipboard</p>
+  <p class="usage-tooltip">Copy to Clipboard</p>
 </ng-template>
 
-<a class="hyperlink-hover"
-   tabindex="0"
-   #pop="ux-popover"
-   [uxPopover]="popTemplate"
-   [showTriggers]="[]"
-   [hideTriggers]="['escape', 'clickoutside']"
-   (click)="pop.show(); $event.target?.blur()"
-   (keyup.enter)="pop.toggle()"
-   placement="bottom"
-   popoverClass="ux-usage-popover"
-   uxFocusIndicator>
-
-   <ux-icon name="action" class="p-r-xs"></ux-icon> Usage
+<a
+  class="hyperlink-hover"
+  tabindex="0"
+  #pop="ux-popover"
+  [uxPopover]="popTemplate"
+  [showTriggers]="[]"
+  [hideTriggers]="['escape', 'clickoutside']"
+  (click)="pop.show(); $event.target?.blur()"
+  (keyup.enter)="pop.toggle()"
+  placement="bottom"
+  popoverClass="ux-usage-popover"
+  uxFocusIndicator
+>
+  <ux-icon name="action" class="p-r-xs"></ux-icon> Usage
 </a>

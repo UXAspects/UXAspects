@@ -6,61 +6,56 @@ import { IPlayground } from '../../../../../interfaces/IPlayground';
 import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
 
 @Component({
-    selector: 'uxd-components-selection',
-    templateUrl: './selection.component.html',
-    styleUrls: ['./selection.component.less'],
-    standalone: false
+  selector: 'uxd-components-selection',
+  templateUrl: './selection.component.html',
+  styleUrls: ['./selection.component.less'],
+  standalone: false,
 })
 @DocumentationSectionComponent('ComponentsSelectionComponent')
 export class ComponentsSelectionComponent
-    extends BaseDocumentationSection
-    implements IPlaygroundProvider
+  extends BaseDocumentationSection
+  implements IPlaygroundProvider
 {
-    data: TableData[] = [];
-    selection: TableData[] = [];
-    mode: string = 'simple';
+  data: TableData[] = [];
+  selection: TableData[] = [];
+  mode: string = 'simple';
 
-    playground: IPlayground = {
-        files: {
-            'app.component.html': this.snippets.raw.appHtml,
-            'app.component.ts': this.snippets.raw.appTs,
-            'app.component.css': this.snippets.raw.appCss,
-        },
-        modules: [
-            {
-                imports: [
-                    'SelectionModule',
-                    'CheckboxModule',
-                    'RadioButtonModule',
-                    'AccordionModule',
-                ],
-                library: '@ux-aspects/ux-aspects',
-            },
-        ],
-    };
+  playground: IPlayground = {
+    files: {
+      'app.component.html': this.snippets.raw.appHtml,
+      'app.component.ts': this.snippets.raw.appTs,
+      'app.component.css': this.snippets.raw.appCss,
+    },
+    modules: [
+      {
+        imports: ['SelectionModule', 'CheckboxModule', 'RadioButtonModule', 'AccordionModule'],
+        library: '@ux-aspects/ux-aspects',
+      },
+    ],
+  };
 
-    constructor() {
-        super(
-            import.meta.webpackContext('./snippets/', {
-                recursive: false,
-                regExp: /\.(html|css|js|ts)$/,
-            })
-        );
+  constructor() {
+    super(
+      import.meta.webpackContext('./snippets/', {
+        recursive: false,
+        regExp: /\.(html|css|js|ts)$/,
+      })
+    );
 
-        for (let idx = 0; idx < 8; idx++) {
-            this.data.push({
-                name: `Document ${idx + 1}`,
-                author: chance.name(),
-                date: chance.date(),
-                selected: false,
-            });
-        }
+    for (let idx = 0; idx < 8; idx++) {
+      this.data.push({
+        name: `Document ${idx + 1}`,
+        author: chance.name(),
+        date: chance.date(),
+        selected: false,
+      });
     }
+  }
 }
 
 export interface TableData {
-    name: string;
-    author: string;
-    date: Date;
-    selected: boolean;
+  name: string;
+  author: string;
+  date: Date;
+  selected: boolean;
 }

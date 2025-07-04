@@ -21,11 +21,11 @@ import {
 import { DateRangePicker, DateRangeService } from './date-range.service';
 
 @Component({
-    selector: 'ux-date-range-picker',
-    templateUrl: './date-range-picker.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    providers: [DateRangeService],
-    standalone: false
+  selector: 'ux-date-range-picker',
+  templateUrl: './date-range-picker.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [DateRangeService],
+  standalone: false,
 })
 export class DateRangePickerComponent implements OnDestroy {
   readonly rangeService = inject(DateRangeService);

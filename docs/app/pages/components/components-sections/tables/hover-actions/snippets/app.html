@@ -1,51 +1,60 @@
 <table class="table table-hover">
-    <thead>
-        <tr class="table-header-dark">
-            <th>Name</th>
-            <th>Author</th>
-            <th>Date</th>
-            <th>Work Completed (%)</th>
-            <th></th>
-        </tr>
-    </thead>
+  <thead>
+    <tr class="table-header-dark">
+      <th>Name</th>
+      <th>Author</th>
+      <th>Date</th>
+      <th>Work Completed (%)</th>
+      <th></th>
+    </tr>
+  </thead>
 
-    <tbody [(uxSelection)]="selected" mode="row-alt">
-        <tr *ngFor="let document of documents"
-            class="hover-action-container"
-            [uxSelectionItem]="document"
-            uxHoverActionContainer>
-
-            <td class="text-black">{{ document.name }}</td>
-            <td>{{ document.author }}</td>
-            <td>{{ document.date | date: 'shortDate' }}</td>
-            <td>
-                <ux-spark [value]="document.complete" [inlineLabel]="document.complete"
-                    barHeight="3"></ux-spark>
-            </td>
-            <td>
-                <button type="button"
-                    class="hover-action-btn"
-                    aria-label="View"
-                    uxTooltip="View"
-                    uxHoverAction>
-                    <ux-icon name="view" class="hover-action-icon"></ux-icon>
-                </button>
-                <button type="button"
-                    class="hover-action-btn"
-                    aria-label="Share"
-                    uxTooltip="Share"
-                    uxHoverAction>
-                    <ux-icon name="share" class="hover-action-icon"></ux-icon>
-                </button>
-                <button type="button"
-                    class="hover-action-btn"
-                    aria-label="Delete"
-                    uxTooltip="Delete"
-                    uxHoverAction>
-                    <ux-icon name="trash" class="hover-action-icon"></ux-icon>
-                </button>
-            </td>
-
-        </tr>
-    </tbody>
+  <tbody [(uxSelection)]="selected" mode="row-alt">
+    <tr
+      *ngFor="let document of documents"
+      class="hover-action-container"
+      [uxSelectionItem]="document"
+      uxHoverActionContainer
+    >
+      <td class="text-black">{{ document.name }}</td>
+      <td>{{ document.author }}</td>
+      <td>{{ document.date | date: 'shortDate' }}</td>
+      <td>
+        <ux-spark
+          [value]="document.complete"
+          [inlineLabel]="document.complete"
+          barHeight="3"
+        ></ux-spark>
+      </td>
+      <td>
+        <button
+          type="button"
+          class="hover-action-btn"
+          aria-label="View"
+          uxTooltip="View"
+          uxHoverAction
+        >
+          <ux-icon name="view" class="hover-action-icon"></ux-icon>
+        </button>
+        <button
+          type="button"
+          class="hover-action-btn"
+          aria-label="Share"
+          uxTooltip="Share"
+          uxHoverAction
+        >
+          <ux-icon name="share" class="hover-action-icon"></ux-icon>
+        </button>
+        <button
+          type="button"
+          class="hover-action-btn"
+          aria-label="Delete"
+          uxTooltip="Delete"
+          uxHoverAction
+        >
+          <ux-icon name="trash" class="hover-action-icon"></ux-icon>
+        </button>
+      </td>
+    </tr>
+  </tbody>
 </table>

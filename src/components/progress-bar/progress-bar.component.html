@@ -1,5 +1,9 @@
 @if (!indeterminate) {
-  <div class="progressbar-track" [style.width.%]="((value - min) / (max - min)) * 100" [style.backgroundColor]="barColor">
+  <div
+    class="progressbar-track"
+    [style.width.%]="((value - min) / (max - min)) * 100"
+    [style.backgroundColor]="barColor"
+  >
     <ng-container *ngTemplateOutlet="content"></ng-container>
   </div>
 }
