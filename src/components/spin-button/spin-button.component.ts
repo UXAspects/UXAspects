@@ -12,7 +12,8 @@ export const SPIN_BUTTON_VALUE_ACCESSOR = {
     templateUrl: './spin-button.component.html',
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
-    providers: [SPIN_BUTTON_VALUE_ACCESSOR]
+    providers: [SPIN_BUTTON_VALUE_ACCESSOR],
+    standalone: false
 })
 export class SpinButtonComponent implements ControlValueAccessor {
     private readonly _changeDetector = inject(ChangeDetectorRef);

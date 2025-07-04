@@ -16,7 +16,8 @@ import { IconDefinition } from './iconsets/iconset.interface';
         '[class.ux-rotate-90]': 'rotate == 90',
         '[class.ux-rotate-180]': 'rotate == 180',
         '[class.ux-rotate-270]': 'rotate == 270',
-    }
+    },
+    standalone: false
 })
 export class IconComponent implements OnChanges, AfterViewInit, OnDestroy {
     private readonly _elementRef = inject(ElementRef);

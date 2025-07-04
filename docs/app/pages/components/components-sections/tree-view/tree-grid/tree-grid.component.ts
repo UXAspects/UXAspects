@@ -11,6 +11,7 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
     templateUrl: './tree-grid.component.html',
     styleUrls: ['./tree-grid.component.less'],
     encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 @DocumentationSectionComponent('ComponentsTreeGridComponent')
 export class ComponentsTreeGridComponent

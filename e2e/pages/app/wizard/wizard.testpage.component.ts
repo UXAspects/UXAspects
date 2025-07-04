@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'wizard-app',
-    templateUrl: './wizard.testpage.component.html'
+    templateUrl: './wizard.testpage.component.html',
+    standalone: false
 })
 export class WizardTestPageComponent {
     step5 = false;

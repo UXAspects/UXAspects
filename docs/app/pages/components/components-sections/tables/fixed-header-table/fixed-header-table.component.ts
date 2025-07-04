@@ -8,6 +8,7 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
     selector: 'uxd-components-fixed-header-table',
     templateUrl: './fixed-header-table.component.html',
     styleUrls: ['./fixed-header-table.component.less'],
+    standalone: false
 })
 @DocumentationSectionComponent('ComponentsFixedHeaderTableComponent')
 export class ComponentsFixedHeaderTableComponent

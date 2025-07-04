@@ -3,7 +3,8 @@ import { Breadcrumb, PageHeaderIconMenu, PageHeaderNavigationAlignment, PageHead
 
 @Component({
     selector: 'page-header-app',
-    templateUrl: './page-header.testpage.component.html'
+    templateUrl: './page-header.testpage.component.html',
+    standalone: false
 })
 export class PageHeaderTestPageComponent {
 

@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 @Component({
     selector: 'spark-app',
     templateUrl: './spark.testpage.component.html',
+    standalone: false
 })
 export class SparkTestPageComponent {
     multiValueChart = {

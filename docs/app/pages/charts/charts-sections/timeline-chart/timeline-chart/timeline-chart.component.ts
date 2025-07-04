@@ -20,6 +20,7 @@ const DATE_LOCALE_OPTIONS = {
     templateUrl: './timeline-chart.component.html',
     styleUrls: ['./timeline-chart.component.less'],
     providers: [TimelineChartService],
+    standalone: false
 })
 @DocumentationSectionComponent('ChartsTimelineChartComponent')
 export class ChartsTimelineChartComponent

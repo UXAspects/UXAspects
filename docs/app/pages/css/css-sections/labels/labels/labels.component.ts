@@ -8,6 +8,7 @@ import { playgroundAdapter } from '../../../../../services/playground/adapters/l
 @Component({
     selector: 'uxd-css-labels-labels',
     templateUrl: './labels.component.html',
+    standalone: false
 })
 @DocumentationSectionComponent('CssLabelsComponent')
 export class CssLabelsComponent extends BaseDocumentationSection implements IPlaygroundProvider {

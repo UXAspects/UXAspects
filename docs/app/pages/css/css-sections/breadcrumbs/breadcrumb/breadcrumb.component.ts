@@ -8,6 +8,7 @@ import { playgroundAdapter } from '../../../../../services/playground/adapters/l
 @Component({
     selector: 'uxd-css-page-header-breadcrumb',
     templateUrl: './breadcrumb.component.html',
+    standalone: false
 })
 @DocumentationSectionComponent('CssBreadcrumbComponent')
 export class CssBreadcrumbComponent

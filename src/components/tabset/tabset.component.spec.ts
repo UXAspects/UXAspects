@@ -26,7 +26,8 @@ import { TabsetModule } from './tabset.module';
             </ux-tab>
           }
         </ux-tabset>
-        `
+        `,
+    standalone: false
 })
 export class TabsetTestComponent {
 

@@ -8,6 +8,7 @@ import { playgroundAdapter } from '../../../../../services/playground/adapters/l
 @Component({
     selector: 'uxd-css-typography-unordered-list',
     templateUrl: './unordered-list.component.html',
+    standalone: false
 })
 @DocumentationSectionComponent('CssUnorderedListComponent')
 export class CssUnorderedListComponent

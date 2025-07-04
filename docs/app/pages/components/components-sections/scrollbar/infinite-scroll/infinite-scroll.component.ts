@@ -23,6 +23,7 @@ const DEPARTMENTS = [
     selector: 'uxd-components-infinite-scroll',
     templateUrl: 'infinite-scroll.component.html',
     styleUrls: ['./infinite-scroll.component.less'],
+    standalone: false
 })
 @DocumentationSectionComponent('ComponentsInfiniteScrollComponent')
 export class ComponentsInfiniteScrollComponent

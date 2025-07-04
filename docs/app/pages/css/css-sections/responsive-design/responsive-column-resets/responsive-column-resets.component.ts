@@ -8,6 +8,7 @@ import { playgroundAdapter } from '../../../../../services/playground/adapters/l
 @Component({
     selector: 'uxd-css-responsive-design-responsive-column-resets',
     templateUrl: './responsive-column-resets.component.html',
+    standalone: false
 })
 @DocumentationSectionComponent('CssResponsiveColumnResetsComponent')
 export class CssResponsiveColumnResetsComponent

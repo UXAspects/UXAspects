@@ -8,6 +8,7 @@ import { playgroundAdapter } from '../../../../../services/playground/adapters/l
 @Component({
     selector: 'uxd-css-buttons-size-variation',
     templateUrl: './size-variations.component.html',
+    standalone: false
 })
 @DocumentationSectionComponent('CssButtonsSizeVariationsComponent')
 export class CssButtonsSizeVariationsComponent

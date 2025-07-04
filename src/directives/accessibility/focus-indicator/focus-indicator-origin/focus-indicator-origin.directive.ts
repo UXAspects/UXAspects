@@ -4,6 +4,7 @@ import { FocusIndicatorOriginService } from './focus-indicator-origin.service';
 
 @Directive({
     selector: '[uxFocusIndicatorOrigin]',
+    standalone: false
 })
 export class FocusIndicatorOriginDirective implements OnDestroy {
     readonly focusOriginService = inject(FocusIndicatorOriginService);

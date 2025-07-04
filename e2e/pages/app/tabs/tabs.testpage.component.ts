@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 @Component({
     selector: 'uxd-components-tabs',
     templateUrl: './tabs.testpage.component.html',
+    standalone: false
 })
 export class TabsTestPageComponent {
 

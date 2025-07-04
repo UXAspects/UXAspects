@@ -9,6 +9,7 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 @Component({
     selector: 'uxd-charts-live-chart',
     templateUrl: './live-chart.component.html',
+    standalone: false
 })
 @DocumentationSectionComponent('ChartsLiveChartComponent')
 export class ChartsLiveChartComponent

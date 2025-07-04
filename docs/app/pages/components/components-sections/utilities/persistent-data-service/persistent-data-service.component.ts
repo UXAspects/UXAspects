@@ -5,6 +5,7 @@ import { DocumentationSectionComponent } from '../../../../../decorators/documen
 @Component({
     selector: 'uxd-components-persistent-data-service',
     templateUrl: './persistent-data-service.component.html',
+    standalone: false
 })
 @DocumentationSectionComponent('ComponentsPersistentDataServiceComponent')
 export class ComponentsPersistentDataServiceComponent extends BaseDocumentationSection {

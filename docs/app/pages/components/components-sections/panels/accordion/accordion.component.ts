@@ -7,6 +7,7 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 @Component({
     selector: 'uxd-accordion',
     templateUrl: './accordion.component.html',
+    standalone: false
 })
 @DocumentationSectionComponent('ComponentsAccordionComponent')
 export class ComponentsAccordionComponent

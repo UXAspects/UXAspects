@@ -20,7 +20,8 @@ import { MenuComponent } from '../menu/menu.component';
         '[attr.aria-haspopup]': '!!menu',
         '[attr.aria-expanded]': 'menu?.isMenuOpen',
         '[attr.aria-controls]': 'ariaControls'
-    }
+    },
+    standalone: false
 })
 export class MenuTriggerDirective implements OnInit, OnDestroy {
     private readonly _overlay = inject(Overlay);

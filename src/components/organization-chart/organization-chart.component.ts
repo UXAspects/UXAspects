@@ -45,9 +45,10 @@ import { FocusIndicator, FocusIndicatorService } from '../../directives/accessib
 import { ResizeDimensions, ResizeService } from '../../directives/resize/index';
 
 @Component({
-  selector: 'ux-organization-chart',
-  templateUrl: './organization-chart.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'ux-organization-chart',
+    templateUrl: './organization-chart.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class OrganizationChartComponent<T> implements AfterViewInit, OnChanges, OnDestroy {
   private readonly _resizeService = inject(ResizeService);

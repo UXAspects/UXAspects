@@ -5,7 +5,8 @@ import { ResizeDimensions, ResizeService } from './resize.service';
 
 @Directive({
     selector: '[uxResize]',
-    providers: [ResizeService]
+    providers: [ResizeService],
+    standalone: false
 })
 export class ResizeDirective implements OnInit, OnDestroy {
     private readonly _elementRef = inject(ElementRef);

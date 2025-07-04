@@ -4,6 +4,7 @@ import { NotificationRef, NotificationService } from '@ux-aspects/ux-aspects';
 @Component({
     selector: 'notification-testpage',
     templateUrl: './notification.testpage.component.html',
+    standalone: false
 })
 export class NotificationTestPageComponent {
     notificationId = 0;

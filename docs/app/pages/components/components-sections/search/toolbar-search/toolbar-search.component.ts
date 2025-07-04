@@ -8,6 +8,7 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
     selector: 'uxd-toolbar-search',
     templateUrl: 'toolbar-search.component.html',
     styleUrls: ['toolbar-search.component.less'],
+    standalone: false
 })
 @DocumentationSectionComponent('ComponentsToolbarSearchComponent')
 export class ComponentsToolbarSearchComponent

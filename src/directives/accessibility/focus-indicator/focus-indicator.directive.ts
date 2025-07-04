@@ -11,6 +11,7 @@ import { FocusIndicatorService } from './focus-indicator.service';
 @Directive({
     selector: '[uxFocusIndicator]',
     exportAs: 'ux-focus-indicator',
+    standalone: false
 })
 export class FocusIndicatorDirective implements OnInit, OnDestroy {
     readonly optionsService = inject(AccessibilityOptionsService);

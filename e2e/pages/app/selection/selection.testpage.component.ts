@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'app-selection',
-    templateUrl: './selection.testpage.component.html'
+    templateUrl: './selection.testpage.component.html',
+    standalone: false
 })
 export class SelectionTestPageComponent {
 

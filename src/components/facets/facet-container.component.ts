@@ -13,7 +13,8 @@ import { CdkDragEnter, CdkDropList, DragRef, moveItemInArray } from '@angular/cd
     selector: 'ux-facet-container',
     templateUrl: './facet-container.component.html',
     providers: [FacetService],
-    preserveWhitespaces: false
+    preserveWhitespaces: false,
+    standalone: false
 })
 export class FacetContainerComponent implements OnDestroy, AfterViewInit {
     readonly facetService = inject(FacetService);

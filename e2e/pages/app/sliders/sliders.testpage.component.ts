@@ -5,6 +5,7 @@ import { SliderExample } from './slider-example';
 @Component({
     selector: 'sliders-app',
     templateUrl: './sliders.testpage.component.html',
+    standalone: false
 })
 export class SlidersTestPageComponent {
 

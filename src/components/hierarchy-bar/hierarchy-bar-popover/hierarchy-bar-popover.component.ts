@@ -5,7 +5,8 @@ import { HierarchyBarNode } from '../interfaces/hierarchy-bar-node.interface';
 @Component({
     selector: 'ux-hierarchy-bar-popover',
     templateUrl: './hierarchy-bar-popover.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class HierarchyBarPopoverComponent {
     readonly hierarchyBar = inject(HierarchyBarService);

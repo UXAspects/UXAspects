@@ -3,7 +3,8 @@ import { Component } from '@angular/core';
 @Component({
     selector: 'uxt-focus-indicator',
     templateUrl: 'focus-indicator.testpage.component.html',
-    styleUrls: ['focus-indicator.testpage.component.less']
+    styleUrls: ['focus-indicator.testpage.component.less'],
+    standalone: false
 })
 export class FocusIndicatorTestPageComponent {
     hasIndicator: boolean = false;

@@ -6,7 +6,8 @@ import { BehaviorSubject } from 'rxjs';
     selector: 'uxd-conduit-zone-example',
     templateUrl: './example.component.html',
     styleUrls: ['./example.component.less'],
-    providers: [ConduitZone]
+    providers: [ConduitZone],
+    standalone: false
 })
 export class ConduitZoneExampleComponent extends ConduitZoneComponent {
     zoneId: string = 'root-zone';

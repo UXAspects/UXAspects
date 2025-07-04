@@ -8,7 +8,8 @@ import { VirtualScrollLoadingDirective } from './directives/virtual-scroll-loadi
 
 @Component({
     selector: 'ux-virtual-scroll',
-    templateUrl: './virtual-scroll.component.html'
+    templateUrl: './virtual-scroll.component.html',
+    standalone: false
 })
 export class VirtualScrollComponent<T> implements OnInit, AfterContentInit, OnChanges, OnDestroy {
     readonly resizeService = inject(ResizeService);

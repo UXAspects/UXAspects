@@ -8,6 +8,7 @@ import { playgroundAdapter } from '../../../../../services/playground/adapters/l
 @Component({
     selector: 'uxd-css-text-inputs-text-inputs',
     templateUrl: './text-inputs.component.html',
+    standalone: false
 })
 @DocumentationSectionComponent('CssTextInputsComponent')
 export class CssTextInputsComponent

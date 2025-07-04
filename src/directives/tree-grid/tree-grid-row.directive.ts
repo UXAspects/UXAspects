@@ -10,7 +10,8 @@ import { TreeGridService } from './tree-grid.service';
     exportAs: 'uxTreeGridRow',
     host: {
         '[class.treegrid-row]': 'true'
-    }
+    },
+    standalone: false
 })
 export class TreeGridRowDirective implements OnInit, OnDestroy {
     private readonly _treeGridService = inject(TreeGridService);

@@ -4,7 +4,8 @@ import { SankeyLink, SankeyNode } from '@ux-aspects/ux-aspects';
 @Component({
     selector: 'uxd-sankey-chart',
     templateUrl: './sankey-chart.component.html',
-    styleUrls: ['./sankey-chart.component.less']
+    styleUrls: ['./sankey-chart.component.less'],
+    standalone: false
 })
 export class SankeyChartShowcaseComponent {
 

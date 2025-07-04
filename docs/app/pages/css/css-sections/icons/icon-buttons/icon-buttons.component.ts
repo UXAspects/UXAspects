@@ -8,6 +8,7 @@ import { playgroundAdapter } from '../../../../../services/playground/adapters/l
 @Component({
     selector: 'uxd-css-icons-icon-buttons',
     templateUrl: './icon-buttons.component.html',
+    standalone: false
 })
 @DocumentationSectionComponent('CssIconButtonsComponent')
 export class CssIconButtonsComponent

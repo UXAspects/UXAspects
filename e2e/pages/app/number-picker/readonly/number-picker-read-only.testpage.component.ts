@@ -6,6 +6,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
     templateUrl: './number-picker-read-only.testpage.component.html',
     styleUrls: ['./number-picker-read-only.testpage.component.css'],
     changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class NumberPickerReadOnlyTestPageComponent {
     form: FormGroup;

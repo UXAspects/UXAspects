@@ -4,7 +4,8 @@ import { PartitionMapSegment, PopoverDirective } from '@ux-aspects/ux-aspects';
 @Component({
     selector: 'uxd-partition-map',
     templateUrl: './partition-map.component.html',
-    styleUrls: ['./partition-map.component.less']
+    styleUrls: ['./partition-map.component.less'],
+    standalone: false
 })
 export class PartitionMapShowcaseComponent {
 

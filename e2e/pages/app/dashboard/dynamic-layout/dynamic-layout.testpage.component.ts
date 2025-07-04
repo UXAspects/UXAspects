@@ -6,7 +6,8 @@ import { BehaviorSubject } from 'rxjs';
     selector: 'dashboard-layout-app',
     templateUrl: './dynamic-layout.testpage.component.html',
     styleUrls: ['./dynamic-layout.testpage.component.css'],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class DynamicLayoutTestPageComponent {
 

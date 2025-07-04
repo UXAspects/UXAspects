@@ -9,6 +9,7 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 @Component({
     selector: 'uxd-components-file-upload',
     templateUrl: './file-upload.component.html',
+    standalone: false
 })
 @DocumentationSectionComponent('ComponentsFileUploadComponent')
 export class ComponentsFileUploadComponent

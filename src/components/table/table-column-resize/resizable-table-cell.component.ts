@@ -8,7 +8,8 @@ import { ColumnUnit } from './table-column-resize-standard/resizable-table.servi
 @Component({
     selector: '[uxResizableTableCell]',
     templateUrl: './resizable-table-cell.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class ResizableTableCellComponent implements OnInit, OnDestroy {
     private readonly _table = inject(RESIZABLE_TABLE_SERVICE_TOKEN);

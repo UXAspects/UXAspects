@@ -10,6 +10,7 @@ import { DocumentationType, DOCUMENTATION_TOKEN } from '../../../../../tokens/do
     selector: 'uxd-components-tags',
     templateUrl: 'tags.component.html',
     styleUrls: ['./tags.component.less'],
+    standalone: false
 })
 @DocumentationSectionComponent('ComponentsTagsComponent')
 export class ComponentsTagsComponent

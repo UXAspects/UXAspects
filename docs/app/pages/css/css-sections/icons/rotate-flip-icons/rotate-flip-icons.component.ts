@@ -8,6 +8,7 @@ import { playgroundAdapter } from '../../../../../services/playground/adapters/l
 @Component({
     selector: 'uxd-css-icons-rotate-flip-icons',
     templateUrl: './rotate-flip-icons.component.html',
+    standalone: false
 })
 @DocumentationSectionComponent('CssRotateFlipIconsComponent')
 export class CssRotateFlipIconsComponent

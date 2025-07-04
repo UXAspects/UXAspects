@@ -13,6 +13,7 @@ import { DocumentationType, DOCUMENTATION_TOKEN } from '../../../../../tokens/do
     selector: 'uxd-components-typeahead',
     templateUrl: 'typeahead.component.html',
     styleUrls: ['./typeahead.component.less'],
+    standalone: false
 })
 @DocumentationSectionComponent('ComponentsTypeaheadComponent')
 export class ComponentsTypeaheadComponent

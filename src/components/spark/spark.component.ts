@@ -5,6 +5,7 @@ import { ColorIdentifier, ColorService } from '../../services/color/index';
     selector: 'ux-spark',
     templateUrl: './spark.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class SparkComponent {
     private readonly _colorService = inject(ColorService);

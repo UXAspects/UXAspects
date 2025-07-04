@@ -5,6 +5,7 @@ import { ConduitProperties } from './interfaces/conduit-properties';
 
 @Directive({
     selector: 'ux-conduit',
+    standalone: false
 })
 export class ConduitComponent implements OnInit, OnDestroy {
     protected _zone = inject(ConduitZone, { optional: true });

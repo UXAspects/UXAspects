@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-card-tabs',
-  templateUrl: './card-tabs.testpage.component.html',
-  styleUrls: ['./card-tabs.testpage.component.less'],
+    selector: 'app-card-tabs',
+    templateUrl: './card-tabs.testpage.component.html',
+    styleUrls: ['./card-tabs.testpage.component.less'],
+    standalone: false
 })
 export class CardTabsTestPageComponent {
 

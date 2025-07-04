@@ -8,6 +8,7 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 @Component({
     selector: 'uxd-components-wizard',
     templateUrl: './wizard.component.html',
+    standalone: false
 })
 @DocumentationSectionComponent('ComponentsWizardComponent')
 export class ComponentsWizardComponent

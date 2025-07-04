@@ -7,7 +7,8 @@ import { playgroundAdapter } from '../../../../../services/playground/adapters/l
 
 @Component({
     selector: 'uxd-css-typogrphy-wells',
-    templateUrl: './wells.component.html'
+    templateUrl: './wells.component.html',
+    standalone: false
 })
 @DocumentationSectionComponent('CssWellsComponent')
 export class CssWellsComponent extends BaseDocumentationSection implements IPlaygroundProvider {

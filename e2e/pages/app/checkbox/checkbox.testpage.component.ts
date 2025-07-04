@@ -4,6 +4,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
     selector: 'checkbox-app',
     templateUrl: './checkbox.testpage.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class CheckboxTestPageComponent {
 

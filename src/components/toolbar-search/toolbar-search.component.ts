@@ -13,10 +13,7 @@ import { ToolbarSearchFieldDirective } from './toolbar-search-field.directive';
     changeDetection: ChangeDetectionStrategy.OnPush,
     animations: [
         trigger('expanded', [
-            state('collapsed',
-                style({ width: '{{initialWidth}}' }),
-                { params: { initialWidth: '30px' } }
-            ),
+            state('collapsed', style({ width: '{{initialWidth}}' }), { params: { initialWidth: '30px' } }),
             state('expanded', style({ width: '100%' })),
             transition('collapsed <=> expanded', [animate('0.3s ease-out')])
         ])
@@ -29,7 +26,8 @@ import { ToolbarSearchFieldDirective } from './toolbar-search-field.directive';
         '[style.position]': '_position',
         '[style.background-color]': '_backgroundColor',
         '[@expanded]': '_expandedAnimation'
-    }
+    },
+    standalone: false
 })
 export class ToolbarSearchComponent implements AfterContentInit, OnDestroy {
     private readonly _platformId = inject(PLATFORM_ID);

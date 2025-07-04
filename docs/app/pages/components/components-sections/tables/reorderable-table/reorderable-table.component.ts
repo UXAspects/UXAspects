@@ -15,6 +15,7 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
     templateUrl: './reorderable-table.component.html',
     styleUrls: ['./reorderable-table.component.less'],
     changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 @DocumentationSectionComponent('ComponentsReorderableTableComponent')
 export class ComponentsReorderableTableComponent

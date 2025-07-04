@@ -8,6 +8,7 @@ import { playgroundAdapter } from '../../../../../services/playground/adapters/l
 @Component({
     selector: 'uxd-css-text-inputs-input-required',
     templateUrl: './input-required.component.html',
+    standalone: false
 })
 @DocumentationSectionComponent('CssInputRequiredComponent')
 export class CssInputRequiredComponent

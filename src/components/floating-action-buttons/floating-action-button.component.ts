@@ -9,7 +9,8 @@ import { FloatingActionButtonsService } from './floating-action-buttons.service'
     selector: 'ux-floating-action-button',
     templateUrl: './floating-action-button.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    preserveWhitespaces: false
+    preserveWhitespaces: false,
+    standalone: false
 })
 export class FloatingActionButtonComponent implements AfterViewInit, OnDestroy {
     readonly fab = inject(FloatingActionButtonsService);

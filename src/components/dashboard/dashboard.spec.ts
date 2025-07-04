@@ -6,8 +6,8 @@ import { DashboardLayoutData } from './dashboard.service';
 import { DashboardWidgetComponent } from './widget/dashboard-widget.component';
 
 @Component({
-  selector: 'app-ux-dashboard',
-  template: `
+    selector: 'app-ux-dashboard',
+    template: `
     <ux-dashboard [options]="options">
       <ux-dashboard-widget id="widget-A" name="Hosts" [colSpan]="3"> </ux-dashboard-widget>
 
@@ -16,6 +16,7 @@ import { DashboardWidgetComponent } from './widget/dashboard-widget.component';
       <ux-dashboard-widget id="widget-C" name="Runs" [colSpan]="2"> </ux-dashboard-widget>
     </ux-dashboard>
   `,
+    standalone: false
 })
 export class DashboardComponentSpec {
   options: DashboardOptions = {
@@ -115,8 +116,8 @@ function getPixels(cssValue: string): number {
 }
 
 @Component({
-  selector: 'app-ux-dashboard-layout',
-  template: `
+    selector: 'app-ux-dashboard-layout',
+    template: `
     <ux-dashboard [options]="options" [(layout)]="layout" (layoutChange)="onLayoutChange()">
       <ux-dashboard-widget id="run-widget" name="Runs"> </ux-dashboard-widget>
 
@@ -125,6 +126,7 @@ function getPixels(cssValue: string): number {
       <ux-dashboard-widget id="host-widget" name="Host"> </ux-dashboard-widget>
     </ux-dashboard>
   `,
+    standalone: false
 })
 export class DashboardWithInitialLayoutTestComponent {
   options: DashboardOptions = {
@@ -277,8 +279,8 @@ describe('Dashboard with initial layout', () => {
 });
 
 @Component({
-  selector: 'app-ux-dashboard-widget-layout',
-  template: `
+    selector: 'app-ux-dashboard-widget-layout',
+    template: `
     <ux-dashboard [options]="options">
       <ux-dashboard-widget id="run-widget" name="Runs" [row]="1" [col]="1"> </ux-dashboard-widget>
 
@@ -287,6 +289,7 @@ describe('Dashboard with initial layout', () => {
       <ux-dashboard-widget id="host-widget" name="Host" [row]="0" [col]="0"> </ux-dashboard-widget>
     </ux-dashboard>
   `,
+    standalone: false
 })
 export class DashboardWidgetLayoutTestComponent {
   options: DashboardOptions = {
@@ -343,8 +346,8 @@ describe('Dashboard Widgets layout', () => {
 });
 
 @Component({
-  selector: 'app-ux-dashboard-autopositioning',
-  template: `
+    selector: 'app-ux-dashboard-autopositioning',
+    template: `
     <ux-dashboard [options]="options" #dashboard>
       @for (user of users; track user) {
         <ux-dashboard-widget id="users-widget" name="Users" autoPositioning="false">
@@ -355,6 +358,7 @@ describe('Dashboard Widgets layout', () => {
       }
     </ux-dashboard>
   `,
+    standalone: false
 })
 export class DashboardAutoPositioningTestComponent {
   options: DashboardOptions = {

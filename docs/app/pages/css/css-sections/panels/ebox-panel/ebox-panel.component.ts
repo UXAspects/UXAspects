@@ -8,6 +8,7 @@ import { playgroundAdapter } from '../../../../../services/playground/adapters/l
 @Component({
     selector: 'uxd-css-panels-ebox-panel',
     templateUrl: './ebox-panel.component.html',
+    standalone: false
 })
 @DocumentationSectionComponent('CssEboxPanelComponent')
 export class CssEboxPanelComponent extends BaseDocumentationSection implements IPlaygroundProvider {

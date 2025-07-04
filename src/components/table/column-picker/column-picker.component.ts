@@ -12,7 +12,8 @@ let uniqueId = 0;
     selector: 'ux-column-picker',
     templateUrl: './column-picker.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    providers: [ColumnPickerService]
+    providers: [ColumnPickerService],
+    standalone: false
 })
 export class ColumnPickerComponent implements OnChanges {
     private readonly _columnPicker = inject(ColumnPickerService);

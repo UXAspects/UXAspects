@@ -5,7 +5,8 @@ import { debounceTime } from 'rxjs/operators';
 @Component({
     selector: 'app',
     templateUrl: './infinite-scroll.testpage.component.html',
-    styleUrls: ['./infinite-scroll.testpage.component.css']
+    styleUrls: ['./infinite-scroll.testpage.component.css'],
+    standalone: false
 })
 export class InfiniteScrollTestPageComponent {
 

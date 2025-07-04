@@ -11,6 +11,7 @@ const chance = new Chance();
     selector: 'uxd-components-select-list',
     templateUrl: './select-list.component.html',
     styleUrls: ['./select-list.component.less'],
+    standalone: false
 })
 @DocumentationSectionComponent('ComponentsSelectListComponent')
 export class ComponentsSelectListComponent

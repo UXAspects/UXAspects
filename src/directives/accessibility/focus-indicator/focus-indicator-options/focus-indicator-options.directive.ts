@@ -4,7 +4,8 @@ import { LocalFocusIndicatorOptions } from './focus-indicator-options';
 
 @Directive({
     selector: '[uxFocusIndicatorOptions]',
-    providers: [LocalFocusIndicatorOptions]
+    providers: [LocalFocusIndicatorOptions],
+    standalone: false
 })
 export class FocusIndicatorOptionsDirective implements AccessibilityOptions {
     private readonly _options = inject(LocalFocusIndicatorOptions, { self: true });

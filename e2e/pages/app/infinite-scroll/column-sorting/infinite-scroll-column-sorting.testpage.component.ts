@@ -4,7 +4,8 @@ import { ColumnSortingComponent, ColumnSortingOrder, ColumnSortingState, Infinit
 @Component({
     selector: 'app',
     templateUrl: './infinite-scroll-column-sorting.testpage.component.html',
-    styleUrls: ['./infinite-scroll-column-sorting.testpage.component.css']
+    styleUrls: ['./infinite-scroll-column-sorting.testpage.component.css'],
+    standalone: false
 })
 export class InfiniteScrollColumnSortingTestPageComponent {
 

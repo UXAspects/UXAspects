@@ -8,6 +8,7 @@ import { playgroundAdapter } from '../../../../../services/playground/adapters/l
 @Component({
     selector: 'uxd-css-text-inputs-input-width',
     templateUrl: './input-width.component.html',
+    standalone: false
 })
 @DocumentationSectionComponent('CssInputWidthComponent')
 export class CssInputWidthComponent

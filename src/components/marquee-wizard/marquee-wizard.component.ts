@@ -9,7 +9,8 @@ import { MarqueeWizardStepComponent } from './marquee-wizard-step.component';
     selector: 'ux-marquee-wizard',
     templateUrl: './marquee-wizard.component.html',
     providers: [WizardService],
-    preserveWhitespaces: false
+    preserveWhitespaces: false,
+    standalone: false
 })
 export class MarqueeWizardComponent<TStepContext = unknown> extends WizardComponent implements OnDestroy, AfterViewChecked {
     readonly wizardService = inject<WizardService<MarqueeWizardStepComponent>>(WizardService);

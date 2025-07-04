@@ -10,7 +10,8 @@ import { SelectionService } from '../../../directives/selection/selection.servic
     templateUrl: './select-list-item.component.html',
     host: {
         role: 'listitem'
-    }
+    },
+    standalone: false
 })
 export class SelectListItemComponent<T> implements OnDestroy {
     private readonly _selection = inject<SelectionService<T>>(SelectionService);

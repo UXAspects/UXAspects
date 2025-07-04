@@ -11,6 +11,7 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
     selector: 'uxd-components-marquee-wizard',
     templateUrl: './marquee-wizard.component.html',
     styleUrls: ['./marquee-wizard.component.less'],
+    standalone: false
 })
 @DocumentationSectionComponent('ComponentsMarqueeWizardComponent')
 export class ComponentsMarqueeWizardComponent

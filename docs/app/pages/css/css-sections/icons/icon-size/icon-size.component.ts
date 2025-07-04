@@ -8,6 +8,7 @@ import { playgroundAdapter } from '../../../../../services/playground/adapters/l
 @Component({
     selector: 'uxd-css-icons-icon-size',
     templateUrl: './icon-size.component.html',
+    standalone: false
 })
 @DocumentationSectionComponent('CssIconSizeComponent')
 export class CssIconSizeComponent extends BaseDocumentationSection implements IPlaygroundProvider {

@@ -5,6 +5,7 @@ import { BadgeHorizontalPosition, BadgeSize, BadgeVerticalPosition } from '@ux-a
     selector: 'app-badge',
     templateUrl: './badge.testpage.component.html',
     styleUrls: ['./badge.testpage.component.less'],
+    standalone: false
 })
 export class BadgeTestPageComponent {
     sizes: BadgeSize[] = ['small', 'medium', 'large'];

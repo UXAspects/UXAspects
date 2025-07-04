@@ -6,7 +6,8 @@ import { HoverActionService } from './hover-action.service';
 
 @Directive({
     selector: '[uxHoverActionContainer]',
-    providers: [HoverActionService]
+    providers: [HoverActionService],
+    standalone: false
 })
 export class HoverActionContainerDirective implements OnInit, OnDestroy {
     private readonly _elementRef = inject(ElementRef);

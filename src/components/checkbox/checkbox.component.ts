@@ -17,10 +17,11 @@ let uniqueCheckboxId = 0;
     selector: 'ux-checkbox',
     templateUrl: './checkbox.component.html',
     providers: [CHECKBOX_VALUE_ACCESSOR, {
-        provide: FocusableItemToken,
-        useExisting: CheckboxComponent
-    }],
-    changeDetection: ChangeDetectionStrategy.OnPush
+            provide: FocusableItemToken,
+            useExisting: CheckboxComponent
+        }],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class CheckboxComponent<T = number> implements ControlValueAccessor, FocusableControl {
 

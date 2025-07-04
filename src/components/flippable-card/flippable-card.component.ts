@@ -10,7 +10,8 @@ import { FocusIndicator, FocusIndicatorService } from '../../directives/accessib
         '[class.vertical]': 'direction === "vertical"'
     },
     exportAs: 'ux-flippable-card',
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class FlippableCardComponent implements OnDestroy {
     readonly focusIndicatorService = inject(FocusIndicatorService);
@@ -94,11 +95,13 @@ export class FlippableCardComponent implements OnDestroy {
 }
 
 @Directive({
-    selector: 'ux-flippable-card-front'
+    selector: 'ux-flippable-card-front',
+    standalone: false
 })
 export class FlippableCardFrontDirective { }
 
 @Directive({
-    selector: 'ux-flippable-card-back'
+    selector: 'ux-flippable-card-back',
+    standalone: false
 })
 export class FlippableCardBackDirective { }

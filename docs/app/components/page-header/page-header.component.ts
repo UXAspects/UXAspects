@@ -4,7 +4,8 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
     selector: 'uxd-page-header',
     templateUrl: './page-header.component.html',
     styleUrls: ['./page-header.component.less'],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class PageHeaderComponent {
     @Input() header: string;

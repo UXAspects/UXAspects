@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 @Component({
     selector: 'uxd-showcase-overview',
     templateUrl: './overview.component.html',
+    standalone: false
 })
 export class ShowcaseOverviewPageComponent {
 

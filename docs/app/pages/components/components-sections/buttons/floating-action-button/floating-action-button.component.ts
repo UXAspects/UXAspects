@@ -8,6 +8,7 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
     selector: 'uxd-floating-action-button',
     templateUrl: './floating-action-button.component.html',
     styleUrls: ['./floating-action-button.component.less'],
+    standalone: false
 })
 @DocumentationSectionComponent('ComponentsFloatingActionButtonComponent')
 export class ComponentsFloatingActionButtonComponent

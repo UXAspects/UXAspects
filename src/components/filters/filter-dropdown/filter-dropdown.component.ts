@@ -11,7 +11,8 @@ let uniqueId = 0;
 @Component({
     selector: 'ux-filter-dropdown',
     templateUrl: './filter-dropdown.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class FilterDropdownComponent implements OnInit, OnDestroy {
     private readonly _filterService = inject(FilterService);

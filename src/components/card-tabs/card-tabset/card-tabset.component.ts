@@ -6,7 +6,8 @@ import { CardTabsService } from '../card-tabs.service';
 @Component({
     selector: 'ux-card-tabset',
     templateUrl: './card-tabset.component.html',
-    providers: [CardTabsService]
+    providers: [CardTabsService],
+    standalone: false
 })
 export class CardTabsetComponent {
 

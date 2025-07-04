@@ -5,7 +5,8 @@ import { NavigationService } from '../../services/navigation/navigation.service'
 
 @Component({
     selector: 'uxd-documentation-category',
-    templateUrl: './documentation-category.component.html'
+    templateUrl: './documentation-category.component.html',
+    standalone: false
 })
 export class DocumentationCategoryComponent implements OnInit, AfterViewInit {
 

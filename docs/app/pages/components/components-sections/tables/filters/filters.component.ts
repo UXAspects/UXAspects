@@ -15,6 +15,7 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 @Component({
     selector: 'uxd-components-filters',
     templateUrl: './filters.component.html',
+    standalone: false
 })
 @DocumentationSectionComponent('ComponentsFiltersComponent')
 export class ComponentsFiltersComponent

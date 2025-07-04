@@ -16,6 +16,7 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
     selector: 'uxd-components-help-center',
     templateUrl: './help-center.component.html',
     styleUrls: ['./help-center.component.less'],
+    standalone: false
 })
 @DocumentationSectionComponent('ComponentsHelpCenterComponent')
 export class ComponentsHelpCenterComponent

@@ -3,7 +3,8 @@ import { Component, TemplateRef } from '@angular/core';
 @Component({
     selector: 'uxd-tooltips',
     templateUrl: './tooltips.testpage.component.html',
-    styleUrls: ['./tooltips.testpage.component.less']
+    styleUrls: ['./tooltips.testpage.component.less'],
+    standalone: false
 })
 export class TooltipsTestPageComponent {
 

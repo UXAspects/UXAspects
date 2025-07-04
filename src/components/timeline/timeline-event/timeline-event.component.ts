@@ -5,7 +5,8 @@ let uniqueId: number = 0;
 @Component({
     selector: 'ux-timeline-event',
     templateUrl: './timeline-event.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class TimelineEventComponent {
 

@@ -7,7 +7,8 @@ import { CardTabContentDirective } from './card-tab-content.directive';
 @Component({
     selector: 'ux-card-tab',
     templateUrl: './card-tab.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class CardTabComponent implements OnDestroy {
 

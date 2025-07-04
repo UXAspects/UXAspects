@@ -8,6 +8,7 @@ import { playgroundAdapter } from '../../../../../services/playground/adapters/l
 @Component({
     selector: 'uxd-css-icons-icon-colors',
     templateUrl: './icon-colors.component.html',
+    standalone: false
 })
 @DocumentationSectionComponent('CssIconColorsComponent')
 export class CssIconColorsComponent

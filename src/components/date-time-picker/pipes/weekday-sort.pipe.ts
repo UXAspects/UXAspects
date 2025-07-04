@@ -2,7 +2,8 @@ import { WeekDay } from '@angular/common';
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-    name: 'weekDaySort'
+    name: 'weekDaySort',
+    standalone: false
 })
 export class WeekDaySortPipe implements PipeTransform {
 

@@ -4,6 +4,7 @@ import { takeUntil } from 'rxjs/operators';
 
 @Directive({
     selector: '[segmentFocus],[segmentBlur]',
+    standalone: false
 })
 export class PartitionMapSegmentEventsDirective implements AfterViewInit, OnDestroy {
     private readonly _elementRef = inject(ElementRef);

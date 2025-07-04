@@ -21,7 +21,8 @@ interface TreeGridTestItem extends TreeGridItem {
             </tr>
           }
         </table>
-        `
+        `,
+    standalone: false
 })
 export class TreeGridTestComponent {
     items: TreeGridTestItem[] = [];

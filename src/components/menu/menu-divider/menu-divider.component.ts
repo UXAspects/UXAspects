@@ -6,6 +6,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
         role: 'separator'
-    }
+    },
+    standalone: false
 })
 export class MenuDividerComponent { }

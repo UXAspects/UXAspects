@@ -13,7 +13,8 @@ import { DayViewItem, DayViewService } from './day-view.service';
     selector: 'ux-date-time-picker-day-view',
     templateUrl: './day-view.component.html',
     providers: [DayViewService],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class DayViewComponent implements AfterViewInit, OnDestroy {
     readonly datePicker = inject(DateTimePickerService);

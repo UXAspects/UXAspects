@@ -16,8 +16,8 @@ interface StepDefinition {
  * Test navigation and steps display correctly
  **/
 @Component({
-  selector: 'marquee-wizard-app',
-  template: `
+    selector: 'marquee-wizard-app',
+    template: `
     <ux-marquee-wizard
       [(step)]="step"
       [description]="description"
@@ -51,6 +51,7 @@ interface StepDefinition {
       }
     </ux-marquee-wizard>
   `,
+    standalone: false
 })
 export class MarqueeWizardTestComponent {
   @ViewChild(MarqueeWizardComponent) marqueeWizard: MarqueeWizardComponent;
@@ -313,8 +314,8 @@ describe('Marquee Wizard', () => {
  * Test for EL-3790 where an error can occur if steps rely on request response
  */
 @Component({
-  selector: 'marquee-wizard-ngfor-app',
-  template: `
+    selector: 'marquee-wizard-ngfor-app',
+    template: `
     <ux-marquee-wizard [(step)]="step">
       @for (step of steps; track step) {
         <ux-marquee-wizard-step
@@ -327,6 +328,7 @@ describe('Marquee Wizard', () => {
       }
     </ux-marquee-wizard>
   `,
+    standalone: false
 })
 export class MarqueeWizardAsyncTestComponent implements OnDestroy {
   step = 0;
@@ -425,8 +427,8 @@ describe('Marquee wizard with delayed step creation', () => {
  * Test resetVisitedOnValidationError flag working as expected and visitedChange is hit when required.
  **/
 @Component({
-  selector: 'marquee-wizard-validation-app',
-  template: `
+    selector: 'marquee-wizard-validation-app',
+    template: `
     <ux-marquee-wizard
       [(step)]="currentStep"
       [resetVisitedOnValidationError]="resetVisitedOnValidationError"
@@ -460,6 +462,7 @@ describe('Marquee wizard with delayed step creation', () => {
       </ux-marquee-wizard-step>
     </ux-marquee-wizard>
   `,
+    standalone: false
 })
 export class MarqueeWizardValidationTestComponent {
   currentStep: number;
@@ -578,8 +581,8 @@ describe('Marquee wizard with validation', () => {
  * Custom step template
  */
 @Component({
-  selector: 'marquee-wizard-custom-step',
-  template: `
+    selector: 'marquee-wizard-custom-step',
+    template: `
     <ux-marquee-wizard [stepTemplate]="stepTemplate">
       <ng-template #stepTemplate let-step let-index="index" let-context="context">
         {{ index }}. {{ step.header }} ({{ context.count }})
@@ -592,6 +595,7 @@ describe('Marquee wizard with validation', () => {
       </ux-marquee-wizard-step>
     </ux-marquee-wizard>
   `,
+    standalone: false
 })
 export class MarqueeWizardCustomStepTemplateComponent {}
 
@@ -620,8 +624,8 @@ describe('Marquee wizard with custom step template', () => {
 });
 
 @Component({
-  selector: 'marquee-wizard-step-navigation-app',
-  template: `
+    selector: 'marquee-wizard-step-navigation-app',
+    template: `
     <ux-marquee-wizard
       [(step)]="currentStep"
       (stepChange)="onStepChange($event)"
@@ -659,6 +663,7 @@ describe('Marquee wizard with custom step template', () => {
       </ux-marquee-wizard-step>
     </ux-marquee-wizard>
   `,
+    standalone: false
 })
 export class MarqueeWizardStepNavigationComponent {
   currentStep: number;

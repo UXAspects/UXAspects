@@ -4,7 +4,8 @@ import { NavigationItem } from '@ux-aspects/ux-aspects';
 @Component({
     selector: 'app-navigation',
     templateUrl: './navigation.testpage.component.html',
-    styleUrls: ['./navigation.testpage.component.css']
+    styleUrls: ['./navigation.testpage.component.css'],
+    standalone: false
 })
 export class NavigationTestPageComponent {
 

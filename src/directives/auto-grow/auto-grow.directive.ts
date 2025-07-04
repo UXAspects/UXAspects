@@ -1,7 +1,8 @@
 import { AfterViewInit, Directive, ElementRef, HostListener, inject, Renderer2 } from '@angular/core';
 
 @Directive({
-  selector: '[uxAutoGrow]'
+    selector: '[uxAutoGrow]',
+    standalone: false
 })
 export class AutoGrowDirective implements AfterViewInit {
   private readonly _elementRef = inject(ElementRef);

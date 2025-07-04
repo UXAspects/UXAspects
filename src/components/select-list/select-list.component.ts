@@ -12,7 +12,8 @@ import { SingleSelectListStrategy } from './strategies/single-select-list.strate
     providers: [SelectionService],
     host: {
         role: 'list'
-    }
+    },
+    standalone: false
 })
 export class SelectListComponent<T> implements AfterContentInit, OnDestroy {
     private readonly _selection = inject<SelectionService<T>>(SelectionService);

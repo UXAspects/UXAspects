@@ -23,6 +23,7 @@ const badgeSelector = '.ux-badge';
             [badgeOverlap]="overlap"
         ></button>
     `,
+    standalone: false
 })
 export class BadgeTestComponent {
     badgeContentText: string | number = 'Some badge';

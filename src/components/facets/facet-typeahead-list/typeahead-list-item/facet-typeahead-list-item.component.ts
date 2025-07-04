@@ -6,7 +6,8 @@ import { Facet } from '../../models/facet';
     selector: 'ux-facet-typeahead-list-item',
     templateUrl: './facet-typeahead-list-item.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    preserveWhitespaces: false
+    preserveWhitespaces: false,
+    standalone: false
 })
 export class FacetTypeaheadListItemComponent implements FocusableOption {
 

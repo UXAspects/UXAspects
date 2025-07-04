@@ -5,7 +5,8 @@ import { FocusIndicator, FocusIndicatorService } from '../accessibility/index';
 
 @Directive({
     selector: '[uxMenuNavigationToggle]',
-    exportAs: 'uxMenuNavigationToggle'
+    exportAs: 'uxMenuNavigationToggle',
+    standalone: false
 })
 export class MenuNavigationToggleDirective implements OnDestroy {
     readonly elementRef = inject(ElementRef);

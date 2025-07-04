@@ -20,7 +20,8 @@ import { TabsetToken } from './tabset.token';
     host: {
         '[class.tabs-left]': 'stacked === "left"',
         '[class.tabs-right]': 'stacked === "right"',
-    }
+    },
+    standalone: false
 })
 export class TabsetComponent implements AfterViewInit, OnDestroy {
     readonly _tabset = inject(TabsetService);

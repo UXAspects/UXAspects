@@ -3,7 +3,8 @@ import { ChangeDetectorRef, Component } from '@angular/core';
 @Component({
     selector: 'app-simple-tabbable-list',
     templateUrl: './simple-tabbable-list.component.html',
-    styleUrls: ['./simple-tabbable-list.component.less']
+    styleUrls: ['./simple-tabbable-list.component.less'],
+    standalone: false
 })
 export class SimpleTabbableListComponent {
 

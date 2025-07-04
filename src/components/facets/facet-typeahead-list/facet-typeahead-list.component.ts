@@ -13,7 +13,8 @@ let uniqueId = 1;
 
 @Component({
     selector: 'ux-facet-typeahead-list',
-    templateUrl: './facet-typeahead-list.component.html'
+    templateUrl: './facet-typeahead-list.component.html',
+    standalone: false
 })
 export class FacetTypeaheadListComponent implements AfterViewInit, OnInit, OnDestroy {
     readonly typeaheadKeyService = inject(TypeaheadKeyService);
@@ -219,7 +220,8 @@ export interface FacetTypeaheadListConfig {
 }
 
 @Pipe({
-    name: 'facetTypeaheadHighlight'
+    name: 'facetTypeaheadHighlight',
+    standalone: false
 })
 export class FacetTypeaheadHighlight implements PipeTransform {
     transform(value: string, searchQuery: string): string {

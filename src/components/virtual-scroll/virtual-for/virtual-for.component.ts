@@ -12,7 +12,8 @@ import { VirtualForRange, VirtualForService } from './virtual-for.service';
     providers: [VirtualForService],
     host: {
         '[style.position]': '"relative"'
-    }
+    },
+    standalone: false
 })
 export class VirtualForContainerComponent<T> implements AfterViewInit, OnDestroy {
     /** Get the ElementRef of the container element */

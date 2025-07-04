@@ -8,7 +8,8 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 @Component({
     selector: 'uxd-drag-and-drop-cards',
     templateUrl: './drag-and-drop-cards.component.html',
-    styleUrls: ['./drag-and-drop-cards.component.less']
+    styleUrls: ['./drag-and-drop-cards.component.less'],
+    standalone: false
 })
 @DocumentationSectionComponent('ComponentsDragAndDropCardsComponent')
 export class ComponentsDragAndDropCardsComponent extends BaseDocumentationSection implements AfterViewInit, IPlaygroundProvider {

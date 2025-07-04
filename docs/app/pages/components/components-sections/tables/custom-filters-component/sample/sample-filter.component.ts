@@ -6,7 +6,8 @@ import { filter as rxFilter, takeUntil } from 'rxjs/operators';
 @Component({
     selector: 'ux-filter-custom',
     templateUrl: './sample-filter.component.html',
-    styleUrls: ['./sample-filter.component.less']
+    styleUrls: ['./sample-filter.component.less'],
+    standalone: false
 })
 export class SampleFilterCustomComponent implements OnInit, OnDestroy {
 

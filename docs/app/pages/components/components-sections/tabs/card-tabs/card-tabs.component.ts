@@ -9,6 +9,7 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
     templateUrl: './card-tabs.component.html',
     styleUrls: ['./card-tabs.component.less'],
     changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 @DocumentationSectionComponent('ComponentsCardTabsComponent')
 export class ComponentsCardTabsComponent

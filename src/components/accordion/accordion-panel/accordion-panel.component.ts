@@ -10,7 +10,8 @@ let uniqueId: number = 1;
     templateUrl: './accordion-panel.component.html',
     host: {
         'class': 'panel panel-default'
-    }
+    },
+    standalone: false
 })
 export class AccordionPanelComponent implements OnInit, OnDestroy {
 

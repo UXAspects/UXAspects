@@ -3,7 +3,8 @@ import { SearchBuilderQuery, SearchBuilderComponentDefinition, SearchTextCompone
 
 @Component({
     selector: 'app-search-builder',
-    templateUrl: './search-builder.testpage.component.html'
+    templateUrl: './search-builder.testpage.component.html',
+    standalone: false
 })
 export class SearchBuilderTestPageComponent {
 

@@ -4,6 +4,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
     selector: 'uxd-full-page-layout',
     templateUrl: './full-page-layout.component.html',
     styleUrls: ['./full-page-layout.component.less'],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class FullPageLayoutComponent { }

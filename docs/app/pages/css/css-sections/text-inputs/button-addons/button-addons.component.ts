@@ -8,6 +8,7 @@ import { playgroundAdapter } from '../../../../../services/playground/adapters/l
 @Component({
     selector: 'uxd-css-text-inputs-button-addons',
     templateUrl: './button-addons.component.html',
+    standalone: false
 })
 @DocumentationSectionComponent('CssButtonAddonsComponent')
 export class CssButtonAddonsComponent

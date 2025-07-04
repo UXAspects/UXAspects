@@ -18,6 +18,7 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
     templateUrl: './date-time-picker.component.html',
     styleUrls: ['./date-time-picker.component.less'],
     encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 @DocumentationSectionComponent('ComponentsDateTimePickerComponent')
 export class ComponentsDateTimePickerComponent

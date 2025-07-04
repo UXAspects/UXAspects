@@ -4,6 +4,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
     selector: 'app',
     templateUrl: './pagination.testpage.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 // changed name from AppComponent
 export class PaginationTestPageComponent {

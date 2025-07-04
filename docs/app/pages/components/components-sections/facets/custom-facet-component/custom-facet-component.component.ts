@@ -8,6 +8,7 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 @Component({
     selector: 'uxd-components-custom-facet-component',
     templateUrl: './custom-facet-component.component.html',
+    standalone: false
 })
 @DocumentationSectionComponent('ComponentsCustomFacetComponent')
 export class ComponentsCustomFacetComponent

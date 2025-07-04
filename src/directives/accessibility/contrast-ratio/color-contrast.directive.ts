@@ -3,7 +3,8 @@ import { ColorService, ThemeColor } from '../../../services/color/index';
 import { ContrastService } from './contrast.service';
 
 @Directive({
-    selector: '[uxColorContrast]'
+    selector: '[uxColorContrast]',
+    standalone: false
 })
 export class ColorContrastDirective {
     private readonly _colorService = inject(ColorService);

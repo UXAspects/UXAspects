@@ -10,6 +10,7 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
     templateUrl: './partition-map.component.html',
     styleUrls: ['./partition-map.component.less'],
     changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 @DocumentationSectionComponent('ChartsPartitionMapComponent')
 export class ChartsPartitionMapComponent

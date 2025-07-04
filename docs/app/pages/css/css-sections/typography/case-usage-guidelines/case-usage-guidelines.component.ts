@@ -3,7 +3,8 @@ import { DocumentationSectionComponent } from '../../../../../decorators/documen
 
 @Component({
     selector: 'uxd-css-typography-case-usage-guidelines',
-    templateUrl: './case-usage-guidelines.component.html'
+    templateUrl: './case-usage-guidelines.component.html',
+    standalone: false
 })
 @DocumentationSectionComponent('CssCaseUsageGuidelinesComponent')
 export class CssCaseUsageGuidelinesComponent {

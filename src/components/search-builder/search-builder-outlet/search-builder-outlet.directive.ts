@@ -6,7 +6,8 @@ import { SearchBuilderService } from '../search-builder.service';
 import { BaseSearchComponent } from '../search-components/base-search.component';
 
 @Directive({
-    selector: '[uxSearchBuilderOutlet]'
+    selector: '[uxSearchBuilderOutlet]',
+    standalone: false
 })
 export class SearchBuilderOutletDirective implements OnInit, OnDestroy {
     private readonly _viewContainerRef = inject(ViewContainerRef);

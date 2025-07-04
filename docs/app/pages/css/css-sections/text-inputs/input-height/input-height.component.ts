@@ -8,6 +8,7 @@ import { playgroundAdapter } from '../../../../../services/playground/adapters/l
 @Component({
     selector: 'uxd-css-text-inputs-input-height',
     templateUrl: './input-height.component.html',
+    standalone: false
 })
 @DocumentationSectionComponent('CssInputHeightComponent')
 export class CssInputHeightComponent

@@ -20,7 +20,8 @@ import { FloatingActionButtonDirection, FloatingActionButtonsService } from './f
                 query('ux-floating-action-button', stagger(-50, animate(250, style({ opacity: 0 }))))
             ])
         ])
-    ]
+    ],
+    standalone: false
 })
 export class FloatingActionButtonsComponent implements AfterViewInit, OnDestroy {
     readonly fab = inject(FloatingActionButtonsService);

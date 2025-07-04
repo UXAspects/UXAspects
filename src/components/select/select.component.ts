@@ -28,6 +28,7 @@ export const SELECT_VALUE_ACCESSOR: StaticProvider = {
         '[class.ux-select-disabled]': 'disabled'
     },
     changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, ControlValueAccessor {
     private readonly _element = inject(ElementRef);

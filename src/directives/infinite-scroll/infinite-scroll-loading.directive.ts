@@ -2,7 +2,8 @@ import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { Directive, inject, Input, TemplateRef, ViewContainerRef } from '@angular/core';
 
 @Directive({
-    selector: '[uxInfiniteScrollLoading]'
+    selector: '[uxInfiniteScrollLoading]',
+    standalone: false
 })
 export class InfiniteScrollLoadingDirective {
     private readonly _templateRef = inject<TemplateRef<void>>(TemplateRef);

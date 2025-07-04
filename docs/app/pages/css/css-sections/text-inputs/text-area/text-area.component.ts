@@ -8,6 +8,7 @@ import { playgroundAdapter } from '../../../../../services/playground/adapters/l
 @Component({
     selector: 'uxd-css-text-inputs-text-area',
     templateUrl: './text-area.component.html',
+    standalone: false
 })
 @DocumentationSectionComponent('CssTextAreaComponent')
 export class CssTextAreaComponent extends BaseDocumentationSection implements IPlaygroundProvider {

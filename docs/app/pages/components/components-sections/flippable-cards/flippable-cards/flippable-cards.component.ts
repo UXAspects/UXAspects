@@ -8,6 +8,7 @@ import { DocumentationSectionComponent } from '../../../../../decorators/documen
     selector: 'uxd-components-flippable-cards',
     templateUrl: './flippable-cards.component.html',
     styleUrls: ['./flippable-cards.component.less'],
+    standalone: false
 })
 @DocumentationSectionComponent('ComponentsFlippableCardsComponent')
 export class ComponentsFlippableCardsComponent extends BaseDocumentationSection {

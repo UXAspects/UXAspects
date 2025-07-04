@@ -4,6 +4,7 @@ import { Component } from '@angular/core';
     selector: 'marquee-wizard-app',
     templateUrl: './marquee-wizard.testpage.component.html',
     styleUrls: ['./marquee-wizard.testpage.component.less'],
+    standalone: false
 })
 export class MarqueeWizardTestPageComponent {
 

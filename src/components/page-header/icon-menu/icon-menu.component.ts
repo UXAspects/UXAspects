@@ -6,7 +6,8 @@ import { PageHeaderIconMenu, PageHeaderIconMenuDropdownItem } from '../interface
 @Component({
     selector: 'ux-page-header-icon-menu',
     templateUrl: './icon-menu.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class PageHeaderIconMenuComponent {
 

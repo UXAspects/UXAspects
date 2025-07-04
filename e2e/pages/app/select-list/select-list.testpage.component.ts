@@ -3,7 +3,8 @@ import { Component } from '@angular/core';
 @Component({
     selector: 'app-select-list',
     templateUrl: './select-list.testpage.component.html',
-    styleUrls: ['./select-list.testpage.component.css']
+    styleUrls: ['./select-list.testpage.component.css'],
+    standalone: false
 })
 export class SelectListTestPageComponent {
     multiple: boolean = false;

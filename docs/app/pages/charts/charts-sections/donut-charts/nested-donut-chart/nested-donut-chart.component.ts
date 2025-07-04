@@ -10,6 +10,7 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
     templateUrl: './nested-donut-chart.component.html',
     styleUrls: ['./nested-donut-chart.component.less'],
     changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 @DocumentationSectionComponent('ChartsNestedDonutChartComponent')
 export class ChartsNestedDonutChartComponent

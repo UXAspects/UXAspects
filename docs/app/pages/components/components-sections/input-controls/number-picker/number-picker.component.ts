@@ -8,6 +8,7 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 @Component({
     selector: 'uxd-components-number-picker',
     templateUrl: './number-picker.component.html',
+    standalone: false
 })
 @DocumentationSectionComponent('ComponentsNumberPickerComponent')
 export class ComponentsNumberPickerComponent

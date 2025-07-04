@@ -9,6 +9,7 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
     templateUrl: './expanding-text-area.component.html',
     styleUrls: ['./expanding-text-area.component.less'],
     changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 @DocumentationSectionComponent('ComponentsExpandingTextAreaComponent')
 export class ComponentsExpandingTextAreaComponent

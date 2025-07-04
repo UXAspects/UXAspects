@@ -8,7 +8,8 @@ import { NavigationService } from './navigation.service';
     templateUrl: './navigation.component.html',
     providers: [NavigationService],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    preserveWhitespaces: false
+    preserveWhitespaces: false,
+    standalone: false
 })
 export class NavigationComponent {
     private readonly _navigationService = inject(NavigationService);

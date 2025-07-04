@@ -1,7 +1,8 @@
 import { Directive, ElementRef, EventEmitter, HostListener, inject, Output } from '@angular/core';
 
 @Directive({
-    selector: '[uxToolbarSearchButton]'
+    selector: '[uxToolbarSearchButton]',
+    standalone: false
 })
 export class ToolbarSearchButtonDirective {
     private readonly _elementRef = inject(ElementRef);

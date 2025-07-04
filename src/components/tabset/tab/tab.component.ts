@@ -13,6 +13,7 @@ let uniqueTabId = 0;
     selector: 'ux-tab',
     templateUrl: './tab.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class TabComponent implements OnInit, OnDestroy, OnChanges {
     private readonly _tabsetService = inject(TabsetService);

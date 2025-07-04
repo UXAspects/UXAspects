@@ -8,6 +8,7 @@ import { playgroundAdapter } from '../../../../../services/playground/adapters/l
 @Component({
     selector: 'uxd-css-text-inputs-input-error',
     templateUrl: './input-error.component.html',
+    standalone: false
 })
 @DocumentationSectionComponent('CssInputErrorComponent')
 export class CssInputErrorComponent

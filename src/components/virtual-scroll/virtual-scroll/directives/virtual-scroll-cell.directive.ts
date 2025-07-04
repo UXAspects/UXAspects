@@ -1,7 +1,8 @@
 import { Directive } from '@angular/core';
 
-@Directive({ 
-    selector: '[uxVirtualScrollCell]' 
+@Directive({
+    selector: '[uxVirtualScrollCell]',
+    standalone: false
 })
 export class VirtualScrollCellDirective {
 

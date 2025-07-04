@@ -4,7 +4,8 @@ import { PopoverDirective } from '@ux-aspects/ux-aspects';
 @Component({
     selector: 'app-partition-map',
     templateUrl: './partition-map.testpage.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class PartitionMapTestPageComponent {
 

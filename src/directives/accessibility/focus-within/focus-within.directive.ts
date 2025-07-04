@@ -2,6 +2,7 @@ import { Directive, ElementRef, EventEmitter, inject, OnDestroy, Output } from '
 
 @Directive({
     selector: '[uxFocusWithin],[uxBlurWithin]',
+    standalone: false
 })
 export class FocusWithinDirective implements OnDestroy {
     private readonly _elementRef = inject(ElementRef);

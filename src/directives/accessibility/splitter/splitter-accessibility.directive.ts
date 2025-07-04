@@ -7,7 +7,8 @@ import { FocusIndicator } from '../focus-indicator/focus-indicator';
 import { FocusIndicatorService } from '../focus-indicator/focus-indicator.service';
 
 @Directive({
-    selector: 'as-split'
+    selector: 'as-split',
+    standalone: false
 })
 export class SplitterAccessibilityDirective implements OnInit, AfterViewInit, OnDestroy {
     private readonly _elementRef = inject(ElementRef);

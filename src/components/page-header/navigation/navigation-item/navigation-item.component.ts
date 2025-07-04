@@ -11,7 +11,8 @@ import { PageHeaderNavigationService } from '../navigation.service';
 
 @Component({
     selector: 'ux-page-header-horizontal-navigation-item',
-    templateUrl: './navigation-item.component.html'
+    templateUrl: './navigation-item.component.html',
+    standalone: false
 })
 export class PageHeaderNavigationItemComponent implements AfterViewInit, OnDestroy, FocusableOption {
     readonly elementRef = inject(ElementRef);

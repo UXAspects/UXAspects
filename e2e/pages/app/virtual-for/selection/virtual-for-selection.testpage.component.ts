@@ -6,6 +6,7 @@ import { SelectionMode } from '@ux-aspects/ux-aspects';
     templateUrl: 'virtual-for-selection.testpage.component.html',
     styleUrls: ['virtual-for-selection.testpage.component.css'],
     changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class VirtualForSelectionTestPageComponent {
     items: TestItem[] = [];
@@ -21,6 +22,7 @@ export class VirtualForSelectionTestPageComponent {
 
 @Pipe({
     name: 'formatTestItem',
+    standalone: false
 })
 export class FormatTestItemPipe implements PipeTransform {
     transform(value: TestItem[]): string {

@@ -6,6 +6,7 @@ import { FormControl, FormGroup } from '@angular/forms';
     templateUrl: './toolbar-search-typeahead.testpage.component.html',
     styleUrls: ['./toolbar-search-typeahead.testpage.component.less'],
     changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class ToolbarSearchTypeaheadTestPageComponent {
 

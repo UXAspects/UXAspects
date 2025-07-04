@@ -13,7 +13,8 @@ import { Component } from '@angular/core';
             padding: 8px;
             overflow-y: auto;
         }
-    `]
+    `],
+    standalone: false
 })
 
 export class SidePanelTestPageComponent {

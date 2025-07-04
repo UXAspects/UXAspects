@@ -9,8 +9,8 @@ import { TypeaheadKeyService } from './typeahead-key.service';
 import { TypeaheadModule } from './typeahead.module';
 
 @Component({
-  selector: 'app-typeahead-test',
-  template: `
+    selector: 'app-typeahead-test',
+    template: `
     <div class="row" [class.drop-direction-up]="dropDirection === 'up'">
       <div class="col-md-12 has-feedback">
         <form class="input-typeahead-form">
@@ -46,6 +46,7 @@ import { TypeaheadModule } from './typeahead.module';
       </div>
     </div>
   `,
+    standalone: false
 })
 export class TypeaheadTestComponent {
   values: ReadonlyArray<string> | Promise<ReadonlyArray<string>> = ['One', 'Two', 'Three'];

@@ -8,6 +8,7 @@ import { TreeViewService } from './tree-view-custom-node.service';
     selector: 'uxd-components-tree-view-custom-node',
     templateUrl: './tree-view-custom-node.component.html',
     styleUrls: ['./tree-view-custom-node.component.less'],
+    standalone: false
 })
 @DocumentationSectionComponent('ComponentsTreeViewCustomNodeComponent')
 export class ComponentsTreeViewCustomNodeComponent extends BaseDocumentationSection {

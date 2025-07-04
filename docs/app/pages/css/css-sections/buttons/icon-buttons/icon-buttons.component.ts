@@ -8,6 +8,7 @@ import { playgroundAdapter } from '../../../../../services/playground/adapters/l
 @Component({
     selector: 'uxmd-icon-buttons',
     templateUrl: 'icon-buttons.component.html',
+    standalone: false
 })
 @DocumentationSectionComponent('IconButtonsDocumentationComponent')
 export class IconButtonsDocumentationComponent

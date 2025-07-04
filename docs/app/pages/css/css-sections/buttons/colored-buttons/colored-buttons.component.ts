@@ -7,6 +7,7 @@ import { playgroundAdapter } from '../../../../../services/playground/adapters/l
 @Component({
     selector: 'uxd-css-colored-buttons',
     templateUrl: './colored-buttons.component.html',
+    standalone: false
 })
 @DocumentationSectionComponent('CssColoredButtonsComponent')
 export class CssColoredButtonsComponent

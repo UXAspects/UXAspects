@@ -17,6 +17,7 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 @Component({
     selector: 'uxd-components-sliders',
     templateUrl: './sliders.component.html',
+    standalone: false
 })
 @DocumentationSectionComponent('ComponentsSlidersComponent')
 export class ComponentsSlidersComponent

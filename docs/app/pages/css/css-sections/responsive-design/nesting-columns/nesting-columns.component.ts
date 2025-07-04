@@ -8,6 +8,7 @@ import { playgroundAdapter } from '../../../../../services/playground/adapters/l
 @Component({
     selector: 'uxd-css-responsive-design-nesting-columns',
     templateUrl: './nesting-columns.component.html',
+    standalone: false
 })
 @DocumentationSectionComponent('CssNestingColumnsComponent')
 export class CssNestingColumnsComponent

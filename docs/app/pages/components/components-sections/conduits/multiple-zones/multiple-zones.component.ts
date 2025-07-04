@@ -7,6 +7,7 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 @Component({
     selector: 'uxd-components-multiple-zones',
     templateUrl: './multiple-zones.component.html',
+    standalone: false
 })
 @DocumentationSectionComponent('ComponentsMultipleZonesComponent')
 export class ComponentsMultipleZonesComponent

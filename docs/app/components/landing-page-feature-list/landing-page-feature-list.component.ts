@@ -6,7 +6,8 @@ import { Component } from '@angular/core';
     styles: [':host { display: block; }'],
     host: {
         'class': 'row'
-    }
+    },
+    standalone: false
 })
 export class LandingPageFeatureListComponent { 
 

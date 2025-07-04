@@ -9,6 +9,7 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
     selector: 'uxd-components-column-picker',
     templateUrl: './column-picker.component.html',
     styleUrls: ['./column-picker.component.less'],
+    standalone: false
 })
 @DocumentationSectionComponent('ComponentsColumnPickerComponent')
 export class ComponentsColumnPickerComponent

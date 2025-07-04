@@ -11,7 +11,8 @@ import { ColorService, SliderCalloutTrigger, SliderOptions, SliderSize, SliderSt
                 margin-left: 20px;
             }
         `
-    ]
+    ],
+    standalone: false
 })
 export class SlidersThumbOrderTestPageComponent {
 

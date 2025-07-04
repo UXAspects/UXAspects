@@ -12,7 +12,8 @@ import { HierarchyBarMode, IHierachyBarComponent } from './interfaces/hierarchy-
     selector: 'ux-hierarchy-bar',
     templateUrl: './hierarchy-bar.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    viewProviders: [HierarchyBarService]
+    viewProviders: [HierarchyBarService],
+    standalone: false
 })
 export class HierarchyBarComponent implements IHierachyBarComponent, OnDestroy {
     private readonly _hierarchyBar = inject(HierarchyBarService);

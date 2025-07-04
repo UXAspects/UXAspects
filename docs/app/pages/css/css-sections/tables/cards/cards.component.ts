@@ -8,6 +8,7 @@ import { playgroundAdapter } from '../../../../../services/playground/adapters/l
 @Component({
     selector: 'uxd-css-tables-cards',
     templateUrl: './cards.component.html',
+    standalone: false
 })
 @DocumentationSectionComponent('CssCardsComponent')
 export class CssCardsComponent extends BaseDocumentationSection implements IPlaygroundProvider {

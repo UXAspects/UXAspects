@@ -8,6 +8,7 @@ import { playgroundAdapter } from '../../../../../services/playground/adapters/l
 @Component({
     selector: 'uxd-css-typography-blockquotes',
     templateUrl: './blockquotes.component.html',
+    standalone: false
 })
 @DocumentationSectionComponent('CssBlockquotesComponent')
 export class CssBlockquotesComponent

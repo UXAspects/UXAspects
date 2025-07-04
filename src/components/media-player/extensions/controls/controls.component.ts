@@ -12,7 +12,8 @@ let uniqueId: number = 1;
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
         '[class.quiet]': 'mediaPlayerService.quietMode || mediaPlayerService.fullscreen'
-    }
+    },
+    standalone: false
 })
 export class MediaPlayerControlsExtensionComponent implements OnInit, OnDestroy {
     readonly mediaPlayerService = inject(MediaPlayerService);

@@ -5,6 +5,7 @@ import { TypeaheadKeyService } from '@ux-aspects/ux-aspects';
     selector: 'typeahead-app',
     templateUrl: './typeahead.testpage.component.html',
     styleUrls: ['./typeahead.testpage.component.less'],
+    standalone: false
 })
 export class TypeaheadTestPageComponent {
 

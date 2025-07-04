@@ -6,6 +6,7 @@ import { DateTimePickerTimezone, timezones } from '@ux-aspects/ux-aspects';
     selector: 'app-date-range-picker',
     templateUrl: './date-range-picker.testpage.component.html',
     styleUrls: ['./date-range-picker.testpage.component.less'],
+    standalone: false
 })
 export class DateRangePickerTestPageComponent {
     /** The date in the left side of the date range picker */

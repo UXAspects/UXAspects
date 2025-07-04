@@ -7,7 +7,8 @@ let uniqueTooltipId = 0;
 @Component({
     selector: 'ux-tooltip',
     templateUrl: './tooltip.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
  
 export class TooltipComponent<T = any> implements OnDestroy {

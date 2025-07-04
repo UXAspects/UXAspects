@@ -1,7 +1,8 @@
 import { Directive, EmbeddedViewRef, inject, Input, TemplateRef, ViewContainerRef } from '@angular/core';
 
 @Directive({
-    selector: '[uxLayoutSwitcherItem]'
+    selector: '[uxLayoutSwitcherItem]',
+    standalone: false
 })
 export class LayoutSwitcherItemDirective {
     private readonly _templateRef = inject<TemplateRef<void>>(TemplateRef);

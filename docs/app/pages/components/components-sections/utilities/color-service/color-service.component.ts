@@ -8,6 +8,7 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
     selector: 'uxd-components-color-service',
     templateUrl: './color-service.component.html',
     styleUrls: ['./color-service.component.less'],
+    standalone: false
 })
 @DocumentationSectionComponent('ComponentsColorServiceComponent')
 export class ComponentsColorServiceComponent

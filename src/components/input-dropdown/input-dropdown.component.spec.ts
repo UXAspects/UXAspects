@@ -96,8 +96,8 @@ describe('InputDropdownComponent', () => {
 });
 
 @Component({
-  selector: 'app-dropdown-test',
-  template: `
+    selector: 'app-dropdown-test',
+    template: `
     <ux-input-dropdown
       [allowNull]="allowNull"
       [(dropdownOpen)]="dropdownOpen"
@@ -120,6 +120,7 @@ describe('InputDropdownComponent', () => {
       </div>
     </ux-input-dropdown>
   `,
+    standalone: false
 })
 export class InputDropdownTestComponent {
   disabled: boolean = false;

@@ -9,6 +9,7 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
     templateUrl: './side-inset-panel-splitter.component.html',
     styleUrls: ['./side-inset-panel-splitter.component.less'],
     changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 @DocumentationSectionComponent('ComponentsSideInsetPanelSplitterComponent')
 export class ComponentsSideInsetPanelSplitterComponent

@@ -13,6 +13,7 @@ const chance = new Chance();
     selector: 'uxd-components-hierarchy-bar',
     templateUrl: './hierarchy-bar.component.html',
     styleUrls: ['./hierarchy-bar.component.less'],
+    standalone: false
 })
 @DocumentationSectionComponent('ComponentsHierarchyBarComponent')
 export class ComponentsHierarchyBarComponent

@@ -8,6 +8,7 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 @Component({
     selector: 'uxd-components-custom-filters',
     templateUrl: './custom-filters.component.html',
+    standalone: false
 })
 @DocumentationSectionComponent('ComponentsCustomFiltersComponent')
 export class ComponentsCustomFiltersComponent

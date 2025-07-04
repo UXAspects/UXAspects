@@ -4,6 +4,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
     selector: 'app-select-custom-heading',
     templateUrl: './select-custom-heading.testpage.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class SelectCustomHeadingTestPageComponent {
 

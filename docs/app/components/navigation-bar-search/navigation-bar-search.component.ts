@@ -22,7 +22,8 @@ const LOCAL_STORAGE_KEY = 'uxd-search-history';
     styleUrls: ['./navigation-bar-search.component.less'],
     host: {
         '[class.active]': 'searching'
-    }
+    },
+    standalone: false
 })
 export class NavigationBarSearchComponent implements AfterViewInit, OnDestroy {
 

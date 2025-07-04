@@ -4,7 +4,8 @@ import { Observable, Observer } from 'rxjs';
 
 @Component({
     selector: 'facet-typeahead-list-app',
-    templateUrl: './facet-typeahead-list.testpage.component.html'
+    templateUrl: './facet-typeahead-list.testpage.component.html',
+    standalone: false
 })
 export class FacetTypeaheadListPageComponent {
 

@@ -10,6 +10,7 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
     selector: 'uxd-charts-scrollable-chart',
     templateUrl: './scrollable-chart.component.html',
     styleUrls: ['./scrollable-chart.component.less'],
+    standalone: false
 })
 @DocumentationSectionComponent('ChartsScrollableChartComponent')
 export class ChartsScrollableChartComponent

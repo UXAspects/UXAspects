@@ -55,7 +55,8 @@
           "port": 4000
         }
       },
-      "defaultConfiguration": "development"
+      "defaultConfiguration": "development",
+      "continuous": true
     },
     "e2e": {
       "executor": "@angular-devkit/build-angular:protractor",

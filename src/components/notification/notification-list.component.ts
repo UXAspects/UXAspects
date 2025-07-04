@@ -20,7 +20,8 @@ import { NotificationListDirection, NotificationRef, NotificationService } from 
                 animate(500, style({ transform: 'translateY(50px)', opacity: 0 }))
             ])
         ])
-    ]
+    ],
+    standalone: false
 })
 export class NotificationListComponent implements AfterViewInit, OnChanges, OnDestroy {
     private readonly _notificationService = inject(NotificationService);

@@ -6,7 +6,8 @@ import { HierarchyBarNode } from '../interfaces/hierarchy-bar-node.interface';
 @Component({
     selector: 'ux-hierarchy-bar-popover-item',
     templateUrl: './hierarchy-bar-popover-item.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class HierarchyBarPopoverItemComponent implements OnDestroy {
     readonly focusOriginService = inject(FocusIndicatorOriginService);

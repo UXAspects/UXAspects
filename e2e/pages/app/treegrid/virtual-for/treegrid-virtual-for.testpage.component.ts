@@ -5,6 +5,7 @@ import { TreeGridItem } from '@ux-aspects/ux-aspects';
     selector: 'treegrid-virtual-for-testpage',
     templateUrl: 'treegrid-virtual-for.testpage.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class TreeGridVirtualForTestPageComponent {
     items: FileNode[] = [

@@ -13,7 +13,8 @@ let uniqueId = 0;
 @Component({
     selector: 'ux-filter-dynamic',
     templateUrl: './filter-dynamic.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class FilterDynamicComponent implements OnInit, OnDestroy {
     readonly typeaheadKeyService = inject(TypeaheadKeyService);

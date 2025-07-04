@@ -9,6 +9,7 @@ import { playgroundAdapter } from '../../../../../services/playground/adapters/l
     selector: 'uxd-css-typography-paragraph-text',
     templateUrl: './paragraph-text.component.html',
     styleUrls: ['./paragraph-text.component.less'],
+    standalone: false
 })
 @DocumentationSectionComponent('CssParagraphTextComponent')
 export class CssParagraphTextComponent

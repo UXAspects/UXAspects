@@ -3,7 +3,10 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { MenuComponent } from '../menu/menu.component';
 
-@Directive({ selector: '[uxMenuInitialFocus]' })
+@Directive({
+    selector: '[uxMenuInitialFocus]',
+    standalone: false
+})
 export class MenuInitialFocusDirective implements OnInit, OnDestroy {
     private readonly _menu = inject(MenuComponent);
 

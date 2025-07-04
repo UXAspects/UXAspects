@@ -22,7 +22,8 @@ import { MediaPlayerService } from './media-player.service';
         '(document:webkitfullscreenchange)': 'mediaPlayerService.fullscreenChange()',
         '(document:mozfullscreenchange)': 'mediaPlayerService.fullscreenChange()',
         '(document:MSFullscreenChange)': 'mediaPlayerService.fullscreenChange()'
-    }
+    },
+    standalone: false
 })
 export class MediaPlayerComponent implements AfterViewInit, OnDestroy {
     readonly mediaPlayerService = inject(MediaPlayerService);

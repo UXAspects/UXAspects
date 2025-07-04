@@ -9,7 +9,8 @@ import { WizardService } from './wizard.service';
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
         'role': 'tabpanel'
-    }
+    },
+    standalone: false
 })
 export class WizardStepComponent {
     private readonly _wizardService = inject<WizardService<WizardStepComponent>>(WizardService);

@@ -6,7 +6,8 @@ import { AppConfiguration } from '../../services/app-configuration/app-configura
 @Component({
     selector: 'uxd-team',
     templateUrl: './team.component.html',
-    styleUrls: ['./team.component.less']
+    styleUrls: ['./team.component.less'],
+    standalone: false
 })
 export class TeamPageComponent {
 

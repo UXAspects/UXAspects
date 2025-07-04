@@ -4,6 +4,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
     selector: 'toggleswitches-app',
     templateUrl: './toggleswitches.testpage.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class ToggleSwitchesTestPageComponent {
     toggleSwitches = {

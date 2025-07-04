@@ -17,6 +17,7 @@ const chance = new Chance();
     selector: 'uxd-charts-organization-chart',
     templateUrl: './organization-chart.component.html',
     styleUrls: ['./organization-chart.component.less'],
+    standalone: false
 })
 @DocumentationSectionComponent('ChartsOrganizationChartComponent')
 export class ChartsOrganizationChartComponent

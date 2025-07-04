@@ -7,7 +7,8 @@ import { NavigationService } from './services/navigation/navigation.service';
 @Component({
     selector: 'uxd-app',
     templateUrl: './app.component.html',
-    styleUrls: ['./app.component.less']
+    styleUrls: ['./app.component.less'],
+    standalone: false
 })
 export class AppComponent implements OnInit {
 

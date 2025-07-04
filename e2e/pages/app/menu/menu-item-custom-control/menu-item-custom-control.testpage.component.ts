@@ -3,7 +3,8 @@ import { Component } from '@angular/core';
 @Component({
     selector: 'uxd-menu-item-custom-control',
     templateUrl: './menu-item-custom-control.testpage.component.html',
-    styleUrls: ['./menu-item-custom-control.testpage.component.less']
+    styleUrls: ['./menu-item-custom-control.testpage.component.less'],
+    standalone: false
 })
 export class MenuItemCustomControlTestPageComponent {
     radioSelected: string = 'option1';

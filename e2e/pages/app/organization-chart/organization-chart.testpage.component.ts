@@ -5,6 +5,7 @@ import { OrganizationChartNode } from '@ux-aspects/ux-aspects';
     selector: 'app-organization-chart',
     templateUrl: './organization-chart.testpage.component.html',
     styleUrls: ['./organization-chart.testpage.component.less'],
+    standalone: false
 })
 export class OrganizationChartTestPageComponent {
     toggleNodesOnClick: boolean = true;

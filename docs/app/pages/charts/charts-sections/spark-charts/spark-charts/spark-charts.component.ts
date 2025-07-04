@@ -8,6 +8,7 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 @Component({
     selector: 'uxd-charts-spark-charts',
     templateUrl: './spark-charts.component.html',
+    standalone: false
 })
 @DocumentationSectionComponent('ChartsSparkChartsComponent')
 export class ChartsSparkChartsComponent

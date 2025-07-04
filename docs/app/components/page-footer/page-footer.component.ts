@@ -10,7 +10,8 @@ import { AppConfiguration } from '../../services/app-configuration/app-configura
     selector: 'uxd-page-footer',
     templateUrl: './page-footer.component.html',
     styleUrls: ['./page-footer.component.less'],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class PageFooterComponent {
 

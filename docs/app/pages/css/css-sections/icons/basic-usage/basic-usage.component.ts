@@ -8,6 +8,7 @@ import { playgroundAdapter } from '../../../../../services/playground/adapters/l
 @Component({
     selector: 'uxd-css-icons-basic-usage',
     templateUrl: './basic-usage.component.html',
+    standalone: false
 })
 @DocumentationSectionComponent('CssBasicUsageComponent')
 export class CssBasicUsageComponent

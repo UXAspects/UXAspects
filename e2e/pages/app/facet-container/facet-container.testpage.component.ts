@@ -3,7 +3,8 @@ import { Facet } from '@ux-aspects/ux-aspects';
 
 @Component({
     selector: 'facet-container-app',
-    templateUrl: './facet-container.testpage.component.html'
+    templateUrl: './facet-container.testpage.component.html',
+    standalone: false
 })
 export class FacetContainerTestPageComponent {
 

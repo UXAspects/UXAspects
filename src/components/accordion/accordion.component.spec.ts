@@ -3,8 +3,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AccordionModule } from './accordion.module';
 
 @Component({
-  selector: 'app-accordion',
-  template: `<ux-accordion [collapseOthers]="true">
+    selector: 'app-accordion',
+    template: `<ux-accordion [collapseOthers]="true">
     @for (group of groups; track group) {
       <ux-accordion-panel
         class="accordion-chevron"
@@ -16,6 +16,7 @@ import { AccordionModule } from './accordion.module';
       </ux-accordion-panel>
     }
   </ux-accordion>`,
+    standalone: false
 })
 export class AccordionComponent {
   groups: AccordionGroup[] = [

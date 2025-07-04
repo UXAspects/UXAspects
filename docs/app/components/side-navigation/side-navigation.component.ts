@@ -12,7 +12,8 @@ const FOOTER_OFFSET = 162;
 @Component({
     selector: 'uxd-side-navigation',
     templateUrl: './side-navigation.component.html',
-    styleUrls: ['./side-navigation.component.less']
+    styleUrls: ['./side-navigation.component.less'],
+    standalone: false
 })
 export class SideNavigationComponent implements OnInit, AfterViewInit, OnDestroy {
 

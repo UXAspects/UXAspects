@@ -9,6 +9,7 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 @Component({
     selector: 'uxd-components-facet-check-list',
     templateUrl: './facet-check-list.component.html',
+    standalone: false
 })
 @DocumentationSectionComponent('ComponentsFacetCheckListComponent')
 export class ComponentsFacetCheckListComponent

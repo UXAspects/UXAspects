@@ -24,10 +24,11 @@ import {
 } from './date-time-picker.utils';
 
 @Component({
-  selector: 'ux-date-time-picker',
-  templateUrl: './date-time-picker.component.html',
-  providers: [DateTimePickerService],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'ux-date-time-picker',
+    templateUrl: './date-time-picker.component.html',
+    providers: [DateTimePickerService],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class DateTimePickerComponent implements OnInit, AfterViewInit, OnDestroy {
   readonly datepicker = inject(DateTimePickerService);

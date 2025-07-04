@@ -7,6 +7,7 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 @Component({
     selector: 'uxd-components-buttons-pagination',
     templateUrl: './pagination.component.html',
+    standalone: false
 })
 @DocumentationSectionComponent('ComponentsPaginationComponent')
 export class ComponentsPaginationComponent

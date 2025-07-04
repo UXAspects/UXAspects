@@ -6,6 +6,7 @@ import { FormControl, FormGroup } from '@angular/forms';
     templateUrl: './toolbar-search.testpage.component.html',
     styleUrls: ['./toolbar-search.testpage.component.less'],
     changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class ToolbarSearchTestPageComponent {
 

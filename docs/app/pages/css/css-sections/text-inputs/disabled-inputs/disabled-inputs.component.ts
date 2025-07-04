@@ -8,6 +8,7 @@ import { playgroundAdapter } from '../../../../../services/playground/adapters/l
 @Component({
     selector: 'uxd-css-text-inputs-disabled-inputs',
     templateUrl: './disabled-inputs.component.html',
+    standalone: false
 })
 @DocumentationSectionComponent('CssDisabledAreaComponent')
 export class CssDisabledAreaComponent

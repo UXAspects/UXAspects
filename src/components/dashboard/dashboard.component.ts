@@ -14,7 +14,8 @@ import { DashboardWidgetComponent } from './widget/dashboard-widget.component';
     providers: [
         DashboardService,
         DashboardGrabHandleService
-    ]
+    ],
+    standalone: false
 })
 export class DashboardComponent implements AfterViewInit, AfterContentInit, OnDestroy, OnChanges {
 

@@ -9,6 +9,7 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
     templateUrl: './focus-indicator.component.html',
     styleUrls: ['./focus-indicator.component.less'],
     changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 @DocumentationSectionComponent('ComponentsFocusIndicatorComponent')
 export class ComponentsFocusIndicatorComponent

@@ -10,6 +10,7 @@ import { DocumentationType, DOCUMENTATION_TOKEN } from '../../../../../tokens/do
     selector: 'uxd-components-column-resizing',
     templateUrl: './column-resizing.component.html',
     styleUrls: ['./column-resizing.component.less'],
+    standalone: false
 })
 @DocumentationSectionComponent('ComponentsColumnResizingComponent')
 export class ComponentsColumnResizingComponent

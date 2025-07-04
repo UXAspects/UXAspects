@@ -1,7 +1,8 @@
 import { AfterViewInit, Directive, ElementRef, inject, Input } from '@angular/core';
 
 @Directive({
-    selector: '[uxScrollIntoView]'
+    selector: '[uxScrollIntoView]',
+    standalone: false
 })
 export class ScrollIntoViewDirective implements AfterViewInit {
     readonly _elementRef = inject(ElementRef);

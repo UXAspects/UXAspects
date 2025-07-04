@@ -5,6 +5,7 @@ import { ColorService } from '@ux-aspects/ux-aspects';
     selector: 'flippable-cards-app',
     templateUrl: './flippable-cards.testpage.component.html',
     styleUrls: ['./flippable-cards.testpage.component.css'],
+    standalone: false
 })
 export class FlippableCardsTestPageComponent {
     constructor(public colorService: ColorService) {}

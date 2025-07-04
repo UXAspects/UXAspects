@@ -7,6 +7,7 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 @Component({
     selector: 'uxd-progress-bar',
     templateUrl: './progress-bar.component.html',
+    standalone: false
 })
 @DocumentationSectionComponent('ComponentsProgressBarComponent')
 export class ComponentsProgressBarComponent

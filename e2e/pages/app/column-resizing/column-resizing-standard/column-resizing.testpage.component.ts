@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 @Component({
     selector: 'app-column-resizing',
     templateUrl: './column-resizing.testpage.component.html',
+    standalone: false
 })
 export class ColumnResizingTestPageComponent {
 

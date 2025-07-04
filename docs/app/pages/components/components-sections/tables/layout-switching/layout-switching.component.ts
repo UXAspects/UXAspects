@@ -10,6 +10,7 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
     selector: 'uxd-components-layout-switching',
     templateUrl: './layout-switching.component.html',
     styleUrls: ['./layout-switching.component.less'],
+    standalone: false
 })
 @DocumentationSectionComponent('ComponentsLayoutSwitchingComponent')
 export class ComponentsLayoutSwitchingComponent

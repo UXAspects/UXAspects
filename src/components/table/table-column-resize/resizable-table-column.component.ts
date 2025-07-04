@@ -13,7 +13,8 @@ import { ColumnUnit } from './table-column-resize-standard/resizable-table.servi
     host: {
         class: 'ux-resizable-table-column',
         '[class.ux-resizable-table-hide-handle]': '!handleVisible'
-    }
+    },
+    standalone: false
 })
 export class ResizableTableColumnComponent implements AfterViewInit, OnDestroy {
     private readonly _table = inject(RESIZABLE_TABLE_SERVICE_TOKEN);

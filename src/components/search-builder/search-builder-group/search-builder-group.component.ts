@@ -6,9 +6,10 @@ import { SearchBuilderFocusService } from '../search-builder-focus.service';
 import { SearchBuilderGroupService } from './search-builder-group.service';
 
 @Component({
-  selector: 'ux-search-builder-group',
-  templateUrl: './search-builder-group.component.html',
-  providers: [SearchBuilderGroupService]
+    selector: 'ux-search-builder-group',
+    templateUrl: './search-builder-group.component.html',
+    providers: [SearchBuilderGroupService],
+    standalone: false
 })
 export class SearchBuilderGroupComponent implements OnInit, OnDestroy {
   readonly searchBuilderGroupService = inject(SearchBuilderGroupService);

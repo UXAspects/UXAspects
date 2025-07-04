@@ -6,7 +6,8 @@ import { filter, takeUntil } from 'rxjs/operators';
 @Component({
     selector: 'my-custom-facet-component',
     templateUrl: './sample-facet-component.component.html',
-    styleUrls: ['./sample-facet-component.component.less']
+    styleUrls: ['./sample-facet-component.component.less'],
+    standalone: false
 })
 export class SampleCustomFacetComponent implements OnInit, OnDestroy {
 

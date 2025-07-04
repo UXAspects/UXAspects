@@ -4,7 +4,8 @@ import { BehaviorSubject } from 'rxjs';
 
 @Component({
     selector: 'uxd-conduit-search',
-    templateUrl: './component-search.component.html'
+    templateUrl: './component-search.component.html',
+    standalone: false
 })
 export class ConduitComponentSearchComponent extends ConduitComponent {
 

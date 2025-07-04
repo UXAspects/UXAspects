@@ -9,7 +9,8 @@ import { compareDays, DateTimePickerTimezone } from '../date-time-picker.utils';
 @Component({
     selector: 'ux-date-time-picker-time-view',
     templateUrl: './time-view.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class TimeViewComponent implements OnInit, OnDestroy {
     readonly datepicker = inject(DateTimePickerService);

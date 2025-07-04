@@ -17,7 +17,8 @@ export class DateRangeOptions {
 
 @Directive({
     selector: '[uxDateRangePicker]',
-    providers: [DateRangeOptions]
+    providers: [DateRangeOptions],
+    standalone: false
 })
 export class DateRangePickerDirective {
 

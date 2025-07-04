@@ -10,8 +10,8 @@ import { SelectionMode } from './selection.service';
 import { By } from '@angular/platform-browser';
 
 @Component({
-  selector: 'app-selection-test',
-  template: `
+    selector: 'app-selection-test',
+    template: `
     <ul [mode]="mode" [(uxSelection)]="selection" (uxSelectionChange)="onSelectedChange($event)">
       @for (option of options; track option) {
         <li
@@ -30,6 +30,7 @@ import { By } from '@angular/platform-browser';
       }
     </ul>
   `,
+    standalone: false
 })
 export class SelectionDirectiveSpec {
   mode: SelectionMode = 'simple';

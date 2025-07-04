@@ -8,6 +8,7 @@ import { playgroundAdapter } from '../../../../../services/playground/adapters/l
 @Component({
     selector: 'uxd-css-panels-basic-panel',
     templateUrl: './basic-panel.component.html',
+    standalone: false
 })
 @DocumentationSectionComponent('CssBasicPanelComponent')
 export class CssBasicPanelComponent

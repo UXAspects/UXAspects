@@ -5,6 +5,7 @@ import { BehaviorSubject } from 'rxjs';
     selector: 'app-select',
     templateUrl: './select.testpage.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class SelectTestPageComponent implements OnInit {
 

@@ -17,7 +17,8 @@ import hybridModuleTs from './snippets/hybrid-module.txt';
 @Component({
     selector: 'uxd-component-section',
     templateUrl: './component-section.component.html',
-    styleUrls: ['./component-section.component.less']
+    styleUrls: ['./component-section.component.less'],
+    standalone: false
 })
 export class ComponentSectionComponent<T> implements OnInit, OnDestroy {
 

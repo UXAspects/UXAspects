@@ -13,8 +13,8 @@ import { By } from '@angular/platform-browser';
 
 /** Number picker example using form group */
 @Component({
-  selector: 'app-number-picker-form',
-  template: `
+    selector: 'app-number-picker-form',
+    template: `
     <ux-number-picker
       [min]="min"
       [max]="max"
@@ -32,6 +32,7 @@ import { By } from '@angular/platform-browser';
     >
     </ux-number-picker>
   `,
+    standalone: false
 })
 export class NumberPickerTestFormGroupComponent {
   form: FormGroup;
@@ -443,8 +444,8 @@ describe('Number Picker Component - FormGroup', () => {
 });
 
 @Component({
-  selector: 'app-number-picker-ngmodel',
-  template: `
+    selector: 'app-number-picker-ngmodel',
+    template: `
     <ux-number-picker
       [min]="min"
       [max]="max"
@@ -454,6 +455,7 @@ describe('Number Picker Component - FormGroup', () => {
     >
     </ux-number-picker>
   `,
+    standalone: false
 })
 export class NumberPickerTestNgModelComponent {
   value = 0;
@@ -577,8 +579,8 @@ describe('Number Picker Component - ngModel', () => {
 });
 
 @Component({
-  selector: 'app-number-picker-value',
-  template: `
+    selector: 'app-number-picker-value',
+    template: `
     <ux-number-picker
       [min]="min"
       [max]="max"
@@ -591,6 +593,7 @@ describe('Number Picker Component - ngModel', () => {
     >
     </ux-number-picker>
   `,
+    standalone: false
 })
 export class NumberPickerTestValueComponent {
   required: boolean = false;
@@ -786,9 +789,10 @@ describe('Number Picker Component - value', () => {
 });
 
 @Component({
-  selector: 'app-number-picker-form',
-  template: ` <ux-number-picker readonly [formControl]="form.controls['readonly']">
+    selector: 'app-number-picker-form',
+    template: ` <ux-number-picker readonly [formControl]="form.controls['readonly']">
   </ux-number-picker>`,
+    standalone: false
 })
 export class NumberPickerTestReadonlyComponent {
   form: FormGroup;

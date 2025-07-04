@@ -9,6 +9,7 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
     templateUrl: './dropdowns.component.html',
     styleUrls: ['./dropdowns.component.less'],
     encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 @DocumentationSectionComponent('ComponentsDropdownsComponent')
 export class ComponentsDropdownsComponent

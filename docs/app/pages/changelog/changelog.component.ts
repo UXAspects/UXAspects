@@ -4,9 +4,10 @@ import { IChangeLog } from '../../interfaces/IChangeLog';
 import { AppConfiguration } from '../../services/app-configuration/app-configuration.service';
 
 @Component({
-  selector: 'uxd-changelog-page',
-  templateUrl: './changelog.component.html',
-  styleUrls: ['./changelog.component.less'],
+    selector: 'uxd-changelog-page',
+    templateUrl: './changelog.component.html',
+    styleUrls: ['./changelog.component.less'],
+    standalone: false
 })
 export class ChangeLogPageComponent implements OnInit {
   logs: IChangeLog[];

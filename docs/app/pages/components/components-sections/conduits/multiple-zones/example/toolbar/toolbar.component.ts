@@ -6,7 +6,8 @@ import { BehaviorSubject } from 'rxjs';
     selector: 'uxd-components-conduit-toolbar',
     templateUrl: './toolbar.component.html',
     styleUrls: ['./toolbar.component.less'],
-    providers: [ConduitZone]
+    providers: [ConduitZone],
+    standalone: false
 })
 export class ComponentsConduitToolbarComponent extends ConduitZoneComponent {
 

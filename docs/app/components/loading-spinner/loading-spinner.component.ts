@@ -6,7 +6,8 @@ import { Subscription } from 'rxjs';
     selector: 'uxd-loading-spinner',
     templateUrl: './loading-spinner.component.html',
     styleUrls: ['./loading-spinner.component.less'],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class LoadingSpinnerComponent implements OnDestroy {
 

@@ -8,7 +8,8 @@ import { TabbableListService } from './tabbable-list.service';
 @Directive({
     selector: '[uxTabbableList]',
     exportAs: 'ux-tabbable-list',
-    providers: [TabbableListService]
+    providers: [TabbableListService],
+    standalone: false
 })
 export class TabbableListDirective implements AfterContentInit, OnDestroy {
     /** Access the tabbable list service */

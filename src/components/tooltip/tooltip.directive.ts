@@ -10,7 +10,8 @@ import { TooltipService } from './tooltip.service';
 
 @Directive({
     selector: '[uxTooltip]',
-    exportAs: 'ux-tooltip'
+    exportAs: 'ux-tooltip',
+    standalone: false
 })
 export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
     protected readonly _elementRef = inject(ElementRef);

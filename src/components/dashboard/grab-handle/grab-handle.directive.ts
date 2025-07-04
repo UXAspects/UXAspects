@@ -25,8 +25,9 @@ import { DashboardWidgetComponent } from '../widget/dashboard-widget.component';
 import { DashboardGrabHandleService } from './grab-handle.service';
 
 @Directive({
-  selector: '[uxDashboardGrabHandle]',
-  exportAs: 'ux-dashboard-grab-handle',
+    selector: '[uxDashboardGrabHandle]',
+    exportAs: 'ux-dashboard-grab-handle',
+    standalone: false
 })
 export class DashboardGrabHandleDirective implements OnInit, OnDestroy {
   readonly widget = inject(DashboardWidgetComponent);

@@ -23,13 +23,14 @@ export const NUMBER_PICKER_VALUE_ACCESSOR = {
 };
 
 @Component({
-  selector: 'ux-number-picker, ux-number-picker-inline',
-  templateUrl: './number-picker.component.html',
-  providers: [NUMBER_PICKER_VALUE_ACCESSOR],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  host: {
-    '[class.ux-number-picker-invalid]': '!_valid && !disabled && !_formGroup',
-  },
+    selector: 'ux-number-picker, ux-number-picker-inline',
+    templateUrl: './number-picker.component.html',
+    providers: [NUMBER_PICKER_VALUE_ACCESSOR],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    host: {
+        '[class.ux-number-picker-invalid]': '!_valid && !disabled && !_formGroup',
+    },
+    standalone: false
 })
 export class NumberPickerComponent implements ControlValueAccessor, OnDestroy, OnChanges {
   readonly _formGroup = inject(FormGroupDirective, { optional: true });

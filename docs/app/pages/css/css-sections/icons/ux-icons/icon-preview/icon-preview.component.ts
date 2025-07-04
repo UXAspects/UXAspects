@@ -5,7 +5,8 @@ import { PopoverDirective } from '@ux-aspects/ux-aspects';
     selector: 'uxd-icon-preview',
     templateUrl: './icon-preview.component.html',
     styleUrls: ['./icon-preview.component.less'],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class IconPreviewComponent implements OnInit {
     @Input() name: string;

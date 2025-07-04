@@ -11,7 +11,8 @@ let uniqueId = 0;
 
 @Component({
     selector: 'ux-facet-check-list',
-    templateUrl: './facet-check-list.component.html'
+    templateUrl: './facet-check-list.component.html',
+    standalone: false
 })
 export class FacetCheckListComponent implements AfterViewInit, OnDestroy {
     readonly facetService = inject(FacetService);

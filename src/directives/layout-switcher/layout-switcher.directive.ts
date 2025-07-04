@@ -3,7 +3,8 @@ import { ResizeService } from '../resize/index';
 import { LayoutSwitcherItemDirective } from './layout-switcher-item.directive';
 
 @Directive({
-    selector: '[uxLayoutSwitcher]'
+    selector: '[uxLayoutSwitcher]',
+    standalone: false
 })
 export class LayoutSwitcherDirective implements AfterContentInit, OnChanges {
     readonly resizeService = inject(ResizeService);

@@ -13,6 +13,7 @@ import { MultipleAxisLineChartService } from './multiple-axis-line-chart.service
     styleUrls: ['./multiple-axis-line-chart.component.less'],
     encapsulation: ViewEncapsulation.None,
     providers: [MultipleAxisLineChartService],
+    standalone: false
 })
 @DocumentationSectionComponent('ChartsMultipleAxisLineChartComponent')
 export class ChartsMultipleAxisLineChartComponent

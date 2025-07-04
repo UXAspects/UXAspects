@@ -9,6 +9,7 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 @Component({
     selector: 'uxd-charts-donut-chart',
     templateUrl: './donut-chart.component.html',
+    standalone: false
 })
 @DocumentationSectionComponent('ChartsDonutChartComponent')
 export class ChartsDonutChartComponent

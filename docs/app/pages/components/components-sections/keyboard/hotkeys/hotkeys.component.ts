@@ -13,6 +13,7 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
         '(window:keydown.q)': 'focusNextQ()',
         '(window:keydown.w)': 'focusNextW()',
     },
+    standalone: false
 })
 @DocumentationSectionComponent('ComponentsHotkeysComponent')
 export class ComponentsHotkeysComponent

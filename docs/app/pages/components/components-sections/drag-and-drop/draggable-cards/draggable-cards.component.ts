@@ -11,6 +11,7 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
     selector: 'uxd-draggable-cards',
     templateUrl: './draggable-cards.component.html',
     styleUrls: ['./draggable-cards.component.less'],
+    standalone: false
 })
 @DocumentationSectionComponent('ComponentsDraggableCardsComponent')
 export class ComponentsDraggableCardsComponent

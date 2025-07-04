@@ -3,7 +3,8 @@ import { DocumentationSectionComponent } from '../../../../../decorators/documen
 
 @Component({
     selector: 'uxd-css-responsive-design-responsive-design',
-    templateUrl: './responsive-design.component.html'
+    templateUrl: './responsive-design.component.html',
+    standalone: false
 })
 @DocumentationSectionComponent('CssResponsiveDesignComponent')
 export class CssResponsiveDesignComponent {

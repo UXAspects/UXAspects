@@ -5,7 +5,8 @@ import { Facet, FacetDeselect, FacetDeselectAll, FacetService } from '@ux-aspect
 @Component({
     selector: 'my-custom-facet-component',
     templateUrl: './facet-component.testpage.component.html',
-    styleUrls: ['./facet-component.testpage.component.css']
+    styleUrls: ['./facet-component.testpage.component.css'],
+    standalone: false
 })
 export class SampleCustomFacetComponent implements OnInit {
 

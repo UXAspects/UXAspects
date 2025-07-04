@@ -7,6 +7,7 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 @Component({
     selector: 'uxd-components-ebox',
     templateUrl: './ebox.component.html',
+    standalone: false
 })
 @DocumentationSectionComponent('ComponentsEboxComponent')
 export class ComponentsEboxComponent

@@ -5,7 +5,8 @@ import { FocusIndicatorDirective, FocusIndicatorOriginService } from '@ux-aspect
     selector: 'uxd-icon-snippet',
     templateUrl: './icon-snippet.component.html',
     styleUrls: ['./icon-snippet.component.less'],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class IconSnippetComponent implements AfterViewInit {
 

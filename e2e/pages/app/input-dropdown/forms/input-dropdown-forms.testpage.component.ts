@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
     selector: 'app-input-dropdown-forms',
     templateUrl: './input-dropdown-forms.testpage.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class InputDropdownFormsTestPageComponent {
 

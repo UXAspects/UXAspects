@@ -13,6 +13,7 @@ import { VirtualForRange, VirtualForService } from './virtual-for.service';
 
 @Directive({
     selector: '[uxVirtualFor][uxVirtualForOf]',
+    standalone: false
 })
 export class VirtualForDirective<T> implements OnInit, DoCheck, OnDestroy {
     /** A reference to the container element where we will insert elements. */

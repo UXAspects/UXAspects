@@ -9,6 +9,7 @@ import { playgroundAdapter } from '../../../../../services/playground/adapters/l
     selector: 'uxd-css-progress-mini-activity-indicator',
     templateUrl: './mini-activity-indicator.component.html',
     styleUrls: ['./mini-activity-indicator.component.less'],
+    standalone: false
 })
 @DocumentationSectionComponent('CssMiniActivityIndicatorComponent')
 export class CssMiniActivityIndicatorComponent

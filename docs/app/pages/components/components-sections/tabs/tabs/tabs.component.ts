@@ -12,6 +12,7 @@ const chance = new Chance();
     templateUrl: './tabs.component.html',
     styleUrls: ['./tabs.component.less'],
     changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 @DocumentationSectionComponent('ComponentsTabsComponent')
 export class ComponentsTabsComponent

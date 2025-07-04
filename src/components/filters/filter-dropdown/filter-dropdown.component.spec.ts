@@ -12,7 +12,8 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
                                 [filters]="filters"
                                 [initial]="filters[0]"></ux-filter-dropdown>
         </ux-filter-container>
-    `
+    `,
+    standalone: false
 })
 export class FilterDropdownComponentSpec {
 

@@ -4,7 +4,8 @@ import { IDocumentationPage } from '../../interfaces/IDocumentationPage';
 
 @Component({
     selector: 'uxd-charts',
-    templateUrl: './charts.component.html'
+    templateUrl: './charts.component.html',
+    standalone: false
 })
 export class ChartsPageComponent {
     navigation = chartsPage as IDocumentationPage;

@@ -5,12 +5,14 @@ import { SidePanelComponent } from '../side-panel/side-panel.component';
 import { SidePanelService } from '../side-panel/side-panel.service';
 
 @Directive({
-    selector: '[uxItemDisplayPanelContent]'
+    selector: '[uxItemDisplayPanelContent]',
+    standalone: false
 })
 export class ItemDisplayPanelContentDirective { }
 
 @Directive({
-    selector: '[uxItemDisplayPanelFooter]'
+    selector: '[uxItemDisplayPanelFooter]',
+    standalone: false
 })
 export class ItemDisplayPanelFooterDirective { }
 
@@ -21,7 +23,8 @@ export class ItemDisplayPanelFooterDirective { }
     animations: [sidePanelStateAnimation],
     host: {
         'class': 'ux-side-panel ux-item-display-panel'
-    }
+    },
+    standalone: false
 })
 export class ItemDisplayPanelComponent extends SidePanelComponent implements OnInit {
 

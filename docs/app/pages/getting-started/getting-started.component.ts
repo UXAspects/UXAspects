@@ -5,7 +5,8 @@ import cliJson from './snippets/cli.txt';
 @Component({
     selector: 'uxd-getting-started',
     templateUrl: './getting-started.component.html',
-    styleUrls: ['./getting-started.component.less']
+    styleUrls: ['./getting-started.component.less'],
+    standalone: false
 })
 export class GettingStartedPageComponent {
 

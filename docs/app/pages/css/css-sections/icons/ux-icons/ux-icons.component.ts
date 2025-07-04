@@ -7,7 +7,8 @@ import { DOCUMENTATION_TOKEN, DocumentationType } from '../../../../../tokens/do
     selector: 'uxd-css-icons-ux-icons',
     templateUrl: './ux-icons.component.html',
     styleUrls: ['./ux-icons.component.less'],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 @DocumentationSectionComponent('CssUxIconsComponent')
 export class CssUxIconsComponent {

@@ -3,8 +3,9 @@ import { ScrollIntoViewService } from './scroll-into-view.service';
 
 @Directive({
     selector: '[uxScrollIntoViewIf]',
-    providers: [ScrollIntoViewService]
- })
+    providers: [ScrollIntoViewService],
+    standalone: false
+})
 export class ScrollIntoViewIfDirective implements OnChanges {
     private readonly _element = inject(ElementRef);
 

@@ -4,7 +4,8 @@ import { FocusIndicatorOriginService } from '../../directives/accessibility/inde
 import { SidePanelService } from './side-panel.service';
 
 @Directive({
-    selector: '[uxSidePanelClose]'
+    selector: '[uxSidePanelClose]',
+    standalone: false
 })
 export class SidePanelCloseDirective {
     private readonly _service = inject(SidePanelService);

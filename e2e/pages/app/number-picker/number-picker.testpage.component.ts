@@ -6,6 +6,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
     templateUrl: './number-picker.testpage.component.html',
     styleUrls: ['./number-picker.testpage.component.css'],
     changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class NumberPickerTestPageComponent {
     form: FormGroup;

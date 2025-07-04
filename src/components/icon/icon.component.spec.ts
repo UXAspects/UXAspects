@@ -4,9 +4,9 @@ import { IconModule } from './icon.module';
 import { IconService } from './icon.service';
 
 @Component({
-  selector: 'ux-icon-test',
-  template:
-    '<ux-icon [name]="name" [size]="size" [rotate]="rotate" [flipHorizontal]="flipHorizontal" [flipVertical]="flipVertical"></ux-icon>',
+    selector: 'ux-icon-test',
+    template: '<ux-icon [name]="name" [size]="size" [rotate]="rotate" [flipHorizontal]="flipHorizontal" [flipVertical]="flipVertical"></ux-icon>',
+    standalone: false
 })
 export class IconTestComponent {
   @Input() name: string;

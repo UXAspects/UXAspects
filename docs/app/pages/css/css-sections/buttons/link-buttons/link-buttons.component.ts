@@ -8,6 +8,7 @@ import { playgroundAdapter } from '../../../../../services/playground/adapters/l
 @Component({
     selector: 'uxd-css-link-buttons',
     templateUrl: './link-buttons.component.html',
+    standalone: false
 })
 @DocumentationSectionComponent('CssLinkButtonsComponent')
 export class CssLinkButtonsComponent

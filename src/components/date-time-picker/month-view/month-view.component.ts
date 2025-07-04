@@ -12,7 +12,8 @@ import { FocusedMonthItem, MonthViewItem, MonthViewService } from './month-view.
     selector: 'ux-date-time-picker-month-view',
     templateUrl: './month-view.component.html',
     providers: [MonthViewService],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class MonthViewComponent implements AfterViewInit, OnDestroy {
     readonly monthService = inject(MonthViewService);

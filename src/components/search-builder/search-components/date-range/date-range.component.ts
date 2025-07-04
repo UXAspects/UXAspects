@@ -3,7 +3,8 @@ import { BaseSearchComponent } from '../base-search.component';
 
 @Component({
     selector: 'ux-search-date-range',
-    templateUrl: './date-range.component.html'
+    templateUrl: './date-range.component.html',
+    standalone: false
 })
 export class SearchDateRangeComponent extends BaseSearchComponent {
 

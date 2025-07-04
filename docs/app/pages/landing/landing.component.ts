@@ -6,7 +6,8 @@ import { AppConfiguration } from '../../services/app-configuration/app-configura
 @Component({
     selector: 'uxd-landing',
     templateUrl: './landing.component.html',
-    styleUrls: ['./landing.component.less']
+    styleUrls: ['./landing.component.less'],
+    standalone: false
 })
 export class LandingPageComponent {
 

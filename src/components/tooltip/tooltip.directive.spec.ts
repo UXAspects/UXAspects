@@ -13,7 +13,8 @@ import { TooltipModule } from './tooltip.module';
             Show Tooltip
           </button>
         }
-        `
+        `,
+    standalone: false
 })
 export class TooltipDirectiveSpecComponent {
     @ViewChild(TooltipDirective, { static: false }) tooltipDirective: TooltipDirective;

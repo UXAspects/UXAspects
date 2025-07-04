@@ -7,7 +7,8 @@ import { ColorService } from '@ux-aspects/ux-aspects';
     host: {
         '(window:keydown.arrowup)': 'upArrow($event)',
         '(window:keydown.arrowdown)': 'downArrow($event)'
-    }
+    },
+    standalone: false
 })
 export class ItemDisplayPanelTestPageComponent {
 

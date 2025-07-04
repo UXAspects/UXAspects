@@ -3,7 +3,8 @@ import { Component, TemplateRef } from '@angular/core';
 @Component({
     selector: 'uxd-popover',
     templateUrl: './popover.testpage.component.html',
-    styleUrls: ['./popover.testpage.component.less']
+    styleUrls: ['./popover.testpage.component.less'],
+    standalone: false
 })
 export class PopoverTestPageComponent {
     placement: string = 'top';

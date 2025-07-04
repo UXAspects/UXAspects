@@ -166,7 +166,8 @@ describe('Radio Button Component', () => {
                 Option3
             </ux-radio-button>
         </div>
-    `
+    `,
+    standalone: false
 })
 export class RadioButtonValueTestComponent {
 
@@ -306,7 +307,8 @@ describe('Radio Button Component - Value', () => {
                 Option3
             </ux-radio-button>
         </div>
-    `
+    `,
+    standalone: false
 })
 export class RadioButtonTestValueGroupComponent {
 
@@ -450,7 +452,8 @@ describe('Radio Button Component - Value with uxRadioButtonGroup', () => {
                 Option3
             </ux-radio-button>
         </div>
-    `
+    `,
+    standalone: false
 })
 export class RadioButtonTestNgModelComponent {
 
@@ -591,7 +594,8 @@ describe('Radio Button Component - NgModel', () => {
                 Option3
             </ux-radio-button>
         </div>
-    `
+    `,
+    standalone: false
 })
 export class RadioButtonTestNgModelGroupComponent {
 
@@ -713,7 +717,8 @@ describe('Radio Button Component - NgModel', () => {
                 <ux-radio-button [simplified]="simplified"[option]="2" [required]="required">Option 2</ux-radio-button>
             </div>
         </form>
-    `
+    `,
+    standalone: false
 })
 export class RadioButtonTestReactiveFormComponent {
 

@@ -11,7 +11,8 @@ import { HierarchyBarNode } from './interfaces/hierarchy-bar-node.interface';
             [root]="root"
             [(selected)]="selected"
         ></ux-hierarchy-bar>
-    `
+    `,
+    standalone: false
 })
 export class HierarchyBarCollapsedTestComponent {
     root: HierarchyBarNode = {

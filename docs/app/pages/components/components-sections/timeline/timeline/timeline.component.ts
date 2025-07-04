@@ -8,6 +8,7 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 @Component({
     selector: 'uxd-components-timeline',
     templateUrl: './timeline.component.html',
+    standalone: false
 })
 @DocumentationSectionComponent('ComponentsTimelineComponent')
 export class ComponentsTimelineComponent

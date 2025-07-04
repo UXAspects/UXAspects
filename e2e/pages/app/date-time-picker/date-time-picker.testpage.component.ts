@@ -5,6 +5,7 @@ import { DateTimePickerTimezone } from '@ux-aspects/ux-aspects';
     selector: 'app-date-time-picker',
     templateUrl: './date-time-picker.testpage.component.html',
     styleUrls: ['./date-time-picker.testpage.component.less'],
+    standalone: false
 })
 export class DateTimePickerTestPageComponent {
 

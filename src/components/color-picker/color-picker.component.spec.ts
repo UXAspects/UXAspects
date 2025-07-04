@@ -6,8 +6,8 @@ import { ColorPickerModule } from './color-picker.module';
 import { ColorPickerInputMode } from './color-picker.type';
 
 @Component({
-  selector: 'app-color-picker-test',
-  template: ` <ux-color-picker
+    selector: 'app-color-picker-test',
+    template: ` <ux-color-picker
     [colors]="colors"
     [(selected)]="selected"
     [columns]="4"
@@ -15,7 +15,8 @@ import { ColorPickerInputMode } from './color-picker.type';
     [(inputMode)]="inputMode"
   >
   </ux-color-picker>`,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class ColorPickerTestComponent {
   private readonly _colorService = inject(ColorService);

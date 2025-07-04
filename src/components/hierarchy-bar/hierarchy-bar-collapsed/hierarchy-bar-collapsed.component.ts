@@ -9,7 +9,8 @@ import { HierarchyBarNode } from '../interfaces/hierarchy-bar-node.interface';
 @Component({
     selector: 'ux-hierarchy-bar-collapsed',
     templateUrl: './hierarchy-bar-collapsed.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class HierarchyBarCollapsedComponent implements AfterViewInit, OnDestroy {
     readonly hierarchyBar = inject(HierarchyBarService);

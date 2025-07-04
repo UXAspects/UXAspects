@@ -3,7 +3,8 @@ import { inject, LOCALE_ID, Pipe, PipeTransform } from '@angular/core';
 import { DateFormatter } from './date-formatter.type';
 
 @Pipe({
-    name: 'formatDate'
+    name: 'formatDate',
+    standalone: false
 })
 export class DateFormatterPipe implements PipeTransform {
 

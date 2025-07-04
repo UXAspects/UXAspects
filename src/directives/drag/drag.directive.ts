@@ -10,7 +10,8 @@ export interface DragScrollEvent {
 }
 
 @Directive({
-    selector: '[uxDrag]'
+    selector: '[uxDrag]',
+    standalone: false
 })
 export class DragDirective<T = unknown> implements OnDestroy {
     private readonly _elementRef = inject<ElementRef<Element>>(ElementRef);

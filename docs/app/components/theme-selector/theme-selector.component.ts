@@ -9,6 +9,7 @@ import { SiteThemeService } from '../../services/site-theme/site-theme.service';
     templateUrl: './theme-selector.component.html',
     styleUrls: ['./theme-selector.component.less'],
     changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class ThemeSelectorComponent implements OnChanges, OnDestroy {
     @Input()

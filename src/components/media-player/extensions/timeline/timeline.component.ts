@@ -10,7 +10,8 @@ import { MediaPlayerService } from '../../media-player.service';
     host: {
         '(document:mouseup)': 'mouseDown = false',
         '[class.quiet]': 'mediaPlayerService.quietMode || mediaPlayerService.fullscreen'
-    }
+    },
+    standalone: false
 })
 export class MediaPlayerTimelineExtensionComponent implements OnInit, AfterViewInit, OnDestroy {
     readonly mediaPlayerService = inject(MediaPlayerService);

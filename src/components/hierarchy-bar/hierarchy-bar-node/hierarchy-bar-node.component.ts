@@ -9,6 +9,7 @@ import { HierarchyBarNode } from '../interfaces/hierarchy-bar-node.interface';
     host: {
         '[style.visibility]': 'visible ? "visible" : "hidden"',
     },
+    standalone: false
 })
 export class HierarchyBarNodeComponent {
     readonly hierarchyBar = inject(HierarchyBarService);

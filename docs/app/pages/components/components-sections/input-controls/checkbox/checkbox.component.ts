@@ -6,6 +6,7 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 @Component({
     selector: 'uxd-components-checkbox',
     templateUrl: './checkbox.component.html',
+    standalone: false
 })
 @DocumentationSectionComponent('ComponentsCheckboxComponent')
 export class ComponentsCheckboxComponent

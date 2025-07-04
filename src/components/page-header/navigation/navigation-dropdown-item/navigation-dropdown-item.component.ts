@@ -6,7 +6,8 @@ import type { PageHeaderNavigationDropdownItem } from '../navigation.component';
 @Component({
     selector: 'ux-page-header-horizontal-navigation-dropdown-item',
     exportAs: 'ux-page-header-horizontal-navigation-dropdown-item',
-    templateUrl: './navigation-dropdown-item.component.html'
+    templateUrl: './navigation-dropdown-item.component.html',
+    standalone: false
 })
 export class PageHeaderNavigationDropdownItemComponent {
     private readonly _pageHeaderService = inject(PageHeaderService);

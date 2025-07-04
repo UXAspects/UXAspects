@@ -10,7 +10,8 @@ import { TreeGridService } from './tree-grid.service';
     providers: [TreeGridService],
     host: {
         class: 'treegrid'
-    }
+    },
+    standalone: false
 })
 export class TreeGridDirective implements OnInit, OnDestroy {
     private readonly _changeDetector = inject(ChangeDetectorRef);

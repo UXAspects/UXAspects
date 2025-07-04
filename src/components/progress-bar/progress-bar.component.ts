@@ -6,7 +6,8 @@ import { ChangeDetectionStrategy, Component, HostBinding, Input } from '@angular
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
         role: 'progressbar'
-    }
+    },
+    standalone: false
 })
 export class ProgressBarComponent {
     @Input() value: number = 0;

@@ -2,7 +2,8 @@ import { Directive, Input, OnDestroy, TemplateRef } from '@angular/core';
 import { Subject } from 'rxjs';
 
 @Directive({
-    selector: '[uxColumnSorting]'
+    selector: '[uxColumnSorting]',
+    standalone: false
 })
 export class ColumnSortingDirective implements OnDestroy {
 

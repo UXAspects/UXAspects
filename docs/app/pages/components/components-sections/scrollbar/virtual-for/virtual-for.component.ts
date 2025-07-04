@@ -9,6 +9,7 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
     selector: 'uxd-components-virtual-for',
     templateUrl: './virtual-for.component.html',
     styleUrls: ['./virtual-for.component.less'],
+    standalone: false
 })
 @DocumentationSectionComponent('ComponentsVirtualForComponent')
 export class ComponentsVirtualForComponent

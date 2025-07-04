@@ -9,6 +9,7 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
     selector: 'uxd-components-hover-actions',
     templateUrl: './hover-actions.component.html',
     styleUrls: ['./hover-actions.component.less'],
+    standalone: false
 })
 @DocumentationSectionComponent('ComponentsHoverActionsComponent')
 export class ComponentsHoverActionsComponent

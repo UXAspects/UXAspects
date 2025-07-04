@@ -3,7 +3,8 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 @Component({
     selector: 'uxd-conduit-zone-inspector',
     templateUrl: './inspector.component.html',
-    styleUrls: ['./inspector.component.less']
+    styleUrls: ['./inspector.component.less'],
+    standalone: false
 })
 export class ConduitZoneInspectorComponent {
 

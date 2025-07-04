@@ -7,6 +7,7 @@ import { BehaviorSubject, Subscription } from 'rxjs';
     selector: 'uxd-components-conduit-list-view',
     templateUrl: './list-view.component.html',
     providers: [ConduitZone],
+    standalone: false
 })
 export class ComponentsConduitListViewComponent extends ConduitZoneComponent implements OnDestroy {
     zoneId: string = 'list-zone';

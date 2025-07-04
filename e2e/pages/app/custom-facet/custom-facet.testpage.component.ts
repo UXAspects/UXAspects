@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'custom-facet-app',
-    templateUrl: './custom-facet.testpage.component.html'
+    templateUrl: './custom-facet.testpage.component.html',
+    standalone: false
 })
 export class CustomFacetTestPageComponent { }

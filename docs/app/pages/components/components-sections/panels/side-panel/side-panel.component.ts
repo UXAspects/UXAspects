@@ -9,6 +9,7 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
     selector: 'uxd-side-panel',
     templateUrl: './side-panel.component.html',
     styleUrls: ['./side-panel.component.less'],
+    standalone: false
 })
 @DocumentationSectionComponent('ComponentsSidePanelComponent')
 export class ComponentsSidePanelComponent

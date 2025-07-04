@@ -7,6 +7,7 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 @Component({
     selector: 'uxd-components-toggleswitch',
     templateUrl: './toggleswitch.component.html',
+    standalone: false
 })
 @DocumentationSectionComponent('ComponentsToggleSwitchComponent')
 export class ComponentsToggleSwitchComponent

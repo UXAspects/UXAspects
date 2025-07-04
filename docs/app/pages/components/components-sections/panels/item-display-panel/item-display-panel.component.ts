@@ -9,6 +9,7 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 @Component({
     selector: 'uxd-item-display-panel-component',
     templateUrl: './item-display-panel.component.html',
+    standalone: false
 })
 @DocumentationSectionComponent('ComponentsItemDisplayPanelComponent')
 export class ComponentsItemDisplayPanelComponent

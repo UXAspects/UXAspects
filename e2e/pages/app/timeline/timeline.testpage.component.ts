@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'timeline-app',
-    templateUrl: './timeline.testpage.component.html'
+    templateUrl: './timeline.testpage.component.html',
+    standalone: false
 })
 export class TimelineTestPageComponent {
 

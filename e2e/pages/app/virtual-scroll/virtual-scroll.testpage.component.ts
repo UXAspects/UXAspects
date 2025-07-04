@@ -4,7 +4,8 @@ import { Subject } from 'rxjs';
 @Component({
     selector: 'virtual-scroll-app',
     templateUrl: './virtual-scroll.testpage.component.html',
-    styleUrls: ['./virtual-scroll.testpage.component.css']
+    styleUrls: ['./virtual-scroll.testpage.component.css'],
+    standalone: false
 })
 export class VirtualScrollTestPageComponent {
 

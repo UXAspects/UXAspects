@@ -13,7 +13,8 @@ let uniqueId: number = 0;
     providers: [WizardService],
     host: {
         '[class]': 'orientation'
-    }
+    },
+    standalone: false
 })
 export class WizardComponent implements OnInit, AfterContentInit, OnDestroy {
     protected readonly _wizardService = inject<WizardService<WizardStepComponent>>(WizardService);

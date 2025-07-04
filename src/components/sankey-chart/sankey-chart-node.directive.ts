@@ -5,7 +5,8 @@ import { SankeyNodeLink } from './interfaces/node-link.interface';
 import { SankeyFocusManager } from './sankey-focus-manager';
 
 @Directive({
-  selector: '[uxSankeyNode]',
+    selector: '[uxSankeyNode]',
+    standalone: false
 })
 export class SankeyNodeDirective<T> implements OnInit, OnDestroy {
   private readonly _focusManager = inject<SankeyFocusManager<T>>(SankeyFocusManager);

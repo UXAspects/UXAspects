@@ -3,7 +3,8 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
     selector: 'uxt-float-label',
-    templateUrl: 'float-label.testpage.component.html'
+    templateUrl: 'float-label.testpage.component.html',
+    standalone: false
 })
 export class FloatLabelTestPageComponent {
 

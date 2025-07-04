@@ -9,7 +9,8 @@ import { filter, takeUntil } from 'rxjs/operators';
     host: {
         '[class.active]': 'active',
         '[class.selected]': 'expanded',
-    }
+    },
+    standalone: false
 })
 export class NavigationItemComponent implements AfterViewInit, AfterContentInit, OnDestroy {
     private readonly _elementRef = inject(ElementRef);

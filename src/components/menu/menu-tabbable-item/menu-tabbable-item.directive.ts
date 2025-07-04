@@ -8,6 +8,7 @@ import { MenuComponent } from '../menu/menu.component';
 
 @Directive({
     selector: '[uxMenuTabbableItem]',
+    standalone: false
 })
 export class MenuTabbableItemDirective implements OnInit, OnDestroy, FocusableOption {
     protected readonly _menu = inject(MenuComponent);

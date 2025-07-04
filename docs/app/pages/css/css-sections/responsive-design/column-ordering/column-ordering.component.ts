@@ -8,6 +8,7 @@ import { playgroundAdapter } from '../../../../../services/playground/adapters/l
 @Component({
     selector: 'uxd-css-responsive-design-column-ordering',
     templateUrl: './column-ordering.component.html',
+    standalone: false
 })
 @DocumentationSectionComponent('CssColumnOrderingComponent')
 export class CssColumnOrderingComponent

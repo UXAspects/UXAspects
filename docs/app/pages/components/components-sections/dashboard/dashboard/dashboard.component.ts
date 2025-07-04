@@ -11,6 +11,7 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
     selector: 'uxd-components-dashboard',
     templateUrl: './dashboard.component.html',
     styleUrls: ['./dashboard.component.less'],
+    standalone: false
 })
 @DocumentationSectionComponent('ComponentsDashboardComponent')
 export class ComponentsDashboardComponent

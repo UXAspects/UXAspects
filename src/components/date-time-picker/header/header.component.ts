@@ -9,6 +9,7 @@ import { DatePickerMode, DateTimePickerService } from '../date-time-picker.servi
     selector: 'ux-date-time-picker-header',
     templateUrl: './header.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class HeaderComponent implements AfterViewInit, OnDestroy {
     readonly datepicker = inject(DateTimePickerService);

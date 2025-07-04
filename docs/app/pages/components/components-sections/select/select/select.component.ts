@@ -9,6 +9,7 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 @Component({
     selector: 'uxd-components-select',
     templateUrl: 'select.component.html',
+    standalone: false
 })
 @DocumentationSectionComponent('ComponentsSelectComponent')
 export class ComponentsSelectComponent

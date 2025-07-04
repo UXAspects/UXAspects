@@ -10,6 +10,7 @@ import { DocumentationType, DOCUMENTATION_TOKEN } from '../../../../../tokens/do
     templateUrl: './icon.component.html',
     styleUrls: ['./icon.component.less'],
     changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 @DocumentationSectionComponent('ComponentsIconComponent')
 export class ComponentsIconComponent

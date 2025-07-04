@@ -19,6 +19,7 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
     templateUrl: './notifications.component.html',
     styleUrls: ['./notifications.component.less'],
     changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 @DocumentationSectionComponent('ComponentsNotificationsComponent')
 export class ComponentsNotificationsComponent

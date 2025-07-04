@@ -14,7 +14,8 @@ import { SidePanelService } from './side-panel.service';
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
         class: 'ux-side-panel'
-    }
+    },
+    standalone: false
 })
 export class SidePanelComponent implements OnInit, OnDestroy {
     protected readonly service = inject(SidePanelService);

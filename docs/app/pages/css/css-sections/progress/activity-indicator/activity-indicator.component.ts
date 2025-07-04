@@ -8,6 +8,7 @@ import { playgroundAdapter } from '../../../../../services/playground/adapters/l
 @Component({
     selector: 'uxd-css-progress-activity-indicator',
     templateUrl: './activity-indicator.component.html',
+    standalone: false
 })
 @DocumentationSectionComponent('CssActivityIndicatorComponent')
 export class CssActivityIndicatorComponent

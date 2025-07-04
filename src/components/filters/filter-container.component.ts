@@ -9,7 +9,8 @@ import { Filter } from './interfaces/filter.interface';
     selector: 'ux-filter-container',
     templateUrl: './filter-container.component.html',
     providers: [FilterService],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class FilterContainerComponent implements OnDestroy {
     readonly filterService = inject(FilterService);

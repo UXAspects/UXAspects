@@ -17,10 +17,11 @@ let uniqueToggleSwitchId = 0;
     selector: 'ux-toggleswitch',
     templateUrl: './toggleswitch.component.html',
     providers: [TOGGLESWITCH_VALUE_ACCESSOR, {
-        provide: FocusableItemToken,
-        useExisting: ToggleSwitchComponent
-    }],
-    changeDetection: ChangeDetectionStrategy.OnPush
+            provide: FocusableItemToken,
+            useExisting: ToggleSwitchComponent
+        }],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class ToggleSwitchComponent implements ControlValueAccessor, FocusableControl {
     private readonly _changeDetector = inject(ChangeDetectorRef);

@@ -4,6 +4,7 @@ import { ColorService, Filter, FilterAddEvent, FilterEvent, FilterRemoveAllEvent
 @Component({
     selector: 'app',
     templateUrl: './filters.testpage.component.html',
+    standalone: false
 })
 export class FiltersTestPageComponent {
 

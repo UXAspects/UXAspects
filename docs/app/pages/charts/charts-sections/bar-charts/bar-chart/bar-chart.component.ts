@@ -9,6 +9,7 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 @Component({
     selector: 'uxd-charts-bar-chart',
     templateUrl: './bar-chart.component.html',
+    standalone: false
 })
 @DocumentationSectionComponent('ChartsBarChartComponent')
 export class ChartsBarChartComponent

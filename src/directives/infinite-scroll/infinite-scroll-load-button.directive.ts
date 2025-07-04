@@ -2,7 +2,8 @@ import { Directive, inject, Input, Output, Renderer2, TemplateRef, ViewContainer
 import { Observable, Subject } from 'rxjs';
 
 @Directive({
-    selector: '[uxInfiniteScrollLoadButton]'
+    selector: '[uxInfiniteScrollLoadButton]',
+    standalone: false
 })
 export class InfiniteScrollLoadButtonDirective {
     private readonly _template = inject<TemplateRef<void>>(TemplateRef);

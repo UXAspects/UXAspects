@@ -17,7 +17,8 @@ export const RADIO_GROUP_CONTROL_VALUE_ACCESSOR: ExistingProvider = {
     ],
     host: {
         'role': 'radiogroup'
-    }
+    },
+    standalone: false
 })
 export class RadioButtonGroupDirective<T = unknown> implements ControlValueAccessor, AfterContentInit, OnDestroy  {
     private readonly _changeDetector = inject(ChangeDetectorRef);

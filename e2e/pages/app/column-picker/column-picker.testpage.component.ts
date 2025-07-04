@@ -4,7 +4,8 @@ import { ColumnPickerGroupItem, ColumnPickerGroup } from '@ux-aspects/ux-aspects
 @Component({
     selector: 'app-column-picker',
     templateUrl: './column-picker.testpage.component.html',
-    styleUrls: ['./column-picker.testpage.component.less']
+    styleUrls: ['./column-picker.testpage.component.less'],
+    standalone: false
 })
 export class ColumnPickerTestPageComponent {
 

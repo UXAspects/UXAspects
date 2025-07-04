@@ -6,6 +6,7 @@ import { MarqueeWizardStepIconDirective } from './marquee-wizard-step-icon.direc
     selector: 'ux-marquee-wizard-step',
     templateUrl: './marquee-wizard-step.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class MarqueeWizardStepComponent<TContext = unknown> extends WizardStepComponent {
 

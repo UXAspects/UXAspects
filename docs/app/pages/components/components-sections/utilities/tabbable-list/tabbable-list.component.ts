@@ -12,6 +12,7 @@ const chance = new Chance();
     templateUrl: './tabbable-list.component.html',
     styleUrls: ['./tabbable-list.component.less'],
     changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 @DocumentationSectionComponent('ComponentsTabbableListComponent')
 export class ComponentsTabbableListComponent

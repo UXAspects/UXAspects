@@ -4,6 +4,7 @@ import { Component } from '@angular/core';
     selector: 'app-media-player',
     templateUrl: './media-player.testpage.component.html',
     styleUrls: ['./media-player.testpage.component.less'],
+    standalone: false
 })
 export class MediaPlayerTestPageComponent {
     type: string = 'video';

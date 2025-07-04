@@ -12,7 +12,8 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 @Component({
     selector: 'uxd-search-builder',
     templateUrl: './search-builder.component.html',
-    styleUrls: ['./search-builder.component.less']
+    styleUrls: ['./search-builder.component.less'],
+    standalone: false
 })
 @DocumentationSectionComponent('ComponentsSearchBuilderComponent')
 export class ComponentsSearchBuilderComponent extends BaseDocumentationSection implements IPlaygroundProvider, OnDestroy {

@@ -9,6 +9,7 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 @Component({
     selector: 'uxd-charts-line-chart',
     templateUrl: './line-chart.component.html',
+    standalone: false
 })
 @DocumentationSectionComponent('ChartsLineChartComponent')
 export class ChartsLineChartComponent

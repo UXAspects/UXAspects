@@ -8,7 +8,8 @@ import prism from '!!raw-loader!prismjs';
 @Component({
     selector: 'uxd-snippet',
     templateUrl: './snippet.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class SnippetComponent implements OnChanges {
 

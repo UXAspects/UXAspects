@@ -8,6 +8,7 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 @Component({
     selector: 'uxd-component-list',
     templateUrl: './component-list.component.html',
+    standalone: false
 })
 @DocumentationSectionComponent('ComponentsComponentListComponent')
 export class ComponentsComponentListComponent

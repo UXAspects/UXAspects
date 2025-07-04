@@ -5,7 +5,8 @@ import { BehaviorSubject } from 'rxjs';
 @Component({
     selector: 'app-zone-three',
     templateUrl: './zone-three.component.html',
-    providers: [ConduitZone]
+    providers: [ConduitZone],
+    standalone: false
 })
 export class ZoneThreeComponent extends ConduitZoneComponent {
     zoneId: string = 'zone-three';

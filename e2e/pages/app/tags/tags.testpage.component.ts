@@ -4,6 +4,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
     selector: 'tags-app',
     templateUrl: './tags.testpage.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class TagsTestPageComponent {
     tags = ['Alpha', 'Beta', 'Kappa'];

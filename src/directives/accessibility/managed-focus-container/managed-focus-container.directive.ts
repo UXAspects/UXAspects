@@ -2,7 +2,8 @@ import { Directive, ElementRef, inject, OnDestroy, OnInit } from '@angular/core'
 import { ManagedFocusContainerService } from './managed-focus-container.service';
 
 @Directive({
-    selector: '[uxManagedFocusContainer]'
+    selector: '[uxManagedFocusContainer]',
+    standalone: false
 })
 export class ManagedFocusContainerDirective implements OnInit, OnDestroy {
     private readonly _elementRef = inject(ElementRef);

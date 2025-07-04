@@ -33,7 +33,8 @@ const TAGINPUT_VALIDATOR = {
         '[class.disabled]': 'disabled',
         '[class.focus]': 'hasFocus()',
         '[class.invalid]': '!valid || !inputValid'
-    }
+    },
+    standalone: false
 })
  
 export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, ControlValueAccessor, Validator, OnDestroy {

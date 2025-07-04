@@ -6,7 +6,8 @@ import { TypeaheadVisibleOption } from './typeahead-visible-option';
 @Component({
     selector: 'ux-typeahead-options-list',
     templateUrl: 'typeahead-options-list.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class TypeaheadOptionsListComponent<T> {
 

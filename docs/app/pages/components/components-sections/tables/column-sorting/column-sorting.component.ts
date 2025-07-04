@@ -15,6 +15,7 @@ import { DocumentationType, DOCUMENTATION_TOKEN } from '../../../../../tokens/do
 @Component({
     selector: 'uxd-components-column-sorting',
     templateUrl: './column-sorting.component.html',
+    standalone: false
 })
 @DocumentationSectionComponent('ComponentsColumnSortingComponent')
 export class ComponentsColumnSortingComponent

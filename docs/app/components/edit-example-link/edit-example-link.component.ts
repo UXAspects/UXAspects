@@ -9,7 +9,8 @@ import { EditExampleService } from '../../services/edit-example/edit-example.ser
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
         '[class.enabled]': '!!content'
-    }
+    },
+    standalone: false
 })
 export class EditExampleLinkComponent {
 

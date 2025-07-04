@@ -4,7 +4,8 @@ import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
     selector: 'uxd-api-properties',
     templateUrl: './api-properties.component.html',
     styleUrls: ['./api-properties.component.less'],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class ApiPropertiesComponent {
     @Input() tableTitle: string;

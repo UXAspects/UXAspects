@@ -11,6 +11,7 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
     selector: 'uxd-components-media-player',
     templateUrl: './media-player.component.html',
     styleUrls: ['./media-player.component.less'],
+    standalone: false
 })
 @DocumentationSectionComponent('ComponentsMediaPlayerComponent')
 export class ComponentsMediaPlayerComponent

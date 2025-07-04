@@ -4,7 +4,8 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
     selector: 'uxd-showcase-card',
     templateUrl: './showcase-card.component.html',
     styleUrls: ['./showcase-card.component.less'],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class ShowcaseCardComponent {
     @Input() image: string;

@@ -5,7 +5,8 @@ import { BehaviorSubject } from 'rxjs';
 @Component({
     selector: 'uxd-components-conduit-filter',
     templateUrl: './filter.component.html',
-    providers: [ConduitZone]
+    providers: [ConduitZone],
+    standalone: false
 })
 export class ComponentsConduitFilterComponent extends ConduitZoneComponent {
 

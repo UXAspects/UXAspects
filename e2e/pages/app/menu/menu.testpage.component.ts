@@ -4,7 +4,8 @@ import { BehaviorSubject } from 'rxjs';
 @Component({
     selector: 'app-navigation',
     templateUrl: './menu.testpage.component.html',
-    styleUrls: ['./menu.testpage.component.css']
+    styleUrls: ['./menu.testpage.component.css'],
+    standalone: false
 })
 export class MenuTestPageComponent {
 

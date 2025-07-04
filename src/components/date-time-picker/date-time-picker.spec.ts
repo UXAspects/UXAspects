@@ -7,8 +7,8 @@ import { DateTimePickerModule } from './date-time-picker.module';
 import { DateTimePickerTimezone } from './date-time-picker.utils';
 
 @Component({
-  selector: 'ux-components-date-time-picker',
-  template: `
+    selector: 'ux-components-date-time-picker',
+    template: `
     <ux-date-time-picker
       [(date)]="date"
       [showTime]="showTime"
@@ -23,6 +23,7 @@ import { DateTimePickerTimezone } from './date-time-picker.utils';
     >
     </ux-date-time-picker>
   `,
+    standalone: false
 })
 export class DateTimePickerTestComponent {
   // eslint-disable-next-line @typescript-eslint/no-empty-function

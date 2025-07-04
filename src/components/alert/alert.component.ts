@@ -15,7 +15,8 @@ import { AlertIconDirective } from './alert-icon.directive';
         '[class.ux-alert-dark]': 'type === "dark" && !_isCustomColor',
         '[style.background-color]': '_backgroundColor',
         '[style.color]': '_foregroundColor'
-    }
+    },
+    standalone: false
 })
 export class AlertComponent {
 

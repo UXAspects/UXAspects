@@ -9,6 +9,7 @@ import { HierarchyBarNode } from '../interfaces/hierarchy-bar-node.interface';
     selector: 'ux-hierarchy-bar-standard',
     templateUrl: './hierarchy-bar-standard.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class HierarchyBarStandardComponent implements OnDestroy {
     readonly hierarchyBar = inject(HierarchyBarService);

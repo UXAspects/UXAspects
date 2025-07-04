@@ -7,6 +7,7 @@ import { DocumentationSectionComponent } from '../../../../../decorators/documen
     selector: 'uxd-components-tree-view',
     templateUrl: './tree-view.component.html',
     styleUrls: ['./tree-view.component.less'],
+    standalone: false
 })
 @DocumentationSectionComponent('ComponentsTreeViewComponent')
 export class ComponentsTreeViewComponent extends BaseDocumentationSection {

@@ -3,7 +3,8 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 @Component({
     selector: 'ux-breadcrumbs',
     templateUrl: './breadcrumbs.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class BreadcrumbsComponent {
 

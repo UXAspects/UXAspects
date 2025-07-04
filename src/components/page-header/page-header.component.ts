@@ -13,7 +13,8 @@ export type PageHeaderNavigationAlignment = 'left' | 'right' | 'center';
     selector: 'ux-page-header',
     exportAs: 'ux-page-header',
     templateUrl: 'page-header.component.html',
-    providers: [PageHeaderService]
+    providers: [PageHeaderService],
+    standalone: false
 })
 export class PageHeaderComponent {
     private readonly _colorService = inject(ColorService);

@@ -10,7 +10,8 @@ import { SiteThemeService } from '../../services/site-theme/site-theme.service';
     selector: 'uxd-migrate-link',
     templateUrl: './migrate-link.component.html',
     styleUrls: ['./migrate-link.component.less'],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class MigrateLinkComponent implements OnDestroy {
 

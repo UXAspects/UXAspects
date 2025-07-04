@@ -8,6 +8,7 @@ import { playgroundAdapter } from '../../../../../services/playground/adapters/l
 @Component({
     selector: 'uxd-css-typography-unstyled-list',
     templateUrl: './unstyled-list.component.html',
+    standalone: false
 })
 @DocumentationSectionComponent('CssUnstyledListComponent')
 export class CssUnstyledListComponent

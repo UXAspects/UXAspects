@@ -3,10 +3,11 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { SpinButtonModule } from './spin-button.module';
 
 @Component({
-  selector: 'app-spin-button-test',
-  template: `
+    selector: 'app-spin-button-test',
+    template: `
     <ux-spin-button [(value)]="value" [maxLength]="maxLength" type="type"> </ux-spin-button>
   `,
+    standalone: false
 })
 export class SpinButtonTestComponent {
   value: number | string;

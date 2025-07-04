@@ -7,7 +7,8 @@ import { DashboardStackMode } from './dashboard-stack-mode.enum';
 
 @Component({
     selector: 'ux-dashboard-widget',
-    templateUrl: './dashboard-widget.component.html'
+    templateUrl: './dashboard-widget.component.html',
+    standalone: false
 })
 export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestroy, OnChanges {
 

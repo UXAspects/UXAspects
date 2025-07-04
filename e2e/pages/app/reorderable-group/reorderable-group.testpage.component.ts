@@ -15,7 +15,8 @@ import { Component } from '@angular/core';
             padding: 15px;
             background-color: white;
         }
-    `]
+    `],
+    standalone: false
 })
 export class ReorderableGroupTestPageComponent {
 

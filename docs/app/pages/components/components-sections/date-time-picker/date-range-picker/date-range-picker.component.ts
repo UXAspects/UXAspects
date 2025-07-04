@@ -10,6 +10,7 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
     templateUrl: './date-range-picker.component.html',
     styleUrls: ['./date-range-picker.component.less'],
     encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 @DocumentationSectionComponent('ComponentsDateRangePickerComponent')
 export class ComponentsDateRangePickerComponent

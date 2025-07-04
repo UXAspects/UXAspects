@@ -8,6 +8,7 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 @Component({
     selector: 'uxd-components-page-header',
     templateUrl: './page-header.component.html',
+    standalone: false
 })
 @DocumentationSectionComponent('ComponentsPageHeaderComponent')
 export class ComponentsPageHeaderComponent

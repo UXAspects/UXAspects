@@ -8,6 +8,7 @@ import { playgroundAdapter } from '../../../../../services/playground/adapters/l
 @Component({
     selector: 'uxd-css-text-inputs-segmented-addons',
     templateUrl: './segmented-addons.component.html',
+    standalone: false
 })
 @DocumentationSectionComponent('CssSegmentedAddonsComponent')
 export class CssSegmentedAddonsComponent

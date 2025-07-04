@@ -14,8 +14,8 @@ interface StepDefinition {
  * Test navigation and steps display correctly
  */
 @Component({
-  selector: 'wizard-test-app',
-  template: `
+    selector: 'wizard-test-app',
+    template: `
     <ux-wizard
       [(step)]="step"
       [previousVisible]="step !== 0"
@@ -35,6 +35,7 @@ interface StepDefinition {
       }
     </ux-wizard>
   `,
+    standalone: false
 })
 export class WizardTestComponent {
   @ViewChild(WizardComponent) wizard: WizardComponent;
@@ -239,8 +240,8 @@ describe('Wizard', () => {
 });
 
 @Component({
-  selector: 'wizard-async-validation-test-app',
-  template: `
+    selector: 'wizard-async-validation-test-app',
+    template: `
     <ux-wizard
       (stepChanging)="stepChanging($event)"
       (stepChange)="stepChange($event)"
@@ -256,6 +257,7 @@ describe('Wizard', () => {
       </ux-wizard-step>
     </ux-wizard>
   `,
+    standalone: false
 })
 export class WizardAsyncValidationTestComponent {
   firstStepValidator: () => boolean | Promise<boolean>;
@@ -468,8 +470,8 @@ describe('Wizard with validator', () => {
  * Test resetVisitedOnValidationError flag working as expected and visitedChange is hit when required.
  **/
 @Component({
-  selector: 'marquee-wizard-validation-app',
-  template: `
+    selector: 'marquee-wizard-validation-app',
+    template: `
     <ux-wizard
       [(step)]="currentStep"
       [resetVisitedOnValidationError]="resetVisitedOnValidationError"
@@ -500,6 +502,7 @@ describe('Wizard with validator', () => {
       </ux-wizard-step>
     </ux-wizard>
   `,
+    standalone: false
 })
 export class WizardValidationTestComponent {
   currentStep: number;

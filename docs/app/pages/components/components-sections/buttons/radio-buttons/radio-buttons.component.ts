@@ -7,6 +7,7 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 @Component({
     selector: 'uxd-components-buttons-radio-buttons',
     templateUrl: './radio-buttons.component.html',
+    standalone: false
 })
 @DocumentationSectionComponent('ComponentsRadioButtonsComponent')
 export class ComponentsRadioButtonsComponent

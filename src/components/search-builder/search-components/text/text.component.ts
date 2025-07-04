@@ -2,8 +2,9 @@ import { Component } from '@angular/core';
 import { BaseSearchComponent, BaseSearchComponentConfig } from '../base-search.component';
 
 @Component({
-  selector: 'ux-search-text',
-  templateUrl: './text.component.html',
+    selector: 'ux-search-text',
+    templateUrl: './text.component.html',
+    standalone: false
 })
 export class SearchTextComponent extends BaseSearchComponent {
   type: string = 'text';

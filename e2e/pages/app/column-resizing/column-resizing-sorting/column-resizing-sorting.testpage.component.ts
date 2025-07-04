@@ -3,7 +3,8 @@ import { ColumnSortingComponent, ColumnSortingOrder, ColumnSortingState } from '
 
 @Component({
     selector: 'app-column-resizing-sorting',
-    templateUrl: './column-resizing-sorting.testpage.component.html'
+    templateUrl: './column-resizing-sorting.testpage.component.html',
+    standalone: false
 })
 export class ColumnResizingSortingTestPageComponent {
 

@@ -3,7 +3,8 @@ import { ColorPickerColor, ColorService, MenuTriggerDirective } from '@ux-aspect
 
 @Component({
     selector: 'app-color-picker',
-    templateUrl: 'color-picker.testpage.component.html'
+    templateUrl: 'color-picker.testpage.component.html',
+    standalone: false
 })
 
 export class ColorPickerTestPageComponent {

@@ -8,6 +8,7 @@ import { playgroundAdapter } from '../../../../../services/playground/adapters/l
 @Component({
     selector: 'uxd-css-responsive-design-mobile-desktop',
     templateUrl: './mobile-desktop.component.html',
+    standalone: false
 })
 @DocumentationSectionComponent('CssMobileDesktopComponent')
 export class CssMobileDesktopComponent

@@ -10,6 +10,7 @@ import { ReorderableDirective } from './reorderable.directive';
     host: {
         '[class.ux-reorderable-moving]': '_dragRef.isDragging()',
     },
+    standalone: false
 })
 export class ReorderableModelDirective<T> extends CdkDrag implements OnInit, OnDestroy {
     // allow the user to specify a model for the item - allows use with ngFor

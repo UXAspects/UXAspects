@@ -5,7 +5,8 @@ import { IDocumentationPage } from '../../interfaces/IDocumentationPage';
 
 @Component({
     selector: 'uxd-section-select',
-    templateUrl: './section-select.component.html'
+    templateUrl: './section-select.component.html',
+    standalone: false
 })
 export class SectionSelectComponent implements OnInit, OnDestroy {
 

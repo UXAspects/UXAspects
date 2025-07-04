@@ -5,7 +5,8 @@ import { Usage } from './../../interfaces/Usage';
     selector: 'uxd-usage-link',
     templateUrl: './usage-link.component.html',
     styleUrls: ['./usage-link.component.less'],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class UsageLinkComponent {
 

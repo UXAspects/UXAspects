@@ -8,7 +8,8 @@ import { OrganizationChartContext, OrganizationChartDataService } from './organi
 @Component({
     selector: 'uxd-organization-chart',
     templateUrl: './organization-chart.component.html',
-    styleUrls: ['./organization-chart.component.less']
+    styleUrls: ['./organization-chart.component.less'],
+    standalone: false
 })
 export class OrganizationChartShowcaseComponent implements OnInit, OnDestroy {
 

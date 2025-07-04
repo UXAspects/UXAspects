@@ -8,6 +8,7 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 @Component({
     selector: 'uxd-float-label',
     templateUrl: './float-label.component.html',
+    standalone: false
 })
 @DocumentationSectionComponent('ComponentsFloatLabelComponent')
 export class ComponentsFloatLabelComponent

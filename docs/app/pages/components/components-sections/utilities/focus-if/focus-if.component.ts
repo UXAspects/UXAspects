@@ -8,6 +8,7 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
     selector: 'uxd-components-focus-if',
     templateUrl: './focus-if.component.html',
     styleUrls: ['./focus-if.component.less'],
+    standalone: false
 })
 @DocumentationSectionComponent('ComponentsFocusIfComponent')
 export class ComponentsFocusIfComponent

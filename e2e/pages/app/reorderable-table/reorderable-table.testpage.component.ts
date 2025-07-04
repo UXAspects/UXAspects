@@ -2,7 +2,8 @@ import { Component, Pipe, PipeTransform } from '@angular/core';
 
 @Component({
     selector: 'e2e-reorderable-table',
-    templateUrl: './reorderable-table.testpage.component.html'
+    templateUrl: './reorderable-table.testpage.component.html',
+    standalone: false
 })
 export class ReorderableTableTestPageComponent {
 
@@ -33,7 +34,8 @@ export class ReorderableTableTestPageComponent {
 
 @Pipe({
     name: 'map',
-    pure: true
+    pure: true,
+    standalone: false
 })
 export class MapPipe implements PipeTransform {
     transform(value: ReorderableTableData[]) {

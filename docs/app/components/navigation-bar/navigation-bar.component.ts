@@ -6,7 +6,8 @@ import { AppConfiguration } from '../../services/app-configuration/app-configura
 @Component({
     selector: 'uxd-navigation-bar',
     templateUrl: './navigation-bar.component.html',
-    styleUrls: ['./navigation-bar.component.less']
+    styleUrls: ['./navigation-bar.component.less'],
+    standalone: false
 })
 export class NavigationBarComponent {
 

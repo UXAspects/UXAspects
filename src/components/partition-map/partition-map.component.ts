@@ -36,13 +36,14 @@ interface SegmentCacheData {
 }
 
 @Component({
-  selector: 'ux-partition-map',
-  templateUrl: './partition-map.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  host: {
-    role: 'tree',
-    'aria-orientation': 'vertical',
-  },
+    selector: 'ux-partition-map',
+    templateUrl: './partition-map.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    host: {
+        role: 'tree',
+        'aria-orientation': 'vertical',
+    },
+    standalone: false
 })
 export class PartitionMapComponent implements OnInit, OnDestroy {
   private readonly _colorService = inject(ColorService);

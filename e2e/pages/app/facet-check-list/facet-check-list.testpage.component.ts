@@ -3,7 +3,8 @@ import { Facet, FacetDeselect, FacetDeselectAll, FacetEvent, FacetSelect } from 
 
 @Component({
     selector: 'facet-check-list-app',
-    templateUrl: './facet-check-list.testpage.component.html'
+    templateUrl: './facet-check-list.testpage.component.html',
+    standalone: false
 })
 export class FacetCheckListTestPageComponent {
 

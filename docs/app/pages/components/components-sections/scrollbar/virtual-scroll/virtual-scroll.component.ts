@@ -20,6 +20,7 @@ const DEPARTMENTS = [
     selector: 'uxd-components-virtual-scroll',
     templateUrl: './virtual-scroll.component.html',
     styleUrls: ['./virtual-scroll.component.less'],
+    standalone: false
 })
 @DocumentationSectionComponent('ComponentsVirtualScrollComponent')
 export class ComponentsVirtualScrollComponent

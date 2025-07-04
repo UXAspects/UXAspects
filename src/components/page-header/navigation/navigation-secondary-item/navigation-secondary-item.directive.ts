@@ -5,7 +5,8 @@ import { PageHeaderService } from '../../page-header.service';
 import { PageHeaderNavigationItem } from '../navigation.component';
 
 @Directive({
-    selector: '[uxPageHeaderNavigationSecondaryItem]'
+    selector: '[uxPageHeaderNavigationSecondaryItem]',
+    standalone: false
 })
 export class PageHeaderNavigationSecondaryItemDirective implements OnInit, OnDestroy {
     private readonly _pageHeaderService = inject(PageHeaderService);

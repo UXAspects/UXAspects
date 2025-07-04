@@ -18,7 +18,8 @@ import { MenuTriggerDirective } from '../menu/menu-trigger/menu-trigger.directiv
     host: {
         '[class.ux-select-disabled]': 'disabled',
         '[attr.aria-label]': 'null'
-    }
+    },
+    standalone: false
 })
 export class InputDropdownComponent<T> implements ControlValueAccessor, AfterViewInit, OnChanges, OnDestroy {
     private readonly _changeDetector = inject(ChangeDetectorRef);

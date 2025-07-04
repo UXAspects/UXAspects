@@ -4,11 +4,12 @@ import { AccordionService } from './accordion.service';
 @Component({
     selector: 'ux-accordion',
     templateUrl: './accordion.component.html',
-    providers: [ AccordionService ],
+    providers: [AccordionService],
     host: {
         'class': 'panel-group',
         'aria-multiselectable': 'true'
-    }
+    },
+    standalone: false
 })
 export class AccordionComponent {
 

@@ -19,7 +19,8 @@ import { PageHeaderModule } from './page-header.module';
             (backClick)="onBackClick()"
             (logoClick)="onLogoClick()">
         </ux-page-header>
-    `
+    `,
+    standalone: false
 })
 export class PageHeaderTestComponent {
 
@@ -219,7 +220,8 @@ describe('Page Header Component', () => {
             [secondaryNavigationAlignment]="'center'"
             [secondaryNavigationAutoselect]="true">
         </ux-page-header>
-    `
+    `,
+    standalone: false
 })
 export class PageHeaderSecondaryTestComponent {
 

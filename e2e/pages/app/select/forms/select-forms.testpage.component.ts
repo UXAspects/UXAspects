@@ -6,6 +6,7 @@ import { BehaviorSubject } from 'rxjs';
     selector: 'app-select-forms',
     templateUrl: './select-forms.testpage.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class SelectFormsTestPageComponent implements OnInit {
 

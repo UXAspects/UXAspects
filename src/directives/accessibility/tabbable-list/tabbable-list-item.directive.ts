@@ -15,7 +15,8 @@ let uniqueKey = 0;
 
 @Directive({
     selector: '[uxTabbableListItem]',
-    exportAs: 'ux-tabbable-list-item'
+    exportAs: 'ux-tabbable-list-item',
+    standalone: false
 })
 export class TabbableListItemDirective implements FocusableOption, OnDestroy {
     /** Access the service to programmatically control focus indicators */

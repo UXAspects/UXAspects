@@ -12,7 +12,8 @@ export const FocusableItemToken = new InjectionToken<FocusableControl>('Focusabl
     host: {
         '[class.ux-menu-item]': 'true',
         'role': 'menuitem'
-    }
+    },
+    standalone: false
 })
 export class MenuItemCustomControlDirective extends MenuTabbableItemDirective implements FocusableOption, OnInit, OnDestroy {
     private readonly _focusableControl = inject(FocusableItemToken, { optional: true });

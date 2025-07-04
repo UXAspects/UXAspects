@@ -4,7 +4,8 @@ import { SliderExample } from '../slider-example';
 
 @Component({
     selector: 'sliders-persistent-callout',
-    templateUrl: 'sliders-persistent-callout.component.html'
+    templateUrl: 'sliders-persistent-callout.component.html',
+    standalone: false
 })
 export class SlidersPersistentCalloutTestPageComponent {
 

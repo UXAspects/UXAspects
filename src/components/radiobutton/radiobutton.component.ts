@@ -18,10 +18,11 @@ let uniqueRadioId = 0;
     selector: 'ux-radio-button',
     templateUrl: './radiobutton.component.html',
     providers: [RADIOBUTTON_VALUE_ACCESSOR, {
-        provide: FocusableItemToken,
-        useExisting: RadioButtonComponent
-    }],
-    changeDetection: ChangeDetectionStrategy.OnPush
+            provide: FocusableItemToken,
+            useExisting: RadioButtonComponent
+        }],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class RadioButtonComponent<T = unknown> implements ControlValueAccessor, OnChanges, FocusableControl {
     private readonly _changeDetector = inject(ChangeDetectorRef);

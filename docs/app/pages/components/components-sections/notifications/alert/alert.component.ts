@@ -8,6 +8,7 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
     selector: 'uxmd-pages-alert',
     templateUrl: './alert.component.html',
     styleUrls: ['./alert.component.less'],
+    standalone: false
 })
 @DocumentationSectionComponent('ComponentsAlertComponent')
 export class ComponentsAlertComponent

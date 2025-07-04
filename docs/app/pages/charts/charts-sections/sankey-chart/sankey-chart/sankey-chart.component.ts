@@ -9,6 +9,7 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
     templateUrl: './sankey-chart.component.html',
     styleUrls: ['./sankey-chart.component.less'],
     changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 @DocumentationSectionComponent('ChartsSankeyChartComponent')
 export class ChartsSankeyChartComponent

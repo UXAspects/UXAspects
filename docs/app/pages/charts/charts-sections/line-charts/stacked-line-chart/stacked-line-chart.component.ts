@@ -9,6 +9,7 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 @Component({
     selector: 'uxd-charts-stacked-line-chart',
     templateUrl: './stacked-line-chart.component.html',
+    standalone: false
 })
 @DocumentationSectionComponent('ChartsStackedLineChartComponent')
 export class ChartsStackedLineChartComponent

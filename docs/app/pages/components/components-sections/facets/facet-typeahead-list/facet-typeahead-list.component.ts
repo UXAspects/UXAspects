@@ -10,6 +10,7 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 @Component({
     selector: 'uxd-components-facet-typeahead-list',
     templateUrl: './facet-typeahead-list.component.html',
+    standalone: false
 })
 @DocumentationSectionComponent('ComponentsFacetTypeaheadListComponent')
 export class ComponentsFacetTypeaheadListComponent

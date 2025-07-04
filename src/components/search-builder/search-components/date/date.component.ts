@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { BaseSearchComponent, BaseSearchComponentConfig } from '../base-search.component';
 
 @Component({
-  selector: 'ux-search-date',
-  templateUrl: './date.component.html'
+    selector: 'ux-search-date',
+    templateUrl: './date.component.html',
+    standalone: false
 })
 export class SearchDateComponent extends BaseSearchComponent implements OnInit {
 

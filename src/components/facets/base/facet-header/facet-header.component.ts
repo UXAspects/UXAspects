@@ -11,7 +11,8 @@ import { FocusIndicator, FocusIndicatorService } from '../../../../directives/ac
         '(keyup.enter)': 'toggleExpand()',
         '[attr.aria-expanded]': 'expanded',
         '[attr.aria-label]': 'header + \' Facet: Activate to \' + (expanded ? \'collapse\' : \'expand\')'
-    }
+    },
+    standalone: false
 })
 export class FacetHeaderComponent implements OnDestroy {
     readonly focusIndicatorService = inject(FocusIndicatorService);

@@ -4,7 +4,10 @@ import { DocumentationSectionComponent } from '../../../../../decorators/documen
 import { IPlayground } from '../../../../../interfaces/IPlayground';
 import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
 
-@Pipe({ name: 'highlightSearch' })
+@Pipe({
+    name: 'highlightSearch',
+    standalone: false
+})
 export class HighlightSearch implements PipeTransform {
     transform(text: string, filter: string): string {
         const highlightIndex = text.toLowerCase().indexOf(filter.toLowerCase());
@@ -22,6 +25,7 @@ export class HighlightSearch implements PipeTransform {
     selector: 'uxd-components-input-dropdown',
     templateUrl: './input-dropdown.component.html',
     styleUrls: ['./input-dropdown.component.less'],
+    standalone: false
 })
 @DocumentationSectionComponent('ComponentsInputDropdownComponent')
 export class ComponentsInputDropdownComponent

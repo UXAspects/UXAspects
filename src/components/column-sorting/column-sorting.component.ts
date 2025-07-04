@@ -7,7 +7,8 @@ import { ColumnSortingDirective, ColumnSortingIndicatorContext, ColumnSortingOrd
     selector: 'ux-column-sorting',
     templateUrl: './column-sorting.component.html',
     exportAs: 'ux-column-sorting',
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class ColumnSortingComponent implements OnInit, OnChanges, OnDestroy {
 

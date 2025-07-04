@@ -8,6 +8,7 @@ import { playgroundAdapter } from '../../../../../services/playground/adapters/l
 @Component({
     selector: 'uxd-css-typography-headings',
     templateUrl: './headings.component.html',
+    standalone: false
 })
 @DocumentationSectionComponent('CssHeadingsComponent')
 export class CssHeadingsComponent extends BaseDocumentationSection implements IPlaygroundProvider {

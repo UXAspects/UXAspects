@@ -7,6 +7,7 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 @Component({
     selector: 'uxd-conduit',
     templateUrl: './conduit.component.html',
+    standalone: false
 })
 @DocumentationSectionComponent('ComponentsConduitComponent')
 export class ComponentsConduitComponent

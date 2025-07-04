@@ -5,7 +5,8 @@ import { Observable, Observer } from 'rxjs';
 @Component({
     selector: 'app-hierarchy-bar',
     templateUrl: './hierarchy-bar.testpage.component.html',
-    styleUrls: ['./hierarchy-bar.testpage.component.css']
+    styleUrls: ['./hierarchy-bar.testpage.component.css'],
+    standalone: false
 })
 export class HierarchyBarTestPageComponent {
 

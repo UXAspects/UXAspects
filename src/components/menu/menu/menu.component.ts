@@ -26,7 +26,8 @@ let uniqueId = 0;
                 animate('200ms ease-out', style({ opacity: 0, transform: 'scaleY(0)' }))
             ])
         ]),
-    ]
+    ],
+    standalone: false
 })
 export class MenuComponent implements AfterContentInit, OnDestroy, OnChanges {
     private readonly _options = inject(MENU_OPTIONS_TOKEN, { optional: true });

@@ -11,7 +11,8 @@ import { SelectionService } from './selection.service';
     exportAs: 'ux-selection-item',
     host: {
         '[attr.aria-selected]': 'addAriaAttributes ? selected : null',
-    }
+    },
+    standalone: false
 })
 export class SelectionItemDirective<T> implements OnInit, OnChanges, OnDestroy {
     readonly focusIndicatorService = inject(FocusIndicatorService);

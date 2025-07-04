@@ -9,6 +9,7 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
     selector: 'uxd-color-picker',
     templateUrl: './color-picker.component.html',
     styleUrls: ['./color-picker.component.less'],
+    standalone: false
 })
 @DocumentationSectionComponent('ComponentsColorPickerComponent')
 export class ComponentsColorPickerComponent

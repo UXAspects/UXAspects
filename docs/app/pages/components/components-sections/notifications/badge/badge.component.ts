@@ -15,6 +15,7 @@ import { DOCUMENTATION_TOKEN, DocumentationType } from '../../../../../tokens/do
     selector: 'uxd-components-badge',
     templateUrl: './badge.component.html',
     styleUrls: ['./badge.component.less'],
+    standalone: false
 })
 @DocumentationSectionComponent('ComponentsBadgeComponent')
 export class ComponentsBadgeComponent

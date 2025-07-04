@@ -8,6 +8,7 @@ import { DocumentationType, DOCUMENTATION_TOKEN } from '../../../../../tokens/do
 @Component({
     selector: 'uxd-components-buttons-split-button-dropdowns',
     templateUrl: './split-button-dropdowns.component.html',
+    standalone: false
 })
 @DocumentationSectionComponent('ComponentsSplitButtonDropdownsComponent')
 export class ComponentsSplitButtonDropdownsComponent

@@ -5,7 +5,8 @@ import { FocusIndicator, FocusIndicatorService } from '../accessibility/index';
 import { MenuNavigationService } from './menu-navigation.service';
 
 @Directive({
-    selector: '[uxMenuNavigationItem]'
+    selector: '[uxMenuNavigationItem]',
+    standalone: false
 })
 export class MenuNavigationItemDirective implements OnDestroy {
     readonly focusIndicatorService = inject(FocusIndicatorService);

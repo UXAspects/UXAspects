@@ -8,7 +8,8 @@ import { ColorService } from '../../services/color/index';
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
         '[class.disabled]': 'disabled',
-    }
+    },
+    standalone: false
 })
 export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
     readonly colorService = inject(ColorService);

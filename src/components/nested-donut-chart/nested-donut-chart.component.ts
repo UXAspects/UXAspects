@@ -10,7 +10,8 @@ import { ColorService, ThemeColor } from '../../services/color/index';
 @Component({
     selector: 'ux-nested-donut-chart',
     templateUrl: './nested-donut-chart.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class NestedDonutChartComponent implements OnInit, OnChanges, OnDestroy {
     private readonly _colorService = inject(ColorService);

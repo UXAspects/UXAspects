@@ -14,7 +14,8 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
                                [options]="options">
             </ux-filter-dynamic>
         </ux-filter-container>
-    `
+    `,
+    standalone: false
 })
 export class FilterDynamicComponentSpec {
 

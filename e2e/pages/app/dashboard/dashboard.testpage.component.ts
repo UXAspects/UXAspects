@@ -4,7 +4,8 @@ import { DashboardComponent, DashboardLayoutData, DashboardOptions } from '@ux-a
 @Component({
     selector: 'dashboard-app',
     templateUrl: './dashboard.testpage.component.html',
-    styleUrls: ['./dashboard.testpage.component.css']
+    styleUrls: ['./dashboard.testpage.component.css'],
+    standalone: false
 })
 export class DashboardTestPageComponent {
 

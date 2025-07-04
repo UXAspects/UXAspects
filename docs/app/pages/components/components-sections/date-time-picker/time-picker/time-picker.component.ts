@@ -7,6 +7,7 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 @Component({
     selector: 'uxd-time-picker',
     templateUrl: './time-picker.component.html',
+    standalone: false
 })
 @DocumentationSectionComponent('ComponentsTimePickerComponent')
 export class ComponentsTimePickerComponent

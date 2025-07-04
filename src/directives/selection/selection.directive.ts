@@ -8,7 +8,8 @@ import { SelectionStrategy } from './strategies/selection.strategy';
 @Directive({
     selector: '[uxSelection]',
     exportAs: 'ux-selection',
-    providers: [SelectionService]
+    providers: [SelectionService],
+    standalone: false
 })
 export class SelectionDirective<T> implements AfterContentInit, OnDestroy {
     readonly _selectionService = inject<SelectionService<T>>(SelectionService);

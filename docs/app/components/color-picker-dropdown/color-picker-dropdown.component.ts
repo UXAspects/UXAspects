@@ -5,6 +5,7 @@ import { ColorPickerColor, MenuTriggerDirective } from '@ux-aspects/ux-aspects';
     selector: 'uxd-color-picker-dropdown',
     templateUrl: './color-picker-dropdown.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class ColorPickerDropdownComponent {
 

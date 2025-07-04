@@ -12,7 +12,8 @@ import { YearViewItem, YearViewService } from './year-view.service';
     selector: 'ux-date-time-picker-year-view',
     templateUrl: './year-view.component.html',
     providers: [YearViewService],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class YearViewComponent implements AfterViewInit, OnDestroy {
     readonly yearService = inject(YearViewService);

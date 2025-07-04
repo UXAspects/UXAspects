@@ -8,6 +8,7 @@ import { playgroundAdapter } from '../../../../../services/playground/adapters/l
 @Component({
     selector: 'uxd-css-responsive-design-offsetting-columns',
     templateUrl: './offsetting-columns.component.html',
+    standalone: false
 })
 @DocumentationSectionComponent('CssOffsettingColumnsComponent')
 export class CssOffsettingColumnsComponent

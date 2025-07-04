@@ -6,7 +6,8 @@ import { InfiniteScrollLoadingDirective } from './infinite-scroll-loading.direct
 
 @Directive({
     selector: '[uxInfiniteScroll]',
-    exportAs: 'uxInfiniteScroll'
+    exportAs: 'uxInfiniteScroll',
+    standalone: false
 })
 export class InfiniteScrollDirective<T = unknown> implements OnInit, AfterContentInit, OnChanges, OnDestroy {
     private readonly _element = inject(ElementRef);

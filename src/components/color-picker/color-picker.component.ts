@@ -22,7 +22,8 @@ let uniqueId = 0;
     templateUrl: 'color-picker.component.html',
     host: {
         'tabindex': '0'
-    }
+    },
+    standalone: false
 })
 export class ColorPickerComponent implements OnInit, OnDestroy {
 

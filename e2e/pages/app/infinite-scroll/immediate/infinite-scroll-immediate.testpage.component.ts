@@ -4,7 +4,8 @@ import { BehaviorSubject } from 'rxjs';
 @Component({
     selector: 'app',
     templateUrl: './infinite-scroll-immediate.testpage.component.html',
-    styleUrls: ['./infinite-scroll-immediate.testpage.component.css']
+    styleUrls: ['./infinite-scroll-immediate.testpage.component.css'],
+    standalone: false
 })
 export class InfiniteScrollImmediateTestPageComponent {
 

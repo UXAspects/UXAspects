@@ -28,7 +28,8 @@ import { SankeyChartComponent } from './sankey-chart.component';
                 height: 800px;
             }
         `
-    ]
+    ],
+    standalone: false
 })
 export class SankeyChartTestComponent {
     nodes: ReadonlyArray<SankeyNode<SankeyNodeData>> = [
@@ -395,7 +396,8 @@ describe('Sankey Chart Component', () => {
                 height: 800px;
             }
         `
-    ]
+    ],
+    standalone: false
 })
 export class SankeyChartMinHeightTestComponent {
 

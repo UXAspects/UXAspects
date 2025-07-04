@@ -9,6 +9,7 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
     templateUrl: './static-tooltip.component.html',
     styleUrls: ['./static-tooltip.component.less'],
     changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 @DocumentationSectionComponent('ComponentsStaticTooltipComponent')
 export class ComponentsStaticTooltipComponent

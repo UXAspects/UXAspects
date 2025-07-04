@@ -8,6 +8,7 @@ import { playgroundAdapter } from '../../../../../services/playground/adapters/l
 @Component({
     selector: 'uxd-css-labels-static-text',
     templateUrl: './static-text.component.html',
+    standalone: false
 })
 @DocumentationSectionComponent('CssStaticTextComponent')
 export class CssStaticTextComponent

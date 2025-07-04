@@ -8,6 +8,7 @@ import { playgroundAdapter } from '../../../../../services/playground/adapters/l
 @Component({
     selector: 'uxd-css-typography-emphasis-classes',
     templateUrl: './emphasis-classes.component.html',
+    standalone: false
 })
 @DocumentationSectionComponent('CssEmphasisClassesComponent')
 export class CssEmphasisClassesComponent
