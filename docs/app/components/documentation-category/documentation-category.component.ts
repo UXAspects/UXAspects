@@ -1,12 +1,14 @@
+import { NgFor } from '@angular/common';
 import { AfterViewInit, ChangeDetectorRef, Component, HostListener, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ICategory } from '../../interfaces/ICategory';
 import { NavigationService } from '../../services/navigation/navigation.service';
+import { ComponentSectionComponent } from '../component-section/component-section.component';
 
 @Component({
   selector: 'uxd-documentation-category',
   templateUrl: './documentation-category.component.html',
-  standalone: false,
+  imports: [NgFor, ComponentSectionComponent],
 })
 export class DocumentationCategoryComponent implements OnInit, AfterViewInit {
   category: ICategory;

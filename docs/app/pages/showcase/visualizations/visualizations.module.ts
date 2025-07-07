@@ -48,13 +48,6 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [
-    OrganizationChartShowcaseComponent,
-    PartitionMapShowcaseComponent,
-    SankeyChartShowcaseComponent,
-    TypeaheadHighlight,
-    VisualizationsComponent,
-  ],
   imports: [
     AccessibilityModule,
     CommonModule,
@@ -71,6 +64,11 @@ const routes: Routes = [
     ToolbarSearchModule,
     TypeaheadModule,
     PageHeaderModule,
+    OrganizationChartShowcaseComponent,
+    PartitionMapShowcaseComponent,
+    SankeyChartShowcaseComponent,
+    TypeaheadHighlight,
+    VisualizationsComponent,
   ],
 })
 export class VisualizationsModule {}

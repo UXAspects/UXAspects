@@ -48,9 +48,9 @@ const ROUTES = [
     ReorderableModule,
     RouterModule.forChild(ROUTES),
     TabsetModule,
+    ...SECTIONS,
   ],
   exports: SECTIONS,
-  declarations: SECTIONS,
 })
 export class ComponentsDragAndDropModule {
   constructor(

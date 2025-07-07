@@ -1,5 +1,12 @@
+import { NgFor, NgIf } from '@angular/common';
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { Filter, FilterRemoveAllEvent, FilterService } from '@ux-aspects/ux-aspects';
+import {
+  Filter,
+  FilterRemoveAllEvent,
+  FilterService,
+  IconModule,
+  MenuModule,
+} from '@ux-aspects/ux-aspects';
 import { Subject } from 'rxjs';
 import { filter as rxFilter, takeUntil } from 'rxjs/operators';
 
@@ -7,7 +14,7 @@ import { filter as rxFilter, takeUntil } from 'rxjs/operators';
   selector: 'ux-filter-custom',
   templateUrl: './sample-filter.component.html',
   styleUrls: ['./sample-filter.component.less'],
-  standalone: false,
+  imports: [MenuModule, NgIf, IconModule, NgFor],
 })
 export class SampleFilterCustomComponent implements OnInit, OnDestroy {
   @Input() filters: Filter[] = [];

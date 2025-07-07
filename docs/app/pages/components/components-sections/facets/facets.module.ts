@@ -37,9 +37,9 @@ const ROUTES = [
     FacetsModule,
     RouterModule.forChild(ROUTES),
     TabsetModule,
+    ...SECTIONS,
   ],
   exports: SECTIONS,
-  declarations: SECTIONS,
 })
 export class ComponentsFacetsModule {
   constructor(

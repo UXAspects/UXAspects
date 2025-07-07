@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
+import { AccessibilityModule } from '@ux-aspects/ux-aspects';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
+import { SnippetComponent } from '../../../../../components/snippet/snippet.component';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
 import { playgroundAdapter } from '../../../../../services/playground/adapters/legacy-playground-adapter';
@@ -7,7 +9,7 @@ import { playgroundAdapter } from '../../../../../services/playground/adapters/l
 @Component({
   selector: 'uxd-css-colored-buttons',
   templateUrl: './colored-buttons.component.html',
-  standalone: false,
+  imports: [AccessibilityModule, SnippetComponent],
 })
 @DocumentationSectionComponent('CssColoredButtonsComponent')
 export class CssColoredButtonsComponent

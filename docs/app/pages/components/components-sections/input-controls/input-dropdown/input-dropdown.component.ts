@@ -1,13 +1,23 @@
+import { NgFor } from '@angular/common';
 import { Component, Pipe, PipeTransform } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import {
+  AccessibilityModule,
+  AccordionModule,
+  CheckboxModule,
+  InputDropdownModule,
+  RadioButtonModule,
+  TabsetModule,
+} from '@ux-aspects/ux-aspects';
+import { ApiPropertiesComponent } from '../../../../../components/api-properties/api-properties.component';
+import { ApiPropertyComponent } from '../../../../../components/api-property/api-property.component';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
+import { SnippetComponent } from '../../../../../components/snippet/snippet.component';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
 import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
 
-@Pipe({
-  name: 'highlightSearch',
-  standalone: false,
-})
+@Pipe({ name: 'highlightSearch' })
 export class HighlightSearch implements PipeTransform {
   transform(text: string, filter: string): string {
     const highlightIndex = text.toLowerCase().indexOf(filter.toLowerCase());
@@ -25,7 +35,20 @@ export class HighlightSearch implements PipeTransform {
   selector: 'uxd-components-input-dropdown',
   templateUrl: './input-dropdown.component.html',
   styleUrls: ['./input-dropdown.component.less'],
-  standalone: false,
+  imports: [
+    InputDropdownModule,
+    AccessibilityModule,
+    NgFor,
+    RadioButtonModule,
+    AccordionModule,
+    FormsModule,
+    CheckboxModule,
+    ApiPropertiesComponent,
+    ApiPropertyComponent,
+    TabsetModule,
+    SnippetComponent,
+    HighlightSearch,
+  ],
 })
 @DocumentationSectionComponent('ComponentsInputDropdownComponent')
 export class ComponentsInputDropdownComponent

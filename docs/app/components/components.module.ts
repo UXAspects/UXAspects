@@ -81,8 +81,8 @@ const DOCUMENTATION_COMPONENTS = [
     ScrollModule,
     TooltipModule,
     TypeaheadModule,
+    ...DOCUMENTATION_COMPONENTS,
   ],
   exports: [DOCUMENTATION_COMPONENTS, AccessibilityModule],
-  declarations: DOCUMENTATION_COMPONENTS,
 })
 export class DocumentationComponentsModule {}

@@ -1,4 +1,12 @@
+import { NgIf } from '@angular/common';
 import { Component, Input, OnDestroy, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import {
+  AccessibilityModule,
+  EboxModule,
+  PopoverModule,
+  TooltipModule,
+} from '@ux-aspects/ux-aspects';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { documentationSectionNames } from '../../decorators/documentation-section-component';
@@ -11,6 +19,10 @@ import { NavigationService } from '../../services/navigation/navigation.service'
 import { ResolverService } from '../../services/resolver/resolver.service';
 import { SiteThemeService } from '../../services/site-theme/site-theme.service';
 import { isBaseDocumentationSection } from '../base-documentation-section/base-documentation-section';
+import { EditExampleLinkComponent } from '../edit-example-link/edit-example-link.component';
+import { MigrateLinkComponent } from '../migrate-link/migrate-link.component';
+import { SnippetComponent } from '../snippet/snippet.component';
+import { UsageLinkComponent } from '../usage-link/usage-link.component';
 import { Usage } from './../../interfaces/Usage';
 import hybridModuleTs from './snippets/hybrid-module.txt';
 
@@ -18,7 +30,18 @@ import hybridModuleTs from './snippets/hybrid-module.txt';
   selector: 'uxd-component-section',
   templateUrl: './component-section.component.html',
   styleUrls: ['./component-section.component.less'],
-  standalone: false,
+  imports: [
+    EboxModule,
+    NgIf,
+    EditExampleLinkComponent,
+    UsageLinkComponent,
+    MigrateLinkComponent,
+    AccessibilityModule,
+    TooltipModule,
+    RouterLink,
+    PopoverModule,
+    SnippetComponent,
+  ],
 })
 export class ComponentSectionComponent<T> implements OnInit, OnDestroy {
   @Input() id: string;

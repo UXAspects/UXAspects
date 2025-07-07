@@ -1,6 +1,24 @@
+import { NgIf } from '@angular/common';
 import { Component, ViewChild } from '@angular/core';
-import { ColorPickerColor, ColorService, MenuTriggerDirective } from '@ux-aspects/ux-aspects';
+import { RouterLink } from '@angular/router';
+import {
+  AccessibilityModule,
+  AccordionModule,
+  CheckboxModule,
+  ColorPickerColor,
+  ColorPickerModule,
+  ColorService,
+  IconModule,
+  MenuModule,
+  MenuTriggerDirective,
+  NumberPickerModule,
+  RadioButtonModule,
+  TabsetModule,
+} from '@ux-aspects/ux-aspects';
+import { ApiPropertiesComponent } from '../../../../../components/api-properties/api-properties.component';
+import { ApiPropertyComponent } from '../../../../../components/api-property/api-property.component';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
+import { SnippetComponent } from '../../../../../components/snippet/snippet.component';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
 import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
@@ -9,7 +27,22 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
   selector: 'uxd-color-picker',
   templateUrl: './color-picker.component.html',
   styleUrls: ['./color-picker.component.less'],
-  standalone: false,
+  imports: [
+    MenuModule,
+    IconModule,
+    ColorPickerModule,
+    NgIf,
+    AccessibilityModule,
+    AccordionModule,
+    NumberPickerModule,
+    CheckboxModule,
+    RadioButtonModule,
+    RouterLink,
+    ApiPropertiesComponent,
+    ApiPropertyComponent,
+    TabsetModule,
+    SnippetComponent,
+  ],
 })
 @DocumentationSectionComponent('ComponentsColorPickerComponent')
 export class ComponentsColorPickerComponent

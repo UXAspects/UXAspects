@@ -1,8 +1,11 @@
 import { Component } from '@angular/core';
-import { Facet } from '@ux-aspects/ux-aspects';
+import { Facet, FacetsModule, TabsetModule } from '@ux-aspects/ux-aspects';
 import 'chance';
 import { Observable, Observer } from 'rxjs';
+import { ApiPropertiesComponent } from '../../../../../components/api-properties/api-properties.component';
+import { ApiPropertyComponent } from '../../../../../components/api-property/api-property.component';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
+import { SnippetComponent } from '../../../../../components/snippet/snippet.component';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
 import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
@@ -10,7 +13,13 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 @Component({
   selector: 'uxd-components-facet-typeahead-list',
   templateUrl: './facet-typeahead-list.component.html',
-  standalone: false,
+  imports: [
+    FacetsModule,
+    ApiPropertiesComponent,
+    ApiPropertyComponent,
+    TabsetModule,
+    SnippetComponent,
+  ],
 })
 @DocumentationSectionComponent('ComponentsFacetTypeaheadListComponent')
 export class ComponentsFacetTypeaheadListComponent

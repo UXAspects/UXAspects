@@ -19,9 +19,13 @@ const ROUTES = [
 ];
 
 @NgModule({
-  imports: [DocumentationComponentsModule, RouterModule.forChild(ROUTES), ColorServiceModule],
+  imports: [
+    DocumentationComponentsModule,
+    RouterModule.forChild(ROUTES),
+    ColorServiceModule,
+    ...SECTIONS,
+  ],
   exports: SECTIONS,
-  declarations: SECTIONS,
 })
 export class CssColorPaletteModule {
   constructor(

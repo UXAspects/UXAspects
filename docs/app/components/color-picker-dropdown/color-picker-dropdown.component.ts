@@ -6,13 +6,19 @@ import {
   Output,
   ViewChild,
 } from '@angular/core';
-import { ColorPickerColor, MenuTriggerDirective } from '@ux-aspects/ux-aspects';
+import {
+  ColorPickerColor,
+  ColorPickerModule,
+  IconModule,
+  MenuModule,
+  MenuTriggerDirective,
+} from '@ux-aspects/ux-aspects';
 
 @Component({
   selector: 'uxd-color-picker-dropdown',
   templateUrl: './color-picker-dropdown.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
+  imports: [MenuModule, IconModule, ColorPickerModule],
 })
 export class ColorPickerDropdownComponent {
   @ViewChild(MenuTriggerDirective) menuTrigger?: MenuTriggerDirective;

@@ -1,8 +1,19 @@
+import { NgIf } from '@angular/common';
 import { Component } from '@angular/core';
+import {
+  AccessibilityModule,
+  AccordionModule,
+  MediaPlayerModule,
+  RadioButtonModule,
+  TabsetModule,
+} from '@ux-aspects/ux-aspects';
 import audioSource from '../../../../../../assets/media/Ocean-Waves.mp3';
 import videoSource from '../../../../../../assets/media/catchingwave.mp4';
 import subtitles from '../../../../../../assets/media/subtitles.vtt';
+import { ApiPropertiesComponent } from '../../../../../components/api-properties/api-properties.component';
+import { ApiPropertyComponent } from '../../../../../components/api-property/api-property.component';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
+import { SnippetComponent } from '../../../../../components/snippet/snippet.component';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
 import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
@@ -11,7 +22,17 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
   selector: 'uxd-components-media-player',
   templateUrl: './media-player.component.html',
   styleUrls: ['./media-player.component.less'],
-  standalone: false,
+  imports: [
+    NgIf,
+    MediaPlayerModule,
+    AccordionModule,
+    RadioButtonModule,
+    AccessibilityModule,
+    ApiPropertiesComponent,
+    ApiPropertyComponent,
+    TabsetModule,
+    SnippetComponent,
+  ],
 })
 @DocumentationSectionComponent('ComponentsMediaPlayerComponent')
 export class ComponentsMediaPlayerComponent

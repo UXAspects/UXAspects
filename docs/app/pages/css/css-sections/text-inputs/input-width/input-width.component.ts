@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
+import { SnippetComponent } from '../../../../../components/snippet/snippet.component';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
 import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
@@ -8,7 +9,7 @@ import { playgroundAdapter } from '../../../../../services/playground/adapters/l
 @Component({
   selector: 'uxd-css-text-inputs-input-width',
   templateUrl: './input-width.component.html',
-  standalone: false,
+  imports: [SnippetComponent],
 })
 @DocumentationSectionComponent('CssInputWidthComponent')
 export class CssInputWidthComponent

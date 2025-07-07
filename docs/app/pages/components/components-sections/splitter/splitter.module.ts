@@ -28,9 +28,9 @@ const ROUTES = [
     IconModule,
     RouterModule.forChild(ROUTES),
     TabsetModule,
+    ...SECTIONS,
   ],
   exports: SECTIONS,
-  declarations: SECTIONS,
 })
 export class ComponentsSplitterModule {
   constructor(

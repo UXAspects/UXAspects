@@ -42,9 +42,9 @@ const ROUTES = [
     SelectListModule,
     SelectModule,
     TabsetModule,
+    ...SECTIONS,
   ],
   exports: SECTIONS,
-  declarations: SECTIONS,
 })
 export class ComponentsSelectModule {
   constructor(

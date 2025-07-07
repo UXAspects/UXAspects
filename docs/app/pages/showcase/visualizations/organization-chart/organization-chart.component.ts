@@ -1,11 +1,19 @@
 import { FocusOrigin } from '@angular/cdk/a11y';
+import { NgIf } from '@angular/common';
 import { ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import {
+  AccessibilityModule,
   FocusIndicatorOriginService,
+  HierarchyBarModule,
   HierarchyBarNode,
+  IconModule,
   OrganizationChartComponent,
+  OrganizationChartModule,
   OrganizationChartNode,
+  ToolbarSearchModule,
   TypeaheadKeyService,
+  TypeaheadModule,
   TypeaheadOptionEvent,
 } from '@ux-aspects/ux-aspects';
 import { Observable, Subject } from 'rxjs';
@@ -14,12 +22,23 @@ import {
   OrganizationChartContext,
   OrganizationChartDataService,
 } from './organization-chart.service';
+import { TypeaheadHighlight } from './typeahead-highlight.pipe';
 
 @Component({
   selector: 'uxd-organization-chart',
   templateUrl: './organization-chart.component.html',
   styleUrls: ['./organization-chart.component.less'],
-  standalone: false,
+  imports: [
+    HierarchyBarModule,
+    IconModule,
+    ToolbarSearchModule,
+    FormsModule,
+    NgIf,
+    AccessibilityModule,
+    TypeaheadModule,
+    OrganizationChartModule,
+    TypeaheadHighlight,
+  ],
 })
 export class OrganizationChartShowcaseComponent implements OnInit, OnDestroy {
   /** Define the open state of the search input */

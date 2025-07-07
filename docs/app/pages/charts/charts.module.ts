@@ -90,8 +90,12 @@ const ROUTES: Routes = [
 ];
 
 @NgModule({
-  imports: [DocumentationComponentsModule, TabsetModule, RouterModule.forChild(ROUTES)],
+  imports: [
+    DocumentationComponentsModule,
+    TabsetModule,
+    RouterModule.forChild(ROUTES),
+    ChartsPageComponent,
+  ],
   exports: [ChartsPageComponent],
-  declarations: [ChartsPageComponent],
 })
 export class ChartsPageModule {}

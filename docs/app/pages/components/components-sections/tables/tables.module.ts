@@ -91,9 +91,9 @@ const ROUTES = [
     TableModule,
     TabsetModule,
     TooltipModule,
+    ...SECTIONS,
   ],
   exports: SECTIONS,
-  declarations: SECTIONS,
 })
 export class ComponentsTablesModule {
   constructor(

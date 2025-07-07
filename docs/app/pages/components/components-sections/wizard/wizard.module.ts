@@ -53,9 +53,9 @@ const ROUTES = [
     RouterModule.forChild(ROUTES),
     TabsetModule,
     WizardModule,
+    ...SECTIONS,
   ],
   exports: SECTIONS,
-  declarations: SECTIONS,
 })
 export class ComponentsWizardModule {
   constructor(

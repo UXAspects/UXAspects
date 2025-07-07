@@ -1,3 +1,4 @@
+import { DatePipe, NgSwitch, NgSwitchCase, NgSwitchDefault } from '@angular/common';
 import {
   AfterViewInit,
   Component,
@@ -6,10 +7,23 @@ import {
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
-import { DateTimePickerTimezone } from '@ux-aspects/ux-aspects';
+import { FormsModule } from '@angular/forms';
+import {
+  AccessibilityModule,
+  AccordionModule,
+  CheckboxModule,
+  DateTimePickerModule,
+  DateTimePickerTimezone,
+  IconModule,
+  PopoverModule,
+  TabsetModule,
+} from '@ux-aspects/ux-aspects';
 import { fromEvent, Subscription } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
+import { ApiPropertiesComponent } from '../../../../../components/api-properties/api-properties.component';
+import { ApiPropertyComponent } from '../../../../../components/api-property/api-property.component';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
+import { SnippetComponent } from '../../../../../components/snippet/snippet.component';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
 
@@ -18,7 +32,23 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
   templateUrl: './date-time-picker.component.html',
   styleUrls: ['./date-time-picker.component.less'],
   encapsulation: ViewEncapsulation.None,
-  standalone: false,
+  imports: [
+    NgSwitch,
+    NgSwitchCase,
+    AccessibilityModule,
+    IconModule,
+    FormsModule,
+    PopoverModule,
+    NgSwitchDefault,
+    DateTimePickerModule,
+    AccordionModule,
+    CheckboxModule,
+    ApiPropertiesComponent,
+    ApiPropertyComponent,
+    TabsetModule,
+    SnippetComponent,
+    DatePipe,
+  ],
 })
 @DocumentationSectionComponent('ComponentsDateTimePickerComponent')
 export class ComponentsDateTimePickerComponent

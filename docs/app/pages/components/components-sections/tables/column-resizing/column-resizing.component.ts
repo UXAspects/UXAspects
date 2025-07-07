@@ -1,16 +1,51 @@
+import { DatePipe, NgFor, NgIf, SlicePipe } from '@angular/common';
 import { Component, Inject, ViewChild } from '@angular/core';
-import { ResizableExpandingTableDirective, ResizableTableDirective } from '@ux-aspects/ux-aspects';
+import { FormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
+import {
+  AccessibilityModule,
+  AccordionModule,
+  CheckboxModule,
+  FixedHeaderTableModule,
+  RadioButtonModule,
+  ResizableExpandingTableDirective,
+  ResizableTableDirective,
+  SelectionModule,
+  TableModule,
+  TabsetModule,
+} from '@ux-aspects/ux-aspects';
+import { ApiPropertiesComponent } from '../../../../../components/api-properties/api-properties.component';
+import { ApiPropertyComponent } from '../../../../../components/api-property/api-property.component';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
+import { SnippetComponent } from '../../../../../components/snippet/snippet.component';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
 import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
-import { DocumentationType, DOCUMENTATION_TOKEN } from '../../../../../tokens/documentation.token';
+import { DOCUMENTATION_TOKEN, DocumentationType } from '../../../../../tokens/documentation.token';
 
 @Component({
   selector: 'uxd-components-column-resizing',
   templateUrl: './column-resizing.component.html',
   styleUrls: ['./column-resizing.component.less'],
-  standalone: false,
+  imports: [
+    AccordionModule,
+    NgIf,
+    TableModule,
+    FixedHeaderTableModule,
+    SelectionModule,
+    NgFor,
+    CheckboxModule,
+    FormsModule,
+    RadioButtonModule,
+    AccessibilityModule,
+    RouterLink,
+    ApiPropertiesComponent,
+    ApiPropertyComponent,
+    TabsetModule,
+    SnippetComponent,
+    SlicePipe,
+    DatePipe,
+  ],
 })
 @DocumentationSectionComponent('ComponentsColumnResizingComponent')
 export class ComponentsColumnResizingComponent

@@ -13,7 +13,12 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [ChangeLogPageComponent],
-  imports: [CommonModule, EboxModule, DocumentationComponentsModule, RouterModule.forChild(routes)],
+  imports: [
+    CommonModule,
+    EboxModule,
+    DocumentationComponentsModule,
+    RouterModule.forChild(routes),
+    ChangeLogPageComponent,
+  ],
 })
 export class ChangeLogPageModule {}

@@ -1,4 +1,4 @@
-import { DOCUMENT } from '@angular/common';
+import { DOCUMENT, NgFor, NgIf } from '@angular/common';
 import {
   AfterViewInit,
   Component,
@@ -10,7 +10,14 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import {
+  ActivatedRoute,
+  NavigationEnd,
+  Router,
+  RouterLink,
+  RouterLinkActive,
+} from '@angular/router';
+import { ScrollModule } from '@ux-aspects/ux-aspects';
 import { Subject } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
 import { IDocumentationPage } from '../../interfaces/IDocumentationPage';
@@ -23,7 +30,7 @@ const FOOTER_OFFSET = 162;
   selector: 'uxd-side-navigation',
   templateUrl: './side-navigation.component.html',
   styleUrls: ['./side-navigation.component.less'],
-  standalone: false,
+  imports: [NgFor, RouterLinkActive, RouterLink, ScrollModule, NgIf],
 })
 export class SideNavigationComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() navigation: IDocumentationPage;

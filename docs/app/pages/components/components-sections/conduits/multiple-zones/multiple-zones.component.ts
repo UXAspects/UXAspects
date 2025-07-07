@@ -3,11 +3,12 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
 import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
+import { ConduitZoneExampleComponent } from './example/example.component';
 
 @Component({
   selector: 'uxd-components-multiple-zones',
   templateUrl: './multiple-zones.component.html',
-  standalone: false,
+  imports: [ConduitZoneExampleComponent],
 })
 @DocumentationSectionComponent('ComponentsMultipleZonesComponent')
 export class ComponentsMultipleZonesComponent

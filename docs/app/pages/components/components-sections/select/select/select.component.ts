@@ -1,7 +1,22 @@
+import { AsyncPipe, JsonPipe, NgIf } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
+import {
+  AccessibilityModule,
+  AccordionModule,
+  CheckboxModule,
+  NumberPickerModule,
+  RadioButtonModule,
+  SelectModule,
+  TabsetModule,
+} from '@ux-aspects/ux-aspects';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { distinctUntilChanged, takeUntil } from 'rxjs/operators';
+import { ApiPropertiesComponent } from '../../../../../components/api-properties/api-properties.component';
+import { ApiPropertyComponent } from '../../../../../components/api-property/api-property.component';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
+import { SnippetComponent } from '../../../../../components/snippet/snippet.component';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
 import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
@@ -9,7 +24,23 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 @Component({
   selector: 'uxd-components-select',
   templateUrl: 'select.component.html',
-  standalone: false,
+  imports: [
+    SelectModule,
+    NgIf,
+    AccordionModule,
+    RadioButtonModule,
+    CheckboxModule,
+    FormsModule,
+    NumberPickerModule,
+    ApiPropertiesComponent,
+    ApiPropertyComponent,
+    RouterLink,
+    SnippetComponent,
+    AccessibilityModule,
+    TabsetModule,
+    AsyncPipe,
+    JsonPipe,
+  ],
 })
 @DocumentationSectionComponent('ComponentsSelectComponent')
 export class ComponentsSelectComponent

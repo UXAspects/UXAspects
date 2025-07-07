@@ -24,9 +24,9 @@ const ROUTES = [
     PageHeaderModule,
     DocumentationComponentsModule,
     RouterModule.forChild(ROUTES),
+    ...SECTIONS,
   ],
   exports: SECTIONS,
-  declarations: SECTIONS,
 })
 export class ComponentsPageHeaderModule {
   constructor(

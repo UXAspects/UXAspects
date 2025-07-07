@@ -13,13 +13,13 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [FeaturesPageComponent],
   imports: [
     CommonModule,
     IconModule,
     TooltipModule,
     DocumentationComponentsModule,
     RouterModule.forChild(routes),
+    FeaturesPageComponent,
   ],
 })
 export class FeaturesPageModule {}

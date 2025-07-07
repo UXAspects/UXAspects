@@ -1,14 +1,28 @@
+import { NgFor, NgIf } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
+import { AccessibilityModule } from '@ux-aspects/ux-aspects';
+import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IIcon, IIcons } from '../../../../../interfaces/IIcons';
 import { DOCUMENTATION_TOKEN, DocumentationType } from '../../../../../tokens/documentation.token';
+import { IconPreviewComponent } from './icon-preview/icon-preview.component';
 
 @Component({
   selector: 'uxd-css-icons-ux-icons',
   templateUrl: './ux-icons.component.html',
   styleUrls: ['./ux-icons.component.less'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
+  imports: [
+    NgIf,
+    RouterLink,
+    FormsModule,
+    AccessibilityModule,
+    ButtonsModule,
+    NgFor,
+    IconPreviewComponent,
+  ],
 })
 @DocumentationSectionComponent('CssUxIconsComponent')
 export class CssUxIconsComponent {

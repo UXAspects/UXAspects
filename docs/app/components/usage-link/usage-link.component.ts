@@ -1,4 +1,11 @@
+import { NgFor } from '@angular/common';
 import { ChangeDetectionStrategy, Component, ElementRef, Input, Renderer2 } from '@angular/core';
+import {
+  AccessibilityModule,
+  IconModule,
+  PopoverModule,
+  TooltipModule,
+} from '@ux-aspects/ux-aspects';
 import { Usage } from './../../interfaces/Usage';
 
 @Component({
@@ -6,7 +13,7 @@ import { Usage } from './../../interfaces/Usage';
   templateUrl: './usage-link.component.html',
   styleUrls: ['./usage-link.component.less'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
+  imports: [NgFor, IconModule, TooltipModule, AccessibilityModule, PopoverModule],
 })
 export class UsageLinkComponent {
   @Input() usage: Usage;

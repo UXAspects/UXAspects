@@ -1,8 +1,19 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
+import { NgFor } from '@angular/common';
 import { Component, ElementRef, QueryList, ViewChildren } from '@angular/core';
-import { ColorService, TabbableListDirective } from '@ux-aspects/ux-aspects';
+import { RouterLink } from '@angular/router';
+import {
+  AccessibilityModule,
+  ColorService,
+  IconModule,
+  ReorderableModule,
+  TabbableListDirective,
+  TabsetModule,
+} from '@ux-aspects/ux-aspects';
 import { ChartDataset, ChartOptions } from 'chart.js';
+import { NgChartsModule } from 'ng2-charts';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
+import { SnippetComponent } from '../../../../../components/snippet/snippet.component';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
 import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
@@ -11,7 +22,16 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
   selector: 'uxd-draggable-cards',
   templateUrl: './draggable-cards.component.html',
   styleUrls: ['./draggable-cards.component.less'],
-  standalone: false,
+  imports: [
+    AccessibilityModule,
+    NgFor,
+    ReorderableModule,
+    IconModule,
+    NgChartsModule,
+    RouterLink,
+    TabsetModule,
+    SnippetComponent,
+  ],
 })
 @DocumentationSectionComponent('ComponentsDraggableCardsComponent')
 export class ComponentsDraggableCardsComponent

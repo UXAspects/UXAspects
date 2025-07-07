@@ -84,10 +84,11 @@ const ROUTES = [
     TypeaheadModule,
     NgxMaskDirective,
     NgxMaskPipe,
+    ...SECTIONS,
+    HighlightSearch,
   ],
   providers: [provideNgxMask()],
   exports: SECTIONS,
-  declarations: [...SECTIONS, HighlightSearch],
 })
 export class ComponentsInputControlsModule {
   constructor(

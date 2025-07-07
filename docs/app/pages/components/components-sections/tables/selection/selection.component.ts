@@ -1,6 +1,19 @@
+import { DatePipe, NgFor } from '@angular/common';
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import {
+  AccessibilityModule,
+  AccordionModule,
+  CheckboxModule,
+  RadioButtonModule,
+  SelectionModule,
+  TabsetModule,
+} from '@ux-aspects/ux-aspects';
 import 'chance';
+import { ApiPropertiesComponent } from '../../../../../components/api-properties/api-properties.component';
+import { ApiPropertyComponent } from '../../../../../components/api-property/api-property.component';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
+import { SnippetComponent } from '../../../../../components/snippet/snippet.component';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
 import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
@@ -9,7 +22,20 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
   selector: 'uxd-components-selection',
   templateUrl: './selection.component.html',
   styleUrls: ['./selection.component.less'],
-  standalone: false,
+  imports: [
+    SelectionModule,
+    NgFor,
+    CheckboxModule,
+    AccessibilityModule,
+    AccordionModule,
+    RadioButtonModule,
+    FormsModule,
+    ApiPropertiesComponent,
+    ApiPropertyComponent,
+    TabsetModule,
+    SnippetComponent,
+    DatePipe,
+  ],
 })
 @DocumentationSectionComponent('ComponentsSelectionComponent')
 export class ComponentsSelectionComponent

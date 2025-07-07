@@ -15,7 +15,6 @@ import { highlight, languages } from 'prismjs';
   selector: 'uxd-snippet',
   templateUrl: './snippet.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
 })
 export class SnippetComponent implements OnChanges {
   @Input() language: string = 'html';

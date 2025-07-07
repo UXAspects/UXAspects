@@ -1,6 +1,16 @@
+import { DatePipe, NgFor } from '@angular/common';
 import { Component } from '@angular/core';
+import {
+  HoverActionModule,
+  IconModule,
+  SelectionModule,
+  SparkModule,
+  TabsetModule,
+  TooltipModule,
+} from '@ux-aspects/ux-aspects';
 import 'chance';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
+import { SnippetComponent } from '../../../../../components/snippet/snippet.component';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
 import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
@@ -9,7 +19,17 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
   selector: 'uxd-components-hover-actions',
   templateUrl: './hover-actions.component.html',
   styleUrls: ['./hover-actions.component.less'],
-  standalone: false,
+  imports: [
+    SelectionModule,
+    NgFor,
+    HoverActionModule,
+    SparkModule,
+    TooltipModule,
+    IconModule,
+    TabsetModule,
+    SnippetComponent,
+    DatePipe,
+  ],
 })
 @DocumentationSectionComponent('ComponentsHoverActionsComponent')
 export class ComponentsHoverActionsComponent

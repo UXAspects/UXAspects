@@ -1,4 +1,9 @@
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { AccessibilityModule } from '@ux-aspects/ux-aspects';
+import { PageHeaderComponent } from '../../components/page-header/page-header.component';
+import { SnippetComponent } from '../../components/snippet/snippet.component';
+import { TextPageLayoutComponent } from '../../components/text-page-layout/text-page-layout.component';
 import cliJson from './snippets/cli.txt';
 import moduleTs from './snippets/module.ts.txt';
 
@@ -6,7 +11,13 @@ import moduleTs from './snippets/module.ts.txt';
   selector: 'uxd-getting-started',
   templateUrl: './getting-started.component.html',
   styleUrls: ['./getting-started.component.less'],
-  standalone: false,
+  imports: [
+    PageHeaderComponent,
+    TextPageLayoutComponent,
+    RouterLink,
+    AccessibilityModule,
+    SnippetComponent,
+  ],
 })
 export class GettingStartedPageComponent {
   moduleTs = moduleTs;

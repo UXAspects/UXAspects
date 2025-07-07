@@ -1,6 +1,19 @@
-import { TreeNode } from '@ali-hm/angular-tree-component';
+import {
+  TreeComponent,
+  TreeNode,
+  TreeNodeChildrenComponent,
+  TreeNodeExpanderComponent,
+} from '@ali-hm/angular-tree-component';
 import { Component } from '@angular/core';
+import {
+  AccessibilityModule,
+  CheckboxModule,
+  FocusIfModule,
+  IconModule,
+  TabsetModule,
+} from '@ux-aspects/ux-aspects';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
+import { SnippetComponent } from '../../../../../components/snippet/snippet.component';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { TreeViewService } from './tree-view-custom-node.service';
 
@@ -8,7 +21,17 @@ import { TreeViewService } from './tree-view-custom-node.service';
   selector: 'uxd-components-tree-view-custom-node',
   templateUrl: './tree-view-custom-node.component.html',
   styleUrls: ['./tree-view-custom-node.component.less'],
-  standalone: false,
+  imports: [
+    TreeComponent,
+    CheckboxModule,
+    TreeNodeExpanderComponent,
+    AccessibilityModule,
+    FocusIfModule,
+    IconModule,
+    TreeNodeChildrenComponent,
+    TabsetModule,
+    SnippetComponent,
+  ],
 })
 @DocumentationSectionComponent('ComponentsTreeViewCustomNodeComponent')
 export class ComponentsTreeViewCustomNodeComponent extends BaseDocumentationSection {

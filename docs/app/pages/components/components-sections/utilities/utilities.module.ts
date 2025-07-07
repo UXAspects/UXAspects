@@ -47,9 +47,9 @@ const ROUTES = [
     FocusIfModule,
     RouterModule.forChild(ROUTES),
     TabsetModule,
+    ...SECTIONS,
   ],
   exports: SECTIONS,
-  declarations: SECTIONS,
 })
 export class ComponentsUtilitiesModule {
   constructor(

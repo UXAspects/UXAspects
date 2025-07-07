@@ -1,16 +1,48 @@
+import { NgIf } from '@angular/common';
 import { Component, Inject } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormControl, FormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
+import {
+  AccessibilityModule,
+  AccordionModule,
+  CheckboxModule,
+  IconModule,
+  NumberPickerModule,
+  RadioButtonModule,
+  TabsetModule,
+  TagInputModule,
+  TypeaheadModule,
+} from '@ux-aspects/ux-aspects';
+import { ApiPropertiesComponent } from '../../../../../components/api-properties/api-properties.component';
+import { ApiPropertyComponent } from '../../../../../components/api-property/api-property.component';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
+import { SnippetComponent } from '../../../../../components/snippet/snippet.component';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
 import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
-import { DocumentationType, DOCUMENTATION_TOKEN } from '../../../../../tokens/documentation.token';
+import { DOCUMENTATION_TOKEN, DocumentationType } from '../../../../../tokens/documentation.token';
 
 @Component({
   selector: 'uxd-components-tags',
   templateUrl: 'tags.component.html',
   styleUrls: ['./tags.component.less'],
-  standalone: false,
+  imports: [
+    FormsModule,
+    TagInputModule,
+    NgIf,
+    TypeaheadModule,
+    IconModule,
+    AccordionModule,
+    CheckboxModule,
+    NumberPickerModule,
+    RadioButtonModule,
+    AccessibilityModule,
+    RouterLink,
+    ApiPropertiesComponent,
+    ApiPropertyComponent,
+    SnippetComponent,
+    TabsetModule,
+  ],
 })
 @DocumentationSectionComponent('ComponentsTagsComponent')
 export class ComponentsTagsComponent

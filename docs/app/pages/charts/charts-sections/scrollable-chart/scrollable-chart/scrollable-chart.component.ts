@@ -1,7 +1,17 @@
+import { NgFor, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
-import { ColorService } from '@ux-aspects/ux-aspects';
+import {
+  AccessibilityModule,
+  ColorService,
+  IconModule,
+  TabsetModule,
+} from '@ux-aspects/ux-aspects';
 import { ChartDataset, ChartOptions, TooltipItem } from 'chart.js';
+import { NgChartsModule } from 'ng2-charts';
+import { ApiPropertiesComponent } from '../../../../../components/api-properties/api-properties.component';
+import { ApiPropertyComponent } from '../../../../../components/api-property/api-property.component';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
+import { SnippetComponent } from '../../../../../components/snippet/snippet.component';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
 import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
@@ -10,7 +20,17 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
   selector: 'uxd-charts-scrollable-chart',
   templateUrl: './scrollable-chart.component.html',
   styleUrls: ['./scrollable-chart.component.less'],
-  standalone: false,
+  imports: [
+    NgIf,
+    IconModule,
+    NgChartsModule,
+    NgFor,
+    ApiPropertiesComponent,
+    ApiPropertyComponent,
+    TabsetModule,
+    SnippetComponent,
+    AccessibilityModule,
+  ],
 })
 @DocumentationSectionComponent('ChartsScrollableChartComponent')
 export class ChartsScrollableChartComponent

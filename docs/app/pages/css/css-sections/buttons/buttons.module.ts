@@ -36,9 +36,9 @@ const ROUTES = [
     DocumentationComponentsModule,
     IconModule,
     RouterModule.forChild(ROUTES),
+    ...SECTIONS,
   ],
   exports: SECTIONS,
-  declarations: SECTIONS,
 })
 export class CssButtonsModule {
   constructor(

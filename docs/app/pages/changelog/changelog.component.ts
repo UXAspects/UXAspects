@@ -1,5 +1,8 @@
+import { NgFor } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
+import { EboxModule } from '@ux-aspects/ux-aspects';
+import { PageHeaderComponent } from '../../components/page-header/page-header.component';
 import { IChangeLog } from '../../interfaces/IChangeLog';
 import { AppConfiguration } from '../../services/app-configuration/app-configuration.service';
 
@@ -7,7 +10,7 @@ import { AppConfiguration } from '../../services/app-configuration/app-configura
   selector: 'uxd-changelog-page',
   templateUrl: './changelog.component.html',
   styleUrls: ['./changelog.component.less'],
-  standalone: false,
+  imports: [PageHeaderComponent, NgFor, EboxModule],
 })
 export class ChangeLogPageComponent implements OnInit {
   logs: IChangeLog[];

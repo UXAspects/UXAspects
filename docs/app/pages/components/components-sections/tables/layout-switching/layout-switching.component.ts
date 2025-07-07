@@ -1,7 +1,21 @@
+import { NgFor } from '@angular/common';
 import { Component } from '@angular/core';
-import { SliderOptions, SliderType } from '@ux-aspects/ux-aspects';
+import { FormsModule } from '@angular/forms';
+import {
+  AccessibilityModule,
+  AccordionModule,
+  LayoutSwitcherModule,
+  SliderModule,
+  SliderOptions,
+  SliderType,
+  TabsetModule,
+} from '@ux-aspects/ux-aspects';
 import 'chance';
+import { ButtonsModule } from 'ngx-bootstrap/buttons';
+import { ApiPropertiesComponent } from '../../../../../components/api-properties/api-properties.component';
+import { ApiPropertyComponent } from '../../../../../components/api-property/api-property.component';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
+import { SnippetComponent } from '../../../../../components/snippet/snippet.component';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
 import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
@@ -10,7 +24,19 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
   selector: 'uxd-components-layout-switching',
   templateUrl: './layout-switching.component.html',
   styleUrls: ['./layout-switching.component.less'],
-  standalone: false,
+  imports: [
+    AccessibilityModule,
+    ButtonsModule,
+    FormsModule,
+    LayoutSwitcherModule,
+    NgFor,
+    AccordionModule,
+    SliderModule,
+    ApiPropertiesComponent,
+    ApiPropertyComponent,
+    TabsetModule,
+    SnippetComponent,
+  ],
 })
 @DocumentationSectionComponent('ComponentsLayoutSwitchingComponent')
 export class ComponentsLayoutSwitchingComponent

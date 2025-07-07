@@ -1,12 +1,15 @@
+import { AsyncPipe, NgIf } from '@angular/common';
 import { Component, forwardRef } from '@angular/core';
-import { Conduit, ConduitZone, ConduitZoneComponent } from '@ux-aspects/ux-aspects';
+import { FormsModule } from '@angular/forms';
+import { Conduit, ConduitZone, ConduitZoneComponent, IconModule } from '@ux-aspects/ux-aspects';
 import { BehaviorSubject } from 'rxjs';
+import { ConduitZoneInspectorComponent } from '../inspector/inspector.component';
 
 @Component({
   selector: 'uxd-components-conduit-filter',
   templateUrl: './filter.component.html',
   providers: [ConduitZone],
-  standalone: false,
+  imports: [IconModule, FormsModule, NgIf, ConduitZoneInspectorComponent, AsyncPipe],
 })
 export class ComponentsConduitFilterComponent extends ConduitZoneComponent {
   zoneId: string = 'filter-zone';
