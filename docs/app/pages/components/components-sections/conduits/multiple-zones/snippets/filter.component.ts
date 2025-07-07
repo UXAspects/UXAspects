@@ -3,20 +3,18 @@ import { Conduit, ConduitZone, ConduitZoneComponent } from '@ux-aspects/ux-aspec
 import { BehaviorSubject } from 'rxjs';
 
 @Component({
-    selector: 'app-filter',
-    templateUrl: './filter.component.html',
-    providers: [ConduitZone]
+  selector: 'app-filter',
+  templateUrl: './filter.component.html',
+  providers: [ConduitZone],
 })
 export class FilterComponent extends ConduitZoneComponent {
+  zoneId: string = 'filter-zone';
+  acceptsInput: boolean | string[] = true;
+  producesOutput: boolean = true;
 
-    zoneId: string = 'filter-zone';
-    acceptsInput: boolean | string[] = true;
-    producesOutput: boolean = true;
+  @Conduit({ id: 'search' })
+  search = new BehaviorSubject('');
 
-    @Conduit({ id: 'search' })
-    search = new BehaviorSubject('');
-
-    @Conduit({ id: 'show-zones', producesOutput: false })
-    showZones = new BehaviorSubject(false);
-
+  @Conduit({ id: 'show-zones', producesOutput: false })
+  showZones = new BehaviorSubject(false);
 }

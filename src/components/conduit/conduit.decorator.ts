@@ -1,4 +1,3 @@
- 
 /* eslint-disable @typescript-eslint/no-wrapper-object-types */
 import { ConduitMetadata } from './interfaces/conduit-metadata';
 import { ConduitProperties, defaultConduitProps } from './interfaces/conduit-properties';

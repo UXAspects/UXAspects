@@ -1,39 +1,41 @@
-<table class="table"
-    uxFixedHeaderTable
-    [dataset]="people"
-    (tablePaging)="loadPage()"
-    [tableHeight]="500">
-    <thead>
-        <tr>
-            <th class="table-col-id">Id</th>
-            <th>Name</th>
-            <th>Address</th>
-            <th>Phone</th>
-            <th>Active</th>
-        </tr>
-    </thead>
+<table
+  class="table"
+  uxFixedHeaderTable
+  [dataset]="people"
+  (tablePaging)="loadPage()"
+  [tableHeight]="500"
+>
+  <thead>
+    <tr>
+      <th class="table-col-id">Id</th>
+      <th>Name</th>
+      <th>Address</th>
+      <th>Phone</th>
+      <th>Active</th>
+    </tr>
+  </thead>
 
-    <tbody>
-        <tr *ngFor="let person of people; let index = index"
-            [attr.aria-setsize]="total"
-            [attr.aria-posinset]="index">
+  <tbody>
+    <tr
+      *ngFor="let person of people; let index = index"
+      [attr.aria-setsize]="total"
+      [attr.aria-posinset]="index"
+    >
+      <td class="table-col-id">{{ person.id }}</td>
+      <td>{{ person.name }}</td>
+      <td>{{ person.address }}</td>
+      <td>{{ person.phone }}</td>
+      <td [attr.aria-label]="person.active ? 'Active' : 'Inactive'">
+        <ux-icon name="checkmark" *ngIf="person.active"></ux-icon>
+      </td>
+    </tr>
 
-            <td class="table-col-id">{{ person.id }}</td>
-            <td>{{ person.name }}</td>
-            <td>{{ person.address }}</td>
-            <td>{{ person.phone }}</td>
-            <td [attr.aria-label]="person.active ? 'Active' : 'Inactive'">
-                <ux-icon name="checkmark" *ngIf="person.active"></ux-icon>
-            </td>
-        </tr>
-
-        <!-- Loading Indicator -->
-        <tr *ngIf="loading">
-            <td class="loading-indicator">
-                <div class="spinner spinner-accent spinner-bounce-middle"></div>
-                <p class="loading-indicator-label">Loading...</p>
-            </td>
-        </tr>
-
-    </tbody>
+    <!-- Loading Indicator -->
+    <tr *ngIf="loading">
+      <td class="loading-indicator">
+        <div class="spinner spinner-accent spinner-bounce-middle"></div>
+        <p class="loading-indicator-label">Loading...</p>
+      </td>
+    </tr>
+  </tbody>
 </table>

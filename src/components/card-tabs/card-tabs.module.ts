@@ -7,20 +7,8 @@ import { CardTabComponent } from './card-tab/card-tab.component';
 import { CardTabsetComponent } from './card-tabset/card-tabset.component';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        ResizeModule,
-        IconModule
-    ],
-    declarations: [
-        CardTabsetComponent,
-        CardTabComponent,
-        CardTabContentDirective
-    ],
-    exports: [
-        CardTabsetComponent,
-        CardTabComponent,
-        CardTabContentDirective
-    ]
+  imports: [CommonModule, ResizeModule, IconModule],
+  declarations: [CardTabsetComponent, CardTabComponent, CardTabContentDirective],
+  exports: [CardTabsetComponent, CardTabComponent, CardTabContentDirective],
 })
-export class CardTabsModule { }
+export class CardTabsModule {}

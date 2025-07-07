@@ -3,17 +3,15 @@ import { Facet } from '@ux-aspects/ux-aspects';
 import 'chance';
 
 @Component({
-    selector: 'app-root',
-    templateUrl: './app.component.html'
+  selector: 'app-root',
+  templateUrl: './app.component.html',
 })
 export class AppComponent {
+  facets: Facet[] = [];
+  allowReorder = false;
 
-    facets: Facet[] = [];
-    allowReorder = false;
-
-    addFacet() {
-
-        // create a new random facet
-        this.facets.push(new Facet(chance.name(), {}, chance.integer({ min: 0, max: 100 })));
-    }
+  addFacet() {
+    // create a new random facet
+    this.facets.push(new Facet(chance.name(), {}, chance.integer({ min: 0, max: 100 })));
+  }
 }

@@ -4,15 +4,7 @@ import { TreeGridRowDirective } from './tree-grid-row.directive';
 import { TreeGridDirective } from './tree-grid.directive';
 
 @NgModule({
-    declarations: [
-        TreeGridDirective,
-        TreeGridRowDirective,
-        TreeGridIndentDirective
-    ],
-    exports: [
-        TreeGridDirective,
-        TreeGridRowDirective,
-        TreeGridIndentDirective
-    ]
+  declarations: [TreeGridDirective, TreeGridRowDirective, TreeGridIndentDirective],
+  exports: [TreeGridDirective, TreeGridRowDirective, TreeGridIndentDirective],
 })
 export class TreeGridModule {}

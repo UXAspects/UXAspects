@@ -1,8 +1,18 @@
-<input type="text" class="form-control" placeholder="Search..." [ngModel]="search | async" (ngModelChange)="search.next($event)">
+<input
+  type="text"
+  class="form-control"
+  placeholder="Search..."
+  [ngModel]="search | async"
+  (ngModelChange)="search.next($event)"
+/>
 
-<br>
+<br />
 
 <div class="checkbox-container">
-    <ux-checkbox class="m-b-xs" [(ngModel)]="producesOutput" (ngModelChange)="updateConduit()">Produces Output</ux-checkbox>
-    <ux-checkbox [(ngModel)]="acceptsInput" (ngModelChange)="updateConduit()">Accepts Input</ux-checkbox>
+  <ux-checkbox class="m-b-xs" [(ngModel)]="producesOutput" (ngModelChange)="updateConduit()"
+    >Produces Output</ux-checkbox
+  >
+  <ux-checkbox [(ngModel)]="acceptsInput" (ngModelChange)="updateConduit()"
+    >Accepts Input</ux-checkbox
+  >
 </div>

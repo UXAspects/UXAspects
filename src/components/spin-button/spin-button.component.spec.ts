@@ -7,6 +7,7 @@ import { SpinButtonModule } from './spin-button.module';
   template: `
     <ux-spin-button [(value)]="value" [maxLength]="maxLength" type="type"> </ux-spin-button>
   `,
+  standalone: false,
 })
 export class SpinButtonTestComponent {
   value: number | string;

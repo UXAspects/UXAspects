@@ -5,21 +5,9 @@ import { ReorderableHandleDirective } from './reorderable-handle.directive';
 import { ReorderableModelDirective } from './reorderable-model.directive';
 import { ReorderableDirective } from './reorderable.directive';
 
-
 @NgModule({
-    imports: [
-        CommonModule,
-        DragDropModule
-    ],
-    declarations: [
-        ReorderableDirective,
-        ReorderableHandleDirective,
-        ReorderableModelDirective
-    ],
-    exports: [
-        ReorderableDirective,
-        ReorderableHandleDirective,
-        ReorderableModelDirective
-    ]
+  imports: [CommonModule, DragDropModule],
+  declarations: [ReorderableDirective, ReorderableHandleDirective, ReorderableModelDirective],
+  exports: [ReorderableDirective, ReorderableHandleDirective, ReorderableModelDirective],
 })
-export class ReorderableModule { }
+export class ReorderableModule {}

@@ -22,8 +22,10 @@
     [icon]="icon"
     [clearButton]="clearButton"
     [autoCloseDropdown]="autoCloseDropdown"
-    [clearButtonAriaLabel]="clearButtonAriaLabel">
-    <ux-typeahead #multipleTypeahead
+    [clearButtonAriaLabel]="clearButtonAriaLabel"
+  >
+    <ux-typeahead
+      #multipleTypeahead
       [ariaLabel]="listboxAriaLabel"
       [id]="id + '-typeahead'"
       [options]="options"
@@ -44,17 +46,17 @@
       [recentOptionsMaxCount]="recentOptionsMaxCount"
       (recentOptionsChange)="recentOptionsChange.emit($event)"
       [optionsHeadingTemplate]="optionsHeadingTemplate"
-      [recentOptionsHeadingTemplate]="recentOptionsHeadingTemplate">
+      [recentOptionsHeadingTemplate]="recentOptionsHeadingTemplate"
+    >
     </ux-typeahead>
   </ux-tag-input>
 }
 
 @if (!multiple) {
-  <div
-    class="ux-select-container"
-    [class.disabled]="disabled"
-    aria-haspopup="listbox">
-    <input #singleInput type="text"
+  <div class="ux-select-container" [class.disabled]="disabled" aria-haspopup="listbox">
+    <input
+      #singleInput
+      type="text"
       [attr.id]="id + '-input'"
       [attr.aria-labelledby]="ariaLabelledby"
       class="form-control"
@@ -75,57 +77,62 @@
       (focus)="onFocus()"
       (blur)="inputBlurHandler()"
       (keydown)="inputKeyHandler($event)"
-      [readonly]="readonlyInput">
-      <div class="ux-select-icons">
-        @if (clearButton && allowNull && _hasValue) {
-          <i
-            uxFocusIndicator
-            [attr.tabindex]="disabled ? -1 : 0"
-            [attr.aria-label]="clearButtonAriaLabel"
-            class="ux-select-icon ux-icon ux-icon-close ux-select-clear-icon"
-            (click)="clear(); $event.stopPropagation()"
-            (keydown.enter)="clear(); $event.stopPropagation()">
-          </i>
-        }
-        @if (!icon) {
-          <i
-            class="ux-select-icon ux-icon ux-select-chevron-icon"
-            [class.ux-icon-up]="dropDirection === 'up'"
-            [class.ux-icon-down]="dropDirection === 'down'"
-            (click)="toggle(); $event.stopPropagation(); singleInput.focus();">
-          </i>
-        }
-        @if (icon) {
-          <div class="ux-custom-icon">
-            <ng-container [ngTemplateOutlet]="icon"></ng-container>
-          </div>
-        }
-      </div>
-      <ux-typeahead #singleTypeahead
-        [ariaLabel]="listboxAriaLabel"
-        [id]="id + '-typeahead'"
-        [active]="_value$ | async"
-        [options]="options"
-        [filter]="filter$ | async"
-        [(open)]="dropdownOpen"
-        [display]="display"
-        [key]="key"
-        [dropDirection]="dropDirection"
-        [maxHeight]="maxHeight"
-        [multiselectable]="false"
-        [openOnFilterChange]="false"
-        [pageSize]="pageSize"
-        [selectFirst]="true"
-        [loadingTemplate]="loadingTemplate"
-        [optionTemplate]="optionTemplate"
-        [noOptionsTemplate]="noOptionsTemplate"
-        [recentOptions]="recentOptions"
-        [recentOptionsMaxCount]="recentOptionsMaxCount"
-        [optionsHeadingTemplate]="optionsHeadingTemplate"
-        [recentOptionsHeadingTemplate]="recentOptionsHeadingTemplate"
-        (optionSelected)="_singleOptionSelected($event)"
-        (highlightedElementChange)="highlightedElement = $event"
-        (recentOptionsChange)="recentOptionsChange.emit($any($event))">
-      </ux-typeahead>
+      [readonly]="readonlyInput"
+    />
+    <div class="ux-select-icons">
+      @if (clearButton && allowNull && _hasValue) {
+        <i
+          uxFocusIndicator
+          [attr.tabindex]="disabled ? -1 : 0"
+          [attr.aria-label]="clearButtonAriaLabel"
+          class="ux-select-icon ux-icon ux-icon-close ux-select-clear-icon"
+          (click)="clear(); $event.stopPropagation()"
+          (keydown.enter)="clear(); $event.stopPropagation()"
+        >
+        </i>
+      }
+      @if (!icon) {
+        <i
+          class="ux-select-icon ux-icon ux-select-chevron-icon"
+          [class.ux-icon-up]="dropDirection === 'up'"
+          [class.ux-icon-down]="dropDirection === 'down'"
+          (click)="toggle(); $event.stopPropagation(); singleInput.focus()"
+        >
+        </i>
+      }
+      @if (icon) {
+        <div class="ux-custom-icon">
+          <ng-container [ngTemplateOutlet]="icon"></ng-container>
+        </div>
+      }
     </div>
-  }
+    <ux-typeahead
+      #singleTypeahead
+      [ariaLabel]="listboxAriaLabel"
+      [id]="id + '-typeahead'"
+      [active]="_value$ | async"
+      [options]="options"
+      [filter]="filter$ | async"
+      [(open)]="dropdownOpen"
+      [display]="display"
+      [key]="key"
+      [dropDirection]="dropDirection"
+      [maxHeight]="maxHeight"
+      [multiselectable]="false"
+      [openOnFilterChange]="false"
+      [pageSize]="pageSize"
+      [selectFirst]="true"
+      [loadingTemplate]="loadingTemplate"
+      [optionTemplate]="optionTemplate"
+      [noOptionsTemplate]="noOptionsTemplate"
+      [recentOptions]="recentOptions"
+      [recentOptionsMaxCount]="recentOptionsMaxCount"
+      [optionsHeadingTemplate]="optionsHeadingTemplate"
+      [recentOptionsHeadingTemplate]="recentOptionsHeadingTemplate"
+      (optionSelected)="_singleOptionSelected($event)"
+      (highlightedElementChange)="highlightedElement = $event"
+      (recentOptionsChange)="recentOptionsChange.emit($any($event))"
+    >
+    </ux-typeahead>
+  </div>
+}

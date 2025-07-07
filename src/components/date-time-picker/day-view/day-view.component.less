@@ -1,78 +1,78 @@
 ux-date-time-picker-day-view {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  -ms-user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+
+  .calendar {
     width: 100%;
-    -ms-user-select: none;
-    -moz-user-select: none;
-    -webkit-user-select: none;
-    user-select: none;
 
-    .calendar {
-        width: 100%;
-
-        .weekday {
-            text-align: center;
-            min-width: 30px;
-            height: 30px;
-            border: none;
-            padding: 4px 5px;
-            color: @date-picker-today-btn-color;
-            font-size: 14px;
-        }
-
-        .date-cell {
-            min-width: 30px;
-            height: 30px;
-        }
-
-        .date-button {
-            text-align: center;
-            width: 100%;
-            height: 100%;
-            border: none;
-            padding: 4px 5px;
-            cursor: pointer;
-            font-size: 14px;
-            background-color: transparent;
-
-            &:hover:not(:disabled) {
-                background-color: @date-picker-hover-bg;
-            }
-
-            &:disabled {
-                color: #bdbec0;
-                cursor: default;
-            }
-
-            &.current,
-            &.current.preview {
-                color: @date-picker-today-color;
-                background-color: @date-picker-today-bg;
-
-                &:hover {
-                    background-color: @date-picker-range-today-hover-bg;
-                }
-            }
-
-            &.active,
-            &.active.current,
-            &.active.preview {
-                background-color: @date-picker-active-bg;
-                color: @date-picker-active-color;
-
-                &:hover {
-                    background-color: @date-picker-active-bg;
-                    color: @date-picker-active-color;
-                }
-            }
-
-            &.preview {
-                color: @date-picker-disabled-hover-bg;
-
-                &:disabled {
-                    color: #bdbec0;
-                }
-            }
-        }
+    .weekday {
+      text-align: center;
+      min-width: 30px;
+      height: 30px;
+      border: none;
+      padding: 4px 5px;
+      color: @date-picker-today-btn-color;
+      font-size: 14px;
     }
+
+    .date-cell {
+      min-width: 30px;
+      height: 30px;
+    }
+
+    .date-button {
+      text-align: center;
+      width: 100%;
+      height: 100%;
+      border: none;
+      padding: 4px 5px;
+      cursor: pointer;
+      font-size: 14px;
+      background-color: transparent;
+
+      &:hover:not(:disabled) {
+        background-color: @date-picker-hover-bg;
+      }
+
+      &:disabled {
+        color: #bdbec0;
+        cursor: default;
+      }
+
+      &.current,
+      &.current.preview {
+        color: @date-picker-today-color;
+        background-color: @date-picker-today-bg;
+
+        &:hover {
+          background-color: @date-picker-range-today-hover-bg;
+        }
+      }
+
+      &.active,
+      &.active.current,
+      &.active.preview {
+        background-color: @date-picker-active-bg;
+        color: @date-picker-active-color;
+
+        &:hover {
+          background-color: @date-picker-active-bg;
+          color: @date-picker-active-color;
+        }
+      }
+
+      &.preview {
+        color: @date-picker-disabled-hover-bg;
+
+        &:disabled {
+          color: #bdbec0;
+        }
+      }
+    }
+  }
 }

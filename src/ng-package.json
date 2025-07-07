@@ -1,18 +1,18 @@
 {
-    "$schema": "../node_modules/ng-packagr/ng-package.schema.json",
-    "dest": "../dist/library",
-    "deleteDestPath": false,
-    "allowedNonPeerDependencies": [
-      "@angular/cdk",
-      "angular-split",
-      "chart.js",
-      "d3",
-      "ng2-file-upload",
-      "ngx-mask",
-      "bootstrap",
-      "@juggle/resize-observer"
-    ],
-    "lib": {
-      "entryFile": "./index.ts"
-    }
+  "$schema": "../node_modules/ng-packagr/ng-package.schema.json",
+  "dest": "../dist/library",
+  "deleteDestPath": false,
+  "allowedNonPeerDependencies": [
+    "@angular/cdk",
+    "angular-split",
+    "chart.js",
+    "d3",
+    "ng2-file-upload",
+    "ngx-mask",
+    "bootstrap",
+    "@juggle/resize-observer"
+  ],
+  "lib": {
+    "entryFile": "./index.ts"
+  }
 }

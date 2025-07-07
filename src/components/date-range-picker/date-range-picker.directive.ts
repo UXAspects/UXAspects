@@ -12,19 +12,19 @@ import { Directive, inject, Input } from '@angular/core';
 import { DateRangePicker } from './date-range.service';
 
 export class DateRangeOptions {
-    picker: DateRangePicker = DateRangePicker.Start;
+  picker: DateRangePicker = DateRangePicker.Start;
 }
 
 @Directive({
-    selector: '[uxDateRangePicker]',
-    providers: [DateRangeOptions]
+  selector: '[uxDateRangePicker]',
+  providers: [DateRangeOptions],
+  standalone: false,
 })
 export class DateRangePickerDirective {
+  private readonly _options = inject(DateRangeOptions, { self: true });
 
-    private readonly _options = inject(DateRangeOptions, { self: true });
-
-    /** Specify whether this is the start or end picker */
-    @Input() set picker(picker: DateRangePicker) {
-        this._options.picker = picker;
-    }
+  /** Specify whether this is the start or end picker */
+  @Input() set picker(picker: DateRangePicker) {
+    this._options.picker = picker;
+  }
 }

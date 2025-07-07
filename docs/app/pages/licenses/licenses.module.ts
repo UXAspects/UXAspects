@@ -5,20 +5,14 @@ import { DocumentationComponentsModule } from '../../components/components.modul
 import { LicensesPageComponent } from './licenses.component';
 
 const routes: Routes = [
-    {
-        path: '',
-        component: LicensesPageComponent
-    }
+  {
+    path: '',
+    component: LicensesPageComponent,
+  },
 ];
 
 @NgModule({
-    declarations: [
-        LicensesPageComponent
-    ],
-    imports: [
-        CommonModule,
-        DocumentationComponentsModule,
-        RouterModule.forChild(routes)
-    ]
+  declarations: [LicensesPageComponent],
+  imports: [CommonModule, DocumentationComponentsModule, RouterModule.forChild(routes)],
 })
 export class LicensesPageModule {}

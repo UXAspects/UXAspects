@@ -44,6 +44,7 @@ interface TableDocument {
       </tbody>
     </table>
   `,
+  standalone: false,
 })
 export class ResizableTableColumnComponent {
   documents: TableDocument[] = [];

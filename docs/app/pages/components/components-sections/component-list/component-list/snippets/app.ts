@@ -2,30 +2,27 @@ import { Component } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
-    selector: 'app-root',
-    templateUrl: './app.component.html'
+  selector: 'app-root',
+  templateUrl: './app.component.html',
 })
 export class AppComponent {
+  form = new FormGroup({
+    items: new FormArray([new FormControl(null, [Validators.required])]),
+  });
 
-    form = new FormGroup({
-        items: new FormArray([
-            new FormControl(null, [Validators.required])
-        ])
-    });
+  get items(): FormArray {
+    return this.form.get('items') as FormArray;
+  }
 
-    get items(): FormArray {
-        return this.form.get('items') as FormArray;
+  add(): void {
+    if (this.form.valid) {
+      this.items.push(new FormControl(null, [Validators.required]));
     }
+  }
 
-    add(): void {
-        if (this.form.valid) {
-            this.items.push(new FormControl(null, [Validators.required]));
-        }
+  remove(index: number): void {
+    if (this.items.length > 1) {
+      this.items.removeAt(index);
     }
-
-    remove(index: number): void {
-        if (this.items.length > 1) {
-            this.items.removeAt(index);
-        }
-    }
+  }
 }

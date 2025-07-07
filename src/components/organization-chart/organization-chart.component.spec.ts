@@ -40,6 +40,7 @@ export class MockResizeService {
       </ng-template>
     </ux-organization-chart>
   </div>`,
+  standalone: false,
 })
 export class OrganizationChartTestComponent {
   dataset: OrganizationChartNode<Employee> = {

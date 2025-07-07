@@ -1,5 +1,5 @@
 export interface ICodePenTemplate {
-    id?: string;
-    attributes?: any;
-    content: string;
+  id?: string;
+  attributes?: any;
+  content: string;
 }

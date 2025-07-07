@@ -8,7 +8,7 @@
     [closeOnBlur]="closeOnBlur"
     (closed)="closed.emit()"
     #trigger="ux-menu-trigger"
-    >
+  >
     {{ selected?.group }}
     @if (selected !== initial) {
       <span class="filter-header"> ({{ selected?.name }}) </span>
@@ -24,7 +24,7 @@
         [id]="initial.id || filterId + '-initial-option'"
         (click)="removeFilter()"
         (keydown.enter)="removeFilter()"
-        >
+      >
         <ux-icon name="checkmark" [style.visibility]="initial === selected ? 'visible' : 'hidden'">
         </ux-icon>
         <span class="filter-dropdown-title">
@@ -35,10 +35,7 @@
 
     <!-- Selected Options -->
     @if (selected !== initial && showTypeahead) {
-      <button
-        uxMenuItem
-        [id]="selected.id || filterId + '-selection'"
-        >
+      <button uxMenuItem [id]="selected.id || filterId + '-selection'">
         <ux-icon name="checkmark"></ux-icon>
         <span class="filter-dropdown-title">{{ selected.name }}</span>
       </button>
@@ -64,43 +61,43 @@
           (keydown.enter)="$event.preventDefault()"
           (blur)="typeaheadOpen = false"
           (click)="$event.stopPropagation()"
-          />
-          <ux-typeahead
-            #typeahead
-            [id]="typeaheadId"
-            [(open)]="typeaheadOpen"
-            display="title"
-            [selectOnEnter]="true"
-            [options]="typeaheadItems"
-            [optionTemplate]="filterOptionTemplate"
-            (optionSelected)="select($event); trigger.closeMenu($event.origin)"
-            (highlightedElementChange)="highlightedElement = $event"
-            >
-          </ux-typeahead>
-        </div>
-      }
+        />
+        <ux-typeahead
+          #typeahead
+          [id]="typeaheadId"
+          [(open)]="typeaheadOpen"
+          display="title"
+          [selectOnEnter]="true"
+          [options]="typeaheadItems"
+          [optionTemplate]="filterOptionTemplate"
+          (optionSelected)="select($event); trigger.closeMenu($event.origin)"
+          (highlightedElementChange)="highlightedElement = $event"
+        >
+        </ux-typeahead>
+      </div>
+    }
 
-      @if (!showTypeahead) {
-        @for (filter of filters; track filter; let index = $index) {
-          <button
-            type="button"
-            uxMenuItem
-            [id]="filter.id || filterId + '-item-' + index"
-            (click)="selectFilter(filter); trigger.closeMenu('mouse')"
-            (keydown.enter)="selectFilter(filter); trigger.closeMenu('keyboard')"
-            >
-            <ux-icon name="checkmark" [style.visibility]="filter === selected ? 'visible' : 'hidden'">
-            </ux-icon>
-            <span class="filter-dropdown-title">{{ filter.name }}</span>
-          </button>
-        }
+    @if (!showTypeahead) {
+      @for (filter of filters; track filter; let index = $index) {
+        <button
+          type="button"
+          uxMenuItem
+          [id]="filter.id || filterId + '-item-' + index"
+          (click)="selectFilter(filter); trigger.closeMenu('mouse')"
+          (keydown.enter)="selectFilter(filter); trigger.closeMenu('keyboard')"
+        >
+          <ux-icon name="checkmark" [style.visibility]="filter === selected ? 'visible' : 'hidden'">
+          </ux-icon>
+          <span class="filter-dropdown-title">{{ filter.name }}</span>
+        </button>
       }
-    </ux-menu>
-  </div>
+    }
+  </ux-menu>
+</div>
 
-  <ng-template #filterOptionTemplate let-option="option" let-api="api">
-    <span
-      [attr.aria-label]="option"
-      [uxSafeInnerHtml]="option | filterTypeaheadHighlight : (query$ | async)"
-    ></span>
-  </ng-template>
+<ng-template #filterOptionTemplate let-option="option" let-api="api">
+  <span
+    [attr.aria-label]="option"
+    [uxSafeInnerHtml]="option | filterTypeaheadHighlight: (query$ | async)"
+  ></span>
+</ng-template>

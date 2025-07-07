@@ -20,53 +20,45 @@ import { TabbableListItemDirective } from './tabbable-list/tabbable-list-item.di
 import { TabbableListDirective } from './tabbable-list/tabbable-list.directive';
 
 @NgModule({
-    declarations: [
-        DefaultFocusIndicatorDirective,
-        FocusIndicatorDirective,
-        FocusIndicatorOptionsDirective,
-        FocusIndicatorOriginDirective,
-        FocusWithinDirective,
-        ManagedFocusContainerDirective,
-        SplitterAccessibilityDirective,
-        TabbableListDirective,
-        TabbableListItemDirective,
-        FocusIndicatorOriginDirective,
-        ColorContrastDirective
-    ],
-    imports: [
-        A11yModule,
-        ColorServiceModule,
-        PlatformModule
-    ],
-    exports: [
-        DefaultFocusIndicatorDirective,
-        FocusIndicatorDirective,
-        FocusIndicatorOptionsDirective,
-        FocusIndicatorOriginDirective,
-        FocusWithinDirective,
-        ManagedFocusContainerDirective,
-        SplitterAccessibilityDirective,
-        TabbableListDirective,
-        TabbableListItemDirective,
-        FocusIndicatorOriginDirective,
-        ColorContrastDirective
-    ],
-    providers: [
-        AccessibilityOptionsService,
-        ContrastService,
-        FocusIndicatorService,
-        ManagedFocusContainerService,
-    ]
+  declarations: [
+    DefaultFocusIndicatorDirective,
+    FocusIndicatorDirective,
+    FocusIndicatorOptionsDirective,
+    FocusIndicatorOriginDirective,
+    FocusWithinDirective,
+    ManagedFocusContainerDirective,
+    SplitterAccessibilityDirective,
+    TabbableListDirective,
+    TabbableListItemDirective,
+    FocusIndicatorOriginDirective,
+    ColorContrastDirective,
+  ],
+  imports: [A11yModule, ColorServiceModule, PlatformModule],
+  exports: [
+    DefaultFocusIndicatorDirective,
+    FocusIndicatorDirective,
+    FocusIndicatorOptionsDirective,
+    FocusIndicatorOriginDirective,
+    FocusWithinDirective,
+    ManagedFocusContainerDirective,
+    SplitterAccessibilityDirective,
+    TabbableListDirective,
+    TabbableListItemDirective,
+    FocusIndicatorOriginDirective,
+    ColorContrastDirective,
+  ],
+  providers: [
+    AccessibilityOptionsService,
+    ContrastService,
+    FocusIndicatorService,
+    ManagedFocusContainerService,
+  ],
 })
 export class AccessibilityModule {
-
-    static forRoot(options: AccessibilityOptions): ModuleWithProviders<AccessibilityModule> {
-        return {
-            ngModule: AccessibilityModule,
-            providers: [
-                { provide: ACCESSIBILITY_OPTIONS_TOKEN, useValue: options }
-            ]
-        };
-    }
-
+  static forRoot(options: AccessibilityOptions): ModuleWithProviders<AccessibilityModule> {
+    return {
+      ngModule: AccessibilityModule,
+      providers: [{ provide: ACCESSIBILITY_OPTIONS_TOKEN, useValue: options }],
+    };
+  }
 }

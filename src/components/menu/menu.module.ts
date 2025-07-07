@@ -14,43 +14,36 @@ import { MenuTriggerDirective } from './menu-trigger/menu-trigger.directive';
 import { MenuComponent } from './menu/menu.component';
 
 @NgModule({
-    declarations: [
-        MenuComponent,
-        MenuTriggerDirective,
-        MenuItemComponent,
-        MenuDividerComponent,
-        MenuTabbableItemDirective,
-        MenuInitialFocusDirective,
-        MenuItemCustomControlDirective
-    ],
-    imports: [
-        A11yModule,
-        AccessibilityModule,
-        CommonModule,
-        OverlayModule
-    ],
-    exports: [
-        MenuComponent,
-        MenuTriggerDirective,
-        MenuItemComponent,
-        MenuDividerComponent,
-        MenuTabbableItemDirective,
-        MenuInitialFocusDirective,
-        MenuItemCustomControlDirective
-    ]
+  declarations: [
+    MenuComponent,
+    MenuTriggerDirective,
+    MenuItemComponent,
+    MenuDividerComponent,
+    MenuTabbableItemDirective,
+    MenuInitialFocusDirective,
+    MenuItemCustomControlDirective,
+  ],
+  imports: [A11yModule, AccessibilityModule, CommonModule, OverlayModule],
+  exports: [
+    MenuComponent,
+    MenuTriggerDirective,
+    MenuItemComponent,
+    MenuDividerComponent,
+    MenuTabbableItemDirective,
+    MenuInitialFocusDirective,
+    MenuItemCustomControlDirective,
+  ],
 })
 export class MenuModule {
-    static forRoot(options: MenuModuleOptions): ModuleWithProviders<MenuModule> {
-        return {
-            ngModule: MenuModule,
-            providers: [
-                { provide: MENU_OPTIONS_TOKEN, useValue: options }
-            ]
-        };
-    }
+  static forRoot(options: MenuModuleOptions): ModuleWithProviders<MenuModule> {
+    return {
+      ngModule: MenuModule,
+      providers: [{ provide: MENU_OPTIONS_TOKEN, useValue: options }],
+    };
+  }
 
-    /** Support options at a child module level (implementation is the same as `forRoot`) */
-    static forChild(options: MenuModuleOptions): ModuleWithProviders<MenuModule> {
-        return MenuModule.forRoot(options);
-    }
+  /** Support options at a child module level (implementation is the same as `forRoot`) */
+  static forChild(options: MenuModuleOptions): ModuleWithProviders<MenuModule> {
+    return MenuModule.forRoot(options);
+  }
 }

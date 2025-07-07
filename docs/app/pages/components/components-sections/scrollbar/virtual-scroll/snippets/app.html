@@ -1,41 +1,43 @@
-<ux-virtual-scroll class="virtual-scroll-container"
-    role="list"
-    [attr.aria-busy]="loading"
-    aria-label="Employee list with virtual scrolling"
-    [collection]="employees"
-    [cellHeight]="63"
-    [loadOnScroll]="loadOnScroll"
-    (loading)="loadPage($event)">
-
-    <div *uxVirtualScrollCell="let cell = cell; let index = index"
-        role="listitem"
-        [attr.aria-setsize]="totalItems"
-        [attr.aria-posinset]="index"
-        class="virtual-cell">
-
-        <div class="employee-details">
-            <div>
-                <span class="employee-name">{{cell.name}}</span>
-                <span class="employee-department">({{cell.department}})</span>
-            </div>
-            <div>
-                <span class="employee-email">{{cell.email}}</span>
-            </div>
-        </div>
-        <div class="employee-id">{{cell.id}}</div>
-
+<ux-virtual-scroll
+  class="virtual-scroll-container"
+  role="list"
+  [attr.aria-busy]="loading"
+  aria-label="Employee list with virtual scrolling"
+  [collection]="employees"
+  [cellHeight]="63"
+  [loadOnScroll]="loadOnScroll"
+  (loading)="loadPage($event)"
+>
+  <div
+    *uxVirtualScrollCell="let cell = cell; let index = index"
+    role="listitem"
+    [attr.aria-setsize]="totalItems"
+    [attr.aria-posinset]="index"
+    class="virtual-cell"
+  >
+    <div class="employee-details">
+      <div>
+        <span class="employee-name">{{cell.name}}</span>
+        <span class="employee-department">({{cell.department}})</span>
+      </div>
+      <div>
+        <span class="employee-email">{{cell.email}}</span>
+      </div>
     </div>
+    <div class="employee-id">{{cell.id}}</div>
+  </div>
 
-    <button *uxVirtualScrollLoadButton
-        type="button"
-        aria-description="Load more items into the list"
-        class="btn btn-link button-primary virtual-scroll-load-more">
-        Load more
-    </button>
+  <button
+    *uxVirtualScrollLoadButton
+    type="button"
+    aria-description="Load more items into the list"
+    class="btn btn-link button-primary virtual-scroll-load-more"
+  >
+    Load more
+  </button>
 
-    <div *uxVirtualScrollLoading class="virtual-scroll-loading">
-        <div class="spinner spinner-accent spinner-bounce-middle"></div>
-        <div>Loading...</div>
-    </div>
-
+  <div *uxVirtualScrollLoading class="virtual-scroll-loading">
+    <div class="spinner spinner-accent spinner-bounce-middle"></div>
+    <div>Loading...</div>
+  </div>
 </ux-virtual-scroll>

@@ -3,77 +3,77 @@
 */
 
 .marquee-wizard-side-panel {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 
-    .marquee-logo {
-        flex: none;
-    }
+  .marquee-logo {
+    flex: none;
+  }
 }
 
 .marquee-wizard-steps {
-    flex: 1;
-    width: 100%;
-    list-style-type: none;
-    padding: 0;
-    margin: 30px 0 0;
-    overflow-y: auto;
+  flex: 1;
+  width: 100%;
+  list-style-type: none;
+  padding: 0;
+  margin: 30px 0 0;
+  overflow-y: auto;
 
-    .marquee-wizard-step {
-        padding: 8px 20px;
-        cursor: default;
-        transition: background-color 0.3s linear;
+  .marquee-wizard-step {
+    padding: 8px 20px;
+    cursor: default;
+    transition: background-color 0.3s linear;
 
-        &.visited:hover {
-            cursor: pointer;
-            background-color: @marquee-wizard-step-hover-bg;
-        }
-
-        &.active {
-            background-color: @marquee-wizard-step-active-bg;
-
-            &:hover {
-                background-color: @marquee-wizard-step-active-hover-bg;
-            }
-
-            .step-label {
-                color: @marquee-wizard-step-active-color;
-            }
-        }
-
-        &.error {
-            background: @marquee-wizard-step-error-bg;
-
-            &.visited:hover {
-                cursor: pointer;
-                background: @marquee-wizard-step-error-bg;
-            }
-        }
-
-        .step-label {
-            display: table;
-            width: 100%;
-            color: @marquee-wizard-step-color;
-
-            .step-title {
-                display: table-cell;
-
-                .title {
-                    font-family: @font-family;
-                    font-weight: @font-weight-light;
-                    font-size: 1.125rem;
-                }
-            }
-
-            .step-complete {
-                display: table-cell;
-                width: 15px;
-                color: @marquee-wizard-step-complete-color;
-            }
-        }
+    &.visited:hover {
+      cursor: pointer;
+      background-color: @marquee-wizard-step-hover-bg;
     }
+
+    &.active {
+      background-color: @marquee-wizard-step-active-bg;
+
+      &:hover {
+        background-color: @marquee-wizard-step-active-hover-bg;
+      }
+
+      .step-label {
+        color: @marquee-wizard-step-active-color;
+      }
+    }
+
+    &.error {
+      background: @marquee-wizard-step-error-bg;
+
+      &.visited:hover {
+        cursor: pointer;
+        background: @marquee-wizard-step-error-bg;
+      }
+    }
+
+    .step-label {
+      display: table;
+      width: 100%;
+      color: @marquee-wizard-step-color;
+
+      .step-title {
+        display: table-cell;
+
+        .title {
+          font-family: @font-family;
+          font-weight: @font-weight-light;
+          font-size: 1.125rem;
+        }
+      }
+
+      .step-complete {
+        display: table-cell;
+        width: 15px;
+        color: @marquee-wizard-step-complete-color;
+      }
+    }
+  }
 }
 
 .marquee-wizard-text {
-    color: @marquee-wizard-color;
+  color: @marquee-wizard-color;
 }

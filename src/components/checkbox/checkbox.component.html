@@ -1,34 +1,36 @@
-<label [attr.for]="(id || _checkboxId) + '-input'"
-       class="ux-checkbox"
-       [class.ux-checkbox-checked]="value === true"
-       [class.ux-checkbox-indeterminate]="value === indeterminateValue"
-       [class.ux-checkbox-simplified]="simplified"
-       [class.ux-checkbox-disabled]="disabled"
-       [class.ux-checkbox-focused]="_focused">
+<label
+  [attr.for]="(id || _checkboxId) + '-input'"
+  class="ux-checkbox"
+  [class.ux-checkbox-checked]="value === true"
+  [class.ux-checkbox-indeterminate]="value === indeterminateValue"
+  [class.ux-checkbox-simplified]="simplified"
+  [class.ux-checkbox-disabled]="disabled"
+  [class.ux-checkbox-focused]="_focused"
+>
+  <div class="ux-checkbox-container">
+    <input
+      #input
+      type="checkbox"
+      uxFocusIndicator
+      class="ux-checkbox-input"
+      [id]="(id || _checkboxId) + '-input'"
+      [required]="required"
+      [checked]="value"
+      [attr.value]="value"
+      [disabled]="disabled"
+      [attr.name]="name"
+      [tabindex]="tabindex"
+      [indeterminate]="value === indeterminateValue"
+      [attr.aria-label]="ariaLabel"
+      [attr.aria-labelledby]="ariaLabelledby"
+      [attr.aria-checked]="value === indeterminateValue ? 'mixed' : value"
+      (indicator)="_focused = $event"
+      (change)="$event.stopPropagation()"
+      (click)="toggle()"
+    />
+  </div>
 
-    <div class="ux-checkbox-container">
-
-        <input #input
-               type="checkbox"
-               uxFocusIndicator
-               class="ux-checkbox-input"
-               [id]="(id || _checkboxId) + '-input'"
-               [required]="required"
-               [checked]="value"
-               [attr.value]="value"
-               [disabled]="disabled"
-               [attr.name]="name"
-               [tabindex]="tabindex"
-               [indeterminate]="value === indeterminateValue"
-               [attr.aria-label]="ariaLabel"
-               [attr.aria-labelledby]="ariaLabelledby"
-               [attr.aria-checked]="value === indeterminateValue ? 'mixed' : value"
-               (indicator)="_focused = $event"
-               (change)="$event.stopPropagation()"
-               (click)="toggle()">
-    </div>
-
-    <span class="ux-checkbox-label">
-        <ng-content></ng-content>
-    </span>
+  <span class="ux-checkbox-label">
+    <ng-content></ng-content>
+  </span>
 </label>

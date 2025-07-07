@@ -1,9 +1,7 @@
 <!-- Display Any Selected Facets -->
 <div class="facets-selected-container">
-
   <!-- Display Title an Clear Button -->
   <div class="facets-selected-header-container">
-
     <!-- Show The Selected Text -->
     <span class="facets-selected-header-label">{{ header }}</span>
 
@@ -11,14 +9,10 @@
     @if ((facetService.facets$ | async).length > 0) {
       <ng-container [ngTemplateOutlet]="clearButton || clearButtonDefault"></ng-container>
     }
-
   </div>
 
   <!-- Display Tags For Selected Items -->
-  <div class="facets-selected-list"
-    cdkDropListGroup
-    role="list">
-
+  <div class="facets-selected-list" cdkDropListGroup role="list">
     <div
       cdkDropList
       (cdkDropListEntered)="onDropListEntered($event)"
@@ -26,8 +20,9 @@
     ></div>
 
     <!-- Show Selected Tags -->
-    @for (facet of (facetService.facets$ | async); track trackBy($index, facet)) {
-      <div #tag
+    @for (facet of facetService.facets$ | async; track trackBy($index, facet)) {
+      <div
+        #tag
         class="facet-selected-tag"
         role="listitem"
         tabindex="0"
@@ -38,40 +33,43 @@
         (mousedown)="tag.focus()"
         (touchmove)="$event.preventDefault()"
         (keydown.ArrowRight)="shiftRight(facet, tag)"
-        (keydown.ArrowLeft)="shiftLeft(facet, tag)">
+        (keydown.ArrowLeft)="shiftLeft(facet, tag)"
+      >
         @if (facetsReorderable) {
           <div class="facet-drag-item" cdkDrag>
             <!-- Display Label -->
             <span class="facet-selected-tag-label">{{ facet.title }}</span>
             <!-- Display Remove Icon -->
-            <button type="button"
+            <button
+              type="button"
               uxFocusIndicator
               class="facet-selected-remove-btn"
               [attr.aria-label]="deselectFacetAriaLabel"
-              (click)="deselectFacet(facet, tag)">
+              (click)="deselectFacet(facet, tag)"
+            >
               <ux-icon name="close"></ux-icon>
             </button>
           </div>
         } @else {
           <span class="facet-selected-tag-label">{{ facet.title }}</span>
-          <button type="button"
+          <button
+            type="button"
             uxFocusIndicator
             class="facet-selected-remove-btn"
             [attr.aria-label]="deselectFacetAriaLabel"
-            (click)="deselectFacet(facet, tag)">
+            (click)="deselectFacet(facet, tag)"
+          >
             <ux-icon name="close"></ux-icon>
           </button>
         }
       </div>
     }
-
   </div>
 
   <!-- Show Message Here if No Facets Selected -->
   @if (emptyText && (facetService.facets$ | async).length === 0) {
     <p class="facets-selected-none-label">{{ emptyText }}</p>
   }
-
 </div>
 
 <!-- Any Facet Elements Should be Added Here By User -->
@@ -80,15 +78,21 @@
 </div>
 
 <ng-template #clearButtonDefault>
-  <button type="button"
+  <button
+    type="button"
     class="btn btn-link btn-icon button-secondary"
     tabindex="0"
     [attr.aria-label]="clearAriaLabel"
     [uxTooltip]="clearTooltip"
     placement="left"
-    (click)="deselectAllFacets()">
-
-    <svg class="facets-selected-clear-graphic" focusable="false" viewBox="0 0 19 12" shape-rendering="geometricPrecision">
+    (click)="deselectAllFacets()"
+  >
+    <svg
+      class="facets-selected-clear-graphic"
+      focusable="false"
+      viewBox="0 0 19 12"
+      shape-rendering="geometricPrecision"
+    >
       <rect class="light-grey" x="0" y="2" width="7" height="2"></rect>
       <rect class="dark-grey" x="0" y="5" width="9" height="2"></rect>
       <rect class="light-grey" x="0" y="8" width="7" height="2"></rect>

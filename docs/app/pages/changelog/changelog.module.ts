@@ -6,21 +6,14 @@ import { DocumentationComponentsModule } from '../../components/components.modul
 import { ChangeLogPageComponent } from './changelog.component';
 
 const routes: Routes = [
-    {
-        path: '',
-        component: ChangeLogPageComponent
-    }
+  {
+    path: '',
+    component: ChangeLogPageComponent,
+  },
 ];
 
 @NgModule({
-    declarations: [
-        ChangeLogPageComponent
-    ],
-    imports: [
-        CommonModule,
-        EboxModule,
-        DocumentationComponentsModule,
-        RouterModule.forChild(routes)
-    ]
+  declarations: [ChangeLogPageComponent],
+  imports: [CommonModule, EboxModule, DocumentationComponentsModule, RouterModule.forChild(routes)],
 })
 export class ChangeLogPageModule {}

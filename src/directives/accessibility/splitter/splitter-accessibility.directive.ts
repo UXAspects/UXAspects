@@ -1,5 +1,19 @@
 import { isPlatformBrowser } from '@angular/common';
-import { AfterViewInit, ContentChildren, Directive, ElementRef, EventEmitter, HostListener, inject, OnDestroy, OnInit, Output, PLATFORM_ID, QueryList, Renderer2 } from '@angular/core';
+import {
+  AfterViewInit,
+  ContentChildren,
+  Directive,
+  ElementRef,
+  EventEmitter,
+  HostListener,
+  inject,
+  OnDestroy,
+  OnInit,
+  Output,
+  PLATFORM_ID,
+  QueryList,
+  Renderer2,
+} from '@angular/core';
 import { SplitAreaDirective, SplitComponent } from 'angular-split';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -7,293 +21,298 @@ import { FocusIndicator } from '../focus-indicator/focus-indicator';
 import { FocusIndicatorService } from '../focus-indicator/focus-indicator.service';
 
 @Directive({
-    selector: 'as-split'
+  selector: 'as-split',
+  standalone: false,
 })
 export class SplitterAccessibilityDirective implements OnInit, AfterViewInit, OnDestroy {
-    private readonly _elementRef = inject(ElementRef);
+  private readonly _elementRef = inject(ElementRef);
 
-    private readonly _renderer = inject(Renderer2);
+  private readonly _renderer = inject(Renderer2);
 
-    private readonly _splitter = inject(SplitComponent);
+  private readonly _splitter = inject(SplitComponent);
 
-    private readonly _focusIndicatorService = inject(FocusIndicatorService);
+  private readonly _focusIndicatorService = inject(FocusIndicatorService);
 
-    private readonly _platform = inject<string>(PLATFORM_ID);
+  private readonly _platform = inject<string>(PLATFORM_ID);
 
-    /** Emit an event whenever the gutter is moved using the keyboard */
-    @Output() gutterKeydown = new EventEmitter<KeyboardEvent>();
+  /** Emit an event whenever the gutter is moved using the keyboard */
+  @Output() gutterKeydown = new EventEmitter<KeyboardEvent>();
 
-    /** Find all the split areas */
-    @ContentChildren(SplitAreaDirective) areas: QueryList<SplitAreaDirective>;
+  /** Find all the split areas */
+  @ContentChildren(SplitAreaDirective) areas: QueryList<SplitAreaDirective>;
 
-    /** Store all the gutter elements */
-    private _gutters: HTMLElement[] = [];
+  /** Store all the gutter elements */
+  private _gutters: HTMLElement[] = [];
 
-    /** Watch for gutters being added or removed */
-    private _observer: MutationObserver;
+  /** Watch for gutters being added or removed */
+  private _observer: MutationObserver;
 
-    /** Teardown our observables on destroy */
-    private readonly _onDestroy = new Subject<void>();
+  /** Teardown our observables on destroy */
+  private readonly _onDestroy = new Subject<void>();
 
-    /** Store references to all focus indicators */
-    private _focusIndicators: FocusIndicator[] = [];
+  /** Store references to all focus indicators */
+  private _focusIndicators: FocusIndicator[] = [];
 
-    ngOnInit(): void {
-        // update aria values when the a gutter is dragged
-        this._splitter.dragProgress$
-            .pipe(takeUntil(this._onDestroy))
-            .subscribe(() => this.updateGutterAttributes());
+  ngOnInit(): void {
+    // update aria values when the a gutter is dragged
+    this._splitter.dragProgress$
+      .pipe(takeUntil(this._onDestroy))
+      .subscribe(() => this.updateGutterAttributes());
+  }
+
+  /** Once initialised make the gutters accessible */
+  ngAfterViewInit(): void {
+    // find the gutters
+    this.onGutterChange();
+
+    // if the number of split areas change then update the gutters and apply aria properties
+    this.areas.changes.pipe(takeUntil(this._onDestroy)).subscribe(() => this.onGutterChange());
+
+    // we can't know when additional split-gutters appear using ContentChildren as the directive class is not exported and selector doesn't work - use mutation observer instead
+    if (isPlatformBrowser(this._platform)) {
+      // create the mutation observer
+      this._observer = new MutationObserver(() => this.onGutterChange());
+
+      // begin observing the child nodes
+      this._observer.observe(this._elementRef.nativeElement, { childList: true });
+    }
+  }
+
+  /** Destroy all observables and observers */
+  ngOnDestroy(): void {
+    if (this._observer) {
+      this._observer.disconnect();
     }
 
-    /** Once initialised make the gutters accessible */
-    ngAfterViewInit(): void {
-        // find the gutters
-        this.onGutterChange();
+    this._onDestroy.next();
+    this._onDestroy.complete();
 
-        // if the number of split areas change then update the gutters and apply aria properties
-        this.areas.changes.pipe(takeUntil(this._onDestroy)).subscribe(() => this.onGutterChange());
+    // destroy all existing focus indicators
+    this._focusIndicators.forEach(indicator => indicator.destroy());
+  }
 
-        // we can't know when additional split-gutters appear using ContentChildren as the directive class is not exported and selector doesn't work - use mutation observer instead
-        if (isPlatformBrowser(this._platform)) {
+  /** We should focus the gutter when it is clicked */
+  @HostListener('click', ['$event'])
+  onClick(event: MouseEvent): void {
+    if (this.isSplitterGutter(event.target as HTMLElement)) {
+      (event.target as HTMLInputElement).parentElement.focus();
+    }
+  }
 
-            // create the mutation observer
-            this._observer = new MutationObserver(() => this.onGutterChange());
+  /** Find all the gutters and set their attributes */
+  private onGutterChange(): void {
+    // destroy all existing focus indicators
+    this._focusIndicators.forEach(indicator => indicator.destroy());
 
-            // begin observing the child nodes
-            this._observer.observe(this._elementRef.nativeElement, { childList: true });
+    // reset the array
+    this._focusIndicators = [];
+
+    // get the new gutter elements
+    this._gutters = this.getGutters();
+
+    // monitor the focus of each gutter
+    this._gutters.forEach(gutter =>
+      this._focusIndicators.push(this._focusIndicatorService.monitor(gutter))
+    );
+
+    // apply all required accessibility attributes to the gutter elements
+    this.setGutterAttributes();
+  }
+
+  /** Get all the gutter elements */
+  private getGutters(): HTMLElement[] {
+    // This function uses DOM accessing properties - which won't work if server side rendered
+    if (isPlatformBrowser(this._platform)) {
+      const gutters: HTMLElement[] = [];
+
+      for (let idx = 0; idx < this._elementRef.nativeElement.children.length; idx++) {
+        const node = this._elementRef.nativeElement.children.item(idx);
+
+        if (this.isSplitterGutter(node as HTMLElement)) {
+          gutters.push(node as HTMLElement);
         }
+      }
+
+      return gutters;
     }
 
-    /** Destroy all observables and observers */
-    ngOnDestroy(): void {
+    return [];
+  }
 
-        if (this._observer) {
-            this._observer.disconnect();
-        }
+  /** Set the appropriate attributes on the gutter elements */
+  private setGutterAttributes(): void {
+    // apply attribute to every gutter
+    this._gutters.forEach(gutter => {
+      // apply the separator role
+      this._renderer.setAttribute(gutter, 'role', 'separator');
 
-        this._onDestroy.next();
-        this._onDestroy.complete();
+      // make the gutters tabbable
+      this._renderer.setAttribute(gutter, 'tabindex', '0');
 
-        // destroy all existing focus indicators
-        this._focusIndicators.forEach(indicator => indicator.destroy());
+      // set the value now aria property
+      this.updateGutterAttributes();
+    });
+  }
+
+  /** Apply the aria attribute values */
+  private updateGutterAttributes(): void {
+    // update the value now properties of each gutter
+    this._gutters.forEach((gutter, idx) => {
+      this.setGutterValueNow(gutter, idx);
+      this.setGutterValueMin(gutter, idx);
+      this.setGutterValueMax(gutter, idx);
+    });
+  }
+
+  /** Apply the value now aria attribute */
+  private setGutterValueNow(gutter: HTMLElement, index: number): void {
+    // get the matching split area
+    const area = this._splitter.displayedAreas[index];
+
+    if (area.size === '*') {
+      return;
     }
 
-    /** We should focus the gutter when it is clicked */
-    @HostListener('click', ['$event'])
-    onClick(event: MouseEvent): void {
-        if (this.isSplitterGutter(event.target as HTMLElement)) {
-            (event.target as HTMLInputElement).parentElement.focus();
-        }
+    // indicate the size
+    this._renderer.setAttribute(gutter, 'aria-valuenow', `${Math.round(area.size)}`);
+  }
+
+  /** Apply the value min aria attribute */
+  private setGutterValueMin(gutter: HTMLElement, index: number): void {
+    // get the matching split area
+    const area = this.areas.toArray()[index];
+
+    // indicate the minimum size
+    this._renderer.setAttribute(gutter, 'aria-valuemin', `${Math.round(area.minSize)}`);
+  }
+
+  /** Apply the value max aria attribute */
+  private setGutterValueMax(gutter: HTMLElement, index: number): void {
+    // get every other splitter area
+    const availableSize = this.areas
+      .filter((_area, idx) => index !== idx)
+      .reduce<number>((total, area) => total + area.minSize, 0);
+
+    // indicate the minimum size
+    this._renderer.setAttribute(gutter, 'aria-valuemax', `${100 - Math.round(availableSize)}`);
+  }
+
+  @HostListener('keydown', ['$event'])
+  onKeydown(event: KeyboardEvent): void {
+    if (this.isSplitterGutter(event.target as HTMLElement)) {
+      this.gutterKeydown.emit(event);
+    }
+  }
+
+  @HostListener('keydown.ArrowDown', ['$event'])
+  @HostListener('keydown.ArrowRight', ['$event'])
+  onIncreaseKey(event: KeyboardEvent): void {
+    // only perform a move if a gutter is focused
+    if (this.isSplitterGutter(event.target as HTMLElement)) {
+      this.setGutterPosition(event.target as HTMLElement, -1);
+
+      // stop the browser from scrolling
+      event.preventDefault();
+    }
+  }
+
+  @HostListener('keydown.ArrowUp', ['$event'])
+  @HostListener('keydown.ArrowLeft', ['$event'])
+  onDecreaseKey(event: KeyboardEvent): void {
+    // only perform a move if a gutter is focused
+    if (this.isSplitterGutter(event.target as HTMLElement)) {
+      this.setGutterPosition(event.target as HTMLElement, 1);
+
+      // stop the browser from scrolling
+      event.preventDefault();
+    }
+  }
+
+  @HostListener('keydown.Home', ['$event'])
+  onHomeKey(event: KeyboardEvent): void {
+    if (this.isSplitterGutter(event.target as HTMLElement)) {
+      // get the affected panels
+      const areas = this.getAreasFromGutter(event.target as HTMLElement);
+
+      if (areas.previous.size === '*') {
+        return;
+      }
+
+      // set the previous area to it's minimum size
+      const delta = areas.previous.size - areas.previous.minSize;
+
+      // update the sizes accordingly
+      this.setGutterPosition(event.target as HTMLElement, delta);
+
+      // stop the browser from scrolling
+      event.preventDefault();
+    }
+  }
+
+  @HostListener('keydown.End', ['$event'])
+  onEndKey(event: KeyboardEvent): void {
+    if (this.isSplitterGutter(event.target as HTMLElement)) {
+      // get the affected panels
+      const areas = this.getAreasFromGutter(event.target as HTMLElement);
+
+      if (areas.next.size === '*') {
+        return;
+      }
+
+      // set the next area to it's minimum size
+      const delta = areas.next.size - areas.next.minSize;
+
+      // update the sizes accordingly
+      this.setGutterPosition(event.target as HTMLElement, -delta);
+
+      // stop the browser from scrolling
+      event.preventDefault();
+    }
+  }
+
+  /** Determine if an element is a gutter */
+  private isSplitterGutter(element: HTMLElement): boolean {
+    return (
+      element.classList.contains('as-split-gutter') ||
+      element.classList.contains('as-split-gutter-icon')
+    );
+  }
+
+  /** Update the gutter position */
+  private setGutterPosition(gutter: HTMLElement, delta: number): void {
+    // get the affected panels
+    const areas = this.getAreasFromGutter(gutter);
+
+    if (areas.previous.size === '*' || areas.next.size === '*') {
+      return;
     }
 
-    /** Find all the gutters and set their attributes */
-    private onGutterChange(): void {
-
-        // destroy all existing focus indicators
-        this._focusIndicators.forEach(indicator => indicator.destroy());
-
-        // reset the array
-        this._focusIndicators = [];
-
-        // get the new gutter elements
-        this._gutters = this.getGutters();
-
-        // monitor the focus of each gutter
-        this._gutters.forEach(gutter => this._focusIndicators.push(this._focusIndicatorService.monitor(gutter)));
-
-        // apply all required accessibility attributes to the gutter elements
-        this.setGutterAttributes();
+    // ensure we can perform the resize
+    if (
+      areas.previous.size - delta < areas.previous.minSize ||
+      areas.next.size + delta < areas.next.minSize
+    ) {
+      return;
     }
 
-    /** Get all the gutter elements */
-    private getGutters(): HTMLElement[] {
-        // This function uses DOM accessing properties - which won't work if server side rendered
-        if (isPlatformBrowser(this._platform)) {
-            const gutters: HTMLElement[] = [];
+    // perform the resize
+    areas.previous.size -= delta;
+    areas.next.size += delta;
 
-            for (let idx = 0; idx < this._elementRef.nativeElement.children.length; idx++) {
-                const node = this._elementRef.nativeElement.children.item(idx);
+    // update the splitter - this is a private method but we need to call it
+    (this._splitter as any).refreshStyleSizes();
 
-                if (this.isSplitterGutter(node as HTMLElement)) {
-                    gutters.push(node as HTMLElement);
-                }
-            }
+    // update the gutter aria values
+    this.updateGutterAttributes();
+  }
 
-            return gutters;
-        }
+  /** Get the split areas associated with a given gutter */
+  private getAreasFromGutter(gutter: HTMLElement) {
+    const index = this._gutters.indexOf(gutter);
 
-        return [];
-    }
-
-    /** Set the appropriate attributes on the gutter elements */
-    private setGutterAttributes(): void {
-        // apply attribute to every gutter
-        this._gutters.forEach(gutter => {
-            // apply the separator role
-            this._renderer.setAttribute(gutter, 'role', 'separator');
-
-            // make the gutters tabbable
-            this._renderer.setAttribute(gutter, 'tabindex', '0');
-
-            // set the value now aria property
-            this.updateGutterAttributes();
-        });
-    }
-
-    /** Apply the aria attribute values */
-    private updateGutterAttributes(): void {
-        // update the value now properties of each gutter
-        this._gutters.forEach((gutter, idx) => {
-            this.setGutterValueNow(gutter, idx);
-            this.setGutterValueMin(gutter, idx);
-            this.setGutterValueMax(gutter, idx);
-        });
-    }
-
-    /** Apply the value now aria attribute */
-    private setGutterValueNow(gutter: HTMLElement, index: number): void {
-        // get the matching split area
-        const area = this._splitter.displayedAreas[index];
-
-        if (area.size === '*') {
-            return;
-        }
-
-        // indicate the size
-        this._renderer.setAttribute(gutter, 'aria-valuenow', `${Math.round(area.size)}`);
-    }
-
-    /** Apply the value min aria attribute */
-    private setGutterValueMin(gutter: HTMLElement, index: number): void {
-        // get the matching split area
-        const area = this.areas.toArray()[index];
-
-        // indicate the minimum size
-        this._renderer.setAttribute(gutter, 'aria-valuemin', `${Math.round(area.minSize)}`);
-    }
-
-    /** Apply the value max aria attribute */
-    private setGutterValueMax(gutter: HTMLElement, index: number): void {
-        // get every other splitter area
-        const availableSize = this.areas
-            .filter((_area, idx) => index !== idx)
-            .reduce<number>((total, area) => total + area.minSize, 0);
-
-        // indicate the minimum size
-        this._renderer.setAttribute(gutter, 'aria-valuemax', `${100 - Math.round(availableSize)}`);
-    }
-
-    @HostListener('keydown', ['$event'])
-    onKeydown(event: KeyboardEvent): void {
-        if (this.isSplitterGutter(event.target as HTMLElement)) {
-            this.gutterKeydown.emit(event);
-        }
-    }
-
-    @HostListener('keydown.ArrowDown', ['$event'])
-    @HostListener('keydown.ArrowRight', ['$event'])
-    onIncreaseKey(event: KeyboardEvent): void {
-        // only perform a move if a gutter is focused
-        if (this.isSplitterGutter(event.target as HTMLElement)) {
-            this.setGutterPosition(event.target as HTMLElement, -1);
-
-            // stop the browser from scrolling
-            event.preventDefault();
-        }
-    }
-
-    @HostListener('keydown.ArrowUp', ['$event'])
-    @HostListener('keydown.ArrowLeft', ['$event'])
-    onDecreaseKey(event: KeyboardEvent): void {
-        // only perform a move if a gutter is focused
-        if (this.isSplitterGutter(event.target as HTMLElement)) {
-            this.setGutterPosition(event.target as HTMLElement, 1);
-
-            // stop the browser from scrolling
-            event.preventDefault();
-        }
-    }
-
-    @HostListener('keydown.Home', ['$event'])
-    onHomeKey(event: KeyboardEvent): void {
-        if (this.isSplitterGutter(event.target as HTMLElement)) {
-            // get the affected panels
-            const areas = this.getAreasFromGutter(event.target as HTMLElement);
-
-            if (areas.previous.size === '*') {
-                return;
-            }
-
-            // set the previous area to it's minimum size
-            const delta = areas.previous.size - areas.previous.minSize;
-
-            // update the sizes accordingly
-            this.setGutterPosition(event.target as HTMLElement, delta);
-
-            // stop the browser from scrolling
-            event.preventDefault();
-        }
-    }
-
-    @HostListener('keydown.End', ['$event'])
-    onEndKey(event: KeyboardEvent): void {
-        if (this.isSplitterGutter(event.target as HTMLElement)) {
-            // get the affected panels
-            const areas = this.getAreasFromGutter(event.target as HTMLElement);
-
-            if (areas.next.size === '*') {
-                return;
-            }
-
-            // set the next area to it's minimum size
-            const delta = areas.next.size - areas.next.minSize;
-
-            // update the sizes accordingly
-            this.setGutterPosition(event.target as HTMLElement, -delta);
-
-            // stop the browser from scrolling
-            event.preventDefault();
-        }
-    }
-
-    /** Determine if an element is a gutter */
-    private isSplitterGutter(element: HTMLElement): boolean {
-        return element.classList.contains('as-split-gutter') || element.classList.contains('as-split-gutter-icon');
-    }
-
-    /** Update the gutter position */
-    private setGutterPosition(gutter: HTMLElement, delta: number): void {
-        // get the affected panels
-        const areas = this.getAreasFromGutter(gutter);
-
-        if (areas.previous.size === '*' || areas.next.size === '*') {
-            return;
-        }
-
-        // ensure we can perform the resize
-        if (areas.previous.size - delta < areas.previous.minSize || areas.next.size + delta < areas.next.minSize) {
-            return;
-        }
-
-        // perform the resize
-        areas.previous.size -= delta;
-        areas.next.size += delta;
-
-        // update the splitter - this is a private method but we need to call it
-        //eslint-disable-next-line @typescript-eslint/no-explicit-any
-        (this._splitter as any).refreshStyleSizes();
-
-        // update the gutter aria values
-        this.updateGutterAttributes();
-    }
-
-    /** Get the split areas associated with a given gutter */
-    private getAreasFromGutter(gutter: HTMLElement) {
-        const index = this._gutters.indexOf(gutter);
-
-        return {
-            previous: this._splitter.displayedAreas[index],
-            next: this._splitter.displayedAreas[index + 1]
-        };
-    }
+    return {
+      previous: this._splitter.displayedAreas[index],
+      next: this._splitter.displayedAreas[index + 1],
+    };
+  }
 }

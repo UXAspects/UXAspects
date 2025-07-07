@@ -11,16 +11,12 @@
             [fragment]="crumb.fragment"
             [queryParams]="crumb.queryParams"
             (click)="clickCrumb($event, crumb)"
-            >
+          >
             {{ crumb.title }}
           </a>
         }
         @if (crumb.onClick && !crumb.routerLink) {
-          <a
-            uxFocusIndicator
-            tabindex="0"
-            (click)="clickCrumb($event, crumb)"
-            >
+          <a uxFocusIndicator tabindex="0" (click)="clickCrumb($event, crumb)">
             {{ crumb.title }}
           </a>
         }

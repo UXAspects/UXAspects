@@ -51,6 +51,7 @@ interface StepDefinition {
       }
     </ux-marquee-wizard>
   `,
+  standalone: false,
 })
 export class MarqueeWizardTestComponent {
   @ViewChild(MarqueeWizardComponent) marqueeWizard: MarqueeWizardComponent;
@@ -327,6 +328,7 @@ describe('Marquee Wizard', () => {
       }
     </ux-marquee-wizard>
   `,
+  standalone: false,
 })
 export class MarqueeWizardAsyncTestComponent implements OnDestroy {
   step = 0;
@@ -460,6 +462,7 @@ describe('Marquee wizard with delayed step creation', () => {
       </ux-marquee-wizard-step>
     </ux-marquee-wizard>
   `,
+  standalone: false,
 })
 export class MarqueeWizardValidationTestComponent {
   currentStep: number;
@@ -592,6 +595,7 @@ describe('Marquee wizard with validation', () => {
       </ux-marquee-wizard-step>
     </ux-marquee-wizard>
   `,
+  standalone: false,
 })
 export class MarqueeWizardCustomStepTemplateComponent {}
 
@@ -659,6 +663,7 @@ describe('Marquee wizard with custom step template', () => {
       </ux-marquee-wizard-step>
     </ux-marquee-wizard>
   `,
+  standalone: false,
 })
 export class MarqueeWizardStepNavigationComponent {
   currentStep: number;

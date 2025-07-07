@@ -1,5 +1,4 @@
 <div class="range-header">
-
   <div class="header-section">
     @if (!rangeService.start) {
       <div class="select-header">{{ selectStartTitle }}</div>
@@ -9,15 +8,20 @@
         {{ rangeService.start | formatDate: dateFormat || 'd MMMM y' }}
       </div>
     }
-    <div [style.visibility]="rangeService.start && showTime ? 'visible' : 'hidden'" class="time-header">
+    <div
+      [style.visibility]="rangeService.start && showTime ? 'visible' : 'hidden'"
+      class="time-header"
+    >
       {{ rangeService.start | formatDate: timeFormat || (showMeridian ? 'shortTime' : 'HH:mm') }}
     </div>
   </div>
 
   <div class="header-separator">
     <ux-icon name="link-next"></ux-icon>
-    <p class="duration"
-      [style.visibility]="_duration !== null && _duration !== undefined ? 'visible' : 'hidden'">
+    <p
+      class="duration"
+      [style.visibility]="_duration !== null && _duration !== undefined ? 'visible' : 'hidden'"
+    >
       {{ durationTitle(_duration || 0) }}
     </p>
   </div>
@@ -28,14 +32,16 @@
     }
     @if (rangeService.end) {
       <div class="date-header">
-        {{ rangeService.end | formatDate: dateFormat || 'd MMMM y'}}
+        {{ rangeService.end | formatDate: dateFormat || 'd MMMM y' }}
       </div>
     }
-    <div [style.visibility]="rangeService.end && showTime ? 'visible' : 'hidden'" class="time-header">
+    <div
+      [style.visibility]="rangeService.end && showTime ? 'visible' : 'hidden'"
+      class="time-header"
+    >
       {{ rangeService.end | formatDate: timeFormat || (showMeridian ? 'shortTime' : 'HH:mm') }}
     </div>
   </div>
-
 </div>
 
 <div class="content">
@@ -62,7 +68,8 @@
     [nowBtnAriaLabel]="nowBtnAriaLabel"
     [timezones]="timezones"
     [(timezone)]="startTimezone"
-    (timezoneChange)="startTimezoneChange.emit($event)">
+    (timezoneChange)="startTimezoneChange.emit($event)"
+  >
   </ux-date-time-picker>
 
   <ux-date-time-picker
@@ -88,6 +95,7 @@
     [nowBtnAriaLabel]="nowBtnAriaLabel"
     [timezones]="timezones"
     [(timezone)]="endTimezone"
-    (timezoneChange)="endTimezoneChange.emit($event)">
+    (timezoneChange)="endTimezoneChange.emit($event)"
+  >
   </ux-date-time-picker>
 </div>

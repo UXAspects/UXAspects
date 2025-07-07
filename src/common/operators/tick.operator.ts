@@ -7,10 +7,19 @@ import { Observable } from 'rxjs';
  * delay operator but this uses a timeout which is significantly
  * slower than using requestAnimationFrame.
  */
-export const tick = <T>() => (source: Observable<T>) => new Observable<T>((subscriber) => {
-    source.subscribe({
-        next(value: T) { requestAnimationFrame(() => subscriber.next(value)); },
-        error(err: unknown) { subscriber.error(err); },
-        complete() { subscriber.complete(); },
+export const tick =
+  <T>() =>
+  (source: Observable<T>) =>
+    new Observable<T>(subscriber => {
+      source.subscribe({
+        next(value: T) {
+          requestAnimationFrame(() => subscriber.next(value));
+        },
+        error(err: unknown) {
+          subscriber.error(err);
+        },
+        complete() {
+          subscriber.complete();
+        },
+      });
     });
-});

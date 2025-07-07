@@ -1,32 +1,35 @@
-<label [attr.for]="(id || _toggleSwitchId) + '-input'"
-       class="ux-toggleswitch"
-       [class.ux-toggleswitch-checked]="value"
-       [class.ux-toggleswitch-disabled]="disabled"
-       [class.ux-toggleswitch-focused]="_focused">
+<label
+  [attr.for]="(id || _toggleSwitchId) + '-input'"
+  class="ux-toggleswitch"
+  [class.ux-toggleswitch-checked]="value"
+  [class.ux-toggleswitch-disabled]="disabled"
+  [class.ux-toggleswitch-focused]="_focused"
+>
+  <input
+    #input
+    class="ux-toggleswitch-input"
+    uxFocusIndicator
+    type="checkbox"
+    [id]="(id || _toggleSwitchId) + '-input'"
+    [checked]="value"
+    [disabled]="disabled"
+    [required]="required"
+    [attr.name]="name"
+    [tabindex]="tabindex"
+    [attr.aria-label]="ariaLabel"
+    [attr.aria-labelledby]="ariaLabelledby"
+    [attr.aria-checked]="value"
+    (indicator)="_focused = $event"
+    (change)="toggle()"
+    (click)="$event.stopPropagation()"
+  />
 
-    <input #input
-           class="ux-toggleswitch-input"
-           uxFocusIndicator
-           type="checkbox"
-           [id]="(id || _toggleSwitchId) + '-input'"
-           [checked]="value"
-           [disabled]="disabled"
-           [required]="required"
-           [attr.name]="name"
-           [tabindex]="tabindex"
-           [attr.aria-label]="ariaLabel"
-           [attr.aria-labelledby]="ariaLabelledby"
-           [attr.aria-checked]="value"
-           (indicator)="_focused = $event"
-           (change)="toggle()"
-           (click)="$event.stopPropagation()">
+  <div class="ux-toggleswitch-container">
+    <div class="ux-toggleswitch-bg"></div>
+    <div class="ux-toggleswitch-nub"></div>
+  </div>
 
-    <div class="ux-toggleswitch-container">
-        <div class="ux-toggleswitch-bg"></div>
-        <div class="ux-toggleswitch-nub"></div>
-    </div>
-
-    <span class="ux-toggleswitch-label">
-        <ng-content></ng-content>
-    </span>
+  <span class="ux-toggleswitch-label">
+    <ng-content></ng-content>
+  </span>
 </label>

@@ -6,33 +6,28 @@ import { DocumentationCategoryComponent } from '../../../../components/documenta
 import { DocumentationPage, ResolverService } from '../../../../services/resolver/resolver.service';
 import { CssColorPaletteComponent } from './color-palette/color-palette.component';
 
-
-const SECTIONS = [
-    CssColorPaletteComponent
-];
+const SECTIONS = [CssColorPaletteComponent];
 
 const ROUTES = [
-    {
-        path: '**',
-        component: DocumentationCategoryComponent,
-        data: {
-            category: ResolverService.resolveCategoryData(DocumentationPage.Css, 'Color Palette')
-        }
-    }
+  {
+    path: '**',
+    component: DocumentationCategoryComponent,
+    data: {
+      category: ResolverService.resolveCategoryData(DocumentationPage.Css, 'Color Palette'),
+    },
+  },
 ];
 
 @NgModule({
-    imports: [
-        DocumentationComponentsModule,
-        RouterModule.forChild(ROUTES),
-        ColorServiceModule,
-    ],
-    exports: SECTIONS,
-    declarations: SECTIONS,
+  imports: [DocumentationComponentsModule, RouterModule.forChild(ROUTES), ColorServiceModule],
+  exports: SECTIONS,
+  declarations: SECTIONS,
 })
 export class CssColorPaletteModule {
-
-    constructor(componentFactoryResolver: ComponentFactoryResolver, resolverService: ResolverService) {
-        resolverService.registerResolver(componentFactoryResolver, SECTIONS);
-    }
+  constructor(
+    componentFactoryResolver: ComponentFactoryResolver,
+    resolverService: ResolverService
+  ) {
+    resolverService.registerResolver(componentFactoryResolver, SECTIONS);
+  }
 }

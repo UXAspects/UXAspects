@@ -9,1558 +9,1732 @@ import { DashboardWidgetComponent } from './widget/dashboard-widget.component';
 
 @Injectable()
 export class DashboardService implements OnDestroy {
+  private _widgetOrigin: { column?: number; row?: number; columnSpan?: number; rowSpan?: number };
+  private _actionWidget: DashboardAction;
+  private _rowHeight: number = 0;
+  private _cache: DashboardCache[];
+  private _event: MouseEvent;
 
-    private _widgetOrigin: { column?: number, row?: number, columnSpan?: number, rowSpan?: number };
-    private _actionWidget: DashboardAction;
-    private _rowHeight: number = 0;
-    private _cache: DashboardCache[];
-    private _event: MouseEvent;
+  initialized$ = new BehaviorSubject<boolean>(false);
+  widgets$ = new BehaviorSubject<DashboardWidgetComponent[]>([]);
+  options$ = new BehaviorSubject<DashboardOptions>(defaultOptions);
+  dimensions$ = new BehaviorSubject<DashboardDimensions>({});
+  height$: Observable<number> = this.dimensions$.pipe(
+    tick(),
+    map(dimensions => dimensions.height),
+    distinctUntilChanged()
+  );
+  placeholder$ = new BehaviorSubject<DashboardPlaceholder>({
+    visible: false,
+    x: 0,
+    y: 0,
+    width: 0,
+    height: 0,
+  });
+  layout$ = new BehaviorSubject<DashboardLayoutData[]>([]);
+  stacked$ = new BehaviorSubject<boolean>(false);
+  isDragging$ = new BehaviorSubject<DashboardWidgetComponent>(null);
+  isGrabbing$ = new BehaviorSubject<DashboardWidgetComponent>(null);
+  userLayoutChange$ = new Subject<DashboardLayoutData[]>();
 
-    initialized$ = new BehaviorSubject<boolean>(false);
-    widgets$ = new BehaviorSubject<DashboardWidgetComponent[]>([]);
-    options$ = new BehaviorSubject<DashboardOptions>(defaultOptions);
-    dimensions$ = new BehaviorSubject<DashboardDimensions>({});
-    height$: Observable<number> = this.dimensions$.pipe(tick(), map(dimensions => dimensions.height), distinctUntilChanged());
-    placeholder$ = new BehaviorSubject<DashboardPlaceholder>({ visible: false, x: 0, y: 0, width: 0, height: 0 });
-    layout$ = new BehaviorSubject<DashboardLayoutData[]>([]);
-    stacked$ = new BehaviorSubject<boolean>(false);
-    isDragging$ = new BehaviorSubject<DashboardWidgetComponent>(null);
-    isGrabbing$ = new BehaviorSubject<DashboardWidgetComponent>(null);
-    userLayoutChange$ = new Subject<DashboardLayoutData[]>();
+  get options(): DashboardOptions {
+    return this.options$.getValue();
+  }
 
-    get options(): DashboardOptions {
-        return this.options$.getValue();
+  get widgets(): DashboardWidgetComponent[] {
+    return this.widgets$.getValue();
+  }
+
+  get stacked(): boolean {
+    return this.stacked$.getValue();
+  }
+
+  get dimensions(): DashboardDimensions {
+    return this.dimensions$.getValue();
+  }
+
+  get columnWidth(): number {
+    return this.dimensions.width / this.options.columns;
+  }
+
+  /** Unsubscribe from all observables on destroy */
+  private readonly _onDestroy = new Subject<void>();
+
+  constructor() {
+    combineLatest(this.layout$, this.widgets$, this.initialized$)
+      .pipe(
+        tick(),
+        filter(([layout, widgets, initialized]) => layout && widgets.length > 0 && initialized),
+        takeUntil(this._onDestroy)
+      )
+      .subscribe(([layout]) => {
+        this.setLayoutData(layout);
+        this.renderDashboard();
+      });
+
+    this.stacked$
+      .pipe(
+        distinctUntilChanged(),
+        filter(stacked => stacked === true),
+        takeUntil(this._onDestroy)
+      )
+      .subscribe(this.updateWhenStacked.bind(this));
+    this.widgets$.pipe(tick(), takeUntil(this._onDestroy)).subscribe(() => this.renderDashboard());
+    this.dimensions$
+      .pipe(tick(), takeUntil(this._onDestroy))
+      .subscribe(() => this.renderDashboard());
+  }
+
+  ngOnDestroy(): void {
+    this._onDestroy.next();
+    this._onDestroy.complete();
+  }
+
+  /**
+   * Add a widget to the dashboard
+   * @param widget The widget component to add to the dashboard
+   */
+  addWidget(widget: DashboardWidgetComponent): void {
+    this.widgets$.next([...this.widgets$.getValue(), widget]);
+  }
+
+  /**
+   * Remove a widget from the dashboard
+   * @param widget The widget to remove
+   */
+  removeWidget(widget: DashboardWidgetComponent): void {
+    this.widgets$.next(this.widgets$.getValue().filter(_widget => _widget !== widget));
+  }
+
+  /**
+   * Indicate that the dashboard element has been resized
+   * @param width The width of the dashboard element in px
+   * @param height The height of the dashboard element in px
+   */
+  setDimensions(
+    width: number = this.dimensions.width,
+    height: number = this.dimensions.height
+  ): void {
+    if (this.dimensions.width !== width || this.dimensions.height !== height) {
+      this.dimensions$.next({ width, height });
+    }
+  }
+
+  /**
+   * Produce an object containing all the required layout data.
+   * This can be useful for exporting/saving a layout
+   */
+  getLayoutData(): DashboardLayoutData[] {
+    return this.widgets.map(widget => {
+      return {
+        id: widget.id,
+        col: widget.getColumn(),
+        row: widget.getRow(),
+        colSpan: widget.getColumnSpan(),
+        rowSpan: widget.getRowSpan(),
+        minColSpan: widget.minColSpan,
+        minRowSpan: widget.minRowSpan,
+      };
+    });
+  }
+
+  /**
+   * Position widgets programatically
+   */
+  setLayoutData(widgets: DashboardLayoutData[]): void {
+    // iterate through each widget data and find a match
+    widgets.forEach(widget => {
+      // find the matching widget
+      const target = this.widgets.find(_widget => _widget.id === widget.id);
+
+      if (target) {
+        target.setColumn(widget.col);
+        target.setRow(widget.row);
+        target.setColumnSpan(widget.colSpan);
+        target.setRowSpan(widget.rowSpan);
+        target.minColSpan = widget.minColSpan ?? 1;
+        target.minRowSpan = widget.minRowSpan ?? 1;
+      }
+    });
+  }
+
+  /**
+   * Update the positions and sizes of the widgets
+   */
+  renderDashboard(): void {
+    // get the dimensions of the dashboard
+    this._rowHeight = this.options.rowHeight || this.columnWidth;
+
+    // ensure the column width is not below the min widths
+    this.stacked$.next(this.columnWidth < this.options.minWidth);
+
+    this.setDashboardLayout();
+
+    // iterate through each widget and set the size - except the one being resized
+    this.widgets
+      .filter(widget => !this._actionWidget || widget !== this._actionWidget.widget)
+      .forEach(widget => widget.render());
+  }
+
+  /**
+   * Determine where widgets should be positioned based on their positions, width and the size of the container
+   */
+  setDashboardLayout(): void {
+    // find any widgets that do not currently have a position set
+    this.widgets
+      .filter(widget => widget.getColumn() === undefined || widget.getRow() === undefined)
+      .forEach(widget => this.setWidgetPosition(widget));
+
+    this.setDashboardHeight();
+  }
+
+  updateWhenStacked(): void {
+    // iterate through each widget set it's stacked state and retain the rowSpan
+    this.getWidgetsByOrder().forEach((widget, idx, widgets) => {
+      const widgetsAbove = widgets.slice(0, idx);
+      const row = widgetsAbove.reduce(
+        (currentRow, _widget) => currentRow + _widget.getRowSpan(),
+        0
+      );
+      widget.setColumn(0);
+      widget.setRow(row);
+    });
+  }
+
+  /** Get widgets in the order they visually appear as the widgets array order does not reflect this */
+  getWidgetsByOrder(): DashboardWidgetComponent[] {
+    return [...this.widgets].sort((w1, w2) => {
+      const w1Position =
+        w1.getColumn(DashboardStackMode.Regular) +
+        w1.getRow(DashboardStackMode.Regular) * this.options.columns;
+      const w2Position =
+        w2.getColumn(DashboardStackMode.Regular) +
+        w2.getRow(DashboardStackMode.Regular) * this.options.columns;
+
+      if (w1Position < w2Position) {
+        return -1;
+      }
+
+      if (w1Position > w2Position) {
+        return 1;
+      }
+
+      return 0;
+    });
+  }
+
+  /**
+   * Find a position that a widget can fit in the dashboard
+   * @param widget The widget to try and position
+   */
+  setWidgetPosition(widget: DashboardWidgetComponent): void {
+    // find a position for the widget
+    let position = 0;
+    let success = false;
+
+    // repeat until a space is found
+    while (!success) {
+      // get a position to try
+      const column = position % this.options.columns;
+      const row = Math.floor(position / this.options.columns);
+
+      // check the current position
+      if (this.getPositionAvailable(column, row, widget.getColumnSpan(), widget.getRowSpan())) {
+        success = true;
+        widget.setColumn(column);
+        widget.setRow(row);
+        return;
+      }
+
+      if (column === 0 && widget.colSpan > this.options.columns) {
+        throw new Error(
+          'Dashboard widgets have a colSpan greater than the max number of dashboard columns!'
+        );
+      }
+
+      position++;
+    }
+  }
+
+  /**
+   * Check if a position in the dashboard is vacant or not
+   */
+  getPositionAvailable(
+    column: number,
+    row: number,
+    columnSpan: number,
+    rowSpan: number,
+    ignoreWidget?: DashboardWidgetComponent
+  ): boolean {
+    // get a list of grid spaces that are populated
+    const spaces = this.getOccupiedSpaces();
+
+    // check if the block would still be in bounds
+    if (column + columnSpan > this.options.columns) {
+      return false;
     }
 
-    get widgets(): DashboardWidgetComponent[] {
-        return this.widgets$.getValue();
-    }
-
-    get stacked(): boolean {
-        return this.stacked$.getValue();
-    }
-
-    get dimensions(): DashboardDimensions {
-        return this.dimensions$.getValue();
-    }
-
-    get columnWidth(): number {
-        return this.dimensions.width / this.options.columns;
-    }
-
-    /** Unsubscribe from all observables on destroy */
-    private readonly _onDestroy = new Subject<void>();
-
-    constructor() {
-
-        combineLatest(this.layout$, this.widgets$, this.initialized$)
-            .pipe(
-                tick(),
-                filter(([layout, widgets, initialized]) => layout && widgets.length > 0 && initialized),
-                takeUntil(this._onDestroy)
-            )
-            .subscribe(([layout]) => {
-                this.setLayoutData(layout);
-                this.renderDashboard();
-            });
-
-        this.stacked$
-            .pipe(
-                distinctUntilChanged(),
-                filter(stacked => stacked === true),
-                takeUntil(this._onDestroy)
-            ).subscribe(this.updateWhenStacked.bind(this));
-        this.widgets$.pipe(tick(), takeUntil(this._onDestroy)).subscribe(() => this.renderDashboard());
-        this.dimensions$.pipe(tick(), takeUntil(this._onDestroy)).subscribe(() => this.renderDashboard());
-    }
-
-    ngOnDestroy(): void {
-        this._onDestroy.next();
-        this._onDestroy.complete();
-    }
-
-    /**
-     * Add a widget to the dashboard
-     * @param widget The widget component to add to the dashboard
-     */
-    addWidget(widget: DashboardWidgetComponent): void {
-        this.widgets$.next([...this.widgets$.getValue(), widget]);
-    }
-
-    /**
-     * Remove a widget from the dashboard
-     * @param widget The widget to remove
-     */
-    removeWidget(widget: DashboardWidgetComponent): void {
-        this.widgets$.next(this.widgets$.getValue().filter(_widget => _widget !== widget));
-    }
-
-    /**
-     * Indicate that the dashboard element has been resized
-     * @param width The width of the dashboard element in px
-     * @param height The height of the dashboard element in px
-     */
-    setDimensions(width: number = this.dimensions.width, height: number = this.dimensions.height): void {
-        if (this.dimensions.width !== width || this.dimensions.height !== height) {
-            this.dimensions$.next({ width, height });
+    // check each required position
+    for (let x = column; x < column + columnSpan; x++) {
+      for (let y = row; y < row + rowSpan; y++) {
+        if (
+          spaces.find(
+            block => block.column === x && block.row === y && block.widget !== ignoreWidget
+          )
+        ) {
+          return false;
         }
+      }
     }
 
-    /**
-     * Produce an object containing all the required layout data.
-     * This can be useful for exporting/saving a layout
-     */
-    getLayoutData(): DashboardLayoutData[] {
-        return this.widgets.map(widget => {
-            return {
-                id: widget.id,
-                col: widget.getColumn(),
-                row: widget.getRow(),
-                colSpan: widget.getColumnSpan(),
-                rowSpan: widget.getRowSpan(),
-                minColSpan: widget.minColSpan,
-                minRowSpan: widget.minRowSpan
-            };
-        });
+    return true;
+  }
+
+  getOccupiedSpaces(): DashboardSpace[] {
+    // find all spaces that are currently occupied
+    return this.widgets
+      .filter(widget => widget.getColumn() !== undefined && widget.getRow() !== undefined)
+      .reduce((value, widget) => {
+        this.forEachBlock(widget, (column, row) => value.push({ widget, column, row }));
+
+        return value;
+      }, []);
+  }
+
+  /**
+   * Begin resizing a widget
+   * @param action The the widget to resize
+   */
+  onResizeStart(action: DashboardAction): void {
+    this.cacheWidgets();
+
+    // store the mouse event
+    this._event = action.event;
+    this._actionWidget = action;
+
+    // bring the widget to the font
+    this.bringToFront(action.widget);
+  }
+
+  onResizeDrag(action: DashboardAction): void {
+    const mousePosX = this._event.pageX - pageXOffset;
+    const mousePosY = this._event.pageY - pageYOffset;
+
+    // if there was no movement then do nothing
+    if (action.event.x === mousePosX && action.event.y === mousePosY) {
+      return;
     }
 
-    /**
-     * Position widgets programatically
-     */
-    setLayoutData(widgets: DashboardLayoutData[]): void {
+    // update the stored mouse event
+    this._event = action.event;
+
+    // get handle for direction
+    const { handle } = action;
+
+    // get the bounds of the handle
+    const bounds = handle.getBoundingClientRect();
+
+    // get the center of the handle
+    const centerX = bounds.left + bounds.width / 2;
+    const centerY = bounds.top + bounds.height / 2;
+
+    // get the current mouse position
+    const mouseX = mousePosX - centerX;
+    const mouseY = mousePosY - centerY;
+
+    // store the new proposed dimensions for the widget
+    const dimensions: DashboardWidgetDimensions = {
+      x: action.widget.x,
+      y: action.widget.y,
+      width: action.widget.width,
+      height: action.widget.height,
+    };
+
+    // update widget based on the handle being dragged
+    switch (action.direction) {
+      case ActionDirection.Right:
+        dimensions.width += mouseX;
+        break;
+
+      case ActionDirection.Left:
+        dimensions.x += mouseX;
+        dimensions.width -= mouseX;
 
-        // iterate through each widget data and find a match
-        widgets.forEach(widget => {
-
-            // find the matching widget
-            const target = this.widgets.find(_widget => _widget.id === widget.id);
-
-            if (target) {
-                target.setColumn(widget.col);
-                target.setRow(widget.row);
-                target.setColumnSpan(widget.colSpan);
-                target.setRowSpan(widget.rowSpan);
-                target.minColSpan = widget.minColSpan ?? 1;
-                target.minRowSpan = widget.minRowSpan ?? 1;
-            }
-        });
-    }
-
-    /**
-     * Update the positions and sizes of the widgets
-     */
-    renderDashboard(): void {
-
-        // get the dimensions of the dashboard
-        this._rowHeight = this.options.rowHeight || this.columnWidth;
-
-        // ensure the column width is not below the min widths
-        this.stacked$.next(this.columnWidth < this.options.minWidth);
-
-        this.setDashboardLayout();
-
-        // iterate through each widget and set the size - except the one being resized
-        this.widgets.filter(widget => !this._actionWidget || widget !== this._actionWidget.widget)
-            .forEach(widget => widget.render());
-    }
-
-    /**
-     * Determine where widgets should be positioned based on their positions, width and the size of the container
-     */
-    setDashboardLayout(): void {
-        // find any widgets that do not currently have a position set
-        this.widgets.filter(widget => widget.getColumn() === undefined || widget.getRow() === undefined)
-            .forEach(widget => this.setWidgetPosition(widget));
-
-        this.setDashboardHeight();
-    }
-
-    updateWhenStacked(): void {
-        // iterate through each widget set it's stacked state and retain the rowSpan
-        this.getWidgetsByOrder().forEach((widget, idx, widgets) => {
-            const widgetsAbove = widgets.slice(0, idx);
-            const row = widgetsAbove.reduce((currentRow, _widget) => currentRow + _widget.getRowSpan(), 0);
-            widget.setColumn(0);
-            widget.setRow(row);
-        });
-
-    }
-
-    /** Get widgets in the order they visually appear as the widgets array order does not reflect this */
-    getWidgetsByOrder(): DashboardWidgetComponent[] {
-        return [...this.widgets].sort((w1, w2) => {
-
-            const w1Position = w1.getColumn(DashboardStackMode.Regular) + (w1.getRow(DashboardStackMode.Regular) * this.options.columns);
-            const w2Position = w2.getColumn(DashboardStackMode.Regular) + (w2.getRow(DashboardStackMode.Regular) * this.options.columns);
-
-            if (w1Position < w2Position) {
-                return -1;
-            }
-
-            if (w1Position > w2Position) {
-                return 1;
-            }
-
-            return 0;
-
-        });
-    }
-
-    /**
-     * Find a position that a widget can fit in the dashboard
-     * @param widget The widget to try and position
-     */
-    setWidgetPosition(widget: DashboardWidgetComponent): void {
-
-        // find a position for the widget
-        let position = 0;
-        let success = false;
-
-        // repeat until a space is found
-        while (!success) {
-
-            // get a position to try
-            const column = position % this.options.columns;
-            const row = Math.floor(position / this.options.columns);
-
-            // check the current position
-            if (this.getPositionAvailable(column, row, widget.getColumnSpan(), widget.getRowSpan())) {
-                success = true;
-                widget.setColumn(column);
-                widget.setRow(row);
-                return;
-            }
-
-            if (column === 0 && widget.colSpan > this.options.columns) {
-                throw new Error('Dashboard widgets have a colSpan greater than the max number of dashboard columns!');
-            }
-
-            position++;
-        }
-    }
-
-    /**
-     * Check if a position in the dashboard is vacant or not
-     */
-    getPositionAvailable(column: number, row: number, columnSpan: number, rowSpan: number, ignoreWidget?: DashboardWidgetComponent): boolean {
-
-        // get a list of grid spaces that are populated
-        const spaces = this.getOccupiedSpaces();
-
-        // check if the block would still be in bounds
-        if (column + columnSpan > this.options.columns) {
-            return false;
-        }
-
-        // check each required position
-        for (let x = column; x < column + columnSpan; x++) {
-            for (let y = row; y < row + rowSpan; y++) {
-                if (spaces.find(block => block.column === x && block.row === y && block.widget !== ignoreWidget)) {
-                    return false;
-                }
-            }
-        }
-
-        return true;
-    }
-
-    getOccupiedSpaces(): DashboardSpace[] {
-
-        // find all spaces that are currently occupied
-        return this.widgets.filter(widget => widget.getColumn() !== undefined && widget.getRow() !== undefined)
-            .reduce((value, widget) => {
-
-                this.forEachBlock(widget, (column, row) => value.push({ widget, column, row }));
-
-                return value;
-            }, []);
-    }
-
-    /**
-     * Begin resizing a widget
-     * @param action The the widget to resize
-     */
-    onResizeStart(action: DashboardAction): void {
-        this.cacheWidgets();
-
-        // store the mouse event
-        this._event = action.event;
-        this._actionWidget = action;
-
-        // bring the widget to the font
-        this.bringToFront(action.widget);
-    }
-
-    onResizeDrag(action: DashboardAction): void {
-
-        const mousePosX = this._event.pageX - pageXOffset;
-        const mousePosY = this._event.pageY - pageYOffset;
-
-        // if there was no movement then do nothing
-        if (action.event.x === mousePosX && action.event.y === mousePosY) {
-            return;
-        }
-
-        // update the stored mouse event
-        this._event = action.event;
-
-        // get handle for direction
-        const { handle } = action;
-
-        // get the bounds of the handle
-        const bounds = handle.getBoundingClientRect();
-
-        // get the center of the handle
-        const centerX = bounds.left + (bounds.width / 2);
-        const centerY = bounds.top + (bounds.height / 2);
-
-        // get the current mouse position
-        const mouseX = mousePosX - centerX;
-        const mouseY = mousePosY - centerY;
-
-        // store the new proposed dimensions for the widget
-        const dimensions: DashboardWidgetDimensions = {
-            x: action.widget.x,
-            y: action.widget.y,
-            width: action.widget.width,
-            height: action.widget.height
-        };
-
-        // update widget based on the handle being dragged
-        switch (action.direction) {
-
-            case ActionDirection.Right:
-                dimensions.width += mouseX;
-                break;
-
-            case ActionDirection.Left:
-                dimensions.x += mouseX;
-                dimensions.width -= mouseX;
-
-                if (dimensions.width < this.options.minWidth) {
-                    const difference = this.options.minWidth - dimensions.width;
-                    dimensions.x -= difference;
-                    dimensions.width += difference;
-                }
-
-                break;
-
-            case ActionDirection.Bottom:
-                dimensions.height += mouseY;
-                break;
-
-            case ActionDirection.Top:
-                dimensions.y += mouseY;
-                dimensions.height -= mouseY;
-
-                if (dimensions.height < this.options.minHeight) {
-                    const difference = this.options.minHeight - dimensions.height;
-                    dimensions.y -= difference;
-                    dimensions.height += difference;
-                }
-                break;
-
-            // Support resizing on multiple axis simultaneously
-            case ActionDirection.TopLeft:
-
-                dimensions.x += mouseX;
-                dimensions.width -= mouseX;
-
-                if (dimensions.width < this.options.minWidth) {
-                    const difference = this.options.minWidth - dimensions.width;
-                    dimensions.x -= difference;
-                    dimensions.width += difference;
-                }
-
-                dimensions.y += mouseY;
-                dimensions.height -= mouseY;
-
-                if (dimensions.height < this.options.minHeight) {
-                    const difference = this.options.minHeight - dimensions.height;
-                    dimensions.y -= difference;
-                    dimensions.height += difference;
-                }
-                break;
-
-            case ActionDirection.TopRight:
-                dimensions.width += mouseX;
-                dimensions.y += mouseY;
-                dimensions.height -= mouseY;
-
-                if (dimensions.height < this.options.minHeight) {
-                    const difference = this.options.minHeight - dimensions.height;
-                    dimensions.y -= difference;
-                    dimensions.height += difference;
-                }
-                break;
-
-            case ActionDirection.BottomLeft:
-                dimensions.height += mouseY;
-                dimensions.x += mouseX;
-                dimensions.width -= mouseX;
-
-                if (dimensions.width < this.options.minWidth) {
-                    const difference = this.options.minWidth - dimensions.width;
-                    dimensions.x -= difference;
-                    dimensions.width += difference;
-                }
-                break;
-
-            case ActionDirection.BottomRight:
-                dimensions.height += mouseY;
-                dimensions.width += mouseX;
-                break;
-        }
-
-        const currentWidth = action.widget.x + action.widget.width;
-        const currentHeight = action.widget.y + action.widget.height;
-
-        // ensure values are within the dashboard bounds
-        if (dimensions.x < 0) {
-            dimensions.x = 0;
-            dimensions.width = currentWidth;
-        }
-
-        if (dimensions.y < 0) {
-            dimensions.y = 0;
-            dimensions.height = currentHeight;
-        }
-
-        if ((dimensions.x + dimensions.width) > this.dimensions.width) {
-            dimensions.width = this.dimensions.width - dimensions.x;
-        }
-
-        // if the proposed width is smaller than allowed then reset width to minimum and ignore x changes
         if (dimensions.width < this.options.minWidth) {
-            dimensions.x = action.widget.x;
-            dimensions.width = this.options.minWidth;
+          const difference = this.options.minWidth - dimensions.width;
+          dimensions.x -= difference;
+          dimensions.width += difference;
         }
 
-        // if the proposed height is smaller than allowed then reset height to minimum and ignore y changes
+        break;
+
+      case ActionDirection.Bottom:
+        dimensions.height += mouseY;
+        break;
+
+      case ActionDirection.Top:
+        dimensions.y += mouseY;
+        dimensions.height -= mouseY;
+
         if (dimensions.height < this.options.minHeight) {
-            dimensions.y = action.widget.y;
-            dimensions.height = this.options.minHeight;
+          const difference = this.options.minHeight - dimensions.height;
+          dimensions.y -= difference;
+          dimensions.height += difference;
+        }
+        break;
+
+      // Support resizing on multiple axis simultaneously
+      case ActionDirection.TopLeft:
+        dimensions.x += mouseX;
+        dimensions.width -= mouseX;
+
+        if (dimensions.width < this.options.minWidth) {
+          const difference = this.options.minWidth - dimensions.width;
+          dimensions.x -= difference;
+          dimensions.width += difference;
         }
 
-        const minWidth = ((this.getColumnWidth() * action.widget.minColSpan) - this.getColumnWidth() / 2) + 1;
-        const isBelowMinWidth = dimensions.width < minWidth;
+        dimensions.y += mouseY;
+        dimensions.height -= mouseY;
 
-        if (isBelowMinWidth) {
-            dimensions.x = action.widget.x;
-            dimensions.width = minWidth;
+        if (dimensions.height < this.options.minHeight) {
+          const difference = this.options.minHeight - dimensions.height;
+          dimensions.y -= difference;
+          dimensions.height += difference;
         }
+        break;
 
-        const minHeight = ((this.options.rowHeight * action.widget.minRowSpan) - this.options.rowHeight / 2) + 1;
-        const isBelowMinHeight = dimensions.height < minHeight;
+      case ActionDirection.TopRight:
+        dimensions.width += mouseX;
+        dimensions.y += mouseY;
+        dimensions.height -= mouseY;
 
-        if (isBelowMinHeight) {
-            dimensions.y = action.widget.y;
-            dimensions.height = minHeight;
+        if (dimensions.height < this.options.minHeight) {
+          const difference = this.options.minHeight - dimensions.height;
+          dimensions.y -= difference;
+          dimensions.height += difference;
         }
+        break;
 
-        // update the widget actual values
-        action.widget.setBounds(dimensions.x, dimensions.y, dimensions.width, dimensions.height);
+      case ActionDirection.BottomLeft:
+        dimensions.height += mouseY;
+        dimensions.x += mouseX;
+        dimensions.width -= mouseX;
 
-        // update placeholder position and value
-        this.setPlaceholderBounds(true, dimensions.x, dimensions.y, dimensions.width, dimensions.height);
+        if (dimensions.width < this.options.minWidth) {
+          const difference = this.options.minWidth - dimensions.width;
+          dimensions.x -= difference;
+          dimensions.width += difference;
+        }
+        break;
 
-        // show the widget positions if the current positions and sizes were to persist
-        this.updateWidgetPositions(action.widget);
+      case ActionDirection.BottomRight:
+        dimensions.height += mouseY;
+        dimensions.width += mouseX;
+        break;
     }
 
-    onResizeEnd(): void {
+    const currentWidth = action.widget.x + action.widget.width;
+    const currentHeight = action.widget.y + action.widget.height;
 
-        const placeholder = this.placeholder$.getValue();
-
-        // commit resize changes
-        this.commitWidgetChanges();
-
-        // hide placeholder
-        placeholder.visible = false;
-
-        // update the placeholder
-        this.placeholder$.next(placeholder);
-
-        this._actionWidget = null;
-        this._event = null;
-
-        // ensure any vacant upper spaces are filled where required
-        this.shiftWidgetsUp();
-
-        // update dashboard height
-        this.setDashboardHeight();
-
-        // emit information about the layout
-        this.layout$.next(this.getLayoutData());
-
-        this.userLayoutChange$.next(this.getLayoutData());
+    // ensure values are within the dashboard bounds
+    if (dimensions.x < 0) {
+      dimensions.x = 0;
+      dimensions.width = currentWidth;
     }
 
-    onDragStart(action: DashboardAction): void {
-        this.onResizeStart(action);
-
-        // store the starting placeholder position
-        this.setWidgetOrigin();
-
-        this.cacheWidgets();
-
-        // emit the widget we are dragging
-        this.isDragging$.next(action.widget);
+    if (dimensions.y < 0) {
+      dimensions.y = 0;
+      dimensions.height = currentHeight;
     }
 
-    onDragEnd(): void {
-        this.onResizeEnd();
-
-        this._widgetOrigin = {};
-
-        this.isDragging$.getValue().sendToBack();
-
-        this.isDragging$.next(null);
-
-        this.userLayoutChange$.next(this.getLayoutData());
+    if (dimensions.x + dimensions.width > this.dimensions.width) {
+      dimensions.width = this.dimensions.width - dimensions.x;
     }
 
-    onDrag(action: DashboardAction): void {
+    // if the proposed width is smaller than allowed then reset width to minimum and ignore x changes
+    if (dimensions.width < this.options.minWidth) {
+      dimensions.x = action.widget.x;
+      dimensions.width = this.options.minWidth;
+    }
 
-        // if there was no movement then do nothing
-        if (action.event.clientX === this._event.clientX && action.event.clientY === this._event.clientY) {
+    // if the proposed height is smaller than allowed then reset height to minimum and ignore y changes
+    if (dimensions.height < this.options.minHeight) {
+      dimensions.y = action.widget.y;
+      dimensions.height = this.options.minHeight;
+    }
+
+    const minWidth =
+      this.getColumnWidth() * action.widget.minColSpan - this.getColumnWidth() / 2 + 1;
+    const isBelowMinWidth = dimensions.width < minWidth;
+
+    if (isBelowMinWidth) {
+      dimensions.x = action.widget.x;
+      dimensions.width = minWidth;
+    }
+
+    const minHeight =
+      this.options.rowHeight * action.widget.minRowSpan - this.options.rowHeight / 2 + 1;
+    const isBelowMinHeight = dimensions.height < minHeight;
+
+    if (isBelowMinHeight) {
+      dimensions.y = action.widget.y;
+      dimensions.height = minHeight;
+    }
+
+    // update the widget actual values
+    action.widget.setBounds(dimensions.x, dimensions.y, dimensions.width, dimensions.height);
+
+    // update placeholder position and value
+    this.setPlaceholderBounds(
+      true,
+      dimensions.x,
+      dimensions.y,
+      dimensions.width,
+      dimensions.height
+    );
+
+    // show the widget positions if the current positions and sizes were to persist
+    this.updateWidgetPositions(action.widget);
+  }
+
+  onResizeEnd(): void {
+    const placeholder = this.placeholder$.getValue();
+
+    // commit resize changes
+    this.commitWidgetChanges();
+
+    // hide placeholder
+    placeholder.visible = false;
+
+    // update the placeholder
+    this.placeholder$.next(placeholder);
+
+    this._actionWidget = null;
+    this._event = null;
+
+    // ensure any vacant upper spaces are filled where required
+    this.shiftWidgetsUp();
+
+    // update dashboard height
+    this.setDashboardHeight();
+
+    // emit information about the layout
+    this.layout$.next(this.getLayoutData());
+
+    this.userLayoutChange$.next(this.getLayoutData());
+  }
+
+  onDragStart(action: DashboardAction): void {
+    this.onResizeStart(action);
+
+    // store the starting placeholder position
+    this.setWidgetOrigin();
+
+    this.cacheWidgets();
+
+    // emit the widget we are dragging
+    this.isDragging$.next(action.widget);
+  }
+
+  onDragEnd(): void {
+    this.onResizeEnd();
+
+    this._widgetOrigin = {};
+
+    this.isDragging$.getValue().sendToBack();
+
+    this.isDragging$.next(null);
+
+    this.userLayoutChange$.next(this.getLayoutData());
+  }
+
+  onDrag(action: DashboardAction): void {
+    // if there was no movement then do nothing
+    if (
+      action.event.clientX === this._event.clientX &&
+      action.event.clientY === this._event.clientY
+    ) {
+      return;
+    }
+
+    // get the current mouse position
+    const mouseX = action.event.clientX - this._event.clientX;
+    const mouseY = action.event.clientY - this._event.clientY;
+
+    // store the latest event
+    this._event = action.event;
+
+    this.moveWidget(action.widget, mouseX, mouseY);
+  }
+
+  onDragScroll(widget: DashboardWidgetComponent, event: DragScrollEvent): void {
+    this.moveWidget(widget, event.offsetX, event.offsetY);
+  }
+
+  getRowHeight(): number {
+    return this._rowHeight;
+  }
+
+  cacheWidgets(): DashboardCache[] {
+    this._cache = this.widgets.map(widget => ({
+      id: widget.id,
+      column: widget.getColumn(),
+      row: widget.getRow(),
+      columnSpan: widget.getColumnSpan(),
+      rowSpan: widget.getRowSpan(),
+    }));
+
+    // return a new array of the cache for custom caching
+    return [...this._cache];
+  }
+
+  restoreWidgets(
+    ignoreActionWidget: boolean = false,
+    cache: DashboardCache[] = this._cache,
+    restoreSize: boolean = false
+  ): void {
+    cache
+      .filter(widget => !ignoreActionWidget || widget.id !== this._actionWidget.widget.id)
+      .forEach(widget => {
+        const match = this.widgets.find(wgt => wgt.id === widget.id);
+
+        if (match) {
+          match.setColumn(widget.column);
+          match.setRow(widget.row);
+
+          if (restoreSize) {
+            match.setColumnSpan(widget.columnSpan);
+            match.setRowSpan(widget.rowSpan);
+          }
+        }
+      });
+  }
+
+  /**
+   * Return the set of widgets which overlap the given dashboard region.
+   */
+  getOverlappingWidgets(
+    region: DashboardRegion,
+    actionWidget: DashboardWidgetComponent
+  ): DashboardWidgetComponent[] {
+    const widgetsToMove: DashboardWidgetComponent[] = [];
+
+    // check if there are any widgets overlapping widgets
+    for (let row = region.row; row < region.row + region.rowSpan; row++) {
+      for (let column = region.column; column < region.column + region.columnSpan; column++) {
+        // store reference to any widgets that need moved
+        this.getOccupiedSpaces()
+          .filter(
+            space => space.column === column && space.row === row && space.widget !== actionWidget
+          )
+          .forEach(space => widgetsToMove.push(space.widget));
+      }
+    }
+
+    // remove any duplicates
+    return widgetsToMove.filter((wgt, idx, array) => array.indexOf(wgt) === idx);
+  }
+
+  /**
+   * Resolve any overlapping widgets after a widget changes rowSpan/colSpan.
+   */
+  resizeWidget(widget: DashboardWidgetComponent): void {
+    // make widget action and origin widget, direction is irrelevant to this function so set to 0
+    this._actionWidget = { widget, direction: 0 };
+    this._widgetOrigin = widget;
+
+    const widgetRegion = {
+      row: widget.row,
+      column: widget.col,
+      rowSpan: widget.rowSpan,
+      columnSpan: widget.colSpan,
+    };
+
+    let done = false;
+    const ITERATION_LIMIT = 100;
+
+    for (let i = 0; i <= ITERATION_LIMIT; i++) {
+      // Check for overlapping widgets and move them. This may need several iterations.
+      this.shiftWidgetsFromRegion(widgetRegion, widget);
+      done = this.getOverlappingWidgets(widgetRegion, widget).length === 0;
+
+      if (done) {
+        break;
+      }
+    }
+
+    if (!done) {
+      throw new Error('Unable to resolve overlapping widgets!');
+    }
+
+    this.shiftWidgetsUp();
+
+    // clear the action and origin widget once we are done
+    this._actionWidget = undefined;
+    this._widgetOrigin = undefined;
+  }
+
+  /**
+   * Move any widgets which intersect with the given dashboard region.
+   */
+  shiftWidgetsFromRegion(
+    region: DashboardRegion,
+    actionWidget: DashboardWidgetComponent,
+    validatePosition?: (shiftDirection: ActionDirection) => void
+  ): void {
+    const widgetsToMove = this.getOverlappingWidgets(region, actionWidget);
+
+    // if no widgets need moved then we can stop here
+    if (widgetsToMove.length === 0) {
+      return;
+    }
+
+    // create a duplicate we can use to keep track of which have been moved
+    const unmovedWidgets = widgetsToMove.slice();
+
+    // attempt to move any widgets to the previous widget position
+    widgetsToMove.forEach(widget => {
+      // get a grid off all occupied spaces - taking into account the placeholder and ignoring widgets that need moved
+      const grid = this.getOccupiedSpaces().filter(
+        space => !unmovedWidgets.find(wgt => wgt === space.widget)
+      );
+
+      // iterate each free block
+      for (
+        let row = this._widgetOrigin.row;
+        row < this._widgetOrigin.row + this._widgetOrigin.rowSpan;
+        row++
+      ) {
+        for (
+          let column = this._widgetOrigin.column;
+          column < this._widgetOrigin.column + this._widgetOrigin.columnSpan;
+          column++
+        ) {
+          // determine if the block can fit in this space
+          const requiredSpaces = this.getRequiredSpacesFromPoint(widget, column, row);
+
+          // check if widget would fit in space
+          const available = requiredSpaces.every(space => {
+            return (
+              !grid.find(
+                gridSpace => gridSpace.column === space.column && gridSpace.row === space.row
+              ) && space.column < this.getColumnCount()
+            );
+          });
+
+          if (available) {
+            widget.setColumn(column);
+            widget.setRow(row);
+            unmovedWidgets.splice(
+              unmovedWidgets.findIndex(wgt => wgt === widget),
+              1
+            );
             return;
+          }
         }
+      }
 
-        // get the current mouse position
-        const mouseX = action.event.clientX - this._event.clientX;
-        const mouseY = action.event.clientY - this._event.clientY;
+      // if we get to here then we can't simply swap the positions - next try moving right
+      if (this.canWidgetMoveRight(widget, true)) {
+        // after the shift check if placeholder position is still valid
+        validatePosition?.(ActionDirection.Right);
+        return;
+      }
 
-        // store the latest event
-        this._event = action.event;
+      // next try moving left
+      if (this.canWidgetMoveLeft(widget, true)) {
+        // after the shift check if placeholder position is still valid
+        validatePosition?.(ActionDirection.Left);
+        return;
+      }
 
-        this.moveWidget(action.widget, mouseX, mouseY);
+      // determine the distance that the widget needs to be moved down
+      const distance =
+        this._actionWidget.widget.getRow() -
+        widget.getRow() +
+        this._actionWidget.widget.getRowSpan();
+
+      // as a last resort move the widget downwards
+      this.moveWidgetDown(widget, distance);
+    });
+  }
+
+  /**
+   * When dragging any widgets that need to be moved should be moved to an appropriate position
+   */
+  shiftWidgets(): void {
+    const placeholder = this.placeholder$.getValue();
+
+    this.shiftWidgetsFromRegion(
+      placeholder,
+      this._actionWidget.widget,
+      this.validatePlaceholderPosition.bind(this)
+    );
+  }
+
+  /**
+   * After shifts have taken place we should verify the place holder position is still valid
+   * @param shiftDirection - the position widgets were shifted
+   */
+  validatePlaceholderPosition(shiftDirection: ActionDirection) {
+    const placeholder = this.placeholder$.getValue();
+
+    // check if the placeholder is over a widget
+    if (this.getWidgetsAtPosition(placeholder.column, placeholder.row, true).length > 0) {
+      // move the placeholder the opposite direction
+      switch (shiftDirection) {
+        case ActionDirection.Left:
+          this.setPlaceholderBounds(
+            placeholder.visible,
+            placeholder.x + this.getColumnWidth(),
+            placeholder.y,
+            placeholder.width,
+            placeholder.height
+          );
+          break;
+
+        case ActionDirection.Right:
+          this.setPlaceholderBounds(
+            placeholder.visible,
+            placeholder.x - this.getColumnWidth(),
+            placeholder.y,
+            placeholder.width,
+            placeholder.height
+          );
+          break;
+      }
+
+      // validate this new position again
+      this.validatePlaceholderPosition(shiftDirection);
+    }
+  }
+
+  /**
+   * Determine if a widget can be moved left - or if it can move the widgets to the right to make space for the widget
+   */
+  canWidgetMoveLeft(
+    widget: DashboardWidgetComponent,
+    performMove: boolean = false,
+    shift: number = 0
+  ): boolean {
+    const actionWgt = this._widgetOrigin;
+    let colShift = shift;
+
+    // check if the widget is the action widget or occupies the first column
+    if (widget === this._actionWidget.widget || widget.getColumn() === 0) {
+      return false;
     }
 
-    onDragScroll(widget: DashboardWidgetComponent, event: DragScrollEvent): void {
-        this.moveWidget(widget, event.offsetX, event.offsetY);
-    }
-
-    getRowHeight(): number {
-        return this._rowHeight;
-    }
-
-    cacheWidgets(): DashboardCache[] {
-        this._cache = this.widgets.map(widget => ({
-            id: widget.id,
-            column: widget.getColumn(),
-            row: widget.getRow(),
-            columnSpan: widget.getColumnSpan(),
-            rowSpan: widget.getRowSpan(),
-        }));
-
-        // return a new array of the cache for custom caching
-        return [...this._cache];
-    }
-
-    restoreWidgets(ignoreActionWidget: boolean = false, cache: DashboardCache[] = this._cache, restoreSize: boolean = false): void {
-        cache.filter(widget => !ignoreActionWidget || widget.id !== this._actionWidget.widget.id).forEach(widget => {
-
-            const match = this.widgets.find(wgt => wgt.id === widget.id);
-
-            if (match) {
-                match.setColumn(widget.column);
-                match.setRow(widget.row);
-
-                if (restoreSize) {
-                    match.setColumnSpan(widget.columnSpan);
-                    match.setRowSpan(widget.rowSpan);
-                }
-            }
-        });
-    }
-
-    /**
-     * Return the set of widgets which overlap the given dashboard region.
-     */
-    getOverlappingWidgets(region: DashboardRegion, actionWidget: DashboardWidgetComponent): DashboardWidgetComponent[] {
-        const widgetsToMove: DashboardWidgetComponent[] = [];
-
-        // check if there are any widgets overlapping widgets
-        for (let row = region.row; row < region.row + region.rowSpan; row++) {
-            for (let column = region.column; column < region.column + region.columnSpan; column++) {
-
-                // store reference to any widgets that need moved
-                this.getOccupiedSpaces()
-                    .filter(space => space.column === column && space.row === row && space.widget !== actionWidget)
-                    .forEach(space => widgetsToMove.push(space.widget));
-            }
+    // if value has been provided skip this step
+    if (colShift === 0) {
+      // work out how far the widget is planning to move left
+      if (actionWgt.row !== widget.getRow()) {
+        // if the widgets aren't on the same row work out the difference
+        if (actionWgt.column === widget.getColumn()) {
+          // if the widgets occupy the same column then shift the widget of the action widget
+          colShift = actionWgt.columnSpan;
+        } else {
+          // else work out the exact number of spaces it will move left
+          const widgetDifference = actionWgt.column - widget.getColumn();
+          colShift = widget.getColumnSpan() - widgetDifference;
         }
-
-        // remove any duplicates
-        return widgetsToMove.filter((wgt, idx, array) => array.indexOf(wgt) === idx);
+      } else {
+        // if they are on the same row then move one row
+        colShift = 1;
+      }
     }
 
-
-    /**
-     * Resolve any overlapping widgets after a widget changes rowSpan/colSpan.
-     */
-    resizeWidget(widget: DashboardWidgetComponent): void {
-
-        // make widget action and origin widget, direction is irrelevant to this function so set to 0
-        this._actionWidget = { widget, direction: 0 };
-        this._widgetOrigin = widget;
-
-        const widgetRegion = {
-            row: widget.row,
-            column: widget.col,
-            rowSpan: widget.rowSpan,
-            columnSpan: widget.colSpan
-        };
-
-        let done = false;
-        const ITERATION_LIMIT = 100;
-
-        for (let i = 0; i <= ITERATION_LIMIT; i++) {
-
-            // Check for overlapping widgets and move them. This may need several iterations.
-            this.shiftWidgetsFromRegion(widgetRegion, widget);
-            done = this.getOverlappingWidgets(widgetRegion, widget).length === 0;
-
-            if (done) {
-                break;
-            }
-        }
-
-        if (!done) {
-            throw new Error('Unable to resolve overlapping widgets!');
-        }
-
-        this.shiftWidgetsUp();
-
-        // clear the action and origin widget once we are done
-        this._actionWidget = undefined;
-        this._widgetOrigin = undefined;
+    if (isNaN(colShift) || colShift === 0) {
+      return;
     }
 
-    /**
-     * Move any widgets which intersect with the given dashboard region.
-     */
-    shiftWidgetsFromRegion(region: DashboardRegion, actionWidget: DashboardWidgetComponent, validatePosition?: (shiftDirection: ActionDirection) => void): void {
+    // find the positions required
+    const targetSpaces = this.getOccupiedSpaces()
+      .filter(space => space.widget === widget)
+      .map(space => {
+        return { column: space.column - colShift, row: space.row, widget: space.widget };
+      });
 
-        const widgetsToMove = this.getOverlappingWidgets(region, actionWidget);
-
-        // if no widgets need moved then we can stop here
-        if (widgetsToMove.length === 0) {
-            return;
-        }
-
-        // create a duplicate we can use to keep track of which have been moved
-        const unmovedWidgets = widgetsToMove.slice();
-
-        // attempt to move any widgets to the previous widget position
-        widgetsToMove.forEach(widget => {
-
-            // get a grid off all occupied spaces - taking into account the placeholder and ignoring widgets that need moved
-            const grid = this.getOccupiedSpaces().filter(space => !unmovedWidgets.find(wgt => wgt === space.widget));
-
-            // iterate each free block
-            for (let row = this._widgetOrigin.row; row < this._widgetOrigin.row + this._widgetOrigin.rowSpan; row++) {
-                for (let column = this._widgetOrigin.column; column < this._widgetOrigin.column + this._widgetOrigin.columnSpan; column++) {
-
-                    // determine if the block can fit in this space
-                    const requiredSpaces = this.getRequiredSpacesFromPoint(widget, column, row);
-
-                    // check if widget would fit in space
-                    const available = requiredSpaces.every(space => {
-                        return !grid.find(gridSpace => gridSpace.column === space.column && gridSpace.row === space.row) && space.column < this.getColumnCount();
-                    });
-
-                    if (available) {
-                        widget.setColumn(column);
-                        widget.setRow(row);
-                        unmovedWidgets.splice(unmovedWidgets.findIndex(wgt => wgt === widget), 1);
-                        return;
-                    }
-                }
-            }
-
-            // if we get to here then we can't simply swap the positions - next try moving right
-            if (this.canWidgetMoveRight(widget, true)) {
-
-                // after the shift check if placeholder position is still valid
-                validatePosition?.(ActionDirection.Right);
-                return;
-            }
-
-            // next try moving left
-            if (this.canWidgetMoveLeft(widget, true)) {
-
-                // after the shift check if placeholder position is still valid
-                validatePosition?.(ActionDirection.Left);
-                return;
-            }
-
-            // determine the distance that the widget needs to be moved down
-            const distance = (this._actionWidget.widget.getRow() - widget.getRow()) + this._actionWidget.widget.getRowSpan();
-
-            // as a last resort move the widget downwards
-            this.moveWidgetDown(widget, distance);
-        });
-
+    // check if any of the target spaces are out of bounds
+    if (targetSpaces.find(space => space.column < 0)) {
+      return false;
     }
 
-    /**
-     * When dragging any widgets that need to be moved should be moved to an appropriate position
-     */
-    shiftWidgets(): void {
+    // check if there are widget in the required positions and if so, can they move right?
+    const moveable = targetSpaces.every(space =>
+      this.getWidgetsAtPosition(space.column, space.row)
+        .filter(wgt => wgt !== space.widget)
+        .every(wgt => this.canWidgetMoveLeft(wgt, false, colShift))
+    );
 
-        const placeholder = this.placeholder$.getValue();
+    if (performMove && moveable) {
+      // move all widgets to the left
+      targetSpaces.forEach(space =>
+        this.getWidgetsAtPosition(space.column, space.row)
+          .filter(wgt => wgt !== space.widget)
+          .forEach(wgt => this.canWidgetMoveLeft(wgt, true, colShift))
+      );
 
-        this.shiftWidgetsFromRegion(
-            placeholder,
-            this._actionWidget.widget,
-            this.validatePlaceholderPosition.bind(this)
+      // find the target column
+      const column = targetSpaces.reduce(
+        (target, space) => Math.min(target, space.column),
+        Infinity
+      );
+
+      // move current widget to the left
+      if (column !== Infinity) {
+        widget.setColumn(column);
+      }
+    }
+
+    return moveable;
+  }
+
+  /**
+   * Determine if a widget can be moved right - or if it can move the widgets to the right to make space for the widget
+   */
+  canWidgetMoveRight(
+    widget: DashboardWidgetComponent,
+    performMove: boolean = false,
+    shift: number = 0
+  ): boolean {
+    const actionWgt = this._widgetOrigin;
+    let colShift = shift;
+
+    // check if the widget is the dragging widget or the widget occupies the final column
+    if (
+      widget === this._actionWidget.widget ||
+      widget.getColumn() + widget.getColumnSpan() === this.options.columns
+    ) {
+      return false;
+    }
+
+    // if value has been provided skip this step
+    if (colShift === 0) {
+      // work out how far the widget is planning to move right
+      if (actionWgt.row !== widget.getRow()) {
+        // if the widgets aren't on the same row work out the difference
+        if (actionWgt.column === widget.getColumn()) {
+          // if the widgets occupy the same column then shift the widget of the action widget
+          colShift = actionWgt.columnSpan;
+        } else {
+          // else work out the exact number of spaces it will move right
+          const widgetDifference = widget.getColumn() - actionWgt.column;
+          colShift = actionWgt.columnSpan - widgetDifference;
+        }
+      } else {
+        // if they are on the same row then move one row
+        colShift = 1;
+      }
+    }
+
+    if (isNaN(colShift) || colShift === 0) {
+      return;
+    }
+
+    // find the positions required
+    const targetSpaces = this.getOccupiedSpaces()
+      .filter(space => space.widget === widget)
+      .map(space => {
+        return { column: space.column + colShift, row: space.row, widget: space.widget };
+      });
+
+    // check if any of the target spaces are out of bounds
+    if (targetSpaces.find(space => space.column >= this.getColumnCount())) {
+      return false;
+    }
+
+    // check if there are widget in the required positions and if so, can they move right?
+    const moveable = targetSpaces.every(space =>
+      this.getWidgetsAtPosition(space.column, space.row)
+        .filter(wgt => wgt !== space.widget)
+        .every(wgt => this.canWidgetMoveRight(wgt, false, colShift))
+    );
+
+    if (performMove && moveable) {
+      // move all widgets to the right
+      targetSpaces.forEach(space =>
+        this.getWidgetsAtPosition(space.column, space.row)
+          .filter(wgt => wgt !== space.widget)
+          .forEach(wgt => this.canWidgetMoveRight(wgt, true, colShift))
+      );
+
+      // move current widget to the right
+      widget.setColumn(widget.getColumn() + colShift);
+    }
+
+    return moveable;
+  }
+
+  /**
+   * Store the initial position of the widget being dragged
+   */
+  setWidgetOrigin(): void {
+    this._widgetOrigin = {
+      column: this._actionWidget.widget.getColumn(),
+      row: this._actionWidget.widget.getRow(),
+      columnSpan: this._actionWidget.widget.getColumnSpan(),
+      rowSpan: this._actionWidget.widget.getRowSpan(),
+    };
+  }
+
+  /**
+   * Calculate all the required positions is a widget was to be positioned at a particular point
+   */
+  getRequiredSpacesFromPoint(
+    widget: DashboardWidgetComponent,
+    column: number,
+    row: number
+  ): DashboardSpace[] {
+    const spaces: DashboardSpace[] = [];
+
+    for (let y = row; y < row + widget.getRowSpan(); y++) {
+      for (let x = column; x < column + widget.getColumnSpan(); x++) {
+        spaces.push({ column: x, row: y, widget });
+      }
+    }
+
+    return spaces;
+  }
+
+  /**
+   * Position widgets based on the position of the placeholder - this is temporary until confirmed
+   */
+  updateWidgetPositions(widget: DashboardWidgetComponent) {
+    const placeholder = this.placeholder$.getValue();
+
+    // check all spaces the placeholder will occupy and move any widget currently in them down
+    for (
+      let column = placeholder.column;
+      column < placeholder.column + placeholder.columnSpan;
+      column++
+    ) {
+      for (let row = placeholder.row; row < placeholder.row + placeholder.rowSpan; row++) {
+        this.getWidgetsAtPosition(column, row, true)
+          .filter(wgt => wgt !== widget)
+          .forEach(wgt => this.moveWidgetDown(wgt));
+      }
+    }
+
+    // update the height of the dashboard
+    this.setDashboardHeight();
+
+    // if we arent dragging the top handle then fill spaces
+    if (
+      this._actionWidget.direction !== ActionDirection.Top &&
+      this._actionWidget.direction !== ActionDirection.TopLeft &&
+      this._actionWidget.direction !== ActionDirection.TopRight
+    ) {
+      this.shiftWidgetsUp();
+    }
+  }
+
+  /**
+   * Determine if a widget is occupying a specific row and column
+   * @param column The columns to check if occupied
+   * @param row The row to check if occupied
+   * @param ignoreResizing Whether or not to ignore the widget currently being resized
+   */
+  getWidgetsAtPosition(
+    column: number,
+    row: number,
+    ignoreResizing: boolean = false
+  ): DashboardWidgetComponent[] {
+    return this.getOccupiedSpaces()
+      .filter(space => space.column === column && space.row === row)
+      .filter(
+        space =>
+          (this._actionWidget && space.widget !== this._actionWidget.widget) || !ignoreResizing
+      )
+      .map(space => space.widget);
+  }
+
+  /**
+   * Update the placeholder visibility, position and size
+   */
+  setPlaceholderBounds(
+    visible: boolean,
+    x: number,
+    y: number,
+    width: number,
+    height: number
+  ): void {
+    const placeholder = this.placeholder$.getValue();
+
+    placeholder.visible = visible;
+
+    placeholder.column = this.getPlaceholderColumn(x, width);
+    placeholder.row = this.getPlaceholderRow(y, height);
+    placeholder.columnSpan = this.getPlaceholderColumnSpan(width);
+    placeholder.rowSpan = this.getPlaceholderRowSpan(height);
+
+    // calculate the maximum number of rows
+    const rowCount = this.widgets
+      .filter(widget => widget !== this._actionWidget.widget)
+      .reduce((previous, widget) => Math.max(widget.getRow() + widget.getRowSpan(), previous), 0);
+
+    // constrain maximum placeholder row
+    placeholder.row = Math.min(placeholder.row, rowCount);
+
+    placeholder.x = placeholder.column * this.getColumnWidth() + this.options.padding;
+    placeholder.y = placeholder.row * this._rowHeight + this.options.padding;
+    placeholder.width = placeholder.columnSpan * this.getColumnWidth() - this.options.padding * 2;
+    placeholder.height = placeholder.rowSpan * this._rowHeight - this.options.padding * 2;
+
+    // set the values of the widget to match the values of the placeholder - however do not render the changes
+    this._actionWidget.widget.setColumn(placeholder.column, false);
+    this._actionWidget.widget.setRow(placeholder.row, false);
+    this._actionWidget.widget.setColumnSpan(placeholder.columnSpan, false);
+    this._actionWidget.widget.setRowSpan(placeholder.rowSpan, false);
+
+    // update the placeholder
+    this.placeholder$.next(placeholder);
+  }
+
+  /**
+   * Get the placeholder column position
+   */
+  getPlaceholderColumn(x: number, width: number): number {
+    const column = this.getColumnFromPx(
+      x,
+      this._actionWidget.direction === ActionDirection.Move
+        ? Rounding.RoundUpOverHalf
+        : Rounding.RoundDown
+    );
+    const columnSpan = Math.floor(width / this.getColumnWidth());
+    const upperLimit = this.getColumnCount() - columnSpan;
+
+    // if we arent dragging left then just return the column
+    if (
+      this._actionWidget.direction !== ActionDirection.Left &&
+      this._actionWidget.direction !== ActionDirection.TopLeft &&
+      this._actionWidget.direction !== ActionDirection.BottomLeft
+    ) {
+      return Math.max(Math.min(column, upperLimit), 0);
+    }
+
+    // get any overflow
+    const overflow = width % this.getColumnWidth();
+
+    return x <= 0 || overflow === 0 || columnSpan === 0 || overflow > this.getColumnWidth() / 2
+      ? Math.max(Math.min(column, upperLimit), 0)
+      : Math.max(Math.min(column + 1, upperLimit), 0);
+  }
+
+  /**
+   * Get the column span of the placeholder
+   */
+  getPlaceholderColumnSpan(width: number): number {
+    const columnSpan = this.getColumnFromPx(width);
+
+    // if we arent dragging right or left then just return the column span
+    if (
+      this._actionWidget.direction !== ActionDirection.Right &&
+      this._actionWidget.direction !== ActionDirection.TopRight &&
+      this._actionWidget.direction !== ActionDirection.BottomRight &&
+      this._actionWidget.direction !== ActionDirection.Left &&
+      this._actionWidget.direction !== ActionDirection.TopLeft &&
+      this._actionWidget.direction !== ActionDirection.BottomLeft
+    ) {
+      return this.getColumnFromPx(width, Rounding.RoundUpOverHalf);
+    }
+
+    // get the current column span and any overflow
+    const overflow = width % this.getColumnWidth();
+
+    return columnSpan > 0 && overflow > this.getColumnWidth() / 2
+      ? Math.max(columnSpan + 1, 1)
+      : Math.max(columnSpan, 1);
+  }
+
+  /**
+   * Get the row position of the placeholder
+   */
+  getPlaceholderRow(y: number, height: number): number {
+    const row = this.getRowFromPx(
+      y,
+      this._actionWidget.direction === ActionDirection.Move
+        ? Rounding.RoundUpOverHalf
+        : Rounding.RoundDown
+    );
+    const rowSpan = Math.ceil(height / this._rowHeight);
+
+    // if we arent dragging up then just return the row
+    if (
+      this._actionWidget.direction !== ActionDirection.Top &&
+      this._actionWidget.direction !== ActionDirection.TopLeft &&
+      this._actionWidget.direction !== ActionDirection.TopRight
+    ) {
+      return Math.max(row, 0);
+    }
+
+    // get any overflow
+    const overflow = height < this._rowHeight ? 0 : height % this._rowHeight;
+
+    return y <= 0 || rowSpan === 0 || overflow === 0 || overflow > this._rowHeight / 2
+      ? Math.max(row, 0)
+      : Math.max(row + 1, 0);
+  }
+
+  /**
+   * Get the row span of the placeholder
+   */
+  getPlaceholderRowSpan(height: number): number {
+    const rowSpan = this.getRowFromPx(height);
+
+    // if we arent dragging up or down then just return the column span
+    if (
+      this._actionWidget.direction !== ActionDirection.Top &&
+      this._actionWidget.direction !== ActionDirection.TopLeft &&
+      this._actionWidget.direction !== ActionDirection.TopRight &&
+      this._actionWidget.direction !== ActionDirection.Bottom &&
+      this._actionWidget.direction !== ActionDirection.BottomLeft &&
+      this._actionWidget.direction !== ActionDirection.BottomRight
+    ) {
+      return Math.max(rowSpan, 1);
+    }
+
+    // get the current column span and any overflow
+    const overflow = height % this._rowHeight;
+
+    return overflow > this._rowHeight / 2 ? Math.max(rowSpan + 1, 1) : Math.max(rowSpan, 1);
+  }
+
+  getColumnFromPx(x: number, rounding: Rounding = Rounding.RoundDown): number {
+    const column = Math.floor(x / Math.floor(this.getColumnWidth()));
+    const overflow = x % Math.floor(this.getColumnWidth());
+    const half = this.getColumnWidth() / 2;
+
+    switch (rounding) {
+      case Rounding.RoundDown:
+        return column;
+
+      case Rounding.RoundDownBelowHalf:
+        return overflow < half ? column : column + 1;
+
+      case Rounding.RoundUpOverHalf:
+        return overflow > half ? column + 1 : column;
+
+      case Rounding.RoundUp:
+        return overflow > 0 ? column + 1 : column;
+    }
+  }
+
+  getRowFromPx(y: number, rounding: Rounding = Rounding.RoundDown): number {
+    const row = Math.floor(y / Math.floor(this._rowHeight));
+    const overflow = y % Math.floor(this._rowHeight);
+    const half = this._rowHeight / 2;
+
+    switch (rounding) {
+      case Rounding.RoundDown:
+        return row;
+
+      case Rounding.RoundDownBelowHalf:
+        return overflow < half ? row : row + 1;
+
+      case Rounding.RoundUpOverHalf:
+        return overflow > half ? row + 1 : row;
+
+      case Rounding.RoundUp:
+        return overflow > 0 ? row + 1 : row;
+    }
+  }
+
+  commitWidgetChanges(): void {
+    const placeholder = this.placeholder$.getValue();
+
+    // check that we have all the values we need
+    if (
+      placeholder.column === undefined ||
+      placeholder.row === undefined ||
+      placeholder.columnSpan === undefined ||
+      placeholder.rowSpan === undefined
+    ) {
+      return;
+    }
+
+    if (this._actionWidget) {
+      this._actionWidget.widget.setColumn(placeholder.column);
+      this._actionWidget.widget.setRow(placeholder.row);
+      this._actionWidget.widget.setColumnSpan(placeholder.columnSpan);
+      this._actionWidget.widget.setRowSpan(placeholder.rowSpan);
+    }
+
+    // reset all placeholder values
+    placeholder.column = undefined;
+    placeholder.row = undefined;
+    placeholder.columnSpan = undefined;
+    placeholder.rowSpan = undefined;
+
+    // emit the new placeholder values
+    this.placeholder$.next(placeholder);
+  }
+
+  /**
+   * Get the current column width
+   */
+  getColumnWidth(): number {
+    return Math.floor(this.columnWidth);
+  }
+
+  /**
+   * Calculate the number of rows populated with widgets
+   */
+  getRowCount(): number {
+    return this.widgets.reduce(
+      (previous, widget) => Math.max(widget.getRow() + widget.getRowSpan(), previous),
+      0
+    );
+  }
+
+  /**
+   * Set the height of the dashboard container element
+   */
+  setDashboardHeight(): void {
+    // size the dashboard container to ensure all rows fit
+    let rowCount = this.getRowCount();
+
+    // if we should show an empty row increment the row count by 1
+    if (this.options.emptyRow) {
+      rowCount++;
+    }
+
+    this.setDimensions(undefined, rowCount * this._rowHeight);
+  }
+
+  /**
+   * Orders the z-index of all widgets to move the active one to the front
+   * @param widget The widget that should be brought to the front
+   */
+  bringToFront(widget: DashboardWidgetComponent): void {
+    this.widgets.forEach(_widget =>
+      _widget === widget ? _widget.bringToFront() : _widget.sendToBack()
+    );
+  }
+
+  /**
+   * Move a widget down - if widgets are in the position below, then move them down further
+   * @param widget The widget to move downwards
+   */
+  moveWidgetDown(widget: DashboardWidgetComponent, distance: number = 1): void {
+    // stop if a negative number is passed through
+    if (distance < 0) {
+      return;
+    }
+
+    // move the widget down one position
+    widget.setRow(widget.getRow(DashboardStackMode.Auto) + distance);
+
+    // check every space the widget occupies for collisions
+    this.forEachBlock(widget, (column, row) =>
+      this.getWidgetsAtPosition(column, row, true)
+        .filter(wgt => wgt !== widget)
+        .forEach(wgt => this.moveWidgetDown(wgt, distance))
+    );
+  }
+
+  /**
+   * Widgets should not be allowed to have a vacant space above them - if there is one they should move upwards to fill it
+   */
+  shiftWidgetsUp(): boolean {
+    // check whether or not changes have been made - if so we need to repeat until stable
+    let stable = true;
+
+    // iterate each widget and
+    this.widgets.forEach(widget => {
+      const widgetIsOnTopRow = widget.getRow() === 0;
+      const widgetIsBeingResized = this._actionWidget?.widget === widget;
+      const widgetShouldBeAutoPositioned = widget.autoPositioning || this.stacked;
+      const widgetIsBeingMoved =
+        !widgetShouldBeAutoPositioned && this.isDragging$.value?.id === widget.id;
+
+      if (
+        widgetIsOnTopRow ||
+        widgetIsBeingResized ||
+        widgetIsBeingMoved ||
+        (!widgetShouldBeAutoPositioned && !this._cache)
+      ) {
+        return;
+      }
+
+      if (!widgetShouldBeAutoPositioned) {
+        const cachedVersionOfWidget = this._cache.find(
+          cachedWidget => cachedWidget.id === widget.id
         );
-    }
-
-    /**
-     * After shifts have taken place we should verify the place holder position is still valid
-     * @param shiftDirection - the position widgets were shifted
-     */
-    validatePlaceholderPosition(shiftDirection: ActionDirection) {
-
-        const placeholder = this.placeholder$.getValue();
-
-        // check if the placeholder is over a widget
-        if (this.getWidgetsAtPosition(placeholder.column, placeholder.row, true).length > 0) {
-
-            // move the placeholder the opposite direction
-            switch (shiftDirection) {
-
-                case ActionDirection.Left:
-                    this.setPlaceholderBounds(placeholder.visible, placeholder.x + this.getColumnWidth(), placeholder.y, placeholder.width, placeholder.height);
-                    break;
-
-                case ActionDirection.Right:
-                    this.setPlaceholderBounds(placeholder.visible, placeholder.x - this.getColumnWidth(), placeholder.y, placeholder.width, placeholder.height);
-                    break;
-            }
-
-            // validate this new position again
-            this.validatePlaceholderPosition(shiftDirection);
-        }
-    }
-
-    /**
-     * Determine if a widget can be moved left - or if it can move the widgets to the right to make space for the widget
-     */
-    canWidgetMoveLeft(widget: DashboardWidgetComponent, performMove: boolean = false, shift: number = 0): boolean {
-
-        const actionWgt = this._widgetOrigin;
-        let colShift = shift;
-
-        // check if the widget is the action widget or occupies the first column
-        if (widget === this._actionWidget.widget || widget.getColumn() === 0) {
-            return false;
-        }
-
-        // if value has been provided skip this step
-        if (colShift === 0) {
-
-            // work out how far the widget is planning to move left
-            if (actionWgt.row !== widget.getRow()) {
-
-                // if the widgets aren't on the same row work out the difference
-                if (actionWgt.column === widget.getColumn()) {
-
-                    // if the widgets occupy the same column then shift the widget of the action widget
-                    colShift = actionWgt.columnSpan;
-                } else {
-
-                    // else work out the exact number of spaces it will move left
-                    const widgetDifference =  actionWgt.column - widget.getColumn();
-                    colShift = widget.getColumnSpan() - widgetDifference;
-                }
-            } else {
-
-                // if they are on the same row then move one row
-                colShift = 1;
-            }
-        }
-
-        if (isNaN(colShift) || colShift === 0) {
-            return;
-        }
-
-        // find the positions required
-        const targetSpaces = this.getOccupiedSpaces().filter(space => space.widget === widget).map(space => {
-            return { column: space.column - colShift, row: space.row, widget: space.widget };
-        });
-
-        // check if any of the target spaces are out of bounds
-        if (targetSpaces.find(space => space.column < 0)) {
-            return false;
-        }
-
-        // check if there are widget in the required positions and if so, can they move right?
-        const moveable = targetSpaces.every(space => this.getWidgetsAtPosition(space.column, space.row).filter(wgt => wgt !== space.widget).every(wgt => this.canWidgetMoveLeft(wgt, false, colShift)));
-
-        if (performMove && moveable) {
-
-            // move all widgets to the left
-            targetSpaces.forEach(space => this.getWidgetsAtPosition(space.column, space.row).filter(wgt => wgt !== space.widget).forEach(wgt => this.canWidgetMoveLeft(wgt, true, colShift)));
-
-            // find the target column
-            const column = targetSpaces.reduce((target, space) => Math.min(target, space.column), Infinity);
-
-            // move current widget to the left
-            if (column !== Infinity) {
-                widget.setColumn(column);
-            }
-        }
-
-        return moveable;
-    }
-
-    /**
-     * Determine if a widget can be moved right - or if it can move the widgets to the right to make space for the widget
-     */
-    canWidgetMoveRight(widget: DashboardWidgetComponent, performMove: boolean = false, shift: number = 0): boolean {
-
-        const actionWgt = this._widgetOrigin;
-        let colShift = shift;
-
-        // check if the widget is the dragging widget or the widget occupies the final column
-        if (widget === this._actionWidget.widget || widget.getColumn() + widget.getColumnSpan() === this.options.columns) {
-            return false;
-        }
-
-        // if value has been provided skip this step
-        if (colShift === 0) {
-
-            // work out how far the widget is planning to move right
-            if (actionWgt.row !== widget.getRow()) {
-
-                // if the widgets aren't on the same row work out the difference
-                if (actionWgt.column === widget.getColumn()) {
-
-                    // if the widgets occupy the same column then shift the widget of the action widget
-                    colShift = actionWgt.columnSpan;
-                } else {
-
-                    // else work out the exact number of spaces it will move right
-                    const widgetDifference = widget.getColumn() - actionWgt.column;
-                    colShift = actionWgt.columnSpan - widgetDifference;
-                }
-            } else {
-
-                // if they are on the same row then move one row
-                colShift = 1;
-            }
-        }
-
-        if (isNaN(colShift) || colShift === 0) {
-            return;
-        }
-
-        // find the positions required
-        const targetSpaces = this.getOccupiedSpaces().filter(space => space.widget === widget).map(space => {
-            return { column: space.column + colShift, row: space.row, widget: space.widget };
-        });
-
-        // check if any of the target spaces are out of bounds
-        if (targetSpaces.find(space => space.column >= this.getColumnCount())) {
-            return false;
-        }
-
-        // check if there are widget in the required positions and if so, can they move right?
-        const moveable = targetSpaces.every(space => this.getWidgetsAtPosition(space.column, space.row)
-            .filter(wgt => wgt !== space.widget)
-            .every(wgt => this.canWidgetMoveRight(wgt, false, colShift))
+        const isPreviousPositionAvailable = this.getPositionAvailable(
+          cachedVersionOfWidget.column,
+          cachedVersionOfWidget.row,
+          cachedVersionOfWidget.columnSpan,
+          cachedVersionOfWidget.rowSpan,
+          widget
         );
 
-        if (performMove && moveable) {
-
-            // move all widgets to the right
-            targetSpaces.forEach(space => this.getWidgetsAtPosition(space.column, space.row).filter(wgt => wgt !== space.widget).forEach(wgt => this.canWidgetMoveRight(wgt, true, colShift)));
-
-            // move current widget to the right
-            widget.setColumn(widget.getColumn() + colShift);
+        if (isPreviousPositionAvailable && widget.row !== cachedVersionOfWidget.row) {
+          widget.setRow(cachedVersionOfWidget.row);
+          stable = false;
         }
 
-        return moveable;
+        return;
+      }
+
+      if (
+        this.getPositionAvailable(
+          widget.getColumn(),
+          widget.getRow() - 1,
+          widget.getColumnSpan(),
+          1
+        )
+      ) {
+        widget.setRow(widget.getRow() - 1);
+        stable = false;
+      }
+    });
+
+    // if changes occurred then we should repeat the process
+    if (!stable) {
+      this.shiftWidgetsUp();
+      return true;
     }
 
-    /**
-     * Store the initial position of the widget being dragged
-     */
-    setWidgetOrigin(): void {
-        this._widgetOrigin = {
-            column: this._actionWidget.widget.getColumn(),
-            row: this._actionWidget.widget.getRow(),
-            columnSpan: this._actionWidget.widget.getColumnSpan(),
-            rowSpan: this._actionWidget.widget.getRowSpan()
-        };
+    return false;
+  }
+
+  /**
+   * Iterate over each space a widget occupied
+   * @param widget The widget to determine spaces
+   * @param callback The function to be called for each space, should expect a column and row argument witht he context being the widget
+   */
+  forEachBlock(
+    widget: DashboardWidgetComponent,
+    callback: (column: number, row: number) => void
+  ): void {
+    for (let row = widget.getRow(); row < widget.getRow() + widget.getRowSpan(); row++) {
+      for (
+        let column = widget.getColumn();
+        column < widget.getColumn() + widget.getColumnSpan();
+        column++
+      ) {
+        callback.call(widget, column, row);
+      }
+    }
+  }
+
+  getWidgetBelow(widget: DashboardWidgetComponent): DashboardWidgetComponent | null {
+    const target = this.getWidgetsAtPosition(
+      widget.getColumn(),
+      widget.getRow() + widget.getRowSpan(),
+      true
+    );
+
+    return target.length > 0 ? target[0] : null;
+  }
+
+  /**
+   * Returns the number of columns available
+   */
+  getColumnCount(): number {
+    return this.stacked ? 1 : this.options.columns;
+  }
+
+  onShiftStart(widget: DashboardWidgetComponent): void {
+    this.onDragStart({ direction: ActionDirection.Move, widget });
+  }
+
+  /** Programmatically move a widget in a given direction */
+  onShift(widget: DashboardWidgetComponent, direction: ActionDirection): void {
+    // get the current mouse position
+    let deltaX = 0,
+      deltaY = 0;
+
+    // move based on the direction
+    switch (direction) {
+      case ActionDirection.Top:
+        deltaY = -this.getRowHeight();
+        break;
+      case ActionDirection.Right:
+        deltaX = this.getColumnWidth();
+        break;
+      case ActionDirection.Bottom: {
+        deltaY = this.getRowHeight();
+        break;
+      }
+      case ActionDirection.Left:
+        deltaX = -this.getColumnWidth();
+        break;
     }
 
-    /**
-     * Calculate all the required positions is a widget was to be positioned at a particular point
-     */
-    getRequiredSpacesFromPoint(widget: DashboardWidgetComponent, column: number, row: number): DashboardSpace[] {
-        const spaces: DashboardSpace[] = [];
+    const dimensions: DashboardWidgetDimensions = {
+      x: widget.x + deltaX,
+      y: widget.y + deltaY,
+      width: widget.width,
+      height: widget.height,
+    };
 
-        for (let y = row; y < row + widget.getRowSpan(); y++) {
-            for (let x = column; x < column + widget.getColumnSpan(); x++) {
-                spaces.push({ column: x, row: y, widget });
-            }
-        }
+    // update placeholder position and value
+    this.setPlaceholderBounds(
+      false,
+      dimensions.x,
+      dimensions.y,
+      dimensions.width,
+      dimensions.height
+    );
 
-        return spaces;
+    // update widget position
+    const { x, y } = this.placeholder$.value;
+
+    // move the widget to the placeholder position
+    widget.setBounds(
+      x - this.options.padding,
+      y - this.options.padding,
+      dimensions.width,
+      dimensions.height
+    );
+
+    // update the height of the dashboard
+    this.setDashboardHeight();
+  }
+
+  onShiftEnd(): void {
+    // show the widget positions if the current positions and sizes were to persist
+    this.shiftWidgets();
+
+    // the height of the dashboard may have changed after moving widgets
+    this.setDashboardHeight();
+
+    // reset all properties
+    this.onDragEnd();
+  }
+
+  /** Programmatically resize a widget in a given direction */
+  onResize(widget: DashboardWidgetComponent, direction: ActionDirection): void {
+    // perform the resizing
+    let deltaX = 0,
+      deltaY = 0;
+
+    // move based on the direction
+    switch (direction) {
+      case ActionDirection.Top:
+        deltaY = -this.getRowHeight();
+        break;
+      case ActionDirection.Right:
+        deltaX = this.getColumnWidth();
+        break;
+      case ActionDirection.Bottom:
+        deltaY = this.getRowHeight();
+        break;
+      case ActionDirection.Left:
+        deltaX = -this.getColumnWidth();
+        break;
     }
 
-    /**
-     * Position widgets based on the position of the placeholder - this is temporary until confirmed
-     */
-    updateWidgetPositions(widget: DashboardWidgetComponent) {
+    const dimensions: DashboardWidgetDimensions = {
+      x: widget.x,
+      y: widget.y,
+      width: widget.width + deltaX,
+      height: widget.height + deltaY,
+    };
 
-        const placeholder = this.placeholder$.getValue();
+    const currentWidth = widget.x + widget.width;
+    const currentHeight = widget.y + widget.height;
 
-        // check all spaces the placeholder will occupy and move any widget currently in them down
-        for (let column = placeholder.column; column < placeholder.column + placeholder.columnSpan; column++) {
-            for (let row = placeholder.row; row < placeholder.row + placeholder.rowSpan; row++) {
-
-                this.getWidgetsAtPosition(column, row, true)
-                    .filter(wgt => wgt !== widget)
-                    .forEach(wgt => this.moveWidgetDown(wgt));
-            }
-        }
-
-        // update the height of the dashboard
-        this.setDashboardHeight();
-
-        // if we arent dragging the top handle then fill spaces
-        if (this._actionWidget.direction !== ActionDirection.Top &&
-            this._actionWidget.direction !== ActionDirection.TopLeft &&
-            this._actionWidget.direction !== ActionDirection.TopRight) {
-            this.shiftWidgetsUp();
-        }
+    // ensure values are within the dashboard bounds
+    if (dimensions.x < 0) {
+      dimensions.x = 0;
+      dimensions.width = currentWidth;
     }
 
-    /**
-     * Determine if a widget is occupying a specific row and column
-     * @param column The columns to check if occupied
-     * @param row The row to check if occupied
-     * @param ignoreResizing Whether or not to ignore the widget currently being resized
-     */
-    getWidgetsAtPosition(column: number, row: number, ignoreResizing: boolean = false): DashboardWidgetComponent[] {
-        return this.getOccupiedSpaces()
-            .filter(space => space.column === column && space.row === row)
-            .filter(space => this._actionWidget && space.widget !== this._actionWidget.widget || !ignoreResizing)
-            .map(space => space.widget);
+    if (dimensions.y < 0) {
+      dimensions.y = 0;
+      dimensions.height = currentHeight;
     }
 
-    /**
-     * Update the placeholder visibility, position and size
-     */
-    setPlaceholderBounds(visible: boolean, x: number, y: number, width: number, height: number): void {
-
-        const placeholder = this.placeholder$.getValue();
-
-        placeholder.visible = visible;
-
-        placeholder.column = this.getPlaceholderColumn(x, width);
-        placeholder.row = this.getPlaceholderRow(y, height);
-        placeholder.columnSpan = this.getPlaceholderColumnSpan(width);
-        placeholder.rowSpan = this.getPlaceholderRowSpan(height);
-
-        // calculate the maximum number of rows
-        const rowCount = this.widgets.filter(widget => widget !== this._actionWidget.widget)
-            .reduce((previous, widget) => Math.max(widget.getRow() + widget.getRowSpan(), previous), 0);
-
-        // constrain maximum placeholder row
-        placeholder.row = Math.min(placeholder.row, rowCount);
-
-        placeholder.x = (placeholder.column * this.getColumnWidth()) + this.options.padding;
-        placeholder.y = (placeholder.row * this._rowHeight) + this.options.padding;
-        placeholder.width = (placeholder.columnSpan * this.getColumnWidth()) - (this.options.padding * 2);
-        placeholder.height = (placeholder.rowSpan * this._rowHeight) - (this.options.padding * 2);
-
-        // set the values of the widget to match the values of the placeholder - however do not render the changes
-        this._actionWidget.widget.setColumn(placeholder.column, false);
-        this._actionWidget.widget.setRow(placeholder.row, false);
-        this._actionWidget.widget.setColumnSpan(placeholder.columnSpan, false);
-        this._actionWidget.widget.setRowSpan(placeholder.rowSpan, false);
-
-        // update the placeholder
-        this.placeholder$.next(placeholder);
+    if (dimensions.x + dimensions.width > this.getColumnWidth() * this.getColumnCount()) {
+      dimensions.width = widget.width;
     }
 
-    /**
-     * Get the placeholder column position
-     */
-    getPlaceholderColumn(x: number, width: number): number {
-
-        const column = this.getColumnFromPx(x, this._actionWidget.direction === ActionDirection.Move ? Rounding.RoundUpOverHalf : Rounding.RoundDown);
-        const columnSpan = Math.floor(width / this.getColumnWidth());
-        const upperLimit = this.getColumnCount() - columnSpan;
-
-        // if we arent dragging left then just return the column
-        if (this._actionWidget.direction !== ActionDirection.Left &&
-            this._actionWidget.direction !== ActionDirection.TopLeft &&
-            this._actionWidget.direction !== ActionDirection.BottomLeft) {
-            return Math.max(Math.min(column, upperLimit), 0);
-        }
-
-        // get any overflow
-        const overflow = width % this.getColumnWidth();
-
-        return (x <= 0 || overflow === 0 || columnSpan === 0 || overflow > (this.getColumnWidth() / 2)) ?
-            Math.max(Math.min(column, upperLimit), 0) :
-            Math.max(Math.min(column + 1, upperLimit), 0);
+    // if the proposed width is smaller than allowed then reset width to minimum and ignore x changes
+    if (dimensions.width < this.getColumnWidth()) {
+      dimensions.x = widget.x;
+      dimensions.width = this.getColumnWidth();
     }
 
-    /**
-     * Get the column span of the placeholder
-     */
-    getPlaceholderColumnSpan(width: number): number {
-
-        const columnSpan = this.getColumnFromPx(width);
-
-        // if we arent dragging right or left then just return the column span
-        if (this._actionWidget.direction !== ActionDirection.Right &&
-            this._actionWidget.direction !== ActionDirection.TopRight &&
-            this._actionWidget.direction !== ActionDirection.BottomRight &&
-            this._actionWidget.direction !== ActionDirection.Left &&
-            this._actionWidget.direction !== ActionDirection.TopLeft &&
-            this._actionWidget.direction !== ActionDirection.BottomLeft) {
-            return this.getColumnFromPx(width, Rounding.RoundUpOverHalf);
-        }
-
-        // get the current column span and any overflow
-        const overflow = width % this.getColumnWidth();
-
-        return (columnSpan > 0 && overflow > (this.getColumnWidth() / 2)) ? Math.max(columnSpan + 1, 1) : Math.max(columnSpan, 1);
+    // if the proposed height is smaller than allowed then reset height to minimum and ignore y changes
+    if (dimensions.height < this.getRowHeight()) {
+      dimensions.y = widget.y;
+      dimensions.height = this.getRowHeight();
     }
 
-    /**
-     * Get the row position of the placeholder
-     */
-    getPlaceholderRow(y: number, height: number): number {
+    const minWidth = this.getColumnWidth() * widget.minColSpan;
+    const isBelowMinWidth = dimensions.width < minWidth;
 
-        const row = this.getRowFromPx(y, this._actionWidget.direction === ActionDirection.Move ? Rounding.RoundUpOverHalf : Rounding.RoundDown);
-        const rowSpan = Math.ceil(height / this._rowHeight);
-
-        // if we arent dragging up then just return the row
-        if (this._actionWidget.direction !== ActionDirection.Top &&
-            this._actionWidget.direction !== ActionDirection.TopLeft &&
-            this._actionWidget.direction !== ActionDirection.TopRight) {
-            return Math.max(row, 0);
-        }
-
-        // get any overflow
-        const overflow = height < this._rowHeight ? 0 : height % this._rowHeight;
-
-        return (y <= 0 || rowSpan === 0 || overflow === 0 || overflow > (this._rowHeight / 2)) ? Math.max(row, 0) : Math.max(row + 1, 0);
+    if (isBelowMinWidth) {
+      dimensions.x = widget.x;
+      dimensions.width = minWidth;
     }
 
-    /**
-     * Get the row span of the placeholder
-     */
-    getPlaceholderRowSpan(height: number): number {
+    const minHeight = this.options.rowHeight * widget.minRowSpan;
+    const isBelowMinHeight = dimensions.height < minHeight;
 
-        const rowSpan = this.getRowFromPx(height);
-
-        // if we arent dragging up or down then just return the column span
-        if (this._actionWidget.direction !== ActionDirection.Top &&
-            this._actionWidget.direction !== ActionDirection.TopLeft &&
-            this._actionWidget.direction !== ActionDirection.TopRight &&
-            this._actionWidget.direction !== ActionDirection.Bottom &&
-            this._actionWidget.direction !== ActionDirection.BottomLeft &&
-            this._actionWidget.direction !== ActionDirection.BottomRight) {
-            return Math.max(rowSpan, 1);
-        }
-
-        // get the current column span and any overflow
-        const overflow = height % this._rowHeight;
-
-        return (overflow > (this._rowHeight / 2)) ? Math.max(rowSpan + 1, 1) : Math.max(rowSpan, 1);
+    if (isBelowMinHeight) {
+      dimensions.y = widget.y;
+      dimensions.height = minHeight;
     }
 
-    getColumnFromPx(x: number, rounding: Rounding = Rounding.RoundDown): number {
+    // move the widget to the placeholder position
+    widget.setBounds(dimensions.x, dimensions.y, dimensions.width, dimensions.height);
 
-        const column = Math.floor(x / Math.floor(this.getColumnWidth()));
-        const overflow = (x % Math.floor(this.getColumnWidth()));
-        const half = this.getColumnWidth() / 2;
+    // update placeholder position and value
+    this.setPlaceholderBounds(
+      false,
+      dimensions.x,
+      dimensions.y,
+      dimensions.width,
+      dimensions.height
+    );
 
-        switch (rounding) {
+    // the height of the dashboard may have changed after moving widgets
+    this.setDashboardHeight();
+  }
 
-            case Rounding.RoundDown:
-                return column;
+  getSurroundingWidgets(
+    widget: DashboardWidgetComponent,
+    direction: ActionDirection
+  ): DashboardWidgetComponent[] {
+    let widgets: DashboardWidgetComponent[] = [];
 
-            case Rounding.RoundDownBelowHalf:
-                return overflow < half ? column : column + 1;
+    for (
+      let column = widget.getColumn();
+      column < widget.getColumn() + widget.getColumnSpan();
+      column++
+    ) {
+      switch (direction) {
+        case ActionDirection.Top:
+          widgets = [...widgets, ...this.getWidgetsAtPosition(column, widget.getRow() - 1)];
+          break;
 
-            case Rounding.RoundUpOverHalf:
-                return overflow > half ? column + 1 : column;
-
-            case Rounding.RoundUp:
-                return overflow > 0 ? column + 1 : column;
-        }
-
+        case ActionDirection.Bottom:
+          widgets = [
+            ...widgets,
+            ...this.getWidgetsAtPosition(column, widget.getRow() + widget.getRowSpan()),
+          ];
+          break;
+      }
     }
 
-    getRowFromPx(y: number, rounding: Rounding = Rounding.RoundDown): number {
-
-        const row = Math.floor(y / Math.floor(this._rowHeight));
-        const overflow = (y % Math.floor(this._rowHeight));
-        const half = this._rowHeight / 2;
-
-        switch (rounding) {
-
-            case Rounding.RoundDown:
-                return row;
-
-            case Rounding.RoundDownBelowHalf:
-                return overflow < half ? row : row + 1;
-
-            case Rounding.RoundUpOverHalf:
-                return overflow > half ? row + 1 : row;
-
-            case Rounding.RoundUp:
-                return overflow > 0 ? row + 1 : row;
-        }
-    }
-
-    commitWidgetChanges(): void {
-
-        const placeholder = this.placeholder$.getValue();
-
-        // check that we have all the values we need
-        if (placeholder.column === undefined || placeholder.row === undefined ||
-            placeholder.columnSpan === undefined || placeholder.rowSpan === undefined) {
-            return;
-        }
-
-        if (this._actionWidget) {
-            this._actionWidget.widget.setColumn(placeholder.column);
-            this._actionWidget.widget.setRow(placeholder.row);
-            this._actionWidget.widget.setColumnSpan(placeholder.columnSpan);
-            this._actionWidget.widget.setRowSpan(placeholder.rowSpan);
-        }
-
-        // reset all placeholder values
-        placeholder.column = undefined;
-        placeholder.row = undefined;
-        placeholder.columnSpan = undefined;
-        placeholder.rowSpan = undefined;
-
-        // emit the new placeholder values
-        this.placeholder$.next(placeholder);
-    }
-
-    /**
-     * Get the current column width
-     */
-    getColumnWidth(): number {
-        return Math.floor(this.columnWidth);
-    }
-
-    /**
-     * Calculate the number of rows populated with widgets
-     */
-    getRowCount(): number {
-        return this.widgets.reduce((previous, widget) => Math.max(widget.getRow() + widget.getRowSpan(), previous), 0);
-    }
-
-    /**
-     * Set the height of the dashboard container element
-     */
-    setDashboardHeight(): void {
-
-        // size the dashboard container to ensure all rows fit
-        let rowCount = this.getRowCount();
-
-        // if we should show an empty row increment the row count by 1
-        if (this.options.emptyRow) {
-            rowCount++;
-        }
-
-        this.setDimensions(undefined, rowCount * this._rowHeight);
-    }
-
-    /**
-     * Orders the z-index of all widgets to move the active one to the front
-     * @param widget The widget that should be brought to the front
-     */
-    bringToFront(widget: DashboardWidgetComponent): void {
-        this.widgets.forEach(_widget => _widget === widget ? _widget.bringToFront() : _widget.sendToBack());
-    }
-
-    /**
-     * Move a widget down - if widgets are in the position below, then move them down further
-     * @param widget The widget to move downwards
-     */
-    moveWidgetDown(widget: DashboardWidgetComponent, distance: number = 1): void {
-
-        // stop if a negative number is passed through
-        if (distance < 0) {
-            return;
-        }
-
-        // move the widget down one position
-        widget.setRow((widget.getRow(DashboardStackMode.Auto)) + distance);
-
-        // check every space the widget occupies for collisions
-        this.forEachBlock(widget, (column, row) =>
-            this.getWidgetsAtPosition(column, row, true)
-                .filter(wgt => wgt !== widget)
-                .forEach(wgt => this.moveWidgetDown(wgt, distance)));
-    }
-
-    /**
-     * Widgets should not be allowed to have a vacant space above them - if there is one they should move upwards to fill it
-     */
-    shiftWidgetsUp(): boolean {
-
-        // check whether or not changes have been made - if so we need to repeat until stable
-        let stable = true;
-
-        // iterate each widget and
-        this.widgets.forEach(widget => {
-            const widgetIsOnTopRow = widget.getRow() === 0;
-            const widgetIsBeingResized = this._actionWidget?.widget === widget;
-            const widgetShouldBeAutoPositioned = widget.autoPositioning || this.stacked;
-            const widgetIsBeingMoved = !widgetShouldBeAutoPositioned && this.isDragging$.value?.id === widget.id;
-
-            if (widgetIsOnTopRow || widgetIsBeingResized || widgetIsBeingMoved || (!widgetShouldBeAutoPositioned && !this._cache)) {
-                return;
-            }
-
-            if (!widgetShouldBeAutoPositioned) {
-                const cachedVersionOfWidget = this._cache.find(cachedWidget => cachedWidget.id === widget.id);
-                const isPreviousPositionAvailable = this.getPositionAvailable(
-                    cachedVersionOfWidget.column,
-                    cachedVersionOfWidget.row,
-                    cachedVersionOfWidget.columnSpan,
-                    cachedVersionOfWidget.rowSpan,
-                    widget
-                );
-
-                if (isPreviousPositionAvailable && widget.row !== cachedVersionOfWidget.row) {
-                    widget.setRow(cachedVersionOfWidget.row);
-                    stable = false;
-                }
-
-                return;
-            }
-
-            if (this.getPositionAvailable(widget.getColumn(), widget.getRow() - 1, widget.getColumnSpan(), 1)) {
-                widget.setRow(widget.getRow() - 1);
-                stable = false;
-            }
-        });
-
-        // if changes occurred then we should repeat the process
-        if (!stable) {
-            this.shiftWidgetsUp();
-            return true;
-        }
-
-        return false;
-    }
-
-    /**
-     * Iterate over each space a widget occupied
-     * @param widget The widget to determine spaces
-     * @param callback The function to be called for each space, should expect a column and row argument witht he context being the widget
-     */
-    forEachBlock(widget: DashboardWidgetComponent, callback: (column: number, row: number) => void): void {
-        for (let row = widget.getRow(); row < widget.getRow() + widget.getRowSpan(); row++) {
-            for (let column = widget.getColumn(); column < widget.getColumn() + widget.getColumnSpan(); column++) {
-                callback.call(widget, column, row);
-            }
-        }
-    }
-
-    getWidgetBelow(widget: DashboardWidgetComponent): DashboardWidgetComponent | null {
-        const target = this.getWidgetsAtPosition(widget.getColumn(), widget.getRow() + widget.getRowSpan(), true);
-
-        return target.length > 0 ? target[0] : null;
-    }
-
-    /**
-     * Returns the number of columns available
-     */
-    getColumnCount(): number {
-        return this.stacked ? 1 : this.options.columns;
-    }
-
-    onShiftStart(widget: DashboardWidgetComponent): void {
-        this.onDragStart({ direction: ActionDirection.Move, widget });
-    }
-
-    /** Programmatically move a widget in a given direction */
-    onShift(widget: DashboardWidgetComponent, direction: ActionDirection): void {
-
-        // get the current mouse position
-        let deltaX = 0, deltaY = 0;
-
-        // move based on the direction
-        switch (direction) {
-            case ActionDirection.Top:
-                deltaY = -this.getRowHeight();
-                break;
-            case ActionDirection.Right:
-                deltaX = this.getColumnWidth();
-                break;
-            case ActionDirection.Bottom: {
-                deltaY = this.getRowHeight();
-                break;
-            }
-            case ActionDirection.Left:
-                deltaX = -this.getColumnWidth();
-                break;
-        }
-
-        const dimensions: DashboardWidgetDimensions = {
-            x: widget.x + deltaX,
-            y: widget.y + deltaY,
-            width: widget.width,
-            height: widget.height
-        };
-
-
-        // update placeholder position and value
-        this.setPlaceholderBounds(false, dimensions.x, dimensions.y, dimensions.width, dimensions.height);
-
-        // update widget position
-        const { x, y } = this.placeholder$.value;
-
-        // move the widget to the placeholder position
-        widget.setBounds(x - this.options.padding, y - this.options.padding, dimensions.width, dimensions.height);
-
-        // update the height of the dashboard
-        this.setDashboardHeight();
-
-    }
-
-    onShiftEnd(): void {
-        // show the widget positions if the current positions and sizes were to persist
-        this.shiftWidgets();
-
-        // the height of the dashboard may have changed after moving widgets
-        this.setDashboardHeight();
-
-        // reset all properties
-        this.onDragEnd();
-    }
-
-    /** Programmatically resize a widget in a given direction */
-    onResize(widget: DashboardWidgetComponent, direction: ActionDirection): void {
-
-        // perform the resizing
-        let deltaX = 0, deltaY = 0;
-
-        // move based on the direction
-        switch (direction) {
-            case ActionDirection.Top:
-                deltaY = -this.getRowHeight();
-                break;
-            case ActionDirection.Right:
-                deltaX = this.getColumnWidth();
-                break;
-            case ActionDirection.Bottom:
-                deltaY = this.getRowHeight();
-                break;
-            case ActionDirection.Left:
-                deltaX = -this.getColumnWidth();
-                break;
-        }
-
-        const dimensions: DashboardWidgetDimensions = {
-            x: widget.x,
-            y: widget.y,
-            width: widget.width + deltaX,
-            height: widget.height + deltaY
-        };
-
-        const currentWidth = widget.x + widget.width;
-        const currentHeight = widget.y + widget.height;
-
-        // ensure values are within the dashboard bounds
-        if (dimensions.x < 0) {
-            dimensions.x = 0;
-            dimensions.width = currentWidth;
-        }
-
-        if (dimensions.y < 0) {
-            dimensions.y = 0;
-            dimensions.height = currentHeight;
-        }
-
-        if ((dimensions.x + dimensions.width) > this.getColumnWidth() * this.getColumnCount()) {
-            dimensions.width = widget.width;
-        }
-
-        // if the proposed width is smaller than allowed then reset width to minimum and ignore x changes
-        if (dimensions.width < this.getColumnWidth()) {
-            dimensions.x = widget.x;
-            dimensions.width = this.getColumnWidth();
-        }
-
-        // if the proposed height is smaller than allowed then reset height to minimum and ignore y changes
-        if (dimensions.height < this.getRowHeight()) {
-            dimensions.y = widget.y;
-            dimensions.height = this.getRowHeight();
-        }
-
-        const minWidth = this.getColumnWidth() * widget.minColSpan;
-        const isBelowMinWidth = dimensions.width < minWidth;
-
-        if (isBelowMinWidth) {
-            dimensions.x = widget.x;
-            dimensions.width = minWidth;
-        }
-
-        const minHeight = this.options.rowHeight * widget.minRowSpan;
-        const isBelowMinHeight = dimensions.height < minHeight;
-
-        if (isBelowMinHeight) {
-            dimensions.y = widget.y;
-            dimensions.height = minHeight;
-        }
-
-        // move the widget to the placeholder position
-        widget.setBounds(dimensions.x, dimensions.y, dimensions.width, dimensions.height);
-
-        // update placeholder position and value
-        this.setPlaceholderBounds(false, dimensions.x, dimensions.y, dimensions.width, dimensions.height);
-
-        // the height of the dashboard may have changed after moving widgets
-        this.setDashboardHeight();
-    }
-
-    getSurroundingWidgets(widget: DashboardWidgetComponent, direction: ActionDirection): DashboardWidgetComponent[] {
-        let widgets: DashboardWidgetComponent[] = [];
-
-        for (let column = widget.getColumn(); column < widget.getColumn() + widget.getColumnSpan(); column++) {
-
-            switch (direction) {
-
-                case ActionDirection.Top:
-                    widgets = [...widgets, ...this.getWidgetsAtPosition(column, widget.getRow() - 1)];
-                    break;
-
-                case ActionDirection.Bottom:
-                    widgets = [...widgets, ...this.getWidgetsAtPosition(column, widget.getRow() + widget.getRowSpan())];
-                    break;
-            }
-        }
-
-        return widgets;
-    }
-
-    private moveWidget(widget: DashboardWidgetComponent, offsetX: number, offsetY: number): void {
-
-        const dimensions: DashboardWidgetDimensions = {
-            x: widget.x + offsetX,
-            y: widget.y + offsetY,
-            width: widget.width,
-            height: widget.height
-        };
-
-        this.restoreWidgets(true);
-
-        // update widget position
-        widget.setBounds(dimensions.x, dimensions.y, dimensions.width, dimensions.height);
-
-        // update placeholder position and value
-        this.setPlaceholderBounds(true, dimensions.x, dimensions.y, dimensions.width, dimensions.height);
-
-        // show the widget positions if the current positions and sizes were to persist
-        this.shiftWidgets();
-
-        this.setDashboardHeight();
-    }
+    return widgets;
+  }
+
+  private moveWidget(widget: DashboardWidgetComponent, offsetX: number, offsetY: number): void {
+    const dimensions: DashboardWidgetDimensions = {
+      x: widget.x + offsetX,
+      y: widget.y + offsetY,
+      width: widget.width,
+      height: widget.height,
+    };
+
+    this.restoreWidgets(true);
+
+    // update widget position
+    widget.setBounds(dimensions.x, dimensions.y, dimensions.width, dimensions.height);
+
+    // update placeholder position and value
+    this.setPlaceholderBounds(
+      true,
+      dimensions.x,
+      dimensions.y,
+      dimensions.width,
+      dimensions.height
+    );
+
+    // show the widget positions if the current positions and sizes were to persist
+    this.shiftWidgets();
+
+    this.setDashboardHeight();
+  }
 }
 
 export const defaultOptions: DashboardOptions = {
-    columns: 5,
-    padding: 5,
-    minWidth: 100,
-    minHeight: 100,
-    emptyRow: true
+  columns: 5,
+  padding: 5,
+  minWidth: 100,
+  minHeight: 100,
+  emptyRow: true,
 };
 
 export interface DashboardDimensions {
-    width?: number;
-    height?: number;
+  width?: number;
+  height?: number;
 }
 
 export interface DashboardWidgetDimensions {
-    x: number;
-    y: number;
-    width: number;
-    height: number;
+  x: number;
+  y: number;
+  width: number;
+  height: number;
 }
 
 export interface DashboardAction {
-    widget: DashboardWidgetComponent;
-    direction: ActionDirection;
-    event?: MouseEvent;
-    handle?: HTMLElement;
+  widget: DashboardWidgetComponent;
+  direction: ActionDirection;
+  event?: MouseEvent;
+  handle?: HTMLElement;
 }
 
 export interface DashboardSpace {
-    widget: DashboardWidgetComponent;
-    column: number;
-    row: number;
+  widget: DashboardWidgetComponent;
+  column: number;
+  row: number;
 }
 
 export interface DashboardRegion {
-    column?: number;
-    row?: number;
-    columnSpan?: number;
-    rowSpan?: number;
+  column?: number;
+  row?: number;
+  columnSpan?: number;
+  rowSpan?: number;
 }
 
 export interface DashboardPlaceholder extends DashboardRegion {
-    visible: boolean;
-    x: number;
-    y: number;
-    width: number;
-    height: number;
+  visible: boolean;
+  x: number;
+  y: number;
+  width: number;
+  height: number;
 }
 
 export interface DashboardCache {
-    id: string;
-    column: number;
-    row: number;
-    columnSpan: number;
-    rowSpan: number;
+  id: string;
+  column: number;
+  row: number;
+  columnSpan: number;
+  rowSpan: number;
 }
 
 export interface DashboardLayoutData {
-    id: string;
-    col: number;
-    row: number;
-    colSpan: number;
-    rowSpan: number;
-    minColSpan?: number;
-    minRowSpan?: number;
+  id: string;
+  col: number;
+  row: number;
+  colSpan: number;
+  rowSpan: number;
+  minColSpan?: number;
+  minRowSpan?: number;
 }
 
 export enum ActionDirection {
-    Top = 0,
-    TopRight = 1,
-    Right = 2,
-    BottomRight = 3,
-    Bottom = 4,
-    BottomLeft = 5,
-    Left = 6,
-    TopLeft = 7,
-    Move = 8
+  Top = 0,
+  TopRight = 1,
+  Right = 2,
+  BottomRight = 3,
+  Bottom = 4,
+  BottomLeft = 5,
+  Left = 6,
+  TopLeft = 7,
+  Move = 8,
 }
 
 export enum Rounding {
-    RoundDown,
-    RoundDownBelowHalf,
-    RoundUp,
-    RoundUpOverHalf
+  RoundDown,
+  RoundDownBelowHalf,
+  RoundUp,
+  RoundUpOverHalf,
 }

@@ -3,72 +3,72 @@ import { SearchBuilderComponentContext } from '../interfaces/component-context.i
 import { SearchBuilderService } from '../search-builder.service';
 
 @Component({
-    selector: 'ux-base-search',
-    template: ''
+  selector: 'ux-base-search',
+  template: '',
+  standalone: false,
 })
 export class BaseSearchComponent implements OnDestroy {
-    private readonly _searchBuilderService = inject(SearchBuilderService);
+  private readonly _searchBuilderService = inject(SearchBuilderService);
 
-    get id(): string {
-        return `ux-search-builder-search-component-${this._id}`;
-    }
+  get id(): string {
+    return `ux-search-builder-search-component-${this._id}`;
+  }
 
-    type: string;
-     
-    config: any;
-    context: SearchBuilderComponentContext;
-    focus: boolean;
+  type: string;
 
-    /**
-     * Get the current value of the component
-     */
-    get value() {
-        return this.context.value;
-    }
+  config: any;
+  context: SearchBuilderComponentContext;
+  focus: boolean;
 
-    /**
-     * Set the current value of the component
-     */
-     
-    set value(value: any) {
-        this.context.value = value;
-        this._searchBuilderService.queryHasChanged();
+  /**
+   * Get the current value of the component
+   */
+  get value() {
+    return this.context.value;
+  }
 
-        // if value has been set perform validation
-        this.validate();
-    }
+  /**
+   * Set the current value of the component
+   */
 
-    get valid(): boolean {
-        return this._valid;
-    }
+  set value(value: any) {
+    this.context.value = value;
+    this._searchBuilderService.queryHasChanged();
 
-    set valid(valid: boolean) {
-        this._valid = valid;
-        this._searchBuilderService.setValid(this._id, valid);
-    }
+    // if value has been set perform validation
+    this.validate();
+  }
 
-    private readonly _id: number = this._searchBuilderService.generateComponentId();
-    private _valid: boolean = true;
+  get valid(): boolean {
+    return this._valid;
+  }
 
-    /**
-     * Make sure we clean up after ourselves
-     */
-    ngOnDestroy(): void {
-        this.valid = true;
-    }
+  set valid(valid: boolean) {
+    this._valid = valid;
+    this._searchBuilderService.setValid(this._id, valid);
+  }
 
-    /**
-     * Perform any required validation on the value
-     */
-    validate(): void {
-        // if a custom validation function has been provided then use it
-        this.valid = this.config.validation ? this.config.validation(this, this.value) : true;
-    }
+  private readonly _id: number = this._searchBuilderService.generateComponentId();
+  private _valid: boolean = true;
 
+  /**
+   * Make sure we clean up after ourselves
+   */
+  ngOnDestroy(): void {
+    this.valid = true;
+  }
+
+  /**
+   * Perform any required validation on the value
+   */
+  validate(): void {
+    // if a custom validation function has been provided then use it
+    this.valid = this.config.validation ? this.config.validation(this, this.value) : true;
+  }
 }
 
 export interface BaseSearchComponentConfig {
-    label?: string;
-    placeholder?: string;
-    validation?: (value: unknown) => boolean;
+  label?: string;
+  placeholder?: string;
+  validation?: (value: unknown) => boolean;
 }

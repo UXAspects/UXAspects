@@ -1,6 +1,7 @@
 import { Directive } from '@angular/core';
 
 @Directive({
-    selector: '[uxPageHeaderCustomMenu], [uxPageHeaderCustomItem]'
+  selector: '[uxPageHeaderCustomMenu], [uxPageHeaderCustomItem]',
+  standalone: false,
 })
-export class PageHeaderCustomMenuDirective { }
+export class PageHeaderCustomMenuDirective {}

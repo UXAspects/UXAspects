@@ -1,6 +1,7 @@
 import { Directive } from '@angular/core';
 
 @Directive({
-    selector: '[uxMediaPlayerCustomControl]',
+  selector: '[uxMediaPlayerCustomControl]',
+  standalone: false,
 })
 export class MediaPlayerCustomControlDirective {}

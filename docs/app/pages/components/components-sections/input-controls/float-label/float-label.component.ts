@@ -6,48 +6,49 @@ import { IPlayground } from '../../../../../interfaces/IPlayground';
 import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
 
 @Component({
-    selector: 'uxd-float-label',
-    templateUrl: './float-label.component.html',
+  selector: 'uxd-float-label',
+  templateUrl: './float-label.component.html',
+  standalone: false,
 })
 @DocumentationSectionComponent('ComponentsFloatLabelComponent')
 export class ComponentsFloatLabelComponent
-    extends BaseDocumentationSection
-    implements IPlaygroundProvider
+  extends BaseDocumentationSection
+  implements IPlaygroundProvider
 {
-    playground: IPlayground = {
-        files: {
-            'app.component.html': this.snippets.raw.appHtml,
-            'app.component.ts': this.snippets.raw.appTs,
-        },
-        modules: [
-            {
-                imports: ['FloatLabelModule'],
-                library: '@ux-aspects/ux-aspects',
-            },
-        ],
-    };
+  playground: IPlayground = {
+    files: {
+      'app.component.html': this.snippets.raw.appHtml,
+      'app.component.ts': this.snippets.raw.appTs,
+    },
+    modules: [
+      {
+        imports: ['FloatLabelModule'],
+        library: '@ux-aspects/ux-aspects',
+      },
+    ],
+  };
 
-    demoForm: FormGroup;
+  demoForm: FormGroup;
 
-    get locationValue(): string {
-        return this.demoForm.get('location').value;
-    }
+  get locationValue(): string {
+    return this.demoForm.get('location').value;
+  }
 
-    set locationValue(value: string) {
-        this.demoForm.get('location').setValue(value);
-    }
+  set locationValue(value: string) {
+    this.demoForm.get('location').setValue(value);
+  }
 
-    constructor(formBuilder: FormBuilder) {
-        super(
-            import.meta.webpackContext('./snippets/', {
-                recursive: false,
-                regExp: /\.(html|css|js|ts)$/,
-            })
-        );
+  constructor(formBuilder: FormBuilder) {
+    super(
+      import.meta.webpackContext('./snippets/', {
+        recursive: false,
+        regExp: /\.(html|css|js|ts)$/,
+      })
+    );
 
-        this.demoForm = formBuilder.group({
-            username: [''],
-            location: [''],
-        });
-    }
+    this.demoForm = formBuilder.group({
+      username: [''],
+      location: [''],
+    });
+  }
 }

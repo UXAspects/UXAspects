@@ -6,24 +6,25 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 import { playgroundAdapter } from '../../../../../services/playground/adapters/legacy-playground-adapter';
 
 @Component({
-    selector: 'uxmd-icon-buttons',
-    templateUrl: 'icon-buttons.component.html',
+  selector: 'uxmd-icon-buttons',
+  templateUrl: 'icon-buttons.component.html',
+  standalone: false,
 })
 @DocumentationSectionComponent('IconButtonsDocumentationComponent')
 export class IconButtonsDocumentationComponent
-    extends BaseDocumentationSection
-    implements IPlaygroundProvider
+  extends BaseDocumentationSection
+  implements IPlaygroundProvider
 {
-    playground: IPlayground = playgroundAdapter({
-        html: this.snippets.raw.appHtml,
-    });
+  playground: IPlayground = playgroundAdapter({
+    html: this.snippets.raw.appHtml,
+  });
 
-    constructor() {
-        super(
-            import.meta.webpackContext('./snippets/', {
-                recursive: false,
-                regExp: /\.(html|css|js|ts)$/,
-            })
-        );
-    }
+  constructor() {
+    super(
+      import.meta.webpackContext('./snippets/', {
+        recursive: false,
+        regExp: /\.(html|css|js|ts)$/,
+      })
+    );
+  }
 }

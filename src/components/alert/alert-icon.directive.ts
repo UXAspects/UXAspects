@@ -1,6 +1,7 @@
 import { Directive } from '@angular/core';
 
 @Directive({
-    selector: '[uxAlertIcon]',
+  selector: '[uxAlertIcon]',
+  standalone: false,
 })
-export class AlertIconDirective { }
+export class AlertIconDirective {}

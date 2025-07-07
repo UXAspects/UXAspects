@@ -16,6 +16,7 @@ import { AccordionModule } from './accordion.module';
       </ux-accordion-panel>
     }
   </ux-accordion>`,
+  standalone: false,
 })
 export class AccordionComponent {
   groups: AccordionGroup[] = [

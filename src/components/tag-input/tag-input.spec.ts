@@ -9,138 +9,136 @@ import { TypeaheadModule } from '../typeahead/index';
 import { TagInputComponent } from './tag-input.component';
 
 describe('Tag Input Component', () => {
+  let component: TagInputComponent<string>;
+  let nativeElement: HTMLElement;
+  let fixture: ComponentFixture<TagInputComponent>;
 
-    let component: TagInputComponent<string>;
-    let nativeElement: HTMLElement;
-    let fixture: ComponentFixture<TagInputComponent>;
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      imports: [
+        AccessibilityModule,
+        CommonModule,
+        FormsModule,
+        FocusIfModule,
+        IconModule,
+        TypeaheadModule,
+      ],
+      declarations: [TagInputComponent],
+    }).compileComponents();
 
-    beforeEach(() => {
-        TestBed.configureTestingModule({
-            imports: [
-                AccessibilityModule,
-                CommonModule,
-                FormsModule,
-                FocusIfModule,
-                IconModule,
-                TypeaheadModule
-            ],
-            declarations: [TagInputComponent]
-        }).compileComponents();
+    fixture = TestBed.createComponent(TagInputComponent);
+    component = fixture.componentInstance;
+    nativeElement = fixture.nativeElement;
+  });
 
-        fixture = TestBed.createComponent(TagInputComponent);
-        component = fixture.componentInstance;
-        nativeElement = fixture.nativeElement;
+  afterEach(() => fixture.nativeElement.remove());
+
+  it('should create the component', () => {
+    expect(component).toBeTruthy();
+  });
+
+  it('should emit tagsChange each time an item is selected', done => {
+    // run initial change detection
+    fixture.detectChanges();
+
+    // listen for tags
+    const subscription = component.tagsChange.pipe(bufferCount(2)).subscribe(response => {
+      expect(response.length).toBe(2);
+      done();
     });
 
-    afterEach(() => fixture.nativeElement.remove());
+    // add tags
+    component.commitTypeahead('One');
+    component.commitTypeahead('Two');
 
-    it('should create the component', () => {
-        expect(component).toBeTruthy();
-    });
+    subscription.unsubscribe();
+  });
 
-    it('should emit tagsChange each time an item is selected', (done) => {
+  it('should not emit inputChange on initialization', () => {
+    const onInputChange = jasmine.createSpy('inputChange');
+    const subscription = component.inputChange.subscribe(onInputChange);
 
-        // run initial change detection
-        fixture.detectChanges();
+    // run initial change detection
+    fixture.detectChanges();
 
-        // listen for tags
-        const subscription = component.tagsChange.pipe(bufferCount(2)).subscribe(response => {
-            expect(response.length).toBe(2);
-            done();
-        });
+    expect(onInputChange).not.toHaveBeenCalled();
 
-        // add tags
-        component.commitTypeahead('One');
-        component.commitTypeahead('Two');
+    subscription.unsubscribe();
+  });
 
-        subscription.unsubscribe();
-    });
+  it('should not emit tagsChange on initialization', () => {
+    const onTagsChange = jasmine.createSpy('TagsChange');
+    const subscription = component.inputChange.subscribe(onTagsChange);
 
-    it('should not emit inputChange on initialization', () => {
-        const onInputChange = jasmine.createSpy('inputChange');
-        const subscription = component.inputChange.subscribe(onInputChange);
+    // run initial change detection
+    fixture.detectChanges();
 
-        // run initial change detection
-        fixture.detectChanges();
+    expect(onTagsChange).not.toHaveBeenCalled();
 
-        expect(onInputChange).not.toHaveBeenCalled();
+    subscription.unsubscribe();
+  });
 
-        subscription.unsubscribe();
-    });
+  it('should initialize value to empty string', () => {
+    // run initial change detection
+    fixture.detectChanges();
 
-    it('should not emit tagsChange on initialization', () => {
-        const onTagsChange = jasmine.createSpy('TagsChange');
-        const subscription = component.inputChange.subscribe(onTagsChange);
+    expect(component.input).toBe('');
+  });
 
-        // run initial change detection
-        fixture.detectChanges();
+  it('should emit inputChange when input changed', () => {
+    const onInputChange = jasmine.createSpy('inputChange');
+    const subscription = component.inputChange.subscribe(onInputChange);
+    // run initial change detection
+    fixture.detectChanges();
 
-        expect(onTagsChange).not.toHaveBeenCalled();
+    component.setInputValue('one');
 
-        subscription.unsubscribe();
-    });
+    expect(onInputChange).toHaveBeenCalled();
 
-    it('should initialize value to empty string', () => {
-        // run initial change detection
-        fixture.detectChanges();
+    subscription.unsubscribe();
+  });
 
-        expect(component.input).toBe('');
-    });
+  it('should add a required attribute to the input when required is true', () => {
+    component.required = true;
 
-     it('should emit inputChange when input changed', () => {
-         const onInputChange = jasmine.createSpy('inputChange');
-         const subscription = component.inputChange.subscribe(onInputChange);
-         // run initial change detection
-         fixture.detectChanges();
+    fixture.detectChanges();
 
-         component.setInputValue('one');
+    const inputElementEmpty = nativeElement.querySelector<HTMLInputElement>('input.ux-tag-input');
+    const attributeRequired = inputElementEmpty.hasAttribute('required');
 
-         expect(onInputChange).toHaveBeenCalled();
+    expect(attributeRequired).toBe(true);
+  });
 
-         subscription.unsubscribe();
-    });
+  it('should emit inputBlur when the input field loses focus', () => {
+    fixture.detectChanges();
 
-    it('should add a required attribute to the input when required is true', () => {
-        component.required = true;
+    const onInputBlur = jasmine.createSpy('inputBlur');
+    const subscription = component.inputBlur.subscribe(onInputBlur);
+    const inputElement = nativeElement.querySelector<HTMLInputElement>('input.ux-tag-input');
 
-        fixture.detectChanges();
+    inputElement.dispatchEvent(new Event('blur'));
 
-        const inputElementEmpty = nativeElement.querySelector<HTMLInputElement>('input.ux-tag-input');
-        const attributeRequired = inputElementEmpty.hasAttribute('required');
+    fixture.detectChanges();
 
-        expect(attributeRequired).toBe(true);
-    });
+    expect(onInputBlur).toHaveBeenCalled();
+    subscription.unsubscribe();
+  });
 
-    it('should emit inputBlur when the input field loses focus', () => {
-        fixture.detectChanges();
+  it('should have an unique id for the input element', () => {
+    fixture.detectChanges();
 
-        const onInputBlur = jasmine.createSpy('inputBlur');
-        const subscription = component.inputBlur.subscribe(onInputBlur);
-        const inputElement = nativeElement.querySelector<HTMLInputElement>('input.ux-tag-input');
+    const inputId = component.tagInput.nativeElement.id;
+    const elementsWithId = document.querySelectorAll(`#${inputId}`);
 
-        inputElement.dispatchEvent(new Event('blur'));
+    expect(elementsWithId.length).toBe(1);
+  });
 
-        fixture.detectChanges();
+  it('should apply aria-labelledby to the input element', () => {
+    component.ariaLabelledby = 'test-id';
+    fixture.detectChanges();
 
-        expect(onInputBlur).toHaveBeenCalled();
-        subscription.unsubscribe();
-    });
+    const input = document.querySelector<HTMLInputElement>('input.ux-tag-input');
 
-    it('should have an unique id for the input element', () => {
-        fixture.detectChanges();
-
-        const inputId = component.tagInput.nativeElement.id;
-        const elementsWithId = document.querySelectorAll(`#${inputId}`);
-
-        expect(elementsWithId.length).toBe(1);
-    });
-
-    it('should apply aria-labelledby to the input element', () => {
-        component.ariaLabelledby = 'test-id';
-        fixture.detectChanges();
-
-        const input = document.querySelector<HTMLInputElement>('input.ux-tag-input');
-
-        expect(input.getAttribute('aria-labelledby')).toContain('test-id');
-    });
+    expect(input.getAttribute('aria-labelledby')).toContain('test-id');
+  });
 });

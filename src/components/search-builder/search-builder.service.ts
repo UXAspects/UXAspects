@@ -5,7 +5,6 @@ import { SearchBuilderQuery } from './interfaces/query.interface';
 
 @Injectable()
 export class SearchBuilderService {
-
   query: SearchBuilderQuery = {};
   queryChange: Subject<SearchBuilderQuery> = new Subject<SearchBuilderQuery>();
   validationChange: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
@@ -18,10 +17,11 @@ export class SearchBuilderService {
    * Add a component to the internal list of components
    */
   registerComponent(component: SearchBuilderComponentDefinition): void {
-
     // ensure there are no components with a matching name
     if (this._components.find(cmp => cmp.name === component.name)) {
-      throw new Error(`Search builder components must have a unique name. The name ${component.name} has already been used.`);
+      throw new Error(
+        `Search builder components must have a unique name. The name ${component.name} has already been used.`
+      );
     }
 
     // if unique then add the component to the list
@@ -40,7 +40,6 @@ export class SearchBuilderService {
    * Get a registered component class
    */
   getComponent(name: string): SearchBuilderComponentDefinition {
-
     // find the component
     const component = this._components.find(cmp => cmp.name === name);
 
@@ -81,7 +80,6 @@ export class SearchBuilderService {
    * Store the validation state of the query
    */
   setValid(id: number, valid: boolean): void {
-
     // store the state for this specific component
     this._validation[id] = valid;
 

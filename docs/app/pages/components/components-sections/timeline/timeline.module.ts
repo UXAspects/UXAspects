@@ -7,36 +7,35 @@ import { DocumentationCategoryComponent } from '../../../../components/documenta
 import { DocumentationPage, ResolverService } from '../../../../services/resolver/resolver.service';
 import { ComponentsTimelineComponent } from './timeline/timeline.component';
 
-
-const SECTIONS = [
-    ComponentsTimelineComponent
-];
+const SECTIONS = [ComponentsTimelineComponent];
 
 const ROUTES = [
-    {
-        path: '**',
-        component: DocumentationCategoryComponent,
-        data: {
-            category: ResolverService.resolveCategoryData(DocumentationPage.Components, 'Timeline')
-        }
-    }
+  {
+    path: '**',
+    component: DocumentationCategoryComponent,
+    data: {
+      category: ResolverService.resolveCategoryData(DocumentationPage.Components, 'Timeline'),
+    },
+  },
 ];
 
 @NgModule({
-    imports: [
-        CommonModule,
-        DocumentationComponentsModule,
-        IconModule,
-        RouterModule.forChild(ROUTES),
-        TabsetModule,
-        TimelineModule,
-    ],
-    exports: SECTIONS,
-    declarations: SECTIONS,
+  imports: [
+    CommonModule,
+    DocumentationComponentsModule,
+    IconModule,
+    RouterModule.forChild(ROUTES),
+    TabsetModule,
+    TimelineModule,
+  ],
+  exports: SECTIONS,
+  declarations: SECTIONS,
 })
 export class ComponentsTimelineModule {
-
-    constructor(componentFactoryResolver: ComponentFactoryResolver, resolverService: ResolverService) {
-        resolverService.registerResolver(componentFactoryResolver, SECTIONS);
-    }
+  constructor(
+    componentFactoryResolver: ComponentFactoryResolver,
+    resolverService: ResolverService
+  ) {
+    resolverService.registerResolver(componentFactoryResolver, SECTIONS);
+  }
 }

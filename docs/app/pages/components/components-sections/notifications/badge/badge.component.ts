@@ -1,9 +1,9 @@
 import { Component, Inject } from '@angular/core';
 import {
-    BadgeHorizontalPosition,
-    BadgeSize,
-    BadgeVerticalPosition,
-    ColorService,
+  BadgeHorizontalPosition,
+  BadgeSize,
+  BadgeVerticalPosition,
+  ColorService,
 } from '@ux-aspects/ux-aspects';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
@@ -12,65 +12,66 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 import { DOCUMENTATION_TOKEN, DocumentationType } from '../../../../../tokens/documentation.token';
 
 @Component({
-    selector: 'uxd-components-badge',
-    templateUrl: './badge.component.html',
-    styleUrls: ['./badge.component.less'],
+  selector: 'uxd-components-badge',
+  templateUrl: './badge.component.html',
+  styleUrls: ['./badge.component.less'],
+  standalone: false,
 })
 @DocumentationSectionComponent('ComponentsBadgeComponent')
 export class ComponentsBadgeComponent
-    extends BaseDocumentationSection
-    implements IPlaygroundProvider
+  extends BaseDocumentationSection
+  implements IPlaygroundProvider
 {
-    colorPaletteDocumentationRoute: string;
-    colorPaletteFragment: string;
+  colorPaletteDocumentationRoute: string;
+  colorPaletteFragment: string;
 
-    hideButton: boolean = false;
-    badgeContent: string = '18';
-    badgeMaxValue: number = null;
-    badgeSize: BadgeSize = 'medium';
-    badgeOverlap: boolean = true;
-    badgeHidden: boolean = false;
-    badgeHorizontalPosition: BadgeHorizontalPosition = 'after';
-    badgeVerticalPosition: BadgeVerticalPosition = 'above';
-    selectedColor: string = 'critical';
-    selectedBorderColor: string = null;
+  hideButton: boolean = false;
+  badgeContent: string = '18';
+  badgeMaxValue: number = null;
+  badgeSize: BadgeSize = 'medium';
+  badgeOverlap: boolean = true;
+  badgeHidden: boolean = false;
+  badgeHorizontalPosition: BadgeHorizontalPosition = 'after';
+  badgeVerticalPosition: BadgeVerticalPosition = 'above';
+  selectedColor: string = 'critical';
+  selectedBorderColor: string = null;
 
-    playground: IPlayground = {
-        files: {
-            'app.component.html': this.snippets.raw.appHtml,
-            'app.component.ts': this.snippets.raw.appTs,
-        },
-        modules: [
-            {
-                imports: ['BadgeModule'],
-                library: '@ux-aspects/ux-aspects',
-            },
-            {
-                imports: ['RouterModule'],
-                library: '@angular/router',
-                importsWithProviders: ['RouterModule.forRoot([])'],
-            },
-        ],
-    };
+  playground: IPlayground = {
+    files: {
+      'app.component.html': this.snippets.raw.appHtml,
+      'app.component.ts': this.snippets.raw.appTs,
+    },
+    modules: [
+      {
+        imports: ['BadgeModule'],
+        library: '@ux-aspects/ux-aspects',
+      },
+      {
+        imports: ['RouterModule'],
+        library: '@angular/router',
+        importsWithProviders: ['RouterModule.forRoot([])'],
+      },
+    ],
+  };
 
-    constructor(
-        @Inject(DOCUMENTATION_TOKEN) private readonly documentationType: DocumentationType,
-        private readonly colorService: ColorService
-    ) {
-        super(
-            import.meta.webpackContext('./snippets/', {
-                recursive: false,
-                regExp: /\.(html|css|js|ts)$/,
-            })
-        );
+  constructor(
+    @Inject(DOCUMENTATION_TOKEN) private readonly documentationType: DocumentationType,
+    private readonly colorService: ColorService
+  ) {
+    super(
+      import.meta.webpackContext('./snippets/', {
+        recursive: false,
+        regExp: /\.(html|css|js|ts)$/,
+      })
+    );
 
-        this.colorPaletteDocumentationRoute =
-            documentationType === DocumentationType.MicroFocus
-                ? '/ui-components/styling'
-                : '/css/color-palette';
+    this.colorPaletteDocumentationRoute =
+      documentationType === DocumentationType.MicroFocus
+        ? '/ui-components/styling'
+        : '/css/color-palette';
 
-        if (documentationType === DocumentationType.MicroFocus) {
-            this.colorPaletteFragment = 'color-palette';
-        }
+    if (documentationType === DocumentationType.MicroFocus) {
+      this.colorPaletteFragment = 'color-palette';
     }
+  }
 }

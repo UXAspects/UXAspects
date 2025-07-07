@@ -16,6 +16,7 @@ import { ColorPickerInputMode } from './color-picker.type';
   >
   </ux-color-picker>`,
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class ColorPickerTestComponent {
   private readonly _colorService = inject(ColorService);

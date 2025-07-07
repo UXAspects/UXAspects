@@ -12,37 +12,39 @@ import { CssLinkButtonsComponent } from './link-buttons/link-buttons.component';
 import { CssButtonsSizeVariationsComponent } from './size-variations/size-variations.component';
 
 const SECTIONS = [
-    CssColoredButtonsComponent,
-    CssHyperlinksComponent,
-    CssLinkButtonsComponent,
-    CssButtonsSizeVariationsComponent,
-    IconButtonsDocumentationComponent
+  CssColoredButtonsComponent,
+  CssHyperlinksComponent,
+  CssLinkButtonsComponent,
+  CssButtonsSizeVariationsComponent,
+  IconButtonsDocumentationComponent,
 ];
 
 const ROUTES = [
-    {
-        path: '**',
-        component: DocumentationCategoryComponent,
-        data: {
-            category: ResolverService.resolveCategoryData(DocumentationPage.Css, 'Buttons')
-        }
-    }
+  {
+    path: '**',
+    component: DocumentationCategoryComponent,
+    data: {
+      category: ResolverService.resolveCategoryData(DocumentationPage.Css, 'Buttons'),
+    },
+  },
 ];
 
 @NgModule({
-    imports: [
-        AlertModule,
-        CommonModule,
-        DocumentationComponentsModule,
-        IconModule,
-        RouterModule.forChild(ROUTES)
-    ],
-    exports: SECTIONS,
-    declarations: SECTIONS,
+  imports: [
+    AlertModule,
+    CommonModule,
+    DocumentationComponentsModule,
+    IconModule,
+    RouterModule.forChild(ROUTES),
+  ],
+  exports: SECTIONS,
+  declarations: SECTIONS,
 })
 export class CssButtonsModule {
-
-    constructor(componentFactoryResolver: ComponentFactoryResolver, resolverService: ResolverService) {
-        resolverService.registerResolver(componentFactoryResolver, SECTIONS);
-    }
+  constructor(
+    componentFactoryResolver: ComponentFactoryResolver,
+    resolverService: ResolverService
+  ) {
+    resolverService.registerResolver(componentFactoryResolver, SECTIONS);
+  }
 }

@@ -2,12 +2,13 @@
 
 <!-- Create a container which will show when section is expanded -->
 @if (expanded) {
-  <div class="facet-check-list-container"
+  <div
+    class="facet-check-list-container"
     tabindex="-1"
     role="listbox"
     [class.facet-check-list-scrollbar]="scrollbar"
     [class.facet-check-list-scrollbar-focused]="isFocused"
-    >
+  >
     <!-- Iterate through each possible facet -->
     @for (facet of facets; track facet; let index = $index) {
       <ux-facet-check-list-item
@@ -19,7 +20,8 @@
         (selectedChange)="toggleFacet(index, facet)"
         (keydown)="onKeydown($event)"
         (itemFocus)="isFocused = true; onFocus(index)"
-        (itemBlur)="isFocused = false">
+        (itemBlur)="isFocused = false"
+      >
       </ux-facet-check-list-item>
     }
   </div>

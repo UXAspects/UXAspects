@@ -10,6 +10,7 @@ import { Facet } from './models/facet';
       <ux-facet-check-list header="Authors" [facets]="facets" [id]="chosenID"></ux-facet-check-list>
     </ux-facet-container>
   `,
+  standalone: false,
 })
 export class FacetCheckListTestComponent {
   facets: Facet[] = [];

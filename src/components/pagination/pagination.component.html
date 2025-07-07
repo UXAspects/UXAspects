@@ -1,26 +1,34 @@
 <nav role="navigation" [attr.aria-label]="ariaLabel">
-  <ul #container class="pagination"
+  <ul
+    #container
+    class="pagination"
     [ngClass]="classes"
     direction="horizontal"
     (blur)="isKeyboardEvent = false"
     (keydown.ArrowLeft)="select(page - 1); isKeyboardEvent = true"
     (keydown.ArrowRight)="select(page + 1); isKeyboardEvent = true"
     (keydown.Home)="select(1); isKeyboardEvent = true; $event.preventDefault()"
-    (keydown.End)="select(pageCount); isKeyboardEvent = true; $event.preventDefault()">
-
+    (keydown.End)="select(pageCount); isKeyboardEvent = true; $event.preventDefault()"
+  >
     @if (directionButtons) {
-      <li class="pagination-prev page-item"
+      <li
+        class="pagination-prev page-item"
         uxFocusIndicator
         [programmaticFocusIndicator]="true"
         [checkChildren]="true"
-        [class.disabled]="page === 1 || disabled">
-        <button class="page-link"
+        [class.disabled]="page === 1 || disabled"
+      >
+        <button
+          class="page-link"
           [tabindex]="page === 1 || disabled ? -1 : 0"
           [attr.aria-label]="previousAriaLabel"
           [ngClass]="pageBtnClass"
           (click)="select(page - 1)"
-          (keydown.enter)="select(page - 1)">
-          <ng-container [ngTemplateOutlet]="previousBtnTemplate || defaultPreviousBtnTemplate"></ng-container>
+          (keydown.enter)="select(page - 1)"
+        >
+          <ng-container
+            [ngTemplateOutlet]="previousBtnTemplate || defaultPreviousBtnTemplate"
+          ></ng-container>
         </button>
       </li>
     }
@@ -35,14 +43,17 @@
           [attr.aria-setsize]="pageCount"
           [attr.aria-posinset]="pg.index"
           [class.active]="page === pg.index"
-          class="pagination-page page-item">
-          <button class="page-link"
+          class="pagination-page page-item"
+        >
+          <button
+            class="page-link"
             tabindex="0"
             [ngClass]="pageBtnClass"
             [focusIf]="isKeyboardEvent && page === pg.index"
             [attr.aria-current]="page === pg.index"
             (click)="select(pg.index)"
-            (keydown.enter)="select(pg.index)">
+            (keydown.enter)="select(pg.index)"
+          >
             {{ pg.index }}
           </button>
         </li>
@@ -50,18 +61,24 @@
     }
 
     @if (directionButtons) {
-      <li class="pagination-next page-item"
+      <li
+        class="pagination-next page-item"
         uxFocusIndicator
         [programmaticFocusIndicator]="true"
         [checkChildren]="true"
-        [class.disabled]="page === pageCount || disabled">
-        <button class="page-link"
+        [class.disabled]="page === pageCount || disabled"
+      >
+        <button
+          class="page-link"
           [tabindex]="page === pageCount || disabled ? -1 : 0"
           [attr.aria-label]="nextAriaLabel"
           [ngClass]="pageBtnClass"
           (click)="select(page + 1)"
-          (keydown.enter)="select(page + 1)">
-          <ng-container [ngTemplateOutlet]="nextBtnTemplate || defaultNextBtnTemplate"></ng-container>
+          (keydown.enter)="select(page + 1)"
+        >
+          <ng-container
+            [ngTemplateOutlet]="nextBtnTemplate || defaultNextBtnTemplate"
+          ></ng-container>
         </button>
       </li>
     }

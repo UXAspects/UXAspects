@@ -1,14 +1,15 @@
 <div class="volume-container">
-
-  <div class="volume-slider-container"
+  <div
+    class="volume-slider-container"
     #volumeContainer
     [class.active]="volumeActive || volumeFocus"
     (mouseenter)="mouseEnterVolume.next()"
     (mouseleave)="mouseLeaveVolume.next()"
     (uxFocusWithin)="volumeFocus = true"
-    (uxBlurWithin)="volumeFocus = false">
-
-    <button #volumeIcon
+    (uxBlurWithin)="volumeFocus = false"
+  >
+    <button
+      #volumeIcon
       uxFocusIndicator
       type="button"
       class="volume-slider-icon"
@@ -17,8 +18,8 @@
       [showTriggers]="['mouseenter']"
       [hideTriggers]="['mouseleave']"
       (click)="toggleMute()"
-      (mouseup)="volumeIcon.blur()">
-
+      (mouseup)="volumeIcon.blur()"
+    >
       @if (volume === 0) {
         <ux-icon name="volume-mute"></ux-icon>
       }
@@ -31,33 +32,39 @@
     </button>
 
     <div class="volume-slider-node">
-      <ux-slider [value]="volume" (valueChange)="volume = $any($event)" [options]="options"></ux-slider>
+      <ux-slider
+        [value]="volume"
+        (valueChange)="volume = $any($event)"
+        [options]="options"
+      ></ux-slider>
     </div>
   </div>
 </div>
 
-<button #startButton
+<button
+  #startButton
   uxFocusIndicator
   type="button"
   class="control-button"
   (click)="goToStart()"
   (mouseup)="startButton.blur()"
-  [attr.aria-label]="mediaPlayerService.goToStartAriaLabel">
-
+  [attr.aria-label]="mediaPlayerService.goToStartAriaLabel"
+>
   <svg viewBox="0 0 51.5 64" width="14" height="17" focusable="false">
     <rect x="0" y="0" width="7.5" height="64" />
     <polygon points="51.5,64 51.5,0 7.4,32 " />
   </svg>
 </button>
 
-<button #playButton
+<button
+  #playButton
   uxFocusIndicator
   type="button"
   class="control-button"
   [attr.aria-label]="mediaPlayerService.playAriaLabel(mediaPlayerService.playing | async)"
   (click)="mediaPlayerService.togglePlay()"
-  (mouseup)="playButton.blur()">
-
+  (mouseup)="playButton.blur()"
+>
   @if ((mediaPlayerService.playing | async) === false) {
     <svg viewBox="0 0 45 64" width="20" height="29" focusable="false">
       <polygon points="0.4,0 0.4,64 44.6,32" />
@@ -71,14 +78,15 @@
   }
 </button>
 
-<button #endButton
+<button
+  #endButton
   uxFocusIndicator
   type="button"
   class="control-button"
   (click)="goToEnd()"
   (mouseup)="endButton.blur()"
-  [attr.aria-label]="mediaPlayerService.goToEndAriaLabel">
-
+  [attr.aria-label]="mediaPlayerService.goToEndAriaLabel"
+>
   <svg viewBox="0 0 51.5 64" width="14" height="17" focusable="false">
     <rect x="44.1" y="0" width="7.5" height="64" />
     <polygon points="0,64 0,0 44.1,32" />
@@ -86,12 +94,12 @@
 </button>
 
 <div class="actions-list">
-
   <ng-content></ng-content>
 
   @if (mediaPlayerService.textTracks.length > 0 && mediaPlayerService.type === 'video') {
     <div class="action-button-container">
-      <button #subtitlesButton
+      <button
+        #subtitlesButton
         uxFocusIndicator
         type="button"
         class="action-button"
@@ -101,38 +109,53 @@
         [attr.aria-label]="mediaPlayerService.selectSubtitlesAriaLabel(getSubtitleTrack())"
         [attr.aria-expanded]="subtitlesOpen"
         [attr.aria-describedby]="subtitlesId"
-        aria-haspopup="true">
+        aria-haspopup="true"
+      >
         <ux-icon name="subtitles"></ux-icon>
       </button>
       @if (subtitlesOpen) {
-        <div #subtitles
+        <div
+          #subtitles
           [style.top.px]="-subtitles.offsetHeight"
           class="popover top media-player-subtitles-popover show"
           [id]="subtitlesId"
           (keydown.escape)="subtitlesOpen = false"
           (uxClickOutside)="subtitlesOpen = false"
-          >
+        >
           <div class="arrow"></div>
           <h3 class="popover-title">{{ mediaPlayerService.subtitlesTitleAriaLabel }}</h3>
           <div class="popover-content">
-            <ul class="subtitles-list" uxTabbableList [focusOnShow]="returnFocus" [returnFocus]="returnFocus">
-              <li uxTabbableListItem
+            <ul
+              class="subtitles-list"
+              uxTabbableList
+              [focusOnShow]="returnFocus"
+              [returnFocus]="returnFocus"
+            >
+              <li
+                uxTabbableListItem
                 tabindex="0"
                 class="subtitles-list-item"
                 [class.active]="!isSubtitleActive()"
                 [attr.aria-selected]="isSubtitleActive()"
                 (click)="mediaPlayerService.hideSubtitleTracks(); subtitlesOpen = false"
-                (keydown.enter)="mediaPlayerService.hideSubtitleTracks(); subtitlesOpen = false; returnFocus = true">
+                (keydown.enter)="
+                  mediaPlayerService.hideSubtitleTracks(); subtitlesOpen = false; returnFocus = true
+                "
+              >
                 <ux-icon name="checkmark" class="subtitles-list-item-checkmark"></ux-icon>
                 <span>{{ mediaPlayerService.subtitlesOffAriaLabel }}</span>
               </li>
               @for (track of mediaPlayerService.textTracks; track track) {
-                <li uxTabbableListItem
+                <li
+                  uxTabbableListItem
                   class="subtitles-list-item"
                   [class.active]="track.mode === 'showing'"
                   [attr.aria-selected]="isSubtitleActive()"
                   (click)="setSubtitleTrack(track); subtitlesOpen = false"
-                  (keydown.enter)="setSubtitleTrack(track); subtitlesOpen = false; returnFocus = true">
+                  (keydown.enter)="
+                    setSubtitleTrack(track); subtitlesOpen = false; returnFocus = true
+                  "
+                >
                   <ux-icon name="checkmark" class="subtitles-list-item-checkmark"></ux-icon>
                   <span>{{ track.label }}</span>
                 </li>
@@ -146,20 +169,20 @@
 
   <div class="action-button-container">
     @if (mediaPlayerService.type !== 'audio') {
-      <button #fullscreenButton
+      <button
+        #fullscreenButton
         uxFocusIndicator
         type="button"
         class="action-button"
         [attr.aria-label]="mediaPlayerService.fullscreenAriaLabel(mediaPlayerService.fullscreen)"
         (click)="mediaPlayerService.toggleFullscreen()"
-        (mouseup)="fullscreenButton.blur()">
+        (mouseup)="fullscreenButton.blur()"
+      >
         <ux-icon [name]="mediaPlayerService.fullscreen ? 'contract' : 'expand'"></ux-icon>
       </button>
     }
   </div>
 </div>
-
-
 
 <ng-template #muteTooltip>
   <span aria-hidden="true">{{ volume === 0 ? 'Unmute' : 'Mute' }}</span>

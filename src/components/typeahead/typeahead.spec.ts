@@ -46,6 +46,7 @@ import { TypeaheadModule } from './typeahead.module';
       </div>
     </div>
   `,
+  standalone: false,
 })
 export class TypeaheadTestComponent {
   values: ReadonlyArray<string> | Promise<ReadonlyArray<string>> = ['One', 'Two', 'Three'];

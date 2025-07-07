@@ -1,110 +1,110 @@
 <ux-ebox [id]="id">
-    <ux-ebox-header class="uxd-component-section-header">
-        <h3 class="uxd-component-section-title">{{ title }}</h3>
+  <ux-ebox-header class="uxd-component-section-header">
+    <h3 class="uxd-component-section-title">{{ title }}</h3>
 
-        <div class="uxd-component-section-attributes">
-            <!-- Show the Plunker link if required -->
-            <uxd-edit-example-link
-                *ngIf="playground"
-                [title]="title"
-                [content]="playground"
-                [version]="version"
-                >Edit in CodeSandbox</uxd-edit-example-link
-            >
+    <div class="uxd-component-section-attributes">
+      <!-- Show the Plunker link if required -->
+      <uxd-edit-example-link
+        *ngIf="playground"
+        [title]="title"
+        [content]="playground"
+        [version]="version"
+        >Edit in CodeSandbox</uxd-edit-example-link
+      >
 
-            <!-- Show usage link if required -->
-            <uxd-usage-link *ngIf="usage" [usage]="usage"></uxd-usage-link>
+      <!-- Show usage link if required -->
+      <uxd-usage-link *ngIf="usage" [usage]="usage"></uxd-usage-link>
 
-            <!-- Show Universal migration if available -->
-            <uxd-migrate-link *ngIf="migration && theme !== SiteThemeId.Keppel" [migration]="migration"></uxd-migrate-link>
+      <!-- Show Universal migration if available -->
+      <uxd-migrate-link
+        *ngIf="migration && theme !== SiteThemeId.Keppel"
+        [migration]="migration"
+      ></uxd-migrate-link>
 
-            <!-- Identify as External plugin -->
-            <a
-                *ngIf="externalUrl"
-                role="button"
-                class="label label-warning uxd-component-section-labels"
-                uxTooltip="This component is from a third party library and not included in the UX Aspects component library."
-                placement="bottom"
-                [href]="externalUrl"
-                target="_blank"
-                rel="noopener"
-                >External</a
-            >
+      <!-- Identify as External plugin -->
+      <a
+        *ngIf="externalUrl"
+        role="button"
+        class="label label-warning uxd-component-section-labels"
+        uxTooltip="This component is from a third party library and not included in the UX Aspects component library."
+        placement="bottom"
+        [href]="externalUrl"
+        target="_blank"
+        rel="noopener"
+        >External</a
+      >
 
-            <!-- Show Deprecated label if required -->
-            <span
-                *ngIf="deprecated && !deprecatedLink"
-                class="label label-critical uxd-component-section-labels"
-                uxTooltip="This component has been deprecated and will be removed in the next major version of UX Aspects."
-                placement="bottom"
-                >Deprecated</span
-            >
+      <!-- Show Deprecated label if required -->
+      <span
+        *ngIf="deprecated && !deprecatedLink"
+        class="label label-critical uxd-component-section-labels"
+        uxTooltip="This component has been deprecated and will be removed in the next major version of UX Aspects."
+        placement="bottom"
+        >Deprecated</span
+      >
 
-            <!-- Deprecated label with link to another section -->
-            <a
-                *ngIf="deprecatedLink"
-                class="label label-critical uxd-component-section-labels"
-                [routerLink]="deprecatedLink.link"
-                [fragment]="deprecatedLink.fragment"
-                uxTooltip="This component has been deprecated and will be removed in the next major version of UX Aspects."
-                placement="bottom"
-                >Deprecated</a
-            >
+      <!-- Deprecated label with link to another section -->
+      <a
+        *ngIf="deprecatedLink"
+        class="label label-critical uxd-component-section-labels"
+        [routerLink]="deprecatedLink.link"
+        [fragment]="deprecatedLink.fragment"
+        uxTooltip="This component has been deprecated and will be removed in the next major version of UX Aspects."
+        placement="bottom"
+        >Deprecated</a
+      >
 
-            <!-- Schematic info -->
-            <a
-                *ngIf="schematic"
-                href="javascript:void(0)"
-                class="label label-alternate1 uxd-component-section-labels"
-                [uxPopover]="schematicContent"
-                placement="bottom"
-                popoverClass="ux-popover-schematic-tag"
-                >Schematic</a
-            >
-        </div>
-    </ux-ebox-header>
+      <!-- Schematic info -->
+      <a
+        *ngIf="schematic"
+        href="javascript:void(0)"
+        class="label label-alternate1 uxd-component-section-labels"
+        [uxPopover]="schematicContent"
+        placement="bottom"
+        popoverClass="ux-popover-schematic-tag"
+        >Schematic</a
+      >
+    </div>
+  </ux-ebox-header>
 
-    <ux-ebox-content class="uxd-component-section-content">
-        <div #container></div>
-    </ux-ebox-content>
+  <ux-ebox-content class="uxd-component-section-content">
+    <div #container></div>
+  </ux-ebox-content>
 </ux-ebox>
 
 <ng-template #hybridHelpContent>
-    <p>
-        To use this AngularJS component in an Angular application, import
-        <code>HybridModule</code> into the module where it will be used.
-    </p>
+  <p>
+    To use this AngularJS component in an Angular application, import
+    <code>HybridModule</code> into the module where it will be used.
+  </p>
 
-    <uxd-snippet [code]="hybridModuleTs" language="javascript"></uxd-snippet>
+  <uxd-snippet [code]="hybridModuleTs" language="javascript"></uxd-snippet>
 
-    <p>
-        The component name remains the same; however, the following should be
-        considered when using this component in an Angular template:
-    </p>
+  <p>
+    The component name remains the same; however, the following should be considered when using this
+    component in an Angular template:
+  </p>
 
-    <ul>
-        <li>
-            Property names use camel case, so a property named
-            <code>on-next</code> becomes <code>onNext</code>.
-        </li>
-        <li>
-            Angular binding syntax must be used, so a property with variable or
-            function binding named <code>valid</code> would be written as
-            <code>[valid]</code> for one-way binding, or
-            <code>[(valid)]</code> for two-way binding (if supported).
-        </li>
-    </ul>
+  <ul>
+    <li>
+      Property names use camel case, so a property named
+      <code>on-next</code> becomes <code>onNext</code>.
+    </li>
+    <li>
+      Angular binding syntax must be used, so a property with variable or function binding named
+      <code>valid</code> would be written as <code>[valid]</code> for one-way binding, or
+      <code>[(valid)]</code> for two-way binding (if supported).
+    </li>
+  </ul>
 </ng-template>
 
 <ng-template #schematicContent>
-    <p>
-        Scaffold this component using the
-        <a
-            href="https://github.houston.softwaregrp.net/UXAspects/ux-aspects-schematics"
-            target="_blank"
-            >UX Aspects schematics</a
-        >:
-    </p>
+  <p>
+    Scaffold this component using the
+    <a href="https://github.houston.softwaregrp.net/UXAspects/ux-aspects-schematics" target="_blank"
+      >UX Aspects schematics</a
+    >:
+  </p>
 
-    <pre>{{ schematic }}</pre>
+  <pre>{{ schematic }}</pre>
 </ng-template>

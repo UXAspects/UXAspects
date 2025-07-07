@@ -1,42 +1,44 @@
 <div class="demo-chart-container">
+  <div
+    *ngIf="hasPreviousPage()"
+    aria-label="Scroll to previous chart page"
+    class="chart-scroll-previous-btn"
+    (click)="goToPreviousPage()"
+  >
+    <ux-icon name="previous"></ux-icon>
+  </div>
 
-    <div *ngIf="hasPreviousPage()"
-        aria-label="Scroll to previous chart page"
-        class="chart-scroll-previous-btn"
-        (click)="goToPreviousPage()">
-        <ux-icon name="previous"></ux-icon>
-    </div>
+  <canvas
+    aria-label="Bar chart showing file type totals"
+    baseChart
+    [datasets]="barChartData"
+    [labels]="barChartLabels"
+    [options]="barChartOptions"
+    [legend]="barChartLegend"
+    type="bar"
+  >
+    <table aria-label="Chart data">
+      <thead>
+        <tr>
+          <th>File Type</th>
+          <th>Number of Files</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let label of barChartLabels; let idx = index">
+          <td>{{label}}</td>
+          <td>{{barChartData[0].data[idx]}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </canvas>
 
-    <canvas aria-label="Bar chart showing file type totals"
-        baseChart
-        [datasets]="barChartData"
-        [labels]="barChartLabels"
-        [options]="barChartOptions"
-        [legend]="barChartLegend"
-        type="bar">
-
-        <table aria-label="Chart data">
-            <thead>
-                <tr>
-                    <th>File Type</th>
-                    <th>Number of Files</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let label of barChartLabels; let idx = index">
-                    <td>{{label}}</td>
-                    <td>{{barChartData[0].data[idx]}}</td>
-                </tr>
-            </tbody>
-        </table>
-
-    </canvas>
-
-    <div *ngIf="hasNextPage()"
-        aria-label="Scroll to previous chart page"
-        class="chart-scroll-next-btn"
-        (click)="goToNextPage()">
-        <ux-icon name="next"></ux-icon>
-    </div>
-
+  <div
+    *ngIf="hasNextPage()"
+    aria-label="Scroll to previous chart page"
+    class="chart-scroll-next-btn"
+    (click)="goToNextPage()"
+  >
+    <ux-icon name="next"></ux-icon>
+  </div>
 </div>

@@ -23,6 +23,7 @@ import { DateTimePickerTimezone } from './date-time-picker.utils';
     >
     </ux-date-time-picker>
   `,
+  standalone: false,
 })
 export class DateTimePickerTestComponent {
   // eslint-disable-next-line @typescript-eslint/no-empty-function

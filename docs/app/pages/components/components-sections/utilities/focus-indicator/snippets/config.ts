@@ -1,4 +1,4 @@
 @NgModule({
-    AccessibilityModule,
+  AccessibilityModule,
 })
-export class AppModule { }
+export class AppModule {}

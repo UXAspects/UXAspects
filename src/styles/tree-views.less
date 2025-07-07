@@ -1,153 +1,153 @@
 .treegrid {
-    &.table > thead > tr > th {
-        border-bottom: none;
-    }
+  &.table > thead > tr > th {
+    border-bottom: none;
+  }
 }
 
 .treegrid-header {
-    th:first-child {
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
-        padding-left: 40px;
+  th:first-child {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding-left: 40px;
 
-        .treegrid-header-text {
-            margin-left: 25px;
-        }
+    .treegrid-header-text {
+      margin-left: 25px;
     }
+  }
 }
 
 .treegrid-row {
-    &:focus {
-        .native-focus-outline();
-    }
+  &:focus {
+    .native-focus-outline();
+  }
 
-    > td:first-child {
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
+  > td:first-child {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
 
-        > ux-checkbox {
-            margin-right: 10px;
-        }
+    > ux-checkbox {
+      margin-right: 10px;
     }
+  }
 }
 
 // Angular expander
 .treegrid-expander {
-    display: inline-block;
-    width: 28px;
-    margin-left: 2px;
-    margin-right: 3px;
+  display: inline-block;
+  width: 28px;
+  margin-left: 2px;
+  margin-right: 3px;
 
-    button {
-        width: 100%;
-        margin: 0;
-        border: none;
-        background-color: transparent;
-        text-align: center;
+  button {
+    width: 100%;
+    margin: 0;
+    border: none;
+    background-color: transparent;
+    text-align: center;
 
-        &:focus {
-            outline: none;
-        }
-
-        .treegrid-expander-icon {
-            opacity: 0.5;
-            transition: transform linear 0.15s;
-
-            &:hover {
-                opacity: 1;
-            }
-        }
+    &:focus {
+      outline: none;
     }
+
+    .treegrid-expander-icon {
+      opacity: 0.5;
+      transition: transform linear 0.15s;
+
+      &:hover {
+        opacity: 1;
+      }
+    }
+  }
 }
 
 .treegrid-row-expanded {
-    .treegrid-expander-icon {
-        transform: rotate(90deg);
-    }
+  .treegrid-expander-icon {
+    transform: rotate(90deg);
+  }
 }
 
 .treegrid-icon {
-    display: inline-block;
-    min-width: 20px;
-    text-align: center;
-    margin-right: 5px;
+  display: inline-block;
+  min-width: 20px;
+  text-align: center;
+  margin-right: 5px;
 }
 
 // Angular Tree Component Styling - Third Party Component
 .angular-tree-component {
-    .tree-node {
-        &:hover {
-            background-color: transparent;
-        }
-
-        > .node-wrapper {
-            > ux-checkbox {
-                margin-right: 5px;
-            }
-        }
+  .tree-node {
+    &:hover {
+      background-color: transparent;
     }
 
-    // Node Content Outline
-    .node-content-wrapper {
-        width: 100%;
-        background-color: transparent;
-        box-shadow: none;
-        border-radius: 0;
+    > .node-wrapper {
+      > ux-checkbox {
+        margin-right: 5px;
+      }
+    }
+  }
 
-        &:hover {
-            background-color: @treeview-hover-bg;
-        }
+  // Node Content Outline
+  .node-content-wrapper {
+    width: 100%;
+    background-color: transparent;
+    box-shadow: none;
+    border-radius: 0;
 
-        &.node-content-wrapper-active,
-        &.node-content-wrapper-focused {
-            background-color: @shift-select-selected-light;
-        }
+    &:hover {
+      background-color: @treeview-hover-bg;
     }
 
-    // Expand/Collapse Arrow
-    tree-node-expander {
-        .toggle-children-wrapper {
-            display: block;
-            padding: 0 3px 5px 1px;
-
-            .toggle-children {
-                background-image: none;
-                font-family: 'ux-icons';
-                opacity: 0.5;
-                font-size: 12px;
-                width: 11px;
-                height: 17px;
-                .ux-icon-chevron-right();
-            }
-        }
+    &.node-content-wrapper-active,
+    &.node-content-wrapper-focused {
+      background-color: @shift-select-selected-light;
     }
+  }
 
-    .tree-action-button {
-        font-size: 0.625rem !important;
-        padding: 4px !important;
-    }
+  // Expand/Collapse Arrow
+  tree-node-expander {
+    .toggle-children-wrapper {
+      display: block;
+      padding: 0 3px 5px 1px;
 
-    .icon {
-        margin-right: 3px;
+      .toggle-children {
+        background-image: none;
+        font-family: 'ux-icons';
+        opacity: 0.5;
+        font-size: 12px;
+        width: 11px;
+        height: 17px;
+        .ux-icon-chevron-right();
+      }
     }
+  }
 
-    a:focus,
-    span:focus {
-        .native-focus-outline;
-    }
+  .tree-action-button {
+    font-size: 0.625rem !important;
+    padding: 4px !important;
+  }
 
-    a:active,
-    a:active:focus {
-        .native-focus-outline;
-    }
+  .icon {
+    margin-right: 3px;
+  }
 
-    .toggle {
-        &.empty {
-            > span {
-                color: lighten(@text-color, 50%);
-            }
-        }
+  a:focus,
+  span:focus {
+    .native-focus-outline;
+  }
+
+  a:active,
+  a:active:focus {
+    .native-focus-outline;
+  }
+
+  .toggle {
+    &.empty {
+      > span {
+        color: lighten(@text-color, 50%);
+      }
     }
+  }
 }

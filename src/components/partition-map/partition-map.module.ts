@@ -8,20 +8,8 @@ import { PartitionMapSegmentEventsDirective } from './events/partition-map-segme
 import { PartitionMapComponent } from './partition-map.component';
 
 @NgModule({
-    imports: [
-        A11yModule,
-        AccessibilityModule,
-        CommonModule,
-        ColorServiceModule,
-        ResizeModule
-    ],
-    declarations: [
-        PartitionMapComponent,
-        PartitionMapSegmentEventsDirective
-    ],
-    exports: [
-        PartitionMapComponent,
-        PartitionMapSegmentEventsDirective
-    ]
+  imports: [A11yModule, AccessibilityModule, CommonModule, ColorServiceModule, ResizeModule],
+  declarations: [PartitionMapComponent, PartitionMapSegmentEventsDirective],
+  exports: [PartitionMapComponent, PartitionMapSegmentEventsDirective],
 })
-export class PartitionMapModule { }
+export class PartitionMapModule {}

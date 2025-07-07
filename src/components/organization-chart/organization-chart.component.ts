@@ -48,6 +48,7 @@ import { ResizeDimensions, ResizeService } from '../../directives/resize/index';
   selector: 'ux-organization-chart',
   templateUrl: './organization-chart.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class OrganizationChartComponent<T> implements AfterViewInit, OnChanges, OnDestroy {
   private readonly _resizeService = inject(ResizeService);

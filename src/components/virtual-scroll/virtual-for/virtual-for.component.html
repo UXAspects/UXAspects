@@ -1,33 +1,32 @@
 <!-- Display the appropriate top spacer -->
 @if (_isTable) {
-  <tr class="ux-virtual-scroll-spacer"
+  <tr
+    class="ux-virtual-scroll-spacer"
     [style.height.px]="_totalHeight"
     [style.padding.px]="0"
     [style.margin.px]="0"
     [style.border]="'none'"
-    >
-  </tr>
+  ></tr>
 }
 
 @if (_isList) {
-  <li class="ux-virtual-scroll-spacer"
+  <li
+    class="ux-virtual-scroll-spacer"
     [style.height.px]="_totalHeight"
     [style.padding.px]="0"
     [style.margin.px]="0"
     [style.border]="'none'"
-    >
-  </li>
+  ></li>
 }
 
 @if (!_isTable && !_isList) {
-  <div class="ux-virtual-scroll-spacer"
+  <div
+    class="ux-virtual-scroll-spacer"
     [style.height.px]="_totalHeight"
     [style.padding.px]="0"
     [style.margin.px]="0"
     [style.border]="'none'"
-    >
-  </div>
+  ></div>
 }
-
 
 <ng-content></ng-content>

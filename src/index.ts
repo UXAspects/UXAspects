@@ -99,4 +99,3 @@ export * from './services/color/index';
 export * from './services/frame-extraction/index';
 export * from './services/overlay-placement/index';
 export * from './services/persistent-data/index';
-

@@ -1,35 +1,37 @@
 import { ILink } from './ILink';
 
 export interface ILandingPage {
-    brand: {
-        title: string;
-        slogan: string;
-        action: ILink;
-        version: string;
-        changelog: string;
-    };
-    overview: {
+  brand: {
+    title: string;
+    slogan: string;
+    action: ILink;
+    version: string;
+    changelog: string;
+  };
+  overview: {
+    title: string;
+    description: string;
+    features: ILandingFeature[];
+  };
+  showcase: {
+    title: string;
+    description: string;
+  };
+  social: {
+    title: string;
+    description: string;
+    links: [
+      {
         title: string;
         description: string;
-        features: ILandingFeature[];
-    };
-    showcase: {
-        title: string;
-        description: string;
-    };
-    social: {
-        title: string;
-        description: string;
-        links: [{
-            title: string;
-            description: string;
-            link: ILink;
-        }]
-    };
+        link: ILink;
+      },
+    ];
+  };
 }
 
 export interface ILandingFeature {
-    image: string;
-    title: string;
-    description: string;
+  image: string;
+  title: string;
+  description: string;
 }

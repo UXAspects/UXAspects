@@ -4,19 +4,15 @@
     class="page-header-icon-menu-button"
     [attr.aria-label]="menu.label"
     [uxMenuTriggerFor]="iconMenu"
-    (click)="select(menu)">
-
+    (click)="select(menu)"
+  >
     <!-- Support all icon types -->
     @if (_getIconType(menu.icon) !== 'component') {
-      <i
-        [ngClass]="[_getIconType(menu.icon), menu.icon]">
-      </i>
+      <i [ngClass]="[_getIconType(menu.icon), menu.icon]"> </i>
     }
 
     @if (_getIconType(menu.icon) === 'component') {
-      <ux-icon
-        [name]="menu.icon">
-      </ux-icon>
+      <ux-icon [name]="menu.icon"> </ux-icon>
     }
 
     @if (menu?.badge) {
@@ -36,20 +32,19 @@
           type="button"
           uxMenuItem
           (click)="select(dropdown)"
-          (keydown)="keydownHandler(dropdown, $event)">
+          (keydown)="keydownHandler(dropdown, $event)"
+        >
           <span class="dropdown-item-title">
             <!-- Support all icon types -->
             @if (_getIconType(dropdown.icon) !== 'component') {
               <i
                 class="ux-fw"
-                [ngClass]="[_getIconType(dropdown.icon) || 'ux-icon', dropdown.icon || '']">
+                [ngClass]="[_getIconType(dropdown.icon) || 'ux-icon', dropdown.icon || '']"
+              >
               </i>
             }
             @if (_getIconType(dropdown.icon) === 'component') {
-              <ux-icon
-                class="m-r-xs"
-                [name]="dropdown.icon">
-              </ux-icon>
+              <ux-icon class="m-r-xs" [name]="dropdown.icon"> </ux-icon>
             }
             {{ dropdown.title }}
           </span>

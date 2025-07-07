@@ -9,23 +9,18 @@ import { VirtualScrollLoadButtonDirective } from './virtual-scroll/directives/vi
 import { VirtualScrollLoadingDirective } from './virtual-scroll/directives/virtual-scroll-loading.directive';
 import { VirtualScrollComponent } from './virtual-scroll/virtual-scroll.component';
 
-
 const DECLARATIONS = [
-    VirtualScrollComponent,
-    VirtualScrollLoadingDirective,
-    VirtualScrollLoadButtonDirective,
-    VirtualScrollCellDirective,
-    VirtualForContainerComponent,
-    VirtualForDirective,
+  VirtualScrollComponent,
+  VirtualScrollLoadingDirective,
+  VirtualScrollLoadButtonDirective,
+  VirtualScrollCellDirective,
+  VirtualForContainerComponent,
+  VirtualForDirective,
 ];
 
 @NgModule({
-    imports: [
-        AccessibilityModule,
-        CommonModule,
-        ResizeModule
-    ],
-    exports: DECLARATIONS,
-    declarations: DECLARATIONS
+  imports: [AccessibilityModule, CommonModule, ResizeModule],
+  exports: DECLARATIONS,
+  declarations: DECLARATIONS,
 })
-export class VirtualScrollModule { }
+export class VirtualScrollModule {}

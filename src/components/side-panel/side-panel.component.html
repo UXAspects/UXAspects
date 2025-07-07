@@ -1,11 +1,10 @@
 @if (modal && open) {
-  <div class="modal-backdrop"
-    [style.position]="position"
-  [style.top]="cssTop"></div>
+  <div class="modal-backdrop" [style.position]="position" [style.top]="cssTop"></div>
 }
 
 @if (open) {
-  <div class="ux-side-panel-host"
+  <div
+    class="ux-side-panel-host"
     [class.modal-panel]="modal"
     [style.position]="position"
     [style.width]="hostWidth"
@@ -17,7 +16,7 @@
     [focusIf]="open && focusOnShow"
     [focusIfScroll]="false"
     [cdkTrapFocus]="open && modal"
-    >
+  >
     <ng-content></ng-content>
   </div>
 }

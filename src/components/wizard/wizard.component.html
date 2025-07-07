@@ -1,11 +1,11 @@
 <div class="wizard-body">
-
-  <div class="wizard-steps"
+  <div
+    class="wizard-steps"
     uxTabbableList
     [direction]="orientation"
     role="tablist"
-    [attr.aria-orientation]="orientation">
-
+    [attr.aria-orientation]="orientation"
+  >
     @for (stp of steps; track stp; let index = $index) {
       <div
         role="tab"
@@ -25,77 +25,80 @@
         uxTabbableListItem
         [disabled]="index !== 0 && (!stp.visited || !sequential)"
         (click)="gotoStep(stp)"
-        (keydown.enter)="gotoStep(stp)">
+        (keydown.enter)="gotoStep(stp)"
+      >
         <span class="wizard-step-text">{{ stp.header }}</span>
         @if (stp.visited && !stp._active) {
           <ux-icon class="wizard-step-icon" name="checkmark"></ux-icon>
         }
       </div>
     }
-
   </div>
 
   <div class="wizard-content">
     <ng-content></ng-content>
   </div>
-
 </div>
 
 <div class="wizard-footer">
-
   @if (footerTemplate) {
-    <ng-container
-      [ngTemplateOutlet]="footerTemplate"
-      [ngTemplateOutletContext]="{ step: step }">
+    <ng-container [ngTemplateOutlet]="footerTemplate" [ngTemplateOutletContext]="{ step: step }">
     </ng-container>
   }
 
   @if (previousVisible) {
-    <button #tip="ux-tooltip"
+    <button
+      #tip="ux-tooltip"
       type="button"
       class="btn button-secondary"
       [uxTooltip]="previousTooltip"
       [disabled]="previousDisabled || step === 0"
       [attr.aria-label]="previousAriaLabel"
-      (click)="previous(); tip.hide()">
+      (click)="previous(); tip.hide()"
+    >
       {{ previousText }}
     </button>
   }
 
   @if (nextVisible && !isLastStep()) {
-    <button #tip="ux-tooltip"
+    <button
+      #tip="ux-tooltip"
       type="button"
       class="btn button-primary"
       [uxTooltip]="nextTooltip"
       [disabled]="nextDisabled || isNextDisabled()"
       [attr.aria-label]="nextAriaLabel"
-      (click)="next(); tip.hide()">
+      (click)="next(); tip.hide()"
+    >
       {{ nextText }}
     </button>
   }
 
-  @if (finishVisible && isLastStep() || finishAlwaysVisible) {
-    <button #tip="ux-tooltip"
+  @if ((finishVisible && isLastStep()) || finishAlwaysVisible) {
+    <button
+      #tip="ux-tooltip"
       type="button"
       class="btn button-primary"
       [uxTooltip]="finishTooltip"
       [disabled]="finishDisabled || isNextDisabled()"
       [attr.aria-label]="finishAriaLabel"
-      (click)="finish(); tip.hide()">
+      (click)="finish(); tip.hide()"
+    >
       {{ finishText }}
     </button>
   }
 
-  @if (cancelVisible && !isLastStep() || cancelAlwaysVisible) {
-    <button #tip="ux-tooltip"
+  @if ((cancelVisible && !isLastStep()) || cancelAlwaysVisible) {
+    <button
+      #tip="ux-tooltip"
       type="button"
       class="btn button-secondary"
       [uxTooltip]="cancelTooltip"
       [disabled]="cancelDisabled"
       [attr.aria-label]="cancelAriaLabel"
-      (click)="cancel(); tip.hide()">
+      (click)="cancel(); tip.hide()"
+    >
       {{ cancelText }}
     </button>
   }
-
 </div>

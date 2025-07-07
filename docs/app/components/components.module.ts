@@ -2,7 +2,17 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { AccessibilityModule, ColorPickerModule, EboxModule, IconModule, MenuModule, PersistentDataModule, PopoverModule, ScrollModule, TooltipModule } from '@ux-aspects/ux-aspects';
+import {
+  AccessibilityModule,
+  ColorPickerModule,
+  EboxModule,
+  IconModule,
+  MenuModule,
+  PersistentDataModule,
+  PopoverModule,
+  ScrollModule,
+  TooltipModule,
+} from '@ux-aspects/ux-aspects';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 import { ApiPropertiesComponent } from './api-properties/api-properties.component';
@@ -30,52 +40,49 @@ import { ThemeSelectorComponent } from './theme-selector/theme-selector.componen
 import { UsageLinkComponent } from './usage-link/usage-link.component';
 
 const DOCUMENTATION_COMPONENTS = [
-    ApiPropertiesComponent,
-    ApiPropertyComponent,
-    ColorPickerDropdownComponent,
-    ComponentSectionComponent,
-    DocumentationCategoryComponent,
-    EditExampleLinkComponent,
-    FullPageLayoutComponent,
-    LandingPageFeatureComponent,
-    LandingPageFeatureListComponent,
-    LandingPageHeaderComponent,
-    LoadingSpinnerComponent,
-    NavigationBarComponent,
-    NavigationBarSearchComponent,
-    PageFooterComponent,
-    PageHeaderComponent,
-    SectionSelectComponent,
-    ShowcaseCardComponent,
-    SideNavigationComponent,
-    SnippetComponent,
-    TextPageLayoutComponent,
-    ThemeSelectorComponent,
-    UsageLinkComponent,
-    MigrateLinkComponent
+  ApiPropertiesComponent,
+  ApiPropertyComponent,
+  ColorPickerDropdownComponent,
+  ComponentSectionComponent,
+  DocumentationCategoryComponent,
+  EditExampleLinkComponent,
+  FullPageLayoutComponent,
+  LandingPageFeatureComponent,
+  LandingPageFeatureListComponent,
+  LandingPageHeaderComponent,
+  LoadingSpinnerComponent,
+  NavigationBarComponent,
+  NavigationBarSearchComponent,
+  PageFooterComponent,
+  PageHeaderComponent,
+  SectionSelectComponent,
+  ShowcaseCardComponent,
+  SideNavigationComponent,
+  SnippetComponent,
+  TextPageLayoutComponent,
+  ThemeSelectorComponent,
+  UsageLinkComponent,
+  MigrateLinkComponent,
 ];
 
 @NgModule({
-    imports: [
-        AccessibilityModule,
-        ButtonsModule,
-        CommonModule,
-        ColorPickerModule,
-        EboxModule,
-        FormsModule,
-        IconModule,
-        MenuModule,
-        PersistentDataModule,
-        PopoverModule,
-        RouterModule,
-        ScrollModule,
-        TooltipModule,
-        TypeaheadModule,
-    ],
-    exports: [
-        DOCUMENTATION_COMPONENTS,
-        AccessibilityModule
-    ],
-    declarations: DOCUMENTATION_COMPONENTS
+  imports: [
+    AccessibilityModule,
+    ButtonsModule,
+    CommonModule,
+    ColorPickerModule,
+    EboxModule,
+    FormsModule,
+    IconModule,
+    MenuModule,
+    PersistentDataModule,
+    PopoverModule,
+    RouterModule,
+    ScrollModule,
+    TooltipModule,
+    TypeaheadModule,
+  ],
+  exports: [DOCUMENTATION_COMPONENTS, AccessibilityModule],
+  declarations: DOCUMENTATION_COMPONENTS,
 })
-export class DocumentationComponentsModule { }
+export class DocumentationComponentsModule {}

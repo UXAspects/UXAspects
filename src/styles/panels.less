@@ -1,142 +1,142 @@
 .panel-title {
-    font-size: inherit;
+  font-size: inherit;
 }
 
 .accordion-chevron {
+  .panel-heading {
+    .ux-icon-previous();
+
+    &:before {
+      font-family: 'ux-icons';
+      float: right;
+      pointer-events: none;
+    }
+  }
+
+  &.panel-open {
     .panel-heading {
-        .ux-icon-previous();
-
-        &:before {
-            font-family: 'ux-icons';
-            float: right;
-            pointer-events: none;
-        }
+      .ux-icon-down();
     }
-
-    &.panel-open {
-        .panel-heading {
-            .ux-icon-down();
-        }
-    }
+  }
 }
 
 .panel-heading {
-    &:focus,
-    a:focus {
-        .native-focus-outline;
-    }
+  &:focus,
+  a:focus {
+    .native-focus-outline;
+  }
 }
 
 .ebox {
-    clear: both;
-    margin-bottom: 25px;
-    margin-top: 0;
-    padding: 0;
+  clear: both;
+  margin-bottom: 25px;
+  margin-top: 0;
+  padding: 0;
 }
 
 .ebox {
-    &:before,
-    &:after {
-        display: table;
-    }
+  &:before,
+  &:after {
+    display: table;
+  }
 }
 
 .ebox-title {
-    -moz-border-bottom-colors: none;
-    -moz-border-left-colors: none;
-    -moz-border-right-colors: none;
-    -moz-border-top-colors: none;
-    background-color: @ebox-title-bg;
-    color: inherit;
-    margin-bottom: 0;
-    overflow: hidden;
-    padding: 14px 15px 7px;
-    position: relative;
+  -moz-border-bottom-colors: none;
+  -moz-border-left-colors: none;
+  -moz-border-right-colors: none;
+  -moz-border-top-colors: none;
+  background-color: @ebox-title-bg;
+  color: inherit;
+  margin-bottom: 0;
+  overflow: hidden;
+  padding: 14px 15px 7px;
+  position: relative;
 
-    &.p-l-nil {
-        padding-left: 0;
-    }
+  &.p-l-nil {
+    padding-left: 0;
+  }
 }
 
 .ebox-draghandle {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 15px;
+
+  &:hover {
+    background-color: darken(@ebox-title-bg, 5%);
+  }
+
+  &:before,
+  &:after {
+    content: '';
+    left: 5px;
+    width: 3px;
+    height: 8px;
+    border-top: 3px solid;
+    border-bottom: 3px solid;
+    border-color: darken(@ebox-title-bg, 20%);
     position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    width: 15px;
+  }
 
-    &:hover {
-        background-color: darken(@ebox-title-bg, 5%);
-    }
+  &:before {
+    top: 18px;
+  }
 
-    &:before,
-    &:after {
-        content: "";
-        left: 5px;
-        width: 3px;
-        height: 8px;
-        border-top: 3px solid;
-        border-bottom: 3px solid;
-        border-color: darken(@ebox-title-bg, 20%);
-        position: absolute;
-    }
-
-    &:before {
-        top: 18px;
-    }
-
-    &:after {
-        top: 28px;
-    }
+  &:after {
+    top: 28px;
+  }
 }
 
 .ebox-content {
-    background-color: @ebox-content-bg;
-    color: inherit;
-    padding: 15px 20px 20px;
-    border-color: @ebox-border;
-    border-image: none;
-    border-style: solid solid none;
-    border-width: 1px 0;
+  background-color: @ebox-content-bg;
+  color: inherit;
+  padding: 15px 20px 20px;
+  border-color: @ebox-border;
+  border-image: none;
+  border-style: solid solid none;
+  border-width: 1px 0;
 
-    &.p-l-nil {
-        padding-left: 0;
-    }
+  &.p-l-nil {
+    padding-left: 0;
+  }
 
-    &.p-r-nil {
-        padding-right: 0;
-    }
+  &.p-r-nil {
+    padding-right: 0;
+  }
 }
 
 .ebox-content {
-    clear: both;
+  clear: both;
 }
 
 .ebox-heading {
-    background-color: @ebox-heading-bg;
-    border-bottom: none;
+  background-color: @ebox-heading-bg;
+  border-bottom: none;
 }
 
 .ebox-heading h3 {
-    font-weight: 200;
-    font-size: 1.5rem;
+  font-weight: 200;
+  font-size: 1.5rem;
 }
 
 // Content Box Tools
 .ebox-content,
 .ebox-title {
-    h1,
-    h2,
-    h3,
-    h4,
-    h5 {
-        margin-top: 0;
-    }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
+    margin-top: 0;
+  }
 }
 
 .ebox-content {
-    &.text-box {
-        padding-bottom: 0;
-        padding-top: 15px;
-    }
+  &.text-box {
+    padding-bottom: 0;
+    padding-top: 15px;
+  }
 }

@@ -1,141 +1,191 @@
 <ux-notification-list direction="above" position="top-right"></ux-notification-list>
 
 <div class="btn-container">
-    <button class="btn button-primary m-r-sm" (click)="showNotification(notification)">Show Notification</button>
-    <button class="btn button-secondary m-r-sm" (click)="notificationService.dismissAll()">Dismiss Notifications</button>
+  <button class="btn button-primary m-r-sm" (click)="showNotification(notification)">
+    Show Notification
+  </button>
+  <button class="btn button-secondary m-r-sm" (click)="notificationService.dismissAll()">
+    Dismiss Notifications
+  </button>
 </div>
 
 <ng-template #notification let-notificationRef let-data="data">
-    <button class="dismiss"
-        tabindex="0"
-        aria-label="Dismiss Notification"
-        (click)="notificationService.dismiss(notificationRef)">
-        <ux-icon name="close"></ux-icon>
-    </button>
+  <button
+    class="dismiss"
+    tabindex="0"
+    aria-label="Dismiss Notification"
+    (click)="notificationService.dismiss(notificationRef)"
+  >
+    <ux-icon name="close"></ux-icon>
+  </button>
 
-    <div class="notification-wrapper">
-
-        <div class="notification-icon">
-            <ux-icon name="chat"></ux-icon>
-        </div>
-
-        <div class="notification-content">
-            <h4 class="notification-title">Messages Received</h4>
-            <p class="notification-description">{{ data.description }}</p>
-            <p class="notification-timestamp">{{ notificationRef.date | date:'EEEE, MMMM d, y, h:mm:ss a' }}</p>
-        </div>
-
+  <div class="notification-wrapper">
+    <div class="notification-icon">
+      <ux-icon name="chat"></ux-icon>
     </div>
+
+    <div class="notification-content">
+      <h4 class="notification-title">Messages Received</h4>
+      <p class="notification-description">{{ data.description }}</p>
+      <p class="notification-timestamp">
+        {{ notificationRef.date | date: 'EEEE, MMMM d, y, h:mm:ss a' }}
+      </p>
+    </div>
+  </div>
 </ng-template>
 
-<hr>
+<hr />
 
 <div class="row uxd-customize-example">
-    <div class="col-md-12">
-        <ux-accordion>
-            <ux-accordion-panel class="accordion-chevron" heading="Customize Example...">
-                <div class="row uxd-customize-row">
-                    <div class="col-md-6 col-sm-12">
-                        <label for="backgroundColor">backgroundColor</label>
-                        <uxd-color-picker-dropdown [colors]="colors" [(selected)]="selected"></uxd-color-picker-dropdown>
-                    </div>
-                    <div class="col-md-6 col-sm-12">
-                        <label for="duration">duration</label>
-                        <ux-number-picker [(value)]="duration" min="0" max="3600"></ux-number-picker>
-                    </div>
-                </div>
-                <div class="row uxd-customize-row">
-                    <div class="col-md-6 col-sm-12">
-                        <label for="backgroundColor">description</label>
-                        <div class="input-group m-b-sm">
-                            <input type="text" placeholder="Enter description" class="form-control" [(ngModel)]="description">
-                        </div>
-                    </div>
-                </div>
-            </ux-accordion-panel>
-        </ux-accordion>
-    </div>
+  <div class="col-md-12">
+    <ux-accordion>
+      <ux-accordion-panel class="accordion-chevron" heading="Customize Example...">
+        <div class="row uxd-customize-row">
+          <div class="col-md-6 col-sm-12">
+            <label for="backgroundColor">backgroundColor</label>
+            <uxd-color-picker-dropdown
+              [colors]="colors"
+              [(selected)]="selected"
+            ></uxd-color-picker-dropdown>
+          </div>
+          <div class="col-md-6 col-sm-12">
+            <label for="duration">duration</label>
+            <ux-number-picker [(value)]="duration" min="0" max="3600"></ux-number-picker>
+          </div>
+        </div>
+        <div class="row uxd-customize-row">
+          <div class="col-md-6 col-sm-12">
+            <label for="backgroundColor">description</label>
+            <div class="input-group m-b-sm">
+              <input
+                type="text"
+                placeholder="Enter description"
+                class="form-control"
+                [(ngModel)]="description"
+              />
+            </div>
+          </div>
+        </div>
+      </ux-accordion-panel>
+    </ux-accordion>
+  </div>
 </div>
 
-<p>Notifications can be used to inform the user of occurring events or to alert the user of something that may require their attention.
-    The <code>ux-notification-list</code> component can be used to display a list of notifications.</p>
+<p>
+  Notifications can be used to inform the user of occurring events or to alert the user of something
+  that may require their attention. The <code>ux-notification-list</code> component can be used to
+  display a list of notifications.
+</p>
 
-<p>The following attributes can be used to customize the <code>ux-notification-list</code> component:</p>
+<p>
+  The following attributes can be used to customize the <code>ux-notification-list</code> component:
+</p>
 
 <uxd-api-properties tableTitle="Notification List">
-    <tr uxd-api-property name="position" type="string" defaultValue="top-right">
-        Sets the position of the list of notifications within the browser window.
-        The possible options are: <code>top-right</code>, <code>top-left</code>, <code>bottom-left</code> and <code>bottom-right</code>.
-    </tr>
-    <tr uxd-api-property name="direction" type="string" defaultValue="above">
-        Sets the order in which notifications are displayed:
-      <ul>
-        <li><code>above</code> - newer notifications will appear above older ones.</li>
-        <li><code>below</code> - newer notifications will appear below older ones.</li>
-      </ul>
-    </tr>
-</uxd-api-properties>
-
-<p>Notifications are controlled by the <code>notificationService</code>. It is recommended that the service is injected into the <code>AppComponent</code>.
-    The following functions can be called on the service:</p>
-
-<uxd-api-properties tableTitle="Notification Service">
-    <tr uxd-api-property name="show" args="TemplateRef, NotificationOptions?, object?" returns="NotificationRef">
-        <p>
-            This function should be called to show a notification.
-        </p>
-
-        <p>
-            It should be given a <code>TemplateRef</code> containing the content to be displayed. Optionally it can be passed a second argument,
-            a <code>NotificationOptions</code> object containing properties to configure the notification.
-        </p>
-
-        <p>
-            An optional third argument can be given. This is an object containing any additional information you want to provide
-            to the template. This can be accessed by adding a <code>let-data="data"</code> attribute to the <code>ng-template</code> element.
-        </p>
-
-        <p>
-            It will return a <code>NotificationRef</code> object which will contain the information passed to the <code>showNotification</code> function
-            along with a <code>date</code> property which will contain the time at which the notification was shown.
-        </p>
-    </tr>
-    <tr uxd-api-property name="getHistory" returns="NotificationRef[]">
-        This function will return a list of all the notifications that have been shown.
-      </tr>
-    <tr uxd-api-property name="dismiss" args="NotificationRef">
-        This function can be called to dismiss a notification. It should be passed the object to dismiss.
-    </tr>
-    <tr uxd-api-property name="dismissAll">
-        This function will dismiss any currently visible notifications.
-    </tr>
-    <tr uxd-api-property name="remove" args="NotificationRef">
-        This function can be called to remove a notification from the notification history. If the notification is currently visible it will also be dismissed.
-        It should be passed the <code>notificationRef</code> to dismiss.
-    </tr>
-    <tr uxd-api-property name="removeAll">
-        This function can be called to remove all notifications from the notification history. If any notifications are currently visible they will also be dismissed.
-    </tr>
-</uxd-api-properties>
-
-<p>The content of the notification should be specified inside an <code>ng-template</code> element. The <code>ng-template</code> property
-    <code>let-notificationRef</code> can be used to access the <code>NotificationRef</code> object returned from the service.</p>
-
-<p>A second object may optionally be passed to the <code>showNotification</code> function. The following options can be passed in this object to configure the notification:</p>
-
-<uxd-api-properties tableTitle="NotificationOptions Interface">
-    <tr uxd-api-property name="duration" type="number" defaultValue="4">
-        Sets the duration (in seconds) the notification should appear before automatically dismissing.
-        A value of <code>0</code> will show the notification until manually dismissed.
-    </tr>
-    <tr uxd-api-property name="backgroundColor" type="string" defaultValue="#7b63a3">
-        Sets the background color of the notification.
-    </tr>
+  <tr uxd-api-property name="position" type="string" defaultValue="top-right">
+    Sets the position of the list of notifications within the browser window. The possible options
+    are:
+    <code>top-right</code
+    >,
+    <code>top-left</code
+    >,
+    <code>bottom-left</code>
+    and
+    <code>bottom-right</code
+    >.
+  </tr>
+  <tr uxd-api-property name="direction" type="string" defaultValue="above">
+    Sets the order in which notifications are displayed:
+    <ul>
+      <li><code>above</code> - newer notifications will appear above older ones.</li>
+      <li><code>below</code> - newer notifications will appear below older ones.</li>
+    </ul>
+  </tr>
 </uxd-api-properties>
 
 <p>
-    To improve accessbility the <code>LiveAnnouncer</code> can be used to provide audio feedback to screen readers by announcing the content of the notification.
-    Additionally, the escape key can be used to dismiss all notifications by using <code>&#64;HostListener('document:keydown.escape')</code>.
+  Notifications are controlled by the <code>notificationService</code>. It is recommended that the
+  service is injected into the <code>AppComponent</code>. The following functions can be called on
+  the service:
+</p>
+
+<uxd-api-properties tableTitle="Notification Service">
+  <tr
+    uxd-api-property
+    name="show"
+    args="TemplateRef, NotificationOptions?, object?"
+    returns="NotificationRef"
+  >
+    <p>This function should be called to show a notification.</p>
+
+    <p>
+      It should be given a <code>TemplateRef</code> containing the content to be displayed.
+      Optionally it can be passed a second argument, a <code>NotificationOptions</code> object
+      containing properties to configure the notification.
+    </p>
+
+    <p>
+      An optional third argument can be given. This is an object containing any additional
+      information you want to provide to the template. This can be accessed by adding a
+      <code>let-data="data"</code> attribute to the <code>ng-template</code> element.
+    </p>
+
+    <p>
+      It will return a <code>NotificationRef</code> object which will contain the information passed
+      to the <code>showNotification</code> function along with a <code>date</code> property which
+      will contain the time at which the notification was shown.
+    </p>
+  </tr>
+  <tr uxd-api-property name="getHistory" returns="NotificationRef[]">
+    This function will return a list of all the notifications that have been shown.
+  </tr>
+  <tr uxd-api-property name="dismiss" args="NotificationRef">
+    This function can be called to dismiss a notification. It should be passed the object to
+    dismiss.
+  </tr>
+  <tr uxd-api-property name="dismissAll">
+    This function will dismiss any currently visible notifications.
+  </tr>
+  <tr uxd-api-property name="remove" args="NotificationRef">
+    This function can be called to remove a notification from the notification history. If the
+    notification is currently visible it will also be dismissed. It should be passed the
+    <code>notificationRef</code>
+    to dismiss.
+  </tr>
+  <tr uxd-api-property name="removeAll">
+    This function can be called to remove all notifications from the notification history. If any
+    notifications are currently visible they will also be dismissed.
+  </tr>
+</uxd-api-properties>
+
+<p>
+  The content of the notification should be specified inside an <code>ng-template</code> element.
+  The <code>ng-template</code> property <code>let-notificationRef</code> can be used to access the
+  <code>NotificationRef</code> object returned from the service.
+</p>
+
+<p>
+  A second object may optionally be passed to the <code>showNotification</code> function. The
+  following options can be passed in this object to configure the notification:
+</p>
+
+<uxd-api-properties tableTitle="NotificationOptions Interface">
+  <tr uxd-api-property name="duration" type="number" defaultValue="4">
+    Sets the duration (in seconds) the notification should appear before automatically dismissing. A
+    value of
+    <code>0</code>
+    will show the notification until manually dismissed.
+  </tr>
+  <tr uxd-api-property name="backgroundColor" type="string" defaultValue="#7b63a3">
+    Sets the background color of the notification.
+  </tr>
+</uxd-api-properties>
+
+<p>
+  To improve accessbility the <code>LiveAnnouncer</code> can be used to provide audio feedback to
+  screen readers by announcing the content of the notification. Additionally, the escape key can be
+  used to dismiss all notifications by using
+  <code>&#64;HostListener('document:keydown.escape')</code>.
 </p>
 
 <p>The following code can be used to create the example above:</p>
@@ -153,5 +203,8 @@
 </ux-tabset>
 
 <blockquote>
-    <p><strong>Note</strong>: The <code>BrowserAnimationsModule</code> must be imported from <code>'&#64;angular/platform-browser/animations'</code>.</p>
+  <p>
+    <strong>Note</strong>: The <code>BrowserAnimationsModule</code> must be imported from
+    <code>'&#64;angular/platform-browser/animations'</code>.
+  </p>
 </blockquote>

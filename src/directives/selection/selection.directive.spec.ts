@@ -1,13 +1,13 @@
 import { FocusOrigin } from '@angular/cdk/a11y';
 import { Component, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 import { CheckboxModule } from '../../components/checkbox/index';
 import { AccessibilityModule, FocusIndicator } from '../accessibility/index';
 import { SelectionItemDirective } from './selection-item.directive';
 import { SelectionDirective } from './selection.directive';
 import { SelectionModule } from './selection.module';
 import { SelectionMode } from './selection.service';
-import { By } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-selection-test',
@@ -30,6 +30,7 @@ import { By } from '@angular/platform-browser';
       }
     </ul>
   `,
+  standalone: false,
 })
 export class SelectionDirectiveSpec {
   mode: SelectionMode = 'simple';

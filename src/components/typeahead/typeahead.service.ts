@@ -3,8 +3,7 @@ import { BehaviorSubject } from 'rxjs';
 
 @Injectable()
 export class TypeaheadService {
+  open$ = new BehaviorSubject<boolean>(false);
 
-    open$ = new BehaviorSubject<boolean>(false);
-
-    highlightedElement$ = new BehaviorSubject<HTMLElement>(null);
+  highlightedElement$ = new BehaviorSubject<HTMLElement>(null);
 }

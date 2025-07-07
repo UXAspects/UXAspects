@@ -14,4 +14,3 @@ export * from './search-components/date-range/date-range.component';
 export * from './search-components/date/date.component';
 export * from './search-components/select/select.component';
 export * from './search-components/text/text.component';
-

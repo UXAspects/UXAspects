@@ -31,6 +31,7 @@ import { SelectModule } from './select.module';
       </ux-select>
     }
   `,
+  standalone: false,
 })
 export class SelectTestComponent {
   input: string = '';
@@ -453,6 +454,7 @@ describe('Select Component', () => {
       [multiple]="multiple"
     ></ux-select>
   `,
+  standalone: false,
 })
 export class SelectValueTestComponent {
   // eslint-disable-next-line @typescript-eslint/no-empty-function
@@ -517,6 +519,7 @@ describe('Select Component - Value Input', () => {
       [multiple]="multiple"
     ></ux-select>
   `,
+  standalone: false,
 })
 export class SelectNgModelTestComponent {
   options: string[] = ['One', 'Two', 'Three'];
@@ -688,6 +691,7 @@ describe('Select Component - NgModel Input', () => {
       <ux-select formControlName="select" [options]="options" [multiple]="multiple"></ux-select>
     </form>
   `,
+  standalone: false,
 })
 export class SelectReactiveFormTestComponent {
   multiple: boolean = false;
@@ -772,6 +776,7 @@ describe('Select Component - Reactive Form Input', () => {
       </ux-select>
     }
   `,
+  standalone: false,
 })
 export class SingleSelectWithCustomIconTestComponent {
   input: string = '';
@@ -865,6 +870,7 @@ describe('Select Component - With custom Icon', () => {
       (recentOptionsChange)="onRecentOptionsChange($event)"
     ></ux-select>
   `,
+  standalone: false,
 })
 export class SelectWithRecentOptionsTestComponent {
   value: string | string[];

@@ -26,7 +26,6 @@ module.exports = [
       'prefer-arrow/prefer-arrow-functions': 'off',
       '@typescript-eslint/ban-types': 'off',
       '@typescript-eslint/no-unused-expressions': 'off',
-      '@angular-eslint/no-host-metadata-property': 'off',
       '@angular-eslint/component-class-suffix': 'off',
       '@angular-eslint/no-input-rename': 'off',
       '@angular-eslint/no-output-rename': 'off',
@@ -49,7 +48,7 @@ module.exports = [
     },
     languageOptions: {
       parserOptions: {
-        project: ['tsconfig.json', 'e2e/tsconfig.json'],
+        project: ['tsconfig.json'],
         createDefaultProgram: true,
       },
     },
@@ -95,6 +94,12 @@ module.exports = [
     files: ['**/snippets/*.ts'],
     rules: {
       '@typescript-eslint/no-empty-function': 'off',
+    },
+  },
+  {
+    files: ['**/*.ts'],
+    rules: {
+      '@angular-eslint/prefer-standalone': 'off',
     },
   },
 ];

@@ -1,26 +1,33 @@
 <h4 class="search-group-title">{{ header }}</h4>
 
 <div class="search-group-content">
-
-  <div class="search-group-operator search-group-operator-{{ operator }}"
-  [class.hidden-operator]="searchBuilderGroupService.getQuery().length < 2">{{ operator }}</div>
+  <div
+    class="search-group-operator search-group-operator-{{ operator }}"
+    [class.hidden-operator]="searchBuilderGroupService.getQuery().length < 2"
+  >
+    {{ operator }}
+  </div>
 
   <div class="search-group-items">
-
     @for (field of searchBuilderGroupService.getQuery(); track field; let i = $index) {
       <div
         class="search-group-item-container"
         [class.search-group-item-focus]="focusIndex === i"
         (uxFocusWithin)="setFocus(i)"
-        (uxBlurWithin)="clearFocus()">
+        (uxBlurWithin)="clearFocus()"
+      >
         <div class="search-group-item">
-          <ng-container *uxSearchBuilderOutlet="field.type; context: field; groupId: id; index: i"></ng-container>
+          <ng-container
+            *uxSearchBuilderOutlet="field.type; context: field; groupId: id; index: i"
+          ></ng-container>
         </div>
-        <button type="button"
+        <button
+          type="button"
           uxFocusIndicator
           [attr.aria-label]="removeFieldButtonAriaLabel"
           class="search-group-item-remove"
-          (click)="removeFieldAtIndex(i, field)">
+          (click)="removeFieldAtIndex(i, field)"
+        >
           <ux-icon name="close"></ux-icon>
         </button>
       </div>
@@ -40,14 +47,17 @@
       <!-- Allow a custom placeholder -->
       <ng-container *ngTemplateOutlet="placeholder"></ng-container>
     }
-
   </div>
 
-  <button type="button" uxFocusIndicator class="search-builder-group-add-field" (click)="addField($event)">
+  <button
+    type="button"
+    uxFocusIndicator
+    class="search-builder-group-add-field"
+    (click)="addField($event)"
+  >
     <ux-icon class="search-builder-group-add-field-icon" name="add"></ux-icon>
     <span class="search-builder-group-add-field-label">{{ addText }}</span>
   </button>
-
 </div>
 
-<hr class="search-builder-group-divider">
+<hr class="search-builder-group-divider" />

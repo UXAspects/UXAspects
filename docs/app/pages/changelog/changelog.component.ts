@@ -7,6 +7,7 @@ import { AppConfiguration } from '../../services/app-configuration/app-configura
   selector: 'uxd-changelog-page',
   templateUrl: './changelog.component.html',
   styleUrls: ['./changelog.component.less'],
+  standalone: false,
 })
 export class ChangeLogPageComponent implements OnInit {
   logs: IChangeLog[];

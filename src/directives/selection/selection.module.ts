@@ -4,10 +4,8 @@ import { SelectionItemDirective } from './selection-item.directive';
 import { SelectionDirective } from './selection.directive';
 
 @NgModule({
-  imports: [
-    CommonModule
-  ],
+  imports: [CommonModule],
   declarations: [SelectionDirective, SelectionItemDirective],
-  exports: [SelectionDirective, SelectionItemDirective]
+  exports: [SelectionDirective, SelectionItemDirective],
 })
-export class SelectionModule { }
+export class SelectionModule {}

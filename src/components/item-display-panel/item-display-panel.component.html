@@ -1,5 +1,7 @@
 @if (open) {
-  <div class="ux-side-panel-host ux-item-display-panel" #panel
+  <div
+    class="ux-side-panel-host ux-item-display-panel"
+    #panel
     [class.box-shadow]="boxShadow"
     [style.position]="position"
     [style.width]="hostWidth"
@@ -7,7 +9,7 @@
     [@panelState]="animationPanelState"
     [tabindex]="open ? 0 : -1"
     [focusIf]="open && focusOnShow"
-    >
+  >
     <div class="ux-side-panel-header" [class.item-display-panel-shadow]="shadow">
       <h3>{{ header }}</h3>
       @if (closeVisible) {
@@ -16,7 +18,8 @@
           [attr.aria-label]="closeAriaLabel"
           type="button"
           class="btn btn-lg btn-link btn-icon button-secondary"
-          (click)="visible = false">
+          (click)="visible = false"
+        >
           <ux-icon name="close"></ux-icon>
         </button>
       }

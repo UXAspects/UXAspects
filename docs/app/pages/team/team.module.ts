@@ -6,22 +6,20 @@ import { DocumentationComponentsModule } from '../../components/components.modul
 import { TeamPageComponent } from './team.component';
 
 const routes: Routes = [
-    {
-        path: '',
-        component: TeamPageComponent
-    }
+  {
+    path: '',
+    component: TeamPageComponent,
+  },
 ];
 
 @NgModule({
-    declarations: [
-        TeamPageComponent
-    ],
-    imports: [
-        CommonModule,
-        DocumentationComponentsModule,
-        FlippableCardModule,
-        IconModule,
-        RouterModule.forChild(routes),
-    ]
+  declarations: [TeamPageComponent],
+  imports: [
+    CommonModule,
+    DocumentationComponentsModule,
+    FlippableCardModule,
+    IconModule,
+    RouterModule.forChild(routes),
+  ],
 })
-export class TeamPageModule { }
+export class TeamPageModule {}

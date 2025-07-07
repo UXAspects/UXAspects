@@ -1,83 +1,83 @@
-@import "../../../assets/styles/variables.less";
+@import '../../../assets/styles/variables.less';
 
 .side-navigation-container {
-    width: 100%;
+  width: 100%;
 
-    .side-navigation {
-        position: fixed;
-        display: flex;
-        flex-direction: column;
-        padding: 1rem 0;
+  .side-navigation {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem 0;
 
-        .side-navigation-scroll-pane {
-            height: 100%;
-            overflow-y: auto;
+    .side-navigation-scroll-pane {
+      height: 100%;
+      overflow-y: auto;
 
-            .scroll-pane {
-                height: 100%;
+      .scroll-pane {
+        height: 100%;
+      }
+
+      .side-navigation-list {
+        list-style-type: none;
+        padding-left: 0.75rem;
+
+        .side-navigation-list-item {
+          position: relative;
+
+          .side-navigation-list-item-link {
+            display: block;
+            padding: 0.3rem 0.75rem;
+            border-left: 2px solid transparent;
+            color: @side-navigation-item-color;
+            font-size: 1rem;
+            text-decoration: none;
+
+            &.active {
+              color: @side-navigation-item-active-color;
+              border-left-color: @side-navigation-item-active-bg;
             }
 
-            .side-navigation-list {
-                list-style-type: none;
-                padding-left: .75rem;
-
-                .side-navigation-list-item {
-                    position: relative;
-
-                    .side-navigation-list-item-link {
-                        display: block;
-                        padding: 0.30rem 0.75rem;
-                        border-left: 2px solid transparent;
-                        color: @side-navigation-item-color;
-                        font-size: 1rem;
-                        text-decoration: none;
-
-                        &.active {
-                            color: @side-navigation-item-active-color;
-                            border-left-color: @side-navigation-item-active-bg;
-                        }
-
-                        &:hover {
-                            color: @side-navigation-item-hover;
-                        }
-                    }
-                }
+            &:hover {
+              color: @side-navigation-item-hover;
             }
-
-            .side-navigation-subsection-list {
-                list-style-type: none;
-                line-height: 1;
-                padding-left: 0;
-
-                .side-navigation-list-item {
-                    .side-navigation-list-item-link {
-                        padding: 0.25rem 1.5rem;
-                        color: @side-navigation-subsection-item-color;
-                        font-size: 0.9rem;
-                    }
-                }
-            }
+          }
         }
+      }
+
+      .side-navigation-subsection-list {
+        list-style-type: none;
+        line-height: 1;
+        padding-left: 0;
+
+        .side-navigation-list-item {
+          .side-navigation-list-item-link {
+            padding: 0.25rem 1.5rem;
+            color: @side-navigation-subsection-item-color;
+            font-size: 0.9rem;
+          }
+        }
+      }
     }
+  }
 }
 
 // Just for fun
 ::-webkit-scrollbar {
-    width: 12px;
-    height: 12px;
+  width: 12px;
+  height: 12px;
 }
 
 ::-webkit-scrollbar-track {
-    background-color: @white;
+  background-color: @white;
 }
 
 ::-webkit-scrollbar-thumb {
-    border: none;
-    background-color: transparent;
+  border: none;
+  background-color: transparent;
 }
 
 .side-navigation-scroll-pane:hover::-webkit-scrollbar-thumb {
-    border: 3px solid @white;
-    border-radius: 12px;
-    background-color: #999;
+  border: 3px solid @white;
+  border-radius: 12px;
+  background-color: #999;
 }

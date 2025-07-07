@@ -7,6 +7,7 @@ import { MediaPlayerModule } from './media-player.module';
   selector: 'ux-media-player-audio',
   template:
     '<ux-media-player class="media-player" type="audio" [filename]="filename" [source]="audioSource"></ux-media-player>',
+  standalone: false,
 })
 export class MediaPlayerAudioComponent {
   filename: string = null;

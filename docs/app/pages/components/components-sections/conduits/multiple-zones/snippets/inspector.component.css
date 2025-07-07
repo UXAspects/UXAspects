@@ -1,8 +1,8 @@
 :host {
-    display: flex;
-    position: absolute;
-    top: 0;
-    right: 0;
-    z-index: 4;
-    padding: 2px;
+  display: flex;
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 4;
+  padding: 2px;
 }

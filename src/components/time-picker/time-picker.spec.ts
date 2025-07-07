@@ -19,6 +19,7 @@ import { TimePickerModule } from './time-picker.module';
     >
     </ux-time-picker>
   `,
+  standalone: false,
 })
 export class TimePickerTestComponent {
   value = new Date();

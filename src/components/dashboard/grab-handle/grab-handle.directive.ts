@@ -27,6 +27,7 @@ import { DashboardGrabHandleService } from './grab-handle.service';
 @Directive({
   selector: '[uxDashboardGrabHandle]',
   exportAs: 'ux-dashboard-grab-handle',
+  standalone: false,
 })
 export class DashboardGrabHandleDirective implements OnInit, OnDestroy {
   readonly widget = inject(DashboardWidgetComponent);
@@ -232,7 +233,7 @@ export class DashboardGrabHandleDirective implements OnInit, OnDestroy {
   }
 
   /** Get an announcement from the inputs - they may be a string or a function so handle both */
-   
+
   getAnnouncement(announcement: Function | string, ...args: any[]): string {
     return typeof announcement === 'function' ? announcement(this.widget, ...args) : announcement;
   }

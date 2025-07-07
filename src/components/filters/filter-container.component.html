@@ -2,21 +2,27 @@
 
 <!-- Add a Clear Button -->
 @if ((filterService.filters$ | async).length > 0) {
-  <button type="button"
+  <button
+    type="button"
     class="btn btn-link btn-secondary m-l-xs"
     [class.table-filter-clear]="clearAllTemplate"
     [class.btn-icon]="!clearAllTemplate"
     tabindex="0"
     [attr.aria-label]="clearAriaLabel"
     [uxTooltip]="clearTooltip || 'Clear All'"
-    (click)="filterService.removeAll()">
-    <ng-container [ngTemplateOutlet]="clearAllTemplate || defaultClearAllTemplate">
-    </ng-container>
+    (click)="filterService.removeAll()"
+  >
+    <ng-container [ngTemplateOutlet]="clearAllTemplate || defaultClearAllTemplate"> </ng-container>
   </button>
 }
 
 <ng-template #defaultClearAllTemplate>
-  <svg class="filter-selected-clear-graphic" width="100%" viewBox="0 0 19 12" shape-rendering="geometricPrecision">
+  <svg
+    class="filter-selected-clear-graphic"
+    width="100%"
+    viewBox="0 0 19 12"
+    shape-rendering="geometricPrecision"
+  >
     <rect class="light-grey" x="0" y="2" width="7" height="2"></rect>
     <rect class="dark-grey" x="0" y="5" width="9" height="2"></rect>
     <rect class="light-grey" x="0" y="8" width="7" height="2"></rect>

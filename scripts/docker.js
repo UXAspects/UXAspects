@@ -19,9 +19,9 @@ const dockerCommand = `docker run --rm -it --memory=4g -e "http_proxy=${http_pro
 
 // run the command string with the inherited terminal
 try {
-    execSync(dockerCommand, { stdio: 'inherit' });
+  execSync(dockerCommand, { stdio: 'inherit' });
 } catch (error) {
-    console.warn(`Exited: ${error.message || error.signal}`);
+  console.warn(`Exited: ${error.message || error.signal}`);
 }
 
 // Avoid a whole bunch of NPM errors when leaving the container

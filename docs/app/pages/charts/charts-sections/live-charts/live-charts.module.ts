@@ -7,34 +7,34 @@ import { DocumentationCategoryComponent } from '../../../../components/documenta
 import { DocumentationPage, ResolverService } from '../../../../services/resolver/resolver.service';
 import { ChartsLiveChartComponent } from './live-chart/live-chart.component';
 
-
-const SECTIONS = [
-    ChartsLiveChartComponent
-];
+const SECTIONS = [ChartsLiveChartComponent];
 
 const ROUTES = [
-    {
-        path: '**',
-        component: DocumentationCategoryComponent,
-        data: {
-            category: ResolverService.resolveCategoryData(DocumentationPage.Charts, 'Live Chart')
-        }
-    }
+  {
+    path: '**',
+    component: DocumentationCategoryComponent,
+    data: {
+      category: ResolverService.resolveCategoryData(DocumentationPage.Charts, 'Live Chart'),
+    },
+  },
 ];
 
 @NgModule({
-    imports: [
-        NgChartsModule,
-        ColorServiceModule,
-        DocumentationComponentsModule,
-        RouterModule.forChild(ROUTES),
-        TabsetModule,
-    ],
-    exports: SECTIONS,
-    declarations: SECTIONS,
+  imports: [
+    NgChartsModule,
+    ColorServiceModule,
+    DocumentationComponentsModule,
+    RouterModule.forChild(ROUTES),
+    TabsetModule,
+  ],
+  exports: SECTIONS,
+  declarations: SECTIONS,
 })
 export class ChartsLiveChartsModule {
-    constructor(componentFactoryResolver: ComponentFactoryResolver, resolverService: ResolverService) {
-        resolverService.registerResolver(componentFactoryResolver, SECTIONS);
-    }
+  constructor(
+    componentFactoryResolver: ComponentFactoryResolver,
+    resolverService: ResolverService
+  ) {
+    resolverService.registerResolver(componentFactoryResolver, SECTIONS);
+  }
 }

@@ -1,215 +1,215 @@
 .table > thead > tr > th {
-    border-bottom-width: 1px;
-    .font-semibold;
+  border-bottom-width: 1px;
+  .font-semibold;
 }
 
 .table > tbody > tr > td {
-    border-top-color: @table-border;
+  border-top-color: @table-border;
 }
 
 .table > tbody > tr > th {
-    border-top: 0;
+  border-top: 0;
 }
 
 .table > tbody > tr > td {
-    &.vertical-center-icon {
-        vertical-align: middle;
-    }
+  &.vertical-center-icon {
+    vertical-align: middle;
+  }
 }
 
 .table {
-    &.ux-resizable-expanding-table {
-        td,
-        th {
-            border: none;
-        }
+  &.ux-resizable-expanding-table {
+    td,
+    th {
+      border: none;
     }
+  }
 }
 
 // ngx-bootstrap - pagination
 .pagination {
-    & > li.page-item {
-        & > button {
-            .btn;
-            .button-secondary;
+  & > li.page-item {
+    & > button {
+      .btn;
+      .button-secondary;
 
-            min-width: 45px;
-            padding: 6px 12px;
-            border-radius: 0;
-            font-size: 0.875rem;
-            border: 1px solid #ccc;
+      min-width: 45px;
+      padding: 6px 12px;
+      border-radius: 0;
+      font-size: 0.875rem;
+      border: 1px solid #ccc;
 
-            &:hover {
-                .button-secondary-hover;
-            }
-        }
-
-        &.active > button {
-            .button-primary-active;
-
-            &:hover {
-                .button-primary-hover;
-            }
-
-            &:focus {
-                .button-primary-active;
-            }
-        }
-
-        &.disabled {
-            & > button {
-                .button-secondary-disabled;
-            }
-        }
+      &:hover {
+        .button-secondary-hover;
+      }
     }
+
+    &.active > button {
+      .button-primary-active;
+
+      &:hover {
+        .button-primary-hover;
+      }
+
+      &:focus {
+        .button-primary-active;
+      }
+    }
+
+    &.disabled {
+      & > button {
+        .button-secondary-disabled;
+      }
+    }
+  }
 }
 
 //pagination
 .pagination-details {
-    margin: 20px 0;
-    padding: 6px 12px;
-    vertical-align: top;
-    display: inline-block;
+  margin: 20px 0;
+  padding: 6px 12px;
+  vertical-align: top;
+  display: inline-block;
 }
 
 .pagination > .disabled > span,
 .pagination > .disabled > button {
-    .button-secondary-disabled;
+  .button-secondary-disabled;
 
-    &:hover,
-    &:focus {
-        .button-secondary-disabled;
-    }
+  &:hover,
+  &:focus {
+    .button-secondary-disabled;
+  }
 }
 
 .pagination > li {
-    & > button {
-        .button-secondary;
+  & > button {
+    .button-secondary;
 
-        position: relative;
-        float: left;
-        margin-left: -1px;
+    position: relative;
+    float: left;
+    margin-left: -1px;
 
-        &:hover {
-            .button-secondary-hover;
-        }
+    &:hover {
+      .button-secondary-hover;
+    }
+  }
+
+  &.active > button {
+    .button-primary-active;
+
+    z-index: 3;
+    cursor: default;
+
+    &:hover {
+      .button-primary-hover;
     }
 
-    &.active > button {
-        .button-primary-active;
-
-        z-index: 3;
-        cursor: default;
-
-        &:hover {
-            .button-primary-hover;
-        }
-
-        &:focus {
-            .button-primary-active;
-        }
+    &:focus {
+      .button-primary-active;
     }
+  }
 
-    &:first-child > button {
-        margin-left: 0;
-    }
+  &:first-child > button {
+    margin-left: 0;
+  }
 }
 
 .table > tbody > tr {
-    .hover-action-btn {
-        border: none;
-        background-color: transparent;
-        padding: 0;
+  .hover-action-btn {
+    border: none;
+    background-color: transparent;
+    padding: 0;
 
-        &:focus {
-            .native-focus-outline();
-        }
+    &:focus {
+      .native-focus-outline();
     }
+  }
 }
 
 .table-hover > tbody > tr {
-    &:hover {
-        background: @table-hover-bg;
-    }
+  &:hover {
+    background: @table-hover-bg;
+  }
 }
 
 .table > tbody > tr {
-    &.highlight {
-        background-color: @table-hover-bg;
-    }
+  &.highlight {
+    background-color: @table-hover-bg;
+  }
 }
 
 // Shift/ctrl select item
 .table {
-    tr.ux-selection-selected {
-        background-color: @shift-select-selected-light;
+  tr.ux-selection-selected {
+    background-color: @shift-select-selected-light;
 
-        & > td.item-actions .list-hover-actions {
-            box-shadow: none;
-        }
-
-        &:hover {
-            background-color: @shift-select-selected-hover-light;
-
-            & > td.item-actions .list-hover-actions {
-                box-shadow: none;
-            }
-        }
+    & > td.item-actions .list-hover-actions {
+      box-shadow: none;
     }
+
+    &:hover {
+      background-color: @shift-select-selected-hover-light;
+
+      & > td.item-actions .list-hover-actions {
+        box-shadow: none;
+      }
+    }
+  }
 }
 
 .table-responsive {
-    border: none;
+  border: none;
 }
 
 .table-header-dark {
-    th {
-        color: @grey2;
-        text-transform: uppercase;
-        font-size: 0.875rem;
-    }
+  th {
+    color: @grey2;
+    text-transform: uppercase;
+    font-size: 0.875rem;
+  }
 }
 
 .listview-page-icon {
-    background: url('../img/page.png') no-repeat;
-    width: 20px;
-    height: 23px;
-    background-size: contain;
+  background: url('../img/page.png') no-repeat;
+  width: 20px;
+  height: 23px;
+  background-size: contain;
 }
 
 .listview-text-emphasis {
-    color: @grey2;
+  color: @grey2;
 }
 
 //sortDirectionToggle
 .sort-direction-toggle {
-    p {
-        float: left;
-        padding: 6px;
-        margin-bottom: 0;
+  p {
+    float: left;
+    padding: 6px;
+    margin-bottom: 0;
+  }
+
+  .sort-icon {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    height: 34px;
+    margin-right: 1px;
+    float: right;
+    padding: 6px;
+    cursor: pointer;
+    border: none;
+    background-color: transparent;
+
+    &:hover,
+    &:focus {
+      background-color: @table-sort-hover-bg;
     }
 
-    .sort-icon {
-        display: inline-flex;
-        justify-content: center;
-        align-items: center;
-        height: 34px;
-        margin-right: 1px;
-        float: right;
-        padding: 6px;
-        cursor: pointer;
-        border: none;
-        background-color: transparent;
-
-        &:hover,
-        &:focus {
-            background-color: @table-sort-hover-bg;
-        }
-
-        &:focus {
-            .native-focus-outline();
-        }
+    &:focus {
+      .native-focus-outline();
     }
+  }
 }
 
 /*
@@ -217,57 +217,57 @@
  */
 
 .ux-fixed-header-table {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 
-    &.ux-resizable-expanding-table {
-        thead,
-        tbody {
-            tr {
-                display: flex;
-                border-bottom: 1px solid #ddd;
-            }
-        }
-    }
-
-    &.ux-resizable-expanding-table-overflow {
-        thead,
-        tbody {
-            tr {
-                border-bottom: 1px solid #ddd;
-            }
-        }
-    }
-
+  &.ux-resizable-expanding-table {
     thead,
     tbody {
-        display: block;
-
-        tr {
-            display: flex;
-
-            th,
-            td {
-                display: block;
-                flex: 1;
-                overflow: hidden;
-                text-overflow: ellipsis;
-            }
-        }
+      tr {
+        display: flex;
+        border-bottom: 1px solid #ddd;
+      }
     }
+  }
 
+  &.ux-resizable-expanding-table-overflow {
+    thead,
     tbody {
-        overflow-y: scroll;
-        min-height: 1px;
-        margin-top: -1px;
+      tr {
+        border-bottom: 1px solid #ddd;
+      }
     }
+  }
+
+  thead,
+  tbody {
+    display: block;
+
+    tr {
+      display: flex;
+
+      th,
+      td {
+        display: block;
+        flex: 1;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+  }
+
+  tbody {
+    overflow-y: scroll;
+    min-height: 1px;
+    margin-top: -1px;
+  }
 }
 
 /*
  * Reorderable Table
  */
 .reorderable-row {
-    &:focus {
-        .native-focus-outline();
-    }
+  &:focus {
+    .native-focus-outline();
+  }
 }

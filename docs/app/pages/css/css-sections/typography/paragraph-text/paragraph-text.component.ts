@@ -6,25 +6,26 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 import { playgroundAdapter } from '../../../../../services/playground/adapters/legacy-playground-adapter';
 
 @Component({
-    selector: 'uxd-css-typography-paragraph-text',
-    templateUrl: './paragraph-text.component.html',
-    styleUrls: ['./paragraph-text.component.less'],
+  selector: 'uxd-css-typography-paragraph-text',
+  templateUrl: './paragraph-text.component.html',
+  styleUrls: ['./paragraph-text.component.less'],
+  standalone: false,
 })
 @DocumentationSectionComponent('CssParagraphTextComponent')
 export class CssParagraphTextComponent
-    extends BaseDocumentationSection
-    implements IPlaygroundProvider
+  extends BaseDocumentationSection
+  implements IPlaygroundProvider
 {
-    playground: IPlayground = playgroundAdapter({
-        html: this.snippets.raw.codeExampleHtml,
-    });
+  playground: IPlayground = playgroundAdapter({
+    html: this.snippets.raw.codeExampleHtml,
+  });
 
-    constructor() {
-        super(
-            import.meta.webpackContext('./snippets/', {
-                recursive: false,
-                regExp: /\.(html|css|js|ts)$/,
-            })
-        );
-    }
+  constructor() {
+    super(
+      import.meta.webpackContext('./snippets/', {
+        recursive: false,
+        regExp: /\.(html|css|js|ts)$/,
+      })
+    );
+  }
 }

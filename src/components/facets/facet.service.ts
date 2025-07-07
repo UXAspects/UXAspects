@@ -5,63 +5,61 @@ import { Facet } from './models/facet';
 
 @Injectable()
 export class FacetService {
+  /** The list of active facets */
+  facets$ = new BehaviorSubject<Facet[]>([]);
 
-    /** The list of active facets */
-    facets$ = new BehaviorSubject<Facet[]>([]);
+  /** Emit all the events when they occur */
+  events$ = new Subject<FacetEvent>();
 
-    /** Emit all the events when they occur */
-    events$ = new Subject<FacetEvent>();
-
-    select(facet: Facet): void {
-
-        // if the facet is already selected or disabled then do nothing
-        if (this.isSelected(facet) || facet.disabled) {
-            return;
-        }
-
-        // update the list of active facets
-        this.facets$.next([...this.facets$.value, facet]);
-
-        // emit the event
-        this.events$.next(new FacetSelect(facet));
+  select(facet: Facet): void {
+    // if the facet is already selected or disabled then do nothing
+    if (this.isSelected(facet) || facet.disabled) {
+      return;
     }
 
-    deselect(facet: Facet): void {
+    // update the list of active facets
+    this.facets$.next([...this.facets$.value, facet]);
 
-        // if the facet is not selected then do nothing
-        if (!this.isSelected(facet)) {
-            return;
-        }
+    // emit the event
+    this.events$.next(new FacetSelect(facet));
+  }
 
-        // update the list of active facets
-        this.facets$.next(this.facets$.value.filter(_selectedFacet => !this.isFacetMatch(_selectedFacet, facet)));
-
-        // emit the event
-        this.events$.next(new FacetDeselect(facet));
+  deselect(facet: Facet): void {
+    // if the facet is not selected then do nothing
+    if (!this.isSelected(facet)) {
+      return;
     }
 
-    deselectAll(): void {
+    // update the list of active facets
+    this.facets$.next(
+      this.facets$.value.filter(_selectedFacet => !this.isFacetMatch(_selectedFacet, facet))
+    );
 
-        // empty the list of active facets
-        this.facets$.next([]);
+    // emit the event
+    this.events$.next(new FacetDeselect(facet));
+  }
 
-        // emit the event
-        this.events$.next(new FacetDeselectAll());
+  deselectAll(): void {
+    // empty the list of active facets
+    this.facets$.next([]);
+
+    // emit the event
+    this.events$.next(new FacetDeselectAll());
+  }
+
+  toggle(facet: Facet): void {
+    this.isSelected(facet) ? this.deselect(facet) : this.select(facet);
+  }
+
+  isSelected(facet: Facet): boolean {
+    return !!this.facets$.value.find(_selectedFacet => this.isFacetMatch(_selectedFacet, facet));
+  }
+
+  private isFacetMatch(facet1: Facet, facet2: Facet): boolean {
+    if (facet1.id === undefined || facet2.id === undefined) {
+      return facet1 === facet2;
     }
 
-    toggle(facet: Facet): void {
-        this.isSelected(facet) ? this.deselect(facet) : this.select(facet);
-    }
-
-    isSelected(facet: Facet): boolean {
-        return !!this.facets$.value.find((_selectedFacet) => this.isFacetMatch(_selectedFacet, facet));
-    }
-
-    private isFacetMatch(facet1: Facet, facet2: Facet): boolean {
-        if (facet1.id === undefined || facet2.id === undefined) {
-            return facet1 === facet2;
-        }
-
-        return facet1.id === facet2.id;
-    }
+    return facet1.id === facet2.id;
+  }
 }

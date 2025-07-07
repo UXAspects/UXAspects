@@ -1,79 +1,85 @@
 <div class="container uxd-page-container">
+  <img alt="UX Aspects Logo" [src]="brand.logo" class="navigation-bar-logo" />
+  <a class="navigation-bar-brand" routerLink="/landing">{{ brand.title }}</a>
 
-    <img alt="UX Aspects Logo" [src]="brand.logo" class="navigation-bar-logo">
-    <a class="navigation-bar-brand" routerLink="/landing">{{ brand.title }}</a>
+  <div class="navigation-bar-items hidden-md hidden-sm hidden-xs">
+    <a
+      class="navigation-bar-item"
+      *ngFor="let link of links"
+      [routerLink]="link.link"
+      routerLinkActive="active"
+    >
+      {{ link.title }}
+    </a>
 
-    <div class="navigation-bar-items hidden-md hidden-sm hidden-xs">
+    <div class="navigation-bar-spacer"></div>
 
-        <a class="navigation-bar-item"
-           *ngFor="let link of links"
-           [routerLink]="link.link"
-           routerLinkActive="active">
-           {{ link.title }}
-        </a>
+    <uxd-theme-selector *ngIf="themes" buttonTitle="Theme" [themes]="themes"></uxd-theme-selector>
 
-        <div class="navigation-bar-spacer"></div>
+    <ng-container *ngFor="let link of social">
+      <a
+        class="navigation-bar-item"
+        *ngIf="link.link"
+        [routerLink]="link.link"
+        routerLinkActive="active"
+      >
+        {{ link.title }}
+      </a>
+      <a class="navigation-bar-item" *ngIf="!link.link" [href]="link.href" target="_blank">
+        {{ link.title }}
+      </a>
+    </ng-container>
 
-        <uxd-theme-selector *ngIf="themes" buttonTitle="Theme" [themes]="themes"></uxd-theme-selector>
+    <uxd-navigation-bar-search></uxd-navigation-bar-search>
+  </div>
 
-        <ng-container *ngFor="let link of social">
-            <a class="navigation-bar-item"
-               *ngIf="link.link"
-               [routerLink]="link.link"
-               routerLinkActive="active">
-               {{ link.title }}
-            </a>
-            <a class="navigation-bar-item"
-               *ngIf="!link.link"
-               [href]="link.href"
-               target="_blank">
-               {{ link.title }}
-            </a>
-        </ng-container>
-
-        <uxd-navigation-bar-search></uxd-navigation-bar-search>
-
+  <div class="navigation-bar-hamburger-container hidden-lg">
+    <div class="navigation-bar-hamburger" [class.active]="expanded" (click)="expanded = !expanded">
+      <ux-icon name="menu"></ux-icon>
     </div>
-
-    <div class="navigation-bar-hamburger-container hidden-lg">
-        <div class="navigation-bar-hamburger" [class.active]="expanded" (click)="expanded = !expanded">
-            <ux-icon name="menu"></ux-icon>
-        </div>
-    </div>
-
+  </div>
 </div>
 
 <div class="navigation-bar-dropdown hidden-lg" *ngIf="expanded">
+  <ul class="navigation-bar-dropdown-list">
+    <li class="navigation-bar-dropdown-list-item" *ngFor="let link of links">
+      <a
+        class="navigation-bar-dropdown-list-item-link"
+        [routerLink]="link.link"
+        routerLinkActive="active"
+        (click)="expanded = false"
+        >{{ link.title }}</a
+      >
+    </li>
 
-    <ul class="navigation-bar-dropdown-list">
+    <li *ngIf="themes" class="navigation-bar-dropdown-list-item">
+      <a
+        class="navigation-bar-dropdown-list-item-link"
+        routerLink="/theme"
+        routerLinkActive="active"
+        (click)="expanded = false"
+        >Theme</a
+      >
+    </li>
 
-        <li class="navigation-bar-dropdown-list-item" *ngFor="let link of links">
-            <a class="navigation-bar-dropdown-list-item-link" [routerLink]="link.link" routerLinkActive="active" (click)="expanded = false">{{ link.title }}</a>
-        </li>
-
-        <li *ngIf="themes" class="navigation-bar-dropdown-list-item">
-            <a
-                class="navigation-bar-dropdown-list-item-link"
-                routerLink="/theme"
-                routerLinkActive="active"
-                (click)="expanded = false">Theme</a>
-        </li>
-
-        <li class="navigation-bar-dropdown-list-item" *ngFor="let link of social">
-            <a class="navigation-bar-dropdown-list-item-link"
-               *ngIf="link.link"
-               [routerLink]="link.link"
-               (click)="expanded = false"
-               routerLinkActive="active">
-               {{ link.title }}
-            </a>
-            <a class="navigation-bar-dropdown-list-item-link"
-               *ngIf="!link.link"
-               [href]="link.href"
-               (click)="expanded = false">
-               {{ link.title }}
-            </a>
-        </li>
-    </ul>
-
+    <li class="navigation-bar-dropdown-list-item" *ngFor="let link of social">
+      <a
+        class="navigation-bar-dropdown-list-item-link"
+        *ngIf="link.link"
+        [routerLink]="link.link"
+        (click)="expanded = false"
+        routerLinkActive="active"
+      >
+        {{ link.title }}
+      </a>
+      <a
+        class="navigation-bar-dropdown-list-item-link"
+        *ngIf="!link.link"
+        [href]="link.href"
+        (click)="expanded = false"
+      >
+        {{ link.title }}
+      </a>
+    </li>
+  </ul>
 </div>

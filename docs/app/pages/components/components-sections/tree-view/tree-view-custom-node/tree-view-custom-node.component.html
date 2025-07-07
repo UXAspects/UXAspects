@@ -1,121 +1,122 @@
 <div class="tree-view-example-container">
+  <tree-root
+    #tree
+    role="tree"
+    [nodes]="nodes"
+    [options]="options"
+    (focus)="focused = $event.node"
+    (stateChange)="updatedFocusedItem()"
+    (loadNodeChildren)="onChildrenLoaded($event.node)"
+  >
+    <ng-template #treeNodeFullTemplate let-node let-index="index" let-templates="templates">
+      <div class="tree-node">
+        <div class="node-wrapper">
+          <ux-checkbox
+            aria-label="Toggle selection of {{ node.data.name }}"
+            tabindex="-1"
+            [value]="node.data.checked"
+            (valueChange)="setChecked(node, $event)"
+            [indeterminateValue]="-1"
+          >
+          </ux-checkbox>
 
-    <tree-root #tree
-            role="tree"
-            [nodes]="nodes"
-            [options]="options"
-            (focus)="focused = $event.node"
-            (stateChange)="updatedFocusedItem()"
-            (loadNodeChildren)="onChildrenLoaded($event.node)">
+          <tree-node-expander [node]="node"></tree-node-expander>
 
-        <ng-template #treeNodeFullTemplate let-node let-index="index" let-templates="templates">
+          <div
+            class="node-content-wrapper"
+            uxFocusIndicator
+            [class.node-content-wrapper-active]="node.data.checked"
+            [class.node-content-wrapper-focused]="node.data.checked || node.isFocused"
+            role="treeitem"
+            [attr.aria-expanded]="node.isExpanded"
+            [attr.aria-level]="node.level"
+            [attr.aria-selected]="node.data.checked"
+            [tabindex]="node === focused || (!focused && node.isRoot && node.index === 0) ? 0 : -1"
+            (focus)="focus(node)"
+            [focusIf]="node === focused"
+            (click)="setChecked(node, !node.data.checked)"
+            (keydown)="setChecked(node, !node.data.checked, $event)"
+          >
+            <ux-icon [name]="getIcon(node)"></ux-icon>
 
-            <div class="tree-node">
+            <span [class.title]="true">{{ node.data.name }}</span>
+          </div>
+        </div>
 
-                <div class="node-wrapper">
+        <tree-node-children role="group" [node]="node" [templates]="templates"></tree-node-children>
+      </div>
+    </ng-template>
 
-                    <ux-checkbox
-                        aria-label="Toggle selection of {{ node.data.name }}"
-                        tabindex="-1"
-                        [value]="node.data.checked"
-                        (valueChange)="setChecked(node, $event)"
-                        [indeterminateValue]="-1">
-                    </ux-checkbox>
-
-                    <tree-node-expander [node]="node"></tree-node-expander>
-
-                    <div class="node-content-wrapper"
-                         uxFocusIndicator
-                         [class.node-content-wrapper-active]="node.data.checked"
-                         [class.node-content-wrapper-focused]="node.data.checked || node.isFocused"
-                         role="treeitem"
-                         [attr.aria-expanded]="node.isExpanded"
-                         [attr.aria-level]="node.level"
-                         [attr.aria-selected]="node.data.checked"
-                         [tabindex]="node === focused || !focused && node.isRoot && node.index === 0 ? 0 : -1"
-                         (focus)="focus(node)"
-                         [focusIf]="node === focused"
-                         (click)="setChecked(node, !node.data.checked)"
-                         (keydown)="setChecked(node, !node.data.checked, $event)">
-
-                         <ux-icon [name]="getIcon(node)"></ux-icon>
-
-                        <span [class.title]="true">{{ node.data.name }}</span>
-
-                    </div>
-
-                </div>
-
-                <tree-node-children role="group" [node]="node" [templates]="templates"></tree-node-children>
-            </div>
-
-        </ng-template>
-
-        <ng-template #loadingTemplate>
-            <div class="spinner spinner-accent spinner-bounce-middle"></div>
-        </ng-template>
-    </tree-root>
-
+    <ng-template #loadingTemplate>
+      <div class="spinner spinner-accent spinner-bounce-middle"></div>
+    </ng-template>
+  </tree-root>
 </div>
 
 <div class="btn-container">
-    <button class="btn button-secondary" (click)="tree.treeModel.expandAll()">Expand All Nodes</button>
-    <button class="btn button-secondary" (click)="tree.treeModel.collapseAll()">Collapse All Nodes</button>
+  <button class="btn button-secondary" (click)="tree.treeModel.expandAll()">
+    Expand All Nodes
+  </button>
+  <button class="btn button-secondary" (click)="tree.treeModel.collapseAll()">
+    Collapse All Nodes
+  </button>
 </div>
 
-<hr>
+<hr />
 
 <p>
-    The tree view component supports custom templates which can be used to further enhance its capabilities. One example of this
-    is to add checkboxes to nodes making it possible to select multiple nodes, or even select/deselect an entire subtree.
+  The tree view component supports custom templates which can be used to further enhance its
+  capabilities. One example of this is to add checkboxes to nodes making it possible to select
+  multiple nodes, or even select/deselect an entire subtree.
 </p>
 
 <p>
-    The example above also shows how it is possible to lazy load child nodes only when the user expands the parent node.
+  The example above also shows how it is possible to lazy load child nodes only when the user
+  expands the parent node.
 </p>
 
 <p>
-    The tree view also exposes a <code>treeModel</code> object which provides functions to allow programmatic selection,
-    expanding and contracting of nodes.
+  The tree view also exposes a <code>treeModel</code> object which provides functions to allow
+  programmatic selection, expanding and contracting of nodes.
 </p>
 
-<p>
-    The example above can be created using the following sample code:
-</p>
+<p>The example above can be created using the following sample code:</p>
 
 <ux-tabset [minimal]="false">
-    <ux-tab heading="HTML">
-        <uxd-snippet [content]="snippets.compiled.appSnippetHtml"></uxd-snippet>
-    </ux-tab>
+  <ux-tab heading="HTML">
+    <uxd-snippet [content]="snippets.compiled.appSnippetHtml"></uxd-snippet>
+  </ux-tab>
 
-    <ux-tab heading="TypeScript">
-        <uxd-snippet [content]="snippets.compiled.appSnippetTs"></uxd-snippet>
-    </ux-tab>
+  <ux-tab heading="TypeScript">
+    <uxd-snippet [content]="snippets.compiled.appSnippetTs"></uxd-snippet>
+  </ux-tab>
 
-    <ux-tab heading="CSS">
-        <uxd-snippet [content]="snippets.compiled.appSnippetCss"></uxd-snippet>
-    </ux-tab>
+  <ux-tab heading="CSS">
+    <uxd-snippet [content]="snippets.compiled.appSnippetCss"></uxd-snippet>
+  </ux-tab>
 
-    <ux-tab heading="Service">
-        <uxd-snippet [content]="snippets.compiled.serviceSnippetTs"></uxd-snippet>
-    </ux-tab>
+  <ux-tab heading="Service">
+    <uxd-snippet [content]="snippets.compiled.serviceSnippetTs"></uxd-snippet>
+  </ux-tab>
 </ux-tabset>
 
 <blockquote>
+  <p class="m-b-nil">
+    <b>Dependencies: </b>
+    <a class="hyperlink" href="https://github.com/CirclonGroup/angular-tree-component"
+      >&#64;circlon/angular-tree-component</a
+    >
+  </p>
 
-    <p class="m-b-nil">
-        <b>Dependencies: </b>
-        <a class="hyperlink" href="https://github.com/CirclonGroup/angular-tree-component">&#64;circlon/angular-tree-component</a>
-    </p>
+  <p class="m-b-nil">
+    <b>Modules: </b>
+    <span>TreeModule</span>
+  </p>
 
-    <p class="m-b-nil">
-        <b>Modules: </b>
-        <span>TreeModule</span>
-    </p>
-
-
-    <p class="m-b-nil">
-        <b>Documentation: </b>
-        <a class="hyperlink" href="https://angular2-tree.readme.io/docs/">Angular Component Documentation</a>
-    </p>
+  <p class="m-b-nil">
+    <b>Documentation: </b>
+    <a class="hyperlink" href="https://angular2-tree.readme.io/docs/"
+      >Angular Component Documentation</a
+    >
+  </p>
 </blockquote>

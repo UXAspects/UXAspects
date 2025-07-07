@@ -6,88 +6,89 @@ import { IPlayground } from '../../../../../interfaces/IPlayground';
 import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
 
 @Component({
-    selector: 'uxd-charts-partition-map',
-    templateUrl: './partition-map.component.html',
-    styleUrls: ['./partition-map.component.less'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
+  selector: 'uxd-charts-partition-map',
+  templateUrl: './partition-map.component.html',
+  styleUrls: ['./partition-map.component.less'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 @DocumentationSectionComponent('ChartsPartitionMapComponent')
 export class ChartsPartitionMapComponent
-    extends BaseDocumentationSection
-    implements IPlaygroundProvider
+  extends BaseDocumentationSection
+  implements IPlaygroundProvider
 {
-    dataset: Readonly<PartitionMapSegment> = {
-        name: 'My Workspace',
+  dataset: Readonly<PartitionMapSegment> = {
+    name: 'My Workspace',
+    children: [
+      {
+        name: 'Financial Data',
         children: [
-            {
-                name: 'Financial Data',
-                children: [
-                    { name: 'Sensitive', value: 60 },
-                    { name: 'Partially Sensitive', value: 60 },
-                    { name: 'To be retained', value: 120 },
-                    { name: 'Redundant', value: 30 },
-                    { name: 'Obsolete', value: 30 },
-                ],
-            },
-            {
-                name: 'Identification Data',
-                children: [
-                    { name: 'Sensitive', value: 60 },
-                    { name: 'Partially Sensitive', value: 60 },
-                    { name: 'To be retained', value: 60 },
-                    { name: 'Redundant', value: 10 },
-                    { name: 'Obsolete', value: 10 },
-                ],
-            },
-            {
-                name: 'Contact Data',
-                children: [
-                    { name: 'Sensitive', value: 30 },
-                    { name: 'Partially Sensitive', value: 30 },
-                    { name: 'To be retained', value: 30 },
-                    { name: 'Redundant', value: 5 },
-                    { name: 'Obsolete', value: 5 },
-                ],
-            },
-            {
-                name: 'Account Data',
-                children: [
-                    { name: 'Sensitive', value: 15 },
-                    { name: 'Partially Sensitive', value: 15 },
-                    { name: 'To be retained', value: 15 },
-                    { name: 'Redundant', value: 2 },
-                    { name: 'Obsolete', value: 0 },
-                ],
-            },
+          { name: 'Sensitive', value: 60 },
+          { name: 'Partially Sensitive', value: 60 },
+          { name: 'To be retained', value: 120 },
+          { name: 'Redundant', value: 30 },
+          { name: 'Obsolete', value: 30 },
         ],
-    };
-
-    colors: string[][] = [
-        ['#7b63a3'],
-        ['#635387', '#3baa43', '#025662', '#b08f5c'],
-        ['#1c899a', '#18a6df', '#98c972', '#839de8', '#839b9d'],
-    ];
-
-    playground: IPlayground = {
-        files: {
-            'app.component.html': this.snippets.raw.appHtml,
-            'app.component.ts': this.snippets.raw.appTs,
-            'app.component.css': this.snippets.raw.appCss,
-        },
-        modules: [
-            {
-                imports: ['PartitionMapModule', 'TooltipModule'],
-                library: '@ux-aspects/ux-aspects',
-            },
+      },
+      {
+        name: 'Identification Data',
+        children: [
+          { name: 'Sensitive', value: 60 },
+          { name: 'Partially Sensitive', value: 60 },
+          { name: 'To be retained', value: 60 },
+          { name: 'Redundant', value: 10 },
+          { name: 'Obsolete', value: 10 },
         ],
-    };
+      },
+      {
+        name: 'Contact Data',
+        children: [
+          { name: 'Sensitive', value: 30 },
+          { name: 'Partially Sensitive', value: 30 },
+          { name: 'To be retained', value: 30 },
+          { name: 'Redundant', value: 5 },
+          { name: 'Obsolete', value: 5 },
+        ],
+      },
+      {
+        name: 'Account Data',
+        children: [
+          { name: 'Sensitive', value: 15 },
+          { name: 'Partially Sensitive', value: 15 },
+          { name: 'To be retained', value: 15 },
+          { name: 'Redundant', value: 2 },
+          { name: 'Obsolete', value: 0 },
+        ],
+      },
+    ],
+  };
 
-    constructor() {
-        super(
-            import.meta.webpackContext('./snippets/', {
-                recursive: false,
-                regExp: /\.(html|css|js|ts)$/,
-            })
-        );
-    }
+  colors: string[][] = [
+    ['#7b63a3'],
+    ['#635387', '#3baa43', '#025662', '#b08f5c'],
+    ['#1c899a', '#18a6df', '#98c972', '#839de8', '#839b9d'],
+  ];
+
+  playground: IPlayground = {
+    files: {
+      'app.component.html': this.snippets.raw.appHtml,
+      'app.component.ts': this.snippets.raw.appTs,
+      'app.component.css': this.snippets.raw.appCss,
+    },
+    modules: [
+      {
+        imports: ['PartitionMapModule', 'TooltipModule'],
+        library: '@ux-aspects/ux-aspects',
+      },
+    ],
+  };
+
+  constructor() {
+    super(
+      import.meta.webpackContext('./snippets/', {
+        recursive: false,
+        regExp: /\.(html|css|js|ts)$/,
+      })
+    );
+  }
 }

@@ -1,110 +1,119 @@
-import { AfterViewInit, Component, ElementRef, inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  inject,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { fromEvent, Subject } from 'rxjs';
 import { switchMap, takeUntil } from 'rxjs/operators';
 import { MediaPlayerService } from '../../media-player.service';
 
-
 @Component({
-    selector: 'ux-media-player-timeline',
-    templateUrl: './timeline.component.html',
-    host: {
-        '(document:mouseup)': 'mouseDown = false',
-        '[class.quiet]': 'mediaPlayerService.quietMode || mediaPlayerService.fullscreen'
-    }
+  selector: 'ux-media-player-timeline',
+  templateUrl: './timeline.component.html',
+  host: {
+    '(document:mouseup)': 'mouseDown = false',
+    '[class.quiet]': 'mediaPlayerService.quietMode || mediaPlayerService.fullscreen',
+  },
+  standalone: false,
 })
 export class MediaPlayerTimelineExtensionComponent implements OnInit, AfterViewInit, OnDestroy {
-    readonly mediaPlayerService = inject(MediaPlayerService);
+  readonly mediaPlayerService = inject(MediaPlayerService);
 
-    @ViewChild('progressThumb', { static: true }) thumb: ElementRef;
-    @ViewChild('timeline', { static: true }) timelineRef: ElementRef;
+  @ViewChild('progressThumb', { static: true }) thumb: ElementRef;
+  @ViewChild('timeline', { static: true }) timelineRef: ElementRef;
 
-    current: number = 0;
-    position: number = 0;
-    buffered: MediaPlayerBuffered[] = [];
-    mouseDown: boolean = false;
-    scrub = { visible: false, position: 0, time: 0 };
+  current: number = 0;
+  position: number = 0;
+  buffered: MediaPlayerBuffered[] = [];
+  mouseDown: boolean = false;
+  scrub = { visible: false, position: 0, time: 0 };
 
-    private readonly _onDestroy = new Subject<void>();
+  private readonly _onDestroy = new Subject<void>();
 
+  ngOnInit(): void {
+    // watch for changes to the current time
+    this.mediaPlayerService.fullscreenEvent.pipe(takeUntil(this._onDestroy)).subscribe(() => {
+      this.scrub.position = 0;
+    });
 
-    ngOnInit(): void {
+    this.mediaPlayerService.timeUpdateEvent.pipe(takeUntil(this._onDestroy)).subscribe(current => {
+      this.current = current;
+      this.position = (this.current / this.mediaPlayerService.duration) * 100;
+    });
 
-        // watch for changes to the current time
-        this.mediaPlayerService.fullscreenEvent.pipe(takeUntil(this._onDestroy)).subscribe(() => {
-            this.scrub.position = 0;
-        });
+    this.mediaPlayerService.progressEvent
+      .pipe(takeUntil(this._onDestroy))
+      .subscribe((buffered: TimeRanges) => {
+        this.buffered = [];
 
-        this.mediaPlayerService.timeUpdateEvent.pipe(takeUntil(this._onDestroy)).subscribe(current => {
-            this.current = current;
-            this.position = (this.current / this.mediaPlayerService.duration) * 100;
-        });
-
-        this.mediaPlayerService.progressEvent.pipe(takeUntil(this._onDestroy)).subscribe((buffered: TimeRanges) => {
-            this.buffered = [];
-
-            for (let idx = 0; idx < buffered.length; idx++) {
-                this.buffered.push({
-                    start: (buffered.start(idx) / this.mediaPlayerService.duration) * 100,
-                    end: (buffered.end(idx) / this.mediaPlayerService.duration) * 100
-                });
-            }
-        });
-    }
-
-    ngAfterViewInit(): void {
-        const mousedown$ = fromEvent(this.thumb.nativeElement, 'mousedown');
-        const mousemove$ = fromEvent(document, 'mousemove');
-        const mouseup$ = fromEvent(document, 'mouseup');
-
-        mousedown$.pipe(
-            switchMap(() => mousemove$.pipe(takeUntil(mouseup$))),
-            takeUntil(this._onDestroy)
-        ).subscribe(() => this.scrub.visible = false);
-    }
-
-    ngOnDestroy(): void {
-        this._onDestroy.next();
-        this._onDestroy.complete();
-    }
-
-    updateScrub(event: MouseEvent): void {
-
-        const target = event.target as HTMLElement;
-
-        if (target.classList.contains('media-progress-bar-thumb')) {
-            return;
+        for (let idx = 0; idx < buffered.length; idx++) {
+          this.buffered.push({
+            start: (buffered.start(idx) / this.mediaPlayerService.duration) * 100,
+            end: (buffered.end(idx) / this.mediaPlayerService.duration) * 100,
+          });
         }
+      });
+  }
 
-        const timeline = this.timelineRef.nativeElement as HTMLDivElement;
-        const bounds = timeline.getBoundingClientRect();
+  ngAfterViewInit(): void {
+    const mousedown$ = fromEvent(this.thumb.nativeElement, 'mousedown');
+    const mousemove$ = fromEvent(document, 'mousemove');
+    const mouseup$ = fromEvent(document, 'mouseup');
 
-        this.scrub.position = event.offsetX;
-        this.scrub.time = (event.offsetX / bounds.width) * this.mediaPlayerService.duration;
+    mousedown$
+      .pipe(
+        switchMap(() => mousemove$.pipe(takeUntil(mouseup$))),
+        takeUntil(this._onDestroy)
+      )
+      .subscribe(() => (this.scrub.visible = false));
+  }
 
-        if (this.mouseDown) {
-            this.mediaPlayerService.pause();
-            this.mediaPlayerService.currentTime = this.scrub.time;
-        }
+  ngOnDestroy(): void {
+    this._onDestroy.next();
+    this._onDestroy.complete();
+  }
+
+  updateScrub(event: MouseEvent): void {
+    const target = event.target as HTMLElement;
+
+    if (target.classList.contains('media-progress-bar-thumb')) {
+      return;
     }
 
-    /** Skip a number of seconds in any direction */
-    skip(seconds: number): void {
-        let target = this.current + seconds;
+    const timeline = this.timelineRef.nativeElement as HTMLDivElement;
+    const bounds = timeline.getBoundingClientRect();
 
-        // ensure that the target position is within the bounds of the clip
-        if (target < 0) {
-            target = 0;
-        }
+    this.scrub.position = event.offsetX;
+    this.scrub.time = (event.offsetX / bounds.width) * this.mediaPlayerService.duration;
 
-        if (target > this.mediaPlayerService.duration) {
-            target = this.mediaPlayerService.duration;
-        }
-
-        this.mediaPlayerService.currentTime = target;
+    if (this.mouseDown) {
+      this.mediaPlayerService.pause();
+      this.mediaPlayerService.currentTime = this.scrub.time;
     }
+  }
+
+  /** Skip a number of seconds in any direction */
+  skip(seconds: number): void {
+    let target = this.current + seconds;
+
+    // ensure that the target position is within the bounds of the clip
+    if (target < 0) {
+      target = 0;
+    }
+
+    if (target > this.mediaPlayerService.duration) {
+      target = this.mediaPlayerService.duration;
+    }
+
+    this.mediaPlayerService.currentTime = target;
+  }
 }
 
 export interface MediaPlayerBuffered {
-    start: number;
-    end: number;
+  start: number;
+  end: number;
 }

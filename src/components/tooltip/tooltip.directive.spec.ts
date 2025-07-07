@@ -4,138 +4,134 @@ import { ComponentFixture, fakeAsync, inject, TestBed, tick } from '@angular/cor
 import { TooltipDirective } from './tooltip.directive';
 import { TooltipModule } from './tooltip.module';
 
-
 @Component({
-    selector: 'app-tooltip-test',
-    template: `
-        @if (showTrigger) {
-          <button uxTooltip="Tooltip content here" [(isOpen)]="isOpen">
-            Show Tooltip
-          </button>
-        }
-        `
+  selector: 'app-tooltip-test',
+  template: `
+    @if (showTrigger) {
+      <button uxTooltip="Tooltip content here" [(isOpen)]="isOpen">Show Tooltip</button>
+    }
+  `,
+  standalone: false,
 })
 export class TooltipDirectiveSpecComponent {
-    @ViewChild(TooltipDirective, { static: false }) tooltipDirective: TooltipDirective;
+  @ViewChild(TooltipDirective, { static: false }) tooltipDirective: TooltipDirective;
 
-    isOpen: boolean = false;
-    showTrigger: boolean = true;
+  isOpen: boolean = false;
+  showTrigger: boolean = true;
 }
 
 describe('Tooltip Directive', () => {
+  let component: TooltipDirectiveSpecComponent;
+  let fixture: ComponentFixture<TooltipDirectiveSpecComponent>;
+  let overlayContainer: OverlayContainer;
+  let overlayContainerElement: HTMLElement;
 
-    let component: TooltipDirectiveSpecComponent;
-    let fixture: ComponentFixture<TooltipDirectiveSpecComponent>;
-    let overlayContainer: OverlayContainer;
-    let overlayContainerElement: HTMLElement;
-
-    beforeEach(() => {
-        TestBed.configureTestingModule({
-            imports: [TooltipModule],
-            declarations: [TooltipDirectiveSpecComponent]
-        });
-
-        fixture = TestBed.createComponent(TooltipDirectiveSpecComponent);
-        component = fixture.componentInstance;
-        fixture.detectChanges();
-
-        // access the overlay container
-        inject([OverlayContainer], (oc: OverlayContainer) => {
-            overlayContainer = oc;
-            overlayContainerElement = oc.getContainerElement();
-        })();
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      imports: [TooltipModule],
+      declarations: [TooltipDirectiveSpecComponent],
     });
 
-    afterEach(() => {
-        overlayContainer.ngOnDestroy();
-    });
+    fixture = TestBed.createComponent(TooltipDirectiveSpecComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
 
-    it('should show tooltip', fakeAsync(() => {
+    // access the overlay container
+    inject([OverlayContainer], (oc: OverlayContainer) => {
+      overlayContainer = oc;
+      overlayContainerElement = oc.getContainerElement();
+    })();
+  });
 
-        const shownSpy = spyOn(component.tooltipDirective.shown, 'emit');
+  afterEach(() => {
+    overlayContainer.ngOnDestroy();
+  });
 
-        component.tooltipDirective.show();
-        tick(0);
-        expect(getTooltip()).toBeTruthy();
-        expect(shownSpy).toHaveBeenCalledTimes(1);
-    }));
+  it('should show tooltip', fakeAsync(() => {
+    const shownSpy = spyOn(component.tooltipDirective.shown, 'emit');
 
-    it('should show tooltip after delay', fakeAsync(() => {
-        component.tooltipDirective.delay = 100;
-        component.tooltipDirective.show();
-        tick(0);
-        expect(getTooltip()).toBeFalsy();
-        tick(100);
-        expect(getTooltip()).toBeTruthy();
-    }));
+    component.tooltipDirective.show();
+    tick(0);
+    expect(getTooltip()).toBeTruthy();
+    expect(shownSpy).toHaveBeenCalledTimes(1);
+  }));
 
-    it('should correctly destroy tooltip pending show', fakeAsync(async () => {
-        component.tooltipDirective.delay = 100;
-        component.tooltipDirective.show();
-        tick(0);
+  it('should show tooltip after delay', fakeAsync(() => {
+    component.tooltipDirective.delay = 100;
+    component.tooltipDirective.show();
+    tick(0);
+    expect(getTooltip()).toBeFalsy();
+    tick(100);
+    expect(getTooltip()).toBeTruthy();
+  }));
 
-        component.showTrigger = false;
-        fixture.detectChanges();
-        await fixture.whenStable();
+  it('should correctly destroy tooltip pending show', fakeAsync(async () => {
+    component.tooltipDirective.delay = 100;
+    component.tooltipDirective.show();
+    tick(0);
 
-        // ensure the timeout is cancelled
-         
-        expect((component.showTrigger as any)._showTimeoutId).toBeFalsy();
-    }));
+    component.showTrigger = false;
+    fixture.detectChanges();
+    await fixture.whenStable();
 
-    it('should not show tooltip when tooltip is disabled', fakeAsync(() => {
-        component.tooltipDirective.disabled = true;
-        component.tooltipDirective.show();
-        tick(0);
-        expect(getTooltip()).toBeFalsy();
-    }));
+    // ensure the timeout is cancelled
 
-    it('should apply the custom tooltip class', fakeAsync(() => {
-        component.tooltipDirective.customClass = 'custom-tooltip-class';
-        component.tooltipDirective.show();
-        tick(0);
-        expect(getTooltip()).toBeTruthy();
-        expect(getInnerTooltip().classList.contains('custom-tooltip-class')).toBeTruthy();
-    }));
+    expect((component.showTrigger as any)._showTimeoutId).toBeFalsy();
+  }));
 
-    it('should apply the correct tooltip placement', fakeAsync(() => {
-        component.tooltipDirective.placement = 'right';
-        component.tooltipDirective.show();
-        tick(0);
-        expect(getTooltip()).toBeTruthy();
-        expect(getInnerTooltip().classList.contains('right')).toBeTruthy();
-    }));
+  it('should not show tooltip when tooltip is disabled', fakeAsync(() => {
+    component.tooltipDirective.disabled = true;
+    component.tooltipDirective.show();
+    tick(0);
+    expect(getTooltip()).toBeFalsy();
+  }));
 
-    it('should show the correct tooltip content', fakeAsync(() => {
-        component.tooltipDirective.show();
-        tick(0);
-        expect(getTooltipContent()).toBe('Tooltip content here');
-    }));
+  it('should apply the custom tooltip class', fakeAsync(() => {
+    component.tooltipDirective.customClass = 'custom-tooltip-class';
+    component.tooltipDirective.show();
+    tick(0);
+    expect(getTooltip()).toBeTruthy();
+    expect(getInnerTooltip().classList.contains('custom-tooltip-class')).toBeTruthy();
+  }));
 
-    it('should show allow open state to be controlled via the isOpen input', fakeAsync(() => {
-        component.isOpen = true;
-        fixture.detectChanges();
+  it('should apply the correct tooltip placement', fakeAsync(() => {
+    component.tooltipDirective.placement = 'right';
+    component.tooltipDirective.show();
+    tick(0);
+    expect(getTooltip()).toBeTruthy();
+    expect(getInnerTooltip().classList.contains('right')).toBeTruthy();
+  }));
 
-        tick(0);
-        expect(getTooltip()).toBeTruthy();
+  it('should show the correct tooltip content', fakeAsync(() => {
+    component.tooltipDirective.show();
+    tick(0);
+    expect(getTooltipContent()).toBe('Tooltip content here');
+  }));
 
-        // should also close
-        component.isOpen = false;
-        fixture.detectChanges();
+  it('should show allow open state to be controlled via the isOpen input', fakeAsync(() => {
+    component.isOpen = true;
+    fixture.detectChanges();
 
-        tick(0);
-        expect(getTooltip()).toBeFalsy();
-    }));
+    tick(0);
+    expect(getTooltip()).toBeTruthy();
 
-    function getTooltip(): HTMLElement | null {
-        return document.querySelector('ux-tooltip');
-    }
+    // should also close
+    component.isOpen = false;
+    fixture.detectChanges();
 
-    function getInnerTooltip(): HTMLElement | null {
-        return getTooltip().querySelector('.tooltip');
-    }
+    tick(0);
+    expect(getTooltip()).toBeFalsy();
+  }));
 
-    function getTooltipContent(): string {
-        return getTooltip().querySelector<HTMLDivElement>('.tooltip-inner').innerText.trim();
-    }
+  function getTooltip(): HTMLElement | null {
+    return document.querySelector('ux-tooltip');
+  }
+
+  function getInnerTooltip(): HTMLElement | null {
+    return getTooltip().querySelector('.tooltip');
+  }
+
+  function getTooltipContent(): string {
+    return getTooltip().querySelector<HTMLDivElement>('.tooltip-inner').innerText.trim();
+  }
 });

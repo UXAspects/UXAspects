@@ -28,6 +28,7 @@ import { DateRangePickerModule } from './date-range-picker.module';
     >
     </ux-date-range-picker>
   `,
+  standalone: false,
 })
 export class DateRangePickerComponent {
   // eslint-disable-next-line @typescript-eslint/no-empty-function

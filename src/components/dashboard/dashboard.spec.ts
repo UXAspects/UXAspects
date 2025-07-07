@@ -16,6 +16,7 @@ import { DashboardWidgetComponent } from './widget/dashboard-widget.component';
       <ux-dashboard-widget id="widget-C" name="Runs" [colSpan]="2"> </ux-dashboard-widget>
     </ux-dashboard>
   `,
+  standalone: false,
 })
 export class DashboardComponentSpec {
   options: DashboardOptions = {
@@ -125,6 +126,7 @@ function getPixels(cssValue: string): number {
       <ux-dashboard-widget id="host-widget" name="Host"> </ux-dashboard-widget>
     </ux-dashboard>
   `,
+  standalone: false,
 })
 export class DashboardWithInitialLayoutTestComponent {
   options: DashboardOptions = {
@@ -287,6 +289,7 @@ describe('Dashboard with initial layout', () => {
       <ux-dashboard-widget id="host-widget" name="Host" [row]="0" [col]="0"> </ux-dashboard-widget>
     </ux-dashboard>
   `,
+  standalone: false,
 })
 export class DashboardWidgetLayoutTestComponent {
   options: DashboardOptions = {
@@ -355,6 +358,7 @@ describe('Dashboard Widgets layout', () => {
       }
     </ux-dashboard>
   `,
+  standalone: false,
 })
 export class DashboardAutoPositioningTestComponent {
   options: DashboardOptions = {

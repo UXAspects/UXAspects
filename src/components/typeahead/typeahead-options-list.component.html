@@ -1,26 +1,36 @@
-<ol
-  role="listbox"
-  [attr.aria-label]="ariaLabel"
-  [attr.aria-multiselectable]="isMultiselectable">
-
+<ol role="listbox" [attr.aria-label]="ariaLabel" [attr.aria-multiselectable]="isMultiselectable">
   @for (option of options; track trackByFn(i, option); let i = $index) {
     <li
       [attr.id]="id + '-option-' + (i + startIndex)"
       [class.disabled]="optionApi.getDisabled(option.value)"
-      [class.highlighted]="highlighted?.key === option.key && highlighted?.isRecentOption === option.isRecentOption"
+      [class.highlighted]="
+        highlighted?.key === option.key && highlighted?.isRecentOption === option.isRecentOption
+      "
       [class.active]="activeKey === option.key && !option.isRecentOption"
-      [uxTypeaheadHighlight]="highlighted?.key === option.key && highlighted?.isRecentOption === option.isRecentOption"
-      [uxScrollIntoViewIf]="highlighted?.key === option.key && highlighted?.isRecentOption === option.isRecentOption"
+      [uxTypeaheadHighlight]="
+        highlighted?.key === option.key && highlighted?.isRecentOption === option.isRecentOption
+      "
+      [uxScrollIntoViewIf]="
+        highlighted?.key === option.key && highlighted?.isRecentOption === option.isRecentOption
+      "
       role="option"
-      [attr.aria-selected]="isMultiselectable ? optionApi.getDisabled(option.value) : (activeKey === option.key ? true : null)"
+      [attr.aria-selected]="
+        isMultiselectable
+          ? optionApi.getDisabled(option.value)
+          : activeKey === option.key
+            ? true
+            : null
+      "
       [scrollParent]="typeaheadElement.nativeElement"
       (mouseover)="optionMouseover.emit({ option: option, event: $event })"
       (mousedown)="optionMousedown.emit({ option: option, event: $event })"
-      (click)="optionClick.emit({ option: option, event: $event })">
-      <ng-container [ngTemplateOutlet]="optionTemplate"
-        [ngTemplateOutletContext]="{option: option.value, api: optionApi}">
+      (click)="optionClick.emit({ option: option, event: $event })"
+    >
+      <ng-container
+        [ngTemplateOutlet]="optionTemplate"
+        [ngTemplateOutletContext]="{ option: option.value, api: optionApi }"
+      >
       </ng-container>
     </li>
   }
-
 </ol>

@@ -28,6 +28,7 @@ import {
   templateUrl: './date-time-picker.component.html',
   providers: [DateTimePickerService],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class DateTimePickerComponent implements OnInit, AfterViewInit, OnDestroy {
   readonly datepicker = inject(DateTimePickerService);

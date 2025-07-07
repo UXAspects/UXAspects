@@ -1,22 +1,19 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-import { ToolbarSearchComponent } from './toolbar-search.component';
-import { ToolbarSearchFieldDirective } from './toolbar-search-field.directive';
+import { NgModule } from '@angular/core';
 import { ToolbarSearchButtonDirective } from './toolbar-search-button.directive';
+import { ToolbarSearchFieldDirective } from './toolbar-search-field.directive';
+import { ToolbarSearchComponent } from './toolbar-search.component';
 
 const DECLARATIONS = [
-    ToolbarSearchComponent,
-    ToolbarSearchFieldDirective,
-    ToolbarSearchButtonDirective
+  ToolbarSearchComponent,
+  ToolbarSearchFieldDirective,
+  ToolbarSearchButtonDirective,
 ];
 
 @NgModule({
-    imports: [
-        CommonModule
-    ],
-    exports: DECLARATIONS,
-    declarations: DECLARATIONS,
-    providers: [],
+  imports: [CommonModule],
+  exports: DECLARATIONS,
+  declarations: DECLARATIONS,
+  providers: [],
 })
-export class ToolbarSearchModule { }
+export class ToolbarSearchModule {}

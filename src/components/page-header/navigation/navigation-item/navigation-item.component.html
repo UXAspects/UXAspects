@@ -12,7 +12,7 @@
       [class.disabled]="_item.disabled"
       [class.selected]="_item.selected"
       [class.open]="isOpen"
-      >
+    >
       <ng-container [ngTemplateOutlet]="navigationItemContent"> </ng-container>
       <ux-icon class="navigation-item-dropdown-icon" name="down"></ux-icon>
     </button>
@@ -21,11 +21,9 @@
       menuClass="horizontal-navigation-dropdown-menu"
       (opened)="isOpen = true"
       (closed)="isOpen = false"
-      >
+    >
       @for (item of _item?.children; track item) {
-        <ux-page-header-horizontal-navigation-dropdown-item
-          [item]="item"
-          >
+        <ux-page-header-horizontal-navigation-dropdown-item [item]="item">
         </ux-page-header-horizontal-navigation-dropdown-item>
       }
     </ux-menu>
@@ -51,7 +49,7 @@
       [skipLocationChange]="_item.routerExtras?.skipLocationChange"
       [replaceUrl]="_item.routerExtras?.replaceUrl"
       [state]="_item.routerExtras?.state"
-      >
+    >
       <ng-container [ngTemplateOutlet]="navigationItemContent"> </ng-container>
     </a>
   }
@@ -68,7 +66,7 @@
       [class.selected]="_item.selected"
       (click)="select()"
       [disabled]="_item.disabled"
-      >
+    >
       <ng-container [ngTemplateOutlet]="navigationItemContent"> </ng-container>
     </button>
   }
@@ -78,15 +76,10 @@
 <ng-template #navigationItemContent>
   @if (_item.icon) {
     @if (_iconType !== 'component') {
-      <i
-        class="navigation-item-icon"
-        [ngClass]="[_iconType, _item.icon]"
-        >
-      </i>
+      <i class="navigation-item-icon" [ngClass]="[_iconType, _item.icon]"> </i>
     }
     @if (_iconType === 'component') {
-      <ux-icon class="navigation-item-icon" [name]="_item.icon">
-      </ux-icon>
+      <ux-icon class="navigation-item-icon" [name]="_item.icon"> </ux-icon>
     }
   }
 

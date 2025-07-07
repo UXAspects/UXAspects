@@ -1,41 +1,41 @@
 ux-date-time-picker-time-view {
-    display: flex;
-    padding: 12px 4px;
-    margin-top: 6px;
-    border-top: 1px solid @date-picker-dropdown-border;
-    border-bottom: 1px solid @date-picker-dropdown-border;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  padding: 12px 4px;
+  margin-top: 6px;
+  border-top: 1px solid @date-picker-dropdown-border;
+  border-bottom: 1px solid @date-picker-dropdown-border;
+  align-items: center;
+  justify-content: center;
 
-    ux-time-picker {
-        &:last-child {
-            margin-right: 0;
-        }
-
-        .time-picker-meridian {
-            margin-left: 22px;
-        }
+  ux-time-picker {
+    &:last-child {
+      margin-right: 0;
     }
 
-    .time-zone-picker {
-        display: inline-flex;
-        flex-direction: column;
-        flex: none;
-        margin-left: 22px;
-
-        .time-zone-spinner {
-            width: 60px;
-        }
-
-        .time-zone-select {
-            width: 72px;
-            font-size: 14px;
-            padding: 0;
-            text-align: center;
-
-            &:focus {
-                .native-focus-outline();
-            }
-        }
+    .time-picker-meridian {
+      margin-left: 22px;
     }
+  }
+
+  .time-zone-picker {
+    display: inline-flex;
+    flex-direction: column;
+    flex: none;
+    margin-left: 22px;
+
+    .time-zone-spinner {
+      width: 60px;
+    }
+
+    .time-zone-select {
+      width: 72px;
+      font-size: 14px;
+      padding: 0;
+      text-align: center;
+
+      &:focus {
+        .native-focus-outline();
+      }
+    }
+  }
 }

@@ -9,10 +9,10 @@ import { Subject } from 'rxjs';
  */
 @Injectable()
 export class WizardService<TWizardStep> {
-    validChange$ = new Subject<WizardValidEvent<TWizardStep>>();
+  validChange$ = new Subject<WizardValidEvent<TWizardStep>>();
 }
 
 export interface WizardValidEvent<TWizardStep> {
-    step: TWizardStep;
-    valid: boolean;
+  step: TWizardStep;
+  valid: boolean;
 }

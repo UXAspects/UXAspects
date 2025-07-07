@@ -7,36 +7,35 @@ import { DocumentationCategoryComponent } from '../../../../components/documenta
 import { DocumentationPage, ResolverService } from '../../../../services/resolver/resolver.service';
 import { ComponentsHotkeysComponent } from './hotkeys/hotkeys.component';
 
-
-const SECTIONS = [
-    ComponentsHotkeysComponent,
-];
+const SECTIONS = [ComponentsHotkeysComponent];
 
 const ROUTES = [
-    {
-        path: '**',
-        component: DocumentationCategoryComponent,
-        data: {
-            category: ResolverService.resolveCategoryData(DocumentationPage.Components, 'Keyboard')
-        }
-    }
+  {
+    path: '**',
+    component: DocumentationCategoryComponent,
+    data: {
+      category: ResolverService.resolveCategoryData(DocumentationPage.Components, 'Keyboard'),
+    },
+  },
 ];
 
 @NgModule({
-    imports: [
-        A11yModule,
-        DocumentationComponentsModule,
-        FocusIfModule,
-        IconModule,
-        RouterModule.forChild(ROUTES),
-        TabsetModule,
-    ],
-    exports: SECTIONS,
-    declarations: SECTIONS,
+  imports: [
+    A11yModule,
+    DocumentationComponentsModule,
+    FocusIfModule,
+    IconModule,
+    RouterModule.forChild(ROUTES),
+    TabsetModule,
+  ],
+  exports: SECTIONS,
+  declarations: SECTIONS,
 })
 export class ComponentsKeyboardModule {
-
-    constructor(componentFactoryResolver: ComponentFactoryResolver, resolverService: ResolverService) {
-        resolverService.registerResolver(componentFactoryResolver, SECTIONS);
-    }
+  constructor(
+    componentFactoryResolver: ComponentFactoryResolver,
+    resolverService: ResolverService
+  ) {
+    resolverService.registerResolver(componentFactoryResolver, SECTIONS);
+  }
 }

@@ -6,17 +6,8 @@ import { TooltipModule } from '../tooltip/index';
 import { NestedDonutChartComponent } from './nested-donut-chart.component';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        ColorServiceModule,
-        TooltipModule,
-        ResizeModule
-    ],
-    declarations: [
-        NestedDonutChartComponent
-    ],
-    exports: [
-        NestedDonutChartComponent
-    ]
+  imports: [CommonModule, ColorServiceModule, TooltipModule, ResizeModule],
+  declarations: [NestedDonutChartComponent],
+  exports: [NestedDonutChartComponent],
 })
-export class NestedDonutChartModule { }
+export class NestedDonutChartModule {}

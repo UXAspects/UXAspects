@@ -1,151 +1,170 @@
-<div class="demo-attributes table-responsive ">
-    <table class="table table-hover">
-        <thead>
-            <tr class="table-header-dark">
-                <th class="listview-document-th"></th>
-                <th>NAME</th>
-                <th>AUTHOR</th>
-                <th>DATE MODIFIED</th>
-                <th>STORAGE (GB)</th>
-                <th class="text-center">STATUS</th>
-            </tr>
-        </thead>
-        <tbody uxTabbableList #list="ux-tabbable-list">
-            <tr class="clickable single-select"
-                uxTabbableListItem
-                aria-details="item-display-panel-content"
-                [class.highlight]="item === selected && visible"
-                *ngFor="let item of items"
-                (focus)="selected = item"
-                (click)="selected = item; visible = true; $event.stopPropagation()"
-                (keydown.enter)="selected = item; visible = true; $event.preventDefault()"
-                (keydown.space)="selected = item; visible = true; $event.preventDefault()"
-                (keydown.spacebar)="selected = item; visible = true; $event.preventDefault()"
-                (keydown.arrowright)="panel.focus()">
-
-                <td class="text-center">
-                    <div class="listview-page-icon"></div>
-                </td>
-                <td class="listview-text-emphasis">{{ item.document }}</td>
-                <td>{{ item.author }}</td>
-                <td>{{ item.date | date: 'mediumDate' }}</td>
-                <td>
-                    <ux-spark
-                        theme="accent"
-                        [value]="item.storage"
-                        [inlineLabel]="item.storage"
-                        [barHeight]="3">
-                    </ux-spark>
-                </td>
-                <td class="text-center vertical-center-icon">
-                    <ux-icon *ngIf="item.active" name="checkmark" class="text-secondary"></ux-icon>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+<div class="demo-attributes table-responsive">
+  <table class="table table-hover">
+    <thead>
+      <tr class="table-header-dark">
+        <th class="listview-document-th"></th>
+        <th>NAME</th>
+        <th>AUTHOR</th>
+        <th>DATE MODIFIED</th>
+        <th>STORAGE (GB)</th>
+        <th class="text-center">STATUS</th>
+      </tr>
+    </thead>
+    <tbody uxTabbableList #list="ux-tabbable-list">
+      <tr
+        class="clickable single-select"
+        uxTabbableListItem
+        aria-details="item-display-panel-content"
+        [class.highlight]="item === selected && visible"
+        *ngFor="let item of items"
+        (focus)="selected = item"
+        (click)="selected = item; visible = true; $event.stopPropagation()"
+        (keydown.enter)="selected = item; visible = true; $event.preventDefault()"
+        (keydown.space)="selected = item; visible = true; $event.preventDefault()"
+        (keydown.spacebar)="selected = item; visible = true; $event.preventDefault()"
+        (keydown.arrowright)="panel.focus()"
+      >
+        <td class="text-center">
+          <div class="listview-page-icon"></div>
+        </td>
+        <td class="listview-text-emphasis">{{ item.document }}</td>
+        <td>{{ item.author }}</td>
+        <td>{{ item.date | date: 'mediumDate' }}</td>
+        <td>
+          <ux-spark
+            theme="accent"
+            [value]="item.storage"
+            [inlineLabel]="item.storage"
+            [barHeight]="3"
+          >
+          </ux-spark>
+        </td>
+        <td class="text-center vertical-center-icon">
+          <ux-icon *ngIf="item.active" name="checkmark" class="text-secondary"></ux-icon>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>
 
 <ux-item-display-panel
-    #panel
-    [(visible)]="visible"
-    (visibleChange)="list.focusTabbableItem()"
-    [top]="53"
-    [shadow]="true"
-    [header]="selected?.panel.header"
-    [animate]="true"
-    (keydown.arrowleft)="list.focusTabbableItem()">
+  #panel
+  [(visible)]="visible"
+  (visibleChange)="list.focusTabbableItem()"
+  [top]="53"
+  [shadow]="true"
+  [header]="selected?.panel.header"
+  [animate]="true"
+  (keydown.arrowleft)="list.focusTabbableItem()"
+>
+  <div class="preview-display" uxItemDisplayPanelContent>
+    <p id="item-display-panel-content">{{ selected?.panel.content }}</p>
+  </div>
 
-    <div class="preview-display" uxItemDisplayPanelContent>
-        <p id="item-display-panel-content">{{ selected?.panel.content }}</p>
-    </div>
-
-    <div uxItemDisplayPanelFooter class="pull-right p-b-md p-t-md">
-        <span class="btn-pair">
-            <button #previousBtn
-                class="btn button-secondary"
-                [disabled]="!isPreviousEnabled"
-                (click)="previous(); previousBtn.focus()"
-                tabindex="0">
-                <ux-icon name="previous"></ux-icon> Previous
-            </button>
-            <button #nextBtn
-                class="btn button-secondary"
-                [disabled]="!isNextEnabled"
-                (click)="next(); nextBtn.focus()"
-                tabindex="0">
-                Next <ux-icon name="next"></ux-icon>
-            </button>
-        </span>
-    </div>
-
+  <div uxItemDisplayPanelFooter class="pull-right p-b-md p-t-md">
+    <span class="btn-pair">
+      <button
+        #previousBtn
+        class="btn button-secondary"
+        [disabled]="!isPreviousEnabled"
+        (click)="previous(); previousBtn.focus()"
+        tabindex="0"
+      >
+        <ux-icon name="previous"></ux-icon> Previous
+      </button>
+      <button
+        #nextBtn
+        class="btn button-secondary"
+        [disabled]="!isNextEnabled"
+        (click)="next(); nextBtn.focus()"
+        tabindex="0"
+      >
+        Next <ux-icon name="next"></ux-icon>
+      </button>
+    </span>
+  </div>
 </ux-item-display-panel>
 
-<hr>
+<hr />
 
-<p>To add the item display panel component to your application you need to import the <code>ItemDisplayPanelModule</code> which allows you to use the <code>ux-item-display-panel</code> component.</p>
+<p>
+  To add the item display panel component to your application you need to import the
+  <code>ItemDisplayPanelModule</code> which allows you to use the
+  <code>ux-item-display-panel</code> component.
+</p>
 
 <p>The following attributes can be used to customise the behaviour of the component.</p>
 
 <uxd-api-properties tableTitle="Inputs">
-    <tr uxd-api-property name="visible" type="boolean" required="true">
-        Defines whether the item display panel is visible.
-    </tr>
-    <tr uxd-api-property name="header" type="string">
-        The header displayed at the top of the item display panel.
-    </tr>
-    <tr uxd-api-property name="top" type="number" defaultValue="0">
-        The number of pixels from the top of the screen, this can be used to keep the item display panel below the page header.
-    </tr>
-    <tr uxd-api-property name="animate" type="boolean" defaultValue="false">
-        Defines whether the item display panel will animate in and out from the side of the screen.
-    </tr>
-    <tr uxd-api-property name="shadow" type="boolean" defaultValue="false">
-        Defines whether the item display panel will have a rounded shadow visible under the header.
-    </tr>
-    <tr uxd-api-property name="boxShadow" type="boolean" defaultValue="true">
-        Defines whether the item display panel will have a box shadow.
-    </tr>
-    <tr uxd-api-property name="inline" type="boolean" defaultValue="false">
-        Defines whether the item display panel will be inline with the page content as opposed to coming in from the side of the screen.
-    </tr>
-    <tr uxd-api-property name="preventClose" type="boolean" defaultValue="false">
-        Defines whether the item display panel should prevent closing when clicking outside the panel.
-    </tr>
-    <tr uxd-api-property name="closeVisible" type="boolean" defaultValue="true">
-        Defines whether the close button should be visible on the item display panel.
-    </tr>
-    <tr uxd-api-property name="closeAriaLabel" type="string">
-        Defines the aria-label for the close button.
-    </tr>
+  <tr uxd-api-property name="visible" type="boolean" required="true">
+    Defines whether the item display panel is visible.
+  </tr>
+  <tr uxd-api-property name="header" type="string">
+    The header displayed at the top of the item display panel.
+  </tr>
+  <tr uxd-api-property name="top" type="number" defaultValue="0">
+    The number of pixels from the top of the screen, this can be used to keep the item display panel
+    below the page header.
+  </tr>
+  <tr uxd-api-property name="animate" type="boolean" defaultValue="false">
+    Defines whether the item display panel will animate in and out from the side of the screen.
+  </tr>
+  <tr uxd-api-property name="shadow" type="boolean" defaultValue="false">
+    Defines whether the item display panel will have a rounded shadow visible under the header.
+  </tr>
+  <tr uxd-api-property name="boxShadow" type="boolean" defaultValue="true">
+    Defines whether the item display panel will have a box shadow.
+  </tr>
+  <tr uxd-api-property name="inline" type="boolean" defaultValue="false">
+    Defines whether the item display panel will be inline with the page content as opposed to coming
+    in from the side of the screen.
+  </tr>
+  <tr uxd-api-property name="preventClose" type="boolean" defaultValue="false">
+    Defines whether the item display panel should prevent closing when clicking outside the panel.
+  </tr>
+  <tr uxd-api-property name="closeVisible" type="boolean" defaultValue="true">
+    Defines whether the close button should be visible on the item display panel.
+  </tr>
+  <tr uxd-api-property name="closeAriaLabel" type="string">
+    Defines the aria-label for the close button.
+  </tr>
 </uxd-api-properties>
 
 <uxd-api-properties tableTitle="Outputs">
-    <tr uxd-api-property name="visibleChange" type="boolean">
-        If using two-way binding this will update when the item display panel is shown and hidden.
-    </tr>
+  <tr uxd-api-property name="visibleChange" type="boolean">
+    If using two-way binding this will update when the item display panel is shown and hidden.
+  </tr>
 </uxd-api-properties>
 
+<hr />
 
-<hr>
+<p>
+  To add the main body of content to the item display panel the
+  <code>uxItemDisplayPanelContent</code> directive can be added as an attribute allowing you to add
+  any required content below the header.
+</p>
 
-<p>To add the main body of content to the item display panel the <code>uxItemDisplayPanelContent</code> directive can be added as an attribute allowing you to add any required content below the header.</p>
-
-<p>To add a footer to the item display panel the <code>uxItemDisplayPanelFooter</code> directive can be added as an attribute allowing you to add any required content to the bottom of the item display panel</p>
+<p>
+  To add a footer to the item display panel the <code>uxItemDisplayPanelFooter</code> directive can
+  be added as an attribute allowing you to add any required content to the bottom of the item
+  display panel
+</p>
 
 <blockquote>
-    <p><strong>Note</strong>: The root module must import <code>BrowserAnimationsModule</code> from <code>'&#64;angular/platform-browser/animations'</code>.</p>
+  <p>
+    <strong>Note</strong>: The root module must import <code>BrowserAnimationsModule</code> from
+    <code>'&#64;angular/platform-browser/animations'</code>.
+  </p>
 </blockquote>
 
 <p>The following code will produce the example shown above:</p>
 
 <ux-tabset [minimal]="false">
+  <ux-tab heading="HTML">
+    <uxd-snippet language="html" [content]="snippets.compiled.appHtml"></uxd-snippet>
+  </ux-tab>
 
-    <ux-tab heading="HTML">
-        <uxd-snippet language="html" [content]="snippets.compiled.appHtml"></uxd-snippet>
-    </ux-tab>
-
-    <ux-tab heading="TypeScript">
-        <uxd-snippet language="javascript" [content]="snippets.compiled.appTs"></uxd-snippet>
-    </ux-tab>
-
+  <ux-tab heading="TypeScript">
+    <uxd-snippet language="javascript" [content]="snippets.compiled.appTs"></uxd-snippet>
+  </ux-tab>
 </ux-tabset>

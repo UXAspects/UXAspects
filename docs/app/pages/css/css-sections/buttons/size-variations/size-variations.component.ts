@@ -6,24 +6,25 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 import { playgroundAdapter } from '../../../../../services/playground/adapters/legacy-playground-adapter';
 
 @Component({
-    selector: 'uxd-css-buttons-size-variation',
-    templateUrl: './size-variations.component.html',
+  selector: 'uxd-css-buttons-size-variation',
+  templateUrl: './size-variations.component.html',
+  standalone: false,
 })
 @DocumentationSectionComponent('CssButtonsSizeVariationsComponent')
 export class CssButtonsSizeVariationsComponent
-    extends BaseDocumentationSection
-    implements IPlaygroundProvider
+  extends BaseDocumentationSection
+  implements IPlaygroundProvider
 {
-    playground: IPlayground = playgroundAdapter({
-        html: this.snippets.raw.codeExampleHtml,
-    });
+  playground: IPlayground = playgroundAdapter({
+    html: this.snippets.raw.codeExampleHtml,
+  });
 
-    constructor() {
-        super(
-            import.meta.webpackContext('./snippets/', {
-                recursive: false,
-                regExp: /\.(html|css|js|ts)$/,
-            })
-        );
-    }
+  constructor() {
+    super(
+      import.meta.webpackContext('./snippets/', {
+        recursive: false,
+        regExp: /\.(html|css|js|ts)$/,
+      })
+    );
+  }
 }

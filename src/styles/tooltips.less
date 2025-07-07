@@ -1,59 +1,59 @@
 .tooltip {
-    word-wrap: break-word;
-    font-size: 0.875rem;
-    font-family: @font-family;
-    z-index: @tooltip-z-index;
+  word-wrap: break-word;
+  font-size: 0.875rem;
+  font-family: @font-family;
+  z-index: @tooltip-z-index;
 }
 
 .tooltip {
-    &.in {
-        .opacity(100);
-    }
+  &.in {
+    .opacity(100);
+  }
 }
 
 .tooltip-inner {
-    background-color: @tooltip-bg;
-    box-shadow: 1px 1px 2px @tooltip-shadow;
-    border-radius: 0;
-    text-align: left;
-    max-width: 400px;
+  background-color: @tooltip-bg;
+  box-shadow: 1px 1px 2px @tooltip-shadow;
+  border-radius: 0;
+  text-align: left;
+  max-width: 400px;
 }
 
 .tooltip {
-    &.top {
-        .tooltip-arrow {
-            border-top-color: @tooltip-bg;
-        }
+  &.top {
+    .tooltip-arrow {
+      border-top-color: @tooltip-bg;
     }
+  }
 }
 
 .tooltip {
-    &.right {
-        .tooltip-arrow {
-            border-right-color: @tooltip-bg;
-        }
+  &.right {
+    .tooltip-arrow {
+      border-right-color: @tooltip-bg;
     }
+  }
 }
 
 .tooltip {
-    &.bottom {
-        .tooltip-arrow {
-            border-bottom-color: @tooltip-bg;
-        }
+  &.bottom {
+    .tooltip-arrow {
+      border-bottom-color: @tooltip-bg;
     }
+  }
 }
 
 .tooltip {
-    &.left {
-        .tooltip-arrow {
-            border-left-color: @tooltip-bg;
-        }
+  &.left {
+    .tooltip-arrow {
+      border-left-color: @tooltip-bg;
     }
+  }
 }
 
 .popover {
-    z-index: @popover-z-index;
-    font-family: inherit;
+  z-index: @popover-z-index;
+  font-family: inherit;
 }
 
 /*
@@ -61,29 +61,29 @@
 */
 
 .ux-static-tooltip {
-    background-color: @static-tooltip-bg;
-    border: 1px solid @static-tooltip-border;
-    box-shadow: 2px 2px 2px @static-tooltip-shadow;
-    transition: border-color 0.3s linear;
-    border-radius: 0;
+  background-color: @static-tooltip-bg;
+  border: 1px solid @static-tooltip-border;
+  box-shadow: 2px 2px 2px @static-tooltip-shadow;
+  transition: border-color 0.3s linear;
+  border-radius: 0;
+
+  .arrow,
+  .popover-arrow {
+    transition: border-bottom-color 0.3s linear;
+  }
+
+  .popover-content {
+    padding: 5px 10px;
+  }
+
+  &:hover {
+    border-color: @static-tooltip-hover-border;
 
     .arrow,
     .popover-arrow {
-        transition: border-bottom-color 0.3s linear;
+      border-bottom-color: @static-tooltip-hover-border;
     }
-
-    .popover-content {
-        padding: 5px 10px;
-    }
-
-    &:hover {
-        border-color: @static-tooltip-hover-border;
-
-        .arrow,
-        .popover-arrow {
-            border-bottom-color: @static-tooltip-hover-border;
-        }
-    }
+  }
 }
 
 /*
@@ -91,24 +91,24 @@
 */
 
 .cdk-overlay-container {
-    position: fixed;
-    z-index: @overlay-z-index;
-    pointer-events: none;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
+  position: fixed;
+  z-index: @overlay-z-index;
+  pointer-events: none;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
 }
 
 .ux-overlay-pane,
 .ux-tooltip-pane {
-    position: absolute;
+  position: absolute;
 }
 
 .ux-tooltip-pane {
-    // We don't want mouse events interacting with a tooltip as it can cause flickering.
-    // We need to mark it as important to override inline styles added by the CDK
-    pointer-events: none !important;
+  // We don't want mouse events interacting with a tooltip as it can cause flickering.
+  // We need to mark it as important to override inline styles added by the CDK
+  pointer-events: none !important;
 }
 
 /*
@@ -116,31 +116,31 @@
 */
 
 .timeline-chart div.tooltip.timeline-tooltip {
-    z-index: 1;
-    white-space: nowrap;
-    background: rgba(0, 0, 0, 1);
-    color: white;
-    pointer-events: none;
+  z-index: 1;
+  white-space: nowrap;
+  background: rgba(0, 0, 0, 1);
+  color: white;
+  pointer-events: none;
+  position: absolute;
+  transform: translate(-50%, 0);
+  transition: all 0.2s ease;
+  padding: 0 5px;
+
+  span {
+    display: inline-block;
+    border-width: 2px;
+    width: 100%;
+  }
+
+  div.tooltip-caret {
     position: absolute;
-    transform: translate(-50%, 0);
-    transition: all 0.2s ease;
-    padding: 0 5px;
-
-    span {
-        display: inline-block;
-        border-width: 2px;
-        width: 100%;
-    }
-
-    div.tooltip-caret {
-        position: absolute;
-        width: 0;
-        height: 0;
-        border-color: rgba(0, 0, 0, 0);
-        border-top-color: rgba(0, 0, 0, 1);
-        left: 50%;
-        margin-left: -5px;
-        border-width: 5px 5px 0;
-        border-style: solid;
-    }
+    width: 0;
+    height: 0;
+    border-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 1);
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px 5px 0;
+    border-style: solid;
+  }
 }

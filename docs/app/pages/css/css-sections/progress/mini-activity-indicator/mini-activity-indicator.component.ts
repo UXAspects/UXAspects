@@ -6,25 +6,26 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 import { playgroundAdapter } from '../../../../../services/playground/adapters/legacy-playground-adapter';
 
 @Component({
-    selector: 'uxd-css-progress-mini-activity-indicator',
-    templateUrl: './mini-activity-indicator.component.html',
-    styleUrls: ['./mini-activity-indicator.component.less'],
+  selector: 'uxd-css-progress-mini-activity-indicator',
+  templateUrl: './mini-activity-indicator.component.html',
+  styleUrls: ['./mini-activity-indicator.component.less'],
+  standalone: false,
 })
 @DocumentationSectionComponent('CssMiniActivityIndicatorComponent')
 export class CssMiniActivityIndicatorComponent
-    extends BaseDocumentationSection
-    implements IPlaygroundProvider
+  extends BaseDocumentationSection
+  implements IPlaygroundProvider
 {
-    playground: IPlayground = playgroundAdapter({
-        html: this.snippets.raw.sample1Html,
-    });
+  playground: IPlayground = playgroundAdapter({
+    html: this.snippets.raw.sample1Html,
+  });
 
-    constructor() {
-        super(
-            import.meta.webpackContext('./snippets/', {
-                recursive: false,
-                regExp: /\.(html|css|js|ts)$/,
-            })
-        );
-    }
+  constructor() {
+    super(
+      import.meta.webpackContext('./snippets/', {
+        recursive: false,
+        regExp: /\.(html|css|js|ts)$/,
+      })
+    );
+  }
 }

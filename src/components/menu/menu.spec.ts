@@ -43,6 +43,7 @@ import { MenuModule } from './menu.module';
       </button>
     </div>
   `,
+  standalone: false,
 })
 export class MenuTestComponent {
   alignment = 'start';
@@ -498,6 +499,7 @@ describe('MenuComponent', () => {
       </button>
     </ux-menu>
   `,
+  standalone: false,
 })
 export class MenuTriggerDestroyTestComponent {
   @ViewChild(MenuTriggerDirective, { static: false })

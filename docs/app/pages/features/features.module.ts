@@ -6,22 +6,20 @@ import { DocumentationComponentsModule } from '../../components/components.modul
 import { FeaturesPageComponent } from './features.component';
 
 const routes: Routes = [
-    {
-        path: '',
-        component: FeaturesPageComponent
-    }
+  {
+    path: '',
+    component: FeaturesPageComponent,
+  },
 ];
 
 @NgModule({
-    declarations: [
-        FeaturesPageComponent
-    ],
-    imports: [
-        CommonModule,
-        IconModule,
-        TooltipModule,
-        DocumentationComponentsModule,
-        RouterModule.forChild(routes)
-    ]
+  declarations: [FeaturesPageComponent],
+  imports: [
+    CommonModule,
+    IconModule,
+    TooltipModule,
+    DocumentationComponentsModule,
+    RouterModule.forChild(routes),
+  ],
 })
 export class FeaturesPageModule {}

@@ -10,11 +10,11 @@ import { PlaygroundTransformer } from './playground-transformer';
  */
 @Injectable()
 export class IconSetPlaygroundTransformer implements PlaygroundTransformer {
-    // eslint-disable-next-line @typescript-eslint/require-await
-    async transform(tree: PlaygroundTree, context: PlaygroundContext): Promise<void> {
-        tree.appendContent(
-            context.cssEntryPoint,
-            `
+  // eslint-disable-next-line @typescript-eslint/require-await
+  async transform(tree: PlaygroundTree, context: PlaygroundContext): Promise<void> {
+    tree.appendContent(
+      context.cssEntryPoint,
+      `
 @font-face {
   font-family: "ux-icons";
   src: url(https://unpkg.com/@ux-aspects/ux-aspects@latest/fonts/ux-icons.woff)
@@ -22,6 +22,6 @@ export class IconSetPlaygroundTransformer implements PlaygroundTransformer {
   font-weight: normal;
   font-style: normal;
 }`
-        );
-    }
+    );
+  }
 }

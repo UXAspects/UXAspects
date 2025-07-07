@@ -1,4 +1,3 @@
- 
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -24,6 +23,7 @@ export const PAGINATION_CONTROL_VALUE_ACCESSOR = {
   templateUrl: './pagination.component.html',
   providers: [PAGINATION_CONTROL_VALUE_ACCESSOR],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class PaginationComponent implements OnInit, ControlValueAccessor {
   private readonly _changeDetector = inject(ChangeDetectorRef);

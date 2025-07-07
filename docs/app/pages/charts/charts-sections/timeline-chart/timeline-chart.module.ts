@@ -7,35 +7,35 @@ import { DocumentationCategoryComponent } from '../../../../components/documenta
 import { DocumentationPage, ResolverService } from '../../../../services/resolver/resolver.service';
 import { ChartsTimelineChartComponent } from './timeline-chart/timeline-chart.component';
 
-const SECTIONS = [
-    ChartsTimelineChartComponent
-];
+const SECTIONS = [ChartsTimelineChartComponent];
 
 const ROUTES = [
-    {
-        path: '**',
-        component: DocumentationCategoryComponent,
-        data: {
-            category: ResolverService.resolveCategoryData(DocumentationPage.Charts, 'Timeline Chart')
-        }
-    }
+  {
+    path: '**',
+    component: DocumentationCategoryComponent,
+    data: {
+      category: ResolverService.resolveCategoryData(DocumentationPage.Charts, 'Timeline Chart'),
+    },
+  },
 ];
 
 @NgModule({
-    imports: [
-        NgChartsModule,
-        ColorServiceModule,
-        DocumentationComponentsModule,
-        RouterModule.forChild(ROUTES),
-        TabsetModule,
-        TimelineChartModule,
-    ],
-    exports: SECTIONS,
-    declarations: SECTIONS,
+  imports: [
+    NgChartsModule,
+    ColorServiceModule,
+    DocumentationComponentsModule,
+    RouterModule.forChild(ROUTES),
+    TabsetModule,
+    TimelineChartModule,
+  ],
+  exports: SECTIONS,
+  declarations: SECTIONS,
 })
 export class ChartsTimelineChartModule {
-
-    constructor(componentFactoryResolver: ComponentFactoryResolver, resolverService: ResolverService) {
-        resolverService.registerResolver(componentFactoryResolver, SECTIONS);
-    }
+  constructor(
+    componentFactoryResolver: ComponentFactoryResolver,
+    resolverService: ResolverService
+  ) {
+    resolverService.registerResolver(componentFactoryResolver, SECTIONS);
+  }
 }

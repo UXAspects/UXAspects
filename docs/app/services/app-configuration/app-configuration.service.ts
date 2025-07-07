@@ -14,105 +14,105 @@ import * as teamPage from '../../data/team-page.json';
 import * as topNavigation from '../../data/top-navigation.json';
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root',
 })
 export class AppConfiguration {
+  public documentationPages = ['components-page', 'css-page', 'charts-page'];
 
-    public documentationPages = ['components-page', 'css-page', 'charts-page'];
+  get version(): string {
+    return environment.version;
+  }
 
-    get version(): string {
-        return environment.version;
+  get baseUrl(): string {
+    if (!this.config.baseUrl) {
+      this.config.baseUrl = this.getBaseUrl();
     }
+    return this.config.baseUrl;
+  }
 
-    get baseUrl(): string {
-        if (!this.config.baseUrl) {
-            this.config.baseUrl = this.getBaseUrl();
-        }
-        return this.config.baseUrl;
-    }
+  get devRepositoryUrl(): string {
+    return this.config.devRepositoryUrl;
+  }
 
-    get devRepositoryUrl(): string {
-        return this.config.devRepositoryUrl;
-    }
+  get packagesUrl(): string {
+    return this.config.packagesUrl;
+  }
 
-    get packagesUrl(): string {
-        return this.config.packagesUrl;
-    }
+  get playgroundUrl(): string {
+    return this.config.playgroundUrl;
+  }
 
-    get playgroundUrl(): string {
-        return this.config.playgroundUrl;
-    }
+  get universalUrl(): string {
+    return this.config.universal;
+  }
 
-    get universalUrl(): string {
-        return this.config.universal;
-    }
+  get isProduction(): boolean {
+    return environment.production;
+  }
 
-    get isProduction(): boolean {
-        return environment.production;
-    }
+  get isPreRelease(): boolean {
+    return prerelease(this.version) === null ? false : true;
+  }
 
-    get isPreRelease(): boolean {
-        return prerelease(this.version) === null ? false : true;
-    }
+  get branchName(): string | null {
+    const pre = prerelease(this.version)?.join('.');
+    return pre?.replace(/-?SNAPSHOT$/, '');
+  }
 
-    get branchName(): string | null {
-        const pre = prerelease(this.version)?.join('.');
-        return pre?.replace(/-?SNAPSHOT$/, '');
-    }
+  get config(): { [key: string]: any } {
+    return environment.production ? this._data['config'] : this._data['config.dev'];
+  }
 
-    get config(): { [key: string]: any } {
-        return environment.production ? this._data['config'] : this._data['config.dev'];
-    }
+  private _data = {};
 
-    private _data = {};
+  private readonly _templateVars: { [key: string]: any };
 
-    private readonly _templateVars: { [key: string]: any };
+  constructor(private readonly _location: Location) {
+    this._templateVars = {
+      VERSION: this.getVersion(environment.version),
+      BUILD: this.getBuild(environment.version),
+    };
 
-    constructor(private readonly _location: Location) {
+    this.setConfigurationTemplateData('config', config);
+    this.setConfigurationTemplateData('config.dev', configDev);
+    this.setConfigurationTemplateData('footer-navigation', footerNavigation);
+    this.setConfigurationTemplateData('landing-page', landingPage);
+    this.setConfigurationData('team-page', teamPage);
+    this.setConfigurationData('top-navigation', topNavigation);
+    this.setConfigurationData('components-page', componentsPage);
+    this.setConfigurationData('css-page', cssPage);
+    this.setConfigurationData('charts-page', chartsPage);
+  }
 
-        this._templateVars = {
-            VERSION: this.getVersion(environment.version),
-            BUILD: this.getBuild(environment.version)
-        };
+  get(key: string): any {
+    return this.config[key];
+  }
 
-        this.setConfigurationTemplateData('config', config);
-        this.setConfigurationTemplateData('config.dev', configDev);
-        this.setConfigurationTemplateData('footer-navigation', footerNavigation);
-        this.setConfigurationTemplateData('landing-page', landingPage);
-        this.setConfigurationData('team-page', teamPage);
-        this.setConfigurationData('top-navigation', topNavigation);
-        this.setConfigurationData('components-page', componentsPage);
-        this.setConfigurationData('css-page', cssPage);
-        this.setConfigurationData('charts-page', chartsPage);
-    }
+  getConfigurationData(key: string): any {
+    return this._data[key];
+  }
 
-    get(key: string): any {
-        return this.config[key];
-    }
+  setConfigurationData(key: string, data: any): void {
+    this._data[key] = data;
+  }
 
-    getConfigurationData(key: string): any {
-        return this._data[key];
-    }
+  setConfigurationTemplateData(key: string, data: any): void {
+    this._data[key] = jsonTemplate(data, this._templateVars);
+  }
 
-    setConfigurationData(key: string, data: any): void {
-        this._data[key] = data;
-    }
+  private getBaseUrl(): string {
+    const path = this._location.prepareExternalUrl(this._location.path());
+    return window.location.href
+      .substr(0, window.location.href.lastIndexOf(path))
+      .replace(/\/+$/, '');
+  }
 
-    setConfigurationTemplateData(key: string, data: any): void {
-        this._data[key] = jsonTemplate(data, this._templateVars);
-    }
+  private getVersion(v: string): string {
+    return `${major(v)}.${minor(v)}.${patch(v)}`;
+  }
 
-    private getBaseUrl(): string {
-        const path = this._location.prepareExternalUrl(this._location.path());
-        return window.location.href.substr(0, window.location.href.lastIndexOf(path)).replace(/\/+$/, '');
-    }
-
-    private getVersion(v: string): string {
-        return `${major(v)}.${minor(v)}.${patch(v)}`;
-    }
-
-    private getBuild(v: string): string {
-        const pre = prerelease(v);
-        return pre ? pre.join('.') : null;
-    }
+  private getBuild(v: string): string {
+    const pre = prerelease(v);
+    return pre ? pre.join('.') : null;
+  }
 }

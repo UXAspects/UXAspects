@@ -1,16 +1,16 @@
 .ux-menu-demo {
-    width: 250px;
+  width: 250px;
 }
 
 .case-items {
-    height: 195px;
-    overflow: auto;
+  height: 195px;
+  overflow: auto;
 }
 
 .case-filter {
-    margin: 9px;
+  margin: 9px;
 }
 
 .mark-as-menu {
-    width: 185px;
+  width: 185px;
 }

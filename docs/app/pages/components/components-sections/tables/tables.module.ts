@@ -3,7 +3,26 @@ import { CommonModule } from '@angular/common';
 import { ComponentFactoryResolver, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { AccessibilityModule, AccordionModule, CheckboxModule, ColumnSortingModule, FilterModule, FixedHeaderTableModule, HoverActionModule, IconModule, LayoutSwitcherModule, MenuModule, RadioButtonModule, ReorderableModule, SelectionModule, SliderModule, SparkModule, TableModule, TabsetModule, TooltipModule } from '@ux-aspects/ux-aspects';
+import {
+  AccessibilityModule,
+  AccordionModule,
+  CheckboxModule,
+  ColumnSortingModule,
+  FilterModule,
+  FixedHeaderTableModule,
+  HoverActionModule,
+  IconModule,
+  LayoutSwitcherModule,
+  MenuModule,
+  RadioButtonModule,
+  ReorderableModule,
+  SelectionModule,
+  SliderModule,
+  SparkModule,
+  TableModule,
+  TabsetModule,
+  TooltipModule,
+} from '@ux-aspects/ux-aspects';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
@@ -21,65 +40,66 @@ import { ComponentsReorderableTableComponent } from './reorderable-table/reorder
 import { ComponentsSelectionComponent } from './selection/selection.component';
 import { ComponentsSortingComponent } from './sorting/sorting.component';
 
-
 const SECTIONS = [
-    ComponentsColumnSortingComponent,
-    ComponentsFiltersComponent,
-    ComponentsCustomFiltersComponent,
-    ComponentsReorderableTableComponent,
-    SampleFilterCustomComponent,
-    ComponentsLayoutSwitchingComponent,
-    ComponentsHoverActionsComponent,
-    ComponentsFixedHeaderTableComponent,
-    ComponentsSelectionComponent,
-    ComponentsSortingComponent,
-    ComponentsColumnResizingComponent,
-    ComponentsColumnPickerComponent
+  ComponentsColumnSortingComponent,
+  ComponentsFiltersComponent,
+  ComponentsCustomFiltersComponent,
+  ComponentsReorderableTableComponent,
+  SampleFilterCustomComponent,
+  ComponentsLayoutSwitchingComponent,
+  ComponentsHoverActionsComponent,
+  ComponentsFixedHeaderTableComponent,
+  ComponentsSelectionComponent,
+  ComponentsSortingComponent,
+  ComponentsColumnResizingComponent,
+  ComponentsColumnPickerComponent,
 ];
 
 const ROUTES = [
-    {
-        path: '**',
-        component: DocumentationCategoryComponent,
-        data: {
-            category: ResolverService.resolveCategoryData(DocumentationPage.Components, 'Tables')
-        }
-    }
+  {
+    path: '**',
+    component: DocumentationCategoryComponent,
+    data: {
+      category: ResolverService.resolveCategoryData(DocumentationPage.Components, 'Tables'),
+    },
+  },
 ];
 
 @NgModule({
-    imports: [
-        A11yModule,
-        AccessibilityModule,
-        AccordionModule,
-        ButtonsModule,
-        CheckboxModule,
-        ColumnSortingModule,
-        CommonModule,
-        DocumentationComponentsModule,
-        FilterModule,
-        FixedHeaderTableModule,
-        FormsModule,
-        HoverActionModule,
-        IconModule,
-        LayoutSwitcherModule,
-        MenuModule,
-        RadioButtonModule,
-        ReorderableModule,
-        RouterModule.forChild(ROUTES),
-        SelectionModule,
-        SliderModule,
-        SparkModule,
-        TableModule,
-        TabsetModule,
-        TooltipModule,
-    ],
-    exports: SECTIONS,
-    declarations: SECTIONS,
+  imports: [
+    A11yModule,
+    AccessibilityModule,
+    AccordionModule,
+    ButtonsModule,
+    CheckboxModule,
+    ColumnSortingModule,
+    CommonModule,
+    DocumentationComponentsModule,
+    FilterModule,
+    FixedHeaderTableModule,
+    FormsModule,
+    HoverActionModule,
+    IconModule,
+    LayoutSwitcherModule,
+    MenuModule,
+    RadioButtonModule,
+    ReorderableModule,
+    RouterModule.forChild(ROUTES),
+    SelectionModule,
+    SliderModule,
+    SparkModule,
+    TableModule,
+    TabsetModule,
+    TooltipModule,
+  ],
+  exports: SECTIONS,
+  declarations: SECTIONS,
 })
 export class ComponentsTablesModule {
-
-    constructor(componentFactoryResolver: ComponentFactoryResolver, resolverService: ResolverService) {
-        resolverService.registerResolver(componentFactoryResolver, SECTIONS);
-    }
+  constructor(
+    componentFactoryResolver: ComponentFactoryResolver,
+    resolverService: ResolverService
+  ) {
+    resolverService.registerResolver(componentFactoryResolver, SECTIONS);
+  }
 }

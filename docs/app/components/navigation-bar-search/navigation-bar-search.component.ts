@@ -1,4 +1,12 @@
-import { AfterViewInit, Component, ElementRef, HostListener, OnDestroy, QueryList, ViewChildren } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  HostListener,
+  OnDestroy,
+  QueryList,
+  ViewChildren,
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { PersistentDataService } from '@ux-aspects/ux-aspects';
 import { BehaviorSubject, Subject } from 'rxjs';
@@ -10,237 +18,229 @@ import { ISection } from '../../interfaces/ISection';
 import { AppConfiguration } from '../../services/app-configuration/app-configuration.service';
 import { NavigationService } from '../../services/navigation/navigation.service';
 
-
 const QUERY_MIN_CHARS = 3;
 const MAX_HISTORY = 5;
 const SHORTCUT_KEYCODE = 191;
 const LOCAL_STORAGE_KEY = 'uxd-search-history';
 
 @Component({
-    selector: 'uxd-navigation-bar-search',
-    templateUrl: './navigation-bar-search.component.html',
-    styleUrls: ['./navigation-bar-search.component.less'],
-    host: {
-        '[class.active]': 'searching'
-    }
+  selector: 'uxd-navigation-bar-search',
+  templateUrl: './navigation-bar-search.component.html',
+  styleUrls: ['./navigation-bar-search.component.less'],
+  host: {
+    '[class.active]': 'searching',
+  },
+  standalone: false,
 })
 export class NavigationBarSearchComponent implements AfterViewInit, OnDestroy {
+  @ViewChildren('searchInput') searchInput: QueryList<ElementRef>;
 
-    @ViewChildren('searchInput') searchInput: QueryList<ElementRef>;
+  searching: boolean = false;
+  query = new BehaviorSubject<string>('');
+  results: ISearchResult[] = [];
+  activeIdx: number = 0;
 
-    searching: boolean = false;
-    query = new BehaviorSubject<string>('');
-    results: ISearchResult[] = [];
-    activeIdx: number = 0;
+  private readonly _data: ISearchResult[] = this.createSearchData();
+  private readonly _history: ISearchResult[] = this.loadHistory();
+  private readonly _onDestroy = new Subject<void>();
 
-    private readonly _data: ISearchResult[] = this.createSearchData();
-    private readonly _history: ISearchResult[] = this.loadHistory();
-    private readonly _onDestroy = new Subject<void>();
+  constructor(
+    private readonly router: Router,
+    private readonly _navigation: NavigationService,
+    private readonly _appConfig: AppConfiguration,
+    private readonly _persistentDataService: PersistentDataService
+  ) {
+    this.query
+      .pipe(debounceTime(200), takeUntil(this._onDestroy))
+      .subscribe(this.search.bind(this));
+  }
 
-    constructor(private readonly router: Router,
-        private readonly _navigation: NavigationService,
-        private readonly _appConfig: AppConfiguration,
-        private readonly _persistentDataService: PersistentDataService) {
+  ngOnDestroy(): void {
+    this._onDestroy.next();
+    this._onDestroy.complete();
+  }
 
-        this.query.pipe(debounceTime(200), takeUntil(this._onDestroy)).subscribe(this.search.bind(this));
+  getSearchResults(page: IDocumentationPage): ISearchResult[] {
+    if (!page) {
+      return;
     }
 
-    ngOnDestroy(): void {
-        this._onDestroy.next();
-        this._onDestroy.complete();
-    }
+    const results: ISearchResult[] = [];
 
-    getSearchResults(page: IDocumentationPage): ISearchResult[] {
+    page.categories.forEach((category: ICategory) => {
+      category.sections = category.sections || [];
 
-        if (!page) {
-            return;
-        }
+      let showCategory = true;
 
-        const results: ISearchResult[] = [];
+      this._navigation.setSectionIds(category.sections);
 
-        page.categories.forEach((category: ICategory) => {
-
-            category.sections = category.sections || [];
-
-            let showCategory = true;
-
-            this._navigation.setSectionIds(category.sections);
-
-            category.sections.forEach((section: ISection) => {
-                results.push({
-                    id: page.id || page.title,
-                    section: page.title,
-                    link: {
-                        title: section.title,
-                        link: category.link,
-                        fragment: section.id
-                    }
-                });
-
-                // Prevent addition of a category entry with the same title as a child section.
-                if (section.title === category.title) {
-                    showCategory = false;
-                }
-            });
-
-            if (showCategory) {
-                results.push({
-                    id: page.id || page.title,
-                    section: page.title,
-                    link: {
-                        title: category.title,
-                        link: category.link
-                    }
-                });
-            }
+      category.sections.forEach((section: ISection) => {
+        results.push({
+          id: page.id || page.title,
+          section: page.title,
+          link: {
+            title: section.title,
+            link: category.link,
+            fragment: section.id,
+          },
         });
 
-        return results;
-    }
+        // Prevent addition of a category entry with the same title as a child section.
+        if (section.title === category.title) {
+          showCategory = false;
+        }
+      });
 
-    ngAfterViewInit() {
-
-        // when the input is shown focus it
-        this.searchInput.changes.pipe(takeUntil(this._onDestroy)).subscribe((searchInputs: QueryList<ElementRef>) => {
-            if (searchInputs.length > 0) {
-                searchInputs.first.nativeElement.focus();
-            }
+      if (showCategory) {
+        results.push({
+          id: page.id || page.title,
+          section: page.title,
+          link: {
+            title: category.title,
+            link: category.link,
+          },
         });
-    }
+      }
+    });
 
-    @HostListener('click')
-    toggleSearch() {
-        this.searching = !this.searching;
-    }
+    return results;
+  }
 
-    @HostListener('window:keydown', ['$event'])
-    windowKeydown(event: KeyboardEvent) {
-        // Open the search dialog on alt+/
-        if (event.altKey && event.which === SHORTCUT_KEYCODE) {
-            this.searching = true;
-            event.preventDefault();
+  ngAfterViewInit() {
+    // when the input is shown focus it
+    this.searchInput.changes
+      .pipe(takeUntil(this._onDestroy))
+      .subscribe((searchInputs: QueryList<ElementRef>) => {
+        if (searchInputs.length > 0) {
+          searchInputs.first.nativeElement.focus();
         }
+      });
+  }
+
+  @HostListener('click')
+  toggleSearch() {
+    this.searching = !this.searching;
+  }
+
+  @HostListener('window:keydown', ['$event'])
+  windowKeydown(event: KeyboardEvent) {
+    // Open the search dialog on alt+/
+    if (event.altKey && event.which === SHORTCUT_KEYCODE) {
+      this.searching = true;
+      event.preventDefault();
+    }
+  }
+
+  hideSearch() {
+    this.searching = false;
+    this.query.next('');
+  }
+
+  escapeKey() {
+    this.hideSearch();
+  }
+
+  upKey(event: KeyboardEvent) {
+    this.activeIdx--;
+
+    if (this.activeIdx < 0) {
+      this.activeIdx = 0;
     }
 
-    hideSearch() {
-        this.searching = false;
-        this.query.next('');
+    event.preventDefault();
+  }
+
+  downKey(event: KeyboardEvent) {
+    this.activeIdx++;
+
+    if (this.activeIdx >= this.results.length - 1) {
+      this.activeIdx = this.results.length > 0 ? this.results.length - 1 : 0;
     }
 
-    escapeKey() {
-        this.hideSearch();
+    event.preventDefault();
+  }
+
+  enterKey() {
+    if (this.results.length > 0) {
+      // get the selected item
+      const item = this.results[this.activeIdx];
+
+      this.navigate(item);
     }
+  }
 
-    upKey(event: KeyboardEvent) {
+  search(value: string) {
+    // if search query changes reset the active index
+    this.activeIdx = 0;
 
-        this.activeIdx--;
-
-        if (this.activeIdx < 0) {
-            this.activeIdx = 0;
-        }
-
-        event.preventDefault();
+    if (value === null || value === '') {
+      // If the query is empty, show last 5 selected results.
+      this.results = this._history;
+    } else if (value.length < QUERY_MIN_CHARS) {
+      // Show nothing for wide searches
+      this.results = [];
+    } else {
+      // get the latest results
+      this.results = this._data.filter((item: ISearchResult) => {
+        return item.link.title.toLowerCase().indexOf(value.toLowerCase()) !== -1;
+      });
     }
+  }
 
-    downKey(event: KeyboardEvent) {
+  navigate(item: ISearchResult) {
+    // navigate to a selected item
+    this.router.navigate([item.id.toLowerCase(), item.link.link], { fragment: item.link.fragment });
 
-        this.activeIdx++;
+    // hide the search once selected
+    this.hideSearch();
 
-        if (this.activeIdx >= this.results.length - 1) {
-            this.activeIdx = this.results.length > 0 ? this.results.length - 1 : 0;
-        }
+    this.addToHistory(item);
+  }
 
-        event.preventDefault();
-    }
-
-    enterKey() {
-
-        if (this.results.length > 0) {
-
-            // get the selected item
-            const item = this.results[this.activeIdx];
-
-            this.navigate(item);
-        }
-    }
-
-    search(value: string) {
-
-        // if search query changes reset the active index
-        this.activeIdx = 0;
-
-        if (value === null || value === '') {
-
-            // If the query is empty, show last 5 selected results.
-            this.results = this._history;
-
-        } else if (value.length < QUERY_MIN_CHARS) {
-
-            // Show nothing for wide searches
-            this.results = [];
-
-        } else {
-
-            // get the latest results
-            this.results = this._data.filter((item: ISearchResult) => {
-                return item.link.title.toLowerCase().indexOf(value.toLowerCase()) !== -1;
-            });
-        }
-    }
-
-    navigate(item: ISearchResult) {
-
-        // navigate to a selected item
-        this.router.navigate([item.id.toLowerCase(), item.link.link], { fragment: item.link.fragment });
-
-        // hide the search once selected
-        this.hideSearch();
-
-        this.addToHistory(item);
-    }
-
-    /*
+  /*
         Determine if there are multiple search items displayed with the same title
     */
-    isDuplicate(item: ISearchResult) {
-        return this.results.filter((result: ISearchResult) => result.link.title === item.link.title).length > 1;
+  isDuplicate(item: ISearchResult) {
+    return (
+      this.results.filter((result: ISearchResult) => result.link.title === item.link.title).length >
+      1
+    );
+  }
+
+  private createSearchData(): ISearchResult[] {
+    return this._appConfig.documentationPages
+      .map(name => this.getSearchResults(this._appConfig.getConfigurationData(name)))
+      .reduce((pre, cur) => pre.concat(cur));
+  }
+
+  /**
+   * Add an item to the bounded history list.
+   */
+  private addToHistory(item: ISearchResult) {
+    // Remove the item if it's already there.
+    const historyIndex = this._history.indexOf(item);
+    if (historyIndex >= 0) {
+      this._history.splice(historyIndex, 1);
     }
 
-    private createSearchData(): ISearchResult[] {
-        return this._appConfig.documentationPages
-            .map(name => this.getSearchResults(this._appConfig.getConfigurationData(name)))
-            .reduce((pre, cur) => pre.concat(cur));
+    // Add to the front of the list.
+    this._history.unshift(item);
+
+    // Remove items to maintain history limit
+    while (this._history.length > MAX_HISTORY) {
+      this._history.pop();
     }
 
-    /**
-     * Add an item to the bounded history list.
-     */
-    private addToHistory(item: ISearchResult) {
+    // Commit to local storage
+    this.saveHistory(this._history);
+  }
 
-        // Remove the item if it's already there.
-        const historyIndex = this._history.indexOf(item);
-        if (historyIndex >= 0) {
-            this._history.splice(historyIndex, 1);
-        }
+  private loadHistory(): ISearchResult[] {
+    const json = this._persistentDataService.getItem(LOCAL_STORAGE_KEY);
+    return json ? JSON.parse(json) : [];
+  }
 
-        // Add to the front of the list.
-        this._history.unshift(item);
-
-        // Remove items to maintain history limit
-        while (this._history.length > MAX_HISTORY) {
-            this._history.pop();
-        }
-
-        // Commit to local storage
-        this.saveHistory(this._history);
-    }
-
-    private loadHistory(): ISearchResult[] {
-        const json = this._persistentDataService.getItem(LOCAL_STORAGE_KEY);
-        return json ? JSON.parse(json) : [];
-    }
-
-    private saveHistory(history: ISearchResult[]) {
-        this._persistentDataService.setItem(LOCAL_STORAGE_KEY, JSON.stringify(history));
-    }
+  private saveHistory(history: ISearchResult[]) {
+    this._persistentDataService.setItem(LOCAL_STORAGE_KEY, JSON.stringify(history));
+  }
 }

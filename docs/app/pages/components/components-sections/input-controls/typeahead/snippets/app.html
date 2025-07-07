@@ -1,31 +1,35 @@
 <div class="row" [class.drop-direction-up]="dropDirection === 'up'">
-    <div class="col-md-12 has-feedback">
-        <form class="input-typeahead-form">
-            <input [(ngModel)]="input"
-                   [ngModelOptions]="{standalone: true}"
-                   placeholder="Enter Text"
-                   class="form-control"
-                   type="text"
-                   (click)="dropdownOpen = true"
-                   (keydown)="typeaheadKeyService.handleKey($event, typeahead)"
-                   (keydown.escape)="dropdownOpen = false"
-                   (blur)="dropdownOpen = false">
+  <div class="col-md-12 has-feedback">
+    <form class="input-typeahead-form">
+      <input
+        [(ngModel)]="input"
+        [ngModelOptions]="{standalone: true}"
+        placeholder="Enter Text"
+        class="form-control"
+        type="text"
+        (click)="dropdownOpen = true"
+        (keydown)="typeaheadKeyService.handleKey($event, typeahead)"
+        (keydown.escape)="dropdownOpen = false"
+        (blur)="dropdownOpen = false"
+      />
 
-            <ux-typeahead #typeahead
-                          class="typeahead-example"
-                          [(open)]="dropdownOpen"
-                          [filter]="input"
-                          [options]="loadOptionsFn"
-                          [openOnFilterChange]="true"
-                          [pageSize]="40"
-                          [selectOnEnter]="selectOnEnter"
-                          [selectFirst]="selectFirst"
-                          [dropDirection]="dropDirection"
-                          (optionSelected)="input = $event.option"
-                          [(recentOptions)]="recentOptions"
-                          [recentOptionsMaxCount]="recentOptionsMaxCount"
-                          [ariaLabel]="ariaLabel">
-            </ux-typeahead>
-        </form>
-    </div>
+      <ux-typeahead
+        #typeahead
+        class="typeahead-example"
+        [(open)]="dropdownOpen"
+        [filter]="input"
+        [options]="loadOptionsFn"
+        [openOnFilterChange]="true"
+        [pageSize]="40"
+        [selectOnEnter]="selectOnEnter"
+        [selectFirst]="selectFirst"
+        [dropDirection]="dropDirection"
+        (optionSelected)="input = $event.option"
+        [(recentOptions)]="recentOptions"
+        [recentOptionsMaxCount]="recentOptionsMaxCount"
+        [ariaLabel]="ariaLabel"
+      >
+      </ux-typeahead>
+    </form>
+  </div>
 </div>

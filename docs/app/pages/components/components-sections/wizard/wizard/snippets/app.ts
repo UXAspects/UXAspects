@@ -2,41 +2,39 @@ import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'app-root',
-    templateUrl: './app.component.html'
+  selector: 'app-root',
+  templateUrl: './app.component.html',
 })
 export class AppComponent {
+  orientation: string = 'horizontal';
 
-    orientation: string = 'horizontal';
+  steps: WizardStep[] = [
+    {
+      header: '1. First Step',
+      content: 'Content of step 1.',
+    },
+    {
+      header: '2. Second Step',
+      content: 'Content of step 2.',
+    },
+    {
+      header: '3. Third Step',
+      content: 'Content of step 3.',
+    },
+    {
+      header: '4. Fourth Step',
+      content: 'Content of step 4.',
+    },
+  ];
 
-    steps: WizardStep[] = [
-        {
-            header: '1. First Step',
-            content: 'Content of step 1.'
-        },
-        {
-            header: '2. Second Step',
-            content: 'Content of step 2.'
-        },
-        {
-            header: '3. Third Step',
-            content: 'Content of step 3.'
-        },
-        {
-            header: '4. Fourth Step',
-            content: 'Content of step 4.'
-        }
-    ];
+  constructor(private readonly _announcer: LiveAnnouncer) {}
 
-    constructor(private readonly _announcer: LiveAnnouncer) { }
-
-    onStepChange(index: number): void {
-        this._announcer.announce(`${this.steps[index].header} activated`);
-    }
-
+  onStepChange(index: number): void {
+    this._announcer.announce(`${this.steps[index].header} activated`);
+  }
 }
 
 export interface WizardStep {
-    header: string;
-    content: string;
+  header: string;
+  content: string;
 }

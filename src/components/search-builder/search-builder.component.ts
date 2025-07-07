@@ -8,7 +8,8 @@ import { SearchBuilderService } from './search-builder.service';
 @Component({
   selector: 'ux-search-builder',
   templateUrl: './search-builder.component.html',
-  providers: [SearchBuilderService]
+  providers: [SearchBuilderService],
+  standalone: false,
 })
 export class SearchBuilderComponent implements OnDestroy {
   private readonly _searchBuilderService = inject(SearchBuilderService);
@@ -37,12 +38,15 @@ export class SearchBuilderComponent implements OnDestroy {
    * Register the default search builder components
    */
   constructor() {
-
     // watch for any query changes
-    this._querySubscription = this._searchBuilderService.queryChange.subscribe(query => this.queryChange.emit(query));
+    this._querySubscription = this._searchBuilderService.queryChange.subscribe(query =>
+      this.queryChange.emit(query)
+    );
 
     // watch for any changes to the validation
-    this._validSubscription = this._searchBuilderService.validationChange.pipe(distinctUntilChanged()).subscribe(valid => this.valid.emit(valid));
+    this._validSubscription = this._searchBuilderService.validationChange
+      .pipe(distinctUntilChanged())
+      .subscribe(valid => this.valid.emit(valid));
   }
 
   /**
@@ -52,5 +56,4 @@ export class SearchBuilderComponent implements OnDestroy {
     this._querySubscription.unsubscribe();
     this._validSubscription.unsubscribe();
   }
-
 }

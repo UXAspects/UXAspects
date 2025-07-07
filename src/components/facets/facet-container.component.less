@@ -1,130 +1,130 @@
 ux-facet-container {
-    display: block;
-    background-color: @white;
-    padding: 10px;
+  display: block;
+  background-color: @white;
+  padding: 10px;
 
-    .facets-selected-container {
-        margin-bottom: 20px;
+  .facets-selected-container {
+    margin-bottom: 20px;
 
-        .facets-selected-header-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 5px;
+    .facets-selected-header-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 5px;
 
-            .facets-selected-header-label {
-                flex: 1;
-                font-weight: 700;
-            }
+      .facets-selected-header-label {
+        flex: 1;
+        font-weight: 700;
+      }
 
-            .facets-selected-clear-graphic {
-                .dark-grey {
-                    fill: @grey2;
-                }
-
-                .light-grey {
-                    fill: @grey4;
-                }
-            }
-
-            .btn-icon {
-                height: 28px;
-            }
+      .facets-selected-clear-graphic {
+        .dark-grey {
+          fill: @grey2;
         }
 
-        .facets-selected-list {
-            display: flex;
-            flex-wrap: wrap;
-
-            .facet-selected-tag {
-                margin-right: 5px;
-                margin-bottom: 5px;
-                cursor: pointer;
-                outline: none;
-                max-width: 100%;
-                color: @tag-input-tag-color;
-                background-color: @tag-input-tag-bg;
-                border: 1px solid @tag-input-tag-border;
-                border-radius: 1px;
-                padding: 0 5px;
-                white-space: nowrap;
-
-                &.ux-reorderable-moving {
-                    opacity: 0.5;
-                }
-
-                .facet-selected-tag-label {
-                    word-break: break-all;
-                    pointer-events: none;
-                }
-
-                .facet-selected-remove-btn {
-                    border: none;
-                    background: none;
-
-                    &:focus {
-                        .native-focus-outline();
-                    }
-                }
-
-                ux-icon {
-                    font-size: 80%;
-                    opacity: 0.7;
-
-                    &:hover {
-                        opacity: 1;
-                    }
-                }
-
-                &:focus {
-                    color: @tag-input-tag-active-color;
-                    background-color: @tag-input-tag-active-bg;
-                    border-color: @tag-input-tag-active-border;
-                    outline: none;
-                }
-            }
+        .light-grey {
+          fill: @grey4;
         }
+      }
 
-        .facets-selected-none-label {
-            margin-bottom: 0;
-            color: @grey4;
-            height: 29px;
-        }
+      .btn-icon {
+        height: 28px;
+      }
     }
+
+    .facets-selected-list {
+      display: flex;
+      flex-wrap: wrap;
+
+      .facet-selected-tag {
+        margin-right: 5px;
+        margin-bottom: 5px;
+        cursor: pointer;
+        outline: none;
+        max-width: 100%;
+        color: @tag-input-tag-color;
+        background-color: @tag-input-tag-bg;
+        border: 1px solid @tag-input-tag-border;
+        border-radius: 1px;
+        padding: 0 5px;
+        white-space: nowrap;
+
+        &.ux-reorderable-moving {
+          opacity: 0.5;
+        }
+
+        .facet-selected-tag-label {
+          word-break: break-all;
+          pointer-events: none;
+        }
+
+        .facet-selected-remove-btn {
+          border: none;
+          background: none;
+
+          &:focus {
+            .native-focus-outline();
+          }
+        }
+
+        ux-icon {
+          font-size: 80%;
+          opacity: 0.7;
+
+          &:hover {
+            opacity: 1;
+          }
+        }
+
+        &:focus {
+          color: @tag-input-tag-active-color;
+          background-color: @tag-input-tag-active-bg;
+          border-color: @tag-input-tag-active-border;
+          outline: none;
+        }
+      }
+    }
+
+    .facets-selected-none-label {
+      margin-bottom: 0;
+      color: @grey4;
+      height: 29px;
+    }
+  }
 }
 
 .facet-drag-item.cdk-drag-preview {
-    margin-right: 5px;
-    margin-bottom: 5px;
-    outline: none;
-    max-width: 100%;
-    color: @tag-input-tag-color;
-    background-color: @tag-input-tag-bg;
-    border: 1px solid @tag-input-tag-border;
-    border-radius: 1px;
-    padding: 0 5px;
-    white-space: nowrap;
+  margin-right: 5px;
+  margin-bottom: 5px;
+  outline: none;
+  max-width: 100%;
+  color: @tag-input-tag-color;
+  background-color: @tag-input-tag-bg;
+  border: 1px solid @tag-input-tag-border;
+  border-radius: 1px;
+  padding: 0 5px;
+  white-space: nowrap;
 
-    .facet-selected-remove-btn {
-        display: none;
-    }
+  .facet-selected-remove-btn {
+    display: none;
+  }
 }
 
 .facet-drag-item.cdk-drag-placeholder {
-    outline: none;
-    max-width: 100%;
-    color: @tag-input-tag-color;
-    background-color: @tag-input-tag-bg;
-    border-radius: 1px;
-    padding: 0 5px;
-    white-space: nowrap;
+  outline: none;
+  max-width: 100%;
+  color: @tag-input-tag-color;
+  background-color: @tag-input-tag-bg;
+  border-radius: 1px;
+  padding: 0 5px;
+  white-space: nowrap;
 
-    .facet-selected-remove-btn {
-        border: none;
-        background: none;
+  .facet-selected-remove-btn {
+    border: none;
+    background: none;
 
-        &:focus {
-            .native-focus-outline();
-        }
+    &:focus {
+      .native-focus-outline();
     }
+  }
 }

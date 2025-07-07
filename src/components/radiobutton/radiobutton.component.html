@@ -1,36 +1,35 @@
 <label
-    [attr.for]="(id || _radioButtonId) + '-input'"
-    class="ux-radio-button"
-    [class.ux-radio-button-checked]="value === option"
-    [class.ux-radio-button-simplified]="simplified"
-    [class.ux-radio-button-disabled]="disabled"
-    [class.ux-radio-button-focused]="_focused"
+  [attr.for]="(id || _radioButtonId) + '-input'"
+  class="ux-radio-button"
+  [class.ux-radio-button-checked]="value === option"
+  [class.ux-radio-button-simplified]="simplified"
+  [class.ux-radio-button-disabled]="disabled"
+  [class.ux-radio-button-focused]="_focused"
 >
-    <div class="ux-radio-button-container">
-        <input
-            #input
-            class="ux-radio-button-input"
-            uxFocusIndicator
-            type="radio"
-            [id]="(id || _radioButtonId) + '-input'"
-            [attr.role]="inputRole"
-            [checked]="value === option"
-            [disabled]="disabled"
-            [tabindex]="tabindex ?? _internalTabindex"
-            [attr.name]="name"
-            [required]="required"
-            [attr.aria-label]="ariaLabel"
-            [attr.aria-labelledby]="ariaLabelledby"
-            [attr.aria-describedby]="ariaDescribedby"
-            [attr.aria-checked]="value === option"
-            (indicator)="_focused = $event"
-            (change)="select()"
-            (click)="$event.stopPropagation()"
-        />
-    </div>
+  <div class="ux-radio-button-container">
+    <input
+      #input
+      class="ux-radio-button-input"
+      uxFocusIndicator
+      type="radio"
+      [id]="(id || _radioButtonId) + '-input'"
+      [attr.role]="inputRole"
+      [checked]="value === option"
+      [disabled]="disabled"
+      [tabindex]="tabindex ?? _internalTabindex"
+      [attr.name]="name"
+      [required]="required"
+      [attr.aria-label]="ariaLabel"
+      [attr.aria-labelledby]="ariaLabelledby"
+      [attr.aria-describedby]="ariaDescribedby"
+      [attr.aria-checked]="value === option"
+      (indicator)="_focused = $event"
+      (change)="select()"
+      (click)="$event.stopPropagation()"
+    />
+  </div>
 
-    <span class="ux-radio-button-label">
-        <ng-content></ng-content>
-    </span>
-
+  <span class="ux-radio-button-label">
+    <ng-content></ng-content>
+  </span>
 </label>

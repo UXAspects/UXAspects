@@ -1,74 +1,74 @@
 @import '../../../assets/styles/variables.less';
 
 :host {
-    display: inline-block;
-    margin-left: 15px;
+  display: inline-block;
+  margin-left: 15px;
 
-    .hyperlink-hover {
-        color: @text-color;
-    }
+  .hyperlink-hover {
+    color: @text-color;
+  }
 }
 
 ::ng-deep .uxd-migrate-popover {
-    max-width: 400px;
+  max-width: 400px;
 }
 
 .universal-icon {
-    height: 22px;
-    position: relative;
-    top: -1px;
-    padding-right: 6px;
+  height: 22px;
+  position: relative;
+  top: -1px;
+  padding-right: 6px;
 }
 
 .migrate-popover {
-    width: 100%;
+  width: 100%;
 
-    .migration-title {
-        text-align: center;
-        padding-bottom: 10px;
-        font-size: 16px;
-        margin: 0;
+  .migration-title {
+    text-align: center;
+    padding-bottom: 10px;
+    font-size: 16px;
+    margin: 0;
+  }
+
+  .universal-info {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-size: 14px;
+    border-top: 1px solid @grey5;
+
+    &.border-bottom {
+      border-bottom: 1px solid @grey5;
+      margin-bottom: 8px;
+    }
+  }
+
+  tr {
+    td {
+      padding-top: 10px;
+      padding-bottom: 10px;
+      font-size: 14px;
+
+      &.notes-title {
+        vertical-align: top;
+      }
+
+      ul {
+        padding-left: 28px;
+      }
     }
 
-    .universal-info {
-        padding-top: 10px;
-        padding-bottom: 10px;
-        font-size: 14px;
-        border-top: 1px solid @grey5;
-
-        &.border-bottom {
-            border-bottom: 1px solid @grey5;
-            margin-bottom: 8px;
-        }
+    &:first-child {
+      td {
+        padding-top: 0;
+      }
     }
 
-    tr {
-        td {
-            padding-top: 10px;
-            padding-bottom: 10px;
-            font-size: 14px;
+    &:last-child {
+      border-bottom: none;
 
-            &.notes-title {
-                vertical-align: top;
-            }
-
-            ul {
-                padding-left: 28px;
-            }
-        }
-
-        &:first-child {
-            td {
-                padding-top: 0;
-            }
-        }
-
-        &:last-child {
-            border-bottom: none;
-
-            td {
-                padding-bottom: 0;
-            }
-        }
+      td {
+        padding-bottom: 0;
+      }
     }
+  }
 }

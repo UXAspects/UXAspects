@@ -46,6 +46,7 @@ import { SidePanelModule } from './side-panel.module';
       </div>
     </ux-side-panel>
   </div>`,
+  standalone: false,
 })
 export class SidePanelTestComponent {
   panelOpen = true;

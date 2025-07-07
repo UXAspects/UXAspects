@@ -1,68 +1,68 @@
 .gu-mirror {
-    position: fixed !important;
-    margin: 0 !important;
-    z-index: 9999 !important;
+  position: fixed !important;
+  margin: 0 !important;
+  z-index: 9999 !important;
 }
 
 .gu-hide {
-    display: none !important;
+  display: none !important;
 }
 
 .gu-unselectable {
-    -webkit-user-select: none !important;
-    -moz-user-select: none !important;
-    -ms-user-select: none !important;
-    user-select: none !important;
+  -webkit-user-select: none !important;
+  -moz-user-select: none !important;
+  -ms-user-select: none !important;
+  user-select: none !important;
 }
 
 .table tr.cdk-drag-placeholder,
 .table tr.cdk-drag-placeholder:hover {
-    background-color: @table-grid-bg;
+  background-color: @table-grid-bg;
 }
 
 .table tr.ux-reorderable-moving td {
-    position: relative;
-    color: transparent;
+  position: relative;
+  color: transparent;
 }
 
 .table tr.ux-reorderable-moving td:after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: fade(@primary, 5%);
-    border-top: 1px dashed @primary;
-    border-bottom: 1px dashed @primary;
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: fade(@primary, 5%);
+  border-top: 1px dashed @primary;
+  border-bottom: 1px dashed @primary;
 }
 
 .table tr.ux-reorderable-moving td:first-of-type:after {
-    border-left: 1px dashed @primary;
+  border-left: 1px dashed @primary;
 }
 
 .table tr.ux-reorderable-moving td:last-of-type:after {
-    border-right: 1px dashed @primary;
+  border-right: 1px dashed @primary;
 }
 
 .card.cdk-drag-placeholder {
-    visibility: hidden;
+  visibility: hidden;
 }
 
 .cdk-drop-list-dragging .cdk-drag {
-    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 }
 
 .cdk-drag-animating {
-    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 }
 
 .cdk-drag-preview {
-    box-sizing: border-box;
-    border-radius: 4px;
-    background-color: #fff;
+  box-sizing: border-box;
+  border-radius: 4px;
+  background-color: #fff;
 }
 
 .cdk-drag-placeholder {
-    opacity: 0.5;
+  opacity: 0.5;
 }

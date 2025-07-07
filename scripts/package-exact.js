@@ -13,7 +13,6 @@
  * When you're ready to update dependencies, I recommend https://github.com/bahmutov/next-update
  */
 
-
 var fs = require('fs');
 var path = require('path');
 
@@ -23,10 +22,13 @@ console.log('done!');
 
 function strictifyDeps(depsProperty) {
   var deps = Object.keys(packageJson[depsProperty]);
-  deps.forEach(function(dep) {
+  deps.forEach(function (dep) {
     var depPackageJson = require('../node_modules/' + dep + '/package.json');
     packageJson[depsProperty][dep] = depPackageJson.version;
   });
 
-  fs.writeFileSync(path.resolve(__dirname, '../package.json'), JSON.stringify(packageJson, null, 2));
+  fs.writeFileSync(
+    path.resolve(__dirname, '../package.json'),
+    JSON.stringify(packageJson, null, 2)
+  );
 }

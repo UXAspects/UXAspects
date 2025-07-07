@@ -1,267 +1,267 @@
 {
-    "title": "CSS",
-    "categories": [
+  "title": "CSS",
+  "categories": [
+    {
+      "title": "Breadcrumbs",
+      "link": "breadcrumbs",
+      "sections": [
         {
-            "title": "Breadcrumbs",
-            "link": "breadcrumbs",
-            "sections": [
-                {
-                    "title": "Breadcrumb",
-                    "component": "CssBreadcrumbComponent"
-                }
-            ]
-        },
-        {
-            "title": "Buttons",
-            "link": "buttons",
-            "sections": [
-                {
-                    "title": "Colored Buttons",
-                    "component": "CssColoredButtonsComponent"
-                },
-                {
-                    "title": "Link Buttons",
-                    "component": "CssLinkButtonsComponent"
-                },
-                {
-                    "title": "Icon Buttons",
-                    "component": "IconButtonsDocumentationComponent"
-                },
-                {
-                    "title": "Size Variations",
-                    "component": "CssButtonsSizeVariationsComponent"
-                },
-                {
-                    "title": "Hyperlinks",
-                    "component": "CssHyperlinksComponent"
-                }
-            ]
-        },
-        {
-            "title": "Color Palette",
-            "link": "color-palette",
-            "sections": [
-                {
-                    "title": "Color Palette",
-                    "component": "CssColorPaletteComponent"
-                }
-            ]
-        },
-        {
-            "title": "Icons",
-            "link": "icons",
-            "sections": [
-                {
-                    "title": "Icon Set",
-                    "component": "CssUxIconsComponent"
-                },
-                {
-                    "title": "Basic Usage",
-                    "component": "CssBasicUsageComponent"
-                },
-                {
-                    "title": "Icon Size",
-                    "component": "CssIconSizeComponent"
-                },
-                {
-                    "title": "Rotate & Flip Icons",
-                    "component": "CssRotateFlipIconsComponent"
-                },
-                {
-                    "title": "Icon Buttons",
-                    "component": "CssIconButtonsComponent"
-                },
-                {
-                    "title": "Icon Colors",
-                    "component": "CssIconColorsComponent"
-                }
-            ]
-        },
-        {
-            "title": "Labels",
-            "link": "labels",
-            "sections": [
-                {
-                    "title": "Labels",
-                    "component": "CssLabelsComponent"
-                },
-                {
-                    "title": "Static Text",
-                    "component": "CssStaticTextComponent"
-                }
-            ]
-        },
-        {
-            "title": "Panels",
-            "link": "panels",
-            "sections": [
-                {
-                    "title": "Basic Panel",
-                    "component": "CssBasicPanelComponent"
-                },
-                {
-                    "title": "EBox Panel",
-                    "component": "CssEboxPanelComponent"
-                }
-            ]
-        },
-        {
-            "title": "Progress",
-            "link": "progress",
-            "sections": [
-                {
-                    "title": "Activity Indicator",
-                    "component": "CssActivityIndicatorComponent"
-                },
-                {
-                    "title": "Activity Indicator Alternative",
-                    "component": "CssActivityIndicatorAlternativeComponent"
-                },
-                {
-                    "title": "Mini Activity Indicator",
-                    "component": "CssMiniActivityIndicatorComponent"
-                }
-            ]
-        },
-        {
-            "title": "Responsive Design",
-            "link": "responsive-design",
-            "sections": [
-                {
-                    "title": "Responsive Design",
-                    "component": "CssResponsiveDesignComponent"
-                },
-                {
-                    "title": "Stacked To Horizontal",
-                    "component": "CssStackedToHorizontalComponent"
-                },
-                {
-                    "title": "Mobile and Desktop",
-                    "component": "CssMobileDesktopComponent"
-                },
-                {
-                    "title": "Mobile, Tablet and Desktop",
-                    "component": "CssMobileTabletDesktopComponent"
-                },
-                {
-                    "title": "Responsive Column Resets",
-                    "component": "CssResponsiveColumnResetsComponent"
-                },
-                {
-                    "title": "Offsetting Columns",
-                    "component": "CssOffsettingColumnsComponent"
-                },
-                {
-                    "title": "Nesting Columns",
-                    "component": "CssNestingColumnsComponent"
-                },
-                {
-                    "title": "Column Ordering",
-                    "component": "CssColumnOrderingComponent"
-                }
-            ]
-        },
-        {
-            "title": "Tables",
-            "link": "tables",
-            "sections": [
-                {
-                    "title": "Tables",
-                    "component": "CssTablesComponent"
-                },
-                {
-                    "title": "Cards",
-                    "component": "CssCardsComponent"
-                }
-            ]
-        },
-        {
-            "title": "Text Inputs",
-            "link": "text-inputs",
-            "sections": [
-                {
-                    "title": "Text Inputs",
-                    "component": "CssTextInputsComponent"
-                },
-                {
-                    "title": "Text Area",
-                    "component": "CssTextAreaComponent"
-                },
-                {
-                    "title": "Disabled Inputs",
-                    "component": "CssDisabledAreaComponent"
-                },
-                {
-                    "title": "Input with Error",
-                    "component": "CssInputErrorComponent"
-                },
-                {
-                    "title": "Input Required",
-                    "component": "CssInputRequiredComponent"
-                },
-                {
-                    "title": "Input Height",
-                    "component": "CssInputHeightComponent"
-                },
-                {
-                    "title": "Input Width",
-                    "component": "CssInputWidthComponent"
-                },
-                {
-                    "title": "Input Groups",
-                    "component": "CssInputGroupsComponent"
-                },
-                {
-                    "title": "Button Addons",
-                    "component": "CssButtonAddonsComponent"
-                },
-                {
-                    "title": "Inputs with Help Text",
-                    "component": "CssInputsHelpTextComponent"
-                }
-            ]
-        },
-        {
-            "title": "Typography",
-            "link": "typography",
-            "sections": [
-                {
-                    "title": "Headings",
-                    "component": "CssHeadingsComponent"
-                },
-                {
-                    "title": "Paragraph Text",
-                    "component": "CssParagraphTextComponent"
-                },
-                {
-                    "title": "Unstyled List",
-                    "component": "CssUnstyledListComponent"
-                },
-                {
-                    "title": "Unordered List",
-                    "component": "CssUnorderedListComponent"
-                },
-                {
-                    "title": "Ordered List",
-                    "component": "CssOrderedListComponent"
-                },
-                {
-                    "title": "Emphasis Classes",
-                    "component": "CssEmphasisClassesComponent"
-                },
-                {
-                    "title": "Blockquotes",
-                    "component": "CssBlockquotesComponent"
-                },
-                {
-                    "title": "Wells",
-                    "component": "CssWellsComponent"
-                },
-                {
-                    "title": "Case Usage Guidelines",
-                    "component": "CssCaseUsageGuidelinesComponent"
-                }
-            ]
+          "title": "Breadcrumb",
+          "component": "CssBreadcrumbComponent"
         }
-    ]
+      ]
+    },
+    {
+      "title": "Buttons",
+      "link": "buttons",
+      "sections": [
+        {
+          "title": "Colored Buttons",
+          "component": "CssColoredButtonsComponent"
+        },
+        {
+          "title": "Link Buttons",
+          "component": "CssLinkButtonsComponent"
+        },
+        {
+          "title": "Icon Buttons",
+          "component": "IconButtonsDocumentationComponent"
+        },
+        {
+          "title": "Size Variations",
+          "component": "CssButtonsSizeVariationsComponent"
+        },
+        {
+          "title": "Hyperlinks",
+          "component": "CssHyperlinksComponent"
+        }
+      ]
+    },
+    {
+      "title": "Color Palette",
+      "link": "color-palette",
+      "sections": [
+        {
+          "title": "Color Palette",
+          "component": "CssColorPaletteComponent"
+        }
+      ]
+    },
+    {
+      "title": "Icons",
+      "link": "icons",
+      "sections": [
+        {
+          "title": "Icon Set",
+          "component": "CssUxIconsComponent"
+        },
+        {
+          "title": "Basic Usage",
+          "component": "CssBasicUsageComponent"
+        },
+        {
+          "title": "Icon Size",
+          "component": "CssIconSizeComponent"
+        },
+        {
+          "title": "Rotate & Flip Icons",
+          "component": "CssRotateFlipIconsComponent"
+        },
+        {
+          "title": "Icon Buttons",
+          "component": "CssIconButtonsComponent"
+        },
+        {
+          "title": "Icon Colors",
+          "component": "CssIconColorsComponent"
+        }
+      ]
+    },
+    {
+      "title": "Labels",
+      "link": "labels",
+      "sections": [
+        {
+          "title": "Labels",
+          "component": "CssLabelsComponent"
+        },
+        {
+          "title": "Static Text",
+          "component": "CssStaticTextComponent"
+        }
+      ]
+    },
+    {
+      "title": "Panels",
+      "link": "panels",
+      "sections": [
+        {
+          "title": "Basic Panel",
+          "component": "CssBasicPanelComponent"
+        },
+        {
+          "title": "EBox Panel",
+          "component": "CssEboxPanelComponent"
+        }
+      ]
+    },
+    {
+      "title": "Progress",
+      "link": "progress",
+      "sections": [
+        {
+          "title": "Activity Indicator",
+          "component": "CssActivityIndicatorComponent"
+        },
+        {
+          "title": "Activity Indicator Alternative",
+          "component": "CssActivityIndicatorAlternativeComponent"
+        },
+        {
+          "title": "Mini Activity Indicator",
+          "component": "CssMiniActivityIndicatorComponent"
+        }
+      ]
+    },
+    {
+      "title": "Responsive Design",
+      "link": "responsive-design",
+      "sections": [
+        {
+          "title": "Responsive Design",
+          "component": "CssResponsiveDesignComponent"
+        },
+        {
+          "title": "Stacked To Horizontal",
+          "component": "CssStackedToHorizontalComponent"
+        },
+        {
+          "title": "Mobile and Desktop",
+          "component": "CssMobileDesktopComponent"
+        },
+        {
+          "title": "Mobile, Tablet and Desktop",
+          "component": "CssMobileTabletDesktopComponent"
+        },
+        {
+          "title": "Responsive Column Resets",
+          "component": "CssResponsiveColumnResetsComponent"
+        },
+        {
+          "title": "Offsetting Columns",
+          "component": "CssOffsettingColumnsComponent"
+        },
+        {
+          "title": "Nesting Columns",
+          "component": "CssNestingColumnsComponent"
+        },
+        {
+          "title": "Column Ordering",
+          "component": "CssColumnOrderingComponent"
+        }
+      ]
+    },
+    {
+      "title": "Tables",
+      "link": "tables",
+      "sections": [
+        {
+          "title": "Tables",
+          "component": "CssTablesComponent"
+        },
+        {
+          "title": "Cards",
+          "component": "CssCardsComponent"
+        }
+      ]
+    },
+    {
+      "title": "Text Inputs",
+      "link": "text-inputs",
+      "sections": [
+        {
+          "title": "Text Inputs",
+          "component": "CssTextInputsComponent"
+        },
+        {
+          "title": "Text Area",
+          "component": "CssTextAreaComponent"
+        },
+        {
+          "title": "Disabled Inputs",
+          "component": "CssDisabledAreaComponent"
+        },
+        {
+          "title": "Input with Error",
+          "component": "CssInputErrorComponent"
+        },
+        {
+          "title": "Input Required",
+          "component": "CssInputRequiredComponent"
+        },
+        {
+          "title": "Input Height",
+          "component": "CssInputHeightComponent"
+        },
+        {
+          "title": "Input Width",
+          "component": "CssInputWidthComponent"
+        },
+        {
+          "title": "Input Groups",
+          "component": "CssInputGroupsComponent"
+        },
+        {
+          "title": "Button Addons",
+          "component": "CssButtonAddonsComponent"
+        },
+        {
+          "title": "Inputs with Help Text",
+          "component": "CssInputsHelpTextComponent"
+        }
+      ]
+    },
+    {
+      "title": "Typography",
+      "link": "typography",
+      "sections": [
+        {
+          "title": "Headings",
+          "component": "CssHeadingsComponent"
+        },
+        {
+          "title": "Paragraph Text",
+          "component": "CssParagraphTextComponent"
+        },
+        {
+          "title": "Unstyled List",
+          "component": "CssUnstyledListComponent"
+        },
+        {
+          "title": "Unordered List",
+          "component": "CssUnorderedListComponent"
+        },
+        {
+          "title": "Ordered List",
+          "component": "CssOrderedListComponent"
+        },
+        {
+          "title": "Emphasis Classes",
+          "component": "CssEmphasisClassesComponent"
+        },
+        {
+          "title": "Blockquotes",
+          "component": "CssBlockquotesComponent"
+        },
+        {
+          "title": "Wells",
+          "component": "CssWellsComponent"
+        },
+        {
+          "title": "Case Usage Guidelines",
+          "component": "CssCaseUsageGuidelinesComponent"
+        }
+      ]
+    }
+  ]
 }

@@ -10,26 +10,21 @@ import { MarqueeWizardStepIconDirective } from './marquee-wizard-step-icon.direc
 import { MarqueeWizardStepComponent } from './marquee-wizard-step.component';
 import { MarqueeWizardComponent } from './marquee-wizard.component';
 
-
 @NgModule({
-    imports: [
-        AccessibilityModule,
-        CommonModule,
-        IconModule,
-        TooltipModule,
-        WizardModule,
-        AngularSplitModule,
-        ResizeModule
-    ],
-    exports: [
-        MarqueeWizardComponent,
-        MarqueeWizardStepComponent,
-        MarqueeWizardStepIconDirective
-    ],
-    declarations: [
-        MarqueeWizardComponent,
-        MarqueeWizardStepComponent,
-        MarqueeWizardStepIconDirective
-    ]
+  imports: [
+    AccessibilityModule,
+    CommonModule,
+    IconModule,
+    TooltipModule,
+    WizardModule,
+    AngularSplitModule,
+    ResizeModule,
+  ],
+  exports: [MarqueeWizardComponent, MarqueeWizardStepComponent, MarqueeWizardStepIconDirective],
+  declarations: [
+    MarqueeWizardComponent,
+    MarqueeWizardStepComponent,
+    MarqueeWizardStepIconDirective,
+  ],
 })
-export class MarqueeWizardModule { }
+export class MarqueeWizardModule {}

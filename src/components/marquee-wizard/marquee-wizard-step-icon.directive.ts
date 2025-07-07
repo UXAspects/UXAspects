@@ -1,6 +1,7 @@
 import { Directive } from '@angular/core';
 
 @Directive({
-    selector: '[uxMarqueeWizardStepIcon]',
+  selector: '[uxMarqueeWizardStepIcon]',
+  standalone: false,
 })
-export class MarqueeWizardStepIconDirective { }
+export class MarqueeWizardStepIconDirective {}

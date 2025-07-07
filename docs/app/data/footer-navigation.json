@@ -1,26 +1,26 @@
 {
-    "columns": [
+  "columns": [
+    {
+      "title": "About",
+      "links": [
         {
-            "title": "About",
-            "links": [
-                {
-                    "title": "UX Aspects {{VERSION}}",
-                    "link": "/changelog"
-                },
-                {
-                    "title": "Licensed under the Apache License 2.0",
-                    "link": "/licenses"
-                }
-            ]
+          "title": "UX Aspects {{VERSION}}",
+          "link": "/changelog"
+        },
+        {
+          "title": "Licensed under the Apache License 2.0",
+          "link": "/licenses"
         }
-    ],
-    "logo": {
-        "image": "assets/img/UX-graphic-small.png",
-        "title": "UX Aspects"
-    },
-    "copyright": "Open Text. All Rights Reserved. Trademarks owned by Open Text.",
-    "feedback": {
-        "title": "Feedback",
-        "link": "https://github.com/UXAspects/UXAspects/issues"
+      ]
     }
+  ],
+  "logo": {
+    "image": "assets/img/UX-graphic-small.png",
+    "title": "UX Aspects"
+  },
+  "copyright": "Open Text. All Rights Reserved. Trademarks owned by Open Text.",
+  "feedback": {
+    "title": "Feedback",
+    "link": "https://github.com/UXAspects/UXAspects/issues"
+  }
 }

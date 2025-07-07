@@ -7,36 +7,34 @@ import { DocumentationPage, ResolverService } from '../../../../services/resolve
 import { ComponentsStaticTooltipComponent } from './static-tooltip/static-tooltip.component';
 import { ComponentsTooltipsComponent } from './tooltips/tooltips.component';
 
-
-const SECTIONS = [
-    ComponentsStaticTooltipComponent,
-    ComponentsTooltipsComponent
-];
+const SECTIONS = [ComponentsStaticTooltipComponent, ComponentsTooltipsComponent];
 
 const ROUTES = [
-    {
-        path: '**',
-        component: DocumentationCategoryComponent,
-        data: {
-            category: ResolverService.resolveCategoryData(DocumentationPage.Components, 'Tooltips')
-        }
-    }
+  {
+    path: '**',
+    component: DocumentationCategoryComponent,
+    data: {
+      category: ResolverService.resolveCategoryData(DocumentationPage.Components, 'Tooltips'),
+    },
+  },
 ];
 
 @NgModule({
-    imports: [
-        DocumentationComponentsModule,
-        PopoverModule,
-        RouterModule.forChild(ROUTES),
-        TabsetModule,
-        TooltipModule,
-    ],
-    exports: SECTIONS,
-    declarations: SECTIONS,
+  imports: [
+    DocumentationComponentsModule,
+    PopoverModule,
+    RouterModule.forChild(ROUTES),
+    TabsetModule,
+    TooltipModule,
+  ],
+  exports: SECTIONS,
+  declarations: SECTIONS,
 })
 export class ComponentsTooltipsModule {
-
-    constructor(componentFactoryResolver: ComponentFactoryResolver, resolverService: ResolverService) {
-        resolverService.registerResolver(componentFactoryResolver, SECTIONS);
-    }
+  constructor(
+    componentFactoryResolver: ComponentFactoryResolver,
+    resolverService: ResolverService
+  ) {
+    resolverService.registerResolver(componentFactoryResolver, SECTIONS);
+  }
 }

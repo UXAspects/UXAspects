@@ -1,176 +1,197 @@
 <ux-accordion [collapseOthers]="true">
-    <ux-accordion-panel class="accordion-chevron" heading="Fixed Header Table" [expanded]="true">
-        <table *ngIf="type === 'uxResizableTable'"
-               class="table" aria-multiselectable="true"
-               uxResizableTable uxFixedHeaderTable
-               [tableHeight]="230">
-            <thead>
-            <tr>
-                <th uxResizableTableColumn [width]="50" [disabled]="true"></th>
-                <th uxResizableTableColumn [(width)]="titleWidth">Title</th>
-                <th uxResizableTableColumn [(width)]="authorWidth">Author</th>
-                <th uxResizableTableColumn (widthChange)="dateWidth = $event">Date</th>
-            </tr>
-            </thead>
-            <tbody [(uxSelection)]="selection">
-                <tr *ngFor="let document of documents"
-                    [attr.aria-selected]="document.selected"
-                    [uxSelectionItem]="document"
-                    [(selected)]="document.selected">
+  <ux-accordion-panel class="accordion-chevron" heading="Fixed Header Table" [expanded]="true">
+    <table
+      *ngIf="type === 'uxResizableTable'"
+      class="table"
+      aria-multiselectable="true"
+      uxResizableTable
+      uxFixedHeaderTable
+      [tableHeight]="230"
+    >
+      <thead>
+        <tr>
+          <th uxResizableTableColumn [width]="50" [disabled]="true"></th>
+          <th uxResizableTableColumn [(width)]="titleWidth">Title</th>
+          <th uxResizableTableColumn [(width)]="authorWidth">Author</th>
+          <th uxResizableTableColumn (widthChange)="dateWidth = $event">Date</th>
+        </tr>
+      </thead>
+      <tbody [(uxSelection)]="selection">
+        <tr
+          *ngFor="let document of documents"
+          [attr.aria-selected]="document.selected"
+          [uxSelectionItem]="document"
+          [(selected)]="document.selected"
+        >
+          <td class="checkbox-column" uxResizableTableCell>
+            <ux-checkbox aria-hidden="true" tabindex="-1" [(ngModel)]="document.selected">
+            </ux-checkbox>
+          </td>
+          <td uxResizableTableCell>{{ document.title }}</td>
+          <td uxResizableTableCell>{{ document.author }}</td>
+          <td uxResizableTableCell>{{ document.date | date }}</td>
+        </tr>
+      </tbody>
+    </table>
 
-                    <td class="checkbox-column" uxResizableTableCell>
-                        <ux-checkbox aria-hidden="true"
-                                     tabindex="-1"
-                                     [(ngModel)]="document.selected">
-                        </ux-checkbox>
-                    </td>
-                    <td uxResizableTableCell>{{ document.title }}</td>
-                    <td uxResizableTableCell>{{ document.author }}</td>
-                    <td uxResizableTableCell>{{ document.date | date }}</td>
-                </tr>
-            </tbody>
-        </table>
+    <table
+      *ngIf="type === 'uxResizableExpandingTable'"
+      class="table"
+      aria-multiselectable="true"
+      uxResizableExpandingTable
+      uxFixedHeaderTable
+      [tableHeight]="230"
+    >
+      <thead>
+        <tr>
+          <th uxResizableTableColumn [width]="50" [disabled]="true"></th>
+          <th uxResizableTableColumn [(width)]="titleWidth">Title</th>
+          <th uxResizableTableColumn [(width)]="authorWidth">Author</th>
+          <th uxResizableTableColumn [(width)]="dateWidthExpanding">Date</th>
+        </tr>
+      </thead>
+      <tbody [(uxSelection)]="selection">
+        <tr
+          *ngFor="let document of documents"
+          [attr.aria-selected]="document.selected"
+          [uxSelectionItem]="document"
+          [(selected)]="document.selected"
+        >
+          <td class="checkbox-column" uxResizableTableCell>
+            <ux-checkbox
+              aria-hidden="true"
+              tabindex="-1"
+              [(ngModel)]="document.selected"
+            ></ux-checkbox>
+          </td>
+          <td uxResizableTableCell>{{ document.title }}</td>
+          <td uxResizableTableCell>{{ document.author }}</td>
+          <td uxResizableTableCell>{{ document.date | date }}</td>
+        </tr>
+      </tbody>
+    </table>
 
-        <table *ngIf="type === 'uxResizableExpandingTable'" class="table" aria-multiselectable="true"
-               uxResizableExpandingTable uxFixedHeaderTable [tableHeight]="230">
-            <thead>
-            <tr>
-                <th uxResizableTableColumn [width]="50" [disabled]="true"></th>
-                <th uxResizableTableColumn [(width)]="titleWidth">Title</th>
-                <th uxResizableTableColumn [(width)]="authorWidth">Author</th>
-                <th uxResizableTableColumn [(width)]="dateWidthExpanding">Date</th>
-            </tr>
-            </thead>
-            <tbody [(uxSelection)]="selection">
-                <tr *ngFor="let document of documents"
-                    [attr.aria-selected]="document.selected"
-                    [uxSelectionItem]="document"
-                    [(selected)]="document.selected">
-
-                    <td class="checkbox-column" uxResizableTableCell>
-                        <ux-checkbox aria-hidden="true" tabindex="-1" [(ngModel)]="document.selected"></ux-checkbox>
-                    </td>
-                    <td uxResizableTableCell>{{ document.title }}</td>
-                    <td uxResizableTableCell>{{ document.author }}</td>
-                    <td uxResizableTableCell>{{ document.date | date }}</td>
-                </tr>
-            </tbody>
-        </table>
-
-        <div uxRadioButtonGroup [(value)]="type" class="radio-button-container">
-            <ux-radio-button option="uxResizableTable">uxResizableTable</ux-radio-button>
-            <ux-radio-button option="uxResizableExpandingTable">uxResizableExpandingTable</ux-radio-button>
-        </div>
-        <button class="btn button-secondary" (click)="setToUniform(type)">Reset Columns</button>
-    </ux-accordion-panel>
-    <ux-accordion-panel class="accordion-chevron" heading="Standard Table">
-        <table class="table" aria-multiselectable="true" uxResizableTable>
-            <thead>
-            <tr>
-                <th uxResizableTableColumn [width]="50" [disabled]="true"></th>
-                <th uxResizableTableColumn [(width)]="titleWidth">Title</th>
-                <th uxResizableTableColumn [(width)]="authorWidth">Author</th>
-                <th uxResizableTableColumn (widthChange)="dateWidth = $event">Date</th>
-            </tr>
-            </thead>
-            <tbody [(uxSelection)]="selection">
-                <tr *ngFor="let document of documents | slice:0:5"
-                    [attr.aria-selected]="document.selected"
-                    [uxSelectionItem]="document"
-                    [(selected)]="document.selected">
-
-                    <td class="checkbox-column">
-                        <ux-checkbox aria-hidden="true" tabindex="-1" [(ngModel)]="document.selected">
-                        </ux-checkbox>
-                    </td>
-                    <td>{{ document.title }}</td>
-                    <td>{{ document.author }}</td>
-                    <td>{{ document.date | date }}</td>
-                </tr>
-            </tbody>
-        </table>
-    </ux-accordion-panel>
+    <div uxRadioButtonGroup [(value)]="type" class="radio-button-container">
+      <ux-radio-button option="uxResizableTable">uxResizableTable</ux-radio-button>
+      <ux-radio-button option="uxResizableExpandingTable"
+        >uxResizableExpandingTable</ux-radio-button
+      >
+    </div>
+    <button class="btn button-secondary" (click)="setToUniform(type)">Reset Columns</button>
+  </ux-accordion-panel>
+  <ux-accordion-panel class="accordion-chevron" heading="Standard Table">
+    <table class="table" aria-multiselectable="true" uxResizableTable>
+      <thead>
+        <tr>
+          <th uxResizableTableColumn [width]="50" [disabled]="true"></th>
+          <th uxResizableTableColumn [(width)]="titleWidth">Title</th>
+          <th uxResizableTableColumn [(width)]="authorWidth">Author</th>
+          <th uxResizableTableColumn (widthChange)="dateWidth = $event">Date</th>
+        </tr>
+      </thead>
+      <tbody [(uxSelection)]="selection">
+        <tr
+          *ngFor="let document of documents | slice: 0 : 5"
+          [attr.aria-selected]="document.selected"
+          [uxSelectionItem]="document"
+          [(selected)]="document.selected"
+        >
+          <td class="checkbox-column">
+            <ux-checkbox aria-hidden="true" tabindex="-1" [(ngModel)]="document.selected">
+            </ux-checkbox>
+          </td>
+          <td>{{ document.title }}</td>
+          <td>{{ document.author }}</td>
+          <td>{{ document.date | date }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </ux-accordion-panel>
 </ux-accordion>
 
-<hr>
+<hr />
+<p>UX Aspects supports resizable columns with two different modes of behaviour.</p>
+
 <p>
-    UX Aspects supports resizable columns with two different modes of behaviour.
+  Use <code>uxResizableTable</code> on the <code>table</code> element to allow columns to be resized
+  without affecting the overall width of the table. This works by shrinking or growing the next
+  column to the right to accommodate the change in width.
 </p>
 
 <p>
-    Use <code>uxResizableTable</code> on the <code>table</code> element to allow columns to be resized without
-    affecting the overall width of the table. This works by shrinking or growing the next column to the right to
-    accommodate the change in width.
+  Use <code>uxResizableExpandingTable</code> on the <code>table</code> element to allow columns to
+  be resized without affecting the widths of other columns. The table body will adjust width to
+  accommodate the columns, introducing a horizontal scrollbar if necessary.
+  <code>uxResizableExpandingTable</code> can only be used in a
+  <a fragment="fixed-header-table" [routerLink]="[uxFixedHeaderComponentRoute]"
+    >Fixed Header Table</a
+  >.
 </p>
 
 <p>
-    Use <code>uxResizableExpandingTable</code> on the <code>table</code> element to allow columns to be resized
-    without affecting the widths of other columns. The table body will adjust width to accommodate the columns,
-    introducing a horizontal scrollbar if necessary. <code>uxResizableExpandingTable</code> can only be
-    used in a <a fragment="fixed-header-table" [routerLink]="[uxFixedHeaderComponentRoute]">Fixed Header Table</a>.
+  The <code>uxResizableTable</code> or the <code>uxResizableExpandingTable</code> directive should
+  be applied to the <code>table</code> element and the <code>uxResizableTableColumn</code> directive
+  should be added to every <code>th</code> element.
 </p>
 
 <p>
-    The <code>uxResizableTable</code> or the <code>uxResizableExpandingTable</code> directive should be
-    applied to the <code>table</code> element and the <code>uxResizableTableColumn</code> directive should
-    be added to every <code>th</code> element.
+  If you are adding resizable columns to a <code>uxFixedHeaderTable</code> you will also need to add
+  the <code>uxResizableTableCell</code> directive to every <code>td</code> element in the table.
 </p>
 
 <p>
-    If you are adding resizable columns to a <code>uxFixedHeaderTable</code> you will also need to add the
-    <code>uxResizableTableCell</code> directive to every <code>td</code> element in the table.
+  The width of each column can be specified by using the <code>width</code> property. If all columns
+  have a specified width and the column widths do not match the width of the table, columns will be
+  scaled proportionally to fill the available space. If you wish to prevent this proportional
+  scaling, omit the <code>width</code> property from one column, giving it a variable width.
 </p>
 
 <p>
-    The width of each column can be specified by using the <code>width</code> property.
-    If all columns have a specified width and the column widths do not match the width of the table,
-    columns will be scaled proportionally to fill the available space.
-    If you wish to prevent this proportional scaling, omit the <code>width</code> property from one column, giving it a variable width.
+  The following methods are available in the<code>uxResizableTable</code> and
+  <code>uxResizableExpandingTable</code> directives:
 </p>
-
-<p>The following methods are available in the<code>uxResizableTable</code> and
-    <code>uxResizableExpandingTable</code> directives:</p>
 
 <uxd-api-properties tableTitle="Methods">
-    <tr uxd-api-property name="updateLayout" type="void">
-        This will recalculate the table layout.
-    </tr>
-    <tr uxd-api-property name="setUniformWidths" type="void">
-        This will set all non-disabled table columns to the same width.
-    </tr>
+  <tr uxd-api-property name="updateLayout" type="void">
+    This will recalculate the table layout.
+  </tr>
+  <tr uxd-api-property name="setUniformWidths" type="void">
+    This will set all non-disabled table columns to the same width.
+  </tr>
 </uxd-api-properties>
 
-<p>The following properties can be used to configure the <code>uxResizableTableColumn</code> directive:</p>
+<p>
+  The following properties can be used to configure the
+  <code>uxResizableTableColumn</code> directive:
+</p>
 
 <uxd-api-properties tableTitle="Inputs">
-    <tr uxd-api-property name="width" type="number">
-        Defines the number of pixels wide the column should be.
-    </tr>
-    <tr uxd-api-property name="disabled" type="boolean">
-        Specifies if the column is resizable and if the drag handle should be shown.
-    </tr>
-    <tr uxd-api-property name="handleVisible" type="boolean" defaultValue="true">
-        Specifies if the column drag handle is shown
-    </tr>
+  <tr uxd-api-property name="width" type="number">
+    Defines the number of pixels wide the column should be.
+  </tr>
+  <tr uxd-api-property name="disabled" type="boolean">
+    Specifies if the column is resizable and if the drag handle should be shown.
+  </tr>
+  <tr uxd-api-property name="handleVisible" type="boolean" defaultValue="true">
+    Specifies if the column drag handle is shown
+  </tr>
 </uxd-api-properties>
 
 <uxd-api-properties tableTitle="Outputs">
-    <tr uxd-api-property name="widthChange" type="number">
-        Emits with the width of the column when the column is resized.
-    </tr>
+  <tr uxd-api-property name="widthChange" type="number">
+    Emits with the width of the column when the column is resized.
+  </tr>
 </uxd-api-properties>
-<p>
-    The code below can be used to create the example above:
-</p>
+<p>The code below can be used to create the example above:</p>
 
 <ux-tabset [minimal]="false">
-    <ux-tab heading="HTML">
-        <uxd-snippet [content]="snippets.compiled.appHtml"></uxd-snippet>
-    </ux-tab>
-    <ux-tab heading="TypeScript">
-        <uxd-snippet [content]="snippets.compiled.appTs"></uxd-snippet>
-    </ux-tab>
-    <ux-tab heading="CSS">
-        <uxd-snippet [content]="snippets.compiled.appCss"></uxd-snippet>
-    </ux-tab>
+  <ux-tab heading="HTML">
+    <uxd-snippet [content]="snippets.compiled.appHtml"></uxd-snippet>
+  </ux-tab>
+  <ux-tab heading="TypeScript">
+    <uxd-snippet [content]="snippets.compiled.appTs"></uxd-snippet>
+  </ux-tab>
+  <ux-tab heading="CSS">
+    <uxd-snippet [content]="snippets.compiled.appCss"></uxd-snippet>
+  </ux-tab>
 </ux-tabset>

@@ -1,35 +1,44 @@
-import { ChangeDetectionStrategy, Component, ElementRef, HostListener, Input, OnInit, ViewChild } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  HostListener,
+  Input,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { PopoverDirective } from '@ux-aspects/ux-aspects';
 
 @Component({
-    selector: 'uxd-icon-preview',
-    templateUrl: './icon-preview.component.html',
-    styleUrls: ['./icon-preview.component.less'],
-    changeDetection: ChangeDetectionStrategy.OnPush
+  selector: 'uxd-icon-preview',
+  templateUrl: './icon-preview.component.html',
+  styleUrls: ['./icon-preview.component.less'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class IconPreviewComponent implements OnInit {
-    @Input() name: string;
-    @Input() classname: string;
-    @Input() size: string;
+  @Input() name: string;
+  @Input() classname: string;
+  @Input() size: string;
 
-    uxComponentSnippet: string;
-    iconSnippet: string;
+  uxComponentSnippet: string;
+  iconSnippet: string;
 
-    @ViewChild('button', { static: true }) button: ElementRef<HTMLButtonElement>;
+  @ViewChild('button', { static: true }) button: ElementRef<HTMLButtonElement>;
 
-    @ViewChild(PopoverDirective, { static: true }) popover: PopoverDirective;
+  @ViewChild(PopoverDirective, { static: true }) popover: PopoverDirective;
 
-    ngOnInit(): void {
-        this.uxComponentSnippet = `<ux-icon name="${this.name}"></ux-icon>`;
+  ngOnInit(): void {
+    this.uxComponentSnippet = `<ux-icon name="${this.name}"></ux-icon>`;
 
-        this.iconSnippet = `<i class="ux-icon ${this.classname}"></i>`;
+    this.iconSnippet = `<i class="ux-icon ${this.classname}"></i>`;
+  }
+
+  @HostListener('document:keydown.escape')
+  closePopover(): void {
+    if (this.popover.isVisible) {
+      this.popover.hide();
+      this.button.nativeElement.focus();
     }
-
-    @HostListener('document:keydown.escape')
-    closePopover(): void {
-        if (this.popover.isVisible) {
-            this.popover.hide();
-            this.button.nativeElement.focus();
-        }
-    }
+  }
 }

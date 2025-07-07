@@ -2,31 +2,30 @@ import { Component } from '@angular/core';
 import 'chance';
 
 @Component({
-    selector: 'app-root',
-    templateUrl: './app.component.html',
-    styleUrls: ['./app.component.css']
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
+  data: TableData[] = [];
+  selection: TableData[] = [];
+  mode: string = 'simple';
 
-    data: TableData[] = [];
-    selection: TableData[] = [];
-    mode: string = 'simple';
-
-    constructor() {
-        for (let idx = 0; idx < 8; idx++) {
-            this.data.push({
-                name: `Document ${idx + 1}`,
-                author: chance.name(),
-                date: chance.date(),
-                selected: false
-            });
-        }
+  constructor() {
+    for (let idx = 0; idx < 8; idx++) {
+      this.data.push({
+        name: `Document ${idx + 1}`,
+        author: chance.name(),
+        date: chance.date(),
+        selected: false,
+      });
     }
+  }
 }
 
 export interface TableData {
-    name: string;
-    author: string;
-    date: Date;
-    selected: boolean;
+  name: string;
+  author: string;
+  date: Date;
+  selected: boolean;
 }

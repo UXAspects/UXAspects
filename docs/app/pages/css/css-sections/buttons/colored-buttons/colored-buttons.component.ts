@@ -5,26 +5,27 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 import { playgroundAdapter } from '../../../../../services/playground/adapters/legacy-playground-adapter';
 
 @Component({
-    selector: 'uxd-css-colored-buttons',
-    templateUrl: './colored-buttons.component.html',
+  selector: 'uxd-css-colored-buttons',
+  templateUrl: './colored-buttons.component.html',
+  standalone: false,
 })
 @DocumentationSectionComponent('CssColoredButtonsComponent')
 export class CssColoredButtonsComponent
-    extends BaseDocumentationSection
-    implements IPlaygroundProvider
+  extends BaseDocumentationSection
+  implements IPlaygroundProvider
 {
-    playground = () => {
-        return playgroundAdapter({
-            html: this.snippets.raw.sampleHtml,
-        });
-    };
+  playground = () => {
+    return playgroundAdapter({
+      html: this.snippets.raw.sampleHtml,
+    });
+  };
 
-    constructor() {
-        super(
-            import.meta.webpackContext('./snippets/', {
-                recursive: false,
-                regExp: /\.(html|css|js|ts)$/,
-            })
-        );
-    }
+  constructor() {
+    super(
+      import.meta.webpackContext('./snippets/', {
+        recursive: false,
+        regExp: /\.(html|css|js|ts)$/,
+      })
+    );
+  }
 }

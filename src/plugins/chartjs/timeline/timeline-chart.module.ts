@@ -970,7 +970,6 @@ export interface TimelineChartOptions {
       foregroundColor?: ChartColor;
       focusIndicatorColor?: ChartColor;
       tooltip?: {
-         
         label: Function;
       };
     };
@@ -980,7 +979,6 @@ export interface TimelineChartOptions {
       minimum?: number;
       maximum?: number;
       tooltip?: {
-         
         label: Function;
       };
     };

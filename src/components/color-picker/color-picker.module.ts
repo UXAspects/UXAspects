@@ -8,19 +8,15 @@ import { TooltipModule } from '../tooltip/index';
 import { ColorPickerComponent } from './color-picker.component';
 
 @NgModule({
-    imports: [
-        AccessibilityModule,
-        CommonModule,
-        FormsModule,
-        NumberPickerModule,
-        TooltipModule,
-        IconModule
-    ],
-    exports: [
-        ColorPickerComponent
-    ],
-    declarations: [
-        ColorPickerComponent
-    ],
+  imports: [
+    AccessibilityModule,
+    CommonModule,
+    FormsModule,
+    NumberPickerModule,
+    TooltipModule,
+    IconModule,
+  ],
+  exports: [ColorPickerComponent],
+  declarations: [ColorPickerComponent],
 })
-export class ColorPickerModule { }
+export class ColorPickerModule {}

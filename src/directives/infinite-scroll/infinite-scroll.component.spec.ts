@@ -11,6 +11,7 @@ import { InfiniteScrollModule } from './infinite-scroll.module';
     [pageSize]="20"
     [loadOnScroll]="loadOnScroll"
   ></div> `,
+  standalone: false,
 })
 export class InfiniteScrollTestComponent {
   filterText: unknown;

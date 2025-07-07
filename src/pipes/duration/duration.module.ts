@@ -1,9 +1,8 @@
 import { NgModule } from '@angular/core';
-
 import { DurationPipe } from './duration.pipe';
 
 @NgModule({
-    exports: [DurationPipe],
-    declarations: [DurationPipe]
+  exports: [DurationPipe],
+  declarations: [DurationPipe],
 })
-export class DurationPipeModule { }
+export class DurationPipeModule {}

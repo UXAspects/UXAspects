@@ -7,9 +7,9 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { By } from '@angular/platform-browser';
 import { NumberPickerComponent, StepDirection } from './number-picker.component';
 import { NumberPickerModule } from './number-picker.module';
-import { By } from '@angular/platform-browser';
 
 /** Number picker example using form group */
 @Component({
@@ -32,6 +32,7 @@ import { By } from '@angular/platform-browser';
     >
     </ux-number-picker>
   `,
+  standalone: false,
 })
 export class NumberPickerTestFormGroupComponent {
   form: FormGroup;
@@ -454,6 +455,7 @@ describe('Number Picker Component - FormGroup', () => {
     >
     </ux-number-picker>
   `,
+  standalone: false,
 })
 export class NumberPickerTestNgModelComponent {
   value = 0;
@@ -591,6 +593,7 @@ describe('Number Picker Component - ngModel', () => {
     >
     </ux-number-picker>
   `,
+  standalone: false,
 })
 export class NumberPickerTestValueComponent {
   required: boolean = false;
@@ -789,6 +792,7 @@ describe('Number Picker Component - value', () => {
   selector: 'app-number-picker-form',
   template: ` <ux-number-picker readonly [formControl]="form.controls['readonly']">
   </ux-number-picker>`,
+  standalone: false,
 })
 export class NumberPickerTestReadonlyComponent {
   form: FormGroup;

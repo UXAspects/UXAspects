@@ -15,30 +15,30 @@ import { ResizableExpandingTableDirective } from './table-column-resize/table-co
 import { ResizableTableDirective } from './table-column-resize/table-column-resize-standard/resizable-table.directive';
 
 @NgModule({
-    imports: [
-        A11yModule,
-        AccessibilityModule,
-        CdkTreeModule,
-        CommonModule,
-        DragModule,
-        IconModule,
-        ResizeModule,
-        ReorderableModule,
-        SelectionModule,
-    ],
-    declarations: [
-        ColumnPickerComponent,
-        ResizableTableDirective,
-        ResizableExpandingTableDirective,
-        ResizableTableColumnComponent,
-        ResizableTableCellComponent,
-    ],
-    exports: [
-        ColumnPickerComponent,
-        ResizableTableDirective,
-        ResizableExpandingTableDirective,
-        ResizableTableColumnComponent,
-        ResizableTableCellComponent,
-    ]
+  imports: [
+    A11yModule,
+    AccessibilityModule,
+    CdkTreeModule,
+    CommonModule,
+    DragModule,
+    IconModule,
+    ResizeModule,
+    ReorderableModule,
+    SelectionModule,
+  ],
+  declarations: [
+    ColumnPickerComponent,
+    ResizableTableDirective,
+    ResizableExpandingTableDirective,
+    ResizableTableColumnComponent,
+    ResizableTableCellComponent,
+  ],
+  exports: [
+    ColumnPickerComponent,
+    ResizableTableDirective,
+    ResizableExpandingTableDirective,
+    ResizableTableColumnComponent,
+    ResizableTableCellComponent,
+  ],
 })
-export class TableModule { }
+export class TableModule {}

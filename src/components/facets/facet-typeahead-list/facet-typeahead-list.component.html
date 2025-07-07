@@ -3,10 +3,7 @@
 @if (expanded) {
   <div class="facet-typeahead-list-container" role="listbox">
     @if (suggestions?.length > 0) {
-      <div
-        class="facet-typeahead-list-selected-container"
-        tabindex="-1"
-        >
+      <div class="facet-typeahead-list-selected-container" tabindex="-1">
         @for (facet of suggestions; track facet; let index = $index) {
           <ux-facet-typeahead-list-item
             [facet]="facet"
@@ -15,7 +12,7 @@
             (selectedChange)="toggleFacet(index, facet)"
             (keydown)="onKeydown($event)"
             (itemFocus)="onFocus(index)"
-            >
+          >
           </ux-facet-typeahead-list-item>
         }
       </div>
@@ -34,31 +31,29 @@
         (ngModelChange)="query$.next($event); updateTypeahead($event)"
         (keydown)="typeaheadKeyService.handleKey($event, typeahead)"
         (blur)="typeaheadOpen = false"
-        />
-        <ux-typeahead
-          #typeahead
-          [id]="typeaheadId"
-          [(open)]="typeaheadOpen"
-          [loading]="loading"
-          display="title"
-          [options]="typeaheadOptions"
-          [optionTemplate]="facetOptionTemplate"
-          [selectOnEnter]="true"
-          (optionSelected)="select($event)"
-          (highlightedElementChange)="highlightedElement = $event"
-          >
-        </ux-typeahead>
-      </div>
+      />
+      <ux-typeahead
+        #typeahead
+        [id]="typeaheadId"
+        [(open)]="typeaheadOpen"
+        [loading]="loading"
+        display="title"
+        [options]="typeaheadOptions"
+        [optionTemplate]="facetOptionTemplate"
+        [selectOnEnter]="true"
+        (optionSelected)="select($event)"
+        (highlightedElementChange)="highlightedElement = $event"
+      >
+      </ux-typeahead>
     </div>
-  }
+  </div>
+}
 
-  <ng-template #facetOptionTemplate let-option="option" let-api="api">
-    <p class="facet-typeahead-list-option" [attr.aria-label]="option.title">
-      <span [uxSafeInnerHtml]="option.title | facetTypeaheadHighlight : (query$ | async)"></span>
-      @if (option.count) {
-        <span class="facet-typeahead-list-option-count">
-          ({{ option.count }})
-        </span>
-      }
-    </p>
-  </ng-template>
+<ng-template #facetOptionTemplate let-option="option" let-api="api">
+  <p class="facet-typeahead-list-option" [attr.aria-label]="option.title">
+    <span [uxSafeInnerHtml]="option.title | facetTypeaheadHighlight: (query$ | async)"></span>
+    @if (option.count) {
+      <span class="facet-typeahead-list-option-count"> ({{ option.count }}) </span>
+    }
+  </p>
+</ng-template>

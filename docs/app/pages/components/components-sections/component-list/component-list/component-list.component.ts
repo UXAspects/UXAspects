@@ -6,53 +6,54 @@ import { IPlayground } from '../../../../../interfaces/IPlayground';
 import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
 
 @Component({
-    selector: 'uxd-component-list',
-    templateUrl: './component-list.component.html',
+  selector: 'uxd-component-list',
+  templateUrl: './component-list.component.html',
+  standalone: false,
 })
 @DocumentationSectionComponent('ComponentsComponentListComponent')
 export class ComponentsComponentListComponent
-    extends BaseDocumentationSection
-    implements IPlaygroundProvider
+  extends BaseDocumentationSection
+  implements IPlaygroundProvider
 {
-    playground: IPlayground = {
-        files: {
-            'app.component.html': this.snippets.raw.appHtml,
-            'app.component.ts': this.snippets.raw.appTs,
-        },
-        modules: [
-            {
-                imports: ['FocusIfModule'],
-                library: '@ux-aspects/ux-aspects',
-            },
-        ],
-    };
+  playground: IPlayground = {
+    files: {
+      'app.component.html': this.snippets.raw.appHtml,
+      'app.component.ts': this.snippets.raw.appTs,
+    },
+    modules: [
+      {
+        imports: ['FocusIfModule'],
+        library: '@ux-aspects/ux-aspects',
+      },
+    ],
+  };
 
-    form = new FormGroup({
-        items: new FormArray([new FormControl(null, [Validators.required])]),
-    });
+  form = new FormGroup({
+    items: new FormArray([new FormControl(null, [Validators.required])]),
+  });
 
-    get items(): FormArray {
-        return this.form.get('items') as FormArray;
+  get items(): FormArray {
+    return this.form.get('items') as FormArray;
+  }
+
+  constructor() {
+    super(
+      import.meta.webpackContext('./snippets/', {
+        recursive: false,
+        regExp: /\.(html|css|js|ts)$/,
+      })
+    );
+  }
+
+  add(): void {
+    if (this.form.valid) {
+      this.items.push(new FormControl(null, [Validators.required]));
     }
+  }
 
-    constructor() {
-        super(
-            import.meta.webpackContext('./snippets/', {
-                recursive: false,
-                regExp: /\.(html|css|js|ts)$/,
-            })
-        );
+  remove(index: number): void {
+    if (this.items.length > 1) {
+      this.items.removeAt(index);
     }
-
-    add(): void {
-        if (this.form.valid) {
-            this.items.push(new FormControl(null, [Validators.required]));
-        }
-    }
-
-    remove(index: number): void {
-        if (this.items.length > 1) {
-            this.items.removeAt(index);
-        }
-    }
+  }
 }

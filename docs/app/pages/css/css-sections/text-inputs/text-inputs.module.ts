@@ -15,42 +15,40 @@ import { CssSegmentedAddonsComponent } from './segmented-addons/segmented-addons
 import { CssTextAreaComponent } from './text-area/text-area.component';
 import { CssTextInputsComponent } from './text-inputs/text-inputs.component';
 
-
 const SECTIONS = [
-    CssTextInputsComponent,
-    CssTextAreaComponent,
-    CssDisabledAreaComponent,
-    CssInputErrorComponent,
-    CssInputRequiredComponent,
-    CssInputHeightComponent,
-    CssInputWidthComponent,
-    CssInputGroupsComponent,
-    CssButtonAddonsComponent,
-    CssInputsHelpTextComponent,
-    CssSegmentedAddonsComponent
+  CssTextInputsComponent,
+  CssTextAreaComponent,
+  CssDisabledAreaComponent,
+  CssInputErrorComponent,
+  CssInputRequiredComponent,
+  CssInputHeightComponent,
+  CssInputWidthComponent,
+  CssInputGroupsComponent,
+  CssButtonAddonsComponent,
+  CssInputsHelpTextComponent,
+  CssSegmentedAddonsComponent,
 ];
 
 const ROUTES = [
-    {
-        path: '**',
-        component: DocumentationCategoryComponent,
-        data: {
-            category: ResolverService.resolveCategoryData(DocumentationPage.Css, 'Text Inputs')
-        }
-    }
+  {
+    path: '**',
+    component: DocumentationCategoryComponent,
+    data: {
+      category: ResolverService.resolveCategoryData(DocumentationPage.Css, 'Text Inputs'),
+    },
+  },
 ];
 
 @NgModule({
-    imports: [
-        DocumentationComponentsModule,
-        RouterModule.forChild(ROUTES),
-    ],
-    exports: SECTIONS,
-    declarations: SECTIONS,
+  imports: [DocumentationComponentsModule, RouterModule.forChild(ROUTES)],
+  exports: SECTIONS,
+  declarations: SECTIONS,
 })
 export class CssTextInputsModule {
-
-    constructor(componentFactoryResolver: ComponentFactoryResolver, resolverService: ResolverService) {
-        resolverService.registerResolver(componentFactoryResolver, SECTIONS);
-    }
+  constructor(
+    componentFactoryResolver: ComponentFactoryResolver,
+    resolverService: ResolverService
+  ) {
+    resolverService.registerResolver(componentFactoryResolver, SECTIONS);
+  }
 }

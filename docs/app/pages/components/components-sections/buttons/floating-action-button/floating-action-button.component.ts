@@ -5,46 +5,47 @@ import { IPlayground } from '../../../../../interfaces/IPlayground';
 import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
 
 @Component({
-    selector: 'uxd-floating-action-button',
-    templateUrl: './floating-action-button.component.html',
-    styleUrls: ['./floating-action-button.component.less'],
+  selector: 'uxd-floating-action-button',
+  templateUrl: './floating-action-button.component.html',
+  styleUrls: ['./floating-action-button.component.less'],
+  standalone: false,
 })
 @DocumentationSectionComponent('ComponentsFloatingActionButtonComponent')
 export class ComponentsFloatingActionButtonComponent
-    extends BaseDocumentationSection
-    implements IPlaygroundProvider
+  extends BaseDocumentationSection
+  implements IPlaygroundProvider
 {
-    playground: IPlayground = {
-        files: {
-            'app.component.ts': this.snippets.raw.appTs,
-            'app.component.html': this.snippets.raw.appHtml,
-            'app.component.css': this.snippets.raw.appCss,
-        },
-        modules: [
-            {
-                imports: [
-                    'FloatingActionButtonsModule',
-                    'RadioButtonModule',
-                    'TooltipModule',
-                    'AccordionModule',
-                ],
-                library: '@ux-aspects/ux-aspects',
-            },
+  playground: IPlayground = {
+    files: {
+      'app.component.ts': this.snippets.raw.appTs,
+      'app.component.html': this.snippets.raw.appHtml,
+      'app.component.css': this.snippets.raw.appCss,
+    },
+    modules: [
+      {
+        imports: [
+          'FloatingActionButtonsModule',
+          'RadioButtonModule',
+          'TooltipModule',
+          'AccordionModule',
         ],
-    };
+        library: '@ux-aspects/ux-aspects',
+      },
+    ],
+  };
 
-    direction: string = 'right';
+  direction: string = 'right';
 
-    get placement(): string {
-        return this.direction === 'top' || this.direction === 'bottom' ? 'right' : 'top';
-    }
+  get placement(): string {
+    return this.direction === 'top' || this.direction === 'bottom' ? 'right' : 'top';
+  }
 
-    constructor() {
-        super(
-            import.meta.webpackContext('./snippets/', {
-                recursive: false,
-                regExp: /\.(html|css|js|ts)$/,
-            })
-        );
-    }
+  constructor() {
+    super(
+      import.meta.webpackContext('./snippets/', {
+        recursive: false,
+        regExp: /\.(html|css|js|ts)$/,
+      })
+    );
+  }
 }

@@ -1,164 +1,164 @@
 ux-checkbox {
-    display: inline-block;
+  display: inline-block;
+
+  &:focus {
+    outline: none;
+  }
+
+  .ux-checkbox {
+    display: inline-flex;
+    align-items: baseline;
+    margin: 0;
+    cursor: pointer;
 
     &:focus {
-        outline: none;
+      outline: none;
     }
 
-    .ux-checkbox {
-        display: inline-flex;
-        align-items: baseline;
-        margin: 0;
-        cursor: pointer;
+    .ux-checkbox-container {
+      display: inline-flex;
+      flex: none;
+      color: transparent;
+      font-family: 'ux-icons';
+      width: 24px;
+      height: 24px;
+      border: 1px solid @grey5;
+      font-size: 16px;
+      align-items: center;
+      justify-content: center;
+      box-sizing: border-box;
 
-        &:focus {
-            outline: none;
+      .ux-icon-checkmark();
+
+      .ux-checkbox-input {
+        position: absolute;
+        height: 0;
+        width: 0;
+        outline: none;
+        overflow: hidden;
+        border: none;
+        clip: rect(0 0 0 0);
+        margin: -1px;
+        padding: 0;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+      }
+    }
+
+    &.ux-checkbox-checked,
+    &.ux-checkbox-indeterminate {
+      .ux-checkbox-container {
+        background-color: @accent;
+        color: @white;
+        border-color: transparent;
+      }
+
+      &.ux-checkbox-disabled {
+        .ux-checkbox-container {
+          background-color: @grey6;
+        }
+      }
+    }
+
+    &.ux-checkbox-indeterminate {
+      .ux-checkbox-container {
+        .ux-icon-subtract();
+      }
+    }
+
+    .ux-checkbox-label {
+      margin-left: 7px;
+
+      &:empty {
+        margin-left: 0;
+      }
+    }
+
+    &.ux-checkbox-disabled {
+      .ux-checkbox-container {
+        border-color: @grey6;
+        cursor: default;
+      }
+    }
+
+    &.ux-checkbox-simplified {
+      .ux-checkbox-container {
+        border-color: transparent;
+        background-color: transparent;
+      }
+
+      &.ux-checkbox-checked,
+      &.ux-checkbox-indeterminate {
+        .ux-checkbox-container {
+          color: @accent;
+          background-color: transparent;
+          border-color: transparent;
         }
 
+        &.ux-checkbox-disabled {
+          .ux-checkbox-container {
+            color: @grey5;
+          }
+        }
+      }
+    }
+
+    &.ux-checkbox-simplified.ux-checkbox-disabled {
+      .ux-checkbox-container {
+        color: transparent;
+      }
+    }
+
+    &:hover {
+      .ux-checkbox-container {
+        border: 2px solid @accent;
+      }
+
+      &.ux-checkbox-disabled {
+        cursor: default;
+
         .ux-checkbox-container {
-            display: inline-flex;
-            flex: none;
+          border: 1px solid @grey6;
+        }
+
+        &.ux-checkbox-simplified {
+          .ux-checkbox-container {
             color: transparent;
-            font-family: 'ux-icons';
-            width: 24px;
-            height: 24px;
-            border: 1px solid @grey5;
-            font-size: 16px;
-            align-items: center;
-            justify-content: center;
-            box-sizing: border-box;
+          }
+        }
+      }
 
-            .ux-icon-checkmark();
-
-            .ux-checkbox-input {
-                position: absolute;
-                height: 0;
-                width: 0;
-                outline: none;
-                overflow: hidden;
-                border: none;
-                clip: rect(0 0 0 0);
-                margin: -1px;
-                padding: 0;
-                -webkit-appearance: none;
-                -moz-appearance: none;
-            }
+      &.ux-checkbox-simplified {
+        .ux-checkbox-container {
+          color: @grey5;
+          border-color: transparent;
+          border-width: 1px;
         }
 
         &.ux-checkbox-checked,
         &.ux-checkbox-indeterminate {
+          .ux-checkbox-container {
+            color: @accent;
+          }
+
+          &.ux-checkbox-disabled {
             .ux-checkbox-container {
-                background-color: @accent;
-                color: @white;
-                border-color: transparent;
+              color: @grey5;
             }
-
-            &.ux-checkbox-disabled {
-                .ux-checkbox-container {
-                    background-color: @grey6;
-                }
-            }
+          }
         }
-
-        &.ux-checkbox-indeterminate {
-            .ux-checkbox-container {
-                .ux-icon-subtract();
-            }
-        }
-
-        .ux-checkbox-label {
-            margin-left: 7px;
-
-            &:empty {
-                margin-left: 0;
-            }
-        }
-
-        &.ux-checkbox-disabled {
-            .ux-checkbox-container {
-                border-color: @grey6;
-                cursor: default;
-            }
-        }
-
-        &.ux-checkbox-simplified {
-            .ux-checkbox-container {
-                border-color: transparent;
-                background-color: transparent;
-            }
-
-            &.ux-checkbox-checked,
-            &.ux-checkbox-indeterminate {
-                .ux-checkbox-container {
-                    color: @accent;
-                    background-color: transparent;
-                    border-color: transparent;
-                }
-
-                &.ux-checkbox-disabled {
-                    .ux-checkbox-container {
-                        color: @grey5;
-                    }
-                }
-            }
-        }
-
-        &.ux-checkbox-simplified.ux-checkbox-disabled {
-            .ux-checkbox-container {
-                color: transparent;
-            }
-        }
-
-        &:hover {
-            .ux-checkbox-container {
-                border: 2px solid @accent;
-            }
-
-            &.ux-checkbox-disabled {
-                cursor: default;
-
-                .ux-checkbox-container {
-                    border: 1px solid @grey6;
-                }
-
-                &.ux-checkbox-simplified {
-                    .ux-checkbox-container {
-                        color: transparent;
-                    }
-                }
-            }
-
-            &.ux-checkbox-simplified {
-                .ux-checkbox-container {
-                    color: @grey5;
-                    border-color: transparent;
-                    border-width: 1px;
-                }
-
-                &.ux-checkbox-checked,
-                &.ux-checkbox-indeterminate {
-                    .ux-checkbox-container {
-                        color: @accent;
-                    }
-
-                    &.ux-checkbox-disabled {
-                        .ux-checkbox-container {
-                            color: @grey5;
-                        }
-                    }
-                }
-            }
-        }
-
-        &.ux-checkbox-focused {
-            .ux-checkbox-container {
-                .focus-outline();
-            }
-        }
+      }
     }
 
-    &.ux-checkbox-inline {
-        display: inline-flex;
-        vertical-align: bottom;
+    &.ux-checkbox-focused {
+      .ux-checkbox-container {
+        .focus-outline();
+      }
     }
+  }
+
+  &.ux-checkbox-inline {
+    display: inline-flex;
+    vertical-align: bottom;
+  }
 }

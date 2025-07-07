@@ -6,18 +6,8 @@ import { FloatingActionButtonComponent } from './floating-action-button.componen
 import { FloatingActionButtonsComponent } from './floating-action-buttons.component';
 
 @NgModule({
-    imports: [
-        AccessibilityModule,
-        CommonModule,
-        IconModule
-    ],
-    exports: [
-        FloatingActionButtonsComponent,
-        FloatingActionButtonComponent
-    ],
-    declarations: [
-        FloatingActionButtonsComponent,
-        FloatingActionButtonComponent
-    ]
+  imports: [AccessibilityModule, CommonModule, IconModule],
+  exports: [FloatingActionButtonsComponent, FloatingActionButtonComponent],
+  declarations: [FloatingActionButtonsComponent, FloatingActionButtonComponent],
 })
-export class FloatingActionButtonsModule { }
+export class FloatingActionButtonsModule {}

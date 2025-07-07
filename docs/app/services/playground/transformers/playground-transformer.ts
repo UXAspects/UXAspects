@@ -4,5 +4,5 @@ import { PlaygroundContext, PlaygroundTree } from '../index';
 export const PLAYGROUND_TRANSFORMER = new InjectionToken('PLAYGROUND_TRANSFORMER');
 
 export interface PlaygroundTransformer {
-    transform(tree: PlaygroundTree, context: PlaygroundContext): Promise<void>;
+  transform(tree: PlaygroundTree, context: PlaygroundContext): Promise<void>;
 }

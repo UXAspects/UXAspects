@@ -1,10 +1,21 @@
-import { AfterViewInit, Directive, ElementRef, EventEmitter, inject, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import {
+  AfterViewInit,
+  Directive,
+  ElementRef,
+  EventEmitter,
+  inject,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 @Directive({
   selector: '[uxOverflowObserver], [uxOverflowHorizontalObserver], [uxOverflowVerticalObserver]',
-  exportAs: 'ux-overflow-observer'
+  exportAs: 'ux-overflow-observer',
+  standalone: false,
 })
 export class OverflowDirective implements OnInit, AfterViewInit, OnDestroy {
   private readonly _elementRef = inject(ElementRef);
@@ -50,10 +61,9 @@ export class OverflowDirective implements OnInit, AfterViewInit, OnDestroy {
 
   /** Programmatically trigger check for overflow */
   checkForOverflow(): void {
-
     const { offsetWidth, offsetHeight, scrollWidth, scrollHeight } = this._elementRef.nativeElement;
-    const horizontalOverflow = (scrollWidth - offsetWidth) > this.tolerance;
-    const verticalOverflow = (scrollHeight - offsetHeight) > this.tolerance;
+    const horizontalOverflow = scrollWidth - offsetWidth > this.tolerance;
+    const verticalOverflow = scrollHeight - offsetHeight > this.tolerance;
 
     if (horizontalOverflow !== this._state.horizontalOverflow) {
       this.uxOverflowHorizontalObserver.emit(horizontalOverflow);
@@ -63,8 +73,11 @@ export class OverflowDirective implements OnInit, AfterViewInit, OnDestroy {
       this.uxOverflowVerticalObserver.emit(verticalOverflow);
     }
 
-    if (horizontalOverflow !== this._state.horizontalOverflow || verticalOverflow !== this._state.verticalOverflow) {
-      this.uxOverflowObserver.emit((horizontalOverflow || verticalOverflow));
+    if (
+      horizontalOverflow !== this._state.horizontalOverflow ||
+      verticalOverflow !== this._state.verticalOverflow
+    ) {
+      this.uxOverflowObserver.emit(horizontalOverflow || verticalOverflow);
     }
 
     // store the state

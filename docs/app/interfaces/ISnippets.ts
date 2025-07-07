@@ -1,8 +1,8 @@
 export interface ISnippets {
-    raw: SnippetCollection;
-    compiled: SnippetCollection;
+  raw: SnippetCollection;
+  compiled: SnippetCollection;
 }
 
 export interface SnippetCollection {
-    [key: string]: string;
+  [key: string]: string;
 }

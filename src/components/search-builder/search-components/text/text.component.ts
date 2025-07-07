@@ -4,6 +4,7 @@ import { BaseSearchComponent, BaseSearchComponentConfig } from '../base-search.c
 @Component({
   selector: 'ux-search-text',
   templateUrl: './text.component.html',
+  standalone: false,
 })
 export class SearchTextComponent extends BaseSearchComponent {
   type: string = 'text';

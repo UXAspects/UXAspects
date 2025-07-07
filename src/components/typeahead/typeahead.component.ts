@@ -46,8 +46,8 @@ let uniqueId = 0;
     '[class.open]': 'open',
     '[style.maxHeight]': 'maxHeight',
   },
+  standalone: false,
 })
- 
 export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
   readonly typeaheadElement = inject(ElementRef);
 

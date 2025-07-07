@@ -6,24 +6,25 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 import { playgroundAdapter } from '../../../../../services/playground/adapters/legacy-playground-adapter';
 
 @Component({
-    selector: 'uxd-css-responsive-design-stacked-to-horizontal',
-    templateUrl: './stacked-to-horizontal.component.html',
+  selector: 'uxd-css-responsive-design-stacked-to-horizontal',
+  templateUrl: './stacked-to-horizontal.component.html',
+  standalone: false,
 })
 @DocumentationSectionComponent('CssStackedToHorizontalComponent')
 export class CssStackedToHorizontalComponent
-    extends BaseDocumentationSection
-    implements IPlaygroundProvider
+  extends BaseDocumentationSection
+  implements IPlaygroundProvider
 {
-    playground: IPlayground = playgroundAdapter({
-        html: this.snippets.raw.sampleHtml,
-    });
+  playground: IPlayground = playgroundAdapter({
+    html: this.snippets.raw.sampleHtml,
+  });
 
-    constructor() {
-        super(
-            import.meta.webpackContext('./snippets/', {
-                recursive: false,
-                regExp: /\.(html|css|js|ts)$/,
-            })
-        );
-    }
+  constructor() {
+    super(
+      import.meta.webpackContext('./snippets/', {
+        recursive: false,
+        regExp: /\.(html|css|js|ts)$/,
+      })
+    );
+  }
 }

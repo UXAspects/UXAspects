@@ -3,14 +3,8 @@ import { ResizeModule } from '../resize/index';
 import { FixedHeaderTableDirective } from './fixed-header-table.directive';
 
 @NgModule({
-    imports: [
-        ResizeModule
-    ],
-    exports: [
-        FixedHeaderTableDirective
-    ],
-    declarations: [
-        FixedHeaderTableDirective
-    ]
+  imports: [ResizeModule],
+  exports: [FixedHeaderTableDirective],
+  declarations: [FixedHeaderTableDirective],
 })
-export class FixedHeaderTableModule { }
+export class FixedHeaderTableModule {}

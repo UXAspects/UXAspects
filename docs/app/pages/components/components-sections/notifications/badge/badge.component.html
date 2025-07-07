@@ -1,162 +1,198 @@
 <div class="row badge-row text-center">
-    <div class="col-sm-3 col-sm-offset-3 col-xs-6">
-        <button class="btn btn-primary"
-            [uxBadge]="badgeContent"
-            [badgeSize]="badgeSize"
-            [badgeMaxValue]="badgeMaxValue"
-            [badgeOverlap]="badgeOverlap"
-            [badgeColor]="selectedColor"
-            [badgeBorderColor]="selectedBorderColor"
-            [badgeHidden]="badgeHidden"
-            [badgeHorizontalPosition]="badgeHorizontalPosition"
-            [badgeVerticalPosition]="badgeVerticalPosition">
-            Tasks
-        </button>
-    </div>
-    <div class="col-sm-3 col-xs-6">
-        <ux-icon class="icon-example"
-            name="list"
-            [uxBadge]="badgeContent"
-            [badgeSize]="badgeSize"
-            [badgeMaxValue]="badgeMaxValue"
-            [badgeOverlap]="badgeOverlap"
-            [badgeColor]="selectedColor"
-            [badgeBorderColor]="selectedBorderColor"
-            [badgeHidden]="badgeHidden"
-            [badgeHorizontalPosition]="badgeHorizontalPosition"
-            [badgeVerticalPosition]="badgeVerticalPosition">
-        </ux-icon>
-    </div>
+  <div class="col-sm-3 col-sm-offset-3 col-xs-6">
+    <button
+      class="btn btn-primary"
+      [uxBadge]="badgeContent"
+      [badgeSize]="badgeSize"
+      [badgeMaxValue]="badgeMaxValue"
+      [badgeOverlap]="badgeOverlap"
+      [badgeColor]="selectedColor"
+      [badgeBorderColor]="selectedBorderColor"
+      [badgeHidden]="badgeHidden"
+      [badgeHorizontalPosition]="badgeHorizontalPosition"
+      [badgeVerticalPosition]="badgeVerticalPosition"
+    >
+      Tasks
+    </button>
+  </div>
+  <div class="col-sm-3 col-xs-6">
+    <ux-icon
+      class="icon-example"
+      name="list"
+      [uxBadge]="badgeContent"
+      [badgeSize]="badgeSize"
+      [badgeMaxValue]="badgeMaxValue"
+      [badgeOverlap]="badgeOverlap"
+      [badgeColor]="selectedColor"
+      [badgeBorderColor]="selectedBorderColor"
+      [badgeHidden]="badgeHidden"
+      [badgeHorizontalPosition]="badgeHorizontalPosition"
+      [badgeVerticalPosition]="badgeVerticalPosition"
+    >
+    </ux-icon>
+  </div>
 </div>
 
 <div class="row uxd-customize-example">
-    <div class="col-md-12">
-        <ux-accordion>
-            <ux-accordion-panel class="accordion-chevron" heading="Customize Example...">
-                <div class="row uxd-customize-row">
-                    <div class="col-md-6 col-sm-12">
-                        <label for="uxBadge">uxBadge</label>
-                        <div class="input-group m-b-sm">
-                            <input type="text" class="form-control" [(ngModel)]="badgeContent">
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-sm-12">
-                        <label for="badgeMaxValue">badgeMaxValue</label>
-                        <ux-number-picker-inline [(value)]="badgeMaxValue" min="0" max="1000000">
-                        </ux-number-picker-inline>
-                    </div>
-                </div>
-                <div class="row uxd-customize-row">
-                    <div class="col-md-6 col-sm-6">
-                        <label for="badgeColor">badgeColor</label>
-                        <div class="input-group m-b-sm">
-                            <input type="text" class="form-control" [(ngModel)]="selectedColor" [ngModelOptions]="{ updateOn: 'blur' }" />
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-sm-6">
-                        <label for="badgeBorderColor">badgeBorderColor</label>
-                        <div class="input-group m-b-sm">
-                            <input type="text" class="form-control" [(ngModel)]="selectedBorderColor" [ngModelOptions]="{ updateOn: 'blur' }" />
-                        </div>
-                    </div>
-                </div>
-                <div class="row uxd-customize-row">
-                    <div class="col-md-3 col-sm-6">
-                        <label for="buttonSize">badgeVerticalPosition</label>
-                    </div>
-                    <div class="col-md-3 col-sm-6">
-                        <ux-radio-button [(value)]="badgeVerticalPosition" option="above">above</ux-radio-button>
-                        <ux-radio-button [(value)]="badgeVerticalPosition" option="below">below</ux-radio-button>
-                    </div>
-                    <div class="col-md-3 col-sm-6">
-                        <label for="buttonSize">badgeHorizontalPosition</label>
-                    </div>
-                    <div class="col-md-3 col-sm-6">
-                        <ux-radio-button [(value)]="badgeHorizontalPosition" option="before">before</ux-radio-button>
-                        <ux-radio-button [(value)]="badgeHorizontalPosition" option="after">after</ux-radio-button>
-                    </div>
-                </div>
-                <div class="row uxd-customize-row">
-                    <div class="col-md-2 col-sm-3">
-                        <label for="buttonSize">badgeSize</label>
-                    </div>
-                    <div class="col-md-4 col-sm-9">
-                        <ux-radio-button [(value)]="badgeSize" option="small">small</ux-radio-button>
-                        <ux-radio-button [(value)]="badgeSize" option="medium">medium</ux-radio-button>
-                        <ux-radio-button [(value)]="badgeSize" option="large">large</ux-radio-button>
-                    </div>
-                    <div class="col-md-3 col-sm-6">
-                        <ux-checkbox [(value)]="badgeOverlap">badgeOverlap</ux-checkbox>
-                    </div>
-                    <div class="col-md-3 col-sm-6">
-                        <ux-checkbox [(value)]="badgeHidden">badgeHidden</ux-checkbox>
-                    </div>
-                </div>
-            </ux-accordion-panel>
-        </ux-accordion>
-    </div>
+  <div class="col-md-12">
+    <ux-accordion>
+      <ux-accordion-panel class="accordion-chevron" heading="Customize Example...">
+        <div class="row uxd-customize-row">
+          <div class="col-md-6 col-sm-12">
+            <label for="uxBadge">uxBadge</label>
+            <div class="input-group m-b-sm">
+              <input type="text" class="form-control" [(ngModel)]="badgeContent" />
+            </div>
+          </div>
+          <div class="col-md-6 col-sm-12">
+            <label for="badgeMaxValue">badgeMaxValue</label>
+            <ux-number-picker-inline [(value)]="badgeMaxValue" min="0" max="1000000">
+            </ux-number-picker-inline>
+          </div>
+        </div>
+        <div class="row uxd-customize-row">
+          <div class="col-md-6 col-sm-6">
+            <label for="badgeColor">badgeColor</label>
+            <div class="input-group m-b-sm">
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="selectedColor"
+                [ngModelOptions]="{ updateOn: 'blur' }"
+              />
+            </div>
+          </div>
+          <div class="col-md-6 col-sm-6">
+            <label for="badgeBorderColor">badgeBorderColor</label>
+            <div class="input-group m-b-sm">
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="selectedBorderColor"
+                [ngModelOptions]="{ updateOn: 'blur' }"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="row uxd-customize-row">
+          <div class="col-md-3 col-sm-6">
+            <label for="buttonSize">badgeVerticalPosition</label>
+          </div>
+          <div class="col-md-3 col-sm-6">
+            <ux-radio-button [(value)]="badgeVerticalPosition" option="above"
+              >above</ux-radio-button
+            >
+            <ux-radio-button [(value)]="badgeVerticalPosition" option="below"
+              >below</ux-radio-button
+            >
+          </div>
+          <div class="col-md-3 col-sm-6">
+            <label for="buttonSize">badgeHorizontalPosition</label>
+          </div>
+          <div class="col-md-3 col-sm-6">
+            <ux-radio-button [(value)]="badgeHorizontalPosition" option="before"
+              >before</ux-radio-button
+            >
+            <ux-radio-button [(value)]="badgeHorizontalPosition" option="after"
+              >after</ux-radio-button
+            >
+          </div>
+        </div>
+        <div class="row uxd-customize-row">
+          <div class="col-md-2 col-sm-3">
+            <label for="buttonSize">badgeSize</label>
+          </div>
+          <div class="col-md-4 col-sm-9">
+            <ux-radio-button [(value)]="badgeSize" option="small">small</ux-radio-button>
+            <ux-radio-button [(value)]="badgeSize" option="medium">medium</ux-radio-button>
+            <ux-radio-button [(value)]="badgeSize" option="large">large</ux-radio-button>
+          </div>
+          <div class="col-md-3 col-sm-6">
+            <ux-checkbox [(value)]="badgeOverlap">badgeOverlap</ux-checkbox>
+          </div>
+          <div class="col-md-3 col-sm-6">
+            <ux-checkbox [(value)]="badgeHidden">badgeHidden</ux-checkbox>
+          </div>
+        </div>
+      </ux-accordion-panel>
+    </ux-accordion>
+  </div>
 </div>
 
 <hr />
 
 <p>
-    The <code>uxBadge</code> directive can be added to any element to provide additional information as a badge, such as
-    status text or unread count.
+  The <code>uxBadge</code> directive can be added to any element to provide additional information
+  as a badge, such as status text or unread count.
 </p>
-<p><strong>Note:</strong> the badge directive relies on the CSS overflow property being set to <code>visible</code> for
-    the subject element due to how the badge element attaches to it. If you want to use <code>hidden</code>, you will
-    need to add a wrapper element around the subject so it only affects the contents.</p>
 <p>
-    The appearance and behavior of the directive can be configured using the following properties:
+  <strong>Note:</strong> the badge directive relies on the CSS overflow property being set to
+  <code>visible</code> for the subject element due to how the badge element attaches to it. If you
+  want to use <code>hidden</code>, you will need to add a wrapper element around the subject so it
+  only affects the contents.
+</p>
+<p>
+  The appearance and behavior of the directive can be configured using the following properties:
 </p>
 
 <uxd-api-properties tableTitle="Inputs">
-    <tr uxd-api-property name="uxBadge" type="string | number">
-        The value to display in the badge.
-    </tr>
-    <tr uxd-api-property name="badgeColor" type="string">
-        The color you want to use for the background color. This can be a color name from the
-        <a [fragment]="colorPaletteFragment" [routerLink]="[colorPaletteDocumentationRoute]">color palette</a>, or a CSS Hex/RGB/RGBA value.
-    </tr>
-    <tr uxd-api-property name="badgeBorderColor" type="string">
-        The color you want to use for the border of the badge. If this value is not set the badge will have a transparent
-        border. This can be a color name from the
-        <a [fragment]="colorPaletteFragment" [routerLink]="[colorPaletteDocumentationRoute]">color palette</a>, or a CSS Hex/RGB/RGBA value.
-    </tr>
-    <tr uxd-api-property name="badgeValueLimit" type="number">
-        Sets a character or number limit on the content within the badge. If the content is a number and larger than
-        this value it will display this value with an appended <strong>+</strong>, otherwise the content will be treated
-        as text and use this value to truncate the number of characters displayed followed by an ellipsis
-        (<strong>&hellip;</strong>).
-    </tr>
-    <tr uxd-api-property name="badgeVerticalPosition" type="'above' | 'below'" defaultValue="'above'">
-        The vertical position of the badge in relation to its subject element.
-    </tr>
-    <tr uxd-api-property name="badgeHorizontalPosition" type="'before' | 'after'" defaultValue="'after'">
-        The horizontal position of the badge in relation to its subject
-        element.
-    </tr>
-    <tr uxd-api-property name="badgeOverlap" type="boolean" defaultValue="true">
-        This will determine whether the badge content will overlap its subject element. If overlap is
-        <code>false</code> the badge will start after the end of the subject element, otherwise
-        if it is set to <code>true</code> the badge horizontal center will be at the end of its subject element.
-    </tr>
-    <tr uxd-api-property name="badgeSize" type="'small' | 'medium' | 'large'" defaultValue="medium">
-        The size of the badge.
-    </tr>
-    <tr uxd-api-property name="badgeHidden" type="boolean" defaultValue="false">
-        Whether the badge is visible.
-    </tr>
+  <tr uxd-api-property name="uxBadge" type="string | number">
+    The value to display in the badge.
+  </tr>
+  <tr uxd-api-property name="badgeColor" type="string">
+    The color you want to use for the background color. This can be a color name from the
+    <a [fragment]="colorPaletteFragment" [routerLink]="[colorPaletteDocumentationRoute]"
+      >color palette</a
+    >, or a CSS Hex/RGB/RGBA value.
+  </tr>
+  <tr uxd-api-property name="badgeBorderColor" type="string">
+    The color you want to use for the border of the badge. If this value is not set the badge will
+    have a transparent border. This can be a color name from the
+    <a [fragment]="colorPaletteFragment" [routerLink]="[colorPaletteDocumentationRoute]"
+      >color palette</a
+    >, or a CSS Hex/RGB/RGBA value.
+  </tr>
+  <tr uxd-api-property name="badgeValueLimit" type="number">
+    Sets a character or number limit on the content within the badge. If the content is a number and
+    larger than this value it will display this value with an appended
+    <strong>+</strong
+    >, otherwise the content will be treated as text and use this value to truncate the number of
+    characters displayed followed by an ellipsis (<strong>&hellip;</strong>).
+  </tr>
+  <tr uxd-api-property name="badgeVerticalPosition" type="'above' | 'below'" defaultValue="'above'">
+    The vertical position of the badge in relation to its subject element.
+  </tr>
+  <tr
+    uxd-api-property
+    name="badgeHorizontalPosition"
+    type="'before' | 'after'"
+    defaultValue="'after'"
+  >
+    The horizontal position of the badge in relation to its subject element.
+  </tr>
+  <tr uxd-api-property name="badgeOverlap" type="boolean" defaultValue="true">
+    This will determine whether the badge content will overlap its subject element. If overlap is
+    <code>false</code>
+    the badge will start after the end of the subject element, otherwise if it is set to
+    <code>true</code>
+    the badge horizontal center will be at the end of its subject element.
+  </tr>
+  <tr uxd-api-property name="badgeSize" type="'small' | 'medium' | 'large'" defaultValue="medium">
+    The size of the badge.
+  </tr>
+  <tr uxd-api-property name="badgeHidden" type="boolean" defaultValue="false">
+    Whether the badge is visible.
+  </tr>
 </uxd-api-properties>
 
 <p>The following code can be used to create the example above:</p>
 
 <ux-tabset [minimal]="false">
-    <ux-tab heading="HTML">
-        <uxd-snippet language="html" [content]="snippets.compiled.appHtml"></uxd-snippet>
-    </ux-tab>
+  <ux-tab heading="HTML">
+    <uxd-snippet language="html" [content]="snippets.compiled.appHtml"></uxd-snippet>
+  </ux-tab>
 
-    <ux-tab heading="TypeScript">
-        <uxd-snippet language="javascript" [content]="snippets.compiled.appTs"></uxd-snippet>
-    </ux-tab>
+  <ux-tab heading="TypeScript">
+    <uxd-snippet language="javascript" [content]="snippets.compiled.appTs"></uxd-snippet>
+  </ux-tab>
 </ux-tabset>

@@ -9,37 +9,36 @@ import { DocumentationPage, ResolverService } from '../../../../services/resolve
 import { ChartsDonutChartComponent } from './donut-chart/donut-chart.component';
 import { ChartsNestedDonutChartComponent } from './nested-donut-chart/nested-donut-chart.component';
 
-const SECTIONS = [
-    ChartsDonutChartComponent,
-    ChartsNestedDonutChartComponent
-];
+const SECTIONS = [ChartsDonutChartComponent, ChartsNestedDonutChartComponent];
 
 const ROUTES = [
-    {
-        path: '**',
-        component: DocumentationCategoryComponent,
-        data: {
-            category: ResolverService.resolveCategoryData(DocumentationPage.Charts, 'Donut Charts')
-        }
-    }
+  {
+    path: '**',
+    component: DocumentationCategoryComponent,
+    data: {
+      category: ResolverService.resolveCategoryData(DocumentationPage.Charts, 'Donut Charts'),
+    },
+  },
 ];
 
 @NgModule({
-    imports: [
-        NgChartsModule,
-        ColorServiceModule,
-        CommonModule,
-        DocumentationComponentsModule,
-        NestedDonutChartModule,
-        RouterModule.forChild(ROUTES),
-        TabsetModule,
-    ],
-    exports: SECTIONS,
-    declarations: SECTIONS,
+  imports: [
+    NgChartsModule,
+    ColorServiceModule,
+    CommonModule,
+    DocumentationComponentsModule,
+    NestedDonutChartModule,
+    RouterModule.forChild(ROUTES),
+    TabsetModule,
+  ],
+  exports: SECTIONS,
+  declarations: SECTIONS,
 })
 export class ChartsDonutChartsModule {
-
-    constructor(componentFactoryResolver: ComponentFactoryResolver, resolverService: ResolverService) {
-        resolverService.registerResolver(componentFactoryResolver, SECTIONS);
-    }
+  constructor(
+    componentFactoryResolver: ComponentFactoryResolver,
+    resolverService: ResolverService
+  ) {
+    resolverService.registerResolver(componentFactoryResolver, SECTIONS);
+  }
 }

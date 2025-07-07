@@ -1,131 +1,142 @@
 <div class="row" [class.drop-direction-up]="dropDirection === 'up'">
-    <div class="col-sm-6 col-xs-12">
-        <div class="form-group m-nil">
-            <h4 id="ux-select-input-label">Select</h4>
-            <ux-select [(value)]="selected"
-                [options]="options"
-                [multiple]="multiple | async"
-                [display]="display"
-                [key]="key"
-                [allowNull]="allowNull"
-                [disabled]="disabled"
-                [dropDirection]="dropDirection"
-                [(dropdownOpen)]="dropdownOpen"
-                [pageSize]="pageSize"
-                [placeholder]="placeholder"
-                [readonlyInput]="readonlyInput"
-                [clearButton]="clearButton"
-                [(recentOptions)]="recentOptions"
-                [autoCloseDropdown]="autoCloseDropdown"
-                [recentOptionsMaxCount]="recentOptionsMaxCount"
-                [listboxAriaLabel]="listboxAriaLabel"
-                ariaLabelledby="ux-select-input-label">
-
-                <ng-template #icon *ngIf="multiple | async">
-                    <div class="ux-select-icon">
-                        <i class="ux-icon ux-icon-add"></i>
-                    </div>
-                </ng-template>
-            </ux-select>
-        </div>
+  <div class="col-sm-6 col-xs-12">
+    <div class="form-group m-nil">
+      <h4 id="ux-select-input-label">Select</h4>
+      <ux-select
+        [(value)]="selected"
+        [options]="options"
+        [multiple]="multiple | async"
+        [display]="display"
+        [key]="key"
+        [allowNull]="allowNull"
+        [disabled]="disabled"
+        [dropDirection]="dropDirection"
+        [(dropdownOpen)]="dropdownOpen"
+        [pageSize]="pageSize"
+        [placeholder]="placeholder"
+        [readonlyInput]="readonlyInput"
+        [clearButton]="clearButton"
+        [(recentOptions)]="recentOptions"
+        [autoCloseDropdown]="autoCloseDropdown"
+        [recentOptionsMaxCount]="recentOptionsMaxCount"
+        [listboxAriaLabel]="listboxAriaLabel"
+        ariaLabelledby="ux-select-input-label"
+      >
+        <ng-template #icon *ngIf="multiple | async">
+          <div class="ux-select-icon">
+            <i class="ux-icon ux-icon-add"></i>
+          </div>
+        </ng-template>
+      </ux-select>
     </div>
+  </div>
 </div>
 <div class="row">
-    <div class="col-md-12 m-t-md">
-        Selected location(s): <code>{{selected | json}}</code>
-    </div>
+  <div class="col-md-12 m-t-md">Selected location(s): <code>{{selected | json}}</code></div>
 </div>
 <div *ngIf="recentOptions" class="row">
-    <div class="col-md-12 m-t-md">
-        Recent options: <code>{{recentOptions | json}}</code>
-    </div>
+  <div class="col-md-12 m-t-md">Recent options: <code>{{recentOptions | json}}</code></div>
 </div>
 <div class="row uxd-customize-example">
-    <div class="col-md-12">
-        <ux-accordion>
-            <ux-accordion-panel class="accordion-chevron" heading="Customize Example...">
-                <div class="row uxd-customize-row">
-                    <div class="col-md-4 col-sm-12">
-                        <label for="dataSet">options</label>
-                        <ux-radio-button [value]="dataSet | async" (valueChange)="dataSet.next($event)"
-                            option="strings">strings</ux-radio-button>
-                        <ux-radio-button [value]="dataSet | async" (valueChange)="dataSet.next($event)"
-                            option="objects">objects</ux-radio-button>
-                    </div>
-                </div>
-                <div class="row uxd-customize-row">
-                    <div class="col-md-3 col-sm-12">
-                        <ux-checkbox [value]="multiple | async"
-                            (valueChange)="multiple.next($event)">multiple</ux-checkbox>
-                    </div>
-                    <div class="col-md-3 col-sm-12">
-                        <ux-checkbox [(value)]="disabled">disabled</ux-checkbox>
-                    </div>
-                    <div class="col-md-3 col-sm-12">
-                        <ux-checkbox [(value)]="allowNull"
-                            [disabled]="(multiple | async) === true">allowNull</ux-checkbox>
-                    </div>
-                    <div class="col-md-3 col-sm-12">
-                        <ux-checkbox [(value)]="readonlyInput">readonlyInput</ux-checkbox>
-                    </div>
-                </div>
-                <div class="row uxd-customize-row">
-                    <div class="col-md-3 col-sm-12">
-                        <ux-checkbox [(value)]="clearButton"
-                            [disabled]="(multiple | async) === false && !allowNull">clearButton</ux-checkbox>
-                    </div>
-                    <div class="col-md-3 col-sm-12">
-                        <ux-checkbox [(value)]="autoCloseDropdown">autoCloseDropdown</ux-checkbox>
-                    </div>
-                </div>
-                <div class="row uxd-customize-row">
-                    <div class="col-md-4 col-sm-12">
-                        <label for="dropDirection">dropDirection</label>
-                        <ux-radio-button [(value)]="dropDirection" option="down">down</ux-radio-button>
-                        <ux-radio-button [(value)]="dropDirection" option="up">up</ux-radio-button>
-                        <ux-radio-button [(value)]="dropDirection" option="auto">auto</ux-radio-button>
-                    </div>
-                </div>
-                <div class="row uxd-customize-row">
-                    <div class="col-md-8 col-sm-12">
-                        <label for="placeholder">placeholder</label>
-                        <input type="text" name="placeholder" class="form-control" [(ngModel)]="placeholder">
-                    </div>
-                </div>
-                <div class="row uxd-customize-row">
-                    <div class="col-md-4 col-sm-12">
-                        <ux-checkbox
-                            [value]="!!recentOptions"
-                            (valueChange)="recentOptions = $event ? [] : undefined">
-                            recentOptions
-                        </ux-checkbox>
-                    </div>
-                    <div class="col-md-4 col-sm-12">
-                        <label>recentOptionsMaxCount</label>
-                        <ux-number-picker
-                            [disabled]="!recentOptions"
-                            min="1"
-                            [(value)]="recentOptionsMaxCount">
-                        </ux-number-picker>
-                    </div>
-                </div>
-                <div class="row uxd-customize-row">
-                    <div class="col-md-4 col-sm-12">
-                        <ux-checkbox [value]="pagingEnabled | async"
-                            (valueChange)="pagingEnabled.next($event)">Enable Option Paging</ux-checkbox>
-                    </div>
-                </div>
-                <div class="row uxd-customize-row">
-                    <div class="col-md-4 col-sm-12">
-                        <label for="pageSize">pageSize</label>
-                        <ux-number-picker [(value)]="pageSize"
-                            [min]="1"
-                            [max]="1000"
-                            [disabled]="(pagingEnabled | async) === false">
-                        </ux-number-picker>
-                    </div>
-                </div>
-            </ux-accordion-panel>
-        </ux-accordion>
-    </div>
+  <div class="col-md-12">
+    <ux-accordion>
+      <ux-accordion-panel class="accordion-chevron" heading="Customize Example...">
+        <div class="row uxd-customize-row">
+          <div class="col-md-4 col-sm-12">
+            <label for="dataSet">options</label>
+            <ux-radio-button
+              [value]="dataSet | async"
+              (valueChange)="dataSet.next($event)"
+              option="strings"
+              >strings</ux-radio-button
+            >
+            <ux-radio-button
+              [value]="dataSet | async"
+              (valueChange)="dataSet.next($event)"
+              option="objects"
+              >objects</ux-radio-button
+            >
+          </div>
+        </div>
+        <div class="row uxd-customize-row">
+          <div class="col-md-3 col-sm-12">
+            <ux-checkbox [value]="multiple | async" (valueChange)="multiple.next($event)"
+              >multiple</ux-checkbox
+            >
+          </div>
+          <div class="col-md-3 col-sm-12">
+            <ux-checkbox [(value)]="disabled">disabled</ux-checkbox>
+          </div>
+          <div class="col-md-3 col-sm-12">
+            <ux-checkbox [(value)]="allowNull" [disabled]="(multiple | async) === true"
+              >allowNull</ux-checkbox
+            >
+          </div>
+          <div class="col-md-3 col-sm-12">
+            <ux-checkbox [(value)]="readonlyInput">readonlyInput</ux-checkbox>
+          </div>
+        </div>
+        <div class="row uxd-customize-row">
+          <div class="col-md-3 col-sm-12">
+            <ux-checkbox
+              [(value)]="clearButton"
+              [disabled]="(multiple | async) === false && !allowNull"
+              >clearButton</ux-checkbox
+            >
+          </div>
+          <div class="col-md-3 col-sm-12">
+            <ux-checkbox [(value)]="autoCloseDropdown">autoCloseDropdown</ux-checkbox>
+          </div>
+        </div>
+        <div class="row uxd-customize-row">
+          <div class="col-md-4 col-sm-12">
+            <label for="dropDirection">dropDirection</label>
+            <ux-radio-button [(value)]="dropDirection" option="down">down</ux-radio-button>
+            <ux-radio-button [(value)]="dropDirection" option="up">up</ux-radio-button>
+            <ux-radio-button [(value)]="dropDirection" option="auto">auto</ux-radio-button>
+          </div>
+        </div>
+        <div class="row uxd-customize-row">
+          <div class="col-md-8 col-sm-12">
+            <label for="placeholder">placeholder</label>
+            <input type="text" name="placeholder" class="form-control" [(ngModel)]="placeholder" />
+          </div>
+        </div>
+        <div class="row uxd-customize-row">
+          <div class="col-md-4 col-sm-12">
+            <ux-checkbox
+              [value]="!!recentOptions"
+              (valueChange)="recentOptions = $event ? [] : undefined"
+            >
+              recentOptions
+            </ux-checkbox>
+          </div>
+          <div class="col-md-4 col-sm-12">
+            <label>recentOptionsMaxCount</label>
+            <ux-number-picker [disabled]="!recentOptions" min="1" [(value)]="recentOptionsMaxCount">
+            </ux-number-picker>
+          </div>
+        </div>
+        <div class="row uxd-customize-row">
+          <div class="col-md-4 col-sm-12">
+            <ux-checkbox [value]="pagingEnabled | async" (valueChange)="pagingEnabled.next($event)"
+              >Enable Option Paging</ux-checkbox
+            >
+          </div>
+        </div>
+        <div class="row uxd-customize-row">
+          <div class="col-md-4 col-sm-12">
+            <label for="pageSize">pageSize</label>
+            <ux-number-picker
+              [(value)]="pageSize"
+              [min]="1"
+              [max]="1000"
+              [disabled]="(pagingEnabled | async) === false"
+            >
+            </ux-number-picker>
+          </div>
+        </div>
+      </ux-accordion-panel>
+    </ux-accordion>
+  </div>
 </div>

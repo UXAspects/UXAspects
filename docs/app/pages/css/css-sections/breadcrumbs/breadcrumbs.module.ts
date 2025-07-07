@@ -6,32 +6,28 @@ import { DocumentationCategoryComponent } from '../../../../components/documenta
 import { DocumentationPage, ResolverService } from '../../../../services/resolver/resolver.service';
 import { CssBreadcrumbComponent } from './breadcrumb/breadcrumb.component';
 
-const SECTIONS = [
-    CssBreadcrumbComponent,
-];
+const SECTIONS = [CssBreadcrumbComponent];
 
 const ROUTES = [
-    {
-        path: '**',
-        component: DocumentationCategoryComponent,
-        data: {
-            category: ResolverService.resolveCategoryData(DocumentationPage.Css, 'Breadcrumbs')
-        }
-    }
+  {
+    path: '**',
+    component: DocumentationCategoryComponent,
+    data: {
+      category: ResolverService.resolveCategoryData(DocumentationPage.Css, 'Breadcrumbs'),
+    },
+  },
 ];
 
 @NgModule({
-    imports: [
-        DocumentationComponentsModule,
-        TabsetModule,
-        RouterModule.forChild(ROUTES)
-    ],
-    exports: SECTIONS,
-    declarations: SECTIONS,
+  imports: [DocumentationComponentsModule, TabsetModule, RouterModule.forChild(ROUTES)],
+  exports: SECTIONS,
+  declarations: SECTIONS,
 })
 export class CssBreadcrumbsModule {
-
-    constructor(componentFactoryResolver: ComponentFactoryResolver, resolverService: ResolverService) {
-        resolverService.registerResolver(componentFactoryResolver, SECTIONS);
-    }
+  constructor(
+    componentFactoryResolver: ComponentFactoryResolver,
+    resolverService: ResolverService
+  ) {
+    resolverService.registerResolver(componentFactoryResolver, SECTIONS);
+  }
 }

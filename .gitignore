@@ -27,3 +27,5 @@ target/
 .nx/workspace-data
 ux-aspects-ux-aspects-docs-v*.tgz
 .env
+.cursor/rules/nx-rules.mdc
+.github/instructions/nx.instructions.md

@@ -4,6 +4,7 @@
   "projectType": "application",
   "sourceRoot": "docs",
   "prefix": "app",
+  "implicitDependencies": ["!ux-aspects"],
   "generators": {
     "@schematics/angular:component": {
       "style": "less"
@@ -96,17 +97,17 @@
       },
       "configurations": {
         "production": {
-          "browserTarget": "documentation:build:production"
+          "buildTarget": "documentation:build:production"
         },
         "development": {
-          "browserTarget": "documentation:build:development"
+          "buildTarget": "documentation:build:development"
         }
       },
-      "defaultConfiguration": "development"
+      "defaultConfiguration": "development",
+      "continuous": true
     },
     "lint": {
       "executor": "@nx/eslint:lint"
     }
-  },
-  "implicitDependencies": ["!ux-aspects"]
+  }
 }

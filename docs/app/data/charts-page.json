@@ -1,351 +1,351 @@
 {
-    "title": "Charts",
-    "categories": [
+  "title": "Charts",
+  "categories": [
+    {
+      "title": "Bar Charts",
+      "link": "bar-charts",
+      "sections": [
         {
-            "title": "Bar Charts",
-            "link": "bar-charts",
-            "sections": [
-                {
-                    "title": "Bar Chart",
-                    "component": "ChartsBarChartComponent",
-                    "version": "Angular",
-                    "externalUrl": "http://valor-software.com/ng2-charts/",
-                    "usage": [
-                        {
-                            "title": "Selector",
-                            "content": "[baseChart]"
-                        },
-                        {
-                            "title": "Module name",
-                            "content": "NgChartsModule"
-                        },
-                        {
-                            "title": "Library",
-                            "content": "ng2-charts"
-                        }
-                    ]
-                },
-                {
-                    "title": "Horizontal Bar Chart",
-                    "component": "ChartsHorizontalBarChartComponent",
-                    "version": "Angular",
-                    "externalUrl": "http://valor-software.com/ng2-charts/",
-                    "usage": [
-                        {
-                            "title": "Selector",
-                            "content": "[baseChart]"
-                        },
-                        {
-                            "title": "Module name",
-                            "content": "NgChartsModule"
-                        },
-                        {
-                            "title": "Library",
-                            "content": "ng2-charts"
-                        }
-                    ]
-                },
-                {
-                    "title": "Stacked Bar Chart",
-                    "component": "ChartsStackedBarChartComponent",
-                    "version": "Angular",
-                    "externalUrl": "http://valor-software.com/ng2-charts/",
-                    "usage": [
-                        {
-                            "title": "Selector",
-                            "content": "[baseChart]"
-                        },
-                        {
-                            "title": "Module name",
-                            "content": "NgChartsModule"
-                        },
-                        {
-                            "title": "Library",
-                            "content": "ng2-charts"
-                        }
-                    ]
-                }
-            ]
+          "title": "Bar Chart",
+          "component": "ChartsBarChartComponent",
+          "version": "Angular",
+          "externalUrl": "http://valor-software.com/ng2-charts/",
+          "usage": [
+            {
+              "title": "Selector",
+              "content": "[baseChart]"
+            },
+            {
+              "title": "Module name",
+              "content": "NgChartsModule"
+            },
+            {
+              "title": "Library",
+              "content": "ng2-charts"
+            }
+          ]
         },
         {
-            "title": "Donut Charts",
-            "link": "donut-charts",
-            "sections": [
-                {
-                    "title": "Donut Chart",
-                    "component": "ChartsDonutChartComponent",
-                    "version": "Angular",
-                    "externalUrl": "http://valor-software.com/ng2-charts/",
-                    "usage": [
-                        {
-                            "title": "Selector",
-                            "content": "[baseChart]"
-                        },
-                        {
-                            "title": "Module name",
-                            "content": "NgChartsModule"
-                        },
-                        {
-                            "title": "Library",
-                            "content": "ng2-charts"
-                        }
-                    ]
-                },
-                {
-                    "title": "Nested Donut Chart",
-                    "component": "ChartsNestedDonutChartComponent",
-                    "version": "Angular",
-                    "usage": [
-                        {
-                            "title": "Selector",
-                            "content": "ux-nested-donut-chart"
-                        },
-                        {
-                            "title": "Module name",
-                            "content": "NestedDonutChartModule"
-                        }
-                    ]
-                }
-            ]
+          "title": "Horizontal Bar Chart",
+          "component": "ChartsHorizontalBarChartComponent",
+          "version": "Angular",
+          "externalUrl": "http://valor-software.com/ng2-charts/",
+          "usage": [
+            {
+              "title": "Selector",
+              "content": "[baseChart]"
+            },
+            {
+              "title": "Module name",
+              "content": "NgChartsModule"
+            },
+            {
+              "title": "Library",
+              "content": "ng2-charts"
+            }
+          ]
         },
         {
-            "title": "Line Charts",
-            "link": "line-charts",
-            "sections": [
-                {
-                    "title": "Line Chart",
-                    "component": "ChartsLineChartComponent",
-                    "version": "Angular",
-                    "externalUrl": "http://valor-software.com/ng2-charts/",
-                    "usage": [
-                        {
-                            "title": "Selector",
-                            "content": "[baseChart]"
-                        },
-                        {
-                            "title": "Module name",
-                            "content": "NgChartsModule"
-                        },
-                        {
-                            "title": "Library",
-                            "content": "ng2-charts"
-                        }
-                    ]
-                },
-                {
-                    "title": "Stacked Line Chart",
-                    "component": "ChartsStackedLineChartComponent",
-                    "version": "Angular",
-                    "externalUrl": "http://valor-software.com/ng2-charts/",
-                    "usage": [
-                        {
-                            "title": "Selector",
-                            "content": "[baseChart]"
-                        },
-                        {
-                            "title": "Module name",
-                            "content": "NgChartsModule"
-                        },
-                        {
-                            "title": "Library",
-                            "content": "ng2-charts"
-                        }
-                    ]
-                },
-                {
-                    "title": "Multiple Axis Line Chart",
-                    "component": "ChartsMultipleAxisLineChartComponent",
-                    "version": "Angular",
-                    "externalUrl": "http://valor-software.com/ng2-charts/",
-                    "usage": [
-                        {
-                            "title": "Selector",
-                            "content": "[baseChart]"
-                        },
-                        {
-                            "title": "Module name",
-                            "content": "NgChartsModule"
-                        },
-                        {
-                            "title": "Library",
-                            "content": "ng2-charts"
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "title": "Live Chart",
-            "link": "live-chart",
-            "sections": [
-                {
-                    "title": "Live Chart",
-                    "component": "ChartsLiveChartComponent",
-                    "version": "Angular",
-                    "externalUrl": "http://valor-software.com/ng2-charts/",
-                    "usage": [
-                        {
-                            "title": "Selector",
-                            "content": "[baseChart]"
-                        },
-                        {
-                            "title": "Module name",
-                            "content": "NgChartsModule"
-                        },
-                        {
-                            "title": "Library",
-                            "content": "ng2-charts"
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "title": "Organization Chart",
-            "link": "organization-chart",
-            "sections": [
-                {
-                    "title": "Organization Chart",
-                    "component": "ChartsOrganizationChartComponent",
-                    "version": "Angular",
-                    "usage": [
-                        {
-                            "title": "Selector",
-                            "content": "ux-organization-chart"
-                        },
-                        {
-                            "title": "Module name",
-                            "content": "OrganizationChartModule"
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "title": "Partition Map",
-            "link": "partition-map",
-            "sections": [
-                {
-                    "title": "Partition Map",
-                    "component": "ChartsPartitionMapComponent",
-                    "version": "Angular",
-                    "usage": [
-                        {
-                            "title": "Selector",
-                            "content": "ux-partition-map"
-                        },
-                        {
-                            "title": "Module name",
-                            "content": "PartitionMapModule"
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "title": "Sankey Chart",
-            "link": "sankey-chart",
-            "sections": [
-                {
-                    "title": "Sankey Chart",
-                    "component": "ChartsSankeyChartComponent",
-                    "version": "Angular",
-                    "usage": [
-                        {
-                            "title": "Selector",
-                            "content": "ux-sankey-chart"
-                        },
-                        {
-                            "title": "Module name",
-                            "content": "SankeyChartModule"
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "title": "Scrollable Chart",
-            "link": "scrollable-chart",
-            "sections": [
-                {
-                    "title": "Scrollable Chart",
-                    "component": "ChartsScrollableChartComponent",
-                    "version": "Angular",
-                    "externalUrl": "http://valor-software.com/ng2-charts/",
-                    "usage": [
-                        {
-                            "title": "Selector",
-                            "content": "[baseChart]"
-                        },
-                        {
-                            "title": "Module name",
-                            "content": "NgChartsModule"
-                        },
-                        {
-                            "title": "Library",
-                            "content": "ng2-charts"
-                        },
-                        {
-                            "title": "Dependencies",
-                            "content": "TooltipModule"
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "title": "Spark Charts",
-            "link": "spark-charts",
-            "sections": [
-                {
-                    "title": "Spark Charts",
-                    "component": "ChartsSparkChartsComponent",
-                    "version": "Angular",
-                    "usage": [
-                        {
-                            "title": "Selector",
-                            "content": "ux-spark"
-                        },
-                        {
-                            "title": "Module",
-                            "content": "SparkModule"
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "title": "Timeline Chart",
-            "link": "timeline-chart",
-            "sections": [
-                {
-                    "title": "Timeline Chart",
-                    "component": "ChartsTimelineChartComponent",
-                    "version": "Angular",
-                    "usage": [
-                        {
-                            "title": "Selector",
-                            "content": "[baseChart]"
-                        },
-                        {
-                            "title": "Module name",
-                            "content": "NgChartsModule"
-                        },
-                        {
-                            "title": "Library",
-                            "content": "ng2-charts"
-                        },
-                        {
-                            "title": "Module name",
-                            "content": "TimelineChartModule"
-                        },
-                        {
-                            "title": "Library",
-                            "content": "@ux-aspects/ux-aspects"
-                        }
-                    ]
-                }
-            ]
+          "title": "Stacked Bar Chart",
+          "component": "ChartsStackedBarChartComponent",
+          "version": "Angular",
+          "externalUrl": "http://valor-software.com/ng2-charts/",
+          "usage": [
+            {
+              "title": "Selector",
+              "content": "[baseChart]"
+            },
+            {
+              "title": "Module name",
+              "content": "NgChartsModule"
+            },
+            {
+              "title": "Library",
+              "content": "ng2-charts"
+            }
+          ]
         }
-    ]
+      ]
+    },
+    {
+      "title": "Donut Charts",
+      "link": "donut-charts",
+      "sections": [
+        {
+          "title": "Donut Chart",
+          "component": "ChartsDonutChartComponent",
+          "version": "Angular",
+          "externalUrl": "http://valor-software.com/ng2-charts/",
+          "usage": [
+            {
+              "title": "Selector",
+              "content": "[baseChart]"
+            },
+            {
+              "title": "Module name",
+              "content": "NgChartsModule"
+            },
+            {
+              "title": "Library",
+              "content": "ng2-charts"
+            }
+          ]
+        },
+        {
+          "title": "Nested Donut Chart",
+          "component": "ChartsNestedDonutChartComponent",
+          "version": "Angular",
+          "usage": [
+            {
+              "title": "Selector",
+              "content": "ux-nested-donut-chart"
+            },
+            {
+              "title": "Module name",
+              "content": "NestedDonutChartModule"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Line Charts",
+      "link": "line-charts",
+      "sections": [
+        {
+          "title": "Line Chart",
+          "component": "ChartsLineChartComponent",
+          "version": "Angular",
+          "externalUrl": "http://valor-software.com/ng2-charts/",
+          "usage": [
+            {
+              "title": "Selector",
+              "content": "[baseChart]"
+            },
+            {
+              "title": "Module name",
+              "content": "NgChartsModule"
+            },
+            {
+              "title": "Library",
+              "content": "ng2-charts"
+            }
+          ]
+        },
+        {
+          "title": "Stacked Line Chart",
+          "component": "ChartsStackedLineChartComponent",
+          "version": "Angular",
+          "externalUrl": "http://valor-software.com/ng2-charts/",
+          "usage": [
+            {
+              "title": "Selector",
+              "content": "[baseChart]"
+            },
+            {
+              "title": "Module name",
+              "content": "NgChartsModule"
+            },
+            {
+              "title": "Library",
+              "content": "ng2-charts"
+            }
+          ]
+        },
+        {
+          "title": "Multiple Axis Line Chart",
+          "component": "ChartsMultipleAxisLineChartComponent",
+          "version": "Angular",
+          "externalUrl": "http://valor-software.com/ng2-charts/",
+          "usage": [
+            {
+              "title": "Selector",
+              "content": "[baseChart]"
+            },
+            {
+              "title": "Module name",
+              "content": "NgChartsModule"
+            },
+            {
+              "title": "Library",
+              "content": "ng2-charts"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Live Chart",
+      "link": "live-chart",
+      "sections": [
+        {
+          "title": "Live Chart",
+          "component": "ChartsLiveChartComponent",
+          "version": "Angular",
+          "externalUrl": "http://valor-software.com/ng2-charts/",
+          "usage": [
+            {
+              "title": "Selector",
+              "content": "[baseChart]"
+            },
+            {
+              "title": "Module name",
+              "content": "NgChartsModule"
+            },
+            {
+              "title": "Library",
+              "content": "ng2-charts"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Organization Chart",
+      "link": "organization-chart",
+      "sections": [
+        {
+          "title": "Organization Chart",
+          "component": "ChartsOrganizationChartComponent",
+          "version": "Angular",
+          "usage": [
+            {
+              "title": "Selector",
+              "content": "ux-organization-chart"
+            },
+            {
+              "title": "Module name",
+              "content": "OrganizationChartModule"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Partition Map",
+      "link": "partition-map",
+      "sections": [
+        {
+          "title": "Partition Map",
+          "component": "ChartsPartitionMapComponent",
+          "version": "Angular",
+          "usage": [
+            {
+              "title": "Selector",
+              "content": "ux-partition-map"
+            },
+            {
+              "title": "Module name",
+              "content": "PartitionMapModule"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Sankey Chart",
+      "link": "sankey-chart",
+      "sections": [
+        {
+          "title": "Sankey Chart",
+          "component": "ChartsSankeyChartComponent",
+          "version": "Angular",
+          "usage": [
+            {
+              "title": "Selector",
+              "content": "ux-sankey-chart"
+            },
+            {
+              "title": "Module name",
+              "content": "SankeyChartModule"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Scrollable Chart",
+      "link": "scrollable-chart",
+      "sections": [
+        {
+          "title": "Scrollable Chart",
+          "component": "ChartsScrollableChartComponent",
+          "version": "Angular",
+          "externalUrl": "http://valor-software.com/ng2-charts/",
+          "usage": [
+            {
+              "title": "Selector",
+              "content": "[baseChart]"
+            },
+            {
+              "title": "Module name",
+              "content": "NgChartsModule"
+            },
+            {
+              "title": "Library",
+              "content": "ng2-charts"
+            },
+            {
+              "title": "Dependencies",
+              "content": "TooltipModule"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Spark Charts",
+      "link": "spark-charts",
+      "sections": [
+        {
+          "title": "Spark Charts",
+          "component": "ChartsSparkChartsComponent",
+          "version": "Angular",
+          "usage": [
+            {
+              "title": "Selector",
+              "content": "ux-spark"
+            },
+            {
+              "title": "Module",
+              "content": "SparkModule"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Timeline Chart",
+      "link": "timeline-chart",
+      "sections": [
+        {
+          "title": "Timeline Chart",
+          "component": "ChartsTimelineChartComponent",
+          "version": "Angular",
+          "usage": [
+            {
+              "title": "Selector",
+              "content": "[baseChart]"
+            },
+            {
+              "title": "Module name",
+              "content": "NgChartsModule"
+            },
+            {
+              "title": "Library",
+              "content": "ng2-charts"
+            },
+            {
+              "title": "Module name",
+              "content": "TimelineChartModule"
+            },
+            {
+              "title": "Library",
+              "content": "@ux-aspects/ux-aspects"
+            }
+          ]
+        }
+      ]
+    }
+  ]
 }

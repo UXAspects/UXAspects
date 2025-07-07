@@ -9,9 +9,9 @@
  */
 
 export function isKeyboardTrigger(event: MouseEvent | KeyboardEvent): boolean {
-    return event.detail === 0;
+  return event.detail === 0;
 }
 
 export function isMouseTrigger(event: MouseEvent | KeyboardEvent): boolean {
-    return !isKeyboardTrigger(event);
+  return !isKeyboardTrigger(event);
 }

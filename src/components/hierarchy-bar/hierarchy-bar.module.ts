@@ -14,28 +14,28 @@ import { HierarchyBarStandardComponent } from './hierarchy-bar-standard/hierarch
 import { HierarchyBarComponent } from './hierarchy-bar.component';
 
 @NgModule({
-    imports: [
-        AccessibilityModule,
-        CommonModule,
-        FocusIfModule,
-        IconModule,
-        PopoverModule,
-        ResizeModule,
-    ],
-    exports: [
-        HierarchyBarComponent,
-        HierarchyBarStandardComponent,
-        HierarchyBarCollapsedComponent,
-        HierarchyBarNodeIconDirective
-    ],
-    declarations: [
-        HierarchyBarComponent,
-        HierarchyBarStandardComponent,
-        HierarchyBarCollapsedComponent,
-        HierarchyBarNodeComponent,
-        HierarchyBarPopoverComponent,
-        HierarchyBarPopoverItemComponent,
-        HierarchyBarNodeIconDirective
-    ],
+  imports: [
+    AccessibilityModule,
+    CommonModule,
+    FocusIfModule,
+    IconModule,
+    PopoverModule,
+    ResizeModule,
+  ],
+  exports: [
+    HierarchyBarComponent,
+    HierarchyBarStandardComponent,
+    HierarchyBarCollapsedComponent,
+    HierarchyBarNodeIconDirective,
+  ],
+  declarations: [
+    HierarchyBarComponent,
+    HierarchyBarStandardComponent,
+    HierarchyBarCollapsedComponent,
+    HierarchyBarNodeComponent,
+    HierarchyBarPopoverComponent,
+    HierarchyBarPopoverItemComponent,
+    HierarchyBarNodeIconDirective,
+  ],
 })
-export class HierarchyBarModule { }
+export class HierarchyBarModule {}

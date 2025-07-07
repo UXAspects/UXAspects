@@ -6,21 +6,22 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 import { playgroundAdapter } from '../../../../../services/playground/adapters/legacy-playground-adapter';
 
 @Component({
-    selector: 'uxd-css-typography-headings',
-    templateUrl: './headings.component.html',
+  selector: 'uxd-css-typography-headings',
+  templateUrl: './headings.component.html',
+  standalone: false,
 })
 @DocumentationSectionComponent('CssHeadingsComponent')
 export class CssHeadingsComponent extends BaseDocumentationSection implements IPlaygroundProvider {
-    playground: IPlayground = playgroundAdapter({
-        html: this.snippets.raw.sampleHtml,
-    });
+  playground: IPlayground = playgroundAdapter({
+    html: this.snippets.raw.sampleHtml,
+  });
 
-    constructor() {
-        super(
-            import.meta.webpackContext('./snippets/', {
-                recursive: false,
-                regExp: /\.(html|css|js|ts)$/,
-            })
-        );
-    }
+  constructor() {
+    super(
+      import.meta.webpackContext('./snippets/', {
+        recursive: false,
+        regExp: /\.(html|css|js|ts)$/,
+      })
+    );
+  }
 }

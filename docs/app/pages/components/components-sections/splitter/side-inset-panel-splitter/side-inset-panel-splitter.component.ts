@@ -5,38 +5,39 @@ import { IPlayground } from '../../../../../interfaces/IPlayground';
 import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
 
 @Component({
-    selector: 'uxd-side-inset-panel-splitter',
-    templateUrl: './side-inset-panel-splitter.component.html',
-    styleUrls: ['./side-inset-panel-splitter.component.less'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
+  selector: 'uxd-side-inset-panel-splitter',
+  templateUrl: './side-inset-panel-splitter.component.html',
+  styleUrls: ['./side-inset-panel-splitter.component.less'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 @DocumentationSectionComponent('ComponentsSideInsetPanelSplitterComponent')
 export class ComponentsSideInsetPanelSplitterComponent
-    extends BaseDocumentationSection
-    implements IPlaygroundProvider
+  extends BaseDocumentationSection
+  implements IPlaygroundProvider
 {
-    visible: boolean = false;
+  visible: boolean = false;
 
-    playground: IPlayground = {
-        files: {
-            'app.component.html': this.snippets.raw.appHtml,
-            'app.component.ts': this.snippets.raw.appTs,
-            'app.component.css': this.snippets.raw.appCss,
-        },
-        modules: [
-            {
-                imports: ['AngularSplitModule'],
-                library: 'angular-split',
-            },
-        ],
-    };
+  playground: IPlayground = {
+    files: {
+      'app.component.html': this.snippets.raw.appHtml,
+      'app.component.ts': this.snippets.raw.appTs,
+      'app.component.css': this.snippets.raw.appCss,
+    },
+    modules: [
+      {
+        imports: ['AngularSplitModule'],
+        library: 'angular-split',
+      },
+    ],
+  };
 
-    constructor() {
-        super(
-            import.meta.webpackContext('./snippets/', {
-                recursive: false,
-                regExp: /\.(html|css|js|ts)$/,
-            })
-        );
-    }
+  constructor() {
+    super(
+      import.meta.webpackContext('./snippets/', {
+        recursive: false,
+        regExp: /\.(html|css|js|ts)$/,
+      })
+    );
+  }
 }

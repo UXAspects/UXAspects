@@ -1,4 +1,13 @@
-import { Component, EventEmitter, inject, Input, OnDestroy, OnInit, Output, TemplateRef } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  inject,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+  TemplateRef,
+} from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { SearchBuilderGroupQuery } from '../interfaces/group-query.interface';
@@ -8,7 +17,8 @@ import { SearchBuilderGroupService } from './search-builder-group.service';
 @Component({
   selector: 'ux-search-builder-group',
   templateUrl: './search-builder-group.component.html',
-  providers: [SearchBuilderGroupService]
+  providers: [SearchBuilderGroupService],
+  standalone: false,
 })
 export class SearchBuilderGroupComponent implements OnInit, OnDestroy {
   readonly searchBuilderGroupService = inject(SearchBuilderGroupService);
@@ -24,14 +34,14 @@ export class SearchBuilderGroupComponent implements OnInit, OnDestroy {
   @Input() removeFieldButtonAriaLabel: string = 'Remove field';
 
   @Output() add: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
-  @Output() remove: EventEmitter<SearchBuilderGroupQuery> = new EventEmitter<SearchBuilderGroupQuery>();
+  @Output() remove: EventEmitter<SearchBuilderGroupQuery> =
+    new EventEmitter<SearchBuilderGroupQuery>();
 
   focusIndex: number = -1;
 
   private readonly _onDestroy = new Subject<void>();
 
   ngOnInit(): void {
-
     // ensure we have a name otherwise throw an error
     if (!this.id) {
       throw new Error('Search builder group must have an id attribute.');
@@ -42,7 +52,7 @@ export class SearchBuilderGroupComponent implements OnInit, OnDestroy {
 
     // Track focus for child components
     this._searchBuilderFocusService.focus$.pipe(takeUntil(this._onDestroy)).subscribe(focus => {
-      this.focusIndex = (focus.groupId === this.id) ? focus.index : -1;
+      this.focusIndex = focus.groupId === this.id ? focus.index : -1;
     });
   }
 

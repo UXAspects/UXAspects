@@ -2,120 +2,120 @@
 //Filter Button Styles --- Start
 //============================
 .btn-group {
-    .filter-dropdown {
-        padding: 6px;
-        padding-right: 7px;
-        padding-left: 6px;
-    }
+  .filter-dropdown {
+    padding: 6px;
+    padding-right: 7px;
+    padding-left: 6px;
+  }
 }
 
 .btn-group {
-    .filter-dropdown,
-    .btn-clear {
-        border: 0;
-        background: none;
-        text-transform: none;
-        box-shadow: none;
-        font-size: @font-size;
-    }
+  .filter-dropdown,
+  .btn-clear {
+    border: 0;
+    background: none;
+    text-transform: none;
+    box-shadow: none;
+    font-size: @font-size;
+  }
 }
 
 .filter-dropdown {
+  &:hover {
+    background-color: @filter-dropdown-hover-bg;
+    border-radius: 0;
+    border-color: @filter-dropdown-hover-border;
+    text-decoration: none;
+  }
+
+  &:focus {
+    background-color: @filter-dropdown-focus-bg;
+    border-radius: 0;
+    border-color: @filter-dropdown-focus-border;
+    text-decoration: none;
+  }
+}
+
+.filter {
+  .dropdown-toggle {
+    > .ux-icon,
+    > ux-icon {
+      font-size: 0.625rem;
+      margin-left: 3px;
+    }
+  }
+
+  .dropdown-menu > li {
+    & > a {
+      padding: 6px;
+
+      span {
+        margin-left: 10px;
+      }
+
+      &:focus,
+      &:hover {
+        color: inherit;
+      }
+    }
+  }
+}
+
+.filter-selected {
+  font-family: @font-family;
+  font-weight: 600;
+}
+
+.filter-selected {
+  text-decoration: none;
+  background-color: @filter-selected-bg;
+}
+
+.filter {
+  .dropdown-menu > li > a {
     &:hover {
-        background-color: @filter-dropdown-hover-bg;
-        border-radius: 0;
-        border-color: @filter-dropdown-hover-border;
-        text-decoration: none;
+      text-decoration: none;
+      background-color: @filter-option-hover-bg;
     }
 
     &:focus {
-        background-color: @filter-dropdown-focus-bg;
-        border-radius: 0;
-        border-color: @filter-dropdown-focus-border;
-        text-decoration: none;
+      text-decoration: none;
+      background-color: @filter-option-focus-bg;
     }
-}
-
-.filter {
-    .dropdown-toggle {
-        > .ux-icon,
-        > ux-icon {
-            font-size: 0.625rem;
-            margin-left: 3px;
-        }
-    }
-
-    .dropdown-menu > li {
-        & > a {
-            padding: 6px;
-
-            span {
-                margin-left: 10px;
-            }
-
-            &:focus,
-            &:hover {
-                color: inherit;
-            }
-        }
-    }
-}
-
-.filter-selected {
-    font-family: @font-family;
-    font-weight: 600;
-}
-
-.filter-selected {
-    text-decoration: none;
-    background-color: @filter-selected-bg;
-}
-
-.filter {
-    .dropdown-menu > li > a {
-        &:hover {
-            text-decoration: none;
-            background-color: @filter-option-hover-bg;
-        }
-
-        &:focus {
-            text-decoration: none;
-            background-color: @filter-option-focus-bg;
-        }
-    }
+  }
 }
 
 .sorter-container {
-    white-space: nowrap;
+  white-space: nowrap;
 }
 
 .sorter-title {
-    vertical-align: middle;
+  vertical-align: middle;
 }
 
 .sorter-icon {
-    display: inline-block;
-    vertical-align: text-bottom;
+  display: inline-block;
+  vertical-align: text-bottom;
 }
 
 .sorter-text {
-    margin: 0;
-    display: inline-block;
-    width: ~'calc(100% - 38px)';
+  margin: 0;
+  display: inline-block;
+  width: ~'calc(100% - 38px)';
 }
 
 .sorter-text > span {
-    margin-right: 10px;
+  margin-right: 10px;
 }
 
 .sorter-option-disabled {
-    opacity: 0.5;
+  opacity: 0.5;
 }
 
 .form-control {
-    &.filter-text {
-        opacity: 0.9;
-        font-size: @font-size-lg;
-        line-height: normal;
-    }
+  &.filter-text {
+    opacity: 0.9;
+    font-size: @font-size-lg;
+    line-height: normal;
+  }
 }

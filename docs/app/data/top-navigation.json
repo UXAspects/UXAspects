@@ -1,39 +1,39 @@
 {
-    "brand": {
-        "title": "UX Aspects",
-        "logo": "assets/img/UX-graphic.png",
-        "link": "/"
+  "brand": {
+    "title": "UX Aspects",
+    "logo": "assets/img/UX-graphic.png",
+    "link": "/"
+  },
+  "links": [
+    {
+      "title": "Features",
+      "link": "/features"
     },
-    "links": [
-        {
-            "title": "Features",
-            "link": "/features"
-        },
-        {
-            "title": "Getting Started",
-            "link": "/gettingstarted"
-        },
-        {
-            "title": "Showcase",
-            "link": "/showcase"
-        },
-        {
-            "title": "Components",
-            "link": "/components"
-        },
-        {
-            "title": "CSS",
-            "link": "/css"
-        },
-        {
-            "title": "Charts",
-            "link": "/charts"
-        }
-    ],
-    "social": [
-        {
-            "title": "Team",
-            "link": "/team"
-        }
-    ]
+    {
+      "title": "Getting Started",
+      "link": "/gettingstarted"
+    },
+    {
+      "title": "Showcase",
+      "link": "/showcase"
+    },
+    {
+      "title": "Components",
+      "link": "/components"
+    },
+    {
+      "title": "CSS",
+      "link": "/css"
+    },
+    {
+      "title": "Charts",
+      "link": "/charts"
+    }
+  ],
+  "social": [
+    {
+      "title": "Team",
+      "link": "/team"
+    }
+  ]
 }

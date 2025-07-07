@@ -9,10 +9,10 @@ import { ConduitComponent } from './conduit.component';
  * fail to build
  */
 @NgModule({
-    declarations: [
-        ConduitComponent,
-         
-        ConduitZoneComponent as any // Any is required as this is an abstract class
-    ]
+  declarations: [
+    ConduitComponent,
+
+    ConduitZoneComponent as any, // Any is required as this is an abstract class
+  ],
 })
-export class ConduitModule { }
+export class ConduitModule {}

@@ -9,14 +9,14 @@
  * @param identifier - The name of the icon
  */
 export function getIconType(identifier: string | null): IconType {
-    if (identifier && identifier.trim().indexOf('ux-') === 0) {
-        return IconType.UxIcon;
-    }
+  if (identifier && identifier.trim().indexOf('ux-') === 0) {
+    return IconType.UxIcon;
+  }
 
-    return IconType.Component;
+  return IconType.Component;
 }
 
 export enum IconType {
-    UxIcon = 'ux-icon',
-    Component = 'component'
+  UxIcon = 'ux-icon',
+  Component = 'component',
 }

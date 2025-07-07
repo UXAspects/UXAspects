@@ -4,199 +4,227 @@ import { ResizableTableColumnComponent } from '../resizable-table-column.compone
 
 @Injectable()
 export class ResizableExpandingTableService extends BaseResizableTableService {
+  /** Define the type of resizing we should use */
+  type: ResizableTableType = ResizableTableType.Expand;
 
-    /** Define the type of resizing we should use */
-    type: ResizableTableType = ResizableTableType.Expand;
+  /** Store the QueryList of columns */
+  private _columns: QueryList<ResizableTableColumnComponent>;
 
-    /** Store the QueryList of columns */
-    private _columns: QueryList<ResizableTableColumnComponent>;
+  /** Store the size of each column */
+  setColumns(columns: QueryList<ResizableTableColumnComponent>): void {
+    // store the current columns
+    this._columns = columns;
 
-    /** Store the size of each column */
-    setColumns(columns: QueryList<ResizableTableColumnComponent>): void {
+    // store the sizes
+    this.columns = columns.map(column => (column.getNaturalWidth() / this.tableWidth) * 100);
 
-        // store the current columns
-        this._columns = columns;
+    // ensure all the columns fit
+    this._columns.forEach((column, idx) => {
+      if (!column.disabled) {
+        this.columns = this.setColumnWidth(
+          idx,
+          this.columns[idx],
+          ColumnUnit.Percentage,
+          this.columns
+        );
+      }
+    });
 
-        // store the sizes
-        this.columns = columns.map(column => (column.getNaturalWidth() / this.tableWidth) * 100);
+    // indicate we are now initialised
+    if (this.isInitialised$.value === false) {
+      this.isInitialised$.next(true);
+    }
+  }
 
-        // ensure all the columns fit
-        this._columns.forEach((column, idx) => {
-            if (!column.disabled) {
-                this.columns = this.setColumnWidth(idx, this.columns[idx], ColumnUnit.Percentage, this.columns);
-            }
-        });
+  /** Set all resizable columns to the same width */
+  setUniformWidths(): void {
+    // set any disabled columns to their specified width
+    this.columns = this._columns.map(column =>
+      column.disabled ? (column.getNaturalWidth() / this.tableWidth) * 100 : 0
+    );
 
-        // indicate we are now initialised
-        if (this.isInitialised$.value === false) {
-            this.isInitialised$.next(true);
-        }
+    // check to see if we've reached 100% of the table width
+    const totalWidth = this.columns.reduce((partial, columnWidth) => partial + columnWidth);
+
+    if (totalWidth > 98) {
+      // remove overflow
+      this.columns = this.ensureNoOverflow(this.columns);
+    } else {
+      // get the list of resizable columns
+      const resizableColumns = this._columns.toArray().filter(column => !column.disabled);
+
+      // work out what we need to add to each column to make up the full width
+      const newWidth = (98 - totalWidth) / resizableColumns.length;
+
+      // set the non-disabled columns to the new width
+      this.columns = this._columns.map((column, idx) =>
+        column.disabled ? this.columns[idx] : newWidth
+      );
     }
 
-    /** Set all resizable columns to the same width */
-    setUniformWidths(): void {
+    // do the resizing
+    this._columns.forEach((column, idx) => {
+      if (!column.disabled) {
+        this.resizeColumn(idx, 0);
+      }
+    });
+  }
 
-        // set any disabled columns to their specified width
-        this.columns = this._columns.map(column => column.disabled ? (column.getNaturalWidth() / this.tableWidth) * 100 : 0);
+  ensureNoOverflow(columns: ReadonlyArray<number>): ReadonlyArray<number> {
+    // get the total width
+    const total = columns.reduce((width, column) => width + column);
 
-        // check to see if we've reached 100% of the table width
-        const totalWidth = this.columns.reduce((partial, columnWidth) => partial + columnWidth);
-
-        if (totalWidth > 98) {
-            // remove overflow
-            this.columns = this.ensureNoOverflow(this.columns);
-        } else {
-            // get the list of resizable columns
-            const resizableColumns = this._columns.toArray().filter(column => !column.disabled);
-
-            // work out what we need to add to each column to make up the full width
-            const newWidth = (98 - totalWidth) / resizableColumns.length;
-
-            // set the non-disabled columns to the new width
-            this.columns = this._columns.map((column, idx) => column.disabled ? this.columns[idx] : newWidth);
-        }
-
-        // do the resizing
-        this._columns.forEach((column, idx) => {
-            if (!column.disabled) {
-                this.resizeColumn(idx, 0);
-            }
-        });
-
+    // if we have no overflow then we don't need to do anything
+    if (total <= 100) {
+      return columns;
     }
 
-    ensureNoOverflow(columns: ReadonlyArray<number>): ReadonlyArray<number> {
+    // if there is overflow identify which columns can be resized
+    const variableColumns = this._columns.filter(
+      column =>
+        !column.disabled &&
+        this.getColumnWidth(column.getCellIndex(), ColumnUnit.Pixel, columns) > column.minWidth
+    );
 
-        // get the total width
-        const total = columns.reduce((width, column) => width + column);
-
-        // if we have no overflow then we don't need to do anything
-        if (total <= 100) {
-            return columns;
-        }
-
-        // if there is overflow identify which columns can be resized
-        const variableColumns = this._columns.filter(column => !column.disabled && this.getColumnWidth(column.getCellIndex(), ColumnUnit.Pixel, columns) > column.minWidth);
-
-        // if there are no columns that can be resized then stop here
-        if (variableColumns.length === 0) {
-            return columns;
-        }
-
-        // determine the total width of the variable columns
-        const totalWidth = this._columns.reduce((width, column) => width + this.getColumnWidth(column.getCellIndex(), ColumnUnit.Pixel, columns), 0);
-
-        // determine to the width of all the variable columns
-        const variableColumnsWidth = variableColumns.reduce((width, column) => width + this.getColumnWidth(column.getCellIndex(), ColumnUnit.Pixel, columns), 0);
-
-        // determine how much the columns are currently too large (ignoring fixed columns)
-        const targetWidth = this.tableWidth - (totalWidth - variableColumnsWidth);
-
-        // determine how much we need to reduce a column by
-        const difference = variableColumnsWidth - targetWidth;
-
-        // find the column with the largest size
-        const target = variableColumns.reduce((widest, column) => {
-            const columnWidth = this.getColumnWidth(column.getCellIndex(), ColumnUnit.Pixel, columns);
-            const widestWidth = this.getColumnWidth(widest.getCellIndex(), ColumnUnit.Pixel, columns);
-
-            return columnWidth > widestWidth ? column : widest;
-        });
-
-        // perform the resize
-        columns = this.setColumnWidth(target.getCellIndex(), this.getColumnWidth(target.getCellIndex(), ColumnUnit.Pixel, columns) - difference, ColumnUnit.Pixel, columns);
-
-        // check if we are still over the limit (allow some variance for javascript double precision)
-        if (columns.reduce((width, column) => width + column) > 100.01) {
-            return this.ensureNoOverflow(columns);
-        }
-
-        return columns;
+    // if there are no columns that can be resized then stop here
+    if (variableColumns.length === 0) {
+      return columns;
     }
 
+    // determine the total width of the variable columns
+    const totalWidth = this._columns.reduce(
+      (width, column) =>
+        width + this.getColumnWidth(column.getCellIndex(), ColumnUnit.Pixel, columns),
+      0
+    );
 
-    /** Allow setting the column size in any unit */
-    setColumnWidth(index: number, value: number, unit: ColumnUnit, columns: ReadonlyArray<number> = this.columns): ReadonlyArray<number> {
-        // create a new array so we keep the instance array immutable
-        const sizes = [...columns];
+    // determine to the width of all the variable columns
+    const variableColumnsWidth = variableColumns.reduce(
+      (width, column) =>
+        width + this.getColumnWidth(column.getCellIndex(), ColumnUnit.Pixel, columns),
+      0
+    );
 
-        switch (unit) {
+    // determine how much the columns are currently too large (ignoring fixed columns)
+    const targetWidth = this.tableWidth - (totalWidth - variableColumnsWidth);
 
-            case ColumnUnit.Percentage:
-                sizes[index] = value;
-                break;
+    // determine how much we need to reduce a column by
+    const difference = variableColumnsWidth - targetWidth;
 
-            case ColumnUnit.Pixel:
-                sizes[index] = (value / this.tableWidth) * 100;
-                break;
-        }
+    // find the column with the largest size
+    const target = variableColumns.reduce((widest, column) => {
+      const columnWidth = this.getColumnWidth(column.getCellIndex(), ColumnUnit.Pixel, columns);
+      const widestWidth = this.getColumnWidth(widest.getCellIndex(), ColumnUnit.Pixel, columns);
 
-        // update the instance variable
-        return sizes;
+      return columnWidth > widestWidth ? column : widest;
+    });
+
+    // perform the resize
+    columns = this.setColumnWidth(
+      target.getCellIndex(),
+      this.getColumnWidth(target.getCellIndex(), ColumnUnit.Pixel, columns) - difference,
+      ColumnUnit.Pixel,
+      columns
+    );
+
+    // check if we are still over the limit (allow some variance for javascript double precision)
+    if (columns.reduce((width, column) => width + column) > 100.01) {
+      return this.ensureNoOverflow(columns);
     }
 
-    /** Resize a column by a specific pixel amount */
-    resizeColumn(index: number, delta: number): void {
+    return columns;
+  }
 
-        // get the sibling column that will also be resized
-        const sibling = this.getSiblingColumn(index);
+  /** Allow setting the column size in any unit */
+  setColumnWidth(
+    index: number,
+    value: number,
+    unit: ColumnUnit,
+    columns: ReadonlyArray<number> = this.columns
+  ): ReadonlyArray<number> {
+    // create a new array so we keep the instance array immutable
+    const sizes = [...columns];
 
-        // create a new array for the sizes
-        let columns = [...this.columns] as number[];
+    switch (unit) {
+      case ColumnUnit.Percentage:
+        sizes[index] = value;
+        break;
 
-        // resize the column to the desired size
-        columns = this.setColumnWidth(index, Math.round(this.getColumnWidth(index, ColumnUnit.Pixel) + delta), ColumnUnit.Pixel) as number[];
-        columns = this.setColumnWidth(sibling, Math.round(this.getColumnWidth(sibling, ColumnUnit.Pixel)), ColumnUnit.Pixel, columns) as number[];
-
-        // if the move is not possible then stop here
-        if (!this.isWidthValid(index, this.getColumnWidth(index, ColumnUnit.Pixel, columns))) {
-            return;
-        }
-
-        // store the new sizes
-        this.columns = columns;
-
-        // emit the resize event for each column
-        this.onResize$.next();
+      case ColumnUnit.Pixel:
+        sizes[index] = (value / this.tableWidth) * 100;
+        break;
     }
 
-    /** Get the next column in the sequence of columns */
-    private getSiblingColumn(index: number): number | null {
+    // update the instance variable
+    return sizes;
+  }
 
-        // find the first sibling that is not disabled
-        for (let idx = index + 1; idx < this.columns.length; idx++) {
+  /** Resize a column by a specific pixel amount */
+  resizeColumn(index: number, delta: number): void {
+    // get the sibling column that will also be resized
+    const sibling = this.getSiblingColumn(index);
 
-            const sibling = this.getColumn(idx);
+    // create a new array for the sizes
+    let columns = [...this.columns] as number[];
 
-            if (!sibling || !sibling.disabled) {
-                return idx;
-            }
-        }
+    // resize the column to the desired size
+    columns = this.setColumnWidth(
+      index,
+      Math.round(this.getColumnWidth(index, ColumnUnit.Pixel) + delta),
+      ColumnUnit.Pixel
+    ) as number[];
+    columns = this.setColumnWidth(
+      sibling,
+      Math.round(this.getColumnWidth(sibling, ColumnUnit.Pixel)),
+      ColumnUnit.Pixel,
+      columns
+    ) as number[];
 
-        return null;
+    // if the move is not possible then stop here
+    if (!this.isWidthValid(index, this.getColumnWidth(index, ColumnUnit.Pixel, columns))) {
+      return;
     }
 
-    /** Return true if this column is above the minimum width */
-    private isWidthValid(index: number, width: number): boolean {
+    // store the new sizes
+    this.columns = columns;
 
-        // get the column at a given position
-        const column = this.getColumn(index);
+    // emit the resize event for each column
+    this.onResize$.next();
+  }
 
-        // determine if the specified width is greater than the min width
-        return column && width >= column.minWidth;
+  /** Get the next column in the sequence of columns */
+  private getSiblingColumn(index: number): number | null {
+    // find the first sibling that is not disabled
+    for (let idx = index + 1; idx < this.columns.length; idx++) {
+      const sibling = this.getColumn(idx);
+
+      if (!sibling || !sibling.disabled) {
+        return idx;
+      }
     }
 
-    getColumn(index: number): ResizableTableColumnComponent | null {
-        return this._columns ? this._columns.toArray()[index] : null;
-    }
+    return null;
+  }
 
-    getColumnDisabled(index: number): boolean {
-        return this.getColumn(index) ? this.getColumn(index).disabled : false;
-    }
+  /** Return true if this column is above the minimum width */
+  private isWidthValid(index: number, width: number): boolean {
+    // get the column at a given position
+    const column = this.getColumn(index);
 
+    // determine if the specified width is greater than the min width
+    return column && width >= column.minWidth;
+  }
+
+  getColumn(index: number): ResizableTableColumnComponent | null {
+    return this._columns ? this._columns.toArray()[index] : null;
+  }
+
+  getColumnDisabled(index: number): boolean {
+    return this.getColumn(index) ? this.getColumn(index).disabled : false;
+  }
 }
 
 export enum ColumnUnit {
-    Pixel,
-    Percentage
+  Pixel,
+  Percentage,
 }

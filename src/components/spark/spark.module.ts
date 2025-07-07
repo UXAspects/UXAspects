@@ -1,17 +1,12 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-import { SparkComponent } from './spark.component';
+import { NgModule } from '@angular/core';
 import { ColorServiceModule } from '../../services/color/index';
 import { TooltipModule } from '../tooltip/index';
+import { SparkComponent } from './spark.component';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        ColorServiceModule,
-        TooltipModule
-    ],
-    exports: [SparkComponent],
-    declarations: [SparkComponent]
+  imports: [CommonModule, ColorServiceModule, TooltipModule],
+  exports: [SparkComponent],
+  declarations: [SparkComponent],
 })
-export class SparkModule { }
+export class SparkModule {}

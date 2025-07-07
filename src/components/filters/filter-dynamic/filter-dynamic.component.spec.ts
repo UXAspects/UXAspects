@@ -1,107 +1,101 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { FilterModule } from '../filter.module';
 import { Component } from '@angular/core';
-import { Filter } from '../interfaces/filter.interface';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { FilterModule } from '../filter.module';
+import { Filter } from '../interfaces/filter.interface';
 
 @Component({
-    selector: 'app-filter-dynamic-test',
-    template: `
-        <ux-filter-container>
-            <ux-filter-dynamic [id]="id"
-                               [filters]="filters"
-                               [initial]="filters[0]"
-                               [options]="options">
-            </ux-filter-dynamic>
-        </ux-filter-container>
-    `
+  selector: 'app-filter-dynamic-test',
+  template: `
+    <ux-filter-container>
+      <ux-filter-dynamic [id]="id" [filters]="filters" [initial]="filters[0]" [options]="options">
+      </ux-filter-dynamic>
+    </ux-filter-container>
+  `,
+  standalone: false,
 })
 export class FilterDynamicComponentSpec {
+  id: string = 'custom-filter-dynamic';
 
-    id: string = 'custom-filter-dynamic';
+  options = {
+    maxIndividualItems: 4,
+  };
 
-    options = {
-        maxIndividualItems: 4
-    };
-
-    filters: Filter[] = [
-        {
-            group: 'Author',
-            title: 'Author',
-            name: 'Author (All)',
-            initial: true,
-        }, {
-            group: 'Author',
-            title: 'Lily Clarke',
-            name: 'Lily Clarke',
-        }, {
-            group: 'Author',
-            title: 'Jesse Bass',
-            name: 'Jesse Bass'
-        }, {
-            group: 'Author',
-            title: 'Iva Rogers',
-            name: 'Iva Rogers'
-        }
-    ];
+  filters: Filter[] = [
+    {
+      group: 'Author',
+      title: 'Author',
+      name: 'Author (All)',
+      initial: true,
+    },
+    {
+      group: 'Author',
+      title: 'Lily Clarke',
+      name: 'Lily Clarke',
+    },
+    {
+      group: 'Author',
+      title: 'Jesse Bass',
+      name: 'Jesse Bass',
+    },
+    {
+      group: 'Author',
+      title: 'Iva Rogers',
+      name: 'Iva Rogers',
+    },
+  ];
 }
 
 describe('Filter Dynamic', () => {
-    let fixture: ComponentFixture<FilterDynamicComponentSpec>;
-    let component: FilterDynamicComponentSpec;
-    let nativeElement: HTMLElement;
+  let fixture: ComponentFixture<FilterDynamicComponentSpec>;
+  let component: FilterDynamicComponentSpec;
+  let nativeElement: HTMLElement;
 
-    beforeEach(() => {
-        TestBed.configureTestingModule({
-            imports: [
-                FilterModule,
-                NoopAnimationsModule
-            ],
-            declarations: [FilterDynamicComponentSpec]
-        }).compileComponents();
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      imports: [FilterModule, NoopAnimationsModule],
+      declarations: [FilterDynamicComponentSpec],
+    }).compileComponents();
 
-        fixture = TestBed.createComponent<FilterDynamicComponentSpec>(FilterDynamicComponentSpec);
-        component = fixture.componentInstance;
-        nativeElement = fixture.nativeElement;
-        fixture.detectChanges();
-    });
+    fixture = TestBed.createComponent<FilterDynamicComponentSpec>(FilterDynamicComponentSpec);
+    component = fixture.componentInstance;
+    nativeElement = fixture.nativeElement;
+    fixture.detectChanges();
+  });
 
-    it('should have the correct IDs if a custom ID has been provided on the component', () => {
+  it('should have the correct IDs if a custom ID has been provided on the component', () => {
+    expect(getMenuButton().id).toBe('custom-filter-dynamic-trigger');
+    toggleMenu();
 
-        expect(getMenuButton().id).toBe('custom-filter-dynamic-trigger');
-        toggleMenu();
+    getMenuItems().forEach((item, index) =>
+      expect(item.id).toBe('custom-filter-dynamic-item-' + index)
+    );
+  });
 
-        getMenuItems().forEach((item, index) =>
-            expect(item.id).toBe('custom-filter-dynamic-item-' + index));
-    });
+  it('should give each filter the provided ID if specified on the Filter object', () => {
+    // add an id property to all the filters
+    component.filters.forEach((filter, index) => (filter.id = `filter-${index}`));
+    fixture.detectChanges();
 
-    it('should give each filter the provided ID if specified on the Filter object', () => {
+    toggleMenu();
 
-        // add an id property to all the filters
-        component.filters.forEach((filter, index) => filter.id = `filter-${ index }`);
-        fixture.detectChanges();
+    getMenuItems().forEach((item, index) => expect(item.id).toBe('filter-' + index));
+  });
 
-        toggleMenu();
+  function getMenuButton(): HTMLElement {
+    return nativeElement.querySelector('.filter-dropdown');
+  }
 
-        getMenuItems().forEach((item, index) =>
-            expect(item.id).toBe('filter-' + index));
-    });
+  function toggleMenu(): void {
+    getMenuButton().click();
+    fixture.detectChanges();
+  }
 
-    function getMenuButton(): HTMLElement {
-        return nativeElement.querySelector('.filter-dropdown');
-    }
+  function getMenu(): HTMLElement {
+    return document.querySelector('.ux-menu');
+  }
 
-    function toggleMenu(): void {
-        getMenuButton().click();
-        fixture.detectChanges();
-    }
-
-    function getMenu(): HTMLElement {
-        return document.querySelector('.ux-menu');
-    }
-
-    function getMenuItems(): HTMLElement[] {
-        return Array.from(getMenu().querySelectorAll('[uxmenuitem]'));
-    }
-
+  function getMenuItems(): HTMLElement[] {
+    return Array.from(getMenu().querySelectorAll('[uxmenuitem]'));
+  }
 });

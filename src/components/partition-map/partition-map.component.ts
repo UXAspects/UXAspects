@@ -43,6 +43,7 @@ interface SegmentCacheData {
     role: 'tree',
     'aria-orientation': 'vertical',
   },
+  standalone: false,
 })
 export class PartitionMapComponent implements OnInit, OnDestroy {
   private readonly _colorService = inject(ColorService);
@@ -948,7 +949,7 @@ export class PartitionMapComponent implements OnInit, OnDestroy {
 
 export interface PartitionMapSegmentBase {
   name: string;
-   
+
   data?: { [key: string]: any };
 }
 

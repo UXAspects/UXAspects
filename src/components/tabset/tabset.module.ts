@@ -7,8 +7,8 @@ import { TabComponent } from './tab/tab.component';
 import { TabsetComponent } from './tabset.component';
 
 @NgModule({
-    imports: [AccessibilityModule, CommonModule, RouterModule],
-    exports: [TabsetComponent, TabComponent, TabHeadingDirective],
-    declarations: [TabsetComponent, TabComponent, TabHeadingDirective],
+  imports: [AccessibilityModule, CommonModule, RouterModule],
+  exports: [TabsetComponent, TabComponent, TabHeadingDirective],
+  declarations: [TabsetComponent, TabComponent, TabHeadingDirective],
 })
 export class TabsetModule {}

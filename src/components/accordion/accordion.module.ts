@@ -6,19 +6,8 @@ import { AccordionPanelComponent } from './accordion-panel/accordion-panel.compo
 import { AccordionComponent } from './accordion.component';
 
 @NgModule({
-    imports: [
-        AccessibilityModule,
-        CommonModule
-    ],
-    declarations: [
-        AccordionComponent,
-        AccordionPanelComponent,
-        AccordionPanelHeadingDirective
-    ],
-    exports: [
-        AccordionComponent,
-        AccordionPanelComponent,
-        AccordionPanelHeadingDirective
-    ]
+  imports: [AccessibilityModule, CommonModule],
+  declarations: [AccordionComponent, AccordionPanelComponent, AccordionPanelHeadingDirective],
+  exports: [AccordionComponent, AccordionPanelComponent, AccordionPanelHeadingDirective],
 })
-export class AccordionModule { }
+export class AccordionModule {}

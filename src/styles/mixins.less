@@ -1,47 +1,47 @@
 // Placeholder text
 .placeholder(@color: @white) {
-    &::-moz-placeholder {
-        color: @color; // Firefox
-        opacity: 1;
-    } // See https://github.com/twbs/bootstrap/pull/11526
-    &:-ms-input-placeholder {
-        color: @color;
-    } // Internet Explorer 10+
-    &::-webkit-input-placeholder {
-        color: @color;
-    } // Safari and Chrome
+  &::-moz-placeholder {
+    color: @color; // Firefox
+    opacity: 1;
+  } // See https://github.com/twbs/bootstrap/pull/11526
+  &:-ms-input-placeholder {
+    color: @color;
+  } // Internet Explorer 10+
+  &::-webkit-input-placeholder {
+    color: @color;
+  } // Safari and Chrome
 }
 
 .rotate(@deg) {
-    transform: rotate(@deg);
+  transform: rotate(@deg);
 }
 
 .opacity(@opacity) {
-    opacity: @opacity;
+  opacity: @opacity;
 }
 
 .focus-outline {
+  outline: 2px dotted;
+  outline: auto -webkit-focus-ring-color;
+  outline-color: @aspects-outline;
+  outline-offset: 0;
+}
+
+.native-focus-outline {
+  &:not(.ux-focus-indicator) {
     outline: 2px dotted;
     outline: auto -webkit-focus-ring-color;
     outline-color: @aspects-outline;
     outline-offset: 0;
-}
-
-.native-focus-outline {
-    &:not(.ux-focus-indicator) {
-        outline: 2px dotted;
-        outline: auto -webkit-focus-ring-color;
-        outline-color: @aspects-outline;
-        outline-offset: 0;
-    }
+  }
 }
 
 .btn-hover-active-color(light, @color, @percent) {
-    background-color: darken(@color, @percent);
-    border-color: darken(@color, @percent);
+  background-color: darken(@color, @percent);
+  border-color: darken(@color, @percent);
 }
 
 .btn-hover-active-color(dark, @color, @percent) {
-    background-color: lighten(@color, @percent);
-    border-color: lighten(@color, @percent);
+  background-color: lighten(@color, @percent);
+  border-color: lighten(@color, @percent);
 }

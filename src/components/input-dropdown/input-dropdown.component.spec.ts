@@ -120,6 +120,7 @@ describe('InputDropdownComponent', () => {
       </div>
     </ux-input-dropdown>
   `,
+  standalone: false,
 })
 export class InputDropdownTestComponent {
   disabled: boolean = false;

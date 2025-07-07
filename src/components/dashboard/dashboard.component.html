@@ -6,12 +6,13 @@
   <!-- Wrap with ngIf so we only have one subscription rather than one for each property -->
   @if (dashboardService.placeholder$ | async; as placeholder) {
     @if (placeholder.visible) {
-      <div class="position-indicator"
+      <div
+        class="position-indicator"
         [style.left.px]="placeholder.x"
         [style.top.px]="placeholder.y"
         [style.width.px]="placeholder.width"
-        [style.height.px]="placeholder.height">
-      </div>
+        [style.height.px]="placeholder.height"
+      ></div>
     }
   }
 </div>

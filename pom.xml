@@ -28,7 +28,7 @@
 
     <groupId>com.github.uxaspects</groupId>
     <artifactId>aspects-core</artifactId>
-    <version>11.2.0-SNAPSHOT</version>
+    <version>12.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <properties>
@@ -52,17 +52,50 @@
                     </environmentVariables>
                 </configuration>
                 <executions>
-                    <!-- npm install -->
                     <execution>
-                        <id>exec-npm-install</id>
+                        <id>exec-enable-corepack</id>
+                        <phase>initialize</phase>
+                        <goals>
+                        <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                        <executable>npm</executable>
+                        <arguments>
+                            <argument>install</argument>
+                            <argument>--global</argument>
+                            <argument>corepack@latest</argument>
+                        </arguments>
+                        </configuration>
+                    </execution>
+
+
+                    <execution>
+                        <id>exec-corepack</id>
+                        <phase>initialize</phase>
+                        <goals>
+                        <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                        <executable>corepack</executable>
+                        <arguments>
+                            <argument>use</argument>
+                            <argument>pnpm@latest-10</argument>
+                        </arguments>
+                        </configuration>
+                    </execution>
+
+                    <!-- pnpm install -->
+                    <execution>
+                        <id>exec-pnpm-install</id>
                         <phase>initialize</phase>
                         <goals>
                             <goal>exec</goal>
                         </goals>
                         <configuration>
-                            <executable>npm</executable>
+                            <executable>pnpm</executable>
                             <arguments>
-                                <argument>ci</argument>
+                                <argument>install</argument>
+                                <argument>--frozen-lockfile</argument>
                             </arguments>
                         </configuration>
                     </execution>
@@ -75,7 +108,7 @@
                             <goal>exec</goal>
                         </goals>
                         <configuration>
-                            <executable>npm</executable>
+                            <executable>pnpm</executable>
                             <arguments>
                                 <argument>run</argument>
                                 <argument>setversion</argument>
@@ -85,13 +118,13 @@
 
                     <!-- Build: Library -->
                     <execution>
-                        <id>exec-npm-run-build-library</id>
+                        <id>exec-pnpm-run-build-library</id>
                         <phase>compile</phase>
                         <goals>
                             <goal>exec</goal>
                         </goals>
                         <configuration>
-                            <executable>npm</executable>
+                            <executable>pnpm</executable>
                             <arguments>
                                 <argument>run</argument>
                                 <argument>build:library</argument>
@@ -101,13 +134,13 @@
 
                     <!-- Build: Documentation -->
                     <execution>
-                        <id>exec-npm-run-build-documentation</id>
+                        <id>exec-pnpm-run-build-documentation</id>
                         <phase>compile</phase>
                         <goals>
                             <goal>exec</goal>
                         </goals>
                         <configuration>
-                            <executable>npm</executable>
+                            <executable>pnpm</executable>
                             <arguments>
                                 <argument>run</argument>
                                 <argument>build:documentation</argument>
@@ -117,13 +150,13 @@
 
                     <!-- Test -->
                     <execution>
-                        <id>exec-npm-run-test</id>
+                        <id>exec-pnpm-run-test</id>
                         <phase>test</phase>
                         <goals>
                             <goal>exec</goal>
                         </goals>
                         <configuration>
-                            <executable>npm</executable>
+                            <executable>pnpm</executable>
                             <arguments>
                                 <argument>run</argument>
                                 <argument>test</argument>

@@ -5,20 +5,14 @@ import { DocumentationComponentsModule } from '../../components/components.modul
 import { LandingPageComponent } from './landing.component';
 
 const routes: Routes = [
-    {
-        path: '',
-        component: LandingPageComponent
-    }
+  {
+    path: '',
+    component: LandingPageComponent,
+  },
 ];
 
 @NgModule({
-    declarations: [
-        LandingPageComponent
-    ],
-    imports: [
-        CommonModule,
-        DocumentationComponentsModule,
-        RouterModule.forChild(routes)
-    ]
+  declarations: [LandingPageComponent],
+  imports: [CommonModule, DocumentationComponentsModule, RouterModule.forChild(routes)],
 })
 export class LandingPageModule {}

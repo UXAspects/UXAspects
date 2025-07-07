@@ -1,67 +1,67 @@
 {
-    "team": [
+  "team": [
+    {
+      "name": "Ashley Hunter",
+      "email": "ahunter2@opentext.com",
+      "avatar": "assets/img/team/ashley.jpg",
+      "social": [
         {
-            "name": "Ashley Hunter",
-            "email": "ahunter2@opentext.com",
-            "avatar": "assets/img/team/ashley.jpg",
-            "social": [
-                {
-                    "icon": "social-twitter",
-                    "url": "https://twitter.com/ashh640"
-                },
-                {
-                    "icon": "mail",
-                    "url": "mailto:ahunter2@opentext.com"
-                },
-                {
-                    "icon": "social-github",
-                    "url": "https://github.com/ashh640"
-                }
-            ]
+          "icon": "social-twitter",
+          "url": "https://twitter.com/ashh640"
         },
         {
-            "name": "Donna Worby",
-            "email": "dworby@opentext.com",
-            "avatar": "assets/img/team/donna.jpg",
-            "social": [
-                {
-                    "icon": "mail",
-                    "url": "mailto:dworby@opentext.com"
-                }
-            ]
+          "icon": "mail",
+          "url": "mailto:ahunter2@opentext.com"
         },
         {
-            "name": "Roland Penny",
-            "email": "rpenny2@opentext.com",
-            "avatar": "assets/img/team/roland.jpg",
-            "social": [
-                {
-                    "icon": "mail",
-                    "url": "mailto:rpenny2@opentext.com"
-                }
-            ]
-        },
-        {
-            "name": "Jonathan Todd",
-            "email": "jtodd2@opentext.com",
-            "avatar": "assets/img/team/jonathan.jpg",
-            "social": [
-                {
-                    "icon": "mail",
-                    "url": "mailto:jtodd2@opentext.com"
-                }
-            ]
-        },
-        {
-            "name": "Sasikumar",
-            "email": "sasikumarc@opentext.com",
-            "avatar": "assets/img/team/Sasi.jpg",
-            "social": [
-                {
-                    "icon": "mail",
-                    "url": "mailto:sasikumarc@opentext.com"
-                }
-            ]
+          "icon": "social-github",
+          "url": "https://github.com/ashh640"
         }
-    ]
+      ]
+    },
+    {
+      "name": "Donna Worby",
+      "email": "dworby@opentext.com",
+      "avatar": "assets/img/team/donna.jpg",
+      "social": [
+        {
+          "icon": "mail",
+          "url": "mailto:dworby@opentext.com"
+        }
+      ]
+    },
+    {
+      "name": "Roland Penny",
+      "email": "rpenny2@opentext.com",
+      "avatar": "assets/img/team/roland.jpg",
+      "social": [
+        {
+          "icon": "mail",
+          "url": "mailto:rpenny2@opentext.com"
+        }
+      ]
+    },
+    {
+      "name": "Jonathan Todd",
+      "email": "jtodd2@opentext.com",
+      "avatar": "assets/img/team/jonathan.jpg",
+      "social": [
+        {
+          "icon": "mail",
+          "url": "mailto:jtodd2@opentext.com"
+        }
+      ]
+    },
+    {
+      "name": "Sasikumar",
+      "email": "sasikumarc@opentext.com",
+      "avatar": "assets/img/team/Sasi.jpg",
+      "social": [
+        {
+          "icon": "mail",
+          "url": "mailto:sasikumarc@opentext.com"
+        }
+      ]
+    }
+  ]
 }

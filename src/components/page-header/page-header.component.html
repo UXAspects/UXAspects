@@ -1,17 +1,24 @@
 <div class="ux-page-header" [class.page-header-condensed]="condensed" role="banner">
-
   @if (!condensed) {
     <div class="page-header-content">
       <!-- Logo/product acronym -->
-      <div uxFocusIndicator (keydown.enter)="logoClick.emit($event)" [attr.tabindex]="_hasLogoClick ? 0: -1"
-        [class.page-header-logo-template]="logoTemplate" [class.clickable]="_hasLogoClick"
+      <div
+        uxFocusIndicator
+        (keydown.enter)="logoClick.emit($event)"
+        [attr.tabindex]="_hasLogoClick ? 0 : -1"
+        [class.page-header-logo-template]="logoTemplate"
+        [class.clickable]="_hasLogoClick"
         class="page-header-logo-container"
-        role="presentation" [style.backgroundColor]="logoBackground" [style.color]="logoForeground" (click)="logoClick.emit($event)">
+        role="presentation"
+        [style.backgroundColor]="logoBackground"
+        [style.color]="logoForeground"
+        (click)="logoClick.emit($event)"
+      >
         @if (logo && !logoTemplate) {
-          <img [attr.src]="logo" [alt]="header" class="page-header-logo">
+          <img [attr.src]="logo" [alt]="header" class="page-header-logo" />
         }
         @if (header && !logo && !logoTemplate) {
-          <h1 class="page-header-acronym">{{header}}</h1>
+          <h1 class="page-header-acronym">{{ header }}</h1>
         }
         @if (logoTemplate) {
           <ng-container [ngTemplateOutlet]="logoTemplate"></ng-container>
@@ -21,7 +28,7 @@
       @if (subheader || subheaderTemplate) {
         <div class="page-header-subtitle-container">
           @if (subheader) {
-            <span class="page-header-subtitle">{{subheader}}</span>
+            <span class="page-header-subtitle">{{ subheader }}</span>
           }
           <ng-container [ngTemplateOutlet]="subheaderTemplate"></ng-container>
         </div>
@@ -29,7 +36,13 @@
       <div class="page-header-state-container" role="navigation">
         <!-- Back button -->
         @if (backVisible === true) {
-          <button uxFocusIndicator type="button" class="page-header-back-button" (click)="backClick.emit($event)" aria-label="Go Back">
+          <button
+            uxFocusIndicator
+            type="button"
+            class="page-header-back-button"
+            (click)="backClick.emit($event)"
+            aria-label="Go Back"
+          >
             <ux-icon name="previous" class="text-primary"></ux-icon>
           </button>
         }
@@ -38,13 +51,19 @@
           @if (crumbs && crumbs.length > 0) {
             <ux-breadcrumbs
               [class.ux-breadcrumbs-small]="crumbsStyle === 'small'"
-            [crumbs]="crumbs"></ux-breadcrumbs>
+              [crumbs]="crumbs"
+            ></ux-breadcrumbs>
           }
-          <h1 class="page-header-title">{{header}}</h1>
+          <h1 class="page-header-title">{{ header }}</h1>
         </div>
       </div>
       <!-- Primary navigation -->
-      <div class="page-header-navigation" [ngClass]="alignment" role="navigation" aria-label="Primary Navigation">
+      <div
+        class="page-header-navigation"
+        [ngClass]="alignment"
+        role="navigation"
+        aria-label="Primary Navigation"
+      >
         <ux-page-header-horizontal-navigation></ux-page-header-horizontal-navigation>
       </div>
       <!-- Icon menus -->
@@ -65,7 +84,12 @@
       <div class="page-header-breadcrumbs" role="navigation">
         <ux-breadcrumbs [crumbs]="crumbs"></ux-breadcrumbs>
       </div>
-      <div class="page-header-navigation" [ngClass]="alignment" role="navigation" aria-label="Primary Navigation">
+      <div
+        class="page-header-navigation"
+        [ngClass]="alignment"
+        role="navigation"
+        aria-label="Primary Navigation"
+      >
         <!-- The Top Navigation Options -->
         <ux-page-header-horizontal-navigation></ux-page-header-horizontal-navigation>
       </div>
@@ -79,11 +103,10 @@
       </div>
     </div>
   }
-
 </div>
 
 <!-- Secondary Header Section -->
-@if (secondaryNavigation && ((selectedRoot$ | async) !== (selected$ | async))) {
+@if (secondaryNavigation && (selectedRoot$ | async) !== (selected$ | async)) {
   <div class="ux-page-header-secondary">
     <!-- Secondary Navigation Leading Content -->
     @if (secondaryNavigationLeadingContentTemplate || secondaryNavigationTrailingContentTemplate) {
@@ -104,7 +127,8 @@
               [active]="child === (selected$ | async)"
               (activated)="select(child, false)"
               [uxPageHeaderNavigationSecondaryItem]="child"
-              [disabled]="child.disabled">
+              [disabled]="child.disabled"
+            >
             </ux-tab>
           }
         </ux-tabset>
@@ -113,7 +137,9 @@
     <!-- Secondary Navigation Trialing Content -->
     @if (secondaryNavigationTrailingContentTemplate) {
       <div class="page-header-secondary-trailing-content">
-        <ng-container [ngTemplateOutlet]="secondaryNavigationTrailingContentTemplate"></ng-container>
+        <ng-container
+          [ngTemplateOutlet]="secondaryNavigationTrailingContentTemplate"
+        ></ng-container>
       </div>
     }
   </div>

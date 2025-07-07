@@ -9,43 +9,44 @@ import { FocusIndicatorOriginService } from './focus-indicator-origin.service';
  * a focus indicator origin
  */
 export class FocusIndicatorOrigin {
+  /** Store all event handlers */
+  private readonly _handlers: (() => void)[] = [];
 
-    /** Store all event handlers */
-    private readonly _handlers: (() => void)[] = [];
+  /** Click events can be trigged by both mouse and keyboard so we want to ensure we emit the correct origin */
+  private _isMouseEvent: boolean;
 
-    /** Click events can be trigged by both mouse and keyboard so we want to ensure we emit the correct origin */
-    private _isMouseEvent: boolean;
+  constructor(
+    private readonly _focusIndicatorOrigin: FocusIndicatorOriginService,
+    elementRef: ElementRef,
+    renderer: Renderer2
+  ) {
+    // add event handlers
+    this._handlers = [
+      renderer.listen(elementRef.nativeElement, 'click', () => this.onClick()),
+      renderer.listen(elementRef.nativeElement, 'mousedown', () => this.onMouseDown()),
+      renderer.listen(elementRef.nativeElement, 'keydown', () => this.onKeydown()),
+    ];
+  }
 
-    constructor(private readonly _focusIndicatorOrigin: FocusIndicatorOriginService, elementRef: ElementRef, renderer: Renderer2) {
+  /** Remove all event handlers */
+  destroy(): void {
+    this._handlers.forEach(handler => handler());
+  }
 
-        // add event handlers
-        this._handlers = [
-            renderer.listen(elementRef.nativeElement, 'click', () => this.onClick()),
-            renderer.listen(elementRef.nativeElement, 'mousedown', () => this.onMouseDown()),
-            renderer.listen(elementRef.nativeElement, 'keydown', () => this.onKeydown())
-        ];
-    }
+  onMouseDown(): void {
+    this._isMouseEvent = true;
+  }
 
-    /** Remove all event handlers */
-    destroy(): void {
-        this._handlers.forEach(handler => handler());
-    }
+  onClick(): void {
+    // if the click was triggered after a mousedown event then it is a keyboard event
+    this._focusIndicatorOrigin.setOrigin(this._isMouseEvent ? 'mouse' : 'keyboard');
 
-    onMouseDown(): void {
-        this._isMouseEvent = true;
-    }
+    // reset the mouse event flag
+    this._isMouseEvent = false;
+  }
 
-    onClick(): void {
-        // if the click was triggered after a mousedown event then it is a keyboard event
-        this._focusIndicatorOrigin.setOrigin(this._isMouseEvent ? 'mouse' : 'keyboard');
-
-        // reset the mouse event flag
-        this._isMouseEvent = false;
-    }
-
-    onKeydown(): void {
-        this._isMouseEvent = false;
-        this._focusIndicatorOrigin.setOrigin('keyboard');
-    }
-
+  onKeydown(): void {
+    this._isMouseEvent = false;
+    this._focusIndicatorOrigin.setOrigin('keyboard');
+  }
 }

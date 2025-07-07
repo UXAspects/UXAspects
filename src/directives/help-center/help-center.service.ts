@@ -2,39 +2,36 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root',
 })
 export class HelpCenterService {
+  items: BehaviorSubject<HelpCenterItem[]> = new BehaviorSubject<HelpCenterItem[]>([]);
 
-    items: BehaviorSubject<HelpCenterItem[]> = new BehaviorSubject<HelpCenterItem[]>([]);
+  registerItem(item: HelpCenterItem): void {
+    // get the current items
+    const items = this.items.getValue();
 
-    registerItem(item: HelpCenterItem): void {
+    // add the new item to the list
+    items.push(item);
 
-        // get the current items
-        const items = this.items.getValue();
+    // update the observable
+    this.items.next(items);
+  }
 
-        // add the new item to the list
-        items.push(item);
+  unregisterItem(item: HelpCenterItem): void {
+    // get the current items
+    let items = this.items.getValue();
 
-        // update the observable
-        this.items.next(items);
-    }
+    // remove the item being unregistered
+    items = items.filter(itm => itm !== item);
 
-    unregisterItem(item: HelpCenterItem): void {
-
-        // get the current items
-        let items = this.items.getValue();
-
-        // remove the item being unregistered
-        items = items.filter(itm => itm !== item);
-
-        // update the observable
-        this.items.next(items);
-    }
+    // update the observable
+    this.items.next(items);
+  }
 }
 
 export interface HelpCenterItem {
-    icon?: string;
-    title: string;
-    select?: () => void;
+  icon?: string;
+  title: string;
+  select?: () => void;
 }

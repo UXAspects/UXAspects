@@ -23,6 +23,7 @@ export const TIME_PICKER_VALUE_ACCESSOR = {
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [TIME_PICKER_VALUE_ACCESSOR],
+  standalone: false,
 })
 export class TimePickerComponent implements ControlValueAccessor {
   private readonly _changeDetector = inject(ChangeDetectorRef);

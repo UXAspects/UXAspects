@@ -15,6 +15,7 @@ import { ColumnPickerGroupItem } from './interfaces/column-picker-group-item.int
     >
     </ux-column-picker>
   `,
+  standalone: false,
 })
 export class ColumnPickerTestComponent {
   selected: ReadonlyArray<string> = ['Type', 'Date'];
@@ -105,6 +106,7 @@ describe('Column Picker Component', () => {
     >
     </ux-column-picker>
   `,
+  standalone: false,
 })
 export class ColumnPickerSortTestComponent {
   selected: ReadonlyArray<string | ColumnPickerGroupItem> = ['Type', 'Date'];

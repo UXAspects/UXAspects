@@ -1,6 +1,6 @@
 <!-- Show an icon if specified -->
 @if (!hierarchyBar.icon && node?.icon) {
-  <img class="hierarchy-bar-node-icon" [src]="node.icon" alt="Hierarchy Bar Icon">
+  <img class="hierarchy-bar-node-icon" [src]="node.icon" alt="Hierarchy Bar Icon" />
 }
 
 <!-- Show a custom icon if specified -->
@@ -8,7 +8,8 @@
   <div class="hierarchy-bar-node-icon">
     <ng-container
       [ngTemplateOutlet]="hierarchyBar.icon"
-      [ngTemplateOutletContext]="{ node: node, $implicit: node }">
+      [ngTemplateOutletContext]="{ node: node, $implicit: node }"
+    >
     </ng-container>
   </div>
 }

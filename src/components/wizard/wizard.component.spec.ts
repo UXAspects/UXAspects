@@ -35,6 +35,7 @@ interface StepDefinition {
       }
     </ux-wizard>
   `,
+  standalone: false,
 })
 export class WizardTestComponent {
   @ViewChild(WizardComponent) wizard: WizardComponent;
@@ -256,6 +257,7 @@ describe('Wizard', () => {
       </ux-wizard-step>
     </ux-wizard>
   `,
+  standalone: false,
 })
 export class WizardAsyncValidationTestComponent {
   firstStepValidator: () => boolean | Promise<boolean>;
@@ -500,6 +502,7 @@ describe('Wizard with validator', () => {
       </ux-wizard-step>
     </ux-wizard>
   `,
+  standalone: false,
 })
 export class WizardValidationTestComponent {
   currentStep: number;

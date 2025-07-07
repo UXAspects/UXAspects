@@ -7,46 +7,47 @@ import { IPlayground } from '../../../../../interfaces/IPlayground';
 import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
 
 @Component({
-    selector: 'uxd-components-file-upload',
-    templateUrl: './file-upload.component.html',
+  selector: 'uxd-components-file-upload',
+  templateUrl: './file-upload.component.html',
+  standalone: false,
 })
 @DocumentationSectionComponent('ComponentsFileUploadComponent')
 export class ComponentsFileUploadComponent
-    extends BaseDocumentationSection
-    implements IPlaygroundProvider
+  extends BaseDocumentationSection
+  implements IPlaygroundProvider
 {
-    fileOver: boolean = false;
-    uploader: FileUploader = new FileUploader({ url: './' });
+  fileOver: boolean = false;
+  uploader: FileUploader = new FileUploader({ url: './' });
 
-    playground: IPlayground = {
-        files: {
-            'app.component.html': this.snippets.raw.appHtml,
-            'app.component.ts': this.snippets.raw.appTs,
-        },
-        modules: [
-            {
-                imports: ['FileUploadModule'],
-                library: 'ng2-file-upload',
-            },
-            {
-                imports: ['ProgressBarModule'],
-                library: '@ux-aspects/ux-aspects',
-            },
-            {
-                imports: ['A11yModule'],
-                library: '@angular/cdk/a11y',
-            },
-        ],
-    };
+  playground: IPlayground = {
+    files: {
+      'app.component.html': this.snippets.raw.appHtml,
+      'app.component.ts': this.snippets.raw.appTs,
+    },
+    modules: [
+      {
+        imports: ['FileUploadModule'],
+        library: 'ng2-file-upload',
+      },
+      {
+        imports: ['ProgressBarModule'],
+        library: '@ux-aspects/ux-aspects',
+      },
+      {
+        imports: ['A11yModule'],
+        library: '@angular/cdk/a11y',
+      },
+    ],
+  };
 
-    constructor(announcer: LiveAnnouncer) {
-        super(
-            import.meta.webpackContext('./snippets/', {
-                recursive: false,
-                regExp: /\.(html|css|js|ts)$/,
-            })
-        );
+  constructor(announcer: LiveAnnouncer) {
+    super(
+      import.meta.webpackContext('./snippets/', {
+        recursive: false,
+        regExp: /\.(html|css|js|ts)$/,
+      })
+    );
 
-        this.uploader.onCompleteAll = () => announcer.announce('All files have been uploaded.');
-    }
+    this.uploader.onCompleteAll = () => announcer.announce('All files have been uploaded.');
+  }
 }
