@@ -1,5 +1,0 @@
-{
-  "extends": "../tsconfig.app.json",
-  "files": ["./pages/main.ts"],
-  "include": ["e2e/**/*.d.ts"]
-}

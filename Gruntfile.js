@@ -9,7 +9,6 @@ module.exports = function (grunt) {
     jitGrunt: {
       staticMappings: {
         usebanner: 'grunt-banner',
-        protractor: 'grunt-protractor-runner',
       },
     },
   });

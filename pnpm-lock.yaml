@@ -396,15 +396,6 @@ importers:
       prettier:
         specifier: ^3.2.5
         version: 3.2.5
-      protractor:
-        specifier: ^7.0.0
-        version: 7.0.0
-      protractor-console-plugin:
-        specifier: ^0.1.1
-        version: 0.1.1
-      protractor-image-comparison:
-        specifier: ^3.3.0
-        version: 3.9.0(encoding@0.1.13)
       raw-loader:
         specifier: ^4.0.2
         version: 4.0.2(webpack@5.94.0)
@@ -6892,10 +6883,6 @@ packages:
     resolution: {integrity: sha512-EglNDLRpmaTWiD/qraZn6HREAEAHJcJOmxNEYwq6xeMKnVMAy3GUcFB+wXt2C6k4CNvB/mP1y/U3dzvKKj5OtQ==}
     engines: {node: '>=6 <7 || >=8'}
 
-  fs-extra@7.0.1:
-    resolution: {integrity: sha512-YJDaCJZEnBmcbw13fvdAM9AwNOJwOzrE4pqMqBq5nFiEqXUqHwlK4B+3pUw6JNvfSPtX05xFHtYy/1ni01eGCw==}
-    engines: {node: '>=6 <7 || >=8'}
-
   fs-extra@8.1.0:
     resolution: {integrity: sha512-yhlQgA6mnOJUKOsRUFsgJdQCvkKhcz8tlZG5HBQfReYZy46OwLcY+Zia0mtdHsOo9y/hP+CxMN0TU9QxoOtG4g==}
     engines: {node: '>=6 <7 || >=8'}
@@ -10329,13 +10316,6 @@ packages:
   protoduck@4.0.0:
     resolution: {integrity: sha512-9sxuz0YTU/68O98xuDn8NBxTVH9EuMhrBTxZdiBL0/qxRmWhB/5a8MagAebDa+98vluAZTs8kMZibCdezbRCeQ==}
 
-  protractor-console-plugin@0.1.1:
-    resolution: {integrity: sha512-UMCr48IT6KMQlnHOK9TidNIkUlLiWOfAWZ3gtXjj4R2KGn1wfr3SUJcA504f3Csy5FfkhqdbCX7d7Cba/EFV4Q==}
-
-  protractor-image-comparison@3.9.0:
-    resolution: {integrity: sha512-9QGtvTiDCpFCIAIqSV+7hxs1odrQuo7IBspa+RB3dr5bsS9dnlVH5ILXQ+XLv82dsUY9oKfZBwnffG1xyJMpFQ==}
-    deprecated: THIS PACKAGE IS NOT MAINTAINED ANYMORE DUE TO THE LACK OF ACTIVITY OF PROTRACTOR
-
   protractor@7.0.0:
     resolution: {integrity: sha512-UqkFjivi4GcvUQYzqGYNe0mLzfn5jiLmO8w9nMhQoJRLhy2grJonpga2IWhI6yJO30LibWXJJtA4MOIZD2GgZw==}
     engines: {node: '>=10.13.x'}
@@ -12243,9 +12223,6 @@ packages:
 
   weak-lru-cache@1.2.2:
     resolution: {integrity: sha512-DEAoo25RfSYMuTGc9vPJzZcZullwIqRDSI9LOy+fkCJPi6hykCnfKaXTuPBDuXAUcqHXyOgFtHNp/kB2FjYHbw==}
-
-  webdriver-image-comparison@0.12.1:
-    resolution: {integrity: sha512-LrXR8VIiBecibA5Nxc2hwrglogahnV4coZC379R8wQ9YaOAasupC7eAnfJnR5m9yE6EBSnQJXHFyQ1L0aUZa+g==}
 
   webdriver-js-extender@2.1.0:
     resolution: {integrity: sha512-lcUKrjbBfCK6MNsh7xaY2UAUmZwe+/ib03AjVOpFobX4O7+83BUveSrLfU0Qsyb1DaKJdQRbuU+kM9aZ6QUhiQ==}
@@ -15532,6 +15509,7 @@ snapshots:
     transitivePeerDependencies:
       - encoding
       - supports-color
+    optional: true
 
   '@modern-js/node-bundle-require@2.67.6':
     dependencies:
@@ -17328,7 +17306,8 @@ snapshots:
 
   '@types/prismjs@1.6.5': {}
 
-  '@types/q@0.0.32': {}
+  '@types/q@0.0.32':
+    optional: true
 
   '@types/qs@6.9.10': {}
 
@@ -17340,7 +17319,8 @@ snapshots:
 
   '@types/retry@0.12.2': {}
 
-  '@types/selenium-webdriver@3.0.26': {}
+  '@types/selenium-webdriver@3.0.26':
+    optional: true
 
   '@types/semver@5.5.0': {}
 
@@ -18083,6 +18063,7 @@ snapshots:
     dependencies:
       delegates: 1.0.0
       readable-stream: 3.6.2
+    optional: true
 
   arg@4.1.3: {}
 
@@ -18506,6 +18487,7 @@ snapshots:
   blocking-proxy@1.0.1:
     dependencies:
       minimist: 1.2.8
+    optional: true
 
   bluebird@3.7.2: {}
 
@@ -18596,6 +18578,7 @@ snapshots:
       https-proxy-agent: 2.2.4
     transitivePeerDependencies:
       - supports-color
+    optional: true
 
   bs-logger@0.2.6:
     dependencies:
@@ -18771,6 +18754,7 @@ snapshots:
     transitivePeerDependencies:
       - encoding
       - supports-color
+    optional: true
 
   capture-stack-trace@1.0.2: {}
 
@@ -18937,6 +18921,7 @@ snapshots:
       string-width: 4.2.3
       strip-ansi: 6.0.1
       wrap-ansi: 6.2.0
+    optional: true
 
   cliui@7.0.4:
     dependencies:
@@ -19019,7 +19004,8 @@ snapshots:
 
   color-name@1.1.4: {}
 
-  color-support@1.1.3: {}
+  color-support@1.1.3:
+    optional: true
 
   colord@2.9.3: {}
 
@@ -19158,7 +19144,8 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  console-control-strings@1.1.0: {}
+  console-control-strings@1.1.0:
+    optional: true
 
   content-disposition@0.5.4:
     dependencies:
@@ -19726,6 +19713,7 @@ snapshots:
   decompress-response@4.2.1:
     dependencies:
       mimic-response: 2.1.0
+    optional: true
 
   decompress-response@6.0.0:
     dependencies:
@@ -19783,6 +19771,7 @@ snapshots:
       pify: 2.3.0
       pinkie-promise: 2.0.1
       rimraf: 2.7.1
+    optional: true
 
   del@6.1.1:
     dependencies:
@@ -19818,7 +19807,8 @@ snapshots:
   detect-libc@1.0.3:
     optional: true
 
-  detect-libc@2.0.3: {}
+  detect-libc@2.0.3:
+    optional: true
 
   detect-newline@3.1.0: {}
 
@@ -20920,6 +20910,7 @@ snapshots:
       asynckit: 0.4.0
       combined-stream: 1.0.8
       mime-types: 2.1.35
+    optional: true
 
   form-data@4.0.0:
     dependencies:
@@ -20959,12 +20950,6 @@ snapshots:
       universalify: 0.1.2
 
   fs-extra@7.0.0:
-    dependencies:
-      graceful-fs: 4.2.11
-      jsonfile: 4.0.0
-      universalify: 0.1.2
-
-  fs-extra@7.0.1:
     dependencies:
       graceful-fs: 4.2.11
       jsonfile: 4.0.0
@@ -21041,6 +21026,7 @@ snapshots:
       string-width: 4.2.3
       strip-ansi: 6.0.1
       wide-align: 1.1.5
+    optional: true
 
   genfun@4.0.1: {}
 
@@ -21266,6 +21252,7 @@ snapshots:
       object-assign: 4.1.1
       pify: 2.3.0
       pinkie-promise: 2.0.1
+    optional: true
 
   globby@6.1.0:
     dependencies:
@@ -21456,12 +21443,14 @@ snapshots:
     optionalDependencies:
       uglify-js: 3.17.4
 
-  har-schema@2.0.0: {}
+  har-schema@2.0.0:
+    optional: true
 
   har-validator@5.1.5:
     dependencies:
       ajv: 6.12.6
       har-schema: 2.0.0
+    optional: true
 
   harmony-reflect@1.6.2: {}
 
@@ -21495,7 +21484,8 @@ snapshots:
     dependencies:
       has-symbols: 1.0.3
 
-  has-unicode@2.0.1: {}
+  has-unicode@2.0.1:
+    optional: true
 
   hasown@2.0.2:
     dependencies:
@@ -21715,6 +21705,7 @@ snapshots:
       assert-plus: 1.0.0
       jsprim: 1.4.2
       sshpk: 1.18.0
+    optional: true
 
   http-signature@1.4.0:
     dependencies:
@@ -21812,7 +21803,8 @@ snapshots:
     dependencies:
       queue: 6.0.1
 
-  immediate@3.0.6: {}
+  immediate@3.0.6:
+    optional: true
 
   immutable@5.1.3: {}
 
@@ -22044,13 +22036,15 @@ snapshots:
 
   is-obj@1.0.1: {}
 
-  is-path-cwd@1.0.0: {}
+  is-path-cwd@1.0.0:
+    optional: true
 
   is-path-cwd@2.2.0: {}
 
   is-path-in-cwd@1.0.1:
     dependencies:
       is-path-inside: 1.0.1
+    optional: true
 
   is-path-inside@1.0.1:
     dependencies:
@@ -22246,7 +22240,8 @@ snapshots:
       filelist: 1.0.4
       minimatch: 3.1.2
 
-  jasmine-core@2.8.0: {}
+  jasmine-core@2.8.0:
+    optional: true
 
   jasmine-core@4.2.0: {}
 
@@ -22268,8 +22263,10 @@ snapshots:
       exit: 0.1.2
       glob: 7.2.3
       jasmine-core: 2.8.0
+    optional: true
 
-  jasminewd2@2.2.0: {}
+  jasminewd2@2.2.0:
+    optional: true
 
   javascript-natural-sort@0.7.1: {}
 
@@ -22782,6 +22779,7 @@ snapshots:
       extsprintf: 1.3.0
       json-schema: 0.4.0
       verror: 1.10.0
+    optional: true
 
   jsprim@2.0.2:
     dependencies:
@@ -22796,6 +22794,7 @@ snapshots:
       pako: 1.0.11
       readable-stream: 2.3.8
       setimmediate: 1.0.5
+    optional: true
 
   jwa@1.4.1:
     dependencies:
@@ -23061,6 +23060,7 @@ snapshots:
   lie@3.3.0:
     dependencies:
       immediate: 3.0.6
+    optional: true
 
   liftup@3.0.1:
     dependencies:
@@ -23430,7 +23430,8 @@ snapshots:
 
   mimic-function@5.0.1: {}
 
-  mimic-response@2.1.0: {}
+  mimic-response@2.1.0:
+    optional: true
 
   mimic-response@3.1.0: {}
 
@@ -23622,7 +23623,8 @@ snapshots:
 
   mute-stream@2.0.0: {}
 
-  nan@2.18.0: {}
+  nan@2.18.0:
+    optional: true
 
   nanoid@2.1.11: {}
 
@@ -23819,6 +23821,7 @@ snapshots:
   nopt@5.0.0:
     dependencies:
       abbrev: 1.1.1
+    optional: true
 
   nopt@8.1.0:
     dependencies:
@@ -23925,6 +23928,7 @@ snapshots:
       console-control-strings: 1.1.0
       gauge: 3.0.2
       set-blocking: 2.0.0
+    optional: true
 
   nth-check@2.1.1:
     dependencies:
@@ -23991,7 +23995,8 @@ snapshots:
 
   oauth-sign@0.2.0: {}
 
-  oauth-sign@0.9.0: {}
+  oauth-sign@0.9.0:
+    optional: true
 
   object-assign@4.1.1: {}
 
@@ -24255,7 +24260,8 @@ snapshots:
 
   pako@0.2.9: {}
 
-  pako@1.0.11: {}
+  pako@1.0.11:
+    optional: true
 
   parallel-transform@1.2.0:
     dependencies:
@@ -25062,17 +25068,6 @@ snapshots:
     dependencies:
       genfun: 4.0.1
 
-  protractor-console-plugin@0.1.1:
-    dependencies:
-      q: 1.4.1
-
-  protractor-image-comparison@3.9.0(encoding@0.1.13):
-    dependencies:
-      webdriver-image-comparison: 0.12.1(encoding@0.1.13)
-    transitivePeerDependencies:
-      - encoding
-      - supports-color
-
   protractor@7.0.0:
     dependencies:
       '@types/q': 0.0.32
@@ -25092,6 +25087,7 @@ snapshots:
       yargs: 15.4.1
     transitivePeerDependencies:
       - supports-color
+    optional: true
 
   proxy-addr@2.0.7:
     dependencies:
@@ -25132,7 +25128,8 @@ snapshots:
 
   pure-rand@6.0.4: {}
 
-  q@1.4.1: {}
+  q@1.4.1:
+    optional: true
 
   qjobs@1.2.0: {}
 
@@ -25146,7 +25143,8 @@ snapshots:
     dependencies:
       side-channel: 1.1.0
 
-  qs@6.5.3: {}
+  qs@6.5.3:
+    optional: true
 
   querystringify@2.2.0: {}
 
@@ -25403,6 +25401,7 @@ snapshots:
       tough-cookie: 2.5.0
       tunnel-agent: 0.6.0
       uuid: 3.4.0
+    optional: true
 
   require-directory@2.1.1: {}
 
@@ -25410,7 +25409,8 @@ snapshots:
 
   require-from-string@2.0.2: {}
 
-  require-main-filename@2.0.0: {}
+  require-main-filename@2.0.0:
+    optional: true
 
   requirefresh@2.3.0:
     dependencies:
@@ -25724,6 +25724,7 @@ snapshots:
       https-proxy-agent: 2.2.4
     transitivePeerDependencies:
       - supports-color
+    optional: true
 
   sax@0.6.1: {}
 
@@ -25769,6 +25770,7 @@ snapshots:
       rimraf: 2.7.1
       tmp: 0.0.30
       xml2js: 0.4.23
+    optional: true
 
   selfsigned@2.4.1:
     dependencies:
@@ -25840,7 +25842,8 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  set-blocking@2.0.0: {}
+  set-blocking@2.0.0:
+    optional: true
 
   set-function-length@1.2.2:
     dependencies:
@@ -25858,7 +25861,8 @@ snapshots:
       functions-have-names: 1.2.3
       has-property-descriptors: 1.0.2
 
-  setimmediate@1.0.5: {}
+  setimmediate@1.0.5:
+    optional: true
 
   setprototypeof@1.1.0: {}
 
@@ -25938,13 +25942,15 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  simple-concat@1.0.1: {}
+  simple-concat@1.0.1:
+    optional: true
 
   simple-get@3.1.1:
     dependencies:
       decompress-response: 4.2.1
       once: 1.4.0
       simple-concat: 1.0.1
+    optional: true
 
   sisteransi@1.0.5: {}
 
@@ -26070,6 +26076,7 @@ snapshots:
   source-map-support@0.4.18:
     dependencies:
       source-map: 0.5.7
+    optional: true
 
   source-map-support@0.5.13:
     dependencies:
@@ -26707,6 +26714,7 @@ snapshots:
   tmp@0.0.30:
     dependencies:
       os-tmpdir: 1.0.2
+    optional: true
 
   tmp@0.0.33:
     dependencies:
@@ -26735,6 +26743,7 @@ snapshots:
     dependencies:
       psl: 1.9.0
       punycode: 2.3.1
+    optional: true
 
   tough-cookie@4.1.3:
     dependencies:
@@ -27100,7 +27109,8 @@ snapshots:
 
   utils-merge@1.0.1: {}
 
-  uuid@3.4.0: {}
+  uuid@3.4.0:
+    optional: true
 
   uuid@8.3.2: {}
 
@@ -27273,19 +27283,11 @@ snapshots:
   weak-lru-cache@1.2.2:
     optional: true
 
-  webdriver-image-comparison@0.12.1(encoding@0.1.13):
-    dependencies:
-      canvas: 2.11.2(encoding@0.1.13)
-      chalk: 2.4.2
-      fs-extra: 7.0.1
-    transitivePeerDependencies:
-      - encoding
-      - supports-color
-
   webdriver-js-extender@2.1.0:
     dependencies:
       '@types/selenium-webdriver': 3.0.26
       selenium-webdriver: 3.6.0
+    optional: true
 
   webdriver-manager@12.1.9:
     dependencies:
@@ -27300,6 +27302,7 @@ snapshots:
       rimraf: 2.7.1
       semver: 5.6.0
       xml2js: 0.4.23
+    optional: true
 
   webidl-conversions@3.0.1: {}
 
@@ -27578,7 +27581,8 @@ snapshots:
       is-string: 1.0.7
       is-symbol: 1.0.4
 
-  which-module@2.0.1: {}
+  which-module@2.0.1:
+    optional: true
 
   which-pm-runs@1.1.0:
     optional: true
@@ -27606,6 +27610,7 @@ snapshots:
   wide-align@1.1.5:
     dependencies:
       string-width: 4.2.3
+    optional: true
 
   widest-line@2.0.1:
     dependencies:
@@ -27720,6 +27725,7 @@ snapshots:
     dependencies:
       camelcase: 5.3.1
       decamelize: 1.2.0
+    optional: true
 
   yargs-parser@20.2.9: {}
 
@@ -27740,6 +27746,7 @@ snapshots:
       which-module: 2.0.1
       y18n: 4.0.3
       yargs-parser: 18.1.3
+    optional: true
 
   yargs@16.2.0:
     dependencies:
