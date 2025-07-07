@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@ali-hm/angular-tree-component':
-        specifier: ^18.0.5
-        version: 18.0.5(@angular/common@19.2.14(@angular/core@19.2.14(rxjs@6.6.7)(zone.js@0.15.1))(rxjs@6.6.7))(@angular/core@19.2.14(rxjs@6.6.7)(zone.js@0.15.1))(mobx@4.14.1)
+        specifier: ^19.1.2
+        version: 19.2.5(@angular/common@19.2.14(@angular/core@19.2.14(rxjs@6.6.7)(zone.js@0.15.1))(rxjs@6.6.7))(@angular/core@19.2.14(rxjs@6.6.7)(zone.js@0.15.1))(mobx@4.14.1)
       '@angular/animations':
         specifier: 19.2.14
         version: 19.2.14(@angular/common@19.2.14(@angular/core@19.2.14(rxjs@6.6.7)(zone.js@0.15.1))(rxjs@6.6.7))(@angular/core@19.2.14(rxjs@6.6.7)(zone.js@0.15.1))
@@ -438,11 +438,11 @@ packages:
   '@adobe/css-tools@4.3.3':
     resolution: {integrity: sha512-rE0Pygv0sEZ4vBWHlAgJLGDU7Pm8xoO6p3wsEceb7GYAjScrOHpEo8KK/eVkAcnSM+slAEtXjA2JpdjLp4fJQQ==}
 
-  '@ali-hm/angular-tree-component@18.0.5':
-    resolution: {integrity: sha512-ZhN9AAwLb3uht66seoK2FWOyLC5aVxgf6TczVdhm3HbmhmagAoEMlIq7mj79jsV4LfKESPraFvOq+EnA6G/3tg==}
+  '@ali-hm/angular-tree-component@19.2.5':
+    resolution: {integrity: sha512-INkTnYsWK/r+73tplO8lCg1hrQ6t3LI41shuK3vcHK36gGnJY+CJdIP6oYxHf6fbKvuXAdTXXaoOj3QTf38ztQ==}
     peerDependencies:
-      '@angular/common': '>=18.0.0'
-      '@angular/core': '>=18.0.0'
+      '@angular/common': '>=19.2'
+      '@angular/core': '>=19.2'
       mobx: ~4.14.1
 
   '@ampproject/remapping@2.3.0':
@@ -12614,7 +12614,7 @@ snapshots:
 
   '@adobe/css-tools@4.3.3': {}
 
-  '@ali-hm/angular-tree-component@18.0.5(@angular/common@19.2.14(@angular/core@19.2.14(rxjs@6.6.7)(zone.js@0.15.1))(rxjs@6.6.7))(@angular/core@19.2.14(rxjs@6.6.7)(zone.js@0.15.1))(mobx@4.14.1)':
+  '@ali-hm/angular-tree-component@19.2.5(@angular/common@19.2.14(@angular/core@19.2.14(rxjs@6.6.7)(zone.js@0.15.1))(rxjs@6.6.7))(@angular/core@19.2.14(rxjs@6.6.7)(zone.js@0.15.1))(mobx@4.14.1)':
     dependencies:
       '@angular/common': 19.2.14(@angular/core@19.2.14(rxjs@6.6.7)(zone.js@0.15.1))(rxjs@6.6.7)
       '@angular/core': 19.2.14(rxjs@6.6.7)(zone.js@0.15.1)

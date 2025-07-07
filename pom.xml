@@ -53,6 +53,23 @@
                 </configuration>
                 <executions>
                     <execution>
+                        <id>exec-enable-corepack</id>
+                        <phase>initialize</phase>
+                        <goals>
+                        <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                        <executable>npm</executable>
+                        <arguments>
+                            <argument>install</argument>
+                            <argument>--global</argument>
+                            <argument>corepack@latest</argument>
+                        </arguments>
+                        </configuration>
+                    </execution>
+
+
+                    <execution>
                         <id>exec-corepack</id>
                         <phase>initialize</phase>
                         <goals>
@@ -66,6 +83,7 @@
                         </arguments>
                         </configuration>
                     </execution>
+
                     <!-- pnpm install -->
                     <execution>
                         <id>exec-pnpm-install</id>

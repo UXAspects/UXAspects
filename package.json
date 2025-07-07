@@ -41,7 +41,7 @@
     "publish:local-registry": "sh ./scripts/local-publish.sh"
   },
   "dependencies": {
-    "@ali-hm/angular-tree-component": "^18.0.5",
+    "@ali-hm/angular-tree-component": "^19.1.2",
     "@angular/animations": "19.2.14",
     "@angular/cdk": "19.2.19",
     "@angular/cli": "~19.2.0",
