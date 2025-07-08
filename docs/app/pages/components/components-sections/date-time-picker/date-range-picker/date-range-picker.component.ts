@@ -1,7 +1,21 @@
-import { formatDate } from '@angular/common';
+import { formatDate, NgIf, NgSwitch, NgSwitchCase, NgSwitchDefault } from '@angular/common';
 import { Component, ViewEncapsulation } from '@angular/core';
-import { DateTimePickerTimezone, timezones } from '@ux-aspects/ux-aspects';
+import { FormsModule } from '@angular/forms';
+import {
+  AccessibilityModule,
+  AccordionModule,
+  CheckboxModule,
+  DateRangePickerModule,
+  DateTimePickerTimezone,
+  IconModule,
+  PopoverModule,
+  TabsetModule,
+  timezones,
+} from '@ux-aspects/ux-aspects';
+import { ApiPropertiesComponent } from '../../../../../components/api-properties/api-properties.component';
+import { ApiPropertyComponent } from '../../../../../components/api-property/api-property.component';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
+import { SnippetComponent } from '../../../../../components/snippet/snippet.component';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
 
@@ -10,7 +24,23 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
   templateUrl: './date-range-picker.component.html',
   styleUrls: ['./date-range-picker.component.less'],
   encapsulation: ViewEncapsulation.None,
-  standalone: false,
+  imports: [
+    NgSwitch,
+    NgSwitchCase,
+    AccessibilityModule,
+    IconModule,
+    FormsModule,
+    PopoverModule,
+    NgIf,
+    NgSwitchDefault,
+    DateRangePickerModule,
+    AccordionModule,
+    CheckboxModule,
+    ApiPropertiesComponent,
+    ApiPropertyComponent,
+    TabsetModule,
+    SnippetComponent,
+  ],
 })
 @DocumentationSectionComponent('ComponentsDateRangePickerComponent')
 export class ComponentsDateRangePickerComponent

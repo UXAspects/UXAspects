@@ -56,9 +56,9 @@ const ROUTES = [
     ToggleSwitchModule,
     ToolbarSearchModule,
     TooltipModule,
+    ...SECTIONS,
   ],
   exports: SECTIONS,
-  declarations: SECTIONS,
 })
 export class ComponentsSearchModule {
   constructor(

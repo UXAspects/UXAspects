@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import progressGif from '../../../../../../../src/img/progress.gif';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
+import { SnippetComponent } from '../../../../../components/snippet/snippet.component';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
 import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
@@ -9,7 +10,7 @@ import { playgroundAdapter } from '../../../../../services/playground/adapters/l
 @Component({
   selector: 'uxd-css-progress-activity-indicator-alternative',
   templateUrl: './activity-indicator-alternative.component.html',
-  standalone: false,
+  imports: [SnippetComponent],
 })
 @DocumentationSectionComponent('CssActivityIndicatorAlternativeComponent')
 export class CssActivityIndicatorAlternativeComponent

@@ -13,13 +13,13 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [TeamPageComponent],
   imports: [
     CommonModule,
     DocumentationComponentsModule,
     FlippableCardModule,
     IconModule,
     RouterModule.forChild(routes),
+    TeamPageComponent,
   ],
 })
 export class TeamPageModule {}

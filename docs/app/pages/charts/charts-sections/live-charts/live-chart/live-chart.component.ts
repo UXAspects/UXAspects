@@ -1,7 +1,11 @@
 import { Component } from '@angular/core';
-import { ColorService } from '@ux-aspects/ux-aspects';
+import { AccessibilityModule, ColorService, TabsetModule } from '@ux-aspects/ux-aspects';
 import { ChartDataset, ChartOptions } from 'chart.js';
+import { NgChartsModule } from 'ng2-charts';
+import { ApiPropertiesComponent } from '../../../../../components/api-properties/api-properties.component';
+import { ApiPropertyComponent } from '../../../../../components/api-property/api-property.component';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
+import { SnippetComponent } from '../../../../../components/snippet/snippet.component';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
 import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
@@ -9,7 +13,14 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 @Component({
   selector: 'uxd-charts-live-chart',
   templateUrl: './live-chart.component.html',
-  standalone: false,
+  imports: [
+    NgChartsModule,
+    ApiPropertiesComponent,
+    ApiPropertyComponent,
+    TabsetModule,
+    SnippetComponent,
+    AccessibilityModule,
+  ],
 })
 @DocumentationSectionComponent('ChartsLiveChartComponent')
 export class ChartsLiveChartComponent

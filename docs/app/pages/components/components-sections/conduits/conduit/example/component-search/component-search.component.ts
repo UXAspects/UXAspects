@@ -1,11 +1,13 @@
+import { AsyncPipe } from '@angular/common';
 import { Component, forwardRef } from '@angular/core';
-import { Conduit, ConduitComponent } from '@ux-aspects/ux-aspects';
+import { FormsModule } from '@angular/forms';
+import { CheckboxModule, Conduit, ConduitComponent } from '@ux-aspects/ux-aspects';
 import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'uxd-conduit-search',
   templateUrl: './component-search.component.html',
-  standalone: false,
+  imports: [FormsModule, CheckboxModule, AsyncPipe],
 })
 export class ConduitComponentSearchComponent extends ConduitComponent {
   @Conduit(forwardRef(() => ({ id: 'search' })) as any) search = new BehaviorSubject('');

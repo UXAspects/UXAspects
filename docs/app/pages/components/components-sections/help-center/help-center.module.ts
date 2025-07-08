@@ -33,9 +33,9 @@ const ROUTES = [
     PageHeaderModule,
     RouterModule.forChild(ROUTES),
     TabsetModule,
+    ...SECTIONS,
   ],
   exports: SECTIONS,
-  declarations: SECTIONS,
 })
 export class ComponentsHelpCenterModule {
   constructor(

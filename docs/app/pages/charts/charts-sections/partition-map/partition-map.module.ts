@@ -25,9 +25,9 @@ const ROUTES = [
     RouterModule.forChild(ROUTES),
     TabsetModule,
     TooltipModule,
+    ...SECTIONS,
   ],
   exports: SECTIONS,
-  declarations: SECTIONS,
 })
 export class ChartsPartitionMapModule {
   constructor(

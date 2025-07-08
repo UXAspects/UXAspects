@@ -1,6 +1,11 @@
+import { DatePipe, NgFor } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { AccessibilityModule, CheckboxModule, TabsetModule } from '@ux-aspects/ux-aspects';
 import { Chance } from 'chance';
+import { ApiPropertiesComponent } from '../../../../../components/api-properties/api-properties.component';
+import { ApiPropertyComponent } from '../../../../../components/api-property/api-property.component';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
+import { SnippetComponent } from '../../../../../components/snippet/snippet.component';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
 import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
@@ -12,7 +17,16 @@ const chance = new Chance();
   templateUrl: './tabbable-list.component.html',
   styleUrls: ['./tabbable-list.component.less'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
+  imports: [
+    AccessibilityModule,
+    NgFor,
+    CheckboxModule,
+    ApiPropertiesComponent,
+    ApiPropertyComponent,
+    TabsetModule,
+    SnippetComponent,
+    DatePipe,
+  ],
 })
 @DocumentationSectionComponent('ComponentsTabbableListComponent')
 export class ComponentsTabbableListComponent

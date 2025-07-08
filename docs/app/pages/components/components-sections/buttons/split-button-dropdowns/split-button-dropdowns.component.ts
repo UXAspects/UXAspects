@@ -1,14 +1,16 @@
 import { Component, Inject } from '@angular/core';
+import { AccessibilityModule, IconModule, MenuModule, TabsetModule } from '@ux-aspects/ux-aspects';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
+import { SnippetComponent } from '../../../../../components/snippet/snippet.component';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
 import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
-import { DocumentationType, DOCUMENTATION_TOKEN } from '../../../../../tokens/documentation.token';
+import { DOCUMENTATION_TOKEN, DocumentationType } from '../../../../../tokens/documentation.token';
 
 @Component({
   selector: 'uxd-components-buttons-split-button-dropdowns',
   templateUrl: './split-button-dropdowns.component.html',
-  standalone: false,
+  imports: [AccessibilityModule, MenuModule, IconModule, TabsetModule, SnippetComponent],
 })
 @DocumentationSectionComponent('ComponentsSplitButtonDropdownsComponent')
 export class ComponentsSplitButtonDropdownsComponent

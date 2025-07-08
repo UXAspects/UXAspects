@@ -19,9 +19,13 @@ const ROUTES = [
 ];
 
 @NgModule({
-  imports: [DocumentationComponentsModule, TabsetModule, RouterModule.forChild(ROUTES)],
+  imports: [
+    DocumentationComponentsModule,
+    TabsetModule,
+    RouterModule.forChild(ROUTES),
+    ...SECTIONS,
+  ],
   exports: SECTIONS,
-  declarations: SECTIONS,
 })
 export class CssBreadcrumbsModule {
   constructor(

@@ -1,6 +1,15 @@
+import { DatePipe, DecimalPipe, NgFor, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
+import {
+  AccessibilityModule,
+  IconModule,
+  ItemDisplayPanelModule,
+  SparkModule,
+  TabsetModule,
+} from '@ux-aspects/ux-aspects';
 import 'chance';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
+import { SnippetComponent } from '../../../../../components/snippet/snippet.component';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
 import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
@@ -9,7 +18,18 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
   selector: 'uxd-item-display-panel-inline-component',
   templateUrl: './item-display-panel-inline.component.html',
   styleUrls: ['./item-display-panel-inline.component.less'],
-  standalone: false,
+  imports: [
+    AccessibilityModule,
+    NgFor,
+    SparkModule,
+    NgIf,
+    IconModule,
+    ItemDisplayPanelModule,
+    TabsetModule,
+    SnippetComponent,
+    DecimalPipe,
+    DatePipe,
+  ],
 })
 @DocumentationSectionComponent('ComponentsItemDisplayPanelInlineComponent')
 export class ComponentsItemDisplayPanelInlineComponent

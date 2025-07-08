@@ -1,13 +1,27 @@
+import { NgFor, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
+import { RouterLink, RouterLinkActive } from '@angular/router';
+import { AccessibilityModule, IconModule } from '@ux-aspects/ux-aspects';
 import { ILink } from '../../interfaces/ILink';
 import { SiteTheme } from '../../interfaces/SiteTheme';
 import { AppConfiguration } from '../../services/app-configuration/app-configuration.service';
+import { NavigationBarSearchComponent } from '../navigation-bar-search/navigation-bar-search.component';
+import { ThemeSelectorComponent } from '../theme-selector/theme-selector.component';
 
 @Component({
   selector: 'uxd-navigation-bar',
   templateUrl: './navigation-bar.component.html',
   styleUrls: ['./navigation-bar.component.less'],
-  standalone: false,
+  imports: [
+    RouterLink,
+    NgFor,
+    RouterLinkActive,
+    NgIf,
+    ThemeSelectorComponent,
+    AccessibilityModule,
+    NavigationBarSearchComponent,
+    IconModule,
+  ],
 })
 export class NavigationBarComponent {
   navigation = this._appConfig.getConfigurationData('top-navigation');

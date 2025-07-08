@@ -37,9 +37,9 @@ const ROUTES = [
     ProgressBarModule,
     RouterModule.forChild(ROUTES),
     TabsetModule,
+    ...SECTIONS,
   ],
   exports: SECTIONS,
-  declarations: SECTIONS,
 })
 export class ComponentsFileUploadModule {
   constructor(

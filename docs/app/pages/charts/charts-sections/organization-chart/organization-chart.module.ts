@@ -39,9 +39,9 @@ const ROUTES = [
     RadioButtonModule,
     RouterModule.forChild(ROUTES),
     TabsetModule,
+    ...SECTIONS,
   ],
   exports: SECTIONS,
-  declarations: SECTIONS,
 })
 export class ChartsOrganizationChartModule {
   constructor(

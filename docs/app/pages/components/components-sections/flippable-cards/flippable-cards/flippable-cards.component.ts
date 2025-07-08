@@ -1,14 +1,39 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
+import { DecimalPipe, NgFor } from '@angular/common';
 import { Component } from '@angular/core';
-import { ColorService, NestedDonutChartData } from '@ux-aspects/ux-aspects';
+import {
+  AccessibilityModule,
+  ColorService,
+  FlippableCardModule,
+  IconModule,
+  NestedDonutChartData,
+  NestedDonutChartModule,
+  SparkModule,
+  TabsetModule,
+} from '@ux-aspects/ux-aspects';
+import { ApiPropertiesComponent } from '../../../../../components/api-properties/api-properties.component';
+import { ApiPropertyComponent } from '../../../../../components/api-property/api-property.component';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
+import { SnippetComponent } from '../../../../../components/snippet/snippet.component';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 
 @Component({
   selector: 'uxd-components-flippable-cards',
   templateUrl: './flippable-cards.component.html',
   styleUrls: ['./flippable-cards.component.less'],
-  standalone: false,
+  imports: [
+    NgFor,
+    FlippableCardModule,
+    AccessibilityModule,
+    IconModule,
+    NestedDonutChartModule,
+    SparkModule,
+    ApiPropertiesComponent,
+    ApiPropertyComponent,
+    TabsetModule,
+    SnippetComponent,
+    DecimalPipe,
+  ],
 })
 @DocumentationSectionComponent('ComponentsFlippableCardsComponent')
 export class ComponentsFlippableCardsComponent extends BaseDocumentationSection {

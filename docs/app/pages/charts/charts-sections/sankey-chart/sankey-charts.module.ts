@@ -25,9 +25,9 @@ const ROUTES = [
     RouterModule.forChild(ROUTES),
     SankeyChartModule,
     TabsetModule,
+    ...SECTIONS,
   ],
   exports: SECTIONS,
-  declarations: SECTIONS,
 })
 export class ChartsSankeyChartModule {
   constructor(

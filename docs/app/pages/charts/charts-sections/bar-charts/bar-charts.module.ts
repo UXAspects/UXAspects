@@ -34,9 +34,9 @@ const ROUTES = [
     DocumentationComponentsModule,
     RouterModule.forChild(ROUTES),
     TabsetModule,
+    ...SECTIONS,
   ],
   exports: SECTIONS,
-  declarations: SECTIONS,
 })
 export class ChartsBarChartsModule {
   constructor(

@@ -1,11 +1,18 @@
+import { NgFor, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
-import { PartitionMapSegment, PopoverDirective } from '@ux-aspects/ux-aspects';
+import {
+  IconModule,
+  PartitionMapModule,
+  PartitionMapSegment,
+  PopoverDirective,
+  PopoverModule,
+} from '@ux-aspects/ux-aspects';
 
 @Component({
   selector: 'uxd-partition-map',
   templateUrl: './partition-map.component.html',
   styleUrls: ['./partition-map.component.less'],
-  standalone: false,
+  imports: [PartitionMapModule, NgIf, IconModule, PopoverModule, NgFor],
 })
 export class PartitionMapShowcaseComponent {
   dataset: Readonly<PartitionMapSegment> = {

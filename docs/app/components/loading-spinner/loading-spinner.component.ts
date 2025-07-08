@@ -1,3 +1,4 @@
+import { NgIf } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy } from '@angular/core';
 import { NavigationEnd, NavigationStart, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -7,7 +8,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './loading-spinner.component.html',
   styleUrls: ['./loading-spinner.component.less'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
+  imports: [NgIf],
 })
 export class LoadingSpinnerComponent implements OnDestroy {
   visible: boolean;

@@ -1,13 +1,15 @@
+import { NgFor, NgIf, AsyncPipe, DatePipe } from '@angular/common';
 import { Component, forwardRef, OnDestroy } from '@angular/core';
 import { Conduit, ConduitZone, ConduitZoneComponent } from '@ux-aspects/ux-aspects';
 import 'chance';
 import { BehaviorSubject, Subscription } from 'rxjs';
+import { ConduitZoneInspectorComponent } from '../inspector/inspector.component';
 
 @Component({
   selector: 'uxd-components-conduit-list-view',
   templateUrl: './list-view.component.html',
   providers: [ConduitZone],
-  standalone: false,
+  imports: [NgFor, NgIf, ConduitZoneInspectorComponent, AsyncPipe, DatePipe],
 })
 export class ComponentsConduitListViewComponent extends ConduitZoneComponent implements OnDestroy {
   zoneId: string = 'list-zone';

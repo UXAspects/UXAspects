@@ -6,7 +6,6 @@ import { DocumentationSectionComponent } from '../../../../../decorators/documen
   selector: 'uxd-css-color-palette',
   templateUrl: './color-palette.component.html',
   styleUrls: ['./color-palette.component.less'],
-  standalone: false,
 })
 @DocumentationSectionComponent('CssColorPaletteComponent')
 export class CssColorPaletteComponent {

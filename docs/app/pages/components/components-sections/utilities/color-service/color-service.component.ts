@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { ApiPropertiesComponent } from '../../../../../components/api-properties/api-properties.component';
+import { ApiPropertyComponent } from '../../../../../components/api-property/api-property.component';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
+import { SnippetComponent } from '../../../../../components/snippet/snippet.component';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
 import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
@@ -8,7 +12,7 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
   selector: 'uxd-components-color-service',
   templateUrl: './color-service.component.html',
   styleUrls: ['./color-service.component.less'],
-  standalone: false,
+  imports: [RouterLink, ApiPropertiesComponent, ApiPropertyComponent, SnippetComponent],
 })
 @DocumentationSectionComponent('ComponentsColorServiceComponent')
 export class ComponentsColorServiceComponent

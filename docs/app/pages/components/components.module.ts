@@ -224,8 +224,7 @@ const ROUTES: Routes = [
 ];
 
 @NgModule({
-  imports: [DocumentationComponentsModule, RouterModule.forChild(ROUTES)],
+  imports: [DocumentationComponentsModule, RouterModule.forChild(ROUTES), ComponentsPageComponent],
   exports: [ComponentsPageComponent],
-  declarations: [ComponentsPageComponent],
 })
 export class ComponentsPageModule {}

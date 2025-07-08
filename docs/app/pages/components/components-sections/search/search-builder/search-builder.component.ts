@@ -1,29 +1,61 @@
+import { CdkTrapFocus } from '@angular/cdk/a11y';
+import { AsyncPipe, NgFor, NgIf } from '@angular/common';
 import { Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 import {
-  SearchBuilderComponentDefinition,
-  SearchBuilderFocusService,
-  SearchBuilderQuery,
-  SearchDateRangeComponent,
-  SearchDateRangeConfig,
-  SearchSelectComponent,
-  SearchSelectConfig,
-  SearchTextComponent,
-  SearchTextConfig,
+    AccessibilityModule,
+    FocusIfModule,
+    IconModule,
+    ItemDisplayPanelModule,
+    SearchBuilderComponentDefinition,
+    SearchBuilderFocusService,
+    SearchBuilderModule,
+    SearchBuilderQuery,
+    SearchDateRangeComponent,
+    SearchDateRangeConfig,
+    SearchSelectComponent,
+    SearchSelectConfig,
+    SearchTextComponent,
+    SearchTextConfig,
+    SelectListModule,
+    TabsetModule,
 } from '@ux-aspects/ux-aspects';
 import 'chance';
-import { BsModalService } from 'ngx-bootstrap/modal';
+import { BsModalService, ModalModule } from 'ngx-bootstrap/modal';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { first, takeUntil } from 'rxjs/operators';
+import { ApiPropertiesComponent } from '../../../../../components/api-properties/api-properties.component';
+import { ApiPropertyComponent } from '../../../../../components/api-property/api-property.component';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
+import { SnippetComponent } from '../../../../../components/snippet/snippet.component';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
 import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
 
 @Component({
-  selector: 'uxd-search-builder',
-  templateUrl: './search-builder.component.html',
-  styleUrls: ['./search-builder.component.less'],
-  standalone: false,
+    selector: 'uxd-search-builder',
+    templateUrl: './search-builder.component.html',
+    styleUrls: ['./search-builder.component.less'],
+    imports: [
+        AccessibilityModule,
+        IconModule,
+        NgIf,
+        ModalModule,
+        CdkTrapFocus,
+        SearchBuilderModule,
+        ItemDisplayPanelModule,
+        FormsModule,
+        FocusIfModule,
+        SelectListModule,
+        NgFor,
+        ApiPropertiesComponent,
+        ApiPropertyComponent,
+        SnippetComponent,
+        RouterLink,
+        TabsetModule,
+        AsyncPipe,
+    ],
 })
 @DocumentationSectionComponent('ComponentsSearchBuilderComponent')
 export class ComponentsSearchBuilderComponent

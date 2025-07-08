@@ -1,12 +1,23 @@
+import { NgIf } from '@angular/common';
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import {
+  AccordionModule,
+  HierarchyBarModule,
   HierarchyBarNode,
+  IconModule,
   OrganizationChartConnector,
+  OrganizationChartModule,
   OrganizationChartNode,
+  RadioButtonModule,
+  TabsetModule,
 } from '@ux-aspects/ux-aspects';
 import { Chance } from 'chance';
 import { Observable } from 'rxjs';
+import { ApiPropertiesComponent } from '../../../../../components/api-properties/api-properties.component';
+import { ApiPropertyComponent } from '../../../../../components/api-property/api-property.component';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
+import { SnippetComponent } from '../../../../../components/snippet/snippet.component';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
 import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
@@ -17,7 +28,19 @@ const chance = new Chance();
   selector: 'uxd-charts-organization-chart',
   templateUrl: './organization-chart.component.html',
   styleUrls: ['./organization-chart.component.less'],
-  standalone: false,
+  imports: [
+    HierarchyBarModule,
+    OrganizationChartModule,
+    NgIf,
+    IconModule,
+    AccordionModule,
+    RadioButtonModule,
+    FormsModule,
+    ApiPropertiesComponent,
+    ApiPropertyComponent,
+    TabsetModule,
+    SnippetComponent,
+  ],
 })
 @DocumentationSectionComponent('ChartsOrganizationChartComponent')
 export class ChartsOrganizationChartComponent

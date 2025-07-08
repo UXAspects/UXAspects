@@ -1,6 +1,16 @@
+import { NgFor } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { Color, ColorService, NestedDonutChartData } from '@ux-aspects/ux-aspects';
+import {
+  Color,
+  ColorService,
+  NestedDonutChartData,
+  NestedDonutChartModule,
+  TabsetModule,
+} from '@ux-aspects/ux-aspects';
+import { ApiPropertiesComponent } from '../../../../../components/api-properties/api-properties.component';
+import { ApiPropertyComponent } from '../../../../../components/api-property/api-property.component';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
+import { SnippetComponent } from '../../../../../components/snippet/snippet.component';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
 import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
@@ -10,7 +20,14 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
   templateUrl: './nested-donut-chart.component.html',
   styleUrls: ['./nested-donut-chart.component.less'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
+  imports: [
+    NestedDonutChartModule,
+    NgFor,
+    ApiPropertiesComponent,
+    ApiPropertyComponent,
+    TabsetModule,
+    SnippetComponent,
+  ],
 })
 @DocumentationSectionComponent('ChartsNestedDonutChartComponent')
 export class ChartsNestedDonutChartComponent

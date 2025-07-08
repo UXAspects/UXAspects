@@ -1,9 +1,12 @@
 import { Component, ViewChild } from '@angular/core';
-import { ColorService, TimelineChartOptions } from '@ux-aspects/ux-aspects';
+import { ColorService, TabsetModule, TimelineChartOptions } from '@ux-aspects/ux-aspects';
 import { ChartDataset, ChartOptions, ScatterDataPoint } from 'chart.js';
 import 'chartjs-adapter-moment';
-import { BaseChartDirective } from 'ng2-charts';
+import { BaseChartDirective, NgChartsModule } from 'ng2-charts';
+import { ApiPropertiesComponent } from '../../../../../components/api-properties/api-properties.component';
+import { ApiPropertyComponent } from '../../../../../components/api-property/api-property.component';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
+import { SnippetComponent } from '../../../../../components/snippet/snippet.component';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
 import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
@@ -20,7 +23,13 @@ const DATE_LOCALE_OPTIONS = {
   templateUrl: './timeline-chart.component.html',
   styleUrls: ['./timeline-chart.component.less'],
   providers: [TimelineChartService],
-  standalone: false,
+  imports: [
+    NgChartsModule,
+    ApiPropertiesComponent,
+    ApiPropertyComponent,
+    TabsetModule,
+    SnippetComponent,
+  ],
 })
 @DocumentationSectionComponent('ChartsTimelineChartComponent')
 export class ChartsTimelineChartComponent

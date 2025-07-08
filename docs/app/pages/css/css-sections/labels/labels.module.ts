@@ -19,9 +19,8 @@ const ROUTES = [
 ];
 
 @NgModule({
-  imports: [DocumentationComponentsModule, RouterModule.forChild(ROUTES)],
+  imports: [DocumentationComponentsModule, RouterModule.forChild(ROUTES), ...SECTIONS],
   exports: SECTIONS,
-  declarations: SECTIONS,
 })
 export class CssLabelsModule {
   constructor(

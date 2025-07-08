@@ -53,9 +53,9 @@ const ROUTES = [
     TreeGridModule,
     TreeModule,
     AlertModule,
+    ...SECTIONS,
   ],
   exports: SECTIONS,
-  declarations: SECTIONS,
 })
 export class ComponentsTreeViewModule {
   constructor(

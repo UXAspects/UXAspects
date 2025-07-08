@@ -59,9 +59,10 @@ const ROUTES = [
     SelectModule,
     TabsetModule,
     TooltipModule,
+    SECTIONS,
+    IconPreviewComponent,
   ],
   exports: SECTIONS,
-  declarations: [SECTIONS, IconPreviewComponent],
 })
 export class CssIconsModule {
   constructor(

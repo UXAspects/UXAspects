@@ -1,9 +1,22 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
+import { AsyncPipe, NgFor } from '@angular/common';
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import {
+  AccessibilityModule,
+  AccordionModule,
+  CheckboxModule,
+  InfiniteScrollModule,
+  NumberPickerModule,
+  TabsetModule,
+} from '@ux-aspects/ux-aspects';
 import 'chance';
 import { BehaviorSubject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
+import { ApiPropertiesComponent } from '../../../../../components/api-properties/api-properties.component';
+import { ApiPropertyComponent } from '../../../../../components/api-property/api-property.component';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
+import { SnippetComponent } from '../../../../../components/snippet/snippet.component';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
 import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
@@ -23,7 +36,20 @@ const DEPARTMENTS = [
   selector: 'uxd-components-infinite-scroll',
   templateUrl: 'infinite-scroll.component.html',
   styleUrls: ['./infinite-scroll.component.less'],
-  standalone: false,
+  imports: [
+    FormsModule,
+    InfiniteScrollModule,
+    NgFor,
+    AccessibilityModule,
+    AccordionModule,
+    CheckboxModule,
+    NumberPickerModule,
+    ApiPropertiesComponent,
+    ApiPropertyComponent,
+    SnippetComponent,
+    TabsetModule,
+    AsyncPipe,
+  ],
 })
 @DocumentationSectionComponent('ComponentsInfiniteScrollComponent')
 export class ComponentsInfiniteScrollComponent

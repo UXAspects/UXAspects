@@ -29,9 +29,9 @@ const ROUTES = [
     IconModule,
     TabsetModule,
     RouterModule.forChild(ROUTES),
+    ...SECTIONS,
   ],
   exports: SECTIONS,
-  declarations: SECTIONS,
 })
 export class ComponentsIconModule {
   constructor(

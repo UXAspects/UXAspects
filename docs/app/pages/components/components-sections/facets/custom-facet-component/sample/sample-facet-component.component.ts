@@ -1,5 +1,13 @@
+import { NgFor, NgIf } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Facet, FacetDeselect, FacetDeselectAll, FacetService } from '@ux-aspects/ux-aspects';
+import {
+  CheckboxModule,
+  Facet,
+  FacetDeselect,
+  FacetDeselectAll,
+  FacetService,
+  FacetsModule,
+} from '@ux-aspects/ux-aspects';
 import { Subject } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
 
@@ -7,7 +15,7 @@ import { filter, takeUntil } from 'rxjs/operators';
   selector: 'my-custom-facet-component',
   templateUrl: './sample-facet-component.component.html',
   styleUrls: ['./sample-facet-component.component.less'],
-  standalone: false,
+  imports: [FacetsModule, NgIf, NgFor, CheckboxModule],
 })
 export class SampleCustomFacetComponent implements OnInit, OnDestroy {
   expanded: boolean = true;

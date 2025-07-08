@@ -36,9 +36,9 @@ const ROUTES = [
     RouterModule.forChild(ROUTES),
     SparkModule,
     TabsetModule,
+    ...SECTIONS,
   ],
   exports: SECTIONS,
-  declarations: SECTIONS,
 })
 export class ComponentsDashboardModule {
   constructor(

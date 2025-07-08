@@ -1,6 +1,16 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
+import { NgFor } from '@angular/common';
 import { Component } from '@angular/core';
+import {
+  AccordionModule,
+  RadioButtonModule,
+  TabsetModule,
+  WizardModule,
+} from '@ux-aspects/ux-aspects';
+import { ApiPropertiesComponent } from '../../../../../components/api-properties/api-properties.component';
+import { ApiPropertyComponent } from '../../../../../components/api-property/api-property.component';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
+import { SnippetComponent } from '../../../../../components/snippet/snippet.component';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
 import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
@@ -8,7 +18,16 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 @Component({
   selector: 'uxd-components-wizard',
   templateUrl: './wizard.component.html',
-  standalone: false,
+  imports: [
+    WizardModule,
+    NgFor,
+    AccordionModule,
+    RadioButtonModule,
+    ApiPropertiesComponent,
+    ApiPropertyComponent,
+    SnippetComponent,
+    TabsetModule,
+  ],
 })
 @DocumentationSectionComponent('ComponentsWizardComponent')
 export class ComponentsWizardComponent

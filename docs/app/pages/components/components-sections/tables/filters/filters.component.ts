@@ -1,13 +1,21 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
+import { JsonPipe, NgFor, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 import {
   Filter,
   FilterAddEvent,
   FilterEvent,
+  FilterModule,
   FilterRemoveAllEvent,
   FilterRemoveEvent,
+  IconModule,
+  SparkModule,
+  TabsetModule,
 } from '@ux-aspects/ux-aspects';
+import { ApiPropertiesComponent } from '../../../../../components/api-properties/api-properties.component';
+import { ApiPropertyComponent } from '../../../../../components/api-property/api-property.component';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
+import { SnippetComponent } from '../../../../../components/snippet/snippet.component';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
 import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
@@ -15,7 +23,18 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 @Component({
   selector: 'uxd-components-filters',
   templateUrl: './filters.component.html',
-  standalone: false,
+  imports: [
+    FilterModule,
+    NgFor,
+    SparkModule,
+    NgIf,
+    IconModule,
+    ApiPropertiesComponent,
+    ApiPropertyComponent,
+    TabsetModule,
+    SnippetComponent,
+    JsonPipe,
+  ],
 })
 @DocumentationSectionComponent('ComponentsFiltersComponent')
 export class ComponentsFiltersComponent

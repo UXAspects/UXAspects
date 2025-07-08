@@ -1,16 +1,28 @@
 import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { IconModule, TabsetModule } from '@ux-aspects/ux-aspects';
+import { ApiPropertiesComponent } from '../../../../../components/api-properties/api-properties.component';
+import { ApiPropertyComponent } from '../../../../../components/api-property/api-property.component';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
+import { SnippetComponent } from '../../../../../components/snippet/snippet.component';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
 import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
-import { DocumentationType, DOCUMENTATION_TOKEN } from '../../../../../tokens/documentation.token';
+import { DOCUMENTATION_TOKEN, DocumentationType } from '../../../../../tokens/documentation.token';
 
 @Component({
   selector: 'uxd-components-icon',
   templateUrl: './icon.component.html',
   styleUrls: ['./icon.component.less'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
+  imports: [
+    IconModule,
+    RouterLink,
+    ApiPropertiesComponent,
+    ApiPropertyComponent,
+    TabsetModule,
+    SnippetComponent,
+  ],
 })
 @DocumentationSectionComponent('ComponentsIconComponent')
 export class ComponentsIconComponent

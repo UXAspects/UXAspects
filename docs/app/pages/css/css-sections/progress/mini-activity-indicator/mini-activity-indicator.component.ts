@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
+import { SnippetComponent } from '../../../../../components/snippet/snippet.component';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
 import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
@@ -9,7 +10,7 @@ import { playgroundAdapter } from '../../../../../services/playground/adapters/l
   selector: 'uxd-css-progress-mini-activity-indicator',
   templateUrl: './mini-activity-indicator.component.html',
   styleUrls: ['./mini-activity-indicator.component.less'],
-  standalone: false,
+  imports: [SnippetComponent],
 })
 @DocumentationSectionComponent('CssMiniActivityIndicatorComponent')
 export class CssMiniActivityIndicatorComponent

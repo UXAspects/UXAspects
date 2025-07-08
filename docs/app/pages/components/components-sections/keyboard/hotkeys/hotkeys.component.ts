@@ -1,6 +1,14 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import {
+  AccessibilityModule,
+  FocusIfModule,
+  IconModule,
+  TabsetModule,
+} from '@ux-aspects/ux-aspects';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
+import { SnippetComponent } from '../../../../../components/snippet/snippet.component';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
 import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
@@ -13,7 +21,14 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
     '(window:keydown.q)': 'focusNextQ()',
     '(window:keydown.w)': 'focusNextW()',
   },
-  standalone: false,
+  imports: [
+    FocusIfModule,
+    AccessibilityModule,
+    IconModule,
+    TabsetModule,
+    SnippetComponent,
+    RouterLink,
+  ],
 })
 @DocumentationSectionComponent('ComponentsHotkeysComponent')
 export class ComponentsHotkeysComponent

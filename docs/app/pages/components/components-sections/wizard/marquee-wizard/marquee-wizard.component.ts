@@ -1,8 +1,23 @@
-import { LiveAnnouncer } from '@angular/cdk/a11y';
+import { CdkTrapFocus, LiveAnnouncer } from '@angular/cdk/a11y';
+import { NgIf } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
-import { MarqueeWizardComponent } from '@ux-aspects/ux-aspects';
+import { FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  AccessibilityModule,
+  AccordionModule,
+  CheckboxModule,
+  FocusIfModule,
+  IconModule,
+  MarqueeWizardComponent,
+  MarqueeWizardModule,
+  NumberPickerModule,
+  TabsetModule,
+} from '@ux-aspects/ux-aspects';
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { ApiPropertiesComponent } from '../../../../../components/api-properties/api-properties.component';
+import { ApiPropertyComponent } from '../../../../../components/api-property/api-property.component';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
+import { SnippetComponent } from '../../../../../components/snippet/snippet.component';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
 import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
@@ -11,7 +26,24 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
   selector: 'uxd-components-marquee-wizard',
   templateUrl: './marquee-wizard.component.html',
   styleUrls: ['./marquee-wizard.component.less'],
-  standalone: false,
+  imports: [
+    AccessibilityModule,
+    IconModule,
+    AccordionModule,
+    CheckboxModule,
+    NumberPickerModule,
+    NgIf,
+    ModalModule,
+    CdkTrapFocus,
+    MarqueeWizardModule,
+    FocusIfModule,
+    FormsModule,
+    ReactiveFormsModule,
+    ApiPropertiesComponent,
+    ApiPropertyComponent,
+    SnippetComponent,
+    TabsetModule,
+  ],
 })
 @DocumentationSectionComponent('ComponentsMarqueeWizardComponent')
 export class ComponentsMarqueeWizardComponent

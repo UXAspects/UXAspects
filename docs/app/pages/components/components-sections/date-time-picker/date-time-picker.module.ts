@@ -56,9 +56,9 @@ const ROUTES = [
     RouterModule.forChild(ROUTES),
     TabsetModule,
     TimePickerModule,
+    ...SECTIONS,
   ],
   exports: SECTIONS,
-  declarations: SECTIONS,
 })
 export class ComponentsDateTimePickerModule {
   constructor(

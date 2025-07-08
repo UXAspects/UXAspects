@@ -1,7 +1,22 @@
+import { DatePipe, NgFor, NgIf } from '@angular/common';
 import { Component, ViewEncapsulation } from '@angular/core';
-import { TreeGridItem, TreeGridLoadFunction } from '@ux-aspects/ux-aspects';
+import { RouterLink } from '@angular/router';
+import {
+  AccessibilityModule,
+  AccordionModule,
+  CheckboxModule,
+  IconModule,
+  SelectionModule,
+  TabsetModule,
+  TreeGridItem,
+  TreeGridLoadFunction,
+  TreeGridModule,
+} from '@ux-aspects/ux-aspects';
 import 'chance';
+import { ApiPropertiesComponent } from '../../../../../components/api-properties/api-properties.component';
+import { ApiPropertyComponent } from '../../../../../components/api-property/api-property.component';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
+import { SnippetComponent } from '../../../../../components/snippet/snippet.component';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
 import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
@@ -11,7 +26,22 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
   templateUrl: './tree-grid.component.html',
   styleUrls: ['./tree-grid.component.less'],
   encapsulation: ViewEncapsulation.None,
-  standalone: false,
+  imports: [
+    AccordionModule,
+    TreeGridModule,
+    CheckboxModule,
+    SelectionModule,
+    NgFor,
+    NgIf,
+    IconModule,
+    AccessibilityModule,
+    RouterLink,
+    ApiPropertiesComponent,
+    ApiPropertyComponent,
+    TabsetModule,
+    SnippetComponent,
+    DatePipe,
+  ],
 })
 @DocumentationSectionComponent('ComponentsTreeGridComponent')
 export class ComponentsTreeGridComponent

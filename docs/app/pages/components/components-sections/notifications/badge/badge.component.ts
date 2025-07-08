@@ -1,11 +1,24 @@
 import { Component, Inject } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 import {
+  AccessibilityModule,
+  AccordionModule,
   BadgeHorizontalPosition,
+  BadgeModule,
   BadgeSize,
   BadgeVerticalPosition,
+  CheckboxModule,
   ColorService,
+  IconModule,
+  NumberPickerModule,
+  RadioButtonModule,
+  TabsetModule,
 } from '@ux-aspects/ux-aspects';
+import { ApiPropertiesComponent } from '../../../../../components/api-properties/api-properties.component';
+import { ApiPropertyComponent } from '../../../../../components/api-property/api-property.component';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
+import { SnippetComponent } from '../../../../../components/snippet/snippet.component';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
 import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
@@ -15,7 +28,21 @@ import { DOCUMENTATION_TOKEN, DocumentationType } from '../../../../../tokens/do
   selector: 'uxd-components-badge',
   templateUrl: './badge.component.html',
   styleUrls: ['./badge.component.less'],
-  standalone: false,
+  imports: [
+    AccessibilityModule,
+    BadgeModule,
+    IconModule,
+    AccordionModule,
+    FormsModule,
+    NumberPickerModule,
+    RadioButtonModule,
+    CheckboxModule,
+    ApiPropertiesComponent,
+    ApiPropertyComponent,
+    RouterLink,
+    TabsetModule,
+    SnippetComponent,
+  ],
 })
 @DocumentationSectionComponent('ComponentsBadgeComponent')
 export class ComponentsBadgeComponent

@@ -1,4 +1,7 @@
+import { NgFor } from '@angular/common';
 import { Component } from '@angular/core';
+import { AccessibilityModule, FlippableCardModule, IconModule } from '@ux-aspects/ux-aspects';
+import { PageHeaderComponent } from '../../components/page-header/page-header.component';
 import { ITeam } from '../../interfaces/ITeam';
 import { AppConfiguration } from '../../services/app-configuration/app-configuration.service';
 
@@ -6,7 +9,7 @@ import { AppConfiguration } from '../../services/app-configuration/app-configura
   selector: 'uxd-team',
   templateUrl: './team.component.html',
   styleUrls: ['./team.component.less'],
-  standalone: false,
+  imports: [PageHeaderComponent, NgFor, FlippableCardModule, AccessibilityModule, IconModule],
 })
 export class TeamPageComponent {
   data: ITeam;
