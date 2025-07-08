@@ -1,5 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { AutoGrowModule, TabsetModule } from '@ux-aspects/ux-aspects';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
+import { SnippetComponent } from '../../../../../components/snippet/snippet.component';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
 import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
@@ -9,7 +11,7 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
   templateUrl: './expanding-text-area.component.html',
   styleUrls: ['./expanding-text-area.component.less'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
+  imports: [AutoGrowModule, TabsetModule, SnippetComponent],
 })
 @DocumentationSectionComponent('ComponentsExpandingTextAreaComponent')
 export class ComponentsExpandingTextAreaComponent

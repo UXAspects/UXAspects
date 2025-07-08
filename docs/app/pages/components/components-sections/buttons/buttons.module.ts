@@ -61,9 +61,9 @@ const ROUTES = [
     TabsetModule,
     TooltipModule,
     ToggleSwitchModule,
+    ...SECTIONS,
   ],
   exports: SECTIONS,
-  declarations: SECTIONS,
 })
 export class ComponentsButtonsModule {
   constructor(

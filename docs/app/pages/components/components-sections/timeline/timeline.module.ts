@@ -27,9 +27,9 @@ const ROUTES = [
     RouterModule.forChild(ROUTES),
     TabsetModule,
     TimelineModule,
+    ...SECTIONS,
   ],
   exports: SECTIONS,
-  declarations: SECTIONS,
 })
 export class ComponentsTimelineModule {
   constructor(

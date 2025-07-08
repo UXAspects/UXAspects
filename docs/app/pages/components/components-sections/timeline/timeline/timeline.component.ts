@@ -1,6 +1,17 @@
+import { DatePipe, NgFor } from '@angular/common';
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import {
+  AccessibilityModule,
+  IconModule,
+  TabsetModule,
+  TimelineModule,
+} from '@ux-aspects/ux-aspects';
 import 'chance';
+import { ApiPropertiesComponent } from '../../../../../components/api-properties/api-properties.component';
+import { ApiPropertyComponent } from '../../../../../components/api-property/api-property.component';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
+import { SnippetComponent } from '../../../../../components/snippet/snippet.component';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
 import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
@@ -8,7 +19,18 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 @Component({
   selector: 'uxd-components-timeline',
   templateUrl: './timeline.component.html',
-  standalone: false,
+  imports: [
+    AccessibilityModule,
+    TimelineModule,
+    NgFor,
+    IconModule,
+    ApiPropertiesComponent,
+    ApiPropertyComponent,
+    RouterLink,
+    TabsetModule,
+    SnippetComponent,
+    DatePipe,
+  ],
 })
 @DocumentationSectionComponent('ComponentsTimelineComponent')
 export class ComponentsTimelineComponent

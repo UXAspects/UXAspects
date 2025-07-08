@@ -1,4 +1,7 @@
+import { NgIf } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { AccessibilityModule } from '@ux-aspects/ux-aspects';
 import { ILink } from '../../interfaces/ILink';
 
 @Component({
@@ -6,7 +9,7 @@ import { ILink } from '../../interfaces/ILink';
   templateUrl: './landing-page-header.component.html',
   styleUrls: ['./landing-page-header.component.less'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
+  imports: [AccessibilityModule, NgIf, RouterLink],
 })
 export class LandingPageHeaderComponent {
   @Input() brand: string;

@@ -1,15 +1,34 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
+import { NgFor, NgTemplateOutlet } from '@angular/common';
 import { AfterViewInit, Component, TemplateRef, ViewChild } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
+import { AccessibilityModule, FocusIfModule, IconModule, MenuModule, ReorderableModule, TabsetModule } from '@ux-aspects/ux-aspects';
+import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
+import { SnippetComponent } from '../../../../../components/snippet/snippet.component';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
 import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
 
 @Component({
-  selector: 'uxd-drag-and-drop-cards',
-  templateUrl: './drag-and-drop-cards.component.html',
-  styleUrls: ['./drag-and-drop-cards.component.less'],
-  standalone: false,
+    selector: 'uxd-drag-and-drop-cards',
+    templateUrl: './drag-and-drop-cards.component.html',
+    styleUrls: ['./drag-and-drop-cards.component.less'],
+    imports: [
+        ReorderableModule,
+        AccessibilityModule,
+        NgFor,
+        FocusIfModule,
+        IconModule,
+        NgTemplateOutlet,
+        MenuModule,
+        ButtonsModule,
+        FormsModule,
+        RouterLink,
+        TabsetModule,
+        SnippetComponent,
+    ],
 })
 @DocumentationSectionComponent('ComponentsDragAndDropCardsComponent')
 export class ComponentsDragAndDropCardsComponent

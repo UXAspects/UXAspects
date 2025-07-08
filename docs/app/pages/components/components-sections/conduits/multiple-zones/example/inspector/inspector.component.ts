@@ -1,10 +1,13 @@
+import { NgFor, NgIf } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { AccessibilityModule, CheckboxModule, PopoverModule } from '@ux-aspects/ux-aspects';
 
 @Component({
   selector: 'uxd-conduit-zone-inspector',
   templateUrl: './inspector.component.html',
   styleUrls: ['./inspector.component.less'],
-  standalone: false,
+  imports: [AccessibilityModule, PopoverModule, NgIf, NgFor, CheckboxModule, FormsModule],
 })
 export class ConduitZoneInspectorComponent {
   @Input() zones: string[];

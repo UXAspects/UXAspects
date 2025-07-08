@@ -1,4 +1,7 @@
+import { NgIf } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { AccessibilityModule } from '@ux-aspects/ux-aspects';
 import { ILink } from '../../interfaces/ILink';
 
 @Component({
@@ -11,7 +14,7 @@ import { ILink } from '../../interfaces/ILink';
     '[class.col-md-6.col-sm-6]': 'columns === 2',
     '[class.col-md-3.col-sm-6]': 'columns === 4',
   },
-  standalone: false,
+  imports: [NgIf, AccessibilityModule, RouterLink],
 })
 export class LandingPageFeatureComponent {
   @Input() header: string;

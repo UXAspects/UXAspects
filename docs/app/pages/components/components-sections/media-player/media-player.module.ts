@@ -33,9 +33,9 @@ const ROUTES = [
     DocumentationComponentsModule,
     CommonModule,
     RouterModule.forChild(ROUTES),
+    ...SECTIONS,
   ],
   exports: SECTIONS,
-  declarations: SECTIONS,
 })
 export class ComponentsMediaPlayerModule {
   constructor(

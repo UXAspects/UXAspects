@@ -1,13 +1,21 @@
+import { AsyncPipe, NgIf } from '@angular/common';
 import { Component, forwardRef } from '@angular/core';
-import { Conduit, ConduitZone, ConduitZoneComponent } from '@ux-aspects/ux-aspects';
+import {
+  AccessibilityModule,
+  Conduit,
+  ConduitZone,
+  ConduitZoneComponent,
+  IconModule,
+} from '@ux-aspects/ux-aspects';
 import { BehaviorSubject } from 'rxjs';
+import { ConduitZoneInspectorComponent } from '../inspector/inspector.component';
 
 @Component({
   selector: 'uxd-components-conduit-toolbar',
   templateUrl: './toolbar.component.html',
   styleUrls: ['./toolbar.component.less'],
   providers: [ConduitZone],
-  standalone: false,
+  imports: [AccessibilityModule, IconModule, NgIf, ConduitZoneInspectorComponent, AsyncPipe],
 })
 export class ComponentsConduitToolbarComponent extends ConduitZoneComponent {
   zoneId: string = 'toolbar-zone';

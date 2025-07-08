@@ -1,3 +1,4 @@
+import { NgIf } from '@angular/common';
 import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
@@ -5,7 +6,7 @@ import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
   templateUrl: './api-property.component.html',
   styleUrls: ['./api-property.component.less'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
+  imports: [NgIf],
 })
 export class ApiPropertyComponent {
   @Input() name: string;

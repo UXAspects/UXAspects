@@ -1,11 +1,16 @@
 import { Component } from '@angular/core';
-import { SankeyLink, SankeyNode } from '@ux-aspects/ux-aspects';
+import {
+  FileSizePipeModule,
+  SankeyChartModule,
+  SankeyLink,
+  SankeyNode,
+} from '@ux-aspects/ux-aspects';
 
 @Component({
   selector: 'uxd-sankey-chart',
   templateUrl: './sankey-chart.component.html',
   styleUrls: ['./sankey-chart.component.less'],
-  standalone: false,
+  imports: [SankeyChartModule, FileSizePipeModule],
 })
 export class SankeyChartShowcaseComponent {
   nodes: ReadonlyArray<SankeyNode<SankeyNodeData>> = [

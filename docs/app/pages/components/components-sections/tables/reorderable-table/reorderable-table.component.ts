@@ -1,3 +1,4 @@
+import { DatePipe, NgFor } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -5,7 +6,17 @@ import {
   QueryList,
   ViewChildren,
 } from '@angular/core';
+import {
+  AccessibilityModule,
+  IconModule,
+  ReorderableModule,
+  SparkModule,
+  TabsetModule,
+} from '@ux-aspects/ux-aspects';
+import { ApiPropertiesComponent } from '../../../../../components/api-properties/api-properties.component';
+import { ApiPropertyComponent } from '../../../../../components/api-property/api-property.component';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
+import { SnippetComponent } from '../../../../../components/snippet/snippet.component';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
 import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
@@ -15,7 +26,18 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
   templateUrl: './reorderable-table.component.html',
   styleUrls: ['./reorderable-table.component.less'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
+  imports: [
+    ReorderableModule,
+    NgFor,
+    AccessibilityModule,
+    IconModule,
+    SparkModule,
+    ApiPropertiesComponent,
+    ApiPropertyComponent,
+    TabsetModule,
+    SnippetComponent,
+    DatePipe,
+  ],
 })
 @DocumentationSectionComponent('ComponentsReorderableTableComponent')
 export class ComponentsReorderableTableComponent

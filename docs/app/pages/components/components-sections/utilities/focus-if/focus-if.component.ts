@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
+import { AccessibilityModule, FocusIfModule, TabsetModule } from '@ux-aspects/ux-aspects';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
+import { SnippetComponent } from '../../../../../components/snippet/snippet.component';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
 import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
@@ -8,7 +10,7 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
   selector: 'uxd-components-focus-if',
   templateUrl: './focus-if.component.html',
   styleUrls: ['./focus-if.component.less'],
-  standalone: false,
+  imports: [FocusIfModule, AccessibilityModule, TabsetModule, SnippetComponent],
 })
 @DocumentationSectionComponent('ComponentsFocusIfComponent')
 export class ComponentsFocusIfComponent

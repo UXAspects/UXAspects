@@ -1,5 +1,15 @@
+import { NgClass, NgFor } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import {
+  AccordionModule,
+  CardTabsModule,
+  RadioButtonModule,
+  TabsetModule,
+} from '@ux-aspects/ux-aspects';
+import { ApiPropertiesComponent } from '../../../../../components/api-properties/api-properties.component';
+import { ApiPropertyComponent } from '../../../../../components/api-property/api-property.component';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
+import { SnippetComponent } from '../../../../../components/snippet/snippet.component';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
 import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
@@ -9,7 +19,17 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
   templateUrl: './card-tabs.component.html',
   styleUrls: ['./card-tabs.component.less'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
+  imports: [
+    CardTabsModule,
+    NgFor,
+    NgClass,
+    AccordionModule,
+    RadioButtonModule,
+    ApiPropertiesComponent,
+    ApiPropertyComponent,
+    TabsetModule,
+    SnippetComponent,
+  ],
 })
 @DocumentationSectionComponent('ComponentsCardTabsComponent')
 export class ComponentsCardTabsComponent

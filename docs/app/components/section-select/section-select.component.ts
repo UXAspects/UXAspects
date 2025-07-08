@@ -1,4 +1,6 @@
+import { NgFor } from '@angular/common';
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { IDocumentationPage } from '../../interfaces/IDocumentationPage';
@@ -6,7 +8,7 @@ import { IDocumentationPage } from '../../interfaces/IDocumentationPage';
 @Component({
   selector: 'uxd-section-select',
   templateUrl: './section-select.component.html',
-  standalone: false,
+  imports: [FormsModule, NgFor],
 })
 export class SectionSelectComponent implements OnInit, OnDestroy {
   @Input() navigation: IDocumentationPage;

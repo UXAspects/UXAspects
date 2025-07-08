@@ -24,9 +24,9 @@ const ROUTES = [
     ProgressBarModule,
     RouterModule.forChild(ROUTES),
     TabsetModule,
+    ...SECTIONS,
   ],
   exports: SECTIONS,
-  declarations: SECTIONS,
 })
 export class ComponentsProgressModule {
   constructor(

@@ -1,4 +1,6 @@
+import { NgFor, NgIf } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input, OnDestroy } from '@angular/core';
+import { AccessibilityModule, PopoverModule } from '@ux-aspects/ux-aspects';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { Migration } from '../../interfaces/Migration';
@@ -11,7 +13,7 @@ import { SiteThemeService } from '../../services/site-theme/site-theme.service';
   templateUrl: './migrate-link.component.html',
   styleUrls: ['./migrate-link.component.less'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
+  imports: [AccessibilityModule, NgIf, NgFor, PopoverModule],
 })
 export class MigrateLinkComponent implements OnDestroy {
   @Input() migration: Migration;

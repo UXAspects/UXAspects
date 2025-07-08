@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { AccessibilityModule, IconModule } from '@ux-aspects/ux-aspects';
 import { IPlayground } from '../../interfaces/IPlayground';
 import { EditExampleService } from '../../services/edit-example/edit-example.service';
 
@@ -10,7 +11,7 @@ import { EditExampleService } from '../../services/edit-example/edit-example.ser
   host: {
     '[class.enabled]': '!!content',
   },
-  standalone: false,
+  imports: [AccessibilityModule, IconModule],
 })
 export class EditExampleLinkComponent {
   @Input() title: string;

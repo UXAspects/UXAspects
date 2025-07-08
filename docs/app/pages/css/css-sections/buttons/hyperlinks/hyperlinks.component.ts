@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
+import { AccessibilityModule } from '@ux-aspects/ux-aspects';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
+import { SnippetComponent } from '../../../../../components/snippet/snippet.component';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
 import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
@@ -8,7 +10,7 @@ import { playgroundAdapter } from '../../../../../services/playground/adapters/l
 @Component({
   selector: 'uxd-css-buttons-hyperlinks',
   templateUrl: './hyperlinks.component.html',
-  standalone: false,
+  imports: [AccessibilityModule, SnippetComponent],
 })
 @DocumentationSectionComponent('CssHyperlinksComponent')
 export class CssHyperlinksComponent

@@ -1,4 +1,7 @@
+import { NgFor } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { AccessibilityModule } from '@ux-aspects/ux-aspects';
 import { IFooter } from '../../interfaces/IFooter';
 import { IFooterColumn } from '../../interfaces/IFooterColumn';
 import { ILink } from '../../interfaces/ILink';
@@ -10,7 +13,7 @@ import { AppConfiguration } from '../../services/app-configuration/app-configura
   templateUrl: './page-footer.component.html',
   styleUrls: ['./page-footer.component.less'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
+  imports: [NgFor, RouterLink, AccessibilityModule],
 })
 export class PageFooterComponent {
   footerData: IFooter = this._appConfig.getConfigurationData('footer-navigation');

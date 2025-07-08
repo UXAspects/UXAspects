@@ -1,3 +1,4 @@
+import { AsyncPipe, NgFor, NgIf } from '@angular/common';
 import {
   AfterViewInit,
   Component,
@@ -7,8 +8,9 @@ import {
   QueryList,
   ViewChildren,
 } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { PersistentDataService } from '@ux-aspects/ux-aspects';
+import { IconModule, PersistentDataService } from '@ux-aspects/ux-aspects';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { debounceTime, takeUntil } from 'rxjs/operators';
 import { ICategory } from '../../interfaces/ICategory';
@@ -30,7 +32,7 @@ const LOCAL_STORAGE_KEY = 'uxd-search-history';
   host: {
     '[class.active]': 'searching',
   },
-  standalone: false,
+  imports: [IconModule, NgIf, FormsModule, NgFor, AsyncPipe],
 })
 export class NavigationBarSearchComponent implements AfterViewInit, OnDestroy {
   @ViewChildren('searchInput') searchInput: QueryList<ElementRef>;

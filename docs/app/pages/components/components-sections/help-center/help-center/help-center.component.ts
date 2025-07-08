@@ -1,13 +1,20 @@
+import { DecimalPipe, NgFor, NgIf } from '@angular/common';
 import { Component, OnDestroy } from '@angular/core';
 import {
+  AccessibilityModule,
   Breadcrumb,
   HelpCenterItem,
+  HelpCenterModule,
   HelpCenterService,
+  IconModule,
   PageHeaderIconMenu,
+  PageHeaderModule,
+  TabsetModule,
 } from '@ux-aspects/ux-aspects';
 import 'chance';
 import { Subscription } from 'rxjs';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
+import { SnippetComponent } from '../../../../../components/snippet/snippet.component';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
 import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
@@ -16,7 +23,17 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
   selector: 'uxd-components-help-center',
   templateUrl: './help-center.component.html',
   styleUrls: ['./help-center.component.less'],
-  standalone: false,
+  imports: [
+    PageHeaderModule,
+    AccessibilityModule,
+    HelpCenterModule,
+    IconModule,
+    NgIf,
+    NgFor,
+    SnippetComponent,
+    TabsetModule,
+    DecimalPipe,
+  ],
 })
 @DocumentationSectionComponent('ComponentsHelpCenterComponent')
 export class ComponentsHelpCenterComponent

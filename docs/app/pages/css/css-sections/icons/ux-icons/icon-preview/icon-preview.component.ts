@@ -7,14 +7,20 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
-import { PopoverDirective } from '@ux-aspects/ux-aspects';
+import {
+  AccessibilityModule,
+  IconModule,
+  PopoverDirective,
+  PopoverModule,
+} from '@ux-aspects/ux-aspects';
+import { IconSnippetComponent } from './icon-snippet/icon-snippet.component';
 
 @Component({
   selector: 'uxd-icon-preview',
   templateUrl: './icon-preview.component.html',
   styleUrls: ['./icon-preview.component.less'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
+  imports: [AccessibilityModule, PopoverModule, IconModule, IconSnippetComponent],
 })
 export class IconPreviewComponent implements OnInit {
   @Input() name: string;

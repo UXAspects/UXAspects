@@ -1,19 +1,42 @@
 import { Component, Inject } from '@angular/core';
-import { TypeaheadKeyService } from '@ux-aspects/ux-aspects';
+import { FormsModule } from '@angular/forms';
+import {
+  AccordionModule,
+  CheckboxModule,
+  NumberPickerModule,
+  RadioButtonModule,
+  TabsetModule,
+  TypeaheadKeyService,
+  TypeaheadModule,
+} from '@ux-aspects/ux-aspects';
 import 'chance';
 import { of } from 'rxjs';
 import { delay } from 'rxjs/operators';
+import { ApiPropertiesComponent } from '../../../../../components/api-properties/api-properties.component';
+import { ApiPropertyComponent } from '../../../../../components/api-property/api-property.component';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
+import { SnippetComponent } from '../../../../../components/snippet/snippet.component';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
 import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
-import { DocumentationType, DOCUMENTATION_TOKEN } from '../../../../../tokens/documentation.token';
+import { DOCUMENTATION_TOKEN, DocumentationType } from '../../../../../tokens/documentation.token';
 
 @Component({
   selector: 'uxd-components-typeahead',
   templateUrl: 'typeahead.component.html',
   styleUrls: ['./typeahead.component.less'],
-  standalone: false,
+  imports: [
+    FormsModule,
+    TypeaheadModule,
+    AccordionModule,
+    CheckboxModule,
+    NumberPickerModule,
+    RadioButtonModule,
+    ApiPropertiesComponent,
+    ApiPropertyComponent,
+    TabsetModule,
+    SnippetComponent,
+  ],
 })
 @DocumentationSectionComponent('ComponentsTypeaheadComponent')
 export class ComponentsTypeaheadComponent

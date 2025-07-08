@@ -5,7 +5,6 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
   templateUrl: './page-header.component.html',
   styleUrls: ['./page-header.component.less'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
 })
 export class PageHeaderComponent {
   @Input() header: string;

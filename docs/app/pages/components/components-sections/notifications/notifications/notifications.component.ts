@@ -1,4 +1,5 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
+import { DatePipe } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -6,10 +7,25 @@ import {
   OnDestroy,
   TemplateRef,
 } from '@angular/core';
-import { ColorPickerColor, ColorService, NotificationService } from '@ux-aspects/ux-aspects';
+import { FormsModule } from '@angular/forms';
+import {
+  AccessibilityModule,
+  AccordionModule,
+  ColorPickerColor,
+  ColorService,
+  IconModule,
+  NotificationModule,
+  NotificationService,
+  NumberPickerModule,
+  TabsetModule,
+} from '@ux-aspects/ux-aspects';
 import { Subject, Subscription } from 'rxjs';
 import { buffer, debounceTime } from 'rxjs/operators';
+import { ApiPropertiesComponent } from '../../../../../components/api-properties/api-properties.component';
+import { ApiPropertyComponent } from '../../../../../components/api-property/api-property.component';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
+import { ColorPickerDropdownComponent } from '../../../../../components/color-picker-dropdown/color-picker-dropdown.component';
+import { SnippetComponent } from '../../../../../components/snippet/snippet.component';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
 import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
@@ -19,7 +35,20 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
   templateUrl: './notifications.component.html',
   styleUrls: ['./notifications.component.less'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
+  imports: [
+    NotificationModule,
+    AccessibilityModule,
+    IconModule,
+    AccordionModule,
+    ColorPickerDropdownComponent,
+    NumberPickerModule,
+    FormsModule,
+    ApiPropertiesComponent,
+    ApiPropertyComponent,
+    TabsetModule,
+    SnippetComponent,
+    DatePipe,
+  ],
 })
 @DocumentationSectionComponent('ComponentsNotificationsComponent')
 export class ComponentsNotificationsComponent

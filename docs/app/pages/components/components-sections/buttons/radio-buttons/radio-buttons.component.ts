@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { AccessibilityModule } from '@ux-aspects/ux-aspects';
+import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
+import { SnippetComponent } from '../../../../../components/snippet/snippet.component';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
 import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
@@ -7,7 +11,7 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 @Component({
   selector: 'uxd-components-buttons-radio-buttons',
   templateUrl: './radio-buttons.component.html',
-  standalone: false,
+  imports: [AccessibilityModule, ButtonsModule, FormsModule, SnippetComponent],
 })
 @DocumentationSectionComponent('ComponentsRadioButtonsComponent')
 export class ComponentsRadioButtonsComponent

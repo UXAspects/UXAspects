@@ -1,4 +1,6 @@
+import { NgFor, NgIf } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input, OnChanges, OnDestroy } from '@angular/core';
+import { IconModule, MenuModule } from '@ux-aspects/ux-aspects';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { SiteTheme, SiteThemeId } from '../../interfaces/SiteTheme';
@@ -9,7 +11,7 @@ import { SiteThemeService } from '../../services/site-theme/site-theme.service';
   templateUrl: './theme-selector.component.html',
   styleUrls: ['./theme-selector.component.less'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
+  imports: [MenuModule, NgIf, IconModule, NgFor],
 })
 export class ThemeSelectorComponent implements OnChanges, OnDestroy {
   @Input()

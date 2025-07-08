@@ -1,9 +1,12 @@
 import { Component } from '@angular/core';
+import { FullPageLayoutComponent } from '../../../components/full-page-layout/full-page-layout.component';
+import { PageHeaderComponent } from '../../../components/page-header/page-header.component';
+import { ShowcaseCardComponent } from '../../../components/showcase-card/showcase-card.component';
 
 @Component({
   selector: 'uxd-showcase-overview',
   templateUrl: './overview.component.html',
-  standalone: false,
+  imports: [PageHeaderComponent, FullPageLayoutComponent, ShowcaseCardComponent],
 })
 export class ShowcaseOverviewPageComponent {
   organizationChartImage = 'assets/img/showcase/organization-chart.jpg';

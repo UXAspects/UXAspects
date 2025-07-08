@@ -1,6 +1,15 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { SankeyLink, SankeyNode } from '@ux-aspects/ux-aspects';
+import {
+  FileSizePipeModule,
+  SankeyChartModule,
+  SankeyLink,
+  SankeyNode,
+  TabsetModule,
+} from '@ux-aspects/ux-aspects';
+import { ApiPropertiesComponent } from '../../../../../components/api-properties/api-properties.component';
+import { ApiPropertyComponent } from '../../../../../components/api-property/api-property.component';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
+import { SnippetComponent } from '../../../../../components/snippet/snippet.component';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
 
@@ -9,7 +18,14 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
   templateUrl: './sankey-chart.component.html',
   styleUrls: ['./sankey-chart.component.less'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
+  imports: [
+    SankeyChartModule,
+    ApiPropertiesComponent,
+    ApiPropertyComponent,
+    TabsetModule,
+    SnippetComponent,
+    FileSizePipeModule,
+  ],
 })
 @DocumentationSectionComponent('ChartsSankeyChartComponent')
 export class ChartsSankeyChartComponent

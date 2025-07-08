@@ -1,7 +1,12 @@
+import { NgFor, NgIf } from '@angular/common';
 import { Component, ViewEncapsulation } from '@angular/core';
-import { ColorService } from '@ux-aspects/ux-aspects';
+import { AccessibilityModule, ColorService, TabsetModule } from '@ux-aspects/ux-aspects';
 import { ChartDataset, ChartOptions, TooltipItem } from 'chart.js';
+import { NgChartsModule } from 'ng2-charts';
+import { ApiPropertiesComponent } from '../../../../../components/api-properties/api-properties.component';
+import { ApiPropertyComponent } from '../../../../../components/api-property/api-property.component';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
+import { SnippetComponent } from '../../../../../components/snippet/snippet.component';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
 import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
@@ -13,7 +18,16 @@ import { MultipleAxisLineChartService } from './multiple-axis-line-chart.service
   styleUrls: ['./multiple-axis-line-chart.component.less'],
   encapsulation: ViewEncapsulation.None,
   providers: [MultipleAxisLineChartService],
-  standalone: false,
+  imports: [
+    NgChartsModule,
+    NgFor,
+    NgIf,
+    ApiPropertiesComponent,
+    ApiPropertyComponent,
+    TabsetModule,
+    SnippetComponent,
+    AccessibilityModule,
+  ],
 })
 @DocumentationSectionComponent('ChartsMultipleAxisLineChartComponent')
 export class ChartsMultipleAxisLineChartComponent

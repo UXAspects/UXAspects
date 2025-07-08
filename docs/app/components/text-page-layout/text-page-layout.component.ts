@@ -5,6 +5,5 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   templateUrl: './text-page-layout.component.html',
   styleUrls: ['./text-page-layout.component.less'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
 })
 export class TextPageLayoutComponent {}

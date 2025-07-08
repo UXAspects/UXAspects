@@ -1,6 +1,14 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { PartitionMapSegment } from '@ux-aspects/ux-aspects';
+import {
+  PartitionMapModule,
+  PartitionMapSegment,
+  TabsetModule,
+  TooltipModule,
+} from '@ux-aspects/ux-aspects';
+import { ApiPropertiesComponent } from '../../../../../components/api-properties/api-properties.component';
+import { ApiPropertyComponent } from '../../../../../components/api-property/api-property.component';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
+import { SnippetComponent } from '../../../../../components/snippet/snippet.component';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
 import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
@@ -10,7 +18,14 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
   templateUrl: './partition-map.component.html',
   styleUrls: ['./partition-map.component.less'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
+  imports: [
+    PartitionMapModule,
+    TooltipModule,
+    ApiPropertiesComponent,
+    ApiPropertyComponent,
+    TabsetModule,
+    SnippetComponent,
+  ],
 })
 @DocumentationSectionComponent('ChartsPartitionMapComponent')
 export class ChartsPartitionMapComponent

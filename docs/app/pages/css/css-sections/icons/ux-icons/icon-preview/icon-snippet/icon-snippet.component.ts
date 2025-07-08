@@ -9,14 +9,21 @@ import {
   Renderer2,
   ViewChild,
 } from '@angular/core';
-import { FocusIndicatorDirective, FocusIndicatorOriginService } from '@ux-aspects/ux-aspects';
+import {
+  AccessibilityModule,
+  FocusIndicatorDirective,
+  FocusIndicatorOriginService,
+  IconModule,
+  TooltipModule,
+} from '@ux-aspects/ux-aspects';
+import { SnippetComponent } from '../../../../../../../components/snippet/snippet.component';
 
 @Component({
   selector: 'uxd-icon-snippet',
   templateUrl: './icon-snippet.component.html',
   styleUrls: ['./icon-snippet.component.less'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
+  imports: [SnippetComponent, AccessibilityModule, TooltipModule, IconModule],
 })
 export class IconSnippetComponent implements AfterViewInit {
   /** The code to display in the snippet */

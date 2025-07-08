@@ -1,7 +1,15 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
+import { NgFor, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
-import { FileUploader } from 'ng2-file-upload';
+import {
+  AccessibilityModule,
+  IconModule,
+  ProgressBarModule,
+  TabsetModule,
+} from '@ux-aspects/ux-aspects';
+import { FileUploader, FileUploadModule } from 'ng2-file-upload';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
+import { SnippetComponent } from '../../../../../components/snippet/snippet.component';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
 import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
@@ -9,7 +17,16 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 @Component({
   selector: 'uxd-components-file-upload',
   templateUrl: './file-upload.component.html',
-  standalone: false,
+  imports: [
+    AccessibilityModule,
+    FileUploadModule,
+    ProgressBarModule,
+    NgIf,
+    NgFor,
+    IconModule,
+    TabsetModule,
+    SnippetComponent,
+  ],
 })
 @DocumentationSectionComponent('ComponentsFileUploadComponent')
 export class ComponentsFileUploadComponent

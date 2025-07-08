@@ -1,5 +1,15 @@
 import { Component } from '@angular/core';
+import {
+  AccordionModule,
+  CheckboxModule,
+  NumberPickerModule,
+  TabsetModule,
+  TimePickerModule,
+} from '@ux-aspects/ux-aspects';
+import { ApiPropertiesComponent } from '../../../../../components/api-properties/api-properties.component';
+import { ApiPropertyComponent } from '../../../../../components/api-property/api-property.component';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
+import { SnippetComponent } from '../../../../../components/snippet/snippet.component';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
 import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
@@ -7,7 +17,16 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 @Component({
   selector: 'uxd-time-picker',
   templateUrl: './time-picker.component.html',
-  standalone: false,
+  imports: [
+    TimePickerModule,
+    AccordionModule,
+    CheckboxModule,
+    NumberPickerModule,
+    ApiPropertiesComponent,
+    ApiPropertyComponent,
+    TabsetModule,
+    SnippetComponent,
+  ],
 })
 @DocumentationSectionComponent('ComponentsTimePickerComponent')
 export class ComponentsTimePickerComponent

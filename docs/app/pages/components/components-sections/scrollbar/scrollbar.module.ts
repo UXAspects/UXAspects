@@ -51,9 +51,9 @@ const ROUTES = [
     RouterModule.forChild(ROUTES),
     TabsetModule,
     VirtualScrollModule,
+    ...SECTIONS,
   ],
   exports: SECTIONS,
-  declarations: SECTIONS,
 })
 export class ComponentsScrollbarModule {
   constructor(

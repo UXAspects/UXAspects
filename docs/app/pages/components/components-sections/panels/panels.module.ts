@@ -57,9 +57,9 @@ const ROUTES = [
     SidePanelModule,
     SparkModule,
     TabsetModule,
+    ...SECTIONS,
   ],
   exports: SECTIONS,
-  declarations: SECTIONS,
 })
 export class ComponentsPanelsModule {
   constructor(

@@ -76,8 +76,7 @@ const ROUTES: Routes = [
 ];
 
 @NgModule({
-  imports: [DocumentationComponentsModule, RouterModule.forChild(ROUTES)],
+  imports: [DocumentationComponentsModule, RouterModule.forChild(ROUTES), CssPageComponent],
   exports: [CssPageComponent],
-  declarations: [CssPageComponent],
 })
 export class CssPageModule {}

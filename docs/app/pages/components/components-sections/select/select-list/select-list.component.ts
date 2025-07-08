@@ -1,6 +1,17 @@
+import { NgFor } from '@angular/common';
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import {
+  AccordionModule,
+  CheckboxModule,
+  SelectListModule,
+  TabsetModule,
+} from '@ux-aspects/ux-aspects';
 import { Chance } from 'chance';
+import { ApiPropertiesComponent } from '../../../../../components/api-properties/api-properties.component';
+import { ApiPropertyComponent } from '../../../../../components/api-property/api-property.component';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
+import { SnippetComponent } from '../../../../../components/snippet/snippet.component';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
 import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
@@ -11,7 +22,17 @@ const chance = new Chance();
   selector: 'uxd-components-select-list',
   templateUrl: './select-list.component.html',
   styleUrls: ['./select-list.component.less'],
-  standalone: false,
+  imports: [
+    FormsModule,
+    SelectListModule,
+    NgFor,
+    AccordionModule,
+    CheckboxModule,
+    ApiPropertiesComponent,
+    ApiPropertyComponent,
+    TabsetModule,
+    SnippetComponent,
+  ],
 })
 @DocumentationSectionComponent('ComponentsSelectListComponent')
 export class ComponentsSelectListComponent

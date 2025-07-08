@@ -1,15 +1,23 @@
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import {
+  AccordionModule,
+  CheckboxModule,
   ColorService,
   SliderCalloutTrigger,
+  SliderModule,
   SliderOptions,
   SliderSize,
   SliderSnap,
   SliderStyle,
   SliderType,
   SliderValue,
+  TabsetModule,
 } from '@ux-aspects/ux-aspects';
+import { ApiPropertiesComponent } from '../../../../../components/api-properties/api-properties.component';
+import { ApiPropertyComponent } from '../../../../../components/api-property/api-property.component';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
+import { SnippetComponent } from '../../../../../components/snippet/snippet.component';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
 import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
@@ -17,7 +25,16 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 @Component({
   selector: 'uxd-components-sliders',
   templateUrl: './sliders.component.html',
-  standalone: false,
+  imports: [
+    SliderModule,
+    FormsModule,
+    AccordionModule,
+    CheckboxModule,
+    SnippetComponent,
+    ApiPropertiesComponent,
+    ApiPropertyComponent,
+    TabsetModule,
+  ],
 })
 @DocumentationSectionComponent('ComponentsSlidersComponent')
 export class ComponentsSlidersComponent

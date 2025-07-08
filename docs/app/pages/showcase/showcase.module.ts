@@ -54,8 +54,8 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     SliderModule,
     TooltipModule,
+    ...DECLARATIONS,
   ],
   exports: DECLARATIONS,
-  declarations: DECLARATIONS,
 })
 export class ShowcasePageModule {}

@@ -1,7 +1,18 @@
+import { DatePipe, NgFor, NgIf } from '@angular/common';
 import { Component, QueryList, ViewChildren } from '@angular/core';
-import { TabbableListItemDirective } from '@ux-aspects/ux-aspects';
+import {
+  AccessibilityModule,
+  IconModule,
+  ItemDisplayPanelModule,
+  SparkModule,
+  TabbableListItemDirective,
+  TabsetModule,
+} from '@ux-aspects/ux-aspects';
 import 'chance';
+import { ApiPropertiesComponent } from '../../../../../components/api-properties/api-properties.component';
+import { ApiPropertyComponent } from '../../../../../components/api-property/api-property.component';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
+import { SnippetComponent } from '../../../../../components/snippet/snippet.component';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
 import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
@@ -9,7 +20,19 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 @Component({
   selector: 'uxd-item-display-panel-component',
   templateUrl: './item-display-panel.component.html',
-  standalone: false,
+  imports: [
+    AccessibilityModule,
+    NgFor,
+    SparkModule,
+    NgIf,
+    IconModule,
+    ItemDisplayPanelModule,
+    ApiPropertiesComponent,
+    ApiPropertyComponent,
+    TabsetModule,
+    SnippetComponent,
+    DatePipe,
+  ],
 })
 @DocumentationSectionComponent('ComponentsItemDisplayPanelComponent')
 export class ComponentsItemDisplayPanelComponent

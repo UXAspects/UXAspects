@@ -24,9 +24,9 @@ const ROUTES = [
     PopoverModule,
     RouterModule.forChild(ROUTES),
     TabsetModule,
+    ...SECTIONS,
   ],
   exports: SECTIONS,
-  declarations: SECTIONS,
 })
 export class ComponentsPopoverModule {
   constructor(

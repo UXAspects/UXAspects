@@ -12,7 +12,11 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [LicensesPageComponent],
-  imports: [CommonModule, DocumentationComponentsModule, RouterModule.forChild(routes)],
+  imports: [
+    CommonModule,
+    DocumentationComponentsModule,
+    RouterModule.forChild(routes),
+    LicensesPageComponent,
+  ],
 })
 export class LicensesPageModule {}

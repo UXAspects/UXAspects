@@ -13,12 +13,12 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [GettingStartedPageComponent],
   imports: [
     CommonModule,
     DocumentationComponentsModule,
     RouterModule.forChild(routes),
     TabsetModule,
+    GettingStartedPageComponent,
   ],
 })
 export class GettingStartedPageModule {}

@@ -1,14 +1,26 @@
 import { Component } from '@angular/core';
+import { FacetsModule, TabsetModule } from '@ux-aspects/ux-aspects';
 import 'chance';
+import { ApiPropertiesComponent } from '../../../../../components/api-properties/api-properties.component';
+import { ApiPropertyComponent } from '../../../../../components/api-property/api-property.component';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
+import { SnippetComponent } from '../../../../../components/snippet/snippet.component';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
 import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
+import { SampleCustomFacetComponent } from './sample/sample-facet-component.component';
 
 @Component({
   selector: 'uxd-components-custom-facet-component',
   templateUrl: './custom-facet-component.component.html',
-  standalone: false,
+  imports: [
+    ApiPropertiesComponent,
+    ApiPropertyComponent,
+    SnippetComponent,
+    FacetsModule,
+    SampleCustomFacetComponent,
+    TabsetModule,
+  ],
 })
 @DocumentationSectionComponent('ComponentsCustomFacetComponent')
 export class ComponentsCustomFacetComponent
