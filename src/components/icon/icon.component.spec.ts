@@ -1,12 +1,19 @@
 import { Component, Input } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { IconComponent } from './icon.component';
 import { IconModule } from './icon.module';
 import { IconService } from './icon.service';
 
 @Component({
   selector: 'ux-icon-test',
-  template:
-    '<ux-icon [name]="name" [size]="size" [rotate]="rotate" [flipHorizontal]="flipHorizontal" [flipVertical]="flipVertical"></ux-icon>',
+  template: `<ux-icon
+    [name]="name"
+    [size]="size"
+    [rotate]="rotate"
+    [flipHorizontal]="flipHorizontal"
+    [flipVertical]="flipVertical"
+  ></ux-icon>`,
   imports: [IconModule],
 })
 export class IconTestComponent {
@@ -33,7 +40,7 @@ describe('Icon Component', () => {
     fixture = TestBed.createComponent(IconTestComponent);
     component = fixture.componentInstance;
     iconElement = fixture.elementRef.nativeElement.querySelector('ux-icon');
-    service = TestBed.inject(IconService);
+    service = fixture.debugElement.query(By.directive(IconComponent)).injector.get(IconService);
 
     fixture.detectChanges();
   });
@@ -158,7 +165,7 @@ describe('Icon Component', () => {
     expect(iconElement.classList.contains('qtm-icon-error')).toBeFalsy();
     expect(iconElement.classList.contains('qtm-font-icon')).toBeFalsy();
 
-    component.size = '24px';
+    fixture.componentRef.setInput('size', '24px');
     fixture.detectChanges();
     expect(iconElement.classList.contains('ux-icon')).toBeFalsy();
     expect(iconElement.classList.contains('ux-icon-alert')).toBeFalsy();

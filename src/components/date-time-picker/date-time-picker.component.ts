@@ -1,4 +1,4 @@
-import { WeekDay, AsyncPipe } from '@angular/common';
+import { AsyncPipe, WeekDay } from '@angular/common';
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
@@ -12,6 +12,7 @@ import {
 } from '@angular/core';
 import { Subject } from 'rxjs';
 import { distinctUntilChanged, takeUntil } from 'rxjs/operators';
+import { AccessibilityModule } from '../../directives/accessibility';
 import { FocusIndicatorDirective } from '../../directives/accessibility/focus-indicator/focus-indicator.directive';
 import { DateRangeOptions } from '../date-range-picker/date-range-picker.directive';
 import { DateRangePicker, DateRangeService } from '../date-range-picker/date-range.service';
@@ -42,6 +43,7 @@ import { YearViewComponent } from './year-view/year-view.component';
     TimeViewComponent,
     FocusIndicatorDirective,
     AsyncPipe,
+    AccessibilityModule,
   ],
 })
 export class DateTimePickerComponent implements OnInit, AfterViewInit, OnDestroy {

@@ -2,18 +2,18 @@ import { ChangeDetectorRef } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { DateRangeService } from '../../date-range-picker/index';
 import { IconModule } from '../../icon/icon.module';
+import { DateTimePickerModule } from '../date-time-picker.module';
 import { DateTimePickerService } from '../date-time-picker.service';
 import { HeaderComponent } from './header.component';
 
 describe('Date Time Picker Header', () => {
   let component: HeaderComponent;
   let fixture: ComponentFixture<HeaderComponent>;
-  let nativeElement: HTMLElement;
   let dateRangeService: DateRangeService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [IconModule, HeaderComponent],
+      imports: [IconModule, HeaderComponent, DateTimePickerModule],
       providers: [DateTimePickerService, DateRangeService],
     }).compileComponents();
   });
@@ -21,7 +21,6 @@ describe('Date Time Picker Header', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(HeaderComponent);
     component = fixture.componentInstance;
-    nativeElement = fixture.nativeElement;
     dateRangeService = TestBed.inject(DateRangeService);
     fixture.detectChanges();
   });

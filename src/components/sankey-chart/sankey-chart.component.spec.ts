@@ -11,6 +11,7 @@ import { SankeyLink } from './interfaces/link.interface';
 import { SankeyNode } from './interfaces/node.interface';
 import { SankeyNodeDirective } from './sankey-chart-node.directive';
 import { SankeyChartComponent } from './sankey-chart.component';
+import { SankeyChartModule } from './sankey-chart.module';
 
 @Component({
   selector: 'app-sankey-chart',
@@ -30,7 +31,7 @@ import { SankeyChartComponent } from './sankey-chart.component';
       }
     `,
   ],
-  imports: [AccessibilityModule, CommonModule, TooltipModule, ResizeModule],
+  imports: [AccessibilityModule, CommonModule, TooltipModule, ResizeModule, SankeyChartModule],
 })
 export class SankeyChartTestComponent {
   nodes: ReadonlyArray<SankeyNode<SankeyNodeData>> = [
@@ -169,6 +170,7 @@ describe('Sankey Chart Component', () => {
         SankeyChartTestComponent,
         SankeyChartComponent,
         SankeyNodeDirective,
+        SankeyChartModule,
       ],
     }).compileComponents();
   }));
@@ -406,7 +408,7 @@ describe('Sankey Chart Component', () => {
       }
     `,
   ],
-  imports: [AccessibilityModule, CommonModule, TooltipModule, ResizeModule],
+  imports: [AccessibilityModule, CommonModule, TooltipModule, ResizeModule, SankeyChartModule],
 })
 export class SankeyChartMinHeightTestComponent {
   nodes: ReadonlyArray<SankeyNode<{ name: string }>> = [

@@ -88,7 +88,7 @@ describe('Selection Directive', () => {
   let onSelectedChangeSpy: jasmine.Spy;
   let onSelectedItemChangeSpy: jasmine.Spy;
 
-  beforeEach(() => {
+  beforeEach(fakeAsync(() => {
     TestBed.configureTestingModule({
       imports: [AccessibilityModule, CheckboxModule, SelectionModule, SelectionDirectiveSpec],
     }).compileComponents();
@@ -101,7 +101,7 @@ describe('Selection Directive', () => {
     onSelectedItemChangeSpy = spyOn(component, 'onSelectedItemChange');
 
     fixture.detectChanges();
-  });
+  }));
 
   it('should not emit any outputs on init', fakeAsync(() => {
     tick();

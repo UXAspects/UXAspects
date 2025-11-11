@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { CheckboxModule } from '../../checkbox/checkbox.module';
@@ -44,7 +45,7 @@ interface TableDocument {
       </tbody>
     </table>
   `,
-  imports: [TableModule, CheckboxModule],
+  imports: [TableModule, CheckboxModule, CommonModule],
 })
 export class ResizableTableColumnComponent {
   documents: TableDocument[] = [];
