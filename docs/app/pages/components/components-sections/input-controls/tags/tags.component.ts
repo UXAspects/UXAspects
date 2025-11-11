@@ -1,5 +1,4 @@
-import { NgIf } from '@angular/common';
-import { Component, Inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormControl, FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import {
@@ -29,7 +28,6 @@ import { DOCUMENTATION_TOKEN, DocumentationType } from '../../../../../tokens/do
   imports: [
     FormsModule,
     TagInputModule,
-    NgIf,
     TypeaheadModule,
     IconModule,
     AccordionModule,
@@ -49,6 +47,8 @@ export class ComponentsTagsComponent
   extends BaseDocumentationSection
   implements IPlaygroundProvider
 {
+  private readonly _documentationType = inject<DocumentationType>(DOCUMENTATION_TOKEN);
+
   typeaheadDocumentationRoute: string;
 
   tagInput: FormControl;
@@ -134,13 +134,15 @@ export class ComponentsTagsComponent
     ],
   };
 
-  constructor(@Inject(DOCUMENTATION_TOKEN) private readonly _documentationType: DocumentationType) {
+  constructor() {
     super(
       import.meta.webpackContext('./snippets/', {
         recursive: false,
         regExp: /\.(html|css|js|ts)$/,
       })
     );
+    const _documentationType = this._documentationType;
+
 
     this.typeaheadDocumentationRoute =
       _documentationType === DocumentationType.MicroFocus

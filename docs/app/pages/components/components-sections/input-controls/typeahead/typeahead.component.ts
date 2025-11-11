@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import {
   AccordionModule,
@@ -43,6 +43,9 @@ export class ComponentsTypeaheadComponent
   extends BaseDocumentationSection
   implements IPlaygroundProvider
 {
+  private readonly _documentationType = inject<DocumentationType>(DOCUMENTATION_TOKEN);
+  typeaheadKeyService = inject<TypeaheadKeyService<string>>(TypeaheadKeyService);
+
   tagDocumentationRoute: string;
   values: ReadonlyArray<string> = [];
 
@@ -89,17 +92,15 @@ export class ComponentsTypeaheadComponent
     ],
   };
 
-  constructor(
-    @Inject(DOCUMENTATION_TOKEN)
-    private readonly _documentationType: DocumentationType,
-    public typeaheadKeyService: TypeaheadKeyService<string>
-  ) {
+  constructor() {
     super(
       import.meta.webpackContext('./snippets/', {
         recursive: false,
         regExp: /\.(html|css|js|ts)$/,
       })
     );
+    const _documentationType = this._documentationType;
+
 
     /* Adding values to typeahead list */
     for (let index = 0; index < 200; index++) {

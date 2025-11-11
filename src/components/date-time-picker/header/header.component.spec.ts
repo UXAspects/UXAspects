@@ -23,7 +23,7 @@ describe('Date Time Picker Header', () => {
     fixture = TestBed.createComponent(HeaderComponent);
     component = fixture.componentInstance;
     nativeElement = fixture.nativeElement;
-    dateRangeService = TestBed.get(DateRangeService);
+    dateRangeService = TestBed.inject(DateRangeService);
     fixture.detectChanges();
   });
 

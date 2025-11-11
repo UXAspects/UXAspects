@@ -1,4 +1,3 @@
-import { NgSwitch, NgSwitchCase } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { AccessibilityModule, TabsetModule } from '@ux-aspects/ux-aspects';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
@@ -12,7 +11,7 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
   templateUrl: './focus.component.html',
   styleUrls: ['./focus.component.less'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [AccessibilityModule, NgSwitch, NgSwitchCase, TabsetModule, SnippetComponent],
+  imports: [AccessibilityModule, TabsetModule, SnippetComponent],
 })
 @DocumentationSectionComponent('ComponentsFocusComponent')
 export class ComponentsFocusComponent

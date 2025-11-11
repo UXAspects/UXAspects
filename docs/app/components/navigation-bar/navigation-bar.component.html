@@ -3,32 +3,30 @@
   <a class="navigation-bar-brand" routerLink="/landing">{{ brand.title }}</a>
 
   <div class="navigation-bar-items hidden-md hidden-sm hidden-xs">
-    <a
-      class="navigation-bar-item"
-      *ngFor="let link of links"
-      [routerLink]="link.link"
-      routerLinkActive="active"
-    >
-      {{ link.title }}
-    </a>
+    @for (link of links; track link) {
+      <a class="navigation-bar-item" [routerLink]="link.link" routerLinkActive="active">
+        {{ link.title }}
+      </a>
+    }
 
     <div class="navigation-bar-spacer"></div>
 
-    <uxd-theme-selector *ngIf="themes" buttonTitle="Theme" [themes]="themes"></uxd-theme-selector>
+    @if (themes) {
+      <uxd-theme-selector buttonTitle="Theme" [themes]="themes"></uxd-theme-selector>
+    }
 
-    <ng-container *ngFor="let link of social">
-      <a
-        class="navigation-bar-item"
-        *ngIf="link.link"
-        [routerLink]="link.link"
-        routerLinkActive="active"
-      >
-        {{ link.title }}
-      </a>
-      <a class="navigation-bar-item" *ngIf="!link.link" [href]="link.href" target="_blank">
-        {{ link.title }}
-      </a>
-    </ng-container>
+    @for (link of social; track link) {
+      @if (link.link) {
+        <a class="navigation-bar-item" [routerLink]="link.link" routerLinkActive="active">
+          {{ link.title }}
+        </a>
+      }
+      @if (!link.link) {
+        <a class="navigation-bar-item" [href]="link.href" target="_blank">
+          {{ link.title }}
+        </a>
+      }
+    }
 
     <uxd-navigation-bar-search></uxd-navigation-bar-search>
   </div>
@@ -40,46 +38,54 @@
   </div>
 </div>
 
-<div class="navigation-bar-dropdown hidden-lg" *ngIf="expanded">
-  <ul class="navigation-bar-dropdown-list">
-    <li class="navigation-bar-dropdown-list-item" *ngFor="let link of links">
-      <a
-        class="navigation-bar-dropdown-list-item-link"
-        [routerLink]="link.link"
-        routerLinkActive="active"
-        (click)="expanded = false"
-        >{{ link.title }}</a
-      >
-    </li>
-
-    <li *ngIf="themes" class="navigation-bar-dropdown-list-item">
-      <a
-        class="navigation-bar-dropdown-list-item-link"
-        routerLink="/theme"
-        routerLinkActive="active"
-        (click)="expanded = false"
-        >Theme</a
-      >
-    </li>
-
-    <li class="navigation-bar-dropdown-list-item" *ngFor="let link of social">
-      <a
-        class="navigation-bar-dropdown-list-item-link"
-        *ngIf="link.link"
-        [routerLink]="link.link"
-        (click)="expanded = false"
-        routerLinkActive="active"
-      >
-        {{ link.title }}
-      </a>
-      <a
-        class="navigation-bar-dropdown-list-item-link"
-        *ngIf="!link.link"
-        [href]="link.href"
-        (click)="expanded = false"
-      >
-        {{ link.title }}
-      </a>
-    </li>
-  </ul>
-</div>
+@if (expanded) {
+  <div class="navigation-bar-dropdown hidden-lg">
+    <ul class="navigation-bar-dropdown-list">
+      @for (link of links; track link) {
+        <li class="navigation-bar-dropdown-list-item">
+          <a
+            class="navigation-bar-dropdown-list-item-link"
+            [routerLink]="link.link"
+            routerLinkActive="active"
+            (click)="expanded = false"
+            >{{ link.title }}</a
+          >
+        </li>
+      }
+      @if (themes) {
+        <li class="navigation-bar-dropdown-list-item">
+          <a
+            class="navigation-bar-dropdown-list-item-link"
+            routerLink="/theme"
+            routerLinkActive="active"
+            (click)="expanded = false"
+            >Theme</a
+          >
+        </li>
+      }
+      @for (link of social; track link) {
+        <li class="navigation-bar-dropdown-list-item">
+          @if (link.link) {
+            <a
+              class="navigation-bar-dropdown-list-item-link"
+              [routerLink]="link.link"
+              (click)="expanded = false"
+              routerLinkActive="active"
+            >
+              {{ link.title }}
+            </a>
+          }
+          @if (!link.link) {
+            <a
+              class="navigation-bar-dropdown-list-item-link"
+              [href]="link.href"
+              (click)="expanded = false"
+            >
+              {{ link.title }}
+            </a>
+          }
+        </li>
+      }
+    </ul>
+  </div>
+}

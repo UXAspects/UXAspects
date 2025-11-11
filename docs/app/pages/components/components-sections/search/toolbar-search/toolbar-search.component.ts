@@ -1,4 +1,3 @@
-import { NgIf } from '@angular/common';
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import {
@@ -26,7 +25,6 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
     AccessibilityModule,
     TooltipModule,
     IconModule,
-    NgIf,
     ApiPropertiesComponent,
     ApiPropertyComponent,
     TabsetModule,

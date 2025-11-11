@@ -1,5 +1,4 @@
-import { DOCUMENT } from '@angular/common';
-import { Inject, Injectable } from '@angular/core';
+import { Injectable, DOCUMENT, inject } from '@angular/core';
 import { IFiles } from 'codesandbox-import-utils/lib/api/define';
 import { getParameters } from 'codesandbox/lib/api/define';
 import { IPlayground } from '../../interfaces/IPlayground';
@@ -16,12 +15,11 @@ import {
   providedIn: 'root',
 })
 export class PlaygroundService {
-  constructor(
-    @Inject(DOCUMENT) private readonly _document: Document,
-    @Inject(PLAYGROUND_TRANSFORMER) private readonly _transformers: PlaygroundTransformer[],
-    private readonly _appConfig: AppConfiguration,
-    private readonly _siteThemeService: SiteThemeService
-  ) {}
+  private readonly _document = inject<Document>(DOCUMENT);
+  private readonly _transformers = inject(PLAYGROUND_TRANSFORMER);
+  private readonly _appConfig = inject(AppConfiguration);
+  private readonly _siteThemeService = inject(SiteThemeService);
+
 
   /** Launch the code playground */
   async launch(title: string, playground: IPlayground) {

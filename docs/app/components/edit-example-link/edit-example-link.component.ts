@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, inject } from '@angular/core';
 import { AccessibilityModule, IconModule } from '@ux-aspects/ux-aspects';
 import { IPlayground } from '../../interfaces/IPlayground';
 import { EditExampleService } from '../../services/edit-example/edit-example.service';
@@ -14,11 +14,11 @@ import { EditExampleService } from '../../services/edit-example/edit-example.ser
   imports: [AccessibilityModule, IconModule],
 })
 export class EditExampleLinkComponent {
+  private readonly editExampleService = inject(EditExampleService);
+
   @Input() title: string;
   @Input() content: IPlayground;
   @Input() version: 'Angular' | 'AngularJS' = 'Angular';
-
-  constructor(private readonly editExampleService: EditExampleService) {}
 
   linkClick(event: MouseEvent) {
     const target = event.target as HTMLElement;

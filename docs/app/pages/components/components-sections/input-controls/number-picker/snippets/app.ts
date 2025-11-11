@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 
 @Component({
@@ -9,7 +9,9 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 export class AppComponent {
   form: FormGroup;
 
-  constructor(formBuilder: FormBuilder) {
+  constructor() {
+    const formBuilder = inject(FormBuilder);
+
     this.form = formBuilder.group({
       integer: [
         0,

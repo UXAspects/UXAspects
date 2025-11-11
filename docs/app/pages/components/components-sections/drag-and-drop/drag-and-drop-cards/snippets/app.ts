@@ -1,5 +1,5 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
-import { AfterViewInit, Component, TemplateRef, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, TemplateRef, ViewChild, inject } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -7,6 +7,8 @@ import { AfterViewInit, Component, TemplateRef, ViewChild } from '@angular/core'
   styleUrls: ['app.component.css'],
 })
 export class AppComponent implements AfterViewInit {
+  private readonly _liveAnnouncer = inject(LiveAnnouncer);
+
   cards: DragAndDropComponent[];
   list: DragAndDropComponent[];
   focus: DragAndDropComponent = null;
@@ -16,7 +18,7 @@ export class AppComponent implements AfterViewInit {
   @ViewChild('text') textTemplate: TemplateRef<any>;
   @ViewChild('buttons') buttonsTemplate: TemplateRef<any>;
 
-  constructor(private readonly _liveAnnouncer: LiveAnnouncer) {
+  constructor() {
     this.cards = [
       {
         name: 'Actions',

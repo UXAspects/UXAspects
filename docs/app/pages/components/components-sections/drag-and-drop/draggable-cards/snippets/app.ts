@@ -1,5 +1,5 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
-import { Component, ElementRef, QueryList, ViewChildren } from '@angular/core';
+import { Component, ElementRef, QueryList, ViewChildren, inject } from '@angular/core';
 import { ColorService, TabbableListDirective } from '@ux-aspects/ux-aspects';
 import { ChartDataset, ChartOptions } from 'chart.js';
 
@@ -9,6 +9,9 @@ import { ChartDataset, ChartOptions } from 'chart.js';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
+  private readonly _colorService = inject(ColorService);
+  private readonly _liveAnnouncer = inject(LiveAnnouncer);
+
   colors = [
     this._colorService.getColor('accent').toRgb(),
     this._colorService.getColor('accent').setAlpha(0.5).toRgba(),
@@ -125,11 +128,6 @@ export class AppComponent {
   active: FixedCard | DraggableCard = this.draggableCards[0];
 
   @ViewChildren('draggableCard') cards?: QueryList<ElementRef>;
-
-  constructor(
-    private readonly _colorService: ColorService,
-    private readonly _liveAnnouncer: LiveAnnouncer
-  ) {}
 
   remove(card: DraggableCard, tabbableList: TabbableListDirective): void {
     // remove the card

@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, inject } from '@angular/core';
 import { Filter, FilterRemoveAllEvent, FilterService } from '@ux-aspects/ux-aspects';
 import { Subject } from 'rxjs';
 import { filter as rxFilter, takeUntil } from 'rxjs/operators';
@@ -9,6 +9,8 @@ import { filter as rxFilter, takeUntil } from 'rxjs/operators';
   styleUrls: ['./sample-filter.component.css'],
 })
 export class SampleFilterCustomComponent implements OnInit, OnDestroy {
+  private readonly _filterService = inject(FilterService);
+
   @Input() filters: Filter[] = [];
   @Input() initial: Filter;
 
@@ -16,7 +18,9 @@ export class SampleFilterCustomComponent implements OnInit, OnDestroy {
 
   private readonly _onDestroy = new Subject<void>();
 
-  constructor(private readonly _filterService: FilterService) {
+  constructor() {
+    const _filterService = this._filterService;
+
     // listen for remove all events in which case we should deselect event initial filters
     _filterService.events$
       .pipe(

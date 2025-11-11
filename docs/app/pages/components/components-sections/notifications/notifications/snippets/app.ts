@@ -1,5 +1,5 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
-import { Component, HostListener, OnDestroy, TemplateRef } from '@angular/core';
+import { Component, HostListener, OnDestroy, TemplateRef, inject } from '@angular/core';
 import { ColorService, NotificationService } from '@ux-aspects/ux-aspects';
 import { Subject, Subscription } from 'rxjs';
 import { buffer, debounceTime } from 'rxjs/operators';
@@ -10,6 +10,10 @@ import { buffer, debounceTime } from 'rxjs/operators';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnDestroy {
+  notificationService = inject(NotificationService);
+  colorService = inject(ColorService);
+  private readonly _liveAnnouncer = inject(LiveAnnouncer);
+
   duration: number = 4;
   description: string = 'You have 16 messages';
   backgroundColor: string = 'rgba(123, 99, 163, 1)';
@@ -17,11 +21,7 @@ export class AppComponent implements OnDestroy {
   private readonly _notifications = new Subject<string>();
   private readonly _subscription: Subscription;
 
-  constructor(
-    public notificationService: NotificationService,
-    public colorService: ColorService,
-    private readonly _liveAnnouncer: LiveAnnouncer
-  ) {
+  constructor() {
     // buffer notifications then announce them
     this._subscription = this._notifications
       .pipe(buffer(this._notifications.pipe(debounceTime(1000))))

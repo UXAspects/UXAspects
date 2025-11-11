@@ -1,5 +1,5 @@
 import { TreeNode } from '@ali-hm/angular-tree-component';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { TreeViewService } from './service.ts';
 
 @Component({
@@ -8,6 +8,8 @@ import { TreeViewService } from './service.ts';
   styleUrls: ['./app.css'],
 })
 export class AppComponent {
+  private readonly _treeViewService = inject(TreeViewService);
+
   nodes: TreeViewExampleNode[] = [
     {
       name: 'Documents',
@@ -26,8 +28,6 @@ export class AppComponent {
   };
 
   focused: TreeNode;
-
-  constructor(private readonly _treeViewService: TreeViewService) {}
 
   /**
    * When a node is checked the state of it's children should be updated (if there are any)

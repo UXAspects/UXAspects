@@ -1,4 +1,4 @@
-import { AsyncPipe, NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { Component, forwardRef } from '@angular/core';
 import {
   AccessibilityModule,
@@ -15,7 +15,7 @@ import { ConduitZoneInspectorComponent } from '../inspector/inspector.component'
   templateUrl: './toolbar.component.html',
   styleUrls: ['./toolbar.component.less'],
   providers: [ConduitZone],
-  imports: [AccessibilityModule, IconModule, NgIf, ConduitZoneInspectorComponent, AsyncPipe],
+  imports: [AccessibilityModule, IconModule, ConduitZoneInspectorComponent, AsyncPipe],
 })
 export class ComponentsConduitToolbarComponent extends ConduitZoneComponent {
   zoneId: string = 'toolbar-zone';

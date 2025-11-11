@@ -1,5 +1,5 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import {
   AccessibilityModule,
@@ -35,6 +35,8 @@ export class ComponentsHotkeysComponent
   extends BaseDocumentationSection
   implements IPlaygroundProvider
 {
+  private readonly _liveAnnouncer = inject(LiveAnnouncer);
+
   qText: string = 'None';
   wText: string = 'None';
   qFocused: number = null;
@@ -58,7 +60,7 @@ export class ComponentsHotkeysComponent
     ],
   };
 
-  constructor(private readonly _liveAnnouncer: LiveAnnouncer) {
+  constructor() {
     super(
       import.meta.webpackContext('./snippets/', {
         recursive: false,

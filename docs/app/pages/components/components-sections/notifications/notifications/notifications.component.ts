@@ -1,12 +1,6 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { DatePipe } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  HostListener,
-  OnDestroy,
-  TemplateRef,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, HostListener, OnDestroy, TemplateRef, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import {
   AccessibilityModule,
@@ -55,6 +49,10 @@ export class ComponentsNotificationsComponent
   extends BaseDocumentationSection
   implements IPlaygroundProvider, OnDestroy
 {
+  notificationService = inject(NotificationService);
+  colorService = inject(ColorService);
+  private readonly _liveAnnouncer = inject(LiveAnnouncer);
+
   duration: number = 4;
   description: string = 'You have 16 messages';
 
@@ -101,11 +99,7 @@ export class ComponentsNotificationsComponent
   private readonly _notifications = new Subject<string>();
   private readonly _subscription: Subscription;
 
-  constructor(
-    public notificationService: NotificationService,
-    public colorService: ColorService,
-    private readonly _liveAnnouncer: LiveAnnouncer
-  ) {
+  constructor() {
     super(
       import.meta.webpackContext('./snippets/', {
         recursive: false,

@@ -1,16 +1,17 @@
 <div class="tab-demo-container clearfix">
   <ux-tabset [minimal]="minimal" [stacked]="stacked" aria-label="Tabset Example" #tabset>
-    <ux-tab customClass="text-center" *ngFor="let tab of tabs">
-      <ng-template uxTabHeading>
-        <ux-icon [name]="tab.icon" aria-hidden="true"></ux-icon>
-        <span>{{ tab.title }}</span>
-      </ng-template>
-
-      <div class="m-t">
-        <h4>{{ tab.title }}</h4>
-        <p>{{ tab.content }}</p>
-      </div>
-    </ux-tab>
+    @for (tab of tabs; track tab) {
+      <ux-tab customClass="text-center">
+        <ng-template uxTabHeading>
+          <ux-icon [name]="tab.icon" aria-hidden="true"></ux-icon>
+          <span>{{ tab.title }}</span>
+        </ng-template>
+        <div class="m-t">
+          <h4>{{ tab.title }}</h4>
+          <p>{{ tab.content }}</p>
+        </div>
+      </ux-tab>
+    }
   </ux-tabset>
   <button class="btn button-secondary" (click)="tabset.selectTab(1)">Select Second Tab</button>
 </div>

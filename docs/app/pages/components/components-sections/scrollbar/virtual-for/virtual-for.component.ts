@@ -1,4 +1,3 @@
-import { NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import {
@@ -24,7 +23,6 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
     FixedHeaderTableModule,
     VirtualScrollModule,
     AccessibilityModule,
-    NgIf,
     RouterLink,
     ApiPropertiesComponent,
     ApiPropertyComponent,

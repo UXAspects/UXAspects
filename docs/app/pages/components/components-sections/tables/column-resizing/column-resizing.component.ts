@@ -1,5 +1,5 @@
-import { DatePipe, NgFor, NgIf, SlicePipe } from '@angular/common';
-import { Component, Inject, ViewChild } from '@angular/core';
+import { DatePipe, SlicePipe } from '@angular/common';
+import { Component, ViewChild, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import {
@@ -29,11 +29,9 @@ import { DOCUMENTATION_TOKEN, DocumentationType } from '../../../../../tokens/do
   styleUrls: ['./column-resizing.component.less'],
   imports: [
     AccordionModule,
-    NgIf,
     TableModule,
     FixedHeaderTableModule,
     SelectionModule,
-    NgFor,
     CheckboxModule,
     FormsModule,
     RadioButtonModule,
@@ -52,6 +50,8 @@ export class ComponentsColumnResizingComponent
   extends BaseDocumentationSection
   implements IPlaygroundProvider
 {
+  private readonly _documentationType = inject<DocumentationType>(DOCUMENTATION_TOKEN);
+
   type: 'uxResizableTable' | 'uxResizableExpandingTable' = 'uxResizableTable';
   documents: TableDocument[] = [];
   selection: TableDocument[] = [];
@@ -95,7 +95,7 @@ export class ComponentsColumnResizingComponent
     ],
   };
 
-  constructor(@Inject(DOCUMENTATION_TOKEN) private readonly _documentationType: DocumentationType) {
+  constructor() {
     super(
       import.meta.webpackContext('./snippets/', {
         recursive: false,

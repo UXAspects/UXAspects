@@ -1,5 +1,5 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import 'chance';
 import { BehaviorSubject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
@@ -21,6 +21,8 @@ const DEPARTMENTS = [
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
+  private readonly _liveAnnouncer = inject(LiveAnnouncer);
+
   filterText = new BehaviorSubject<string>('');
   debouncedFilterText = this.filterText.pipe(debounceTime(500));
   allEmployees: any[] = [];
@@ -52,7 +54,7 @@ export class AppComponent {
     return e.name.toLowerCase().indexOf(normalisedFilter) >= 0;
   }
 
-  constructor(private readonly _liveAnnouncer: LiveAnnouncer) {
+  constructor() {
     for (let i = 0; i < 111; i += 1) {
       const name = chance.name();
       this.allEmployees.push({

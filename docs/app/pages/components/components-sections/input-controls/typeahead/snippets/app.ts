@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { TypeaheadKeyService } from '@ux-aspects/ux-aspects';
 import 'chance';
 import { of } from 'rxjs';
@@ -10,6 +10,8 @@ import { delay } from 'rxjs/operators';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
+  typeaheadKeyService = inject<TypeaheadKeyService<string>>(TypeaheadKeyService);
+
   values: ReadonlyArray<string> = [];
 
   dropdownOpen: boolean = false;
@@ -35,7 +37,7 @@ export class AppComponent {
     return of(values).pipe(delay(1000)).toPromise();
   }
 
-  constructor(public typeaheadKeyService: TypeaheadKeyService<string>) {
+  constructor() {
     /* Adding values to typeahead list */
     for (let index = 0; index < 200; index++) {
       this.values = [...this.values, chance.name()];

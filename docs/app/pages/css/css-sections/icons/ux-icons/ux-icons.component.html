@@ -1,8 +1,10 @@
-<p *ngIf="iconSetClass === 'ux-icon'">
-  To use an icon apply the
-  <a fragment="icon" [routerLink]="[uxIconComponentRoute]"><code>ux-icon</code> component</a> along
-  with one of the following names. Click on an icon to view its implementation.
-</p>
+@if (iconSetClass === 'ux-icon') {
+  <p>
+    To use an icon apply the
+    <a fragment="icon" [routerLink]="[uxIconComponentRoute]"><code>ux-icon</code> component</a>
+    along with one of the following names. Click on an icon to view its implementation.
+  </p>
+}
 
 <div class="row m-b-md">
   <div class="col-lg-8 col-md-12 col-sm-12">
@@ -20,41 +22,45 @@
   </div>
 
   <div class="col-lg-4 col-md-12 col-sm-12">
-    <div *ngIf="iconSetClass === 'ux-icon'" class="icon-search-items-container">
-      <label class="icon-selector-text">Icon Size</label>
-      <div class="btn-group icon-resize-buttons">
-        <button
-          type="button"
-          class="btn button-toggle-primary icon-resize-button"
-          [(ngModel)]="size"
-          btnRadio="16px"
-        >
-          16px
-        </button>
-        <button
-          type="button"
-          class="btn button-toggle-primary icon-resize-button"
-          [(ngModel)]="size"
-          btnRadio="24px"
-        >
-          24px
-        </button>
-        <button
-          type="button"
-          class="btn button-toggle-primary icon-resize-button"
-          [(ngModel)]="size"
-          btnRadio="32px"
-        >
-          32px
-        </button>
+    @if (iconSetClass === 'ux-icon') {
+      <div class="icon-search-items-container">
+        <label class="icon-selector-text">Icon Size</label>
+        <div class="btn-group icon-resize-buttons">
+          <button
+            type="button"
+            class="btn button-toggle-primary icon-resize-button"
+            [(ngModel)]="size"
+            btnRadio="16px"
+          >
+            16px
+          </button>
+          <button
+            type="button"
+            class="btn button-toggle-primary icon-resize-button"
+            [(ngModel)]="size"
+            btnRadio="24px"
+          >
+            24px
+          </button>
+          <button
+            type="button"
+            class="btn button-toggle-primary icon-resize-button"
+            [(ngModel)]="size"
+            btnRadio="32px"
+          >
+            32px
+          </button>
+        </div>
       </div>
-    </div>
+    }
   </div>
 </div>
 
 <div class="row">
-  <div class="col-md-4 col-sm-4 icon-demo-col m-b" *ngFor="let icon of filteredIcons">
-    <uxd-icon-preview [name]="icon.name" [classname]="icon.classname" [size]="size">
-    </uxd-icon-preview>
-  </div>
+  @for (icon of filteredIcons; track icon) {
+    <div class="col-md-4 col-sm-4 icon-demo-col m-b">
+      <uxd-icon-preview [name]="icon.name" [classname]="icon.classname" [size]="size">
+      </uxd-icon-preview>
+    </div>
+  }
 </div>

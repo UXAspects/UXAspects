@@ -6,18 +6,7 @@ import {
   RIGHT_ARROW,
   UP_ARROW,
 } from '@angular/cdk/keycodes';
-import {
-  AfterViewInit,
-  Attribute,
-  ChangeDetectionStrategy,
-  Component,
-  ElementRef,
-  HostListener,
-  inject,
-  Input,
-  OnDestroy,
-  ViewChild,
-} from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, HostListener, inject, Input, OnDestroy, ViewChild, HostAttributeToken } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
 import { TooltipDirective } from '../tooltip/index';
@@ -50,7 +39,9 @@ export class FloatingActionButtonComponent implements AfterViewInit, OnDestroy {
   /** Unsubscribe from all observables on component destroy */
   private readonly _onDestroy = new Subject<void>();
 
-  constructor(@Attribute('fab-primary') primary: string) {
+  constructor() {
+    const primary = inject(new HostAttributeToken('fab-primary'), { optional: true });
+
     this.primary = primary !== null;
   }
 

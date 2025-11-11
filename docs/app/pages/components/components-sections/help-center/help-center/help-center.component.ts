@@ -1,5 +1,5 @@
-import { DecimalPipe, NgFor, NgIf } from '@angular/common';
-import { Component, OnDestroy } from '@angular/core';
+import { DecimalPipe } from '@angular/common';
+import { Component, OnDestroy, inject } from '@angular/core';
 import {
   AccessibilityModule,
   Breadcrumb,
@@ -28,8 +28,6 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
     AccessibilityModule,
     HelpCenterModule,
     IconModule,
-    NgIf,
-    NgFor,
     SnippetComponent,
     TabsetModule,
     DecimalPipe,
@@ -40,6 +38,8 @@ export class ComponentsHelpCenterComponent
   extends BaseDocumentationSection
   implements OnDestroy, IPlaygroundProvider
 {
+  private readonly _helpCenterService = inject(HelpCenterService);
+
   repositories: HelpCenterTableData[] = [];
   loading: boolean = false;
   crumbs: Breadcrumb[] = [{ title: 'Overview' }];
@@ -78,7 +78,7 @@ export class ComponentsHelpCenterComponent
 
   private readonly _helpCenter$: Subscription;
 
-  constructor(private readonly _helpCenterService: HelpCenterService) {
+  constructor() {
     super(
       import.meta.webpackContext('./snippets/', {
         recursive: false,

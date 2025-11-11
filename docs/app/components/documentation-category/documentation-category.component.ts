@@ -1,5 +1,4 @@
-import { NgFor } from '@angular/common';
-import { AfterViewInit, ChangeDetectorRef, Component, HostListener, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, HostListener, OnInit, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ICategory } from '../../interfaces/ICategory';
 import { NavigationService } from '../../services/navigation/navigation.service';
@@ -8,17 +7,15 @@ import { ComponentSectionComponent } from '../component-section/component-sectio
 @Component({
   selector: 'uxd-documentation-category',
   templateUrl: './documentation-category.component.html',
-  imports: [NgFor, ComponentSectionComponent],
+  imports: [ComponentSectionComponent],
 })
 export class DocumentationCategoryComponent implements OnInit, AfterViewInit {
+  private readonly _activatedRoute = inject(ActivatedRoute);
+  private readonly _navigation = inject(NavigationService);
+  private readonly _changeDetectorRef = inject(ChangeDetectorRef);
+
   category: ICategory;
   private trackScroll: boolean = false;
-
-  constructor(
-    private readonly _activatedRoute: ActivatedRoute,
-    private readonly _navigation: NavigationService,
-    private readonly _changeDetectorRef: ChangeDetectorRef
-  ) {}
 
   ngOnInit() {
     // Fetch category details from the route metadata

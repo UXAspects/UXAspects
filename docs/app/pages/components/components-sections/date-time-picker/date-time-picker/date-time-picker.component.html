@@ -1,5 +1,5 @@
-<ng-container [ngSwitch]="theme">
-  <ng-container *ngSwitchCase="SiteThemeId.MicroFocus2017">
+@switch (theme) {
+  @case (SiteThemeId.MicroFocus2017) {
     <div class="row">
       <div class="col-sm-6 col-xs-12">
         <div class="input-group date m-nil">
@@ -27,14 +27,13 @@
             (keydown.enter)="popover.show()"
           />
         </div>
-
         <p class="m-t">
           Selected date is: <em>{{ date | date: 'dd MMMM yyyy HH:mm' }} {{ timezone?.name }}</em>
         </p>
       </div>
     </div>
-  </ng-container>
-  <ng-container *ngSwitchDefault>
+  }
+  @default {
     <div class="row">
       <div class="col-sm-6 col-xs-12">
         <div class="input-group date m-nil">
@@ -64,14 +63,13 @@
             </button>
           </span>
         </div>
-
         <p class="m-t">
           Selected date is: <em>{{ date | date: 'dd MMMM yyyy HH:mm' }} {{ timezone?.name }}</em>
         </p>
       </div>
     </div>
-  </ng-container>
-</ng-container>
+  }
+}
 
 <ng-template #popoverTemplate let-input="input" let-popover="popover">
   <ux-date-time-picker

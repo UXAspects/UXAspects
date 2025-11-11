@@ -1,4 +1,3 @@
-import { NgFor } from '@angular/common';
 import { Component, Pipe, PipeTransform } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import {
@@ -38,7 +37,6 @@ export class HighlightSearch implements PipeTransform {
   imports: [
     InputDropdownModule,
     AccessibilityModule,
-    NgFor,
     RadioButtonModule,
     AccordionModule,
     FormsModule,

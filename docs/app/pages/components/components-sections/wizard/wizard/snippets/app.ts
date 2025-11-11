@@ -1,11 +1,13 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
 })
 export class AppComponent {
+  private readonly _announcer = inject(LiveAnnouncer);
+
   orientation: string = 'horizontal';
 
   steps: WizardStep[] = [
@@ -26,8 +28,6 @@ export class AppComponent {
       content: 'Content of step 4.',
     },
   ];
-
-  constructor(private readonly _announcer: LiveAnnouncer) {}
 
   onStepChange(index: number): void {
     this._announcer.announce(`${this.steps[index].header} activated`);

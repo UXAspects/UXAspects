@@ -1,5 +1,4 @@
-import { NgFor } from '@angular/common';
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -8,19 +7,17 @@ import { IDocumentationPage } from '../../interfaces/IDocumentationPage';
 @Component({
   selector: 'uxd-section-select',
   templateUrl: './section-select.component.html',
-  imports: [FormsModule, NgFor],
+  imports: [FormsModule],
 })
 export class SectionSelectComponent implements OnInit, OnDestroy {
+  private readonly router = inject(Router);
+  private readonly activatedRoute = inject(ActivatedRoute);
+
   @Input() navigation: IDocumentationPage;
 
   section: any;
   private _path: string;
   private _routeSubscription: Subscription;
-
-  constructor(
-    private readonly router: Router,
-    private readonly activatedRoute: ActivatedRoute
-  ) {}
 
   ngOnInit(): void {
     this._routeSubscription = this.router.events.subscribe(event => {

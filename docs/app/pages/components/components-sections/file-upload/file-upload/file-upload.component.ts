@@ -1,6 +1,5 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
-import { NgFor, NgIf } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import {
   AccessibilityModule,
   IconModule,
@@ -21,8 +20,6 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
     AccessibilityModule,
     FileUploadModule,
     ProgressBarModule,
-    NgIf,
-    NgFor,
     IconModule,
     TabsetModule,
     SnippetComponent,
@@ -57,7 +54,9 @@ export class ComponentsFileUploadComponent
     ],
   };
 
-  constructor(announcer: LiveAnnouncer) {
+  constructor() {
+    const announcer = inject(LiveAnnouncer);
+
     super(
       import.meta.webpackContext('./snippets/', {
         recursive: false,

@@ -23,35 +23,41 @@
         </thead>
 
         <tbody>
-          <tr *ngFor="let document of documents">
-            <td class="text-black">{{ document.name }}</td>
-            <td>{{ document.author }}</td>
-            <td>{{ document.date.toLocaleDateString() }}</td>
-          </tr>
+          @for (document of documents; track document) {
+            <tr>
+              <td class="text-black">{{ document.name }}</td>
+              <td>{{ document.author }}</td>
+              <td>{{ document.date.toLocaleDateString() }}</td>
+            </tr>
+          }
         </tbody>
       </table>
     </div>
 
     <!-- Card Layout-->
     <div class="layout-switcher-card-container" *uxLayoutSwitcherItem="layouts.card">
-      <div class="layout-switcher-card" *ngFor="let document of documents">
-        <h3 class="text-black m-t-nil">{{ document.name }}</h3>
-        <p class="m-b-nil">
-          <span class="text-muted">Authored on</span> {{ document.date.toLocaleDateString() }}
-          <span class="text-muted">by</span> {{ document.author }}
-        </p>
-      </div>
+      @for (document of documents; track document) {
+        <div class="layout-switcher-card">
+          <h3 class="text-black m-t-nil">{{ document.name }}</h3>
+          <p class="m-b-nil">
+            <span class="text-muted">Authored on</span> {{ document.date.toLocaleDateString() }}
+            <span class="text-muted">by</span> {{ document.author }}
+          </p>
+        </div>
+      }
     </div>
 
     <!-- Card Stack Layout-->
     <div class="layout-switcher-card-stack-container" *uxLayoutSwitcherItem="layouts.cardstack">
-      <div class="layout-switcher-card-stack-card" *ngFor="let document of documents">
-        <h3 class="text-black m-t-nil">{{ document.name }}</h3>
-        <p class="m-b-nil">
-          <span class="text-muted">Authored on</span> {{ document.date.toLocaleDateString() }}
-          <span class="text-muted">by</span> {{ document.author }}
-        </p>
-      </div>
+      @for (document of documents; track document) {
+        <div class="layout-switcher-card-stack-card">
+          <h3 class="text-black m-t-nil">{{ document.name }}</h3>
+          <p class="m-b-nil">
+            <span class="text-muted">Authored on</span> {{ document.date.toLocaleDateString() }}
+            <span class="text-muted">by</span> {{ document.author }}
+          </p>
+        </div>
+      }
     </div>
   </div>
 </div>

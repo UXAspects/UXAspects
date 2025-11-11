@@ -16,27 +16,32 @@
         [tagDelimiters]="tagDelimiters"
         [tagPattern]="tagPatternRegExp"
       >
-        <ux-typeahead
-          *ngIf="typeaheadEnabled"
-          [filter]="input"
-          [options]="allTags"
-          [disabledOptions]="tags"
-          [dropDirection]="dropDirection"
-          [multiselectable]="true"
-          [selectFirst]="selectFirst"
-          [ariaLabel]="ariaLabel"
-        >
-        </ux-typeahead>
+        @if (typeaheadEnabled) {
+          <ux-typeahead
+            [filter]="input"
+            [options]="allTags"
+            [disabledOptions]="tags"
+            [dropDirection]="dropDirection"
+            [multiselectable]="true"
+            [selectFirst]="selectFirst"
+            [ariaLabel]="ariaLabel"
+          >
+          </ux-typeahead>
+        }
       </ux-tag-input>
-      <span *ngIf="tagInput.validationErrors.tagRangeError" class="validation-error-text">
-        <ux-icon name="alert"></ux-icon>
-        Required: number of tags between {{ tagInput.validationErrors.tagRangeError.min }} and
-        {{ tagInput.validationErrors.tagRangeError.max }}.
-      </span>
-      <span *ngIf="tagInput.validationErrors.inputPattern" class="validation-error-text">
-        <ux-icon name="alert"></ux-icon>
-        Expected format: {{ tagInput.validationErrors.inputPattern.pattern.source }}
-      </span>
+      @if (tagInput.validationErrors.tagRangeError) {
+        <span class="validation-error-text">
+          <ux-icon name="alert"></ux-icon>
+          Required: number of tags between {{ tagInput.validationErrors.tagRangeError.min }} and
+          {{ tagInput.validationErrors.tagRangeError.max }}.
+        </span>
+      }
+      @if (tagInput.validationErrors.inputPattern) {
+        <span class="validation-error-text">
+          <ux-icon name="alert"></ux-icon>
+          Expected format: {{ tagInput.validationErrors.inputPattern.pattern.source }}
+        </span>
+      }
     </form>
   </div>
 </div>
@@ -134,16 +139,17 @@
 <ng-template #demoTagTemplate let-tag="tag" let-index="index" let-api="api">
   <i class="ux-icon ux-icon-tag"></i>
   <span class="ux-tag-text">{{ api.getTagDisplay(tag) }}</span>
-  <button
-    *ngIf="api.canRemoveTagAt(index)"
-    uxFocusIndicator
-    type="button"
-    class="ux-tag-remove"
-    [disabled]="disabled"
-    (click)="api.removeTagAt(index); $event.stopPropagation()"
-  >
-    <i class="ux-icon ux-icon-close"></i>
-  </button>
+  @if (api.canRemoveTagAt(index)) {
+    <button
+      uxFocusIndicator
+      type="button"
+      class="ux-tag-remove"
+      [disabled]="disabled"
+      (click)="api.removeTagAt(index); $event.stopPropagation()"
+    >
+      <i class="ux-icon ux-icon-close"></i>
+    </button>
+  }
 </ng-template>
 
 <hr />

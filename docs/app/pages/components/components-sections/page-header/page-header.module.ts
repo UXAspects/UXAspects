@@ -1,4 +1,4 @@
-import { ComponentFactoryResolver, NgModule } from '@angular/core';
+import { ComponentFactoryResolver, NgModule, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { PageHeaderModule, TabsetModule } from '@ux-aspects/ux-aspects';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
@@ -29,10 +29,10 @@ const ROUTES = [
   exports: SECTIONS,
 })
 export class ComponentsPageHeaderModule {
-  constructor(
-    componentFactoryResolver: ComponentFactoryResolver,
-    resolverService: ResolverService
-  ) {
+  constructor() {
+    const componentFactoryResolver = inject(ComponentFactoryResolver);
+    const resolverService = inject(ResolverService);
+
     resolverService.registerResolver(componentFactoryResolver, SECTIONS);
   }
 }

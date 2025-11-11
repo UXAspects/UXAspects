@@ -14,10 +14,11 @@
   </div>
 </div>
 
-<uxd-conduit-zone-inspector
-  *ngIf="showZones | async"
-  [takesInput]="false"
-  [(producesOutput)]="producesOutput"
-  (producesOutputChange)="setConduitProperties(search, { producesOutput: producesOutput })"
->
-</uxd-conduit-zone-inspector>
+@if (showZones | async) {
+  <uxd-conduit-zone-inspector
+    [takesInput]="false"
+    [(producesOutput)]="producesOutput"
+    (producesOutputChange)="setConduitProperties(search, { producesOutput: producesOutput })"
+  >
+  </uxd-conduit-zone-inspector>
+}

@@ -20,14 +20,15 @@
       >
         <ux-icon name="search"></ux-icon>
       </button>
-      <button
-        *ngIf="searchText"
-        type="button"
-        class="btn btn-link btn-icon button-secondary ux-toolbar-search-clear"
-        (click)="searchText = ''; searchField.focus()"
-      >
-        <ux-icon name="close"></ux-icon>
-      </button>
+      @if (searchText) {
+        <button
+          type="button"
+          class="btn btn-link btn-icon button-secondary ux-toolbar-search-clear"
+          (click)="searchText = ''; searchField.focus()"
+        >
+          <ux-icon name="close"></ux-icon>
+        </button>
+      }
     </ux-toolbar-search>
     <button type="button" class="btn btn-link btn-icon button-secondary" uxTooltip="Add">
       <ux-icon name="add"></ux-icon>

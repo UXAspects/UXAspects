@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import {
   FormBuilder,
@@ -42,7 +42,9 @@ export class NumberPickerTestFormGroupComponent {
   step: number | ((value: number, direction: StepDirection) => number) = 1;
   placeholder: string;
 
-  constructor(formBuilder: FormBuilder) {
+  constructor() {
+    const formBuilder = inject(FormBuilder);
+
     this.form = formBuilder.group({
       integer: [
         {
@@ -797,7 +799,9 @@ describe('Number Picker Component - value', () => {
 export class NumberPickerTestReadonlyComponent {
   form: FormGroup;
 
-  constructor(formBuilder: FormBuilder) {
+  constructor() {
+    const formBuilder = inject(FormBuilder);
+
     this.form = formBuilder.group({
       readonly: [5, Validators.required],
     });

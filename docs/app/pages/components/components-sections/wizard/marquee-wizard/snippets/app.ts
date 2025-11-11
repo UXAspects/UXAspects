@@ -1,5 +1,5 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MarqueeWizardComponent } from '@ux-aspects/ux-aspects';
 
@@ -9,6 +9,8 @@ import { MarqueeWizardComponent } from '@ux-aspects/ux-aspects';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
+  private readonly _announcer = inject(LiveAnnouncer);
+
   error: boolean = false;
   skip: boolean = false;
   validate: boolean = false;
@@ -17,8 +19,6 @@ export class AppComponent {
   resizable: boolean = false;
   sidePanelWidth: number = 25;
   gutterSize: number = 10;
-
-  constructor(private readonly _announcer: LiveAnnouncer) {}
 
   /**
    * Close the modal and reset everything

@@ -1,5 +1,4 @@
-import { NgFor, NgIf } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Input, OnDestroy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnDestroy, inject } from '@angular/core';
 import { AccessibilityModule, PopoverModule } from '@ux-aspects/ux-aspects';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -13,9 +12,12 @@ import { SiteThemeService } from '../../services/site-theme/site-theme.service';
   templateUrl: './migrate-link.component.html',
   styleUrls: ['./migrate-link.component.less'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [AccessibilityModule, NgIf, NgFor, PopoverModule],
+  imports: [AccessibilityModule, PopoverModule],
 })
 export class MigrateLinkComponent implements OnDestroy {
+  private readonly _siteThemeService = inject(SiteThemeService);
+  private readonly _appConfig = inject(AppConfiguration);
+
   @Input() migration: Migration;
 
   SiteThemeId = SiteThemeId;
@@ -24,10 +26,7 @@ export class MigrateLinkComponent implements OnDestroy {
 
   private readonly _onDestroy = new Subject<void>();
 
-  constructor(
-    private readonly _siteThemeService: SiteThemeService,
-    private readonly _appConfig: AppConfiguration
-  ) {
+  constructor() {
     this._siteThemeService.theme$
       .pipe(takeUntil(this._onDestroy))
       .subscribe(siteThemeId => (this.theme = siteThemeId));

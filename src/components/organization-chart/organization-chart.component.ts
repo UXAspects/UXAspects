@@ -7,7 +7,6 @@ import {
   ApplicationRef,
   ChangeDetectionStrategy,
   Component,
-  ComponentFactoryResolver,
   ContentChild,
   ElementRef,
   EventEmitter,
@@ -52,8 +51,6 @@ import { ResizeDimensions, ResizeService } from '../../directives/resize/index';
 })
 export class OrganizationChartComponent<T> implements AfterViewInit, OnChanges, OnDestroy {
   private readonly _resizeService = inject(ResizeService);
-
-  private readonly _componentFactoryResolver = inject(ComponentFactoryResolver);
 
   private readonly _injector = inject(Injector);
 
@@ -848,12 +845,7 @@ export class OrganizationChartComponent<T> implements AfterViewInit, OnChanges, 
 
   /** Create a dynamic region that Angular can insert into */
   private createPortalOutlet(element: HTMLElement): DomPortalOutlet {
-    return new DomPortalOutlet(
-      element,
-      this._componentFactoryResolver,
-      this._appRef,
-      this._injector
-    );
+    return new DomPortalOutlet(element, this._appRef, this._injector);
   }
 
   /** Make the appropriate node tabbable and update aria attributes */

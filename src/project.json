@@ -9,20 +9,19 @@
       "executor": "@nx/angular:package",
       "outputs": ["{workspaceRoot}/dist/library"],
       "options": {
-        "project": "src/ng-package.json"
+        "project": "src/ng-package.json",
+        "tsConfig": "src/tsconfig.lib.json"
       },
       "configurations": {
         "production": {
           "tsConfig": "src/tsconfig.lib.prod.json"
         },
-        "development": {
-          "tsConfig": "src/tsconfig.lib.json"
-        }
+        "development": {}
       },
       "defaultConfiguration": "production"
     },
     "test": {
-      "executor": "@angular-devkit/build-angular:karma",
+      "executor": "@angular/build:karma",
       "options": {
         "main": "src/test.ts",
         "tsConfig": "src/tsconfig.spec.json",

@@ -1,5 +1,4 @@
-import { NgFor, NgIf } from '@angular/common';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import {
   CheckboxModule,
   Facet,
@@ -15,9 +14,11 @@ import { filter, takeUntil } from 'rxjs/operators';
   selector: 'my-custom-facet-component',
   templateUrl: './sample-facet-component.component.html',
   styleUrls: ['./sample-facet-component.component.less'],
-  imports: [FacetsModule, NgIf, NgFor, CheckboxModule],
+  imports: [FacetsModule, CheckboxModule],
 })
 export class SampleCustomFacetComponent implements OnInit, OnDestroy {
+  private readonly _facetService = inject(FacetService);
+
   expanded: boolean = true;
 
   facets: Facet[] = [
@@ -27,8 +28,6 @@ export class SampleCustomFacetComponent implements OnInit, OnDestroy {
   ];
 
   private readonly _onDestroy = new Subject<void>();
-
-  constructor(private readonly _facetService: FacetService) {}
 
   ngOnInit(): void {
     // if a facet is deselected externally we need to update checkbox state

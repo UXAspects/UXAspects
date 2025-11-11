@@ -1,4 +1,4 @@
-import { DatePipe, NgSwitch, NgSwitchCase, NgSwitchDefault } from '@angular/common';
+import { DatePipe } from '@angular/common';
 import {
   AfterViewInit,
   Component,
@@ -33,13 +33,10 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
   styleUrls: ['./date-time-picker.component.less'],
   encapsulation: ViewEncapsulation.None,
   imports: [
-    NgSwitch,
-    NgSwitchCase,
     AccessibilityModule,
     IconModule,
     FormsModule,
     PopoverModule,
-    NgSwitchDefault,
     DateTimePickerModule,
     AccordionModule,
     CheckboxModule,

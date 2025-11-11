@@ -1,6 +1,6 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
-import { DecimalPipe, NgFor } from '@angular/common';
-import { Component } from '@angular/core';
+import { DecimalPipe } from '@angular/common';
+import { Component, inject } from '@angular/core';
 import {
   AccessibilityModule,
   ColorService,
@@ -22,7 +22,6 @@ import { DocumentationSectionComponent } from '../../../../../decorators/documen
   templateUrl: './flippable-cards.component.html',
   styleUrls: ['./flippable-cards.component.less'],
   imports: [
-    NgFor,
     FlippableCardModule,
     AccessibilityModule,
     IconModule,
@@ -37,6 +36,9 @@ import { DocumentationSectionComponent } from '../../../../../decorators/documen
 })
 @DocumentationSectionComponent('ComponentsFlippableCardsComponent')
 export class ComponentsFlippableCardsComponent extends BaseDocumentationSection {
+  colorService = inject(ColorService);
+  private readonly _announcer = inject(LiveAnnouncer);
+
   icon: string = 'assets/img/IconCaseColorized36x36.png';
 
   cards: Card[] = [
@@ -84,10 +86,7 @@ export class ComponentsFlippableCardsComponent extends BaseDocumentationSection 
     },
   ];
 
-  constructor(
-    public colorService: ColorService,
-    private readonly _announcer: LiveAnnouncer
-  ) {
+  constructor() {
     super(
       import.meta.webpackContext('./snippets/', {
         recursive: false,

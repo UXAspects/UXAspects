@@ -1,5 +1,5 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -7,6 +7,8 @@ import { Component } from '@angular/core';
   styleUrls: ['app.component.css'],
 })
 export class AppComponent {
+  private readonly _liveAnnouncer = inject(LiveAnnouncer);
+
   open = false;
   inline = false;
   attachTo = 'window';
@@ -18,8 +20,6 @@ export class AppComponent {
   animate = true;
   closeOnExternalClick = false;
   closeOnEscape = true;
-
-  constructor(private readonly _liveAnnouncer: LiveAnnouncer) {}
 
   announce(isOpen: boolean): void {
     this._liveAnnouncer.announce(`Side panel ${isOpen ? 'opened' : 'closed'}.`, 'assertive');

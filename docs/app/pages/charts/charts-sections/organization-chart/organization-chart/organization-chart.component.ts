@@ -1,4 +1,3 @@
-import { NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import {
@@ -31,7 +30,6 @@ const chance = new Chance();
   imports: [
     HierarchyBarModule,
     OrganizationChartModule,
-    NgIf,
     IconModule,
     AccordionModule,
     RadioButtonModule,

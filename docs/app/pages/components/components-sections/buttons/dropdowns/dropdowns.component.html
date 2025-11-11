@@ -137,9 +137,11 @@
   </div>
 
   <div class="case-items">
-    <button type="button" uxMenuItem *ngFor="let case of cases | stringFilter: caseFilter">
-      {{ case }}
-    </button>
+    @for (case of cases | stringFilter: caseFilter; track case) {
+      <button type="button" uxMenuItem>
+        {{ case }}
+      </button>
+    }
   </div>
 </ux-menu>
 

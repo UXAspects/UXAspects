@@ -6,7 +6,6 @@ import {
 } from '@angular/cdk/coercion';
 import { ENTER } from '@angular/cdk/keycodes';
 import { Platform } from '@angular/cdk/platform';
-import { DOCUMENT } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -26,6 +25,7 @@ import {
   StaticProvider,
   TemplateRef,
   ViewChild,
+  DOCUMENT,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { BehaviorSubject, Observable, ReplaySubject, Subject } from 'rxjs';

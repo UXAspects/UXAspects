@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import {
   AccessibilityModule,
   ColorService,
@@ -40,6 +40,8 @@ export class ComponentsDashboardComponent
   extends BaseDocumentationSection
   implements IPlaygroundProvider
 {
+  colorService = inject(ColorService);
+
   // configure the directive data
   lineChartData: ChartDataset<'line'>[] = [
     {
@@ -125,7 +127,7 @@ export class ComponentsDashboardComponent
     ],
   };
 
-  constructor(public colorService: ColorService) {
+  constructor() {
     super(
       import.meta.webpackContext('./snippets/', {
         recursive: false,

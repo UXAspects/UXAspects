@@ -1,4 +1,3 @@
-import { NgFor } from '@angular/common';
 import { Component, ViewEncapsulation } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
@@ -27,7 +26,6 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
     IconModule,
     ToggleSwitchModule,
     FormsModule,
-    NgFor,
     RouterLink,
     ApiPropertiesComponent,
     ApiPropertyComponent,

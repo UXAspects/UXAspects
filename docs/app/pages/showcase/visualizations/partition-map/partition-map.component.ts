@@ -1,4 +1,3 @@
-import { NgFor, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 import {
   IconModule,
@@ -12,7 +11,7 @@ import {
   selector: 'uxd-partition-map',
   templateUrl: './partition-map.component.html',
   styleUrls: ['./partition-map.component.less'],
-  imports: [PartitionMapModule, NgIf, IconModule, PopoverModule, NgFor],
+  imports: [PartitionMapModule, IconModule, PopoverModule],
 })
 export class PartitionMapShowcaseComponent {
   dataset: Readonly<PartitionMapSegment> = {

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ComponentFactoryResolver, NgModule } from '@angular/core';
+import { ComponentFactoryResolver, NgModule, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import {
   HelpCenterModule,
@@ -38,10 +38,10 @@ const ROUTES = [
   exports: SECTIONS,
 })
 export class ComponentsHelpCenterModule {
-  constructor(
-    componentFactoryResolver: ComponentFactoryResolver,
-    resolverService: ResolverService
-  ) {
+  constructor() {
+    const componentFactoryResolver = inject(ComponentFactoryResolver);
+    const resolverService = inject(ResolverService);
+
     resolverService.registerResolver(componentFactoryResolver, SECTIONS);
   }
 }

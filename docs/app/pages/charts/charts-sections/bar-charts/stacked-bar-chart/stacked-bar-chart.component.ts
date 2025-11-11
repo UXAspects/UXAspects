@@ -1,5 +1,4 @@
-import { NgFor } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { AccessibilityModule, ColorService, TabsetModule } from '@ux-aspects/ux-aspects';
 import { ChartDataset, ChartOptions, TooltipItem } from 'chart.js';
 import { NgChartsModule } from 'ng2-charts';
@@ -16,7 +15,6 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
   templateUrl: './stacked-bar-chart.component.html',
   imports: [
     NgChartsModule,
-    NgFor,
     ApiPropertiesComponent,
     ApiPropertyComponent,
     TabsetModule,
@@ -29,6 +27,8 @@ export class ChartsStackedBarChartComponent
   extends BaseDocumentationSection
   implements IPlaygroundProvider
 {
+  private readonly colorService = inject(ColorService);
+
   playground: IPlayground = {
     files: {
       'app.component.ts': this.snippets.raw.appTs,
@@ -53,13 +53,15 @@ export class ChartsStackedBarChartComponent
   barChartLegend: boolean = false;
   barChartColors: any;
 
-  constructor(private readonly colorService: ColorService) {
+  constructor() {
     super(
       import.meta.webpackContext('./snippets/', {
         recursive: false,
         regExp: /\.(html|css|js|ts)$/,
       })
     );
+    const colorService = this.colorService;
+
 
     const tooltipBackgroundColor = colorService.getColor('grey2').toHex();
 

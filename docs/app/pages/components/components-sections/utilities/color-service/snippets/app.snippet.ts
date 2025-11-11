@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ColorService, ThemeColor } from '@ux-aspects/ux-aspects';
 
 @Component({
@@ -7,9 +7,13 @@ import { ColorService, ThemeColor } from '@ux-aspects/ux-aspects';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
+  colorService = inject(ColorService);
+
   // ...
 
-  constructor(public colorService: ColorService) {
+  constructor() {
+    const colorService = this.colorService;
+
     this.donutChartColors = [
       {
         backgroundColor: [

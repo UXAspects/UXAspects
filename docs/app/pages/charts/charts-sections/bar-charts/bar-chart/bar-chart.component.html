@@ -16,10 +16,12 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let label of barChartLabels; let idx = index">
-          <td>{{ label }}</td>
-          <td>{{ barChartData[0].data[idx] }}</td>
-        </tr>
+        @for (label of barChartLabels; track label; let idx = $index) {
+          <tr>
+            <td>{{ label }}</td>
+            <td>{{ barChartData[0].data[idx] }}</td>
+          </tr>
+        }
       </tbody>
     </table>
   </canvas>

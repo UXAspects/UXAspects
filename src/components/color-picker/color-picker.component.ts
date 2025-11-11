@@ -154,7 +154,7 @@ export class ColorPickerComponent implements OnInit, OnDestroy {
   @ViewChild('inputField', { static: false }) inputFormControl: NgModel;
   @ViewChild(TabbableListDirective) tabbableList: TabbableListDirective;
 
-  private readonly _onDestroy = new Subject();
+  private readonly _onDestroy = new Subject<void>();
 
   ngOnInit(): void {
     // Skip emitting the initial selectedChange
@@ -182,7 +182,7 @@ export class ColorPickerComponent implements OnInit, OnDestroy {
     this._onDestroy.complete();
   }
 
-  @HostListener('focus', ['$event'])
+  @HostListener('focus')
   onFocus() {
     // Forward focus to the color grid
     this.tabbableList.focusTabbableItem();

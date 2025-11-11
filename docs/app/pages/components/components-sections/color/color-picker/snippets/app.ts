@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, inject } from '@angular/core';
 import { ColorPickerColor, ColorService, MenuTriggerDirective } from '@ux-aspects/ux-aspects';
 
 @Component({
@@ -31,7 +31,9 @@ export class AppComponent {
     ['Grey1', 'Grey2', 'Grey3', 'Grey4', 'Grey5', 'Grey6', 'Grey7', 'Grey8'],
   ];
 
-  constructor(colorService: ColorService) {
+  constructor() {
+    const colorService = inject(ColorService);
+
     this.colors = this._colorNames.map(row =>
       row.map(colorName => new ColorPickerColor(colorName, colorService.resolve(colorName)))
     );

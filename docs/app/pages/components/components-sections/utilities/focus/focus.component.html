@@ -14,10 +14,14 @@
   </div>
 </div>
 
-<ng-container [ngSwitch]="focus">
-  <p *ngSwitchCase="true" class="focus-label text-primary">Element Focused</p>
-  <p *ngSwitchCase="false" class="focus-label text-danger">No Element Focused</p>
-</ng-container>
+@switch (focus) {
+  @case (true) {
+    <p class="focus-label text-primary">Element Focused</p>
+  }
+  @case (false) {
+    <p class="focus-label text-danger">No Element Focused</p>
+  }
+}
 
 <hr />
 

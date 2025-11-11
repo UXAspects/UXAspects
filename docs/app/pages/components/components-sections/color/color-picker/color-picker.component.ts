@@ -1,5 +1,4 @@
-import { NgIf } from '@angular/common';
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import {
   AccessibilityModule,
@@ -31,7 +30,6 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
     MenuModule,
     IconModule,
     ColorPickerModule,
-    NgIf,
     AccessibilityModule,
     AccordionModule,
     NumberPickerModule,
@@ -87,7 +85,9 @@ export class ComponentsColorPickerComponent
     ['Grey1', 'Grey2', 'Grey3', 'Grey4', 'Grey5', 'Grey6', 'Grey7', 'Grey8'],
   ];
 
-  constructor(colorService: ColorService) {
+  constructor() {
+    const colorService = inject(ColorService);
+
     super(
       import.meta.webpackContext('./snippets/', {
         recursive: false,

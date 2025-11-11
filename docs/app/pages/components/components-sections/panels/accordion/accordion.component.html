@@ -1,12 +1,13 @@
 <ux-accordion [collapseOthers]="true">
-  <ux-accordion-panel
-    class="accordion-chevron"
-    *ngFor="let group of groups"
-    [heading]="group.heading"
-    [(expanded)]="group.open"
-  >
-    <span>{{ group.content }}</span>
-  </ux-accordion-panel>
+  @for (group of groups; track group) {
+    <ux-accordion-panel
+      class="accordion-chevron"
+      [heading]="group.heading"
+      [(expanded)]="group.open"
+    >
+      <span>{{ group.content }}</span>
+    </ux-accordion-panel>
+  }
 </ux-accordion>
 
 <hr />

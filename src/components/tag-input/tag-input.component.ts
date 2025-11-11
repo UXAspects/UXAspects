@@ -1,6 +1,5 @@
 import { BooleanInput, coerceBooleanProperty } from '@angular/cdk/coercion';
 import { BACKSPACE, DELETE, ENTER, LEFT_ARROW, RIGHT_ARROW, SPACE } from '@angular/cdk/keycodes';
-import { DOCUMENT } from '@angular/common';
 import {
   AfterContentInit,
   ChangeDetectionStrategy,
@@ -21,6 +20,7 @@ import {
   ViewChild,
   forwardRef,
   inject,
+  DOCUMENT,
 } from '@angular/core';
 import {
   ControlValueAccessor,

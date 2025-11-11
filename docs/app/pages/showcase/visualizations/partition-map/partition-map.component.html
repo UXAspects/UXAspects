@@ -18,11 +18,9 @@
         (segmentBlur)="hide(popover)"
         (click)="hide(popover)"
       >
-        <ux-icon
-          class="partition-map-segment-icon"
-          name="home"
-          *ngIf="segment === dataset"
-        ></ux-icon>
+        @if (segment === dataset) {
+          <ux-icon class="partition-map-segment-icon" name="home"></ux-icon>
+        }
 
         <span
           class="partition-map-segment-label"
@@ -59,11 +57,9 @@
   let-popover="popover"
 >
   <div class="partition-segment-popover" (mouseenter)="show(popover)" (mouseleave)="hide(popover)">
-    <div
-      *ngIf="children.length === 0"
-      class="partition-segment-color-indicator"
-      [style.background-color]="color"
-    ></div>
+    @if (children.length === 0) {
+      <div class="partition-segment-color-indicator" [style.background-color]="color"></div>
+    }
 
     <div class="partition-segment-info">
       <p class="group-name-header">Group Name</p>
@@ -73,12 +69,16 @@
       </p>
     </div>
 
-    <div class="partition-segment-children" *ngIf="children?.length > 0">
-      <div class="partition-segment-child" *ngFor="let child of children">
-        <div class="partition-segment-color-block" [style.background-color]="child.color"></div>
-        <p class="partition-segment-child-title">{{ child.segment.name }}</p>
-        <p class="partition-segment-child-value">{{ child.value }}</p>
+    @if (children?.length > 0) {
+      <div class="partition-segment-children">
+        @for (child of children; track child) {
+          <div class="partition-segment-child">
+            <div class="partition-segment-color-block" [style.background-color]="child.color"></div>
+            <p class="partition-segment-child-title">{{ child.segment.name }}</p>
+            <p class="partition-segment-child-value">{{ child.value }}</p>
+          </div>
+        }
       </div>
-    </div>
+    }
   </div>
 </ng-template>

@@ -1,13 +1,5 @@
-import { AsyncPipe, NgFor, NgIf } from '@angular/common';
-import {
-  AfterViewInit,
-  Component,
-  ElementRef,
-  HostListener,
-  OnDestroy,
-  QueryList,
-  ViewChildren,
-} from '@angular/core';
+import { AsyncPipe } from '@angular/common';
+import { AfterViewInit, Component, ElementRef, HostListener, OnDestroy, QueryList, ViewChildren, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { IconModule, PersistentDataService } from '@ux-aspects/ux-aspects';
@@ -32,9 +24,14 @@ const LOCAL_STORAGE_KEY = 'uxd-search-history';
   host: {
     '[class.active]': 'searching',
   },
-  imports: [IconModule, NgIf, FormsModule, NgFor, AsyncPipe],
+  imports: [IconModule, FormsModule, AsyncPipe],
 })
 export class NavigationBarSearchComponent implements AfterViewInit, OnDestroy {
+  private readonly router = inject(Router);
+  private readonly _navigation = inject(NavigationService);
+  private readonly _appConfig = inject(AppConfiguration);
+  private readonly _persistentDataService = inject(PersistentDataService);
+
   @ViewChildren('searchInput') searchInput: QueryList<ElementRef>;
 
   searching: boolean = false;
@@ -46,12 +43,7 @@ export class NavigationBarSearchComponent implements AfterViewInit, OnDestroy {
   private readonly _history: ISearchResult[] = this.loadHistory();
   private readonly _onDestroy = new Subject<void>();
 
-  constructor(
-    private readonly router: Router,
-    private readonly _navigation: NavigationService,
-    private readonly _appConfig: AppConfiguration,
-    private readonly _persistentDataService: PersistentDataService
-  ) {
+  constructor() {
     this.query
       .pipe(debounceTime(200), takeUntil(this._onDestroy))
       .subscribe(this.search.bind(this));

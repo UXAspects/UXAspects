@@ -1,5 +1,4 @@
-import { DOCUMENT } from '@angular/common';
-import { Inject, Injectable } from '@angular/core';
+import { Injectable, DOCUMENT, inject } from '@angular/core';
 import { PersistentDataService } from '@ux-aspects/ux-aspects';
 import { BehaviorSubject } from 'rxjs';
 import { distinctUntilChanged } from 'rxjs/operators';
@@ -9,12 +8,10 @@ import { SiteThemeId } from '../../interfaces/SiteTheme';
   providedIn: 'root',
 })
 export class SiteThemeService {
-  theme$ = new BehaviorSubject<SiteThemeId>(SiteThemeId.Keppel);
+  private readonly _document = inject<Document>(DOCUMENT);
+  private readonly _persistentDataService = inject(PersistentDataService);
 
-  constructor(
-    @Inject(DOCUMENT) private readonly _document: Document,
-    private readonly _persistentDataService: PersistentDataService
-  ) {}
+  theme$ = new BehaviorSubject<SiteThemeId>(SiteThemeId.Keppel);
 
   load(): void {
     // Load previously saved value

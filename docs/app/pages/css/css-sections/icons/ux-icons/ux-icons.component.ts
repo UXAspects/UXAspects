@@ -1,5 +1,4 @@
-import { NgFor, NgIf } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { AccessibilityModule } from '@ux-aspects/ux-aspects';
@@ -14,18 +13,12 @@ import { IconPreviewComponent } from './icon-preview/icon-preview.component';
   templateUrl: './ux-icons.component.html',
   styleUrls: ['./ux-icons.component.less'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [
-    NgIf,
-    RouterLink,
-    FormsModule,
-    AccessibilityModule,
-    ButtonsModule,
-    NgFor,
-    IconPreviewComponent,
-  ],
+  imports: [RouterLink, FormsModule, AccessibilityModule, ButtonsModule, IconPreviewComponent],
 })
 @DocumentationSectionComponent('CssUxIconsComponent')
 export class CssUxIconsComponent {
+  private readonly _documentationType = inject<DocumentationType>(DOCUMENTATION_TOKEN);
+
   /** Store the icon set */
 
   icons: ReadonlyArray<IIcon> = require<IIcons>('../../../../../data/ux-icons.json').icons;
@@ -46,7 +39,9 @@ export class CssUxIconsComponent {
     return this._documentationType === DocumentationType.Keppel;
   }
 
-  constructor(@Inject(DOCUMENTATION_TOKEN) private readonly _documentationType: DocumentationType) {
+  constructor() {
+    const _documentationType = this._documentationType;
+
     this.uxIconComponentRoute =
       _documentationType === DocumentationType.MicroFocus
         ? '/ui-components/styling'

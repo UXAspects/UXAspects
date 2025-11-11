@@ -17,23 +17,29 @@
     </div>
     <table>
       <tbody>
-        <tr *ngIf="migration.notes || theme === SiteThemeId.MicroFocus2017">
-          <td class="notes-title">Notes</td>
-          <td>
-            <ul>
-              <li *ngFor="let note of migration.notes">{{ note }}</li>
-              <li *ngIf="theme === SiteThemeId.MicroFocus2017">
-                It is recommended to switch to the Micro Focus 2021 theme before migrating to the
-                new UX Aspects Universal component. See
-                <a
-                  href="https://pages.github.houston.softwaregrp.net/UXAspects/ux-aspects-micro-focus/#/gettingstarted#using-themes"
-                  >Using Themes</a
-                >
-                for more information.
-              </li>
-            </ul>
-          </td>
-        </tr>
+        @if (migration.notes || theme === SiteThemeId.MicroFocus2017) {
+          <tr>
+            <td class="notes-title">Notes</td>
+            <td>
+              <ul>
+                @for (note of migration.notes; track note) {
+                  <li>{{ note }}</li>
+                }
+                @if (theme === SiteThemeId.MicroFocus2017) {
+                  <li>
+                    It is recommended to switch to the Micro Focus 2021 theme before migrating to
+                    the new UX Aspects Universal component. See
+                    <a
+                      href="https://pages.github.houston.softwaregrp.net/UXAspects/ux-aspects-micro-focus/#/gettingstarted#using-themes"
+                      >Using Themes</a
+                    >
+                    for more information.
+                  </li>
+                }
+              </ul>
+            </td>
+          </tr>
+        }
       </tbody>
     </table>
   </div>

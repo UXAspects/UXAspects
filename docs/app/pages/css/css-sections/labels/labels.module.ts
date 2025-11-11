@@ -1,4 +1,4 @@
-import { NgModule, ComponentFactoryResolver } from '@angular/core';
+import { NgModule, ComponentFactoryResolver, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
@@ -23,10 +23,10 @@ const ROUTES = [
   exports: SECTIONS,
 })
 export class CssLabelsModule {
-  constructor(
-    componentFactoryResolver: ComponentFactoryResolver,
-    resolverService: ResolverService
-  ) {
+  constructor() {
+    const componentFactoryResolver = inject(ComponentFactoryResolver);
+    const resolverService = inject(ResolverService);
+
     resolverService.registerResolver(componentFactoryResolver, SECTIONS);
   }
 }

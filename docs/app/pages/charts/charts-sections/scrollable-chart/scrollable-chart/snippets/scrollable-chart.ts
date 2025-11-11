@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ColorService } from '@ux-aspects/ux-aspects';
 import { ChartDataset, ChartOptions, TooltipItem } from 'chart.js';
 
@@ -35,7 +35,9 @@ export class AppComponent {
   page: number = 0;
   pageSize: number = 4;
 
-  constructor(colorService: ColorService) {
+  constructor() {
+    const colorService = inject(ColorService);
+
     this.barChartLabels = this.getPageLabels();
 
     // Prepare colors used in chart

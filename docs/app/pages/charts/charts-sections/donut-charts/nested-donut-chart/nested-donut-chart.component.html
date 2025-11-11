@@ -11,10 +11,12 @@
   </ux-nested-donut-chart>
 
   <ul class="nested-donut-chart-legend">
-    <li *ngFor="let data of dataset">
-      <div class="nested-donut-color-box" [style.background-color]="data.color"></div>
-      {{ data.name }}
-    </li>
+    @for (data of dataset; track data) {
+      <li>
+        <div class="nested-donut-color-box" [style.background-color]="data.color"></div>
+        {{ data.name }}
+      </li>
+    }
   </ul>
 </div>
 

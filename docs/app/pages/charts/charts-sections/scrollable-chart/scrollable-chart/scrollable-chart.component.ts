@@ -1,5 +1,4 @@
-import { NgFor, NgIf } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import {
   AccessibilityModule,
   ColorService,
@@ -21,10 +20,8 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
   templateUrl: './scrollable-chart.component.html',
   styleUrls: ['./scrollable-chart.component.less'],
   imports: [
-    NgIf,
     IconModule,
     NgChartsModule,
-    NgFor,
     ApiPropertiesComponent,
     ApiPropertyComponent,
     TabsetModule,
@@ -81,7 +78,9 @@ export class ChartsScrollableChartComponent
   page: number = 0;
   pageSize: number = 4;
 
-  constructor(colorService: ColorService) {
+  constructor() {
+    const colorService = inject(ColorService);
+
     super(
       import.meta.webpackContext('./snippets/', {
         recursive: false,

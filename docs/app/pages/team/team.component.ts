@@ -1,5 +1,4 @@
-import { NgFor } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { AccessibilityModule, FlippableCardModule, IconModule } from '@ux-aspects/ux-aspects';
 import { PageHeaderComponent } from '../../components/page-header/page-header.component';
 import { ITeam } from '../../interfaces/ITeam';
@@ -9,12 +8,14 @@ import { AppConfiguration } from '../../services/app-configuration/app-configura
   selector: 'uxd-team',
   templateUrl: './team.component.html',
   styleUrls: ['./team.component.less'],
-  imports: [PageHeaderComponent, NgFor, FlippableCardModule, AccessibilityModule, IconModule],
+  imports: [PageHeaderComponent, FlippableCardModule, AccessibilityModule, IconModule],
 })
 export class TeamPageComponent {
+  private readonly _appConfig = inject(AppConfiguration);
+
   data: ITeam;
 
-  constructor(private readonly _appConfig: AppConfiguration) {
+  constructor() {
     this.data = this._appConfig.getConfigurationData('team-page');
   }
 }

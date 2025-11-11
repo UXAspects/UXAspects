@@ -147,7 +147,7 @@ export class ColumnSortingTestHarness {
   stateChangeSpy = spyOn(this._component.stateChange, 'emit');
 
   /** Access the instance of the column sorting directive */
-  private readonly _sorter: ColumnSortingDirective = TestBed.get(ColumnSortingDirective);
+  private readonly _sorter: ColumnSortingDirective = TestBed.inject(ColumnSortingDirective);
 
   constructor(private readonly _fixture: ComponentFixture<ColumnSortingComponent>) {}
 

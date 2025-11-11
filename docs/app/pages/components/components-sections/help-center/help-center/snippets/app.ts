@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, inject } from '@angular/core';
 import {
   Breadcrumb,
   HelpCenterItem,
@@ -14,6 +14,8 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnDestroy {
+  private readonly _helpCenterService = inject(HelpCenterService);
+
   repositories: HelpCenterTableData[] = [];
   crumbs: Breadcrumb[] = [{ title: 'Overview' }];
   loading: boolean = false;
@@ -33,7 +35,7 @@ export class AppComponent implements OnDestroy {
 
   private readonly _helpCenter$: Subscription;
 
-  constructor(private readonly _helpCenterService: HelpCenterService) {
+  constructor() {
     // update the menu items when new ones are added
     this._helpCenter$ = this._helpCenterService.items.subscribe(
       items => (this.menus[0].dropdown = items)

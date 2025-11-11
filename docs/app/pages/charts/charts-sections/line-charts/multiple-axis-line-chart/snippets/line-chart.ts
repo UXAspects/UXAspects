@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation, inject } from '@angular/core';
 import { ColorService } from '@ux-aspects/ux-aspects';
 import { ChartDataset, ChartOptions, TooltipItem } from 'chart.js';
 import { MultipleAxisLineChartService } from './data.service';
@@ -15,7 +15,10 @@ export class AppComponent {
   lineChartData: ChartDataset<'line'>[];
   lineChartOptions: ChartOptions<'line'>;
 
-  constructor(colorService: ColorService, dataService: MultipleAxisLineChartService) {
+  constructor() {
+    const colorService = inject(ColorService);
+    const dataService = inject(MultipleAxisLineChartService);
+
     const tooltipBackgroundColor = colorService.getColor('grey2').toHex();
     const gridColor = colorService.getColor('grey6').toHex();
 

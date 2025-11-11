@@ -1,4 +1,4 @@
-import { DatePipe, NgFor } from '@angular/common';
+import { DatePipe } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -28,7 +28,6 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     ReorderableModule,
-    NgFor,
     AccessibilityModule,
     IconModule,
     SparkModule,

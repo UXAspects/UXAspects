@@ -1,7 +1,9 @@
 <ux-wizard [orientation]="orientation" (stepChange)="onStepChange($event)">
-  <ux-wizard-step *ngFor="let step of steps" [header]="step.header">
-    <p>{{ step.content }}</p>
-  </ux-wizard-step>
+  @for (step of steps; track step) {
+    <ux-wizard-step [header]="step.header">
+      <p>{{ step.content }}</p>
+    </ux-wizard-step>
+  }
 </ux-wizard>
 
 <hr />

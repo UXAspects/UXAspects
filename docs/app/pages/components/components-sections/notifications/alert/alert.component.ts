@@ -1,4 +1,3 @@
-import { NgFor } from '@angular/common';
 import { Component } from '@angular/core';
 import { AccessibilityModule, AlertModule, IconModule, TabsetModule } from '@ux-aspects/ux-aspects';
 import { ApiPropertiesComponent } from '../../../../../components/api-properties/api-properties.component';
@@ -14,7 +13,6 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
   templateUrl: './alert.component.html',
   styleUrls: ['./alert.component.less'],
   imports: [
-    NgFor,
     AlertModule,
     IconModule,
     AccessibilityModule,

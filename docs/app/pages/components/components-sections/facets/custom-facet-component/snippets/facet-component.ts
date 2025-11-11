@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { Facet, FacetDeselect, FacetDeselectAll, FacetService } from '@ux-aspects/ux-aspects';
 import { Subject } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
@@ -9,6 +9,8 @@ import { filter, takeUntil } from 'rxjs/operators';
   styleUrls: ['./facet-component.component.css'],
 })
 export class SampleCustomFacetComponent implements OnInit, OnDestroy {
+  private readonly _facetService = inject(FacetService);
+
   expanded: boolean = true;
 
   facets: Facet[] = [
@@ -18,8 +20,6 @@ export class SampleCustomFacetComponent implements OnInit, OnDestroy {
   ];
 
   private readonly _onDestroy = new Subject<void>();
-
-  constructor(private readonly _facetService: FacetService) {}
 
   ngOnInit(): void {
     // if a facet is deselected externally we need to update checkbox state

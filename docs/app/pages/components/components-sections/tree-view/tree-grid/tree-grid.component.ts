@@ -1,4 +1,4 @@
-import { DatePipe, NgFor, NgIf } from '@angular/common';
+import { DatePipe } from '@angular/common';
 import { Component, ViewEncapsulation } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import {
@@ -31,8 +31,6 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
     TreeGridModule,
     CheckboxModule,
     SelectionModule,
-    NgFor,
-    NgIf,
     IconModule,
     AccessibilityModule,
     RouterLink,

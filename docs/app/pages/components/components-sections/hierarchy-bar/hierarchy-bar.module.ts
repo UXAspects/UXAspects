@@ -1,4 +1,4 @@
-import { ComponentFactoryResolver, NgModule } from '@angular/core';
+import { ComponentFactoryResolver, NgModule, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import {
@@ -44,10 +44,10 @@ const ROUTES = [
   exports: SECTIONS,
 })
 export class ComponentsHierarchyBarModule {
-  constructor(
-    componentFactoryResolver: ComponentFactoryResolver,
-    resolverService: ResolverService
-  ) {
+  constructor() {
+    const componentFactoryResolver = inject(ComponentFactoryResolver);
+    const resolverService = inject(ResolverService);
+
     resolverService.registerResolver(componentFactoryResolver, SECTIONS);
   }
 }

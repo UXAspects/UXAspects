@@ -8,25 +8,26 @@
     </tr>
   </thead>
   <tbody #select="ux-selection" [(uxSelection)]="selection" [mode]="mode">
-    <tr
-      *ngFor="let item of data"
-      class="clickable"
-      [uxSelectionItem]="item"
-      [attr.aria-selected]="item.selected"
-      [(selected)]="item.selected"
-    >
-      <td class="checkbox-column">
-        <ux-checkbox
-          tabindex="-1"
-          aria-hidden="true"
-          class="m-b-nil"
-          [(value)]="item.selected"
-        ></ux-checkbox>
-      </td>
-      <td>{{ item.name }}</td>
-      <td>{{ item.author }}</td>
-      <td>{{ item.date | date }}</td>
-    </tr>
+    @for (item of data; track item) {
+      <tr
+        class="clickable"
+        [uxSelectionItem]="item"
+        [attr.aria-selected]="item.selected"
+        [(selected)]="item.selected"
+      >
+        <td class="checkbox-column">
+          <ux-checkbox
+            tabindex="-1"
+            aria-hidden="true"
+            class="m-b-nil"
+            [(value)]="item.selected"
+          ></ux-checkbox>
+        </td>
+        <td>{{ item.name }}</td>
+        <td>{{ item.author }}</td>
+        <td>{{ item.date | date }}</td>
+      </tr>
+    }
   </tbody>
 </table>
 

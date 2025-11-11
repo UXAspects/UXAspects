@@ -1,5 +1,5 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FileUploader } from 'ng2-file-upload';
 
 @Component({
@@ -10,7 +10,9 @@ export class AppComponent {
   fileOver: boolean = false;
   uploader: FileUploader = new FileUploader({ url: './' });
 
-  constructor(announcer: LiveAnnouncer) {
+  constructor() {
+    const announcer = inject(LiveAnnouncer);
+
     this.uploader.onCompleteAll = () => announcer.announce('All files have been uploaded.');
   }
 }

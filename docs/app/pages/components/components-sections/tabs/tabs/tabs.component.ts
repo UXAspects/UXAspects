@@ -1,4 +1,3 @@
-import { NgFor } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import {
   AccessibilityModule,
@@ -26,7 +25,6 @@ const chance = new Chance();
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     TabsetModule,
-    NgFor,
     IconModule,
     AccessibilityModule,
     AccordionModule,

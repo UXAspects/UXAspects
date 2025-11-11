@@ -1,21 +1,25 @@
 <div class="demo-chart-container">
   <canvas baseChart [datasets]="lineChartData" [options]="lineChartOptions" type="line">
-    <table *ngFor="let dataset of lineChartData" attr.aria-label="{{ dataset.label }} chart data">
-      <thead>
-        <tr>
-          <th>Date</th>
-          <th>{{ dataset.label }}</th>
-        </tr>
-      </thead>
-      <tbody>
-        <ng-container *ngFor="let row of dataset.data; let idx = index">
-          <tr *ngIf="idx % 10 === 0">
-            <td>{{ formatDate($any(row).x) }}</td>
-            <td>{{ $any(row).y }}</td>
+    @for (dataset of lineChartData; track dataset) {
+      <table attr.aria-label="{{ dataset.label }} chart data">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>{{ dataset.label }}</th>
           </tr>
-        </ng-container>
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          @for (row of dataset.data; track row; let idx = $index) {
+            @if (idx % 10 === 0) {
+              <tr>
+                <td>{{ formatDate($any(row).x) }}</td>
+                <td>{{ $any(row).y }}</td>
+              </tr>
+            }
+          }
+        </tbody>
+      </table>
+    }
   </canvas>
 </div>
 

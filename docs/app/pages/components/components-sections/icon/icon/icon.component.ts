@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { IconModule, TabsetModule } from '@ux-aspects/ux-aspects';
 import { ApiPropertiesComponent } from '../../../../../components/api-properties/api-properties.component';
@@ -29,6 +29,8 @@ export class ComponentsIconComponent
   extends BaseDocumentationSection
   implements IPlaygroundProvider
 {
+  private readonly _documentationType = inject<DocumentationType>(DOCUMENTATION_TOKEN);
+
   iconSetDocumentationRoute: string;
 
   playground: IPlayground = {
@@ -39,13 +41,15 @@ export class ComponentsIconComponent
     },
   };
 
-  constructor(@Inject(DOCUMENTATION_TOKEN) private readonly _documentationType: DocumentationType) {
+  constructor() {
     super(
       import.meta.webpackContext('./snippets/', {
         recursive: false,
         regExp: /\.(html|css|js|ts)$/,
       })
     );
+    const _documentationType = this._documentationType;
+
 
     this.iconSetDocumentationRoute =
       _documentationType === DocumentationType.MicroFocus ? '/ui-components/styling' : '/css/icons';

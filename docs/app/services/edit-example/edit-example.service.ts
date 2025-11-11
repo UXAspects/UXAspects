@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { IPlayground } from '../../interfaces/IPlayground';
 import { PlaygroundService } from '../playground/playground.service';
 
@@ -6,7 +6,8 @@ import { PlaygroundService } from '../playground/playground.service';
   providedIn: 'root',
 })
 export class EditExampleService {
-  constructor(private readonly _playgroundService: PlaygroundService) {}
+  private readonly _playgroundService = inject(PlaygroundService);
+
 
   launchEditor(title: string, content: IPlayground) {
     content.framework = content.framework ?? 'angular';

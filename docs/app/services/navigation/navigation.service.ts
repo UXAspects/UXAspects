@@ -1,5 +1,4 @@
-import { DOCUMENT } from '@angular/common';
-import { Inject, Injectable } from '@angular/core';
+import { Injectable, DOCUMENT, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IDocumentationPage } from '../../interfaces/IDocumentationPage';
 import { ILink } from '../../interfaces/ILink';
@@ -15,15 +14,13 @@ const NAVIGATION_ACTIVE_OFFSET = 51;
   providedIn: 'root',
 })
 export class NavigationService {
+  private readonly _document = inject<Document>(DOCUMENT);
+  private readonly _activeRoute = inject(ActivatedRoute);
+  private readonly _router = inject(Router);
+  private readonly _appConfig = inject(AppConfiguration);
+
   // This is used to record the ID of the fragment currently in view if the URL was not updated
   private activeFragment: string = null;
-
-  constructor(
-    @Inject(DOCUMENT) private readonly _document: Document,
-    private readonly _activeRoute: ActivatedRoute,
-    private readonly _router: Router,
-    private readonly _appConfig: AppConfiguration
-  ) {}
 
   getScrollTop(): number {
     // support all browsers

@@ -1,5 +1,4 @@
-import { NgFor, NgIf } from '@angular/common';
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation, inject } from '@angular/core';
 import { AccessibilityModule, ColorService, TabsetModule } from '@ux-aspects/ux-aspects';
 import { ChartDataset, ChartOptions, TooltipItem } from 'chart.js';
 import { NgChartsModule } from 'ng2-charts';
@@ -20,8 +19,6 @@ import { MultipleAxisLineChartService } from './multiple-axis-line-chart.service
   providers: [MultipleAxisLineChartService],
   imports: [
     NgChartsModule,
-    NgFor,
-    NgIf,
     ApiPropertiesComponent,
     ApiPropertyComponent,
     TabsetModule,
@@ -56,7 +53,10 @@ export class ChartsMultipleAxisLineChartComponent
   lineChartData: ChartDataset<'line'>[];
   lineChartOptions: ChartOptions<'line'>;
 
-  constructor(colorService: ColorService, dataService: MultipleAxisLineChartService) {
+  constructor() {
+    const colorService = inject(ColorService);
+    const dataService = inject(MultipleAxisLineChartService);
+
     super(
       import.meta.webpackContext('./snippets/', {
         recursive: false,

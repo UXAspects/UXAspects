@@ -1,4 +1,4 @@
-import { DatePipe, NgFor } from '@angular/common';
+import { DatePipe } from '@angular/common';
 import { Component } from '@angular/core';
 import {
   HoverActionModule,
@@ -21,7 +21,6 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
   styleUrls: ['./hover-actions.component.less'],
   imports: [
     SelectionModule,
-    NgFor,
     HoverActionModule,
     SparkModule,
     TooltipModule,
