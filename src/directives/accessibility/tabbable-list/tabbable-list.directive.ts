@@ -18,7 +18,6 @@ import { TabbableListService } from './tabbable-list.service';
   selector: '[uxTabbableList]',
   exportAs: 'ux-tabbable-list',
   providers: [TabbableListService],
-  standalone: false,
 })
 export class TabbableListDirective implements AfterContentInit, OnDestroy {
   /** Access the tabbable list service */

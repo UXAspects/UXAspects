@@ -143,7 +143,6 @@ export class ComponentsTagsComponent
     );
     const _documentationType = this._documentationType;
 
-
     this.typeaheadDocumentationRoute =
       _documentationType === DocumentationType.MicroFocus
         ? 'ui-components/input-controls'

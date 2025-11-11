@@ -1,4 +1,5 @@
 import { animate, query, stagger, style, transition, trigger } from '@angular/animations';
+import { NgClass, AsyncPipe } from '@angular/common';
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
@@ -37,7 +38,7 @@ import {
       ]),
     ]),
   ],
-  standalone: false,
+  imports: [NgClass, AsyncPipe],
 })
 export class FloatingActionButtonsComponent implements AfterViewInit, OnDestroy {
   readonly fab = inject(FloatingActionButtonsService);

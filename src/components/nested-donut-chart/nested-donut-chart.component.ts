@@ -31,12 +31,13 @@ import { Color } from '../../common/colors/index';
 import { AnchorPlacement } from '../../common/overlay/index';
 import { ResizeService } from '../../directives/resize/index';
 import { ColorService, ThemeColor } from '../../services/color/index';
+import { TooltipComponent } from '../tooltip/tooltip.component';
 
 @Component({
   selector: 'ux-nested-donut-chart',
   templateUrl: './nested-donut-chart.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
+  imports: [TooltipComponent],
 })
 export class NestedDonutChartComponent implements OnInit, OnChanges, OnDestroy {
   private readonly _colorService = inject(ColorService);

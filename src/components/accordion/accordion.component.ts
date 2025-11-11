@@ -9,7 +9,6 @@ import { AccordionService } from './accordion.service';
     class: 'panel-group',
     'aria-multiselectable': 'true',
   },
-  standalone: false,
 })
 export class AccordionComponent {
   private readonly _accordion = inject(AccordionService);

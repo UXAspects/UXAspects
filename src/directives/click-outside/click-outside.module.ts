@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { ClickOutsideDirective } from './click-outside.directive';
 
 @NgModule({
+  imports: [ClickOutsideDirective],
   exports: [ClickOutsideDirective],
-  declarations: [ClickOutsideDirective],
 })
 export class ClickOutsideModule {}

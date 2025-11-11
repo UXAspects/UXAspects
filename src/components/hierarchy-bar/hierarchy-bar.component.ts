@@ -1,3 +1,4 @@
+import { NgTemplateOutlet } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -12,7 +13,9 @@ import {
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { OverlayTrigger } from '../tooltip/index';
+import { HierarchyBarCollapsedComponent } from './hierarchy-bar-collapsed/hierarchy-bar-collapsed.component';
 import { HierarchyBarNodeIconDirective } from './hierarchy-bar-node/hierarchy-bar-node-icon.directive';
+import { HierarchyBarStandardComponent } from './hierarchy-bar-standard/hierarchy-bar-standard.component';
 import { HierarchyBarService } from './hierarchy-bar.service';
 import { HierarchyBarIconContext } from './interfaces/hierarchy-bar-node-icon-context.interface';
 import { HierarchyBarNode } from './interfaces/hierarchy-bar-node.interface';
@@ -23,7 +26,7 @@ import { HierarchyBarMode, IHierachyBarComponent } from './interfaces/hierarchy-
   templateUrl: './hierarchy-bar.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   viewProviders: [HierarchyBarService],
-  standalone: false,
+  imports: [HierarchyBarStandardComponent, NgTemplateOutlet, HierarchyBarCollapsedComponent],
 })
 export class HierarchyBarComponent implements IHierachyBarComponent, OnDestroy {
   private readonly _hierarchyBar = inject(HierarchyBarService);

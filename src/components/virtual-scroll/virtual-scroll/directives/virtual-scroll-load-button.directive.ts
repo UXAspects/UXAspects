@@ -1,7 +1,4 @@
 import { Directive } from '@angular/core';
 
-@Directive({
-  selector: '[uxVirtualScrollLoadButton]',
-  standalone: false,
-})
+@Directive({ selector: '[uxVirtualScrollLoadButton]' })
 export class VirtualScrollLoadButtonDirective {}

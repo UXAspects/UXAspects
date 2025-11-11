@@ -6,8 +6,7 @@ import { HoverActionDirective } from './hover-action.directive';
 const DECLARATIONS = [HoverActionDirective, HoverActionContainerDirective];
 
 @NgModule({
-  imports: [AccessibilityModule],
+  imports: [AccessibilityModule, ...DECLARATIONS],
   exports: DECLARATIONS,
-  declarations: DECLARATIONS,
 })
 export class HoverActionModule {}

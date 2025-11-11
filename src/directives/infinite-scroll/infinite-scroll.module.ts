@@ -4,13 +4,12 @@ import { InfiniteScrollLoadingDirective } from './infinite-scroll-loading.direct
 import { InfiniteScrollDirective } from './infinite-scroll.directive';
 
 @NgModule({
-  imports: [],
-  exports: [
+  imports: [
     InfiniteScrollDirective,
     InfiniteScrollLoadButtonDirective,
     InfiniteScrollLoadingDirective,
   ],
-  declarations: [
+  exports: [
     InfiniteScrollDirective,
     InfiniteScrollLoadButtonDirective,
     InfiniteScrollLoadingDirective,

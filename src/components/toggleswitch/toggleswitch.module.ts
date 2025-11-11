@@ -4,8 +4,7 @@ import { AccessibilityModule } from '../../directives/accessibility/index';
 import { ToggleSwitchComponent } from './toggleswitch.component';
 
 @NgModule({
-  imports: [AccessibilityModule, FormsModule],
+  imports: [AccessibilityModule, FormsModule, ToggleSwitchComponent],
   exports: [ToggleSwitchComponent],
-  declarations: [ToggleSwitchComponent],
 })
 export class ToggleSwitchModule {}

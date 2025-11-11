@@ -15,10 +15,7 @@ import { FocusIndicator, FocusIndicatorService } from '../../../directives/acces
 import { MenuItemType } from '../menu-item/menu-item-type.enum';
 import { MenuComponent } from '../menu/menu.component';
 
-@Directive({
-  selector: '[uxMenuTabbableItem]',
-  standalone: false,
-})
+@Directive({ selector: '[uxMenuTabbableItem]' })
 export class MenuTabbableItemDirective implements OnInit, OnDestroy, FocusableOption {
   protected readonly _menu = inject(MenuComponent);
 

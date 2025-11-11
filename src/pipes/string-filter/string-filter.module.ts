@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { StringFilterPipe } from './string-filter.pipe';
 
 @NgModule({
+  imports: [StringFilterPipe],
   exports: [StringFilterPipe],
-  declarations: [StringFilterPipe],
 })
 export class StringFilterModule {}

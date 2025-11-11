@@ -46,7 +46,14 @@ import { TypeaheadModule } from './typeahead.module';
       </div>
     </div>
   `,
-  standalone: false,
+  imports: [
+    CommonModule,
+    TypeaheadModule,
+    InfiniteScrollModule,
+    FormsModule,
+    ResizeModule,
+    ScrollModule,
+  ],
 })
 export class TypeaheadTestComponent {
   public readonly typeaheadKeyService = inject(TypeaheadKeyService<string>);
@@ -85,8 +92,8 @@ describe('Typeahead Component', () => {
         FormsModule,
         ResizeModule,
         ScrollModule,
+        TypeaheadTestComponent,
       ],
-      declarations: [TypeaheadTestComponent],
     }).compileComponents();
   });
 

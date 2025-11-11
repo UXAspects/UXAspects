@@ -21,7 +21,6 @@ import { TreeGridService } from './tree-grid.service';
   host: {
     '[class.treegrid-row]': 'true',
   },
-  standalone: false,
 })
 export class TreeGridRowDirective implements OnInit, OnDestroy {
   private readonly _treeGridService = inject(TreeGridService);

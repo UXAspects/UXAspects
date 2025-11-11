@@ -1,7 +1,4 @@
 import { Directive } from '@angular/core';
 
-@Directive({
-  selector: '[uxTabHeading]',
-  standalone: false,
-})
+@Directive({ selector: '[uxTabHeading]' })
 export class TabHeadingDirective {}

@@ -93,7 +93,6 @@ export class ComponentsBadgeComponent
     );
     const documentationType = this.documentationType;
 
-
     this.colorPaletteDocumentationRoute =
       documentationType === DocumentationType.MicroFocus
         ? '/ui-components/styling'

@@ -1,4 +1,15 @@
-import { AfterViewInit, Component, ElementRef, HostListener, Input, OnDestroy, OnInit, ViewChild, DOCUMENT, inject } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  HostListener,
+  Input,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+  DOCUMENT,
+  inject,
+} from '@angular/core';
 import {
   ActivatedRoute,
   NavigationEnd,

@@ -11,9 +11,8 @@ const DECLARATIONS = [
 ];
 
 @NgModule({
-  imports: [CommonModule],
+  imports: [CommonModule, ...DECLARATIONS],
   exports: DECLARATIONS,
-  declarations: DECLARATIONS,
   providers: [],
 })
 export class ToolbarSearchModule {}

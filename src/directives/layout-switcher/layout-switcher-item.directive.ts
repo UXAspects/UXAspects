@@ -7,10 +7,7 @@ import {
   ViewContainerRef,
 } from '@angular/core';
 
-@Directive({
-  selector: '[uxLayoutSwitcherItem]',
-  standalone: false,
-})
+@Directive({ selector: '[uxLayoutSwitcherItem]' })
 export class LayoutSwitcherItemDirective {
   private readonly _templateRef = inject<TemplateRef<void>>(TemplateRef);
 

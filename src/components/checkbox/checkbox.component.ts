@@ -12,7 +12,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { FocusIndicatorDirective } from '../../directives/accessibility';
+import { FocusIndicatorDirective } from '../../directives/accessibility/focus-indicator/focus-indicator.directive';
 import { FocusableItemToken } from '../menu';
 import { FocusableControl } from '../menu/interfaces/focusable-control.interface';
 
@@ -35,7 +35,7 @@ let uniqueCheckboxId = 0;
     },
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
+  imports: [FocusIndicatorDirective],
 })
 export class CheckboxComponent<T = number> implements ControlValueAccessor, FocusableControl {
   private readonly _changeDetector = inject(ChangeDetectorRef);

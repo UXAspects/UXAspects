@@ -1,3 +1,4 @@
+import { NgTemplateOutlet, AsyncPipe } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -11,6 +12,8 @@ import {
 } from '@angular/core';
 import { Subject } from 'rxjs';
 import { distinctUntilChanged, takeUntil } from 'rxjs/operators';
+import { DefaultFocusIndicatorDirective } from '../../directives/accessibility/focus-indicator/default-focus-indicator.directive';
+import { TooltipDirective } from '../tooltip/tooltip.directive';
 import { FilterEvent } from './events/filter-event';
 import { FilterService } from './filter.service';
 import { Filter } from './interfaces/filter.interface';
@@ -20,7 +23,7 @@ import { Filter } from './interfaces/filter.interface';
   templateUrl: './filter-container.component.html',
   providers: [FilterService],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
+  imports: [DefaultFocusIndicatorDirective, TooltipDirective, NgTemplateOutlet, AsyncPipe],
 })
 export class FilterContainerComponent implements OnDestroy {
   readonly filterService = inject(FilterService);

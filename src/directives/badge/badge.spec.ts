@@ -23,7 +23,7 @@ const badgeSelector = '.ux-badge';
       [badgeOverlap]="overlap"
     ></button>
   `,
-  standalone: false,
+  imports: [BadgeModule],
 })
 export class BadgeTestComponent {
   badgeContentText: string | number = 'Some badge';
@@ -44,9 +44,8 @@ describe('Badge', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [BadgeModule],
+      imports: [BadgeModule, BadgeTestComponent],
       providers: [ContrastService, ColorService],
-      declarations: [BadgeTestComponent],
     }).compileComponents();
   });
 

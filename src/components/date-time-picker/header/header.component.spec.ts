@@ -13,8 +13,7 @@ describe('Date Time Picker Header', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [HeaderComponent],
-      imports: [IconModule],
+      imports: [IconModule, HeaderComponent],
       providers: [DateTimePickerService, DateRangeService],
     }).compileComponents();
   });

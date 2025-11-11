@@ -9,8 +9,7 @@ import { SidePanelComponent } from './side-panel.component';
 const EXPORTS = [SidePanelComponent, SidePanelCloseDirective];
 
 @NgModule({
-  imports: [AccessibilityModule, CommonModule, A11yModule, FocusIfModule],
+  imports: [AccessibilityModule, CommonModule, A11yModule, FocusIfModule, ...EXPORTS],
   exports: EXPORTS,
-  declarations: EXPORTS,
 })
 export class SidePanelModule {}

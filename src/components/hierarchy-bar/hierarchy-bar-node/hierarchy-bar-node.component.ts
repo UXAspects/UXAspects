@@ -1,3 +1,4 @@
+import { NgTemplateOutlet } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -8,6 +9,10 @@ import {
   Output,
   TemplateRef,
 } from '@angular/core';
+import { FocusIndicatorOriginDirective } from '../../../directives/accessibility/focus-indicator/focus-indicator-origin/focus-indicator-origin.directive';
+import { FocusIndicatorDirective } from '../../../directives/accessibility/focus-indicator/focus-indicator.directive';
+import { IconComponent } from '../../icon/icon.component';
+import { PopoverDirective } from '../../popover/popover.directive';
 import { HierarchyBarService } from '../hierarchy-bar.service';
 import { HierarchyBarNode } from '../interfaces/hierarchy-bar-node.interface';
 
@@ -18,7 +23,13 @@ import { HierarchyBarNode } from '../interfaces/hierarchy-bar-node.interface';
   host: {
     '[style.visibility]': 'visible ? "visible" : "hidden"',
   },
-  standalone: false,
+  imports: [
+    FocusIndicatorDirective,
+    FocusIndicatorOriginDirective,
+    PopoverDirective,
+    NgTemplateOutlet,
+    IconComponent,
+  ],
 })
 export class HierarchyBarNodeComponent {
   readonly hierarchyBar = inject(HierarchyBarService);

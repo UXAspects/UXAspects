@@ -1,3 +1,4 @@
+import { NgTemplateOutlet } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -14,6 +15,7 @@ import {
 } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { IconComponent } from '../icon/icon.component';
 import {
   ColumnSortingDirective,
   ColumnSortingIndicatorContext,
@@ -26,7 +28,7 @@ import {
   templateUrl: './column-sorting.component.html',
   exportAs: 'ux-column-sorting',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
+  imports: [IconComponent, NgTemplateOutlet],
 })
 export class ColumnSortingComponent implements OnInit, OnChanges, OnDestroy {
   private readonly _sorter = inject(ColumnSortingDirective);

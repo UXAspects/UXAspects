@@ -27,7 +27,6 @@ import { ResizableExpandingTableService } from './resizable-expanding-table.serv
     class: 'ux-resizable-expanding-table',
     '[class.ux-resizable-expanding-table-overflow]': '_overflowX',
   },
-  standalone: false,
 })
 export class ResizableExpandingTableDirective
   extends BaseResizableTableDirective

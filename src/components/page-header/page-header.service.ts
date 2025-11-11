@@ -17,7 +17,7 @@ export class PageHeaderService implements OnDestroy {
   secondary$ = new BehaviorSubject<boolean>(false);
   secondaryNavigationAutoselect = false;
 
-  private readonly _onDestroy = new Subject();
+  private readonly _onDestroy = new Subject<void>();
 
   constructor() {
     this.selected$

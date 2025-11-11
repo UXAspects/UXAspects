@@ -26,9 +26,6 @@ import { SearchTextComponent } from './search-components/text/text.component';
     IconModule,
     PopoverModule,
     SelectModule,
-  ],
-  exports: [SearchBuilderComponent, SearchBuilderGroupComponent, BaseSearchComponent],
-  declarations: [
     SearchBuilderComponent,
     SearchBuilderGroupComponent,
     SearchTextComponent,
@@ -38,5 +35,6 @@ import { SearchTextComponent } from './search-components/text/text.component';
     SearchSelectComponent,
     BaseSearchComponent,
   ],
+  exports: [SearchBuilderComponent, SearchBuilderGroupComponent, BaseSearchComponent],
 })
 export class SearchBuilderModule {}

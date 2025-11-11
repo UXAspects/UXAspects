@@ -25,9 +25,12 @@ describe('Partition Map Component', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [AccessibilityModule, ColorServiceModule.forRoot(colorSets.microFocus)],
+      imports: [
+        AccessibilityModule,
+        ColorServiceModule.forRoot(colorSets.microFocus),
+        PartitionMapComponent,
+      ],
       providers: [{ provide: ResizeService, useClass: MockResizeService }],
-      declarations: [PartitionMapComponent],
     }).compileComponents();
   });
 

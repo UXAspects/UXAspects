@@ -1,3 +1,4 @@
+import { NgTemplateOutlet } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -6,6 +7,11 @@ import {
   Input,
   Output,
 } from '@angular/core';
+import { FocusIndicatorDirective } from '../../../directives/accessibility/focus-indicator/focus-indicator.directive';
+import { TabbableListItemDirective } from '../../../directives/accessibility/tabbable-list/tabbable-list-item.directive';
+import { TabbableListDirective } from '../../../directives/accessibility/tabbable-list/tabbable-list.directive';
+import { FocusIfDirective } from '../../../directives/focus-if/focus-if.directive';
+import { HierarchyBarPopoverItemComponent } from '../hierarchy-bar-popover-item/hierarchy-bar-popover-item.component';
 import { HierarchyBarService } from '../hierarchy-bar.service';
 import { HierarchyBarNode } from '../interfaces/hierarchy-bar-node.interface';
 
@@ -13,7 +19,14 @@ import { HierarchyBarNode } from '../interfaces/hierarchy-bar-node.interface';
   selector: 'ux-hierarchy-bar-popover',
   templateUrl: './hierarchy-bar-popover.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
+  imports: [
+    NgTemplateOutlet,
+    TabbableListDirective,
+    HierarchyBarPopoverItemComponent,
+    FocusIndicatorDirective,
+    TabbableListItemDirective,
+    FocusIfDirective,
+  ],
 })
 export class HierarchyBarPopoverComponent {
   readonly hierarchyBar = inject(HierarchyBarService);

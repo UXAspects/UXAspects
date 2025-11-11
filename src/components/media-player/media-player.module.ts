@@ -35,8 +35,8 @@ const DECLARATIONS = [
     IconModule,
     SliderModule,
     TooltipModule,
+    ...DECLARATIONS,
   ],
   exports: DECLARATIONS,
-  declarations: DECLARATIONS,
 })
 export class MediaPlayerModule {}

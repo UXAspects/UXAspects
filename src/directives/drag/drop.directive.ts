@@ -16,7 +16,6 @@ import { DragService, UxDragEvent } from './drag.service';
   host: {
     '[class.ux-drop-hover]': 'isMouseOver && isDragging && !dropDisabled',
   },
-  standalone: false,
 })
 export class DropDirective<T = unknown> implements OnDestroy {
   private readonly _dragService = inject<DragService<T>>(DragService);

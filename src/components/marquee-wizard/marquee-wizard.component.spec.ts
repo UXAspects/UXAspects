@@ -51,7 +51,7 @@ interface StepDefinition {
       }
     </ux-marquee-wizard>
   `,
-  standalone: false,
+  imports: [MarqueeWizardModule],
 })
 export class MarqueeWizardTestComponent {
   @ViewChild(MarqueeWizardComponent) marqueeWizard: MarqueeWizardComponent;
@@ -88,8 +88,7 @@ describe('Marquee Wizard', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [MarqueeWizardModule],
-      declarations: [MarqueeWizardTestComponent],
+      imports: [MarqueeWizardModule, MarqueeWizardTestComponent],
     }).compileComponents();
   });
 
@@ -328,7 +327,7 @@ describe('Marquee Wizard', () => {
       }
     </ux-marquee-wizard>
   `,
-  standalone: false,
+  imports: [MarqueeWizardModule],
 })
 export class MarqueeWizardAsyncTestComponent implements OnDestroy {
   step = 0;
@@ -361,8 +360,7 @@ describe('Marquee wizard with delayed step creation', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [MarqueeWizardModule],
-      declarations: [MarqueeWizardAsyncTestComponent],
+      imports: [MarqueeWizardModule, MarqueeWizardAsyncTestComponent],
     }).compileComponents();
   });
 
@@ -464,7 +462,7 @@ describe('Marquee wizard with delayed step creation', () => {
       </ux-marquee-wizard-step>
     </ux-marquee-wizard>
   `,
-  standalone: false,
+  imports: [MarqueeWizardModule],
 })
 export class MarqueeWizardValidationTestComponent {
   currentStep: number;
@@ -497,8 +495,7 @@ describe('Marquee wizard with validation', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [MarqueeWizardModule],
-      declarations: [MarqueeWizardValidationTestComponent],
+      imports: [MarqueeWizardModule, MarqueeWizardValidationTestComponent],
     }).compileComponents();
   });
 
@@ -597,7 +594,7 @@ describe('Marquee wizard with validation', () => {
       </ux-marquee-wizard-step>
     </ux-marquee-wizard>
   `,
-  standalone: false,
+  imports: [MarqueeWizardModule],
 })
 export class MarqueeWizardCustomStepTemplateComponent {}
 
@@ -608,8 +605,7 @@ describe('Marquee wizard with custom step template', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [MarqueeWizardModule],
-      declarations: [MarqueeWizardCustomStepTemplateComponent],
+      imports: [MarqueeWizardModule, MarqueeWizardCustomStepTemplateComponent],
     }).compileComponents();
 
     fixture = TestBed.createComponent(MarqueeWizardCustomStepTemplateComponent);
@@ -665,7 +661,7 @@ describe('Marquee wizard with custom step template', () => {
       </ux-marquee-wizard-step>
     </ux-marquee-wizard>
   `,
-  standalone: false,
+  imports: [MarqueeWizardModule],
 })
 export class MarqueeWizardStepNavigationComponent {
   currentStep: number;
@@ -703,8 +699,7 @@ describe('Marquee wizard with step navigation', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [MarqueeWizardModule],
-      declarations: [MarqueeWizardStepNavigationComponent],
+      imports: [MarqueeWizardModule, MarqueeWizardStepNavigationComponent],
     }).compileComponents();
   });
 

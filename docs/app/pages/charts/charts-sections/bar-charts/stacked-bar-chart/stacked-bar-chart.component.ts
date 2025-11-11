@@ -62,7 +62,6 @@ export class ChartsStackedBarChartComponent
     );
     const colorService = this.colorService;
 
-
     const tooltipBackgroundColor = colorService.getColor('grey2').toHex();
 
     this.barChartData = [

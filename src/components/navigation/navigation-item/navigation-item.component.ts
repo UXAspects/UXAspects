@@ -10,7 +10,7 @@ import {
   QueryList,
   Renderer2,
 } from '@angular/core';
-import { NavigationEnd, Router, UrlTree } from '@angular/router';
+import { NavigationEnd, Router, UrlTree, RouterLink } from '@angular/router';
 import { Subject } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
 
@@ -21,7 +21,7 @@ import { filter, takeUntil } from 'rxjs/operators';
     '[class.active]': 'active',
     '[class.selected]': 'expanded',
   },
-  standalone: false,
+  imports: [RouterLink],
 })
 export class NavigationItemComponent implements AfterViewInit, AfterContentInit, OnDestroy {
   private readonly _elementRef = inject(ElementRef);

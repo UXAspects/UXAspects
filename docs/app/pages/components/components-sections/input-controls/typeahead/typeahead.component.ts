@@ -101,7 +101,6 @@ export class ComponentsTypeaheadComponent
     );
     const _documentationType = this._documentationType;
 
-
     /* Adding values to typeahead list */
     for (let index = 0; index < 200; index++) {
       this.values = [...this.values, chance.name()];

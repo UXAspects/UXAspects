@@ -5,8 +5,7 @@ import { TooltipModule } from '../tooltip/index';
 import { SparkComponent } from './spark.component';
 
 @NgModule({
-  imports: [CommonModule, ColorServiceModule, TooltipModule],
+  imports: [CommonModule, ColorServiceModule, TooltipModule, SparkComponent],
   exports: [SparkComponent],
-  declarations: [SparkComponent],
 })
 export class SparkModule {}

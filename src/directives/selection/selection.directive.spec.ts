@@ -1,7 +1,6 @@
 import { FocusOrigin } from '@angular/cdk/a11y';
 import { Component, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
 import { CheckboxModule } from '../../components/checkbox/index';
 import { AccessibilityModule, FocusIndicator } from '../accessibility/index';
 import { SelectionItemDirective } from './selection-item.directive';
@@ -30,7 +29,7 @@ import { SelectionMode } from './selection.service';
       }
     </ul>
   `,
-  standalone: false,
+  imports: [AccessibilityModule, CheckboxModule, SelectionModule],
 })
 export class SelectionDirectiveSpec {
   mode: SelectionMode = 'simple';
@@ -91,8 +90,7 @@ describe('Selection Directive', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [AccessibilityModule, CheckboxModule, SelectionModule],
-      declarations: [SelectionDirectiveSpec],
+      imports: [AccessibilityModule, CheckboxModule, SelectionModule, SelectionDirectiveSpec],
     }).compileComponents();
 
     fixture = TestBed.createComponent<SelectionDirectiveSpec>(SelectionDirectiveSpec);

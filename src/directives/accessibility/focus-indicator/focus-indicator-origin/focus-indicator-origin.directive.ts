@@ -2,10 +2,7 @@ import { Directive, ElementRef, inject, OnDestroy, Renderer2 } from '@angular/co
 import { FocusIndicatorOrigin } from './focus-indicator-origin';
 import { FocusIndicatorOriginService } from './focus-indicator-origin.service';
 
-@Directive({
-  selector: '[uxFocusIndicatorOrigin]',
-  standalone: false,
-})
+@Directive({ selector: '[uxFocusIndicatorOrigin]' })
 export class FocusIndicatorOriginDirective implements OnDestroy {
   readonly focusOriginService = inject(FocusIndicatorOriginService);
 

@@ -20,7 +20,10 @@ import { TabbableListItemDirective } from './tabbable-list/tabbable-list-item.di
 import { TabbableListDirective } from './tabbable-list/tabbable-list.directive';
 
 @NgModule({
-  declarations: [
+  imports: [
+    A11yModule,
+    ColorServiceModule,
+    PlatformModule,
     DefaultFocusIndicatorDirective,
     FocusIndicatorDirective,
     FocusIndicatorOptionsDirective,
@@ -33,7 +36,6 @@ import { TabbableListDirective } from './tabbable-list/tabbable-list.directive';
     FocusIndicatorOriginDirective,
     ColorContrastDirective,
   ],
-  imports: [A11yModule, ColorServiceModule, PlatformModule],
   exports: [
     DefaultFocusIndicatorDirective,
     FocusIndicatorDirective,

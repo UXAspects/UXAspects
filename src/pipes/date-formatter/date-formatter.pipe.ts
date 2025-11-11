@@ -2,10 +2,7 @@ import { formatDate } from '@angular/common';
 import { inject, LOCALE_ID, Pipe, PipeTransform } from '@angular/core';
 import { DateFormatter } from './date-formatter.type';
 
-@Pipe({
-  name: 'formatDate',
-  standalone: false,
-})
+@Pipe({ name: 'formatDate' })
 export class DateFormatterPipe implements PipeTransform {
   private readonly _locale = inject<string>(LOCALE_ID);
 

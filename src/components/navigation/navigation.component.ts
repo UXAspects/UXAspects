@@ -1,3 +1,4 @@
+import { NgTemplateOutlet, NgClass } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -7,7 +8,11 @@ import {
   TemplateRef,
 } from '@angular/core';
 import { getIconType } from '../../common/index';
+import { TabbableListItemDirective } from '../../directives/accessibility/tabbable-list/tabbable-list-item.directive';
+import { TabbableListDirective } from '../../directives/accessibility/tabbable-list/tabbable-list.directive';
+import { IconComponent } from '../icon/icon.component';
 import { NavigationItem } from './navigation-item.interface';
+import { NavigationLinkDirective } from './navigation-link/navigation-link.directive';
 import { NavigationService } from './navigation.service';
 
 @Component({
@@ -16,7 +21,14 @@ import { NavigationService } from './navigation.service';
   providers: [NavigationService],
   changeDetection: ChangeDetectionStrategy.OnPush,
   preserveWhitespaces: false,
-  standalone: false,
+  imports: [
+    TabbableListDirective,
+    NgTemplateOutlet,
+    NavigationLinkDirective,
+    TabbableListItemDirective,
+    NgClass,
+    IconComponent,
+  ],
 })
 export class NavigationComponent {
   private readonly _navigationService = inject(NavigationService);

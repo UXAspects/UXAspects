@@ -1,10 +1,23 @@
+import { DatePipe } from '@angular/common';
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { FocusIfDirective } from '../../../../directives/focus-if/focus-if.directive';
+import { DateTimePickerComponent } from '../../../date-time-picker/date-time-picker.component';
+import { IconComponent } from '../../../icon/icon.component';
+import { PopoverDirective } from '../../../popover/popover.directive';
 import { BaseSearchComponent } from '../base-search.component';
 
 @Component({
   selector: 'ux-search-date-range',
   templateUrl: './date-range.component.html',
-  standalone: false,
+  imports: [
+    IconComponent,
+    FormsModule,
+    PopoverDirective,
+    FocusIfDirective,
+    DateTimePickerComponent,
+    DatePipe,
+  ],
 })
 export class SearchDateRangeComponent extends BaseSearchComponent {
   type: string = 'date-range';

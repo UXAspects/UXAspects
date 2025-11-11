@@ -1,4 +1,5 @@
 import { animate, style, transition, trigger } from '@angular/animations';
+import { NgTemplateOutlet } from '@angular/common';
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
@@ -12,12 +13,16 @@ import {
   TemplateRef,
   ViewChild,
 } from '@angular/core';
+import { FocusIndicatorDirective } from '../../directives/accessibility/focus-indicator/focus-indicator.directive';
 import { ResizeDimensions } from '../../directives/resize/index';
+import { ResizeDirective } from '../../directives/resize/resize.directive';
 import { ColorService, ThemeColor } from '../../services/color/index';
+import { TooltipComponent } from '../tooltip/tooltip.component';
 import { SankeyLink, SankeyLinkInteraction, SankeyLinkPlot } from './interfaces/link.interface';
 import { SankeyNodeLink } from './interfaces/node-link.interface';
 import { SankeyNode } from './interfaces/node.interface';
 import { SankeyChart } from './sankey-chart';
+import { SankeyNodeDirective } from './sankey-chart-node.directive';
 import { SankeyFocusManager } from './sankey-focus-manager';
 
 @Component({
@@ -31,7 +36,13 @@ import { SankeyFocusManager } from './sankey-focus-manager';
       transition(':leave', [animate(160, style({ opacity: 0 }))]),
     ]),
   ],
-  standalone: false,
+  imports: [
+    ResizeDirective,
+    FocusIndicatorDirective,
+    SankeyNodeDirective,
+    NgTemplateOutlet,
+    TooltipComponent,
+  ],
 })
 export class SankeyChartComponent<T> implements OnChanges, AfterViewInit {
   private readonly _focusManager = inject<SankeyFocusManager<T>>(SankeyFocusManager);

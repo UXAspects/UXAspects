@@ -1,3 +1,4 @@
+import { NgTemplateOutlet, AsyncPipe } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -11,7 +12,17 @@ import {
 } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { FocusIndicatorOriginDirective } from '../../../directives/accessibility/focus-indicator/focus-indicator-origin/focus-indicator-origin.directive';
+import { FocusIndicatorDirective } from '../../../directives/accessibility/focus-indicator/focus-indicator.directive';
+import { TabbableListItemDirective } from '../../../directives/accessibility/tabbable-list/tabbable-list-item.directive';
+import { TabbableListDirective } from '../../../directives/accessibility/tabbable-list/tabbable-list.directive';
+import { FocusIfDirective } from '../../../directives/focus-if/focus-if.directive';
+import { ResizeDirective } from '../../../directives/resize/resize.directive';
+import { IconComponent } from '../../icon/icon.component';
+import { PopoverDirective } from '../../popover/popover.directive';
 import { HierarchyBarNodeComponent } from '../hierarchy-bar-node/hierarchy-bar-node.component';
+import { HierarchyBarPopoverItemComponent } from '../hierarchy-bar-popover-item/hierarchy-bar-popover-item.component';
+import { HierarchyBarPopoverComponent } from '../hierarchy-bar-popover/hierarchy-bar-popover.component';
 import { HierarchyBarService } from '../hierarchy-bar.service';
 import { HierarchyBarNode } from '../interfaces/hierarchy-bar-node.interface';
 
@@ -19,7 +30,21 @@ import { HierarchyBarNode } from '../interfaces/hierarchy-bar-node.interface';
   selector: 'ux-hierarchy-bar-standard',
   templateUrl: './hierarchy-bar-standard.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
+  imports: [
+    PopoverDirective,
+    NgTemplateOutlet,
+    FocusIndicatorDirective,
+    FocusIndicatorOriginDirective,
+    IconComponent,
+    ResizeDirective,
+    HierarchyBarNodeComponent,
+    HierarchyBarPopoverComponent,
+    TabbableListDirective,
+    HierarchyBarPopoverItemComponent,
+    TabbableListItemDirective,
+    FocusIfDirective,
+    AsyncPipe,
+  ],
 })
 export class HierarchyBarStandardComponent implements OnDestroy {
   readonly hierarchyBar = inject(HierarchyBarService);

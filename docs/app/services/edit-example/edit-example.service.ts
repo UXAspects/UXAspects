@@ -8,7 +8,6 @@ import { PlaygroundService } from '../playground/playground.service';
 export class EditExampleService {
   private readonly _playgroundService = inject(PlaygroundService);
 
-
   launchEditor(title: string, content: IPlayground) {
     content.framework = content.framework ?? 'angular';
     content.modules = content.modules ?? [];

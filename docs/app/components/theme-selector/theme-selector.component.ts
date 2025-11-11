@@ -1,4 +1,11 @@
-import { ChangeDetectionStrategy, Component, Input, OnChanges, OnDestroy, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnChanges,
+  OnDestroy,
+  inject,
+} from '@angular/core';
 import { IconModule, MenuModule } from '@ux-aspects/ux-aspects';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';

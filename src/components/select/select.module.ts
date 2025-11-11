@@ -17,8 +17,8 @@ import { SelectComponent } from './select.component';
     TagInputModule,
     TypeaheadModule,
     PlatformModule,
+    SelectComponent,
   ],
   exports: [SelectComponent],
-  declarations: [SelectComponent],
 })
 export class SelectModule {}

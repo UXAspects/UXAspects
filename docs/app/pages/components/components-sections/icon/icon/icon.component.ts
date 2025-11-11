@@ -50,7 +50,6 @@ export class ComponentsIconComponent
     );
     const _documentationType = this._documentationType;
 
-
     this.iconSetDocumentationRoute =
       _documentationType === DocumentationType.MicroFocus ? '/ui-components/styling' : '/css/icons';
   }

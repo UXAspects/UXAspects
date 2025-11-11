@@ -1,3 +1,4 @@
+import { DecimalPipe } from '@angular/common';
 import {
   AfterViewInit,
   Component,
@@ -9,6 +10,8 @@ import {
 } from '@angular/core';
 import { fromEvent, Subject } from 'rxjs';
 import { switchMap, takeUntil } from 'rxjs/operators';
+import { DurationPipe } from '../../../../pipes/duration/duration.pipe';
+import { TooltipDirective } from '../../../tooltip/tooltip.directive';
 import { MediaPlayerService } from '../../media-player.service';
 
 @Component({
@@ -18,7 +21,7 @@ import { MediaPlayerService } from '../../media-player.service';
     '(document:mouseup)': 'mouseDown = false',
     '[class.quiet]': 'mediaPlayerService.quietMode || mediaPlayerService.fullscreen',
   },
-  standalone: false,
+  imports: [TooltipDirective, DecimalPipe, DurationPipe],
 })
 export class MediaPlayerTimelineExtensionComponent implements OnInit, AfterViewInit, OnDestroy {
   readonly mediaPlayerService = inject(MediaPlayerService);

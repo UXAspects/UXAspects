@@ -1,4 +1,5 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
+import { AsyncPipe, DatePipe } from '@angular/common';
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
@@ -9,11 +10,15 @@ import {
 } from '@angular/core';
 import { merge, Subject } from 'rxjs';
 import { delay, filter, takeUntil } from 'rxjs/operators';
+import { FocusIndicatorOriginDirective } from '../../../directives/accessibility/focus-indicator/focus-indicator-origin/focus-indicator-origin.directive';
+import { FocusIndicatorDirective } from '../../../directives/accessibility/focus-indicator/focus-indicator.directive';
 import { FocusIndicatorOriginService } from '../../../directives/accessibility/index';
+import { FocusIfDirective } from '../../../directives/focus-if/focus-if.directive';
 import { DateRangeOptions } from '../../date-range-picker/date-range-picker.directive';
 import { DateRangePicker, DateRangeService } from '../../date-range-picker/date-range.service';
 import { DatePickerHeaderEvent, DateTimePickerService } from '../date-time-picker.service';
 import { compareDays, isDateAfter, isDateBefore } from '../date-time-picker.utils';
+import { WeekDaySortPipe } from '../pipes/weekday-sort.pipe';
 import { DayViewItem, DayViewService } from './day-view.service';
 
 @Component({
@@ -21,7 +26,14 @@ import { DayViewItem, DayViewService } from './day-view.service';
   templateUrl: './day-view.component.html',
   providers: [DayViewService],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
+  imports: [
+    FocusIndicatorDirective,
+    FocusIndicatorOriginDirective,
+    FocusIfDirective,
+    AsyncPipe,
+    DatePipe,
+    WeekDaySortPipe,
+  ],
 })
 export class DayViewComponent implements AfterViewInit, OnDestroy {
   readonly datePicker = inject(DateTimePickerService);

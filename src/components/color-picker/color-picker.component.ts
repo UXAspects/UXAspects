@@ -1,3 +1,4 @@
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   EventEmitter,
@@ -9,10 +10,17 @@ import {
   Output,
   ViewChild,
 } from '@angular/core';
-import { NgModel } from '@angular/forms';
+import { NgModel, FormsModule } from '@angular/forms';
 import { BehaviorSubject, Subject, combineLatest } from 'rxjs';
 import { pairwise, takeUntil } from 'rxjs/operators';
+import { ColorContrastDirective } from '../../directives/accessibility/contrast-ratio/color-contrast.directive';
+import { DefaultFocusIndicatorDirective } from '../../directives/accessibility/focus-indicator/default-focus-indicator.directive';
+import { FocusIndicatorDirective } from '../../directives/accessibility/focus-indicator/focus-indicator.directive';
 import { TabbableListDirective } from '../../directives/accessibility/index';
+import { TabbableListItemDirective } from '../../directives/accessibility/tabbable-list/tabbable-list-item.directive';
+import { TabbableListDirective as TabbableListDirective_1 } from '../../directives/accessibility/tabbable-list/tabbable-list.directive';
+import { IconComponent } from '../icon/icon.component';
+import { TooltipDirective } from '../tooltip/tooltip.directive';
 import { ColorPickerColor } from './color-picker-color';
 import {
   ColorPickerButtonSize,
@@ -38,7 +46,17 @@ let uniqueId = 0;
   host: {
     tabindex: '0',
   },
-  standalone: false,
+  imports: [
+    TabbableListDirective_1,
+    FocusIndicatorDirective,
+    TabbableListItemDirective,
+    ColorContrastDirective,
+    TooltipDirective,
+    IconComponent,
+    DefaultFocusIndicatorDirective,
+    FormsModule,
+    AsyncPipe,
+  ],
 })
 export class ColorPickerComponent implements OnInit, OnDestroy {
   @Input()

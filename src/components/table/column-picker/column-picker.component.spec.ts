@@ -15,7 +15,7 @@ import { ColumnPickerGroupItem } from './interfaces/column-picker-group-item.int
     >
     </ux-column-picker>
   `,
-  standalone: false,
+  imports: [TableModule],
 })
 export class ColumnPickerTestComponent {
   selected: ReadonlyArray<string> = ['Type', 'Date'];
@@ -39,8 +39,7 @@ describe('Column Picker Component', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [TableModule],
-      declarations: [ColumnPickerTestComponent],
+      imports: [TableModule, ColumnPickerTestComponent],
     }).compileComponents();
   });
 
@@ -106,7 +105,7 @@ describe('Column Picker Component', () => {
     >
     </ux-column-picker>
   `,
-  standalone: false,
+  imports: [TableModule],
 })
 export class ColumnPickerSortTestComponent {
   selected: ReadonlyArray<string | ColumnPickerGroupItem> = ['Type', 'Date'];
@@ -133,8 +132,7 @@ describe('Column Picker Component - Sort Input', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [TableModule],
-      declarations: [ColumnPickerSortTestComponent],
+      imports: [TableModule, ColumnPickerSortTestComponent],
     }).compileComponents();
   });
 

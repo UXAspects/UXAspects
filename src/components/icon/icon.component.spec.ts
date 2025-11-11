@@ -7,7 +7,7 @@ import { IconService } from './icon.service';
   selector: 'ux-icon-test',
   template:
     '<ux-icon [name]="name" [size]="size" [rotate]="rotate" [flipHorizontal]="flipHorizontal" [flipVertical]="flipVertical"></ux-icon>',
-  standalone: false,
+  imports: [IconModule],
 })
 export class IconTestComponent {
   @Input() name: string;
@@ -25,8 +25,7 @@ describe('Icon Component', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [IconModule],
-      declarations: [IconTestComponent],
+      imports: [IconModule, IconTestComponent],
     }).compileComponents();
   });
 

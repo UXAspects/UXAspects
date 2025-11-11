@@ -1,3 +1,4 @@
+import { AsyncPipe } from '@angular/common';
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
@@ -8,15 +9,17 @@ import {
 } from '@angular/core';
 import { merge, Observable, Subject } from 'rxjs';
 import { delay, map, takeUntil } from 'rxjs/operators';
+import { FocusIndicatorDirective } from '../../../directives/accessibility/focus-indicator/focus-indicator.directive';
 import { DateRangeOptions } from '../../date-range-picker/date-range-picker.directive';
 import { DateRangePicker, DateRangeService } from '../../date-range-picker/date-range.service';
+import { IconComponent } from '../../icon/icon.component';
 import { DatePickerMode, DateTimePickerService } from '../date-time-picker.service';
 
 @Component({
   selector: 'ux-date-time-picker-header',
   templateUrl: './header.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
+  imports: [FocusIndicatorDirective, IconComponent, AsyncPipe],
 })
 export class HeaderComponent implements AfterViewInit, OnDestroy {
   readonly datepicker = inject(DateTimePickerService);

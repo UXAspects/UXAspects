@@ -26,9 +26,6 @@ import { YearViewComponent } from './year-view/year-view.component';
     IconModule,
     SpinButtonModule,
     TimePickerModule,
-  ],
-  exports: [DateTimePickerComponent],
-  declarations: [
     DateTimePickerComponent,
     HeaderComponent,
     DayViewComponent,
@@ -37,6 +34,7 @@ import { YearViewComponent } from './year-view/year-view.component';
     TimeViewComponent,
     WeekDaySortPipe,
   ],
+  exports: [DateTimePickerComponent],
 })
 export class DateTimePickerModule {
   static forRoot(): ModuleWithProviders<DateTimePickerModule> {

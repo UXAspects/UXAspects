@@ -30,7 +30,7 @@ import { SankeyChartComponent } from './sankey-chart.component';
       }
     `,
   ],
-  standalone: false,
+  imports: [AccessibilityModule, CommonModule, TooltipModule, ResizeModule],
 })
 export class SankeyChartTestComponent {
   nodes: ReadonlyArray<SankeyNode<SankeyNodeData>> = [
@@ -166,8 +166,10 @@ describe('Sankey Chart Component', () => {
         ResizeModule,
         BrowserAnimationsModule,
         ColorServiceModule.forRoot(colorSets.keppel),
+        SankeyChartTestComponent,
+        SankeyChartComponent,
+        SankeyNodeDirective,
       ],
-      declarations: [SankeyChartTestComponent, SankeyChartComponent, SankeyNodeDirective],
     }).compileComponents();
   }));
 
@@ -404,7 +406,7 @@ describe('Sankey Chart Component', () => {
       }
     `,
   ],
-  standalone: false,
+  imports: [AccessibilityModule, CommonModule, TooltipModule, ResizeModule],
 })
 export class SankeyChartMinHeightTestComponent {
   nodes: ReadonlyArray<SankeyNode<{ name: string }>> = [
@@ -472,8 +474,10 @@ describe('Sankey Chart with minHeight', () => {
         ResizeModule,
         BrowserAnimationsModule,
         ColorServiceModule.forRoot(colorSets.keppel),
+        SankeyChartMinHeightTestComponent,
+        SankeyChartComponent,
+        SankeyNodeDirective,
       ],
-      declarations: [SankeyChartMinHeightTestComponent, SankeyChartComponent, SankeyNodeDirective],
     }).compileComponents();
   }));
 

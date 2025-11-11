@@ -1,6 +1,7 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { ArrayDataSource } from '@angular/cdk/collections';
-import { FlatTreeControl } from '@angular/cdk/tree';
+import { FlatTreeControl, CdkTree, CdkTreeNodeDef, CdkTreeNode } from '@angular/cdk/tree';
+import { NgTemplateOutlet, NgClass } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -16,6 +17,16 @@ import {
   TemplateRef,
   ViewChildren,
 } from '@angular/core';
+import { DefaultFocusIndicatorDirective } from '../../../directives/accessibility/focus-indicator/default-focus-indicator.directive';
+import { FocusIndicatorDirective } from '../../../directives/accessibility/focus-indicator/focus-indicator.directive';
+import { TabbableListItemDirective } from '../../../directives/accessibility/tabbable-list/tabbable-list-item.directive';
+import { TabbableListDirective } from '../../../directives/accessibility/tabbable-list/tabbable-list.directive';
+import { ReorderableHandleDirective } from '../../../directives/reorderable/reorderable-handle.directive';
+import { ReorderableModelDirective } from '../../../directives/reorderable/reorderable-model.directive';
+import { ReorderableDirective } from '../../../directives/reorderable/reorderable.directive';
+import { SelectionItemDirective } from '../../../directives/selection/selection-item.directive';
+import { SelectionDirective } from '../../../directives/selection/selection.directive';
+import { IconComponent } from '../../icon/icon.component';
 import { ColumnPickerService } from './column-picker.service';
 import {
   ColumnPickerGroupItem,
@@ -30,7 +41,23 @@ let uniqueId = 0;
   templateUrl: './column-picker.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [ColumnPickerService],
-  standalone: false,
+  imports: [
+    NgTemplateOutlet,
+    CdkTree,
+    TabbableListDirective,
+    SelectionDirective,
+    CdkTreeNodeDef,
+    CdkTreeNode,
+    TabbableListItemDirective,
+    SelectionItemDirective,
+    NgClass,
+    IconComponent,
+    DefaultFocusIndicatorDirective,
+    ReorderableDirective,
+    FocusIndicatorDirective,
+    ReorderableModelDirective,
+    ReorderableHandleDirective,
+  ],
 })
 export class ColumnPickerComponent implements OnChanges {
   private readonly _columnPicker = inject(ColumnPickerService);

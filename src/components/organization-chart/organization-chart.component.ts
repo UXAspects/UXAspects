@@ -2,6 +2,7 @@
 import { BooleanInput, coerceBooleanProperty } from '@angular/cdk/coercion';
 import { DOWN_ARROW, ENTER, LEFT_ARROW, RIGHT_ARROW, UP_ARROW } from '@angular/cdk/keycodes';
 import { DomPortalOutlet, TemplatePortal } from '@angular/cdk/portal';
+import { NgTemplateOutlet } from '@angular/common';
 import {
   AfterViewInit,
   ApplicationRef,
@@ -40,14 +41,16 @@ import {
 } from 'd3';
 import { Subject } from 'rxjs';
 import { debounceTime, takeUntil } from 'rxjs/operators';
+import { FocusIndicatorOriginDirective } from '../../directives/accessibility/focus-indicator/focus-indicator-origin/focus-indicator-origin.directive';
 import { FocusIndicator, FocusIndicatorService } from '../../directives/accessibility/index';
 import { ResizeDimensions, ResizeService } from '../../directives/resize/index';
+import { IconComponent } from '../icon/icon.component';
 
 @Component({
   selector: 'ux-organization-chart',
   templateUrl: './organization-chart.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
+  imports: [FocusIndicatorOriginDirective, NgTemplateOutlet, IconComponent],
 })
 export class OrganizationChartComponent<T> implements AfterViewInit, OnChanges, OnDestroy {
   private readonly _resizeService = inject(ResizeService);

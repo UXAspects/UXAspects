@@ -1,6 +1,13 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { DatePipe } from '@angular/common';
-import { ChangeDetectionStrategy, Component, HostListener, OnDestroy, TemplateRef, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  HostListener,
+  OnDestroy,
+  TemplateRef,
+  inject,
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import {
   AccessibilityModule,

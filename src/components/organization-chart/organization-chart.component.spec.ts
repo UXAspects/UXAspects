@@ -40,7 +40,7 @@ export class MockResizeService {
       </ng-template>
     </ux-organization-chart>
   </div>`,
-  standalone: false,
+  imports: [AccessibilityModule, IconModule, CommonModule],
 })
 export class OrganizationChartTestComponent {
   dataset: OrganizationChartNode<Employee> = {
@@ -88,9 +88,14 @@ describe('Organization Chart Component', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AccessibilityModule, IconModule, CommonModule],
+      imports: [
+        AccessibilityModule,
+        IconModule,
+        CommonModule,
+        OrganizationChartTestComponent,
+        OrganizationChartComponent,
+      ],
       providers: [{ provide: ResizeService, useClass: MockResizeService }],
-      declarations: [OrganizationChartTestComponent, OrganizationChartComponent],
     }).compileComponents();
 
     fixture = TestBed.createComponent(OrganizationChartTestComponent);

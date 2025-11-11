@@ -4,10 +4,7 @@ import { DragDirective, DragScrollEvent } from '../../../directives/drag/drag.di
 import { ActionDirection, DashboardService } from '../dashboard.service';
 import { DashboardWidgetComponent } from '../widget/dashboard-widget.component';
 
-@Directive({
-  selector: '[uxDashboardWidgetDragHandle], [ux-dashboard-widget-drag-handle]',
-  standalone: false,
-})
+@Directive({ selector: '[uxDashboardWidgetDragHandle], [ux-dashboard-widget-drag-handle]' })
 export class DashboardDragHandleDirective extends DragDirective {
   readonly widget = inject(DashboardWidgetComponent);
 

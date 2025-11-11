@@ -12,6 +12,7 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { FocusIndicatorDirective } from '../../directives/accessibility';
+import { FocusIndicatorDirective as FocusIndicatorDirective_1 } from '../../directives/accessibility/focus-indicator/focus-indicator.directive';
 import { FocusableItemToken } from '../menu';
 import { FocusableControl } from '../menu/interfaces/focusable-control.interface';
 
@@ -34,7 +35,7 @@ let uniqueToggleSwitchId = 0;
     },
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
+  imports: [FocusIndicatorDirective_1],
 })
 export class ToggleSwitchComponent implements ControlValueAccessor, FocusableControl {
   private readonly _changeDetector = inject(ChangeDetectorRef);

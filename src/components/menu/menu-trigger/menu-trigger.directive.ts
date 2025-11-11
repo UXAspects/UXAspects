@@ -39,7 +39,6 @@ import { MenuComponent } from '../menu/menu.component';
     '[attr.aria-expanded]': 'menu?.isMenuOpen',
     '[attr.aria-controls]': 'ariaControls',
   },
-  standalone: false,
 })
 export class MenuTriggerDirective implements OnInit, OnDestroy {
   private readonly _overlay = inject(Overlay);
@@ -160,7 +159,10 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
     }
 
     // listen for the menu to open (after animation so we can focus the first item)
-    this.menu.opened.pipe(takeUntil(this._onDestroy$)).subscribe(() => this.menuDidOpen());
+    this.menu.opened
+      .asObservable()
+      .pipe(takeUntil(this._onDestroy$))
+      .subscribe(() => this.menuDidOpen());
 
     // propagate the close event if it is triggered
     this.menu._closeAll$.pipe(takeUntil(this._onDestroy$)).subscribe(origin => {
@@ -267,10 +269,12 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
     // listen for the menu to animate closed then destroy it, if submenu wait for it to start closing to destroy.
     if (this._isSubmenuTrigger) {
       this.menu.closing
+        .asObservable()
         .pipe(take(1), takeUntil(this._onDestroy$))
         .subscribe(() => this.destroyMenu());
     } else {
       this.menu.closed
+        .asObservable()
         .pipe(take(1), takeUntil(this._onDestroy$))
         .subscribe(() => this.destroyMenu());
     }
@@ -309,7 +313,7 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
     }
 
     this.closed.emit();
-    return this.menu.closed;
+    return this.menu.closed.asObservable();
   }
 
   /** Toggle the open state of a menu */
@@ -461,7 +465,7 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
   private didMenuClose(): Observable<any> {
     return merge(
       this._overlayRef.backdropClick(),
-      this._parentMenu ? this._parentMenu.closing : of(),
+      this._parentMenu ? this._parentMenu.closing.asObservable() : of(),
       this._menuShouldClose
     );
   }

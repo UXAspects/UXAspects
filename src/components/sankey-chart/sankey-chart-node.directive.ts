@@ -13,10 +13,7 @@ import { filter, map, takeUntil } from 'rxjs/operators';
 import { SankeyNodeLink } from './interfaces/node-link.interface';
 import { SankeyFocusManager } from './sankey-focus-manager';
 
-@Directive({
-  selector: '[uxSankeyNode]',
-  standalone: false,
-})
+@Directive({ selector: '[uxSankeyNode]' })
 export class SankeyNodeDirective<T> implements OnInit, OnDestroy {
   private readonly _focusManager = inject<SankeyFocusManager<T>>(SankeyFocusManager);
   private readonly _elementRef = inject(ElementRef);

@@ -2,10 +2,7 @@ import { coerceNumberProperty, NumberInput } from '@angular/cdk/coercion';
 import { Directive, HostBinding, inject, Input } from '@angular/core';
 import { TreeGridRowDirective } from './tree-grid-row.directive';
 
-@Directive({
-  selector: '[uxTreeGridIndent]',
-  standalone: false,
-})
+@Directive({ selector: '[uxTreeGridIndent]' })
 export class TreeGridIndentDirective {
   readonly _row = inject(TreeGridRowDirective);
 

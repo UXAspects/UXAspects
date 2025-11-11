@@ -1,3 +1,4 @@
+import { NgTemplateOutlet, AsyncPipe } from '@angular/common';
 import {
   AfterContentInit,
   Component,
@@ -24,7 +25,7 @@ import { VirtualScrollLoadingDirective } from './directives/virtual-scroll-loadi
 @Component({
   selector: 'ux-virtual-scroll',
   templateUrl: './virtual-scroll.component.html',
-  standalone: false,
+  imports: [NgTemplateOutlet, AsyncPipe],
 })
 export class VirtualScrollComponent<T> implements OnInit, AfterContentInit, OnChanges, OnDestroy {
   readonly resizeService = inject(ResizeService);

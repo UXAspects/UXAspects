@@ -8,7 +8,7 @@ import { HierarchyBarNode } from './interfaces/hierarchy-bar-node.interface';
   template: `
     <ux-hierarchy-bar mode="collapsed" [root]="root" [(selected)]="selected"></ux-hierarchy-bar>
   `,
-  standalone: false,
+  imports: [HierarchyBarModule],
 })
 export class HierarchyBarCollapsedTestComponent {
   root: HierarchyBarNode = {
@@ -40,8 +40,7 @@ describe('Hierarchy Bar in collapsed mode', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HierarchyBarModule],
-      declarations: [HierarchyBarCollapsedTestComponent],
+      imports: [HierarchyBarModule, HierarchyBarCollapsedTestComponent],
     }).compileComponents();
   });
 

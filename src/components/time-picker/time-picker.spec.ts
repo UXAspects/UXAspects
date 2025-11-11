@@ -19,7 +19,7 @@ import { TimePickerModule } from './time-picker.module';
     >
     </ux-time-picker>
   `,
-  standalone: false,
+  imports: [TimePickerModule],
 })
 export class TimePickerTestComponent {
   value = new Date();
@@ -41,8 +41,7 @@ describe('Time Picker Component', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [TimePickerModule],
-      declarations: [TimePickerTestComponent],
+      imports: [TimePickerModule, TimePickerTestComponent],
     }).compileComponents();
   });
 

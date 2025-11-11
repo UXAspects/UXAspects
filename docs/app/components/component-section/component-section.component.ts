@@ -1,4 +1,12 @@
-import { Component, Input, OnDestroy, OnInit, ViewChild, ViewContainerRef, inject } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+  ViewContainerRef,
+  inject,
+} from '@angular/core';
 import { RouterLink } from '@angular/router';
 import {
   AccessibilityModule,

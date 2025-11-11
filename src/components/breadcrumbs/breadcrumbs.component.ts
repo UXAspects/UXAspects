@@ -1,10 +1,12 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { FocusIndicatorDirective } from '../../directives/accessibility/focus-indicator/focus-indicator.directive';
 
 @Component({
   selector: 'ux-breadcrumbs',
   templateUrl: './breadcrumbs.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
+  imports: [FocusIndicatorDirective, RouterLink],
 })
 export class BreadcrumbsComponent {
   /** The list of breadcrumbs to display. */

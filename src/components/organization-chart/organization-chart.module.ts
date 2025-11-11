@@ -6,8 +6,13 @@ import { IconModule } from '../icon/index';
 import { OrganizationChartComponent } from './organization-chart.component';
 
 @NgModule({
-  declarations: [OrganizationChartComponent],
-  imports: [AccessibilityModule, CommonModule, IconModule, ResizeModule],
+  imports: [
+    AccessibilityModule,
+    CommonModule,
+    IconModule,
+    ResizeModule,
+    OrganizationChartComponent,
+  ],
   exports: [OrganizationChartComponent],
 })
 export class OrganizationChartModule {}

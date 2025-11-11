@@ -3,10 +3,7 @@ import { Subject } from 'rxjs';
 import { ConduitZone } from './conduit-zone.service';
 import { ConduitProperties } from './interfaces/conduit-properties';
 
-@Directive({
-  selector: 'ux-conduit',
-  standalone: false,
-})
+@Directive({ selector: 'ux-conduit' })
 export class ConduitComponent implements OnInit, OnDestroy {
   protected _zone = inject(ConduitZone, { optional: true });
 

@@ -11,7 +11,6 @@ import { FocusIndicatorDirective } from './focus-indicator.directive';
 @Directive({
   selector:
     '.btn:not([uxFocusIndicator]):not([uxMenuNavigationToggle]):not([uxMenuTriggerFor]), a[href]:not([uxFocusIndicator]):not([uxMenuNavigationToggle]):not([uxMenuTriggerFor])',
-  standalone: false,
 })
 export class DefaultFocusIndicatorDirective extends FocusIndicatorDirective {
   constructor() {

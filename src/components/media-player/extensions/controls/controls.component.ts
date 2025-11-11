@@ -1,7 +1,16 @@
+import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { Subject, timer } from 'rxjs';
 import { switchMap, takeUntil } from 'rxjs/operators';
+import { FocusIndicatorDirective } from '../../../../directives/accessibility/focus-indicator/focus-indicator.directive';
+import { FocusWithinDirective } from '../../../../directives/accessibility/focus-within/focus-within.directive';
+import { TabbableListItemDirective } from '../../../../directives/accessibility/tabbable-list/tabbable-list-item.directive';
+import { TabbableListDirective } from '../../../../directives/accessibility/tabbable-list/tabbable-list.directive';
+import { ClickOutsideDirective } from '../../../../directives/click-outside/click-outside.directive';
+import { IconComponent } from '../../../icon/icon.component';
 import { SliderOptions, SliderSize } from '../../../slider/index';
+import { SliderComponent } from '../../../slider/slider.component';
+import { TooltipDirective } from '../../../tooltip/tooltip.directive';
 import { MediaPlayerService } from '../../media-player.service';
 
 let uniqueId: number = 1;
@@ -13,7 +22,17 @@ let uniqueId: number = 1;
   host: {
     '[class.quiet]': 'mediaPlayerService.quietMode || mediaPlayerService.fullscreen',
   },
-  standalone: false,
+  imports: [
+    FocusWithinDirective,
+    FocusIndicatorDirective,
+    TooltipDirective,
+    IconComponent,
+    SliderComponent,
+    ClickOutsideDirective,
+    TabbableListDirective,
+    TabbableListItemDirective,
+    AsyncPipe,
+  ],
 })
 export class MediaPlayerControlsExtensionComponent implements OnInit, OnDestroy {
   readonly mediaPlayerService = inject(MediaPlayerService);

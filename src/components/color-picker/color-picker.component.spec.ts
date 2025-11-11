@@ -16,7 +16,7 @@ import { ColorPickerInputMode } from './color-picker.type';
   >
   </ux-color-picker>`,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
+  imports: [ColorPickerModule],
 })
 export class ColorPickerTestComponent {
   private readonly _colorService = inject(ColorService);
@@ -49,8 +49,11 @@ describe('Color Picker Component', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [ColorPickerModule, ColorServiceModule.forRoot(colorSets.keppel)],
-      declarations: [ColorPickerTestComponent],
+      imports: [
+        ColorPickerModule,
+        ColorServiceModule.forRoot(colorSets.keppel),
+        ColorPickerTestComponent,
+      ],
     }).compileComponents();
   });
 

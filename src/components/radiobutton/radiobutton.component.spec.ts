@@ -169,7 +169,7 @@ describe('Radio Button Component', () => {
       </ux-radio-button>
     </div>
   `,
-  standalone: false,
+  imports: [RadioButtonModule],
 })
 export class RadioButtonValueTestComponent {
   selected: number | string | object = 100;
@@ -197,8 +197,7 @@ describe('Radio Button Component - Value', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [RadioButtonModule],
-      declarations: [RadioButtonValueTestComponent],
+      imports: [RadioButtonModule, RadioButtonValueTestComponent],
     }).compileComponents();
 
     fixture = TestBed.createComponent(RadioButtonValueTestComponent);
@@ -318,7 +317,7 @@ describe('Radio Button Component - Value', () => {
       </ux-radio-button>
     </div>
   `,
-  standalone: false,
+  imports: [RadioButtonModule],
 })
 export class RadioButtonTestValueGroupComponent {
   selected: number | string | object = 100;
@@ -346,8 +345,7 @@ describe('Radio Button Component - Value with uxRadioButtonGroup', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [RadioButtonModule],
-      declarations: [RadioButtonTestValueGroupComponent],
+      imports: [RadioButtonModule, RadioButtonTestValueGroupComponent],
     }).compileComponents();
 
     fixture = TestBed.createComponent(RadioButtonTestValueGroupComponent);
@@ -474,7 +472,7 @@ describe('Radio Button Component - Value with uxRadioButtonGroup', () => {
       </ux-radio-button>
     </div>
   `,
-  standalone: false,
+  imports: [RadioButtonModule, FormsModule],
 })
 export class RadioButtonTestNgModelComponent {
   selected: number | string | object = 100;
@@ -502,8 +500,7 @@ describe('Radio Button Component - NgModel', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [RadioButtonModule, FormsModule],
-      declarations: [RadioButtonTestNgModelComponent],
+      imports: [RadioButtonModule, FormsModule, RadioButtonTestNgModelComponent],
     }).compileComponents();
 
     fixture = TestBed.createComponent(RadioButtonTestNgModelComponent);
@@ -628,7 +625,7 @@ describe('Radio Button Component - NgModel', () => {
       </ux-radio-button>
     </div>
   `,
-  standalone: false,
+  imports: [RadioButtonModule, FormsModule],
 })
 export class RadioButtonTestNgModelGroupComponent {
   selected: number | string | object = 100;
@@ -656,8 +653,7 @@ describe('Radio Button Component - NgModel', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [RadioButtonModule, FormsModule],
-      declarations: [RadioButtonTestNgModelGroupComponent],
+      imports: [RadioButtonModule, FormsModule, RadioButtonTestNgModelGroupComponent],
     }).compileComponents();
 
     fixture = TestBed.createComponent(RadioButtonTestNgModelGroupComponent);
@@ -767,7 +763,7 @@ describe('Radio Button Component - NgModel', () => {
       </div>
     </form>
   `,
-  standalone: false,
+  imports: [RadioButtonModule, ReactiveFormsModule],
 })
 export class RadioButtonTestReactiveFormComponent {
   form = new FormGroup({
@@ -790,8 +786,7 @@ describe('Radio Button Component - Reactive Form', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [RadioButtonModule, ReactiveFormsModule],
-      declarations: [RadioButtonTestReactiveFormComponent],
+      imports: [RadioButtonModule, ReactiveFormsModule, RadioButtonTestReactiveFormComponent],
     }).compileComponents();
 
     fixture = TestBed.createComponent(RadioButtonTestReactiveFormComponent);

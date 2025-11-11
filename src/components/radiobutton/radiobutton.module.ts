@@ -5,8 +5,7 @@ import { RadioButtonGroupDirective } from './radio-button-group/radio-button-gro
 import { RadioButtonComponent } from './radiobutton.component';
 
 @NgModule({
-  imports: [AccessibilityModule, FormsModule],
+  imports: [AccessibilityModule, FormsModule, RadioButtonComponent, RadioButtonGroupDirective],
   exports: [RadioButtonComponent, RadioButtonGroupDirective],
-  declarations: [RadioButtonComponent, RadioButtonGroupDirective],
 })
 export class RadioButtonModule {}

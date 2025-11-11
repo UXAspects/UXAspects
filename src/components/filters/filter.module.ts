@@ -31,8 +31,8 @@ const DECLARATIONS = [
     TooltipModule,
     TypeaheadModule,
     SafeInnerHtmlDirective,
+    ...DECLARATIONS,
   ],
   exports: DECLARATIONS,
-  declarations: DECLARATIONS,
 })
 export class FilterModule {}

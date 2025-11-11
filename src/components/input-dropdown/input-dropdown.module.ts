@@ -7,8 +7,14 @@ import { MenuModule } from '../menu/menu.module';
 import { InputDropdownComponent } from './input-dropdown.component';
 
 @NgModule({
-  imports: [CommonModule, FormsModule, IconModule, MenuModule, AccessibilityModule],
-  declarations: [InputDropdownComponent],
+  imports: [
+    CommonModule,
+    FormsModule,
+    IconModule,
+    MenuModule,
+    AccessibilityModule,
+    InputDropdownComponent,
+  ],
   exports: [InputDropdownComponent],
 })
 export class InputDropdownModule {}

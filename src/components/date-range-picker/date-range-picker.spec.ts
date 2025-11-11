@@ -28,7 +28,7 @@ import { DateRangePickerModule } from './date-range-picker.module';
     >
     </ux-date-range-picker>
   `,
-  standalone: false,
+  imports: [DateRangePickerModule, IconModule, PopoverModule, FormsModule],
 })
 export class DateRangePickerComponent {
   // eslint-disable-next-line @typescript-eslint/no-empty-function
@@ -76,8 +76,13 @@ describe('Date Range Picker', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [DateRangePickerModule, IconModule, PopoverModule, FormsModule],
-      declarations: [DateRangePickerComponent],
+      imports: [
+        DateRangePickerModule,
+        IconModule,
+        PopoverModule,
+        FormsModule,
+        DateRangePickerComponent,
+      ],
     }).compileComponents();
   });
 

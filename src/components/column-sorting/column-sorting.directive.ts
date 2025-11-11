@@ -1,10 +1,7 @@
 import { Directive, Input, OnDestroy, TemplateRef } from '@angular/core';
 import { Subject } from 'rxjs';
 
-@Directive({
-  selector: '[uxColumnSorting]',
-  standalone: false,
-})
+@Directive({ selector: '[uxColumnSorting]' })
 export class ColumnSortingDirective implements OnDestroy {
   /** If set to true the column will sort by only this column, removing sorting from all others. */
   @Input() singleSort: boolean;

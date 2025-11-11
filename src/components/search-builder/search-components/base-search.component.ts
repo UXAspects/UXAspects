@@ -5,7 +5,6 @@ import { SearchBuilderService } from '../search-builder.service';
 @Component({
   selector: 'ux-base-search',
   template: '',
-  standalone: false,
 })
 export class BaseSearchComponent implements OnDestroy {
   private readonly _searchBuilderService = inject(SearchBuilderService);

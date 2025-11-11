@@ -45,8 +45,8 @@ const DECLARATIONS = [
     TypeaheadModule,
     DragDropModule,
     SafeInnerHtmlDirective,
+    ...DECLARATIONS,
   ],
   exports: DECLARATIONS,
-  declarations: DECLARATIONS,
 })
 export class FacetsModule {}

@@ -1,3 +1,4 @@
+import { AsyncPipe } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -9,10 +10,13 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { combineLatest, Subject } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
 import { DateRangeOptions } from '../../date-range-picker/date-range-picker.directive';
 import { DateRangePicker, DateRangeService } from '../../date-range-picker/date-range.service';
+import { SpinButtonComponent } from '../../spin-button/spin-button.component';
+import { TimePickerComponent } from '../../time-picker/time-picker.component';
 import { DateTimePickerService } from '../date-time-picker.service';
 import { compareDays, DateTimePickerTimezone } from '../date-time-picker.utils';
 
@@ -20,7 +24,7 @@ import { compareDays, DateTimePickerTimezone } from '../date-time-picker.utils';
   selector: 'ux-date-time-picker-time-view',
   templateUrl: './time-view.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
+  imports: [TimePickerComponent, SpinButtonComponent, FormsModule, AsyncPipe],
 })
 export class TimeViewComponent implements OnInit, OnDestroy {
   readonly datepicker = inject(DateTimePickerService);

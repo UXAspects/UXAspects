@@ -11,8 +11,7 @@ const EXPORTS = [
 ];
 
 @NgModule({
-  imports: [AccessibilityModule],
+  imports: [AccessibilityModule, ...EXPORTS],
   exports: EXPORTS,
-  declarations: EXPORTS,
 })
 export class MenuNavigationModule {}

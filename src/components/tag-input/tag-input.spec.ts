@@ -22,8 +22,8 @@ describe('Tag Input Component', () => {
         FocusIfModule,
         IconModule,
         TypeaheadModule,
+        TagInputComponent,
       ],
-      declarations: [TagInputComponent],
     }).compileComponents();
 
     fixture = TestBed.createComponent(TagInputComponent);

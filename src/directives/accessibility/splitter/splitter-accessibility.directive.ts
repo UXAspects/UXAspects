@@ -20,10 +20,7 @@ import { takeUntil } from 'rxjs/operators';
 import { FocusIndicator } from '../focus-indicator/focus-indicator';
 import { FocusIndicatorService } from '../focus-indicator/focus-indicator.service';
 
-@Directive({
-  selector: 'as-split',
-  standalone: false,
-})
+@Directive({ selector: 'as-split' })
 export class SplitterAccessibilityDirective implements OnInit, AfterViewInit, OnDestroy {
   private readonly _elementRef = inject(ElementRef);
 

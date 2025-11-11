@@ -18,7 +18,6 @@ export class DateRangeOptions {
 @Directive({
   selector: '[uxDateRangePicker]',
   providers: [DateRangeOptions],
-  standalone: false,
 })
 export class DateRangePickerDirective {
   private readonly _options = inject(DateRangeOptions, { self: true });

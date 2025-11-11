@@ -12,10 +12,7 @@ import { takeUntil } from 'rxjs/operators';
 import { FocusIndicator, FocusIndicatorService } from '../accessibility/index';
 import { HoverActionService } from './hover-action.service';
 
-@Directive({
-  selector: '[uxHoverAction]',
-  standalone: false,
-})
+@Directive({ selector: '[uxHoverAction]' })
 export class HoverActionDirective implements OnDestroy {
   private readonly _elementRef = inject(ElementRef);
 

@@ -21,7 +21,6 @@ import { NavigationService } from '../navigation.service';
 @Directive({
   selector: '[uxNavigationLink]',
   exportAs: 'uxNavigationLink',
-  standalone: false,
 })
 export class NavigationLinkDirective implements OnInit, OnChanges, OnDestroy {
   private readonly _router = inject(Router);

@@ -1,10 +1,7 @@
 import { WeekDay } from '@angular/common';
 import { Pipe, PipeTransform } from '@angular/core';
 
-@Pipe({
-  name: 'weekDaySort',
-  standalone: false,
-})
+@Pipe({ name: 'weekDaySort' })
 export class WeekDaySortPipe implements PipeTransform {
   transform(value: string[], startOfWeek: WeekDay): string[] {
     // ensure start of week is in range

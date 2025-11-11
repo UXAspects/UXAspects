@@ -43,7 +43,7 @@ import { MenuModule } from './menu.module';
       </button>
     </div>
   `,
-  standalone: false,
+  imports: [MenuModule],
 })
 export class MenuTestComponent {
   alignment = 'start';
@@ -68,8 +68,7 @@ describe('MenuComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [MenuModule, NoopAnimationsModule],
-      declarations: [MenuTestComponent],
+      imports: [MenuModule, NoopAnimationsModule, MenuTestComponent],
     }).compileComponents();
 
     // access the overlay container
@@ -499,7 +498,7 @@ describe('MenuComponent', () => {
       </button>
     </ux-menu>
   `,
-  standalone: false,
+  imports: [MenuModule],
 })
 export class MenuTriggerDestroyTestComponent {
   @ViewChild(MenuTriggerDirective, { static: false })
@@ -519,8 +518,7 @@ describe('MenuTriggerDestroyTestComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [MenuModule, NoopAnimationsModule],
-      declarations: [MenuTriggerDestroyTestComponent],
+      imports: [MenuModule, NoopAnimationsModule, MenuTriggerDestroyTestComponent],
     }).compileComponents();
   });
 

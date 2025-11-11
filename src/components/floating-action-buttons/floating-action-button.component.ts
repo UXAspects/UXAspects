@@ -6,9 +6,22 @@ import {
   RIGHT_ARROW,
   UP_ARROW,
 } from '@angular/cdk/keycodes';
-import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, HostListener, inject, Input, OnDestroy, ViewChild, HostAttributeToken } from '@angular/core';
+import { AsyncPipe } from '@angular/common';
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  HostListener,
+  inject,
+  Input,
+  OnDestroy,
+  ViewChild,
+  HostAttributeToken,
+} from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
+import { FocusIndicatorDirective } from '../../directives/accessibility/focus-indicator/focus-indicator.directive';
 import { TooltipDirective } from '../tooltip/index';
 import { FloatingActionButtonsService } from './floating-action-buttons.service';
 
@@ -17,7 +30,7 @@ import { FloatingActionButtonsService } from './floating-action-buttons.service'
   templateUrl: './floating-action-button.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   preserveWhitespaces: false,
-  standalone: false,
+  imports: [FocusIndicatorDirective, AsyncPipe],
 })
 export class FloatingActionButtonComponent implements AfterViewInit, OnDestroy {
   readonly fab = inject(FloatingActionButtonsService);

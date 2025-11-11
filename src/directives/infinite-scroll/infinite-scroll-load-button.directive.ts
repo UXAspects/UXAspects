@@ -9,10 +9,7 @@ import {
 } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 
-@Directive({
-  selector: '[uxInfiniteScrollLoadButton]',
-  standalone: false,
-})
+@Directive({ selector: '[uxInfiniteScrollLoadButton]' })
 export class InfiniteScrollLoadButtonDirective {
   private readonly _template = inject<TemplateRef<void>>(TemplateRef);
 

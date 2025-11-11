@@ -12,12 +12,16 @@ import {
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Subject } from 'rxjs';
 import { debounceTime, filter } from 'rxjs/operators';
+import { DateFormatterPipe } from '../../pipes/date-formatter/date-formatter.pipe';
 import { DateFormatter } from '../../pipes/date-formatter/date-formatter.type';
+import { DateTimePickerComponent } from '../date-time-picker/date-time-picker.component';
 import {
   DateTimePickerTimezone,
   timezones as defaultTimezones,
   differenceBetweenDates,
 } from '../date-time-picker/date-time-picker.utils';
+import { IconComponent } from '../icon/icon.component';
+import { DateRangePickerDirective } from './date-range-picker.directive';
 import { DateRangePicker, DateRangeService } from './date-range.service';
 
 @Component({
@@ -25,7 +29,7 @@ import { DateRangePicker, DateRangeService } from './date-range.service';
   templateUrl: './date-range-picker.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [DateRangeService],
-  standalone: false,
+  imports: [IconComponent, DateTimePickerComponent, DateRangePickerDirective, DateFormatterPipe],
 })
 export class DateRangePickerComponent implements OnDestroy {
   readonly rangeService = inject(DateRangeService);

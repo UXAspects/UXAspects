@@ -1,4 +1,5 @@
 import { coerceCssPixelValue } from '@angular/cdk/coercion';
+import { NgTemplateOutlet, JsonPipe } from '@angular/common';
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
@@ -17,9 +18,13 @@ import {
   TemplateRef,
   ViewChild,
 } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormsModule } from '@angular/forms';
 import { Subject } from 'rxjs';
+import { DefaultFocusIndicatorDirective } from '../../directives/accessibility/focus-indicator/default-focus-indicator.directive';
+import { FocusIndicatorDirective } from '../../directives/accessibility/focus-indicator/focus-indicator.directive';
+import { IconComponent } from '../icon/icon.component';
 import { MenuTriggerDirective } from '../menu/menu-trigger/menu-trigger.directive';
+import { MenuComponent } from '../menu/menu/menu.component';
 
 @Component({
   selector: 'ux-input-dropdown',
@@ -36,7 +41,16 @@ import { MenuTriggerDirective } from '../menu/menu-trigger/menu-trigger.directiv
     '[class.ux-select-disabled]': 'disabled',
     '[attr.aria-label]': 'null',
   },
-  standalone: false,
+  imports: [
+    MenuTriggerDirective,
+    NgTemplateOutlet,
+    IconComponent,
+    FocusIndicatorDirective,
+    MenuComponent,
+    FormsModule,
+    DefaultFocusIndicatorDirective,
+    JsonPipe,
+  ],
 })
 export class InputDropdownComponent<T>
   implements ControlValueAccessor, AfterViewInit, OnChanges, OnDestroy

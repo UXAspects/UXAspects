@@ -2,10 +2,7 @@ import { Directive, HostBinding, inject, Input } from '@angular/core';
 import { ColorService, ThemeColor } from '../../../services/color/index';
 import { ContrastService } from './contrast.service';
 
-@Directive({
-  selector: '[uxColorContrast]',
-  standalone: false,
-})
+@Directive({ selector: '[uxColorContrast]' })
 export class ColorContrastDirective {
   private readonly _colorService = inject(ColorService);
 

@@ -6,6 +6,7 @@ import {
 } from '@angular/cdk/coercion';
 import { ENTER } from '@angular/cdk/keycodes';
 import { Platform } from '@angular/cdk/platform';
+import { NgTemplateOutlet, AsyncPipe } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -27,7 +28,7 @@ import {
   ViewChild,
   DOCUMENT,
 } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormsModule } from '@angular/forms';
 import { BehaviorSubject, Observable, ReplaySubject, Subject } from 'rxjs';
 import {
   debounceTime,
@@ -39,10 +40,13 @@ import {
   take,
   takeUntil,
 } from 'rxjs/operators';
+import { FocusIndicatorDirective } from '../../directives/accessibility/focus-indicator/focus-indicator.directive';
 import { InfiniteScrollLoadFunction } from '../../directives/infinite-scroll/index';
 import { TagInputComponent, TagTemplateContext } from '../tag-input/index';
+import { TagInputComponent as TagInputComponent_1 } from '../tag-input/tag-input.component';
 import { TypeaheadComponent, TypeaheadKeyService, TypeaheadOptionEvent } from '../typeahead/index';
 import { TypeaheadOptionContext } from '../typeahead/typeahead-option-context';
+import { TypeaheadComponent as TypeaheadComponent_1 } from '../typeahead/typeahead.component';
 
 let uniqueId = 0;
 
@@ -61,7 +65,14 @@ export const SELECT_VALUE_ACCESSOR: StaticProvider = {
     '[class.ux-select-disabled]': 'disabled',
   },
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
+  imports: [
+    TagInputComponent_1,
+    TypeaheadComponent_1,
+    FormsModule,
+    FocusIndicatorDirective,
+    NgTemplateOutlet,
+    AsyncPipe,
+  ],
 })
 export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, ControlValueAccessor {
   private readonly _element = inject(ElementRef);

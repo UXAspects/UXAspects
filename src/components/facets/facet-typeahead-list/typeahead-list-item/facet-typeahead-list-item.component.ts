@@ -8,6 +8,8 @@ import {
   Output,
   ViewChild,
 } from '@angular/core';
+import { FocusIndicatorDirective } from '../../../../directives/accessibility/focus-indicator/focus-indicator.directive';
+import { CheckboxComponent } from '../../../checkbox/checkbox.component';
 import { Facet } from '../../models/facet';
 
 @Component({
@@ -15,7 +17,7 @@ import { Facet } from '../../models/facet';
   templateUrl: './facet-typeahead-list-item.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   preserveWhitespaces: false,
-  standalone: false,
+  imports: [FocusIndicatorDirective, CheckboxComponent],
 })
 export class FacetTypeaheadListItemComponent implements FocusableOption {
   @Input() facet: Facet;

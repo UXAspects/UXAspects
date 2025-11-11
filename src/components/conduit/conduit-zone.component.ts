@@ -1,10 +1,7 @@
 import { Directive, OnInit } from '@angular/core';
 import { ConduitComponent } from './conduit.component';
 
-@Directive({
-  selector: 'ux-conduit-zone',
-  standalone: false,
-})
+@Directive({ selector: 'ux-conduit-zone' })
 export abstract class ConduitZoneComponent extends ConduitComponent implements OnInit {
   abstract zoneId: string;
 

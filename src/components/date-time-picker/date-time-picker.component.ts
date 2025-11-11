@@ -1,4 +1,4 @@
-import { WeekDay } from '@angular/common';
+import { WeekDay, AsyncPipe } from '@angular/common';
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
@@ -12,6 +12,7 @@ import {
 } from '@angular/core';
 import { Subject } from 'rxjs';
 import { distinctUntilChanged, takeUntil } from 'rxjs/operators';
+import { FocusIndicatorDirective } from '../../directives/accessibility/focus-indicator/focus-indicator.directive';
 import { DateRangeOptions } from '../date-range-picker/date-range-picker.directive';
 import { DateRangePicker, DateRangeService } from '../date-range-picker/date-range.service';
 import { DatePickerMode, DateTimePickerService } from './date-time-picker.service';
@@ -22,13 +23,26 @@ import {
   isDateBefore,
   timezoneComparator,
 } from './date-time-picker.utils';
+import { DayViewComponent } from './day-view/day-view.component';
+import { HeaderComponent } from './header/header.component';
+import { MonthViewComponent } from './month-view/month-view.component';
+import { TimeViewComponent } from './time-view/time-view.component';
+import { YearViewComponent } from './year-view/year-view.component';
 
 @Component({
   selector: 'ux-date-time-picker',
   templateUrl: './date-time-picker.component.html',
   providers: [DateTimePickerService],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
+  imports: [
+    HeaderComponent,
+    DayViewComponent,
+    MonthViewComponent,
+    YearViewComponent,
+    TimeViewComponent,
+    FocusIndicatorDirective,
+    AsyncPipe,
+  ],
 })
 export class DateTimePickerComponent implements OnInit, AfterViewInit, OnDestroy {
   readonly datepicker = inject(DateTimePickerService);

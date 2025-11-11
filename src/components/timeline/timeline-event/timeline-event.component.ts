@@ -1,3 +1,4 @@
+import { NgClass } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 let uniqueId: number = 0;
@@ -6,7 +7,7 @@ let uniqueId: number = 0;
   selector: 'ux-timeline-event',
   templateUrl: './timeline-event.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
+  imports: [NgClass],
 })
 export class TimelineEventComponent {
   /** Define the id for the event */

@@ -20,7 +20,6 @@ export class PlaygroundService {
   private readonly _appConfig = inject(AppConfiguration);
   private readonly _siteThemeService = inject(SiteThemeService);
 
-
   /** Launch the code playground */
   async launch(title: string, playground: IPlayground) {
     const context = this.getContext(title, playground);

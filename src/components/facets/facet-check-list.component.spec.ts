@@ -10,7 +10,7 @@ import { Facet } from './models/facet';
       <ux-facet-check-list header="Authors" [facets]="facets" [id]="chosenID"></ux-facet-check-list>
     </ux-facet-container>
   `,
-  standalone: false,
+  imports: [FacetsModule],
 })
 export class FacetCheckListTestComponent {
   facets: Facet[] = [];
@@ -30,8 +30,7 @@ describe('Facet-Check-List', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [FacetsModule],
-      declarations: [FacetCheckListTestComponent],
+      imports: [FacetsModule, FacetCheckListTestComponent],
     }).compileComponents();
   });
 

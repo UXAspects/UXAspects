@@ -1,5 +1,6 @@
 import { FocusOrigin } from '@angular/cdk/a11y';
 import { coerceArray } from '@angular/cdk/coercion';
+import { NgTemplateOutlet, AsyncPipe } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -24,6 +25,9 @@ import {
   InfiniteScrollLoadedEvent,
   InfiniteScrollLoadFunction,
 } from '../../directives/infinite-scroll/index';
+import { InfiniteScrollLoadingDirective } from '../../directives/infinite-scroll/infinite-scroll-loading.directive';
+import { InfiniteScrollDirective as InfiniteScrollDirective_1 } from '../../directives/infinite-scroll/infinite-scroll.directive';
+import { SafeInnerHtmlDirective } from '../../directives/safe-inner-html/safe-inner-html.directive';
 import {
   PopoverOrientation,
   PopoverOrientationListener,
@@ -32,6 +36,7 @@ import {
 import { TypeaheadOptionEvent } from './typeahead-event';
 import { TypeaheadOptionApi } from './typeahead-option-api';
 import { TypeaheadOptionContext } from './typeahead-option-context';
+import { TypeaheadOptionsListComponent } from './typeahead-options-list.component';
 import { TypeaheadVisibleOption } from './typeahead-visible-option';
 import { TypeaheadService } from './typeahead.service';
 
@@ -46,7 +51,14 @@ let uniqueId = 0;
     '[class.open]': 'open',
     '[style.maxHeight]': 'maxHeight',
   },
-  standalone: false,
+  imports: [
+    InfiniteScrollDirective_1,
+    NgTemplateOutlet,
+    TypeaheadOptionsListComponent,
+    InfiniteScrollLoadingDirective,
+    SafeInnerHtmlDirective,
+    AsyncPipe,
+  ],
 })
 export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
   readonly typeaheadElement = inject(ElementRef);

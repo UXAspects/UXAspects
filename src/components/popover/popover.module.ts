@@ -8,8 +8,15 @@ import { PopoverComponent } from './popover.component';
 import { PopoverDirective } from './popover.directive';
 
 @NgModule({
-  imports: [CommonModule, OverlayModule, ObserversModule, ClickOutsideModule, TooltipModule],
+  imports: [
+    CommonModule,
+    OverlayModule,
+    ObserversModule,
+    ClickOutsideModule,
+    TooltipModule,
+    PopoverComponent,
+    PopoverDirective,
+  ],
   exports: [PopoverDirective],
-  declarations: [PopoverComponent, PopoverDirective],
 })
 export class PopoverModule {}

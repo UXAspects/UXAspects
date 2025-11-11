@@ -11,7 +11,7 @@ import { InfiniteScrollModule } from './infinite-scroll.module';
     [pageSize]="20"
     [loadOnScroll]="loadOnScroll"
   ></div> `,
-  standalone: false,
+  imports: [InfiniteScrollModule, FormsModule],
 })
 export class InfiniteScrollTestComponent {
   filterText: unknown;
@@ -35,8 +35,7 @@ describe('Directive - Infinite Scroll', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [InfiniteScrollModule, FormsModule],
-      declarations: [InfiniteScrollTestComponent],
+      imports: [InfiniteScrollModule, FormsModule, InfiniteScrollTestComponent],
     }).compileComponents();
   });
 

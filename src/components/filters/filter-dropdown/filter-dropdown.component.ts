@@ -12,6 +12,10 @@ import {
 } from '@angular/core';
 import { Subject } from 'rxjs';
 import { filter as rxFilter, takeUntil } from 'rxjs/operators';
+import { IconComponent } from '../../icon/icon.component';
+import { MenuItemComponent } from '../../menu/menu-item/menu-item.component';
+import { MenuTriggerDirective } from '../../menu/menu-trigger/menu-trigger.directive';
+import { MenuComponent } from '../../menu/menu/menu.component';
 import { FilterRemoveAllEvent } from '../events/filter-remove-all-event';
 import { FilterService } from '../filter.service';
 import { Filter } from '../interfaces/filter.interface';
@@ -22,7 +26,7 @@ let uniqueId = 0;
   selector: 'ux-filter-dropdown',
   templateUrl: './filter-dropdown.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
+  imports: [MenuTriggerDirective, IconComponent, MenuComponent, MenuItemComponent],
 })
 export class FilterDropdownComponent implements OnInit, OnDestroy {
   private readonly _filterService = inject(FilterService);

@@ -1,3 +1,4 @@
+import { NgTemplateOutlet } from '@angular/common';
 import {
   AfterViewChecked,
   Component,
@@ -12,9 +13,17 @@ import {
   TemplateRef,
   ViewChild,
 } from '@angular/core';
+import { SplitComponent, SplitAreaComponent } from 'angular-split';
 import { takeUntil } from 'rxjs/operators';
 import { TabbableListDirective } from '../../directives/accessibility';
+import { DefaultFocusIndicatorDirective } from '../../directives/accessibility/focus-indicator/default-focus-indicator.directive';
+import { FocusIndicatorDirective } from '../../directives/accessibility/focus-indicator/focus-indicator.directive';
+import { SplitterAccessibilityDirective } from '../../directives/accessibility/splitter/splitter-accessibility.directive';
+import { TabbableListItemDirective } from '../../directives/accessibility/tabbable-list/tabbable-list-item.directive';
+import { TabbableListDirective as TabbableListDirective_1 } from '../../directives/accessibility/tabbable-list/tabbable-list.directive';
 import { ResizeDimensions, ResizeService } from '../../directives/resize/index';
+import { IconComponent } from '../icon/icon.component';
+import { TooltipDirective } from '../tooltip/tooltip.directive';
 import { WizardComponent, WizardService, WizardStepComponent } from '../wizard/index';
 import { MarqueeWizardStepComponent } from './marquee-wizard-step.component';
 
@@ -23,7 +32,18 @@ import { MarqueeWizardStepComponent } from './marquee-wizard-step.component';
   templateUrl: './marquee-wizard.component.html',
   providers: [WizardService],
   preserveWhitespaces: false,
-  standalone: false,
+  imports: [
+    SplitterAccessibilityDirective,
+    SplitComponent,
+    SplitAreaComponent,
+    NgTemplateOutlet,
+    TabbableListDirective_1,
+    FocusIndicatorDirective,
+    TabbableListItemDirective,
+    DefaultFocusIndicatorDirective,
+    TooltipDirective,
+    IconComponent,
+  ],
 })
 export class MarqueeWizardComponent<TStepContext = unknown>
   extends WizardComponent

@@ -1,4 +1,5 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { NgTemplateOutlet, AsyncPipe } from '@angular/common';
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
@@ -34,7 +35,7 @@ import {
       transition(':leave', [animate(500, style({ transform: 'translateY(50px)', opacity: 0 }))]),
     ]),
   ],
-  standalone: false,
+  imports: [NgTemplateOutlet, AsyncPipe],
 })
 export class NotificationListComponent implements AfterViewInit, OnChanges, OnDestroy {
   private readonly _notificationService = inject(NotificationService);

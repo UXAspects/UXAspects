@@ -1,10 +1,7 @@
 import { Directive, ElementRef, inject, Input } from '@angular/core';
 import { TypeaheadService } from './typeahead.service';
 
-@Directive({
-  selector: '[uxTypeaheadHighlight]',
-  standalone: false,
-})
+@Directive({ selector: '[uxTypeaheadHighlight]' })
 export class TypeaheadHighlightDirective {
   private readonly _service = inject(TypeaheadService);
 

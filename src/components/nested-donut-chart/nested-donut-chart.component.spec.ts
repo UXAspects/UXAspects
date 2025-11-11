@@ -28,9 +28,12 @@ describe('Nested Donut Chart Component', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [TooltipModule, ColorServiceModule.forRoot(colorSets.keppel)],
+      imports: [
+        TooltipModule,
+        ColorServiceModule.forRoot(colorSets.keppel),
+        NestedDonutChartComponent,
+      ],
       providers: [{ provide: ResizeService, useClass: MockResizeService }],
-      declarations: [NestedDonutChartComponent],
     }).compileComponents();
   });
 

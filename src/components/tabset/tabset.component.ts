@@ -1,4 +1,5 @@
 import { SPACE } from '@angular/cdk/keycodes';
+import { NgClass, NgTemplateOutlet, AsyncPipe } from '@angular/common';
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
@@ -11,8 +12,12 @@ import {
   OnDestroy,
   QueryList,
 } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { FocusIndicatorDirective } from '../../directives/accessibility/focus-indicator/focus-indicator.directive';
+import { TabbableListItemDirective } from '../../directives/accessibility/tabbable-list/tabbable-list-item.directive';
+import { TabbableListDirective } from '../../directives/accessibility/tabbable-list/tabbable-list.directive';
 import { TabComponent } from './tab/tab.component';
 import { TabsetService } from './tabset.service';
 import { TabsetToken } from './tabset.token';
@@ -32,7 +37,15 @@ import { TabsetToken } from './tabset.token';
     '[class.tabs-left]': 'stacked === "left"',
     '[class.tabs-right]': 'stacked === "right"',
   },
-  standalone: false,
+  imports: [
+    TabbableListDirective,
+    NgClass,
+    NgTemplateOutlet,
+    TabbableListItemDirective,
+    FocusIndicatorDirective,
+    RouterLink,
+    AsyncPipe,
+  ],
 })
 export class TabsetComponent implements AfterViewInit, OnDestroy {
   readonly _tabset = inject(TabsetService);

@@ -6,8 +6,7 @@ import { ColorServiceModule } from '../../services/color/index';
 import { SliderComponent } from './slider.component';
 
 @NgModule({
-  imports: [AccessibilityModule, CommonModule, ColorServiceModule, DragModule],
+  imports: [AccessibilityModule, CommonModule, ColorServiceModule, DragModule, SliderComponent],
   exports: [SliderComponent],
-  declarations: [SliderComponent],
 })
 export class SliderModule {}
