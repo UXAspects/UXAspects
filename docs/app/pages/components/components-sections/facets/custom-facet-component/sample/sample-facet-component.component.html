@@ -1,12 +1,15 @@
 <ux-facet-header header="Category" [(expanded)]="expanded"></ux-facet-header>
 
-<div *ngIf="expanded" class="sample-facet-checkbox-container checkbox-container">
-  <ux-checkbox
-    class="sample-facet-checkbox"
-    *ngFor="let facet of facets"
-    [value]="facet.data.checked"
-    (valueChange)="updateFacet(facet, $event)"
-  >
-    {{ facet.title }}
-  </ux-checkbox>
-</div>
+@if (expanded) {
+  <div class="sample-facet-checkbox-container checkbox-container">
+    @for (facet of facets; track facet) {
+      <ux-checkbox
+        class="sample-facet-checkbox"
+        [value]="facet.data.checked"
+        (valueChange)="updateFacet(facet, $event)"
+      >
+        {{ facet.title }}
+      </ux-checkbox>
+    }
+  </div>
+}

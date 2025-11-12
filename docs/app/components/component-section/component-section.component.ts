@@ -1,5 +1,12 @@
-import { NgIf } from '@angular/common';
-import { Component, Input, OnDestroy, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+  ViewContainerRef,
+  inject,
+} from '@angular/core';
 import { RouterLink } from '@angular/router';
 import {
   AccessibilityModule,
@@ -32,7 +39,6 @@ import hybridModuleTs from './snippets/hybrid-module.txt';
   styleUrls: ['./component-section.component.less'],
   imports: [
     EboxModule,
-    NgIf,
     EditExampleLinkComponent,
     UsageLinkComponent,
     MigrateLinkComponent,
@@ -44,6 +50,10 @@ import hybridModuleTs from './snippets/hybrid-module.txt';
   ],
 })
 export class ComponentSectionComponent<T> implements OnInit, OnDestroy {
+  private readonly _resolverService = inject(ResolverService);
+  private readonly _navigationService = inject(NavigationService);
+  private readonly _siteThemeService = inject(SiteThemeService);
+
   @Input() id: string;
   @Input() title: string;
   @Input() componentName: string;
@@ -66,12 +76,6 @@ export class ComponentSectionComponent<T> implements OnInit, OnDestroy {
 
   private _documentationSection: T;
   private readonly _onDestroy = new Subject<void>();
-
-  constructor(
-    private readonly _resolverService: ResolverService,
-    private readonly _navigationService: NavigationService,
-    private readonly _siteThemeService: SiteThemeService
-  ) {}
 
   ngOnInit(): void {
     const component = documentationSectionNames[this.componentName];

@@ -120,7 +120,7 @@ describe('InputDropdownComponent', () => {
       </div>
     </ux-input-dropdown>
   `,
-  standalone: false,
+  imports: [InputDropdownModule, RadioButtonModule, FormsModule],
 })
 export class InputDropdownTestComponent {
   disabled: boolean = false;
@@ -147,8 +147,13 @@ describe('InputDropdownComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [InputDropdownModule, NoopAnimationsModule, RadioButtonModule, FormsModule],
-      declarations: [InputDropdownTestComponent],
+      imports: [
+        InputDropdownModule,
+        NoopAnimationsModule,
+        RadioButtonModule,
+        FormsModule,
+        InputDropdownTestComponent,
+      ],
     }).compileComponents();
 
     // access the overlay container

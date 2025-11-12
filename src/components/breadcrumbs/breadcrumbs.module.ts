@@ -5,8 +5,7 @@ import { AccessibilityModule } from '../../directives/accessibility/index';
 import { BreadcrumbsComponent } from './breadcrumbs.component';
 
 @NgModule({
-  imports: [AccessibilityModule, CommonModule, RouterModule],
+  imports: [AccessibilityModule, CommonModule, RouterModule, BreadcrumbsComponent],
   exports: [BreadcrumbsComponent],
-  declarations: [BreadcrumbsComponent],
 })
 export class BreadcrumbsModule {}

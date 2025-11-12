@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { AccessibilityModule, IconModule, MenuModule, TabsetModule } from '@ux-aspects/ux-aspects';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { SnippetComponent } from '../../../../../components/snippet/snippet.component';
@@ -17,6 +17,8 @@ export class ComponentsSplitButtonDropdownsComponent
   extends BaseDocumentationSection
   implements IPlaygroundProvider
 {
+  private readonly _documentationType = inject<DocumentationType>(DOCUMENTATION_TOKEN);
+
   playground: IPlayground = {
     files: {
       'app.component.html':
@@ -35,7 +37,7 @@ export class ComponentsSplitButtonDropdownsComponent
 
   toggleIcon = this._documentationType === DocumentationType.MicroFocus ? 'chevron-down' : 'down';
 
-  constructor(@Inject(DOCUMENTATION_TOKEN) private readonly _documentationType: DocumentationType) {
+  constructor() {
     super(
       import.meta.webpackContext('./snippets/', {
         recursive: false,

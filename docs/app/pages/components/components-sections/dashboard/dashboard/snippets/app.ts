@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ColorService, DashboardOptions } from '@ux-aspects/ux-aspects';
 import 'chance';
 import { ChartDataset, ChartOptions } from 'chart.js';
@@ -9,6 +9,8 @@ import { ChartDataset, ChartOptions } from 'chart.js';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
+  colorService = inject(ColorService);
+
   // configure the directive data
   lineChartData: ChartDataset<'line'>[] = [
     {
@@ -70,7 +72,7 @@ export class AppComponent {
     minWidth: 187,
   };
 
-  constructor(public colorService: ColorService) {
+  constructor() {
     // generate the chart data
     for (let idx = 0; idx < 50; idx++) {
       let label = '';

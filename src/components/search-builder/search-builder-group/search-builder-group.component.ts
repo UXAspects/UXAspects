@@ -1,3 +1,4 @@
+import { NgTemplateOutlet } from '@angular/common';
 import {
   Component,
   EventEmitter,
@@ -10,15 +11,25 @@ import {
 } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { FocusIndicatorDirective } from '../../../directives/accessibility/focus-indicator/focus-indicator.directive';
+import { FocusWithinDirective } from '../../../directives/accessibility/focus-within/focus-within.directive';
+import { IconComponent } from '../../icon/icon.component';
 import { SearchBuilderGroupQuery } from '../interfaces/group-query.interface';
 import { SearchBuilderFocusService } from '../search-builder-focus.service';
+import { SearchBuilderOutletDirective } from '../search-builder-outlet/search-builder-outlet.directive';
 import { SearchBuilderGroupService } from './search-builder-group.service';
 
 @Component({
   selector: 'ux-search-builder-group',
   templateUrl: './search-builder-group.component.html',
   providers: [SearchBuilderGroupService],
-  standalone: false,
+  imports: [
+    FocusWithinDirective,
+    SearchBuilderOutletDirective,
+    FocusIndicatorDirective,
+    IconComponent,
+    NgTemplateOutlet,
+  ],
 })
 export class SearchBuilderGroupComponent implements OnInit, OnDestroy {
   readonly searchBuilderGroupService = inject(SearchBuilderGroupService);

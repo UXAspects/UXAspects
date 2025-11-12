@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { CheckboxModule } from '../../checkbox/checkbox.module';
@@ -44,7 +45,7 @@ interface TableDocument {
       </tbody>
     </table>
   `,
-  standalone: false,
+  imports: [TableModule, CheckboxModule, CommonModule],
 })
 export class ResizableTableColumnComponent {
   documents: TableDocument[] = [];
@@ -79,8 +80,7 @@ describe('Resizable table column Component', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [TableModule, CheckboxModule],
-      declarations: [ResizableTableColumnComponent],
+      imports: [TableModule, CheckboxModule, ResizableTableColumnComponent],
       providers: [
         BaseResizableTableService,
         { provide: RESIZABLE_TABLE_SERVICE_TOKEN, useValue: ResizableTableService },

@@ -1,9 +1,6 @@
 import { Directive, ElementRef, EventEmitter, HostListener, inject, Output } from '@angular/core';
 
-@Directive({
-  selector: '[uxClickOutside]',
-  standalone: false,
-})
+@Directive({ selector: '[uxClickOutside]' })
 export class ClickOutsideDirective {
   private readonly _elementRef = inject(ElementRef);
 

@@ -1,6 +1,6 @@
 import { A11yModule } from '@angular/cdk/a11y';
 import { CommonModule } from '@angular/common';
-import { ComponentFactoryResolver, NgModule } from '@angular/core';
+import { ComponentFactoryResolver, NgModule, inject } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import {
@@ -58,10 +58,10 @@ const ROUTES = [
   exports: SECTIONS,
 })
 export class ComponentsWizardModule {
-  constructor(
-    componentFactoryResolver: ComponentFactoryResolver,
-    resolverService: ResolverService
-  ) {
+  constructor() {
+    const componentFactoryResolver = inject(ComponentFactoryResolver);
+    const resolverService = inject(ResolverService);
+
     resolverService.registerResolver(componentFactoryResolver, SECTIONS);
   }
 }

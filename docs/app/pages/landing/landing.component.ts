@@ -1,5 +1,4 @@
-import { NgFor } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FullPageLayoutComponent } from '../../components/full-page-layout/full-page-layout.component';
 import { LandingPageFeatureListComponent } from '../../components/landing-page-feature-list/landing-page-feature-list.component';
 import { LandingPageFeatureComponent } from '../../components/landing-page-feature/landing-page-feature.component';
@@ -15,14 +14,15 @@ import { AppConfiguration } from '../../services/app-configuration/app-configura
     LandingPageHeaderComponent,
     FullPageLayoutComponent,
     LandingPageFeatureListComponent,
-    NgFor,
     LandingPageFeatureComponent,
   ],
 })
 export class LandingPageComponent {
+  private readonly _appConfig = inject(AppConfiguration);
+
   landingPage: ILandingPage;
 
-  constructor(private readonly _appConfig: AppConfiguration) {
+  constructor() {
     // load the landing page data file
     this.landingPage = this._appConfig.getConfigurationData('landing-page');
   }

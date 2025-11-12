@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { AccessibilityModule, ColorService, TabsetModule } from '@ux-aspects/ux-aspects';
 import { ChartDataset, ChartOptions, TooltipItem } from 'chart.js';
 import { NgChartsModule } from 'ng2-charts';
@@ -50,7 +50,9 @@ export class ChartsLineChartComponent
   lineChartLegend: boolean = false;
   lineChartColors: any;
 
-  constructor(colorService: ColorService) {
+  constructor() {
+    const colorService = inject(ColorService);
+
     super(
       import.meta.webpackContext('./snippets/', {
         recursive: false,

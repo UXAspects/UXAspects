@@ -1,5 +1,13 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
-import { CdkDragEnter, CdkDropList, DragRef, moveItemInArray } from '@angular/cdk/drag-drop';
+import {
+  CdkDragEnter,
+  CdkDropList,
+  DragRef,
+  moveItemInArray,
+  CdkDropListGroup,
+  CdkDrag,
+} from '@angular/cdk/drag-drop';
+import { NgTemplateOutlet, AsyncPipe } from '@angular/common';
 import {
   AfterViewInit,
   Component,
@@ -14,7 +22,11 @@ import {
 } from '@angular/core';
 import { Subject } from 'rxjs';
 import { filter } from 'rxjs/operators';
+import { DefaultFocusIndicatorDirective } from '../../directives/accessibility/focus-indicator/default-focus-indicator.directive';
+import { FocusIndicatorDirective } from '../../directives/accessibility/focus-indicator/focus-indicator.directive';
 import { ReorderEvent } from '../../directives/reorderable/index';
+import { IconComponent } from '../icon/icon.component';
+import { TooltipDirective } from '../tooltip/tooltip.directive';
 import { FacetClearButtonDirective } from './facet-clear-button/facet-clear-button.directive';
 import { FacetDeselect, FacetEvent } from './facet-events';
 import { FacetService } from './facet.service';
@@ -25,7 +37,17 @@ import { Facet } from './models/facet';
   templateUrl: './facet-container.component.html',
   providers: [FacetService],
   preserveWhitespaces: false,
-  standalone: false,
+  imports: [
+    NgTemplateOutlet,
+    CdkDropListGroup,
+    CdkDropList,
+    CdkDrag,
+    FocusIndicatorDirective,
+    IconComponent,
+    DefaultFocusIndicatorDirective,
+    TooltipDirective,
+    AsyncPipe,
+  ],
 })
 export class FacetContainerComponent implements OnDestroy, AfterViewInit {
   readonly facetService = inject(FacetService);

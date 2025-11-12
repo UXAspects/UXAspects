@@ -9,6 +9,7 @@ import {
   Output,
 } from '@angular/core';
 import { FocusIndicator, FocusIndicatorService } from '../../../../directives/accessibility/index';
+import { IconComponent } from '../../../icon/icon.component';
 
 @Component({
   selector: 'ux-facet-header',
@@ -21,7 +22,7 @@ import { FocusIndicator, FocusIndicatorService } from '../../../../directives/ac
     '[attr.aria-expanded]': 'expanded',
     '[attr.aria-label]': "header + ' Facet: Activate to ' + (expanded ? 'collapse' : 'expand')",
   },
-  standalone: false,
+  imports: [IconComponent],
 })
 export class FacetHeaderComponent implements OnDestroy {
   readonly focusIndicatorService = inject(FocusIndicatorService);

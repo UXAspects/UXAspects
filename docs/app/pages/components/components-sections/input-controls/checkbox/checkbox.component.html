@@ -1,5 +1,5 @@
-<ng-container [ngSwitch]="theme">
-  <ng-container *ngSwitchDefault>
+@switch (theme) {
+  @default {
     <div class="checkbox-container">
       <ux-checkbox [(value)]="checkModel.option1" [disabled]="disableCheck"> Option1 </ux-checkbox>
       <ux-checkbox [(value)]="checkModel.option2" [indeterminateValue]="indeterminateValue">
@@ -12,7 +12,6 @@
         adipiscing elit onsectetur adipiscing elit. Inte adipiscing elit onsectetur adipiscing elit.
       </ux-checkbox>
     </div>
-
     <p class="m-t">
       <code>checkModel.option1</code> is <em>{{ checkModel.option1 }}</em
       >. <code>checkModel.option2</code> is <em>{{ checkModel.option2 }}</em
@@ -20,19 +19,16 @@
       >. <code>checkModel.option4</code> is <em>{{ checkModel.option4 }}</em
       >.
     </p>
-
     <div class="btn-container m-t">
       <button class="btn button-primary" (click)="disableCheck = !disableCheck">
         {{ disableCheck ? 'Enable Option1' : 'Disable Option1' }}
       </button>
-
       <button class="btn button-secondary" (click)="checkModel.option2 = indeterminateValue">
         Set Option2 to indeterminate state
       </button>
     </div>
-  </ng-container>
-
-  <ng-container *ngSwitchCase="SiteThemeId.Keppel">
+  }
+  @case (SiteThemeId.Keppel) {
     <div class="checkbox-container">
       <ux-checkbox
         [(value)]="checkModel.option1"
@@ -55,7 +51,6 @@
         adipiscing elit onsectetur adipiscing elit. Inte adipiscing elit onsectetur adipiscing elit.
       </ux-checkbox>
     </div>
-
     <p class="m-t">
       <code>checkModel.option1</code> is <em>{{ checkModel.option1 }}</em
       >. <code>checkModel.option2</code> is <em>{{ checkModel.option2 }}</em
@@ -63,22 +58,19 @@
       >. <code>checkModel.option4</code> is <em>{{ checkModel.option4 }}</em
       >.
     </p>
-
     <div class="btn-container m-t">
       <button class="btn button-primary" (click)="disableCheck = !disableCheck">
         {{ disableCheck ? 'Enable Option1' : 'Disable Option1' }}
       </button>
-
       <button class="btn button-secondary" (click)="checkModel.option2 = indeterminateValue">
         Set Option2 to indeterminate state
       </button>
-
       <button class="btn button-accent" (click)="simplified = !simplified">
         {{ simplified ? 'Disable Simplified Style' : 'Enable Simplified Style' }}
       </button>
     </div>
-  </ng-container>
-</ng-container>
+  }
+}
 
 <hr />
 
@@ -96,17 +88,13 @@
     is set to the indeterminate value specified using this attribute, it will neither display the
     checkbox as checked or unchecked, and will instead show the indeterminate variation.
   </tr>
-  <tr
-    *ngIf="theme === SiteThemeId.Keppel"
-    uxd-api-property
-    name="simplified"
-    type="boolean"
-    defaultValue="false"
-  >
-    If set to
-    <code>true</code>
-    the checkbox will be displayed without a border and background.
-  </tr>
+  @if (theme === SiteThemeId.Keppel) {
+    <tr uxd-api-property name="simplified" type="boolean" defaultValue="false">
+      If set to
+      <code>true</code>
+      the checkbox will be displayed without a border and background.
+    </tr>
+  }
   <tr uxd-api-property name="clickable" type="boolean" defaultValue="false">
     If set to
     <code>true</code>

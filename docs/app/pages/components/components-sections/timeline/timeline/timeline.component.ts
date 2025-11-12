@@ -1,4 +1,4 @@
-import { DatePipe, NgFor } from '@angular/common';
+import { DatePipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import {
@@ -22,7 +22,6 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
   imports: [
     AccessibilityModule,
     TimelineModule,
-    NgFor,
     IconModule,
     ApiPropertiesComponent,
     ApiPropertyComponent,

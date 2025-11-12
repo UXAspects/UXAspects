@@ -16,8 +16,7 @@ const DECLARATIONS = [
 ];
 
 @NgModule({
-  imports: [AccessibilityModule, CommonModule, FocusIfModule, IconModule],
+  imports: [AccessibilityModule, CommonModule, FocusIfModule, IconModule, ...DECLARATIONS],
   exports: DECLARATIONS,
-  declarations: DECLARATIONS,
 })
 export class ItemDisplayPanelModule {}

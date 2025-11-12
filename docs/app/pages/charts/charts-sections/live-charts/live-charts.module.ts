@@ -1,4 +1,4 @@
-import { ComponentFactoryResolver, NgModule } from '@angular/core';
+import { ComponentFactoryResolver, NgModule, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ColorServiceModule, TabsetModule } from '@ux-aspects/ux-aspects';
 import { NgChartsModule } from 'ng2-charts';
@@ -31,10 +31,10 @@ const ROUTES = [
   exports: SECTIONS,
 })
 export class ChartsLiveChartsModule {
-  constructor(
-    componentFactoryResolver: ComponentFactoryResolver,
-    resolverService: ResolverService
-  ) {
+  constructor() {
+    const componentFactoryResolver = inject(ComponentFactoryResolver);
+    const resolverService = inject(ResolverService);
+
     resolverService.registerResolver(componentFactoryResolver, SECTIONS);
   }
 }

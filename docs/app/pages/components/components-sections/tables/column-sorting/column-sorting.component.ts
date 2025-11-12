@@ -1,6 +1,5 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
-import { NgFor, NgSwitch, NgSwitchCase, NgSwitchDefault } from '@angular/common';
-import { Component, Inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import {
   AccessibilityModule,
@@ -26,14 +25,10 @@ import { DOCUMENTATION_TOKEN, DocumentationType } from '../../../../../tokens/do
   selector: 'uxd-components-column-sorting',
   templateUrl: './column-sorting.component.html',
   imports: [
-    NgSwitch,
-    NgSwitchCase,
     ColumnSortingModule,
     AccessibilityModule,
-    NgFor,
     SparkModule,
     IconModule,
-    NgSwitchDefault,
     ApiPropertiesComponent,
     ApiPropertyComponent,
     RouterLink,
@@ -46,6 +41,9 @@ export class ComponentsColumnSortingComponent
   extends BaseDocumentationSection
   implements IPlaygroundProvider
 {
+  private readonly _colorService = inject(ColorService);
+  private readonly _announcer = inject(LiveAnnouncer);
+
   order: ReadonlyArray<ColumnSortingOrder> = [];
   iconSetDocumentationRoute: string;
 
@@ -138,11 +136,9 @@ export class ComponentsColumnSortingComponent
   sparkTrackColor = this._colorService.getColor('chart2').setAlpha(0.2).toRgba();
   sparkBarColor = this._colorService.getColor('chart2').toHex();
 
-  constructor(
-    private readonly _colorService: ColorService,
-    private readonly _announcer: LiveAnnouncer,
-    @Inject(DOCUMENTATION_TOKEN) documentationType: DocumentationType
-  ) {
+  constructor() {
+    const documentationType = inject<DocumentationType>(DOCUMENTATION_TOKEN);
+
     super(
       import.meta.webpackContext('./snippets/', {
         recursive: false,

@@ -3,10 +3,7 @@ import { isKeyboardTrigger } from '../../common/index';
 import { FocusIndicatorOriginService } from '../../directives/accessibility/index';
 import { SidePanelService } from './side-panel.service';
 
-@Directive({
-  selector: '[uxSidePanelClose]',
-  standalone: false,
-})
+@Directive({ selector: '[uxSidePanelClose]' })
 export class SidePanelCloseDirective {
   private readonly _service = inject(SidePanelService);
 

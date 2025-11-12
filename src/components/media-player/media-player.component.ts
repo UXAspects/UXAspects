@@ -1,3 +1,5 @@
+import { CdkTrapFocus } from '@angular/cdk/a11y';
+import { AsyncPipe } from '@angular/common';
 import {
   AfterViewInit,
   Component,
@@ -9,7 +11,12 @@ import {
 } from '@angular/core';
 import { fromEvent, Observable, Subject } from 'rxjs';
 import { debounceTime, takeUntil, tap } from 'rxjs/operators';
+import { FocusIndicatorDirective } from '../../directives/accessibility/focus-indicator/focus-indicator.directive';
+import { FocusWithinDirective } from '../../directives/accessibility/focus-within/focus-within.directive';
+import { FileSizePipe } from '../../pipes/file-size/file-size.pipe';
 import { AudioMetadata, AudioService } from '../../services/audio/index';
+import { MediaPlayerControlsExtensionComponent } from './extensions/controls/controls.component';
+import { MediaPlayerTimelineExtensionComponent } from './extensions/timeline/timeline.component';
 import { MediaPlayerService } from './media-player.service';
 
 @Component({
@@ -31,7 +38,15 @@ import { MediaPlayerService } from './media-player.service';
     '(document:mozfullscreenchange)': 'mediaPlayerService.fullscreenChange()',
     '(document:MSFullscreenChange)': 'mediaPlayerService.fullscreenChange()',
   },
-  standalone: false,
+  imports: [
+    FocusIndicatorDirective,
+    CdkTrapFocus,
+    FocusWithinDirective,
+    MediaPlayerTimelineExtensionComponent,
+    MediaPlayerControlsExtensionComponent,
+    AsyncPipe,
+    FileSizePipe,
+  ],
 })
 export class MediaPlayerComponent implements AfterViewInit, OnDestroy {
   readonly mediaPlayerService = inject(MediaPlayerService);

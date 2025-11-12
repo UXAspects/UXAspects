@@ -1,5 +1,7 @@
+import { NgClass, NgTemplateOutlet } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Subject } from 'rxjs';
+import { ClickOutsideDirective } from '../../directives/click-outside/click-outside.directive';
 import { TooltipComponent } from '../tooltip/index';
 
 let uniquePopoverId = 0;
@@ -8,7 +10,7 @@ let uniquePopoverId = 0;
   selector: 'ux-popover',
   templateUrl: './popover.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
+  imports: [NgClass, ClickOutsideDirective, NgTemplateOutlet],
 })
 export class PopoverComponent extends TooltipComponent {
   /** Define a unique id for each popover */

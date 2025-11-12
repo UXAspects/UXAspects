@@ -1,6 +1,6 @@
+import { AsyncPipe } from '@angular/common';
 import {
   AfterViewInit,
-  ChangeDetectorRef,
   Component,
   ElementRef,
   inject,
@@ -20,7 +20,7 @@ import { PageHeaderNavigationService } from './navigation.service';
   selector: 'ux-page-header-horizontal-navigation',
   templateUrl: './navigation.component.html',
   providers: [PageHeaderNavigationService],
-  standalone: false,
+  imports: [PageHeaderNavigationItemComponent, AsyncPipe],
 })
 export class PageHeaderNavigationComponent implements AfterViewInit, OnDestroy {
   readonly elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
@@ -31,8 +31,6 @@ export class PageHeaderNavigationComponent implements AfterViewInit, OnDestroy {
 
   private readonly _pageHeaderService = inject(PageHeaderService);
 
-  private readonly _changeDetectorRef = inject(ChangeDetectorRef);
-
   @ViewChildren(PageHeaderNavigationItemComponent)
   menuItems: QueryList<PageHeaderNavigationItemComponent>;
 
@@ -41,7 +39,7 @@ export class PageHeaderNavigationComponent implements AfterViewInit, OnDestroy {
   indicatorX: number = 0;
   indicatorWidth: number = 0;
 
-  private readonly _onDestroy = new Subject();
+  private readonly _onDestroy = new Subject<void>();
 
   constructor() {
     this.resizeService

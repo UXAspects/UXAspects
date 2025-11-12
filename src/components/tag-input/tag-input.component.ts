@@ -1,6 +1,6 @@
 import { BooleanInput, coerceBooleanProperty } from '@angular/cdk/coercion';
 import { BACKSPACE, DELETE, ENTER, LEFT_ARROW, RIGHT_ARROW, SPACE } from '@angular/cdk/keycodes';
-import { DOCUMENT } from '@angular/common';
+import { NgClass, NgTemplateOutlet } from '@angular/common';
 import {
   AfterContentInit,
   ChangeDetectionStrategy,
@@ -21,6 +21,7 @@ import {
   ViewChild,
   forwardRef,
   inject,
+  DOCUMENT,
 } from '@angular/core';
 import {
   ControlValueAccessor,
@@ -28,10 +29,14 @@ import {
   NG_VALUE_ACCESSOR,
   ValidationErrors,
   Validator,
+  FormsModule,
 } from '@angular/forms';
 import { Subject, Subscription } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { tick } from '../../common/index';
+import { FocusIndicatorDirective } from '../../directives/accessibility/focus-indicator/focus-indicator.directive';
+import { FocusIfDirective } from '../../directives/focus-if/focus-if.directive';
+import { IconComponent } from '../icon/icon.component';
 import { TypeaheadComponent, TypeaheadKeyService } from '../typeahead/index';
 import { TypeaheadOptionEvent } from '../typeahead/typeahead-event';
 import { TagInputEvent } from './tag-input-event';
@@ -60,7 +65,14 @@ const TAGINPUT_VALIDATOR = {
     '[class.focus]': 'hasFocus()',
     '[class.invalid]': '!valid || !inputValid',
   },
-  standalone: false,
+  imports: [
+    NgClass,
+    FocusIfDirective,
+    NgTemplateOutlet,
+    FormsModule,
+    FocusIndicatorDirective,
+    IconComponent,
+  ],
 })
 export class TagInputComponent<T = any>
   implements AfterContentInit, OnChanges, ControlValueAccessor, Validator, OnDestroy

@@ -1,4 +1,3 @@
-import { NgFor, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 import { FixedHeaderTableModule, IconModule, TabsetModule } from '@ux-aspects/ux-aspects';
 import { ApiPropertiesComponent } from '../../../../../components/api-properties/api-properties.component';
@@ -15,8 +14,6 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
   styleUrls: ['./fixed-header-table.component.less'],
   imports: [
     FixedHeaderTableModule,
-    NgFor,
-    NgIf,
     IconModule,
     ApiPropertiesComponent,
     ApiPropertyComponent,

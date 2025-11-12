@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({
@@ -16,7 +16,9 @@ export class AppComponent {
     this.demoForm.get('location').setValue(value);
   }
 
-  constructor(formBuilder: FormBuilder) {
+  constructor() {
+    const formBuilder = inject(FormBuilder);
+
     this.demoForm = formBuilder.group({
       username: [''],
       location: [''],

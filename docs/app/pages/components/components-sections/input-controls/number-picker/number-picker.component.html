@@ -7,9 +7,9 @@
   [formControl]="form.controls['integer']"
 ></ux-number-picker>
 
-<p class="text-error" *ngIf="form.controls['integer'].invalid">
-  <ux-icon name="alert"></ux-icon> Enter a number between -10 and 10.
-</p>
+@if (form.controls['integer'].invalid) {
+  <p class="text-error"><ux-icon name="alert"></ux-icon> Enter a number between -10 and 10.</p>
+}
 
 <p class="m-t-md">Selecting a decimal:</p>
 
@@ -21,9 +21,9 @@
   [formControl]="form.controls['decimal']"
 ></ux-number-picker>
 
-<p class="text-error" *ngIf="form.controls['decimal'].invalid">
-  <ux-icon name="alert"></ux-icon> Enter a number between 0 and 10.
-</p>
+@if (form.controls['decimal'].invalid) {
+  <p class="text-error"><ux-icon name="alert"></ux-icon> Enter a number between 0 and 10.</p>
+}
 
 <hr />
 

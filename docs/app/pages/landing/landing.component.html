@@ -12,13 +12,14 @@
 
   <!-- Show all the feature items -->
   <uxd-landing-page-feature-list>
-    <uxd-landing-page-feature
-      [columns]="4"
-      *ngFor="let feature of landingPage.overview.features"
-      [header]="feature.title"
-      [description]="feature.description"
-      [image]="feature.image"
-    ></uxd-landing-page-feature>
+    @for (feature of landingPage.overview.features; track feature) {
+      <uxd-landing-page-feature
+        [columns]="4"
+        [header]="feature.title"
+        [description]="feature.description"
+        [image]="feature.image"
+      ></uxd-landing-page-feature>
+    }
   </uxd-landing-page-feature-list>
 
   <hr class="landing-page-divider" />
@@ -28,13 +29,14 @@
 
   <!-- Show all the social items -->
   <uxd-landing-page-feature-list>
-    <uxd-landing-page-feature
-      [columns]="landingPage.social.links.length"
-      *ngFor="let item of landingPage.social.links"
-      [header]="item.title"
-      [description]="item.description"
-      [image]="item.image"
-      [link]="item.link"
-    ></uxd-landing-page-feature>
+    @for (item of landingPage.social.links; track item) {
+      <uxd-landing-page-feature
+        [columns]="landingPage.social.links.length"
+        [header]="item.title"
+        [description]="item.description"
+        [image]="item.image"
+        [link]="item.link"
+      ></uxd-landing-page-feature>
+    }
   </uxd-landing-page-feature-list>
 </uxd-full-page-layout>

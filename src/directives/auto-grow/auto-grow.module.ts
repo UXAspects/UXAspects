@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { AutoGrowDirective } from './auto-grow.directive';
 
 @NgModule({
+  imports: [AutoGrowDirective],
   exports: [AutoGrowDirective],
-  declarations: [AutoGrowDirective],
 })
 export class AutoGrowModule {}

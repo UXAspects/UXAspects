@@ -1,5 +1,11 @@
-import { NgFor, NgIf } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Input, OnChanges, OnDestroy } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnChanges,
+  OnDestroy,
+  inject,
+} from '@angular/core';
 import { IconModule, MenuModule } from '@ux-aspects/ux-aspects';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -11,9 +17,11 @@ import { SiteThemeService } from '../../services/site-theme/site-theme.service';
   templateUrl: './theme-selector.component.html',
   styleUrls: ['./theme-selector.component.less'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [MenuModule, NgIf, IconModule, NgFor],
+  imports: [MenuModule, IconModule],
 })
 export class ThemeSelectorComponent implements OnChanges, OnDestroy {
+  private readonly _siteThemeService = inject(SiteThemeService);
+
   @Input()
   buttonTitle: string;
 
@@ -24,9 +32,11 @@ export class ThemeSelectorComponent implements OnChanges, OnDestroy {
   selected: SiteTheme;
   default: SiteTheme;
 
-  private readonly _onDestroy = new Subject();
+  private readonly _onDestroy = new Subject<void>();
 
-  constructor(private readonly _siteThemeService: SiteThemeService) {
+  constructor() {
+    const _siteThemeService = this._siteThemeService;
+
     _siteThemeService.theme$
       .pipe(takeUntil(this._onDestroy))
       .subscribe(this.updateWithTheme.bind(this));

@@ -15,8 +15,8 @@ describe('Dashboard Widget', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports: [DashboardWidgetComponent],
       providers: [{ provide: DashboardService, useClass: MockDashboardService }],
-      declarations: [DashboardWidgetComponent],
     }).compileComponents();
 
     fixture = TestBed.createComponent(DashboardWidgetComponent);

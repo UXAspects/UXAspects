@@ -11,7 +11,7 @@ import { Filter } from '../interfaces/filter.interface';
       <ux-filter-dropdown [id]="id" [filters]="filters" [initial]="filters[0]"></ux-filter-dropdown>
     </ux-filter-container>
   `,
-  standalone: false,
+  imports: [FilterModule],
 })
 export class FilterDropdownComponentSpec {
   id: string = 'custom-filter-dropdown';
@@ -48,8 +48,7 @@ describe('Filter Dropdown', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [FilterModule, NoopAnimationsModule],
-      declarations: [FilterDropdownComponentSpec],
+      imports: [FilterModule, NoopAnimationsModule, FilterDropdownComponentSpec],
     }).compileComponents();
 
     fixture = TestBed.createComponent<FilterDropdownComponentSpec>(FilterDropdownComponentSpec);

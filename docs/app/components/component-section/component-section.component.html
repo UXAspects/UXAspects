@@ -4,66 +4,69 @@
 
     <div class="uxd-component-section-attributes">
       <!-- Show the Plunker link if required -->
-      <uxd-edit-example-link
-        *ngIf="playground"
-        [title]="title"
-        [content]="playground"
-        [version]="version"
-        >Edit in CodeSandbox</uxd-edit-example-link
-      >
+      @if (playground) {
+        <uxd-edit-example-link [title]="title" [content]="playground" [version]="version"
+          >Edit in CodeSandbox</uxd-edit-example-link
+        >
+      }
 
       <!-- Show usage link if required -->
-      <uxd-usage-link *ngIf="usage" [usage]="usage"></uxd-usage-link>
+      @if (usage) {
+        <uxd-usage-link [usage]="usage"></uxd-usage-link>
+      }
 
       <!-- Show Universal migration if available -->
-      <uxd-migrate-link
-        *ngIf="migration && theme !== SiteThemeId.Keppel"
-        [migration]="migration"
-      ></uxd-migrate-link>
+      @if (migration && theme !== SiteThemeId.Keppel) {
+        <uxd-migrate-link [migration]="migration"></uxd-migrate-link>
+      }
 
       <!-- Identify as External plugin -->
-      <a
-        *ngIf="externalUrl"
-        role="button"
-        class="label label-warning uxd-component-section-labels"
-        uxTooltip="This component is from a third party library and not included in the UX Aspects component library."
-        placement="bottom"
-        [href]="externalUrl"
-        target="_blank"
-        rel="noopener"
-        >External</a
-      >
+      @if (externalUrl) {
+        <a
+          role="button"
+          class="label label-warning uxd-component-section-labels"
+          uxTooltip="This component is from a third party library and not included in the UX Aspects component library."
+          placement="bottom"
+          [href]="externalUrl"
+          target="_blank"
+          rel="noopener"
+          >External</a
+        >
+      }
 
       <!-- Show Deprecated label if required -->
-      <span
-        *ngIf="deprecated && !deprecatedLink"
-        class="label label-critical uxd-component-section-labels"
-        uxTooltip="This component has been deprecated and will be removed in the next major version of UX Aspects."
-        placement="bottom"
-        >Deprecated</span
-      >
+      @if (deprecated && !deprecatedLink) {
+        <span
+          class="label label-critical uxd-component-section-labels"
+          uxTooltip="This component has been deprecated and will be removed in the next major version of UX Aspects."
+          placement="bottom"
+          >Deprecated</span
+        >
+      }
 
       <!-- Deprecated label with link to another section -->
-      <a
-        *ngIf="deprecatedLink"
-        class="label label-critical uxd-component-section-labels"
-        [routerLink]="deprecatedLink.link"
-        [fragment]="deprecatedLink.fragment"
-        uxTooltip="This component has been deprecated and will be removed in the next major version of UX Aspects."
-        placement="bottom"
-        >Deprecated</a
-      >
+      @if (deprecatedLink) {
+        <a
+          class="label label-critical uxd-component-section-labels"
+          [routerLink]="deprecatedLink.link"
+          [fragment]="deprecatedLink.fragment"
+          uxTooltip="This component has been deprecated and will be removed in the next major version of UX Aspects."
+          placement="bottom"
+          >Deprecated</a
+        >
+      }
 
       <!-- Schematic info -->
-      <a
-        *ngIf="schematic"
-        href="javascript:void(0)"
-        class="label label-alternate1 uxd-component-section-labels"
-        [uxPopover]="schematicContent"
-        placement="bottom"
-        popoverClass="ux-popover-schematic-tag"
-        >Schematic</a
-      >
+      @if (schematic) {
+        <a
+          href="javascript:void(0)"
+          class="label label-alternate1 uxd-component-section-labels"
+          [uxPopover]="schematicContent"
+          placement="bottom"
+          popoverClass="ux-popover-schematic-tag"
+          >Schematic</a
+        >
+      }
     </div>
   </ux-ebox-header>
 

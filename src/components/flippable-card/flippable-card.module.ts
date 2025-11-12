@@ -7,8 +7,12 @@ import {
 } from './flippable-card.component';
 
 @NgModule({
-  imports: [AccessibilityModule],
+  imports: [
+    AccessibilityModule,
+    FlippableCardComponent,
+    FlippableCardBackDirective,
+    FlippableCardFrontDirective,
+  ],
   exports: [FlippableCardComponent, FlippableCardBackDirective, FlippableCardFrontDirective],
-  declarations: [FlippableCardComponent, FlippableCardBackDirective, FlippableCardFrontDirective],
 })
 export class FlippableCardModule {}

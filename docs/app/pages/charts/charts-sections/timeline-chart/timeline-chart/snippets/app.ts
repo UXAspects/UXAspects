@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, inject } from '@angular/core';
 import { ColorService, TimelineChartOptions } from '@ux-aspects/ux-aspects';
 import { ChartDataset, ChartOptions, ScatterDataPoint } from 'chart.js';
 import 'chartjs-adapter-moment';
@@ -18,6 +18,9 @@ const DATE_LOCALE_OPTIONS = {
   providers: [TimelineChartService],
 })
 export class AppComponent {
+  private readonly _dataService = inject(TimelineChartService);
+  private readonly _colorService = inject(ColorService);
+
   @ViewChild(BaseChartDirective, { static: true }) baseChart?: BaseChartDirective;
 
   lineChartData: ChartDataset<'line'>[];
@@ -26,10 +29,7 @@ export class AppComponent {
   timelineChartData: ChartDataset<'line'>[];
   timelineChartOptions: ChartOptions & TimelineChartOptions;
 
-  constructor(
-    private readonly _dataService: TimelineChartService,
-    private readonly _colorService: ColorService
-  ) {
+  constructor() {
     this.lineChartData = [
       {
         data: this._dataService.getDataset() as ScatterDataPoint[],

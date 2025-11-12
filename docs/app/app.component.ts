@@ -1,4 +1,4 @@
-import { Component, NgZone, OnInit } from '@angular/core';
+import { Component, NgZone, OnInit, inject } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Breadcrumb, PageHeaderIconMenu, PageHeaderNavigationItem } from '@ux-aspects/ux-aspects';
 import { filter, map } from 'rxjs/operators';
@@ -11,6 +11,10 @@ import { NavigationService } from './services/navigation/navigation.service';
   standalone: false,
 })
 export class AppComponent implements OnInit {
+  private readonly router = inject(Router);
+  private readonly activatedRoute = inject(ActivatedRoute);
+  private readonly navigation = inject(NavigationService);
+
   header: string;
   isNavigationVisible: boolean = true;
   backVisible: boolean = false;
@@ -86,12 +90,9 @@ export class AppComponent implements OnInit {
     },
   ];
 
-  constructor(
-    private readonly router: Router,
-    private readonly activatedRoute: ActivatedRoute,
-    private readonly navigation: NavigationService,
-    ngZone: NgZone
-  ) {
+  constructor() {
+    const ngZone = inject(NgZone);
+
     (window as any).ngZone = ngZone;
   }
 

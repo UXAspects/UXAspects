@@ -4,6 +4,5 @@ import { Directive } from '@angular/core';
 @Directive({
   selector: '[uxReorderableHandle]',
   providers: [{ provide: CDK_DRAG_HANDLE, useExisting: ReorderableHandleDirective }],
-  standalone: false,
 })
 export class ReorderableHandleDirective extends CdkDragHandle {}

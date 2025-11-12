@@ -9,8 +9,7 @@ import { WizardComponent } from './wizard.component';
 const DECLARATIONS = [WizardComponent, WizardStepComponent];
 
 @NgModule({
-  imports: [AccessibilityModule, CommonModule, IconModule, TooltipModule],
+  imports: [AccessibilityModule, CommonModule, IconModule, TooltipModule, ...DECLARATIONS],
   exports: DECLARATIONS,
-  declarations: DECLARATIONS,
 })
 export class WizardModule {}

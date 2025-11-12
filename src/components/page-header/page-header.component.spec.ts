@@ -21,7 +21,7 @@ import { PageHeaderModule } from './page-header.module';
     >
     </ux-page-header>
   `,
-  standalone: false,
+  imports: [PageHeaderModule],
 })
 export class PageHeaderTestComponent {
   items: PageHeaderNavigationItem[] = [
@@ -98,9 +98,9 @@ describe('Page Header Component', () => {
         RouterModule.forRoot([]),
         ColorServiceModule.forRoot(colorSets.keppel),
         NoopAnimationsModule,
+        PageHeaderTestComponent,
       ],
       providers: [{ provide: APP_BASE_HREF, useValue: '/' }],
-      declarations: [PageHeaderTestComponent],
     }).compileComponents();
 
     fixture = TestBed.createComponent(PageHeaderTestComponent);
@@ -215,7 +215,7 @@ describe('Page Header Component', () => {
     >
     </ux-page-header>
   `,
-  standalone: false,
+  imports: [PageHeaderModule],
 })
 export class PageHeaderSecondaryTestComponent {
   items: PageHeaderNavigationItem[] = [
@@ -256,9 +256,9 @@ describe('Page Header Secondary Component', () => {
         RouterModule.forRoot([]),
         ColorServiceModule.forRoot(colorSets.keppel),
         NoopAnimationsModule,
+        PageHeaderSecondaryTestComponent,
       ],
       providers: [{ provide: APP_BASE_HREF, useValue: '/' }],
-      declarations: [PageHeaderSecondaryTestComponent],
     }).compileComponents();
 
     fixture = TestBed.createComponent(PageHeaderSecondaryTestComponent);

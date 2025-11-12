@@ -1,5 +1,5 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import {
   Filter,
   FilterAddEvent,
@@ -14,6 +14,8 @@ import 'chance';
   templateUrl: './app.component.html',
 })
 export class AppComponent {
+  private readonly _announcer = inject(LiveAnnouncer);
+
   filters: Filter[] = [];
 
   statusFilters: Filter[] = [
@@ -157,8 +159,6 @@ export class AppComponent {
   ];
 
   documents: ReadonlyArray<FilterSampleItem> = [...this.dataSource];
-
-  constructor(private readonly _announcer: LiveAnnouncer) {}
 
   /** Provide accesibility feedback */
   onEvent(event: FilterEvent) {

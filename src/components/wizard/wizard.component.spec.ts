@@ -35,7 +35,7 @@ interface StepDefinition {
       }
     </ux-wizard>
   `,
-  standalone: false,
+  imports: [WizardModule],
 })
 export class WizardTestComponent {
   @ViewChild(WizardComponent) wizard: WizardComponent;
@@ -72,8 +72,7 @@ describe('Wizard', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [WizardModule],
-      declarations: [WizardTestComponent],
+      imports: [WizardModule, WizardTestComponent],
     }).compileComponents();
   });
 
@@ -257,7 +256,7 @@ describe('Wizard', () => {
       </ux-wizard-step>
     </ux-wizard>
   `,
-  standalone: false,
+  imports: [WizardModule],
 })
 export class WizardAsyncValidationTestComponent {
   firstStepValidator: () => boolean | Promise<boolean>;
@@ -289,8 +288,7 @@ describe('Wizard with validator', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [WizardModule],
-      declarations: [WizardAsyncValidationTestComponent],
+      imports: [WizardModule, WizardAsyncValidationTestComponent],
     }).compileComponents();
   });
 
@@ -502,7 +500,7 @@ describe('Wizard with validator', () => {
       </ux-wizard-step>
     </ux-wizard>
   `,
-  standalone: false,
+  imports: [WizardModule],
 })
 export class WizardValidationTestComponent {
   currentStep: number;
@@ -535,8 +533,7 @@ describe('Wizard with validation', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [WizardModule],
-      declarations: [WizardValidationTestComponent],
+      imports: [WizardModule, WizardValidationTestComponent],
     }).compileComponents();
   });
 

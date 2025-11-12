@@ -1,5 +1,4 @@
-import { NgFor } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { EboxModule } from '@ux-aspects/ux-aspects';
 import { PageHeaderComponent } from '../../components/page-header/page-header.component';
@@ -10,15 +9,13 @@ import { AppConfiguration } from '../../services/app-configuration/app-configura
   selector: 'uxd-changelog-page',
   templateUrl: './changelog.component.html',
   styleUrls: ['./changelog.component.less'],
-  imports: [PageHeaderComponent, NgFor, EboxModule],
+  imports: [PageHeaderComponent, EboxModule],
 })
 export class ChangeLogPageComponent implements OnInit {
-  logs: IChangeLog[];
+  private readonly domSanitizer = inject(DomSanitizer);
+  private readonly appConfig = inject(AppConfiguration);
 
-  constructor(
-    private readonly domSanitizer: DomSanitizer,
-    private readonly appConfig: AppConfiguration
-  ) {}
+  logs: IChangeLog[];
 
   // eslint-disable-next-line @typescript-eslint/require-await
   async ngOnInit(): Promise<void> {

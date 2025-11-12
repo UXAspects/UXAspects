@@ -10,20 +10,17 @@ import {
   ViewChild,
 } from '@angular/core';
 import { distinctUntilChanged, takeUntil } from 'rxjs/operators';
+import { FocusIndicatorDirective } from '../../directives/accessibility/focus-indicator/focus-indicator.directive';
+import { FocusIfDirective } from '../../directives/focus-if/focus-if.directive';
+import { IconComponent } from '../icon/icon.component';
 import { sidePanelStateAnimation } from '../side-panel/side-panel-animations';
 import { SidePanelComponent } from '../side-panel/side-panel.component';
 import { SidePanelService } from '../side-panel/side-panel.service';
 
-@Directive({
-  selector: '[uxItemDisplayPanelContent]',
-  standalone: false,
-})
+@Directive({ selector: '[uxItemDisplayPanelContent]' })
 export class ItemDisplayPanelContentDirective {}
 
-@Directive({
-  selector: '[uxItemDisplayPanelFooter]',
-  standalone: false,
-})
+@Directive({ selector: '[uxItemDisplayPanelFooter]' })
 export class ItemDisplayPanelFooterDirective {}
 
 @Component({
@@ -34,7 +31,7 @@ export class ItemDisplayPanelFooterDirective {}
   host: {
     class: 'ux-side-panel ux-item-display-panel',
   },
-  standalone: false,
+  imports: [FocusIfDirective, FocusIndicatorDirective, IconComponent],
 })
 export class ItemDisplayPanelComponent extends SidePanelComponent implements OnInit {
   @Input() header: string;

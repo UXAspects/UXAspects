@@ -1,9 +1,6 @@
 import { Directive, ElementRef, EventEmitter, inject, OnDestroy, Output } from '@angular/core';
 
-@Directive({
-  selector: '[uxFocusWithin],[uxBlurWithin]',
-  standalone: false,
-})
+@Directive({ selector: '[uxFocusWithin],[uxBlurWithin]' })
 export class FocusWithinDirective implements OnDestroy {
   private readonly _elementRef = inject(ElementRef);
 

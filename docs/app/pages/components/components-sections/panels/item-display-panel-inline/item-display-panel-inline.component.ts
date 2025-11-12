@@ -1,4 +1,4 @@
-import { DatePipe, DecimalPipe, NgFor, NgIf } from '@angular/common';
+import { DatePipe, DecimalPipe } from '@angular/common';
 import { Component } from '@angular/core';
 import {
   AccessibilityModule,
@@ -20,9 +20,7 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
   styleUrls: ['./item-display-panel-inline.component.less'],
   imports: [
     AccessibilityModule,
-    NgFor,
     SparkModule,
-    NgIf,
     IconModule,
     ItemDisplayPanelModule,
     TabsetModule,

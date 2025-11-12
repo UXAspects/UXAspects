@@ -1,3 +1,4 @@
+import { AsyncPipe } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -15,7 +16,7 @@ import { CardTabContentDirective } from './card-tab-content.directive';
   selector: 'ux-card-tab',
   templateUrl: './card-tab.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
+  imports: [AsyncPipe],
 })
 export class CardTabComponent implements OnDestroy {
   private readonly _tabService = inject(CardTabsService);

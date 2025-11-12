@@ -1,5 +1,6 @@
 import { FocusableOption } from '@angular/cdk/a11y';
 import { LEFT_ARROW, RIGHT_ARROW, SPACE } from '@angular/cdk/keycodes';
+import { NgTemplateOutlet, NgClass, AsyncPipe } from '@angular/common';
 import {
   AfterViewInit,
   Component,
@@ -10,18 +11,34 @@ import {
   OnDestroy,
   ViewChild,
 } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { getIconType, IconType } from '../../../../common/index';
 import { tick } from '../../../../common/operators/index';
+import { FocusIndicatorDirective } from '../../../../directives/accessibility/focus-indicator/focus-indicator.directive';
+import { IconComponent } from '../../../icon/icon.component';
+import { MenuTriggerDirective } from '../../../menu/menu-trigger/menu-trigger.directive';
+import { MenuComponent } from '../../../menu/menu/menu.component';
 import { PageHeaderService } from '../../page-header.service';
+import { PageHeaderNavigationDropdownItemComponent } from '../navigation-dropdown-item/navigation-dropdown-item.component';
 import type { PageHeaderNavigationItem } from '../navigation.component';
 import { PageHeaderNavigationService } from '../navigation.service';
 
 @Component({
   selector: 'ux-page-header-horizontal-navigation-item',
   templateUrl: './navigation-item.component.html',
-  standalone: false,
+  imports: [
+    MenuTriggerDirective,
+    NgTemplateOutlet,
+    IconComponent,
+    MenuComponent,
+    PageHeaderNavigationDropdownItemComponent,
+    FocusIndicatorDirective,
+    RouterLink,
+    NgClass,
+    AsyncPipe,
+  ],
 })
 export class PageHeaderNavigationItemComponent
   implements AfterViewInit, OnDestroy, FocusableOption

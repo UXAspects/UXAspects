@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { ColorService, ThemeColor } from '@ux-aspects/ux-aspects';
 
 @Component({
@@ -7,6 +7,8 @@ import { ColorService, ThemeColor } from '@ux-aspects/ux-aspects';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
+  colorService = inject(ColorService);
+
   // color list
   public colorSet = [
     'primary',
@@ -50,7 +52,9 @@ export class AppComponent implements OnInit {
   donutChartOptions: Chart.ChartOptions;
   donutChartColors: any = [];
 
-  constructor(public colorService: ColorService) {
+  constructor() {
+    const colorService = this.colorService;
+
     const tooltipBackgroundColor = colorService.getColor('grey2').toHex();
 
     this.donutChartOptions = {

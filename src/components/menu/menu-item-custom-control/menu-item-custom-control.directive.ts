@@ -13,7 +13,6 @@ export const FocusableItemToken = new InjectionToken<FocusableControl>('Focusabl
     '[class.ux-menu-item]': 'true',
     role: 'menuitem',
   },
-  standalone: false,
 })
 export class MenuItemCustomControlDirective
   extends MenuTabbableItemDirective

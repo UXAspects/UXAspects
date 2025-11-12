@@ -4,8 +4,7 @@ import { SelectListItemComponent } from './select-list-item/select-list-item.com
 import { SelectListComponent } from './select-list.component';
 
 @NgModule({
-  imports: [AccessibilityModule],
-  declarations: [SelectListComponent, SelectListItemComponent],
+  imports: [AccessibilityModule, SelectListComponent, SelectListItemComponent],
   exports: [SelectListComponent, SelectListItemComponent],
 })
 export class SelectListModule {}

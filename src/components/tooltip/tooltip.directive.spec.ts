@@ -11,7 +11,7 @@ import { TooltipModule } from './tooltip.module';
       <button uxTooltip="Tooltip content here" [(isOpen)]="isOpen">Show Tooltip</button>
     }
   `,
-  standalone: false,
+  imports: [TooltipModule],
 })
 export class TooltipDirectiveSpecComponent {
   @ViewChild(TooltipDirective, { static: false }) tooltipDirective: TooltipDirective;
@@ -28,8 +28,7 @@ describe('Tooltip Directive', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [TooltipModule],
-      declarations: [TooltipDirectiveSpecComponent],
+      imports: [TooltipModule, TooltipDirectiveSpecComponent],
     });
 
     fixture = TestBed.createComponent(TooltipDirectiveSpecComponent);

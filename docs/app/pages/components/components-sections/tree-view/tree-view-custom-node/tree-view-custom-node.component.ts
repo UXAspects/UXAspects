@@ -4,7 +4,7 @@ import {
   TreeNodeChildrenComponent,
   TreeNodeExpanderComponent,
 } from '@ali-hm/angular-tree-component';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import {
   AccessibilityModule,
   CheckboxModule,
@@ -35,6 +35,8 @@ import { TreeViewService } from './tree-view-custom-node.service';
 })
 @DocumentationSectionComponent('ComponentsTreeViewCustomNodeComponent')
 export class ComponentsTreeViewCustomNodeComponent extends BaseDocumentationSection {
+  private readonly _treeViewService = inject(TreeViewService);
+
   nodes: TreeViewExampleNode[] = [
     {
       name: 'Documents',
@@ -54,7 +56,7 @@ export class ComponentsTreeViewCustomNodeComponent extends BaseDocumentationSect
 
   focused: TreeNode;
 
-  constructor(private readonly _treeViewService: TreeViewService) {
+  constructor() {
     super(
       import.meta.webpackContext('./snippets/', {
         recursive: false,

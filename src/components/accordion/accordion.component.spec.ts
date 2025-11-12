@@ -16,7 +16,7 @@ import { AccordionModule } from './accordion.module';
       </ux-accordion-panel>
     }
   </ux-accordion>`,
-  standalone: false,
+  imports: [AccordionModule],
 })
 export class AccordionComponent {
   groups: AccordionGroup[] = [
@@ -47,8 +47,7 @@ describe('Accordion', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [AccordionModule],
-      declarations: [AccordionComponent],
+      imports: [AccordionModule, AccordionComponent],
     }).compileComponents();
   });
 

@@ -1,4 +1,5 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
+import { AsyncPipe } from '@angular/common';
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
@@ -9,6 +10,9 @@ import {
 } from '@angular/core';
 import { merge, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { FocusIndicatorOriginDirective } from '../../../directives/accessibility/focus-indicator/focus-indicator-origin/focus-indicator-origin.directive';
+import { FocusIndicatorDirective } from '../../../directives/accessibility/focus-indicator/focus-indicator.directive';
+import { FocusIfDirective } from '../../../directives/focus-if/focus-if.directive';
 import { DateRangeOptions } from '../../date-range-picker/date-range-picker.directive';
 import { DateRangePicker, DateRangeService } from '../../date-range-picker/date-range.service';
 import { DateTimePickerService } from '../date-time-picker.service';
@@ -20,7 +24,7 @@ import { YearViewItem, YearViewService } from './year-view.service';
   templateUrl: './year-view.component.html',
   providers: [YearViewService],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
+  imports: [FocusIndicatorDirective, FocusIndicatorOriginDirective, FocusIfDirective, AsyncPipe],
 })
 export class YearViewComponent implements AfterViewInit, OnDestroy {
   readonly yearService = inject(YearViewService);

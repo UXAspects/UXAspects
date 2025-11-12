@@ -4,10 +4,7 @@ import { filter, takeUntil } from 'rxjs/operators';
 import { FocusIndicator, FocusIndicatorService } from '../accessibility/index';
 import { MenuNavigationService } from './menu-navigation.service';
 
-@Directive({
-  selector: '[uxMenuNavigationItem]',
-  standalone: false,
-})
+@Directive({ selector: '[uxMenuNavigationItem]' })
 export class MenuNavigationItemDirective implements OnDestroy {
   readonly focusIndicatorService = inject(FocusIndicatorService);
 

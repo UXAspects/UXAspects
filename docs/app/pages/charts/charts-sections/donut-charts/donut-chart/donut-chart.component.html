@@ -16,10 +16,12 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let label of donutChartLabels; let idx = index">
-          <td>{{ label }}</td>
-          <td>{{ donutChartData[0].data[idx] }}%</td>
-        </tr>
+        @for (label of donutChartLabels; track label; let idx = $index) {
+          <tr>
+            <td>{{ label }}</td>
+            <td>{{ donutChartData[0].data[idx] }}%</td>
+          </tr>
+        }
       </tbody>
     </table>
   </canvas>

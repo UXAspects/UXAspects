@@ -25,8 +25,6 @@ import { ResizableTableDirective } from './table-column-resize/table-column-resi
     ResizeModule,
     ReorderableModule,
     SelectionModule,
-  ],
-  declarations: [
     ColumnPickerComponent,
     ResizableTableDirective,
     ResizableExpandingTableDirective,

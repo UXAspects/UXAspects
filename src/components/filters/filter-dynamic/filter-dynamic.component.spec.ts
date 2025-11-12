@@ -12,7 +12,7 @@ import { Filter } from '../interfaces/filter.interface';
       </ux-filter-dynamic>
     </ux-filter-container>
   `,
-  standalone: false,
+  imports: [FilterModule],
 })
 export class FilterDynamicComponentSpec {
   id: string = 'custom-filter-dynamic';
@@ -53,8 +53,7 @@ describe('Filter Dynamic', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [FilterModule, NoopAnimationsModule],
-      declarations: [FilterDynamicComponentSpec],
+      imports: [FilterModule, NoopAnimationsModule, FilterDynamicComponentSpec],
     }).compileComponents();
 
     fixture = TestBed.createComponent<FilterDynamicComponentSpec>(FilterDynamicComponentSpec);

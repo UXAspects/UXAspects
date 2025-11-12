@@ -1,3 +1,4 @@
+import { CdkTrapFocus } from '@angular/cdk/a11y';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -14,6 +15,7 @@ import {
 import { Subject } from 'rxjs';
 import { distinctUntilChanged, skip, takeUntil } from 'rxjs/operators';
 import { FocusIndicatorOriginService } from '../../directives/accessibility/index';
+import { FocusIfDirective } from '../../directives/focus-if/focus-if.directive';
 import { SidePanelAnimationState, sidePanelStateAnimation } from './side-panel-animations';
 import { SidePanelService } from './side-panel.service';
 
@@ -27,7 +29,7 @@ import { SidePanelService } from './side-panel.service';
   host: {
     class: 'ux-side-panel',
   },
-  standalone: false,
+  imports: [FocusIfDirective, CdkTrapFocus],
 })
 export class SidePanelComponent implements OnInit, OnDestroy {
   protected readonly service = inject(SidePanelService);

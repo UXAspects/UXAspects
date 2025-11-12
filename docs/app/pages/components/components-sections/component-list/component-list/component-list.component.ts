@@ -1,4 +1,3 @@
-import { NgFor, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 import {
   FormArray,
@@ -26,9 +25,7 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
   imports: [
     FormsModule,
     ReactiveFormsModule,
-    NgFor,
     FocusIfModule,
-    NgIf,
     AccessibilityModule,
     IconModule,
     TabsetModule,

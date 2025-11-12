@@ -1,5 +1,9 @@
 import { ENTER, SPACE } from '@angular/cdk/keycodes';
 import { Component, inject, Input } from '@angular/core';
+import { IconComponent } from '../../../icon/icon.component';
+import { MenuItemComponent } from '../../../menu/menu-item/menu-item.component';
+import { MenuTriggerDirective } from '../../../menu/menu-trigger/menu-trigger.directive';
+import { MenuComponent } from '../../../menu/menu/menu.component';
 import { PageHeaderService } from '../../page-header.service';
 import type { PageHeaderNavigationDropdownItem } from '../navigation.component';
 
@@ -7,7 +11,7 @@ import type { PageHeaderNavigationDropdownItem } from '../navigation.component';
   selector: 'ux-page-header-horizontal-navigation-dropdown-item',
   exportAs: 'ux-page-header-horizontal-navigation-dropdown-item',
   templateUrl: './navigation-dropdown-item.component.html',
-  standalone: false,
+  imports: [MenuItemComponent, MenuTriggerDirective, IconComponent, MenuComponent],
 })
 export class PageHeaderNavigationDropdownItemComponent {
   private readonly _pageHeaderService = inject(PageHeaderService);

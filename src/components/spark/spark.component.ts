@@ -1,11 +1,12 @@
 import { ChangeDetectionStrategy, Component, inject, Input } from '@angular/core';
 import { ColorIdentifier, ColorService } from '../../services/color/index';
+import { TooltipDirective } from '../tooltip/tooltip.directive';
 
 @Component({
   selector: 'ux-spark',
   templateUrl: './spark.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
+  imports: [TooltipDirective],
 })
 export class SparkComponent {
   private readonly _colorService = inject(ColorService);

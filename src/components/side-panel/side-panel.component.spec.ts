@@ -46,7 +46,7 @@ import { SidePanelModule } from './side-panel.module';
       </div>
     </ux-side-panel>
   </div>`,
-  standalone: false,
+  imports: [SidePanelModule],
 })
 export class SidePanelTestComponent {
   panelOpen = true;
@@ -66,8 +66,7 @@ describe('Side Panel Component', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [SidePanelModule, NoopAnimationsModule],
-      declarations: [SidePanelTestComponent],
+      imports: [SidePanelModule, NoopAnimationsModule, SidePanelTestComponent],
     }).compileComponents();
   });
 

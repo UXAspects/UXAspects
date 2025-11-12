@@ -20,7 +20,6 @@ export const TOOLBAR_SEARCH_VALUE_ACCESSOR = {
 @Directive({
   selector: '[uxToolbarSearchField]',
   providers: [TOOLBAR_SEARCH_VALUE_ACCESSOR],
-  standalone: false,
 })
 export class ToolbarSearchFieldDirective implements ControlValueAccessor {
   private readonly _elementRef = inject(ElementRef);

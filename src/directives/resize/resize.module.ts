@@ -3,8 +3,8 @@ import { ResizeDirective } from './resize.directive';
 import { ResizeService } from './resize.service';
 
 @NgModule({
+  imports: [ResizeDirective],
   exports: [ResizeDirective],
-  declarations: [ResizeDirective],
   providers: [ResizeService],
 })
 export class ResizeModule {}

@@ -1,3 +1,4 @@
+import { NgClass, NgTemplateOutlet } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -11,6 +12,9 @@ import {
   TemplateRef,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { FocusIndicatorDirective } from '../../directives/accessibility/focus-indicator/focus-indicator.directive';
+import { FocusIfDirective } from '../../directives/focus-if/focus-if.directive';
+import { IconComponent } from '../icon/icon.component';
 
 export const PAGINATION_CONTROL_VALUE_ACCESSOR = {
   provide: NG_VALUE_ACCESSOR,
@@ -23,7 +27,7 @@ export const PAGINATION_CONTROL_VALUE_ACCESSOR = {
   templateUrl: './pagination.component.html',
   providers: [PAGINATION_CONTROL_VALUE_ACCESSOR],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
+  imports: [NgClass, FocusIndicatorDirective, NgTemplateOutlet, FocusIfDirective, IconComponent],
 })
 export class PaginationComponent implements OnInit, ControlValueAccessor {
   private readonly _changeDetector = inject(ChangeDetectorRef);

@@ -14,6 +14,7 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { FocusIndicatorDirective } from '../../directives/accessibility';
+import { FocusIndicatorDirective as FocusIndicatorDirective_1 } from '../../directives/accessibility/focus-indicator/focus-indicator.directive';
 import { FocusableItemToken } from '../menu';
 import { FocusableControl } from '../menu/interfaces/focusable-control.interface';
 import { RadioButtonGroupDirective } from './radio-button-group/radio-button-group.directive';
@@ -37,7 +38,7 @@ let uniqueRadioId = 0;
     },
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
+  imports: [FocusIndicatorDirective_1],
 })
 export class RadioButtonComponent<T = unknown>
   implements ControlValueAccessor, OnChanges, FocusableControl

@@ -1,3 +1,4 @@
+import { NgTemplateOutlet, NgClass, AsyncPipe } from '@angular/common';
 import {
   Component,
   ContentChild,
@@ -10,11 +11,21 @@ import {
   TemplateRef,
 } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { FocusIndicatorDirective } from '../../directives/accessibility/focus-indicator/focus-indicator.directive';
 import { ColorService } from '../../services/color/index';
+import { BreadcrumbsComponent } from '../breadcrumbs/breadcrumbs.component';
 import { Breadcrumb } from '../breadcrumbs/index';
+import { IconComponent } from '../icon/icon.component';
+import { TabComponent } from '../tabset/tab/tab.component';
+import { TabsetComponent } from '../tabset/tabset.component';
 import { PageHeaderCustomMenuDirective } from './custom-menu/custom-menu.directive';
+import { PageHeaderIconMenuComponent } from './icon-menu/icon-menu.component';
 import { PageHeaderIconMenu } from './interfaces';
-import { PageHeaderNavigationItem } from './navigation/navigation.component';
+import { PageHeaderNavigationSecondaryItemDirective } from './navigation/navigation-secondary-item/navigation-secondary-item.directive';
+import {
+  PageHeaderNavigationItem,
+  PageHeaderNavigationComponent,
+} from './navigation/navigation.component';
 import { PageHeaderNavigation, PageHeaderService } from './page-header.service';
 
 export type PageHeaderNavigationAlignment = 'left' | 'right' | 'center';
@@ -24,7 +35,19 @@ export type PageHeaderNavigationAlignment = 'left' | 'right' | 'center';
   exportAs: 'ux-page-header',
   templateUrl: 'page-header.component.html',
   providers: [PageHeaderService],
-  standalone: false,
+  imports: [
+    FocusIndicatorDirective,
+    NgTemplateOutlet,
+    IconComponent,
+    BreadcrumbsComponent,
+    NgClass,
+    PageHeaderNavigationComponent,
+    PageHeaderIconMenuComponent,
+    TabsetComponent,
+    TabComponent,
+    PageHeaderNavigationSecondaryItemDirective,
+    AsyncPipe,
+  ],
 })
 export class PageHeaderComponent {
   private readonly _colorService = inject(ColorService);

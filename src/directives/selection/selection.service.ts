@@ -79,7 +79,6 @@ export class SelectionService<T> implements OnDestroy {
 
     // add each selection to the set
     selections.forEach(selection => this._selection.add(selection));
-
     // propagate the changes
     this.selectionHasMutated();
   }

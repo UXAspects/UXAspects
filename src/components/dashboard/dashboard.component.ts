@@ -1,3 +1,4 @@
+import { AsyncPipe } from '@angular/common';
 import {
   AfterContentInit,
   AfterViewInit,
@@ -18,6 +19,7 @@ import {
 } from '@angular/core';
 import { Subject } from 'rxjs';
 import { map, takeUntil, tap } from 'rxjs/operators';
+import { ResizeDirective } from '../../directives/resize/resize.directive';
 import { ResizeDimensions } from '../../directives/resize/resize.service';
 import { DashboardLayoutData, DashboardService, defaultOptions } from './dashboard.service';
 import { DashboardGrabHandleDirective } from './grab-handle/grab-handle.directive';
@@ -29,7 +31,7 @@ import { DashboardWidgetComponent } from './widget/dashboard-widget.component';
   templateUrl: './dashboard.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [DashboardService, DashboardGrabHandleService],
-  standalone: false,
+  imports: [ResizeDirective, AsyncPipe],
 })
 export class DashboardComponent implements AfterViewInit, AfterContentInit, OnDestroy, OnChanges {
   readonly dashboardService = inject(DashboardService);

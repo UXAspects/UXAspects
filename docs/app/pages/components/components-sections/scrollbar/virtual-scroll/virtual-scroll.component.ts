@@ -1,5 +1,5 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import {
   AccessibilityModule,
   AccordionModule,
@@ -46,6 +46,8 @@ export class ComponentsVirtualScrollComponent
   extends BaseDocumentationSection
   implements IPlaygroundProvider
 {
+  private readonly _liveAnnouncer = inject(LiveAnnouncer);
+
   loadOnScroll: boolean = true;
   employees: Subject<Employee[]> = new Subject<Employee[]>();
   loading = false;
@@ -72,7 +74,7 @@ export class ComponentsVirtualScrollComponent
     ],
   };
 
-  constructor(private readonly _liveAnnouncer: LiveAnnouncer) {
+  constructor() {
     super(
       import.meta.webpackContext('./snippets/', {
         recursive: false,

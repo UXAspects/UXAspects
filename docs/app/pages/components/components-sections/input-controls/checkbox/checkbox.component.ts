@@ -1,4 +1,3 @@
-import { NgIf, NgSwitch, NgSwitchCase, NgSwitchDefault } from '@angular/common';
 import { Component } from '@angular/core';
 import { AccessibilityModule, CheckboxModule, TabsetModule } from '@ux-aspects/ux-aspects';
 import { ApiPropertiesComponent } from '../../../../../components/api-properties/api-properties.component';
@@ -12,14 +11,10 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
   selector: 'uxd-components-checkbox',
   templateUrl: './checkbox.component.html',
   imports: [
-    NgSwitch,
-    NgSwitchDefault,
     CheckboxModule,
     AccessibilityModule,
-    NgSwitchCase,
     ApiPropertiesComponent,
     ApiPropertyComponent,
-    NgIf,
     TabsetModule,
     SnippetComponent,
   ],

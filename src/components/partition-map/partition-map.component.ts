@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-empty-object-type */
 import { LiveAnnouncer } from '@angular/cdk/a11y';
+import { NgClass, NgTemplateOutlet } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -26,6 +27,7 @@ import {
 } from 'd3';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { FocusIndicatorDirective } from '../../directives/accessibility/focus-indicator/focus-indicator.directive';
 import { ContrastService, FocusIndicatorOriginService } from '../../directives/accessibility/index';
 import { ResizeService } from '../../directives/resize/index';
 import { ColorService, ThemeColor } from '../../services/color/index';
@@ -43,7 +45,7 @@ interface SegmentCacheData {
     role: 'tree',
     'aria-orientation': 'vertical',
   },
-  standalone: false,
+  imports: [FocusIndicatorDirective, NgClass, NgTemplateOutlet],
 })
 export class PartitionMapComponent implements OnInit, OnDestroy {
   private readonly _colorService = inject(ColorService);

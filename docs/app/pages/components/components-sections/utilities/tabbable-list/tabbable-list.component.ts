@@ -1,4 +1,4 @@
-import { DatePipe, NgFor } from '@angular/common';
+import { DatePipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { AccessibilityModule, CheckboxModule, TabsetModule } from '@ux-aspects/ux-aspects';
 import { Chance } from 'chance';
@@ -19,7 +19,6 @@ const chance = new Chance();
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     AccessibilityModule,
-    NgFor,
     CheckboxModule,
     ApiPropertiesComponent,
     ApiPropertyComponent,

@@ -7,7 +7,7 @@ import { MediaPlayerModule } from './media-player.module';
   selector: 'ux-media-player-audio',
   template:
     '<ux-media-player class="media-player" type="audio" [filename]="filename" [source]="audioSource"></ux-media-player>',
-  standalone: false,
+  imports: [MediaPlayerModule],
 })
 export class MediaPlayerAudioComponent {
   filename: string = null;
@@ -21,8 +21,11 @@ describe('Media Player Component - Audio', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [MediaPlayerModule, ColorServiceModule.forRoot(colorSets.keppel)],
-      declarations: [MediaPlayerAudioComponent],
+      imports: [
+        MediaPlayerModule,
+        ColorServiceModule.forRoot(colorSets.keppel),
+        MediaPlayerAudioComponent,
+      ],
     }).compileComponents();
   });
 

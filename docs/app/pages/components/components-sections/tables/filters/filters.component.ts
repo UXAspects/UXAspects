@@ -1,6 +1,6 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
-import { JsonPipe, NgFor, NgIf } from '@angular/common';
-import { Component } from '@angular/core';
+import { JsonPipe } from '@angular/common';
+import { Component, inject } from '@angular/core';
 import {
   Filter,
   FilterAddEvent,
@@ -25,9 +25,7 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
   templateUrl: './filters.component.html',
   imports: [
     FilterModule,
-    NgFor,
     SparkModule,
-    NgIf,
     IconModule,
     ApiPropertiesComponent,
     ApiPropertyComponent,
@@ -41,6 +39,8 @@ export class ComponentsFiltersComponent
   extends BaseDocumentationSection
   implements IPlaygroundProvider
 {
+  private readonly _announcer = inject(LiveAnnouncer);
+
   filters: Filter[] = [];
 
   statusFilters: Filter[] = [
@@ -202,7 +202,7 @@ export class ComponentsFiltersComponent
     ],
   };
 
-  constructor(private readonly _announcer: LiveAnnouncer) {
+  constructor() {
     super(
       import.meta.webpackContext('./snippets/', {
         recursive: false,

@@ -9,7 +9,6 @@ import { SearchBuilderService } from './search-builder.service';
   selector: 'ux-search-builder',
   templateUrl: './search-builder.component.html',
   providers: [SearchBuilderService],
-  standalone: false,
 })
 export class SearchBuilderComponent implements OnDestroy {
   private readonly _searchBuilderService = inject(SearchBuilderService);

@@ -1,4 +1,3 @@
-import { NgFor } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import {
@@ -29,7 +28,6 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
     ButtonsModule,
     FormsModule,
     LayoutSwitcherModule,
-    NgFor,
     AccordionModule,
     SliderModule,
     ApiPropertiesComponent,

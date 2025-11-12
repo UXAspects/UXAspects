@@ -1,3 +1,4 @@
+import { NgTemplateOutlet } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -7,6 +8,8 @@ import {
   Output,
   TemplateRef,
 } from '@angular/core';
+import { ScrollIntoViewIfDirective } from '../../directives/scroll/scroll-into-view-if.directive';
+import { TypeaheadHighlightDirective } from './typeahead-highlight.directive';
 import { TypeaheadOptionApi } from './typeahead-option-api';
 import { TypeaheadOptionContext } from './typeahead-option-context';
 import { TypeaheadVisibleOption } from './typeahead-visible-option';
@@ -15,7 +18,7 @@ import { TypeaheadVisibleOption } from './typeahead-visible-option';
   selector: 'ux-typeahead-options-list',
   templateUrl: 'typeahead-options-list.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
+  imports: [TypeaheadHighlightDirective, ScrollIntoViewIfDirective, NgTemplateOutlet],
 })
 export class TypeaheadOptionsListComponent<T> {
   @Input()

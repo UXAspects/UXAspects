@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import {
   FormBuilder,
@@ -32,7 +32,7 @@ import { NumberPickerModule } from './number-picker.module';
     >
     </ux-number-picker>
   `,
-  standalone: false,
+  imports: [NumberPickerModule, ReactiveFormsModule],
 })
 export class NumberPickerTestFormGroupComponent {
   form: FormGroup;
@@ -42,7 +42,9 @@ export class NumberPickerTestFormGroupComponent {
   step: number | ((value: number, direction: StepDirection) => number) = 1;
   placeholder: string;
 
-  constructor(formBuilder: FormBuilder) {
+  constructor() {
+    const formBuilder = inject(FormBuilder);
+
     this.form = formBuilder.group({
       integer: [
         {
@@ -80,8 +82,7 @@ describe('Number Picker Component - FormGroup', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [NumberPickerModule, ReactiveFormsModule],
-      declarations: [NumberPickerTestFormGroupComponent],
+      imports: [NumberPickerModule, ReactiveFormsModule, NumberPickerTestFormGroupComponent],
     }).compileComponents();
 
     fixture = TestBed.createComponent(NumberPickerTestFormGroupComponent);
@@ -455,7 +456,7 @@ describe('Number Picker Component - FormGroup', () => {
     >
     </ux-number-picker>
   `,
-  standalone: false,
+  imports: [NumberPickerModule, FormsModule],
 })
 export class NumberPickerTestNgModelComponent {
   value = 0;
@@ -473,8 +474,7 @@ describe('Number Picker Component - ngModel', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [NumberPickerModule, FormsModule],
-      declarations: [NumberPickerTestNgModelComponent],
+      imports: [NumberPickerModule, FormsModule, NumberPickerTestNgModelComponent],
     }).compileComponents();
 
     fixture = TestBed.createComponent(NumberPickerTestNgModelComponent);
@@ -593,7 +593,7 @@ describe('Number Picker Component - ngModel', () => {
     >
     </ux-number-picker>
   `,
-  standalone: false,
+  imports: [NumberPickerModule, FormsModule],
 })
 export class NumberPickerTestValueComponent {
   required: boolean = false;
@@ -618,8 +618,7 @@ describe('Number Picker Component - value', () => {
 
   beforeEach(async () => {
     TestBed.configureTestingModule({
-      imports: [NumberPickerModule, FormsModule],
-      declarations: [NumberPickerTestValueComponent],
+      imports: [NumberPickerModule, FormsModule, NumberPickerTestValueComponent],
     }).compileComponents();
 
     fixture = TestBed.createComponent(NumberPickerTestValueComponent);
@@ -792,12 +791,14 @@ describe('Number Picker Component - value', () => {
   selector: 'app-number-picker-form',
   template: ` <ux-number-picker readonly [formControl]="form.controls['readonly']">
   </ux-number-picker>`,
-  standalone: false,
+  imports: [NumberPickerModule, ReactiveFormsModule],
 })
 export class NumberPickerTestReadonlyComponent {
   form: FormGroup;
 
-  constructor(formBuilder: FormBuilder) {
+  constructor() {
+    const formBuilder = inject(FormBuilder);
+
     this.form = formBuilder.group({
       readonly: [5, Validators.required],
     });
@@ -814,8 +815,7 @@ describe('Number Picker Component - Readonly', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [NumberPickerModule, ReactiveFormsModule],
-      declarations: [NumberPickerTestReadonlyComponent],
+      imports: [NumberPickerModule, ReactiveFormsModule, NumberPickerTestReadonlyComponent],
     }).compileComponents();
 
     fixture = TestBed.createComponent(NumberPickerTestReadonlyComponent);

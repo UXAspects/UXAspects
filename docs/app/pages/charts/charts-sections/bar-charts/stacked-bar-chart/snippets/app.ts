@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ColorService } from '@ux-aspects/ux-aspects';
 import { ChartDataset, ChartOptions, TooltipItem } from 'chart.js';
 
@@ -8,6 +8,8 @@ import { ChartDataset, ChartOptions, TooltipItem } from 'chart.js';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
+  private readonly colorService = inject(ColorService);
+
   // configure the directive data
   barChartData: ChartDataset<'bar'>[];
   barChartLabels: string[] = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13'];
@@ -15,7 +17,9 @@ export class AppComponent {
   barChartLegend: boolean = false;
   barChartColors: any;
 
-  constructor(private readonly colorService: ColorService) {
+  constructor() {
+    const colorService = this.colorService;
+
     const tooltipBackgroundColor = colorService.getColor('grey2').toHex();
 
     this.barChartData = [

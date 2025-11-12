@@ -1,6 +1,5 @@
 import { CdkTrapFocus, LiveAnnouncer } from '@angular/cdk/a11y';
-import { NgIf } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import {
   AccessibilityModule,
@@ -32,7 +31,6 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
     AccordionModule,
     CheckboxModule,
     NumberPickerModule,
-    NgIf,
     ModalModule,
     CdkTrapFocus,
     MarqueeWizardModule,
@@ -50,6 +48,8 @@ export class ComponentsMarqueeWizardComponent
   extends BaseDocumentationSection
   implements IPlaygroundProvider
 {
+  private readonly _announcer = inject(LiveAnnouncer);
+
   error: boolean = false;
   skip: boolean = false;
   validate: boolean = false;
@@ -82,7 +82,7 @@ export class ComponentsMarqueeWizardComponent
     ],
   };
 
-  constructor(private readonly _announcer: LiveAnnouncer) {
+  constructor() {
     super(
       import.meta.webpackContext('./snippets/', {
         recursive: false,

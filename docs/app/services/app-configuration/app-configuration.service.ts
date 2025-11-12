@@ -1,5 +1,5 @@
 import { Location } from '@angular/common';
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import jsonTemplate from 'json-templater/object';
 import { major, minor, patch, prerelease } from 'semver';
 import { environment } from '../../../environments/environment';
@@ -17,6 +17,8 @@ import * as topNavigation from '../../data/top-navigation.json';
   providedIn: 'root',
 })
 export class AppConfiguration {
+  private readonly _location = inject(Location);
+
   public documentationPages = ['components-page', 'css-page', 'charts-page'];
 
   get version(): string {
@@ -67,7 +69,7 @@ export class AppConfiguration {
 
   private readonly _templateVars: { [key: string]: any };
 
-  constructor(private readonly _location: Location) {
+  constructor() {
     this._templateVars = {
       VERSION: this.getVersion(environment.version),
       BUILD: this.getBuild(environment.version),

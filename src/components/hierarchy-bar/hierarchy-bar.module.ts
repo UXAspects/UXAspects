@@ -21,20 +21,18 @@ import { HierarchyBarComponent } from './hierarchy-bar.component';
     IconModule,
     PopoverModule,
     ResizeModule,
-  ],
-  exports: [
-    HierarchyBarComponent,
-    HierarchyBarStandardComponent,
-    HierarchyBarCollapsedComponent,
-    HierarchyBarNodeIconDirective,
-  ],
-  declarations: [
     HierarchyBarComponent,
     HierarchyBarStandardComponent,
     HierarchyBarCollapsedComponent,
     HierarchyBarNodeComponent,
     HierarchyBarPopoverComponent,
     HierarchyBarPopoverItemComponent,
+    HierarchyBarNodeIconDirective,
+  ],
+  exports: [
+    HierarchyBarComponent,
+    HierarchyBarStandardComponent,
+    HierarchyBarCollapsedComponent,
     HierarchyBarNodeIconDirective,
   ],
 })

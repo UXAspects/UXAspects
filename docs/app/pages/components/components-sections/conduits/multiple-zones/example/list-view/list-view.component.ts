@@ -1,4 +1,4 @@
-import { NgFor, NgIf, AsyncPipe, DatePipe } from '@angular/common';
+import { AsyncPipe, DatePipe } from '@angular/common';
 import { Component, forwardRef, OnDestroy } from '@angular/core';
 import { Conduit, ConduitZone, ConduitZoneComponent } from '@ux-aspects/ux-aspects';
 import 'chance';
@@ -9,7 +9,7 @@ import { ConduitZoneInspectorComponent } from '../inspector/inspector.component'
   selector: 'uxd-components-conduit-list-view',
   templateUrl: './list-view.component.html',
   providers: [ConduitZone],
-  imports: [NgFor, NgIf, ConduitZoneInspectorComponent, AsyncPipe, DatePipe],
+  imports: [ConduitZoneInspectorComponent, AsyncPipe, DatePipe],
 })
 export class ComponentsConduitListViewComponent extends ConduitZoneComponent implements OnDestroy {
   zoneId: string = 'list-zone';

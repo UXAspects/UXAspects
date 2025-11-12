@@ -14,16 +14,13 @@ import {
   QueryList,
   Renderer2,
 } from '@angular/core';
-import { SplitAreaDirective, SplitComponent } from 'angular-split';
+import { SplitAreaComponent, SplitComponent } from 'angular-split';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { FocusIndicator } from '../focus-indicator/focus-indicator';
 import { FocusIndicatorService } from '../focus-indicator/focus-indicator.service';
 
-@Directive({
-  selector: 'as-split',
-  standalone: false,
-})
+@Directive({ selector: 'as-split' })
 export class SplitterAccessibilityDirective implements OnInit, AfterViewInit, OnDestroy {
   private readonly _elementRef = inject(ElementRef);
 
@@ -39,7 +36,7 @@ export class SplitterAccessibilityDirective implements OnInit, AfterViewInit, On
   @Output() gutterKeydown = new EventEmitter<KeyboardEvent>();
 
   /** Find all the split areas */
-  @ContentChildren(SplitAreaDirective) areas: QueryList<SplitAreaDirective>;
+  @ContentChildren(SplitAreaComponent) areas: QueryList<SplitAreaComponent>;
 
   /** Store all the gutter elements */
   private _gutters: HTMLElement[] = [];
@@ -167,7 +164,7 @@ export class SplitterAccessibilityDirective implements OnInit, AfterViewInit, On
   /** Apply the value now aria attribute */
   private setGutterValueNow(gutter: HTMLElement, index: number): void {
     // get the matching split area
-    const area = this._splitter.displayedAreas[index];
+    const area = this._splitter._visibleAreas[index];
 
     if (area.size === '*') {
       return;
@@ -183,7 +180,7 @@ export class SplitterAccessibilityDirective implements OnInit, AfterViewInit, On
     const area = this.areas.toArray()[index];
 
     // indicate the minimum size
-    this._renderer.setAttribute(gutter, 'aria-valuemin', `${Math.round(area.minSize)}`);
+    this._renderer.setAttribute(gutter, 'aria-valuemin', `${Math.round(Number(area.minSize()))}`);
   }
 
   /** Apply the value max aria attribute */
@@ -191,7 +188,7 @@ export class SplitterAccessibilityDirective implements OnInit, AfterViewInit, On
     // get every other splitter area
     const availableSize = this.areas
       .filter((_area, idx) => index !== idx)
-      .reduce<number>((total, area) => total + area.minSize, 0);
+      .reduce<number>((total, area) => total + Number(area.minSize()), 0);
 
     // indicate the minimum size
     this._renderer.setAttribute(gutter, 'aria-valuemax', `${100 - Math.round(availableSize)}`);
@@ -311,8 +308,8 @@ export class SplitterAccessibilityDirective implements OnInit, AfterViewInit, On
     const index = this._gutters.indexOf(gutter);
 
     return {
-      previous: this._splitter.displayedAreas[index],
-      next: this._splitter.displayedAreas[index + 1],
+      previous: this._splitter._visibleAreas[index],
+      next: this._splitter._visibleAreas[index + 1],
     };
   }
 }

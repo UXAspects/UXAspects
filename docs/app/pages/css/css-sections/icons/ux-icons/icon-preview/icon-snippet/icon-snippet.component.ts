@@ -8,6 +8,7 @@ import {
   Output,
   Renderer2,
   ViewChild,
+  inject,
 } from '@angular/core';
 import {
   AccessibilityModule,
@@ -26,6 +27,10 @@ import { SnippetComponent } from '../../../../../../../components/snippet/snippe
   imports: [SnippetComponent, AccessibilityModule, TooltipModule, IconModule],
 })
 export class IconSnippetComponent implements AfterViewInit {
+  private readonly _renderer = inject(Renderer2);
+  private readonly _elementRef = inject(ElementRef);
+  private readonly _focusOrigin = inject(FocusIndicatorOriginService);
+
   /** The code to display in the snippet */
   @Input() code: string;
 
@@ -36,12 +41,6 @@ export class IconSnippetComponent implements AfterViewInit {
   @Output() copied = new EventEmitter<void>();
 
   @ViewChild(FocusIndicatorDirective, { static: true }) copyFocusIndicator: FocusIndicatorDirective;
-
-  constructor(
-    private readonly _renderer: Renderer2,
-    private readonly _elementRef: ElementRef,
-    private readonly _focusOrigin: FocusIndicatorOriginService
-  ) {}
 
   ngAfterViewInit(): void {
     if (this.focusOnShow) {

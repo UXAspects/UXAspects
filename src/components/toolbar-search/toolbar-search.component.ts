@@ -43,7 +43,6 @@ import { ToolbarSearchFieldDirective } from './toolbar-search-field.directive';
     '[style.background-color]': '_backgroundColor',
     '[@expanded]': '_expandedAnimation',
   },
-  standalone: false,
 })
 export class ToolbarSearchComponent implements AfterContentInit, OnDestroy {
   private readonly _platformId = inject(PLATFORM_ID);

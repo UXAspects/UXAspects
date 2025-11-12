@@ -1,13 +1,26 @@
 import { ENTER, SPACE } from '@angular/cdk/keycodes';
+import { NgClass } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { getIconType } from '../../../common/index';
+import { IconComponent } from '../../icon/icon.component';
+import { MenuDividerComponent } from '../../menu/menu-divider/menu-divider.component';
+import { MenuItemComponent } from '../../menu/menu-item/menu-item.component';
+import { MenuTriggerDirective } from '../../menu/menu-trigger/menu-trigger.directive';
+import { MenuComponent } from '../../menu/menu/menu.component';
 import { PageHeaderIconMenu, PageHeaderIconMenuDropdownItem } from '../interfaces';
 
 @Component({
   selector: 'ux-page-header-icon-menu',
   templateUrl: './icon-menu.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
+  imports: [
+    MenuTriggerDirective,
+    NgClass,
+    IconComponent,
+    MenuComponent,
+    MenuItemComponent,
+    MenuDividerComponent,
+  ],
 })
 export class PageHeaderIconMenuComponent {
   /** Get the data for this icon menu */

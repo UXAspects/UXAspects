@@ -7,7 +7,9 @@ import {
   Input,
   Output,
 } from '@angular/core';
+import { FocusIndicatorDirective } from '../../directives/accessibility/focus-indicator/focus-indicator.directive';
 import { ColorService } from '../../services/color/index';
+import { IconComponent } from '../icon/icon.component';
 import { AlertIconDirective } from './alert-icon.directive';
 
 @Component({
@@ -24,7 +26,7 @@ import { AlertIconDirective } from './alert-icon.directive';
     '[style.background-color]': '_backgroundColor',
     '[style.color]': '_foregroundColor',
   },
-  standalone: false,
+  imports: [FocusIndicatorDirective, IconComponent],
 })
 export class AlertComponent {
   private readonly colorService = inject(ColorService);

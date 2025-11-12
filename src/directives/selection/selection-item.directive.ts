@@ -30,7 +30,6 @@ import { SelectionService } from './selection.service';
   host: {
     '[attr.aria-selected]': 'addAriaAttributes ? selected : null',
   },
-  standalone: false,
 })
 export class SelectionItemDirective<T> implements OnInit, OnChanges, OnDestroy {
   readonly focusIndicatorService = inject(FocusIndicatorService);

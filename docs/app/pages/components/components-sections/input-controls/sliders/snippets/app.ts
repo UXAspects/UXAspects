@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import {
   SliderValue,
   SliderOptions,
@@ -28,7 +28,9 @@ export class AppComponent {
 
   disabled: boolean;
 
-  constructor(colorService: ColorService) {
+  constructor() {
+    const colorService = inject(ColorService);
+
     this.slider1 = {
       value: 50,
       options: {

@@ -1,3 +1,4 @@
+import { NgTemplateOutlet } from '@angular/common';
 import { ChangeDetectionStrategy, Component, HostBinding, Input } from '@angular/core';
 
 @Component({
@@ -7,7 +8,7 @@ import { ChangeDetectionStrategy, Component, HostBinding, Input } from '@angular
   host: {
     role: 'progressbar',
   },
-  standalone: false,
+  imports: [NgTemplateOutlet],
 })
 export class ProgressBarComponent {
   @Input() value: number = 0;

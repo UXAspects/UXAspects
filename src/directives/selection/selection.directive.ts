@@ -21,7 +21,6 @@ import { SelectionStrategy } from './strategies/selection.strategy';
   selector: '[uxSelection]',
   exportAs: 'ux-selection',
   providers: [SelectionService],
-  standalone: false,
 })
 export class SelectionDirective<T> implements AfterContentInit, OnDestroy {
   readonly _selectionService = inject<SelectionService<T>>(SelectionService);

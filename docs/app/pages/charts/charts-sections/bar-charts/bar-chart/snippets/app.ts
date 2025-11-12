@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ColorService } from '@ux-aspects/ux-aspects';
 import { ChartDataset, ChartOptions, TooltipItem } from 'chart.js';
 
@@ -14,7 +14,9 @@ export class AppComponent {
   barChartLegend: boolean = false;
   barChartColors: any;
 
-  constructor(colorService: ColorService) {
+  constructor() {
+    const colorService = inject(ColorService);
+
     // Prepare colors used in chart
     const borderColor = colorService.getColor('grey2').setAlpha(0.5).toRgba();
     const barBackgroundColor = colorService.getColor('chart1').setAlpha(0.1).toRgba();

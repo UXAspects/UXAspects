@@ -5,7 +5,9 @@
   [uxMenuTriggerFor]="menu"
 >
   <span>{{ buttonTitle }}</span>
-  <sup *ngIf="selected !== default" class="theme-selector-custom-indicator">*</sup>
+  @if (selected !== default) {
+    <sup class="theme-selector-custom-indicator">*</sup>
+  }
   <ux-icon class="theme-selector-button-icon" name="chevron-down" size="11px"></ux-icon>
 </button>
 
@@ -15,16 +17,14 @@
   (opened)="dropdownOpen = true"
   (closed)="dropdownOpen = false"
 >
-  <button
-    *ngFor="let theme of themes"
-    type="button"
-    class="theme-selector-option"
-    uxMenuItem
-    (activate)="setSelected(theme)"
-  >
-    <span class="dropdown-menu-icon">
-      <ux-icon *ngIf="theme === selected" name="active"></ux-icon>
-    </span>
-    <span class="dropdown-menu-text">{{ theme.title }}</span>
-  </button>
+  @for (theme of themes; track theme) {
+    <button type="button" class="theme-selector-option" uxMenuItem (activate)="setSelected(theme)">
+      <span class="dropdown-menu-icon">
+        @if (theme === selected) {
+          <ux-icon name="active"></ux-icon>
+        }
+      </span>
+      <span class="dropdown-menu-text">{{ theme.title }}</span>
+    </button>
+  }
 </ux-menu>

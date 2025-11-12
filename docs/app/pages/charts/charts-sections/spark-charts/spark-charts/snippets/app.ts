@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ColorIdentifier, ColorService } from '@ux-aspects/ux-aspects';
 
 @Component({
@@ -6,6 +6,8 @@ import { ColorIdentifier, ColorService } from '@ux-aspects/ux-aspects';
   templateUrl: './app.component.html',
 })
 export class AppComponent {
+  private readonly colorService = inject(ColorService);
+
   charts: SparkChart[] = [
     {
       theme: 'chart1',
@@ -81,8 +83,6 @@ export class AppComponent {
       ariaLabel: 'Spark Line indicator',
     },
   ];
-
-  constructor(private readonly colorService: ColorService) {}
 }
 
 interface SparkChart {

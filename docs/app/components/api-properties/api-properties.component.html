@@ -1,5 +1,7 @@
 <div class="table-responsive">
-  <h4 *ngIf="tableTitle">{{ tableTitle }}</h4>
+  @if (tableTitle) {
+    <h4>{{ tableTitle }}</h4>
+  }
   <table class="api-properties-table">
     <ng-content></ng-content>
   </table>

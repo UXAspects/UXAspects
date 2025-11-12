@@ -1,18 +1,20 @@
 <ng-template #popTemplate>
   <table class="usage-popover">
     <tbody>
-      <tr *ngFor="let use of usage">
-        <td class="usage-title p-l-xs">{{ use.title }}</td>
-        <td class="p-r-sm">{{ use.content }}</td>
-        <td>
-          <ux-icon
-            name="clipboard"
-            class="m-r-xs"
-            [uxTooltip]="tooltipTemplate"
-            (click)="copy(use.content)"
-          ></ux-icon>
-        </td>
-      </tr>
+      @for (use of usage; track use) {
+        <tr>
+          <td class="usage-title p-l-xs">{{ use.title }}</td>
+          <td class="p-r-sm">{{ use.content }}</td>
+          <td>
+            <ux-icon
+              name="clipboard"
+              class="m-r-xs"
+              [uxTooltip]="tooltipTemplate"
+              (click)="copy(use.content)"
+            ></ux-icon>
+          </td>
+        </tr>
+      }
     </tbody>
   </table>
 </ng-template>

@@ -5,7 +5,7 @@ import { IconComponent } from './icon.component';
 import { IconService } from './icon.service';
 
 @NgModule({
-  declarations: [IconComponent],
+  imports: [IconComponent],
   exports: [IconComponent],
   providers: [IconService],
 })

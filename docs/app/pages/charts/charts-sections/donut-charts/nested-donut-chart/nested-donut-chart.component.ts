@@ -1,5 +1,4 @@
-import { NgFor } from '@angular/common';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import {
   Color,
   ColorService,
@@ -22,7 +21,6 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     NestedDonutChartModule,
-    NgFor,
     ApiPropertiesComponent,
     ApiPropertyComponent,
     TabsetModule,
@@ -34,6 +32,8 @@ export class ChartsNestedDonutChartComponent
   extends BaseDocumentationSection
   implements IPlaygroundProvider
 {
+  private readonly _colorService = inject(ColorService);
+
   dataset: ReadonlyArray<NestedDonutChartData> = [
     { name: 'To be retained', value: 42, color: this._colorService.getColor(Color.Ok).toHex() },
     {
@@ -58,7 +58,7 @@ export class ChartsNestedDonutChartComponent
     ],
   };
 
-  constructor(private readonly _colorService: ColorService) {
+  constructor() {
     super(
       import.meta.webpackContext('./snippets/', {
         recursive: false,

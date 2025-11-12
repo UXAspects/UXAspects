@@ -9,9 +9,11 @@
     />
 
     <ux-select-list class="select-table-example" [(selected)]="selected" [multiple]="multiple">
-      <ux-select-list-item *ngFor="let author of authors" [data]="author">
-        {{ author }}
-      </ux-select-list-item>
+      @for (author of authors; track author) {
+        <ux-select-list-item [data]="author">
+          {{ author }}
+        </ux-select-list-item>
+      }
     </ux-select-list>
   </div>
 </div>

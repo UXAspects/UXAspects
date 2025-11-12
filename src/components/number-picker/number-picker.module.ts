@@ -5,8 +5,7 @@ import { IconModule } from '../icon/index';
 import { NumberPickerComponent } from './number-picker.component';
 
 @NgModule({
-  imports: [CommonModule, IconModule, FormsModule],
+  imports: [CommonModule, IconModule, FormsModule, NumberPickerComponent],
   exports: [NumberPickerComponent],
-  declarations: [NumberPickerComponent],
 })
 export class NumberPickerModule {}

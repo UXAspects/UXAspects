@@ -1,3 +1,5 @@
+import { CdkObserveContent } from '@angular/cdk/observers';
+import { NgClass, NgTemplateOutlet } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -16,7 +18,7 @@ let uniqueTooltipId = 0;
   selector: 'ux-tooltip',
   templateUrl: './tooltip.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
+  imports: [NgClass, CdkObserveContent, NgTemplateOutlet],
 })
 export class TooltipComponent<T = any> implements OnDestroy {
   protected readonly _changeDetectorRef = inject(ChangeDetectorRef);

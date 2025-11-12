@@ -17,9 +17,8 @@ const DECLARATIONS = [
 ];
 
 @NgModule({
-  imports: [A11yModule, CommonModule, ResizeModule, DragModule],
+  imports: [A11yModule, CommonModule, ResizeModule, DragModule, ...DECLARATIONS],
   exports: DECLARATIONS,
-  declarations: DECLARATIONS,
   providers: [DashboardService],
 })
 export class DashboardModule {}

@@ -13,6 +13,8 @@ import {
   Output,
   ViewChild,
 } from '@angular/core';
+import { FocusIndicatorDirective } from '../../directives/accessibility/focus-indicator/focus-indicator.directive';
+import { DragDirective } from '../../directives/drag/drag.directive';
 import { ColorService } from '../../services/color/index';
 
 @Component({
@@ -22,7 +24,7 @@ import { ColorService } from '../../services/color/index';
   host: {
     '[class.disabled]': 'disabled',
   },
-  standalone: false,
+  imports: [DragDirective, FocusIndicatorDirective],
 })
 export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
   readonly colorService = inject(ColorService);

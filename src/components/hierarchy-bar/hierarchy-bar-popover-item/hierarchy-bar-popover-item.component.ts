@@ -1,3 +1,4 @@
+import { NgTemplateOutlet } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -21,7 +22,7 @@ import { HierarchyBarNode } from '../interfaces/hierarchy-bar-node.interface';
   selector: 'ux-hierarchy-bar-popover-item',
   templateUrl: './hierarchy-bar-popover-item.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
+  imports: [NgTemplateOutlet],
 })
 export class HierarchyBarPopoverItemComponent implements OnDestroy {
   readonly focusOriginService = inject(FocusIndicatorOriginService);

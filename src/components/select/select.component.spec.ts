@@ -31,7 +31,7 @@ import { SelectModule } from './select.module';
       </ux-select>
     }
   `,
-  standalone: false,
+  imports: [SelectModule],
 })
 export class SelectTestComponent {
   input: string = '';
@@ -62,8 +62,7 @@ describe('Select Component', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [SelectModule],
-      declarations: [SelectTestComponent],
+      imports: [SelectModule, SelectTestComponent],
     }).compileComponents();
   });
 
@@ -454,7 +453,7 @@ describe('Select Component', () => {
       [multiple]="multiple"
     ></ux-select>
   `,
-  standalone: false,
+  imports: [SelectModule],
 })
 export class SelectValueTestComponent {
   // eslint-disable-next-line @typescript-eslint/no-empty-function
@@ -471,8 +470,7 @@ describe('Select Component - Value Input', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [SelectModule],
-      declarations: [SelectValueTestComponent],
+      imports: [SelectModule, SelectValueTestComponent],
     }).compileComponents();
   });
 
@@ -519,7 +517,7 @@ describe('Select Component - Value Input', () => {
       [multiple]="multiple"
     ></ux-select>
   `,
-  standalone: false,
+  imports: [SelectModule, FormsModule],
 })
 export class SelectNgModelTestComponent {
   options: string[] = ['One', 'Two', 'Three'];
@@ -537,8 +535,7 @@ describe('Select Component - NgModel Input', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [SelectModule, FormsModule],
-      declarations: [SelectNgModelTestComponent],
+      imports: [SelectModule, FormsModule, SelectNgModelTestComponent],
     }).compileComponents();
   });
 
@@ -691,7 +688,7 @@ describe('Select Component - NgModel Input', () => {
       <ux-select formControlName="select" [options]="options" [multiple]="multiple"></ux-select>
     </form>
   `,
-  standalone: false,
+  imports: [SelectModule, ReactiveFormsModule],
 })
 export class SelectReactiveFormTestComponent {
   multiple: boolean = false;
@@ -713,8 +710,7 @@ describe('Select Component - Reactive Form Input', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [SelectModule, ReactiveFormsModule],
-      declarations: [SelectReactiveFormTestComponent],
+      imports: [SelectModule, ReactiveFormsModule, SelectReactiveFormTestComponent],
     }).compileComponents();
   });
 
@@ -776,7 +772,7 @@ describe('Select Component - Reactive Form Input', () => {
       </ux-select>
     }
   `,
-  standalone: false,
+  imports: [SelectModule],
 })
 export class SingleSelectWithCustomIconTestComponent {
   input: string = '';
@@ -801,8 +797,7 @@ describe('Select Component - With custom Icon', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [SelectModule],
-      declarations: [SingleSelectWithCustomIconTestComponent],
+      imports: [SelectModule, SingleSelectWithCustomIconTestComponent],
     }).compileComponents();
   });
 
@@ -870,7 +865,7 @@ describe('Select Component - With custom Icon', () => {
       (recentOptionsChange)="onRecentOptionsChange($event)"
     ></ux-select>
   `,
-  standalone: false,
+  imports: [SelectModule],
 })
 export class SelectWithRecentOptionsTestComponent {
   value: string | string[];
@@ -892,8 +887,7 @@ describe('Select with recent options', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [SelectModule],
-      declarations: [SelectWithRecentOptionsTestComponent],
+      imports: [SelectModule, SelectWithRecentOptionsTestComponent],
     }).compileComponents();
   });
 

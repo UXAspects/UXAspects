@@ -1,4 +1,3 @@
-import { NgFor } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import {
@@ -25,7 +24,6 @@ const chance = new Chance();
   imports: [
     FormsModule,
     SelectListModule,
-    NgFor,
     AccordionModule,
     CheckboxModule,
     ApiPropertiesComponent,

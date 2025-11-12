@@ -1,4 +1,4 @@
-import { DatePipe, NgFor, NgIf } from '@angular/common';
+import { DatePipe } from '@angular/common';
 import { Component, QueryList, ViewChildren } from '@angular/core';
 import {
   AccessibilityModule,
@@ -22,9 +22,7 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
   templateUrl: './item-display-panel.component.html',
   imports: [
     AccessibilityModule,
-    NgFor,
     SparkModule,
-    NgIf,
     IconModule,
     ItemDisplayPanelModule,
     ApiPropertiesComponent,

@@ -1,6 +1,6 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
-import { AsyncPipe, NgFor } from '@angular/common';
-import { Component } from '@angular/core';
+import { AsyncPipe } from '@angular/common';
+import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import {
   AccessibilityModule,
@@ -39,7 +39,6 @@ const DEPARTMENTS = [
   imports: [
     FormsModule,
     InfiniteScrollModule,
-    NgFor,
     AccessibilityModule,
     AccordionModule,
     CheckboxModule,
@@ -56,6 +55,8 @@ export class ComponentsInfiniteScrollComponent
   extends BaseDocumentationSection
   implements IPlaygroundProvider
 {
+  private readonly _liveAnnouncer = inject(LiveAnnouncer);
+
   filterText = new BehaviorSubject<string>('');
   debouncedFilterText = this.filterText.pipe(debounceTime(500));
   allEmployees: any[] = [];
@@ -110,7 +111,7 @@ export class ComponentsInfiniteScrollComponent
     ],
   };
 
-  constructor(private readonly _liveAnnouncer: LiveAnnouncer) {
+  constructor() {
     super(
       import.meta.webpackContext('./snippets/', {
         recursive: false,

@@ -30,23 +30,27 @@
 
 <p class="file-upload-progress-indicator">{{ uploader.progress ? uploader.progress : 0 }}%</p>
 
-<ul uxTabbableList direction="horizontal" *ngIf="uploader.queue.length" class="file-upload-queue">
-  <li *ngFor="let item of uploader.queue">
-    <a #file uxTabbableListItem [attr.aria-label]="item.file.name">
-      <span>{{ item.file.name }}</span>
-      <button
-        uxFocusIndicator
-        [tabIndex]="file.tabIndex"
-        class="file-upload-queue-remove"
-        type="button"
-        (click)="item.remove()"
-        aria-label="Remove file"
-      >
-        <ux-icon name="close"></ux-icon>
-      </button>
-    </a>
-  </li>
-</ul>
+@if (uploader.queue.length) {
+  <ul uxTabbableList direction="horizontal" class="file-upload-queue">
+    @for (item of uploader.queue; track item) {
+      <li>
+        <a #file uxTabbableListItem [attr.aria-label]="item.file.name">
+          <span>{{ item.file.name }}</span>
+          <button
+            uxFocusIndicator
+            [tabIndex]="file.tabIndex"
+            class="file-upload-queue-remove"
+            type="button"
+            (click)="item.remove()"
+            aria-label="Remove file"
+          >
+            <ux-icon name="close"></ux-icon>
+          </button>
+        </a>
+      </li>
+    }
+  </ul>
+}
 
 <div class="btn-container">
   <button

@@ -12,7 +12,13 @@ import {
   forwardRef,
   inject,
 } from '@angular/core';
-import { ControlValueAccessor, FormGroupDirective, NG_VALUE_ACCESSOR } from '@angular/forms';
+import {
+  ControlValueAccessor,
+  FormGroupDirective,
+  NG_VALUE_ACCESSOR,
+  FormsModule,
+} from '@angular/forms';
+import { IconComponent } from '../icon/icon.component';
 
 let uniqueId = 0;
 
@@ -30,7 +36,7 @@ export const NUMBER_PICKER_VALUE_ACCESSOR = {
   host: {
     '[class.ux-number-picker-invalid]': '!_valid && !disabled && !_formGroup',
   },
-  standalone: false,
+  imports: [FormsModule, IconComponent],
 })
 export class NumberPickerComponent implements ControlValueAccessor, OnDestroy, OnChanges {
   readonly _formGroup = inject(FormGroupDirective, { optional: true });

@@ -1,6 +1,6 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
-import { NgFor, NgTemplateOutlet } from '@angular/common';
-import { AfterViewInit, Component, TemplateRef, ViewChild } from '@angular/core';
+import { NgTemplateOutlet } from '@angular/common';
+import { AfterViewInit, Component, TemplateRef, ViewChild, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { AccessibilityModule, FocusIfModule, IconModule, MenuModule, ReorderableModule, TabsetModule } from '@ux-aspects/ux-aspects';
@@ -16,25 +16,26 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
     templateUrl: './drag-and-drop-cards.component.html',
     styleUrls: ['./drag-and-drop-cards.component.less'],
     imports: [
-        ReorderableModule,
-        AccessibilityModule,
-        NgFor,
-        FocusIfModule,
-        IconModule,
-        NgTemplateOutlet,
-        MenuModule,
-        ButtonsModule,
-        FormsModule,
-        RouterLink,
-        TabsetModule,
-        SnippetComponent,
-    ],
+    ReorderableModule,
+    AccessibilityModule,
+    FocusIfModule,
+    IconModule,
+    NgTemplateOutlet,
+    MenuModule,
+    ButtonsModule,
+    FormsModule,
+    RouterLink,
+    TabsetModule,
+    SnippetComponent
+],
 })
 @DocumentationSectionComponent('ComponentsDragAndDropCardsComponent')
 export class ComponentsDragAndDropCardsComponent
   extends BaseDocumentationSection
   implements AfterViewInit, IPlaygroundProvider
 {
+  private readonly _liveAnnouncer = inject(LiveAnnouncer);
+
   playground: IPlayground = {
     files: {
       'app.component.html': this.snippets.raw.appHtml,
@@ -67,7 +68,7 @@ export class ComponentsDragAndDropCardsComponent
   @ViewChild('text', { static: true }) textTemplate: TemplateRef<any>;
   @ViewChild('buttons', { static: true }) buttonsTemplate: TemplateRef<any>;
 
-  constructor(private readonly _liveAnnouncer: LiveAnnouncer) {
+  constructor() {
     super(
       import.meta.webpackContext('./snippets/', { recursive: false, regExp: /\.(html|css|js|ts)$/ })
     );

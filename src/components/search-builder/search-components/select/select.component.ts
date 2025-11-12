@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
+import { FocusIfDirective } from '../../../../directives/focus-if/focus-if.directive';
 import { InfiniteScrollLoadFunction } from '../../../../directives/infinite-scroll/index';
+import { SelectComponent } from '../../../select/select.component';
 import { BaseSearchComponent, BaseSearchComponentConfig } from '../base-search.component';
 
 @Component({
   selector: 'ux-search-select',
   templateUrl: './select.component.html',
-  standalone: false,
+  imports: [SelectComponent, FocusIfDirective],
 })
 export class SearchSelectComponent extends BaseSearchComponent {
   type: string = 'select';

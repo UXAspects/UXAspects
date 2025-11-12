@@ -1,5 +1,5 @@
-<ng-container [ngSwitch]="theme">
-  <ng-container *ngSwitchCase="SiteThemeId.MicroFocus2017">
+@switch (theme) {
+  @case (SiteThemeId.MicroFocus2017) {
     <table class="table table-hover">
       <thead>
         <tr uxColumnSorting>
@@ -66,31 +66,33 @@
         </tr>
       </thead>
       <tbody>
-        <tr class="clickable" *ngFor="let item of items">
-          <td>{{ item.name }}</td>
-          <td>{{ item.author }}</td>
-          <td>{{ item.date }}</td>
-          <td>
-            <ux-spark
-              [trackColor]="sparkTrackColor"
-              [barColor]="sparkBarColor"
-              [value]="item.completed"
-              [barHeight]="3"
-              [inlineLabel]="item.completed"
-            ></ux-spark>
-          </td>
-          <td class="text-center">
-            <ux-icon
-              [name]="item.active ? 'checkmark' : null"
-              [attr.aria-label]="item.active ? 'Approved' : 'Not approved'"
-            >
-            </ux-icon>
-          </td>
-        </tr>
+        @for (item of items; track item) {
+          <tr class="clickable">
+            <td>{{ item.name }}</td>
+            <td>{{ item.author }}</td>
+            <td>{{ item.date }}</td>
+            <td>
+              <ux-spark
+                [trackColor]="sparkTrackColor"
+                [barColor]="sparkBarColor"
+                [value]="item.completed"
+                [barHeight]="3"
+                [inlineLabel]="item.completed"
+              ></ux-spark>
+            </td>
+            <td class="text-center">
+              <ux-icon
+                [name]="item.active ? 'checkmark' : null"
+                [attr.aria-label]="item.active ? 'Approved' : 'Not approved'"
+              >
+              </ux-icon>
+            </td>
+          </tr>
+        }
       </tbody>
     </table>
-  </ng-container>
-  <ng-container *ngSwitchDefault>
+  }
+  @default {
     <table class="table table-hover">
       <thead>
         <tr uxColumnSorting>
@@ -170,31 +172,33 @@
         </tr>
       </thead>
       <tbody>
-        <tr class="clickable" *ngFor="let item of items">
-          <td>{{ item.name }}</td>
-          <td>{{ item.author }}</td>
-          <td>{{ item.date }}</td>
-          <td>
-            <ux-spark
-              [trackColor]="sparkTrackColor"
-              [barColor]="sparkBarColor"
-              [value]="item.completed"
-              [barHeight]="3"
-              [inlineLabel]="item.completed"
-            ></ux-spark>
-          </td>
-          <td class="text-center">
-            <ux-icon
-              [name]="item.active ? 'checkmark' : null"
-              [attr.aria-label]="item.active ? 'Approved' : 'Not approved'"
-            >
-            </ux-icon>
-          </td>
-        </tr>
+        @for (item of items; track item) {
+          <tr class="clickable">
+            <td>{{ item.name }}</td>
+            <td>{{ item.author }}</td>
+            <td>{{ item.date }}</td>
+            <td>
+              <ux-spark
+                [trackColor]="sparkTrackColor"
+                [barColor]="sparkBarColor"
+                [value]="item.completed"
+                [barHeight]="3"
+                [inlineLabel]="item.completed"
+              ></ux-spark>
+            </td>
+            <td class="text-center">
+              <ux-icon
+                [name]="item.active ? 'checkmark' : null"
+                [attr.aria-label]="item.active ? 'Approved' : 'Not approved'"
+              >
+              </ux-icon>
+            </td>
+          </tr>
+        }
       </tbody>
     </table>
-  </ng-container>
-</ng-container>
+  }
+}
 
 <hr />
 

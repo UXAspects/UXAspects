@@ -22,11 +22,13 @@
         [listboxAriaLabel]="listboxAriaLabel"
         ariaLabelledby="ux-select-input-label"
       >
-        <ng-template #icon *ngIf="multiple | async">
-          <div class="ux-select-icon">
-            <i class="ux-icon ux-icon-add"></i>
-          </div>
-        </ng-template>
+        @if (multiple | async) {
+          <ng-template #icon>
+            <div class="ux-select-icon">
+              <i class="ux-icon ux-icon-add"></i>
+            </div>
+          </ng-template>
+        }
       </ux-select>
     </div>
   </div>
@@ -36,11 +38,13 @@
     Selected location(s): <code>{{ selected | json }}</code>
   </div>
 </div>
-<div *ngIf="recentOptions" class="row">
-  <div class="col-md-12 m-t-md">
-    Recent options: <code>{{ recentOptions | json }}</code>
+@if (recentOptions) {
+  <div class="row">
+    <div class="col-md-12 m-t-md">
+      Recent options: <code>{{ recentOptions | json }}</code>
+    </div>
   </div>
-</div>
+}
 <div class="row uxd-customize-example">
   <div class="col-md-12">
     <ux-accordion>

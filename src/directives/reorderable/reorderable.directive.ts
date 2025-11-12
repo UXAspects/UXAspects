@@ -12,7 +12,6 @@ import { takeUntil } from 'rxjs/operators';
 @Directive({
   selector: '[uxReorderable]',
   providers: [{ provide: CDK_DROP_LIST, useExisting: ReorderableDirective }],
-  standalone: false,
 })
 export class ReorderableDirective<T> extends CdkDropList<T> implements OnInit, OnDestroy {
   /**

@@ -1,6 +1,7 @@
 import { animate, style, transition, trigger } from '@angular/animations';
-import { FocusKeyManager, FocusOrigin } from '@angular/cdk/a11y';
+import { FocusKeyManager, FocusOrigin, CdkMonitorFocus, CdkTrapFocus } from '@angular/cdk/a11y';
 import { TAB } from '@angular/cdk/keycodes';
+import { NgClass } from '@angular/common';
 import {
   AfterContentInit,
   ChangeDetectionStrategy,
@@ -44,7 +45,7 @@ let uniqueId = 0;
       ]),
     ]),
   ],
-  standalone: false,
+  imports: [CdkMonitorFocus, NgClass, CdkTrapFocus],
 })
 export class MenuComponent implements AfterContentInit, OnDestroy, OnChanges {
   private readonly _options = inject(MENU_OPTIONS_TOKEN, { optional: true });

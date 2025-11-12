@@ -1,5 +1,5 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ColorService, NestedDonutChartData } from '@ux-aspects/ux-aspects';
 
 @Component({
@@ -8,6 +8,9 @@ import { ColorService, NestedDonutChartData } from '@ux-aspects/ux-aspects';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
+  colorService = inject(ColorService);
+  private readonly _announcer = inject(LiveAnnouncer);
+
   cards: Card[] = [
     {
       title: 'NYC vs Volkswagen',
@@ -52,11 +55,6 @@ export class AppComponent {
       chart: this.getChartData(256987, 143567, 45678),
     },
   ];
-
-  constructor(
-    public colorService: ColorService,
-    private readonly _announcer: LiveAnnouncer
-  ) {}
 
   getChartData(documents: number, reviewed: number, produced: number): NestedDonutChartData[] {
     return [

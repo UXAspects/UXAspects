@@ -7,6 +7,5 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   host: {
     role: 'separator',
   },
-  standalone: false,
 })
 export class MenuDividerComponent {}

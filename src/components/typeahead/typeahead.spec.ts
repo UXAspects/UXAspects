@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { InfiniteScrollModule } from '../../directives/infinite-scroll/index';
@@ -46,9 +46,17 @@ import { TypeaheadModule } from './typeahead.module';
       </div>
     </div>
   `,
-  standalone: false,
+  imports: [
+    CommonModule,
+    TypeaheadModule,
+    InfiniteScrollModule,
+    FormsModule,
+    ResizeModule,
+    ScrollModule,
+  ],
 })
 export class TypeaheadTestComponent {
+  public readonly typeaheadKeyService = inject(TypeaheadKeyService<string>);
   values: ReadonlyArray<string> | Promise<ReadonlyArray<string>> = ['One', 'Two', 'Three'];
   dropdownOpen: boolean = false;
   selectOnEnter: boolean = true;
@@ -66,8 +74,6 @@ export class TypeaheadTestComponent {
   changeOptions(): void {
     this.values = this.loadOptions.bind(this);
   }
-
-  constructor(public typeaheadKeyService: TypeaheadKeyService<string>) {}
 }
 
 describe('Typeahead Component', () => {
@@ -86,8 +92,8 @@ describe('Typeahead Component', () => {
         FormsModule,
         ResizeModule,
         ScrollModule,
+        TypeaheadTestComponent,
       ],
-      declarations: [TypeaheadTestComponent],
     }).compileComponents();
   });
 

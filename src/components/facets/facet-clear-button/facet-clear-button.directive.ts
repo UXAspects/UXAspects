@@ -1,7 +1,4 @@
 import { Directive } from '@angular/core';
 
-@Directive({
-  selector: '[uxFacetClearButton]',
-  standalone: false,
-})
+@Directive({ selector: '[uxFacetClearButton]' })
 export class FacetClearButtonDirective {}

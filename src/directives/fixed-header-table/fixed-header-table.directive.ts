@@ -17,7 +17,6 @@ import { ResizeService } from '../resize/index';
 @Directive({
   selector: '[uxFixedHeaderTable]',
   exportAs: 'ux-fixed-header-table',
-  standalone: false,
 })
 export class FixedHeaderTableDirective<T> implements OnInit, OnDestroy {
   private readonly _elementRef = inject(ElementRef);

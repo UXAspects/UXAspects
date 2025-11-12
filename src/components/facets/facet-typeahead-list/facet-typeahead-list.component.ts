@@ -1,4 +1,5 @@
 import { FocusKeyManager, LiveAnnouncer } from '@angular/cdk/a11y';
+import { AsyncPipe } from '@angular/common';
 import {
   AfterViewInit,
   Component,
@@ -12,11 +13,16 @@ import {
   PipeTransform,
   QueryList,
   ViewChildren,
+  forwardRef,
 } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { BehaviorSubject, isObservable, Observable, of, Subject } from 'rxjs';
 import { distinctUntilChanged, first, map, mergeMap, takeUntil, tap } from 'rxjs/operators';
 import { tick } from '../../../common/index';
+import { SafeInnerHtmlDirective } from '../../../directives/safe-inner-html/safe-inner-html.directive';
 import { TypeaheadKeyService, TypeaheadOptionEvent } from '../../typeahead/index';
+import { TypeaheadComponent } from '../../typeahead/typeahead.component';
+import { FacetHeaderComponent } from '../base/facet-header/facet-header.component';
 import { FacetDeselect, FacetDeselectAll, FacetEvent, FacetSelect } from '../facet-events';
 import { FacetService } from '../facet.service';
 import { Facet } from '../models/facet';
@@ -27,7 +33,15 @@ let uniqueId = 1;
 @Component({
   selector: 'ux-facet-typeahead-list',
   templateUrl: './facet-typeahead-list.component.html',
-  standalone: false,
+  imports: [
+    FacetHeaderComponent,
+    FacetTypeaheadListItemComponent,
+    FormsModule,
+    TypeaheadComponent,
+    SafeInnerHtmlDirective,
+    AsyncPipe,
+    forwardRef(() => FacetTypeaheadHighlight),
+  ],
 })
 export class FacetTypeaheadListComponent implements AfterViewInit, OnInit, OnDestroy {
   readonly typeaheadKeyService = inject(TypeaheadKeyService);
@@ -247,10 +261,7 @@ export interface FacetTypeaheadListConfig {
   delay?: number;
 }
 
-@Pipe({
-  name: 'facetTypeaheadHighlight',
-  standalone: false,
-})
+@Pipe({ name: 'facetTypeaheadHighlight' })
 export class FacetTypeaheadHighlight implements PipeTransform {
   transform(value: string, searchQuery: string): string {
     const regex = new RegExp(searchQuery, 'i');

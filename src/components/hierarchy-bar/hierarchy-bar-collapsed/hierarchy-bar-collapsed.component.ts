@@ -1,3 +1,4 @@
+import { NgTemplateOutlet, AsyncPipe } from '@angular/common';
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
@@ -12,7 +13,13 @@ import {
 } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { FocusIndicatorOriginDirective } from '../../../directives/accessibility/focus-indicator/focus-indicator-origin/focus-indicator-origin.directive';
+import { FocusIndicatorDirective } from '../../../directives/accessibility/focus-indicator/focus-indicator.directive';
 import { ResizeService } from '../../../directives/resize/index';
+import { IconComponent } from '../../icon/icon.component';
+import { PopoverDirective } from '../../popover/popover.directive';
+import { HierarchyBarNodeComponent } from '../hierarchy-bar-node/hierarchy-bar-node.component';
+import { HierarchyBarPopoverComponent } from '../hierarchy-bar-popover/hierarchy-bar-popover.component';
 import { HierarchyBarService } from '../hierarchy-bar.service';
 import { HierarchyBarNodeChildren } from '../interfaces/hierarchy-bar-node-children.interface';
 import { HierarchyBarNode } from '../interfaces/hierarchy-bar-node.interface';
@@ -21,7 +28,16 @@ import { HierarchyBarNode } from '../interfaces/hierarchy-bar-node.interface';
   selector: 'ux-hierarchy-bar-collapsed',
   templateUrl: './hierarchy-bar-collapsed.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
+  imports: [
+    HierarchyBarNodeComponent,
+    NgTemplateOutlet,
+    FocusIndicatorDirective,
+    FocusIndicatorOriginDirective,
+    PopoverDirective,
+    IconComponent,
+    HierarchyBarPopoverComponent,
+    AsyncPipe,
+  ],
 })
 export class HierarchyBarCollapsedComponent implements AfterViewInit, OnDestroy {
   readonly hierarchyBar = inject(HierarchyBarService);

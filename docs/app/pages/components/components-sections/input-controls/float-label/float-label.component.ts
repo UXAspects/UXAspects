@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
   AccessibilityModule,
@@ -57,7 +57,9 @@ export class ComponentsFloatLabelComponent
     this.demoForm.get('location').setValue(value);
   }
 
-  constructor(formBuilder: FormBuilder) {
+  constructor() {
+    const formBuilder = inject(FormBuilder);
+
     super(
       import.meta.webpackContext('./snippets/', {
         recursive: false,

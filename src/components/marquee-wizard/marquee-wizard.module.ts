@@ -19,12 +19,10 @@ import { MarqueeWizardComponent } from './marquee-wizard.component';
     WizardModule,
     AngularSplitModule,
     ResizeModule,
-  ],
-  exports: [MarqueeWizardComponent, MarqueeWizardStepComponent, MarqueeWizardStepIconDirective],
-  declarations: [
     MarqueeWizardComponent,
     MarqueeWizardStepComponent,
     MarqueeWizardStepIconDirective,
   ],
+  exports: [MarqueeWizardComponent, MarqueeWizardStepComponent, MarqueeWizardStepIconDirective],
 })
 export class MarqueeWizardModule {}

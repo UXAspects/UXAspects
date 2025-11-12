@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ColorIdentifier, ColorService, SparkModule, TabsetModule } from '@ux-aspects/ux-aspects';
 import { ApiPropertiesComponent } from '../../../../../components/api-properties/api-properties.component';
 import { ApiPropertyComponent } from '../../../../../components/api-property/api-property.component';
@@ -24,6 +24,8 @@ export class ChartsSparkChartsComponent
   extends BaseDocumentationSection
   implements IPlaygroundProvider
 {
+  private readonly colorService = inject(ColorService);
+
   charts: SparkChart[] = [
     {
       theme: 'chart1',
@@ -111,7 +113,7 @@ export class ChartsSparkChartsComponent
     ],
   };
 
-  constructor(private readonly colorService: ColorService) {
+  constructor() {
     super(
       import.meta.webpackContext('./snippets/', {
         recursive: false,

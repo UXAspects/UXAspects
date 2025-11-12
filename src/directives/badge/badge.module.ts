@@ -4,8 +4,7 @@ import { ColorServiceModule } from './../../services/color/color.module';
 import { BadgeDirective } from './badge.directive';
 
 @NgModule({
-  imports: [ColorServiceModule, AccessibilityModule],
+  imports: [ColorServiceModule, AccessibilityModule, BadgeDirective],
   exports: [BadgeDirective],
-  declarations: [BadgeDirective],
 })
 export class BadgeModule {}

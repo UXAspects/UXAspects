@@ -74,6 +74,7 @@
   "useInferencePlugins": false,
   "defaultBase": "main",
   "tui": {
-    "autoExit": true
+    "autoExit": true,
+    "enabled": false
   }
 }

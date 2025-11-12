@@ -1,6 +1,6 @@
 import { CdkTrapFocus } from '@angular/cdk/a11y';
-import { AsyncPipe, NgFor, NgIf } from '@angular/common';
-import { Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
+import { AsyncPipe } from '@angular/common';
+import { Component, ElementRef, OnDestroy, ViewChild, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import {
@@ -38,30 +38,31 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
     templateUrl: './search-builder.component.html',
     styleUrls: ['./search-builder.component.less'],
     imports: [
-        AccessibilityModule,
-        IconModule,
-        NgIf,
-        ModalModule,
-        CdkTrapFocus,
-        SearchBuilderModule,
-        ItemDisplayPanelModule,
-        FormsModule,
-        FocusIfModule,
-        SelectListModule,
-        NgFor,
-        ApiPropertiesComponent,
-        ApiPropertyComponent,
-        SnippetComponent,
-        RouterLink,
-        TabsetModule,
-        AsyncPipe,
-    ],
+    AccessibilityModule,
+    IconModule,
+    ModalModule,
+    CdkTrapFocus,
+    SearchBuilderModule,
+    ItemDisplayPanelModule,
+    FormsModule,
+    FocusIfModule,
+    SelectListModule,
+    ApiPropertiesComponent,
+    ApiPropertyComponent,
+    SnippetComponent,
+    RouterLink,
+    TabsetModule,
+    AsyncPipe
+],
 })
 @DocumentationSectionComponent('ComponentsSearchBuilderComponent')
 export class ComponentsSearchBuilderComponent
   extends BaseDocumentationSection
   implements IPlaygroundProvider, OnDestroy
 {
+  private readonly _modalService = inject(BsModalService);
+  private readonly _searchBuilderFocusService = inject(SearchBuilderFocusService);
+
   playground: IPlayground = {
     files: {
       'app.component.ts': this.snippets.raw.appTs,
@@ -228,10 +229,7 @@ export class ComponentsSearchBuilderComponent
   // private _subscription: Subscription;
   private readonly _onDestroy = new Subject<void>();
 
-  constructor(
-    private readonly _modalService: BsModalService,
-    private readonly _searchBuilderFocusService: SearchBuilderFocusService
-  ) {
+  constructor() {
     super(
       import.meta.webpackContext('./snippets/', { recursive: false, regExp: /\.(html|css|js|ts)$/ })
     );

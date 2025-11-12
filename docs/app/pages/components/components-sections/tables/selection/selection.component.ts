@@ -1,4 +1,4 @@
-import { DatePipe, NgFor } from '@angular/common';
+import { DatePipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import {
@@ -24,7 +24,6 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
   styleUrls: ['./selection.component.less'],
   imports: [
     SelectionModule,
-    NgFor,
     CheckboxModule,
     AccessibilityModule,
     AccordionModule,

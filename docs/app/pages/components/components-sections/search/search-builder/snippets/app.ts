@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnDestroy, ViewChild, inject } from '@angular/core';
 import {
   SearchBuilderComponentDefinition,
   SearchBuilderFocusService,
@@ -22,6 +22,9 @@ import { first, takeUntil } from 'rxjs/operators';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnDestroy {
+  private readonly _modalService = inject(BsModalService);
+  private readonly _searchBuilderFocusService = inject(SearchBuilderFocusService);
+
   query: SearchBuilderQuery = {
     keywords: [
       {
@@ -159,10 +162,7 @@ export class AppComponent implements OnDestroy {
   private readonly _field$: Subject<SearchBuilderField> = new Subject<SearchBuilderField>();
   private readonly _onDestroy = new Subject<void>();
 
-  constructor(
-    private readonly _modalService: BsModalService,
-    private readonly _searchBuilderFocusService: SearchBuilderFocusService
-  ) {
+  constructor() {
     // if the modal is closed by clicking on backdrop perform cancel
     this._modalService.onHide.pipe(takeUntil(this._onDestroy)).subscribe(() => this.cancel());
 

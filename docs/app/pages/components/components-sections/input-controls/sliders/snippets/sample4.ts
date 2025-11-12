@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import {
   SliderValue,
   SliderOptions,
@@ -24,7 +24,9 @@ export class SliderExampleComponent {
   lowerValue: number = 25;
   upperValue: number = 75;
 
-  constructor(colorService: ColorService) {
+  constructor() {
+    const colorService = inject(ColorService);
+
     this.options = {
       type: SliderType.Range,
       handles: {

@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, inject } from '@angular/core';
 import { Conduit, ConduitZone, ConduitZoneComponent } from '@ux-aspects/ux-aspects';
 import 'chance';
 import { BehaviorSubject, Subscription } from 'rxjs';
@@ -23,7 +23,9 @@ export class ListViewComponent extends ConduitZoneComponent implements OnDestroy
   private readonly _documents: ConduitListItem[] = [];
   private readonly _subscription: Subscription;
 
-  constructor(zone: ConduitZone) {
+  constructor() {
+    const zone = inject(ConduitZone);
+
     super(zone);
 
     for (let index = 0; index < 10; index++) {

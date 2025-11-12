@@ -10,7 +10,7 @@ describe('Notification Service', () => {
       imports: [ColorServiceModule.forRoot(colorSets.keppel)],
       providers: [NotificationService],
     });
-    notificationService = TestBed.get(NotificationService);
+    notificationService = TestBed.inject(NotificationService);
   });
 
   it('should have the correct initial values', () => {

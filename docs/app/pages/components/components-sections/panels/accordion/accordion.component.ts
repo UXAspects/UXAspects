@@ -1,4 +1,3 @@
-import { NgFor } from '@angular/common';
 import { Component } from '@angular/core';
 import { AccordionModule, TabsetModule } from '@ux-aspects/ux-aspects';
 import { ApiPropertiesComponent } from '../../../../../components/api-properties/api-properties.component';
@@ -14,7 +13,6 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
   templateUrl: './accordion.component.html',
   imports: [
     AccordionModule,
-    NgFor,
     ApiPropertiesComponent,
     ApiPropertyComponent,
     TabsetModule,

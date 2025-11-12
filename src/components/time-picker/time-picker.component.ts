@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -10,6 +11,8 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { DefaultFocusIndicatorDirective } from '../../directives/accessibility/focus-indicator/default-focus-indicator.directive';
+import { SpinButtonComponent } from '../spin-button/spin-button.component';
 
 export const TIME_PICKER_VALUE_ACCESSOR = {
   provide: NG_VALUE_ACCESSOR,
@@ -23,7 +26,7 @@ export const TIME_PICKER_VALUE_ACCESSOR = {
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [TIME_PICKER_VALUE_ACCESSOR],
-  standalone: false,
+  imports: [SpinButtonComponent, DefaultFocusIndicatorDirective, DatePipe],
 })
 export class TimePickerComponent implements ControlValueAccessor {
   private readonly _changeDetector = inject(ChangeDetectorRef);

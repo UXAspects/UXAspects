@@ -1,5 +1,5 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import 'chance';
 import { Subject } from 'rxjs';
 
@@ -18,6 +18,8 @@ const DEPARTMENTS = [
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
+  private readonly _liveAnnouncer = inject(LiveAnnouncer);
+
   loadOnScroll: boolean = true;
   employees: Subject<Employee[]> = new Subject<Employee[]>();
   loading = false;
@@ -25,7 +27,7 @@ export class AppComponent {
   totalPages = 10;
   totalItems: number;
 
-  constructor(private readonly _liveAnnouncer: LiveAnnouncer) {
+  constructor() {
     this.totalItems = this.pageSize * this.totalPages;
   }
 

@@ -18,34 +18,37 @@
       </thead>
 
       <tbody uxTabbableList>
-        <tr
-          class="clickable single-select"
-          uxTabbableListItem
-          [class.highlight]="item.id === selected?.id && visible"
-          [attr.aria-describedby]="
-            item.id === selected?.id && visible ? 'inline-display-panel' : null
-          "
-          *ngFor="let item of items"
-          (focus)="selected = item"
-        >
-          <td class="text-center">
-            <div class="listview-page-icon"></div>
-          </td>
-          <td class="listview-text-emphasis">{{ item.document }}</td>
-          <td>{{ item.author }}</td>
-          <td>{{ item.date | date: 'shortDate' }}</td>
-          <td>
-            <ux-spark
-              theme="chart2"
-              [value]="item.storage"
-              [inlineLabel]="item.storage | number"
-              [barHeight]="3"
-            ></ux-spark>
-          </td>
-          <td class="text-center vertical-center-icon">
-            <ux-icon *ngIf="item.active" name="checkmark" class="text-secondary"></ux-icon>
-          </td>
-        </tr>
+        @for (item of items; track item) {
+          <tr
+            class="clickable single-select"
+            uxTabbableListItem
+            [class.highlight]="item.id === selected?.id && visible"
+            [attr.aria-describedby]="
+              item.id === selected?.id && visible ? 'inline-display-panel' : null
+            "
+            (focus)="selected = item"
+          >
+            <td class="text-center">
+              <div class="listview-page-icon"></div>
+            </td>
+            <td class="listview-text-emphasis">{{ item.document }}</td>
+            <td>{{ item.author }}</td>
+            <td>{{ item.date | date: 'shortDate' }}</td>
+            <td>
+              <ux-spark
+                theme="chart2"
+                [value]="item.storage"
+                [inlineLabel]="item.storage | number"
+                [barHeight]="3"
+              ></ux-spark>
+            </td>
+            <td class="text-center vertical-center-icon">
+              @if (item.active) {
+                <ux-icon name="checkmark" class="text-secondary"></ux-icon>
+              }
+            </td>
+          </tr>
+        }
       </tbody>
     </table>
   </div>
@@ -62,16 +65,20 @@
     [header]="selected?.panel.title"
     [animate]="true"
   >
-    <div *ngIf="selected" uxItemDisplayPanelContent>
-      <div class="preview-display">
-        <p>{{ selected?.panel.content }}</p>
+    @if (selected) {
+      <div uxItemDisplayPanelContent>
+        <div class="preview-display">
+          <p>{{ selected?.panel.content }}</p>
+        </div>
       </div>
-    </div>
+    }
 
-    <div *ngIf="!selected" uxItemDisplayPanelContent class="preview-no-record">
-      <ux-icon name="document"></ux-icon>
-      <h2 ng-bind="previewEmptyText">Select an item from the list</h2>
-    </div>
+    @if (!selected) {
+      <div uxItemDisplayPanelContent class="preview-no-record">
+        <ux-icon name="document"></ux-icon>
+        <h2 ng-bind="previewEmptyText">Select an item from the list</h2>
+      </div>
+    }
   </ux-item-display-panel>
 </div>
 

@@ -27,7 +27,6 @@ import { MenuNavigationService } from './menu-navigation.service';
   selector: '[uxMenuNavigation]',
   exportAs: 'uxMenuNavigation',
   providers: [MenuNavigationService],
-  standalone: false,
 })
 export class MenuNavigationDirective implements OnInit, OnDestroy {
   private readonly _menuNavigationService = inject(MenuNavigationService);

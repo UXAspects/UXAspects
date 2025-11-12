@@ -19,8 +19,7 @@ const DECLARATIONS = [
 ];
 
 @NgModule({
-  imports: [AccessibilityModule, CommonModule, ResizeModule],
+  imports: [AccessibilityModule, CommonModule, ResizeModule, ...DECLARATIONS],
   exports: DECLARATIONS,
-  declarations: DECLARATIONS,
 })
 export class VirtualScrollModule {}

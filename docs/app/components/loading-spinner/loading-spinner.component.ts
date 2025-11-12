@@ -1,5 +1,10 @@
-import { NgIf } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  OnDestroy,
+  inject,
+} from '@angular/core';
 import { NavigationEnd, NavigationStart, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
@@ -8,14 +13,17 @@ import { Subscription } from 'rxjs';
   templateUrl: './loading-spinner.component.html',
   styleUrls: ['./loading-spinner.component.less'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [NgIf],
+  imports: [],
 })
 export class LoadingSpinnerComponent implements OnDestroy {
   visible: boolean;
 
   private _subscription: Subscription;
 
-  constructor(router: Router, changeDetectorRef: ChangeDetectorRef) {
+  constructor() {
+    const router = inject(Router);
+    const changeDetectorRef = inject(ChangeDetectorRef);
+
     this._subscription = router.events.subscribe(event => {
       if (event instanceof NavigationStart) {
         this.visible = true;

@@ -1,5 +1,5 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import {
@@ -43,6 +43,8 @@ export class ComponentsSidePanelComponent
   extends BaseDocumentationSection
   implements IPlaygroundProvider
 {
+  private readonly _liveAnnouncer = inject(LiveAnnouncer);
+
   playground: IPlayground = {
     files: {
       'app.component.html': this.snippets.raw.appHtml,
@@ -87,7 +89,7 @@ export class ComponentsSidePanelComponent
 
   private _attachTo = 'window';
 
-  constructor(private readonly _liveAnnouncer: LiveAnnouncer) {
+  constructor() {
     super(
       import.meta.webpackContext('./snippets/', {
         recursive: false,

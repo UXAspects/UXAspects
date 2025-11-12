@@ -1,4 +1,4 @@
-import { formatDate, NgIf, NgSwitch, NgSwitchCase, NgSwitchDefault } from '@angular/common';
+import { formatDate } from '@angular/common';
 import { Component, ViewEncapsulation } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import {
@@ -25,14 +25,10 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
   styleUrls: ['./date-range-picker.component.less'],
   encapsulation: ViewEncapsulation.None,
   imports: [
-    NgSwitch,
-    NgSwitchCase,
     AccessibilityModule,
     IconModule,
     FormsModule,
     PopoverModule,
-    NgIf,
-    NgSwitchDefault,
     DateRangePickerModule,
     AccordionModule,
     CheckboxModule,

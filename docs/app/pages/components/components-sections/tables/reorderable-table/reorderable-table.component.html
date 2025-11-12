@@ -10,39 +10,40 @@
     </tr>
   </thead>
   <tbody uxReorderable [(reorderableModel)]="data">
-    <tr
-      class="reorderable-row"
-      #row
-      uxFocusIndicator
-      *ngFor="let item of data; let idx = index"
-      [uxReorderableModel]="item"
-      tabindex="0"
-      attr.aria-label="{{ item.document }} by {{ item.author }}. Use arrow keys to reorder items."
-      (keydown.arrowdown)="movedown(item, idx, $event)"
-      (keydown.arrowup)="moveup(item, idx, $event)"
-    >
-      <td class="drag-handle-column">
-        <ux-icon uxReorderableHandle name="more" rotate="90"></ux-icon>
-      </td>
-      <td>{{ item.document }}</td>
-      <td>{{ item.author }}</td>
-      <td>{{ item.date | date }}</td>
-      <td>
-        <ux-spark
-          theme="chart2"
-          [value]="item.completed"
-          barHeight="3"
-          [inlineLabel]="item.completed + '%'"
-        ></ux-spark>
-      </td>
-      <td class="text-center">
-        <ux-icon
-          [name]="item.active ? 'checkmark' : null"
-          [attr.aria-label]="item.active ? 'Approved' : 'Not approved'"
-        >
-        </ux-icon>
-      </td>
-    </tr>
+    @for (item of data; track item; let idx = $index) {
+      <tr
+        class="reorderable-row"
+        #row
+        uxFocusIndicator
+        [uxReorderableModel]="item"
+        tabindex="0"
+        attr.aria-label="{{ item.document }} by {{ item.author }}. Use arrow keys to reorder items."
+        (keydown.arrowdown)="movedown(item, idx, $event)"
+        (keydown.arrowup)="moveup(item, idx, $event)"
+      >
+        <td class="drag-handle-column">
+          <ux-icon uxReorderableHandle name="more" rotate="90"></ux-icon>
+        </td>
+        <td>{{ item.document }}</td>
+        <td>{{ item.author }}</td>
+        <td>{{ item.date | date }}</td>
+        <td>
+          <ux-spark
+            theme="chart2"
+            [value]="item.completed"
+            barHeight="3"
+            [inlineLabel]="item.completed + '%'"
+          ></ux-spark>
+        </td>
+        <td class="text-center">
+          <ux-icon
+            [name]="item.active ? 'checkmark' : null"
+            [attr.aria-label]="item.active ? 'Approved' : 'Not approved'"
+          >
+          </ux-icon>
+        </td>
+      </tr>
+    }
   </tbody>
 </table>
 

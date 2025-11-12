@@ -7,10 +7,7 @@ import {
   Renderer2,
 } from '@angular/core';
 
-@Directive({
-  selector: '[uxAutoGrow]',
-  standalone: false,
-})
+@Directive({ selector: '[uxAutoGrow]' })
 export class AutoGrowDirective implements AfterViewInit {
   private readonly _elementRef = inject(ElementRef);
 

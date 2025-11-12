@@ -1,6 +1,5 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
-import { NgFor } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import {
   AccordionModule,
   RadioButtonModule,
@@ -20,7 +19,6 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
   templateUrl: './wizard.component.html',
   imports: [
     WizardModule,
-    NgFor,
     AccordionModule,
     RadioButtonModule,
     ApiPropertiesComponent,
@@ -34,6 +32,8 @@ export class ComponentsWizardComponent
   extends BaseDocumentationSection
   implements IPlaygroundProvider
 {
+  private readonly _announcer = inject(LiveAnnouncer);
+
   orientation: string = 'horizontal';
 
   steps: WizardStep[] = [
@@ -72,7 +72,7 @@ export class ComponentsWizardComponent
     ],
   };
 
-  constructor(private readonly _announcer: LiveAnnouncer) {
+  constructor() {
     super(
       import.meta.webpackContext('./snippets/', {
         recursive: false,

@@ -10,9 +10,17 @@ import { TypeaheadOptionsListComponent } from './typeahead-options-list.componen
 import { TypeaheadComponent } from './typeahead.component';
 
 @NgModule({
-  imports: [CommonModule, InfiniteScrollModule, ResizeModule, ScrollModule, SafeInnerHtmlDirective],
+  imports: [
+    CommonModule,
+    InfiniteScrollModule,
+    ResizeModule,
+    ScrollModule,
+    SafeInnerHtmlDirective,
+    TypeaheadComponent,
+    TypeaheadHighlightDirective,
+    TypeaheadOptionsListComponent,
+  ],
   exports: [TypeaheadComponent],
-  declarations: [TypeaheadComponent, TypeaheadHighlightDirective, TypeaheadOptionsListComponent],
   providers: [PopoverOrientationService],
 })
 export class TypeaheadModule {}

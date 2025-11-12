@@ -9,6 +9,7 @@ import { AccessibilityModule } from '../../directives/accessibility/index';
 import { ResizeDimensions, ResizeService } from '../../directives/resize/index';
 import { IconModule } from '../icon/index';
 import { OrganizationChartComponent, OrganizationChartNode } from './organization-chart.component';
+import { OrganizationChartModule } from './organization-chart.module';
 
 export class MockResizeService {
   addResizeListener(target: HTMLElement): BehaviorSubject<ResizeDimensions> {
@@ -40,7 +41,7 @@ export class MockResizeService {
       </ng-template>
     </ux-organization-chart>
   </div>`,
-  standalone: false,
+  imports: [AccessibilityModule, IconModule, CommonModule, OrganizationChartModule],
 })
 export class OrganizationChartTestComponent {
   dataset: OrganizationChartNode<Employee> = {
@@ -88,9 +89,14 @@ describe('Organization Chart Component', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AccessibilityModule, IconModule, CommonModule],
+      imports: [
+        AccessibilityModule,
+        IconModule,
+        CommonModule,
+        OrganizationChartTestComponent,
+        OrganizationChartComponent,
+      ],
       providers: [{ provide: ResizeService, useClass: MockResizeService }],
-      declarations: [OrganizationChartTestComponent, OrganizationChartComponent],
     }).compileComponents();
 
     fixture = TestBed.createComponent(OrganizationChartTestComponent);

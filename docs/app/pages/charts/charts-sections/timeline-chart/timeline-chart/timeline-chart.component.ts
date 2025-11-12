@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, inject } from '@angular/core';
 import { ColorService, TabsetModule, TimelineChartOptions } from '@ux-aspects/ux-aspects';
 import { ChartDataset, ChartOptions, ScatterDataPoint } from 'chart.js';
 import 'chartjs-adapter-moment';
@@ -36,6 +36,9 @@ export class ChartsTimelineChartComponent
   extends BaseDocumentationSection
   implements IPlaygroundProvider
 {
+  private readonly _dataService = inject(TimelineChartService);
+  private readonly _colorService = inject(ColorService);
+
   @ViewChild(BaseChartDirective, { static: true }) baseChart?: BaseChartDirective;
 
   playground: IPlayground = {
@@ -72,10 +75,7 @@ export class ChartsTimelineChartComponent
   timelineChartData: ChartDataset[];
   timelineChartOptions: ChartOptions & TimelineChartOptions;
 
-  constructor(
-    private readonly _dataService: TimelineChartService,
-    private readonly _colorService: ColorService
-  ) {
+  constructor() {
     super(
       import.meta.webpackContext('./snippets/', {
         recursive: false,

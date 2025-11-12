@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ColorService } from '@ux-aspects/ux-aspects';
 import { ChartDataset, ChartOptions } from 'chart.js';
 
@@ -20,7 +20,9 @@ export class AppComponent {
 
   livedata: number[] = [];
 
-  constructor(colorService: ColorService) {
+  constructor() {
+    const colorService = inject(ColorService);
+
     this.gridColor = colorService.getColor('grey6').toHex();
     this.lineBorderColor = colorService.getColor('chart1').toRgb();
     this.lineFillColor = colorService.getColor('chart1').setAlpha(0.1).toRgba();

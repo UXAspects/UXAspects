@@ -1,5 +1,4 @@
-import { NgIf } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -23,7 +22,6 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
     NumberPickerModule,
     FormsModule,
     ReactiveFormsModule,
-    NgIf,
     IconModule,
     ApiPropertiesComponent,
     ApiPropertyComponent,
@@ -52,7 +50,9 @@ export class ComponentsNumberPickerComponent
     ],
   };
 
-  constructor(formBuilder: FormBuilder) {
+  constructor() {
+    const formBuilder = inject(FormBuilder);
+
     super(
       import.meta.webpackContext('./snippets/', {
         recursive: false,

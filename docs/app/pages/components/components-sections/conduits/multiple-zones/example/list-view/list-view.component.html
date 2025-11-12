@@ -7,19 +7,22 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let document of documents">
-      <td>{{ document.document }}</td>
-      <td>{{ document.author }}</td>
-      <td>{{ document.date | date: 'shortDate' }}</td>
-    </tr>
+    @for (document of documents; track document) {
+      <tr>
+        <td>{{ document.document }}</td>
+        <td>{{ document.author }}</td>
+        <td>{{ document.date | date: 'shortDate' }}</td>
+      </tr>
+    }
   </tbody>
 </table>
 
-<uxd-conduit-zone-inspector
-  *ngIf="showZones | async"
-  [zones]="['toolbar-zone', 'filter-zone']"
-  [isProducer]="false"
-  [(acceptsInput)]="acceptsInput"
-  (acceptsInputChange)="setConduitProperties(search, { acceptsInput: acceptsInput })"
->
-</uxd-conduit-zone-inspector>
+@if (showZones | async) {
+  <uxd-conduit-zone-inspector
+    [zones]="['toolbar-zone', 'filter-zone']"
+    [isProducer]="false"
+    [(acceptsInput)]="acceptsInput"
+    (acceptsInputChange)="setConduitProperties(search, { acceptsInput: acceptsInput })"
+  >
+  </uxd-conduit-zone-inspector>
+}

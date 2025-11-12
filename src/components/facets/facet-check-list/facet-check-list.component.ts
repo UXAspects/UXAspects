@@ -13,6 +13,7 @@ import {
 } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { FacetHeaderComponent } from '../base/facet-header/facet-header.component';
 import { FacetDeselect, FacetDeselectAll, FacetEvent, FacetSelect } from '../facet-events';
 import { FacetService } from '../facet.service';
 import { Facet } from '../models/facet';
@@ -23,7 +24,7 @@ let uniqueId = 0;
 @Component({
   selector: 'ux-facet-check-list',
   templateUrl: './facet-check-list.component.html',
-  standalone: false,
+  imports: [FacetHeaderComponent, FacetCheckListItemComponent],
 })
 export class FacetCheckListComponent implements AfterViewInit, OnDestroy {
   readonly facetService = inject(FacetService);

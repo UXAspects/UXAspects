@@ -1,9 +1,6 @@
 import { Directive, ElementRef, inject, Input, OnDestroy } from '@angular/core';
 
-@Directive({
-  selector: '[focusIf]',
-  standalone: false,
-})
+@Directive({ selector: '[focusIf]' })
 export class FocusIfDirective implements OnDestroy {
   private readonly _elementRef = inject(ElementRef);
 

@@ -17,7 +17,6 @@ import { Subscription } from 'rxjs';
   host: {
     class: 'ux-float-label',
   },
-  standalone: false,
 })
 export class FloatLabelDirective<T = string> implements OnInit, OnChanges, OnDestroy {
   private readonly _elementRef = inject(ElementRef);

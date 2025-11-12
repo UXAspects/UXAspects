@@ -9,9 +9,16 @@ import { NAVIGATION_MODULE_OPTIONS, NavigationModuleOptions } from './navigation
 import { NavigationComponent } from './navigation.component';
 
 @NgModule({
-  imports: [AccessibilityModule, CommonModule, IconModule, RouterModule],
+  imports: [
+    AccessibilityModule,
+    CommonModule,
+    IconModule,
+    RouterModule,
+    NavigationComponent,
+    NavigationItemComponent,
+    NavigationLinkDirective,
+  ],
   exports: [NavigationComponent, NavigationItemComponent],
-  declarations: [NavigationComponent, NavigationItemComponent, NavigationLinkDirective],
 })
 export class NavigationModule {
   // allow options to be specified globally

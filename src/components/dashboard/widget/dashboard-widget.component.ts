@@ -4,6 +4,7 @@ import {
   coerceNumberProperty,
   NumberInput,
 } from '@angular/cdk/coercion';
+import { AsyncPipe } from '@angular/common';
 import {
   AfterViewInit,
   Component,
@@ -17,13 +18,14 @@ import {
 } from '@angular/core';
 import { Subject } from 'rxjs';
 import { map, takeUntil } from 'rxjs/operators';
+import { DragDirective } from '../../../directives/drag/drag.directive';
 import { ActionDirection, DashboardService } from '../dashboard.service';
 import { DashboardStackMode } from './dashboard-stack-mode.enum';
 
 @Component({
   selector: 'ux-dashboard-widget',
   templateUrl: './dashboard-widget.component.html',
-  standalone: false,
+  imports: [DragDirective, AsyncPipe],
 })
 export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestroy, OnChanges {
   readonly dashboardService = inject(DashboardService);

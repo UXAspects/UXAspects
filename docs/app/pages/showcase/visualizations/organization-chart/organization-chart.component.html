@@ -27,14 +27,15 @@
           (keydown.enter)="onTypeaheadSelect(highlighted, 'keyboard'); isSearchOpen = false"
         />
 
-        <button
-          *ngIf="query"
-          type="button"
-          class="btn btn-link btn-icon button-secondary ux-toolbar-search-clear"
-          (click)="query = ''; toolbarSearchField.focus()"
-        >
-          <ux-icon name="close"></ux-icon>
-        </button>
+        @if (query) {
+          <button
+            type="button"
+            class="btn btn-link btn-icon button-secondary ux-toolbar-search-clear"
+            (click)="query = ''; toolbarSearchField.focus()"
+          >
+            <ux-icon name="close"></ux-icon>
+          </button>
+        }
 
         <button
           uxToolbarSearchButton
@@ -95,17 +96,18 @@
         <p class="employee-job-title">{{ data.role }}</p>
         <p class="employee-email">{{ data.email }}</p>
 
-        <div class="employee-icon" *ngIf="node.children && node.children?.length > 0">
-          <ux-icon name="user-manager"></ux-icon>
-          <span class="employee-icon-count">{{ node.children.length }}</span>
-        </div>
+        @if (node.children && node.children?.length > 0) {
+          <div class="employee-icon">
+            <ux-icon name="user-manager"></ux-icon>
+            <span class="employee-icon-count">{{ node.children.length }}</span>
+          </div>
+        }
 
-        <div
-          class="employee-icon employee-icon-expanded"
-          *ngIf="node.children && node.children?.length > 0"
-        >
-          <ux-icon name="tab-up"></ux-icon>
-        </div>
+        @if (node.children && node.children?.length > 0) {
+          <div class="employee-icon employee-icon-expanded">
+            <ux-icon name="tab-up"></ux-icon>
+          </div>
+        }
       </div>
     </ng-template>
   </ux-organization-chart>

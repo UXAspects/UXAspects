@@ -10,6 +10,7 @@ import {
 } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { FocusIndicatorDirective } from '../../../directives/accessibility/focus-indicator/focus-indicator.directive';
 import { AccordionService } from '../accordion.service';
 
 let uniqueId: number = 1;
@@ -20,7 +21,7 @@ let uniqueId: number = 1;
   host: {
     class: 'panel panel-default',
   },
-  standalone: false,
+  imports: [FocusIndicatorDirective],
 })
 export class AccordionPanelComponent implements OnInit, OnDestroy {
   readonly accordion = inject(AccordionService);

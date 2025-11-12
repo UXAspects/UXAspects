@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ColorService } from '@ux-aspects/ux-aspects';
 import { ChartDataset, ChartOptions, TooltipItem } from 'chart.js';
 
@@ -14,7 +14,9 @@ export class AppComponent {
   donutChartLegend: boolean = true;
   donutChartColors: any;
 
-  constructor(colorService: ColorService) {
+  constructor() {
+    const colorService = inject(ColorService);
+
     const tooltipBackgroundColor = colorService.getColor('grey2').toHex();
 
     this.donutChartColors = {

@@ -18,12 +18,14 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let label of lineChartLabels; let idx = index">
-          <td>{{ label }}</td>
-          <td>&euro;{{ lineChartData[0].data[idx] }}</td>
-          <td>&euro;{{ lineChartData[1].data[idx] }}</td>
-          <td>&euro;{{ lineChartData[2].data[idx] }}</td>
-        </tr>
+        @for (label of lineChartLabels; track label; let idx = $index) {
+          <tr>
+            <td>{{ label }}</td>
+            <td>&euro;{{ lineChartData[0].data[idx] }}</td>
+            <td>&euro;{{ lineChartData[1].data[idx] }}</td>
+            <td>&euro;{{ lineChartData[2].data[idx] }}</td>
+          </tr>
+        }
       </tbody>
     </table>
   </canvas>

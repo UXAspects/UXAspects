@@ -1,17 +1,22 @@
+import { ElementRef, inject, OnDestroy } from '@angular/core';
+import { FocusIndicator, FocusIndicatorService } from '@ux-aspects/ux-aspects';
+
 @Component({
   selector: 'app-button',
   templateUrl: 'button.component.html',
 })
 export class ButtonComponent implements OnDestroy {
   private readonly _focusIndicator: FocusIndicator;
-
-  constructor(focusIndicatorService: FocusIndicatorService, elementRef: ElementRef) {
+  private readonly focusIndicatorService = inject(FocusIndicatorService);
+  private readonly elementRef = inject(ElementRef);
+  constructor() {
     // begin controlling focus indicator with defined options
-    this._focusIndicator = focusIndicatorService.monitor(elementRef.nativeElement, {
+    this._focusIndicator = this.focusIndicatorService.monitor(this.elementRef.nativeElement, {
       mouseFocusIndicator: true,
       touchFocusIndicator: true,
       keyboardFocusIndicator: true,
       programmaticFocusIndicator: true,
+      checkChildren: false,
     });
   }
 

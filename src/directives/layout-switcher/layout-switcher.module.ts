@@ -6,9 +6,8 @@ import { LayoutSwitcherDirective } from './layout-switcher.directive';
 const DECLARATIONS = [LayoutSwitcherDirective, LayoutSwitcherItemDirective];
 
 @NgModule({
-  imports: [ResizeModule],
+  imports: [ResizeModule, ...DECLARATIONS],
   exports: DECLARATIONS,
-  declarations: DECLARATIONS,
   providers: [],
 })
 export class LayoutSwitcherModule {}

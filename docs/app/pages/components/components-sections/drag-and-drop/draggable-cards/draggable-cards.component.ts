@@ -1,6 +1,5 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
-import { NgFor } from '@angular/common';
-import { Component, ElementRef, QueryList, ViewChildren } from '@angular/core';
+import { Component, ElementRef, QueryList, ViewChildren, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import {
   AccessibilityModule,
@@ -24,7 +23,6 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
   styleUrls: ['./draggable-cards.component.less'],
   imports: [
     AccessibilityModule,
-    NgFor,
     ReorderableModule,
     IconModule,
     NgChartsModule,
@@ -38,6 +36,9 @@ export class ComponentsDraggableCardsComponent
   extends BaseDocumentationSection
   implements IPlaygroundProvider
 {
+  private readonly _colorService = inject(ColorService);
+  private readonly _liveAnnouncer = inject(LiveAnnouncer);
+
   colors = [
     this._colorService.getColor('accent').toRgb(),
     this._colorService.getColor('accent').setAlpha(0.5).toRgba(),
@@ -177,10 +178,7 @@ export class ComponentsDraggableCardsComponent
 
   @ViewChildren('draggableCard') cards?: QueryList<ElementRef>;
 
-  constructor(
-    private readonly _colorService: ColorService,
-    private readonly _liveAnnouncer: LiveAnnouncer
-  ) {
+  constructor() {
     super(
       import.meta.webpackContext('./snippets/', {
         recursive: false,

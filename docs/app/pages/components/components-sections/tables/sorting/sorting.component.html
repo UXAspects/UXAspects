@@ -24,22 +24,18 @@
     </button>
 
     <ux-menu #dropdownMenu class="dropdown-menu">
-      <button
-        *ngFor="let option of options"
-        class="dropdown-list-item"
-        type="button"
-        uxMenuItem
-        (activate)="sort(option)"
-      >
-        <span class="dropdown-menu-icon">
-          <ux-icon
-            name="checkmark"
-            class="sorter-icon"
-            [class.invisible]="option !== selected"
-          ></ux-icon>
-        </span>
-        <span class="dropdown-menu-text">{{ option }}</span>
-      </button>
+      @for (option of options; track option) {
+        <button class="dropdown-list-item" type="button" uxMenuItem (activate)="sort(option)">
+          <span class="dropdown-menu-icon">
+            <ux-icon
+              name="checkmark"
+              class="sorter-icon"
+              [class.invisible]="option !== selected"
+            ></ux-icon>
+          </span>
+          <span class="dropdown-menu-text">{{ option }}</span>
+        </button>
+      }
     </ux-menu>
   </div>
 </div>

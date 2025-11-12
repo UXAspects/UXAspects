@@ -30,9 +30,11 @@
     uxMenuInitialFocus
   ></ux-color-picker>
 
-  <div *ngIf="showInput" class="btn-container demo-color-picker-close">
-    <button type="button" class="btn button-primary" (click)="close()">Accept</button>
-  </div>
+  @if (showInput) {
+    <div class="btn-container demo-color-picker-close">
+      <button type="button" class="btn button-primary" (click)="close()">Accept</button>
+    </div>
+  }
 </ux-menu>
 
 <div class="uxd-customize-example">

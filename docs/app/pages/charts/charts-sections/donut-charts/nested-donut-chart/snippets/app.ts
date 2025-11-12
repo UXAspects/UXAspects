@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Color, ColorService, NestedDonutChartData } from '@ux-aspects/ux-aspects';
 
 @Component({
@@ -7,6 +7,8 @@ import { Color, ColorService, NestedDonutChartData } from '@ux-aspects/ux-aspect
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
+  private readonly _colorService = inject(ColorService);
+
   dataset: ReadonlyArray<NestedDonutChartData> = [
     { name: 'To be retained', value: 42, color: this._colorService.getColor(Color.Ok).toHex() },
     {
@@ -16,6 +18,4 @@ export class AppComponent {
     },
     { name: 'Sensitive', value: 9, color: this._colorService.getColor(Color.Critical).toHex() },
   ];
-
-  constructor(private readonly _colorService: ColorService) {}
 }

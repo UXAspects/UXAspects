@@ -9,7 +9,9 @@ import {
   Output,
   ViewEncapsulation,
 } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormsModule } from '@angular/forms';
+import { FocusIndicatorDirective } from '../../directives/accessibility/focus-indicator/focus-indicator.directive';
+import { IconComponent } from '../icon/icon.component';
 
 export const SPIN_BUTTON_VALUE_ACCESSOR = {
   provide: NG_VALUE_ACCESSOR,
@@ -23,7 +25,7 @@ export const SPIN_BUTTON_VALUE_ACCESSOR = {
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [SPIN_BUTTON_VALUE_ACCESSOR],
-  standalone: false,
+  imports: [FocusIndicatorDirective, IconComponent, FormsModule],
 })
 export class SpinButtonComponent implements ControlValueAccessor {
   private readonly _changeDetector = inject(ChangeDetectorRef);

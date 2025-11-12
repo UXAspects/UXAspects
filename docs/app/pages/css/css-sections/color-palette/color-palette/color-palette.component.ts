@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ColorService } from '@ux-aspects/ux-aspects';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 
@@ -9,6 +9,8 @@ import { DocumentationSectionComponent } from '../../../../../decorators/documen
 })
 @DocumentationSectionComponent('CssColorPaletteComponent')
 export class CssColorPaletteComponent {
+  private readonly _colorService = inject(ColorService);
+
   colors = {
     primary: this._colorService.getColor('primary'),
     accent: this._colorService.getColor('accent'),
@@ -36,6 +38,4 @@ export class CssColorPaletteComponent {
     warning: this._colorService.getColor('warning'),
     critical: this._colorService.getColor('critical'),
   };
-
-  constructor(private readonly _colorService: ColorService) {}
 }

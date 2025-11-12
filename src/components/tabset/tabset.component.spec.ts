@@ -27,7 +27,7 @@ import { TabsetModule } from './tabset.module';
       }
     </ux-tabset>
   `,
-  standalone: false,
+  imports: [TabsetModule],
 })
 export class TabsetTestComponent {
   tabs: Tab[] = [
@@ -69,8 +69,7 @@ describe('Tabset Component', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TabsetModule],
-      declarations: [TabsetTestComponent],
+      imports: [TabsetModule, TabsetTestComponent],
     }).compileComponents();
 
     fixture = TestBed.createComponent(TabsetTestComponent);

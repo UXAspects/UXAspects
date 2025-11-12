@@ -1,6 +1,5 @@
 import { FocusOrigin } from '@angular/cdk/a11y';
-import { NgIf } from '@angular/common';
-import { ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import {
   AccessibilityModule,
@@ -33,7 +32,6 @@ import { TypeaheadHighlight } from './typeahead-highlight.pipe';
     IconModule,
     ToolbarSearchModule,
     FormsModule,
-    NgIf,
     AccessibilityModule,
     TypeaheadModule,
     OrganizationChartModule,
@@ -41,6 +39,11 @@ import { TypeaheadHighlight } from './typeahead-highlight.pipe';
   ],
 })
 export class OrganizationChartShowcaseComponent implements OnInit, OnDestroy {
+  private readonly _dataService = inject(OrganizationChartDataService);
+  typeaheadKeyService = inject(TypeaheadKeyService);
+  private readonly _changeDetector = inject(ChangeDetectorRef);
+  private readonly _focusIndicatorOrigin = inject(FocusIndicatorOriginService);
+
   /** Define the open state of the search input */
   isSearchOpen: boolean = false;
 
@@ -75,13 +78,6 @@ export class OrganizationChartShowcaseComponent implements OnInit, OnDestroy {
   /** Get the organization chart component instance */
   @ViewChild(OrganizationChartComponent, { static: true })
   organizationChart: OrganizationChartComponent<OrganizationChartContext>;
-
-  constructor(
-    private readonly _dataService: OrganizationChartDataService,
-    public typeaheadKeyService: TypeaheadKeyService,
-    private readonly _changeDetector: ChangeDetectorRef,
-    private readonly _focusIndicatorOrigin: FocusIndicatorOriginService
-  ) {}
 
   ngOnInit(): void {
     // set the initial selection

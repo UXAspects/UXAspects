@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import {
@@ -49,6 +49,9 @@ export class ComponentsBadgeComponent
   extends BaseDocumentationSection
   implements IPlaygroundProvider
 {
+  private readonly documentationType = inject<DocumentationType>(DOCUMENTATION_TOKEN);
+  private readonly colorService = inject(ColorService);
+
   colorPaletteDocumentationRoute: string;
   colorPaletteFragment: string;
 
@@ -81,16 +84,14 @@ export class ComponentsBadgeComponent
     ],
   };
 
-  constructor(
-    @Inject(DOCUMENTATION_TOKEN) private readonly documentationType: DocumentationType,
-    private readonly colorService: ColorService
-  ) {
+  constructor() {
     super(
       import.meta.webpackContext('./snippets/', {
         recursive: false,
         regExp: /\.(html|css|js|ts)$/,
       })
     );
+    const documentationType = this.documentationType;
 
     this.colorPaletteDocumentationRoute =
       documentationType === DocumentationType.MicroFocus

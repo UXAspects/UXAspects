@@ -14,6 +14,8 @@ import {
 } from '@angular/core';
 import { Subject } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
+import { FocusIndicatorDirective } from '../../../directives/accessibility/focus-indicator/focus-indicator.directive';
+import { DragDirective } from '../../../directives/drag/drag.directive';
 import { ResizableTableType } from './resizable-table-base.service';
 import { RESIZABLE_TABLE_SERVICE_TOKEN } from './resizable-table-service.token';
 import { ColumnUnit } from './table-column-resize-standard/resizable-table.service';
@@ -26,7 +28,7 @@ import { ColumnUnit } from './table-column-resize-standard/resizable-table.servi
     class: 'ux-resizable-table-column',
     '[class.ux-resizable-table-hide-handle]': '!handleVisible',
   },
-  standalone: false,
+  imports: [DragDirective, FocusIndicatorDirective],
 })
 export class ResizableTableColumnComponent implements AfterViewInit, OnDestroy {
   private readonly _table = inject(RESIZABLE_TABLE_SERVICE_TOKEN);

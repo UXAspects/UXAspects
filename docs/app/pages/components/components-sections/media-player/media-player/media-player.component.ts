@@ -1,4 +1,3 @@
-import { NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 import {
   AccessibilityModule,
@@ -23,7 +22,6 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
   templateUrl: './media-player.component.html',
   styleUrls: ['./media-player.component.less'],
   imports: [
-    NgIf,
     MediaPlayerModule,
     AccordionModule,
     RadioButtonModule,

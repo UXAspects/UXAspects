@@ -15,7 +15,6 @@ import { takeUntil } from 'rxjs/operators';
 @Directive({
   selector: '[uxOverflowObserver], [uxOverflowHorizontalObserver], [uxOverflowVerticalObserver]',
   exportAs: 'ux-overflow-observer',
-  standalone: false,
 })
 export class OverflowDirective implements OnInit, AfterViewInit, OnDestroy {
   private readonly _elementRef = inject(ElementRef);

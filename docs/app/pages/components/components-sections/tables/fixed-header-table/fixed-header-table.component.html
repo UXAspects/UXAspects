@@ -16,27 +16,29 @@
   </thead>
 
   <tbody>
-    <tr
-      *ngFor="let person of people; let index = index"
-      [attr.aria-setsize]="total"
-      [attr.aria-posinset]="index"
-    >
-      <td class="table-col-id">{{ person.id }}</td>
-      <td>{{ person.name }}</td>
-      <td>{{ person.address }}</td>
-      <td>{{ person.phone }}</td>
-      <td [attr.aria-label]="person.active ? 'Active' : 'Inactive'">
-        <ux-icon name="checkmark" *ngIf="person.active"></ux-icon>
-      </td>
-    </tr>
+    @for (person of people; track person; let index = $index) {
+      <tr [attr.aria-setsize]="total" [attr.aria-posinset]="index">
+        <td class="table-col-id">{{ person.id }}</td>
+        <td>{{ person.name }}</td>
+        <td>{{ person.address }}</td>
+        <td>{{ person.phone }}</td>
+        <td [attr.aria-label]="person.active ? 'Active' : 'Inactive'">
+          @if (person.active) {
+            <ux-icon name="checkmark"></ux-icon>
+          }
+        </td>
+      </tr>
+    }
 
     <!-- Loading Indicator -->
-    <tr *ngIf="loading">
-      <td class="loading-indicator">
-        <div class="spinner spinner-accent spinner-bounce-middle"></div>
-        <p class="loading-indicator-label">Loading...</p>
-      </td>
-    </tr>
+    @if (loading) {
+      <tr>
+        <td class="loading-indicator">
+          <div class="spinner spinner-accent spinner-bounce-middle"></div>
+          <p class="loading-indicator-label">Loading...</p>
+        </td>
+      </tr>
+    }
   </tbody>
 </table>
 

@@ -3,8 +3,7 @@ import { NgModule } from '@angular/core';
 import { ProgressBarComponent } from './progress-bar.component';
 
 @NgModule({
-  imports: [CommonModule],
+  imports: [CommonModule, ProgressBarComponent],
   exports: [ProgressBarComponent],
-  declarations: [ProgressBarComponent],
 })
 export class ProgressBarModule {}

@@ -1,14 +1,14 @@
-import { DOCUMENT, NgFor, NgIf } from '@angular/common';
 import {
   AfterViewInit,
   Component,
   ElementRef,
   HostListener,
-  Inject,
   Input,
   OnDestroy,
   OnInit,
   ViewChild,
+  DOCUMENT,
+  inject,
 } from '@angular/core';
 import {
   ActivatedRoute,
@@ -30,9 +30,14 @@ const FOOTER_OFFSET = 162;
   selector: 'uxd-side-navigation',
   templateUrl: './side-navigation.component.html',
   styleUrls: ['./side-navigation.component.less'],
-  imports: [NgFor, RouterLinkActive, RouterLink, ScrollModule, NgIf],
+  imports: [RouterLinkActive, RouterLink, ScrollModule],
 })
 export class SideNavigationComponent implements OnInit, AfterViewInit, OnDestroy {
+  private readonly _document = inject<Document>(DOCUMENT);
+  private readonly _router = inject(Router);
+  private readonly _activatedRoute = inject(ActivatedRoute);
+  private readonly _navigationService = inject(NavigationService);
+
   @Input() navigation: IDocumentationPage;
   @Input() angularJsButtonClass: string = 'button-toggle-primary';
   @Input() angularButtonClass: string = 'button-toggle-accent';
@@ -44,13 +49,6 @@ export class SideNavigationComponent implements OnInit, AfterViewInit, OnDestroy
   width: number;
 
   private readonly _onDestroy = new Subject<void>();
-
-  constructor(
-    @Inject(DOCUMENT) private readonly _document: Document,
-    private readonly _router: Router,
-    private readonly _activatedRoute: ActivatedRoute,
-    private readonly _navigationService: NavigationService
-  ) {}
 
   ngOnInit(): void {
     // Set up fragment IDs

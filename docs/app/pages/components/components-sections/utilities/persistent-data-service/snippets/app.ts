@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { PersistentDataService, PersistentDataStorageType } from '@ux-aspects/ux-aspects';
 
 @Component({
@@ -6,9 +6,11 @@ import { PersistentDataService, PersistentDataStorageType } from '@ux-aspects/ux
   templateUrl: './app.component.html',
 })
 export class AppComponent {
+  private readonly _persistentDataService = inject(PersistentDataService);
+
   searches = ['checkbox', 'toggle switch', 'tree grid'];
 
-  constructor(private readonly _persistentDataService: PersistentDataService) {
+  constructor() {
     this._persistentDataService.setItem(
       'mySearches',
       this.searches,

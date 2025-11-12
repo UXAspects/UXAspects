@@ -1,5 +1,8 @@
+import { NgClass, NgTemplateOutlet, AsyncPipe } from '@angular/common';
 import { Component, ElementRef, HostBinding, inject, Input, ViewChild } from '@angular/core';
 import { ResizeDimensions } from '../../../directives/resize';
+import { ResizeDirective } from '../../../directives/resize/resize.directive';
+import { IconComponent } from '../../icon/icon.component';
 import { CardTabComponent } from '../card-tab/card-tab.component';
 import { CardTabsService } from '../card-tabs.service';
 
@@ -7,7 +10,7 @@ import { CardTabsService } from '../card-tabs.service';
   selector: 'ux-card-tabset',
   templateUrl: './card-tabset.component.html',
   providers: [CardTabsService],
-  standalone: false,
+  imports: [IconComponent, ResizeDirective, NgClass, NgTemplateOutlet, AsyncPipe],
 })
 export class CardTabsetComponent {
   tabService = inject(CardTabsService);

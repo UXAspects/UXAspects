@@ -1,5 +1,4 @@
-import { NgFor, NgIf } from '@angular/common';
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, inject } from '@angular/core';
 import {
   Filter,
   FilterRemoveAllEvent,
@@ -14,9 +13,11 @@ import { filter as rxFilter, takeUntil } from 'rxjs/operators';
   selector: 'ux-filter-custom',
   templateUrl: './sample-filter.component.html',
   styleUrls: ['./sample-filter.component.less'],
-  imports: [MenuModule, NgIf, IconModule, NgFor],
+  imports: [MenuModule, IconModule],
 })
 export class SampleFilterCustomComponent implements OnInit, OnDestroy {
+  private readonly _filterService = inject(FilterService);
+
   @Input() filters: Filter[] = [];
   @Input() initial: Filter;
 
@@ -24,7 +25,9 @@ export class SampleFilterCustomComponent implements OnInit, OnDestroy {
 
   private readonly _onDestroy = new Subject<void>();
 
-  constructor(private readonly _filterService: FilterService) {
+  constructor() {
+    const _filterService = this._filterService;
+
     // listen for remove all events in which case we should deselect event initial filters
     _filterService.events$
       .pipe(

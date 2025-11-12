@@ -12,16 +12,17 @@
   />
 </div>
 
-<uxd-conduit-zone-inspector
-  *ngIf="showZones | async"
-  [zones]="['toolbar-zone']"
-  [(acceptsInput)]="acceptsInput"
-  [(producesOutput)]="producesOutput"
-  (acceptsInputChange)="
-    setConduitProperties(search, { acceptsInput: acceptsInput, producesOutput: producesOutput })
-  "
-  (producesOutputChange)="
-    setConduitProperties(search, { acceptsInput: acceptsInput, producesOutput: producesOutput })
-  "
->
-</uxd-conduit-zone-inspector>
+@if (showZones | async) {
+  <uxd-conduit-zone-inspector
+    [zones]="['toolbar-zone']"
+    [(acceptsInput)]="acceptsInput"
+    [(producesOutput)]="producesOutput"
+    (acceptsInputChange)="
+      setConduitProperties(search, { acceptsInput: acceptsInput, producesOutput: producesOutput })
+    "
+    (producesOutputChange)="
+      setConduitProperties(search, { acceptsInput: acceptsInput, producesOutput: producesOutput })
+    "
+  >
+  </uxd-conduit-zone-inspector>
+}

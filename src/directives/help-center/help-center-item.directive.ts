@@ -1,10 +1,7 @@
 import { Directive, inject, Input, OnDestroy, OnInit } from '@angular/core';
 import { HelpCenterItem, HelpCenterService } from './help-center.service';
 
-@Directive({
-  selector: '[uxHelpCenterItem]',
-  standalone: false,
-})
+@Directive({ selector: '[uxHelpCenterItem]' })
 export class HelpCenterItemDirective implements OnInit, OnDestroy {
   private readonly _helpCenterService = inject(HelpCenterService);
 

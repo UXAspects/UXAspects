@@ -1,3 +1,4 @@
+import { NgTemplateOutlet } from '@angular/common';
 import {
   AfterContentInit,
   Component,
@@ -15,6 +16,12 @@ import {
 import { Subject } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
 import { tick } from '../../common/index';
+import { DefaultFocusIndicatorDirective } from '../../directives/accessibility/focus-indicator/default-focus-indicator.directive';
+import { FocusIndicatorDirective } from '../../directives/accessibility/focus-indicator/focus-indicator.directive';
+import { TabbableListItemDirective } from '../../directives/accessibility/tabbable-list/tabbable-list-item.directive';
+import { TabbableListDirective } from '../../directives/accessibility/tabbable-list/tabbable-list.directive';
+import { IconComponent } from '../icon/icon.component';
+import { TooltipDirective } from '../tooltip/tooltip.directive';
 import { WizardStepComponent } from './wizard-step.component';
 import { WizardService, WizardValidEvent } from './wizard.service';
 
@@ -27,7 +34,15 @@ let uniqueId: number = 0;
   host: {
     '[class]': 'orientation',
   },
-  standalone: false,
+  imports: [
+    TabbableListDirective,
+    FocusIndicatorDirective,
+    TabbableListItemDirective,
+    IconComponent,
+    NgTemplateOutlet,
+    DefaultFocusIndicatorDirective,
+    TooltipDirective,
+  ],
 })
 export class WizardComponent implements OnInit, AfterContentInit, OnDestroy {
   protected readonly _wizardService = inject<WizardService<WizardStepComponent>>(WizardService);

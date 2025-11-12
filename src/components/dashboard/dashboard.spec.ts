@@ -16,7 +16,7 @@ import { DashboardWidgetComponent } from './widget/dashboard-widget.component';
       <ux-dashboard-widget id="widget-C" name="Runs" [colSpan]="2"> </ux-dashboard-widget>
     </ux-dashboard>
   `,
-  standalone: false,
+  imports: [DashboardModule],
 })
 export class DashboardComponentSpec {
   options: DashboardOptions = {
@@ -38,8 +38,7 @@ describe('Dashboard', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [DashboardModule],
-      declarations: [DashboardComponentSpec],
+      imports: [DashboardModule, DashboardComponentSpec],
     }).compileComponents();
   });
 
@@ -126,7 +125,7 @@ function getPixels(cssValue: string): number {
       <ux-dashboard-widget id="host-widget" name="Host"> </ux-dashboard-widget>
     </ux-dashboard>
   `,
-  standalone: false,
+  imports: [DashboardModule],
 })
 export class DashboardWithInitialLayoutTestComponent {
   options: DashboardOptions = {
@@ -162,8 +161,7 @@ describe('Dashboard with initial layout', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [DashboardModule],
-      declarations: [DashboardWithInitialLayoutTestComponent],
+      imports: [DashboardModule, DashboardWithInitialLayoutTestComponent],
     }).compileComponents();
   });
 
@@ -289,7 +287,7 @@ describe('Dashboard with initial layout', () => {
       <ux-dashboard-widget id="host-widget" name="Host" [row]="0" [col]="0"> </ux-dashboard-widget>
     </ux-dashboard>
   `,
-  standalone: false,
+  imports: [DashboardModule],
 })
 export class DashboardWidgetLayoutTestComponent {
   options: DashboardOptions = {
@@ -309,8 +307,7 @@ describe('Dashboard Widgets layout', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [DashboardModule],
-      declarations: [DashboardWidgetLayoutTestComponent],
+      imports: [DashboardModule, DashboardWidgetLayoutTestComponent],
     }).compileComponents();
   });
 
@@ -358,7 +355,7 @@ describe('Dashboard Widgets layout', () => {
       }
     </ux-dashboard>
   `,
-  standalone: false,
+  imports: [DashboardModule],
 })
 export class DashboardAutoPositioningTestComponent {
   options: DashboardOptions = {
@@ -382,8 +379,7 @@ describe('Dashboard Auto Positioning', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [DashboardModule],
-      declarations: [DashboardAutoPositioningTestComponent],
+      imports: [DashboardModule, DashboardAutoPositioningTestComponent],
     }).compileComponents();
   });
 

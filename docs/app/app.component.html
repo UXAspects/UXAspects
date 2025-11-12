@@ -1,17 +1,20 @@
 <!-- Documentation header -->
-<uxd-navigation-bar *ngIf="isNavigationVisible"></uxd-navigation-bar>
+@if (isNavigationVisible) {
+  <uxd-navigation-bar></uxd-navigation-bar>
+}
 
 <!-- Showcase header -->
-<ux-page-header
-  *ngIf="!isNavigationVisible"
-  [header]="header"
-  [items]="items"
-  [backVisible]="backVisible"
-  alignment="center"
-  [iconMenus]="iconMenus"
-  [crumbs]="breadcrumbs"
->
-</ux-page-header>
+@if (!isNavigationVisible) {
+  <ux-page-header
+    [header]="header"
+    [items]="items"
+    [backVisible]="backVisible"
+    alignment="center"
+    [iconMenus]="iconMenus"
+    [crumbs]="breadcrumbs"
+  >
+  </ux-page-header>
+}
 
 <div [class.app-page-content]="isNavigationVisible">
   <router-outlet></router-outlet>
@@ -19,4 +22,6 @@
 </div>
 
 <!-- Documentation Footer -->
-<uxd-page-footer *ngIf="isNavigationVisible"></uxd-page-footer>
+@if (isNavigationVisible) {
+  <uxd-page-footer></uxd-page-footer>
+}

@@ -26,23 +26,24 @@
       (loadError)="loading = false"
     >
       <ol [attr.aria-busy]="loading" aria-label="Employee list with infinite scrolling">
-        <li
-          *ngFor="let employee of loadedEmployees"
-          [attr.aria-setsize]="totalItems"
-          [attr.aria-posinset]="employee.position"
-          class="employee-item"
-        >
-          <div class="employee-details">
-            <div>
-              <span class="employee-name">{{ employee.name }}</span>
-              <span class="employee-department">({{ employee.department }})</span>
+        @for (employee of loadedEmployees; track employee) {
+          <li
+            [attr.aria-setsize]="totalItems"
+            [attr.aria-posinset]="employee.position"
+            class="employee-item"
+          >
+            <div class="employee-details">
+              <div>
+                <span class="employee-name">{{ employee.name }}</span>
+                <span class="employee-department">({{ employee.department }})</span>
+              </div>
+              <div>
+                <span class="employee-email">{{ employee.email }}</span>
+              </div>
             </div>
-            <div>
-              <span class="employee-email">{{ employee.email }}</span>
-            </div>
-          </div>
-          <div class="employee-id">{{ employee.id }}</div>
-        </li>
+            <div class="employee-id">{{ employee.id }}</div>
+          </li>
+        }
       </ol>
 
       <button

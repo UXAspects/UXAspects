@@ -1,4 +1,5 @@
 import { BooleanInput, coerceBooleanProperty } from '@angular/cdk/coercion';
+import { AsyncPipe } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -10,13 +11,22 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { filter as rxFilter, takeUntil } from 'rxjs/operators';
+import { SafeInnerHtmlDirective } from '../../../directives/safe-inner-html/safe-inner-html.directive';
+import { IconComponent } from '../../icon/icon.component';
+import { MenuDividerComponent } from '../../menu/menu-divider/menu-divider.component';
+import { MenuItemComponent } from '../../menu/menu-item/menu-item.component';
+import { MenuTriggerDirective } from '../../menu/menu-trigger/menu-trigger.directive';
+import { MenuComponent } from '../../menu/menu/menu.component';
 import { TypeaheadKeyService, TypeaheadOptionEvent } from '../../typeahead/index';
+import { TypeaheadComponent } from '../../typeahead/typeahead.component';
 import { FilterRemoveAllEvent } from '../events/filter-remove-all-event';
 import { FilterService } from '../filter.service';
 import { FilterDynamicListConfig } from '../interfaces/filter-dynamic-list-config.interface';
 import { Filter } from '../interfaces/filter.interface';
+import { FilterTypeaheadHighlight } from './filter-typeahead-highlight.pipe';
 
 let uniqueId = 0;
 
@@ -24,7 +34,18 @@ let uniqueId = 0;
   selector: 'ux-filter-dynamic',
   templateUrl: './filter-dynamic.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
+  imports: [
+    MenuTriggerDirective,
+    IconComponent,
+    MenuComponent,
+    MenuItemComponent,
+    MenuDividerComponent,
+    FormsModule,
+    TypeaheadComponent,
+    SafeInnerHtmlDirective,
+    AsyncPipe,
+    FilterTypeaheadHighlight,
+  ],
 })
 export class FilterDynamicComponent implements OnInit, OnDestroy {
   readonly typeaheadKeyService = inject(TypeaheadKeyService);

@@ -1,5 +1,7 @@
 <select class="form-control" (change)="navigateToSection()" [(ngModel)]="section">
-  <option *ngFor="let section of navigation.categories" [ngValue]="section">
-    {{ section.title }}
-  </option>
+  @for (section of navigation.categories; track section) {
+    <option [ngValue]="section">
+      {{ section.title }}
+    </option>
+  }
 </select>

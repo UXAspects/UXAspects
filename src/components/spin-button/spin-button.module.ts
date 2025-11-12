@@ -6,8 +6,7 @@ import { IconModule } from '../icon/index';
 import { SpinButtonComponent } from './spin-button.component';
 
 @NgModule({
-  imports: [AccessibilityModule, CommonModule, FormsModule, IconModule],
+  imports: [AccessibilityModule, CommonModule, FormsModule, IconModule, SpinButtonComponent],
   exports: [SpinButtonComponent],
-  declarations: [SpinButtonComponent],
 })
 export class SpinButtonModule {}

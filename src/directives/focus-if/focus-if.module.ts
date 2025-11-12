@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { FocusIfDirective } from './focus-if.directive';
 
 @NgModule({
+  imports: [FocusIfDirective],
   exports: [FocusIfDirective],
-  declarations: [FocusIfDirective],
 })
 export class FocusIfModule {}

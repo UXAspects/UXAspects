@@ -23,7 +23,7 @@ interface TreeGridTestItem extends TreeGridItem {
       }
     </table>
   `,
-  standalone: false,
+  imports: [TreeGridModule],
 })
 export class TreeGridTestComponent {
   items: TreeGridTestItem[] = [];
@@ -41,8 +41,7 @@ describe('Tree Grid', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TreeGridModule],
-      declarations: [TreeGridTestComponent],
+      imports: [TreeGridModule, TreeGridTestComponent],
     }).compileComponents();
   }));
 

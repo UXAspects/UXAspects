@@ -1,4 +1,4 @@
-import { NgClass, NgFor } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import {
   AccordionModule,
@@ -21,7 +21,6 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     CardTabsModule,
-    NgFor,
     NgClass,
     AccordionModule,
     RadioButtonModule,

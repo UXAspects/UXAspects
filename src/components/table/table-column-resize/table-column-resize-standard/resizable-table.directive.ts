@@ -17,7 +17,6 @@ import { ResizableTableService } from './resizable-table.service';
   host: {
     class: 'ux-resizable-table',
   },
-  standalone: false,
 })
 export class ResizableTableDirective extends BaseResizableTableDirective {
   /** Get all the column headers */

@@ -28,10 +28,7 @@ import { VirtualForRange, VirtualForService } from './virtual-for.service';
  * require a parent element but instead uses an attribute on the parent container instead
  */
 
-@Directive({
-  selector: '[uxVirtualFor][uxVirtualForOf]',
-  standalone: false,
-})
+@Directive({ selector: '[uxVirtualFor][uxVirtualForOf]' })
 export class VirtualForDirective<T> implements OnInit, DoCheck, OnDestroy {
   /** A reference to the container element where we will insert elements. */
   private readonly _viewContainerRef = inject(ViewContainerRef);

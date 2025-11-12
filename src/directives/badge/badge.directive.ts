@@ -30,7 +30,6 @@ export type BadgeSize = 'small' | 'medium' | 'large';
     '[class.ux-badge-after]': 'badgeHorizontalPosition === "after"',
     '[class.ux-badge-before]': 'badgeHorizontalPosition === "before"',
   },
-  standalone: false,
 })
 export class BadgeDirective implements AfterViewInit, OnChanges, OnDestroy {
   private readonly _element = inject<ElementRef<HTMLElement>>(ElementRef);

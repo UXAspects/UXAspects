@@ -31,7 +31,6 @@ import { MenuItemType } from './menu-item-type.enum';
     '[class.ux-menu-item]': 'true',
     '[class.open]': 'isOpen',
   },
-  standalone: false,
 })
 export class MenuItemComponent implements OnInit, OnDestroy, FocusableOption {
   private readonly _menu = inject(MenuComponent);

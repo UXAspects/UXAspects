@@ -29,9 +29,6 @@ import { PageHeaderComponent } from './page-header.component';
     ResizeModule,
     TabsetModule,
     RouterModule,
-  ],
-  exports: [PageHeaderComponent, PageHeaderCustomMenuDirective],
-  declarations: [
     PageHeaderComponent,
     PageHeaderIconMenuComponent,
     PageHeaderCustomMenuDirective,
@@ -40,5 +37,6 @@ import { PageHeaderComponent } from './page-header.component';
     PageHeaderNavigationDropdownItemComponent,
     PageHeaderNavigationSecondaryItemDirective,
   ],
+  exports: [PageHeaderComponent, PageHeaderCustomMenuDirective],
 })
 export class PageHeaderModule {}

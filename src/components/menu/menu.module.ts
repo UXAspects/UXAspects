@@ -14,7 +14,11 @@ import { MenuTriggerDirective } from './menu-trigger/menu-trigger.directive';
 import { MenuComponent } from './menu/menu.component';
 
 @NgModule({
-  declarations: [
+  imports: [
+    A11yModule,
+    AccessibilityModule,
+    CommonModule,
+    OverlayModule,
     MenuComponent,
     MenuTriggerDirective,
     MenuItemComponent,
@@ -23,7 +27,6 @@ import { MenuComponent } from './menu/menu.component';
     MenuInitialFocusDirective,
     MenuItemCustomControlDirective,
   ],
-  imports: [A11yModule, AccessibilityModule, CommonModule, OverlayModule],
   exports: [
     MenuComponent,
     MenuTriggerDirective,
