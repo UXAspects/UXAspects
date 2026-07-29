@@ -1,6 +1,13 @@
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { Component, ViewChild } from '@angular/core';
-import { ComponentFixture, fakeAsync, inject, TestBed, tick } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  fakeAsync,
+  flushMicrotasks,
+  inject,
+  TestBed,
+  tick,
+} from '@angular/core/testing';
 import { TooltipDirective } from './tooltip.directive';
 import { TooltipModule } from './tooltip.module';
 
@@ -64,14 +71,14 @@ describe('Tooltip Directive', () => {
     expect(getTooltip()).toBeTruthy();
   }));
 
-  it('should correctly destroy tooltip pending show', fakeAsync(async () => {
+  it('should correctly destroy tooltip pending show', fakeAsync(() => {
     component.tooltipDirective.delay = 100;
     component.tooltipDirective.show();
     tick(0);
 
     component.showTrigger = false;
     fixture.detectChanges();
-    await fixture.whenStable();
+    flushMicrotasks();
 
     // ensure the timeout is cancelled
 
