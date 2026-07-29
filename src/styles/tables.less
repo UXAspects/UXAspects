@@ -1,6 +1,6 @@
 .table > thead > tr > th {
   border-bottom-width: 1px;
-  .font-semibold;
+  .font-semibold();
 }
 
 .table > tbody > tr > td {
@@ -30,8 +30,8 @@
 .pagination {
   & > li.page-item {
     & > button {
-      .btn;
-      .button-secondary;
+      .btn();
+      .button-secondary();
 
       min-width: 45px;
       padding: 6px 12px;
@@ -40,25 +40,25 @@
       border: 1px solid #ccc;
 
       &:hover {
-        .button-secondary-hover;
+        .button-secondary-hover();
       }
     }
 
     &.active > button {
-      .button-primary-active;
+      .button-primary-active();
 
       &:hover {
-        .button-primary-hover;
+        .button-primary-hover();
       }
 
       &:focus {
-        .button-primary-active;
+        .button-primary-active();
       }
     }
 
     &.disabled {
       & > button {
-        .button-secondary-disabled;
+        .button-secondary-disabled();
       }
     }
   }
@@ -74,39 +74,39 @@
 
 .pagination > .disabled > span,
 .pagination > .disabled > button {
-  .button-secondary-disabled;
+  .button-secondary-disabled();
 
   &:hover,
   &:focus {
-    .button-secondary-disabled;
+    .button-secondary-disabled();
   }
 }
 
 .pagination > li {
   & > button {
-    .button-secondary;
+    .button-secondary();
 
     position: relative;
     float: left;
     margin-left: -1px;
 
     &:hover {
-      .button-secondary-hover;
+      .button-secondary-hover();
     }
   }
 
   &.active > button {
-    .button-primary-active;
+    .button-primary-active();
 
     z-index: 3;
     cursor: default;
 
     &:hover {
-      .button-primary-hover;
+      .button-primary-hover();
     }
 
     &:focus {
-      .button-primary-active;
+      .button-primary-active();
     }
   }
 
