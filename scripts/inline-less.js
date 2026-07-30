@@ -26,6 +26,7 @@ const options = {
 (async () => {
   try {
     await renderDefaultStylesheet();
+    await renderBootstrapStylesheet();
   } catch (err) {
     console.error(err.stack || err);
     process.exit(1);
@@ -35,6 +36,17 @@ const options = {
 async function renderDefaultStylesheet() {
   const less = await getInlinedLess('ux-aspects.less');
   await createStylesheets(less, 'ux-aspects');
+}
+
+// The MIT license requires this notice to be retained in all copies or
+// substantial portions of the vendored Bootstrap source. The `/*!` syntax
+// ensures it survives less rendering and minification.
+const bootstrapLicenseBanner =
+  '/*! Bootstrap v3.4.1 | Copyright 2011-2019 Twitter, Inc. | Licensed under MIT (https://github.com/twbs/bootstrap/blob/v3.4.1/LICENSE) */';
+
+async function renderBootstrapStylesheet() {
+  const less = await getInlinedLess('ux-aspects-bootstrap.less');
+  await createStylesheets(`${bootstrapLicenseBanner}\n${less}`, 'ux-aspects-bootstrap');
 }
 
 /**

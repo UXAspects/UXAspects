@@ -32,4 +32,17 @@ module.exports = {
     src: ['README.md', 'LICENSE.md'],
     dest: join(cwd(), 'dist', 'library/'),
   },
+  bootstrap_fonts: {
+    cwd: join(cwd(), 'src', 'styles', 'fonts'),
+    src: '**',
+    dest: join(cwd(), 'dist', 'library', 'fonts'),
+    expand: true,
+  },
+  bootstrap_license: {
+    expand: true,
+    cwd: join(cwd(), 'src', 'styles', 'bootstrap'),
+    src: 'LICENSE',
+    dest: join(cwd(), 'dist', 'library'),
+    rename: () => join(cwd(), 'dist', 'library', 'LICENSE-bootstrap'),
+  },
 };

@@ -13,6 +13,8 @@ module.exports = {
       src: [
         path.join(process.cwd(), 'dist', 'library', 'styles', 'ux-aspects.css'),
         path.join(process.cwd(), 'dist', 'library', 'styles', 'ux-aspects.min.css'),
+        path.join(process.cwd(), 'dist', 'library', 'styles', 'ux-aspects-bootstrap.css'),
+        path.join(process.cwd(), 'dist', 'library', 'styles', 'ux-aspects-bootstrap.min.css'),
       ],
     },
   },
