@@ -1,3 +1,6 @@
+# 13.0 to 13.1
+* `bootstrap` is no longer a dependency of the published package. Applications that relied on Bootstrap 3 being installed transitively via `@ux-aspects/ux-aspects` must install it themselves (`npm install bootstrap@^3.3.7`) and continue to include the Bootstrap stylesheet in their build. UX Aspects does not use Bootstrap's JavaScript.
+
 # 9.0 to 10.0
 * Angular 16 is no longer supported.
 
