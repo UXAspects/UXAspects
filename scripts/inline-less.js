@@ -42,7 +42,7 @@ async function renderDefaultStylesheet() {
 // substantial portions of the vendored Bootstrap source. The `/*!` syntax
 // ensures it survives less rendering and minification.
 const bootstrapLicenseBanner =
-  '/*! Bootstrap v3.4.1 | Copyright 2011-2019 Twitter, Inc. | Licensed under MIT (https://github.com/twbs/bootstrap/blob/v3.4.1/LICENSE) */';
+  '/*! Bootstrap v3.4.1 stylesheet (CSS only, no JavaScript) | Copyright 2011-2019 Twitter, Inc. | Licensed under MIT (https://github.com/twbs/bootstrap/blob/v3.4.1/LICENSE) */';
 
 async function renderBootstrapStylesheet() {
   const less = await getInlinedLess('ux-aspects-bootstrap.less');
