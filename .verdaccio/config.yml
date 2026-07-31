@@ -9,6 +9,14 @@ uplinks:
     maxage: 60m
 
 packages:
+  # our own packages are always served from local storage, never proxied:
+  # with the npmjs proxy, publishing a version that already exists on the
+  # public registry fails with E409 even though local storage is empty
+  '@ux-aspects/*':
+    access: $all
+    publish: $all
+    unpublish: $all
+
   '**':
     # give all users (including non-authenticated users) full access
     # because it is a local registry
