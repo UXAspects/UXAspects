@@ -137,7 +137,7 @@ jobs:
       - name: Publish to Verdaccio
         run: |
           npm config set //localhost:4873/:_authToken "verdaccio-rehearsal"
-          npm publish dist/library --registry http://localhost:4873
+          npm publish ./dist/library --registry http://localhost:4873
 
       # Install the published package into a scratch package and assert the
       # artifact is well-formed. The version is pinned to the one just
@@ -214,7 +214,7 @@ jobs:
           '
 
       - name: Publish
-        run: npm publish dist/library --registry https://npm.pkg.github.com
+        run: npm publish ./dist/library --registry https://npm.pkg.github.com
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
