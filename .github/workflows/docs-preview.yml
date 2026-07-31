@@ -1,0 +1,222 @@
+name: Docs Preview
+
+# Per-branch documentation previews published to the gh-pages branch under
+# ci/previews/<slug>/, where <slug> is the branch name with every character
+# outside [A-Za-z0-9._] replaced by '-'. The production site at the gh-pages
+# root is never touched by this workflow.
+
+on:
+  push:
+    branches-ignore:
+      - master
+      - gh-pages
+  delete:
+  schedule:
+    # Weekly sweep of orphaned/stale previews (Monday 04:17 UTC)
+    - cron: '17 4 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  COREPACK_ENABLE_DOWNLOAD_PROMPT: '0'
+
+jobs:
+  deploy:
+    name: Build and deploy preview
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: write
+      pull-requests: write
+    concurrency:
+      group: docs-preview-deploy-${{ github.ref }}
+      cancel-in-progress: true
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Enable corepack
+        run: corepack enable
+
+      - name: Resolve pnpm store directory
+        id: pnpm-store
+        run: echo "path=$(pnpm store path --silent)" >> "$GITHUB_OUTPUT"
+
+      - name: Cache pnpm store
+        uses: actions/cache@v4
+        with:
+          path: ${{ steps.pnpm-store.outputs.path }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Compute preview slug
+        id: slug
+        env:
+          BRANCH: ${{ github.ref_name }}
+        run: |
+          slug=$(printf '%s' "$BRANCH" | sed 's/[^A-Za-z0-9._]/-/g')
+          echo "slug=$slug" >> "$GITHUB_OUTPUT"
+
+      # NODE_OPTIONS mirrors the heap headroom the repo's own docs build task
+      # uses (grunt/execute.js passes --max-old-space-size=8192).
+      - name: Build documentation
+        run: npx nx build documentation --baseHref=/UXAspects/ci/previews/${{ steps.slug.outputs.slug }}/
+        env:
+          NODE_OPTIONS: --max-old-space-size=8192
+
+      - name: Deploy preview to gh-pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: ./dist/docs
+          destination_dir: ci/previews/${{ steps.slug.outputs.slug }}
+          keep_files: true
+          commit_message: 'Publish docs preview for ${{ github.ref_name }}'
+
+      - name: Post preview URL on open PR
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BRANCH: ${{ github.ref_name }}
+          SLUG: ${{ steps.slug.outputs.slug }}
+        run: |
+          set -euo pipefail
+          pr_number=$(gh pr list --head "$BRANCH" --state open --json number --jq '.[0].number // empty')
+          if [ -z "$pr_number" ]; then
+            echo "No open PR for branch $BRANCH; skipping comment."
+            exit 0
+          fi
+          repo_name=${GITHUB_REPOSITORY#*/}
+          url="https://${GITHUB_REPOSITORY_OWNER}.github.io/${repo_name}/ci/previews/${SLUG}/"
+          marker='<!-- docs-preview-url -->'
+          body="$marker
+          ### Documentation preview
+
+          $url
+
+          Updated for commit $GITHUB_SHA."
+          comment_id=$(gh api "repos/${GITHUB_REPOSITORY}/issues/${pr_number}/comments" --paginate \
+            --jq '.[] | select(.body | contains("<!-- docs-preview-url -->")) | .id' | sed -n 1p)
+          if [ -n "$comment_id" ]; then
+            gh api --method PATCH "repos/${GITHUB_REPOSITORY}/issues/comments/${comment_id}" -f body="$body" > /dev/null
+            echo "Updated existing preview comment $comment_id on PR #$pr_number"
+          else
+            gh api --method POST "repos/${GITHUB_REPOSITORY}/issues/${pr_number}/comments" -f body="$body" > /dev/null
+            echo "Created preview comment on PR #$pr_number"
+          fi
+
+  cleanup:
+    name: Remove preview for deleted branch
+    if: github.event_name == 'delete' && github.event.ref_type == 'branch'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    concurrency:
+      group: docs-preview-gh-pages
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Remove preview directory from gh-pages
+        env:
+          BRANCH: ${{ github.event.ref }}
+        run: |
+          set -euo pipefail
+          if ! git ls-remote --exit-code origin refs/heads/gh-pages > /dev/null; then
+            echo "gh-pages branch does not exist; nothing to clean up."
+            exit 0
+          fi
+          git fetch --no-tags origin '+refs/heads/gh-pages:refs/remotes/origin/gh-pages'
+          git checkout -B gh-pages origin/gh-pages
+          slug=$(printf '%s' "$BRANCH" | sed 's/[^A-Za-z0-9._]/-/g')
+          if [ ! -d "ci/previews/$slug" ]; then
+            echo "No preview directory for slug $slug; nothing to clean up."
+            exit 0
+          fi
+          git rm -r --quiet "ci/previews/$slug"
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m "Remove docs preview for deleted branch $BRANCH"
+          git push origin gh-pages
+
+  sweep:
+    name: Sweep orphaned and stale previews
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: write
+    concurrency:
+      group: docs-preview-gh-pages
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Remove previews for deleted or inactive branches
+        shell: bash
+        run: |
+          set -euo pipefail
+          if ! git ls-remote --exit-code origin refs/heads/gh-pages > /dev/null; then
+            echo "gh-pages branch does not exist; nothing to sweep."
+            exit 0
+          fi
+
+          # Tip commits of every branch (shallow) plus the gh-pages tree itself.
+          git fetch --no-tags --depth=1 origin '+refs/heads/*:refs/remotes/origin/*'
+          git checkout -B gh-pages origin/gh-pages
+
+          # Map each preview slug to the newest tip-commit time of any branch
+          # that slugs to it (branch names can collide after slugging).
+          # Slugs never contain whitespace, so "<slug> <epoch>" lines are safe.
+          now=$(date +%s)
+          cutoff=$(( now - 60 * 24 * 60 * 60 ))
+          slug_map=$(mktemp)
+          while IFS= read -r branch; do
+            case "$branch" in
+              HEAD|gh-pages) continue ;;
+            esac
+            slug=$(printf '%s' "$branch" | sed 's/[^A-Za-z0-9._]/-/g')
+            if [ "$branch" = "master" ]; then
+              # master's preview is exempt from the age rule.
+              tip=$now
+            else
+              tip=$(git log -1 --format=%ct "refs/remotes/origin/$branch")
+            fi
+            printf '%s %s\n' "$slug" "$tip" >> "$slug_map"
+          done < <(git for-each-ref --format='%(refname:strip=3)' refs/remotes/origin)
+
+          removed=0
+          shopt -s nullglob
+          for dir in ci/previews/*/; do
+            slug=$(basename "$dir")
+            tip=$(awk -v s="$slug" '$1 == s && $2 > m { m = $2 } END { if (m) print m }' "$slug_map")
+            if [ -z "$tip" ]; then
+              echo "Removing orphaned preview '$slug' (no matching branch)"
+              git rm -r --quiet "$dir"
+              removed=1
+            elif [ "$tip" -lt "$cutoff" ]; then
+              echo "Removing stale preview '$slug' (no branch commit in 60 days)"
+              git rm -r --quiet "$dir"
+              removed=1
+            fi
+          done
+
+          if [ "$removed" -eq 0 ]; then
+            echo "No previews to remove."
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'Remove orphaned and stale docs previews'
+          git push origin gh-pages

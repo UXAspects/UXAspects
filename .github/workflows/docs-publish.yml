@@ -1,0 +1,70 @@
+name: Docs Publish
+
+# Updates the PRODUCTION documentation site at the root of the gh-pages branch.
+# Runs as the final stage of release.yml (workflow_call) or manually
+# (workflow_dispatch) for out-of-band corrections to the live site.
+on:
+  workflow_dispatch:
+  workflow_call:
+
+permissions:
+  contents: write
+
+env:
+  COREPACK_ENABLE_DOWNLOAD_PROMPT: '0'
+
+jobs:
+  publish:
+    name: Build and deploy production docs
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    # Serialise gh-pages root deployments; never cancel an in-flight publish.
+    # Job-level so it also applies when this workflow runs via workflow_call
+    # (workflow-level concurrency in a called workflow is not honoured).
+    concurrency:
+      group: docs-publish
+      cancel-in-progress: false
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Enable corepack
+        run: corepack enable
+
+      - name: Resolve pnpm store directory
+        id: pnpm-store
+        run: echo "path=$(pnpm store path --silent)" >> "$GITHUB_OUTPUT"
+
+      - name: Cache pnpm store
+        uses: actions/cache@v4
+        with:
+          path: ${{ steps.pnpm-store.outputs.path }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      # NODE_OPTIONS mirrors the heap headroom the repo's own docs build task
+      # uses (grunt/execute.js passes --max-old-space-size=8192).
+      - name: Build documentation
+        run: npx nx build documentation --baseHref=/UXAspects/
+        env:
+          NODE_OPTIONS: --max-old-space-size=8192
+
+      # keep_files preserves ci/previews/* (per-branch docs previews) while
+      # replacing the site root.
+      - name: Deploy to gh-pages root
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: dist/docs
+          keep_files: true
+          full_commit_message: Publish production documentation from ${{ github.ref_name }}

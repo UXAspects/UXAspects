@@ -1,0 +1,228 @@
+name: Release
+
+# npm publication quality gate: re-validate the tagged commit, rehearse the
+# publish against a local Verdaccio registry, pause for human approval
+# (npm-publish environment), publish to GitHub Packages, then deploy the
+# released documentation to the gh-pages root.
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+env:
+  COREPACK_ENABLE_DOWNLOAD_PROMPT: '0'
+
+jobs:
+  quality:
+    name: Lint, test and build
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Enable corepack
+        run: corepack enable
+
+      - name: Resolve pnpm store directory
+        id: pnpm-store
+        run: echo "path=$(pnpm store path --silent)" >> "$GITHUB_OUTPUT"
+
+      - name: Cache pnpm store
+        uses: actions/cache@v4
+        with:
+          path: ${{ steps.pnpm-store.outputs.path }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Lint
+        run: pnpm run lint
+
+      - name: Test
+        run: pnpm run test:karma
+
+      - name: Build library
+        run: npx grunt build:library
+
+      # Same heap headroom the repo's own docs build task uses
+      # (grunt/execute.js passes --max-old-space-size=8192).
+      - name: Build documentation
+        run: npx nx build documentation
+        env:
+          NODE_OPTIONS: --max-old-space-size=8192
+
+      - name: Upload library artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist-library
+          path: dist/library
+          if-no-files-found: error
+
+  rehearsal:
+    name: Publish rehearsal (Verdaccio)
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    needs: quality
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Enable corepack
+        run: corepack enable
+
+      - name: Resolve pnpm store directory
+        id: pnpm-store
+        run: echo "path=$(pnpm store path --silent)" >> "$GITHUB_OUTPUT"
+
+      - name: Cache pnpm store
+        uses: actions/cache@v4
+        with:
+          path: ${{ steps.pnpm-store.outputs.path }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      # Provides the repo-pinned verdaccio used by the local-registry tooling.
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Download library artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: dist-library
+          path: dist/library
+
+      # Same registry configuration as the repo's `nx local-registry` target
+      # (.verdaccio/config.yml: anonymous access/publish, npmjs uplink proxy),
+      # started in the background instead of nx's foreground runner.
+      - name: Start Verdaccio
+        run: |
+          npx verdaccio --config .verdaccio/config.yml --listen 4873 > verdaccio.log 2>&1 &
+          echo $! > verdaccio.pid
+          for i in $(seq 1 30); do
+            if curl -sf http://localhost:4873/-/ping > /dev/null; then
+              echo "Verdaccio is up"
+              exit 0
+            fi
+            sleep 2
+          done
+          echo "Verdaccio did not start" >&2
+          cat verdaccio.log >&2
+          exit 1
+
+      # The npm client insists on an auth token for publish even though the
+      # registry allows anonymous publication; any value satisfies it.
+      - name: Publish to Verdaccio
+        run: |
+          npm config set //localhost:4873/:_authToken "verdaccio-rehearsal"
+          npm publish dist/library --registry http://localhost:4873
+
+      # Install the published package into a scratch package and assert the
+      # artifact is well-formed. The version is pinned to the one just
+      # published so the Verdaccio npmjs uplink (which also knows
+      # @ux-aspects/ux-aspects) cannot satisfy the install with a different
+      # release. --legacy-peer-deps skips installing the Angular peer tree;
+      # this checks packaging, not runtime integration.
+      - name: Install and verify in scratch package
+        run: |
+          version=$(node -p 'require("./dist/library/package.json").version')
+          scratch="$(mktemp -d)"
+          cd "$scratch"
+          npm init -y > /dev/null
+          npm install "@ux-aspects/ux-aspects@$version" --registry http://localhost:4873 --legacy-peer-deps
+          node -e '
+          const fs = require("fs");
+          const path = require("path");
+          const pkgPath = require.resolve("@ux-aspects/ux-aspects/package.json");
+          const pkg = JSON.parse(fs.readFileSync(pkgPath, "utf8"));
+          console.log("Resolved " + pkg.name + "@" + pkg.version);
+          const css = path.join(path.dirname(pkgPath), "styles", "ux-aspects.css");
+          if (!fs.existsSync(css)) {
+            console.error("Missing styles/ux-aspects.css in the installed package");
+            process.exit(1);
+          }
+          console.log("Found styles/ux-aspects.css");
+          '
+
+      - name: Stop Verdaccio
+        if: always()
+        run: |
+          if [ -f verdaccio.pid ]; then
+            kill "$(cat verdaccio.pid)" 2> /dev/null || true
+          fi
+
+  # Pauses until approved in the npm-publish environment (required reviewers
+  # are configured in repository settings; GitHub creates the environment
+  # unprotected on first use).
+  publish:
+    name: Publish to GitHub Packages
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    needs: rehearsal
+    environment: npm-publish
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Download library artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: dist-library
+          path: dist/library
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          registry-url: https://npm.pkg.github.com
+
+      # GitHub Packages requires the scope to match the repository owner and
+      # links the package to the repository named in the repository field, so
+      # both are rewritten to the fork. The version is published as-is.
+      - name: Rewrite package name for GitHub Packages
+        run: |
+          node -e '
+          const fs = require("fs");
+          const pkgPath = "dist/library/package.json";
+          const pkg = JSON.parse(fs.readFileSync(pkgPath, "utf8"));
+          pkg.name = "@yuriksan/ux-aspects";
+          pkg.repository = { type: "git", url: "git+https://github.com/yuriksan/UXAspects.git" };
+          fs.writeFileSync(pkgPath, JSON.stringify(pkg, null, 2) + "\n");
+          console.log("Publishing as " + pkg.name + "@" + pkg.version);
+          '
+
+      - name: Publish
+        run: npm publish dist/library --registry https://npm.pkg.github.com
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  # Deploys the released documentation to the gh-pages root only after a
+  # successful, approved publish.
+  docs:
+    name: Publish documentation
+    needs: publish
+    permissions:
+      contents: write
+    uses: ./.github/workflows/docs-publish.yml
