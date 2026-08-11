@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, provideZoneChangeDetection } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
@@ -90,6 +90,7 @@ const appRoutes: Routes = [
     TypeaheadModule.forRoot(),
   ],
   providers: [
+    provideZoneChangeDetection(),
     PersistentDataService,
     provideEnvironmentNgxMask(),
     { provide: DOCUMENTATION_TOKEN, useValue: DocumentationType.Keppel },

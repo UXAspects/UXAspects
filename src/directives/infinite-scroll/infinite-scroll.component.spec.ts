@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
+import { ComponentFixture, TestBed, fakeAsync, flushMicrotasks, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { InfiniteScrollDirective } from './infinite-scroll.directive';
 import { InfiniteScrollModule } from './infinite-scroll.module';
@@ -102,7 +102,7 @@ describe('Directive - Infinite Scroll', () => {
   });
 
   // Test Case for https://portal.digitalsafe.net/browse/EL-4093
-  it('should not attempt to load a subsequent page if the element is invisible', fakeAsync(async () => {
+  it('should not attempt to load a subsequent page if the element is invisible', fakeAsync(() => {
     // hide the component so it has a height of 0 but is still within the DOM
     const nativeElement = fixture.nativeElement as HTMLElement;
     nativeElement.style.display = 'none';
@@ -110,7 +110,7 @@ describe('Directive - Infinite Scroll', () => {
     component.loadOnScroll = true;
     component.filterText = { name: 'somebody' };
     fixture.detectChanges();
-    await fixture.whenStable();
+    flushMicrotasks();
 
     loadSpy.calls.reset();
 
