@@ -1,0 +1,102 @@
+name: Docs Publish
+
+# Updates the PRODUCTION documentation site at the root of the gh-pages branch.
+# Runs as the final stage of release.yml (workflow_call) or manually
+# (workflow_dispatch) for out-of-band corrections to the live site.
+on:
+  workflow_dispatch:
+  workflow_call:
+
+permissions:
+  contents: write
+
+env:
+  COREPACK_ENABLE_DOWNLOAD_PROMPT: '0'
+
+jobs:
+  publish:
+    name: Build and deploy production docs
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    # Serialise gh-pages root deployments; never cancel an in-flight publish.
+    # Job-level so it also applies when this workflow runs via workflow_call
+    # (workflow-level concurrency in a called workflow is not honoured).
+    concurrency:
+      group: docs-publish
+      cancel-in-progress: false
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Enable corepack
+        run: corepack enable
+
+      - name: Resolve pnpm store directory
+        id: pnpm-store
+        run: echo "path=$(pnpm store path --silent)" >> "$GITHUB_OUTPUT"
+
+      - name: Cache pnpm store
+        uses: actions/cache@v4
+        with:
+          path: ${{ steps.pnpm-store.outputs.path }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      # NODE_OPTIONS mirrors the heap headroom the repo's own docs build task
+      # uses (grunt/execute.js passes --max-old-space-size=8192).
+      - name: Build documentation
+        run: npx nx build documentation --baseHref=/UXAspects/
+        env:
+          NODE_OPTIONS: --max-old-space-size=8192
+
+      # Publish with plain git plus a fetch/reapply retry loop: gh-pages is
+      # also written by per-branch preview deploys, and a plain push with no
+      # retry fails with a non-fast-forward whenever one overlaps with this
+      # job. The build output is overlaid onto the branch root and only those
+      # files are staged, so existing files — notably ci/previews/* (per-branch
+      # docs previews) — are preserved.
+      - name: Deploy to gh-pages root
+        env:
+          REF_NAME: ${{ github.ref_name }}
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          for attempt in 1 2 3 4 5; do
+            if git fetch --no-tags --depth=1 origin '+refs/heads/gh-pages:refs/remotes/origin/gh-pages'; then
+              git checkout -q -B gh-pages origin/gh-pages
+            else
+              # First ever publish: the gh-pages branch does not exist yet.
+              git checkout -q --detach
+              git branch -q -D gh-pages 2> /dev/null || true
+              git checkout -q --orphan gh-pages
+              git rm -r -f -q --ignore-unmatch . || true
+            fi
+            cp -R dist/docs/. .
+            # Stage exactly the copied files: never workspace build/tooling
+            # output (node_modules, dist, caches), never deletions.
+            (cd dist/docs && find . \( -type f -o -type l \) -print0) \
+              | xargs -0 -r git add -f --
+            if git diff --cached --quiet; then
+              echo "Production docs already up to date; nothing to publish."
+              exit 0
+            fi
+            git commit -q -m "Publish production documentation from $REF_NAME"
+            if git push origin gh-pages; then
+              echo "Published production documentation to the gh-pages root"
+              exit 0
+            fi
+            echo "Push rejected (concurrent gh-pages update); retrying ($attempt/5)"
+            sleep $(( attempt * 5 ))
+          done
+          echo "Failed to push production docs after 5 attempts" >&2
+          exit 1
