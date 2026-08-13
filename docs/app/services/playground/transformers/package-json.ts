@@ -3,9 +3,7 @@ import { SiteThemeId } from '../../../interfaces/SiteTheme';
 import { PlaygroundContext, PlaygroundTree } from '../index';
 import { PlaygroundTransformer } from './playground-transformer';
 
-const COMMON_DEPENDENCIES = {
-  bootstrap: '^3.3.7',
-};
+const COMMON_DEPENDENCIES = {};
 
 const ANGULAR_DEPENDENCIES = {
   ...COMMON_DEPENDENCIES,

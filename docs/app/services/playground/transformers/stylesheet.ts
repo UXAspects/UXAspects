@@ -3,7 +3,7 @@ import { PlaygroundContext, PlaygroundTree } from '../index';
 import { formatCss } from '../utilities/format';
 import { PlaygroundTransformer } from './playground-transformer';
 
-/** Add the UX Aspects and Bootstrap stylesheet to the playground. */
+/** Add the UX Aspects stylesheets (including the bundled Bootstrap stylesheet) to the playground. */
 @Injectable()
 export class StylesheetPlaygroundTransformer implements PlaygroundTransformer {
   async transform(tree: PlaygroundTree, context: PlaygroundContext): Promise<void> {
@@ -30,7 +30,7 @@ export class StylesheetPlaygroundTransformer implements PlaygroundTransformer {
 
   protected getStylesheets(context: PlaygroundContext): string[] {
     return [
-      'node_modules/bootstrap/dist/css/bootstrap.min.css',
+      'node_modules/@ux-aspects/ux-aspects/styles/ux-aspects-bootstrap.css',
       'node_modules/@ux-aspects/ux-aspects/styles/ux-aspects.css',
     ];
   }

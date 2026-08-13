@@ -9,7 +9,6 @@
     "d3",
     "ng2-file-upload",
     "ngx-mask",
-    "bootstrap",
     "@juggle/resize-observer"
   ],
   "lib": {

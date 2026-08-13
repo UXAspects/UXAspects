@@ -55,7 +55,6 @@
     "@angular/router": "20.3.9",
     "@swc/helpers": "0.5.15",
     "angular-split": "^20.0.0",
-    "bootstrap": "^3.3.7",
     "chance": "^1.0.13",
     "chart.js": "^3.7.1",
     "chartjs-adapter-moment": "^1.0.0",

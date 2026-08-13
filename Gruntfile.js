@@ -16,8 +16,21 @@ module.exports = function (grunt) {
   // Register Tasks
   grunt.registerTask('library', ['clean:library', 'execute:build-library']);
   grunt.registerTask('styles', ['execute:less', 'usebanner:styles']);
-  grunt.registerTask('assets', ['copy:fonts', 'copy:images', 'copy:css', 'copy:md']);
-  grunt.registerTask('assets:library', ['copy:fonts', 'copy:images', 'copy:md']);
+  grunt.registerTask('assets', [
+    'copy:fonts',
+    'copy:bootstrap_fonts',
+    'copy:images',
+    'copy:css',
+    'copy:md',
+    'copy:bootstrap_license',
+  ]);
+  grunt.registerTask('assets:library', [
+    'copy:fonts',
+    'copy:bootstrap_fonts',
+    'copy:images',
+    'copy:md',
+    'copy:bootstrap_license',
+  ]);
   grunt.registerTask('iconset', ['execute:iconset', 'webfont']);
   grunt.registerTask('minify', ['cssmin:styles']);
 
