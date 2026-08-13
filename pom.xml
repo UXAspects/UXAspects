@@ -1,6 +1,6 @@
 <!--
 
-    Copyright © 2015 – 2025 Open Text. All Rights Reserved. Trademarks owned by Open Text.
+    Copyright 2015-2026 Micro Focus or one of its affiliates.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -35,7 +35,7 @@
         <maven.install.skip>true</maven.install.skip>
         <skipNexusStagingDeployMojo>true</skipNexusStagingDeployMojo>
         <skipLicenseHeadersCheck>true</skipLicenseHeadersCheck>
-        <copyrightYear>2025</copyrightYear>
+        <copyrightYear>2026</copyrightYear>
     </properties>
 
     <build>
