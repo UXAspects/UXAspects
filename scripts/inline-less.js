@@ -1,3 +1,18 @@
+/*
+ * Copyright 2015-2026 Micro Focus or one of its affiliates.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 const fs = require('fs-extra');
 const path = require('path');
 const less = require('less');
@@ -26,6 +41,7 @@ const options = {
 (async () => {
   try {
     await renderDefaultStylesheet();
+    await renderBootstrapStylesheet();
   } catch (err) {
     console.error(err.stack || err);
     process.exit(1);
@@ -35,6 +51,17 @@ const options = {
 async function renderDefaultStylesheet() {
   const less = await getInlinedLess('ux-aspects.less');
   await createStylesheets(less, 'ux-aspects');
+}
+
+// The MIT license requires this notice to be retained in all copies or
+// substantial portions of the vendored Bootstrap source. The `/*!` syntax
+// ensures it survives less rendering and minification.
+const bootstrapLicenseBanner =
+  '/*! Bootstrap v3.4.1 stylesheet (CSS only, no JavaScript) | Copyright 2011-2019 Twitter, Inc. | Licensed under MIT (https://github.com/twbs/bootstrap/blob/v3.4.1/LICENSE) */';
+
+async function renderBootstrapStylesheet() {
+  const less = await getInlinedLess('ux-aspects-bootstrap.less');
+  await createStylesheets(`${bootstrapLicenseBanner}\n${less}`, 'ux-aspects-bootstrap');
 }
 
 /**

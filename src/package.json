@@ -49,7 +49,6 @@
   "dependencies": {
     "@types/d3": "^7.4.0",
     "angular-split": "20.0.0",
-    "bootstrap": "^3.3.7",
     "d3": "^7.6.1"
   },
   "exports": {
@@ -64,6 +63,18 @@
     "./less/ux-aspects.less": {
       "style": "./less/ux-aspects.less",
       "default": "./less/ux-aspects.less"
+    },
+    "./styles/ux-aspects-bootstrap.css": {
+      "style": "./styles/ux-aspects-bootstrap.css",
+      "default": "./styles/ux-aspects-bootstrap.css"
+    },
+    "./styles/ux-aspects-bootstrap.min.css": {
+      "style": "./styles/ux-aspects-bootstrap.min.css",
+      "default": "./styles/ux-aspects-bootstrap.min.css"
+    },
+    "./less/ux-aspects-bootstrap.less": {
+      "style": "./less/ux-aspects-bootstrap.less",
+      "default": "./less/ux-aspects-bootstrap.less"
     }
   },
   "peerDependencies": {
