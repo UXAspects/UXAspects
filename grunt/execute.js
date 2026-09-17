@@ -17,7 +17,7 @@ const { join } = require('path');
 const { cwd } = require('process');
 
 const scripts = join(cwd(), 'scripts');
-const nxCli = join(cwd(), 'node_modules', 'nx', 'bin', 'nx.js');
+const nxCli = join(cwd(), 'node_modules', 'nx', 'dist', 'bin', 'nx.js');
 
 module.exports = {
   iconset: {
