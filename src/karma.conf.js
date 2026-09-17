@@ -16,8 +16,24 @@
 // Karma configuration file, see link for more information
 // https://karma-runner.github.io/1.0/config/configuration-file.html
 
+const fs = require('fs');
 const puppeteer = require('puppeteer');
-process.env.CHROME_BIN = puppeteer.executablePath();
+
+// fall back to a system-installed Chromium-based browser if puppeteer's
+// bundled binary is missing (e.g. removed by antivirus quarantine)
+const systemBrowserPaths = [
+  'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe',
+  'C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe',
+  'C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe',
+  'C:\\Program Files\\Microsoft\\Edge\\Application\\msedge.exe',
+];
+
+if (!process.env.CHROME_BIN) {
+  const puppeteerBin = puppeteer.executablePath();
+  process.env.CHROME_BIN = fs.existsSync(puppeteerBin)
+    ? puppeteerBin
+    : systemBrowserPaths.find(fs.existsSync) || puppeteerBin;
+}
 
 module.exports = function (config) {
   config.set({

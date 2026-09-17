@@ -15,7 +15,7 @@
 ///
 
 import { ChangeDetectorRef, Component, OnDestroy, ViewChild, inject } from '@angular/core';
-import { ComponentFixture, TestBed, fakeAsync, flushMicrotasks, tick } from '@angular/core/testing';
+import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { StepChangingEvent } from '../wizard';
 import { MarqueeWizardTestWrapper } from './marquee-wizard-test-wrapper';
 import { MarqueeWizardComponent } from './marquee-wizard.component';
@@ -392,8 +392,8 @@ describe('Marquee wizard with delayed step creation', () => {
     expect(steps.length).toBe(0);
   });
 
-  it('should display steps after asynchronous load', fakeAsync(() => {
-    whenStepsLoaded();
+  it('should display steps after asynchronous load', fakeAsync(async () => {
+    await whenStepsLoaded();
 
     const stepHeaders = wrapper.getStepHeaders();
     expect(stepHeaders.length).toBe(2);
@@ -404,13 +404,10 @@ describe('Marquee wizard with delayed step creation', () => {
     expect(wrapper.getContentText()).toBe('Content of first step');
   }));
 
-  it('should navigate to the second step when clicking "Next"', fakeAsync(() => {
-    whenStepsLoaded();
+  it('should navigate to the second step when clicking "Next"', fakeAsync(async () => {
+    await whenStepsLoaded();
 
-    wrapper.getStepButton('Next').click();
-    fixture.detectChanges();
-    flushMicrotasks();
-    fixture.detectChanges();
+    await wrapper.clickStepButton('Next');
 
     expect(component.step).toBe(1);
     expect(wrapper.getContentText()).toBe('Content of second step');
@@ -423,8 +420,8 @@ describe('Marquee wizard with delayed step creation', () => {
       fixture.detectChanges();
     });
 
-    it('should disable the "Next" button when the step is invalid', fakeAsync(() => {
-      whenStepsLoaded();
+    it('should disable the "Next" button when the step is invalid', fakeAsync(async () => {
+      await whenStepsLoaded();
 
       const button = wrapper.getStepButton('Next');
 
@@ -432,10 +429,10 @@ describe('Marquee wizard with delayed step creation', () => {
     }));
   });
 
-  function whenStepsLoaded(): void {
+  async function whenStepsLoaded(): Promise<void> {
     tick(200);
     fixture.detectChanges();
-    flushMicrotasks();
+    await fixture.whenStable();
 
     // tick() operator requires a second round of change detection
     fixture.detectChanges();
