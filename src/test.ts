@@ -16,7 +16,8 @@
 
 // WARNING: The order of these imports is important!
 // This file is required by karma.conf.js and loads recursively all the .spec and framework files
-import { getTestBed } from '@angular/core/testing';
+import { provideZoneChangeDetection } from '@angular/core';
+import { getTestBed, TestBed } from '@angular/core/testing';
 import {
   BrowserDynamicTestingModule,
   platformBrowserDynamicTesting,
@@ -24,3 +25,9 @@ import {
 
 // First, initialize the Angular testing environment.
 getTestBed().initTestEnvironment(BrowserDynamicTestingModule, platformBrowserDynamicTesting());
+
+beforeEach(() => {
+  TestBed.configureTestingModule({
+    providers: [provideZoneChangeDetection()],
+  });
+});

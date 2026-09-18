@@ -13,7 +13,6 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-
 import { ChangeDetectorRef, Component, OnDestroy, ViewChild, inject } from '@angular/core';
 import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { StepChangingEvent } from '../wizard';

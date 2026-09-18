@@ -7,7 +7,7 @@ const COMMON_DEPENDENCIES = {};
 
 const ANGULAR_DEPENDENCIES = {
   ...COMMON_DEPENDENCIES,
-  '@angular/cdk': '^18.0.0',
+  '@angular/cdk': '^21.0.0',
   chance: '^1.0.0',
   'chart.js': '~3.7.1',
   'ng2-charts': '~3.0.8',
@@ -16,9 +16,9 @@ const ANGULAR_DEPENDENCIES = {
 const OPTIONAL_DEPENDENCIES = {
   'chartjs-adapter-moment': '^1.0.0',
   moment: '^2.0.0',
-  'ng2-file-upload': '^5.0.0',
-  'ngx-bootstrap': '^8.0.0',
-  'ngx-mask': '^16.4.1',
+  'ng2-file-upload': '^10.0.0',
+  'ngx-bootstrap': '^21.2.2',
+  'ngx-mask': '^21.1.0',
 };
 
 /**
