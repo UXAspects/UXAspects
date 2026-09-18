@@ -98,7 +98,7 @@
     "@nx/module-federation": "22.7.8",
     "@nx/plugin": "22.7.8",
     "@nx/workspace": "22.7.8",
-    "@schematics/angular": "20.3.9",
+    "@schematics/angular": "21.2.19",
     "@swc-node/register": "1.9.2",
     "@swc/cli": "0.6.0",
     "@swc/core": "1.5.7",
