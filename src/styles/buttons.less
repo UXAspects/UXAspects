@@ -155,7 +155,7 @@
 }
 
 .btn-primary {
-  .button-primary;
+  .button-primary();
 }
 
 //New primary style
@@ -166,7 +166,7 @@
   color: @btn-primary-color;
 
   &:hover {
-    .button-primary-hover;
+    .button-primary-hover();
   }
 
   &:focus,
@@ -187,13 +187,13 @@
 
   &:active,
   &.active {
-    .button-primary-active;
+    .button-primary-active();
   }
 
   .button-primary,
   .btn-toggle {
     &.active {
-      .button-primary-active;
+      .button-primary-active();
     }
   }
 
@@ -217,27 +217,27 @@
 }
 
 .button-toggle-primary {
-  .button-secondary;
+  .button-secondary();
 
   &:active,
   &.active {
-    .button-primary-active;
+    .button-primary-active();
 
     &:hover {
-      .button-primary-hover;
+      .button-primary-hover();
     }
   }
 }
 
 .button-toggle-accent {
-  .button-secondary;
+  .button-secondary();
 
   &:active,
   &.active {
-    .button-accent-active;
+    .button-accent-active();
 
     &:hover {
-      .button-accent-hover;
+      .button-accent-hover();
     }
   }
 }
@@ -246,18 +246,18 @@
 .btn-primary {
   &.disabled,
   &[disabled] {
-    .button-primary-disabled;
+    .button-primary-disabled();
 
     &:hover,
     &:focus,
     &:active,
     &.active {
-      .button-primary-disabled;
+      .button-primary-disabled();
     }
   }
 
   &.active[disabled] {
-    .button-primary-disabled;
+    .button-primary-disabled();
   }
 }
 
@@ -301,7 +301,7 @@ fieldset[disabled] {
 
 //Secondary
 .btn-white {
-  .button-secondary;
+  .button-secondary();
 }
 
 //Secondary new style
@@ -314,7 +314,7 @@ fieldset[disabled] {
 
   &:active,
   &.active {
-    .button-secondary-active;
+    .button-secondary-active();
   }
 
   &:focus,
@@ -325,7 +325,7 @@ fieldset[disabled] {
   }
 
   &:hover {
-    .button-secondary-hover;
+    .button-secondary-hover();
   }
 
   &.btn-link {
@@ -352,7 +352,7 @@ fieldset[disabled] {
 .btn-secondary {
   &.btn-grouped {
     &.active {
-      .button-primary-active;
+      .button-primary-active();
 
       border-radius: @btn-border-radius;
     }
@@ -375,7 +375,7 @@ fieldset[disabled] {
 
       &.active {
         &:hover {
-          .button-accent-hover;
+          .button-accent-hover();
         }
       }
     }
@@ -385,7 +385,7 @@ fieldset[disabled] {
 
       &.active {
         &:hover {
-          .button-primary-hover;
+          .button-primary-hover();
         }
       }
     }
@@ -422,12 +422,12 @@ fieldset[disabled] .btn-white:hover,
 fieldset[disabled] .btn-white:focus,
 fieldset[disabled] .btn-white:active,
 fieldset[disabled] .btn-white.active {
-  .button-secondary-disabled;
+  .button-secondary-disabled();
 }
 
 //Accent
 .btn-secondary {
-  .button-accent;
+  .button-accent();
 }
 
 //Accent new stryle
@@ -438,7 +438,7 @@ fieldset[disabled] .btn-white.active {
   color: @btn-accent-color;
 
   &:hover {
-    .button-accent-hover;
+    .button-accent-hover();
   }
 
   &:focus,
@@ -450,13 +450,13 @@ fieldset[disabled] .btn-white.active {
 
   &:active,
   &.active {
-    .button-accent-active;
+    .button-accent-active();
   }
 
   .open {
     .dropdown-toggle {
       &.button-accent {
-        .button-accent-active;
+        .button-accent-active();
       }
     }
   }
@@ -510,7 +510,7 @@ fieldset[disabled] .btn-secondary:hover,
 fieldset[disabled] .btn-secondary:focus,
 fieldset[disabled] .btn-secondary:active,
 fieldset[disabled] .btn-secondary.active {
-  .button-accent-disabled;
+  .button-accent-disabled();
 }
 
 // Alert
@@ -525,7 +525,7 @@ fieldset[disabled] .btn-secondary.active {
 }
 
 .btn-alert {
-  .button-warning;
+  .button-warning();
 }
 
 //Warning new style
@@ -678,11 +678,11 @@ button {
   .btn-grouped {
     &.button-secondary {
       &:hover {
-        .button-secondary-hover;
+        .button-secondary-hover();
 
         &:active,
         &.active {
-          .button-primary-hover;
+          .button-primary-hover();
         }
       }
     }
@@ -708,7 +708,7 @@ button {
 
 .btn-back {
   &:focus {
-    .native-focus-outline;
+    .native-focus-outline();
   }
 }
 
@@ -819,7 +819,7 @@ button {
 
   .dropdown-toggle {
     &:focus {
-      .native-focus-outline;
+      .native-focus-outline();
 
       z-index: @button-group-front-z-index;
     }

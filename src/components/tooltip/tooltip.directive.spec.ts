@@ -13,10 +13,16 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { Component, ViewChild } from '@angular/core';
-import { ComponentFixture, fakeAsync, inject, TestBed, tick } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  fakeAsync,
+  flushMicrotasks,
+  inject,
+  TestBed,
+  tick,
+} from '@angular/core/testing';
 import { TooltipDirective } from './tooltip.directive';
 import { TooltipModule } from './tooltip.module';
 
@@ -80,18 +86,18 @@ describe('Tooltip Directive', () => {
     expect(getTooltip()).toBeTruthy();
   }));
 
-  it('should correctly destroy tooltip pending show', fakeAsync(async () => {
+  it('should correctly destroy tooltip pending show', fakeAsync(() => {
     component.tooltipDirective.delay = 100;
     component.tooltipDirective.show();
     tick(0);
 
+    const tooltipDirective = component.tooltipDirective;
     component.showTrigger = false;
     fixture.detectChanges();
-    await fixture.whenStable();
+    flushMicrotasks();
 
-    // ensure the timeout is cancelled
-
-    expect((component.showTrigger as any)._showTimeoutId).toBeFalsy();
+    tick(100);
+    expect(getTooltip()).toBeFalsy();
   }));
 
   it('should not show tooltip when tooltip is disabled', fakeAsync(() => {

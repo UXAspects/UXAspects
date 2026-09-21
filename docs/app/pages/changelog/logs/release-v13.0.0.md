@@ -12,6 +12,6 @@ npm install @ux-aspects/ux-aspects@13.0.0
 
 #### Breaking Changes (from UX Aspects 12.x)
 
-- Angular 20 is no longer supported.
+- Angular 19 is no longer supported.
 
 Any questions or feedback? Feel free to open an issue on [GitHub](https://github.com/UXAspects/UXAspects/issues)!

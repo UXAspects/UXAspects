@@ -13,8 +13,8 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-
-import { APP_BASE_HREF } from '@angular/common';
+import { APP_BASE_HREF, PlatformLocation } from '@angular/common';
+import { MockPlatformLocation } from '@angular/common/testing';
 import { Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -116,7 +116,10 @@ describe('Page Header Component', () => {
         NoopAnimationsModule,
         PageHeaderTestComponent,
       ],
-      providers: [{ provide: APP_BASE_HREF, useValue: '/' }],
+      providers: [
+        { provide: APP_BASE_HREF, useValue: '/' },
+        { provide: PlatformLocation, useClass: MockPlatformLocation },
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(PageHeaderTestComponent);
@@ -274,7 +277,10 @@ describe('Page Header Secondary Component', () => {
         NoopAnimationsModule,
         PageHeaderSecondaryTestComponent,
       ],
-      providers: [{ provide: APP_BASE_HREF, useValue: '/' }],
+      providers: [
+        { provide: APP_BASE_HREF, useValue: '/' },
+        { provide: PlatformLocation, useClass: MockPlatformLocation },
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(PageHeaderSecondaryTestComponent);

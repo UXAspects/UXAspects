@@ -12,6 +12,6 @@ npm install @ux-aspects/ux-aspects@12.0.0
 
 #### Breaking Changes (from UX Aspects 11.x)
 
-- Angular 19 is no longer supported.
+- Angular 18 is no longer supported.
 
 Any questions or feedback? Feel free to open an issue on [GitHub](https://github.com/UXAspects/UXAspects/issues)!
