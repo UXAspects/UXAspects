@@ -1,5 +1,5 @@
 /*
- * @ux-aspects/ux-aspects - v13.1.0-8
+ * @ux-aspects/ux-aspects - v14.0.0-18
  * © Copyright 2026 Open Text. All Rights Reserved. Trademarks owned by Open Text
  */
 .cdk-overlay-container,
@@ -38,7 +38,7 @@
   left: 0;
   right: 0;
   pointer-events: auto;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  -webkit-tap-highlight-color: transparent;
   opacity: 0;
   touch-action: manipulation;
   z-index: 1000;
@@ -61,7 +61,7 @@
   background: rgba(0, 0, 0, 0.32);
 }
 .cdk-overlay-transparent-backdrop {
-  transition: visibility 1ms linear,opacity 1ms linear;
+  transition: visibility 1ms linear, opacity 1ms linear;
   visibility: hidden;
   opacity: 1;
 }
@@ -85,6 +85,30 @@
   position: fixed;
   width: 100%;
   overflow-y: scroll;
+}
+.cdk-overlay-popover {
+  background: none;
+  border: none;
+  padding: 0;
+  outline: 0;
+  overflow: visible;
+  position: fixed;
+  pointer-events: none;
+  white-space: normal;
+  color: inherit;
+  text-decoration: none;
+  width: 100%;
+  height: 100%;
+  inset: auto;
+  top: 0;
+  left: 0;
+}
+.cdk-overlay-popover::backdrop {
+  display: none;
+}
+.cdk-overlay-popover .cdk-overlay-backdrop {
+  position: fixed;
+  z-index: auto;
 }
 textarea.cdk-textarea-autosize {
   resize: none;
