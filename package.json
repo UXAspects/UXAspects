@@ -17,6 +17,7 @@
     "Christina Mallon"
   ],
   "license": "Apache-2.0",
+  "packageManager": "pnpm@10.34.5",
   "scripts": {
     "build:documentation": "grunt build:documentation",
     "build:library": "grunt build:library",

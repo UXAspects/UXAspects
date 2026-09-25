@@ -103,15 +103,40 @@ npm run test
 
 > Note: The first run of the Protractor tests may take longer than expected, in order to download and deploy the required Docker container.
 
-## Start a Jenkins build
+## Continuous integration (GitHub Actions)
 
-> Note: The Jenkins server is only available on the intranet. If the following link is not accessible, this part can be skipped.
+Pushing a branch and opening a pull request runs the GitHub Actions workflows in
+[`.github/workflows/`](.github/workflows/) automatically — no build needs to be requested
+manually:
+
+-   **CI** (`ci.yml`) runs on every pull request: lint, the Karma unit test suite, a production
+    build of the library, and a build of the documentation site. All checks must pass before a
+    pull request can be merged.
+-   **Documentation preview** (`docs-preview.yml`) runs on every branch push and publishes a
+    live build of the documentation site for your branch at
+    `https://<owner>.github.io/UXAspects/ci/previews/<branch-slug>/`, where `<branch-slug>` is
+    your branch name with any character other than letters, digits, `.` and `_` replaced by
+    `-`. When a pull request is open for the branch, a comment on the pull request carries the
+    link. The preview is removed when the branch is deleted.
+-   **Release** (`release.yml`) runs when a maintainer pushes a `v*` tag: it re-runs all
+    quality checks from the tag, rehearses the npm publication against a local registry,
+    publishes the package (behind an environment approval gate), and deploys the released
+    documentation to the public site. The public documentation site is only updated by a
+    release; between releases, master's documentation is viewable at the
+    `ci/previews/master/` preview.
+
+See [`.github/workflows/README.md`](.github/workflows/README.md) for operational details.
+
+## Start a Jenkins build (legacy)
+
+> Note: The Jenkins server is only available on the intranet, and is superseded by the GitHub
+> Actions workflows above. If the following link is not accessible, this part can be skipped.
 
 See [Using Jenkins](https://github.houston.softwaregrp.net/UXAspects/ux-aspects-micro-focus/blob/master/JENKINS.md) for information on creating a continuous integration (CI) build for your branch.
 
 ## Make a pull request
 
-With all changes pushed and (ideally) a passing Jenkins build, it's time to make a pull request on the upstream repositories.
+With all changes pushed and the CI checks passing, it's time to make a pull request on the upstream repositories.
 
 > See [Creating a pull request from a fork](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request-from-a-fork) on GitHub help.
 
@@ -120,7 +145,7 @@ UX Aspects has a pull request template, and it's important to fill this in as cl
 -   The **Checklist** helps to assert that products can use UX Aspects without legal issues. Check each one with `[x]` if it applies to your submission. If you are unable to check any of the listed items, contact one of the UX Aspects maintainers for advice.
 -   The **Ticket / Issue** field describes the problem that the pull request addresses. If you have access to the UX Aspects Jira board, or are aware of the ticket number, please fill it in here. Otherwise, describe the problem that the pull request intends to solve, and where possible, include a repro case in the form of a Plunker link.
 -   The **Description of Proposed Changes** field describes what you have changed and why.
--   The **Documentation CI URL** field should be filled in after initiating an automated build with Jenkins. If you don't have access to create a build, please note that here instead.
+-   The **Documentation CI URL** field carries the live documentation preview for your branch, published automatically on push: `https://<owner>.github.io/UXAspects/ci/previews/<branch-slug>/` (the same link is posted as a comment on the pull request).
 
 For example, a completed pull request might look like this:
 
