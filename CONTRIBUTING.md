@@ -93,6 +93,8 @@ npm run build:library
 
 After this is complete, you will find the NPM package in the `target/npm` directory as `ux-aspects-ux-aspects.tgz`. This file can be passed as a parameter to `npm install`, allowing you to deploy to another project.
 
+The build finishes by verifying the package (`npm run verify:library`). This checks that every file referenced by the package's `package.json` (including the TypeScript declarations) is present in the `.tgz`, and that every symbol the library imports from `@angular/*` still exists in the newest Angular version allowed by its `peerDependencies`. The second check downloads that Angular version from the npm registry; set `UX_SKIP_ANGULAR_COMPAT=1` to skip it when working offline.
+
 ## Run tests
 
 UX Aspects uses Karma for unit tests, and Protractor for end-to-end (e2e) tests. The tests should always be run before making a pull request.
@@ -185,4 +187,5 @@ This is a complete list of the build tasks available in this project. Not all of
 | `npm run test:e2e`         | Runs the e2e tests.                                                                                                            |
 | `npm run test:karma`       | Runs the Karma tests.                                                                                                          |
 | `npm run test`             | Runs the Jasmine, Karma, and e2e tests. Does not build the library, so `npm run build:library` will be needed beforehand.      |
+| `npm run verify:library`   | Verifies the built library package in `dist/library` and `target/npm`. Runs automatically at the end of `npm run build:library`. |
 | `npm start`                | Builds and serves the library and documentation using the webpack development server.                                          |
