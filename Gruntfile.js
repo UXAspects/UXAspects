@@ -60,7 +60,10 @@ module.exports = function (grunt) {
     'compress:documentation',
   ]);
 
-  // build:library: build and package the npm lib and the npm docs lib.
+  // verify:library: check the built and packaged npm lib before it is published.
+  grunt.registerTask('verify:library', ['execute:verify-angular-compat', 'execute:verify-package']);
+
+  // build:library: build, package and verify the npm lib and the npm docs lib.
   grunt.registerTask('build:library', [
     'clean',
     'library',
@@ -68,6 +71,7 @@ module.exports = function (grunt) {
     'minify',
     'assets:library',
     'package:ux-aspects',
+    'verify:library',
     'package:ux-aspects-docs',
   ]);
 
