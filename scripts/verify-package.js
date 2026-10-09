@@ -48,7 +48,7 @@ if (!existsSync(tarballPath)) {
 // list the tarball contents, stripping the leading "package/" directory that npm adds
 const entries = new Set(
   execFileSync('tar', ['-tzf', tarballPath], { encoding: 'utf8' })
-    .split('\n')
+    .split(/\r?\n/)
     .filter(Boolean)
     .map(entry => entry.replace(/^package\//, ''))
 );

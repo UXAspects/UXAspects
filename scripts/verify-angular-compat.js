@@ -87,7 +87,15 @@ function rangeFor(name) {
 }
 
 function npm(args) {
-  return execFileSync('npm', args, { encoding: 'utf8', stdio: ['ignore', 'pipe', 'inherit'] });
+  const isWindows = process.platform === 'win32';
+  const command = isWindows ? 'cmd.exe' : 'npm';
+  const commandArgs = isWindows
+    ? ['/d', '/c', `npm.cmd ${args.map(arg => (/\s/.test(arg) ? `"${arg}"` : arg)).join(' ')}`]
+    : args;
+  return execFileSync(command, commandArgs, {
+    encoding: 'utf8',
+    stdio: ['ignore', 'pipe', 'inherit'],
+  });
 }
 
 function newestVersion(name, range) {
