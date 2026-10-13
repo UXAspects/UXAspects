@@ -29,6 +29,18 @@ module.exports = {
   less: {
     src: [join(scripts, 'inline-less.js')],
   },
+  'verify-package': {
+    src: [join(scripts, 'verify-package.js')],
+    options: {
+      args: ['./target/npm/ux-aspects-ux-aspects.tgz'],
+    },
+  },
+  'verify-angular-compat': {
+    src: [join(scripts, 'verify-angular-compat.js')],
+    options: {
+      args: ['./dist/library'],
+    },
+  },
   'build-library': {
     src: [nxCli],
     options: {

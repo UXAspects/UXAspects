@@ -13,9 +13,7 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-
 import {
-  ComponentFactoryResolver,
   ComponentRef,
   Directive,
   inject,
@@ -34,8 +32,6 @@ import { BaseSearchComponent } from '../search-components/base-search.component'
 export class SearchBuilderOutletDirective implements OnInit, OnDestroy {
   private readonly _viewContainerRef = inject(ViewContainerRef);
 
-  private readonly _componentFactoryResolver = inject(ComponentFactoryResolver);
-
   private readonly _searchBuilderService = inject(SearchBuilderService);
 
   private readonly _searchBuilderFocusService = inject(SearchBuilderFocusService);
@@ -53,14 +49,10 @@ export class SearchBuilderOutletDirective implements OnInit, OnDestroy {
     // get the class from the type
     const componentDefinition = this._searchBuilderService.getComponent(this.outlet);
 
-    // create the component factory
-    const componentFactory =
-      this._componentFactoryResolver.resolveComponentFactory<BaseSearchComponent>(
-        componentDefinition.component
-      );
-
     // create the component instance
-    this._componentRef = this._viewContainerRef.createComponent(componentFactory);
+    this._componentRef = this._viewContainerRef.createComponent<BaseSearchComponent>(
+      componentDefinition.component
+    );
 
     // combine the predefined config with any dynmaic config
     const config = Object.assign({}, componentDefinition.config, this.context.config || {});

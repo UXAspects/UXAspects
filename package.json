@@ -37,6 +37,7 @@
     "start": "rimraf dist/library && concurrently --restart-tries 3 --restart-after 5000 -n docs,lib,style,pack,serve -c cyan,magenta,yellow,bgCyan,bgMagenta \"pnpm:start:documentation\" \"pnpm:start:library\" \"pnpm:start:style\" \"pnpm:start:pack\" \"http-server target/playground -p 8090 --cors\"",
     "test:karma": "pnpm run nx test ux-aspects -- --watch=false",
     "test": "pnpm run test:karma",
+    "verify:library": "grunt verify:library",
     "start:local-registry": "nx local-registry @ux-aspects/ux-aspects-docs",
     "publish:local-registry": "sh ./scripts/local-publish.sh"
   },
