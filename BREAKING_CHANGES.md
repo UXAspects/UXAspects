@@ -1,3 +1,7 @@
+# 14.0 to 14.1
+
+- Resolved two Angular 22 compatibility issues in UX Aspects 14.0.0 by ensuring TypeScript declaration files are correctly included in the published npm package and replacing deprecated ComponentFactoryResolver usage with the Angular 22-compatible ViewContainerRef.createComponent() API. Added automated release validation scripts to verify packaged artifacts, confirm declaration files are shipped, and detect Angular API incompatibilities before publication.
+
 # 13.0 to 14.0
 
 - Angular 20 is no longer supported.
