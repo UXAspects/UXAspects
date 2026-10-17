@@ -50,16 +50,13 @@
       <select
         class="form-control time-zone-select"
         tabindex="0"
+        [ngModelOptions]="{ standalone: true }"
         [ngModel]="(datepicker.timezone$ | async)?.name"
         (ngModelChange)="selectTimezone($event)"
         aria-label="Timezone"
-        [attr.aria-valuetext]="(datepicker.timezone$ | async)?.name"
       >
         @for (zone of datepicker.timezones$ | async; track zone) {
-          <option
-            [selected]="zone.name === (datepicker.timezone$ | async)?.name"
-            [value]="zone.name"
-          >
+          <option [value]="zone.name">
             {{ zone?.name }}
           </option>
         }

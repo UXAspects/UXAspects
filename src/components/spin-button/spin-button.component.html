@@ -47,6 +47,7 @@
   [attr.aria-valuenow]="value"
   [attr.aria-valuemax]="max"
   [attr.aria-readonly]="readOnly"
+  [ngModelOptions]="{ standalone: true }"
   [ngModel]="value"
   (ngModelChange)="onValueChange(input, $event)"
   (wheel)="scroll($event)"

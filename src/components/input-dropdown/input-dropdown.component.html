@@ -56,6 +56,7 @@
           type="text"
           [placeholder]="placeholder"
           class="form-control"
+          [ngModelOptions]="{ standalone: true }"
           [(ngModel)]="filter"
           (input)="filterChange.emit(filter)"
           (click)="$event.stopPropagation()"

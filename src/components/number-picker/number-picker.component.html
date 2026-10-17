@@ -20,6 +20,7 @@
   [id]="inputId"
   role="spinbutton"
   class="form-control number-picker-input"
+  [ngModelOptions]="{ standalone: true }"
   [(ngModel)]="value"
   (ngModelChange)="_emitValueChange($event)"
   [min]="min"
