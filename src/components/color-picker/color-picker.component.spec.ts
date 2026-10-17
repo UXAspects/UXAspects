@@ -13,10 +13,9 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ColorService, ColorServiceModule, colorSets } from '../../services/color/index';
+import { ColorService, ColorServiceModule, colorSets } from '../../services/color';
 import { ColorPickerColor } from './color-picker-color';
 import { ColorPickerModule } from './color-picker.module';
 import { ColorPickerInputMode } from './color-picker.type';
@@ -83,6 +82,22 @@ describe('Color Picker Component', () => {
 
   it('should initialise', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should associate the color input label with the input in both modes', async () => {
+    for (const mode of ['hex', 'rgba'] as ColorPickerInputMode[]) {
+      component.inputMode = mode;
+      fixture.changeDetectorRef.markForCheck();
+      fixture.detectChanges();
+      await fixture.whenStable();
+      const label = nativeElement.querySelector<HTMLLabelElement>(
+        '.ux-color-picker-input-header label'
+      );
+      const input = nativeElement.querySelector<HTMLInputElement>('.ux-color-picker-input input');
+      expect(input.id).toBeTruthy();
+      expect(label.htmlFor).toBe(input.id);
+      expect(label.control).toBe(input);
+    }
   });
 
   it('should not invalidate input when color InputMode changes and ChangeDetectionStrategy.OnPush is used', async () => {

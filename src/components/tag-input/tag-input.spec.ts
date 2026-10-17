@@ -13,15 +13,13 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-
 import { CommonModule } from '@angular/common';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { bufferCount } from 'rxjs/operators';
-import { AccessibilityModule } from '../../directives/accessibility/index';
-import { FocusIfModule } from '../../directives/focus-if/index';
-import { IconModule } from '../icon/index';
-import { TypeaheadModule } from '../typeahead/index';
+import { AccessibilityModule, FocusIfModule } from '../..';
+import { IconModule } from '../icon';
+import { TypeaheadModule } from '../typeahead';
 import { TagInputComponent } from './tag-input.component';
 
 describe('Tag Input Component', () => {
@@ -51,6 +49,12 @@ describe('Tag Input Component', () => {
 
   it('should create the component', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should bind the internal input id to the component id', () => {
+    component.id = 'custom-tag-input';
+    fixture.detectChanges();
+    expect(nativeElement.querySelector('input').id).toBe('custom-tag-input-input');
   });
 
   it('should emit tagsChange each time an item is selected', done => {

@@ -45,8 +45,9 @@
       <input
         #tagInput
         type="text"
-        attr.id="{{ id }}-input"
+        [attr.id]="id + '-input'"
         class="ux-tag-input"
+        [ngModelOptions]="{ standalone: true }"
         [ngModel]="input"
         (ngModelChange)="setInputValue($event)"
         [autocomplete]="autocomplete"

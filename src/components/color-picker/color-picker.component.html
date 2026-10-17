@@ -15,7 +15,7 @@
     limitations under the License.
 
 -->
-<div class="ux-color-picker" uxTabbableList direction="horizontal">
+<div class="ux-color-picker" uxTabbableList [direction]="'horizontal'">
   <div class="ux-color-picker-swatch">
     @for (row of colors; track row) {
       <div class="ux-color-picker-swatch-row">
@@ -58,10 +58,10 @@
           [class.ux-circle]="buttonStyle === 'circle'"
         ></div>
         @if (inputMode === 'hex') {
-          <label attr.for="{{ id }}-input-field">HEX</label>
+          <label [attr.for]="id + '-input-field'">HEX</label>
         }
         @if (inputMode === 'rgba') {
-          <label attr.for="{{ id }}-input-field">RGBA</label>
+          <label [attr.for]="id + '-input-field'">RGBA</label>
         }
         <button
           type="button"
@@ -79,10 +79,11 @@
       >
         <input
           type="text"
-          attr.id="{{ id }}-input-field"
+          [attr.id]="id + '-input-field'"
           [attr.aria-description]="inputAriaLabel(inputMode)"
           class="form-control"
           #inputField="ngModel"
+          [ngModelOptions]="{ standalone: true }"
           [ngModel]="(selected$ | async)[inputMode]"
           (ngModelChange)="updateColorValue($event, inputMode)"
           [pattern]="inputPatterns[inputMode].source"

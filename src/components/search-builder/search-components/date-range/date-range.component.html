@@ -32,9 +32,10 @@
           <input
             type="text"
             #fromPopover="ux-popover"
+            [ngModelOptions]="{ standalone: true }"
             [ngModel]="from | date: 'dd MMMM yyyy'"
             [uxPopover]="fromPopoverTemplate"
-            placement="bottom"
+            [placement]="'bottom'"
             popoverClass="date-time-picker-popover"
             class="form-control"
             [attr.aria-label]="fromDateInputAriaLabel"
@@ -54,9 +55,10 @@
           <input
             type="text"
             #toPopover="ux-popover"
+            [ngModelOptions]="{ standalone: true }"
             [ngModel]="to | date: 'dd MMMM yyyy'"
             [uxPopover]="toPopoverTemplate"
-            placement="bottom"
+            [placement]="'bottom'"
             popoverClass="date-time-picker-popover"
             class="form-control"
             [attr.aria-label]="toDateInputAriaLabel"

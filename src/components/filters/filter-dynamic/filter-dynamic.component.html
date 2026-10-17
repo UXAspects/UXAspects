@@ -72,6 +72,7 @@
           [attr.aria-controls]="typeaheadId"
           aria-autocomplete="list"
           aria-multiline="false"
+          [ngModelOptions]="{ standalone: true }"
           [ngModel]="query$ | async"
           (ngModelChange)="query$.next($event); updateTypeahead($event)"
           (keydown)="typeaheadKeyService.handleKey($event, typeahead); $event.stopPropagation()"
@@ -112,7 +113,7 @@
   </ux-menu>
 </div>
 
-<ng-template #filterOptionTemplate let-option="option" let-api="api">
+<ng-template #filterOptionTemplate let-option="option">
   <span
     [attr.aria-label]="option"
     [uxSafeInnerHtml]="option | filterTypeaheadHighlight: (query$ | async)"

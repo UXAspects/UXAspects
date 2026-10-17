@@ -13,14 +13,12 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-
 import { Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
-import { PopoverModule } from '../../components/popover';
 import { IconModule } from '../icon';
-import { DateTimePickerModule } from './date-time-picker.module';
-import { DateTimePickerTimezone } from './date-time-picker.utils';
+import { PopoverModule } from '../popover';
+import { DateTimePickerModule, DateTimePickerTimezone } from './';
 
 @Component({
   selector: 'ux-components-date-time-picker',
@@ -44,8 +42,11 @@ import { DateTimePickerTimezone } from './date-time-picker.utils';
 export class DateTimePickerTestComponent {
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   onDateChange(): void {}
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  onTimezoneChange(value: DateTimePickerTimezone): void {}
+  onTimezoneChange(value: DateTimePickerTimezone): void {
+    this.lastTimezoneChange = value;
+  }
+
+  lastTimezoneChange: DateTimePickerTimezone;
 
   date: Date;
   showTime: boolean = false;
@@ -63,6 +64,34 @@ describe('Date Time Picker', () => {
   let nativeElement: HTMLElement;
   let onTimezoneChangeSpy: jasmine.Spy;
   let getTimezoneOffset: () => number;
+
+  it('should let ngModel own timezone selection without a competing selected binding', async () => {
+    onTimezoneChangeSpy.and.callThrough();
+    component.showTime = true;
+    component.showTimezone = true;
+    component.showSpinners = false;
+    component.timezones = [
+      { name: 'UTC', offset: 0 },
+      { name: 'UTC+2', offset: 120 },
+      { name: 'UTC+1', offset: 60 },
+    ];
+    component.timezone = component.timezones[1];
+    fixture.detectChanges();
+    await fixture.whenStable();
+    const select = nativeElement.querySelector<HTMLSelectElement>('.time-zone-select');
+    expect(select.value).toBe('UTC+2');
+    select.value = 'UTC';
+    select.dispatchEvent(new Event('change'));
+    fixture.detectChanges();
+    await fixture.whenStable();
+    expect(onTimezoneChangeSpy).toHaveBeenCalledWith(component.timezones[0]);
+    expect(component.lastTimezoneChange).toEqual(component.timezones[0]);
+    // The host uses a one-way binding; supply a distinct external model value.
+    component.timezone = component.timezones[2];
+    fixture.detectChanges();
+    await fixture.whenStable();
+    expect(select.value).toBe('UTC+1');
+  });
 
   beforeAll(() => {
     getTimezoneOffset = Date.prototype.getTimezoneOffset;

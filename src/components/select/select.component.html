@@ -86,6 +86,7 @@
       [attr.aria-label]="ariaLabel"
       [attr.aria-expanded]="dropdownOpen"
       [autocomplete]="autocomplete"
+      [ngModelOptions]="{ standalone: true }"
       [(ngModel)]="input"
       (ngModelChange)="onInputChange($event)"
       [placeholder]="placeholder || ''"
